@@ -10,7 +10,7 @@ const __DEV__ = process.env.NODE_ENV === 'development';
 const __PROD__ = process.env.NODE_ENV === 'production';
 const pkg = require('./package.json');
 const fs = require('fs-extra');
-const configs = [
+const packageConfigs = [
   {
     pkgName: 'shared',
     external: ['lodash'],
@@ -19,8 +19,7 @@ const configs = [
     pkgName: 'data-structure',
     external: ['lodash'],
   },
-];
-const packageConfigs = configs
+]
   .map(({ pkgName, external = [] }) => {
     const path = resolve('packages', pkgName);
     const input = resolve(path, 'src', 'index.ts');
