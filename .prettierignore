@@ -1,0 +1,4 @@
+dist
+.umi
+node_modules
+jest
