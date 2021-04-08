@@ -2,7 +2,14 @@ const typescript = require('rollup-plugin-typescript2');
 const json = require('@rollup/plugin-json');
 const { default: dts } = require('rollup-plugin-dts');
 const { terser } = require('rollup-plugin-terser');
-const { resolve, __DEV__, __PROD__, _, fs } = require('./utils');
+const path = require('path');
+const EMPTY_OBJ = Object.create(null);
+const resolve = (...p) => path.resolve.apply(EMPTY_OBJ, [__dirname, ...p]);
+const _ = require('lodash');
+const __DEV__ = process.env.NODE_ENV === 'development';
+const __PROD__ = process.env.NODE_ENV === 'production';
+const pkg = require('./package.json');
+const fs = require('fs-extra');
 const configs = [
   {
     pkgName: 'shared',
