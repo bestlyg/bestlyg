@@ -8,6 +8,7 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "jest --runInBand --detectOpenHandles --colors",
     "commit": "git-cz",
+    "commit:auto": "git pull && git add -A && yarn commit && git push",
     "build:dev": "rollup --config",
     "build:prod": "rollup --config --environment NODE_ENV:production",
     "update:version": "cd scripts && ts-node version",
