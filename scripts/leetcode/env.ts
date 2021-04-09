@@ -1,15 +1,16 @@
 import { structures } from '../utils';
 
-type ListNode = structures.ListNode;
-type TreeNode = structures.TreeNode;
-type Heap = structures.Heap;
-type UnionFind = structures.UnionFind;
-const { ListNode, TreeNode, UnionFind, Heap } = structures;
+const { Heap } = structures;
 
-function getLeastNumbers(arr: number[], k: number): number[] {
-  const ans: number[] = [];
-  const heap = new Heap((num1, num2) => num2 - num1);
-  arr.forEach(v => heap.add(v));
-  while (--k) ans.push(heap.remove());
+function kSmallestPairs(nums1: number[], nums2: number[], k: number): number[][] {
+  const sum = (arr: number[]) => arr.reduce((total, cur) => total + cur, 0);
+  const heap = new Heap<number[]>((nums1, nums2) => sum(nums2) - sum(nums1));
+  nums1.forEach(num1 => nums2.forEach(num2 => heap.add([num1, num2])));
+  const ans: number[][] = [];
+  while (heap.size && k--) {
+    console.log(heap);
+    ans.push(heap.remove());
+  }
   return ans;
 }
+console.log(kSmallestPairs([1, 2], [3], 3));

@@ -31,37 +31,40 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '剑指 Offer 40. 最小的k个数',
-  url: 'https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.堆, Tag.分治算法],
-  desc: '输入整数数组 arr ，找出其中最小的 k 个数。',
+  name: '373. 查找和最小的K对数字',
+  url: 'https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.堆],
+  desc: '找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。',
   solutions: [
     {
       script: Script.TS,
-      time: 228,
-      memory: 45.5,
+      time: 2136,
+      memory: 77,
       desc: '构建堆',
-      code: `class Heap {
-        private arr: number[] = [];
+      code: `class Heap<T> {
+        private arr: T[] = [];
         get isEmpty() {
           return this.size === 0;
         }
         get size() {
           return this.arr.length;
         }
-        constructor(private compare: (num1: number, num2: number) => number) {}
-        add(num: number): void {
+        constructor(private compare: (num1: T, num2: T) => number) {}
+        add(num: T): void {
           this.arr.push(num);
           this.shiftUp(this.size - 1);
         }
-        remove(): number {
-          const num = this.arr.shift();
-          this.arr.unshift(this.arr.pop()!);
-          this.shiftDown(0);
+        remove(): T {
+          const num = this.arr.shift()!;
+          if (this.size) {
+            this.arr.unshift(this.arr.pop()!);
+            this.shiftDown(0);
+          }
           return num;
         }
         private shiftUp(index: number): void {
+          if (index === 0) return;
           const parentIndex = (index - 1) >> 1;
           if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
             [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
@@ -70,7 +73,11 @@ const md: Markdown = {
         }
         private shiftDown(index: number): void {
           let childrenIndex = index * 2 + 1;
-          if (this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0) {
+          if (childrenIndex > this.size - 1) return;
+          if (
+            childrenIndex + 1 < this.size - 1 &&
+            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
+          ) {
             childrenIndex++;
           }
           if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
@@ -80,14 +87,14 @@ const md: Markdown = {
         }
       }
       
-      function getLeastNumbers(arr: number[], k: number): number[] {
-        const ans: number[] = [];
-        const heap = new Heap((num1, num2) => num2 - num1);
-        arr.forEach(v => heap.add(v));
-        while (k--) ans.push(heap.remove());
+      function kSmallestPairs(nums1: number[], nums2: number[], k: number): number[][] {
+        const sum = (arr: number[]) => arr.reduce((total, cur) => total + cur, 0);
+        const heap = new Heap<number[]>((nums1, nums2) => sum(nums2) - sum(nums1));
+        nums1.forEach(num1 => nums2.forEach(num2 => heap.add([num1, num2])));
+        const ans: number[][] = [];
+        while (heap.size && k--) ans.push(heap.remove());
         return ans;
-      }
-      `,
+      }  `,
     },
   ],
 };
