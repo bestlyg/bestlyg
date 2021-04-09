@@ -38,6 +38,7 @@ export enum LeetCodeTag {
   队列 = '队列',
   深度优先搜素 = '深度优先搜素',
   几何 = '几何',
+  字典树 = '字典树',
 }
 export enum LeetCodeScript {
   JS = 'javascript',

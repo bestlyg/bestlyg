@@ -31,16 +31,16 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '373. 查找和最小的K对数字',
-  url: 'https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/',
+  name: '692. 前K个高频单词',
+  url: 'https://leetcode-cn.com/problems/top-k-frequent-words/',
   difficulty: Difficulty.中等,
-  tag: [Tag.堆],
-  desc: '找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。',
+  tag: [Tag.堆, Tag.哈希表, Tag.字典树],
+  desc: '给一非空的单词列表，返回前 k 个出现次数最多的单词。',
   solutions: [
     {
       script: Script.TS,
-      time: 2136,
-      memory: 77,
+      time: 144,
+      memory: 44.6,
       desc: '构建堆',
       code: `class Heap<T> {
         private arr: T[] = [];
@@ -49,6 +49,9 @@ const md: Markdown = {
         }
         get size() {
           return this.arr.length;
+        }
+        get top() {
+          return this.arr[0];
         }
         constructor(private compare: (num1: T, num2: T) => number) {}
         add(num: T): void {
@@ -75,7 +78,7 @@ const md: Markdown = {
           let childrenIndex = index * 2 + 1;
           if (childrenIndex > this.size - 1) return;
           if (
-            childrenIndex + 1 < this.size - 1 &&
+            childrenIndex + 1 <= this.size - 1 &&
             this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
           ) {
             childrenIndex++;
@@ -84,15 +87,25 @@ const md: Markdown = {
             [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
             this.shiftDown(childrenIndex);
           }
+        }}
+      function topKFrequent(words: string[], k: number): string[] {
+        const map: Record<string, number> = {};
+        for (const word of words) map[word] = (map[word] ?? 0) + 1;
+        const strCheck = (str1: string, str2: string) => {
+          let i = 0;
+          while (str1[i] && str1[i] === str2[i]) i++;
+          if (str1[i] && !str2[i]) return -1;
+          else if (!str1[i] && str2[i]) return 1;
+          else return str2.codePointAt(i)! - str1.codePointAt(i)!;
+        };
+        const heap = new Heap<[string, number]>(([str1, v1], [str2, v2]) =>
+          v1 === v2 ? strCheck(str1, str2) : v1 - v2
+        );
+        Object.entries(map).forEach(v => heap.add(v));
+        const ans: string[] = [];
+        while (heap.size && k--) {
+          ans.push(heap.remove()[0]);
         }
-      }
-      
-      function kSmallestPairs(nums1: number[], nums2: number[], k: number): number[][] {
-        const sum = (arr: number[]) => arr.reduce((total, cur) => total + cur, 0);
-        const heap = new Heap<number[]>((nums1, nums2) => sum(nums2) - sum(nums1));
-        nums1.forEach(num1 => nums2.forEach(num2 => heap.add([num1, num2])));
-        const ans: number[][] = [];
-        while (heap.size && k--) ans.push(heap.remove());
         return ans;
       }  `,
     },

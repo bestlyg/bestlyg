@@ -6,6 +6,9 @@ export class Heap<T> {
   get size() {
     return this.arr.length;
   }
+  get top() {
+    return this.arr[0];
+  }
   constructor(private compare: (num1: T, num2: T) => number) {}
   add(num: T): void {
     this.arr.push(num);
@@ -31,7 +34,7 @@ export class Heap<T> {
     let childrenIndex = index * 2 + 1;
     if (childrenIndex > this.size - 1) return;
     if (
-      childrenIndex + 1 < this.size - 1 &&
+      childrenIndex + 1 <= this.size - 1 &&
       this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
     ) {
       childrenIndex++;
