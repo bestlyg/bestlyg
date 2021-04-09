@@ -30,8 +30,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '153. 寻找旋转排序数组中的最小值',
+  existMarkdown: true,
+  name: '154. 寻找旋转排序数组中的最小值 II',
   url: 'https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找],
@@ -42,38 +42,29 @@ const md: Markdown = {
       script: Script.TS,
       time: 92,
       memory: 39.4,
-      desc: '依次检测存在可能的值',
-      code: `function findMin(nums: number[]): number {
-        const len = nums.length;
-        for (let i = 1; i < len; i++) {
-          if (nums[i] < nums[i - 1]) return nums[i];
-        }
-        return nums[0]
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 92,
-      memory: 39.4,
-      desc: '利用Math直接比较',
+      desc: '直接利用Math',
       code: `function findMin(nums: number[]): number {
         return Math.min.apply({},nums)
-      }
-      `,
+    };`,
     },
     {
       script: Script.TS,
       time: 96,
       memory: 39.4,
-      desc: '二分查找',
-      code: `function findMin(nums: number[]): number {
+      desc: '如果相等时排除右侧端点',
+      code: `
+      function findMin(nums: number[]): number {
         let left = 0;
         let right = nums.length - 1;
         while (left < right) {
           const mid = ~~((left + right) / 2);
-          if (nums[mid] < nums[right]) right = mid;
-          else left = mid + 1;
+          if (nums[mid] < nums[right]) {
+            right = mid;
+          } else if (nums[mid] > nums[right]) {
+            left = mid + 1;
+          } else {
+            right--;
+          }
         }
         return nums[left];
       }`,
