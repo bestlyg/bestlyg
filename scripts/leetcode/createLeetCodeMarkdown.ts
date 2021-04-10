@@ -31,17 +31,16 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '面试题 17.20. 连续中值',
-  url: 'https://leetcode-cn.com/problems/continuous-median-lcci/',
+  name: '295. 数据流的中位数',
+  url: 'https://leetcode-cn.com/problems/find-median-from-data-stream/',
   difficulty: Difficulty.困难,
-  tag: [Tag.堆],
-  desc:
-    '随机产生数字并传递给一个方法。你能否完成这个方法，在每次产生新值时，寻找当前所有值的中间值（中位数）并保存。',
+  tag: [Tag.堆, Tag.设计],
+  desc: '中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。',
   solutions: [
     {
       script: Script.TS,
-      time: 280,
-      memory: 58.9,
+      time: 272,
+      memory: 58.5,
       desc: '构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较',
       code: `class Heap<T> {
         private arr: T[] = [];
