@@ -31,17 +31,18 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '692. 前K个高频单词',
-  url: 'https://leetcode-cn.com/problems/top-k-frequent-words/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.堆, Tag.哈希表, Tag.字典树],
-  desc: '给一非空的单词列表，返回前 k 个出现次数最多的单词。',
+  name: '面试题 17.20. 连续中值',
+  url: 'https://leetcode-cn.com/problems/continuous-median-lcci/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.堆],
+  desc:
+    '随机产生数字并传递给一个方法。你能否完成这个方法，在每次产生新值时，寻找当前所有值的中间值（中位数）并保存。',
   solutions: [
     {
       script: Script.TS,
-      time: 144,
-      memory: 44.6,
-      desc: '构建堆',
+      time: 280,
+      memory: 58.9,
+      desc: '构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较',
       code: `class Heap<T> {
         private arr: T[] = [];
         get isEmpty() {
@@ -53,7 +54,7 @@ const md: Markdown = {
         get top() {
           return this.arr[0];
         }
-        constructor(private compare: (num1: T, num2: T) => number) {}
+        constructor(private compare: (t1: T, t2: T) => number) {}
         add(num: T): void {
           this.arr.push(num);
           this.shiftUp(this.size - 1);
@@ -87,27 +88,36 @@ const md: Markdown = {
             [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
             this.shiftDown(childrenIndex);
           }
-        }}
-      function topKFrequent(words: string[], k: number): string[] {
-        const map: Record<string, number> = {};
-        for (const word of words) map[word] = (map[word] ?? 0) + 1;
-        const strCheck = (str1: string, str2: string) => {
-          let i = 0;
-          while (str1[i] && str1[i] === str2[i]) i++;
-          if (str1[i] && !str2[i]) return -1;
-          else if (!str1[i] && str2[i]) return 1;
-          else return str2.codePointAt(i)! - str1.codePointAt(i)!;
-        };
-        const heap = new Heap<[string, number]>(([str1, v1], [str2, v2]) =>
-          v1 === v2 ? strCheck(str1, str2) : v1 - v2
-        );
-        Object.entries(map).forEach(v => heap.add(v));
-        const ans: string[] = [];
-        while (heap.size && k--) {
-          ans.push(heap.remove()[0]);
         }
-        return ans;
-      }  `,
+      }
+      
+      
+      class MedianFinder {
+        private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);
+        private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);
+        get size() {
+          return this.leftHeap.size + this.rightHeap.size;
+        }
+        addNum(num: number): void {
+          if (!this.leftHeap.size || this.leftHeap.top >= num) {
+            this.leftHeap.add(num);
+          } else {
+            this.rightHeap.add(num);
+          }
+          if (this.leftHeap.size === this.rightHeap.size + 2) {
+            this.rightHeap.add(this.leftHeap.remove());
+          } else if (this.leftHeap.size === this.rightHeap.size - 1) {
+            this.leftHeap.add(this.rightHeap.remove());
+          }
+        }
+        findMedian(): number {
+          if (this.size % 2 === 0) {
+            return (this.leftHeap.top + this.rightHeap.top) / 2;
+          } else {
+            return this.leftHeap.top;
+          }
+        }
+      } `,
     },
   ],
 };
