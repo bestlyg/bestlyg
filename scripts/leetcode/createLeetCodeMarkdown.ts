@@ -31,26 +31,95 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1753. 移除石子的最大得分',
-  url: 'https://leetcode-cn.com/problems/maximum-score-from-removing-stones/',
+  name: '1801. 积压订单中的订单总数',
+  url: 'https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数学, Tag.堆],
-  desc: '给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。',
+  tag: [Tag.贪心算法, Tag.堆],
+  desc:
+    '给你一个二维整数数组 orders ，输入所有订单后，返回积压订单中的 订单总数 。由于数字可能很大，所以需要返回对 109 + 7 取余的结果。',
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 39.4,
-      desc: '排序后先使bc尽可能保持一致再进行相除',
-      code: `function maximumScore(a: number, b: number, c: number): number {
-        if (a > b) [a, b] = [b, a];
-        if (a > c) [a, c] = [c, a];
-        if (b > c) [b, c] = [c, b];
-        const num1 = Math.min(a, c - b);
-        a -= num1;
-        c -= num1;
-        if (a === 0) return num1 + b;
-        else return num1 + (a >> 1) + b;
+      time: 332,
+      memory: 59.5,
+      desc: '利用买大顶堆和卖小顶堆维护最值',
+      code: ` class Heap<T = number> {
+        private arr: T[] = [];
+        get isEmpty() {
+          return this.size === 0;
+        }
+        get size() {
+          return this.arr.length;
+        }
+        get top() {
+          return this.arr[0];
+        }
+        constructor(private compare: (t1: T, t2: T) => number) {}
+        add(num: T): void {
+          this.arr.push(num);
+          this.shiftUp(this.size - 1);
+        }
+        remove(): T {
+          const num = this.arr.shift()!;
+          if (this.size) {
+            this.arr.unshift(this.arr.pop()!);
+            this.shiftDown(0);
+          }
+          return num;
+        }
+        private shiftUp(index: number): void {
+          if (index === 0) return;
+          const parentIndex = (index - 1) >> 1;
+          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
+            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
+            this.shiftUp(parentIndex);
+          }
+        }
+        private shiftDown(index: number): void {
+          let childrenIndex = index * 2 + 1;
+          if (childrenIndex > this.size - 1) return;
+          if (
+            childrenIndex + 1 <= this.size - 1 &&
+            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
+          ) {
+            childrenIndex++;
+          }
+          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
+            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
+            this.shiftDown(childrenIndex);
+          }
+        }
+        *[Symbol.iterator](): IterableIterator<T> {
+          for (const t of this.arr) {
+            yield t;
+          }
+        }
+      }
+      function getNumberOfBacklogOrders(orders: number[][]): number {
+        const buyHeap = new Heap<number[]>(([t1], [t2]) => t1 - t2);
+        const sellHeap = new Heap<number[]>(([t1], [t2]) => t2 - t1);
+        const add = (order: number[]) => {
+          (order[2] === 0 ? buyHeap : sellHeap).add(order);
+          while (buyHeap.size > 0 && sellHeap.size > 0 && buyHeap.top[0] >= sellHeap.top[0]) {
+            const buyTop = buyHeap.top;
+            const sellTop = sellHeap.top;
+            if (buyTop[1] > sellTop[1]) {
+              sellHeap.remove();
+              buyTop[1] -= sellTop[1];
+            } else if (buyTop[1] < sellTop[1]) {
+              buyHeap.remove();
+              sellTop[1] -= buyTop[1];
+            } else {
+              sellHeap.remove();
+              buyHeap.remove();
+            }
+          }
+        };
+        orders.forEach(order => add(order));
+        let ans = 0;
+        for (const [, c] of buyHeap) ans += c;
+        for (const [, c] of sellHeap) ans += c;
+        return ans % (10 ** 9 + 7);
       }`,
     },
   ],

@@ -1,4 +1,4 @@
-export class Heap<T> {
+export class Heap<T = number> {
   private arr: T[] = [];
   get isEmpty() {
     return this.size === 0;
@@ -42,6 +42,11 @@ export class Heap<T> {
     if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
       [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
       this.shiftDown(childrenIndex);
+    }
+  }
+  *[Symbol.iterator](): IterableIterator<T> {
+    for (const t of this.arr) {
+      yield t;
     }
   }
 }
