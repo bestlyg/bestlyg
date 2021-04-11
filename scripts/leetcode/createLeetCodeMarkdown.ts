@@ -31,17 +31,17 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '295. 数据流的中位数',
-  url: 'https://leetcode-cn.com/problems/find-median-from-data-stream/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.堆, Tag.设计],
-  desc: '中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。',
+  name: '264. 丑数 II',
+  url: 'https://leetcode-cn.com/problems/ugly-number-ii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.堆, Tag.数学, Tag.动态规划],
+  desc: '给你一个整数 n ，请你找出并返回第 n 个 丑数 。',
   solutions: [
     {
       script: Script.TS,
-      time: 272,
-      memory: 58.5,
-      desc: '构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较',
+      time: 200,
+      memory: 45.3,
+      desc: '依次利用235乘以堆顶值进行快速计算下一个丑数',
       code: `class Heap<T> {
         private arr: T[] = [];
         get isEmpty() {
@@ -89,34 +89,26 @@ const md: Markdown = {
           }
         }
       }
-      
-      
-      class MedianFinder {
-        private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);
-        private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);
-        get size() {
-          return this.leftHeap.size + this.rightHeap.size;
-        }
-        addNum(num: number): void {
-          if (!this.leftHeap.size || this.leftHeap.top >= num) {
-            this.leftHeap.add(num);
+      function nthUglyNumber(n: number): number {
+        if (n === 1) return 1;
+        let c = 1;
+        const heap = new Heap<number>((t1, t2) => t2 - t1);
+        heap.add(1);
+        while (c++ < n) {
+          const ans = heap.remove();
+          if (ans % 5 === 0) {
+            heap.add(ans * 5);
+          } else if (ans % 3 === 0) {
+            heap.add(ans * 5);
+            heap.add(ans * 3);
           } else {
-            this.rightHeap.add(num);
-          }
-          if (this.leftHeap.size === this.rightHeap.size + 2) {
-            this.rightHeap.add(this.leftHeap.remove());
-          } else if (this.leftHeap.size === this.rightHeap.size - 1) {
-            this.leftHeap.add(this.rightHeap.remove());
+            heap.add(ans * 5);
+            heap.add(ans * 3);
+            heap.add(ans * 2);
           }
         }
-        findMedian(): number {
-          if (this.size % 2 === 0) {
-            return (this.leftHeap.top + this.rightHeap.top) / 2;
-          } else {
-            return this.leftHeap.top;
-          }
-        }
-      } `,
+        return heap.remove();
+      }`,
     },
   ],
 };
