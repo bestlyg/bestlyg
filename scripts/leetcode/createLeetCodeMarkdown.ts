@@ -31,23 +31,37 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '263. 丑数',
-  url: 'https://leetcode-cn.com/problems/ugly-number/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数学],
-  desc: '给你一个整数 n ，请你判断 n 是否为 丑数 。如果是，返回 true ；否则，返回 false 。',
+  name: '313. 超级丑数',
+  url: 'https://leetcode-cn.com/problems/super-ugly-number/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数学, Tag.堆],
+  desc: '编写一段程序来查找第 n 个超级丑数。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 39.3,
-      desc: '除以235检测是否为1',
-      code: `function isUgly(n: number): boolean {
-        return n===0?false : 1===[2,3,5].reduce((num,cur)=>{
-            while(!(num%cur))num/=cur
-            return num
-        },n)
-    };`,
+      time: 136,
+      memory: 41.7,
+      desc: '建立指针依次指向每个prime,每次取最小值push数组',
+      code: `function nthSuperUglyNumber(n: number, primes: number[]): number {
+        if(n===1)return 1 
+      const primeLen = primes.length;
+      const posArr = new Array(primeLen).fill(0);
+      const dataArr: number[] = [1];
+      let ans = 0;
+      while (dataArr.length < n) {
+        ans = dataArr[posArr[0]] * primes[0];
+        for (let i = 0; i < primeLen; i++) {
+          ans = Math.min(ans, dataArr[posArr[i]] * primes[i]);
+        }
+        for (let i = 0; i < primeLen; i++) {
+          if (ans === dataArr[posArr[i]] * primes[i]) {
+            posArr[i]++;
+          }
+        }
+        dataArr.push(ans);
+      }
+      return ans;
+    }`,
     },
   ],
 };
