@@ -1,24 +1,27 @@
 import { structures } from '../utils';
 
 const { Heap } = structures;
-function nthUglyNumber(n: number): number {
+function nthSuperUglyNumber(n: number, primes: number[]): number {
   if (n === 1) return 1;
-  let c = 1;
   const heap = new Heap<number>((t1, t2) => t2 - t1);
   heap.add(1);
+  primes.forEach(v => heap.add(v));
+  let c = 1;
+  const primeLen = primes.length;
+  const addPrimeToHeap = (num: number, index: number) => {
+    while (index < primeLen) {
+      heap.add(num * primes[index++]);
+    }
+  };
   while (c++ < n) {
     const ans = heap.remove();
-    if (ans % 5 === 0) {
-      heap.add(ans * 5);
-    } else if (ans % 3 === 0) {
-      heap.add(ans * 5);
-      heap.add(ans * 3);
-    } else {
-      heap.add(ans * 5);
-      heap.add(ans * 3);
-      heap.add(ans * 2);
+    for (let i = primeLen - 1; i >= 0; i--) {
+      if (ans % primes[i] === 0) {
+        addPrimeToHeap(ans, i);
+        break;
+      }
     }
   }
   return heap.remove();
 }
-console.log(nthUglyNumber(10));
+console.log(nthSuperUglyNumber(12, [2, 7, 13, 19]));
