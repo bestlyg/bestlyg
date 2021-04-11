@@ -31,37 +31,27 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '313. 超级丑数',
-  url: 'https://leetcode-cn.com/problems/super-ugly-number/',
+  name: '1753. 移除石子的最大得分',
+  url: 'https://leetcode-cn.com/problems/maximum-score-from-removing-stones/',
   difficulty: Difficulty.中等,
   tag: [Tag.数学, Tag.堆],
-  desc: '编写一段程序来查找第 n 个超级丑数。',
+  desc: '给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。',
   solutions: [
     {
       script: Script.TS,
-      time: 136,
-      memory: 41.7,
-      desc: '建立指针依次指向每个prime,每次取最小值push数组',
-      code: `function nthSuperUglyNumber(n: number, primes: number[]): number {
-        if(n===1)return 1 
-      const primeLen = primes.length;
-      const posArr = new Array(primeLen).fill(0);
-      const dataArr: number[] = [1];
-      let ans = 0;
-      while (dataArr.length < n) {
-        ans = dataArr[posArr[0]] * primes[0];
-        for (let i = 0; i < primeLen; i++) {
-          ans = Math.min(ans, dataArr[posArr[i]] * primes[i]);
-        }
-        for (let i = 0; i < primeLen; i++) {
-          if (ans === dataArr[posArr[i]] * primes[i]) {
-            posArr[i]++;
-          }
-        }
-        dataArr.push(ans);
-      }
-      return ans;
-    }`,
+      time: 96,
+      memory: 39.4,
+      desc: '排序后先使bc尽可能保持一致再进行相除',
+      code: `function maximumScore(a: number, b: number, c: number): number {
+        if (a > b) [a, b] = [b, a];
+        if (a > c) [a, c] = [c, a];
+        if (b > c) [b, c] = [c, b];
+        const num1 = Math.min(a, c - b);
+        a -= num1;
+        c -= num1;
+        if (a === 0) return num1 + b;
+        else return num1 + (a >> 1) + b;
+      }`,
     },
   ],
 };
@@ -109,7 +99,9 @@ function analysisPath() {
   } else {
     path = getNumDirName(name);
   }
-  path = resolve(srcPath, path, name + '.md');
+  const dirPath = resolve(srcPath, path);
+  fs.ensureDirSync(dirPath);
+  path = resolve(dirPath, name + '.md');
   return path;
 }
 function analysisSolution({ script, time, memory, desc, code }: Solution, index: number) {

@@ -1,24 +1,12 @@
 // import { structures } from '../utils';
 
 // const { Heap } = structures;
-function nthSuperUglyNumber(n: number, primes: number[]): number {
-  const primeLen = primes.length;
-  const posArr = new Array(primeLen).fill(0);
-  const dataArr: number[] = [1];
-  let ans = 0;
-  while (dataArr.length < n) {
-    ans = dataArr[posArr[0]] * primes[0];
-    for (let i = 0; i < primeLen; i++) {
-      ans = Math.min(ans, dataArr[posArr[i]] * primes[i]);
-    }
-    for (let i = 0; i < primeLen; i++) {
-      if (ans === dataArr[posArr[i]] * primes[i]) {
-        posArr[i]++;
-      }
-    }
-    dataArr.push(ans);
-  }
-  return ans;
+function maximumScore(a: number, b: number, c: number): number {
+  if (a > b) [a, b] = [b, a];
+  if (a > c) [a, c] = [c, a];
+  if (b > c) [b, c] = [c, b];
+  const num = Math.min(a, c - b);
+  if (a - num === 0) return num + b;
+  else return num + (a >> 1) + b;
 }
-
-console.log(nthSuperUglyNumber(12, [2, 7, 13, 19]));
+console.log(maximumScore(2, 6, 4));
