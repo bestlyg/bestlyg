@@ -1,5 +1,6 @@
 import { fs, leetcode, markdown, trimBlank } from '../utils';
 
+type SolutionList = leetcode.SolutionList;
 const {
   LeetCodeDifficulty,
   srcPath,
@@ -61,7 +62,7 @@ const waitSolutions = [
     url: 'https://leetcode-cn.com/problems/reverse-pairs/',
   },
 ];
-const cache: Record<string, leetcode.SolutionList[]> = {
+const cache: Record<string, SolutionList[]> = {
   顺序索引: [],
   标签索引: [],
   难度索引: [
@@ -148,7 +149,7 @@ const createSolutionsTemplate = () => {
   return res;
 };
 
-function analysisIndex() {
+const analysisIndex = () => {
   if (!indexReg.test(template)) return;
   fileName = trimBlank(RegExp.$1);
   let dirName = '';
@@ -161,27 +162,27 @@ function analysisIndex() {
   } else {
     dirName = getNumDirName(fileName);
   }
-  let obj: leetcode.SolutionList | undefined = indexCache.find(v => v.name.startsWith(dirName));
+  let obj: SolutionList | undefined = indexCache.find(v => v.name.startsWith(dirName));
   if (!obj) indexCache.push((obj = { name: dirName, solutions: [] }));
   obj.solutions.push(fileName);
-}
-function analysisTag() {
+};
+const analysisTag = () => {
   if (!tagReg.test(template)) return;
   const name = trimBlank(RegExp.$1);
   if (!name) return;
   const tagList = name.split('、');
   for (const tag of tagList) {
-    let obj: leetcode.SolutionList | undefined = tagCache.find(v => v.name.startsWith(tag));
+    let obj: SolutionList | undefined = tagCache.find(v => v.name.startsWith(tag));
     if (!obj) tagCache.push((obj = { name: tag, solutions: [] }));
     obj.solutions.push(fileName);
   }
-}
-function analysisDifficulty() {
+};
+const analysisDifficulty = () => {
   if (!difReg.test(template)) return;
   const name = trimBlank(RegExp.$1);
-  let obj: leetcode.SolutionList | undefined = difficultyCache.find(v => v.name.startsWith(name));
+  let obj: SolutionList | undefined = difficultyCache.find(v => v.name.startsWith(name));
   if (!obj) difficultyCache.push((obj = { name: name, solutions: [] }));
   obj.solutions.push(fileName);
-}
+};
 
 main();

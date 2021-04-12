@@ -1,12 +1,21 @@
-import { dayjs } from './dep';
+abstract class ShellScript {}
 
-export const gitFn: Record<string, Function> = {
-  commit: (msg: string) => `git commit -m "${msg}"`,
-};
-export const git: Record<string, string> = {
-  addAll: 'git add -A',
-  pull: 'git pull',
-  push: 'git push',
-  fetch: 'git fetch',
-  commit: gitFn.commit(`更新 ${dayjs().format('YYYY.MM.DD hh:mm:ss')}`),
-};
+export class Git extends ShellScript {
+  static addAll = 'git add -A';
+  static pull = 'git pull';
+  static push = 'git push';
+  static fetch = 'git fetch';
+  static commit(msg: string) {
+    return `git commit -m "${msg}"`;
+  }
+}
+export class Yarn extends ShellScript {
+  static updateDep = 'yarn upgrade-interactive --latest';
+  static install = 'yarn';
+  static run(script: string) {
+    return `yarn ${script}`;
+  }
+  static workspaceRun(workspace: string, script: string) {
+    return `yarn workspace ${workspace} ${script}`;
+  }
+}
