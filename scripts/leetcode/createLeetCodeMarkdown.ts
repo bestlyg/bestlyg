@@ -31,7 +31,7 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: true,
-  name: '1046. 最后一块石头的重量',
+  name: '179. 最大数',
   url: 'https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/',
   difficulty: Difficulty.中等,
   tag: [Tag.贪心算法, Tag.堆],
@@ -40,71 +40,27 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.1,
-      desc: '构建堆',
-      code: `class Heap<T = number> {
-        private arr: T[] = [];
-        get isEmpty() {
-          return this.size === 0;
-        }
-        get size() {
-          return this.arr.length;
-        }
-        get top() {
-          return this.arr[0];
-        }
-        constructor(private compare: (t1: T, t2: T) => number) {}
-        add(num: T): void {
-          this.arr.push(num);
-          this.shiftUp(this.size - 1);
-        }
-        remove(): T {
-          const num = this.arr.shift()!;
-          if (this.size) {
-            this.arr.unshift(this.arr.pop()!);
-            this.shiftDown(0);
+      time: 96,
+      memory: 39.2,
+      desc: '合并两个字符串进行比较',
+      code: `function largestNumber(nums: number[]): string {
+        const getCount = (num: number): number => {
+          if (num === 0) return 1;
+          let c = 0;
+          while (num) {
+            num = ~~(num / 10);
+            c++;
           }
-          return num;
-        }
-        private shiftUp(index: number): void {
-          if (index === 0) return;
-          const parentIndex = (index - 1) >> 1;
-          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-            this.shiftUp(parentIndex);
-          }
-        }
-        private shiftDown(index: number): void {
-          let childrenIndex = index * 2 + 1;
-          if (childrenIndex > this.size - 1) return;
-          if (
-            childrenIndex + 1 <= this.size - 1 &&
-            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-          ) {
-            childrenIndex++;
-          }
-          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-            this.shiftDown(childrenIndex);
-          }
-        }
-        *[Symbol.iterator](): IterableIterator<T> {
-          for (const t of this.arr) {
-            yield t;
-          }
-        }
-      }
-      function lastStoneWeight(stones: number[]): number {
-        const heap = new Heap((t1, t2) => t1 - t2);
-        stones.forEach(v => heap.add(v));
-        while (heap.size > 1) {
-          const s1 = heap.remove();
-          const s2 = heap.remove();
-          if (s1 === s2) continue;
-          heap.add(Math.abs(s1 - s2));
-        }
-        return heap.size === 0 ? 0 : heap.top;
+          return c;
+        };
+        nums.sort((num1, num2) => {
+          const count1 = getCount(num1);
+          const count2 = getCount(num2);
+          const left = num1 * 10 ** count2 + num2;
+          const right = num2 * 10 ** count1 + num1;
+          return right - left;
+        });
+        return nums[0] === 0 ? '0' : nums.join('');
       }`,
     },
   ],
