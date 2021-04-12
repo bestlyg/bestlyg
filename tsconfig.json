@@ -3,8 +3,8 @@
     "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": false,
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowJs": false,
     "noUnusedLocals": true,
@@ -17,13 +17,13 @@
     "jsx": "react",
     "jsxFactory": "React.createElement",
     "jsxFragmentFactory": "React.Fragment",
-    "lib": ["esnext", "dom"],
+    "lib": ["ESNext", "DOM"],
     "types": ["jest", "node"],
     "rootDir": ".",
     "paths": {
       "@bestlyg/*": ["packages/*/src"]
     }
   },
-  "include": ["packages/global.d.ts", "packages/*/src", "packages/*/__tests__"],
+  "include": ["packages/global.d.ts", "packages/*/src", "packages/*/__tests__", "scripts"],
   "exclude": ["node_modules"]
 }
