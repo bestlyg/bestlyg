@@ -1,6 +1,6 @@
-import { pkg, semver, enquirer, chalk, fs, args, resolve } from './utils';
+import { lernaConfig, semver, enquirer, chalk, fs, args, resolve } from './utils';
 
-const currentVersion = pkg.version;
+const currentVersion = lernaConfig.version;
 const preId =
   args.preid || (semver.prerelease(currentVersion) && semver.prerelease(currentVersion)?.[0]);
 const versionIncrements: semver.ReleaseType[] = [
@@ -19,7 +19,7 @@ async function main() {
   })) as { release: string };
   const targetVersion = release.match(/\((.*)\)/)![1];
   console.log(chalk.blue(`下一版本 : ${targetVersion}`));
-  pkg.version = targetVersion;
-  fs.writeFileSync(resolve('package.json'), JSON.stringify(pkg, null, 2) + '\n');
+  lernaConfig.version = targetVersion;
+  fs.writeFileSync(resolve('package.json'), JSON.stringify(lernaConfig, null, 2) + '\n');
 }
 main();

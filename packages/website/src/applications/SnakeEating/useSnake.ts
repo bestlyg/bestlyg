@@ -1,8 +1,8 @@
-import { Direction } from '@/models';
 import Color from 'color';
 import { useInterval, useKeyPress } from 'ahooks';
 import { random } from 'lodash';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
+import { Direction } from '../../models';
 
 /** 边框最小值 */
 export const SIZE_MIN = 10;

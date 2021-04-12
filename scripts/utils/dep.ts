@@ -1,4 +1,5 @@
 export { default as pkg } from '../../package.json';
+export { default as lernaConfig } from '../../lerna.json';
 export { default as fs } from 'fs-extra';
 export { default as dayjs } from 'dayjs';
 export { default as shelljs } from 'shelljs';

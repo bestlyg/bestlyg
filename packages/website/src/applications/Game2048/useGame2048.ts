@@ -1,11 +1,11 @@
-import { useScore } from '@/components';
-import { Direction } from '@/models';
 import { getLocalStorage, setLocalStorage } from '@bestlyg/shared';
 import { useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import Color from 'color';
 import { cloneDeep, random } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
+import { useScore } from '../../components';
+import { Direction, directionMap } from '../../models';
 
 /** 行列数 */
 export const COUNT = 4;
@@ -46,13 +46,7 @@ export const addNewNum = (nums: number[][]) => {
 };
 /** 储存键 */
 export const KEY_NUMS = 'GAME_2048_NUMS';
-/** 名称映射 */
-export const opMap: Record<Direction, string> = {
-  [Direction.UP]: '上',
-  [Direction.DOWN]: '下',
-  [Direction.LEFT]: '左',
-  [Direction.RIGHT]: '右',
-};
+
 export const useGame2048 = () => {
   /** 分数 */
   const { score, setScore, Tag: SorceTag } = useScore('GAME_2048_');
@@ -176,7 +170,7 @@ export const useGame2048 = () => {
         }
       }
       if (!moved) {
-        message.error(`没法继续${opMap[direction]}移啦！`);
+        message.error(`没法继续${directionMap[direction]}移啦！`);
         return;
       }
       addNewNum(newNums);

@@ -7,16 +7,18 @@
   "scripts": {
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "jest --runInBand --detectOpenHandles --colors",
+    "changelog": "lerna-changelog",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && yarn commit && git push",
     "build:dev": "rollup --config",
     "build:prod": "rollup --config --environment NODE_ENV:production",
     "update:version": "cd scripts && ts-node version",
+    "deploy": "cd scripts && ts-node deploy",
     "leetcode:readme": "cd scripts && ts-node leetcode/createLeetCodeReadme",
     "leetcode:markdown": "cd scripts && ts-node leetcode/createLeetCodeMarkDown",
     "leetcode:auto:markdown": "yarn leetcode:markdown && yarn leetcode:readme && yarn commit:auto",
-    "leetcode:js": "cd scripts && node leetcode/env.js",
-    "leetcode:ts": "cd scripts && ts-node leetcode/env.ts"
+    "run:js": "cd scripts && node leetcode/env.js",
+    "run:ts": "cd scripts && ts-node leetcode/env.ts"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",

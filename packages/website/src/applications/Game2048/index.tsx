@@ -1,8 +1,8 @@
 import { Space, Row, Col, Button, Popconfirm } from 'antd';
 import React from 'react';
 import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
-import { Direction } from '@/models';
 import { useGame2048, COUNT, getColor } from './useGame2048';
+import { Direction } from '../../models';
 import styles from './index.less';
 
 const Game2048 = () => {

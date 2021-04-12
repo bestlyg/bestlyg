@@ -24,6 +24,13 @@
       "@bestlyg/*": ["packages/*/src"]
     }
   },
-  "include": ["packages/global.d.ts", "packages/*/src", "packages/*/__tests__", "scripts"],
+  "include": [
+    "typings.d.ts",
+    "packages/global.d.ts",
+    "typings/**/*",
+    "packages/*/src",
+    "packages/*/__tests__",
+    "scripts"
+  ],
   "exclude": ["node_modules"]
 }
