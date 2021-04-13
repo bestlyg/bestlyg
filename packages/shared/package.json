@@ -1,5 +1,6 @@
 {
   "name": "@bestlyg/shared",
+  "private": true,
   "version": "1.0.0",
   "description": "工具类",
   "author": "bestlyg <1057966749@qq.com>",
