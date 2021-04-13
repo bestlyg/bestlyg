@@ -6,6 +6,8 @@ module.exports = {
   },
   cacheDirectory: './jest/cacheDirectory',
   coverageDirectory: './jest/coverage',
+  coverageReporters: ['html', 'lcov', 'text'],
+  collectCoverageFrom: ['packages/*/src/**/*.ts'],
   collectCoverage: true,
   testEnvironment: 'jsdom',
   coverageThreshold: {
@@ -19,6 +21,5 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  // testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
