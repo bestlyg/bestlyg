@@ -9,7 +9,7 @@
     "build:docs": "dumi build",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "jest --runInBand --detectOpenHandles --colors",
-    "changelog": "lerna-changelog",
+    "changelog": "conventional-changelog -i CHANGELOG.md -w -r 0",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && yarn commit && git push",
     "build:dev": "rollup --config",
@@ -39,7 +39,7 @@
     "commitlint-config-cz": "^0.13.2",
     "compression-webpack-plugin": "^7.1.2",
     "conventional-changelog-cli": "^2.1.1",
-    "cz-customizable": "^6.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "dumi": "^1.1.12",
     "enquirer": "^2.3.6",
     "fs-extra": "^9.1.0",
@@ -60,7 +60,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-customizable"
+      "path": "cz-conventional-changelog"
     }
   }
 }
