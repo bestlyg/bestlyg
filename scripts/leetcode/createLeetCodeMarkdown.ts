@@ -5,12 +5,11 @@ const {
   LeetCodeScript: Script,
   LeetCodeDifficulty: Difficulty,
   LeetCodeTag: Tag,
-  HADER_FACE,
-  HADER_LCP,
-  HADER_OFFER,
-  getNumDirName,
   srcPath,
   solutionReg,
+  getDirOrder,
+  getFileOrder,
+  getDirName,
 } = leetcode;
 
 interface Solution {
@@ -30,40 +29,36 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '783. 二叉搜索树节点最小距离',
-  url: 'https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.贪心算法, Tag.堆],
-  desc:
-    '给你一个二维整数数组 orders ，输入所有订单后，返回积压订单中的 订单总数 。由于数字可能很大，所以需要返回对 109 + 7 取余的结果。',
+  existMarkdown: false,
+  name: '231. 2的幂',
+  url: 'https://leetcode-cn.com/problems/power-of-two/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算, Tag.位运算],
+  desc: '给定一个整数，编写一个函数来判断它是否是 2 的幂次方。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 39.8,
-      desc: '中序遍历',
-      code: `function minDiffInBST(root: TreeNode | null): number {
-        if (root === null) return 0;
-        const arr: number[] = [];
-        const inorder = (node: TreeNode | null) => {
-          if(node===null)return 
-          inorder(node.left);
-          arr.push(node.val);
-          inorder(node.right);
-        };
-        inorder(root);
-        let min = Infinity;
-        for (let i = 1, l = arr.length; i < l; i++) {
-          min = Math.min(min, arr[i] - arr[i - 1]);
-        }
-        return min;
-      }
-      `,
+      time: 100,
+      memory: 39.2,
+      desc: 'log去对数后判断是否为整数',
+      code: `function isPowerOfTwo(n: number): boolean {
+        return Number.isInteger(Math.log2(n))
+    };`,
+    },
+    {
+      script: Script.TS,
+      time: 108,
+      memory: 39.4,
+      desc: '判读数的二进制状态是否只存在一个1',
+      code: `function isPowerOfTwo(n: number): boolean {
+        return n<=0?false: n.toString(2).split('').filter(v=>v==='1').length===1
+    };`,
     },
   ],
 };
-
+const dirName = getDirName(md.name);
+const dirPath = resolve(srcPath, dirName);
+const filePath = resolve(dirPath, trimBlank(md.name) + '.md');
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 
 function main() {
@@ -71,8 +66,20 @@ function main() {
 }
 function addMarkdown() {
   fs.writeFileSync(
-    analysisPath(),
-    `# ${md.name}
+    filePath,
+    `---
+title: ${md.name}
+order: ${getFileOrder(md.name)}
+nav:
+  title: 力扣题解
+  path: /leetcode
+group:
+  title: ${dirName}
+  path: /${dirName}
+  order: ${getDirOrder(dirName)}
+---
+
+# ${md.name}
     
 > 链接：[${md.name}](${md.url})  
 > 难度：${md.difficulty}  
@@ -84,33 +91,16 @@ ${md.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n'
   );
 }
 function addSolution() {
-  const path = analysisPath();
+  const path = filePath;
   const file = fs.readFileSync(path).toString();
   const matchList = file.matchAll(solutionReg);
   let lastIndex = 0;
   for (const match of matchList) lastIndex = parseInt(match[1]);
   fs.writeFileSync(
-    analysisPath(),
+    filePath,
     file +
       md.solutions.map((data, index) => analysisSolution(data, index + 1 + lastIndex)).join('\n')
   );
-}
-function analysisPath() {
-  const name = trimBlank(md.name);
-  let path = '';
-  if (name.startsWith(HADER_FACE)) {
-    path = HADER_FACE;
-  } else if (name.startsWith(HADER_LCP)) {
-    path = HADER_LCP;
-  } else if (name.startsWith(HADER_OFFER)) {
-    path = HADER_OFFER;
-  } else {
-    path = getNumDirName(name);
-  }
-  const dirPath = resolve(srcPath, path);
-  fs.ensureDirSync(dirPath);
-  path = resolve(dirPath, name + '.md');
-  return path;
 }
 function analysisSolution({ script, time, memory, desc, code }: Solution, index: number) {
   return `## 题解 ${index} - ${script}

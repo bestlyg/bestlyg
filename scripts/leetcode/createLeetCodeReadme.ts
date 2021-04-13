@@ -79,11 +79,22 @@ let fileName = '';
 const pathMap: Record<string, string> = {};
 
 function main() {
-  const readmePath = `${srcPath}/README.md`;
+  const readmePath = `${srcPath}/index.md`;
   fs.removeSync(readmePath);
   fs.writeFile(
     readmePath,
-    `# 目录索引
+    `---
+title: 目录索引
+nav:
+  title: 力扣题解
+  path: /leetcode
+group:
+  title: 目录索引
+  path: /catalog
+  order: 0
+---
+
+# 目录索引
 ## 介绍
 个人 LeetCode 题解
 
@@ -137,7 +148,7 @@ const createSolutionsTemplate = () => {
       for (const solution of solutions) {
         let path = pathMap[solution];
         if (!path) {
-          path = pathMap[solution] = `- [${solution}](力扣题解/${name}/${solution.substr(
+          path = pathMap[solution] = `- [${solution}](${name}/${solution.substr(
             0,
             solution.lastIndexOf('.')
           )})\n`;

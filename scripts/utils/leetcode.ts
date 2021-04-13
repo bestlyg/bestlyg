@@ -1,4 +1,4 @@
-import { resolve } from './fn';
+import { resolve, trimBlank } from './fn';
 
 export enum LeetCodeDifficulty {
   简单 = '简单',
@@ -48,7 +48,7 @@ export enum LeetCodeScript {
   JAVA = 'java',
 }
 
-export const srcPath = resolve('packages/website/docs/力扣题解');
+export const srcPath = resolve('packages/leetcode/src');
 export interface SolutionList {
   name: string;
   solutions: string[];
@@ -56,7 +56,7 @@ export interface SolutionList {
 export const HADER_LCP = 'LCP';
 export const HADER_OFFER = '剑指Offer';
 export const HADER_FACE = '面试题';
-export const indexReg = new RegExp(`^# (.*)`);
+export const indexReg = new RegExp(`# (.*)`);
 export const tagReg = new RegExp('标签：(.*)  ');
 export const difReg = new RegExp('难度：(.*)  ');
 export const solutionReg = new RegExp('## 题解 (.*) - ', 'g');
@@ -64,4 +64,40 @@ export const getNumDirName = (file: string) => {
   const num = ~~((parseFloat(file) - 1) / 100);
   const dirName = `${num * 100 + 1}-${100 * num + 100}`;
   return dirName;
+};
+export const getDirName = (fileName: string) => {
+  const name = trimBlank(fileName);
+  let dirName = '';
+  if (name.startsWith(HADER_FACE)) {
+    dirName = HADER_FACE;
+  } else if (name.startsWith(HADER_LCP)) {
+    dirName = HADER_LCP;
+  } else if (name.startsWith(HADER_OFFER)) {
+    dirName = HADER_OFFER;
+  } else {
+    dirName = getNumDirName(name);
+  }
+  return dirName;
+};
+export const getFileOrder = (file: string) => {
+  if (file.startsWith(HADER_LCP)) {
+    return parseFloat(file.substr(HADER_LCP.length));
+  } else if (file.startsWith(HADER_FACE)) {
+    return parseFloat(file.substr(HADER_FACE.length));
+  } else if (file.startsWith(HADER_OFFER)) {
+    return parseFloat(file.substr(HADER_OFFER.length));
+  } else {
+    return parseFloat(file);
+  }
+};
+export const getDirOrder = (dir: string) => {
+  if (dir.startsWith(HADER_LCP)) {
+    return 300000;
+  } else if (dir.startsWith(HADER_FACE)) {
+    return 100000;
+  } else if (dir.startsWith(HADER_OFFER)) {
+    return 200000;
+  } else {
+    return parseFloat(dir);
+  }
 };

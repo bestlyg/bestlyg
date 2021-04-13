@@ -21,7 +21,9 @@
     "types": ["jest", "node"],
     "rootDir": ".",
     "paths": {
-      "@bestlyg/*": ["packages/*/src"]
+      "@bestlyg/*": ["packages/*/src"],
+      "@/*": ["src/*"],
+      "@@/*": ["src/.umi/*"]
     }
   },
   "include": [

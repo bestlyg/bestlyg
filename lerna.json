@@ -7,9 +7,5 @@
     "bootstrap": {
       "hoist": true
     }
-  },
-  "changelog": {
-    "repo": "bestlyg/bestlyg",
-    "cacheDir": ".changelog"
   }
 }
