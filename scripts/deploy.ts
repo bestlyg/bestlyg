@@ -2,29 +2,16 @@ import { shelljs, resolve, fs, shell, moment, chalk } from './utils';
 
 const { Git, Yarn } = shell;
 const deployRootPath = resolve('../bestlyg-deploy');
-const packageConfigs = [
-  {
-    pkgName: 'website',
-  },
-];
+const packageConfigs = [];
 function main() {
-  packageConfigs.forEach(({ pkgName }) => {
-    const libName = `@bestlyg/${pkgName}`;
-    console.log(chalk.blue(`正在打包${libName}`));
-    shelljs.exec(Yarn.workspaceRun(libName, 'build'));
-    const deployPath = resolve(deployRootPath, 'src', pkgName);
-    const srcPath = resolve('packages', pkgName, 'dist');
-    fs.ensureDirSync(deployPath);
-    fs.emptyDirSync(deployPath);
-    fs.copySync(srcPath, deployPath);
-  });
+  buildDocs();
   console.log(chalk.blue(`开始部署`));
   shelljs.cd(deployRootPath);
   [
     Git.pull,
     Git.addAll,
     Git.commit(
-      `${moment().format('YYYY.MM.DD')} 更新 ${packageConfigs
+      `${moment().format('YYYY.MM.DD')} 更新 文档、${packageConfigs
         .map(({ pkgName }) => pkgName)
         .join('、')}`
     ),
@@ -33,3 +20,12 @@ function main() {
   console.log(chalk.green(`部署完成`));
 }
 main();
+function buildDocs() {
+  console.log(chalk.blue(`正在打包文档`));
+  shelljs.exec(Yarn.run(`build:docs`));
+  const deployPath = resolve(deployRootPath, 'src', 'website');
+  const srcPath = resolve('dist');
+  fs.ensureDirSync(deployPath);
+  fs.emptyDirSync(deployPath);
+  fs.copySync(srcPath, deployPath);
+}
