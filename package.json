@@ -1,5 +1,6 @@
 {
   "name": "bestlyg",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -9,7 +10,7 @@
     "build:docs": "dumi build",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "jest --runInBand --detectOpenHandles --colors",
-    "changelog": "conventional-changelog -i CHANGELOG.md -w -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && yarn commit && git push",
     "build:dev": "rollup --config",

@@ -17,6 +17,7 @@ const packageConfigs = [
   },
   {
     pkgName: 'data-structure',
+    external: ['lodash'],
   },
 ]
   .map(({ pkgName, external = [] }) => {
