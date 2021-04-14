@@ -1,11 +1,11 @@
 import { resolve, trimBlank } from './fn';
 
-export enum LeetCodeDifficulty {
+export enum Difficulty {
   简单 = '简单',
   中等 = '中等',
   困难 = '困难',
 }
-export enum LeetCodeTag {
+export enum Tag {
   数组 = '数组',
   哈希表 = '哈希表',
   链表 = '链表',
@@ -40,7 +40,7 @@ export enum LeetCodeTag {
   几何 = '几何',
   字典树 = '字典树',
 }
-export enum LeetCodeScript {
+export enum Script {
   JS = 'javascript',
   TS = 'typescript',
   PY = 'python',

@@ -1,6 +1,7 @@
-import { random } from 'lodash';
+import { lodash } from '@bestlyg/shared';
 import { useCallback, useEffect, useState } from 'react';
 
+const { random } = lodash;
 /** 最小数 */
 export const MIN = 1;
 /** 最大数 */

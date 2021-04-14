@@ -12,5 +12,11 @@
     "test": "__tests__"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "@types/color": "^3.0.1",
+    "ahooks": "^2.10.0",
+    "antd": "^4.15.1",
+    "color": "^3.1.3"
+  }
 }

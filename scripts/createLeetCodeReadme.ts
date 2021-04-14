@@ -1,8 +1,8 @@
-import { fs, leetcode, markdown, trimBlank } from '../utils';
+import { fs, leetcode, markdown, trimBlank } from './utils';
 
 type SolutionList = leetcode.SolutionList;
 const {
-  LeetCodeDifficulty,
+  Difficulty,
   srcPath,
   HADER_LCP,
   HADER_OFFER,
@@ -66,9 +66,9 @@ const cache: Record<string, SolutionList[]> = {
   顺序索引: [],
   标签索引: [],
   难度索引: [
-    { name: LeetCodeDifficulty.简单, solutions: [] },
-    { name: LeetCodeDifficulty.中等, solutions: [] },
-    { name: LeetCodeDifficulty.困难, solutions: [] },
+    { name: Difficulty.简单, solutions: [] },
+    { name: Difficulty.中等, solutions: [] },
+    { name: Difficulty.困难, solutions: [] },
   ],
 };
 const indexCache = cache['顺序索引'];

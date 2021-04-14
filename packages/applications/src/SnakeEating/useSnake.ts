@@ -1,9 +1,9 @@
 import Color from 'color';
 import { useInterval, useKeyPress } from 'ahooks';
-import { random } from 'lodash';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { Direction } from '@bestlyg/shared';
+import { Direction, lodash } from '@bestlyg/shared';
 
+const { random } = lodash;
 /** 边框最小值 */
 export const SIZE_MIN = 10;
 /** 边框最大值 */

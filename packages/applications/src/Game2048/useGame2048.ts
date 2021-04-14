@@ -1,12 +1,11 @@
-import { directionMap, getLocalStorage, setLocalStorage } from '@bestlyg/shared';
+import { directionMap, getLocalStorage, setLocalStorage, Direction, lodash } from '@bestlyg/shared';
 import { useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import Color from 'color';
-import { cloneDeep, random } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { Direction } from '@bestlyg/shared';
 import { useScore } from '../components';
 
+const { cloneDeep, random } = lodash;
 /** 行列数 */
 export const COUNT = 4;
 /** 每合成一个数则获取SCORE_MULTIPLE倍的分数 */

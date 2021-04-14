@@ -1,9 +1,9 @@
+import { Direction } from '@bestlyg/shared';
 import { Space, Row, Col, Button, Popconfirm } from 'antd';
 import React from 'react';
 import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
 import { useGame2048, COUNT, getColor } from './useGame2048';
 import styles from './index.less';
-import { Direction } from '@bestlyg/shared';
 
 const Game2048 = () => {
   const { nums, reset, SorceTag, move } = useGame2048();

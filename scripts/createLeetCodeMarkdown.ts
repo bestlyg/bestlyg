@@ -1,19 +1,22 @@
-import { leetcode, trimBlank, resolve, fs, moment, specStr } from '../utils';
+import { leetcode, trimBlank, resolve, fs, moment, specStr } from './utils';
 
 const { backquote } = specStr;
 const {
-  LeetCodeScript: Script,
-  LeetCodeDifficulty: Difficulty,
-  LeetCodeTag: Tag,
+  Script,
+  Difficulty,
+  Tag,
   srcPath,
   solutionReg,
   getDirOrder,
   getFileOrder,
   getDirName,
 } = leetcode;
+type Script = leetcode.Script;
+type Difficulty = leetcode.Difficulty;
+type Tag = leetcode.Tag;
 
 interface Solution {
-  script: leetcode.LeetCodeScript;
+  script: Script;
   time: number;
   memory: number;
   desc: string;
@@ -24,8 +27,8 @@ interface Markdown {
   name: string;
   url: string;
   desc: string;
-  difficulty: leetcode.LeetCodeDifficulty;
-  tag: leetcode.LeetCodeTag[];
+  difficulty: Difficulty;
+  tag: Tag[];
   solutions: Solution[];
 }
 const md: Markdown = {
