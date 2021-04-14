@@ -33,29 +33,40 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '231. 2的幂',
-  url: 'https://leetcode-cn.com/problems/power-of-two/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.位运算, Tag.位运算],
-  desc: '给定一个整数，编写一个函数来判断它是否是 2 的幂次方。',
+  name: '208. 实现 Trie (前缀树)',
+  url: 'https://leetcode-cn.com/problems/implement-trie-prefix-tree/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.设计, Tag.字典树],
+  desc: '请你实现 Trie 类',
   solutions: [
     {
       script: Script.TS,
-      time: 100,
-      memory: 39.2,
-      desc: 'log去对数后判断是否为整数',
-      code: `function isPowerOfTwo(n: number): boolean {
-        return Number.isInteger(Math.log2(n))
-    };`,
-    },
-    {
-      script: Script.TS,
-      time: 108,
-      memory: 39.4,
-      desc: '判读数的二进制状态是否只存在一个1',
-      code: `function isPowerOfTwo(n: number): boolean {
-        return n<=0?false: n.toString(2).split('').filter(v=>v==='1').length===1
-    };`,
+      time: 248,
+      memory: 55.5,
+      desc: '构建前缀树',
+      code: `class Trie {
+        private children = new Map<string, Trie>();
+        constructor(public char = '', public end = false) {}
+        insert(word: string): void {
+          if (word === '') {
+            this.end = true;
+            return;
+          }
+          const first = word[0];
+          let nextTrieNode = this.children.get(first);
+          if (!nextTrieNode)
+            this.children.set(first, (nextTrieNode = new Trie(first, word.length === 1)));
+          nextTrieNode.insert(word.substr(1));
+        }
+        search(word: string): boolean {
+          if (word === '') return this.end;
+          return !!this.children.get(word[0])?.search(word.substr(1));
+        }
+        startsWith(prefix: string): boolean {
+          if (prefix.length === 1) return this.children.has(prefix);
+          return !!this.children.get(prefix[0])?.startsWith(prefix.substr(1));
+        }
+      }`,
     },
   ],
 };
