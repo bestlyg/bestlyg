@@ -12,7 +12,13 @@ module.exports = {
     { value: '工具', name: '工具:    开发工具变动(构建、脚手架工具等)' },
     { value: '回滚', name: '回滚:    代码回退' },
   ],
-  scopes: [{ name: '个人博客' }, { name: '力扣题解' }, { name: '应用合集' }, { name: '配置文件' }],
+  scopes: [
+    { name: '个人博客' },
+    { name: '数据结构' },
+    { name: '力扣题解' },
+    { name: '应用合集' },
+    { name: '配置文件' },
+  ],
   // it needs to match the value for field type. Eg.: 'fix'
   /*
   scopeOverrides: {

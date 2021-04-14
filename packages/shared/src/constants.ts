@@ -5,5 +5,5 @@ export const ANY_OP = (...args: any) => args;
 export const DEFAULT_OP: <T>(val: T) => T = val => val;
 
 export const ELEMENT_NOT_FOUNT = -1;
-
 export const ERROR_SUBSCRIPT_OUT_OF_BOUNDS = '下标越界';
+export const ERROR_EMPTY_ELEMENT = '空元素';

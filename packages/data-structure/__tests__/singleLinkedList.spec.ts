@@ -2,13 +2,13 @@ import { ELEMENT_NOT_FOUNT, ERROR_SUBSCRIPT_OUT_OF_BOUNDS } from '@bestlyg/share
 import { SingleLinkedList } from '../src';
 
 describe('singleLinkedList', () => {
-  it('add', () => {
+  test('add', () => {
     const list = new SingleLinkedList<number>();
     list.add(111, 0);
     expect(list.size).toBe(1);
     expect(list.get(0)).toBe(111);
   });
-  it('get', () => {
+  test('get', () => {
     const list = new SingleLinkedList<number>();
     list.add(1, 0);
     list.add(2, 0);
@@ -20,7 +20,7 @@ describe('singleLinkedList', () => {
     expect(list.get(3)).toBe(4);
     expect(list.size).toBe(4);
   });
-  it('delete', () => {
+  test('delete', () => {
     const list = new SingleLinkedList<number>();
     list.add(1, 0);
     list.add(2, 0);
@@ -30,7 +30,7 @@ describe('singleLinkedList', () => {
     expect(list.size).toBe(3);
     expect(list.get(2)).toBe(4);
   });
-  it('set', () => {
+  test('set', () => {
     const list = new SingleLinkedList<number>();
     list.add(1, 0);
     list.add(2, 0);
@@ -41,7 +41,7 @@ describe('singleLinkedList', () => {
     list.set(2, 12);
     expect(list.get(2)).toBe(12);
   });
-  it('indexOf', () => {
+  test('indexOf', () => {
     const list = new SingleLinkedList<number>();
     list.add(1);
     list.add(2);
@@ -50,7 +50,7 @@ describe('singleLinkedList', () => {
     expect(list.find(3)).toBe(2);
     expect(list.find(5)).toBe(ELEMENT_NOT_FOUNT);
   });
-  it('checkRange', () => {
+  test('checkRange', () => {
     const list = new SingleLinkedList<number>();
     const errorStr = `RangeError: ${ERROR_SUBSCRIPT_OUT_OF_BOUNDS}`;
     try {
