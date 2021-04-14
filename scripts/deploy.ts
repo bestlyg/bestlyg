@@ -1,9 +1,10 @@
-import { shelljs, resolve, fs, shell, moment, chalk } from './utils';
+import { shelljs, resolve, fs, shell, moment, chalk, LOGO } from './utils';
 
 const { Git, Yarn } = shell;
 const deployRootPath = resolve('../bestlyg-deploy');
 const packageConfigs = [];
 function main() {
+  console.log(LOGO);
   buildDocs();
   console.log(chalk.blue(`开始部署`));
   shelljs.cd(deployRootPath);

@@ -1,4 +1,4 @@
-import { leetcode, trimBlank, resolve, fs, moment, specStr } from './utils';
+import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO } from './utils';
 
 const { backquote } = specStr;
 const {
@@ -76,6 +76,7 @@ const filePath = resolve(dirPath, trimBlank(md.name) + '.md');
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 
 function main() {
+  console.log(LOGO);
   md.existMarkdown ? addSolution() : addMarkdown();
 }
 function addMarkdown() {

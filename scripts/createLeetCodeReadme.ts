@@ -1,4 +1,4 @@
-import { fs, leetcode, markdown, trimBlank } from './utils';
+import { fs, leetcode, LOGO, markdown, trimBlank } from './utils';
 
 type SolutionList = leetcode.SolutionList;
 const {
@@ -79,6 +79,7 @@ let fileName = '';
 const pathMap: Record<string, string> = {};
 
 function main() {
+  console.log(LOGO);
   const readmePath = `${srcPath}/index.md`;
   fs.removeSync(readmePath);
   fs.writeFile(

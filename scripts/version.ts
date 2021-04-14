@@ -1,4 +1,4 @@
-import { lernaConfig, pkg, semver, enquirer, chalk, fs, args, resolve } from './utils';
+import { lernaConfig, pkg, semver, enquirer, chalk, fs, args, resolve, LOGO } from './utils';
 
 const currentVersion = pkg.version;
 const preId =
@@ -11,6 +11,7 @@ const versionIncrements: semver.ReleaseType[] = [
 ];
 const inc = (i: semver.ReleaseType) => semver.inc(currentVersion, i, preId);
 async function main() {
+  console.log(LOGO);
   const { release } = (await enquirer.prompt({
     type: 'select',
     name: 'release',

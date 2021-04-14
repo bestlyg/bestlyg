@@ -1,5 +1,5 @@
 export * from './fn';
-export * from './obj';
+export * from './constants';
 export * from './dep';
 export * as markdown from './markdown';
 export * as reg from './reg';
