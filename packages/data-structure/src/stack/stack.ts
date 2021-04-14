@@ -1,30 +1,30 @@
 import { ErrorEnum, ERROR_EMPTY_ELEMENT, throwError } from '@bestlyg/shared';
 
-export interface IQueue<T> {
-  /** 队列长度 */
+export interface IStack<T> {
+  /** 栈内元素数量 */
   size: number;
-  /** 队列头部元素 */
+  /** 栈顶元素 */
   top(): T;
-  /** 入队 */
-  enQueue(val: T): void;
-  /** 出队 */
-  deQueue(): T;
+  /** 入栈 */
+  push(val: T): void;
+  /** 出栈 */
+  pop(): T;
 }
-export class Queue<T> implements IQueue<T> {
+export class Stack<T> implements IStack<T> {
   private list: T[] = [];
   get size() {
     return this.list.length;
   }
   top(): T {
     this.checkRange();
-    return this.list[0];
+    return this.list[this.size - 1];
   }
-  enQueue(val: T): void {
+  push(val: T): void {
     this.list.push(val);
   }
-  deQueue(): T {
+  pop(): T {
     this.checkRange();
-    return this.list.shift();
+    return this.list.pop();
   }
   private checkRange() {
     if (this.size === 0) {

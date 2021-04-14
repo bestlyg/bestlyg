@@ -2,7 +2,7 @@ import { ANY_OP, DEFAULT_OP, lodash } from '@bestlyg/shared';
 import { BestPromiseFulfilledResult, BestPromiseRejectedResult, BestPromise } from '../src';
 
 const { isArray } = lodash;
-describe('promise', () => {
+describe('Promise', () => {
   test('Promise.resolve', () => {
     BestPromise.resolve(1).then(val => {
       expect(val).toBe(1);

@@ -1,7 +1,7 @@
 import { ELEMENT_NOT_FOUNT, ERROR_SUBSCRIPT_OUT_OF_BOUNDS } from '@bestlyg/shared';
 import { SingleLinkedList } from '../src';
 
-describe('singleLinkedList', () => {
+describe('SingleLinkedList', () => {
   test('add', () => {
     const list = new SingleLinkedList<number>();
     list.add(111, 0);
