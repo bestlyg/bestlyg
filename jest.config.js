@@ -6,6 +6,11 @@ module.exports = {
   },
   cacheDirectory: './jest/cacheDirectory',
   coverageDirectory: './jest/coverage',
+  coverageReporters: ['html', 'lcov', 'text'],
+  collectCoverageFrom: [
+    // 'packages/*/src/**/*.ts',
+    'packages/data-structure/src/**/*.ts',
+  ],
   collectCoverage: true,
   testEnvironment: 'jsdom',
   coverageThreshold: {

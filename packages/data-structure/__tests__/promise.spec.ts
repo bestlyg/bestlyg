@@ -171,27 +171,21 @@ describe('promise', () => {
     });
   });
   describe('finally', () => {
-    describe('resolve', () => {
-      let val = 0;
-      BestPromise.resolve(1)
-        .then(res => {
-          val = res;
-        })
-        .finally(() => {
-          expect(val).toBe(1);
-        });
+    test('resolve', async () => {
+      new BestPromise(resolve => {
+        setTimeout(() => {
+          resolve(1);
+        }, 0);
+      }).finally(() => {});
     });
-    describe('reject', () => {
-      let val = 0;
-      BestPromise.reject(1)
-        .catch(res => {
-          val = res;
-        })
-        .finally(() => {
-          expect(val).toBe(1);
-        });
+    test('reject', async () => {
+      new BestPromise((resolve, reject) => {
+        setTimeout(() => {
+          reject(1);
+        }, 0);
+      }).finally(() => {});
     });
-    describe('sync', () => {
+    test('sync', () => {
       let val = 0;
       BestPromise.resolve(1).finally(() => {
         expect(val).toBe(0);
