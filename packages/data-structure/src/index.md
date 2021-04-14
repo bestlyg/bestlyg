@@ -1,6 +1,34 @@
-# 数据结构基础类
+---
+title: 目录索引
+nav:
+  title: 数据结构
+  path: /data-structure
+  order: 2
+group:
+  title: 目录索引
+  path: /catalog
+  order: 0
+---
 
-## 通用对象
+# 目录索引
+
+## 手写 JavaScript
+
+- [Promise](javascript/promise)
+
+## 通用数据结构
+
+### [链表](list/链表)
+
+- [单链表](list/单链表)
+
+### [队列](list/队列)
+
+- [普通队列](list/普通队列)
+
+## 数据结构基础类
+
+### 通用对象
 
 ```ts
 /**
@@ -38,7 +66,7 @@ export abstract class AbstractObject implements IObject {
 }
 ```
 
-## 通用结构
+### 通用结构
 
 ```ts
 import { IObject, AbstractObject } from './objectType';
@@ -131,7 +159,7 @@ export abstract class AbstractStruct extends AbstractObject implements IStruct {
 }
 ```
 
-## 比较接口
+### 比较接口
 
 ```ts
 /**
@@ -149,7 +177,7 @@ export interface Comparable<T> {
 }
 ```
 
-## 比较类型
+### 比较类型
 
 ```ts
 /**

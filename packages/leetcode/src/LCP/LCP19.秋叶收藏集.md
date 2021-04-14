@@ -4,6 +4,7 @@ order: 19
 nav:
   title: 力扣题解
   path: /leetcode
+  order: 3
 group:
   title: LCP
   path: /LCP

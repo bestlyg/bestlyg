@@ -1,8 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
-const resolve = (...p) => path.resolve.apply({}, [__dirname, '../../', ...p]);
+const resolve = (...p) => path.resolve.apply({}, [__dirname, '../', ...p]);
 const dirsPath = resolve('packages/leetcode/src');
-const dirs = fs.readdirSync(dirsPath);
+const dirs = fs.readdirSync(dirsPath).filter(v => v !== 'index.md');
 /**
  * @param {string} file
  */
@@ -34,23 +34,10 @@ const getDirOrder = file => {
 for (const dir of dirs) {
   const filesPath = dirsPath + '/' + dir;
   const files = fs.readdirSync(filesPath);
-  console.log(files);
   for (const file of files) {
     const filePath = filesPath + '/' + file;
-    const format = `---
-title: ${file.substring(0, file.lastIndexOf('.'))}
-order: ${getOrder(file)}
-nav:
-  title: 力扣题解
-  path: /leetcode
-group:
-  title: ${dir}
-  path: /${dir}
-  order: ${getDirOrder(dir)}
----
-
-`;
-    const data = fs.readFileSync(filePath).toString();
-    fs.writeFileSync(filePath, format + data);
+    let data = fs.readFileSync(filePath).toString();
+    data = data.replace('path: /leetcode', 'path: /leetcode\n  order: 3');
+    fs.writeFileSync(filePath, data);
   }
 }

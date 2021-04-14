@@ -1,3 +1,16 @@
+---
+title: Promise
+order: 1
+nav:
+  title: 数据结构
+  path: /data-structure
+  order: 2
+group:
+  title: 手写JavaScript
+  path: /javascript
+  order: 1
+---
+
 # Promise
 
 > 参考文档地址  
