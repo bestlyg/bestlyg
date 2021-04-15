@@ -50,6 +50,7 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
     this._size = 0;
   }
   add(val: T) {
+    // 如果根节点为空则直接赋值给根节点
     if (this.root === null) {
       this.root = new BinarySearchTreeNode(val);
       this._size++;
@@ -73,6 +74,7 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
         }
         node = node.right;
       } else {
+        // 比较值相等时，直接进行覆盖，防止val为引用类型
         node.val = val;
         break;
       }
@@ -80,6 +82,7 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
   }
   remove(val: T) {
     if (this.root === null) return;
+    // 寻找compare为0的node值
     let node = this.root;
     while (node !== null) {
       const compare = this.compare(node.val, val);
@@ -87,26 +90,34 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
       else if (compare < 0) node = node.right;
       else break;
     }
+    // 如果不存在该node直接返回
     if (node === null) return;
     this._size--;
+    // 如果node度为0
     if (node.degree === 0) {
+      // 如果为根节点则直接清空
       if (node === this.root) this.root = null;
-      else if (node.parent.left === node) node.parent.left = null;
-      else node.parent.right = null;
+      else node.remove();
     } else if (node.degree === 1) {
+      // 如果node度为1
+      //如果为根节点
       if (node === this.root) {
         if (node.left !== null) {
+          // 寻找前驱节点
           let predecessor = node.left;
           while (predecessor.right !== null) predecessor = predecessor.right;
           [predecessor.val, node.val] = [node.val, predecessor.val];
           predecessor.remove();
         } else {
+          // 寻找后驱节点
           let successor = node.right;
           while (successor.left !== null) successor = successor.left;
           [node.val, successor.val] = [successor.val, node.val];
           successor.remove();
         }
-      } else if (node.parent.left === node) {
+      }
+      // 否则父节点赋值给子节点
+      else if (node.parent.left === node) {
         if (node.left !== null) node.parent.left = node.left;
         else node.parent.left = node.right;
       } else {
@@ -114,6 +125,7 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
         else node.parent.right = node.right;
       }
     } else {
+      // 如果有node度为2，寻找后驱节点，进行赋值后删除后驱节点
       let successor = node.right;
       while (successor.left !== null) successor = successor.left;
       [node.val, successor.val] = [successor.val, node.val];
@@ -130,14 +142,5 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
       else return true;
     }
     return false;
-  }
-  inorder(traversal: (val: T) => void) {
-    const _inorder = (node: BinarySearchTreeNode<T> | null) => {
-      if (node === null) return;
-      _inorder(node.left);
-      traversal(node.val);
-      _inorder(node.right);
-    };
-    _inorder(this.root);
   }
 }

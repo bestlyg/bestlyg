@@ -1,4 +1,14 @@
-import { BinarySearchTree } from '../../src';
+import { BinarySearchTree, BinarySearchTreeNode } from '../../src';
+
+const inorder = <T extends any>(tree: BinarySearchTree<T>, traversal: (val: T) => void) => {
+  const _inorder = (node: BinarySearchTreeNode<T> | null) => {
+    if (node === null) return;
+    _inorder(node.left);
+    traversal(node.val);
+    _inorder(node.right);
+  };
+  _inorder(tree['root']);
+};
 class DummyNumber {
   constructor(public val: number, public dummyVal: number) {}
 }
@@ -15,7 +25,7 @@ describe('BinarySearchTree', () => {
       tree.add(7);
       tree.add(6);
       let str = '';
-      tree.inorder(val => (str += val));
+      inorder(tree, val => (str += val));
       expect(str).toBe('12345678');
     });
     test('add old val', () => {
@@ -25,7 +35,7 @@ describe('BinarySearchTree', () => {
       tree.add(oldNum);
       tree.add(newNum);
       let str = '';
-      tree.inorder(val => (str += val.dummyVal));
+      inorder(tree, val => (str += val.dummyVal));
       expect(str).toBe('2');
     });
   });
@@ -77,7 +87,7 @@ describe('BinarySearchTree', () => {
         tree.add(6);
         tree.remove(5);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('1234678');
       });
       test('has 1 degree is predecessor', () => {
@@ -89,7 +99,7 @@ describe('BinarySearchTree', () => {
         tree.add(2);
         tree.remove(5);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('1234');
       });
       test('has 1 degree is successor', () => {
@@ -101,7 +111,7 @@ describe('BinarySearchTree', () => {
         tree.add(12);
         tree.remove(5);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('68912');
       });
       test('has 0 degree', () => {
@@ -118,7 +128,7 @@ describe('BinarySearchTree', () => {
       tree.add(2);
       tree.remove(2);
       let str = '';
-      tree.inorder(val => (str += val));
+      inorder(tree, val => (str += val));
       expect(str).toBe('15');
     });
     describe('0 degree', () => {
@@ -147,7 +157,7 @@ describe('BinarySearchTree', () => {
         tree.add(2);
         tree.remove(1);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('25');
       });
       test('node==parent.left && node.left!=null', () => {
@@ -157,7 +167,7 @@ describe('BinarySearchTree', () => {
         tree.add(1);
         tree.remove(2);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('15');
       });
       test('node==parent.right && node.right!=null', () => {
@@ -167,7 +177,7 @@ describe('BinarySearchTree', () => {
         tree.add(7);
         tree.remove(6);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('57');
       });
       test('node==parent.right && node.left!=null', () => {
@@ -177,7 +187,7 @@ describe('BinarySearchTree', () => {
         tree.add(6);
         tree.remove(7);
         let str = '';
-        tree.inorder(val => (str += val));
+        inorder(tree, val => (str += val));
         expect(str).toBe('56');
       });
     });
