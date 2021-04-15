@@ -12,7 +12,7 @@
     "test": "jest --runInBand --detectOpenHandles --colors",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0",
     "commit": "git-cz",
-    "commit:auto": "git pull && git add -A && yarn commit && git push",
+    "commit:auto": "git pull && git add -A && yarn commit && git push -u origin main",
     "build:dev": "rollup --config",
     "build:prod": "rollup --config --environment NODE_ENV:production",
     "update:version": "cd scripts && ts-node version",

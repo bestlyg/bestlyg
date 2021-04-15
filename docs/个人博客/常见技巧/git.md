@@ -28,3 +28,8 @@ group:
 - 不删除工作空间改动代码，撤销 commit，不撤销 git add . `--soft`
 - 删除工作空间改动代码，撤销 commit，撤销 git add . `--hard`
 - 只修改注释`git commit --amend`
+
+## 同时推送多个仓库
+
+- 设置第二个仓库地址`git remote set-url --add origin 你的码云地址`
+- 同时推送`git push -u origin main`
