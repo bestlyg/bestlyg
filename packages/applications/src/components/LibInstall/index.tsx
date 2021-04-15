@@ -77,6 +77,7 @@ const LibInstall = ({ list }: { list: LibData[] }) => {
             indeterminate={indeterminate}
             onChange={onSetAllLibChange}
             checked={checkAllLibList}
+            style={{ width: 80 }}
           >
             全选
           </Checkbox>
