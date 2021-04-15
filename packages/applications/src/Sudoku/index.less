@@ -1,0 +1,67 @@
+@width: 400px;
+@height: 400px;
+@bold-line-color: #333;
+@common-line-color: #999;
+.board {
+  width: @width;
+  height: @height;
+}
+.row {
+  display: flex;
+  box-sizing: border-box;
+  height: @height / 9;
+}
+.row:nth-child(3n + 1) {
+  border-top: 2px @bold-line-color solid;
+}
+.row:last-child {
+  border-bottom: 2px @bold-line-color solid;
+}
+.col {
+  border: 1px @common-line-color solid;
+  width: @width / 9;
+  height: 100%;
+  text-align: center;
+  line-height: @height / 9;
+  font-size: 18px;
+  color: #333;
+  background-color: #eee;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}
+.col:nth-child(3n + 1) {
+  border-left: 2px @bold-line-color solid;
+}
+.col:last-child {
+  border-right: 2px @bold-line-color solid;
+}
+.col:hover {
+  border: 2px #f00 solid;
+  cursor: pointer;
+}
+.active {
+  border: 2px #f00 solid !important;
+}
+.fixedIndex {
+  font-weight: bold;
+}
+.selectInput {
+  display: flex;
+}
+.selectInputItem {
+  @selectInputItemSize: 40px;
+  border-radius: @selectInputItemSize / 2;
+  height: @selectInputItemSize;
+  width: @selectInputItemSize;
+  color: #fff;
+  line-height: @selectInputItemSize;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #66ccff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.selectInputItem:hover {
+  background-color: #2b57eb;
+}
