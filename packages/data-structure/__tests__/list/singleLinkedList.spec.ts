@@ -1,5 +1,5 @@
 import { ELEMENT_NOT_FOUNT, ERROR_SUBSCRIPT_OUT_OF_BOUNDS } from '@bestlyg/shared';
-import { SingleLinkedList } from '../src';
+import { SingleLinkedList } from '../../src';
 
 describe('SingleLinkedList', () => {
   test('add', () => {
