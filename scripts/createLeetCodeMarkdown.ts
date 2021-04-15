@@ -33,40 +33,41 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '208. 实现 Trie (前缀树)',
-  url: 'https://leetcode-cn.com/problems/implement-trie-prefix-tree/',
+  name: '213. 打家劫舍 II',
+  url: 'https://leetcode-cn.com/problems/house-robber-ii/',
   difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.字典树],
-  desc: '请你实现 Trie 类',
+  tag: [Tag.动态规划],
+  desc:
+    '给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，能够偷窃到的最高金额。',
   solutions: [
     {
       script: Script.TS,
-      time: 248,
-      memory: 55.5,
-      desc: '构建前缀树',
-      code: `class Trie {
-        private children = new Map<string, Trie>();
-        constructor(public char = '', public end = false) {}
-        insert(word: string): void {
-          if (word === '') {
-            this.end = true;
-            return;
+      time: 108,
+      memory: 39.5,
+      desc: '动态规划，考虑到头尾相接，分别考虑第一个偷和不偷的情况',
+      code: `function rob(nums: number[]): number {
+        const size = nums.length;
+        if (size === 1) return nums[0];
+        let max = 0;
+        const dp: number[][] = new Array(size).fill(0).map(_ => new Array(2));
+        const traversal = () => {
+          for (let i = 1; i < size; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+            dp[i][1] = dp[i - 1][0] + nums[i];
           }
-          const first = word[0];
-          let nextTrieNode = this.children.get(first);
-          if (!nextTrieNode)
-            this.children.set(first, (nextTrieNode = new Trie(first, word.length === 1)));
-          nextTrieNode.insert(word.substr(1));
-        }
-        search(word: string): boolean {
-          if (word === '') return this.end;
-          return !!this.children.get(word[0])?.search(word.substr(1));
-        }
-        startsWith(prefix: string): boolean {
-          if (prefix.length === 1) return this.children.has(prefix);
-          return !!this.children.get(prefix[0])?.startsWith(prefix.substr(1));
-        }
-      }`,
+        };
+        // 第一个不偷
+        dp[0][0] = 0;
+        dp[0][1] = 0;
+        traversal();
+        max = Math.max(dp[size - 1][0], dp[size - 1][1]);
+        // 第一个偷
+        dp[0][1] = nums[0];
+        traversal();
+        max = Math.max(max, dp[size - 1][0]);
+        return max;
+      }
+      `,
     },
   ],
 };
