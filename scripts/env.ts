@@ -1,22 +1,27 @@
-function rob(nums: number[]): number {
-  const size = nums.length;
-  if (size === 1) return nums[0];
-  let max = 0;
-  const dp: number[][] = new Array(size).fill(0).map(_ => new Array(2));
-  const traversal = () => {
-    for (let i = 1; i < size; i++) {
-      dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
-      dp[i][1] = dp[i - 1][0] + nums[i];
+function isScramble(s1: string, s2: string): boolean {
+  const len = s1.length;
+  // 从s1的i下标开始，从s2的j下标开始，k个长度是否匹配
+  const dp: boolean[][][] = new Array(len)
+    .fill(0)
+    .map(_ => new Array(len).fill(0).map(_ => new Array(len + 1).fill(false)));
+  for (let i = 0; i < len; i++) for (let j = 0; j < len; j++) dp[i][j][1] = s1[i] === s2[j];
+  // 匹配的长度
+  for (let k = 2; k <= len; k++) {
+    const mixIndex = len - k + 1;
+    // s1的下标
+    for (let i = 0; i < mixIndex; i++) {
+      // s2的下标
+      for (let j = 0; j < mixIndex; j++) {
+        // 截取的位置
+        for (let sp = 1; sp < k && !dp[i][j][k]; sp++) {
+          dp[i][j][k] =
+            (dp[i][j][sp] && dp[i + sp][j + sp][k - sp]) ||
+            (dp[i][j + k - sp][sp] && dp[i + sp][j][k - sp]);
+        }
+      }
     }
-  };
-  // 第一个不偷
-  dp[0][0] = 0;
-  dp[0][1] = 0;
-  traversal();
-  max = Math.max(dp[size - 1][0], dp[size - 1][1]);
-  // 第一个偷
-  dp[0][1] = nums[0];
-  traversal();
-  max = Math.max(max, dp[size - 1][0]);
-  return max;
+  }
+  return dp[0][0][len];
 }
+// console.log(isScramble('great', 'rgeat'));
+console.log(isScramble('abb', 'bba'));

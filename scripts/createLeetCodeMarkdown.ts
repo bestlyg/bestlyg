@@ -33,41 +33,43 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '213. 打家劫舍 II',
-  url: 'https://leetcode-cn.com/problems/house-robber-ii/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.动态规划],
+  name: '87. 扰乱字符串',
+  url: 'https://leetcode-cn.com/problems/scramble-string/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.动态规划, Tag.动态规划],
   desc:
-    '给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，能够偷窃到的最高金额。',
+    '给你两个 长度相等 的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。如果是，返回 true ；否则，返回 false 。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 39.5,
-      desc: '动态规划，考虑到头尾相接，分别考虑第一个偷和不偷的情况',
-      code: `function rob(nums: number[]): number {
-        const size = nums.length;
-        if (size === 1) return nums[0];
-        let max = 0;
-        const dp: number[][] = new Array(size).fill(0).map(_ => new Array(2));
-        const traversal = () => {
-          for (let i = 1; i < size; i++) {
-            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
-            dp[i][1] = dp[i - 1][0] + nums[i];
+      time: 128,
+      memory: 46,
+      desc: '动态规划',
+      code: `function isScramble(s1: string, s2: string): boolean {
+        const len = s1.length;
+        // 从s1的i下标开始，从s2的j下标开始，k个长度是否匹配
+        const dp: boolean[][][] = new Array(len)
+          .fill(0)
+          .map(_ => new Array(len).fill(0).map(_ => new Array(len + 1).fill(false)));
+        for (let i = 0; i < len; i++) for (let j = 0; j < len; j++) dp[i][j][1] = s1[i] === s2[j];
+        // 匹配的长度
+        for (let k = 2; k <= len; k++) {
+          const mixIndex = len - k + 1;
+          // s1的下标
+          for (let i = 0; i < mixIndex; i++) {
+            // s2的下标
+            for (let j = 0; j < mixIndex; j++) {
+              // 截取的位置
+              for (let sp = 1; sp < k && !dp[i][j][k]; sp++) {
+                dp[i][j][k] =
+                  (dp[i][j][sp] && dp[i + sp][j + sp][k - sp]) ||
+                  (dp[i][j + k - sp][sp] && dp[i + sp][j][k - sp]);
+              }
+            }
           }
-        };
-        // 第一个不偷
-        dp[0][0] = 0;
-        dp[0][1] = 0;
-        traversal();
-        max = Math.max(dp[size - 1][0], dp[size - 1][1]);
-        // 第一个偷
-        dp[0][1] = nums[0];
-        traversal();
-        max = Math.max(max, dp[size - 1][0]);
-        return max;
-      }
-      `,
+        }
+        return dp[0][0][len];
+      }`,
     },
   ],
 };
