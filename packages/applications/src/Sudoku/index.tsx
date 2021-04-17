@@ -1,8 +1,7 @@
-import { Button, Col, InputNumber, Row, Space, Statistic } from 'antd';
+import { Button, InputNumber, Row, Space } from 'antd';
 import React from 'react';
 import { useSudoku, indexFormat, COUNT } from './useSudoku';
 import styles from './index.less';
-const solutions = new Set<string>();
 const Sudoku = () => {
   const {
     initCount,
@@ -13,8 +12,6 @@ const Sudoku = () => {
     fixedIndexSet,
     init,
     setNum,
-    solutionVisible,
-    setSolutionVisible,
   } = useSudoku();
   return (
     <Space direction="vertical">
@@ -44,10 +41,10 @@ const Sudoku = () => {
         })}
       </div>
       <Space className={styles.selectInput}>
-        {new Array(COUNT).fill(0).map((_, i) => {
+        {new Array(COUNT + 1).fill(0).map((_, i) => {
           return (
-            <div key={i} className={styles.selectInputItem} onClick={() => setNum(i + 1)}>
-              {i + 1}
+            <div key={i} className={styles.selectInputItem} onClick={() => setNum(i)}>
+              {i}
             </div>
           );
         })}
@@ -57,29 +54,38 @@ const Sudoku = () => {
           刷新
         </Button>
       </div>
-      <Row gutter={16}>
-        <Col span={6}>
-          <Space direction="vertical">
-            <Statistic title="题解数量" value={solutions.size} />
-            {solutions.size > 0 && (
-              <Button size="small" onClick={() => setSolutionVisible(!solutionVisible)}>
-                {solutionVisible ? '隐藏' : '显示'}题解
-              </Button>
-            )}
-          </Space>
-        </Col>
-        <Col span={18}>
-          {solutionVisible && (
-            <Row gutter={16}>
-              {[...solutions].map((solution, i) => (
-                <Col xl={6} sm={8} key={i}>
-                  {solution}
-                </Col>
-              ))}
-            </Row>
-          )}
-        </Col>
+      {/* <Row>
+        <Button size="small" onClick={() => setSolutionVisible(!solutionVisible)}>
+          {solutionVisible ? '隐藏' : '显示'}其中一种解法
+        </Button>
       </Row>
+      <Row>
+        {solutionVisible &&
+          (solutions ? (
+            <div className={styles.board}>
+              {solutions.map((row, i) => {
+                return (
+                  <div key={i} className={styles.row}>
+                    {row.map((col, j) => {
+                      return (
+                        <div
+                          key={j}
+                          className={`${styles.col} ${
+                            fixedIndexSet.has(indexFormat(i, j)) ? styles.fixedIndex : ''
+                          }`}
+                        >
+                          {col}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            '此题无解'
+          ))}
+      </Row> */}
     </Space>
   );
 };
