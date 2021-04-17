@@ -33,42 +33,29 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '220. 存在重复元素 III',
-  url: 'https://leetcode-cn.com/problems/contains-duplicate-iii/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.排序, Tag.OrderedMap],
+  name: '26. 删除有序数组中的重复项',
+  url: 'https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.双指针],
   desc:
-    '给你一个整数数组 nums 和两个整数 k 和 t 。请你判断是否存在 两个不同下标 i 和 j，使得 abs(nums[i] - nums[j]) <= t ，同时又满足 abs(i - j) <= k 。如果存在则返回 true，不存在返回 false。',
+    '给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 176,
-      memory: 56.9,
-      desc: '利用map储存后排序计算',
-      code: `function containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {
-        if (k === 0) return false;
-        const map = new Map<number, number[]>();
-        for (let i = 0, len = nums.length; i < len; i++) {
-          const num = nums[i];
-          let arr = map.get(num);
-          if (!arr) map.set(num, (arr = []));
-          arr.push(i);
+      time: 88,
+      memory: 41.3,
+      desc: '快慢指针',
+      code: `function removeDuplicates(nums: number[]): number {
+        const len = nums.length;
+        if (len === 0 || len === 1) return len;
+        let slow = 0;
+        let fast = 1;
+        while (fast < len) {
+          if (nums[slow] !== nums[fast]) nums[++slow] = nums[fast];
+          fast++;
         }
-        const data = [...map.entries()].sort(([num1], [num2]) => num1 - num2);
-        const check = (arr1: number[], arr2: number[]) =>
-          (arr1[arr1.length] < arr2[0] && Math.abs(arr1[arr1.length] - arr2[0]) <= k) ||
-          (arr2[arr2.length] < arr1[0] && Math.abs(arr2[arr2.length] - arr1[0]) <= k) ||
-          arr1.some(i1 => arr2.some(i2 => Math.abs(i1 - i2) <= k));
-        for (let i = 0, l = data.length; i < l; i++) {
-          const arr1 = data[i][1];
-          if (arr1.some((v, i, arr) => (i === 0 ? false : v - arr[i - 1] <= k))) return true;
-          let index = i - 1;
-          while (index >= 0 && data[i][0] - data[index][0] <= t)
-            if (check(arr1, data[index--][1])) return true;
-        }
-        return false;
-      }
-      `,
+        return slow + 1;
+      } `,
     },
   ],
 };
