@@ -1,27 +1,23 @@
-function isScramble(s1: string, s2: string): boolean {
-  const len = s1.length;
-  // 从s1的i下标开始，从s2的j下标开始，k个长度是否匹配
-  const dp: boolean[][][] = new Array(len)
-    .fill(0)
-    .map(_ => new Array(len).fill(0).map(_ => new Array(len + 1).fill(false)));
-  for (let i = 0; i < len; i++) for (let j = 0; j < len; j++) dp[i][j][1] = s1[i] === s2[j];
-  // 匹配的长度
-  for (let k = 2; k <= len; k++) {
-    const mixIndex = len - k + 1;
-    // s1的下标
-    for (let i = 0; i < mixIndex; i++) {
-      // s2的下标
-      for (let j = 0; j < mixIndex; j++) {
-        // 截取的位置
-        for (let sp = 1; sp < k && !dp[i][j][k]; sp++) {
-          dp[i][j][k] =
-            (dp[i][j][sp] && dp[i + sp][j + sp][k - sp]) ||
-            (dp[i][j + k - sp][sp] && dp[i + sp][j][k - sp]);
-        }
-      }
-    }
+function containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {
+  if (k === 0) return false;
+  const map = new Map<number, number[]>();
+  for (let i = 0, len = nums.length; i < len; i++) {
+    const num = nums[i];
+    let arr = map.get(num);
+    if (!arr) map.set(num, (arr = []));
+    arr.push(i);
   }
-  return dp[0][0][len];
+  const data = [...map.entries()].sort(([num1], [num2]) => num1 - num2);
+  const check = (arr1: number[], arr2: number[]) =>
+    (arr1[arr1.length] < arr2[0] && Math.abs(arr1[arr1.length] - arr2[0]) <= k) ||
+    (arr2[arr2.length] < arr1[0] && Math.abs(arr2[arr2.length] - arr1[0]) <= k) ||
+    arr1.some(i1 => arr2.some(i2 => Math.abs(i1 - i2) <= k));
+  for (let i = 0, l = data.length; i < l; i++) {
+    const arr1 = data[i][1];
+    if (arr1.some((v, i, arr) => (i === 0 ? false : v - arr[i - 1] <= k))) return true;
+    let index = i - 1;
+    while (index >= 0 && data[i][0] - data[index][0] <= t)
+      if (check(arr1, data[index--][1])) return true;
+  }
+  return false;
 }
-// console.log(isScramble('great', 'rgeat'));
-console.log(isScramble('abb', 'bba'));

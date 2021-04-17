@@ -13,6 +13,7 @@ export enum Tag {
   双指针 = '双指针',
   字符串 = '字符串',
   SlidingWindow = 'SlidingWindow',
+  OrderedMap = 'OrderedMap',
   二分查找 = '二分查找',
   分治算法 = '分治算法',
   动态规划 = '动态规划',
