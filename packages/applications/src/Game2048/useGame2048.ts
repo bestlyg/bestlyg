@@ -33,13 +33,8 @@ export const getInitNums = (): number[][] =>
 /** 在所有空格中随机添加2 */
 export const addNewNum = (nums: number[][]) => {
   const list: [number, number][] = [];
-  for (let i = 0; i < COUNT; i++) {
-    for (let j = 0; j < COUNT; j++) {
-      if (nums[i][j] === 0) {
-        list.push([i, j]);
-      }
-    }
-  }
+  for (let i = 0; i < COUNT; i++)
+    for (let j = 0; j < COUNT; j++) if (nums[i][j] === 0) list.push([i, j]);
   const [i, j] = list[random(list.length - 1)];
   nums[i][j] = 2;
 };
