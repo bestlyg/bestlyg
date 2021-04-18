@@ -1,44 +1,51 @@
 import { Button, InputNumber, Row, Space } from 'antd';
-import React from 'react';
-import { useSudoku, indexFormat, COUNT } from './useSudoku';
+import React, { useEffect } from 'react';
+import classnames from 'classnames';
+import { useSudoku, indexFormat, COUNT, FULL_COUNT } from './useSudoku';
 import styles from './index.less';
 const Sudoku = () => {
   const {
-    initCount,
-    setInitCount,
-    board,
+    blankCount,
+    setBlankCount,
     active,
     setActive,
-    fixedIndexSet,
     init,
     setNum,
+    curBoard,
+    fixedSet,
+    solutionVisible,
+    setSolutionVisible,
+    fullBoard,
   } = useSudoku();
   return (
     <Space direction="vertical">
       <div>
-        初始化包含数字的个数(1~80)：
-        <InputNumber min={1} max={80} defaultValue={initCount} onChange={e => setInitCount(e)} />
+        初始化包含数字的个数(0~{FULL_COUNT - 1})：
+        <InputNumber
+          min={0}
+          max={FULL_COUNT - 1}
+          defaultValue={blankCount}
+          onChange={e => setBlankCount(FULL_COUNT - e)}
+        />
       </div>
       <div className={styles.board}>
-        {board.map((row, i) => {
-          return (
-            <div key={i} className={styles.row}>
-              {row.map((col, j) => {
-                return (
-                  <div
-                    key={j}
-                    className={`${styles.col} ${
-                      i === active[0] && j === active[1] ? styles.active : ''
-                    } ${fixedIndexSet.has(indexFormat(i, j)) ? styles.fixedIndex : ''}`}
-                    onClick={() => fixedIndexSet.has(indexFormat(i, j)) || setActive([i, j])}
-                  >
-                    {col || ''}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+        {curBoard.map((row, i) => (
+          <div key={i} className={styles.row}>
+            {row.map((col, j) => (
+              <div
+                key={j}
+                className={classnames({
+                  [styles.col]: true,
+                  [styles.active]: i === active[0] && j === active[1],
+                  [styles.fixedIndex]: fixedSet.has(indexFormat(i, j)),
+                })}
+                onClick={() => fixedSet.has(indexFormat(i, j)) || setActive([i, j])}
+              >
+                {col || ''}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
       <Space className={styles.selectInput}>
         {new Array(COUNT + 1).fill(0).map((_, i) => {
@@ -54,38 +61,32 @@ const Sudoku = () => {
           刷新
         </Button>
       </div>
-      {/* <Row>
+      <Row>
         <Button size="small" onClick={() => setSolutionVisible(!solutionVisible)}>
-          {solutionVisible ? '隐藏' : '显示'}其中一种解法
+          {solutionVisible ? '隐藏' : '显示'}解法
         </Button>
       </Row>
       <Row>
-        {solutionVisible &&
-          (solutions ? (
-            <div className={styles.board}>
-              {solutions.map((row, i) => {
-                return (
-                  <div key={i} className={styles.row}>
-                    {row.map((col, j) => {
-                      return (
-                        <div
-                          key={j}
-                          className={`${styles.col} ${
-                            fixedIndexSet.has(indexFormat(i, j)) ? styles.fixedIndex : ''
-                          }`}
-                        >
-                          {col}
-                        </div>
-                      );
+        {solutionVisible && (
+          <div className={styles.board}>
+            {fullBoard.map((row, i) => (
+              <div key={i} className={styles.row}>
+                {row.map((col, j) => (
+                  <div
+                    key={j}
+                    className={classnames({
+                      [styles.col]: true,
+                      [styles.fixedIndex]: fixedSet.has(indexFormat(i, j)),
                     })}
+                  >
+                    {col}
                   </div>
-                );
-              })}
-            </div>
-          ) : (
-            '此题无解'
-          ))}
-      </Row> */}
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </Row>
     </Space>
   );
 };

@@ -7,7 +7,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "allowJs": false,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
