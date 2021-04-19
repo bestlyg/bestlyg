@@ -33,29 +33,29 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '26. 删除有序数组中的重复项',
-  url: 'https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/',
+  name: '27. 移除元素',
+  url: 'https://leetcode-cn.com/problems/remove-element/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.双指针],
   desc:
-    '给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。',
+    '给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 41.3,
-      desc: '快慢指针',
-      code: `function removeDuplicates(nums: number[]): number {
+      time: 84,
+      memory: 40.2,
+      desc: '双指针指向两头进行判断',
+      code: `function removeElement(nums: number[], val: number): number {
         const len = nums.length;
-        if (len === 0 || len === 1) return len;
-        let slow = 0;
-        let fast = 1;
-        while (fast < len) {
-          if (nums[slow] !== nums[fast]) nums[++slow] = nums[fast];
-          fast++;
-        }
-        return slow + 1;
-      } `,
+        if (len === 0 || val > 50) return len;
+        let left = 0;
+        let right = len - 1;
+        while (left < right)
+          if (nums[left] === val) nums[left] = nums[right--];
+          else left++;
+        return left + +!(nums[right] === val);
+      }
+      `,
     },
   ],
 };
