@@ -6,3 +6,4 @@ export { default as Point24 } from './Point24';
 export { default as SnakeEating } from './SnakeEating';
 export { default as Sudoku } from './Sudoku';
 export { default as LuckyDog } from './LuckyDog';
+export { default as Tetris } from './Tetris';

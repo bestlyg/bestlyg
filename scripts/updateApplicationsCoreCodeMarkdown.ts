@@ -1,7 +1,7 @@
 import { LOGO, resolve, fs, specStr, chalk } from './utils';
 const { backquote } = specStr;
 const srcPath = resolve('packages', 'applications', 'src');
-const ignoreDirSet = new Set(['components', 'index.ts', 'index.less']);
+const ignoreDirSet = new Set(['components', 'index.ts', 'index.less', 'hooks']);
 const coreCodeReg = '## 核心代码';
 function main() {
   console.log(LOGO);
