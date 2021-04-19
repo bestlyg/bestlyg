@@ -1,15 +1,18 @@
 import { Direction } from '@bestlyg/shared';
-import { Space, Row, Col, Button, Popconfirm } from 'antd';
+import { Space, Row, Col, Button, Popconfirm, Statistic } from 'antd';
 import React from 'react';
 import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
 import { useGame2048, COUNT, getColor } from './useGame2048';
 import styles from './index.less';
 
 const Game2048 = () => {
-  const { nums, reset, SorceTag, move } = useGame2048();
+  const { nums, reset, score, move, maxScore } = useGame2048();
   return (
     <Space direction="vertical" className={styles.container}>
-      {SorceTag}
+      <Space>
+        <Statistic title="当前分数" value={score} />
+        <Statistic title="历史最高" value={maxScore} />
+      </Space>
       <Space direction="vertical">
         {new Array(COUNT).fill(0).map((_, i) => (
           <Row key={i} className={styles.row} gutter={16}>

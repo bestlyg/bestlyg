@@ -7,7 +7,6 @@ import { useScore } from '../components';
 import { Direction } from '@bestlyg/shared';
 
 const SnakeEating = () => {
-  const { Tag, setScore, score } = useScore('GAME_SNAKEEATING_');
   const {
     canvas,
     setHeight,
@@ -16,16 +15,10 @@ const SnakeEating = () => {
     canvasWidth,
     drawInit,
     setNextDirection,
-    size,
+    score,
     speed,
-    state,
+    maxScore,
   } = useSnake();
-  useEffect(() => {
-    setScore(size);
-  }, [size]);
-  useEffect(() => {
-    state === State.end && message.info(`游戏结束，本次分数${score}`);
-  }, [state, score]);
   return (
     <Space direction="vertical">
       <div>
@@ -46,8 +39,9 @@ const SnakeEating = () => {
           onChange={e => setHeight(e)}
         />
       </div>
-      {Tag}
       <Space>
+        <Statistic title="当前分数" value={score} />
+        <Statistic title="历史最高" value={maxScore} />
         <Statistic title="当前速度" value={`${(speed ?? 0) / 1000}秒 / 步`} />
       </Space>
       <canvas width={canvasWidth} height={canvasHeight} ref={canvas}></canvas>

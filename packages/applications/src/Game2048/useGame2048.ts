@@ -3,7 +3,7 @@ import { useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import Color from 'color';
 import { useCallback, useEffect, useState } from 'react';
-import { useScore } from '../components';
+import { useScore } from '../hooks';
 
 const { cloneDeep, random } = lodash;
 /** 行列数 */
@@ -43,7 +43,7 @@ export const KEY_NUMS = 'GAME_2048_NUMS';
 
 export const useGame2048 = () => {
   /** 分数 */
-  const { score, setScore, Tag: SorceTag } = useScore('GAME_2048_');
+  const { score, setScore, maxScore } = useScore('GAME_2048_');
   /** 数数组 */
   const [nums, setNums] = useState(getInitNums());
   /** 校验是否结束游戏 */
@@ -218,9 +218,10 @@ export const useGame2048 = () => {
     move(Direction.RIGHT);
   });
   return {
-    SorceTag,
+    maxScore,
     nums,
     reset,
     move,
+    score,
   };
 };

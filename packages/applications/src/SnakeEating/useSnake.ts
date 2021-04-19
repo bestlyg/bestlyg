@@ -2,6 +2,8 @@ import Color from 'color';
 import { useInterval, useKeyPress } from 'ahooks';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { Direction, lodash } from '@bestlyg/shared';
+import { useScore } from '../hooks';
+import { message } from 'antd';
 
 const { random } = lodash;
 /** 边框最小值 */
@@ -44,6 +46,7 @@ const getNextPoint: Record<Direction, (x: number, y: number) => [number, number]
   [Direction.RIGHT]: (x: number, y: number) => [x + 1, y],
 };
 export const useSnake = () => {
+  const { maxScore, setScore, score } = useScore('GAME_SNAKEEATING_');
   /** canvasDOM引用 */
   const canvas = useRef<HTMLCanvasElement>(null as any);
   /** 速度，null为停止 */
@@ -254,6 +257,12 @@ export const useSnake = () => {
     // 切换下一个方向时触发移动
     nextDirection && move();
   }, [nextDirection]);
+  useEffect(() => {
+    setScore(size);
+  }, [size]);
+  useEffect(() => {
+    state === State.end && message.info(`游戏结束，本次分数${score}`);
+  }, [state, score]);
   useInterval(() => move(true), speed);
   return {
     canvas,
@@ -266,5 +275,7 @@ export const useSnake = () => {
     size,
     speed,
     state,
+    maxScore,
+    score,
   };
 };
