@@ -513,6 +513,7 @@ export const useTetris = () => {
     setCurBlockList(null);
     setSpeed(null);
     setScore(0);
+    setBlockCount(0);
   }, [drawPoint, height, width, setNextBlock, setState]);
   /** 方向键移动触发，左右移动，下快速下落，上旋转 */
   const onMove = useCallback(
@@ -561,6 +562,7 @@ export const useTetris = () => {
   }, [height, width]);
   useEffect(() => {
     if (!state) return;
+    if (gameOver) return;
     const block = initBlockMap[nextBlock];
     setCurBlockList(block);
     setCurBlock(nextBlock);
