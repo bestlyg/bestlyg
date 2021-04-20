@@ -44,6 +44,144 @@ enum Score {
 }
 const getBlockList = (width: number, height: number) =>
   new Array(height).fill(0).map(_ => new Array(width).fill(null));
+const nextDirectionMap: Record<Direction, Direction> = {
+  [Direction.UP]: Direction.RIGHT,
+  [Direction.RIGHT]: Direction.DOWN,
+  [Direction.DOWN]: Direction.LEFT,
+  [Direction.LEFT]: Direction.UP,
+};
+const changeDirectionMap: Record<
+  Block,
+  (list: [number, number][], nextDirection: Direction) => [number, number][]
+> = {
+  [Block.I]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT:
+      case Direction.LEFT: {
+        ans.push([col, row - 1], [col, row + 1], [col, row + 2]);
+        break;
+      }
+      case Direction.DOWN:
+      case Direction.UP: {
+        ans.push([col - 1, row], [col + 1, row], [col + 2, row]);
+        break;
+      }
+    }
+    return ans;
+  },
+  [Block.J]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT: {
+        ans.push([col + 1, row], [col, row + 1], [col, row + 2]);
+        break;
+      }
+      case Direction.LEFT: {
+        ans.push([col - 1, row], [col, row - 1], [col, row - 2]);
+        break;
+      }
+      case Direction.DOWN: {
+        ans.push([col - 1, row], [col - 2, row], [col, row + 1]);
+        break;
+      }
+      case Direction.UP: {
+        ans.push([col, row - 1], [col + 1, row], [col + 2, row]);
+        break;
+      }
+    }
+    return ans;
+  },
+  [Block.L]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT: {
+        ans.push([col + 1, row], [col, row - 1], [col, row - 2]);
+        break;
+      }
+      case Direction.LEFT: {
+        ans.push([col - 1, row], [col, row + 1], [col, row + 2]);
+        break;
+      }
+      case Direction.DOWN: {
+        ans.push([col + 1, row], [col + 2, row], [col, row + 1]);
+        break;
+      }
+      case Direction.UP: {
+        ans.push([col, row - 1], [col - 1, row], [col - 2, row]);
+        break;
+      }
+    }
+    return ans;
+  },
+  [Block.O]: list => cloneDeep(list),
+  [Block.S]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT:
+      case Direction.LEFT: {
+        ans.push([col, row - 1], [col + 1, row], [col + 1, row + 1]);
+        break;
+      }
+      case Direction.DOWN:
+      case Direction.UP: {
+        ans.push([col + 1, row], [col, row + 1], [col - 1, row + 1]);
+        break;
+      }
+    }
+    return ans;
+  },
+  [Block.T]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT: {
+        ans.push([col, row - 1], [col, row + 1], [col + 1, row]);
+        break;
+      }
+      case Direction.LEFT: {
+        ans.push([col, row - 1], [col, row + 1], [col - 1, row]);
+        break;
+      }
+      case Direction.DOWN: {
+        ans.push([col, row + 1], [col + 1, row], [col - 1, row]);
+        break;
+      }
+      case Direction.UP: {
+        ans.push([col, row - 1], [col + 1, row], [col - 1, row]);
+        break;
+      }
+    }
+    return ans;
+  },
+  [Block.Z]: (list, nextDirection) => {
+    const startPoint = list[0];
+    const ans: [number, number][] = [startPoint];
+    const [col, row] = startPoint;
+    switch (nextDirection) {
+      case Direction.RIGHT:
+      case Direction.LEFT: {
+        ans.push([col, row - 1], [col - 1, row], [col - 1, row + 1]);
+        break;
+      }
+      case Direction.DOWN:
+      case Direction.UP: {
+        ans.push([col - 1, row], [col, row + 1], [col + 1, row + 1]);
+        break;
+      }
+    }
+    return ans;
+  },
+};
 export const useTetris = () => {
   const { score, setScore, maxScore } = useScore('Tetris_');
   /** canvasDOM引用 */
@@ -58,16 +196,21 @@ export const useTetris = () => {
   useEffect(() => {
     let startI = -1;
     let count = 0;
-    for (let i = blockList.length - 1; i >= 0; i--) {
-      if (blockList[i].every(v => v !== null)) {
-        if (startI === -1) startI = i;
-        count++;
-      } else if (startI !== -1) break;
+    let newScore = score;
+    while (true) {
+      for (let i = blockList.length - 1; i >= 0; i--) {
+        if (blockList[i].every(v => v !== null)) {
+          if (startI === -1) startI = i;
+          count++;
+        } else if (startI !== -1) break;
+      }
+      if (startI === -1) break;
+      startI = -1;
+      blockList.splice(startI, count);
+      blockList.unshift(...new Array(count).fill(0).map(_ => new Array(width - 2).fill(null)));
+      newScore += Score['LINE' + count];
     }
-    if (startI === -1) return;
-    blockList.splice(startI, count);
-    blockList.unshift(...new Array(count).fill(0).map(_ => new Array(width - 2).fill(null)));
-    setScore(score + Score['LINE' + count]);
+    setScore(newScore);
   }, [blockList]);
   const canvasWidth = useMemo(() => (width + NEXT_BLOCK_WIDTH + 1) * POINT_SIZE, [width]);
   const canvasHeight = useMemo(() => height * POINT_SIZE, [height]);
@@ -75,26 +218,27 @@ export const useTetris = () => {
   const [curBlockList, setCurBlockList] = useState<[number, number][] | null>(null);
   const [curBlock, setCurBlock] = useState(Block.I);
   const [speed, setSpeed] = useState<number | null>(null);
+  const [direction, setDirection] = useState<Direction>(Direction.UP);
   const initBlockMap = useMemo(() => {
     const halfWidth = width / 2;
     const cache: Record<Block, [number, number][]> = {
       [Block.I]: [
-        [halfWidth - 3, 0],
         [halfWidth - 2, 0],
+        [halfWidth - 3, 0],
         [halfWidth - 1, 0],
         [halfWidth, 0],
       ],
       [Block.J]: [
-        [halfWidth - 2, 0],
         [halfWidth - 2, 1],
+        [halfWidth - 2, 0],
         [halfWidth - 1, 1],
         [halfWidth, 1],
       ],
       [Block.L]: [
+        [halfWidth, 1],
         [halfWidth, 0],
         [halfWidth - 2, 1],
         [halfWidth - 1, 1],
-        [halfWidth, 1],
       ],
       [Block.O]: [
         [halfWidth - 2, 0],
@@ -109,15 +253,15 @@ export const useTetris = () => {
         [halfWidth - 1, 1],
       ],
       [Block.T]: [
+        [halfWidth - 1, 1],
         [halfWidth - 1, 0],
         [halfWidth, 1],
         [halfWidth - 2, 1],
-        [halfWidth - 1, 1],
       ],
       [Block.Z]: [
         [halfWidth - 1, 0],
-        [halfWidth, 1],
         [halfWidth - 2, 0],
+        [halfWidth, 1],
         [halfWidth - 1, 1],
       ],
     };
@@ -327,10 +471,10 @@ export const useTetris = () => {
     setScore(0);
   }, [drawPoint, height, width, setNextBlock, setState]);
   const onMove = useCallback(
-    (direction: Direction) => {
+    (moveDirection: Direction) => {
       if (curBlockList === null) return;
-      const block = cloneDeep(curBlockList);
-      switch (direction) {
+      let block = cloneDeep(curBlockList);
+      switch (moveDirection) {
         case Direction.LEFT: {
           if (block.every(([x, y]) => x >= 1 && blockList[y][x - 1] === null)) {
             block.forEach((_, i) => block[i][0]--);
@@ -344,40 +488,28 @@ export const useTetris = () => {
           break;
         }
         case Direction.DOWN: {
-          while (block.every(([x, y]) => y + 1 < height - 1 && blockList[y + 1][x] === null))
+          while (block.every(([x, y]) => y < height - 2 && blockList[y + 1][x] === null))
             block.forEach((_, i) => block[i][1]++);
           break;
         }
         case Direction.UP: {
-          switch (curBlock) {
-            case Block.I: {
-              break;
-            }
-            case Block.J: {
-              break;
-            }
-            case Block.L: {
-              break;
-            }
-            case Block.O: {
-              break;
-            }
-            case Block.S: {
-              break;
-            }
-            case Block.T: {
-              break;
-            }
-            case Block.Z: {
-              break;
-            }
+          const nextDirection = nextDirectionMap[direction];
+          const newBlock = changeDirectionMap[curBlock](block, nextDirection);
+          if (
+            newBlock.every(
+              ([x, y]) =>
+                x >= 1 && x < width - 2 && y >= 0 && y < height - 2 && blockList[y][x] === null
+            )
+          ) {
+            setDirection(nextDirection);
+            block = newBlock;
           }
           break;
         }
       }
       setCurBlockList(block);
     },
-    [curBlockList, curBlock]
+    [curBlockList, curBlock, direction]
   );
   useEffect(() => {
     reset();
@@ -402,6 +534,7 @@ export const useTetris = () => {
     if (curBlockList) {
       if (curBlockList.every(([x, y]) => y + 1 < height - 1 && blockList[y + 1][x] === null)) {
         const block = cloneDeep(curBlockList);
+        console.log(curBlockList);
         block.forEach((_, i) => block[i][1]++);
         setCurBlockList(block);
       } else {
