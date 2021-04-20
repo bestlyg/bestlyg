@@ -182,6 +182,8 @@ const changeDirectionMap: Record<
     return ans;
   },
 };
+const SPEED_INCREASE_BLOCK_COUNT = 20;
+const SPEED_INCREASE_MULTIPLE = 0.8;
 export const useTetris = () => {
   const { score, setScore, maxScore } = useScore('Tetris_');
   /** canvasDOM引用 */
@@ -194,22 +196,19 @@ export const useTetris = () => {
     getBlockList(WIDTH_MIN, HEIGHT_MIN)
   );
   useEffect(() => {
-    let startI = -1;
-    let count = 0;
     let newScore = score;
-    while (true) {
-      for (let i = blockList.length - 1; i >= 0; i--) {
-        if (blockList[i].every(v => v !== null)) {
-          if (startI === -1) startI = i;
-          count++;
-        } else if (startI !== -1) break;
+    const indexList: number[] = [];
+    for (let i = blockList.length - 1; i >= 0; i--) {
+      if (blockList[i].every(v => v !== null)) {
+        indexList.push(i);
       }
-      if (startI === -1) break;
-      startI = -1;
-      blockList.splice(startI, count);
-      blockList.unshift(...new Array(count).fill(0).map(_ => new Array(width - 2).fill(null)));
-      newScore += Score['LINE' + count];
     }
+    const count = indexList.length;
+    if (count === 0) return;
+    indexList.forEach(i => blockList.splice(i, 1));
+    blockList.unshift(...new Array(count).fill(0).map(_ => new Array(width - 2).fill(null)));
+    newScore += Score['LINE' + count];
+    setBlockList([...blockList]);
     setScore(newScore);
   }, [blockList]);
   const canvasWidth = useMemo(() => (width + NEXT_BLOCK_WIDTH + 1) * POINT_SIZE, [width]);
@@ -218,6 +217,12 @@ export const useTetris = () => {
   const [curBlockList, setCurBlockList] = useState<[number, number][] | null>(null);
   const [curBlock, setCurBlock] = useState(Block.I);
   const [speed, setSpeed] = useState<number | null>(null);
+  const [blockCount, setBlockCount] = useState(0);
+  useEffect(() => {
+    if (speed !== null && blockCount % SPEED_INCREASE_BLOCK_COUNT === 0) {
+      setSpeed(speed * SPEED_INCREASE_MULTIPLE);
+    }
+  }, [blockCount]);
   const [direction, setDirection] = useState<Direction>(Direction.UP);
   const initBlockMap = useMemo(() => {
     const halfWidth = width / 2;
@@ -291,6 +296,10 @@ export const useTetris = () => {
   const drawWall = useCallback(() => {
     const ctx = canvas.current?.getContext('2d');
     if (!ctx) return;
+    ctx.beginPath();
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0, 0, POINT_SIZE * width, height * POINT_SIZE);
+    ctx.closePath();
     ctx.beginPath();
     ctx.fillStyle = '#000';
     for (let i = 0; i < height; i++) {
@@ -498,7 +507,7 @@ export const useTetris = () => {
           if (
             newBlock.every(
               ([x, y]) =>
-                x >= 1 && x < width - 2 && y >= 0 && y < height - 2 && blockList[y][x] === null
+                x >= 0 && x < width - 2 && y >= 0 && y < height - 2 && blockList[y][x] === null
             )
           ) {
             setDirection(nextDirection);
@@ -531,20 +540,7 @@ export const useTetris = () => {
   }, [gameOver]);
   useEffect(draw, [blockList, nextBlock, curBlockList, curBlock]);
   useInterval(() => {
-    if (curBlockList) {
-      if (curBlockList.every(([x, y]) => y + 1 < height - 1 && blockList[y + 1][x] === null)) {
-        const block = cloneDeep(curBlockList);
-        console.log(curBlockList);
-        block.forEach((_, i) => block[i][1]++);
-        setCurBlockList(block);
-      } else {
-        setCurBlockList(null);
-        const color = BLOCK_COLOR[curBlock];
-        curBlockList.forEach(([x, y]) => (blockList[y][x] = color));
-        setBlockList([...blockList]);
-        setScore(score + Score.BOLCK * 4);
-      }
-    } else {
+    const opNull = () => {
       const block = initBlockMap[nextBlock];
       if (block.some(([x, y]) => blockList[y][x] !== null)) {
         setGameOver(true);
@@ -553,6 +549,23 @@ export const useTetris = () => {
         setCurBlockList(block);
         setNextBlock(getRandomBlock());
       }
+    };
+    if (curBlockList) {
+      if (curBlockList.every(([x, y]) => y + 1 < height - 1 && blockList[y + 1][x] === null)) {
+        const block = cloneDeep(curBlockList);
+        block.forEach((_, i) => block[i][1]++);
+        setCurBlockList(block);
+      } else {
+        setCurBlockList(null);
+        const color = BLOCK_COLOR[curBlock];
+        curBlockList.forEach(([x, y]) => (blockList[y][x] = color));
+        setBlockList([...blockList]);
+        setScore(score + Score.BOLCK * 4);
+        setBlockCount(blockCount + 1);
+        opNull();
+      }
+    } else {
+      opNull();
     }
   }, speed);
   Object.values(Direction).forEach(v => {
@@ -573,5 +586,8 @@ export const useTetris = () => {
     reset,
     state,
     setState,
+    blockCount,
+    speed,
+    onMove,
   };
 };
