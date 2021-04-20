@@ -33,29 +33,21 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '27. 移除元素',
-  url: 'https://leetcode-cn.com/problems/remove-element/',
+  name: '28. 实现 strStr()',
+  url: 'https://leetcode-cn.com/problems/implement-strstr/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.双指针],
+  tag: [Tag.字符串, Tag.双指针],
   desc:
-    '给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。',
+    '给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。',
   solutions: [
     {
       script: Script.TS,
       time: 84,
       memory: 40.2,
-      desc: '双指针指向两头进行判断',
-      code: `function removeElement(nums: number[], val: number): number {
-        const len = nums.length;
-        if (len === 0 || val > 50) return len;
-        let left = 0;
-        let right = len - 1;
-        while (left < right)
-          if (nums[left] === val) nums[left] = nums[right--];
-          else left++;
-        return left + +!(nums[right] === val);
-      }
-      `,
+      desc: '直接调用indexOf',
+      code: `function strStr(haystack: string, needle: string): number {
+        return haystack.indexOf(needle)
+    };`,
     },
   ],
 };
