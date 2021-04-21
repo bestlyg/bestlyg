@@ -1,6 +1,7 @@
-import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO } from './utils';
+import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO, markdown } from './utils';
 
 const { backquote } = specStr;
+const { link } = markdown;
 const {
   Script,
   Difficulty,
@@ -33,21 +34,33 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '28. 实现 strStr()',
-  url: 'https://leetcode-cn.com/problems/implement-strstr/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串, Tag.双指针],
-  desc:
-    '给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。',
+  name: '91. 解码方法',
+  url: 'https://leetcode-cn.com/problems/decode-ways/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.字符串, Tag.动态规划],
+  desc: '给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 40.2,
-      desc: '直接调用indexOf',
-      code: `function strStr(haystack: string, needle: string): number {
-        return haystack.indexOf(needle)
-    };`,
+      time: 88,
+      memory: 39.8,
+      desc: link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/decode-ways/solution/jie-ma-fang-fa-by-leetcode-solution-p8np/'
+      ),
+      code: `function numDecodings(s: string): number {
+        const len = s.length;
+        const toNum = (c: string) => c.codePointAt(0)! - '0'.codePointAt(0)!;
+        const dp = new Array(len + 1).fill(0);
+        dp[0] = 1;
+        for (let i = 1; i <= len; ++i) {
+          if (s[i - 1] !== '0') dp[i] += dp[i - 1];
+          if (i > 1 && s[i - 2] !== '0' && toNum(s[i - 2]) * 10 + toNum(s[i - 1]) <= 26) {
+            dp[i] += dp[i - 2];
+          }
+        }
+        return dp[len];
+      }`,
     },
   ],
 };
