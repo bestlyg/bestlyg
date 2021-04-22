@@ -34,32 +34,38 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '91. 解码方法',
-  url: 'https://leetcode-cn.com/problems/decode-ways/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.字符串, Tag.动态规划],
-  desc: '给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。',
+  name: '363. 矩形区域不超过 K 的最大数值和',
+  url: 'https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.二分查找, Tag.动态规划, Tag.队列],
+  desc:
+    '给你一个 m x n 的矩阵 matrix 和一个整数 k ，找出并返回矩阵内部矩形区域的不超过 k 的最大数值和。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 39.8,
-      desc: link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/decode-ways/solution/jie-ma-fang-fa-by-leetcode-solution-p8np/'
-      ),
-      code: `function numDecodings(s: string): number {
-        const len = s.length;
-        const toNum = (c: string) => c.codePointAt(0)! - '0'.codePointAt(0)!;
-        const dp = new Array(len + 1).fill(0);
-        dp[0] = 1;
-        for (let i = 1; i <= len; ++i) {
-          if (s[i - 1] !== '0') dp[i] += dp[i - 1];
-          if (i > 1 && s[i - 2] !== '0' && toNum(s[i - 2]) * 10 + toNum(s[i - 1]) <= 26) {
-            dp[i] += dp[i - 2];
+      time: 408,
+      memory: 39.7,
+      desc: '暴力循环四次',
+      code: `function maxSumSubmatrix(matrix: number[][], k: number): number {
+        const rowLen = matrix.length;
+        const colLen = matrix[0].length;
+        const dp: number[][] = new Array(rowLen + 1).fill(0).map(_ => new Array(colLen + 1).fill(0));
+        let max = -Infinity;
+        for (let row = 0; row < rowLen; row++) {
+          for (let col = 0; col < colLen; col++) {
+            let num = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];
+            if (num === k) return k;
+            dp[row + 1][col + 1] = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];
+            for (let i = 0; i <= row; i++) {
+              for (let j = 0; j <= col; j++) {
+                const areaNum = num - dp[i][col + 1] - dp[row + 1][j] + dp[i][j];
+                if (areaNum === k) return k;
+                else if (areaNum < k) max = Math.max(max, areaNum);
+              }
+            }
           }
         }
-        return dp[len];
+        return max;
       }`,
     },
   ],
