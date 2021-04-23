@@ -34,38 +34,43 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '363. 矩形区域不超过 K 的最大数值和',
-  url: 'https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.二分查找, Tag.动态规划, Tag.队列],
-  desc:
-    '给你一个 m x n 的矩阵 matrix 和一个整数 k ，找出并返回矩阵内部矩形区域的不超过 k 的最大数值和。',
+  name: '368. 最大整除子集',
+  url: 'https://leetcode-cn.com/problems/largest-divisible-subset/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数学, Tag.动态规划],
+  desc: '给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer',
   solutions: [
     {
       script: Script.TS,
-      time: 408,
-      memory: 39.7,
-      desc: '暴力循环四次',
-      code: `function maxSumSubmatrix(matrix: number[][], k: number): number {
-        const rowLen = matrix.length;
-        const colLen = matrix[0].length;
-        const dp: number[][] = new Array(rowLen + 1).fill(0).map(_ => new Array(colLen + 1).fill(0));
-        let max = -Infinity;
-        for (let row = 0; row < rowLen; row++) {
-          for (let col = 0; col < colLen; col++) {
-            let num = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];
-            if (num === k) return k;
-            dp[row + 1][col + 1] = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];
-            for (let i = 0; i <= row; i++) {
-              for (let j = 0; j <= col; j++) {
-                const areaNum = num - dp[i][col + 1] - dp[row + 1][j] + dp[i][j];
-                if (areaNum === k) return k;
-                else if (areaNum < k) max = Math.max(max, areaNum);
-              }
-            }
+      time: 124,
+      memory: 41,
+      desc: '动态规划',
+      code: `function largestDivisibleSubset(nums: number[]): number[] {
+        nums.sort((a, b) => a - b);
+        const len = nums.length;
+        let maxSize = 1;
+        let maxVal = nums[0];
+        const dp = new Array(len).fill(1);
+        for (let i = 1; i < len; i++) {
+          const num = nums[i];
+          for (let j = 0; j < i; j++) {
+            if (num % nums[j] === 0) dp[i] = Math.max(dp[i], dp[j] + 1);
+          }
+          if (dp[i] > maxSize) {
+            maxSize = dp[i];
+            maxVal = num;
           }
         }
-        return max;
+        const ans: number[] = [];
+        for (let i = len - 1; i >= 0; i--) {
+          const num = nums[i];
+          if (dp[i] === maxSize && maxVal % num === 0) {
+            ans.unshift(num);
+            maxSize--;
+            maxVal = num;
+          }
+        }
+        return ans;
       }`,
     },
   ],
