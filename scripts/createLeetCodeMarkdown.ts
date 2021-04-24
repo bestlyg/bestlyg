@@ -34,44 +34,30 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '368. 最大整除子集',
-  url: 'https://leetcode-cn.com/problems/largest-divisible-subset/',
+  name: '377. 组合总和 Ⅳ',
+  url: 'https://leetcode-cn.com/problems/combination-sum-iv/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数学, Tag.动态规划],
-  desc: '给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer',
+  tag: [Tag.动态规划],
+  desc:
+    '给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。',
   solutions: [
     {
       script: Script.TS,
-      time: 124,
-      memory: 41,
+      time: 104,
+      memory: 40,
       desc: '动态规划',
-      code: `function largestDivisibleSubset(nums: number[]): number[] {
-        nums.sort((a, b) => a - b);
-        const len = nums.length;
-        let maxSize = 1;
-        let maxVal = nums[0];
-        const dp = new Array(len).fill(1);
-        for (let i = 1; i < len; i++) {
-          const num = nums[i];
-          for (let j = 0; j < i; j++) {
-            if (num % nums[j] === 0) dp[i] = Math.max(dp[i], dp[j] + 1);
-          }
-          if (dp[i] > maxSize) {
-            maxSize = dp[i];
-            maxVal = num;
-          }
+      code: `function combinationSum4(nums: number[], target: number): number {
+        const dp = new Array(target + 1).fill(0);
+        dp[0] = 1;
+        for (let i = 1; i <= target; i++) {
+          for (const num of nums) {
+            if (i >= num) {
+            dp[i] += dp[i - num];
+          }}
         }
-        const ans: number[] = [];
-        for (let i = len - 1; i >= 0; i--) {
-          const num = nums[i];
-          if (dp[i] === maxSize && maxVal % num === 0) {
-            ans.unshift(num);
-            maxSize--;
-            maxVal = num;
-          }
-        }
-        return ans;
-      }`,
+        return dp[target];
+      }
+      `,
     },
   ],
 };

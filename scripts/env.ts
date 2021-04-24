@@ -1,28 +1,12 @@
-function largestDivisibleSubset(nums: number[]): number[] {
+function combinationSum4(nums: number[], target: number): number {
   nums.sort((a, b) => a - b);
-  const len = nums.length;
-  let maxSize = 1;
-  let maxVal = nums[0];
-  const dp = new Array(len).fill(1);
-  for (let i = 1; i < len; i++) {
-    const num = nums[i];
-    for (let j = 0; j < i; j++) {
-      if (num % nums[j] === 0) dp[i] = Math.max(dp[i], dp[j] + 1);
-    }
-    if (dp[i] > maxSize) {
-      maxSize = dp[i];
-      maxVal = num;
+  const dp = new Array(target + 1).fill(0);
+  dp[0] = 1;
+  for (let i = 1; i <= target; i++) {
+    for (const num of nums) {
+      if (i < num) break;
+      dp[i] += dp[i - num];
     }
   }
-  const ans: number[] = [];
-  for (let i = len - 1; i >= 0; i--) {
-    const num = nums[i];
-    if (dp[i] === maxSize && maxVal % num === 0) {
-      ans.unshift(num);
-      maxSize--;
-      maxVal = num;
-    }
-  }
-  return ans;
+  return dp[target];
 }
-console.log(largestDivisibleSubset([1]));
