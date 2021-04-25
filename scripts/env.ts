@@ -1,12 +1,22 @@
-function combinationSum4(nums: number[], target: number): number {
-  nums.sort((a, b) => a - b);
-  const dp = new Array(target + 1).fill(0);
-  dp[0] = 1;
-  for (let i = 1; i <= target; i++) {
-    for (const num of nums) {
-      if (i < num) break;
-      dp[i] += dp[i - num];
-    }
+import { structures } from './utils';
+const { TreeNode } = structures;
+type TreeNode = structures.TreeNode;
+function increasingBST(root: TreeNode | null): TreeNode | null {
+  if (root === null) return null;
+  const queue: TreeNode[] = [];
+  inorder(root);
+  for (let i = 0, l = queue.length - 1; i < l; i++) {
+    const node = queue[i];
+    node.left = null;
+    node.right = queue[i + 1];
   }
-  return dp[target];
+  const last = queue[queue.length - 1];
+  last.right = last.left = null;
+  return queue[0];
+  function inorder(node: TreeNode | null): void {
+    if (node === null) return;
+    inorder(node.left);
+    queue.push(node);
+    inorder(node.right);
+  }
 }

@@ -34,28 +34,63 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '377. 组合总和 Ⅳ',
-  url: 'https://leetcode-cn.com/problems/combination-sum-iv/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.动态规划],
+  name: '897. 递增顺序搜索树',
+  url: 'https://leetcode-cn.com/problems/increasing-order-search-tree/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.递归],
   desc:
-    '给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。',
+    '给你一棵二叉搜索树，请你 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。',
   solutions: [
     {
       script: Script.TS,
-      time: 104,
-      memory: 40,
-      desc: '动态规划',
-      code: `function combinationSum4(nums: number[], target: number): number {
-        const dp = new Array(target + 1).fill(0);
-        dp[0] = 1;
-        for (let i = 1; i <= target; i++) {
-          for (const num of nums) {
-            if (i >= num) {
-            dp[i] += dp[i - num];
-          }}
+      time: 88,
+      memory: 39.7,
+      desc: '递归遍历每个点',
+      code: `function increasingBST(root: TreeNode | null): TreeNode | null {
+        function increasing(node: TreeNode): [TreeNode, TreeNode] {
+          if (!root.left && !root.right) return [root, root];
+          let first = node;
+          let last = node;
+          if (node.left !== null) {
+            const data = increasing(node.left);
+            first = data[0];
+            data[1].right = node;
+            node.left = null;
+          }
+          if (node.right !== null) {
+            const data = increasing(node.right);
+            last.right = data[0];
+            last = data[1];
+          }
+          return [first, last];
         }
-        return dp[target];
+        return increasing(root)[0];
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 132,
+      memory: 40.2,
+      desc: '先中序遍历后逐个赋值',
+      code: `function increasingBST(root: TreeNode | null): TreeNode | null {
+        if (root === null) return null;
+        const queue: TreeNode[] = [];
+        inorder(root);
+        for (let i = 0, l = queue.length - 1; i < l; i++) {
+          const node = queue[i];
+          node.left = null;
+          node.right = queue[i+1];
+        }
+        const last = queue[queue.length - 1];
+        last.right = last.left = null;
+        return queue[0];
+        function inorder(node: TreeNode | null): void {
+          if (node === null) return;
+          inorder(node.left);
+          queue.push(node);
+          inorder(node.right);
+        }
       }
       `,
     },
