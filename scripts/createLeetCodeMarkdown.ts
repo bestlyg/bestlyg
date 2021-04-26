@@ -34,65 +34,36 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '897. 递增顺序搜索树',
-  url: 'https://leetcode-cn.com/problems/increasing-order-search-tree/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.递归],
-  desc:
-    '给你一棵二叉搜索树，请你 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。',
+  name: '1011. 在 D 天内送达包裹的能力',
+  url: 'https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '返回能在 D 天内将传送带上的所有包裹送达的船的最低运载能力。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 39.7,
-      desc: '递归遍历每个点',
-      code: `function increasingBST(root: TreeNode | null): TreeNode | null {
-        function increasing(node: TreeNode): [TreeNode, TreeNode] {
-          if (!root.left && !root.right) return [root, root];
-          let first = node;
-          let last = node;
-          if (node.left !== null) {
-            const data = increasing(node.left);
-            first = data[0];
-            data[1].right = node;
-            node.left = null;
+      time: 1672,
+      memory: 42.4,
+      desc: '二分查找，确定左右边界进行查找',
+      code: `function shipWithinDays(weights: number[], D: number): number {
+        let left = Math.max(...weights);
+        let right = weights.reduce((total, cur) => total + cur, 0);
+        while (left < right) {
+          const mid = (left + right) >> 1;
+          let curWeight = 0;
+          let curDay = 1;
+          for (const weight of weights) {
+            if (curWeight + weight > mid) {
+              curWeight = 0;
+              curDay++;
+            }
+            curWeight += weight;
           }
-          if (node.right !== null) {
-            const data = increasing(node.right);
-            last.right = data[0];
-            last = data[1];
-          }
-          return [first, last];
+          if (curDay > D) left++;
+          else right = mid;
         }
-        return increasing(root)[0];
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 132,
-      memory: 40.2,
-      desc: '先中序遍历后逐个赋值',
-      code: `function increasingBST(root: TreeNode | null): TreeNode | null {
-        if (root === null) return null;
-        const queue: TreeNode[] = [];
-        inorder(root);
-        for (let i = 0, l = queue.length - 1; i < l; i++) {
-          const node = queue[i];
-          node.left = null;
-          node.right = queue[i+1];
-        }
-        const last = queue[queue.length - 1];
-        last.right = last.left = null;
-        return queue[0];
-        function inorder(node: TreeNode | null): void {
-          if (node === null) return;
-          inorder(node.left);
-          queue.push(node);
-          inorder(node.right);
-        }
-      }
-      `,
+        return left;
+      }`,
     },
   ],
 };

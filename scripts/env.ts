@@ -1,22 +1,23 @@
 import { structures } from './utils';
 const { TreeNode } = structures;
 type TreeNode = structures.TreeNode;
-function increasingBST(root: TreeNode | null): TreeNode | null {
-  if (root === null) return null;
-  const queue: TreeNode[] = [];
-  inorder(root);
-  for (let i = 0, l = queue.length - 1; i < l; i++) {
-    const node = queue[i];
-    node.left = null;
-    node.right = queue[i + 1];
+function shipWithinDays(weights: number[], D: number): number {
+  let left = Math.max(...weights);
+  let right = weights.reduce((total, cur) => total + cur, 0);
+  while (left < right) {
+    const mid = (left + right) >> 1;
+    let curWeight = 0;
+    let curDay = 1;
+    for (const weight of weights) {
+      if (curWeight + weight > mid) {
+        curWeight = 0;
+        curDay++;
+      }
+      curWeight += weight;
+    }
+    if (curDay > D) left++;
+    else right = mid;
   }
-  const last = queue[queue.length - 1];
-  last.right = last.left = null;
-  return queue[0];
-  function inorder(node: TreeNode | null): void {
-    if (node === null) return;
-    inorder(node.left);
-    queue.push(node);
-    inorder(node.right);
-  }
+  return left;
 }
+console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5));
