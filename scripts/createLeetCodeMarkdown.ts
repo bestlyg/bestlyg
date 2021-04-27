@@ -33,8 +33,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '1011. 在 D 天内送达包裹的能力',
+  existMarkdown: true,
+  name: '938. 二叉搜索树的范围和',
   url: 'https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找],
@@ -42,28 +42,25 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 1672,
-      memory: 42.4,
-      desc: '二分查找，确定左右边界进行查找',
-      code: `function shipWithinDays(weights: number[], D: number): number {
-        let left = Math.max(...weights);
-        let right = weights.reduce((total, cur) => total + cur, 0);
-        while (left < right) {
-          const mid = (left + right) >> 1;
-          let curWeight = 0;
-          let curDay = 1;
-          for (const weight of weights) {
-            if (curWeight + weight > mid) {
-              curWeight = 0;
-              curDay++;
-            }
-            curWeight += weight;
+      time: 288,
+      memory: 65.9,
+      desc: '递归判断',
+      code: `function rangeSumBST(root: TreeNode | null, low: number, high: number): number {
+        let sum = 0;
+        const sumNode = (node: TreeNode | null): void => {
+          if (node === null) return;
+          const val = node.val;
+          if (val < low) sumNode(node.right);
+          else if (val > high) sumNode(node.left);
+          else {
+            sum += val;
+            sumNode(node.right);
+            sumNode(node.left);
           }
-          if (curDay > D) left++;
-          else right = mid;
-        }
-        return left;
-      }`,
+        };
+        sumNode(root);
+        return sum;
+      }}`,
     },
   ],
 };

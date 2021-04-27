@@ -1,23 +1,19 @@
 import { structures } from './utils';
 const { TreeNode } = structures;
 type TreeNode = structures.TreeNode;
-function shipWithinDays(weights: number[], D: number): number {
-  let left = Math.max(...weights);
-  let right = weights.reduce((total, cur) => total + cur, 0);
-  while (left < right) {
-    const mid = (left + right) >> 1;
-    let curWeight = 0;
-    let curDay = 1;
-    for (const weight of weights) {
-      if (curWeight + weight > mid) {
-        curWeight = 0;
-        curDay++;
-      }
-      curWeight += weight;
+function rangeSumBST(root: TreeNode | null, low: number, high: number): number {
+  let sum = 0;
+  const sumNode = (node: TreeNode | null): void => {
+    if (node === null) return;
+    const val = node.val;
+    if (val < low) sumNode(node.right);
+    else if (val > high) sumNode(node.left);
+    else {
+      sum += val;
+      sumNode(node.right);
+      sumNode(node.left);
     }
-    if (curDay > D) left++;
-    else right = mid;
-  }
-  return left;
+  };
+  sumNode(root);
+  return sum;
 }
-console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5));
