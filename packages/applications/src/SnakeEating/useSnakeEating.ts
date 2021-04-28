@@ -1,11 +1,10 @@
 import Color from 'color';
 import { useInterval, useKeyPress } from 'ahooks';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { Direction, lodash } from '@bestlyg/shared';
+import { Direction } from '@bestlyg/shared';
 import { useScore } from '../hooks';
 import { message } from 'antd';
-
-const { random } = lodash;
+import { random } from 'lodash';
 /** 边框最小值 */
 export const SIZE_MIN = 10;
 /** 边框最大值 */
@@ -45,7 +44,7 @@ const getNextPoint: Record<Direction, (x: number, y: number) => [number, number]
   [Direction.LEFT]: (x: number, y: number) => [x - 1, y],
   [Direction.RIGHT]: (x: number, y: number) => [x + 1, y],
 };
-export const useSnake = () => {
+export const useSnakeEating = () => {
   const { maxScore, setScore, score } = useScore('GAME_SNAKEEATING_');
   /** canvasDOM引用 */
   const canvas = useRef<HTMLCanvasElement>(null as any);

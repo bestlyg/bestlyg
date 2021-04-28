@@ -1,6 +1,7 @@
-import { ErrorEnum, lodash, throwError } from '@bestlyg/shared';
+import { ErrorEnum, throwError } from '@bestlyg/shared';
 import { BestPromise } from './promise';
 import { isBestPromise } from './utils';
+import { isFunction } from 'lodash';
 
 /**
  * 用来处理then方法返回结果包装成promise 方便链式调用
@@ -41,7 +42,7 @@ export function resolvePromise<T>(
             }
           }
         );
-      } else if (lodash.isFunction(x)) {
+      } else if (isFunction(x)) {
         throwError('返回值请不要传递非Promise函数!', ErrorEnum.type);
       } else {
         resolve(x);

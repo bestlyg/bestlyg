@@ -1,8 +1,8 @@
 import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
-import { Button, InputNumber, message, Popconfirm, Row, Space, Statistic } from 'antd';
+import { Button, InputNumber, Popconfirm, Row, Space, Statistic } from 'antd';
 import React from 'react';
 import styles from './index.less';
-import { SIZE_MIN, useSnake, SIZE_MAX, State } from './useSnake';
+import { SIZE_MIN, useSnakeEating, SIZE_MAX } from './useSnakeEating';
 import { Direction } from '@bestlyg/shared';
 
 const SnakeEating = () => {
@@ -17,7 +17,7 @@ const SnakeEating = () => {
     score,
     speed,
     maxScore,
-  } = useSnake();
+  } = useSnakeEating();
   return (
     <Space direction="vertical">
       <div>

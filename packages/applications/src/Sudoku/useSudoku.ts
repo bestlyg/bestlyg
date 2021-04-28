@@ -1,9 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
-import { lodash } from '@bestlyg/shared';
 import { message } from 'antd';
 import { useKeyPress } from 'ahooks';
-
-const { intersection, random, cloneDeep } = lodash;
+import { intersection, random, cloneDeep } from 'lodash';
 /** 每行每列格数 */
 export const COUNT = 9;
 /** 总格数 */

@@ -24,7 +24,7 @@ export class Queue<T> implements IQueue<T> {
   }
   deQueue(): T {
     this.checkRange();
-    return this.list.shift();
+    return this.list.shift()!;
   }
   private checkRange() {
     if (this.size === 0) {

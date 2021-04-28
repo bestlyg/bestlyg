@@ -1,10 +1,9 @@
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { useScore } from '../hooks';
-import { lodash, Direction } from '@bestlyg/shared';
+import { Direction } from '@bestlyg/shared';
 import { useKeyPress, useInterval } from 'ahooks';
 import { message } from 'antd';
-
-const { random, cloneDeep } = lodash;
+import { random, cloneDeep } from 'lodash';
 /** 宽度最小值 */
 export const WIDTH_MIN = 10;
 /** 宽度最大值 */
@@ -479,7 +478,7 @@ export const useTetris = () => {
       for (let col = 0; col < width - 2; col++)
         if (blockList[row][col] !== null) {
           ctx.beginPath();
-          ctx.fillStyle = blockList[row][col];
+          ctx.fillStyle = blockList[row][col]!;
           drawPoint(col + 1, row);
           ctx.closePath();
         }

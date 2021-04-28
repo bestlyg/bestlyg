@@ -1,7 +1,7 @@
 import { isArray, isString } from 'lodash';
 import { PREFIX } from './constants';
 
-const { localStorage } = window;
+const { localStorage } = globalThis;
 const internalGetLocalStorage = (item: string): string | null =>
   localStorage.getItem(PREFIX + item);
 export function getLocalStorage(item: string): string | null;

@@ -24,7 +24,7 @@ export class Stack<T> implements IStack<T> {
   }
   pop(): T {
     this.checkRange();
-    return this.list.pop();
+    return this.list.pop()!;
   }
   private checkRange() {
     if (this.size === 0) {

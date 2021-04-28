@@ -1,14 +1,5 @@
-import { BinarySearchTree, BinarySearchTreeNode } from '../../src';
+import { BinarySearchTree } from '../../src';
 
-const inorder = <T extends any>(tree: BinarySearchTree<T>, traversal: (val: T) => void) => {
-  const _inorder = (node: BinarySearchTreeNode<T> | null) => {
-    if (node === null) return;
-    _inorder(node.left);
-    traversal(node.val);
-    _inorder(node.right);
-  };
-  _inorder(tree['root']);
-};
 class DummyNumber {
   constructor(public val: number, public dummyVal: number) {}
 }
@@ -24,19 +15,20 @@ describe('BinarySearchTree', () => {
       tree.add(8);
       tree.add(7);
       tree.add(6);
-      let str = '';
-      inorder(tree, val => (str += val));
-      expect(str).toBe('12345678');
+      expect(tree.inorder().join('')).toBe('12345678');
     });
     test('add old val', () => {
       const tree = new BinarySearchTree<DummyNumber>((t1, t2) => t1.val - t2.val);
-      let oldNum = new DummyNumber(1, 1);
-      let newNum = new DummyNumber(1, 2);
+      const oldNum = new DummyNumber(1, 1);
+      const newNum = new DummyNumber(1, 2);
       tree.add(oldNum);
       tree.add(newNum);
-      let str = '';
-      inorder(tree, val => (str += val.dummyVal));
-      expect(str).toBe('2');
+      expect(
+        tree
+          .inorder()
+          .map(v => v.dummyVal)
+          .join('')
+      ).toBe('2');
     });
   });
   test('clear', () => {
@@ -86,9 +78,7 @@ describe('BinarySearchTree', () => {
         tree.add(7);
         tree.add(6);
         tree.remove(5);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('1234678');
+        expect(tree.inorder().join('')).toBe('1234678');
       });
       test('has 1 degree is predecessor', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -98,9 +88,7 @@ describe('BinarySearchTree', () => {
         tree.add(1);
         tree.add(2);
         tree.remove(5);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('1234');
+        expect(tree.inorder().join('')).toBe('1234');
       });
       test('has 1 degree is successor', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -110,9 +98,7 @@ describe('BinarySearchTree', () => {
         tree.add(9);
         tree.add(12);
         tree.remove(5);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('68912');
+        expect(tree.inorder().join('')).toBe('68912');
       });
       test('has 0 degree', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -127,9 +113,7 @@ describe('BinarySearchTree', () => {
       tree.add(1);
       tree.add(2);
       tree.remove(2);
-      let str = '';
-      inorder(tree, val => (str += val));
-      expect(str).toBe('15');
+      expect(tree.inorder().join('')).toBe('15');
     });
     describe('0 degree', () => {
       test('node==parent.right', () => {
@@ -156,9 +140,7 @@ describe('BinarySearchTree', () => {
         tree.add(1);
         tree.add(2);
         tree.remove(1);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('25');
+        expect(tree.inorder().join('')).toBe('25');
       });
       test('node==parent.left && node.left!=null', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -166,9 +148,7 @@ describe('BinarySearchTree', () => {
         tree.add(2);
         tree.add(1);
         tree.remove(2);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('15');
+        expect(tree.inorder().join('')).toBe('15');
       });
       test('node==parent.right && node.right!=null', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -176,9 +156,7 @@ describe('BinarySearchTree', () => {
         tree.add(6);
         tree.add(7);
         tree.remove(6);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('57');
+        expect(tree.inorder().join('')).toBe('57');
       });
       test('node==parent.right && node.left!=null', () => {
         const tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
@@ -186,9 +164,7 @@ describe('BinarySearchTree', () => {
         tree.add(7);
         tree.add(6);
         tree.remove(7);
-        let str = '';
-        inorder(tree, val => (str += val));
-        expect(str).toBe('56');
+        expect(tree.inorder().join('')).toBe('56');
       });
     });
     test('empty', () => {

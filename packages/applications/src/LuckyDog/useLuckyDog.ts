@@ -1,8 +1,6 @@
-import { lodash } from '@bestlyg/shared';
 import { useInterval } from 'ahooks';
 import { useState, useEffect, useCallback } from 'react';
-
-const { isString, isNumber, sample } = lodash;
+import { isString, isNumber, sample } from 'lodash';
 /** 初始数字量 */
 export const INIT_COUNT = 10;
 export const modeList = [
@@ -50,7 +48,7 @@ export const useLuckyDog = () => {
     setCurValue(null);
   }, [selectedList, selectList]);
   /** 设置轮播 */
-  useInterval(() => setCurValue(sample(selectList)), speed);
+  useInterval(() => setCurValue(sample(selectList)!), speed);
   /** 模式更改或者数据更改时重置 */
   useEffect(reset, [data, mode]);
   /** 状态值改变时进行设置新列表 */

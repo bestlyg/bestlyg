@@ -1,31 +1,22 @@
-import { BinaryTreeNode, inorder, preorder, postorder, levelOrder } from '../../src';
+import { BinarySearchTree } from '../../src';
 describe('BinaryTree', () => {
+  let tree!: BinarySearchTree<number>;
+  beforeEach(() => {
+    tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
+    tree.add(1);
+    tree.add(0);
+    tree.add(2);
+  });
   test('inorder', () => {
-    const tree = new BinaryTreeNode(0);
-    tree.left = new BinaryTreeNode(1);
-    tree.right = new BinaryTreeNode(2);
-    expect(inorder(tree, []).join('')).toBe('102');
-    expect(inorder(null, []).join('')).toBe('');
+    expect(tree.inorder().join('')).toBe('012');
   });
   test('preorder', () => {
-    const tree = new BinaryTreeNode(0);
-    tree.left = new BinaryTreeNode(1);
-    tree.right = new BinaryTreeNode(2);
-    expect(preorder(tree, []).join('')).toBe('012');
-    expect(preorder(null, []).join('')).toBe('');
+    expect(tree.preorder().join('')).toBe('102');
   });
   test('postorder', () => {
-    const tree = new BinaryTreeNode(0);
-    tree.left = new BinaryTreeNode(1);
-    tree.right = new BinaryTreeNode(2);
-    expect(postorder(tree, []).join('')).toBe('120');
-    expect(postorder(null, []).join('')).toBe('');
+    expect(tree.postorder().join('')).toBe('021');
   });
   test('levelOrder', () => {
-    const tree = new BinaryTreeNode(0);
-    tree.left = new BinaryTreeNode(1);
-    tree.right = new BinaryTreeNode(2);
-    expect(levelOrder(tree, []).join('')).toBe('012');
-    expect(levelOrder(null, []).join('')).toBe('');
+    expect(tree.levelOrder().join('')).toBe('102');
   });
 });

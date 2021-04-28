@@ -26,9 +26,9 @@ export class BinaryHeap<T> implements IBinaryHeap<T> {
   }
   remove(): T {
     this.checkRange();
-    const val = this.list.shift();
+    const val = this.list.shift()!;
     if (this.size !== 0) {
-      this.list.unshift(this.list.pop());
+      this.list.unshift(this.list.pop()!);
       this.shiftDown(0);
     }
     return val;
@@ -45,7 +45,7 @@ export class BinaryHeap<T> implements IBinaryHeap<T> {
     let childIndex = index * 2 + 1;
     if (childIndex >= this.size) return;
     if (
-      childIndex + 1 < this.size - 1 &&
+      childIndex + 1 < this.size &&
       this.compare(this.list[childIndex + 1], this.list[childIndex]) > 0
     )
       childIndex++;
@@ -55,8 +55,6 @@ export class BinaryHeap<T> implements IBinaryHeap<T> {
     }
   }
   private checkRange() {
-    if (this.size === 0) {
-      throwError(ERROR_EMPTY_ELEMENT, ErrorEnum.range);
-    }
+    this.size === 0 && throwError(ERROR_EMPTY_ELEMENT, ErrorEnum.range);
   }
 }
