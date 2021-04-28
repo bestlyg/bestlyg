@@ -3,6 +3,7 @@ const { random } = require('lodash');
 const tree = new BinarySearchTree((t1, t2) => t1 - t2);
 let i = 0;
 while (i++ < 20) {
-  tree.add(random(0, 100));
+  const num = random(0, 100);
+  tree.add(num);
 }
 console.log(tree.print());

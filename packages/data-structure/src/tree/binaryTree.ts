@@ -58,7 +58,7 @@ export class BinaryTreeNode<T> {
     return predecessor;
   }
   toString(): string {
-    return `Node(${this.val + ''})_Parent(${this.parent ? this.parent.val : 'null'})`;
+    return `${this.val}`;
   }
 }
 export abstract class BinaryTree<T> {
@@ -141,23 +141,27 @@ export abstract class BinaryTree<T> {
   }
   //├│─└┌
   print(): string {
-    return this.root === null ? '' : this._print(this.root, '');
+    return this.root === null ? '' : this._print(this.root);
   }
-  private _print(node: BinaryTreeNode<T>, prefix: string): string {
+  private _print(node: BinaryTreeNode<T>, prefix = ''): string {
     const left = node.left;
     const right = node.right;
     const nodeStr = node.toString();
-    const halfLength = nodeStr.length >> 1;
+    const halfLength = (nodeStr.length + (prefix === '' ? 0 : 3)) >> 1;
     const blankStr = repeat(' ', halfLength);
     const lineStr = repeat('─', halfLength);
+    prefix += blankStr;
     let str = nodeStr + `\n`;
     if (right !== null) {
-      str += `${prefix}${blankStr}${left === null ? '└' : '├'}${lineStr} R `;
-      str += this._print(right, `${prefix}${blankStr}${left === null ? ' ' : '│'}${blankStr}`);
+      str +=
+        prefix +
+        (left === null ? '└' : '├') +
+        lineStr +
+        ' R ' +
+        this._print(right, `${prefix}${left === null ? ' ' : '│'}${blankStr}`);
     }
     if (left !== null) {
-      str += `${prefix}${blankStr}└${lineStr} L `;
-      str += this._print(left, `${prefix}${blankStr + blankStr + ' '}`);
+      str += `${prefix}└${lineStr}` + ' L ' + this._print(left, `${prefix}${blankStr} `);
     }
     return str;
   }
