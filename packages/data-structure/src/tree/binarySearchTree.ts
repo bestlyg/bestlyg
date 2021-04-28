@@ -69,20 +69,25 @@ export class BinarySearchTree<T> extends BinaryTree<T> implements IBinarySearchT
       // 如果为根节点则直接清空
       if (node === this.root) this.root = null;
       else node.remove();
+      this.afterRemove(node);
       return;
     }
     // 如果node度为1
     //如果为根节点
-    const nestNode = node.left ?? node.right!;
+    const nextNode = node.left ?? node.right!;
     if (node.parent === null) {
-      this.root = nestNode;
-      nestNode.parent = null;
+      this.root = nextNode;
+      nextNode.parent = null;
     }
     // 否则父节点赋值给子节点
     else {
-      node.parent[node.isLeftChild ? 'left' : 'right'] = nestNode;
+      node.parent[node.childPosition] = nextNode;
+      nextNode.parent = node.parent;
+      this.afterRemove(nextNode);
     }
+    this.afterRemove(nextNode);
   }
+  protected afterRemove(node: BinaryTreeNode<T>) {}
   contains(val: T) {
     return this.findNode(val) !== null;
   }

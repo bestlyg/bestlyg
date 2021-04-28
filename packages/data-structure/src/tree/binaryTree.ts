@@ -1,6 +1,11 @@
 import { repeat } from 'lodash';
-/** 树的度 */
+/** 节点的度 */
 export type BinaryTreeNodeDegree = 0 | 1 | 2;
+/** 节点是父节点的左右子树 */
+export enum BinaryTreeNodeChildPosition {
+  LEFT = 'left',
+  RIGHT = 'right',
+}
 /** 二叉树节点 */
 export class BinaryTreeNode<T> {
   /** 树的度 */
@@ -17,6 +22,9 @@ export class BinaryTreeNode<T> {
   get isRightChild(): boolean {
     return !!(this.parent?.right === this);
   }
+  get childPosition(): BinaryTreeNodeChildPosition {
+    return this.isLeftChild ? BinaryTreeNodeChildPosition.LEFT : BinaryTreeNodeChildPosition.RIGHT;
+  }
   constructor(
     /** 节点储存的值 */
     public val: T,
@@ -30,8 +38,7 @@ export class BinaryTreeNode<T> {
   /** 从父节点移除自己 */
   remove() {
     if (this.parent === null) return;
-    if (this.parent.left === this) this.parent.left = null;
-    else this.parent.right = null;
+    this.parent[this.childPosition] = null;
   }
   /** 后驱节点 */
   successor(): BinaryTreeNode<T> | null {
@@ -39,7 +46,7 @@ export class BinaryTreeNode<T> {
     if (this.right === null) {
       let node: BinaryTreeNode<T> | null = this;
       while (node.parent !== null && node.isRightChild) node = node.parent;
-      return node;
+      return node.parent;
     }
     let successor = this.right;
     while (successor.left !== null) successor = successor.left;
@@ -51,7 +58,7 @@ export class BinaryTreeNode<T> {
     if (this.left === null) {
       let node: BinaryTreeNode<T> | null = this;
       while (node.parent !== null && node.isLeftChild) node = node.parent;
-      return node;
+      return node.parent;
     }
     let predecessor = this.left;
     while (predecessor.right !== null) predecessor = predecessor.right;

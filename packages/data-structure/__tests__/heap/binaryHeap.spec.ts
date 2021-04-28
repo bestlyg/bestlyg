@@ -1,7 +1,6 @@
-import { ERROR_EMPTY_ELEMENT, lodash } from '@bestlyg/shared';
+import { ERROR_EMPTY_ELEMENT } from '@bestlyg/shared';
 import { BinaryHeap } from '../../src';
-
-const { random } = lodash;
+import { random } from 'lodash';
 describe('BinaryHeap', () => {
   test('add', () => {
     const heap = new BinaryHeap<number>((t1, t2) => t1 - t2);
