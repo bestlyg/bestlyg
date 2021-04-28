@@ -1,19 +1,14 @@
 import { structures } from './utils';
 const { TreeNode } = structures;
 type TreeNode = structures.TreeNode;
-function rangeSumBST(root: TreeNode | null, low: number, high: number): number {
-  let sum = 0;
-  const sumNode = (node: TreeNode | null): void => {
-    if (node === null) return;
-    const val = node.val;
-    if (val < low) sumNode(node.right);
-    else if (val > high) sumNode(node.left);
-    else {
-      sum += val;
-      sumNode(node.right);
-      sumNode(node.left);
-    }
-  };
-  sumNode(root);
-  return sum;
+function judgeSquareSum(c: number): boolean {
+  let num1 = 0;
+  let num2 = ~~Math.sqrt(c) + 1;
+  while (num1 <= num2) {
+    const sum = num1 ** 2 + num2 ** 2;
+    if (sum > c) num2--;
+    else if (sum < c) num1++;
+    else return true;
+  }
+  return false;
 }

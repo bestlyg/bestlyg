@@ -33,34 +33,29 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '938. 二叉搜索树的范围和',
-  url: 'https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/',
+  existMarkdown: false,
+  name: '633. 平方数之和',
+  url: 'https://leetcode-cn.com/problems/sum-of-square-numbers/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '返回能在 D 天内将传送带上的所有包裹送达的船的最低运载能力。',
+  tag: [Tag.数学],
+  desc: '给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c 。',
   solutions: [
     {
       script: Script.TS,
-      time: 288,
-      memory: 65.9,
-      desc: '递归判断',
-      code: `function rangeSumBST(root: TreeNode | null, low: number, high: number): number {
-        let sum = 0;
-        const sumNode = (node: TreeNode | null): void => {
-          if (node === null) return;
-          const val = node.val;
-          if (val < low) sumNode(node.right);
-          else if (val > high) sumNode(node.left);
-          else {
-            sum += val;
-            sumNode(node.right);
-            sumNode(node.left);
-          }
-        };
-        sumNode(root);
-        return sum;
-      }}`,
+      time: 92,
+      memory: 39.5,
+      desc: '确定边界值进行逐个比较',
+      code: `function judgeSquareSum(c: number): boolean {
+        let num1 = 0;
+        let num2 = ~~Math.sqrt(c) + 1;
+        while (num1 <= num2) {
+          const sum = num1 ** 2 + num2 ** 2;
+          if (sum > c) num2--;
+          else if (sum < c) num1++;
+          else return true;
+        }
+        return false;
+      }`,
     },
   ],
 };
