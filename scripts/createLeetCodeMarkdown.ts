@@ -34,27 +34,33 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '633. 平方数之和',
-  url: 'https://leetcode-cn.com/problems/sum-of-square-numbers/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数学],
-  desc: '给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c 。',
+  name: '403. 青蛙过河',
+  url: 'https://leetcode-cn.com/problems/frog-jump/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.动态规划],
+  desc: '一只青蛙想要过河',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.5,
-      desc: '确定边界值进行逐个比较',
-      code: `function judgeSquareSum(c: number): boolean {
-        let num1 = 0;
-        let num2 = ~~Math.sqrt(c) + 1;
-        while (num1 <= num2) {
-          const sum = num1 ** 2 + num2 ** 2;
-          if (sum > c) num2--;
-          else if (sum < c) num1++;
-          else return true;
+      time: 948,
+      memory: 44.5,
+      desc: '动态规划，记录每个石头可跳的步数',
+      code: `function canCross(stones: number[]): boolean {
+        const len = stones.length;
+        const dp: Set<number>[] = new Array(len).fill(0).map(_ => new Set<number>());
+        dp[0].add(0);
+        for (let i = 1; i < len; i++) {
+          const stone = stones[i];
+          for (let j = 0; j < i; j++) {
+            const minus = stone - stones[j];
+            const set = dp[j];
+            if(set.size===0)continue
+            if (set.has(minus) || set.has(minus - 1) || set.has(minus + 1)) {
+              dp[i].add(minus);
+            }
+          }
         }
-        return false;
+        return dp[len - 1].size !== 0;
       }`,
     },
   ],

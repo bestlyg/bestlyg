@@ -1,24 +1,24 @@
 import { structures } from './utils';
 import { AVLTree } from '@bestlyg/data-structure/src';
-import { random } from 'lodash';
-
+import { min, random } from 'lodash';
 const { TreeNode } = structures;
 type TreeNode = structures.TreeNode;
-const list: number[] = [];
-const tree = new AVLTree<number>((t1, t2) => t1 - t2);
-// [73, 6, 31, 58, 24, 9, 16, 50, 83, 5, 15, 75, 8, 77, 11, 75, 41, 92, 29, 85].forEach(v =>
-//   tree.add(v)
-// );
-// tree.add(0);
-// tree.add(2);
-// tree.add(3);
-let i = 0;
-while (i++ < 20) {
-  const num = random(0, 100);
-  tree.add(num);
-  list.push(num);
+function canCross(stones: number[]): boolean {
+  const len = stones.length;
+  const dp: Set<number>[] = new Array(len).fill(0).map(_ => new Set<number>());
+  dp[0].add(0);
+  for (let i = 1; i < len; i++) {
+    const stone = stones[i];
+    for (let j = 0; j < i; j++) {
+      const minus = stone - stones[j];
+      const set = dp[j];
+      if (set.size === 0) continue;
+      if (set.has(minus) || set.has(minus - 1) || set.has(minus + 1)) {
+        dp[i].add(minus);
+      }
+    }
+  }
+  return dp[len - 1].size !== 0;
 }
-// [83, 92, 77, 50, 41, 73, 85, 58].forEach(v => tree.remove(v));
-// tree.remove(41);
-console.log(tree.print());
-console.log(list);
+console.log(canCross([0, 1, 3, 5, 6, 8, 12, 17]));
+console.log(canCross([0, 2]));
