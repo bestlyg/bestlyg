@@ -4,6 +4,16 @@ describe('BinaryTree', () => {
   beforeEach(() => {
     tree = new BinarySearchTree<number>((t1, t2) => t1 - t2);
   });
+  test('sibling', () => {
+    const root = new BinaryTreeNode(0);
+    root.left = new BinaryTreeNode(1);
+    root.right = new BinaryTreeNode(2);
+    root.left.parent = root;
+    root.right.parent = root;
+    expect(root.sibling).toBeNull();
+    expect(root.left.sibling).toBe(root.right);
+    expect(root.right.sibling).toBe(root.left);
+  });
   describe('order', () => {
     test('inorder', () => {
       tree.add(1);

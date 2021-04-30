@@ -24,8 +24,7 @@ export class BlanceBinarySearchTree<T> extends BinarySearchTree<T> {
     node.parent = left;
   } 
   */
-  /**
-  左右旋转2
+  // 左右旋转2
   protected rotateLeft(grandParent: BinaryTreeNode<T>) {
     const parent = grandParent.right!;
     const child = parent.left;
@@ -51,7 +50,6 @@ export class BlanceBinarySearchTree<T> extends BinarySearchTree<T> {
     if (child !== null) child.parent = grandParent;
     grandParent.parent = parent;
   }
-  */
   /**
    * 统一旋转
    * @param oldCenter 老中间节点

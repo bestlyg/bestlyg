@@ -83,7 +83,6 @@ export class BinarySearchTree<T> extends BinaryTree<T> implements IBinarySearchT
     else {
       node.parent[node.childPosition] = nextNode;
       nextNode.parent = node.parent;
-      this.afterRemove(nextNode);
     }
     this.afterRemove(nextNode);
   }

@@ -6,6 +6,10 @@ export enum BinaryTreeNodeChildPosition {
   LEFT = 'left',
   RIGHT = 'right',
 }
+export const reverseBinaryTreeNodeChildPosition = (pos: BinaryTreeNodeChildPosition) =>
+  pos === BinaryTreeNodeChildPosition.LEFT
+    ? BinaryTreeNodeChildPosition.RIGHT
+    : BinaryTreeNodeChildPosition.LEFT;
 /** 二叉树节点 */
 export class BinaryTreeNode<T> {
   /** 树的度 */
@@ -24,6 +28,11 @@ export class BinaryTreeNode<T> {
   }
   get childPosition(): BinaryTreeNodeChildPosition {
     return this.isLeftChild ? BinaryTreeNodeChildPosition.LEFT : BinaryTreeNodeChildPosition.RIGHT;
+  }
+  get sibling(): BinaryTreeNode<T> | null {
+    return this.parent === null
+      ? null
+      : this.parent[reverseBinaryTreeNodeChildPosition(this.childPosition)];
   }
   constructor(
     /** 节点储存的值 */
