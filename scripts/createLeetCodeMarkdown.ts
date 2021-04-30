@@ -34,33 +34,43 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '403. 青蛙过河',
-  url: 'https://leetcode-cn.com/problems/frog-jump/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
-  desc: '一只青蛙想要过河',
+  name: '137. 只出现一次的数字 II',
+  url: 'https://leetcode-cn.com/problems/single-number-ii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.位运算],
+  desc:
+    '给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。',
   solutions: [
     {
       script: Script.TS,
-      time: 948,
-      memory: 44.5,
-      desc: '动态规划，记录每个石头可跳的步数',
-      code: `function canCross(stones: number[]): boolean {
-        const len = stones.length;
-        const dp: Set<number>[] = new Array(len).fill(0).map(_ => new Set<number>());
-        dp[0].add(0);
-        for (let i = 1; i < len; i++) {
-          const stone = stones[i];
-          for (let j = 0; j < i; j++) {
-            const minus = stone - stones[j];
-            const set = dp[j];
-            if(set.size===0)continue
-            if (set.has(minus) || set.has(minus - 1) || set.has(minus + 1)) {
-              dp[i].add(minus);
-            }
-          }
+      time: 96,
+      memory: 40.1,
+      desc: '排序后判断数量',
+      code: `function singleNumber(nums: number[]): number {
+        const len = nums.length;
+        nums.sort((a, b) => a - b);
+        let i = 0;
+        while (i < len - 1) {
+          if (nums[i] === nums[i + 1]) i += 3;
+          else break;
         }
-        return dp[len - 1].size !== 0;
+        return nums[i];
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 76,
+      memory: 40.4,
+      desc: '利用map储存',
+      code: `function singleNumber(nums: number[]): number {
+        return [
+          ...nums
+            .reduce((map, v) => {
+              map.set(v, (map.get(v) ?? 0)+1);
+              return map;
+            }, new Map<number, number>())
+            .entries(),
+        ].filter(([, v]) => v === 1)[0][0];
       }`,
     },
   ],
