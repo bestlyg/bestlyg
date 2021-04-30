@@ -33,8 +33,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '137. 只出现一次的数字 II',
+  existMarkdown: true,
+  name: '547. 省份数量',
   url: 'https://leetcode-cn.com/problems/single-number-ii/',
   difficulty: Difficulty.中等,
   tag: [Tag.位运算],
@@ -43,34 +43,40 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 40.1,
-      desc: '排序后判断数量',
-      code: `function singleNumber(nums: number[]): number {
-        const len = nums.length;
-        nums.sort((a, b) => a - b);
-        let i = 0;
-        while (i < len - 1) {
-          if (nums[i] === nums[i + 1]) i += 3;
-          else break;
+      time: 92,
+      memory: 40.7,
+      desc: '并查集',
+      code: `class UnionFind {
+        elements: number[];
+        constructor(public size: number) {
+          this.elements = new Array(size).fill(0).map((_, i) => i);
         }
-        return nums[i];
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 76,
-      memory: 40.4,
-      desc: '利用map储存',
-      code: `function singleNumber(nums: number[]): number {
-        return [
-          ...nums
-            .reduce((map, v) => {
-              map.set(v, (map.get(v) ?? 0)+1);
-              return map;
-            }, new Map<number, number>())
-            .entries(),
-        ].filter(([, v]) => v === 1)[0][0];
+        same(v1: number, v2: number): boolean {
+          return this.find(v1) === this.find(v2);
+        }
+        find(v: number): number {
+          return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));
+        }
+        union(v1: number, v2: number): void {
+          const e1 = this.find(v1);
+          const e2 = this.find(v2);
+          if (e1 !== e2) {
+            this.elements[e1] = e2;
+            this.size--;
+          }
+        }
+      }
+      
+      function findCircleNum(isConnected: number[][]): number {
+        const len = isConnected.length;
+        const uf = new UnionFind(len);
+        for (let i = 0; i < len; i++) {
+          const connect = isConnected[i];
+          for (let j = 0; j < len; j++) {
+            connect[j] === 1 && uf.union(i, j);
+          }
+        }
+        return uf.size;
       }`,
     },
   ],
