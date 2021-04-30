@@ -1,8 +1,8 @@
 import { BlanceBinarySearchTree } from './blanceBinarySearchTree';
 import { BinaryTreeNode } from './binaryTree';
 export enum Color {
-  RED = 'red',
-  BLACK = 'black',
+  RED,
+  BLACK,
 }
 const getColor = (node: RBTreeNode<any> | null) => (node === null ? Color.BLACK : node.color);
 const isRed = (node: RBTreeNode<any> | null) => getColor(node) === Color.RED;
@@ -11,12 +11,6 @@ export class RBTreeNode<T> extends BinaryTreeNode<T> {
   private _color = Color.RED;
   get color() {
     return this._color;
-  }
-  get isRed() {
-    return isRed(this);
-  }
-  get isBlack() {
-    return isBlack(this);
   }
   get sibling() {
     return super.sibling as RBTreeNode<T>;
@@ -30,18 +24,18 @@ export class RBTreeNode<T> extends BinaryTreeNode<T> {
   ) {
     super(val, parent, left, right);
   }
-  toRed() {
-    return this.toColor(Color.RED);
+  setRed() {
+    return this.setColor(Color.RED);
   }
-  toBlack() {
-    return this.toColor(Color.BLACK);
+  setBlack() {
+    return this.setColor(Color.BLACK);
   }
-  toColor(color: Color) {
+  setColor(color: Color) {
     this._color = color;
     return this;
   }
   toString() {
-    return super.toString() + (this.isRed ? '(R)' : '');
+    return super.toString() + (isRed(this) ? '(R)' : '');
   }
 }
 export class RBTree<T> extends BlanceBinarySearchTree<T> {
@@ -61,15 +55,15 @@ export class RBTree<T> extends BlanceBinarySearchTree<T> {
   protected afterAdd(node: RBTreeNode<T>) {
     let parent = node.parent;
     if (parent === null) {
-      node.toBlack();
+      node.setBlack();
       return;
     }
     if (isBlack(parent)) return;
-    const grandParent = parent.parent!.toRed();
+    const grandParent = parent.parent!.setRed();
     const uncle = parent.sibling;
     if (isRed(uncle)) {
-      parent.toBlack();
-      uncle.toBlack();
+      parent.setBlack();
+      uncle.setBlack();
       this.afterAdd(grandParent);
       return;
     }
@@ -86,12 +80,12 @@ export class RBTree<T> extends BlanceBinarySearchTree<T> {
       }
       this.rotateLeft(grandParent);
     }
-    parent.toBlack();
-    node.toRed();
+    parent.setBlack();
+    node.setRed();
   }
   protected afterRemove(node: RBTreeNode<T>) {
-    if (node.isRed) {
-      node.toBlack();
+    if (isRed(node)) {
+      node.setBlack();
       return;
     }
     const parent = node.parent;
@@ -99,48 +93,48 @@ export class RBTree<T> extends BlanceBinarySearchTree<T> {
     const isLeftChild = parent.left === null || node.isLeftChild;
     let sibling = isLeftChild ? parent.right! : parent.left!;
     if (isLeftChild) {
-      if (sibling.isRed) {
+      if (isRed(sibling)) {
         this.rotateLeft(parent);
-        sibling.toBlack();
-        parent.toRed();
+        sibling.setBlack();
+        parent.setRed();
         sibling = parent.right!;
       }
       if (isBlack(sibling.left) && isBlack(sibling.right)) {
-        const isBlack = parent.isBlack;
-        sibling.toRed();
-        parent.toBlack();
-        isBlack && this.afterRemove(parent);
+        const blackState = isBlack(parent);
+        sibling.setRed();
+        parent.setBlack();
+        blackState && this.afterRemove(parent);
       } else {
         if (isBlack(sibling.right)) {
           this.rotateRight(sibling);
           sibling = sibling.parent!;
         }
         this.rotateLeft(parent);
-        sibling.toColor(parent.color);
-        parent.toBlack();
-        sibling.right?.toBlack();
+        sibling.setColor(parent.color);
+        parent.setBlack();
+        sibling.right?.setBlack();
       }
     } else {
-      if (sibling.isRed) {
+      if (isRed(sibling)) {
         this.rotateRight(parent);
-        sibling.toBlack();
-        parent.toRed();
+        sibling.setBlack();
+        parent.setRed();
         sibling = parent.left!;
       }
       if (isBlack(sibling.left) && isBlack(sibling.right)) {
-        const isBlack = parent.isBlack;
-        sibling.toRed();
-        parent.toBlack();
-        isBlack && this.afterRemove(parent);
+        const blackState = isBlack(parent);
+        sibling.setRed();
+        parent.setBlack();
+        blackState && this.afterRemove(parent);
       } else {
         if (isBlack(sibling.left)) {
           this.rotateLeft(sibling);
           sibling = sibling.parent!;
         }
         this.rotateRight(parent);
-        sibling.toColor(parent.color);
-        parent.toBlack();
-        sibling.left?.toBlack();
+        sibling.setColor(parent.color);
+        parent.setBlack();
+        sibling.left?.setBlack();
       }
     }
   }
