@@ -24,15 +24,31 @@ class UnionFind {
     }
   }
 }
-
-function findCircleNum(isConnected: number[][]): number {
-  const len = isConnected.length;
-  const uf = new UnionFind(len);
-  for (let i = 0; i < len; i++) {
-    const connect = isConnected[i];
-    for (let j = 0; j < len; j++) {
-      connect[j] === 1 && uf.union(i, j);
+function numIslands(grid: string[][]): number {
+  let count = 0;
+  const newGrid: number[][] = grid.map(row => row.map(col => (col === '0' ? -1 : count++)));
+  const rowLen = grid.length;
+  const colLen = grid[0].length;
+  const uf = new UnionFind(count);
+  for (let row = 0; row < rowLen; row++) {
+    for (let col = 0; col < colLen; col++) {
+      const num = newGrid[row][col];
+      console.log(`row=${row},col=${col},num=${num}`);
+      if (num === 0) continue;
+      if (row > 0 && newGrid[row - 1][col] > -1) uf.union(num, newGrid[row - 1][col]);
+      if (col > 0 && newGrid[row][col - 1] > -1) uf.union(num, newGrid[row][col - 1]);
+      if (row < rowLen - 1 && newGrid[row + 1][col] > -1) uf.union(num, newGrid[row + 1][col]);
+      if (col < colLen - 1 && newGrid[row][col + 1] > -1) uf.union(num, newGrid[row][col + 1]);
     }
   }
+  console.log(newGrid, count, uf);
   return uf.size;
 }
+console.log(
+  numIslands([
+    ['1', '1', '1', '1', '0'],
+    ['1', '1', '0', '1', '0'],
+    ['1', '1', '0', '0', '0'],
+    ['0', '0', '0', '0', '0'],
+  ])
+);
