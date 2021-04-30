@@ -24,21 +24,33 @@ class UnionFind {
     }
   }
 }
-function equationsPossible(equations: string[]): boolean {
-  equations.sort((a, b) => {
-    if (a[1] === '=') return -1;
-    return 1;
-  });
-  console.log(equations);
-  const uf = new UnionFind(26);
-  const toNum = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;
-  for (const equation of equations) {
-    const num1 = toNum(equation[0]);
-    const num2 = toNum(equation[3]);
-    const same = equation[1] === '=';
-    if (same) uf.union(num1, num2);
-    else if (uf.same(num1, num2)) return false;
+function longestConsecutive(nums: number[]): number {
+  nums = [...new Set(nums)];
+  const len = nums.length;
+  if (len === 0) return 0;
+  const uf = new UnionFind(len);
+  const map = new Map(nums.map((v, i) => [v, i]));
+  const ansMap = new Map<number, number>();
+  for (let i = 0; i < len; i++) {
+    const num = nums[i];
+    const num_minus = map.get(num - 1);
+    if (num_minus) {
+      uf.union(i, num_minus);
+      const index = uf.find(i);
+      ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
+    }
+    const num_add = map.get(num + 1);
+    if (num_add) {
+      uf.union(i, num_add);
+      const index = uf.find(i);
+      ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
+    }
   }
-  return true;
+  const cache: Record<number, number> = {};
+  for (let i = 0; i < len; i++) {
+    const num = uf.find(i);
+    cache[num] = (cache[num] ?? 0) + 1;
+  }
+  return [...Object.entries(cache)].sort(([, c1], [, c2]) => c2 - c1)[0][1];
 }
-console.log(equationsPossible(['a==b', 'b!=c', 'c==a']));
+console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
