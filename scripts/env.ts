@@ -24,31 +24,21 @@ class UnionFind {
     }
   }
 }
-function numIslands(grid: string[][]): number {
-  let count = 0;
-  const newGrid: number[][] = grid.map(row => row.map(col => (col === '0' ? -1 : count++)));
-  const rowLen = grid.length;
-  const colLen = grid[0].length;
-  const uf = new UnionFind(count);
-  for (let row = 0; row < rowLen; row++) {
-    for (let col = 0; col < colLen; col++) {
-      const num = newGrid[row][col];
-      console.log(`row=${row},col=${col},num=${num}`);
-      if (num === 0) continue;
-      if (row > 0 && newGrid[row - 1][col] > -1) uf.union(num, newGrid[row - 1][col]);
-      if (col > 0 && newGrid[row][col - 1] > -1) uf.union(num, newGrid[row][col - 1]);
-      if (row < rowLen - 1 && newGrid[row + 1][col] > -1) uf.union(num, newGrid[row + 1][col]);
-      if (col < colLen - 1 && newGrid[row][col + 1] > -1) uf.union(num, newGrid[row][col + 1]);
-    }
+function equationsPossible(equations: string[]): boolean {
+  equations.sort((a, b) => {
+    if (a[1] === '=') return -1;
+    return 1;
+  });
+  console.log(equations);
+  const uf = new UnionFind(26);
+  const toNum = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;
+  for (const equation of equations) {
+    const num1 = toNum(equation[0]);
+    const num2 = toNum(equation[3]);
+    const same = equation[1] === '=';
+    if (same) uf.union(num1, num2);
+    else if (uf.same(num1, num2)) return false;
   }
-  console.log(newGrid, count, uf);
-  return uf.size;
+  return true;
 }
-console.log(
-  numIslands([
-    ['1', '1', '1', '1', '0'],
-    ['1', '1', '0', '1', '0'],
-    ['1', '1', '0', '0', '0'],
-    ['0', '0', '0', '0', '0'],
-  ])
-);
+console.log(equationsPossible(['a==b', 'b!=c', 'c==a']));

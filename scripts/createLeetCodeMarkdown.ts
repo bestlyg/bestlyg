@@ -34,7 +34,7 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: true,
-  name: '200. 岛屿数量',
+  name: '990. 等式方程的可满足性',
   url: 'https://leetcode-cn.com/problems/single-number-ii/',
   difficulty: Difficulty.中等,
   tag: [Tag.位运算],
@@ -43,8 +43,8 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 124,
-      memory: 43,
+      time: 108,
+      memory: 41.8,
       desc: '并查集',
       code: `class UnionFind {
         elements: number[];
@@ -66,23 +66,21 @@ const md: Markdown = {
           }
         }
       }
-      function numIslands(grid: string[][]): number {
-        let count = 0;
-        const newGrid: number[][] = grid.map(row => row.map(col => (col === '0' ? -1 : count++)));
-        const rowLen = grid.length;
-        const colLen = grid[0].length;
-        const uf = new UnionFind(count);
-        for (let row = 0; row < rowLen; row++) {
-          for (let col = 0; col < colLen; col++) {
-            const num = newGrid[row][col];
-            if (num === -1) continue;
-            if (row > 0 && newGrid[row - 1][col] !== -1) uf.union(num, newGrid[row - 1][col]);
-            if (col > 0 && newGrid[row][col - 1] !== -1) uf.union(num, newGrid[row][col - 1]);
-            if (row < rowLen - 1 && newGrid[row + 1][col] !== -1) uf.union(num, newGrid[row + 1][col]);
-            if (col < colLen - 1 && newGrid[row][col + 1] !== -1) uf.union(num, newGrid[row][col + 1]);
-          }
+      function equationsPossible(equations: string[]): boolean {
+        equations.sort((a, b) => {
+          if (a[1] === '=') return -1;
+          return 1;
+        });
+        const uf = new UnionFind(26);
+        const toNum = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;
+        for (const equation of equations) {
+          const num1 = toNum(equation[0]);
+          const num2 = toNum(equation[3]);
+          const same = equation[1] === '=';
+          if (same) uf.union(num1, num2);
+          else if (uf.same(num1, num2)) return false;
         }
-        return uf.size;
+        return true;
       }`,
     },
   ],
