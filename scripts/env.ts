@@ -24,33 +24,33 @@ class UnionFind {
     }
   }
 }
-function longestConsecutive(nums: number[]): number {
-  nums = [...new Set(nums)];
-  const len = nums.length;
-  if (len === 0) return 0;
-  const uf = new UnionFind(len);
-  const map = new Map(nums.map((v, i) => [v, i]));
-  const ansMap = new Map<number, number>();
-  for (let i = 0; i < len; i++) {
-    const num = nums[i];
-    const num_minus = map.get(num - 1);
-    if (num_minus) {
-      uf.union(i, num_minus);
-      const index = uf.find(i);
-      ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
-    }
-    const num_add = map.get(num + 1);
-    if (num_add) {
-      uf.union(i, num_add);
-      const index = uf.find(i);
-      ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
-    }
-  }
-  const cache: Record<number, number> = {};
-  for (let i = 0; i < len; i++) {
-    const num = uf.find(i);
-    cache[num] = (cache[num] ?? 0) + 1;
-  }
-  return [...Object.entries(cache)].sort(([, c1], [, c2]) => c2 - c1)[0][1];
+
+class Employee {
+  constructor(
+    public id: number = 0,
+    public importance: number = 0,
+    public subordinates: number[] = []
+  ) {}
 }
-console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
+function GetImportance(employees: Employee[], id: number): number {
+  const map = employees.reduce((map, emp) => {
+    map.set(emp.id, emp);
+    return map;
+  }, new Map<number, Employee>());
+  const find = (id: number): number => {
+    const emp = map.get(id)!;
+    return (
+      emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)
+    );
+  };
+  return find(id);
+}
+const list: Employee[] = [
+  [1, 5, [2, 3]],
+  [2, 3, []],
+  [3, 3, []],
+].map(
+  ([id, importance, subordinates]: [number, number, number[]]) =>
+    new Employee(id, importance, subordinates)
+);
+console.log(getImportance(list, 1));

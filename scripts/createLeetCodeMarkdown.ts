@@ -33,68 +33,31 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '128. 最长连续序列',
-  url: 'https://leetcode-cn.com/problems/single-number-ii/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算],
-  desc:
-    '给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。',
+  existMarkdown: false,
+  name: '690. 员工的重要性',
+  url: 'https://leetcode-cn.com/problems/employee-importance/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.广度优先搜索, Tag.广度优先搜索, Tag.哈希表],
+  desc: '现在输入一个公司的所有员工信息，以及单个员工 id ，返回这个员工和他所有下属的重要度之和。',
   solutions: [
     {
       script: Script.TS,
-      time: 192,
-      memory: 53.8,
-      desc: '并查集',
-      code: `class UnionFind {
-        elements: number[];
-        constructor(public size: number) {
-          this.elements = new Array(size).fill(0).map((_, i) => i);
-        }
-        same(v1: number, v2: number): boolean {
-          return this.find(v1) === this.find(v2);
-        }
-        find(v: number): number {
-          return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));
-        }
-        union(v1: number, v2: number): void {
-          const e1 = this.find(v1);
-          const e2 = this.find(v2);
-          if (e1 !== e2) {
-            this.elements[e1] = e2;
-            this.size--;
-          }
-        }
-      }
-      function longestConsecutive(nums: number[]): number {
-        nums = [...new Set(nums)];
-        const len = nums.length;
-        if (len === 0) return 0;
-        const uf = new UnionFind(len);
-        const map = new Map(nums.map((v, i) => [v, i]));
-        const ansMap = new Map<number, number>();
-        for (let i = 0; i < len; i++) {
-          const num = nums[i];
-          const num_minus = map.get(num - 1);
-          if (num_minus) {
-            uf.union(i, num_minus);
-            const index = uf.find(i);
-            ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
-          }
-          const num_add = map.get(num + 1);
-          if (num_add) {
-            uf.union(i, num_add);
-            const index = uf.find(i);
-            ansMap.set(index, (ansMap.get(index) ?? 0) + 1);
-          }
-        }
-        const cache: Record<number, number> = {};
-        for (let i = 0; i < len; i++) {
-          const num = uf.find(i);
-          cache[num] = (cache[num] ?? 0) + 1;
-        }
-        return [...Object.entries(cache)].sort(([, c1], [, c2]) => c2 - c1)[0][1];
-      } `,
+      time: 80,
+      memory: 42.2,
+      desc: '哈希表储存',
+      code: `function GetImportance(employees: Employee[], id: number): number {
+        const map = employees.reduce((map, emp) => {
+          map.set(emp.id, emp);
+          return map;
+        }, new Map<number, Employee>());
+        const find = (id: number): number => {
+          const emp = map.get(id)!;
+          return (
+            emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)
+          );
+        };
+        return find(id);
+      }`,
     },
   ],
 };
