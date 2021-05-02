@@ -24,33 +24,20 @@ class UnionFind {
     }
   }
 }
-
-class Employee {
-  constructor(
-    public id: number = 0,
-    public importance: number = 0,
-    public subordinates: number[] = []
-  ) {}
+function leastBricks(wall: number[][]): number {
+  const rowLen = wall.length;
+  const size = wall[0].reduce((total, cur) => total + cur, 0);
+  if (wall.every(row => row.length === 1)) return rowLen * size;
+  const map: Record<number, number> = {};
+  for (const row of wall) {
+    let sum = -1;
+    for (const col of row) {
+      sum += col;
+      map[sum] = 1 + (map[sum] ?? 0);
+    }
+  }
+  Reflect.deleteProperty(map, size - 1);
+  console.log(map);
+  return rowLen - Math.max(...Object.values(map));
 }
-function GetImportance(employees: Employee[], id: number): number {
-  const map = employees.reduce((map, emp) => {
-    map.set(emp.id, emp);
-    return map;
-  }, new Map<number, Employee>());
-  const find = (id: number): number => {
-    const emp = map.get(id)!;
-    return (
-      emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)
-    );
-  };
-  return find(id);
-}
-const list: Employee[] = [
-  [1, 5, [2, 3]],
-  [2, 3, []],
-  [3, 3, []],
-].map(
-  ([id, importance, subordinates]: [number, number, number[]]) =>
-    new Employee(id, importance, subordinates)
-);
-console.log(getImportance(list, 1));
+console.log(leastBricks([[2], [2], [2]]));

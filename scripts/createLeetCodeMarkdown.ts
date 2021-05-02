@@ -34,29 +34,31 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '690. 员工的重要性',
-  url: 'https://leetcode-cn.com/problems/employee-importance/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.广度优先搜索, Tag.广度优先搜索, Tag.哈希表],
-  desc: '现在输入一个公司的所有员工信息，以及单个员工 id ，返回这个员工和他所有下属的重要度之和。',
+  name: '554. 砖墙',
+  url: 'https://leetcode-cn.com/problems/brick-wall/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.哈希表],
+  desc: '你需要找出怎样画才能使这条线 穿过的砖块数量最少 ，并且返回 穿过的砖块数量 。',
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 42.2,
-      desc: '哈希表储存',
-      code: `function GetImportance(employees: Employee[], id: number): number {
-        const map = employees.reduce((map, emp) => {
-          map.set(emp.id, emp);
-          return map;
-        }, new Map<number, Employee>());
-        const find = (id: number): number => {
-          const emp = map.get(id)!;
-          return (
-            emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)
-          );
-        };
-        return find(id);
+      time: 136,
+      memory: 45.2,
+      desc: '统计每个边界的空数',
+      code: `function leastBricks(wall: number[][]): number {
+        const rowLen = wall.length;
+        const size = wall[0].reduce((total, cur) => total + cur, 0);
+        if (wall.every(row => row.length === 1)) return rowLen;
+        const map: Record<number, number> = {};
+        for (const row of wall) {
+          let sum = -1;
+          for (const col of row) {
+            sum += col;
+            map[sum] = 1 + (map[sum] ?? 0);
+          }
+        }
+        Reflect.deleteProperty(map, size - 1);
+        return rowLen - Math.max(...Object.values(map));
       }`,
     },
   ],
