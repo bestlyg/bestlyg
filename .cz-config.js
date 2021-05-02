@@ -18,6 +18,7 @@ module.exports = {
     { name: '力扣题解' },
     { name: '应用合集' },
     { name: '配置文件' },
+    { name: '整个项目' },
   ],
   // it needs to match the value for field type. Eg.: 'fix'
   /*
