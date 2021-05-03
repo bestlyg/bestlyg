@@ -44,6 +44,7 @@ export default defineConfig({
   dynamicImport: {},
   hash: true,
   analyze: {},
+  esbuild: {},
   chainWebpack(config, { webpack }) {
     if (__DEV__) return;
     // 生产模式开启
