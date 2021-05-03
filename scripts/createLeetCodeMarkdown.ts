@@ -33,8 +33,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '554. 砖墙',
+  existMarkdown: true,
+  name: '7. 整数反转',
   url: 'https://leetcode-cn.com/problems/brick-wall/',
   difficulty: Difficulty.中等,
   tag: [Tag.哈希表],
@@ -42,24 +42,30 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 136,
-      memory: 45.2,
-      desc: '统计每个边界的空数',
-      code: `function leastBricks(wall: number[][]): number {
-        const rowLen = wall.length;
-        const size = wall[0].reduce((total, cur) => total + cur, 0);
-        if (wall.every(row => row.length === 1)) return rowLen;
-        const map: Record<number, number> = {};
-        for (const row of wall) {
-          let sum = -1;
-          for (const col of row) {
-            sum += col;
-            map[sum] = 1 + (map[sum] ?? 0);
-          }
+      time: 92,
+      memory: 39.6,
+      desc: '逐个累加',
+      code: `function reverse(x: number): number {
+        let ans = 0;
+        const maxVal = 2**31-1;
+        const minVal = (-2)**31;
+        while(x!==0){
+            ans = ans*10 + (x%10);
+            x=x/10>>0
+            if(ans>maxVal||ans<minVal)return 0
         }
-        Reflect.deleteProperty(map, size - 1);
-        return rowLen - Math.max(...Object.values(map));
-      }`,
+        return ans
+    };`,
+    },
+    {
+      script: Script.TS,
+      time: 100,
+      memory: 39.6,
+      desc: '利用字符串翻转',
+      code: `function reverse(x: number): number {
+        const num = Number(Math.abs(x).toString().split('').reverse().join(''))
+        return (x<0?-1:1)*(num>2**31-1||num<(-2)**31?0:num)
+    };`,
     },
   ],
 };
