@@ -1,43 +1,34 @@
-// import { structures } from './utils';
-// import { AVLTree, RBTree } from '@bestlyg/data-structure/src';
-// import { min, random } from 'lodash';
-// const { TreeNode, UnionFind } = structures;
-// type TreeNode = structures.TreeNode;
-// type UnionFind = structures.UnionFind;
-class UnionFind {
-  elements: number[];
-  constructor(public size: number) {
-    this.elements = new Array(size).fill(0).map((_, i) => i);
-  }
-  same(v1: number, v2: number): boolean {
-    return this.find(v1) === this.find(v2);
-  }
-  find(v: number): number {
-    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));
-  }
-  union(v1: number, v2: number): void {
-    const e1 = this.find(v1);
-    const e2 = this.find(v2);
-    if (e1 !== e2) {
-      this.elements[e1] = e2;
-      this.size--;
+import { structures } from './utils';
+import { AVLTree, RBTree } from '@bestlyg/data-structure/src';
+import { min, random } from 'lodash';
+const { TreeNode, UnionFind } = structures;
+type TreeNode = structures.TreeNode;
+type UnionFind = structures.UnionFind;
+function minCost(houses: number[], cost: number[][], m: number, n: number, target: number): number {
+  houses = houses.map(c => --c);
+  const dp: number[][][] = new Array(m)
+    .fill(0)
+    .map(_ => new Array(n).fill(0).map(_ => new Array(target).fill(Infinity)));
+  for (let i = 0; i < m; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (houses[i] !== -1 && houses[i] !== j) continue;
+      for (let k = 0; k < target; ++k) {
+        for (let j0 = 0; j0 < n; ++j0) {
+          if (j === j0) {
+            if (i === 0) {
+              if (k === 0) dp[i][j][k] = 0;
+            } else {
+              dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][j][k]);
+            }
+          } else if (i > 0 && k > 0) {
+            dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][j0][k - 1]);
+          }
+        }
+        if (dp[i][j][k] !== Infinity && houses[i] === -1) dp[i][j][k] += cost[i][j];
+      }
     }
   }
+  let ans = Infinity;
+  for (let j = 0; j < n; ++j) ans = Math.min(ans, dp[m - 1][j][target - 1]);
+  return ans === Infinity ? -1 : ans;
 }
-function leastBricks(wall: number[][]): number {
-  const rowLen = wall.length;
-  const size = wall[0].reduce((total, cur) => total + cur, 0);
-  if (wall.every(row => row.length === 1)) return rowLen * size;
-  const map: Record<number, number> = {};
-  for (const row of wall) {
-    let sum = -1;
-    for (const col of row) {
-      sum += col;
-      map[sum] = 1 + (map[sum] ?? 0);
-    }
-  }
-  Reflect.deleteProperty(map, size - 1);
-  console.log(map);
-  return rowLen - Math.max(...Object.values(map));
-}
-console.log(leastBricks([[2], [2], [2]]));
