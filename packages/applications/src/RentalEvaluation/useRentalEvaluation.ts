@@ -1,33 +1,3 @@
----
-title: 租房评测
-nav:
-  title: 应用合集
-  path: /applications
-  order: 4
-group:
-  title: 默认
-  path: /default
-  order: 1
----
-
-# 租房评测
-
-租房评测，通过理性的方式判断房子的情况
-
-## 应用程序
-
-```jsx
-/**
- * inline: true
- */
-import React from 'react';
-import { RentalEvaluation } from '@bestlyg/applications';
-export default RentalEvaluation;
-```
-
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/applications/src/RentalEvaluation/useRentalEvaluation.ts)
-
-```ts
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import DataSet from '@antv/data-set';
 import { getLocalStorage, setLocalStorage } from '@bestlyg/shared';
@@ -72,20 +42,18 @@ export const useRentalEvaluation = () => {
   // chart
   const chartScale = useMemo(() => {
     let max = 10;
-    rentalList.forEach(rental =>
-      rental.evaluation.forEach(({ weight }) => {
-        let num = Math.ceil(10 * weight);
-        while (num % 5 !== 0) num++;
-        max = Math.max(max, num);
-      })
-    );
+    rentalList[rentalIndex].evaluation.forEach(({ weight }) => {
+      let num = Math.ceil(10 * weight);
+      while (num++ % 5 !== 0);
+      max = Math.max(max, num);
+    });
     return {
       value: {
         min: 0,
         max,
       },
     };
-  }, [rentalList]);
+  }, [rentalList, rentalIndex]);
   const chartData = useMemo(() => {
     const dv = new DataSet.DataView().source(rentalList[rentalIndex].evaluation);
     dv.transform({
@@ -169,4 +137,3 @@ export const useRentalEvaluation = () => {
     chartScale,
   };
 };
-```

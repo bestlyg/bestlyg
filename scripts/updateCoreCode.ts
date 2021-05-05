@@ -1,7 +1,7 @@
 import { LOGO, resolve, fs, specStr, chalk } from './utils';
 const { backquote } = specStr;
 const coreCodeReg = /## \[核心代码\]\((.*)\)/g;
-const fileReg = /(packages\/.*\.ts)/;
+const fileReg = /(packages\/.*\.ts(x?))/;
 function main() {
   console.log(LOGO);
   console.log(chalk.blue('更新核心代码'));
