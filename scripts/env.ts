@@ -4,31 +4,24 @@ import { min, random } from 'lodash';
 const { TreeNode, UnionFind } = structures;
 type TreeNode = structures.TreeNode;
 type UnionFind = structures.UnionFind;
-function minCost(houses: number[], cost: number[][], m: number, n: number, target: number): number {
-  houses = houses.map(c => --c);
-  const dp: number[][][] = new Array(m)
-    .fill(0)
-    .map(_ => new Array(n).fill(0).map(_ => new Array(target).fill(Infinity)));
-  for (let i = 0; i < m; ++i) {
-    for (let j = 0; j < n; ++j) {
-      if (houses[i] !== -1 && houses[i] !== j) continue;
-      for (let k = 0; k < target; ++k) {
-        for (let j0 = 0; j0 < n; ++j0) {
-          if (j === j0) {
-            if (i === 0) {
-              if (k === 0) dp[i][j][k] = 0;
-            } else {
-              dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][j][k]);
-            }
-          } else if (i > 0 && k > 0) {
-            dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][j0][k - 1]);
-          }
-        }
-        if (dp[i][j][k] !== Infinity && houses[i] === -1) dp[i][j][k] += cost[i][j];
-      }
-    }
+
+/*
+  0 -> 选了
+  1 -> 没选
+  */
+function deleteAndEarn(nums: number[]): number {
+  const map = new Map<number, number>();
+  nums.forEach(num => map.set(num, (map.get(num) ?? 0) + 1));
+  const arr = [...map.keys()].sort((a, b) => a - b);
+  const len = arr.length;
+  const dp: number[][] = new Array(len).fill(0).map(_ => new Array(2).fill(0));
+  dp[0][0] = arr[0] * map.get(arr[0])!;
+  for (let i = 1; i < len; i++) {
+    const num = arr[i];
+    const maxPrev = Math.max(...dp[i - 1]);
+    dp[i][1] = maxPrev;
+    dp[i][0] = (map.has(num - 1) ? dp[i - 1][1] : maxPrev) + map.get(num)! * num;
   }
-  let ans = Infinity;
-  for (let j = 0; j < n; ++j) ans = Math.min(ans, dp[m - 1][j][target - 1]);
-  return ans === Infinity ? -1 : ans;
+  return Math.max(...dp[len - 1]);
 }
+console.log(deleteAndEarn([1, 1, 1, 2, 4, 5, 5, 5, 6]));

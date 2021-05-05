@@ -33,39 +33,33 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '7. 整数反转',
-  url: 'https://leetcode-cn.com/problems/brick-wall/',
+  existMarkdown: false,
+  name: '740. 删除并获得点数',
+  url: 'https://leetcode-cn.com/problems/delete-and-earn/',
   difficulty: Difficulty.中等,
-  tag: [Tag.哈希表],
-  desc: '你需要找出怎样画才能使这条线 穿过的砖块数量最少 ，并且返回 穿过的砖块数量 。',
+  tag: [Tag.动态规划],
+  desc: '开始你拥有 0 个点数。返回你能通过这些操作获得的最大点数。',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.6,
-      desc: '逐个累加',
-      code: `function reverse(x: number): number {
-        let ans = 0;
-        const maxVal = 2**31-1;
-        const minVal = (-2)**31;
-        while(x!==0){
-            ans = ans*10 + (x%10);
-            x=x/10>>0
-            if(ans>maxVal||ans<minVal)return 0
+      time: 108,
+      memory: 40.4,
+      desc: '动态规划，计算包含前后值和不包含前后值得情况',
+      code: `function deleteAndEarn(nums: number[]): number {
+        const map = new Map<number, number>();
+        nums.forEach(num => map.set(num, (map.get(num) ?? 0) + 1));
+        const arr = [...map.keys()].sort((a, b) => a - b);
+        const len = arr.length;
+        const dp: number[][] = new Array(len).fill(0).map(_ => new Array(2).fill(0));
+        dp[0][0] = arr[0] * map.get(arr[0])!;
+        for (let i = 1; i < len; i++) {
+          const num = arr[i];
+          const maxPrev = Math.max(...dp[i - 1]);
+          dp[i][1] = maxPrev;
+          dp[i][0] = (map.has(num - 1) ? dp[i - 1][1] : maxPrev) + map.get(num)! * num;
         }
-        return ans
-    };`,
-    },
-    {
-      script: Script.TS,
-      time: 100,
-      memory: 39.6,
-      desc: '利用字符串翻转',
-      code: `function reverse(x: number): number {
-        const num = Number(Math.abs(x).toString().split('').reverse().join(''))
-        return (x<0?-1:1)*(num>2**31-1||num<(-2)**31?0:num)
-    };`,
+        return Math.max(...dp[len - 1]);
+      }`,
     },
   ],
 };
