@@ -34,19 +34,14 @@ export class UnionFindSet<T> {
   }
   /** 合并两个节点 */
   union(val1: T, val2: T) {
-    const root1: UnionFindSetNode<T> = this.findRoot(val1)!;
-    const root2: UnionFindSetNode<T> = this.findRoot(val2)!;
+    let root1: UnionFindSetNode<T> = this.findRoot(val1)!;
+    let root2: UnionFindSetNode<T> = this.findRoot(val2)!;
     if (!root1 || !root2 || root1 === root2) return;
     this._size--;
-    if (root1.size >= root2.size) {
-      root2.parent = root1;
-      root1.size += root2.size;
-      root2.size = 1;
-    } else {
-      root1.parent = root2;
-      root2.size += root1.size;
-      root1.size = 1;
-    }
+    if (root1.size < root2.size) [root1, root2] = [root2, root1];
+    root2.parent = root1;
+    root1.size += root2.size;
+    root2.size = 1;
   }
   private findRoot(val: T): UnionFindSetNode<T> | null {
     let node: UnionFindSetNode<T> = this.map.get(val)!;
