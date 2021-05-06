@@ -32,10 +32,16 @@ group:
 
 - [二叉树](tree/二叉树)
 - [二叉搜索树](tree/二叉搜索树)
+- [AVL 树](tree/AVL树)
+- [红黑树](tree/红黑树)
 
 ### [堆](heap/堆)
 
 - [二叉堆](heap/二叉堆)
+
+### [并查集](unionFindSet/并查集)
+
+- [并查集](unionFindSet/并查集)
 
 ## 数据结构基础类
 
