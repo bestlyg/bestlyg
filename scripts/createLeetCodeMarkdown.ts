@@ -34,31 +34,19 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '740. 删除并获得点数',
-  url: 'https://leetcode-cn.com/problems/delete-and-earn/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.动态规划],
-  desc: '开始你拥有 0 个点数。返回你能通过这些操作获得的最大点数。',
+  name: '1720. 解码异或后的数组',
+  url: 'https://leetcode-cn.com/problems/decode-xored-array/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算],
+  desc: '请解码返回原数组 arr 。可以证明答案存在并且是唯一的。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 40.4,
-      desc: '动态规划，计算包含前后值和不包含前后值得情况',
-      code: `function deleteAndEarn(nums: number[]): number {
-        const map = new Map<number, number>();
-        nums.forEach(num => map.set(num, (map.get(num) ?? 0) + 1));
-        const arr = [...map.keys()].sort((a, b) => a - b);
-        const len = arr.length;
-        const dp: number[][] = new Array(len).fill(0).map(_ => new Array(2).fill(0));
-        dp[0][0] = arr[0] * map.get(arr[0])!;
-        for (let i = 1; i < len; i++) {
-          const num = arr[i];
-          const maxPrev = Math.max(...dp[i - 1]);
-          dp[i][1] = maxPrev;
-          dp[i][0] = (map.has(num - 1) ? dp[i - 1][1] : maxPrev) + map.get(num)! * num;
-        }
-        return Math.max(...dp[len - 1]);
+      time: 144,
+      memory: 45.1,
+      desc: '利用异或读取下一个值',
+      code: `function decode(encoded: number[], first: number): number[] {
+        return [first, ...encoded.map(num => (first = num ^ first))];
       }`,
     },
   ],
