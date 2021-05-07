@@ -34,20 +34,20 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1720. 解码异或后的数组',
-  url: 'https://leetcode-cn.com/problems/decode-xored-array/',
+  name: '1486. 数组异或操作',
+  url: 'https://leetcode-cn.com/problems/xor-operation-in-an-array/',
   difficulty: Difficulty.简单,
-  tag: [Tag.位运算],
-  desc: '请解码返回原数组 arr 。可以证明答案存在并且是唯一的。',
+  tag: [Tag.位运算, Tag.数组],
+  desc: '请返回 nums 中所有元素按位异或（XOR）后得到的结果。',
   solutions: [
     {
       script: Script.TS,
-      time: 144,
-      memory: 45.1,
+      time: 76,
+      memory: 39.3,
       desc: '利用异或读取下一个值',
-      code: `function decode(encoded: number[], first: number): number[] {
-        return [first, ...encoded.map(num => (first = num ^ first))];
-      }`,
+      code: `function xorOperation(n: number, start: number): number {
+        return    new Array(n).fill(0).map((_,i)=>start+2*i).reduce((total,cur,i)=>i===0?cur:total^cur)
+       };`,
     },
   ],
 };
