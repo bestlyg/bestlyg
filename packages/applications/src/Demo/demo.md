@@ -3,7 +3,7 @@ title: 演示
 nav:
   title: 应用合集
   path: /applications
-  order: 4
+  order: 5
 group:
   title: 默认
   path: /default

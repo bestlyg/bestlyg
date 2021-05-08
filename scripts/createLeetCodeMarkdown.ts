@@ -108,7 +108,7 @@ order: ${getFileOrder(md.name)}
 nav:
   title: 力扣题解
   path: /leetcode
-  order: 3
+  order: 4
 group:
   title: ${dirName}
   path: /${dirName}

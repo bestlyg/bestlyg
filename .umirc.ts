@@ -13,6 +13,7 @@ export default defineConfig({
     includes: [
       'docs',
       'packages/data-structure/src',
+      'packages/algorithm/src',
       'packages/applications/src',
       'packages/leetcode/src',
     ],
