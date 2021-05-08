@@ -1,61 +1,33 @@
-// import { structures } from './utils';
-// import { AVLTree, RBTree } from '@bestlyg/data-structure/src';
-// import { min, random } from 'lodash';
-// const { TreeNode, UnionFind } = structures;
-// type TreeNode = structures.TreeNode;
-// type UnionFind = structures.UnionFind;
-class UnionFindNode<T> {
-  size = 1;
-  parent: UnionFindNode<T> = this;
-  constructor(public val: T) {}
+import { structures } from './utils';
+import { AVLTree, RBTree } from '@bestlyg/data-structure/src';
+import { random } from 'lodash';
+const { TreeNode, UnionFind } = structures;
+type TreeNode = structures.TreeNode;
+type UnionFind = structures.UnionFind;
+function maxSlidingWindow(nums: number[], k: number): number[] {
+  const list: number[] = [];
+  if (k === 0) return list;
+  const ans: number[] = [];
+  const len = nums.length;
+  let index = 0;
+  while (index < len) {
+    while (list.length !== 0 && list[0] + k <= index) list.shift();
+    const num = nums[index];
+    while (list.length !== 0 && nums[list[list.length - 1]] < num) list.pop();
+    list.push(index++);
+    index >= k && ans.push(nums[list[0]]);
+  }
+  return ans;
 }
-class UnionFind<T> {
-  map = new Map<T, UnionFindNode<T>>();
-  add(val: T) {
-    this.map.has(val) || this.map.set(val, new UnionFindNode(val));
-  }
-  same(val1: T, val2: T) {
-    const root1 = this.find(val1);
-    const root2 = this.find(val2);
-    return root1 && root2 ? root1 === root2 : false;
-  }
-  find(val: T): T | null {
-    return this.findNode(val)?.val ?? null;
-  }
-  union(val1: T, val2: T) {
-    const root1: UnionFindNode<T> = this.findNode(val1)!;
-    const root2: UnionFindNode<T> = this.findNode(val2)!;
-    if ((!root1 && !root2) || root1 === root2) return;
-    if (root1.size >= root2.size) {
-      root2.parent = root1;
-      root1.size += root2.size;
-      root2.size = 1;
-    } else {
-      root1.parent = root2;
-      root2.size += root1.size;
-      root1.size = 1;
-    }
-  }
-  private findNode(val: T): UnionFindNode<T> | null {
-    let node: UnionFindNode<T> = this.map.get(val)!;
-    if (!node) return null;
-    while (node.parent !== node) {
-      node.parent = node.parent.parent;
-      node = node.parent;
-    }
-    return node;
-  }
-}
-const objList = new Array(10).fill(0).map((_, value) => ({ value }));
-const uf = new UnionFind<{ value: number }>();
-objList.forEach(obj => uf.add(obj));
-uf.union(objList[1], objList[2]);
-uf.union(objList[3], objList[4]);
-uf.union(objList[2], objList[5]);
-console.log(uf.same(objList[1], objList[5]));
-console.log(uf.find(objList[5]));
-console.log('==========PRINT START');
-for (const [k, v] of uf.map) {
-  console.log(`${k.value} -> size:${v.size},parent:${v.parent.val.value}`);
-}
-console.log('==========PRINT END');
+console.log(maxSlidingWindow([9, 10, 9, -7, -4, -8, 2, -6], 5));
+// const list = [1, 3, -1, -3, 5, 3, 6, 7].sort((a, b) => a - b);
+// console.log(list);
+// const findIndex = (num: number, l = 0, r = 3 - 1) => {
+//   if (l > r) return -1;
+//   const mid = (l + r) >> 1;
+//   const midNum = list[mid];
+//   if (midNum < num) return findIndex(num, mid + 1, r);
+//   else if (midNum > num) return findIndex(num, l, mid - 1);
+//   else return mid;
+// };
+// console.log(findIndex(1));

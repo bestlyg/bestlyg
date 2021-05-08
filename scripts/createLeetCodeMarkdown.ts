@@ -33,21 +33,60 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '1486. 数组异或操作',
-  url: 'https://leetcode-cn.com/problems/xor-operation-in-an-array/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.位运算, Tag.数组],
-  desc: '请返回 nums 中所有元素按位异或（XOR）后得到的结果。',
+  existMarkdown: true,
+  name: '239. 滑动窗口最大值',
+  url: 'https://leetcode-cn.com/problems/implement-rand10-using-rand7/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.随机, Tag.拒绝采样],
+  desc:
+    '已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。',
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 39.3,
-      desc: '利用异或读取下一个值',
-      code: `function xorOperation(n: number, start: number): number {
-        return    new Array(n).fill(0).map((_,i)=>start+2*i).reduce((total,cur,i)=>i===0?cur:total^cur)
-       };`,
+      time: 5224,
+      memory: 69.8,
+      desc: '二分维护数组',
+      code: `function maxSlidingWindow(nums: number[], k: number): number[] {
+        const win = nums.slice(0, k).sort((a, b) => a - b);
+        const findIndex = (num: number, l = 0, r = k - 1) => {
+          if (l  >r) return l;
+          const mid = (l + r) >> 1;
+          const midNum = win[mid];
+          if (midNum < num) return findIndex(num, mid + 1, r);
+          else if (midNum > num) return findIndex(num, l, mid - 1);
+          else return mid;
+        };
+        const add = (num: number) => win.splice(findIndex(num), 0, num);
+        const del = (num: number) => win.splice(findIndex(num), 1);
+        const ans = [win[k - 1]];
+        for (let i = k, l = nums.length; i < l; i++) {
+          add(nums[i]);
+          del(nums[i - k]);
+          ans.push(win[k - 1]);
+        }
+        return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 944,
+      memory: 73.8,
+      desc: '利用列表维护最大值',
+      code: `function maxSlidingWindow(nums: number[], k: number): number[] {
+        const list: number[] = [];
+        if (k === 0) return list;
+        const ans: number[] = [];
+        const len = nums.length;
+        let index = 0;
+        while (index < len) {
+          while (list.length !== 0 && list[0] + k <= index) list.shift();
+          const num = nums[index];
+          while (list.length !== 0 && nums[list[list.length - 1]] < num) list.pop();
+          list.push(index++);
+          index >= k && ans.push(nums[list[0]]);
+        }
+        return ans;
+      }`,
     },
   ],
 };

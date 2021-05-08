@@ -39,6 +39,8 @@ export enum Tag {
   队列 = '队列',
   几何 = '几何',
   字典树 = '字典树',
+  随机 = '随机',
+  拒绝采样 = '拒绝采样',
 }
 export enum Script {
   JS = 'javascript',
