@@ -33,59 +33,46 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '239. 滑动窗口最大值',
-  url: 'https://leetcode-cn.com/problems/implement-rand10-using-rand7/',
+  existMarkdown: false,
+  name: '1482. 制作 m 束花所需的最少天数',
+  url: 'https://leetcode-cn.com/problems/minimum-number-of-days-to-make-m-bouquets/',
   difficulty: Difficulty.中等,
-  tag: [Tag.随机, Tag.拒绝采样],
-  desc:
-    '已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。',
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '请你返回从花园中摘 m 束花需要等待的最少的天数。如果不能摘到 m 束花则返回 -1 。',
   solutions: [
     {
       script: Script.TS,
-      time: 5224,
-      memory: 69.8,
-      desc: '二分维护数组',
-      code: `function maxSlidingWindow(nums: number[], k: number): number[] {
-        const win = nums.slice(0, k).sort((a, b) => a - b);
-        const findIndex = (num: number, l = 0, r = k - 1) => {
-          if (l  >r) return l;
-          const mid = (l + r) >> 1;
-          const midNum = win[mid];
-          if (midNum < num) return findIndex(num, mid + 1, r);
-          else if (midNum > num) return findIndex(num, l, mid - 1);
-          else return mid;
+      time: 136,
+      memory: 50.3,
+      desc: '二分法，通过最大日和最小日进行快速筛选',
+      code: `function minDays(bloomDay: number[], m: number, k: number): number {
+        const n = bloomDay.length;
+        const minCount = m * k;
+        if (n < minCount) return -1;
+        if (k === 1) return bloomDay.sort((a, b) => a - b)[m - 1];
+        const check = (day: number): boolean => {
+          let count = 0;
+          let flower = 0;
+          for (let i = 0; i < n && count < m; i++) {
+            if (bloomDay[i] <= day) {
+              if (++flower === k) {
+                flower = 0;
+                count++;
+              }
+            } else {
+              flower = 0;
+            }
+          }
+          return count >= m;
         };
-        const add = (num: number) => win.splice(findIndex(num), 0, num);
-        const del = (num: number) => win.splice(findIndex(num), 1);
-        const ans = [win[k - 1]];
-        for (let i = k, l = nums.length; i < l; i++) {
-          add(nums[i]);
-          del(nums[i - k]);
-          ans.push(win[k - 1]);
+        let low = 0;
+        let high = Math.max(...bloomDay);
+        while (low < high) {
+          const midDay = (low + high) >> 1;
+          if (check(midDay)) high = midDay;
+          else low = midDay + 1;
         }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 944,
-      memory: 73.8,
-      desc: '利用列表维护最大值',
-      code: `function maxSlidingWindow(nums: number[], k: number): number[] {
-        const list: number[] = [];
-        if (k === 0) return list;
-        const ans: number[] = [];
-        const len = nums.length;
-        let index = 0;
-        while (index < len) {
-          while (list.length !== 0 && list[0] + k <= index) list.shift();
-          const num = nums[index];
-          while (list.length !== 0 && nums[list[list.length - 1]] < num) list.pop();
-          list.push(index++);
-          index >= k && ans.push(nums[list[0]]);
-        }
-        return ans;
+        return low;
       }`,
     },
   ],

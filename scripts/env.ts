@@ -4,30 +4,35 @@ import { random } from 'lodash';
 const { TreeNode, UnionFind } = structures;
 type TreeNode = structures.TreeNode;
 type UnionFind = structures.UnionFind;
-function maxSlidingWindow(nums: number[], k: number): number[] {
-  const list: number[] = [];
-  if (k === 0) return list;
-  const ans: number[] = [];
-  const len = nums.length;
-  let index = 0;
-  while (index < len) {
-    while (list.length !== 0 && list[0] + k <= index) list.shift();
-    const num = nums[index];
-    while (list.length !== 0 && nums[list[list.length - 1]] < num) list.pop();
-    list.push(index++);
-    index >= k && ans.push(nums[list[0]]);
+function minDays(bloomDay: number[], m: number, k: number): number {
+  const n = bloomDay.length;
+  const minCount = m * k;
+  if (n < minCount) return -1;
+  if (k === 1) return bloomDay.sort((a, b) => a - b)[m - 1];
+  const check = (day: number): boolean => {
+    let count = 0;
+    let flower = 0;
+    for (let i = 0; i < n && count < m; i++) {
+      if (bloomDay[i] <= day) {
+        if (++flower === k) {
+          flower = 0;
+          count++;
+        }
+      } else {
+        flower = 0;
+      }
+    }
+    return count >= m;
+  };
+  let low = 0;
+  let high = Math.max(...bloomDay);
+  while (low < high) {
+    const midDay = (low + high) >> 1;
+    if (check(midDay)) high = midDay;
+    else low = midDay + 1;
   }
-  return ans;
+  return low;
 }
-console.log(maxSlidingWindow([9, 10, 9, -7, -4, -8, 2, -6], 5));
-// const list = [1, 3, -1, -3, 5, 3, 6, 7].sort((a, b) => a - b);
-// console.log(list);
-// const findIndex = (num: number, l = 0, r = 3 - 1) => {
-//   if (l > r) return -1;
-//   const mid = (l + r) >> 1;
-//   const midNum = list[mid];
-//   if (midNum < num) return findIndex(num, mid + 1, r);
-//   else if (midNum > num) return findIndex(num, l, mid - 1);
-//   else return mid;
-// };
-// console.log(findIndex(1));
+console.log(minDays([30, 49, 11, 66, 54, 22, 2, 57, 35], 3, 3));
+console.log(minDays([7, 7, 7, 7, 12, 7, 7], 2, 3));
+console.log(minDays([1, 10, 2, 9, 3, 8, 4, 7, 5, 6], 4, 2));
