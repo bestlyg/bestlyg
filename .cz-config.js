@@ -15,6 +15,7 @@ module.exports = {
   scopes: [
     { name: '个人博客' },
     { name: '数据结构' },
+    { name: '算法' },
     { name: '力扣题解' },
     { name: '应用合集' },
     { name: '配置文件' },

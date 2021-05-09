@@ -13,3 +13,7 @@ group:
 # 算法
 
 algorithm
+
+## [排序](sorting/排序)
+
+- [排序](sorting/排序)
