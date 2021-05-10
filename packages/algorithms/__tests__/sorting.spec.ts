@@ -1,6 +1,6 @@
 import { Comparator } from '@bestlyg/shared';
 import { random } from 'lodash';
-import { quickSort1 } from '../src';
+import { quickSort1, quickSort2, quickSort3 } from '../src';
 const compare = (a, b) => a - b;
 const run = (sort: (compare: Comparator<number>, list: number[], ...args: any) => void) => {
   test('common sort', () => {
@@ -17,4 +17,4 @@ const run = (sort: (compare: Comparator<number>, list: number[], ...args: any) =
     expect(f).toBeTruthy();
   });
 };
-[quickSort1].forEach(v => run(v));
+[quickSort1, quickSort2, quickSort3].forEach(v => run(v));

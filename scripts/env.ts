@@ -1,10 +1,10 @@
 import { structures } from './utils';
 import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
-import { quickSort1 } from '@bestlyg/algorithm/src';
+import { quickSort3 } from '@bestlyg/algorithms/src';
 import { random } from 'lodash';
 const { TreeNode, UnionFind } = structures;
 type TreeNode = structures.TreeNode;
 type UnionFind = structures.UnionFind;
 const list = [2, 3, 4, 5, 6, 1, 2];
-quickSort1((a, b) => a - b, list);
+quickSort3((a, b) => a - b, list);
 console.log(list);
