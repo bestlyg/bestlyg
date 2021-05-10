@@ -4,35 +4,25 @@ import { random } from 'lodash';
 const { TreeNode, UnionFind } = structures;
 type TreeNode = structures.TreeNode;
 type UnionFind = structures.UnionFind;
-function minDays(bloomDay: number[], m: number, k: number): number {
-  const n = bloomDay.length;
-  const minCount = m * k;
-  if (n < minCount) return -1;
-  if (k === 1) return bloomDay.sort((a, b) => a - b)[m - 1];
-  const check = (day: number): boolean => {
-    let count = 0;
-    let flower = 0;
-    for (let i = 0; i < n && count < m; i++) {
-      if (bloomDay[i] <= day) {
-        if (++flower === k) {
-          flower = 0;
-          count++;
-        }
-      } else {
-        flower = 0;
-      }
-    }
-    return count >= m;
+function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
+  const _preorder = (node: TreeNode | null, list: number[]) => {
+    if (node === null) return;
+    node.left === null && node.right === null && list.push(node.val);
+    _preorder(node.left, list);
+    _preorder(node.right, list);
   };
-  let low = 0;
-  let high = Math.max(...bloomDay);
-  while (low < high) {
-    const midDay = (low + high) >> 1;
-    if (check(midDay)) high = midDay;
-    else low = midDay + 1;
-  }
-  return low;
+  const preorder = (root: TreeNode | null): string => {
+    const ans: number[] = [];
+    _preorder(root, ans);
+    return ans.join(',');
+  };
+  return preorder(root1) === preorder(root2);
 }
-console.log(minDays([30, 49, 11, 66, 54, 22, 2, 57, 35], 3, 3));
-console.log(minDays([7, 7, 7, 7, 12, 7, 7], 2, 3));
-console.log(minDays([1, 10, 2, 9, 3, 8, 4, 7, 5, 6], 4, 2));
+// [3,5,1,6,2,9,8,null,null,7,14]
+// [3,5,1,6,71,4,2,null,null,null,null,null,null,9,8]
+console.log(
+  leafSimilar(
+    TreeNode.factory([3, 5, 1, 6, 2, 9, 8, null, null, 7, 14]),
+    TreeNode.factory([3, 5, 1, 6, 71, 4, 2, null, null, null, null, null, null, 9, 8])
+  )
+);

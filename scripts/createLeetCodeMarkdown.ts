@@ -34,45 +34,30 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1482. 制作 m 束花所需的最少天数',
-  url: 'https://leetcode-cn.com/problems/minimum-number-of-days-to-make-m-bouquets/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '请你返回从花园中摘 m 束花需要等待的最少的天数。如果不能摘到 m 束花则返回 -1 。',
+  name: '872. 叶子相似的树',
+  url: 'https://leetcode-cn.com/problems/leaf-similar-trees/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.树, Tag.深度优先搜索],
+  desc: '请考虑一棵二叉树上所有的叶子，这些叶子的值按从左到右的顺序排列形成一个 叶值序列 。',
   solutions: [
     {
       script: Script.TS,
-      time: 136,
-      memory: 50.3,
-      desc: '二分法，通过最大日和最小日进行快速筛选',
-      code: `function minDays(bloomDay: number[], m: number, k: number): number {
-        const n = bloomDay.length;
-        const minCount = m * k;
-        if (n < minCount) return -1;
-        if (k === 1) return bloomDay.sort((a, b) => a - b)[m - 1];
-        const check = (day: number): boolean => {
-          let count = 0;
-          let flower = 0;
-          for (let i = 0; i < n && count < m; i++) {
-            if (bloomDay[i] <= day) {
-              if (++flower === k) {
-                flower = 0;
-                count++;
-              }
-            } else {
-              flower = 0;
-            }
-          }
-          return count >= m;
+      time: 112,
+      memory: 40.4,
+      desc: '前序遍历后拼接字符串',
+      code: `function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
+        const _preorder = (node: TreeNode | null, list: number[]) => {
+          if (node === null) return;
+          node.left === null && node.right === null && list.push(node.val);
+          _preorder(node.left, list);
+          _preorder(node.right, list);
         };
-        let low = 0;
-        let high = Math.max(...bloomDay);
-        while (low < high) {
-          const midDay = (low + high) >> 1;
-          if (check(midDay)) high = midDay;
-          else low = midDay + 1;
-        }
-        return low;
+        const preorder = (root: TreeNode | null): string => {
+          const ans: number[] = [];
+          _preorder(root, ans);
+          return ans.join(',');
+        };
+        return preorder(root1) === preorder(root2);
       }`,
     },
   ],
