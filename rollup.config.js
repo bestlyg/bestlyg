@@ -16,7 +16,11 @@ const packageConfigs = [
     external: ['lodash'],
   },
   {
-    pkgName: 'data-structure',
+    pkgName: 'data-structures',
+    external: ['lodash'],
+  },
+  {
+    pkgName: 'algorithms',
     external: ['lodash'],
   },
 ]

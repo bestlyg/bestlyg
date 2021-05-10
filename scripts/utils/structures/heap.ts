@@ -1,3 +1,5 @@
+import { Comparator } from '@bestlyg/shared';
+
 export class Heap<T = number> {
   private arr: T[] = [];
   get isEmpty() {
@@ -9,7 +11,7 @@ export class Heap<T = number> {
   get top() {
     return this.arr[0];
   }
-  constructor(private compare: (t1: T, t2: T) => number) {}
+  constructor(private compare: Comparator<T>) {}
   add(num: T): void {
     this.arr.push(num);
     this.shiftUp(this.size - 1);

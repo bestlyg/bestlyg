@@ -9,7 +9,8 @@ module.exports = {
   coverageReporters: ['html', 'lcov', 'text'],
   collectCoverageFrom: [
     // 'packages/*/src/**/*.ts',
-    'packages/data-structure/src/**/*.ts',
+    'packages/data-structures/src/**/*.ts',
+    'packages/algorithms/src/**/*.ts',
   ],
   collectCoverage: true,
   testEnvironment: 'jsdom',

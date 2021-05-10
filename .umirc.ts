@@ -12,8 +12,8 @@ export default defineConfig({
   resolve: {
     includes: [
       'docs',
-      'packages/data-structure/src',
-      'packages/algorithm/src',
+      'packages/data-structures/src',
+      'packages/algorithms/src',
       'packages/applications/src',
       'packages/leetcode/src',
     ],
