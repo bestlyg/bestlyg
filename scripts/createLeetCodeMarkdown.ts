@@ -34,30 +34,23 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '872. 叶子相似的树',
-  url: 'https://leetcode-cn.com/problems/leaf-similar-trees/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.树, Tag.深度优先搜索],
-  desc: '请考虑一棵二叉树上所有的叶子，这些叶子的值按从左到右的顺序排列形成一个 叶值序列 。',
+  name: '1734. 解码异或后的排列',
+  url: 'https://leetcode-cn.com/problems/decode-xored-permutation/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.位运算],
+  desc: '给你 encoded 数组，请你返回原始数组 perm 。题目保证答案存在且唯一。',
   solutions: [
     {
       script: Script.TS,
-      time: 112,
-      memory: 40.4,
-      desc: '前序遍历后拼接字符串',
-      code: `function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
-        const _preorder = (node: TreeNode | null, list: number[]) => {
-          if (node === null) return;
-          node.left === null && node.right === null && list.push(node.val);
-          _preorder(node.left, list);
-          _preorder(node.right, list);
-        };
-        const preorder = (root: TreeNode | null): string => {
-          const ans: number[] = [];
-          _preorder(root, ans);
-          return ans.join(',');
-        };
-        return preorder(root1) === preorder(root2);
+      time: 392,
+      memory: 71.4,
+      desc: '已知1~n的所有值异或结果进行求首值',
+      code: `function decode(encoded: number[]): number[] {
+        const n = encoded.length + 1;
+        let xorNum = 1;
+        for (let i = 2; i <= n; i++) xorNum ^= i;
+        for (let i = 1; i < n - 1; i += 2) xorNum ^= encoded[i];
+        return [xorNum, ...encoded.map(v => (xorNum ^= v))];
       }`,
     },
   ],
