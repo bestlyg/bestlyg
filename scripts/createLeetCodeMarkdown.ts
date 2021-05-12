@@ -34,23 +34,39 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1734. 解码异或后的排列',
-  url: 'https://leetcode-cn.com/problems/decode-xored-permutation/',
+  name: '1310. 子数组异或查询',
+  url: 'https://leetcode-cn.com/problems/xor-queries-of-a-subarray/',
   difficulty: Difficulty.中等,
   tag: [Tag.位运算],
-  desc: '给你 encoded 数组，请你返回原始数组 perm 。题目保证答案存在且唯一。',
+  desc:
+    '有一个正整数数组 arr，现给你一个对应的查询数组 queries，其中 queries[i] = [Li, Ri]，返回一个包含给定查询 queries 所有结果的数组。',
   solutions: [
     {
       script: Script.TS,
-      time: 392,
-      memory: 71.4,
-      desc: '已知1~n的所有值异或结果进行求首值',
-      code: `function decode(encoded: number[]): number[] {
-        const n = encoded.length + 1;
-        let xorNum = 1;
-        for (let i = 2; i <= n; i++) xorNum ^= i;
-        for (let i = 1; i < n - 1; i += 2) xorNum ^= encoded[i];
-        return [xorNum, ...encoded.map(v => (xorNum ^= v))];
+      time: 1492,
+      memory: 52.9,
+      desc: '直接循环异或',
+      code: `function xorQueries(arr: number[], queries: number[][]): number[] {
+        return queries.map(([start, end]) => {
+          let ans!: number;
+          for (let i = start; i <= end; i++) {
+            if (ans) ans ^= arr[i];
+            else ans = arr[i];
+          }
+          return ans;
+        });
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 132,
+      memory: 53.2,
+      desc: '前缀和',
+      code: `function xorQueries(arr: number[], queries: number[][]): number[] {
+        let num = arr[0];
+        const prefixSumList: number[] = arr.map((v, i) => (i === 0 ? num : (num ^= v)));
+        return queries.map(([start, end]) => prefixSumList[start - 1] ^ prefixSumList[end]);
       }`,
     },
   ],

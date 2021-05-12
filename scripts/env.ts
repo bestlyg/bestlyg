@@ -5,13 +5,19 @@ import { random } from 'lodash';
 const { TreeNode, UnionFind } = structures;
 type TreeNode = structures.TreeNode;
 type UnionFind = structures.UnionFind;
-const list = [2, 3, 4, 5, 6, 1, 2];
-quickSort3((a, b) => a - b, list);
-function decode(encoded: number[]): number[] {
-  const n = encoded.length + 1;
-  let xorNum = 1;
-  for (let i = 2; i <= n; i++) xorNum ^= i;
-  for (let i = 1; i < n - 1; i += 2) xorNum ^= encoded[i];
-  return [xorNum, ...encoded.map(v => (xorNum ^= v))];
+function xorQueries(arr: number[], queries: number[][]): number[] {
+  let num = arr[0];
+  const prefixSumList: number[] = arr.map((v, i) => (i === 0 ? num : (num ^= v)));
+  return queries.map(([start, end]) => prefixSumList[start - 1] ^ prefixSumList[end]);
 }
-console.log(decode([6, 5, 4, 6]));
+console.log(
+  xorQueries(
+    [4, 8, 2, 10],
+    [
+      [2, 3],
+      [1, 3],
+      [0, 0],
+      [0, 3],
+    ]
+  )
+);
