@@ -34,39 +34,34 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1310. 子数组异或查询',
-  url: 'https://leetcode-cn.com/problems/xor-queries-of-a-subarray/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算],
+  name: '1269. 停在原地的方案数',
+  url:
+    'https://leetcode-cn.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.动态规划],
   desc:
-    '有一个正整数数组 arr，现给你一个对应的查询数组 queries，其中 queries[i] = [Li, Ri]，返回一个包含给定查询 queries 所有结果的数组。',
+    '给你两个整数 steps 和 arrLen ，请你计算并返回：在恰好执行 steps 次操作以后，指针仍然指向索引 0 处的方案数。',
   solutions: [
     {
       script: Script.TS,
-      time: 1492,
-      memory: 52.9,
-      desc: '直接循环异或',
-      code: `function xorQueries(arr: number[], queries: number[][]): number[] {
-        return queries.map(([start, end]) => {
-          let ans!: number;
-          for (let i = start; i <= end; i++) {
-            if (ans) ans ^= arr[i];
-            else ans = arr[i];
+      time: 120,
+      memory: 44.1,
+      desc: '动态规划，计算最大可达下标',
+      code: `function numWays(steps: number, arrLen: number): number {
+        const MOD = 10 ** 9 + 7;
+        const len = Math.min(arrLen, (steps >> 1) + 1);
+        const dp: number[][] = new Array(steps + 1).fill(0).map(_ => new Array(len + 1).fill(0));
+        dp[0][0] = 1;
+        for (let step = 1; step <= steps; step++) {
+          for (let i = 0; i <= len; i++) {
+            dp[step][i] =
+              (dp[step - 1][i] +
+                (i < len - 1 ? dp[step - 1][i + 1] : 0) +
+                (i > 0 ? dp[step - 1][i - 1] : 0)) %
+              MOD;
           }
-          return ans;
-        });
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 132,
-      memory: 53.2,
-      desc: '前缀和',
-      code: `function xorQueries(arr: number[], queries: number[][]): number[] {
-        let num = arr[0];
-        const prefixSumList: number[] = arr.map((v, i) => (i === 0 ? num : (num ^= v)));
-        return queries.map(([start, end]) => prefixSumList[start - 1] ^ prefixSumList[end]);
+        }
+        return dp[steps][0];
       }`,
     },
   ],
