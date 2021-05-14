@@ -25,8 +25,8 @@ group:
 - 每个结点的左右子树高度差不超过 1
 - 搜索、添加、删除的时间复杂度是 O(logN)
 
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/tree/avlTree.ts)
+
 ```ts
 import { BlanceBinarySearchTree } from './blanceBinarySearchTree';
 import { BinaryTreeNode } from './binaryTree';
@@ -156,6 +156,4 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
       : node[node.childPosition]) as AVLTreeNode<T>;
   }
 }
-
 ```
-        
