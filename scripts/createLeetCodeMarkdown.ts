@@ -34,61 +34,26 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: true,
-  name: '12. 整数转罗马数字',
-  url: 'https://leetcode-cn.com/problems/deepest-leaves-sum/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.深度优先搜索],
-  desc: '给你一棵二叉树的根节点 root ，请你返回 层数最深的叶子节点的和 。',
+  name: '53. 最大子序和',
+  url: 'https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/',
+  difficulty: Difficulty.困难,
+  tag: [],
+  desc:
+    '在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。',
   solutions: [
     {
       script: Script.TS,
-      time: 212,
-      memory: 44.3,
-      desc: '分节处理',
-      code: `const config: Map<number, Map<number, string>> = new Map([
-        [
-          100,
-          new Map([
-            [1, 'C'],
-            [5, 'D'],
-            [10, 'M'],
-          ]),
-        ],
-        [
-          10,
-          new Map([
-            [1, 'X'],
-            [5, 'L'],
-            [10, 'C'],
-          ]),
-        ],
-        [
-          1,
-          new Map([
-            [1, 'I'],
-            [5, 'V'],
-            [10, 'X'],
-          ]),
-        ],
-      ]);
-      function intToRoman(num: number): string {
-        let ans = '';
-        if (num >= 1000) {
-          ans += 'M'.repeat(~~(num / 1000));
-          num = num % 1000;
-        }
-        for (const [val, map] of config) {
-          if (num < val) continue;
-          const c1 = map.get(1)!;
-          const c5 = map.get(5)!;
-          const c10 = map.get(10)!;
-          const c = ~~(num / val);
-          num = num % val;
-          if (c === 9) ans += c1 + c10;
-          else if (c >= 5) ans += c5 + c1.repeat(c - 5);
-          else if (c === 4) ans += c1 + c5;
-          else ans += c1.repeat(c);
-        }
+      time: 92,
+      memory: 40.5,
+      desc: '利用前缀和进行快速相减',
+      code: `function maxSubArray(nums: number[]): number {
+        const len = nums.length;
+        const prefixSumList = [0];
+        for (let i = 1; i <= len; i++) prefixSumList[i] = prefixSumList[i - 1] + nums[i - 1];
+        let min = prefixSumList[0];
+        let ans = nums[0];
+        for (let i = 1; i <= len; i++)
+          ans = Math.max(prefixSumList[i] - (min = Math.min(min, prefixSumList[i - 1])), ans);
         return ans;
       }`,
     },
