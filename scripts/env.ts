@@ -1,24 +1,26 @@
 import { structures } from './utils';
 import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 import { quickSort3 } from '@bestlyg/algorithms/src';
-import { random } from 'lodash';
-const { TreeNode, UnionFind } = structures;
+import { merge, random } from 'lodash';
+const { TreeNode, UnionFind, ListNode } = structures;
 type TreeNode = structures.TreeNode;
+type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
-function numWays(steps: number, arrLen: number): number {
-  const MOD = 10 ** 9 + 7;
-  const len = Math.min(arrLen, (steps >> 1) + 1);
-  const dp: number[][] = new Array(steps + 1).fill(0).map(_ => new Array(len + 1).fill(0));
-  dp[0][0] = 1;
-  for (let step = 1; step <= steps; step++) {
-    for (let i = 0; i <= len; i++) {
-      dp[step][i] =
-        (dp[step - 1][i] +
-          (i < len - 1 ? dp[step - 1][i + 1] : 0) +
-          (i > 0 ? dp[step - 1][i - 1] : 0)) %
-        MOD;
+function deepestLeavesSum(root: TreeNode | null): number {
+  if (root === null) return 0;
+  let maxDep = 1;
+  let ans = root.val;
+  const inorder = (node: TreeNode, dep = 1): void => {
+    if (dep > maxDep) {
+      ans = 0;
+      maxDep = dep;
     }
-  }
-  return dp[steps][0];
+    node.left && inorder(node.left, dep + 1);
+    node.right && inorder(node.right, dep + 1);
+    if (!node.left && !node.right) ans += node.val;
+  };
+  return ans;
 }
-console.log(numWays(47, 38));
+console.log(
+  deepestLeavesSum(TreeNode.factory([1, 2, 3, 4, 5, null, 6, 7, null, null, null, null, 8]))
+);

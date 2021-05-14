@@ -34,34 +34,54 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1269. 停在原地的方案数',
-  url:
-    'https://leetcode-cn.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
-  desc:
-    '给你两个整数 steps 和 arrLen ，请你计算并返回：在恰好执行 steps 次操作以后，指针仍然指向索引 0 处的方案数。',
+  name: '1302. 层数最深叶子节点的和',
+  url: 'https://leetcode-cn.com/problems/deepest-leaves-sum/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.树, Tag.深度优先搜索],
+  desc: '给你一棵二叉树的根节点 root ，请你返回 层数最深的叶子节点的和 。',
   solutions: [
     {
       script: Script.TS,
-      time: 120,
-      memory: 44.1,
-      desc: '动态规划，计算最大可达下标',
-      code: `function numWays(steps: number, arrLen: number): number {
-        const MOD = 10 ** 9 + 7;
-        const len = Math.min(arrLen, (steps >> 1) + 1);
-        const dp: number[][] = new Array(steps + 1).fill(0).map(_ => new Array(len + 1).fill(0));
-        dp[0][0] = 1;
-        for (let step = 1; step <= steps; step++) {
-          for (let i = 0; i <= len; i++) {
-            dp[step][i] =
-              (dp[step - 1][i] +
-                (i < len - 1 ? dp[step - 1][i + 1] : 0) +
-                (i > 0 ? dp[step - 1][i - 1] : 0)) %
-              MOD;
+      time: 124,
+      memory: 48.3,
+      desc: '层序遍历',
+      code: `function deepestLeavesSum(root: TreeNode | null): number {
+        if (root === null) return 0;
+        const queue: TreeNode[] = [root];
+        let size = 1;
+        let ans = root.val;
+        while (queue.length !== 0) {
+          const node = queue.shift()!;
+          node.left && queue.push(node.left);
+          node.right && queue.push(node.right);
+          if (--size === 0) {
+            if (queue.length !== 0) ans = queue.reduce((total, node) => total + node.val, 0);
+            size = queue.length;
           }
         }
-        return dp[steps][0];
+        return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 116,
+      memory: 48.3,
+      desc: '中序遍历',
+      code: `function deepestLeavesSum(root: TreeNode | null): number {
+        if (root === null) return 0;
+        let maxDep = 1;
+        let ans = root.val;
+        const inorder = (node: TreeNode, dep = 1): void => {
+          if (dep > maxDep) {
+            ans = 0;
+            maxDep = dep;
+          }
+          node.left && inorder(node.left, dep + 1);
+          node.right && inorder(node.right, dep + 1);
+          if (!node.left && !node.right && dep===maxDep) ans += node.val;
+        };
+        inorder(root)
+        return ans;
       }`,
     },
   ],
