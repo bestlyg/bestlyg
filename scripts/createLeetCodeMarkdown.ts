@@ -34,7 +34,7 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: true,
-  name: '53. 最大子序和',
+  name: '13. 罗马数字转整数',
   url: 'https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/',
   difficulty: Difficulty.困难,
   tag: [],
@@ -43,19 +43,41 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 40.5,
-      desc: '利用前缀和进行快速相减',
-      code: `function maxSubArray(nums: number[]): number {
-        const len = nums.length;
-        const prefixSumList = [0];
-        for (let i = 1; i <= len; i++) prefixSumList[i] = prefixSumList[i - 1] + nums[i - 1];
-        let min = prefixSumList[0];
-        let ans = nums[0];
-        for (let i = 1; i <= len; i++)
-          ans = Math.max(prefixSumList[i] - (min = Math.min(min, prefixSumList[i - 1])), ans);
+      time: 160,
+      memory: 46.2,
+      desc: '遍历',
+      code: `function romanToInt(s: string): number {
+        let ans = 0;
+        const scoreCache: Record<string, number> = {
+          M: 1000,
+          D: 500,
+          L: 50,
+          V: 5,
+        };
+        const specCache: Record<string, [string, string, number]> = {
+          C: ['D', 'M', 100],
+          X: ['L', 'C', 10],
+          I: ['V', 'X', 1],
+        };
+        for (let i = 0, l = s.length; i < l; i++) {
+          const c = s[i];
+          const data = specCache[c];
+          if (data) {
+            const [c1, c2, num] = data;
+            if (s[i + 1] === c1) {
+              i++;
+              ans += 4 * num;
+            } else if (s[i + 1] === c2) {
+              i++;
+              ans += 9 * num;
+            } else {
+              ans += 1 * num;
+            }
+          } else ans += scoreCache[c];
+        }
         return ans;
-      }`,
+      }
+      `,
     },
   ],
 };
