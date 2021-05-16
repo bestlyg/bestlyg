@@ -33,51 +33,82 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '13. 罗马数字转整数',
-  url: 'https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/',
-  difficulty: Difficulty.困难,
-  tag: [],
-  desc:
-    '在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。',
+  existMarkdown: false,
+  name: '421. 数组中两个数的最大异或值',
+  url: 'https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.位运算, Tag.字典树],
+  desc: '给你一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。',
   solutions: [
     {
       script: Script.TS,
-      time: 160,
-      memory: 46.2,
-      desc: '遍历',
-      code: `function romanToInt(s: string): number {
-        let ans = 0;
-        const scoreCache: Record<string, number> = {
-          M: 1000,
-          D: 500,
-          L: 50,
-          V: 5,
-        };
-        const specCache: Record<string, [string, string, number]> = {
-          C: ['D', 'M', 100],
-          X: ['L', 'C', 10],
-          I: ['V', 'X', 1],
-        };
-        for (let i = 0, l = s.length; i < l; i++) {
-          const c = s[i];
-          const data = specCache[c];
-          if (data) {
-            const [c1, c2, num] = data;
-            if (s[i + 1] === c1) {
-              i++;
-              ans += 4 * num;
-            } else if (s[i + 1] === c2) {
-              i++;
-              ans += 9 * num;
+      time: 6480,
+      memory: 40.4,
+      desc: 'O(n2)循环',
+      code: `function findMaximumXOR(nums: number[]): number {
+        let ans = -Infinity
+        nums.forEach(v1=>nums.forEach(v2=>ans = Math.max(ans,v1^v2)))
+        return ans 
+   };`,
+    },
+    {
+      script: Script.TS,
+      time: 156,
+      memory: 49.2,
+      desc: '利用trie储存二进制，每次寻找尽可能大的数',
+      code: `class Trie {
+        /** 左 0  */
+        left: Trie | null = null;
+        /** 右 1  */
+        right: Trie | null = null;
+      }
+      function findMaximumXOR(nums: number[]): number {
+        const len = nums.length;
+        if (len === 1) return 0;
+        const root = new Trie();
+        let ans = -Infinity;
+        const add = (num: number) => {
+          let trie = root;
+          for (let i = 30; i >= 0; i--) {
+            const v = (num >> i) & 1;
+            if (v === 1) {
+              trie = trie.right ?? (trie.right = new Trie());
             } else {
-              ans += 1 * num;
+              trie = trie.left ?? (trie.left = new Trie());
             }
-          } else ans += scoreCache[c];
+          }
+        };
+        const check = (num: number): number => {
+          let trie = root;
+          let xorNum = 0;
+          for (let i = 30; i >= 0; i--) {
+            const v = (num >> i) & 1;
+            if (v === 1) {
+              if (trie.left) {
+                trie = trie.left;
+                xorNum = (xorNum << 1) + 1;
+              } else {
+                trie = trie.right!;
+                xorNum <<= 1;
+              }
+            } else {
+              if (trie.right) {
+                trie = trie.right;
+                xorNum = (xorNum << 1) + 1;
+              } else {
+                trie = trie.left!;
+                xorNum <<= 1;
+              }
+            }
+          }
+          return xorNum;
+        };
+        for (let i = 1; i < len; i++) {
+          add(nums[i - 1]);
+          ans = Math.max(ans, check(nums[i]));
         }
         return ans;
-      }
-      `,
+      }`,
     },
   ],
 };
