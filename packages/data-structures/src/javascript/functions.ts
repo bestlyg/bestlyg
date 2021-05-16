@@ -5,7 +5,7 @@ export const debounce = (time: number) => {
   let timeout: NodeJS.Timeout;
   return (fn: (...args: any[]) => void) => {
     timeout && clearTimeout(timeout);
-    timeout = setTimeout(fn, time);
+    timeout = setTimeout(fn, time) as any;
   };
 };
 /**
@@ -25,7 +25,7 @@ export const throttle = (time: number) => {
 /**
  * 新建对象实例
  */
-export const newInstance = (fn: () => object, ...args: unknown[]) => {
+export const newInstance = (fn: (...args: any[]) => any, ...args: unknown[]) => {
   const instance = Object.create(fn.prototype);
   const res = fn.apply(instance, args);
   return res instanceof Object ? res : instance;

@@ -1,5 +1,5 @@
 import { ANY_OP, DEFAULT_OP } from '@bestlyg/shared';
-import { BestPromiseFulfilledResult, BestPromiseRejectedResult, BestPromise } from '../src';
+import { BestPromiseFulfilledResult, BestPromiseRejectedResult, BestPromise } from '../../src';
 import { isArray } from 'lodash';
 describe('Promise', () => {
   test('Promise.resolve', () => {
