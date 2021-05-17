@@ -34,80 +34,38 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '421. 数组中两个数的最大异或值',
-  url: 'https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.字典树],
-  desc: '给你一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。',
+  name: '993. 二叉树的堂兄弟节点',
+  url: 'https://leetcode-cn.com/problems/cousins-in-binary-tree/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.树, Tag.深度优先搜索],
+  desc: '如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点。',
   solutions: [
     {
       script: Script.TS,
-      time: 6480,
-      memory: 40.4,
-      desc: 'O(n2)循环',
-      code: `function findMaximumXOR(nums: number[]): number {
-        let ans = -Infinity
-        nums.forEach(v1=>nums.forEach(v2=>ans = Math.max(ans,v1^v2)))
-        return ans 
-   };`,
-    },
-    {
-      script: Script.TS,
-      time: 156,
-      memory: 49.2,
-      desc: '利用trie储存二进制，每次寻找尽可能大的数',
-      code: `class Trie {
-        /** 左 0  */
-        left: Trie | null = null;
-        /** 右 1  */
-        right: Trie | null = null;
-      }
-      function findMaximumXOR(nums: number[]): number {
-        const len = nums.length;
-        if (len === 1) return 0;
-        const root = new Trie();
-        let ans = -Infinity;
-        const add = (num: number) => {
-          let trie = root;
-          for (let i = 30; i >= 0; i--) {
-            const v = (num >> i) & 1;
-            if (v === 1) {
-              trie = trie.right ?? (trie.right = new Trie());
-            } else {
-              trie = trie.left ?? (trie.left = new Trie());
-            }
-          }
+      time: 116,
+      memory: 39.3,
+      desc: '生成节点的继承链进行比较',
+      code: `function isCousins(root: TreeNode | null, x: number, y: number): boolean {
+        if (root === null) return false;
+        const findGrandParent = (
+          val: number,
+          queue: TreeNode[],
+          node: TreeNode | null = root
+        ): boolean => {
+          if (node === null) return false;
+          queue.unshift(node);
+          if (node.val === val) return true;
+          if (findGrandParent(val, queue, node.left)) return true;
+          if (findGrandParent(val, queue, node.right)) return true;
+          queue.shift();
+          return false;
         };
-        const check = (num: number): number => {
-          let trie = root;
-          let xorNum = 0;
-          for (let i = 30; i >= 0; i--) {
-            const v = (num >> i) & 1;
-            if (v === 1) {
-              if (trie.left) {
-                trie = trie.left;
-                xorNum = (xorNum << 1) + 1;
-              } else {
-                trie = trie.right!;
-                xorNum <<= 1;
-              }
-            } else {
-              if (trie.right) {
-                trie = trie.right;
-                xorNum = (xorNum << 1) + 1;
-              } else {
-                trie = trie.left!;
-                xorNum <<= 1;
-              }
-            }
-          }
-          return xorNum;
-        };
-        for (let i = 1; i < len; i++) {
-          add(nums[i - 1]);
-          ans = Math.max(ans, check(nums[i]));
-        }
-        return ans;
+        const queueX: TreeNode[] = [];
+        findGrandParent(x, queueX);
+        const queueY: TreeNode[] = [];
+        findGrandParent(y, queueY);
+        if (queueX.length < 3 || queueY.length < 3) return false;
+        return queueX[1] !== queueY[1] && queueX.length === queueY.length;
       }`,
     },
   ],
