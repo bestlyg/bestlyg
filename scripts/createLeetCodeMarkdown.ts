@@ -34,38 +34,52 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '993. 二叉树的堂兄弟节点',
-  url: 'https://leetcode-cn.com/problems/cousins-in-binary-tree/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.树, Tag.深度优先搜索],
-  desc: '如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点。',
+  name: '1442. 形成两个异或相等数组的三元组数目',
+  url: 'https://leetcode-cn.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor//',
+  difficulty: Difficulty.中等,
+  tag: [Tag.位运算, Tag.数组, Tag.数学],
+  desc: '请返回能够令 a == b 成立的三元组 (i, j , k) 的数目。',
   solutions: [
     {
       script: Script.TS,
-      time: 116,
-      memory: 39.3,
-      desc: '生成节点的继承链进行比较',
-      code: `function isCousins(root: TreeNode | null, x: number, y: number): boolean {
-        if (root === null) return false;
-        const findGrandParent = (
-          val: number,
-          queue: TreeNode[],
-          node: TreeNode | null = root
-        ): boolean => {
-          if (node === null) return false;
-          queue.unshift(node);
-          if (node.val === val) return true;
-          if (findGrandParent(val, queue, node.left)) return true;
-          if (findGrandParent(val, queue, node.right)) return true;
-          queue.shift();
-          return false;
-        };
-        const queueX: TreeNode[] = [];
-        findGrandParent(x, queueX);
-        const queueY: TreeNode[] = [];
-        findGrandParent(y, queueY);
-        if (queueX.length < 3 || queueY.length < 3) return false;
-        return queueX[1] !== queueY[1] && queueX.length === queueY.length;
+      time: 148,
+      memory: 39.8,
+      desc: '前缀和',
+      code: `function countTriplets(arr: number[]): number {
+        const len = arr.length;
+        if (len === 1) return 0;
+        let ans = 0;
+        const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];
+        ans = 0;
+        for (let k = 1; k < len; k++) {
+          for (let j = 1; j <= k; j++) {
+            for (let i = 0; i < j; i++) {
+              const a = prefixSumList[j] ^ prefixSumList[i];
+              const b = prefixSumList[k + 1] ^ prefixSumList[j];
+              if (a === b) ans++;
+            }
+          }
+        }
+        return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 100,
+      memory: 40.3,
+      desc: '在前后相等的情况下，可取任意j',
+      code: `function countTriplets(arr: number[]): number {
+        const len = arr.length;
+        if (len === 1) return 0;
+        let ans = 0;
+        const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];
+        ans = 0;
+        for (let k = 1; k < len; k++) {
+          for (let i = 0; i < k; i++) {
+            if (prefixSumList[k + 1] === prefixSumList[i]) ans += k - i;
+          }
+        }
+        return ans;
       }`,
     },
   ],
