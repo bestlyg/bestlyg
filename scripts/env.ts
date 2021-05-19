@@ -2,22 +2,37 @@ import { structures } from './utils';
 import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 import { quickSort3 } from '@bestlyg/algorithms/src';
 import { merge, random } from 'lodash';
-const { TreeNode, UnionFind, ListNode } = structures;
+const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
-function countTriplets(arr: number[]): number {
-  const len = arr.length;
-  if (len === 1) return 0;
-  let ans = 0;
-  const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];
-  ans = 0;
-  for (let k = 1; k < len; k++) {
-    for (let i = 0; i < k; i++) {
-      if (prefixSumList[k + 1] === prefixSumList[i]) ans += k - i;
+type Heap = structures.Heap;
+function kthLargestValue(matrix: number[][], k: number): number {
+  const rowLen = matrix.length;
+  const colLen = matrix[0].length;
+  const prefixSumList: number[][] = new Array(rowLen + 1)
+    .fill(0)
+    .map(_ => new Array(colLen + 1).fill(0));
+  const list: number[] = [];
+  for (let row = 1; row <= rowLen; row++) {
+    for (let col = 1; col <= colLen; col++) {
+      list.push(
+        (prefixSumList[row][col] =
+          prefixSumList[row - 1][col] ^
+          prefixSumList[row][col - 1] ^
+          prefixSumList[row - 1][col - 1] ^
+          matrix[row - 1][col - 1])
+      );
     }
   }
-  return ans;
+  return list.sort((a, b) => b - a)[k - 1];
 }
-console.log(countTriplets([2, 3, 1, 6, 7]));
-console.log(countTriplets([1, 1, 1, 1, 1]));
+console.log(
+  kthLargestValue(
+    [
+      [5, 2],
+      [1, 6],
+    ],
+    1
+  )
+);

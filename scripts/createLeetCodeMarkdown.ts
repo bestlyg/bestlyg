@@ -34,52 +34,36 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1442. 形成两个异或相等数组的三元组数目',
-  url: 'https://leetcode-cn.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor//',
+  name: '1738. 找出第 K 大的异或坐标值',
+  url: 'https://leetcode-cn.com/problems/find-kth-largest-xor-coordinate-value/',
   difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数组, Tag.数学],
-  desc: '请返回能够令 a == b 成立的三元组 (i, j , k) 的数目。',
+  tag: [Tag.数组],
+  desc: '请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。',
   solutions: [
     {
       script: Script.TS,
-      time: 148,
-      memory: 39.8,
+      time: 736,
+      memory: 105.1,
       desc: '前缀和',
-      code: `function countTriplets(arr: number[]): number {
-        const len = arr.length;
-        if (len === 1) return 0;
-        let ans = 0;
-        const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];
-        ans = 0;
-        for (let k = 1; k < len; k++) {
-          for (let j = 1; j <= k; j++) {
-            for (let i = 0; i < j; i++) {
-              const a = prefixSumList[j] ^ prefixSumList[i];
-              const b = prefixSumList[k + 1] ^ prefixSumList[j];
-              if (a === b) ans++;
-            }
+      code: `function kthLargestValue(matrix: number[][], k: number): number {
+        const rowLen = matrix.length;
+        const colLen = matrix[0].length;
+        const prefixSumList: number[][] = new Array(rowLen + 1)
+          .fill(0)
+          .map(_ => new Array(colLen + 1).fill(0));
+        const list :number[]=[]
+        for (let row = 1; row <= rowLen; row++) {
+          for (let col = 1; col <= colLen; col++) {
+            list.push(
+              (prefixSumList[row][col] =
+                prefixSumList[row - 1][col] ^
+                prefixSumList[row][col - 1] ^
+                prefixSumList[row - 1][col - 1] ^
+                matrix[row - 1][col - 1])
+            );
           }
         }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 100,
-      memory: 40.3,
-      desc: '在前后相等的情况下，可取任意j',
-      code: `function countTriplets(arr: number[]): number {
-        const len = arr.length;
-        if (len === 1) return 0;
-        let ans = 0;
-        const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];
-        ans = 0;
-        for (let k = 1; k < len; k++) {
-          for (let i = 0; i < k; i++) {
-            if (prefixSumList[k + 1] === prefixSumList[i]) ans += k - i;
-          }
-        }
-        return ans;
+        return list.sort((a,b)=>b-a)[k-1];
       }`,
     },
   ],
