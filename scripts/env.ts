@@ -1,11 +1,14 @@
 import { structures } from './utils';
 import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
-import { quickSort3, heapSort } from '@bestlyg/algorithms/src';
+import { quickSort3, heapSort, bubbleSort } from '@bestlyg/algorithms/src';
 import { merge, random } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-const list = [12, 2, 3, 4, 21, 412, 512, 516];
-heapSort((t1, t2) => t1 - t2, list);
+const list: number[] = [];
+for (let i = 0; i < 10; i++) list.push(random(0, 10));
+console.log(list);
+bubbleSort((t1, t2) => t1 - t2, list);
+console.log(list);

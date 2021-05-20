@@ -26,6 +26,7 @@ group:
 - 搜索、添加、删除的时间复杂度是 O(logN)
 
 
+
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/tree/avlTree.ts)
 ```ts
 import { BlanceBinarySearchTree } from './blanceBinarySearchTree';
