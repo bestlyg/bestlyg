@@ -7,8 +7,7 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-const list: number[] = [];
-for (let i = 0; i < 10; i++) list.push(random(0, 10));
-console.log(list);
-bubbleSort((t1, t2) => t1 - t2, list);
-console.log(list);
+function xorGame(nums: number[]): boolean {
+  return !(nums.length & 1) ? true : nums.reduce((total, cur) => total ^ cur, 0) === 0;
+}
+console.log(xorGame([1, 1, 2]));

@@ -33,90 +33,23 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '692. 前K个高频单词',
-  url: 'https://leetcode-cn.com/problems/find-kth-largest-xor-coordinate-value/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组],
-  desc: '请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。',
+  existMarkdown: false,
+  name: '810. 黑板异或游戏',
+  url: 'https://leetcode-cn.com/problems/chalkboard-xor-game/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数学],
+  desc: '假设两个玩家每步都使用最优解，当且仅当 Alice 获胜时返回 true。',
   solutions: [
     {
       script: Script.TS,
-      time: 132,
-      memory: 44.3,
-      desc: '利用堆去获取',
-      code: `class Heap<T = number> {
-        private arr: T[] = [];
-        get isEmpty() {
-          return this.size === 0;
-        }
-        get size() {
-          return this.arr.length;
-        }
-        get top() {
-          return this.arr[0];
-        }
-        constructor(private compare: (t1: T, t2: T) => number) {}
-        add(num: T): void {
-          this.arr.push(num);
-          this.shiftUp(this.size - 1);
-        }
-        remove(): T {
-          const num = this.arr.shift()!;
-          if (this.size) {
-            this.arr.unshift(this.arr.pop()!);
-            this.shiftDown(0);
-          }
-          return num;
-        }
-        private shiftUp(index: number): void {
-          if (index === 0) return;
-          const parentIndex = (index - 1) >> 1;
-          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-            this.shiftUp(parentIndex);
-          }
-        }
-        private shiftDown(index: number): void {
-          let childrenIndex = index * 2 + 1;
-          if (childrenIndex > this.size - 1) return;
-          if (
-            childrenIndex + 1 <= this.size - 1 &&
-            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-          ) {
-            childrenIndex++;
-          }
-          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-            this.shiftDown(childrenIndex);
-          }
-        }
-        *[Symbol.iterator](): IterableIterator<T> {
-          for (const t of this.arr) {
-            yield t;
-          }
-        }
-      }
-      function topKFrequent(words: string[], k: number): string[] {
-        const map: Record<string, number> = {};
-        for (const word of words) map[word] = (map[word] ?? 0) + 1;
-        const chartToNumber = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;
-        const heap = new Heap<[string, number]>(([k1, v1], [k2, v2]) => {
-          if (v1 !== v2) return v1 - v2;
-          let i1 = 0;
-          const end1 = k1.length;
-          let i2 = 0;
-          const end2 = k2.length;
-          for (; i1 < end1 && i2 < end2; i1++, i2++)
-            if (k1[i1] !== k2[i2]) return chartToNumber(k2[i2]) - chartToNumber(k1[i1]);
-          if (i1 === end1) return 1;
-          else if (i2 === end2) return -1;
-          else return 0;
-        });
-        for (const data of Object.entries(map)) heap.add(data);
-        const ans: string[] = [];
-        while (heap.size !== 0 && k--) ans.push(heap.remove()[0]);
-        return ans;
+      time: 100,
+      memory: 39.9,
+      desc: link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/chalkboard-xor-game/solution/hei-ban-yi-huo-you-xi-by-leetcode-soluti-eb0c/'
+      ),
+      code: `function xorGame(nums: number[]): boolean {
+        return !(nums.length & 1) ? true : nums.reduce((total, cur) => total ^ cur, 0) === 0;
       }`,
     },
   ],
