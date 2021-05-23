@@ -34,22 +34,55 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '810. 黑板异或游戏',
-  url: 'https://leetcode-cn.com/problems/chalkboard-xor-game/',
+  name: '1707. 与数组中元素的最大异或值',
+  url: 'https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/',
   difficulty: Difficulty.困难,
-  tag: [Tag.数学],
-  desc: '假设两个玩家每步都使用最优解，当且仅当 Alice 获胜时返回 true。',
+  tag: [Tag.位运算, Tag.字典树],
+  desc:
+    '返回一个整数数组 answer 作为查询的答案，其中 answer.length == queries.length 且 answer[i] 是第 i 个查询的答案。',
   solutions: [
     {
       script: Script.TS,
-      time: 100,
-      memory: 39.9,
-      desc: link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/chalkboard-xor-game/solution/hei-ban-yi-huo-you-xi-by-leetcode-soluti-eb0c/'
-      ),
-      code: `function xorGame(nums: number[]): boolean {
-        return !(nums.length & 1) ? true : nums.reduce((total, cur) => total ^ cur, 0) === 0;
+      time: 3000,
+      memory: 122.9,
+      desc: '构建字典树，排序后计算最大可能异或值',
+      code: `class Trie {
+        left: Trie | null = null;
+        right: Trie | null = null;
+        val: number | null = null;
+      }
+      function maximizeXor(nums: number[], queries: number[][]): number[] {
+        const root = new Trie();
+        const add = (num: number) => {
+          let node = root;
+          for (let i = 31; i >= 0; i--) {
+            const val = (num >> i) & 1;
+            if (val === 1) node = node.right ?? (node.right = new Trie());
+            else node = node.left ?? (node.left = new Trie());
+            node.val = num;
+          }
+        };
+        const select = (num: number): number => {
+          let node = root;
+          for (let i = 31; i >= 0; i--) {
+            const val = (num >> i) & 1;
+            if (val === 1) node = node.left ?? node.right!;
+            else node = node.right ?? node.left!;
+          }
+          return node.val!;
+        };
+        nums.sort((a, b) => a - b);
+        const queryMap = new Map<number[], number>();
+        queries.forEach((v, i) => queryMap.set(v, i));
+        queries.sort(([, a], [, b]) => a - b);
+        const ans: number[] = [];
+        for (const query of queries) {
+          const [x, m] = query;
+          while (nums.length > 0 && nums[0] <= m) add(nums.shift()!);
+          const index = queryMap.get(query)!;
+          ans[index] = root.left === null && root.right === null ? -1 : x ^ select(x);
+        }
+        return ans;
       }`,
     },
   ],
