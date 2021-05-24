@@ -34,55 +34,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1707. 与数组中元素的最大异或值',
-  url: 'https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/',
+  name: '664. 奇怪的打印机',
+  url: 'https://leetcode-cn.com/problems/strange-printer/',
   difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.字典树],
-  desc:
-    '返回一个整数数组 answer 作为查询的答案，其中 answer.length == queries.length 且 answer[i] 是第 i 个查询的答案。',
+  tag: [Tag.深度优先搜索, Tag.动态规划],
+  desc: '给你一个字符串 s ，你的任务是计算这个打印机打印它需要的最少打印次数。',
   solutions: [
     {
       script: Script.TS,
-      time: 3000,
+      time: 124,
       memory: 122.9,
-      desc: '构建字典树，排序后计算最大可能异或值',
-      code: `class Trie {
-        left: Trie | null = null;
-        right: Trie | null = null;
-        val: number | null = null;
-      }
-      function maximizeXor(nums: number[], queries: number[][]): number[] {
-        const root = new Trie();
-        const add = (num: number) => {
-          let node = root;
-          for (let i = 31; i >= 0; i--) {
-            const val = (num >> i) & 1;
-            if (val === 1) node = node.right ?? (node.right = new Trie());
-            else node = node.left ?? (node.left = new Trie());
-            node.val = num;
+      desc: '动态规划',
+      code: `function strangePrinter(s: string): number {
+        const len = s.length;
+        const dp: number[][] = new Array(len).fill(0).map(_ => new Array(len).fill(0));
+        for (let i = len - 1; i >= 0; i--) {
+          dp[i][i] = 1;
+          for (let j = i + 1; j < len; j++) {
+            if (s[i] === s[j]) dp[i][j] = dp[i][j - 1];
+            else {
+              let min = Infinity;
+              for (let k = i; k < j; k++) min = Math.min(dp[i][k] + dp[k + 1][j], min);
+              dp[i][j] = min;
+            }
           }
-        };
-        const select = (num: number): number => {
-          let node = root;
-          for (let i = 31; i >= 0; i--) {
-            const val = (num >> i) & 1;
-            if (val === 1) node = node.left ?? node.right!;
-            else node = node.right ?? node.left!;
-          }
-          return node.val!;
-        };
-        nums.sort((a, b) => a - b);
-        const queryMap = new Map<number[], number>();
-        queries.forEach((v, i) => queryMap.set(v, i));
-        queries.sort(([, a], [, b]) => a - b);
-        const ans: number[] = [];
-        for (const query of queries) {
-          const [x, m] = query;
-          while (nums.length > 0 && nums[0] <= m) add(nums.shift()!);
-          const index = queryMap.get(query)!;
-          ans[index] = root.left === null && root.right === null ? -1 : x ^ select(x);
         }
-        return ans;
+        return dp[0][len - 1];
       }`,
     },
   ],
