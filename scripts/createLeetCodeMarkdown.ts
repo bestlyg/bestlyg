@@ -34,32 +34,29 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '664. 奇怪的打印机',
-  url: 'https://leetcode-cn.com/problems/strange-printer/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.深度优先搜索, Tag.动态规划],
-  desc: '给你一个字符串 s ，你的任务是计算这个打印机打印它需要的最少打印次数。',
+  name: '1190. 反转每对括号间的子串',
+  url: 'https://leetcode-cn.com/problems/reverse-substrings-between-each-pair-of-parentheses/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.栈],
+  desc:
+    '给出一个字符串 s（仅含有小写英文字母和括号）。请你按照从括号内到外的顺序，逐层反转每对匹配括号中的字符串，并返回最终的结果。',
   solutions: [
     {
       script: Script.TS,
-      time: 124,
-      memory: 122.9,
-      desc: '动态规划',
-      code: `function strangePrinter(s: string): number {
-        const len = s.length;
-        const dp: number[][] = new Array(len).fill(0).map(_ => new Array(len).fill(0));
-        for (let i = len - 1; i >= 0; i--) {
-          dp[i][i] = 1;
-          for (let j = i + 1; j < len; j++) {
-            if (s[i] === s[j]) dp[i][j] = dp[i][j - 1];
-            else {
-              let min = Infinity;
-              for (let k = i; k < j; k++) min = Math.min(dp[i][k] + dp[k + 1][j], min);
-              dp[i][j] = min;
-            }
-          }
+      time: 72,
+      memory: 39.4,
+      desc: '栈储存',
+      code: `function reverseParentheses(s: string): string {
+        const stack: string[] = [];
+        for (const c of s) {
+          if (c === ')') {
+            let str = '';
+            while (stack[stack.length - 1] !== '(') str = stack.pop()! + str;
+            stack.pop();
+            stack.push(str.split('').reverse().join(''));
+          } else stack.push(c);
         }
-        return dp[0][len - 1];
+        return stack.join('');
       }`,
     },
   ],
