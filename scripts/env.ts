@@ -7,15 +7,9 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function reverseParentheses(s: string): string {
-  const stack: string[] = [];
-  for (const c of s) {
-    if (c === ')') {
-      let str = '';
-      while (stack[stack.length - 1] !== '(') str += stack.pop()!;
-      stack.pop();
-      stack.push(str);
-    } else stack.push(c);
-  }
-  return stack.join('');
+function hammingDistance(x: number, y: number): number {
+  const newVal = x ^ y;
+  let ans = 0;
+  for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;
+  return ans;
 }

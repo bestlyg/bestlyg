@@ -34,30 +34,24 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1190. 反转每对括号间的子串',
-  url: 'https://leetcode-cn.com/problems/reverse-substrings-between-each-pair-of-parentheses/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.栈],
-  desc:
-    '给出一个字符串 s（仅含有小写英文字母和括号）。请你按照从括号内到外的顺序，逐层反转每对匹配括号中的字符串，并返回最终的结果。',
+  name: '461. 汉明距离',
+  url: 'https://leetcode-cn.com/problems/hamming-distance/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算],
+  desc: '两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。',
   solutions: [
     {
       script: Script.TS,
-      time: 72,
-      memory: 39.4,
-      desc: '栈储存',
-      code: `function reverseParentheses(s: string): string {
-        const stack: string[] = [];
-        for (const c of s) {
-          if (c === ')') {
-            let str = '';
-            while (stack[stack.length - 1] !== '(') str = stack.pop()! + str;
-            stack.pop();
-            stack.push(str.split('').reverse().join(''));
-          } else stack.push(c);
-        }
-        return stack.join('');
-      }`,
+      time: 92,
+      memory: 40.2,
+      desc: '利用异或计算不同位置的1和0',
+      code: `function hammingDistance(x: number, y: number): number {
+        const newVal = x ^ y;
+        let ans = 0;
+        for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;
+        return ans;
+      }
+      `,
     },
   ],
 };
