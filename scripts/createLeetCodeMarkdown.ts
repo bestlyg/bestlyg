@@ -34,21 +34,25 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '461. 汉明距离',
-  url: 'https://leetcode-cn.com/problems/hamming-distance/',
-  difficulty: Difficulty.简单,
+  name: '477. 汉明距离总和',
+  url: 'https://leetcode-cn.com/problems/total-hamming-distance/',
+  difficulty: Difficulty.中等,
   tag: [Tag.位运算],
-  desc: '两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。',
+  desc: '两个整数的 汉明距离 指的是这两个数字的二进制数对应位不同的数量。',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 40.2,
-      desc: '利用异或计算不同位置的1和0',
-      code: `function hammingDistance(x: number, y: number): number {
-        const newVal = x ^ y;
+      time: 156,
+      memory: 41.7,
+      desc: '逐位统计个数',
+      code: `function totalHammingDistance(nums: number[]): number {
+        const len = nums.length;
         let ans = 0;
-        for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;
+        for (let i = 0; i <= 31; i++) {
+          let count = 0;
+          nums.forEach(num => (count += (num >> i) & 1));
+          ans += count * (len - count);
+        }
         return ans;
       }
       `,

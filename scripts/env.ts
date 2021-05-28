@@ -7,9 +7,13 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function hammingDistance(x: number, y: number): number {
-  const newVal = x ^ y;
+function totalHammingDistance(nums: number[]): number {
+  const len = nums.length;
   let ans = 0;
-  for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;
+  for (let i = 0; i <= 31; i++) {
+    let count = 0;
+    nums.forEach(num => (count += (num >> i) & 1));
+    ans += count * (len - count);
+  }
   return ans;
 }
