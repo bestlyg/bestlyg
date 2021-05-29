@@ -34,28 +34,52 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '477. 汉明距离总和',
-  url: 'https://leetcode-cn.com/problems/total-hamming-distance/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算],
-  desc: '两个整数的 汉明距离 指的是这两个数字的二进制数对应位不同的数量。',
+  name: '1074. 元素和为目标值的子矩阵数量',
+  url: 'https://leetcode-cn.com/problems/number-of-submatrices-that-sum-to-target/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数组, Tag.动态规划, Tag.SlidingWindow],
+  desc: '给出矩阵 matrix 和目标值 target，返回元素总和等于目标值的非空子矩阵的数量。',
   solutions: [
     {
       script: Script.TS,
-      time: 156,
-      memory: 41.7,
-      desc: '逐位统计个数',
-      code: `function totalHammingDistance(nums: number[]): number {
-        const len = nums.length;
+      time: 500,
+      memory: 42.3,
+      desc: '暴力循环',
+      code: `function numSubmatrixSumTarget(matrix: number[][], target: number): number {
+        const rowLen = matrix.length;
+        const colLen = matrix[0].length;
+        const prefixSumList: number[][] = new Array(rowLen + 1)
+          .fill(0)
+          .map(_ => new Array(colLen + 1).fill(0));
+        for (let row = 0; row < rowLen; row++) {
+          for (let col = 0; col < colLen; col++) {
+            prefixSumList[row + 1][col + 1] =
+              prefixSumList[row + 1][col] +
+              prefixSumList[row][col + 1] -
+              prefixSumList[row][col] +
+              matrix[row][col];
+          }
+        }
         let ans = 0;
-        for (let i = 0; i <= 31; i++) {
-          let count = 0;
-          nums.forEach(num => (count += (num >> i) & 1));
-          ans += count * (len - count);
+        for (let endRow = 0; endRow < rowLen; endRow++) {
+          for (let endCol = 0; endCol < colLen; endCol++) {
+            for (let startRow = 0; startRow <= endRow; startRow++) {
+              for (let startCol = 0; startCol <= endCol; startCol++) {
+                if (
+                  prefixSumList[endRow + 1][endCol + 1] -
+                    prefixSumList[endRow + 1][startCol] -
+                    prefixSumList[startRow][endCol + 1] +
+                    prefixSumList[startRow][startCol] ===
+                  target
+                ) {
+                  ans++;
+                }
+              }
+            }
+          }
         }
         return ans;
-      }
-      `,
+      }`,
     },
   ],
 };
