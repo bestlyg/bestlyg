@@ -33,8 +33,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '1074. 元素和为目标值的子矩阵数量',
+  existMarkdown: true,
+  name: '231. 2 的幂',
   url: 'https://leetcode-cn.com/problems/number-of-submatrices-that-sum-to-target/',
   difficulty: Difficulty.困难,
   tag: [Tag.数组, Tag.动态规划, Tag.SlidingWindow],
@@ -42,44 +42,29 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 500,
-      memory: 42.3,
-      desc: '暴力循环',
-      code: `function numSubmatrixSumTarget(matrix: number[][], target: number): number {
-        const rowLen = matrix.length;
-        const colLen = matrix[0].length;
-        const prefixSumList: number[][] = new Array(rowLen + 1)
-          .fill(0)
-          .map(_ => new Array(colLen + 1).fill(0));
-        for (let row = 0; row < rowLen; row++) {
-          for (let col = 0; col < colLen; col++) {
-            prefixSumList[row + 1][col + 1] =
-              prefixSumList[row + 1][col] +
-              prefixSumList[row][col + 1] -
-              prefixSumList[row][col] +
-              matrix[row][col];
-          }
-        }
-        let ans = 0;
-        for (let endRow = 0; endRow < rowLen; endRow++) {
-          for (let endCol = 0; endCol < colLen; endCol++) {
-            for (let startRow = 0; startRow <= endRow; startRow++) {
-              for (let startCol = 0; startCol <= endCol; startCol++) {
-                if (
-                  prefixSumList[endRow + 1][endCol + 1] -
-                    prefixSumList[endRow + 1][startCol] -
-                    prefixSumList[startRow][endCol + 1] +
-                    prefixSumList[startRow][startCol] ===
-                  target
-                ) {
-                  ans++;
-                }
-              }
-            }
-          }
-        }
-        return ans;
+      time: 96,
+      memory: 39.7,
+      desc: '利用原生函数判断',
+      code: `function isPowerOfTwo(n: number): boolean {
+        const num = Math.log2(n);
+        return num === ~~num;
       }`,
+    },
+    {
+      script: Script.TS,
+      time: 100,
+      memory: 39.6,
+      desc: '判断二进制上只有一个1',
+      code: `function isPowerOfTwo(n: number): boolean {
+        if (n < 0) return false;
+        let ans = 0;
+        while (n) {
+          if (n & 1) ans++;
+          n >>= 1;
+        }
+        return ans === 1;
+      }
+      `,
     },
   ],
 };
