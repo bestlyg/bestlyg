@@ -33,36 +33,22 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '231. 2 的幂',
-  url: 'https://leetcode-cn.com/problems/number-of-submatrices-that-sum-to-target/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.动态规划, Tag.SlidingWindow],
-  desc: '给出矩阵 matrix 和目标值 target，返回元素总和等于目标值的非空子矩阵的数量。',
+  existMarkdown: false,
+  name: '342. 4的幂',
+  url: 'https://leetcode-cn.com/problems/power-of-four/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算],
+  desc:
+    '给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。',
   solutions: [
     {
       script: Script.TS,
-      time: 96,
+      time: 124,
       memory: 39.7,
-      desc: '利用原生函数判断',
-      code: `function isPowerOfTwo(n: number): boolean {
-        const num = Math.log2(n);
+      desc: '换底公式',
+      code: `function isPowerOfFour(n: number): boolean {
+        const num = Math.log10(n) / Math.log10(4);
         return num === ~~num;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 100,
-      memory: 39.6,
-      desc: '判断二进制上只有一个1',
-      code: `function isPowerOfTwo(n: number): boolean {
-        if (n < 0) return false;
-        let ans = 0;
-        while (n) {
-          if (n & 1) ans++;
-          n >>= 1;
-        }
-        return ans === 1;
       }
       `,
     },
