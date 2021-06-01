@@ -7,7 +7,17 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function isPowerOfFour(n: number): boolean {
-  const num = Math.log10(n) / Math.log10(4);
-  return num === ~~num;
+function canEat(candiesCount: number[], queries: number[][]): boolean[] {
+  const sum = candiesCount.reduce<number[]>((list, cur, i, arr) => {
+    list[i] = (i === 0 ? 0 : list[i - 1]) + cur;
+    return list;
+  }, []);
+  const check = ([type, day, count]: number[]): boolean => {
+    const x1 = day + 1;
+    const y1 = (day + 1) * count;
+    const x2 = type === 0 ? 1 : sum[type - 1] + 1;
+    const y2 = sum[type];
+    return !(x1 > y2 || y1 < x2);
+  };
+  return queries.map(check);
 }

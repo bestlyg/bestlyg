@@ -34,23 +34,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '342. 4的幂',
-  url: 'https://leetcode-cn.com/problems/power-of-four/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.位运算],
+  name: '1744. 你能在你最喜欢的那天吃到你最喜欢的糖果吗？',
+  url: 'https://leetcode-cn.com/problems/can-you-eat-your-favorite-candy-on-your-favorite-day/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数学],
   desc:
-    '给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。',
+    '给你一个下标从 0 开始的正整数数组 candiesCount ，其中 candiesCount[i] 表示你拥有的第 i 类糖果的数目。同时给你一个二维数组 queries ，其中 queries[i] = [favoriteTypei, favoriteDayi, dailyCapi] 。请你返回得到的数组 answer 。',
   solutions: [
     {
       script: Script.TS,
-      time: 124,
-      memory: 39.7,
-      desc: '换底公式',
-      code: `function isPowerOfFour(n: number): boolean {
-        const num = Math.log10(n) / Math.log10(4);
-        return num === ~~num;
-      }
-      `,
+      time: 240,
+      memory: 73,
+      desc: '计算总共能吃到的糖数',
+      code: `function canEat(candiesCount: number[], queries: number[][]): boolean[] {
+        const sum = candiesCount.reduce<number[]>((list, cur, i, arr) => {
+          list[i] = (i === 0 ? 0 : list[i - 1]) + cur;
+          return list;
+        }, []);
+        const check = ([type, day, count]: number[]): boolean => {
+          const x1 = day + 1;
+          const y1 = (day + 1) * count;
+          const x2 = type === 0 ? 1 : sum[type - 1] + 1;
+          const y2 = sum[type];
+          return !(x1 > y2 || y1 < x2);
+        };
+        return queries.map(check);
+      }`,
     },
   ],
 };
