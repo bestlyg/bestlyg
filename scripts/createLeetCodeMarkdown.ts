@@ -34,31 +34,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1744. 你能在你最喜欢的那天吃到你最喜欢的糖果吗？',
-  url: 'https://leetcode-cn.com/problems/can-you-eat-your-favorite-candy-on-your-favorite-day/',
+  name: '523. 连续的子数组和',
+  url: 'https://leetcode-cn.com/problems/continuous-subarray-sum/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数学],
+  tag: [Tag.数学, Tag.动态规划],
   desc:
-    '给你一个下标从 0 开始的正整数数组 candiesCount ，其中 candiesCount[i] 表示你拥有的第 i 类糖果的数目。同时给你一个二维数组 queries ，其中 queries[i] = [favoriteTypei, favoriteDayi, dailyCapi] 。请你返回得到的数组 answer 。',
+    '给你一个整数数组 nums 和一个整数 k。如果存在一个整数 n ，令整数 x 符合 x = n * k ，则称 x 是 k 的一个倍数。',
   solutions: [
     {
       script: Script.TS,
-      time: 240,
-      memory: 73,
-      desc: '计算总共能吃到的糖数',
-      code: `function canEat(candiesCount: number[], queries: number[][]): boolean[] {
-        const sum = candiesCount.reduce<number[]>((list, cur, i, arr) => {
-          list[i] = (i === 0 ? 0 : list[i - 1]) + cur;
-          return list;
-        }, []);
-        const check = ([type, day, count]: number[]): boolean => {
-          const x1 = day + 1;
-          const y1 = (day + 1) * count;
-          const x2 = type === 0 ? 1 : sum[type - 1] + 1;
-          const y2 = sum[type];
-          return !(x1 > y2 || y1 < x2);
-        };
-        return queries.map(check);
+      time: 156,
+      memory: 53.9,
+      desc:
+        '当prefixSums[q]−prefixSums[p] 为 kk 的倍数时，prefixSums[p] 和 prefixSums[q] 除以 k 的余数相同',
+      code: `function checkSubarraySum(nums: number[], k: number): boolean {
+        const len = nums.length;
+        if (len < 2 || k === 0) return false;
+        const map = new Map<number, number>([[0, -1]]);
+        let num = 0;
+        for (let i = 0; i < len; i++) {
+          num = (num + nums[i]) % k;
+          let prev = map.get(num);
+          if (prev !== undefined) {
+            if (i - prev >= 2) return true;
+          } else map.set(num, i);
+        }
+        return false;
       }`,
     },
   ],
