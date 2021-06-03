@@ -34,32 +34,31 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '523. 连续的子数组和',
-  url: 'https://leetcode-cn.com/problems/continuous-subarray-sum/',
+  name: '525. 连续数组',
+  url: 'https://leetcode-cn.com/problems/contiguous-array/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数学, Tag.动态规划],
+  tag: [Tag.哈希表],
   desc:
-    '给你一个整数数组 nums 和一个整数 k。如果存在一个整数 n ，令整数 x 符合 x = n * k ，则称 x 是 k 的一个倍数。',
+    '给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 156,
-      memory: 53.9,
-      desc:
-        '当prefixSums[q]−prefixSums[p] 为 kk 的倍数时，prefixSums[p] 和 prefixSums[q] 除以 k 的余数相同',
-      code: `function checkSubarraySum(nums: number[], k: number): boolean {
+      time: 144,
+      memory: 46.8,
+      desc: '把0都置-1,利用前缀和判断和为0的值',
+      code: `function findMaxLength(nums: number[]): number {
         const len = nums.length;
-        if (len < 2 || k === 0) return false;
+        for (let i = 0; i < len; i++) if (nums[i] === 0) nums[i] = -1;
+        let sum = 0;
+        let ans = 0;
         const map = new Map<number, number>([[0, -1]]);
-        let num = 0;
         for (let i = 0; i < len; i++) {
-          num = (num + nums[i]) % k;
-          let prev = map.get(num);
-          if (prev !== undefined) {
-            if (i - prev >= 2) return true;
-          } else map.set(num, i);
+          sum += nums[i];
+          let prev = map.get(sum);
+          if (prev !== undefined) ans = Math.max(ans, i - prev);
+          else map.set(sum, i);
         }
-        return false;
+        return ans;
       }`,
     },
   ],

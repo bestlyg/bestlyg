@@ -15,40 +15,18 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function checkSubarraySum(nums: number[], k: number): boolean {
+function findMaxLength(nums: number[]): number {
   const len = nums.length;
-  if (len < 2 || k === 0) return false;
+  for (let i = 0; i < len; i++) if (nums[i] === 0) nums[i] = -1;
+  let sum = 0;
+  let ans = 0;
   const map = new Map<number, number>([[0, -1]]);
-  let num = 0;
   for (let i = 0; i < len; i++) {
-    num = (num + nums[i]) % k;
-    let prev = map.get(num);
-    if (prev !== undefined) {
-      if (i - prev >= 2) return true;
-    } else map.set(num, i);
+    sum += nums[i];
+    let prev = map.get(sum);
+    if (prev !== undefined) ans = Math.max(ans, i - prev);
+    else map.set(sum, i);
   }
-  return false;
+  return ans;
 }
-console.log(checkSubarraySum([1, 2, 3], 5));
-var checkSubarraySum2 = function (nums, k) {
-  const m = nums.length;
-  if (m < 2) {
-    return false;
-  }
-  const map = new Map();
-  map.set(0, -1);
-  let remainder = 0;
-  for (let i = 0; i < m; i++) {
-    remainder = (remainder + nums[i]) % k;
-    if (map.has(remainder)) {
-      const prevIndex = map.get(remainder);
-      if (i - prevIndex >= 2) {
-        return true;
-      }
-    } else {
-      map.set(remainder, i);
-    }
-  }
-  return false;
-};
-console.log(checkSubarraySum2([1, 2, 3], 5));
+console.log(findMaxLength([0, 1, 0]));
