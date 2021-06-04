@@ -15,18 +15,27 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function findMaxLength(nums: number[]): number {
-  const len = nums.length;
-  for (let i = 0; i < len; i++) if (nums[i] === 0) nums[i] = -1;
-  let sum = 0;
-  let ans = 0;
-  const map = new Map<number, number>([[0, -1]]);
-  for (let i = 0; i < len; i++) {
-    sum += nums[i];
-    let prev = map.get(sum);
-    if (prev !== undefined) ans = Math.max(ans, i - prev);
-    else map.set(sum, i);
+function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
+  if (headA === null || headB === null) return null;
+  const setA = new Set<ListNode>();
+  const setB = new Set<ListNode>();
+  let pA: ListNode | null = headA;
+  let pB: ListNode | null = headB;
+  while (pA !== null && pB !== null) {
+    setA.add(pA);
+    setB.add(pB);
+    if (setB.has(pA)) return pA;
+    if (setA.has(pB)) return pB;
+    pA = pA.next;
+    pB = pB.next;
   }
-  return ans;
+  while (pA !== null) {
+    if (setB.has(pA)) return pA;
+    pA = pA.next;
+  }
+  while (pB !== null) {
+    if (setA.has(pB)) return pB;
+    pB = pB.next;
+  }
+  return null;
 }
-console.log(findMaxLength([0, 1, 0]));

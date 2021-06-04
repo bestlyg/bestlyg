@@ -34,31 +34,41 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '525. 连续数组',
-  url: 'https://leetcode-cn.com/problems/contiguous-array/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.哈希表],
+  name: '160. 相交链表',
+  url: 'https://leetcode-cn.com/problems/intersection-of-two-linked-lists/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.链表],
   desc:
-    '给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。',
+    '给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。',
   solutions: [
     {
       script: Script.TS,
-      time: 144,
-      memory: 46.8,
-      desc: '把0都置-1,利用前缀和判断和为0的值',
-      code: `function findMaxLength(nums: number[]): number {
-        const len = nums.length;
-        for (let i = 0; i < len; i++) if (nums[i] === 0) nums[i] = -1;
-        let sum = 0;
-        let ans = 0;
-        const map = new Map<number, number>([[0, -1]]);
-        for (let i = 0; i < len; i++) {
-          sum += nums[i];
-          let prev = map.get(sum);
-          if (prev !== undefined) ans = Math.max(ans, i - prev);
-          else map.set(sum, i);
+      time: 128,
+      memory: 46.9,
+      desc: '利用set储存',
+      code: `function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
+        if (headA === null || headB === null) return null;
+        const setA = new Set<ListNode>();
+        const setB = new Set<ListNode>();
+        let pA: ListNode | null = headA;
+        let pB: ListNode | null = headB;
+        while (pA !== null && pB !== null) {
+          setA.add(pA);
+          setB.add(pB);
+          if (setB.has(pA)) return pA;
+          if (setA.has(pB)) return pB;
+          pA = pA.next;
+          pB = pB.next;
         }
-        return ans;
+        while (pA !== null) {
+          if (setB.has(pA)) return pA;
+          pA = pA.next;
+        }
+        while (pB !== null) {
+          if (setA.has(pB)) return pB;
+          pB = pB.next;
+        }
+        return null;
       }`,
     },
   ],
