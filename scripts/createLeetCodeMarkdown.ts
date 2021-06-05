@@ -33,8 +33,8 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '160. 相交链表',
+  existMarkdown: true,
+  name: '203. 移除链表元素',
   url: 'https://leetcode-cn.com/problems/intersection-of-two-linked-lists/',
   difficulty: Difficulty.简单,
   tag: [Tag.链表],
@@ -43,32 +43,20 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 128,
-      memory: 46.9,
-      desc: '利用set储存',
-      code: `function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
-        if (headA === null || headB === null) return null;
-        const setA = new Set<ListNode>();
-        const setB = new Set<ListNode>();
-        let pA: ListNode | null = headA;
-        let pB: ListNode | null = headB;
-        while (pA !== null && pB !== null) {
-          setA.add(pA);
-          setB.add(pB);
-          if (setB.has(pA)) return pA;
-          if (setA.has(pB)) return pB;
-          pA = pA.next;
-          pB = pB.next;
+      time: 108,
+      memory: 43.3,
+      desc: '初始化空头节点便于运算',
+      code: `function removeElements(head: ListNode | null, val: number): ListNode | null {
+        if (head === null) return null;
+        const tempHead = new ListNode(0, head);
+        let p: ListNode | null = tempHead;
+        while (p !== null) {
+          let next: ListNode | null = p.next;
+          while (next !== null && next.val === val) next = next.next;
+          p.next = next;
+          p = next;
         }
-        while (pA !== null) {
-          if (setB.has(pA)) return pA;
-          pA = pA.next;
-        }
-        while (pB !== null) {
-          if (setA.has(pB)) return pB;
-          pB = pB.next;
-        }
-        return null;
+        return tempHead.next;
       }`,
     },
   ],
