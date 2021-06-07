@@ -33,30 +33,37 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '203. 移除链表元素',
-  url: 'https://leetcode-cn.com/problems/intersection-of-two-linked-lists/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.链表],
+  existMarkdown: false,
+  name: '494. 目标和',
+  url: 'https://leetcode-cn.com/problems/target-sum/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.动态规划, Tag.深度优先搜索],
   desc:
-    '给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。',
+    '给你一个整数数组 nums 和一个整数 target 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 43.3,
-      desc: '初始化空头节点便于运算',
-      code: `function removeElements(head: ListNode | null, val: number): ListNode | null {
-        if (head === null) return null;
-        const tempHead = new ListNode(0, head);
-        let p: ListNode | null = tempHead;
-        while (p !== null) {
-          let next: ListNode | null = p.next;
-          while (next !== null && next.val === val) next = next.next;
-          p.next = next;
-          p = next;
-        }
-        return tempHead.next;
+      time: 6868,
+      memory: 93.7,
+      desc: '回溯',
+      code: `function findTargetSumWays(nums: number[], target: number): number {
+        const len = nums.length;
+        const ans: number[] = [];
+        let val = 0;
+        const findNext = (index = 0): void => {
+          if (index === len) {
+            ans.push(val);
+            return;
+          }
+          val += nums[index];
+          findNext(index + 1);
+          val -= nums[index];
+          val -= nums[index];
+          findNext(index + 1);
+          val += nums[index];
+        };
+        findNext();
+        return ans.filter(v => v === target).length;
       }`,
     },
   ],

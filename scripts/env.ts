@@ -14,17 +14,23 @@ type Heap = structures.Heap;
 
 
  */
-
-function removeElements(head: ListNode | null, val: number): ListNode | null {
-  if (head === null) return null;
-  const tempHead = new ListNode(0, head);
-  let p: ListNode | null = tempHead;
-  while (p !== null) {
-    let next: ListNode | null = p.next;
-    while (next !== null && next.val === val) next = next.next;
-    p.next = next;
-    p = next;
-  }
-  return tempHead.next;
+function findTargetSumWays(nums: number[], target: number): number {
+  const len = nums.length;
+  const ans: number[] = [];
+  let val = 0;
+  const findNext = (index = 0): void => {
+    if (index === len) {
+      ans.push(val);
+      return;
+    }
+    val += nums[index];
+    findNext(index + 1);
+    val -= nums[index];
+    val -= nums[index];
+    findNext(index + 1);
+    val += nums[index];
+  };
+  findNext();
+  return ans.filter(v => v === target).length;
 }
-removeElements(ListNode.factory([1, 2, 6, 3, 4, 5, 6]), 6)?.print();
+console.log(findTargetSumWays([1, 1, 1, 1, 1], 3));
