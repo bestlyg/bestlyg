@@ -9,28 +9,19 @@ type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 /*
 
- 2 3 4 5 6 7 8 9 10
-
-
-
  */
-function findTargetSumWays(nums: number[], target: number): number {
-  const len = nums.length;
-  const ans: number[] = [];
-  let val = 0;
-  const findNext = (index = 0): void => {
-    if (index === len) {
-      ans.push(val);
-      return;
+function lastStoneWeightII(stones: number[]): number {
+  const sum = stones.reduce((total, cur) => total + cur, 0);
+  const len = stones.length;
+  const half = sum >> 1;
+  const dp = new Array(len + 1).fill(0).map(_ => new Array(half + 1).fill(false));
+  dp[0][0] = true;
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j <= half; j++) {
+      if (stones[i] > j) dp[i + 1][j] = dp[i][j];
+      else dp[i + 1][j] = dp[i][j] || dp[i][j - stones[i]];
     }
-    val += nums[index];
-    findNext(index + 1);
-    val -= nums[index];
-    val -= nums[index];
-    findNext(index + 1);
-    val += nums[index];
-  };
-  findNext();
-  return ans.filter(v => v === target).length;
+  }
+  for (let j = half; j >= 0; j--) if (dp[len][j]) return sum - 2 * j;
+  return 0;
 }
-console.log(findTargetSumWays([1, 1, 1, 1, 1], 3));

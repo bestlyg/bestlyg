@@ -34,36 +34,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '494. 目标和',
-  url: 'https://leetcode-cn.com/problems/target-sum/',
+  name: '1049. 最后一块石头的重量 II',
+  url: 'https://leetcode-cn.com/problems/last-stone-weight-ii/',
   difficulty: Difficulty.中等,
-  tag: [Tag.动态规划, Tag.深度优先搜索],
+  tag: [Tag.动态规划],
   desc:
-    '给你一个整数数组 nums 和一个整数 target 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。',
+    '有一堆石头，用整数数组 stones 表示。其中 stones[i] 表示第 i 块石头的重量。最后，最多只会剩下一块 石头。返回此石头 最小的可能重量 。如果没有石头剩下，就返回 0。',
   solutions: [
     {
       script: Script.TS,
-      time: 6868,
-      memory: 93.7,
-      desc: '回溯',
-      code: `function findTargetSumWays(nums: number[], target: number): number {
-        const len = nums.length;
-        const ans: number[] = [];
-        let val = 0;
-        const findNext = (index = 0): void => {
-          if (index === len) {
-            ans.push(val);
-            return;
+      time: 92,
+      memory: 41.1,
+      desc: 'sum-2*neg,neg尽可能接近sum',
+      code: `function lastStoneWeightII(stones: number[]): number {
+        const sum = stones.reduce((total, cur) => total + cur, 0);
+        const len = stones.length;
+        const half = sum >> 1;
+        const dp = new Array(len + 1).fill(0).map(_ => new Array(half + 1).fill(false));
+        dp[0][0] = true;
+        for (let i = 0; i < len; i++) {
+          for (let j = 0; j <= half; j++) {
+            if (stones[i] > j) dp[i + 1][j] = dp[i][j];
+            else dp[i + 1][j] = dp[i][j] || dp[i][j - stones[i]];
           }
-          val += nums[index];
-          findNext(index + 1);
-          val -= nums[index];
-          val -= nums[index];
-          findNext(index + 1);
-          val += nums[index];
-        };
-        findNext();
-        return ans.filter(v => v === target).length;
+        }
+        for (let j = half; j >= 0; j--) if (dp[len][j]) return sum - 2 * j;
+        return 0;
       }`,
     },
   ],
