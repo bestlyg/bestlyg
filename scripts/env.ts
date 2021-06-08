@@ -10,18 +10,20 @@ type Heap = structures.Heap;
 /*
 
  */
-function lastStoneWeightII(stones: number[]): number {
-  const sum = stones.reduce((total, cur) => total + cur, 0);
-  const len = stones.length;
-  const half = sum >> 1;
-  const dp = new Array(len + 1).fill(0).map(_ => new Array(half + 1).fill(false));
-  dp[0][0] = true;
-  for (let i = 0; i < len; i++) {
-    for (let j = 0; j <= half; j++) {
-      if (stones[i] > j) dp[i + 1][j] = dp[i][j];
-      else dp[i + 1][j] = dp[i][j] || dp[i][j - stones[i]];
+function findTargetSumWays(nums: number[], target: number): number {
+  const sum = nums.reduce((total, cur) => total + cur, 0);
+  if (target > sum || (sum - target) & 1) return 0;
+  const neg = (sum - target) >> 1;
+  const len = nums.length;
+  const dp = new Array(len + 1).fill(0).map(_ => new Array(neg + 1).fill(0));
+  dp[0][0] = 1;
+  for (let i = 1; i <= len; i++) {
+    const num = nums[i - 1];
+    for (let j = 0; j <= neg; j++) {
+      dp[i][j] = dp[i - 1][j];
+      if (j >= num) dp[i][j] += dp[i - 1][j - num];
     }
   }
-  for (let j = half; j >= 0; j--) if (dp[len][j]) return sum - 2 * j;
-  return 0;
+  return dp[len][neg];
 }
+console.log(findTargetSumWays([1, 2, 1], 0));
