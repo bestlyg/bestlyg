@@ -1,11 +1,21 @@
 import { Comparator } from '@bestlyg/shared';
 import { random } from 'lodash';
-import { quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort } from '../src';
+import {
+  quickSort1,
+  quickSort2,
+  quickSort3,
+  mergeSort,
+  heapSort,
+  bubbleSort,
+  countingSort,
+  radixSort,
+} from '../src';
+const RANDOM_BASE = 100;
 const compare = (a, b) => a - b;
-const run = (sort: (compare: Comparator<number>, list: number[], ...args: any) => void) => {
+const getList = () => new Array(RANDOM_BASE).fill(0).map(_ => random(0, RANDOM_BASE));
+const compareRun = (sort: (compare: Comparator<number>, list: number[], ...args: any) => void) => {
   test('common sort', () => {
-    const RANDOM_BASE = 100;
-    const list = new Array(RANDOM_BASE).fill(0).map(_ => random(0, RANDOM_BASE));
+    const list = getList();
     sort(compare, list);
     let f = true;
     for (let i = 1; i < RANDOM_BASE; i++) {
@@ -17,4 +27,21 @@ const run = (sort: (compare: Comparator<number>, list: number[], ...args: any) =
     expect(f).toBeTruthy();
   });
 };
-[quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach(v => run(v));
+const numberRun = (sort: (list: number[]) => void) => {
+  test('common sort', () => {
+    const list = getList();
+    sort(list);
+    let f = true;
+    for (let i = 1; i < RANDOM_BASE; i++) {
+      if (list[i - 1] > list[i]) {
+        f = false;
+        break;
+      }
+    }
+    expect(f).toBeTruthy();
+  });
+};
+describe('Sort', () => {
+  [quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach(v => compareRun(v));
+  [countingSort, radixSort].forEach(v => numberRun(v));
+});
