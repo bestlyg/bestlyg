@@ -33,34 +33,50 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '494. 目标和',
-  url: 'https://leetcode-cn.com/problems/last-stone-weight-ii/',
-  difficulty: Difficulty.中等,
+  existMarkdown: false,
+  name: '879. 盈利计划',
+  url: 'https://leetcode-cn.com/problems/profitable-schemes/',
+  difficulty: Difficulty.困难,
   tag: [Tag.动态规划],
   desc:
-    '有一堆石头，用整数数组 stones 表示。其中 stones[i] 表示第 i 块石头的重量。最后，最多只会剩下一块 石头。返回此石头 最小的可能重量 。如果没有石头剩下，就返回 0。',
+    '集团里有 n 名员工，他们可以完成各种各样的工作创造利润。有多少种计划可以选择？因为答案很大，所以 返回结果模 10^9 + 7 的值。',
   solutions: [
     {
       script: Script.TS,
-      time: 116,
-      memory: 42.2,
-      desc: '(sum-target)/2=neg,target必为非负整数',
-      code: `function findTargetSumWays(nums: number[], target: number): number {
-        const sum = nums.reduce((total, cur) => total + cur, 0);
-        if (target > sum || (sum - target) & 1) return 0;
-        const neg = (sum - target) >> 1;
-        const len = nums.length;
-        const dp = new Array(len + 1).fill(0).map(_ => new Array(neg + 1).fill(0));
-        dp[0][0] = 1;
+      time: 320,
+      memory: 76.8,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/profitable-schemes/solution/ying-li-ji-hua-by-leetcode-solution-3t8o/'
+      ),
+      code: `function profitableSchemes(
+        n: number,
+        minProfit: number,
+        group: number[],
+        profit: number[]
+      ): number {
+        const MOD = 1e9 + 7;
+        const len = group.length;
+        const dp = new Array(len + 1)
+          .fill(0)
+          .map(_ => new Array(n + 1).fill(0).map(_ => new Array(minProfit + 1).fill(0)));
+        dp[0][0][0] = 1;
         for (let i = 1; i <= len; i++) {
-          const num = nums[i - 1];
-          for (let j = 0; j <= neg; j++) {
-            dp[i][j] = dp[i - 1][j];
-            if (j >= num) dp[i][j] += dp[i - 1][j - num];
+          const member = group[i - 1];
+          const earn = profit[i - 1];
+          for (let j = 0; j <= n; j++) {
+            for (let k = 0; k <= minProfit; k++) {
+              if (j < member) {
+                dp[i][j][k] = dp[i - 1][j][k];
+              } else {
+                dp[i][j][k] = (dp[i - 1][j][k] + dp[i - 1][j - member][Math.max(0, k - earn)]) % MOD;
+              }
+            }
           }
         }
-        return dp[len][neg];
+        let ans = 0;
+        for (let i = 0; i <= n; i++) ans = (ans + dp[len][i][minProfit]) % MOD;
+        return ans;
       }`,
     },
   ],
