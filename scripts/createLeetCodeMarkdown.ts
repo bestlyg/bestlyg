@@ -34,49 +34,29 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '879. 盈利计划',
-  url: 'https://leetcode-cn.com/problems/profitable-schemes/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
+  name: '518. 零钱兑换 II',
+  url: 'https://leetcode-cn.com/problems/coin-change-2/',
+  difficulty: Difficulty.中等,
+  tag: [],
   desc:
-    '集团里有 n 名员工，他们可以完成各种各样的工作创造利润。有多少种计划可以选择？因为答案很大，所以 返回结果模 10^9 + 7 的值。',
+    '给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。',
   solutions: [
     {
       script: Script.TS,
-      time: 320,
-      memory: 76.8,
-      desc: markdown.link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/profitable-schemes/solution/ying-li-ji-hua-by-leetcode-solution-3t8o/'
-      ),
-      code: `function profitableSchemes(
-        n: number,
-        minProfit: number,
-        group: number[],
-        profit: number[]
-      ): number {
-        const MOD = 1e9 + 7;
-        const len = group.length;
-        const dp = new Array(len + 1)
-          .fill(0)
-          .map(_ => new Array(n + 1).fill(0).map(_ => new Array(minProfit + 1).fill(0)));
-        dp[0][0][0] = 1;
-        for (let i = 1; i <= len; i++) {
-          const member = group[i - 1];
-          const earn = profit[i - 1];
-          for (let j = 0; j <= n; j++) {
-            for (let k = 0; k <= minProfit; k++) {
-              if (j < member) {
-                dp[i][j][k] = dp[i - 1][j][k];
-              } else {
-                dp[i][j][k] = (dp[i - 1][j][k] + dp[i - 1][j - member][Math.max(0, k - earn)]) % MOD;
-              }
+      time: 92,
+      memory: 39.8,
+      desc: '计算每种硬币的可能',
+      code: `function change(amount: number, coins: number[]): number {
+        const dp = new Array(amount + 1).fill(0);
+        dp[0] = 1;
+        for (const coin of coins) {
+          for (let i = 1; i <= amount; i++) {
+            if (i >= coin) {
+              dp[i] += dp[i - coin];
             }
           }
         }
-        let ans = 0;
-        for (let i = 0; i <= n; i++) ans = (ans + dp[len][i][minProfit]) % MOD;
-        return ans;
+        return dp[amount];
       }`,
     },
   ],
