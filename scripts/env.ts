@@ -10,16 +10,20 @@ type Heap = structures.Heap;
 /*
 
  */
-function change(amount: number, coins: number[]): number {
-  const dp = new Array(amount + 1).fill(0);
-  dp[0] = 1;
-  for (const coin of coins) {
-    for (let i = 1; i <= amount; i++) {
-      if (i >= coin) {
-        dp[i] += dp[i - coin];
-      }
+function numSquares(n: number): number {
+  let MAX = 1;
+  const dp = new Array(n + 1).fill(Infinity);
+  dp[0] = 0;
+  dp[1] = 1;
+  for (let i = 2; i <= n; i++) {
+    while (MAX ** 2 <= i) MAX++;
+    for (let j = MAX - 1; j >= 1; j--) {
+      const num = j ** 2;
+      if (num > i) continue;
+      const count = ~~(i / num);
+      dp[i] = Math.min(dp[i], dp[i - num * count] + count);
     }
   }
-  return dp[amount];
+  return dp[n];
 }
-console.log(change(4, [1, 2, 5]));
+console.log(numSquares(13));

@@ -34,29 +34,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '518. 零钱兑换 II',
-  url: 'https://leetcode-cn.com/problems/coin-change-2/',
+  name: '279. 完全平方数',
+  url: 'https://leetcode-cn.com/problems/perfect-squares/',
   difficulty: Difficulty.中等,
-  tag: [],
-  desc:
-    '给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。',
+  tag: [Tag.广度优先搜索, Tag.数学, Tag.动态规划],
+  desc: '给你一个整数 n ，返回和为 n 的完全平方数的 最少数量 。',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.8,
-      desc: '计算每种硬币的可能',
-      code: `function change(amount: number, coins: number[]): number {
-        const dp = new Array(amount + 1).fill(0);
-        dp[0] = 1;
-        for (const coin of coins) {
-          for (let i = 1; i <= amount; i++) {
-            if (i >= coin) {
-              dp[i] += dp[i - coin];
-            }
+      time: 292,
+      memory: 41.8,
+      desc: '背包问题',
+      code: `function numSquares(n: number): number {
+        let MAX = 1;
+        const dp = new Array(n + 1).fill(Infinity);
+        dp[0] = 0;
+        dp[1] = 1;
+        for (let i = 2; i <= n; i++) {
+          while (MAX ** 2 <= i) MAX++;
+          for (let j = MAX - 1; j >= 1; j--) {
+            const num = j ** 2;
+            if (num > i) continue;
+            const count = ~~(i / num);
+            dp[i] = Math.min(dp[i], dp[i - num * count] + count);
           }
         }
-        return dp[amount];
+        return dp[n];
       }`,
     },
   ],

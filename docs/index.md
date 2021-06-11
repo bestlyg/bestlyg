@@ -19,7 +19,7 @@ features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d1ee0c6f-5aed-4a45-a507-339a4bfe076c/k7bjsocq_w144_h144.png
     title: 应用合集
     desc: 闲的时候想写什么就写什么
-footer: <a href="http://www.beian.gov.cn/portal/registerSystemInfo">浙ICP备19044645号</a> Copyright © 2021<br />Powered by bestlyg
+footer: <a href="https://beian.miit.gov.cn/#/Integrated/index">浙ICP备19044645号-1</a> Copyright © 2021<br />Powered by bestlyg
 ---
 
 # BestLyg
