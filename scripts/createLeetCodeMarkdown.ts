@@ -34,32 +34,46 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '279. 完全平方数',
-  url: 'https://leetcode-cn.com/problems/perfect-squares/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.广度优先搜索, Tag.数学, Tag.动态规划],
-  desc: '给你一个整数 n ，返回和为 n 的完全平方数的 最少数量 。',
+  name: '852. 山脉数组的峰顶索引',
+  url: 'https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.二分查找],
+  desc:
+    '给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。',
   solutions: [
     {
       script: Script.TS,
-      time: 292,
-      memory: 41.8,
-      desc: '背包问题',
-      code: `function numSquares(n: number): number {
-        let MAX = 1;
-        const dp = new Array(n + 1).fill(Infinity);
-        dp[0] = 0;
-        dp[1] = 1;
-        for (let i = 2; i <= n; i++) {
-          while (MAX ** 2 <= i) MAX++;
-          for (let j = MAX - 1; j >= 1; j--) {
-            const num = j ** 2;
-            if (num > i) continue;
-            const count = ~~(i / num);
-            dp[i] = Math.min(dp[i], dp[i - num * count] + count);
+      time: 84,
+      memory: 40.1,
+      desc: '搜索最大值',
+      code: `function peakIndexInMountainArray(arr: number[]): number {
+        for (let i = 1, l = arr.length; i < l - 1; i++) {
+          if (arr[i - 1] < arr[i] && arr[i + 1] < arr[i]) return i;
+        }
+        return 0;
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 84,
+      memory: 40.1,
+      desc: '二分查找',
+      code: `function peakIndexInMountainArray(arr: number[]): number {
+        const len = arr.length;
+        let left = 1;
+        let right = len - 2;
+        let ans = 0;
+        while (left <= right) {
+          const mid = ~~((left + right) >> 1);
+          if (arr[mid] > arr[mid + 1]) {
+            ans = mid;
+            right = mid - 1;
+          } else {
+            left = mid + 1;
           }
         }
-        return dp[n];
+        return ans;
       }`,
     },
   ],

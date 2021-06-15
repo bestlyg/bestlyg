@@ -10,20 +10,19 @@ type Heap = structures.Heap;
 /*
 
  */
-function numSquares(n: number): number {
-  let MAX = 1;
-  const dp = new Array(n + 1).fill(Infinity);
-  dp[0] = 0;
-  dp[1] = 1;
-  for (let i = 2; i <= n; i++) {
-    while (MAX ** 2 <= i) MAX++;
-    for (let j = MAX - 1; j >= 1; j--) {
-      const num = j ** 2;
-      if (num > i) continue;
-      const count = ~~(i / num);
-      dp[i] = Math.min(dp[i], dp[i - num * count] + count);
+function peakIndexInMountainArray(arr: number[]): number {
+  const len = arr.length;
+  let left = 1;
+  let right = len - 2;
+  let ans = 0;
+  while (left <= right) {
+    const mid = ~~((left + right) >> 1);
+    if (arr[mid] > arr[mid + 1]) {
+      ans = mid;
+      right = mid - 1;
+    } else {
+      left = mid + 1;
     }
   }
-  return dp[n];
+  return ans;
 }
-console.log(numSquares(13));
