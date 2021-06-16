@@ -10,19 +10,14 @@ type Heap = structures.Heap;
 /*
 
  */
-function peakIndexInMountainArray(arr: number[]): number {
-  const len = arr.length;
-  let left = 1;
-  let right = len - 2;
-  let ans = 0;
-  while (left <= right) {
-    const mid = ~~((left + right) >> 1);
-    if (arr[mid] > arr[mid + 1]) {
-      ans = mid;
-      right = mid - 1;
-    } else {
-      left = mid + 1;
+function stoneGame(piles: number[]): boolean {
+  const len = piles.length;
+  const dp = new Array(len).fill(0).map(_ => new Array(len));
+  for (let i = 0; i < len; i++) dp[i][i] = piles[i];
+  for (let i = len - 2; i >= 0; i--) {
+    for (let j = i + 1; j < len; j++) {
+      dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
     }
   }
-  return ans;
+  return dp[0][length - 1] > 0;
 }

@@ -34,46 +34,43 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '852. 山脉数组的峰顶索引',
-  url: 'https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.二分查找],
+  name: '877. 石子游戏',
+  url: 'https://leetcode-cn.com/problems/stone-game/ray/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.极小化极大, Tag.数学, Tag.动态规划],
   desc:
-    '给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。',
+    '亚历克斯和李用几堆石子在做游戏。假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 40.1,
-      desc: '搜索最大值',
-      code: `function peakIndexInMountainArray(arr: number[]): number {
-        for (let i = 1, l = arr.length; i < l - 1; i++) {
-          if (arr[i - 1] < arr[i] && arr[i + 1] < arr[i]) return i;
+      time: 104,
+      memory: 44.8,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/stone-game/solution/shi-zi-you-xi-by-leetcode-solution/'
+      ),
+      code: `function stoneGame(piles: number[]): boolean {
+        const len = piles.length;
+        const dp = new Array(len).fill(0).map(_ => new Array(len));
+        for (let i = 0; i < len; i++) dp[i][i] = piles[i];
+        for (let i = len - 2; i >= 0; i--) {
+          for (let j = i + 1; j < len; j++) {
+            dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+          }
         }
-        return 0;
-      }
-      `,
+        return dp[0][len - 1] > 0;
+      }`,
     },
     {
       script: Script.TS,
       time: 84,
-      memory: 40.1,
-      desc: '二分查找',
-      code: `function peakIndexInMountainArray(arr: number[]): number {
-        const len = arr.length;
-        let left = 1;
-        let right = len - 2;
-        let ans = 0;
-        while (left <= right) {
-          const mid = ~~((left + right) >> 1);
-          if (arr[mid] > arr[mid + 1]) {
-            ans = mid;
-            right = mid - 1;
-          } else {
-            left = mid + 1;
-          }
-        }
-        return ans;
+      memory: 39.2,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/stone-game/solution/shi-zi-you-xi-by-leetcode-solution/'
+      ),
+      code: `function stoneGame(piles: number[]): boolean {
+       return true;
       }`,
     },
   ],
