@@ -10,14 +10,30 @@ type Heap = structures.Heap;
 /*
 
  */
-function stoneGame(piles: number[]): boolean {
-  const len = piles.length;
-  const dp = new Array(len).fill(0).map(_ => new Array(len));
-  for (let i = 0; i < len; i++) dp[i][i] = piles[i];
-  for (let i = len - 2; i >= 0; i--) {
-    for (let j = i + 1; j < len; j++) {
-      dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+function maxLength(arr: string[]): number {
+  const masks = arr
+    .map(s => {
+      if (s === '') return -1;
+      let mask = 0;
+      for (const c of s) {
+        const num = c.codePointAt(0)!;
+        if ((mask >> num) & 1) return -1;
+        mask |= 1 << num;
+      }
+      return mask;
+    })
+    .filter(num => num !== -1);
+  let ans = 0;
+  const masksLen = masks.length;
+  const dfs = (index = 0, num = 0) => {
+    if (index === masksLen) {
+      ans = Math.max(ans, num.toString(2).split('0').join('').length);
+      return;
     }
-  }
-  return dp[0][length - 1] > 0;
+    if ((num & masks[index]) === 0) dfs(index + 1, num | masks[index]);
+    dfs(index + 1, num);
+  };
+  dfs();
+  return ans;
 }
+console.log(maxLength(['cha', 'r', 'act', 'ers']));
