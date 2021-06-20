@@ -34,44 +34,51 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1239. 串联字符串的最大长度',
-  url:
-    'https://leetcode-cn.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/',
+  name: '1600. 皇位继承顺序',
+  url: 'https://leetcode-cn.com/problems/throne-inheritance/',
   difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.回溯算法],
+  tag: [Tag.树, Tag.设计],
   desc:
-    '给定一个字符串数组 arr，字符串 s 是将 arr 某一子序列字符串连接所得的字符串，如果 s 中的每一个字符都只出现过一次，那么它就是一个可行解。请返回所有可行解 s 中最长长度。',
+    '一个王国里住着国王、他的孩子们、他的孙子们等等。通过以上的函数，我们总是能得到一个唯一的继承顺序。',
   solutions: [
     {
       script: Script.TS,
       time: 188,
       memory: 43.8,
-      desc: '利用二进制储存，进行比较',
-      code: `function maxLength(arr: string[]): number {
-        const masks = arr
-          .map(s => {
-            if (s === '') return -1;
-            let mask = 0;
-            for (const c of s) {
-              const num = c.codePointAt(0)!;
-              if ((mask >> num) & 1) return -1;
-              mask |= 1 << num;
-            }
-            return mask;
-          })
-          .filter(num => num !== -1);
-        let ans = 0;
-        const masksLen = masks.length;
-        const dfs = (index = 0, num = 0) => {
-          if (index === masksLen) {
-            ans = Math.max(ans, num.toString(2).split('0').join('').length);
-            return;
-          }
-          if ((num & masks[index]) === 0) dfs(index + 1, num | masks[index]);
-          dfs(index + 1, num);
-        };
-        dfs();
-        return ans;
+      desc: '前序遍历',
+      code: `class Person {
+        children: Person[] = [];
+        dead = false;
+        constructor(public name: string) {}
+      }
+      class ThroneInheritance {
+        king = new Person('');
+        nameMap = new Map<string, Person>();
+        constructor(kingName: string) {
+          this.king.name = kingName;
+          this.nameMap.set(kingName, this.king);
+        }
+        birth(parentName: string, childName: string): void {
+          const parent = this.nameMap.get(parentName)!;
+          const child = new Person(childName);
+          this.nameMap.set(childName, child);
+          parent.children.push(child);
+        }
+        death(name: string): void {
+          this.nameMap.get(name)!.dead = true;
+        }
+        getInheritanceOrder(): string[] {
+          return this._getInheritanceOrder(this.king)
+            .filter(v => !v.dead)
+            .map(v => v.name);
+        }
+        private _getInheritanceOrder(person: Person): Person[] {
+          const ans: Person[] = [person];
+          person.children.forEach(child => {
+            ans.push(...this._getInheritanceOrder(child));
+          });
+          return ans;
+        }
       }`,
     },
   ],

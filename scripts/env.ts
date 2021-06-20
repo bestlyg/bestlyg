@@ -10,30 +10,47 @@ type Heap = structures.Heap;
 /*
 
  */
-function maxLength(arr: string[]): number {
-  const masks = arr
-    .map(s => {
-      if (s === '') return -1;
-      let mask = 0;
-      for (const c of s) {
-        const num = c.codePointAt(0)!;
-        if ((mask >> num) & 1) return -1;
-        mask |= 1 << num;
-      }
-      return mask;
-    })
-    .filter(num => num !== -1);
-  let ans = 0;
-  const masksLen = masks.length;
-  const dfs = (index = 0, num = 0) => {
-    if (index === masksLen) {
-      ans = Math.max(ans, num.toString(2).split('0').join('').length);
-      return;
-    }
-    if ((num & masks[index]) === 0) dfs(index + 1, num | masks[index]);
-    dfs(index + 1, num);
-  };
-  dfs();
-  return ans;
+class Person {
+  children: Person[] = [];
+  dead = false;
+  constructor(public name: string) {}
 }
-console.log(maxLength(['cha', 'r', 'act', 'ers']));
+class ThroneInheritance {
+  king = new Person('');
+  nameMap = new Map<string, Person>();
+  constructor(kingName: string) {
+    this.king.name = kingName;
+    this.nameMap.set(kingName, this.king);
+  }
+  birth(parentName: string, childName: string): void {
+    const parent = this.nameMap.get(parentName)!;
+    const child = new Person(childName);
+    this.nameMap.set(childName, child);
+    parent.children.push(child);
+  }
+  death(name: string): void {
+    this.nameMap.get(name)!.dead = true;
+  }
+  getInheritanceOrder(): string[] {
+    return this._getInheritanceOrder(this.king)
+      .filter(v => !v.dead)
+      .map(v => v.name);
+  }
+  private _getInheritanceOrder(person: Person): Person[] {
+    const ans: Person[] = [person];
+    person.children.forEach(child => {
+      ans.push(...this._getInheritanceOrder(child));
+    });
+    return ans;
+  }
+}
+const t = new ThroneInheritance('king'); // 继承顺序：king
+t.birth('king', 'andy'); // 继承顺序：king > andy
+t.birth('king', 'bob'); // 继承顺序：king > andy > bob
+t.birth('king', 'catherine'); // 继承顺序：king > andy > bob > catherine
+t.birth('andy', 'matthew'); // 继承顺序：king > andy > matthew > bob > catherine
+t.birth('bob', 'alex'); // 继承顺序：king > andy > matthew > bob > alex > catherine
+t.birth('bob', 'asha'); // 继承顺序：king > andy > matthew > bob > alex > asha > catherine
+console.log(t.getInheritanceOrder()); // 返回 ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"]
+t.death('bob'); // 继承顺序：king > andy > matthew > bob（已经去世）> alex > asha > catherine
+console.log(t.getInheritanceOrder()); // 返回 ["king", "andy", "matthew", "alex", "asha", "catherine"]
