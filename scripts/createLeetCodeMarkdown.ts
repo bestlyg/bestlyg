@@ -34,52 +34,74 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1600. 皇位继承顺序',
-  url: 'https://leetcode-cn.com/problems/throne-inheritance/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.设计],
+  name: '401. 二进制手表',
+  url: 'https://leetcode-cn.com/problems/binary-watch/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算, Tag.回溯算法],
   desc:
-    '一个王国里住着国王、他的孩子们、他的孙子们等等。通过以上的函数，我们总是能得到一个唯一的继承顺序。',
+    '二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。每个 LED 代表一个 0 或 1，最低位在右侧。给你一个整数 turnedOn ，表示当前亮着的 LED 的数量，返回二进制手表可以表示的所有可能时间。你可以 按任意顺序 返回答案。',
   solutions: [
     {
       script: Script.TS,
-      time: 188,
-      memory: 43.8,
-      desc: '前序遍历',
-      code: `class Person {
-        children: Person[] = [];
-        dead = false;
-        constructor(public name: string) {}
+      time: 96,
+      memory: 42.2,
+      desc: '全排列',
+      code: `const getTime = (hour: number, minute: number): string =>
+      ${specStr.backquote}\${hour}:\${minute < 10 ? '0' + minute : minute}${specStr.backquote};
+    const getList = (count: number, data: number[], maxNumber) => {
+      const ans: Set<number> = new Set();
+      if (count >= data.length) return ans;
+      if (count === 0) {
+        ans.add(0);
+        return ans;
       }
-      class ThroneInheritance {
-        king = new Person('');
-        nameMap = new Map<string, Person>();
-        constructor(kingName: string) {
-          this.king.name = kingName;
-          this.nameMap.set(kingName, this.king);
-        }
-        birth(parentName: string, childName: string): void {
-          const parent = this.nameMap.get(parentName)!;
-          const child = new Person(childName);
-          this.nameMap.set(childName, child);
-          parent.children.push(child);
-        }
-        death(name: string): void {
-          this.nameMap.get(name)!.dead = true;
-        }
-        getInheritanceOrder(): string[] {
-          return this._getInheritanceOrder(this.king)
-            .filter(v => !v.dead)
-            .map(v => v.name);
-        }
-        private _getInheritanceOrder(person: Person): Person[] {
-          const ans: Person[] = [person];
-          person.children.forEach(child => {
-            ans.push(...this._getInheritanceOrder(child));
+      for (let i = 0, len = data.length; i < len; i++) {
+        const num = 1 << data[i];
+        const list = getList(count - 1, [...data.slice(0, i), ...data.slice(i + 1)], maxNumber);
+        if (list.size === 0) ans.add(num);
+        else {
+          list.forEach(v => {
+            const item = v | num;
+            item <= maxNumber && ans.add(item);
           });
-          return ans;
         }
-      }`,
+      }
+      return ans;
+    };
+    const getHourList = (count: number) =>
+      getList(
+        count,
+        new Array(4).fill(0).map((_, i) => i),
+        11
+      );
+    const getMinuteList = (count: number) =>
+      getList(
+        count,
+        new Array(6).fill(0).map((_, i) => i),
+        59
+      );
+    function readBinaryWatch(turnedOn: number): string[] {
+      if (turnedOn >= 9) return [];
+      if (turnedOn === 0) return ['0:00'];
+      return new Array(Math.min(4, turnedOn) + 1)
+        .fill(0)
+        .map((_, i) => {
+          return [i, turnedOn - i];
+        })
+        .map(([hour, minute]) => {
+          const ans: string[] = [];
+          const hourList = getHourList(hour);
+          const minuteList = getMinuteList(minute);
+          if (hourList.size === 0 || minuteList.size === 0) return ans;
+          for (const hour of hourList) {
+            for (const minute of minuteList) {
+              ans.push(getTime(hour, minute));
+            }
+          }
+          return ans;
+        })
+        .flat();
+    }`,
     },
   ],
 };

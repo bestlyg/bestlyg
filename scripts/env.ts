@@ -10,47 +10,61 @@ type Heap = structures.Heap;
 /*
 
  */
-class Person {
-  children: Person[] = [];
-  dead = false;
-  constructor(public name: string) {}
-}
-class ThroneInheritance {
-  king = new Person('');
-  nameMap = new Map<string, Person>();
-  constructor(kingName: string) {
-    this.king.name = kingName;
-    this.nameMap.set(kingName, this.king);
-  }
-  birth(parentName: string, childName: string): void {
-    const parent = this.nameMap.get(parentName)!;
-    const child = new Person(childName);
-    this.nameMap.set(childName, child);
-    parent.children.push(child);
-  }
-  death(name: string): void {
-    this.nameMap.get(name)!.dead = true;
-  }
-  getInheritanceOrder(): string[] {
-    return this._getInheritanceOrder(this.king)
-      .filter(v => !v.dead)
-      .map(v => v.name);
-  }
-  private _getInheritanceOrder(person: Person): Person[] {
-    const ans: Person[] = [person];
-    person.children.forEach(child => {
-      ans.push(...this._getInheritanceOrder(child));
-    });
+
+const getTime = (hour: number, minute: number): string =>
+  `${hour}:${minute < 10 ? '0' + minute : minute}`;
+const getList = (count: number, data: number[], maxNumber) => {
+  const ans: Set<number> = new Set();
+  if (count >= data.length) return ans;
+  if (count === 0) {
+    ans.add(0);
     return ans;
   }
+  for (let i = 0, len = data.length; i < len; i++) {
+    const num = 1 << data[i];
+    const list = getList(count - 1, [...data.slice(0, i), ...data.slice(i + 1)], maxNumber);
+    if (list.size === 0) ans.add(num);
+    else {
+      list.forEach(v => {
+        const item = v | num;
+        item <= maxNumber && ans.add(item);
+      });
+    }
+  }
+  return ans;
+};
+const getHourList = (count: number) =>
+  getList(
+    count,
+    new Array(4).fill(0).map((_, i) => i),
+    11
+  );
+const getMinuteList = (count: number) =>
+  getList(
+    count,
+    new Array(6).fill(0).map((_, i) => i),
+    59
+  );
+function readBinaryWatch(turnedOn: number): string[] {
+  if (turnedOn >= 9) return [];
+  if (turnedOn === 0) return ['0:00'];
+  return new Array(Math.min(4, turnedOn) + 1)
+    .fill(0)
+    .map((_, i) => {
+      return [i, turnedOn - i];
+    })
+    .map(([hour, minute]) => {
+      const ans: string[] = [];
+      const hourList = getHourList(hour);
+      const minuteList = getMinuteList(minute);
+      if (hourList.size === 0 || minuteList.size === 0) return ans;
+      for (const hour of hourList) {
+        for (const minute of minuteList) {
+          ans.push(getTime(hour, minute));
+        }
+      }
+      return ans;
+    })
+    .flat();
 }
-const t = new ThroneInheritance('king'); // 继承顺序：king
-t.birth('king', 'andy'); // 继承顺序：king > andy
-t.birth('king', 'bob'); // 继承顺序：king > andy > bob
-t.birth('king', 'catherine'); // 继承顺序：king > andy > bob > catherine
-t.birth('andy', 'matthew'); // 继承顺序：king > andy > matthew > bob > catherine
-t.birth('bob', 'alex'); // 继承顺序：king > andy > matthew > bob > alex > catherine
-t.birth('bob', 'asha'); // 继承顺序：king > andy > matthew > bob > alex > asha > catherine
-console.log(t.getInheritanceOrder()); // 返回 ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"]
-t.death('bob'); // 继承顺序：king > andy > matthew > bob（已经去世）> alex > asha > catherine
-console.log(t.getInheritanceOrder()); // 返回 ["king", "andy", "matthew", "alex", "asha", "catherine"]
+console.log(readBinaryWatch(7));
