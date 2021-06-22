@@ -34,74 +34,33 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '401. 二进制手表',
-  url: 'https://leetcode-cn.com/problems/binary-watch/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.位运算, Tag.回溯算法],
-  desc:
-    '二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。每个 LED 代表一个 0 或 1，最低位在右侧。给你一个整数 turnedOn ，表示当前亮着的 LED 的数量，返回二进制手表可以表示的所有可能时间。你可以 按任意顺序 返回答案。',
+  name: '剑指 Offer 38. 字符串的排列',
+  url: 'https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.回溯算法],
+  desc: '输入一个字符串，打印出该字符串中字符的所有排列。',
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 42.2,
+      time: 140,
+      memory: 47.5,
       desc: '全排列',
-      code: `const getTime = (hour: number, minute: number): string =>
-      ${specStr.backquote}\${hour}:\${minute < 10 ? '0' + minute : minute}${specStr.backquote};
-    const getList = (count: number, data: number[], maxNumber) => {
-      const ans: Set<number> = new Set();
-      if (count >= data.length) return ans;
-      if (count === 0) {
-        ans.add(0);
-        return ans;
-      }
-      for (let i = 0, len = data.length; i < len; i++) {
-        const num = 1 << data[i];
-        const list = getList(count - 1, [...data.slice(0, i), ...data.slice(i + 1)], maxNumber);
-        if (list.size === 0) ans.add(num);
-        else {
-          list.forEach(v => {
-            const item = v | num;
-            item <= maxNumber && ans.add(item);
-          });
-        }
-      }
-      return ans;
-    };
-    const getHourList = (count: number) =>
-      getList(
-        count,
-        new Array(4).fill(0).map((_, i) => i),
-        11
-      );
-    const getMinuteList = (count: number) =>
-      getList(
-        count,
-        new Array(6).fill(0).map((_, i) => i),
-        59
-      );
-    function readBinaryWatch(turnedOn: number): string[] {
-      if (turnedOn >= 9) return [];
-      if (turnedOn === 0) return ['0:00'];
-      return new Array(Math.min(4, turnedOn) + 1)
-        .fill(0)
-        .map((_, i) => {
-          return [i, turnedOn - i];
-        })
-        .map(([hour, minute]) => {
-          const ans: string[] = [];
-          const hourList = getHourList(hour);
-          const minuteList = getMinuteList(minute);
-          if (hourList.size === 0 || minuteList.size === 0) return ans;
-          for (const hour of hourList) {
-            for (const minute of minuteList) {
-              ans.push(getTime(hour, minute));
-            }
+      code: `function permutation(s: string): string[] {
+        const list = new Set<string>();
+        const dfs = (curStr: string = '', waitStr: string = s) => {
+          if (waitStr.length === 1) {
+            list.add(curStr + waitStr);
+            return;
           }
-          return ans;
-        })
-        .flat();
-    }`,
+          for (let i = 0, l = waitStr.length; i < l; i++) {
+            const newCurStr = curStr + waitStr[i];
+            const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);
+            dfs(newCurStr, newWaitStr);
+          }
+        };
+        dfs();
+        return [...list];
+      }`,
     },
   ],
 };
