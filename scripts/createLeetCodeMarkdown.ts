@@ -34,33 +34,25 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '剑指 Offer 38. 字符串的排列',
-  url: 'https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.回溯算法],
-  desc: '输入一个字符串，打印出该字符串中字符的所有排列。',
+  name: '剑指 Offer 15. 二进制中1的个数',
+  url: 'https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算],
+  desc:
+    '请实现一个函数，输入一个整数（以二进制串形式），输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。',
   solutions: [
     {
       script: Script.TS,
-      time: 140,
-      memory: 47.5,
-      desc: '全排列',
-      code: `function permutation(s: string): string[] {
-        const list = new Set<string>();
-        const dfs = (curStr: string = '', waitStr: string = s) => {
-          if (waitStr.length === 1) {
-            list.add(curStr + waitStr);
-            return;
-          }
-          for (let i = 0, l = waitStr.length; i < l; i++) {
-            const newCurStr = curStr + waitStr[i];
-            const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);
-            dfs(newCurStr, newWaitStr);
-          }
-        };
-        dfs();
-        return [...list];
-      }`,
+      time: 96,
+      memory: 39.1,
+      desc: '二进制判断',
+      code: `var hammingWeight = function (n) {
+        let ans = 0;
+        for (let i = 0; i <= 31; i++) {
+          if ((n >> i) & 1) ans++;
+        }
+        return ans;
+      };`,
     },
   ],
 };
