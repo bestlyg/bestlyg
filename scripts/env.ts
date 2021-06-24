@@ -11,24 +11,43 @@ type Heap = structures.Heap;
 
  */
 
-function permutation(s: string): string[] {
-  const set = new Set<string>();
-  const list = new Set<string>();
-  const format = (curStr: string, waitStr: string) => `${curStr}::${waitStr}`;
-  const dfs = (curStr: string = '', waitStr: string = s) => {
-    if (waitStr.length === 1) {
-      list.add(curStr + waitStr);
-      return;
+function maxPoints(points: number[][]): number {
+  const len = points.length;
+  if (len === 1) return 1;
+  const cacheKB: Record<string, Set<number>> = {};
+  const cacheX: Record<string, Set<number>> = {};
+  for (let i1 = 0; i1 < len; i1++) {
+    const [x1, y1] = points[i1];
+    for (let i2 = i1 + 1; i2 < len; i2++) {
+      const [x2, y2] = points[i2];
+      if (x1 === x2) {
+        let set = cacheX[x1];
+        if (!set) set = cacheX[x1] = new Set();
+        set.add(i1);
+        set.add(i2);
+      } else {
+        const k = (y1 - y2) / (x1 - x2);
+        const b = y1 - k * x1;
+        const str = `k=${k},b=${b}`;
+        let set = cacheKB[str];
+        if (!set) set = cacheKB[str] = new Set();
+        set.add(i1);
+        set.add(i2);
+      }
     }
-    if (set.has(format(curStr, waitStr))) return;
-    for (let i = 0, l = waitStr.length; i < l; i++) {
-      const newCurStr = curStr + waitStr[i];
-      const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);
-      dfs(newCurStr, newWaitStr);
-      set.add(format(curStr + waitStr[i], newWaitStr));
-    }
-  };
-  dfs();
-  return [...list];
+  }
+  return Math.max(
+    ...Object.values(cacheKB).map(v => v.size),
+    ...Object.values(cacheX).map(v => v.size)
+  );
 }
-console.log(permutation('abc'));
+console.log(
+  maxPoints([
+    [1, 1],
+    [3, 2],
+    [5, 3],
+    [4, 1],
+    [2, 3],
+    [1, 4],
+  ])
+);

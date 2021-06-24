@@ -34,25 +34,48 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '剑指 Offer 15. 二进制中1的个数',
-  url: 'https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.位运算],
+  name: '149. 直线上最多的点数',
+  url: 'https://leetcode-cn.com/problems/max-points-on-a-line/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.几何, Tag.哈希表, Tag.数学],
   desc:
-    '请实现一个函数，输入一个整数（以二进制串形式），输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。',
+    '给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。',
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 39.1,
-      desc: '二进制判断',
-      code: `var hammingWeight = function (n) {
-        let ans = 0;
-        for (let i = 0; i <= 31; i++) {
-          if ((n >> i) & 1) ans++;
+      time: 152,
+      memory: 49.7,
+      desc: '储存下标进行判断数量',
+      code: `function maxPoints(points: number[][]): number {
+        const len = points.length;
+        if (len === 1) return 1;
+        const cacheKB: Record<string, Set<number>> = {};
+        const cacheX: Record<string, Set<number>> = {};
+        for (let i1 = 0; i1 < len; i1++) {
+          const [x1, y1] = points[i1];
+          for (let i2 = i1 + 1; i2 < len; i2++) {
+            const [x2, y2] = points[i2];
+            if (x1 === x2) {
+              let set = cacheX[x1];
+              if (!set) set = cacheX[x1] = new Set();
+              set.add(i1);
+              set.add(i2);
+            } else {
+              const k = (y1 - y2) / (x1 - x2);
+              const b = y1 - k * x1;
+              const str = ${specStr.backquote}k=\${k},b=\${b}${specStr.backquote};
+              let set = cacheKB[str];
+              if (!set) set = cacheKB[str] = new Set();
+              set.add(i1);
+              set.add(i2);
+            }
+          }
         }
-        return ans;
-      };`,
+        return Math.max(
+          ...Object.values(cacheKB).map(v => v.size),
+          ...Object.values(cacheX).map(v => v.size)
+        );
+      }`,
     },
   ],
 };
