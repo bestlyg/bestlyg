@@ -34,65 +34,47 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '773. 滑动谜题',
-  url: 'https://leetcode-cn.com/problems/sliding-puzzle/',
+  name: '149. 直线上最多的点数',
+  url: 'https://leetcode-cn.com/problems/max-points-on-a-line/',
   difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
+  tag: [Tag.几何, Tag.哈希表, Tag.数学],
   desc:
-    '给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。',
+    '给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。',
   solutions: [
     {
       script: Script.TS,
-      time: 192,
-      memory: 50.8,
-      desc: '广度悠闲搜索，计算每次移动后的最小步数',
-      code: `function slidingPuzzle(board: number[][]): number {
-        const ANS_STR = '123,450';
-        const stringify = (board: (number | string)[][]) => board.map(v => v.join('')).join(',');
-        if (stringify(board) === ANS_STR) return 0;
-        const parse = (boardStr: string) => boardStr.split(',').map(v => v.split(''));
-        const getZeroIndex = (index: number): [number, number] =>
-          index <= 2 ? [0, index] : [1, index - 4];
-        const queue: string[] = [stringify(board)];
-        const map = new Map<string, number>([[queue[0], 0]]);
-        let ans = Infinity;
-        const updateMap = (newStr: string, step: number) => {
-          if (newStr === ANS_STR) ans = Math.min(ans, step + 1);
-          else {
-            map.has(newStr) || queue.push(newStr);
-            map.set(newStr, Math.min(map.get(newStr) ?? Infinity, step + 1));
-          }
-        };
-        const swap = (board: string[][], row1: number, col1: number, row2: number, col2: number) => {
-          [board[row1][col1], board[row2][col2]] = [board[row2][col2], board[row1][col1]];
-        };
-        while (queue.length !== 0) {
-          const boardStr = queue.shift()!;
-          const step = map.get(boardStr)!;
-          const [row, col] = getZeroIndex(boardStr.indexOf('0'));
-          const board = parse(boardStr);
-          if (row === 0) {
-            swap(board, row, col, row + 1, col);
-            updateMap(stringify(board), step);
-            swap(board, row, col, row + 1, col);
-          }
-          if (row === 1) {
-            swap(board, row, col, row - 1, col);
-            updateMap(stringify(board), step);
-            swap(board, row, col, row - 1, col);
-          }
-          if (col > 0) {
-            swap(board, row, col, row, col - 1);
-            updateMap(stringify(board), step);
-            swap(board, row, col, row, col - 1);
-          }
-          if (col < 2) {
-            swap(board, row, col, row, col + 1);
-            updateMap(stringify(board), step);
-            swap(board, row, col, row, col + 1);
+      time: 152,
+      memory: 49.7,
+      desc: '储存下标进行判断数量',
+      code: `function maxPoints(points: number[][]): number {
+        const len = points.length;
+        if (len === 1) return 1;
+        const cacheKB: Record<string, Set<number>> = {};
+        const cacheX: Record<string, Set<number>> = {};
+        for (let i1 = 0; i1 < len; i1++) {
+          const [x1, y1] = points[i1];
+          for (let i2 = i1 + 1; i2 < len; i2++) {
+            const [x2, y2] = points[i2];
+            if (x1 === x2) {
+              let set = cacheX[x1];
+              if (!set) set = cacheX[x1] = new Set();
+              set.add(i1);
+              set.add(i2);
+            } else {
+              const k = (y1 - y2) / (x1 - x2);
+              const b = y1 - k * x1;
+              const str = ${specStr.backquote}k=\${k},b=\${b}${specStr.backquote};
+              let set = cacheKB[str];
+              if (!set) set = cacheKB[str] = new Set();
+              set.add(i1);
+              set.add(i2);
+            }
           }
         }
-        return ans === Infinity ? -1 : ans;
+        return Math.max(
+          ...Object.values(cacheKB).map(v => v.size),
+          ...Object.values(cacheX).map(v => v.size)
+        );
       }`,
     },
   ],

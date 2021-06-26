@@ -5,8 +5,6 @@ hero:
   actions:
     - text: 个人博客
       link: /blogs
-    - text: 力扣题解
-      link: /leetcode
     - text: 应用合集
       link: /applications
 features:
