@@ -10,57 +10,58 @@ type Heap = structures.Heap;
 /*
 
  */
-function slidingPuzzle(board: number[][]): number {
-  const ANS_STR = '123,450';
-  const stringify = (board: (number | string)[][]) => board.map(v => v.join('')).join(',');
-  if (stringify(board) === ANS_STR) return 0;
-  const parse = (boardStr: string) => boardStr.split(',').map(v => v.split(''));
-  const getZeroIndex = (index: number): [number, number] =>
-    index <= 2 ? [0, index] : [1, index - 4];
-  const queue: string[] = [stringify(board)];
-  const map = new Map<string, number>([[queue[0], 0]]);
-  let ans = Infinity;
-  const updateMap = (newStr: string, step: number) => {
-    if (newStr === ANS_STR) ans = Math.min(ans, step + 1);
-    else {
-      map.has(newStr) || queue.push(newStr);
-      map.set(newStr, Math.min(map.get(newStr) ?? Infinity, step + 1));
-    }
+
+function openLock(deadends: string[], target: string): number {
+  const prevMap: Record<string, string> = {
+    0: '9',
+    1: '0',
+    2: '1',
+    3: '2',
+    4: '3',
+    5: '4',
+    6: '5',
+    7: '6',
+    8: '7',
+    9: '8',
   };
-  const swap = (board: string[][], row1: number, col1: number, row2: number, col2: number) => {
-    [board[row1][col1], board[row2][col2]] = [board[row2][col2], board[row1][col1]];
+  const nextMap: Record<string, string> = {
+    0: '1',
+    1: '2',
+    2: '3',
+    3: '4',
+    4: '5',
+    5: '6',
+    6: '7',
+    7: '8',
+    8: '9',
+    9: '0',
+  };
+  const INIT_STR = '0000';
+  const set = new Set(deadends);
+  if (set.has(INIT_STR)) return -1;
+  if (target === INIT_STR) return 0;
+  const queue = [INIT_STR];
+  const map = new Map<string, number>([[INIT_STR, 0]]);
+  let ans = Infinity;
+  const updateQueue = (str: string, index: number, dict: Record<string, string>, step: number) => {
+    const replaceStr = str.substring(0, index) + dict[str[index]] + str.substring(index + 1);
+    if (replaceStr === target) {
+      ans = Math.min(ans, step + 1);
+      return;
+    }
+    if (!set.has(replaceStr)) {
+      map.has(replaceStr) || queue.push(replaceStr);
+      map.set(replaceStr, Math.min(map.get(replaceStr) ?? Infinity, step + 1));
+    }
   };
   while (queue.length !== 0) {
-    const boardStr = queue.shift()!;
-    const step = map.get(boardStr)!;
-    const [row, col] = getZeroIndex(boardStr.indexOf('0'));
-    const board = parse(boardStr);
-    if (row === 0) {
-      swap(board, row, col, row + 1, col);
-      updateMap(stringify(board), step);
-      swap(board, row, col, row + 1, col);
-    }
-    if (row === 1) {
-      swap(board, row, col, row - 1, col);
-      updateMap(stringify(board), step);
-      swap(board, row, col, row - 1, col);
-    }
-    if (col > 0) {
-      swap(board, row, col, row, col - 1);
-      updateMap(stringify(board), step);
-      swap(board, row, col, row, col - 1);
-    }
-    if (col < 2) {
-      swap(board, row, col, row, col + 1);
-      updateMap(stringify(board), step);
-      swap(board, row, col, row, col + 1);
+    const str = queue.shift()!;
+    const step = map.get(str)!;
+    for (let i = 0; i < 4; i++) {
+      updateQueue(str, i, prevMap, step);
+      updateQueue(str, i, nextMap, step);
     }
   }
   return ans === Infinity ? -1 : ans;
 }
-console.log(
-  slidingPuzzle([
-    [3, 2, 4],
-    [1, 5, 0],
-  ])
-);
+console.log(openLock(['0201', '0101', '0102', '1212', '2002'], '0202'));

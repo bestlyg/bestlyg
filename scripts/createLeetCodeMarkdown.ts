@@ -34,47 +34,70 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '149. 直线上最多的点数',
-  url: 'https://leetcode-cn.com/problems/max-points-on-a-line/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.几何, Tag.哈希表, Tag.数学],
+  name: '752. 打开转盘锁',
+  url: 'https://leetcode-cn.com/problems/open-the-lock/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.广度优先搜索, Tag.数组, Tag.哈希表, Tag.字符串],
   desc:
-    '给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。',
+    '字符串 target 代表可以解锁的数字，你需要给出解锁需要的最小旋转次数，如果无论如何不能解锁，返回 -1 。',
   solutions: [
     {
       script: Script.TS,
-      time: 152,
-      memory: 49.7,
-      desc: '储存下标进行判断数量',
-      code: `function maxPoints(points: number[][]): number {
-        const len = points.length;
-        if (len === 1) return 1;
-        const cacheKB: Record<string, Set<number>> = {};
-        const cacheX: Record<string, Set<number>> = {};
-        for (let i1 = 0; i1 < len; i1++) {
-          const [x1, y1] = points[i1];
-          for (let i2 = i1 + 1; i2 < len; i2++) {
-            const [x2, y2] = points[i2];
-            if (x1 === x2) {
-              let set = cacheX[x1];
-              if (!set) set = cacheX[x1] = new Set();
-              set.add(i1);
-              set.add(i2);
-            } else {
-              const k = (y1 - y2) / (x1 - x2);
-              const b = y1 - k * x1;
-              const str = ${specStr.backquote}k=\${k},b=\${b}${specStr.backquote};
-              let set = cacheKB[str];
-              if (!set) set = cacheKB[str] = new Set();
-              set.add(i1);
-              set.add(i2);
-            }
+      time: 776,
+      memory: 56.8,
+      desc: '广度优先搜索，储存后进行遍历',
+      code: `function openLock(deadends: string[], target: string): number {
+        const prevMap: Record<string, string> = {
+          0: '9',
+          1: '0',
+          2: '1',
+          3: '2',
+          4: '3',
+          5: '4',
+          6: '5',
+          7: '6',
+          8: '7',
+          9: '8',
+        };
+        const nextMap: Record<string, string> = {
+          0: '1',
+          1: '2',
+          2: '3',
+          3: '4',
+          4: '5',
+          5: '6',
+          6: '7',
+          7: '8',
+          8: '9',
+          9: '0',
+        };
+        const INIT_STR = '0000';
+        const set = new Set(deadends);
+        if (set.has(INIT_STR)) return -1;
+        if (target === INIT_STR) return 0;
+        const queue = [INIT_STR];
+        const map = new Map<string, number>([[INIT_STR, 0]]);
+        let ans = Infinity;
+        const updateQueue = (str: string, index: number, dict: Record<string, string>, step: number) => {
+          const replaceStr = str.substring(0, index) + dict[str[index]] + str.substring(index + 1);
+          if (replaceStr === target) {
+            ans = Math.min(ans, step + 1);
+            return;
+          }
+          if (!set.has(replaceStr)) {
+            map.has(replaceStr) || queue.push(replaceStr);
+            map.set(replaceStr, Math.min(map.get(replaceStr) ?? Infinity, step + 1));
+          }
+        };
+        while (queue.length !== 0) {
+          const str = queue.shift()!;
+          const step = map.get(str)!;
+          for (let i = 0; i < 4; i++) {
+            updateQueue(str, i, prevMap, step);
+            updateQueue(str, i, nextMap, step);
           }
         }
-        return Math.max(
-          ...Object.values(cacheKB).map(v => v.size),
-          ...Object.values(cacheX).map(v => v.size)
-        );
+        return ans === Infinity ? -1 : ans;
       }`,
     },
   ],
