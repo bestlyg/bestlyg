@@ -34,51 +34,65 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1600. 皇位继承顺序',
-  url: 'https://leetcode-cn.com/problems/throne-inheritance/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.设计],
+  name: '773. 滑动谜题',
+  url: 'https://leetcode-cn.com/problems/sliding-puzzle/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
   desc:
-    '一个王国里住着国王、他的孩子们、他的孙子们等等。通过以上的函数，我们总是能得到一个唯一的继承顺序。',
+    '给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。',
   solutions: [
     {
       script: Script.TS,
-      time: 188,
-      memory: 43.8,
-      desc: '前序遍历',
-      code: `class Person {
-        children: Person[] = [];
-        dead = false;
-        constructor(public name: string) {}
-      }
-      class ThroneInheritance {
-        king = new Person('');
-        nameMap = new Map<string, Person>();
-        constructor(kingName: string) {
-          this.king.name = kingName;
-          this.nameMap.set(kingName, this.king);
+      time: 192,
+      memory: 50.8,
+      desc: '广度悠闲搜索，计算每次移动后的最小步数',
+      code: `function slidingPuzzle(board: number[][]): number {
+        const ANS_STR = '123,450';
+        const stringify = (board: (number | string)[][]) => board.map(v => v.join('')).join(',');
+        if (stringify(board) === ANS_STR) return 0;
+        const parse = (boardStr: string) => boardStr.split(',').map(v => v.split(''));
+        const getZeroIndex = (index: number): [number, number] =>
+          index <= 2 ? [0, index] : [1, index - 4];
+        const queue: string[] = [stringify(board)];
+        const map = new Map<string, number>([[queue[0], 0]]);
+        let ans = Infinity;
+        const updateMap = (newStr: string, step: number) => {
+          if (newStr === ANS_STR) ans = Math.min(ans, step + 1);
+          else {
+            map.has(newStr) || queue.push(newStr);
+            map.set(newStr, Math.min(map.get(newStr) ?? Infinity, step + 1));
+          }
+        };
+        const swap = (board: string[][], row1: number, col1: number, row2: number, col2: number) => {
+          [board[row1][col1], board[row2][col2]] = [board[row2][col2], board[row1][col1]];
+        };
+        while (queue.length !== 0) {
+          const boardStr = queue.shift()!;
+          const step = map.get(boardStr)!;
+          const [row, col] = getZeroIndex(boardStr.indexOf('0'));
+          const board = parse(boardStr);
+          if (row === 0) {
+            swap(board, row, col, row + 1, col);
+            updateMap(stringify(board), step);
+            swap(board, row, col, row + 1, col);
+          }
+          if (row === 1) {
+            swap(board, row, col, row - 1, col);
+            updateMap(stringify(board), step);
+            swap(board, row, col, row - 1, col);
+          }
+          if (col > 0) {
+            swap(board, row, col, row, col - 1);
+            updateMap(stringify(board), step);
+            swap(board, row, col, row, col - 1);
+          }
+          if (col < 2) {
+            swap(board, row, col, row, col + 1);
+            updateMap(stringify(board), step);
+            swap(board, row, col, row, col + 1);
+          }
         }
-        birth(parentName: string, childName: string): void {
-          const parent = this.nameMap.get(parentName)!;
-          const child = new Person(childName);
-          this.nameMap.set(childName, child);
-          parent.children.push(child);
-        }
-        death(name: string): void {
-          this.nameMap.get(name)!.dead = true;
-        }
-        getInheritanceOrder(): string[] {
-          return this._getInheritanceOrder(this.king)
-            .filter(v => !v.dead)
-            .map(v => v.name);
-        }
-        private _getInheritanceOrder(person: Person): Person[] {
-          const ans: Person[] = [person];
-          person.children.forEach(child => {
-            ans.push(...this._getInheritanceOrder(child));
-          });
-          return ans;
-        }
+        return ans === Infinity ? -1 : ans;
       }`,
     },
   ],
