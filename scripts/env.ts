@@ -10,58 +10,72 @@ type Heap = structures.Heap;
 /*
 
  */
-
-function openLock(deadends: string[], target: string): number {
-  const prevMap: Record<string, string> = {
-    0: '9',
-    1: '0',
-    2: '1',
-    3: '2',
-    4: '3',
-    5: '4',
-    6: '5',
-    7: '6',
-    8: '7',
-    9: '8',
+function snakesAndLadders(board: number[][]): number {
+  const N = board.length;
+  const toBlock = (row: number, col: number) => {
+    if ((N & 1) === 0) {
+      return N * (N - 1 - row) + ((row & 1) === 0 ? N - col : col + 1);
+    } else {
+      return N * (N - 1 - row) + ((row & 1) === 0 ? col + 1 : N - col);
+    }
   };
-  const nextMap: Record<string, string> = {
-    0: '1',
-    1: '2',
-    2: '3',
-    3: '4',
-    4: '5',
-    5: '6',
-    6: '7',
-    7: '8',
-    8: '9',
-    9: '0',
+  const toBoard = (block: number): [number, number] => {
+    const row = N - 1 - ~~((block - 1) / N);
+    let col!: number;
+    if ((N & 1) === 0) {
+      col = (row & 1) === 0 ? N - 1 - ((block - 1) % N) : (block - 1) % N;
+    } else {
+      col = (row & 1) === 0 ? (block - 1) % N : N - 1 - ((block - 1) % N);
+    }
+    return [row, col];
   };
-  const INIT_STR = '0000';
-  const set = new Set(deadends);
-  if (set.has(INIT_STR)) return -1;
-  if (target === INIT_STR) return 0;
-  const queue = [INIT_STR];
-  const map = new Map<string, number>([[INIT_STR, 0]]);
+  const ANS_NUM = N ** 2;
+  const map = new Map<number, number>([[1, 0]]);
   let ans = Infinity;
-  const updateQueue = (str: string, index: number, dict: Record<string, string>, step: number) => {
-    const replaceStr = str.substring(0, index) + dict[str[index]] + str.substring(index + 1);
-    if (replaceStr === target) {
-      ans = Math.min(ans, step + 1);
-      return;
-    }
-    if (!set.has(replaceStr)) {
-      map.has(replaceStr) || queue.push(replaceStr);
-      map.set(replaceStr, Math.min(map.get(replaceStr) ?? Infinity, step + 1));
-    }
-  };
+  const queue: [number, number][] = [[N - 1, 0]];
   while (queue.length !== 0) {
-    const str = queue.shift()!;
-    const step = map.get(str)!;
-    for (let i = 0; i < 4; i++) {
-      updateQueue(str, i, prevMap, step);
-      updateQueue(str, i, nextMap, step);
+    const [row, col] = queue.shift()!;
+    const block = toBlock(row, col);
+    const step = map.get(block)!;
+    if (ANS_NUM - block <= 6) {
+      ans = Math.min(ans, step + 1);
+      continue;
+    }
+    for (let i = 1; i <= 6; i++) {
+      let nextBlock = block + i;
+      let nextBoard = toBoard(nextBlock);
+      const [nextRow, nextCol] = nextBoard;
+      if (board[nextRow][nextCol] !== -1) {
+        nextBlock = board[nextRow][nextCol];
+        nextBoard = toBoard(nextBlock);
+      }
+      if (nextBlock === ANS_NUM) {
+        ans = Math.min(ans, step + 1);
+        continue;
+      }
+      if (!map.has(nextBlock)) queue.push(nextBoard);
+      map.set(nextBlock, Math.min(map.get(nextBlock) ?? Infinity, step + 1));
     }
   }
   return ans === Infinity ? -1 : ans;
 }
-console.log(openLock(['0201', '0101', '0102', '1212', '2002'], '0202'));
+console.log(
+  snakesAndLadders([
+    [-1, -1, 27, 13, -1, 25, -1],
+    [-1, -1, -1, -1, -1, -1, -1],
+    [44, -1, 8, -1, -1, 2, -1],
+    [-1, 30, -1, -1, -1, -1, -1],
+    [3, -1, 20, -1, 46, 6, -1],
+    [-1, -1, -1, -1, -1, -1, 29],
+    [-1, 29, 21, 33, -1, -1, -1],
+  ])
+);
+console.log([
+  [43, 44, 45, 46, 47, 48, 49],
+  [42, 41, 40, 39, 38, 37, 36],
+  [29, 30, 31, 32, 33, 34, 35],
+  [28, 27, 26, 25, 24, 23, 22],
+  [15, 16, 17, 18, 19, 20, 21],
+  [14, 13, 12, 11, 10, 9, 8],
+  [1, 2, 3, 4, 5, 6, 7],
+]);
