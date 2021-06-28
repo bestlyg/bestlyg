@@ -26,62 +26,61 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '909. 蛇梯棋',
-  url: 'https://leetcode-cn.com/problems/snakes-and-ladders/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: 'N x N 的棋盘 board 上，按从 1 到 N*N 的数字给方格编号，编号 从左下角开始，每一行交替方向。返回达到方格 N*N 所需的最少移动次数，如果不可能，则返回 -1。',
+  name: '815. 公交路线',
+  url: 'https://leetcode-cn.com/problems/bus-routes/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.广度优先搜索, Tag.数组, Tag.哈希表],
+  desc: '求出 最少乘坐的公交车数量 。如果不可能到达终点车站，返回 -1 。',
   solutions: [
     {
       script: Script.TS,
-      time: 116,
-      memory: 45.5,
-      desc: '广度优先搜索，储存后进行遍历',
-      code: `function snakesAndLadders(board: number[][]): number {
-        const N = board.length;
-        const toBlock = (row: number, col: number) => {
-          if ((N & 1) === 0) {
-            return N * (N - 1 - row) + ((row & 1) === 0 ? N - col : col + 1);
-          } else {
-            return N * (N - 1 - row) + ((row & 1) === 0 ? col + 1 : N - col);
+      time: 268,
+      memory: 71.6,
+      desc: '广度优先搜索，储存站点信息和公交换站信息',
+      code: `function numBusesToDestination(routes: number[][], source: number, target: number): number {
+        if (source === target) return 0;
+        const stationMap = new Map<number, Set<number>>();
+        for (let routeIndex = 0, routeLen = routes.length; routeIndex < routeLen; routeIndex++) {
+          const route = routes[routeIndex];
+          for (
+            let stationIndex = 0, stationLen = route.length;
+            stationIndex < stationLen;
+            stationIndex++
+          ) {
+            const station = route[stationIndex];
+            let set = stationMap.get(station);
+            if (!set) stationMap.set(station, (set = new Set()));
+            set.add(routeIndex);
           }
-        };
-        const toBoard = (block: number): [number, number] => {
-          const row = N - 1 - ~~((block - 1) / N);
-          let col!: number;
-          if ((N & 1) === 0) {
-            col = (row & 1) === 0 ? N - 1 - ((block - 1) % N) : (block - 1) % N;
-          } else {
-            col = (row & 1) === 0 ? (block - 1) % N : N - 1 - ((block - 1) % N);
+        }
+        const busMap = new Map<number, Set<number>>();
+        for (const busList of stationMap.values()) {
+          if (busList.size === 1) continue;
+          for (const bus of busList) {
+            let set = busMap.get(bus);
+            if (!set) busMap.set(bus, (set = new Set()));
+            for (const nextBus of busList) if (nextBus !== bus) set.add(nextBus);
           }
-          return [row, col];
-        };
-        const ANS_NUM = N ** 2;
-        const map = new Map<number, number>([[1, 0]]);
+        }
+        const FIRST_BUS = stationMap.get(source)!;
+        const LAST_BUS = stationMap.get(target)!;
+        if (!FIRST_BUS || !LAST_BUS || FIRST_BUS.size === 0 || LAST_BUS.size === 0) return -1;
+        for (const bus of FIRST_BUS) if (LAST_BUS.has(bus)) return 1;
         let ans = Infinity;
-        const queue: [number, number][] = [[N - 1, 0]];
+        const stepMap = new Map<number, number>();
+        for (const bus of FIRST_BUS) stepMap.set(bus, 1);
+        const queue: number[] = [...FIRST_BUS];
         while (queue.length !== 0) {
-          const [row, col] = queue.shift()!;
-          const block = toBlock(row, col);
-          const step = map.get(block)!;
-          if (ANS_NUM - block <= 6) {
-            ans = Math.min(ans, step + 1);
+          const bus = queue.shift()!;
+          const step = stepMap.get(bus)!;
+          if (LAST_BUS.has(bus)) {
+            ans = Math.min(ans, step);
             continue;
           }
-          for (let i = 1; i <= 6; i++) {
-            let nextBlock = block + i;
-            let nextBoard = toBoard(nextBlock);
-            const [nextRow, nextCol] = nextBoard;
-            if (board[nextRow][nextCol] !== -1) {
-              nextBlock = board[nextRow][nextCol];
-              nextBoard = toBoard(nextBlock);
-            }
-            if (nextBlock === ANS_NUM) {
-              ans = Math.min(ans, step + 1);
-              continue;
-            }
-            if (!map.has(nextBlock)) queue.push(nextBoard);
-            map.set(nextBlock, Math.min(map.get(nextBlock) ?? Infinity, step + 1));
+          const nextBusList = busMap.get(bus)!;
+          for (const nextBus of nextBusList ?? []) {
+            if (!stepMap.has(nextBus)) queue.push(nextBus);
+            stepMap.set(nextBus, Math.min(stepMap.get(nextBus) ?? Infinity, step + 1));
           }
         }
         return ans === Infinity ? -1 : ans;

@@ -10,72 +10,52 @@ type Heap = structures.Heap;
 /*
 
  */
-function snakesAndLadders(board: number[][]): number {
-  const N = board.length;
-  const toBlock = (row: number, col: number) => {
-    if ((N & 1) === 0) {
-      return N * (N - 1 - row) + ((row & 1) === 0 ? N - col : col + 1);
-    } else {
-      return N * (N - 1 - row) + ((row & 1) === 0 ? col + 1 : N - col);
+function numBusesToDestination(routes: number[][], source: number, target: number): number {
+  if (source === target) return 0;
+  const stationMap = new Map<number, Set<number>>();
+  for (let routeIndex = 0, routeLen = routes.length; routeIndex < routeLen; routeIndex++) {
+    const route = routes[routeIndex];
+    for (
+      let stationIndex = 0, stationLen = route.length;
+      stationIndex < stationLen;
+      stationIndex++
+    ) {
+      const station = route[stationIndex];
+      let set = stationMap.get(station);
+      if (!set) stationMap.set(station, (set = new Set()));
+      set.add(routeIndex);
     }
-  };
-  const toBoard = (block: number): [number, number] => {
-    const row = N - 1 - ~~((block - 1) / N);
-    let col!: number;
-    if ((N & 1) === 0) {
-      col = (row & 1) === 0 ? N - 1 - ((block - 1) % N) : (block - 1) % N;
-    } else {
-      col = (row & 1) === 0 ? (block - 1) % N : N - 1 - ((block - 1) % N);
+  }
+  const busMap = new Map<number, Set<number>>();
+  for (const busList of stationMap.values()) {
+    if (busList.size === 1) continue;
+    for (const bus of busList) {
+      let set = busMap.get(bus);
+      if (!set) busMap.set(bus, (set = new Set()));
+      for (const nextBus of busList) if (nextBus !== bus) set.add(nextBus);
     }
-    return [row, col];
-  };
-  const ANS_NUM = N ** 2;
-  const map = new Map<number, number>([[1, 0]]);
+  }
+  const FIRST_BUS = stationMap.get(source)!;
+  const LAST_BUS = stationMap.get(target)!;
+  if (!FIRST_BUS || !LAST_BUS || FIRST_BUS.size === 0 || LAST_BUS.size === 0) return -1;
+  for (const bus of FIRST_BUS) if (LAST_BUS.has(bus)) return 1;
   let ans = Infinity;
-  const queue: [number, number][] = [[N - 1, 0]];
+  const stepMap = new Map<number, number>();
+  for (const bus of FIRST_BUS) stepMap.set(bus, 1);
+  const queue: number[] = [...FIRST_BUS];
   while (queue.length !== 0) {
-    const [row, col] = queue.shift()!;
-    const block = toBlock(row, col);
-    const step = map.get(block)!;
-    if (ANS_NUM - block <= 6) {
-      ans = Math.min(ans, step + 1);
+    const bus = queue.shift()!;
+    const step = stepMap.get(bus)!;
+    if (LAST_BUS.has(bus)) {
+      ans = Math.min(ans, step);
       continue;
     }
-    for (let i = 1; i <= 6; i++) {
-      let nextBlock = block + i;
-      let nextBoard = toBoard(nextBlock);
-      const [nextRow, nextCol] = nextBoard;
-      if (board[nextRow][nextCol] !== -1) {
-        nextBlock = board[nextRow][nextCol];
-        nextBoard = toBoard(nextBlock);
-      }
-      if (nextBlock === ANS_NUM) {
-        ans = Math.min(ans, step + 1);
-        continue;
-      }
-      if (!map.has(nextBlock)) queue.push(nextBoard);
-      map.set(nextBlock, Math.min(map.get(nextBlock) ?? Infinity, step + 1));
+    const nextBusList = busMap.get(bus)!;
+    for (const nextBus of nextBusList ?? []) {
+      if (!stepMap.has(nextBus)) queue.push(nextBus);
+      stepMap.set(nextBus, Math.min(stepMap.get(nextBus) ?? Infinity, step + 1));
     }
   }
   return ans === Infinity ? -1 : ans;
 }
-console.log(
-  snakesAndLadders([
-    [-1, -1, 27, 13, -1, 25, -1],
-    [-1, -1, -1, -1, -1, -1, -1],
-    [44, -1, 8, -1, -1, 2, -1],
-    [-1, 30, -1, -1, -1, -1, -1],
-    [3, -1, 20, -1, 46, 6, -1],
-    [-1, -1, -1, -1, -1, -1, 29],
-    [-1, 29, 21, 33, -1, -1, -1],
-  ])
-);
-console.log([
-  [43, 44, 45, 46, 47, 48, 49],
-  [42, 41, 40, 39, 38, 37, 36],
-  [29, 30, 31, 32, 33, 34, 35],
-  [28, 27, 26, 25, 24, 23, 22],
-  [15, 16, 17, 18, 19, 20, 21],
-  [14, 13, 12, 11, 10, 9, 8],
-  [1, 2, 3, 4, 5, 6, 7],
-]);
+console.log(numBusesToDestination([[1], [15, 16, 18], [10], [3, 4, 12, 14]], 3, 15));
