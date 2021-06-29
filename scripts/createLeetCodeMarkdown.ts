@@ -26,64 +26,25 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '815. 公交路线',
-  url: 'https://leetcode-cn.com/problems/bus-routes/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.哈希表],
-  desc: '求出 最少乘坐的公交车数量 。如果不可能到达终点车站，返回 -1 。',
+  name: '168. Excel表列名称',
+  url: 'https://leetcode-cn.com/problems/excel-sheet-column-title/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数学, Tag.字符串],
+  desc: '给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。',
   solutions: [
     {
       script: Script.TS,
-      time: 268,
-      memory: 71.6,
-      desc: '广度优先搜索，储存站点信息和公交换站信息',
-      code: `function numBusesToDestination(routes: number[][], source: number, target: number): number {
-        if (source === target) return 0;
-        const stationMap = new Map<number, Set<number>>();
-        for (let routeIndex = 0, routeLen = routes.length; routeIndex < routeLen; routeIndex++) {
-          const route = routes[routeIndex];
-          for (
-            let stationIndex = 0, stationLen = route.length;
-            stationIndex < stationLen;
-            stationIndex++
-          ) {
-            const station = route[stationIndex];
-            let set = stationMap.get(station);
-            if (!set) stationMap.set(station, (set = new Set()));
-            set.add(routeIndex);
-          }
+      time: 96,
+      memory: 39.2,
+      desc: '逐个检索',
+      code: `function convertToTitle(columnNumber: number): string {
+        let ans = '';
+        const getChar = (num: number) => String.fromCodePoint(num + 65);
+        while (columnNumber-- !== 0) {
+          ans = getChar(columnNumber % 26) + ans;
+          columnNumber = ~~(columnNumber / 26);
         }
-        const busMap = new Map<number, Set<number>>();
-        for (const busList of stationMap.values()) {
-          if (busList.size === 1) continue;
-          for (const bus of busList) {
-            let set = busMap.get(bus);
-            if (!set) busMap.set(bus, (set = new Set()));
-            for (const nextBus of busList) if (nextBus !== bus) set.add(nextBus);
-          }
-        }
-        const FIRST_BUS = stationMap.get(source)!;
-        const LAST_BUS = stationMap.get(target)!;
-        if (!FIRST_BUS || !LAST_BUS || FIRST_BUS.size === 0 || LAST_BUS.size === 0) return -1;
-        for (const bus of FIRST_BUS) if (LAST_BUS.has(bus)) return 1;
-        let ans = Infinity;
-        const stepMap = new Map<number, number>();
-        for (const bus of FIRST_BUS) stepMap.set(bus, 1);
-        const queue: number[] = [...FIRST_BUS];
-        while (queue.length !== 0) {
-          const bus = queue.shift()!;
-          const step = stepMap.get(bus)!;
-          if (LAST_BUS.has(bus)) {
-            ans = Math.min(ans, step);
-            continue;
-          }
-          const nextBusList = busMap.get(bus)!;
-          for (const nextBus of nextBusList ?? []) {
-            if (!stepMap.has(nextBus)) queue.push(nextBus);
-            stepMap.set(nextBus, Math.min(stepMap.get(nextBus) ?? Infinity, step + 1));
-          }
-        }
-        return ans === Infinity ? -1 : ans;
+        return ans;
       }`,
     },
   ],
