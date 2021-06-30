@@ -26,26 +26,36 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '168. Excel表列名称',
-  url: 'https://leetcode-cn.com/problems/excel-sheet-column-title/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数学, Tag.字符串],
-  desc: '给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。',
+  name: '剑指 Offer 37. 序列化二叉树',
+  url: 'https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.广度优先搜索, Tag.深度优先搜索, Tag.树, Tag.设计, Tag.字符串, Tag.二叉树],
+  desc: '请实现两个函数，分别用来序列化和反序列化二叉树。',
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 39.2,
-      desc: '逐个检索',
-      code: `function convertToTitle(columnNumber: number): string {
-        let ans = '';
-        const getChar = (num: number) => String.fromCodePoint(num + 65);
-        while (columnNumber-- !== 0) {
-          ans = getChar(columnNumber % 26) + ans;
-          columnNumber = ~~(columnNumber / 26);
-        }
-        return ans;
-      }`,
+      time: 152,
+      memory: 48.1,
+      desc: '利用JSON化',
+      code: `/**
+      * Encodes a tree to a single string.
+      *
+      * @param {TreeNode} root
+      * @return {string}
+      */
+     var serialize = function (root) {
+       return JSON.stringify(root);
+     };
+     /**
+      * Decodes your encoded data to tree.
+      *
+      * @param {string} data
+      * @return {TreeNode}
+      */
+     var deserialize = function (data) {
+       return JSON.parse(data);
+     };
+     `,
     },
   ],
 };

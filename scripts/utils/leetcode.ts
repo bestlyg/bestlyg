@@ -42,6 +42,7 @@ export enum Tag {
   随机 = '随机',
   拒绝采样 = '拒绝采样',
   矩阵 = '矩阵',
+  二叉树 = '二叉树',
 }
 export enum Script {
   JS = 'javascript',
