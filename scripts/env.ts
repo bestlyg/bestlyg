@@ -10,13 +10,18 @@ type Heap = structures.Heap;
 /*
 
  */
-function convertToTitle(columnNumber: number): string {
-  let ans = '';
-  const getChar = (num: number) => String.fromCodePoint(num + 65);
-  while (columnNumber-- !== 0) {
-    ans = getChar(columnNumber % 26) + ans;
-    columnNumber = ~~(columnNumber / 26);
+function numWays(n: number, relation: number[][], k: number): number {
+  const nextPartnerMap = new Map<number, Set<number>>();
+  for (const [cur, next] of relation) {
+    let set = nextPartnerMap.get(cur);
+    if (!set) nextPartnerMap.set(cur, (set = new Set()));
+    set.add(next);
   }
-  return ans;
+  let list = [0];
+  while (k--) {
+    list = list
+      .map(item => (nextPartnerMap.has(item) ? [...nextPartnerMap.get(item)!] : []))
+      .flat();
+  }
+  return list.filter(v => v === n - 1).length;
 }
-console.log(convertToTitle(702));

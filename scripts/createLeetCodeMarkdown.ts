@@ -26,36 +26,32 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '剑指 Offer 37. 序列化二叉树',
-  url: 'https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.深度优先搜索, Tag.树, Tag.设计, Tag.字符串, Tag.二叉树],
-  desc: '请实现两个函数，分别用来序列化和反序列化二叉树。',
+  name: 'LCP 07. 传递信息',
+  url: 'https://leetcode-cn.com/problems/chuan-di-xin-xi/ ',
+  difficulty: Difficulty.简单,
+  tag: [Tag.广度优先搜索, Tag.深度优先搜索, Tag.图, Tag.动态规划],
+  desc: '给定总玩家数 n，以及按 [玩家编号,对应可传递玩家编号] 关系组成的二维数组 relation。返回信息从小 A (编号 0 ) 经过 k 轮传递到编号为 n-1 的小伙伴处的方案数；若不能到达，返回 0。',
   solutions: [
     {
       script: Script.TS,
-      time: 152,
-      memory: 48.1,
-      desc: '利用JSON化',
-      code: `/**
-      * Encodes a tree to a single string.
-      *
-      * @param {TreeNode} root
-      * @return {string}
-      */
-     var serialize = function (root) {
-       return JSON.stringify(root);
-     };
-     /**
-      * Decodes your encoded data to tree.
-      *
-      * @param {string} data
-      * @return {TreeNode}
-      */
-     var deserialize = function (data) {
-       return JSON.parse(data);
-     };
-     `,
+      time: 104,
+      memory: 41.5,
+      desc: '储存每个伙伴的下一个伙伴',
+      code: `function numWays(n: number, relation: number[][], k: number): number {
+        const nextPartnerMap = new Map<number, Set<number>>();
+        for (const [cur, next] of relation) {
+          let set = nextPartnerMap.get(cur);
+          if (!set) nextPartnerMap.set(cur, (set = new Set()));
+          set.add(next);
+        }
+        let list = [0];
+        while (k--) {
+          list = list
+            .map(item => (nextPartnerMap.has(item) ? [...nextPartnerMap.get(item)!] : []))
+            .flat();
+        }
+        return list.filter(v => v === n - 1).length;
+      }`,
     },
   ],
 };
