@@ -13,6 +13,7 @@
     "baseUrl": "./",
     "rootDir": "./",
     "incremental": true,
+    "lib": ["ESNext"],
     "paths": {
       "@/*": ["src/*"]
     }

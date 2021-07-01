@@ -18,6 +18,7 @@ module.exports = {
     { name: '算法' },
     { name: '力扣题解' },
     { name: '应用合集' },
+    { name: 'Node服务器' },
     { name: '配置文件' },
     { name: '整个项目' },
   ],
