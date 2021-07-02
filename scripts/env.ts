@@ -10,18 +10,15 @@ type Heap = structures.Heap;
 /*
 
  */
-function numWays(n: number, relation: number[][], k: number): number {
-  const nextPartnerMap = new Map<number, Set<number>>();
-  for (const [cur, next] of relation) {
-    let set = nextPartnerMap.get(cur);
-    if (!set) nextPartnerMap.set(cur, (set = new Set()));
-    set.add(next);
+function maxIceCream(costs: number[], coins: number): number {
+  costs.sort((a, b) => a - b);
+  let ans = 0;
+  for (const cost of costs) {
+    if (coins >= cost) {
+      ans++;
+      coins -= cost;
+    } else break;
   }
-  let list = [0];
-  while (k--) {
-    list = list
-      .map(item => (nextPartnerMap.has(item) ? [...nextPartnerMap.get(item)!] : []))
-      .flat();
-  }
-  return list.filter(v => v === n - 1).length;
+  return ans;
 }
+console.log(maxIceCream([1, 3, 2, 4, 1], 7));

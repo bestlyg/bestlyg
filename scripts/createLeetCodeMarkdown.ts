@@ -26,31 +26,27 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: 'LCP 07. 传递信息',
-  url: 'https://leetcode-cn.com/problems/chuan-di-xin-xi/ ',
-  difficulty: Difficulty.简单,
-  tag: [Tag.广度优先搜索, Tag.深度优先搜索, Tag.图, Tag.动态规划],
-  desc: '给定总玩家数 n，以及按 [玩家编号,对应可传递玩家编号] 关系组成的二维数组 relation。返回信息从小 A (编号 0 ) 经过 k 轮传递到编号为 n-1 的小伙伴处的方案数；若不能到达，返回 0。',
+  name: '1833. 雪糕的最大数量',
+  url: 'https://leetcode-cn.com/problems/maximum-ice-cream-bars/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.贪心算法, Tag.数组, Tag.排序],
+  desc: '给你价格数组 costs 和现金量 coins ，请你计算并返回 Tony 用 coins 现金能够买到的雪糕的 最大数量 。',
   solutions: [
     {
       script: Script.TS,
-      time: 104,
-      memory: 41.5,
-      desc: '储存每个伙伴的下一个伙伴',
-      code: `function numWays(n: number, relation: number[][], k: number): number {
-        const nextPartnerMap = new Map<number, Set<number>>();
-        for (const [cur, next] of relation) {
-          let set = nextPartnerMap.get(cur);
-          if (!set) nextPartnerMap.set(cur, (set = new Set()));
-          set.add(next);
+      time: 280,
+      memory: 52.6,
+      desc: '每次取最小cost',
+      code: `function maxIceCream(costs: number[], coins: number): number {
+        costs.sort((a, b) => a - b);
+        let ans = 0;
+        for (const cost of costs) {
+          if (coins >= cost) {
+            ans++;
+            coins -= cost;
+          } else break;
         }
-        let list = [0];
-        while (k--) {
-          list = list
-            .map(item => (nextPartnerMap.has(item) ? [...nextPartnerMap.get(item)!] : []))
-            .flat();
-        }
-        return list.filter(v => v === n - 1).length;
+        return ans;
       }`,
     },
   ],
