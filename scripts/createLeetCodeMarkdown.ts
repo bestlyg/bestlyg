@@ -26,27 +26,25 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1833. 雪糕的最大数量',
-  url: 'https://leetcode-cn.com/problems/maximum-ice-cream-bars/',
+  name: '451. 根据字符出现频率排序',
+  url: 'https://leetcode-cn.com/problems/sort-characters-by-frequency/',
   difficulty: Difficulty.中等,
-  tag: [Tag.贪心算法, Tag.数组, Tag.排序],
-  desc: '给你价格数组 costs 和现金量 coins ，请你计算并返回 Tony 用 coins 现金能够买到的雪糕的 最大数量 。',
+  tag: [Tag.哈希表, Tag.字符串, Tag.桶排序, Tag.计数, Tag.排序, Tag.堆_优先队列],
+  desc: '给定一个字符串，请将字符串里的字符按照出现的频率降序排列。',
   solutions: [
     {
       script: Script.TS,
-      time: 280,
-      memory: 52.6,
-      desc: '每次取最小cost',
-      code: `function maxIceCream(costs: number[], coins: number): number {
-        costs.sort((a, b) => a - b);
-        let ans = 0;
-        for (const cost of costs) {
-          if (coins >= cost) {
-            ans++;
-            coins -= cost;
-          } else break;
-        }
-        return ans;
+      time: 108,
+      memory: 40.9,
+      desc: '利用哈希储存',
+      code: `
+      function frequencySort(s: string): string {
+        const map: Record<string, number> = {};
+        for (const c of s) map[c] = (map[c] ?? 0) + 1;
+        return Object.entries(map)
+          .sort(([, a], [, b]) => b - a)
+          .map(([k, v]) => k.repeat(v))
+          .join('');
       }`,
     },
   ],

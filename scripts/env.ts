@@ -10,15 +10,14 @@ type Heap = structures.Heap;
 /*
 
  */
-function maxIceCream(costs: number[], coins: number): number {
-  costs.sort((a, b) => a - b);
-  let ans = 0;
-  for (const cost of costs) {
-    if (coins >= cost) {
-      ans++;
-      coins -= cost;
-    } else break;
-  }
-  return ans;
+function frequencySort(s: string): string {
+  return Object.entries(
+    s.split('').reduce<Record<string, number>>((map, c) => {
+      map[c] = (map[c] ?? 0) + 1;
+      return map;
+    }, {})
+  )
+    .sort(([, a], [, b]) => b - a)
+    .map(([k, v]) => k.repeat(v))
+    .join('');
 }
-console.log(maxIceCream([1, 3, 2, 4, 1], 7));

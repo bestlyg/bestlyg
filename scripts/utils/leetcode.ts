@@ -43,6 +43,9 @@ export enum Tag {
   拒绝采样 = '拒绝采样',
   矩阵 = '矩阵',
   二叉树 = '二叉树',
+  桶排序 = '桶排序',
+  计数 = '计数',
+  堆_优先队列 = '堆(优先队列)',
 }
 export enum Script {
   JS = 'javascript',
