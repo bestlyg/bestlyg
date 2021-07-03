@@ -2,7 +2,8 @@ import { Controller } from '@nestjs/common';
 import { UserModel, User } from './user.model';
 import { UserService } from './user.service';
 import { DataBaseController } from '@/database';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('User')
 @Controller('user')
 export class UserController extends DataBaseController<User, UserModel> {
   constructor(service: UserService) {
