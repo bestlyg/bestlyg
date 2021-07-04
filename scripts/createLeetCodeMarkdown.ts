@@ -26,25 +26,27 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '451. 根据字符出现频率排序',
-  url: 'https://leetcode-cn.com/problems/sort-characters-by-frequency/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.哈希表, Tag.字符串, Tag.桶排序, Tag.计数, Tag.排序, Tag.堆_优先队列],
-  desc: '给定一个字符串，请将字符串里的字符按照出现的频率降序排列。',
+  name: '645. 错误的集合',
+  url: 'https://leetcode-cn.com/problems/set-mismatch/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.位运算, Tag.数组, Tag.排序],
+  desc: '请你找出重复出现的整数，再找到丢失的整数，将它们以数组的形式返回。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 40.9,
-      desc: '利用哈希储存',
-      code: `
-      function frequencySort(s: string): string {
-        const map: Record<string, number> = {};
-        for (const c of s) map[c] = (map[c] ?? 0) + 1;
-        return Object.entries(map)
-          .sort(([, a], [, b]) => b - a)
-          .map(([k, v]) => k.repeat(v))
-          .join('');
+      time: 112,
+      memory: 44.5,
+      desc: '创建数组检测数量',
+      code: `function findErrorNums(nums: number[]): number[] {
+        const len = nums.length;
+        const arr = new Array(len).fill(0);
+        for (const num of nums) arr[num - 1]++;
+        const ans: number[] = [];
+        for (let i = 0; i < len; i++) {
+          if (arr[i] === 0) ans[1] = i + 1;
+          if (arr[i] === 2) ans[0] = i + 1;
+        }
+        return ans;
       }`,
     },
   ],

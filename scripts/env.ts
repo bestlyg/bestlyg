@@ -10,14 +10,14 @@ type Heap = structures.Heap;
 /*
 
  */
-function frequencySort(s: string): string {
-  return Object.entries(
-    s.split('').reduce<Record<string, number>>((map, c) => {
-      map[c] = (map[c] ?? 0) + 1;
-      return map;
-    }, {})
-  )
-    .sort(([, a], [, b]) => b - a)
-    .map(([k, v]) => k.repeat(v))
-    .join('');
+function findErrorNums(nums: number[]): number[] {
+  const len = nums.length;
+  const arr = new Array(len).fill(0);
+  for (const num of nums) arr[num - 1]++;
+  const ans: number[] = [];
+  for (let i = 0; i < len; i++) {
+    if (arr[i] === 0) ans[1] = i + 1;
+    if (arr[i] === 2) ans[0] = i + 1;
+  }
+  return ans;
 }
