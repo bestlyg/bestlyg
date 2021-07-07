@@ -10,38 +10,24 @@ type Heap = structures.Heap;
 /*
 
  */
-function displayTable(orders: string[][]): string[][] {
-  const foodSet = new Set<string>();
-  const tables: Map<number, Map<string, number>> = new Map();
-  for (const [, table, foodName] of orders) {
-    const tableNumber = +table;
-    let map = tables.get(tableNumber);
-    if (!map) tables.set(tableNumber, (map = new Map()));
-    map.set(foodName, (map.get(foodName) ?? 0) + 1);
-    foodSet.add(foodName);
-  }
-  const title = [
-    'Table',
-    ...[...foodSet].sort((s1, s2) => {
-      const len1 = s1.length;
-      const len2 = s2.length;
-      let i = 0;
-      while (i < Math.min(len1, len2)) {
-        const code1 = s1.codePointAt(i)!;
-        const code2 = s2.codePointAt(i)!;
-        if (code1 !== code2) return code1 - code2;
-        else i++;
+function countPairs(deliciousness: number[]): number {
+  const MOD = 10 ** 9 + 7;
+  const LIST_2: number[] = [];
+  for (let i = 1, max = 2 ** 21; i <= max; i <<= 1) LIST_2.push(i);
+  const map = new Map<number, number>();
+  for (const num of deliciousness) map.set(num, (map.get(num) ?? 0) + 1);
+  let ans = 0;
+  for (const num of deliciousness) {
+    for (const num2 of LIST_2) {
+      if (num2 >= num) {
+        if (num * 2 === num2) {
+          ans = (ans + Math.max(map.get(num)! - 1, 0)) % MOD;
+        } else {
+          ans = (ans + (map.get(num2 - num) ?? 0)) % MOD;
+        }
       }
-      if (i === len1) return -1;
-      else if (i === len2) return 1;
-      else return 0;
-    }),
-  ];
-  const data: number[][] = [];
-  for (const [table, map] of tables.entries()) {
-    const item: number[] = [table];
-    for (let i = 1, l = title.length; i <= l; i++) item[i] = map.get(title[i]) ?? 0;
-    data.push(item);
+    }
   }
-  return [title, ...data.sort(([t1], [t2]) => t1 - t2).map(v => v.map(v => v + ''))];
+  return ans;
 }
+console.log(countPairs([1, 3, 5, 7, 9]));

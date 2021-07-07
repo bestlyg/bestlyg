@@ -26,51 +26,28 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1418. 点菜展示表',
-  url: 'https://leetcode-cn.com/problems/display-table-of-food-orders-in-a-restaurant/',
+  name: '1711. 大餐计数',
+  url: 'https://leetcode-cn.com/problems/count-good-meals/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.字符串, Tag.有序集合, Tag.排序],
-  desc: '请你返回该餐厅的 点菜展示表 。在这张表中，表中第一行为标题，其第一列为餐桌桌号 “Table” ，后面每一列都是按字母顺序排列的餐品名称。接下来每一行中的项则表示每张餐桌订购的相应餐品数量，第一列应当填对应的桌号，后面依次填写下单的餐品数量。',
+  tag: [Tag.数组, Tag.哈希表],
+  desc: '给你一个整数数组 deliciousness ，其中 deliciousness[i] 是第 i​​​​​​​​​​​​​​ 道餐品的美味程度，返回你可以用数组中的餐品做出的不同 大餐 的数量。',
   solutions: [
     {
       script: Script.TS,
-      time: 228,
-      memory: 57.3,
-      desc: '遍历每张桌子进行排序',
-      code: `function displayTable(orders: string[][]): string[][] {
-        const foodSet = new Set<string>();
-        const tables: Map<number, Map<string, number>> = new Map();
-        for (const [, table, foodName] of orders) {
-          const tableNumber = +table;
-          let map = tables.get(tableNumber);
-          if (!map) tables.set(tableNumber, (map = new Map()));
-          map.set(foodName, (map.get(foodName) ?? 0) + 1);
-          foodSet.add(foodName);
+      time: 304,
+      memory: 50.4,
+      desc: '对每个值进行查看2的幂可能性',
+      code: `function countPairs(deliciousness: number[]): number {
+        const MOD = 10 ** 9 + 7;
+        const LIST_2: number[] = [];
+        for (let i = 1, max = 2 ** 21; i <= max; i <<= 1) LIST_2.push(i);
+        const map: Record<number, number> = {};
+        let ans = 0;
+        for (const num of deliciousness) {
+          for (const num2 of LIST_2) if (num2 >= num) ans = (ans + (map[num2 - num] ?? 0)) % MOD;
+          map[num] = (map[num] ?? 0) + 1;
         }
-        const title = [
-          'Table',
-          ...[...foodSet].sort((s1, s2) => {
-            const len1 = s1.length;
-            const len2 = s2.length;
-            let i = 0;
-            while (i < Math.min(len1, len2)) {
-              const code1 = s1.codePointAt(i)!;
-              const code2 = s2.codePointAt(i)!;
-              if (code1 !== code2) return code1 - code2;
-              else i++;
-            }
-            if (i === len1) return -1;
-            else if (i === len2) return 1;
-            else return 0;
-          }),
-        ];
-        const data: number[][] = [];
-        for (const [table, map] of tables.entries()) {
-          const item: number[] = [table];
-          for (let i = 1, l = title.length; i < l; i++) item[i] = map.get(title[i]) ?? 0;
-          data.push(item);
-        }
-        return [title, ...data.sort(([t1], [t2]) => t1 - t2).map(v => v.map(v => v + ''))];
+        return ans;
       }`,
     },
   ],
