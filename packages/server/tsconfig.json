@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -11,12 +10,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "rootDir": "./",
     "incremental": true,
-    "lib": ["ESNext"],
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["src/*"]
     }
-  },
-  "include": ["src"]
+  }
 }
