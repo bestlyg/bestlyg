@@ -12,7 +12,7 @@ export enum Tag {
   数学 = '数学',
   双指针 = '双指针',
   字符串 = '字符串',
-  SlidingWindow = 'SlidingWindow',
+  滑动窗口 = '滑动窗口',
   OrderedMap = 'OrderedMap',
   二分查找 = '二分查找',
   分治算法 = '分治算法',
@@ -47,6 +47,7 @@ export enum Tag {
   计数 = '计数',
   堆_优先队列 = '堆(优先队列)',
   有序集合 = '有序集合',
+  前缀和 = '前缀和',
 }
 export enum Script {
   JS = 'javascript',

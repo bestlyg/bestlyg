@@ -10,24 +10,16 @@ type Heap = structures.Heap;
 /*
 
  */
-function countPairs(deliciousness: number[]): number {
-  const MOD = 10 ** 9 + 7;
-  const LIST_2: number[] = [];
-  for (let i = 1, max = 2 ** 21; i <= max; i <<= 1) LIST_2.push(i);
-  const map = new Map<number, number>();
-  for (const num of deliciousness) map.set(num, (map.get(num) ?? 0) + 1);
+function numSubarraysWithSum(nums: number[], goal: number): number {
   let ans = 0;
-  for (const num of deliciousness) {
-    for (const num2 of LIST_2) {
-      if (num2 >= num) {
-        if (num * 2 === num2) {
-          ans = (ans + Math.max(map.get(num)! - 1, 0)) % MOD;
-        } else {
-          ans = (ans + (map.get(num2 - num) ?? 0)) % MOD;
-        }
-      }
-    }
+  let sum = 0;
+  const map = new Map<number, number>();
+  for (const num of nums) {
+    map.set(sum, (map.get(sum) ?? 0) + 1);
+    sum += num;
+    ans += map.get(sum - goal) ?? 0;
   }
   return ans;
 }
-console.log(countPairs([1, 3, 5, 7, 9]));
+console.log(numSubarraysWithSum([1, 0, 1, 0, 1], 2));
+console.log(numSubarraysWithSum([0, 0, 0, 0, 0], 0));

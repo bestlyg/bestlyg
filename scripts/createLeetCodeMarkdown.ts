@@ -26,26 +26,45 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1711. 大餐计数',
-  url: 'https://leetcode-cn.com/problems/count-good-meals/',
+  name: '930. 和相同的二元子数组',
+  url: 'https://leetcode-cn.com/problems/binary-subarrays-with-sum/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表],
-  desc: '给你一个整数数组 deliciousness ，其中 deliciousness[i] 是第 i​​​​​​​​​​​​​​ 道餐品的美味程度，返回你可以用数组中的餐品做出的不同 大餐 的数量。',
+  tag: [Tag.数组, Tag.哈希表, Tag.前缀和, Tag.滑动窗口],
+  desc: '给你一个二元数组 nums ，和一个整数 goal ，请你统计并返回有多少个和为 goal 的 非空 子数组。',
   solutions: [
     {
       script: Script.TS,
-      time: 304,
-      memory: 50.4,
-      desc: '对每个值进行查看2的幂可能性',
-      code: `function countPairs(deliciousness: number[]): number {
-        const MOD = 10 ** 9 + 7;
-        const LIST_2: number[] = [];
-        for (let i = 1, max = 2 ** 21; i <= max; i <<= 1) LIST_2.push(i);
-        const map: Record<number, number> = {};
+      time: 1800,
+      memory: 46.1,
+      desc: '遍历两次',
+      code: `function numSubarraysWithSum(nums: number[], goal: number): number {
+        const len = nums.length;
+        const sums = [0];
+        for (let i = 0; i < len; i++) sums.push(nums[i] + sums[sums.length - 1]);
         let ans = 0;
-        for (const num of deliciousness) {
-          for (const num2 of LIST_2) if (num2 >= num) ans = (ans + (map[num2 - num] ?? 0)) % MOD;
-          map[num] = (map[num] ?? 0) + 1;
+        for (let i = 1; i <= len; i++) {
+          for (let j = 0; j < i; j++) {
+            const num = sums[i] - sums[j];
+            if (num < goal) break;
+            if (num === goal) ans++;
+          }
+        }
+        return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 92,
+      memory: 45.6,
+      desc: '利用哈希表储存前缀和进行快速遍历',
+      code: `function numSubarraysWithSum(nums: number[], goal: number): number {
+        let ans = 0;
+        let sum = 0;
+        const map = new Map<number, number>();
+        for (const num of nums) {
+          map.set(sum, (map.get(sum) ?? 0) + 1);
+          sum += num;
+          ans += map.get(sum - goal) ?? 0;
         }
         return ans;
       }`,
