@@ -1,4 +1,4 @@
-import { Code, Message, ResponseInfo } from '@bestlyg/shared';
+import { Code, Message, ResponseInfo } from '@/models';
 import { isNumber } from 'lodash';
 
 export class BaseController {

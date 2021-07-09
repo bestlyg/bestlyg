@@ -1,11 +1,5 @@
 import { Document, Model } from 'mongoose';
-import {
-  RequestFilter,
-  RequestFilterTag,
-  RequestFind,
-  RequestSort,
-  RequestPage,
-} from '@bestlyg/shared';
+import { RequestFilter, RequestFilterTag, RequestFind, RequestSort, RequestPage } from '@/models';
 import { isNumber, isString, isBoolean } from 'lodash';
 
 export class BaseDataBaseService<T extends Document, Schema> {

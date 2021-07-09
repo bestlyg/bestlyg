@@ -1,9 +1,8 @@
 import { BaseDataBaseService } from './database.service';
 import { Body, Get, Post, Delete, Patch, Param } from '@nestjs/common';
 import { Document } from 'mongoose';
-import { RequestFind, RequestPage, ResponseInfo } from '@bestlyg/shared';
+import { RequestFind, RequestPage, ResponseInfo } from '@/models';
 import { BaseController } from '@/base';
-import { ApiBody } from '@nestjs/swagger';
 export class DataBaseController<T extends Document, Schema> extends BaseController {
   constructor(protected readonly service: BaseDataBaseService<T, Schema>) {
     super();
