@@ -13,21 +13,6 @@ group:
 ## 介绍
 个人 LeetCode 题解
 
-## 待完成题
-- [10.正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
-- [18.四数之和](https://leetcode-cn.com/problems/4sum/)
-- [126.单词接龙II](https://leetcode-cn.com/problems/word-ladder-ii/)
-- [127.单词接龙](https://leetcode-cn.com/problems/word-ladder/)
-- [410.分割数组的最大值](https://leetcode-cn.com/problems/split-array-largest-sum/)
-- [493.翻转对](https://leetcode-cn.com/problems/reverse-pairs/)
-- [632.最小区间](https://leetcode-cn.com/problems/smallest-range-covering-elements-from-k-lists/)
-- [887.鸡蛋掉落](https://leetcode-cn.com/problems/super-egg-drop/)
-- [面试题16.18.模式匹配](https://leetcode-cn.com/problems/pattern-matching-lcci/)
-- [315.计算右侧小于当前元素的个数](https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/)
-- [LCP13.寻宝](https://leetcode-cn.com/problems/xun-bao/)
-- [834.树中距离之和](https://leetcode-cn.com/problems/sum-of-distances-in-tree/)
-
-
 ## 顺序索引
 ### 1-100
 - [1.两数之和](1-100/1)
@@ -514,6 +499,7 @@ group:
 - [面试题16.11.跳水板](面试题/面试题16.11)
 - [面试题16.18.模式匹配](面试题/面试题16.18)
 - [面试题17.09.第k个数](面试题/面试题17.09)
+- [面试题17.10.主要元素](面试题/面试题17.10)
 - [面试题17.13.恢复空格](面试题/面试题17.13)
 - [面试题17.14.最小K个数](面试题/面试题17.14)
 - [面试题17.20.连续中值](面试题/面试题17.20)
@@ -644,6 +630,7 @@ group:
 - [面试题01.07.旋转矩阵](面试题/面试题01.07)
 - [面试题08.03.魔术索引](面试题/面试题08.03)
 - [面试题13.机器人的运动范围](面试题/面试题13)
+- [面试题17.10.主要元素](面试题/面试题17.10)
 - [面试题17.21.直方图的水量](面试题/面试题17.21)
 - [面试题29.顺时针打印矩阵](面试题/面试题29)
 ### 哈希表
@@ -1397,6 +1384,8 @@ group:
 - [1418.点菜展示表](1401-1500/1418)
 ### 二叉树
 - [剑指Offer37.序列化二叉树](剑指Offer/剑指Offer37)
+### 计数
+- [面试题17.10.主要元素](面试题/面试题17.10)
 ## 难度索引
 ### 简单
 - [1.两数之和](1-100/1)
@@ -1560,6 +1549,7 @@ group:
 - [面试题08.03.魔术索引](面试题/面试题08.03)
 - [面试题16.11.跳水板](面试题/面试题16.11)
 - [面试题17.09.第k个数](面试题/面试题17.09)
+- [面试题17.10.主要元素](面试题/面试题17.10)
 ### 中等
 - [2.两数相加](1-100/2)
 - [3.无重复字符的最长子串](1-100/3)
