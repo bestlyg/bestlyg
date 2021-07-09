@@ -1,4 +1,4 @@
-import { default as mongoose } from 'mongoose';
+import * as mongoose from 'mongoose';
 import { INJECT_DATABASE, URL_MONGODB } from '@/config';
 
 export const databaseProviders = [

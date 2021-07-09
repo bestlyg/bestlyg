@@ -1,12 +1,7 @@
 import { Document } from 'mongoose';
-import { ApiProperty } from '@nestjs/swagger';
 
-export class UserModel {
-  @ApiProperty()
+export class User extends Document {
   readonly name: string;
-  @ApiProperty()
   readonly age: number;
-  @ApiProperty()
   readonly time: Date;
 }
-export interface User extends UserModel, Document {}

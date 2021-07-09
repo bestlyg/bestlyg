@@ -1,3 +1,3 @@
 export type CommonModel = { _id: string };
-export * from './request';
-export * from './response';
+export * from './code';
+export * from './message';

@@ -1,8 +1,9 @@
-import { Code, Message, ResponseInfo } from '@/models';
+import { Code, Message } from '@/models';
 import { isNumber } from 'lodash';
+import { ResponseDto } from './response.dto';
 
 export class BaseController {
-  protected responseClient<T>(promise: Promise<T>): Promise<ResponseInfo<T>> {
+  protected responseClient<T>(promise: Promise<T>): Promise<ResponseDto<T>> {
     return promise
       .then(
         data =>
@@ -11,7 +12,7 @@ export class BaseController {
             code: Code.SUCCESS,
             data,
             msg: Message[Code.SUCCESS],
-          } as ResponseInfo<T>)
+          } as ResponseDto<T>)
       )
       .catch(err => {
         const code = isNumber(err) ? (err as Code) : Code.UNKNOW;
