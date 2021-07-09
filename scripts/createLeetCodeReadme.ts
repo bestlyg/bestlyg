@@ -99,21 +99,9 @@ group:
 ## 介绍
 个人 LeetCode 题解
 
-${createWaitSolutionsTemplate()}
-
 ${createSolutionsTemplate()}
 `
   );
-}
-
-function createWaitSolutionsTemplate(): string {
-  let str = '## 待完成题\n';
-  const sorted = waitSolutions.sort(
-    ({ name: name1 }, { name: name2 }) => parseFloat(name1) - parseFloat(name2)
-  );
-  for (const { name, url } of sorted)
-    str += markdown.list(markdown.link(trimBlank(name), url)) + '\n';
-  return str;
 }
 
 const createSolutionsTemplate = () => {

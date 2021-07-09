@@ -26,48 +26,49 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '930. 和相同的二元子数组',
-  url: 'https://leetcode-cn.com/problems/binary-subarrays-with-sum/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.前缀和, Tag.滑动窗口],
-  desc: '给你一个二元数组 nums ，和一个整数 goal ，请你统计并返回有多少个和为 goal 的 非空 子数组。',
+  name: '面试题 17.10. 主要元素',
+  url: 'https://leetcode-cn.com/problems/find-majority-element-lcci/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.计数],
+  desc: '数组中占比超过一半的元素称之为主要元素。给你一个 整数 数组，找出其中的主要元素。若没有，返回 -1 。请设计时间复杂度为 O(N) 、空间复杂度为 O(1) 的解决方案。',
   solutions: [
     {
       script: Script.TS,
-      time: 1800,
-      memory: 46.1,
-      desc: '遍历两次',
-      code: `function numSubarraysWithSum(nums: number[], goal: number): number {
+      time: 72,
+      memory: 42.6,
+      desc: '利用map储存所有值',
+      code: `function majorityElement(nums: number[]): number {
+        const map: Map<number, number> = new Map();
         const len = nums.length;
-        const sums = [0];
-        for (let i = 0; i < len; i++) sums.push(nums[i] + sums[sums.length - 1]);
-        let ans = 0;
-        for (let i = 1; i <= len; i++) {
-          for (let j = 0; j < i; j++) {
-            const num = sums[i] - sums[j];
-            if (num < goal) break;
-            if (num === goal) ans++;
-          }
+        for (let i = 0; i < len; i++) {
+          const num = nums[i];
+          map.set(num, (map.get(num) ?? 0) + 1);
         }
-        return ans;
+        let num: number | null = null;
+        for (const [k, v] of map.entries()) if (v > len / 2) num = k;
+        return num ?? -1;
       }`,
     },
     {
       script: Script.TS,
-      time: 92,
-      memory: 45.6,
-      desc: '利用哈希表储存前缀和进行快速遍历',
-      code: `function numSubarraysWithSum(nums: number[], goal: number): number {
-        let ans = 0;
-        let sum = 0;
-        const map = new Map<number, number>();
-        for (const num of nums) {
-          map.set(sum, (map.get(sum) ?? 0) + 1);
-          sum += num;
-          ans += map.get(sum - goal) ?? 0;
-        }
-        return ans;
-      }`,
+      time: 76,
+      memory: 42.1,
+      desc: 'Boyer-Moore 投票算法',
+      code: `function majorityElement(nums: number[]): number {
+        let candidate = -1;
+        let count = 0;
+        nums.forEach(num => {
+          if (count === 0) candidate = num;
+          if (candidate === num) count++;
+          else count--;
+        });
+        count = 0;
+        nums.forEach(num => {
+          if (candidate === num) count++;
+        });
+        return count > nums.length / 2 ? candidate : -1;
+      }
+      `,
     },
   ],
 };

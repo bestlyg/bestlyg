@@ -10,16 +10,17 @@ type Heap = structures.Heap;
 /*
 
  */
-function numSubarraysWithSum(nums: number[], goal: number): number {
-  let ans = 0;
-  let sum = 0;
-  const map = new Map<number, number>();
-  for (const num of nums) {
-    map.set(sum, (map.get(sum) ?? 0) + 1);
-    sum += num;
-    ans += map.get(sum - goal) ?? 0;
-  }
-  return ans;
+function majorityElement(nums: number[]): number {
+  let candidate = -1;
+  let count = 0;
+  nums.forEach(num => {
+    if (count === 0) candidate = num;
+    if (candidate === num) count++;
+    else count--;
+  });
+  count = 0;
+  nums.forEach(num => {
+    if (candidate === num) count++;
+  });
+  return count > nums.length / 2 ? count : -1;
 }
-console.log(numSubarraysWithSum([1, 0, 1, 0, 1], 2));
-console.log(numSubarraysWithSum([0, 0, 0, 0, 0], 0));
