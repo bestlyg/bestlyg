@@ -4,7 +4,7 @@ export type ResponseInfo<T> = {
   data: T | null;
   msg: string;
 };
-export const enum Code {
+export enum Code {
   SUCCESS = 20000,
   SERVER_UNKNOW = 50000,
   UNKNOW = 99999,
