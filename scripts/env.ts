@@ -10,17 +10,39 @@ type Heap = structures.Heap;
 /*
 
  */
-function majorityElement(nums: number[]): number {
-  let candidate = -1;
-  let count = 0;
-  nums.forEach(num => {
-    if (count === 0) candidate = num;
-    if (candidate === num) count++;
-    else count--;
-  });
-  count = 0;
-  nums.forEach(num => {
-    if (candidate === num) count++;
-  });
-  return count > nums.length / 2 ? count : -1;
+class TimeMap {
+  private map: Record<string, [string, number][]> = {};
+  set(key: string, value: string, timestamp: number): void {
+    let list = this.map[key];
+    if (!list) this.map[key] = list = [];
+    list.push([value, timestamp]);
+  }
+  get(key: string, timestamp: number): string {
+    return this.find(this.map[key] ?? [], timestamp);
+  }
+  private find(
+    list: [string, number][],
+    timestamp: number,
+    first = 0,
+    last = list.length - 1
+  ): string {
+    console.log(list, timestamp, first, last);
+    if (first > last) {
+      while (first > list.length - 1) first--;
+      while (first >= 0) {
+        if (list[first][1] < timestamp) return list[first][0];
+        first--;
+      }
+      return '';
+    }
+    const mid = (first + last) >> 1;
+    const [midStr, midTime] = list[mid];
+    if (midTime > timestamp) return this.find(list, timestamp, first, mid - 1);
+    else if (midTime < timestamp) return this.find(list, timestamp, mid + 1, last);
+    else return midStr;
+  }
 }
+const map = new TimeMap();
+map.set('foo', 'bar', 1);
+console.log(map.get('foo', 1));
+console.log(map.get('foo', 3));

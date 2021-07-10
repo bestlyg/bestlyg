@@ -26,49 +26,48 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '面试题 17.10. 主要元素',
-  url: 'https://leetcode-cn.com/problems/find-majority-element-lcci/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.计数],
-  desc: '数组中占比超过一半的元素称之为主要元素。给你一个 整数 数组，找出其中的主要元素。若没有，返回 -1 。请设计时间复杂度为 O(N) 、空间复杂度为 O(1) 的解决方案。',
+  name: '981. 基于时间的键值存储',
+  url: 'https://leetcode-cn.com/problems/time-based-key-value-store/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.设计, Tag.哈希表, Tag.字符串, Tag.二分查找],
+  desc: '创建一个基于时间的键值存储类 TimeMap',
   solutions: [
     {
       script: Script.TS,
-      time: 72,
-      memory: 42.6,
+      time: 412,
+      memory: 77.1,
       desc: '利用map储存所有值',
-      code: `function majorityElement(nums: number[]): number {
-        const map: Map<number, number> = new Map();
-        const len = nums.length;
-        for (let i = 0; i < len; i++) {
-          const num = nums[i];
-          map.set(num, (map.get(num) ?? 0) + 1);
+      code: `class TimeMap {
+        private map: Record<string, [string, number][]> = {};
+        set(key: string, value: string, timestamp: number): void {
+          let list = this.map[key];
+          if (!list) this.map[key] = list = [];
+          list.push([value, timestamp]);
         }
-        let num: number | null = null;
-        for (const [k, v] of map.entries()) if (v > len / 2) num = k;
-        return num ?? -1;
+        get(key: string, timestamp: number): string {
+          return this.find(this.map[key] ?? [], timestamp);
+        }
+        private find(
+          list: [string, number][],
+          timestamp: number,
+          first = 0,
+          last = list.length - 1
+        ): string {
+          if (first > last) {
+            while (first > list.length - 1) first--;
+            while (first >= 0) {
+              if (list[first][1] < timestamp) return list[first][0];
+              first--;
+            }
+            return '';
+          }
+          const mid = (first + last) >> 1;
+          const [midStr, midTime] = list[mid];
+          if (midTime > timestamp) return this.find(list, timestamp, first, mid - 1);
+          else if (midTime < timestamp) return this.find(list, timestamp, mid + 1, last);
+          else return midStr;
+        }
       }`,
-    },
-    {
-      script: Script.TS,
-      time: 76,
-      memory: 42.1,
-      desc: 'Boyer-Moore 投票算法',
-      code: `function majorityElement(nums: number[]): number {
-        let candidate = -1;
-        let count = 0;
-        nums.forEach(num => {
-          if (count === 0) candidate = num;
-          if (candidate === num) count++;
-          else count--;
-        });
-        count = 0;
-        nums.forEach(num => {
-          if (candidate === num) count++;
-        });
-        return count > nums.length / 2 ? candidate : -1;
-      }
-      `,
     },
   ],
 };
