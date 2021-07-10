@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { BaseController, FindAllDto, FindPageDto, ResponseDto } from '@/base';
+import { BaseController, FindAllDto, FindPageDto, ResponseBooleanDto, ResponseDto } from '@/base';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateUserDto,
@@ -59,7 +59,7 @@ export class UserController extends BaseController {
     return this.responseClient(this.service.findPage(dto));
   }
   @ApiOkResponse({
-    type: Boolean,
+    type: ResponseBooleanDto,
     description: '更新模型',
   })
   @Patch(':id')
@@ -67,14 +67,10 @@ export class UserController extends BaseController {
     @Param() { id }: { id: string },
     @Body() model: UpdateUserDto
   ): Promise<ResponseDto<void>> {
-    return this.responseClient(
-      this.service.update(id, model).then(() => {
-        console.log(1);
-      })
-    );
+    return this.responseClient(this.service.update(id, model).then(() => {}));
   }
   @ApiOkResponse({
-    type: Boolean,
+    type: ResponseBooleanDto,
     description: '删除数据',
   })
   @Delete()
@@ -84,7 +80,7 @@ export class UserController extends BaseController {
     );
   }
   @ApiOkResponse({
-    type: Boolean,
+    type: ResponseBooleanDto,
     description: '清空表',
   })
   @Delete('clear')

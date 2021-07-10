@@ -101,3 +101,7 @@ export class ResponseFindPageData<T> {
   })
   data: T[];
 }
+export class ResponseBooleanDto extends ResponseDto<boolean> {
+  @ApiProperty({ type: Boolean })
+  data: boolean;
+}
