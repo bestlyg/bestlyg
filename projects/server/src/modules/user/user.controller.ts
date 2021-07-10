@@ -3,28 +3,34 @@ import { User } from './user.model';
 import { UserService } from './user.service';
 import { BaseController, FindAllDto, FindPageDto, ResponseDto } from '@/base';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto, UpdateUserDto, FindUserDto, ResponseUserDto } from './dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  FindUserDto,
+  ResponseCreateUserDto,
+  ResponseFindUserDto,
+  ResponseFindPageUserDto,
+} from './user.dto';
 @ApiTags('User')
 @Controller('user')
 export class UserController extends BaseController {
   constructor(private readonly service: UserService) {
     super();
-    // super(service);
-    // this.service.clear();
-    // new Array(21).fill(0).map(async (_, i) => {
-    //   await this.service
-    //     .create({
-    //       name: 'herry' + (i + 1),
-    //       age: i + 1,
-    //       time: new Date(`2021/7/${i + 1}`),
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // });
+    this.service.clear();
+    new Array(21).fill(0).map(async (_, i) => {
+      await this.service
+        .create({
+          name: 'herry' + (i + 1),
+          age: i + 1,
+          time: new Date(`2021/7/${i + 1}`),
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    });
   }
   @ApiOkResponse({
-    type: ResponseUserDto,
+    type: ResponseCreateUserDto,
     description: '创建模型',
   })
   @Post()
@@ -32,13 +38,17 @@ export class UserController extends BaseController {
     return this.responseClient(this.service.create(dto));
   }
   @ApiOkResponse({
-    type: ResponseDto,
-    description: '创建模型',
+    type: ResponseFindUserDto,
+    description: '查找模型',
   })
   @Get()
   async findAll(@Body() dto: FindAllDto<FindUserDto>): Promise<ResponseDto<User[]>> {
     return this.responseClient(this.service.findAll(dto));
   }
+  @ApiOkResponse({
+    type: ResponseFindPageUserDto,
+    description: '分页查找模型',
+  })
   @Get('page')
   async findPage(@Body() dto: FindPageDto<FindUserDto>): Promise<
     ResponseDto<{

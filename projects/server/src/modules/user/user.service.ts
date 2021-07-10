@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { User } from './user.model';
-import { CreateUserDto, FindUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, FindUserDto, UpdateUserDto } from './user.dto';
 import { FindAllDto, FindPageDto, FindSort, FindFilterTag, FindFilter } from '@/base';
 
 @Injectable()

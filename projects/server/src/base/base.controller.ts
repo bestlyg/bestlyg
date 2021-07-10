@@ -1,6 +1,6 @@
 import { Code, Message } from '@/models';
 import { isNumber } from 'lodash';
-import { ResponseDto } from './response.dto';
+import { ResponseDto } from './base.dto';
 
 export class BaseController {
   protected responseClient<T>(promise: Promise<T>): Promise<ResponseDto<T>> {
