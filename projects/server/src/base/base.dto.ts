@@ -69,6 +69,9 @@ export class FindPageDto<T> {
   })
   model?: FindAllDto<T>;
 }
+/**
+ * 通用相应模型
+ */
 export class ResponseDto<T> {
   @ApiProperty({
     type: Boolean,

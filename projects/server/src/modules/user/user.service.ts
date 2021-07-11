@@ -3,10 +3,11 @@ import { Model } from 'mongoose';
 import { User } from './user.model';
 import { CreateUserDto, FindUserDto, UpdateUserDto } from './user.dto';
 import { FindAllDto, FindPageDto, FindSort, FindFilterTag, FindFilter } from '@/base';
+import { userProvideTag } from './user.providers';
 
 @Injectable()
 export class UserService {
-  constructor(@Inject('User_MODEL') protected readonly userModel: Model<User>) {}
+  constructor(@Inject(userProvideTag) protected readonly userModel: Model<User>) {}
   async create(dto: CreateUserDto): Promise<User> {
     return new this.userModel(dto).save();
   }
@@ -63,7 +64,7 @@ export class UserService {
           return record;
         },
         {}
-      ) ?? []
+      ) ?? {}
     );
   }
   protected getSortRecord(sort?: FindSort<FindUserDto>) {

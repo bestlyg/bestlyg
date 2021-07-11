@@ -1,4 +1,3 @@
-import { ResponseDto } from '@/base';
 import { Injectable } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import * as QRCode from 'qrcode';
@@ -82,10 +81,6 @@ export class CreateQRCode {
     default: 'image/png',
   })
   type?: 'image/webp' | 'image/png' | 'image/jpeg';
-}
-export class ResponseQRCodeDto extends ResponseDto<string> {
-  @ApiProperty({ type: String })
-  data: string;
 }
 @Injectable()
 export class QRCodeService {

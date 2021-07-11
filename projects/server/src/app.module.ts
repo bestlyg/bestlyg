@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './modules';
-import { QRCodeService } from './services';
+import { GlobalModule, UserModule } from './modules';
 import { resolve } from '@/utils';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
@@ -12,9 +11,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       rootPath: resolve('../client'),
       exclude: ['/api*', '/docs'],
     }),
+    GlobalModule,
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService, QRCodeService],
+  providers: [AppService],
 })
 export class AppModule {}
