@@ -42,26 +42,28 @@ export class UserService {
     return this.userModel.deleteMany({}).exec();
   }
   protected getFilterRecord(filter: FindFilter[]) {
-    return filter.reduce<Record<string, any>>(
-      (record, { key, tag, value, start, end, max, min, fuzzy }) => {
-        if (tag === FindFilterTag.COMMON) {
-          record[key] = value;
-        } else if (tag === FindFilterTag.DATE) {
-          record[key] = {
-            $gte: start,
-            $lte: end,
-          };
-        } else if (tag === FindFilterTag.NUMBER) {
-          record[key] = {
-            $gte: min,
-            $lte: max,
-          };
-        } else if (tag === FindFilterTag.STRING) {
-          record[key] = fuzzy ? { $regex: new RegExp(value) } : value;
-        }
-        return record;
-      },
-      {}
+    return (
+      filter?.reduce<Record<string, any>>(
+        (record, { key, tag, value, start, end, max, min, fuzzy }) => {
+          if (tag === FindFilterTag.COMMON) {
+            record[key] = value;
+          } else if (tag === FindFilterTag.DATE) {
+            record[key] = {
+              $gte: start,
+              $lte: end,
+            };
+          } else if (tag === FindFilterTag.NUMBER) {
+            record[key] = {
+              $gte: min,
+              $lte: max,
+            };
+          } else if (tag === FindFilterTag.STRING) {
+            record[key] = fuzzy ? { $regex: new RegExp(value) } : value;
+          }
+          return record;
+        },
+        {}
+      ) ?? []
     );
   }
   protected getSortRecord(sort?: FindSort<FindUserDto>) {

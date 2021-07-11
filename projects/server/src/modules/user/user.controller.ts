@@ -1,18 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { BaseController, FindAllDto, FindPageDto, ResponseBooleanDto, ResponseDto } from '@/base';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import {
-  CreateUserDto,
-  UpdateUserDto,
-  FindUserDto,
-  ResponseCreateUserDto,
-  ResponseFindUserDto,
-  ResponseFindPageUserDto,
-} from './user.dto';
+import { BaseController, FindAllDto, FindPageDto, ResponseDto, ResponseFindPageData } from '@/base';
+import { ApiExtraModels, ApiOkResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
+import { CreateUserDto, UpdateUserDto, FindUserDto } from './user.dto';
 @ApiTags('User')
 @Controller('user')
+@ApiExtraModels(ResponseDto)
+@ApiExtraModels(ResponseFindPageData)
+@ApiExtraModels(FindUserDto)
 export class UserController extends BaseController {
   constructor(private readonly service: UserService) {
     super();
@@ -30,24 +26,68 @@ export class UserController extends BaseController {
     });
   }
   @ApiOkResponse({
-    type: ResponseCreateUserDto,
-    description: '创建模型',
+    description: '创建',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              $ref: getSchemaPath(CreateUserDto),
+            },
+          },
+        },
+      ],
+    },
   })
   @Post()
   async create(@Body() dto: CreateUserDto): Promise<ResponseDto<User>> {
     return this.responseClient(this.service.create(dto));
   }
   @ApiOkResponse({
-    type: ResponseFindUserDto,
-    description: '查找模型',
+    description: '全部查找',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              type: 'array',
+              items: { $ref: getSchemaPath(FindUserDto) },
+            },
+          },
+        },
+      ],
+    },
   })
-  @Get()
+  @Get('list')
   async findAll(@Body() dto: FindAllDto<FindUserDto>): Promise<ResponseDto<User[]>> {
     return this.responseClient(this.service.findAll(dto));
   }
   @ApiOkResponse({
-    type: ResponseFindPageUserDto,
-    description: '分页查找模型',
+    description: '分页查找',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              allOf: [
+                { $ref: getSchemaPath(ResponseFindPageData) },
+                {
+                  properties: {
+                    data: {
+                      type: 'array',
+                      items: { $ref: getSchemaPath(FindUserDto) },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      ],
+    },
   })
   @Get('page')
   async findPage(@Body() dto: FindPageDto<FindUserDto>): Promise<
@@ -59,19 +99,45 @@ export class UserController extends BaseController {
     return this.responseClient(this.service.findPage(dto));
   }
   @ApiOkResponse({
-    type: ResponseBooleanDto,
-    description: '更新模型',
+    description: '更新',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              type: 'boolean',
+            },
+          },
+        },
+      ],
+    },
   })
   @Patch(':id')
   async update(
     @Param() { id }: { id: string },
     @Body() model: UpdateUserDto
   ): Promise<ResponseDto<void>> {
-    return this.responseClient(this.service.update(id, model).then(() => {}));
+    return this.responseClient(
+      this.service.update(id, model).then(res => {
+        console.log(res);
+      })
+    );
   }
   @ApiOkResponse({
-    type: ResponseBooleanDto,
-    description: '删除数据',
+    description: '删除',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              type: 'boolean',
+            },
+          },
+        },
+      ],
+    },
   })
   @Delete()
   async remove(@Body() ids: string[]): Promise<ResponseDto<number>> {
@@ -79,9 +145,21 @@ export class UserController extends BaseController {
       this.service.remove(ids).then(({ deletedCount }) => deletedCount ?? 0)
     );
   }
+
   @ApiOkResponse({
-    type: ResponseBooleanDto,
-    description: '清空表',
+    description: '清空',
+    schema: {
+      allOf: [
+        { $ref: getSchemaPath(ResponseDto) },
+        {
+          properties: {
+            data: {
+              type: 'boolean',
+            },
+          },
+        },
+      ],
+    },
   })
   @Delete('clear')
   async clear(): Promise<ResponseDto<number>> {

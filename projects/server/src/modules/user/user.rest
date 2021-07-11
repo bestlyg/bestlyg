@@ -1,0 +1,4 @@
+@url=http://localhost:10000
+
+###
+GET  {{url}}/api/user/list

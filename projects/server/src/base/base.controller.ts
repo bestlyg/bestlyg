@@ -15,6 +15,7 @@ export class BaseController {
           } as ResponseDto<T>)
       )
       .catch(err => {
+        console.log(err);
         const code = isNumber(err) ? (err as Code) : Code.UNKNOW;
         return {
           success: false,

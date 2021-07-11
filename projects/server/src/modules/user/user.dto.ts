@@ -1,4 +1,3 @@
-import { ResponseDto, ResponseFindPageData } from '@/base';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class BaseUserDto {
@@ -22,10 +21,6 @@ export class BaseUserDto {
   readonly time: Date;
 }
 export class CreateUserDto extends BaseUserDto {}
-export class ResponseCreateUserDto extends ResponseDto<CreateUserDto> {
-  @ApiProperty({ type: CreateUserDto })
-  data: CreateUserDto;
-}
 export class UpdateUserDto extends PartialType(BaseUserDto) {}
 export class FindUserDto extends BaseUserDto {
   /**
@@ -34,16 +29,4 @@ export class FindUserDto extends BaseUserDto {
    */
   @ApiProperty({ description: '唯一标识符' })
   readonly _id: string;
-}
-export class ResponseFindUserDto extends ResponseDto<FindUserDto[]> {
-  @ApiProperty({ type: [FindUserDto] })
-  data: FindUserDto[];
-}
-export class ResponseFindPageUserData extends ResponseFindPageData<FindUserDto> {
-  @ApiProperty({ type: [FindUserDto] })
-  data: FindUserDto[];
-}
-export class ResponseFindPageUserDto extends ResponseDto<ResponseFindPageUserData> {
-  @ApiProperty({ type: [ResponseFindPageUserData] })
-  data: ResponseFindPageUserData;
 }
