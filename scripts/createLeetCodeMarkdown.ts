@@ -26,47 +26,30 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '981. 基于时间的键值存储',
-  url: 'https://leetcode-cn.com/problems/time-based-key-value-store/',
+  name: '274. H 指数',
+  url: 'https://leetcode-cn.com/problems/h-index/',
   difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.哈希表, Tag.字符串, Tag.二分查找],
-  desc: '创建一个基于时间的键值存储类 TimeMap',
+  tag: [Tag.数组, Tag.计数排序, Tag.排序],
+  desc: '给定一位研究者论文被引用次数的数组（被引用次数是非负整数）。编写一个方法，计算出研究者的 h 指数。',
   solutions: [
     {
       script: Script.TS,
-      time: 412,
-      memory: 77.1,
-      desc: '利用map储存所有值',
-      code: `class TimeMap {
-        private map: Record<string, [string, number][]> = {};
-        set(key: string, value: string, timestamp: number): void {
-          let list = this.map[key];
-          if (!list) this.map[key] = list = [];
-          list.push([value, timestamp]);
+      time: 64,
+      memory: 40.5,
+      desc: '计数排序，储存每个数出现的次数',
+      code: `function hIndex(citations: number[]): number {
+        if (citations.every(v => v === 0)) return 0;
+        const max = Math.max(...citations);
+        const arr = new Array(max + 1).fill(0);
+        citations.forEach(num => arr[num]++);
+        let sum = 0;
+        let ans = 0;
+        for (let num = max; num >= 0; num--) {
+          const count = arr[num];
+          if (count === 0) continue;
+          ans = Math.max(ans, Math.min((sum += count), num));
         }
-        get(key: string, timestamp: number): string {
-          return this.find(this.map[key] ?? [], timestamp);
-        }
-        private find(
-          list: [string, number][],
-          timestamp: number,
-          first = 0,
-          last = list.length - 1
-        ): string {
-          if (first > last) {
-            while (first > list.length - 1) first--;
-            while (first >= 0) {
-              if (list[first][1] < timestamp) return list[first][0];
-              first--;
-            }
-            return '';
-          }
-          const mid = (first + last) >> 1;
-          const [midStr, midTime] = list[mid];
-          if (midTime > timestamp) return this.find(list, timestamp, first, mid - 1);
-          else if (midTime < timestamp) return this.find(list, timestamp, mid + 1, last);
-          else return midStr;
-        }
+        return ans;
       }`,
     },
   ],

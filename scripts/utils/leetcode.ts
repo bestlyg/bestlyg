@@ -48,6 +48,7 @@ export enum Tag {
   堆_优先队列 = '堆(优先队列)',
   有序集合 = '有序集合',
   前缀和 = '前缀和',
+  计数排序 = '计数排序',
 }
 export enum Script {
   JS = 'javascript',

@@ -10,39 +10,18 @@ type Heap = structures.Heap;
 /*
 
  */
-class TimeMap {
-  private map: Record<string, [string, number][]> = {};
-  set(key: string, value: string, timestamp: number): void {
-    let list = this.map[key];
-    if (!list) this.map[key] = list = [];
-    list.push([value, timestamp]);
+function hIndex(citations: number[]): number {
+  if (citations.every(v => v === 0)) return 0;
+  const max = Math.max(...citations);
+  const arr = new Array(max + 1).fill(0);
+  citations.forEach(num => arr[num]++);
+  let sum = 0;
+  let ans = 0;
+  for (let num = max; num >= 0; num--) {
+    const count = arr[num];
+    if (count === 0) continue;
+    ans = Math.max(ans, Math.min((sum += count), num));
   }
-  get(key: string, timestamp: number): string {
-    return this.find(this.map[key] ?? [], timestamp);
-  }
-  private find(
-    list: [string, number][],
-    timestamp: number,
-    first = 0,
-    last = list.length - 1
-  ): string {
-    console.log(list, timestamp, first, last);
-    if (first > last) {
-      while (first > list.length - 1) first--;
-      while (first >= 0) {
-        if (list[first][1] < timestamp) return list[first][0];
-        first--;
-      }
-      return '';
-    }
-    const mid = (first + last) >> 1;
-    const [midStr, midTime] = list[mid];
-    if (midTime > timestamp) return this.find(list, timestamp, first, mid - 1);
-    else if (midTime < timestamp) return this.find(list, timestamp, mid + 1, last);
-    else return midStr;
-  }
+  return ans;
 }
-const map = new TimeMap();
-map.set('foo', 'bar', 1);
-console.log(map.get('foo', 1));
-console.log(map.get('foo', 3));
+console.log(hIndex([2, 2, 2]));
