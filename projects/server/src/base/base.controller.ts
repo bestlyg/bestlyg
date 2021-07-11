@@ -3,7 +3,7 @@ import { isNumber } from 'lodash';
 import { ResponseDto } from './base.dto';
 
 export class BaseController {
-  protected responseClient<T>(promise: Promise<T>): Promise<ResponseDto<T>> {
+  protected async responseClient<T>(promise: Promise<T>): Promise<ResponseDto<T>> {
     return promise
       .then(
         data =>
