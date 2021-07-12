@@ -2,9 +2,9 @@ import { View, Text } from '@tarojs/components';
 import { AtButton } from 'taro-ui';
 import React from 'react';
 import { useStore, rootKey } from '@/store';
-import './index.scss';
+import './Home.scss';
 
-export default function Index() {
+export default function Home() {
   const [{ counter, person }, dispatch] = useStore();
   return (
     <View className="index">

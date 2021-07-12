@@ -1285,6 +1285,13 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@tarojs/api@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/api/download/@tarojs/api-3.0.8.tgz?cache=0&sync_timestamp=1626068918796&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Fapi%2Fdownload%2F%40tarojs%2Fapi-3.0.8.tgz#45d74ebe32221e533ccc7edab22e5a491679af14"
+  integrity sha1-RddOvjIiHlM8zH7asi5aSRZ5rxQ=
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
+
 "@tarojs/api@3.2.14":
   version "3.2.14"
   resolved "https://registry.nlark.com/@tarojs/api/download/@tarojs/api-3.2.14.tgz?cache=0&sync_timestamp=1625584200563&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Fapi%2Fdownload%2F%40tarojs%2Fapi-3.2.14.tgz#e01bb5dc3810f8d4f9f491470757ba891dd7fa5f"
@@ -1533,6 +1540,15 @@
     "@tarojs/service" "3.2.14"
     "@tarojs/shared" "3.2.14"
 
+"@tarojs/react@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/react/download/@tarojs/react-3.0.8.tgz?cache=0&sync_timestamp=1626070194497&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Freact%2Fdownload%2F%40tarojs%2Freact-3.0.8.tgz#bf2d1e916b7adc0b012949a63d98ab3806963b10"
+  integrity sha1-vy0ekWt63AsBKUmmPZirOAaWOxA=
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
+    react-reconciler "^0.23.0"
+    scheduler "^0.17.0"
+
 "@tarojs/react@3.2.14":
   version "3.2.14"
   resolved "https://registry.nlark.com/@tarojs/react/download/@tarojs/react-3.2.14.tgz#95bbf3205ef05897e2a386bcf4c755167dde1700"
@@ -1542,6 +1558,16 @@
     "@tarojs/shared" "3.2.14"
     react-reconciler "0.25.1"
     scheduler "^0.17.0"
+
+"@tarojs/router@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/router/download/@tarojs/router-3.0.8.tgz?cache=0&sync_timestamp=1626068919479&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Frouter%2Fdownload%2F%40tarojs%2Frouter-3.0.8.tgz#65d52f6c4b77c03d45dedcd6d6fcd9ccb4c5d8cd"
+  integrity sha1-ZdUvbEt3wD1F3tzW1vzZzLTF2M0=
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
+    history "^4.10.1"
+    universal-router "^8.3.0"
+    url-parse "^1.4.7"
 
 "@tarojs/router@3.2.14":
   version "3.2.14"
@@ -1561,6 +1587,11 @@
   dependencies:
     "@tarojs/helper" "3.2.14"
     scss-bundle "^3.0.2"
+
+"@tarojs/runtime@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/runtime/download/@tarojs/runtime-3.0.8.tgz?cache=0&sync_timestamp=1626068918226&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Fruntime%2Fdownload%2F%40tarojs%2Fruntime-3.0.8.tgz#f21dddb09299ea57a0475e34ddc1ba995c910749"
+  integrity sha1-8h3dsJKZ6legR1403cG6mVyRB0k=
 
 "@tarojs/runtime@3.2.14":
   version "3.2.14"
@@ -1589,6 +1620,21 @@
   resolved "https://registry.nlark.com/@tarojs/shared/download/@tarojs/shared-3.2.14.tgz?cache=0&sync_timestamp=1625584198517&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Fshared%2Fdownload%2F%40tarojs%2Fshared-3.2.14.tgz#0a5195a3f5859dab43f773ec63dd80e25e555004"
   integrity sha1-ClGVo/WFnatD93PsY92A4l5VUAQ=
 
+"@tarojs/taro-h5@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/taro-h5/download/@tarojs/taro-h5-3.0.8.tgz?cache=0&sync_timestamp=1626068921971&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Ftaro-h5%2Fdownload%2F%40tarojs%2Ftaro-h5-3.0.8.tgz#d8ddc5b34b1ce2452369b7da650f24e5762a254a"
+  integrity sha1-2N3Fs0sc4kUjabfaZQ8k5XYqJUo=
+  dependencies:
+    "@tarojs/api" "3.0.8"
+    "@tarojs/router" "3.0.8"
+    "@tarojs/runtime" "3.0.8"
+    base64-js "^1.3.0"
+    jsonp-retry "^1.0.3"
+    mobile-detect "^1.4.2"
+    raf "^3.4.1"
+    unfetch "^4.1.0"
+    whatwg-fetch "^2.0.4"
+
 "@tarojs/taro-h5@3.2.14":
   version "3.2.14"
   resolved "https://registry.nlark.com/@tarojs/taro-h5/download/@tarojs/taro-h5-3.2.14.tgz?cache=0&sync_timestamp=1625584201628&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Ftaro-h5%2Fdownload%2F%40tarojs%2Ftaro-h5-3.2.14.tgz#774dee0013fff85556b7dc40d5281419a3f12c9b"
@@ -1612,6 +1658,14 @@
     acorn "^8.0.4"
     acorn-walk "^8.0.0"
     loader-utils "^1.2.3"
+
+"@tarojs/taro@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.nlark.com/@tarojs/taro/download/@tarojs/taro-3.0.8.tgz?cache=0&sync_timestamp=1626068921193&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tarojs%2Ftaro%2Fdownload%2F%40tarojs%2Ftaro-3.0.8.tgz#cbfa38f7e9f26c7e5b3d18ff3c80c1e1a9053506"
+  integrity sha1-y/o49+nybH5bPRj/PIDB4akFNQY=
+  dependencies:
+    "@tarojs/api" "3.0.8"
+    "@tarojs/taro-h5" "3.0.8"
 
 "@tarojs/taro@3.2.14":
   version "3.2.14"
@@ -5096,6 +5150,16 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts-taro3-react@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.nlark.com/echarts-taro3-react/download/echarts-taro3-react-1.0.13.tgz#afbbac50349bf7861666db99b545bf25cb098060"
+  integrity sha1-r7usUDSb94YWZtuZtUW/JcsJgGA=
+  dependencies:
+    "@tarojs/react" "3.0.8"
+    "@tarojs/taro" "3.0.8"
+    react "^16.10.0"
+    react-dom "^16.10.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -10914,6 +10978,16 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-dom@^16.10.0:
+  version "16.14.0"
+  resolved "https://registry.nlark.com/react-dom/download/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha1-etg47Cmnd/s8dcOhkPZhz5Kri4k=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
+
 react-dom@^17.0.0:
   version "17.0.2"
   resolved "https://registry.nlark.com/react-dom/download/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -10938,6 +11012,16 @@ react-reconciler@0.25.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-reconciler@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.nlark.com/react-reconciler/download/react-reconciler-0.23.0.tgz?cache=0&sync_timestamp=1625848889514&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-reconciler%2Fdownload%2Freact-reconciler-0.23.0.tgz#5f0bfc35dda030b0220c07de11f93131c5d6db63"
+  integrity sha1-Xwv8Nd2gMLAiDAfeEfkxMcXW22M=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.17.0"
+
 react-redux@^7.2.4:
   version "7.2.4"
   resolved "https://registry.nlark.com/react-redux/download/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
@@ -10959,6 +11043,15 @@ react-refresh@^0.4.0:
   version "0.4.3"
   resolved "https://registry.nlark.com/react-refresh/download/react-refresh-0.4.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-refresh%2Fdownload%2Freact-refresh-0.4.3.tgz#966f1750c191672e76e16c2efa569150cc73ab53"
   integrity sha1-lm8XUMGRZy524Wwu+laRUMxzq1M=
+
+react@^16.10.0:
+  version "16.14.0"
+  resolved "https://registry.nlark.com/react/download/react-16.14.0.tgz?cache=0&sync_timestamp=1625847477855&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact%2Fdownload%2Freact-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha1-lNd23dCqo32j7aj8W2sYpMmjEU0=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 react@^17.0.0:
   version "17.0.2"
@@ -13325,6 +13418,11 @@ unescape-js@^1.1.1:
   dependencies:
     string.fromcodepoint "^0.2.1"
 
+unfetch@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.npm.taobao.org/unfetch/download/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
+  integrity sha1-fiGw7302PY2a8PuSmlVV9u+Xo74=
+
 unherit@^1.0.4:
   version "1.1.3"
   resolved "https://registry.npm.taobao.org/unherit/download/unherit-1.1.3.tgz#6c9b503f2b41b262330c80e91c8614abdaa69c22"
@@ -14017,6 +14115,11 @@ whatwg-fetch@>=0.10.0, whatwg-fetch@^3.4.0:
   version "3.6.2"
   resolved "https://registry.nlark.com/whatwg-fetch/download/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha1-3O0k838mJO0CgXJdUdDi4/5nf4w=
+
+whatwg-fetch@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.nlark.com/whatwg-fetch/download/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
+  integrity sha1-3eal3zFfnTmZGqF2IYU9cguFVm8=
 
 whatwg-mimetype@^2.2.0, whatwg-mimetype@^2.3.0:
   version "2.3.0"
