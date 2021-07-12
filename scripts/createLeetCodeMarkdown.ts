@@ -26,20 +26,21 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '274. H 指数',
-  url: 'https://leetcode-cn.com/problems/h-index/',
+  name: '275. H 指数 II',
+  url: 'https://leetcode-cn.com/problems/h-index-ii/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.计数排序, Tag.排序],
-  desc: '给定一位研究者论文被引用次数的数组（被引用次数是非负整数）。编写一个方法，计算出研究者的 h 指数。',
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '给定一位研究者论文被引用次数的数组（被引用次数是非负整数），数组已经按照 升序排列 。编写一个方法，计算出研究者的 h 指数。',
   solutions: [
     {
       script: Script.TS,
-      time: 64,
-      memory: 40.5,
-      desc: '计数排序，储存每个数出现的次数',
+      time: 68,
+      memory: 42.7,
+      desc: '直接求出最大值',
       code: `function hIndex(citations: number[]): number {
         if (citations.every(v => v === 0)) return 0;
-        const max = Math.max(...citations);
+        const len = citations.length;
+        const max = citations[len - 1];
         const arr = new Array(max + 1).fill(0);
         citations.forEach(num => arr[num]++);
         let sum = 0;
@@ -50,6 +51,23 @@ const md: Markdown = {
           ans = Math.max(ans, Math.min((sum += count), num));
         }
         return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 80,
+      memory: 42.7,
+      desc: '二分查找',
+      code: `function hIndex(citations: number[]): number {
+        const len = citations.length;
+        let left = 0;
+        let right = len - 1;
+        while (left <= right) {
+          const mid = (left + right) >> 1;
+          if (citations[mid] >= len - mid) right = mid - 1;
+          else left = mid + 1;
+        }
+        return len - left;
       }`,
     },
   ],
