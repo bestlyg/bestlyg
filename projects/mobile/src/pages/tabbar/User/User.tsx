@@ -1,7 +1,13 @@
 import { View } from '@tarojs/components';
-import React from 'react';
+import React, { useMemo } from 'react';
+import Taro from '@tarojs/taro';
+import { Nav } from '@/components';
 import './User.scss';
 
 export default function User() {
-  return <View>4</View>;
+  return (
+    <View>
+      <Nav title="标题" />
+    </View>
+  );
 }
