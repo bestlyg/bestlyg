@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '服务',
+  navigationBarTitleText: '用户',
 };

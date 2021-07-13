@@ -1,9 +1,27 @@
+@import '~taro-ui/dist/style/components/icon.scss';
 .container {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
   width: 100%;
   z-index: 99;
+  box-sizing: border-box;
 }
 .title {
-  color: #000000;
   font-size: 32px;
+}
+.left {
+  justify-content: flex-start !important;
+  flex: 1;
+}
+.center {
+  flex: 3;
+}
+.right {
+  justify-content: flex-end !important;
+  flex: 1;
+}
+.back {
+  margin-right: 10px;
 }

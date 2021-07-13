@@ -1,13 +1,21 @@
 import { View } from '@tarojs/components';
-import React, { useMemo } from 'react';
-import Taro from '@tarojs/taro';
+import React from 'react';
 import { Nav } from '@/components';
 import './User.scss';
 
 export default function User() {
   return (
     <View>
-      <Nav title="标题" />
+      <Nav
+        title="用户"
+        titleColor="#ffffff"
+        titleAlign="center"
+        onBack={() => {
+          console.log('back');
+        }}
+        backVisible
+        backColor="#ffffff"
+      />
     </View>
   );
 }

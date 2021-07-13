@@ -11,3 +11,5 @@ export const ASYNC = Promise.resolve();
 
 /** 正则 手机号 */
 export const REG_PHONE = /^1([358][0-9]|4[579]|66|7[0135678]|9[189])\d{8}$/;
+
+export const NOOP = function noop() {};
