@@ -49,6 +49,8 @@ export enum Tag {
   有序集合 = '有序集合',
   前缀和 = '前缀和',
   计数排序 = '计数排序',
+  分治 = '分治',
+  扫描线 = '扫描线',
 }
 export enum Script {
   JS = 'javascript',

@@ -10,15 +10,31 @@ type Heap = structures.Heap;
 /*
 
  */
-function hIndex(citations: number[]): number {
-  const len = citations.length;
-  let left = 0;
-  let right = len - 1;
-  while (left <= right) {
-    const mid = (left + right) >> 1;
-    if (citations[mid] >= len - mid) right = mid - 1;
-    else left = mid + 1;
+function getSkyline(buildings: number[][]): number[][] {
+  const list: [number, number][] = [];
+  buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));
+  list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));
+  const heights: number[] = [0];
+  const remove = (h: number) => {
+    for (let i = 0, l = heights.length; i < l; i++)
+      if (heights[i] === h) {
+        heights.splice(i, 1);
+        return;
+      }
+  };
+  let ans: number[][] = [];
+  let preH: number | null = null;
+  for (const [idx, h] of list) {
+    if (h < 0) heights.push(-h);
+    else remove(h);
+    let maxH = Math.max(...heights);
+    if (preH !== maxH) ans.push([idx, (preH = maxH)]);
   }
-  return len - left;
+  return ans;
 }
-console.log(hIndex([2, 2, 2]));
+console.log(
+  getSkyline([
+    [0, 2, 3],
+    [2, 5, 3],
+  ])
+);

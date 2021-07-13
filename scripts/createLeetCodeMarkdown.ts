@@ -26,48 +26,41 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '275. H 指数 II',
-  url: 'https://leetcode-cn.com/problems/h-index-ii/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '给定一位研究者论文被引用次数的数组（被引用次数是非负整数），数组已经按照 升序排列 。编写一个方法，计算出研究者的 h 指数。',
+  name: '218. 天际线问题',
+  url: 'https://leetcode-cn.com/problems/the-skyline-problem/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.树状数组, Tag.线段树, Tag.数组, Tag.分治, Tag.有序集合, Tag.扫描线, Tag.堆_优先队列],
+  desc: '城市的天际线是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回由这些建筑物形成的 天际线 。',
   solutions: [
     {
       script: Script.TS,
-      time: 68,
-      memory: 42.7,
-      desc: '直接求出最大值',
-      code: `function hIndex(citations: number[]): number {
-        if (citations.every(v => v === 0)) return 0;
-        const len = citations.length;
-        const max = citations[len - 1];
-        const arr = new Array(max + 1).fill(0);
-        citations.forEach(num => arr[num]++);
-        let sum = 0;
-        let ans = 0;
-        for (let num = max; num >= 0; num--) {
-          const count = arr[num];
-          if (count === 0) continue;
-          ans = Math.max(ans, Math.min((sum += count), num));
+      time: 392,
+      memory: 46.2,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/the-skyline-problem/solution/js-sao-miao-xian-fa-jian-dan-yi-dong-by-fleetingso/'
+      ),
+      code: `function getSkyline(buildings: number[][]): number[][] {
+        const list: [number, number][] = [];
+        buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));
+        list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));
+        const heights: number[] = [0];
+        const remove = (h: number) => {
+          for (let i = 0, l = heights.length; i < l; i++)
+            if (heights[i] === h) {
+              heights.splice(i, 1);
+              return;
+            }
+        };
+        let ans: number[][] = [];
+        let preH: number | null = null;
+        for (const [idx, h] of list) {
+          if (h < 0) heights.push(-h);
+          else remove(h);
+          let maxH = Math.max(...heights);
+          if (preH !== maxH) ans.push([idx, (preH = maxH)]);
         }
         return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 80,
-      memory: 42.7,
-      desc: '二分查找',
-      code: `function hIndex(citations: number[]): number {
-        const len = citations.length;
-        let left = 0;
-        let right = len - 1;
-        while (left <= right) {
-          const mid = (left + right) >> 1;
-          if (citations[mid] >= len - mid) right = mid - 1;
-          else left = mid + 1;
-        }
-        return len - left;
       }`,
     },
   ],
