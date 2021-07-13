@@ -9,7 +9,7 @@ function main() {
   console.log(chalk.blue(`开始部署`));
   shelljs.cd(deployRootPath);
   [
-    Git.pull,
+    Git.pull(),
     Git.addAll,
     Git.commit(
       `${moment().format('YYYY.MM.DD')} 更新 文档、${packageConfigs

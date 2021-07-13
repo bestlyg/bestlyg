@@ -2,11 +2,13 @@ abstract class ShellScript {}
 
 export class Git extends ShellScript {
   static addAll = 'git add -A';
-  static pull = 'git pull';
   static push = 'git push';
   static fetch = 'git fetch';
   static commit(msg: string) {
     return `git commit -m "${msg}"`;
+  }
+  static pull(src: string = 'master') {
+    return `git pull origin ${src}`;
   }
 }
 export class Yarn extends ShellScript {
