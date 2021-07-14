@@ -26,41 +26,45 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '218. 天际线问题',
-  url: 'https://leetcode-cn.com/problems/the-skyline-problem/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.树状数组, Tag.线段树, Tag.数组, Tag.分治, Tag.有序集合, Tag.扫描线, Tag.堆_优先队列],
-  desc: '城市的天际线是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回由这些建筑物形成的 天际线 。',
+  name: '1818. 绝对差值和',
+  url: 'https://leetcode-cn.com/problems/minimum-absolute-sum-difference/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.有序集合, Tag.贪心, Tag.二分查找],
+  desc: '给你两个正整数数组 nums1 和 nums2 ，数组的长度都是 n 。在替换数组 nums1 中最多一个元素 之后 ，返回最小绝对差值和',
   solutions: [
     {
       script: Script.TS,
-      time: 392,
-      memory: 46.2,
-      desc: markdown.link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/the-skyline-problem/solution/js-sao-miao-xian-fa-jian-dan-yi-dong-by-fleetingso/'
-      ),
-      code: `function getSkyline(buildings: number[][]): number[][] {
-        const list: [number, number][] = [];
-        buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));
-        list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));
-        const heights: number[] = [0];
-        const remove = (h: number) => {
-          for (let i = 0, l = heights.length; i < l; i++)
-            if (heights[i] === h) {
-              heights.splice(i, 1);
-              return;
+      time: 224,
+      memory: 55.9,
+      desc: '对每一位进行查找最近值',
+      code: `function minAbsoluteSumDiff(nums1: number[], nums2: number[]): number {
+        const len = nums1.length;
+        const nums: number[] = new Array(len).fill(0).map((_, i) => Math.abs(nums1[i] - nums2[i]));
+        nums1.sort((a, b) => a - b);
+        const sum = nums.reduce((total, cur) => total + cur, 0);
+        let ans = sum;
+        for (let i = 0; i < len; i++) ans = Math.min(ans, sum - nums[i] + findMin(i));
+        return ans % (10 ** 9 + 7);
+        function findMin(index: number): number {
+          const num2 = nums2[index];
+          let left = 0;
+          let right = len - 1;
+          while (left < right) {
+            const mid = (left + right) >> 1;
+            const midNum = nums1[mid];
+            if (midNum < num2) left = mid + 1;
+            else if (midNum > num2) right = mid - 1;
+            else {
+              left = mid;
+              break;
             }
-        };
-        let ans: number[][] = [];
-        let preH: number | null = null;
-        for (const [idx, h] of list) {
-          if (h < 0) heights.push(-h);
-          else remove(h);
-          let maxH = Math.max(...heights);
-          if (preH !== maxH) ans.push([idx, (preH = maxH)]);
+          }
+          return Math.min(
+            Math.abs(nums1[left] - num2),
+            left > 0 ? Math.abs(nums1[left - 1] - num2) : Infinity,
+            left < len - 1 ? Math.abs(nums1[left + 1] - num2) : Infinity
+          );
         }
-        return ans;
       }`,
     },
   ],

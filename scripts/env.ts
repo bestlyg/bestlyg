@@ -10,31 +10,32 @@ type Heap = structures.Heap;
 /*
 
  */
-function getSkyline(buildings: number[][]): number[][] {
-  const list: [number, number][] = [];
-  buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));
-  list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));
-  const heights: number[] = [0];
-  const remove = (h: number) => {
-    for (let i = 0, l = heights.length; i < l; i++)
-      if (heights[i] === h) {
-        heights.splice(i, 1);
-        return;
+function minAbsoluteSumDiff(nums1: number[], nums2: number[]): number {
+  const len = nums1.length;
+  const nums: number[] = new Array(len).fill(0).map((_, i) => Math.abs(nums1[i] - nums2[i]));
+  nums1.sort((a, b) => a - b);
+  const sum = nums.reduce((total, cur) => total + cur, 0);
+  let ans = sum;
+  for (let i = 0; i < len; i++) ans = Math.min(ans, sum - nums[i] + findMin(i));
+  return ans % (10 ** 9 + 7);
+  function findMin(index: number): number {
+    const num2 = nums2[index];
+    let left = 0;
+    let right = len - 1;
+    while (left < right) {
+      const mid = (left + right) >> 1;
+      const midNum = nums1[mid];
+      if (midNum < num2) left = mid + 1;
+      else if (midNum > num2) right = mid - 1;
+      else {
+        left = mid;
+        break;
       }
-  };
-  let ans: number[][] = [];
-  let preH: number | null = null;
-  for (const [idx, h] of list) {
-    if (h < 0) heights.push(-h);
-    else remove(h);
-    let maxH = Math.max(...heights);
-    if (preH !== maxH) ans.push([idx, (preH = maxH)]);
+    }
+    return Math.min(
+      Math.abs(nums1[left] - num2),
+      left > 0 ? Math.abs(nums1[left - 1] - num2) : Infinity,
+      left < len - 1 ? Math.abs(nums1[left + 1] - num2) : Infinity
+    );
   }
-  return ans;
 }
-console.log(
-  getSkyline([
-    [0, 2, 3],
-    [2, 5, 3],
-  ])
-);
