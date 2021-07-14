@@ -12,6 +12,7 @@ export default defineConfig({
   resolve: {
     includes: [
       'docs',
+      'packages/blogs/src',
       'packages/data-structures/src',
       'packages/algorithms/src',
       'packages/applications/src',
