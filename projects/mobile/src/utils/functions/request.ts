@@ -1,7 +1,7 @@
 import { ResponseData } from '@/models';
 import Taro from '@tarojs/taro';
-import { SERVICE_URL } from './constants';
-import { getStorageSync } from './storage';
+import { SERVICE_URL } from '../constants';
+import { getStorage } from './storage';
 
 export const nativeRequest = async <T extends any = any, U extends any = any>(
   options: Taro.request.Option<any>
@@ -9,7 +9,7 @@ export const nativeRequest = async <T extends any = any, U extends any = any>(
   options.url = SERVICE_URL + options.url;
   let header = options.header;
   if (!header) header = options.header = {};
-  const [token] = getStorageSync(['token']);
+  const [token] = getStorage(['token']);
   if (token && !header['Authorization']) header['Authorization'] = `Bearer ${token}`;
   return Taro.request<T, U>(options).then(
     ({ statusCode, data }) =>

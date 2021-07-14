@@ -4,14 +4,14 @@ export enum Page {
   Service,
   User,
 }
-const PAGES: Record<Page, string> = {
+export const pageUrls: Record<Page, string> = {
   [Page.Home]: 'pages/tabbar/Home/Home',
   [Page.Management]: 'pages/tabbar/Management/Management',
   [Page.Service]: 'pages/tabbar/Service/Service',
   [Page.User]: 'pages/tabbar/User/User',
 };
 export default {
-  pages: Object.values(PAGES),
+  pages: Object.values(pageUrls),
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
@@ -27,7 +27,7 @@ export default {
       { page: Page.Service, title: '服务', img: 'service' },
       { page: Page.User, title: '我的', img: 'user' },
     ].map(({ page, title, img }) => ({
-      pagePath: PAGES[page],
+      pagePath: pageUrls[page],
       text: title,
       iconPath: `assets/tabbar/${img}.png`,
       selectedIconPath: `assets/tabbar/${img}_active.png`,
