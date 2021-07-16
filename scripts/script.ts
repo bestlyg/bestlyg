@@ -10,12 +10,11 @@ type Heap = structures.Heap;
 /*
 
  */
-function maximumElementAfterDecrementingAndRearranging(arr: number[]): number {
-  arr.sort((a, b) => a - b);
-  arr[0] = 1;
-  const len = arr.length;
-  let ans = 1;
-  for (let i = 1; i < len; i++) ans = Math.max(ans, (arr[i] = Math.min(arr[i - 1] + 1, arr[i])));
-  return ans;
+function search(nums: number[], target: number): number {
+  return (
+    nums.reduce<Record<number, number>>((record, cur) => {
+      record[cur] = (record[cur] ?? 0) + 1;
+      return record;
+    }, {})[target] ?? 0
+  );
 }
-console.log(maximumElementAfterDecrementingAndRearranging([100, 1, 1000]));

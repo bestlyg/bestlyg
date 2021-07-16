@@ -26,24 +26,24 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1846. 减小和重新排列数组后的最大元素',
-  url: 'https://leetcode-cn.com/problems/maximum-element-after-decreasing-and-rearranging/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.排序, Tag.贪心],
-  desc: '给你一个正整数数组 arr ，请你返回执行以上操作后，在满足前文所述的条件下，arr 中可能的 最大值 。',
+  name: '剑指 Offer 53 - I. 在排序数组中查找数字 I',
+  url: 'https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '统计一个数字在排序数组中出现的次数。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 47.6,
-      desc: '贪心',
-      code: `function maximumElementAfterDecrementingAndRearranging(arr: number[]): number {
-        arr.sort((a, b) => a - b);
-        arr[0] = 1;
-        const len = arr.length;
-        let ans = 1;
-        for (let i = 1; i < len; i++) ans = Math.max(ans, (arr[i] = Math.min(arr[i - 1] + 1, arr[i])));
-        return ans;
+      time: 84,
+      memory: 40.8,
+      desc: '哈希储存',
+      code: `function search(nums: number[], target: number): number {
+        return (
+          nums.reduce<Record<number, number>>((record, cur) => {
+            record[cur] = (record[cur] ?? 0) + 1;
+            return record;
+          }, {})[target] ?? 0
+        );
       }`,
     },
   ],
