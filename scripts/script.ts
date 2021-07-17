@@ -10,11 +10,17 @@ type Heap = structures.Heap;
 /*
 
  */
-function search(nums: number[], target: number): number {
-  return (
-    nums.reduce<Record<number, number>>((record, cur) => {
-      record[cur] = (record[cur] ?? 0) + 1;
-      return record;
-    }, {})[target] ?? 0
-  );
+function maxSubArray(nums: number[]): number {
+  let num = 0;
+  const len = nums.length;
+  const sums = [0, ...nums.map(v => (num += v))];
+  let min = 0;
+  let ans = -Infinity;
+  for (let i = 0; i < len; i++) {
+    const sum = sums[i + 1];
+    ans = Math.max(ans, sum - min, nums[i]);
+    min = Math.min(min, sum);
+  }
+  return ans;
 }
+console.log(maxSubArray([-1]));

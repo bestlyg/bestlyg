@@ -25,25 +25,52 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: false,
-  name: '剑指 Offer 53 - I. 在排序数组中查找数字 I',
-  url: 'https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/',
+  existMarkdown: true,
+  name: '53. 最大子序和',
+  url: 'https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '统计一个数字在排序数组中出现的次数。',
+  tag: [Tag.数组, Tag.分治, Tag.动态规划],
+  desc: '输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 40.8,
-      desc: '哈希储存',
-      code: `function search(nums: number[], target: number): number {
-        return (
-          nums.reduce<Record<number, number>>((record, cur) => {
-            record[cur] = (record[cur] ?? 0) + 1;
-            return record;
-          }, {})[target] ?? 0
-        );
+      time: 4620,
+      memory: 46.1,
+      desc: '前缀和',
+      code: `function maxSubArray(nums: number[]): number {
+        let num = 0;
+        const len = nums.length;
+        const sums = [0, ...nums.map(v => (num += v))];
+        let ans =-Infinity;
+        for (let i = 0; i < len; i++) {
+          ans = Math.max(ans, nums[i]);
+          const sum = sums[i + 1];
+          for (let j = 0; j < i; j++) {
+            const num = sum - sums[j];
+            ans = Math.max(ans, num);
+          }
+        }
+        return ans;
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 88,
+      memory: 47.6,
+      desc: '前缀和',
+      code: `function maxSubArray(nums: number[]): number {
+        let num = 0;
+        const len = nums.length;
+        const sums = [0, ...nums.map(v => (num += v))];
+        let min = 0;
+        let ans = -Infinity;
+        for (let i = 0; i < len; i++) {
+          const sum = sums[i + 1];
+          ans = Math.max(ans, sum - min, nums[i]);
+          min = Math.min(min, sum);
+        }
+        return ans;
       }`,
     },
   ],
