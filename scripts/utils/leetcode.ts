@@ -51,6 +51,8 @@ export enum Tag {
   计数排序 = '计数排序',
   分治 = '分治',
   扫描线 = '扫描线',
+  数据流 = '数据流',
+  单调栈 = '单调栈',
 }
 export enum Script {
   JS = 'javascript',

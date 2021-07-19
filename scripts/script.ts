@@ -10,21 +10,21 @@ type Heap = structures.Heap;
 /*
 
  */
-function groupAnagrams(strs: string[]): string[][] {
-  const map: Record<string, string[]> = {};
-  const getKey = (str: string) => {
-    const cache: Record<string, number> = {};
-    for (const c of str) cache[c] = (cache[c] ?? 0) + 1;
-    return Object.entries(cache)
-      .sort(([k1], [k2]) => k1.codePointAt(0)! - k2.codePointAt(0)!)
-      .map(([k, v]) => k + v)
-      .join(':');
-  };
-  for (const str of strs) {
-    const key = getKey(str);
-    let arr = map[key];
-    if (!arr) map[key] = arr = [];
-    arr.push(str);
+class StockSpanner {
+  private arr: number[] = [];
+  private stack: number[] = [];
+  next(price: number): number {
+    const i = this.arr.length;
+    this.arr.push(price);
+    while (this.stack.length && price > this.arr[this.stack[this.stack.length - 1]])
+      this.stack.pop()!;
+    const ans = i - (this.stack[this.stack.length - 1] ?? -1);
+    this.stack.push(i);
+    return ans;
   }
-  return Object.values(map);
 }
+const s = new StockSpanner();
+console.log(s.next(100));
+console.log(s.next(80));
+console.log(s.next(60));
+console.log(s.next(70));

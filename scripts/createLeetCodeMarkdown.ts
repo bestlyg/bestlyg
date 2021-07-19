@@ -26,36 +26,30 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '面试题 10.02. 变位词组',
-  url: 'https://leetcode-cn.com/problems/group-anagrams-lcci/',
+  name: '901. 股票价格跨度',
+  url: 'https://leetcode-cn.com/problems/online-stock-span/',
   difficulty: Difficulty.中等,
-  tag: [Tag.哈希表, Tag.字符串, Tag.排序],
-  desc: '编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。',
+  tag: [Tag.栈, Tag.设计, Tag.数据流, Tag.单调栈],
+  desc: '编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。',
   solutions: [
     {
       script: Script.TS,
-      time: 240,
-      memory: 50.6,
-      desc: '哈希储存',
-      code: `function groupAnagrams(strs: string[]): string[][] {
-        const map: Record<string, string[]> = {};
-        const getKey = (str: string) => {
-          const cache: Record<string, number> = {};
-          for (const c of str) cache[c] = (cache[c] ?? 0) + 1;
-          return Object.entries(cache)
-            .sort(([k1], [k2]) => k1.codePointAt(0)! - k2.codePointAt(0)!)
-            .map(([k, v]) => k + v)
-            .join(':');
-        };
-        for (const str of strs) {
-          const key = getKey(str);
-          let arr = map[key];
-          if (!arr) map[key] = arr = [];
-          arr.push(str);
+      time: 372,
+      memory: 48.4,
+      desc: '单调递减栈，寻找前一个比当前值大的值',
+      code: `class StockSpanner {
+        private arr: number[] = [];
+        private stack: number[] = [];
+        next(price: number): number {
+          const i = this.arr.length;
+          this.arr.push(price);
+          while (this.stack.length && price >= this.arr[this.stack[this.stack.length - 1]])
+            this.stack.pop()!;
+          const ans = i - (this.stack[this.stack.length - 1] ?? -1);
+          this.stack.push(i);
+          return ans;
         }
-        return Object.values(map);
-      }
-      `,
+      } `,
     },
   ],
 };
