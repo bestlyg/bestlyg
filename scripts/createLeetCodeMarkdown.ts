@@ -26,30 +26,39 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '901. 股票价格跨度',
-  url: 'https://leetcode-cn.com/problems/online-stock-span/',
+  name: '1856. 子数组最小乘积的最大值',
+  url: 'https://leetcode-cn.com/problems/maximum-subarray-min-product/',
   difficulty: Difficulty.中等,
-  tag: [Tag.栈, Tag.设计, Tag.数据流, Tag.单调栈],
-  desc: '编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。',
+  tag: [Tag.栈, Tag.数组, Tag.前缀和, Tag.单调栈],
+  desc: '给你一个正整数数组 nums ，请你返回 nums 任意 非空子数组 的最小乘积 的 最大值 。',
   solutions: [
     {
       script: Script.TS,
-      time: 372,
-      memory: 48.4,
-      desc: '单调递减栈，寻找前一个比当前值大的值',
-      code: `class StockSpanner {
-        private arr: number[] = [];
-        private stack: number[] = [];
-        next(price: number): number {
-          const i = this.arr.length;
-          this.arr.push(price);
-          while (this.stack.length && price >= this.arr[this.stack[this.stack.length - 1]])
-            this.stack.pop()!;
-          const ans = i - (this.stack[this.stack.length - 1] ?? -1);
-          this.stack.push(i);
-          return ans;
+      time: 352,
+      memory: 67.2,
+      desc: '单调栈，获取两边的最大值，由于js最多表示53位，需要用bigint',
+      code: `function maxSumMinProduct(nums: number[]): number {
+        const n = nums.length;
+        const l = new Array(n).fill(-1);
+        const r = new Array(n).fill(n);
+        const stack: number[] = [];
+        const sums: number[] = [0];
+        let sum = 0;
+        for (let i = 0; i < n; i++) {
+          const num = nums[i];
+          sums.push((sum += num));
+          while (stack.length && nums[stack[stack.length - 1]] >= num) r[stack.pop()!] = i;
+          if (stack.length) l[i] = stack[stack.length - 1];
+          stack.push(i);
         }
-      } `,
+        let ans = 0n;
+        for (let i = 0; i < n; i++) {
+          const num = (BigInt(sums[r[i]]) - BigInt(sums[l[i] + 1])) * BigInt(nums[i]);
+          ans = ans > num ? ans : num;
+        }
+        ans %= BigInt(10 ** 9 + 7);
+        return Number(ans);
+      }`,
     },
   ],
 };
