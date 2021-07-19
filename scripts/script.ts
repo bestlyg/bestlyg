@@ -10,17 +10,22 @@ type Heap = structures.Heap;
 /*
 
  */
-function maxSubArray(nums: number[]): number {
-  let num = 0;
+function maxFrequency(nums: number[], k: number): number {
+  nums.sort((a, b) => a - b);
   const len = nums.length;
-  const sums = [0, ...nums.map(v => (num += v))];
-  let min = 0;
-  let ans = -Infinity;
-  for (let i = 0; i < len; i++) {
-    const sum = sums[i + 1];
-    ans = Math.max(ans, sum - min, nums[i]);
-    min = Math.min(min, sum);
+  let ans = 1;
+  let right = len - 1;
+  let left = right - 1;
+  while (left >= 0) {
+    const num = nums[right];
+    while (left >= 0) {
+      const v = num - nums[left];
+      if (k < v) break;
+      k -= v;
+      left--;
+    }
+    ans = Math.max(ans, right-- - left);
+    k += (right - left) * (nums[right + 1] - nums[right]);
   }
   return ans;
 }
-console.log(maxSubArray([-1]));

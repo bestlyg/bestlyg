@@ -25,50 +25,34 @@ interface Markdown {
   solutions: Solution[];
 }
 const md: Markdown = {
-  existMarkdown: true,
-  name: '53. 最大子序和',
-  url: 'https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.分治, Tag.动态规划],
-  desc: '输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。',
+  existMarkdown: false,
+  name: '1838. 最高频元素的频数',
+  url: 'https://leetcode-cn.com/problems/frequency-of-the-most-frequent-element/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.二分查找, Tag.前缀和, Tag.滑动窗口],
+  desc: '排序后，从后往前逐个比较',
   solutions: [
     {
       script: Script.TS,
-      time: 4620,
-      memory: 46.1,
+      time: 232,
+      memory: 54,
       desc: '前缀和',
-      code: `function maxSubArray(nums: number[]): number {
-        let num = 0;
+      code: `function maxFrequency(nums: number[], k: number): number {
+        nums.sort((a, b) => a - b);
         const len = nums.length;
-        const sums = [0, ...nums.map(v => (num += v))];
-        let ans =-Infinity;
-        for (let i = 0; i < len; i++) {
-          ans = Math.max(ans, nums[i]);
-          const sum = sums[i + 1];
-          for (let j = 0; j < i; j++) {
-            const num = sum - sums[j];
-            ans = Math.max(ans, num);
+        let ans = 1;
+        let right = len - 1;
+        let left = right - 1;
+        while (left >= 0) {
+          const num = nums[right];
+          while (left >= 0) {
+            const v = num - nums[left];
+            if (k < v) break;
+            k -= v;
+            left--;
           }
-        }
-        return ans;
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 88,
-      memory: 47.6,
-      desc: '前缀和',
-      code: `function maxSubArray(nums: number[]): number {
-        let num = 0;
-        const len = nums.length;
-        const sums = [0, ...nums.map(v => (num += v))];
-        let min = 0;
-        let ans = -Infinity;
-        for (let i = 0; i < len; i++) {
-          const sum = sums[i + 1];
-          ans = Math.max(ans, sum - min, nums[i]);
-          min = Math.min(min, sum);
+          ans = Math.max(ans, right-- - left);
+          k += (right - left) * (nums[right + 1] - nums[right]);
         }
         return ans;
       }`,
