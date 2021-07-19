@@ -10,22 +10,21 @@ type Heap = structures.Heap;
 /*
 
  */
-function maxFrequency(nums: number[], k: number): number {
-  nums.sort((a, b) => a - b);
-  const len = nums.length;
-  let ans = 1;
-  let right = len - 1;
-  let left = right - 1;
-  while (left >= 0) {
-    const num = nums[right];
-    while (left >= 0) {
-      const v = num - nums[left];
-      if (k < v) break;
-      k -= v;
-      left--;
-    }
-    ans = Math.max(ans, right-- - left);
-    k += (right - left) * (nums[right + 1] - nums[right]);
+function groupAnagrams(strs: string[]): string[][] {
+  const map: Record<string, string[]> = {};
+  const getKey = (str: string) => {
+    const cache: Record<string, number> = {};
+    for (const c of str) cache[c] = (cache[c] ?? 0) + 1;
+    return Object.entries(cache)
+      .sort(([k1], [k2]) => k1.codePointAt(0)! - k2.codePointAt(0)!)
+      .map(([k, v]) => k + v)
+      .join(':');
+  };
+  for (const str of strs) {
+    const key = getKey(str);
+    let arr = map[key];
+    if (!arr) map[key] = arr = [];
+    arr.push(str);
   }
-  return ans;
+  return Object.values(map);
 }

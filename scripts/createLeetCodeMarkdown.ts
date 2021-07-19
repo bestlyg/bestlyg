@@ -26,36 +26,36 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1838. 最高频元素的频数',
-  url: 'https://leetcode-cn.com/problems/frequency-of-the-most-frequent-element/',
+  name: '面试题 10.02. 变位词组',
+  url: 'https://leetcode-cn.com/problems/group-anagrams-lcci/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找, Tag.前缀和, Tag.滑动窗口],
-  desc: '排序后，从后往前逐个比较',
+  tag: [Tag.哈希表, Tag.字符串, Tag.排序],
+  desc: '编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。',
   solutions: [
     {
       script: Script.TS,
-      time: 232,
-      memory: 54,
-      desc: '前缀和',
-      code: `function maxFrequency(nums: number[], k: number): number {
-        nums.sort((a, b) => a - b);
-        const len = nums.length;
-        let ans = 1;
-        let right = len - 1;
-        let left = right - 1;
-        while (left >= 0) {
-          const num = nums[right];
-          while (left >= 0) {
-            const v = num - nums[left];
-            if (k < v) break;
-            k -= v;
-            left--;
-          }
-          ans = Math.max(ans, right-- - left);
-          k += (right - left) * (nums[right + 1] - nums[right]);
+      time: 240,
+      memory: 50.6,
+      desc: '哈希储存',
+      code: `function groupAnagrams(strs: string[]): string[][] {
+        const map: Record<string, string[]> = {};
+        const getKey = (str: string) => {
+          const cache: Record<string, number> = {};
+          for (const c of str) cache[c] = (cache[c] ?? 0) + 1;
+          return Object.entries(cache)
+            .sort(([k1], [k2]) => k1.codePointAt(0)! - k2.codePointAt(0)!)
+            .map(([k, v]) => k + v)
+            .join(':');
+        };
+        for (const str of strs) {
+          const key = getKey(str);
+          let arr = map[key];
+          if (!arr) map[key] = arr = [];
+          arr.push(str);
         }
-        return ans;
-      }`,
+        return Object.values(map);
+      }
+      `,
     },
   ],
 };
