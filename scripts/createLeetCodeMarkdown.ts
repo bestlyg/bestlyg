@@ -26,38 +26,24 @@ interface Markdown {
 }
 const md: Markdown = {
   existMarkdown: false,
-  name: '1856. 子数组最小乘积的最大值',
-  url: 'https://leetcode-cn.com/problems/maximum-subarray-min-product/',
+  name: '1877. 数组中最大数对和的最小值',
+  url: 'https://leetcode-cn.com/problems/minimize-maximum-pair-sum-in-array/',
   difficulty: Difficulty.中等,
-  tag: [Tag.栈, Tag.数组, Tag.前缀和, Tag.单调栈],
-  desc: '给你一个正整数数组 nums ，请你返回 nums 任意 非空子数组 的最小乘积 的 最大值 。',
+  tag: [Tag.贪心, Tag.数组, Tag.双指针, Tag.排序],
+  desc: '请你在最优数对划分的方案下，返回最小的 最大数对和 。',
   solutions: [
     {
       script: Script.TS,
-      time: 352,
-      memory: 67.2,
-      desc: '单调栈，获取两边的最大值，由于js最多表示53位，需要用bigint',
-      code: `function maxSumMinProduct(nums: number[]): number {
+      time: 332,
+      memory: 53.2,
+      desc: '贪心，排序后收尾相加',
+      code: `function minPairSum(nums: number[]): number {
         const n = nums.length;
-        const l = new Array(n).fill(-1);
-        const r = new Array(n).fill(n);
-        const stack: number[] = [];
-        const sums: number[] = [0];
-        let sum = 0;
-        for (let i = 0; i < n; i++) {
-          const num = nums[i];
-          sums.push((sum += num));
-          while (stack.length && nums[stack[stack.length - 1]] >= num) r[stack.pop()!] = i;
-          if (stack.length) l[i] = stack[stack.length - 1];
-          stack.push(i);
-        }
-        let ans = 0n;
-        for (let i = 0; i < n; i++) {
-          const num = (BigInt(sums[r[i]]) - BigInt(sums[l[i] + 1])) * BigInt(nums[i]);
-          ans = ans > num ? ans : num;
-        }
-        ans %= BigInt(10 ** 9 + 7);
-        return Number(ans);
+        const arr = new Array(n / 2).fill(0);
+        nums.sort((a, b) => a - b);
+        for (let i = 0; i < n / 2; i++) 
+          arr[i] = nums[i] + nums[n - 1 - i];
+        return Math.max(...arr);
       }`,
     },
   ],
