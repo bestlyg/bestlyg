@@ -1,5 +1,21 @@
 import { resolve, trimBlank } from './fn';
 
+export interface Solution {
+  script: Script;
+  time: number;
+  memory: number;
+  desc: string;
+  code: string;
+}
+export interface Markdown {
+  existMarkdown: boolean;
+  name: string;
+  url: string;
+  desc: string;
+  difficulty: Difficulty;
+  tag: Tag[];
+  solutions: Solution[];
+}
 export enum Difficulty {
   简单 = '简单',
   中等 = '中等',
@@ -53,6 +69,7 @@ export enum Tag {
   扫描线 = '扫描线',
   数据流 = '数据流',
   单调栈 = '单调栈',
+  单调队列 = '单调队列',
 }
 export enum Script {
   JS = 'javascript',

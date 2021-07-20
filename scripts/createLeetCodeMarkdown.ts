@@ -7,44 +7,44 @@ const { Script, Difficulty, Tag, srcPath, solutionReg, getDirOrder, getFileOrder
 type Script = leetcode.Script;
 type Difficulty = leetcode.Difficulty;
 type Tag = leetcode.Tag;
+type Solution = leetcode.Solution;
+type Markdown = leetcode.Markdown;
 
-interface Solution {
-  script: Script;
-  time: number;
-  memory: number;
-  desc: string;
-  code: string;
-}
-interface Markdown {
-  existMarkdown: boolean;
-  name: string;
-  url: string;
-  desc: string;
-  difficulty: Difficulty;
-  tag: Tag[];
-  solutions: Solution[];
-}
 const md: Markdown = {
-  existMarkdown: false,
-  name: '1877. 数组中最大数对和的最小值',
-  url: 'https://leetcode-cn.com/problems/minimize-maximum-pair-sum-in-array/',
+  existMarkdown: !true,
+  name: '剑指 Offer 59 - II. 队列的最大值',
+  url: 'https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/',
   difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.数组, Tag.双指针, Tag.排序],
-  desc: '请你在最优数对划分的方案下，返回最小的 最大数对和 。',
+  tag: [Tag.设计, Tag.队列, Tag.单调队列],
+  desc: '请定义一个队列并实现函数 max_value 得到队列里的最大值',
   solutions: [
     {
       script: Script.TS,
-      time: 332,
-      memory: 53.2,
-      desc: '贪心，排序后收尾相加',
-      code: `function minPairSum(nums: number[]): number {
-        const n = nums.length;
-        const arr = new Array(n / 2).fill(0);
-        nums.sort((a, b) => a - b);
-        for (let i = 0; i < n / 2; i++) 
-          arr[i] = nums[i] + nums[n - 1 - i];
-        return Math.max(...arr);
-      }`,
+      time: 200,
+      memory: 48.3,
+      desc: '单调递减队列',
+      code: `class MaxQueue {
+        private queue: number[] = [];
+        private monoQueue: number[] = [];
+        max_value(): number {
+          if (this.queue.length === 0) return -1;
+          return this.queue[this.monoQueue[0]];
+        }
+        push_back(value: number): void {
+          this.queue.push(value);
+          while (this.monoQueue.length && this.queue[this.monoQueue[this.monoQueue.length - 1]] < value)
+            this.monoQueue.pop();
+          this.monoQueue.push(this.queue.length - 1);
+        }
+        pop_front(): number {
+          if (this.queue.length === 0) return -1;
+          const v = this.queue.shift()!;
+          for (let i = 0, n = this.monoQueue.length; i < n; i++) this.monoQueue[i]--;
+          if (this.monoQueue[0] === -1) this.monoQueue.shift();
+          return v;
+        }
+      }
+      `,
     },
   ],
 };
