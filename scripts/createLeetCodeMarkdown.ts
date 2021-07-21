@@ -12,39 +12,48 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '剑指 Offer 59 - II. 队列的最大值',
-  url: 'https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.队列, Tag.单调队列],
-  desc: '请定义一个队列并实现函数 max_value 得到队列里的最大值',
+  name: '剑指 Offer 52. 两个链表的第一个公共节点',
+  url: 'https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.链表, Tag.双指针],
+  desc: '输入两个链表，找出它们的第一个公共节点。',
   solutions: [
     {
       script: Script.TS,
-      time: 200,
-      memory: 48.3,
-      desc: '单调递减队列',
-      code: `class MaxQueue {
-        private queue: number[] = [];
-        private monoQueue: number[] = [];
-        max_value(): number {
-          if (this.queue.length === 0) return -1;
-          return this.queue[this.monoQueue[0]];
+      time: 112,
+      memory: 45.5,
+      desc: '利用set储存每个节点',
+      code: `var getIntersectionNode = function (headA, headB) {
+        const set = new Set();
+        let p = headA;
+        while (p) {
+          set.add(p);
+          p = p.next;
         }
-        push_back(value: number): void {
-          this.queue.push(value);
-          while (this.monoQueue.length && this.queue[this.monoQueue[this.monoQueue.length - 1]] < value)
-            this.monoQueue.pop();
-          this.monoQueue.push(this.queue.length - 1);
+        p = headB;
+        while (p) {
+          if (set.has(p)) return p;
+          p = p.next;
         }
-        pop_front(): number {
-          if (this.queue.length === 0) return -1;
-          const v = this.queue.shift()!;
-          for (let i = 0, n = this.monoQueue.length; i < n; i++) this.monoQueue[i]--;
-          if (this.monoQueue[0] === -1) this.monoQueue.shift();
-          return v;
-        }
-      }
+        return null;
+      };
       `,
+    },
+    {
+      script: Script.TS,
+      time: 88,
+      memory: 45.1,
+      desc: '双指针',
+      code: `var getIntersectionNode = function (headA, headB) {
+        let pA = headA;
+        let pB = headB;
+        if (!pA || !pB) return null;
+        while (pA !== pB) {
+          pA = pA === null ? headB : pA.next;
+          pB = pB === null ? headA : pB.next;
+        }
+        return pA;
+      }; `,
     },
   ],
 };
