@@ -11,49 +11,60 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '剑指 Offer 52. 两个链表的第一个公共节点',
-  url: 'https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.链表, Tag.双指针],
-  desc: '输入两个链表，找出它们的第一个公共节点。',
+  existMarkdown: true,
+  name: '43. 字符串相乘',
+  url: 'https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '给你一个整数数组 nums ，你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。',
   solutions: [
     {
       script: Script.TS,
-      time: 112,
-      memory: 45.5,
-      desc: '利用set储存每个节点',
-      code: `var getIntersectionNode = function (headA, headB) {
-        const set = new Set();
-        let p = headA;
-        while (p) {
-          set.add(p);
-          p = p.next;
-        }
-        p = headB;
-        while (p) {
-          if (set.has(p)) return p;
-          p = p.next;
-        }
-        return null;
-      };
-      `,
+      time: 92,
+      memory: 39.4,
+      desc: 'bigint',
+      code: `function multiply(num1: string, num2: string): string {
+        return BigInt(num1)*BigInt(num2)+''
+        };`,
     },
     {
       script: Script.TS,
-      time: 88,
-      memory: 45.1,
-      desc: '双指针',
-      code: `var getIntersectionNode = function (headA, headB) {
-        let pA = headA;
-        let pB = headB;
-        if (!pA || !pB) return null;
-        while (pA !== pB) {
-          pA = pA === null ? headB : pA.next;
-          pB = pB === null ? headA : pB.next;
+      time: 100,
+      memory: 40.4,
+      desc: '统计每一位',
+      code: `function multiply(num1: string, num2: string): string {
+        const n1 = num1.length;
+        const n2 = num2.length;
+        const list1 = new Array(n1)
+          .fill(0)
+          .map((_, i) => +num1[i])
+          .reverse();
+        const list2 = new Array(n2)
+          .fill(0)
+          .map((_, i) => +num2[i])
+          .reverse();
+        const n = n1 + n2 - 1;
+        const ans: number[] = new Array(n).fill(0);
+        for (let i = 0; i < n1; i++) {
+          for (let j = 0; j < n2; j++) {
+            ans[i + j] += list1[i] * list2[j];
+          }
         }
-        return pA;
-      }; `,
+        let add = 0;
+        for (let i = 0; i < n; i++) {
+          if (add) {
+            ans[i] += add;
+            add = 0;
+          }
+          if (ans[i] >= 10) {
+            add = ~~(ans[i] / 10);
+            ans[i] = ans[i] % 10;
+          }
+        }
+        if (add) ans.push(add);
+        while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();
+        return ans.reverse().join('');
+      }`,
     },
   ],
 };

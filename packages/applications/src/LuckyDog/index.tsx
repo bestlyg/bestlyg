@@ -4,17 +4,8 @@ import { useLuckyDog, modeList, INIT_COUNT } from './useLuckyDog';
 import styles from './index.less';
 
 const LuckyDog = () => {
-  const {
-    mode,
-    setMode,
-    state,
-    setData,
-    setState,
-    curValue,
-    reset,
-    selectedList,
-    selectList,
-  } = useLuckyDog();
+  const { mode, setMode, state, setData, setState, curValue, reset, selectedList, selectList } =
+    useLuckyDog();
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <Space direction="vertical">

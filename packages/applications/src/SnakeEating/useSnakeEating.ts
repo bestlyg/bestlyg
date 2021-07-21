@@ -61,9 +61,10 @@ export const useSnakeEating = () => {
   /** 蛇大小 */
   const size = useMemo(() => snake.length, [snake]);
   /** 存在蛇的点集合 */
-  const snakeSet = useMemo(() => new Set<string>(snake.map(([x, y]) => pointFormat(x, y))), [
-    snake,
-  ]);
+  const snakeSet = useMemo(
+    () => new Set<string>(snake.map(([x, y]) => pointFormat(x, y))),
+    [snake]
+  );
   /** 宽度 */
   const [width, setWidth] = useState(SIZE_MIN);
   /** 高度 */

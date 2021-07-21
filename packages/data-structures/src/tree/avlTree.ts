@@ -119,10 +119,12 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
     }
   }
   private getUnbalancedChild(node: AVLTreeNode<T>): AVLTreeNode<T> {
-    return (node.leftHeight > node.rightHeight
-      ? node.left
-      : node.leftHeight < node.rightHeight
-      ? node.right
-      : node[node.childPosition]) as AVLTreeNode<T>;
+    return (
+      node.leftHeight > node.rightHeight
+        ? node.left
+        : node.leftHeight < node.rightHeight
+        ? node.right
+        : node[node.childPosition]
+    ) as AVLTreeNode<T>;
   }
 }
