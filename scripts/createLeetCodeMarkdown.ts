@@ -11,43 +11,44 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '138. 复制带随机指针的链表',
-  url: 'https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/',
+  existMarkdown: !true,
+  name: '1658. 将 x 减到 0 的最小操作数',
+  url: 'https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '给你一个整数数组 nums ，你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。',
+  tag: [Tag.数组, Tag.哈希表, Tag.双指针, Tag.二分查找, Tag.前缀和],
+  desc: '给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。',
   solutions: [
     {
       script: Script.TS,
-      time: 104,
-      memory: 39.7,
-      desc: '节点复制',
-      code: `function copyRandomList(head: Node | null): Node | null {
-        if (head === null) return null;
-        let p: Node | null = head;
-        while (p) {
-          const next = p.next;
-          const newNode = new Node(p.val, next);
-          p.next = newNode;
-          p = next;
+      time: 192,
+      memory: 60.9,
+      desc: '左右各前缀和，遍历左值，查找右侧值',
+      code: `function minOperations(nums: number[], x: number): number {
+        const sumsL = [0];
+        const sumsR = [0];
+        const n = nums.length;
+        for (let i = 0; i < n; i++) sumsL.push(nums[i] + sumsL[i]);
+        for (let i = 0; i < n; i++) sumsR.push(nums[n - 1 - i] + sumsR[i]);
+        let ans = Infinity;
+        for (let i = 0; i <= n; i++) {
+          const num = sumsL[i];
+          const need = x - num;
+          if (need < 0) break;
+          let l = 0;
+          let r = sumsR.length - 1;
+          let mid!: number;
+          while (l <= r) {
+            mid = (l + r) >> 1;
+            const midNum = sumsR[mid];
+            if (midNum < need) l = mid + 1;
+            else if (midNum > need) r = mid - 1;
+            else break;
+          }
+          if (need === sumsR[mid] && i + mid <= n) {
+            ans = Math.min(ans, i + mid);
+          }
         }
-        p = head;
-        while (p) {
-          const newNode = p.next;
-          newNode!.random = p.random?.next ?? null;
-          p = p.next!.next;
-        }
-        p = head;
-        const ans = head.next;
-        while (p) {
-          const next = p.next?.next ?? null;
-          const newNode = p.next!;
-          newNode.next = next?.next ?? null;
-          p.next = next;
-          p = next;
-        }
-        return ans;
+        return ans === Infinity ? -1 : ans;
       }`,
     },
   ],
