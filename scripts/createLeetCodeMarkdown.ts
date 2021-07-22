@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '43. 字符串相乘',
+  name: '138. 复制带随机指针的链表',
   url: 'https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找],
@@ -20,50 +20,34 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.4,
-      desc: 'bigint',
-      code: `function multiply(num1: string, num2: string): string {
-        return BigInt(num1)*BigInt(num2)+''
-        };`,
-    },
-    {
-      script: Script.TS,
-      time: 100,
-      memory: 40.4,
-      desc: '统计每一位',
-      code: `function multiply(num1: string, num2: string): string {
-        const n1 = num1.length;
-        const n2 = num2.length;
-        const list1 = new Array(n1)
-          .fill(0)
-          .map((_, i) => +num1[i])
-          .reverse();
-        const list2 = new Array(n2)
-          .fill(0)
-          .map((_, i) => +num2[i])
-          .reverse();
-        const n = n1 + n2 - 1;
-        const ans: number[] = new Array(n).fill(0);
-        for (let i = 0; i < n1; i++) {
-          for (let j = 0; j < n2; j++) {
-            ans[i + j] += list1[i] * list2[j];
-          }
+      time: 104,
+      memory: 39.7,
+      desc: '节点复制',
+      code: `function copyRandomList(head: Node | null): Node | null {
+        if (head === null) return null;
+        let p: Node | null = head;
+        while (p) {
+          const next = p.next;
+          const newNode = new Node(p.val, next);
+          p.next = newNode;
+          p = next;
         }
-        let add = 0;
-        for (let i = 0; i < n; i++) {
-          if (add) {
-            ans[i] += add;
-            add = 0;
-          }
-          if (ans[i] >= 10) {
-            add = ~~(ans[i] / 10);
-            ans[i] = ans[i] % 10;
-          }
+        p = head;
+        while (p) {
+          const newNode = p.next;
+          newNode!.random = p.random?.next ?? null;
+          p = p.next!.next;
         }
-        if (add) ans.push(add);
-        while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();
-        return ans.reverse().join('');
+        p = head;
+        const ans = head.next;
+        while (p) {
+          const next = p.next?.next ?? null;
+          const newNode = p.next!;
+          newNode.next = next?.next ?? null;
+          p.next = next;
+          p = next;
+        }
+        return ans;
       }`,
     },
   ],

@@ -10,37 +10,56 @@ type Heap = structures.Heap;
 /*        
 
  */
-function multiply(num1: string, num2: string): string {
-  const n1 = num1.length;
-  const n2 = num2.length;
-  const list1 = new Array(n1)
-    .fill(0)
-    .map((_, i) => +num1[i])
-    .reverse();
-  const list2 = new Array(n2)
-    .fill(0)
-    .map((_, i) => +num2[i])
-    .reverse();
-  const n = n1 + n2 - 1;
-  const ans: number[] = new Array(n).fill(0);
-  for (let i = 0; i < n1; i++) {
-    for (let j = 0; j < n2; j++) {
-      ans[i + j] += list1[i] * list2[j];
-    }
+class Node {
+  val: number;
+  next: Node | null;
+  random: Node | null;
+  constructor(val?: number, next?: Node | null, random?: Node | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+    this.random = random === undefined ? null : random;
   }
-  let add = 0;
-  for (let i = 0; i < n; i++) {
-    if (add) {
-      ans[i] += add;
-      add = 0;
-    }
-    if (ans[i] >= 10) {
-      add = ~~(ans[i] / 10);
-      ans[i] = ans[i] % 10;
-    }
-  }
-  if (add) ans.push(add);
-  while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();
-  return ans.reverse().join('');
 }
-console.log(multiply('9', '9'));
+function copyRandomList(head: Node | null): Node | null {
+  if (head === null) return null;
+  let p: Node | null = head;
+  while (p) {
+    const next = p.next;
+    const newNode = new Node(p.val, next);
+    p.next = newNode;
+    p = next;
+  }
+  p = head;
+  while (p) {
+    const newNode = p.next;
+    newNode!.random = p.random?.next ?? null;
+    p = p.next!.next;
+  }
+  p = head;
+  const ans = head.next;
+  while (p) {
+    const next = p.next?.next ?? null;
+    const newNode = p.next!;
+    newNode.next = next?.next ?? null;
+    p.next = next;
+    p = next;
+  }
+  return ans;
+}
+// [[7,null],[13,0],[11,4],[10,2],[1,0]]
+const node0 = new Node(7);
+const node1 = (node0.next = new Node(13));
+const node2 = (node1.next = new Node(11));
+const node3 = (node2.next = new Node(10));
+const node4 = (node3.next = new Node(1));
+node0.random = null;
+node1.random = node0;
+node2.random = node4;
+node3.random = node2;
+node4.random = node0;
+const newNode = copyRandomList(node0);
+let p = newNode;
+while (p) {
+  console.log(p.val, p.random?.val ?? null);
+  p = p.next;
+}
