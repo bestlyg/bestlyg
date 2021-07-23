@@ -1,7 +1,7 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { find, merge, random } from 'lodash';
+import { merge, random } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
@@ -10,47 +10,27 @@ type Heap = structures.Heap;
 /*        
 
  */
-function isMatch(s: string, p: string): boolean {
-  console.log(s, p);
-  if (s === '') {
-    for (const c of p) if (c !== '*') return false;
-    return true;
+function search(nums: number[], target: number): boolean {
+  let l = 0;
+  let r = nums.length - 1;
+  if (nums[l] === target || nums[r] === target) return true;
+  while (l < r) {
+    while (l < r && nums[l] !== target && nums[l] === nums[r]) {
+      l++;
+      r--;
+    }
+    if (nums[l] === target || nums[r] === target) return true;
+    const mid = (r + l) >> 1;
+    const midNum = nums[mid];
+    if (midNum === target) return true;
+    if (midNum <= nums[r]) {
+      if (midNum <= target && target <= nums[r]) l = mid + 1;
+      else r = mid - 1;
+    } else {
+      if (nums[l] <= target && target <= midNum) r = mid - 1;
+      else l = mid + 1;
+    }
   }
-  if (p === '') return s === '';
-  if (p === '?') return s.length === 1;
-  if (p === '*') return true;
-  if (p.startsWith('?')) return isMatch(s.substring(1), p.substring(1));
-  if (p.startsWith('*')) {
-    while (p.startsWith('*')) p = p.substring(1);
-    let c = 0;
-    while (p.startsWith('?')) {
-      p = p.substring(1);
-      c++;
-    }
-    if (isMatch(s.substring(c), p)) return true;
-    if (p === '') return s.length === c;
-    let i1 = p.indexOf('*');
-    let i2 = p.indexOf('?');
-    if (i1 === -1) {
-      if (i2 === -1) return s.includes(p);
-      const i = s.indexOf(p.substring(0, i2));
-      if (c && i !== c) return false;
-      else return isMatch(s.substring(i + p.substring(0, i).length), p.substring(i));
-    }
-    const minI = i1 === -1 ? i2 : i2 === -1 ? i1 : Math.min(i1, i2);
-    let i = s.indexOf(p.substring(0, minI));
-    while (i !== -1) {
-      if (c && i !== c) return false;
-      if (isMatch(s.substring(i + p.substring(0, minI).length), p.substring(minI))) return true;
-      i = s.indexOf(p.substring(0, minI), i + 1);
-    }
-    return false;
-  }
-  const i1 = p.indexOf('*');
-  const i2 = p.indexOf('?');
-  if (i1 === -1 && i2 === -1) return s === p;
-  const minI = i1 === -1 ? i2 : i2 === -1 ? i1 : Math.min(i1, i2);
-  if (s.startsWith(p.substring(0, minI))) return isMatch(s.substring(minI), p.substring(minI));
-  else return false;
+  return false;
 }
-console.log(isMatch('hi', '*?'));
+console.log(search([1, 0, 1, 1, 1], 0));

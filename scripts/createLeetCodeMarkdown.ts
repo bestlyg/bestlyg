@@ -12,32 +12,39 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '42. 接雨水',
-  url: 'https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero/',
+  name: '81. 搜索旋转排序数组 II',
+  url: 'https://leetcode-cn.com/problems/heaters',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.双指针, Tag.二分查找, Tag.前缀和],
-  desc: '给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。',
+  tag: [Tag.数组, Tag.二分查找, Tag.排序],
+  desc: '现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。',
   solutions: [
     {
       script: Script.TS,
       time: 80,
-      memory: 40.2,
-      desc: '合并循环',
-      code: `function trap(height: number[]): number {
-        const n = height.length;
-        const l = new Array(n).fill(0);
-        const r = new Array(n).fill(0);
-        let maxL = height[0];
-        let maxR = height[n - 1];
-        for (let i = 1; i < n - 1; i++) {
-          l[i] = maxL;
-          maxL = Math.max(maxL, height[i]);
-          r[n - 1 - i] = maxR;
-          maxR = Math.max(maxR, height[n - 1 - i]);
+      memory: 39.4,
+      desc: '二分查找',
+      code: `function search(nums: number[], target: number): boolean {
+        let l = 0;
+        let r = nums.length - 1;
+        if (nums[l] === target || nums[r] === target) return true;
+        while (l < r) {
+          while (l < r && nums[l] !== target && nums[l] === nums[r]) {
+            l++;
+            r--;
+          }
+          if (nums[l] === target || nums[r] === target) return true;
+          const mid = (r + l) >> 1;
+          const midNum = nums[mid];
+          if (midNum === target) return true;
+          if (midNum <= nums[r]) {
+            if (midNum <= target && target <= nums[r]) l = mid + 1;
+            else r = mid - 1;
+          } else {
+            if (nums[l] <= target && target <= midNum) r = mid - 1;
+            else l = mid + 1;
+          }
         }
-        let ans = 0;
-        for (let i = 0; i < n; i++) ans += Math.max(Math.min(l[i], r[i]) - height[i], 0);
-        return ans;
+        return false;
       }`,
     },
   ],
