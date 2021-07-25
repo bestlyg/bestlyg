@@ -1,36 +1,32 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { merge, random } from 'lodash';
+import { find, merge, random } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-/*        
 
+/*
+ 
+ 
  */
-function search(nums: number[], target: number): boolean {
-  let l = 0;
-  let r = nums.length - 1;
-  if (nums[l] === target || nums[r] === target) return true;
-  while (l < r) {
-    while (l < r && nums[l] !== target && nums[l] === nums[r]) {
-      l++;
-      r--;
+
+function combinationSum(candidates: number[], target: number): number[][] {
+  const ans: number[][] = [];
+  dfs();
+  return ans;
+  function dfs(index = 0, value = 0, list: number[] = []) {
+    if (value >= target || index === candidates.length) {
+      value === target && ans.push([...list]);
+      return;
     }
-    if (nums[l] === target || nums[r] === target) return true;
-    const mid = (r + l) >> 1;
-    const midNum = nums[mid];
-    if (midNum === target) return true;
-    if (midNum <= nums[r]) {
-      if (midNum <= target && target <= nums[r]) l = mid + 1;
-      else r = mid - 1;
-    } else {
-      if (nums[l] <= target && target <= midNum) r = mid - 1;
-      else l = mid + 1;
-    }
+    const candy = candidates[index];
+    list.push(candy);
+    dfs(index, value + candy, list);
+    list.pop();
+    dfs(index + 1, value, list);
   }
-  return false;
 }
-console.log(search([1, 0, 1, 1, 1], 0));
+console.log(combinationSum([2, 3, 6, 7], 7));

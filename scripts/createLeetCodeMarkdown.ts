@@ -1,4 +1,4 @@
-import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO, markdown } from './utils';
+import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO, markdown, chalk } from './utils';
 
 const { backquote } = specStr;
 const { link } = markdown;
@@ -12,39 +12,32 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '81. 搜索旋转排序数组 II',
-  url: 'https://leetcode-cn.com/problems/heaters',
+  name: '39. 组合总和',
+  url: 'https://leetcode-cn.com/problems/matchsticks-to-square/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找, Tag.排序],
-  desc: '现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。',
+  tag: [Tag.位运算, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
+  desc: '输入为小女孩拥有火柴的数目，每根火柴用其长度表示。输出即为是否能用所有的火柴拼成正方形。',
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 39.4,
-      desc: '二分查找',
-      code: `function search(nums: number[], target: number): boolean {
-        let l = 0;
-        let r = nums.length - 1;
-        if (nums[l] === target || nums[r] === target) return true;
-        while (l < r) {
-          while (l < r && nums[l] !== target && nums[l] === nums[r]) {
-            l++;
-            r--;
+      time: 92,
+      memory: 40.7,
+      desc: 'dfs+剪枝，每次遍历时，可以选当前值或者下一值',
+      code: `function combinationSum(candidates: number[], target: number): number[][] {
+        const ans: number[][] = [];
+        dfs();
+        return ans;
+        function dfs(index = 0, value = 0, list: number[] = []) {
+          if (value >= target || index === candidates.length) {
+            value === target && ans.push([...list]);
+            return;
           }
-          if (nums[l] === target || nums[r] === target) return true;
-          const mid = (r + l) >> 1;
-          const midNum = nums[mid];
-          if (midNum === target) return true;
-          if (midNum <= nums[r]) {
-            if (midNum <= target && target <= nums[r]) l = mid + 1;
-            else r = mid - 1;
-          } else {
-            if (nums[l] <= target && target <= midNum) r = mid - 1;
-            else l = mid + 1;
-          }
+          const candy = candidates[index];
+          list.push(candy);
+          dfs(index, value + candy, list);
+          list.pop();
+          dfs(index + 1, value, list);
         }
-        return false;
       }`,
     },
   ],
@@ -87,7 +80,13 @@ ${md.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n'
 }
 function addSolution() {
   const path = filePath;
-  const file = fs.readFileSync(path).toString();
+  let file!: string;
+  try {
+    file = fs.readFileSync(path).toString();
+  } catch (e) {
+    console.log(chalk.red('没有这个文件'));
+    process.exit(1);
+  }
   const matchList = file.matchAll(solutionReg);
   let lastIndex = 0;
   for (const match of matchList) lastIndex = parseInt(match[1]);
