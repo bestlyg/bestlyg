@@ -7,14 +7,13 @@ export default function User() {
   return (
     <View>
       <Nav
-        title="用户"
-        titleColor="#ffffff"
-        titleAlign="center"
-        onBack={() => {
-          console.log('back');
+        config={{
+          left: {
+            back: true,
+            title: 'centertitlecentertitlecentertitlecentertitlecentertitlecentertitle',
+          },
+          center: {},
         }}
-        backVisible
-        backColor="#ffffff"
       />
     </View>
   );

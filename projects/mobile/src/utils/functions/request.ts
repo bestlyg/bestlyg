@@ -3,9 +3,9 @@ import Taro from '@tarojs/taro';
 import { SERVICE_URL } from '../constants';
 import { getStorage } from './storage';
 
-export const nativeRequest = async <T extends any = any, U extends any = any>(
+export async function nativeRequest<T extends any = any, U extends any = any>(
   options: Taro.request.Option<any>
-) => {
+) {
   options.url = SERVICE_URL + options.url;
   let header = options.header;
   if (!header) header = options.header = {};
@@ -22,13 +22,14 @@ export const nativeRequest = async <T extends any = any, U extends any = any>(
         }
       })
   );
-};
-export const request = <T extends any = any, U extends any = any>(
+}
+export function request<T extends any = any, U extends any = any>(
   options: Taro.request.Option<any>
-) =>
-  nativeRequest<ResponseData<T>, U>(options).then(
+) {
+  return nativeRequest<ResponseData<T>, U>(options).then(
     ({ code, data, msg }) =>
       new Promise<T>((resolve, reject) => {
         code === 0 ? resolve(data) : reject(msg);
       })
   );
+}

@@ -10,17 +10,28 @@
 }
 .title {
   font-size: 32px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.left,
+.center,
+.right {
+  max-width: 50%;
+  height: 100%;
 }
 .left {
   justify-content: flex-start !important;
   flex: 1;
+  text-align: left;
 }
 .center {
   flex: 3;
+  text-align: center;
 }
 .right {
   justify-content: flex-end !important;
   flex: 1;
+  text-align: right;
 }
 .back {
   margin-right: 10px;

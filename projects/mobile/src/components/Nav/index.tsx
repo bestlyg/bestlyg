@@ -1,26 +1,53 @@
 import { View, Text } from '@tarojs/components';
 import React, { useMemo } from 'react';
 import Taro from '@tarojs/taro';
-import { classnames } from '@/utils';
+import { classnames, noop } from '@/utils';
 import { AtIcon } from 'taro-ui';
 import styles from './index.module.scss';
 
-const back = () => Taro.navigateBack();
-export default function Title({
-  title,
-  titleColor = '#000000',
-  titleAlign = 'center',
-  backColor = '#000000',
-  backVisible = false,
-  onBack = back,
-}: {
-  title: string;
-  titleAlign?: 'left' | 'center';
-  backVisible?: boolean;
-  titleColor?: string;
-  backColor?: string;
-  onBack?: () => void;
-}) {
+export interface NavConfig {
+  left?: {
+    back?: boolean;
+    backColor?: string;
+    color?: string;
+    title?: string | null;
+    prefix?: React.ReactNode | null;
+    suffix?: React.ReactNode | null;
+    onClick?: () => void;
+  };
+  center?: {
+    color?: string;
+    title?: string | null;
+    prefix?: React.ReactNode | null;
+    suffix?: React.ReactNode | null;
+    onClick?: () => void;
+  };
+}
+export default function Nav({ config }: { config: NavConfig }) {
+  const leftConfig: NavConfig['left'] = useMemo(() => {
+    const data: NavConfig['left'] = {
+      back: false,
+      backColor: '#000000',
+      color: '#000000',
+      title: null,
+      prefix: null,
+      suffix: null,
+      onClick: noop,
+    };
+    Object.entries(config.left ?? {}).forEach(([k, v]) => (data[k] = v));
+    return data;
+  }, [config]);
+  const centerConfig: NavConfig['center'] = useMemo(() => {
+    const data: NavConfig['center'] = {
+      color: '#000000',
+      title: null,
+      prefix: null,
+      suffix: null,
+      onClick: noop,
+    };
+    Object.entries(config.center ?? {}).forEach(([k, v]) => (data[k] = v));
+    return data;
+  }, [config]);
   const menuInfo = useMemo(() => Taro.getMenuButtonBoundingClientRect(), []);
   const lineHeight = useMemo(() => menuInfo.top + 'px', [menuInfo]);
   return (
@@ -34,22 +61,29 @@ export default function Title({
       <View
         className={classnames('global-center', styles.left)}
         style={{ lineHeight }}
-        onClick={onBack}
+        onClick={leftConfig.onClick}
       >
-        {backVisible && (
-          <AtIcon value="chevron-left" size="20" color={backColor} className={styles.back} />
+        {leftConfig.back && (
+          <AtIcon
+            value="chevron-left"
+            size="20"
+            color={leftConfig.backColor}
+            className={styles.back}
+          />
         )}
-        {titleAlign === 'left' && <Text className={styles.title}>{title}</Text>}
+        {leftConfig.prefix}
+        {leftConfig.title && <Text className={styles.title}>{leftConfig.title}</Text>}
+        {leftConfig.suffix}
       </View>
       <View
         className={classnames('global-center', styles.center)}
-        style={{ lineHeight, color: titleColor }}
+        style={{ lineHeight, color: centerConfig.color }}
       >
-        {titleAlign === 'center' && <Text className={styles.title}>{title}</Text>}
+        {centerConfig.prefix}
+        {centerConfig.title && <Text className={styles.title}>{centerConfig.title}</Text>}
+        {centerConfig.prefix}
       </View>
-      <View className={classnames('global-center', styles.right)} style={{ lineHeight }}>
-        <AtIcon value="chevron-left" size="30" color={backColor}></AtIcon>
-      </View>
+      <View className={classnames('global-center', styles.right)} style={{ lineHeight }}></View>
     </View>
   );
 }
