@@ -11,33 +11,43 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '39. 组合总和',
-  url: 'https://leetcode-cn.com/problems/matchsticks-to-square/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
-  desc: '输入为小女孩拥有火柴的数目，每根火柴用其长度表示。输出即为是否能用所有的火柴拼成正方形。',
+  existMarkdown: !true,
+  name: '1713. 得到子序列的最少操作次数',
+  url: 'https://leetcode-cn.com/problems/minimum-operations-to-make-a-subsequence/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.贪心, Tag.数组, Tag.哈希表, Tag.二分查找],
+  desc: '给你一个数组 target ，包含若干 互不相同 的整数，以及另一个整数数组 arr ，arr 可能 包含重复元素。每一次操作中，你可以在 arr 的任意位置插入任一整数。比方说，如果 arr = [1,4,1,2] ，那么你可以在中间添加 3 得到 [1,4,3,1,2] 。你可以在数组最开始或最后面添加整数。请你返回 最少 操作次数，使得 target 成为 arr 的一个子序列。',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 40.7,
-      desc: 'dfs+剪枝，每次遍历时，可以选当前值或者下一值',
-      code: `function combinationSum(candidates: number[], target: number): number[][] {
-        const ans: number[][] = [];
-        dfs();
-        return ans;
-        function dfs(index = 0, value = 0, list: number[] = []) {
-          if (value >= target || index === candidates.length) {
-            value === target && ans.push([...list]);
-            return;
+      time: 264,
+      memory: 73.4,
+      desc: '把原数组转化为目标数组的下标数组，再找最长递增子序列',
+      code: `function lengthOfLIS(nums: number[]): number {
+        const list: number[] = [];
+        for (const num of nums) list[bs(num)] = num;
+        return list.length;
+        function bs(target: number, left = 0, right = list.length - 1): number {
+          if (list.length === 0) return 0;
+          if (target > list[right]) return list.length;
+          while (left < right) {
+            const mid = (right + left) >> 1;
+            if (list[mid] >= target) right = mid;
+            else left = mid + 1;
           }
-          const candy = candidates[index];
-          list.push(candy);
-          dfs(index, value + candy, list);
-          list.pop();
-          dfs(index + 1, value, list);
+          return left;
         }
+      }
+      function minOperations(target: number[], arr: number[]): number {
+        const map: Record<number, number> = {};
+        for (let i = 0; i < target.length; i++) map[target[i]] = i;
+        const list: number[] = [];
+        for (let i = 0; i < arr.length; i++) {
+          const idx = map[arr[i]];
+          if (idx === undefined) continue;
+          list.push(idx);
+        }
+        return target.length - lengthOfLIS(list);
       }`,
     },
   ],
