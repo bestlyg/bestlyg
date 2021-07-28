@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '671. 二叉树中第二小的节点',
+  existMarkdown: true,
+  name: '863. 二叉树中所有距离为 K 的结点',
   url: 'https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/',
   difficulty: Difficulty.简单,
   tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
@@ -20,39 +20,48 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 64,
-      memory: 39.4,
-      desc: '遍历所有节点进行排序',
-      code: `function findSecondMinimumValue(root: TreeNode | null): number {
-        const set = new Set<number>();
-        order(root);
-        const list = [...set].sort((a, b) => a - b);
-        return list[1] ?? -1;
-        function order(node: TreeNode | null): void {
-          if (node === null) return;
-          set.add(node.val);
-          order(node.left);
-          order(node.right);
-        }
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 72,
-      memory: 39.4,
-      desc: '求左右子树的最小值',
-      code: `function findSecondMinimumValue(root: TreeNode | null): number {
-        return find();
-        function find(node: TreeNode | null = root, val = root!.val): number {
+      time: 88,
+      memory: 40.1,
+      desc: '递归',
+      code: `function distanceK(root: TreeNode | null, target: TreeNode | null, k: number): number[] {
+        const ans: number[] = [];
+        find(root);
+        return ans;
+        function find(node: TreeNode | null): number {
           if (node === null) return -1;
-          if (node.val > val) return node.val;
-          const l = find(node.left, val);
-          const r = find(node.right, val);
-          return l > val && r > val ? Math.min(l, r) : Math.max(l, r);
+          if (node === target) {
+            dfs(node, k);
+            return k - 1;
+          }
+          let distance = find(node.left);
+          if (distance !== -1) {
+            if (distance === 0) ans.push(node.val);
+            else {
+              dfs(node.right, distance - 1);
+              return distance - 1;
+            }
+            return -1;
+          }
+          distance = find(node.right);
+          if (distance !== -1) {
+            if (distance === 0) ans.push(node.val);
+            else {
+              dfs(node.left, distance - 1);
+              return distance - 1;
+            }
+          }
+          return -1;
         }
-      }
-      `,
+        function dfs(node: TreeNode | null, k: number): void {
+          if (node === null) return;
+          if (k === 0) {
+            ans.push(node.val);
+          } else {
+            dfs(node.left, k - 1);
+            dfs(node.right, k - 1);
+          }
+        }
+      }`,
     },
   ],
 };
