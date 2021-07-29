@@ -11,56 +11,37 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '1104. 二叉树寻路',
-  url: 'https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/',
+  existMarkdown: true,
+  name: '8. 字符串转换整数 (atoi)',
+  url: 'https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/',
   difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.数学, Tag.二叉树],
-  desc: '给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。',
+  tag: [Tag.哈希表, Tag.字符串, Tag.分治, Tag.滑动窗口],
+  desc: '给你一个字符串 s 和一个整数 k ，请你找出 s 中的最长子串， 要求该子串中的每一字符出现次数都不少于 k 。返回这一子串的长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 39.6,
-      desc: '深度向上遍历',
-      code: `function pathInZigZagTree(label: number): number[] {
-        const list: number[] = [];
-        let max = 1;
-        while (label >= max) list.push((max <<= 1));
-        const ans: number[] = [];
-        dfs(label);
+      time: 80,
+      memory: 40.4,
+      desc: '分割字符串分别统计',
+      code: `function longestSubstring(s: string, k: number): number {
+        const map: Record<string, number> = {};
+        for (const c of s) map[c] = (map[c] ?? 0) + 1;
+        const splits: number[] = [];
+        for (let i = 0; i < s.length; i++) {
+          if (map[s[i]] < k) splits.push(i);
+        }
+        splits.push(s.length);
+        if (splits.length === 1) return s.length;
+        let pre = 0;
+        let ans = 0;
+        for (const p of splits) {
+          const len = p - pre;
+          if (len >= k) {
+            ans = Math.max(ans, longestSubstring(s.substr(pre, len), k));
+          }
+          pre = p + 1;
+        }
         return ans;
-        function find(label: number): {
-          maxLabel: number;
-          prevMin: number;
-        } {
-          for (let i = 0; i < list.length; i++) {
-            if (list[i] > label)
-              return {
-                maxLabel: list[i] - 1,
-                prevMin: list[i - 2] ?? 1,
-              };
-          }
-          return {
-            maxLabel: -1,
-            prevMin: -1,
-          };
-        }
-        function dfs(label: number): void {
-          if (label === 1) {
-            ans.unshift(label);
-            return;
-          }
-          ans.unshift(label);
-          const { maxLabel, prevMin } = find(label);
-          let i = maxLabel;
-          let parent = prevMin;
-          while (i > label) {
-            i--;
-            if ((i & 1) !== 0) parent++;
-          }
-          dfs(parent);
-        }
       }`,
     },
   ],

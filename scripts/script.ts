@@ -1,7 +1,7 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { find, merge, min, random } from 'lodash';
+import { find, merge, min, random, upperFirst } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
@@ -12,43 +12,11 @@ type Heap = structures.Heap;
  
  
  */
-function pathInZigZagTree(label: number): number[] {
-  const list: number[] = [];
-  let max = 1;
-  while (label >= max) list.push((max <<= 1));
-  const ans: number[] = [];
-  dfs(label);
+function reverseBits(n: number): number {
+  let ans = 0;
+  for (let i = 0, j = 1, k = 2 ** 31; i < 32; i++, j *= 2, k >>>= 1) {
+    if (n & j) ans = k;
+  }
   return ans;
-  function find(label: number): {
-    maxLabel: number;
-    prevMin: number;
-  } {
-    for (let i = 0; i < list.length; i++) {
-      if (list[i] > label)
-        return {
-          maxLabel: list[i] - 1,
-          prevMin: list[i - 2] ?? 1,
-        };
-    }
-    return {
-      maxLabel: -1,
-      prevMin: -1,
-    };
-  }
-  function dfs(label: number): void {
-    if (label === 1) {
-      ans.unshift(label);
-      return;
-    }
-    ans.unshift(label);
-    const { maxLabel, prevMin } = find(label);
-    let i = maxLabel;
-    let parent = prevMin;
-    while (i > label) {
-      i--;
-      if ((i & 1) !== 0) parent++;
-    }
-    dfs(parent);
-  }
 }
-console.log(pathInZigZagTree(16));
+console.log(reverseBits(0b00000010100101000001111010011100));
