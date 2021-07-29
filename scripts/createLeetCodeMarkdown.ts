@@ -11,55 +11,55 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '863. 二叉树中所有距离为 K 的结点',
-  url: 'https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
-  desc: '给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。',
+  existMarkdown: !true,
+  name: '1104. 二叉树寻路',
+  url: 'https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.树, Tag.数学, Tag.二叉树],
+  desc: '给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。',
   solutions: [
     {
       script: Script.TS,
       time: 88,
-      memory: 40.1,
-      desc: '递归',
-      code: `function distanceK(root: TreeNode | null, target: TreeNode | null, k: number): number[] {
+      memory: 39.6,
+      desc: '深度向上遍历',
+      code: `function pathInZigZagTree(label: number): number[] {
+        const list: number[] = [];
+        let max = 1;
+        while (label >= max) list.push((max <<= 1));
         const ans: number[] = [];
-        find(root);
+        dfs(label);
         return ans;
-        function find(node: TreeNode | null): number {
-          if (node === null) return -1;
-          if (node === target) {
-            dfs(node, k);
-            return k - 1;
+        function find(label: number): {
+          maxLabel: number;
+          prevMin: number;
+        } {
+          for (let i = 0; i < list.length; i++) {
+            if (list[i] > label)
+              return {
+                maxLabel: list[i] - 1,
+                prevMin: list[i - 2] ?? 1,
+              };
           }
-          let distance = find(node.left);
-          if (distance !== -1) {
-            if (distance === 0) ans.push(node.val);
-            else {
-              dfs(node.right, distance - 1);
-              return distance - 1;
-            }
-            return -1;
-          }
-          distance = find(node.right);
-          if (distance !== -1) {
-            if (distance === 0) ans.push(node.val);
-            else {
-              dfs(node.left, distance - 1);
-              return distance - 1;
-            }
-          }
-          return -1;
+          return {
+            maxLabel: -1,
+            prevMin: -1,
+          };
         }
-        function dfs(node: TreeNode | null, k: number): void {
-          if (node === null) return;
-          if (k === 0) {
-            ans.push(node.val);
-          } else {
-            dfs(node.left, k - 1);
-            dfs(node.right, k - 1);
+        function dfs(label: number): void {
+          if (label === 1) {
+            ans.unshift(label);
+            return;
           }
+          ans.unshift(label);
+          const { maxLabel, prevMin } = find(label);
+          let i = maxLabel;
+          let parent = prevMin;
+          while (i > label) {
+            i--;
+            if ((i & 1) !== 0) parent++;
+          }
+          dfs(parent);
         }
       }`,
     },

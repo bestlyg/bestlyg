@@ -12,48 +12,43 @@ type Heap = structures.Heap;
  
  
  */
-function distanceK(root: TreeNode | null, target: TreeNode | null, k: number): number[] {
+function pathInZigZagTree(label: number): number[] {
+  const list: number[] = [];
+  let max = 1;
+  while (label >= max) list.push((max <<= 1));
   const ans: number[] = [];
-  find(root);
+  dfs(label);
   return ans;
-  function find(node: TreeNode | null): number {
-    console.log('===');
-    console.log(node);
-    if (node === null) return -1;
-    if (node === target) {
-      dfs(node, k);
-      return k - 1;
+  function find(label: number): {
+    maxLabel: number;
+    prevMin: number;
+  } {
+    for (let i = 0; i < list.length; i++) {
+      if (list[i] > label)
+        return {
+          maxLabel: list[i] - 1,
+          prevMin: list[i - 2] ?? 1,
+        };
     }
-    let distance = find(node.left);
-    if (distance !== -1) {
-      if (distance === 0) ans.push(node.val);
-      else {
-        dfs(node.right, distance - 1);
-        return distance - 1;
-      }
-      return -1;
-    }
-    distance = find(node.right);
-    if (distance !== -1) {
-      if (distance === 0) ans.push(node.val);
-      else {
-        dfs(node.left, distance - 1);
-        return distance - 1;
-      }
-    }
-    return -1;
+    return {
+      maxLabel: -1,
+      prevMin: -1,
+    };
   }
-  function dfs(node: TreeNode | null, k: number): void {
-    console.log('dfs', node, k);
-    if (node === null) return;
-    if (k === 0) {
-      ans.push(node.val);
-    } else {
-      dfs(node.left, k - 1);
-      dfs(node.right, k - 1);
+  function dfs(label: number): void {
+    if (label === 1) {
+      ans.unshift(label);
+      return;
     }
+    ans.unshift(label);
+    const { maxLabel, prevMin } = find(label);
+    let i = maxLabel;
+    let parent = prevMin;
+    while (i > label) {
+      i--;
+      if ((i & 1) !== 0) parent++;
+    }
+    dfs(parent);
   }
 }
-const root = TreeNode.factory([0, 1, null, 3, 2]);
-const target = root?.left?.right!;
-console.log(distanceK(root, target, 1));
+console.log(pathInZigZagTree(16));
