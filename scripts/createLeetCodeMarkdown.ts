@@ -11,35 +11,33 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '8. 字符串转换整数 (atoi)',
-  url: 'https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.哈希表, Tag.字符串, Tag.分治, Tag.滑动窗口],
-  desc: '给你一个字符串 s 和一个整数 k ，请你找出 s 中的最长子串， 要求该子串中的每一字符出现次数都不少于 k 。返回这一子串的长度。',
+  existMarkdown: !true,
+  name: '1499. 满足不等式的最大值',
+  url: 'https://leetcode-cn.com/problems/max-value-of-equation/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.队列, Tag.数组, Tag.滑动窗口, Tag.单调队列, Tag.堆_优先队列],
+  desc: '请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。',
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 40.4,
-      desc: '分割字符串分别统计',
-      code: `function longestSubstring(s: string, k: number): number {
-        const map: Record<string, number> = {};
-        for (const c of s) map[c] = (map[c] ?? 0) + 1;
-        const splits: number[] = [];
-        for (let i = 0; i < s.length; i++) {
-          if (map[s[i]] < k) splits.push(i);
-        }
-        splits.push(s.length);
-        if (splits.length === 1) return s.length;
-        let pre = 0;
-        let ans = 0;
-        for (const p of splits) {
-          const len = p - pre;
-          if (len >= k) {
-            ans = Math.max(ans, longestSubstring(s.substr(pre, len), k));
+      time: 208,
+      memory: 67.2,
+      desc: '单调队列',
+      code: `function findMaxValueOfEquation(points: number[][], k: number): number {
+        const queue: number[] = [];
+        let ans = -Infinity;
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();
+          if (queue.length) {
+            ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);
           }
-          pre = p + 1;
+          while (
+            queue.length &&
+            points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]
+          )
+            queue.pop();
+          queue.push(i);
         }
         return ans;
       }`,

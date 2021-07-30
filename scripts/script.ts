@@ -12,11 +12,34 @@ type Heap = structures.Heap;
  
  
  */
-function reverseBits(n: number): number {
-  let ans = 0;
-  for (let i = 0, j = 1, k = 2 ** 31; i < 32; i++, j *= 2, k >>>= 1) {
-    if (n & j) ans = k;
+function findMaxValueOfEquation(points: number[][], k: number): number {
+  const queue: number[] = [];
+  let ans = -Infinity;
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
+    while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();
+    if (queue.length) {
+      ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);
+    }
+    while (
+      queue.length &&
+      points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]
+    )
+      queue.pop();
+    queue.push(i);
   }
   return ans;
 }
-console.log(reverseBits(0b00000010100101000001111010011100));
+console.log(
+  findMaxValueOfEquation(
+    [
+      [-17, -6],
+      [-4, 0],
+      [-2, -16],
+      [-1, 2],
+      [0, 11],
+      [6, 18],
+    ],
+    13
+  )
+);
