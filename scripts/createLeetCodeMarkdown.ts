@@ -12,34 +12,37 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1499. 满足不等式的最大值',
-  url: 'https://leetcode-cn.com/problems/max-value-of-equation/',
+  name: '987. 二叉树的垂序遍历',
+  url: 'https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/',
   difficulty: Difficulty.困难,
-  tag: [Tag.队列, Tag.数组, Tag.滑动窗口, Tag.单调队列, Tag.堆_优先队列],
-  desc: '请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。',
+  tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.哈希表, Tag.二叉树],
+  desc: '给你二叉树的根结点 root ，请你设计算法计算二叉树的 垂序遍历 序列。',
   solutions: [
     {
       script: Script.TS,
-      time: 208,
-      memory: 67.2,
-      desc: '单调队列',
-      code: `function findMaxValueOfEquation(points: number[][], k: number): number {
-        const queue: number[] = [];
-        let ans = -Infinity;
-        for (let i = 0; i < points.length; i++) {
-          const p = points[i];
-          while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();
-          if (queue.length) {
-            ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);
-          }
-          while (
-            queue.length &&
-            points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]
-          )
-            queue.pop();
-          queue.push(i);
+      time: 92,
+      memory: 40,
+      desc: '哈希储存',
+      code: `function verticalTraversal(root: TreeNode | null): number[][] {
+        if (root === null) return [];
+        const map = new Map<number, number[][]>();
+        order(root, 0, 0);
+        const list = [...map.entries()]
+          .sort(([col1], [col2]) => col1 - col2)
+          .map(([, list]) =>
+            list
+              .sort(([, row1, val1], [, row2, val2]) => (row1 === row2 ? val1 - val2 : row1 - row2))
+              .map(([, , v]) => v)
+          );
+        return list;
+        function order(node: TreeNode | null, row: number, col: number) {
+          if (node === null) return null;
+          let list = map.get(col);
+          if (!list) map.set(col, (list = []));
+          list.push([col, row, node.val]);
+          order(node.left, row + 1, col - 1);
+          order(node.right, row + 1, col + 1);
         }
-        return ans;
       }`,
     },
   ],

@@ -12,34 +12,25 @@ type Heap = structures.Heap;
  
  
  */
-function findMaxValueOfEquation(points: number[][], k: number): number {
-  const queue: number[] = [];
-  let ans = -Infinity;
-  for (let i = 0; i < points.length; i++) {
-    const p = points[i];
-    while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();
-    if (queue.length) {
-      ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);
-    }
-    while (
-      queue.length &&
-      points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]
-    )
-      queue.pop();
-    queue.push(i);
+function verticalTraversal(root: TreeNode | null): number[][] {
+  if (root === null) return [];
+  const map = new Map<number, number[][]>();
+  order(root, 0, 0);
+  const list = [...map.entries()]
+    .sort(([col1], [col2]) => col1 - col2)
+    .map(([, list]) =>
+      list
+        .sort(([, row1, val1], [, row2, val2]) => (row1 === row2 ? val1 - val2 : row1 - row2))
+        .map(([, , v]) => v)
+    );
+  return list;
+  function order(node: TreeNode | null, row: number, col: number) {
+    if (node === null) return null;
+    let list = map.get(col);
+    if (!list) map.set(col, (list = []));
+    list.push([col, row, node.val]);
+    order(node.left, row + 1, col - 1);
+    order(node.right, row + 1, col + 1);
   }
-  return ans;
 }
-console.log(
-  findMaxValueOfEquation(
-    [
-      [-17, -6],
-      [-4, 0],
-      [-2, -16],
-      [-1, 2],
-      [0, 11],
-      [6, 18],
-    ],
-    13
-  )
-);
+console.log(verticalTraversal(TreeNode.factory([1, 2, 3, 4, 5, 6, 7])));
