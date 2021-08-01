@@ -1,7 +1,7 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { find, merge, min, random, upperFirst } from 'lodash';
+import { merge, min, random, upperFirst } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
@@ -12,25 +12,36 @@ type Heap = structures.Heap;
  
  
  */
-function verticalTraversal(root: TreeNode | null): number[][] {
-  if (root === null) return [];
-  const map = new Map<number, number[][]>();
-  order(root, 0, 0);
-  const list = [...map.entries()]
-    .sort(([col1], [col2]) => col1 - col2)
-    .map(([, list]) =>
-      list
-        .sort(([, row1, val1], [, row2, val2]) => (row1 === row2 ? val1 - val2 : row1 - row2))
-        .map(([, , v]) => v)
-    );
-  return list;
-  function order(node: TreeNode | null, row: number, col: number) {
-    if (node === null) return null;
-    let list = map.get(col);
-    if (!list) map.set(col, (list = []));
-    list.push([col, row, node.val]);
-    order(node.left, row + 1, col - 1);
-    order(node.right, row + 1, col + 1);
+function kWeakestRows(mat: number[][], k: number): number[] {
+  return mat
+    .map((list, i) => [i, find(list)]).map(v => {
+      console.log(v)
+      return v
+    })
+    .sort(([i1, v1], [i2, v2]) => (v1 === v2 ? i1 - i2 : v1 - v2))
+    .map(([i]) => i)
+    .slice(0, k);
+  function find(list: number[]): number {
+    let l = 0;
+    let r = list.length - 1;
+    while (l < r) {
+      const mid = (l + r) >> 1;
+      if (list[mid] === 0) r = mid;
+      else l = mid + 1;
+    }
+    if(list[l]===1)return list.length
+    return l;
   }
 }
-console.log(verticalTraversal(TreeNode.factory([1, 2, 3, 4, 5, 6, 7])));
+console.log(
+  kWeakestRows(
+    [
+      [1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [1, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1],
+    ],
+    5
+  )
+);

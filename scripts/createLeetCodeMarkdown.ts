@@ -12,36 +12,56 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '987. 二叉树的垂序遍历',
-  url: 'https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.哈希表, Tag.二叉树],
-  desc: '给你二叉树的根结点 root ，请你设计算法计算二叉树的 垂序遍历 序列。',
+  name: '1337. 矩阵中战斗力最弱的 K 行',
+  url: 'https://leetcode-cn.com/problems/the-k-weakest-rows-in-a-matrix/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.二分查找, Tag.矩阵, Tag.排序, Tag.堆_优先队列],
+  desc: '给你一个大小为 m * n 的矩阵 mat，矩阵由若干军人和平民组成，分别用 1 和 0 表示。请你返回矩阵中战斗力最弱的 k 行的索引，按从最弱到最强排序。',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 40,
+      time: 76,
+      memory: 39.9,
       desc: '哈希储存',
-      code: `function verticalTraversal(root: TreeNode | null): number[][] {
-        if (root === null) return [];
-        const map = new Map<number, number[][]>();
-        order(root, 0, 0);
-        const list = [...map.entries()]
-          .sort(([col1], [col2]) => col1 - col2)
-          .map(([, list]) =>
-            list
-              .sort(([, row1, val1], [, row2, val2]) => (row1 === row2 ? val1 - val2 : row1 - row2))
-              .map(([, , v]) => v)
-          );
-        return list;
-        function order(node: TreeNode | null, row: number, col: number) {
-          if (node === null) return null;
-          let list = map.get(col);
-          if (!list) map.set(col, (list = []));
-          list.push([col, row, node.val]);
-          order(node.left, row + 1, col - 1);
-          order(node.right, row + 1, col + 1);
+      code: `function kWeakestRows(mat: number[][], k: number): number[] {
+        return mat
+          .map((list, i) => {
+            const ans: [number, number] = [i, 0];
+            for (const n of list) {
+              if (n === 1) ans[1]++;
+              else break;
+            }
+            return ans;
+          })
+          .sort(([i1, v1], [i2, v2]) => (v1 === v2 ? i1 - i2 : v1 - v2))
+          .map(([i]) => i).slice(0,k);
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 108,
+      memory: 42.1,
+      desc: '哈希储存+二分查找',
+      code: `function kWeakestRows(mat: number[][], k: number): number[] {
+        return mat
+          .map((list, i) => [i, find(list)]).map(v => {
+            console.log(v)
+            return v
+          })
+          .sort(([i1, v1], [i2, v2]) => (v1 === v2 ? i1 - i2 : v1 - v2))
+          .map(([i]) => i)
+          .slice(0, k);
+        function find(list: number[]): number {
+          let l = 0;
+          let r = list.length - 1;
+          while (l < r) {
+            const mid = (l + r) >> 1;
+            if (list[mid] === 0) r = mid;
+            else l = mid + 1;
+          }
+          if(list[l]===1)return list.length
+          return l;
         }
       }`,
     },
