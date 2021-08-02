@@ -12,57 +12,60 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1337. 矩阵中战斗力最弱的 K 行',
-  url: 'https://leetcode-cn.com/problems/the-k-weakest-rows-in-a-matrix/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.二分查找, Tag.矩阵, Tag.排序, Tag.堆_优先队列],
-  desc: '给你一个大小为 m * n 的矩阵 mat，矩阵由若干军人和平民组成，分别用 1 和 0 表示。请你返回矩阵中战斗力最弱的 k 行的索引，按从最弱到最强排序。',
+  name: '743. 网络延迟时间',
+  url: 'https://leetcode-cn.com/problems/network-delay-time/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.最短路, Tag.堆_优先队列],
+  desc: '现在，从某个节点 K 发出一个信号。需要多久才能使所有节点都收到信号？如果不能使所有节点收到信号，返回 -1',
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 39.9,
-      desc: '哈希储存',
-      code: `function kWeakestRows(mat: number[][], k: number): number[] {
-        return mat
-          .map((list, i) => {
-            const ans: [number, number] = [i, 0];
-            for (const n of list) {
-              if (n === 1) ans[1]++;
-              else break;
-            }
-            return ans;
-          })
-          .sort(([i1, v1], [i2, v2]) => (v1 === v2 ? i1 - i2 : v1 - v2))
-          .map(([i]) => i).slice(0,k);
-      }
-      `,
-    },
-    {
-      script: Script.TS,
       time: 108,
-      memory: 42.1,
-      desc: '哈希储存+二分查找',
-      code: `function kWeakestRows(mat: number[][], k: number): number[] {
-        return mat
-          .map((list, i) => [i, find(list)]).map(v => {
-            console.log(v)
-            return v
-          })
-          .sort(([i1, v1], [i2, v2]) => (v1 === v2 ? i1 - i2 : v1 - v2))
-          .map(([i]) => i)
-          .slice(0, k);
-        function find(list: number[]): number {
-          let l = 0;
-          let r = list.length - 1;
-          while (l < r) {
-            const mid = (l + r) >> 1;
-            if (list[mid] === 0) r = mid;
-            else l = mid + 1;
-          }
-          if(list[l]===1)return list.length
-          return l;
+      memory: 45.8,
+      desc: '哈希储存，每次删减',
+      code: `class NetNode {
+        next: [NetNode, number][] = [];
+        constructor(public val: number) {}
+      }
+      function getMap(times: number[][]): Map<number, NetNode> {
+        const map = new Map<number, NetNode>();
+        for (const [start, end, time] of times) {
+          let startNode = map.get(start);
+          if (!startNode) map.set(start, (startNode = new NetNode(start)));
+          let endNode = map.get(end);
+          if (!endNode) map.set(end, (endNode = new NetNode(end)));
+          startNode.next.push([endNode, time]);
         }
+        return map;
+      }
+      function networkDelayTime(times: number[][], n: number, k: number): number {
+        const map = getMap(times);
+        const init = map.get(k)!;
+        const q: [NetNode, number][] = [[init, 0]];
+        const set = new Set<NetNode>();
+        let ans = -1;
+        while (q.length) {
+          const nextQ: [NetNode, number][] = [];
+          let f = false;
+          while (q.length) {
+            const info = q.shift()!;
+            if (set.has(info[0])) continue;
+            f = true;
+            if (info[1] === 0) {
+              set.add(info[0]);
+              for (const [next, time] of info[0].next) {
+                if (time !== 0) set.has(next) || nextQ.push([next, time - 1]);
+                else q.push([next, time]);
+              }
+            } else {
+              info[1]--;
+              nextQ.push(info);
+            }
+          }
+          q.push(...nextQ);
+          if (f) ans++;
+        }
+        return set.size === n ? ans : -1;
       }`,
     },
   ],

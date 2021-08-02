@@ -79,6 +79,7 @@ export enum Tag {
   记忆化搜索 = '记忆化搜索',
   博弈 = '博弈',
   随机化 = '随机化',
+  最短路 = '最短路',
 }
 export enum Script {
   JS = 'javascript',
