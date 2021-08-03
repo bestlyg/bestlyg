@@ -12,75 +12,39 @@ type Heap = structures.Heap;
  
  
  */
-class NetNode {
-  next: [NetNode, number][] = [];
-  constructor(public val: number) {}
-}
-function getMap(times: number[][]): Map<number, NetNode> {
-  const map = new Map<number, NetNode>();
-  for (const [start, end, time] of times) {
-    let startNode = map.get(start);
-    if (!startNode) map.set(start, (startNode = new NetNode(start)));
-    let endNode = map.get(end);
-    if (!endNode) map.set(end, (endNode = new NetNode(end)));
-    startNode.next.push([endNode, time]);
-  }
-  return map;
-}
-function networkDelayTime(times: number[][], n: number, k: number): number {
-  const map = getMap(times);
-  const init = map.get(k)!;
-  const q: [NetNode, number][] = [[init, 0]];
-  const set = new Set<NetNode>();
-  let ans = -1;
-  while (q.length) {
-    const nextQ: [NetNode, number][] = [];
-    let f = false;
-    while (q.length) {
-      const info = q.shift()!;
-      if (set.has(info[0])) continue;
-      f = true;
-      if (info[1] === 0) {
-        set.add(info[0]);
-        for (const [next, time] of info[0].next) {
-          if (time !== 0) set.has(next) || nextQ.push([next, time - 1]);
-          else q.push([next, time]);
-        }
-      } else {
-        info[1]--;
-        nextQ.push(info);
-      }
+// function findUnsortedSubarray(nums: number[]): number {
+//   let l = -1;
+//   let maxl = -Infinity;
+//   let r = -1;
+//   let maxr = Infinity;
+//   const n = nums.length;
+//   for (let i = 0; i < n; i++) {
+//     if (maxr > nums[i]) r = i;
+//     else maxr = nums[i];
+//     if (maxl < nums[n - 1 - i]) l = n - 1 - i;
+//     else maxl = nums[n - 1 - i];
+//   }
+//   return r === -1 ? 0 : r - l + 1;
+// }
+// console.log(findUnsortedSubarray([1, 3, 2, 2, 3]));
+// console.log(findUnsortedSubarray([1, 2, 3, 3, 3]));
+
+function findUnsortedSubarray(nums: number[]): number {
+  const sorted = nums.slice().sort((a, b) => a - b);
+  console.log(nums, sorted);
+  let l = -1;
+  let r = -1;
+  for (let i = 0, n = nums.length; i < n; i++) {
+    if (sorted[i] !== nums[i] && l === -1) {
+      l = i;
+      console.log(1, l);
     }
-    q.push(...nextQ);
-    if (f) ans++;
+    if (sorted[n - 1 - i] !== nums[n - 1 - i] && r === -1) {
+      r = n - 1 - i;
+    }
+    if (l !== -1 && r !== -1) break;
   }
-  return set.size === n ? ans : -1;
+  console.log(l, r);
+  return r === -1 ? 0 : r - l + 1;
 }
-console.log(
-  networkDelayTime(
-    [
-      [3, 5, 78],
-      [2, 1, 1],
-      [1, 3, 0],
-      [4, 3, 59],
-      [5, 3, 85],
-      [5, 2, 22],
-      [2, 4, 23],
-      [1, 4, 43],
-      [4, 5, 75],
-      [5, 1, 15],
-      [1, 5, 91],
-      [4, 1, 16],
-      [3, 2, 98],
-      [3, 4, 22],
-      [5, 4, 31],
-      [1, 2, 0],
-      [2, 5, 4],
-      [4, 2, 51],
-      [3, 1, 36],
-      [2, 3, 59],
-    ],
-    5,
-    5
-  )
-);
+console.log(findUnsortedSubarray([2, 6, 4, 8, 10, 9, 15]));
