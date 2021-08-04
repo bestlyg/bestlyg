@@ -12,39 +12,31 @@ type Heap = structures.Heap;
  
  
  */
-// function findUnsortedSubarray(nums: number[]): number {
-//   let l = -1;
-//   let maxl = -Infinity;
-//   let r = -1;
-//   let maxr = Infinity;
-//   const n = nums.length;
-//   for (let i = 0; i < n; i++) {
-//     if (maxr > nums[i]) r = i;
-//     else maxr = nums[i];
-//     if (maxl < nums[n - 1 - i]) l = n - 1 - i;
-//     else maxl = nums[n - 1 - i];
-//   }
-//   return r === -1 ? 0 : r - l + 1;
-// }
-// console.log(findUnsortedSubarray([1, 3, 2, 2, 3]));
-// console.log(findUnsortedSubarray([1, 2, 3, 3, 3]));
-
-function findUnsortedSubarray(nums: number[]): number {
-  const sorted = nums.slice().sort((a, b) => a - b);
-  console.log(nums, sorted);
-  let l = -1;
-  let r = -1;
-  for (let i = 0, n = nums.length; i < n; i++) {
-    if (sorted[i] !== nums[i] && l === -1) {
-      l = i;
-      console.log(1, l);
+function triangleNumber(nums: number[]): number {
+  nums.sort((a, b) => a - b);
+  nums.push(Infinity);
+  const n = nums.length;
+  let ans = 0;
+  for (let l1 = 0; l1 < n; l1++) {
+    const n1 = nums[l1];
+    for (let l2 = l1 + 1; l2 < n - 1; l2++) {
+      const n2 = nums[l2];
+      const l3 = bs(l2 + 1, n - 1, n1, n2);
+      console.log(l1, l2, l3);
+      if (l3 !== l2) ans += l3 - l2;
     }
-    if (sorted[n - 1 - i] !== nums[n - 1 - i] && r === -1) {
-      r = n - 1 - i;
-    }
-    if (l !== -1 && r !== -1) break;
   }
-  console.log(l, r);
-  return r === -1 ? 0 : r - l + 1;
+  return ans;
+  function bs(left: number, right: number, n1: number, n2: number): number {
+    while (left < right) {
+      const mid = (left + right) >> 1;
+      if (nums[mid] + n1 > n2 && nums[mid] + n2 > n1 && n1 + n2 > nums[mid]) {
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
+    }
+    return left - 1;
+  }
 }
-console.log(findUnsortedSubarray([2, 6, 4, 8, 10, 9, 15]));
+console.log(triangleNumber([2, 2, 3, 4]));
