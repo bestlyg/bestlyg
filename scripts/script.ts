@@ -1,7 +1,7 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { merge, min, random, upperFirst } from 'lodash';
+import { find, merge, min, random, upperFirst } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
@@ -12,31 +12,34 @@ type Heap = structures.Heap;
  
  
  */
-function triangleNumber(nums: number[]): number {
-  nums.sort((a, b) => a - b);
-  nums.push(Infinity);
-  const n = nums.length;
-  let ans = 0;
-  for (let l1 = 0; l1 < n; l1++) {
-    const n1 = nums[l1];
-    for (let l2 = l1 + 1; l2 < n - 1; l2++) {
-      const n2 = nums[l2];
-      const l3 = bs(l2 + 1, n - 1, n1, n2);
-      console.log(l1, l2, l3);
-      if (l3 !== l2) ans += l3 - l2;
+
+function eventualSafeNodes(graph: number[][]): number[] {
+  const n = graph.length;
+  const ans = new Map<number, boolean>();
+  const set = new Set<number>();
+  for (let i = 0; i < n; i++) dfs(i);
+  function dfs(idx: number) {
+    if (set.has(idx)) return false;
+    if (ans.has(idx)) return ans.get(idx);
+    if (graph[idx].length === 0) {
+      ans.set(idx, true);
+      return true;
     }
-  }
-  return ans;
-  function bs(left: number, right: number, n1: number, n2: number): number {
-    while (left < right) {
-      const mid = (left + right) >> 1;
-      if (nums[mid] + n1 > n2 && nums[mid] + n2 > n1 && n1 + n2 > nums[mid]) {
-        left = mid + 1;
-      } else {
-        right = mid;
+    set.add(idx);
+    let f = true;
+    for (const next of graph[idx]) {
+      if (!dfs(next)) {
+        f = false;
+        break;
       }
     }
-    return left - 1;
+    set.delete(idx);
+    ans.set(idx, f);
+    return f;
   }
+  return [...ans.entries()]
+    .filter(([, f]) => f)
+    .map(([val]) => val)
+    .sort((a, b) => a - b);
 }
-console.log(triangleNumber([2, 2, 3, 4]));
+console.log(eventualSafeNodes([[1, 2], [2, 3], [5], [0], [5], [], []]));

@@ -12,64 +12,45 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '611. 有效三角形的个数',
-  url: 'https://leetcode-cn.com/problems/valid-triangle-number/',
+  name: '802. 找到最终的安全状态',
+  url: 'https://leetcode-cn.com/problems/find-eventual-safe-states/',
   difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.数组, Tag.双指针, Tag.二分查找, Tag.排序],
-  desc: '给定一个包含非负整数的数组，你的任务是统计其中可以组成三角形三条边的三元组个数。',
+  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序],
+  desc: '返回一个由图中所有安全的起始节点组成的数组作为答案。答案数组中的元素应当按 升序 排列。',
   solutions: [
     {
       script: Script.TS,
-      time: 2844,
-      memory: 39.7,
-      desc: '三次循环',
-      code: `function triangleNumber(nums: number[]): number {
-        nums.sort((a, b) => a - b);
-        const n = nums.length;
-        let ans = 0;
-        for (let l1 = 0; l1 < n; l1++) {
-          const n1 = nums[l1];
-          for (let l2 = l1 + 1; l2 < n; l2++) {
-            const n2 = nums[l2];
-            for (let l3 = l2 + 1; l3 < n; l3++) {
-              const n3 = nums[l3];
-              if (n1 + n2 > n3 && n1 + n3 > n2 && n2 + n3 + n1) ans++;
+      time: 204,
+      memory: 53.8,
+      desc: 'dfs',
+      code: `function eventualSafeNodes(graph: number[][]): number[] {
+        const n = graph.length;
+        const ans = new Map<number, boolean>();
+        const set = new Set<number>();
+        for (let i = 0; i < n; i++) dfs(i);
+        function dfs(idx: number) {
+          if (set.has(idx)) return false;
+          if (ans.has(idx)) return ans.get(idx);
+          if (graph[idx].length === 0) {
+            ans.set(idx, true);
+            return true;
+          }
+          set.add(idx);
+          let f = true;
+          for (const next of graph[idx]) {
+            if (!dfs(next)) {
+              f = false;
+              break;
             }
           }
+          set.delete(idx);
+          ans.set(idx, f);
+          return f;
         }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 335,
-      memory: 40.5,
-      desc: '二次循环+二分',
-      code: `function triangleNumber(nums: number[]): number {
-        nums.sort((a, b) => a - b);
-        nums.push(Infinity);
-        const n = nums.length;
-        let ans = 0;
-        for (let l1 = 0; l1 < n; l1++) {
-          const n1 = nums[l1];
-          for (let l2 = l1 + 1; l2 < n - 1; l2++) {
-            const n2 = nums[l2];
-            const l3 = bs(l2 + 1, n - 1, n1, n2);
-            if (l3 !== l2) ans += l3 - l2;
-          }
-        }
-        return ans;
-        function bs(left: number, right: number, n1: number, n2: number): number {
-          while (left < right) {
-            const mid = (left + right) >> 1;
-            if (nums[mid] + n1 > n2 && nums[mid] + n2 > n1 && n1 + n2 > nums[mid]) {
-              left = mid + 1;
-            } else {
-              right = mid;
-            }
-          }
-          return left - 1;
-        }
+        return [...ans.entries()]
+          .filter(([, f]) => f)
+          .map(([val]) => val)
+          .sort((a, b) => a - b);
       }`,
     },
   ],
