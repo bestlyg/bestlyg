@@ -12,45 +12,41 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '802. 找到最终的安全状态',
-  url: 'https://leetcode-cn.com/problems/find-eventual-safe-states/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序],
-  desc: '返回一个由图中所有安全的起始节点组成的数组作为答案。答案数组中的元素应当按 升序 排列。',
+  name: '847. 访问所有节点的最短路径',
+  url: 'https://leetcode-cn.com/problems/shortest-path-visiting-all-nodes/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.位运算, Tag.广度优先搜索, Tag.图, Tag.动态规划, Tag.状态压缩],
+  desc: '返回能够访问所有节点的最短路径的长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 204,
-      memory: 53.8,
-      desc: 'dfs',
-      code: `function eventualSafeNodes(graph: number[][]): number[] {
+      time: 120,
+      memory: 45,
+      desc: 'bfs,利用set做重复值过滤',
+      code: `function shortestPathLength(graph: number[][]): number {
         const n = graph.length;
-        const ans = new Map<number, boolean>();
-        const set = new Set<number>();
-        for (let i = 0; i < n; i++) dfs(i);
-        function dfs(idx: number) {
-          if (set.has(idx)) return false;
-          if (ans.has(idx)) return ans.get(idx);
-          if (graph[idx].length === 0) {
-            ans.set(idx, true);
-            return true;
-          }
-          set.add(idx);
-          let f = true;
-          for (const next of graph[idx]) {
-            if (!dfs(next)) {
-              f = false;
-              break;
-            }
-          }
-          set.delete(idx);
-          ans.set(idx, f);
-          return f;
+        const queue: [number, number, number][] = [];
+        const seen = new Array(n).fill(0).map(_ => new Set<number>());
+        for (let i = 0; i < n; i++) {
+          queue.push([i, 1 << i, 0]);
+          seen[i].add(1 << i);
         }
-        return [...ans.entries()]
-          .filter(([, f]) => f)
-          .map(([val]) => val)
-          .sort((a, b) => a - b);
+        let ans = Infinity;
+        while (queue.length) {
+          const data = queue.shift()!;
+          const [idx, mask, step] = data;
+          if (mask === (1 << n) - 1) {
+            ans = step;
+            break;
+          }
+          for (const next of graph[idx]) {
+            const newMask = mask | (1 << next);
+            if (seen[next].has(newMask)) continue;
+            queue.push([next, newMask, step + 1]);
+            seen[next].add(newMask);
+          }
+        }
+        return ans;
       }`,
     },
   ],
