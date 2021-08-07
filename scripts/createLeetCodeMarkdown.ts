@@ -12,41 +12,60 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '847. 访问所有节点的最短路径',
-  url: 'https://leetcode-cn.com/problems/shortest-path-visiting-all-nodes/',
+  name: '面试题 04.09. 二叉搜索树序列',
+  url: 'https://leetcode-cn.com/problems/bst-sequences-lcci/',
   difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.广度优先搜索, Tag.图, Tag.动态规划, Tag.状态压缩],
-  desc: '返回能够访问所有节点的最短路径的长度。',
+  tag: [Tag.树, Tag.二叉搜索树, Tag.动态规划, Tag.二叉树],
+  desc: '从左向右遍历一个数组，通过不断将其中的元素插入树中可以逐步地生成一棵二叉搜索树。给定一个由不同节点组成的二叉搜索树，输出所有可能生成此树的数组。',
   solutions: [
     {
       script: Script.TS,
       time: 120,
-      memory: 45,
-      desc: 'bfs,利用set做重复值过滤',
-      code: `function shortestPathLength(graph: number[][]): number {
-        const n = graph.length;
-        const queue: [number, number, number][] = [];
-        const seen = new Array(n).fill(0).map(_ => new Set<number>());
-        for (let i = 0; i < n; i++) {
-          queue.push([i, 1 << i, 0]);
-          seen[i].add(1 << i);
+      memory: 46.1,
+      desc: '递归生成左右子树，保证左右子树顺序不变',
+      code: `function BSTSequences(root: TreeNode | null): number[][] {
+        if (root === null) return [[]];
+        if (root.left === null && root.right === null) return [[root.val]];
+        if (root.left !== null && root.right === null) {
+          const sub = BSTSequences(root.left);
+          return sub.map(v => [root.val, ...v]);
         }
-        let ans = Infinity;
-        while (queue.length) {
-          const data = queue.shift()!;
-          const [idx, mask, step] = data;
-          if (mask === (1 << n) - 1) {
-            ans = step;
-            break;
-          }
-          for (const next of graph[idx]) {
-            const newMask = mask | (1 << next);
-            if (seen[next].has(newMask)) continue;
-            queue.push([next, newMask, step + 1]);
-            seen[next].add(newMask);
+        if (root.right !== null && root.left === null) {
+          const sub = BSTSequences(root.right);
+          return sub.map(v => [root.val, ...v]);
+        }
+        const subl = BSTSequences(root.left);
+        const subr = BSTSequences(root.right);
+        const ans: number[][] = [];
+        for (const l of subl) {
+          for (const r of subr) {
+            merge(l, 0, r, 0, [], root.val);
           }
         }
         return ans;
+        function merge(
+          l: number[],
+          idxl: number,
+          r: number[],
+          idxr: number,
+          list: number[],
+          root: number
+        ): void {
+          if (l.length === idxl) {
+            for (let i = idxr; i < r.length; i++) list.push(r[i]);
+            list.unshift(root);
+            ans.push(list);
+            return;
+          }
+          if (r.length === idxr) {
+            for (let i = idxl; i < l.length; i++) list.push(l[i]);
+            list.unshift(root);
+            ans.push(list);
+            return;
+          }
+          merge(l, idxl + 1, r, idxr, [...list, l[idxl]], root);
+          merge(l, idxl, r, idxr + 1, [...list, r[idxr]], root);
+        }
       }`,
     },
   ],
