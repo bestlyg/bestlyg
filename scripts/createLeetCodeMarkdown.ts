@@ -12,61 +12,27 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '面试题 04.09. 二叉搜索树序列',
-  url: 'https://leetcode-cn.com/problems/bst-sequences-lcci/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.树, Tag.二叉搜索树, Tag.动态规划, Tag.二叉树],
-  desc: '从左向右遍历一个数组，通过不断将其中的元素插入树中可以逐步地生成一棵二叉搜索树。给定一个由不同节点组成的二叉搜索树，输出所有可能生成此树的数组。',
+  name: '1137. 第 N 个泰波那契数',
+  url: 'https://leetcode-cn.com/problems/n-th-tribonacci-number/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
+  desc: '给你整数 n，请返回第 n 个泰波那契数 Tn 的值。',
   solutions: [
     {
       script: Script.TS,
-      time: 120,
-      memory: 46.1,
+      time: 68,
+      memory: 39.5,
       desc: '递归生成左右子树，保证左右子树顺序不变',
-      code: `function BSTSequences(root: TreeNode | null): number[][] {
-        if (root === null) return [[]];
-        if (root.left === null && root.right === null) return [[root.val]];
-        if (root.left !== null && root.right === null) {
-          const sub = BSTSequences(root.left);
-          return sub.map(v => [root.val, ...v]);
-        }
-        if (root.right !== null && root.left === null) {
-          const sub = BSTSequences(root.right);
-          return sub.map(v => [root.val, ...v]);
-        }
-        const subl = BSTSequences(root.left);
-        const subr = BSTSequences(root.right);
-        const ans: number[][] = [];
-        for (const l of subl) {
-          for (const r of subr) {
-            merge(l, 0, r, 0, [], root.val);
-          }
-        }
-        return ans;
-        function merge(
-          l: number[],
-          idxl: number,
-          r: number[],
-          idxr: number,
-          list: number[],
-          root: number
-        ): void {
-          if (l.length === idxl) {
-            for (let i = idxr; i < r.length; i++) list.push(r[i]);
-            list.unshift(root);
-            ans.push(list);
-            return;
-          }
-          if (r.length === idxr) {
-            for (let i = idxl; i < l.length; i++) list.push(l[i]);
-            list.unshift(root);
-            ans.push(list);
-            return;
-          }
-          merge(l, idxl + 1, r, idxr, [...list, l[idxl]], root);
-          merge(l, idxl, r, idxr + 1, [...list, r[idxr]], root);
-        }
-      }`,
+      code: `function tribonacci(n: number): number {
+        let [t0, t1, t2] = [0, 1, 1];
+        if (n === 0) return t0;
+        if (n === 1) return t1;
+        if (n === 2) return t2;
+        n -= 2;
+        while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];
+        return t2;
+      }
+      `,
     },
   ],
 };
