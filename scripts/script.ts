@@ -13,12 +13,16 @@ type Heap = structures.Heap;
 2  4
 1  n   
  */
-function tribonacci(n: number): number {
-  let [t0, t1, t2] = [0, 1, 1];
-  if (n === 0) return t0;
-  if (n === 1) return t1;
-  if (n === 2) return t2;
-  n -= 2;
-  while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];
-  return t2;
+function nthSuperUglyNumber(n: number, primes: number[]): number {
+  const len = primes.length;
+  const pos = new Array(len).fill(0);
+  const list: number[] = [1];
+  let val = 1;
+  for (let i = 1; i < n; i++) {
+    val = Math.min(...pos.map((v, i) => list[v] * primes[i]));
+    for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;
+    list.push(val);
+  }
+  return val;
 }
+console.log(nthSuperUglyNumber(1, [2, 7, 13, 19]));

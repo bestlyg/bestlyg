@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1137. 第 N 个泰波那契数',
+  name: '313. 超级丑数',
   url: 'https://leetcode-cn.com/problems/n-th-tribonacci-number/',
   difficulty: Difficulty.简单,
   tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
@@ -20,19 +20,21 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 68,
-      memory: 39.5,
-      desc: '递归生成左右子树，保证左右子树顺序不变',
-      code: `function tribonacci(n: number): number {
-        let [t0, t1, t2] = [0, 1, 1];
-        if (n === 0) return t0;
-        if (n === 1) return t1;
-        if (n === 2) return t2;
-        n -= 2;
-        while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];
-        return t2;
-      }
-      `,
+      time: 148,
+      memory: 46.4,
+      desc: '遍历数组进行相乘',
+      code: `function nthSuperUglyNumber(n: number, primes: number[]): number {
+        const len = primes.length;
+        const pos = new Array(len).fill(0);
+        const list: number[] = [1];
+        let val = 1;
+        for (let i = 1; i < n; i++) {
+          val = Math.min(...pos.map((v, i) => list[v] * primes[i]));
+          for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;
+          list.push(val);
+        }
+        return val;
+      }`,
     },
   ],
 };
