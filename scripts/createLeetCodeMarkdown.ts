@@ -12,28 +12,25 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '313. 超级丑数',
-  url: 'https://leetcode-cn.com/problems/n-th-tribonacci-number/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
-  desc: '给你整数 n，请返回第 n 个泰波那契数 Tn 的值。',
+  name: '413. 等差数列划分',
+  url: 'https://leetcode-cn.com/problems/arithmetic-slices/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.动态规划],
+  desc: '给你一个整数数组 nums ，返回数组 nums 中所有为等差数组的 子数组 个数。',
   solutions: [
     {
       script: Script.TS,
-      time: 148,
-      memory: 46.4,
-      desc: '遍历数组进行相乘',
-      code: `function nthSuperUglyNumber(n: number, primes: number[]): number {
-        const len = primes.length;
-        const pos = new Array(len).fill(0);
-        const list: number[] = [1];
-        let val = 1;
-        for (let i = 1; i < n; i++) {
-          val = Math.min(...pos.map((v, i) => list[v] * primes[i]));
-          for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;
-          list.push(val);
+      time: 84,
+      memory: 39.2,
+      desc: '动态规划',
+      code: `function numberOfArithmeticSlices(nums: number[]): number {
+        const n = nums.length;
+        const dp = new Array(n).fill(0);
+        let ans = 0;
+        for (let i = 2; i < n; i++) {
+          if (nums[i] - nums[i - 1] === nums[i - 1] - nums[i - 2]) ans += dp[i] = dp[i - 1] + 1;
         }
-        return val;
+        return ans;
       }`,
     },
   ],

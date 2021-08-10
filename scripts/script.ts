@@ -13,16 +13,14 @@ type Heap = structures.Heap;
 2  4
 1  n   
  */
-function nthSuperUglyNumber(n: number, primes: number[]): number {
-  const len = primes.length;
-  const pos = new Array(len).fill(0);
-  const list: number[] = [1];
-  let val = 1;
-  for (let i = 1; i < n; i++) {
-    val = Math.min(...pos.map((v, i) => list[v] * primes[i]));
-    for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;
-    list.push(val);
+function numberOfArithmeticSlices(nums: number[]): number {
+  const n = nums.length;
+  const dp = new Array(n).fill(0);
+  let ans = 0;
+  for (let i = 2; i < n; i++) {
+    if (nums[i] - nums[i - 1] === nums[i - 1] - nums[i - 2]) ans += dp[i] = dp[i - 1] + 1;
   }
-  return val;
+  console.log(dp);
+  return ans;
 }
-console.log(nthSuperUglyNumber(1, [2, 7, 13, 19]));
+console.log(numberOfArithmeticSlices([1, 2, 3, 4]));
