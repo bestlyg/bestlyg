@@ -14,13 +14,19 @@ type Heap = structures.Heap;
 1  n   
  */
 function numberOfArithmeticSlices(nums: number[]): number {
+  const map = new Map<number, Map<number, number>>(
+    nums.map((_, i) => [i, new Map<number, number>()])
+  );
   const n = nums.length;
-  const dp = new Array(n).fill(0);
   let ans = 0;
-  for (let i = 2; i < n; i++) {
-    if (nums[i] - nums[i - 1] === nums[i - 1] - nums[i - 2]) ans += dp[i] = dp[i - 1] + 1;
+  for (let i = 0; i < n; i++) {
+    const num = nums[i];
+    for (let j = 0; j < i; j++) {
+      const v = num - nums[j];
+      const c = map.get(j)!.get(v) ?? 0;
+      ans += c;
+      map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);
+    }
   }
-  console.log(dp);
   return ans;
 }
-console.log(numberOfArithmeticSlices([1, 2, 3, 4]));
