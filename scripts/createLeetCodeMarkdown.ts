@@ -12,34 +12,36 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '446. 等差数列划分 II - 子序列',
-  url: 'https://leetcode-cn.com/problems/arithmetic-slices-ii-subsequence/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.动态规划],
-  desc: '给你一个整数数组 nums ，返回 nums 中所有 等差子序列 的数目。',
+  name: '516. 最长回文子序列',
+  url: 'https://leetcode-cn.com/problems/longest-palindromic-subsequence/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.字符串, Tag.动态规划],
+  desc: '给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 396,
-      memory: 73.1,
-      desc: '动态规划,dp[i]=以nums[i]结尾的公差映射',
-      code: `function numberOfArithmeticSlices(nums: number[]): number {
-        const map = new Map<number, Map<number, number>>(
-          nums.map((_, i) => [i, new Map<number, number>()])
-        );
-        const n = nums.length;
-        let ans = 0;
-        for (let i = 0; i < n; i++) {
-          const num = nums[i];
-          for (let j = 0; j < i; j++) {
-            const v = num - nums[j];
-            const c = map.get(j)!.get(v) ?? 0;
-            ans += c;
-            map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);
+      time: 212,
+      memory: 86,
+      desc: '动态规划,dp[i][j]=以i结尾j开头的子序列的最大值',
+      code: `function longestPalindromeSubseq(s: string): number {
+        const n = s.length;
+        if (n === 1) return 1;
+        const dp = new Array(n).fill(0).map(_ => new Array(n).fill(0));
+        for (let i = n - 2; i >= 0; i--) {
+          dp[i][i] = 1;
+          const cl = s[i];
+          for (let j = i + 1; j < n; j++) {
+            const cr = s[j];
+            if (cl === cr) {
+              dp[i][j] = dp[i + 1][j - 1] + 2;
+            } else {
+              dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+            }
           }
         }
-        return ans;
-      }`,
+        return dp[0][n - 1];
+      }
+      `,
     },
   ],
 };

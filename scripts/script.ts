@@ -13,20 +13,21 @@ type Heap = structures.Heap;
 2  4
 1  n   
  */
-function numberOfArithmeticSlices(nums: number[]): number {
-  const map = new Map<number, Map<number, number>>(
-    nums.map((_, i) => [i, new Map<number, number>()])
-  );
-  const n = nums.length;
-  let ans = 0;
-  for (let i = 0; i < n; i++) {
-    const num = nums[i];
-    for (let j = 0; j < i; j++) {
-      const v = num - nums[j];
-      const c = map.get(j)!.get(v) ?? 0;
-      ans += c;
-      map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);
+function longestPalindromeSubseq(s: string): number {
+  const n = s.length;
+  if (n === 1) return 1;
+  const dp = new Array(n).fill(0).map(_ => new Array(n).fill(0));
+  for (let i = n - 2; i >= 0; i--) {
+    dp[i][i] = 1;
+    const cl = s[i];
+    for (let j = i + 1; j < n; j++) {
+      const cr = s[j];
+      if (cl === cr) {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+      }
     }
   }
-  return ans;
+  return dp[0][n - 1];
 }
