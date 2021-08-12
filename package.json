@@ -24,7 +24,15 @@
     "leetcode:markdown": "cd scripts && ts-node createLeetCodeMarkDown",
     "leetcode:auto": "yarn leetcode:markdown && yarn leetcode:readme && yarn commit:auto",
     "run:js": "cd scripts && node script.js",
-    "run:ts": "cd scripts && ts-node script.ts"
+    "run:ts": "cd scripts && ts-node script.ts",
+    "<!-- 快捷方式 -->": "下面是快捷方式用的",
+    "rj": "yarn run:js",
+    "rt": "yarn run:ts",
+    "lr": "yarn leetcode:readme",
+    "lm": "yarn leetcode:markdown",
+    "la": "yarn leetcode:auto",
+    "dp": "yarn deploy",
+    "ca": "yarn commit:auto"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
