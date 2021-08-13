@@ -9,25 +9,14 @@ type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
 /*
-  3
-2  4
-1  n   
+  
  */
-function longestPalindromeSubseq(s: string): number {
-  const n = s.length;
-  if (n === 1) return 1;
-  const dp = new Array(n).fill(0).map(_ => new Array(n).fill(0));
-  for (let i = n - 2; i >= 0; i--) {
-    dp[i][i] = 1;
-    const cl = s[i];
-    for (let j = i + 1; j < n; j++) {
-      const cr = s[j];
-      if (cl === cr) {
-        dp[i][j] = dp[i + 1][j - 1] + 2;
-      } else {
-        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
-      }
-    }
+function countDigitOne(n: number): number {
+  let num = 1;
+  let ans = 0;
+  while (n >= num) {
+    ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);
+    num *= 10;
   }
-  return dp[0][n - 1];
+  return ans;
 }

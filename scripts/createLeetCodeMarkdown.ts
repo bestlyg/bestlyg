@@ -12,36 +12,29 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '516. 最长回文子序列',
-  url: 'https://leetcode-cn.com/problems/longest-palindromic-subsequence/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.字符串, Tag.动态规划],
-  desc: '给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。',
+  name: '233. 数字 1 的个数',
+  url: 'https://leetcode-cn.com/problems/number-of-digit-one/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.递归, Tag.数学, Tag.动态规划],
+  desc: '给定一个整数 n，计算所有小于等于 n 的非负整数中数字 1 出现的个数。',
   solutions: [
     {
       script: Script.TS,
-      time: 212,
-      memory: 86,
-      desc: '动态规划,dp[i][j]=以i结尾j开头的子序列的最大值',
-      code: `function longestPalindromeSubseq(s: string): number {
-        const n = s.length;
-        if (n === 1) return 1;
-        const dp = new Array(n).fill(0).map(_ => new Array(n).fill(0));
-        for (let i = n - 2; i >= 0; i--) {
-          dp[i][i] = 1;
-          const cl = s[i];
-          for (let j = i + 1; j < n; j++) {
-            const cr = s[j];
-            if (cl === cr) {
-              dp[i][j] = dp[i + 1][j - 1] + 2;
-            } else {
-              dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
-            }
-          }
+      time: 72,
+      memory: 39.2,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/number-of-digit-one/solution/shu-zi-1-de-ge-shu-by-leetcode-solution-zopq/'
+      ),
+      code: `function countDigitOne(n: number): number {
+        let num = 1;
+        let ans = 0;
+        while (n >= num) {
+          ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);
+          num *= 10;
         }
-        return dp[0][n - 1];
-      }
-      `,
+        return ans;
+      }`,
     },
   ],
 };
