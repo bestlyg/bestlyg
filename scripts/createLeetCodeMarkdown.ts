@@ -11,29 +11,29 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '233. 数字 1 的个数',
-  url: 'https://leetcode-cn.com/problems/number-of-digit-one/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.递归, Tag.数学, Tag.动态规划],
-  desc: '给定一个整数 n，计算所有小于等于 n 的非负整数中数字 1 出现的个数。',
+  existMarkdown: true,
+  name: '41. 缺失的第一个正数',
+  url: 'https://leetcode-cn.com/problems/out-of-boundary-paths/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.动态规划],
+  desc: '给你五个整数 m、n、maxMove、startRow 以及 startColumn ，找出并返回可以将球移出边界的路径数量。',
   solutions: [
     {
       script: Script.TS,
-      time: 72,
-      memory: 39.2,
-      desc: markdown.link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/number-of-digit-one/solution/shu-zi-1-de-ge-shu-by-leetcode-solution-zopq/'
-      ),
-      code: `function countDigitOne(n: number): number {
-        let num = 1;
-        let ans = 0;
-        while (n >= num) {
-          ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);
-          num *= 10;
+      time: 92,
+      memory: 57.3,
+      desc: '把每个正整数放置正确的位置最后做判断',
+      code: `function firstMissingPositive(nums: number[]): number {
+        const n = nums.length;
+        for (let i = 0; i < n; i++) {
+          while (nums[i] !== i + 1) {
+            if (nums[i] > n || nums[i] <= 0||nums[nums[i] - 1] === nums[i]) break;
+            [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];
+          }
         }
-        return ans;
+        let i = 0;
+        while (i < n && nums[i] === i + 1) i++;
+        return i + 1;
       }`,
     },
   ],

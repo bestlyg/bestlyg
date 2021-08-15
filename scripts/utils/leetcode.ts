@@ -80,6 +80,7 @@ export enum Tag {
   博弈 = '博弈',
   随机化 = '随机化',
   最短路 = '最短路',
+  模拟 = '模拟',
 }
 export enum Script {
   JS = 'javascript',

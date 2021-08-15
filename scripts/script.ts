@@ -8,15 +8,17 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-/*
-  
- */
-function countDigitOne(n: number): number {
-  let num = 1;
-  let ans = 0;
-  while (n >= num) {
-    ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);
-    num *= 10;
+function firstMissingPositive(nums: number[]): number {
+  const n = nums.length;
+  for (let i = 0; i < n; i++) {
+    while (nums[i] !== i + 1) {
+      if (nums[i] > n || nums[i] <= 0) break;
+      if (nums[nums[i] - 1] === nums[i]) continue;
+      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];
+    }
   }
-  return ans;
+  let i = 0;
+  while (i < n && nums[i] === i + 1) i++;
+  return i + 1;
 }
+console.log(firstMissingPositive([7, 8, 9, 11, 12]));
