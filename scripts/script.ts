@@ -1,24 +1,36 @@
 import { structures } from './utils';
 // import { AVLTree, RBTree } from '@bestlyg/data-structures/src';
 // import { quickSort3, heapSort, bubbleSort, countingSort, radixSort } from '@bestlyg/algorithms/src';
-import { find, first, merge, min, random, upperFirst } from 'lodash';
+import { fill, find, first, merge, min, random, upperFirst } from 'lodash';
 const { TreeNode, UnionFind, ListNode, Heap } = structures;
 type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function firstMissingPositive(nums: number[]): number {
-  const n = nums.length;
-  for (let i = 0; i < n; i++) {
-    while (nums[i] !== i + 1) {
-      if (nums[i] > n || nums[i] <= 0) break;
-      if (nums[nums[i] - 1] === nums[i]) continue;
-      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];
+function countArrangement(n: number): number {
+  let ans = 0;
+  dfs();
+  return ans;
+  function dfs(list: number[] = [], mask = 0) {
+    if (list.length === n) {
+      ans++;
+      return;
+    }
+    for (let i = 1; i <= n; i++) {
+      if (
+        (mask & (1 << (i - 1))) === 0 &&
+        (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)
+      ) {
+        mask |= 1 << (i - 1);
+        list.push(i);
+        dfs(list, mask);
+        list.pop();
+        mask &= ~(1 << (i - 1));
+      }
     }
   }
-  let i = 0;
-  while (i < n && nums[i] === i + 1) i++;
-  return i + 1;
 }
-console.log(firstMissingPositive([7, 8, 9, 11, 12]));
+console.log(countArrangement(3));
+const list = [0, 1, 2, 3, 8, 10, 36, 41, 132, 250, 700, 750, 4010, 4237, 10680, 24679];
+// for (let i = 1; i <= 15; i++) console.log(countArrangement(i));

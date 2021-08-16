@@ -11,29 +11,66 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '41. 缺失的第一个正数',
-  url: 'https://leetcode-cn.com/problems/out-of-boundary-paths/',
+  existMarkdown: !true,
+  name: '526. 优美的排列',
+  url: 'https://leetcode-cn.com/problems/beautiful-arrangement/',
   difficulty: Difficulty.中等,
-  tag: [Tag.动态规划],
-  desc: '给你五个整数 m、n、maxMove、startRow 以及 startColumn ，找出并返回可以将球移出边界的路径数量。',
+  tag: [Tag.位运算, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
+  desc: '现在给定一个整数 N，请问可以构造多少个优美的排列？',
   solutions: [
     {
       script: Script.TS,
-      time: 92,
-      memory: 57.3,
-      desc: '把每个正整数放置正确的位置最后做判断',
-      code: `function firstMissingPositive(nums: number[]): number {
-        const n = nums.length;
-        for (let i = 0; i < n; i++) {
-          while (nums[i] !== i + 1) {
-            if (nums[i] > n || nums[i] <= 0||nums[nums[i] - 1] === nums[i]) break;
-            [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];
+      time: 396,
+      memory: 43.6,
+      desc: '深度遍历每个位置',
+      code: `function countArrangement(n: number): number {
+        let ans = 0;
+        dfs();
+        return ans;
+        function dfs(list: number[] = [], set = new Set<number>()) {
+          if (list.length === n) {
+            ans++;
+            return;
+          }
+          for (let i = 1; i <= n; i++) {
+            if (!set.has(i) && (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)) {
+              set.add(i);
+              list.push(i);
+              dfs(list, set);
+              list.pop();
+              set.delete(i);
+            }
           }
         }
-        let i = 0;
-        while (i < n && nums[i] === i + 1) i++;
-        return i + 1;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 148,
+      memory: 39.3,
+      desc: '深度遍历每个位置,利用二进制去重',
+      code: `function countArrangement(n: number): number {
+        let ans = 0;
+        dfs();
+        return ans;
+        function dfs(list: number[] = [], mask = 0) {
+          if (list.length === n) {
+            ans++;
+            return;
+          }
+          for (let i = 1; i <= n; i++) {
+            if (
+              (mask & (1 << (i - 1))) === 0 &&
+              (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)
+            ) {
+              mask |= 1 << (i - 1);
+              list.push(i);
+              dfs(list, mask);
+              list.pop();
+              mask &= ~(1 << (i - 1));
+            }
+          }
+        }
       }`,
     },
   ],
