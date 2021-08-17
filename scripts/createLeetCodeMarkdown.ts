@@ -12,65 +12,31 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '526. 优美的排列',
-  url: 'https://leetcode-cn.com/problems/beautiful-arrangement/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
-  desc: '现在给定一个整数 N，请问可以构造多少个优美的排列？',
+  name: '551. 学生出勤记录 I',
+  url: 'https://leetcode-cn.com/problems/student-attendance-record-i/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: '如果学生可以获得出勤奖励，返回 true ；否则，返回 false 。',
   solutions: [
     {
       script: Script.TS,
-      time: 396,
-      memory: 43.6,
-      desc: '深度遍历每个位置',
-      code: `function countArrangement(n: number): number {
-        let ans = 0;
-        dfs();
-        return ans;
-        function dfs(list: number[] = [], set = new Set<number>()) {
-          if (list.length === n) {
-            ans++;
-            return;
-          }
-          for (let i = 1; i <= n; i++) {
-            if (!set.has(i) && (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)) {
-              set.add(i);
-              list.push(i);
-              dfs(list, set);
-              list.pop();
-              set.delete(i);
-            }
+      time: 72,
+      memory: 39.4,
+      desc: '遍历',
+      code: `function checkRecord(s: string): boolean {
+        let ac = 0;
+        let lc = 0;
+        for (const c of s) {
+          if (c === 'A') {
+            if (++ac >= 2) return false;
+            lc = 0;
+          } else if (c === 'L') {
+            if (++lc >= 3) return false;
+          } else {
+            lc = 0;
           }
         }
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 148,
-      memory: 39.3,
-      desc: '深度遍历每个位置,利用二进制去重',
-      code: `function countArrangement(n: number): number {
-        let ans = 0;
-        dfs();
-        return ans;
-        function dfs(list: number[] = [], mask = 0) {
-          if (list.length === n) {
-            ans++;
-            return;
-          }
-          for (let i = 1; i <= n; i++) {
-            if (
-              (mask & (1 << (i - 1))) === 0 &&
-              (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)
-            ) {
-              mask |= 1 << (i - 1);
-              list.push(i);
-              dfs(list, mask);
-              list.pop();
-              mask &= ~(1 << (i - 1));
-            }
-          }
-        }
+        return true;
       }`,
     },
   ],
