@@ -12,31 +12,39 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '551. 学生出勤记录 I',
-  url: 'https://leetcode-cn.com/problems/student-attendance-record-i/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: '如果学生可以获得出勤奖励，返回 true ；否则，返回 false 。',
+  name: '552. 学生出勤记录 II',
+  url: 'https://leetcode-cn.com/problems/student-attendance-record-ii/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.动态规划],
+  desc: '给你一个整数 n ，表示出勤记录的长度（次数）。请你返回记录长度为 n 时，可能获得出勤奖励的记录情况 数量 。',
   solutions: [
     {
       script: Script.TS,
-      time: 72,
-      memory: 39.4,
-      desc: '遍历',
-      code: `function checkRecord(s: string): boolean {
-        let ac = 0;
-        let lc = 0;
-        for (const c of s) {
-          if (c === 'A') {
-            if (++ac >= 2) return false;
-            lc = 0;
-          } else if (c === 'L') {
-            if (++lc >= 3) return false;
-          } else {
-            lc = 0;
+      time: 2216,
+      memory: 78.9,
+      desc: 'dp[i][j][k]=第i天的时候存在j个A和k个L的情况',
+      code: `function checkRecord(n: number): number {
+        const mod = 10 ** 9 + 7;
+        const dp = new Array(n + 1).fill(0).map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(0)));
+        dp[0][0][0] = 1;
+        for (let i = 1; i <= n; i++) {
+          for (let j = 0; j < 2; j++) {
+            for (let k = 0; k < 3; k++) {
+              dp[i][j][0] = (dp[i][j][0] + dp[i - 1][j][k]) % mod;
+            }
+          }
+          for (let k = 0; k < 3; k++) {
+            dp[i][1][0] = (dp[i][1][0] + dp[i - 1][0][k]) % mod;
+          }
+          for (let j = 0; j < 2; j++) {
+            for (let k = 1; k < 3; k++) {
+              dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j][k - 1]) % mod;
+            }
           }
         }
-        return true;
+        let ans = 0;
+        for (let j = 0; j < 2; j++) for (let k = 0; k < 3; k++) ans = (ans + dp[n][j][k]) % mod;
+        return ans;
       }`,
     },
   ],
