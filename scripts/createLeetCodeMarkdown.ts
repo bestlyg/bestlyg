@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '552. 学生出勤记录 II',
+  existMarkdown: true,
+  name: '345. 反转字符串中的元音字母',
   url: 'https://leetcode-cn.com/problems/student-attendance-record-ii/',
   difficulty: Difficulty.困难,
   tag: [Tag.动态规划],
@@ -20,31 +20,58 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 2216,
-      memory: 78.9,
-      desc: 'dp[i][j][k]=第i天的时候存在j个A和k个L的情况',
-      code: `function checkRecord(n: number): number {
-        const mod = 10 ** 9 + 7;
-        const dp = new Array(n + 1).fill(0).map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(0)));
-        dp[0][0][0] = 1;
-        for (let i = 1; i <= n; i++) {
-          for (let j = 0; j < 2; j++) {
-            for (let k = 0; k < 3; k++) {
-              dp[i][j][0] = (dp[i][j][0] + dp[i - 1][j][k]) % mod;
-            }
-          }
-          for (let k = 0; k < 3; k++) {
-            dp[i][1][0] = (dp[i][1][0] + dp[i - 1][0][k]) % mod;
-          }
-          for (let j = 0; j < 2; j++) {
-            for (let k = 1; k < 3; k++) {
-              dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j][k - 1]) % mod;
-            }
-          }
+      time: 88,
+      memory: 46.3,
+      desc: '逐个判断并反向取值',
+      code: `function reverseVowels(s: string): string {
+        const idxList: number[] = [];
+        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+        for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);
+        const idxSet = new Set(idxList);
+        let ans = '';
+        for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {
+          if (idxSet.has(i)) ans += s[idxList[pos--]];
+          else ans += s[i];
         }
-        let ans = 0;
-        for (let j = 0; j < 2; j++) for (let k = 0; k < 3; k++) ans = (ans + dp[n][j][k]) % mod;
         return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 96,
+      memory: 45.4,
+      desc: '优化内存',
+      code: `function reverseVowels(s: string): string {
+        const idxList: number[] = [];
+        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+        for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);
+        let ans = '';
+        for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {
+          if (set.has(s[i])) ans += s[idxList[pos--]];
+          else ans += s[i];
+        }
+        return ans;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 180,
+      memory: 45.2,
+      desc: '优化内存',
+      code: `function reverseVowels(s: string): string {
+        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+        let l = 0;
+        let r = s.length - 1;
+        while (l < r) {
+          if (set.has(s[r]) && set.has(s[l])) {
+            s = s.substring(0, l) + s[r] + s.substring(l + 1, r) + s[l] + s.substring(r + 1);
+            l++;
+            r--;
+          }
+          if (!set.has(s[l])) l++;
+          if (!set.has(s[r])) r--;
+        }
+        return s;
       }`,
     },
   ],

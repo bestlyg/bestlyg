@@ -8,27 +8,19 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function checkRecord(n: number): number {
-  const mod = 10 ** 9 + 7;
-  const dp = new Array(n + 1).fill(0).map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(0)));
-  dp[0][0][0] = 1;
-  for (let i = 1; i <= n; i++) {
-    for (let j = 0; j < 2; j++) {
-      for (let k = 0; k < 3; k++) {
-        dp[i][j][0] = (dp[i][j][0] + dp[i - 1][j][k]) % mod;
-      }
+function reverseVowels(s: string): string {
+  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+  let l = 0;
+  let r = s.length - 1;
+  while (l <= r) {
+    if (set.has(s[r]) && set.has(s[l])) {
+      s = s.substring(0, l) + s[r] + s.substring(l + 1, r) + s[l] + s.substring(r + 1);
+      l++;
+      r--;
     }
-    for (let k = 0; k < 3; k++) {
-      dp[i][1][0] = (dp[i][1][0] + dp[i - 1][0][k]) % mod;
-    }
-    for (let j = 0; j < 2; j++) {
-      for (let k = 1; k < 3; k++) {
-        dp[i][j][k] = (dp[i][j][k] + dp[i - 1][j][k - 1]) % mod;
-      }
-    }
+    if (!set.has(s[l])) l++;
+    if (!set.has(s[r])) r--;
   }
-  let ans = 0;
-  for (let j = 0; j < 2; j++) for (let k = 0; k < 3; k++) ans = (ans + dp[n][j][k]) % mod;
-  return ans;
+  return s;
 }
-console.log(checkRecord(10101));
+console.log(reverseVowels('a.'));
