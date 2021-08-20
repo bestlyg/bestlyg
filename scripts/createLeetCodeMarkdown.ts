@@ -11,30 +11,28 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '541. 反转字符串 II',
-  url: 'https://leetcode-cn.com/problems/student-attendance-record-ii/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
-  desc: '给你一个整数 n ，表示出勤记录的长度（次数）。请你返回记录长度为 n 时，可能获得出勤奖励的记录情况 数量 。',
+  existMarkdown: !true,
+  name: '462. 最少移动次数使数组元素相等 II',
+  url: 'https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements-ii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.数学, Tag.排序],
+  desc: '给定一个非空整数数组，找到使所有数组元素相等所需的最小移动数，其中每次移动可将选定的一个元素加1或减1。 您可以假设数组的长度最多为10000。',
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 44.1,
-      desc: '转为数组逐个翻转',
-      code: `function reverseStr(s: string, k: number): string {
-        const arr = s.split('');
-        for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));
-        return arr.join('');
-        function reverse(start: number, end: number) {
-          while (start < end) {
-            [arr[start], arr[end]] = [arr[end], arr[start]];
-            end--;
-            start++;
-          }
+      time: 88,
+      memory: 39.9,
+      desc: '找中间值',
+      code: `function minMoves2(nums: number[]): number {
+        nums.sort((a, b) => a - b);
+        const midNum = nums[(0 + nums.length - 1) >> 1];
+        let ans = 0;
+        for (const num of nums) {
+          ans += Math.abs(num - midNum);
         }
-      }`,
+        return ans;
+      }
+      `,
     },
   ],
 };

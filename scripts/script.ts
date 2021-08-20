@@ -8,14 +8,12 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function reverseStr(s: string, k: number): string {
-  const arr = s.split('');
-  for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));
-  return arr.join('');
-  function reverse(start: number, end: number) {
-    while (start < end) {
-      [arr[start], arr[end]] = [arr[end--], arr[start++]];
-    }
+function minMoves2(nums: number[]): number {
+  nums.sort((a, b) => a - b);
+  const midNum = nums[(0 + nums.length - 1) >> 1];
+  let ans = 0;
+  for (const num of nums) {
+    ans += Math.abs(num - midNum);
   }
+  return ans;
 }
-console.log(reverseStr('abcdefg', 2));

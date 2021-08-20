@@ -81,6 +81,7 @@ export enum Tag {
   随机化 = '随机化',
   最短路 = '最短路',
   模拟 = '模拟',
+  水塘抽样 = '水塘抽样',
 }
 export enum Script {
   JS = 'javascript',
