@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '345. 反转字符串中的元音字母',
+  name: '541. 反转字符串 II',
   url: 'https://leetcode-cn.com/problems/student-attendance-record-ii/',
   difficulty: Difficulty.困难,
   tag: [Tag.动态规划],
@@ -20,58 +20,20 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 46.3,
-      desc: '逐个判断并反向取值',
-      code: `function reverseVowels(s: string): string {
-        const idxList: number[] = [];
-        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
-        for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);
-        const idxSet = new Set(idxList);
-        let ans = '';
-        for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {
-          if (idxSet.has(i)) ans += s[idxList[pos--]];
-          else ans += s[i];
-        }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 96,
-      memory: 45.4,
-      desc: '优化内存',
-      code: `function reverseVowels(s: string): string {
-        const idxList: number[] = [];
-        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
-        for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);
-        let ans = '';
-        for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {
-          if (set.has(s[i])) ans += s[idxList[pos--]];
-          else ans += s[i];
-        }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 180,
-      memory: 45.2,
-      desc: '优化内存',
-      code: `function reverseVowels(s: string): string {
-        const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
-        let l = 0;
-        let r = s.length - 1;
-        while (l < r) {
-          if (set.has(s[r]) && set.has(s[l])) {
-            s = s.substring(0, l) + s[r] + s.substring(l + 1, r) + s[l] + s.substring(r + 1);
-            l++;
-            r--;
+      time: 76,
+      memory: 44.1,
+      desc: '转为数组逐个翻转',
+      code: `function reverseStr(s: string, k: number): string {
+        const arr = s.split('');
+        for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));
+        return arr.join('');
+        function reverse(start: number, end: number) {
+          while (start < end) {
+            [arr[start], arr[end]] = [arr[end], arr[start]];
+            end--;
+            start++;
           }
-          if (!set.has(s[l])) l++;
-          if (!set.has(s[r])) r--;
         }
-        return s;
       }`,
     },
   ],
