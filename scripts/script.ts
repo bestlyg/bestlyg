@@ -8,12 +8,27 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function minMoves2(nums: number[]): number {
-  nums.sort((a, b) => a - b);
-  const midNum = nums[(0 + nums.length - 1) >> 1];
-  let ans = 0;
-  for (const num of nums) {
-    ans += Math.abs(num - midNum);
+function compress(chars: string[]): number {
+  let pos = 0;
+  const n = chars.length;
+  for (let i = 0; i < n; ) {
+    console.log(i);
+    const c = chars[i];
+    let count = 1;
+    while (i + count < n && chars[i + count] === c) count++;
+    i += count;
+    chars[pos++] = c;
+    if (count > 1) {
+      let countStr = '';
+      while (count) {
+        countStr = (count % 10) + countStr;
+        count = ~~(count / 10);
+      }
+      for (const c of countStr) chars[pos++] = c;
+    }
   }
-  return ans;
+  console.log(chars);
+
+  return pos;
 }
+console.log(compress(['a', 'a', 'b', 'b', 'c', 'c', 'c']));

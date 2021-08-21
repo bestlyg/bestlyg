@@ -12,27 +12,38 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '462. 最少移动次数使数组元素相等 II',
-  url: 'https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements-ii/',
+  name: '443. 压缩字符串',
+  url: 'https://leetcode-cn.com/problems/string-compression/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.数学, Tag.排序],
-  desc: '给定一个非空整数数组，找到使所有数组元素相等所需的最小移动数，其中每次移动可将选定的一个元素加1或减1。 您可以假设数组的长度最多为10000。',
+  tag: [Tag.双指针, Tag.字符串],
+  desc: '给你一个字符数组 chars ，请在 修改完输入数组后 ，返回该数组的新长度。',
   solutions: [
     {
       script: Script.TS,
-      time: 88,
-      memory: 39.9,
-      desc: '找中间值',
-      code: `function minMoves2(nums: number[]): number {
-        nums.sort((a, b) => a - b);
-        const midNum = nums[(0 + nums.length - 1) >> 1];
-        let ans = 0;
-        for (const num of nums) {
-          ans += Math.abs(num - midNum);
+      time: 84,
+      memory: 40.2,
+      desc: '双指针',
+      code: `
+      function compress(chars: string[]): number {
+        let pos = 0;
+        const n = chars.length;
+        for (let i = 0; i < n; ) {
+          const c = chars[i];
+          let count = 1;
+          while (i + count < n && chars[i + count] === c) count++;
+          i += count;
+          chars[pos++] = c;
+          if (count > 1) {
+            let countStr = '';
+            while (count) {
+              countStr = (count % 10) + countStr;
+              count = ~~(count / 10);
+            }
+            for (const c of countStr) chars[pos++] = c;
+          }
         }
-        return ans;
-      }
-      `,
+        return pos;
+      } `,
     },
   ],
 };
