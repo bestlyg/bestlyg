@@ -12,37 +12,24 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '443. 压缩字符串',
-  url: 'https://leetcode-cn.com/problems/string-compression/',
+  name: '789. 逃脱阻碍者',
+  url: 'https://leetcode-cn.com/problems/escape-the-ghosts/',
   difficulty: Difficulty.中等,
-  tag: [Tag.双指针, Tag.字符串],
-  desc: '给你一个字符数组 chars ，请在 修改完输入数组后 ，返回该数组的新长度。',
+  tag: [Tag.数组, Tag.数学],
+  desc: '你在进行一个简化版的吃豆人游戏。 只有在你有可能成功逃脱时，输出 true ；否则，输出 false 。',
   solutions: [
     {
       script: Script.TS,
       time: 84,
-      memory: 40.2,
-      desc: '双指针',
-      code: `
-      function compress(chars: string[]): number {
-        let pos = 0;
-        const n = chars.length;
-        for (let i = 0; i < n; ) {
-          const c = chars[i];
-          let count = 1;
-          while (i + count < n && chars[i + count] === c) count++;
-          i += count;
-          chars[pos++] = c;
-          if (count > 1) {
-            let countStr = '';
-            while (count) {
-              countStr = (count % 10) + countStr;
-              count = ~~(count / 10);
-            }
-            for (const c of countStr) chars[pos++] = c;
-          }
+      memory: 39.4,
+      desc: '曼哈顿距离，只有阻碍者比起始点远才可到达',
+      code: `function escapeGhosts(ghosts: number[][], target: number[]): boolean {
+        const comp = (x: number, y: number): number => Math.abs(x - target[0]) + Math.abs(y - target[1]);
+        const distance = comp(0, 0);
+        for (const ghost of ghosts) {
+          if (comp(...(ghost as [number, number])) <= distance) return false;
         }
-        return pos;
+        return true;
       } `,
     },
   ],

@@ -8,27 +8,11 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function compress(chars: string[]): number {
-  let pos = 0;
-  const n = chars.length;
-  for (let i = 0; i < n; ) {
-    console.log(i);
-    const c = chars[i];
-    let count = 1;
-    while (i + count < n && chars[i + count] === c) count++;
-    i += count;
-    chars[pos++] = c;
-    if (count > 1) {
-      let countStr = '';
-      while (count) {
-        countStr = (count % 10) + countStr;
-        count = ~~(count / 10);
-      }
-      for (const c of countStr) chars[pos++] = c;
-    }
+function escapeGhosts(ghosts: number[][], target: number[]): boolean {
+  const comp = (x: number, y: number): number => Math.abs(x - target[0]) + Math.abs(y - target[1]);
+  const distance = comp(0, 0);
+  for (const ghost of ghosts) {
+    if (comp(...(ghost as [number, number])) <= distance) return false;
   }
-  console.log(chars);
-
-  return pos;
+  return true;
 }
-console.log(compress(['a', 'a', 'b', 'b', 'c', 'c', 'c']));
