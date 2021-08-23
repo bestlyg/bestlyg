@@ -12,25 +12,31 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '789. 逃脱阻碍者',
-  url: 'https://leetcode-cn.com/problems/escape-the-ghosts/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.数学],
-  desc: '你在进行一个简化版的吃豆人游戏。 只有在你有可能成功逃脱时，输出 true ；否则，输出 false 。',
+  name: '1646. 获取生成数组中的最大值',
+  url: 'https://leetcode-cn.com/problems/get-maximum-in-generated-array/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.动态规划, Tag.模拟],
+  desc: '返回生成数组 nums 中的 最大 值。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 39.4,
-      desc: '曼哈顿距离，只有阻碍者比起始点远才可到达',
-      code: `function escapeGhosts(ghosts: number[][], target: number[]): boolean {
-        const comp = (x: number, y: number): number => Math.abs(x - target[0]) + Math.abs(y - target[1]);
-        const distance = comp(0, 0);
-        for (const ghost of ghosts) {
-          if (comp(...(ghost as [number, number])) <= distance) return false;
+      time: 80,
+      memory: 39.1,
+      desc: '循环分别计算每个值',
+      code: `function getMaximumGenerated(n: number): number {
+        if (n === 0) return 0;
+        if (n === 1) return 1;
+        let ans = 1;
+        const arr = new Array(n + 1);
+        arr[0] = 0;
+        arr[1] = 1;
+        for (let i = 1; 2 * i + 1 <= n; i++) {
+          ans = Math.max(ans, (arr[i * 2] = arr[i]));
+          ans = Math.max(ans, (arr[i * 2 + 1] = arr[i] + arr[i + 1]));
         }
-        return true;
-      } `,
+        return ans;
+      }
+      `,
     },
   ],
 };
