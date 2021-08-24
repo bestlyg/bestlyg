@@ -12,31 +12,48 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1646. 获取生成数组中的最大值',
-  url: 'https://leetcode-cn.com/problems/get-maximum-in-generated-array/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.动态规划, Tag.模拟],
-  desc: '返回生成数组 nums 中的 最大 值。',
+  name: '787. K 站中转内最便宜的航班',
+  url: 'https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.动态规划, Tag.最短路, Tag.堆_优先队列],
+  desc: '现在给定所有的城市和航班，以及出发城市 src 和目的地 dst，你的任务是找到出一条最多经过 k 站中转的路线，使得从 src 到 dst 的 价格最便宜 ，并返回该价格。 如果不存在这样的路线，则输出 -1。',
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 39.1,
-      desc: '循环分别计算每个值',
-      code: `function getMaximumGenerated(n: number): number {
-        if (n === 0) return 0;
-        if (n === 1) return 1;
-        let ans = 1;
-        const arr = new Array(n + 1);
-        arr[0] = 0;
-        arr[1] = 1;
-        for (let i = 1; 2 * i + 1 <= n; i++) {
-          ans = Math.max(ans, (arr[i * 2] = arr[i]));
-          ans = Math.max(ans, (arr[i * 2 + 1] = arr[i] + arr[i + 1]));
+      time: 128,
+      memory: 44.6,
+      desc: '动态规划，计算每天每个航班的最小值',
+      code: `function findCheapestPrice(
+        n: number,
+        flights: number[][],
+        src: number,
+        dst: number,
+        k: number
+      ): number {
+        const map = new Map<number, number[]>();
+        for (let i = 0; i < flights.length; i++) {
+          const [from] = flights[i];
+          let list = map.get(from);
+          if (!list) map.set(from, (list = []));
+          list.push(i);
         }
-        return ans;
-      }
-      `,
+        const dp = new Array(k + 2).fill(0).map(_ => new Array(n).fill(Infinity));
+        dp[0][src] = 0;
+        let ans = Infinity;
+        for (let i = 1; i <= k + 1; i++) {
+          for (let j = 0; j < n; j++) {
+            if (dp[i - 1][j] === Infinity) continue;
+            const list = map.get(j);
+            if (!list) continue;
+            for (const flightIdx of list) {
+              const [, to, price] = flights[flightIdx];
+              dp[i][to] = Math.min(dp[i][to], dp[i - 1][j] + price);
+              if (to === dst) ans = Math.min(dp[i][to], ans);
+            }
+          }
+        }
+        return ans === Infinity ? -1 : ans;
+      }`,
     },
   ],
 };
