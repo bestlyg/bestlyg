@@ -12,47 +12,64 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '787. K 站中转内最便宜的航班',
-  url: 'https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/',
+  name: '797. 所有可能的路径',
+  url: 'https://leetcode-cn.com/problems/all-paths-from-source-to-target/',
   difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.动态规划, Tag.最短路, Tag.堆_优先队列],
-  desc: '现在给定所有的城市和航班，以及出发城市 src 和目的地 dst，你的任务是找到出一条最多经过 k 站中转的路线，使得从 src 到 dst 的 价格最便宜 ，并返回该价格。 如果不存在这样的路线，则输出 -1。',
+  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.回溯],
+  desc: '给你一个有 n 个节点的 有向无环图（DAG），请你找出所有从节点 0 到节点 n-1 的路径并输出',
   solutions: [
     {
       script: Script.TS,
-      time: 128,
-      memory: 44.6,
-      desc: '动态规划，计算每天每个航班的最小值',
-      code: `function findCheapestPrice(
-        n: number,
-        flights: number[][],
-        src: number,
-        dst: number,
-        k: number
-      ): number {
-        const map = new Map<number, number[]>();
-        for (let i = 0; i < flights.length; i++) {
-          const [from] = flights[i];
-          let list = map.get(from);
-          if (!list) map.set(from, (list = []));
-          list.push(i);
-        }
-        const dp = new Array(k + 2).fill(0).map(_ => new Array(n).fill(Infinity));
-        dp[0][src] = 0;
-        let ans = Infinity;
-        for (let i = 1; i <= k + 1; i++) {
-          for (let j = 0; j < n; j++) {
-            if (dp[i - 1][j] === Infinity) continue;
-            const list = map.get(j);
-            if (!list) continue;
-            for (const flightIdx of list) {
-              const [, to, price] = flights[flightIdx];
-              dp[i][to] = Math.min(dp[i][to], dp[i - 1][j] + price);
-              if (to === dst) ans = Math.min(dp[i][to], ans);
-            }
+      time: 136,
+      memory: 45.4,
+      desc: 'dfs',
+      code: `class GNode {
+        prev: GNode[] = [];
+        next: GNode[] = [];
+        constructor(public val: number) {}
+      }
+      function allPathsSourceTarget(graph: number[][]): number[][] {
+        const n = graph.length;
+        const list: GNode[] = new Array(n);
+        for (let i = 0; i < n; i++) {
+          let node = list[i];
+          if (!node) list[i] = node = new GNode(i);
+          const nextList = graph[i];
+          for (const next of nextList) {
+            let nextNode = list[next];
+            if (!nextNode) list[next] = nextNode = new GNode(next);
+            node.next.push(nextNode);
+            nextNode.prev.push(node);
           }
         }
-        return ans === Infinity ? -1 : ans;
+        const ans: number[][] = [];
+        dfs(list[0]);
+        return ans;
+        function dfs(node: GNode, list: GNode[] = []) {
+          list.push(node);
+          if (node.val === n - 1) ans.push(list.map(v => v.val));
+          if (node.next.length !== 0) node.next.forEach(v => dfs(v, list));
+          list.pop();
+        }
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 160,
+      memory: 49,
+      desc: 'dfs',
+      code: `function allPathsSourceTarget(graph: number[][]): number[][] {
+        const n = graph.length;
+        const ans: number[][] = [];
+        dfs(0);
+        return ans;
+        function dfs(node: number, list: number[] = []) {
+          list.push(node);
+          if (node === n - 1) ans.push(list.slice());
+          graph[node].forEach(v => dfs(v, list));
+          list.pop();
+        }
       }`,
     },
   ],
