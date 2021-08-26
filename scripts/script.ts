@@ -8,15 +8,17 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function allPathsSourceTarget(graph: number[][]): number[][] {
-  const n = graph.length;
-  const ans: number[][] = [];
-  dfs(0);
-  return ans;
-  function dfs(node: number, list: number[] = []) {
-    list.push(node);
-    if (node === n - 1) ans.push(list.slice());
-    graph[node].forEach(v => dfs(v, list));
-    list.pop();
+function numRescueBoats(people: number[], limit: number): number {
+  people.sort((a, b) => a - b);
+  let ans = 0;
+  let l = 0;
+  let r = people.length - 1;
+  while (l < r) {
+    if (people[r] + people[l] <= limit) l++;
+    r--;
+    ans++;
   }
+  if (l === r) ans++;
+  return ans;
 }
+console.log(numRescueBoats([3, 2, 2, 1], 3));

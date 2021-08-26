@@ -12,64 +12,28 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '797. 所有可能的路径',
-  url: 'https://leetcode-cn.com/problems/all-paths-from-source-to-target/',
+  name: '881. 救生艇',
+  url: 'https://leetcode-cn.com/problems/boats-to-save-people/',
   difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.回溯],
-  desc: '给你一个有 n 个节点的 有向无环图（DAG），请你找出所有从节点 0 到节点 n-1 的路径并输出',
+  tag: [Tag.贪心, Tag.数组, Tag.双指针, Tag.排序],
+  desc: '返回载到每一个人所需的最小船数。',
   solutions: [
     {
       script: Script.TS,
-      time: 136,
-      memory: 45.4,
-      desc: 'dfs',
-      code: `class GNode {
-        prev: GNode[] = [];
-        next: GNode[] = [];
-        constructor(public val: number) {}
-      }
-      function allPathsSourceTarget(graph: number[][]): number[][] {
-        const n = graph.length;
-        const list: GNode[] = new Array(n);
-        for (let i = 0; i < n; i++) {
-          let node = list[i];
-          if (!node) list[i] = node = new GNode(i);
-          const nextList = graph[i];
-          for (const next of nextList) {
-            let nextNode = list[next];
-            if (!nextNode) list[next] = nextNode = new GNode(next);
-            node.next.push(nextNode);
-            nextNode.prev.push(node);
-          }
+      time: 176,
+      memory: 45.6,
+      desc: '贪心，双指针从两边向中间计算',
+      code: `function numRescueBoats(people: number[], limit: number): number {
+        people.sort((a, b) => a - b);
+        let ans = 0;
+        let l = 0;
+        let r = people.length - 1;
+        while (l <= r) {
+          if (people[r] + people[l] <= limit) l++;
+          r--;
+          ans++;
         }
-        const ans: number[][] = [];
-        dfs(list[0]);
         return ans;
-        function dfs(node: GNode, list: GNode[] = []) {
-          list.push(node);
-          if (node.val === n - 1) ans.push(list.map(v => v.val));
-          if (node.next.length !== 0) node.next.forEach(v => dfs(v, list));
-          list.pop();
-        }
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 160,
-      memory: 49,
-      desc: 'dfs',
-      code: `function allPathsSourceTarget(graph: number[][]): number[][] {
-        const n = graph.length;
-        const ans: number[][] = [];
-        dfs(0);
-        return ans;
-        function dfs(node: number, list: number[] = []) {
-          list.push(node);
-          if (node === n - 1) ans.push(list.slice());
-          graph[node].forEach(v => dfs(v, list));
-          list.pop();
-        }
       }`,
     },
   ],
