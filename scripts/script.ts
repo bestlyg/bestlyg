@@ -7,18 +7,31 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-
-function numRescueBoats(people: number[], limit: number): number {
-  people.sort((a, b) => a - b);
-  let ans = 0;
-  let l = 0;
-  let r = people.length - 1;
-  while (l < r) {
-    if (people[r] + people[l] <= limit) l++;
-    r--;
-    ans++;
+class MedianFinder {
+  left = new Heap<number>((t1, t2) => t1 - t2);
+  right = new Heap<number>((t1, t2) => t2 - t1);
+  get cnt() {
+    return this.left.size + this.right.size;
   }
-  if (l === r) ans++;
-  return ans;
+  addNum(num: number): void {
+    if (this.left.size === 0 && this.right.size === 0) {
+      this.left.add(num);
+    } else if (this.left.top < num) {
+      this.right.add(num);
+    } else {
+      this.left.add(num);
+    }
+    if (this.right.size + 1 > this.left.size) this.left.add(this.right.remove());
+    if (this.left.size - 1 > this.right.size) this.right.add(this.left.remove());
+  }
+  findMedian(): number {
+    console.log(this.left);
+    console.log(this.right);
+    return this.cnt % 2 === 0 ? (this.left.top + this.right.top) / 2 : this.left.top;
+  }
 }
-console.log(numRescueBoats([3, 2, 2, 1], 3));
+let obj = new MedianFinder();
+obj.addNum(1);
+obj.addNum(2);
+console.log(obj.findMedian());
+obj.addNum(3);
