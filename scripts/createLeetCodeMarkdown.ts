@@ -12,33 +12,30 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1480. 一维数组的动态和',
-  url: 'https://leetcode-cn.com/problems/running-sum-of-1d-array/',
+  name: '1588. 所有奇数长度子数组的和',
+  url: 'https://leetcode-cn.com/problems/sum-of-all-odd-length-subarrays/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.前缀和],
-  desc: '请返回 nums 的动态和。',
+  desc: '请你返回 arr 中 所有奇数长度子数组的和 。',
   solutions: [
     {
       script: Script.TS,
       time: 84,
-      memory: 39.4,
+      memory: 39.7,
       desc: '前缀和',
-      code: `function runningSum(nums: number[]): number[] {
-        const ans: number[] = [0];
-        nums.forEach(num => ans.push(num + ans[ans.length - 1]));
-        return ans.slice(1);
+      code: `function sumOddLengthSubarrays(arr: number[]): number {
+        const n = arr.length;
+        const sums = [0];
+        arr.forEach(v => sums.push(v + sums[sums.length - 1]));
+        let ans = 0;
+        for (let l = 0; l <= n; l++) {
+          for (let r = l + 1; r <= n; r += 2) {
+            ans += sums[r] - sums[l];
+          }
+        }
+        return ans;
       }
       `,
-    },
-    {
-      script: Script.TS,
-      time: 84,
-      memory: 39.4,
-      desc: '前缀和',
-      code: `function runningSum(nums: number[]): number[] {
-        for (let i = 1, n = nums.length; i < n; i++)nums[i] += nums[i - 1]
-        return nums
-      }`,
     },
   ],
 };
