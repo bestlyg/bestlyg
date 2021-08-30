@@ -11,31 +11,36 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '1588. 所有奇数长度子数组的和',
-  url: 'https://leetcode-cn.com/problems/sum-of-all-odd-length-subarrays/',
+  existMarkdown: true,
+  name: '528. 按权重随机选择',
+  url: 'https://leetcode-cn.com/problems/running-sum-of-1d-array/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.前缀和],
-  desc: '请你返回 arr 中 所有奇数长度子数组的和 。',
+  desc: '请返回 nums 的动态和。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 39.7,
-      desc: '前缀和',
-      code: `function sumOddLengthSubarrays(arr: number[]): number {
-        const n = arr.length;
-        const sums = [0];
-        arr.forEach(v => sums.push(v + sums[sums.length - 1]));
-        let ans = 0;
-        for (let l = 0; l <= n; l++) {
-          for (let r = l + 1; r <= n; r += 2) {
-            ans += sums[r] - sums[l];
-          }
+      time: 240,
+      memory: 47.1,
+      desc: '利用前缀和随机取值',
+      code: `class Solution {
+        sums: number;
+        constructor(private w: number[]) {
+          this.sums = w.reduce((total, cur) => total + cur, 0);
         }
-        return ans;
-      }
-      `,
+        pickIndex(): number {
+          let random = this.random();
+          for (let i = 0; i < this.w.length; i++) {
+            const w = this.w[i];
+            if (random <= w) return i;
+            random -= w;
+          }
+          return 0;
+        }
+        random(min: number = 1, max: number = this.sums): number {
+          return min + ~~(Math.random() * (max - min + 1));
+        }
+      }`,
     },
   ],
 };
