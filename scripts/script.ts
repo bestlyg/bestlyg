@@ -7,16 +7,22 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function sumOddLengthSubarrays(arr: number[]): number {
-  const n = arr.length;
-  const sums = [0];
-  arr.forEach(v => sums.push(v + sums[sums.length - 1]));
-  let ans = 0;
-  // for (let i = 1; i <= n; i += 2) ans += sums[i];
-  for (let l = 0; l <= n; l++) {
-    for (let r = l + 1; r <= n; r += 2) {
-      ans += sums[r] - sums[l];
-    }
+function corpFlightBookings(bookings: number[][], n: number): number[] {
+  const nums = new Array(n).fill(0);
+  for (const [first, last, seats] of bookings) {
+    nums[first - 1] += seats;
+    if (last < n) nums[last] -= seats;
   }
-  return ans;
+  for (let i = 1; i < n; i++) nums[i] += nums[i - 1];
+  return nums;
 }
+console.log(
+  corpFlightBookings(
+    [
+      [1, 2, 10],
+      [2, 3, 20],
+      // [2, 5, 25],
+    ],
+    5
+  )
+);

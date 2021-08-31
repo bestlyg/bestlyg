@@ -11,35 +11,26 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '528. 按权重随机选择',
-  url: 'https://leetcode-cn.com/problems/running-sum-of-1d-array/',
-  difficulty: Difficulty.简单,
+  existMarkdown: !true,
+  name: '1109. 航班预订统计',
+  url: 'https://leetcode-cn.com/problems/corporate-flight-bookings/',
+  difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.前缀和],
-  desc: '请返回 nums 的动态和。',
+  desc: '请你返回一个长度为 n 的数组 answer，其中 answer[i] 是航班 i 上预订的座位总数。',
   solutions: [
     {
       script: Script.TS,
-      time: 240,
-      memory: 47.1,
-      desc: '利用前缀和随机取值',
-      code: `class Solution {
-        sums: number;
-        constructor(private w: number[]) {
-          this.sums = w.reduce((total, cur) => total + cur, 0);
+      time: 164,
+      memory: 58.4,
+      desc: '差分',
+      code: `function corpFlightBookings(bookings: number[][], n: number): number[] {
+        const nums = new Array(n).fill(0);
+        for (const [first, last, seats] of bookings) {
+          nums[first - 1] += seats;
+          if (last < n) nums[last] -= seats;
         }
-        pickIndex(): number {
-          let random = this.random();
-          for (let i = 0; i < this.w.length; i++) {
-            const w = this.w[i];
-            if (random <= w) return i;
-            random -= w;
-          }
-          return 0;
-        }
-        random(min: number = 1, max: number = this.sums): number {
-          return min + ~~(Math.random() * (max - min + 1));
-        }
+        for (let i = 1; i < n; i++) nums[i] += nums[i - 1];
+        return nums;
       }`,
     },
   ],
