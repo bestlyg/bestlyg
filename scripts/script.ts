@@ -7,22 +7,24 @@ type TreeNode = structures.TreeNode;
 type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
-function corpFlightBookings(bookings: number[][], n: number): number[] {
-  const nums = new Array(n).fill(0);
-  for (const [first, last, seats] of bookings) {
-    nums[first - 1] += seats;
-    if (last < n) nums[last] -= seats;
+function compareVersion(version1: string, version2: string): number {
+  const v1 = version1.split('.').map(v => +v);
+  const v2 = version2.split('.').map(v => +v);
+  const len = Math.max(v1.length, v2.length);
+  while (v1.length < len) v1.push(0);
+  while (v2.length < len) v2.push(0);
+  let i = 0;
+  console.log('step 1', `v1=${v1};v2=${v2}`);
+  while (i < len) {
+    console.log(`i=${i}`);
+    console.log(`res=${res}`);
+    if (v1[i] < v2[i]) return -1;
+    else if (v1[i] > v2[i]) return 1;
+    else i++;
   }
-  for (let i = 1; i < n; i++) nums[i] += nums[i - 1];
-  return nums;
+  return 0;
 }
-console.log(
-  corpFlightBookings(
-    [
-      [1, 2, 10],
-      [2, 3, 20],
-      // [2, 5, 25],
-    ],
-    5
-  )
-);
+// console.log(compareVersion('1.01', '1.001'));
+// console.log(compareVersion('1.0', '1.0.0'));
+console.log(compareVersion('1.0.1', '1'));
+console.log(compareVersion('7.5.2.4', '7.5.3'));

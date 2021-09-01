@@ -12,25 +12,30 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1109. 航班预订统计',
-  url: 'https://leetcode-cn.com/problems/corporate-flight-bookings/',
+  name: '165. 比较版本号',
+  url: 'https://leetcode-cn.com/problems/compare-version-numbers/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.前缀和],
-  desc: '请你返回一个长度为 n 的数组 answer，其中 answer[i] 是航班 i 上预订的座位总数。',
+  tag: [Tag.双指针, Tag.字符串],
+  desc: '给你两个版本号 version1 和 version2 ，请你比较它们。',
   solutions: [
     {
       script: Script.TS,
-      time: 164,
-      memory: 58.4,
-      desc: '差分',
-      code: `function corpFlightBookings(bookings: number[][], n: number): number[] {
-        const nums = new Array(n).fill(0);
-        for (const [first, last, seats] of bookings) {
-          nums[first - 1] += seats;
-          if (last < n) nums[last] -= seats;
+      time: 76,
+      memory: 39.4,
+      desc: '格式化后比较',
+      code: `function compareVersion(version1: string, version2: string): number {
+        const v1 = version1.split('.').map(v => +v);
+        const v2 = version2.split('.').map(v => +v);
+        const len = Math.max(v1.length, v2.length);
+        while (v1.length < len) v1.push(0);
+        while (v2.length < len) v2.push(0);
+        let i = 0;
+        while (i < len) {
+          if (v1[i] < v2[i]) return -1;
+           if (v1[i] > v2[i]) return 1;
+           i++;
         }
-        for (let i = 1; i < n; i++) nums[i] += nums[i - 1];
-        return nums;
+        return 0;
       }`,
     },
   ],
