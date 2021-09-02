@@ -12,30 +12,49 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '165. 比较版本号',
-  url: 'https://leetcode-cn.com/problems/compare-version-numbers/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.双指针, Tag.字符串],
-  desc: '给你两个版本号 version1 和 version2 ，请你比较它们。',
+  name: '剑指 Offer 22. 链表中倒数第k个节点',
+  url: 'https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.链表, Tag.双指针],
+  desc: '输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。',
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 39.4,
-      desc: '格式化后比较',
-      code: `function compareVersion(version1: string, version2: string): number {
-        const v1 = version1.split('.').map(v => +v);
-        const v2 = version2.split('.').map(v => +v);
-        const len = Math.max(v1.length, v2.length);
-        while (v1.length < len) v1.push(0);
-        while (v2.length < len) v2.push(0);
-        let i = 0;
-        while (i < len) {
-          if (v1[i] < v2[i]) return -1;
-           if (v1[i] > v2[i]) return 1;
-           i++;
+      time: 72,
+      memory: 39.5,
+      desc: '计算总长度相减后dfs',
+      code: `function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
+        let count = 0;
+        let p = head;
+        while (p !== null) {
+          count++;
+          p = p.next;
         }
-        return 0;
+        return dfs(head, count - k);
+        function dfs(node: ListNode | null, count: number): ListNode | null {
+          if (node === null) return null;
+          if (count === 0) return node;
+          return dfs(node.next, count - 1);
+        }
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 80,
+      memory: 39.4,
+      desc: '双指针',
+      code: `function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
+        let slow = head;
+        let fast = head;
+        while (fast && k) {
+          fast = fast.next;
+          k--;
+        }
+        while (fast) {
+          fast = fast.next;
+          slow = slow!.next;
+        }
+        return slow;
       }`,
     },
   ],
