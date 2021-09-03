@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '剑指 Offer 22. 链表中倒数第k个节点',
+  existMarkdown: true,
+  name: '面试题 17.14. 最小K个数',
   url: 'https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/',
   difficulty: Difficulty.简单,
   tag: [Tag.链表, Tag.双指针],
@@ -20,42 +20,69 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 72,
-      memory: 39.5,
-      desc: '计算总长度相减后dfs',
-      code: `function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
-        let count = 0;
-        let p = head;
-        while (p !== null) {
-          count++;
-          p = p.next;
+      time: 8000,
+      memory: 48.4,
+      desc: '堆',
+      code: `class Heap<T = number> {
+        private arr: T[] = [];
+        get isEmpty() {
+          return this.size === 0;
         }
-        return dfs(head, count - k);
-        function dfs(node: ListNode | null, count: number): ListNode | null {
-          if (node === null) return null;
-          if (count === 0) return node;
-          return dfs(node.next, count - 1);
+        get size() {
+          return this.arr.length;
         }
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 80,
-      memory: 39.4,
-      desc: '双指针',
-      code: `function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
-        let slow = head;
-        let fast = head;
-        while (fast && k) {
-          fast = fast.next;
-          k--;
+        get top() {
+          return this.arr[0];
         }
-        while (fast) {
-          fast = fast.next;
-          slow = slow!.next;
+        constructor(private compare: (t1: T, t2: T) => number) {}
+        add(num: T): void {
+          this.arr.push(num);
+          this.shiftUp(this.size - 1);
         }
-        return slow;
-      }`,
+        remove(): T {
+          const num = this.arr.shift()!;
+          if (this.size) {
+            this.arr.unshift(this.arr.pop()!);
+            this.shiftDown(0);
+          }
+          return num;
+        }
+        private shiftUp(index: number): void {
+          if (index === 0) return;
+          const parentIndex = (index - 1) >> 1;
+          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
+            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
+            this.shiftUp(parentIndex);
+          }
+        }
+        private shiftDown(index: number): void {
+          let childrenIndex = index * 2 + 1;
+          if (childrenIndex > this.size - 1) return;
+          if (
+            childrenIndex + 1 <= this.size - 1 &&
+            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
+          ) {
+            childrenIndex++;
+          }
+          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
+            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
+            this.shiftDown(childrenIndex);
+          }
+        }
+        *[Symbol.iterator](): IterableIterator<T> {
+          for (const t of this.arr) {
+            yield t;
+          }
+        }
+      }
+      function smallestK(arr: number[], k: number): number[] {
+        const heap = new Heap((t1, t2) => t2 - t1);
+        arr.forEach(v => heap.add(v));
+        const ans: number[] = [];
+        while (k--) ans.push(heap.remove());
+        return ans;
+      }
+      `,
     },
   ],
 };

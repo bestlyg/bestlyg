@@ -8,17 +8,10 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
-  let slow = head;
-  let fast = head;
-  while (fast && k) {
-    fast = fast.next;
-    k--;
-  }
-  while (fast) {
-    fast = fast.next;
-    slow = slow!.next;
-  }
-  return slow;
+function smallestK(arr: number[], k: number): number[] {
+  const heap = new Heap((t1, t2) => t1 - t2);
+  arr.forEach(v => heap.add(v));
+  const ans: number[] = [];
+  while (k--) ans.push(heap.remove());
+  return ans;
 }
-console.log(getKthFromEnd(ListNode.factory([1, 2, 3, 4, 5]), 2));
