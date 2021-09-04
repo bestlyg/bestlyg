@@ -12,77 +12,53 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '面试题 17.14. 最小K个数',
-  url: 'https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.链表, Tag.双指针],
-  desc: '输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。',
+  name: '300. 最长递增子序列',
+  url: 'https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
+  desc: '设计一个算法来计算你所能获取的最大利润。',
   solutions: [
     {
       script: Script.TS,
-      time: 8000,
-      memory: 48.4,
-      desc: '堆',
-      code: `class Heap<T = number> {
-        private arr: T[] = [];
-        get isEmpty() {
-          return this.size === 0;
-        }
-        get size() {
-          return this.arr.length;
-        }
-        get top() {
-          return this.arr[0];
-        }
-        constructor(private compare: (t1: T, t2: T) => number) {}
-        add(num: T): void {
-          this.arr.push(num);
-          this.shiftUp(this.size - 1);
-        }
-        remove(): T {
-          const num = this.arr.shift()!;
-          if (this.size) {
-            this.arr.unshift(this.arr.pop()!);
-            this.shiftDown(0);
-          }
-          return num;
-        }
-        private shiftUp(index: number): void {
-          if (index === 0) return;
-          const parentIndex = (index - 1) >> 1;
-          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-            this.shiftUp(parentIndex);
+      time: 192,
+      memory: 39.9,
+      desc: '动态规划',
+      code: `function lengthOfLIS(nums: number[]): number {
+        const n = nums.length;
+        const dp = new Array(n).fill(1);
+        let ans = 1;
+        for (let i = 1; i < n; i++) {
+          for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+              dp[i] = Math.max(dp[i], dp[j] + 1);
+              ans = Math.max(ans, dp[i]);
+            }
           }
         }
-        private shiftDown(index: number): void {
-          let childrenIndex = index * 2 + 1;
-          if (childrenIndex > this.size - 1) return;
-          if (
-            childrenIndex + 1 <= this.size - 1 &&
-            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-          ) {
-            childrenIndex++;
-          }
-          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-            this.shiftDown(childrenIndex);
-          }
-        }
-        *[Symbol.iterator](): IterableIterator<T> {
-          for (const t of this.arr) {
-            yield t;
-          }
-        }
-      }
-      function smallestK(arr: number[], k: number): number[] {
-        const heap = new Heap((t1, t2) => t2 - t1);
-        arr.forEach(v => heap.add(v));
-        const ans: number[] = [];
-        while (k--) ans.push(heap.remove());
         return ans;
-      }
-      `,
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 76,
+      memory: 39.5,
+      desc: '找尽可能长的序列',
+      code: `function lengthOfLIS(nums: number[]): number {
+        const list = [nums[0]];
+        for (const num of nums) list[find(num)] = num;
+        return list.length;
+        function find(num: number): number {
+          let l = 0;
+          let r = list.length - 1;
+          if (num > list[r]) return list.length;
+          while (l < r) {
+            const mid = (l + r) >> 1;
+            if (list[mid] >= num) r = mid;
+            else l = mid + 1;
+          }
+          return l;
+        }
+      }`,
     },
   ],
 };
