@@ -12,7 +12,7 @@ if (ENV_DEV) {
 
 const enhancer = compose(applyMiddleware(...middlewares));
 
-export const getStore = () => createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 export * from './namespaces';
 export const useStore = (): [RootState, RootDispatch] => {
   const dispatch = useDispatch<RootDispatch>();

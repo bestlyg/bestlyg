@@ -1,6 +1,14 @@
-@import '~taro-ui/dist/style/components/icon.scss';
 .container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  overflow: hidden;
+}
+.nav {
   position: absolute;
+  left: 0;
   display: flex;
   justify-content: space-between;
   padding: 0 30px;
@@ -10,13 +18,11 @@
 }
 .title {
   font-size: 32px;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 .left,
 .center,
 .right {
-  max-width: 50%;
+  max-width: 80%;
   height: 100%;
 }
 .left {

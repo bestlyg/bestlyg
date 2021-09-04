@@ -12,7 +12,7 @@ function main() {
 }
 function createData(store) {
   const upperStoreName = _.upperFirst(store);
-  const namespace = `${store}Namespaces`;
+  const namespace = `${store}Namespace`;
   const importStr = `import { ${namespace}, ${upperStoreName}State, ${upperStoreName}Key, ${store}Action } from './${store}';`;
   const actionStr = `[${namespace}]: ${store}Action,`;
   const rootKeyStr = `[${namespace}]: ${upperStoreName}Key,`;

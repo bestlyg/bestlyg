@@ -6,5 +6,6 @@ module.exports = {
     'jsx-quotes': 0,
     'no-shadow': 0, // 禁止重复名称
     '@typescript-eslint/no-unused-expressions': 0,
+    '@typescript-eslint/no-shadow': 0,
   },
 };

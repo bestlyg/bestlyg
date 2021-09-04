@@ -45,10 +45,10 @@
     "@tarojs/taro": "3.2.14",
     "ahooks": "^2.10.7",
     "classnames": "^2.3.1",
+    "dayjs": "^1.10.6",
     "echarts-taro3-react": "^1.0.13",
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
     "promise-prototype-finally": "^1.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
@@ -78,6 +78,7 @@
     "fs-extra": "^10.0.0",
     "prettier": "^2.3.2",
     "stylelint": "9.3.0",
-    "typescript": "^4.1.0"
+    "typescript": "^4.1.0",
+    "webpack-bundle-analyzer": "^4.4.2"
   }
 }

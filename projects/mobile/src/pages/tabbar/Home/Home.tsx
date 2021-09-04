@@ -5,7 +5,7 @@ import { useStore, rootKey } from '@/store';
 import './Home.scss';
 
 export default function Home() {
-  const [{ counter, person }, dispatch] = useStore();
+  const [{ counter, global }, dispatch] = useStore();
   return (
     <View className="index">
       <Text>{counter.num}</Text>
@@ -43,28 +43,8 @@ export default function Home() {
         MINUS
       </AtButton>
       <Text>
-        {person.name}-{person.age}
+        {global.location[0]}-{global.location[1]}
       </Text>
-      <AtButton
-        onClick={() => {
-          dispatch({
-            type: rootKey.person.SET_AGE,
-            payload: person.age + 1,
-          });
-        }}
-      >
-        SET_AGE
-      </AtButton>
-      <AtButton
-        onClick={() => {
-          dispatch({
-            type: rootKey.person.SET_NAME,
-            payload: person.name + '1',
-          });
-        }}
-      >
-        SET_NAME
-      </AtButton>
     </View>
   );
 }

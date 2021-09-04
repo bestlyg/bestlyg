@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import { counterNamespace, CounterState, CounterKey, counterAction } from './counter';
-import { personNamespace, PersonState, PersonKey, personAction } from './person';
+import { globalNamespace, GlobalState, GlobalKey, globalAction } from './global';
 
 export interface RootKey {
   [counterNamespace]: typeof CounterKey;
-  [personNamespace]: typeof PersonKey;
+  [globalNamespace]: typeof GlobalKey;
 }
 export interface RootState {
   [counterNamespace]: CounterState;
-  [personNamespace]: PersonState;
+  [globalNamespace]: GlobalState;
 }
 export type RootDispatch = (
   fn:
@@ -17,9 +17,9 @@ export type RootDispatch = (
 ) => void;
 export const rootReducer = combineReducers({
   [counterNamespace]: counterAction,
-  [personNamespace]: personAction,
+  [globalNamespace]: globalAction,
 });
 export const rootKey: RootKey = {
   [counterNamespace]: CounterKey,
-  [personNamespace]: PersonKey,
+  [globalNamespace]: GlobalKey,
 };
