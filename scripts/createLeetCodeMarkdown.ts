@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '300. 最长递增子序列',
+  name: '470. 用 Rand7() 实现 Rand10()',
   url: 'https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/',
   difficulty: Difficulty.中等,
   tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
@@ -20,44 +20,14 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 192,
-      memory: 39.9,
-      desc: '动态规划',
-      code: `function lengthOfLIS(nums: number[]): number {
-        const n = nums.length;
-        const dp = new Array(n).fill(1);
-        let ans = 1;
-        for (let i = 1; i < n; i++) {
-          for (let j = 0; j < i; j++) {
-            if (nums[i] > nums[j]) {
-              dp[i] = Math.max(dp[i], dp[j] + 1);
-              ans = Math.max(ans, dp[i]);
-            }
-          }
-        }
-        return ans;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 76,
-      memory: 39.5,
-      desc: '找尽可能长的序列',
-      code: `function lengthOfLIS(nums: number[]): number {
-        const list = [nums[0]];
-        for (const num of nums) list[find(num)] = num;
-        return list.length;
-        function find(num: number): number {
-          let l = 0;
-          let r = list.length - 1;
-          if (num > list[r]) return list.length;
-          while (l < r) {
-            const mid = (l + r) >> 1;
-            if (list[mid] >= num) r = mid;
-            else l = mid + 1;
-          }
-          return l;
-        }
+      time: 108,
+      memory: 46.5,
+      desc: 'rand7转换为下标',
+      code: `function rand10(): number {
+        let num!: number;
+        do num = (rand7() - 1) * 7 + rand7();
+        while (num > 40);
+        return (num % 10) + 1;
       }`,
     },
   ],

@@ -1,15 +1,14 @@
-var inorderSuccessor = function (root, p) {
-  let pre;
-  return inorder(root, p);
-  function inorder(node, p) {
-    if (node === null) return null;
-    let ans;
-    ans = inorder(node.left, p);
-    if (ans) return ans;
-    if (pre === p) return node;
-    pre = node;
-    ans = inorder(node.right, p);
-    if (ans) return ans;
-    return null;
+const MAX = 7;
+let str = '';
+const format = str => str.toString().padEnd(3, ' ');
+str += format('');
+for (let i = 1; i <= MAX; i++) str += format(i);
+console.log(str);
+let c = 1;
+for (let i = 1; i <= MAX; i++) {
+  str = format(i);
+  for (let j = 1; j <= MAX; j++) {
+    str += format(c++);
   }
-};
+  console.log(str);
+}

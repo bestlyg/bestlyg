@@ -8,20 +8,9 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function lengthOfLIS(nums: number[]): number {
-  const list = [nums[0]];
-  for (const num of nums) list[find(num)] = num;
-  return list.length;
-  function find(num: number): number {
-    let l = 0;
-    let r = list.length - 1;
-    if (num > list[r]) return list.length;
-    while (l < r) {
-      const mid = (l + r) >> 1;
-      if (list[mid] >= num) r = mid;
-      else l = mid + 1;
-    }
-    return l;
-  }
+function rand10(): number {
+  let num!: number;
+  do num = (rand7() - 1) * 7 + rand7();
+  while (num > 40);
+  return (num % 10) + 1;
 }
-console.log(lengthOfLIS([1, 3, 6, 7, 9, 4, 10, 5, 6]));
