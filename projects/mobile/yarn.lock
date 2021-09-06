@@ -9241,6 +9241,23 @@ mobile-detect@^1.4.2:
   resolved "https://registry.nlark.com/mobile-detect/download/mobile-detect-1.4.5.tgz#da393c3c413ca1a9bcdd9ced653c38281c0fb6ad"
   integrity sha1-2jk8PEE8oam83ZztZTw4KBwPtq0=
 
+mobx-react-lite@^3.2.0:
+  version "3.2.1"
+  resolved "https://registry.nlark.com/mobx-react-lite/download/mobx-react-lite-3.2.1.tgz#c549a3722f1eae51a78b12f839311614d5689c58"
+  integrity sha1-xUmjci8erlGnixL4OTEWFNVonFg=
+
+mobx-react@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.nlark.com/mobx-react/download/mobx-react-7.2.0.tgz#241e925e963bb83a31d269f65f9f379e37ecbaeb"
+  integrity sha1-JB6SXpY7uDox0mn2X583njfsuus=
+  dependencies:
+    mobx-react-lite "^3.2.0"
+
+mobx@^6.3.3:
+  version "6.3.3"
+  resolved "https://registry.nlark.com/mobx/download/mobx-6.3.3.tgz#a3006c56243b1c7ea4ee671a66f963b9f43cf1af"
+  integrity sha1-owBsViQ7HH6k7mcaZvljufQ88a8=
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.nlark.com/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"

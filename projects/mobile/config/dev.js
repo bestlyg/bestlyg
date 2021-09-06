@@ -11,7 +11,7 @@ module.exports = {
     webpackChain(chain) {
       chain.plugin('analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [
         {
-          analyzerPort: 10000,
+          analyzerPort: 20000,
           openAnalyzer: false,
         },
       ]);
