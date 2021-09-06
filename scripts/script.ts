@@ -8,9 +8,14 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function rand10(): number {
-  let num!: number;
-  do num = (rand7() - 1) * 7 + rand7();
-  while (num > 40);
-  return (num % 10) + 1;
+function search(nums: number[], target: number): number {
+  let l = 0;
+  let r = nums.length - 1;
+  while (l < r) {
+    const mid = (l + r) >> 1;
+    if (nums[mid] > target) r = mid - 1;
+    else if (nums[mid] < target) l = mid + 1;
+    else return mid;
+  }
+  return -1;
 }

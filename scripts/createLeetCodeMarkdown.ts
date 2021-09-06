@@ -11,24 +11,30 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '470. 用 Rand7() 实现 Rand10()',
-  url: 'https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.记忆化搜索, Tag.数学, Tag.动态规划],
-  desc: '设计一个算法来计算你所能获取的最大利润。',
+  existMarkdown: !true,
+  name: '704. 二分查找',
+  url: 'https://leetcode-cn.com/problems/binary-search/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 46.5,
-      desc: 'rand7转换为下标',
-      code: `function rand10(): number {
-        let num!: number;
-        do num = (rand7() - 1) * 7 + rand7();
-        while (num > 40);
-        return (num % 10) + 1;
-      }`,
+      time: 80,
+      memory: 41.6,
+      desc: '二分',
+      code: `function search(nums: number[], target: number): number {
+        let l = 0;
+        let r = nums.length - 1;
+        while (l <= r) {
+          const mid = (l + r) >> 1;
+          if (nums[mid] > target) r = mid - 1;
+          else if (nums[mid] < target) l = mid + 1;
+          else return mid;
+        }
+        return -1;
+      }
+      `,
     },
   ],
 };
