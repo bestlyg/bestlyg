@@ -143,8 +143,8 @@ export class RBTree<T> extends BlanceBinarySearchTree<T> {
         }
         this.rotateRight(parent);
         sibling.setColor(parent.color);
-        parent.setBlack();
         sibling.left?.setBlack();
+        parent.setBlack();
       }
     }
   }
