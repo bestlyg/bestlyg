@@ -12,27 +12,30 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '704. 二分查找',
+  name: '1221. 分割平衡字符串',
   url: 'https://leetcode-cn.com/problems/binary-search/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: '给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。',
+  tag: [Tag.贪心, Tag.字符串, Tag.计数],
+  desc: '返回可以通过分割得到的平衡字符串的 最大数量 。',
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 41.6,
-      desc: '二分',
-      code: `function search(nums: number[], target: number): number {
+      time: 64,
+      memory: 39.7,
+      desc: '遍历，判断rl相等时',
+      code: `function balancedStringSplit(s: string): number {
+        let r = 0;
         let l = 0;
-        let r = nums.length - 1;
-        while (l <= r) {
-          const mid = (l + r) >> 1;
-          if (nums[mid] > target) r = mid - 1;
-          else if (nums[mid] < target) l = mid + 1;
-          else return mid;
+        let ans = 0;
+        for (const c of s) {
+          if (c === 'R') r++;
+          if (c === 'L') l++;
+          if (r === l) {
+            ans++;
+            r = l = 0;
+          }
         }
-        return -1;
+        return ans;
       }
       `,
     },

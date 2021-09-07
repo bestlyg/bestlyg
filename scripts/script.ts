@@ -23,7 +23,21 @@ console.log(tree.print());
   93, 15, 67, 69, 15, 99, 66, 2, 15, 44, 83, 21, 30, 57, 70, 2, 24, 29, 77, 85, 93, 15, 67, 54, 42,
   32, 41, 34, 62, 80, 9, 30,
 ].forEach(v => {
-  console.log(`=======================【rm:${v}】`);
+  // console.log(`=======================【rm:${v}】`);
   tree.remove(v);
-  console.log(tree.print());
+  // console.log(tree.print());
 });
+function balancedStringSplit(s: string): number {
+  let r = 0;
+  let l = 0;
+  let ans = 0;
+  for (const c of s) {
+    if (c === 'R') r++;
+    if (c === 'L') l++;
+    if (r === l) {
+      ans++;
+      r = l = 0;
+    }
+  }
+  return ans;
+}
