@@ -1,4 +1,5 @@
 import { repeat } from 'lodash';
+import { IRBTree } from './rbTree';
 const BLACK = false;
 const RED = true;
 type Color = boolean;
@@ -41,7 +42,7 @@ export class RBTreeNode2<T> {
     return `${this.val}【${this.isRed ? 'R' : 'B'}】`;
   }
 }
-export class RBTree2<T> {
+export class RBTree2<T> implements IRBTree<T> {
   private _root: RBTreeNode2<T> | null = null;
   get root() {
     return this._root;
@@ -50,15 +51,15 @@ export class RBTree2<T> {
   get size() {
     return this._size;
   }
-  constructor(private compare: (t1: T, t2: T) => number) {}
-  find(v: T) {
-    return this.findNode(this.root, v)?.val ?? null;
+  get empty() {
+    return this.size === 0;
   }
-  update(v: T): boolean {
-    const node = this.findNode(this.root, v);
-    if (!node) return false;
-    node.val = v;
-    return true;
+  constructor(private compare: (t1: T, t2: T) => number) {}
+  clear() {
+    this._root = null;
+  }
+  contains(v: T): boolean {
+    return this.findNode(this.root, v)?.val !== null;
   }
   private findNode(root: RBTreeNode2<T> | null, v: T): RBTreeNode2<T> | null {
     if (root === null) return null;
@@ -67,7 +68,11 @@ export class RBTree2<T> {
     else return this.findNode(root.right, v);
   }
   add(v: T): void {
-    if (this.findNode(this.root, v) !== null) return;
+    const oldNode = this.findNode(this.root, v);
+    if (oldNode !== null) {
+      oldNode.val = v;
+      return;
+    }
     if (this.root === null) {
       const node = new RBTreeNode2(v);
       this._root = node;
@@ -239,6 +244,7 @@ export class RBTree2<T> {
       root[pos] = parent;
     }
     grand.right = parent.left;
+    if (parent.left) parent.left.parent = grand;
     parent.left = grand;
     grand.parent = parent;
     parent.parent = root;
@@ -252,6 +258,7 @@ export class RBTree2<T> {
       root[pos] = parent;
     }
     grand.left = parent.right;
+    if (parent.right) parent.right.parent = grand;
     parent.right = grand;
     grand.parent = parent;
     parent.parent = root;
@@ -280,5 +287,17 @@ export class RBTree2<T> {
       str += `${prefix}└${lineStr}` + ' L ' + this._print(left, `${prefix}${blankStr} `);
     }
     return str;
+  }
+  levelOrder(): T[] {
+    const list: T[] = [];
+    if (this.root === null) return list;
+    const queue: RBTreeNode2<T>[] = [this.root];
+    while (queue.length !== 0) {
+      const node = queue.shift()!;
+      list.push(node.val);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
+    }
+    return list;
   }
 }

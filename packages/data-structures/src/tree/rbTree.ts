@@ -1,5 +1,6 @@
 import { BlanceBinarySearchTree } from './blanceBinarySearchTree';
 import { BinaryTreeNode } from './binaryTree';
+import { IBinarySearchTree } from './binarySearchTree';
 export enum Color {
   RED,
   BLACK,
@@ -7,6 +8,11 @@ export enum Color {
 const getColor = (node: RBTreeNode<any> | null) => (node === null ? Color.BLACK : node.color);
 const isRed = (node: RBTreeNode<any> | null) => getColor(node) === Color.RED;
 const isBlack = (node: RBTreeNode<any> | null) => getColor(node) === Color.BLACK;
+
+export interface IRBTree<T> extends IBinarySearchTree<T> {
+  print: () => string;
+  levelOrder: () => T[];
+}
 export class RBTreeNode<T> extends BinaryTreeNode<T> {
   private _color = Color.RED;
   get color() {
@@ -38,7 +44,7 @@ export class RBTreeNode<T> extends BinaryTreeNode<T> {
     return super.toString() + (isRed(this) ? '(R)' : '');
   }
 }
-export class RBTree<T> extends BlanceBinarySearchTree<T> {
+export class RBTree<T> extends BlanceBinarySearchTree<T> implements IRBTree<T> {
   protected createNode(
     val: T,
     parent: BinaryTreeNode<T> | null = null,

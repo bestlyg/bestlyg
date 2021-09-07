@@ -5,6 +5,7 @@
     "sourceMap": false,
     "target": "ESNext",
     "module": "ESNext",
+    "useDefineForClassFields": false,
     "moduleResolution": "node",
     "allowJs": false,
     "noUnusedLocals": false,
