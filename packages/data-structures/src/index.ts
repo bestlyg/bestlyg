@@ -5,3 +5,4 @@ export * from './tree';
 export * from './heap';
 export * from './unionFindSet';
 export * from './javascript';
+export * from './map-set';
