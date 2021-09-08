@@ -1,7 +1,7 @@
-import { TreeMap } from './treeMap';
+import { HashMap } from './hashMap';
 import { Set } from './set';
-export class TreeSet<T> implements Set<T> {
-  private map = new TreeMap<T, null>((t1, t2) => this.compare(t1, t2));
+export class HashSet<T> implements Set<T> {
+  private map = new HashMap<T, null>((t1, t2) => this.compare(t1, t2));
   get size() {
     return this.map.size;
   }

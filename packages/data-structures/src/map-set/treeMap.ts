@@ -1,12 +1,4 @@
-export interface Map<K, V> {
-  size: number;
-  empty: boolean;
-  clear: () => void;
-  contains: (key: K) => boolean;
-  get: (key: K) => V | undefined;
-  set: (key: K, val: V) => void;
-  remove: (key: K) => void;
-}
+import { Map } from './map';
 const RED = true;
 const BLACK = false;
 type Color = boolean;
@@ -50,7 +42,7 @@ export class TreeMap<K, V> implements Map<K, V> {
     let node = this.findNode(key);
     if (node !== null) {
       node.val = val;
-      return;
+      return false;
     }
     if (this.root === null) {
       this.root = node = new TreeMapNode<K, V>(key, val);
@@ -74,6 +66,7 @@ export class TreeMap<K, V> implements Map<K, V> {
     }
     this._size++;
     this.afterSet(node);
+    return true;
   }
   private afterSet(node: TreeMapNode<K, V>) {
     let parent = node.parent;
@@ -110,7 +103,7 @@ export class TreeMap<K, V> implements Map<K, V> {
   }
   remove(key: K) {
     let node = this.findNode(key);
-    if (node === null) return;
+    if (node === null) return false;
     if (node.left !== null && node.right !== null) {
       const successor = this.successor(node);
       [node.key, node.val, successor.key, successor.val] = [
@@ -126,12 +119,12 @@ export class TreeMap<K, V> implements Map<K, V> {
     if (node.left === null && node.right === null) {
       if (this.root === node) {
         this.clear();
-        return;
+        return true;
       }
       const pos = parent.left === node ? 'left' : 'right';
       parent[pos] = null;
       this.afterRemove(node);
-      return;
+      return true;
     }
     const childNode = node.left ?? node.right!;
     if (parent === null) this.root = childNode;
@@ -141,6 +134,7 @@ export class TreeMap<K, V> implements Map<K, V> {
     }
     childNode.parent = parent;
     this.afterRemove(childNode);
+    return true;
   }
   private afterRemove(node: TreeMapNode<K, V>) {
     if (isRed(node)) {
