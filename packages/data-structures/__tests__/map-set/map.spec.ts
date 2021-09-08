@@ -30,12 +30,7 @@ describe('TreeMap', () => {
       .fill(0)
       .map((_, i) => i + 1)
       .sort(() => Math.random() - 0.5)
-      .map((v, i) => {
-        console.log(v);
-        return v;
-      })
       .forEach((v, i) => {
-        console.log('remove', v);
         map.remove(v);
         expect(map.contains(v)).toBeFalsy();
         expect(map.size).toBe(6 - i);

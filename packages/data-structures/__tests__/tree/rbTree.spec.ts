@@ -1,6 +1,6 @@
-import { RBTree, RBTree2, IRBTree } from '../../src';
+import { RBTree, RBTree2, IRBTree, RBTree3 } from '../../src';
 
-const list = [RBTree, RBTree2];
+const list = [RBTree, RBTree2, RBTree3];
 list.forEach(run);
 function run(Cstr: new (compare) => IRBTree<number>) {
   describe(`RedBlackTree 【${Cstr.name}】`, () => {
