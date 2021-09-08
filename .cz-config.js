@@ -20,6 +20,7 @@ module.exports = {
     { name: '应用合集' },
     { name: 'Node服务器' },
     { name: '移动端' },
+    { name: '简历' },
     { name: '配置文件' },
     { name: '整个项目' },
   ],

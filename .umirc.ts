@@ -17,6 +17,7 @@ export default defineConfig({
       'packages/algorithms/src',
       'packages/applications/src',
       'packages/leetcode/src',
+      'packages/resume/src',
     ],
   },
   locales: [['zh-CN', '中文']],
