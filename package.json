@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "jest --runInBand --detectOpenHandles --colors",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0",
     "commit": "git-cz",

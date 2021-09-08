@@ -1,4 +1,4 @@
-import { LOGO, resolve, fs, specStr, chalk } from './utils';
+import { LOGO, resolve, fs, specStr, chalk, lodash } from './utils';
 const { backquote } = specStr;
 const coreCodeReg = /## \[核心代码\]\((.*)\)/g;
 const fileReg = /(packages\/.*\.ts(x?))/;
@@ -6,6 +6,7 @@ function main() {
   console.log(LOGO);
   console.log(chalk.blue('更新核心代码'));
   findMarkdown(resolve('packages'));
+  console.log(chalk.green('更新成功'));
 }
 main();
 function findMarkdown(dir: string): void {
@@ -23,28 +24,35 @@ function findMarkdown(dir: string): void {
 function updateMarkdown(src: string) {
   let mdMeta = fs.readFileSync(src).toString();
   const matchArray = mdMeta.matchAll(coreCodeReg);
+  const list: {
+    title: string;
+    filePath: string;
+  }[] = [];
   for (const match of matchArray) {
     const [title, link] = match;
     const { index } = match;
+    if (!fileReg.test(link)) continue;
+    const filePath = resolve(RegExp.$1);
+    list.push({ title, filePath });
+    mdMeta = mdMeta.substr(0, index);
+  }
+  for (const { title, filePath } of list) {
     try {
-      console.log('正在覆盖核心代码:', chalk.blue(src));
-      if (!fileReg.test(link)) return;
-      const srcPath = resolve(RegExp.$1);
-      console.log('核心代码路径:', chalk.blue(srcPath));
-      const coreCodeData = fs.readFileSync(srcPath).toString();
-      mdMeta =
-        mdMeta.substr(0, index) +
-        `
+      console.log(`${lodash.repeat('=', 10)}
+正在覆盖核心代码：${chalk.blue(src)},
+核心代码路径：${chalk.blue(filePath)}`);
+      const coreCodeData = fs.readFileSync(filePath).toString();
+      mdMeta += `
 ${title}
 ${backquote}${backquote}${backquote}ts
 ${coreCodeData}
 ${backquote}${backquote}${backquote}
-        `;
-      fs.writeFileSync(src, mdMeta);
-      console.log(chalk.green('覆盖成功'));
+`;
     } catch (error) {
       console.log(chalk.red('覆盖失败'));
       console.log(error);
+      return;
     }
   }
+  fs.writeFileSync(src, mdMeta);
 }

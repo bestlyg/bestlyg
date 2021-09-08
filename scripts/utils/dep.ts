@@ -7,3 +7,4 @@ export { default as minimist } from 'minimist';
 export { default as semver } from 'semver';
 export { default as enquirer } from 'enquirer';
 export { default as chalk } from 'chalk';
+export { default as lodash } from 'lodash';
