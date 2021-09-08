@@ -8,11 +8,36 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-const map = new TreeMap<number, number>((t1, t2) => t1 - t2);
-[1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
-  map.set(v, v);
-});
-[4, 5, 3, 6, 2, 7, 1].forEach(v => {
-  console.log(repeat('=', 10));
-  map.remove(v);
-});
+type Data = {
+  cost: number;
+  profit: number;
+};
+function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {
+  const n = profits.length;
+  const list: Data[] = [];
+  for (let i = 0; i < n; i++)
+    list.push({
+      cost: capital[i],
+      profit: profits[i],
+    });
+  list.sort((a, b) => a.cost - b.cost);
+  const heap = new Heap<Data>((t1, t2) => t1.profit - t2.profit);
+  if (w >= list[list.length - 1].cost) {
+    return list
+      .sort((a, b) => b.profit - a.profit)
+      .slice(0, k)
+      .reduce((total, cur) => (total += cur.profit), w);
+  }
+  let idx = 0;
+  while (k > 0) {
+    while (idx < n && list[idx].cost <= w) {
+      heap.add(list[idx++]);
+    }
+    if (heap.size === 0) break;
+    const data = heap.remove();
+    w += data.profit;
+    k--;
+  }
+  return w;
+}
+console.log(findMaximizedCapital(1, 2, [1, 2, 3], [1, 1, 2]));
