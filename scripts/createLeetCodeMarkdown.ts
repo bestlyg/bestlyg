@@ -118,7 +118,9 @@ const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 
 function main() {
   console.log(LOGO);
+  console.log(chalk.blue(`正在生成LeetCode题解`));
   md.existMarkdown ? addSolution() : addMarkdown();
+  console.log(chalk.green(`生成完成`));
 }
 function addMarkdown() {
   fs.writeFileSync(

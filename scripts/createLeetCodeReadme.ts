@@ -1,9 +1,9 @@
-import { fs, leetcode, LOGO, markdown, trimBlank } from './utils';
+import { fs, leetcode, LOGO, resolve, trimBlank, chalk } from './utils';
 
 type SolutionList = leetcode.SolutionList;
 const {
   Difficulty,
-  srcPath,
+  rootPath,
   HADER_LCP,
   HADER_OFFER,
   HADER_FACE,
@@ -11,6 +11,8 @@ const {
   tagReg,
   difReg,
   getNumDirName,
+  srcPath,
+  getLastSolutionIdx,
 } = leetcode;
 const waitSolutions = [
   {
@@ -76,15 +78,24 @@ const tagCache = cache['标签索引'];
 const difficultyCache = cache['难度索引'];
 let template = '';
 let fileName = '';
+let solutionCount = 0;
+let fileCount = 0;
 const pathMap: Record<string, string> = {};
 
 function main() {
   console.log(LOGO);
-  const readmePath = `${srcPath}/index.md`;
-  fs.removeSync(readmePath);
-  fs.writeFile(
-    readmePath,
-    `---
+  console.log(chalk.blue(`正在生成LeetCode目录`));
+  const data = `
+# 目录索引
+## 介绍
+个人 LeetCode 题解
+
+${createSolutionsTemplate()}
+`;
+  const paths = [
+    {
+      path: resolve(srcPath, 'index.md'),
+      data: `---
 title: 目录索引
 nav:
   title: 力扣题解
@@ -95,18 +106,22 @@ group:
   order: 0
 ---
 
-# 目录索引
-## 介绍
-个人 LeetCode 题解
-
-${createSolutionsTemplate()}
-`
-  );
+${data}
+`,
+    },
+    { path: resolve(rootPath, 'README.md'), data },
+  ];
+  paths.forEach(({ path, data }) => {
+    fs.removeSync(path);
+    fs.writeFile(path, data);
+  });
+  console.log(chalk.green(`生成完成`));
 }
 
 const createSolutionsTemplate = () => {
   const dirList = fs
     .readdirSync(srcPath)
+    .filter(v => !v.includes('.'))
     .sort((name1, name2) => parseFloat(name1) - parseFloat(name2));
   for (const dir of dirList) {
     const dirPath = `${srcPath}/${dir}`;
@@ -124,12 +139,18 @@ const createSolutionsTemplate = () => {
     for (const file of fileList) {
       const filePath = `${dirPath}/${file}`;
       template = fs.readFileSync(filePath).toString();
+      fileCount++;
+      solutionCount += getLastSolutionIdx(template);
       analysisIndex();
       analysisTag();
       analysisDifficulty();
     }
   }
-  let res = '';
+  let res = `
+总题目数:${fileCount}
+总题解数:${solutionCount}
+
+  `;
   for (const [key, subCache] of Object.entries(cache)) {
     res += `## ${key}\n`;
     for (const { name, solutions } of subCache) {

@@ -91,7 +91,8 @@ export enum Script {
   JAVA = 'java',
 }
 
-export const srcPath = resolve('packages/leetcode/src');
+export const rootPath = resolve('packages/leetcode');
+export const srcPath = resolve(rootPath, 'src');
 export interface SolutionList {
   name: string;
   solutions: string[];
@@ -143,4 +144,10 @@ export const getDirOrder = (dir: string) => {
   } else {
     return parseFloat(dir);
   }
+};
+export const getLastSolutionIdx = (file: string) => {
+  const matchList = file.matchAll(solutionReg);
+  let lastIndex = 0;
+  for (const match of matchList) lastIndex = parseInt(match[1]);
+  return lastIndex;
 };
