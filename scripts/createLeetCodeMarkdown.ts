@@ -12,102 +12,54 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '502. IPO',
-  url: 'https://leetcode-cn.com/problems/ipo/',
+  name: '68. 文本左右对齐',
+  url: 'https://leetcode-cn.com/problems/text-justification/',
   difficulty: Difficulty.困难,
-  tag: [Tag.贪心, Tag.数组, Tag.排序, Tag.堆_优先队列],
-  desc: '从给定项目中选择 最多 k 个不同项目的列表，以 最大化最终资本 ，并输出最终可获得的最多资本。',
+  tag: [Tag.字符串, Tag.模拟],
+  desc: '给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。',
   solutions: [
     {
       script: Script.TS,
-      time: 336,
-      memory: 66.9,
-      desc: '利用堆快速找出当前利润最大值',
-      code: `class Heap<T = number> {
-        private arr: T[] = [];
-        get isEmpty() {
-          return this.size === 0;
-        }
-        get size() {
-          return this.arr.length;
-        }
-        get top() {
-          return this.arr[0];
-        }
-        constructor(private compare: (t1: T, t2: T) => number) {}
-        add(num: T): void {
-          this.arr.push(num);
-          this.shiftUp(this.size - 1);
-        }
-        remove(): T {
-          const num = this.arr.shift()!;
-          if (this.size) {
-            this.arr.unshift(this.arr.pop()!);
-            this.shiftDown(0);
-          }
-          return num;
-        }
-        private shiftUp(index: number): void {
-          if (index === 0) return;
-          const parentIndex = (index - 1) >> 1;
-          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-            this.shiftUp(parentIndex);
-          }
-        }
-        private shiftDown(index: number): void {
-          let childrenIndex = index * 2 + 1;
-          if (childrenIndex > this.size - 1) return;
-          if (
-            childrenIndex + 1 <= this.size - 1 &&
-            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-          ) {
-            childrenIndex++;
-          }
-          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-            this.shiftDown(childrenIndex);
-          }
-        }
-        *[Symbol.iterator](): IterableIterator<T> {
-          for (const t of this.arr) {
-            yield t;
-          }
-        }
+      time: 76,
+      memory: 39.4,
+      desc: '逐个分解单词组进行拼接',
+      code: `function repeat(len: number) {
+        return ''.padEnd(len, ' ');
       }
-      type Data = {
-        cost: number;
-        profit: number;
-      };
-      function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {
-        const n = profits.length;
-        const list: Data[] = [];
-        for (let i = 0; i < n; i++)
-          list.push({
-            cost: capital[i],
-            profit: profits[i],
-          });
-        list.sort((a, b) => a.cost - b.cost);
-        const heap = new Heap<Data>((t1, t2) => t1.profit - t2.profit);
-        if (w >= list[list.length - 1].cost) {
-          return list
-            .sort((a, b) => b.profit - a.profit)
-            .slice(0, k)
-            .reduce((total, cur) => (total += cur.profit), w);
-        }
+      function fullJustify(words: string[], maxWidth: number): string[] {
         let idx = 0;
-        while (k > 0) {
-          while (idx < n && list[idx].cost <= w) {
-            heap.add(list[idx++]);
+        const ans: string[] = [];
+        const n = words.length;
+        while (idx < n) {
+          let len = 0;
+          const list: string[] = [];
+          while (idx < n && len + words[idx].length <= maxWidth) {
+            const str = words[idx];
+            len += str.length + 1;
+            list.push(str);
+            idx++;
           }
-          if (heap.size === 0) break;
-          const data = heap.remove();
-          w += data.profit;
-          k--;
+          if (idx === n) {
+            ans.push(list.join(' ').padEnd(maxWidth, ' '));
+          } else if (list.length === 1) {
+            ans.push(list[0].padEnd(maxWidth, ' '));
+          } else {
+            const strlen = list.join('').length;
+            let empty = maxWidth - strlen;
+            const emptyList: number[] = new Array(list.length - 1).fill(0);
+            for (let i = 0; empty !== 0; i = (i + 1) % (list.length - 1)) {
+              emptyList[i]++;
+              empty--;
+            }
+            let str = '';
+            for (let i = 0; i < list.length; i++) {
+              str += list[i] + repeat(emptyList.shift()!);
+            }
+            ans.push(str);
+          }
         }
-        return w;
-      }
-      `,
+        return ans;
+      }`,
     },
   ],
 };
