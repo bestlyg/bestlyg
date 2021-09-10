@@ -8,38 +8,18 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function chalkReplacer(chalk: number[], k: number): number {
-  let sum = 0;
-  const sums: number[] = [0];
-  const n = chalk.length;
-  for (let i = 0; i < n; i++) sums.push((sum += chalk[i]));
-  while (k >= sum) k -= sum;
-  console.log(k);
-  console.log(sums);
-  const idx = find(k);
-  console.log(idx);
-  return idx - 1;
-  function find(num: number) {
-    let l = 0;
-    let r = n;
-    while (l < r) {
-      const mid = (l + r) >> 1;
-      if (sums[mid] > num) r = mid;
-      else l = mid + 1;
+function longestCommonSubsequence(text1: string, text2: string): number {
+  const len1 = text1.length;
+  const len2 = text2.length;
+  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));
+  for (let i = 1; i <= len1; i++) {
+    for (let j = 1; j <= len2; j++) {
+      dp[i][j] = Math.max(
+        dp[i - 1][j],
+        dp[i][j - 1],
+        dp[i - 1][j - 1] + (text1[i] === text2[j] ? 1 : 0)
+      );
     }
-    console.log(l, r);
-    return l;
   }
+  return dp[len1][len2];
 }
-console.log(
-  chalkReplacer(
-    [
-      22, 86, 96, 35, 62, 69, 56, 33, 95, 10, 38, 53, 33, 90, 29, 68, 85, 58, 11, 49, 81, 18, 32,
-      96, 40, 75, 49, 26, 60, 71, 15, 94, 31, 99, 12, 81, 10, 19, 7, 73, 35, 56, 100, 15, 37, 89,
-      58, 17, 55, 62, 4, 30, 68, 68, 89, 62, 39, 35, 16, 18, 63, 73, 100, 22, 46, 58, 80, 77, 23, 5,
-      52, 96, 98, 21, 33, 86, 81, 71, 69, 72, 71, 58, 17, 85, 70, 22, 84, 94, 75, 51, 60, 81, 12,
-      22, 13, 33, 53, 58,
-    ],
-    134221332
-  )
-);

@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '1894. 找到需要补充粉笔的学生编号',
+  existMarkdown: true,
+  name: '1143. 最长公共子序列',
   url: 'https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找, Tag.前缀和, Tag.模拟],
@@ -20,39 +20,23 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 1052,
-      memory: 49.6,
-      desc: '循环相减',
-      code: `function chalkReplacer(chalk: number[], k: number): number {
-        const sum = chalk.reduce((total, cur) => total + cur, 0);
-        while (k >= sum) k -= sum;
-        let idx = 0;
-        while (k >= chalk[idx]) k -= chalk[idx++];
-        return idx;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 796,
-      memory: 54.2,
-      desc: '二分+前缀和',
-      code: `function chalkReplacer(chalk: number[], k: number): number {
-        let sum = 0;
-        const sums: number[] = [0];
-        const n = chalk.length;
-        for (let i = 0; i < n; i++) sums.push((sum += chalk[i]));
-        while (k >= sum) k -= sum;
-        return find(k) - 1;
-        function find(num: number) {
-          let l = 0;
-          let r = n;
-          while (l < r) {
-            const mid = (l + r) >> 1;
-            if (sums[mid] > num) r = mid;
-            else l = mid + 1;
+      time: 108,
+      memory: 51.8,
+      desc: '动态规划',
+      code: `function longestCommonSubsequence(text1: string, text2: string): number {
+        const len1 = text1.length;
+        const len2 = text2.length;
+        const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));
+        for (let i = 1; i <= len1; i++) {
+          for (let j = 1; j <= len2; j++) {
+            dp[i][j] = Math.max(
+              dp[i - 1][j],
+              dp[i][j - 1],
+              dp[i - 1][j - 1] + (text1[i-1] === text2[j-1] ? 1 : 0)
+            );
           }
-          return l;
         }
+        return dp[len1][len2];
       }`,
     },
   ],
