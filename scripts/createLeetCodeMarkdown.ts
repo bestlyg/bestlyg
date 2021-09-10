@@ -12,53 +12,47 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '68. 文本左右对齐',
-  url: 'https://leetcode-cn.com/problems/text-justification/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.字符串, Tag.模拟],
-  desc: '给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。',
+  name: '1894. 找到需要补充粉笔的学生编号',
+  url: 'https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.二分查找, Tag.前缀和, Tag.模拟],
+  desc: '请你返回需要 补充 粉笔的学生 编号 。',
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 39.4,
-      desc: '逐个分解单词组进行拼接',
-      code: `function repeat(len: number) {
-        return ''.padEnd(len, ' ');
-      }
-      function fullJustify(words: string[], maxWidth: number): string[] {
+      time: 1052,
+      memory: 49.6,
+      desc: '循环相减',
+      code: `function chalkReplacer(chalk: number[], k: number): number {
+        const sum = chalk.reduce((total, cur) => total + cur, 0);
+        while (k >= sum) k -= sum;
         let idx = 0;
-        const ans: string[] = [];
-        const n = words.length;
-        while (idx < n) {
-          let len = 0;
-          const list: string[] = [];
-          while (idx < n && len + words[idx].length <= maxWidth) {
-            const str = words[idx];
-            len += str.length + 1;
-            list.push(str);
-            idx++;
+        while (k >= chalk[idx]) k -= chalk[idx++];
+        return idx;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 796,
+      memory: 54.2,
+      desc: '二分+前缀和',
+      code: `function chalkReplacer(chalk: number[], k: number): number {
+        let sum = 0;
+        const sums: number[] = [0];
+        const n = chalk.length;
+        for (let i = 0; i < n; i++) sums.push((sum += chalk[i]));
+        while (k >= sum) k -= sum;
+        return find(k) - 1;
+        function find(num: number) {
+          let l = 0;
+          let r = n;
+          while (l < r) {
+            const mid = (l + r) >> 1;
+            if (sums[mid] > num) r = mid;
+            else l = mid + 1;
           }
-          if (idx === n) {
-            ans.push(list.join(' ').padEnd(maxWidth, ' '));
-          } else if (list.length === 1) {
-            ans.push(list[0].padEnd(maxWidth, ' '));
-          } else {
-            const strlen = list.join('').length;
-            let empty = maxWidth - strlen;
-            const emptyList: number[] = new Array(list.length - 1).fill(0);
-            for (let i = 0; empty !== 0; i = (i + 1) % (list.length - 1)) {
-              emptyList[i]++;
-              empty--;
-            }
-            let str = '';
-            for (let i = 0; i < list.length; i++) {
-              str += list[i] + repeat(emptyList.shift()!);
-            }
-            ans.push(str);
-          }
+          return l;
         }
-        return ans;
       }`,
     },
   ],

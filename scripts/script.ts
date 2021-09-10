@@ -8,41 +8,38 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function repeat(len: number) {
-  return ''.padEnd(len, ' ');
-}
-function fullJustify(words: string[], maxWidth: number): string[] {
-  let idx = 0;
-  const ans: string[] = [];
-  const n = words.length;
-  while (idx < n) {
-    let len = 0;
-    const list: string[] = [];
-    while (idx < n && len + words[idx].length <= maxWidth) {
-      const str = words[idx];
-      len += str.length + 1;
-      list.push(str);
-      idx++;
+function chalkReplacer(chalk: number[], k: number): number {
+  let sum = 0;
+  const sums: number[] = [0];
+  const n = chalk.length;
+  for (let i = 0; i < n; i++) sums.push((sum += chalk[i]));
+  while (k >= sum) k -= sum;
+  console.log(k);
+  console.log(sums);
+  const idx = find(k);
+  console.log(idx);
+  return idx - 1;
+  function find(num: number) {
+    let l = 0;
+    let r = n;
+    while (l < r) {
+      const mid = (l + r) >> 1;
+      if (sums[mid] > num) r = mid;
+      else l = mid + 1;
     }
-    if (idx === n) {
-      ans.push(list.join(' ').padEnd(maxWidth, ' '));
-    } else if (list.length === 1) {
-      ans.push(list[0].padEnd(maxWidth, ' '));
-    } else {
-      const strlen = list.join('').length;
-      let empty = maxWidth - strlen;
-      const emptyList: number[] = new Array(list.length - 1).fill(0);
-      for (let i = 0; empty !== 0; i = (i + 1) % (list.length - 1)) {
-        emptyList[i]++;
-        empty--;
-      }
-      let str = '';
-      for (let i = 0; i < list.length; i++) {
-        str += list[i] + repeat(emptyList.shift()!);
-      }
-      ans.push(str);
-    }
+    console.log(l, r);
+    return l;
   }
-  return ans;
 }
-console.log(fullJustify(['a', 'aa', 'aaa', 'aaaa', 'aaaaa', 'aaaaaa'], 16));
+console.log(
+  chalkReplacer(
+    [
+      22, 86, 96, 35, 62, 69, 56, 33, 95, 10, 38, 53, 33, 90, 29, 68, 85, 58, 11, 49, 81, 18, 32,
+      96, 40, 75, 49, 26, 60, 71, 15, 94, 31, 99, 12, 81, 10, 19, 7, 73, 35, 56, 100, 15, 37, 89,
+      58, 17, 55, 62, 4, 30, 68, 68, 89, 62, 39, 35, 16, 18, 63, 73, 100, 22, 46, 58, 80, 77, 23, 5,
+      52, 96, 98, 21, 33, 86, 81, 71, 69, 72, 71, 58, 17, 85, 70, 22, 84, 94, 75, 51, 60, 81, 12,
+      22, 13, 33, 53, 58,
+    ],
+    134221332
+  )
+);
