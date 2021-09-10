@@ -1,4 +1,0 @@
-@url=http://localhost:10000
-
-###
-GET  {{url}}/api/app/qrcode?data=nihao&mode=data
