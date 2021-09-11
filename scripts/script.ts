@@ -8,18 +8,21 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function longestCommonSubsequence(text1: string, text2: string): number {
-  const len1 = text1.length;
-  const len2 = text2.length;
-  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));
-  for (let i = 1; i <= len1; i++) {
-    for (let j = 1; j <= len2; j++) {
-      dp[i][j] = Math.max(
-        dp[i - 1][j],
-        dp[i][j - 1],
-        dp[i - 1][j - 1] + (text1[i] === text2[j] ? 1 : 0)
-      );
-    }
+function findIntegers(n: number): number {
+  const dp = new Array(31).fill(0);
+  dp[0] = dp[1] = 1;
+  for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];
+  let pre = 0;
+  let res = 0;
+  for (let i = 29; i >= 0; --i) {
+    let val = 1 << i;
+    if ((n & val) !== 0) {
+      res += dp[i + 1];
+      if (pre === 1) break;
+      pre = 1;
+    } else pre = 0;
+    if (i === 0) res++;
   }
-  return dp[len1][len2];
+  return res;
 }
+console.log(findIntegers(6));

@@ -11,32 +11,37 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '1143. 最长公共子序列',
-  url: 'https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找, Tag.前缀和, Tag.模拟],
-  desc: '请你返回需要 补充 粉笔的学生 编号 。',
+  existMarkdown: !true,
+  name: '600. 不含连续1的非负整数',
+  url: 'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.动态规划],
+  desc: '给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。',
   solutions: [
     {
       script: Script.TS,
-      time: 108,
-      memory: 51.8,
-      desc: '动态规划',
-      code: `function longestCommonSubsequence(text1: string, text2: string): number {
-        const len1 = text1.length;
-        const len2 = text2.length;
-        const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));
-        for (let i = 1; i <= len1; i++) {
-          for (let j = 1; j <= len2; j++) {
-            dp[i][j] = Math.max(
-              dp[i - 1][j],
-              dp[i][j - 1],
-              dp[i - 1][j - 1] + (text1[i-1] === text2[j-1] ? 1 : 0)
-            );
-          }
+      time: 84,
+      memory: 39.8,
+      desc: markdown.link(
+        '参考链接',
+        'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/bu-han-lian-xu-1de-fei-fu-zheng-shu-by-l-9l86/'
+      ),
+      code: `function findIntegers(n: number): number {
+        const dp = new Array(31).fill(0);
+        dp[0] = dp[1] = 1;
+        for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];
+        let pre = 0;
+        let res = 0;
+        for (let i = 29; i >= 0; --i) {
+          let val = 1 << i;
+          if ((n & val) !== 0) {
+            res += dp[i + 1];
+            if (pre === 1) break;
+            pre = 1;
+          } else pre = 0;
+          if (i === 0) res++;
         }
-        return dp[len1][len2];
+        return res;
       }`,
     },
   ],
