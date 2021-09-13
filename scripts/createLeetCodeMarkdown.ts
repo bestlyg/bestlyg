@@ -12,36 +12,40 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '600. 不含连续1的非负整数',
-  url: 'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
-  desc: '给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。',
+  name: '447. 回旋镖的数量',
+  url: 'https://leetcode-cn.com/problems/number-of-boomerangs/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.哈希表, Tag.数学],
+  desc: '返回平面上所有回旋镖的数量。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 39.8,
-      desc: markdown.link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/bu-han-lian-xu-1de-fei-fu-zheng-shu-by-l-9l86/'
-      ),
-      code: `function findIntegers(n: number): number {
-        const dp = new Array(31).fill(0);
-        dp[0] = dp[1] = 1;
-        for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];
-        let pre = 0;
-        let res = 0;
-        for (let i = 29; i >= 0; --i) {
-          let val = 1 << i;
-          if ((n & val) !== 0) {
-            res += dp[i + 1];
-            if (pre === 1) break;
-            pre = 1;
-          } else pre = 0;
-          if (i === 0) res++;
+      time: 252,
+      memory: 60.9,
+      desc: 'map储存',
+      code: `function numberOfBoomerangs(points: number[][]): number {
+        const n = points.length;
+        const getDistance = ([x1, y1]: number[], [x2, y2]: number[]) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
+        const pointMap: Map<number[], Map<number, number>> = new Map();
+        let ans = 0;
+        for (let i = 0; i < n; i++) {
+          const p1 = points[i];
+          let map1 = pointMap.get(p1);
+          if (!map1) pointMap.set(p1, (map1 = new Map()));
+          for (let j = i + 1; j < n; j++) {
+            const p2 = points[j];
+            let map2 = pointMap.get(p2);
+            if (!map2) pointMap.set(p2, (map2 = new Map()));
+            const distance = getDistance(p1, p2);
+            const count1 = map1.get(distance) ?? 0;
+            map1.set(distance, count1 + 1);
+            ans += count1 * 2;
+            const count2 = map2.get(distance) ?? 0;
+            map2.set(distance, count2 + 1);
+            ans += count2 * 2;
+          }
         }
-        return res;
+        return ans;
       }`,
     },
   ],
