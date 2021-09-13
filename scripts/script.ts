@@ -8,34 +8,15 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function numberOfBoomerangs(points: number[][]): number {
-  const n = points.length;
-  const getDistance = ([x1, y1]: number[], [x2, y2]: number[]) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
-  const pointMap: Map<number[], Map<number, number>> = new Map();
-  let ans = 0;
-  for (let i = 0; i < n; i++) {
-    const p1 = points[i];
-    let map1 = pointMap.get(p1);
-    if (!map1) pointMap.set(p1, (map1 = new Map()));
-    for (let j = i + 1; j < n; j++) {
-      const p2 = points[j];
-      let map2 = pointMap.get(p2);
-      if (!map2) pointMap.set(p2, (map2 = new Map()));
-      const distance = getDistance(p1, p2);
-      const count1 = map1.get(distance) ?? 0;
-      map1.set(distance, count1 + 1);
-      ans += count1 * 2;
-      const count2 = map2.get(distance) ?? 0;
-      map2.set(distance, count2 + 1);
-      ans += count2 * 2;
+function change(amount: number, coins: number[]): number {
+  coins.sort((a, b) => a - b);
+  const dp = new Array(amount + 1).fill(0);
+  dp[0] = 1;
+  for (const coin of coins) {
+    for (let i = 1; i <= amount; i++) {
+      if (i >= coin) dp[i] += dp[i - coin];
     }
   }
-  return ans;
+  return dp[amount];
 }
-console.log(
-  numberOfBoomerangs([
-    [0, 0],
-    [1, 0],
-    [2, 0],
-  ])
-);
+console.log(change(5, [1, 2, 5]));

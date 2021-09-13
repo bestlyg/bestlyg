@@ -11,41 +11,28 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '447. 回旋镖的数量',
-  url: 'https://leetcode-cn.com/problems/number-of-boomerangs/',
+  existMarkdown: true,
+  name: '518. 零钱兑换 II',
+  url: 'https://leetcode-cn.com/problems/ones-and-zeroes/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.数学],
-  desc: '返回平面上所有回旋镖的数量。',
+  tag: [Tag.数组, Tag.字符串, Tag.动态规划],
+  desc: '请你找出并返回 strs 的最大子集的大小，该子集中 最多 有 m 个 0 和 n 个 1 。',
   solutions: [
     {
-      script: Script.TS,
-      time: 252,
-      memory: 60.9,
-      desc: 'map储存',
-      code: `function numberOfBoomerangs(points: number[][]): number {
-        const n = points.length;
-        const getDistance = ([x1, y1]: number[], [x2, y2]: number[]) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
-        const pointMap: Map<number[], Map<number, number>> = new Map();
-        let ans = 0;
-        for (let i = 0; i < n; i++) {
-          const p1 = points[i];
-          let map1 = pointMap.get(p1);
-          if (!map1) pointMap.set(p1, (map1 = new Map()));
-          for (let j = i + 1; j < n; j++) {
-            const p2 = points[j];
-            let map2 = pointMap.get(p2);
-            if (!map2) pointMap.set(p2, (map2 = new Map()));
-            const distance = getDistance(p1, p2);
-            const count1 = map1.get(distance) ?? 0;
-            map1.set(distance, count1 + 1);
-            ans += count1 * 2;
-            const count2 = map2.get(distance) ?? 0;
-            map2.set(distance, count2 + 1);
-            ans += count2 * 2;
+      script: Script.JS,
+      time: 100,
+      memory: 39.9,
+      desc: '动态规划',
+      code: `function change(amount: number, coins: number[]): number {
+        coins.sort((a, b) => a - b);
+        const dp = new Array(amount + 1).fill(0);
+        dp[0] = 1;
+        for (const coin of coins) {
+          for (let i = 1; i <= amount; i++) {
+            if (i >= coin) dp[i] += dp[i - coin];
           }
         }
-        return ans;
+        return dp[amount];
       }`,
     },
   ],
