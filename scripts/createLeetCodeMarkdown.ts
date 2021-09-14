@@ -12,27 +12,28 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '518. 零钱兑换 II',
-  url: 'https://leetcode-cn.com/problems/ones-and-zeroes/',
+  name: '377. 组合总和 Ⅳ',
+  url: 'https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.字符串, Tag.动态规划],
-  desc: '请你找出并返回 strs 的最大子集的大小，该子集中 最多 有 m 个 0 和 n 个 1 。',
+  tag: [Tag.数组, Tag.双指针, Tag.字符串, Tag.排序],
+  desc: '给你一个字符串 s 和一个字符串数组 dictionary 作为字典，找出并返回字典中最长的字符串，该字符串可以通过删除 s 中的某些字符得到。如果答案不止一个，返回长度最长且字典序最小的字符串。如果答案不存在，则返回空字符串。',
   solutions: [
     {
       script: Script.JS,
-      time: 100,
-      memory: 39.9,
+      time: 84,
+      memory: 40,
       desc: '动态规划',
-      code: `function change(amount: number, coins: number[]): number {
-        coins.sort((a, b) => a - b);
-        const dp = new Array(amount + 1).fill(0);
+      code: `function combinationSum4(nums: number[], target: number): number {
+        nums.sort((a, b) => a - b);
+        const dp = new Array(target + 1).fill(0);
         dp[0] = 1;
-        for (const coin of coins) {
-          for (let i = 1; i <= amount; i++) {
-            if (i >= coin) dp[i] += dp[i - coin];
+        for (let i = 1; i <= target; i++) {
+          for (const num of nums) {
+            if (i < num) break;
+            dp[i] += dp[i - num];
           }
         }
-        return dp[amount];
+        return dp[target];
       }`,
     },
   ],

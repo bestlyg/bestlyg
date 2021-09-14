@@ -8,15 +8,20 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function change(amount: number, coins: number[]): number {
-  coins.sort((a, b) => a - b);
-  const dp = new Array(amount + 1).fill(0);
+function combinationSum4(nums: number[], target: number): number {
+  nums.sort((a, b) => a - b);
+  const dp = new Array(target + 1).fill(0);
   dp[0] = 1;
-  for (const coin of coins) {
-    for (let i = 1; i <= amount; i++) {
-      if (i >= coin) dp[i] += dp[i - coin];
+  for (let i = 1; i <= target; i++) {
+    for (const num of nums) {
+      console.log(''.padEnd(30, '= '));
+      console.log(i, num);
+      if (i < num) break;
+      dp[i] += dp[i - num];
+      console.log(dp);
     }
   }
-  return dp[amount];
+  return dp[target];
 }
-console.log(change(5, [1, 2, 5]));
+console.log(combinationSum4([1, 2, 3], 4));
+console.log(combinationSum4([9], 3));
