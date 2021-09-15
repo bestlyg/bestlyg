@@ -11,29 +11,43 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '377. 组合总和 Ⅳ',
-  url: 'https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/',
+  existMarkdown: !true,
+  name: '162. 寻找峰值',
+  url: 'https://leetcode-cn.com/problems/find-peak-element/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.双指针, Tag.字符串, Tag.排序],
-  desc: '给你一个字符串 s 和一个字符串数组 dictionary 作为字典，找出并返回字典中最长的字符串，该字符串可以通过删除 s 中的某些字符得到。如果答案不止一个，返回长度最长且字典序最小的字符串。如果答案不存在，则返回空字符串。',
+  tag: [Tag.数组, Tag.二分查找],
+  desc: '给你一个整数数组 nums，找到峰值元素并返回其索引。',
   solutions: [
     {
       script: Script.JS,
-      time: 84,
-      memory: 40,
-      desc: '动态规划',
-      code: `function combinationSum4(nums: number[], target: number): number {
-        nums.sort((a, b) => a - b);
-        const dp = new Array(target + 1).fill(0);
-        dp[0] = 1;
-        for (let i = 1; i <= target; i++) {
-          for (const num of nums) {
-            if (i < num) break;
-            dp[i] += dp[i - num];
-          }
+      time: 68,
+      memory: 39.6,
+      desc: 'On循环',
+      code: `function findPeakElement(nums: number[]): number {
+        const n = nums.length;
+        if (n === 1) return 0;
+        if (nums[0] > nums[1]) return 0;
+        if (nums[n - 1] > nums[n - 2]) return n - 1;
+        for (let i = 1; i <= n - 1; i++) {
+          if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) return i;
         }
-        return dp[target];
+        return 0;
+      }`,
+    },
+    {
+      script: Script.JS,
+      time: 76,
+      memory: 39.4,
+      desc: '二分查找',
+      code: `function findPeakElement(nums: number[]): number {
+        let l = 0;
+        let r =nums.length- 1;
+        while (l < r) {
+          const mid = (l + r) >> 1;
+          if (nums[mid] > nums[mid + 1]) r = mid;
+          else l = mid + 1;
+        }
+        return l;
       }`,
     },
   ],

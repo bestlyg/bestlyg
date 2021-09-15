@@ -8,20 +8,14 @@ type ListNode = structures.ListNode;
 type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
-function combinationSum4(nums: number[], target: number): number {
-  nums.sort((a, b) => a - b);
-  const dp = new Array(target + 1).fill(0);
-  dp[0] = 1;
-  for (let i = 1; i <= target; i++) {
-    for (const num of nums) {
-      console.log(''.padEnd(30, '= '));
-      console.log(i, num);
-      if (i < num) break;
-      dp[i] += dp[i - num];
-      console.log(dp);
-    }
+function findPeakElement(nums: number[]): number {
+  let l = 0;
+  let r = nums.length - 1;
+  while (l < r) {
+    const mid = (l + r) >> 1;
+    if (nums[mid] > nums[mid + 1]) r = mid;
+    else l = mid + 1;
   }
-  return dp[target];
+  return l;
 }
-console.log(combinationSum4([1, 2, 3], 4));
-console.log(combinationSum4([9], 3));
+console.log(findPeakElement([2, 1, 3, 5]));
