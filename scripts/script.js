@@ -1,14 +1,28 @@
-const MAX = 7;
-let str = '';
-const format = str => str.toString().padEnd(3, ' ');
-str += format('');
-for (let i = 1; i <= MAX; i++) str += format(i);
-console.log(str);
-let c = 1;
-for (let i = 1; i <= MAX; i++) {
-  str = format(i);
-  for (let j = 1; j <= MAX; j++) {
-    str += format(c++);
+var book = {
+  title: 'shiji',
+  author: 'simaqian',
+};
+var book1 = {
+  title: 'sanguo',
+  author: 'luo',
+};
+var myBooks = [book, book1];
+function hashTemplate(templateData) {
+  var s = '';
+  var i = 0;
+  while (i < templateData.length) {
+    s += templateData[i++];
+    if (i < arguments.length) {
+      s += arguments[i];
+    }
   }
-  console.log(str);
+  return s;
 }
+var libraryHtml = hashTemplate`
+  <ul>
+      #for book in ${myBooks}
+          <li><i>${book.title}</i> by ${book.author}</li>
+      #end
+  </ul>
+`;
+console.log(libraryHtml);
