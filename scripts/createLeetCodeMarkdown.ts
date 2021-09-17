@@ -12,60 +12,37 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '678. 有效的括号字符串',
-  url: 'https://leetcode-cn.com/problems/valid-parenthesis-string/',
+  name: '36. 有效的数独',
+  url: 'https://leetcode-cn.com/problems/valid-sudoku/',
   difficulty: Difficulty.中等,
-  tag: [Tag.栈, Tag.贪心, Tag.字符串, Tag.动态规划],
-  desc: '给定一个只包含三种字符的字符串：（ ，） 和 *，写一个函数来检验这个字符串是否为有效字符串。',
+  tag: [Tag.数组, Tag.哈希表, Tag.矩阵],
+  desc: '请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。  ',
   solutions: [
     {
-      script: Script.TS,
-      time: 80,
-      memory: 39.5,
-      desc: '分别统计左括号和*的下标，遍历到右括号时消除',
-      code: `function checkValidString(s: string): boolean {
-        const leftStack: number[] = [];
-        const starStack: number[] = [];
-        for (let i = 0; i < s.length; i++) {
-          const c = s[i];
-          if (c === '(') leftStack.push(i);
-          else if (c === '*') starStack.push(i);
-          else {
-            if (leftStack.length === 0 && starStack.length === 0) return false;
-            if (leftStack.length !== 0) leftStack.pop();
-            else starStack.pop();
+      script: Script.JS,
+      time: 96,
+      memory: 43.8,
+      desc: '逐行遍历，set储存',
+      code: `function isValidSudoku(board: string[][]): boolean {
+        const rows: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const cols: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const blocks: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const getBolck = (row: number, col: number) => ~~(row / 3) * 3 + ~~(col / 3);
+        for (let row = 0; row < 9; row++) {
+          for (let col = 0; col < 9; col++) {
+            const val = board[row][col];
+            const block = getBolck(row, col);
+            if (val === '.') continue;
+            const rowSet = rows[row];
+            const colSet = cols[col];
+            const blockSet = blocks[block];
+            if (rowSet.has(val) || colSet.has(val) || blockSet.has(val)) return false;
+            rowSet.add(val);
+            colSet.add(val);
+            blockSet.add(val);
           }
         }
-        while (leftStack.length !== 0 && starStack.length !== 0) {
-          const left = leftStack.pop()!;
-          const star = starStack.pop()!;
-          if (left > star) return false;
-        }
-        return leftStack.length===0;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 68,
-      memory: 39.4,
-      desc: '贪心，统计左括号可能的最大值和最小值',
-      code: `function checkValidString(s: string): boolean {
-        let min = 0;
-        let max = 0;
-        for (const c of s) {
-          if (c === '(') {
-            min++;
-            max++;
-          } else if (c === ')') {
-            min = Math.max(min - 1, 0);
-            max--;
-            if (max < 0) return false;
-          } else {
-            min = Math.max(min - 1, 0);
-            max++;
-          }
-        }
-        return min === 0;
+        return true;
       }`,
     },
   ],

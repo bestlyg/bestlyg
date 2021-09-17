@@ -1,14 +1,20 @@
-const MAX = 7;
-let str = '';
-const format = str => str.toString().padEnd(3, ' ');
-str += format('');
-for (let i = 1; i <= MAX; i++) str += format(i);
-console.log(str);
-let c = 1;
-for (let i = 1; i <= MAX; i++) {
-  str = format(i);
-  for (let j = 1; j <= MAX; j++) {
-    str += format(c++);
+const welcomeKey = '1';
+const langCN = 'chinese';
+const langEN = 'english';
+const i18n = {
+  [langCN]: {
+    [welcomeKey]: '欢迎',
+  },
+  [langEN]: { [welcomeKey]: 'welcome' },
+};
+const lang = langEN;
+function welcome(templates, ...values) {
+  let ans = '';
+  let i = 0;
+  for (; i < templates.length - 1; i++) {
+    ans += templates[i] + i18n[lang][values[i]];
   }
-  console.log(str);
+  ans += templates[i];
+  console.log(ans);
 }
+welcome`~~~~ ${welcomeKey} Bestlyg`;
