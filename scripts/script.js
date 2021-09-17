@@ -1,28 +1,20 @@
-var book = {
-  title: 'shiji',
-  author: 'simaqian',
+const welcomeKey = '1';
+const langCN = 'chinese';
+const langEN = 'english';
+const i18n = {
+  [langCN]: {
+    [welcomeKey]: '欢迎',
+  },
+  [langEN]: { [welcomeKey]: 'welcome' },
 };
-var book1 = {
-  title: 'sanguo',
-  author: 'luo',
-};
-var myBooks = [book, book1];
-function hashTemplate(templateData) {
-  var s = '';
-  var i = 0;
-  while (i < templateData.length) {
-    s += templateData[i++];
-    if (i < arguments.length) {
-      s += arguments[i];
-    }
+const lang = langEN;
+function welcome(templates, ...values) {
+  let ans = '';
+  let i = 0;
+  for (; i < templates.length - 1; i++) {
+    ans += templates[i] + i18n[lang][values[i]];
   }
-  return s;
+  ans += templates[i];
+  console.log(ans);
 }
-var libraryHtml = hashTemplate`
-  <ul>
-      #for book in ${myBooks}
-          <li><i>${book.title}</i> by ${book.author}</li>
-      #end
-  </ul>
-`;
-console.log(libraryHtml);
+welcome`~~~~ ${welcomeKey} Bestlyg`;

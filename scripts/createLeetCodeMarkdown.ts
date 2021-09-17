@@ -12,133 +12,37 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '212. 单词搜索 II',
-  url: 'https://leetcode-cn.com/problems/word-search-ii/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.字典树, Tag.数组, Tag.字符串, Tag.回溯, Tag.矩阵],
-  desc: '给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words，找出所有同时在二维网格和字典中出现的单词。',
+  name: '36. 有效的数独',
+  url: 'https://leetcode-cn.com/problems/valid-sudoku/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.哈希表, Tag.矩阵],
+  desc: '请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。  ',
   solutions: [
     {
       script: Script.JS,
-      time: 4092,
-      memory: 45.2,
-      desc: '字典树',
-      code: `interface ITrie {
-        size: number;
-        empty: boolean;
-        add: (str: string) => void;
-        remove: (str: string) => void;
-        clear: () => void;
-        contains: (str: string) => boolean;
-        starsWith: (str: string) => boolean;
-      }
-      class TrieNode {
-        end = false;
-        children: Map<string, TrieNode> = new Map();
-        constructor(public val: string) {}
-      }
-      class Trie implements ITrie {
-        private _size = 0;
-        get size() {
-          return this._size;
-        }
-        get empty() {
-          return this._size === 0;
-        }
-        private root = new TrieNode('');
-        clear() {
-          this.root = new TrieNode('');
-          this._size = 0;
-        }
-        add(str: string) {
-          return this._add(str);
-        }
-        private _add(str: string, node = this.root) {
-          if (str.length === 0) {
-            this.root.end = true;
-            this._size++;
-            return;
-          }
-          if (str.length === 1) {
-            let endNode = node.children.get(str);
-            if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));
-            if (!endNode.end) {
-              endNode.end = true;
-              this._size++;
-            }
-            return;
-          }
-          const first = str[0];
-          let nextNode = node.children.get(first);
-          if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));
-          const nextStr = str.substr(1);
-          this._add(nextStr, nextNode);
-        }
-        contains(str: string) {
-          const endNode = this.findEndNode(str);
-          return endNode ? endNode.end : false;
-        }
-        remove(str: string) {
-          const endNode = this.findEndNode(str);
-          if (endNode && endNode.end) {
-            endNode.end = false;
-            this._size--;
+      time: 96,
+      memory: 43.8,
+      desc: '逐行遍历，set储存',
+      code: `function isValidSudoku(board: string[][]): boolean {
+        const rows: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const cols: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const blocks: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
+        const getBolck = (row: number, col: number) => ~~(row / 3) * 3 + ~~(col / 3);
+        for (let row = 0; row < 9; row++) {
+          for (let col = 0; col < 9; col++) {
+            const val = board[row][col];
+            const block = getBolck(row, col);
+            if (val === '.') continue;
+            const rowSet = rows[row];
+            const colSet = cols[col];
+            const blockSet = blocks[block];
+            if (rowSet.has(val) || colSet.has(val) || blockSet.has(val)) return false;
+            rowSet.add(val);
+            colSet.add(val);
+            blockSet.add(val);
           }
         }
-        starsWith(str: string) {
-          return this.findEndNode(str) !== null;
-        }
-        private findEndNode(str: string, node = this.root): TrieNode | null {
-          if (str.length === 0) return this.root;
-          if (str.length === 1) return node.children.get(str) ?? null;
-          const first = str[0];
-          let nextNode = node.children.get(first);
-          if (!nextNode) return null;
-          const nextStr = str.substr(1);
-          return this.findEndNode(nextStr, nextNode);
-        }
-      }
-      function findWords(board: string[][], words: string[]): string[] {
-        const trie = new Trie();
-        let maxWordLen = 0;
-        words.forEach(word => {
-          trie.add(word);
-          maxWordLen = Math.max(maxWordLen, word.length);
-        });
-        const rowLen = board.length;
-        const colLen = board[0].length;
-        const ans = new Set<string>();
-        const format = (row: number, col: number) => ${specStr.backquote}\${row}::\${col}${specStr.backquote};
-        const set = new Set<string>();
-        const starts: [number, number][] = [];
-        for (let row = 0; row < rowLen; row++) {
-          for (let col = 0; col < colLen; col++) {
-            if (trie.starsWith(board[row][col])) starts.push([row, col]);
-          }
-        }
-        starts.forEach(v => find(...v));
-        return Array.from(ans);
-        function find(row: number, col: number, str: string = ''): void {
-          const formatStr = format(row, col);
-          if (
-            set.has(formatStr) ||
-            str.length > maxWordLen ||
-            ans.size === words.length ||
-            row === -1 ||
-            row === rowLen ||
-            col === -1 ||
-            col === colLen
-          )
-            return;
-          str += board[row][col];
-          if (trie.contains(str)) ans.add(str);
-          set.add(formatStr);
-          find(row, col - 1, str);
-          find(row, col + 1, str);
-          find(row - 1, col, str);
-          find(row + 1, col, str);
-          set.delete(formatStr);
-        }
+        return true;
       }`,
     },
   ],
