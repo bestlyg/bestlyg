@@ -12,36 +12,60 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '600. 不含连续1的非负整数',
-  url: 'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.动态规划],
-  desc: '给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的1 的个数。',
+  name: '678. 有效的括号字符串',
+  url: 'https://leetcode-cn.com/problems/valid-parenthesis-string/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.栈, Tag.贪心, Tag.字符串, Tag.动态规划],
+  desc: '给定一个只包含三种字符的字符串：（ ，） 和 *，写一个函数来检验这个字符串是否为有效字符串。',
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 39.8,
-      desc: markdown.link(
-        '参考链接',
-        'https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/bu-han-lian-xu-1de-fei-fu-zheng-shu-by-l-9l86/'
-      ),
-      code: `function findIntegers(n: number): number {
-        const dp = new Array(31).fill(0);
-        dp[0] = dp[1] = 1;
-        for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];
-        let pre = 0;
-        let res = 0;
-        for (let i = 29; i >= 0; --i) {
-          let val = 1 << i;
-          if ((n & val) !== 0) {
-            res += dp[i + 1];
-            if (pre === 1) break;
-            pre = 1;
-          } else pre = 0;
-          if (i === 0) res++;
+      time: 80,
+      memory: 39.5,
+      desc: '分别统计左括号和*的下标，遍历到右括号时消除',
+      code: `function checkValidString(s: string): boolean {
+        const leftStack: number[] = [];
+        const starStack: number[] = [];
+        for (let i = 0; i < s.length; i++) {
+          const c = s[i];
+          if (c === '(') leftStack.push(i);
+          else if (c === '*') starStack.push(i);
+          else {
+            if (leftStack.length === 0 && starStack.length === 0) return false;
+            if (leftStack.length !== 0) leftStack.pop();
+            else starStack.pop();
+          }
         }
-        return res;
+        while (leftStack.length !== 0 && starStack.length !== 0) {
+          const left = leftStack.pop()!;
+          const star = starStack.pop()!;
+          if (left > star) return false;
+        }
+        return leftStack.length===0;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 68,
+      memory: 39.4,
+      desc: '贪心，统计左括号可能的最大值和最小值',
+      code: `function checkValidString(s: string): boolean {
+        let min = 0;
+        let max = 0;
+        for (const c of s) {
+          if (c === '(') {
+            min++;
+            max++;
+          } else if (c === ')') {
+            min = Math.max(min - 1, 0);
+            max--;
+            if (max < 0) return false;
+          } else {
+            min = Math.max(min - 1, 0);
+            max++;
+          }
+        }
+        return min === 0;
       }`,
     },
   ],
