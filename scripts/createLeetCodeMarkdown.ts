@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '36. 有效的数独',
+  existMarkdown: true,
+  name: '292. Nim 游戏',
   url: 'https://leetcode-cn.com/problems/valid-sudoku/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.哈希表, Tag.矩阵],
@@ -20,30 +20,13 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.JS,
-      time: 96,
-      memory: 43.8,
-      desc: '逐行遍历，set储存',
-      code: `function isValidSudoku(board: string[][]): boolean {
-        const rows: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
-        const cols: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
-        const blocks: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());
-        const getBolck = (row: number, col: number) => ~~(row / 3) * 3 + ~~(col / 3);
-        for (let row = 0; row < 9; row++) {
-          for (let col = 0; col < 9; col++) {
-            const val = board[row][col];
-            const block = getBolck(row, col);
-            if (val === '.') continue;
-            const rowSet = rows[row];
-            const colSet = cols[col];
-            const blockSet = blocks[block];
-            if (rowSet.has(val) || colSet.has(val) || blockSet.has(val)) return false;
-            rowSet.add(val);
-            colSet.add(val);
-            blockSet.add(val);
-          }
-        }
-        return true;
-      }`,
+      time: 76,
+      memory: 39.3,
+      desc: '统计',
+      code: `function canWinNim(n: number): boolean {
+        return n%4 !== 0
+        };
+        `,
     },
   ],
 };
