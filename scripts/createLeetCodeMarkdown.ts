@@ -11,22 +11,36 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '292. Nim 游戏',
-  url: 'https://leetcode-cn.com/problems/valid-sudoku/',
+  existMarkdown: !true,
+  name: '650. 只有两个键的键盘',
+  url: 'https://leetcode-cn.com/problems/2-keys-keyboard/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.矩阵],
-  desc: '请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。  ',
+  tag: [Tag.数学, Tag.动态规划],
+  desc: `给你一个数字 n ，你需要使用最少的操作次数，在记事本上输出 恰好 n 个 'A' 。返回能够打印出 n 个 'A' 的最少操作次数。`,
   solutions: [
     {
       script: Script.JS,
       time: 76,
-      memory: 39.3,
-      desc: '统计',
-      code: `function canWinNim(n: number): boolean {
-        return n%4 !== 0
-        };
-        `,
+      memory: 40,
+      desc: '动态规划',
+      code: `function minSteps(n: number): number {
+        if (n === 1) return 0;
+        const dp = new Array(n + 1).fill(0);
+        for (let num = 2; num <= n; num++) {
+          if (num % 2 === 0) {
+            dp[num] = dp[num / 2] + 2;
+            continue;
+          }
+          for (let i = num - 1; i >= 2; i--) {
+            if (num % i === 0) {
+              dp[num] = dp[i] + num / i;
+              break;
+            }
+          }
+          if (dp[num] === 0) dp[num] = num;
+        }
+        return dp[n];
+      }`,
     },
   ],
 };
