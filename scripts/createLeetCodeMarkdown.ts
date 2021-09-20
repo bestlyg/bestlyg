@@ -12,35 +12,41 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '650. 只有两个键的键盘',
-  url: 'https://leetcode-cn.com/problems/2-keys-keyboard/',
+  name: '673. 最长递增子序列的个数',
+  url: 'https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数学, Tag.动态规划],
-  desc: `给你一个数字 n ，你需要使用最少的操作次数，在记事本上输出 恰好 n 个 'A' 。返回能够打印出 n 个 'A' 的最少操作次数。`,
+  tag: [Tag.树状数组, Tag.线段树, Tag.数组, Tag.动态规划],
+  desc: `给定一个未排序的整数数组，找到最长递增子序列的个数。`,
   solutions: [
     {
       script: Script.JS,
-      time: 76,
-      memory: 40,
+      time: 108,
+      memory: 40.5,
       desc: '动态规划',
-      code: `function minSteps(n: number): number {
-        if (n === 1) return 0;
-        const dp = new Array(n + 1).fill(0);
-        for (let num = 2; num <= n; num++) {
-          if (num % 2 === 0) {
-            dp[num] = dp[num / 2] + 2;
-            continue;
-          }
-          for (let i = num - 1; i >= 2; i--) {
-            if (num % i === 0) {
-              dp[num] = dp[i] + num / i;
-              break;
+      code: `function findNumberOfLIS(nums: number[]): number {
+        const n = nums.length;
+        const dp = new Array(n).fill(0).map(_ => ({ val: 1, cnt: 1 }));
+        let maxVal = 1;
+        let maxCnt = 0;
+        for (let i = 0; i < n; i++) {
+          const num = nums[i];
+          for (let j = 0; j < i; j++) {
+            if (nums[j] < num) {
+              const len = dp[j].val + 1;
+              if (dp[i].val < len) {
+                dp[i].val = len;
+                dp[i].cnt = dp[j].cnt;
+              } else if (dp[i].val === len) dp[i].cnt += dp[j].cnt;
             }
           }
-          if (dp[num] === 0) dp[num] = num;
+          if (maxVal < dp[i].val) {
+            maxVal = Math.max(maxVal, dp[i].val);
+            maxCnt = dp[i].cnt;
+          } else if (maxVal === dp[i].val) maxCnt += dp[i].cnt;
         }
-        return dp[n];
-      }`,
+        return maxCnt;
+      }
+      `,
     },
   ],
 };
