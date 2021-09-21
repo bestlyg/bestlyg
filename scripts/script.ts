@@ -10,26 +10,28 @@ type Heap = structures.Heap;
 
 /*
  */
-function findNumberOfLIS(nums: number[]): number {
-  const n = nums.length;
-  const dp = new Array(n).fill(0).map(_ => ({ val: 1, cnt: 1 }));
-  let maxVal = 1;
-  let maxCnt = 0;
-  for (let i = 0; i < n; i++) {
-    const num = nums[i];
-    for (let j = 0; j < i; j++) {
-      if (nums[j] < num) {
-        const len = dp[j].val + 1;
-        if (dp[i].val < len) {
-          dp[i].val = len;
-          dp[i].cnt = dp[j].cnt;
-        } else if (dp[i].val === len) dp[i].cnt += dp[j].cnt;
-      }
+class Solution {
+  private max = 0;
+  constructor(private head: ListNode | null) {
+    if (head === null) return;
+    let p: ListNode | null = head;
+    while (p) {
+      this.max += p.val;
+      p = p.next;
     }
-    if (maxVal < dp[i].val) {
-      maxVal = Math.max(maxVal, dp[i].val);
-      maxCnt = dp[i].cnt;
-    } else if (maxVal === dp[i].val) maxCnt += dp[i].cnt;
   }
-  return maxCnt;
+  getRandom(): number {
+    let random = this.random(0, this.max);
+    let p: ListNode = this.head!;
+    while (p && random > p.val) {
+      random -= p.val;
+      p = p.next!;
+    }
+    return p.val;
+  }
+  random(min: number, max: number): number {
+    return min + ~~(Math.random() * (max - min + 1));
+  }
 }
+const obj = new Solution(ListNode.factory([1, 2, 3, 4, 5, 6]));
+console.log(obj.getRandom());

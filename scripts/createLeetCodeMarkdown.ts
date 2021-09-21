@@ -12,41 +12,33 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '673. 最长递增子序列的个数',
-  url: 'https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树状数组, Tag.线段树, Tag.数组, Tag.动态规划],
-  desc: `给定一个未排序的整数数组，找到最长递增子序列的个数。`,
+  name: '58. 最后一个单词的长度',
+  url: 'https://leetcode-cn.com/problems/length-of-last-word/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。`,
   solutions: [
     {
       script: Script.JS,
-      time: 108,
-      memory: 40.5,
-      desc: '动态规划',
-      code: `function findNumberOfLIS(nums: number[]): number {
-        const n = nums.length;
-        const dp = new Array(n).fill(0).map(_ => ({ val: 1, cnt: 1 }));
-        let maxVal = 1;
-        let maxCnt = 0;
-        for (let i = 0; i < n; i++) {
-          const num = nums[i];
-          for (let j = 0; j < i; j++) {
-            if (nums[j] < num) {
-              const len = dp[j].val + 1;
-              if (dp[i].val < len) {
-                dp[i].val = len;
-                dp[i].cnt = dp[j].cnt;
-              } else if (dp[i].val === len) dp[i].cnt += dp[j].cnt;
-            }
-          }
-          if (maxVal < dp[i].val) {
-            maxVal = Math.max(maxVal, dp[i].val);
-            maxCnt = dp[i].cnt;
-          } else if (maxVal === dp[i].val) maxCnt += dp[i].cnt;
-        }
-        return maxCnt;
-      }
-      `,
+      time: 72,
+      memory: 39.4,
+      desc: '分割',
+      code: `function lengthOfLastWord(s: string): number {
+        return s.trim().split(' ').slice(-1)[0].length
+        };`,
+    },
+    {
+      script: Script.JS,
+      time: 64,
+      memory: 39.3,
+      desc: '循环',
+      code: `function lengthOfLastWord(s: string): number {
+        let start = s.length-1
+        while(s[start]===' ')start--
+        let end = start
+        while(end>=0&&s[end]!==' ')end--
+        return start-end
+    };`,
     },
   ],
 };
