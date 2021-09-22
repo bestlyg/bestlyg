@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '725. 分隔链表',
+  existMarkdown: true,
+  name: '234. 回文链表',
   url: 'https://leetcode-cn.com/problems/split-linked-list-in-parts/',
   difficulty: Difficulty.中等,
   tag: [Tag.链表],
@@ -20,66 +20,67 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.JS,
-      time: 88,
-      memory: 40.6,
-      desc: '储存到队列中进行筛选',
-      code: `function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {
-        const list: ListNode[] = [];
-        let p: ListNode | null = head;
-        while (p) {
-          const next = p.next;
-          list.push(p);
-          p.next = null;
-          p = next;
+      time: 228,
+      memory: 69.9,
+      desc: '反转后半部分',
+      code: `function isPalindrome(head: ListNode): boolean {
+        let slow = head;
+        let fast = head.next;
+        if (!fast) return true;
+        while (fast && fast.next) {
+          slow = slow.next!;
+          fast = fast.next.next;
         }
-        const len = list.length;
-        const ans: Array<ListNode | null> = new Array(k).fill(null);
-        if (len <= k) {
-          for (let i = 0; i < len; i++) ans[i] = list[i];
-          return ans;
+        fast = reverse(slow.next!)[0];
+        slow = head;
+        while (fast) {
+          if (slow.val !== fast.val) return false;
+          slow = slow.next!;
+          fast = fast.next!;
         }
-        const cnt = ~~(len / k);
-        const last = (len % k) - 1;
-        let nodeIdx = 0;
-        for (let i = 0; i < k; i++) {
-          const node = (ans[i] = list[nodeIdx]);
-          const lastIdx = nodeIdx + cnt + (i <= last ? 1 : 0);
-          let p = node;
-          while (++nodeIdx < lastIdx) p = p.next = list[nodeIdx];
+        return true;
+        function reverse(node: ListNode): [ListNode, ListNode] {
+          if (node.next === null) return [node, node];
+          const [first, last] = reverse(node.next);
+          last.next = node;
+          node.next = null;
+          return [first, node];
         }
-        return ans;
       }`,
     },
     {
       script: Script.JS,
-      time: 76,
-      memory: 40.2,
-      desc: '循环两次',
-      code: `function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {
-        let len = 0;
-        let p = head;
-        for (; p; p = p.next) len++;
-        const cnt = ~~(len / k);
-        const last = (len % k) - 1;
-        const ans: Array<ListNode | null> = [];
-        p = head;
-        let max = cnt + (ans.length <= last ? 1 : 0);
-        let idx = 0;
-        while (p) {
-          if (idx === 0) ans.push(p);
-          if (idx === max - 1) {
-            max = cnt + (ans.length <= last ? 1 : 0);
-            const next = p.next;
-            p.next = null;
-            p = next;
-            idx = 0;
-          } else {
-            p = p.next;
-            idx++;
-          }
+      time: 152,
+      memory: 60.7,
+      desc: '反转后半部分，遍历反转',
+      code: `function isPalindrome(head: ListNode): boolean {
+        let slow = head;
+        let fast = head.next;
+        if (!fast) return true;
+        while (fast && fast.next) {
+          slow = slow.next!;
+          fast = fast.next.next;
         }
-        while (ans.length < k) ans.push(null);
-        return ans;
+        fast = reverse(slow.next!);
+        slow = head;
+        while (fast) {
+          if (slow.val !== fast.val) return false;
+          slow = slow.next!;
+          fast = fast.next!;
+        }
+        return true;
+        function reverse(node: ListNode): ListNode {
+          const head = new ListNode();
+          let p: ListNode | null = node;
+          while (p) {
+            const oldNext = head.next;
+            const next = p.next;
+            head.next = p;
+            p.next = oldNext;
+            p = next;
+          }
+          return head.next!;
+        }
       }`,
     },
   ],
