@@ -12,33 +12,75 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '58. 最后一个单词的长度',
-  url: 'https://leetcode-cn.com/problems/length-of-last-word/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。`,
+  name: '725. 分隔链表',
+  url: 'https://leetcode-cn.com/problems/split-linked-list-in-parts/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.链表],
+  desc: `给你一个头结点为 head 的单链表和一个整数 k ，请你设计一个算法将链表分隔为 k 个连续的部分。`,
   solutions: [
     {
       script: Script.JS,
-      time: 72,
-      memory: 39.4,
-      desc: '分割',
-      code: `function lengthOfLastWord(s: string): number {
-        return s.trim().split(' ').slice(-1)[0].length
-        };`,
+      time: 88,
+      memory: 40.6,
+      desc: '储存到队列中进行筛选',
+      code: `function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {
+        const list: ListNode[] = [];
+        let p: ListNode | null = head;
+        while (p) {
+          const next = p.next;
+          list.push(p);
+          p.next = null;
+          p = next;
+        }
+        const len = list.length;
+        const ans: Array<ListNode | null> = new Array(k).fill(null);
+        if (len <= k) {
+          for (let i = 0; i < len; i++) ans[i] = list[i];
+          return ans;
+        }
+        const cnt = ~~(len / k);
+        const last = (len % k) - 1;
+        let nodeIdx = 0;
+        for (let i = 0; i < k; i++) {
+          const node = (ans[i] = list[nodeIdx]);
+          const lastIdx = nodeIdx + cnt + (i <= last ? 1 : 0);
+          let p = node;
+          while (++nodeIdx < lastIdx) p = p.next = list[nodeIdx];
+        }
+        return ans;
+      }`,
     },
     {
       script: Script.JS,
-      time: 64,
-      memory: 39.3,
-      desc: '循环',
-      code: `function lengthOfLastWord(s: string): number {
-        let start = s.length-1
-        while(s[start]===' ')start--
-        let end = start
-        while(end>=0&&s[end]!==' ')end--
-        return start-end
-    };`,
+      time: 76,
+      memory: 40.2,
+      desc: '循环两次',
+      code: `function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {
+        let len = 0;
+        let p = head;
+        for (; p; p = p.next) len++;
+        const cnt = ~~(len / k);
+        const last = (len % k) - 1;
+        const ans: Array<ListNode | null> = [];
+        p = head;
+        let max = cnt + (ans.length <= last ? 1 : 0);
+        let idx = 0;
+        while (p) {
+          if (idx === 0) ans.push(p);
+          if (idx === max - 1) {
+            max = cnt + (ans.length <= last ? 1 : 0);
+            const next = p.next;
+            p.next = null;
+            p = next;
+            idx = 0;
+          } else {
+            p = p.next;
+            idx++;
+          }
+        }
+        while (ans.length < k) ans.push(null);
+        return ans;
+      }`,
     },
   ],
 };

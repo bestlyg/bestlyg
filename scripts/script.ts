@@ -10,28 +10,30 @@ type Heap = structures.Heap;
 
 /*
  */
-class Solution {
-  private max = 0;
-  constructor(private head: ListNode | null) {
-    if (head === null) return;
-    let p: ListNode | null = head;
-    while (p) {
-      this.max += p.val;
+function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {
+  let len = 0;
+  let p = head;
+  for (; p; p = p.next) len++;
+  const cnt = ~~(len / k);
+  const last = (len % k) - 1;
+  const ans: Array<ListNode | null> = new Array(k).fill(null);
+  let andIdx = 0;
+  p = head;
+  let max = cnt + (ans.length <= last ? 1 : 0);
+  let idx = 0;
+  while (p) {
+    if (idx === 0) ans[andIdx++] = p;
+    if (idx === max - 1) {
+      max = cnt + (ans.length <= last ? 1 : 0);
+      const next = p.next;
+      p.next = null;
+      p = next;
+      idx = 0;
+    } else {
       p = p.next;
+      idx++;
     }
   }
-  getRandom(): number {
-    let random = this.random(0, this.max);
-    let p: ListNode = this.head!;
-    while (p && random > p.val) {
-      random -= p.val;
-      p = p.next!;
-    }
-    return p.val;
-  }
-  random(min: number, max: number): number {
-    return min + ~~(Math.random() * (max - min + 1));
-  }
+  return ans;
 }
-const obj = new Solution(ListNode.factory([1, 2, 3, 4, 5, 6]));
-console.log(obj.getRandom());
+console.log(splitListToParts(ListNode.factory([1, 2, 3, 4, 5, 6]), 7));
