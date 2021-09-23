@@ -83,8 +83,8 @@ let fileCount = 0;
 const pathMap: Record<string, string> = {};
 
 function main() {
-  console.log(LOGO);
   console.log(chalk.blue(`正在生成LeetCode目录`));
+  console.log(LOGO);
   const data = `
 # 目录索引
 ## 介绍

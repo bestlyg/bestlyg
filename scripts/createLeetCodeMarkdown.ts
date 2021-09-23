@@ -11,76 +11,31 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '234. 回文链表',
-  url: 'https://leetcode-cn.com/problems/split-linked-list-in-parts/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.链表],
-  desc: `给你一个头结点为 head 的单链表和一个整数 k ，请你设计一个算法将链表分隔为 k 个连续的部分。`,
+  existMarkdown: !true,
+  name: '326. 3的幂',
+  url: 'https://leetcode-cn.com/problems/power-of-three/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.递归, Tag.数学],
+  desc: `给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.JS,
-      time: 228,
-      memory: 69.9,
-      desc: '反转后半部分',
-      code: `function isPalindrome(head: ListNode): boolean {
-        let slow = head;
-        let fast = head.next;
-        if (!fast) return true;
-        while (fast && fast.next) {
-          slow = slow.next!;
-          fast = fast.next.next;
-        }
-        fast = reverse(slow.next!)[0];
-        slow = head;
-        while (fast) {
-          if (slow.val !== fast.val) return false;
-          slow = slow.next!;
-          fast = fast.next!;
-        }
-        return true;
-        function reverse(node: ListNode): [ListNode, ListNode] {
-          if (node.next === null) return [node, node];
-          const [first, last] = reverse(node.next);
-          last.next = node;
-          node.next = null;
-          return [first, node];
-        }
+      time: 236,
+      memory: 47.6,
+      desc: '循环',
+      code: `function isPowerOfThree(n: number): boolean {
+        let i = 0;
+        while (3 ** i < n) i++;
+        return 3 ** i === n;
       }`,
     },
     {
       script: Script.JS,
-      time: 152,
-      memory: 60.7,
-      desc: '反转后半部分，遍历反转',
-      code: `function isPalindrome(head: ListNode): boolean {
-        let slow = head;
-        let fast = head.next;
-        if (!fast) return true;
-        while (fast && fast.next) {
-          slow = slow.next!;
-          fast = fast.next.next;
-        }
-        fast = reverse(slow.next!);
-        slow = head;
-        while (fast) {
-          if (slow.val !== fast.val) return false;
-          slow = slow.next!;
-          fast = fast.next!;
-        }
-        return true;
-        function reverse(node: ListNode): ListNode {
-          const head = new ListNode();
-          let p: ListNode | null = node;
-          while (p) {
-            const oldNext = head.next;
-            const next = p.next;
-            head.next = p;
-            p.next = oldNext;
-            p = next;
-          }
-          return head.next!;
-        }
+      time: 224,
+      memory: 47.6,
+      desc: '利用最大值看是否模为0',
+      code: `function isPowerOfThree(n: number): boolean {
+        return n > 0 && 3 ** 19 % n == 0;
       }`,
     },
   ],
@@ -91,8 +46,8 @@ const filePath = resolve(dirPath, trimBlank(md.name) + '.md');
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 
 function main() {
-  console.log(LOGO);
   console.log(chalk.blue(`正在生成LeetCode题解`));
+  console.log(LOGO);
   md.existMarkdown ? addSolution() : addMarkdown();
   console.log(chalk.green(`生成完成`));
 }
