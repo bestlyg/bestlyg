@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '326. 3的幂',
+  existMarkdown: true,
+  name: '430. 扁平化多级双向链表',
   url: 'https://leetcode-cn.com/problems/power-of-three/',
   difficulty: Difficulty.简单,
   tag: [Tag.递归, Tag.数学],
@@ -20,22 +20,34 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.JS,
-      time: 236,
-      memory: 47.6,
-      desc: '循环',
-      code: `function isPowerOfThree(n: number): boolean {
-        let i = 0;
-        while (3 ** i < n) i++;
-        return 3 ** i === n;
-      }`,
-    },
-    {
-      script: Script.JS,
-      time: 224,
-      memory: 47.6,
-      desc: '利用最大值看是否模为0',
-      code: `function isPowerOfThree(n: number): boolean {
-        return n > 0 && 3 ** 19 % n == 0;
+      time: 64,
+      memory: 39.7,
+      desc: '递归格式化',
+      code: `function flatten(head: Node | null): Node | null {
+        if (head === null) return null;
+        return format(head)[0];
+        function format(node: Node): [Node, Node] {
+          if (node.child === null && node.next === null) return [node, node];
+          node.prev = null;
+          let prev: Node = node;
+          let p: Node | null = node;
+          while (p) {
+            const next = p.next;
+            if (p.child) {
+              const [first, last] = format(p.child);
+              p.next = first;
+              first.prev = p;
+              last.next = next;
+              if (next) next.prev = last;
+              prev = last;
+            } else {
+              prev = p;
+            }
+            p.child = null;
+            p = next;
+          }
+          return [node, prev];
+        }
       }`,
     },
   ],
