@@ -11,43 +11,67 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '430. 扁平化多级双向链表',
-  url: 'https://leetcode-cn.com/problems/power-of-three/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.递归, Tag.数学],
-  desc: `给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。`,
+  existMarkdown: !true,
+  name: '583. 两个字符串的删除操作',
+  url: 'https://leetcode-cn.com/problems/delete-operation-for-two-strings/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.字符串, Tag.动态规划],
+  desc: `给定两个单词 word1 和 word2，找到使得 word1 和 word2 相同所需的最小步数，每步可以删除任意一个字符串中的一个字符。`,
   solutions: [
     {
-      script: Script.JS,
-      time: 64,
-      memory: 39.7,
-      desc: '递归格式化',
-      code: `function flatten(head: Node | null): Node | null {
-        if (head === null) return null;
-        return format(head)[0];
-        function format(node: Node): [Node, Node] {
-          if (node.child === null && node.next === null) return [node, node];
-          node.prev = null;
-          let prev: Node = node;
-          let p: Node | null = node;
-          while (p) {
-            const next = p.next;
-            if (p.child) {
-              const [first, last] = format(p.child);
-              p.next = first;
-              first.prev = p;
-              last.next = next;
-              if (next) next.prev = last;
-              prev = last;
+      script: Script.TS,
+      time: 112,
+      memory: 46,
+      desc: '动态规划',
+      code: `function minDistance(word1: string, word2: string): number {
+        const n1 = word1.length;
+        const n2 = word2.length;
+        const dp = new Array(n1 + 1).fill(0).map(_ => new Array(n2 + 1).fill(0));
+        for (let i = 1; i <= n1; i++) dp[i][0] = i;
+        for (let i = 1; i <= n2; i++) dp[0][i] = i;
+        for (let i1 = 1; i1 <= n1; i1++) {
+          const c1 = word1[i1 - 1];
+          for (let i2 = 1; i2 <= n2; i2++) {
+            const c2 = word2[i2 - 1];
+            if (c1 === c2) {
+              dp[i1][i2] = dp[i1 - 1][i2 - 1];
             } else {
-              prev = p;
+              dp[i1][i2] = Math.min(dp[i1 - 1][i2] + 1, dp[i1][i2 - 1] + 1, dp[i1 - 1][i2 - 1] + 2);
             }
-            p.child = null;
-            p = next;
           }
-          return [node, prev];
         }
+        return dp[n1][n2];
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 108,
+      memory: 41.5,
+      desc: '动态规划，优化n1',
+      code: `function minDistance(word1: string, word2: string): number {
+        const n1 = word1.length;
+        const n2 = word2.length;
+        const dp = new Array(2).fill(0).map(_ => new Array(n2 + 1).fill(0));
+        for (let i = 1; i <= n2; i++) dp[0][i] = i;
+        for (let i1 = 1; i1 <= n1; i1++) {
+          const c1 = word1[i1 - 1];
+          const idx1 = i1 % 2;
+          dp[idx1][0] = i1;
+          const prevIdx1 = idx1 ^ 1;
+          for (let i2 = 1; i2 <= n2; i2++) {
+            const c2 = word2[i2 - 1];
+            if (c1 === c2) {
+              dp[idx1][i2] = dp[prevIdx1][i2 - 1];
+            } else {
+              dp[idx1][i2] = Math.min(
+                dp[prevIdx1][i2] + 1,
+                dp[idx1][i2 - 1] + 1,
+                dp[prevIdx1][i2 - 1] + 2
+              );
+            }
+          }
+        }
+        return dp[n1 % 2][n2];
       }`,
     },
   ],

@@ -16,7 +16,7 @@ export default defineConfig({
       'packages/data-structures/src',
       'packages/algorithms/src',
       'packages/applications/src',
-      'packages/leetcode/src',
+      // 'packages/leetcode/src',
       'packages/resume/src',
     ],
   },
