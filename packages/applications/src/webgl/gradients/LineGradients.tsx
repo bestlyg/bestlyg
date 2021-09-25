@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { WEBGL } from '@bestlyg/shared';
 import styles from './styles.less';
 import { Color } from 'three';
-import { Col, Input, Row, Space, InputNumber } from 'antd';
+import { Space, InputNumber } from 'antd';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 void main(){
@@ -56,9 +56,9 @@ export default function LineGradients() {
   const webglRef = useRef<WEBGL.Webgl>();
   const polyRef = useRef<WEBGL.Poly>();
   const [data, setData] = useState({
-    u_ColorStart: [1, 0, 0, 1],
-    u_ColorMid: [0, 1, 0, 1],
-    u_ColorEnd: [0, 0, 1, 1],
+    u_ColorStart: [...new Color('#FAD961').toArray(), 1],
+    u_ColorMid: [...new Color('#F76B1C').toArray(), 1],
+    u_ColorEnd: [...new Color('#EA3333').toArray(), 1],
     u_Start: [0, 0],
     u_Mid: [0.5],
     u_End: [CANVAS_SIZE, CANVAS_SIZE],
@@ -68,6 +68,7 @@ export default function LineGradients() {
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
+      canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
@@ -75,26 +76,26 @@ export default function LineGradients() {
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
-        { name: 'u_Start', data: new Float32Array([0, 0]), method: 'uniform2fv' },
-        { name: 'u_Mid', data: new Float32Array([0.5]), method: 'uniform1fv' },
+        { name: 'u_Start', data: new Float32Array(data.u_Start), method: 'uniform2fv' },
+        { name: 'u_Mid', data: new Float32Array(data.u_Mid), method: 'uniform1fv' },
         {
           name: 'u_End',
-          data: new Float32Array([300, 300]),
+          data: new Float32Array(data.u_End),
           method: 'uniform2fv',
         },
         {
           name: 'u_ColorStart',
-          data: new Float32Array([1, 0, 0, 1]),
+          data: new Float32Array(data.u_ColorStart),
           method: 'uniform4fv',
         },
         {
           name: 'u_ColorMid',
-          data: new Float32Array([0, 1, 0, 1]),
+          data: new Float32Array(data.u_ColorMid),
           method: 'uniform4fv',
         },
         {
           name: 'u_ColorEnd',
-          data: new Float32Array([0, 0, 1, 1]),
+          data: new Float32Array(data.u_ColorEnd),
           method: 'uniform4fv',
         },
       ]

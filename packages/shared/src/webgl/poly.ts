@@ -1,30 +1,6 @@
+import { Attribute, DrawTypes, UniformCommon, Uniform, UniformMatrix } from './types';
 import { Webgl } from './webgl';
 
-export type DrawTypes =
-  | 'POINTS'
-  | 'LINE_STRIP'
-  | 'LINE_LOOP'
-  | 'LINES'
-  | 'TRIANGLE_STRIP'
-  | 'TRIANGLE_FAN'
-  | 'TRIANGLES';
-export type AttributeData = { name: string; size: number; index: number; byteIndex: number };
-export type UniformMatrixMethods = 'uniformMatrix2fv' | 'uniformMatrix3fv' | 'uniformMatrix4fv';
-export type UniformCommonFloatMethods = 'uniform1fv' | 'uniform2fv' | 'uniform3fv' | 'uniform4fv';
-export type UniformCommonIntMethods = 'uniform1iv' | 'uniform2iv' | 'uniform3iv' | 'uniform4iv';
-export type UniformMatrixData = { name: string; data: Float32Array; method: UniformMatrixMethods };
-export type UniformCommonFloatData = {
-  name: string;
-  data: Float32Array;
-  method: UniformCommonFloatMethods;
-};
-export type UniformCommonIntData = {
-  name: string;
-  data: Int32Array;
-  method: UniformCommonIntMethods;
-};
-export type UniformCommonData = UniformCommonFloatData | UniformCommonIntData;
-export type UniformData = UniformMatrixData | UniformCommonData;
 export class Poly {
   get context() {
     return this.instance.context;
@@ -50,13 +26,13 @@ export class Poly {
   }
   /** 顶点属性映射 */
   get attributeMap() {
-    const map: Record<string, AttributeData> = {};
+    const map: Record<string, Attribute> = {};
     for (const v of this.attributes) map[v.name] = v;
     return map;
   }
   /** 通用属性映射 */
   get uniformMap() {
-    const map: Record<string, UniformData> = {};
+    const map: Record<string, Uniform> = {};
     for (const v of this.uniforms) map[v.name] = v;
     return map;
   }
@@ -68,9 +44,9 @@ export class Poly {
     /** 绘图方式 */
     private drawType: DrawTypes,
     /** 顶点属性列表 */
-    private attributes: AttributeData[],
+    private attributes: Attribute[],
     /** 通用属性列表 */
-    private uniforms: UniformData[]
+    private uniforms: Uniform[]
   ) {
     this.updateAttributes();
     this.updateUniforms();
@@ -89,17 +65,16 @@ export class Poly {
   }
   updateUniforms() {
     for (const uniform of this.uniforms) {
-      if (uniform.method.includes('Matrix'))
-        this.updateMatrixUniforms(uniform as UniformMatrixData);
-      else this.updateCommonUniforms(uniform as UniformCommonData);
+      if (uniform.method.includes('Matrix')) this.updateMatrixUniforms(uniform as UniformMatrix);
+      else this.updateCommonUniforms(uniform as UniformCommon);
     }
   }
-  private updateMatrixUniforms({ name, method, data }: UniformMatrixData) {
+  private updateMatrixUniforms({ name, method, data }: UniformMatrix) {
     const { context, program } = this;
     const uniIdx = context.getUniformLocation(program, name);
     context[method](uniIdx, false, data);
   }
-  private updateCommonUniforms({ name, method, data }: UniformCommonData) {
+  private updateCommonUniforms({ name, method, data }: UniformCommon) {
     const { context, program } = this;
     const uniIdx = context.getUniformLocation(program, name);
     context[method](uniIdx, data as any);

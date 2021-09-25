@@ -15,3 +15,9 @@ export function line(p1: [number, number], p2: [number, number]): (x: number) =>
   const b = y1 - k * x1;
   return (x: number) => k * x + b;
 }
+export function hexColorToWebglColor(color: number) {
+  const r = (color & 0xff0000) / 0x10000 / 255;
+  const g = (color & 0xff00) / 0x100 / 255;
+  const b = (color & 0xff) / 255;
+  return [r, g, b];
+}
