@@ -11,12 +11,15 @@
   "directories": {
     "test": "__tests__"
   },
-  "dependencies": {},
+  "dependencies": {
+    "three": "^0.132.2"
+  },
   "devDependencies": {
     "@ant-design/icons": "^4.6.2",
     "@antv/data-set": "^0.11.8",
     "@types/classnames": "^2.3.1",
     "@types/color": "^3.0.2",
+    "@types/three": "^0.132.1",
     "ahooks": "^2.10.8",
     "antd": "^4.16.7",
     "bizcharts": "^4.1.11",

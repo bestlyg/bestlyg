@@ -1,38 +1,8 @@
----
-title: 贪吃蛇
-nav:
-  title: 应用合集
-  path: /applications
-  order: 5
-group:
-  title: 默认
-  path: /default
-  order: 1
----
-
-# 贪吃蛇
-
-通过上下左右操作蛇使其吃到更多的零食，吃的越多蛇的移动速度会越快。
-
-## 应用程序
-
-```jsx
-/**
- * inline: true
- */
-import React from 'react';
-import { SnakeEating } from '@bestlyg/applications';
-export default SnakeEating;
-```
-
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/applications/src/SnakeEating/useSnakeEating.ts)
-
-```ts
 import Color from 'color';
 import { useInterval, useKeyPress } from 'ahooks';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { Direction } from '@bestlyg/shared';
-import { useScore } from '../hooks';
+import { useScore } from '../../hooks';
 import { message } from 'antd';
 import { random } from 'lodash';
 /** 边框最小值 */
@@ -309,4 +279,3 @@ export const useSnakeEating = () => {
     score,
   };
 };
-```

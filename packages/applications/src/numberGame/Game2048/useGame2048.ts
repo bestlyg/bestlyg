@@ -1,39 +1,9 @@
----
-title: 2048游戏
-nav:
-  title: 应用合集
-  path: /applications
-  order: 5
-group:
-  title: 数字游戏
-  path: /number-game
-  order: 2
----
-
-# 2048
-
-在 4\*4 的方格内尽可能获得更高的分数。
-
-## 应用程序
-
-```jsx
-/**
- * inline: true
- */
-import React from 'react';
-import { Game2048 } from '@bestlyg/applications';
-export default Game2048;
-```
-
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/applications/src/Game2048/useGame2048.ts)
-
-```ts
 import { directionMap, getLocalStorage, setLocalStorage, Direction } from '@bestlyg/shared';
 import { useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import Color from 'color';
 import { useCallback, useEffect, useState } from 'react';
-import { useScore } from '../hooks';
+import { useScore } from '../../hooks';
 import { cloneDeep, random } from 'lodash';
 /** 行列数 */
 export const COUNT = 4;
@@ -254,4 +224,3 @@ export const useGame2048 = () => {
     score,
   };
 };
-```
