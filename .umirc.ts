@@ -2,6 +2,25 @@ import { defineConfig } from 'dumi';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
+const includePkgs = __DEV__
+  ? [
+      'docs',
+      'packages/blogs/src',
+      'packages/data-structures/src',
+      'packages/algorithms/src',
+      'packages/applications/src',
+      // 'packages/leetcode/src',
+      // 'packages/resume/src',
+    ]
+  : [
+      'docs',
+      'packages/blogs/src',
+      'packages/data-structures/src',
+      'packages/algorithms/src',
+      'packages/applications/src',
+      'packages/leetcode/src',
+      // 'packages/resume/src',
+    ];
 // config: https://d.umijs.org/config
 export default defineConfig({
   base: '/',
@@ -10,15 +29,7 @@ export default defineConfig({
   logo: '/assets/logo.png',
   mode: 'site',
   resolve: {
-    includes: [
-      'docs',
-      'packages/blogs/src',
-      'packages/data-structures/src',
-      'packages/algorithms/src',
-      'packages/applications/src',
-      // 'packages/leetcode/src',
-      'packages/resume/src',
-    ],
+    includes: includePkgs,
   },
   locales: [['zh-CN', '中文']],
   metas: [
