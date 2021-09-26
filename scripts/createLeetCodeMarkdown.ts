@@ -12,66 +12,33 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '583. 两个字符串的删除操作',
+  name: '371. 两整数之和',
   url: 'https://leetcode-cn.com/problems/delete-operation-for-two-strings/',
   difficulty: Difficulty.中等,
-  tag: [Tag.字符串, Tag.动态规划],
-  desc: `给定两个单词 word1 和 word2，找到使得 word1 和 word2 相同所需的最小步数，每步可以删除任意一个字符串中的一个字符。`,
+  tag: [Tag.位运算, Tag.数学],
+  desc: `给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。`,
   solutions: [
     {
       script: Script.TS,
-      time: 112,
-      memory: 46,
-      desc: '动态规划',
-      code: `function minDistance(word1: string, word2: string): number {
-        const n1 = word1.length;
-        const n2 = word2.length;
-        const dp = new Array(n1 + 1).fill(0).map(_ => new Array(n2 + 1).fill(0));
-        for (let i = 1; i <= n1; i++) dp[i][0] = i;
-        for (let i = 1; i <= n2; i++) dp[0][i] = i;
-        for (let i1 = 1; i1 <= n1; i1++) {
-          const c1 = word1[i1 - 1];
-          for (let i2 = 1; i2 <= n2; i2++) {
-            const c2 = word2[i2 - 1];
-            if (c1 === c2) {
-              dp[i1][i2] = dp[i1 - 1][i2 - 1];
-            } else {
-              dp[i1][i2] = Math.min(dp[i1 - 1][i2] + 1, dp[i1][i2 - 1] + 1, dp[i1 - 1][i2 - 1] + 2);
-            }
-          }
-        }
-        return dp[n1][n2];
-      }`,
+      time: 76,
+      memory: 39,
+      desc: '不按照题目规则',
+      code: `function getSum(a: number, b: number): number {
+        return a+b
+        };`,
     },
     {
       script: Script.TS,
-      time: 108,
-      memory: 41.5,
-      desc: '动态规划，优化n1',
-      code: `function minDistance(word1: string, word2: string): number {
-        const n1 = word1.length;
-        const n2 = word2.length;
-        const dp = new Array(2).fill(0).map(_ => new Array(n2 + 1).fill(0));
-        for (let i = 1; i <= n2; i++) dp[0][i] = i;
-        for (let i1 = 1; i1 <= n1; i1++) {
-          const c1 = word1[i1 - 1];
-          const idx1 = i1 % 2;
-          dp[idx1][0] = i1;
-          const prevIdx1 = idx1 ^ 1;
-          for (let i2 = 1; i2 <= n2; i2++) {
-            const c2 = word2[i2 - 1];
-            if (c1 === c2) {
-              dp[idx1][i2] = dp[prevIdx1][i2 - 1];
-            } else {
-              dp[idx1][i2] = Math.min(
-                dp[prevIdx1][i2] + 1,
-                dp[idx1][i2 - 1] + 1,
-                dp[prevIdx1][i2 - 1] + 2
-              );
-            }
-          }
+      time: 76,
+      memory: 39.1,
+      desc: '利用a&b<<1计算出所有需要进位的位，利用异或求出两数相加后当前位所得到的结果',
+      code: `function getSum(a: number, b: number): number {
+        while (b != 0) {
+          const carry = (a & b) << 1;
+          a = a ^ b;
+          b = carry;
         }
-        return dp[n1 % 2][n2];
+        return a + b;
       }`,
     },
   ],
