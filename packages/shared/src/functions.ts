@@ -1,4 +1,4 @@
-/*
+/**
    通过两点计算直线
    y1 = k * x1 + b
    y2 = k * x2 + b
@@ -15,9 +15,24 @@ export function line(p1: [number, number], p2: [number, number]): (x: number) =>
   const b = y1 - k * x1;
   return (x: number) => k * x + b;
 }
+/**
+ * 把十六进制转Webgl的RGB
+ */
 export function hexColorToWebglColor(color: number) {
   const r = (color & 0xff0000) / 0x10000 / 255;
   const g = (color & 0xff00) / 0x100 / 255;
   const b = (color & 0xff) / 255;
   return [r, g, b];
+}
+/**
+ * 角度转弧度
+ */
+export function angleToRad(angle: number) {
+  return (angle * Math.PI) / 180;
+}
+/**
+ * 弧度转角度
+ */
+export function radToAngle(rad: number) {
+  return (rad * 180) / Math.PI;
 }

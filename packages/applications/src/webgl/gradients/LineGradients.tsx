@@ -55,7 +55,7 @@ export default function LineGradients() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const webglRef = useRef<WEBGL.Webgl>();
   const polyRef = useRef<WEBGL.Poly>();
-  const [data, setData] = useState({
+  const [data, setData] = useState<Record<string, number[]>>({
     u_ColorStart: [...new Color('#FAD961').toArray(), 1],
     u_ColorMid: [...new Color('#F76B1C').toArray(), 1],
     u_ColorEnd: [...new Color('#EA3333').toArray(), 1],
@@ -140,16 +140,16 @@ export default function LineGradients() {
           {posItemList.map((label, j) => (
             <InputNumber
               key={j}
-              step={0.01}
+              step={1}
               style={{ width: 120 }}
               min={0}
               max={300}
               value={data[v.key][j]}
               formatter={value => `${label}： ${value}`}
               onChange={e => {
-                const color = data[v.key];
-                color[j] = e;
-                setData({ ...data, [v.key]: color });
+                const pos = data[v.key];
+                pos[j] = e;
+                setData({ ...data, [v.key]: pos });
               }}
             />
           ))}

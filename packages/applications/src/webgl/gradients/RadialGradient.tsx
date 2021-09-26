@@ -25,8 +25,6 @@ vec4 compColor(vec4 color1,vec4 color2,float ratio){
   return color1 + (color2 - color1) * ratio;
 }
 vec4 getColor(){
-  // vec2 curVec = vec2(gl_FragCoord) - u_Center;
-  // float curLen = length(curVec);
   float curLen = distance( gl_FragCoord.xy , u_Center );
   float curRatio = curLen / u_Radius;
   if(curRatio >= ratio[3] ){
@@ -89,9 +87,5 @@ export default function RadialGradient() {
     );
     polyRef.current.draw();
   }, []);
-  return (
-    <div>
-      <canvas ref={canvasRef}></canvas>
-    </div>
-  );
+  return <canvas ref={canvasRef}></canvas>;
 }
