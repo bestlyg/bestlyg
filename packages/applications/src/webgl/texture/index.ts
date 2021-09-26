@@ -1,1 +1,1 @@
-export { default as VariegatedTexture } from './VariegatedTexture';
+export { default as SkinTexture } from './SkinTexture';
