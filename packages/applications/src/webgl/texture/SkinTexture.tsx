@@ -65,7 +65,6 @@ export default function SkinTexture() {
     Object.entries(data).forEach(([k, v]) => {
       uniMap[k].data = k === 'u_Method' ? new Int32Array(v) : new Float32Array(v);
     });
-    console.log(polyRef);
     polyRef.current.updateUniforms();
     polyRef.current.draw();
   }, [data]);
