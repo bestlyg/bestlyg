@@ -24,8 +24,8 @@ import { Webgl } from '@bestlyg/applications';
 export default Webgl.WebGLUtils;
 ```
 
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/applications/src/webgl/WebGLUtils.tsx)
+
 ```ts
 import { Card, Row, Space, Input, Col } from 'antd';
 import React, { useState, useMemo } from 'react';
@@ -65,5 +65,4 @@ export default function WebGLUtils() {
     </Space>
   );
 }
-
 ```
