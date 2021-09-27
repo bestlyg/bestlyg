@@ -33,14 +33,14 @@ export default function SinRadiationTexture() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
         {
           name: 'u_Center',
           method: 'uniform2fv',
-          data: new Float32Array([CANVAS_SIZE / 2, CANVAS_SIZE / 2]),
+          data: [CANVAS_SIZE / 2, CANVAS_SIZE / 2],
         },
       ]
     );

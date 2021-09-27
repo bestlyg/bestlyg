@@ -72,30 +72,30 @@ export default function LineGradients() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
-        { name: 'u_Start', data: new Float32Array(data.u_Start), method: 'uniform2fv' },
-        { name: 'u_Mid', data: new Float32Array(data.u_Mid), method: 'uniform1fv' },
+        { name: 'u_Start', data: data.u_Start, method: 'uniform2fv' },
+        { name: 'u_Mid', data: data.u_Mid, method: 'uniform1fv' },
         {
           name: 'u_End',
-          data: new Float32Array(data.u_End),
+          data: data.u_End,
           method: 'uniform2fv',
         },
         {
           name: 'u_ColorStart',
-          data: new Float32Array(data.u_ColorStart),
+          data: data.u_ColorStart,
           method: 'uniform4fv',
         },
         {
           name: 'u_ColorMid',
-          data: new Float32Array(data.u_ColorMid),
+          data: data.u_ColorMid,
           method: 'uniform4fv',
         },
         {
           name: 'u_ColorEnd',
-          data: new Float32Array(data.u_ColorEnd),
+          data: data.u_ColorEnd,
           method: 'uniform4fv',
         },
       ]
@@ -106,7 +106,7 @@ export default function LineGradients() {
     const poly = polyRef.current;
     if (!poly) return;
     Object.entries(data).forEach(([k, v]) => {
-      poly.uniformMap[k]!.data = new Float32Array(v);
+      poly.uniformMap[k]!.data = v;
     });
     poly.updateUniforms();
     poly.draw();

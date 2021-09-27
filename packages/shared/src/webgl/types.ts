@@ -7,8 +7,10 @@ export type DrawTypes =
   | 'TRIANGLE_FAN'
   | 'TRIANGLES';
 export type Attribute = { name: string; size: number; index: number; byteIndex: number };
-export type UniformMatrixMethods = 'uniformMatrix2fv' | 'uniformMatrix3fv' | 'uniformMatrix4fv';
-export type UniformCommonMethods =
+export type UniformMethods =
+  | 'uniformMatrix2fv'
+  | 'uniformMatrix3fv'
+  | 'uniformMatrix4fv'
   | 'uniform1fv'
   | 'uniform2fv'
   | 'uniform3fv'
@@ -17,20 +19,8 @@ export type UniformCommonMethods =
   | 'uniform2iv'
   | 'uniform3iv'
   | 'uniform4iv';
-export type UniformMatrixMap = {
-  [Method in UniformMatrixMethods]: {
-    name: string;
-    data: Parameters<WebGLRenderingContext[Method]>[2];
-    method: Method;
-  };
+export type Uniform = {
+  name: string;
+  data: number[];
+  method: UniformMethods;
 };
-export type UniformCommonMap = {
-  [Method in UniformCommonMethods]: {
-    name: string;
-    data: Parameters<WebGLRenderingContext[Method]>[1];
-    method: Method;
-  };
-};
-export type UniformCommon = UniformCommonMap[keyof UniformCommonMap];
-export type UniformMatrix = UniformMatrixMap[keyof UniformMatrixMap];
-export type Uniform = UniformCommon | UniformMatrix;

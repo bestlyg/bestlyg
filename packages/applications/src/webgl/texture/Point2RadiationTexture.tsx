@@ -64,25 +64,25 @@ export default function RadiationTexture() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
         {
           name: 'u_Time',
           method: 'uniform1fv',
-          data: new Float32Array([10124]),
+          data: [10124],
         },
         {
           name: 'u_Center',
           method: 'uniform2fv',
-          data: new Float32Array([CANVAS_SIZE / 2, CANVAS_SIZE / 2]),
+          data: [CANVAS_SIZE / 2, CANVAS_SIZE / 2],
         },
       ]
     );
     polyRef.current.draw();
     function ani(time: number) {
-      polyRef.current!.uniformMap.u_Time.data = new Float32Array([time]);
+      polyRef.current!.uniformMap.u_Time.data = [time];
       polyRef.current!.updateUniforms();
       polyRef.current!.draw();
       requestAnimationFrame(ani);

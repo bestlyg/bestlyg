@@ -63,12 +63,12 @@ export default function RadialGradient() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
-        { name: 'u_Center', data: new Float32Array([150, 150]), method: 'uniform2fv' },
-        { name: 'u_Radius', data: new Float32Array([150]), method: 'uniform1fv' },
+        { name: 'u_Center', data: [150, 150], method: 'uniform2fv' },
+        { name: 'u_Radius', data: [150], method: 'uniform1fv' },
         {
           name: 'u_Data',
           data: [

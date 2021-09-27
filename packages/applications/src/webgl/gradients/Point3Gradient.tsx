@@ -79,27 +79,27 @@ export default function Point3Gradient() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+      [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
         {
           name: 'u_Color',
           method: 'uniformMatrix3fv',
-          data: new Float32Array([
+          data: [
             ...new Color('#1e9600').toArray(),
             ...new Color('#fff200').toArray(),
             ...new Color('#ff0000').toArray(),
-          ]),
+          ],
         },
         {
           name: 'u_Point',
           method: 'uniformMatrix3fv',
-          data: new Float32Array([
+          data: [
             200, 280, 0 /**                                                                     */,
             40, 150, 0 /**                                                                    */,
             150, 40, 0,
-          ]),
+          ],
         },
       ]
     );

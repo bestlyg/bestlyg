@@ -41,19 +41,19 @@ export default function SkinTexture() {
     });
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
-      new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]),
+     [-1, 1, -1, -1, 1, 1, 1, -1],
       'TRIANGLE_STRIP',
       [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
       [
         {
           name: 'u_Multiple',
           method: 'uniform1fv',
-          data: new Float32Array(data.u_Multiple),
+          data: data.u_Multiple,
         },
         {
           name: 'u_ModelVec',
           method: 'uniform2fv',
-          data: new Float32Array(data.u_ModelVec),
+          data: data.u_ModelVec,
         },
       ]
     );
@@ -63,7 +63,7 @@ export default function SkinTexture() {
     if (!polyRef.current) return;
     const uniMap = polyRef.current.uniformMap;
     Object.entries(data).forEach(([k, v]) => {
-      uniMap[k].data = k === 'u_Method' ? new Int32Array(v) : new Float32Array(v);
+      uniMap[k].data = v;
     });
     polyRef.current.updateUniforms();
     polyRef.current.draw();

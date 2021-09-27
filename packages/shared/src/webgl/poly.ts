@@ -1,10 +1,16 @@
-import { Attribute, DrawTypes, UniformCommon, Uniform, UniformMatrix } from './types';
+import { Attribute, DrawTypes, Uniform } from './types';
 import { Webgl } from './webgl';
 
 export class Poly {
+  /** 载入数据 */
+  get source() {
+    return new Float32Array(this.data);
+  }
+  /** 绘制上下文 */
   get context() {
     return this.instance.context;
   }
+  /** 程序 */
   get program() {
     return this.instance.program;
   }
@@ -40,7 +46,7 @@ export class Poly {
     /** 程序上下文 */
     private instance: Webgl,
     /** 源数据数组 */
-    public source: Float32Array,
+    public data: number[],
     /** 绘图方式 */
     private drawType: DrawTypes,
     /** 顶点属性列表 */
@@ -51,6 +57,7 @@ export class Poly {
     this.updateAttributes();
     this.updateUniforms();
   }
+  /** 更新节点属性 */
   updateAttributes() {
     this.attributes.forEach(v => (v.byteIndex = this.elementBytes * v.index));
     const { context, program, categoryBytes } = this;
@@ -63,22 +70,19 @@ export class Poly {
       context.enableVertexAttribArray(attr);
     }
   }
+  /** 更新通用属性 */
   updateUniforms() {
-    for (const uniform of this.uniforms) {
-      if (uniform.method.includes('Matrix')) this.updateMatrixUniforms(uniform as UniformMatrix);
-      else this.updateCommonUniforms(uniform as UniformCommon);
+    const { context, program } = this;
+    for (const { name, method, data } of this.uniforms) {
+      const ArrayCstr = method.includes('fv') ? Float32Array : Int32Array;
+      const uniIdx = context.getUniformLocation(program, name);
+      const run = context[method] as Function;
+      const params: any[] = [uniIdx, new ArrayCstr(data)];
+      if (method.includes('Matrix')) params.splice(1, 0, false);
+      run.apply(context, params);
     }
   }
-  private updateMatrixUniforms({ name, method, data }: UniformMatrix) {
-    const { context, program } = this;
-    const uniIdx = context.getUniformLocation(program, name);
-    context[method](uniIdx, false, data);
-  }
-  private updateCommonUniforms({ name, method, data }: UniformCommon) {
-    const { context, program } = this;
-    const uniIdx = context.getUniformLocation(program, name);
-    context[method](uniIdx, data as any);
-  }
+  /** 绘制 */
   draw(drawType = this.drawType) {
     this.context.drawArrays(this.context[drawType], 0, this.sourceSize);
   }
