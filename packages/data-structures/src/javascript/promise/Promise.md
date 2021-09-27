@@ -18,8 +18,8 @@ group:
 
 ES6 增加的异步编程方式，避免了回调地狱，一个 promise 有三个状态 pending，fulfilled，rejected，初始化后为 pending 状态，在构造函数中会传入 resolve,reject 两个函数，调用 resolve 后改变状态为 fulfilled，调用 rejected 后改变状态为 rejected，一旦状态从 pending 进行转遍后不会再次转遍。调用 then 函数，返回新的 promise，以此从无限回调转换为链式调用，then 过多时又会陷入链式地狱。
 
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/javascript/promise/promise.ts)
+
 ```ts
 import { DEFAULT_OP, catchError, throwValue } from '@bestlyg/shared';
 import { resolvePromise } from './resolvePromise';
@@ -219,5 +219,4 @@ export class BestPromise<T> {
     this.state === PromiseState.PENDING ? this.onFinally.push(fn) : fn();
   }
 }
-
 ```

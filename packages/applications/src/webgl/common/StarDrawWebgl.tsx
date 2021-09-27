@@ -33,17 +33,7 @@ const pointList: {
   g: number;
   b: number;
   a: number;
-}[] = [
-  {
-    x: 0.5,
-    y: 0.5,
-    size: 10,
-    r: 1,
-    g: 1,
-    b: 1,
-    a: 0.1,
-  },
-];
+}[] = [];
 const pointMap = ({
   x,
   y,
@@ -112,7 +102,7 @@ export default function StarDrawWebgl() {
       const item = {
         x: position[0],
         y: position[1],
-        size: Math.random() * 3 + 2,
+        size: ~~(Math.random() * 4 + 4),
         r: 0.87,
         g: 0.91,
         b: 1,
