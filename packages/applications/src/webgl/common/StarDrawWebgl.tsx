@@ -1,0 +1,150 @@
+import { WEBGL, angleToRad } from '@bestlyg/shared';
+import React, { useEffect, useRef, useState } from 'react';
+import { useEventListener, useCreation } from 'ahooks';
+import skyJpg from '../../assets/sky.jpg';
+const vertexShaderSource = `
+attribute vec4 a_Position;
+attribute float a_PointSize;
+attribute vec4 a_Color;
+varying vec4 v_Color;
+void main(){
+    gl_Position = a_Position;
+    gl_PointSize = a_PointSize;
+    v_Color = a_Color;
+}
+`;
+const fragmentShaderSource = `
+precision mediump float;
+varying vec4 v_Color;
+void main(){
+    float dist=distance(gl_PointCoord,vec2(0.5,0.5));
+    if(dist<0.5){
+      gl_FragColor=v_Color;
+    }else{
+      discard;
+    }
+}
+`;
+const pointList: {
+  x: number;
+  y: number;
+  size: number;
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}[] = [
+  {
+    x: 0.5,
+    y: 0.5,
+    size: 10,
+    r: 1,
+    g: 1,
+    b: 1,
+    a: 0.1,
+  },
+];
+const pointMap = ({
+  x,
+  y,
+  size,
+  r,
+  g,
+  b,
+  a,
+}: {
+  x: number;
+  y: number;
+  size: number;
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}) => [x, y, size, r, g, b, a];
+export default function StarDrawWebgl() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const webglRef = useRef<WEBGL.Webgl>();
+  const polyRef = useRef<WEBGL.Poly>();
+  const composeRef = useRef<WEBGL.Compose>(new WEBGL.Compose());
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const webgl = (webglRef.current = new WEBGL.Webgl({
+      canvas: canvasRef.current!,
+      vertexShaderSource,
+      fragmentShaderSource,
+      canvasSize: [600, 400],
+    }));
+    webgl.color = [0, 0, 0, 0];
+    webgl.clear();
+    const ctx = webgl.context;
+    ctx.enable(ctx.BLEND);
+    ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE_MINUS_SRC_ALPHA);
+    const poly = (polyRef.current = new WEBGL.Poly(
+      webglRef.current,
+      pointList.map(pointMap).flat(),
+      'POINTS',
+      [
+        { name: 'a_Position', size: 2, index: 0, byteIndex: 0 },
+        { name: 'a_PointSize', size: 1, index: 2, byteIndex: 0 },
+        { name: 'a_Color', size: 4, index: 3, byteIndex: 0 },
+      ],
+      []
+    ));
+    polyRef.current.draw();
+    function ani() {
+      composeRef.current.update(Date.now());
+      poly.data = pointList.map(pointMap).flat();
+      poly.updateAttributes();
+      poly.draw();
+      requestAnimationFrame(ani);
+    }
+    requestAnimationFrame(ani);
+  }, []);
+  useEventListener(
+    'click',
+    e => {
+      const webgl = webglRef.current;
+      const poly = polyRef.current;
+      const compose = composeRef.current;
+      if (!webgl || !poly || !compose) return;
+      const { clientX, clientY } = e;
+      const position = webgl.transformPosition({ client: [clientX, clientY] }).webgl;
+      const item = {
+        x: position[0],
+        y: position[1],
+        size: Math.random() * 3 + 2,
+        r: 0.87,
+        g: 0.91,
+        b: 1,
+        a: 1,
+      };
+      const track = new WEBGL.Track(item, [
+        {
+          key: 'a',
+          loop: true,
+          frames: [
+            { time: 0, value: 1 },
+            { time: 1000, value: 0 },
+            { time: 2000, value: 1 },
+          ],
+        },
+      ]);
+      compose.addChildren(track);
+      pointList.push(item);
+    },
+    {
+      target: canvasRef.current,
+    }
+  );
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        background: `url(${skyJpg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'right bottom',
+      }}
+    />
+  );
+  //   return <img src={skyJpg} />;
+}

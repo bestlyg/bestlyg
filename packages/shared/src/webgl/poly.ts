@@ -66,6 +66,7 @@ export class Poly {
     context.bufferData(context.ARRAY_BUFFER, this.source, context.STATIC_DRAW);
     for (const { name, size, byteIndex } of this.attributes) {
       const attr = context.getAttribLocation(program, name);
+      if (attr < 0) continue;
       context.vertexAttribPointer(attr, size, context.FLOAT, false, categoryBytes, byteIndex);
       context.enableVertexAttribArray(attr);
     }
@@ -75,15 +76,17 @@ export class Poly {
     const { context, program } = this;
     for (const { name, method, data } of this.uniforms) {
       const ArrayCstr = method.includes('fv') ? Float32Array : Int32Array;
-      const uniIdx = context.getUniformLocation(program, name);
+      const uni = context.getUniformLocation(program, name);
+      if (uni === null) continue;
       const run = context[method] as Function;
-      const params: any[] = [uniIdx, new ArrayCstr(data)];
+      const params: any[] = [uni, new ArrayCstr(data)];
       if (method.includes('Matrix')) params.splice(1, 0, false);
       run.apply(context, params);
     }
   }
   /** 绘制 */
   draw(drawType = this.drawType) {
+    this.instance.clear();
     this.context.drawArrays(this.context[drawType], 0, this.sourceSize);
   }
 }

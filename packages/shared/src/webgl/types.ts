@@ -24,3 +24,5 @@ export type Uniform = {
   data: number[];
   method: UniformMethods;
 };
+export type Size = [number, number];
+export type Animation = { key: string; loop: boolean; frames: { time: number; value: number }[] };

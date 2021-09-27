@@ -1,9 +1,10 @@
+import { Size } from './types';
 export class Webgl {
   private _canvas: HTMLCanvasElement;
   get canvas() {
     return this._canvas;
   }
-  private _canvasSize: [number, number] = [300, 150];
+  private _canvasSize: Size = [300, 150];
   get canvasSize() {
     return this._canvasSize;
   }
@@ -64,5 +65,47 @@ export class Webgl {
     context.shaderSource(shader, source);
     context.compileShader(shader);
     context.attachShader(program, shader);
+  }
+  transformPosition({ client }: { client: Size }): {
+    css: Size;
+    webgl: Size;
+  };
+  transformPosition({ css }: { css: Size }): {
+    css: Size;
+    webgl: Size;
+  };
+  transformPosition({ webgl }: { webgl: Size }): {
+    css: Size;
+    webgl: Size;
+  };
+  transformPosition({ client, css, webgl }: { client?: Size; css?: Size; webgl?: Size }): {
+    css: Size;
+    webgl: Size;
+  } {
+    const ans: {
+      css: Size;
+      webgl: Size;
+    } = { css: [0, 0], webgl: [0, 0] };
+    if (client) {
+      const { top, left } = this.canvas.getBoundingClientRect();
+      const [clientX, clientY] = client;
+      ans.css = [clientX - left, clientY - top];
+      ans.webgl = this.css2WebglPosition(ans.css);
+    } else if (css) {
+      ans.css = css;
+      ans.webgl = this.css2WebglPosition(css);
+    } else if (webgl) {
+      ans.css = this.webgl2CssPosition(webgl);
+      ans.webgl = webgl;
+    }
+    return ans;
+  }
+  private css2WebglPosition([x, y]: Size): Size {
+    const [width, height] = this.canvasSize.map(v => v / 2) as Size;
+    return [(x - width) / width, -(y - height) / height];
+  }
+  private webgl2CssPosition([x, y]: Size): Size {
+    const [width, height] = this.canvasSize.map(v => v / 2) as Size;
+    return [x * width + width, -y * height + height];
   }
 }
