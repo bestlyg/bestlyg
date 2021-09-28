@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '639. 解码方法 II',
+  name: '437. 路径总和 III',
   url: 'https://leetcode-cn.com/problems/decode-ways-ii/',
   difficulty: Difficulty.困难,
   tag: [Tag.字符串, Tag.动态规划],
@@ -20,37 +20,53 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 104,
-      memory: 48.9,
-      desc: '动态规划',
-      code: `function numDecodings(s: string): number {
-        const MOD = 10 ** 9 + 7;
-        const n = s.length;
-        const dp: number[] = new Array(n).fill(0);
-        dp[0] = s[0] === '*' ? 9 : s[0] === '0' ? 0 : 1;
-        let prev = s[0];
-        const add = (idx: number, val: number) => (dp[idx] = (dp[idx] + val) % MOD);
-        for (let i = 1; i < n; i++) {
-          const prev2Num = dp[i - 2] ?? 1;
-          const char = s[i];
-          if (char === '*') {
-            add(i, 9 * dp[i - 1]);
-            const c = prev === '1' ? 9 : prev === '*' ? 9 + 6 : prev === '2' ? 6 : 0;
-            add(i, c * prev2Num);
-          } else if (char !== '0') {
-            dp[i] += dp[i - 1];
-            let c = 0;
-            if (prev === '1' || prev === '*') c++;
-            if ((prev === '2' || prev === '*') && char !== '7' && char !== '8' && char !== '9') c++;
-            add(i, c * prev2Num);
-          } else {
-            if (prev !== '1' && prev !== '2' && prev !== '*') return 0;
-            const c = prev === '*' ? 2 : 1;
-            add(i, c * prev2Num);
-          }
-          prev = char;
+      time: 152,
+      memory: 52.4,
+      desc: 'dfs',
+      code: `function pathSum(root: TreeNode | null, targetSum: number): number {
+        if (root === null) return 0;
+        let ans = 0;
+        dfs(root);
+        return ans;
+        function dfs(node: TreeNode | null, list: number[] = []) {
+          if (node === null) return;
+          const newList = list.map(v => v + node.val);
+          newList.push(node.val);
+          newList.forEach(v => {
+            if (v === targetSum) ans++;
+          });
+          dfs(node.left, newList);
+          dfs(node.right, newList);
         }
-        return dp[n - 1];
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 88,
+      memory: 42.6,
+      desc: 'dfs',
+      code: `function pathSum(root: TreeNode | null, targetSum: number): number {
+        if (root === null) return 0;
+        let ans = 0;
+        dfs(root);
+        return ans;
+        function dfs(node: TreeNode | null, list: number[] = []) {
+          if (node === null) return;
+          const val = node.val;
+          const len = list.length;
+          if (val === targetSum) ans++;
+          for (let i = 0; i < len; i++) {
+            list[i] += val;
+            if (list[i] === targetSum) ans++;
+          }
+          list.push(val);
+          dfs(node.left, list);
+          dfs(node.right, list);
+          list.pop();
+          for (let i = 0; i < len; i++) {
+            list[i] -= val;
+          }
+        }
       }`,
     },
   ],
