@@ -6,7 +6,7 @@ export type DrawTypes =
   | 'TRIANGLE_STRIP'
   | 'TRIANGLE_FAN'
   | 'TRIANGLES';
-export type Attribute = { name: string; size: number; index: number; byteIndex: number };
+export type Attribute = { name: string; size: number };
 export type UniformMethods =
   | 'uniformMatrix2fv'
   | 'uniformMatrix3fv'
@@ -25,4 +25,8 @@ export type Uniform = {
   method: UniformMethods;
 };
 export type Size = [number, number];
-export type Animation = { key: string; loop: boolean; frames: { time: number; value: number }[] };
+export type Animation = {
+  key: string | number;
+  loop: boolean;
+  frames: { time: number; value: number }[];
+};

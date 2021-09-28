@@ -65,8 +65,8 @@ export default function RadiationTexture() {
     polyRef.current = new WEBGL.Poly(
       webglRef.current,
       [-1, 1, -1, -1, 1, 1, 1, -1],
-      'TRIANGLE_STRIP',
-      [{ name: 'a_Position', size: 2, index: 0, byteIndex: 0 }],
+      ['TRIANGLE_STRIP'],
+      [{ name: 'a_Position', size: 2 }],
       [
         {
           name: 'u_Time',

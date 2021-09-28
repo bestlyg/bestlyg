@@ -48,7 +48,7 @@ export class Poly {
     /** 源数据数组 */
     public data: number[],
     /** 绘图方式 */
-    private drawType: DrawTypes,
+    private drawTypes: DrawTypes[],
     /** 顶点属性列表 */
     private attributes: Attribute[],
     /** 通用属性列表 */
@@ -59,16 +59,24 @@ export class Poly {
   }
   /** 更新节点属性 */
   updateAttributes() {
-    this.attributes.forEach(v => (v.byteIndex = this.elementBytes * v.index));
     const { context, program, categoryBytes } = this;
     const buffer = context.createBuffer();
     context.bindBuffer(context.ARRAY_BUFFER, buffer);
     context.bufferData(context.ARRAY_BUFFER, this.source, context.STATIC_DRAW);
-    for (const { name, size, byteIndex } of this.attributes) {
+    let byteIdx = 0;
+    for (const { name, size } of this.attributes) {
       const attr = context.getAttribLocation(program, name);
       if (attr < 0) continue;
-      context.vertexAttribPointer(attr, size, context.FLOAT, false, categoryBytes, byteIndex);
+      context.vertexAttribPointer(
+        attr,
+        size,
+        context.FLOAT,
+        false,
+        categoryBytes,
+        byteIdx * this.elementBytes
+      );
       context.enableVertexAttribArray(attr);
+      byteIdx += size;
     }
   }
   /** 更新通用属性 */
@@ -85,8 +93,10 @@ export class Poly {
     }
   }
   /** 绘制 */
-  draw(drawType = this.drawType) {
+  draw(drawTypes = this.drawTypes) {
     this.instance.clear();
-    this.context.drawArrays(this.context[drawType], 0, this.sourceSize);
+    drawTypes.forEach(drawType => {
+      this.context.drawArrays(this.context[drawType], 0, this.sourceSize);
+    });
   }
 }

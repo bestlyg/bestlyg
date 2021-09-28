@@ -36,3 +36,8 @@ export function angleToRad(angle: number) {
 export function radToAngle(rad: number) {
   return (rad * 180) / Math.PI;
 }
+/* sin函数 */
+export function sin(a: number, omega: number, phi: number) {
+  return x => a * Math.sin(omega * x + phi);
+}
+export function noop(...data: any[]) {}
