@@ -101,7 +101,8 @@ export default function Point3Gradient() {
             150, 40, 0,
           ],
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

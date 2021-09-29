@@ -98,7 +98,8 @@ export default function LineGradients() {
           data: data.u_ColorEnd,
           method: 'uniform4fv',
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

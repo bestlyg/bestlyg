@@ -24,7 +24,7 @@ ES6 增加的异步编程方式，避免了回调地狱，一个 promise 有三�
 import { DEFAULT_OP, catchError, throwValue } from '@bestlyg/shared';
 import { resolvePromise } from './resolvePromise';
 import {
-  asyncState,
+  ASYNC,
   PromiseState,
   BestPromiseFulfilledResult,
   BestPromiseRejectedResult,
@@ -187,7 +187,7 @@ export class BestPromise<T> {
     const promise = new BestPromise<V>((resolve, reject) => {
       // 统一触发函数
       const onFn = (val?: V | BestPromise<V>) =>
-        val !== undefined && asyncState(() => resolvePromise<V>(promise, val, resolve, reject));
+        val !== undefined && ASYNC(() => resolvePromise<V>(promise, val, resolve, reject));
       const onFulfill = () => onFn(catchError(() => onFulfilled(this.value), reject));
       const onReject = () => onFn(catchError(() => onRejected(this.reason), reject));
       if (this.state === PromiseState.FULFILLED) {

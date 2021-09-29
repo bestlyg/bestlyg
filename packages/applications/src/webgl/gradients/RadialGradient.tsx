@@ -83,7 +83,8 @@ export default function RadialGradient() {
           ],
           method: 'uniformMatrix4fv',
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

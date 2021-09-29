@@ -99,7 +99,8 @@ export default function PolarGradient() {
           ],
           method: 'uniformMatrix4fv',
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

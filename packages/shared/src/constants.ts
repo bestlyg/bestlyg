@@ -1,5 +1,5 @@
 export const PREFIX = `bestlyg-`;
-export const asyncState = Promise.resolve();
+export const ASYNC = Promise.resolve();
 export const ANY_OBJ = Object.create(null) as any;
 export const ANY_OP = (...args: any) => args;
 export const DEFAULT_OP: <T>(val: T) => T = val => val;

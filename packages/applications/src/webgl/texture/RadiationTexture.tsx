@@ -45,7 +45,8 @@ export default function RadiationTexture() {
           method: 'uniform2fv',
           data: [CANVAS_SIZE / 2, CANVAS_SIZE / 2],
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

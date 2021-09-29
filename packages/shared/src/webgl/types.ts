@@ -30,3 +30,18 @@ export type Animation = {
   loop: boolean;
   frames: { time: number; value: number }[];
 };
+export type Texture = {
+  name: string;
+  source: string;
+  format: 'RGB' | 'RGBA';
+  magFilter?: 'LINEAR' | 'NEAREST';
+  minFilter?:
+    | 'LINEAR'
+    | 'NEAREST'
+    | 'NEAREST_MIPMAP_NEAREST'
+    | 'NEAREST_MIPMAP_LINEAR'
+    | 'LINEAR_MIPMAP_NEAREST'
+    | 'LINEAR_MIPMAP_LINEAR';
+  wrapS?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
+  wrapT?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
+};

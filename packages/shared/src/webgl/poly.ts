@@ -1,4 +1,5 @@
-import { Attribute, DrawTypes, Uniform } from './types';
+import { ASYNC } from '../constants';
+import { Attribute, DrawTypes, Texture, Uniform } from './types';
 import { Webgl } from './webgl';
 
 export class Poly {
@@ -30,17 +31,15 @@ export class Poly {
   private get sourceSize() {
     return this.source.length / this.categorySize;
   }
-  /** 顶点属性映射 */
-  get attributeMap() {
-    const map: Record<string, Attribute> = {};
-    for (const v of this.attributes) map[v.name] = v;
-    return map;
-  }
   /** 通用属性映射 */
   get uniformMap() {
     const map: Record<string, Uniform> = {};
     for (const v of this.uniforms) map[v.name] = v;
     return map;
+  }
+  private _async = ASYNC;
+  get async() {
+    return this._async;
   }
   constructor(
     /** 程序上下文 */
@@ -52,10 +51,13 @@ export class Poly {
     /** 顶点属性列表 */
     private attributes: Attribute[],
     /** 通用属性列表 */
-    private uniforms: Uniform[]
+    private uniforms: Uniform[],
+    /** 纹理属性列表 */
+    private textures: Texture[]
   ) {
     this.updateAttributes();
     this.updateUniforms();
+    this.updateTextures();
   }
   /** 更新节点属性 */
   updateAttributes() {
@@ -92,11 +94,57 @@ export class Poly {
       run.apply(context, params);
     }
   }
+  /** 更新纹理 */
+  updateTextures() {
+    const { context, program } = this;
+    const n = this.textures.length;
+    const texture2D = context.TEXTURE_2D;
+    this._async = Promise.all(this.textures.map(({ source }) => this.loadTexture(source))).then(
+      (images: HTMLImageElement[]) => {
+        for (let i = 0; i < n; i++) {
+          const {
+            name,
+            format,
+            magFilter = 'LINEAR',
+            minFilter = 'NEAREST_MIPMAP_LINEAR',
+            wrapS = 'REPEAT',
+            wrapT = 'REPEAT',
+          } = this.textures[i];
+          const tex = context.getUniformLocation(program, name);
+          if (tex === null) continue;
+          context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
+          context.activeTexture(context[`TEXTURE${i}`]);
+          const texture = context.createTexture();
+          context.bindTexture(texture2D, texture);
+          context.texImage2D(
+            texture2D,
+            0,
+            context[format],
+            context[format],
+            context.UNSIGNED_BYTE,
+            images[i]
+          );
+          context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
+          context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
+          context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
+          if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
+          context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
+          context.uniform1i(tex, i);
+        }
+        this._async = ASYNC;
+      }
+    );
+  }
   /** 绘制 */
   draw(drawTypes = this.drawTypes) {
-    this.instance.clear();
-    drawTypes.forEach(drawType => {
-      this.context.drawArrays(this.context[drawType], 0, this.sourceSize);
+    const { context, sourceSize } = this;
+    drawTypes.forEach(drawType => context.drawArrays(context[drawType], 0, sourceSize));
+  }
+  private loadTexture(source: string) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = source;
+      image.onload = () => resolve(image);
     });
   }
 }

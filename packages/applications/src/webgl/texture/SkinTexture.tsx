@@ -55,7 +55,8 @@ export default function SkinTexture() {
           method: 'uniform2fv',
           data: data.u_ModelVec,
         },
-      ]
+      ],
+      []
     );
     polyRef.current.draw();
   }, []);

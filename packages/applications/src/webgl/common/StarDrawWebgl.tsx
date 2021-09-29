@@ -1,7 +1,7 @@
-import { WEBGL, angleToRad } from '@bestlyg/shared';
-import React, { useEffect, useRef, useState } from 'react';
-import { useEventListener, useCreation } from 'ahooks';
-import skyJpg from '../../assets/sky.jpg';
+import { WEBGL } from '@bestlyg/shared';
+import React, { useEffect, useRef } from 'react';
+import { useEventListener } from 'ahooks';
+import skyJpg from './images/sky.jpg';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute float a_PointSize;
@@ -79,6 +79,7 @@ export default function StarDrawWebgl() {
         { name: 'a_PointSize', size: 1 },
         { name: 'a_Color', size: 4 },
       ],
+      [],
       []
     ));
     polyRef.current.draw();

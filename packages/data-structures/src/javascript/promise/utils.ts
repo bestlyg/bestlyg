@@ -2,7 +2,7 @@ import { BestPromise } from './promise';
 
 export const isBestPromise = (val: unknown): val is BestPromise<unknown> =>
   val instanceof BestPromise;
-export const asyncState = (fn: () => void) => setTimeout(fn, 0);
+export const ASYNC = (fn: () => void) => setTimeout(fn, 0);
 export enum PromiseState {
   PENDING = 'pending',
   FULFILLED = 'fulfilled',

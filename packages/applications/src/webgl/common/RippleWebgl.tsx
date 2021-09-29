@@ -121,7 +121,8 @@ export default function StarDrawWebgl() {
         { name: 'a_PointSize', size: 1 },
         { name: 'a_Color', size: 4 },
       ],
-      [{ name: 'u_ViewMatrix', data: viewMatrix.elements, method: 'uniformMatrix4fv' }]
+      [{ name: 'u_ViewMatrix', data: viewMatrix.elements, method: 'uniformMatrix4fv' }],
+      []
     ));
     polyRef.current.draw();
     (function ani() {
