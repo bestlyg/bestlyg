@@ -12,61 +12,29 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '437. 路径总和 III',
-  url: 'https://leetcode-cn.com/problems/decode-ways-ii/',
+  name: '517. 超级洗衣机',
+  url: 'https://leetcode-cn.com/problems/super-washing-machines/',
   difficulty: Difficulty.困难,
-  tag: [Tag.字符串, Tag.动态规划],
-  desc: `给你一个字符串 s ，由数字和 '*' 字符组成，返回 解码 该字符串的方法 数目 。`,
+  tag: [Tag.贪心, Tag.数组],
+  desc: `给定一个整数数组 machines 代表从左至右每台洗衣机中的衣物数量，请给出能让所有洗衣机中剩下的衣物的数量相等的 最少的操作步数 。如果不能使每台洗衣机中衣物的数量相等，则返回 -1 。`,
   solutions: [
     {
       script: Script.TS,
-      time: 152,
-      memory: 52.4,
-      desc: 'dfs',
-      code: `function pathSum(root: TreeNode | null, targetSum: number): number {
-        if (root === null) return 0;
+      time: 76,
+      memory: 40.1,
+      desc: '贪心，统计每个洗衣机里衣服数与平均衣服数的差',
+      code: `function findMinMoves(machines: number[]): number {
+        const sum = machines.reduce((total, cur) => total + cur, 0);
+        const n = machines.length;
+        if (sum % n !== 0) return -1;
+        const avg = ~~(sum / n);
         let ans = 0;
-        dfs(root);
-        return ans;
-        function dfs(node: TreeNode | null, list: number[] = []) {
-          if (node === null) return;
-          const newList = list.map(v => v + node.val);
-          newList.push(node.val);
-          newList.forEach(v => {
-            if (v === targetSum) ans++;
-          });
-          dfs(node.left, newList);
-          dfs(node.right, newList);
+        let num = 0;
+        for (let i = 0; i < n; i++) {
+          num += machines[i] - avg;
+          ans = Math.max(ans, Math.max(machines[i] - avg, Math.abs(num)));
         }
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 88,
-      memory: 42.6,
-      desc: 'dfs',
-      code: `function pathSum(root: TreeNode | null, targetSum: number): number {
-        if (root === null) return 0;
-        let ans = 0;
-        dfs(root);
         return ans;
-        function dfs(node: TreeNode | null, list: number[] = []) {
-          if (node === null) return;
-          const val = node.val;
-          const len = list.length;
-          if (val === targetSum) ans++;
-          for (let i = 0; i < len; i++) {
-            list[i] += val;
-            if (list[i] === targetSum) ans++;
-          }
-          list.push(val);
-          dfs(node.left, list);
-          dfs(node.right, list);
-          list.pop();
-          for (let i = 0; i < len; i++) {
-            list[i] -= val;
-          }
-        }
       }`,
     },
   ],
