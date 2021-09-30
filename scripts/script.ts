@@ -11,25 +11,32 @@ type Heap = structures.Heap;
 /*
 1*
  */
-function findMinMoves(machines: number[]): number {
-  const total = machines.reduce((total, cur) => total + cur, 0);
-  const n = machines.length;
-  if (total % n !== 0) return -1;
-  const avg = ~~(total / n);
-  let ans = 0;
-  let sum = 0;
-  for (let i = 0; i < n; i++) {
-    const num = machines[i] - avg;
-    sum += num;
-    ans = Math.max(ans, Math.max(num, Math.abs(sum)));
-  }
-  return ans;
+function computeArea(
+  ax1: number,
+  ay1: number,
+  ax2: number,
+  ay2: number,
+  bx1: number,
+  by1: number,
+  bx2: number,
+  by2: number
+): number {
+  if (bx1 < ax1)
+    [ax1, ay1, ax2, ay2, bx1, by1, bx2, by2] = [bx1, by1, bx2, by2, ax1, ay1, ax2, ay2];
+  const comp = (x1: number, y1: number, x2: number, y2: number) => (x2 - x1) * (y2 - y1);
+  const areaA = comp(ax1, ay1, ax2, ay2);
+  const areaB = comp(bx1, by1, bx2, by2);
+  if (bx1 > ax2 || by1 > ay2 || by2 < ay1) return areaA + areaB;
+  const areaC = comp(
+    Math.max(ax1, bx1),
+    Math.max(ay1, by1),
+    Math.min(ax2, bx2),
+    Math.min(ay2, by2)
+  );
+  return areaA + areaB - areaC;
 }
 log({
-  ans1: findMinMoves([1, 0, 5]),
-  ans2: findMinMoves([4, 1, 4, 1, 0]),
-  ans3: findMinMoves([0, 0, 11, 5]),
-  ans4: findMinMoves([0, 3, 0]),
-  ans5: findMinMoves([0, 3, 0]),
-  ans6: findMinMoves([0, 3, 0]),
+  ans: computeArea(-3, 0, 3, 4, 0, -1, 9, 2),
+  ans2: computeArea(-2, -2, 2, 2, -2, -2, 2, 2),
+  ans3: computeArea(-2, -2, 2, 2, -1, -1, 1, 1),
 });

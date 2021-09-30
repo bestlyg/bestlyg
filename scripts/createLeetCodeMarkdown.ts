@@ -12,29 +12,40 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '517. 超级洗衣机',
-  url: 'https://leetcode-cn.com/problems/super-washing-machines/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.贪心, Tag.数组],
-  desc: `给定一个整数数组 machines 代表从左至右每台洗衣机中的衣物数量，请给出能让所有洗衣机中剩下的衣物的数量相等的 最少的操作步数 。如果不能使每台洗衣机中衣物的数量相等，则返回 -1 。`,
+  name: '223. 矩形面积',
+  url: 'https://leetcode-cn.com/problems/rectangle-area/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.几何, Tag.数学],
+  desc: `给你 二维 平面上两个 由直线构成的 矩形，请你计算并返回两个矩形覆盖的总面积。`,
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 40.1,
-      desc: '贪心，统计每个洗衣机里衣服数与平均衣服数的差',
-      code: `function findMinMoves(machines: number[]): number {
-        const sum = machines.reduce((total, cur) => total + cur, 0);
-        const n = machines.length;
-        if (sum % n !== 0) return -1;
-        const avg = ~~(sum / n);
-        let ans = 0;
-        let num = 0;
-        for (let i = 0; i < n; i++) {
-          num += machines[i] - avg;
-          ans = Math.max(ans, Math.max(machines[i] - avg, Math.abs(num)));
-        }
-        return ans;
+      time: 140,
+      memory: 44.8,
+      desc: '统计ab面积和覆盖面积',
+      code: `function computeArea(
+        ax1: number,
+        ay1: number,
+        ax2: number,
+        ay2: number,
+        bx1: number,
+        by1: number,
+        bx2: number,
+        by2: number
+      ): number {
+        if (bx1 < ax1)
+          [ax1, ay1, ax2, ay2, bx1, by1, bx2, by2] = [bx1, by1, bx2, by2, ax1, ay1, ax2, ay2];
+        const comp = (x1: number, y1: number, x2: number, y2: number) => (x2 - x1) * (y2 - y1);
+        const areaA = comp(ax1, ay1, ax2, ay2);
+        const areaB = comp(bx1, by1, bx2, by2);
+        if (bx1 > ax2 || by1 > ay2 || by2 < ay1) return areaA + areaB;
+        const areaC = comp(
+          Math.max(ax1, bx1),
+          Math.max(ay1, by1),
+          Math.min(ax2, bx2),
+          Math.min(ay2, by2)
+        );
+        return areaA + areaB - areaC;
       }`,
     },
   ],
