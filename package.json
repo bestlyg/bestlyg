@@ -32,7 +32,9 @@
     "lm": "yarn leetcode:markdown",
     "la": "yarn leetcode:auto",
     "dp": "yarn deploy",
-    "ca": "yarn commit:auto"
+    "ca": "yarn commit:auto",
+    "ucc": "yarn update:coreCode",
+    "ud": "yarn update:dep"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",

@@ -1,9 +1,7 @@
-import { WEBGL, angleToRad } from '@bestlyg/shared';
-import React, { useEffect, useRef, useState } from 'react';
-import { useEventListener, useCreation } from 'ahooks';
+import { WEBGL } from '@bestlyg/shared';
+import React, { useEffect, useRef } from 'react';
 import { Matrix4 } from 'three';
-import cube1Jpg from './images/cube1.jpg';
-import dogJpg from './images/dog.jpg';
+import cubeJpg from './images/cube.jpg';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute vec2 a_Pin;
@@ -23,48 +21,52 @@ void main(){
 }
 `;
 const sources = [
-  [
-    -0.5, 0.5, 0.5, 0.25, 1 /*                                                                   */,
-    -0.5, -0.5, 0.5, 0.25, 0.5 /*                                                                */,
-    0.5, 0.5, 0.5, 0.5, 1 /*                                                                     */,
-    0.5, -0.5, 0.5, 0.5, 0.5 /*                                                                  */,
-  ],
-  [
-    -0.5, 0.5, -0.5, 0, 0.5 /*                                                                   */,
-    -0.5, -0.5, -0.5, 0, 0 /*                                                                    */,
-    -0.5, 0.5, 0.5, 0.25, 0.5 /*                                                                 */,
-    -0.5, -0.5, 0.5, 0.25, 0 /*                                                                  */,
-  ],
-  [
-    0.5, 0.5, 0.5, 0.5, 1 /*                                                                    */,
-    0.5, -0.5, 0.5, 0.5, 0.5 /*                                                                 */,
-    0.5, 0.5, -0.5, 0.75, 1 /*                                                                  */,
-    0.5, -0.5, -0.5, 0.75, 0.5 /*                                                               */,
-  ],
-  [
-    0.5, 0.5, -0.5, 0.25, 0.5 /*                                                                */,
-    0.5, -0.5, -0.5, 0.25, 0 /*                                                                 */,
-    0.5, 0.5, -0.5, 0.5, 0.5 /*                                                                 */,
-    0.5, -0.5, -0.5, 0.5, 0 /*                                                                  */,
-  ],
-  [
-    -0.5, 0.5, -0.5, 0, 1 /*                                                                    */,
-    -0.5, 0.5, 0.5, 0, 0.5 /*                                                                   */,
-    0.5, 0.5, -0.5, 0.25, 1 /*                                                                  */,
-    0.5, 0.5, 0.5, 0.25, 0.5 /*                                                                 */,
-  ],
-  [
-    -0.5, -0.5, 0.5, 0.5, 0.5 /*                                                                 */,
-    -0.5, -0.5, -0.5, 0.5, 0 /*                                                                  */,
-    0.5, -0.5, 0.5, 0.75, 0.5 /*                                                                 */,
-    0.5, -0.5, -0.5, 0.75, 0 /*                                                                  */,
-  ],
-];
+  // front blue
+  [-0.5, 0.5, 0.5, 0.25, 1],
+  [-0.5, -0.5, 0.5, 0.25, 0.5],
+  [0.5, 0.5, 0.5, 0.5, 1],
+  [0.5, 0.5, 0.5, 0.5, 1],
+  [-0.5, -0.5, 0.5, 0.25, 0.5],
+  [0.5, -0.5, 0.5, 0.5, 0.5],
+  // left orange
+  [-0.5, 0.5, -0.5, 0, 0.5],
+  [-0.5, -0.5, -0.5, 0, 0],
+  [-0.5, 0.5, 0.5, 0.25, 0.5],
+  [-0.5, 0.5, 0.5, 0.25, 0.5],
+  [-0.5, -0.5, -0.5, 0, 0],
+  [-0.5, -0.5, 0.5, 0.25, 0],
+  // right red
+  [0.5, 0.5, 0.5, 0.5, 1],
+  [0.5, -0.5, 0.5, 0.5, 0.5],
+  [0.5, 0.5, -0.5, 0.75, 1],
+  [0.5, 0.5, -0.5, 0.75, 1],
+  [0.5, -0.5, 0.5, 0.5, 0.5],
+  [0.5, -0.5, -0.5, 0.75, 0.5],
+  // back green
+  [0.5, 0.5, -0.5, 0.25, 0.5],
+  [0.5, -0.5, -0.5, 0.25, 0],
+  [-0.5, 0.5, -0.5, 0.5, 0.5],
+  [-0.5, 0.5, -0.5, 0.5, 0.5],
+  [0.5, -0.5, -0.5, 0.25, 0],
+  [-0.5, -0.5, -0.5, 0.5, 0],
+  // top yellow
+  [-0.5, 0.5, -0.5, 0, 1],
+  [-0.5, 0.5, 0.5, 0, 0.5],
+  [0.5, 0.5, -0.5, 0.25, 1],
+  [0.5, 0.5, -0.5, 0.25, 1],
+  [-0.5, 0.5, 0.5, 0, 0.5],
+  [0.5, 0.5, 0.5, 0.25, 0.5],
+  // bottom white
+  [-0.5, -0.5, 0.5, 0.5, 0.5],
+  [-0.5, -0.5, -0.5, 0.5, 0],
+  [0.5, -0.5, 0.5, 0.75, 0.5],
+  [0.5, -0.5, 0.5, 0.75, 0.5],
+  [-0.5, -0.5, -0.5, 0.5, 0],
+  [0.5, -0.5, -0.5, 0.75, 0],
+].flat();
 export default function RubikSCube() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const webglRef = useRef<WEBGL.Webgl>();
-  const polysRef = useRef<WEBGL.Poly[]>([]);
-  const composeRef = useRef<WEBGL.Compose>(new WEBGL.Compose());
   useEffect(() => {
     if (!canvasRef.current) return;
     const webgl = (webglRef.current = new WEBGL.Webgl({
@@ -76,14 +78,17 @@ export default function RubikSCube() {
     const { context } = webgl;
     context.enable(context.CULL_FACE);
     context.enable(context.DEPTH_TEST);
-    const polys = polysRef.current;
     const modelMatrix = new Matrix4();
-    modelMatrix.makeRotationY(-Math.PI / 2);
+    const rotateMatrixs = [
+      new Matrix4().makeRotationX(0.01),
+      new Matrix4().makeRotationY(0.01),
+      new Matrix4().makeRotationZ(0.01),
+    ];
     webgl.clear();
     const poly = new WEBGL.Poly(
       webglRef.current!,
-      sources.flat(),
-      ['TRIANGLE_STRIP'],
+      sources,
+      ['TRIANGLES'],
       [
         { name: 'a_Position', size: 3 },
         { name: 'a_Pin', size: 2 },
@@ -98,7 +103,7 @@ export default function RubikSCube() {
       [
         {
           name: 'u_Sampler',
-          source: cube1Jpg,
+          source: cubeJpg,
           format: 'RGB',
           minFilter: 'LINEAR',
         },
@@ -108,13 +113,13 @@ export default function RubikSCube() {
       webgl.clear();
       poly.draw();
     });
-
-    // (function ani() {
-    //   composeRef.current.update(Date.now());
-    //   poly.updateAttributes();
-    //   poly.draw();
-    //   requestAnimationFrame(ani);
-    // })();
+    (function ani() {
+      webgl.clear();
+      rotateMatrixs.forEach(mat => modelMatrix.multiply(mat));
+      poly.updateUniforms();
+      poly.draw();
+      requestAnimationFrame(ani);
+    })();
   }, []);
   return <canvas ref={canvasRef} />;
 }
