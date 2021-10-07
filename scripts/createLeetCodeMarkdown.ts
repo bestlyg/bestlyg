@@ -12,40 +12,43 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '223. 矩形面积',
-  url: 'https://leetcode-cn.com/problems/rectangle-area/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.几何, Tag.数学],
-  desc: `给你 二维 平面上两个 由直线构成的 矩形，请你计算并返回两个矩形覆盖的总面积。`,
+  name: '434. 字符串中的单词数',
+  url: 'https://leetcode-cn.com/problems/number-of-segments-in-a-string/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。`,
   solutions: [
     {
       script: Script.TS,
-      time: 140,
-      memory: 44.8,
-      desc: '统计ab面积和覆盖面积',
-      code: `function computeArea(
-        ax1: number,
-        ay1: number,
-        ax2: number,
-        ay2: number,
-        bx1: number,
-        by1: number,
-        bx2: number,
-        by2: number
-      ): number {
-        if (bx1 < ax1)
-          [ax1, ay1, ax2, ay2, bx1, by1, bx2, by2] = [bx1, by1, bx2, by2, ax1, ay1, ax2, ay2];
-        const comp = (x1: number, y1: number, x2: number, y2: number) => (x2 - x1) * (y2 - y1);
-        const areaA = comp(ax1, ay1, ax2, ay2);
-        const areaB = comp(bx1, by1, bx2, by2);
-        if (bx1 > ax2 || by1 > ay2 || by2 < ay1) return areaA + areaB;
-        const areaC = comp(
-          Math.max(ax1, bx1),
-          Math.max(ay1, by1),
-          Math.min(ax2, bx2),
-          Math.min(ay2, by2)
-        );
-        return areaA + areaB - areaC;
+      time: 80,
+      memory: 39.1,
+      desc: '分割',
+      code: `function countSegments(s: string): number {
+        return s.split(' ').filter(v=>v.length).length
+      }
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 72,
+      memory: 39.5,
+      desc: '遍历',
+      code: `function countSegments(s: string): number {
+        let ans = 0;
+        let f = false;
+        for (const c of s) {
+          if (c === ' ') {
+            if (f) {
+              ans++;
+              f = false;
+            }
+            f = false;
+          } else {
+            f = true;
+          }
+        }
+        if (f) ans++;
+        return ans;
       }`,
     },
   ],

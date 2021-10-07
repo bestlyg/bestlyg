@@ -9,34 +9,22 @@ type UnionFind = structures.UnionFind;
 type Heap = structures.Heap;
 
 /*
-1*
  */
-function computeArea(
-  ax1: number,
-  ay1: number,
-  ax2: number,
-  ay2: number,
-  bx1: number,
-  by1: number,
-  bx2: number,
-  by2: number
-): number {
-  if (bx1 < ax1)
-    [ax1, ay1, ax2, ay2, bx1, by1, bx2, by2] = [bx1, by1, bx2, by2, ax1, ay1, ax2, ay2];
-  const comp = (x1: number, y1: number, x2: number, y2: number) => (x2 - x1) * (y2 - y1);
-  const areaA = comp(ax1, ay1, ax2, ay2);
-  const areaB = comp(bx1, by1, bx2, by2);
-  if (bx1 > ax2 || by1 > ay2 || by2 < ay1) return areaA + areaB;
-  const areaC = comp(
-    Math.max(ax1, bx1),
-    Math.max(ay1, by1),
-    Math.min(ax2, bx2),
-    Math.min(ay2, by2)
-  );
-  return areaA + areaB - areaC;
+function countSegments(s: string): number {
+  let ans = 0;
+  let f = false;
+  for (const c of s) {
+    if (c === ' ') {
+      if (f) {
+        ans++;
+        f = false;
+      }
+      f = false;
+    } else {
+      f = true;
+    }
+  }
+  if (f) ans++;
+  return ans;
 }
-log({
-  ans: computeArea(-3, 0, 3, 4, 0, -1, 9, 2),
-  ans2: computeArea(-2, -2, 2, 2, -2, -2, 2, 2),
-  ans3: computeArea(-2, -2, 2, 2, -1, -1, 1, 1),
-});
+log([countSegments('Hello, my name is John')]);
