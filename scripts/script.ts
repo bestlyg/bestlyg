@@ -10,21 +10,16 @@ type Heap = structures.Heap;
 
 /*
  */
-function countSegments(s: string): number {
-  let ans = 0;
-  let f = false;
-  for (const c of s) {
-    if (c === ' ') {
-      if (f) {
-        ans++;
-        f = false;
-      }
-      f = false;
-    } else {
-      f = true;
-    }
+function findRepeatedDnaSequences(s: string): string[] {
+  const set = new Set<string>();
+  let str = s.substr(0, 10);
+  set.add(str);
+  const ans = new Set<string>();
+  for (let i = 10, l = s.length; i < l; i++) {
+    str = str.substring(1) + s[i];
+    if (set.has(str)) ans.add(str);
+    set.add(str);
   }
-  if (f) ans++;
-  return ans;
+  return [...ans];
 }
-log([countSegments('Hello, my name is John')]);
+log([findRepeatedDnaSequences('AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT')]);

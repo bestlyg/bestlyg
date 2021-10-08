@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '434. 字符串中的单词数',
+  existMarkdown: true,
+  name: '187. 重复的DNA序列',
   url: 'https://leetcode-cn.com/problems/number-of-segments-in-a-string/',
   difficulty: Difficulty.简单,
   tag: [Tag.字符串],
@@ -20,35 +20,40 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 39.1,
-      desc: '分割',
-      code: `function countSegments(s: string): number {
-        return s.split(' ').filter(v=>v.length).length
-      }
-      `,
+      time: 128,
+      memory: 52.1,
+      desc: '滑动窗口',
+      code: `function findRepeatedDnaSequences(s: string): string[] {
+        const set = new Set<string>();
+        const window = s.substr(0, 10).split('');
+        set.add(window.join(''));
+        const ans = new Set<string>();
+        for (let i = 10, l = s.length; i < l; i++) {
+          window.shift();
+          window.push(s[i]);
+          const str = window.join('');
+          if (set.has(str)) ans.add(str);
+          set.add(str);
+        }
+        return [...ans];
+      }`,
     },
     {
       script: Script.TS,
-      time: 72,
-      memory: 39.5,
-      desc: '遍历',
-      code: `function countSegments(s: string): number {
-        let ans = 0;
-        let f = false;
-        for (const c of s) {
-          if (c === ' ') {
-            if (f) {
-              ans++;
-              f = false;
-            }
-            f = false;
-          } else {
-            f = true;
-          }
+      time: 80,
+      memory: 50.6,
+      desc: '滑动窗口',
+      code: `function findRepeatedDnaSequences(s: string): string[] {
+        const set = new Set<string>();
+        let str = s.substr(0, 10);
+        set.add(str);
+        const ans = new Set<string>();
+        for (let i = 10, l = s.length; i < l; i++) {
+          str = str.substring(1) + s[i];
+          if (set.has(str)) ans.add(str);
+          set.add(str);
         }
-        if (f) ans++;
-        return ans;
+        return [...ans];
       }`,
     },
   ],
