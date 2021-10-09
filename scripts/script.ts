@@ -10,40 +10,19 @@ type Heap = structures.Heap;
 
 /*
  */
-class SummaryRanges {
-  private set = new Set<number>();
-  private list: number[] = [];
-  addNum(val: number): void {
-    if (this.set.has(val)) return;
-    this.set.add(val);
-    let l = 0;
-    let r = this.list.length - 1;
-    if (this.list[r] < val) {
-      this.list.push(val);
-      return;
-    }
-    while (l < r) {
-      const mid = (l + r) >> 1;
-      if (this.list[mid] > val) r = mid;
-      else l = mid + 1;
-    }
-    this.list.splice(l, 0, val);
+function getNext(pattern: string) {
+  const next: number[] = [-1];
+  for (let i = 1, j = -1; pattern[i]; i++) {
+    while (j !== -1 && pattern[j + 1] !== pattern[i]) j = next[j];
+    if (pattern[j + 1] === pattern[i]) j++;
+    next[i] = j;
+    log({
+      i,
+      j,
+      next,
+      l: pattern.length,
+    });
   }
-  getIntervals(): number[][] {
-    const ans: number[][] = [];
-    for (let i = 0, l = this.list.length; i < l; i++) {
-      const num = this.list[i];
-      const last = ans[ans.length - 1];
-      if (ans.length === 0 || last[1] + 1 < num) {
-        ans.push([num, num]);
-      } else {
-        last[1] = num;
-      }
-    }
-    return ans;
-  }
+  return next;
 }
-const obj = new SummaryRanges();
-obj.addNum(1);
-obj.addNum(3);
-log([obj]);
+log([getNext('aecaaaeua')]);
