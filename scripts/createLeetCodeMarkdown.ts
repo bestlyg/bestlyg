@@ -11,49 +11,50 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '187. 重复的DNA序列',
-  url: 'https://leetcode-cn.com/problems/number-of-segments-in-a-string/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。`,
+  existMarkdown: !true,
+  name: '352. 将数据流变为多个不相交区间',
+  url: 'https://leetcode-cn.com/problems/data-stream-as-disjoint-intervals/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.设计, Tag.二分查找, Tag.有序集合],
+  desc: ` 给你一个由非负整数 a1, a2, ..., an 组成的数据流输入，请你将到目前为止看到的数字总结为不相交的区间列表。`,
   solutions: [
     {
       script: Script.TS,
-      time: 128,
-      memory: 52.1,
-      desc: '滑动窗口',
-      code: `function findRepeatedDnaSequences(s: string): string[] {
-        const set = new Set<string>();
-        const window = s.substr(0, 10).split('');
-        set.add(window.join(''));
-        const ans = new Set<string>();
-        for (let i = 10, l = s.length; i < l; i++) {
-          window.shift();
-          window.push(s[i]);
-          const str = window.join('');
-          if (set.has(str)) ans.add(str);
-          set.add(str);
+      time: 180,
+      memory: 48.5,
+      desc: '二分插入',
+      code: `class SummaryRanges {
+        private set = new Set<number>();
+        private list: number[] = [];
+        addNum(val: number): void {
+          if (this.set.has(val)) return;
+          this.set.add(val);
+          let l = 0;
+          let r = this.list.length - 1;
+          if (this.list[r] < val) {
+            this.list.push(val);
+            return;
+          }
+          while (l < r) {
+            const mid = (l + r) >> 1;
+            if (this.list[mid] > val) r = mid;
+            else l = mid + 1;
+          }
+          this.list.splice(l, 0, val);
         }
-        return [...ans];
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 80,
-      memory: 50.6,
-      desc: '滑动窗口',
-      code: `function findRepeatedDnaSequences(s: string): string[] {
-        const set = new Set<string>();
-        let str = s.substr(0, 10);
-        set.add(str);
-        const ans = new Set<string>();
-        for (let i = 10, l = s.length; i < l; i++) {
-          str = str.substring(1) + s[i];
-          if (set.has(str)) ans.add(str);
-          set.add(str);
+        getIntervals(): number[][] {
+          const ans: number[][] = [];
+          for (let i = 0, l = this.list.length; i < l; i++) {
+            const num = this.list[i];
+            const last = ans[ans.length - 1];
+            if (ans.length === 0 || last[1] + 1 < num) {
+              ans.push([num, num]);
+            } else {
+              last[1] = num;
+            }
+          }
+          return ans;
         }
-        return [...ans];
       }`,
     },
   ],

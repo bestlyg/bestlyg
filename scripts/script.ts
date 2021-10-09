@@ -10,16 +10,40 @@ type Heap = structures.Heap;
 
 /*
  */
-function findRepeatedDnaSequences(s: string): string[] {
-  const set = new Set<string>();
-  let str = s.substr(0, 10);
-  set.add(str);
-  const ans = new Set<string>();
-  for (let i = 10, l = s.length; i < l; i++) {
-    str = str.substring(1) + s[i];
-    if (set.has(str)) ans.add(str);
-    set.add(str);
+class SummaryRanges {
+  private set = new Set<number>();
+  private list: number[] = [];
+  addNum(val: number): void {
+    if (this.set.has(val)) return;
+    this.set.add(val);
+    let l = 0;
+    let r = this.list.length - 1;
+    if (this.list[r] < val) {
+      this.list.push(val);
+      return;
+    }
+    while (l < r) {
+      const mid = (l + r) >> 1;
+      if (this.list[mid] > val) r = mid;
+      else l = mid + 1;
+    }
+    this.list.splice(l, 0, val);
   }
-  return [...ans];
+  getIntervals(): number[][] {
+    const ans: number[][] = [];
+    for (let i = 0, l = this.list.length; i < l; i++) {
+      const num = this.list[i];
+      const last = ans[ans.length - 1];
+      if (ans.length === 0 || last[1] + 1 < num) {
+        ans.push([num, num]);
+      } else {
+        last[1] = num;
+      }
+    }
+    return ans;
+  }
 }
-log([findRepeatedDnaSequences('AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT')]);
+const obj = new SummaryRanges();
+obj.addNum(1);
+obj.addNum(3);
+log([obj]);
