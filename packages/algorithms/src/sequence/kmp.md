@@ -1,24 +1,22 @@
 ---
-title: 堆排序
+title: KMP
 nav:
   title: 算法
   path: /algorithms
   order: 3
 group:
-  title: 排序
+  title: 串
   path: /sorting
-  order: 1
+  order: 2
 ---
 
-# 堆排序(HeapSort)
+# KMP(KMP)
 
-## 方式
+1. 对模式串进行处理，遍历模式串依次判断以当前位置结尾时，最多 n 位尾部字符串能匹配 n 位头部字符串，生成 next 数组
+1. 遍历文本串依次进行匹配
+1. 当前字符无法匹配时，进行回溯取到
 
-1. 构建结尾下标，上浮下沉函数
-1. 依次对每个下标进行上浮
-1. 把结尾元素与首元素进行交换，并重置结尾下标，对首元素进行下沉，重复直到结尾下标为 0
-
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sorting/heapSort.ts)
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/kmp.ts)
 
 ```ts
 import { Comparator } from '@bestlyg/shared';

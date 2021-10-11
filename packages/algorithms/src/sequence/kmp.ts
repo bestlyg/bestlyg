@@ -7,7 +7,7 @@ function getNext(pattern: string): number[] {
   }
   return next;
 }
-export function kmpMatch(text: string, pattern: string): number {
+export function kmp(text: string, pattern: string): number {
   const next = getNext(pattern);
   for (let i = 0, j = -1; text[i]; i++) {
     const c = text[i];

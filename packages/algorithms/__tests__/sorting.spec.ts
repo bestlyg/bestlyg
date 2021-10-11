@@ -1,15 +1,6 @@
 import { Comparator } from '@bestlyg/shared';
 import { random } from 'lodash';
-import {
-  quickSort1,
-  quickSort2,
-  quickSort3,
-  mergeSort,
-  heapSort,
-  bubbleSort,
-  countingSort,
-  radixSort,
-} from '../src';
+import { sorting } from '../src';
 const RANDOM_BASE = 100;
 const compare = (a, b) => a - b;
 const getList = () => new Array(RANDOM_BASE).fill(0).map(_ => random(0, RANDOM_BASE));
@@ -42,6 +33,13 @@ const numberRun = (sort: (list: number[]) => void) => {
   });
 };
 describe('Sort', () => {
-  [quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach(v => compareRun(v));
-  [countingSort, radixSort].forEach(v => numberRun(v));
+  [
+    sorting.quickSort1,
+    sorting.quickSort2,
+    sorting.quickSort3,
+    sorting.mergeSort,
+    sorting.heapSort,
+    sorting.bubbleSort,
+  ].forEach(v => compareRun(v));
+  [sorting.countingSort, sorting.radixSort].forEach(v => numberRun(v));
 });

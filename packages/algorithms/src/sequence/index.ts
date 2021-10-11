@@ -1,2 +1,4 @@
-export * from './bruteForceMatch';
-export * from './kmpMatch';
+export * from './bruteForce';
+export * from './kmp';
+export * from './sunday';
+export * from './shiftAnd';

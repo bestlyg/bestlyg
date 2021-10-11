@@ -1,4 +1,4 @@
-import { bruteForceMatch, kmpMatch } from '../src';
+import { sequence } from '../src';
 
 const run = (match: (text: string, pattern: string) => number) =>
   describe('Sequence', () => {
@@ -12,4 +12,6 @@ const run = (match: (text: string, pattern: string) => number) =>
       expect(match('asdas', 'sf')).toBe(-1);
     });
   });
-[bruteForceMatch, kmpMatch].forEach(match => run(match));
+[sequence.bruteForce, sequence.kmp, sequence.sunday, sequence.shiftAnd].forEach(match =>
+  run(match)
+);
