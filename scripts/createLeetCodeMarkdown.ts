@@ -12,48 +12,81 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '352. 将数据流变为多个不相交区间',
-  url: 'https://leetcode-cn.com/problems/data-stream-as-disjoint-intervals/',
+  name: '273. 整数转换英文表示',
+  url: 'https://leetcode-cn.com/problems/integer-to-english-words/',
   difficulty: Difficulty.困难,
-  tag: [Tag.设计, Tag.二分查找, Tag.有序集合],
-  desc: ` 给你一个由非负整数 a1, a2, ..., an 组成的数据流输入，请你将到目前为止看到的数字总结为不相交的区间列表。`,
+  tag: [Tag.递归, Tag.数学, Tag.字符串],
+  desc: `将非负整数 num 转换为其对应的英文表示。`,
   solutions: [
     {
       script: Script.TS,
-      time: 180,
-      memory: 48.5,
-      desc: '二分插入',
-      code: `class SummaryRanges {
-        private set = new Set<number>();
-        private list: number[] = [];
-        addNum(val: number): void {
-          if (this.set.has(val)) return;
-          this.set.add(val);
-          let l = 0;
-          let r = this.list.length - 1;
-          if (this.list[r] < val) {
-            this.list.push(val);
-            return;
-          }
-          while (l < r) {
-            const mid = (l + r) >> 1;
-            if (this.list[mid] > val) r = mid;
-            else l = mid + 1;
-          }
-          this.list.splice(l, 0, val);
+      time: 80,
+      memory: 39.6,
+      desc: '分块计算',
+      code: `function numberToWords(num: number): string {
+        if (num === 0) return 'Zero';
+        const low = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+        const mid = [
+          'Ten',
+          'Eleven',
+          'Twelve',
+          'Thirteen',
+          'Fourteen',
+          'Fifteen',
+          'Sixteen',
+          'Seventeen',
+          'Eighteen',
+          'Nineteen',
+        ];
+        const high = [
+          '',
+          '',
+          'Twenty',
+          'Thirty',
+          'Forty',
+          'Fifty',
+          'Sixty',
+          'Seventy',
+          'Eighty',
+          'Ninety',
+        ];
+        let ans = '';
+        let mod = 10 ** 9;
+        if (num >= mod) {
+          ans += ${backquote}\${format(Math.floor(num / mod))} Billion ${backquote};
+          num %= mod;
         }
-        getIntervals(): number[][] {
-          const ans: number[][] = [];
-          for (let i = 0, l = this.list.length; i < l; i++) {
-            const num = this.list[i];
-            const last = ans[ans.length - 1];
-            if (ans.length === 0 || last[1] + 1 < num) {
-              ans.push([num, num]);
-            } else {
-              last[1] = num;
-            }
+        mod = 10 ** 6;
+        if (num >= mod) {
+          ans += ${backquote}\${format(Math.floor(num / mod))} Million ${backquote};
+          num %= mod;
+        }
+        mod = 10 ** 3;
+        if (num >= mod) {
+          ans += ${backquote}\${format(Math.floor(num / mod))} Thousand ${backquote};
+          num %= mod;
+        }
+        if (num > 0) {
+          ans += ${backquote}\${format(num)} ${backquote};
+        }
+        return ans.trimEnd();
+        function format(num: number) {
+          let ans = '';
+          if (num >= 100) {
+            ans += ${backquote}\${low[Math.floor(num / 100)]} Hundred ${backquote};
+            num %= 100;
           }
-          return ans;
+          const highNum = Math.floor(num / 10);
+          const lowNum = num % 10;
+          if (highNum >= 2) {
+            ans += ${backquote}\${high[highNum]}${backquote};
+            if (lowNum > 0) ans += ${backquote} \${low[lowNum]} ${backquote};
+          } else if (highNum === 1) {
+            ans += ${backquote}\${mid[num - 10]} ${backquote};
+          } else {
+            ans += ${backquote}\${low[num]} ${backquote};
+          }
+          return ans.trimEnd();
         }
       }`,
     },
