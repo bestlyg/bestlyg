@@ -10,84 +10,25 @@ type Heap = structures.Heap;
 
 /*
  */
-function numberToWords(num: number): string {
-  if (num === 0) return 'Zero';
-  const low: Record<number, string> = {
-    1: 'One',
-    2: 'Two',
-    3: 'Three',
-    4: 'Four',
-    5: 'Five',
-    6: 'Six',
-    7: 'Seven',
-    8: 'Eight',
-    9: 'Nine',
-  };
-  const mid = {
-    10: 'Ten',
-    11: 'Eleven',
-    12: 'Twelve',
-    13: 'Thirteen',
-    14: 'Fourteen',
-    15: 'Fifteen',
-    16: 'Sixteen',
-    17: 'Seventeen',
-    18: 'Eighteen',
-    19: 'Nineteen',
-  };
-  const high: Record<number, string> = {
-    2: 'Twenty',
-    3: 'Thirty',
-    4: 'Forty',
-    5: 'Fifty',
-    6: 'Sixty',
-    7: 'Seventy',
-    8: 'Eighty',
-    9: 'Ninety',
-  };
-  let ans = '';
-  let mod = 10 ** 9;
-  if (num >= mod) {
-    ans += `${format(Math.floor(num / mod))} Billion `;
-    num %= mod;
-  }
-  mod = 10 ** 6;
-  if (num >= mod) {
-    ans += `${format(Math.floor(num / mod))} Million `;
-    num %= mod;
-  }
-  mod = 10 ** 3;
-  if (num >= mod) {
-    ans += `${format(Math.floor(num / mod))} Thousand `;
-    num %= mod;
-  }
-  if (num > 0) {
-    ans += `${format(num)} `;
-  }
-  return ans.trimEnd();
-  function format(num: number) {
-    let ans = '';
-    if (num >= 100) {
-      ans += `${low[Math.floor(num / 100)]} Hundred `;
-      num %= 100;
+function divide(dividend: number, divisor: number): number {
+  if (dividend === (-2) ** 31 && divisor === -1) return 2 ** 31 - 1;
+  const flag = (dividend ^ divisor) < 0 ? -1 : 1;
+  dividend = Math.abs(dividend);
+  divisor = Math.abs(divisor);
+  log({
+    dividend,
+    divisor,
+  });
+  let ans = 0;
+  for (let i = 31; i >= 0; i--) {
+    if (dividend >>> i >= divisor) {
+      ans += 1 << i;
+      dividend -= divisor << i;
     }
-    const highNum = Math.floor(num / 10);
-    const lowNum = num % 10;
-    if (highNum >= 2) {
-      ans += `${high[highNum]}`;
-      if (lowNum > 0) ans += ` ${low[lowNum]} `;
-    } else if (highNum === 1) {
-      ans += `${mid[num]} `;
-    } else {
-      ans += `${low[num]} `;
-    }
-    return ans.trimEnd();
   }
+  return flag * ans;
 }
 log([
-  numberToWords(1234567891),
-  numberToWords(12345),
-  numberToWords(0),
-  numberToWords(50000),
-  numberToWords(100000),
+  // divide(10, 3), divide(-7, 3),
+  divide(-2147483648, 1),
 ]);

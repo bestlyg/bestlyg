@@ -12,82 +12,42 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '273. 整数转换英文表示',
-  url: 'https://leetcode-cn.com/problems/integer-to-english-words/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.递归, Tag.数学, Tag.字符串],
-  desc: `将非负整数 num 转换为其对应的英文表示。`,
+  name: '29. 两数相除',
+  url: 'https://leetcode-cn.com/problems/divide-two-integers/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.位运算, Tag.数学],
+  desc: `给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。`,
   solutions: [
     {
       script: Script.TS,
       time: 80,
-      memory: 39.6,
-      desc: '分块计算',
-      code: `function numberToWords(num: number): string {
-        if (num === 0) return 'Zero';
-        const low = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
-        const mid = [
-          'Ten',
-          'Eleven',
-          'Twelve',
-          'Thirteen',
-          'Fourteen',
-          'Fifteen',
-          'Sixteen',
-          'Seventeen',
-          'Eighteen',
-          'Nineteen',
-        ];
-        const high = [
-          '',
-          '',
-          'Twenty',
-          'Thirty',
-          'Forty',
-          'Fifty',
-          'Sixty',
-          'Seventy',
-          'Eighty',
-          'Ninety',
-        ];
-        let ans = '';
-        let mod = 10 ** 9;
-        if (num >= mod) {
-          ans += ${backquote}\${format(Math.floor(num / mod))} Billion ${backquote};
-          num %= mod;
-        }
-        mod = 10 ** 6;
-        if (num >= mod) {
-          ans += ${backquote}\${format(Math.floor(num / mod))} Million ${backquote};
-          num %= mod;
-        }
-        mod = 10 ** 3;
-        if (num >= mod) {
-          ans += ${backquote}\${format(Math.floor(num / mod))} Thousand ${backquote};
-          num %= mod;
-        }
-        if (num > 0) {
-          ans += ${backquote}\${format(num)} ${backquote};
-        }
-        return ans.trimEnd();
-        function format(num: number) {
-          let ans = '';
-          if (num >= 100) {
-            ans += ${backquote}\${low[Math.floor(num / 100)]} Hundred ${backquote};
-            num %= 100;
+      memory: 39.8,
+      desc: '不符合题意，直接利用乘法除法计算',
+      code: `function divide(dividend: number, divisor: number): number {
+        const num =
+          Math.floor(Math.abs(dividend) / Math.abs(divisor)) * (divisor * dividend >= 0 ? 1 : -1);
+        return num >= (-2) ** 31 && num <= 2 ** 31 - 1 ? num : 2 ** 31 - 1;
+      }`,
+    },
+    {
+      script: Script.TS,
+      time: 92,
+      memory: 39.7,
+      desc: '利用^判断正负号，利用 num << i === num * 2 << i 来取值',
+      code: `function divide(dividend: number, divisor: number): number {
+        if (dividend === (-2) ** 31 && divisor === -1) return 2 ** 31 - 1;
+        if (dividend === (-2) ** 31 && divisor === 1) return dividend;
+        const flag = (dividend ^ divisor) < 0 ? -1 : 1;
+        dividend = Math.abs(dividend);
+        divisor = Math.abs(divisor);
+        let ans = 0;
+        for (let i = 31; i >= 0; i--) {
+          if (dividend >>> i >= divisor) {
+            ans += 1 << i;
+            dividend -= divisor << i;
           }
-          const highNum = Math.floor(num / 10);
-          const lowNum = num % 10;
-          if (highNum >= 2) {
-            ans += ${backquote}\${high[highNum]}${backquote};
-            if (lowNum > 0) ans += ${backquote} \${low[lowNum]} ${backquote};
-          } else if (highNum === 1) {
-            ans += ${backquote}\${mid[num - 10]} ${backquote};
-          } else {
-            ans += ${backquote}\${low[num]} ${backquote};
-          }
-          return ans.trimEnd();
         }
+        return flag * ans;
       }`,
     },
   ],
