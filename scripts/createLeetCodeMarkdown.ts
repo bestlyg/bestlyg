@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '29. 两数相除',
+  existMarkdown: true,
+  name: '28. 实现 strStr()',
   url: 'https://leetcode-cn.com/problems/divide-two-integers/',
   difficulty: Difficulty.中等,
   tag: [Tag.位运算, Tag.数学],
@@ -20,34 +20,49 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 39.8,
-      desc: '不符合题意，直接利用乘法除法计算',
-      code: `function divide(dividend: number, divisor: number): number {
-        const num =
-          Math.floor(Math.abs(dividend) / Math.abs(divisor)) * (divisor * dividend >= 0 ? 1 : -1);
-        return num >= (-2) ** 31 && num <= 2 ** 31 - 1 ? num : 2 ** 31 - 1;
+      time: 84,
+      memory: 41.8,
+      desc: 'kmp',
+      code: `function getNext(needle: string) {
+        const next: number[] = [-1];
+        for (let i = 1, j = -1; needle[i]; i++) {
+          while (j !== -1 && needle[j + 1] !== needle[i]) j = next[j];
+          if (needle[j + 1] === needle[i]) j++;
+          next[i] = j;
+        }
+        return next;
+      }
+      function strStr(haystack: string, needle: string): number {
+        if (needle.length === 0) return 0;
+        const next = getNext(needle);
+        for (let i = 0, j = -1; haystack[i]; i++) {
+          while (j !== -1 && needle[j + 1] !== haystack[i]) j = next[j];
+          if (needle[j + 1] === haystack[i]) j++;
+          if (!needle[j + 1]) return i - j;
+        }
+        return -1;
       }`,
     },
     {
       script: Script.TS,
-      time: 92,
-      memory: 39.7,
-      desc: '利用^判断正负号，利用 num << i === num * 2 << i 来取值',
-      code: `function divide(dividend: number, divisor: number): number {
-        if (dividend === (-2) ** 31 && divisor === -1) return 2 ** 31 - 1;
-        if (dividend === (-2) ** 31 && divisor === 1) return dividend;
-        const flag = (dividend ^ divisor) < 0 ? -1 : 1;
-        dividend = Math.abs(dividend);
-        divisor = Math.abs(divisor);
-        let ans = 0;
-        for (let i = 31; i >= 0; i--) {
-          if (dividend >>> i >= divisor) {
-            ans += 1 << i;
-            dividend -= divisor << i;
-          }
+      time: 1504,
+      memory: 42.3,
+      desc: 'sunday',
+      code: `function getMap(needle: string) {
+        const map: Record<string, number> = {};
+        for (let i = 0; needle[i]; i++) map[needle[i]] = i;
+        return (c: string) => map[c] ?? -1;
+      }
+      function strStr(haystack: string, needle: string): number {
+        if (needle.length === 0) return 0;
+        const len = needle.length;
+        const map = getMap(needle);
+        for (let i = 0; haystack[i]; i += len - map(haystack[i + len])) {
+          let j = 0;
+          while (needle[j] && haystack[i + j] === needle[j]) j++;
+          if (!needle[j]) return i;
         }
-        return flag * ans;
+        return -1;
       }`,
     },
   ],

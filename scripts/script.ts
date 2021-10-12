@@ -10,25 +10,28 @@ type Heap = structures.Heap;
 
 /*
  */
-function divide(dividend: number, divisor: number): number {
-  if (dividend === (-2) ** 31 && divisor === -1) return 2 ** 31 - 1;
-  const flag = (dividend ^ divisor) < 0 ? -1 : 1;
-  dividend = Math.abs(dividend);
-  divisor = Math.abs(divisor);
-  log({
-    dividend,
-    divisor,
-  });
-  let ans = 0;
-  for (let i = 31; i >= 0; i--) {
-    if (dividend >>> i >= divisor) {
-      ans += 1 << i;
-      dividend -= divisor << i;
-    }
+function getNext(str: string) {
+  const next: number[] = [-1];
+  for (let i = 1, j = -1; str[i]; i++) {
+    while (j !== -1 && str[j + 1] !== str[i]) j = next[j];
+    if (str[j + 1] === str[i]) j++;
+    next[i] = j;
   }
-  return flag * ans;
+  return next;
 }
-log([
-  // divide(10, 3), divide(-7, 3),
-  divide(-2147483648, 1),
-]);
+function repeatedSubstringPattern(s: string): boolean {
+  const next = getNext(s);
+  log({ next });
+  for (let i = 1, n = s.length; i < n; i++) {
+    log({
+      i,
+      next,
+      nextI: next[i],
+      head: s.substring(0, n - next[i]),
+      end: s.substring(next[i]),
+    });
+    if (next[i] > 0 && s.substring(0, n - next[i]) === s.substring(next[i])) return true;
+  }
+  return false;
+}
+log([repeatedSubstringPattern('abcabcabcabca')]);
