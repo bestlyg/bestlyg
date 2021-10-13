@@ -82,6 +82,7 @@ export enum Tag {
   最短路 = '最短路',
   模拟 = '模拟',
   水塘抽样 = '水塘抽样',
+  字符串匹配 = '字符串匹配',
 }
 export enum Script {
   JS = 'javascript',

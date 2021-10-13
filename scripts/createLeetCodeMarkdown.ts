@@ -12,29 +12,31 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '412. Fizz Buzz',
-  url: 'https://leetcode-cn.com/problems/fizz-buzz/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数学, Tag.字符串, Tag.模拟],
-  desc: `写一个程序，输出从 1 到 n 数字的字符串表示。1. 如果 n 是3的倍数，输出“Fizz”；2. 如果 n 是5的倍数，输出“Buzz”；3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。`,
+  name: '1392. 最长快乐前缀',
+  url: 'https://leetcode-cn.com/problems/longest-happy-prefix/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.字符串, Tag.字符串匹配, Tag.哈希函数, Tag.滚动哈希],
+  desc: `给你一个字符串 s，请你返回它的 最长快乐前缀。`,
   solutions: [
     {
       script: Script.TS,
-      time: 68,
-      memory: 39.8,
-      desc: '遍历',
-      code: `function fizzBuzz(n: number): string[] {
-        const ans: string[] = [];
-        for (let i = 1; i <= n; i++) {
-          let item = '';
-          if (i % 3 === 0) item += 'Fizz';
-          if (i % 5 === 0) item += 'Buzz';
-          if (!item) item += i;
-          ans.push(item);
+      time: 96,
+      memory: 50.1,
+      desc: 'kmp',
+      code: `function getNext(str: string) {
+        const next = [-1];
+        for (let i = 1, j = -1; str[i]; i++) {
+          while (j !== -1 && str[i] !== str[j + 1]) j = next[j];
+          if (str[i] === str[j + 1]) j++;
+          next[i] = j;
         }
-        return ans;
+        return next;
       }
-      `,
+      function longestPrefix(s: string): string {
+        const next = getNext(s);
+        const last = next[s.length - 1];
+        return last === -1 ? '' : s.substring(0, last + 1);
+      }`,
     },
   ],
 };

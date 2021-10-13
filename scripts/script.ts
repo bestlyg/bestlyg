@@ -10,14 +10,24 @@ type Heap = structures.Heap;
 
 /*
  */
-function fizzBuzz(n: number): string[] {
-  const ans: string[] = [];
-  for (let i = 1; i <= n; i++) {
-    let item = '';
-    if (i % 3 === 0) item += 'FiZZ';
-    if (i % 5 === 0) item += 'FizzBuzz';
-    if (!item) item += i;
-    ans.push(item);
+function getNext(str: string) {
+  const next = [-1];
+  for (let i = 1, j = -1; str[i]; i++) {
+    while (j !== -1 && str[i] !== str[j + 1]) j = next[j];
+    if (str[i] === str[j + 1]) j++;
+    next[i] = j;
   }
-  return ans;
+  return next;
 }
+function longestPrefix(s: string): string {
+  const next = getNext(s);
+  const last = next[s.length - 1];
+  return last === -1 ? '' : s.substring(0, last + 1);
+}
+log([
+  longestPrefix('level'),
+  longestPrefix('leetcodeleet'),
+  longestPrefix('bba'),
+  longestPrefix('acccbaaacccbaac'),
+  longestPrefix('ccabcbbacbcbbacccabaabcccabcbbacbcbbac'),
+]);
