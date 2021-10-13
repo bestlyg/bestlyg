@@ -10,28 +10,14 @@ type Heap = structures.Heap;
 
 /*
  */
-function getNext(str: string) {
-  const next: number[] = [-1];
-  for (let i = 1, j = -1; str[i]; i++) {
-    while (j !== -1 && str[j + 1] !== str[i]) j = next[j];
-    if (str[j + 1] === str[i]) j++;
-    next[i] = j;
+function fizzBuzz(n: number): string[] {
+  const ans: string[] = [];
+  for (let i = 1; i <= n; i++) {
+    let item = '';
+    if (i % 3 === 0) item += 'FiZZ';
+    if (i % 5 === 0) item += 'FizzBuzz';
+    if (!item) item += i;
+    ans.push(item);
   }
-  return next;
+  return ans;
 }
-function repeatedSubstringPattern(s: string): boolean {
-  const next = getNext(s);
-  log({ next });
-  for (let i = 1, n = s.length; i < n; i++) {
-    log({
-      i,
-      next,
-      nextI: next[i],
-      head: s.substring(0, n - next[i]),
-      end: s.substring(next[i]),
-    });
-    if (next[i] > 0 && s.substring(0, n - next[i]) === s.substring(next[i])) return true;
-  }
-  return false;
-}
-log([repeatedSubstringPattern('abcabcabcabca')]);

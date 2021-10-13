@@ -11,59 +11,30 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '28. 实现 strStr()',
-  url: 'https://leetcode-cn.com/problems/divide-two-integers/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数学],
-  desc: `给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。`,
+  existMarkdown: !true,
+  name: '412. Fizz Buzz',
+  url: 'https://leetcode-cn.com/problems/fizz-buzz/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数学, Tag.字符串, Tag.模拟],
+  desc: `写一个程序，输出从 1 到 n 数字的字符串表示。1. 如果 n 是3的倍数，输出“Fizz”；2. 如果 n 是5的倍数，输出“Buzz”；3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。`,
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 41.8,
-      desc: 'kmp',
-      code: `function getNext(needle: string) {
-        const next: number[] = [-1];
-        for (let i = 1, j = -1; needle[i]; i++) {
-          while (j !== -1 && needle[j + 1] !== needle[i]) j = next[j];
-          if (needle[j + 1] === needle[i]) j++;
-          next[i] = j;
+      time: 68,
+      memory: 39.8,
+      desc: '遍历',
+      code: `function fizzBuzz(n: number): string[] {
+        const ans: string[] = [];
+        for (let i = 1; i <= n; i++) {
+          let item = '';
+          if (i % 3 === 0) item += 'Fizz';
+          if (i % 5 === 0) item += 'Buzz';
+          if (!item) item += i;
+          ans.push(item);
         }
-        return next;
+        return ans;
       }
-      function strStr(haystack: string, needle: string): number {
-        if (needle.length === 0) return 0;
-        const next = getNext(needle);
-        for (let i = 0, j = -1; haystack[i]; i++) {
-          while (j !== -1 && needle[j + 1] !== haystack[i]) j = next[j];
-          if (needle[j + 1] === haystack[i]) j++;
-          if (!needle[j + 1]) return i - j;
-        }
-        return -1;
-      }`,
-    },
-    {
-      script: Script.TS,
-      time: 1504,
-      memory: 42.3,
-      desc: 'sunday',
-      code: `function getMap(needle: string) {
-        const map: Record<string, number> = {};
-        for (let i = 0; needle[i]; i++) map[needle[i]] = i;
-        return (c: string) => map[c] ?? -1;
-      }
-      function strStr(haystack: string, needle: string): number {
-        if (needle.length === 0) return 0;
-        const len = needle.length;
-        const map = getMap(needle);
-        for (let i = 0; haystack[i]; i += len - map(haystack[i + len])) {
-          let j = 0;
-          while (needle[j] && haystack[i + j] === needle[j]) j++;
-          if (!needle[j]) return i;
-        }
-        return -1;
-      }`,
+      `,
     },
   ],
 };
