@@ -11,8 +11,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '剑指 Offer II 069. 山峰数组的顶部',
+  existMarkdown: true,
+  name: '1392. 最长快乐前缀',
   url: 'https://leetcode-cn.com/problems/B1IidL/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.二分查找],
@@ -20,39 +20,17 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 76,
-      memory: 40.2,
-      desc: '遍历',
-      code: `function peakIndexInMountainArray(arr: number[]): number {
-        let ans = 0;
-        for (let i = 0, l = arr.length; i < l; i++) ans = arr[i] > arr[ans] ? i : ans;
-        return ans;
-      }
-      `,
-    },
-    {
-      script: Script.TS,
-      time: 68,
-      memory: 40.1,
-      desc: '二分',
-      code: `function peakIndexInMountainArray(arr: number[]): number {
-        return find(0, arr.length - 1);
-        function find(l: number, r: number): number {
-          if (l >= r) return l;
-          const lnum = arr[l];
-          const rnum = arr[r];
-          const mid = (l + r) >> 1;
-          const midnum = arr[mid];
-          if (midnum > lnum && midnum > rnum) {
-            const i1 = find(l, mid);
-            const i2 = find(mid, r);
-            return arr[i1] > arr[i2] ? i1 : i2;
-          } else if (midnum <= rnum) {
-            return find(mid + 1, r);
-          } else {
-            return find(l, mid - 1);
-          }
+      time: 96,
+      memory: 49.9,
+      desc: 'kmp',
+      code: `function longestPrefix(s: string): string {
+        const next = [-1];
+        for (let i = 1, j = -1; s[i]; i++) {
+          while (j !== -1 && s[i] !== s[j + 1]) j = next[j];
+          if (s[i] === s[j + 1]) j++;
+          next[i] = j;
         }
+        return s.substring(0, next[s.length - 1] + 1);
       }`,
     },
   ],
