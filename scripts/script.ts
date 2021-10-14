@@ -10,24 +10,32 @@ type Heap = structures.Heap;
 
 /*
  */
-function getNext(str: string) {
-  const next = [-1];
-  for (let i = 1, j = -1; str[i]; i++) {
-    while (j !== -1 && str[i] !== str[j + 1]) j = next[j];
-    if (str[i] === str[j + 1]) j++;
-    next[i] = j;
+function peakIndexInMountainArray(arr: number[]): number {
+  return find(0, arr.length - 1);
+  function find(l: number, r: number): number {
+    log({ l, r, mid: (l + r) >> 1 });
+    if (l >= r) return l;
+    const lnum = arr[l];
+    const rnum = arr[r];
+    // if (l - r === 1) return lnum > rnum ? l : r;
+    const mid = (l + r) >> 1;
+    const midnum = arr[mid];
+    if (midnum > lnum && midnum > rnum) {
+      const i1 = find(l, mid);
+      const i2 = find(mid, r);
+      return arr[i1] > arr[i2] ? i1 : i2;
+    } else if (midnum <= rnum) {
+      return find(mid + 1, r);
+    } else {
+      return find(l, mid - 1);
+    }
   }
-  return next;
-}
-function longestPrefix(s: string): string {
-  const next = getNext(s);
-  const last = next[s.length - 1];
-  return last === -1 ? '' : s.substring(0, last + 1);
 }
 log([
-  longestPrefix('level'),
-  longestPrefix('leetcodeleet'),
-  longestPrefix('bba'),
-  longestPrefix('acccbaaacccbaac'),
-  longestPrefix('ccabcbbacbcbbacccabaabcccabcbbacbcbbac'),
+  // peakIndexInMountainArray([0, 1, 0]),
+  // peakIndexInMountainArray([1, 3, 5, 4, 2]),
+  // peakIndexInMountainArray([0, 10, 5, 2]),
+  // peakIndexInMountainArray([3, 4, 5, 1]),
+  // peakIndexInMountainArray([24, 69, 100, 99, 79, 78, 67, 36, 26, 19]),
+  peakIndexInMountainArray([3, 5, 3, 2, 0]),
 ]);

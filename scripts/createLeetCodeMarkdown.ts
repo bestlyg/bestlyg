@@ -12,30 +12,47 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: !true,
-  name: '1392. 最长快乐前缀',
-  url: 'https://leetcode-cn.com/problems/longest-happy-prefix/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.字符串, Tag.字符串匹配, Tag.哈希函数, Tag.滚动哈希],
-  desc: `给你一个字符串 s，请你返回它的 最长快乐前缀。`,
+  name: '剑指 Offer II 069. 山峰数组的顶部',
+  url: 'https://leetcode-cn.com/problems/B1IidL/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.二分查找],
+  desc: `给定由整数组成的山峰数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i ，即山峰顶部。`,
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 50.1,
-      desc: 'kmp',
-      code: `function getNext(str: string) {
-        const next = [-1];
-        for (let i = 1, j = -1; str[i]; i++) {
-          while (j !== -1 && str[i] !== str[j + 1]) j = next[j];
-          if (str[i] === str[j + 1]) j++;
-          next[i] = j;
-        }
-        return next;
+      time: 76,
+      memory: 40.2,
+      desc: '遍历',
+      code: `function peakIndexInMountainArray(arr: number[]): number {
+        let ans = 0;
+        for (let i = 0, l = arr.length; i < l; i++) ans = arr[i] > arr[ans] ? i : ans;
+        return ans;
       }
-      function longestPrefix(s: string): string {
-        const next = getNext(s);
-        const last = next[s.length - 1];
-        return last === -1 ? '' : s.substring(0, last + 1);
+      `,
+    },
+    {
+      script: Script.TS,
+      time: 68,
+      memory: 40.1,
+      desc: '二分',
+      code: `function peakIndexInMountainArray(arr: number[]): number {
+        return find(0, arr.length - 1);
+        function find(l: number, r: number): number {
+          if (l >= r) return l;
+          const lnum = arr[l];
+          const rnum = arr[r];
+          const mid = (l + r) >> 1;
+          const midnum = arr[mid];
+          if (midnum > lnum && midnum > rnum) {
+            const i1 = find(l, mid);
+            const i2 = find(mid, r);
+            return arr[i1] > arr[i2] ? i1 : i2;
+          } else if (midnum <= rnum) {
+            return find(mid + 1, r);
+          } else {
+            return find(l, mid - 1);
+          }
+        }
       }`,
     },
   ],
