@@ -1,7 +1,7 @@
 import { WEBGL } from '@bestlyg/shared';
 import React, { useEffect, useRef } from 'react';
 import { useEventListener } from 'ahooks';
-import skyJpg from './images/sky.jpg';
+import { sky } from '../assets';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute float a_PointSize;
@@ -131,7 +131,7 @@ export default function StarDrawWebgl() {
     <canvas
       ref={canvasRef}
       style={{
-        background: `url(${skyJpg})`,
+        background: `url(${sky.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'right bottom',
       }}
