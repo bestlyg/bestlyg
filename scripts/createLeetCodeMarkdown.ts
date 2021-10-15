@@ -11,26 +11,34 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: true,
-  name: '1392. 最长快乐前缀',
-  url: 'https://leetcode-cn.com/problems/B1IidL/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: `给定由整数组成的山峰数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i ，即山峰顶部。`,
+  existMarkdown: !true,
+  name: '38. 外观数列',
+  url: 'https://leetcode-cn.com/problems/count-and-say/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.字符串],
+  desc: `给定一个正整数 n ，输出外观数列的第 n 项。`,
   solutions: [
     {
       script: Script.TS,
-      time: 96,
-      memory: 49.9,
-      desc: 'kmp',
-      code: `function longestPrefix(s: string): string {
-        const next = [-1];
-        for (let i = 1, j = -1; s[i]; i++) {
-          while (j !== -1 && s[i] !== s[j + 1]) j = next[j];
-          if (s[i] === s[j + 1]) j++;
-          next[i] = j;
+      time: 80,
+      memory: 40.1,
+      desc: '递归层级',
+      code: `function countAndSay(n: number): string {
+        return findNext();
+        function findNext(str = '1', level = n): string {
+          if (level === 1) return str;
+          let next = '';
+          for (let i = 0, l = str.length; i < l; i++) {
+            const ch = str[i];
+            let cnt = 1;
+            while (i < l - 1 && str[i + 1] === ch) {
+              i++;
+              cnt++;
+            }
+            next += cnt + ch;
+          }
+          return findNext(next, level - 1);
         }
-        return s.substring(0, next[s.length - 1] + 1);
       }`,
     },
   ],
