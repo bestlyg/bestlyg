@@ -1,1 +1,1 @@
-export { default as OrthographicControls } from './OrthographicControls';
+export { default as OrthographicOrbitControls } from './OrthographicOrbitControls';
