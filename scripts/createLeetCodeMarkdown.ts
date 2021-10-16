@@ -11,33 +11,50 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
-  existMarkdown: !true,
-  name: '38. 外观数列',
-  url: 'https://leetcode-cn.com/problems/count-and-say/',
+  existMarkdown: true,
+  name: '12. 整数转罗马数字',
+  url: 'https://leetcode-cn.com/problems/one-away-lcci/',
   difficulty: Difficulty.中等,
-  tag: [Tag.字符串],
-  desc: `给定一个正整数 n ，输出外观数列的第 n 项。`,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。`,
   solutions: [
     {
       script: Script.TS,
-      time: 80,
-      memory: 40.1,
-      desc: '递归层级',
-      code: `function countAndSay(n: number): string {
-        return findNext();
-        function findNext(str = '1', level = n): string {
-          if (level === 1) return str;
-          let next = '';
-          for (let i = 0, l = str.length; i < l; i++) {
-            const ch = str[i];
-            let cnt = 1;
-            while (i < l - 1 && str[i + 1] === ch) {
-              i++;
-              cnt++;
-            }
-            next += cnt + ch;
+      time: 148,
+      memory: 44.2,
+      desc: '模拟',
+      code: `function intToRoman(num: number): string {
+        let ans = '';
+        const list: { val: number; template: [string, string, string] }[] = [
+          {
+            val: 1000,
+            template: ['M', 'M', 'M'],
+          },
+          {
+            val: 100,
+            template: ['M', 'D', 'C'],
+          },
+          {
+            val: 10,
+            template: ['C', 'L', 'X'],
+          },
+          {
+            val: 1,
+            template: ['X', 'V', 'I'],
+          },
+        ];
+        for (const { val, template } of list) {
+          if (num >= val) {
+            ans += createStr(Math.floor(num / val), ...template);
+            num %= val;
           }
-          return findNext(next, level - 1);
+        }
+        return ans;
+        function createStr(num: number, hight: string, mid: string, low: string) {
+          if (num <= 3) return low.repeat(num);
+          else if (num <= 5) return low.repeat(5 - num) + mid;
+          else if (num <= 8) return mid + low.repeat(num - 5);
+          else return low + hight;
         }
       }`,
     },
