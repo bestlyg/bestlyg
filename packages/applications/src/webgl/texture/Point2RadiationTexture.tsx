@@ -1,5 +1,5 @@
-import { WEBGL, angleToRad } from '@bestlyg/shared';
-import React, { useEffect, useRef, useState } from 'react';
+import { WEBGL } from '@bestlyg/shared';
+import React, { useEffect, useRef } from 'react';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 void main(){

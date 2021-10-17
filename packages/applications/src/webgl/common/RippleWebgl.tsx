@@ -1,6 +1,5 @@
-import { WEBGL, angleToRad, line, sin } from '@bestlyg/shared';
-import React, { useEffect, useRef, useState } from 'react';
-import { useEventListener, useCreation } from 'ahooks';
+import { WEBGL, line, sin } from '@bestlyg/shared';
+import React, { useEffect, useRef } from 'react';
 import { Matrix4, Vector3 } from 'three';
 const vertexShaderSource = `
 attribute vec4 a_Position;

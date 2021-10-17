@@ -1,7 +1,14 @@
-import { useRef, useCallback } from 'react';
-import { Matrix4, OrthographicCamera, Vector2, Vector3, Spherical, Quaternion } from 'three';
+import { useRef } from 'react';
+import {
+  Matrix4,
+  OrthographicCamera,
+  Vector2,
+  Vector3,
+  Spherical,
+  Quaternion,
+  MathUtils,
+} from 'three';
 import { useEventListener, useCreation, usePersistFn, useMount } from 'ahooks';
-import { clamp } from 'lodash';
 /** 控制器状态 */
 enum ControlsState {
   NONE,
@@ -121,7 +128,7 @@ export function useOrthographicOrbitControls({
       spherical.theta -= (Math.PI * 2 * delta.x) / canvas.height;
     }
     if (rotateDirection.includes('y')) {
-      spherical.phi = clamp(
+      spherical.phi = MathUtils.clamp(
         spherical.phi - (Math.PI * 2 * delta.y) / canvas.height,
         0.000000001,
         Math.PI * 2 * 0.999999999
