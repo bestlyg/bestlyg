@@ -12,7 +12,7 @@ type Markdown = leetcode.Markdown;
 
 const md: Markdown = {
   existMarkdown: true,
-  name: '12. 整数转罗马数字',
+  name: '230. 二叉搜索树中第K小的元素',
   url: 'https://leetcode-cn.com/problems/one-away-lcci/',
   difficulty: Difficulty.中等,
   tag: [Tag.双指针, Tag.字符串],
@@ -20,41 +20,21 @@ const md: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 148,
-      memory: 44.2,
-      desc: '模拟',
-      code: `function intToRoman(num: number): string {
-        let ans = '';
-        const list: { val: number; template: [string, string, string] }[] = [
-          {
-            val: 1000,
-            template: ['M', 'M', 'M'],
-          },
-          {
-            val: 100,
-            template: ['M', 'D', 'C'],
-          },
-          {
-            val: 10,
-            template: ['C', 'L', 'X'],
-          },
-          {
-            val: 1,
-            template: ['X', 'V', 'I'],
-          },
-        ];
-        for (const { val, template } of list) {
-          if (num >= val) {
-            ans += createStr(Math.floor(num / val), ...template);
-            num %= val;
-          }
-        }
+      time: 100,
+      memory: 44.7,
+      desc: '中序遍历',
+      code: `function kthSmallest(root: TreeNode | null, k: number): number {
+        let ans!: number;
+        dfs(root);
         return ans;
-        function createStr(num: number, hight: string, mid: string, low: string) {
-          if (num <= 3) return low.repeat(num);
-          else if (num <= 5) return low.repeat(5 - num) + mid;
-          else if (num <= 8) return mid + low.repeat(num - 5);
-          else return low + hight;
+        function dfs(node: TreeNode | null): void {
+          if (node === null) return;
+          dfs(node.left);
+          if (--k === 0) {
+            ans = node.val;
+            return;
+          }
+          dfs(node.right);
         }
       }`,
     },
