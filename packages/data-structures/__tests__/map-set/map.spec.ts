@@ -30,15 +30,34 @@ function run(Cstr: new (compare) => Map<number, string>) {
       [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
         map.set(v, v + '');
       });
+      expect(map.remove(103)).toBeFalsy();
       new Array(7)
         .fill(0)
         .map((_, i) => i + 1)
         .sort(() => Math.random() - 0.5)
         .forEach((v, i) => {
-          map.remove(v);
+          expect(map.remove(v)).toBeTruthy();
           expect(map.contains(v)).toBeFalsy();
           expect(map.size).toBe(6 - i);
         });
+      expect(map.remove(13)).toBeFalsy();
+    });
+    test('spec remove', () => {
+      [1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7, 7, 7].forEach(v => {
+        map.set(v, v + '');
+      });
+      // 103 7 hash值相同
+      expect(map.remove(103)).toBeFalsy();
+      new Array(7)
+        .fill(0)
+        .map((_, i) => i + 1)
+        .sort(() => Math.random() - 0.5)
+        .forEach((v, i) => {
+          expect(map.remove(v)).toBeTruthy();
+          expect(map.contains(v)).toBeFalsy();
+          expect(map.size).toBe(6 - i);
+        });
+      expect(map.remove(13)).toBeFalsy();
     });
     test('get', () => {
       let str = '';
@@ -226,6 +245,11 @@ function run(Cstr: new (compare) => Map<number, string>) {
         const removeList = [24];
         removeList.forEach(v => map.remove(v));
         [80, 50, 90, 60, 95].forEach(v => expect(map.contains(v)).toBeTruthy());
+      });
+      test('test29', () => {
+        const list = [10, 50, 100, 60, 180, 55, 54];
+        list.forEach(v => map.set(v, v + ''));
+        expect(map.size).toBe(7);
       });
     });
   });

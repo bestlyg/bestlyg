@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { repeat } from 'lodash';
 import { IRBTree } from './rbTree';
 const BLACK = false;

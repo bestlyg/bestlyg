@@ -5,6 +5,7 @@ type Color = boolean;
 const isRed = (node: TreeMapNode<any, any> | null) => node?.color === RED;
 const isBlack = (node: TreeMapNode<any, any> | null) => node === null || node?.color === BLACK;
 const setColor = (node: TreeMapNode<any, any> | null, color: Color) => {
+  /* istanbul ignore next */
   if (node) node.color = color;
 };
 const setRed = (node: TreeMapNode<any, any> | null) => setColor(node, RED);
@@ -14,9 +15,6 @@ export class TreeMapNode<K, V> {
   left: TreeMapNode<K, V> | null = null;
   right: TreeMapNode<K, V> | null = null;
   constructor(public key: K, public val: V, public parent: TreeMapNode<K, V> | null = null) {}
-  toString() {
-    return this.val + (isRed(this) ? '(R)' : '');
-  }
 }
 export class TreeMap<K, V> implements Map<K, V> {
   private _size = 0;
