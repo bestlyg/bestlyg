@@ -10,18 +10,14 @@ type Heap = structures.Heap;
 
 /*
  */
-function kthSmallest(root: TreeNode | null, k: number): number {
-  let ans!: number;
-  dfs(root);
-  return ans;
-  function dfs(node: TreeNode | null): void {
-    if (node === null) return;
-    dfs(node.left);
-    if (--k === 0) {
-      ans = node.val;
-      return;
-    }
-    dfs(node.right);
+function findComplement(num: number): number {
+  let bit = 0;
+  for (; bit <= 30; bit++) {
+    if (num < 1 << bit) break;
   }
+  if (bit === 31) bit = 0x7fffffff;
+  bit = (1 << bit) - 1;
+  log({ bit, bit2: bit.toString(2) });
+  return bit ^ num;
 }
-log([kthSmallest(TreeNode.factory([3, 1, 4, null, 2]), 3)]);
+log([findComplement(5)]);
