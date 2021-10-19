@@ -1,5 +1,5 @@
 import { Size } from './types';
-export class Webgl {
+export class WebglProgram {
   private _canvas: HTMLCanvasElement;
   get canvas() {
     return this._canvas;
@@ -8,7 +8,7 @@ export class Webgl {
   get canvasSize() {
     return this._canvasSize;
   }
-  set canvasSize(v: Webgl['_canvasSize']) {
+  set canvasSize(v: WebglProgram['_canvasSize']) {
     this._canvasSize = v;
     this._canvas.width = v[0];
     this._canvas.height = v[1];
@@ -25,7 +25,7 @@ export class Webgl {
   get color() {
     return this._color;
   }
-  set color(color: Webgl['_color']) {
+  set color(color: WebglProgram['_color']) {
     this.context.clearColor(...color);
     this._color = color;
   }
@@ -39,8 +39,8 @@ export class Webgl {
     canvas: HTMLCanvasElement;
     vertexShaderSource: string;
     fragmentShaderSource: string;
-    color?: Webgl['color'];
-    canvasSize?: Webgl['canvasSize'];
+    color?: WebglProgram['color'];
+    canvasSize?: WebglProgram['canvasSize'];
   }) {
     this._canvas = canvas;
     this.canvasSize = canvasSize;

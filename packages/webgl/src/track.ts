@@ -1,5 +1,5 @@
 import { Animation } from './types';
-import { line } from '../functions';
+import { line } from './utils';
 import { Compose } from './compose';
 
 export class Track extends Compose {

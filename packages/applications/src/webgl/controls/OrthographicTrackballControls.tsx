@@ -1,11 +1,11 @@
-import { WEBGL } from '@bestlyg/shared';
+import { WebglProgram, controls, Poly } from '@bestlyg/webgl';
 import { useCreation, usePersistFn, useMount, useEventListener } from 'ahooks';
 import React, { useRef, useEffect } from 'react';
 import { Vector3, OrthographicCamera, Quaternion, Matrix4, Vector2 } from 'three';
 import { cube } from '../assets';
 
-type ControlsState = WEBGL.ControlsState;
-const { ControlsState } = WEBGL;
+type ControlsState = controls.ControlsState;
+const { ControlsState } = controls;
 function useOrthographicTrackballControls({
   canvasRef,
   onUpdated,
@@ -198,8 +198,8 @@ void main(){
 
 export default function OrthographicTrackballControls() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
-  const polyRef = useRef<WEBGL.Poly>();
+  const webglRef = useRef<WebglProgram>();
+  const polyRef = useRef<Poly>();
   const { mat } = useOrthographicTrackballControls({
     canvasRef,
     onUpdated: () => {
@@ -211,7 +211,7 @@ export default function OrthographicTrackballControls() {
   });
   useEffect(() => {
     if (!canvasRef.current) return;
-    const webgl = (webglRef.current = new WEBGL.Webgl({
+    const webgl = (webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
@@ -221,7 +221,7 @@ export default function OrthographicTrackballControls() {
     context.enable(context.CULL_FACE);
     // context.enable(context.DEPTH_TEST);
     webgl.clear();
-    const poly = (polyRef.current = new WEBGL.Poly(
+    const poly = (polyRef.current = new Poly(
       webglRef.current!,
       cube.source,
       ['TRIANGLES'],

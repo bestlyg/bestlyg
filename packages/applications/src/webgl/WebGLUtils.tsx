@@ -1,10 +1,10 @@
 import { Card, Row, Space, Input, Col } from 'antd';
 import React, { useState, useMemo } from 'react';
-import { Color } from 'three';
+import { THREE } from '@bestlyg/webgl';
 
 function TransformColor() {
   const [input, setInput] = useState('#FEE140');
-  const color = useMemo(() => new Color(input), [input]);
+  const color = useMemo(() => new THREE.Color(input), [input]);
   return (
     <Card title="颜色转换">
       <Space direction="vertical">

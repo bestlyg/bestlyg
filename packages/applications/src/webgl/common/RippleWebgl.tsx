@@ -1,6 +1,8 @@
-import { WEBGL, line, sin } from '@bestlyg/shared';
 import React, { useEffect, useRef } from 'react';
-import { Matrix4, Vector3 } from 'three';
+import { utils, THREE, Poly, WebglProgram, Track } from '@bestlyg/webgl';
+
+const { Matrix4, Vector3 } = THREE;
+const { sin, line } = utils;
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute float a_PointSize;
@@ -83,12 +85,12 @@ const init = () => {
 };
 export default function StarDrawWebgl() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
-  const polyRef = useRef<WEBGL.Poly>();
-  const trackRef = useRef<WEBGL.Track>();
+  const webglRef = useRef<WebglProgram>();
+  const polyRef = useRef<Poly>();
+  const trackRef = useRef<Track>();
   useEffect(() => {
     if (!canvasRef.current) return;
-    const track = (trackRef.current = new WEBGL.Track(data, []));
+    const track = (trackRef.current = new Track(data, []));
     const { lineX, lineZ, lineR, lineG, lineB } = init();
     for (let i = 0, l = data.length; i < l; i += categorySize) {
       const x = data[i];
@@ -100,7 +102,7 @@ export default function StarDrawWebgl() {
         data[i + 6] = lineB(y);
       });
     }
-    const webgl = (webglRef.current = new WEBGL.Webgl({
+    const webgl = (webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
@@ -111,7 +113,7 @@ export default function StarDrawWebgl() {
     ctx.enable(ctx.BLEND);
     ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE_MINUS_SRC_ALPHA);
     ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE);
-    const poly = (polyRef.current = new WEBGL.Poly(
+    const poly = (polyRef.current = new Poly(
       webglRef.current,
       data,
       ['TRIANGLES', 'LINES'],

@@ -16,6 +16,7 @@ module.exports = {
     { name: '个人博客' },
     { name: '数据结构' },
     { name: '算法' },
+    { name: 'WebGL' },
     { name: '力扣题解' },
     { name: '应用合集' },
     { name: 'Node服务器' },

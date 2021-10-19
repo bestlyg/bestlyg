@@ -1,5 +1,3 @@
-import { Track } from './track';
-
 export class Compose {
   private parent: Compose | null = null;
   private children: Compose[] = [];

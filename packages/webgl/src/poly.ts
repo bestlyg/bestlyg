@@ -1,6 +1,6 @@
-import { ASYNC } from '../constants';
+import { ASYNC } from '@bestlyg/shared';
 import { Attribute, DrawTypes, Texture, Uniform } from './types';
-import { Webgl } from './webgl';
+import { WebglProgram } from './webglProgram';
 
 export class Poly {
   /** 载入数据 */
@@ -43,7 +43,7 @@ export class Poly {
   }
   constructor(
     /** 程序上下文 */
-    private instance: Webgl,
+    private instance: WebglProgram,
     /** 源数据数组 */
     public data: number[],
     /** 绘图方式 */

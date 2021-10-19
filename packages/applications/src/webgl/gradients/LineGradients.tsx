@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { WEBGL } from '@bestlyg/shared';
+import { Poly, WebglProgram } from '@bestlyg/webgl';
 import styles from './styles.less';
 import { Color } from 'three';
 import { Space, InputNumber, Row } from 'antd';
@@ -53,8 +53,8 @@ const posList = [
 const posItemList = ['X', 'Y'];
 export default function LineGradients() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
-  const polyRef = useRef<WEBGL.Poly>();
+  const webglRef = useRef<WebglProgram>();
+  const polyRef = useRef<Poly>();
   const [data, setData] = useState<Record<string, number[]>>({
     u_ColorStart: [...new Color('#FAD961').toArray(), 1],
     u_ColorMid: [...new Color('#F76B1C').toArray(), 1],
@@ -64,13 +64,13 @@ export default function LineGradients() {
     u_End: [CANVAS_SIZE, CANVAS_SIZE],
   });
   useEffect(() => {
-    webglRef.current = new WEBGL.Webgl({
+    webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
       canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
     });
-    polyRef.current = new WEBGL.Poly(
+    polyRef.current = new Poly(
       webglRef.current,
       [-1, 1, -1, -1, 1, 1, 1, -1],
       ['TRIANGLE_STRIP'],

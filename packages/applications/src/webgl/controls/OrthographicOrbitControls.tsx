@@ -1,12 +1,12 @@
-import { WEBGL } from '@bestlyg/shared';
+import { WebglProgram, controls, Poly } from '@bestlyg/webgl';
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { cube } from '../assets';
 import { Checkbox, Radio, Space } from 'antd';
 import { useCreation, usePersistFn, useMount, useEventListener } from 'ahooks';
 import { Vector3, OrthographicCamera, Spherical, Matrix4, Vector2, MathUtils } from 'three';
 
-type ControlsState = WEBGL.ControlsState;
-const { ControlsState } = WEBGL;
+type ControlsState = controls.ControlsState;
+const { ControlsState } = controls;
 function useOrthographicOrbitControls({
   canvasRef,
   onUpdated,
@@ -198,8 +198,8 @@ void main(){
 
 export default function OrthographicCameraControls() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
-  const polyRef = useRef<WEBGL.Poly>();
+  const webglRef = useRef<WebglProgram>();
+  const polyRef = useRef<Poly>();
   const [controlForm, setControlForm] = useState<{
     right: [boolean, number];
     left: [boolean, boolean];
@@ -241,7 +241,7 @@ export default function OrthographicCameraControls() {
   });
   useEffect(() => {
     if (!canvasRef.current) return;
-    const webgl = (webglRef.current = new WEBGL.Webgl({
+    const webgl = (webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
@@ -251,7 +251,7 @@ export default function OrthographicCameraControls() {
     context.enable(context.CULL_FACE);
     // context.enable(context.DEPTH_TEST);
     webgl.clear();
-    const poly = (polyRef.current = new WEBGL.Poly(
+    const poly = (polyRef.current = new Poly(
       webglRef.current!,
       cube.source,
       ['TRIANGLES'],

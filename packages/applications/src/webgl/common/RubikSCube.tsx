@@ -1,7 +1,8 @@
-import { WEBGL } from '@bestlyg/shared';
 import React, { useEffect, useRef } from 'react';
-import { Matrix4 } from 'three';
 import { cube } from '../assets';
+import { THREE, Poly, WebglProgram } from '@bestlyg/webgl';
+
+const { Matrix4 } = THREE;
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute vec2 a_Pin;
@@ -22,10 +23,10 @@ void main(){
 `;
 export default function RubikSCube() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
+  const webglRef = useRef<WebglProgram>();
   useEffect(() => {
     if (!canvasRef.current) return;
-    const webgl = (webglRef.current = new WEBGL.Webgl({
+    const webgl = (webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
@@ -41,7 +42,7 @@ export default function RubikSCube() {
       new Matrix4().makeRotationZ(0.01),
     ];
     webgl.clear();
-    const poly = new WEBGL.Poly(
+    const poly = new Poly(
       webglRef.current!,
       cube.source,
       ['TRIANGLES'],

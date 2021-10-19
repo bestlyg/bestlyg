@@ -1,4 +1,4 @@
-import { WEBGL } from '@bestlyg/shared';
+import { Poly, WebglProgram } from '@bestlyg/webgl';
 import React, { useEffect, useRef, useState } from 'react';
 const vertexShaderSource = `
 attribute vec4 a_Position;
@@ -22,16 +22,16 @@ void main(){
 const CANVAS_SIZE = 300;
 export default function SinRadiationTexture() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WEBGL.Webgl>();
-  const polyRef = useRef<WEBGL.Poly>();
+  const webglRef = useRef<WebglProgram>();
+  const polyRef = useRef<Poly>();
   useEffect(() => {
-    webglRef.current = new WEBGL.Webgl({
+    webglRef.current = new WebglProgram({
       canvas: canvasRef.current!,
       vertexShaderSource,
       fragmentShaderSource,
       canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
     });
-    polyRef.current = new WEBGL.Poly(
+    polyRef.current = new Poly(
       webglRef.current,
       [-1, 1, -1, -1, 1, 1, 1, -1],
       ['TRIANGLE_STRIP'],
