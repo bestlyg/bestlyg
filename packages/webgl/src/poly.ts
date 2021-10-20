@@ -43,7 +43,7 @@ export class Poly {
     for (const v of this.uniforms) map[v.name] = v;
     return map;
   }
-  private _async: Promise<void> | null = null;
+  private _async: Promise<void> = ASYNC;
   get async() {
     return this._async;
   }

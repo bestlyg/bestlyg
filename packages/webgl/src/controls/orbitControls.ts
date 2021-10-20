@@ -1,28 +1,53 @@
-import { OrthographicCamera, PerspectiveCamera, Vector2, Spherical, Vector3 } from 'three';
+import {
+  OrthographicCamera,
+  PerspectiveCamera,
+  Vector2,
+  Spherical,
+  Vector3,
+  MathUtils,
+} from 'three';
 import { Controls } from './base';
-import { Direction, State } from './types';
+import { Direction } from './types';
 export class OrbitControls extends Controls {
   private spherical = new Spherical();
   constructor(canvas: HTMLCanvasElement, camera: OrthographicCamera | PerspectiveCamera) {
     super(canvas, camera);
   }
-  private updateSpherical() {
-    this.spherical.setFromVector3(this.camera.position.clone().sub(this.target));
-  }
   protected panOrthographicCamera({ x, y }: Vector2) {
     const {
       canvasSize: [canvasWidth, canvasHeight],
-      screenSpacePanning,
-      panOffset,
       camera,
-      panDirection,
     } = this;
-    const { left, right, top, bottom, matrix, up } = camera as OrthographicCamera;
+    const { left, right, top, bottom } = camera as OrthographicCamera;
     const [cameraWidth, cameraHeight] = [right - left, top - bottom];
     const [distanceX, distanceY] = [
       (x / canvasWidth) * cameraWidth,
       (y / canvasHeight) * cameraHeight,
     ];
+    this._pan(distanceX, distanceY);
+  }
+  protected panPerspectiveCamera({ x, y }: Vector2) {
+    const {
+      camera,
+      target,
+      canvasSize: [, canvasHeight],
+    } = this;
+    const { fov, position } = camera as PerspectiveCamera;
+    const distance = position.clone().sub(target).length();
+    const height = 2 * Math.tan(MathUtils.degToRad(fov / 2)) * distance;
+    const ratio = height / canvasHeight;
+    const [distanceX, distanceY] = [ratio * x, ratio * y];
+    this._pan(distanceX, distanceY);
+  }
+  private _pan(distanceX: number, distanceY: number) {
+    const {
+      camera,
+      camera: { matrix, up },
+      target,
+      screenSpacePanning,
+      panDirection,
+      panOffset,
+    } = this;
     const axisX = new Vector3().setFromMatrixColumn(matrix, 0);
     const vecX = axisX.clone().multiplyScalar(-distanceX);
     const vecY = (
@@ -41,7 +66,56 @@ export class OrbitControls extends Controls {
         panOffset.copy(vecX.add(vecY));
         break;
     }
-    this.update();
+    target.add(panOffset);
+    camera.position.add(panOffset);
+    panOffset.set(0, 0, 0);
   }
-  protected panPerspectiveCamera(delta: Vector2) {}
+  protected wheelOrthographicCamera(zoomScale: number) {
+    const { camera } = this;
+    camera.zoom *= zoomScale;
+    camera.updateProjectionMatrix();
+  }
+  protected wheelPerspectiveCamera(zoomScale: number) {
+    const {
+      spherical,
+      camera: { position },
+      target,
+      rotateOffset,
+    } = this;
+    spherical.setFromVector3(position.clone().sub(target));
+    spherical.radius *= zoomScale;
+    rotateOffset.setFromSpherical(spherical).add(target);
+    position.copy(rotateOffset);
+  }
+  protected rotateOrthographicCamera(delta: Vector2) {
+    this._rotate(delta);
+  }
+  protected rotatePerspectiveCamera(delta: Vector2) {
+    this._rotate(delta);
+  }
+  private _rotate({ x, y }: Vector2) {
+    const {
+      spherical,
+      camera: { position },
+      target,
+      canvasSize: [, height],
+      rotateOffset,
+      rotateDirection,
+    } = this;
+    spherical.setFromVector3(position.clone().sub(target));
+    const theta = Math.PI * 2 * (x / height);
+    const phi = Math.PI * 2 * (y / height);
+    if (rotateDirection & Direction.HORIZONTAL) {
+      spherical.theta -= theta;
+    }
+    if (rotateDirection & Direction.VERTICAL) {
+      spherical.phi = MathUtils.clamp(
+        spherical.phi - phi,
+        0.00000000000001,
+        Math.PI * 0.999999999999
+      );
+    }
+    rotateOffset.setFromSpherical(spherical).add(target);
+    position.copy(rotateOffset);
+  }
 }

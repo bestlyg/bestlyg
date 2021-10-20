@@ -63,12 +63,10 @@ export default function RubikSCube() {
         },
       ],
     });
-    const draw = () => {
+    poly.async.then(() => {
       webgl.clear();
       poly.draw();
-    };
-    if (poly.async) poly.async.then(draw);
-    else draw();
+    });
     (function ani() {
       webgl.clear();
       rotateMatrixs.forEach(mat => modelMatrix.multiply(mat));

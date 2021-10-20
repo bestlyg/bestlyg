@@ -18,11 +18,11 @@ export enum PointerType {
 /** 方向 */
 export enum Direction {
   /** 全部 */
-  ALL,
+  ALL = 0b10 | 0b01,
   /** 全部否 */
-  NONE,
+  NONE = 0,
   /** 水平 */
-  HORIZONTAL,
+  HORIZONTAL = 0b10,
   /** 垂直 */
-  VERTICAL,
+  VERTICAL = 0b01,
 }

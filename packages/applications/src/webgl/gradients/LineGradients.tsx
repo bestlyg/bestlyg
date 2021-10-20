@@ -105,7 +105,6 @@ export default function LineGradients() {
     Object.entries(data).forEach(([k, v]) => {
       poly.uniformMap[k]!.data = v;
     });
-    console.log(poly);
     poly.updateUniforms();
     poly.draw();
   }, [data]);

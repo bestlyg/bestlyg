@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { cube } from '../assets';
 import { Checkbox, Radio, Space } from 'antd';
 import { useCreation, usePersistFn, useMount, useEventListener } from 'ahooks';
-import { Matrix4 } from 'three';
+import { Matrix4, PerspectiveCamera, Vector3 } from 'three';
 
 const vertexShaderSource = `
 attribute vec4 a_Position;
@@ -26,9 +26,13 @@ void main(){
 
 export default function OrthographicCameraControls() {
   const orthographicCamera = useCreation(() => {
-    const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, -2, 5);
-    camera.position.set(1, 1, 1);
-    camera.lookAt(0, 0, 0);
+    const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, 1, 2000);
+    camera.position.set(0, 0, 5);
+    return camera;
+  }, []);
+  const perspectiveCamera = useCreation(() => {
+    const camera = new THREE.PerspectiveCamera(60, 1, 1, 2000);
+    camera.position.set(2, 2, 5);
     return camera;
   }, []);
   const orbitControlsRef = useRef<controls.OrbitControls>();
@@ -43,33 +47,36 @@ export default function OrthographicCameraControls() {
     left: [true, true],
   });
   useEffect(() => {
-    // right
     const {
-      right: [x, y],
+      right: [rx, ry],
+      left: [lx, ly],
     } = controlForm;
+    // right
     const control = orbitControlsRef.current!;
     if (!control) return;
-    control.screenSpacePanning = y === 1;
-    if (x) {
-      if (y === 0) control.panDirection = controls.Direction.HORIZONTAL;
+    control.screenSpacePanning = ry === 1;
+    if (rx) {
+      if (ry === 0) control.panDirection = controls.Direction.HORIZONTAL;
       else control.panDirection = controls.Direction.ALL;
     } else {
-      if (y === 0) control.panDirection = controls.Direction.NONE;
+      if (ry === 0) control.panDirection = controls.Direction.NONE;
       else control.panDirection = controls.Direction.VERTICAL;
     }
-  }, [controlForm]);
-  const rotateDirection = useMemo(() => {
-    const { left } = controlForm;
-    let ans = '';
-    if (left[0]) ans += 'x';
-    if (left[1]) ans += 'y';
-    return ans;
+    // left
+    if (lx) {
+      if (ly) control.rotateDirection = controls.Direction.ALL;
+      else control.rotateDirection = controls.Direction.HORIZONTAL;
+    } else {
+      if (ly) control.rotateDirection = controls.Direction.VERTICAL;
+      else control.rotateDirection = controls.Direction.NONE;
+    }
   }, [controlForm]);
   useEffect(() => {
     const webgl = (webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] }));
     const orbitControls = (orbitControlsRef.current = new controls.OrbitControls(
       canvasRef.current!,
       orthographicCamera
+      // perspectiveCamera
     ));
     orbitControls.update();
     webgl.context.enable(webgl.context.CULL_FACE);
@@ -101,25 +108,34 @@ export default function OrthographicCameraControls() {
         },
       ],
     }));
-    const draw = () => {
+    poly.async.then(() => {
       webgl.clear();
       poly.draw();
-    };
-    if (poly.async) poly.async.then(draw);
-    else draw();
+    });
   }, []);
+  const [camera, setCamera] = useState(0);
+  useEffect(() => {
+    orbitControlsRef.current!.camera = camera === 0 ? orthographicCamera : perspectiveCamera;
+    orbitControlsRef.current!.update();
+    webglRef.current?.clear();
+    polyRef.current?.updateUniforms();
+    polyRef.current?.draw();
+  }, [camera]);
   useEventListener(
     'pointerdown',
     ({ button, clientX, clientY }) => {
+      orbitControlsRef.current!.dragStart.set(clientX, clientY);
       switch (button) {
+        case 0:
+          orbitControlsRef.current!.state = controls.State.ROTATE;
+          break;
         case 2:
-          orbitControlsRef.current!.dragStart.set(clientX, clientY);
           orbitControlsRef.current!.state = controls.State.PAN;
+          break;
       }
     },
     { target: canvasRef }
   );
-
   useEventListener('pointerup', () => (orbitControlsRef.current!.state = controls.State.NONE), {
     target: canvasRef,
   });
@@ -135,13 +151,37 @@ export default function OrthographicCameraControls() {
       polyRef.current?.updateUniforms();
       polyRef.current?.draw();
     },
-    {
-      target: canvasRef,
-    }
+    { target: canvasRef }
+  );
+  useEventListener(
+    'wheel',
+    e => {
+      e.preventDefault();
+      orbitControlsRef.current!.state = controls.State.DOLLY;
+      orbitControlsRef.current?.trigger({
+        dolly: e.deltaY,
+      });
+      webglRef.current?.clear();
+      polyRef.current?.updateUniforms();
+      polyRef.current?.draw();
+    },
+    { target: canvasRef }
   );
   useEventListener('contextmenu', e => e.preventDefault(), { target: canvasRef });
   return (
     <Space direction="vertical">
+      <Space>
+        相机
+        <Radio.Group
+          onChange={e => {
+            setCamera(e.target.value);
+          }}
+          value={camera}
+        >
+          <Radio value={0}>正交相机</Radio>
+          <Radio value={1}>透视相机</Radio>
+        </Radio.Group>
+      </Space>
       <Space>
         鼠标左键
         <Checkbox
