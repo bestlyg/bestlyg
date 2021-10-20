@@ -13,112 +13,20 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '211. 添加与搜索单词 - 数据结构设计',
-    url: 'https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.深度优先搜索, Tag.设计, Tag.字典树, Tag.字符串],
-    desc: `请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。`,
+    name: '453. 最小操作次数使数组元素相等',
+    url: 'https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.数组, Tag.数学],
+    desc: `给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。`,
     solutions: [
       {
         script: Script.TS,
-        time: 216,
-        memory: 56.6,
-        desc: 'trie',
-        code: `class TrieNode {
-          end = false;
-          children: Map<string, TrieNode> = new Map();
-          constructor(public val: string) {}
-        }
-        class Trie {
-          private _size = 0;
-          get size() {
-            return this._size;
-          }
-          get empty() {
-            return this._size === 0;
-          }
-          private _root = new TrieNode('');
-          get root() {
-            return this._root;
-          }
-          clear() {
-            this._root = new TrieNode('');
-            this._size = 0;
-          }
-          add(str: string) {
-            return this._add(str);
-          }
-          private _add(str: string, node = this._root) {
-            if (str.length === 0) {
-              this._root.end = true;
-              this._size++;
-              return;
-            }
-            if (str.length === 1) {
-              let endNode = node.children.get(str);
-              if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));
-              if (!endNode.end) {
-                endNode.end = true;
-                this._size++;
-              }
-              return;
-            }
-            const first = str[0];
-            let nextNode = node.children.get(first);
-            if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));
-            const nextStr = str.substr(1);
-            this._add(nextStr, nextNode);
-          }
-          contains(str: string) {
-            const endNode = this.findEndNode(str);
-            return endNode ? endNode.end : false;
-          }
-          remove(str: string) {
-            const endNode = this.findEndNode(str);
-            if (endNode && endNode.end) {
-              endNode.end = false;
-              this._size--;
-            }
-          }
-          starsWith(str: string) {
-            return this.findEndNode(str) !== null;
-          }
-          private findEndNode(str: string, node = this._root): TrieNode | null {
-            if (str.length === 0) return this._root;
-            if (str.length === 1) return node.children.get(str) ?? null;
-            const first = str[0];
-            let nextNode = node.children.get(first);
-            if (!nextNode) return null;
-            const nextStr = str.substr(1);
-            return this.findEndNode(nextStr, nextNode);
-          }
-        }
-        
-        class WordDictionary {
-          private trie = new Trie();
-          addWord(word: string): void {
-            this.trie.add(word);
-          }
-          search(word: string): boolean {
-            return this._search(0, word, this.trie.root);
-          }
-          private _search(idx: number, word: string, node: TrieNode): boolean {
-            const ch = word[idx];
-            if (idx === word.length - 1) {
-              if (ch === '.') return Array.from(node.children.values()).some(node => node.end);
-              const lastNode = node.children.get(ch);
-              return !!lastNode?.end;
-            }
-            if (ch === '.') {
-              for (const nextNode of node.children.values()) {
-                if (this._search(idx + 1, word, nextNode)) return true;
-              }
-              return false;
-            }
-            const nextNode = node.children.get(ch);
-            if (!nextNode) return false;
-            return this._search(idx + 1, word, nextNode);
-          }
+        time: 92,
+        memory: 41.4,
+        desc: '每次n-1个元素加一，理解为每次1个元素减一',
+        code: `function minMoves(nums: number[]): number {
+          const min = Math.min(...nums);
+          return nums.reduce((ans, num) => ans + num - min, 0);
         }
         `,
       },
