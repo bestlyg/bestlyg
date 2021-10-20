@@ -6,7 +6,7 @@ nav:
   order: 3
 group:
   title: 串
-  path: /sorting
+  path: /sequence
   order: 2
 ---
 

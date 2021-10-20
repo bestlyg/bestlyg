@@ -6,7 +6,7 @@ nav:
   order: 3
 group:
   title: 串
-  path: /sorting
+  path: /sequence
   order: 2
 ---
 
@@ -32,7 +32,7 @@ group:
 function getNext(pattern: string): (c: string) => number {
   const next: Record<string, number> = {};
   for (let i = 0; pattern[i]; i++) {
-    if (!next[pattern[i]]) next[pattern[i]] = 0;
+    if (next[pattern[i]] === undefined) next[pattern[i]] = 0;
     next[pattern[i]] |= 1 << i;
   }
   return c => next[c] ?? 0;
