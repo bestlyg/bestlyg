@@ -23,8 +23,6 @@ export abstract class Controls {
     return this._dragEnd;
   }
   protected zoomScale = 0.95;
-  protected panOffset = new Vector3();
-  protected rotateOffset = new Vector3();
   get canvasSize() {
     return [this.canvas.width, this.canvas.height];
   }

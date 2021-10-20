@@ -23,7 +23,7 @@ void main(){
 }
 `;
 
-export default function OrthographicCameraControls() {
+export default function TrackballControls() {
   const orthographicCamera = useCreation(() => {
     const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, 1, 2000);
     camera.position.set(2, 2, 5);
@@ -34,7 +34,7 @@ export default function OrthographicCameraControls() {
     camera.position.set(2, 2, 5);
     return camera;
   }, []);
-  const orbitControlsRef = useRef<controls.OrbitControls>();
+  const trackballControlsRef = useRef<controls.TrackballControls>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
@@ -51,7 +51,7 @@ export default function OrthographicCameraControls() {
       left: [lx, ly],
     } = controlForm;
     // right
-    const control = orbitControlsRef.current!;
+    const control = trackballControlsRef.current!;
     if (!control) return;
     control.screenSpacePanning = ry === 1;
     if (rx) {
@@ -72,7 +72,7 @@ export default function OrthographicCameraControls() {
   }, [controlForm]);
   useEffect(() => {
     const webgl = (webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] }));
-    const orbitControls = (orbitControlsRef.current = new controls.OrbitControls(
+    const orbitControls = (trackballControlsRef.current = new controls.TrackballControls(
       canvasRef.current!,
       orthographicCamera
       // perspectiveCamera
@@ -94,7 +94,7 @@ export default function OrthographicCameraControls() {
       uniforms: [
         {
           name: 'u_Matrix',
-          data: orbitControlsRef.current.pvMartrix.elements,
+          data: trackballControlsRef.current.pvMartrix.elements,
           method: 'uniformMatrix4fv',
         },
       ],
@@ -114,8 +114,8 @@ export default function OrthographicCameraControls() {
   }, []);
   const [camera, setCamera] = useState(0);
   useEffect(() => {
-    orbitControlsRef.current!.camera = camera === 0 ? orthographicCamera : perspectiveCamera;
-    orbitControlsRef.current!.update();
+    trackballControlsRef.current!.camera = camera === 0 ? orthographicCamera : perspectiveCamera;
+    trackballControlsRef.current!.update();
     webglRef.current?.clear();
     polyRef.current?.updateUniforms();
     polyRef.current?.draw();
@@ -123,26 +123,26 @@ export default function OrthographicCameraControls() {
   useEventListener(
     'pointerdown',
     ({ button, clientX, clientY }) => {
-      orbitControlsRef.current!.dragStart.set(clientX, clientY);
+      trackballControlsRef.current!.dragStart.set(clientX, clientY);
       switch (button) {
         case 0:
-          orbitControlsRef.current!.state = controls.State.ROTATE;
+          trackballControlsRef.current!.state = controls.State.ROTATE;
           break;
         case 2:
-          orbitControlsRef.current!.state = controls.State.PAN;
+          trackballControlsRef.current!.state = controls.State.PAN;
           break;
       }
     },
     { target: canvasRef }
   );
-  useEventListener('pointerup', () => (orbitControlsRef.current!.state = controls.State.NONE), {
+  useEventListener('pointerup', () => (trackballControlsRef.current!.state = controls.State.NONE), {
     target: canvasRef,
   });
   useEventListener(
     'pointermove',
     ({ clientX, clientY }) => {
-      if (orbitControlsRef.current!.state === controls.State.NONE) return;
-      orbitControlsRef.current?.trigger({
+      if (trackballControlsRef.current!.state === controls.State.NONE) return;
+      trackballControlsRef.current?.trigger({
         x: clientX,
         y: clientY,
       });
@@ -156,8 +156,8 @@ export default function OrthographicCameraControls() {
     'wheel',
     e => {
       e.preventDefault();
-      orbitControlsRef.current!.state = controls.State.DOLLY;
-      orbitControlsRef.current?.trigger({
+      trackballControlsRef.current!.state = controls.State.DOLLY;
+      trackballControlsRef.current?.trigger({
         dolly: e.deltaY,
       });
       webglRef.current?.clear();
