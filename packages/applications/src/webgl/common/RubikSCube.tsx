@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { cube } from '../assets';
-import { THREE, Poly, WebglProgram } from '@bestlyg/webgl';
+import { THREE, Poly, Webgl } from '@bestlyg/webgl';
 
 const { Matrix4 } = THREE;
 const vertexShaderSource = `
@@ -23,15 +23,10 @@ void main(){
 `;
 export default function RubikSCube() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   useEffect(() => {
     if (!canvasRef.current) return;
-    const webgl = (webglRef.current = new WebglProgram({
-      canvas: canvasRef.current!,
-      vertexShaderSource,
-      fragmentShaderSource,
-      canvasSize: [300, 300],
-    }));
+    const webgl = (webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] }));
     const { context } = webgl;
     context.enable(context.CULL_FACE);
     context.enable(context.DEPTH_TEST);
@@ -42,34 +37,38 @@ export default function RubikSCube() {
       new Matrix4().makeRotationZ(0.01),
     ];
     webgl.clear();
-    const poly = new Poly(
-      webglRef.current!,
-      cube.source,
-      ['TRIANGLES'],
-      [
+    const poly = new Poly({
+      webgl,
+      vertexShaderSource,
+      fragmentShaderSource,
+      data: cube.source,
+      drawTypes: ['TRIANGLES'],
+      attributes: [
         { name: 'a_Position', size: 3 },
         { name: 'a_Pin', size: 2 },
       ],
-      [
+      uniforms: [
         {
           name: 'u_ModelMatrix',
           data: modelMatrix.elements,
           method: 'uniformMatrix4fv',
         },
       ],
-      [
+      textures: [
         {
           name: 'u_Sampler',
           source: cube.image,
           format: 'RGB',
           minFilter: 'LINEAR',
         },
-      ]
-    );
-    poly.async.then(() => {
+      ],
+    });
+    const draw = () => {
       webgl.clear();
       poly.draw();
-    });
+    };
+    if (poly.async) poly.async.then(draw);
+    else draw();
     (function ani() {
       webgl.clear();
       rotateMatrixs.forEach(mat => modelMatrix.multiply(mat));

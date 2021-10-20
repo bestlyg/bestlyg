@@ -1,19 +1,25 @@
 import { ASYNC } from '@bestlyg/shared';
 import { Attribute, DrawTypes, Texture, Uniform } from './types';
-import { WebglProgram } from './webglProgram';
+import { Webgl } from './webgl';
 
 export class Poly {
+  data: number[];
+  private buffer: WebGLBuffer;
+  private drawTypes: DrawTypes[];
+  private attributes: Attribute[];
+  private uniforms: Uniform[];
+  private textures: Texture[];
+  private webgl: Webgl;
+  private _program: WebGLProgram;
+  get program() {
+    return this._program;
+  }
+  get context() {
+    return this.webgl.context;
+  }
   /** 载入数据 */
   get source() {
     return new Float32Array(this.data);
-  }
-  /** 绘制上下文 */
-  get context() {
-    return this.instance.context;
-  }
-  /** 程序 */
-  get program() {
-    return this.instance.program;
   }
   /** 每个数据值包含的字节数 */
   private get elementBytes() {
@@ -37,32 +43,54 @@ export class Poly {
     for (const v of this.uniforms) map[v.name] = v;
     return map;
   }
-  private _async = ASYNC;
+  private _async: Promise<void> | null = null;
   get async() {
     return this._async;
   }
-  constructor(
+  constructor({
+    webgl,
+    data,
+    drawTypes,
+    attributes = [],
+    uniforms = [],
+    textures = [],
+    vertexShaderSource,
+    fragmentShaderSource,
+  }: {
     /** 程序上下文 */
-    private instance: WebglProgram,
+    webgl: Webgl;
+    vertexShaderSource: string;
+    fragmentShaderSource: string;
     /** 源数据数组 */
-    public data: number[],
+    data: number[];
     /** 绘图方式 */
-    private drawTypes: DrawTypes[],
+    drawTypes: DrawTypes[];
     /** 顶点属性列表 */
-    private attributes: Attribute[],
+    attributes?: Attribute[];
     /** 通用属性列表 */
-    private uniforms: Uniform[],
+    uniforms?: Uniform[];
     /** 纹理属性列表 */
-    private textures: Texture[]
-  ) {
+    textures?: Texture[];
+  }) {
+    this.webgl = webgl;
+    this.buffer = webgl.context.createBuffer()!;
+    this.data = data;
+    this.drawTypes = drawTypes;
+    this.attributes = attributes;
+    this.uniforms = uniforms;
+    this.textures = textures;
+    this._program = webgl.createProgram(vertexShaderSource, fragmentShaderSource);
+    this.init();
+  }
+  init() {
+    this.context.useProgram(this.program);
     this.updateAttributes();
     this.updateUniforms();
     this.updateTextures();
   }
   /** 更新节点属性 */
   updateAttributes() {
-    const { context, program, categoryBytes } = this;
-    const buffer = context.createBuffer();
+    const { context, program, categoryBytes, buffer } = this;
     context.bindBuffer(context.ARRAY_BUFFER, buffer);
     context.bufferData(context.ARRAY_BUFFER, this.source, context.STATIC_DRAW);
     let byteIdx = 0;
@@ -99,52 +127,45 @@ export class Poly {
     const { context, program } = this;
     const n = this.textures.length;
     const texture2D = context.TEXTURE_2D;
-    this._async = Promise.all(this.textures.map(({ source }) => this.loadTexture(source))).then(
-      (images: HTMLImageElement[]) => {
-        for (let i = 0; i < n; i++) {
-          const {
-            name,
-            format,
-            magFilter = 'LINEAR',
-            minFilter = 'NEAREST_MIPMAP_LINEAR',
-            wrapS = 'REPEAT',
-            wrapT = 'REPEAT',
-          } = this.textures[i];
-          const tex = context.getUniformLocation(program, name);
-          if (tex === null) continue;
-          context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
-          context.activeTexture(context[`TEXTURE${i}`]);
-          const texture = context.createTexture();
-          context.bindTexture(texture2D, texture);
-          context.texImage2D(
-            texture2D,
-            0,
-            context[format],
-            context[format],
-            context.UNSIGNED_BYTE,
-            images[i]
-          );
-          context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
-          context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
-          context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
-          if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
-          context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
-          context.uniform1i(tex, i);
-        }
-        this._async = ASYNC;
+    this._async = Promise.all(
+      this.textures.map(({ source }) => this.webgl.loadTexture(source))
+    ).then((images: HTMLImageElement[]) => {
+      for (let i = 0; i < n; i++) {
+        const {
+          name,
+          format,
+          magFilter = 'LINEAR',
+          minFilter = 'NEAREST_MIPMAP_LINEAR',
+          wrapS = 'REPEAT',
+          wrapT = 'REPEAT',
+        } = this.textures[i];
+        const tex = context.getUniformLocation(program, name);
+        if (tex === null) continue;
+        context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
+        context.activeTexture(context[`TEXTURE${i}`]);
+        const texture = context.createTexture();
+        context.bindTexture(texture2D, texture);
+        context.texImage2D(
+          texture2D,
+          0,
+          context[format],
+          context[format],
+          context.UNSIGNED_BYTE,
+          images[i]
+        );
+        context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
+        context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
+        context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
+        if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
+        context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
+        context.uniform1i(tex, i);
       }
-    );
+      this._async = ASYNC;
+    });
   }
   /** 绘制 */
   draw(drawTypes = this.drawTypes) {
     const { context, sourceSize } = this;
     drawTypes.forEach(drawType => context.drawArrays(context[drawType], 0, sourceSize));
-  }
-  private loadTexture(source: string) {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
-      image.src = source;
-      image.onload = () => resolve(image);
-    });
   }
 }

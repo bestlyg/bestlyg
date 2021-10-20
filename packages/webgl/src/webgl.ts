@@ -1,70 +1,35 @@
 import { Size } from './types';
-export class WebglProgram {
+
+export class Webgl {
   private _canvas: HTMLCanvasElement;
   get canvas() {
     return this._canvas;
-  }
-  private _canvasSize: Size = [300, 150];
-  get canvasSize() {
-    return this._canvasSize;
-  }
-  set canvasSize(v: WebglProgram['_canvasSize']) {
-    this._canvasSize = v;
-    this._canvas.width = v[0];
-    this._canvas.height = v[1];
   }
   private _context: WebGLRenderingContext;
   get context() {
     return this._context;
   }
-  private _program: WebGLProgram;
-  get program() {
-    return this._program;
-  }
-  private _color: [number, number, number, number] = [0, 0, 0, 1];
+  private _color: [number, number, number, number];
   get color() {
     return this._color;
   }
-  set color(color: WebglProgram['_color']) {
+  set color(color: Webgl['_color']) {
     this.context.clearColor(...color);
     this._color = color;
   }
-  constructor({
-    canvas,
-    vertexShaderSource,
-    fragmentShaderSource,
-    color = [0, 0, 0, 1],
-    canvasSize = [300, 300],
-  }: {
-    canvas: HTMLCanvasElement;
-    vertexShaderSource: string;
-    fragmentShaderSource: string;
-    color?: WebglProgram['color'];
-    canvasSize?: WebglProgram['canvasSize'];
-  }) {
+  private _canvasSize: Size;
+  get canvasSize() {
+    return this._canvasSize;
+  }
+  set canvasSize(size: Size) {
+    this._canvasSize = size;
+    [this.canvas.width, this.canvas.height] = size;
+  }
+  constructor({ canvas, size = [300, 300] }: { canvas: Webgl['canvas']; size: Size }) {
     this._canvas = canvas;
-    this.canvasSize = canvasSize;
-    const gl = (this._context = canvas.getContext('webgl') as WebGLRenderingContext & {
-      program: WebGLProgram;
-    });
-    const program = (this._program = gl.createProgram()!);
-    gl['program'] = program;
-    this.loadShader(gl.VERTEX_SHADER, vertexShaderSource);
-    this.loadShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
-    gl.linkProgram(program);
-    gl.useProgram(program);
-    this.color = color;
-    this.clear();
-  }
-  clear() {
-    this.context.clear(this.context.COLOR_BUFFER_BIT);
-  }
-  private loadShader(type: number, source: string) {
-    const { context, program } = this;
-    const shader = context.createShader(type)!;
-    context.shaderSource(shader, source);
-    context.compileShader(shader);
-    context.attachShader(program, shader);
+    this.canvasSize = size;
+    this._context = canvas.getContext('webgl')!;
+    this.color = [0, 0, 0, 1];
   }
   transformPosition({ client }: { client: Size }): {
     css: Size;
@@ -107,5 +72,31 @@ export class WebglProgram {
   private webgl2CssPosition([x, y]: Size): Size {
     const [width, height] = this.canvasSize.map(v => v / 2) as Size;
     return [x * width + width, -y * height + height];
+  }
+  clear() {
+    this.context.clear(this.context.COLOR_BUFFER_BIT);
+  }
+  createProgram(vertexShaderSource: string, fragmentShaderSource: string) {
+    const { context } = this;
+    const program = context.createProgram()!;
+    this.loadShader(program, context.VERTEX_SHADER, vertexShaderSource);
+    this.loadShader(program, context.FRAGMENT_SHADER, fragmentShaderSource);
+    context.linkProgram(program);
+    return program;
+  }
+  private loadShader(program: WebGLProgram, type: number, source: string) {
+    const { context } = this;
+    const shader = context.createShader(type)!;
+    context.shaderSource(shader, source);
+    context.compileShader(shader);
+    context.attachShader(program, shader);
+  }
+  loadTexture(source: string) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = source;
+      image.onload = () => resolve(image);
+      image.onerror = err => reject(err);
+    });
   }
 }

@@ -1,8 +1,7 @@
-import { Compose, Poly, Track, WebglProgram } from '@bestlyg/webgl';
+import { Compose, Poly, Track, Webgl } from '@bestlyg/webgl';
 import React, { useEffect, useRef } from 'react';
 import { useEventListener } from 'ahooks';
 import { sky } from '../assets';
-import { Webgl } from '@bestlyg/applications';
 const vertexShaderSource = `
 attribute vec4 a_Position;
 attribute float a_PointSize;
@@ -54,35 +53,29 @@ const pointMap = ({
 }) => [x, y, size, r, g, b, a];
 export default function StarDrawWebgl() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   const composeRef = useRef<Compose>(new Compose());
   useEffect(() => {
-    if (!canvasRef.current) return;
     pointList.length = 0;
-    const webgl = (webglRef.current = new WebglProgram({
-      canvas: canvasRef.current!,
-      vertexShaderSource,
-      fragmentShaderSource,
-      canvasSize: [600, 400],
-    }));
+    const webgl = (webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [600, 400] }));
     webgl.color = [0, 0, 0, 0];
     webgl.clear();
     const ctx = webgl.context;
     ctx.enable(ctx.BLEND);
     ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE_MINUS_SRC_ALPHA);
-    const poly = (polyRef.current = new Poly(
-      webglRef.current,
-      pointList.map(pointMap).flat(),
-      ['POINTS'],
-      [
+    const poly = (polyRef.current = new Poly({
+      webgl,
+      vertexShaderSource,
+      fragmentShaderSource,
+      data: pointList.map(pointMap).flat(),
+      drawTypes: ['POINTS'],
+      attributes: [
         { name: 'a_Position', size: 2 },
         { name: 'a_PointSize', size: 1 },
         { name: 'a_Color', size: 4 },
       ],
-      [],
-      []
-    ));
+    }));
     polyRef.current.draw();
     (function ani() {
       composeRef.current.update(Date.now());

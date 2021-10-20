@@ -1,4 +1,4 @@
-import { Poly, WebglProgram } from '@bestlyg/webgl';
+import { Poly, Webgl } from '@bestlyg/webgl';
 import React, { useEffect, useRef } from 'react';
 const vertexShaderSource = `
 attribute vec4 a_Position;
@@ -24,29 +24,28 @@ void main(){
 const CANVAS_SIZE = 300;
 export default function RadiationTexture() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   useEffect(() => {
-    webglRef.current = new WebglProgram({
+    webglRef.current = new Webgl({
       canvas: canvasRef.current!,
+      size: [CANVAS_SIZE, CANVAS_SIZE],
+    });
+    polyRef.current = new Poly({
+      webgl: webglRef.current,
       vertexShaderSource,
       fragmentShaderSource,
-      canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
-    });
-    polyRef.current = new Poly(
-      webglRef.current,
-      [-1, 1, -1, -1, 1, 1, 1, -1],
-      ['TRIANGLE_STRIP'],
-      [{ name: 'a_Position', size: 2 }],
-      [
+      data: [-1, 1, -1, -1, 1, 1, 1, -1],
+      drawTypes: ['TRIANGLE_STRIP'],
+      attributes: [{ name: 'a_Position', size: 2 }],
+      uniforms: [
         {
           name: 'u_Center',
           method: 'uniform2fv',
           data: [CANVAS_SIZE / 2, CANVAS_SIZE / 2],
         },
       ],
-      []
-    );
+    });
     polyRef.current.draw();
   }, []);
   return <canvas ref={canvasRef} />;

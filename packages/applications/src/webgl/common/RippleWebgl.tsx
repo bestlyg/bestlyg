@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { utils, THREE, Poly, WebglProgram, Track } from '@bestlyg/webgl';
+import { utils, THREE, Poly, Webgl, Track } from '@bestlyg/webgl';
 
 const { Matrix4, Vector3 } = THREE;
 const { sin, line } = utils;
@@ -85,7 +85,7 @@ const init = () => {
 };
 export default function StarDrawWebgl() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   const trackRef = useRef<Track>();
   useEffect(() => {
@@ -102,31 +102,31 @@ export default function StarDrawWebgl() {
         data[i + 6] = lineB(y);
       });
     }
-    const webgl = (webglRef.current = new WebglProgram({
+    const webgl = (webglRef.current = new Webgl({
       canvas: canvasRef.current!,
-      vertexShaderSource,
-      fragmentShaderSource,
-      canvasSize: [width, height],
+      size: [width, height],
     }));
     webgl.clear();
     const ctx = webgl.context;
     ctx.enable(ctx.BLEND);
     ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE_MINUS_SRC_ALPHA);
     ctx.blendFunc(ctx.SRC_ALPHA, ctx.ONE);
-    const poly = (polyRef.current = new Poly(
-      webglRef.current,
+    const poly = (polyRef.current = new Poly({
+      webgl,
+      vertexShaderSource,
+      fragmentShaderSource,
       data,
-      ['TRIANGLES', 'LINES'],
-      [
+      drawTypes: ['TRIANGLES', 'LINES'],
+      attributes: [
         { name: 'a_Position', size: 3 },
         { name: 'a_PointSize', size: 1 },
         { name: 'a_Color', size: 4 },
       ],
-      [{ name: 'u_ViewMatrix', data: viewMatrix.elements, method: 'uniformMatrix4fv' }],
-      []
-    ));
+      uniforms: [{ name: 'u_ViewMatrix', data: viewMatrix.elements, method: 'uniformMatrix4fv' }],
+    }));
     polyRef.current.draw();
     (function ani() {
+      webgl.clear();
       track.update(Date.now());
       poly.updateAttributes();
       poly.draw();

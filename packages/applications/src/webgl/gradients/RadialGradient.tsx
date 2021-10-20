@@ -1,4 +1,4 @@
-import { Poly, WebglProgram } from '@bestlyg/webgl';
+import { Poly, Webgl } from '@bestlyg/webgl';
 import React, { useEffect, useRef } from 'react';
 import { Color } from 'three';
 
@@ -48,25 +48,20 @@ void main(){
   gl_FragColor = getColor();
 }
 `;
-/** 画布宽高 */
-const CANVAS_SIZE = 300;
 export default function RadialGradient() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   useEffect(() => {
-    webglRef.current = new WebglProgram({
-      canvas: canvasRef.current!,
+    webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] });
+    polyRef.current = new Poly({
+      webgl: webglRef.current,
       vertexShaderSource,
       fragmentShaderSource,
-      canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
-    });
-    polyRef.current = new Poly(
-      webglRef.current,
-      [-1, 1, -1, -1, 1, 1, 1, -1],
-      ['TRIANGLE_STRIP'],
-      [{ name: 'a_Position', size: 2 }],
-      [
+      data: [-1, 1, -1, -1, 1, 1, 1, -1],
+      drawTypes: ['TRIANGLE_STRIP'],
+      attributes: [{ name: 'a_Position', size: 2 }],
+      uniforms: [
         { name: 'u_Center', data: [150, 150], method: 'uniform2fv' },
         { name: 'u_Radius', data: [150], method: 'uniform1fv' },
         {
@@ -84,9 +79,8 @@ export default function RadialGradient() {
           method: 'uniformMatrix4fv',
         },
       ],
-      []
-    );
+    });
     polyRef.current.draw();
   }, []);
-  return <canvas ref={canvasRef}></canvas>;
+  return <canvas ref={canvasRef} />;
 }

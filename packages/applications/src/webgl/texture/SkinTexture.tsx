@@ -1,4 +1,4 @@
-import { Poly, WebglProgram } from '@bestlyg/webgl';
+import { Poly, Webgl } from '@bestlyg/webgl';
 import { InputNumber, Space } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 const vertexShaderSource = `
@@ -26,25 +26,25 @@ void main(){
 const CANVAS_SIZE = 300;
 export default function SkinTexture() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   const [data, setData] = useState({
     u_Multiple: [100],
     u_ModelVec: [0.123, 0.456],
   });
   useEffect(() => {
-    webglRef.current = new WebglProgram({
+    webglRef.current = new Webgl({
       canvas: canvasRef.current!,
+      size: [CANVAS_SIZE, CANVAS_SIZE],
+    });
+    polyRef.current = new Poly({
+      webgl: webglRef.current,
       vertexShaderSource,
       fragmentShaderSource,
-      canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
-    });
-    polyRef.current = new Poly(
-      webglRef.current,
-      [-1, 1, -1, -1, 1, 1, 1, -1],
-      ['TRIANGLE_STRIP'],
-      [{ name: 'a_Position', size: 2 }],
-      [
+      data: [-1, 1, -1, -1, 1, 1, 1, -1],
+      drawTypes: ['TRIANGLE_STRIP'],
+      attributes: [{ name: 'a_Position', size: 2 }],
+      uniforms: [
         {
           name: 'u_Multiple',
           method: 'uniform1fv',
@@ -56,8 +56,7 @@ export default function SkinTexture() {
           data: data.u_ModelVec,
         },
       ],
-      []
-    );
+    });
     polyRef.current.draw();
   }, []);
   useEffect(() => {

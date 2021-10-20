@@ -1,4 +1,4 @@
-import { WebglProgram, controls, Poly, THREE } from '@bestlyg/webgl';
+import { Webgl, controls, Poly, THREE } from '@bestlyg/webgl';
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { cube } from '../assets';
 import { Checkbox, Radio, Space } from 'antd';
@@ -33,7 +33,7 @@ export default function OrthographicCameraControls() {
   }, []);
   const orbitControlsRef = useRef<controls.OrbitControls>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const programRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   const [controlForm, setControlForm] = useState<{
     right: [boolean, number];
@@ -66,49 +66,47 @@ export default function OrthographicCameraControls() {
     return ans;
   }, [controlForm]);
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const program = (programRef.current = new WebglProgram({
-      canvas: canvasRef.current!,
-      vertexShaderSource,
-      fragmentShaderSource,
-      canvasSize: [300, 300],
-    }));
+    const webgl = (webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] }));
     const orbitControls = (orbitControlsRef.current = new controls.OrbitControls(
-      canvasRef.current,
+      canvasRef.current!,
       orthographicCamera
     ));
     orbitControls.update();
-    program.context.enable(program.context.CULL_FACE);
+    webgl.context.enable(webgl.context.CULL_FACE);
     // context.enable(context.DEPTH_TEST);
-    program.clear();
-    const poly = (polyRef.current = new Poly(
-      programRef.current!,
-      cube.source,
-      ['TRIANGLES'],
-      [
+    webgl.clear();
+    const poly = (polyRef.current = new Poly({
+      webgl,
+      vertexShaderSource,
+      fragmentShaderSource,
+      data: cube.source,
+      drawTypes: ['TRIANGLES'],
+      attributes: [
         { name: 'a_Position', size: 3 },
         { name: 'a_Pin', size: 2 },
       ],
-      [
+      uniforms: [
         {
           name: 'u_Matrix',
           data: orbitControlsRef.current.pvMartrix.elements,
           method: 'uniformMatrix4fv',
         },
       ],
-      [
+      textures: [
         {
           name: 'u_Sampler',
           source: cube.image,
           format: 'RGB',
           minFilter: 'LINEAR',
         },
-      ]
-    ));
-    poly.async.then(() => {
-      program.clear();
+      ],
+    }));
+    const draw = () => {
+      webgl.clear();
       poly.draw();
-    });
+    };
+    if (poly.async) poly.async.then(draw);
+    else draw();
   }, []);
   useEventListener(
     'pointerdown',
@@ -133,7 +131,7 @@ export default function OrthographicCameraControls() {
         x: clientX,
         y: clientY,
       });
-      programRef.current?.clear();
+      webglRef.current?.clear();
       polyRef.current?.updateUniforms();
       polyRef.current?.draw();
     },

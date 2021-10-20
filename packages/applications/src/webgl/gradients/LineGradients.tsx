@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Poly, WebglProgram } from '@bestlyg/webgl';
+import { Poly, Webgl } from '@bestlyg/webgl';
 import styles from './styles.less';
 import { Color } from 'three';
 import { Space, InputNumber, Row } from 'antd';
@@ -53,7 +53,7 @@ const posList = [
 const posItemList = ['X', 'Y'];
 export default function LineGradients() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const webglRef = useRef<WebglProgram>();
+  const webglRef = useRef<Webgl>();
   const polyRef = useRef<Poly>();
   const [data, setData] = useState<Record<string, number[]>>({
     u_ColorStart: [...new Color('#FAD961').toArray(), 1],
@@ -64,18 +64,15 @@ export default function LineGradients() {
     u_End: [CANVAS_SIZE, CANVAS_SIZE],
   });
   useEffect(() => {
-    webglRef.current = new WebglProgram({
-      canvas: canvasRef.current!,
+    webglRef.current = new Webgl({ canvas: canvasRef.current!, size: [300, 300] });
+    polyRef.current = new Poly({
+      webgl: webglRef.current,
       vertexShaderSource,
       fragmentShaderSource,
-      canvasSize: [CANVAS_SIZE, CANVAS_SIZE],
-    });
-    polyRef.current = new Poly(
-      webglRef.current,
-      [-1, 1, -1, -1, 1, 1, 1, -1],
-      ['TRIANGLE_STRIP'],
-      [{ name: 'a_Position', size: 2 }],
-      [
+      data: [-1, 1, -1, -1, 1, 1, 1, -1],
+      drawTypes: ['TRIANGLE_STRIP'],
+      attributes: [{ name: 'a_Position', size: 2 }],
+      uniforms: [
         { name: 'u_Start', data: data.u_Start, method: 'uniform2fv' },
         { name: 'u_Mid', data: data.u_Mid, method: 'uniform1fv' },
         {
@@ -99,8 +96,7 @@ export default function LineGradients() {
           method: 'uniform4fv',
         },
       ],
-      []
-    );
+    });
     polyRef.current.draw();
   }, []);
   useEffect(() => {
@@ -173,7 +169,7 @@ export default function LineGradients() {
           }}
         />
       </Space>
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} />
     </Space>
   );
 }
