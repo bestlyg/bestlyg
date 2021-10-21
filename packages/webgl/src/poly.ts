@@ -1,4 +1,5 @@
 import { ASYNC } from '@bestlyg/shared';
+import { loadTexture } from './utils';
 import { Attribute, DrawTypes, Texture, Uniform } from './types';
 import { Webgl } from './webgl';
 
@@ -137,41 +138,41 @@ export class Poly {
     const { context, program } = this;
     const n = this.textures.length;
     const texture2D = context.TEXTURE_2D;
-    this._async = Promise.all(
-      this.textures.map(({ source }) => this.webgl.loadTexture(source))
-    ).then((images: HTMLImageElement[]) => {
-      for (let i = 0; i < n; i++) {
-        const {
-          name,
-          format,
-          magFilter = 'LINEAR',
-          minFilter = 'NEAREST_MIPMAP_LINEAR',
-          wrapS = 'REPEAT',
-          wrapT = 'REPEAT',
-        } = this.textures[i];
-        const tex = context.getUniformLocation(program, name);
-        if (tex === null) continue;
-        context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
-        context.activeTexture(context[`TEXTURE${i}`]);
-        const texture = context.createTexture();
-        context.bindTexture(texture2D, texture);
-        context.texImage2D(
-          texture2D,
-          0,
-          context[format],
-          context[format],
-          context.UNSIGNED_BYTE,
-          images[i]
-        );
-        context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
-        context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
-        context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
-        if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
-        context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
-        context.uniform1i(tex, i);
+    this._async = Promise.all(this.textures.map(({ source }) => loadTexture(source))).then(
+      (images: HTMLImageElement[]) => {
+        for (let i = 0; i < n; i++) {
+          const {
+            name,
+            format,
+            magFilter = 'LINEAR',
+            minFilter = 'NEAREST_MIPMAP_LINEAR',
+            wrapS = 'REPEAT',
+            wrapT = 'REPEAT',
+          } = this.textures[i];
+          const tex = context.getUniformLocation(program, name);
+          if (tex === null) continue;
+          context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
+          context.activeTexture(context[`TEXTURE${i}`]);
+          const texture = context.createTexture();
+          context.bindTexture(texture2D, texture);
+          context.texImage2D(
+            texture2D,
+            0,
+            context[format],
+            context[format],
+            context.UNSIGNED_BYTE,
+            images[i]
+          );
+          context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
+          context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
+          context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
+          if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
+          context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
+          context.uniform1i(tex, i);
+        }
+        this._async = ASYNC;
       }
-      this._async = ASYNC;
-    });
+    );
   }
   /** 更新顶点索引 */
   updateIndexes() {
