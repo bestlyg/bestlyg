@@ -89,7 +89,7 @@ export class OrbitControls extends Controls {
   protected rotatePerspectiveCamera(delta: Vector2) {
     this._rotate(delta);
   }
-  protected _rotate({ x, y }: any) {
+  private _rotate({ x, y }: Vector2) {
     const {
       camera: { position },
       target,
