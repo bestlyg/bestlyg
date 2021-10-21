@@ -13,20 +13,25 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '453. 最小操作次数使数组元素相等',
-    url: 'https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/',
+    name: '66. 加一',
+    url: 'https://leetcode-cn.com/problems/plus-one/',
     difficulty: Difficulty.简单,
     tag: [Tag.数组, Tag.数学],
-    desc: `给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。`,
+    desc: `给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。`,
     solutions: [
       {
         script: Script.TS,
-        time: 92,
-        memory: 41.4,
+        time: 76,
+        memory: 39.2,
         desc: '每次n-1个元素加一，理解为每次1个元素减一',
-        code: `function minMoves(nums: number[]): number {
-          const min = Math.min(...nums);
-          return nums.reduce((ans, num) => ans + num - min, 0);
+        code: `function plusOne(digits: number[]): number[] {
+          let add = true;
+          for (let n = digits.length, i = n - 1; add && i >= 0; i--) {
+            if (++digits[i] === 10) digits[i] = 0;
+            else add = false;
+          }
+          if (add) digits.unshift(1);
+          return digits;
         }
         `,
       },

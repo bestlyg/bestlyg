@@ -11,7 +11,12 @@ type TrieNode = structures.TrieNode;
 
 /*
  */
-function minMoves(nums: number[]): number {
-  const min = Math.min(...nums);
-  return nums.reduce((ans, num) => ans + num - min, 0);
+function plusOne(digits: number[]): number[] {
+  let add = true;
+  for (let n = digits.length, i = n - 1; add && i >= 0; i--) {
+    if (++digits[i] === 10) digits[i] = 0;
+    else add = false;
+  }
+  if (add) digits.unshift(1);
+  return digits;
 }
