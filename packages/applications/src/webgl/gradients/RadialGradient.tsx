@@ -67,13 +67,13 @@ export default function RadialGradient() {
         {
           name: 'u_Data',
           data: [
-            ...new Color('#ff0000').toArray(),
+            ...new Color('#00DBDE').toArray(),
             0,
-            ...new Color('#00ff00').toArray(),
+            ...new Color('#537DE8').toArray(),
             0.33,
-            ...new Color('#0000ff').toArray(),
+            ...new Color('#FC00FF').toArray(),
             0.66,
-            ...new Color('#ff0000').toArray(),
+            ...new Color('#00DBDE').toArray(),
             1,
           ],
           method: 'uniformMatrix4fv',

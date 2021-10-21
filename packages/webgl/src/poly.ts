@@ -4,12 +4,16 @@ import { Webgl } from './webgl';
 
 export class Poly {
   data: number[];
-  private buffer: WebGLBuffer;
+  private bufferMap: Record<string, WebGLBuffer> = {};
   private drawTypes: DrawTypes[];
   private attributes: Attribute[];
   private uniforms: Uniform[];
   private textures: Texture[];
   private webgl: Webgl;
+  private _indexes: number[] = [];
+  get indexes() {
+    return this._indexes;
+  }
   private _program: WebGLProgram;
   get program() {
     return this._program;
@@ -56,6 +60,7 @@ export class Poly {
     textures = [],
     vertexShaderSource,
     fragmentShaderSource,
+    indexes = [],
   }: {
     /** 程序上下文 */
     webgl: Webgl;
@@ -71,15 +76,17 @@ export class Poly {
     uniforms?: Uniform[];
     /** 纹理属性列表 */
     textures?: Texture[];
+    /** 顶点索引列表 */
+    indexes?: number[];
   }) {
     this.webgl = webgl;
-    this.buffer = webgl.context.createBuffer()!;
     this.data = data;
     this.drawTypes = drawTypes;
     this.attributes = attributes;
     this.uniforms = uniforms;
     this.textures = textures;
     this._program = webgl.createProgram(vertexShaderSource, fragmentShaderSource);
+    this._indexes = indexes;
     this.init();
   }
   init() {
@@ -87,10 +94,13 @@ export class Poly {
     this.updateAttributes();
     this.updateUniforms();
     this.updateTextures();
+    this.updateIndexes();
   }
   /** 更新节点属性 */
   updateAttributes() {
-    const { context, program, categoryBytes, buffer } = this;
+    const { context, program, categoryBytes, bufferMap } = this;
+    let buffer = bufferMap.ARRAY_BUFFER;
+    if (!buffer) buffer = bufferMap.ARRAY_BUFFER = context.createBuffer()!;
     context.bindBuffer(context.ARRAY_BUFFER, buffer);
     context.bufferData(context.ARRAY_BUFFER, this.source, context.STATIC_DRAW);
     let byteIdx = 0;
@@ -163,9 +173,23 @@ export class Poly {
       this._async = ASYNC;
     });
   }
+  /** 更新顶点索引 */
+  updateIndexes() {
+    const { indexes, context, bufferMap } = this;
+    if (indexes.length === 0) return;
+    let buffer = bufferMap.ELEMENT_ARRAY_BUFFER;
+    if (!buffer) buffer = bufferMap.ELEMENT_ARRAY_BUFFER = context.createBuffer()!;
+    context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, buffer);
+    context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint8Array(indexes), context.STATIC_DRAW);
+  }
   /** 绘制 */
   draw(drawTypes = this.drawTypes) {
-    const { context, sourceSize } = this;
-    drawTypes.forEach(drawType => context.drawArrays(context[drawType], 0, sourceSize));
+    const { context, sourceSize, indexes } = this;
+    if (indexes.length === 0)
+      drawTypes.forEach(drawType => context.drawArrays(context[drawType], 0, sourceSize));
+    else
+      drawTypes.forEach(drawType =>
+        context.drawElements(context[drawType], indexes.length, context.UNSIGNED_BYTE, 0)
+      );
   }
 }
