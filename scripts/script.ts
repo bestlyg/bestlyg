@@ -11,12 +11,36 @@ type TrieNode = structures.TrieNode;
 
 /*
  */
-function plusOne(digits: number[]): number[] {
-  let add = true;
-  for (let n = digits.length, i = n - 1; add && i >= 0; i--) {
-    if (++digits[i] === 10) digits[i] = 0;
-    else add = false;
+function majorityElement(nums: number[]): number[] {
+  const n = nums.length;
+  let num1 = nums[0];
+  let num2 = nums[0];
+  let val1 = 0;
+  let val2 = 0;
+  for (const num of nums) {
+    if (val1 > 0 && num === num1) {
+      val1++;
+    } else if (val2 > 0 && num === num2) {
+      val2++;
+    } else if (val1 === 0) {
+      num1 = num;
+      val1++;
+    } else if (val2 === 0) {
+      num2 = num;
+      val2++;
+    } else {
+      val1--;
+      val2--;
+    }
   }
-  if (add) digits.unshift(1);
-  return digits;
+  let cnt1 = 0;
+  let cnt2 = 0;
+  for (const num of nums) {
+    if (val1 > 0 && num1 === num) cnt1++;
+    if (val2 > 0 && num2 === num) cnt2++;
+  }
+  const ans: number[] = [];
+  if (val1 > 0 && cnt1 > n / 3) ans.push(num1);
+  if (val2 > 0 && cnt2 > n / 3) ans.push(num2);
+  return ans;
 }

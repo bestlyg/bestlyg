@@ -13,25 +13,66 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '66. 加一',
-    url: 'https://leetcode-cn.com/problems/plus-one/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.数组, Tag.数学],
-    desc: `给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。`,
+    name: '229. 求众数 II',
+    url: 'https://leetcode-cn.com/problems/majority-element-ii/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数组, Tag.哈希表, Tag.计数, Tag.排序],
+    desc: `给定一个大小为 n 的整数数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。`,
     solutions: [
       {
         script: Script.TS,
-        time: 76,
-        memory: 39.2,
-        desc: '每次n-1个元素加一，理解为每次1个元素减一',
-        code: `function plusOne(digits: number[]): number[] {
-          let add = true;
-          for (let n = digits.length, i = n - 1; add && i >= 0; i--) {
-            if (++digits[i] === 10) digits[i] = 0;
-            else add = false;
+        time: 88,
+        memory: 41.8,
+        desc: '哈希存储',
+        code: `function majorityElement(nums: number[]): number[] {
+          const map = new Map<number, number>();
+          const n = nums.length;
+          for (const num of nums) {
+            map.set(num, (map.get(num) ?? 0) + 1);
           }
-          if (add) digits.unshift(1);
-          return digits;
+          return Array.from(map.entries())
+            .filter(([, v]) => v > n / 3)
+            .map(([k]) => k);
+        }
+        `,
+      },
+      {
+        script: Script.TS,
+        time: 88,
+        memory: 41.5,
+        desc: '摩尔投票，超过n/3的数最多有2个，每三个不同的数进行抵消',
+        code: `function majorityElement(nums: number[]): number[] {
+          const n = nums.length;
+          let num1 = nums[0];
+          let num2 = nums[0];
+          let val1 = 0;
+          let val2 = 0;
+          for (const num of nums) {
+            if (val1 > 0 && num === num1) {
+              val1++;
+            } else if (val2 > 0 && num === num2) {
+              val2++;
+            } else if (val1 === 0) {
+              num1 = num;
+              val1++;
+            } else if (val2 === 0) {
+              num2 = num;
+              val2++;
+            } else {
+              val1--;
+              val2--;
+            }
+          }
+          let cnt1 = 0;
+          let cnt2 = 0;
+          for (const num of nums) {
+            if (val1 > 0 && num1 === num) cnt1++;
+            if (val2 > 0 && num2 === num) cnt2++;
+          }
+          const ans: number[] = [];
+          if (val1 > 0 && cnt1 > n / 3) ans.push(num1);
+          if (val2 > 0 && cnt2 > n / 3) ans.push(num2);
+          return ans;
         }
         `,
       },
