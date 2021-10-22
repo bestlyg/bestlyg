@@ -1,6 +1,8 @@
 import image from './cube.jpg';
-import { source } from './source';
+import { source, arrays, pins } from './source';
 export default {
   image,
   source,
+  arrays,
+  pins,
 };

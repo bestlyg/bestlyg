@@ -28,7 +28,7 @@ export function hexColorToWebglColor(color: number) {
 export function sin(a: number, omega: number, phi: number) {
   return x => a * Math.sin(omega * x + phi);
 }
-export function loadTexture(source: string) {
+export function loadTexture(source: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.src = source;

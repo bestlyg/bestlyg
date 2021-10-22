@@ -6,7 +6,6 @@ export type DrawTypes =
   | 'TRIANGLE_STRIP'
   | 'TRIANGLE_FAN'
   | 'TRIANGLES';
-export type Attribute = { name: string; size: number };
 export type UniformMethods =
   | 'uniformMatrix2fv'
   | 'uniformMatrix3fv'
@@ -19,29 +18,4 @@ export type UniformMethods =
   | 'uniform2iv'
   | 'uniform3iv'
   | 'uniform4iv';
-export type Uniform = {
-  name: string;
-  data: number[];
-  method: UniformMethods;
-};
 export type Size = [number, number];
-export type Animation = {
-  key: string | number;
-  loop: boolean;
-  frames: { time: number; value: number }[];
-};
-export type Texture = {
-  name: string;
-  source: string;
-  format: 'RGB' | 'RGBA';
-  magFilter?: 'LINEAR' | 'NEAREST';
-  minFilter?:
-    | 'LINEAR'
-    | 'NEAREST'
-    | 'NEAREST_MIPMAP_NEAREST'
-    | 'NEAREST_MIPMAP_LINEAR'
-    | 'LINEAR_MIPMAP_NEAREST'
-    | 'LINEAR_MIPMAP_LINEAR';
-  wrapS?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
-  wrapT?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
-};

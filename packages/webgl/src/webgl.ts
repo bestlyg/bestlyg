@@ -25,7 +25,6 @@ export class Webgl {
     this._canvasSize = size;
     [this.canvas.width, this.canvas.height] = size;
   }
-  private bufferMap = new Map<any, WebGLBuffer>();
   constructor({ canvas, size = [300, 300] }: { canvas: Webgl['canvas']; size: Size }) {
     this._canvas = canvas;
     this.canvasSize = size;
@@ -91,11 +90,5 @@ export class Webgl {
     context.shaderSource(shader, source);
     context.compileShader(shader);
     context.attachShader(program, shader);
-  }
-  getBuffer(key: any) {
-    const { bufferMap, context } = this;
-    let buffer = bufferMap.get(key);
-    if (!buffer) bufferMap.set(key, (buffer = context.createBuffer()!));
-    return buffer;
   }
 }

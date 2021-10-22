@@ -6,3 +6,5 @@ export * from './webgl';
 export * from './compose';
 export * as controls from './controls';
 export * as utils from './utils';
+export * from './sence';
+export * from './object3D';

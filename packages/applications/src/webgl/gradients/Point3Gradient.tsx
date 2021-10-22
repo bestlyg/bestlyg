@@ -82,10 +82,10 @@ export default function Point3Gradient() {
           name: 'u_Color',
           method: 'uniformMatrix3fv',
           data: [
-            ...new Color('#1e9600').toArray(),
-            ...new Color('#fff200').toArray(),
-            ...new Color('#ff0000').toArray(),
-          ],
+            new Color('#7A18D6').toArray(),
+            new Color('#2BD2FF').toArray(),
+            new Color('#2BFF88').toArray(),
+          ].flat(),
         },
         {
           name: 'u_Point',

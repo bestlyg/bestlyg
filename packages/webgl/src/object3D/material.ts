@@ -1,7 +1,7 @@
 import { ASYNC } from '@bestlyg/shared';
-import { UniformMethods } from './types';
-import { loadTexture } from './utils';
-import { Webgl } from './webgl';
+import { UniformMethods } from '../types';
+import { loadTexture } from '../utils';
+import { Webgl } from '../webgl';
 
 interface TextureOptions {
   magFilter: 'LINEAR' | 'NEAREST';
@@ -15,7 +15,7 @@ interface TextureOptions {
   wrapS: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
   wrapT: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
 }
-interface MaterialProps {
+export interface MaterialProps {
   webgl: Webgl;
   uniforms: {
     name: string;
@@ -45,18 +45,16 @@ interface Texture {
   options: Partial<TextureOptions>;
   location: WebGLUniformLocation;
   needUpdate: boolean;
+  image: HTMLImageElement;
 }
 export class Material {
   private webgl: Webgl;
   private program: WebGLProgram;
-  private uniforms: Uniform[];
+  private uniforms: Uniform[] = [];
   private uniformMap: Record<string, Uniform> = {};
-  private textures: Texture[];
+  private textures: Texture[] = [];
   private textureMap: Record<string, Texture> = {};
-  private _async: Promise<void> = ASYNC;
-  get async() {
-    return this._async;
-  }
+  init = false;
   constructor({ webgl, program, uniforms, textures }: MaterialProps) {
     this.webgl = webgl;
     this.program = program;
@@ -73,17 +71,24 @@ export class Material {
       this.uniforms.push(data);
       this.uniformMap[data.name] = data;
     }
-    for (const texture of textures) {
-      const location = context.getUniformLocation(program, texture.name);
-      if (!location) return;
-      const data = {
-        ...texture,
-        location: context.getUniformLocation(program, texture.name)!,
-        needUpdate: true,
-      };
-      this.textures.push(data);
-      this.textureMap[data.name] = data;
-    }
+    textures = textures.filter(({ name }) => context.getUniformLocation(program, name));
+    const n = textures.length;
+    Promise.all(textures.map(({ source }) => loadTexture(source)))
+      .then(images => {
+        for (let i = 0; i < n; i++) {
+          const data = {
+            ...textures[i],
+            location: context.getUniformLocation(program, textures[i].name)!,
+            needUpdate: true,
+            image: images[i],
+          };
+          this.textures.push(data);
+          this.textureMap[data.name] = data;
+        }
+      })
+      .finally(() => {
+        this.init = true;
+      });
   }
   updateUnifom() {
     const {
@@ -93,10 +98,11 @@ export class Material {
     for (const uniform of uniforms) {
       const { data, method, location, needUpdate, ArrayCstr } = uniform;
       if (!needUpdate) return;
+      uniform.needUpdate = false;
       const run = context[method] as Function;
       const paramData = new ArrayCstr(data);
-      if (method.includes('Matrix')) run(location, false, paramData);
-      else run(location, paramData);
+      if (method.includes('Matrix')) run.apply(context, [location, false, paramData]);
+      else run.apply(context, [location, paramData]);
     }
   }
   updateTextures() {
@@ -105,57 +111,53 @@ export class Material {
     } = this;
     const n = this.textures.length;
     const texture2D = context.TEXTURE_2D;
-    this._async = Promise.all(this.textures.map(({ source }) => loadTexture(source))).then(
-      (images: HTMLImageElement[]) => {
-        for (let i = 0; i < n; i++) {
-          const {
-            location,
-            format,
-            options: {
-              magFilter = 'LINEAR',
-              minFilter = 'NEAREST_MIPMAP_LINEAR',
-              wrapS = 'REPEAT',
-              wrapT = 'REPEAT',
-            },
-            needUpdate,
-          } = this.textures[i];
-          if (!needUpdate) continue;
-          this.textures[i].needUpdate = false;
-          context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
-          context.activeTexture(context[`TEXTURE${i}`]);
-          const texture = context.createTexture();
-          context.bindTexture(texture2D, texture);
-          context.texImage2D(
-            texture2D,
-            0,
-            context[format],
-            context[format],
-            context.UNSIGNED_BYTE,
-            images[i]
-          );
-          context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
-          context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
-          context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
-          if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
-          context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
-          context.uniform1i(location, i);
-        }
-        this._async = ASYNC;
-      }
-    );
+    for (let i = 0; i < n; i++) {
+      const {
+        location,
+        format,
+        options: {
+          magFilter = 'LINEAR',
+          minFilter = 'NEAREST_MIPMAP_LINEAR',
+          wrapS = 'REPEAT',
+          wrapT = 'REPEAT',
+        },
+        needUpdate,
+        image,
+      } = this.textures[i];
+      if (!needUpdate) continue;
+      this.textures[i].needUpdate = false;
+      context.pixelStorei(context.UNPACK_FLIP_Y_WEBGL, 1);
+      context.activeTexture(context[`TEXTURE${i}`]);
+      const texture = context.createTexture();
+      context.bindTexture(texture2D, texture);
+      context.texImage2D(
+        texture2D,
+        0,
+        context[format],
+        context[format],
+        context.UNSIGNED_BYTE,
+        image
+      );
+      context.texParameteri(texture2D, context.TEXTURE_WRAP_S, context[wrapS]);
+      context.texParameteri(texture2D, context.TEXTURE_WRAP_T, context[wrapT]);
+      context.texParameteri(texture2D, context.TEXTURE_MAG_FILTER, context[magFilter]);
+      if (minFilter.includes('MIPMAP')) context.generateMipmap(texture2D);
+      context.texParameteri(texture2D, context.TEXTURE_MIN_FILTER, context[minFilter]);
+      context.uniform1i(location, i);
+    }
   }
   update() {
     this.updateUnifom();
     this.updateTextures();
   }
-  setUniform(key: number, data: number[]) {
+  setUniform(key: string, data: number[]) {
     const { uniformMap } = this;
     const uniform = uniformMap[key];
     if (!uniform) return;
     uniform.data = data;
     uniform.needUpdate = true;
   }
-  setTextures(key: number, options: Partial<TextureOptions>) {
+  setTextures(key: string, options: Partial<TextureOptions>) {
     const { textureMap } = this;
     const texture = textureMap[key];
     if (!texture) return;

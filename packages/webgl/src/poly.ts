@@ -1,7 +1,32 @@
 import { ASYNC } from '@bestlyg/shared';
 import { loadTexture } from './utils';
-import { Attribute, DrawTypes, Texture, Uniform } from './types';
+import { UniformMethods, DrawTypes } from './types';
 import { Webgl } from './webgl';
+
+interface Attribute {
+  name: string;
+  size: number;
+}
+interface Uniform {
+  name: string;
+  data: number[];
+  method: UniformMethods;
+}
+interface Texture {
+  name: string;
+  source: string;
+  format: 'RGB' | 'RGBA';
+  magFilter?: 'LINEAR' | 'NEAREST';
+  minFilter?:
+    | 'LINEAR'
+    | 'NEAREST'
+    | 'NEAREST_MIPMAP_NEAREST'
+    | 'NEAREST_MIPMAP_LINEAR'
+    | 'LINEAR_MIPMAP_NEAREST'
+    | 'LINEAR_MIPMAP_LINEAR';
+  wrapS?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
+  wrapT?: 'REPEAT' | 'CLAMP_TO_EDGE' | 'MIRRORED_REPEAT';
+}
 
 export class Poly {
   data: number[];

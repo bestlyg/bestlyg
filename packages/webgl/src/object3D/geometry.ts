@@ -1,6 +1,7 @@
-import { Webgl } from './webgl';
+import { Webgl } from '../webgl';
 
-interface GeometryProps {
+export interface GeometryProps {
+  program: WebGLProgram;
   webgl: Webgl;
   attributes: {
     name: string;
@@ -8,7 +9,6 @@ interface GeometryProps {
     data: number[];
   }[];
   indexes?: number[];
-  program: WebGLProgram;
 }
 interface Attribute {
   buffer: WebGLBuffer;
@@ -50,7 +50,7 @@ export class Geometry {
     for (const { name, size, data } of attrs) {
       const location = context.getAttribLocation(program, name);
       if (location < 0) continue;
-      const buffer = webgl.getBuffer(`ARRAY_BUFFER_${location}`);
+      const buffer = context.createBuffer()!;
       const attr: Attribute = {
         name,
         size,
@@ -81,25 +81,28 @@ export class Geometry {
     }
   }
   private initIndexes(data: number[]) {
-    const { attributes, webgl } = this;
+    const {
+      attributes,
+      webgl: { context },
+    } = this;
     const indexes: Indexes = {
       data,
       needUpdate: true,
-      buffer: webgl.getBuffer('ELEMENT_ARRAY_BUFFER'),
+      buffer: context.createBuffer()!,
     };
     if (data.length === 0) {
-      this.indexes.data = new Array(attributes.length).fill(0).map((_, i) => i);
+      const attr = attributes[0];
+      indexes.data = new Array(attr.data.length / attr.size).fill(0).map((_, i) => i);
     }
     this.indexes = indexes;
   }
   private updateIndexes() {
     const {
       webgl: { context },
-      webgl,
       indexes,
     } = this;
     const eleArrayBuffer = context.ELEMENT_ARRAY_BUFFER;
-    context.bindBuffer(eleArrayBuffer, webgl.getBuffer(eleArrayBuffer));
+    context.bindBuffer(eleArrayBuffer, indexes.buffer);
     if (indexes.needUpdate) {
       indexes.needUpdate = false;
       context.bufferData(eleArrayBuffer, new Uint8Array(indexes.data), context.STATIC_DRAW);

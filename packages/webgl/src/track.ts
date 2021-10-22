@@ -1,7 +1,10 @@
-import { Animation } from './types';
 import { line } from './utils';
 import { Compose } from './compose';
-
+type Animation = {
+  key: string | number;
+  loop: boolean;
+  frames: { time: number; value: number }[];
+};
 export class Track extends Compose {
   constructor(
     public data: object,

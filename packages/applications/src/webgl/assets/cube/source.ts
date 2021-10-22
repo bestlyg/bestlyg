@@ -1,4 +1,4 @@
-export const source = [
+const data = [
   // front blue
   [-0.5, 0.5, 0.5, 0.25, 1],
   [-0.5, -0.5, 0.5, 0.25, 0.5],
@@ -41,4 +41,7 @@ export const source = [
   [0.5, -0.5, 0.5, 0.75, 0.5],
   [-0.5, -0.5, -0.5, 0.5, 0],
   [0.5, -0.5, -0.5, 0.75, 0],
-].flat();
+];
+export const source = data.flat();
+export const arrays = data.map(v => v.slice(0, 3)).flat();
+export const pins = data.map(v => v.slice(3)).flat();

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Poly, Webgl, THREE } from '@bestlyg/webgl';
+import { Webgl, THREE, Sence, Object3D } from '@bestlyg/webgl';
 import { useCreation } from 'ahooks';
 
 const { Matrix4, Color } = THREE;
@@ -28,17 +28,29 @@ void main(){
 //  |/      |/
 //  v2------v3
 const arrays = [
-  [1, 1, 1, ...new Color('#4158D0').toArray()], //v0
-  [-1, 1, 1, ...new Color('#C850C0').toArray()], //v1
-  [-1, -1, 1, ...new Color('#FFCC70').toArray()], //v2
-  [1, -1, 1, ...new Color('#FF4196').toArray()], //v3
-  [1, -1, -1, ...new Color('#C850C0').toArray()], //v4
-  [1, 1, -1, ...new Color('#FFCC70').toArray()], //v5
-  [-1, 1, -1, ...new Color('#FF4196').toArray()], //v6
-  [-1, -1, -1, ...new Color('#4158D0').toArray()], //v7
+  [1, 1, 1], //v0
+  [-1, 1, 1], //v1
+  [-1, -1, 1], //v2
+  [1, -1, 1], //v3
+  [1, -1, -1], //v4
+  [1, 1, -1], //v5
+  [-1, 1, -1], //v6
+  [-1, -1, -1], //v7
 ]
   .flat()
   .map(v => v / 2);
+const colors = [
+  '#4158D0',
+  '#C850C0',
+  '#FFCC70',
+  '#FF4196',
+  '#C850C0',
+  '#FFCC70',
+  '#FF4196',
+  '#4158D0',
+]
+  .map(color => new Color(color).toArray())
+  .flat();
 const indexes = [
   [0, 1, 2, 0, 2, 3], // front
   [6, 5, 4, 6, 4, 7], // back
@@ -50,12 +62,13 @@ const indexes = [
 export default function ColorCube() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const webglRef = useRef<Webgl>();
-  const polyRef = useRef<Poly>();
+  const senceRef = useRef<Sence>();
+  const objRef = useRef<Object3D>();
   const rotateMatrixs = useCreation(
     () => [
       new Matrix4().makeRotationX(0.01),
-      new Matrix4().makeRotationY(0.01),
-      new Matrix4().makeRotationZ(0.01),
+      new Matrix4().makeRotationY(0.008),
+      new Matrix4().makeRotationZ(0.005),
     ],
     []
   );
@@ -66,24 +79,41 @@ export default function ColorCube() {
       size: [300, 300],
     }));
     webgl.context.enable(webgl.context.DEPTH_TEST);
-    const poly = (polyRef.current = new Poly({
+    const sence = (senceRef.current = new Sence(webgl));
+    const obj = (objRef.current = new Object3D({
+      id: 'cube',
       webgl,
-      data: arrays,
-      drawTypes: ['TRIANGLES'],
       vertexShaderSource,
       fragmentShaderSource,
-      indexes,
-      attributes: [
-        { name: 'a_Position', size: 3 },
-        { name: 'a_Color', size: 3 },
-      ],
-      uniforms: [{ name: 'u_ModelMatrix', data: modelMatrix.elements, method: 'uniformMatrix4fv' }],
+      geoProps: {
+        attributes: [
+          {
+            name: 'a_Position',
+            data: arrays,
+            size: 3,
+          },
+          {
+            name: 'a_Color',
+            data: colors,
+            size: 3,
+          },
+        ],
+        indexes,
+      },
+      matProps: {
+        uniforms: [
+          { name: 'u_ModelMatrix', data: modelMatrix.elements, method: 'uniformMatrix4fv' },
+        ],
+        textures: [],
+      },
+      drawTypes: ['TRIANGLES'],
     }));
+    sence.add(obj);
+    sence.draw();
     (function render() {
       rotateMatrixs.forEach(mat => modelMatrix.multiply(mat));
-      webgl.clear();
-      poly.updateUniforms();
-      poly.draw();
+      sence.setUniform('u_ModelMatrix', modelMatrix.elements);
+      sence.draw();
       requestAnimationFrame(render);
     })();
   }, []);
