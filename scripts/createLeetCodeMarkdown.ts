@@ -13,22 +13,52 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '492. 构造矩形',
-    url: 'https://leetcode-cn.com/problems/construct-the-rectangle/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.数学],
-    desc: `你需要按顺序输出你设计的页面的长度 L 和宽度 W。`,
+    name: '638. 大礼包',
+    url: 'https://leetcode-cn.com/problems/shopping-offers/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.位运算, Tag.记忆化搜索, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
+    desc: `返回 确切 满足购物清单所需花费的最低价格，你可以充分利用大礼包的优惠活动。你不能购买超出购物清单指定数量的物品，即使那样会降低整体价格。任意大礼包可无限次购买。`,
     solutions: [
       {
         script: Script.TS,
-        time: 84,
-        memory: 39.4,
-        desc: '从平方根开始找',
-        code: `function constructRectangle(area: number): number[] {
-          let l = ~~Math.sqrt(area);
-          while( l >=1 && area % l !== 0) l-- 
-          return [area/l,l]
-      };`,
+        time: 76,
+        memory: 39.8,
+        desc: 'dfs',
+        code: `function shoppingOffers(price: number[], special: number[][], needs: number[]): number {
+          const n = price.length;
+          special = special
+            .filter(item => {
+              let sum = 0;
+              for (let i = 0; i < n; i++) sum += item[i] * price[i];
+              return sum > item[n];
+            })
+            .sort((a, b) => a[n] - b[n]);
+          let ans = Infinity;
+          dfs(needs);
+          return ans;
+          function dfs(needs: number[], cost = 0) {
+            if (needs.every(v => v === 0)) {
+              ans = Math.min(cost, ans);
+              return;
+            }
+            const list = special.filter((item: number[]) =>
+              item.every((v, i) => (i === n ? true : v <= needs[i]))
+            );
+            if (list.length === 0) {
+              dfs(
+                [0],
+                needs.reduce((total, v, i) => price[i] * v + total, cost)
+              );
+            } else {
+              list.forEach(item => {
+                dfs(
+                  needs.map((v, i) => v - item[i]),
+                  item[n] + cost
+                );
+              });
+            }
+          }
+        }`,
       },
     ],
   },

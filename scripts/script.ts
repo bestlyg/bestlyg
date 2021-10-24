@@ -11,36 +11,48 @@ type TrieNode = structures.TrieNode;
 
 /*
  */
-function majorityElement(nums: number[]): number[] {
-  const n = nums.length;
-  let num1 = nums[0];
-  let num2 = nums[0];
-  let val1 = 0;
-  let val2 = 0;
-  for (const num of nums) {
-    if (val1 > 0 && num === num1) {
-      val1++;
-    } else if (val2 > 0 && num === num2) {
-      val2++;
-    } else if (val1 === 0) {
-      num1 = num;
-      val1++;
-    } else if (val2 === 0) {
-      num2 = num;
-      val2++;
+function shoppingOffers(price: number[], special: number[][], needs: number[]): number {
+  const n = price.length;
+  special = special
+    .filter(item => {
+      let sum = 0;
+      for (let i = 0; i < n; i++) sum += item[i] * price[i];
+      return sum > item[n];
+    })
+    .sort((a, b) => a[n] - b[n]);
+  let ans = Infinity;
+  dfs(needs);
+  return ans;
+  function dfs(needs: number[], cost = 0) {
+    if (needs.every(v => v === 0)) {
+      ans = Math.min(cost, ans);
+      return;
+    }
+    const list = special.filter((item: number[]) =>
+      item.every((v, i) => (i === n ? true : v <= needs[i]))
+    );
+    if (list.length === 0) {
+      dfs(
+        [0],
+        needs.reduce((total, v, i) => price[i] * v + total, cost)
+      );
     } else {
-      val1--;
-      val2--;
+      list.forEach(item => {
+        dfs(
+          needs.map((v, i) => v - item[i]),
+          item[n] + cost
+        );
+      });
     }
   }
-  let cnt1 = 0;
-  let cnt2 = 0;
-  for (const num of nums) {
-    if (val1 > 0 && num1 === num) cnt1++;
-    if (val2 > 0 && num2 === num) cnt2++;
-  }
-  const ans: number[] = [];
-  if (val1 > 0 && cnt1 > n / 3) ans.push(num1);
-  if (val2 > 0 && cnt2 > n / 3) ans.push(num2);
-  return ans;
 }
+log([
+  shoppingOffers(
+    [2, 5],
+    [
+      [3, 0, 5],
+      [1, 2, 10],
+    ],
+    [3, 2]
+  ),
+]);
