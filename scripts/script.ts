@@ -11,48 +11,29 @@ type TrieNode = structures.TrieNode;
 
 /*
  */
-function shoppingOffers(price: number[], special: number[][], needs: number[]): number {
-  const n = price.length;
-  special = special
-    .filter(item => {
-      let sum = 0;
-      for (let i = 0; i < n; i++) sum += item[i] * price[i];
-      return sum > item[n];
-    })
-    .sort((a, b) => a[n] - b[n]);
-  let ans = Infinity;
-  dfs(needs);
-  return ans;
-  function dfs(needs: number[], cost = 0) {
-    if (needs.every(v => v === 0)) {
-      ans = Math.min(cost, ans);
-      return;
-    }
-    const list = special.filter((item: number[]) =>
-      item.every((v, i) => (i === n ? true : v <= needs[i]))
-    );
-    if (list.length === 0) {
-      dfs(
-        [0],
-        needs.reduce((total, v, i) => price[i] * v + total, cost)
-      );
-    } else {
-      list.forEach(item => {
-        dfs(
-          needs.map((v, i) => v - item[i]),
-          item[n] + cost
-        );
-      });
-    }
+function searchMatrix(matrix: number[][], target: number): boolean {
+  const m = matrix.length;
+  const n = matrix[0].length;
+  let row = 0;
+  let col = n - 1;
+  while (row < m && col >= 0) {
+    log({ row, col });
+    const num = matrix[row][col];
+    if (num === target) return true;
+    if (num < target) col--;
+    else row++;
   }
+  return false;
 }
 log([
-  shoppingOffers(
-    [2, 5],
+  searchMatrix(
     [
-      [3, 0, 5],
-      [1, 2, 10],
+      [1, 4, 7, 11, 15],
+      [2, 5, 8, 12, 19],
+      [3, 6, 9, 16, 22],
+      [10, 13, 14, 17, 24],
+      [18, 21, 23, 26, 30],
     ],
-    [3, 2]
+    5
   ),
 ]);

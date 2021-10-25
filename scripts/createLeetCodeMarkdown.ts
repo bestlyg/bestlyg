@@ -12,8 +12,8 @@ type Markdown = leetcode.Markdown;
 
 const mds: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '638. 大礼包',
+    existMarkdown: true,
+    name: '240. 搜索二维矩阵 II',
     url: 'https://leetcode-cn.com/problems/shopping-offers/',
     difficulty: Difficulty.中等,
     tag: [Tag.位运算, Tag.记忆化搜索, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
@@ -21,44 +21,31 @@ const mds: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 76,
-        memory: 39.8,
-        desc: 'dfs',
-        code: `function shoppingOffers(price: number[], special: number[][], needs: number[]): number {
-          const n = price.length;
-          special = special
-            .filter(item => {
-              let sum = 0;
-              for (let i = 0; i < n; i++) sum += item[i] * price[i];
-              return sum > item[n];
-            })
-            .sort((a, b) => a[n] - b[n]);
-          let ans = Infinity;
-          dfs(needs);
-          return ans;
-          function dfs(needs: number[], cost = 0) {
-            if (needs.every(v => v === 0)) {
-              ans = Math.min(cost, ans);
-              return;
-            }
-            const list = special.filter((item: number[]) =>
-              item.every((v, i) => (i === n ? true : v <= needs[i]))
-            );
-            if (list.length === 0) {
-              dfs(
-                [0],
-                needs.reduce((total, v, i) => price[i] * v + total, cost)
-              );
-            } else {
-              list.forEach(item => {
-                dfs(
-                  needs.map((v, i) => v - item[i]),
-                  item[n] + cost
-                );
-              });
-            }
+        time: 96,
+        memory: 43.1,
+        desc: '拆分查找',
+        code: `function searchMatrix(matrix: number[][], target: number): boolean {
+          return matrix.flat().includes(target)
+          };`,
+      },
+      {
+        script: Script.TS,
+        time: 72,
+        memory: 41,
+        desc: '从右上角开始找，target就左移，target大就下移',
+        code: `function searchMatrix(matrix: number[][], target: number): boolean {
+          const m = matrix.length
+          const n = matrix[0].length
+          let row = 0;
+          let col = n-1;
+          while(row<m && col>=0){
+              const num = matrix[row][col];
+              if(num===target)return true 
+              if(num > target) col--
+              else row++
           }
-        }`,
+          return false 
+      };`,
       },
     ],
   },
