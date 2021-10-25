@@ -13,39 +13,32 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: true,
-    name: '240. 搜索二维矩阵 II',
-    url: 'https://leetcode-cn.com/problems/shopping-offers/',
+    name: '133. 克隆图',
+    url: 'https://leetcode-cn.com/problems/different-ways-to-add-parentheses/',
     difficulty: Difficulty.中等,
-    tag: [Tag.位运算, Tag.记忆化搜索, Tag.数组, Tag.动态规划, Tag.回溯, Tag.状态压缩],
-    desc: `返回 确切 满足购物清单所需花费的最低价格，你可以充分利用大礼包的优惠活动。你不能购买超出购物清单指定数量的物品，即使那样会降低整体价格。任意大礼包可无限次购买。`,
+    tag: [Tag.递归, Tag.记忆化搜索, Tag.数学, Tag.字符串, Tag.动态规划],
+    desc: `给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 96,
-        memory: 43.1,
-        desc: '拆分查找',
-        code: `function searchMatrix(matrix: number[][], target: number): boolean {
-          return matrix.flat().includes(target)
-          };`,
-      },
-      {
-        script: Script.TS,
-        time: 72,
-        memory: 41,
-        desc: '从右上角开始找，target就左移，target大就下移',
-        code: `function searchMatrix(matrix: number[][], target: number): boolean {
-          const m = matrix.length
-          const n = matrix[0].length
-          let row = 0;
-          let col = n-1;
-          while(row<m && col>=0){
-              const num = matrix[row][col];
-              if(num===target)return true 
-              if(num > target) col--
-              else row++
+        time: 80,
+        memory: 39.9,
+        desc: 'dfs',
+        code: `function cloneGraph(node: Node | null): Node | null {
+          if (node === null) return null;
+          const map = new Map<number, Node>();
+          dfs(node);
+          return map.get(node.val)!;
+          function dfs(node: Node | null): void {
+            if (node === null || map.has(node.val)) return;
+            const cloneNode = new Node(node.val);
+            map.set(node.val, cloneNode);
+            node.neighbors.forEach(neighbor => {
+              dfs(neighbor);
+              cloneNode.neighbors.push(map.get(neighbor.val)!);
+            });
           }
-          return false 
-      };`,
+        }`,
       },
     ],
   },
