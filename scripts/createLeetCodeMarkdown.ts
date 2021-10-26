@@ -13,7 +13,7 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: true,
-    name: '133. 克隆图',
+    name: '496. 下一个更大元素 I',
     url: 'https://leetcode-cn.com/problems/different-ways-to-add-parentheses/',
     difficulty: Difficulty.中等,
     tag: [Tag.递归, Tag.记忆化搜索, Tag.数学, Tag.字符串, Tag.动态规划],
@@ -21,23 +21,22 @@ const mds: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 80,
-        memory: 39.9,
-        desc: 'dfs',
-        code: `function cloneGraph(node: Node | null): Node | null {
-          if (node === null) return null;
-          const map = new Map<number, Node>();
-          dfs(node);
-          return map.get(node.val)!;
-          function dfs(node: Node | null): void {
-            if (node === null || map.has(node.val)) return;
-            const cloneNode = new Node(node.val);
-            map.set(node.val, cloneNode);
-            node.neighbors.forEach(neighbor => {
-              dfs(neighbor);
-              cloneNode.neighbors.push(map.get(neighbor.val)!);
-            });
+        time: 76,
+        memory: 40.2,
+        desc: '单调栈',
+        code: `function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
+          const map = new Map<number, number>();
+          nums1.forEach((v, i) => map.set(v, i));
+          const ans: number[] = new Array(nums1.length).fill(-1);
+          const stack: number[] = [];
+          for (const num2 of nums2) {
+            while (stack.length && stack[stack.length - 1] < num2) {
+              const num = stack.pop()!;
+              if (map.has(num)) ans[map.get(num)!] = num2;
+            }
+            stack.push(num2);
           }
+          return ans;
         }`,
       },
     ],
