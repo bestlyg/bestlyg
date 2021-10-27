@@ -12,31 +12,60 @@ type Markdown = leetcode.Markdown;
 
 const mds: Markdown[] = [
   {
-    existMarkdown: true,
-    name: '496. 下一个更大元素 I',
-    url: 'https://leetcode-cn.com/problems/different-ways-to-add-parentheses/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.递归, Tag.记忆化搜索, Tag.数学, Tag.字符串, Tag.动态规划],
-    desc: `给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。`,
+    existMarkdown: !true,
+    name: '301. 删除无效的括号',
+    url: 'https://leetcode-cn.com/problems/remove-invalid-parentheses/',
+    difficulty: Difficulty.困难,
+    tag: [Tag.广度优先搜索, Tag.字符串, Tag.回溯],
+    desc: `给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。`,
     solutions: [
       {
         script: Script.TS,
-        time: 76,
-        memory: 40.2,
-        desc: '单调栈',
-        code: `function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
-          const map = new Map<number, number>();
-          nums1.forEach((v, i) => map.set(v, i));
-          const ans: number[] = new Array(nums1.length).fill(-1);
-          const stack: number[] = [];
-          for (const num2 of nums2) {
-            while (stack.length && stack[stack.length - 1] < num2) {
-              const num = stack.pop()!;
-              if (map.has(num)) ans[map.get(num)!] = num2;
-            }
-            stack.push(num2);
+        time: 104,
+        memory: 46.3,
+        desc: 'dfs',
+        code: `const map: Record<string, string[]> = {};
+        function removeInvalidParentheses(s: string): string[] {
+          if (map[s]) return map[s];
+          const replaceStr = s.replace(new RegExp('[(]|[)]', 'g'), '');
+          const leftList: number[] = [];
+          const rightList: number[] = [];
+          const n = s.length;
+          for (let i = 0; i < n; i++) {
+            const ch = s[i];
+            if (ch === '(') leftList.push(i);
+            if (ch === ')') rightList.push(i);
           }
-          return ans;
+          if (leftList.length === 0 || rightList.length === 0) return [replaceStr];
+          let max = replaceStr.length;
+          const ans = new Set<string>(['', replaceStr]);
+          for (const left of leftList) {
+            let rightIdx = findRight(left);
+            for (let rlen = rightList.length; rightIdx < rlen; rightIdx++) {
+              const right = rightList[rightIdx];
+              for (const s0 of removeInvalidParentheses(s.substring(0, left))) {
+                for (const s1 of removeInvalidParentheses(s.substring(left + 1, right))) {
+                  for (const s2 of removeInvalidParentheses(s.substring(right + 1))) {
+                    const str = ${backquote}\${s0}(\${s1})\${s2}${backquote};
+                    max = Math.max(max, str.length);
+                    ans.add(str);
+                  }
+                }
+              }
+            }
+          }
+          return (map[s] = Array.from(ans).filter(v => v.length === max));
+          function findRight(leftIdx: number) {
+            let left = 0;
+            let right = rightList.length - 1;
+            if (rightList[right] < leftIdx) return Infinity;
+            while (left < right) {
+              const mid = (left + right) >> 1;
+              if (rightList[mid] >= leftIdx) right = mid;
+              else left = mid + 1;
+            }
+            return left;
+          }
         }`,
       },
     ],
