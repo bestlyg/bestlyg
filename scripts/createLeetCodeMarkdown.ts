@@ -13,58 +13,37 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '301. 删除无效的括号',
-    url: 'https://leetcode-cn.com/problems/remove-invalid-parentheses/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.广度优先搜索, Tag.字符串, Tag.回溯],
-    desc: `给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。`,
+    name: '869. 重新排序得到 2 的幂',
+    url: 'https://leetcode-cn.com/problems/reordered-power-of-2/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数学, Tag.计数, Tag.枚举, Tag.排序],
+    desc: `给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。`,
     solutions: [
       {
         script: Script.TS,
-        time: 104,
-        memory: 46.3,
+        time: 2416,
+        memory: 61.5,
         desc: 'dfs',
-        code: `const map: Record<string, string[]> = {};
-        function removeInvalidParentheses(s: string): string[] {
-          if (map[s]) return map[s];
-          const replaceStr = s.replace(new RegExp('[(]|[)]', 'g'), '');
-          const leftList: number[] = [];
-          const rightList: number[] = [];
-          const n = s.length;
-          for (let i = 0; i < n; i++) {
-            const ch = s[i];
-            if (ch === '(') leftList.push(i);
-            if (ch === ')') rightList.push(i);
-          }
-          if (leftList.length === 0 || rightList.length === 0) return [replaceStr];
-          let max = replaceStr.length;
-          const ans = new Set<string>(['', replaceStr]);
-          for (const left of leftList) {
-            let rightIdx = findRight(left);
-            for (let rlen = rightList.length; rightIdx < rlen; rightIdx++) {
-              const right = rightList[rightIdx];
-              for (const s0 of removeInvalidParentheses(s.substring(0, left))) {
-                for (const s1 of removeInvalidParentheses(s.substring(left + 1, right))) {
-                  for (const s2 of removeInvalidParentheses(s.substring(right + 1))) {
-                    const str = ${backquote}\${s0}(\${s1})\${s2}${backquote};
-                    max = Math.max(max, str.length);
-                    ans.add(str);
-                  }
-                }
-              }
+        code: `function reorderedPowerOf2(n: number): boolean {
+          const chars = n.toString().split('');
+          const len = chars.length;
+          const list: number[] = [];
+          const set = new Set<number>();
+          dfs();
+          return list.some(num=>(num & (num - 1)) ===0);
+          function dfs(num = 0) {
+            if (set.size === len) {
+              list.push(num);
+              return;
             }
-          }
-          return (map[s] = Array.from(ans).filter(v => v.length === max));
-          function findRight(leftIdx: number) {
-            let left = 0;
-            let right = rightList.length - 1;
-            if (rightList[right] < leftIdx) return Infinity;
-            while (left < right) {
-              const mid = (left + right) >> 1;
-              if (rightList[mid] >= leftIdx) right = mid;
-              else left = mid + 1;
+            for (let i = 0; i < len; i++) {
+              if (set.has(i)) continue;
+              const ch = chars[i];
+              if (num === 0 && ch === '0') continue;
+              set.add(i);
+              dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);
+              set.delete(i);
             }
-            return left;
           }
         }`,
       },

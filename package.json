@@ -32,6 +32,7 @@
     "lm": "yarn leetcode:markdown",
     "la": "yarn leetcode:auto",
     "dp": "yarn deploy",
+    "c": "yarn commit",
     "ca": "yarn commit:auto",
     "ucc": "yarn update:coreCode",
     "ud": "yarn update:dep"

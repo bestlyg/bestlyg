@@ -83,6 +83,7 @@ export enum Tag {
   模拟 = '模拟',
   水塘抽样 = '水塘抽样',
   字符串匹配 = '字符串匹配',
+  枚举 = '枚举',
 }
 export enum Script {
   JS = 'javascript',

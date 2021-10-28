@@ -18,46 +18,39 @@ type Heap = structures.Heap;
 
 /*
  */
-const map: Record<string, string[]> = {};
-function removeInvalidParentheses(s: string): string[] {
-  if (map[s]) return map[s];
-  const replaceStr = s.replace(new RegExp('[(]|[)]', 'g'), '');
-  const leftList: number[] = [];
-  const rightList: number[] = [];
-  const n = s.length;
-  for (let i = 0; i < n; i++) {
-    const ch = s[i];
-    if (ch === '(') leftList.push(i);
-    if (ch === ')') rightList.push(i);
+function reorderedPowerOf2(n: number): boolean {
+  if (check(n)) return true;
+  const chars = n.toString().split('');
+  const len = chars.length;
+  const list: number[] = [];
+  const set = new Set<number>();
+  dfs();
+  log({ list });
+  for (const num of list) {
+    if (check(num)) return true;
   }
-  if (leftList.length === 0 || rightList.length === 0) return [replaceStr];
-  let max = replaceStr.length;
-  const ans = new Set<string>(['', replaceStr]);
-  for (const left of leftList) {
-    let rightIdx = findRight(left);
-    for (let rlen = rightList.length; rightIdx < rlen; rightIdx++) {
-      const right = rightList[rightIdx];
-      for (const s0 of removeInvalidParentheses(s.substring(0, left))) {
-        for (const s1 of removeInvalidParentheses(s.substring(left + 1, right))) {
-          for (const s2 of removeInvalidParentheses(s.substring(right + 1))) {
-            const str = `${s0}(${s1})${s2}`;
-            max = Math.max(max, str.length);
-            ans.add(str);
-          }
-        }
-      }
-    }
+  return false;
+  function check(num: number) {
+    return (
+      num
+        .toString(2)
+        .split('')
+        .filter(v => v === '1').length === 1
+    );
   }
-  return (map[s] = Array.from(ans).filter(v => v.length === max));
-  function findRight(leftIdx: number) {
-    let left = 0;
-    let right = rightList.length - 1;
-    if (rightList[right] < leftIdx) return Infinity;
-    while (left < right) {
-      const mid = (left + right) >> 1;
-      if (rightList[mid] >= leftIdx) right = mid;
-      else left = mid + 1;
+  function dfs(num = 0) {
+    if (set.size === len) {
+      list.push(num);
+      return;
     }
-    return left;
+    for (let i = 0; i < len; i++) {
+      if (set.has(i)) continue;
+      const ch = chars[i];
+      if (num === 0 && ch === '0') continue;
+      set.add(i);
+      dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);
+      set.delete(i);
+    }
   }
 }
+log([reorderedPowerOf2(16)]);
