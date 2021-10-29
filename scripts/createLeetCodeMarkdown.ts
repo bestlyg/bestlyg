@@ -13,38 +13,41 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '869. 重新排序得到 2 的幂',
-    url: 'https://leetcode-cn.com/problems/reordered-power-of-2/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.数学, Tag.计数, Tag.枚举, Tag.排序],
-    desc: `给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。`,
+    name: '335. 路径交叉',
+    url: 'https://leetcode-cn.com/problems/self-crossing//',
+    difficulty: Difficulty.困难,
+    tag: [Tag.几何, Tag.数组, Tag.数学],
+    desc: `给你一个整数数组 distance 。判断你所经过的路径是否相交。如果相交，返回 true ；否则，返回 false 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 2416,
-        memory: 61.5,
-        desc: 'dfs',
-        code: `function reorderedPowerOf2(n: number): boolean {
-          const chars = n.toString().split('');
-          const len = chars.length;
-          const list: number[] = [];
-          const set = new Set<number>();
-          dfs();
-          return list.some(num=>(num & (num - 1)) ===0);
-          function dfs(num = 0) {
-            if (set.size === len) {
-              list.push(num);
-              return;
-            }
-            for (let i = 0; i < len; i++) {
-              if (set.has(i)) continue;
-              const ch = chars[i];
-              if (num === 0 && ch === '0') continue;
-              set.add(i);
-              dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);
-              set.delete(i);
-            }
+        time: 96,
+        memory: 41.7,
+        desc: link(
+          '参考链接',
+          'https://leetcode-cn.com/problems/self-crossing/solution/gong-shui-san-xie-fen-qing-kuang-tao-lun-zdrb/'
+        ),
+        code: `function isSelfCrossing(distance: number[]): boolean {
+          const n = distance.length;
+          if (n <= 3) return false;
+          for (let i = 3; i < n; i++) {
+            if (i >= 3 && distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) return true;
+            if (
+              i >= 4 &&
+              distance[i - 1] === distance[i - 3] &&
+              distance[i] + distance[i - 4] >= distance[i - 2]
+            )
+              return true;
+            if (
+              i >= 5 &&
+              distance[i - 1] <= distance[i - 3] &&
+              distance[i - 2] > distance[i - 4] &&
+              distance[i] + distance[i - 4] >= distance[i - 2] &&
+              distance[i - 1] + distance[i - 5] >= distance[i - 3]
+            )
+              return true;
           }
+          return false;
         }`,
       },
     ],

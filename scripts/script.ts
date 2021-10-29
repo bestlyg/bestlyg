@@ -18,39 +18,27 @@ type Heap = structures.Heap;
 
 /*
  */
-function reorderedPowerOf2(n: number): boolean {
-  if (check(n)) return true;
-  const chars = n.toString().split('');
-  const len = chars.length;
-  const list: number[] = [];
-  const set = new Set<number>();
-  dfs();
-  log({ list });
-  for (const num of list) {
-    if (check(num)) return true;
+// direction 0 up 1 left 2 bottom 3 right
+function isSelfCrossing(distance: number[]): boolean {
+  const n = distance.length;
+  if (n <= 3) return false;
+  for (let i = 3; i < n; i++) {
+    if (i >= 3 && distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) return true;
+    if (
+      i >= 4 &&
+      distance[i - 1] === distance[i - 3] &&
+      distance[i] + distance[i - 4] >= distance[i - 2]
+    )
+      return true;
+    if (
+      i >= 5 &&
+      distance[i - 1] <= distance[i - 3] &&
+      distance[i - 2] > distance[i - 4] &&
+      distance[i] + distance[i - 4] >= distance[i - 2] &&
+      distance[i - 1] + distance[i - 5] >= distance[i - 3]
+    )
+      return true;
   }
   return false;
-  function check(num: number) {
-    return (
-      num
-        .toString(2)
-        .split('')
-        .filter(v => v === '1').length === 1
-    );
-  }
-  function dfs(num = 0) {
-    if (set.size === len) {
-      list.push(num);
-      return;
-    }
-    for (let i = 0; i < len; i++) {
-      if (set.has(i)) continue;
-      const ch = chars[i];
-      if (num === 0 && ch === '0') continue;
-      set.add(i);
-      dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);
-      set.delete(i);
-    }
-  }
 }
-log([reorderedPowerOf2(16)]);
+log([isSelfCrossing([2, 1, 1, 2]), isSelfCrossing([1, 2, 3, 4]), isSelfCrossing([1, 1, 1, 1])]);
