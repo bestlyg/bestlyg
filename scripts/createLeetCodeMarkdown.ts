@@ -13,41 +13,71 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '335. 路径交叉',
-    url: 'https://leetcode-cn.com/problems/self-crossing//',
-    difficulty: Difficulty.困难,
-    tag: [Tag.几何, Tag.数组, Tag.数学],
-    desc: `给你一个整数数组 distance 。判断你所经过的路径是否相交。如果相交，返回 true ；否则，返回 false 。`,
+    name: '500. 键盘行',
+    url: 'https://leetcode-cn.com/problems/keyboard-row/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.数组, Tag.哈希表, Tag.字符串],
+    desc: `给你一个字符串数组 words ，只返回可以使用在 美式键盘 同一行的字母打印出来的单词。`,
     solutions: [
       {
         script: Script.TS,
-        time: 96,
-        memory: 41.7,
-        desc: link(
-          '参考链接',
-          'https://leetcode-cn.com/problems/self-crossing/solution/gong-shui-san-xie-fen-qing-kuang-tao-lun-zdrb/'
-        ),
-        code: `function isSelfCrossing(distance: number[]): boolean {
-          const n = distance.length;
-          if (n <= 3) return false;
-          for (let i = 3; i < n; i++) {
-            if (i >= 3 && distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) return true;
-            if (
-              i >= 4 &&
-              distance[i - 1] === distance[i - 3] &&
-              distance[i] + distance[i - 4] >= distance[i - 2]
-            )
-              return true;
-            if (
-              i >= 5 &&
-              distance[i - 1] <= distance[i - 3] &&
-              distance[i - 2] > distance[i - 4] &&
-              distance[i] + distance[i - 4] >= distance[i - 2] &&
-              distance[i - 1] + distance[i - 5] >= distance[i - 3]
-            )
-              return true;
+        time: 76,
+        memory: 39.3,
+        desc: '哈希',
+        code: `function findWords(words: string[]): string[] {
+          const data: Set<string>[] = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map(
+            str => new Set<string>(str.split(''))
+          );
+          return words.filter(word => {
+              word = word .toLowerCase()
+            const set = data.find(set => set.has(word[0]))!;
+            for (const ch of word) {
+              if (!set.has(ch)) return false;
+            }
+            return true;
+          });
+        }
+        `,
+      },
+    ],
+  },
+  {
+    existMarkdown: !true,
+    name: '260. 只出现一次的数字 III',
+    url: 'https://leetcode-cn.com/problems/single-number-iii/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.位运算, Tag.数组],
+    desc: `给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。`,
+    solutions: [
+      {
+        script: Script.TS,
+        time: 84,
+        memory: 41.2,
+        desc: '哈希',
+        code: `function singleNumber(nums: number[]): number[] {
+          const map=new Map<number,number>()
+          nums.forEach(num=>{
+              map.set(num,(map.get(num) ?? 0) + 1);
+          });
+          return Array.from(map.entries()).filter(([,v])=>v===1).map(([k])=>k)
+      };`,
+      },
+      {
+        script: Script.TS,
+        time: 76,
+        memory: 40.3,
+        desc: '位运算',
+        code: `function singleNumber(nums: number[]): number[] {
+          const xorNum = nums.reduce((ans, num) => ans ^ num, 0);
+          let i = 0;
+          while ((xorNum & (1 << i)) === 0) i++;
+          let num1 = 0;
+          let num2 = 0;
+          for (const num of nums) {
+            if (num & (1 << i)) num1 ^= num;
+            else num2 ^= num;
           }
-          return false;
+          return [num1, num2];
         }`,
       },
     ],
