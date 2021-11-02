@@ -12,8 +12,8 @@ type Markdown = leetcode.Markdown;
 
 const mds: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '575. 分糖果',
+    existMarkdown: true,
+    name: '237. 删除链表中的节点',
     url: 'https://leetcode-cn.com/problems/distribute-candies/',
     difficulty: Difficulty.简单,
     tag: [Tag.数组, Tag.哈希表],
@@ -21,11 +21,13 @@ const mds: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 128,
-        memory: 50.9,
-        desc: '贪心',
-        code: `function distributeCandies(candyType: number[]): number {
-          return Math.min(new Set<number>(candyType).size,candyType.length/2)
+        time: 88,
+        memory: 39.6,
+        desc: '与下一节点替换',
+        code: `function deleteNode(root: ListNode | null): void {
+          if(root === null)return ;
+          root .val = root.next.val;
+          root.next = root.next.next
           };`,
       },
     ],
