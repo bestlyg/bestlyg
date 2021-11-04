@@ -12,23 +12,40 @@ type Markdown = leetcode.Markdown;
 
 const mds: Markdown[] = [
   {
-    existMarkdown: true,
-    name: '237. 删除链表中的节点',
-    url: 'https://leetcode-cn.com/problems/distribute-candies/',
+    existMarkdown: !true,
+    name: '367. 有效的完全平方数',
+    url: 'https://leetcode-cn.com/problems/valid-perfect-square/',
     difficulty: Difficulty.简单,
-    tag: [Tag.数组, Tag.哈希表],
-    desc: `给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。`,
+    tag: [Tag.数学, Tag.二分查找],
+    desc: `给定一个 正整数 num ，编写一个函数，如果 num 是一个完全平方数，则返回 true ，否则返回 false 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 88,
-        memory: 39.6,
-        desc: '与下一节点替换',
-        code: `function deleteNode(root: ListNode | null): void {
-          if(root === null)return ;
-          root .val = root.next.val;
-          root.next = root.next.next
+        time: 80,
+        memory: 39.3,
+        desc: 'Math.sqrt',
+        code: `function isPerfectSquare(num: number): boolean {
+          const s = Math.sqrt(num);
+          return s === Math.floor(s)
           };`,
+      },
+      {
+        script: Script.TS,
+        time: 76,
+        memory: 39.3,
+        desc: '二分',
+        code: `function isPerfectSquare(num: number): boolean {
+          if( num === 1 )return true ;
+          let l = 1 , r = num / 2 ;
+          while(l<=r){
+              const mid = ( l + r ) >> 1 ; 
+              const midNum = mid ** 2 ;
+              if( midNum === num )return true ;
+              if( midNum > num )r = mid - 1 ;
+              else l = mid + 1 ; 
+          }
+          return false ; 
+      };`,
       },
     ],
   },
