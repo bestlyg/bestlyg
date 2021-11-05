@@ -13,39 +13,27 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '367. 有效的完全平方数',
-    url: 'https://leetcode-cn.com/problems/valid-perfect-square/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.数学, Tag.二分查找],
-    desc: `给定一个 正整数 num ，编写一个函数，如果 num 是一个完全平方数，则返回 true ，否则返回 false 。`,
+    name: '1218. 最长定差子序列',
+    url: 'https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数组, Tag.哈希表, Tag.动态规划],
+    desc: `给你一个整数数组 arr 和一个整数 difference，请你找出并返回 arr 中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 80,
-        memory: 39.3,
-        desc: 'Math.sqrt',
-        code: `function isPerfectSquare(num: number): boolean {
-          const s = Math.sqrt(num);
-          return s === Math.floor(s)
-          };`,
-      },
-      {
-        script: Script.TS,
-        time: 76,
-        memory: 39.3,
-        desc: '二分',
-        code: `function isPerfectSquare(num: number): boolean {
-          if( num === 1 )return true ;
-          let l = 1 , r = num / 2 ;
-          while(l<=r){
-              const mid = ( l + r ) >> 1 ; 
-              const midNum = mid ** 2 ;
-              if( midNum === num )return true ;
-              if( midNum > num )r = mid - 1 ;
-              else l = mid + 1 ; 
+        time: 96,
+        memory: 48.5,
+        desc: '哈希存储',
+        code: `function longestSubsequence(arr: number[], difference: number): number {
+          let max = 1;
+          const map = new Map<number, number>();
+          for (const num of arr) {
+            const cnt = (map.get(num) ?? 0) + 1;
+            map.set(num + difference, cnt);
+            max = Math.max(max, cnt);
           }
-          return false ; 
-      };`,
+          return max;
+        }`,
       },
     ],
   },

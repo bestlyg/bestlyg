@@ -18,5 +18,13 @@ type Heap = structures.Heap;
 
 /*
  */
-// direction 0 up 1 left 2 bottom 3 right
-function isPerfectSquare(num: number): boolean {}
+function longestSubsequence(arr: number[], difference: number): number {
+  let max = 1;
+  const map = new Map<number, number>();
+  for (const num of arr) {
+    const cnt = (map.get(num) ?? 0) + 1;
+    map.set(num + difference, cnt);
+    max = Math.max(max, cnt);
+  }
+  return max;
+}
