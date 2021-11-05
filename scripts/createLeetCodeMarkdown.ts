@@ -13,26 +13,59 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '1218. 最长定差子序列',
-    url: 'https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/',
+    name: '676. 实现一个魔法字典',
+    url: 'https://leetcode-cn.com/problems/implement-magic-dictionary/',
     difficulty: Difficulty.中等,
-    tag: [Tag.数组, Tag.哈希表, Tag.动态规划],
-    desc: `给你一个整数数组 arr 和一个整数 difference，请你找出并返回 arr 中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。`,
+    tag: [Tag.设计, Tag.字典树, Tag.哈希表, Tag.字符串],
+    desc: `设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。 如果给出一个单词，请判定能否只将这个单词中一个字母换成另一个字母，使得所形成的新单词存在于你构建的字典中。`,
     solutions: [
       {
         script: Script.TS,
-        time: 96,
-        memory: 48.5,
-        desc: '哈希存储',
-        code: `function longestSubsequence(arr: number[], difference: number): number {
-          let max = 1;
-          const map = new Map<number, number>();
-          for (const num of arr) {
-            const cnt = (map.get(num) ?? 0) + 1;
-            map.set(num + difference, cnt);
-            max = Math.max(max, cnt);
+        time: 132,
+        memory: 45.9,
+        desc: 'trie',
+        code: `const getIdx = (ch: string) => ch.codePointAt(0)! - 'a'.codePointAt(0)!;
+        class TrieNode {
+          end = false;
+          children: TrieNode[] = [];
+          constructor(public val: string) {}
+        }
+        class Trie {
+          root = new TrieNode('');
+          insert(word: string): void {
+            let node = this.root;
+            for (const ch of word) {
+              const idx = getIdx(ch);
+              if (!node.children[idx]) node.children[idx] = new TrieNode(ch);
+              node = node.children[idx];
+            }
+            node.end = true;
           }
-          return max;
+          search(word: string): boolean {
+            return this._search(word);
+          }
+          _search(word: string, node = this.root, idx = 0, err = 1): boolean {
+            if (idx === word.length) return node.end && err === 0;
+            const ch = word[idx];
+            const chIdx = getIdx(ch);
+            if (node.children[chIdx] && this._search(word, node.children[chIdx], idx + 1, err)) return true;
+            if (err === 0) return false;
+            for (const child of node.children) {
+              if (child === node.children[chIdx]) continue;
+              if (this._search(word, child, idx + 1, err - 1)) return true;
+            }
+            return false;
+          }
+        }
+        
+        class MagicDictionary {
+          trie = new Trie();
+          buildDict(dictionary: string[]): void {
+            dictionary.forEach(word => this.trie.insert(word));
+          }
+          search(searchWord: string): boolean {
+            return this.trie.search(searchWord);
+          }
         }`,
       },
     ],
