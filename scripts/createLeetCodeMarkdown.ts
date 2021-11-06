@@ -13,60 +13,71 @@ type Markdown = leetcode.Markdown;
 const mds: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '676. 实现一个魔法字典',
-    url: 'https://leetcode-cn.com/problems/implement-magic-dictionary/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.设计, Tag.字典树, Tag.哈希表, Tag.字符串],
-    desc: `设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。 如果给出一个单词，请判定能否只将这个单词中一个字母换成另一个字母，使得所形成的新单词存在于你构建的字典中。`,
+    name: '268. 丢失的数字',
+    url: 'https://leetcode-cn.com/problems/missing-number/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.位运算, Tag.数组, Tag.哈希表, Tag.数学, Tag.排序],
+    desc: `给定一个包含 [0, n] 中 n 个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。`,
     solutions: [
       {
         script: Script.TS,
-        time: 132,
-        memory: 45.9,
-        desc: 'trie',
-        code: `const getIdx = (ch: string) => ch.codePointAt(0)! - 'a'.codePointAt(0)!;
-        class TrieNode {
-          end = false;
-          children: TrieNode[] = [];
-          constructor(public val: string) {}
+        time: 80,
+        memory: 45,
+        desc: '哈希',
+        code: `function missingNumber(nums: number[]): number {
+          const n = nums.length;
+          const set = new Set(nums);
+          for (let num = 0; num <= n; num++) {
+            if (!set.has(num)) return num;
+          }
+          return 0;
         }
-        class Trie {
-          root = new TrieNode('');
-          insert(word: string): void {
-            let node = this.root;
-            for (const ch of word) {
-              const idx = getIdx(ch);
-              if (!node.children[idx]) node.children[idx] = new TrieNode(ch);
-              node = node.children[idx];
-            }
-            node.end = true;
-          }
-          search(word: string): boolean {
-            return this._search(word);
-          }
-          _search(word: string, node = this.root, idx = 0, err = 1): boolean {
-            if (idx === word.length) return node.end && err === 0;
-            const ch = word[idx];
-            const chIdx = getIdx(ch);
-            if (node.children[chIdx] && this._search(word, node.children[chIdx], idx + 1, err)) return true;
-            if (err === 0) return false;
-            for (const child of node.children) {
-              if (child === node.children[chIdx]) continue;
-              if (this._search(word, child, idx + 1, err - 1)) return true;
-            }
-            return false;
-          }
+        `,
+      },
+      {
+        script: Script.TS,
+        time: 80,
+        memory: 40.4,
+        desc: 'xor去重',
+        code: `function missingNumber(nums: number[]): number {
+          const n = nums.length;
+          let num = 0;
+          for (let i = 0; i <= n; i++) num ^= i;
+          for (let i = 0; i < n; i++) num ^= nums[i];
+          return num;
         }
-        
-        class MagicDictionary {
-          trie = new Trie();
-          buildDict(dictionary: string[]): void {
-            dictionary.forEach(word => this.trie.insert(word));
+        `,
+      },
+    ],
+  },
+  {
+    existMarkdown: !true,
+    name: '32. 最长有效括号',
+    url: 'https://leetcode-cn.com/problems/longest-valid-parentheses/',
+    difficulty: Difficulty.困难,
+    tag: [Tag.栈, Tag.字符串, Tag.动态规划],
+    desc: `给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。`,
+    solutions: [
+      {
+        script: Script.TS,
+        time: 84,
+        memory: 40.7,
+        desc: '动态规划分析括号出现的状态',
+        code: `function longestValidParentheses(s: string): number {
+          const n = s.length;
+          const dp = new Array(n + 1).fill(0);
+          let ans = 0;
+          for (let i = 1; i < n; i++) {
+            const ch = s[i];
+            if (ch === '(') dp[i + 1] = 0;
+            else if (s[i - 1] === '(') dp[i + 1] = dp[i - 1] + 2;
+            else if (s[i - dp[i] - 1] === '(') dp[i + 1] = dp[i] + 2 + dp[i - dp[i] - 1];
+            else dp[i + 1] = 0;
+            ans = Math.max(ans, dp[i + 1]);
           }
-          search(searchWord: string): boolean {
-            return this.trie.search(searchWord);
-          }
-        }`,
+          return ans;
+        }
+        `,
       },
     ],
   },
