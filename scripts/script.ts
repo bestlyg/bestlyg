@@ -18,20 +18,30 @@ type Heap = structures.Heap;
 
 /*
  */
-function longestValidParentheses(s: string): number {
-  const stack: string[] = [];
-  let ans = 0;
-  let cur = 0;
-  for (const ch of s) {
-    if (ch === '(') {
-      stack.push(ch);
-    } else if (stack.length === 0) {
-      ans = Math.max(ans, cur);
-      cur = 0;
-    } else {
-      stack.pop();
-      cur += 2;
-    }
-  }
-  return ans;
+function maxCount(m: number, n: number, ops: number[][]): number {
+  if (ops.length === 0) return m * n;
+  let minA = Infinity;
+  let minB = Infinity;
+  ops.forEach(([a, b]) => {
+    minA = Math.min(minA, a);
+    minB = Math.min(minB, b);
+  });
+  return minA * minB;
 }
+log([
+  maxCount(26, 17, [
+    [20, 10],
+    [26, 11],
+    [2, 11],
+    [4, 16],
+    [2, 3],
+    [23, 13],
+    [7, 15],
+    [11, 11],
+    [25, 13],
+    [11, 13],
+    [13, 11],
+    [13, 16],
+    [26, 17],
+  ]),
+]);

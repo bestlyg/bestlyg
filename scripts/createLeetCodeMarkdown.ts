@@ -14,70 +14,26 @@ const mds: Markdown[] = [
   {
     existMarkdown: !true,
     name: '268. 丢失的数字',
-    url: 'https://leetcode-cn.com/problems/missing-number/',
+    url: 'https://leetcode-cn.com/problems/range-addition-ii/',
     difficulty: Difficulty.简单,
-    tag: [Tag.位运算, Tag.数组, Tag.哈希表, Tag.数学, Tag.排序],
-    desc: `给定一个包含 [0, n] 中 n 个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。`,
+    tag: [Tag.数组, Tag.数学],
+    desc: `给定一个初始元素全部为 0，大小为 m*n 的矩阵 M 以及在 M 上的一系列更新操作。`,
     solutions: [
       {
         script: Script.TS,
         time: 80,
-        memory: 45,
-        desc: '哈希',
-        code: `function missingNumber(nums: number[]): number {
-          const n = nums.length;
-          const set = new Set(nums);
-          for (let num = 0; num <= n; num++) {
-            if (!set.has(num)) return num;
-          }
-          return 0;
-        }
-        `,
-      },
-      {
-        script: Script.TS,
-        time: 80,
-        memory: 40.4,
-        desc: 'xor去重',
-        code: `function missingNumber(nums: number[]): number {
-          const n = nums.length;
-          let num = 0;
-          for (let i = 0; i <= n; i++) num ^= i;
-          for (let i = 0; i < n; i++) num ^= nums[i];
-          return num;
-        }
-        `,
-      },
-    ],
-  },
-  {
-    existMarkdown: !true,
-    name: '32. 最长有效括号',
-    url: 'https://leetcode-cn.com/problems/longest-valid-parentheses/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.栈, Tag.字符串, Tag.动态规划],
-    desc: `给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。`,
-    solutions: [
-      {
-        script: Script.TS,
-        time: 84,
-        memory: 40.7,
-        desc: '动态规划分析括号出现的状态',
-        code: `function longestValidParentheses(s: string): number {
-          const n = s.length;
-          const dp = new Array(n + 1).fill(0);
-          let ans = 0;
-          for (let i = 1; i < n; i++) {
-            const ch = s[i];
-            if (ch === '(') dp[i + 1] = 0;
-            else if (s[i - 1] === '(') dp[i + 1] = dp[i - 1] + 2;
-            else if (s[i - dp[i] - 1] === '(') dp[i + 1] = dp[i] + 2 + dp[i - dp[i] - 1];
-            else dp[i + 1] = 0;
-            ans = Math.max(ans, dp[i + 1]);
-          }
-          return ans;
-        }
-        `,
+        memory: 40.1,
+        desc: '取最小值',
+        code: `function maxCount(m: number, n: number, ops: number[][]): number {
+          if (ops.length === 0) return m * n;
+          let minA = Infinity;
+          let minB = Infinity;
+          ops.forEach(([a, b]) => {
+            minA = Math.min(minA, a);
+            minB = Math.min(minB, b);
+          });
+          return minA * minB;
+        }`,
       },
     ],
   },
