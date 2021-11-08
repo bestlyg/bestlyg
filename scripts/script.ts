@@ -18,17 +18,29 @@ type Heap = structures.Heap;
 
 /*
  */
-function grayCode(n: number): number[] {
-  if (n === 0) return [0];
-  const ans = [0, 1];
-  if (n === 1) return ans;
-  while (--n) {
-    ans.push(
-      ...Array.from(ans)
-        .reverse()
-        .map(v => v | (1 << n))
-    );
+function getHint(secret: string, guess: string): string {
+  const n = secret.length;
+  let a = 0;
+  let b = 0;
+  const map: Record<string, number> = {};
+  const list: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const ch1 = secret[i];
+    const ch2 = guess[i];
+    if (ch1 === ch2) {
+      a++;
+      list.push(i);
+    } else map[ch1] = (map[ch1] ?? 0) + 1;
   }
-  return ans;
+  for (let i = 0; i < n; i++) {
+    if (list.length && list[0] === i) continue;
+    list.shift();
+    const ch1 = secret[i];
+    const ch2 = guess[i];
+    if (map[ch2]) {
+      b++;
+      map[ch2]--;
+    }
+  }
+  return `${a}A${b}B`;
 }
-log([grayCode(2)]);
