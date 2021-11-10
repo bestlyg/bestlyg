@@ -10,66 +10,27 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '488. 祖玛游戏',
-    url: 'https://leetcode-cn.com/problems/zuma-game/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.字符串, Tag.回溯],
-    desc: `给你一个字符串 board ，表示桌面上最开始的那排球。另给你一个字符串 hand ，表示手里的彩球。请你按上述操作步骤移除掉桌上所有球，计算并返回所需的 最少 球数。如果不能移除桌上所有的球，返回 -1 。`,
+    name: '495. 提莫攻击',
+    url: 'https://leetcode-cn.com/problems/teemo-attacking/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.数组, Tag.模拟],
+    desc: `返回艾希处于中毒状态的 总 秒数。`,
     solutions: [
       {
         script: Script.TS,
-        time: 800,
-        memory: 64.7,
-        desc: 'dfs',
-        code: `function format(board: string): string {
-          let flag = false;
-          let n = board.length;
-          do {
-            flag = false;
-            for (let i = 0; i < n - 1; i++) {
-              const ball = board[i];
-              let end = i;
-              let cnt = 1;
-              while (end < n - 1 && ball === board[end + 1]) {
-                end++;
-                cnt++;
-              }
-              if (cnt < 3) {
-                i = end;
-                continue;
-              }
-              board = board.substring(0, i) + board.substring(end + 1);
-              n = board.length;
-              flag = true;
-            }
-          } while (flag);
-          return board;
-        }
-        function findMinStep(board: string, hand: string): number {
-          const cache: Record<string, number> = {};
-          const map: Record<string, number> = { R: 0, Y: 0, B: 0, G: 0, W: 0 };
-          for (const ball of hand) map[ball]++;
-          return dfs(board, 0, map);
-          function dfs(board: string, cnt: number, map: Record<string, number>): number {
-            if (cache[board]) return cache[board];
-            if (board === '') return cnt;
-            const n = board.length;
-            const list = Object.entries(map)
-              .filter(([, v]) => v > 0)
-              .map(([k]) => k);
-            let ans = Infinity;
-            for (let i = 0; i < n; i++) {
-              for (let j = 0; j < list.length; j++) {
-                const ball = list[j];
-                map[ball]--;
-                const nextBoard = board.substring(0, i) + ball + board.substring(i);
-                const res = dfs(format(nextBoard), cnt + 1, map);
-                if (res !== -1) ans = Math.min(ans, res);
-                map[ball]++;
-              }
-            }
-            return (cache[board] = ans === Infinity ? -1 : ans);
+        time: 76,
+        memory: 42.2,
+        desc: '遍历',
+        code: `function findPoisonedDuration(timeSeries: number[], duration: number): number {
+          let ans = 0;
+          for (let i = 0,n = timeSeries.length; i < n - 1; i++) {
+            const time = timeSeries[i];
+            const next_time = timeSeries[i + 1];
+            if (time + duration - 1 >= next_time) ans += next_time - time;
+            else ans += duration;
           }
+          ans += duration;
+          return ans;
         }`,
       },
     ],
