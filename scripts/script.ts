@@ -18,15 +18,21 @@ type Heap = structures.Heap;
 
 /*
  */
-function findPoisonedDuration(timeSeries: number[], duration: number): number {
-  let ans = 0;
-  const n = timeSeries.length;
-  for (let i = 0; i < n - 1; i++) {
-    const time = timeSeries[i];
-    const next_time = timeSeries[i + 1];
-    if (time + duration - 1 >= next_time) ans += next_time - time;
-    else ans += duration;
+function kInversePairs(n: number, k: number): number {
+  if (k === 0) return 1;
+  const MOD = 10 ** 9 + 7;
+  const dp: Map<number, number>[] = new Array(2).fill(0).map(_ => new Map());
+  dp[0].set(0, 1);
+  for (let i = 1; i < n; i++) {
+    const map = dp[i % 2];
+    map.clear();
+    for (const [num, cnt] of dp[(i - 1) % 2].entries()) {
+      for (let j = 0; j <= i; j++) {
+        if (num + j > k) break;
+        const cur = map.get(num + j) ?? 0;
+        map.set(num + j, (cur + cnt) % MOD);
+      }
+    }
   }
-  ans += duration;
-  return ans;
+  return dp[(n - 1) % 2].get(k) ?? 0;
 }

@@ -10,27 +10,34 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '495. 提莫攻击',
-    url: 'https://leetcode-cn.com/problems/teemo-attacking/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.数组, Tag.模拟],
-    desc: `返回艾希处于中毒状态的 总 秒数。`,
+    name: '629. K个逆序对数组',
+    url: 'https://leetcode-cn.com/problems/k-inverse-pairs-array/',
+    difficulty: Difficulty.困难,
+    tag: [Tag.动态规划],
+    desc: `给出两个整数 n 和 k，找出所有包含从 1 到 n 的数字，且恰好拥有 k 个逆序对的不同的数组的个数。`,
     solutions: [
       {
         script: Script.TS,
-        time: 76,
-        memory: 42.2,
-        desc: '遍历',
-        code: `function findPoisonedDuration(timeSeries: number[], duration: number): number {
-          let ans = 0;
-          for (let i = 0,n = timeSeries.length; i < n - 1; i++) {
-            const time = timeSeries[i];
-            const next_time = timeSeries[i + 1];
-            if (time + duration - 1 >= next_time) ans += next_time - time;
-            else ans += duration;
+        time: 5508,
+        memory: 45.3,
+        desc: '动态规划',
+        code: `function kInversePairs(n: number, k: number): number {
+          if (k === 0) return 1;
+          const MOD = 10 ** 9 + 7;
+          const dp: Map<number, number>[] = new Array(2).fill(0).map(_ => new Map());
+          dp[0].set(0, 1);
+          for (let i = 1; i < n; i++) {
+            const map = dp[i % 2];
+            map.clear();
+            for (const [num, cnt] of dp[(i - 1) % 2].entries()) {
+              for (let j = 0; j <= i; j++) {
+                if (num + j > k) break;
+                const cur = map.get(num + j) ?? 0;
+                map.set(num + j, (cur + cnt) % MOD);
+              }
+            }
           }
-          ans += duration;
-          return ans;
+          return dp[(n - 1) % 2].get(k) ?? 0;
         }`,
       },
     ],
