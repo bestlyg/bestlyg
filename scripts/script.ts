@@ -17,22 +17,43 @@ type Heap = structures.Heap;
 // type Trie = structures.Trie;
 
 /*
+0
+1
+2
+4
+6
+8  -- 6
+10
+12
+14
+16
+18
+21 -- 12
+24
+27
+30 -- 15
+34
+38
+42 -- 18
+46
+49 -- 20
+52
+55
+58
+61
+64 -- 25
  */
-function kInversePairs(n: number, k: number): number {
-  if (k === 0) return 1;
-  const MOD = 10 ** 9 + 7;
-  const dp: Map<number, number>[] = new Array(2).fill(0).map(_ => new Map());
-  dp[0].set(0, 1);
-  for (let i = 1; i < n; i++) {
-    const map = dp[i % 2];
-    map.clear();
-    for (const [num, cnt] of dp[(i - 1) % 2].entries()) {
-      for (let j = 0; j <= i; j++) {
-        if (num + j > k) break;
-        const cur = map.get(num + j) ?? 0;
-        map.set(num + j, (cur + cnt) % MOD);
+function getMoneyAmount(n: number): number {
+  const dp: number[][] = new Array(n + 1).fill(0).map(_ => new Array(n + 1).fill(0));
+  for (let i = n; i >= 1; i--) {
+    for (let j = i + 1; j <= n; j++) {
+      let min = Infinity;
+      for (let k = i; k < j; k++) {
+        min = Math.min(min, k + Math.max(dp[i][k - 1], dp[k + 1][j]));
       }
+      dp[i][j] = min;
     }
   }
-  return dp[(n - 1) % 2].get(k) ?? 0;
+  return dp[1][n];
 }
+log([getMoneyAmount(15)]);

@@ -10,34 +10,29 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '629. K个逆序对数组',
-    url: 'https://leetcode-cn.com/problems/k-inverse-pairs-array/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.动态规划],
-    desc: `给出两个整数 n 和 k，找出所有包含从 1 到 n 的数字，且恰好拥有 k 个逆序对的不同的数组的个数。`,
+    name: '375. 猜数字大小 II',
+    url: 'https://leetcode-cn.com/problems/guess-number-higher-or-lower-ii/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数学, Tag.动态规划, Tag.博弈],
+    desc: `给你一个特定的数字 n ，返回能够 确保你获胜 的最小现金数，不管我选择那个数字 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 5508,
-        memory: 45.3,
+        time: 140,
+        memory: 41.3,
         desc: '动态规划',
-        code: `function kInversePairs(n: number, k: number): number {
-          if (k === 0) return 1;
-          const MOD = 10 ** 9 + 7;
-          const dp: Map<number, number>[] = new Array(2).fill(0).map(_ => new Map());
-          dp[0].set(0, 1);
-          for (let i = 1; i < n; i++) {
-            const map = dp[i % 2];
-            map.clear();
-            for (const [num, cnt] of dp[(i - 1) % 2].entries()) {
-              for (let j = 0; j <= i; j++) {
-                if (num + j > k) break;
-                const cur = map.get(num + j) ?? 0;
-                map.set(num + j, (cur + cnt) % MOD);
+        code: `function getMoneyAmount(n: number): number {
+          const dp: number[][] = new Array(n + 1).fill(0).map(_ => new Array(n + 1).fill(0));
+          for (let i = n; i >= 1; i--) {
+            for (let j = i + 1; j <= n; j++) {
+              let min = Infinity;
+              for (let k = i; k < j; k++) {
+                min = Math.min(min, k + Math.max(dp[i][k - 1], dp[k + 1][j]));
               }
+              dp[i][j] = min;
             }
           }
-          return dp[(n - 1) % 2].get(k) ?? 0;
+          return dp[1][n];
         }`,
       },
     ],
