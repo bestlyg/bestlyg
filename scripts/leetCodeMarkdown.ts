@@ -1,7 +1,6 @@
-import { leetcode, markdown, specStr } from './utils';
+import { leetcode, markdown } from './utils';
 const { Script, Difficulty, Tag } = leetcode;
 const { link } = markdown;
-const { backquote } = specStr;
 type Script = leetcode.Script;
 type Difficulty = leetcode.Difficulty;
 type Tag = leetcode.Tag;
@@ -9,31 +8,21 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '375. 猜数字大小 II',
-    url: 'https://leetcode-cn.com/problems/guess-number-higher-or-lower-ii/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.数学, Tag.动态规划, Tag.博弈],
-    desc: `给你一个特定的数字 n ，返回能够 确保你获胜 的最小现金数，不管我选择那个数字 。`,
+    existMarkdown: true,
+    name: '520. 检测大写字母',
+    url: 'https://leetcode-cn.com/problems/range-addition-ii/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.数组, Tag.数学],
+    desc: `给你一个字符串 word 。如果大写用法正确，返回 true ；否则，返回 false 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 140,
-        memory: 41.3,
-        desc: '动态规划',
-        code: `function getMoneyAmount(n: number): number {
-          const dp: number[][] = new Array(n + 1).fill(0).map(_ => new Array(n + 1).fill(0));
-          for (let i = n; i >= 1; i--) {
-            for (let j = i + 1; j <= n; j++) {
-              let min = Infinity;
-              for (let k = i; k < j; k++) {
-                min = Math.min(min, k + Math.max(dp[i][k - 1], dp[k + 1][j]));
-              }
-              dp[i][j] = min;
-            }
-          }
-          return dp[1][n];
-        }`,
+        time: 80,
+        memory: 39.6,
+        desc: '正则',
+        code: `function detectCapitalUse(word: string): boolean {
+          return /(^[A-Z]*$)|(^[a-z]*$)|(^[A-Z]{1}[a-z]*$)/g.test(word)
+          }`,
       },
     ],
   },
