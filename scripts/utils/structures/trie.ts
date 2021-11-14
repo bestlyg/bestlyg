@@ -1,4 +1,3 @@
-const getIdx = (ch: string) => ch.codePointAt(0)! - 'a'.codePointAt(0)!;
 export class TrieNode {
   end = false;
   children: TrieNode[] = [];
@@ -9,7 +8,7 @@ export class Trie {
   insert(word: string): void {
     let node = this.root;
     for (const ch of word) {
-      const idx = getIdx(ch);
+      const idx = this.getIdx(ch);
       if (!node.children[idx]) node.children[idx] = new TrieNode(ch);
       node = node.children[idx];
     }
@@ -18,7 +17,7 @@ export class Trie {
   findNode(word: string): TrieNode | null {
     let node = this.root;
     for (const ch of word) {
-      const idx = getIdx(ch);
+      const idx = this.getIdx(ch);
       if (!node.children[idx]) return null;
       node = node.children[idx];
     }
@@ -29,5 +28,8 @@ export class Trie {
   }
   startsWith(prefix: string): boolean {
     return !!this.findNode(prefix);
+  }
+  getIdx(ch: string) {
+    return ch.codePointAt(0)! - 'a'.codePointAt(0)!;
   }
 }
