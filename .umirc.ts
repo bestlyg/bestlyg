@@ -5,10 +5,10 @@ const __DEV__ = process.env.NODE_ENV === 'development';
 const includePkgs = __DEV__
   ? [
       'docs',
-      // 'packages/blogs/src',
+      'packages/blogs/src',
       // 'packages/data-structures/src',
       // 'packages/algorithms/src',
-      'packages/applications/src',
+      // 'packages/applications/src',
       // 'packages/leetcode/src',
       // 'packages/resume/src',
     ]
