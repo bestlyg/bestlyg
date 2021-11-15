@@ -84,6 +84,7 @@ export enum Tag {
   水塘抽样 = '水塘抽样',
   字符串匹配 = '字符串匹配',
   枚举 = '枚举',
+  脑筋急转弯 = '脑筋急转弯',
 }
 export enum Script {
   JS = 'javascript',

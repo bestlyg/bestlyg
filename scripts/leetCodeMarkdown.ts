@@ -8,21 +8,21 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: true,
-    name: '520. 检测大写字母',
-    url: 'https://leetcode-cn.com/problems/range-addition-ii/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.数组, Tag.数学],
-    desc: `给你一个字符串 word 。如果大写用法正确，返回 true ；否则，返回 false 。`,
+    existMarkdown: !true,
+    name: '319. 灯泡开关',
+    url: 'https://leetcode-cn.com/problems/bulb-switcher/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.脑筋急转弯, Tag.数学],
+    desc: `找出并返回 n 轮后有多少个亮着的灯泡。`,
     solutions: [
       {
         script: Script.TS,
-        time: 80,
-        memory: 39.6,
-        desc: '正则',
-        code: `function detectCapitalUse(word: string): boolean {
-          return /(^[A-Z]*$)|(^[a-z]*$)|(^[A-Z]{1}[a-z]*$)/g.test(word)
-          }`,
+        time: 76,
+        memory: 39.4,
+        desc: '求出完全平方数即亮灯个数',
+        code: `function bulbSwitch(n: number): number {
+          return Math.floor(Math.sqrt(n + 0.5));
+        }`,
       },
     ],
   },
