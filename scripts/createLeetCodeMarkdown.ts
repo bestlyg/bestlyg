@@ -1,4 +1,4 @@
-import { leetcode, trimBlank, resolve, fs, moment, specStr, LOGO, markdown, chalk } from './utils';
+import { leetcode, trimBlank, resolve, fs, dayjs, specStr, LOGO, markdown, chalk } from './utils';
 import { leetCodeMarkdowns } from './leetCodeMarkdown';
 
 const { backquote } = specStr;
@@ -74,7 +74,7 @@ function addSolution() {
 }
 function analysisSolution({ script, time, memory, desc, code }: Solution, index: number) {
   return `## 题解 ${index} - ${script}
-- 编辑时间：${moment().format('YYYY.MM.DD')}
+- 编辑时间：${dayjs().format('YYYY.MM.DD')}
 - 执行用时：${time}ms
 - 内存消耗：${memory}mb
 - 编程语言：${script}

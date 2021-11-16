@@ -10,7 +10,7 @@ const includePkgs = __DEV__
       // 'packages/algorithms/src',
       // 'packages/applications/src',
       // 'packages/leetcode/src',
-      // 'packages/resume/src',
+      'packages/resume/src',
     ]
   : [
       'docs',

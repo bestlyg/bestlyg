@@ -8,8 +8,8 @@ group:
   title: 目录索引
   path: /catalog
   order: 0
+sidemenu: false
+toc: false
 ---
 
 # 简历合集
-
-# [版式 1](type1/版式1.md)

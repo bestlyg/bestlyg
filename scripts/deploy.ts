@@ -1,4 +1,4 @@
-import { shelljs, resolve, fs, shell, moment, chalk, LOGO } from './utils';
+import { shelljs, resolve, fs, shell, dayjs, chalk, LOGO } from './utils';
 
 const { Git, Yarn } = shell;
 const deployRootPath = resolve('../bestlyg-deploy');
@@ -12,7 +12,7 @@ function main() {
     Git.pull(),
     Git.addAll,
     Git.commit(
-      `${moment().format('YYYY.MM.DD')} 更新 文档、${packageConfigs
+      `${dayjs().format('YYYY.MM.DD')} 更新 文档、${packageConfigs
         .map(({ pkgName }) => pkgName)
         .join('、')}`
     ),

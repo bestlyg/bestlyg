@@ -33,7 +33,7 @@ export interface Resume {
     /** 地点 */
     place: string;
     /** 岗位 */
-    position: string;
+    profession: string;
     /** 薪资 */
     money: number;
   };
@@ -47,8 +47,8 @@ export interface Resume {
     education: string;
     /** 专业 */
     major: string;
-    /** 描述 */
-    describe: string;
+    /** 学校 */
+    school: string;
   }[];
   /** 工作经历 */
   workExperience: {
@@ -57,22 +57,16 @@ export interface Resume {
     /** 结束时间 */
     endTime: Date | null;
     /** 公司名 */
-    name: string;
+    company: string;
     /** 岗位 */
-    position: string;
+    profession: string;
     /** 描述 */
     describe: string;
   }[];
   /** 项目经历 */
   projectExperience: {
-    /** 开始时间 */
-    startTime: Date;
-    /** 结束时间 */
-    endTime: Date | null;
     /** 项目名 */
     name: string;
-    /** 岗位 */
-    position: string;
     /** 描述 */
     describe: string;
   }[];
