@@ -91,6 +91,8 @@ export enum Script {
   TS = 'typescript',
   PY = 'python',
   CS = 'c#',
+  C = 'c',
+  CPP = 'c++',
   JAVA = 'java',
 }
 

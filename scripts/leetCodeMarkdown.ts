@@ -9,8 +9,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '391. 完美矩形',
+    existMarkdown: true,
+    name: '318. 最大单词长度乘积',
     url: 'https://leetcode-cn.com/problems/perfect-rectangle/',
     difficulty: Difficulty.困难,
     tag: [Tag.数组, Tag.扫描线],
@@ -18,62 +18,61 @@ export const leetCodeMarkdowns: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 272,
-        memory: 62.8,
-        desc: '计数判断面积和顶点重合次数',
-        code: `function isRectangleCover(rectangles: number[][]): boolean {
-          /**
-           完美矩形要满足:
-           1. 最左上、左下、右上、右下四个顶点只出现1次;
-           2. 重合顶点重合次数必须为2、4，不能出现一次。
-           3. 大矩形面积等于小矩形面积之和。
-           */
-          type Data = { cnt: number; point: number[] };
-          const set = new Set<string>();
-          const map: Record<string, Data> = {};
-          const format = (x: number, y: number) => ${backquote}\${x}:\${y}${backquote};
-          const map_add = (x: number, y: number) => {
-            const formatStr = format(x, y);
-            let data = map[formatStr];
-            if (!data) map[formatStr] = data = { cnt: 0, point: [x, y] };
-            data.cnt++;
-          };
-          let sum = 0;
-          const vertex: number[] = [];
-          const is_vertex = (x: number, y: number) =>
-            (x === vertex[0] && y === vertex[1]) ||
-            (x === vertex[2] && y === vertex[3]) ||
-            (x === vertex[0] && y === vertex[3]) ||
-            (x === vertex[2] && y === vertex[1]);
-          for (const [x, y, a, b] of rectangles) {
-            const formatStr = format(x, y) + ':' + format(a, b);
-            if (set.has(formatStr)) return false;
-            set.add(formatStr);
-            if (vertex[0] === undefined || vertex[0] > x || vertex[1] > y) {
-              vertex[0] = x;
-              vertex[1] = y;
-            }
-            if (vertex[2] === undefined || vertex[2] < a || vertex[3] < b) {
-              vertex[2] = a;
-              vertex[3] = b;
-            }
-            sum += (a - x) * (b - y);
-            map_add(x, y);
-            map_add(a, b);
-            map_add(x, b);
-            map_add(a, y);
-          }
-          if ((vertex[2] - vertex[0]) * (vertex[3] - vertex[1]) !== sum) return false;
-          for (const {
-            cnt,
-            point: [x, y],
-          } of Object.values(map)) {
-            if ((cnt === 1 && !is_vertex(x, y)) || (cnt !== 1 && cnt !== 2 && cnt !== 4)) {
-              return false;
+        time: 96,
+        memory: 41.5,
+        desc: '位运算统计每个词出现的字母',
+        code: `function maxProduct(words: string[]): number {
+          const n = words.length;
+          const bit_words = new Array(n).fill(0);
+          for (let i = 0; i < n; i++) {
+            const word = words[i];
+            for (let pos = 0, l = word.length; pos < l; pos++) {
+              bit_words[i] |= 1 << (word.codePointAt(pos)! - 97);
             }
           }
-          return true;
-        }`,
+          let ans = 0;
+          for (let i = 0; i < n; i++) {
+            const len1 = words[i].length;
+            const bit1 = bit_words[i];
+            for (let j = i + 1; j < n; j++) {
+              const len2 = words[j].length;
+              const bit2 = bit_words[j];
+              if (bit1 & bit2) continue;
+              ans = Math.max(ans, len1 * len2);
+            }
+          }
+          return ans;
+        }
+        `,
+      },
+      {
+        script: Script.C,
+        time: 32,
+        memory: 7.6,
+        desc: '位运算统计每个词出现的字母',
+        code: `void formatWord(char *word, int *bit, int *size){
+    for(int i = 0; word[i] != '\\0'; i++){
+        *bit |= 1 << (word[i] - 'a');
+        *size += 1;
+    }
+}
+int maxProduct(char ** words, int wordsSize){
+    int word_bit[wordsSize], word_size[wordsSize];
+    for (int i = 0; i < wordsSize; i++) word_bit[i] = 0, word_size[i] = 0;
+    for (int i = 0; i < wordsSize; i++) {
+        char *word = words[i];
+        formatWord(word, &word_bit[i], &word_size[i]);
+    }
+    int ans = 0;
+    for (int i = 0; i < wordsSize; i++) {
+        for (int j = 0; j < wordsSize; j++) {
+            if (word_bit[i] & word_bit[j]) continue;
+            int len = word_size[i] * word_size[j];
+            ans = ans < len ? len : ans;
+        }
+    }
+    return ans;
+}`,
       },
     ],
   },
