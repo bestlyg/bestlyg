@@ -31,25 +31,23 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-function maxProduct(words: string[]): number {
-  const n = words.length;
-  const bit_words = new Array(n).fill(0);
-  for (let i = 0; i < n; i++) {
-    const word = words[i];
-    for (let pos = 0, l = word.length; pos < l; pos++) {
-      bit_words[i] |= 1 << (word.codePointAt(pos)! - 97);
-    }
+function findTilt(root: TreeNode | null): number {
+  return dfs(root).tilt;
+  function dfs(node: TreeNode | null): {
+    sum: number;
+    tilt: number;
+  } {
+    const ans = { sum: 0, tilt: 0, res: 0 };
+    if (node === null) return ans;
+    const left = dfs(node.left);
+    const right = dfs(node.right);
+    ans.tilt = Math.abs(left.sum - right.sum) + left.tilt + right.tilt;
+    ans.sum = node.val + left.sum + right.sum;
+    log({
+      node: node.val,
+      ...ans,
+    });
+    return ans;
   }
-  let ans = 0;
-  for (let i = 0; i < n; i++) {
-    const len1 = words[i].length;
-    const bit1 = bit_words[i];
-    for (let j = i + 1; j < n; j++) {
-      const len2 = words[j].length;
-      const bit2 = bit_words[j];
-      if (bit1 & bit2) continue;
-      ans = Math.max(ans, len1 * len2);
-    }
-  }
-  return ans;
 }
+log([findTilt(TreeNode.factory([21, 7, 14, 1, 1, 2, 2, 3, 3]))]);
