@@ -31,23 +31,14 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-function findTilt(root: TreeNode | null): number {
-  return dfs(root).tilt;
-  function dfs(node: TreeNode | null): {
-    sum: number;
-    tilt: number;
-  } {
-    const ans = { sum: 0, tilt: 0, res: 0 };
-    if (node === null) return ans;
-    const left = dfs(node.left);
-    const right = dfs(node.right);
-    ans.tilt = Math.abs(left.sum - right.sum) + left.tilt + right.tilt;
-    ans.sum = node.val + left.sum + right.sum;
-    log({
-      node: node.val,
-      ...ans,
-    });
-    return ans;
-  }
+const map: Record<number, number> = { 1: 0, 2: 1 };
+function integerReplacement(n: number): number {
+  console.log(n, map);
+  if (map[n]) return map[n];
+  const ans =
+    (n & 1
+      ? Math.min(integerReplacement(n + 1), integerReplacement(n - 1))
+      : integerReplacement(n >> 1)) + 1;
+  return (map[n] = ans);
 }
-log([findTilt(TreeNode.factory([21, 7, 14, 1, 1, 2, 2, 3, 3]))]);
+log([integerReplacement(8)]);

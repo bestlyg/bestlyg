@@ -10,31 +10,25 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '563. 二叉树的坡度',
-    url: 'https://leetcode-cn.com/problems/binary-tree-tilt/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
-    desc: `给定一个二叉树，计算 整个树 的坡度 。`,
+    name: '397. 整数替换',
+    url: 'https://leetcode-cn.com/problems/integer-replacement/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.贪心, Tag.位运算, Tag.记忆化搜索, Tag.动态规划],
+    desc: `给定一个正整数 n ，n 变为 1 所需的最小替换次数是多少？`,
     solutions: [
       {
         script: Script.TS,
-        time: 112,
-        memory: 44.3,
+        time: 80,
+        memory: 39.4,
         desc: 'dfs',
-        code: `function findTilt(root: TreeNode | null): number {
-          return dfs(root).tilt;
-          function dfs(node: TreeNode | null): {
-            sum: number;
-            tilt: number;
-          } {
-            const ans = { sum: 0, tilt: 0, res: 0 };
-            if (node === null) return ans;
-            const left = dfs(node.left);
-            const right = dfs(node.right);
-            ans.tilt = Math.abs(left.sum - right.sum) + left.tilt + right.tilt;
-            ans.sum = node.val + left.sum + right.sum;
-            return ans;
-          }
+        code: `const map: Record<number, number> = { 1: 0 };
+        function integerReplacement(n: number): number {
+          if (map[n] !== undefined) return map[n];
+          const ans =
+            (n & 1
+              ? Math.min(integerReplacement(n + 1), integerReplacement(n - 1))
+              : integerReplacement(n/2)) + 1;
+          return (map[n] = ans);
         }`,
       },
     ],
