@@ -9,8 +9,8 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '594. 最长和谐子序列',
+    existMarkdown: true,
+    name: '559. N 叉树的最大深度',
     url: 'https://leetcode-cn.com/problems/longest-harmonious-subsequence/',
     difficulty: Difficulty.简单,
     tag: [Tag.数组, Tag.哈希表, Tag.排序],
@@ -18,39 +18,25 @@ export const leetCodeMarkdowns: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 120,
-        memory: 48.6,
-        desc: '哈希存储',
-        code: `function findLHS(nums: number[]): number {
-          const map = new Map<number, number>();
-          for (const num of nums) map.set(num, (map.get(num) ?? 0) + 1);
-          const list = Array.from(map.entries()).sort(([num1], [num2]) => num1 - num2);
-          let ans = 0;
-          for (let i = 0, l = list.length; i < l - 1; i++) {
-            const [num1, cnt1] = list[i];
-            const [num2, cnt2] = list[i + 1];
-            if (num2 !== num1 + 1) continue;
-            ans = Math.max(ans, cnt1 + cnt2);
-          }
-          return ans;
+        time: 108,
+        memory: 48.4,
+        desc: 'dfs',
+        code: `function maxDepth(root: Node | null): number {
+          if (root === null) return 0;
+          return Math.max(...root.children.map(node => maxDepth(node)),0) + 1;
         }`,
       },
       {
         script: Script.C,
-        time: 52,
-        memory: 8.6,
-        desc: '排序',
-        code: `int comp(int *num1, int *num2){
-    return *num1 - *num2;
-}
-int findLHS(int* nums, int numsSize){
-    qsort(nums, numsSize, sizeof(int), comp);
-    int ans = 0, left = 0, right = 0;
-    while(right < numsSize - 1){
-        while(right < numsSize - 1 && nums[right] == nums[left]) right++;
-        while(right < numsSize - 1 && nums[right] == nums[right + 1]) right++;
-        if(nums[left] == nums[right] - 1 && right - left + 1 > ans) ans = right - left + 1;
-        while(nums[left] != nums[right]) left++;
+        time: 4,
+        memory: 6.9,
+        desc: 'dfs',
+        code: `int maxDepth(struct Node* root) {
+    if (!root) return 0;
+    int ans = 1;
+    for (int i = 0; i < root->numChildren; i++) {
+        int next_ans = maxDepth(root->children[i]) + 1;
+        ans = next_ans > ans ? next_ans : ans;
     }
     return ans;
 }`,
