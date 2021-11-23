@@ -10,7 +10,7 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: true,
-    name: '559. N 叉树的最大深度',
+    name: '859. 亲密字符串',
     url: 'https://leetcode-cn.com/problems/longest-harmonious-subsequence/',
     difficulty: Difficulty.简单,
     tag: [Tag.数组, Tag.哈希表, Tag.排序],
@@ -18,27 +18,52 @@ export const leetCodeMarkdowns: Markdown[] = [
     solutions: [
       {
         script: Script.TS,
-        time: 108,
-        memory: 48.4,
-        desc: 'dfs',
-        code: `function maxDepth(root: Node | null): number {
-          if (root === null) return 0;
-          return Math.max(...root.children.map(node => maxDepth(node)),0) + 1;
+        time: 80,
+        memory: 40.9,
+        desc: '校验字符错位个数',
+        code: `function buddyStrings(s: string, goal: string): boolean {
+          const getmap = (str: string) =>
+            str.split('').reduce<Record<string, number>>((map, ch) => {
+              map[ch] = (map[ch] ?? 0) + 1;
+              return map;
+            }, {});
+          const map1 = getmap(s);
+          const map2 = getmap(goal);
+          if (Object.entries(map1).some(([k, v]) => map2[k] !== v)) return false;
+          let cnt = 0;
+          const len = s.length;
+          for (let i = 0; i < len; i++) {
+            if (s[i] !== goal[i]) cnt++;
+          }
+          if(cnt === 0 )return Object.values(map1).some(v=>v>=2)
+          if (cnt !== 2) return false;
+          return true;
         }`,
       },
       {
         script: Script.C,
-        time: 4,
-        memory: 6.9,
-        desc: 'dfs',
-        code: `int maxDepth(struct Node* root) {
-    if (!root) return 0;
-    int ans = 1;
-    for (int i = 0; i < root->numChildren; i++) {
-        int next_ans = maxDepth(root->children[i]) + 1;
-        ans = next_ans > ans ? next_ans : ans;
+        time: 0,
+        memory: 5.6,
+        desc: '校验字符错位个数',
+        code: `bool buddyStrings(char * s, char * goal){
+    if (strlen(s) != strlen(goal)) return false;
+    int map1[26] = {0}, map2[26] = {0}, len = strlen(s), has_repeat = 0;
+    for (int i = 0; i < len; i++) {
+        map1[s[i] - 'a']++;
+        map2[goal[i] - 'a']++;
     }
-    return ans;
+    for (int i = 0; i < 26; i++) {
+        if (map1[i] != map2[i]) return false;
+        if (map1[i] >= 2) has_repeat = 1;
+    }
+    int cnt = 0;
+    for (int i = 0; i < len; i++) {
+        if (s[i] != goal[i]) {
+            if (++cnt > 2) return false;
+        }
+    }
+    if (cnt == 0) return has_repeat == 1;
+    return true;
 }`,
       },
     ],
