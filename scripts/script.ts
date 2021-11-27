@@ -31,40 +31,23 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-const dict: Record<number, string[]> = {
-  1: 'one'.split(''),
-  2: 'two'.split(''), // w
-  3: 'three'.split(''), //t
-  4: 'four'.split(''), // u
-  5: 'five'.split(''), // f
-  6: 'six'.split(''), // x
-  7: 'seven'.split(''), // v
-  8: 'eight'.split(''), // g
-  9: 'nine'.split(''), // i
-  0: 'zero'.split(''), // z
-};
-const checkList = [
-  { num: 2, key: 'w' },
-  { num: 6, key: 'x' },
-  { num: 0, key: 'z' },
-  { num: 8, key: 'g' },
-  { num: 3, key: 't' },
-  { num: 4, key: 'u' },
-  { num: 5, key: 'f' },
-  { num: 7, key: 'v' },
-  { num: 9, key: 'i' },
-  { num: 1, key: 'o' },
-];
-function originalDigits(s: string): string {
-  const map: Record<string, number> = {};
-  for (const c of s) map[c] = (map[c] ?? 0) + 1;
-  const list: number[] = new Array(10).fill(0);
-  for (const { num, key } of checkList) {
-    if (!map[key]) continue;
-    const cnt = map[key];
-    list[num] += cnt;
-    for (const ch of dict[num]) map[ch] -= cnt;
+class Solution {
+  map = new Map<number, number>();
+  total: number;
+  constructor(public m: number, public n: number) {
+    this.total = m * n - 1;
   }
-  return list.reduce((ans, cnt, num) => ans + num.toString().repeat(cnt), '');
+  flip(): number[] {
+    let idx = this.random(0, this.total);
+    idx = this.map.get(idx) ?? idx;
+    this.map.set(idx, this.total--);
+    return [Math.floor(idx / this.n), idx % this.n];
+  }
+  reset(): void {
+    this.map.clear();
+    this.total = this.m * this.n - 1;
+  }
+  random(min: number, max: number): number {
+    return min + ~~(Math.random() * (max - min + 1));
+  }
 }
-log([originalDigits('fviefuro')]);

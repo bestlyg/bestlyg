@@ -9,36 +9,38 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: true,
-    name: '700. 二叉搜索树中的搜索',
-    url: 'https://leetcode-cn.com/problems/reconstruct-original-digits-from-english/',
+    existMarkdown: !true,
+    name: '519. 随机翻转矩阵',
+    url: 'https://leetcode-cn.com/problems/random-flip-matrix/',
     difficulty: Difficulty.中等,
-    tag: [Tag.哈希表, Tag.数学, Tag.字符串],
-    desc: `给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。`,
+    tag: [Tag.水塘抽样, Tag.哈希表, Tag.数学, Tag.随机化],
+    desc: `给你一个 m x n 的二元矩阵 matrix ，且所有值被初始化为 0 。请你设计一个算法，随机选取一个满足 matrix[i][j] == 0 的下标 (i, j) ，并将它的值变为 1 。所有满足 matrix[i][j] == 0 的下标 (i, j) 被选取的概率应当均等。`,
     solutions: [
       {
         script: Script.TS,
-        time: 108,
-        memory: 44.7,
-        desc: '递归',
-        code: `function searchBST(root: TreeNode | null, val: number): TreeNode | null {
-            if(root === null) return null;
-            if(root.val === val) return root;
-            if(root.val > val) return searchBST(root.left,val);
-            else return searchBST(root.right,val)
-      };`,
-      },
-      {
-        script: Script.C,
-        time: 28,
-        memory: 14.9,
-        desc: '递归',
-        code: `struct TreeNode* searchBST(struct TreeNode* root, int val){
-    if (!root) return NULL;
-    if (root->val == val) return root;
-    if (root->val > val) return searchBST(root->left, val);
-    else return searchBST(root->right, val);
-}`,
+        time: 100,
+        memory: 43.8,
+        desc: '随机值，每次遍历到一个位置，把该位置与最后一个位置进行交换',
+        code: `class Solution {
+          map = new Map<number, number>();
+          total: number;
+          constructor(public m: number, public n: number) {
+            this.total = m * n;
+          }
+          flip(): number[] {
+            const num = this.random(0, --this.total);
+            const idx = this.map.get(num) ?? num;
+            this.map.set(num, this.map.get(this.total) ?? this.total);
+            return [Math.floor(idx / this.n), idx % this.n];
+          }
+          reset(): void {
+            this.map.clear();
+            this.total = this.m * this.n;
+          }
+          random(min: number, max: number): number {
+            return min + Math.floor(Math.random() * (max - min + 1));
+          }
+        }`,
       },
     ],
   },
