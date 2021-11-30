@@ -10,28 +10,39 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '786. 第 K 个最小的素数分数',
-    url: 'https://leetcode-cn.com/problems/k-th-smallest-prime-fraction/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.数组, Tag.二分查找, Tag.堆_优先队列],
-    desc: `给你一个按递增顺序排序的数组 arr 和一个整数 k 。数组 arr 由 1 和若干 素数  组成，且其中所有整数互不相同。对于每对满足 0 < i < j < arr.length 的 i 和 j ，可以得到分数 arr[i] / arr[j] 。那么第 k 个最小的分数是多少呢? `,
+    name: '400. 第 N 位数字',
+    url: 'https://leetcode-cn.com/problems/nth-digit/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数学, Tag.二分查找],
+    desc: `给你一个整数 n ，请你在无限的整数序列 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...] 中找出并返回第 n 位数字。`,
     solutions: [
       {
         script: Script.TS,
-        time: 1804,
-        memory: 95.9,
-        desc: '排序',
-        code: `function kthSmallestPrimeFraction(arr: number[], k: number): number[] {
-            const n = arr.length;
-            const list: number[][] = [];
-            for (let i = 0; i < n; i++) {
-              for (let j = i + 1; j < n; j++) {
-                list.push([arr[i], arr[j]]);
-              }
-            }
-            list.sort(([num11, num12], [num21, num22]) => num11 / num12 - num21 / num22);
-            return list[k - 1];
-          }`,
+        time: 68,
+        memory: 39.4,
+        desc: '直接分区间查找',
+        code: `// 每一段具有相同位数的数字算一个区间
+        function findNthDigit(n: number): number {
+          // 当前数字占几位
+          let bit = 1;
+          // 当前区间最大值
+          let max = 9;
+          // 当前区间最小值
+          let min = 1;
+          // 前区间占用位数
+          let cnt = 0;
+          // 判断n是否大于下一个区间数量，大于则移动至下一区间
+          while (n > cnt + (max - Math.floor(max / 10)) * bit) {
+            cnt += (max - Math.floor(max / 10)) * bit++;
+            max = max * 10 + 9;
+            min *= 10;
+          }
+          // 删除前一区间的量
+          n -= cnt;
+          // 计算当前区间中所指向的数字
+          const num = Math.floor((n - 1) / bit) + min;
+          return +num.toString()[(n - 1) % bit];
+        }`,
       },
     ],
   },
