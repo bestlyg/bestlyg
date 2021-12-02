@@ -10,49 +10,59 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '1446. 连续字符',
-    url: 'https://leetcode-cn.com/problems/consecutive-characters/',
+    name: '506. 相对名次',
+    url: 'https://leetcode-cn.com/problems/relative-ranks/',
     difficulty: Difficulty.简单,
-    tag: [Tag.字符串],
-    desc: `给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。`,
+    tag: [Tag.数组, Tag.排序, Tag.堆_优先队列],
+    desc: `使用长度为 n 的数组 answer 返回获奖，其中 answer[i] 是第 i 位运动员的获奖情况。`,
     solutions: [
       {
         script: Script.TS,
-        time: 88,
-        memory: 39.9,
-        desc: '遍历',
-        code: `function maxPower(s: string): number {
-          let ans = 0;
-          for (let i = 0, n = s.length; i < n; i++) {
-            let cnt = 1;
-            const ch = s[i];
-            while (i + 1 < n && s[i + 1] === ch) {
-              i++;
-              cnt++;
-            }
-            ans = Math.max(ans, cnt);
+        time: 96,
+        memory: 40.9,
+        desc: '排序',
+        code: `function findRelativeRanks(score: number[]): string[] {
+          const n = score.length;
+          const idxs = new Array(n)
+            .fill(0)
+            .map((_, i) => i)
+            .sort((a, b) => score[b] - score[a]);
+          const ans: string[] = [];
+          for (let i = 0; i < n; i++) {
+            const str =
+              i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : ${backquote}\${i + 1}${backquote};
+            ans[idxs[i]] = str;
           }
           return ans;
-        }
-        `,
+        }`,
       },
       {
-        script: Script.TS,
-        time: 4,
-        memory: 5.9,
+        script: Script.C,
+        time: 16,
+        memory: 7.9,
         desc: '遍历',
-        code: `int maxPower(char * s){
-    int ans = 0;
-    for (int i = 0; i < strlen(s); i++) {
-        int cnt = 1;
-        char ch = s[i];
-        while (i + 1 < strlen(s) && s[i + 1] == ch) {
-            i++; 
-            cnt++;
+        code: `int *g_score;
+int comp(const void *a, const void *b) {
+    return g_score[*(int *)b] - g_score[*(int *)a];
+}
+char ** findRelativeRanks(int* score, int scoreSize, int* returnSize){
+    g_score = score;
+    *returnSize = scoreSize;
+    int *idxs = (int *)malloc(sizeof(int) * scoreSize);
+    for (int i = 0; i < scoreSize; i++) idxs[i] = i;
+    qsort(idxs, scoreSize, sizeof(int), comp);
+    char **ans = (char **)malloc(sizeof(char *) * scoreSize);
+    for (int i = 0; i < scoreSize; i++) {
+        if (i == 0) ans[idxs[i]] = "Gold Medal";
+        else if (i == 1) ans[idxs[i]] = "Silver Medal";
+        else if (i == 2) ans[idxs[i]] = "Bronze Medal";
+        else {
+            ans[idxs[i]] = (char *)malloc(10);
+            sprintf(ans[idxs[i]], "%d", i + 1);
         }
-        if (cnt > ans) ans = cnt;
     }
     return ans;
+    
 }`,
       },
     ],

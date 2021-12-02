@@ -31,16 +31,19 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-function maxPower(s: string): number {
-  let ans = 0;
-  for (let i = 0, n = s.length; i < n; i++) {
-    let cnt = 1;
-    const ch = s[i];
-    while (i + 1 < n && s[i + 1] === ch) {
-      i++;
-      cnt++;
-    }
-    ans = Math.max(ans, cnt);
+function findRelativeRanks(score: number[]): string[] {
+  const n = score.length;
+  const idxs = new Array(n)
+    .fill(0)
+    .map((_, i) => i)
+    .sort((a, b) => score[b] - score[a]);
+  console.log(idxs);
+  const ans: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const str =
+      i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : `${i + 1}`;
+    ans[idxs[i]] = str;
   }
   return ans;
 }
+log([findRelativeRanks([5, 4, 3, 2, 1])]);
