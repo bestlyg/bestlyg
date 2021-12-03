@@ -10,59 +10,50 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '506. 相对名次',
-    url: 'https://leetcode-cn.com/problems/relative-ranks/',
+    name: '1005. K 次取反后最大化的数组和',
+    url: 'https://leetcode-cn.com/problems/maximize-sum-of-array-after-k-negations/',
     difficulty: Difficulty.简单,
-    tag: [Tag.数组, Tag.排序, Tag.堆_优先队列],
-    desc: `使用长度为 n 的数组 answer 返回获奖，其中 answer[i] 是第 i 位运动员的获奖情况。`,
+    tag: [Tag.贪心, Tag.数组, Tag.排序],
+    desc: `返回数组 可能的最大和`,
     solutions: [
       {
         script: Script.TS,
-        time: 96,
-        memory: 40.9,
+        time: 80,
+        memory: 39.5,
         desc: '排序',
-        code: `function findRelativeRanks(score: number[]): string[] {
-          const n = score.length;
-          const idxs = new Array(n)
-            .fill(0)
-            .map((_, i) => i)
-            .sort((a, b) => score[b] - score[a]);
-          const ans: string[] = [];
-          for (let i = 0; i < n; i++) {
-            const str =
-              i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : ${backquote}\${i + 1}${backquote};
-            ans[idxs[i]] = str;
+        code: `function largestSumAfterKNegations(nums: number[], k: number): number {
+          const n = nums.length;
+          nums.sort((a, b) => a - b);
+          for (let i = 0; i < n && nums[i] < 0 && k > 0; i++) {
+            nums[i] *= -1;
+            k--;
           }
-          return ans;
+          const sum = nums.reduce((total, num) => total + num, 0);
+          if ((k & 1) === 0) return sum;
+          return sum - 2 * Math.min(...nums);
         }`,
       },
       {
         script: Script.C,
-        time: 16,
-        memory: 7.9,
+        time: 0,
+        memory: 5.7,
         desc: '遍历',
-        code: `int *g_score;
-int comp(const void *a, const void *b) {
-    return g_score[*(int *)b] - g_score[*(int *)a];
+        code: `int comp(const void *a, const void *b) {
+    return *(int *)a - *(int *)b;
 }
-char ** findRelativeRanks(int* score, int scoreSize, int* returnSize){
-    g_score = score;
-    *returnSize = scoreSize;
-    int *idxs = (int *)malloc(sizeof(int) * scoreSize);
-    for (int i = 0; i < scoreSize; i++) idxs[i] = i;
-    qsort(idxs, scoreSize, sizeof(int), comp);
-    char **ans = (char **)malloc(sizeof(char *) * scoreSize);
-    for (int i = 0; i < scoreSize; i++) {
-        if (i == 0) ans[idxs[i]] = "Gold Medal";
-        else if (i == 1) ans[idxs[i]] = "Silver Medal";
-        else if (i == 2) ans[idxs[i]] = "Bronze Medal";
-        else {
-            ans[idxs[i]] = (char *)malloc(10);
-            sprintf(ans[idxs[i]], "%d", i + 1);
-        }
+int largestSumAfterKNegations(int* nums, int numsSize, int k){
+    qsort(nums, numsSize, sizeof(int), comp);
+    for (int i = 0; i < numsSize && nums[i] < 0 && k > 0; i++) {
+      nums[i] *= -1;
+      k--;
     }
-    return ans;
-    
+    int sum = 0, min = 10000;
+    for (int i = 0; i < numsSize; i++) {
+        sum += nums[i];
+        if (min > nums[i]) min = nums[i];
+    }
+    if ((k & 1) == 0) return sum;
+    return sum - 2 * min;
 }`,
       },
     ],

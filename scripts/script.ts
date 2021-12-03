@@ -31,19 +31,20 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-function findRelativeRanks(score: number[]): string[] {
-  const n = score.length;
-  const idxs = new Array(n)
-    .fill(0)
-    .map((_, i) => i)
-    .sort((a, b) => score[b] - score[a]);
-  console.log(idxs);
-  const ans: string[] = [];
-  for (let i = 0; i < n; i++) {
-    const str =
-      i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : `${i + 1}`;
-    ans[idxs[i]] = str;
+function largestSumAfterKNegations(nums: number[], k: number): number {
+  const n = nums.length;
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < n && nums[i] < 0 && k > 0; i++) {
+    nums[i] *= -1;
+    k--;
   }
-  return ans;
+  const sum = nums.reduce((total, num) => total + num, 0);
+  if ((k & 1) === 0) return sum;
+  return sum - 2 * Math.min(...nums);
 }
-log([findRelativeRanks([5, 4, 3, 2, 1])]);
+log([
+  largestSumAfterKNegations([-8, 3, -5, -3, -5, -2], 6),
+  // largestSumAfterKNegations([3, -1, 0, 2], 3),
+  // largestSumAfterKNegations([3, -1, 0, 2], 3),
+  // largestSumAfterKNegations([3, -1, 0, 2], 3),
+]);
