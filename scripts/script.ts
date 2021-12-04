@@ -31,20 +31,12 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
-function largestSumAfterKNegations(nums: number[], k: number): number {
-  const n = nums.length;
-  nums.sort((a, b) => a - b);
-  for (let i = 0; i < n && nums[i] < 0 && k > 0; i++) {
-    nums[i] *= -1;
-    k--;
-  }
-  const sum = nums.reduce((total, num) => total + num, 0);
-  if ((k & 1) === 0) return sum;
-  return sum - 2 * Math.min(...nums);
+function gcd(a: number, b: number) {
+  if (!b) return a;
+  return gcd(b, a % b);
 }
-log([
-  largestSumAfterKNegations([-8, 3, -5, -3, -5, -2], 6),
-  // largestSumAfterKNegations([3, -1, 0, 2], 3),
-  // largestSumAfterKNegations([3, -1, 0, 2], 3),
-  // largestSumAfterKNegations([3, -1, 0, 2], 3),
-]);
+function gcdOfStrings(str1: string, str2: string): string {
+  if (str1 + str2 !== str2 + str1) return '';
+  return str1.substr(0, gcd(str1.length, str2.length));
+}
+log([numPrimeArrangements(5)]);
