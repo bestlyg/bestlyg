@@ -39,13 +39,7 @@ function ex_gcd(
   x: number;
   y: number;
 } {
-  if (b === 0) {
-    return {
-      ans: a,
-      x: 1,
-      y: 0,
-    };
-  }
+  if (b === 0) return { ans: a, x: 1, y: 0 };
   const res = ex_gcd(b, a % b);
   [res.x, res.y] = [res.y, res.x - Math.floor(a / b) * res.y];
   return res;
@@ -59,40 +53,32 @@ function phi(n: number) {
   if (n !== 1) ans = ans * (1 - 1 / n);
   return ans;
 }
-function comp(a: number, b: number, c: number): string {
-  for (let x = 0; x < Number.MAX_SAFE_INTEGER; x++) {
-    if (a ** x % b === c) return `${a} ^ ${x} mod ${b} === ${c}`;
-  }
-  return 'NOT FOUND';
-}
-// log(
-//   [
-//     ...[
-//       [4, 6],
-//       [12, 5],
-//     ].map(([a, b]: [number, number]) => {
-//       const { ans, x, y } = ex_gcd(a, b);
-//       return `${a} * ${x} + ${b} * ${y} = ${ans}`;
-//     }),
-//     phi(7),
-//     phi(12),
-//     phi(24),
-//     13 ** 6 % 7,
-//     comp(999, 7, 2),
-//   ],
-//   { chunkCount: 1 }
-// )
-const MOD = 1337;
-function pow(a: number, b: number) {
-  let ans = 1;
-  while (b--) ans = (ans * a) % MOD;
+function pow(x: bigint, y: bigint): bigint {
+  let ans = 1n;
+  while (y--) ans *= x;
   return ans;
 }
-function superPow(a: number, b: number[]): number {
-  let ans = 1;
-  for (let i = 0; i < b.length; i++) {
-    ans = (pow(ans, 10) * pow(a, b[i])) % MOD;
+function formual(a: number, b: number, c: number): string {
+  const debug = (...args: any[]) => false && console.log(...args);
+  const error = (str: string) => `ERROR : ${str}`;
+  const { ans: gcd, x, y } = ex_gcd(a, b);
+  if (gcd !== 1) return error('AB互质');
+  if (c >= b) return error('c < b');
+  debug(`phi(${b}) = ${phi(b)}`);
+  debug(`gcd(${a}, ${b}) = gcd:${gcd}, x:${x}, y:${y}`);
+  const formula2Str = (a: bigint, b: bigint, c: bigint, x: bigint) =>
+    `${a} ^ ${x} mod ${b} === ${c}`;
+  const a_big = BigInt(a);
+  const b_big = BigInt(b);
+  const c_big = BigInt(c);
+  for (let x = 0n; x < phi(b); x++) {
+    debug(formula2Str(a_big, b_big, pow(a_big, x) % b_big, x));
   }
-  return ans;
+  for (let x = 0n; x < phi(b); x++) {
+    if (pow(a_big, x) % b_big === c_big) {
+      return `${a} ^ ${x} mod ${b} === ${c}`;
+    }
+  }
+  return error('NOT FOUND');
 }
-log([superPow(2147483647, [2, 0, 0])]);
+console.log(formual(132, 31, 5));
