@@ -81,4 +81,53 @@ function formual(a: number, b: number, c: number): string {
   }
   return error('NOT FOUND');
 }
-console.log(formual(132, 31, 5));
+function colorBorder(grid: number[][], row: number, col: number, color: number): number[][] {
+  const ori_color = grid[row][col];
+  const m = grid.length;
+  const n = grid[0].length;
+  const list: number[][] = [];
+  const set = new Set<string>();
+  const format = (row: number, col: number) => `${row}:${col}`;
+  draw(row, col);
+  for (const [row, col] of list) grid[row][col] = color;
+  return grid;
+  function draw(row: number, col: number) {
+    if (grid[row][col] !== ori_color || set.has(format(row, col))) return;
+    set.add(format(row, col));
+    if (
+      !(
+        row > 0 &&
+        col > 0 &&
+        row < m - 1 &&
+        col < n - 1 &&
+        grid[row - 1][col] === ori_color &&
+        grid[row + 1][col] === ori_color &&
+        grid[row][col - 1] === ori_color &&
+        grid[row][col + 1] === ori_color
+      )
+    ) {
+      list.push([row, col]);
+    }
+    row > 0 && draw(row - 1, col);
+    row < m - 1 && draw(row + 1, col);
+    row > 0 && draw(row, col - 1);
+    col < n - 1 && draw(row, col + 1);
+  }
+}
+const arr = [
+  [1, 1, 1, 1, 1, 2],
+  [1, 2, 1, 1, 1, 2],
+  [1, 1, 1, 1, 1, 2],
+];
+log([
+  colorBorder(
+    [
+      [1, 2, 1, 2, 1, 2],
+      [2, 2, 2, 2, 1, 2],
+      [1, 2, 2, 2, 1, 2],
+    ],
+    1,
+    3,
+    1
+  ),
+]);
