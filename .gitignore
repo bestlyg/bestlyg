@@ -6,3 +6,8 @@ jest
 yarn-error.log
 types
 temp
+
+# c
+*.out
+*.o
+*.h.gch
