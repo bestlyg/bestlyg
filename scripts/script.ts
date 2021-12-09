@@ -81,51 +81,36 @@ function formual(a: number, b: number, c: number): string {
   }
   return error('NOT FOUND');
 }
-function maxSumOfThreeSubarrays(nums: number[], k: number): number[] {
-  const n = nums.length;
-  let sum1 = 0,
-    max1 = 0,
-    idx1 = 0;
-  let sum2 = 0,
-    max2 = 0,
-    idx2_1 = 0,
-    idx2_2 = 0;
-  let sum3 = 0,
-    max3 = 0,
-    idx3 = 0;
-  const ans = [0, 0, 0];
-  for (let idx = 2 * k; idx < n; idx++) {
-    sum1 += nums[idx - 2 * k];
-    sum2 += nums[idx - 1 * k];
-    sum3 += nums[idx - 0 * k];
-    if (idx < 3 * k) continue;
-    sum1 -= nums[idx - 3 * k];
-    sum2 -= nums[idx - 2 * k];
-    sum3 -= nums[idx - 1 * k];
-    log({ idx, sum1, sum2, sum3 });
-    if (max1 < sum1) {
-      max1 = sum1;
-      idx1 = idx - 3 * k + 1;
-    }
-    if (max2 < max1 + sum2) {
-      max2 = max1 + sum2;
-      idx2_1 = idx1;
-      idx2_2 = idx - 2 * k + 1;
-    }
-    console.log(ans);
-    if (max3 < max2 + sum3) {
-      max3 = max2 + sum3;
-      idx3 = idx - 1 * k + 1;
-      ans[0] = idx2_1;
-      ans[1] = idx2_2;
-      ans[2] = idx3;
+function validTicTacToe(board: string[]): boolean {
+  let cntO = 0,
+    cntX = 0,
+    checkO = check('O'),
+    checkX = check('X');
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      const ch = board[i][j];
+      if (ch === 'X') cntX++;
+      else if (ch === 'O') cntO++;
     }
   }
-  return ans;
+  if (
+    (cntO !== cntX && cntO !== cntX - 1) ||
+    (checkO && checkX) ||
+    (checkO && cntO !== cntX) ||
+    (checkX && cntO !== cntX - 1)
+  )
+    return false;
+  return true;
+  function check(ch: string) {
+    return (
+      (board[0][0] === ch && board[0][1] === ch && board[0][2] === ch) ||
+      (board[1][0] === ch && board[1][1] === ch && board[1][2] === ch) ||
+      (board[2][0] === ch && board[1][2] === ch && board[2][2] === ch) ||
+      (board[0][0] === ch && board[1][0] === ch && board[2][0] === ch) ||
+      (board[0][1] === ch && board[1][1] === ch && board[2][1] === ch) ||
+      (board[0][2] === ch && board[1][2] === ch && board[2][2] === ch) ||
+      (board[0][0] === ch && board[1][1] === ch && board[2][2] === ch) ||
+      (board[0][2] === ch && board[1][1] === ch && board[2][0] === ch)
+    );
+  }
 }
-log([
-  maxSumOfThreeSubarrays(
-    [17, 7, 19, 11, 1, 19, 17, 6, 13, 18, 2, 7, 12, 16, 16, 18, 9, 3, 19, 5],
-    6
-  ),
-]);
