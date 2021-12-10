@@ -10,51 +10,33 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '794. 有效的井字游戏',
-    url: 'https://leetcode-cn.com/problems/valid-tic-tac-toe-state/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.数组, Tag.字符串],
-    desc: `给你一个字符串数组 board 表示井字游戏的棋盘。当且仅当在井字游戏过程中，棋盘有可能达到 board 所显示的状态时，才返回 true 。`,
+    name: '748. 最短补全词',
+    url: 'https://leetcode-cn.com/problems/shortest-completing-word/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.数组, Tag.哈希表, Tag.字符串],
+    desc: `给你一个字符串 licensePlate 和一个字符串数组 words ，请你找出并返回 words 中的 最短补全词 。`,
     solutions: [
       {
         script: Script.TS,
-        time: 76,
-        memory: 39.3,
-        desc: '检测数量是否相等或x多一个，检测是否不同时获胜，检测x获胜时，x多一个，o获胜时o与x数量相等',
-        code: `function validTicTacToe(board: string[]): boolean {
-          let cntO = 0,
-            cntX = 0,
-            checkO = check('O'),
-            checkX = check('X');
-          for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-              const ch = board[i][j];
-              if (ch === 'X') cntX++;
-              else if (ch === 'O') cntO++;
-            }
+        time: 88,
+        memory: 41.9,
+        desc: '哈希',
+        code: `function shortestCompletingWord(licensePlate: string, words: string[]): string {
+          const reg_lowchar = /[a-z]/;
+          const map: Record<string, number> = {};
+          for (const ch of licensePlate.toLowerCase()) {
+            if (reg_lowchar.test(ch)) map[ch] = (map[ch] ?? 0) + 1;
           }
-          if (
-            (cntO !== cntX && cntO !== cntX - 1) ||
-            (checkO && checkX) ||
-            (checkO && cntO !== cntX) ||
-            (checkX && cntO !== cntX - 1)
-          )
-            return false;
-          return true;
-          function check(ch: string) {
-            return (
-              (board[0][0] === ch && board[0][1] === ch && board[0][2] === ch) ||
-              (board[1][0] === ch && board[1][1] === ch && board[1][2] === ch) ||
-              (board[2][0] === ch && board[1][2] === ch && board[2][2] === ch) ||
-              (board[0][0] === ch && board[1][0] === ch && board[2][0] === ch) ||
-              (board[0][1] === ch && board[1][1] === ch && board[2][1] === ch) ||
-              (board[0][2] === ch && board[1][2] === ch && board[2][2] === ch) ||
-              (board[0][0] === ch && board[1][1] === ch && board[2][2] === ch) ||
-              (board[0][2] === ch && board[1][1] === ch && board[2][0] === ch)
-            );
-          }
-        }
-        `,
+          return words
+            .filter(word => {
+              const wmap = { ...map };
+              for (const ch of word) {
+                if (wmap[ch]) wmap[ch]--;
+              }
+              return Object.values(wmap).every(v => v <= 0);
+            })
+            .sort((a, b) => a.length - b.length)[0];
+        }`,
       },
     ],
   },

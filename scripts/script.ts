@@ -81,36 +81,21 @@ function formual(a: number, b: number, c: number): string {
   }
   return error('NOT FOUND');
 }
-function validTicTacToe(board: string[]): boolean {
-  let cntO = 0,
-    cntX = 0,
-    checkO = check('O'),
-    checkX = check('X');
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      const ch = board[i][j];
-      if (ch === 'X') cntX++;
-      else if (ch === 'O') cntO++;
-    }
+function shortestCompletingWord(licensePlate: string, words: string[]): string {
+  const reg_lowchar = /[a-z]/;
+  const map: Record<string, number> = {};
+  for (const ch of licensePlate.toLowerCase()) {
+    if (reg_lowchar.test(ch)) map[ch] = (map[ch] ?? 0) + 1;
   }
-  if (
-    (cntO !== cntX && cntO !== cntX - 1) ||
-    (checkO && checkX) ||
-    (checkO && cntO !== cntX) ||
-    (checkX && cntO !== cntX - 1)
-  )
-    return false;
-  return true;
-  function check(ch: string) {
-    return (
-      (board[0][0] === ch && board[0][1] === ch && board[0][2] === ch) ||
-      (board[1][0] === ch && board[1][1] === ch && board[1][2] === ch) ||
-      (board[2][0] === ch && board[1][2] === ch && board[2][2] === ch) ||
-      (board[0][0] === ch && board[1][0] === ch && board[2][0] === ch) ||
-      (board[0][1] === ch && board[1][1] === ch && board[2][1] === ch) ||
-      (board[0][2] === ch && board[1][2] === ch && board[2][2] === ch) ||
-      (board[0][0] === ch && board[1][1] === ch && board[2][2] === ch) ||
-      (board[0][2] === ch && board[1][1] === ch && board[2][0] === ch)
-    );
-  }
+  console.log(map);
+  return words
+    .filter(word => {
+      const wmap = { ...map };
+      for (const ch of word) {
+        if (wmap[ch]) wmap[ch]--;
+      }
+      return Object.values(wmap).every(v => v <= 0);
+    })
+    .sort((a, b) => a.length - b.length)[0];
 }
+log([shortestCompletingWord('1s3 456', ['looks', 'pest', 'stew', 'show'])]);
