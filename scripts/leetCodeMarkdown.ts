@@ -10,38 +10,30 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '911. 在线选举',
-    url: 'https://leetcode-cn.com/problems/online-election/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.设计, Tag.数组, Tag.哈希表, Tag.二分查找],
-    desc: `给你两个整数数组 persons 和 times 。在选举中，第 i 张票是在时刻为 times[i] 时投给候选人 persons[i] 的。对于发生在时刻 t 的每个查询，需要找出在 t 时刻在选举中领先的候选人的编号。`,
+    name: '1147. 段式回文',
+    url: 'https://leetcode-cn.com/problems/longest-chunked-palindrome-decomposition/',
+    difficulty: Difficulty.困难,
+    tag: [Tag.贪心, Tag.双指针, Tag.字符串, Tag.动态规划, Tag.哈希函数, Tag.滚动哈希],
+    desc: `给你一个字符串 text，在确保它满足段式回文的前提下，请你返回 段 的 最大数量 k。`,
     solutions: [
       {
         script: Script.TS,
-        time: 292,
-        memory: 51.5,
-        desc: '初始化时记录每个时刻的获胜人数，遍历用二分',
-        code: `class TopVotedCandidate {
-          arr: number[] = [];
-          constructor(persons: number[], private times: number[]) {
-            const n = persons.length;
-            const temp = new Array(n).fill(0);
-            let max = 0;
-            for (const person of persons) {
-              if (++temp[person] >= temp[max]) max = person;
-              this.arr.push(max);
-            }
+        time: 80,
+        memory: 40.5,
+        desc: 'dfs每次读取两头最短相匹配字符数',
+        code: `function longestDecomposition(text: string): number {
+          const n = text.length;
+          if (n <= 1) return n;
+          let lidx = 1;
+          let lstr = text[0];
+          let ridx = n - 2;
+          let rstr = text[n - 1];
+          while (ridx > lidx && lstr !== rstr) {
+            lstr += text[lidx++];
+            rstr = text[ridx--] + rstr;
           }
-          q(t: number): number {
-            let l = 0;
-            let r = this.times.length - 1;
-            while (l < r) {
-              const mid = (l + r + 1) >> 1;
-              if (this.times[mid] <= t) l = mid;
-              else r = mid - 1;
-            }
-            return this.arr[l];
-          }
+          if (ridx <= lidx && lstr !== rstr) return 1;
+          return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;
         }`,
       },
     ],

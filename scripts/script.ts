@@ -31,6 +31,7 @@ type Heap = structures.Heap;
 /*
 6 abcw baz foo bar xtfn abcdef
  */
+/*
 function ex_gcd(
   a: number,
   b: number
@@ -81,21 +82,27 @@ function formual(a: number, b: number, c: number): string {
   }
   return error('NOT FOUND');
 }
-function shortestCompletingWord(licensePlate: string, words: string[]): string {
-  const reg_lowchar = /[a-z]/;
-  const map: Record<string, number> = {};
-  for (const ch of licensePlate.toLowerCase()) {
-    if (reg_lowchar.test(ch)) map[ch] = (map[ch] ?? 0) + 1;
+*/
+function longestDecomposition(text: string): number {
+  log({ text });
+  const n = text.length;
+  if (n <= 1) return n;
+  let lidx = 1;
+  let lstr = text[0];
+  let ridx = n - 2;
+  let rstr = text[n - 1];
+  while (ridx > lidx && lstr !== rstr) {
+    lstr += text[lidx++];
+    rstr = text[ridx--] + rstr;
+    log({ lidx, ridx, lstr, rstr }, { splitCount: 0 });
   }
-  console.log(map);
-  return words
-    .filter(word => {
-      const wmap = { ...map };
-      for (const ch of word) {
-        if (wmap[ch]) wmap[ch]--;
-      }
-      return Object.values(wmap).every(v => v <= 0);
-    })
-    .sort((a, b) => a.length - b.length)[0];
+  log({ lidx, ridx, lstr, rstr }, { splitCount: 0 });
+  if (ridx <= lidx && lstr !== rstr) return 1;
+  return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;
 }
-log([shortestCompletingWord('1s3 456', ['looks', 'pest', 'stew', 'show'])]);
+log([
+  longestDecomposition('ghiabcdefhelloadamhelloabcdefghi'),
+  longestDecomposition('merchant'),
+  longestDecomposition('antaprezatepzapreanta'),
+  longestDecomposition('aaa'),
+]);
