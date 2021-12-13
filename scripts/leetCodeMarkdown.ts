@@ -10,30 +10,43 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '1147. 段式回文',
-    url: 'https://leetcode-cn.com/problems/longest-chunked-palindrome-decomposition/',
-    difficulty: Difficulty.困难,
-    tag: [Tag.贪心, Tag.双指针, Tag.字符串, Tag.动态规划, Tag.哈希函数, Tag.滚动哈希],
-    desc: `给你一个字符串 text，在确保它满足段式回文的前提下，请你返回 段 的 最大数量 k。`,
+    name: '807. 保持城市天际线',
+    url: 'https://leetcode-cn.com/problems/max-increase-to-keep-city-skyline/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.贪心, Tag.数组, Tag.矩阵],
+    desc: `在二维数组grid中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。建筑物高度可以增加的最大总和是多少？`,
     solutions: [
       {
         script: Script.TS,
-        time: 80,
-        memory: 40.5,
-        desc: 'dfs每次读取两头最短相匹配字符数',
-        code: `function longestDecomposition(text: string): number {
-          const n = text.length;
-          if (n <= 1) return n;
-          let lidx = 1;
-          let lstr = text[0];
-          let ridx = n - 2;
-          let rstr = text[n - 1];
-          while (ridx > lidx && lstr !== rstr) {
-            lstr += text[lidx++];
-            rstr = text[ridx--] + rstr;
+        time: 88,
+        memory: 40.1,
+        desc: '遍历后存储最大值数组',
+        code: `function maxIncreaseKeepingSkyline(grid: number[][]): number {
+          const n = grid.length;
+          const m = grid[0].length;
+          const vmax = new Array(m).fill(0);
+          const hmax = new Array(n).fill(0);
+          let ans = 0;
+          for (let row = 0; row < n; row++) {
+            let max = 0;
+            for (let col = 0; col < m; col++) {
+              max = Math.max(max, grid[row][col]);
+            }
+            hmax[row] = max;
           }
-          if (ridx <= lidx && lstr !== rstr) return 1;
-          return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;
+          for (let col = 0; col < m; col++) {
+            let max = 0;
+            for (let row = 0; row < n; row++) {
+              max = Math.max(max, grid[row][col]);
+            }
+            vmax[col] = max;
+          }
+          for (let row = 0; row < n; row++) {
+            for (let col = 0; col < m; col++) {
+              ans += Math.min(vmax[col] - grid[row][col], hmax[row] - grid[row][col]);
+            }
+          }
+          return ans;
         }`,
       },
     ],

@@ -83,26 +83,38 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function longestDecomposition(text: string): number {
-  log({ text });
-  const n = text.length;
-  if (n <= 1) return n;
-  let lidx = 1;
-  let lstr = text[0];
-  let ridx = n - 2;
-  let rstr = text[n - 1];
-  while (ridx > lidx && lstr !== rstr) {
-    lstr += text[lidx++];
-    rstr = text[ridx--] + rstr;
-    log({ lidx, ridx, lstr, rstr }, { splitCount: 0 });
+function maxIncreaseKeepingSkyline(grid: number[][]): number {
+  const n = grid.length;
+  const m = grid[0].length;
+  const vmax = new Array(m).fill(0);
+  const hmax = new Array(n).fill(0);
+  let ans = 0;
+  for (let row = 0; row < n; row++) {
+    let max = 0;
+    for (let col = 0; col < m; col++) {
+      max = Math.max(max, grid[row][col]);
+    }
+    hmax[row] = max;
   }
-  log({ lidx, ridx, lstr, rstr }, { splitCount: 0 });
-  if (ridx <= lidx && lstr !== rstr) return 1;
-  return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;
+  for (let col = 0; col < m; col++) {
+    let max = 0;
+    for (let row = 0; row < n; row++) {
+      max = Math.max(max, grid[row][col]);
+    }
+    vmax[col] = max;
+  }
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < m; col++) {
+      ans += Math.min(vmax[col] - grid[row][col], hmax[row] - grid[row][col]);
+    }
+  }
+  return ans;
 }
 log([
-  longestDecomposition('ghiabcdefhelloadamhelloabcdefghi'),
-  longestDecomposition('merchant'),
-  longestDecomposition('antaprezatepzapreanta'),
-  longestDecomposition('aaa'),
+  maxIncreaseKeepingSkyline([
+    [3, 0, 8, 4],
+    [2, 4, 5, 7],
+    [9, 2, 6, 3],
+    [0, 3, 1, 0],
+  ]),
 ]);
