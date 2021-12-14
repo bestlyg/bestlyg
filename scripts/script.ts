@@ -83,38 +83,13 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function maxIncreaseKeepingSkyline(grid: number[][]): number {
-  const n = grid.length;
-  const m = grid[0].length;
-  const vmax = new Array(m).fill(0);
-  const hmax = new Array(n).fill(0);
-  let ans = 0;
-  for (let row = 0; row < n; row++) {
-    let max = 0;
-    for (let col = 0; col < m; col++) {
-      max = Math.max(max, grid[row][col]);
-    }
-    hmax[row] = max;
+function scheduleCourse(courses: number[][]): number {
+  const heap = new Heap<number>((a, b) => a - b);
+  let sum = 0;
+  for (const [dur, last] of courses.sort((a, b) => a[1] - b[1])) {
+    sum += dur;
+    heap.add(dur);
+    if (sum > last) sum -= heap.remove();
   }
-  for (let col = 0; col < m; col++) {
-    let max = 0;
-    for (let row = 0; row < n; row++) {
-      max = Math.max(max, grid[row][col]);
-    }
-    vmax[col] = max;
-  }
-  for (let row = 0; row < n; row++) {
-    for (let col = 0; col < m; col++) {
-      ans += Math.min(vmax[col] - grid[row][col], hmax[row] - grid[row][col]);
-    }
-  }
-  return ans;
+  return heap.size;
 }
-log([
-  maxIncreaseKeepingSkyline([
-    [3, 0, 8, 4],
-    [2, 4, 5, 7],
-    [9, 2, 6, 3],
-    [0, 3, 1, 0],
-  ]),
-]);
