@@ -83,13 +83,47 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function scheduleCourse(courses: number[][]): number {
-  const heap = new Heap<number>((a, b) => a - b);
-  let sum = 0;
-  for (const [dur, last] of courses.sort((a, b) => a[1] - b[1])) {
-    sum += dur;
-    heap.add(dur);
-    if (sum > last) sum -= heap.remove();
-  }
-  return heap.size;
+class Person {
+  parent: Person = this;
+  children: Person[] = [];
+  constructor(public idx: number, public quiet: number) {}
 }
+function dfs(list: Set<Person>, persons: Person[], ans: number[]) {
+  if (list.size === 0) return;
+  const children = new Set<Person>();
+  for (const person of list) {
+    ans[person.idx] = person.parent.idx;
+    for (const child of person.children) {
+      children.add(child);
+      if (child.parent.quiet > person.parent.quiet) child.parent = person.parent;
+    }
+  }
+  dfs(children, persons, ans);
+}
+function loudAndRich(richer: number[][], quiet: number[]): number[] {
+  const persons = quiet.map((v, i) => new Person(i, v));
+  const starts = new Set(persons);
+  for (const [i1, i2] of richer) {
+    const p1 = persons[i1];
+    const p2 = persons[i2];
+    p1.children.push(p2);
+    starts.delete(p2);
+  }
+  const ans: number[] = new Array(quiet.length);
+  dfs(starts, persons, ans);
+  return ans;
+}
+log([
+  loudAndRich(
+    [
+      [1, 0],
+      [2, 1],
+      [3, 1],
+      [3, 7],
+      [4, 3],
+      [5, 3],
+      [6, 3],
+    ],
+    [3, 2, 5, 4, 6, 1, 7, 0]
+  ),
+]);
