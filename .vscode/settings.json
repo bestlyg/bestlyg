@@ -5,7 +5,10 @@
     "*.js": "javascriptreact",
     "*.ts": "typescriptreact",
     "stdio.h": "c",
-    "stack.h": "c"
+    "stack.h": "c",
+    "ostream": "cpp",
+    "iostream": "cpp",
+    "algorithm": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }

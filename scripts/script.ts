@@ -83,47 +83,44 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-class Person {
-  parent: Person = this;
-  children: Person[] = [];
-  constructor(public idx: number, public quiet: number) {}
+function getAngle(x1: number, y1: number, x2: number, y2: number) {
+  let angle = Math.atan2(y2 - y1, x2 - x1);
+  if (angle < 0) angle += Math.PI * 2;
+  return angle;
 }
-function dfs(list: Set<Person>, persons: Person[], ans: number[]) {
-  if (list.size === 0) return;
-  const children = new Set<Person>();
-  for (const person of list) {
-    ans[person.idx] = person.parent.idx;
-    for (const child of person.children) {
-      children.add(child);
-      if (child.parent.quiet > person.parent.quiet) child.parent = person.parent;
+function visiblePoints(points: number[][], angle: number, location: number[]): number {
+  const [x, y] = location;
+  const list: number[] = [];
+  let same = 0;
+  for (const [px, py] of points) {
+    if (px === x && py === y) {
+      same++;
+      continue;
     }
+    const angle = (Math.atan2(py - y, px - x) * 180) / Math.PI;
+    list.push(angle, angle + 360);
   }
-  dfs(children, persons, ans);
-}
-function loudAndRich(richer: number[][], quiet: number[]): number[] {
-  const persons = quiet.map((v, i) => new Person(i, v));
-  const starts = new Set(persons);
-  for (const [i1, i2] of richer) {
-    const p1 = persons[i1];
-    const p2 = persons[i2];
-    p1.children.push(p2);
-    starts.delete(p2);
+  list.sort((a, b) => a - b);
+  const n = list.length;
+  console.log(angle, list);
+  let l = 0;
+  let r = 0;
+  let ans = 0;
+  while (r < n) {
+    while (r < n && list[r] - list[l] <= angle) r++;
+    log({ l, r, a: list[r] - list[l] }, { chunkCount: 2, splitCount: 0 });
+    ans = Math.max(ans, r - l);
+    l++;
   }
-  const ans: number[] = new Array(quiet.length);
-  dfs(starts, persons, ans);
-  return ans;
+  return ans + same;
 }
 log([
-  loudAndRich(
+  visiblePoints(
     [
-      [1, 0],
-      [2, 1],
-      [3, 1],
-      [3, 7],
-      [4, 3],
-      [5, 3],
-      [6, 3],
+      [0, 0],
+      [0, 2],
     ],
-    [3, 2, 5, 4, 6, 1, 7, 0]
+    90,
+    [1, 1]
   ),
 ]);

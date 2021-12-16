@@ -10,46 +10,40 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '851. 喧闹和富有',
-    url: 'https://leetcode-cn.com/problems/loud-and-rich/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.深度优先搜索, Tag.图, Tag.拓扑排序, Tag.数组],
-    desc: `现在，返回一个整数数组 answer 作为答案，其中 answer[x] = y 的前提是，在所有拥有的钱肯定不少于 person x 的人中，person y 是最安静的人（也就是安静值 quiet[y] 最小的人）。`,
+    name: '1610. 可见点的最大数目',
+    url: 'https://leetcode-cn.com/problems/maximum-number-of-visible-points/',
+    difficulty: Difficulty.困难,
+    tag: [Tag.几何, Tag.数组, Tag.数学, Tag.排序, Tag.滑动窗口],
+    desc: `返回你能看到的点的最大数目。`,
     solutions: [
       {
         script: Script.TS,
-        time: 216,
-        memory: 49.3,
-        desc: '拓扑排序后向下遍历',
-        code: `class Person {
-          parent: Person = this;
-          children: Person[] = [];
-          constructor(public idx: number, public quiet: number) {}
-        }
-        function dfs(list: Set<Person>, persons: Person[], ans: number[]) {
-          if (list.size === 0) return;
-          const children = new Set<Person>();
-          for (const person of list) {
-            ans[person.idx] = person.parent.idx;
-            for (const child of person.children) {
-              children.add(child);
-              if (child.parent.quiet > person.parent.quiet) child.parent = person.parent;
+        time: 572,
+        memory: 77.3,
+        desc: '遍历每个点获取角度值',
+        code: `function visiblePoints(points: number[][], angle: number, location: number[]): number {
+          const [x, y] = location;
+          const list: number[] = [];
+          let same = 0;
+          for (const [px, py] of points) {
+            if (px === x && py === y) {
+              same++;
+              continue;
             }
+            const angle = (Math.atan2(py - y, px - x) * 180) / Math.PI;
+            list.push(angle, angle + 360);
           }
-          dfs(children, persons, ans);
-        }
-        function loudAndRich(richer: number[][], quiet: number[]): number[] {
-          const persons = quiet.map((v, i) => new Person(i, v));
-          const starts = new Set(persons);
-          for (const [i1, i2] of richer) {
-            const p1 = persons[i1];
-            const p2 = persons[i2];
-            p1.children.push(p2);
-            starts.delete(p2);
+          list.sort((a, b) => a - b);
+          const n = list.length;
+          let l = 0;
+          let r = 0;
+          let ans = 0;
+          while (r < n) {
+            while (r < n && list[r] - list[l] <= angle) r++;
+            ans = Math.max(ans, r - l);
+            l++;
           }
-          const ans: number[] = new Array(quiet.length).fill(Infinity);
-          dfs(starts, persons, ans);
-          return ans;
+          return ans + same;
         }`,
       },
     ],
