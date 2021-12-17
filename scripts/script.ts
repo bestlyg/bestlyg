@@ -83,44 +83,12 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function getAngle(x1: number, y1: number, x2: number, y2: number) {
-  let angle = Math.atan2(y2 - y1, x2 - x1);
-  if (angle < 0) angle += Math.PI * 2;
-  return angle;
-}
-function visiblePoints(points: number[][], angle: number, location: number[]): number {
-  const [x, y] = location;
-  const list: number[] = [];
-  let same = 0;
-  for (const [px, py] of points) {
-    if (px === x && py === y) {
-      same++;
-      continue;
-    }
-    const angle = (Math.atan2(py - y, px - x) * 180) / Math.PI;
-    list.push(angle, angle + 360);
+function numWaterBottles(numBottles: number, numExchange: number): number {
+  let ans = numBottles;
+  while (numBottles >= numExchange) {
+    let bottles = Math.floor(numBottles / numExchange);
+    ans += bottles;
+    numBottles = bottles + (numBottles % numExchange);
   }
-  list.sort((a, b) => a - b);
-  const n = list.length;
-  console.log(angle, list);
-  let l = 0;
-  let r = 0;
-  let ans = 0;
-  while (r < n) {
-    while (r < n && list[r] - list[l] <= angle) r++;
-    log({ l, r, a: list[r] - list[l] }, { chunkCount: 2, splitCount: 0 });
-    ans = Math.max(ans, r - l);
-    l++;
-  }
-  return ans + same;
+  return ans;
 }
-log([
-  visiblePoints(
-    [
-      [0, 0],
-      [0, 2],
-    ],
-    90,
-    [1, 1]
-  ),
-]);
