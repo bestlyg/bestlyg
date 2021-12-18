@@ -83,12 +83,27 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function numWaterBottles(numBottles: number, numExchange: number): number {
-  let ans = numBottles;
-  while (numBottles >= numExchange) {
-    let bottles = Math.floor(numBottles / numExchange);
-    ans += bottles;
-    numBottles = bottles + (numBottles % numExchange);
+function countBattleships(board: string[][]): number {
+  const n = board.length;
+  const m = board[0].length;
+  let ans = 0;
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < m; col++) {
+      if (
+        board[row][col] === '.' ||
+        (row > 0 && board[row - 1][col] === 'X') ||
+        (col > 0 && board[row][col - 1] === 'X')
+      )
+        continue;
+      ans++;
+    }
   }
   return ans;
 }
+log([
+  countBattleships([
+    ['X', '.', '.', 'X'],
+    ['.', '.', '.', 'X'],
+    ['.', '.', '.', 'X'],
+  ]),
+]);
