@@ -83,27 +83,20 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function countBattleships(board: string[][]): number {
-  const n = board.length;
-  const m = board[0].length;
-  let ans = 0;
-  for (let row = 0; row < n; row++) {
-    for (let col = 0; col < m; col++) {
-      if (
-        board[row][col] === '.' ||
-        (row > 0 && board[row - 1][col] === 'X') ||
-        (col > 0 && board[row][col - 1] === 'X')
-      )
-        continue;
-      ans++;
-    }
-  }
-  return ans;
+class Person {
+  parent: Person[] = [];
+  children: Person[] = [];
+  constructor(public idx: number) {}
 }
-log([
-  countBattleships([
-    ['X', '.', '.', 'X'],
-    ['.', '.', '.', 'X'],
-    ['.', '.', '.', 'X'],
-  ]),
-]);
+function findJudge(n: number, trust: number[][]): number {
+  const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));
+  for (const [i1, i2] of trust) {
+    const p1 = persons[i1];
+    const p2 = persons[i2];
+    p1.parent.push(p2);
+    p2.children.push(p1);
+  }
+  const p = persons.find(p => p.children.length === n - 1 && p.parent.length === 0);
+  if (!p) return -1;
+  else return p.idx;
+}

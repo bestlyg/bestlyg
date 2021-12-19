@@ -10,122 +10,31 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: !true,
-    name: '419. 甲板上的战舰',
-    url: 'https://leetcode-cn.com/problems/battleships-in-a-board/',
-    difficulty: Difficulty.中等,
-    tag: [Tag.深度优先搜索, Tag.数组, Tag.矩阵],
-    desc: `给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。`,
+    name: '997. 找到小镇的法官',
+    url: 'https://leetcode-cn.com/problems/find-the-town-judge/',
+    difficulty: Difficulty.简单,
+    tag: [Tag.图, Tag.数组, Tag.哈希表],
+    desc: `如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。`,
     solutions: [
       {
         script: Script.TS,
-        time: 80,
-        memory: 41.1,
-        desc: '并查集',
-        code: `class UnionFind {
-          elements: number[];
-          constructor(public size: number) {
-            this.elements = new Array(size).fill(0).map((_, i) => i);
-          }
-          same(v1: number, v2: number): boolean {
-            return this.find(v1) === this.find(v2);
-          }
-          find(v: number): number {
-            return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));
-          }
-          union(v1: number, v2: number): void {
-            const e1 = this.find(v1);
-            const e2 = this.find(v2);
-            if (e1 !== e2) {
-              this.elements[e1] = e2;
-              this.size--;
-            }
-          }
+        time: 112,
+        memory: 46.8,
+        desc: '统计每个人是否都有n-1个人相信且没有相信别人',
+        code: `class Person {
+          parent: number = 0;
+          children: number = 0;
+          constructor(public idx: number) {}
         }
-        const dirs = [
-          [1, 0],
-          [0, 1],
-          [-1, 0],
-          [0, -1],
-        ];
-        function countBattleships(board: string[][]): number {
-          const n = board.length;
-          const m = board[0].length;
-          const uf = new UnionFind(n * m);
-          const getIdx = (row: number, col: number) => row * m + col;
-          let cnt = 0;
-          for (let row = 0; row < n; row++) {
-            for (let col = 0; col < m; col++) {
-              if (board[row][col] !== 'X') {
-                cnt++;
-              } else {
-                for (let i = 0; i < 4; i++) {
-                  const next_row = row + dirs[i][0];
-                  const next_col = col + dirs[i][1];
-                  if (
-                    next_row < 0 ||
-                    next_row >= n ||
-                    next_col < 0 ||
-                    next_col >= m ||
-                    board[next_row][next_col] === '.'
-                  )
-                    continue;
-                  uf.union(getIdx(row, col), getIdx(next_row, next_col));
-                }
-              }
-            }
+        function findJudge(n: number, trust: number[][]): number {
+          const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));
+          for (const [i1, i2] of trust) {
+            persons[i1 - 1].parent++
+            persons[i2 - 1].children++;
           }
-          return uf.size - cnt;
-        }`,
-      },
-      {
-        script: Script.TS,
-        time: 80,
-        memory: 39.7,
-        desc: 'dfs',
-        code: `function setDot(board: string[][], n: number, m: number, row: number, col: number): void {
-          if (row < 0 || row >= n || col < 0 || col >= m || board[row][col] === '.') return;
-          board[row][col] = '.';
-          setDot(board, n, m, row + 1, col);
-          setDot(board, n, m, row - 1, col);
-          setDot(board, n, m, row, col + 1);
-          setDot(board, n, m, row, col - 1);
+          return persons.find(p => p.children === n - 1 && p.parent === 0)?.idx ?? -1;
         }
-        function countBattleships(board: string[][]): number {
-          const n = board.length;
-          const m = board[0].length;
-          let ans = 0;
-          for (let row = 0; row < n; row++) {
-            for (let col = 0; col < m; col++) {
-              if (board[row][col] === '.') continue;
-              ans++;
-              setDot(board, n, m, row, col);
-            }
-          }
-          return ans;
-        }`,
-      },
-      {
-        script: Script.TS,
-        time: 72,
-        memory: 39.7,
-        desc: '每次遍历只统计每个战舰左上角的X',
-        code: `function countBattleships(board: string[][]): number {
-          const n = board.length;
-          const m = board[0].length;
-          let ans = 0;
-          for (let row = 0; row < n; row++) {
-            for (let col = 0; col < m; col++) {
-              if (
-                board[row][col] === '.' ||
-                (row > 0 && board[row - 1][col] === 'X') ||
-                (col > 0 && board[row][col - 1] === 'X')
-              )
-                continue;
-              ans++;
-            }
-          }
-          return ans;
-        }`,
+        `,
       },
     ],
   },
