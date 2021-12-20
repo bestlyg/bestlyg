@@ -10,39 +10,63 @@ type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
     existMarkdown: true,
-    name: '475. 供暖器',
+    name: '13. 罗马数字转整数',
     url: 'https://leetcode-cn.com/problems/heaters/',
     difficulty: Difficulty.中等,
     tag: [Tag.数组, Tag.双指针, Tag.二分查找, Tag.排序],
     desc: `现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。`,
     solutions: [
       {
-        script: Script.TS,
-        time: 108,
-        memory: 42.6,
-        desc: '二分答案',
-        code: `function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {
-          let idx = 0;
-          for (let i = 0; i < m && idx < n; i++) {
-            const heater = heaters[i];
-            while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;
-          }
-          return idx === n;
+        script: Script.CPP,
+        time: 4,
+        memory: 5.9,
+        desc: '遍历模拟',
+        code: `class Solution {
+   public:
+    int romanToInt(string s) {
+        int ans = 0;
+        for (int i = 0; i < s.size(); i++) {
+            char ch = s[i];
+            if (ch == 'M')
+                ans += 1000;
+            else if (ch == 'D')
+                ans += 500;
+            else if (ch == 'C') {
+                if (s[i + 1] == 'M') {
+                    ans += 900;
+                    i++;
+                } else if (s[i + 1] == 'D') {
+                    ans += 400;
+                    i++;
+                } else
+                    ans += 100;
+            } else if (ch == 'L')
+                ans += 50;
+            else if (ch == 'X') {
+                if (s[i + 1] == 'C') {
+                    ans += 90;
+                    i++;
+                } else if (s[i + 1] == 'L') {
+                    ans += 40;
+                    i++;
+                } else
+                    ans += 10;
+            } else if (ch == 'V')
+                ans += 5;
+            else if (ch == 'I') {
+                if (s[i + 1] == 'X') {
+                    ans += 9;
+                    i++;
+                } else if (s[i + 1] == 'V') {
+                    ans += 4;
+                    i++;
+                } else
+                    ans += 1;
+            }
         }
-        function findRadius(houses: number[], heaters: number[]): number {
-          houses.sort((a, b) => a - b);
-          heaters.sort((a, b) => a - b);
-          const houseLen = houses.length;
-          const heaterLen = heaters.length;
-          let l = 0;
-          let r = 1e9;
-          while (l < r) {
-            const m = (l + r) >> 1;
-            if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;
-            else l = m + 1;
-          }
-          return l;
-        }`,
+        return ans;
+    }
+};`,
       },
     ],
   },
