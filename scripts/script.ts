@@ -83,20 +83,31 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-class Person {
-  parent: Person[] = [];
-  children: Person[] = [];
-  constructor(public idx: number) {}
-}
-function findJudge(n: number, trust: number[][]): number {
-  const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));
-  for (const [i1, i2] of trust) {
-    const p1 = persons[i1];
-    const p2 = persons[i2];
-    p1.parent.push(p2);
-    p2.children.push(p1);
+function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {
+  let idx = 0;
+  for (let i = 0; i < m && idx < n; i++) {
+    const heater = heaters[i];
+    while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;
   }
-  const p = persons.find(p => p.children.length === n - 1 && p.parent.length === 0);
-  if (!p) return -1;
-  else return p.idx;
+  return idx === n;
 }
+function findRadius(houses: number[], heaters: number[]): number {
+  houses.sort((a, b) => a - b);
+  heaters.sort((a, b) => a - b);
+  const houseLen = houses.length;
+  const heaterLen = heaters.length;
+  let l = 0;
+  let r = 1e9;
+  while (l < r) {
+    const m = (l + r) >> 1;
+    if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;
+    else l = m + 1;
+  }
+  return l;
+}
+log([
+  // findRadius([1, 2, 3], [2]),
+  // findRadius([1, 2, 3, 4], [1, 4]),
+  // findRadius([1, 5], [2]),
+  findRadius([1], [1, 2, 3, 4]),
+]);

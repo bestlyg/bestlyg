@@ -9,32 +9,40 @@ type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 export const leetCodeMarkdowns: Markdown[] = [
   {
-    existMarkdown: !true,
-    name: '997. 找到小镇的法官',
-    url: 'https://leetcode-cn.com/problems/find-the-town-judge/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.图, Tag.数组, Tag.哈希表],
-    desc: `如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。`,
+    existMarkdown: true,
+    name: '475. 供暖器',
+    url: 'https://leetcode-cn.com/problems/heaters/',
+    difficulty: Difficulty.中等,
+    tag: [Tag.数组, Tag.双指针, Tag.二分查找, Tag.排序],
+    desc: `现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。`,
     solutions: [
       {
         script: Script.TS,
-        time: 112,
-        memory: 46.8,
-        desc: '统计每个人是否都有n-1个人相信且没有相信别人',
-        code: `class Person {
-          parent: number = 0;
-          children: number = 0;
-          constructor(public idx: number) {}
-        }
-        function findJudge(n: number, trust: number[][]): number {
-          const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));
-          for (const [i1, i2] of trust) {
-            persons[i1 - 1].parent++
-            persons[i2 - 1].children++;
+        time: 108,
+        memory: 42.6,
+        desc: '二分答案',
+        code: `function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {
+          let idx = 0;
+          for (let i = 0; i < m && idx < n; i++) {
+            const heater = heaters[i];
+            while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;
           }
-          return persons.find(p => p.children === n - 1 && p.parent === 0)?.idx ?? -1;
+          return idx === n;
         }
-        `,
+        function findRadius(houses: number[], heaters: number[]): number {
+          houses.sort((a, b) => a - b);
+          heaters.sort((a, b) => a - b);
+          const houseLen = houses.length;
+          const heaterLen = heaters.length;
+          let l = 0;
+          let r = 1e9;
+          while (l < r) {
+            const m = (l + r) >> 1;
+            if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;
+            else l = m + 1;
+          }
+          return l;
+        }`,
       },
     ],
   },
