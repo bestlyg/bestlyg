@@ -83,31 +83,11 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {
-  let idx = 0;
-  for (let i = 0; i < m && idx < n; i++) {
-    const heater = heaters[i];
-    while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;
-  }
-  return idx === n;
+function repeatedStringMatch(a: string, b: string): number {
+  let cnt = Math.ceil(b.length / a.length);
+  log({ cnt });
+  if (a.repeat(cnt).includes(b)) return cnt;
+  if (a.repeat(cnt + 1).includes(b)) return cnt + 1;
+  return -1;
 }
-function findRadius(houses: number[], heaters: number[]): number {
-  houses.sort((a, b) => a - b);
-  heaters.sort((a, b) => a - b);
-  const houseLen = houses.length;
-  const heaterLen = heaters.length;
-  let l = 0;
-  let r = 1e9;
-  while (l < r) {
-    const m = (l + r) >> 1;
-    if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;
-    else l = m + 1;
-  }
-  return l;
-}
-log([
-  // findRadius([1, 2, 3], [2]),
-  // findRadius([1, 2, 3, 4], [1, 4]),
-  // findRadius([1, 5], [2]),
-  findRadius([1], [1, 2, 3, 4]),
-]);
+log([repeatedStringMatch('aa', 'a')]);
