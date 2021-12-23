@@ -86,6 +86,7 @@ export enum Tag {
   枚举 = '枚举',
   脑筋急转弯 = '脑筋急转弯',
   组合数学 = '组合数学',
+  后缀数组 = '后缀数组',
 }
 export enum Script {
   JS = 'javascript',

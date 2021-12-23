@@ -83,11 +83,54 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function repeatedStringMatch(a: string, b: string): number {
-  let cnt = Math.ceil(b.length / a.length);
-  log({ cnt });
-  if (a.repeat(cnt).includes(b)) return cnt;
-  if (a.repeat(cnt + 1).includes(b)) return cnt + 1;
-  return -1;
+function longestDupSubstring2(s: string): string {
+  const map: Record<string, number> = {};
+  for (const ch of s) map[ch] = (map[ch] ?? 0) + 1;
+  const data: Record<string, { cnt: number; list: number[] }> = {};
+  let str = '';
+  let left = 0;
+  let right = 0;
+  while (right <= s.length) {
+    while (map[s[right]] >= 2) str += s[right++];
+    let val = data[str];
+    if (!val) val = data[str] = { cnt: 0, list: [] };
+    val.cnt++;
+    val.list.push(left);
+    left = right = right + 1;
+    str = '';
+  }
+  console.log(data);
+  return str;
 }
-log([repeatedStringMatch('aa', 'a')]);
+
+function check(s: string, n: number, num: number): string {
+  let left = 0;
+  let right = num;
+  let str = s.substring(left, right);
+  const set = new Set([str]);
+  while (right < n) {
+    str = s.substring(++left, ++right);
+    console.log({ left, right, str });
+    console.log(set);
+    if (set.has(str)) return str;
+    set.add(str);
+  }
+  return '';
+}
+function longestDupSubstring(s: string): string {
+  const n = s.length;
+  let left = 0;
+  let right = n;
+  let ans = '';
+  while (left < right) {
+    const mid = (left + right + 1) >> 1;
+    const str = check(s, n, mid);
+    if (str === '') right = mid - 1;
+    else {
+      left = mid;
+      ans = str;
+    }
+  }
+  return ans;
+}
+log([longestDupSubstring('abcd')]);
