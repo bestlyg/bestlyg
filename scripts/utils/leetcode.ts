@@ -1,3 +1,4 @@
+import { fs } from './dep';
 import { resolve, trimBlank } from './fn';
 
 export interface Solution {
@@ -8,7 +9,7 @@ export interface Solution {
   code: string;
 }
 export interface Markdown {
-  existMarkdown: boolean;
+  exist: boolean;
   name: string;
   url: string;
   desc: string;
@@ -97,6 +98,19 @@ export enum Script {
   CPP = 'c++',
   JAVA = 'java',
 }
+export enum Type {
+  NUMBER,
+  FACE,
+  LCP,
+  OFFER,
+  OFFER2,
+}
+export const typeList: { type: Type; prefix: string; order: number }[] = [
+  { type: Type.FACE, prefix: '面试题', order: 100000 },
+  { type: Type.LCP, prefix: 'LCP', order: 200000 },
+  { type: Type.OFFER2, prefix: '剑指OfferII', order: 400000 },
+  { type: Type.OFFER, prefix: '剑指Offer', order: 300000 },
+];
 
 export const rootPath = resolve('packages/leetcode');
 export const srcPath = resolve(rootPath, 'src');
@@ -104,57 +118,69 @@ export interface SolutionList {
   name: string;
   solutions: string[];
 }
-export const HADER_LCP = 'LCP';
-export const HADER_OFFER = '剑指Offer';
-export const HADER_FACE = '面试题';
-export const indexReg = new RegExp(`# (.*)`);
-export const tagReg = new RegExp('标签：(.*)  ');
-export const difReg = new RegExp('难度：(.*)  ');
-export const solutionReg = new RegExp('## 题解 (.*) - ', 'g');
-export const getNumDirName = (file: string) => {
-  const num = ~~((parseFloat(file) - 1) / 100);
-  const dirName = `${num * 100 + 1}-${100 * num + 100}`;
-  return dirName;
+export const reg = {
+  index: new RegExp(`# (.*)`),
+  tag: new RegExp('标签：(.*)  '),
+  dif: new RegExp('难度：(.*)  '),
+  solution: new RegExp('## 题解 (.*) - ', 'g'),
 };
-export const getDirName = (fileName: string) => {
-  const name = trimBlank(fileName);
-  let dirName = '';
-  if (name.startsWith(HADER_FACE)) {
-    dirName = HADER_FACE;
-  } else if (name.startsWith(HADER_LCP)) {
-    dirName = HADER_LCP;
-  } else if (name.startsWith(HADER_OFFER)) {
-    dirName = HADER_OFFER;
-  } else {
-    dirName = getNumDirName(name);
+export function analysisFileName(name: string) {
+  name = trimBlank(name);
+  const res = {
+    dirname: '',
+    dirorder: 0,
+    fileorder: 0,
+    type: Type.NUMBER,
+  };
+  for (const { prefix, order, type } of typeList) {
+    if (name.startsWith(prefix)) {
+      res.type = type;
+      res.dirname = prefix;
+      res.dirorder = order;
+      res.fileorder = parseFloat(name.substring(prefix.length));
+      break;
+    }
   }
-  return dirName;
-};
-export const getFileOrder = (file: string) => {
-  if (file.startsWith(HADER_LCP)) {
-    return parseFloat(file.substr(HADER_LCP.length));
-  } else if (file.startsWith(HADER_FACE)) {
-    return parseFloat(file.substr(HADER_FACE.length));
-  } else if (file.startsWith(HADER_OFFER)) {
-    return parseFloat(file.substr(HADER_OFFER.length));
-  } else {
-    return parseFloat(file);
+  if (!res.dirname) {
+    const num = ~~((parseFloat(name) - 1) / 100);
+    res.dirname = `${num * 100 + 1}-${100 * num + 100}`;
+    res.dirorder = parseFloat(res.dirname);
+    res.fileorder = parseFloat(name);
   }
-};
-export const getDirOrder = (dir: string) => {
-  if (dir.startsWith(HADER_LCP)) {
-    return 300000;
-  } else if (dir.startsWith(HADER_FACE)) {
-    return 100000;
-  } else if (dir.startsWith(HADER_OFFER)) {
-    return 200000;
-  } else {
-    return parseFloat(dir);
-  }
-};
-export const getLastSolutionIdx = (file: string) => {
-  const matchList = file.matchAll(solutionReg);
+  return res;
+}
+export function findLastSolutionIdx(file: string) {
+  const matchList = file.matchAll(reg.solution);
   let lastIndex = 0;
   for (const match of matchList) lastIndex = parseInt(match[1]);
   return lastIndex;
-};
+}
+export function travel() {
+  const dirList = fs
+    .readdirSync(srcPath)
+    .filter(v => !v.includes('.'))
+    .sort((name1, name2) => {
+      const order1 = typeList.find(v => v.prefix === name1)?.order ?? parseFloat(name1);
+      const order2 = typeList.find(v => v.prefix === name2)?.order ?? parseFloat(name2);
+      return order1 - order2;
+    });
+  const ans: { filepath: string }[] = [];
+  for (const dir of dirList) {
+    const dirPath = `${srcPath}/${dir}`;
+    const list = fs.readdirSync(dirPath).sort((name1, name2) => {
+      let len = 0;
+      for (const { prefix } of typeList) {
+        if (name1.startsWith(prefix) && name2.startsWith(prefix)) {
+          len = prefix.length;
+          break;
+        }
+      }
+      return parseFloat(name1.substring(len)) - parseFloat(name2.substring(len));
+    });
+    for (const file of list) {
+      const filepath = `${dirPath}/${file}`;
+      ans.push({ filepath });
+    }
+  }
+  return ans;
+}

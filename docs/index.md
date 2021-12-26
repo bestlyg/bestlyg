@@ -5,8 +5,8 @@ hero:
   actions:
     - text: 个人博客
       link: /blogs
-    - text: 应用合集
-      link: /applications
+    - text: 力扣题解
+      link: /leetcode
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: 个人博客

@@ -1,5 +1,5 @@
 ---
-title: 剑指Offer20.表示数值的字符串
+title: 剑指 Offer 20. 表示数值的字符串
 order: 20
 nav:
   title: 力扣题解
@@ -8,7 +8,7 @@ nav:
 group:
   title: 剑指Offer
   path: /剑指Offer
-  order: 200000
+  order: 300000
 ---
 
 # 剑指 Offer 20. 表示数值的字符串

@@ -1,5 +1,5 @@
 ---
-title: LCP19.秋叶收藏集
+title: LCP 19. 秋叶收藏集
 order: 19
 nav:
   title: 力扣题解
@@ -8,7 +8,7 @@ nav:
 group:
   title: LCP
   path: /LCP
-  order: 300000
+  order: 200000
 ---
 
 # LCP 19. 秋叶收藏集

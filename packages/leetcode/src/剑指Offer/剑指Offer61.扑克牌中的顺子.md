@@ -8,7 +8,7 @@ nav:
 group:
   title: 剑指Offer
   path: /剑指Offer
-  order: 200000
+  order: 300000
 ---
 
 # 剑指 Offer 61. 扑克牌中的顺子

@@ -1,54 +1,47 @@
-import { leetcode, trimBlank, resolve, fs, dayjs, specStr, LOGO, markdown, chalk } from './utils';
-import { leetCodeMarkdowns } from './leetCodeMarkdown';
+import { leetcode, trimBlank, resolve, fs, dayjs, specStr, LOGO, chalk } from './utils';
+import md from './leetCodeMarkdown';
 
 const { backquote } = specStr;
-const { srcPath, solutionReg, getDirOrder, getFileOrder, getDirName } = leetcode;
+const { srcPath, reg, analysisFileName, findLastSolutionIdx } = leetcode;
 type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
-let current: Markdown;
-let dirName!: string;
-let filePath!: string;
-let dirPath!: string;
+const { dirname, fileorder, dirorder } = analysisFileName(md.name);
+const filePath = resolve(srcPath, dirname, trimBlank(md.name) + '.md');
 
 function main() {
   console.log(chalk.blue(`正在生成LeetCode题解`));
   console.log(LOGO);
-  for (const md of leetCodeMarkdowns) {
-    current = md;
-    dirName = getDirName(md.name);
-    dirPath = resolve(srcPath, dirName);
-    filePath = resolve(dirPath, trimBlank(md.name) + '.md');
-    md.existMarkdown ? addSolution() : addMarkdown();
-    console.log(chalk.blue(`${md.name}生成完成`));
-  }
+  md.exist ? addSolution() : addMarkdown();
+  console.log(chalk.blue(`${md.name}生成完成`));
   console.log(chalk.green(`生成完成`));
 }
+main();
 function addMarkdown() {
   fs.writeFileSync(
     filePath,
     `---
-title: ${current.name}
-order: ${getFileOrder(current.name)}
+title: ${md.name}
+order: ${fileorder}
 nav:
   title: 力扣题解
   path: /leetcode
   order: 4
 group:
-  title: ${dirName}
-  path: /${dirName}
-  order: ${getDirOrder(dirName)}
+  title: ${dirname}
+  path: /${dirname}
+  order: ${dirorder}
 ---
 
-# ${current.name}
+# ${md.name}
     
-> 链接：[${current.name}](${current.url})  
-> 难度：${current.difficulty}  
-> 标签：${current.tag.join('、')}  
-> 简介：${descFormat(current.desc)}
+> 链接：[${md.name}](${md.url})  
+> 难度：${md.difficulty}  
+> 标签：${md.tag.join('、')}  
+> 简介：${descFormat(md.desc)}
       
-${current.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n')}
+${md.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n')}
       `
   );
 }
@@ -59,16 +52,13 @@ function addSolution() {
     file = fs.readFileSync(path).toString();
   } catch (e) {
     console.log(chalk.red('没有这个文件'));
-    process.exit(1);
+    return;
   }
-  const matchList = file.matchAll(solutionReg);
-  let lastIndex = 0;
-  for (const match of matchList) lastIndex = parseInt(match[1]);
   fs.writeFileSync(
     filePath,
     file +
-      current.solutions
-        .map((data, index) => analysisSolution(data, index + 1 + lastIndex))
+      md.solutions
+        .map((data, index) => analysisSolution(data, index + 1 + findLastSolutionIdx(file)))
         .join('\n')
   );
 }
@@ -84,4 +74,3 @@ ${code}
 ${backquote}${backquote}${backquote}
 `;
 }
-main();

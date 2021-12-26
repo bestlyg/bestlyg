@@ -1,6 +1,6 @@
 ---
 title: 剑指 Offer 15. 二进制中1的个数
-order: NaN
+order: 15
 nav:
   title: 力扣题解
   path: /leetcode
@@ -8,7 +8,7 @@ nav:
 group:
   title: 剑指Offer
   path: /剑指Offer
-  order: 200000
+  order: 300000
 ---
 
 # 剑指 Offer 15. 二进制中 1 的个数

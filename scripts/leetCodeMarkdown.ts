@@ -7,21 +7,20 @@ type Difficulty = leetcode.Difficulty;
 type Tag = leetcode.Tag;
 type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
-export const leetCodeMarkdowns: Markdown[] = [
-  {
-    existMarkdown: !true,
-    name: '1078. Bigram 分词',
-    url: 'https://leetcode-cn.com/problems/occurrences-after-bigram/',
-    difficulty: Difficulty.简单,
-    tag: [Tag.字符串],
-    desc: `对于每种这样的情况，将第三个词 "third" 添加到答案中，并返回答案。`,
-    solutions: [
-      {
-        script: Script.CPP,
-        time: 0,
-        memory: 6.5,
-        desc: '分割字符串',
-        code: `class Solution {
+const leetCodeMarkdown: Markdown = {
+  exist: !true,
+  name: '剑指 Offer II 105. 岛屿的最大面积',
+  url: 'https://leetcode-cn.com/problems/occurrences-after-bigram/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `对于每种这样的情况，将第三个词 "third" 添加到答案中，并返回答案。`,
+  solutions: [
+    {
+      script: Script.CPP,
+      time: 0,
+      memory: 6.5,
+      desc: '分割字符串',
+      code: `class Solution {
    public:
     vector<string> split(string text) {
         vector<string> ans;
@@ -45,7 +44,7 @@ export const leetCodeMarkdowns: Markdown[] = [
         return ans;
     }
 };`,
-      },
-    ],
-  },
-];
+    },
+  ],
+};
+export default leetCodeMarkdown;

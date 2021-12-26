@@ -1,5 +1,5 @@
 ---
-title: 剑指Offer40.最小的k个数
+title: 剑指 Offer 40. 最小的k个数
 order: 40
 nav:
   title: 力扣题解
@@ -8,7 +8,7 @@ nav:
 group:
   title: 剑指Offer
   path: /剑指Offer
-  order: 200000
+  order: 300000
 ---
 
 # 剑指 Offer 40. 最小的 k 个数

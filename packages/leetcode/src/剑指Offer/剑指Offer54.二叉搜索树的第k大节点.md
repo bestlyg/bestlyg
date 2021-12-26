@@ -1,5 +1,5 @@
 ---
-title: 剑指Offer54.二叉搜索树的第k大节点
+title: 剑指 Offer 54. 二叉搜索树的第k大节点
 order: 54
 nav:
   title: 力扣题解
@@ -8,7 +8,7 @@ nav:
 group:
   title: 剑指Offer
   path: /剑指Offer
-  order: 200000
+  order: 300000
 ---
 
 # 剑指 Offer 54. 二叉搜索树的第 k 大节点

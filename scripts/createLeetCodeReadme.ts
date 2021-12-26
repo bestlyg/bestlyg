@@ -1,19 +1,8 @@
 import { fs, leetcode, LOGO, resolve, trimBlank, chalk } from './utils';
 
 type SolutionList = leetcode.SolutionList;
-const {
-  Difficulty,
-  rootPath,
-  HADER_LCP,
-  HADER_OFFER,
-  HADER_FACE,
-  indexReg,
-  tagReg,
-  difReg,
-  getNumDirName,
-  srcPath,
-  getLastSolutionIdx,
-} = leetcode;
+const { Difficulty, rootPath, reg, analysisFileName, srcPath, findLastSolutionIdx, travel, Type } =
+  leetcode;
 const waitSolutions = [
   {
     name: '127. 单词接龙',
@@ -80,22 +69,18 @@ let template = '';
 let fileName = '';
 let solutionCount = 0;
 let fileCount = 0;
-const pathMap: Record<string, string> = {};
 
 function main() {
   console.log(chalk.blue(`正在生成LeetCode目录`));
   console.log(LOGO);
-  const data = `
-# 目录索引
-## 介绍
-个人 LeetCode 题解
+  run_web();
+  run_git();
+  console.log(chalk.green(`生成完成`));
+}
 
-${createSolutionsTemplate()}
-`;
-  const paths = [
-    {
-      path: resolve(srcPath, 'index.md'),
-      data: `---
+function run_web() {
+  const path = resolve(srcPath, 'index.md');
+  const data = `---
 title: 目录索引
 nav:
   title: 力扣题解
@@ -106,45 +91,48 @@ group:
   order: 0
 ---
 
-${data}
-`,
-    },
-    { path: resolve(rootPath, 'README.md'), data },
-  ];
-  paths.forEach(({ path, data }) => {
-    fs.removeSync(path);
-    fs.writeFile(path, data);
-  });
-  console.log(chalk.green(`生成完成`));
+# 目录索引
+## 介绍
+个人 LeetCode 题解
+
+${createSolutionsTemplate({
+  createLink: name => {
+    const { dirname, type } = analysisFileName(name);
+    let link = name.substring(0, name.lastIndexOf('.')).toLowerCase();
+    if (type === Type.OFFER2) link = link.replace('ii', '-ii');
+    return `- [${name}](${dirname}/${link})\n`;
+  },
+})}
+`;
+  fs.removeSync(path);
+  fs.writeFile(path, data);
+}
+function run_git() {
+  const path = resolve(rootPath, 'README.md');
+  const data = `
+# 目录索引
+## 介绍
+个人 LeetCode 题解
+
+${createSolutionsTemplate({
+  createLink: name => {
+    const { dirname } = analysisFileName(name);
+    return `- [${name}](./src/${dirname}/${name}.md)\n`;
+  },
+})}
+`;
+  fs.removeSync(path);
+  fs.writeFile(path, data);
 }
 
-const createSolutionsTemplate = () => {
-  const dirList = fs
-    .readdirSync(srcPath)
-    .filter(v => !v.includes('.'))
-    .sort((name1, name2) => parseFloat(name1) - parseFloat(name2));
-  for (const dir of dirList) {
-    const dirPath = `${srcPath}/${dir}`;
-    const fileList = fs.readdirSync(dirPath).sort((name1, name2) => {
-      let startIndex = 0;
-      if (name1.startsWith(HADER_LCP) && name2.startsWith(HADER_LCP)) {
-        startIndex = HADER_LCP.length;
-      } else if (name1.startsWith(HADER_OFFER) && name2.startsWith(HADER_OFFER)) {
-        startIndex = HADER_OFFER.length;
-      } else if (name1.startsWith(HADER_FACE) && name2.startsWith(HADER_FACE)) {
-        startIndex = HADER_FACE.length;
-      }
-      return parseFloat(name1.substr(startIndex)) - parseFloat(name2.substr(startIndex));
-    });
-    for (const file of fileList) {
-      const filePath = `${dirPath}/${file}`;
-      template = fs.readFileSync(filePath).toString();
-      fileCount++;
-      solutionCount += getLastSolutionIdx(template);
-      analysisIndex();
-      analysisTag();
-      analysisDifficulty();
-    }
+function createSolutionsTemplate({ createLink }: { createLink: (name: string) => string }) {
+  for (const { filepath } of travel()) {
+    template = fs.readFileSync(filepath).toString();
+    fileCount++;
+    solutionCount += findLastSolutionIdx(template);
+    analysisIndex();
+    analysisTag();
+    analysisDifficulty();
   }
   let res = `
 总题目数:${fileCount}
@@ -156,54 +144,38 @@ const createSolutionsTemplate = () => {
     for (const { name, solutions } of subCache) {
       res += `### ${name}\n`;
       for (const solution of solutions) {
-        let path = pathMap[solution];
-        if (!path) {
-          path = pathMap[solution] = `- [${solution}](${name}/${solution.substr(
-            0,
-            solution.lastIndexOf('.')
-          )})\n`;
-        }
-        res += path;
+        res += createLink(solution);
       }
     }
   }
   return res;
-};
+}
 
-const analysisIndex = () => {
-  if (!indexReg.test(template)) return;
+function analysisIndex() {
+  if (!reg.index.test(template)) return;
   fileName = trimBlank(RegExp.$1);
-  let dirName = '';
-  if (fileName.startsWith(HADER_LCP)) {
-    dirName = HADER_LCP;
-  } else if (fileName.startsWith(HADER_OFFER)) {
-    dirName = HADER_OFFER;
-  } else if (fileName.startsWith(HADER_FACE)) {
-    dirName = HADER_FACE;
-  } else {
-    dirName = getNumDirName(fileName);
-  }
-  let obj: SolutionList | undefined = indexCache.find(v => v.name.startsWith(dirName));
-  if (!obj) indexCache.push((obj = { name: dirName, solutions: [] }));
+  const { dirname } = analysisFileName(fileName);
+  let obj = indexCache.find(v => v.name.startsWith(dirname));
+  if (!obj) indexCache.push((obj = { name: dirname, solutions: [] }));
   obj.solutions.push(fileName);
-};
-const analysisTag = () => {
-  if (!tagReg.test(template)) return;
+}
+function analysisTag() {
+  if (!reg.tag.test(template)) return;
   const name = trimBlank(RegExp.$1);
   if (!name) return;
   const tagList = name.split('、');
   for (const tag of tagList) {
-    let obj: SolutionList | undefined = tagCache.find(v => v.name.startsWith(tag));
+    let obj = tagCache.find(v => v.name.startsWith(tag));
     if (!obj) tagCache.push((obj = { name: tag, solutions: [] }));
     obj.solutions.push(fileName);
   }
-};
-const analysisDifficulty = () => {
-  if (!difReg.test(template)) return;
+}
+function analysisDifficulty() {
+  if (!reg.dif.test(template)) return;
   const name = trimBlank(RegExp.$1);
-  let obj: SolutionList | undefined = difficultyCache.find(v => v.name.startsWith(name));
+  let obj = difficultyCache.find(v => v.name.startsWith(name));
   if (!obj) difficultyCache.push((obj = { name: name, solutions: [] }));
   obj.solutions.push(fileName);
-};
+}
 
 main();

@@ -8,7 +8,7 @@ nav:
 group:
   title: LCP
   path: /LCP
-  order: 300000
+  order: 200000
 ---
 
 # LCP 07. 传递信息
