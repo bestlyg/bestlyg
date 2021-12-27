@@ -8,7 +8,7 @@ type Tag = leetcode.Tag;
 type Solution = leetcode.Solution;
 type Markdown = leetcode.Markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
+  exist: true,
   name: '825. 适龄的朋友',
   url: 'https://leetcode-cn.com/problems/friends-of-appropriate-ages/',
   difficulty: Difficulty.中等,
@@ -17,55 +17,19 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 1320,
-      memory: 36.5,
-      desc: '排序后双指针移动',
+      time: 56,
+      memory: 36.3,
+      desc: '双指针移动',
       code: `class Solution {
    public:
     int numFriendRequests(vector<int>& ages) {
         sort(ages.begin(), ages.end());
-        int n = ages.size(), ans = 0;
-        for (int l = 0, r = 0; r < n; r++) {
-            while (l < r && ages[l] <= ages[r] / 2.0 + 7) l++;
-            ans += r - l;
-            if (ages[r] / 2.0 + 7 < ages[r]) {
-                int tmp = r;
-                while (tmp + 1 < n && ages[tmp + 1] == ages[tmp]) {
-                    ans++;
-                    tmp++;
-                }
-            }
-        }
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 108,
-      memory: 36.2,
-      desc: '二分查找最小值和最大值',
-      code: `class Solution {
-   public:
-    int bs(vector<int>& ages, double num) {
-        int l = 0, r = ages.size(), m;
-        while (l < r) {
-            m = (l + r) / 2;
-            if (ages[m] > num)
-                r = m;
-            else
-                l = m + 1;
-        }
-        return l;
-    }
-    int numFriendRequests(vector<int>& ages) {
-        sort(ages.begin(), ages.end());
-        int n = ages.size(), ans = 0;
+        int n = ages.size(), l = 0, r = 0, ans = 0;
         for (int i = 0; i < n; i++) {
-            double min = ages[i] / 2.0 + 7, max = ages[i];
-            if (min > max) continue;
-            int imin = bs(ages, min), imax = bs(ages, max);
-            if (imin < imax) ans += imax - imin - 1;
+            if (ages[i] * 0.5 + 7 > ages[i]) continue; 
+            while (r + 1 < n && ages[r + 1] <=ages[i]) r++;
+            while (l < r && ages[l] <= ages[i] * 0.5 + 7) l++;
+            ans += r - l;
         }
         return ans;
     }
