@@ -16,7 +16,6 @@ import {
 const {
   TreeNode,
   UnionFind,
-
   ListNode,
   Heap,
   // Trie, TrieNode
@@ -83,54 +82,70 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function longestDupSubstring2(s: string): string {
-  const map: Record<string, number> = {};
-  for (const ch of s) map[ch] = (map[ch] ?? 0) + 1;
-  const data: Record<string, { cnt: number; list: number[] }> = {};
-  let str = '';
-  let left = 0;
-  let right = 0;
-  while (right <= s.length) {
-    while (map[s[right]] >= 2) str += s[right++];
-    let val = data[str];
-    if (!val) val = data[str] = { cnt: 0, list: [] };
-    val.cnt++;
-    val.list.push(left);
-    left = right = right + 1;
-    str = '';
+class TrieNode {
+  end = false;
+  children: TrieNode[] = [];
+  constructor(public val: string) {}
+}
+class Trie {
+  root = new TrieNode('');
+  insert(word: string): void {
+    let node = this.root;
+    for (const ch of word) {
+      const idx = this.getIdx(ch);
+      if (!node.children[idx]) node.children[idx] = new TrieNode(ch);
+      node = node.children[idx];
+    }
+    node.end = true;
   }
-  console.log(data);
-  return str;
+  findNode(word: string): TrieNode | null {
+    let node = this.root;
+    for (const ch of word) {
+      const idx = this.getIdx(ch);
+      if (!node.children[idx]) return null;
+      node = node.children[idx];
+    }
+    return node;
+  }
+  search(word: string): boolean {
+    return !!this.findNode(word)?.end;
+  }
+  startsWith(prefix: string): boolean {
+    return !!this.findNode(prefix);
+  }
+  getIdx(ch: string) {
+    return ch.codePointAt(0)! - 'a'.codePointAt(0)!;
+  }
 }
 
-function check(s: string, n: number, num: number): string {
-  let left = 0;
-  let right = num;
-  let str = s.substring(left, right);
-  const set = new Set([str]);
-  while (right < n) {
-    str = s.substring(++left, ++right);
-    console.log({ left, right, str });
-    console.log(set);
-    if (set.has(str)) return str;
-    set.add(str);
+function check(trie: Trie, word: string, init = true): boolean {
+  if (!init && trie.search(word)) return true;
+  for (let i = 0, n = word.length; i < n; i++) {
+    if (trie.search(word.substring(0, i)) && check(trie, word.substring(i), false)) return true;
   }
-  return '';
+  return false;
 }
-function longestDupSubstring(s: string): string {
-  const n = s.length;
-  let left = 0;
-  let right = n;
-  let ans = '';
-  while (left < right) {
-    const mid = (left + right + 1) >> 1;
-    const str = check(s, n, mid);
-    if (str === '') right = mid - 1;
-    else {
-      left = mid;
-      ans = str;
-    }
-  }
-  return ans;
+function findAllConcatenatedWordsInADict(words: string[]): string[] {
+  const trie = new Trie();
+  return words
+    .sort((w1, w2) => w1.length - w2.length)
+    .filter(word => {
+      if (!word) return false;
+      if (check(trie, word)) return true;
+      trie.insert(word);
+      return false;
+    });
 }
-log([longestDupSubstring('abcd')]);
+log([
+  findAllConcatenatedWordsInADict([
+    'cat',
+    'cats',
+    'catsdogcats',
+    'dog',
+    'dogcatsdog',
+    'hippopotamuses',
+    'rat',
+    'ratcatdogcat',
+  ]),
+  findAllConcatenatedWordsInADict(['a', 'b', 'ab', 'abc']),
+]);
