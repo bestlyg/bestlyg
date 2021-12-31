@@ -8,7 +8,8 @@ type Markdown = leetcode.Markdown;
 
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 const { dirname, fileorder, dirorder } = analysisFileName(md.name);
-const filePath = resolve(srcPath, dirname, trimBlank(md.name) + '.md');
+const dirpath = resolve(srcPath, dirname);
+const filepath = resolve(dirpath, trimBlank(md.name) + '.md');
 
 function main() {
   console.log(chalk.blue(`正在生成LeetCode题解`));
@@ -19,8 +20,9 @@ function main() {
 }
 main();
 function addMarkdown() {
+  fs.ensureDirSync(dirpath);
   fs.writeFileSync(
-    filePath,
+    filepath,
     `---
 title: ${md.name}
 order: ${fileorder}
@@ -46,16 +48,15 @@ ${md.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n'
   );
 }
 function addSolution() {
-  const path = filePath;
   let file!: string;
   try {
-    file = fs.readFileSync(path).toString();
+    file = fs.readFileSync(filepath).toString();
   } catch (e) {
     console.log(chalk.red('没有这个文件'));
     return;
   }
   fs.writeFileSync(
-    filePath,
+    filepath,
     file +
       md.solutions
         .map((data, index) => analysisSolution(data, index + 1 + findLastSolutionIdx(file)))

@@ -9,7 +9,9 @@
     "ostream": "cpp",
     "iostream": "cpp",
     "algorithm": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "deque": "cpp",
+    "string": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
