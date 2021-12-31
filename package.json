@@ -56,6 +56,7 @@
     "compression-webpack-plugin": "^9.2.0",
     "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.3.0",
     "dayjs": "^1.10.7",
     "dumi": "^1.1.37",
@@ -78,7 +79,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-customizable"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
