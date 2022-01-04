@@ -1,5 +1,4 @@
-import { fs } from './dep';
-import { resolve, trimBlank } from './fn';
+import { resolve, trimBlank, fs } from '../utils';
 
 export interface Solution {
   script: Script;

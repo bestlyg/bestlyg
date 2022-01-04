@@ -1,8 +1,16 @@
-import { fs, leetcode, LOGO, resolve, trimBlank, chalk } from './utils';
+import { LOGO, resolve, fs, trimBlank, chalk } from '../utils';
+import {
+  SolutionList,
+  Difficulty,
+  srcPath,
+  analysisFileName,
+  Type,
+  rootPath,
+  travel,
+  findLastSolutionIdx,
+  reg,
+} from './leetcode';
 
-type SolutionList = leetcode.SolutionList;
-const { Difficulty, rootPath, reg, analysisFileName, srcPath, findLastSolutionIdx, travel, Type } =
-  leetcode;
 const waitSolutions = [
   {
     name: '127. 单词接龙',

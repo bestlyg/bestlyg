@@ -1,12 +1,8 @@
-import { leetcode, markdown, specStr } from './utils';
+import { specStr, markdown } from '../utils';
+import { Markdown, Difficulty, Tag, Script } from './leetcode';
+
 const { backquote } = specStr;
-const { Script, Difficulty, Tag } = leetcode;
 const { link } = markdown;
-type Script = leetcode.Script;
-type Difficulty = leetcode.Difficulty;
-type Tag = leetcode.Tag;
-type Solution = leetcode.Solution;
-type Markdown = leetcode.Markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
   name: '913. 猫和老鼠',

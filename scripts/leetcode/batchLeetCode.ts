@@ -1,6 +1,5 @@
-import { chalk, leetcode, fs } from './utils';
-
-const { travel } = leetcode;
+import { chalk, fs } from '../utils';
+import { travel } from './leetcode';
 
 function main() {
   console.log(chalk.blue(`正在批处理LeetCode`));

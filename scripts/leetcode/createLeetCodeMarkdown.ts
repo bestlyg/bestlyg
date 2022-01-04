@@ -1,10 +1,8 @@
-import { leetcode, trimBlank, resolve, fs, dayjs, specStr, LOGO, chalk } from './utils';
+import { specStr, resolve, trimBlank, LOGO, fs, chalk, dayjs } from '../utils';
+import { analysisFileName, srcPath, findLastSolutionIdx, Solution } from './leetcode';
 import md from './leetCodeMarkdown';
 
 const { backquote } = specStr;
-const { srcPath, reg, analysisFileName, findLastSolutionIdx } = leetcode;
-type Solution = leetcode.Solution;
-type Markdown = leetcode.Markdown;
 
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 const { dirname, fileorder, dirorder } = analysisFileName(md.name);
