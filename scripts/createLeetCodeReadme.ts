@@ -52,6 +52,10 @@ const waitSolutions = [
     name: '493. 翻转对',
     url: 'https://leetcode-cn.com/problems/reverse-pairs/',
   },
+  {
+    name: '913. 猫和老鼠',
+    url: 'https://leetcode-cn.com/problems/cat-and-mouse/',
+  },
 ];
 const cache: Record<string, SolutionList[]> = {
   顺序索引: [],
