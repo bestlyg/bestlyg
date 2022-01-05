@@ -5,29 +5,32 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2125. 银行中的激光束数量',
-  url: 'https://leetcode-cn.com/problems/number-of-laser-beams-in-a-bank/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.数学, Tag.字符串, Tag.矩阵],
-  desc: `返回银行中激光束的总数量。`,
+  name: '1576. 替换所有的问号',
+  url: 'https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `给你一个仅包含小写英文字母和 '?' 字符的字符串 s，请你将所有的 '?' 转换为若干小写字母，使最终的字符串不包含任何 连续重复 的字符。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 80,
-      memory: 22.5,
-      desc: '遍历并记录上一次有多少个守卫 ',
+      time: 0,
+      memory: 5.8,
+      desc: '遍历到问号进行重新赋值 ',
       code: `class Solution {
    public:
-    int numberOfBeams(vector<string>& bank) {
-        int pre = 0, ans = 0, cnt = 0;
-        for (string& str : bank) {
-            cnt = 0;
-            for (char& ch : str) if (ch == '1') cnt++;
-            if (!cnt) continue;
-            ans += pre * cnt;
-            pre = cnt;
+    string modifyString(string s) {
+        for (int i = 0, n = s.size(); i < n; i++) {
+            if (s[i] != '?') continue;
+            char prev = i > 0 ? s[i - 1] : '\\0',
+                 next = i < n - 1 ? s[i + 1] : '\\0';
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                if (prev != ch && next != ch) {
+                    s[i] = ch;
+                    break;
+                }
+            }
         }
-        return ans;
+        return s;
     }
 };`,
     },
