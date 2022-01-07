@@ -5,73 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '71. 简化路径',
-  url: 'https://leetcode-cn.com/problems/simplify-path/',
-  difficulty: Difficulty.中等,
+  name: '1614. 括号的最大嵌套深度',
+  url: 'https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/',
+  difficulty: Difficulty.简单,
   tag: [Tag.栈, Tag.字符串],
-  desc: `返回简化后得到的 规范路径 。`,
+  desc: `给你一个 有效括号字符串 s，返回该字符串的 s 嵌套深度 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 10.8,
-      desc: '栈',
+      time: 0,
+      memory: 6.1,
+      desc: '记录括号',
       code: `class Solution {
    public:
-    string simplifyPath(string path) {
-        // 简化最后有点没斜线的状态
-        path += "/";
-        stack<string> s;
-        int n = path.size();
-        for (int i = 0; i < n; i++) {
-            char ch = path[i];
-            if (ch == '/') {
-                // 如果前面有点
-                if (s.size() && s.top() == ".") {
-                    int cnt = 0;
-                    while (s.size() && s.top() == ".") {
-                        s.pop();
-                        cnt++;
-                    }
-                    // 如果有一个点 不做操作
-                    // 如果有两个点 弹出前面的
-                    // 如果有三个以上，不做操作，重新压栈点
-                    if (cnt == 2 && s.size() > 1) {
-                        s.pop();
-                        s.pop();
-                    } else if (cnt > 2) {
-                        while (cnt--) s.push(".");
-                        s.push("/");
-                    }
-                } else {
-                    // 如果前面没点 ， 直接弹出前面所有斜线
-                    while (s.size() && s.top() == "/") s.pop();
-                    s.push("/");
-                }
-            } else if (ch == '.') {  // 如果是点直接压栈
-                s.push(".");
-            } else {
-                // 否则拼接文件或目录名
-                int next = i + 1;
-                while (next < n && path[next] != '/') next++;
-                string str = path.substr(i, next - i);
-                // 如果此时前面有点，说明这点是文件或目录名中的点
-                while (s.size() && s.top() == ".") {
-                    str = s.top() + str;
-                    s.pop();
-                }
-                s.push(str);
-                i = next - 1;
-            }
+    int maxDepth(string s) {
+        int ans = 0, cur = 0;
+        for (auto& ch : s) {
+            if (ch == '(')
+                ans = max(ans, ++cur);
+            else if (ch == ')')
+                --cur;
         }
-        string ans = "";
-        while (s.size()) {
-            ans = s.top() + ans;
-            s.pop();
-        }
-        // 如果最后一个是斜线直接删除
-        if (ans.size() > 1 && ans[ans.size() - 1] == '/')
-            ans = ans.substr(0, ans.size() - 1);
         return ans;
     }
 };`,
