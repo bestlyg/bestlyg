@@ -65,7 +65,7 @@ function analysisSolution({ script, time, memory, desc, code }: Solution, index:
   return `## 题解 ${index} - ${script}
 - 编辑时间：${dayjs().format('YYYY.MM.DD')}
 - 执行用时：${time}ms
-- 内存消耗：${memory}mb
+- 内存消耗：${memory}MB
 - 编程语言：${script}
 - 解法介绍：${descFormat(desc)}
 ${backquote}${backquote}${backquote}${script}

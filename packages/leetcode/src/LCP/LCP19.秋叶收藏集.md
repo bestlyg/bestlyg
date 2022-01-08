@@ -22,7 +22,7 @@ group:
 
 - 编辑时间：2020.10.1
 - 执行用时：688ms
-- 内存消耗：70.4mb
+- 内存消耗：70.4MB
 - 编程语言：typescript
 - 解法介绍：[参考链接](https://leetcode-cn.com/problems/UlBDOe/solution/qiu-xie-shou-cang-ji-by-leetcode-solution/)。
 
