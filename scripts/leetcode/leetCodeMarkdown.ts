@@ -4,29 +4,32 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '89. 格雷编码',
-  url: 'https://leetcode-cn.com/problems/number-of-pairs-of-interchangeable-rectangles/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.数学, Tag.计数, Tag.数论],
-  desc: `计算并返回 rectangles 中有多少对 可互换 矩形。`,
+  exist: !true,
+  name: '1629. 按键持续时间最长的键',
+  url: 'https://leetcode-cn.com/problems/slowest-key/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.字符串],
+  desc: `请返回按键 持续时间最长 的键，如果有多个这样的键，则返回 按字母顺序排列最大 的那个键。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 11.5,
-      desc: '每次反向覆盖',
+      time: 4,
+      memory: 10.5,
+      desc: '遍历，记录最大值',
       code: `class Solution {
    public:
-    vector<int> grayCode(int n) {
-        vector<int> ans(2, 0);
-        ans[1] = 1;
-        for (int i = 1; i < n; i++) {
-            for (int j = ans.size() - 1; j >= 0; j--) {
-                ans.push_back(ans[j] | 1 << i);
+    char slowestKey(vector<int>& releaseTimes, string keysPressed) {
+        int pre = 0, max_v = 0;
+        char max_c;
+        for (int i = 0; i < releaseTimes.size(); i++) {
+            int time = releaseTimes[i] - pre;
+            if (time > max_v || time == max_v && keysPressed[i] > max_c) {
+                max_v = time;
+                max_c = keysPressed[i];
             }
+            pre = releaseTimes[i];
         }
-        return ans;
+        return max_c;
     }
 };`,
     },
