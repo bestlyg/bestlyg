@@ -5,50 +5,29 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1036. 逃离大迷宫',
-  url: 'https://leetcode-cn.com/problems/escape-a-large-maze/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.数组, Tag.哈希表],
-  desc: `只有在可以通过一系列的移动从源方格 source 到达目标方格 target 时才返回 true。否则，返回 false。`,
+  name: '334. 递增的三元子序列',
+  url: 'https://leetcode-cn.com/problems/increasing-triplet-subsequence/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.贪心, Tag.数组],
+  desc: `给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 1556,
-      memory: 59.4,
-      desc: 'bfs,判断是否被包围',
-      code: `const format = (row: number, col: number) => ${specStr}\${row}:\${col}${specStr};
-      const dirs: number[][] = [
-        [1, 0],
-        [-1, 0],
-        [0, 1],
-        [0, -1],
-      ];
-      const MAX = 10 ** 6;
-      const MAX_CNT = 200 * 200;
-      function check(blocked: Set<string>, source: number[], target: number[]): boolean {
-        const set = new Set<string>();
-        const queue: number[][] = [[source[0], source[1]]];
-        let cnt = MAX_CNT;
-        while (queue.length) {
-          const [row, col] = queue.shift()!;
-          for (const [addrow, addcol] of dirs) {
-            const nrow = row + addrow;
-            const ncol = col + addcol;
-            const str = format(nrow, ncol);
-            if (nrow < 0 || nrow >= MAX || ncol < 0 || ncol >= MAX || blocked.has(str) || set.has(str))
-              continue;
-            if (--cnt == 0 || (nrow === target[0] && ncol === target[1])) return true;
-            set.add(str);
-            queue.push([nrow, ncol]);
-          }
+      time: 48,
+      memory: 60.1,
+      desc: '每遍历一个数值记录前面的值是否匹配',
+      code: `class Solution {
+   public:
+    bool increasingTriplet(vector<int>& nums) {
+        int pre1 = INT_MAX, pre2 = INT_MAX;
+        for (auto& num : nums) {
+            if (num > pre2) return 1;
+            if (num > pre1) pre2 = min(pre2, num);
+            pre1 = min(pre1, num);
         }
-        return false;
-      }
-      function isEscapePossible(blocked: number[][], source: number[], target: number[]): boolean {
-        if (blocked.length <= 1) return true;
-        const blocked_set = new Set(blocked.map(([row, col]) => format(row, col)));
-        return check(blocked_set, source, target) && check(blocked_set, target, source);
-      }`,
+        return 0;
+    }
+};`,
     },
   ],
 };
