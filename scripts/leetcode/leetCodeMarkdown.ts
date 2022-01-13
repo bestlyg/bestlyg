@@ -4,7 +4,7 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
+  exist: true,
   name: '747. 至少是其他数字两倍的最大数',
   url: 'https://leetcode-cn.com/problems/largest-number-at-least-twice-of-others/',
   difficulty: Difficulty.简单,
@@ -13,23 +13,19 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 10.5,
-      desc: '遍历两次，第一次记录最大值，第二次判断其他值的两倍是否超过最大值',
+      time: 8,
+      memory: 10.7,
+      desc: '排序',
       code: `class Solution {
    public:
     int dominantIndex(vector<int>& nums) {
-        int maxn = INT_MIN, maxi;
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] > maxn) {
-                maxn = nums[i];
-                maxi = i;
-            }
-        }
-        for (auto& num : nums) {
-            if (num != maxn && num * 2 > maxn) return -1;
-        }
-        return maxi;
+        int n = nums.size();
+        if (n == 1) return 0;
+        int arr[n];
+        for (int i = 0; i < n; i++) arr[i] = i;
+        sort(arr, arr + n,
+             [&](int i1, int i2) -> bool { return nums[i1] < nums[i2]; });
+        return nums[arr[n - 1]] >= nums[arr[n - 2]] * 2 ? arr[n - 1] : -1;
     }
 };`,
     },
