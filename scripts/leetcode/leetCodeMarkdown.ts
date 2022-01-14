@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '747. 至少是其他数字两倍的最大数',
+  name: '373. 查找和最小的K对数字',
   url: 'https://leetcode-cn.com/problems/largest-number-at-least-twice-of-others/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.排序],
@@ -13,19 +13,50 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 10.7,
-      desc: '排序',
+      time: 924,
+      memory: 62.6,
+      desc: '堆',
       code: `class Solution {
    public:
-    int dominantIndex(vector<int>& nums) {
-        int n = nums.size();
-        if (n == 1) return 0;
-        int arr[n];
-        for (int i = 0; i < n; i++) arr[i] = i;
-        sort(arr, arr + n,
-             [&](int i1, int i2) -> bool { return nums[i1] < nums[i2]; });
-        return nums[arr[n - 1]] >= nums[arr[n - 2]] * 2 ? arr[n - 1] : -1;
+    struct node {
+        int num1, num2, sum;
+        bool operator<(const node& obj) const {
+            return sum == obj.sum
+                       ? num2 == obj.num2 ? num1 < obj.num1 : num2 < obj.num2
+                       : sum < obj.sum;
+        }
+    };
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,
+                                       int k) {
+        priority_queue<node> q;
+        int isBreak = 0, len = min(k, (int)(nums1.size() * nums2.size()));
+        // cout << "len = " << len << endl;
+        vector<vector<int>> ans(len, vector<int>(2));
+        for (auto& num1 : nums1) {
+            if (isBreak) break;
+            for (auto& num2 : nums2) {
+                if (q.size() >= len && num1 > 0 && num2 > 0 &&
+                    num1 > q.top().sum && num2 > q.top().sum)
+                    isBreak = 1;
+                if (isBreak) break;
+                if (q.size() < len) {
+                    q.push((node){num1, num2, num1 + num2});
+                } else if (q.top().sum > num1 + num2) {
+                    // cout << q.top().num1 << ',' << q.top().num2;
+                    // if (q.top() )
+                    q.pop();
+                    q.push((node){num1, num2, num1 + num2});
+                }
+            }
+        }
+        while (q.size()) {
+            node n = q.top();
+            q.pop();
+            ans[len - 1][0] = n.num1;
+            ans[len - 1][1] = n.num2;
+            len--;
+        }
+        return ans;
     }
 };`,
     },
