@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1716. 计算力扣银行的钱',
+  name: '382. 链表随机节点',
   url: 'https://leetcode-cn.com/problems/calculate-money-in-leetcode-bank/',
   difficulty: Difficulty.简单,
   tag: [Tag.数学],
@@ -13,15 +13,42 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.8,
-      desc: '等差数列',
+      time: 16,
+      memory: 16.3,
+      desc: '随机数',
       code: `class Solution {
    public:
-    int totalMoney(int n) {
-        int ans = 0, start = 1;
-        for (; start <= n / 7; start++) ans += (start + start + 6) * 7 / 2;
-        ans += (start + start + n % 7 - 1) * (n % 7) / 2;
+    vector<int> arr;
+    Solution(ListNode* head) {
+        srand(time(0));
+        ListNode* p = head;
+        while (p) {
+            arr.push_back(p->val);
+            p = p->next;
+        }
+    }
+
+    int getRandom() { return arr[rand() % arr.size()]; }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 24,
+      memory: 16.2,
+      desc: '水塘抽样',
+      code: `class Solution {
+   public:
+    ListNode *node;
+    Solution(ListNode *head) {
+        srand(time(0));
+        node = head;
+    }
+
+    int getRandom() {
+        int ans, i = 1;
+        for (ListNode *p = node; p; p = p->next, i++) {
+            if (rand() % i == 0) ans = p->val;
+        }
         return ans;
     }
 };`,
