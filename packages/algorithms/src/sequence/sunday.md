@@ -7,7 +7,7 @@ nav:
 group:
   title: 串
   path: /sequence
-  order: 2
+  order: 3
 ---
 
 # Sunday(Sunday)
@@ -20,8 +20,8 @@ group:
 1. 遍历文本串依次进行匹配
 1. 当前字符无法匹配时，获取 i+len 下标的字符从模式串中进行查找，从而进行快速匹配
 
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/sunday.ts)
 
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/sunday.ts)
 ```ts
 /**
  * 遍历模式串，获取每个字符出现的最后一个下标位
@@ -47,4 +47,5 @@ export function sunday(text: string, pattern: string): number {
   }
   return -1;
 }
+
 ```

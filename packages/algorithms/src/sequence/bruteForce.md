@@ -7,15 +7,15 @@ nav:
 group:
   title: 串
   path: /sequence
-  order: 2
+  order: 3
 ---
 
 # 暴力匹配(BruteForce)
 
 遍历文本串每一个字符，依次匹配模式串
 
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/bruteForce.ts)
 
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/bruteForce.ts)
 ```ts
 export function bruteForce(text: string, pattern: string): number {
   const len = pattern.length;
@@ -25,4 +25,5 @@ export function bruteForce(text: string, pattern: string): number {
   }
   return -1;
 }
+
 ```

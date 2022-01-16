@@ -1,18 +1,18 @@
-import { getPrimes, gcd, ex_gcd, random } from '../utils';
+import { random, getDualPrime, gcd, ex_gcd } from '../common';
 
 // 从素数表的[n - cnt, n]的范围内取值
 const cnt = 100;
 
 export function rsa(max: number) {
   // 获取max以下的素数表
-  const primes = getPrimes(max);
+  const primes = getDualPrime(max);
   //   console.log(`prime size = ${primes[0]}, last = ${primes[primes[0]]}`);
   // 从素数表中随机选取两个素数
   let p!: number;
   let q!: number;
   do {
-    p = primes[random(primes[0] - cnt, primes[0])];
-    q = primes[random(primes[0] - cnt, primes[0])];
+    p = primes[random(cnt, primes.length - 1)];
+    q = primes[random(cnt, primes.length - 1)];
   } while (p === q);
   // 根据p,q求出n,phi_n
   const n = p * q;

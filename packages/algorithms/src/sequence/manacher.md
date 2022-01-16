@@ -7,15 +7,15 @@ nav:
 group:
   title: 串
   path: /sequence
-  order: 2
+  order: 3
 ---
 
 # Manacher(Manacher)
 
 Manacher 算法，又叫“马拉车”，它可以在时间复杂度和空间复杂度都是 O(n)的情况下，求出一个字符串的最长回文串长度。
 
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/manacher.ts)
 
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/manacher.ts)
 ```ts
 function createString(str: string) {
   let ans = '#';
@@ -46,4 +46,5 @@ export function manacher(str: string): string {
   }
   return ans.replace(/#/g, '');
 }
+
 ```

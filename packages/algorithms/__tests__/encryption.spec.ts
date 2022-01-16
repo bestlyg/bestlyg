@@ -1,4 +1,4 @@
-import { encryption, utils } from '../src';
+import { encryption, common } from '../src';
 
 function quick_mod(a: bigint, b: bigint, c: bigint) {
   let ans = 1n;
@@ -16,7 +16,7 @@ describe('RSA', () => {
     for (let i = 0; i < max; i++) {
       const { e, d, n } = encryption.rsa(1000);
       const [big_e, big_d, big_n] = [e, d, n].map(v => BigInt(v));
-      const m = BigInt(utils.random(50, 150));
+      const m = BigInt(common.random(50, 150));
       const c = quick_mod(m, big_e, big_n);
       expect(quick_mod(c, big_d, big_n)).toBe(m);
     }

@@ -15,8 +15,8 @@ group:
 
 树状数组是用来解决在数组元素动态变化的情况下，高效的计算子数组和的一种数据结构，其更新效率和计算和的效率均为 O（logn），和普通的 sum 数组不同的是，虽然 sum 数组计算子数组和的效率为 O（1），但是在面对数组元素动态变化的情况下，其更新效率为 O（n）。
 
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/tree/fenwickTree.ts)
 
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/tree/fenwickTree.ts)
 ```ts
 /**
  * 树状数组
@@ -67,4 +67,5 @@ export class FenwickTree {
     return num & -num;
   }
 }
+
 ```

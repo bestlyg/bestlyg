@@ -7,7 +7,7 @@ nav:
 group:
   title: 串
   path: /sequence
-  order: 2
+  order: 3
 ---
 
 # KMP(KMP)
@@ -21,8 +21,8 @@ group:
 1. 遍历文本串依次进行匹配
 1. 当前字符无法匹配时，进行回溯快速前进
 
-## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/kmp.ts)
 
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/kmp.ts)
 ```ts
 /**
  * 利用模式串生成状态机
@@ -60,4 +60,5 @@ export function kmp(text: string, pattern: string): number {
   }
   return -1;
 }
+
 ```

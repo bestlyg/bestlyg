@@ -1,6 +1,6 @@
 import { log } from '../utils';
 import { HashMap, toHash } from '@bestlyg/data-structures/src';
-import { encryption } from '@bestlyg/algorithms/src';
+import { encryption, common } from '@bestlyg/algorithms/src';
 import {
   fill,
   find,
@@ -71,24 +71,4 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-function quick_mod(a: bigint, b: bigint, c: bigint) {
-  let ans = 1n;
-  let tmp = a;
-  while (b) {
-    if (b % 2n === 1n) ans = (ans * tmp) % c;
-    tmp = tmp ** 2n % c;
-    b >>= 1n;
-  }
-  return ans;
-}
-
-for (let i = 0; i < 10; i++) {
-  console.log('===================================================');
-  const { e, d, n } = encryption.rsa(1000);
-  const [big_e, big_d, big_n] = [e, d, n].map(v => BigInt(v));
-  const m = BigInt(random(50, 150));
-  const c = quick_mod(m, big_e, big_n);
-  console.log(`m = ${m}, c = ${c}`);
-  console.log(`${m} ^ ${big_e} % ${big_n} = ${c}`);
-  console.log(`${c} ^ ${big_d} % ${big_n} = ${quick_mod(c, big_d, big_n)}`);
-}
+console.log(common.getDualPrime(1000));
