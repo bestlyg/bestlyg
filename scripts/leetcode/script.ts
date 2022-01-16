@@ -71,4 +71,4 @@ function formual(a: number, b: number, c: number): string {
   return error('NOT FOUND');
 }
 */
-console.log(common.getDualPrime(1000));
+console.log(common.phi(4));

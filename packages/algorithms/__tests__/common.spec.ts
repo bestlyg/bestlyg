@@ -85,3 +85,28 @@ describe('functions', () => {
     });
   });
 });
+describe('euclidean', () => {
+  test('gcd', () => {
+    expect(common.gcd(2, 0)).toBe(2);
+    expect(common.gcd(6, 8)).toBe(2);
+    expect(common.gcd(31, 56)).toBe(1);
+  });
+  test('lcm', () => {
+    [
+      [2, 0],
+      [6, 8],
+      [31, 56],
+    ].forEach(([num1, num2]) => {
+      expect(common.lcm(num1, num2)).toBe((num1 * num2) / common.gcd(num1, num2));
+    });
+  });
+});
+describe('euler', () => {
+  test('common test', () => {
+    expect(common.phi(31)).toBe(30);
+    expect(common.phi(40)).toBe(16);
+    expect(common.phi(15)).toBe(8);
+    expect(common.phi(9)).toBe(6);
+    expect(common.phi(4)).toBe(2);
+  });
+});
