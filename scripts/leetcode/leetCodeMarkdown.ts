@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1220. 统计元音字母序列的数目',
+  exist: true,
+  name: '219. 存在重复元素 II',
   url: 'https://leetcode-cn.com/problems/count-vowels-permutation/',
   difficulty: Difficulty.困难,
   tag: [Tag.动态规划],
@@ -13,36 +13,18 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.8,
-      desc: '动态规划，dp[i][j]表示第i轮时，j元音为结尾的数量',
+      time: 188,
+      memory: 75.3,
+      desc: '哈希存储',
       code: `class Solution {
    public:
-    int mod = 1e9 + 7;
-    int countVowelPermutation(int n) {
-        // 0 : a, 1 : e, 2 : i, 3 : o, 4 : u
-        // a -> e
-        // e -> a i
-        // i -> a e o u
-        // o -> i u
-        // u -> a
-        long long dp[2][5];
-        for (int i = 0; i < 5; i++) {
-            dp[0][i] = 0;
-            dp[1][i] = 1;
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        for (int i = 0; i < nums.size(); i++) {
+            if (m.count(nums[i]) && i - m[nums[i]] <= k) return 1;
+            m[nums[i]] = i;
         }
-        for (int i = 2; i <= n; i++) {
-            int pidx = (i + 1) % 2;
-            int idx = i % 2;
-            dp[idx][0] = (dp[pidx][1] + dp[pidx][2] + dp[pidx][4]) % mod;
-            dp[idx][1] = (dp[pidx][0] + dp[pidx][2]) % mod;
-            dp[idx][2] = (dp[pidx][1] + dp[pidx][3]) % mod;
-            dp[idx][3] = dp[pidx][2] % mod;
-            dp[idx][4] = (dp[pidx][2] + dp[pidx][3]) % mod;
-        }
-        long long ans = 0;
-        for (int i = 0; i < 5; i++) ans = (ans + dp[n % 2][i]) % mod;
-        return ans;
+        return 0;
     }
 };`,
     },
