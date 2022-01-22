@@ -5,51 +5,24 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1345. 跳跃游戏 IV',
-  url: 'https://leetcode-cn.com/problems/jump-game-iv/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.哈希表],
-  desc: `请你返回到达数组最后一个元素的下标处所需的 最少操作次数 。`,
+  name: '1332. 删除回文子序列',
+  url: 'https://leetcode-cn.com/problems/remove-palindromic-subsequences/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `返回删除给定字符串中所有字符（字符串为空）的最小删除次数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 248,
-      memory: 95.7,
-      desc: 'bfs',
+      time: 0,
+      memory: 6.1,
+      desc: '考虑是回文子序列，并非连续，且只有两种字母',
       code: `class Solution {
    public:
-    struct node {
-        int idx, step;
-    };
-    int minJumps(vector<int>& arr) {
-        unordered_map<int, vector<int>> m;
-        unordered_set<int> s;
-        s.insert(0);
-        queue<node> q;
-        q.push((node){0, 0});
-        int n = arr.size();
-        for (int i = 0; i < n; i++) m[arr[i]].push_back(i);
-        while (q.size()) {
-            node v = q.front();
-            if (v.idx == n - 1) return v.step;
-            q.pop();
-            if (v.idx > 0 && !s.count(v.idx - 1)) {
-                q.push((node){v.idx - 1, v.step + 1});
-                s.insert(v.idx - 1);
-            }
-            if (v.idx < n - 1 && !s.count(v.idx + 1)) {
-                q.push((node){v.idx + 1, v.step + 1});
-                s.insert(v.idx + 1);
-            }
-            if (!m.count(arr[v.idx])) continue;
-            for (auto& next_idx : m[arr[v.idx]]) {
-                if (next_idx == v.idx || s.count(next_idx)) continue;
-                q.push((node){next_idx, v.step + 1});
-                s.insert(next_idx);
-            }
-            m.erase(arr[v.idx]);
+    int removePalindromeSub(string s) {
+        for (int start = 0, end = s.size() - 1; start <= end; start++, end--) {
+            if (s[start] != s[end]) return 2;
         }
-        return 0;
+        return 1;
     }
 };`,
     },
