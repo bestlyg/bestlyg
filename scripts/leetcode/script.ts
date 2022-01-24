@@ -19,101 +19,68 @@ import { Logger } from '../utils';
 const logger = new Logger();
 
 class Node {
-  constructor(
-    public timestamp: number,
-    public price: number,
-    public imax: number,
-    public imin: number
-  ) {}
+  next: Node[] = [];
+  min_time1 = Infinity;
+  min_time2 = Infinity;
+  constructor(public idx: number) {}
 }
-class Heap<Node> {
-  private arr: Node[] = [];
-  get isEmpty() {
-    return this.size === 0;
-  }
-  get size() {
-    return this.arr.length;
-  }
-  get top() {
-    return this.arr[0];
-  }
-  constructor(private compare: (t1: Node, t2: Node) => number, private idx_field: string) {}
-  add(num: Node): void {
-    this.arr.push(num);
-    this.shiftUp(this.size - 1);
-  }
-  remove(): Node {
-    const num = this.arr.shift()!;
-    if (this.size) {
-      this.arr.unshift(this.arr.pop()!);
-      this.shiftDown(0);
-    }
-    return num;
-  }
-  shiftUp(index: number): void {
-    if (index === 0) return;
-    const parentIndex = (index - 1) >> 1;
-    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-      this.arr[index][this.idx_field] = parentIndex;
-      this.arr[parentIndex][this.idx_field] = index;
-      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-      this.shiftUp(parentIndex);
-    }
-  }
-  shiftDown(index: number): void {
-    let childrenIndex = index * 2 + 1;
-    if (childrenIndex > this.size - 1) return;
-    if (
-      childrenIndex + 1 <= this.size - 1 &&
-      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-    ) {
-      childrenIndex++;
-    }
-    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-      this.arr[index][this.idx_field] = childrenIndex;
-      this.arr[childrenIndex][this.idx_field] = index;
-      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-      this.shiftDown(childrenIndex);
-    }
-  }
-  *[Symbol.iterator](): IterableIterator<Node> {
-    for (const t of this.arr) {
-      yield t;
-    }
-  }
+class Car {
+  constructor(public current: Node, public time = 0) {}
 }
-
-class StockPrice {
-  heap_max = new Heap<Node>((t1, t2) => t1.price - t2.price, 'imax');
-  heap_min = new Heap<Node>((t1, t2) => t2.price - t1.price, 'imin');
-  map = new Map<number, Node>();
-  time_max = -1;
-  update(timestamp: number, price: number): void {
-    this.time_max = Math.max(this.time_max, timestamp);
-    const cnt = this.map.size;
-    let node = this.map.get(timestamp);
-    if (node) {
-      node.price = price;
-      this.heap_max.shiftUp(node.imax);
-      this.heap_max.shiftDown(node.imax);
-      this.heap_min.shiftUp(node.imin);
-      this.heap_min.shiftDown(node.imin);
-    } else {
-      this.map.set(timestamp, (node = new Node(timestamp, price, cnt, cnt)));
-      this.heap_max.add(node);
-      this.heap_min.add(node);
+function secondMinimum(n: number, edges: number[][], time: number, change: number): number {
+  const nodes: Record<number, Node> = {};
+  for (let i = 1; i <= n; i++) nodes[i] = new Node(i);
+  for (const [n1, n2] of edges) {
+    const node1 = nodes[n1];
+    const node2 = nodes[n2];
+    node1.next.push(node2);
+    node2.next.push(node1);
+  }
+  nodes[1].min_time1 = 0;
+  const queue: Car[] = [new Car(nodes[1])];
+  const arr: Car[] = [];
+  while (queue.length) {
+    const car = queue.shift()!;
+    const wait_check = Math.floor(car.time / change);
+    const next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;
+    for (const next of car.current.next) {
+      if (next_time < next.min_time1) {
+        const ncar = new Car(next, next_time);
+        next.min_time1 = next_time;
+        if (next === nodes[n]) {
+          arr.push(ncar);
+          continue;
+        }
+        queue.push(ncar);
+      } else if (next_time > next.min_time1 && next_time < next.min_time2) {
+        const ncar = new Car(next, next_time);
+        next.min_time2 = next_time;
+        if (next === nodes[n]) {
+          arr.push(ncar);
+          continue;
+        }
+        queue.push(ncar);
+      }
     }
   }
-  current(): number {
-    return this.map.get(this.time_max)!.price;
+  arr.sort((a, b) => a.time - b.time);
+  const min_car = arr[0];
+  let min21_car: Car | null = null;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i].time !== min_car.time) {
+      min21_car = arr[i];
+      break;
+    }
   }
-  maximum(): number {
-    return this.heap_max.top.price;
-  }
-  minimum(): number {
-    return this.heap_min.top.price;
+  const min22 = getNext(min_car);
+  return Math.min(min21_car?.time ?? Infinity, min22);
+  function getNext(car: Car): number {
+    // 回去
+    let wait_check = Math.floor(car.time / change);
+    let next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;
+    // 回来
+    wait_check = Math.floor(next_time / change);
+    next_time = wait_check % 2 === 0 ? next_time + time : (wait_check + 1) * change + time;
+    return next_time;
   }
 }
-const obj = new StockPrice();
-obj.update(1, 10);
-obj.update(2, 5);
