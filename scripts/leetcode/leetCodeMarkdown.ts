@@ -5,83 +5,34 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2045. 到达目的地的第二短时间',
-  url: 'https://leetcode-cn.com/problems/second-minimum-time-to-reach-destination/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.图, Tag.最短路],
-  desc: `给你 n、edges、time 和 change ，返回从节点 1 到节点 n 需要的 第二短时间 。`,
+  name: '2013. 检测正方形',
+  url: 'https://leetcode-cn.com/problems/detect-squares/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.设计, Tag.数组, Tag.哈希表, Tag.计数],
+  desc: `给你一个在 X-Y 平面上的点构成的数据流。设计一个满足下述要求的算法：添加 一个在数据流中的新点到某个数据结构中。可以添加 重复 的点，并会视作不同的点进行处理。给你一个查询点，请你从数据结构中选出三个点，使这三个点和查询点一同构成一个 面积为正 的 轴对齐正方形 ，统计 满足该要求的方案数目。`,
   solutions: [
     {
       script: Script.TS,
-      time: 400,
-      memory: 67.8,
-      desc: 'bfs，对于每个节点记录已经遍历过的值，进行剪枝',
-      code: `class Node {
-        next: Node[] = [];
-        min_time1 = Infinity;
-        min_time2 = Infinity;
-        constructor(public idx: number) {}
-      }
-      class Car {
-        constructor(public current: Node, public time = 0) {}
-      }
-      function secondMinimum(n: number, edges: number[][], time: number, change: number): number {
-        const nodes: Record<number, Node> = {};
-        for (let i = 1; i <= n; i++) nodes[i] = new Node(i);
-        for (const [n1, n2] of edges) {
-          const node1 = nodes[n1];
-          const node2 = nodes[n2];
-          node1.next.push(node2);
-          node2.next.push(node1);
-        }
-        nodes[1].min_time1 = 0;
-        const queue: Car[] = [new Car(nodes[1])];
-        const arr: Car[] = [];
-        while (queue.length) {
-          const car = queue.shift()!;
-          const wait_check = Math.floor(car.time / change);
-          const next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;
-          for (const next of car.current.next) {
-            if (next_time < next.min_time1) {
-              const ncar = new Car(next, next_time);
-              next.min_time1 = next_time;
-              if (next === nodes[n]) {
-                arr.push(ncar);
-                continue;
-              }
-              queue.push(ncar);
-            } else if (next_time > next.min_time1 && next_time < next.min_time2) {
-              const ncar = new Car(next, next_time);
-              next.min_time2 = next_time;
-              if (next === nodes[n]) {
-                arr.push(ncar);
-                continue;
-              }
-              queue.push(ncar);
-            }
-          }
-        }
-        arr.sort((a, b) => a.time - b.time);
-        const min_car = arr[0];
-        let min21_car: Car | null = null;
-        for (let i = 1; i < arr.length; i++) {
-          if (arr[i].time !== min_car.time) {
-            min21_car = arr[i];
-            break;
-          }
-        }
-        const min22 = getNext(min_car);
-        return Math.min(min21_car?.time ?? Infinity, min22);
-        function getNext(car: Car): number {
-          // 回去
-          let wait_check = Math.floor(car.time / change);
-          let next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;
-          // 回来
-          wait_check = Math.floor(next_time / change);
-          next_time = wait_check % 2 === 0 ? next_time + time : (wait_check + 1) * change + time;
-          return next_time;
-        }
-      }`,
+      time: 228,
+      memory: 91.7,
+      desc: '统计每个点出现的次数',
+      code: `class DetectSquares {
+        public:
+         unordered_map<int, unordered_map<int, int>> m;
+         DetectSquares() {}
+         void add(vector<int> point) { m[point[0]][point[1]]++; }
+         int count(vector<int> point) {
+             int ans = 0, x1 = point[0], y1 = point[1];
+             for (auto &data : m[x1]) {
+                 int x2 = x1, y2 = data.first, cnt2 = data.second,
+                     edge = abs(y1 - y2);
+                 if (y2 == y1) continue;
+                 ans += cnt2 * m[x1 - edge][y1] * m[x2 - edge][y2];
+                 ans += cnt2 * m[x1 + edge][y1] * m[x2 + edge][y2];
+             }
+             return ans;
+         }
+     };`,
     },
   ],
 };
