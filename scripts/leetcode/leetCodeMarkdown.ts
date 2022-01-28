@@ -5,51 +5,29 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2047. 句子中的有效单词数',
-  url: 'https://leetcode-cn.com/problems/number-of-valid-words-in-a-sentence/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `给你一个字符串 sentence ，请你找出并返回 sentence 中 有效单词的数目 。`,
+  name: '1996. 游戏中弱角色的数量',
+  url: 'https://leetcode-cn.com/problems/the-number-of-weak-characters-in-the-game/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.栈, Tag.贪心, Tag.数组, Tag.排序, Tag.单调栈],
+  desc: `返回 弱角色 的数量。`,
   solutions: [
     {
       script: Script.TS,
-      time: 4,
-      memory: 7,
-      desc: '遍历',
+      time: 696,
+      memory: 169.1,
+      desc: '排序后用堆比较',
       code: `class Solution {
    public:
-    string str;
-    int idx = 0;
-    void scan_blank() {
-        while (idx < str.size() && str[idx] == ' ') idx++;
-    }
-    int check(int start, int end) {
-        if (start == end) return 0;
-        int cnt_line = 0, cnt_tag = 0;
-        for (int i = start; i < end; i++) {
-            char ch = str[i];
-            if (ch == '-') {
-                if (++cnt_line > 1 || i == start || i == end - 1 ||
-                    str[i - 1] < 'a' || str[i - 1] > 'z' || str[i + 1] < 'a' ||
-                    str[i + 1] > 'z')
-                    return 0;
-            } else if (ch == '!' || ch == '.' || ch == ',') {
-                if (++cnt_tag > 1 || i != end - 1) return 0;
-            } else if (ch < 'a' || ch > 'z')
-                return 0;
-        }
-        return 1;
-    }
-    int countValidWords(string sentence) {
-        str = sentence;
+    int numberOfWeakCharacters(vector<vector<int>> &properties) {
         int ans = 0;
-        do {
-            scan_blank();
-            int start = idx, end = idx;
-            while (end < str.size() && str[end] != ' ') end++;
-            idx = end;
-            if (check(start, end)) ans++;
-        } while (idx < str.size());
+        map<int, vector<int>> m;
+        priority_queue<int, vector<int>, greater<int>> q;
+        for (auto &data : properties) m[data[0]].push_back(data[1]);
+        for (auto &data : m) {
+            sort(data.second.begin(), data.second.end(), greater<int>());
+            while (q.size() && q.top() < data.second[0]) q.pop(), ans++;
+            for (auto &num : data.second) q.push(num);
+        }
         return ans;
     }
 };`,
