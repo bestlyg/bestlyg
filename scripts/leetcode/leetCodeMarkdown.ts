@@ -5,47 +5,28 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1765. 地图中的最高点',
-  url: 'https://leetcode-cn.com/problems/map-of-highest-peak/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回一个大小为 m x n 的整数矩阵 height ，其中 height[i][j] 是格子 (i, j) 的高度。如果有多种解法，请返回 任意一个 。`,
+  name: '884. 两句话中的不常见单词',
+  url: 'https://leetcode-cn.com/problems/uncommon-words-from-two-sentences/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.字符串],
+  desc: `给你两个 句子 s1 和 s2 ，返回所有 不常用单词 的列表。返回列表中单词可以按 任意顺序 组织。`,
   solutions: [
     {
       script: Script.TS,
-      time: 284,
-      memory: 105.6,
-      desc: 'bfs',
+      time: 4,
+      memory: 6.5,
+      desc: '分割字符串后遍历',
       code: `class Solution {
    public:
-    struct node {
-        int row, col;
-    };
-    int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-    vector<vector<int>> highestPeak(vector<vector<int>> &isWater) {
-        int m = isWater.size(), n = isWater[0].size();
-        vector<vector<int>> ans(m, vector(n, -1));
-        queue<node> q;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (isWater[i][j] == 1) {
-                    q.push((node){i, j});
-                    ans[i][j] = 0;
-                }
-            }
-        }
-        while (q.size()) {
-            node v = q.front();
-            q.pop();
-            for (int i = 0; i < 4; i++) {
-                int nrow = v.row + dirs[i][0], ncol = v.col + dirs[i][1];
-                if (nrow < 0 || ncol < 0 || nrow >= m || ncol >= n ||
-                    ans[nrow][ncol] != -1)
-                    continue;
-                ans[nrow][ncol] = ans[v.row][v.col] + 1;
-                q.push((node){nrow, ncol});
-            }
-        }
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        vector<string> ans;
+        unordered_map<string, int> m;
+        istringstream iss1(s1), iss2(s2);
+        string buffer;
+        while (getline(iss1, buffer, ' ')) m[buffer]++;
+        while (getline(iss2, buffer, ' ')) m[buffer]++;
+        for (auto &data : m)
+            if (data.second == 1) ans.push_back(data.first);
         return ans;
     }
 };`,
