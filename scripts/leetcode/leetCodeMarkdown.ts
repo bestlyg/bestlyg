@@ -5,28 +5,25 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '884. 两句话中的不常见单词',
-  url: 'https://leetcode-cn.com/problems/uncommon-words-from-two-sentences/',
+  name: '1342. 将数字变成 0 的操作次数',
+  url: 'https://leetcode-cn.com/problems/number-of-steps-to-reduce-a-number-to-zero/',
   difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串],
-  desc: `给你两个 句子 s1 和 s2 ，返回所有 不常用单词 的列表。返回列表中单词可以按 任意顺序 组织。`,
+  tag: [Tag.位运算, Tag.数学],
+  desc: `给你一个非负整数 num ，请你返回将它变成 0 所需要的步数。 如果当前数字是偶数，你需要把它除以 2 ；否则，减去 1 。`,
   solutions: [
     {
       script: Script.TS,
-      time: 4,
-      memory: 6.5,
-      desc: '分割字符串后遍历',
+      time: 0,
+      memory: 5.9,
+      desc: '遍历',
       code: `class Solution {
    public:
-    vector<string> uncommonFromSentences(string s1, string s2) {
-        vector<string> ans;
-        unordered_map<string, int> m;
-        istringstream iss1(s1), iss2(s2);
-        string buffer;
-        while (getline(iss1, buffer, ' ')) m[buffer]++;
-        while (getline(iss2, buffer, ' ')) m[buffer]++;
-        for (auto &data : m)
-            if (data.second == 1) ans.push_back(data.first);
+    int numberOfSteps(int num) {
+        int ans = 0;
+        while (num) {
+            num = num & 1 ? num - 1 : num / 2;
+            ++ans;
+        }
         return ans;
     }
 };`,
