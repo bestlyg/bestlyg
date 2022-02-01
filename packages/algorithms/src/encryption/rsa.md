@@ -27,8 +27,8 @@ group:
 1. 根据扩展欧几里得$e \times x + phi(n) \times y = gcd(e, phi(n))$求出 x,y
 1. x 即 d
 
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/encryption/rsa.ts)
+
 ```ts
 import { random, getDualPrime, gcd, ex_gcd } from '../common';
 
@@ -66,5 +66,4 @@ export function rsa(max: number) {
     n,
   };
 }
-
 ```
