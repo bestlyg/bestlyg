@@ -5,74 +5,44 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1763. 最长的美好子字符串',
-  url: 'https://leetcode-cn.com/problems/longest-nice-substring/',
+  name: '2000. 反转单词前缀',
+  url: 'https://leetcode-cn.com/problems/reverse-prefix-of-word/',
   difficulty: Difficulty.简单,
-  tag: [Tag.位运算, Tag.哈希表, Tag.字符串, Tag.滑动窗口],
-  desc: `给你一个字符串 s ，请你返回 s 最长的 美好子字符串 。如果有多个答案，请你返回 最早 出现的一个。如果不存在美好子字符串，请你返回一个空字符串。`,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `给你一个下标从 0 开始的字符串 word 和一个字符 ch 。找出 ch 第一次出现的下标 i ，反转 word 中从下标 0 开始、直到下标 i 结束（含下标 i ）的那段字符。如果 word 中不存在字符 ch ，则无需进行任何操作。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
+      time: 0,
       memory: 6.1,
-      desc: '遍历所有起点和终点',
+      desc: '遍历',
       code: `class Solution {
    public:
-    int arr[256];
-    int check(string &str, int start, int end) {
-        memset(arr, 0, sizeof(int) * 256);
-        for (int i = start; i <= end; i++) {
-            arr[str[i]] = 1;
-        }
-        for (int i = 'A'; i <= 'Z'; i++) {
-            if (arr[i] && !arr[i + 32]) return 0;
-        }
-        for (int i = 'a'; i <= 'z'; i++) {
-            if (arr[i] && !arr[i - 32]) return 0;
-        }
-        return 1;
-    }
-    string longestNiceSubstring(string s) {
-        string ans = "";
-        for (int i = 0; i < s.size(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (check(s, j, i) && i - j + 1 > ans.size())
-                    ans = s.substr(j, i - j + 1);
-            }
-        }
+    string reversePrefix(string word, char ch) {
+        int idx = 0;
+        while (idx < word.size() && word[idx] != ch) idx++;
+        if (idx == word.size()) return word;
+        string ans = word.substr(0, idx + 1);
+        reverse(ans.begin(), ans.end());
+        ans += word.substr(idx + 1, word.size() - idx - 1);
         return ans;
     }
 };`,
     },
     {
       script: Script.CPP,
-      time: 12,
-      memory: 6,
-      desc: '遍历所有起点和终点',
+      time: 0,
+      memory: 6.2,
+      desc: '遍历',
       code: `class Solution {
    public:
-    int arr[26];
-    int check(string &str, int start, int end) {
-        memset(arr, 0, sizeof(int) * 26);
-        for (int i = start; i <= end; i++) {
-            if (str[i] >= 'a')
-                arr[str[i] - 'a'] |= 0b10;
-            else
-                arr[str[i] - 'A'] |= 0b01;
-        }
-        for (int i = 0; i < 26; i++) {
-            if (arr[i] != 0 && arr[i] != 3) return 0;
-        }
-        return 1;
-    }
-    string longestNiceSubstring(string s) {
+    string reversePrefix(string word, char ch) {
+        int idx = 0;
+        while (idx < word.size() && word[idx] != ch) idx++;
+        if (idx == word.size()) return word;
         string ans = "";
-        for (int i = 0; i < s.size(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (check(s, j, i) && i - j + 1 > ans.size())
-                    ans = s.substr(j, i - j + 1);
-            }
-        }
+        for (int i = idx; i >= 0; i--) ans += word[i];
+        for (int i = idx + 1; i < word.size(); i++) ans += word[i];
         return ans;
     }
 };`,
