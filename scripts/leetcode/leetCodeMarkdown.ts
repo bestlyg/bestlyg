@@ -5,52 +5,42 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1001. 网格照明',
-  url: 'https://leetcode-cn.com/problems/grid-illumination/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.哈希表],
-  desc: `在大小为 n x n 的网格 grid 上，每个单元格都有一盏灯，最初灯都处于 关闭 状态。返回一个整数数组 ans 作为答案， ans[j] 应等于第 j 次查询 queries[j] 的结果，1 表示照亮，0 表示未照亮。`,
+  name: '2006. 差的绝对值为 K 的数对数目',
+  url: 'https://leetcode-cn.com/problems/count-number-of-pairs-with-absolute-difference-k/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.哈希表, Tag.计数],
+  desc: `给你一个整数数组 nums 和一个整数 k ，请你返回数对 (i, j) 的数目，满足 i < j 且 |nums[i] - nums[j]| == k 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 644,
-      memory: 178.3,
-      desc: '哈希存储每个点的行列斜线',
-      code: `int dirs[9][2] = {{0, 1},  {0, -1},  {1, 0},  {-1, 0}, {1, 1},
-      {1, -1}, {-1, -1}, {-1, 1}, {0, 0}};
-class Solution {
+      time: 4,
+      memory: 12.1,
+      desc: '遍历',
+      code: `class Solution {
    public:
-    int get_b(int x, int y, int k) { return y - x * k; }
-    vector<int> gridIllumination(int n, vector<vector<int>>& lamps,
-                                 vector<vector<int>>& queries) {
-        unordered_map<int, unordered_set<int>> m;
-        unordered_map<int, int> m_x, m_y, m_k1, m_k2;
-        for (auto& item : lamps) {
-            int x = item[0], y = item[1];
-            if (m[x].count(y)) continue;
-            m[x].insert(y);
-            m_x[x]++;
-            m_y[y]++;
-            m_k1[get_b(x, n - y - 1, 1)]++;
-            m_k2[get_b(x, n - y - 1, -1)]++;
+    int countKDifference(vector<int>& nums, int k) {
+        int m[300] = {0}, ans = 0;
+        for (auto& num : nums) {
+            ans += m[num + k + 100] + m[num - k + 100];
+            m[num + 100]++;
         }
-        vector<int> ans;
-        for (auto& item : queries) {
-            int x = item[0], y = item[1], state = 0;
-            if (m_x[x] || m_y[y] || m_k1[get_b(x, n - y - 1, 1)] ||
-                m_k2[get_b(x, n - y - 1, -1)])
-                state = 1;
-            ans.push_back(state);
-            for (int i = 0; i < 9; i++) {
-                int nx = x + dirs[i][0], ny = y + dirs[i][1];
-                if (nx < 0 || ny < 0 || nx >= n || ny >= n || !m[nx].count(ny))
-                    continue;
-                m_x[nx]--;
-                m_y[ny]--;
-                m_k1[get_b(nx, n - ny - 1, 1)]--;
-                m_k2[get_b(nx, n - ny - 1, -1)]--;
-                m[nx].erase(ny);
-            }
+        return ans;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 8,
+      memory: 14,
+      desc: '遍历',
+      code: `class Solution {
+   public:
+    int countKDifference(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        int ans = 0;
+        for (auto& num : nums) {
+            ans += m[num + k] + m[num - k];
+            m[num]++;
         }
         return ans;
     }
