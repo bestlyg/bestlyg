@@ -4,49 +4,25 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '1447. 最简分数',
-  url: 'https://leetcode-cn.com/problems/count-number-of-pairs-with-absolute-difference-k/',
+  exist: !true,
+  name: '1984. 学生分数的最小差值',
+  url: 'https://leetcode-cn.com/problems/minimum-difference-between-highest-and-lowest-of-k-scores/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.哈希表, Tag.计数],
-  desc: `给你一个整数数组 nums 和一个整数 k ，请你返回数对 (i, j) 的数目，满足 i < j 且 |nums[i] - nums[j]| == k 。`,
+  tag: [Tag.数组, Tag.排序, Tag.滑动窗口],
+  desc: `给你一个 下标从 0 开始 的整数数组 nums ，其中 nums[i] 表示第 i 名学生的分数。另给你一个整数 k 。从数组中选出任意 k 名学生的分数，使这 k 个分数间 最高分 和 最低分 的 差值 达到 最小化 。  返回可能的 最小差值 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 116,
-      memory: 32.5,
-      desc: '判断最大公约数',
+      time: 12,
+      memory: 13.2,
+      desc: '排序后遍历',
       code: `class Solution {
    public:
-    vector<string> simplifiedFractions(int n) {
-        unordered_set<string> s;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j < i; j++) {
-                int num = gcd(i, j);
-                s.insert(to_string(j / num) + "/" + to_string(i / num));
-            }
-        }
-        vector<string> ans;
-        for (auto& str : s) ans.push_back(str);
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 48,
-      memory: 21.3,
-      desc: '判断最大公约数',
-      code: `class Solution {
-   public:
-    vector<string> simplifiedFractions(int n) {
-        vector<string> ans;
-        for (int i = 2; i <= n; i++) {
-            for (int j = 1; j < i; j++) {
-                if (j == 1 || gcd(i, j) == 1)
-                    ans.push_back(to_string(j) + "/" + to_string(i));
-            }
-        }
+    int minimumDifference(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int ans = INT_MAX;
+        for (int l = 0, r = k - 1; r < nums.size(); l++, r++)
+            ans = min(ans, nums[r] - nums[l]);
         return ans;
     }
 };`,

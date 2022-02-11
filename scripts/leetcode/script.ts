@@ -7,17 +7,23 @@ import {
   merge,
   min,
   random,
+  remove,
   reverse,
   size,
   takeWhile,
   upperFirst,
 } from 'lodash';
-import { Logger } from '../utils';
-// type TrieNode = structures.TrieNode;
-// type Trie = structures.Trie;
+import { Logger, resolve, fs } from '../utils';
 
-const logger = new Logger();
-
-const arr = [1, 1];
-while (arr[arr.length - 1] <= 1e9) arr.push(arr[arr.length - 1] + arr[arr.length - 2]);
-console.log(arr.length);
+const path = resolve('../../2020.11-洪普科技/项目留档/runing');
+const dirs = fs.readdirSync(path);
+for (const dir of dirs) {
+  const modulesPath = `${path}\\${dir}\\dist`;
+  console.log(`=======\nremove ${modulesPath}`);
+  try {
+    fs.removeSync(modulesPath);
+  } catch (err) {
+    console.log('ERROR');
+    console.log(err);
+  }
+}
