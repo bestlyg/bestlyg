@@ -5,169 +5,24 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1020. 飞地的数量',
-  url: 'https://leetcode-cn.com/problems/number-of-enclaves/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.并查集, Tag.数组, Tag.矩阵],
-  desc: `返回网格中 无法 在任意次数的移动中离开网格边界的陆地单元格的数量。`,
+  name: '1189. “气球” 的最大数量',
+  url: 'https://leetcode-cn.com/problems/maximum-number-of-balloons/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
+  desc: `字符串 text 中的每个字母最多只能被使用一次。请你返回最多可以拼凑出多少个单词 "balloon"。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 48,
-      memory: 21.6,
-      desc: 'bfs,对于每个出口进行遍历,遍历到的陆地都可出',
-      code: `int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-class Solution {
+      time: 0,
+      memory: 6.5,
+      desc: '遍历',
+      code: `class Solution {
    public:
-    typedef pair<int, int> node;
-    int m, n;
-    int numEnclaves(vector<vector<int>>& grid) {
-        n = grid.size();
-        m = grid[0].size();
-        queue<node> q;
-        for (int i = 0; i < n; i++) {
-            if (grid[i][0]) {
-                q.push(make_pair(i, 0));
-                grid[i][0] = 0;
-            }
-            if (m > 1 && grid[i][m - 1]) {
-                q.push(make_pair(i, m - 1));
-                grid[i][m - 1] = 0;
-            }
-        }
-        for (int i = 1; i < m - 1; i++) {
-            if (grid[0][i]) {
-                q.push(make_pair(0, i));
-                grid[0][i] = 0;
-            }
-            if (n > 1 && grid[n - 1][i]) {
-                q.push(make_pair(n - 1, i));
-                grid[n - 1][i] = 0;
-            }
-        }
-        while (q.size()) {
-            node v = q.front();
-            q.pop();
-            for (int i = 0; i < 4; i++) {
-                int nrow = v.first + dirs[i][0], ncol = v.second + dirs[i][1];
-                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||
-                    grid[nrow][ncol] == 0)
-                    continue;
-                q.push(make_pair(nrow, ncol));
-                grid[nrow][ncol] = 0;
-            }
-        }
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j]) ans++;
-            }
-        }
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 44,
-      memory: 21.1,
-      desc: 'dfs,对于每个出口进行遍历,遍历到的陆地都可出',
-      code: `int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-class Solution {
-   public:
-    typedef pair<int, int> node;
-    int m, n;
-    int numEnclaves(vector<vector<int>>& grid) {
-        n = grid.size();
-        m = grid[0].size();
-        for (int i = 0; i < n; i++) {
-            if (grid[i][0]) {
-                grid[i][0] = 0;
-                dfs(grid, i, 0);
-            }
-            if (m > 1 && grid[i][m - 1]) {
-                grid[i][m - 1] = 0;
-                dfs(grid, i, m - 1);
-            }
-        }
-        for (int i = 1; i < m - 1; i++) {
-            if (grid[0][i]) {
-                grid[0][i] = 0;
-                dfs(grid, 0, i);
-            }
-            if (n > 1 && grid[n - 1][i]) {
-                grid[n - 1][i] = 0;
-                dfs(grid, n - 1, i);
-            }
-        }
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j]) ans++;
-            }
-        }
-        return ans;
-    }
-    void dfs(vector<vector<int>>& grid, const int row, const int col) {
-        for (int i = 0; i < 4; i++) {
-            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];
-            if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||
-                grid[nrow][ncol] == 0)
-                continue;
-            grid[nrow][ncol] = 0;
-            dfs(grid, nrow, ncol);
-        }
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 84,
-      memory: 23.6,
-      desc: 'uf,统计所有出口',
-      code: `int dirs[4][2] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
-class UnionFind {
-   public:
-    vector<int> data;
-    UnionFind(int size) : data(size) {
-        for (int i = 0; i < size; i++) data[i] = i;
-    }
-    int find(int e) {
-        if (data[e] == e) return e;
-        return data[e] = find(data[e]);
-    }
-    void uni(int e1, int e2) { data[find(e2)] = find(e1); }
-};
-class Solution {
-   public:
-    int n, m;
-    int get_idx(int row, int col) { return row * m + col; }
-    int numEnclaves(vector<vector<int>>& grid) {
-        n = grid.size();
-        m = grid[0].size();
-        int ans = 0;
-        UnionFind uf(n * m);
-        unordered_set<int> s1, s2;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 0) continue;
-                ans++;
-                if (i == 0 || j == 0 || i == n - 1 || j == m - 1)
-                    s1.insert(get_idx(i, j));
-                for (int k = 0; k < 4; k++) {
-                    int ni = i + dirs[k][0], nj = j + dirs[k][1];
-                    if (ni < 0 || ni >= n || nj < 0 || nj >= m ||
-                        grid[ni][nj] == 0)
-                        continue;
-                    uf.uni(get_idx(i, j), get_idx(ni, nj));
-                }
-            }
-        }
-        for (auto& idx : s1) s2.insert(uf.find(idx));
-        for (int i = 0; i < n * m; i++) {
-            if (s2.count(uf.find(i))) ans--;
-        }
-        return ans;
+    int maxNumberOfBalloons(string text) {
+        int m[26] = {0};
+        for (auto &ch : text) m[ch - 'a']++;
+        return min(min(min(m[1], m[0]), m['n' - 'a']),
+                   min(m['l' - 'a'], m['o' - 'a']) / 2);
     }
 };`,
     },
