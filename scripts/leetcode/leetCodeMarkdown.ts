@@ -5,52 +5,33 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '540. 有序数组中的单一元素',
-  url: 'https://leetcode-cn.com/problems/single-element-in-a-sorted-array/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: `给你一个仅由整数组成的有序数组，其中每个元素都会出现两次，唯有一个数只会出现一次。请你找出并返回只出现一次的那个数。`,
+  name: '1380. 矩阵中的幸运数',
+  url: 'https://leetcode-cn.com/problems/lucky-numbers-in-a-matrix/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.矩阵],
+  desc: `给你一个 m * n 的矩阵，矩阵中的数字 各不相同 。请你按 任意 顺序返回矩阵中的所有幸运数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 21.9,
-      desc: 'bs',
-      code: `class Solution {
-   public:
-    int singleNonDuplicate(vector<int>& nums) {
-        return bs(nums, 0, nums.size() - 1);
-    }
-    int bs(vector<int>& nums, int l, int r) {
-        int n = r - l + 1, m = (l + r) >> 1;
-        if (n == 1 || nums[l] != nums[l + 1]) return nums[l];
-        if (nums[r] != nums[r - 1]) return nums[r];
-        if (nums[m] != nums[m - 1] && nums[m] != nums[m + 1]) return nums[m];
-        if (nums[m] == nums[m - 1]) m--;
-        if ((m - l) & 1)
-            return bs(nums, l, m - 1);
-        else
-            return bs(nums, m + 2, r);
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
       time: 20,
-      memory: 21.9,
-      desc: 'bs, 如果是偶数下标与后面的比，奇数下标与前面的比',
+      memory: 10.9,
+      desc: '遍历后记录每行最小值和每列最大值，如果第i行最小为j且第j列最大位i，即可成立',
       code: `class Solution {
    public:
-    int singleNonDuplicate(vector<int>& nums) {
-        int l = 0, r = nums.size() - 1, m;
-        while (l < r) {
-            m = (l + r) >> 1;
-            if (nums[m] == nums[m ^ 1])
-                l = m + 1;
-            else
-                r = m;
+    int rows[50] = {0}, cols[50] = {0};
+    vector<int> luckyNumbers(vector<vector<int>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] < matrix[i][rows[i]]) rows[i] = j;
+                if (matrix[i][j] > matrix[cols[j]][j]) cols[j] = i;
+            }
         }
-        return nums[l];
+        vector<int> ans;
+        for (int i = 0; i < n; i++) {
+            if (i == cols[rows[i]]) ans.push_back(matrix[i][rows[i]]);
+        }
+        return ans;
     }
 };`,
     },
