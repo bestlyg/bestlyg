@@ -13,23 +13,45 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 20,
-      memory: 10.9,
-      desc: '遍历后记录每行最小值和每列最大值，如果第i行最小为j且第j列最大位i，即可成立',
+      time: 728,
+      memory: 159.7,
+      desc: '找到根节点后，遍历所有节点找到其父节点',
       code: `class Solution {
    public:
-    int rows[50] = {0}, cols[50] = {0};
-    vector<int> luckyNumbers(vector<vector<int>>& matrix) {
-        int n = matrix.size(), m = matrix[0].size();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] < matrix[i][rows[i]]) rows[i] = j;
-                if (matrix[i][j] > matrix[cols[j]][j]) cols[j] = i;
-            }
+    int checkWays(vector<vector<int>>& pairs) {
+        unordered_map<int, unordered_set<int>> m;
+        int root = pairs[0][0];
+        // 装载pair到map中，同时记录相邻最多的节点
+        for (auto& pair : pairs) {
+            m[pair[0]].emplace(pair[1]);
+            m[pair[1]].emplace(pair[0]);
+            if (m[root].size() < m[pair[0]].size()) root = pair[0];
+            if (m[root].size() < m[pair[1]].size()) root = pair[1];
         }
-        vector<int> ans;
-        for (int i = 0; i < n; i++) {
-            if (i == cols[rows[i]]) ans.push_back(matrix[i][rows[i]]);
+        // 如果最多的节点没法覆盖所有其他节点，那就无法生成树
+        if (m[root].size() != m.size() - 1) return 0;
+        int ans = 1;
+        // 遍历所有子节点
+        for (auto& [node, list] : m) {
+            if (node == root) continue;
+            // 寻找当前子节点的最小父节点， 拥有比当前节点更多的相邻数，
+            // 且子节点的所有相邻也与父节点相邻
+            int degree = list.size(), parent = -1, parent_degree = INT_MAX;
+            for (auto& node : list) {
+                if (m[node].size() < parent_degree &&
+                    m[node].size() >= degree) {
+                    parent = node;
+                    parent_degree = m[node].size();
+                }
+            }
+            // 找不到父节点就不可能成树
+            if (parent == -1) return 0;
+            for (auto& node : list) {
+                if (node == parent) continue;
+                if (!m[parent].count(node)) return 0;
+            }
+            // 如果连接数相同说明父子可以替换
+            if (parent_degree == degree) ans = 2;
         }
         return ans;
     }
