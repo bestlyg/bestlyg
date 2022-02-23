@@ -5,74 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1994. 好子集的数目',
-  url: 'https://leetcode-cn.com/problems/the-number-of-good-subsets/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.数组, Tag.数学, Tag.动态规划, Tag.状态压缩],
-  desc: `请你返回 nums 中不同的 好 子集的数目对 109 + 7 取余 的结果。`,
+  name: '917. 仅仅反转字母',
+  url: 'https://leetcode-cn.com/problems/reverse-only-letters/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `返回反转后的 s 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 220,
-      memory: 179.2,
-      desc: 'dfs遍历，对于所有可重合因子进行遍历，可在每个方案中增加1的可能性，每个方案都可以选择任意一个1或者不选择，总可能性为pow(2, cnt1)',
-      code: `int mod = 1e9 + 7;
-#define MAX 40
-
-unordered_map<int, int> m = {
-    {23, 0b00000000010000000000000000000000},
-    {19, 0b00000000000001000000000000000000},
-    {17, 0b00000000000000010000000000000000},
-    {15, 0b00000000000000000000000000010100},
-    {14, 0b00000000000000000000000001000010},
-    {13, 0b00000000000000000001000000000000},
-    {30, 0b00000000000000000000000000010110},
-    {11, 0b00000000000000000000010000000000},
-    {29, 0b00010000000000000000000000000000},
-    {10, 0b00000000000000000000000000010010},
-    {26, 0b00000000000000000001000000000010},
-    {7, 0b00000000000000000000000001000000},
-    {6, 0b00000000000000000000000000000110},
-    {5, 0b00000000000000000000000000010000},
-    {22, 0b00000000000000000000010000000010},
-    {3, 0b00000000000000000000000000000100},
-    {21, 0b00000000000000000000000001000100},
-    {2, 0b00000000000000000000000000000010},
-    {1, 0b00000000000000000000000000000001},
-};
-int mod = 1e9 + 7;
-
-#define MAX 40
-
-class Solution {
+      time: 0,
+      memory: 5.9,
+      desc: '双指针',
+      code: `class Solution {
    public:
-    int arr[MAX] = {0}, num1;
-    int numberOfGoodSubsets(vector<int> &nums) {
-        for (auto &num : nums) {
-            if (m.count(num)) arr[num]++;
+    string reverseOnlyLetters(string s) {
+        for (int l = 0, r = s.size() - 1; l < r; l++, r--) {
+            while (l < s.size() && !isalpha(s[l])) l++;
+            while (r >= 0 && !isalpha(s[r])) r--;
+            if (l < r) swap(s[l], s[r]);
         }
-        num1 = qpow(2, arr[1]);
-        long long ans = 0;
-        for (int num = 2; num < MAX; num++) {
-            if (arr[num]) dfs(ans, num, m[num], arr[num]);
-        }
-        return ans % mod;
-    }
-    void dfs(long long &ans, int num, int bits, long long sum) {
-        ans = (ans + sum * num1) % mod;
-        for (int nnum = num + 1; nnum < MAX; nnum++) {
-            if (arr[nnum] == 0 || m[nnum] & bits) continue;
-            dfs(ans, nnum, bits | m[nnum], sum * arr[nnum] % mod);
-        }
-    }
-    int qpow(int a, int b) {
-        long long ans = 1, tmp = a;
-        while (b) {
-            if (b & 1) ans = (ans * tmp) % mod;
-            tmp = (tmp * tmp) % mod;
-            b >>= 1;
-        }
-        return ans;
+        return s;
     }
 };`,
     },
