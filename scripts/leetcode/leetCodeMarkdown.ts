@@ -5,63 +5,32 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1706. 球会落何处',
-  url: 'https://leetcode-cn.com/problems/where-will-the-ball-fall/',
+  name: '537. 复数乘法',
+  url: 'https://leetcode-cn.com/problems/complex-number-multiplication/',
   difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.数组, Tag.动态规划, Tag.矩阵, Tag.模拟],
-  desc: `返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。`,
+  tag: [Tag.数学, Tag.字符串, Tag.模拟],
+  desc: `给你两个字符串表示的复数 num1 和 num2 ，请你遵循复数表示形式，返回表示它们乘积的字符串。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 28,
-      memory: 13,
-      desc: 'dfs',
+      time: 0,
+      memory: 5.7,
+      desc: '模拟',
       code: `class Solution {
    public:
-    int n, m, check[100][100][4] = {0}, mmap[100][100][4] = {0};
-    int dfs(vector<vector<int>>& grid, int row, int col, int idx) {
-        if (mmap[row][col][idx]) return mmap[row][col][idx];
-        int ans = -1;
-        check[row][col][idx] = 1;
-
-        if (grid[row][col] == 1) {
-            if ((idx == 0 || idx == 3) && col < m - 1 &&
-                check[row][col + 1][1] == 0) {
-                ans = dfs(grid, row, col + 1, 1);
-            } else if ((idx == 1 || idx == 2) && row < n - 1 &&
-                       check[row + 1][col][0] == 0) {
-                ans = dfs(grid, row + 1, col, 0);
-            }
-        } else {
-            if ((idx == 0 || idx == 1) && col > 0 &&
-                check[row][col - 1][3] == 0) {
-                ans = dfs(grid, row, col - 1, 3);
-            } else if ((idx == 2 || idx == 3) && row < n - 1 &&
-                       check[row + 1][col][0] == 0) {
-                ans = dfs(grid, row + 1, col, 0);
-            }
-        }
-
-        check[row][col][idx] = 0;
-        return mmap[row][col][idx] = ans;
+    void analysis(string num, int& snum, int& fnum) {
+        int add = num.find("+");
+        snum = atoi(num.substr(0, add).c_str());
+        fnum = atoi(num.substr(add + 1, num.size() - add - 1).c_str());
     }
-    vector<int> findBall(vector<vector<int>>& grid) {
-        n = grid.size();
-        m = grid[0].size();
-        vector<int> ans(m);
-        for (int col = 0; col < m; col++) {
-            if (grid[n - 1][col] == 1) {
-                mmap[n - 1][col][1] = mmap[n - 1][col][2] = col + 1;
-            } else {
-                mmap[n - 1][col][2] = mmap[n - 1][col][3] = col + 1;
-            }
-        }
-        for (int col = 0; col < m; col++) {
-            int val = dfs(grid, 0, col, 0);
-            if (val > 0) val -= 1;
-            ans[col] = val;
-        }
-        return ans;
+    string complexNumberMultiply(string num1, string num2) {
+        int snum1, fnum1, snum2, fnum2;
+        analysis(num1, snum1, fnum1);
+        analysis(num2, snum2, fnum2);
+        ostringstream ostr;
+        ostr << snum1 * snum2 + fnum1 * fnum2 * -1 << "+"
+             << snum1 * fnum2 + snum2 * fnum1 << "i";
+        return ostr.str();
     }
 };`,
     },
