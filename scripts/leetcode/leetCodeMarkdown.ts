@@ -5,28 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2016. 增量元素之间的最大差值',
-  url: 'https://leetcode-cn.com/problems/maximum-difference-between-increasing-elements/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组],
-  desc: `给你一个下标从 0 开始的整数数组 nums ，该数组的大小为 n ，请你计算 nums[j] - nums[i] 能求得的 最大差值 ，其中 0 <= i < j < n 且 nums[i] < nums[j] 。返回 最大差值 。如果不存在满足要求的 i 和 j ，返回 -1 。`,
+  name: '553. 最优除法',
+  url: 'https://leetcode-cn.com/problems/optimal-division/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.数学, Tag.动态规划],
+  desc: `给定一组正整数，相邻的整数之间将会进行浮点除法操作。例如， [2,3,4] -> 2 / 3 / 4 。但是，你可以在任意位置添加任意数目的括号，来改变算数的优先级。你需要找出怎么添加括号，才能得到最大的结果，并且返回相应的字符串格式的表达式。你的表达式不应该含有冗余的括号。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 8,
-      desc: '遍历，记录最小值',
+      time: 0,
+      memory: 7.7,
+      desc: '使分母最小',
       code: `class Solution {
    public:
-    int maximumDifference(vector<int>& nums) {
-        int minnum = nums[0], ans = INT_MIN;
-        for (auto& num : nums) {
-            if (num > minnum) {
-                ans = max(ans, num - minnum);
-            }
-            minnum = min(minnum, num);
+    string optimalDivision(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return to_string(nums[0]);
+        if (n == 2) return to_string(nums[0]) + "/" + to_string(nums[1]);
+        string ans = to_string(nums[0]) + "/(";
+        for (int i = 1; i < nums.size(); i++) {
+            ans += to_string(nums[i]);
+            if (i != nums.size() - 1) ans += "/";
         }
-        return ans == INT_MIN ? -1 : ans;
+        ans += ")";
+        return ans;
     }
 };`,
     },
