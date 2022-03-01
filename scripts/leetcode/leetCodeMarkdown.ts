@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1601. 最多可达成的换楼请求数目',
+  exist: true,
+  name: '6. Z 字形变换',
   url: 'https://leetcode-cn.com/problems/maximum-number-of-achievable-transfer-requests/',
   difficulty: Difficulty.困难,
   tag: [Tag.位运算, Tag.数组, Tag.回溯, Tag.枚举],
@@ -13,134 +13,26 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 416,
-      memory: 24.1,
-      desc: '统计所有环，依次选择环',
+      time: 1060,
+      memory: 9.1,
+      desc: '遍历后塞入数组',
       code: `class Solution {
    public:
-    struct node {
-        int data, cnt;
-        unordered_map<int, int> next;
-    };
-    int maximumRequests(int n, vector<vector<int>> &requests) {
-        vector<node> list(n);
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            list[i].data = i;
-            list[i].cnt = 0;
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+        char arr[1000][1000];
+        memset(arr, 0, sizeof(char) * 1000 * 1000);
+        for (int idx = 0, row = 0, col = 0, n = s.size(); idx < n;) {
+            while (idx < n && row < numRows - 1) arr[row++][col] = s[idx++];
+            while (idx < n && row > 0) arr[row--][col++] = s[idx++];
         }
-        for (auto &request : requests) {
-            int from = request[0], to = request[1];
-            if (from == to) {
-                ans++;
-                continue;
+        string ans = "";
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                if (arr[i][j]) ans += arr[i][j];
             }
-            list[from].next[to]++;
-            list[from].cnt++;
-        }
-        unordered_set<int> s;
-        vector<vector<int>> arr;
-        for (int i = 0; i < n; i++) {
-            vector<vector<int>> res = getlist(list, i, s, i, 1);
-            for (auto &item : res) {
-                reverse(item.begin(), item.end());
-                arr.push_back(item);
-            }
-        }
-        return dfs(list, arr, s) + ans;
-    }
-
-    int dfs(vector<node> &list, vector<vector<int>> &arr,
-            unordered_set<int> &used) {
-        int n = arr.size(), ans = 0;
-        for (int i = 0; i < n; i++) {
-            if (used.count(i) || !check(list, arr[i])) continue;
-            int cur = 0, cnt = 0;
-            while (check(list, arr[i])) {
-                cnt++;
-                cur += arr[i].size() - 1;
-                setlist(list, arr[i], -1);
-            }
-            used.insert(i);
-            cur += dfs(list, arr, used);
-            used.erase(i);
-            while (cnt--) setlist(list, arr[i], 1);
-            ans = max(ans, cur);
         }
         return ans;
-    }
-
-    void setlist(vector<node> &list, vector<int> &arr, int add) {
-        for (int i = 0; i < arr.size() - 1; i++) {
-            list[arr[i]].next[arr[i + 1]] += add;
-        }
-    }
-    bool check(vector<node> &list, vector<int> &arr) {
-        for (int i = 0; i < arr.size() - 1; i++) {
-            if (list[arr[i]].next[arr[i + 1]] == 0) return 0;
-        }
-        return 1;
-    }
-    vector<vector<int>> getlist(vector<node> &list, int &find,
-                                unordered_set<int> &s, int cur, int init) {
-        vector<vector<int>> ans;
-        if (init == 0 && cur == find) {
-            vector<int> res(1, cur);
-            ans.push_back(res);
-            return ans;
-        }
-        s.insert(cur);
-        for (auto &item : list[cur].next) {
-            if (!s.count(item.first) || init == 0 && item.first == find) {
-                vector<vector<int>> nextlist =
-                    getlist(list, find, s, item.first, 0);
-                if (nextlist.size() == 0) continue;
-                for (auto &next : nextlist) {
-                    next.push_back(cur);
-                    ans.push_back(next);
-                }
-            }
-        }
-        s.erase(cur);
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 36,
-      memory: 8.6,
-      desc: '对于每个请求都选择或不选择',
-      code: `class Solution {
-   public:
-    int ans = 0, samecnt = 0;
-    vector<vector<int>> list;
-    vector<int> houses = vector<int>(20, 0);
-    int maximumRequests(int n, vector<vector<int>> &requests) {
-        for (auto &request : requests) {
-            if (request[0] == request[1]) {
-                samecnt++;
-                continue;
-            }
-            list.push_back(request);
-        }
-        dfs(0, 0);
-        return ans + samecnt;
-    }
-    void dfs(int idx, int cnt) {
-        if (idx == list.size()) {
-            for (auto &house : houses) {
-                if (house) return;
-            }
-            ans = max(ans, cnt);
-            return;
-        }
-        dfs(idx + 1, cnt);
-        houses[list[idx][0]]++;
-        houses[list[idx][1]]--;
-        dfs(idx + 1, cnt + 1);
-        houses[list[idx][0]]--;
-        houses[list[idx][1]]++;
     }
 };`,
     },
