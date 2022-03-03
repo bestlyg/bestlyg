@@ -5,111 +5,24 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '564. 寻找最近的回文数',
-  url: 'https://leetcode-cn.com/problems/find-the-closest-palindrome/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数学, Tag.字符串],
-  desc: `给定一个表示整数的字符串 n ，返回与它最近的回文整数（不包括自身）。如果不止一个，返回较小的那个。 “最近的”定义为两个整数差的绝对值最小。`,
+  name: '258. 各位相加',
+  url: 'https://leetcode-cn.com/problems/add-digits/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数学, Tag.数论, Tag.模拟],
+  desc: `给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。`,
   solutions: [
     {
       script: Script.CPP,
       time: 0,
-      memory: 6.3,
-      desc: '检测进位和退位的问题后，翻转前半部份',
+      memory: 5.7,
+      desc: '递归遍历',
       code: `class Solution {
    public:
-    string nearestPalindromic(string n) {
-        // 检测一位数
-        if (n.size() == 1) {
-            n[0] -= 1;
-            return n;
-        }
-        // 检测10000
-        if (n[0] == '1') {
-            int i = 1;
-            while (i < n.size() && n[i] == '0') i++;
-            if (i == n.size() || i == n.size() - 1 && n[i] == '1') {
-                string ans = "";
-                for (int i = 1; i < n.size(); i++) ans += '9';
-                return ans;
-            }
-        }
-        // 检测99999
-        if (n[0] == '9') {
-            int i = 1;
-            while (i < n.size() && n[i] == '9') i++;
-            if (i == n.size()) {
-                string ans = "1";
-                for (int i = 1; i < n.size(); i++) ans += "0";
-                ans += "1";
-                return ans;
-            }
-        }
-        // 检测其它
-        return common(n);
-    }
-    string common(const string &n) {
-        long long num = stoll(n);
-        vector<long long> list = getlist(n);
-        long long ans = -1, minus_num = INT_MAX;
-        for (int i = 0; i < list.size(); i++) {
-            int minus = abs(list[i] - num);
-            if (minus == 0) continue;
-            if (minus < minus_num || minus == minus_num && list[i] < ans) {
-                ans = list[i];
-                minus_num = minus;
-            }
-        }
-        return to_string(ans);
-    }
-    vector<long long> getlist(const string &n) {
-        if (n.size() & 1)
-            return getlist_odd(n);
-        else
-            return getlist_even(n);
-    }
-    vector<long long> getlist_odd(const string &n) {
-        vector<long long> ans;
-        long long high_num = 0;
-        for (int i = 0; i <= n.size() / 2; i++) {
-            high_num = high_num * 10 + n[i] - '0';
-        }
-        ans.push_back(getnum(high_num / 10, getlow(high_num / 10), n.size() / 2,
-                             high_num % 10));
-        ans.push_back(getnum((high_num + 1) / 10, getlow((high_num + 1) / 10),
-                             n.size() / 2, (high_num + 1) % 10));
-        ans.push_back(getnum((high_num - 1) / 10, getlow((high_num - 1) / 10),
-                             n.size() / 2, (high_num - 1) % 10));
-        return ans;
-    }
-    vector<long long> getlist_even(const string &n) {
-        vector<long long> ans;
-        long long high_num = 0;
-        for (int i = 0; i < n.size() / 2; i++) {
-            high_num = high_num * 10 + n[i] - '0';
-        }
-        ans.push_back(getnum(high_num, getlow(high_num), n.size() / 2, -1));
-        ans.push_back(
-            getnum(high_num + 1, getlow(high_num + 1), n.size() / 2, -1));
-        ans.push_back(
-            getnum(high_num - 1, getlow(high_num - 1), n.size() / 2, -1));
-        return ans;
-    }
-    long long getnum(const long long &high, const long long &low,
-                     const int size, const int mid) {
-        long long num = high;
-        num *= pow(10, size);
-        if (mid != -1) {
-            num *= 10;
-            num += mid * pow(10, size);
-        }
-        num += low;
-        return num;
-    }
-    long long getlow(const long long &num) {
-        string ans = to_string(num);
-        reverse(ans.begin(), ans.end());
-        return stoll(ans);
+    int addDigits(int num) {
+        if (num < 10) return num;
+        int ans = 0;
+        for (; num; num /= 10) ans += num % 10;
+        return addDigits(ans);
     }
 };`,
     },
