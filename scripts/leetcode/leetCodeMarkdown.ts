@@ -5,58 +5,21 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2104. 子数组范围和',
-  url: 'https://leetcode-cn.com/problems/sum-of-subarray-ranges/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.栈, Tag.数组, Tag.单调栈],
-  desc: `给你一个整数数组 nums 。nums 中，子数组的 范围 是子数组中最大元素和最小元素的差值。返回 nums 中 所有 子数组范围的 和 。`,
+  name: '521. 最长特殊序列 I',
+  url: 'https://leetcode-cn.com/problems/longest-uncommon-subsequence-i/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `给你两个字符串 a 和 b，请返回 这两个字符串中 最长的特殊序列  。如果不存在，则返回 -1 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 11.5,
-      desc: '单调栈，把子数组求和变换为，所有子数组的最大值求和减去最小值求和',
+      time: 0,
+      memory: 6,
+      desc: '判断两个值是否相等',
       code: `class Solution {
    public:
-    struct node {
-        int minl, maxl, minr, maxr, idx, num;
-    };
-    long long subArrayRanges(vector<int>& nums) {
-        long long ans = 0;
-        int n = nums.size();
-        stack<int> mins, maxs;
-        vector<node> list(n);
-        for (int i = 0; i < n; i++) {
-            list[i].idx = i;
-            list[i].num = nums[i];
-            while (mins.size() && nums[mins.top()] > nums[i]) {
-                list[mins.top()].minr = i;
-                mins.pop();
-            }
-            list[i].minl = mins.size() ? mins.top() : -1;
-            while (maxs.size() && nums[maxs.top()] < nums[i]) {
-                list[maxs.top()].maxr = i;
-                maxs.pop();
-            }
-            list[i].maxl = maxs.size() ? maxs.top() : -1;
-            mins.push(i);
-            maxs.push(i);
-        }
-        while (mins.size()) {
-            list[mins.top()].minr = n;
-            mins.pop();
-        }
-        while (maxs.size()) {
-            list[maxs.top()].maxr = n;
-            maxs.pop();
-        }
-        for (int i = 0; i < n; i++) {
-            ans += (long long)(list[i].maxr - i) * (i - list[i].maxl) *
-                   list[i].num;
-            ans -= (long long)(list[i].minr - i) * (i - list[i].minl) *
-                   list[i].num;
-        }
-        return ans;
+    int findLUSlength(string a, string b) {
+        return a == b ? -1 : max(a.size(), b.size());
     }
 };`,
     },
