@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '2100. 适合打劫银行的日子',
+  exist: true,
+  name: '504. 七进制数',
   url: 'https://leetcode-cn.com/problems/find-good-days-to-rob-the-bank/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.动态规划, Tag.前缀和],
@@ -13,36 +13,27 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 116,
-      memory: 84.8,
-      desc: '记录当前值左侧最大递增长度和右侧最大递增长度',
+      time: 0,
+      memory: 5.8,
+      desc: '短除法',
       code: `class Solution {
-        public:
-         vector<int> goodDaysToRobBank(vector<int>& security, int time) {
-             int n = security.size();
-             vector<int> cnts(n, 0);
-             for (int i = n - 2; i >= 0; i--) {
-                 if (security[i] <= security[i + 1]) {
-                     cnts[i] = cnts[i + 1] + 1;
-                 } else {
-                     cnts[i] = 0;
-                 }
-             }
-             vector<int> ans;
-             int prev = 0;
-             for (int i = 0; i < n; i++) {
-                 if (i > 0 && security[i] <= security[i - 1]) {
-                     prev++;
-                 } else {
-                     prev = 0;
-                 }
-                 if (prev >= time && cnts[i] >= time) {
-                     ans.push_back(i);
-                 }
-             }
-             return ans;
-         }
-     };`,
+   public:
+    string convertToBase7(int num) {
+        int f = 0;
+        if (num < 0) {
+            num = -num;
+            f = 1;
+        }
+        string ans = "";
+        while (num >= 7) {
+            ans = to_string(num % 7) + ans;
+            num /= 7;
+        }
+        ans = to_string(num) + ans;
+        if (f) ans = "-" + ans;
+        return ans;
+    }
+};`,
     },
   ],
 };
