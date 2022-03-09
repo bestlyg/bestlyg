@@ -5,101 +5,37 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2055. 蜡烛之间的盘子',
-  url: 'https://leetcode-cn.com/problems/plates-between-candles/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.字符串, Tag.二分查找, Tag.前缀和],
-  desc: `请你返回一个整数数组 answer ，其中 answer[i] 是第 i 个查询的答案。`,
+  name: '798. 得分最高的最小轮调',
+  url: 'https://leetcode-cn.com/problems/smallest-rotation-with-highest-score/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数组, Tag.前缀和],
+  desc: `在所有可能的轮调中，返回我们所能得到的最高分数对应的轮调下标 k 。如果有多个答案，返回满足条件的最小的下标 k 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 380,
-      memory: 135.3,
-      desc: '前缀和，二分',
+      time: 92,
+      memory: 70.1,
+      desc: '统计每个点可实现的k区间，利用差分加速',
       code: `class Solution {
    public:
-    typedef pair<int, int> node;
-    vector<node> list;
-    int n;
-    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
-        n = s.size();
-        int prev = 0;
+    int list[100001] = {0};
+    int bestRotation(vector<int>& nums) {
+        int n = nums.size();
         for (int i = 0; i < n; i++) {
-            if (s[i] == '|') list.push_back(make_pair(i, prev));
-            if (s[i] == '*') prev++;
+            if (i >= nums[i]) {
+                list[0]++;
+                list[i - nums[i] + 1]--;
+            }
+            list[i + 1]++;
+            list[min(i + n - nums[i] + 1, n)]--;
         }
-        vector<int> ans;
-        ans.reserve(queries.size());
-        for (auto& query : queries) {
-            int l = bs_l(query[0]), r = bs_r(query[1]), res;
-            if (l == list.size() || r == -1 || list[l].first > query[1] ||
-                l == r)
-                res = 0;
-            else
-                res = list[r].second - list[l].second;
-            ans.push_back(res);
-        }
-
-        return ans;
-    }
-    int bs_l(int idx) {
-        int l = 0, r = list.size(), m;
-        while (l < r) {
-            m = (l + r) >> 1;
-            if (list[m].first >= idx)
-                r = m;
-            else
-                l = m + 1;
-        }
-        return l;
-    }
-    int bs_r(int idx) {
-        int l = -1, r = list.size() - 1, m;
-        while (l < r) {
-            m = (l + r + 1) >> 1;
-            if (list[m].first <= idx)
-                l = m;
-            else
-                r = m - 1;
-        }
-        return l;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 364,
-      memory: 138.9,
-      desc: '前缀和，遍历存储每个点的前后蜡烛',
-      code: `class Solution {
-   public:
-    typedef pair<int, int> node;
-    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
-        int n = s.size(), prev = 0;
-        vector<node> list;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == '|') list.push_back(make_pair(i, prev));
-            if (s[i] == '*') prev++;
-        }
-        vector<int> find_l(n), find_r(n);
-        for (int i = 0, start = 0; i < n; i++) {
-            find_l[i] = start;
-            if (start < list.size() && i == list[start].first) start++;
-        }
-        for (int i = n - 1, start = list.size() - 1; i >= 0; i--) {
-            find_r[i] = start;
-            if (start > -1 && i == list[start].first) start--;
-        }
-        vector<int> ans;
-        ans.reserve(queries.size());
-        for (auto& query : queries) {
-            int l = find_l[query[0]], r = find_r[query[1]], res;
-            if (l == list.size() || r == -1 || list[l].first > query[1] ||
-                l == r)
-                res = 0;
-            else
-                res = list[r].second - list[l].second;
-            ans.push_back(res);
+        int ans = 0, ansnum = 0, sum = 0;
+        for (int i = 1; i <= n; i++) {
+            sum += list[i];
+            if (sum > ansnum) {
+                ans = i;
+                ansnum = sum;
+            }
         }
         return ans;
     }
