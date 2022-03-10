@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '798. 得分最高的最小轮调',
+  exist: true,
+  name: '589. N 叉树的前序遍历',
   url: 'https://leetcode-cn.com/problems/smallest-rotation-with-highest-score/',
   difficulty: Difficulty.困难,
   tag: [Tag.数组, Tag.前缀和],
@@ -13,33 +13,44 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 92,
-      memory: 70.1,
-      desc: '统计每个点可实现的k区间，利用差分加速',
+      time: 16,
+      memory: 11.3,
+      desc: 'dfs',
       code: `class Solution {
    public:
-    int list[100001] = {0};
-    int bestRotation(vector<int>& nums) {
-        int n = nums.size();
-        for (int i = 0; i < n; i++) {
-            if (i >= nums[i]) {
-                list[0]++;
-                list[i - nums[i] + 1]--;
-            }
-            list[i + 1]++;
-            list[min(i + n - nums[i] + 1, n)]--;
-        }
-        int ans = 0, ansnum = 0, sum = 0;
-        for (int i = 1; i <= n; i++) {
-            sum += list[i];
-            if (sum > ansnum) {
-                ans = i;
-                ansnum = sum;
-            }
-        }
+    vector<int> preorder(Node* root) {
+        vector<int> ans;
+        if (root) dfs(ans, root);
         return ans;
     }
+    void dfs(vector<int>& ans, Node* node) {
+        ans.push_back(node->val);
+        for (auto& child : node->children) dfs(ans, child);
+    }
 };`,
+    },
+    {
+      script: Script.CPP,
+      time: 24,
+      memory: 11.2,
+      desc: '迭代',
+      code: `class Solution {
+    public:
+     vector<int> preorder(Node *root) {
+         vector<int> ans;
+         stack<Node *> s;
+         if (root) s.push(root);
+         while (s.size()) {
+             Node *node = s.top();
+             s.pop();
+             ans.push_back(node->val);
+             for (auto it = node->children.rbegin(); it != node->children.rend();
+                  it++)
+                 s.push(*it);
+         }
+         return ans;
+     }
+ };`,
     },
   ],
 };
