@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '2049. 统计最高分的节点数目',
+  exist: true,
+  name: '590. N 叉树的后序遍历',
   url: 'https://leetcode-cn.com/problems/count-nodes-with-the-highest-score/',
   difficulty: Difficulty.中等,
   tag: [Tag.树, Tag.深度优先搜索, Tag.数组, Tag.二叉树],
@@ -13,68 +13,50 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 128,
-      memory: 79.6,
-      desc: '统计每个点的父节点，左子树个数，右子树个数',
+      time: 16,
+      memory: 11.3,
+      desc: 'dfs',
       code: `class Solution {
    public:
-    struct node {
-        int parent, left, right, lcnt, rcnt;
-    };
-    // ans
-    int ans = 0;
-    long long maxnum = -1;
-    void setAns(long long num) {
-        if (num >= maxnum) {
-            if (num > maxnum) ans = 0;
-            ans++;
-            maxnum = num;
-        }
-    }
-    int countHighestScoreNodes(vector<int>& parents) {
-        int n = parents.size();
-        vector<node> list(n);
-        // init
-        for (int i = 0; i < n; i++) {
-            list[i].parent = parents[i];
-            list[i].left = list[i].right = -1;
-            list[i].lcnt = list[i].rcnt = 0;
-        }
-        // load
-        for (int i = 1; i < n; i++) {
-            if (list[list[i].parent].left == -1)
-                list[list[i].parent].left = i;
-            else
-                list[list[i].parent].right = i;
-        }
-        // check
-        int sum = check(list, 0);
-        // res
-        for (int i = 1; i < n; i++) {
-            if (list[i].lcnt == 0 && list[i].rcnt == 0) {
-                setAns((long long)list[0].lcnt + list[0].rcnt);
-                continue;
-            }
-            setAns((long long)format(sum - 1 - list[i].lcnt - list[i].rcnt) *
-                   format(list[i].lcnt) * format(list[i].rcnt));
-        }
-        // res0
-        setAns((long long)format(list[0].lcnt) * format(list[0].rcnt));
+    vector<int> postorder(Node *root) {
+        vector<int> ans;
+        if (root) dfs(ans, root);
         return ans;
     }
-    int check(vector<node>& list, int node) {
-        int ans = 0;
-        if (list[node].left != -1) {
-            list[node].lcnt = check(list, list[node].left);
-            ans += list[node].lcnt;
-        }
-        if (list[node].right != -1) {
-            list[node].rcnt = check(list, list[node].right);
-            ans += list[node].rcnt;
-        }
-        return ans + 1;
+    void dfs(vector<int> &ans, Node *&root) {
+        for (auto &child : root->children) dfs(ans, child);
+        ans.push_back(root->val);
     }
-    int format(int num) { return num == 0 ? 1 : num; }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 20,
+      memory: 12.1,
+      desc: '迭代',
+      code: `class Solution {
+   public:
+    vector<int> postorder(Node *root) {
+        vector<int> ans;
+        stack<Node *> s;
+        unordered_set<Node *> sset;
+        if (root) s.push(root);
+        while (s.size()) {
+            Node *node = s.top();
+            s.pop();
+            if (sset.count(node)) {
+                ans.push_back(node->val);
+                continue;
+            }
+            sset.insert(node);
+            s.push(node);
+            for (auto it = node->children.rbegin(); it != node->children.rend();
+                 it++) {
+                s.push(*it);
+            }
+        }
+        return ans;
+    }
 };`,
     },
   ],
