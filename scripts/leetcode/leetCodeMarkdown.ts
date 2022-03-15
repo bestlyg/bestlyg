@@ -5,41 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '393. UTF-8 编码验证',
-  url: 'https://leetcode-cn.com/problems/utf-8-validation/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数组],
-  desc: `给定一个表示数据的整数数组 data ，返回它是否为有效的 UTF-8 编码。`,
+  name: '606. 根据二叉树创建字符串',
+  url: 'https://leetcode-cn.com/problems/construct-string-from-binary-tree/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.字符串, Tag.二叉树],
+  desc: `给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 13.5,
-      desc: '遍历',
-      code: `#define MAXBIT 7
-·class Solution {
+      time: 32,
+      memory: 64.2,
+      desc: '遍历后组装',
+      code: `class Solution {
    public:
-    bool validUtf8(vector<int>& data) {
-        int n = data.size(), remain = 0;
-        for (auto& byte : data) {
-            if (remain) {
-                // 有残留但不是10
-                if (!check10(byte)) return false;
-                remain--;
-                continue;
-            }
-            if ((byte & 1 << MAXBIT) == 0) continue;
-            // 无残留但是10
-            if (check10(byte)) return false;
-            while (remain < MAXBIT && (1 << (MAXBIT - remain - 1) & byte) > 0)
-                remain++;
-            // 剩余残留>3
-            if (remain >= 4) return false;
-        }
-        return remain == 0;
-    }
-    bool check10(int byte) {
-        return (byte & 1 << MAXBIT) > 0 && (byte & 1 << (MAXBIT - 1)) == 0;
+    string tree2str(TreeNode* root) {
+        if (!root) return "";
+        string l = "(" + tree2str(root->left) + ")",
+               r = "(" + tree2str(root->right) + ")";
+        return to_string(root->val) + (l == "()" && r == "()"   ? ""
+                                       : l != "()" && r == "()" ? l
+                                                                : l + r);
     }
 };`,
     },
