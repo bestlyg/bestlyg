@@ -16,15 +16,80 @@ import {
 import { Logger, resolve, fs } from '../utils';
 import { ListNode } from './structures';
 
-function reverseList(head: ListNode | null): ListNode | null {
-  if (!head) return head;
-  let newHead, tmp;
-  while (head) {
-    tmp = head.next;
-    head.next = newHead;
-    newHead = head;
-    head = tmp;
+const item1 = [
+  'AllOne',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'getMaxKey',
+  'inc',
+  'dec',
+  'getMaxKey',
+  'dec',
+  'inc',
+  'getMaxKey',
+  'inc',
+  'inc',
+  'dec',
+  'dec',
+  'dec',
+  'dec',
+  'getMaxKey',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'inc',
+  'getMaxKey',
+  'getMinKey',
+];
+const item2 = [
+  [],
+  ['hello'],
+  ['world'],
+  ['leet'],
+  ['code'],
+  ['ds'],
+  ['leet'],
+  [],
+  ['ds'],
+  ['leet'],
+  [],
+  ['ds'],
+  ['hello'],
+  [],
+  ['hello'],
+  ['hello'],
+  ['world'],
+  ['leet'],
+  ['code'],
+  ['ds'],
+  [],
+  ['new'],
+  ['new'],
+  ['new'],
+  ['new'],
+  ['new'],
+  ['new'],
+  [],
+  [],
+];
+/*
+
+    allOne->inc("ds");
+    allOne->dec("hello");
+    cout << allOne->getMaxKey() << endl;
+
+*/
+for (let i = 1; i < item1.length; i++) {
+  const key = item1[i];
+  if (key === 'inc' || key == 'dec') {
+    console.log(`allOne->${key}("${item2[i]}");`);
+  } else {
+    console.log(`cout << allOne->${key}() << endl;`);
   }
-  return newHead;
 }
-console.log(reverseList(ListNode.factory([1, 2, 3, 4, 5])));
