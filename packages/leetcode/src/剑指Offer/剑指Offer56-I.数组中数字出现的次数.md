@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：异或得到两个唯一数的值，根据首个不同的位数，分别异或。
 
-```c++
+```cpp
 class Solution {
    public:
     vector<int> singleNumbers(vector<int> &nums) {

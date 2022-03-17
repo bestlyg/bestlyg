@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：排序后遍历。
 
-```c++
+```cpp
 class Solution {
    public:
     int findRepeatNumber(vector<int>& nums) {

@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：对字符串进行排序后归并。
 
-```c++
+```cpp
 class Solution {
    public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {

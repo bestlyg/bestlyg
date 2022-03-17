@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：遍历链表，找出符合前后的插入值，如果插入值大于最大值或小于最小值则直接插入到最大值后面。
 
-```c++
+```cpp
 class Solution {
    public:
     Node* insert(Node* head, int insertVal) {

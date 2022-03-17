@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：双指针。
 
-```c++
+```cpp
 class Solution {
           public:
     int lengthOfLongestSubstring(string s) {

@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：栈存储。
 
-```c++
+```cpp
 class Solution {
    public:
     int s2i(string str) {

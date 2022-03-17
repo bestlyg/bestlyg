@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：当遇到 2 的指数幂后，从 0 开始重新遍历。
 
-```c++
+```cpp
 class Solution {
    public:
     vector<int> countBits(int n) {

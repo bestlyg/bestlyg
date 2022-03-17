@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：用数组存储每个位有几个 1。
 
-```c++
+```cpp
 class Solution {
    public:
     int singleNumber(vector<int>& nums) {

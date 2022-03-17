@@ -8,7 +8,7 @@ const includePkgs = __DEV__
       'packages/blogs/src',
       'packages/data-structures/src',
       'packages/algorithms/src',
-      // 'packages/leetcode/src',
+      'packages/leetcode/src',
       // 'packages/resume/src',
     ]
   : [

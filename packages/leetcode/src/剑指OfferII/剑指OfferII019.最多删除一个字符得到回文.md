@@ -12,19 +12,21 @@ group:
 ---
 
 # 剑指 Offer II 019. 最多删除一个字符得到回文
-    
+
 > 链接：[剑指 Offer II 019. 最多删除一个字符得到回文](https://leetcode-cn.com/problems/RQku0D/)  
 > 难度：简单  
 > 标签：贪心、双指针、字符串  
 > 简介：给定一个非空字符串 s，请判断如果 最多 从字符串中删除一个字符能否得到一个回文字符串。
-      
+
 ## 题解 1 - c++
+
 - 编辑时间：2022.02.18
 - 执行用时：48ms
 - 内存消耗：19MB
 - 编程语言：c++
 - 解法介绍：双指针遍历。
-```c++
+
+```cpp
 class Solution {
    public:
     bool check(string &s, int l, int r) {
@@ -47,5 +49,3 @@ class Solution {
     }
 };
 ```
-
-      

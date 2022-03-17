@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：转换成地球文进行比较。
 
-```c++
+```cpp
 class Solution {
    public:
     bool isAlienSorted(vector<string> &words, string order) {

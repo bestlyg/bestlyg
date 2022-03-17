@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：排序后合并。
 
-```c++
+```cpp
 class Solution {
    public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {

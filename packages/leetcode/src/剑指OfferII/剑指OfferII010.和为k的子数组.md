@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：前缀和。
 
-```c++
+```cpp
 class Solution {
    public:
     int subarraySum(vector<int>& nums, int k) {

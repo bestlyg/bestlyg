@@ -26,7 +26,7 @@ group:
 - 编程语言：c++
 - 解法介绍：存储次数，遍历两遍。
 
-```c++
+```cpp
 class Solution {
    public:
     char firstUniqChar(string s) {
