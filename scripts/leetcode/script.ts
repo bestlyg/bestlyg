@@ -78,18 +78,26 @@ const item2 = [
   [],
   [],
 ];
-/*
 
-    allOne->inc("ds");
-    allOne->dec("hello");
-    cout << allOne->getMaxKey() << endl;
+const max = 10n;
+const list: number[] = [];
+for (let i = 0n; i <= max; i++) {
+  let cnt = 0;
 
-*/
-for (let i = 1; i < item1.length; i++) {
-  const key = item1[i];
-  if (key === 'inc' || key == 'dec') {
-    console.log(`allOne->${key}("${item2[i]}");`);
-  } else {
-    console.log(`cout << allOne->${key}() << endl;`);
+  for (let num = 10n ** i; num < 10n ** (i + 1n); num++) {
+    if (check(num)) cnt++;
   }
+
+  console.log(`${10n ** i} - ${10n ** (i + 1n)} : ${cnt}`);
+  list.push(cnt);
+  console.log(list);
+}
+
+function check(num: bigint): boolean {
+  const cache: Record<string, boolean> = {};
+  for (const ch of num.toString()) {
+    if (cache[ch]) return false;
+    cache[ch] = true;
+  }
+  return true;
 }

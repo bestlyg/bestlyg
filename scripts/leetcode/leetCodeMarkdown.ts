@@ -5,28 +5,45 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '324. 摆动排序 II',
-  url: 'https://leetcode-cn.com/problems/wiggle-sort-ii/',
+  name: '357. 计算各个位数不同的数字个数',
+  url: 'https://leetcode-cn.com/problems/count-numbers-with-unique-digits/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.分治, Tag.快速选择, Tag.排序],
-  desc: `给你一个整数数组 nums，将它重新排列成 nums[0] < nums[1] > nums[2] < nums[3]... 的顺序。`,
+  tag: [Tag.数学, Tag.动态规划, Tag.回溯],
+  desc: `给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x < 10n 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 18.1,
-      desc: '排序后遍历，最值尽可能放中间',
+      time: 0,
+      memory: 5.9,
+      desc: '提前计算答案进行累加',
       code: `class Solution {
    public:
-    void wiggleSort(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-        int n = nums.size(), mid = (n + 1) / 2, imin = mid - 1, imax = n - 1;
-        vector<int> ans;
-        while (imin >= 0 || imax >= mid) {
-            if (imin >= 0) ans.push_back(nums[imin--]);
-            if (imax >= mid) ans.push_back(nums[imax--]);
+    int lists[8] = {9, 81, 648, 4536, 27216, 136080, 544320, 1632960};
+    int countNumbersWithUniqueDigits(int n) {
+        int ans = 1;
+        for (int i = 1; i <= n; i++) {
+            ans += lists[i - 1];
         }
-        nums = ans;
+        return ans;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 0,
+      memory: 5.9,
+      desc: '计算每位数有几种可能性',
+      code: `class Solution {
+   public:
+    int countNumbersWithUniqueDigits(int n) {
+        if (n == 0) return 1;
+        vector<int> dp(n + 1);
+        dp[0] = 1;
+        dp[1] = 9;
+        for (int i = 2, num = 9; i <= n; i++, num--) dp[i] = dp[i - 1] * num;
+        int ans = 0;
+        for (int i = 0; i <= n; i++) ans += dp[i];
+        return ans;
     }
 };`,
     },
