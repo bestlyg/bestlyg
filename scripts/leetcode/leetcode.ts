@@ -96,7 +96,7 @@ export enum Script {
   PY = 'python',
   CS = 'c#',
   C = 'c',
-  CPP = 'c++',
+  CPP = 'cpp',
   JAVA = 'java',
 }
 export enum Type {
