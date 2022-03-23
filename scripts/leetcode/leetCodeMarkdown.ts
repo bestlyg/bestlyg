@@ -5,44 +5,40 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '883. 三维形体投影面积',
-  url: 'https://leetcode-cn.com/problems/projection-area-of-3d-shapes/',
+  name: '929. 独特的电子邮件地址',
+  url: 'https://leetcode-cn.com/problems/unique-email-addresses/',
   difficulty: Difficulty.简单,
-  tag: [Tag.几何, Tag.数组, Tag.数学, Tag.矩阵],
-  desc: `返回 所有三个投影的总面积 。`,
+  tag: [Tag.数组, Tag.哈希表, Tag.字符串],
+  desc: `给你一个字符串数组 emails，我们会向每个 emails[i] 发送一封电子邮件。返回实际收到邮件的不同地址数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 9.1,
-      desc: '统计每个投影面积的大小',
+      time: 32,
+      memory: 13.2,
+      desc: '遍历后组装新email',
       code: `class Solution {
    public:
-    int projectionArea(vector<vector<int>>& grid) {
-        int n = grid.size(), x = 0, y = 0, z = 0;
-        // z
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < n; col++) {
-                if (grid[row][col] != 0) z++;
-            }
+    int numUniqueEmails(vector<string> &emails) {
+        unordered_set<string> s;
+        for (auto &email : emails) {
+            s.insert(format(email));
         }
-        // y
-        for (int row = 0; row < n; row++) {
-            int h = 0;
-            for (int col = 0; col < n; col++) {
-                h = max(h, grid[row][col]);
+        for (auto &email : s) cout << email << endl;
+        return s.size();
+    }
+    string format(string &email) {
+        string ans = "";
+        int domain = false, ignore = false;
+        for (auto &ch : email) {
+            if (ch == '@') {
+                domain = true;
+                ignore = false;
             }
-            y += h;
+            if (!domain && ch != '+' && ch != '.' && !ignore || domain)
+                ans += ch;
+            if (ch == '+') ignore = true;
         }
-        // x
-        for (int col = 0; col < n; col++) {
-            int h = 0;
-            for (int row = 0; row < n; row++) {
-                h = max(h, grid[row][col]);
-            }
-            x += h;
-        }
-        return x + y + z;
+        return ans;
     }
 };`,
     },
