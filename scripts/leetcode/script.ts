@@ -15,122 +15,44 @@ import {
 } from 'lodash';
 import { Logger, resolve, fs } from '../utils';
 import { ListNode } from './structures';
-const l1 = [
-  [30, 18],
-  [75, 46],
-  [47, 73],
-  [33, 37],
-  [55, 40],
-  [23, 83],
-  [25, 68],
-  [83, 89],
-  [69, 72],
-  [81, 12],
-  [60, 35],
-  [48, 67],
-  [19, 2],
-  [27, 1],
-  [84, 29],
-  [87, 9],
-  [66, 54],
-  [17, 13],
-  [31, 74],
-  [67, 36],
-  [43, 97],
-  [71, 87],
-  [9, 51],
-  [94, 11],
-  [80, 30],
-  [26, 5],
-  [68, 77],
-  [95, 52],
-  [77, 84],
-  [79, 70],
-  [40, 10],
-  [18, 60],
-  [0, 26],
-  [14, 37],
-  [76, 31],
-  [54, 6],
-  [36, 58],
-  [96, 90],
-  [63, 76],
-  [8, 79],
-  [59, 28],
-  [85, 24],
-  [5, 85],
-  [53, 96],
-  [10, 48],
-  [93, 37],
-  [93, 32],
-  [45, 43],
-  [13, 92],
-  [56, 80],
-  [52, 50],
-  [6, 59],
-  [39, 63],
-  [58, 56],
-  [64, 53],
-  [3, 57],
-  [1, 21],
-  [28, 19],
-  [46, 16],
-  [34, 93],
-  [51, 65],
-  [29, 4],
-  [24, 20],
-  [22, 27],
-  [35, 23],
-  [20, 75],
-  [61, 3],
-  [89, 22],
-  [33, 32],
-  [38, 44],
-  [15, 39],
-  [44, 91],
-  [49, 45],
-  [93, 33],
-  [16, 42],
-  [90, 55],
-  [88, 7],
-  [2, 95],
-  [4, 86],
-  [21, 71],
-  [50, 62],
-  [91, 82],
-  [72, 34],
-  [92, 8],
-  [62, 81],
-  [37, 32],
-  [82, 88],
-  [93, 14],
-  [42, 38],
-  [74, 61],
-  [7, 94],
-  [65, 66],
-  [73, 69],
-  [33, 14],
-  [70, 25],
-  [97, 64],
-  [78, 49],
-  [57, 47],
-  [11, 78],
-  [12, 17],
-  [41, 15],
-  [86, 41],
-];
-const l2 = [
-  0, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 2, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 2, 2,
-  2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2,
-];
-const name = 'patience';
-const ans: string[] = [`vector<vector<int>> ${name};`];
-for (let i = 0; i < l2.length; i++) {
-  const item = l2[i];
-  // ans.push(`vector<int> ${name}_item${i};`);
-  // ans.push(`${name}_item${i}.push_back(${e1});`);
-  // ans.push(`${name}_item${i}.push_back(${e2});`);
-  ans.push(`${name}.push_back(${item});`);
+
+class FNode {
+  parent: FNode | null = null;
+  constructor(public name: string, public level: number) {}
+  path() {
+    let res = this.name;
+    let parent = this.parent;
+    while (parent) {
+      res = parent.name + '/' + res;
+      parent = parent.parent;
+    }
+    return res;
+  }
+  isFile() {
+    return this.name.includes('.');
+  }
 }
-fs.writeFile(resolve('temp/tmp2.txt'), ans.join('\n'));
+function format(str: string): [number, string] {
+  let level = 0;
+  while (str[level] == '\t') level++;
+  return [level, str.substr(level)];
+}
+function lengthLongestPath(input: string): number {
+  const stack: FNode[] = [];
+  let ans = '';
+  for (const item of input.split('\n')) {
+    const [level, str] = format(item);
+    const node = new FNode(str, level);
+    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
+    if (stack.length) {
+      const parent = stack[stack.length - 1];
+      node.parent = parent;
+    }
+    stack.push(node);
+    if (node.isFile()) {
+      const path = node.path();
+      ans = ans.length < path.length ? path : ans;
+    }
+  }
+  return ans.length;
+}
