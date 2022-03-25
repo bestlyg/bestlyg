@@ -5,58 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '388. 文件的最长绝对路径',
-  url: 'https://leetcode-cn.com/problems/longest-absolute-file-path/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.栈, Tag.深度优先搜索, Tag.字符串],
-  desc: `给定一个以上述格式表示文件系统的字符串 input ，返回文件系统中 指向 文件 的 最长绝对路径 的长度 。 如果系统中没有文件，返回 0。`,
+  name: '965. 单值二叉树',
+  url: 'https://leetcode-cn.com/problems/univalued-binary-tree/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.二叉树],
+  desc: `如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。`,
   solutions: [
     {
       script: Script.TS,
-      time: 68,
-      memory: 42.4,
-      desc: '遍历，栈存储父级',
-      code: `class FNode {
-        parent:FNode|null = null;
-        constructor (public name:string,public level:number) {}
-        path(){
-            let res = this.name;
-            let parent = this.parent;
-            while (parent) {
-                res = parent.name + '/' + res;
-                parent = parent.parent;
-            }
-            return res;
-        }
-        isFile(){
-    return this.name.includes('.')
-        }
+      time: 4,
+      memory: 9.6,
+      desc: 'dfs',
+      code: `class Solution {
+   public:
+    bool isUnivalTree(TreeNode* root) { return dfs(root, root->val); }
+    bool dfs(TreeNode* node, int val) {
+        if (!node) return true;
+        if (node->val != val) return false;
+        return dfs(node->left, val) && dfs(node->right, val);
     }
-    function format( str:string) :[number,string]{
-        let level = 0;
-        while(str[level] == '\\t') level++;
-        return [level, str.substr(level)];
-    }
-    function lengthLongestPath(input: string): number {
-        const stack:FNode[]=[]
-        let ans = "";
-        for (const item of input.split('\\n'))
-        {
-            const [level,str] = format(item);
-            const node = new FNode(str,level);
-            while (stack.length && stack[stack.length -1].level >= level) stack.pop();
-            if (stack.length){
-                const parent = stack[stack.length - 1]
-                node.parent =   parent;
-            }
-            stack.push(node);
-            if (node.isFile()){
-                const path = node.path();
-                ans = ans.length < path.length ? path : ans;
-            }
-        }
-        return ans.length
-    };`,
+};`,
     },
   ],
 };
