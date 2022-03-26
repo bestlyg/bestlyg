@@ -5,24 +5,33 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '965. 单值二叉树',
-  url: 'https://leetcode-cn.com/problems/univalued-binary-tree/',
+  name: '1022. 从根到叶的二进制数之和',
+  url: 'https://leetcode-cn.com/problems/available-captures-for-rook/',
   difficulty: Difficulty.简单,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.二叉树],
-  desc: `如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。`,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
+  desc: `给出一棵二叉树，其上每个结点的值都是 0 或 1 。每一条从根到叶的路径都代表一个从最高有效位开始的二进制数。返回这些数字之和。`,
   solutions: [
     {
       script: Script.TS,
-      time: 4,
-      memory: 9.6,
+      time: 0,
+      memory: 16.3,
       desc: 'dfs',
       code: `class Solution {
    public:
-    bool isUnivalTree(TreeNode* root) { return dfs(root, root->val); }
-    bool dfs(TreeNode* node, int val) {
-        if (!node) return true;
-        if (node->val != val) return false;
-        return dfs(node->left, val) && dfs(node->right, val);
+    int sumRootToLeaf(TreeNode *root) {
+        int ans = 0;
+        dfs(root, ans, 0);
+        return ans;
+    }
+    void dfs(TreeNode *node, int &ans, int num) {
+        if (!node) return;
+        num = num << 1 | node->val;
+        if (!node->left && !node->right) {
+            ans += num;
+            return;
+        }
+        dfs(node->left, ans, num);
+        dfs(node->right, ans, num);
     }
 };`,
     },
