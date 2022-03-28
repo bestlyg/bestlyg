@@ -16,53 +16,14 @@ import {
 import { Logger, resolve, fs } from '../utils';
 import { ListNode } from './structures';
 
-class FNode {
-  parent: FNode | null = null;
-  constructor(public name: string, public level: number) {}
-  path() {
-    let res = this.name;
-    let parent = this.parent;
-    while (parent) {
-      res = parent.name + '/' + res;
-      parent = parent.parent;
-    }
-    return res;
-  }
-  isFile() {
-    return this.name.includes('.');
+function duplicateZeros(arr: number[]): void {
+  const list = new Array(arr.length)
+    .fill(0)
+    .map((_, i) => i)
+    .filter(v => arr[v] === 0)
+    .reverse();
+  for (const idx of list) {
+    arr.splice(idx, 0, 0);
+    arr.pop();
   }
 }
-function format(str: string): [number, string] {
-  let level = 0;
-  while (str[level] == '\t') level++;
-  return [level, str.substr(level)];
-}
-function lengthLongestPath(input: string): number {
-  const stack: FNode[] = [];
-  let ans = '';
-  for (const item of input.split('\n')) {
-    const [level, str] = format(item);
-    const node = new FNode(str, level);
-    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
-    if (stack.length) {
-      const parent = stack[stack.length - 1];
-      node.parent = parent;
-    }
-    stack.push(node);
-    if (node.isFile()) {
-      const path = node.path();
-      ans = ans.length < path.length ? path : ans;
-    }
-  }
-  return ans.length;
-}
-let arr = [
-  ['R', '.', 'p', '.', 'p', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
-  ['p', '.', '.', '.', '.', '.', '.', '.'],
-  ['p', '.', '.', '.', '.', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
-];
