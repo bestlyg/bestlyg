@@ -5,28 +5,38 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1089. 复写零',
-  url: 'https://leetcode-cn.com/problems/duplicate-zeros/',
+  name: '1200. 最小绝对差',
+  url: 'https://leetcode-cn.com/problems/minimum-absolute-difference/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.双指针],
-  desc: `给你一个长度固定的整数数组 arr，请你将该数组中出现的每个零都复写一遍，并将其余的元素向右平移。`,
+  tag: [Tag.数组, Tag.排序],
+  desc: `请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 76,
-      memory: 43.9,
-      desc: '统计0的下标',
-      code: `function duplicateZeros(arr: number[]): void {
-        const list = new Array(arr.length)
-          .fill(0)
-          .map((_, i) => i)
-          .filter(v => arr[v] === 0)
-          .reverse();
-        for (const idx of list) {
-          arr.splice(idx, 0, 0);
-          arr.pop();
+      time: 52,
+      memory: 32.3,
+      desc: '排序',
+      code: `class Solution {
+   public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        vector<vector<int>> ans;
+        sort(arr.begin(), arr.end());
+        int prev = arr[0], nmax = INT_MAX;
+        for (int i = 1; i < arr.size(); i++) {
+            int num = arr[i];
+            if (num - prev <= nmax) {
+                if (num - prev < nmax) ans.clear();
+                vector<int> item;
+                item.push_back(prev);
+                item.push_back(num);
+                ans.push_back(item);
+                nmax = num - prev;
+            }
+            prev = num;
         }
-      }`,
+        return ans;
+    }
+};`,
     },
   ],
 };
