@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '954. 二倍数对数组',
+  exist: true,
+  name: '307. 区域和检索 - 数组可修改',
   url: 'https://leetcode-cn.com/problems/array-of-doubled-pairs/',
   difficulty: Difficulty.中等,
   tag: [Tag.贪心, Tag.数组, Tag.哈希表, Tag.排序],
@@ -13,33 +13,44 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 100,
-      memory: 56.9,
-      desc: '排序后检查',
-      code: `class Solution {
+      time: 372,
+      memory: 146.4,
+      desc: '树状数组',
+      code: `class FenwickTree {
    public:
-    bool canReorderDoubled(vector<int> &arr) {
-        deque<int> q1, q2;
-        unordered_map<int, int> m;
-        sort(arr.begin(), arr.end());
-        for (auto &num : arr) {
-            m[num]++;
-            if (num >= 0 && (q1.empty() || q1.back() != num))
-                q1.push_back(num);
-            else if (num < 0 && (q2.empty() || q2.front() != num))
-                q2.push_front(num);
+    int n;
+    vector<int> arr;
+    FenwickTree(int n) : n(n + 1), arr(vector<int>(n + 1, 0)) {}
+    int lowbit(int num) { return num & -num; }
+    void add(int idx, int num) {
+        idx += 1;
+        while (idx < n) {
+            arr[idx] += num;
+            idx += lowbit(idx);
         }
-        return check(m, q1) && check(m, q2);
     }
-    bool check(unordered_map<int, int> &m, deque<int> q) {
-        while (q.size()) {
-            int num = q.front();
-            q.pop_front();
-            if (m[num] == 0) continue;
-            if (m[num * 2] < m[num]) return false;
-            m[num * 2] -= m[num];
+    int at(int idx) { return query(idx) - query(idx - 1); }
+    int query(int idx) {
+        idx += 1;
+        int num = 0;
+        while (idx) {
+            num += arr[idx];
+            idx -= lowbit(idx);
         }
-        return true;
+        return num;
+    }
+};
+class NumArray {
+   public:
+    FenwickTree tree;
+    NumArray(vector<int>& nums) : tree(nums.size()) {
+        for (int i = 0; i < nums.size(); i++) {
+            tree.add(i, nums[i]);
+        }
+    }
+    void update(int index, int val) { tree.add(index, val - tree.at(index)); }
+    int sumRange(int left, int right) {
+        return tree.query(right) - tree.query(left - 1);
     }
 };`,
     },
