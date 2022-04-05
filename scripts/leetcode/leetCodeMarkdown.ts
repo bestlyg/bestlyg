@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '307. 区域和检索 - 数组可修改',
+  name: '762. 二进制表示中质数个计算置位',
   url: 'https://leetcode-cn.com/problems/array-of-doubled-pairs/',
   difficulty: Difficulty.中等,
   tag: [Tag.贪心, Tag.数组, Tag.哈希表, Tag.排序],
@@ -13,44 +13,31 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 372,
-      memory: 146.4,
-      desc: '树状数组',
-      code: `class FenwickTree {
+      time: 36,
+      memory: 5.8,
+      desc: '遍历',
+      code: `class Solution {
    public:
-    int n;
-    vector<int> arr;
-    FenwickTree(int n) : n(n + 1), arr(vector<int>(n + 1, 0)) {}
-    int lowbit(int num) { return num & -num; }
-    void add(int idx, int num) {
-        idx += 1;
-        while (idx < n) {
-            arr[idx] += num;
-            idx += lowbit(idx);
+    int countPrimeSetBits(int left, int right) {
+        int ans = 0;
+        for (int i = left; i <= right; i++) {
+            if (is_prime(cnt(i))) ans++;
         }
+        return ans;
     }
-    int at(int idx) { return query(idx) - query(idx - 1); }
-    int query(int idx) {
-        idx += 1;
-        int num = 0;
-        while (idx) {
-            num += arr[idx];
-            idx -= lowbit(idx);
+    int cnt(int num) {
+        int ans = 0;
+        for (; num; num >>= 1) {
+            if ((num & 1) == 1) ans++;
         }
-        return num;
+        return ans;
     }
-};
-class NumArray {
-   public:
-    FenwickTree tree;
-    NumArray(vector<int>& nums) : tree(nums.size()) {
-        for (int i = 0; i < nums.size(); i++) {
-            tree.add(i, nums[i]);
+    bool is_prime(int num) {
+        if (num == 0 || num == 1) return 0;
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) return 0;
         }
-    }
-    void update(int index, int val) { tree.add(index, val - tree.at(index)); }
-    int sumRange(int left, int right) {
-        return tree.query(right) - tree.query(left - 1);
+        return 1;
     }
 };`,
     },
