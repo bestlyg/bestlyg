@@ -4,37 +4,39 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '796. 旋转字符串',
-  url: 'https://leetcode-cn.com/problems/array-of-doubled-pairs/',
+  exist: !true,
+  name: '429. N 叉树的层序遍历',
+  url: 'https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/',
   difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.数组, Tag.哈希表, Tag.排序],
-  desc: `给定一个长度为偶数的整数数组 arr，只有对 arr 进行重组后可以满足 “对于每个 0 <= i < len(arr) / 2，都有 arr[2 * i + 1] = 2 * arr[2 * i]” 时，返回 true；否则，返回 false。`,
+  tag: [Tag.树, Tag.广度优先搜索],
+  desc: `给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6,
-      desc: '遍历',
+      time: 12,
+      memory: 11.5,
+      desc: '层序遍历',
       code: `class Solution {
    public:
-    int n;
-    bool rotateString(string s, string goal) {
-        n = s.size();
-        vector<int> list;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == goal[0]) list.push_back(i);
+    vector<vector<int>> levelOrder(Node *root) {
+        vector<vector<int>> ans;
+        if (!root) return ans;
+        queue<Node *> q;
+        q.push(root);
+        int size = 1;
+        vector<int> cur;
+        while (q.size()) {
+            Node *node = q.front();
+            q.pop();
+            cur.push_back(node->val);
+            for (auto child : node->children) q.push(child);
+            if (--size == 0) {
+                size = q.size();
+                ans.push_back(cur);
+                cur.clear();
+            }
         }
-        for (auto &start : list) {
-            if (check(s, goal, start)) return true;
-        }
-        return false;
-    }
-    bool check(string &s, string &goal, int start) {
-        for (int i = 0; i < n; i++, start = (start + 1) % n) {
-            if (s[start] != goal[i]) return false;
-        }
-        return true;
+        return ans;
     }
 };`,
     },
