@@ -5,38 +5,28 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '429. N 叉树的层序遍历',
-  url: 'https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.广度优先搜索],
-  desc: `给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。`,
+  name: '780. 到达终点',
+  url: 'https://leetcode-cn.com/problems/reaching-points/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数学],
+  desc: `给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 11.5,
-      desc: '层序遍历',
+      time: 0,
+      memory: 5.7,
+      desc: '从目标节点减至初始节点的方法只有一种',
       code: `class Solution {
    public:
-    vector<vector<int>> levelOrder(Node *root) {
-        vector<vector<int>> ans;
-        if (!root) return ans;
-        queue<Node *> q;
-        q.push(root);
-        int size = 1;
-        vector<int> cur;
-        while (q.size()) {
-            Node *node = q.front();
-            q.pop();
-            cur.push_back(node->val);
-            for (auto child : node->children) q.push(child);
-            if (--size == 0) {
-                size = q.size();
-                ans.push_back(cur);
-                cur.clear();
-            }
+    bool reachingPoints(int sx, int sy, int tx, int ty) {
+        while (tx > 0 && ty > 0) {
+            if (tx == sx && ty == sy) return true;
+            if (tx >= ty)
+                tx -= max((tx - sx) / ty, 1) * ty;
+            else
+                ty -= max((ty - sy) / tx, 1) * tx;
         }
-        return ans;
+        return false;
     }
 };`,
     },
