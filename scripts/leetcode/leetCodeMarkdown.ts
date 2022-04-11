@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '780. 到达终点',
+  exist: true,
+  name: '357. 统计各位数字都不同的数字个数',
   url: 'https://leetcode-cn.com/problems/reaching-points/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -14,19 +14,19 @@ const leetCodeMarkdown: Markdown = {
     {
       script: Script.CPP,
       time: 0,
-      memory: 5.7,
-      desc: '从目标节点减至初始节点的方法只有一种',
+      memory: 5.9,
+      desc: '遍历统计每种情况的可能数量',
       code: `class Solution {
    public:
-    bool reachingPoints(int sx, int sy, int tx, int ty) {
-        while (tx > 0 && ty > 0) {
-            if (tx == sx && ty == sy) return true;
-            if (tx >= ty)
-                tx -= max((tx - sx) / ty, 1) * ty;
-            else
-                ty -= max((ty - sy) / tx, 1) * tx;
+    int countNumbersWithUniqueDigits(int n) {
+        if (n == 0) return 1;
+        if (n == 1) return 10;
+        int ans = 10, num = 9;
+        for (int i = 2, cur = 9; i <= n; i++, cur--) {
+            num *= cur;
+            ans += num;
         }
-        return false;
+        return ans;
     }
 };`,
     },
