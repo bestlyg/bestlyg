@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '357. 统计各位数字都不同的数字个数',
+  name: '806. 写字符串需要的行数',
   url: 'https://leetcode-cn.com/problems/reaching-points/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -14,19 +14,21 @@ const leetCodeMarkdown: Markdown = {
     {
       script: Script.CPP,
       time: 0,
-      memory: 5.9,
-      desc: '遍历统计每种情况的可能数量',
+      memory: 6.8,
+      desc: '遍历',
       code: `class Solution {
-   public:
-    int countNumbersWithUniqueDigits(int n) {
-        if (n == 0) return 1;
-        if (n == 1) return 10;
-        int ans = 10, num = 9;
-        for (int i = 2, cur = 9; i <= n; i++, cur--) {
-            num *= cur;
-            ans += num;
+public:
+    vector<int> numberOfLines(vector<int>& widths, string s) {
+        int surplus = 100, line = 1;
+        for (auto &ch : s) {
+            int cnt = widths[ch - 'a'];
+            if (cnt > surplus) {
+                surplus = 100; 
+                line++;
+            }
+            surplus -= cnt;
         }
-        return ans;
+        return {line, 100 - surplus};
     }
 };`,
     },
