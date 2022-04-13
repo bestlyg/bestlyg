@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '806. 写字符串需要的行数',
+  name: '380. O(1) 时间插入、删除和获取随机元素',
   url: 'https://leetcode-cn.com/problems/reaching-points/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -13,22 +13,32 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.8,
-      desc: '遍历',
-      code: `class Solution {
-public:
-    vector<int> numberOfLines(vector<int>& widths, string s) {
-        int surplus = 100, line = 1;
-        for (auto &ch : s) {
-            int cnt = widths[ch - 'a'];
-            if (cnt > surplus) {
-                surplus = 100; 
-                line++;
-            }
-            surplus -= cnt;
-        }
-        return {line, 100 - surplus};
+      time: 188,
+      memory: 94.7,
+      desc: '利用队列末尾增删O1来维护时间复杂度',
+      code: `class RandomizedSet {
+   public:
+    vector<int> list;
+    unordered_map<int, int> m;
+    RandomizedSet() { srand((int)time(0)); }
+    bool insert(int val) {
+        if (m.count(val)) return false;
+        m[val] = list.size();
+        list.push_back(val);
+        return true;
+    }
+    bool remove(int val) {
+        if (!m.count(val)) return false;
+        int idx = m[val], last_idx = list.size() - 1;
+        m[list[last_idx]] = idx;
+        swap(list[idx], list[last_idx]);
+        list.pop_back();
+        m.erase(val);
+        return true;
+    }
+    int getRandom() {
+        int idx = random() % list.size();
+        return list[idx];
     }
 };`,
     },
