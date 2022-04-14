@@ -4,41 +4,29 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '380. O(1) 时间插入、删除和获取随机元素',
-  url: 'https://leetcode-cn.com/problems/reaching-points/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数学],
-  desc: `给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。`,
+  exist: !true,
+  name: '1672. 最富有客户的资产总量',
+  url: 'https://leetcode-cn.com/problems/richest-customer-wealth/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.矩阵],
+  desc: `客户的 资产总量 就是他们在各家银行托管的资产数量之和。最富有客户就是 资产总量 最大的客户。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 188,
-      memory: 94.7,
-      desc: '利用队列末尾增删O1来维护时间复杂度',
-      code: `class RandomizedSet {
+      time: 4,
+      memory: 7.5,
+      desc: '遍历',
+      code: `class Solution {
    public:
-    vector<int> list;
-    unordered_map<int, int> m;
-    RandomizedSet() { srand((int)time(0)); }
-    bool insert(int val) {
-        if (m.count(val)) return false;
-        m[val] = list.size();
-        list.push_back(val);
-        return true;
-    }
-    bool remove(int val) {
-        if (!m.count(val)) return false;
-        int idx = m[val], last_idx = list.size() - 1;
-        m[list[last_idx]] = idx;
-        swap(list[idx], list[last_idx]);
-        list.pop_back();
-        m.erase(val);
-        return true;
-    }
-    int getRandom() {
-        int idx = random() % list.size();
-        return list[idx];
+    int maximumWealth(vector<vector<int>> &accounts) {
+        int ans = -1;
+        ;
+        for (auto &account : accounts) {
+            int sum = 0;
+            for (auto &data : account) sum += data;
+            ans = max(ans, sum);
+        }
+        return ans;
     }
 };`,
     },
