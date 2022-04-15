@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1672. 最富有客户的资产总量',
+  exist: true,
+  name: '385. 迷你语法分析器',
   url: 'https://leetcode-cn.com/problems/richest-customer-wealth/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.矩阵],
@@ -13,20 +13,33 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 7.5,
-      desc: '遍历',
+      time: 8,
+      memory: 12.3,
+      desc: '递归遍历',
       code: `class Solution {
    public:
-    int maximumWealth(vector<vector<int>> &accounts) {
-        int ans = -1;
-        ;
-        for (auto &account : accounts) {
-            int sum = 0;
-            for (auto &data : account) sum += data;
-            ans = max(ans, sum);
+    NestedInteger deserialize(string s) {
+        NestedInteger res;
+        if (s == "[]")
+            return res;
+        else if (s[0] == '[')
+            split(res, s.substr(1, s.size() - 2));
+        else
+            res.setInteger(stoi(s));
+        return res;
+    }
+    void split(NestedInteger &obj, string s) {
+        int level = 0, start = 0, n = s.size();
+        for (int i = 0; i < n; i++) {
+            char ch = s[i];
+            if (ch == '[')
+                level++;
+            else if (ch == ']')
+                level--;
+            else if (ch == ',' && level == 0)
+                obj.add(deserialize(s.substr(start, i - start))), start = i + 1;
         }
-        return ans;
+        obj.add(deserialize(s.substr(start, n - start)));
     }
 };`,
     },
