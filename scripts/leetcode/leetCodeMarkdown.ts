@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '819. 最常见的单词',
+  name: '386. 字典序排数',
   url: 'https://leetcode-cn.com/problems/largest-palindrome-product/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -13,27 +13,41 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 7.6,
+      time: 12,
+      memory: 11.2,
+      desc: 'dfs',
+      code: `class Solution {
+   public:
+    vector<int> lexicalOrder(int n) {
+        vector<int> ans;
+        for (int i = 1; i <= 9; i++) dfs(ans, n, i);
+        return ans;
+    }
+    void dfs(vector<int> &ans, int &n, int num) {
+        if (num > n) return;
+        ans.push_back(num);
+        for (int i = 0; i <= 9; i++) dfs(ans, n, num * 10 + i);
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 8,
+      memory: 10.2,
       desc: '遍历',
       code: `class Solution {
    public:
-    string mostCommonWord(string paragraph, vector<string>& banned) {
-        int n = paragraph.size();
-        string ans = "";
-        unordered_map<string, int> m;
-        unordered_set<string> s;
-        for (auto& str : banned) s.insert(str);
+    vector<int> lexicalOrder(int n) {
+        vector<int> ans(n);
+        int num = 1;
         for (int i = 0; i < n; i++) {
-            while (i < n && !isalpha(paragraph[i])) i++;
-            if (i == n) break;
-            int end = i;
-            string next = "";
-            do {
-                next += tolower(paragraph[end++]);
-            } while (end < n && isalpha(paragraph[end]));
-            if (!s.count(next) && m[ans] < ++m[next]) ans = next;
-            i = end;
+            ans[i] = num;
+            if (num * 10 <= n)
+                num *= 10;
+            else {
+                while (num % 10 == 9 || num + 1 > n) num /= 10;
+                num++;
+            }
         }
         return ans;
     }
