@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '386. 字典序排数',
+  name: '821. 字符的最短距离',
   url: 'https://leetcode-cn.com/problems/largest-palindrome-product/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -13,43 +13,35 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 11.2,
-      desc: 'dfs',
+      time: 4,
+      memory: 6.6,
+      desc: 'bfs',
       code: `class Solution {
    public:
-    vector<int> lexicalOrder(int n) {
-        vector<int> ans;
-        for (int i = 1; i <= 9; i++) dfs(ans, n, i);
-        return ans;
-    }
-    void dfs(vector<int> &ans, int &n, int num) {
-        if (num > n) return;
-        ans.push_back(num);
-        for (int i = 0; i <= 9; i++) dfs(ans, n, num * 10 + i);
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 8,
-      memory: 10.2,
-      desc: '遍历',
-      code: `class Solution {
-   public:
-    vector<int> lexicalOrder(int n) {
-        vector<int> ans(n);
-        int num = 1;
+    vector<int> shortestToChar(string s, char c) {
+        int n = s.size();
+        vector<int> check(n, -1);
+        queue<pair<int, int>> q;
         for (int i = 0; i < n; i++) {
-            ans[i] = num;
-            if (num * 10 <= n)
-                num *= 10;
-            else {
-                while (num % 10 == 9 || num + 1 > n) num /= 10;
-                num++;
+            if (s[i] == c) {
+                q.push(make_pair(i, 0));
+                check[i] = 0;
             }
         }
-        return ans;
+        while (q.size()) {
+            pair<int, int> item = q.front();
+            q.pop();
+            int row = item.first, cnt = item.second;
+            if (row < n - 1 && check[row + 1] == -1) {
+                q.push(make_pair(row + 1, cnt + 1));
+                check[row + 1] = cnt + 1;
+            }
+            if (row > 0 && check[row - 1] == -1) {
+                q.push(make_pair(row - 1, cnt + 1));
+                check[row - 1] = cnt + 1;
+            }
+        }
+        return check;
     }
 };`,
     },
