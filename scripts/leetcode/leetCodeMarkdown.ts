@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '821. 字符的最短距离',
+  name: '388. 文件的最长绝对路径',
   url: 'https://leetcode-cn.com/problems/largest-palindrome-product/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学],
@@ -13,35 +13,30 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 6.6,
-      desc: 'bfs',
+      time: 0,
+      memory: 6.4,
+      desc: '栈',
       code: `class Solution {
    public:
-    vector<int> shortestToChar(string s, char c) {
-        int n = s.size();
-        vector<int> check(n, -1);
-        queue<pair<int, int>> q;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == c) {
-                q.push(make_pair(i, 0));
-                check[i] = 0;
-            }
+    int lengthLongestPath(string input) {
+        vector<string> s;
+        istringstream iss(input);
+        string tmp;
+        int ans = 0;
+        while (getline(iss, tmp, '\n')) {
+            int idx = 0;
+            while (idx < tmp.size() && tmp[idx] == '\t') idx++;
+            while (s.size() && s.size() > idx) s.pop_back();
+            string next = tmp.substr(idx, tmp.size() - idx);
+            s.push_back(next);
+            if (next.rfind(".") < next.size()) ans = max(ans, format(s));
         }
-        while (q.size()) {
-            pair<int, int> item = q.front();
-            q.pop();
-            int row = item.first, cnt = item.second;
-            if (row < n - 1 && check[row + 1] == -1) {
-                q.push(make_pair(row + 1, cnt + 1));
-                check[row + 1] = cnt + 1;
-            }
-            if (row > 0 && check[row - 1] == -1) {
-                q.push(make_pair(row - 1, cnt + 1));
-                check[row - 1] = cnt + 1;
-            }
-        }
-        return check;
+        return ans;
+    }
+    int format(vector<string> &s) {
+        int res = s.size() - 1;
+        for (auto &str : s) res += str.size();
+        return res;
     }
 };`,
     },
