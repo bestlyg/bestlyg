@@ -4,39 +4,30 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '388. 文件的最长绝对路径',
-  url: 'https://leetcode-cn.com/problems/largest-palindrome-product/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数学],
-  desc: `给定一个整数 n ，返回 可表示为两个 n 位整数乘积的 最大回文整数 。因为答案可能非常大，所以返回它对 1337 取余 。  `,
+  exist: !true,
+  name: '396. 旋转函数',
+  url: 'https://leetcode-cn.com/problems/rotate-function/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.数学, Tag.动态规划],
+  desc: `返回 F(0), F(1), ..., F(n-1)中的最大值 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.4,
-      desc: '栈',
+      time: 140,
+      memory: 93.6,
+      desc: '每一次的值可以从上一次推导过来f(n) = f(n-1) + sum - n * nums[i]',
       code: `class Solution {
    public:
-    int lengthLongestPath(string input) {
-        vector<string> s;
-        istringstream iss(input);
-        string tmp;
-        int ans = 0;
-        while (getline(iss, tmp, '\n')) {
-            int idx = 0;
-            while (idx < tmp.size() && tmp[idx] == '\t') idx++;
-            while (s.size() && s.size() > idx) s.pop_back();
-            string next = tmp.substr(idx, tmp.size() - idx);
-            s.push_back(next);
-            if (next.rfind(".") < next.size()) ans = max(ans, format(s));
+    int maxRotateFunction(vector<int>& nums) {
+        int sum = 0, prev = 0, n = nums.size();
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            prev += nums[i] * i;
         }
+        int ans = prev;
+        for (int i = n - 1; i > 0; i--, ans = max(ans, prev))
+            prev = prev + sum - n * nums[i];
         return ans;
-    }
-    int format(vector<string> &s) {
-        int res = s.size() - 1;
-        for (auto &str : s) res += str.size();
-        return res;
     }
 };`,
     },
