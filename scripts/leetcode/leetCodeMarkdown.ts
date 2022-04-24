@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '587. 安装栅栏',
+  exist: true,
+  name: '868. 二进制间距',
   url: 'https://leetcode-cn.com/problems/erect-the-fence/',
   difficulty: Difficulty.困难,
   tag: [Tag.几何, Tag.数组, Tag.数学],
@@ -13,52 +13,19 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 32,
-      memory: 19.3,
-      desc: 'andrew凸包算法',
-      code: `class Solution {
-   public:
-    int cross(vector<int> &a, vector<int> &b, vector<int> &c) {
-        int x1 = a[0] - b[0], y1 = a[1] - b[1];
-        int x2 = c[0] - b[0], y2 = c[1] - b[1];
-        return x1 * y2 - x2 * y1;
+      time: 0,
+      memory: 5.3,
+      desc: '遍历',
+      code: `int binaryGap(int n) {
+    int prev = -1, ans = 0;
+    for (int i = 0; n; i++, n >>= 1) {
+        int bit = n & 1;
+        if (bit == 0) continue;
+        if (prev != -1) ans = fmax(ans, i - prev);
+        prev = i;
     }
-    vector<vector<int>> outerTrees(vector<vector<int>> &trees) {
-        int n = trees.size();
-        if (n <= 3) return trees;
-        sort(trees.begin(), trees.end(),
-             [&](vector<int> &a, vector<int> &b) -> bool {
-                 if (a[0] == b[0]) return a[1] < b[1];
-                 return a[0] < b[0];
-             });
-        vector<int> list, used(n, 0);
-        for (int i = 0; i < n; i++) {
-            while (list.size() > 1 &&
-                   cross(trees[list[list.size() - 2]],
-                         trees[list[list.size() - 1]], trees[i]) < 0) {
-                used[list.back()] = 0;
-                list.pop_back();
-            }
-            list.push_back(i);
-            used[i] = 1;
-        }
-        int size = list.size();
-        used[0] = 0;
-        for (int i = n - 2; i >= 0; i--) {
-            if (used[i]) continue;
-            while (list.size() > size &&
-                   cross(trees[list[list.size() - 2]],
-                         trees[list[list.size() - 1]], trees[i]) < 0) {
-                list.pop_back();
-            }
-            list.push_back(i);
-        }
-        list.pop_back();
-        vector<vector<int>> ans;
-        for (auto &idx : list) ans.emplace_back(trees[idx]);
-        return ans;
-    }
-};`,
+    return ans;
+}`,
     },
   ],
 };
