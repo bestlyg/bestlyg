@@ -1,8 +1,6 @@
-const tmplate = `
-setTimeout(()=>{
-throw new Error('');
-},1000);
-for(let i = 0; i < 10; i++) {
-}
-`;
-// eval(tmplate);
+let a = 1,
+  b = 2;
+const arr1 = [3, 4, 5];
+const arr2 = [a, b, ...arr1];
+[a, b] = arr1;
+console.log(a, b, arr2);
