@@ -98,6 +98,7 @@ export enum Script {
   C = 'c',
   CPP = 'cpp',
   JAVA = 'java',
+  GO = 'go',
 }
 export enum Type {
   NUMBER,

@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '417. 太平洋大西洋水流问题',
+  exist: true,
+  name: '905. 按奇偶排序数组',
   url: 'https://leetcode-cn.com/problems/pacific-atlantic-water-flow/',
   difficulty: Difficulty.中等,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.数组, Tag.矩阵],
@@ -13,52 +13,22 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 28,
-      memory: 18,
-      desc: 'dfs，上山',
-      code: `int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-class Solution {
-   public:
-    int n, m;
-    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        n = heights.size(), m = heights[0].size();
-        vector<vector<int>> arr(n, vector(m, 0));
-        for (int row = 0; row < n; row++) {
-            arr[row][0] |= 0b01;
-            arr[row][m - 1] |= 0b10;
-            dfs(row, 0, arr, heights);
-            dfs(row, m - 1, arr, heights);
+      time: 4,
+      memory: 4.6,
+      desc: '双指针',
+      code: `func sortArrayByParity(nums []int) []int {
+    var i1, i2 = 0, len(nums) - 1
+    for i1 < i2 {
+        for i1 < i2 && nums[i1]&1 == 0 {
+            i1 += 1
         }
-        for (int col = 0; col < m; col++) {
-            arr[0][col] |= 0b01;
-            arr[n - 1][col] |= 0b10;
-            dfs(0, col, arr, heights);
-            dfs(n - 1, col, arr, heights);
+        for i1 < i2 && nums[i2]&1 == 1 {
+            i2 -= 1
         }
-        vector<vector<int>> ans;
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < m; col++) {
-                if (arr[row][col] != 0b11) continue;
-                vector<int> item(2);
-                item[0] = row;
-                item[1] = col;
-                ans.push_back(item);
-            }
-        }
-        return ans;
+        nums[i1], nums[i2] = nums[i2], nums[i1]
     }
-    void dfs(int row, int col, vector<vector<int>>& arr,
-             vector<vector<int>>& heights) {
-        for (int i = 0; i < 4; i++) {
-            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];
-            if (nrow < 0 || ncol < 0 || nrow == n || ncol == m) continue;
-            if (heights[nrow][ncol] < heights[row][col]) continue;
-            if (arr[row][col] == arr[nrow][ncol]) continue;
-            arr[nrow][ncol] |= arr[row][col];
-            dfs(nrow, ncol, arr, heights);
-        }
-    }
-};`,
+    return nums
+}`,
     },
   ],
 };
