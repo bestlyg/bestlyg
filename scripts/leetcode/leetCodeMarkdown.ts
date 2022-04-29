@@ -4,7 +4,7 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
+  exist: true,
   name: '427. 建立四叉树',
   url: 'https://leetcode-cn.com/problems/construct-quad-tree/',
   difficulty: Difficulty.中等,
@@ -13,54 +13,31 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 23.7,
-      desc: 'dfs',
-      code: `class Solution {
-   public:
-    Node *construct(vector<vector<int>> &grid) {
-        int n = grid.size(), check;
-        return dfs(grid, 0, n - 1, 0, n - 1, &check);
-    }
-    Node *dfs(vector<vector<int>> &grid, int srow, int erow, int scol, int ecol,
-              int *check) {
-        if (srow == erow && scol == ecol) {
-            *check = 1;
-            return getNode(grid[srow][scol], true);
+      time: 12,
+      memory: 6.5,
+      desc: '递归看是否成树',
+      code: `func construct(grid [][]int) *Node {
+    n := len(grid)
+    return dfs(grid, 0, n-1, 0, n-1)
+}
+func dfs(grid [][]int, srow, erow, scol, ecol int) *Node {
+    mrow, mcol := (srow+erow)>>1, (scol+ecol)>>1
+    for i := srow; i <= erow; i++ {
+        for j := scol; j <= ecol; j++ {
+            if grid[i][j] != grid[srow][scol] {
+                return &Node{
+                    Val:         false,
+                    IsLeaf:      false,
+                    TopLeft:     dfs(grid, srow, mrow, scol, mcol),
+                    TopRight:    dfs(grid, srow, mrow, mcol+1, ecol),
+                    BottomLeft:  dfs(grid, mrow+1, erow, scol, mcol),
+                    BottomRight: dfs(grid, mrow+1, erow, mcol+1, ecol),
+                }
+            }
         }
-        int mrow = (erow + srow) >> 1, mcol = (ecol + scol) >> 1;
-        int checkTL, checkTR, checkBL, checkBR;
-        Node *tl = dfs(grid, srow, mrow, scol, mcol, &checkTL),
-             *tr = dfs(grid, srow, mrow, mcol + 1, ecol, &checkTR),
-             *bl = dfs(grid, mrow + 1, erow, scol, mcol, &checkBL),
-             *br = dfs(grid, mrow + 1, erow, mcol + 1, ecol, &checkBR);
-        if (tl->val == tr->val && tl->val == bl->val && tl->val == br->val &&
-            checkTL & checkTR & checkBL & checkBR) {
-            *check = 1;
-            int val = tl->val;
-            free(tl);
-            free(tr);
-            free(bl);
-            free(br);
-            return getNode(val, true);
-        }
-        Node *node = getNode(tl->val ^ tr->val ^ bl->val ^ br->val, false);
-        *check = 0;
-        node->topLeft = tl;
-        node->topRight = tr;
-        node->bottomLeft = bl;
-        node->bottomRight = br;
-        return node;
     }
-    Node *getNode(bool val, bool isLeaf) {
-        Node *node = (Node *)malloc(sizeof(Node));
-        node->isLeaf = isLeaf;
-        node->val = val;
-        node->topLeft = node->topRight = node->bottomLeft = node->bottomRight =
-            nullptr;
-        return node;
-    }
-};`,
+    return &Node{Val: grid[srow][scol] == 1, IsLeaf: true}
+}`,
     },
   ],
 };
