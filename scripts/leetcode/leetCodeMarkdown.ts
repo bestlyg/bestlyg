@@ -5,38 +5,46 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '427. 建立四叉树',
+  name: '908. 最小差值 I',
   url: 'https://leetcode-cn.com/problems/construct-quad-tree/',
   difficulty: Difficulty.中等,
   tag: [Tag.树, Tag.数组, Tag.分治, Tag.矩阵],
   desc: `你需要返回能表示矩阵的 四叉树 的根结点。`,
   solutions: [
     {
-      script: Script.CPP,
+      script: Script.GO,
       time: 12,
-      memory: 6.5,
-      desc: '递归看是否成树',
-      code: `func construct(grid [][]int) *Node {
-    n := len(grid)
-    return dfs(grid, 0, n-1, 0, n-1)
-}
-func dfs(grid [][]int, srow, erow, scol, ecol int) *Node {
-    mrow, mcol := (srow+erow)>>1, (scol+ecol)>>1
-    for i := srow; i <= erow; i++ {
-        for j := scol; j <= ecol; j++ {
-            if grid[i][j] != grid[srow][scol] {
-                return &Node{
-                    Val:         false,
-                    IsLeaf:      false,
-                    TopLeft:     dfs(grid, srow, mrow, scol, mcol),
-                    TopRight:    dfs(grid, srow, mrow, mcol+1, ecol),
-                    BottomLeft:  dfs(grid, mrow+1, erow, scol, mcol),
-                    BottomRight: dfs(grid, mrow+1, erow, mcol+1, ecol),
-                }
-            }
-        }
+      memory: 5.9,
+      desc: '查看最大最小值',
+      code: `func smallestRangeI(nums []int, k int) int {
+  n := len(nums)
+  if n == 1 {
+    return 0
+  }
+  var (
+    min = nums[0]
+    max = nums[0]
+  )
+  for _, val := range nums {
+    if min > val {
+      min = val
     }
-    return &Node{Val: grid[srow][scol] == 1, IsLeaf: true}
+    if max < val {
+      max = val
+    }
+  }
+  mid := (min + max) >> 1
+  if mid-min <= k {
+    min = mid
+  } else {
+    min += k
+  }
+  if max-mid <= k {
+    max = mid
+  } else {
+    max -= k
+  }
+  return max - min
 }`,
     },
   ],
