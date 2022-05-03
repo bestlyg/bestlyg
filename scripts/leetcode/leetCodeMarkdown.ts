@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '591. 标签验证器',
+  exist: true,
+  name: '937. 重新排列日志文件',
   url: 'https://leetcode-cn.com/problems/tag-validator/',
   difficulty: Difficulty.困难,
   tag: [Tag.栈, Tag.字符串],
@@ -13,148 +13,72 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.5,
-      desc: '栈存每一层，再遍历字符串',
-      code: `#ifdef DEBUG
-#define log(fmt, args...) \\
-    { printf(fmt, ##args); }
-#else
-#define log(fmt, args...)
-#endif
-class Solution {
-   public:
-    int i = 0, n;
-    bool check = true;
-    stack<string> s;
-    string code;
-    bool isValid(string code) {
-        this->code = code;
-        n = code.size();
-        log("n = %d\\n", n);
-        // 最外层一定要是tag
-        if (code[0] != '<' || code[n - 1] != '>') return false;
-        while (i < n) {
-            // 检测tag开始
-            if (code[i] == '<') {
-                // 检测CDATA
-                if (i + 1 < n && code[i + 1] == '!') {
-                    // CDATA一定要在tag里
-                    if (s.empty()) return false;
-                    analysisCDATATag();
-                    log("end analysisCDATATag : i = %d\\n", i);
-                    if (!check) return false;
-                } else {
-                    // 检测tag
-                    analysisTag();
-                    log("end analysisTag : i = %d\\n", i);
-                    // 如果栈空了，但检测没结束，就有问题
-                    if (!check || s.empty() && i != n) return false;
+      time: 4,
+      memory: 4.6,
+      desc: '分割字符串，排序',
+      code: `type Item struct {
+    raw   []string
+    state int
+    idx   int
+}
+
+func reorderLogFiles(logs []string) []string {
+    n := len(logs)
+    list := make([]Item, n)
+    for i := 0; i < n; i++ {
+        list[i] = toItem(logs[i], i)
+    }
+    sort.Slice(list, func(i, j int) bool {
+        if list[i].state == 0 && list[j].state == 0 {
+            return list[i].idx < list[j].idx
+        } else if list[i].state == 0 && list[j].state == 1 {
+            return false
+        } else if list[i].state == 1 && list[j].state == 0 {
+            return true
+        } else {
+            idx := 1
+            for ; idx < len(list[i].raw) && idx < len(list[j].raw); idx++ {
+                comp := strings.Compare(list[i].raw[idx], list[j].raw[idx])
+                if comp < 0 {
+                    return true
+                } else if comp > 0 {
+                    return false
                 }
             }
-            // 直接到下一个<
-            while (i < n && code[i] != '<') i++;
-        }
-        log("end check");
-        // 最后看看是不是栈空
-        return s.empty();
-    }
-    void analysisTag() {
-        // 先拿到结尾下标
-        int end = i;
-        while (end < n && code[end] != '>') end++;
-        // 没结尾就不对了
-        if (end == n) {
-            check = false;
-            return;
-        }
-        // 看看是endTag还是startTag
-        if (i + 1 < n && code[i + 1] == '/') {
-            // endTag先过滤斜线
-            i += 1;
-            string tag = analysisCommonTag(end);
-            // 跳跃
-            i = end + 1;
-            // 如果tag解析不出来就不对了
-            if (tag != "") {
-                log("find end  tag : %s\\n", tag.data());
-                // 如果endTag解析出来了但栈空或栈顶没匹配的也不对
-                if (s.empty() || s.top() != tag) check = false;
-                // 对了就出栈
-                else
-                    s.pop();
-                return;
-            } else
-                check = false;
-        } else {
-            // 解析startTag
-            string tag = analysisCommonTag(end);
-            i = end + 1;
-            if (tag != "") {
-                log("find start tag : %s\\n", tag.data());
-                // 对了就入栈
-                s.push(tag);
-                return;
-            } else
-                check = false;
-        }
-    }
-    string analysisCommonTag(int end) {
-        string ans = "";
-        // 长度 [1, 9]
-        if (end == i + 1 || end - i - 1 > 9) return "";
-        // 都是大写字符
-        for (int start = i + 1; start < end; start++) {
-            if (!isupper(code[start])) return "";
-            ans += code[start];
-        }
-        return ans;
-    }
-    string startWith_cdata = "<![CDATA[";
-    string endWith_cdata = "]]>";
-    void analysisCDATATag() {
-        log("anasysisCDATATAG, i = %d\\n", i);
-        // 先看看能不能匹配开始标记
-        int start = i, startMatchCnt = 0;
-        while (start < n && startMatchCnt != startWith_cdata.size()) {
-            if (code[start] == startWith_cdata[startMatchCnt])
-                startMatchCnt++;
-            else
-                break;
-            start++;
-        }
-        // 匹配不上就错了
-        if (start == n || startMatchCnt != startWith_cdata.size()) {
-            check = false;
-            return;
-        }
-        // 再看看能不能匹配结束标记
-        log("find start = %d\\n", start);
-        int end = start, endMatchCnt = 0;
-        // 一直循环找]开头的进行尝试
-        while (true) {
-            endMatchCnt = 0;
-            while (end < n && code[end] != endWith_cdata[0]) end++;
-            while (end < n && endMatchCnt != endWith_cdata.size()) {
-                if (code[end] == endWith_cdata[endMatchCnt])
-                    endMatchCnt++;
-                else
-                    break;
-                end++;
+            if idx != len(list[i].raw) {
+                return false
+            } else if idx != len(list[j].raw) {
+                return true
+            } else {
+                return strings.Compare(list[i].raw[0], list[j].raw[0]) < 0
             }
-            log("end = %d\\n", end);
-            if (end == n || endMatchCnt == endWith_cdata.size()) break;
+
         }
-        // 匹配不上就错了
-        // 匹配上就跳跃了
-        if (end == n) {
-            check = false;
-        } else {
-            log("find cdata tag : start = %d, end = %d\\n", start, end);
-            i = end;
+    })
+    ans := make([]string, n)
+    for i, val := range list {
+        ans[i] = logs[val.idx]
+    }
+    return ans
+}
+func toItem(log string, i int) Item {
+    item := Item{}
+    item.idx = i
+    item.raw = strings.Split(log, " ")
+    var flag bool = true
+    for _, val := range item.raw[1] {
+        if !unicode.IsDigit(val) {
+            flag = false
+            break
         }
     }
-};`,
+    if flag {
+        item.state = 0
+    } else {
+        item.state = 1
+    }
+    return item
+}`,
     },
   ],
 };
