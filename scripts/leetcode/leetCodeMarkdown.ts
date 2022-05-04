@@ -4,80 +4,50 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '937. 重新排列日志文件',
-  url: 'https://leetcode-cn.com/problems/tag-validator/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.栈, Tag.字符串],
-  desc: `给定一个表示代码片段的字符串，你需要实现一个验证器来解析这段代码，并返回它是否合法。`,
+  exist: !true,
+  name: '1823. 找出游戏的获胜者',
+  url: 'https://leetcode-cn.com/problems/find-the-winner-of-the-circular-game/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.递归, Tag.队列, Tag.数组, Tag.数学, Tag.模拟],
+  desc: `给你参与游戏的小伙伴总数 n ，和一个整数 k ，返回游戏的获胜者。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 4.6,
-      desc: '分割字符串，排序',
-      code: `type Item struct {
-    raw   []string
-    state int
-    idx   int
-}
-
-func reorderLogFiles(logs []string) []string {
-    n := len(logs)
-    list := make([]Item, n)
+      time: 0,
+      memory: 5.4,
+      desc: '遍历',
+      code: `int findTheWinner(int n, int k) {
+    int list[n], current = n - 1;
+    for (int i = 0; i < n; i++) list[i] = i + 1;
+    list[n - 1] = 0;
+    for (int jump = 0; n > 1; n--) {
+        jump = (k - 1) % n;
+        while (jump > 0) current = list[current], jump--;
+        list[current] = list[list[current]];
+    }
+    return current + 1;
+}`,
+    },
+    {
+      script: Script.GO,
+      time: 0,
+      memory: 1.9,
+      desc: '遍历',
+      code: `func findTheWinner(n int, k int) int {
+    list := make([]int, n)
     for i := 0; i < n; i++ {
-        list[i] = toItem(logs[i], i)
+        list[i] = i + 1
     }
-    sort.Slice(list, func(i, j int) bool {
-        if list[i].state == 0 && list[j].state == 0 {
-            return list[i].idx < list[j].idx
-        } else if list[i].state == 0 && list[j].state == 1 {
-            return false
-        } else if list[i].state == 1 && list[j].state == 0 {
-            return true
-        } else {
-            idx := 1
-            for ; idx < len(list[i].raw) && idx < len(list[j].raw); idx++ {
-                comp := strings.Compare(list[i].raw[idx], list[j].raw[idx])
-                if comp < 0 {
-                    return true
-                } else if comp > 0 {
-                    return false
-                }
-            }
-            if idx != len(list[i].raw) {
-                return false
-            } else if idx != len(list[j].raw) {
-                return true
-            } else {
-                return strings.Compare(list[i].raw[0], list[j].raw[0]) < 0
-            }
-
+    list[n-1] = 0
+    current := n - 1
+    for jump := 0; n > 1; n-- {
+        jump = (k - 1) % n
+        for ; jump > 0; jump-- {
+            current = list[current]
         }
-    })
-    ans := make([]string, n)
-    for i, val := range list {
-        ans[i] = logs[val.idx]
+        list[current] = list[list[current]]
     }
-    return ans
-}
-func toItem(log string, i int) Item {
-    item := Item{}
-    item.idx = i
-    item.raw = strings.Split(log, " ")
-    var flag bool = true
-    for _, val := range item.raw[1] {
-        if !unicode.IsDigit(val) {
-            flag = false
-            break
-        }
-    }
-    if flag {
-        item.state = 0
-    } else {
-        item.state = 1
-    }
-    return item
+    return current + 1
 }`,
     },
   ],
