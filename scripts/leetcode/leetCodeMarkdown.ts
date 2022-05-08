@@ -5,46 +5,67 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '433. 最小基因变化',
-  url: 'https://leetcode-cn.com/problems/minimum-genetic-mutation/',
+  name: '442. 数组中重复的数据',
+  url: 'https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/',
   difficulty: Difficulty.中等,
-  tag: [Tag.广度优先搜索, Tag.哈希表, Tag.字符串],
-  desc: `给你两个基因序列 start 和 end ，以及一个基因库 bank ，请你找出并返回能够使 start 变化为 end 所需的最少变化次数。如果无法完成此基因变化，返回 -1 。`,
+  tag: [Tag.数组, Tag.哈希表],
+  desc: `给你一个长度为 n 的整数数组 nums ，其中 nums 的所有整数都在范围 [1, n] 内，且每个整数出现 一次 或 两次 。请你找出所有出现 两次 的整数，并以数组形式返回。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.4,
-      desc: 'bfs',
+      time: 80,
+      memory: 43.5,
+      desc: '哈希存储',
       code: `class Solution {
-public:
-    int minMutation(string start, string end, vector<string>& bank) {
-        unordered_set<string> s;
-        for (auto &v : bank) s.insert(v);
-        queue<string> q;
-        q.push(start);
-        int level = 0, size = 1;
-        while (q.size()) {
-            string cur = q.front(); q.pop();
-            if (cur == end) return level;
-            for (auto &s : next(s, cur)) q.push(s);
-            if (--size == 0) { size = q.size(); level++; }
+   public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        unordered_set<int> s;
+        vector<int> ans;
+        for (auto& num : nums) {
+            if (s.count(num))
+                ans.push_back(num);
+            else
+                s.insert(num);
         }
-        return -1;
+        return ans;
     }
-    char list[4] = {'A', 'C', 'G', 'T'};
-    vector<string> next(unordered_set<string> &s, string &str) {
-        vector<string> ans;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 4; j++) { 
-                if (str[i] == list[j]) continue;
-                string next = str;
-                next[i] = list[j];
-                if (s.count(next)) {
-                    ans.emplace_back(next);
-                    s.erase(next);
-                }
-            }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 24,
+      memory: 32.7,
+      desc: '遍历，与对应索引的位置进行交换，如果索引上已存在说明重复',
+      code: `class Solution {
+   public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        for (int i = 0; i < nums.size(); i++) {
+            while (nums[i] != nums[nums[i] - 1])
+                swap(nums[i], nums[nums[i] - 1]);
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != i + 1) ans.push_back(nums[i]);
+        }
+        return ans;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 48,
+      memory: 32.7,
+      desc: '遍历，对应位置取负',
+      code: `class Solution {
+   public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        for (int i = 0; i < nums.size(); i++) {
+            int num = abs(nums[i]);
+            if (nums[num - 1] < 0)
+                ans.push_back(num);
+            else
+                nums[num - 1] *= -1;
         }
         return ans;
     }
