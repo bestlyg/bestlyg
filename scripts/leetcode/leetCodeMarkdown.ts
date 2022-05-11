@@ -4,70 +4,55 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '442. 数组中重复的数据',
-  url: 'https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/',
+  exist: true,
+  name: '449. 序列化和反序列化二叉搜索树',
+  url: 'https://leetcode-cn.com/problems/minimum-genetic-mutation/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表],
-  desc: `给你一个长度为 n 的整数数组 nums ，其中 nums 的所有整数都在范围 [1, n] 内，且每个整数出现 一次 或 两次 。请你找出所有出现 两次 的整数，并以数组形式返回。`,
+  tag: [Tag.广度优先搜索, Tag.哈希表, Tag.字符串],
+  desc: `给你两个基因序列 start 和 end ，以及一个基因库 bank ，请你找出并返回能够使 start 变化为 end 所需的最少变化次数。如果无法完成此基因变化，返回 -1 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 80,
-      memory: 43.5,
-      desc: '哈希存储',
-      code: `class Solution {
+      time: 64,
+      memory: 45.7,
+      desc: '递归',
+      code: `class Codec {
    public:
-    vector<int> findDuplicates(vector<int>& nums) {
-        unordered_set<int> s;
-        vector<int> ans;
-        for (auto& num : nums) {
-            if (s.count(num))
-                ans.push_back(num);
-            else
-                s.insert(num);
-        }
+    string serialize(TreeNode *root) {
+        if (root == nullptr) return "(-1)";
+        return "(" + to_string(root->val) + "," + serialize(root->left) + "," +
+               serialize(root->right) + ")";
+    }
+    TreeNode *deserialize(string data) {
+        if (data == "(-1)") return nullptr;
+        string l, r;
+        int val = analysis(data, l, r);
+        TreeNode *ans = new TreeNode(val);
+        ans->left = deserialize(l);
+        ans->right = deserialize(r);
         return ans;
     }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 24,
-      memory: 32.7,
-      desc: '遍历，与对应索引的位置进行交换，如果索引上已存在说明重复',
-      code: `class Solution {
-   public:
-    vector<int> findDuplicates(vector<int>& nums) {
-        vector<int> ans;
-        for (int i = 0; i < nums.size(); i++) {
-            while (nums[i] != nums[nums[i] - 1])
-                swap(nums[i], nums[nums[i] - 1]);
+    int analysis(string &data, string &l, string &r) {
+        int level = 0, n = data.size(), val;
+        int i = 0, prev = 1, cnt = 0;
+        for (; i < n; i++) {
+            int ch = data[i];
+            if (ch == '(') {
+                level++;
+            } else if (ch == ')') {
+                level--;
+            } else if (ch == ',' && level == 1) {
+                string substr = data.substr(prev, i - prev);
+                if (cnt == 0)
+                    val = stoi(substr);
+                else if (cnt == 1)
+                    l = substr;
+                cnt++;
+                prev = i + 1;
+            }
         }
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] != i + 1) ans.push_back(nums[i]);
-        }
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 48,
-      memory: 32.7,
-      desc: '遍历，对应位置取负',
-      code: `class Solution {
-   public:
-    vector<int> findDuplicates(vector<int>& nums) {
-        vector<int> ans;
-        for (int i = 0; i < nums.size(); i++) {
-            int num = abs(nums[i]);
-            if (nums[num - 1] < 0)
-                ans.push_back(num);
-            else
-                nums[num - 1] *= -1;
-        }
-        return ans;
+        r = data.substr(prev, i - prev - 1);
+        return val;
     }
 };`,
     },
