@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '449. 序列化和反序列化二叉搜索树',
+  name: '面试题 01.05. 一次编辑',
   url: 'https://leetcode-cn.com/problems/minimum-genetic-mutation/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.哈希表, Tag.字符串],
@@ -13,46 +13,25 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 64,
-      memory: 45.7,
-      desc: '递归',
-      code: `class Codec {
+      time: 52,
+      memory: 12,
+      desc: '遍历',
+      code: `class Solution {
    public:
-    string serialize(TreeNode *root) {
-        if (root == nullptr) return "(-1)";
-        return "(" + to_string(root->val) + "," + serialize(root->left) + "," +
-               serialize(root->right) + ")";
-    }
-    TreeNode *deserialize(string data) {
-        if (data == "(-1)") return nullptr;
-        string l, r;
-        int val = analysis(data, l, r);
-        TreeNode *ans = new TreeNode(val);
-        ans->left = deserialize(l);
-        ans->right = deserialize(r);
-        return ans;
-    }
-    int analysis(string &data, string &l, string &r) {
-        int level = 0, n = data.size(), val;
-        int i = 0, prev = 1, cnt = 0;
-        for (; i < n; i++) {
-            int ch = data[i];
-            if (ch == '(') {
-                level++;
-            } else if (ch == ')') {
-                level--;
-            } else if (ch == ',' && level == 1) {
-                string substr = data.substr(prev, i - prev);
-                if (cnt == 0)
-                    val = stoi(substr);
-                else if (cnt == 1)
-                    l = substr;
-                cnt++;
-                prev = i + 1;
-            }
+    bool oneEditAway(string first, string second) {
+        int n1 = first.size(), n2 = second.size();
+        int i1 = 0, i2 = 0, cnt = 0;
+        for (; i1 < n1 && i2 < n2; i1++, i2++) {
+            if (first[i1] == second[i2]) continue;
+            if (cnt == 1) return false;
+            cnt++;
+            if (i1 + 1 < n1 && first[i1 + 1] == second[i2])
+                i1++;
+            else if (i2 + 1 < n2 && first[i1] == second[i2 + 1])
+                i2++;
         }
-        r = data.substr(prev, i - prev - 1);
-        return val;
+        if (cnt == 0) return abs(n1 - n2) <= 1;
+        return i1 == n1 && i2 == n2 && cnt <= 1;
     }
 };`,
     },
