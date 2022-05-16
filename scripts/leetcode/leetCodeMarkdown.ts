@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '面试题 01.05. 一次编辑',
+  name: '面试题 04.06. 后继者',
   url: 'https://leetcode-cn.com/problems/minimum-genetic-mutation/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.哈希表, Tag.字符串],
@@ -13,25 +13,22 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 52,
-      memory: 12,
-      desc: '遍历',
+      time: 32,
+      memory: 22.4,
+      desc: '递归',
       code: `class Solution {
    public:
-    bool oneEditAway(string first, string second) {
-        int n1 = first.size(), n2 = second.size();
-        int i1 = 0, i2 = 0, cnt = 0;
-        for (; i1 < n1 && i2 < n2; i1++, i2++) {
-            if (first[i1] == second[i2]) continue;
-            if (cnt == 1) return false;
-            cnt++;
-            if (i1 + 1 < n1 && first[i1 + 1] == second[i2])
-                i1++;
-            else if (i2 + 1 < n2 && first[i1] == second[i2 + 1])
-                i2++;
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (root == p) {
+            if (p->right == nullptr) return nullptr;
+            TreeNode* next = p->right;
+            while (next->left) next = next->left;
+            return next;
         }
-        if (cnt == 0) return abs(n1 - n2) <= 1;
-        return i1 == n1 && i2 == n2 && cnt <= 1;
+        TreeNode* nextRoot = root->val > p->val ? root->left : root->right;
+        TreeNode* next = inorderSuccessor(nextRoot, p);
+        if (next == nullptr && nextRoot == root->left) next = root;
+        return next;
     }
 };`,
     },
