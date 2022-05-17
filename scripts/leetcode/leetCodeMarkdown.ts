@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '面试题 04.06. 后继者',
+  name: '953. 验证外星语词典',
   url: 'https://leetcode-cn.com/problems/minimum-genetic-mutation/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.哈希表, Tag.字符串],
@@ -13,22 +13,30 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 32,
-      memory: 22.4,
-      desc: '递归',
+      time: 4,
+      memory: 9.1,
+      desc: '遍历',
       code: `class Solution {
    public:
-    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
-        if (root == p) {
-            if (p->right == nullptr) return nullptr;
-            TreeNode* next = p->right;
-            while (next->left) next = next->left;
-            return next;
+    bool isAlienSorted(vector<string> &words, string order) {
+        char map[26] = {0};
+        for (int i = 0; i < order.size(); i++) map[order[i] - 'a'] = i;
+        string prev = words[0];
+        for (int i = 1; i < words.size(); i++) {
+            if (!check(prev, words[i], map)) return false;
+            prev = words[i];
         }
-        TreeNode* nextRoot = root->val > p->val ? root->left : root->right;
-        TreeNode* next = inorderSuccessor(nextRoot, p);
-        if (next == nullptr && nextRoot == root->left) next = root;
-        return next;
+        return true;
+    }
+    bool check(string &s1, string &s2, char *map) {
+        int i1 = 0, n1 = s1.size(), i2 = 0, n2 = s2.size();
+        while (i1 < n1 && i2 < n2) {
+            if (map[s1[i1] - 'a'] > map[s2[i2] - 'a']) return false;
+            if (map[s1[i1] - 'a'] < map[s2[i2] - 'a']) return true;
+            i1++;
+            i2++;
+        }
+        return i1 == n1;
     }
 };`,
     },
