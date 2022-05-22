@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '436. 寻找右区间',
+  exist: true,
+  name: '464. 我能赢吗',
   url: 'https://leetcode.cn/problems/find-right-interval/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找, Tag.排序],
@@ -13,36 +13,41 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 60,
-      memory: 23.3,
-      desc: 'bs',
+      time: 856,
+      memory: 85.7,
+      desc: 'dfs,记忆化，当前人赢的时候说明下一层级需要输',
       code: `class Solution {
    public:
-    vector<int> findRightInterval(vector<vector<int>> &intervals) {
-        int n = intervals.size();
-        vector<int> ans(n, -1);
-        vector<int> list(n);
-        for (int i = 0; i < n; i++) list[i] = i;
-        sort(list.begin(), list.end(), [&](int &a, int &b) -> bool {
-            if (intervals[a][0] == intervals[b][0])
-                return intervals[a][1] < intervals[b][1];
-            return intervals[a][0] < intervals[b][0];
-        });
-        for (int i = 0; i < n; i++)
-            ans[i] = bs(intervals, list, intervals[i][1]);
-        return ans;
+    int maxChoosableInteger, desiredTotal, maxBit;
+    unordered_map<int, bool> m;
+    bool canIWin(int maxChoosableInteger, int desiredTotal) {
+        if ((1 + maxChoosableInteger) * maxChoosableInteger / 2 < desiredTotal)
+            return false;
+        this->maxBit = 1 << maxChoosableInteger;
+        this->maxChoosableInteger = maxChoosableInteger;
+        this->desiredTotal = desiredTotal;
+        return dfs(0, 0);
     }
-    int bs(vector<vector<int>> &intervals, vector<int> &list, int num) {
-        int l = 0, r = intervals.size(), m;
-        while (l < r) {
-            m = (l + r) >> 1;
-            if (intervals[list[m]][0] >= num)
-                r = m;
-            else
-                l = m + 1;
+    bool dfs(int used, int sum) {
+        if (m.count(used)) return m[used];
+        if (sum >= desiredTotal) return m[used] = true;
+        if (check(used, sum)) return m[used] = true;
+        int ans = false;
+        for (int i = 1; i <= maxChoosableInteger; i++) {
+            int bit = 1 << i;
+            if (used & bit) continue;
+            ans = ans || !dfs(used | bit, sum + i);
         }
-        if (r == intervals.size()) return -1;
-        return list[l];
+        return m[used] = ans;
+    }
+    bool check(int used, int sum) {
+        int num = desiredTotal - sum;
+        if (num > maxChoosableInteger) return false;
+        for (int i = num; i <= maxChoosableInteger; i++) {
+            int bit = 1 << i;
+            if (!(used & bit)) return true;
+        }
+        return false;
     }
 };`,
     },

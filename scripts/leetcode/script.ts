@@ -88,9 +88,14 @@ class UserVideo extends User {
 const userImage = new UserImage(cache);
 const userVideo = new UserVideo(cache);
 
-userImage.run('1 image');
-userVideo.run('1 video');
-userImage.run('2 image');
-userVideo.run('2 video');
-userImage.run('3 image');
-userVideo.run('3 video');
+function flat(arr: any, level: number): any {
+  if (level === 0) return arr;
+  const res: any[] = [];
+  for (const item of arr) {
+    if (Array.isArray(item)) res.push(...flat(item, level - 1));
+    else res.push(item);
+  }
+  return res;
+}
+
+console.log(flat([[3, 4], 2, 4, [2, [3, [5]]]], 1));
