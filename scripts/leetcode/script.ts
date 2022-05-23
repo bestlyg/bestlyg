@@ -16,86 +16,64 @@ import {
 import { Logger, resolve, fs } from '../utils';
 import { ListNode } from './structures';
 */
+int dirs[4][2] = {
+  {0, 1}, {0, -1},
+  {1, 0}, {-1, 0}
+};
 
-class MyCache {
-  private list: (() => Promise<void>)[] = [];
-  get size() {
-    return this.list.length;
+class Solution {
+public:
+  typedef pair<int, int> node;
+  int rowLen, colLen;
+  int cutOffTree(vector<vector<int>>& forest) {
+      rowLen = forest.size(), colLen = forest[0].size();
+      vector<int> list;
+      for (int row = 0; row < rowLen; row++) {
+          for (int col = 0; col < colLen; col++) {
+              if (forest[row][col] > 1) list.emplace_back(forest[row][col]);
+          }
+      }
+      sort(list.begin(), list.end(), [&](int a, int b)->bool{ return a < b; });
+      int ans = 0;
+      node prev = make_pair(0, 0);
+      for (int i = 0; i < list.size(); i++) {
+          int step = findNext(forest, prev, list[i]);
+          if (step == -1) return -1;
+          ans += step;
+      }
+      return ans;
   }
-  insert(fn: () => Promise<void>) {
-    this.list.push(fn);
+  int findNext(vector<vector<int>>& forest, node &start, int target){
+      int step = 0, size = 1;
+      queue<node> q;
+      vector<vector<bool>> used(rowLen, vector(colLen, false));
+      used[start.first][start.second] = true;
+      q.push(start);
+      while (q.size()) {
+          node item = q.front(); q.pop();
+          if (forest[item.first][item.second] == target) {
+              start.first = item.first;
+              start.second = item.second;
+              return step;
+          }
+          for (int i = 0; i < 4; i++) {
+              int nrow = item.first + dirs[i][0], ncol = item.second + dirs[i][1];
+              if (nrow < 0 || nrow == rowLen || ncol < 0 || ncol == colLen || forest[nrow][ncol] == 0 || used[nrow][ncol]) continue;
+              q.push(make_pair(nrow, ncol));
+              used[nrow][ncol] = true;
+          }
+          if (--size == 0) {
+              size = q.size(); 
+              step++;
+          }
+      }
+      return -1;
   }
-  getFirst() {
-    if (this.list.length === 0) return null;
-    const first = this.list[0];
-    this.list.shift();
-    return first;
-  }
-}
-const cache = new MyCache();
+};
 
-class Customer {
-  running = false;
-  constructor(private cache: MyCache) {}
-  run() {
-    if (this.running) return;
-    this.running = true;
-    this._run();
-  }
-  private _run() {
-    const fn = this.cache.getFirst();
-    if (fn === null) {
-      this.running = false;
-      return;
-    }
-    fn().finally(() => {
-      this._run();
-    });
-  }
-}
-const customer = new Customer(cache);
 
-abstract class User {
-  constructor(protected cache: MyCache) {}
-  abstract run(...data: any[]): void;
-}
-class UserImage extends User {
-  run(image: string) {
-    const fn = () =>
-      new Promise<void>(resolve => {
-        setTimeout(() => {
-          console.log(image);
-          resolve();
-        }, 200);
-      });
-    this.cache.insert(fn);
-    customer.run();
-  }
-}
-class UserVideo extends User {
-  run(video: string) {
-    const fn = () =>
-      new Promise<void>(resolve => {
-        setTimeout(() => {
-          console.log(video);
-          resolve();
-        }, 200);
-      });
-    this.cache.insert(fn);
-    customer.run();
-  }
-}
-const userImage = new UserImage(cache);
-const userVideo = new UserVideo(cache);
 
-function flat(arr: any, level: number): any {
-  if (level === 0) return arr;
-  const res: any[] = [];
-  for (const item of arr) {
-    if (Array.isArray(item)) res.push(...flat(item, level - 1));
-    else res.push(item);
-  }
-  return res;
-}
 
-console.log(flat([[3, 4], 2, 4, [2, [3, [5]]]], 1));
+
+
+
