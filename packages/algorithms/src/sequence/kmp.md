@@ -61,3 +61,5 @@ export function kmp(text: string, pattern: string): number {
   return -1;
 }
 ```
+
+## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/kmp2.ts)
