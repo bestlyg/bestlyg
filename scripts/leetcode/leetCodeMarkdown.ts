@@ -4,41 +4,36 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '965. 单值二叉树',
-  url: 'https://leetcode.cn/problems/cut-off-trees-for-golf-event/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵, Tag.堆_优先队列],
-  desc: `你将从 (0, 0) 点开始工作，返回你砍完所有树需要走的最小步数。 如果你无法砍完所有的树，返回 -1 。`,
+  exist: !true,
+  name: '467. 环绕字符串中唯一的子字符串',
+  url: 'https://leetcode.cn/problems/unique-substrings-in-wraparound-string/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.字符串, Tag.动态规划],
+  desc: `现在给定另一个字符串 p 。返回 s 中 唯一 的 p 的 非空子串 的数量 。 `,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 9.5,
-      desc: 'dfs',
+      time: 8,
+      memory: 8,
+      desc: '遍历，每次储存以当前值结尾的最长长度',
       code: `class Solution {
    public:
-    bool isUnivalTree(TreeNode* root) { return _isUnivalTree(root, root->val); }
-    bool _isUnivalTree(TreeNode* node, int val) {
-        if (node == nullptr) return true;
-        return node->val == val && _isUnivalTree(node->left, val) &&
-               _isUnivalTree(node->right, val);
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 0,
-      memory: 9.6,
-      desc: 'dfs',
-      code: `class Solution {
-   public:
-    int val = 0;
-    bool isUnivalTree(TreeNode* root) {
-        if (!root) return true;
-        if (val == 0) val = root->val;
-        return root->val == val && isUnivalTree(root->left) &&
-               isUnivalTree(root->right);
+    int findSubstringInWraproundString(string p) {
+        int n = p.size(), ans = 0;
+        vector<int> dp(n);
+        unordered_map<char, int> m;
+        dp[0] = 1;
+        m[p[0]] = 1;
+        for (int i = 1; i < n; i++) {
+            int next = p[i - 1] == 'z' ? 'a' : p[i - 1] + 1;
+            if (next != p[i])
+                dp[i] = 1;
+            else
+                dp[i] = dp[i - 1] + 1;
+            m[p[i]] = max(m[p[i]], dp[i]);
+        }
+        for (auto& item : m) ans += item.second;
+        return ans;
     }
 };`,
     },
