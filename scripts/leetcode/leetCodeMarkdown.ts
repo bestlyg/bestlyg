@@ -5,34 +5,32 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '467. 环绕字符串中唯一的子字符串',
-  url: 'https://leetcode.cn/problems/unique-substrings-in-wraparound-string/',
+  name: '面试题 17.11. 单词距离',
+  url: 'https://leetcode.cn/problems/find-closest-lcci/',
   difficulty: Difficulty.中等,
-  tag: [Tag.字符串, Tag.动态规划],
-  desc: `现在给定另一个字符串 p 。返回 s 中 唯一 的 p 的 非空子串 的数量 。 `,
+  tag: [Tag.数组, Tag.字符串],
+  desc: `有个内含单词的超大文本文件，给定任意两个不同的单词，找出在这个文件中这两个单词的最短距离(相隔单词数)。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 8,
-      desc: '遍历，每次储存以当前值结尾的最长长度',
+      time: 96,
+      memory: 57.9,
+      desc: '一次遍历',
       code: `class Solution {
    public:
-    int findSubstringInWraproundString(string p) {
-        int n = p.size(), ans = 0;
-        vector<int> dp(n);
-        unordered_map<char, int> m;
-        dp[0] = 1;
-        m[p[0]] = 1;
-        for (int i = 1; i < n; i++) {
-            int next = p[i - 1] == 'z' ? 'a' : p[i - 1] + 1;
-            if (next != p[i])
-                dp[i] = 1;
-            else
-                dp[i] = dp[i - 1] + 1;
-            m[p[i]] = max(m[p[i]], dp[i]);
+    int findClosest(vector<string>& words, string word1, string word2) {
+        int p[2], ans = INT_MAX, n = words.size();
+        p[0] = p[1] = -1;
+        for (int i = 0; i < n; i++) {
+            string word = words[i];
+            int f = -1;
+            if (word == word1) f = 0;
+            if (word == word2) f = 1;
+            if (f == -1) continue;
+            p[f] = i;
+            if (p[0] == -1 || p[1] == -1) continue;
+            ans = min(ans, abs(p[0] - p[1]));
         }
-        for (auto& item : m) ans += item.second;
         return ans;
     }
 };`,
