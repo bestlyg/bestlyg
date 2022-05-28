@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '面试题 17.11. 单词距离',
+  exist: true,
+  name: '1021. 删除最外层的括号',
   url: 'https://leetcode.cn/problems/find-closest-lcci/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.字符串],
@@ -13,23 +13,22 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 96,
-      memory: 57.9,
-      desc: '一次遍历',
+      time: 0,
+      memory: 6.4,
+      desc: '一次遍历, 储存当前等级',
       code: `class Solution {
    public:
-    int findClosest(vector<string>& words, string word1, string word2) {
-        int p[2], ans = INT_MAX, n = words.size();
-        p[0] = p[1] = -1;
-        for (int i = 0; i < n; i++) {
-            string word = words[i];
-            int f = -1;
-            if (word == word1) f = 0;
-            if (word == word2) f = 1;
-            if (f == -1) continue;
-            p[f] = i;
-            if (p[0] == -1 || p[1] == -1) continue;
-            ans = min(ans, abs(p[0] - p[1]));
+    string removeOuterParentheses(string s) {
+        string ans = "";
+        int level = 0;
+        for (auto& ch : s) {
+            if (ch == '(') {
+                if (level != 0) ans += ch;
+                level++;
+            } else {
+                level--;
+                if (level != 0) ans += ch;
+            }
         }
         return ans;
     }
