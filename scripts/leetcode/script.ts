@@ -15,57 +15,30 @@ import {
 import { Logger, resolve, fs } from '../utils';
 import { ListNode } from './structures';
 
-function fallingSquares(positions: number[][]): number[] {
-  const ans: number[] = [];
-  let max = -1;
-  const arr: number[][] = [];
-  for (const [pos, size] of positions) {
-    const idx = find(pos);
-    // 与其它无关
-    if (idx === arr.length) {
-      // 与前一块没有重叠
-      if (arr.length === 0 || arr[idx - 1][1] <= pos) {
-        arr.push([pos, pos + size, size]);
-        updateAns(size);
-      } else {
-        arr[idx - 1][1] = pos;
-        arr.push([pos, pos + size, size + arr[idx - 1][2]]);
-        updateAns(size + arr[idx - 1][2]);
-      }
-      continue;
-    }
-    const endIdx = pos + size;
-    if (arr[idx - 1][1] <= pos) {
-      arr.push([pos, pos + size, size]);
-      updateAns(size);
-    }
-    // 完全在某一块上面
-    if (idx === arr.length - 1 || endIdx <= arr[idx + 1][0]) {
-      arr[idx][1] = pos;
-      arr.splice(idx + 1, 0, [pos, pos + size, size + arr[idx][2]]);
-      continue;
-    }
-  }
-  return ans;
-  function find(pos: number): number {
-    let l = 0;
-    let r = arr.length;
-    while (l < r) {
-      const m = (l + r) >> 1;
-      if (arr[m][0] >= pos) r = m;
-      else l = m + 1;
-    }
-    return l;
-  }
-  function updateAns(val: number) {
-    max = Math.max(max, val);
-    ans.push(max);
-  }
+const ipv4Reg = /^[0-9]*$/;
+function _checkIPV4(item: string): boolean {
+  if (!ipv4Reg.test(item)) return false;
+  if (item.length > 1 && item[0] === '0') return false;
+  if (parseInt(item) > 255) return false;
+  return true;
 }
-console.log(
-  fallingSquares([
-    [1, 2],
-    [2, 3],
-    [6, 1],
-  ])
-);
+function checkIPV4(str: string): boolean {
+  const items = str.split('.');
+  if (items.length !== 4) return false;
+  return items.every(_checkIPV4);
+}
+const ipv6Reg = /^[0-9a-fA-F]*$/;
+function _checkIPV6(item: string): boolean {
+  if (!ipv6Reg.test(item)) return false;
+  return true;
+}
+function checkIPV6(str: string): boolean {
+  const items = str.split(':');
+  if (items.length !== 8) return false;
+  return items.every(_checkIPV6);
+}
+function validIPAddress(queryIP: string): string {
+  if (checkIPV4(queryIP)) return 'IPv4';
+  if (checkIPV6(queryIP)) return 'IPv6';
+  return 'Neither';
+}
