@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '468. 验证IP地址',
+  name: '1022. 从根到叶的二进制数之和',
   url: 'https://leetcode.cn/problems/find-closest-lcci/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.字符串],
@@ -13,37 +13,26 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 64,
-      memory: 42.5,
-      desc: '遍历，检测',
-      code: `const ipv4Reg = /^[0-9]+$/;
-      function _checkIPV4(item: string): boolean {
-        if (!ipv4Reg.test(item)) return false;
-        if (item.length > 1 && item[0] === '0') return false;
-        if (parseInt(item) > 255) return false;
-        return true;
-      }
-      function checkIPV4(str: string): boolean {
-        const items = str.split('.');
-        if (items.length !== 4) return false;
-        return items.every(_checkIPV4);
-      }
-      const ipv6Reg = /^[0-9a-fA-F]*$/;
-      function _checkIPV6(item: string): boolean {
-        if (!ipv6Reg.test(item)) return false;
-        if (item.length > 4 || item.length === 0) return false;
-        return true;
-      }
-      function checkIPV6(str: string): boolean {
-        const items = str.split(':');
-        if (items.length !== 8) return false;
-        return items.every(_checkIPV6);
-      }
-      function validIPAddress(queryIP: string): string {
-        if (checkIPV4(queryIP)) return 'IPv4';
-        if (checkIPV6(queryIP)) return 'IPv6';
-        return 'Neither';
-      }`,
+      time: 4,
+      memory: 16.1,
+      desc: 'dfs',
+      code: `class Solution {
+   public:
+    int sumRootToLeaf(TreeNode* root) {
+        int ans = 0;
+        dfs(root, ans, 0);
+        return ans;
+    }
+    void dfs(TreeNode* node, int& ans, int val) {
+        val = val << 1 | node->val;
+        if (node->left == nullptr && node->right == nullptr) {
+            ans += val;
+            return;
+        }
+        if (node->left) dfs(node->left, ans, val);
+        if (node->right) dfs(node->right, ans, val);
+    }
+};`,
     },
   ],
 };
