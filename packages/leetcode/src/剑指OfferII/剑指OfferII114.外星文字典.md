@@ -1,22 +1,31 @@
-import { specStr, markdown } from '../utils';
-import { Markdown, Difficulty, Tag, Script } from './leetcode';
+---
+title: 剑指 Offer II 114. 外星文字典
+order: 114
+nav:
+  title: 力扣题解
+  path: /leetcode
+  order: 4
+group:
+  title: 剑指OfferII
+  path: /剑指OfferII
+  order: 400000
+---
 
-const { backquote } = specStr;
-const { link } = markdown;
-const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '剑指 Offer II 114. 外星文字典',
-  url: 'https://leetcode.cn/problems/Jf1JuT/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序, Tag.数组, Tag.字符串],
-  desc: `请你根据该词典还原出此语言中已知的字母顺序，并 按字母递增顺序 排列。若不存在合法字母顺序，返回 "" 。若存在多种可能的合法字母顺序，返回其中 任意一种 顺序即可。`,
-  solutions: [
-    {
-      script: Script.TS,
-      time: 84,
-      memory: 45.8,
-      desc: '拓扑排序+bfs',
-      code: `class MyNode {
+# 剑指 Offer II 114. 外星文字典
+    
+> 链接：[剑指 Offer II 114. 外星文字典](https://leetcode.cn/problems/Jf1JuT/)  
+> 难度：困难  
+> 标签：深度优先搜索、广度优先搜索、图、拓扑排序、数组、字符串  
+> 简介：请你根据该词典还原出此语言中已知的字母顺序，并 按字母递增顺序 排列。若不存在合法字母顺序，返回 "" 。若存在多种可能的合法字母顺序，返回其中 任意一种 顺序即可。
+      
+## 题解 1 - typescript
+- 编辑时间：2022.05.31
+- 执行用时：84ms
+- 内存消耗：45.8MB
+- 编程语言：typescript
+- 解法介绍：拓扑排序+bfs。
+```typescript
+class MyNode {
         next = new Set<MyNode>();
         parent = new Set<MyNode>();
         constructor(public val: string) {}
@@ -68,8 +77,7 @@ const leetCodeMarkdown: Markdown = {
           if (word1.length > word2.length) error = true;
         }
       }
-      `,
-    },
-  ],
-};
-export default leetCodeMarkdown;
+      
+```
+
+      
