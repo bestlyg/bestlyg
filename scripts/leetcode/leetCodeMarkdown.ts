@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '剑指 Offer II 114. 外星文字典',
+  exist: true,
+  name: '450. 删除二叉搜索树中的节点',
   url: 'https://leetcode.cn/problems/Jf1JuT/',
   difficulty: Difficulty.困难,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序, Tag.数组, Tag.字符串],
@@ -13,62 +13,32 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 84,
-      memory: 45.8,
-      desc: '拓扑排序+bfs',
-      code: `class MyNode {
-        next = new Set<MyNode>();
-        parent = new Set<MyNode>();
-        constructor(public val: string) {}
-      }
-      function alienOrder(words: string[]): string {
-        const map = new Map<string, MyNode>();
-        const n = words.length;
-        let error = false;
-        for (let i = 0; i < n; i++) {
-          for (const ch of words[i]) {
-            if (!map.has(ch)) map.set(ch, new MyNode(ch));
-          }
-          if (i >= 1) comp(i - 1, i);
-          if (error) return '';
-        }
-        const q: MyNode[] = [];
-        for (const node of map.values()) {
-          if (node.parent.size === 0) q.push(node);
-        }
-        const set = new Set<MyNode>();
-        let ans = '';
-        while (q.length) {
-          const node = q.shift()!;
-          if (set.has(node)) continue;
-          set.add(node);
-          ans += node.val;
-          for (const child of node.next) {
-            child.parent.delete(node);
-            if (child.parent.size === 0) {
-              q.push(child);
+      time: 24,
+      memory: 31.9,
+      desc: 'dfs',
+      code: `class Solution {
+   public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (!root) return root;
+        if (root->val > key)
+            root->left = deleteNode(root->left, key);
+        else if (root->val < key)
+            root->right = deleteNode(root->right, key);
+        else {
+            if (root->left == nullptr || root->right == nullptr) {
+                TreeNode* child =
+                    root->left == nullptr ? root->right : root->left;
+                root = child;
+            } else {
+                TreeNode* tmp = root->right;
+                while (tmp->left) tmp = tmp->left;
+                root->val = tmp->val;
+                root->right = deleteNode(root->right, tmp->val);
             }
-          }
         }
-        if (ans.length !== map.size) return '';
-        return ans;
-        function comp(idx1: number, idx2: number) {
-          const word1 = words[idx1];
-          const word2 = words[idx2];
-          const n = Math.min(word1.length, word2.length);
-          for (let i = 0; i < n; i++) {
-            if (word1[i] !== word2[i]) {
-              const n1 = map.get(word1[i])!;
-              const n2 = map.get(word2[i])!;
-              n1.next.add(n2);
-              n2.parent.add(n1);
-              return;
-            }
-          }
-          if (word1.length > word2.length) error = true;
-        }
-      }
-      `,
+        return root;
+    }
+};`,
     },
   ],
 };
