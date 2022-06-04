@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '450. 删除二叉搜索树中的节点',
+  name: '929. 独特的电子邮件地址',
   url: 'https://leetcode.cn/problems/Jf1JuT/',
   difficulty: Difficulty.困难,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序, Tag.数组, Tag.字符串],
@@ -13,30 +13,32 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 24,
-      memory: 31.9,
-      desc: 'dfs',
+      time: 16,
+      memory: 14,
+      desc: '遍历',
       code: `class Solution {
    public:
-    TreeNode* deleteNode(TreeNode* root, int key) {
-        if (!root) return root;
-        if (root->val > key)
-            root->left = deleteNode(root->left, key);
-        else if (root->val < key)
-            root->right = deleteNode(root->right, key);
-        else {
-            if (root->left == nullptr || root->right == nullptr) {
-                TreeNode* child =
-                    root->left == nullptr ? root->right : root->left;
-                root = child;
-            } else {
-                TreeNode* tmp = root->right;
-                while (tmp->left) tmp = tmp->left;
-                root->val = tmp->val;
-                root->right = deleteNode(root->right, tmp->val);
+    int numUniqueEmails(vector<string> &emails) {
+        unordered_set<string> s;
+        for (auto &o : emails) s.insert(format(o));
+        return s.size();
+    }
+    string format(string email) {
+        string ans = "";
+        bool suffix = false, ignore = false;
+        for (auto &ch : email) {
+            if (ch == '+') {
+                ignore = true;
+            } else if (ch == '@') {
+                suffix = true;
+                ans += ch;
+            } else if (ch == '.' && !suffix) {
+                continue;
+            } else if (suffix || !ignore) {
+                ans += ch;
             }
         }
-        return root;
+        return ans;
     }
 };`,
     },
