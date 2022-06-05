@@ -4,43 +4,34 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '929. 独特的电子邮件地址',
-  url: 'https://leetcode.cn/problems/Jf1JuT/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.图, Tag.拓扑排序, Tag.数组, Tag.字符串],
-  desc: `请你根据该词典还原出此语言中已知的字母顺序，并 按字母递增顺序 排列。若不存在合法字母顺序，返回 "" 。若存在多种可能的合法字母顺序，返回其中 任意一种 顺序即可。`,
+  exist: !true,
+  name: '478. 在圆内随机生成点',
+  url: 'https://leetcode.cn/problems/generate-random-point-in-a-circle/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.几何, Tag.数学, Tag.拒绝采样, Tag.随机化],
+  desc: `给定圆的半径和圆心的位置，实现函数 randPoint ，在圆中产生均匀随机点。`,
   solutions: [
     {
       script: Script.TS,
-      time: 16,
-      memory: 14,
-      desc: '遍历',
+      time: 128,
+      memory: 58.3,
+      desc: '忽略边上的点',
       code: `class Solution {
-   public:
-    int numUniqueEmails(vector<string> &emails) {
-        unordered_set<string> s;
-        for (auto &o : emails) s.insert(format(o));
-        return s.size();
-    }
-    string format(string email) {
-        string ans = "";
-        bool suffix = false, ignore = false;
-        for (auto &ch : email) {
-            if (ch == '+') {
-                ignore = true;
-            } else if (ch == '@') {
-                suffix = true;
-                ans += ch;
-            } else if (ch == '.' && !suffix) {
-                continue;
-            } else if (suffix || !ignore) {
-                ans += ch;
+        constructor(public radius: number, public x_center: number, public y_center: number) { }
+        randPoint(): number[] {
+            while (true) {
+                const [x, y] = [
+                    2 * Math.random() * this.radius - this.radius,
+                    2 * Math.random() * this.radius - this.radius,
+                ]
+                if (x ** 2 + y ** 2 <= this.radius * this.radius) 
+                return [
+                    x + this.x_center,
+                    y + this.y_center
+                ];
             }
         }
-        return ans;
-    }
-};`,
+    }`,
     },
   ],
 };
