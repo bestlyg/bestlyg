@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '875. 爱吃香蕉的珂珂',
+  name: '1037. 有效的回旋镖',
   url: 'https://leetcode.cn/problems/koko-eating-bananas/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.二分查找],
@@ -13,31 +13,15 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.TS,
-      time: 52,
-      memory: 18.2,
-      desc: 'bs',
+      time: 0,
+      memory:9.9,
+      desc: '算斜率是否相等',
       code: `class Solution {
    public:
-    int minEatingSpeed(vector<int>& piles, int h) {
-        int nmin = 1, nmax = INT_MIN;
-        for (auto& pile : piles) nmax = max(nmax, pile);
-        while (nmin < nmax) {
-            int m = (nmin + nmax) >> 1;
-            int c = check(piles, m);
-            if (c > h)
-                nmin = m + 1;
-            else
-                nmax = m;
-        }
-        return nmin;
-    }
-    int check(vector<int>& piles, int target) {
-        int ans = 0;
-        for (auto pile : piles) {
-            ans += pile / target;
-            if (pile % target) ans += 1;
-        }
-        return ans;
+    bool isBoomerang(vector<vector<int>>& points) {
+        int x1 = points[0][0], y1 = points[0][1], x2 = points[1][0],
+            y2 = points[1][1], x3 = points[2][0], y3 = points[2][1];
+        return (y2 - y1) * (x3 - x1) != (y3 - y1) * (x2 - x1);
     }
 };`,
     },
