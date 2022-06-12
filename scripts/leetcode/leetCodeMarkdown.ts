@@ -5,23 +5,40 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1037. 有效的回旋镖',
-  url: 'https://leetcode.cn/problems/koko-eating-bananas/',
+  name: '890. 查找和替换模式',
+  url: 'https://leetcode.cn/problems/find-and-replace-pattern/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.二分查找],
-  desc: `返回她可以在 h 小时内吃掉所有香蕉的最小速度 k（k 为整数）。`,
+  tag: [Tag.数组, Tag.哈希表, Tag.字符串],
+  desc: `返回 words 中与给定模式匹配的单词列表。`,
   solutions: [
     {
       script: Script.TS,
-      time: 0,
-      memory:9.9,
-      desc: '算斜率是否相等',
+      time: 4,
+      memory: 7.6,
+      desc: '遍历比较',
       code: `class Solution {
    public:
-    bool isBoomerang(vector<vector<int>>& points) {
-        int x1 = points[0][0], y1 = points[0][1], x2 = points[1][0],
-            y2 = points[1][1], x3 = points[2][0], y3 = points[2][1];
-        return (y2 - y1) * (x3 - x1) != (y3 - y1) * (x2 - x1);
+    int n;
+    vector<string> findAndReplacePattern(vector<string> &words,
+                                         string pattern) {
+        vector<string> ans;
+        n = pattern.size();
+        for (auto &word : words) {
+            if (check(pattern, word)) ans.push_back(word);
+        }
+        return ans;
+    }
+    bool check(string &pattern, string &word) {
+        char list[26] = {0};
+        bool check[26] = {0};
+        for (int i = 0; i < n; i++) {
+            char wc = word[i], pc = pattern[i];
+            if (list[pc - 'a'] && list[pc - 'a'] != wc) return false;
+            if (list[pc - 'a'] == '\\0' && check[wc - 'a']) return false;
+            check[wc - 'a'] = true;
+            list[pc - 'a'] = wc;
+        }
+        return true;
     }
 };`,
     },
