@@ -5,34 +5,43 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '498. 对角线遍历',
-  url: 'https://leetcode.cn/problems/diagonal-traverse/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.矩阵, Tag.模拟],
-  desc: `给你一个大小为 m x n 的矩阵 mat ，请以对角线遍历的顺序，用一个数组返回这个矩阵中的所有元素。`,
+  name: '719. 找出第 K 小的数对距离',
+  url: 'https://leetcode.cn/problems/find-k-th-smallest-pair-distance/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数组, Tag.双指针, Tag.二分查找,Tag.排序],
+  desc: `返回 所有数对距离中 第 k 小的数对距离。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 17.9,
-      desc: '遍历，内嵌两个while进行反复循环',
+      time: 16,
+      memory: 9.7,
+      desc: '排序后，对于每一种差值，计算可能的数量',
       code: `class Solution {
    public:
-    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
-        int n = mat.size(), m = mat[0].size(), i = 0, j = 0;
-        vector<int> ans;
-        while (i != n - 1 || j != m - 1) {
-            while (i != -1 && j != m) ans.push_back(mat[i--][j++]);
-            i++;
-            if (j == m) j--, i++;
-            if (i == n - 1 && j == m - 1) break;
-            while (i != n && j != -1) ans.push_back(mat[i++][j--]);
-            j++;
-            if (i == n) i--, j++;
-            if (i == n - 1 && j == m - 1) break;
+    int smallestDistancePair(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size(), l = 0, r = nums[n - 1] - nums[0], m;
+        while (l < r) {
+            m = (l + r) >> 1;
+            int cnt = 0;
+            for (int i = 0; i < n; i++) cnt += i - bs(nums, i, nums[i] - m);
+            if (cnt >= k)
+                r = m;
+            else
+                l = m + 1;
         }
-        ans.push_back(mat[i][j]);
-        return ans;
+        return l;
+    }
+    int bs(vector<int>& nums, int r, int target) {
+        int l = 0, m;
+        while (l < r) {
+            m = (l + r) >> 1;
+            if (nums[m] >= target)
+                r = m;
+            else
+                l = m + 1;
+        }
+        return l;
     }
 };`,
     },
