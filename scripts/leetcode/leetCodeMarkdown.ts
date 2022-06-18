@@ -4,36 +4,44 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '1089. 复写零',
-  url: 'https://leetcode.cn/problems/duplicate-zeros/',
+  exist: !true,
+  name: '剑指 Offer II 029. 排序的循环链表',
+  url: 'https://leetcode.cn/problems/4ueAj6/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.双指针, Tag.二分查找, Tag.排序],
-  desc: `给你一个整数数组 nums 和一个整数 k，请你在数组中找出 不同的 k-diff 数对，并返回不同的 k-diff 数对 的数目。`,
+  tag: [Tag.链表],
+  desc: `给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序的。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory:9.3,
-      desc: '从后往前遍历',
+      time: 8,
+      memory:7.9,
+      desc: '遍历，考虑小于最小值和大于最大值',
       code: `class Solution {
    public:
-    void duplicateZeros(vector<int>& arr) {
-        int n = arr.size(), p = n - 1;
-        auto setNum = [&](int i, int p) -> void {
-            if (p < n) arr[p] = arr[i];
-        };
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == 0) p++;
+    Node* insert(Node* head, int insertVal) {
+        if (!head) {
+            Node* ans = new Node(insertVal);
+            ans->next = ans;
+            return ans;
         }
-        for (int i = n - 1; i >= 0; i--, p--) {
-            if (arr[i] == 0) {
-                setNum(i, p--);
-                setNum(i, p);
+        Node *p = head, *node = new Node(insertVal);
+        if (p->next != head) {
+            int nmin = INT_MAX, nmax = INT_MIN;
+            do {
+                nmin = min(nmin, p->val);
+                nmax = max(nmax, p->val);
+                p = p->next;
+            } while (p != head);
+            if (nmin >= insertVal || nmax <= insertVal) {
+                while (p->val <= p->next->val && p->next != head) p = p->next;
             } else {
-                setNum(i, p);
+                while (!(p->val <= insertVal && p->next->val >= insertVal))
+                    p = p->next;
             }
         }
+        node->next = p->next;
+        p->next = node;
+        return head;
     }
 };`,
     },
