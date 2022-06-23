@@ -4,44 +4,35 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '剑指 Offer II 029. 排序的循环链表',
-  url: 'https://leetcode.cn/problems/4ueAj6/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.链表],
-  desc: `给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序的。`,
+  exist: true,
+  name: '513. 找树左下角的值',
+  url: 'https://leetcode.cn/problems/substring-with-concatenation-of-all-words/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.哈希表, Tag.字符串, Tag.滑动窗口],
+  desc: `给定一个字符串 s 和一些 长度相同 的单词 words 。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory:7.9,
-      desc: '遍历，考虑小于最小值和大于最大值',
+      time: 12,
+      memory: 21.1,
+      desc: '层序遍历',
       code: `class Solution {
    public:
-    Node* insert(Node* head, int insertVal) {
-        if (!head) {
-            Node* ans = new Node(insertVal);
-            ans->next = ans;
-            return ans;
-        }
-        Node *p = head, *node = new Node(insertVal);
-        if (p->next != head) {
-            int nmin = INT_MAX, nmax = INT_MIN;
-            do {
-                nmin = min(nmin, p->val);
-                nmax = max(nmax, p->val);
-                p = p->next;
-            } while (p != head);
-            if (nmin >= insertVal || nmax <= insertVal) {
-                while (p->val <= p->next->val && p->next != head) p = p->next;
-            } else {
-                while (!(p->val <= insertVal && p->next->val >= insertVal))
-                    p = p->next;
+    int findBottomLeftValue(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        int ans = root->val, size = 1;
+        while (q.size()) {
+            TreeNode* node = q.front();
+            q.pop();
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+            if (--size == 0) {
+                size = q.size();
+                if (q.size()) ans = q.front()->val;
             }
         }
-        node->next = p->next;
-        p->next = node;
-        return head;
+        return ans;
     }
 };`,
     },

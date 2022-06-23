@@ -1,12 +1,25 @@
-let a = 1;
-function data() {
-  console.log(a);
+let store;
+class Store {
+  callback = {};
+  submit() {
+    this.validate(() => {
+      const {onSubmit} = this.callback;
+      onSubmit()
+    });
+  }
+  validate(fn) {
+    Promise.resolve().then(() => {
+      fn();
+    });
+  }
 }
-const cb = {data}
 
-Promise.resolve().then(() => {
-  const {data} = cb;
-  data()
-}, 100);
-
-a++;
+store = new Store();
+store.callback.onSubmit = () => {
+  console.log('submit', 1);
+  store.callback.onSubmit = () => {
+    console.log('store', 2);
+  };
+};
+store.submit();
+store.submit();
