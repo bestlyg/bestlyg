@@ -34,15 +34,6 @@ void comp(string &w1, string &w2, unordered_map<char, vector<char>> &s) {
 }
 */
 
-function random(min: number, max: number): number {
-  const ans = min + Math.random() * (max - min);
-  // console.log(`random : min = ${min}, max = ${max}, ans = ${ans.toFixed(10)}`);
-  return Number(ans.toFixed(10));
-}
-
-const min = 0;
-const max = 10;
-for (let i = 0; i < 100; i++) {
- const res =  random(min, max);
- if (res>=9) console.log(res)
+function run(list: (()=>Promise<any>)[], idx = 0, success: Function): void {
+  list[idx]().then(success, () => run(list, idx + 1, success));
 }

@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '515. 在每个树行中找最大值',
+  exist: true,
+  name: '剑指 Offer II 091. 粉刷房子',
   url: 'https://leetcode.cn/problems/find-largest-value-in-each-tree-row/',
   difficulty: Difficulty.中等,
   tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.二叉树],
@@ -14,34 +14,20 @@ const leetCodeMarkdown: Markdown = {
     {
       script: Script.CPP,
       time: 8,
-      memory: 21.6,
-      desc: '层序遍历',
+      memory: 9.6,
+      desc: 'dp',
       code: `class Solution {
    public:
-    vector<int> largestValues(TreeNode* root) {
-        vector<int> ans;
-        if (root == nullptr) return ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        ans.push_back(root->val);
-        int size = 1, nmax = INT_MIN;
-        while (q.size()) {
-            TreeNode* node = q.front();
-            q.pop();
-            if (node->left) {
-                q.push(node->left);
-                nmax = max(nmax, node->left->val);
-            }
-            if (node->right) {
-                q.push(node->right);
-                nmax = max(nmax, node->right->val);
-            }
-            if (--size == 0) {
-                if (q.size()) ans.push_back(nmax);
-                nmax = INT_MIN;
-                size = q.size();
-            }
+    int minCost(vector<vector<int>>& costs) {
+        int n = costs.size(), ans = INT_MAX;
+        vector<vector<int>> dp(3, vector<int>(n, 0));
+        for (int i = 0; i < 3; i++) dp[i][0] = costs[0][i];
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = min(dp[1][j - 1], dp[2][j - 1]) + costs[j][0];
+            dp[1][j] = min(dp[0][j - 1], dp[2][j - 1]) + costs[j][1];
+            dp[2][j] = min(dp[0][j - 1], dp[1][j - 1]) + costs[j][2];
         }
+        for (int i = 0; i < 3; i++) ans = min(ans, dp[i][n - 1]);
         return ans;
     }
 };`,

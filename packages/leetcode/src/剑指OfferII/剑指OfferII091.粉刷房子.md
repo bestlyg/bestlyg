@@ -41,3 +41,26 @@ function minCost(costs: number[][]): number {
   return Math.min(...dp[(n - 1) % 2]);
 }
 ```
+## 题解 2 - cpp
+- 编辑时间：2022.06.25
+- 执行用时：8ms
+- 内存消耗：9.6MB
+- 编程语言：cpp
+- 解法介绍：dp。
+```cpp
+class Solution {
+   public:
+    int minCost(vector<vector<int>>& costs) {
+        int n = costs.size(), ans = INT_MAX;
+        vector<vector<int>> dp(3, vector<int>(n, 0));
+        for (int i = 0; i < 3; i++) dp[i][0] = costs[0][i];
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = min(dp[1][j - 1], dp[2][j - 1]) + costs[j][0];
+            dp[1][j] = min(dp[0][j - 1], dp[2][j - 1]) + costs[j][1];
+            dp[2][j] = min(dp[0][j - 1], dp[1][j - 1]) + costs[j][2];
+        }
+        for (int i = 0; i < 3; i++) ans = min(ans, dp[i][n - 1]);
+        return ans;
+    }
+};
+```
