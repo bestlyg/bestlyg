@@ -23,10 +23,6 @@ const packageConfigs = [
     pkgName: 'algorithms',
     external: ['lodash'],
   },
-  {
-    pkgName: 'webgl',
-    external: ['lodash'],
-  },
 ]
   .map(({ pkgName, external = [] }) => {
     const path = resolve('packages', pkgName);
