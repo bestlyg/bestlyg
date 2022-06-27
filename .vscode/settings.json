@@ -54,7 +54,8 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "xstring": "cpp"
+    "xstring": "cpp",
+    "ios": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
