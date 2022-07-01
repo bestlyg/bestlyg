@@ -1,13 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef D
-#define log(frm, args...) \
-    { printf(frm, ##args); }
-#else
-#define log(frm, args...)
-#endif
-
 typedef struct Node {
     int key, color;  // red 0, black 1, double black 2
     struct Node *lchild, *rchild;
@@ -65,31 +58,24 @@ Node *rotateNode_R(Node *root) {
 }
 
 Node *insertNode_Maintain(Node *root) {
-    log("insertNode_Maintain, root = %d\n", root->key);
     // 如果没有红孩子，直接返回
     if (!hasRedChild(root)) return root;
-    log("has red child\n");
     // 如果红孩子没有红孩子， 直接返回
     if (!(root->lchild->color == 0 && hasRedChild(root->lchild)) &&
         !(root->rchild->color == 0 && hasRedChild(root->rchild)))
         return root;
-    log("red child has red child\n");
     // 右侧是红， 兄弟是黑的
     if (root->lchild->color == 1) {
         // 红的左侧是红， 右旋调成一样的
-        if (root->rchild->lchild->color == 0) {
-            log("RL\n");
+        if (root->rchild->lchild->color == 0)
             root->rchild = rotateNode_R(root->rchild);
-        } else
-            log("RR\n");
-        root = rotateNode_L(root);
+        else
+            root = rotateNode_L(root);
     } else if (root->rchild->color == 1) {  // 跟上面对称
-        if (root->lchild->rchild->color == 0) {
+        if (root->lchild->rchild->color == 0)
             root->lchild = rotateNode_L(root->lchild);
-            log("LR\n");
-        } else
-            log("LL\n");
-        root = rotateNode_R(root);
+        else
+            root = rotateNode_R(root);
     }
     // 调整成红黑黑
     root->color = 0;
@@ -98,7 +84,6 @@ Node *insertNode_Maintain(Node *root) {
 }
 
 Node *_insertNode(Node *root, int key) {
-    log("insertNode, root = %d, key = %d\n", root->key, key);
     if (root == NIL) return createNode(key);
     if (root->key == key) return root;
     if (root->key > key)
