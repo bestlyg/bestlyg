@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '324. 摆动排序 II',
+  name: '241. 为运算表达式设计优先级',
   url: 'https://leetcode.cn/problems/wiggle-sort-ii/',
   difficulty: Difficulty.中等,
   tag: [Tag.数组, Tag.哈希表, Tag.双指针, Tag.字符串, Tag.排序],
@@ -13,18 +13,55 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 17.2,
-      desc: '从最大值和中间值往左遍历',
+      time: 8,
+      memory: 12.4,
+      desc: '分治',
       code: `class Solution {
    public:
-    void wiggleSort(vector<int>& nums) {
-        vector<int> list = nums;
-        sort(list.begin(), list.end());
-        int n = nums.size(), mid = (n + 1) / 2, i1 = mid - 1, i2 = n - 1, i = 0;
-        while (i1 >= 0 || i2 >= mid) {
-            if (i1 >= 0) nums[i++] = list[i1--];
-            if (i2 >= mid) nums[i++] = list[i2--];
+    unordered_set<char> opset;
+    Solution() {
+        opset.insert('+');
+        opset.insert('-');
+        opset.insert('*');
+    }
+    vector<int> diffWaysToCompute(string expression) {
+        vector<int> ans, oplist;
+        int n = expression.size();
+        for (int i = 0; i < n; i++) {
+            if (opset.count(expression[i])) oplist.push_back(i);
+        }
+        if (oplist.size() == 0)
+            ans.push_back(toNum(expression));
+        else
+            dfs(expression, oplist, ans);
+        return ans;
+    }
+    int toNum(string &expression) {
+        int num = 0, n = expression.size(), i = 0;
+        while (i < n && !opset.count(expression[i]))
+            num = num * 10 + expression[i++] - '0';
+        return num;
+    }
+    void dfs(string &expression, vector<int> &oplist, vector<int> &ans) {
+        for (auto &idx : oplist) {
+            vector<int> llist = diffWaysToCompute(expression.substr(0, idx));
+            vector<int> rlist = diffWaysToCompute(
+                expression.substr(idx + 1, expression.size() - idx));
+            for (auto &num1 : llist) {
+                for (auto &num2 : rlist) {
+                    switch (expression[idx]) {
+                        case '+':
+                            ans.push_back(num1 + num2);
+                            break;
+                        case '-':
+                            ans.push_back(num1 - num2);
+                            break;
+                        case '*':
+                            ans.push_back(num1 * num2);
+                            break;
+                    }
+                }
+            }
         }
     }
 };`,
