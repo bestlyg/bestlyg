@@ -4,8 +4,8 @@ import { Markdown, Difficulty, Tag, Script } from './leetcode';
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '556. 下一个更大元素 III',
+  exist: true,
+  name: '1200. 最小绝对差',
   url: 'https://leetcode.cn/problems/wiggle-sort-ii/',
   difficulty: Difficulty.困难,
   tag: [Tag.数学, Tag.双指针, Tag.字符串],
@@ -13,21 +13,27 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.8,
-      desc: '从小到大找到第一个逆序的数，再找到第一个逆序数大的数，进行交换，然后翻转后半段',
+      time: 60,
+      memory: 31.8,
+      desc: '遍历，对于每个点找到他的最小值',
       code: `class Solution {
-   public:
-    int nextGreaterElement(int n) {
-        string str = to_string(n);
-        int len = str.size(), i = len - 2, j = len - 1;
-        while (i >= 0 && str[i] - '0' >= str[i + 1] - '0') i--;
-        if (i == -1) return -1;
-        while (j > i && str[j] - '0' <= str[i] - '0') j--;
-        swap(str[i], str[j]);
-        reverse(str.begin() + i + 1, str.end());
-        long num = stol(str);
-        return num > INT_MAX ? -1 : num;
+  public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        vector<vector<int>> ans;
+        sort(arr.begin(), arr.end());
+        int nmin = INT_MAX;
+        for (int l = 0, r = 1; r < arr.size(); r++) {
+            while (l < r && abs(arr[l] - arr[r]) > nmin) l++;
+            if (l == r) continue;
+            int nextmin = abs(arr[l] - arr[r]);
+            if (nextmin < nmin) ans.clear();
+            nmin = nextmin;
+            vector<int> item(2);
+            item[0] = arr[l];
+            item[1] = arr[r];
+            ans.push_back(item);
+        }
+        return ans;
     }
 };`,
     },
