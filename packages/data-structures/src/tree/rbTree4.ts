@@ -60,10 +60,10 @@ class RBTree<T> {
       return node;
     if (node.lchild.color === 1) {
       if (node.rchild.lchild.color === 0) node.rchild = this.rotateRight(node.rchild);
-      this.rotateLeft(node.lchild);
+      node = this.rotateLeft(node);
     } else if (node.rchild.color === 1) {
       if (node.lchild.rchild.color === 0) node.lchild = this.rotateLeft(node.lchild);
-      this.rotateRight(node.rchild);
+      node = this.rotateRight(node);
     }
     node.color = 0;
     node.lchild.color = node.rchild.color = 1;
@@ -135,5 +135,23 @@ class RBTree<T> {
     }
     node.lchild.color = node.rchild.color = 1;
     return node;
+  }
+  successor(node: RBNode<T>) {
+    let successor = NIL;
+    if (node.rchild) {
+      successor = node.rchild;
+      while (successor.lchild) successor = successor!.lchild;
+      return successor;
+    }
+    let tmp = this.root;
+    while (tmp) {
+      if (tmp.key > node.key) {
+        successor = tmp;
+        tmp = tmp.lchild;
+      } else {
+        tmp = tmp.rchild;
+      }
+    }
+    return tmp;
   }
 }
