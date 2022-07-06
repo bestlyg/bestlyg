@@ -1,6 +1,6 @@
-import { Markdown, Difficulty, Tag, Script , utils} from './leetcode';
+import { Markdown, Difficulty, Tag, Script, utils } from './leetcode';
 
-const { specStr, markdown } = utils
+const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {

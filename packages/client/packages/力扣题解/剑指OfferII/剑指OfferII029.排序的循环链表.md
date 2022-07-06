@@ -12,18 +12,20 @@ group:
 ---
 
 # 剑指 Offer II 029. 排序的循环链表
-    
+
 > 链接：[剑指 Offer II 029. 排序的循环链表](https://leetcode.cn/problems/4ueAj6/)  
 > 难度：中等  
 > 标签：链表  
 > 简介：给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序的。
-      
+
 ## 题解 1 - cpp
+
 - 编辑时间：2022.06.18
 - 执行用时：8ms
 - 内存消耗：7.9MB
 - 编程语言：cpp
 - 解法介绍：遍历，考虑小于最小值和大于最大值。
+
 ```cpp
 class Solution {
    public:
@@ -54,5 +56,3 @@ class Solution {
     }
 };
 ```
-
-      

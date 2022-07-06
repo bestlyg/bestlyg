@@ -1,7 +1,7 @@
-import { gcd, lcm } from "./euclidean";
-import { phi } from "./euler";
-import { debounce, throttle, newInstance, random } from "./functions";
-import { getDualPrime, getEratosthenesPrime } from "./primes";
+import { gcd, lcm } from './euclidean';
+import { phi } from './euler';
+import { debounce, throttle, newInstance, random } from './functions';
+import { getDualPrime, getEratosthenesPrime } from './primes';
 
 describe('prime', () => {
   const ans_primes = [

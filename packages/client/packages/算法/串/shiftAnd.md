@@ -20,9 +20,8 @@ group:
 1. 标记数字 p，二进制第 i 位为 1 表示遍历当前字符时可匹配模式串的前 i 位
 1. 当 p 最高位为 1 时说明已匹配完成模式串
 
-
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/algorithms/src/sequence/shiftAnd.ts)
+
 ```ts
 /**
  * 遍历模式串对每个字符生成数字
@@ -52,5 +51,4 @@ export function shiftAnd(text: string, pattern: string): number {
   }
   return -1;
 }
-
 ```

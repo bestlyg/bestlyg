@@ -1,4 +1,4 @@
-import { UnionFindSet } from './unionFindSet'
+import { UnionFindSet } from './unionFindSet';
 describe('UnionFindSet', () => {
   let uf: UnionFindSet<number>;
   beforeEach(() => {

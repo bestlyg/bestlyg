@@ -1,6 +1,6 @@
-import { HashSet } from "./hashSet";
-import { TreeSet } from "./treeSet";
-import {Set} from './set'
+import { HashSet } from './hashSet';
+import { TreeSet } from './treeSet';
+import { Set } from './set';
 
 const list = [TreeSet, HashSet];
 list.forEach(run);

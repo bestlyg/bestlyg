@@ -1,4 +1,4 @@
-import { AVLTree } from './avlTree'
+import { AVLTree } from './avlTree';
 describe('AVLTree', () => {
   let tree: AVLTree<number>;
   beforeEach(() => {

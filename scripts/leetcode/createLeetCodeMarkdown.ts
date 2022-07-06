@@ -50,9 +50,9 @@ function addSolution() {
   try {
     file = fs.readFileSync(filepath).toString();
   } catch (e) {
-    console.log(filepath)
+    console.log(filepath);
     console.log(chalk.red('没有这个文件'));
-    process.exit(1)
+    process.exit(1);
   }
   fs.writeFileSync(
     filepath,

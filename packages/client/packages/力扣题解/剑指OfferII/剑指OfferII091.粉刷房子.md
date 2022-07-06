@@ -41,12 +41,15 @@ function minCost(costs: number[][]): number {
   return Math.min(...dp[(n - 1) % 2]);
 }
 ```
+
 ## 题解 2 - cpp
+
 - 编辑时间：2022.06.25
 - 执行用时：8ms
 - 内存消耗：9.6MB
 - 编程语言：cpp
 - 解法介绍：dp。
+
 ```cpp
 class Solution {
    public:

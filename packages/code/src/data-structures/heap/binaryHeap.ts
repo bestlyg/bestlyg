@@ -1,4 +1,4 @@
-import { Comparator, throwError, ERROR_EMPTY_ELEMENT, ErrorEnum } from "@/shared";
+import { Comparator, throwError, ERROR_EMPTY_ELEMENT, ErrorEnum } from '@/shared';
 
 export interface IBinaryHeap<T> {
   /* 当前链表含有的节点数  */

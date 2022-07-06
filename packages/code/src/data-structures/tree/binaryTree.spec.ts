@@ -1,6 +1,6 @@
-import { AVLTree } from "./avlTree";
-import { BinarySearchTree } from "./binarySearchTree";
-import { BinaryTreeNode } from "./binaryTree";
+import { AVLTree } from './avlTree';
+import { BinarySearchTree } from './binarySearchTree';
+import { BinaryTreeNode } from './binaryTree';
 
 describe('BinaryTree', () => {
   let tree!: BinarySearchTree<number>;

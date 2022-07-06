@@ -1,4 +1,4 @@
-import { FenwickTree } from "./fenwickTree";
+import { FenwickTree } from './fenwickTree';
 
 describe('FenwickTree', () => {
   let tree: FenwickTree;

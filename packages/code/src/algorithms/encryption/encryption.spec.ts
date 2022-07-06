@@ -1,5 +1,5 @@
-import { random } from "../common";
-import { rsa } from "./rsa";
+import { random } from '../common';
+import { rsa } from './rsa';
 
 function quick_mod(a: bigint, b: bigint, c: bigint) {
   let ans = 1n;

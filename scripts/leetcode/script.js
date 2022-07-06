@@ -3,8 +3,8 @@ class Store {
   callback = {};
   submit() {
     this.validate(() => {
-      const {onSubmit} = this.callback;
-      onSubmit()
+      const { onSubmit } = this.callback;
+      onSubmit();
     });
   }
   validate(fn) {

@@ -1,4 +1,4 @@
-import { BinarySearchTree } from './binarySearchTree'
+import { BinarySearchTree } from './binarySearchTree';
 
 class DummyNumber {
   constructor(public val: number, public dummyVal: number) {}

@@ -13,7 +13,7 @@ module.exports = {
     // 'packages/*/src/**/*.ts',
     // 'packages/data-structures/src/**/*.ts',
     // 'packages/algorithms/src/**/*.ts',
-    './src/**/*.ts'
+    './src/**/*.ts',
   ],
   collectCoverage: true,
   // testEnvironment: 'jsdom',

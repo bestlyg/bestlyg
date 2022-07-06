@@ -1,4 +1,4 @@
-import { manacher } from "./manacher";
+import { manacher } from './manacher';
 
 describe('Manacher', () => {
   test('empty str', () => {

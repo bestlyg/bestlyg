@@ -23,9 +23,8 @@ Trie 也叫做字典树、前缀树（Prefix Tree）、单词查找树，Trie �
 
 - 需要耗费大量的内存，
 
-
-
 ## [核心代码](https://gitee.com/bestlyg/bestlyg/tree/master/packages/data-structures/src/tree/trie.ts)
+
 ```ts
 export interface ITrie {
   size: number;
@@ -102,5 +101,4 @@ export class Trie implements ITrie {
     return this.findEndNode(nextStr, nextNode);
   }
 }
-
 ```
