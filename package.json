@@ -9,6 +9,7 @@
     "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "build": "pnpm --filter server run build && pnpm --filter client run build",
     "deploy" :"pnpm --filter server run start:prod",
+    "deploy:pm2" :"pm2 start packages/server/dist/main.js",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && pnpm run commit && git push -u origin master",
     "update:coreCode": "cd scripts && ts-node updateCoreCode.ts",
