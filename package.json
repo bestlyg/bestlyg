@@ -7,11 +7,11 @@
   ],
   "scripts": {
     "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-    "build": "cd scripts && ts-node build.ts",
+    "build": "pnpm --filter server run build && pnpm --filter client run build",
+    "deploy" :"pnpm --filter server run start:prod",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && pnpm run commit && git push -u origin master",
     "update:coreCode": "cd scripts && ts-node updateCoreCode.ts",
-    "deploy": "cd scripts && ts-node deploy",
     "leetcode:batch": "cd scripts/leetcode && ts-node batchLeetCode",
     "leetcode:readme": "cd scripts/leetcode && ts-node createLeetCodeReadme",
     "leetcode:markdown": "cd scripts/leetcode && ts-node createLeetCodeMarkDown",
