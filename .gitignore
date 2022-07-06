@@ -1,13 +1,6 @@
-dist
-.umi
-.umi-production
 node_modules
-jest
-yarn-error.log
-types
+dist
 temp
-
-# c
-*.out
-*.o
-*.h.gch
+.umi
+jest
+types

@@ -1,12 +1,12 @@
-import { specStr, resolve, trimBlank, LOGO, fs, chalk, dayjs } from '../utils';
-import { analysisFileName, srcPath, findLastSolutionIdx, Solution } from './leetcode';
+import { utils, analysisFileName, rootPath, findLastSolutionIdx, Solution } from './leetcode';
 import md from './leetCodeMarkdown';
 
+const { specStr, resolve, trimBlank, LOGO, fs, chalk, dayjs } = utils;
 const { backquote } = specStr;
 
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
 const { dirname, fileorder, dirorder } = analysisFileName(md.name);
-const dirpath = resolve(srcPath, dirname);
+const dirpath = resolve(rootPath, dirname);
 const filepath = resolve(dirpath, trimBlank(md.name) + '.md');
 
 function main() {
@@ -50,8 +50,9 @@ function addSolution() {
   try {
     file = fs.readFileSync(filepath).toString();
   } catch (e) {
+    console.log(filepath)
     console.log(chalk.red('没有这个文件'));
-    return;
+    process.exit(1)
   }
   fs.writeFileSync(
     filepath,

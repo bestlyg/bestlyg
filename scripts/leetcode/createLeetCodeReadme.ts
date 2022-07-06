@@ -2,7 +2,6 @@ import { LOGO, resolve, fs, trimBlank, chalk } from '../utils';
 import {
   SolutionList,
   Difficulty,
-  srcPath,
   analysisFileName,
   Type,
   rootPath,
@@ -86,12 +85,12 @@ function main() {
   console.log(chalk.blue(`正在生成LeetCode目录`));
   console.log(LOGO);
   run_web();
-  run_git();
+  // run_git();
   console.log(chalk.green(`生成完成`));
 }
 
 function run_web() {
-  const path = resolve(srcPath, 'index.md');
+  const path = resolve(rootPath, 'index.md');
   const data = `---
 title: 目录索引
 nav:

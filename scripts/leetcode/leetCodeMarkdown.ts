@@ -1,11 +1,11 @@
-import { specStr, markdown } from '../utils';
-import { Markdown, Difficulty, Tag, Script } from './leetcode';
+import { Markdown, Difficulty, Tag, Script , utils} from './leetcode';
 
+const { specStr, markdown } = utils
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '736. Lisp 语法解析',
+  exist: true,
+  name: '101.对称二叉树',
   url: 'https://leetcode.cn/problems/parse-lisp-expression/',
   difficulty: Difficulty.困难,
   tag: [Tag.栈, Tag.递归, Tag.哈希表, Tag.字符串],

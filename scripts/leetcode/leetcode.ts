@@ -1,4 +1,6 @@
-import { resolve, trimBlank, fs } from '../utils';
+import { fs, resolve, trimBlank } from '../utils';
+
+export * as utils from '../utils';
 
 export interface Solution {
   script: Script;
@@ -114,8 +116,7 @@ export const typeList: { type: Type; prefix: string; order: number }[] = [
   { type: Type.OFFER, prefix: '剑指Offer', order: 300000 },
 ];
 
-export const rootPath = resolve('packages/leetcode');
-export const srcPath = resolve(rootPath, 'src');
+export const rootPath = resolve('packages/client/packages/力扣题解');
 export interface SolutionList {
   name: string;
   solutions: string[];
@@ -159,7 +160,7 @@ export function findLastSolutionIdx(file: string) {
 }
 export function travel() {
   const dirList = fs
-    .readdirSync(srcPath)
+    .readdirSync(rootPath)
     .filter(v => !v.includes('.'))
     .sort((name1, name2) => {
       const order1 = typeList.find(v => v.prefix === name1)?.order ?? parseFloat(name1);
@@ -168,7 +169,7 @@ export function travel() {
     });
   const ans: { filepath: string }[] = [];
   for (const dir of dirList) {
-    const dirPath = `${srcPath}/${dir}`;
+    const dirPath = `${rootPath}/${dir}`;
     const list = fs.readdirSync(dirPath).sort((name1, name2) => {
       let len = 0;
       for (const { prefix } of typeList) {

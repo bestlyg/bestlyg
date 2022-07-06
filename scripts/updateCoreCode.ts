@@ -12,7 +12,7 @@ main();
 function findMarkdown(dir: string): void {
   const dirs = fs.readdirSync(dir);
   dirs
-    .filter(v => !v.includes('.'))
+    .filter(v => !v.includes('.') && v !== 'server')
     .forEach(subDir => {
       findMarkdown(resolve(dir, subDir));
     });

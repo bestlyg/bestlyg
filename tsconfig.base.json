@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "useDefineForClassFields": false,
+    "moduleResolution": "node",
+    "allowJs": false,
+    "noUnusedLocals": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "declaration": false,
+    "declarationMap": false,
+    "removeComments": false,
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "lib": ["ESNext", "DOM"],
+    "types": ["jest", "node"]
+  },
+  "include": ["packages/*"],
+  "exclude": ["node_modules"]
+}
