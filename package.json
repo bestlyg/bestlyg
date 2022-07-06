@@ -30,7 +30,8 @@
     "ca": "pnpm run commit:auto",
     "ucc": "pnpm run update:coreCode"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@types/shelljs": "^0.8.11",
     "chalk": "4",
     "dayjs": "^1.11.3",
     "fs-extra": "^10.1.0",
