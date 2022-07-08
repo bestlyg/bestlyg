@@ -5,80 +5,28 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '648. 单词替换',
-  url: 'https://leetcode.cn/problems/replace-words/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.字典树, Tag.数组, Tag.哈希表, Tag.字符串],
-  desc: `现在，给定一个由许多词根组成的词典 dictionary 和一个用空格分隔单词形成的句子 sentence。你需要将句子中的所有继承词用词根替换掉。如果继承词有许多可以形成它的词根，则用最短的词根替换它。`,
+  name: '1217. 玩筹码',
+  url: 'https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.贪心, Tag.数组, Tag.数学],
+  desc: `返回将所有筹码移动到同一位置上所需要的 最小代价 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 68,
-      memory: 54.5,
-      desc: '字典树',
-      code: `class TrieNode {
+      time: 0,
+      memory: 7,
+      desc: '因为跳一格1消费，跳两格0消费，相当于只有在相邻格才会消费',
+      code: `class Solution {
    public:
-    TrieNode **children;
-    bool end;
-    TrieNode() {
-        children = (TrieNode **)malloc(sizeof(TrieNode *) * 26);
-        for (int i = 0; i < 26; i++) children[i] = nullptr;
-        end = false;
-    }
-    void insert(string str) {
-        TrieNode *node = this;
-        for (int i = 0; i < str.size(); i++) {
-            int idx = str[i] - 'a';
-            if (!node->children[idx]) node->children[idx] = new TrieNode();
-            node = node->children[idx];
-            if (i == str.size() - 1) node->end = true;
-        }
-    }
-    string find(string str) {
-        TrieNode *node = this;
-        string ans = "", tmp = "";
-        for (int i = 0; i < str.size(); i++) {
-            int idx = str[i] - 'a';
-            tmp += str[i];
-            if (!node->children[idx]) return ans;
-            node = node->children[idx];
-            if (node->end) return tmp;
-        }
-        return ans;
-    }
-};
-class Solution {
-   public:
-    TrieNode *root = new TrieNode();
-    string replaceWords(vector<string> &dictionary, string sentence) {
-        vector<string> list;
-        string ans = "";
-        for (auto &str : dictionary) root->insert(str);
-        for (auto &str : split(sentence)) {
-            string res = root->find(str);
-            if (res == "")
-                list.push_back(str);
+    int minCostToMoveChips(vector<int>& position) {
+        int ans1 = 0, ans2 = 0;
+        for (auto& num : position) {
+            if (num & 1)
+                ans1++;
             else
-                list.push_back(res);
+                ans2++;
         }
-        for (int i = 0; i < list.size(); i++) {
-            if (i != 0) ans += " ";
-            ans += list[i];
-        }
-        return ans;
-    }
-    vector<string> split(string &str) {
-        vector<string> ans;
-        string tmp = "";
-        for (auto &ch : str) {
-            if (ch == ' ') {
-                ans.push_back(tmp);
-                tmp = "";
-            } else
-                tmp += ch;
-        }
-        ans.push_back(tmp);
-        return ans;
+        return min(ans1, ans2);
     }
 };`,
     },
