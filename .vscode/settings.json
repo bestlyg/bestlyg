@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        ".babelrc": "json",
+        "*.js": "javascriptreact",
+        "*.ts": "typescriptreact",
+        "algorithm": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp"
+    }
+}
