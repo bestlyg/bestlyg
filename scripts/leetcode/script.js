@@ -1,25 +1,15 @@
-let store;
-class Store {
-  callback = {};
-  submit() {
-    this.validate(() => {
-      const { onSubmit } = this.callback;
-      onSubmit();
-    });
-  }
-  validate(fn) {
-    Promise.resolve().then(() => {
-      fn();
-    });
-  }
-}
-
-store = new Store();
-store.callback.onSubmit = () => {
-  console.log('submit', 1);
-  store.callback.onSubmit = () => {
-    console.log('store', 2);
-  };
-};
-store.submit();
-store.submit();
+let obj = { a: 1 };
+console.log(obj.a);
+let newA = 12;
+Object.defineProperties(obj, {
+  a: {
+    get() {
+      return newA++;
+    },
+    set(v) {
+      console.log('set', v);
+    },
+  },
+});
+console.log(obj.a);
+obj.a = 1223;
