@@ -5,45 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '558. 四叉树交集',
-  url: 'https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.分治],
-  desc: `请你返回一个表示 n * n 二进制矩阵的四叉树，它是 quadTree1 和 quadTree2 所表示的两个二进制矩阵进行 按位逻辑或运算 的结果。`,
+  name: '剑指 Offer II 041. 滑动窗口的平均值',
+  url: 'https://leetcode.cn/problems/qIsx9U/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.设计, Tag.队列, Tag.数组, Tag.数据流],
+  desc: `给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 16.2,
-      desc: '分治,如果一个叶子且true,则与该节点相同,如果false,则与另一个节点相同,否则递归',
-      code: `class Solution {
+      time: 20,
+      memory: 13.7,
+      desc: 'queue',
+      code: `class MovingAverage {
    public:
-    Node *intersect(Node *quadTree1, Node *quadTree2) {
-        if (quadTree1->isLeaf) {
-            if (quadTree1->val)
-                return new Node(true, true);
-            else
-                return new Node(quadTree2->val, quadTree2->isLeaf,
-                                quadTree2->topLeft, quadTree2->topRight,
-                                quadTree2->bottomLeft, quadTree2->bottomRight);
+    int size, sum = 0;
+    queue<int> q;
+    MovingAverage(int size) { this->size = size; }
+    double next(int val) {
+        if (q.size() >= size) {
+            sum -= q.front();
+            q.pop();
         }
-        if (quadTree2->isLeaf) {
-            if (quadTree2->val)
-                return new Node(true, true);
-            else
-                return new Node(true, false, quadTree1->topLeft,
-                                quadTree1->topRight, quadTree1->bottomLeft,
-                                quadTree1->bottomRight);
-        }
-        Node *tl = intersect(quadTree1->topLeft, quadTree2->topLeft),
-             *tr = intersect(quadTree1->topRight, quadTree2->topRight),
-             *bl = intersect(quadTree1->bottomLeft, quadTree2->bottomLeft),
-             *br = intersect(quadTree1->bottomRight, quadTree2->bottomRight);
-        if (tl->isLeaf && tr->isLeaf && bl->isLeaf && br->isLeaf &&
-            tl->val == tr->val && tl->val == bl->val && tl->val == br->val)
-            return new Node(tl->val, true);
-        else
-            return new Node(false, false, tl, tr, bl, br);
+        q.push(val);
+        sum += val;
+        return sum * 1.0 / q.size();
     }
 };`,
     },

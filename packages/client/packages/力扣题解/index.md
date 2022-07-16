@@ -14,8 +14,8 @@ group:
 个人 LeetCode 题解
 
 
-总题目数:883
-总题解数:1460
+总题目数:884
+总题解数:1461
 
   ## 顺序索引
 ### 1-100
@@ -921,6 +921,7 @@ group:
 - [剑指OfferII034.外星语言是否排序](剑指OfferII/剑指offer-ii034)
 - [剑指OfferII035.最小时间差](剑指OfferII/剑指offer-ii035)
 - [剑指OfferII036.后缀表达式](剑指OfferII/剑指offer-ii036)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 - [剑指OfferII053.二叉搜索树中的中序后继](剑指OfferII/剑指offer-ii053)
 - [剑指OfferII067.最大的异或](剑指OfferII/剑指offer-ii067)
 - [剑指OfferII069.山峰数组的顶部](剑指OfferII/剑指offer-ii069)
@@ -1256,6 +1257,7 @@ group:
 - [剑指OfferII034.外星语言是否排序](剑指OfferII/剑指offer-ii034)
 - [剑指OfferII035.最小时间差](剑指OfferII/剑指offer-ii035)
 - [剑指OfferII036.后缀表达式](剑指OfferII/剑指offer-ii036)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 - [剑指OfferII067.最大的异或](剑指OfferII/剑指offer-ii067)
 - [剑指OfferII069.山峰数组的顶部](剑指OfferII/剑指offer-ii069)
 - [剑指OfferII074.合并区间](剑指OfferII/剑指offer-ii074)
@@ -2773,6 +2775,7 @@ group:
 - [剑指Offer09.用两个栈实现队列](剑指Offer/剑指offer09)
 - [剑指Offer37.序列化二叉树](剑指Offer/剑指offer37)
 - [剑指Offer59-II.队列的最大值](剑指Offer/剑指offer59-ii)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 ### 几何
 - [149.直线上最多的点数](101-200/149)
 - [223.矩形面积](201-300/223)
@@ -2931,6 +2934,7 @@ group:
 - [面试题17.09.第k个数](面试题/面试题17.09)
 - [剑指Offer50.第一个只出现一次的字符](剑指Offer/剑指offer50)
 - [剑指Offer59-II.队列的最大值](剑指Offer/剑指offer59-ii)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 ### 博弈
 - [375.猜数字大小II](301-400/375)
 - [464.我能赢吗](401-500/464)
@@ -3055,6 +3059,7 @@ group:
 - [901.股票价格跨度](901-1000/901)
 - [2034.股票价格波动](2001-2100/2034)
 - [面试题10.10.数字流的秩](面试题/面试题10.10)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 ### 后缀数组
 - [1044.最长重复子串](1001-1100/1044)
 ### 组合数学
@@ -3359,6 +3364,7 @@ group:
 - [剑指OfferII018.有效的回文](剑指OfferII/剑指offer-ii018)
 - [剑指OfferII019.最多删除一个字符得到回文](剑指OfferII/剑指offer-ii019)
 - [剑指OfferII034.外星语言是否排序](剑指OfferII/剑指offer-ii034)
+- [剑指OfferII041.滑动窗口的平均值](剑指OfferII/剑指offer-ii041)
 - [剑指OfferII069.山峰数组的顶部](剑指OfferII/剑指offer-ii069)
 ### 中等
 - [2.两数相加](1-100/2)
