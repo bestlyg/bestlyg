@@ -5,62 +5,48 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '565. 数组嵌套',
-  url: 'https://leetcode.cn/problems/array-nesting/',
+  name: '731. 我的日程安排表 II',
+  url: 'https://leetcode.cn/problems/my-calendar-ii/',
   difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.数组],
-  desc: `索引从0开始长度为N的数组A，包含0到N - 1的所有整数。找到最大的集合S并返回其大小`,
+  tag: [Tag.设计, Tag.线段树,Tag.二分查找,Tag.有序集合],
+  desc: `实现一个 MyCalendar 类来存放你的日程安排。如果要添加的时间内不会导致三重预订时，则可以存储这个新的日程安排。`,
   solutions: [
     {
-      script: Script.CPP,
-      time: 364,
-      memory: 167.9,
-      desc: '遍历，记录环大小',
-      code: `class Solution {
-   public:
-    int arrayNesting(vector<int> &nums) {
-        int ans = 0, n = nums.size();
-        vector<int> m(n, -1);
-        for (int i = 0; i < n; i++) {
-            if (m[i] != -1) continue;
-            unordered_set<int> s;
-            int res = dfs(nums, m, s, i);
-            ans = max(ans, res);
-            for (auto &idx : s) m[idx] = res;
+      script: Script.RUST,
+      time: 28,
+      memory: 2.7,
+      desc: '记录已经重叠的部分，每次遍历时判断新添加的是否和已重叠部分有冲突',
+      code: `struct MyCalendarTwo {
+    list: Vec<(i32, i32)>,
+    overlap: Vec<(i32, i32)>,
+}
+impl MyCalendarTwo {
+    fn new() -> Self {
+        MyCalendarTwo {
+            list: Vec::new(),
+            overlap: Vec::new(),
         }
-        return ans;
     }
-    int dfs(vector<int> &nums, vector<int> &m, unordered_set<int> &s, int idx) {
-        if (m[idx] != -1) return m[idx];
-        if (s.count(idx)) return 0;
-        s.insert(idx);
-        return dfs(nums, m, s, nums[idx]) + 1;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 148,
-      memory: 89.4,
-      desc: '遍历，记录',
-      code: `class Solution {
-   public:
-    int arrayNesting(vector<int>& nums) {
-        int ans = 0, n = nums.size();
-        vector<bool> check(n, false);
-        for (int i = 0; i < n; i++) {
-            int cnt = 1, cur = i;
-            check[cur] = true;
-            while (!check[nums[cur]]) {
-                cnt++;
-                cur = nums[cur];
-                check[cur] = true;
+    fn book(&mut self, start: i32, end: i32) -> bool {
+        let block = (start, end);
+        for item in &self.overlap {
+            if self.is_overlap(&block, item) {
+                return false;
             }
-            ans = max(ans, cnt);
         }
-        return ans;
+        for item in &self.list {
+            if self.is_overlap(&block, item) {
+                self.overlap.push((block.0.max(item.0), block.1.min(item.1)));
+            }
+        }
+        self.list.push(block);
+        print!("{}", block.0);
+        true
     }
-};`,
+    fn is_overlap(&self, v1: &(i32, i32), v2: &(i32, i32)) -> bool {
+        v1.0 < v2.1 && v1.1 > v2.0
+    }
+}`,
     },
   ],
 };
