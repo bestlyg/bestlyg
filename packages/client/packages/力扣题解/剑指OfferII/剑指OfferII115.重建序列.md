@@ -1,22 +1,31 @@
-import { Markdown, Difficulty, Tag, Script, utils } from './leetcode';
+---
+title: 剑指 Offer II 115. 重建序列
+order: 115
+nav:
+  title: 力扣题解
+  path: /leetcode
+  order: 4
+group:
+  title: 剑指OfferII
+  path: /剑指OfferII
+  order: 400000
+---
 
-const { specStr, markdown } = utils;
-const { backquote } = specStr;
-const { link } = markdown;
-const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '剑指 Offer II 115. 重建序列',
-  url: 'https://leetcode.cn/problems/ur2n8P/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.图, Tag.拓扑排序, Tag.数组],
-  desc: `检查 nums 是否是唯一的最短 超序列 。`,
-  solutions: [
-    {
-      script: Script.CPP,
-      time: 188,
-      memory: 107.3,
-      desc: '判断是否只有唯一的拓扑排序',
-      code: `class Solution {
+# 剑指 Offer II 115. 重建序列
+    
+> 链接：[剑指 Offer II 115. 重建序列](https://leetcode.cn/problems/ur2n8P/)  
+> 难度：中等  
+> 标签：图、拓扑排序、数组  
+> 简介：检查 nums 是否是唯一的最短 超序列 。
+      
+## 题解 1 - cpp
+- 编辑时间：2022.07.23
+- 执行用时：188ms
+- 内存消耗：107.3MB
+- 编程语言：cpp
+- 解法介绍：判断是否只有唯一的拓扑排序。
+```cpp
+class Solution {
    public:
     struct node {
         unordered_set<int> children, parent;
@@ -44,8 +53,7 @@ const leetCodeMarkdown: Markdown = {
         }
         return true;
     }
-};`,
-    },
-  ],
 };
-export default leetCodeMarkdown;
+```
+
+      
