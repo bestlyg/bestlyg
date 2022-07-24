@@ -4,47 +4,36 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '剑指 Offer II 115. 重建序列',
+  exist: true,
+  name: '1184. 公交站间的距离',
   url: 'https://leetcode.cn/problems/ur2n8P/',
   difficulty: Difficulty.中等,
   tag: [Tag.图, Tag.拓扑排序, Tag.数组],
   desc: `检查 nums 是否是唯一的最短 超序列 。`,
   solutions: [
     {
-      script: Script.CPP,
-      time: 188,
-      memory: 107.3,
-      desc: '判断是否只有唯一的拓扑排序',
-      code: `class Solution {
-   public:
-    struct node {
-        unordered_set<int> children, parent;
-    };
-    bool sequenceReconstruction(vector<int>& nums,
-                                vector<vector<int>>& sequences) {
-        int n = nums.size();
-        vector<node> m(n + 1, node());
-        for (auto& item : sequences) {
-            for (int i = 0; i < item.size() - 1; i++) {
-                int parent = item[i], child = item[i + 1];
-                m[parent].children.insert(child);
-                m[child].parent.insert(parent);
-            }
+      script: Script.RUST,
+      time: 0,
+      memory: 2.1,
+      desc: '遍历',
+      code: `impl Solution {
+    pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {
+        let n = distance.len() as i32;
+        let (mut sum1, mut sum2) = (0, 0);
+        let (mut cur1, mut cur2) = (start, destination);
+        let mut i = start;
+        while i != destination {
+            sum1 += distance[i as usize];
+            i = (i + 1) % n;
         }
-        for (int i = 0; i < n; i++) {
-            int num = nums[i];
-            if (m[num].parent.size()) return false;
-            int nextcnt = 0;
-            for (auto& child : m[num].children) {
-                m[child].parent.erase(num);
-                if (m[child].parent.size() == 0) nextcnt++;
-            }
-            if (i < n - 1 && nextcnt != 1) return false;
+        i = destination;
+        while i != start {
+            sum2 += distance[i as usize];
+            i = (i + 1) % n;
         }
-        return true;
+        sum1.min(sum2)
     }
-};`,
+}`,
     },
   ],
 };
