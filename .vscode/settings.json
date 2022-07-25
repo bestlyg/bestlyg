@@ -6,6 +6,8 @@
         "algorithm": "cpp",
         "chrono": "cpp",
         "limits": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "queue": "cpp",
+        "__node_handle": "cpp"
     }
 }
