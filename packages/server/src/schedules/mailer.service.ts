@@ -8,15 +8,22 @@ import * as dayjs from 'dayjs';
 export class MailerTaskService {
   private format = 'YYYY-MM-DD';
   private md = new MarkdownIt();
-  private menses = dayjs('2022-6-25');
+  private menses = dayjs('2022-7-26');
   constructor(private readonly mailer: MailerService) {}
+
+  async lyg_mailerTask(name: string, content: string) {
+    await this.mailer.send(['1057966749@qq.com'], `定时提醒-${name}`, content);
+  }
+  async yzx_mailerTask(name: string, content: string) {
+    await this.mailer.send(['2428047022@qq.com'], `定时提醒-${name}`, content);
+  }
+
   @Cron('0 0 8,20 * * *')
   async ownerDaily() {
     const now = dayjs();
     const subject = `${dayjs().format('YYYY-MM-DD')}日报`;
     const mensesCnt = now.diff(this.menses, 'day');
-    await this.mailer.send(
-      ['1057966749@qq.com'],
+    await this.lyg_mailerTask(
       subject,
       this.md.render(`
 # 日报
@@ -36,14 +43,7 @@ export class MailerTaskService {
   }
   @Cron('0 30 20 * * *')
   async ownerXXYX() {
-    await this.mailer.send(
-      ['1057966749@qq.com'],
-      '定时提醒-晓晓优选',
-      '晓晓优选记得提交',
-    );
-  }
-  async yzx_mailerTask(name: string, content: string) {
-    await this.mailer.send(['2428047022@qq.com'], `定时提醒-${name}`, content);
+    await this.lyg_mailerTask('定时提醒-晓晓优选', '晓晓优选记得提交');
   }
   //交行抢5折券 每周五提醒
   @Cron('0 55 9 * * *')
@@ -55,6 +55,7 @@ export class MailerTaskService {
   @Cron('0 0 12 * * *')
   async yzx_jhsh() {
     await this.yzx_mailerTask('建行生活', '建行生活记得签到');
+    await this.lyg_mailerTask('建行生活', '建行生活记得签到');
   }
   // 每日大姨妈提醒
   @Cron('0 0 22 * * *')
