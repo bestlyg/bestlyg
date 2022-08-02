@@ -4,85 +4,85 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1161. 最大层内元素和',
-  url: 'https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree/',
+  exist: true,
+  name: '622. 设计循环队列',
+  url: 'https://leetcode.cn/problems/design-circular-queue/',
   difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.广度优先搜索, Tag.二叉树],
-  desc: `请返回层内元素之和 最大 的那几层（可能只有一层）的层号，并返回其中 最小 的那个。`,
+  tag: [Tag.设计, Tag.队列, Tag.数组, Tag.链表],
+  desc: `设计你的循环队列实现。 `,
   solutions: [
     {
-      script: Script.CPP,
-      time: 156,
-      memory: 104.7,
-      desc: '层序遍历',
-      code: `class Solution {
-   public:
-    int maxLevelSum(TreeNode *root) {
-        queue<TreeNode *> q;
-        q.push(root);
-        int max_level = 1, max_sum = root->val, cur = 0, size = 1, level = 1;
-        while (q.size()) {
-            TreeNode *node = q.front();
-            q.pop();
-            if (node->left) {
-                cur += node->left->val;
-                q.push(node->left);
-            }
-            if (node->right) {
-                cur += node->right->val;
-                q.push(node->right);
-            }
-            if (--size == 0) {
-                size = q.size();
-                level++;
-                if (size > 0 && cur > max_sum) {
-                    max_sum = cur;
-                    max_level = level;
-                }
-                cur = 0;
-            }
-        }
-        return max_level;
-    }
-};`,
-    },
-    {
       script: Script.RUST,
-      time: 24,
-      memory: 3.2,
-      desc: '层序遍历',
-      code: `use std::cell::RefCell;
-use std::rc::Rc;
-impl Solution {
-    pub fn max_level_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        use std::collections::VecDeque;
-        let root = root.unwrap();
-        let mut q: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();
-        q.push_back(root.clone());
-        let (mut max_level, mut max_sum, mut cur, mut size, mut level) =
-            (1, root.borrow().val, 0, 1, 1);
-        while let Some(node) = q.pop_front() {
-            if node.as_ref().borrow().left.is_some() {
-                cur += node.as_ref().borrow().left.as_ref().unwrap().borrow().val;
-                q.push_back(node.as_ref().borrow().left.as_ref().unwrap().clone());
-            }
-            if node.as_ref().borrow().right.is_some() {
-                cur += node.as_ref().borrow().right.as_ref().unwrap().borrow().val;
-                q.push_back(node.as_ref().borrow().right.as_ref().unwrap().clone());
-            }
-            size -= 1;
-            if size == 0 {
-                size = q.len();
-                level += 1;
-                if size > 0 && cur > max_sum {
-                    max_sum = cur;
-                    max_level = level;
-                }
-                cur = 0;
-            }
+      time: 4,
+      memory: 2.3,
+      desc: 'queue',
+      code: `struct MyCircularQueue {
+    list: Vec<i32>,
+    max: usize,
+    head: usize,
+    rear: usize,
+}
+impl MyCircularQueue {
+    fn new(k: i32) -> Self {
+        let max = (k + 1) as usize;
+        let mut list = Vec::with_capacity(max);
+        for _ in 0..max {
+            list.push(0);
         }
-        max_level
+        MyCircularQueue {
+            max,
+            list,
+            head: 0,
+            rear: 0,
+        }
+    }
+
+    fn en_queue(&mut self, value: i32) -> bool {
+        if self.is_full() {
+            false
+        } else {
+            self.list[self.rear] = value;
+            self.rear = (self.rear + 1) % self.max;
+            true
+        }
+    }
+
+    fn de_queue(&mut self) -> bool {
+        if self.is_empty() {
+            false
+        } else {
+            self.head = (self.head + 1) % self.max;
+            true
+        }
+    }
+
+    fn front(&self) -> i32 {
+        if self.is_empty() {
+            -1
+        } else {
+            *self.list.get(self.head).unwrap()
+        }
+    }
+
+    fn rear(&self) -> i32 {
+        if self.is_empty() {
+            -1
+        } else {
+            let rear = if self.rear == 0 {
+                self.max - 1
+            } else {
+                self.rear - 1
+            };
+            *self.list.get(rear).unwrap()
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.rear == self.head
+    }
+
+    fn is_full(&self) -> bool {
+        (self.rear + 1) % self.max == self.head
     }
 }`,
     },
