@@ -4,85 +4,39 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '622. 设计循环队列',
-  url: 'https://leetcode.cn/problems/design-circular-queue/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.队列, Tag.数组, Tag.链表],
-  desc: `设计你的循环队列实现。 `,
+  exist: !true,
+  name: '899. 有序队列',
+  url: 'https://leetcode.cn/problems/orderly-queue/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数学, Tag.字符串, Tag.排序],
+  desc: `给定一个字符串 s 和一个整数 k 。你可以从 s 的前 k 个字母中选择一个，并把它加到字符串的末尾。  `,
   solutions: [
     {
       script: Script.RUST,
-      time: 4,
+      time: 0,
       memory: 2.3,
-      desc: 'queue',
-      code: `struct MyCircularQueue {
-    list: Vec<i32>,
-    max: usize,
-    head: usize,
-    rear: usize,
-}
-impl MyCircularQueue {
-    fn new(k: i32) -> Self {
-        let max = (k + 1) as usize;
-        let mut list = Vec::with_capacity(max);
-        for _ in 0..max {
-            list.push(0);
-        }
-        MyCircularQueue {
-            max,
-            list,
-            head: 0,
-            rear: 0,
-        }
-    }
-
-    fn en_queue(&mut self, value: i32) -> bool {
-        if self.is_full() {
-            false
+      desc: '如果k大于1，说明可以任意调换顺序，如果k等于1说明只能把头部放入尾部',
+      code: `use std::cmp::Ordering;
+use std::collections::VecDeque;
+impl Solution {
+    pub fn orderly_queue(s: String, k: i32) -> String {
+        if k == 1 {
+            let mut s = s.chars().collect::<VecDeque<char>>();
+            let mut ans = s.clone();
+            let mut temp = s.clone();
+            for i in 0..s.len() {
+                temp.pop_front();
+                temp.push_back(s[i]);
+                if ans.cmp(&temp) == Ordering::Greater {
+                    ans = temp.clone();
+                }
+            }
+            ans.into_iter().collect()
         } else {
-            self.list[self.rear] = value;
-            self.rear = (self.rear + 1) % self.max;
-            true
+            let mut s = s.chars().collect::<Vec<char>>();
+            s.sort();
+            s.into_iter().collect()
         }
-    }
-
-    fn de_queue(&mut self) -> bool {
-        if self.is_empty() {
-            false
-        } else {
-            self.head = (self.head + 1) % self.max;
-            true
-        }
-    }
-
-    fn front(&self) -> i32 {
-        if self.is_empty() {
-            -1
-        } else {
-            *self.list.get(self.head).unwrap()
-        }
-    }
-
-    fn rear(&self) -> i32 {
-        if self.is_empty() {
-            -1
-        } else {
-            let rear = if self.rear == 0 {
-                self.max - 1
-            } else {
-                self.rear - 1
-            };
-            *self.list.get(rear).unwrap()
-        }
-    }
-
-    fn is_empty(&self) -> bool {
-        self.rear == self.head
-    }
-
-    fn is_full(&self) -> bool {
-        (self.rear + 1) % self.max == self.head
     }
 }`,
     },
