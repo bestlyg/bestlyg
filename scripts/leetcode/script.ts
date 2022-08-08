@@ -30,4 +30,4 @@ function strStr(haystack: string, needle: string): number {
   }
   return -1;
 }
-console.log(strStr('mississippi', 'abcabd'));
+console.log(strStr('mississippi', 'abcabd1'));
