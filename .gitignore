@@ -5,3 +5,5 @@ temp
 jest
 types
 .umi-production
+# rust
+target
