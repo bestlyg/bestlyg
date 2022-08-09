@@ -5,44 +5,76 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '761. 特殊的二进制序列',
-  url: 'https://leetcode.cn/problems/special-binary-string/',
+  name: '1413. 逐步求和得到正数的最小值',
+  url: 'https://leetcode.cn/problems/minimum-value-to-get-positive-step-by-step-sum/',
   difficulty: Difficulty.困难,
-  tag: [Tag.递归,Tag.字符串, ],
-  desc: `在任意次数的操作之后，交换后的字符串按照字典序排列的最大的结果是什么`,
+  tag: [Tag.数组, Tag.前缀和],
+  desc: `请你在确保累加和始终大于等于 1 的前提下，选出一个最小的 正数 作为 startValue 。`,
   solutions: [
     {
       script: Script.RUST,
       time: 0,
-      memory: 2.1,
-      desc: '当作左括号和右括号的匹配',
+      memory: 2.2,
+      desc: '前缀和判断每一次数组中值相加的绝对值小于ans',
       code: `impl Solution {
-    pub fn make_largest_special(s: String) -> String {
-        let s = s.chars().collect::<Vec<char>>();
-        Solution::_make_largest_special(&s, 0, s.len())
-    }
-    fn _make_largest_special(s: &Vec<char>, l: usize, r: usize) -> String {
-        if l >= r - 1 {
-            return String::new();
-        }
-        let (mut i, mut cnt, mut left, mut substrs) = (l, 0, l, Vec::<String>::new());
-        while i < r {
-            if s[i] == '1' {
-                cnt += 1;
-            } else {
-                cnt -= 1;
-                if cnt == 0 {
-                    substrs.push(format!(
-                        "1{}0",
-                        Solution::_make_largest_special(s, left + 1, i)
-                    ));
-                    left = i + 1;
-                }
+    pub fn min_start_value(nums: Vec<i32>) -> i32 {
+        let mut ans = 1;
+        let mut sum  = 0;
+        for num in nums {
+            sum += num;
+            if sum < 0 && ans <= sum.abs() {
+                ans = sum.abs() + 1;
             }
-            i += 1;
         }
-        substrs.sort_by(|s1, s2| s2.cmp(s1));
-        substrs.join("")
+        ans
+    }
+}`,
+    },
+    {
+      script: Script.RUST,
+      time: 0,
+      memory: 2,
+      desc: '前缀和判断每一次数组中值相加的绝对值小于ans',
+      code: `impl Solution {
+    pub fn min_start_value(nums: Vec<i32>) -> i32 {
+        let (mut ans, mut sum) = (0, 0);
+        for num in nums {
+            sum += num;
+            ans = ans.min(sum);
+        }
+        ans.abs() + 1
+    }
+}`,
+    },
+    {
+      script: Script.RUST,
+      time: 0,
+      memory: 2,
+      desc: '二分',
+      code: `
+fn check(nums: &Vec<i32>, v: i32) -> bool {
+    let mut v = v;
+    for num in nums {
+        v += num;
+        if v <= 0 {
+            return false;
+        }
+    }
+    true
+}
+
+impl Solution {
+    pub fn min_start_value(nums: Vec<i32>) -> i32 {
+        let (mut l, mut r) = (1, i32::MAX);
+        while l < r {
+            let m = l + (r - l) / 2;
+            if check(&nums, m) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        l
     }
 }`,
     },
