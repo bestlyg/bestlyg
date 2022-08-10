@@ -1,15 +1,9 @@
 use protobuf_parse::{ParsedAndTypechecked, Parser};
 use std::{path::PathBuf, process::exit};
 mod config;
-// mod parser;
 fn main() {
     let config = config::Config::new();
     let file_size = config.files.len();
-    // let mut list: Vec<(&PathBuf, anyhow::Result<ParsedAndTypechecked>)> = Vec::new();
-    // for p in config.files.iter() {
-    //     parser::parse(&mut list, p);
-    // }
-    // let ans = parser::parse(&config);
     let list = config
         .files
         .iter()
