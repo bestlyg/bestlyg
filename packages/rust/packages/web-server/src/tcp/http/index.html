@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello!</title>
+  </head>
+  <body>
+    <h1>Hello!</h1>
+    <p>Hi from Rust</p>
+    <script>
+      function request(data) {
+        let { name = '', url = '/', ...args } = data;
+        fetch(url, args).then(
+          res => {
+            console.log(`========`);
+            console.log(`name = ${name}, type = Success`);
+            console.log(res);
+          },
+          err => {
+            console.log(`========`);
+            console.log(`name = ${name}, type = Fail`);
+            console.log(err);
+          }
+        );
+      }
+      request({
+        name: 'test1',
+        url: '/test',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ a: 1 }),
+      });
+    </script>
+  </body>
+</html>

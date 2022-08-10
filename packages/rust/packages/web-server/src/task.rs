@@ -15,7 +15,7 @@ pub fn tcp(port: u32, task: &String) {
     let listener = TcpListener::bind(format!("127.0.0.1:{}", port));
     match listener {
         Ok(listener) => {
-            println!("tcp listener on {}", port);
+            println!(">>> TCP Listener : {}", port);
             if let Some(task) = TCP_TASK.get(task) {
                 task(&listener);
             }
