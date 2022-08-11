@@ -71,16 +71,19 @@ impl Request {
         map
     }
     pub fn print(&self) {
-        let get_str = |k: &str, v: &str| format!("    {:<20} : {}", k, v);
+        let method = get_method_name(self.method());
         let mut list = vec![
-            get_str("url", self.url()),
-            get_str("method", &get_method_name(self.method())),
-            get_str("version", self.version()),
-            get_str("headers", ""),
+            ("url", self.url()),
+            ("method", &method),
+            ("version", self.version()),
+            ("headers", "---"),
         ];
         for (k, v) in self.headers().iter() {
-            list.push(get_str(k, v));
+            list.push((k, v));
         }
-        list.iter().for_each(|s| println!("{}", s));
+        let mut width = 0;
+        list.iter().for_each(|(k, _)| width = width.max(k.len() + 1));
+        list.iter()
+            .for_each(|(k, v)| println!("    {:>width$} : {}", k, v));
     }
 }
