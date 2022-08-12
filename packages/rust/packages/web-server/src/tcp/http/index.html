@@ -7,6 +7,7 @@
   <body>
     <h1>Hello!</h1>
     <p>Hi from Rust</p>
+    <input type="file" name="" id="file" onchange="onFileChange(event)" multiple="multiple"/>
     <script>
       function request(data) {
         let { name = '', url = '/', ...args } = data;
@@ -23,13 +24,42 @@
           }
         );
       }
-      request({
-        name: 'test1',
-        url: '/test',
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ a: 1 }),
-      });
+      {
+        request({
+          name: 'query1',
+          url: '/data/query?a=1&b=2',
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ a: 1 }),
+        });
+        request({
+          name: 'test1',
+          url: '/data/json',
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ a: 1 }),
+        });
+      }
+      {
+        // 1. 创建 xhr 对象
+        const xhr = new XMLHttpRequest();
+        // 2. 调用 open()
+        xhr.open('POST', '/data/formdata');
+        // 3. 设置 Content-Type 属性（固定写法）
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // 4. 调用 send()，同时将数据以查询字符串的形式，提交给服务器
+        xhr.send('bookname=水浒传&author=施耐庵&publisher=天津图书出版社');
+        // 5. 监听 onreadystatechange 事件
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr);
+          }
+        };
+      }
+      function onFileChange(e) {
+        const files = e.target.files;
+        console.log(files);
+      }
     </script>
   </body>
 </html>

@@ -5,37 +5,20 @@ fn main() {
     println!("Hello, world!");
 }
 
+use std::collections::*;
 impl Solution {
-    pub fn reformat(s: String) -> String {
-        let (mut list_num, mut list_char) = (Vec::new(), Vec::new());
-        for c in s.chars().collect::<Vec<char>>() {
-            if c.is_numeric() {
-                list_num.push(c);
-            } else {
-                list_char.push(c);
+    pub fn group_the_people(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut ans = Vec::new();
+        let mut map = HashMap::<i32, Vec<Vec<i32>>>::new();
+        for i in 0..group_sizes.len() {
+            let k = group_sizes[i];
+            let list = map.entry(k).or_insert(vec![vec![]]);
+            let item = list.last_mut().unwrap();
+            item.push(i as i32);
+            if item.len() == k as usize {
+                ans.push(item.clone());
+                list.push(Vec::new());
             }
-        }
-        let mut ans = String::new();
-        if (list_num.len() as i32 - list_char.len() as i32).abs() > 1 {
-            return ans;
-        }
-        let (mut list1, mut list2) = if list_num.len() > list_char.len() {
-            (list_num.into_iter(), list_char.into_iter())
-        } else {
-            (list_char.into_iter(), list_num.into_iter())
-        };
-        loop {
-            let mut c;
-            c = list1.next();
-            if c.is_none() {
-                break;
-            };
-            ans.push(c.unwrap());
-            c = list2.next();
-            if c.is_none() {
-                break;
-            };
-            ans.push(c.unwrap());
         }
         ans
     }

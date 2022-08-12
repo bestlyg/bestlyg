@@ -1,10 +1,11 @@
 use std::{
     fs,
-    io::{Write},
+    io::Write,
     net::{TcpListener, TcpStream},
 };
-mod utils;
 mod request;
+mod response;
+mod utils;
 
 pub fn run(listener: &TcpListener) {
     println!(">>> Http Task");
@@ -14,18 +15,8 @@ pub fn run(listener: &TcpListener) {
             let mut stream = stream;
             let request = request::Request::new(&mut stream);
             request.print();
-            response(&mut stream);
+            let response = response::Response::new(&stream, &request);
+            response.response();
         }
     }
-}
-
-fn response(stream: &mut TcpStream) {
-    let contents = fs::read_to_string("./src/tcp/http/index.html").unwrap();
-    let response = format!(
-        "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
-        contents.len(),
-        contents
-    );
-    stream.write(response.as_bytes()).unwrap();
-    stream.flush().unwrap();
 }

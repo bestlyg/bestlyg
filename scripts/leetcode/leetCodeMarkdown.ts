@@ -5,48 +5,31 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1417. 重新格式化字符串',
-  url: 'https://leetcode.cn/problems/reformat-the-string/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `请你返回 重新格式化后 的字符串；如果无法按要求重新格式化，则返回一个 空字符串 。`,
+  name: '1282. 用户分组',
+  url: 'https://leetcode.cn/problems/group-the-people-given-the-group-size-they-belong-to/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.哈希表],
+  desc: `返回一个组列表，使每个人 i 都在一个大小为 groupSizes[i] 的组中。`,
   solutions: [
     {
       script: Script.RUST,
       time: 4,
-      memory: 2.1,
-      desc: '重新排列',
-      code: `impl Solution {
-    pub fn reformat(s: String) -> String {
-        let (mut list_num, mut list_char) = (Vec::new(), Vec::new());
-        for c in s.chars().collect::<Vec<char>>() {
-            if c.is_numeric() {
-                list_num.push(c);
-            } else {
-                list_char.push(c);
+      memory: 2.3,
+      desc: 'map重组',
+      code: `use std::collections::*;
+impl Solution {
+    pub fn group_the_people(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut ans = Vec::new();
+        let mut map = HashMap::<i32, Vec<Vec<i32>>>::new();
+        for i in 0..group_sizes.len() {
+            let k = group_sizes[i];
+            let list = map.entry(k).or_insert(vec![vec![]]);
+            let item = list.last_mut().unwrap();
+            item.push(i as i32);
+            if item.len() == k as usize {
+                ans.push(item.clone());
+                list.push(Vec::new());
             }
-        }
-        let mut ans = String::new();
-        if (list_num.len() as i32 - list_char.len() as i32).abs() > 1 {
-            return ans;
-        }
-        let (mut list1, mut list2) = if list_num.len() > list_char.len() {
-            (list_num.into_iter(), list_char.into_iter())
-        } else {
-            (list_char.into_iter(), list_num.into_iter())
-        };
-        loop {
-            let mut c;
-            c = list1.next();
-            if c.is_none() {
-                break;
-            };
-            ans.push(c.unwrap());
-            c = list2.next();
-            if c.is_none() {
-                break;
-            };
-            ans.push(c.unwrap());
         }
         ans
     }

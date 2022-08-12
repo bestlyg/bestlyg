@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 pub enum Method {
-    GET(String),
-    POST(String),
+    GET,
+    POST,
     UNKNOWN(String),
 }
-pub fn get_method_name(method: Method) -> String {
+pub fn get_method_type(method: Method) -> String {
     match method {
-        Method::GET(name) => name,
-        Method::POST(name) => name,
+        Method::GET => String::from("GET"),
+        Method::POST => String::from("POST"),
         Method::UNKNOWN(name) => name,
     }
 }
