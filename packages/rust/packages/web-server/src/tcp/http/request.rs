@@ -1,4 +1,5 @@
-use std::{collections::HashMap, io::Read, net::TcpStream};
+use std::{borrow::Cow, collections::HashMap, io::Read, net::TcpStream};
+use url::form_urlencoded;
 
 fn analysis(stream: &mut TcpStream) -> (Box<Vec<String>>, Box<Vec<u8>>) {
     const SPLIT_TAG: &str = "\r\n";
@@ -139,10 +140,13 @@ impl Body {
         }
     }
     fn parse_form(&self, body: &Box<Vec<u8>>) -> String {
-        match String::from_utf8(body.as_ref().clone()) {
-            Ok(s) => s,
-            Err(e) => format!("{:?}", e),
+        let parse = form_urlencoded::parse(&body.as_ref());
+        let mut ans = String::new();
+        for (k, v) in parse {
+            ans.push_str(&format!("{}={},", k, v));
         }
+        ans.pop();
+        ans
     }
 }
 
