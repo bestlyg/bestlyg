@@ -1,5 +1,4 @@
-use std::{borrow::Cow, collections::HashMap, io::Read, net::TcpStream};
-use url::form_urlencoded;
+use std::{borrow::Cow, collections::HashMap, fmt::Error, io::Read, net::TcpStream};
 
 fn analysis(stream: &mut TcpStream) -> (Box<Vec<String>>, Box<Vec<u8>>) {
     const SPLIT_TAG: &str = "\r\n";
@@ -87,7 +86,7 @@ impl Request {
             ("type", body.to_string()),
             ("raw", format!("{:?}", self.body).to_string()),
             ("size", format!("{}B", self.body.len()).to_string()),
-            ("data", body.parse(&self.body).to_string()),
+            ("data", body.parse_to_string(&self.body).to_string()),
         ]
         .into_iter()
         .for_each(|v| list.push(v));
@@ -125,10 +124,10 @@ impl Body {
             Body::UNKNOWN(s.to_string())
         }
     }
-    fn parse(&self, body: &Box<Vec<u8>>) -> String {
+    fn parse_to_string(&self, body: &Box<Vec<u8>>) -> String {
         match self {
             Body::JSON => self.parse_json(body),
-            Body::FORM => self.parse_form(body),
+            Body::FORM => self.parse_form(&body),
             Body::NONE => String::from("NONE"),
             Body::UNKNOWN(name) => format!("UNKNOWN {}", name.to_string()),
         }
@@ -140,13 +139,13 @@ impl Body {
         }
     }
     fn parse_form(&self, body: &Box<Vec<u8>>) -> String {
-        let parse = form_urlencoded::parse(&body.as_ref());
-        let mut ans = String::new();
-        for (k, v) in parse {
-            ans.push_str(&format!("{}={},", k, v));
+        match super::utils::decode_uri(body.as_ref()) {
+            Ok(body) => match String::from_utf8(body) {
+                Ok(data) => data,
+                Err(_) => String::new(),
+            },
+            Err(_) => String::new(),
         }
-        ans.pop();
-        ans
     }
 }
 
