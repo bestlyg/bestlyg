@@ -62,7 +62,8 @@
         // 3. 设置 Content-Type 属性（固定写法）
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         // 4. 调用 send()，同时将数据以查询字符串的形式，提交给服务器
-        xhr.send(encodeURI('bookname=水浒传&author=施耐庵&publisher=天津图书出版社'));
+        // xhr.send(encodeURI('bookname=水浒传&author=施耐庵&publisher=天津图书出版社'));
+        xhr.send(encodeURI('a=李&b=啊'));
         // 5. 监听 onreadystatechange 事件
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {

@@ -85,7 +85,7 @@ impl Request {
         vec![
             ("body", "---".to_string()),
             ("type", body.to_string()),
-            // ("raw", format!("{:?}", self.body).to_string()),
+            ("raw", format!("{:?}", self.body).to_string()),
             ("size", format!("{}B", self.body.len()).to_string()),
             ("data", body.parse(&self.body).to_string()),
         ]
