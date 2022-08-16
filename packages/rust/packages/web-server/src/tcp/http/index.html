@@ -77,10 +77,12 @@
         console.log(files);
         const formdata = new FormData();
         formdata.append('a', '1');
+        formdata.append(1, '李');
+        formdata.append('file', files[0]);
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/data/formdata/multipart');
         // 3. 设置 Content-Type 属性（固定写法）
-        xhr.setRequestHeader('Content-Type', `multipart/form-data`);
+        // xhr.setRequestHeader('Content-Type', `multipart/form-data`);
         xhr.send(formdata);
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
