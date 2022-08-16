@@ -84,9 +84,9 @@ impl Request {
         vec![
             ("body", "---".to_string()),
             ("type", body.to_string()),
-            ("raw", format!("{:?}", self.body).to_string()),
-            ("size", format!("{}B", self.body.len()).to_string()),
-            ("data", body.parse_to_string(&self.body).to_string()),
+            ("raw", format!("{:?}", self.body)),
+            ("size", format!("{}B", self.body.len())),
+            ("data", body.parse_to_string(&self.body)),
         ]
         .into_iter()
         .for_each(|v| list.push(v));
@@ -127,7 +127,7 @@ impl Body {
     fn parse_to_string(&self, body: &Box<Vec<u8>>) -> String {
         match self {
             Body::JSON => self.parse_json(body),
-            Body::FORM => self.parse_form(&body),
+            Body::FORM => self.parse_form(body),
             Body::NONE => String::from("NONE"),
             Body::UNKNOWN(name) => format!("UNKNOWN {}", name.to_string()),
         }

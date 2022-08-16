@@ -4,101 +4,40 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '641. 设计循环双端队列',
-  url: 'https://leetcode.cn/problems/maximum-score-after-splitting-a-string/',
+  exist: !true,
+  name: '1656. 设计有序流',
+  url: 'https://leetcode.cn/problems/design-an-ordered-stream/',
   difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `给你一个由若干 0 和 1 组成的字符串 s ，请你计算并返回将该字符串分割成两个 非空 子字符串（即 左 子字符串和 右 子字符串）所能获得的最大得分。`,
+  tag: [Tag.设计, Tag.数组, Tag.哈希表, Tag.数据流],
+  desc: `设计一个流，以 任意 顺序获取 n 个 (id, value) 对，并在多次调用时 按 id 递增的顺序 返回一些值。`,
   solutions: [
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.5,
-      desc: '循环队列',
-      code: `struct MyCircularDeque {
-    list: Vec<i32>,
-    first: usize,
-    last: usize,
-    len: usize,
+      time: 32,
+      memory: 2.8,
+      desc: '遍历',
+      code: `struct OrderedStream {
+    ptr: usize,
+    n: usize,
+    list: Vec<String>,
 }
-impl MyCircularDeque {
-    fn new(k: i32) -> Self {
-        let len = (k + 1) as usize;
-        let mut list = Vec::with_capacity(len);
-        for _ in 0..len {
-            list.push(0);
+impl OrderedStream {
+    fn new(n: i32) -> Self {
+        let n = n as usize;
+        let mut list = Vec::<String>::with_capacity(n);
+        for _ in 0..n {
+            list.push(String::new());
         }
-        MyCircularDeque {
-            list,
-            first: 0,
-            last: 0,
-            len,
+        Self { ptr: 0, list, n }
+    }
+    fn insert(&mut self, id_key: i32, value: String) -> Vec<String> {
+        self.list[(id_key - 1) as usize] = value;
+        let mut ans = Vec::new();
+        while self.ptr < self.n && self.list[self.ptr].len() == 5 {
+            ans.push(self.list[self.ptr].clone());
+            self.ptr += 1;
         }
-    }
-    fn insert_front(&mut self, value: i32) -> bool {
-        if self.is_full() {
-            false
-        } else {
-            self.first = self.get_prev(self.first);
-            self.list[self.first] = value;
-            true
-        }
-    }
-    fn insert_last(&mut self, value: i32) -> bool {
-        if self.is_full() {
-            false
-        } else {
-            self.list[self.last] = value;
-            self.last = self.get_next(self.last);
-            true
-        }
-    }
-    fn delete_front(&mut self) -> bool {
-        if self.is_empty() {
-            false
-        } else {
-            self.first = self.get_next(self.first);
-            true
-        }
-    }
-    fn delete_last(&mut self) -> bool {
-        if self.is_empty() {
-            false
-        } else {
-            self.last = self.get_prev(self.last);
-            true
-        }
-    }
-    fn get_front(&self) -> i32 {
-        if self.is_empty() {
-            -1
-        } else {
-            self.list[self.first]
-        }
-    }
-    fn get_rear(&self) -> i32 {
-        if self.is_empty() {
-            -1
-        } else {
-            self.list[self.get_prev(self.last)]
-        }
-    }
-    fn is_empty(&self) -> bool {
-        self.first == self.last
-    }
-    fn is_full(&self) -> bool {
-        self.get_next(self.last) == self.first
-    }
-    fn get_prev(&self, cur: usize) -> usize {
-        if cur == 0 {
-            self.len - 1
-        } else {
-            cur - 1
-        }
-    }
-    fn get_next(&self, cur: usize) -> usize {
-        (cur + 1) % self.len
+        ans
     }
 }`,
     },

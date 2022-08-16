@@ -8,6 +8,7 @@
     <h1>Hello!</h1>
     <p>Hi from Rust</p>
     <input type="file" name="" id="file" onchange="onFileChange(event)" multiple="multiple" />
+    <button onclick="submit">submit</button>
     <script>
       function request(data) {
         let { name = '', url = '/', ...args } = data;
@@ -63,7 +64,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         // 4. 调用 send()，同时将数据以查询字符串的形式，提交给服务器
         // xhr.send(encodeURI('bookname=水浒传&author=施耐庵&publisher=天津图书出版社'));
-        xhr.send(encodeURI('a=李&b=啊'));
+        xhr.send(encodeURI('a=李&b=啊+爱上&c=as s&d=21'));
         // 5. 监听 onreadystatechange 事件
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
@@ -74,6 +75,18 @@
       function onFileChange(e) {
         const files = e.target.files;
         console.log(files);
+        const formdata = new FormData();
+        formdata.append('a', '1');
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/data/formdata/multipart');
+        // 3. 设置 Content-Type 属性（固定写法）
+        xhr.setRequestHeader('Content-Type', `multipart/form-data`);
+        xhr.send(formdata);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            console.log(xhr);
+          }
+        };
       }
     </script>
   </body>
