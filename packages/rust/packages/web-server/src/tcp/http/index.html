@@ -29,15 +29,15 @@
         request({
           name: 'query1',
           url: '/data/query?a=1&b=2',
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ a: 1 }),
+          method: 'GET',
+          // headers: { 'content-type': 'application/json' },
+          // body: JSON.stringify({ a: 1 }),
         });
         request({
           name: 'test1',
           url: '/data/json',
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          // headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ a: 1 }),
         });
       }

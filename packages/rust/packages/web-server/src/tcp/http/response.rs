@@ -3,7 +3,7 @@ use std::{fs, io::Write, net::TcpStream};
 use super::request;
 
 pub struct Response<'a> {
-    request: &'a request::Request,
+    request: &'a request::Request<'a>,
     stream: &'a TcpStream,
 }
 

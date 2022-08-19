@@ -51,17 +51,22 @@ fn analysis(stream: &mut TcpStream) -> (Box<Vec<String>>, Box<Vec<u8>>) {
     (header, body)
 }
 
-pub struct Request {
+pub struct Request<'a> {
+    stream: &'a TcpStream,
     header: Box<Vec<String>>,
     body: Box<Vec<u8>>,
 }
-impl Request {
-    pub fn new(stream: &mut TcpStream) -> Self {
+impl<'a> Request<'a> {
+    pub fn new(stream: &'a mut TcpStream) -> Self {
         let (header, body) = analysis(stream);
-        Self { header, body }
+        Self {
+            header,
+            body,
+            stream,
+        }
     }
-    pub fn raw(&self) -> (&Box<Vec<String>>, &Box<Vec<u8>>) {
-        (&self.header, &self.body)
+    pub fn raw(&mut self) -> (&mut Box<Vec<String>>, &mut Box<Vec<u8>>) {
+        (&mut self.header, &mut self.body)
     }
     pub fn method(&self) -> Method {
         let list = self.header[0].split(" ").collect::<Vec<&str>>();
@@ -89,10 +94,10 @@ impl Request {
     pub fn body(&self) -> Body {
         match self.headers().get("content-type") {
             Some(ty) => Body::new(ty),
-            None => Body::NONE,
+            None => Body::NONE("NONE".to_string()),
         }
     }
-    pub fn print(&self) {
+    pub fn print(&mut self) {
         let mut list: Vec<(&str, String)> = vec![
             ("url", self.url().to_string()),
             ("method", self.method().to_string()),
@@ -109,7 +114,7 @@ impl Request {
             ("type", body.to_string()),
             ("raw", format!("{:?}", self.body)),
             ("size", format!("{}B", self.body.len())),
-            ("data", body.parse_to_string(&self.body)),
+            ("data", body.parse_to_string(self)),
         ]
         .into_iter()
         .for_each(|v| list.push(v));
@@ -122,53 +127,75 @@ impl Request {
 }
 
 pub enum Body {
-    JSON,
-    FORM,
-    NONE,
+    JSON(String),
+    FORM(String),
+    FORMDATA(String),
+    NONE(String),
     UNKNOWN(String),
 }
 impl ToString for Body {
     fn to_string(&self) -> String {
         match self {
-            Body::JSON => String::from("JSON"),
-            Body::FORM => String::from("FORM"),
-            Body::NONE => String::from("NONE"),
+            Body::JSON(name) => name.to_string(),
+            Body::FORMDATA(name) => name.to_string(),
+            Body::FORM(name) => name.to_string(),
+            Body::NONE(name) => name.to_string(),
             Body::UNKNOWN(name) => name.to_string(),
         }
     }
 }
 impl Body {
     fn new(s: &str) -> Self {
-        if s.eq("application/json") {
-            Body::JSON
-        } else if s.eq("application/x-www-form-urlencoded") {
-            Body::FORM
+        if s.starts_with("application/json") {
+            Body::JSON(s.to_string())
+        } else if s.starts_with("application/x-www-form-urlencoded") {
+            Body::FORM(s.to_string())
+        } else if s.starts_with("multipart/form-data") {
+            Body::FORMDATA(s.to_string())
         } else {
             Body::UNKNOWN(s.to_string())
         }
     }
-    fn parse_to_string(&self, body: &Box<Vec<u8>>) -> String {
+    fn parse_to_string(&self, request: &mut Request) -> String {
         match self {
-            Body::JSON => self.parse_json(body),
-            Body::FORM => self.parse_form(body),
-            Body::NONE => String::from("NONE"),
+            Body::JSON(_) => self.parse_json(request),
+            Body::FORM(_) => self.parse_form(request),
+            Body::FORMDATA(_) => self.parse_formdata(request),
+            Body::NONE(_) => String::from("NONE"),
             Body::UNKNOWN(name) => format!("UNKNOWN {}", name.to_string()),
         }
     }
-    fn parse_json(&self, body: &Box<Vec<u8>>) -> String {
-        match String::from_utf8(body.as_ref().clone()) {
+    fn parse_json(&self, request: &mut Request) -> String {
+        match String::from_utf8(request.body.as_ref().clone()) {
             Ok(s) => s,
             Err(e) => format!("{:?}", e),
         }
     }
-    fn parse_form(&self, body: &Box<Vec<u8>>) -> String {
-        match super::utils::decode_uri(body.as_ref()) {
+    fn parse_form(&self, request: &mut Request) -> String {
+        match super::utils::decode_uri(request.body.as_ref()) {
             Ok(body) => match String::from_utf8(body) {
                 Ok(data) => data,
                 Err(_) => String::new(),
             },
             Err(_) => String::new(),
         }
+    }
+    fn parse_formdata(&self, request: &mut Request) -> String {
+        let headers = request.headers();
+        let body = request.raw().1;
+        let length = headers.get("content-length");
+        if let Some(length) = length {
+            let length = length.parse::<usize>();
+            if let Ok(length) = length {
+                let mut buffer = [0_u8; 1024];
+                while length < body.len() {
+                    request.stream.read(&mut buffer);
+                    // request.raw().1.as_ref().append(&mut buffer.to_vec());
+                }
+            }
+        }
+
+        String::from("asd")
     }
 }
 

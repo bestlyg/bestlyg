@@ -5,47 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1224. 最大相等频率',
-  url: 'https://leetcode.cn/problems/maximum-equal-frequency/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.哈希表],
-  desc: `给你一个正整数数组 nums，请你帮忙从该数组中找出能满足下面要求的 最长 前缀，并返回该前缀的长度`,
+  name: '1450. 在既定时间做作业的学生人数',
+  url: 'https://leetcode.cn/problems/number-of-students-doing-homework-at-a-given-time/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组],
+  desc: `请返回在查询时间 queryTime 时正在做作业的学生人数。`,
   solutions: [
     {
       script: Script.RUST,
-      time: 52,
-      memory: 3.4,
-      desc: '只有三种情况可以成立，1.最大频率只有一，2.所有数只有最大频率和第二大频率且最大频率只有一种数，3.所有数除了一个都是最大频率，剩下的一个数频率是1',
+      time: 0,
+      memory: 2.1,
+      desc: '遍历',
       code: `impl Solution {
-    pub fn max_equal_freq(nums: Vec<i32>) -> i32 {
-        use std::collections::HashMap;
-        let (mut freq_map, mut cnt_map) =
-            (HashMap::<usize, usize>::new(), HashMap::<i32, usize>::new());
+    pub fn busy_student(start_time: Vec<i32>, end_time: Vec<i32>, query_time: i32) -> i32 {
         let mut ans = 0;
-        let mut max_freq = 0;
-        for i in 0..nums.len() {
-            let num = nums[i];
-            let cnt = cnt_map.get(&num).unwrap_or(&0);
-            let prev_freq = freq_map.get_mut(cnt);
-            if prev_freq.is_some() {
-                *prev_freq.unwrap() -= 1;
-            }
-            let cnt = *cnt + 1;
-            cnt_map.insert(num, cnt);
-            freq_map.insert(cnt, freq_map.get(&cnt).unwrap_or(&0) + 1);
-            max_freq = max_freq.max(cnt);
-            if max_freq == 1
-                || freq_map.get(&max_freq).unwrap_or(&0) * max_freq
-                    + freq_map.get(&(max_freq - 1)).unwrap_or(&0) * (max_freq - 1)
-                    == i + 1
-                    && *freq_map.get(&max_freq).unwrap_or(&0) == 1
-                || freq_map.get(&max_freq).unwrap_or(&0) * max_freq == i
-                    && *freq_map.get(&1).unwrap_or(&0) == 1
-            {
-                ans = i + 1;
+        for i in 0..start_time.len() {
+            if start_time[i] <= query_time && end_time[i] >= query_time {
+                ans += 1;
             }
         }
-        ans as i32
+        ans
     }
 }`,
     },
