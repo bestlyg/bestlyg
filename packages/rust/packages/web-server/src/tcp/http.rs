@@ -14,10 +14,9 @@ pub fn run(listener: &TcpListener) {
         println!(">>> Request");
         if let Ok(stream) = stream {
             thread::spawn(move || {
-                let mut stream = stream;
-                let mut request = request::Request::new(&mut stream);
+                let mut request = request::Request::new(stream);
                 request.print();
-                let response = response::Response::new(&stream, &request);
+                let response = response::Response::new(&request);
                 response.response();
             });
         }

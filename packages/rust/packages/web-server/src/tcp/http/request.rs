@@ -51,14 +51,14 @@ fn analysis(stream: &mut TcpStream) -> (Box<Vec<String>>, Box<Vec<u8>>) {
     (header, body)
 }
 
-pub struct Request<'a> {
-    stream: &'a TcpStream,
+pub struct Request {
+    stream: TcpStream,
     header: Box<Vec<String>>,
     body: Box<Vec<u8>>,
 }
-impl<'a> Request<'a> {
-    pub fn new(stream: &'a mut TcpStream) -> Self {
-        let (header, body) = analysis(stream);
+impl Request {
+    pub fn new(stream: TcpStream) -> Self {
+        let (header, body) = analysis(&mut stream);
         Self {
             header,
             body,

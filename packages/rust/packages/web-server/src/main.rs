@@ -1,16 +1,20 @@
+use std::{net::TcpListener, thread};
+
 #[macro_use]
 extern crate lazy_static;
 
-mod config;
-mod task;
-mod tcp;
+mod handler;
 
 fn main() {
-    let config = config::Config::new();
-    if config.net.eq("tcp") {
-        task::tcp(config.port, &config.task);
-    } else if config.net.eq("udp") {
-    } else {
-        println!("unknown net");
+    let listener = TcpListener::bind("127.0.0.1:8000");
+    if let Ok(listener) = listener {
+        for stream in listener.incoming() {
+            println!(">>> Request");
+            if let Ok(stream) = stream {
+                thread::spawn(move || {
+                    let handler = handler::Handler::new(stream);
+                });
+            }
+        }
     }
 }
