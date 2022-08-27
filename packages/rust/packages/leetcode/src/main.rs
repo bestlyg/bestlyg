@@ -3,20 +3,45 @@ mod preclude;
 use preclude::*;
 fn main() {}
 
+use std::cell::RefCell;
+use std::collections::VecDeque;
+use std::rc::Rc;
 impl Solution {
-    pub fn max_product(nums: Vec<i32>) -> i32 {
-        let (mut num1, mut num2) = (nums[0], nums[1]);
-        if num2 > num1 {
-            (num1, num2) = (num2, num1);
-        }
-        let mut i = 2;
-        while i < nums.len() {
-            if nums[i] > num1 {
-                num1 = nums[i];
-            } else if nums[i] > num2 {
-                num2 = nums[i];
+    pub fn width_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let root = root.unwrap();
+        let mut q = VecDeque::<(i32, Rc<RefCell<TreeNode>>)>::new();
+        q.push_back((0, root.clone()));
+        let mut ans = 1_i32;
+        let mut size = 1;
+        while !q.is_empty() {
+            let (idx, node) = q.pop_front().unwrap();
+            if node.as_ref().borrow().left.is_some() {
+                q.push_back((
+                    idx * 2 + 1,
+                    node.as_ref().borrow().left.as_ref().unwrap().clone(),
+                ));
+            }
+            if node.as_ref().borrow().right.is_some() {
+                q.push_back((
+                    idx * 2 + 2,
+                    node.as_ref().borrow().right.as_ref().unwrap().clone(),
+                ));
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                if !q.is_empty() {
+                    println!(
+                        "size = {}, front_idx = {}, back_idx = {}, ans = {}",
+                        q.len(),
+                        q.front().unwrap().0,
+                        q.back().unwrap().0,
+                        ans
+                    );
+                    ans = ans.max(q.back().unwrap().0 - q.front().unwrap().0);
+                }
             }
         }
-        (num1 - 1) * (num2 - 1)
+        ans
     }
 }

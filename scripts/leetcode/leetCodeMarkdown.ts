@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1464. 数组中两元素的最大乘积',
+  name: '662. 二叉树最大宽度',
   url: 'https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array/',
   difficulty: Difficulty.简单,
   tag: [Tag.数组, Tag.排序, Tag.堆_优先队列],
@@ -14,40 +14,41 @@ const leetCodeMarkdown: Markdown = {
     {
       script: Script.RUST,
       time: 0,
-      memory: 2,
-      desc: '排序',
-      code: `impl Solution {
-    pub fn max_product(nums: Vec<i32>) -> i32 {
-        let mut nums = nums;
-        nums.sort();
-        (nums[nums.len() - 1] - 1) * (nums[nums.len() - 2] - 1)
-    }
-}`,
-    },
-    {
-      script: Script.RUST,
-      time: 0,
-      memory: 2,
-      desc: '遍历',
-      code: `impl Solution {
-    pub fn max_product(nums: Vec<i32>) -> i32 {
-        let (mut num1, mut num2) = (nums[0], nums[1]);
-        if num2 > num1 {
-            num1 ^= num2;
-            num2 ^= num1;
-            num1 ^= num2;
-        }
-        let mut i = 2;
-        while i < nums.len() {
-            if nums[i] > num1 {
-                num2 = num1;
-                num1 = nums[i];
-            } else if nums[i] > num2 {
-                num2 = nums[i];
+      memory: 2.5,
+      desc: '层序遍历',
+      code: `use std::cell::RefCell;
+use std::collections::VecDeque;
+use std::rc::Rc;
+impl Solution {
+    pub fn width_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let root = root.unwrap();
+        let mut q = VecDeque::<(i32, Rc<RefCell<TreeNode>>)>::new();
+        q.push_back((0, root.clone()));
+        let mut ans = 1_i32;
+        let mut size = 1;
+        while !q.is_empty() {
+            let (idx, node) = q.pop_front().unwrap();
+            if node.as_ref().borrow().left.is_some() {
+                q.push_back((
+                    idx * 2 + 1,
+                    node.as_ref().borrow().left.as_ref().unwrap().clone(),
+                ));
             }
-            i += 1;
+            if node.as_ref().borrow().right.is_some() {
+                q.push_back((
+                    idx * 2 + 2,
+                    node.as_ref().borrow().right.as_ref().unwrap().clone(),
+                ));
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                if !q.is_empty() {
+                    ans = ans.max(q.back().unwrap().0 - q.front().unwrap().0 + 1);
+                }
+            }
         }
-        (num1 - 1) * (num2 - 1)
+        ans
     }
 }`,
     },
