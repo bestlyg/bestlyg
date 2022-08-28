@@ -11,12 +11,14 @@ const includePkgs = __DEV__
       // ,   'packages/力扣题解'
     ]
   : ['packages/docs', 'packages/博客', 'packages/数据结构', 'packages/算法', 'packages/力扣题解'];
+const rootPath = '/blog';
 // config: https://d.umijs.org/config
 export default defineConfig({
-  base: '/',
-  title: '信韵的小奥特',
-  favicon: '/assets/logo.ico',
-  logo: '/assets/logo.png',
+  base: rootPath,
+  publicPath: `${rootPath}/`,
+  title: `信韵的小奥特`,
+  favicon: `${rootPath}/assets/logo.ico`,
+  logo: `${rootPath}/assets/logo.png`,
   mode: 'site',
   resolve: {
     includes: includePkgs,
