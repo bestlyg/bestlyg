@@ -1,8 +1,8 @@
+import { BaseSchema } from '@/base';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
 @Schema()
-export class Cat extends Document {
+export class Cat extends BaseSchema {
   @Prop()
   name: string;
 

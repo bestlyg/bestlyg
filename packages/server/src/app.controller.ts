@@ -1,14 +1,17 @@
 import { Controller, Get, Post, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
+import { BaseController } from './base';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class AppController extends BaseController {
+  constructor(private readonly appService: AppService) {
+    super();
+  }
 
   @Get()
   @Redirect('/blog')
   async getHello() {
-    return await this.appService.getHello();
+    return this.result(this.appService.getHello());
   }
   // @Get('/cats')
   // async getCats() {
