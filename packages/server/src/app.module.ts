@@ -7,6 +7,9 @@ import { AppController2 } from './app.controller2';
 import { AppService } from './app.service';
 import { MailerService } from './services';
 import { schedules } from './schedules';
+import { MongooseModule } from '@nestjs/mongoose';
+import { mongo } from '@/config';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
   imports: [
@@ -15,8 +18,10 @@ import { schedules } from './schedules';
       serveRoot: '/blog',
     }),
     ScheduleModule.forRoot(),
+    MongooseModule.forRoot(mongo.getUri('cats'), { connectionName: 'cats' }),
+    CatsModule,
   ],
   controllers: [AppController, AppController2],
-  providers: [AppService, MailerService, ...schedules],
+  providers: [MailerService, ...schedules, AppService],
 })
 export class AppModule {}

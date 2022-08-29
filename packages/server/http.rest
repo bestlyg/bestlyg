@@ -1,0 +1,14 @@
+@url=http://localhost:50000
+
+###
+GET {{url}}/api/cats
+
+### 
+POST {{url}}/api/cats
+Content-Type: application/json
+
+{
+    "name": "123",
+    "age": 123,
+    "breed": "bree"
+}
