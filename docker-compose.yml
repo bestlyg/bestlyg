@@ -1,0 +1,82 @@
+version: "3.1"
+services:
+  # bestlyg-website:
+  #   container_name: bestlyg-website
+  #   restart: always
+  #   image: nginx
+  #   ports:
+  #     - 50000:80
+  #   volumes:
+  #     - ./nginx/docker/spa:/etc/nginx/conf.d
+  #     - ./src/website:/var/www/html/
+  mongo:
+    container_name: bestlyg-database
+    image: mongo:latest
+    restart: always
+    volumes:
+      # 挂载数据目录
+      - ./databases/mongod/db:/data/db
+      # 挂载日志目录
+      - ./databases/mongod/log:/var/log/mongodb
+      # 挂载配置目录
+      - ./databases/mongod/config:/etc/mongo
+    ports:
+      - 27017:27017
+    command: mongod
+  mongo-express:
+    container_name: bestlyg-mongo-express
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 27018:8081
+  # mysql:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #   ports:
+  #     - 3306:3306
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  # redis:
+  #   image: redis
+  #   restart: always
+  #   volumes:
+  #     - ./databases/redis:/data
+  #   ports:
+  #     - 6379:6379
+  # bestlyg-server:
+  #   container_name: bestlyg-server
+  #   #构建容器
+  #   build: ./src
+  #   image: bestlyg-server
+  #   #直接从git拉去
+  #   # build: git@github.com:su37josephxia/docker_ci.git#:backend
+  #   # 需要链接本地代码时
+  #   # volumes:
+  #   #   - ./backend:/usr/src/app
+  #   ports:
+  #     - 50000:10000
+  # bestlyg-web:
+  #   container_name: bestlyg-web
+  #   restart: always
+  #   image: nginx
+  #   ports:
+  #     - 50001:80
+  #   volumes:
+  #     - ./nginx/web:/etc/nginx/conf.d
+  #     - ./src/bestlyg-web:/var/www/html/
+  # bestlyg-leetcode:
+  #   container_name: bestlyg-leetcode
+  #   restart: always
+  #   image: nginx
+  #   ports:
+  #     - 50002:80
+  #   volumes:
+  #     - ./nginx/docker/mpa:/etc/nginx/conf.d
+  #     # - ./static/:/static/
+  #     - ./src/bestlyg-leetcode:/var/www/html/
