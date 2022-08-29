@@ -60,10 +60,7 @@ importers:
       typescript: 4.7.4
 
   packages/gang-core:
-    specifiers:
-      '@types/md5': ^2.3.2
-    dependencies:
-      '@types/md5': 2.3.2
+    specifiers: {}
 
   packages/server:
     specifiers:
@@ -1430,10 +1427,6 @@ packages:
   /@types/mathjax/0.0.36:
     resolution: {integrity: sha512-TqDJc2GWuTqd/m+G/FbNkN+/TF2OCCHvcawmhIrUaZkdVquMdNZmNiNUkupNg9qctorXXkVLVSogZv1DhmgLmg==}
     dev: true
-
-  /@types/md5/2.3.2:
-    resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
-    dev: false
 
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
