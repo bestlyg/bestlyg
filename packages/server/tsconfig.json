@@ -18,8 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"],
-      "gang-core": ["../gang-core/src/index.ts"]
+      "@/*": ["src/*"]
     }
   }
 }
