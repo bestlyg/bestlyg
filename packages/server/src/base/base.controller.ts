@@ -8,7 +8,7 @@ export class Return<T> {
   ) {}
 }
 export class BaseController {
-  async result<T>(data: T | Promise<T>): Promise<Return<T>> {
+  async result<T>(data?: T | Promise<T>): Promise<Return<T>> {
     const promise = isPromise(data) ? data : Promise.resolve(data);
     return promise.then(
       (data) => new Return(0, data),

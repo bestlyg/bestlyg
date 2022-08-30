@@ -26,6 +26,14 @@ export class UserController extends BaseController {
   async update(@Body() dto: UpdateUserDto) {
     return this.result(this.service.update(dto));
   }
+  @Delete(':id')
+  async removeLogic(@Param('id') id: string) {
+    return this.result(this.service.removeLogic(id));
+  }
+  @Get(':id')
+  async find(@Param('id') id: string) {
+    return this.result(this.service.findLogic(id));
+  }
   @Get()
   async findAll() {
     return this.result(this.service.findAll());
@@ -33,9 +41,5 @@ export class UserController extends BaseController {
   @Delete()
   async removeAll() {
     return this.result(this.service.removeAll());
-  }
-  @Delete('/logic/:id')
-  async removeLogic(@Param('id') id: string) {
-    return this.result(this.service.removeLogic(id));
   }
 }

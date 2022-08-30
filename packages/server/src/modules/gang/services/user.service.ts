@@ -28,6 +28,9 @@ export class UserService {
   async removeAll(): Promise<boolean> {
     return this.model.remove().exec();
   }
+  async findLogic(_id: string): Promise<User[]> {
+    return this.model.find({ _id, deleted: false }).exec();
+  }
   async removeLogic(_id: string): Promise<boolean> {
     return this.update({ _id, deleted: true });
   }
