@@ -12,3 +12,18 @@ Content-Type: application/json
     "pwd": "123",
     "account": "1234"
 }
+### 
+PATCH  {{url}}/api/gang/user
+Content-Type: application/json
+
+{
+    "_id": "630d8e10266b674bf76c3a86",
+    "name": "121113",
+    "pwd": "123",
+    "account": "1234"
+}
+### 
+DELETE   {{url}}/api/gang/user
+
+### 
+DELETE   {{url}}/api/gang/user/logic/630dad27699c52952f256722
