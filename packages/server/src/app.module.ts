@@ -3,13 +3,10 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
-import { AppController2 } from './app.controller2';
 import { AppService } from './app.service';
 import { MailerService } from './services';
 import { schedules } from './schedules';
-import { MongooseModule } from '@nestjs/mongoose';
-import { mongo } from '@/config';
-import { CatsModule } from './cats/cats.module';
+import { GangModule } from './modules';
 
 @Module({
   imports: [
@@ -18,10 +15,9 @@ import { CatsModule } from './cats/cats.module';
       serveRoot: '/blog',
     }),
     ScheduleModule.forRoot(),
-    MongooseModule.forRoot(mongo.getUri('cats'), { connectionName: 'cats' }),
-    CatsModule,
+    GangModule,
   ],
-  controllers: [AppController, AppController2],
+  controllers: [AppController],
   providers: [MailerService, ...schedules, AppService],
 })
 export class AppModule {}

@@ -1,14 +1,14 @@
 @url=http://localhost:50000
 
 ###
-GET {{url}}/api/cats
+GET {{url}}/api/gang/user
 
 ### 
-POST {{url}}/api/cats
+POST {{url}}/api/gang/user
 Content-Type: application/json
 
 {
     "name": "123",
-    "age": 123,
-    "breed": "bree"
+    "pwd": "123",
+    "account": "1234"
 }
