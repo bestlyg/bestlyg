@@ -5,26 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1470. 重新排列数组',
-  url: 'https://leetcode.cn/problems/shuffle-the-array/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组],
-  desc: `请你将数组按 [x1,y1,x2,y2,...,xn,yn] 格式重新排列，返回重排后的数组。`,
+  name: '998. 最大二叉树 II',
+  url: 'https://leetcode.cn/problems/maximum-binary-tree-ii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.树, Tag.二叉树],
+  desc: `返回 Construct(b) 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 6.9,
-      desc: '层序遍历',
-      code: `int* shuffle(int* nums, int numsSize, int n, int* returnSize){
-     int *ans = (int *)malloc(sizeof(int) * n * 2);
-    for (int i = 0, j = n, idx = 0; idx < n * 2; i++, j++) {
-        ans[idx++] = nums[i];
-        ans[idx++] = nums[j];
+      time: 8,
+      memory: 12.9,
+      desc: '每次查看右子树',
+      code: `class Solution {
+public:
+    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
+        TreeNode *node = root, *pre = nullptr;
+        while (node && node->val > val) {
+            pre  = node;
+            node = node->right;
+        }
+        if (!pre) return new TreeNode(val, root, nullptr);
+        pre->right = new TreeNode(val, node, nullptr);
+        return root;
     }
-    *returnSize = 2 * n;
-    return ans;
-}`,
+};`,
     },
   ],
 };
