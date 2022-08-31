@@ -1,8 +1,7 @@
-import React from 'react';
-import { Component } from 'react';
-import { store, persist } from './store';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Taro from '@tarojs/taro';
+import { store, persist } from './store';
 import './app.scss';
 
 class App extends Component {
@@ -53,7 +52,7 @@ class App extends Component {
   }
   // this.props.children 是将要会渲染的页面
   render() {
-    return <Provider store={store}>{this.props.children}</Provider>;
+    return <Provider store={store}>{(this.props as any).children}</Provider>;
   }
 }
 
