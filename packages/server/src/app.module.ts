@@ -5,7 +5,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { MailerService } from './services';
 import { schedules } from './schedules';
-import { GangModule } from './modules';
+import { DatabaseModule } from './modules';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { GangModule } from './modules';
       serveRoot: '/blog',
     }),
     ScheduleModule.forRoot(),
-    GangModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [MailerService, ...schedules],

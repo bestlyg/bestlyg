@@ -1,13 +1,16 @@
 import { baseSchema } from '@/base';
 import { Schema } from 'mongoose';
 
-export const BillSchema = new Schema({
+export const GangBillSchema = new Schema({
   name: { type: String, require: true },
   isPositive: { type: Boolean, require: true, default: true },
   money: { type: Number, require: true, default: 0 },
+  desc: { type: String, require: true },
+  remark: { type: String, require: false },
   userId: { type: String, require: true },
   accountId: { type: String, require: true },
+  typeId: { type: String, require: true },
   ...baseSchema,
 });
-export type Bill = typeof BillSchema;
-export const BillName = 'account';
+export type GangBill = typeof GangBillSchema;
+export const GangBillName = 'gang-bill';

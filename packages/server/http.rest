@@ -1,41 +1,13 @@
 @url=http://localhost:50000
+@table=gang/type
 
 ###
-GET {{url}}/api/gang/user/list?name=%E6%9D%8E
-
-### 
-POST {{url}}/api/gang/user
-Content-Type: application/json
-
-{
-    "name": "李",
-    "pwd": "123",
-    "account": "1234"
-}
-### 
-PATCH  {{url}}/api/gang/user
-Content-Type: application/json
-
-{
-    "_id": "630d8e10266b674bf76c3a86",
-    "name": "121113",
-    "pwd": "123",
-    "account": "1234"
-}
-### 
-DELETE   {{url}}/api/gang/user
-
-### 
-DELETE   {{url}}/api/gang/user/logic/630dad27699c52952f256722
-
-
+GET {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec
 ###
-GET {{url}}/api/gang/account/630dea170d309ad47b0997ec
-###
-GET {{url}}/api/gang/account/list
+GET {{url}}/api/database/{{table}}/list
 
 ### 
-POST {{url}}/api/gang/account
+POST {{url}}/api/database/{{table}}
 Content-Type: application/json
 
 {
@@ -44,7 +16,7 @@ Content-Type: application/json
     "userId": "630dd89e8a89ba891b5ec3dc"
 }
 ### 
-PATCH  {{url}}/api/gang/account
+PATCH  {{url}}/api/database/{{table}}
 Content-Type: application/json
 
 {
@@ -54,7 +26,7 @@ Content-Type: application/json
     "account": "1234"
 }
 ### 
-DELETE   {{url}}/api/gang/account
+DELETE   {{url}}/api/database/{{table}}
 
 ### 
-DELETE   {{url}}/api/gang/account/630dea170d309ad47b0997ec
+DELETE   {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec

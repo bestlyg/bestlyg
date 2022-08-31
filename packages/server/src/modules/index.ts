@@ -1,1 +1,1 @@
-export * from './gang';
+export * from './database';

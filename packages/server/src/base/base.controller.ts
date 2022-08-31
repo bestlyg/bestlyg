@@ -1,4 +1,13 @@
-import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Headers,
+} from '@nestjs/common';
 import isPromise from 'is-promise';
 import { Schema } from 'mongoose';
 import { CreateDto, ListDto, UpdateDto } from './base.dto';
@@ -11,6 +20,7 @@ export class Return<T> {
     public msg?: string,
   ) {}
 }
+
 export class BaseController {
   async result<T>(data?: T | Promise<T>): Promise<Return<T>> {
     const promise = isPromise(data) ? data : Promise.resolve(data);
@@ -27,11 +37,11 @@ export class BaseDatabaseController<
     super();
   }
   @Get('/list')
-  async find(@Query() dto: ListDto) {
+  async listLogic(@Query() dto: ListDto) {
     return this.result(this.service.listLogic(dto));
   }
   @Get(':id')
-  async findById(@Param('id') id: string) {
+  async findLogicById(@Param('id') id: string) {
     return this.result(this.service.findLogic(id));
   }
   @Post()
@@ -45,5 +55,17 @@ export class BaseDatabaseController<
   @Delete(':id')
   async removeLogic(@Param('id') id: string) {
     return this.result(this.service.removeLogic(id));
+  }
+  @Get('/admin/list')
+  async list(@Query() dto: ListDto) {
+    return this.result(this.service.list(dto));
+  }
+  @Delete('/admin')
+  async clear() {
+    return this.result(this.service.remove({}));
+  }
+  @Delete('/admin/:id')
+  async remove(@Param('id') _id: string) {
+    return this.result(this.service.remove({ _id }));
   }
 }

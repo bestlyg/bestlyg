@@ -14,7 +14,9 @@ export interface BaseListDto {
   createTime?: Date;
   deleted?: boolean;
 }
+export interface BaseRemoveDto {}
 export type Dto<Base, T> = Base & Partial<T>;
 export type CreateDto<T = any> = Dto<BaseCreateDto, T>;
 export type UpdateDto<T = any> = Dto<BaseUpdateDto, T>;
 export type ListDto<T = any> = Dto<BaseListDto, T>;
+export type RemoveDto<T = any> = Dto<BaseRemoveDto, T>;

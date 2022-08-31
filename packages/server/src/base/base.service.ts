@@ -1,13 +1,13 @@
 import { Schema, Model } from 'mongoose';
-import { CreateDto, UpdateDto, ListDto } from './base.dto';
+import { CreateDto, UpdateDto, ListDto, RemoveDto } from './base.dto';
 
 export class BaseDatabaseService<T extends Schema<any>> {
   constructor(protected readonly model: Model<T>) {}
   async create(dto: CreateDto): Promise<T> {
     return new this.model(dto).save();
   }
-  async clear(): Promise<boolean> {
-    return this.model.remove().exec();
+  async remove(dto: RemoveDto): Promise<boolean> {
+    return this.model.remove(dto).exec();
   }
   async removeLogic(_id: string): Promise<boolean> {
     return this.update({ _id, deleted: true });
