@@ -23,9 +23,9 @@ function strStr(haystack: string, needle: string): number {
   // let j = 4;
   // console.log(needle.substring(0, next[j] + 1),needle.substring(j - next[j], j + 1))
   const jump = getJump(needle, next);
-  console.log(jump)
+  console.log(jump);
   for (let i = 0, j = -1; i < haystack.length; i++) {
-    j = jump[j+1][getIdx(haystack[i])];
+    j = jump[j + 1][getIdx(haystack[i])];
     if (j === needle.length - 1) return i - j;
   }
   return -1;

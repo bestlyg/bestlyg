@@ -1,13 +1,13 @@
 {
-    "files.associations": {
-        ".babelrc": "json",
-        "*.js": "javascriptreact",
-        "*.ts": "typescriptreact",
-        "algorithm": "cpp",
-        "chrono": "cpp",
-        "limits": "cpp",
-        "vector": "cpp",
-        "queue": "cpp",
-        "__node_handle": "cpp"
-    }
+  "files.associations": {
+    ".babelrc": "json",
+    "*.js": "javascriptreact",
+    "*.ts": "typescriptreact",
+    "algorithm": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp",
+    "vector": "cpp",
+    "queue": "cpp",
+    "__node_handle": "cpp"
+  }
 }

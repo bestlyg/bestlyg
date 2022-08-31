@@ -101,7 +101,7 @@ export enum Script {
   CPP = 'cpp',
   JAVA = 'java',
   GO = 'go',
-  RUST = 'rust'
+  RUST = 'rust',
 }
 export enum Type {
   NUMBER,

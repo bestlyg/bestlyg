@@ -104,4 +104,4 @@
 // //   lib: { purl },
 // // };
 
-export  const  assets = {};
+export const assets = {};

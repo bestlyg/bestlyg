@@ -12,18 +12,20 @@ group:
 ---
 
 # 剑指 Offer II 115. 重建序列
-    
+
 > 链接：[剑指 Offer II 115. 重建序列](https://leetcode.cn/problems/ur2n8P/)  
 > 难度：中等  
 > 标签：图、拓扑排序、数组  
 > 简介：检查 nums 是否是唯一的最短 超序列 。
-      
+
 ## 题解 1 - cpp
+
 - 编辑时间：2022.07.23
 - 执行用时：188ms
 - 内存消耗：107.3MB
 - 编程语言：cpp
 - 解法介绍：判断是否只有唯一的拓扑排序。
+
 ```cpp
 class Solution {
    public:
@@ -55,5 +57,3 @@ class Solution {
     }
 };
 ```
-
-      
