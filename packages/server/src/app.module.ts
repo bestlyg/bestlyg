@@ -13,6 +13,10 @@ import { DatabaseModule } from './modules';
       rootPath: join(__dirname, '../../client/dist'),
       serveRoot: '/blog',
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, './static'),
+      serveRoot: '/static',
+    }),
     ScheduleModule.forRoot(),
     DatabaseModule,
   ],
