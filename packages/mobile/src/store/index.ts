@@ -32,10 +32,15 @@ export const store = configureStore({
 });
 
 type Dispatch = <T extends any = any>(action: Action | AsyncThunkAction<T, any, any>) => void;
+
+export const getters = (state: RootState) => ({
+  counter2: state.counter.data * 2,
+});
 interface Store<T> {
   state: T;
   dispatch: Dispatch;
   actions: typeof actions;
+  getters: ReturnType<typeof getters>;
 }
 export function useStore<T>(selector: (state: RootState) => T): Store<T>;
 export function useStore(): Store<RootState>;
@@ -44,6 +49,7 @@ export function useStore<T>(selector?: (state: RootState) => T) {
     state: useSelector(selector ?? anyop),
     dispatch: useDispatch() as Dispatch,
     actions,
+    getters: getters(useSelector()),
   };
 }
 export { persist } from './utils';
