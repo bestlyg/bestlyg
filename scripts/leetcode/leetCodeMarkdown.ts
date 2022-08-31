@@ -4,8 +4,8 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '998. 最大二叉树 II',
+  exist: true,
+  name: '946. 验证栈序列',
   url: 'https://leetcode.cn/problems/maximum-binary-tree-ii/',
   difficulty: Difficulty.中等,
   tag: [Tag.树, Tag.二叉树],
@@ -13,20 +13,22 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 12.9,
-      desc: '每次查看右子树',
+      time: 16,
+      memory: 14.8,
+      desc: 'stack',
       code: `class Solution {
 public:
-    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
-        TreeNode *node = root, *pre = nullptr;
-        while (node && node->val > val) {
-            pre  = node;
-            node = node->right;
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        int len = popped.size();
+        stack<int> s;
+        for (int i1 = 0, i2 = 0; i1 < len; i1++) {
+            s.push(pushed[i1]);
+            while (i2 < len && s.size() && s.top() == popped[i2]) {
+                s.pop();
+                i2++;
+            }
         }
-        if (!pre) return new TreeNode(val, root, nullptr);
-        pre->right = new TreeNode(val, node, nullptr);
-        return root;
+        return s.empty();
     }
 };`,
     },
