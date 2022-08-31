@@ -7,3 +7,4 @@ types
 .umi-production
 # rust
 target
+.DS_Store
