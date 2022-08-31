@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "setup": "rm -rf ./node_modules && yarn && pnpm i",
     "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "build": "pnpm --filter server run build && pnpm --filter client run build",
     "deploy": "pnpm --filter server run start:prod",
