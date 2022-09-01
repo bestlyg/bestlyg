@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import * as nodeMailer from 'nodemailer';
-
-const config = {
-  host: 'smtp.qq.com',
-  user: '1057966749@qq.com',
-  pass: 'deyxyhnkyvlwbfde',
-};
+import { mailer } from '@/config';
 
 @Injectable()
 export class MailerService {
   private transporter = nodeMailer.createTransport({
-    host: config.host,
+    host: mailer.host,
     port: 587,
     secure: false,
     auth: {
-      user: config.user,
-      pass: config.pass,
+      user: mailer.user,
+      pass: mailer.pass,
     },
   });
   async send(emails: string[] = [], subject = '', html = '') {
     const mailOptions = {
-      from: `bestlyg<${config.user}>`,
+      from: `bestlyg<${mailer.user}>`,
       to: emails.join(','),
       subject,
       html,

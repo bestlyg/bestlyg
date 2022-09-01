@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -18,6 +18,7 @@ import { DatabaseModule } from './modules';
       serveRoot: '/static',
     }),
     ScheduleModule.forRoot(),
+    CacheModule.register(),
     DatabaseModule,
   ],
   controllers: [AppController],
