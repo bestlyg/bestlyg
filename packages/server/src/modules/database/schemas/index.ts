@@ -1,6 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { Schema } from 'mongoose';
 import { UserName, UserSchema } from './user.schema';
+import { RoleName, RoleSchema } from './role.schema';
 import {
   GangBillName,
   GangBillSchema,
@@ -14,9 +15,11 @@ export const schemaRegieter = [
   [GangBillName, GangBillSchema],
   [GangAccountName, GangAccountSchema],
   [GangTypeName, GangTypeSchema],
+  [RoleName, RoleSchema],
 ].map(([name, schema]: [string, Schema]) =>
   MongooseModule.forFeature([{ name, schema }]),
 );
 
+export * from './role.schema';
 export * from './user.schema';
 export * from './gang';
