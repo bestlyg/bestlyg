@@ -1,7 +1,9 @@
 import { BaseController } from '@/base';
 import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { Schema } from 'mongoose';
+import { Roles } from '../decorators';
 import { ListDto, CreateDto, UpdateDto } from '../dto';
+import { Role } from '../enums';
 import { BaseDatabaseService } from '../services';
 
 export class BaseDatabaseController<
@@ -31,14 +33,17 @@ export class BaseDatabaseController<
     return this.result(this.service.removeLogic(id));
   }
   @Get('/admin/list')
+  @Roles(Role.Admin)
   async list(@Query() dto: ListDto) {
     return this.result(this.service.list(dto));
   }
   @Delete('/admin')
+  @Roles(Role.Admin)
   async clear() {
     return this.result(this.service.remove({}));
   }
   @Delete('/admin/:id')
+  @Roles(Role.Admin)
   async remove(@Param('id') _id: string) {
     return this.result(this.service.remove({ _id }));
   }
