@@ -1,5 +1,3 @@
-import { ENV_DEV } from './utils';
-
 export enum Page {
   /** 首页 */
   Tabbar_Home,
@@ -7,6 +5,8 @@ export enum Page {
   Tabbar_WorkBench,
   /** 我的 */
   Tabbar_User,
+  /** Demos首页 */
+  Demos_Main,
   /** ECHarts演示 */
   Demos_ECharts,
   /** Store演示 */
@@ -25,18 +25,15 @@ const pageMeta: [Page, string][] = [
   [Page.Tabbar_Home, 'pages/tabbar/Home/index'],
   [Page.Tabbar_WorkBench, 'pages/tabbar/WorkBench/index'],
   [Page.Tabbar_User, 'pages/tabbar/User/index'],
+  /** demos */
+  [Page.Demos_Main, 'pages/demos/Main/index'],
+  [Page.Demos_ECharts, 'pages/demos/ECharts/index'],
+  [Page.Demos_Store, 'pages/demos/Store/index'],
+  [Page.Demos_Poster, 'pages/demos/Poster/index'],
+  [Page.Demos_OpModal, 'pages/demos/OpModal/index'],
+  [Page.Demos_QRCode, 'pages/demos/QRCode/index'],
+  [Page.Demos_ZXT_BLE, 'pages/demos/ZXT_BLE/index'],
 ];
-if (ENV_DEV) {
-  pageMeta.push(
-    /** demos */
-    [Page.Demos_ECharts, 'pages/demos/ECharts/index'],
-    [Page.Demos_Store, 'pages/demos/Store/index'],
-    [Page.Demos_Poster, 'pages/demos/Poster/index'],
-    [Page.Demos_OpModal, 'pages/demos/OpModal/index'],
-    [Page.Demos_QRCode, 'pages/demos/QRCode/index'],
-    [Page.Demos_ZXT_BLE, 'pages/demos/ZXT_BLE/index']
-  );
-}
 
 export const pageUrlMap: Map<Page, string> = new Map(pageMeta);
 const isSubpackage = false;

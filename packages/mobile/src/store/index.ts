@@ -45,11 +45,12 @@ interface Store<T> {
 export function useStore<T>(selector: (state: RootState) => T): Store<T>;
 export function useStore(): Store<RootState>;
 export function useStore<T>(selector?: (state: RootState) => T) {
+  const state: RootState = useSelector(anyop);
   return {
-    state: useSelector(selector ?? anyop),
+    state: (selector ?? anyop)(state),
     dispatch: useDispatch() as Dispatch,
     actions,
-    getters: getters(useSelector()),
+    getters: getters(state),
   };
 }
 export { persist } from './utils';

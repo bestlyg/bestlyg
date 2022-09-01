@@ -7,13 +7,14 @@ definePageConfig({
   navigationBarTitleText: 'Store 演示',
 });
 export default function Store() {
-  const { state, dispatch, actions } = useStore(state => state.counter.data);
+  const { state, dispatch, actions, getters } = useStore();
   const { state: store } = useStore();
   return (
     <View style={{ width: '100vw', height: '100vh' }}>
       <View>
         <View>Counter</View>
-        {state}
+        <View>state : {state.counter.data}</View>
+        <View>state * 2 : {getters.counter2}</View>
         <Button
           onClick={() => {
             dispatch(actions.counter.add());
