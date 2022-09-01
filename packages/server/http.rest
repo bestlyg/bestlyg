@@ -1,19 +1,18 @@
 @url=http://localhost:50000
-@table=gang/type
+@table=role
 
 ###
 GET {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec
 ###
-GET {{url}}/api/database/{{table}}/list
+GET {{url}}/api/database/{{table}}/admin/list
 
 ### 
 POST {{url}}/api/database/{{table}}
 Content-Type: application/json
 
 {
-    "name": "zhang122",
-    "money": 123453,
-    "userId": "630dd89e8a89ba891b5ec3dc"
+    "name": "用户",
+    "key": 1
 }
 ### 
 PATCH  {{url}}/api/database/{{table}}
@@ -30,3 +29,11 @@ DELETE   {{url}}/api/database/{{table}}
 
 ### 
 DELETE   {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec
+### 
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "username": "john",
+    "password": "changeme"
+}
