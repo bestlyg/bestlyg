@@ -10,7 +10,8 @@ definePageConfig({
 });
 export default function Home() {
   useEffect(() => {
-    Taro.navigateTo({ url: getPageUrl(Page.Demos_Main) });
+    Taro.switchTab({ url: getPageUrl(Page.Tabbar_WorkBench) });
+    // Taro.navigateTo({ url: getPageUrl(Page.Demos_Main) });
   }, []);
   return <View>1</View>;
 }

@@ -19,6 +19,8 @@ export enum Page {
   Demos_QRCode,
   /** 专星跳BLE  */
   Demos_ZXT_BLE,
+  /** Applications */
+  Apps_Gang,
 }
 const pageMeta: [Page, string][] = [
   /** tabbar */
@@ -33,6 +35,8 @@ const pageMeta: [Page, string][] = [
   [Page.Demos_OpModal, 'pages/demos/OpModal/index'],
   [Page.Demos_QRCode, 'pages/demos/QRCode/index'],
   [Page.Demos_ZXT_BLE, 'pages/demos/ZXT_BLE/index'],
+  /** apps */
+  [Page.Apps_Gang, 'pages/apps/Gang/index'],
 ];
 
 export const pageUrlMap: Map<Page, string> = new Map(pageMeta);
@@ -62,8 +66,9 @@ export default {
   pages,
   subPackages,
   window: {
+    backgroundColor: '#ffffff',
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
+    navigationBarBackgroundColor: '#ffffff',
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
   },
