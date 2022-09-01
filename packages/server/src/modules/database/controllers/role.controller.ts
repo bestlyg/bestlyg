@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { BaseDatabaseController } from '@/base';
+import { BaseDatabaseController } from './base.controller';
 import { Role } from '../schemas';
 import { RoleService } from '../services';
 

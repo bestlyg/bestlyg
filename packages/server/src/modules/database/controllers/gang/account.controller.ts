@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { BaseDatabaseController } from '@/base';
+import { BaseDatabaseController } from '../base.controller';
 import { GangAccount } from '../../schemas';
 import { GangAccountService } from '../../services';
 

@@ -13,3 +13,4 @@ export const serviceRegister = [
 export * from './gang';
 export * from './user.service';
 export * from './role.service';
+export * from './base.service';

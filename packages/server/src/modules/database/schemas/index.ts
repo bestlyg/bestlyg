@@ -20,6 +20,7 @@ export const schemaRegieter = [
   MongooseModule.forFeature([{ name, schema }]),
 );
 
+export * from './base.schema';
 export * from './role.schema';
 export * from './user.schema';
 export * from './gang';

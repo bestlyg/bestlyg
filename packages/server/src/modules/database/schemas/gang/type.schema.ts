@@ -1,4 +1,4 @@
-import { baseSchema } from '@/base';
+import { baseSchema } from '../base.schema';
 import { Schema } from 'mongoose';
 
 export const GangTypeSchema = new Schema({
