@@ -1,6 +1,6 @@
 import { BaseService } from '@/base';
 import { Schema, Model } from 'mongoose';
-import { CreateDto, UpdateDto, ListDto, RemoveDto } from '../dto';
+import { CreateDto, UpdateDto, ListDto, RemoveDto, FindDto } from '../dto';
 
 export class BaseDatabaseService<T extends Schema<any>> extends BaseService {
   constructor(protected readonly model: Model<T>) {
@@ -29,10 +29,10 @@ export class BaseDatabaseService<T extends Schema<any>> extends BaseService {
     dto.deleted = false;
     return this.list(dto);
   }
-  async find(_id: string): Promise<T> {
-    return this.model.findOne({ _id }).exec();
+  async find(dto: FindDto): Promise<T> {
+    return this.model.findOne(dto).exec();
   }
-  async findLogic(_id: string): Promise<T> {
-    return this.model.findOne({ _id, deleted: false }).exec();
+  async findLogic(dto: FindDto): Promise<T> {
+    return this.model.findOne({ ...dto, deleted: false }).exec();
   }
 }

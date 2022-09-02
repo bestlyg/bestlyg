@@ -17,5 +17,6 @@ import { RolesGuard } from './guards';
       useClass: RolesGuard,
     },
   ],
+  exports: [...serviceRegister],
 })
 export class DatabaseModule {}

@@ -6,6 +6,7 @@ export const UserSchema = new Schema({
   pwd: { type: String, require: true },
   account: { type: String, require: true },
   roleKey: { type: Number, require: true },
+  wechatUnionId: { type: String },
   ...baseSchema,
 });
 export type User = typeof UserSchema;
