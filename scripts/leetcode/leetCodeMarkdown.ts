@@ -5,52 +5,34 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1475. 商品折扣后的最终价格',
-  url: 'https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.栈, Tag.数组, Tag.单调栈],
-  desc: `请你返回一个数组，数组中第 i 个元素是折扣后你购买商品 i 最终需要支付的价格。`,
+  name: '687. 最长同值路径',
+  url: 'https://leetcode.cn/problems/longest-univalue-path/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
+  desc: `给定一个二叉树的 root ，返回 最长的路径的长度 ，这个路径中的 每个节点具有相同值 。 这条路径可以经过也可以不经过根节点。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 9.8,
-      desc: '单调栈',
-      code: `class Solution {
-public:
-    vector<int> finalPrices(vector<int>& prices) {
-        stack<int> s;
-        vector<int> ans(prices.begin(), prices.end());
-        for (int i = 0; i < prices.size(); i++) {
-            while (s.size() && prices[s.top()] >= prices[i]) {
-                int prev = s.top();
-                s.pop();
-                ans[prev] -= prices[i];
-            }
-            s.push(i);
-        }
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 0,
-      memory: 2.1,
-      desc: '单调栈',
-      code: `impl Solution {
-    pub fn final_prices(prices: Vec<i32>) -> Vec<i32> {
-        let mut s = Vec::<usize>::new();
-        let mut prices = prices;
-        for i in 0..prices.len() {
-            while !s.is_empty() && prices[*s.last().unwrap()] >= prices[i] {
-                let prev = s.pop().unwrap();
-                prices[prev] -= prices[i];
-            }
-            s.push(i);
-        }
-        prices
-    }
+      time: 84,
+      memory: 49.9,
+      desc: '递归,每次记录以根结点起的最长链路和子节点的最长内部链路',
+      code: `#define MAX(a, b) ((a) > (b) ? (a) : (b))
+int longestUnivaluePath(struct TreeNode *root){
+    if (!root) return 0;
+    int ans = 0;
+    _longestUnivaluePath(root, &ans);
+    return ans - 1;
+}
+int _longestUnivaluePath(struct TreeNode *root, int *ans) {
+    if (!root) return 0;
+    int cnt1 = 1, cnt2 = 1,
+        left = _longestUnivaluePath(root->left, ans),
+        right = _longestUnivaluePath(root->right, ans);
+    if (root->left && root->left->val == root->val) cnt1 = MAX(cnt1, 1 + left), cnt2 += left;
+    if (root->right && root->right->val == root->val) cnt1 = MAX(cnt1, 1 + right), cnt2 += right;
+    *ans = MAX(*ans, cnt1);
+    *ans = MAX(*ans, cnt2);
+    return cnt1;
 }`,
     },
   ],
