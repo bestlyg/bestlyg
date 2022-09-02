@@ -4,14 +4,18 @@ import { getPageUrl } from '@/utils';
 import Taro from '@tarojs/taro';
 import React from 'react';
 import { AtGrid } from 'taro-ui';
+import { AtGridItem } from 'taro-ui/types/grid';
 import './global.scss';
 
-const apps = [
+const apps: AtGridItem[] = [
   {
-    image:
-      'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
     value: '小李小叶港',
     page: Page.Apps_Gang,
+    iconInfo: {
+      value: 'edit',
+      size: '30',
+      color: '#F00',
+    },
   },
 ];
 

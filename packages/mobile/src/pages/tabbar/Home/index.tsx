@@ -10,7 +10,7 @@ definePageConfig({
 });
 export default function Home() {
   Taro.useDidShow(() => {
-    Taro.switchTab({ url: getPageUrl(Page.Tabbar_User) });
+    Taro.switchTab({ url: getPageUrl(Page.Tabbar_WorkBench) });
     // Taro.navigateTo({ url: getPageUrl(Page.Demos_Main) });
   });
   return <View></View>;
