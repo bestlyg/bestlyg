@@ -1,5 +1,5 @@
 @url=http://localhost:50000
-@table=role
+@table=user
 
 ###
 GET {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec

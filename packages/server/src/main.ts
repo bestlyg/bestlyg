@@ -1,6 +1,7 @@
 import { RequestMethod } from '@nestjs/common/enums';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './filters';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,7 @@ async function bootstrap() {
       },
     ],
   });
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(50000);
 }
 bootstrap();

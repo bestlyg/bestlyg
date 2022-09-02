@@ -15,4 +15,8 @@ export const miniprogram = {
   secret: '44de04908083b1575f0dc59f109912fe',
 };
 
+export const jwt = {
+  secret: 'bestlyg-server-jet-secret',
+};
+
 export { request } from './request';

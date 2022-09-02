@@ -1,5 +1,12 @@
 import { BaseController } from '@/base';
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+  Body,
+} from '@nestjs/common';
 import { JwtAuthGuard, LocalAuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginWechatDto } from './dto';
@@ -11,8 +18,8 @@ export class AuthController extends BaseController {
   }
 
   @Post('/wechat')
-  async loginWechat(dto: LoginWechatDto) {
-    return this.authService.loginWechat(dto);
+  async loginWechat(@Body() dto: LoginWechatDto) {
+    return this.result(this.authService.loginWechat(dto));
   }
 
   @UseGuards(LocalAuthGuard)

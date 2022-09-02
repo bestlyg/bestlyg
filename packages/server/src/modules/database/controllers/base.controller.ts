@@ -3,7 +3,7 @@ import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { Schema } from 'mongoose';
 import { Roles } from '../decorators';
 import { ListDto, CreateDto, UpdateDto } from '../dto';
-import { Role } from '../enums';
+import { RoleEnum } from '../enums';
 import { BaseDatabaseService } from '../services';
 
 export class BaseDatabaseController<
@@ -18,7 +18,7 @@ export class BaseDatabaseController<
   }
   @Get(':id')
   async findLogicById(@Param('id') id: string) {
-    return this.result(this.service.findLogic(id));
+    return this.result(this.service.findLogic({ _id: id }));
   }
   @Post()
   async create(@Body() dto: CreateDto) {
@@ -33,17 +33,17 @@ export class BaseDatabaseController<
     return this.result(this.service.removeLogic(id));
   }
   @Get('/admin/list')
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   async list(@Query() dto: ListDto) {
     return this.result(this.service.list(dto));
   }
   @Delete('/admin')
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   async clear() {
     return this.result(this.service.remove({}));
   }
   @Delete('/admin/:id')
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   async remove(@Param('id') _id: string) {
     return this.result(this.service.remove({ _id }));
   }

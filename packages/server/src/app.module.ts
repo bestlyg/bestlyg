@@ -5,7 +5,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { MailerService } from './services';
 import { schedules } from './schedules';
-import { DatabaseModule } from './modules';
+import { database, auth } from './modules';
 
 @Module({
   imports: [
@@ -19,7 +19,8 @@ import { DatabaseModule } from './modules';
     }),
     ScheduleModule.forRoot(),
     CacheModule.register(),
-    DatabaseModule,
+    database.DatabaseModule,
+    auth.AuthModule,
   ],
   controllers: [AppController],
   providers: [MailerService, ...schedules],

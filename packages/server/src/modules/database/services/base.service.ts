@@ -1,12 +1,12 @@
 import { BaseService } from '@/base';
-import { Schema, Model } from 'mongoose';
+import { Schema, Model, HydratedDocument } from 'mongoose';
 import { CreateDto, UpdateDto, ListDto, RemoveDto, FindDto } from '../dto';
 
 export class BaseDatabaseService<T extends Schema<any>> extends BaseService {
   constructor(protected readonly model: Model<T>) {
     super();
   }
-  async create(dto: CreateDto): Promise<T> {
+  async create(dto: CreateDto): Promise<HydratedDocument<T, {}, {}>> {
     return new this.model(dto).save();
   }
   async remove(dto: RemoveDto): Promise<boolean> {
@@ -22,17 +22,17 @@ export class BaseDatabaseService<T extends Schema<any>> extends BaseService {
       .exec()
       .then(() => true);
   }
-  async list(dto: ListDto): Promise<T[]> {
+  async list(dto: ListDto): Promise<HydratedDocument<T, {}, {}>[]> {
     return this.model.find(dto).exec();
   }
   async listLogic(dto: ListDto) {
     dto.deleted = false;
     return this.list(dto);
   }
-  async find(dto: FindDto): Promise<T> {
-    return this.model.findOne(dto).exec();
+  async find(dto: FindDto): Promise<HydratedDocument<T, {}, {}>> {
+    return await this.model.findOne(dto).exec();
   }
-  async findLogic(dto: FindDto): Promise<T> {
-    return this.model.findOne({ ...dto, deleted: false }).exec();
+  async findLogic(dto: FindDto): Promise<HydratedDocument<T, {}, {}>> {
+    return await this.model.findOne({ ...dto, deleted: false }).exec();
   }
 }

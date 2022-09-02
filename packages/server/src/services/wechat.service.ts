@@ -1,14 +1,14 @@
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { miniprogram, request } from '@/config';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class WechatService {
   static AccessTokenKey = 'WechatService-AccessToken';
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
-  checkError(data: { errcode: number; errmsg: string }) {
-    if (data.errcode !== 0) throw data.errmsg;
+  checkError(data: WechatResponse<unknown>) {
+    if (data.errcode !== undefined && data.errcode !== 0) throw data.errmsg;
   }
   /**
    * @url https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html
@@ -21,12 +21,10 @@ export class WechatService {
     const res = await request(
       `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${miniprogram.appid}&secret=${miniprogram.secret}`,
     );
-    const data: {
+    const data: WechatResponse<{
       access_token: string; //获取到的凭证
       expires_in: number; //凭证有效时间，单位：秒。目前是7200秒之内的值。
-      errcode: number; //错误码
-      errmsg: string; //错误信息
-    } = await res.json();
+    }> = await res.json();
     this.checkError(data);
     await this.cacheManager.set(
       WechatService.AccessTokenKey,
@@ -39,21 +37,15 @@ export class WechatService {
     const res = await request(
       `https://api.weixin.qq.com/sns/jscode2session?appid=${miniprogram.appid}&secret=${miniprogram.secret}&js_code=${code}&grant_type=authorization_code`,
     );
-    const data: {
+    const data: WechatResponse<{
       openid: string; //	用户唯一标识
       session_key: string; //	会话密钥
-      unionid: string; //	用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台帐号下会返回，详见 UnionID 机制说明。
-      errcode: number; //	错误码
-      errmsg: string; //	错误信息
-    } = await res.json();
+      unionid?: string; //	用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台帐号下会返回，详见 UnionID 机制说明。
+    }> = await res.json();
     this.checkError(data);
-    return {
-      openid: data.openid,
-      session_key: data.session_key,
-      unionid: data.unionid,
-    };
+    return data;
   }
-  decryptData(sessionKey: string, encryptedData: string, iv: string) {
+  decryptData<T>(sessionKey: string, encryptedData: string, iv: string): T {
     return new WXBizDataCrypt(miniprogram.appid, sessionKey).decryptData(
       encryptedData,
       iv,
@@ -81,7 +73,6 @@ class WXBizDataCrypt {
       decipher.setAutoPadding(true);
       decoded = decipher.update(data as any, 'binary', 'utf8');
       decoded += decipher.final('utf8');
-
       decoded = JSON.parse(decoded);
     } catch (err) {
       throw new Error('Illegal Buffer');
@@ -92,3 +83,8 @@ class WXBizDataCrypt {
     return decoded;
   }
 }
+
+type WechatResponse<T> = T & {
+  errcode?: number; //错误码
+  errmsg?: string; //错误信息
+};

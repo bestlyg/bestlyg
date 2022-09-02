@@ -3,7 +3,7 @@ export class Return<T> {
   constructor(
     public code: number,
     public data: T = null,
-    public msg?: string,
+    public message?: string,
   ) {}
 }
 

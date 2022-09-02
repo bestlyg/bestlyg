@@ -19,7 +19,7 @@ const stringify = obj => {
 };
 const pkg = require(resolve('package.json'));
 const serviceUrlMap = {
-  dev: 'https://www.bestlyg.com/api',
+  dev: 'http://localhost:50000/api',
   prod: 'https://www.bestlyg.com/api',
 };
 const projectConfig = {

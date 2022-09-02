@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from '@/modules';
+import { database } from '@/modules';
 import { WechatService } from '@/services';
 import { LoginWechatDto } from './dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
+    private readonly userService: database.UserService,
     private readonly wechatService: WechatService,
     private readonly jwtService: JwtService,
   ) {}
@@ -29,20 +29,27 @@ export class AuthService {
     };
   }
   async loginWechat(dto: LoginWechatDto) {
-    const token = await this.wechatService.getAccessToken();
     const session = await this.wechatService.code2Session(dto.code);
-    const user = await this.userService.findLogic({
-      wechatUnionId: session.unionid,
+    let user = await this.userService.findLogic({
+      wechatOpenId: session.openid,
     });
-    if (user) return user;
-    const data = await this.wechatService.decryptData(
-      session.session_key,
-      dto.encryptedData,
-      dto.iv,
-    );
-    console.log(data);
+    if (!user) {
+      const data = this.wechatService.decryptData<{
+        nickName: string;
+        gender: number;
+        avatarUrl: string;
+      }>(session.session_key, dto.encryptedData, dto.iv);
+      user = await this.userService.create({
+        name: data.nickName,
+        gender: data.gender,
+        avatar: data.avatarUrl,
+        wechatOpenId: session.openid,
+        roleKey: database.RoleEnum.User,
+      });
+    }
     return {
-      access_token: this.jwtService.sign({ username: 1 }),
+      accessToken: this.jwtService.sign(user.toObject()),
+      ...user.toObject(),
     };
   }
 }

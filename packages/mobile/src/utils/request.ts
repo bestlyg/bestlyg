@@ -24,9 +24,9 @@ export function request<T extends any = any, U extends any = any>(
   options: Taro.request.Option<any>
 ) {
   return _request<ResponseData<T>, U>(options).then(
-    ({ success, data, message }) =>
+    ({ code, data, message }) =>
       new Promise<T>((resolve, reject) => {
-        if (success) {
+        if (code === 0) {
           resolve(data);
         } else {
           Taro.showToast({ title: message + '', icon: 'none' });
