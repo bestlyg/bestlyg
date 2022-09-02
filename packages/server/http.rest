@@ -1,6 +1,9 @@
 @url=http://localhost:50000
 @table=user
 
+### 
+POST {{url}}/api/auth/profile
+Authorization: Bear
 ###
 GET {{url}}/api/database/{{table}}/630dea170d309ad47b0997ec
 ###

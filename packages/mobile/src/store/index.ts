@@ -3,24 +3,27 @@ import { AsyncThunkAction, configureStore, Action } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { counter, person } from './slices';
+import { counter, person, global } from './slices';
 
 interface RootState {
   [counter.name]: counter.State;
   [person.name]: person.State;
+  [global.name]: global.State;
 }
 
-export const names = [counter.name, person.name];
+export const names = [counter.name, person.name, global.name];
 
 export const actions = {
   [counter.name]: counter.actions,
   [person.name]: person.actions,
+  [global.name]: global.actions,
 };
 
 export const store = configureStore({
   reducer: {
     [counter.name]: counter.slice.reducer,
     [person.name]: person.slice.reducer,
+    [global.name]: global.slice.reducer,
   },
   middleware: getDefaultMiddleware => {
     let middlewares = getDefaultMiddleware() as any;

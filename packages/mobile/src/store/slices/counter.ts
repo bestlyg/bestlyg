@@ -1,7 +1,7 @@
+import { cloneDeep } from 'lodash';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { update } from '../actions';
 import { persist } from '../utils';
-import { cloneDeep } from 'lodash';
 
 const asyncAdd = createAsyncThunk('user/asyncAdd', async (value: number) =>
   new Promise(resolve => {

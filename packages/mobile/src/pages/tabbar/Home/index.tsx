@@ -13,5 +13,5 @@ export default function Home() {
     Taro.switchTab({ url: getPageUrl(Page.Tabbar_User) });
     // Taro.navigateTo({ url: getPageUrl(Page.Demos_Main) });
   });
-  return <View>1</View>;
+  return <View></View>;
 }

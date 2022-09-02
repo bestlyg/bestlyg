@@ -1,6 +1,7 @@
 import { ResponseData } from '@/models';
 import Taro from '@tarojs/taro';
 import { SERVICE_URL } from './constants';
+import { getStorage } from './storage';
 
 export async function _request<T extends any = any, U extends any = any>(
   options: Taro.request.Option<any>
@@ -8,6 +9,8 @@ export async function _request<T extends any = any, U extends any = any>(
   options.url = SERVICE_URL + options.url;
   let header = options.header;
   if (!header) header = options.header = {};
+  const token = getStorage(['accessToken']);
+  if (!token) header.Authorization = `Bearer ${token}`;
   return Taro.request<T, U>(options).then(res => {
     const { statusCode, data } = res;
     return new Promise<T>((resolve, reject) => {
@@ -29,7 +32,7 @@ export function request<T extends any = any, U extends any = any>(
         if (code === 0) {
           resolve(data);
         } else {
-          Taro.showToast({ title: message + '', icon: 'none' });
+          Taro.showToast({ title: `${message}`, icon: 'none' });
           reject(message);
         }
       })
