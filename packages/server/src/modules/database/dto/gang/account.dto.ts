@@ -1,4 +1,5 @@
-export class AccountDto {
+export class GangAccountDto {
+  _id: string;
   name: string;
   isPositive: boolean;
   money: number;

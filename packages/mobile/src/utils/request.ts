@@ -9,8 +9,8 @@ export async function _request<T extends any = any, U extends any = any>(
   options.url = SERVICE_URL + options.url;
   let header = options.header;
   if (!header) header = options.header = {};
-  const token = getStorage(['accessToken']);
-  if (!token) header.Authorization = `Bearer ${token}`;
+  const [token] = getStorage(['accessToken']);
+  if (token) header.Authorization = `Bearer ${token}`;
   return Taro.request<T, U>(options).then(res => {
     const { statusCode, data } = res;
     return new Promise<T>((resolve, reject) => {

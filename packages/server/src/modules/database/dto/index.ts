@@ -1,3 +1,3 @@
 export * from './user.dto';
-export * from './account.dto';
+export * from './gang';
 export * from './base.dto';

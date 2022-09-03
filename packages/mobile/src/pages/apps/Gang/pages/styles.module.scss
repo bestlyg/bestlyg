@@ -1,0 +1,25 @@
+.form {
+  padding: 0 40px;
+  box-sizing: border-box;
+  &_item {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+  &_title {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #666666;
+  }
+  &_btn {
+    width: 300px;
+  }
+  &_btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  &_input {
+    border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+  }
+}

@@ -21,6 +21,8 @@ export enum Page {
   Demos_ZXT_BLE,
   /** Applications */
   Apps_Gang,
+  Apps_Gang_OpAccount,
+  Apps_Gang_OpType,
 }
 const pageMeta: [Page, string][] = [
   /** tabbar */
@@ -37,6 +39,8 @@ const pageMeta: [Page, string][] = [
   [Page.Demos_ZXT_BLE, 'pages/demos/ZXT_BLE/index'],
   /** apps */
   [Page.Apps_Gang, 'pages/apps/Gang/index'],
+  [Page.Apps_Gang_OpAccount, 'pages/apps/Gang/pages/OpAccount/index'],
+  [Page.Apps_Gang_OpType, 'pages/apps/Gang/pages/OpType/index'],
 ];
 
 export const pageUrlMap: Map<Page, string> = new Map(pageMeta);

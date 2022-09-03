@@ -9,7 +9,7 @@ export interface BaseUpdateDto {
   deleted?: boolean;
 }
 export interface BaseListDto {
-  _id: string;
+  _id?: string;
   updateTime?: Date;
   createTime?: Date;
   deleted?: boolean;

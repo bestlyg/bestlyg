@@ -1,15 +1,9 @@
 import { BaseController } from '@/base';
-import {
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  Request,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Req, Body } from '@nestjs/common';
+import { Request } from 'express';
 import { JwtAuthGuard, LocalAuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { LoginWechatDto } from './dto';
+import { AuthDto, LoginWechatDto } from './dto';
 
 @Controller('/auth')
 export class AuthController extends BaseController {
@@ -24,13 +18,13 @@ export class AuthController extends BaseController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async loginCommon(@Request() req) {
-    return this.authService.login(req.user);
+  async loginCommon(@Req() req: Request) {
+    return this.authService.login(req);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getProfile(@Request() req) {
+  async getProfile(@Req() req: Request & { user: AuthDto }) {
     return req.user;
   }
 }
