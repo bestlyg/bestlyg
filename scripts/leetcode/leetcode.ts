@@ -117,7 +117,7 @@ export const typeList: { type: Type; prefix: string; order: number }[] = [
   { type: Type.OFFER, prefix: '剑指Offer', order: 300000 },
 ];
 
-export const rootPath = resolve('packages/client/packages/力扣题解');
+export const rootPath = resolve('packages/blog/packages/力扣题解');
 export interface SolutionList {
   name: string;
   solutions: string[];
