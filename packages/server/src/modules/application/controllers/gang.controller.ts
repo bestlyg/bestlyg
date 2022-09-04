@@ -61,8 +61,12 @@ export class GangController extends BaseController {
 
   @Post('/type')
   @UseGuards(auth.JwtAuthGuard)
-  async createType(@Body() dto: Omit<database.GangTypeDto, 'userId'>) {
-    return this.result(this.typeService.create({ ...dto }));
+  async createType(
+    @Req() req: Request & { user: auth.AuthDto },
+    @Body() dto: Omit<database.GangTypeDto, 'userId'>,
+  ) {
+    const user = req.user;
+    return this.result(this.typeService.create({ ...dto, userId: user._id }));
   }
 
   @Put('/type')

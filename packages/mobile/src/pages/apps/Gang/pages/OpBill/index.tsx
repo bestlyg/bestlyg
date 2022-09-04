@@ -55,9 +55,9 @@ export default function OpBill() {
   const onSubmit = () => {
     const data = { ...form, money: Math.floor(parseFloat(form.money) * 100) };
     let err = '';
-    if (accounts?.find(v => v._id === data._id) === undefined) {
+    if (accounts?.find(v => v._id === data.accountId) === undefined) {
       err = '账户';
-    } else if (types?.find(v => v._id === data._id) === undefined) {
+    } else if (types?.find(v => v._id === data.typeId) === undefined) {
       err = '类型';
     } else if (data.desc === '') {
       err = '描述';
