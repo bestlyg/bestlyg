@@ -2,7 +2,6 @@ import { baseSchema } from '../base.schema';
 import { Schema } from 'mongoose';
 
 export const GangBillSchema = new Schema({
-  name: { type: String, require: true },
   money: { type: Number, require: true, default: 0 },
   date: { type: Date, require: true },
   desc: { type: String, require: true },
