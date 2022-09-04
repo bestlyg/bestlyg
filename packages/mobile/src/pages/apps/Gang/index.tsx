@@ -24,15 +24,15 @@ export default function Main() {
   });
   const [tab, setTab] = React.useState(0);
   const { data: accounts, run: refreshAccount } = useRequest(getAccount, { manual: true });
-  const { data: bill, run: refreshBill } = useRequest(getBill, { manual: true });
+  const { data: bills, run: refreshBill } = useRequest(getBill, { manual: true });
   const { data: types, run: refreshType } = useRequest(getType, { manual: true });
   React.useEffect(() => {
     console.log('account', accounts);
-    console.log('bill', bill);
+    console.log('bills', bills);
     console.log('types', types);
-  }, [accounts, bill, types]);
+  }, [accounts, bills, types]);
   const tabList = [
-    { title: '账单', component: <Bill /> },
+    { title: '账单', component: <Bill bills={bills ?? []} types={types ?? []} /> },
     { title: '统计', component: <Statistics /> },
     { title: '账户', component: <Account accounts={accounts ?? []} types={types ?? []} /> },
   ];

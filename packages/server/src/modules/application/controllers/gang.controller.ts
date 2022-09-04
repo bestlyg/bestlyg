@@ -61,11 +61,7 @@ export class GangController extends BaseController {
 
   @Post('/type')
   @UseGuards(auth.JwtAuthGuard)
-  async createType(
-    @Req() req: Request & { user: auth.AuthDto },
-    @Body() dto: Omit<database.GangTypeDto, 'userId'>,
-  ) {
-    const user = req.user;
+  async createType(@Body() dto: Omit<database.GangTypeDto, 'userId'>) {
     return this.result(this.typeService.create({ ...dto }));
   }
 
@@ -80,5 +76,21 @@ export class GangController extends BaseController {
   async getBill(@Req() req: Request & { user: auth.AuthDto }) {
     const user = req.user;
     return this.result(this.billService.listLogic({ userId: user._id }));
+  }
+
+  @Post('/bill')
+  @UseGuards(auth.JwtAuthGuard)
+  async createBill(
+    @Req() req: Request & { user: auth.AuthDto },
+    @Body() dto: Omit<database.GangBillDto, 'userId'>,
+  ) {
+    const user = req.user;
+    return this.result(this.billService.create({ ...dto, userId: user._id }));
+  }
+
+  @Put('/bill')
+  @UseGuards(auth.JwtAuthGuard)
+  async updateBill(@Body() dto: Omit<database.GangBillDto, 'userId'>) {
+    return this.result(this.billService.update({ ...dto }));
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
   ],
   mini: {
     webpackChain(chain, webpack) {
-      chain.plugin('loadshReplace').use(new LodashModuleReplacementPlugin());
+      // chain.plugin('loadshReplace').use(new LodashModuleReplacementPlugin());
     },
   },
   h5: {

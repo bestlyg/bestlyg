@@ -70,7 +70,7 @@ export default function OpAccount() {
           placeholder="请输入金额"
           value={form.money}
           onInput={e => {
-            const money = e.detail.value.replace(/^[\D.]$/g, '');
+            const money = e.detail.value.replace(/^[\D.-]$/g, '');
             setForm({ ...form, money });
           }}
         />

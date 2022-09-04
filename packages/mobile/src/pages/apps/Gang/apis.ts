@@ -1,5 +1,5 @@
 import { request } from '@/utils';
-import { Account, Type } from './models';
+import { Account, Bill, Type } from './models';
 
 const getUrl = (url: string) => `/application/gang/${url}`;
 export async function getAccount() {
@@ -47,7 +47,23 @@ export async function updateType(data: Partial<Type>) {
 }
 
 export async function getBill() {
-  return request({
+  return request<Bill[]>({
     url: getUrl('bill'),
+  });
+}
+
+export async function createBill(data: Partial<Bill>) {
+  return request<boolean>({
+    url: getUrl('bill'),
+    method: 'POST',
+    data,
+  });
+}
+
+export async function updateBill(data: Partial<Bill>) {
+  return request<boolean>({
+    url: getUrl('bill'),
+    method: 'PUT',
+    data,
   });
 }
