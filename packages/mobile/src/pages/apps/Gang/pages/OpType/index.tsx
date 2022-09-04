@@ -6,7 +6,10 @@ import { AtButton } from 'taro-ui';
 import baseStyles from '../styles.module.scss';
 import { createType, updateType } from '../../apis';
 
-const initForm = { name: '', _id: '' };
+const initForm: {
+  name: string;
+  _id?: string;
+} = { name: '', _id: undefined };
 export default function OpType() {
   const router = Taro.useRouter();
   const { type, name, _id } = React.useMemo(() => {

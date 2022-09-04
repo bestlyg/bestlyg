@@ -23,6 +23,7 @@ export enum Page {
   Apps_Gang,
   Apps_Gang_OpAccount,
   Apps_Gang_OpType,
+  Apps_Gang_OpBill,
 }
 const pageMeta: [Page, string][] = [
   /** tabbar */
@@ -41,6 +42,7 @@ const pageMeta: [Page, string][] = [
   [Page.Apps_Gang, 'pages/apps/Gang/index'],
   [Page.Apps_Gang_OpAccount, 'pages/apps/Gang/pages/OpAccount/index'],
   [Page.Apps_Gang_OpType, 'pages/apps/Gang/pages/OpType/index'],
+  [Page.Apps_Gang_OpBill, 'pages/apps/Gang/pages/OpBill/index'],
 ];
 
 export const pageUrlMap: Map<Page, string> = new Map(pageMeta);

@@ -3,8 +3,8 @@ import { Schema } from 'mongoose';
 
 export const GangBillSchema = new Schema({
   name: { type: String, require: true },
-  isPositive: { type: Boolean, require: true, default: true },
   money: { type: Number, require: true, default: 0 },
+  date: { type: Date, require: true },
   desc: { type: String, require: true },
   remark: { type: String, require: false },
   userId: { type: String, require: true },

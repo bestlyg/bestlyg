@@ -6,6 +6,7 @@ import { AtModal, AtTabs, AtTabsPane } from 'taro-ui';
 import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 import React from 'react';
+import { SafeBottomBlock } from '@/components';
 import { Bill, Statistics, Account } from './components';
 import { getAccount, getBill, getType } from './apis';
 import styles from './styles.module.scss';
@@ -21,10 +22,10 @@ export default function Main() {
       Taro.switchTab({ url: getPageUrl(Page.Tabbar_WorkBench) });
     }
   });
-  const [tab, setTab] = React.useState(2);
-  const { data: accounts, refresh: refreshAccount } = useRequest(getAccount);
-  const { data: bill, refresh: refreshBill } = useRequest(getBill);
-  const { data: types, refresh: refreshType } = useRequest(getType);
+  const [tab, setTab] = React.useState(0);
+  const { data: accounts, run: refreshAccount } = useRequest(getAccount, { manual: true });
+  const { data: bill, run: refreshBill } = useRequest(getBill, { manual: true });
+  const { data: types, run: refreshType } = useRequest(getType, { manual: true });
   React.useEffect(() => {
     console.log('account', accounts);
     console.log('bill', bill);
@@ -47,6 +48,7 @@ export default function Main() {
           <AtTabsPane current={tab} index={i} key={i}>
             <ScrollView scrollY scrollWithAnimation className={styles.subtab}>
               {item.component}
+              <SafeBottomBlock height={40} />
             </ScrollView>
           </AtTabsPane>
         ))}

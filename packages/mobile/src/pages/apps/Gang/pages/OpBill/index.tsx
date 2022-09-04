@@ -12,7 +12,7 @@ const initForm: {
   money: string;
   _id?: string;
 } = { name: '', isPositive: true, money: '', _id: undefined };
-export default function OpAccount() {
+export default function OpBill() {
   const router = Taro.useRouter();
   const { type, name, isPositive, money, _id } = React.useMemo(() => {
     const { type, name, isPositive, money, _id } = router.params;
