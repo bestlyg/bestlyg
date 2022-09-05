@@ -5,41 +5,37 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '646. 最长数对链',
-  url: 'https://leetcode.cn/problems/maximum-length-of-pair-chain/',
+  name: '652. 寻找重复的子树',
+  url: 'https://leetcode.cn/problems/find-duplicate-subtrees/',
   difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.数组, Tag.动态规划, Tag.排序],
-  desc: `给定一个数对集合，找出能够形成的最长数对链的长度。你不需要用到所有的数对，你可以以任何顺序选择其中的一些数对来构造。`,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.哈希表, Tag.二叉树],
+  desc: `给定一棵二叉树 root，返回所有重复的子树。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 32,
-      memory: 2.2,
-      desc: 'dp记录当前点为结尾的最大链路',
-      code: `impl Solution {
-    pub fn find_longest_chain(pairs: Vec<Vec<i32>>) -> i32 {
-        let mut pairs = pairs;
-        pairs.sort_by(|a, b| {
-            if a[0] != b[0] {
-                a[0].cmp(&b[0])
-            } else {
-                a[1].cmp(&b[1])
+      time: 52,
+      memory: 53.7,
+      desc: 'map存储相同节点·',
+      code: `class Solution {
+public:
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+        unordered_map<string, vector<TreeNode*>> m;
+        dfs(m, root);
+        vector<TreeNode *> ans;
+        for (auto &item : m) {
+            if (item.second.size() > 1) {
+                ans.push_back(item.second[0]);
             }
-        });
-        let len = pairs.len();
-        let mut dp = vec![1; len];
-        let mut ans = 0;
-        for i in 0..len {
-            for j in 0..i {
-                if pairs[j][1] < pairs[i][0] {
-                    dp[i] = dp[i].max(dp[j] + 1)
-                }
-            }
-            ans = ans.max(dp[i]);
         }
-        ans
+        return ans;
     }
-}`,
+    string dfs(unordered_map<string, vector<TreeNode*>> &m, TreeNode *root) {
+        if (!root) return "";
+        string s = "(" + to_string(root->val) + ",[" + dfs(m, root->left) + "],[" + dfs(m, root->right) + "])";
+        m[s].push_back(root);
+        return s;
+    }
+};`,
     },
   ],
 };
