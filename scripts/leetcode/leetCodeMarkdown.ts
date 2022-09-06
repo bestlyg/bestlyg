@@ -5,35 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '652. 寻找重复的子树',
-  url: 'https://leetcode.cn/problems/find-duplicate-subtrees/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.哈希表, Tag.二叉树],
-  desc: `给定一棵二叉树 root，返回所有重复的子树。`,
+  name: '828. 统计子串中的唯一字符',
+  url: 'https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.哈希表, Tag.字符串, Tag.动态规划],
+  desc: `给你一个字符串 s ，我们需要返回 countUniqueChars(t) 的总和，其中 t 是 s 的子字符串。`,
   solutions: [
     {
       script: Script.CPP,
       time: 52,
-      memory: 53.7,
-      desc: 'map存储相同节点·',
+      memory: 36,
+      desc: '记录每个字符出现的下标，统计每个字符只出现一次的子串',
       code: `class Solution {
 public:
-    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
-        unordered_map<string, vector<TreeNode*>> m;
-        dfs(m, root);
-        vector<TreeNode *> ans;
+    int uniqueLetterString(string s) {
+        unordered_map<char, vector<int>> m;
+        for (int i = 0; i < s.size(); i++) m[s[i]].push_back(i);
+        int ans = 0;
         for (auto &item : m) {
-            if (item.second.size() > 1) {
-                ans.push_back(item.second[0]);
-            }
+            vector<int> list = item.second;
+            list.insert(list.begin(), -1);
+            list.push_back(s.size());
+            for (int i = 1; i < list.size() - 1; i++) ans += (list[i] - list[i - 1]) * (list[i + 1] - list[i]);
         }
         return ans;
-    }
-    string dfs(unordered_map<string, vector<TreeNode*>> &m, TreeNode *root) {
-        if (!root) return "";
-        string s = "(" + to_string(root->val) + ",[" + dfs(m, root->left) + "],[" + dfs(m, root->right) + "])";
-        m[s].push_back(root);
-        return s;
     }
 };`,
     },
