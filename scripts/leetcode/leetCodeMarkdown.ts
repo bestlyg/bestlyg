@@ -5,34 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1592. 重新排列单词间的空格',
-  url: 'https://leetcode.cn/problems/rearrange-spaces-between-words/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `返回 重新排列空格后的字符串 。`,
+  name: '667. 优美的排列 II',
+  url: 'https://leetcode.cn/problems/beautiful-arrangement-ii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.数学],
+  desc: `给你两个整数 n 和 k ，请你构造一个答案列表 answer ，该列表应当包含从 1 到 n 的 n 个不同正整数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.4,
-      desc: '重组',
-      code: `char * reorderSpaces(char * text){
-    int len = strlen(text), list_len = 0, blank_cnt = 0;
-    char *list[100] = {0}, *ans = (char *)calloc(len + 1, sizeof(char));
-    for (int i = 0; i < len; i++) {
-        if (text[i] == ' ') blank_cnt++;
-        else {
-            list[list_len++] = text + i;
-            while (i + 1< len && text[i + 1] != ' ') i++;
+      time: 28,
+      memory: 8.9,
+      desc: '[1, k+1, 2, k, 3, k-1..]排列',
+      code: `int* constructArray(int n, int k, int* returnSize){
+    *returnSize = n;
+    int *ans = (int *)malloc(sizeof(int) * n);
+    if (k == 1) for (int i = 0; i < n; i++) ans[i] = i + 1;
+    else {
+        int l = 1, r = k + 1, idx = 0;
+        while (l < r) {
+            ans[idx++] = l++;
+            if (l != r) ans[idx++] = r--;
         }
-    }
-    int blank_common_cnt = list_len > 1 ? blank_cnt / (list_len - 1) : 0, 
-        blank_last_cnt   = list_len > 1 ? blank_cnt % (list_len - 1) : blank_cnt,
-        ans_len = 0;
-    for (int i = 0; i < list_len; i++) {
-        for (char *j = list[i]; *j != ' ' && *j != '\0'; j++) ans[ans_len++] = *j;
-        if (i == list_len - 1) for (int i = 0; i < blank_last_cnt; i++) ans[ans_len++] = ' ';
-        else for (int i = 0; i < blank_common_cnt; i++) ans[ans_len++] = ' ';
+        if (l == r) ans[id++] = l;
+        k += 2;
+        while (k <= n) ans[idx++] = k++;
     }
     return ans;
 }`,
