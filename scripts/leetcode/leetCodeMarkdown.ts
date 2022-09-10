@@ -5,30 +5,28 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1598. 文件夹操作日志搜集器',
-  url: 'https://leetcode.cn/problems/crawler-log-folder/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.栈, Tag.数组, Tag.字符串],
-  desc: `执行完所有变更文件夹操作后，请你找出 返回主文件夹所需的最小步数 。`,
+  name: '669. 修剪二叉搜索树',
+  url: 'https://leetcode.cn/problems/trim-a-binary-search-tree/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.树, Tag.深度优先搜索, Tag.二叉搜索树, Tag.二叉树],
+  desc: `通过修剪二叉搜索树，使得所有节点的值在[low, high]中。`,
   solutions: [
     {
-      script: Script.RUST,
-      time: 0,
-      memory: 2.1,
-      desc: '[1, k+1, 2, k, 3, k-1..]排列',
-      code: `impl Solution {
-    pub fn min_operations(logs: Vec<String>) -> i32 {
-        let mut ans = 0_i32;
-        for log in logs {
-            if log.eq("../") {
-                ans = (ans - 1).max(0);
-            } else if log.ne("./") {
-                ans += 1;
-            }
-        }
-        ans
+      script: Script.CPP,
+      time: 12,
+      memory: 16.7,
+      desc: 'dfs',
+      code: `class Solution {
+public:
+    TreeNode* trimBST(TreeNode* root, int low, int high) {
+        if (!root) return nullptr;
+        root->left = trimBST(root->left, low, high);
+        root->right = trimBST(root->right, low, high);
+        if (root->val < low) root = root->right;
+        else if (root->val > high) root = root->left;
+        return root;
     }
-}`,
+};`,
     },
   ],
 };
