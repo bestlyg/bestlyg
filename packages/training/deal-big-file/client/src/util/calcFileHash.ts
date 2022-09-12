@@ -1,15 +1,15 @@
-import SparkMD5 from 'spark-md5'
+import SparkMD5 from 'spark-md5';
 
 /**
  * 抽样计算hash值 大概是1G文件花费1S的时间
- * 
+ *
  * 采用抽样hash的方式来计算hash
  * 我们在计算hash的时候，将超大文件以2M进行分割获得到另一个chunks数组，
  * 第一个元素(chunks[0])和最后一个元素(chunks[-1])我们全要了
  * 其他的元素(chunks[1,2,3,4....])我们再次进行一个分割，这个时候的分割是一个超小的大小比如2kb，我们取* 每一个元素的头部，尾部，中间的2kb。
  *  最终将它们组成一个新的文件，我们全量计算这个新的文件的hash值。
  * @param file {File}
- * @returns 
+ * @returns
  */
 export async function calcHashSample(file: File) {
   return new Promise(resolve => {
@@ -22,7 +22,7 @@ export async function calcHashSample(file: File) {
     // 前面2mb的数据
     let cur = offset;
     /**
-     * 
+     *
      */
     while (cur < size) {
       // 最后一块全部加进来
@@ -52,7 +52,7 @@ export async function calcHashSample(file: File) {
 /**
  * 使用分片和web-work 全量计算hash值
  * @param file {File}
- * @returns 
+ * @returns
  */
 export async function calcHashByWebWorker(file: File) {
   // 每一个片段都是2M
@@ -79,8 +79,8 @@ export async function calcHashByWebWorker(file: File) {
 
 /**
  * 分片 web-worker 抽样计算hash值
- * @param file 
- * @returns 
+ * @param file
+ * @returns
  */
 export async function calcHashSampleByWebWorker(file: File) {
   // 文件大小
@@ -124,11 +124,10 @@ export async function calcHashSampleByWebWorker(file: File) {
   });
 }
 
-
 /**
  * 全量计算hash值, 最慢,占用主进程
- * @param file 
- * @returns 
+ * @param file
+ * @returns
  */
 export async function calcHashSync(file: File) {
   const size = 2 * 1024 * 1024;
@@ -138,7 +137,7 @@ export async function calcHashSync(file: File) {
     chunks.push({ file: file.slice(cur, cur + size) });
     cur += size;
   }
-  let hashProgress = 0
+  let hashProgress = 0;
   return new Promise(resolve => {
     const spark = new SparkMD5.ArrayBuffer();
     let count = 0;
@@ -156,7 +155,7 @@ export async function calcHashSync(file: File) {
           resolve({ hashValue: spark.end(), progress: hashProgress });
         } else {
           // 每个区块计算结束，通知进度即可
-          hashProgress += 100 / chunks.length
+          hashProgress += 100 / chunks.length;
           // 计算下一个
           loadNext(count);
         }
@@ -170,7 +169,7 @@ export async function calcHashSync(file: File) {
 /**
  * 通过时间片的方式来计算hash值
  * @param file {File}
- * @returns 
+ * @returns
  */
 export async function calcHashByIdle(file: File) {
   const size = 2 * 1024 * 1024;
@@ -181,10 +180,9 @@ export async function calcHashByIdle(file: File) {
     cur += size;
   }
   const spark = new SparkMD5.ArrayBuffer();
-  let hashProgress = 0
+  let hashProgress = 0;
 
   return new Promise(resolve => {
-
     let count = 0;
     const appendToSpark = async (file: File) => {
       return new Promise(resolve => {
@@ -204,9 +202,7 @@ export async function calcHashByIdle(file: File) {
         // 没有了 计算完毕
         if (count < chunks.length) {
           // 计算中
-          hashProgress = Number(
-            ((100 * count) / chunks.length).toFixed(2)
-          );
+          hashProgress = Number(((100 * count) / chunks.length).toFixed(2));
         } else {
           // 计算完毕
           hashProgress = 100;
@@ -218,4 +214,3 @@ export async function calcHashByIdle(file: File) {
     window.requestIdleCallback(workLoop);
   });
 }
-
