@@ -5,91 +5,28 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '857. 雇佣 K 名工人的最低成本',
-  url: 'https://leetcode.cn/problems/minimum-cost-to-hire-k-workers/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.贪心, Tag.数组, Tag.排序, Tag.堆_优先队列],
-  desc: `给定整数 k ，返回 组成满足上述条件的付费群体所需的最小金额 。`,
+  name: '1608. 特殊数组的特征值',
+  url: 'https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.二分查找, Tag.排序],
+  desc: `如果存在一个数 x ，使得 nums 中恰好有 x 个元素 大于或者等于 x ，那么就称 nums 是一个 特殊数组 ，而 x 是该数组的 特征值 。`,
   solutions: [
     {
-      script: Script.TS,
-      time: 140,
-      memory: 49.8,
-      desc: '在工人数相同的情况下，对应1质量的完成，所有工人应该支付最高平均价格',
-      code: `class Heap<T = number> {
-        private arr: T[] = [];
-        get isEmpty() {
-          return this.size === 0;
+      script: Script.CPP,
+      time: 0,
+      memory: 8.1,
+      desc: '排序后遍历',
+      code: `class Solution {
+public:
+    int specialArray(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size(), cnt = n;
+        for (int i = 0; i < n; i++, cnt--) {
+            if (nums[i] >= cnt && (i > 0 && cnt > nums[i - 1] || i == 0)) return cnt;
         }
-        get size() {
-          return this.arr.length;
-        }
-        get top() {
-          return this.arr[0];
-        }
-        constructor(private compare: (t1: T, t2: T) => number) {}
-        add(num: T): void {
-          this.arr.push(num);
-          this.shiftUp(this.size - 1);
-        }
-        remove(): T {
-          const num = this.arr.shift()!;
-          if (this.size) {
-            this.arr.unshift(this.arr.pop()!);
-            this.shiftDown(0);
-          }
-          return num;
-        }
-        private shiftUp(index: number): void {
-          if (index === 0) return;
-          const parentIndex = (index - 1) >> 1;
-          if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-            [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-            this.shiftUp(parentIndex);
-          }
-        }
-        private shiftDown(index: number): void {
-          let childrenIndex = index * 2 + 1;
-          if (childrenIndex > this.size - 1) return;
-          if (
-            childrenIndex + 1 <= this.size - 1 &&
-            this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-          ) {
-            childrenIndex++;
-          }
-          if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-            [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-            this.shiftDown(childrenIndex);
-          }
-        }
-        *[Symbol.iterator](): IterableIterator<T> {
-          for (const t of this.arr) {
-            yield t;
-          }
-        }
-      }
-      function mincostToHireWorkers(quality: number[], wage: number[], k: number): number {
-        const len = quality.length;
-        const arr = new Array(len)
-          .fill(0)
-          .map((_, i) => i)
-          .sort((i1, i2) => wage[i1] / quality[i1] - wage[i2] / quality[i2]);
-        const heap = new Heap<number>((t1, t2) => t1 - t2);
-        let i = 0;
-        let sum = 0;
-        let ans = Infinity;
-        for (; i < k - 1; i++) {
-          sum += quality[arr[i]];
-          heap.add(quality[arr[i]]);
-        }
-        for (; i < len; i++) {
-          sum += quality[arr[i]];
-          heap.add(quality[arr[i]]);
-          ans = Math.min(ans, (wage[arr[i]] / quality[arr[i]]) * sum);
-          sum -= heap.remove();
-        }
-        return ans;
-      }`,
+        return -1;
+    }
+};`,
     },
   ],
 };
