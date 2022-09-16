@@ -303,7 +303,7 @@ importers:
       tsconfig-paths: 4.0.0
       typescript: 4.8.3
 
-  packages/training/deal-big-file/client:
+  training/deal-big-file/client:
     specifiers:
       '@types/spark-md5': ^3.0.2
       '@types/streamsaver': ^2.0.1
@@ -326,7 +326,7 @@ importers:
       vite: 2.9.15
       vue-tsc: 0.34.17_typescript@4.8.3
 
-  packages/training/deal-big-file/server:
+  training/deal-big-file/server:
     specifiers:
       '@types/fs-extra': ^9.0.13
       '@types/multiparty': ^0.0.33

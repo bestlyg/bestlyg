@@ -1,3 +1,7 @@
 packages:
+  # all packages in direct subdirs of packages/
   - 'packages/*'
-  - 'packages/training/deal-big-file/*'
+  # all packages in subdirs of components/
+  - 'training/**'
+  # exclude packages that are inside test directories
+  # - '!**/test/**'
