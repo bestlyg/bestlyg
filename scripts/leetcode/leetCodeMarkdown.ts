@@ -5,80 +5,32 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '827. 最大人工岛',
-  url: 'https://leetcode.cn/problems/making-a-large-island/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.并查集, Tag.数组, Tag.矩阵],
-  desc: `给你一个大小为 n x n 二进制矩阵 grid 。最多 只能将一格 0 变成 1 。返回执行此操作后，grid 中最大的岛屿面积是多少？`,
+  name: '1636. 按照频率将数组升序排序',
+  url: 'https://leetcode.cn/problems/sort-array-by-increasing-frequency/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.哈希表, Tag.排序],
+  desc: `给你一个整数数组 nums ，请你将数组按照每个值的频率 升序 排序。如果有多个值的频率相同，请你按照数值本身将它们 降序 排序。 `,
   solutions: [
     {
       script: Script.CPP,
-      time: 620,
-      memory: 167.5,
-      desc: 'uf记录所有岛，对每个0位置进行尝试合并',
-      code: `class UnionFind{
+      time: 4,
+      memory: 10.9,
+      desc: '用哈希表存储后排序',
+      code: `class Solution {
 public:
-    int n;
-    vector<int> list;
-    UnionFind(int n){
-        this->n = n;
-        list = vector<int>(n);
-        for (int i = 0; i < n; i++) list[i] = i;
-    }
-    int find(int e) {
-        if (list[e] == e) return e;
-        return list[e] = find(list[e]);
-    }
-    void uni(int e1, int e2) {
-        int p1 = find(e1), p2 = find(e2);
-        if (p1 != p2) list[p1] = p2;
-    }
-};
-int dirs[4][2] = {
-    {0, 1}, {0, -1},
-    {-1, 0}, {1, 0}
-};
-typedef pair<int, int> node;
-class Solution {
-public:
-    int n;
-    int largestIsland(vector<vector<int>>& grid) {
-        n = grid.size();
-        vector<node> list0;
-        UnionFind uf(n * n);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int idx = toIdx(i, j);
-                if (grid[i][j] == 0) {
-                    uf.list[idx] = -1;
-                    list0.push_back(make_pair(i, j));
-                } else {
-                    for (int k = 0; k < 4; k++) {
-                        int x = i + dirs[k][0], y = j + dirs[k][1];
-                        if (x < 0 || x == n || y < 0 || y == n || grid[x][y] == 0) continue;
-                        uf.uni(idx, toIdx(x, y));
-                    }
-                }
-            }
-        }
+    typedef pair<int, int> node;
+    vector<int> frequencySort(vector<int>& nums) {
         unordered_map<int, int> m;
-        int ans = 0;
-        for (int i = 0; i < uf.n; i++) if (uf.list[i] != -1) ans = max(ans, ++m[uf.find(i)]);
-        for (auto &item : list0) { 
-            unordered_set<int> s;
-            for (int i = 0; i < 4; i++) {
-                int x = item.first + dirs[i][0], y = item.second + dirs[i][1];
-                if (x < 0 || x == n || y < 0 || y == n || grid[x][y] == 0) continue;
-                s.insert(uf.find(toIdx(x, y)));
-            }
-            int sum = 1;
-            for (auto &p : s) sum += m[p];
-            ans = max(ans, sum);
-        }
+        for (auto &num : nums) m[num]++;
+        vector<node> list;
+        for (auto &item : m) list.push_back(item);
+        sort(list.begin(), list.end(), [&](const node a, const node b) -> bool {
+            return a.second == b.second ? b.first < a.first : a.second < b.second;
+        });
+        vector<int> ans;
+        ans.reserve(nums.size());
+        for (auto &item : list) for (int i = 0; i < item.second; i++) ans.push_back(item.first);
         return ans;
-    }
-    int toIdx(int x, int y) {
-        return x * n + y;
     }
 };`,
     },
