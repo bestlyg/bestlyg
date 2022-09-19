@@ -33,8 +33,13 @@
     "ucc": "pnpm run update:coreCode"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.31",
+    "@types/fs-extra": "^9.0.13",
     "@types/shelljs": "^0.8.11",
+    "axios": "^0.27.2",
     "chalk": "4",
+    "cheerio": "1.0.0-rc.12",
     "dayjs": "^1.11.3",
     "fs-extra": "^10.1.0",
     "git-cz": "^4.9.0",

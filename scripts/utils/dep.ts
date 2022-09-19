@@ -4,4 +4,5 @@ export { default as dayjs } from 'dayjs';
 export { default as shelljs } from 'shelljs';
 export { default as minimist } from 'minimist';
 export { default as chalk } from 'chalk';
-export { default as lodash } from 'lodash';
+export { default as axios } from 'axios';
+export { default as cheerio } from 'cheerio';
