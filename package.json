@@ -20,6 +20,7 @@
     "leetcode:auto": "pnpm run leetcode:markdown && pnpm run leetcode:readme && pnpm run commit:auto",
     "run:js": "cd scripts/leetcode && node script.js",
     "run:ts": "cd scripts/leetcode && ts-node script.ts",
+    "haizei:oj": "node haizeix/scripts/oj.js",
     "<!-- 快捷方式 -->": "下面是快捷方式用的",
     "rj": "pnpm run run:js",
     "rt": "pnpm run run:ts",
@@ -30,7 +31,8 @@
     "dp": "pnpm run deploy",
     "c": "pnpm run commit",
     "ca": "pnpm run commit:auto",
-    "ucc": "pnpm run update:coreCode"
+    "ucc": "pnpm run update:coreCode",
+    "ho": "pnpm run haizei:oj"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
