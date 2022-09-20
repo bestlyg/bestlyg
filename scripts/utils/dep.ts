@@ -6,3 +6,4 @@ export { default as minimist } from 'minimist';
 export { default as chalk } from 'chalk';
 export { default as axios } from 'axios';
 export { default as cheerio } from 'cheerio';
+export { default as lodash } from 'lodash';
