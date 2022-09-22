@@ -71,8 +71,8 @@ async function main() {
   fs.emptyDirSync(dirpath);
   await init();
   // slow
-  // run(0, true);
+  run(0, true);
   // fast
-  list.forEach((_, i) => run(i, false));
+  // list.forEach((_, i) => run(i, false));
 }
 main();
