@@ -68,7 +68,7 @@ function load($, no, suffix) {
 }
 async function main() {
   fs.ensureDirSync(dirpath);
-  fs.emptyDirSync(dirpath);
+  // fs.emptyDirSync(dirpath);
   await init();
   // slow
   run(0, true);
