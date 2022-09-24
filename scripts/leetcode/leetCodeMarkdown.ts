@@ -5,80 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '707. 设计链表',
-  url: 'https://leetcode.cn/problems/design-linked-list/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.链表],
-  desc: `设计链表的实现。`,
+  name: '1652. 拆炸弹',
+  url: 'https://leetcode.cn/problems/defuse-the-bomb/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.链表],
+  desc: `给你 循环 数组 code 和整数密钥 k ，请你返回解密后的结果来拆除炸弹！`,
   solutions: [
     {
       script: Script.CPP,
-      time: 36,
-      memory: 19.2,
-      desc: '构造链表',
-      code: `class Node {
+      time: 0,
+      memory: 8.2,
+      desc: '遍历',
+      code: `class Solution {
 public:
-    Node *next;
-    int val;
-    Node(int val): Node(val, nullptr) {}
-    Node(int val, Node *next): val(val), next(next) {}
-};
-class MyLinkedList {
-public:
-    int size;
-    Node *head, *tail;
-    MyLinkedList(): head(nullptr), tail(nullptr), size(0) {}
-    int get(int index) {
-        if (index < 0 || index >= size) return -1;
-        Node *p = head;
-        while (index--) p = p->next;
-        return p->val;
-    }
-    void addAtHead(int val) {
-        if (size == 0) return addFirst(val);
-        head = new Node(val, head);
-        size++;
-    }
-    void addAtTail(int val) {
-        if (size == 0) return addFirst(val);
-        Node *node = new Node(val);
-        tail->next = node;
-        tail = node;
-        size++;
-    }
-    void addAtIndex(int index, int val) {
-        if (index < 0 || index > size) return;
-        if (index == 0) return addAtHead(val);
-        if (index == size) return addAtTail(val);
-        Node *p = head;
-        while (--index) p = p->next;
-        Node *node = new Node(val, p->next);
-        p->next = node;
-        size++;
-    }
-    void deleteAtIndex(int index) {
-        if (index < 0 || index >= size) return;
-        if (size == 1) {
-            delete head;
-            head = tail = nullptr;
-        } else if (index == 0) {
-            Node *node = head;
-            head = head->next;
-            delete node;
-        } else {
-            bool isTail = index == size - 1;
-            Node *p = head;
-            while (--index) p = p->next;
-            Node *node = p->next;
-            p->next = node->next;
-            if (isTail) tail = p;
-            delete node;
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n = code.size();
+        vector<int> ans(n, 0);
+        for (int i = 0; i < n; i++) {
+            if (k > 0) {
+                for (int j = (i + 1) % n, cnt = 0; cnt < k; cnt++, j = (j + 1) % n) ans[i] += code[j];
+            } else if (k < 0) {
+                for (int j = (i - 1 + n) % n, cnt = 0; cnt < -k; cnt++, j = (j - 1 + n) % n) ans[i] += code[j];
+            }
         }
-        size--;
-    }
-    void addFirst(int val){
-        head = tail = new Node(val);
-        size++;
+        return ans;
     }
 };`,
     },
