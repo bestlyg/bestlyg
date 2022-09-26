@@ -5,137 +5,34 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '788. 旋转数字',
-  url: 'https://leetcode.cn/problems/rotated-digits/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数学, Tag.动态规划],
-  desc: `现在我们有一个正整数 N, 计算从 1 到 N 中有多少个数 X 是好数？`,
+  name: '面试题 17.19. 消失的两个数字',
+  url: 'https://leetcode.cn/problems/missing-two-lcci/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.位运算, Tag.数组,Tag.哈希表],
+  desc: `给定一个数组，包含从 1 到 N 所有的整数，但其中缺了两个数字。你能在 O(N) 时间内只用 O(1) 的空间找到它们吗？`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 6.8,
-      desc: '动态规划，每次从前面状态推进',
+      time: 24,
+      memory: 21.7,
+      desc: '遍历,因为只缺少两个不同的数字,使用异或遍历所有数和所有存在数,只有缺少的两个数字会被异或,其他的都会抵消,此时利用最低位1说明两个不同的数字异或必存在一个1且一个数字有,一个数字无',
       code: `class Solution {
 public:
-    // 0 -> 无法旋转
-    // 1 -> 旋转后是本身
-    // 2 -> 旋转后不是本身
-    int rotatedDigits(int n) {
-        vector<int> list(n + 1, 0);
-        int ans = 0;
-        for (int i = 1; i <= n; i++) {
-            if (i < 10) {
-                switch (i) {
-                    case 0:
-                    case 1:
-                    case 8: list[i] = 1; break;
-                    case 2: 
-                    case 5:
-                    case 6:
-                    case 9: list[i] = 2; break;
-                    default: list[i] = 0; break;
-                }
-            } else {
-                int num1 = i / 10, num2 = i % 10;
-                if (list[num1] == 0 || num2 == 3 || num2 == 4 || num2 == 7) list[i] = 0;
-                else if (list[num1] == 1) list[i] = num2 == 0 || num2 == 1 || num2 == 8 ? 1 : 2;
-                else list[i] = 2; 
-            }
-            if (list[i] == 2) ans++;
+    vector<int> missingTwo(vector<int>& nums) {
+        int xor_num = 0, n = nums.size() + 2;
+        for (auto &num : nums) xor_num ^= num;
+        for (int i = 1; i <= n; i++) xor_num ^= i;
+        int num = xor_num & -xor_num;
+        vector<int> list(2, 0);
+        for (auto &item : nums) {
+            if (item & num) list[0] ^= item;
+            else list[1] ^= item;
         }
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 4,
-      memory: 5.8,
-      desc: '动态规划，每次构造相同位数的数字',
-      code: `class Solution {
-public:
-    int rotatedDigits(int n) {
-        int len = get_len(n), list[3] = {0}, ans = 0;
-        dfs(len, n, list, 0, 0, ans);
-        return ans;
-    }
-    void dfs(int len, int n, int (&list)[3], int num, int cnt, int &ans) {
-        if (num > n) return;
-        if (cnt == len) {
-            if (list[0] == 0 && list[2] > 0) ans++;
-            // cout << "len = " << len 
-            //      << ", list = [" << list[0] << ", " << list[1] << ", " << list[2]
-            //      << "], num = " << num << ", cnt = " << cnt << ", ans = " << ans << endl;
-            return;
+        for (int item = 1; item <= n; item++) {
+            if (item & num) list[0] ^= item;
+            else list[1] ^= item;
         }
-        for (int i = 0; i < 10; i++) {
-            list[get_tag(i)]++;
-            dfs(len, n, list, num * 10 + i, cnt + 1, ans);
-            list[get_tag(i)]--;
-        }
-    }
-    int get_len(int n) {
-        int ans = 0;
-        while (n) n /= 10, ans++;
-        return ans;
-    }
-    int get_tag(int n) {
-        switch (n) {
-            case 0:
-            case 1:
-            case 8: return 1;
-            case 2: 
-            case 5:
-            case 6:
-            case 9: return 2;
-            default: return 0;
-        }
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 0,
-      memory: 5.7,
-      desc: '同上，优化非倒数',
-      code: `class Solution {
-public:
-    int rotatedDigits(int n) {
-        int len = get_len(n), list[2] = {0}, ans = 0;
-        dfs(len, n, list, 0, 0, ans);
-        return ans;
-    }
-    void dfs(int len, int n, int (&list)[2], int num, int cnt, int &ans) {
-        if (num > n) return;
-        if (cnt == len) {
-            if (list[1] > 0) ans++;
-            return;
-        }
-        for (int i = 0; i < 10; i++) {
-            int tag = get_tag(i);
-            if (tag == -1) continue;
-            list[tag]++;
-            dfs(len, n, list, num * 10 + i, cnt + 1, ans);
-            list[tag]--;
-        }
-    }
-    int get_len(int n) {
-        int ans = 0;
-        while (n) n /= 10, ans++;
-        return ans;
-    }
-    int get_tag(int n) {
-        switch (n) {
-            case 0:
-            case 1:
-            case 8: return 0;
-            case 2: 
-            case 5:
-            case 6:
-            case 9: return 1;
-            default: return -1;
-        }
+        return list;
     }
 };`,
     },

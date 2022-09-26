@@ -1,74 +1,48 @@
-class Heap<T = number> {
-  private arr: T[] = [];
-  get isEmpty() {
-    return this.size === 0;
-  }
-  get size() {
-    return this.arr.length;
-  }
-  get top() {
-    return this.arr[0];
-  }
-  constructor(private compare: (t1: T, t2: T) => number) {}
-  add(num: T): void {
-    this.arr.push(num);
-    this.shiftUp(this.size - 1);
-  }
-  remove(): T {
-    const num = this.arr.shift()!;
-    if (this.size) {
-      this.arr.unshift(this.arr.pop()!);
-      this.shiftDown(0);
-    }
-    return num;
-  }
-  private shiftUp(index: number): void {
-    if (index === 0) return;
-    const parentIndex = (index - 1) >> 1;
-    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
-      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
-      this.shiftUp(parentIndex);
-    }
-  }
-  private shiftDown(index: number): void {
-    let childrenIndex = index * 2 + 1;
-    if (childrenIndex > this.size - 1) return;
-    if (
-      childrenIndex + 1 <= this.size - 1 &&
-      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
-    ) {
-      childrenIndex++;
-    }
-    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
-      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
-      this.shiftDown(childrenIndex);
-    }
-  }
-  *[Symbol.iterator](): IterableIterator<T> {
-    for (const t of this.arr) {
-      yield t;
-    }
-  }
+class NNode {
+  next = new Set<NNode>();
+  constructor(public v: number, public idx: number) {}
 }
-function mincostToHireWorkers(quality: number[], wage: number[], k: number): number {
-  const len = quality.length;
-  const arr = new Array(len)
-    .fill(0)
-    .map((_, i) => i)
-    .sort((i1, i2) => wage[i1] / quality[i1] - wage[i2] / quality[i2]);
-  const heap = new Heap<number>((t1, t2) => t2 - t1);
-  let i = 0;
-  let sum = 0;
-  let ans = Infinity;
-  for (; i < k - 1; i++) {
-    sum += quality[arr[i]];
-    heap.add(quality[arr[i]]);
+function numberOfGoodPaths(vals: number[], edges: number[][]): number {
+  const n = vals.length;
+  const map: Record<number, number> = {};
+  for (const v of vals) map[v] = (map[v] ?? 0) + 1;
+  const nodes = new Array(n).fill(0).map((_, i) => new NNode(vals[i], i));
+  for (const [a, b] of edges) {
+    const node1 = nodes[a];
+    const node2 = nodes[b];
+    node1.next.add(node2);
+    node2.next.add(node1);
   }
-  for (; i < len; i++) {
-    sum += quality[arr[i]];
-    heap.add(quality[arr[i]]);
-    ans = Math.min(ans, (wage[arr[i]] / quality[arr[i]]) * sum);
-    sum -= heap.remove();
+  const linkSet = new Set<NNode>();
+  const set = new Set<string>();
+  const cntList = new Array(n).fill(0);
+  for (const node of nodes) {
+    if (map[node.v] === 1) continue;
+    linkSet.add(node);
+    for (const next of node.next) {
+      if (next.v <= node.v) {
+        dfs(next, [node]);
+      }
+    }
+    linkSet.delete(node);
   }
-  return ans;
+  return set.size / 2 + n;
+  function dfs(node: NNode, list: NNode[]) {
+    if (node.v === list[0].v) {
+      const format1 = list[0].idx + ',' + node.idx;
+      const format2 = node.idx + ',' + list[0].idx;
+      set.add(format1);
+      set.add(format2);
+      cntList[list[0].idx]++;
+      cntList[node.idx]++;
+    }
+    for (const item of node.next) {
+      if (item.v > list[0].v || linkSet.has(item) || cntList[item.idx] === 2) continue;
+      linkSet.add(item);
+      list.push(item);
+      dfs(item, list);
+      list.pop();
+      linkSet.delete(item);
+    }
+  }
 }
