@@ -323,6 +323,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       typescript: ^4.6.4
+      url: ^0.11.0
       vite: ^3.1.0
     dependencies:
       is-promise: 4.0.0
@@ -334,6 +335,7 @@ importers:
       '@vitejs/plugin-react': 2.1.0_vite@3.1.1
       nodemon: 2.0.19
       typescript: 4.8.3
+      url: 0.11.0
       vite: 3.1.1
 
   training/deal-big-file/client:
