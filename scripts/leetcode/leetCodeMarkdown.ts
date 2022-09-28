@@ -4,8 +4,8 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '面试题 01.02. 判定是否互为字符重排',
+  exist: true,
+  name: '面试题 17.09. 第 k 个数',
   url: 'https://leetcode.cn/problems/check-permutation-lcci/',
   difficulty: Difficulty.简单,
   tag: [Tag.哈希表, Tag.字符串, Tag.排序],
@@ -18,12 +18,18 @@ const leetCodeMarkdown: Markdown = {
       desc: '遍历',
       code: `class Solution {
 public:
-    bool CheckPermutation(string s1, string s2) {
-        if (s1.size() != s2.size()) return false;
-        char list[130] = {0};
-        for (auto &c : s1) list[c]++;
-        for (auto &c : s2) if (list[c]-- == 0) return false;
-        return true;
+    int getKthMagicNumber(int k) {
+        vector<int> list(k);
+        list[0] = 1;
+        int p[3] = {0};
+        for (int i = 1; i < k; i++) {
+            int next = min(list[p[0]] * 3, min(list[p[1]] * 5, list[p[2]] * 7));
+            list[i] = next;
+            if (next % 3 == 0) p[0]++;
+            if (next % 5 == 0) p[1]++;
+            if (next % 7 == 0) p[2]++;
+        }
+        return list.back();
     }
 };`,
     },
