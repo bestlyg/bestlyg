@@ -5,35 +5,38 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1694. 重新格式化电话号码',
-  url: 'https://leetcode.cn/problems/reformat-phone-number/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `返回格式化后的电话号码。`,
+  name: '777. 在LR字符串中交换相邻字符',
+  url: 'https://leetcode.cn/problems/swap-adjacent-in-lr-string/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `现给定起始字符串start和结束字符串end，请编写代码，当且仅当存在一系列移动操作使得start可以转换成end时， 返回True。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 11.9,
-      desc: '遍历',
+      time: 8,
+      memory: 9.2,
+      desc: 'L字符可以左移，R字符可以右移，确保LR在字符串中数量相等，相对位置一样',
       code: `class Solution {
 public:
-    string reformatNumber(string number) {
-        string tmp = "", ans = "";
-        for (auto &c : number) {
-            if (c != '-' && c != ' ') tmp += c;
+    typedef pair<int, int> node;
+    bool canTransform(string start, string end) {
+        int n = start.size(), s_l = 0, s_r = 0, e_l = 0, e_r = 0;
+        vector<node> s_list, e_list;
+        for (int i = 0; i < n; i++) {
+            if (start[i] == 'L') s_list.push_back(make_pair(i, 0)), s_l++;
+            else if (start[i] == 'R') s_list.push_back(make_pair(i, 1)), s_r++;
+            if (end[i] == 'L') e_list.push_back(make_pair(i, 0)), e_l++;
+            else if (end[i] == 'R') e_list.push_back(make_pair(i, 1)), e_r++;
         }
-        int len = tmp.size(), idx = 0;
-        while (len > 4) {
-            ans += to_string(tmp[idx++] - '0') + to_string(tmp[idx++] - '0') + to_string(tmp[idx++] - '0') + "-";
-            len -= 3;
+        if (s_l != e_l || s_r != e_r) return false;
+        n = s_list.size();
+        for (int i = 0; i < n; i++) {
+            node s_node = s_list[i], e_node = e_list[i];
+            if (s_node.second != e_node.second) return false;
+            if (s_node.second == 0 && s_node.first < e_node.first) return false;
+            if (s_node.second == 1 && s_node.first > e_node.first) return false;
         }
-        if (len == 4) {
-            ans += to_string(tmp[idx++] - '0') + to_string(tmp[idx++] - '0') + "-" + to_string(tmp[idx++] - '0') + to_string(tmp[idx++] - '0');
-        } else {
-            while (idx < tmp.size()) ans += to_string(tmp[idx++] - '0');
-        }
-        return ans;
+        return true;
     }
 };`,
     },
