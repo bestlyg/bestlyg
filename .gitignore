@@ -8,3 +8,5 @@ types
 # rust
 target
 .DS_Store
+# c++
+*.out
