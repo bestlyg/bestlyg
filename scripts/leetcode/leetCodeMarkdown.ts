@@ -5,67 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '927. 三等分',
-  url: 'https://leetcode.cn/problems/three-equal-parts/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.数学],
-  desc: `给定一个由 0 和 1 组成的数组 arr ，将数组分成  3 个非空的部分 ，使得所有这些部分表示相同的二进制值。`,
+  name: '1800. 最大升序子数组和',
+  url: 'https://leetcode.cn/problems/maximum-ascending-subarray-sum/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组],
+  desc: `给你一个正整数组成的数组 nums ，返回 nums 中一个 升序 子数组的最大可能元素和。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 296,
-      memory: 39.3,
-      desc: 'kmp方式寻找前后缀',
-      code: `
-class Solution {
+      time: 0,
+      memory: 8.1,
+      desc: '遍历',
+      code: `class Solution {
 public:
-    vector<int> threeEqualParts(vector<int>& arr) {
-        int n = arr.size(), prefix0 = 0;
-        for (int i = 0; i < n && arr[i] == 0; i++) prefix0++; // 找到前缀有几个0
-        vector<int> ans(2, -1), next;
-        if (prefix0 == n) { // 优化全0的情况
-            ans[0] = 0;
-            ans[1] = 2;
-            return ans;
-        }
-        arr.erase(arr.begin(), arr.begin() + prefix0); // 排除前缀0
-        n = arr.size();
-        next = getNext(arr); // 利用kmp找到相同部分
-        // [0, next[cur]]     : 第一部分
-        // [next[cur] + 1, i] : 第二部分
-        // [i + 1, size() - 1]: 第三部分
-        for (int i = n - 2; i > 0; i--) {
-            int cur = i;
-            bool f = false;
-            while (next[cur] != -1 && !f) f = check(arr, ans, prefix0, next[cur], i + 1), cur = next[cur];
-            if (f) break;
+    int maxAscendingSum(vector<int>& nums) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int sum = nums[i];
+            while (i + 1 < nums.size() && nums[i + 1] > nums[i]) sum += nums[++i];
+            ans = max(ans, sum);
         }
         return ans;
-    }
-    vector<int> getNext(vector<int> &arr) {
-        vector<int> next(arr.size(), -1);
-        for (int i = 1, j = -1; i < arr.size(); i++) {
-            while (j >= 0 && arr[i] != arr[j + 1]) j = next[j];
-            if (arr[j + 1] == arr[i]) j++;
-            next[i] = j;
-        }
-        return next;
-    }
-    bool check(vector<int> &arr, vector<int> &ans, int &prefix0, int s1, int s2) {
-        int i1 = s1, i2 = s2 - 1, i3 = arr.size() - 1;
-        // 从后往前依次比较
-        while (i1 >= 0 && i2 >= s1 + 1 && i3 >= s2) {
-            if (arr[i1] == arr[i2] && arr[i2] == arr[i3]) --i1, --i2, --i3;
-            else return false;
-        }
-        // 当一个部分解析完后，判断剩余是不是都是0
-        while (i1 >= 0 && arr[i1] == 0) --i1;
-        while (i2 >= s1 + 1 && arr[i2] == 0) --i2;
-        while (i3 >= s2 && arr[i3] == 0) --i3;
-        if (i1 != 0 - 1 || i2 != s1 || i3 != s2 - 1) return false;
-        ans[0] = s1 + prefix0;
-        ans[1] = s2 + prefix0;
-        return true;
     }
 };`,
     },
