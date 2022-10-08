@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@deal-big-file/client",
   "private": true,
   "version": "0.0.0",
   "scripts": {
