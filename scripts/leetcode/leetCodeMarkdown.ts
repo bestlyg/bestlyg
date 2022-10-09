@@ -4,33 +4,39 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '870. 优势洗牌',
+  exist: true,
+  name: '856. 括号的分数',
   url: 'https://leetcode.cn/problems/advantage-shuffle/',
   difficulty: Difficulty.中等,
   tag: [Tag.贪心, Tag.数组, Tag.双指针, Tag.排序],
-  desc: `返回 nums1 的任意排列，使其相对于 nums2 的优势最大化。`,
+  desc: `给定一个平衡括号字符串 S，按下述规则计算该字符串的分数`,
   solutions: [
     {
       script: Script.CPP,
-      time: 164,
-      memory: 58.3,
-      desc: '排序下标数组后，从大往小判断',
+      time: 0,
+      memory: 5.9,
+      desc: '栈',
       code: `class Solution {
 public:
-    vector<int> advantageCount(vector<int>& nums1, vector<int>& nums2) {
-        int n = nums1.size();
-        vector<int> ans(n), inums1(n), inums2(n);
-        for (int i = 0; i < n; i++) inums1[i] = inums2[i] = i;
-        sort(inums1.begin(), inums1.end(), [&](int i1, int i2){ return nums1[i1] < nums1[i2]; });
-        sort(inums2.begin(), inums2.end(), [&](int i1, int i2){ return nums2[i1] < nums2[i2]; });
-        int e1 = n - 1, s1 = 0, i2 = n - 1;
-        while (e1 >= s1) {
-            if (nums1[inums1[e1]] > nums2[inums2[i2]]) ans[inums2[i2]] = nums1[inums1[e1--]];
-            else ans[inums2[i2]] = nums1[inums1[s1++]];
-            i2--;
+    int scoreOfParentheses(string s) {
+        vector<int> st;
+        for (auto &c : s) {
+            if (c == '(') {
+                st.push_back(-1);
+            } else if (st.back() == -1) {
+                st.pop_back();
+                st.push_back(1);
+            } else {
+                int num = 0;
+                while (st.back() != -1) {
+                    num += st.back();
+                    st.pop_back();
+                }
+                st.pop_back();
+                st.push_back(num * 2);
+            }
         }
-        return ans;
+        return accumulate(st.begin(), st.end(), 0);
     }
 };`,
     },
