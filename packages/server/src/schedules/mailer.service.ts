@@ -8,7 +8,7 @@ import * as dayjs from 'dayjs';
 export class MailerTaskService {
   private format = 'YYYY-MM-DD';
   private md = new MarkdownIt();
-  private menses = dayjs('2022-8-29');
+  private menses = dayjs('2022-10-5');
   constructor(private readonly mailer: MailerService) {}
 
   async lyg_mailerTask(name: string, content: string) {
