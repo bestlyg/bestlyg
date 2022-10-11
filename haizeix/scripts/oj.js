@@ -61,8 +61,12 @@ async function init() {
 }
 function load($, no, suffix) {
   try {
+    const name = Array.from($('a[href]'))
+      .find(v => v.attribs.href.startsWith('/problem/'))
+      ?.children[0].data.replace('#', '');
     const code = Array.from($(`.sh_${suffix}`))[0].children[0].data;
-    const filepath = path.resolve(dirpath, `./${no}.${suffix}`);
+    const filepath = path.resolve(dirpath, `./${name}.${suffix}`);
+    console.log("WRITE " + `${name}.${suffix}`)
     fs.writeFileSync(filepath, code);
   } catch (err) {}
 }
