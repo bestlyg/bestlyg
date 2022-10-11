@@ -5,35 +5,33 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '801. 使序列递增的最小交换次数',
-  url: 'https://leetcode.cn/problems/minimum-swaps-to-make-sequences-increasing/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.动态规划],
-  desc: `返回 使 nums1 和 nums2 严格递增 所需操作的最小次数 。`,
+  name: '1790. 仅执行一次字符串交换能否使两个字符串相等',
+  url: 'https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
+  desc: `如果对 其中一个字符串 执行 最多一次字符串交换 就可以使两个字符串相等，返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 236,
-      memory: 117.2,
-      desc: 'dp[i][0|1]表示i为结尾下标时，交换和不交换的最小交换次数',
+      time: 0,
+      memory: 6.1,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int minSwap(vector<int>& nums1, vector<int>& nums2) {
-        int n = nums1.size();
-        vector<vector<int>> dp(n, vector<int>(2, n));
-        dp[0][0] = 0;
-        dp[0][1] = 1; 
-        for (int i = 1; i < n; i++) {
-            if (nums1[i - 1] < nums1[i] && nums2[i - 1] < nums2[i]) {
-                dp[i][0] = min(dp[i][0], dp[i - 1][0]);
-                dp[i][1] = min(dp[i][1], dp[i - 1][1] + 1);
-            }
-            if (nums1[i - 1] < nums2[i] && nums2[i - 1] < nums1[i]) {
-                dp[i][0] = min(dp[i][0], dp[i - 1][1]);
-                dp[i][1] = min(dp[i][1], dp[i - 1][0] + 1);
-            }
+    bool areAlmostEqual(string s1, string s2) {
+        int list[26] = {0}, n = s1.size();
+        for (auto &c : s1) list[c - 'a']++;
+        for (auto &c : s2) if (list[c - 'a']-- == 0) return false;
+        int tag = -1;
+        bool changed = false;
+        for (int i = 0; i < n; i++) {
+            if (s1[i] == s2[i]) continue;
+            if (changed) return false;
+            if (tag == -1) { tag = i; continue; }
+            else if (s1[tag] == s2[i] && s2[tag] == s1[i]) changed = true;
+            else return false;
         }
-        return min(dp[n - 1][0], dp[n - 1][1]);
+        return true;
     }
 };`,
     },
