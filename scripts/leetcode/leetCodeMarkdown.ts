@@ -5,33 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1790. 仅执行一次字符串交换能否使两个字符串相等',
-  url: 'https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
-  desc: `如果对 其中一个字符串 执行 最多一次字符串交换 就可以使两个字符串相等，返回 true ；否则，返回 false 。`,
+  name: '817. 链表组件',
+  url: 'https://leetcode.cn/problems/linked-list-components/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.哈希表, Tag.链表],
+  desc: `返回列表 nums 中组件的个数`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.1,
+      time: 24,
+      memory: 20.8,
       desc: '遍历',
       code: `class Solution {
 public:
-    bool areAlmostEqual(string s1, string s2) {
-        int list[26] = {0}, n = s1.size();
-        for (auto &c : s1) list[c - 'a']++;
-        for (auto &c : s2) if (list[c - 'a']-- == 0) return false;
-        int tag = -1;
-        bool changed = false;
-        for (int i = 0; i < n; i++) {
-            if (s1[i] == s2[i]) continue;
-            if (changed) return false;
-            if (tag == -1) { tag = i; continue; }
-            else if (s1[tag] == s2[i] && s2[tag] == s1[i]) changed = true;
-            else return false;
+    int numComponents(ListNode* head, vector<int>& nums) {
+        unordered_set<int> s(nums.begin(), nums.end());
+        ListNode *p = head;
+        while (p && !s.count(p->val)) p = p->next;
+        int ans = 0;
+        while (p) {
+            while (p && s.count(p->val)) p = p->next;
+            ans++;
+            while (p && !s.count(p->val)) p = p->next;
         }
-        return true;
+        return ans;
     }
 };`,
     },
