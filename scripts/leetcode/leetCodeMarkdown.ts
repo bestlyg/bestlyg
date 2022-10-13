@@ -5,28 +5,24 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '817. 链表组件',
-  url: 'https://leetcode.cn/problems/linked-list-components/',
+  name: '769. 最多能完成排序的块',
+  url: 'https://leetcode.cn/problems/max-chunks-to-make-sorted/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.链表],
-  desc: `返回列表 nums 中组件的个数`,
+  tag: [Tag.栈, Tag.贪心, Tag.数组,Tag.排序,Tag.单调栈],
+  desc: `返回数组能分成的最多块数量。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 20.8,
+      time: 4,
+      memory: 7,
       desc: '遍历',
       code: `class Solution {
 public:
-    int numComponents(ListNode* head, vector<int>& nums) {
-        unordered_set<int> s(nums.begin(), nums.end());
-        ListNode *p = head;
-        while (p && !s.count(p->val)) p = p->next;
-        int ans = 0;
-        while (p) {
-            while (p && s.count(p->val)) p = p->next;
-            ans++;
-            while (p && !s.count(p->val)) p = p->next;
+    int maxChunksToSorted(vector<int>& arr) {
+        int n = arr.size(), nmax = arr[0], ans = 0;
+        for (int i = 0; i < n; i++) {
+            nmax = max(nmax, arr[i]);
+            if (nmax == i) ans++;
         }
         return ans;
     }
