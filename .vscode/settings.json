@@ -10,6 +10,12 @@
         "iosfwd": "cpp",
         "ostream": "cpp",
         "list": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "random": "cpp",
+        "algorithm": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "iterator": "cpp",
+        "__config": "cpp"
     }
 }
