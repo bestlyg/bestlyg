@@ -9,6 +9,7 @@
         "string": "cpp",
         "iosfwd": "cpp",
         "ostream": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "queue": "cpp"
     }
 }
