@@ -5,50 +5,35 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '886. 可能的二分法',
-  url: 'https://leetcode.cn/problems/possible-bipartition/',
+  name: '904. 水果成篮',
+  url: 'https://leetcode.cn/problems/fruit-into-baskets/',
   difficulty: Difficulty.中等,
-  tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.并查集, Tag.图],
-  desc: `给定整数 n 和数组 dislikes ，其中 dislikes[i] = [ai, bi] ，表示不允许将编号为 ai 和  bi的人归入同一组。当可以用这种方法将所有人分进两组时，返回 true；否则返回 false。`,
+  tag: [Tag.数组, Tag.哈希表, Tag.滑动窗口],
+  desc: `给你一个整数数组 fruits ，返回你可以收集的水果的 最大 数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 220,
-      memory: 62.7,
-      desc: '并查集，把所有人的对立连成一块，并不可能和当前值在同一个集',
-      code: `struct UnionFind {
-    vector<int> list;
-    UnionFind(int n): list(vector<int>(n)) {
-        for (int i = 0; i < n; i++) list[i] = i;
-    }
-    int find(int v) {
-        return list[v] == v ? v : list[v] = find(list[v]);
-    }
-    void uni(int v1, int v2) {
-        int p1 = find(v1), p2 = find(v2);
-        if (p1 == p2) return;
-        list[p1] = p2;
-    }
-    bool same(int v1, int v2) {
-        return find(v1) == find(v2);
-    }
-};
-class Solution {
+      time: 204,
+      memory: 69.4,
+      desc: '滑动窗口，每次记录窗口中小于3元素时的最大可能',
+      code: `class Solution {
 public:
-    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
-        UnionFind uf(n + 1);
-        vector<vector<int>> list(n + 1);
-        for (auto &item : dislikes) {
-            list[item[0]].push_back(item[1]);
-            list[item[1]].push_back(item[0]);
-        }
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < list[i].size(); j++) {
-                uf.uni(list[i][0], list[i][j]);
-                if (uf.same(i, list[i][j])) return false;
+    int totalFruit(vector<int>& fruits) {
+        unordered_map<int, int> m;
+        int ans = 0, l = 0, r = 0, n = fruits.size();
+        while (r < n) {
+            m[fruits[r]]++;
+            if (m.size() == 3) {
+                do {
+                    m[fruits[l]]--;
+                    if (m[fruits[l]] == 0) m.erase(fruits[l]);
+                    l++;
+                } while (l < n && m.size() == 3);
             }
+            ans = max(ans, r - l + 1);
+            r++;
         }
-        return true;
+        return ans;
     }
 };`,
     },
