@@ -4,8 +4,8 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '779. 第K个语法符号',
+  exist: true,
+  name: '901. 股票价格跨度',
   url: 'https://leetcode.cn/problems/k-th-symbol-in-grammar/',
   difficulty: Difficulty.中等,
   tag: [Tag.位运算, Tag.递归, Tag.数学],
@@ -13,18 +13,23 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory:5.9,
-      desc: '当前层前半段和上层一样，第三段和第二段相同，第一段和第四段相同',
-      code: `class Solution {
+      time: 196,
+      memory: 84.1,
+      desc: '单调栈，存储比自己大的最近节点',
+      code: `class StockSpanner {
 public:
-    int kthGrammar(int n, int k) {
-        if (n == 1) return 0;
-        else if (n == 2) return k == 1 ? 0 : 1;
-        int nmax = pow(2, n - 1), nextK = k;
-        if (k > nmax / 2 && k <= nmax / 4 * 3) nextK = k - nmax / 2 + nmax / 4;
-        else if (k > nmax / 4 * 3) nextK = k - nmax / 2 - nmax / 4;
-        return kthGrammar(n - 1, nextK);
+    stack<int> s;
+    vector<int> list;
+    StockSpanner() {
+        list.push_back(0x7fffffff);
+        s.push(0);
+    }
+    int next(int price) {
+        while (list[s.top()] <= price) s.pop();
+        int res = list.size() - s.top();
+        s.push(list.size());
+        list.push_back(price);
+        return res;
     }
 };`,
     },
