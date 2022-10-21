@@ -66,7 +66,7 @@ function load($, no, suffix) {
       ?.children[0].data.replace('#', '');
     const code = Array.from($(`.sh_${suffix}`))[0].children[0].data;
     const filepath = path.resolve(dirpath, `./${name}.${suffix}`);
-    console.log("WRITE " + `${name}.${suffix}`)
+    console.log('WRITE ' + `${name}.${suffix}`);
     fs.writeFileSync(filepath, code);
   } catch (err) {}
 }

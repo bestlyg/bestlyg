@@ -1,15 +1,14 @@
-
 self.importScripts('./spark-md5.js');
 
-self.onmessage = (event) => {
-  const fileChunkList = event.data.chunks
+self.onmessage = event => {
+  const fileChunkList = event.data.chunks;
   const spark = new (self as any).SparkMD5();
   let percentage = 0;
   let count = 0;
   const loadNext = (index: number) => {
     const reader = new FileReader();
     reader.readAsArrayBuffer(fileChunkList[index]);
-    reader.onload = (e) => {
+    reader.onload = e => {
       count++;
       spark.append(e.target?.result as ArrayBuffer);
       if (count === fileChunkList.length) {
@@ -21,7 +20,7 @@ self.onmessage = (event) => {
       } else {
         percentage += 100 / fileChunkList.length;
         self.postMessage({
-          progress:percentage,
+          progress: percentage,
         });
         // 递归计算下一个切片
         loadNext(count);
@@ -29,4 +28,4 @@ self.onmessage = (event) => {
     };
   };
   loadNext(0);
-}
+};

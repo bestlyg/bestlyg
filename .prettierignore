@@ -2,3 +2,7 @@ dist
 .umi
 node_modules
 jest
+training
+echarts.js
+target
+temp
