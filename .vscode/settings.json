@@ -33,6 +33,8 @@
     "thread": "cpp",
     "bitset": "cpp",
     "__mutex_base": "cpp",
-    "mutex": "cpp"
+    "mutex": "cpp",
+    "shared_mutex": "cpp",
+    "numeric": "cpp"
   }
 }
