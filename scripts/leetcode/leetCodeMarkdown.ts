@@ -5,43 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1235. 规划兼职工作',
-  url: 'https://leetcode.cn/problems/maximum-profit-in-job-scheduling/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.二分查找, Tag.动态规划, Tag.排序],
-  desc: `给你一份兼职工作表，包含开始时间 startTime，结束时间 endTime 和预计报酬 profit 三个数组，请你计算并返回可以获得的最大报酬。`,
+  name: '1768. 交替合并字符串',
+  url: 'https://leetcode.cn/problems/merge-strings-alternately/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `返回 合并后的字符串 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 252,
-      memory: 64.1,
-      desc: 'dp存储当前点选中和不选中两种情况，利用map快速查找当前节点启动前结束的最大值',
-      code: `struct Node { int l, r, profit; };
-class Solution {
+      time: 0,
+      memory: 6.1,
+      desc: '遍历',
+      code: `class Solution {
 public:
-    map<int, int> m;
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
-        int n = startTime.size();
-        vector<Node> list(n);
-        for (int i = 0; i < n; i++) {
-            list[i].l = startTime[i];
-            list[i].r = endTime[i];
-            list[i].profit = profit[i];
+    string mergeAlternately(string word1, string word2) {
+        string ans = "";
+        for (int i1 = 0, i2 = 0; i1 < word1.size() || i2 < word2.size(); i1++, i2++) {
+            if (i1 < word1.size()) ans += word1[i1];
+            if (i2 < word2.size()) ans += word2[i2];
         }
-        sort(list.begin(), list.end(), [](Node &a, Node &b){ return a.r < b.r; });
-        vector<vector<int>> dp(n, vector<int>(2, 0));
-        dp[0][1] = list[0].profit;
-        m[list[0].r] = list[0].profit;
-        for (int i = 1; i < n; i++) {
-            dp[i][1] += list[i].profit;
-            dp[i][0] = max(dp[i][0], dp[i - 1][0]);
-            dp[i][0] = max(dp[i][0], dp[i - 1][1]);
-            auto upper = m.upper_bound(list[i].l);
-            upper--;
-            if (upper->first <= list[i].l) dp[i][1] = upper->second + list[i].profit;
-            m[list[i].r] = max(m[list[i].r], max(dp[i][0], dp[i][1]));
-        }
-        return max(dp[n - 1][0], dp[n - 1][1]);
+        return ans;
     }
 };`,
     },
