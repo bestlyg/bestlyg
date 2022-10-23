@@ -8,9 +8,17 @@ const includePkgs = __DEV__
       'packages/博客',
       'packages/数据结构',
       'packages/算法',
+      'packages/作品集',
       // ,   'packages/力扣题解'
     ]
-  : ['packages/docs', 'packages/博客', 'packages/数据结构', 'packages/算法', 'packages/力扣题解'];
+  : [
+      'packages/docs',
+      'packages/博客',
+      'packages/数据结构',
+      'packages/算法',
+      'packages/力扣题解',
+      'packages/作品集',
+    ];
 const rootPath = '/blog';
 // config: https://d.umijs.org/config
 export default defineConfig({
@@ -50,6 +58,7 @@ export default defineConfig({
   dynamicImport: {},
   hash: true,
   analyze: {},
+  mfsu: {},
   chainWebpack(config, { webpack }) {
     if (__DEV__) return;
     // 生产模式开启

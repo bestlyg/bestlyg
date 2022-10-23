@@ -14,7 +14,7 @@ import { database, auth, application } from './modules';
       serveRoot: '/blog',
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, './static'),
+      rootPath: join(__dirname, '../static'),
       serveRoot: '/static',
     }),
     ScheduleModule.forRoot(),

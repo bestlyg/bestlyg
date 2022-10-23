@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "compression-webpack-plugin": "^10.0.0",
-    "dumi": "^1.1.39",
+    "dumi": "^1.1.47",
     "typescript": "^4.6.2"
   },
   "dependencies": {
