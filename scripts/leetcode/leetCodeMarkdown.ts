@@ -4,68 +4,34 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '934. 最短的桥',
-  url: 'https://leetcode.cn/problems/shortest-bridge/',
+  exist: true,
+  name: '862. 和至少为 K 的最短子数组',
+  url: 'https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k/',
   difficulty: Difficulty.中等,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.数组, Tag.矩阵],
   desc: `返回必须翻转的 0 的最小数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 44,
-      memory: 18.6,
-      desc: 'bfs',
-      code: `typedef pair<int, int> node;
-const int dirs[4][2] = {
-    {0, 1}, {0, -1},
-    {1, 0}, {-1, 0}
-};
-class Solution {
+      time: 204,
+      memory: 102.3,
+      desc: '前缀和+单调递增队列，遍历到一个值时，可以快速知道前面的前缀和',
+      code: `class Solution {
 public:
-    int shortestBridge(vector<vector<int>>& grid) {
-        int n = grid.size();
-        vector<vector<bool>> check(n, vector<bool>(n, false));
-        queue<node> q;
-        int f = true;
-        for (int i = 0; i < n && f; i++) {
-            for (int j = 0; j < n && f; j++) {
-                if (grid[i][j] == 1) {
-                    queue<node> tmp;
-                    tmp.push(make_pair(i, j));
-                    check[i][j] = true;
-                    while (tmp.size()) {
-                        node v = tmp.front();
-                        tmp.pop();
-                        q.push(make_pair(v.first, v.second));
-                        for (int k = 0; k < 4; k++) {
-                            int ni = v.first + dirs[k][0], nj = v.second + dirs[k][1];
-                            if (ni < 0 || ni == n || nj < 0 || nj == n || grid[ni][nj] == 0 || check[ni][nj]) continue;
-                            tmp.push(make_pair(ni, nj));
-                            check[ni][nj] = true;
-                        }
-                    }
-                    f = false;
-                }
-            }
+    int shortestSubarray(vector<int>& nums, int k) {
+        int n = nums.size(), ans = 0x7fffffff;
+        vector<long long> sums(1 + n, 0);
+        for (int i = 0; i < n; i++) sums[i + 1] = sums[i] + nums[i];
+        deque<int> q;
+        q.push_back(0);
+        for (int i = 0; i < n; i++) {
+            int idx = -1;
+            while (q.size() && sums[i + 1] - sums[q.front()] >= k) idx = q.front(), q.pop_front();
+            if (idx != -1) ans = min(ans, i + 1 - idx);
+            while (q.size() && sums[q.back()] > sums[i + 1]) q.pop_back();
+            q.push_back(i + 1);
         }
-        int level = 1, size = q.size();
-        while (q.size()) {
-            node v = q.front();
-            q.pop();
-            for (int i = 0; i < 4; i++) {
-                int ni = v.first + dirs[i][0], nj = v.second + dirs[i][1];
-                if (ni < 0 || ni == n || nj < 0 || nj == n || check[ni][nj]) continue;
-                if (grid[ni][nj]) return level - 1;
-                check[ni][nj] = true;
-                q.push(make_pair(ni, nj));
-            }
-            if (--size == 0) {
-                size = q.size();
-                level++;
-            }
-        }
-        return 0;
+        return ans == 0x7fffffff ? -1 : ans;
     }
 };`,
     },
