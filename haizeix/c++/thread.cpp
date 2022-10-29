@@ -7,11 +7,13 @@
 #include <thread>
 #include <condition_variable>
 #include <numeric>
-#include "./bench.cpp"
+#include "bestlyg.h"
+#include "bench.h"
 
-using namespace std;
-#define NP_START(np) namespace np {
-#define NP_END  };
+
+BESTLYG_NP_BEGIN(bestlyg)
+BESTLYG_NP_BEGIN(thread)
+
 const int BATCH = 500000;
 const int CNT = 10;
 int is_prime(int n) {
@@ -22,96 +24,96 @@ int is_prime(int n) {
     return true;
 }
 
-NP_START(sync)
+BESTLYG_NP_BEGIN(sync)
 int main() {
     int cnt = 0;
     for (int i = 0; i <= BATCH * CNT; i++) {
         if (is_prime(i)) cnt++;
     }
-    cout << "cnt : " << cnt << endl;
+    std::cout << "cnt : " << cnt << std::endl;
     return 0;
 }
-NP_END
+BESTLYG_NP_END(sync)
 
 
-NP_START(async_thread_mutex)
-mutex mtx;
+BESTLYG_NP_BEGIN(async_thread_mutex)
+std::mutex mtx;
 int cnt = 0;
 void worker(int start, int end) {
-    thread::id id = this_thread::get_id();
-    cout << "===START===" << endl
+    std::thread::id id = std::this_thread::get_id();
+    std::cout << "===START===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
     for (int i = start; i < end; i++) {
         if (is_prime(i)) {
-            unique_lock<mutex> lock(mtx);
+            std::unique_lock<std::mutex> lock(mtx);
             cnt++;
         }
     }
-    cout << "===END===" << endl
+    std::cout << "===END===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
 }
 int main() {
-    vector<thread> list;
+    std::vector<std::thread> list;
     for (int i = 0; i < CNT; i++) {
-        thread t(worker, i * BATCH, (i + 1) * BATCH);
+        std::thread t(worker, i * BATCH, (i + 1) * BATCH);
         list.push_back(move(t));
     }
     for (int i = 0; i < CNT; i++) list[i].join();
-    cout << cnt << endl;
+    std::cout << cnt << std::endl;
     return 0;
 }
-NP_END
+BESTLYG_NP_END(async_thread_mutex)
 
-NP_START(async_thread)
-vector<int> res(CNT);
+BESTLYG_NP_BEGIN(async_thread)
+std::vector<int> res(CNT);
 void worker(int idx, int start, int end) {
-    thread::id id = this_thread::get_id();
-    string str = "";
-    cout << "===START===" << endl
+    std::thread::id id = std::this_thread::get_id();
+    std::string str = "";
+    std::cout << "===START===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
     for (int i = start; i < end; i++) {
         if (is_prime(i)) {
             res[idx]++;
         }
     }
-    cout << "===END===" << endl
+    std::cout << "===END===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
 }
 int main() {
-    vector<thread> list;
+    std::vector<std::thread> list;
     for (int i = 0; i < CNT; i++) {
-        thread t(worker, i, i * BATCH, (i + 1) * BATCH);
+        std::thread t(worker, i, i * BATCH, (i + 1) * BATCH);
         list.push_back(move(t));
     }
     for (int i = 0; i < CNT; i++) list[i].join();
-    int cnt = accumulate(res.begin(), res.end(), 0);
-    cout << cnt << endl;
+    int cnt = std::accumulate(res.begin(), res.end(), 0);
+    std::cout << cnt << std::endl;
     return 0;
 }
-NP_END
+BESTLYG_NP_END(async_thread)
 
 
-NP_START(async_thread_pool)
-vector<int> res(CNT);
+BESTLYG_NP_BEGIN(async_thread_pool)
+std::vector<int> res(CNT);
 class Task {
 private:
-    function<void()> func;
+    std::function<void()> func;
 public: 
     template<typename FUNC_T, typename... ARGS>
     Task(FUNC_T f, ARGS... args) {
-        func = bind(f, forward<ARGS>(args)...);
+        func = std::bind(f, std::forward<ARGS>(args)...);
     }
     void run() {
         func();
@@ -119,18 +121,18 @@ public:
 };
 class ThreadPool {
 private:
-    vector<thread *> trr;
-    unordered_map<thread::id, bool> running;
-    queue<Task *> task_q;
-    mutex mtx;
-    condition_variable condi;
+    std::vector<std::thread *> trr;
+    std::unordered_map<std::thread::id, bool> running;
+    std::queue<Task *> task_q;
+    std::mutex mtx;
+    std::condition_variable condi;
     bool starting;
     void stop_running() {
-        auto id = this_thread::get_id();
+        auto id = std::this_thread::get_id();
         running[id] = false;
     }
     Task *get_task() {
-        unique_lock<mutex> lock(mtx);
+        std::unique_lock<std::mutex> lock(mtx);
         while (task_q.empty()) {
             condi.wait(lock);
         }
@@ -143,7 +145,7 @@ public:
         start();
     }
     void worker() {
-        thread::id id = this_thread::get_id();
+        std::thread::id id = std::this_thread::get_id();
         running[id] = true;
         while (running[id]) {
             Task *t = get_task();
@@ -154,7 +156,7 @@ public:
     void start() {
         if (starting == true) return;
         for (int i = 0; i < trr.size(); i++) {
-            trr[i] = new thread(&ThreadPool::worker, this);
+            trr[i] = new std::thread(&ThreadPool::worker, this);
         }
         starting = true;
     }
@@ -170,8 +172,8 @@ public:
     }    
     template<typename FUNC_T, typename... ARGS>
     void add_task(FUNC_T f, ARGS... args) {
-        unique_lock<mutex> lock(mtx);
-        task_q.push(new Task(f, forward<ARGS>(args)...));
+        std::unique_lock<std::mutex> lock(mtx);
+        task_q.push(new Task(f, std::forward<ARGS>(args)...));
         condi.notify_one();
     }
     virtual ~ThreadPool() {
@@ -183,23 +185,23 @@ public:
     }
 };
 void worker(int idx, int start, int end) {
-    thread::id id = this_thread::get_id();
-    string str = "";
-    cout << "===START===" << endl
+    std::thread::id id = std::this_thread::get_id();
+    std::string str = "";
+    std::cout << "===START===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
     for (int i = start; i < end; i++) {
         if (is_prime(i)) {
             res[idx]++;
         }
     }
-    cout << "===END===" << endl
+    std::cout << "===END===" << std::endl
          << "start = " << start
          << ", end = " << end
-         << ", id = " << this_thread::get_id()
-         << endl;
+         << ", id = " << std::this_thread::get_id()
+         << std::endl;
 }
 int main() {
     ThreadPool tp(5);
@@ -207,20 +209,22 @@ int main() {
         tp.add_task(worker, i, i * BATCH, (i + 1) * BATCH);
     }
     tp.stop();
-    int cnt = accumulate(res.begin(), res.end(), 0);
-    cout << cnt << endl;
+    int cnt = std::accumulate(res.begin(), res.end(), 0);
+    std::cout << cnt << std::endl;
     return 0;
 }
-NP_END
+BESTLYG_NP_END(async_thread_pool)
 
-#define run(np) BEGINT \
- np::main(); \
-ENDT \
+#define run(np) BESTLYG_BENCH_BEGIN \
+np::main(); \
+BESTLYG_BENCH_END \
 
-int main() {
+void demo() {
     run(sync);
     run(async_thread_mutex);
     run(async_thread);
     run(async_thread_pool);
-    return 0;
 }
+
+BESTLYG_NP_END(thread)
+BESTLYG_NP_END(bestlyg)

@@ -1,11 +1,8 @@
 #include <iostream>
-using namespace std;
+#include "bestlyg.h"
 
-#define NP_BEGIN(np) namespace np {
-#define NP_END }
-
-NP_BEGIN(demo)
-
+BESTLYG_NP_BEGIN(bestlyg)
+BESTLYG_NP_BEGIN(function)
 
 int add(int a, int b) {
     return a + b;
@@ -13,10 +10,10 @@ int add(int a, int b) {
 class Add {
 public:
     Add() {
-        cout << "Add normal constructor" << endl;
+        std::cout << "Add normal constructor" << std::endl;
     }
     Add(Add &add) {
-        cout << "Add copy constructor" << endl;
+        std::cout << "Add copy constructor" << std::endl;
     }
     int operator()(int a, int b) {
         return a + b * 2;
@@ -37,17 +34,17 @@ private:
     T (*ptr)(ARGS...);
 public:
     normal_function(T (*ptr)(ARGS...)): ptr(ptr) {
-        cout << "normal_function constructor" << endl;
+        std::cout << "normal_function constructor" << std::endl;
     }
     T run(ARGS... args) override {
-        return ptr(forward<ARGS>(args)...);
+        return ptr(std::forward<ARGS>(args)...);
     }
     base_function<T, ARGS...> *copy() override {
-        cout << "normal copy" << endl;
+        std::cout << "normal copy" << std::endl;
         return new normal_function(*this);
     }
     ~normal_function() {
-        cout << "normal deconstructor" << endl;
+        std::cout << "normal deconstructor" << std::endl;
     }
 };
 template<typename CLASS, typename T, typename... ARGS>
@@ -56,16 +53,16 @@ private:
     CLASS ptr;
 public:
     class_function(CLASS &ptr): ptr(ptr) {
-        cout << "class_function constructor" << endl;
+        std::cout << "class_function constructor" << std::endl;
     }
     T run(ARGS... args) override {
-        return ptr(forward<ARGS>(args)...);
+        return ptr(std::forward<ARGS>(args)...);
     }
     base_function<T, ARGS...> *copy() override {
         return new class_function(*this);
     }
     ~class_function() {
-        cout << "class deconstructor" << endl;
+        std::cout << "class deconstructor" << std::endl;
     }
 };
 
@@ -79,17 +76,17 @@ private:
     base_function<T, ARGS...> *ptr;
 public:
     function(T (*ptr)(ARGS...)): ptr(new normal_function<T, ARGS...>(ptr)) {
-        cout << "function normal constuctor" << endl;
+        std::cout << "function normal constuctor" << std::endl;
     }
     template<typename CLASS>
     function(CLASS ptr): ptr(new class_function<CLASS, T, ARGS...>(ptr)) {
-        cout << "function class constuctor" << endl;
+        std::cout << "function class constuctor" << std::endl;
     }
     T operator()(ARGS... args) {
-        return ptr->run(forward<ARGS>(args)...);
+        return ptr->run(std::forward<ARGS>(args)...);
     }
     function &operator=(const Add &a) {
-        cout << "operator a" << endl;
+        std::cout << "operator a" << std::endl;
         return *this;
     }
     function &operator=(const function &f) {
@@ -102,21 +99,16 @@ public:
     }
 };
 
-
-
-int main() {
-    demo::function<int(int, int)> func1 = add;
-    cout << func1(1, 2) << endl;
+void demo() {
+    BESTLYG_PRINT(main_function);
+    function<int(int, int)> func1 = add;
+    std::cout << func1(1, 2) << std::endl;
     Add a;
-    demo::function<int(int, int)> func2 = a;
-    cout << func2(12, 314) << endl;
+    function<int(int, int)> func2 = a;
+    std::cout << func2(12, 314) << std::endl;
     func2 = func1;
-    cout << func2(1, 2) << endl;
-    return 0;
+    std::cout << func2(1, 2) << std::endl;
 }
-NP_END
 
-int main() {
-    demo::main();
-    return 0;
-}
+BESTLYG_NP_END(function)
+BESTLYG_NP_END(bestlyg)

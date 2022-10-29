@@ -10,5 +10,6 @@ target
 .DS_Store
 # c++
 *.out
+*.o
 # databases
 databases
