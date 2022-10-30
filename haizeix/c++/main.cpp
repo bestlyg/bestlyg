@@ -4,10 +4,12 @@
 #include "function.cpp"
 #include "template.cpp"
 #include "thread.cpp"
+#include "rbtree.cpp"
 
 int main() {
-    bestlyg::function::demo();
-    bestlyg::temp::demo();
-    bestlyg::thread::demo();
+    // bestlyg::function::demo();
+    // bestlyg::temp::demo();
+    // bestlyg::thread::demo();
+    bestlyg::rbtree::demo();
     return 0;
 }
