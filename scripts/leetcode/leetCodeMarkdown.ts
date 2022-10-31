@@ -5,65 +5,37 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6222. 美丽整数的最小增量',
-  url: 'https://leetcode.cn/problems/minimum-addition-to-make-integer-beautiful/',
+  name: '481. 神奇字符串',
+  url: 'https://leetcode.cn/problems/magical-string/',
   difficulty: Difficulty.中等,
-  tag: [],
-  desc: `找出并返回满足 n + x 是 美丽整数 的最小非负整数 x 。生成的输入保证总可以使 n 变成一个美丽整数。`,
+  tag: [Tag.双指针, Tag.字符串],
+  desc: `给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.7,
-      desc: '通过把每一位都变成0尝试是否总数小于target',
-      code: `
-  class Solution {
-  public:
-      long long n;
-      int target;
-      int getCnt() {
-          long long num = n;
-          int cnt = 0;
-          while (num) {
-              cnt++;
-              num /= 10;
-          }
-          return cnt;
-      }
-      long long comp(int size) {
-          long long num = n, val = 0, m = 1;
-          for (int i = 0; i < size; i++) {
-              val = (num % 10) * m + val;
-              // cout << "Val = " << val << endl;
-              num /= 10;
-              m *= 10;
-          }
-          return n - val + m;
-      } 
-      int sum(long long num) {
-          int sum = 0;
-          while (num) {
-              sum += num % 10;
-              num /= 10;
-          }
-          return sum;
-      }
-      long long makeIntegerBeautiful(long long n, int target) {
-          if (sum(n) <= target) return 0;
-          this->n = n;
-          this->target = target;
-          int cnt = getCnt();
-          int l = 0, r = cnt;
-          while (l < r) {
-              int m = (l + r) / 2;
-              long long num = comp(m);
-              if (sum(num) <= target) r = m;
-              else l = m + 1;
-          }
-          return comp(l) - n;
-      }
-  };`,
-},
+      time: 8,
+      memory: 8.5,
+      desc: '双指针记录',
+      code: `class Solution {
+public:
+    int magicalString(int n) {
+        vector<int> list(max(3, n));
+        list[0] = 1; list[1] = list[2] = 2;
+        int ans = 1, i1 = 2, i2 = 3, surplus = 2, curVal = 1, curMode = 1;
+        while (i2 < n) {
+            if (surplus == 0) {
+                surplus = list[++i1];
+                curVal += curMode;
+                curMode = -curMode;
+            }
+            list[i2++] = curVal;
+            surplus--;
+            if (curVal == 1) ans++;
+        }
+        return ans;
+    }
+};`,
+    },
   ],
 };
 export default leetCodeMarkdown;
