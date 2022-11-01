@@ -5,34 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '481. 神奇字符串',
-  url: 'https://leetcode.cn/problems/magical-string/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.双指针, Tag.字符串],
-  desc: `给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。`,
+  name: '1662. 检查两个字符串数组是否相等',
+  url: 'https://leetcode.cn/problems/check-if-two-string-arrays-are-equivalent/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.字符串],
+  desc: `给你两个字符串数组 word1 和 word2 。如果两个数组表示的字符串相同，返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 8.5,
-      desc: '双指针记录',
+      time: 4,
+      memory: 11,
+      desc: '双指针遍历',
       code: `class Solution {
 public:
-    int magicalString(int n) {
-        vector<int> list(max(3, n));
-        list[0] = 1; list[1] = list[2] = 2;
-        int ans = 1, i1 = 2, i2 = 3, surplus = 2, curVal = 1, curMode = 1;
-        while (i2 < n) {
-            if (surplus == 0) {
-                surplus = list[++i1];
-                curVal += curMode;
-                curMode = -curMode;
-            }
-            list[i2++] = curVal;
-            surplus--;
-            if (curVal == 1) ans++;
+    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        int w1 = 0, l1 = 0, w2 = 0, l2 = 0;
+        while (l1 < word1.size() && l2 < word2.size()) {
+            if (word1[l1][w1++] != word2[l2][w2++]) return false;
+            if (w1 == word1[l1].size()) w1 = 0, l1++;
+            if (w2 == word2[l2].size()) w2 = 0, l2++;
         }
-        return ans;
+        return l1 == word1.size() && l2 == word2.size();
     }
 };`,
     },
