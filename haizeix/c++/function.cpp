@@ -1,8 +1,4 @@
 #include <iostream>
-#include "bestlyg.h"
-
-BESTLYG_NP_BEGIN(bestlyg)
-BESTLYG_NP_BEGIN(function)
 
 int add(int a, int b) {
     return a + b;
@@ -99,8 +95,7 @@ public:
     }
 };
 
-void demo() {
-    BESTLYG_PRINT(main_function);
+int main() {
     function<int(int, int)> func1 = add;
     std::cout << func1(1, 2) << std::endl;
     Add a;
@@ -108,7 +103,5 @@ void demo() {
     std::cout << func2(12, 314) << std::endl;
     func2 = func1;
     std::cout << func2(1, 2) << std::endl;
+    return 0;
 }
-
-BESTLYG_NP_END(function)
-BESTLYG_NP_END(bestlyg)

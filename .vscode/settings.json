@@ -36,5 +36,6 @@
     "mutex": "cpp",
     "shared_mutex": "cpp",
     "numeric": "cpp"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

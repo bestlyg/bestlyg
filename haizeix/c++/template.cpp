@@ -1,10 +1,6 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
-#include "bestlyg.h"
-
-BESTLYG_NP_BEGIN(bestlyg)
-BESTLYG_NP_BEGIN(temp)
 
 template<typename T, typename... ARGS>
 class N_ARG {
@@ -131,38 +127,38 @@ struct is_prime {
 };
 
 
-void demo() {
-    BESTLYG_PRINT(main_temp);
-    bestlyg::temp::N_ARG<int, double>::next::type n1;
+int main() {
+    N_ARG<int, double>::next::type n1;
     std::cout << typeid(n1).name() << std::endl;
-    bestlyg::temp::N_ARG<int, double, long long, long double>::next::next::next::last n2;
+    N_ARG<int, double, long long, long double>::next::next::next::last n2;
     std::cout << typeid(n2).name() << std::endl;
 
-    bestlyg::temp::C_ARG<1, int, double>::type c1;
+    C_ARG<1, int, double>::type c1;
     std::cout << typeid(c1).name() << std::endl;
-    bestlyg::temp::C_ARG<2, int, double>::type c2;
+    C_ARG<2, int, double>::type c2;
     std::cout << typeid(c2).name() << std::endl;
     
-    std::cout << bestlyg::temp::CNT_ARG<int, double, long long, bestlyg::temp::C_ARG<1, int>>::cnt << std::endl;
+    std::cout << CNT_ARG<int, double, long long, C_ARG<1, int>>::cnt << std::endl;
 
-    bestlyg::temp::FnClass<double(int, int)> f;
+    FnClass<double(int, int)> f;
     std::cout << f(24, 2) << std::endl;
 
     // 累加
-    std::cout << bestlyg::temp::sum<10>::r << std::endl; // 10
+    std::cout << sum<10>::r << std::endl; // 10
     // // 奇偶
-    std::cout << bestlyg::temp::is_even<5>::r << std::endl; // no
-    std::cout << bestlyg::temp::is_even<6>::r << std::endl; // yes
-    std::cout << bestlyg::temp::is_even<99>::r << std::endl; // no
+    std::cout << is_even<5>::r << std::endl; // no
+    std::cout << is_even<6>::r << std::endl; // yes
+    std::cout << is_even<99>::r << std::endl; // no
     // // 合格
-    std::cout << bestlyg::temp::score_judge<60>::r << std::endl; // good
-    std::cout << bestlyg::temp::score_judge<45>::r << std::endl; // bad
+    std::cout << score_judge<60>::r << std::endl; // good
+    std::cout << score_judge<45>::r << std::endl; // bad
     // 素数
-    std::cout << bestlyg::temp::is_prime<2>::r << std::endl; // yes
-    std::cout << bestlyg::temp::is_prime<3>::r << std::endl; // yes
-    std::cout << bestlyg::temp::is_prime<5>::r << std::endl; // yes
-    std::cout << bestlyg::temp::is_prime<10>::r << std::endl; // no
-    std::cout << bestlyg::temp::is_prime<800>::r << std::endl; // yes
+    std::cout << is_prime<2>::r << std::endl; // yes
+    std::cout << is_prime<3>::r << std::endl; // yes
+    std::cout << is_prime<5>::r << std::endl; // yes
+    std::cout << is_prime<10>::r << std::endl; // no
+    std::cout << is_prime<800>::r << std::endl; // yes
+    return 0;
 }
 
 BESTLYG_NP_END(temp)

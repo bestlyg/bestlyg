@@ -10,10 +10,6 @@
 #include "bestlyg.h"
 #include "bench.h"
 
-
-BESTLYG_NP_BEGIN(bestlyg)
-BESTLYG_NP_BEGIN(thread)
-
 const int BATCH = 500000;
 const int CNT = 10;
 int is_prime(int n) {
@@ -219,12 +215,10 @@ BESTLYG_NP_END(async_thread_pool)
 np::main(); \
 BESTLYG_BENCH_END \
 
-void demo() {
+int main() {
     run(sync);
     run(async_thread_mutex);
     run(async_thread);
     run(async_thread_pool);
+    return 0;
 }
-
-BESTLYG_NP_END(thread)
-BESTLYG_NP_END(bestlyg)
