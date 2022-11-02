@@ -1,29 +1,21 @@
-#include "bestlyg.h"
-
-BESTLYG_NP_BEGIN(bestlyg)
-BESTLYG_NP_BEGIN(rbtree)
-
 class RBTreeNode {
 public:
     int key, color;
-    RBTreeNode *
-    left, *
-    right;
-    RBTreeNode(int key): RBTreeNode(key, 0){}
-    RBTreeNode(int key, int color): 
-        key(key), color(color), left(&NIL), right(&NIL) {}
-    
-    static RBTreeNode NIL;
-};
+    RBTreeNode *left, *right;
+    RBTreeNode(int key, int color = 0, RBTreeNode *left = RBTreeNode::NIL(), RBTreeNode *right = RBTreeNode::NIL()): 
+        key(key), color(color), left(left), right(right) {}
+    static RBTreeNode *_NIL;
+    static RBTreeNode *NIL() {
+        if (_NIL == nullptr) _NIL = new RBTreeNode(0, 1);
+        return _NIL;
+    }
 
-RBTreeNode::NIL = RBTreeNode(0, 1);
+};
 
 class RBTree {
 };
 
-void demo() {
-    BESTLYG_PRINT(main_rbtree);
+int main() {
+    RBTreeNode node(1);
+    return 0;
 }
-
-BESTLYG_NP_END(rbtree)
-BESTLYG_NP_END(bestlyg)
