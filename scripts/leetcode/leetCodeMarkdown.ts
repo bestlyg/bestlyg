@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1668. 最大重复子字符串',
+  name: '754. 到达终点数字',
   url: 'https://leetcode.cn/problems/maximum-repeating-substring/',
   difficulty: Difficulty.简单,
   tag: [Tag.字符串, Tag.字符串匹配],
@@ -15,32 +15,14 @@ const leetCodeMarkdown: Markdown = {
       script: Script.CPP,
       time: 0,
       memory: 6.3,
-      desc: '字符串查找子串，通过kmp快速查找子串',
+      desc: '走的步数相当于1+2+..+n，把其中某几个节点替换成-，当sum超过target时，如果相减是偶数，那就可以直接使用，如果是奇数则一直累加到相减是偶数',
       code: `class Solution {
 public:
-    vector<int> getNext(string &word) {
-        int n = word.size();
-        vector<int> next(n, -1);
-        for (int i = 1, j = -1; i < n; i++) {
-            while (j != -1 && word[j + 1] != word[i]) j = next[j];
-            if (word[j + 1] == word[i]) j++;
-            next[i] = j;
-        }
-        return next;
-    }
-    int maxRepeating(string sequence, string word) {
-        int n = sequence.size(), ans = 0;
-        vector<int> next = getNext(word), list(n, 0);
-        for (int i = 0, j = -1; i < n; i++) {
-            while (j != -1 && word[j + 1] != sequence[i]) j = next[j];
-            if (word[j + 1] == sequence[i]) j++;
-            if (j == word.size() - 1) {
-                list[i] = (i >= word.size() ? list[i - word.size()] : 0)+ 1;
-                ans = max(ans, list[i]);
-                j = next[j];
-            }
-        }
-        return ans;
+    int reachNumber(int target) {
+        target = abs(target);
+        int sum = 0, cnt = 1;
+        while (sum < target || (sum - target) % 2 != 0) sum += cnt++;
+        return cnt - 1;
     }
 };`,
     },
