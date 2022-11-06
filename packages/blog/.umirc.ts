@@ -13,7 +13,7 @@ const includePkgs = __DEV__
     ]
   : [
       'packages/docs',
-      'packages/博客',
+      // 'packages/博客',
       'packages/数据结构',
       'packages/算法',
       'packages/力扣题解',
