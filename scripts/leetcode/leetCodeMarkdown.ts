@@ -5,63 +5,34 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '816. 模糊坐标',
-  url: 'https://leetcode.cn/problems/ambiguous-coordinates/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.字符串, Tag.回溯],
-  desc: `返回所有可能的原始字符串到一个列表中。`,
+  name: '1684. 统计一致字符串的数目',
+  url: 'https://leetcode.cn/problems/count-the-number-of-consistent-strings/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.位运算, Tag.数组, Tag.哈希表, Tag.字符串],
+  desc: `请你返回 words 数组中 一致字符串 的数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 10,
-      desc: '组合',
+      time: 32,
+      memory: 29.4,
+      desc: '遍历',
       code: `class Solution {
 public:
-    vector<string> ambiguousCoordinates(string s) {
-        vector<string> ans;
-        int n = s.size();
-        for (int i = 2; i < n - 1; i++) {
-            for (auto &l : comp(s.substr(1, i - 1))) {
-                for (auto &r: comp(s.substr(i, s.size() - 1 - i))) {
-                    ans.push_back("(" + l + ", " + r + ")");
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        int list[26] = {0};
+        for (auto &c : allowed) list[c - 'a'] = 1;
+        int ans = 0;
+        for (auto &s : words) {
+            bool f = true;
+            for (auto &c : s) {
+                if (list[c - 'a'] == 0) {
+                    f = false;
+                    break;
                 }
             }
+            if (f) ans++;
         }
         return ans;
-    }
-    vector<string> comp(string str) {
-        vector<string> list;
-        int f = check1(str);
-        if (f) list.push_back(str);
-        if (str.size() > 1) {
-            for (int i = 1; i < str.size(); i++) {
-                string next = str.substr(0, i) + "." + str.substr(i);
-                int f = check2(next, i);
-                if (f) list.push_back(next);
-            }
-        }
-        return list;
-    }
-    bool check1(string &str) {
-        if (str[0] == '0' && str.size() != 1) return false;
-        return true;
-    }
-    bool check2(string &str, int idx) {
-        // 开头不能是0，除非只有0
-        if (str[0] == '0' && idx != 1) return false;
-        // 结尾不能是0
-        if (str.back() == '0') return false;
-        // 小数不能全0
-        int f = true;
-        for (int i = idx + 1; i < str.size(); i++) {
-            if (str[i] != '0') {
-                f = false;
-                break;
-            }
-        }
-        if (f) return false;
-        return true;
     }
 };`,
     },
