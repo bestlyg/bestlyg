@@ -37,7 +37,8 @@
     "shared_mutex": "cpp",
     "numeric": "cpp",
     "__nullptr": "cpp",
-    "types.h": "c"
+    "types.h": "c",
+    "temp": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
