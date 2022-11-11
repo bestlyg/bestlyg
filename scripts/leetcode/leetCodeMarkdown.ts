@@ -5,67 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '864. 获取所有钥匙的最短路径',
-  url: 'https://leetcode.cn/problems/shortest-path-to-get-all-keys/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回获取所有钥匙所需要的移动的最少次数。如果无法获取所有钥匙，返回 -1 。`,
+  name: '1704. 判断字符串的两半是否相似',
+  url: 'https://leetcode.cn/problems/determine-if-string-halves-are-alike/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串, Tag.计数],
+  desc: `如果 a 和 b 相似，返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 9.9,
-      desc: 'bfs，通过mask记录当前拿到的钥匙数',
-      code: `const int dirs[4][2] = {
-    {0, 1}, {0, -1}, 
-    {1, 0}, {-1, 0}
-};
-struct Node {
-    int x, y, mask;
-    Node(int x, int y, int mask = 0): x(x), y(y), mask(mask){}
-};
-class Solution {
+      time: 8,
+      memory: 6.6,
+      desc: '双指针遍历',
+      code: `class Solution {
 public:
-    int shortestPathAllKeys(vector<string>& grid) {
-        int n = grid.size(), m = grid[0].size(), sx = -1, sy = -1, mmap[35][35][70] = {0}, MAX_MASK = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == '@') sx = i, sy = j;
-                else if (islower(grid[i][j])) MAX_MASK |= (1 << grid[i][j] - 'a');
-            }
+    bool halvesAreAlike(string s) {
+        unordered_set<char> sset{ 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        int n = s.size(), cnt = 0;
+        for (int l = 0, r = s.size() / 2; r < s.size(); l++, r++) {
+            if (sset.count(s[l])) cnt++;
+            if (sset.count(s[r])) cnt--;
         }
-        int size = 1, step = 0;
-        queue<Node> q;
-        q.push(Node(sx, sy));
-        mmap[sx][sy][0] = 1;
-        while (!q.empty()) {
-            Node node = q.front();
-            // cout << "===" << endl
-            //      << "step = " << step
-            //      << ", x = " << node.x
-            //      << ", y = " << node.y
-            //      << ", mask = " << node.mask
-            //      << endl;
-            if (node.mask == MAX_MASK) return step;
-            q.pop();
-            for (int i = 0; i < 4; i++) {
-                int nx = node.x + dirs[i][0], ny = node.y + dirs[i][1];
-                if (nx < 0 || nx == n || ny < 0 || ny == m) continue;
-                char c = grid[nx][ny];
-                if (c == '#') continue;
-                if (isupper(c) && (node.mask & (1 << c - 'A')) == 0) continue;
-                Node next(nx, ny, node.mask);
-                if (islower(c)) next.mask |= 1 << c - 'a';
-                if (mmap[next.x][next.y][next.mask]) continue;
-                mmap[next.x][next.y][next.mask] = 1;
-                q.push(next);
-            }
-            if (--size == 0) {
-                size = q.size();
-                step++;
-            }
-        }
-        return -1;
+        return cnt == 0;
     }
 };`,
     },
