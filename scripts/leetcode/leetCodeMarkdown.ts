@@ -5,38 +5,24 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '790. 多米诺和托米诺平铺',
-  url: 'https://leetcode.cn/problems/domino-and-tromino-tiling/',
+  name: '791. 自定义字符串排序',
+  url: 'https://leetcode.cn/problems/custom-sort-string/',
   difficulty: Difficulty.中等,
-  tag: [Tag.动态规划],
-  desc: `给定整数 n ，返回可以平铺 2 x n 的面板的方法的数量。`,
+  tag: [Tag.哈希表, Tag.字符串, Tag.排序],
+  desc: `返回 满足这个性质的 s 的任意排列 。`,
   solutions: [
     {
       script: Script.CPP,
       time: 0,
-      memory: 5.7,
-      desc: 'dp',
+      memory: 6.1,
+      desc: '遍历后排序',
       code: `class Solution {
 public:
-    const int mod = 1e9 + 7;
-    // j = 0 平整
-    // j = 1 上空
-    // j = 2 下空
-    int dp[1005][3] = {0};
-    int numTilings(int n) {
-        dp[1][0] = 1;
-        dp[2][0] = 2;
-        dp[2][1] = 1;
-        dp[2][2] = 1;
-        for (int i = 3; i <= n; i++) {
-            dp[i][0] = (dp[i][0] + dp[i - 1][0]) % mod;
-            dp[i][0] = (dp[i][0] + dp[i - 2][0]) % mod;
-            dp[i][0] = (dp[i][0] + dp[i - 1][1]) % mod;
-            dp[i][0] = (dp[i][0] + dp[i - 1][2]) % mod;
-            dp[i][1] = (dp[i][1] + dp[i - 2][0] + dp[i - 1][2]) % mod;
-            dp[i][2] = (dp[i][2] + dp[i - 2][0] + dp[i - 1][1]) % mod;
-        }
-        return dp[n][0];
+    string customSortString(string order, string s) {
+        int list[26] = {0};
+        for (int i = 0; i < order.size(); i++) list[order[i] - 'a'] = i;
+        sort(s.begin(), s.end(), [&list](char &a, char &b){ return list[a - 'a'] < list[b - 'a']; });
+        return s;
     }
 };`,
     },
