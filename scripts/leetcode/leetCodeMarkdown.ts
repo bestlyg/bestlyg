@@ -5,94 +5,35 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '805. 数组的均值分割',
-  url: 'https://leetcode.cn/problems/split-array-with-same-average/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.位运算, Tag.数组, Tag.数学, Tag.动态规划, Tag.状态压缩],
-  desc: `我们要将 nums 数组中的每个元素移动到 A 数组 或者 B 数组中，使得 A 数组和 B 数组不为空，并且 average(A) == average(B) 。`,
+  name: '1710. 卡车上的最大单元数',
+  url: 'https://leetcode.cn/problems/maximum-units-on-a-truck/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.贪心, Tag.数组, Tag.排序],
+  desc: `返回卡车可以装载 单元 的 最大 总数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 148,
-      memory: 18.1,
-      desc: '折半搜索，利用二进制统计前半部分取n个数的sum存入map，再统计后半部分取n个数，两者相加',
+      time: 44,
+      memory: 15.6,
+      desc: '排序后遍历',
       code: `class Solution {
 public:
-    bool splitArraySameAverage(vector<int>& nums) {
-        int n = nums.size(), half = n / 2,
-            sum = accumulate(nums.begin(), nums.end(), 0);
-        unordered_map<int, unordered_set<int>> m;
-        for (int i = 0, len = 1 << half; i < len; i++) {
-            int total = 0, cnt = 0;
-            for (int j = 0; j < half; j++) {
-                if ((i & (1 << j)) == 0) continue;
-                total += nums[j];
-                cnt++;
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        sort(boxTypes.begin(), boxTypes.end(), [](auto &a, auto &b){ return a[1] > b[1]; });
+        int ans = 0, cur = 0;
+        while (truckSize && cur < boxTypes.size()) {
+            if (boxTypes[cur][0] >= truckSize) {
+                ans += truckSize * boxTypes[cur][1];
+                truckSize = 0;
+            } else {
+                truckSize -= boxTypes[cur][0];
+                ans += boxTypes[cur][0] * boxTypes[cur][1];
             }
-            m[cnt].insert(total);
+            cur++;
         }
-        for (int i = 0; i < (1 << (n - half)); i++) {
-            int total = 0, cnt = 0;
-            for (int j = half; j < n; j++) {
-                if ((i & 1 << (j - half)) == 0) continue;
-                total += nums[j];
-                cnt++;
-            }
-            // j : 左边拿几个数
-            for (int j = max(1, cnt); j < n - 1; j++) {
-                if (j * sum % n != 0) continue;
-                int prevCnt = j - cnt;
-                if (!m.count(prevCnt)) continue;   
-                int leftTotal = j * sum / n;
-                int prevTotal = leftTotal - total;
-                if (!m[prevCnt].count(prevTotal)) continue;
-                return true;
-            }
-        }
-        return false;
+        return ans;
     }
 };`,
-    },
-    {
-      script: Script.CPP,
-      time: 176,
-      memory: 51.3,
-      desc: '同上',
-      code: `class Solution {
-public:
-    bool splitArraySameAverage(vector<int>& nums) {
-        int n = nums.size(), half = n / 2,
-            sum = accumulate(nums.begin(), nums.end(), 0);
-        unordered_map<int, unordered_set<int>> m;
-        for (int i = 0, len = 1 << half; i < len; i++) {
-            int total = 0, cnt = 0;
-            for (int j = 0; j < half; j++) {
-                if ((i & (1 << j)) == 0) continue;
-                total += nums[j];
-                cnt++;
-            }
-            m[total].insert(cnt);
-        }
-        for (int i = 0; i < (1 << (n - half)); i++) {
-
-            int total = 0, cnt = 0;
-            for (int j = half; j < n; j++) {
-                if ((i & 1 << (j - half)) == 0) continue;
-                total += nums[j];
-                cnt++;
-            }
-            // j : 左边拿几个数
-            for (int j = max(1, cnt); j < n - 1; j++) {
-                if (j * sum % n != 0) continue;
-                int need = j * sum / n - total;
-                if (!m.count(need)) continue;
-                if (!m[need].count(j - cnt)) continue;
-                return true;
-            }
-        }
-        return false;
-    }
-}`,
     },
   ],
 };

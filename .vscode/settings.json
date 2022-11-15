@@ -38,7 +38,8 @@
     "numeric": "cpp",
     "__nullptr": "cpp",
     "types.h": "c",
-    "temp": "cpp"
+    "temp": "cpp",
+    "climits": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
