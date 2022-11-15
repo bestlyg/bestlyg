@@ -5,5 +5,15 @@
 # define mem(a,b) memset(a,b,sizeof(a))
 # define debug freopen("r.txt","r",stdin)
 # define pi pair<int,int>
-using namespace std;
+
+#ifdef DEBUG
+#define log(frm, args...) {\
+    printf(frm, ##args);\
+}
+#else
+#define log(frm, args...)
+#endif
+
 typedef long long ll;
+
+using namespace std;
