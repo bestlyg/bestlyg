@@ -17,14 +17,18 @@ set softtabstop=4 " 插入的是空格和tab制表符的混合
 
 
 call plug#begin('~/.vim/plugged')
+
 Plug 'leafgarland/typescript-vim'
+Plug 'KeitaNakamura/neodark.vim'
+
 call plug#end()
 
-" vim安装Typescript语法高亮
 " 下载vim-plug
 "   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " 下载ts的plugin
 "   git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/bundle/typescript-vim
+" 下载配色
+"   git clone https://github.com/altercation/vim-colors-solarized.git  ~/.vim/bundle/vim-colors-solarized
 " ~/.vimrc
 "   call plug#begin('~/.vim/plugged')
 "   Plug 'leafgarland/typescript-vim'
