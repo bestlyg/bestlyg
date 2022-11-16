@@ -40,7 +40,9 @@
     "types.h": "c",
     "temp": "cpp",
     "climits": "cpp",
-    "ciso646": "cpp"
+    "ciso646": "cpp",
+    "stack": "cpp",
+    "sstream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
