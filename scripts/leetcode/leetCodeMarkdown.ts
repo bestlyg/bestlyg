@@ -5,33 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1710. 卡车上的最大单元数',
-  url: 'https://leetcode.cn/problems/maximum-units-on-a-truck/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.贪心, Tag.数组, Tag.排序],
-  desc: `返回卡车可以装载 单元 的 最大 总数。`,
+  name: '775. 全局倒置与局部倒置',
+  url: 'https://leetcode.cn/problems/global-and-local-inversions/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.数学],
+  desc: `当数组 nums 中 全局倒置 的数量等于 局部倒置 的数量时，返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 44,
-      memory: 15.6,
-      desc: '排序后遍历',
+      time: 128,
+      memory: 81.2,
+      desc: '局部倒置一定是个全局倒置，如果次数相等，那没有非局部倒置的全局倒置',
       code: `class Solution {
 public:
-    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
-        sort(boxTypes.begin(), boxTypes.end(), [](auto &a, auto &b){ return a[1] > b[1]; });
-        int ans = 0, cur = 0;
-        while (truckSize && cur < boxTypes.size()) {
-            if (boxTypes[cur][0] >= truckSize) {
-                ans += truckSize * boxTypes[cur][1];
-                truckSize = 0;
-            } else {
-                truckSize -= boxTypes[cur][0];
-                ans += boxTypes[cur][0] * boxTypes[cur][1];
-            }
-            cur++;
+    bool isIdealPermutation(vector<int>& nums) {
+        int n = nums.size(), nmin = nums[n - 1];
+        for (int i = n - 3; i >= 0; i--) {
+            if (nums[i] > nmin) return false;
+            nmin = min(nmin, nums[i + 1]);
         }
-        return ans;
+        return true;
     }
 };`,
     },
