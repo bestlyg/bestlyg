@@ -39,7 +39,8 @@
     "__nullptr": "cpp",
     "types.h": "c",
     "temp": "cpp",
-    "climits": "cpp"
+    "climits": "cpp",
+    "ciso646": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
