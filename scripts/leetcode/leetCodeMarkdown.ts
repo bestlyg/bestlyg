@@ -5,26 +5,40 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '775. 全局倒置与局部倒置',
-  url: 'https://leetcode.cn/problems/global-and-local-inversions/',
+  name: '792. 匹配子序列的单词数',
+  url: 'https://leetcode.cn/problems/number-of-matching-subsequences/',
   difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.数学],
-  desc: `当数组 nums 中 全局倒置 的数量等于 局部倒置 的数量时，返回 true ；否则，返回 false 。`,
+  tag: [Tag.字典树, Tag.哈希表, Tag.字符串, Tag.排序],
+  desc: `给定字符串 s 和字符串数组 words, 返回  words[i] 中是s的子序列的单词个数 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 128,
-      memory: 81.2,
-      desc: '局部倒置一定是个全局倒置，如果次数相等，那没有非局部倒置的全局倒置',
+      time: 184,
+      memory: 50.2,
+      desc: '把s的每个坐标存入后，进行二分',
       code: `class Solution {
 public:
-    bool isIdealPermutation(vector<int>& nums) {
-        int n = nums.size(), nmin = nums[n - 1];
-        for (int i = n - 3; i >= 0; i--) {
-            if (nums[i] > nmin) return false;
-            nmin = min(nmin, nums[i + 1]);
+    int numMatchingSubseq(string s, vector<string>& words) {
+        vector<vector<int>> list(26);
+        for (int i = 0; i < s.size(); i++) list[s[i] - 'a'].push_back(i);
+        int ans = 0;
+        for (auto &word : words) {
+            if (word.size() > s.size()) continue;
+            int p = -1;
+            bool f = true;
+            for (auto &c : word) {
+                auto &ilist = list[c - 'a'];
+                auto it = upper_bound(ilist.begin(), ilist.end(), p);
+                if (it == ilist.end()) {
+                    f = false;
+                    break;
+                }
+                if (!f) break;
+                p = *it;
+            }
+            if (f) ans++;
         }
-        return true;
+        return ans;
     }
 };`,
     },
