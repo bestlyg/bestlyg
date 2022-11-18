@@ -5,38 +5,35 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '792. 匹配子序列的单词数',
-  url: 'https://leetcode.cn/problems/number-of-matching-subsequences/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.字典树, Tag.哈希表, Tag.字符串, Tag.排序],
-  desc: `给定字符串 s 和字符串数组 words, 返回  words[i] 中是s的子序列的单词个数 。`,
+  name: '891. 子序列宽度之和',
+  url: 'https://leetcode.cn/problems/sum-of-subsequence-widths/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.数组, Tag.数学, Tag.排序],
+  desc: `给你一个整数数组 nums ，返回 nums 的所有非空 子序列 的 宽度之和 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 184,
-      memory: 50.2,
-      desc: '把s的每个坐标存入后，进行二分',
+      time: 224,
+      memory: 52.5,
+      desc: '因为子序列是选取某几个元素组成所以和顺序无关，先排序然后比较对于每一个元素，有几次做最大值有几次做最小值',
       code: `class Solution {
 public:
-    int numMatchingSubseq(string s, vector<string>& words) {
-        vector<vector<int>> list(26);
-        for (int i = 0; i < s.size(); i++) list[s[i] - 'a'].push_back(i);
-        int ans = 0;
-        for (auto &word : words) {
-            if (word.size() > s.size()) continue;
-            int p = -1;
-            bool f = true;
-            for (auto &c : word) {
-                auto &ilist = list[c - 'a'];
-                auto it = upper_bound(ilist.begin(), ilist.end(), p);
-                if (it == ilist.end()) {
-                    f = false;
-                    break;
-                }
-                if (!f) break;
-                p = *it;
-            }
-            if (f) ans++;
+    typedef long long ll;
+    const ll mod = 1e9 + 7;
+    int sumSubseqWidths(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        ll ans = 0, n = nums.size();
+        for (ll i = 0; i < n; i++) ans = (ans + (toCount(i + 1) - toCount(n - i)) * nums[i]) % mod;
+        return ans;
+    }
+    ll toCount(ll num) {
+        return quick_pow(2, num - 1);
+    }
+    ll quick_pow(ll a, ll b) {
+        ll ans = 1, tmp = a;
+        for (; b; b >>= 1) {
+            if (b & 1) ans = (ans * tmp) % mod;
+            tmp = (tmp * tmp) % mod;
         }
         return ans;
     }
