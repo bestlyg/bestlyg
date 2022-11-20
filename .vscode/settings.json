@@ -42,7 +42,12 @@
     "climits": "cpp",
     "ciso646": "cpp",
     "stack": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "valarray": "cpp",
+    "utility": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp",
+    "ratio": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
