@@ -4,8 +4,8 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '808. 分汤',
+  exist: true,
+  name: '878. 第 N 个神奇数字',
   url: 'https://leetcode.cn/problems/soup-servings/',
   difficulty: Difficulty.中等,
   tag: [Tag.数学, Tag.动态规划, Tag.概率与统计],
@@ -14,54 +14,28 @@ const leetCodeMarkdown: Markdown = {
     {
       script: Script.CPP,
       time: 4,
-      memory: 6.2,
-      desc: '当i=0,j=0时完成同时分配的概率/2=0.5，当i>0,j=0时概率0，当i=0,j>0是完成A分配概率1',
+      memory: 5.7,
+      desc: '二分，判断当前数是第几个数 = n / a + n / b - n / lcm',
       code: `class Solution {
 public:
-    double soupServings(int n) {
-        n = ceil(1.0 * n / 25);
-        if (n > 179) return 1.0;
-        double dp[200][200] = {0};
-        dp[0][0] = 0.5;
-        for (int i = 1; i <= n; i++) dp[0][i] = 1.0;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                dp[i][j] = (
-                    dp[max(0, i - 4)][j] + 
-                    dp[max(0, i - 3)][max(0, j - 1)] + 
-                    dp[max(0, i - 2)][max(0, j - 2)] + 
-                    dp[max(0, i - 1)][max(0, j - 3)]
-                ) / 4;
-            }
-        }
-        return dp[n][n];
+    const int mod = 1e9 + 7;
+    int gcd(int a, int b) {
+        if (b > a) return gcd(b, a);
+        if (b == 0) return a;
+        return gcd(b, a % b);
     }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 4,
-      memory: 9.3,
-      desc: '同上，dfs记忆化',
-      code: `class Solution {
-public:
-    double soupServings(int n) {
-        n = ceil(1.0 * n / 25);
-        if (n > 179) return 1.0;
-        unordered_map<int, unordered_map<int, double>> m;
-        function<double(int, int)> dfs= [&m, &dfs](int a, int b) {
-            if (m.count(a) && m[a].count(b)) return m[a][b];
-            if (a <= 0 && b > 0) return m[a][b] = 1.0;
-            if (a <= 0 && b <= 0) return m[a][b] = 0.5;
-            if (a > 0 && b <= 0) return m[a][b] = 0.0;
-            return m[a][b] = (
-                dfs(a - 4, b) + 
-                dfs(a - 3, b - 1) + 
-                dfs(a - 2, b - 2) + 
-                dfs(a - 1, b - 3)
-            ) / 4;
-        };
-        return dfs(n, n);
+    int lcm(int a, int b) {
+        return a * b / gcd(a, b);
+    }
+    int nthMagicalNumber(int n, int a, int b) {
+        long long l = min(a, b), r = n * l, m, nlcm = lcm(a, b);
+        while (l < r) {
+            m = (l + r) >> 1;
+            int num = m / a + m / b - m / nlcm;
+            if (num >= n) r = m;
+            else l = m + 1;
+        }
+        return l % mod;
     }
 };`,
     },
