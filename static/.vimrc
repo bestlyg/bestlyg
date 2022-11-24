@@ -14,12 +14,13 @@ set ts=4          " 设置缩进4 tabstop
 set shiftwidth=4  " 设置自动缩进4
 set softtabstop=4 " 插入的是空格和tab制表符的混合
 
-
+syntax enable
+set background=dark
+colorscheme gruvbox
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'leafgarland/typescript-vim'
-Plug 'KeitaNakamura/neodark.vim'
 
 call plug#end()
 
