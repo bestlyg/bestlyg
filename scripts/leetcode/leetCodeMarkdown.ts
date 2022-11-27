@@ -5,69 +5,29 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '882. 细分图中的可到达节点',
-  url: 'https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.图, Tag.最短路, Tag.堆_优先队列],
-  desc: `给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。`,
+  name: '1752. 检查数组是否经排序和轮转得到',
+  url: 'https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated',
+  difficulty: Difficulty.简单,
+  tag: [],
+  desc: `给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 268,
-      memory: 70.6,
-      desc: 'Dijkstra',
-      code: `struct Node {
-    int visit;
-    unordered_map<int, int> to;
-    vector<int> next;
-    Node(): visit(-1) {}
-};
-struct Item {
-    int from, to, cnt;
-    Item() {}
-    Item(int from, int to, int cnt): from(from), to(to), cnt(cnt) {}
-};
-class Solution {
+      time: 4,
+      memory: 8.2,
+      desc: '最多只有一次逆向，且只有一次逆向的时候首值要大于尾值',
+      code: `class Solution {
 public:
-    int reachableNodes(vector<vector<int>>& edges, int maxMoves, int n) {
-        vector<Node> list(n);
-        unordered_map<int, unordered_map<int, int>> mcnt;
-        for (auto &edge : edges) {
-            int from = edge[0], to = edge[1], cnt = edge[2];
-            list[from].next.push_back(to);
-            list[to].next.push_back(from);
-            mcnt[from][to] = mcnt[to][from] = cnt;
-        }
-        auto ItemCmp = [&](Item &a, Item &b){ return a.cnt < b.cnt; };
-        priority_queue<Item, vector<Item>, decltype(ItemCmp)> q(ItemCmp);
-        q.push(Item(-1, 0, maxMoves));
-        list[0].visit = maxMoves;
-        while (q.size()) {
-            Item item = q.top();
-            q.pop();
-            for (auto &next : list[item.to].next) {
-                int cnt = mcnt[item.to][next];
-                if (cnt > 0 && item.cnt <= cnt) 
-                    list[item.to].to[next] = max(item.cnt, list[item.to].to[next]);
-                else {
-                    list[item.to].to[next] = cnt;
-                    int surplus = item.cnt - cnt - 1;
-                    if (surplus > list[next].visit) {
-                        list[next].visit = surplus;
-                        if (surplus > 0) q.push(Item(item.to, next, surplus));
-                    }
-                }
+    bool check(vector<int>& nums) {
+        int n = nums.size();
+        bool f = false;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] < nums[i - 1]) {
+                if (f) return false;
+                f = true;
             }
         }
-        int ans = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list[i].visit != -1) ans++;
-            for (auto &item : list[i].to) {
-                if (item.first >= i || list[item.first].to[i] == 0) 
-                    ans += min(mcnt[i][item.first], item.second + list[item.first].to[i]);
-            }
-        }
-        return ans;
+        return !f || nums[0] >= nums[n - 1];
     }
 };`,
     },
