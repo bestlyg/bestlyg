@@ -5,29 +5,40 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1752. 检查数组是否经排序和轮转得到',
-  url: 'https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated',
-  difficulty: Difficulty.简单,
+  name: '813. 最大平均值和的分组',
+  url: 'https://leetcode.cn/problems/largest-sum-of-averages',
+  difficulty: Difficulty.中等,
   tag: [],
-  desc: `给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。`,
+  desc: `给定数组 nums 和一个整数 k 。我们将给定的数组 nums 分成 最多 k 个相邻的非空子数组 。 分数 由每个子数组内的平均值的总和构成。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 8.2,
-      desc: '最多只有一次逆向，且只有一次逆向的时候首值要大于尾值',
+      time: 12,
+      memory: 7.7,
+      desc: 'dp[i][j] = 最多分成i组，只用到前j个字符串的最大平均值',
       code: `class Solution {
 public:
-    bool check(vector<int>& nums) {
+    double largestSumOfAverages(vector<int>& nums, int k) {
         int n = nums.size();
-        bool f = false;
-        for (int i = 1; i < n; i++) {
-            if (nums[i] < nums[i - 1]) {
-                if (f) return false;
-                f = true;
-            }
+        vector<vector<double>> dp(k + 1, vector<double>(n + 1, 0));
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            dp[1][i + 1] = 1.0 * sum / (i + 1);
         }
-        return !f || nums[0] >= nums[n - 1];
+        double ans = dp[1][n];
+        for (int knum = 2; knum <= k; knum++) {
+            for (int i = knum; i <= n; i++) {
+                int sum = 0, cnt = 0;
+                for (int j = i; j >= knum; j--) {
+                    sum += nums[j - 1];
+                    cnt += 1;
+                    dp[knum][i] = max(dp[knum][i], dp[knum - 1][j - 1] + 1.0 * sum / cnt);
+                }
+            }
+            ans = max(ans, dp[knum][n]);
+        }
+        return ans;
     }
 };`,
     },
