@@ -92,6 +92,7 @@ export enum Tag {
   数论 = '数论',
   快速选择 = '快速选择',
   概率与统计 = '概率与统计',
+  有序合集 = '有序合集',
 }
 export enum Script {
   JS = 'javascript',
