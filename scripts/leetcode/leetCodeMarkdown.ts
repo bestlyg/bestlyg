@@ -5,155 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '895. 最大频率栈',
-  url: 'https://leetcode.cn/problems/maximum-frequency-stack/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.栈, Tag.设计, Tag.哈希表, Tag.有序合集],
-  desc: `设计一个类似堆栈的数据结构，将元素推入堆栈，并从堆栈中弹出出现频率最高的元素。`,
+  name: '1779. 找到最近的有相同 X 或 Y 坐标的点',
+  url: 'https://leetcode.cn/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组],
+  desc: `请返回距离你当前位置 曼哈顿距离 最近的 有效 点的下标（下标从 0 开始）。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 236,
-      memory: 123,
-      desc: 'heap',
-      code: `class Node {
+      time: 132,
+      memory: 57.8,
+      desc: '枚举所有点',
+      code: `class Solution {
 public:
-    int val, cnt, idx;
-    stack<int> time;
-    Node(int val, int cnt): val(val), cnt(cnt), idx(0) {}
-    string toString() {
-        stringstream ss;
-        ss << "Node: " 
-           << "val = " << val
-           << ", cnt = " << cnt
-           << ", idx = " << idx 
-           << ", time = " << (time.empty() ? -1 : time.top())
-           ; 
-        return ss.str();
-    }
-};
-class Heap {
-public:
-    int time;
-    unordered_map<int, Node*> m;
-    vector<Node*> data;
-    Heap(): time(0) {}
-    void push(int val) {
-        Node *node = nullptr;
-        if (m.count(val)) {
-            node = m[val];
-            node->cnt++;
-            node->time.push(time++);
-            // cout << "push -> " << node->toString() << endl;
-            shiftUp(node->idx);
-        } else {
-            node = m[val] = new Node(val, 1);
-            node->time.push(time++);
-            push(node);
+    int nearestValidPoint(int x, int y, vector<vector<int>>& points) {
+        int ans = -1, dans = 0x3f3f3f3f;
+        for (int i = 0; i < points.size(); i++) {
+            int ix = points[i][0], iy = points[i][1], d = abs(ix - x) + abs(iy - y);
+            if (ix != x && iy != y) continue;
+            if (dans > d) ans = i, dans = d;
         }
-        // print();
-    }
-    void push(Node *node) {
-        node->idx = data.size();
-        // cout << "push -> " << node->toString() << endl;
-        data.push_back(node);
-        shiftUp(node->idx);
-    }
-    int pop() {
-        // cout << "pop -> " << data[0]->toString() << endl;
-        int val = data[0]->val;
-        if (data.size() == 1 && data[0]->cnt == 1) data.clear();
-        else {
-            Node *node = data[0], *last = data.back();
-            data.pop_back();
-            last->idx = 0;
-            data[0] = last;
-            // cout << "==" << node->toString() << endl;
-            shiftDown(0);
-            if (node->cnt > 1) {
-                node->time.pop();
-                node->cnt--;
-                push(node);
-            } else {
-                // cout << "in" << endl;
-                m.erase(node->val);
-                delete node;
-                // cout << "inend" << endl;
-            };
-        }
-        // print();
-        return val;
-    }
-    void shiftUp(int idx) {
-        // cout << "shiftup : " << idx << endl;
-        if (idx == 0) return;
-        int p = (idx - 1) / 2;
-        Node *cnode = data[idx], *pnode = data[p];
-        if (cnode->cnt > pnode->cnt || cnode->cnt == pnode->cnt && cnode->time.top() > pnode->time.top()) {
-            swap(cnode->idx, pnode->idx);
-            swap(data[idx], data[p]);
-            shiftUp(p);
-        }
-    }
-    void shiftDown(int idx) {
-        // cout << "shiftdown : " << idx << endl;
-        int child = idx * 2 + 1;
-        if (child >= data.size()) return;
-        if (child + 1 < data.size() && 
-            (data[child]->cnt < data[child + 1]->cnt || 
-             data[child]->cnt == data[child + 1]->cnt && data[child]->time.top() < data[child + 1]->time.top())
-        ) child++;
-        Node *cnode = data[child], *pnode = data[idx];
-        if (pnode->cnt < cnode->cnt || pnode->cnt == cnode->cnt && pnode->time.top() < cnode->time.top()) {
-            swap(cnode->idx, pnode->idx);
-            swap(data[child], data[idx]);
-            shiftDown(child);
-        }
-    }
-    void print() {
-        cout << "=======PRINT========" << endl;
-        for (int i = 0; i < data.size(); i++) {
-            cout << "idx = " << i 
-                 << ", child = " << (i * 2 + 1) << ", " << (i * 2 + 2)
-                 << ", " << data[i]->toString()
-                 << endl;
-        }
-    }
-};
-class FreqStack {
-public:
-    Heap heap;
-    FreqStack() {}
-    void push(int val) {
-        heap.push(val);
-    }
-    int pop() {
-        return heap.pop();
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 188,
-      memory: 97.7,
-      desc: '记录所有的值的次数，利用map对每种次数压栈处理',
-      code: `class FreqStack {
-public:
-    unordered_map<int, stack<int>> mstack;
-    unordered_map<int, int> mfreq;
-    int maxFreq = 0;
-    FreqStack() {}
-    void push(int val) {
-        int freq = ++mfreq[val];
-        mstack[freq].push(val);
-        maxFreq = max(maxFreq, freq);
-    }
-    int pop() {
-        int val = mstack[maxFreq].top();
-        mfreq[val]--;
-        mstack[maxFreq].pop();
-        if (mstack[maxFreq].size() == 0) maxFreq--;
-        return val;
+        return ans;
     }
 };`,
     },
