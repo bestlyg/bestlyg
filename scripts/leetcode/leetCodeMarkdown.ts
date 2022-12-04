@@ -5,31 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1796. 字符串中第二大的数字',
-  url: 'https://leetcode.cn/problems/second-largest-digit-in-a-string',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串],
-  desc: `给你一个混合字符串 s ，请你返回 s 中 第二大 的数字，如果不存在第二大的数字，请你返回 -1 。`,
+  name: '1774. 最接近目标价格的甜点成本',
+  url: 'https://leetcode.cn/problems/closest-dessert-cost',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.动态规划, Tag.回溯],
+  desc: `返回最接近 target 的甜点成本。如果有多种方案，返回 成本相对较低 的一种。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.5,
-      desc: '遍历',
+      time: 76,
+      memory: 9.4,
+      desc: 'dfs',
       code: `class Solution {
 public:
-    int secondHighest(string s) {
-        int n1 = -1, n2 = -1;
-        for (auto &c : s) {
-            if (!isdigit(c)) continue;
-            int num = c - '0';
-            if (n1 == -1) n1 = num;
-            else if (num > n1) n2 = n1, n1 = num;
-            else if (num == n1) continue;
-            else if (n2 == -1) n2 = num;
-            else if (num > n2) n2 = num;
-        }
-        return n2;
+    int closestCost(vector<int>& baseCosts, vector<int>& toppingCosts, int target) {
+        int ans = baseCosts[0], n = toppingCosts.size();
+        function<void(int, int)> dfs = [&](int cur, int idx) {
+            if (abs(cur - target) < abs(ans - target) || abs(cur - target) == abs(ans - target) && cur < ans) ans = cur;
+            if (idx == n) return;
+            dfs(cur, idx + 1);
+            dfs(cur + toppingCosts[idx], idx + 1);
+            dfs(cur + toppingCosts[idx] * 2, idx + 1);
+        };
+        for (auto &cost : baseCosts) dfs(cost, 0);
+        return ans;
     }
 };`,
     },
