@@ -47,7 +47,8 @@
     "utility": "cpp",
     "chrono": "cpp",
     "limits": "cpp",
-    "ratio": "cpp"
+    "ratio": "cpp",
+    "istream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
