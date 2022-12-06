@@ -4,114 +4,30 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1687. 从仓库到码头运输箱子',
-  url: 'https://leetcode.cn/problems/delivering-boxes-from-storage-to-ports/',
-  difficulty: Difficulty.困难,
+  exist: true,
+  name: '1805. 字符串中不同整数的数目',
+  url: 'https://leetcode.cn/problems/number-of-different-integers-in-a-string/',
+  difficulty: Difficulty.简单,
   tag: [Tag.线段树, Tag.队列, Tag.数组, Tag.动态规划, Tag.单调队列, Tag.堆_优先队列],
   desc: `请你返回将所有箱子送到相应码头的 最少行程 次数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: Infinity,
-      memory: Infinity,
-      desc: '动态规划，背包法，超时',
-      code: `#include <iostream>
-#include <vector>
-// bestlyg
-# define X first
-# define Y second
-# define lb(x) ((x) & (-x))
-# define mem(a,b) memset(a,b,sizeof(a))
-# define debug freopen("r.txt","r",stdin)
-# define pi pair<int,int>
-
-#ifdef DEBUG
-#define log(frm, args...) {\\
-    printf(frm, ##args); \\
-}
-#else
-#define log(frm, args...)
-#endif
-typedef long long ll;
-using namespace std;
-
-class Solution {
+      time: 0,
+      memory: 6.3,
+      desc: '遍历',
+      code: `class Solution {
 public:
-    int boxDelivering(vector<vector<int>>& boxes, int portsCount, int maxBoxes, int maxWeight) {
-        int n = boxes.size(), ans = 0x7fffffff;
-        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0x3f3f3f3f));
-        dp[0][0] = 0;
-        // cnt 第几次从码头拿货
-        // box 总共有几个箱子
-        for (int cnt = 1; cnt <= n; cnt++) {
-            log("cnt = %d\\n", cnt);
-            for (int ibox = n; ibox >= 1; ibox--) {
-                log("=====\\nibox = %d\\n", ibox);
-                int curIdx = ibox - 1, curP = boxes[curIdx][0], curW = boxes[curIdx][1], curCnt = 1, curSum = 2; 
-                dp[cnt][ibox] = min(dp[cnt][ibox], dp[cnt - 1][ibox - curCnt] + curSum);
-                while (curIdx - 1 >= 0 && curCnt + 1 <= maxBoxes && curW + boxes[curIdx - 1][1] <= maxWeight) {
-                    log("curIdx = %d, curP = %d, curW = %d, curCnt = %d, curSum = %d\n", 
-                        curIdx, curP, curW, curCnt, curSum);
-                    curIdx--;
-                    curW += boxes[curIdx][1];
-                    curCnt++;
-                    if (boxes[curIdx][0] != curP) {
-                        curP = boxes[curIdx][0];
-                        curSum++;
-                    }
-                    dp[cnt][ibox] = min(dp[cnt][ibox], dp[cnt - 1][ibox - curCnt] + curSum);
-                }
-                if (ibox == n && dp[cnt][ibox] != 0x3f3f3f3f) return dp[cnt][ibox];
-            }
+    int numDifferentIntegers(string word) {
+        unordered_set<string> s;
+        for (int i = 0, n = word.size(); i < n; i++) {
+            if (!isdigit(word[i])) continue;
+            int start = i;
+            while (i < n && isdigit(word[i])) i++;
+            while (start + 1 < i && word[start] == '0') start++;
+            s.insert(word.substr(start, i - start));
         }
-        return ans;
-
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 440,
-      memory: 149.6,
-      desc: '前缀和统计从第一个点到当前点总共的路径数，利用单调队列快速求',
-      code: `#include <iostream>
-#include <deque>
-#include <vector>
-// bestlyg
-# define X dpirst
-# define Y second
-# define lb(x) ((x) & (-x))
-# define mem(a,b) memset(a,b,sizeodp(a))
-# define debug dpreopen("r.txt","r",stdin)
-# define pi pair<int,int>
-
-#ifdef DEBUG
-#define log(dprm, args...) {\
-    printf(dprm, ##args); \
-}
-#else
-#define log(dprm, args...)
-#endif
-typedef long long ll;
-using namespace std;
-
-class Solution {
-public:
-    int boxDelivering(vector<vector<int>>& boxes, int portsCount, int maxBoxes, int maxWeight) {
-        int n = boxes.size();
-        vector<ll> dp(n + 1, 0), sums_w(n + 1, 0), sums_p(n + 1, 0);
-        deque<int> q;
-        q.push_back(0);
-        for (int i = 1; i <= n; i++) {
-            sums_w[i] = sums_w[i - 1] + boxes[i - 1][1];
-            if (i != n) sums_p[i] = sums_p[i - 1] + (boxes[i][0] != boxes[i - 1][0] ? 1 : 0);
-            while (q.size() && (sums_w[i] - sums_w[q.front()] > maxWeight || i - q.front() > maxBoxes)) q.pop_front();
-            if (q.size()) dp[i] = dp[q.front()] + sums_p[i - 1] - sums_p[q.front()] + 2;
-            if (i != n) while (q.size() && dp[q.back()] - sums_p[q.back()] >= dp[i] - sums_p[i]) q.pop_back();
-            q.push_back(i);
-        }
-        return dp[n];
+        return s.size();
     }
 };`,
     },
