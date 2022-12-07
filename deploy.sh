@@ -1,18 +1,21 @@
+server=bestlyg-server
 # echo Deploy Project
 # docker-compose up -d --force-recreate --build
 
-# 获取最新版代码
+pm2 delete $server
 git pull
+pnpm i
+pnpm run build
 # 强制重新编译容器
-docker-compose down
+# docker-compose down
 # docker rmi bestlyg-api
 # nginx
 # rm -rf /etc/nginx/conf.d
 # cp -r nginx/server /etc/nginx/conf.d
 # nginx -s reload
-# pm2 delete bestlyg-api
-# pm2 start
-docker-compose up -d --force-recreate --build
+pm2 start packages/server/dist/main.js --name $server
+
+# docker-compose up -d --force-recreate --build
 
 
 # 定制镜像
