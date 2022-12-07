@@ -8,7 +8,7 @@ import * as dayjs from 'dayjs';
 export class MailerTaskService {
   private format = 'YYYY-MM-DD';
   private md = new MarkdownIt();
-  private menses = dayjs('2022-11-5');
+  private menses = dayjs('2022-12-7');
   constructor(private readonly mailer: MailerService) {}
 
   async lyg_mailerTask(name: string, content: string) {
@@ -34,11 +34,13 @@ export class MailerTaskService {
 1. 距离2018年1月1日已有${now.diff('2018-1-1', 'day')}天。
 1. 距离上一次大姨妈(${this.menses.format(this.format)})已有${mensesCnt}天。
 1. 建行生活签到。
+1. 腾信视频签到。
 1. 拼多多每周5元无门槛领取。
 1. LeetCode每日一题。
 1. Arcaea每日能量。
 1. 扇贝英语每日打卡。
-1. 番茄小说每日签到。`),
+1. 番茄小说每日签到。
+`),
     );
   }
   @Cron('0 30 20 * * *')
