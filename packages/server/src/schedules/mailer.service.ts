@@ -80,7 +80,9 @@ export class MailerTaskService {
   // 腾讯视频 每个月最后一天晚上8点
   @Cron('0 0 20 * * *')
   async yzx_txsp_last() {
-    if (dayjs().month() === dayjs().daysInMonth()) {
+    const day = dayjs().date();
+    const lastDay = dayjs().daysInMonth();
+    if (lastDay - day <= 2) {
       await this.yzx_mailerTask('腾讯视频提醒', '腾讯视频签到');
     }
   }
