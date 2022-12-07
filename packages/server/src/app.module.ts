@@ -7,14 +7,15 @@ import { MailerService } from './services';
 import { schedules } from './schedules';
 import { database, auth, application } from './modules';
 
+const staticPath = join(__dirname, '../../../static');
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../blog/dist'),
+      rootPath: join(staticPath, 'web'),
       serveRoot: '/blog',
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../static'),
+      rootPath: staticPath,
       serveRoot: '/static',
     }),
     ScheduleModule.forRoot(),

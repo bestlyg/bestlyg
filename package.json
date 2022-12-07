@@ -8,8 +8,8 @@
   "scripts": {
     "setup": "rm -rf ./**/node_modules && pnpm i",
     "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-    "build": "pnpm --filter server run build && pnpm --filter blog run build",
-    "deploy": "pnpm --filter server run start:prod",
+    "build:server": "pnpm --filter server run build",
+    "build:blog": "cd scripts && ts-node build-blog.ts",
     "deploy:pm2": "pm2 start packages/server/dist/main.js",
     "commit": "git-cz",
     "commit:auto": "git pull && git add -A && pnpm run commit && git push -u origin master",
