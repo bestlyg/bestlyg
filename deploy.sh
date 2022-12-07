@@ -5,7 +5,8 @@ server=bestlyg-server
 pm2 delete $server
 git pull
 pnpm i
-pnpm run build
+# pnpm run build
+pnpm --filter server run build
 # 强制重新编译容器
 # docker-compose down
 # docker rmi bestlyg-api
