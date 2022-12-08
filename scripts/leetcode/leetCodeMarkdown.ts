@@ -5,38 +5,33 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1775. 通过最少操作次数使数组的和相等',
-  url: 'https://leetcode.cn/problems/equal-sum-arrays-with-minimum-number-of-operations/submissions/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.数组, Tag.哈希表, Tag.计数],
-  desc: `请你返回使 nums1 中所有数的和与 nums2 中所有数的和相等的最少操作次数。`,
+  name: '1812. 判断国际象棋棋盘中一个格子的颜色',
+  url: 'https://leetcode.cn/problems/determine-color-of-a-chessboard-square/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数学, Tag.字符串],
+  desc: `如果所给格子的颜色是白色，请你返回 true，如果是黑色，请返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 116,
-      memory: 111.3,
-      desc: '统计每个数的个数后遍历',
+      time: 0,
+      memory: 5.8,
+      desc: '判断行列',
       code: `class Solution {
 public:
-    int minOperations(vector<int>& nums1, vector<int>& nums2) {
-        int n1 = nums1.size(), sum1 = accumulate(nums1.begin(), nums1.end(), 0), l1[7] = {0},
-            n2 = nums2.size(), sum2 = accumulate(nums2.begin(), nums2.end(), 0), l2[7] = {0};
-        for (auto &num : nums1) l1[num]++;
-        for (auto &num : nums2) l2[num]++;
-        if (sum1 > sum2) swap(n1, n2), swap(sum1, sum2), swap(l1, l2);
-        if (sum1 == sum2) return 0;
-        if (!(n2 >= n1 && n2 <= n1 * 6 || n1 >= n2 && n1 <= n2 * 6)) return -1;
-        int ans = 0;
-        for (int i = 1; i <= 6; i++) ans += comp(l1, l2, i, sum1, sum2);
-        return ans;
+    bool squareIsWhite(string coordinates) {
+        return (coordinates[1] - '0' - 1 ^ ((coordinates[0] - 'a') & 1)) & 1;
     }
-    int comp(int *l1, int *l2, int num, int &sum1, int &sum2) {
-        int ans = 0;
-        for (int i = 6; i > num; i--) {
-            while (l1[num] && i - num + sum1 <= sum2) ans++, l1[num]--, sum1 += i - num;
-            while (l2[7 - num] && i - num + sum1 <= sum2) ans++, l2[7 - num]--, sum2 -= i - num;
-        }
-        return ans;
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 0,
+      memory: 5.8,
+      desc: '判断行列',
+      code: `class Solution {
+public:
+    bool squareIsWhite(string coordinates) {
+        return ((coordinates[0] - 'a') & 1) == ((coordinates[1] - '0') & 1);
     }
 };`,
     },
