@@ -5,41 +5,23 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1781. 所有子字符串美丽值之和',
-  url: 'https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/',
+  name: '1832. 判断句子是否为全字母句',
+  url: 'https://leetcode.cn/problems/check-if-the-sentence-is-pangram',
   difficulty: Difficulty.中等,
-  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
-  desc: `给你一个字符串 s ，请你返回它所有子字符串的 美丽值 之和。`,
+  tag: [Tag.哈希表, Tag.字符串],
+  desc: `给你一个仅由小写英文字母组成的字符串 sentence ，请你判断 sentence 是否为 全字母句 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 372,
-      memory: 34.7,
-      desc: '暴力枚举',
+      time: 0,
+      memory: 6.4,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int beautySum(string s) {
-        int ans = 0, n = s.size(), dp[505][505][26] = {0};
-        for (int i = 0; i < n; i++) {
-            dp[i][i][s[i] - 'a'] = 1;
-            for (int j = i - 1; j >= 0; j--) {
-                for (int k = 0; k < 26; k++) dp[i][j][k] = dp[i][j + 1][k];
-                dp[i][j][s[j] - 'a']++;
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                int nmin = 500, nmax = 0;
-                for (int k = 0; k < 26; k++) {
-                    if (dp[i][j][k] == 0) continue;
-                    nmin = min(nmin, dp[i][j][k]);
-                    nmax = max(nmax, dp[i][j][k]);
-                }
-                // cout << "j = " << j << ", i = " << i << ", min = " << nmin << ", max = " << nmax << endl;
-                ans += nmax - nmin;
-            }
-        }
-        return ans;
+    bool checkIfPangram(string sentence) {
+        int num = 0;
+        for (auto &c : sentence) num |= 1 << (c - 'a');
+        return num == 0b11111111111111111111111111;
     }
 };`,
     },
