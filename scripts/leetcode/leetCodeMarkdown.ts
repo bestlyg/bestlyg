@@ -5,86 +5,47 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1697. 检查边长度限制的路径是否存在',
-  url: 'https://leetcode.cn/problems/check-if-the-sentence-is-pangram',
-  difficulty: Difficulty.困难,
-  tag: [Tag.并查集, Tag.图, Tag.数组, Tag.排序],
-  desc: `请你返回一个 布尔数组 answer ，其中 answer.length == queries.length ，当 queries[j] 的查询结果为 true 时， answer 第 j 个值为 true ，否则为 false 。`,
+  name: '1945. 字符串转化后的各位数字之和',
+  url: 'https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串, Tag.模拟],
+  desc: `给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 480,
-      memory: 108.3,
-      desc: '先按照limit对queries排序，再进行离线查询，对于满足limit的边进行并查集联合，最后判断是否是同一个并查集中',
-      code: `#include <vector>
-// bestlyg
-#define X first
-#define Y second
-#define lb(x) ((x) & (-x))
-#define mem(a,b) memset(a,b,sizeof(a))
-#define debug freopen("input","r",stdin)
-#define PII pair<int,int>
-
-#ifdef DEBUG
-#define log(frm, args...) {\
-    printf(frm, ##args);\
-}
-#else
-#define log(frm, args...)
-#endif
-
-typedef long long ll;
-using namespace std;
-
-class UnionFind {
+      time: 0,
+      memory: 5.9,
+      desc: '模拟',
+      code: `class Solution {
 public:
-    int n;
-    vector<int> data, cnt;
-    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {
-        iota(data.begin(), data.end(), 0);
-    } 
-    int size(int v) { return cnt[find(v)]; }
-    int find(int v) {
-        if (data[v] == v) return v;
-        return data[v] = find(data[v]);
+    int getLucky(string s, int k) {
+        int num = format(s);
+        for (int i = 1; i < k; i++) num = toNum(num);
+        return num;
     }
-    void uni(int v1, int v2) {
-        int p1 = find(v1), p2 = find(v2);
-        if (p1 != p2) {
-            cnt[p1] += cnt[p2];
-            data[p2] = p1;
-        }
-    }
-    bool same(int v1, int v2) { return find(v1) == find(v2); }
-};
-int pos2Idx(int x, int y, int size) { return x * size + y; }
-void idx2Pos(int idx, int size, int &x, int &y) { x = idx / size; y = idx % size; }
-vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-// START
-class Solution {
-public:
-    vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) {
-        vector<int> qlist(queries.size());
-        vector<bool> ans(queries.size(), false);
-        iota(qlist.begin(), qlist.end(), 0);
-        sort(qlist.begin(), qlist.end(), [&](auto &i1, auto &i2){ return queries[i1][2] < queries[i2][2]; });
-        sort(edgeList.begin(), edgeList.end(), [&](auto &a, auto &b){ return a[2] < b[2]; });
-        UnionFind uf(n);
-        int j = 0;
-        for (auto &i : qlist) {
-            auto &q = queries[i];
-            for (; j < edgeList.size() && edgeList[j][2] < q[2]; j++) uf.uni(edgeList[j][0], edgeList[j][1]);
-            ans[i] = uf.same(q[0], q[1]);
-        }
+    int format(string &s) {
+        int ans = 0;
+        for (auto &c : s) ans = ans + toNum(c - 'a' + 1);
         return ans;
     }
-};
-// END
-#ifdef LOCAL
-int main() {
-    return 0;
-}
-#endif`,
+    int toNum(int num) {
+        int ans = 0;
+        for (; num; num /= 10) ans = ans + num % 10;
+        return ans;
+    }
+};`,
+    },
+    {
+      script: Script.TS,
+      time: 64,
+      memory: 44.3,
+      desc: '模拟',
+      code: `function getLucky(s: string, k: number): number {
+    return new Array(k)
+        .fill(0)
+        .reduce((cur) => cur.split('').map(v => Number(v)).reduce((sum, cur) => sum + cur, 0).toString(),
+            s.split('').map(c => c.codePointAt(0)! - 'a'.codePointAt(0)! + 1).join(''));
+};`,
     },
   ],
 };
