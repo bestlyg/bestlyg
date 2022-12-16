@@ -5,47 +5,35 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1945. 字符串转化后的各位数字之和',
-  url: 'https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串, Tag.模拟],
-  desc: `给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。`,
+  name: '1785. 构成特定和需要添加的最少元素',
+  url: 'https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.贪心, Tag.数组],
+  desc: `返回使数组元素总和等于 goal 所需要向数组中添加的 最少元素数量 ，添加元素 不应改变 数组中 abs(nums[i]) <= limit 这一属性。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.9,
-      desc: '模拟',
+      time: 100,
+      memory: 71.7,
+      desc: '向上取整',
       code: `class Solution {
 public:
-    int getLucky(string s, int k) {
-        int num = format(s);
-        for (int i = 1; i < k; i++) num = toNum(num);
-        return num;
-    }
-    int format(string &s) {
-        int ans = 0;
-        for (auto &c : s) ans = ans + toNum(c - 'a' + 1);
-        return ans;
-    }
-    int toNum(int num) {
-        int ans = 0;
-        for (; num; num /= 10) ans = ans + num % 10;
-        return ans;
+    int minElements(vector<int>& nums, int limit, int goal) {
+        long long v = goal;
+        for (auto &num : nums) v -= num;
+        v = abs(v);
+        return ceil(1.0 * v / limit);
     }
 };`,
     },
     {
       script: Script.TS,
-      time: 64,
-      memory: 44.3,
-      desc: '模拟',
-      code: `function getLucky(s: string, k: number): number {
-    return new Array(k)
-        .fill(0)
-        .reduce((cur) => cur.split('').map(v => Number(v)).reduce((sum, cur) => sum + cur, 0).toString(),
-            s.split('').map(c => c.codePointAt(0)! - 'a'.codePointAt(0)! + 1).join(''));
-};`,
+      time: 92,
+      memory: 50.5,
+      desc: '向上取整',
+      code: `function minElements(nums: number[], limit: number, goal: number): number {
+        return Math.ceil(Math.abs(nums.reduce((sum, num) => sum - num, goal)) / limit);
+    };`,
     },
   ],
 };
