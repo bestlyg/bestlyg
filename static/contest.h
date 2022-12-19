@@ -73,22 +73,18 @@ public:
     int n;
     vector<int> data, cnt;
     UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {
-        for (int i = 0; i < n; i++) data[i] = i;
+        iota(data.begin(), data.end(), 0);
     } 
-    int size(int v) {
-        return cnt[find(v)];
-    }
+    int size(int v) { return cnt[find(v)]; }
     int find(int v) {
         if (data[v] == v) return v;
         return data[v] = find(data[v]);
     }
     void uni(int v1, int v2) {
         int p1 = find(v1), p2 = find(v2);
-        if (p1 != p2) {
-            cnt[p1] += cnt[p2];
-            data[p2] = p1;
-        }
+        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;
     }
+    bool same(int v1, int v2) { return find(v1) == find(v2); }
 };
 int pos2Idx(int x, int y, int size) { 
     return x * size + y; 
@@ -97,10 +93,7 @@ void idx2Pos(int idx, int size, int &x, int &y) {
     x = idx / size;
     y = idx % size;
 }
-vector<vector<int>> dirs = {
-    {0, 1}, {0, -1},
-    {1, 0}, {-1, 0}
-};
+vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
 // END
