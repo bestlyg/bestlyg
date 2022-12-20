@@ -4,8 +4,8 @@ const { specStr, markdown } = utils;
 const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1971. 寻找图中是否存在路径',
+  exist: true,
+  name: '1760. 袋子里最少数目的球',
   url: 'https://leetcode.cn/problems/find-if-path-exists-in-graph/',
   difficulty: Difficulty.简单,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.并查集, Tag.图],
@@ -13,33 +13,27 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 304,
-      memory: 109.9,
-      desc: '并查集',
-      code: `class UnionFind {
+      time: 164,
+      memory: 54.7,
+      desc: '二分查找',
+      code: `class Solution {
 public:
-    int n;
-    vector<int> data, cnt;
-    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {
-        iota(data.begin(), data.end(), 0);
-    } 
-    int size(int v) { return cnt[find(v)]; }
-    int find(int v) {
-        if (data[v] == v) return v;
-        return data[v] = find(data[v]);
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        int nmin = 1, nmax = 1000000000, nmid;
+        while (nmin < nmax) {
+            nmid = (nmin + nmax) / 2;
+            if (comp(nums, nmid) <= maxOperations) nmax = nmid;
+            else nmin = nmid + 1;
+        }
+        return nmin;
     }
-    void uni(int v1, int v2) {
-        int p1 = find(v1), p2 = find(v2);
-        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;
-    }
-    bool same(int v1, int v2) { return find(v1) == find(v2); }
-};
-class Solution {
-public:
-    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        UnionFind uf(n);
-        for (auto &edge : edges) uf.uni(edge[0], edge[1]);
-        return uf.same(source, destination);
+    int comp(vector<int> &nums, int val) {
+        int ans = 0;
+        for (auto &num : nums) {
+            if (num <= val) continue;
+            ans += ceil(1.0 * num / val) - 1;
+        }
+        return ans;
     }
 };`,
     },
