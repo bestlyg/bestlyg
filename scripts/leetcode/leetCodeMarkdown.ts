@@ -5,7 +5,7 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: true,
-  name: '1760. 袋子里最少数目的球',
+  name: '1753. 移除石子的最大得分',
   url: 'https://leetcode.cn/problems/find-if-path-exists-in-graph/',
   difficulty: Difficulty.简单,
   tag: [Tag.深度优先搜索, Tag.广度优先搜索, Tag.并查集, Tag.图],
@@ -13,27 +13,44 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 164,
-      memory: 54.7,
-      desc: '二分查找',
+      time: 96,
+      memory: 5.7,
+      desc: '堆',
       code: `class Solution {
 public:
-    int minimumSize(vector<int>& nums, int maxOperations) {
-        int nmin = 1, nmax = 1000000000, nmid;
-        while (nmin < nmax) {
-            nmid = (nmin + nmax) / 2;
-            if (comp(nums, nmid) <= maxOperations) nmax = nmid;
-            else nmin = nmid + 1;
-        }
-        return nmin;
-    }
-    int comp(vector<int> &nums, int val) {
+    int maximumScore(int a, int b, int c) {
+        priority_queue<int> q;
+        q.push(a);
+        q.push(b);
+        q.push(c);
         int ans = 0;
-        for (auto &num : nums) {
-            if (num <= val) continue;
-            ans += ceil(1.0 * num / val) - 1;
+        while (q.size() >= 2) {
+            int num1 = q.top(); q.pop();
+            int num2 = q.top(); q.pop();
+            ans += 1;
+            if (num1 > 1) q.push(num1 - 1);
+            if (num2 > 1) q.push(num2 - 1);
         }
         return ans;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 0,
+      memory: 5.7,
+      desc: '尽可能匹配',
+      code: `class Solution {
+public:
+    int maximumScore(int a, int b, int c) {
+        sort_v(a, b, c);
+        if (a + b <= c) return a + b;
+        return (a + b + c) / 2;
+    }
+    void sort_v(int &a, int &b, int &c) {
+        if (a > c) swap(a, c);
+        if (b > c) swap(b, c);
+        if (a > b) swap(a, b);
     }
 };`,
     },
