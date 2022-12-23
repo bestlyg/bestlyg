@@ -5,48 +5,23 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1799. N 次操作后的最大分数和',
-  url: 'https://leetcode.cn/problems/maximize-score-after-n-operations/',
+  name: '2011. 执行操作后的变量值',
+  url: 'https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/',
   difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.数组, Tag.数学, Tag.动态规划, Tag.回溯, Tag.状态压缩, Tag.数论],
-  desc: `请你返回 n 次操作后你能获得的分数和最大为多少。`,
+  tag: [Tag.数组, Tag.字符串, Tag.模拟],
+  desc: `给你一个字符串数组 operations ，这是由操作组成的一个列表，返回执行所有操作后， X 的 最终值 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 52,
-      memory: 7.6,
-      desc: '不能贪心，利用二进制状态压缩考虑每一种情况进行动态规划',
+      time: 4,
+      memory: 13.6,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int gcd(int a, int b) {
-        if (b == 0) return a;
-        return gcd(b, a % b);
-    }
-    int cnt1(int num) {
-        int cnt = 0;
-        for (; num; num >>= 1) if (num & 1) cnt++;
-        return cnt;
-    }
-    int mgcd[20][20], dp[20000] = {0};
-    int maxScore(vector<int>& nums) {
-        int n = nums.size(), allused = (1 << n) - 1;
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                mgcd[i][j] = mgcd[j][i] = gcd(nums[i], nums[j]);
-            }
-        }
-        for (int used = 1; used <= allused; used++) {
-            int cnt = cnt1(used);
-            if (cnt & 1) continue;
-            for (int i = 0; i < n; i++) {
-                if ((used & (1 << i)) == 0) continue;
-                for (int j = i + 1; j < n; j++) {
-                    if ((used & (1 << j)) == 0) continue;
-                    dp[used] = max(dp[used], dp[used ^ (1 << i) ^ (1 << j)] + cnt / 2 * mgcd[i][j]);
-                }
-            }
-        }
-        return dp[allused];
+    int finalValueAfterOperations(vector<string>& operations) {
+        int ans = 0;
+        for (auto &s : operations) if (s[1] == '+') ans++; else ans--;
+        return ans;
     }
 };`,
     },
