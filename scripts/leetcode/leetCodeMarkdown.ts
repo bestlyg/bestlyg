@@ -5,22 +5,33 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2011. 执行操作后的变量值',
-  url: 'https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/',
+  name: '1703. 得到连续 K 个 1 的最少相邻交换次数',
+  url: 'https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/',
   difficulty: Difficulty.困难,
-  tag: [Tag.数组, Tag.字符串, Tag.模拟],
-  desc: `给你一个字符串数组 operations ，这是由操作组成的一个列表，返回执行所有操作后， X 的 最终值 。`,
+  tag: [Tag.贪心, Tag.数组, Tag.前缀和, Tag.滑动窗口],
+  desc: `请你返回使 nums 中包含 k 个 连续 1 的 最少 交换次数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 13.6,
-      desc: '遍历',
+      time: 564,
+      memory: 122.5,
+      desc: link(
+        '参考链接',
+        'https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/solution/tu-jie-zhuan-huan-cheng-zhong-wei-shu-ta-iz4v/'
+      ),
       code: `class Solution {
 public:
-    int finalValueAfterOperations(vector<string>& operations) {
-        int ans = 0;
-        for (auto &s : operations) if (s[1] == '+') ans++; else ans--;
+    int minMoves(vector<int>& nums, int k) {
+        int ans = 0x7fffffff;
+        vector<int> ilist, slist(1, 0);
+        for (int i = 0, cnt = 0; i < nums.size(); i++) {
+            if (nums[i] == 1) {
+                ilist.push_back(i - cnt++);
+                slist.push_back(slist.back() + ilist.back());
+            }
+        }
+        for (int i = 0; i + k <= ilist.size(); i++) 
+            ans = min(ans, slist[i + k] + slist[i] - 2 * slist[i + k / 2] - k % 2 * ilist[i + k / 2]);
         return ans;
     }
 };`,
