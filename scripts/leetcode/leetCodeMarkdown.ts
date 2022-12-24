@@ -5,39 +5,27 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1754. 构造字典序最大的合并字符串',
-  url: 'https://leetcode.cn/problems/largest-merge-of-two-strings/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.贪心, Tag.双指针, Tag.字符串],
-  desc: `返回你可以构造的字典序 最大 的合并字符串 merge 。`,
+  name: '1739. 放置盒子',
+  url: '  desc: `https://leetcode.cn/problems/building-boxes/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.贪心, Tag.数学, Tag.二分查找],
+  desc: `给你一个整数 n ，返回接触地面的盒子的 最少 可能数量。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 9.3,
-      desc: '后缀比较',
+      time: 4,
+      memory: 5.9,
+      desc: '找规律',
       code: `class Solution {
 public:
-    string largestMerge(string word1, string word2) {
-        string ans = "";
-        int i1 = 0, i2 = 0, n1 = word1.size(), n2 = word2.size();
-        function<bool(int, int)> check = [&](int i1, int i2) -> bool {
-            while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2]) i1++, i2++;
-            if (i2 == n2 && i1 == n1) return true;
-            if (i2 == n2 && i1 != n1) return true;
-            if (i2 != n2 && i1 == n1) return false;
-            return word1[i1] > word2[i2];
-        };
-        while (i1 < n1 || i2 < n2) {
-            if (i2 == n2 || word1[i1] > word2[i2]) ans += word1[i1++];
-            else if (i1 == n1 || word1[i1] < word2[i2]) ans += word2[i2++];
-            else {
-                bool f = check(i1, i2);
-                while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2]) 
-                    if (f) ans += word1[i1++];
-                    else ans += word2[i2++];
-            }
-        }
+    int minimumBoxes(int n) {
+        int sum = 0, cur = 1, ans = 0, prev = 0;
+        while (sum + prev + cur < n) sum = sum + prev + cur, prev += cur, ans += cur++;
+        return ans + comp(n - sum, cur);
+    }
+    int comp(int num, int cur) {
+        int ans = 1;
+        for (int sum = 0, i = 1; sum + i < num; i++) sum += i, ans++;
         return ans;
     }
 };`,
