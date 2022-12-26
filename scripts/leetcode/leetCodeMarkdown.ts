@@ -5,34 +5,26 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6272. 好分区的数目',
-  url: 'https://leetcode.cn/problems/number-of-great-partitions/',
-  difficulty: Difficulty.困难,
-  tag: [],
-  desc: `返回 不同 的好分区的数目。由于答案可能很大，请返回对 109 + 7 取余 后的结果。`,
+  name: '1759. 统计同构子字符串的数目',
+  url: 'https://leetcode.cn/problems/count-number-of-homogenous-substrings/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数学, Tag.字符串],
+  desc: `给你一个字符串 s ，返回 s 中 同构子字符串 的数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 112,
-      memory: 36.7,
-      desc: '逆向统计，统计出有多少组是少于k的，res  = sum - 2 * val',
+      time: 20,
+      memory: 11.3,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int countPartitions(vector<int>& nums, int k) {
-        if (accumulate(nums.begin(), nums.end(), 0LL) < 2 * k) return 0;
-        sort(nums.begin(), nums.end());
-        int n = nums.size(), mod = 1e9 + 7, ans = 1;
-        vector<vector<int>> dp(n + 1, vector<int>(k, 0));
-        dp[0][0] = 1;
-        for (int i = 1; i <= n; i++) {
-            ans = (ans * 2) % mod;
-            dp[i][0] = 1;
-            for (int j = 1; j < k; j++) {
-                dp[i][j] = (dp[i][j] + dp[i - 1][j]) % mod;
-                if (j >= nums[i - 1]) dp[i][j] = (dp[i][j] + dp[i - 1][j - nums[i - 1]]) % mod;
-            }
+    int countHomogenous(string s) {
+        int n = s.size(), ans = 0, mod = 1e9 + 7;
+        for (int i = 0; i < n; i++) {
+            long long cnt = 1, start = i;
+            while (i + 1 < n && s[i + 1] == s[start]) i++, cnt++;
+            ans = (ans + (1 + cnt) * cnt / 2) % mod;
         }
-        for (auto &num : dp[n]) ans = (ans - 2 * num % mod + mod) % mod;
         return ans;
     }
 };`,
