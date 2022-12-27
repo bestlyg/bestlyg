@@ -4,8 +4,8 @@ Object.prototype[Symbol.iterator] = function () {
   let i = 0;
   return { next: () => ({ value: list[i][1], done: i++ === list.length }) };
 };
-const [a, b, sfad] = { a: 1, b: 2, c: 1234 };
-console.log(a, b, sfad);
+const [a, b, c] = { a: 1, b: 2, c: 1234 };
+console.log(a, b, c);
 */
 
 /*
@@ -51,3 +51,10 @@ async function sum(...data) {
   });
 }
 */
+
+
+//
+
+//
+const [a, b, c] = { a: 1, b: 2, c: 1234 };
+console.log(a, b, c);
