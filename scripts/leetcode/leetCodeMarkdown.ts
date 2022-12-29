@@ -5,27 +5,30 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1750. 删除字符串两端相同字符后的最短长度',
-  url: 'https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.双指针, Tag.字符串],
-  desc: `请你返回对字符串 s 执行上面操作任意次以后（可能 0 次），能得到的 最短长度 。`,
+  name: '2032. 至少在两个数组中出现的值',
+  url: 'https://leetcode.cn/problems/two-out-of-three/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.哈希表],
+  desc: `给你三个整数数组 nums1、nums2 和 nums3 ，请你构造并返回一个 元素各不相同的 数组，且由 至少 在 两个 数组中出现的所有值组成。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 12.5,
+      time: 20,
+      memory: 26,
       desc: '遍历',
       code: `class Solution {
 public:
-    int minimumLength(string s) {
-        int l = 0, r = s.size() - 1;
-        while (l < r && s[l] == s[r]) {
-            auto c = s[l];
-            while (l <= r && s[l] == c) l++;
-            while (l <= r && s[r] == c) r--;
+    vector<int> twoOutOfThree(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3) {
+        unordered_set<int> ans, s1, s2;
+        for (auto &num : nums1) s1.insert(num);
+        for (auto &num : nums2) {
+            if (s1.count(num)) ans.insert(num);
+            s2.insert(num);
         }
-        return r - l + 1;
+        for (auto &num : nums3) {
+            if (s1.count(num) || s2.count(num)) ans.insert(num);
+        }
+        return vector<int>(ans.begin(), ans.end());
     }
 };`,
     },
