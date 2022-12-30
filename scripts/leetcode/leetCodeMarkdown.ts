@@ -5,30 +5,46 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2032. 至少在两个数组中出现的值',
-  url: 'https://leetcode.cn/problems/two-out-of-three/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.哈希表],
-  desc: `给你三个整数数组 nums1、nums2 和 nums3 ，请你构造并返回一个 元素各不相同的 数组，且由 至少 在 两个 数组中出现的所有值组成。`,
+  name: '855. 考场就座',
+  url: 'https://leetcode.cn/problems/exam-room/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.设计, Tag.有序集合, Tag.堆_优先队列],
+  desc: `当学生进入考场后，他必须坐在能够使他与离他最近的人之间的距离达到最大化的座位上。如果有多个这样的座位，他会坐在编号最小的座位上。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 20,
-      memory: 26,
+      time: 612,
+      memory: 19.8,
       desc: '遍历',
-      code: `class Solution {
+      code: `class ExamRoom {
 public:
-    vector<int> twoOutOfThree(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3) {
-        unordered_set<int> ans, s1, s2;
-        for (auto &num : nums1) s1.insert(num);
-        for (auto &num : nums2) {
-            if (s1.count(num)) ans.insert(num);
-            s2.insert(num);
+    int n;
+    set<int> s;
+    ExamRoom(int n): n(n) {}
+    int seat() {
+        if (s.size() == 0) { s.insert(0); return 0; }
+        auto it = s.begin(), prev = it;
+        int ans = 0, val = 0;
+        if (*it != 0) {
+            ans = 0;
+            val = *it;
         }
-        for (auto &num : nums3) {
-            if (s1.count(num) || s2.count(num)) ans.insert(num);
+        for (it++; it != s.end(); prev = it++) {
+            int mid = (*it + *prev) / 2;
+            if (mid - *prev > val) {
+                ans = mid;
+                val = mid - *prev;
+            }
         }
-        return vector<int>(ans.begin(), ans.end());
+        if (*s.rbegin() != n - 1 && n - *s.rbegin() - 1 > val) {
+            ans = n - 1;
+            val = n - *s.rbegin() - 1;
+        }
+        s.insert(ans);
+        return ans;
+    }
+    void leave(int p) {
+        s.erase(p);
     }
 };`,
     },
