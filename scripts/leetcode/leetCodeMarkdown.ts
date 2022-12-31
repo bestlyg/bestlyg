@@ -5,48 +5,46 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '855. 考场就座',
-  url: 'https://leetcode.cn/problems/exam-room/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.设计, Tag.有序集合, Tag.堆_优先队列],
-  desc: `当学生进入考场后，他必须坐在能够使他与离他最近的人之间的距离达到最大化的座位上。如果有多个这样的座位，他会坐在编号最小的座位上。`,
+  name: '2037. 使每位学生都有座位的最少移动次数',
+  url: 'https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数组, Tag.排序],
+  desc: `请你返回使所有学生都有座位坐的 最少移动次数 ，并确保没有两位学生的座位相同。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 612,
-      memory: 19.8,
+      time: 8,
+      memory: 17.5,
       desc: '遍历',
-      code: `class ExamRoom {
+      code: `class Solution {
 public:
-    int n;
-    set<int> s;
-    ExamRoom(int n): n(n) {}
-    int seat() {
-        if (s.size() == 0) { s.insert(0); return 0; }
-        auto it = s.begin(), prev = it;
-        int ans = 0, val = 0;
-        if (*it != 0) {
-            ans = 0;
-            val = *it;
-        }
-        for (it++; it != s.end(); prev = it++) {
-            int mid = (*it + *prev) / 2;
-            if (mid - *prev > val) {
-                ans = mid;
-                val = mid - *prev;
-            }
-        }
-        if (*s.rbegin() != n - 1 && n - *s.rbegin() - 1 > val) {
-            ans = n - 1;
-            val = n - *s.rbegin() - 1;
-        }
-        s.insert(ans);
+    int minMovesToSeat(vector<int>& seats, vector<int>& students) {
+        sort(seats.begin(), seats.end());
+        sort(students.begin(), students.end());
+        int ans = 0;
+        for (int i = 0; i < seats.size(); i++) ans += abs(seats[i] - students[i]);
         return ans;
     }
-    void leave(int p) {
-        s.erase(p);
-    }
 };`,
+    },
+    {
+      script: Script.RUST,
+      time: 0,
+      memory: 2,
+      desc: '遍历',
+      code: `impl Solution {
+    pub fn min_moves_to_seat(seats: Vec<i32>, students: Vec<i32>) -> i32 {
+        let mut seats = seats;
+        let mut students = students;
+        seats.sort();
+        students.sort();
+        let mut ans = 0;
+        for i in 0..seats.len() {
+            ans += (seats[i] - students[i]).abs();
+        }
+        ans
+    }
+}`,
     },
   ],
 };
