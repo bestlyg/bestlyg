@@ -5,44 +5,45 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2037. 使每位学生都有座位的最少移动次数',
-  url: 'https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone/',
+  name: '2351. 第一个出现两次的字母',
+  url: 'https://leetcode.cn/problems/first-letter-to-appear-twice/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组, Tag.排序],
-  desc: `请你返回使所有学生都有座位坐的 最少移动次数 ，并确保没有两位学生的座位相同。`,
+  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
+  desc: `给你一个由小写英文字母组成的字符串 s ，请你找出并返回第一个出现 两次 的字母。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 17.5,
+      time: 0,
+      memory: 6,
       desc: '遍历',
       code: `class Solution {
 public:
-    int minMovesToSeat(vector<int>& seats, vector<int>& students) {
-        sort(seats.begin(), seats.end());
-        sort(students.begin(), students.end());
-        int ans = 0;
-        for (int i = 0; i < seats.size(); i++) ans += abs(seats[i] - students[i]);
-        return ans;
+    char repeatedCharacter(string s) {
+        int list[26] = {0};
+        for (auto &c : s) {
+            if (list[c - 'a']++ == 1) return c;
+        }
+        return ' ';
     }
 };`,
     },
     {
       script: Script.RUST,
       time: 0,
-      memory: 2,
+      memory: 2.3,
       desc: '遍历',
       code: `impl Solution {
-    pub fn min_moves_to_seat(seats: Vec<i32>, students: Vec<i32>) -> i32 {
-        let mut seats = seats;
-        let mut students = students;
-        seats.sort();
-        students.sort();
-        let mut ans = 0;
-        for i in 0..seats.len() {
-            ans += (seats[i] - students[i]).abs();
+    pub fn repeated_character(s: String) -> char {
+        let s = s.as_bytes();
+        let mut list = [0; 26];
+        for c in s {
+            let i = *c as usize - 'a' as usize;
+            if list[i] == 1 {
+                return *c as char;
+            }
+            list[i] += 1;
         }
-        ans
+        ' '
     }
 }`,
     },
