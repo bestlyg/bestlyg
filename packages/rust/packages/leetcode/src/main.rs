@@ -11,16 +11,21 @@ fn main() {
 }
 
 impl Solution {
-    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {
-        let mut ans = 0;
-        for i in 0..nums.len() {
-            for j in i + 1..nums.len() {
-                let val = nums[i] ^ nums[j];
-                if val >= low && val <= high {
-                    ans += 1;
+    pub fn count_even(num: i32) -> i32 {
+        return Solution::dfs(num, 0, 0) - 1;
+    }
+    fn dfs(num: i32, cur: i32, sum: i32) -> i32 {
+        if cur > num {
+            0
+        } else {
+            let mut ans = if sum % 2 == 0 { 1 } else { 0 };
+            for i in 0..=9 {
+                if cur * 10 + i == cur {
+                    continue;
                 }
+                ans += Solution::dfs(num, cur * 10 + i, sum + i);
             }
+            ans
         }
-        ans
     }
 }

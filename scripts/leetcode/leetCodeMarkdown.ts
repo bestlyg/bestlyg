@@ -5,269 +5,66 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1803. 统计异或值在范围内的数对有多少',
-  url: 'https://leetcode.cn/problems/count-pairs-with-xor-in-a-range/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.位运算, Tag.字典树, Tag.数组],
-  desc: `给你一个整数数组 nums （下标 从 0 开始 计数）以及两个整数：low 和 high ，请返回 漂亮数对 的数目。`,
+  name: '2180. 统计各位数字之和为偶数的整数个数',
+  url: '/leetcode.cn/problems/count-integers-with-even-digit-sum/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.数学, Tag.模拟],
+  desc: `给你一个正整数 num ，请你统计并返回 小于或等于 num 且各位数字之和为 偶数 的正整数的数目。`,
   solutions: [
     {
-      script: Script.TS,
-      time: 7316,
-      memory: 47.1,
-      desc: '暴力模拟',
-      code: `function countPairs(nums: number[], low: number, high: number): number {
-    const n = nums.length;
-    let ans = 0;
-    for (let i = 0; i < n; i++) {
-        for (let j = i + 1; j < n; j++) {
-            const v = nums[i] ^ nums[j];
-            if (v >= low && v <= high) ans++;
-        }
+      script: Script.CPP,
+      time: 4,
+      memory: 5.8,
+      desc: 'dfs',
+      code: `class Solution {
+public:
+    int countEven(int num) {
+        function<int(int, int)> dfs = [&](int cur, int sum) -> int {
+            if (cur > num) return 0;
+            int ans = !(sum & 1);
+            for (int i = 0; i <= 9; i++) {
+                if (cur * 10 + i == cur) continue;
+                ans += dfs(cur * 10 + i, sum + i);
+            }
+            return ans;
+        };
+        return dfs(0, 0) - 1;
     }
-    return ans;
 };`,
     },
     {
-      script: Script.CPP,
-      time: 432,
-      memory: 132.2,
-      desc: '字典树，按位遍历，对于当前点找和target前缀一样，当前位小的数量。',
-      code: `#include <vector>
-#include <numeric>
-#include <iostream>
-#include <unordered_map>
-// bestlyg
-#define X first
-#define Y second
-#define lb(x) ((x) & (-x))
-#define mem(a,b) memset(a,b,sizeof(a))
-#define debug freopen("input","r",stdin)
-#define PII pair<int,int>
-
-#ifdef DEBUG
-#define log(frm, args...) {\
-    printf(frm, ##args);\
-}
-#else
-#define log(frm, args...)
-#endif
-
-typedef long long ll;
-using namespace std;
-
-class UnionFind {
-public:
-    int n;
-    vector<int> data, cnt;
-    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {
-        iota(data.begin(), data.end(), 0);
-    } 
-    int size(int v) { return cnt[find(v)]; }
-    int find(int v) {
-        if (data[v] == v) return v;
-        return data[v] = find(data[v]);
-    }
-    void uni(int v1, int v2) {
-        int p1 = find(v1), p2 = find(v2);
-        if (p1 != p2) {
-            cnt[p1] += cnt[p2];
-            data[p2] = p1;
-        }
-    }
-    bool same(int v1, int v2) { return find(v1) == find(v2); }
-};
-int pos2Idx(int x, int y, int size) { return x * size + y; }
-void idx2Pos(int idx, int size, int &x, int &y) { x = idx / size; y = idx % size; }
-vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-// START
-
-const int MAX = 14;
-struct TrieNode {
-    int sum, val;
-    TrieNode *children[2];
-    TrieNode(int val): sum(0), val(val) { children[0] = children[1] = nullptr; }
-    ~TrieNode() { 
-        delete children[0];
-        delete children[1];
-    }
-};
-struct Trie {
-    TrieNode *root;
-    Trie(): root(new TrieNode(0)) {}
-    void add(int num) {
-        TrieNode *p = root;
-        for (int i = MAX; i >= 0; i--) {
-            int tag = (num >> i) & 1;
-            TrieNode *next = p->children[tag];
-            if (next == nullptr) next = p->children[tag] = new TrieNode(tag);
-            p = next;
-            p->sum += 1;
-        }
-    }
-    int get(int num, int x) {
-        TrieNode *p = root;
-        int sum = 0;
-        for (int i = MAX; i >= 0; i--) {
-            int tag = (num >> i) & 1;
-            if ((x >> i) & 1) {
-                if (p->children[tag] != nullptr) sum += p->children[tag]->sum;
-                if (p->children[tag ^ 1] == nullptr) return sum;
-                p = p->children[tag ^ 1];
-            } else {
-                if (p->children[tag] == nullptr) return sum;
-                p = p->children[tag];
-            }
-        }
-        sum += p->sum;
-        return sum;
-    }
-    ~Trie() {
-        log("~trie\n");
-        delete root;
-    }
-};
-class Solution {
-public:
-    int comp(vector<int> &nums, int num) {
-        Trie trie;
-        int ans = 0;
-        for (int i = 1; i < nums.size(); i++) {
-            trie.add(nums[i - 1]);
-            ans += trie.get(nums[i], num);
-        }
-        return ans;
-    }
-    int countPairs(vector<int>& nums, int low, int high) {
-        return comp(nums, high) - comp(nums, low - 1);
-    }
-};
-
-// END
-#ifdef LOCAL
-int main() {
-    Solution s;
-    // vector<int> nums = {1,4,2,7};
-    // int low = 2;
-    // int high = 6;
-    vector<int> nums = {9,8,4,2,1};
-    int low = 5;
-    int high = 14;
-    cout << s.countPairs(nums, low, high) << endl;
-    return 0;
-}
-#endif`,
-    },
-    {
-      script: Script.CPP,
-      time: 132,
-      memory: 4.6,
+      script: Script.RUST,
+      time: 0,
+      memory: 1.9,
       desc: '同上',
-      code: `pub use std::{cell::RefCell, rc::Rc};
-const MAX: i32 = 14;
-struct TrieNode {
-    sum: i32,
-    children: [Option<Rc<RefCell<TrieNode>>>; 2],
-}
-impl TrieNode {
-    fn new() -> TrieNode {
-        TrieNode {
-            sum: 0,
-            children: [None, None],
-        }
+      code: `impl Solution {
+    pub fn count_even(num: i32) -> i32 {
+        return Solution::dfs(num, 0, 0) - 1;
     }
-}
-struct Trie {
-    root: Option<Rc<RefCell<TrieNode>>>,
-}
-impl Trie {
-    fn new() -> Trie {
-        Trie {
-            root: Some(Rc::new(RefCell::new(TrieNode::new()))),
-        }
-    }
-    fn add(&self, num: i32) {
-        let mut p = self.root.clone().unwrap();
-        let mut i = MAX;
-        while i >= 0 {
-            let tag = ((num >> i) & 1) as usize;
-            let mut next: Option<Rc<RefCell<TrieNode>>> = None;
-            if p.as_ref().borrow().children[tag].is_none() {
-                let node = Rc::new(RefCell::new(TrieNode::new()));
-                p.borrow_mut().children[tag] = Some(node.clone());
-                next = Some(node.clone());
-            } else {
-                let node = p.as_ref().borrow().children[tag].clone();
-                next = node
+    fn dfs(num: i32, cur: i32, sum: i32) -> i32 {
+        if cur > num {
+            0
+        } else {
+            let mut ans = if sum % 2 == 0 { 1 } else { 0 };
+            for i in 0..=9 {
+                if cur * 10 + i == cur {
+                    continue;
+                }
+                ans += Solution::dfs(num, cur * 10 + i, sum + i);
             }
-            p = next.unwrap();
-            p.borrow_mut().sum += 1;
-            i -= 1;
+            ans
         }
-    }
-    fn get(&self, num: i32, x: i32) -> i32 {
-        let mut p = self.root.clone().unwrap();
-        let mut sum = 0;
-        let mut i = MAX;
-        while i >= 0 {
-            let tag = ((num >> i) & 1) as usize;
-            if ((x >> i) & 1) == 1 {
-                if p.as_ref().borrow().children[tag].is_some() {
-                    let child = p.as_ref().borrow().children[tag].clone();
-                    sum += child.unwrap().as_ref().borrow().sum;
-                }
-                if p.as_ref().borrow().children[tag ^ 1].is_none() {
-                    return sum;
-                }
-                let next = p.as_ref().borrow().children[tag ^ 1].clone();
-                p = next.unwrap();
-            } else {
-                if p.as_ref().borrow().children[tag].is_none() {
-                    return sum;
-                }
-                let next = p.as_ref().borrow().children[tag].clone();
-                p = next.unwrap();
-            }
-            i -= 1;
-        }
-        sum += p.as_ref().borrow().sum;
-        sum
-    }
-}
-impl Solution {
-    fn comp(nums: &Vec<i32>, num: i32) -> i32 {
-        let trie = Trie::new();
-        let mut ans = 0;
-        for i in 1..nums.len() {
-            trie.add(nums[i - 1]);
-            ans += trie.get(nums[i], num);
-        }
-        ans
-    }
-    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {;
-        Solution::comp(&nums, high) - Solution::comp(&nums, low - 1)
     }
 }`,
     },
     {
-      script: Script.CPP,
-      time: 436,
-      memory: 2.2,
-      desc: '暴力',
-      code: `impl Solution {
-    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {
-        let mut ans = 0;
-        for i in 0..nums.len() {
-            for j in i + 1..nums.len() {
-                let val = nums[i] ^ nums[j];
-                if val >= low && val <= high {
-                    ans += 1;
-                }
-            }
-        }
-        ans
-    }
-}`,
+      script: Script.TS,
+      time: 92,
+      memory: 48.3,
+      desc: '遍历',
+      code: `function countEven(num: number): number {
+        return new Array(num).fill(0).map((_, i) => (i + 1).toString().split('').map(v => +v).reduce((sum, cur) => sum + cur, 0)).reduce((sum, cur) => sum + Number(cur % 2 == 0), 0)
+    };`,
     },
   ],
 };
