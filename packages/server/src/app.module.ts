@@ -11,7 +11,7 @@ const staticPath = join(__dirname, '../../../static');
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(staticPath, 'web'),
+      rootPath: join(__dirname, '../../blog/dist'),
       serveRoot: '/blog',
     }),
     ServeStaticModule.forRoot({
