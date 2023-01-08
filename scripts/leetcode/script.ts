@@ -33,3 +33,15 @@
 // const src = 'cbabc';
 // const dist = 'abcabba';
 // myers(src, dist);
+
+
+console.log(
+  findCrossingTime(10, 6, [
+    [2, 10, 5, 8],
+    [3, 5, 2, 2],
+    [5, 8, 10, 10],
+    [7, 8, 8, 5],
+    [5, 6, 6, 10],
+    [6, 10, 6, 2],
+  ])
+);

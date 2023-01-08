@@ -5,130 +5,316 @@ const { backquote } = specStr;
 const { link } = markdown;
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1658. 将 x 减到 0 的最小操作数',
-  url: 'https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.二分查找, Tag.前缀和, Tag.滑动窗口],
-  desc: `给你一个整数数组 nums 和一个整数 x 。如果可以将 x 恰好 减到 0 ，返回 最小操作数 `,
+  name: '6306. 过桥的时间',
+  url: 'https://leetcode.cn/problems/time-to-cross-a-bridge/',
+  difficulty: Difficulty.困难,
+  tag: [],
+  desc: `所有 n 个盒子都需要放入新仓库，请你返回最后一个搬运箱子的工人 到达河左岸 的时间。`,
   solutions: [
     {
-      script: Script.CPP,
-      time: 192,
-      memory: 60.9,
-      desc: '前缀和',
-      code: `function minOperations(nums: number[], x: number): number {
-  const sumsL = [0];
-  const sumsR = [0];
-  const n = nums.length;
-  for (let i = 0; i < n; i++) sumsL.push(nums[i] + sumsL[i]);
-  for (let i = 0; i < n; i++) sumsR.push(nums[n - 1 - i] + sumsR[i]);
-  let ans = Infinity;
-  for (let i = 0; i <= n; i++) {
-    const num = sumsL[i];
-    const need = x - num;
-    if (need < 0) break;
-    let l = 0;
-    let r = sumsR.length - 1;
-    let mid!: number;
-    while (l <= r) {
-      mid = (l + r) >> 1;
-      const midNum = sumsR[mid];
-      if (midNum < need) l = mid + 1;
-      else if (midNum > need) r = mid - 1;
-      else break;
+      script: Script.TS,
+      time: 276,
+      memory: 53,
+      desc: '模拟',
+      code: `
+class Heap<T = number> {
+  public arr: T[] = [];
+  get isEmpty() {
+    return this.size === 0;
+  }
+  get size() {
+    return this.arr.length;
+  }
+  get top() {
+    return this.arr[0];
+  }
+  constructor(public compare: (t1: T, t2: T) => number) {}
+  add(num: T): void {
+    this.arr.push(num);
+    this.shiftUp(this.size - 1);
+  }
+  remove(): T {
+    const num = this.arr.shift()!;
+    if (this.size) {
+      this.arr.unshift(this.arr.pop()!);
+      this.shiftDown(0);
     }
-    if (need === sumsR[mid] && i + mid <= n) {
-      ans = Math.min(ans, i + mid);
+    return num;
+  }
+  private shiftUp(index: number): void {
+    if (index === 0) return;
+    const parentIndex = (index - 1) >> 1;
+    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {
+      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];
+      this.shiftUp(parentIndex);
     }
   }
-  return ans === Infinity ? -1 : ans;
+  private shiftDown(index: number): void {
+    let childrenIndex = index * 2 + 1;
+    if (childrenIndex > this.size - 1) return;
+    if (
+      childrenIndex + 1 <= this.size - 1 &&
+      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0
+    ) {
+      childrenIndex++;
+    }
+    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {
+      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];
+      this.shiftDown(childrenIndex);
+    }
+  }
+  *[Symbol.iterator](): IterableIterator<T> {
+    for (const t of this.arr) {
+      yield t;
+    }
+  }
+}
+class TWorker {
+  constructor(
+    public i: number,
+    public l2r: number,
+    public pickOld: number,
+    public r2l: number,
+    public putNew: number,
+    public wait: number = 0
+  ) {}
+  cost() {
+    return this.l2r + this.r2l;
+  }
+  cmp(worker: TWorker) {
+    return this.cost() !== worker.cost() ? this.cost() - worker.cost() : this.i - worker.i;
+  }
+  cmpWait(worker: TWorker) {
+    return worker.wait - this.wait;
+  }
+  toString() {
+    return \`Worker\${this.i}: l2r=\${this.l2r}, r2l=\${this.r2l}, pickOld=\${this.pickOld}, putNew=\${
+      this.putNew
+    }, cost=\${this.cost()}, wait = \${this.wait}\`;
+  }
+}
+function findCrossingTime(n: number, k: number, time: number[][]): number {
+  const workers = new Array(k)
+    .fill(0)
+    .map((_, i) => new TWorker(i, ...(time[i] as [number, number, number, number])));
+  console.log('========');
+  console.log(workers.map(v => v.toString()).join('\n'));
+  console.log('========');
+  const lHeap = new Heap<TWorker>((w1, w2) => w1.cmp(w2));
+  const rHeap = new Heap<TWorker>((w1, w2) => w1.cmp(w2));
+  const pickHeap = new Heap<TWorker>((t1, t2) => t1.cmpWait(t2));
+  const putHeap = new Heap<TWorker>((t1, t2) => t1.cmpWait(t2));
+  const printHeap = (record: Record<string, Heap<TWorker>>) =>
+    Object.entries(record).forEach(([k, v]) =>
+      console.log(\`=> \${k}(\${v.size}):\n\${v.arr.map(v => v.toString()).join('\n')}\`)
+    );
+  for (const worker of workers) lHeap.add(worker);
+  let ans = 0;
+  while (n) {
+    console.log('=====loop====');
+    console.log(\`ans = \${ans}, n = \${n}\`);
+    printHeap({ lHeap, rHeap, pickHeap, putHeap });
+    while (pickHeap.size && pickHeap.top.wait <= ans) rHeap.add(pickHeap.remove());
+    while (putHeap.size && putHeap.top.wait <= ans) lHeap.add(putHeap.remove());
+    if (lHeap.isEmpty && rHeap.isEmpty) {
+      const pick = pickHeap.top?.wait ?? Infinity;
+      const put = putHeap.top?.wait ?? Infinity;
+      if (pick < put) ans = pickHeap.top.wait;
+      else ans = putHeap.top.wait;
+      while (pickHeap.size && pickHeap.top[0] <= ans) rHeap.add(pickHeap.remove()), n--;
+      while (putHeap.size && putHeap.top[0] <= ans) lHeap.add(putHeap.remove());
+    }
+    if (rHeap.size) {
+      ans += rHeap.top.r2l;
+      const worker = rHeap.remove();
+      worker.wait = ans + worker.putNew;
+      putHeap.add(worker);
+    } else if (lHeap.size && n) {
+      ans += lHeap.top.l2r;
+      const worker = lHeap.remove();
+      worker.wait = ans + worker.pickOld;
+      pickHeap.add(worker);
+      n--;
+    }
+  }
+  while (rHeap.size || pickHeap.size) {
+    console.log('=====after====');
+    console.log(\`ans = \${ans}, n = \${n}\`);
+    printHeap({ lHeap, rHeap, pickHeap, putHeap });
+    if (rHeap.size) ans += rHeap.remove().r2l;
+    while (pickHeap.size && pickHeap.top.wait <= ans) rHeap.add(pickHeap.remove());
+    if (rHeap.isEmpty && pickHeap.size) ans = pickHeap.top.wait;
+  }
+  return ans;
 }`,
     },
     {
-      script: Script.CPP,
-      time: 404,
-      memory: 164.3,
-      desc: '哈希存储',
-      code: `class Solution {
-public:
-    int minOperations(vector<int>& nums, int x) {
-        unordered_map<int, int> lmap;
-        lmap[0] = 0;
-        int ans = 0x7fffffff, n = nums.size();
-        for (int i = 0, sum = 0; i < n; i++) {
-            sum += nums[i];
-            if (sum == x) ans = min(ans, i + 1);
-            if (!lmap.count(sum)) lmap[sum] = i + 1;
-        }
-        for (int i = n - 1, sum = 0; i >= 0; i--) {
-            sum += nums[i];
-            if (sum > x) break;
-            if (!lmap.count(x - sum)) continue;
-            if (lmap[x - sum] + n - i > n) continue;
-            ans = min(ans, lmap[x - sum] + n - i);
-        }
-        return ans == 0x7fffffff ? -1 : ans;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 128,
-      memory: 96.3,
-      desc: '滑动窗口',
-      code: `class Solution {
-public:
-    int minOperations(vector<int>& nums, int x) {
-        int ans = 0x7fffffff, n = nums.size(), r = 0, rsum = accumulate(nums.begin(), nums.end(), 0);
-        if (rsum < x) return -1;
-        while (r < n && rsum > x) rsum -= nums[r++];
-        if (rsum == x) ans = n - r;
-        for (int l = 0, lsum = 0; l < n; l++) {
-            lsum += nums[l];
-            while (r < n && (l + 1 + n - r > n || lsum + rsum > x)) rsum -= nums[r++];
-            if (lsum + rsum == x) ans = min(ans, l + 1 + n - r);
-        }
-        return ans == 0x7fffffff ? -1 : ans;
-    }
-};`,
-    },
-    {
       script: Script.RUST,
-      time: 20,
-      memory: 2.8,
+      time: 36,
+      memory: 3.6,
       desc: '同上',
-      code: `impl Solution {
-    pub fn min_operations(nums: Vec<i32>, x: i32) -> i32 {
-        let mut ans = i32::MAX;
-        let n = nums.len();
-        let (mut r, mut rsum) = (0, nums.iter().fold(0, |sum, cur| sum + cur));
-        if rsum < x {
-            return -1;
+      code: `use std::{cmp::Ordering, collections::BinaryHeap};
+#[derive(Eq, Ord, PartialEq)]
+struct Worker {
+    i: i32,
+    l2r: i32,
+    pick_old: i32,
+    r2l: i32,
+    put_new: i32,
+    wait: i32,
+    mode: bool,
+}
+
+impl Worker {
+    fn new(i: i32, l2r: i32, pick_old: i32, r2l: i32, put_new: i32) -> Self {
+        Worker {
+            i,
+            l2r,
+            pick_old,
+            r2l,
+            put_new,
+            wait: 0,
+            mode: true,
         }
-        while r < n && rsum > x {
-            rsum -= nums[r];
-            r += 1;
-        }
-        if rsum == x {
-            ans = (n - r) as i32;
-        }
-        let (mut l, mut lsum) = (0, 0);
-        while l < n {
-            lsum += nums[l];
-            while r < n && (l + 1 + n - r > n || lsum + rsum > x) {
-                rsum -= nums[r];
-                r += 1;
-            }
-            if lsum + rsum == x {
-                ans = ans.min((l + 1 + n - r) as i32);
-            }
-            l += 1;
-        }
-        if ans == i32::MAX {
-            -1
+    }
+    fn cost(&self) -> i32 {
+        self.l2r + self.r2l
+    }
+    fn cmp(&self, worker: &Worker) -> Ordering {
+        if self.mode {
+            self.cmp_bridge(worker)
         } else {
-            ans
+            self.cmp_wait(worker)
         }
+    }
+    fn cmp_bridge(&self, worker: &Worker) -> Ordering {
+        if self.cost() != worker.cost() {
+            self.cost().cmp(&worker.cost())
+        } else {
+            self.i.cmp(&worker.i)
+        }
+    }
+    fn cmp_wait(&self, worker: &Worker) -> Ordering {
+        worker.wait.cmp(&self.wait)
+    }
+    fn set_mode(&mut self, mode: bool) {
+        self.mode = mode;
+    }
+    fn set_bridge_mode(&mut self) {
+        self.set_mode(true)
+    }
+    fn set_wait_mode(&mut self) {
+        self.set_mode(false)
+    }
+}
+
+impl ToString for Worker {
+    fn to_string(&self) -> String {
+        return format!(
+            "Worker{}: l2r = {}, r2l = {}, pickOld = {}, putNew = {}, cost = {}, wait = {}",
+            self.i,
+            self.l2r,
+            self.r2l,
+            self.pick_old,
+            self.put_new,
+            self.cost(),
+            self.wait
+        );
+    }
+}
+
+impl PartialOrd for Worker {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+fn printHeap(name: &'static str, heap: &BinaryHeap<Worker>) {
+    println!("=> {name}({})", heap.len());
+    for item in heap.iter() {
+        println!("{}", item.to_string());
+    }
+}
+impl Solution {
+    pub fn find_crossing_time(n: i32, k: i32, time: Vec<Vec<i32>>) -> i32 {
+        let mut n = n;
+        let mut workers = Vec::new();
+        for i in 0..time.len() {
+            workers.push(Worker::new(
+                i as i32, time[i][0], time[i][1], time[i][2], time[i][3],
+            ));
+        }
+        let mut left_heap = BinaryHeap::<Worker>::new();
+        let mut right_heap = BinaryHeap::<Worker>::new();
+        let mut pick_heap = BinaryHeap::<Worker>::new();
+        let mut put_heap = BinaryHeap::<Worker>::new();
+        for worker in workers {
+            left_heap.push(worker);
+        }
+        let mut ans = 0;
+        while n > 0 {
+            // println!("====loop====");
+            // println!("ans = {ans}, n = {n}");
+            // printHeap("left_heap", &left_heap);
+            // printHeap("right_heap", &right_heap);
+            // printHeap("pick_heap", &pick_heap);
+            // printHeap("put_heap", &put_heap);
+            while !pick_heap.is_empty() && pick_heap.peek().unwrap().wait <= ans {
+                let mut worker = pick_heap.pop().unwrap();
+                worker.set_bridge_mode();
+                right_heap.push(worker);
+            }
+            while !put_heap.is_empty() && put_heap.peek().unwrap().wait <= ans {
+                let mut worker = put_heap.pop().unwrap();
+                worker.set_bridge_mode();
+                left_heap.push(worker);
+            }
+            if left_heap.is_empty() && right_heap.is_empty() {
+                let pick = match pick_heap.peek() {
+                    Some(worker) => worker.wait,
+                    None => i32::MAX,
+                };
+                let put = match put_heap.peek() {
+                    Some(worker) => worker.wait,
+                    None => i32::MAX,
+                };
+                ans = pick.min(put);
+            }
+            if !right_heap.is_empty() {
+                let mut worker = right_heap.pop().unwrap();
+                ans += worker.r2l;
+                worker.wait = ans + worker.put_new;
+                worker.set_wait_mode();
+                put_heap.push(worker);
+            } else if !left_heap.is_empty() && n > 0 {
+                let mut worker = left_heap.pop().unwrap();
+                ans += worker.l2r;
+                worker.wait = ans + worker.pick_old;
+                worker.set_wait_mode();
+                pick_heap.push(worker);
+                n -= 1;
+            }
+        }
+        while !right_heap.is_empty() || !pick_heap.is_empty() {
+            // println!("====after====");
+            // println!("ans = {ans}, n = {n}");
+            // printHeap("left_heap", &left_heap);
+            // printHeap("right_heap", &right_heap);
+            // printHeap("pick_heap", &pick_heap);
+            // printHeap("put_heap", &put_heap);
+            if !right_heap.is_empty() {
+                ans += right_heap.pop().unwrap().r2l;
+            }
+            while !pick_heap.is_empty() && pick_heap.peek().unwrap().wait <= ans {
+                let mut worker = pick_heap.pop().unwrap();
+                worker.set_bridge_mode();
+                right_heap.push(worker);
+            }
+            if right_heap.is_empty() && !pick_heap.is_empty() {
+                ans = pick_heap.peek().unwrap().wait;
+            }
+        }
+        ans
     }
 }`,
     },
