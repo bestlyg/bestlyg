@@ -3,44 +3,40 @@ use rand::Rng;
 
 use preclude::*;
 fn main() {
-    let res = Solution::find_crossing_time(
-        10,
-        6,
-        vec![
-            vec![2, 10, 5, 8],
-            vec![3, 5, 2, 2],
-            vec![5, 8, 10, 10],
-            vec![7, 8, 8, 5],
-            vec![5, 6, 6, 10],
-            vec![6, 10, 6, 2],
-        ],
-    );
+    let res = Solution::crack_safe(2, 2);
     println!("res = {res:#?}");
 }
 
+use std::collections::HashSet;
 impl Solution {
-    pub fn reinitialize_permutation(n: i32) -> i32 {
-        let n = n as usize;
-        let (mut l1, mut l2) = ((0..n).collect::<Vec<_>>(),vec![0;n] );
-        let mut ans = 1;
-        loop {
-            let mut f = true;
-            for i in 0..n {
-                if i % 2 == 0 {
-                    l2[i] = l1[i / 2];
-                } else {
-                    l2[i] = l1[n / 2 + (i - 1) / 2];
+    pub fn crack_safe(n: i32, k: i32) -> String {
+        let mut visit = HashSet::<String>::new();
+        let cur = String::from_iter(vec!['0'; n as usize]);
+        visit.insert(cur.clone());
+        Solution::dfs(n, k, &mut visit, cur).1
+    }
+    fn dfs<'a>(n: i32, k: i32, visit: &mut HashSet<String>, cur: String) -> (bool, String) {
+        if visit.len() == k.pow(n as u32) as usize {
+            (true, cur)
+        } else {
+            let pre = &cur[(cur.len() as i32 - n + 1) as usize..cur.len()];
+            for i in 0..k {
+                let mut next = String::from(pre);
+                next.push(char::from(i as u8 + '0' as u8));
+                if visit.contains(&next) {
+                    continue;
                 }
-                if l2[i] != i {
-                    f = false;
+                visit.insert(next.clone());
+                let mut cur = cur.clone();
+                cur.push(char::from(i as u8 + '0' as u8));
+                let res = Solution::dfs(n, k, visit, cur);
+                if res.0 {
+                    return res;
                 }
+                visit.remove(&next);
             }
-            if f {
-                break;
-            }
-            ans += 1;
-            l1 = l2.clone();
+
+            (false, "".to_string())
         }
-        ans
     }
 }
