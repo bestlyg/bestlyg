@@ -48,7 +48,7 @@ function maxSubArray(nums: number[]): number {
 
 - 编辑时间：2021.07.17
 - 执行用时：88ms
-- 内存消耗：47.6mb
+- 内存消耗：47.6MB
 - 编程语言：typescript
 - 解法介绍：前缀和。
 

@@ -47,7 +47,7 @@ var getIntersectionNode = function (headA, headB) {
 
 - 编辑时间：2021.07.21
 - 执行用时：88ms
-- 内存消耗：45.1mb
+- 内存消耗：45.1MB
 - 编程语言：typescript
 - 解法介绍：双指针。
 

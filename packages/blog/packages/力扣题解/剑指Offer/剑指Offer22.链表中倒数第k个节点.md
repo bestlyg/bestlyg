@@ -47,7 +47,7 @@ function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
 
 - 编辑时间：2021.09.02
 - 执行用时：80ms
-- 内存消耗：39.4mb
+- 内存消耗：39.4MB
 - 编程语言：typescript
 - 解法介绍：双指针。
 

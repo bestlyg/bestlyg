@@ -44,7 +44,7 @@ function kthLargest(root: TreeNode | null, k: number): number {
 
 - 编辑时间：2021.04.03
 - 执行用时：88ms
-- 内存消耗：44.8mb
+- 内存消耗：44.8MB
 - 编程语言：typescript
 - 解法介绍：统计右侧节点数进行计算。
 

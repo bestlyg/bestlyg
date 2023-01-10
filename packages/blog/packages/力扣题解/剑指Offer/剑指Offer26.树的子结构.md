@@ -51,7 +51,7 @@ function isSubStructure(A: TreeNode | null, B: TreeNode | null): boolean {
 
 - 编辑时间：2021.04.03
 - 执行用时：144ms
-- 内存消耗：58.1mb
+- 内存消耗：58.1MB
 - 编程语言：typescript
 - 解法介绍：利用辅助检测判断是否相等。
 
