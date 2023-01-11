@@ -1,0 +1,29 @@
+{
+    "name": "89. 格雷编码",
+    "url": "https://leetcode-cn.com/problems/gray-code/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数学",
+        "回溯"
+    ],
+    "desc": "给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。",
+    "solutions": [
+        {
+            "date": 1636214400000,
+            "time": 140,
+            "memory": 54.1,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function grayCode(n: number): number[] {\n  if (n === 0) return [0];\n  const set = new Set<number>([0]);\n  const ans: number[] = [0];\n  dfs();\n  return ans;\n  function dfs(num = 0): boolean {\n    if (set.size === 2 ** n) {\n      return true;\n    }\n    for (let i = 0; i <= n; i++) {\n      const bit = 1 << i;\n      const nextNum = num & bit ? num & ~bit : num | bit;\n      if (set.has(nextNum)) continue;\n      set.add(nextNum);\n      ans.push(nextNum);\n      if (dfs(nextNum)) return true;\n      ans.pop();\n      set.delete(nextNum);\n    }\n    return false;\n  }\n}"
+        },
+        {
+            "date": 1636214400000,
+            "time": 108,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "后半部分逆序输出。",
+            "code": "function grayCode(n: number): number[] {\n  const ans = [0];\n  if (n === 0) return ans;\n  while (n--) {\n    ans.push(\n      ...Array.from(ans)\n        .reverse()\n        .map(v => v | (1 << n))\n    );\n  }\n  return ans;\n}"
+        }
+    ]
+}

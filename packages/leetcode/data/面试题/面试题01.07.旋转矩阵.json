@@ -1,0 +1,19 @@
+{
+    "name": "面试题 01.07. 旋转矩阵",
+    "url": "https://leetcode-cn.com/problems/rotate-matrix-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。",
+    "solutions": [
+        {
+            "date": 1586188800000,
+            "time": 100,
+            "memory": 33.8,
+            "script": "javascript",
+            "desc": "转换成侧边读取。",
+            "code": "/**\n * @param {number[][]} matrix\n * @return {void} Do not return anything, modify matrix in-place instead.\n */\nvar rotate = function (matrix) {\n  const result = [];\n  for (let i = 0; i < matrix.length; i++) {\n    const newRow = [];\n    for (let j = matrix.length - 1; j >= 0; j--) {\n      newRow.push(matrix[j][i]);\n    }\n    result.push(newRow);\n  }\n  for (const row in matrix) {\n    matrix[row] = result[row];\n  }\n};"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "name": "剑指 Offer II 003. 前 n 个数字二进制中 1 的个数",
+    "url": "https://leetcode-cn.com/problems/w3tCBm/",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "动态规划"
+    ],
+    "desc": "给定一个非负整数 n ，请计算 0 到 n 之间的每个数字的二进制表示中 1 的个数，并输出一个数组。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 8,
+            "memory": 8.4,
+            "script": "c++",
+            "desc": "当遇到 2 的指数幂后，从 0 开始重新遍历。",
+            "code": "class Solution {\n   public:\n    vector<int> countBits(int n) {\n        vector<int> ans;\n        ans.push_back(0);\n        if (n == 0) return ans;\n        ans.push_back(1);\n        if (n == 1) return ans;\n        for (int num = 2, i = 0; num <= n; num++, i++) {\n            if ((num & (num - 1)) == 0) i = 0;\n            ans.push_back(ans[i] + 1);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

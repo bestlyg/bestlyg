@@ -1,0 +1,12 @@
+{
+    "name": "1106. 解析布尔表达式",
+    "url": "https://leetcode.cn/problems/parsing-a-boolean-expression/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "递归",
+        "字符串"
+    ],
+    "desc": "给你一个以字符串形式表述的 布尔表达式（boolean） expression，返回该式的运算结果。",
+    "solutions": []
+}

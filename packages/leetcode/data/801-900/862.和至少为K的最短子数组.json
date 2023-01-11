@@ -1,0 +1,33 @@
+{
+    "name": "862. 和至少为 K 的最短子数组",
+    "url": "https://leetcode-cn.com/problems/shortest-subarray-with-sum-at-least-k/",
+    "difficulty": "困难",
+    "tag": [
+        "队列",
+        "数组",
+        "二分查找",
+        "前缀和",
+        "滑动窗口",
+        "单调队列",
+        "堆(优先队列)"
+    ],
+    "desc": "返回 A 的最短的非空连续子数组的长度，该子数组的和至少为 K 。",
+    "solutions": [
+        {
+            "date": 1626796800000,
+            "time": 6080,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "单调递增队列。",
+            "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    for (const prevIndex of queue) {\n      if (sum - sums[prevIndex] >= k) {\n        ans = Math.min(ans, i - prevIndex);\n      } else break;\n    }\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        },
+        {
+            "date": 1626796800000,
+            "time": 2896,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "优化题解 1。",
+            "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    let p = -1;\n    while (queue.length && sum - sums[queue[0]] >= k) p = queue.shift()!;\n    if (p !== -1) ans = Math.min(ans, i - p);\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        }
+    ]
+}

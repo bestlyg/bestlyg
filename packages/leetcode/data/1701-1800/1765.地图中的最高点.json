@@ -1,0 +1,21 @@
+{
+    "name": "1765. 地图中的最高点",
+    "url": "https://leetcode-cn.com/problems/map-of-highest-peak/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你返回一个大小为 m x n 的整数矩阵 height ，其中 height[i][j] 是格子 (i, j) 的高度。如果有多种解法，请返回 任意一个 。",
+    "solutions": [
+        {
+            "date": 1643385600000,
+            "time": 284,
+            "memory": 105.6,
+            "script": "c++",
+            "desc": "bfs。",
+            "code": "class Solution {\n   public:\n    struct node {\n        int row, col;\n    };\n    int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\n    vector<vector<int>> highestPeak(vector<vector<int>> &isWater) {\n        int m = isWater.size(), n = isWater[0].size();\n        vector<vector<int>> ans(m, vector(n, -1));\n        queue<node> q;\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (isWater[i][j] == 1) {\n                    q.push((node){i, j});\n                    ans[i][j] = 0;\n                }\n            }\n        }\n        while (q.size()) {\n            node v = q.front();\n            q.pop();\n            for (int i = 0; i < 4; i++) {\n                int nrow = v.row + dirs[i][0], ncol = v.col + dirs[i][1];\n                if (nrow < 0 || ncol < 0 || nrow >= m || ncol >= n ||\n                    ans[nrow][ncol] != -1)\n                    continue;\n                ans[nrow][ncol] = ans[v.row][v.col] + 1;\n                q.push((node){nrow, ncol});\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "name": "423. 从英文中重建数字",
+    "url": "https://leetcode-cn.com/problems/reconstruct-original-digits-from-english/",
+    "difficulty": "中等",
+    "tag": [
+        "哈希表",
+        "数学",
+        "字符串"
+    ],
+    "desc": "给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。",
+    "solutions": [
+        {
+            "date": 1637683200000,
+            "time": 124,
+            "memory": 41.3,
+            "script": "typescript",
+            "desc": "对于数字一次排序删减。",
+            "code": "const dict: Record<number, string[]> = {\n  1: 'one'.split(''),\n  2: 'two'.split(''), // w\n  3: 'three'.split(''), //t\n  4: 'four'.split(''), // u\n  5: 'five'.split(''), // f\n  6: 'six'.split(''), // x\n  7: 'seven'.split(''), // v\n  8: 'eight'.split(''), // g\n  9: 'nine'.split(''), // i\n  0: 'zero'.split(''), // z\n};\nconst checkList = [\n  { num: 2, key: 'w' },\n  { num: 6, key: 'x' },\n  { num: 0, key: 'z' },\n  { num: 8, key: 'g' },\n  { num: 3, key: 't' },\n  { num: 4, key: 'u' },\n  { num: 5, key: 'f' },\n  { num: 7, key: 'v' },\n  { num: 9, key: 'i' },\n  { num: 1, key: 'o' },\n];\nfunction originalDigits(s: string): string {\n  const map: Record<string, number> = {};\n  for (const c of s) map[c] = (map[c] ?? 0) + 1;\n  const list: number[] = new Array(10).fill(0);\n  for (const { num, key } of checkList) {\n    if (!map[key]) continue;\n    const cnt = map[key];\n    list[num] += cnt;\n    for (const ch of dict[num]) map[ch] -= cnt;\n  }\n  return list.reduce((ans, cnt, num) => ans + num.toString().repeat(cnt), '');\n}"
+        },
+        {
+            "date": 1637683200000,
+            "time": 276,
+            "memory": 6.3,
+            "script": "c",
+            "desc": "对于数字一次排序删减。",
+            "code": "struct {\n    int num;\n    char key;\n} checkList[10] = {\n    {2, 'w'}, {6, 'x'}, {0, 'z'}, {8, 'g'}, {3, 't'},\n    {4, 'u'}, {5, 'f'}, {7, 'v'}, {9, 'i'}, {1, 'o'}\n};\nchar dict[10][6] = {\n    {\"zero\"}, {\"one\"}, {\"two\"},{\"three\"}, {\"four\"},\n    {\"five\"}, {\"six\"}, {\"seven\"}, {\"eight\"}, {\"nine\"}\n};\nchar * originalDigits(char * s){\n    int map[26] = {0}, list[10] = {0}, sum = 0;\n    for (int i = 0; i < strlen(s); i++) map[s[i] - 'a']++;\n    for (int i = 0; i < 10; i++) {\n        char key = checkList[i].key;\n        int num = checkList[i].num;\n        if (!map[key - 'a']) continue;\n        int cnt = map[key - 'a'];\n        list[num] += cnt;\n        sum += cnt;\n        for (int i = 0; i < strlen(dict[num]); i++) {\n            char ch = dict[num][i];\n            map[ch - 'a'] -=cnt;\n        }\n    }\n    int idx = 0;\n    char *ans = (char *)malloc(sizeof(char) * (sum + 1));\n    ans[sum] = '\\0';\n    for (int num = 0; num < 10; num++) {\n        int cnt = list[num];\n        if (!cnt) continue;\n        memset(ans + idx, num + '0', sizeof(char) * cnt);\n        idx += cnt;\n        // printf(\"sum = %d, num = %d, cnt = %d, ans = %s\\n\", sum, num, cnt, ans);\n    }\n    // printf(\"ans = %s\\n\", ans);\n    return ans;\n}"
+        }
+    ]
+}

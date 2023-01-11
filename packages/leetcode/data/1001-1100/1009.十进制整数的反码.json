@@ -1,0 +1,27 @@
+{
+    "name": "1009. 十进制整数的反码",
+    "url": "https://leetcode-cn.com/problems/complement-of-base-10-integer/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算"
+    ],
+    "desc": "给你一个十进制数 N，请你返回其二进制表示的反码所对应的十进制整数。",
+    "solutions": [
+        {
+            "date": 1634486400000,
+            "time": 72,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "利用字符串翻转。",
+            "code": "function findComplement(num: number): number {\n  const bitStr = num\n    .toString(2)\n    .split('')\n    .map(v => (v === '1' ? '0' : '1'))\n    .join('');\n  return parseInt(bitStr, 2);\n}"
+        },
+        {
+            "date": 1634486400000,
+            "time": 76,
+            "memory": 39.1,
+            "script": "typescript",
+            "desc": "获取最高位进行翻转，利用异或取反。",
+            "code": "function bitwiseComplement(n: number): number {\n  if (n === 0) return 1;\n  let bit = 0;\n  for (; bit <= 30; bit++) if (n < 1 << bit) break;\n  if (bit === 31) bit = 0x7fffffff;\n  bit = (1 << bit) - 1;\n  return bit ^ n;\n}"
+        }
+    ]
+}

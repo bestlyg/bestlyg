@@ -1,0 +1,28 @@
+{
+    "name": "1438. 绝对差不超过限制的最长连续子数组",
+    "url": "https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "滑动窗口"
+    ],
+    "desc": "给你一个整数数组 nums ，和一个表示限制的整数 limit，请你返回最长连续子数组的长度，该子数组中的任意两个元素之间的绝对差必须小于或者等于 limit 。",
+    "solutions": [
+        {
+            "date": 1613836800000,
+            "time": 208,
+            "memory": 61.8,
+            "script": "typescript",
+            "desc": "滑动窗口,记录最值进行比较。",
+            "code": "function longestSubarray(nums: number[], limit: number): number {\n  const zero = nums[0];\n  let l = 0;\n  let r = 0;\n  let max = zero;\n  let min = zero;\n  let win: Record<number, number> = { [zero]: 1 };\n  let ans = 1;\n  let sortArr = [zero];\n  const len = nums.length;\n  while (++r < len) {\n    const num = nums[r];\n    const value = win[num];\n    win[num] = 1 + (value ?? 0);\n    if (!value) {\n      if (num > max) sortArr.push((max = num));\n      else if (num < min) sortArr.unshift((min = num));\n      else {\n        for (let i = 0, l = sortArr.length; i < l; i++) {\n          if (sortArr[i] > num) {\n            sortArr.splice(i, 0, num);\n            break;\n          }\n        }\n      }\n      while (l < r && max - min > limit) {\n        const prevNum = nums[l++];\n        const count = win[prevNum];\n        win[prevNum] = count - 1;\n        if (count === 1) {\n          if (prevNum === max) max = sortArr[sortArr.length - 2];\n          else if (prevNum === min) min = sortArr[1];\n          for (let i = 0, l = sortArr.length; i < l; i++) {\n            if (sortArr[i] === prevNum) {\n              sortArr.splice(i, 1);\n              break;\n            }\n          }\n        }\n      }\n    }\n    ans = Math.max(ans, r - l + 1);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1626796800000,
+            "time": 2712,
+            "memory": 65.9,
+            "script": "typescript",
+            "desc": "遍历每个长度，利用单调栈维护滑动窗口中的最值。",
+            "code": "function longestSubarray(nums: number[], limit: number): number {\n  const n = nums.length;\n  return search();\n  function search(l = 0, r = nums.length): number {\n    if (l === r) return l;\n    const mid = (l + r + 1) >> 1;\n    if (check(mid)) l = mid;\n    else r = mid - 1;\n    return search(l, r);\n  }\n  function check(len: number): boolean {\n    const qMax: number[] = [];\n    const qMin: number[] = [];\n    for (let i = 0; i < n; i++) {\n      const num = nums[i];\n      while (qMax.length && nums[qMax[qMax.length - 1]] < num) qMax.pop();\n      while (qMin.length && nums[qMin[qMin.length - 1]] > num) qMin.pop();\n      qMax.push(i);\n      qMin.push(i);\n      if (i + 1 < len) continue;\n      if (i - qMax[0] === len) qMax.shift();\n      if (i - qMin[0] === len) qMin.shift();\n      if (nums[qMax[0]] - nums[qMin[0]] <= limit) return true;\n    }\n    return false;\n  }\n}"
+        }
+    ]
+}

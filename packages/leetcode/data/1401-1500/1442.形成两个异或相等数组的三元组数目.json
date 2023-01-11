@@ -1,0 +1,29 @@
+{
+    "name": "1442. 形成两个异或相等数组的三元组数目",
+    "url": "https://leetcode-cn.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor//",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组",
+        "数学"
+    ],
+    "desc": "请返回能够令 a == b 成立的三元组 (i, j , k) 的数目。",
+    "solutions": [
+        {
+            "date": 1621267200000,
+            "time": 148,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function countTriplets(arr: number[]): number {\n  const len = arr.length;\n  if (len === 1) return 0;\n  let ans = 0;\n  const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];\n  ans = 0;\n  for (let k = 1; k < len; k++) {\n    for (let j = 1; j <= k; j++) {\n      for (let i = 0; i < j; i++) {\n        const a = prefixSumList[j] ^ prefixSumList[i];\n        const b = prefixSumList[k + 1] ^ prefixSumList[j];\n        if (a === b) ans++;\n      }\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1621267200000,
+            "time": 100,
+            "memory": 40.3,
+            "script": "typescript",
+            "desc": "在前后相等的情况下，可取任意 j。",
+            "code": "function countTriplets(arr: number[]): number {\n  const len = arr.length;\n  if (len === 1) return 0;\n  let ans = 0;\n  const prefixSumList: number[] = [ans, ...arr.map(v => (ans ^= v))];\n  ans = 0;\n  for (let k = 1; k < len; k++) {\n    for (let i = 0; i < k; i++) {\n      if (prefixSumList[k + 1] === prefixSumList[i]) ans += k - i;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
+}

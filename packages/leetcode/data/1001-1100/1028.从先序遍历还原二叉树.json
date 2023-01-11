@@ -1,0 +1,20 @@
+{
+    "name": "1028. 从先序遍历还原二叉树",
+    "url": "https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "我们从二叉树的根节点 root  开始进行深度优先搜索。在遍历中的每个节点处，我们输出  D  条短划线（其中  D  是该节点的深度），然后输出该节点的值。（如果节点的深度为 D，则其直接子节点的深度为 D + 1。根节点的深度为 0）。如果节点只有一个子节点，那么保证该子节点为左子节点。给出遍历输出  S，还原树并返回其根节点  root。",
+    "solutions": [
+        {
+            "date": 1592409600000,
+            "time": 148,
+            "memory": 43.1,
+            "script": "typescript",
+            "desc": "利用正则解析字符串，使用递归去深度获取节点，由于 leetcode 存在 Bug 无法在函数内 new TreeNode()，使用内建 TreeNode1 代替内部 TreeNode。",
+            "code": "class TreeNode1 {\n  val: number;\n  left: TreeNode | null;\n  right: TreeNode | null;\n  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n    this.val = val === undefined ? 0 : val;\n    this.left = left === undefined ? null : left;\n    this.right = right === undefined ? null : right;\n  }\n}\nfunction recoverFromPreorder(S: string): TreeNode | null {\n  const maxVal = 10 ** 9;\n  const maxValLen = maxVal.toString().length;\n  const maxValReg = `\\d{1,${maxValLen}}`;\n  const nextReg = (h: string): string => `${maxValReg}${h}${maxValReg}`;\n  return getNode(S, 1);\n  function getNode(nodeStr: string, level: number): TreeNode | null {\n    // console.log(\"====\");\n    // console.log(\"nodeStr:\" + nodeStr);\n    // console.log(\"level:\" + level);\n    const nodeStrLen = nodeStr.length;\n    if (nodeStrLen === 0) return null;\n    const h = ''.padStart(level, '-');\n    const reg = new RegExp(nextReg(h), 'g');\n    // console.log(reg);\n    const node = new TreeNode1(parseInt(nodeStr));\n    const cache: { index: number; str: string }[] = [];\n    let index = -1;\n    let match: RegExpMatchArray | null = nodeStr.substr(index + 1).match(reg);\n    while (match !== null) {\n      // console.log(match);\n      index = nodeStr.indexOf(match[0]);\n      const str = match[0];\n      cache.push({\n        index,\n        str,\n      });\n      const tempIndexH = str.indexOf('-');\n      const newNodeStr = nodeStr.substr(index + tempIndexH + h.length);\n      // console.log(str);\n      match = newNodeStr.match(reg);\n      // console.log(match);\n    }\n    // console.log(cache);\n    for (let i = 0, len = cache.length; i < len; i++) {\n      const { index, str } = cache[i];\n      const indexH = str.indexOf(h);\n      const newStr = nodeStr.substr(\n        index + indexH + h.length,\n        i === len - 1 ? nodeStrLen : cache[i + 1].index\n      );\n      if (node.left === null) {\n        node.left = getNode(newStr, level + 1);\n      } else {\n        node.right = getNode(newStr, level + 1);\n      }\n    }\n    return node;\n  }\n}"
+        }
+    ]
+}

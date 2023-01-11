@@ -1,0 +1,30 @@
+{
+    "name": "240. 搜索二维矩阵 II",
+    "url": "https://leetcode-cn.com/problems/search-a-2d-matrix-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找",
+        "分治",
+        "矩阵"
+    ],
+    "desc": "编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。",
+    "solutions": [
+        {
+            "date": 1627056000000,
+            "time": 72,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "从右上角开始寻找。",
+            "code": "function searchMatrix(matrix: number[][], target: number): boolean {\n  let i = 0;\n  let j = matrix[0].length - 1;\n  while (i < matrix.length && j >= 0) {\n    if (matrix[i][j] > target) j--;\n    else if (matrix[i][j] < target) i++;\n    else return true;\n  }\n  return false;\n}"
+        },
+        {
+            "date": 1635091200000,
+            "time": 96,
+            "memory": 43.1,
+            "script": "typescript",
+            "desc": "拆分查找。",
+            "code": "function searchMatrix(matrix: number[][], target: number): boolean {\n  return matrix.flat().includes(target);\n}"
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "name": "232. 用栈实现队列",
+    "url": "https://leetcode-cn.com/problems/implement-queue-using-stacks/",
+    "difficulty": "简单",
+    "tag": [
+        "栈",
+        "设计"
+    ],
+    "desc": "使用栈实现队列的下列操作：push(x) -- 将一个元素放入队列的尾部。pop() -- 从队列首部移除元素。peek() -- 返回队列首部的元素。empty() -- 返回队列是否为空。",
+    "solutions": [
+        {
+            "date": 1581782400000,
+            "time": 0,
+            "memory": 34.2,
+            "script": "java",
+            "desc": "使用 java 自带栈结构，使用两个栈，压栈放入 inStack，出栈时若 outStack 为空则先出栈 inStack 压倒 outStack。",
+            "code": "class MyQueue {\n\tprivate Stack<Integer> inStack;\n\tprivate Stack<Integer> outStack;\n    public MyQueue() {\n        inStack = new Stack<Integer>();\n\t\toutStack = new Stack<Integer>();\n    }\n\tpublic void push(int x) {\n\t\tinStack.push(x);\n\t}\n\tpublic int pop() {\n\t\tcheckOutStack();\n\t\treturn outStack.pop();\n\t}\n\tpublic int peek() {\n\t\tcheckOutStack();\n\t\treturn outStack.peek();\n\t}\n\tpublic boolean empty() {\n\t\treturn inStack.isEmpty() && outStack.isEmpty();\n\t}\n\tprivate void checkOutStack() {\n\t\tif (outStack.isEmpty()) {\n\t\t\twhile (!inStack.isEmpty()) {\n\t\t\t\toutStack.push(inStack.pop());\n\t\t\t}\n\t\t}\n\t}\n}"
+        },
+        {
+            "date": 1614873600000,
+            "time": 84,
+            "memory": 39.1,
+            "script": "typescript",
+            "desc": "利用两个栈维护。",
+            "code": "class MyQueue {\n  private inStack: number[] = [];\n  private outStack: number[] = [];\n  push(x: number): void {\n    this.inStack.push(x);\n  }\n  pop(): number {\n    if (this.empty()) return -Infinity;\n    if (this.outStack.length > 0) {\n      return this.outStack.pop()!;\n    } else {\n      this.inStackToOutStack();\n      return this.pop();\n    }\n  }\n  peek(): number {\n    if (this.empty()) return -Infinity;\n    if (this.outStack.length === 0) this.inStackToOutStack();\n    return this.outStack[this.outStack.length - 1];\n  }\n  empty(): boolean {\n    return this.outStack.length === 0 && this.inStack.length === 0;\n  }\n  inStackToOutStack(): void {\n    while (this.inStack.length > 0) this.outStack.push(this.inStack.pop()!);\n  }\n}"
+        },
+        {
+            "date": 1637683200000,
+            "time": 0,
+            "memory": 5.7,
+            "script": "typescript",
+            "desc": "stack。",
+            "code": "typedef struct Stack\n{\n    int size;\n    int len;\n    int *data;\n} Stack;\nStack *createStack(int len)\n{\n    Stack *s = (Stack *)malloc(sizeof(Stack));\n    s->size = 0;\n    s->len = len;\n    s->data = (int *)malloc(sizeof(int) * len);\n    return s;\n}\nvoid push(Stack *s, int val)\n{\n    if (s->size == s->len)\n        return;\n    s->data[s->size++] = val;\n}\nvoid pop(Stack *s)\n{\n    if (s->size == 0)\n        return;\n    s->size--;\n}\nint isEmpty(Stack *s) {\n    return s->size == 0;\n}\nint top(Stack *s)\n{\n    if (s->size == 0) return -1;\n    return s->data[s->size - 1];\n}\nvoid freeStack(Stack *s)\n{\n    free(s->data);\n    free(s);\n}\ntypedef struct {\n    Stack *s1, *s2;\n} MyQueue;\n\n\nMyQueue* myQueueCreate() {\n    MyQueue *q = (MyQueue *)malloc(sizeof(MyQueue));\n    q->s1 = createStack(100);\n    q->s2 = createStack(100);\n    return q;\n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    push(obj->s1, x);\n}\nvoid check(MyQueue *obj){\n    if (!obj->s2->size) {\n        while(obj->s1->size) {\n            push(obj->s2, top(obj->s1));\n            pop(obj->s1);\n        }\n    }\n}\nint myQueuePop(MyQueue* obj) {\n    check(obj);\n    int val = top(obj->s2);\n    pop(obj->s2);\n    return val;\n}\n\nint myQueuePeek(MyQueue* obj) {\n    check(obj);\n    return top(obj->s2);\n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    return obj->s1->size + obj->s2->size == 0;\n}\n\nvoid myQueueFree(MyQueue* obj) {\n    freeStack(obj->s1);\n    freeStack(obj->s2);\n    free(obj);\n}"
+        }
+    ]
+}

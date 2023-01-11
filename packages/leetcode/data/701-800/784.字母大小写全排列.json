@@ -1,0 +1,12 @@
+{
+    "name": "784. 字母大小写全排列",
+    "url": "https://leetcode.cn/problems/letter-case-permutation/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "字符串",
+        "回溯"
+    ],
+    "desc": "返回 所有可能得到的字符串集合 。以 任意顺序 返回输出。",
+    "solutions": []
+}

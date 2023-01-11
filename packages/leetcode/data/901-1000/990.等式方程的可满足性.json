@@ -1,0 +1,28 @@
+{
+    "name": "990. 等式方程的可满足性",
+    "url": "https://leetcode-cn.com/problems/satisfiability-of-equality-equations/",
+    "difficulty": "中等",
+    "tag": [
+        "并查集",
+        "图"
+    ],
+    "desc": "给定一个由表示变量之间关系的字符串方程组成的数组，每个字符串方程 equations[i] 的长度为 4，并采用两种不同的形式之一：\"a==b\" 或  \"a!=b\"。在这里，a 和 b 是小写字母（不一定不同），表示单字母变量名。只有当可以将整数分配给变量名，以便满足所有给定的方程时才返回  true，否则返回 false。",
+    "solutions": [
+        {
+            "date": 1588694400000,
+            "time": 120,
+            "memory": 41.5,
+            "script": "typescript",
+            "desc": "相同的值用一个对象储存，不同的值用另一个对象去储存。",
+            "code": "function equationsPossible(equations: string[]): boolean {\n  const map = new Map<string, { eq: Set<string>; neq: Set<string> }>();\n  for (const equation of new Set(equations)) {\n    const c1 = equation[0];\n    const c2 = equation[3];\n    const isEqual = equation[1] === '=';\n    if (c1 === c2) {\n      if (!isEqual) return false;\n      else continue;\n    }\n    const e1 = map.get(c1);\n    const e2 = map.get(c2);\n    if (e1 === undefined && e2 === undefined) {\n      if (isEqual) {\n        const obj = {\n          eq: new Set<string>([c1, c2]),\n          neq: new Set<string>(),\n        };\n        map.set(c1, obj);\n        map.set(c2, obj);\n      } else {\n        map.set(c1, { eq: new Set<string>([c1]), neq: new Set<string>([c2]) });\n        map.set(c2, { eq: new Set<string>([c2]), neq: new Set<string>([c1]) });\n      }\n    } else if (e1 !== undefined && e2 === undefined) {\n      if (isEqual) {\n        e1.eq.add(c2);\n        map.set(c2, e1);\n        for (let c of e1.neq) map.get(c)?.neq.add(c2);\n      } else {\n        e1.neq.add(c2);\n        map.set(c2, {\n          eq: new Set<string>([c2]),\n          neq: new Set<string>([c1, ...e1.eq]),\n        });\n      }\n    } else if (e1 === undefined && e2 !== undefined) {\n      if (isEqual) {\n        e2.eq.add(c1);\n        map.set(c1, e2);\n        for (let c of e2.neq) map.get(c)?.neq.add(c1);\n      } else {\n        e2.neq.add(c1);\n        map.set(c1, {\n          eq: new Set<string>([c1]),\n          neq: new Set<string>([c2, ...e2.eq]),\n        });\n      }\n    } else if (e1 !== undefined && e2 !== undefined) {\n      if (isEqual) {\n        if (e1.neq.has(c2)) return false;\n        for (const c of e2.eq) {\n          e1.eq.add(c);\n          map.set(c, e1);\n        }\n        for (const c of e2.neq) e1.neq.add(c);\n        for (const c of e1.neq) for (const eq of e1.eq) map.get(c)?.neq.add(eq);\n      } else {\n        if (e1.eq.has(c2)) return false;\n        for (const c of e2.eq) e1.neq.add(c);\n        for (const c of e1.eq) e2.neq.add(c);\n      }\n    }\n  }\n  return true;\n}"
+        },
+        {
+            "date": 1619712000000,
+            "time": 108,
+            "memory": 41.8,
+            "script": "typescript",
+            "desc": "并查集。",
+            "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction equationsPossible(equations: string[]): boolean {\n  equations.sort((a, b) => {\n    if (a[1] === '=') return -1;\n    return 1;\n  });\n  const uf = new UnionFind(26);\n  const toNum = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;\n  for (const equation of equations) {\n    const num1 = toNum(equation[0]);\n    const num2 = toNum(equation[3]);\n    const same = equation[1] === '=';\n    if (same) uf.union(num1, num2);\n    else if (uf.same(num1, num2)) return false;\n  }\n  return true;\n}"
+        }
+    ]
+}

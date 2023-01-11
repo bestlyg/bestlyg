@@ -1,0 +1,22 @@
+{
+    "name": "675. 为高尔夫比赛砍树",
+    "url": "https://leetcode.cn/problems/cut-off-trees-for-golf-event/",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵",
+        "堆(优先队列)"
+    ],
+    "desc": "你将从 (0, 0) 点开始工作，返回你砍完所有树需要走的最小步数。 如果你无法砍完所有的树，返回 -1 。",
+    "solutions": [
+        {
+            "date": 1653235200000,
+            "time": 760,
+            "memory": 97.5,
+            "script": "cpp",
+            "desc": "bfs, 每次从当前值寻找下一个目标。",
+            "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    typedef pair<int, int> node;\n    int rowLen, colLen;\n    int cutOffTree(vector<vector<int>>& forest) {\n        rowLen = forest.size(), colLen = forest[0].size();\n        vector<int> list;\n        for (int row = 0; row < rowLen; row++) {\n            for (int col = 0; col < colLen; col++) {\n                if (forest[row][col] > 1) list.emplace_back(forest[row][col]);\n            }\n        }\n        sort(list.begin(), list.end(),\n             [&](int a, int b) -> bool { return a < b; });\n        int ans = 0;\n        node prev = make_pair(0, 0);\n        for (int i = 0; i < list.size(); i++) {\n            int step = findNext(forest, prev, list[i]);\n            if (step == -1) return -1;\n            ans += step;\n        }\n        return ans;\n    }\n    int findNext(vector<vector<int>>& forest, node& start, int target) {\n        int step = 0, size = 1;\n        queue<node> q;\n        vector<vector<bool>> used(rowLen, vector(colLen, false));\n        used[start.first][start.second] = true;\n        q.push(start);\n        while (q.size()) {\n            node item = q.front();\n            q.pop();\n            if (forest[item.first][item.second] == target) {\n                start.first = item.first;\n                start.second = item.second;\n                return step;\n            }\n            for (int i = 0; i < 4; i++) {\n                int nrow = item.first + dirs[i][0],\n                    ncol = item.second + dirs[i][1];\n                if (nrow < 0 || nrow == rowLen || ncol < 0 || ncol == colLen ||\n                    forest[nrow][ncol] == 0 || used[nrow][ncol])\n                    continue;\n                q.push(make_pair(nrow, ncol));\n                used[nrow][ncol] = true;\n            }\n            if (--size == 0) {\n                size = q.size();\n                step++;\n            }\n        }\n        return -1;\n    }\n};"
+        }
+    ]
+}

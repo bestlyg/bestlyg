@@ -1,0 +1,22 @@
+{
+    "name": "802. 找到最终的安全状态",
+    "url": "https://leetcode-cn.com/problems/find-eventual-safe-states/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+    ],
+    "desc": "返回一个由图中所有安全的起始节点组成的数组作为答案。答案数组中的元素应当按 升序 排列。",
+    "solutions": [
+        {
+            "date": 1628092800000,
+            "time": 204,
+            "memory": 53.8,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function eventualSafeNodes(graph: number[][]): number[] {\n  const n = graph.length;\n  const ans = new Map<number, boolean>();\n  const set = new Set<number>();\n  for (let i = 0; i < n; i++) dfs(i);\n  function dfs(idx: number) {\n    if (set.has(idx)) return false;\n    if (ans.has(idx)) return ans.get(idx);\n    if (graph[idx].length === 0) {\n      ans.set(idx, true);\n      return true;\n    }\n    set.add(idx);\n    let f = true;\n    for (const next of graph[idx]) {\n      if (!dfs(next)) {\n        f = false;\n        break;\n      }\n    }\n    set.delete(idx);\n    ans.set(idx, f);\n    return f;\n  }\n  return [...ans.entries()]\n    .filter(([, f]) => f)\n    .map(([val]) => val)\n    .sort((a, b) => a - b);\n}"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "1104. 二叉树寻路",
+    "url": "https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "数学",
+        "二叉树"
+    ],
+    "desc": "给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。",
+    "solutions": [
+        {
+            "date": 1627488000000,
+            "time": 88,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "深度向上遍历。",
+            "code": "function pathInZigZagTree(label: number): number[] {\n  const list: number[] = [];\n  let max = 1;\n  while (label >= max) list.push((max <<= 1));\n  const ans: number[] = [];\n  dfs(label);\n  return ans;\n  function find(label: number): {\n    maxLabel: number;\n    prevMin: number;\n  } {\n    for (let i = 0; i < list.length; i++) {\n      if (list[i] > label)\n        return {\n          maxLabel: list[i] - 1,\n          prevMin: list[i - 2] ?? 1,\n        };\n    }\n    return {\n      maxLabel: -1,\n      prevMin: -1,\n    };\n  }\n  function dfs(label: number): void {\n    if (label === 1) {\n      ans.unshift(label);\n      return;\n    }\n    ans.unshift(label);\n    const { maxLabel, prevMin } = find(label);\n    let i = maxLabel;\n    let parent = prevMin;\n    while (i > label) {\n      i--;\n      if ((i & 1) !== 0) parent++;\n    }\n    dfs(parent);\n  }\n}"
+        }
+    ]
+}

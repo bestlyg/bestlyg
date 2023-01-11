@@ -1,0 +1,21 @@
+{
+    "name": "2022. 将一维数组转变成二维数组",
+    "url": "https://leetcode-cn.com/problems/convert-1d-array-into-2d-array/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "矩阵",
+        "模拟"
+    ],
+    "desc": "请你根据上述过程返回一个 m x n 的二维数组。",
+    "solutions": [
+        {
+            "date": 1641225600000,
+            "time": 112,
+            "memory": 95.1,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    vector<vector<int>> construct2DArray(vector<int>& original, int m, int n) {\n        int len = original.size();\n        vector<vector<int>> ans;\n        if (m * n != len) return ans;\n        for (int i = 0; i < m; i++) {\n            vector<int> item;\n            for (int j = 0; j < n; j++) {\n                item.push_back(original[i * n + j]);\n            }\n            ans.push_back(item);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

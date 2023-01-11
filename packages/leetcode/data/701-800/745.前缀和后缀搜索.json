@@ -1,0 +1,21 @@
+{
+    "name": "745. 前缀和后缀搜索",
+    "url": "https://leetcode.cn/problems/prefix-and-suffix-search/",
+    "difficulty": "困难",
+    "tag": [
+        "设计",
+        "字典树",
+        "字符串"
+    ],
+    "desc": "设计一个包含一些单词的特殊词典，并能够通过前缀和后缀来检索单词。",
+    "solutions": [
+        {
+            "date": 1657728000000,
+            "time": 880,
+            "memory": 609.9,
+            "script": "cpp",
+            "desc": "头尾插入,例如插入 app,即#app, p#app, pp#app, app#app,插入所有的可能性,然后从头开始找。",
+            "code": "#define CHILD_SIZE 27\nclass TrieNode {\n   public:\n    int key, idx;\n    bool end;\n    TrieNode **children;\n    TrieNode(int k) {\n        key = k;\n        idx = -1;\n        end = false;\n        children = (TrieNode **)malloc(sizeof(TrieNode *) * CHILD_SIZE);\n        for (int i = 0; i < CHILD_SIZE; i++) children[i] = nullptr;\n    }\n};\nclass Trie {\n   public:\n    TrieNode *root;\n    Trie() { root = new TrieNode(0); }\n    void insert(string str, int idx) {\n        TrieNode *node = root;\n        for (int i = 0; i < str.size(); i++) {\n            int idx = str[i] == '#' ? (CHILD_SIZE - 1) : str[i] - 'a';\n            if (node->children[idx] == nullptr)\n                node->children[idx] = new TrieNode(idx);\n            node = node->children[idx];\n        }\n        node->end = true;\n        node->idx = idx;\n    }\n    TrieNode *find(string str) {\n        TrieNode *node = root;\n        for (int i = 0; i < str.size(); i++) {\n            int idx = str[i] == '#' ? (CHILD_SIZE - 1) : str[i] - 'a';\n            if (node->children[idx] == nullptr) return nullptr;\n            node = node->children[idx];\n        }\n        return node;\n    }\n};\nclass WordFilter {\n   public:\n    Trie *t;\n    WordFilter(vector<string> &words) {\n        t = new Trie();\n        for (int i = 0; i < words.size(); i++) {\n            string w = words[i], insertw = \"#\" + w;\n            for (int j = w.size() - 1; j >= 0; j--) {\n                insertw = w[j] + insertw;\n                t->insert(insertw, i);\n            }\n        }\n    }\n    int f(string pref, string suff) {\n        TrieNode *n = t->find(suff + \"#\" + pref);\n        int ans = -1;\n        if (n == nullptr) return ans;\n        dfs(ans, n);\n        return ans;\n    }\n    void dfs(int &ans, TrieNode *n) {\n        if (n->end) ans = max(ans, n->idx);\n        for (int i = 0; i < CHILD_SIZE; i++) {\n            if (n->children[i] == nullptr) continue;\n            dfs(ans, n->children[i]);\n        }\n    }\n};"
+        }
+    ]
+}

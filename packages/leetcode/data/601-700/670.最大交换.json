@@ -1,0 +1,20 @@
+{
+    "name": "670. 最大交换",
+    "url": "https://leetcode.cn/problems/maximum-swap/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数学"
+    ],
+    "desc": "给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。",
+    "solutions": [
+        {
+            "date": 1662998400000,
+            "time": 0,
+            "memory": 5.7,
+            "script": "cpp",
+            "desc": "寻找是否存在比当前值大的低位数。",
+            "code": "class Solution {\npublic:\n    int maximumSwap(int num) {\n        int list[10] = {0}, list_len = 0;\n        for (; num; num /= 10) list[list_len++] = num % 10;\n        for (int i = list_len - 1; i > 0; i--) {\n            int max_idx = i - 1;\n            for (int j = i - 1; j >= 0; j--) max_idx = list[max_idx] > list[j] ? max_idx : j;\n            if (list[max_idx] > list[i]) {\n                swap(list[max_idx], list[i]);\n                break;\n            }\n        }\n        int ans = 0;\n        for (int i = list_len - 1; i >= 0; i--) ans = ans * 10 + list[i];\n        return ans;\n    }\n};"
+        }
+    ]
+}

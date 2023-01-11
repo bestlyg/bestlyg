@@ -1,0 +1,28 @@
+{
+    "name": "394. 字符串解码",
+    "url": "https://leetcode-cn.com/problems/decode-string/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个经过编码的字符串，返回它解码后的字符串。",
+    "solutions": [
+        {
+            "date": 1590595200000,
+            "time": 64,
+            "memory": 32.3,
+            "script": "typescript",
+            "desc": "判断是数字还是字母还是[]符号，然后递归遍历。",
+            "code": "const numReg = /\\d/;\nconst charReg = /[a-zA-Z]{1}/;\nvar decodeString = function (s: string): string {\n  let res = '';\n  let numCache = '';\n  for (let i = 0, len = s.length; i < len; i++) {\n    const c = s[i];\n    if (charReg.test(c)) {\n      res += c;\n    } else if (numReg.test(c)) {\n      numCache += c;\n    } else if (c === '[') {\n      let count = 1;\n      let lastIndex = i;\n      while (count !== 0 && lastIndex < len) {\n        lastIndex++;\n        if (s[lastIndex] === '[') count++;\n        if (s[lastIndex] === ']') count--;\n      }\n      const inS = decodeString(s.substring(i + 1, lastIndex));\n      i = lastIndex;\n      let insert = '';\n      for (let j = 0; j < +numCache; j++) insert += inS;\n      res += insert;\n      numCache = '';\n    }\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1620316800000,
+            "time": 132,
+            "memory": 39.3,
+            "script": "typescript",
+            "desc": "栈储存。",
+            "code": "function decodeString(s: string): string {\n  const numReg = /\\d/;\n  const stack: string[] = [];\n  for (const c of s) {\n    if (c === ']') {\n      let str = '';\n      while (stack[stack.length - 1] !== '[') str = stack.pop()! + str;\n      stack.pop();\n      let numStr = '';\n      while (stack.length !== 0 && numReg.test(stack[stack.length - 1]))\n        numStr = stack.pop() + numStr;\n      str = str.repeat(+numStr);\n      stack.push(str);\n    } else {\n      stack.push(c);\n    }\n  }\n  return stack.join('');\n}"
+        }
+    ]
+}

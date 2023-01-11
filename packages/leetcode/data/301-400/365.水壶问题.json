@@ -1,0 +1,21 @@
+{
+    "name": "365. 水壶问题",
+    "url": "https://leetcode-cn.com/problems/water-and-jug-problem/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "深度优先搜索",
+        "广度优先搜索"
+    ],
+    "desc": "有两个容量分别为 x 升 和 y 升 的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z 升 的水？。",
+    "solutions": [
+        {
+            "date": 1626796800000,
+            "time": 2516,
+            "memory": 81.7,
+            "script": "typescript",
+            "desc": "广度优先，遍历所有可能。",
+            "code": "function canMeasureWater(\n  jug1Capacity: number,\n  jug2Capacity: number,\n  targetCapacity: number\n): boolean {\n  type State = [number, number];\n  const format = (x: number, y: number) => `${x}::${y}`;\n  const set = new Set<string>([format(0, 0)]);\n  const queue: State[] = [[0, 0]];\n  return find();\n  function find(): boolean {\n    while (queue.length !== 0) {\n      const cur = queue.shift()!;\n      const next = findNext(cur);\n      if (next.some(([x, y]) => x + y === targetCapacity)) return true;\n      next.forEach(v => {\n        const str = format(...v);\n        if (!set.has(str)) {\n          set.add(str);\n          queue.push(v);\n        }\n      });\n    }\n    return false;\n  }\n  function findNext([x, y]: State): State[] {\n    return [\n      [0, y],\n      [x, 0],\n      [jug1Capacity, y],\n      [x, jug2Capacity],\n      [Math.max(x - (jug2Capacity - y), 0), Math.min(y + x, jug2Capacity)],\n      [Math.min(x + y, jug1Capacity), Math.max(y - (jug1Capacity - x), 0)],\n    ];\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "2100. 适合打劫银行的日子",
+    "url": "https://leetcode-cn.com/problems/find-good-days-to-rob-the-bank/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "动态规划",
+        "前缀和"
+    ],
+    "desc": "请你返回一个数组，包含 所有 适合打劫银行的日子（下标从 0 开始）。返回的日子可以 任意 顺序排列。",
+    "solutions": [
+        {
+            "date": 1646496000000,
+            "time": 116,
+            "memory": 84.8,
+            "script": "c++",
+            "desc": "记录当前值左侧最大递增长度和右侧最大递增长度。",
+            "code": "class Solution {\n        public:\n         vector<int> goodDaysToRobBank(vector<int>& security, int time) {\n             int n = security.size();\n             vector<int> cnts(n, 0);\n             for (int i = n - 2; i >= 0; i--) {\n                 if (security[i] <= security[i + 1]) {\n                     cnts[i] = cnts[i + 1] + 1;\n                 } else {\n                     cnts[i] = 0;\n                 }\n             }\n             vector<int> ans;\n             int prev = 0;\n             for (int i = 0; i < n; i++) {\n                 if (i > 0 && security[i] <= security[i - 1]) {\n                     prev++;\n                 } else {\n                     prev = 0;\n                 }\n                 if (prev >= time && cnts[i] >= time) {\n                     ans.push_back(i);\n                 }\n             }\n             return ans;\n         }\n     };"
+        }
+    ]
+}

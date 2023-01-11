@@ -1,0 +1,24 @@
+{
+    "name": "1147. 段式回文",
+    "url": "https://leetcode-cn.com/problems/longest-chunked-palindrome-decomposition/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "双指针",
+        "字符串",
+        "动态规划",
+        "哈希函数",
+        "滚动哈希"
+    ],
+    "desc": "给你一个字符串 text，在确保它满足段式回文的前提下，请你返回 段 的 最大数量 k。",
+    "solutions": [
+        {
+            "date": 1639238400000,
+            "time": 80,
+            "memory": 40.5,
+            "script": "typescript",
+            "desc": "dfs 每次读取两头最短相匹配字符数。",
+            "code": "function longestDecomposition(text: string): number {\n  const n = text.length;\n  if (n <= 1) return n;\n  let lidx = 1;\n  let lstr = text[0];\n  let ridx = n - 2;\n  let rstr = text[n - 1];\n  while (ridx > lidx && lstr !== rstr) {\n    lstr += text[lidx++];\n    rstr = text[ridx--] + rstr;\n  }\n  if (ridx <= lidx && lstr !== rstr) return 1;\n  return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;\n}"
+        }
+    ]
+}

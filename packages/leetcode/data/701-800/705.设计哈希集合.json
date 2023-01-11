@@ -1,0 +1,23 @@
+{
+    "name": "705. 设计哈希集合",
+    "url": "https://leetcode-cn.com/problems/design-hashset/",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表",
+        "链表",
+        "哈希函数"
+    ],
+    "desc": "不使用任何内建的哈希表库设计一个哈希集合（HashSet）。",
+    "solutions": [
+        {
+            "date": 1627056000000,
+            "time": 188,
+            "memory": 48.2,
+            "script": "typescript",
+            "desc": "利用链表解决哈希冲突。",
+            "code": "class LinkedListNode {\n  constructor(\n    public val: number,\n    public prev: LinkedListNode | null = null,\n    public next: LinkedListNode | null = null\n  ) {}\n}\nclass LinkedList {\n  private head = new LinkedListNode(0);\n  private last: LinkedListNode | null = null;\n  private getNode(key: number): LinkedListNode | null {\n    let p: LinkedListNode = this.head;\n    while (p.next) {\n      if (p.next.val === key) return p;\n      p = p.next;\n    }\n    return null;\n  }\n  contains(key: number): boolean {\n    return this.getNode(key) !== null;\n  }\n  add(key: number): void {\n    if (this.contains(key)) return;\n    const node = new LinkedListNode(key);\n    if (this.last === null) this.head.next = node;\n    else this.last.next = node;\n    this.last = node;\n  }\n  remove(key: number): void {\n    const node = this.getNode(key);\n    if (node === null) return;\n    if (this.last === node.next) this.last = node;\n    node.next = node.next!.next;\n  }\n}\nconst SIZE = 1000;\nclass MyHashSet {\n  private list = new Array(SIZE).fill(0).map(_ => new LinkedList());\n  private hash(key: number) {\n    return key % SIZE;\n  }\n  add(key: number): void {\n    this.list[this.hash(key)].add(key);\n  }\n  remove(key: number): void {\n    this.list[this.hash(key)].remove(key);\n  }\n  contains(key: number): boolean {\n    return this.list[this.hash(key)].contains(key);\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "name": "953. 验证外星语词典",
+    "url": "https://leetcode-cn.com/problems/verifying-an-alien-dictionary/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "给定一组用外星语书写的单词 words，以及其字母表的顺序 order，只有当给定的单词在这种外星语中按字典序排列时，返回 true；否则，返回 false。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 4,
+            "memory": 9.1,
+            "script": "c++",
+            "desc": "转换成地球文进行比较。",
+            "code": "class Solution {\n   public:\n    bool isAlienSorted(vector<string> &words, string order) {\n        int nums[30] = {0};\n        for (int i = 0; i < order.size(); i++) nums[order[i] - 'a'] = i;\n        for (auto &str : words) {\n            for (auto &ch : str) {\n                ch = nums[ch - 'a'] + 'a';\n            }\n        }\n        for (int i = 1; i < words.size(); i++) {\n            if (words[i] < words[i - 1]) return 0;\n        }\n        return 1;\n    }\n};"
+        },
+        {
+            "date": 1652716800000,
+            "time": 4,
+            "memory": 9.1,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    bool isAlienSorted(vector<string> &words, string order) {\n        char map[26] = {0};\n        for (int i = 0; i < order.size(); i++) map[order[i] - 'a'] = i;\n        string prev = words[0];\n        for (int i = 1; i < words.size(); i++) {\n            if (!check(prev, words[i], map)) return false;\n            prev = words[i];\n        }\n        return true;\n    }\n    bool check(string &s1, string &s2, char *map) {\n        int i1 = 0, n1 = s1.size(), i2 = 0, n2 = s2.size();\n        while (i1 < n1 && i2 < n2) {\n            if (map[s1[i1] - 'a'] > map[s2[i2] - 'a']) return false;\n            if (map[s1[i1] - 'a'] < map[s2[i2] - 'a']) return true;\n            i1++;\n            i2++;\n        }\n        return i1 == n1;\n    }\n};"
+        }
+    ]
+}

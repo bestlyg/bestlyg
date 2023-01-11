@@ -1,0 +1,10 @@
+{
+    "name": "6231. 雇佣 K 位工人的总代价",
+    "url": "https://leetcode.cn/problems/total-cost-to-hire-k-workers/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "返回雇佣恰好 k 位工人的总代价。",
+    "solutions": []
+}

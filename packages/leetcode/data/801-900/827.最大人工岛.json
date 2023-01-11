@@ -1,0 +1,23 @@
+{
+    "name": "827. 最大人工岛",
+    "url": "https://leetcode.cn/problems/making-a-large-island/",
+    "difficulty": "困难",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个大小为 n x n 二进制矩阵 grid 。最多 只能将一格 0 变成 1 。返回执行此操作后，grid 中最大的岛屿面积是多少？。",
+    "solutions": [
+        {
+            "date": 1663430400000,
+            "time": 620,
+            "memory": 167.5,
+            "script": "cpp",
+            "desc": "uf 记录所有岛，对每个 0 位置进行尝试合并。",
+            "code": "class UnionFind{\npublic:\n    int n;\n    vector<int> list;\n    UnionFind(int n){\n        this->n = n;\n        list = vector<int>(n);\n        for (int i = 0; i < n; i++) list[i] = i;\n    }\n    int find(int e) {\n        if (list[e] == e) return e;\n        return list[e] = find(list[e]);\n    }\n    void uni(int e1, int e2) {\n        int p1 = find(e1), p2 = find(e2);\n        if (p1 != p2) list[p1] = p2;\n    }\n};\nint dirs[4][2] = {\n    {0, 1}, {0, -1},\n    {-1, 0}, {1, 0}\n};\ntypedef pair<int, int> node;\nclass Solution {\npublic:\n    int n;\n    int largestIsland(vector<vector<int>>& grid) {\n        n = grid.size();\n        vector<node> list0;\n        UnionFind uf(n * n);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                int idx = toIdx(i, j);\n                if (grid[i][j] == 0) {\n                    uf.list[idx] = -1;\n                    list0.push_back(make_pair(i, j));\n                } else {\n                    for (int k = 0; k < 4; k++) {\n                        int x = i + dirs[k][0], y = j + dirs[k][1];\n                        if (x < 0 || x == n || y < 0 || y == n || grid[x][y] == 0) continue;\n                        uf.uni(idx, toIdx(x, y));\n                    }\n                }\n            }\n        }\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (int i = 0; i < uf.n; i++) if (uf.list[i] != -1) ans = max(ans, ++m[uf.find(i)]);\n        for (auto &item : list0) {\n            unordered_set<int> s;\n            for (int i = 0; i < 4; i++) {\n                int x = item.first + dirs[i][0], y = item.second + dirs[i][1];\n                if (x < 0 || x == n || y < 0 || y == n || grid[x][y] == 0) continue;\n                s.insert(uf.find(toIdx(x, y)));\n            }\n            int sum = 1;\n            for (auto &p : s) sum += m[p];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n    int toIdx(int x, int y) {\n        return x * n + y;\n    }\n};"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "name": "123. 买卖股票的最佳时机 III",
+    "url": "https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。",
+    "solutions": [
+        {
+            "date": 1610121600000,
+            "time": 1028,
+            "memory": 85.4,
+            "script": "typescript",
+            "desc": "动态规划计算每个状态。",
+            "code": "function maxProfit(prices: number[]): number {\n  const len = prices.length;\n  if (len < 2) return 0;\n  // 0 手上没，1 手上有\n  // 0 完成0次交易 1 完成1次交易 2 完成两次交易\n  const dp: number[][][] = new Array(len)\n    .fill(0)\n    .map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(-Infinity)));\n  [dp[0][0][0], dp[0][1][0]] = [0, -prices[0]];\n  for (let i = 1; i < len; i++) {\n    dp[i][0][0] = dp[i - 1][0][0];\n    dp[i][0][1] = Math.max(prices[i] + dp[i - 1][1][0], dp[i - 1][0][1]);\n    dp[i][0][2] = i >= 3 ? Math.max(prices[i] + dp[i - 1][1][1], dp[i - 1][0][2]) : 0;\n    dp[i][1][0] = Math.max(dp[i - 1][1][0], -prices[i]);\n    dp[i][1][1] = Math.max(dp[i - 1][1][1], dp[i - 1][0][1] - prices[i]);\n    dp[i][1][2] = 0;\n  }\n  return Math.max(dp[len - 1][0][2], dp[len - 1][0][1]);\n}"
+        },
+        {
+            "date": 1610121600000,
+            "time": 984,
+            "memory": 86.9,
+            "script": "typescript",
+            "desc": "优化题解 1。",
+            "code": "function maxProfit(prices: number[]): number {\n  const len = prices.length;\n  if (len < 2) return 0;\n  // 0 手上没，1 手上有\n  // 0 完成0次交易 1 完成1次交易 2 完成两次交易\n  const dp: number[][][] = new Array(len)\n    .fill(0)\n    .map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(-Infinity)));\n  [dp[0][0][0], dp[0][1][0]] = [0, -prices[0]];\n  for (let i = 1; i < len; i++) {\n    const prev = dp[i - 1];\n    const prev0 = prev[0];\n    const prev1 = prev[1];\n    const price = prices[i];\n    [dp[i][0][1], dp[i][0][2], dp[i][1][0], dp[i][1][1]] = [\n      Math.max(price + prev1[0], prev0[1]),\n      i >= 3 ? Math.max(price + prev1[1], prev0[2]) : 0,\n      Math.max(prev1[0], -price),\n      Math.max(prev1[1], prev0[1] - price),\n    ];\n  }\n  return Math.max(dp[len - 1][0][2], dp[len - 1][0][1]);\n}"
+        }
+    ]
+}

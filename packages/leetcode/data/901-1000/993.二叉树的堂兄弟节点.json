@@ -1,0 +1,28 @@
+{
+    "name": "993. 二叉树的堂兄弟节点",
+    "url": "https://leetcode-cn.com/problems/cousins-in-binary-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点。",
+    "solutions": [
+        {
+            "date": 1621180800000,
+            "time": 116,
+            "memory": 39.3,
+            "script": "typescript",
+            "desc": "生成节点的继承链进行比较。",
+            "code": "function isCousins(root: TreeNode | null, x: number, y: number): boolean {\n  if (root === null) return false;\n  const findGrandParent = (\n    val: number,\n    queue: TreeNode[],\n    node: TreeNode | null = root\n  ): boolean => {\n    if (node === null) return false;\n    queue.unshift(node);\n    if (node.val === val) return true;\n    if (findGrandParent(val, queue, node.left)) return true;\n    if (findGrandParent(val, queue, node.right)) return true;\n    queue.shift();\n    return false;\n  };\n  const queueX: TreeNode[] = [];\n  findGrandParent(x, queueX);\n  const queueY: TreeNode[] = [];\n  findGrandParent(y, queueY);\n  if (queueX.length < 3 || queueY.length < 3) return false;\n  return queueX[1] !== queueY[1] && queueX.length === queueY.length;\n}"
+        },
+        {
+            "date": 1627142400000,
+            "time": 72,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function isCousins(root: TreeNode | null, x: number, y: number): boolean {\n  const map = new Map<number, { parent: TreeNode | null; level: number }>();\n  dfs();\n  const xNode = map.get(x)!;\n  const yNode = map.get(y)!;\n  return xNode.level === yNode.level && xNode.parent !== yNode.parent;\n  function dfs(node: TreeNode | null = root, level = 0, parent: TreeNode | null = null) {\n    if (node === null) return;\n    map.set(node.val, {\n      parent,\n      level,\n    });\n    dfs(node.left, level + 1, node);\n    dfs(node.right, level + 1, node);\n  }\n}"
+        }
+    ]
+}

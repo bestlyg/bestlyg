@@ -1,0 +1,29 @@
+{
+    "name": "395. 至少有 K 个重复字符的最长子串",
+    "url": "https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/",
+    "difficulty": "中等",
+    "tag": [
+        "递归",
+        "滑动窗口",
+        "分治算法"
+    ],
+    "desc": "给你一个二维整数数组 matrix， 返回 matrix 的 转置矩阵 。",
+    "solutions": [
+        {
+            "date": 1614355200000,
+            "time": 148,
+            "memory": 42.2,
+            "script": "typescript",
+            "desc": "读取可能值进行最长比较。",
+            "code": "function longestSubstring(s: string, k: number): number {\n  const len = s.length;\n  if (len === 1) return +(k === 1);\n  const map: Record<string, number> = {};\n  for (const c of s) map[c] = (map[c] ?? 0) + 1;\n  const set = new Set(\n    Object.entries(map)\n      .filter(([, v]) => v < k)\n      .map(([k]) => k)\n  );\n  const runtimeMap = new Map<string, number>();\n  const runtimeSet = new Set<string>();\n  let ans = 0;\n  for (let i = 0; i < len; i++) {\n    const c = s[i];\n    if (set.has(c)) continue;\n    runtimeMap.clear();\n    runtimeSet.clear();\n    runtimeMap.set(c, 1);\n    if (k > 1) runtimeSet.add(c);\n    let lastIndex = i;\n    while (++lastIndex < len) {\n      const newChar = s[lastIndex];\n      if (set.has(newChar)) break;\n      const charCount = (runtimeMap.get(newChar) ?? 0) + 1;\n      runtimeMap.set(newChar, charCount);\n      charCount >= k ? runtimeSet.delete(newChar) : runtimeSet.add(newChar);\n      if (runtimeSet.size === 0) ans = Math.max(ans, lastIndex - i + 1);\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1614355200000,
+            "time": 100,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "递归,分治。",
+            "code": "function longestSubstring(s: string, k: number): number {\n  const len = s.length;\n  if (len === 0) return 0;\n  if (len === 1) return +(k === 1);\n  const map: Record<string, number> = {};\n  for (const c of s) map[c] = (map[c] ?? 0) + 1;\n  const regStr = Object.entries(map)\n    .filter(([, v]) => v < k)\n    .map(([k]) => k)\n    .join('|');\n  if (regStr.length === 0) return s.length;\n  const arr = s.split(new RegExp(regStr));\n  return Math.max(...arr.map(str => longestSubstring(str, k)));\n}"
+        }
+    ]
+}

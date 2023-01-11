@@ -1,0 +1,51 @@
+{
+    "name": "9. 回文数",
+    "url": "https://leetcode-cn.com/problems/palindrome-number/",
+    "difficulty": "简单",
+    "tag": [
+        "数学"
+    ],
+    "desc": "给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '\\*' 的正则表达式匹配。",
+    "solutions": [
+        {
+            "date": 1586620800000,
+            "time": 248,
+            "memory": 46.1,
+            "script": "javascript",
+            "desc": "转换成字符串进行翻转判断。",
+            "code": "/**\n * @param {number} x\n * @return {boolean}\n */\nvar isPalindrome = x => x.toString() === x.toString().split('').reverse().join('');"
+        },
+        {
+            "date": 1591718400000,
+            "time": 208,
+            "memory": 44.3,
+            "script": "typescript",
+            "desc": "转换成字符串依次判断。",
+            "code": "function isPalindrome(x: number): boolean {\n  if (x < 0) return false;\n  if (x === 0) return true;\n  const str = x + '';\n  const len = str.length;\n  let i = -1,\n    j = len;\n  while (++i < --j) if (str[i] !== str[j]) return false;\n  return true;\n}"
+        },
+        {
+            "date": 1591718400000,
+            "time": 220,
+            "memory": 45.4,
+            "script": "typescript",
+            "desc": "转换成字符串进行翻转判断。",
+            "code": "function isPalindrome(x: number): boolean {\n  return x.toString() === x.toString().split('').reverse().join('');\n}"
+        },
+        {
+            "date": 1591718400000,
+            "time": 232,
+            "memory": 45.8,
+            "script": "typescript",
+            "desc": "压栈后观察两数是否相等。",
+            "code": "function isPalindrome(x: number): boolean {\n  if (x < 0) return false;\n  if (x < 10) return true;\n  let len = 0;\n  let temp = x;\n  while (temp !== 0) {\n    temp = ~~(temp / 10);\n    len++;\n  }\n  const stack = [];\n  temp = x;\n  while (stack.length < len >> 1) {\n    stack.push(temp % 10);\n    temp = ~~(temp / 10);\n  }\n  if ((len & 1) !== 0) temp = ~~(temp / 10);\n  const num = parseInt(stack.join(''));\n  return temp === num;\n}"
+        },
+        {
+            "date": 1591718400000,
+            "time": 272,
+            "memory": 45.8,
+            "script": "typescript",
+            "desc": "翻转一半的数字进行判断。",
+            "code": "function isPalindrome(x: number): boolean {\n  if (x < 0 || (x % 10 === 0 && x !== 0)) return false;\n  let revertedNumber: number = 0;\n  while (x > revertedNumber) {\n    revertedNumber = revertedNumber * 10 + (x % 10);\n    x = ~~(x / 10);\n  }\n  return x === revertedNumber || x === ~~(revertedNumber / 10);\n}"
+        }
+    ]
+}

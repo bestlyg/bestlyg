@@ -1,0 +1,21 @@
+{
+    "name": "299. 猜数字游戏",
+    "url": "https://leetcode-cn.com/problems/bulls-and-cows/",
+    "difficulty": "中等",
+    "tag": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "desc": "给你一个秘密数字 secret 和朋友猜测的数字 guess ，请你返回对朋友这次猜测的提示。",
+    "solutions": [
+        {
+            "date": 1636300800000,
+            "time": 100,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function getHint(secret: string, guess: string): string {\n  const n = secret.length;\n  let a = 0;\n  let b = 0;\n  const map: Record<string, number> = {};\n  const set = new Set<number>();\n  for (let i = 0; i < n; i++) {\n    const ch1 = secret[i];\n    const ch2 = guess[i];\n    if (ch1 === ch2) {\n      a++;\n      set.add(i);\n    } else map[ch1] = (map[ch1] ?? 0) + 1;\n  }\n  for (let i = 0; i < n; i++) {\n    if (set.has(i)) continue;\n    const ch2 = guess[i];\n    if (map[ch2]) {\n      b++;\n      map[ch2]--;\n    }\n  }\n  return `${a}A${b}B`;\n}"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "name": "697. 数组的度",
+    "url": "https://leetcode-cn.com/problems/degree-of-an-array/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给定一个非空且只包含非负数的整数数组  nums，数组的度的定义是指数组里任一元素出现频数的最大值。你的任务是在 nums 中找到与  nums  拥有相同大小的度的最短连续子数组，返回其长度。",
+    "solutions": [
+        {
+            "date": 1613750400000,
+            "time": 208,
+            "memory": 45.3,
+            "script": "typescript",
+            "desc": "读取到度后直接取头尾进行判断。",
+            "code": "function findShortestSubArray(nums: number[]): number {\n  const map = new Map<number, number>();\n  nums.forEach(num => map.set(num, 1 + (map.get(num) ?? 0)));\n  const degreeValue = Math.max(...map.values());\n  const degreeList = [];\n  for (const [k, v] of map) v === degreeValue && degreeList.push(k);\n  return Math.min(...degreeList.map(num => nums.lastIndexOf(num) - nums.indexOf(num) + 1));\n}"
+        },
+        {
+            "date": 1613750400000,
+            "time": 104,
+            "memory": 46.3,
+            "script": "typescript",
+            "desc": "优化题解 1。",
+            "code": "function findShortestSubArray(nums: number[]): number {\n  const indexMap = new Map<number, [number, number]>();\n  const computeIndex = (num: number) => {\n    const [start, end] = indexMap.get(num)!;\n    return end - start + 1;\n  };\n  const map = new Map<number, number>();\n  for (let i = 0, len = nums.length; i < len; i++) {\n    const num = nums[i];\n    map.set(num, 1 + (map.get(num) ?? 0));\n    const indexes = indexMap.get(num);\n    if (indexes) {\n      indexes[1] = i;\n    } else {\n      indexMap.set(num, [i, i]);\n    }\n  }\n  const degreeValue = Math.max(...map.values());\n  const degreeList = [];\n  for (const [k, v] of map) v === degreeValue && degreeList.push(k);\n  return Math.min(...degreeList.map(num => computeIndex(num)));\n}"
+        }
+    ]
+}

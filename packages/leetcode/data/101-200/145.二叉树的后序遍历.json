@@ -1,0 +1,44 @@
+{
+    "name": "145. 二叉树的后序遍历",
+    "url": "https://leetcode-cn.com/problems/binary-tree-postorder-traversal/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "树"
+    ],
+    "desc": "给定一个二叉树，返回它的 后序 遍历。",
+    "solutions": [
+        {
+            "date": 1582214400000,
+            "time": 0,
+            "memory": 37.7,
+            "script": "java",
+            "desc": "递归。",
+            "code": "class Solution {\n    public List<Integer> postorderTraversal(TreeNode root) {\n        List<Integer> list=new LinkedList<Integer>();\n        if(root!=null) {\n        \tpostorder(root, list);\n        }\n        return list;\n    }\n    public void postorder(TreeNode node,List<Integer> list) {\n    \tif(node.left!=null)postorder(node.left, list);\n    \tif(node.right!=null)postorder(node.right, list);\n    \tlist.add(node.val);\n    }\n}"
+        },
+        {
+            "date": 1582214400000,
+            "time": 1,
+            "memory": 38.1,
+            "script": "java",
+            "desc": "迭代。",
+            "code": "class Solution {\n    public List<Integer> postorderTraversal(TreeNode root) {\n        LinkedList<Integer> list=new LinkedList<Integer>();\n        if(root==null)return list;\n        Stack<TreeNode> stack = new Stack<TreeNode>();\n        stack.push(root);\n        while(!stack.isEmpty()) {\n        \tTreeNode node = stack.pop();\n        \tlist.addFirst(node.val);\n        \tif(node.left!=null)stack.push(node.left);\n        \tif(node.right!=null)stack.push(node.right);\n        }\n        return list;\n    }\n}"
+        },
+        {
+            "date": 1601308800000,
+            "time": 84,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "递归。",
+            "code": "function postorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  postOrder(root);\n  return ans;\n  function postOrder(root: TreeNode | null): void {\n    if (root === null) return;\n    root.left && postOrder(root.left);\n    root.right && postOrder(root.right);\n    ans.push(root.val);\n  }\n}"
+        },
+        {
+            "date": 1601308800000,
+            "time": 96,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "迭代遍历。",
+            "code": "function postorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  if (root === null) return [];\n  const used = new Set<TreeNode>();\n  const stack: TreeNode[] = [root];\n  while (stack.length !== 0) {\n    const node = stack.pop()!;\n    if (used.has(node)) ans.push(node.val);\n    else {\n      stack.push(node);\n      node.right && stack.push(node.right);\n      node.left && stack.push(node.left);\n      used.add(node);\n    }\n  }\n  return ans;\n}"
+        }
+    ]
+}

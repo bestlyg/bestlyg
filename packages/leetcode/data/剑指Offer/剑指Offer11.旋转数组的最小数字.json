@@ -1,0 +1,19 @@
+{
+    "name": "剑指 Offer 11. 旋转数组的最小数字",
+    "url": "https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/",
+    "difficulty": "简单",
+    "tag": [
+        "二分查找"
+    ],
+    "desc": "把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组  [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为 1。",
+    "solutions": [
+        {
+            "date": 1595347200000,
+            "time": 76,
+            "memory": 37.9,
+            "script": "typescript",
+            "desc": "二分查找。",
+            "code": "function minArray(numbers: number[]): number {\n  let last = numbers.length - 1;\n  const firstNum = numbers[0];\n  while (firstNum === numbers[last] && last !== 0) {\n    numbers.pop();\n    last--;\n  }\n  if (firstNum < numbers[last]) return firstNum;\n  else if (last === 0) return firstNum;\n  else return _find(0, last);\n  function _find(l: number, r: number): number {\n    // console.log(`[find],l=${l},r=${r}`);\n    if (l === r) return numbers[l];\n    const mid = (l + r) >> 1;\n    const num = numbers[mid];\n    return num >= firstNum ? _find(mid + 1, r) : _find(l, mid);\n  }\n}"
+        }
+    ]
+}

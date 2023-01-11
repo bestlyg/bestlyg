@@ -1,0 +1,10 @@
+{
+    "name": "6221. 最流行的视频创作者",
+    "url": "https://leetcode.cn/problems/minimum-addition-to-make-integer-beautiful/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "返回一个二维字符串数组 answer ，其中 answer[i] = [creatori, idi] 表示 creatori 的流行度 最高 且其最流行的视频 id 是 idi ，可以按任何顺序返回该结果。",
+    "solutions": []
+}

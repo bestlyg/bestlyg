@@ -1,0 +1,20 @@
+{
+    "name": "257. 二叉树的所有路径",
+    "url": "https://leetcode-cn.com/problems/binary-tree-paths/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个二叉树，返回所有从根节点到叶子节点的路径。",
+    "solutions": [
+        {
+            "date": 1599148800000,
+            "time": 88,
+            "memory": 39.7,
+            "script": "javascript",
+            "desc": "函数式编程，深度优先搜索。",
+            "code": "/**\n * @param {TreeNode} root\n * @return {string[]}\n */\nvar binaryTreePaths = function (root) {\n  if (!root) return [];\n  else if (!root.left && !root.right) return [root.val + ''];\n  else\n    return ['left', 'right']\n      .filter(sub => root[sub])\n      .map(sub =>\n        binaryTreePaths(root[sub])\n          .filter(v => v)\n          .map(v => `${root.val}->${v}`)\n      )\n      .flat();\n};"
+        }
+    ]
+}

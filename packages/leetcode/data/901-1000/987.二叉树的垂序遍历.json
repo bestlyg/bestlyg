@@ -1,0 +1,14 @@
+{
+    "name": "987. 二叉树的垂序遍历",
+    "url": "https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "哈希表",
+        "二叉树"
+    ],
+    "desc": "给你二叉树的根结点 root ，请你设计算法计算二叉树的 垂序遍历 序列。",
+    "solutions": []
+}

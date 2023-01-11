@@ -1,0 +1,28 @@
+{
+    "name": "面试题 01.05. 一次编辑",
+    "url": "https://leetcode-cn.com/problems/one-away-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "双指针",
+        "字符串"
+    ],
+    "desc": "字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。",
+    "solutions": [
+        {
+            "date": 1634313600000,
+            "time": 92,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function oneEditAway(first: string, second: string): boolean {\n  if (first === second) return true;\n  if (first.length < second.length) [first, second] = [second, first];\n  const l1 = first.length;\n  const l2 = second.length;\n  const minus = Math.abs(l1 - l2);\n  if (minus > 1) return false;\n  else if (minus === 0) {\n    for (let i = 0, j = 0; i < l1; i++) {\n      if (first[i] !== second[i]) {\n        if (j === 1) return false;\n        j++;\n      }\n    }\n    return true;\n  } else {\n    let idxFirst = -1;\n    let idxLast = -1;\n    for (let i = 0, l = Math.min(l1, l2); i < l; i++) {\n      if (first[i] !== second[i]) {\n        idxFirst = i;\n        break;\n      }\n    }\n    if (idxFirst === -1) return true;\n    for (let i1 = l1 - 1, i2 = l2 - 1; i1 >= 0 && i2 >= 0; i1--, i2--) {\n      if (first[i1] !== second[i2]) {\n        idxLast = i1;\n        break;\n      }\n    }\n    if (idxLast === -1) return true;\n    return idxFirst === idxLast;\n  }\n}"
+        },
+        {
+            "date": 1652371200000,
+            "time": 52,
+            "memory": 12,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    bool oneEditAway(string first, string second) {\n        int n1 = first.size(), n2 = second.size();\n        int i1 = 0, i2 = 0, cnt = 0;\n        for (; i1 < n1 && i2 < n2; i1++, i2++) {\n            if (first[i1] == second[i2]) continue;\n            if (cnt == 1) return false;\n            cnt++;\n            if (i1 + 1 < n1 && first[i1 + 1] == second[i2])\n                i1++;\n            else if (i2 + 1 < n2 && first[i1] == second[i2 + 1])\n                i2++;\n        }\n        if (cnt == 0) return abs(n1 - n2) <= 1;\n        return i1 == n1 && i2 == n2 && cnt <= 1;\n    }\n};"
+        }
+    ]
+}

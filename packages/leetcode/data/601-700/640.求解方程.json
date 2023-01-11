@@ -1,0 +1,21 @@
+{
+    "name": "640. 求解方程",
+    "url": "https://leetcode.cn/problems/solve-the-equation/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "字符串",
+        "模拟"
+    ],
+    "desc": "求解一个给定的方程，将 x 以字符串 \"x=#value\" 的形式返回。该方程仅包含 '+' ， '-' 操作，变量 x 和其对应系数。",
+    "solutions": [
+        {
+            "date": 1660060800000,
+            "time": 0,
+            "memory": 2,
+            "script": "rust",
+            "desc": "拆分后解析。",
+            "code": "use std::collections::VecDeque;\nimpl Solution {\n    pub fn solve_equation(equation: String) -> String {\n        let (mut l, mut r) = (0, 0);\n        let equation = equation.split('=').collect::<Vec<&str>>();\n        Solution::analysis(&mut l, &mut r, Solution::format(equation[0]), 1);\n        Solution::analysis(&mut l, &mut r, Solution::format(equation[1]), -1);\n        if l == 0 && r == 0 {\n            String::from(\"Infinite solutions\")\n        } else if l == 0 {\n            String::from(\"No solution\")\n        } else {\n            format!(\"x={}\", r / l)\n        }\n    }\n    fn format(s: &str) -> String {\n        let mut ans = s.to_string().chars().collect::<VecDeque<char>>();\n        let front = ans.front().unwrap();\n        if *front != '+' && *front != '-' {\n            ans.push_front('+');\n        }\n        ans.push_front('0');\n        String::from_utf8(ans.iter().map(|c| *c as u8).collect::<Vec<u8>>()).unwrap()\n    }\n    fn analysis(l: &mut i32, r: &mut i32, s: String, flag: i32) {\n        let s = s.chars().collect::<Vec<char>>();\n        let mut i = 0;\n        while i < s.len() {\n            let mut num = String::new();\n            if i != 0 {\n                num.push(s[i - 1]);\n            }\n            while i < s.len() && s[i] != '+' && s[i] != '-' && s[i] != 'x' {\n                num.push(s[i]);\n                i += 1;\n            }\n            if i < s.len() && s[i] == 'x' {\n                if num.len() == 1 && (num.eq(\"+\") || num.eq(\"-\")) {\n                    num.push('1');\n                }\n                *l += flag * num.parse::<i32>().unwrap();\n                i += 1;\n            } else {\n                *r += -1 * flag * num.parse::<i32>().unwrap();\n            }\n            i += 1;\n        }\n    }\n}"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "979. 在二叉树中分配硬币",
+    "url": "https://leetcode-cn.com/problems/distribute-coins-in-binary-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "desc": "给定一个有 N 个结点的二叉树的根结点 root，树中的每个结点上都对应有 node.val 枚硬币，并且总共有 N 枚硬币。返回使每个结点上只有一枚硬币所需的移动次数。",
+    "solutions": [
+        {
+            "date": 1627142400000,
+            "time": 76,
+            "memory": 41.7,
+            "script": "typescript",
+            "desc": "分别统计每个子节点进行递归。",
+            "code": "function distributeCoins(root: TreeNode | null): number {\n  return get()[0];\n  function get(node = root): [number, number, number] {\n    if (node === null) return [0, 0, 0];\n    let ans = 0;\n    let nodeCount = 1;\n    let coinCount = node.val;\n    let [subAns, subNodeCount, subCoinCount] = get(node.left);\n    ans += subAns + Math.abs(subNodeCount - subCoinCount);\n    nodeCount += subNodeCount;\n    coinCount += subCoinCount;\n    [subAns, subNodeCount, subCoinCount] = get(node.right);\n    ans += subAns + Math.abs(subNodeCount - subCoinCount);\n    nodeCount += subNodeCount;\n    coinCount += subCoinCount;\n    return [ans, nodeCount, coinCount];\n  }\n}"
+        }
+    ]
+}

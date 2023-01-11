@@ -1,0 +1,20 @@
+{
+    "name": "1760. 袋子里最少数目的球",
+    "url": "https://leetcode-cn.com/problems/minimum-limit-of-balls-in-a-bag/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给你一个整数数组 nums ，你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。",
+    "solutions": [
+        {
+            "date": 1626796800000,
+            "time": 260,
+            "memory": 49.4,
+            "script": "typescript",
+            "desc": "对最大值进行二分查找。",
+            "code": "function minimumSize(nums: number[], maxOperations: number): number {\n  return search();\n  function search(l = 1, r = Math.max(...nums)): number {\n    if (l === r) return l;\n    const mid = (l + r) >> 1;\n    if (count(mid) <= maxOperations) r = mid;\n    else l = mid + 1;\n    return search(l, r);\n  }\n  function count(size: number): number {\n    return nums.reduce((total, num) => total + ~~(num / size) + +!!(num % size) - 1, 0);\n  }\n}"
+        }
+    ]
+}

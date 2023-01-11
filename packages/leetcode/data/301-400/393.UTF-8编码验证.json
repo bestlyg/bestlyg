@@ -1,0 +1,20 @@
+{
+    "name": "393. UTF-8 编码验证",
+    "url": "https://leetcode-cn.com/problems/utf-8-validation/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组"
+    ],
+    "desc": "给定一个表示数据的整数数组 data ，返回它是否为有效的 UTF-8 编码。",
+    "solutions": [
+        {
+            "date": 1647100800000,
+            "time": 4,
+            "memory": 13.5,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "#define MAXBIT 7\n·class Solution {\n   public:\n    bool validUtf8(vector<int>& data) {\n        int n = data.size(), remain = 0;\n        for (auto& byte : data) {\n            if (remain) {\n                // 有残留但不是10\n                if (!check10(byte)) return false;\n                remain--;\n                continue;\n            }\n            if ((byte & 1 << MAXBIT) == 0) continue;\n            // 无残留但是10\n            if (check10(byte)) return false;\n            while (remain < MAXBIT && (1 << (MAXBIT - remain - 1) & byte) > 0)\n                remain++;\n            // 剩余残留>3\n            if (remain >= 4) return false;\n        }\n        return remain == 0;\n    }\n    bool check10(int byte) {\n        return (byte & 1 << MAXBIT) > 0 && (byte & 1 << (MAXBIT - 1)) == 0;\n    }\n};"
+        }
+    ]
+}

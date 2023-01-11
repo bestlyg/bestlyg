@@ -1,0 +1,27 @@
+{
+    "name": "509. 斐波那契数",
+    "url": "https://leetcode-cn.com/problems/fibonacci-number/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。",
+    "solutions": [
+        {
+            "date": 1581350400000,
+            "time": 64,
+            "memory": 33.6,
+            "script": "javascript",
+            "desc": "创建对象，循环赋值，若对象里不存在则储存，存在则直接取值。",
+            "code": "var fib = function (N) {\n  let obj = {\n    0: 0,\n    1: 1,\n  };\n  for (let i = 2; i <= N; i++) {\n    obj[i] = obj[i - 1] + obj[i - 2];\n  }\n  return obj[N];\n};"
+        },
+        {
+            "date": 1609689600000,
+            "time": 88,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "动态规划,依次累加。",
+            "code": "function fib(n: number): number {\n  if (n === 0) return 0;\n  if (n === 1) return 1;\n  let num0 = 0;\n  let num1 = 1;\n  for (let i = 2; i <= n; i++) [num0, num1] = [num1, num0 + num1];\n  return num1;\n}"
+        }
+    ]
+}

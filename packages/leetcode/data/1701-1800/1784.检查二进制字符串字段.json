@@ -1,0 +1,19 @@
+{
+    "name": "1784. 检查二进制字符串字段",
+    "url": "https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给你一个二进制字符串 s ，该字符串 不含前导零 。如果 s 包含 零个或一个由连续的 '1' 组成的字段 ，返回 true​​​ 。否则，返回 false 。如果 s  中   由连续若干个  '1' 组成的字段   数量不超过 1，返回 true​​​ 。否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1664726400000,
+            "time": 0,
+            "memory": 6,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    bool checkOnesSegment(string s) {\n        int cnt = 0, n = s.size();\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') continue;\n            while (i + 1 < n && s[i + 1] == '1') i++;\n            if (++cnt > 1) return false;\n        }\n        return true;\n    }\n};"
+        }
+    ]
+}

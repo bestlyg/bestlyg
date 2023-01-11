@@ -1,0 +1,10 @@
+{
+    "name": "6224. 最大公因数等于 K 的子数组数目",
+    "url": "https://leetcode.cn/problems/number-of-subarrays-with-gcd-equal-to-k/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "数组的最大公因数 是能整除数组中所有元素的最大整数。",
+    "solutions": []
+}

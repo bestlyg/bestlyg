@@ -1,0 +1,10 @@
+{
+    "name": "6214. 判断两个事件是否存在冲突",
+    "url": "https://leetcode.cn/problems/determine-if-two-events-have-conflict/",
+    "difficulty": "困难",
+    "tag": [
+        ""
+    ],
+    "desc": "如果两个事件之间存在冲突，返回 true ；否则，返回 false 。",
+    "solutions": []
+}

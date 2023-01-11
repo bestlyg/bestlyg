@@ -1,0 +1,13 @@
+{
+    "name": "1703. 得到连续 K 个 1 的最少相邻交换次数",
+    "url": "https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "前缀和",
+        "滑动窗口"
+    ],
+    "desc": "请你返回使 nums 中包含 k 个 连续 1 的 最少 交换次数。",
+    "solutions": []
+}

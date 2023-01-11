@@ -1,0 +1,27 @@
+{
+    "name": "172. 阶乘后的零",
+    "url": "https://leetcode-cn.com/problems/factorial-trailing-zeroes/",
+    "difficulty": "简单",
+    "tag": [
+        "数学"
+    ],
+    "desc": "给定一个整数 n，返回 n! 结果尾数中零的数量。",
+    "solutions": [
+        {
+            "date": 1627488000000,
+            "time": 72,
+            "memory": 39.1,
+            "script": "javascript",
+            "desc": "只有 2\\*5 才会出现 0，统计出现 5 的次数。",
+            "code": "var trailingZeroes = function (n) {\n  let ans = 0;\n  let m = 5;\n  while (n / m) {\n    ans += ~~(n / m);\n    m *= 5;\n  }\n  return ans;\n};"
+        },
+        {
+            "date": 1648137600000,
+            "time": 0,
+            "memory": 6,
+            "script": "cpp",
+            "desc": "统计有几个 5。",
+            "code": "class Solution {\n   public:\n    int trailingZeroes(int n) {\n        int ans = 0;\n        for (int cnt = 1; pow(5, cnt) <= n; cnt++) ans += n / pow(5, cnt);\n        return ans;\n    }\n};"
+        }
+    ]
+}

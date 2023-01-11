@@ -1,0 +1,12 @@
+{
+    "name": "1774. 最接近目标价格的甜点成本",
+    "url": "https://leetcode.cn/problems/closest-dessert-cost",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "动态规划",
+        "回溯"
+    ],
+    "desc": "返回最接近 target 的甜点成本。如果有多种方案，返回 成本相对较低 的一种。",
+    "solutions": []
+}

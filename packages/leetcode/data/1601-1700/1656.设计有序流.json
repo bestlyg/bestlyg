@@ -1,0 +1,22 @@
+{
+    "name": "1656. 设计有序流",
+    "url": "https://leetcode.cn/problems/design-an-ordered-stream/",
+    "difficulty": "简单",
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表",
+        "数据流"
+    ],
+    "desc": "设计一个流，以 任意 顺序获取 n 个 (id, value) 对，并在多次调用时 按 id 递增的顺序 返回一些值。",
+    "solutions": [
+        {
+            "date": 1660579200000,
+            "time": 32,
+            "memory": 2.8,
+            "script": "rust",
+            "desc": "遍历。",
+            "code": "struct OrderedStream {\n    ptr: usize,\n    n: usize,\n    list: Vec<String>,\n}\nimpl OrderedStream {\n    fn new(n: i32) -> Self {\n        let n = n as usize;\n        let mut list = Vec::<String>::with_capacity(n);\n        for _ in 0..n {\n            list.push(String::new());\n        }\n        Self { ptr: 0, list, n }\n    }\n    fn insert(&mut self, id_key: i32, value: String) -> Vec<String> {\n        self.list[(id_key - 1) as usize] = value;\n        let mut ans = Vec::new();\n        while self.ptr < self.n && self.list[self.ptr].len() == 5 {\n            ans.push(self.list[self.ptr].clone());\n            self.ptr += 1;\n        }\n        ans\n    }\n}"
+        }
+    ]
+}

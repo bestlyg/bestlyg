@@ -1,0 +1,29 @@
+{
+    "name": "430. 扁平化多级双向链表",
+    "url": "https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "链表",
+        "双向链表"
+    ],
+    "desc": "多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表，请你扁平化列表，使所有结点出现在单级双链表中。",
+    "solutions": [
+        {
+            "date": 1627142400000,
+            "time": 72,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "递归格式化每一层。",
+            "code": "function flatten(head: Node | null): Node | null {\n  if (head === null) return null;\n  let p: Node | null = head;\n  while (p) {\n    format(p);\n    p = p.next;\n  }\n  return head;\n  function format(node: Node) {\n    if (!node.child) return;\n    const { next, child } = node;\n    if (next) {\n      next.prev = null;\n      let prev: Node | null = null;\n      let p: Node | null = child;\n      while (p) {\n        format(p);\n        prev = p;\n        p = p.next;\n      }\n      prev!.next = next;\n      next.prev = prev;\n    }\n    node.child = null;\n    node.next = child;\n    child.prev = node;\n  }\n}"
+        },
+        {
+            "date": 1632412800000,
+            "time": 64,
+            "memory": 39.7,
+            "script": "javascript",
+            "desc": "递归格式化。",
+            "code": "function flatten(head: Node | null): Node | null {\n  if (head === null) return null;\n  return format(head)[0];\n  function format(node: Node): [Node, Node] {\n    if (node.child === null && node.next === null) return [node, node];\n    node.prev = null;\n    let prev: Node = node;\n    let p: Node | null = node;\n    while (p) {\n      const next = p.next;\n      if (p.child) {\n        const [first, last] = format(p.child);\n        p.next = first;\n        first.prev = p;\n        last.next = next;\n        if (next) next.prev = last;\n        prev = last;\n      } else {\n        prev = p;\n      }\n      p.child = null;\n      p = next;\n    }\n    return [node, prev];\n  }\n}"
+        }
+    ]
+}

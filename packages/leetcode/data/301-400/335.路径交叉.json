@@ -1,0 +1,21 @@
+{
+    "name": "335. 路径交叉",
+    "url": "https://leetcode-cn.com/problems/self-crossing//",
+    "difficulty": "困难",
+    "tag": [
+        "几何",
+        "数组",
+        "数学"
+    ],
+    "desc": "给你一个整数数组 distance 。判断你所经过的路径是否相交。如果相交，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1635436800000,
+            "time": 96,
+            "memory": 41.7,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/self-crossing/solution/gong-shui-san-xie-fen-qing-kuang-tao-lun-zdrb/)。",
+            "code": "function isSelfCrossing(distance: number[]): boolean {\n  const n = distance.length;\n  if (n <= 3) return false;\n  for (let i = 3; i < n; i++) {\n    if (i >= 3 && distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) return true;\n    if (\n      i >= 4 &&\n      distance[i - 1] === distance[i - 3] &&\n      distance[i] + distance[i - 4] >= distance[i - 2]\n    )\n      return true;\n    if (\n      i >= 5 &&\n      distance[i - 1] <= distance[i - 3] &&\n      distance[i - 2] > distance[i - 4] &&\n      distance[i] + distance[i - 4] >= distance[i - 2] &&\n      distance[i - 1] + distance[i - 5] >= distance[i - 3]\n    )\n      return true;\n  }\n  return false;\n}"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "460. LFU 缓存",
+    "url": "https://leetcode-cn.com/problems/lfu-cache/",
+    "difficulty": "困难",
+    "tag": [
+        "设计"
+    ],
+    "desc": "请你为 最不经常使用（LFU）缓存算法设计并实现数据结构。它应该支持以下操作：get 和 put。",
+    "solutions": [
+        {
+            "date": 1586361600000,
+            "time": 1136,
+            "memory": 78.2,
+            "script": "javascript",
+            "desc": "使用 Node 储存次数和值，进行判断，难点没有就是细节需要考虑。",
+            "code": "class Node {\n  count = 0;\n  value;\n  constructor(value) {\n    this.value = value;\n  }\n}\nclass LFUCache {\n  _capacity;\n  _cache = new Map();\n  newest = [];\n  constructor(capacity) {\n    this._capacity = capacity;\n  }\n  get(key) {\n    // console.log('====GET-' + key);\n    // console.log(this._cache);\n    if (this._capacity === 0 || !this._cache.has(key)) return -1;\n    const node = this._cache.get(key);\n    node.count++;\n    this.setNewest(key);\n    return node.value;\n  }\n  setNewest(key) {\n    if (this.newest[this.newest.length - 1] === key) return;\n    this.newest = this.newest.filter(v => v !== key);\n    this.newest.push(key);\n  }\n  getMinKey() {\n    const arr = [];\n    let minValue = Number.MAX_VALUE;\n    for (let [_, node] of this._cache) {\n      if (node.count < minValue) {\n        minValue = node.count;\n      }\n    }\n    for (let [key, node] of this._cache) {\n      if (node.count === minValue) arr.push(key);\n    }\n    return arr;\n  }\n  put(key, value) {\n    // console.log('====PUT-' + key + '-' + value);\n    // console.log(key, value);\n    if (this._capacity === 0) return;\n    if (this._cache.has(key)) {\n      const node = this._cache.get(key);\n      node.value = value;\n      node.count++;\n      this.setNewest(key);\n      return;\n    }\n    const node = new Node(value);\n    if (this._cache.size < this._capacity) {\n      this._cache.set(key, node);\n      this.setNewest(key);\n      return;\n    }\n    const mins = this.getMinKey();\n    if (mins.length === 1) {\n      this._cache.delete(mins[0]);\n      this._cache.set(key, node);\n      this.setNewest(key);\n      return;\n    }\n    // console.log('mins:' + mins);\n    // console.log('newest:' + this.newest);\n    for (let item of this.newest) {\n      if (mins.includes(item)) {\n        this._cache.delete(item);\n        this._cache.set(key, node);\n        this.setNewest(key);\n        return;\n      }\n    }\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "name": "783. 二叉搜索树节点最小距离",
+    "url": "https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "递归"
+    ],
+    "desc": "给定一个二叉搜索树的根结点 root, 返回树中任意两节点的差的最小值。",
+    "solutions": [
+        {
+            "date": 1582387200000,
+            "time": 0,
+            "memory": 36.9,
+            "script": "java",
+            "desc": "中序遍历排序后，获取相邻元素之间的差判断最小值。",
+            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tArrayList<Integer> list = new ArrayList<Integer>();\n\tpublic int minDiffInBST(TreeNode root) {\n\t\tinorder(root);\n\t\tint min = list.get(1) - list.get(0);\n\t\tfor (int i = 0, len = list.size() - 1; i < len; i++)\n\t\t\tmin=Math.min(list.get(i + 1) - list.get(i), min);\n\t\treturn min;\n\t}\n\tpublic void inorder(TreeNode node) {\n\t\tif (node.left != null) {\n\t\t\tinorder(node.left);\n\t\t}\n\t\tlist.add(node.val);\n\t\tif (node.right != null) {\n\t\t\tinorder(node.right);\n\t\t}\n\t}\n}"
+        },
+        {
+            "date": 1618243200000,
+            "time": 88,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "中序遍历。",
+            "code": "function minDiffInBST(root: TreeNode | null): number {\n  if (root === null) return 0;\n  const arr: number[] = [];\n  const inorder = (node: TreeNode | null) => {\n    if (node === null) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  };\n  inorder(root);\n  let min = Infinity;\n  for (let i = 1, l = arr.length; i < l; i++) {\n    min = Math.min(min, arr[i] - arr[i - 1]);\n  }\n  return min;\n}"
+        }
+    ]
+}

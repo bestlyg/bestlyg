@@ -1,0 +1,28 @@
+{
+    "name": "39. 组合总和",
+    "url": "https://leetcode-cn.com/problems/combination-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "回溯算法"
+    ],
+    "desc": "给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。",
+    "solutions": [
+        {
+            "date": 1599580800000,
+            "time": 104,
+            "memory": 44.9,
+            "script": "typescript",
+            "desc": "遍历数组递归。",
+            "code": "function combinationSum(candidates: number[], target: number): number[][] {\n  const len = candidates.length;\n  if (len === 0) return [];\n  else if (len === 1) {\n    const num = candidates[0];\n    return target % num === 0 ? [new Array(target / num).fill(num)] : [];\n  }\n  const ans: number[][] = [];\n  for (let i = 0; i < len; i++) {\n    const num = candidates[i];\n    let sum = 0;\n    let arr = combinationSum([num], target);\n    let count = 0;\n    if (arr.length !== 0) ans.push(...arr);\n    while ((sum += num) < target) {\n      count++;\n      arr = combinationSum(candidates.slice(i + 1), target - sum);\n      arr.length !== 0 && ans.push(...arr.map(v => new Array(count).fill(num).concat(v)));\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1627142400000,
+            "time": 92,
+            "memory": 40.7,
+            "script": "typescript",
+            "desc": "dfs+剪枝，每次遍历时，可以选当前值或者下一值。",
+            "code": "function combinationSum(candidates: number[], target: number): number[][] {\n  const ans: number[][] = [];\n  dfs();\n  return ans;\n  function dfs(index = 0, value = 0, list: number[] = []) {\n    if (value >= target || index === candidates.length) {\n      value === target && ans.push([...list]);\n      return;\n    }\n    const candy = candidates[index];\n    list.push(candy);\n    dfs(index, value + candy, list);\n    list.pop();\n    dfs(index + 1, value, list);\n  }\n}"
+        }
+    ]
+}

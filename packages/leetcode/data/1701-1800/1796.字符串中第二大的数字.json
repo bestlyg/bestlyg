@@ -1,0 +1,11 @@
+{
+    "name": "1796. 字符串中第二大的数字",
+    "url": "https://leetcode.cn/problems/second-largest-digit-in-a-string",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "给你一个混合字符串 s ，请你返回 s 中 第二大 的数字，如果不存在第二大的数字，请你返回 -1 。",
+    "solutions": []
+}

@@ -1,0 +1,20 @@
+{
+    "name": "761. 特殊的二进制序列",
+    "url": "https://leetcode.cn/problems/special-binary-string/",
+    "difficulty": "困难",
+    "tag": [
+        "递归",
+        "字符串"
+    ],
+    "desc": "在任意次数的操作之后，交换后的字符串按照字典序排列的最大的结果是什么。",
+    "solutions": [
+        {
+            "date": 1659888000000,
+            "time": 0,
+            "memory": 2.1,
+            "script": "rust",
+            "desc": "当作左括号和右括号的匹配。",
+            "code": "impl Solution {\n    pub fn make_largest_special(s: String) -> String {\n        let s = s.chars().collect::<Vec<char>>();\n        Solution::_make_largest_special(&s, 0, s.len())\n    }\n    fn _make_largest_special(s: &Vec<char>, l: usize, r: usize) -> String {\n        if l >= r - 1 {\n            return String::new();\n        }\n        let (mut i, mut cnt, mut left, mut substrs) = (l, 0, l, Vec::<String>::new());\n        while i < r {\n            if s[i] == '1' {\n                cnt += 1;\n            } else {\n                cnt -= 1;\n                if cnt == 0 {\n                    substrs.push(format!(\n                        \"1{}0\",\n                        Solution::_make_largest_special(s, left + 1, i)\n                    ));\n                    left = i + 1;\n                }\n            }\n            i += 1;\n        }\n        substrs.sort_by(|s1, s2| s2.cmp(s1));\n        substrs.join(\"\")\n    }\n}"
+        }
+    ]
+}

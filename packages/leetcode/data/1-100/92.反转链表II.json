@@ -1,0 +1,27 @@
+{
+    "name": "92. 反转链表 II",
+    "url": "https://leetcode-cn.com/problems/reverse-linked-list-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "链表"
+    ],
+    "desc": "反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。",
+    "solutions": [
+        {
+            "date": 1614960000000,
+            "time": 80,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "递归计算剩余翻转节点个数。",
+            "code": "function reverseList(head: ListNode, count: number): ListNode | null {\n  if (count === 1 || head.next === null) return head;\n  const tail = head.next;\n  const nextList = reverseList(tail, count - 1);\n  head.next = tail.next;\n  tail.next = head;\n  return nextList;\n}\nfunction reverseBetween(head: ListNode | null, left: number, right: number): ListNode | null {\n  const dummyHead = new ListNode(0, head);\n  let temp: ListNode = dummyHead;\n  const count = right - left + 1;\n  while (--left) temp = temp.next!;\n  temp!.next = reverseList(temp.next!, count);\n  return dummyHead.next;\n}"
+        },
+        {
+            "date": 1615996800000,
+            "time": 100,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "递归翻转。",
+            "code": "function reverseBetween(head: ListNode | null, left: number, right: number): ListNode | null {\n  if (head === null) return null;\n  const dummyNode = new ListNode(0, head);\n  let p: ListNode | null = dummyNode;\n  let c = 0;\n  let prev!: ListNode;\n  while (c !== left && p !== null) {\n    c++;\n    prev = p;\n    p = p.next;\n  }\n  const reverse = (node: ListNode | null, count: number): ListNode | null => {\n    if (count === 1 || node === null) return node;\n    const nextNode: ListNode = node.next!;\n    const newNode = reverse(nextNode, count - 1);\n    node.next = nextNode.next;\n    nextNode.next = node;\n    return newNode;\n  };\n  const newNode = reverse(p, right - left + 1);\n  prev.next = newNode;\n  return dummyNode.next;\n}"
+        }
+    ]
+}

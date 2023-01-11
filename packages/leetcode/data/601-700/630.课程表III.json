@@ -1,0 +1,21 @@
+{
+    "name": "630. 课程表 III",
+    "url": "https://leetcode-cn.com/problems/course-schedule-iii/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "堆(优先队列)"
+    ],
+    "desc": "返回你最多可以修读的课程数目。",
+    "solutions": [
+        {
+            "date": 1639411200000,
+            "time": 180,
+            "memory": 47.4,
+            "script": "typescript",
+            "desc": "按照结束时间排序后，每次取出值存入大根堆，维护当前需要的总时间 sum，当 sum 大于结束时间时，移除堆顶。",
+            "code": "class Heap<T = number> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n  *[Symbol.iterator](): IterableIterator<T> {\n    for (const t of this.arr) {\n      yield t;\n    }\n  }\n}\nfunction scheduleCourse(courses: number[][]): number {\n  const heap = new Heap<number>((a, b) => a - b);\n  let sum = 0;\n  for (const [dur, last] of courses.sort((a, b) => a[1] - b[1])) {\n    sum += dur;\n    heap.add(dur);\n    if (sum > last) sum -= heap.remove();\n  }\n  return heap.size;\n}"
+        }
+    ]
+}

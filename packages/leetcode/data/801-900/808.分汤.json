@@ -1,0 +1,12 @@
+{
+    "name": "808. 分汤",
+    "url": "https://leetcode.cn/problems/soup-servings/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "动态规划",
+        "概率与统计"
+    ],
+    "desc": "有 A 和 B 两种类型 的汤。当两种类型的汤都分配完时，停止操作。",
+    "solutions": []
+}

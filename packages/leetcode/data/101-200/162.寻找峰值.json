@@ -1,0 +1,28 @@
+{
+    "name": "162. 寻找峰值",
+    "url": "https://leetcode-cn.com/problems/find-peak-element/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给你一个整数数组 nums，找到峰值元素并返回其索引。",
+    "solutions": [
+        {
+            "date": 1631635200000,
+            "time": 68,
+            "memory": 39.6,
+            "script": "javascript",
+            "desc": "On 循环。",
+            "code": "function findPeakElement(nums: number[]): number {\n  const n = nums.length;\n  if (n === 1) return 0;\n  if (nums[0] > nums[1]) return 0;\n  if (nums[n - 1] > nums[n - 2]) return n - 1;\n  for (let i = 1; i <= n - 1; i++) {\n    if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) return i;\n  }\n  return 0;\n}"
+        },
+        {
+            "date": 1631635200000,
+            "time": 76,
+            "memory": 39.4,
+            "script": "javascript",
+            "desc": "二分查找。",
+            "code": "function findPeakElement(nums: number[]): number {\n  let l = 0;\n  let r = nums.length - 1;\n  while (l < r) {\n    const mid = (l + r) >> 1;\n    if (nums[mid] > nums[mid + 1]) r = mid;\n    else l = mid + 1;\n  }\n  return l;\n}"
+        }
+    ]
+}

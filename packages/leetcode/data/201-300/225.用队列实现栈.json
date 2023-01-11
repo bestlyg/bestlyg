@@ -1,0 +1,28 @@
+{
+    "name": "225. 用队列实现栈",
+    "url": "https://leetcode-cn.com/problems/implement-stack-using-queues/",
+    "difficulty": "简单",
+    "tag": [
+        "栈",
+        "设计"
+    ],
+    "desc": "使用队列实现栈的下列操作：push(x) -- 元素 x 入栈，pop() -- 移除栈顶元素，top() -- 获取栈顶元素，empty() -- 返回栈是否为空。",
+    "solutions": [
+        {
+            "date": 1581782400000,
+            "time": 0,
+            "memory": 40.8,
+            "script": "java",
+            "desc": "使用双端队列构建。",
+            "code": "class MyStack {\n    private Deque<Integer> deue;\n    public MyStack() {\n        deue=new LinkedList<Integer>();\n    }\n    public void push(int x) {\n        deue.offerLast(x);\n    }\n    public int pop() {\n    \treturn deue.pollLast();\n    }\n    public int top() {\n        return deue.getLast();\n    }\n    public boolean empty() {\n        return deue.isEmpty();\n    }\n}"
+        },
+        {
+            "date": 1637683200000,
+            "time": 0,
+            "memory": 5.7,
+            "script": "typescript",
+            "desc": "queue。",
+            "code": "// #define DEBUG\n#ifdef DEBUG\n#define log(frm, args...)    \\\n    {                        \\\n        printf(frm, ##args); \\\n    }\n#else\n#define log(frm, args...)\n#endif\n\ntypedef struct Node{\n    int val;\n    struct Node *prev, *next;\n} Node;\nNode *createNode(int val){\n    Node *node = (Node *)malloc(sizeof(Node));\n    node->val = val;\n    node->prev = NULL;\n    node->next = NULL;\n    return node;\n}\ntypedef struct {\n    int size;\n    Node *head, *tail;\n} Queue;\nQueue *ceateQueue(){\n    Queue *q = (Queue *)malloc(sizeof(Queue));\n    q->size = 0;\n    q->tail = q->head = NULL;\n    return q;\n}\nvoid enQueue(Queue *q, int val){\n    Node *node = createNode(val);\n    if (q->size == 0) {\n        q->head = q->tail = node;\n    } else {\n        node->prev = q->tail;\n        q->tail->next = node;\n        q->tail = node;\n    }\n    q->size++;\n    log(\"enQueue %d success, head = %d, tail = %d\\n\", val, q->head->val, q->tail->val);\n}\nint isQueueEmpty(Queue *q) {\n    return q->size == 0;\n}\nint queueTop(Queue *q){\n    if (isQueueEmpty(q)) return -1;\n    return q->head->val;\n}\nint deQueue(Queue *q) {\n    if (isQueueEmpty(q)) return -1;\n    if (q->size == 1) {\n        Node *node = q->head;\n        int val = node->val;\n        q->tail = q->head = NULL;\n        free(node);\n        q->size = 0;\n        return val;\n    }\n    Node *node = q->head;\n    node->next->prev = NULL;\n    int val = node->val;\n    q->head = node->next;\n    free(node);\n    q->size--;\n    return val;\n}\nvoid freeQueue(Queue *q){\n    while(q->size) deQueue(q);\n    free(q);\n}\n\ntypedef struct {\n    int size;\n    Queue *q1, *q2;\n} MyStack;\n\nMyStack* myStackCreate() {\n    MyStack *s = (MyStack *)malloc(sizeof(MyStack));\n    s->q1 = ceateQueue();\n    s->q2 = ceateQueue();\n    return s;\n}\n\nvoid myStackPush(MyStack* obj, int x) {\n    log(\"push %d\\n\", x);\n    enQueue(obj->q1, x);\n    log(\"push %d successfully\\n\", x);\n}\n\nint myStackPop(MyStack* obj) {\n    while(obj->q1->size > 1) enQueue(obj->q2, deQueue(obj->q1));\n    int val = deQueue(obj->q1);\n    while(obj->q2->size) enQueue(obj->q1, deQueue(obj->q2));\n    return val;\n}\n\nint myStackTop(MyStack* obj) {\n    return obj->q1->tail->val;\n}\n\nbool myStackEmpty(MyStack* obj) {\n    return obj->q1->size == 0;\n}\n\nvoid myStackFree(MyStack* obj) {\n    freeQueue(obj->q1);\n    freeQueue(obj->q2);\n    free(obj);\n}"
+        }
+    ]
+}

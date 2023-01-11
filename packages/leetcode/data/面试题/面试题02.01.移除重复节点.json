@@ -1,0 +1,27 @@
+{
+    "name": "面试题 02.01. 移除重复节点",
+    "url": "https://leetcode-cn.com/problems/remove-duplicate-node-lcci/",
+    "difficulty": "简单",
+    "tag": [
+        "链表"
+    ],
+    "desc": "编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。",
+    "solutions": [
+        {
+            "date": 1593187200000,
+            "time": 92,
+            "memory": 40.6,
+            "script": "typescript",
+            "desc": "利用 Set 储存已遍历过的节点值进行是否重复的判断。",
+            "code": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction removeDuplicateNodes(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const set = new Set([head.val]);\n  let temp = head;\n  while (temp.next !== null) {\n    const val = temp.next.val;\n    if (set.has(val)) {\n      temp.next = temp.next.next;\n    } else {\n      set.add(val);\n      temp = temp.next as ListNode;\n    }\n  }\n  return head;\n}"
+        },
+        {
+            "date": 1593187200000,
+            "time": 584,
+            "memory": 40.1,
+            "script": "typescript",
+            "desc": "用双重循环判断是否重复，利用时间换空间。",
+            "code": "function removeDuplicateNodes(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let temp1: ListNode | null = head;\n  while (temp1 !== null) {\n    const val = temp1.val;\n    let temp2: ListNode | null = temp1;\n    while (temp2 !== null && temp2.next !== null) {\n      if (temp2.next.val === val) temp2.next = temp2.next.next;\n      else temp2 = temp2.next;\n    }\n    temp1 = temp1.next;\n  }\n  return head;\n}"
+        }
+    ]
+}

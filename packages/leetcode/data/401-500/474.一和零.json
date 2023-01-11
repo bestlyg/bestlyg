@@ -1,0 +1,29 @@
+{
+    "name": "474. 一和零",
+    "url": "https://leetcode-cn.com/problems/ones-and-zeroes/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "请你找出并返回 strs 的最大子集的大小，该子集中 最多 有 m 个 0 和 n 个 1 。",
+    "solutions": [
+        {
+            "date": 1631462400000,
+            "time": 576,
+            "memory": 102.2,
+            "script": "javascript",
+            "desc": "动态规划。",
+            "code": "var findMaxForm = function (strs, m, n) {\n  const length = strs.length;\n  const dp = new Array(length + 1)\n    .fill(0)\n    .map(() => new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0)));\n  for (let i = 1; i <= length; i++) {\n    const zerosOnes = getZerosOnes(strs[i - 1]);\n    let zeros = zerosOnes[0],\n      ones = zerosOnes[1];\n    for (let j = 0; j <= m; j++) {\n      for (let k = 0; k <= n; k++) {\n        dp[i][j][k] = dp[i - 1][j][k];\n        if (j >= zeros && k >= ones) {\n          dp[i][j][k] = Math.max(dp[i][j][k], dp[i - 1][j - zeros][k - ones] + 1);\n        }\n      }\n    }\n  }\n  return dp[length][m][n];\n};\n\nconst getZerosOnes = str => {\n  const zerosOnes = new Array(2).fill(0);\n  const length = str.length;\n  for (let i = 0; i < length; i++) {\n    zerosOnes[str[i].charCodeAt() - '0'.charCodeAt()]++;\n  }\n  return zerosOnes;\n};"
+        },
+        {
+            "date": 1631462400000,
+            "time": 260,
+            "memory": 40.3,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function findMaxForm(strs: string[], m: number, n: number): number {\n  const len = strs.length;\n  const dp = new Array(2)\n    .fill(0)\n    .map(_ => new Array(m + 1).fill(0).map(_ => new Array(n + 1).fill(0)));\n  for (let i = 1; i <= len; i++) {\n    const { count0, count1 } = getCount(strs[i - 1]);\n    const idx = i % 2;\n    const prevIdx = idx ^ 1;\n    for (let j = 0; j <= m; j++) {\n      for (let k = 0; k <= n; k++) {\n        dp[idx][j][k] = dp[prevIdx][j][k];\n        if (count1 <= k && count0 <= j)\n          dp[idx][j][k] = Math.max(dp[prevIdx][j][k], dp[prevIdx][j - count0][k - count1] + 1);\n      }\n    }\n  }\n  return dp[len % 2][m][n];\n  function getCount(str: string): { count0: number; count1: number } {\n    let count0 = 0;\n    let count1 = 0;\n    for (let i = 0, n = str.length; i < n; i++)\n      if (str[i] === '0') count0++;\n      else count1++;\n    return { count0, count1 };\n  }\n}"
+        }
+    ]
+}

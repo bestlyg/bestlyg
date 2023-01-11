@@ -1,0 +1,14 @@
+{
+    "name": "805. 数组的均值分割",
+    "url": "https://leetcode.cn/problems/split-array-with-same-average/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组",
+        "数学",
+        "动态规划",
+        "状态压缩"
+    ],
+    "desc": "我们要将 nums 数组中的每个元素移动到 A 数组 或者 B 数组中，使得 A 数组和 B 数组不为空，并且 average(A) == average(B) 。",
+    "solutions": []
+}

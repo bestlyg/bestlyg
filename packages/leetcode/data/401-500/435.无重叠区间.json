@@ -1,0 +1,19 @@
+{
+    "name": "435. 无重叠区间",
+    "url": "https://leetcode-cn.com/problems/non-overlapping-intervals/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。",
+    "solutions": [
+        {
+            "date": 1609344000000,
+            "time": 92,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/non-overlapping-intervals/solution/wu-zhong-die-qu-jian-by-leetcode-solutio-cpsb/)。",
+            "code": "function eraseOverlapIntervals(intervals: number[][]): number {\n  if (!intervals.length) {\n    return 0;\n  }\n  intervals.sort((a, b) => a[1] - b[1]);\n  const n = intervals.length;\n  let right = intervals[0][1];\n  let ans = 1;\n  for (let i = 1; i < n; ++i) {\n    if (intervals[i][0] >= right) {\n      ++ans;\n      right = intervals[i][1];\n    }\n  }\n  return n - ans;\n}"
+        }
+    ]
+}

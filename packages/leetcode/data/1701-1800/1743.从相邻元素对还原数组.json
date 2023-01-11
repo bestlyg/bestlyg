@@ -1,0 +1,20 @@
+{
+    "name": "1743. 从相邻元素对还原数组",
+    "url": "https://leetcode-cn.com/problems/restore-the-array-from-adjacent-pairs/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "存在一个由 n 个不同元素组成的整数数组 nums ，返回 原始数组 nums 。",
+    "solutions": [
+        {
+            "date": 1627142400000,
+            "time": 332,
+            "memory": 88.3,
+            "script": "typescript",
+            "desc": "map 储存一个数两边的值。",
+            "code": "function restoreArray(adjacentPairs: number[][]): number[] {\n  const map = new Map<number, number[]>();\n  for (const [n1, n2] of adjacentPairs) {\n    let l1 = map.get(n1);\n    if (!l1) map.set(n1, (l1 = []));\n    let l2 = map.get(n2);\n    if (!l2) map.set(n2, (l2 = []));\n    l1.push(n2);\n    l2.push(n1);\n  }\n  const ans: number[] = [];\n  for (const [n, l] of map.entries())\n    if (l.length === 1) {\n      ans.push(n);\n      break;\n    }\n  ans.push(map.get(ans[ans.length - 1])![0]);\n  while (map.get(ans[ans.length - 1])!.length !== 1) {\n    const last = ans[ans.length - 1];\n    const list = map.get(last)!;\n    const prev = ans[ans.length - 2];\n    const next = list[0] === prev ? list[1] : list[0];\n    ans.push(next);\n  }\n  return ans;\n}"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "415. 字符串相加",
+    "url": "https://leetcode-cn.com/problems/add-strings/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定两个字符串形式的非负整数 num1 和 num2 ，计算它们的和。",
+    "solutions": [
+        {
+            "date": 1596384000000,
+            "time": 92,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "每个字符进行累加。",
+            "code": "function addStrings(num1: string, num2: string): string {\n  const arr1 = num1.split('').reverse();\n  const arr2 = num2.split('').reverse();\n  const ans: number[] = [];\n  let go = 0;\n  while (arr1.length !== 0 && arr2.length !== 0) {\n    const num1 = arr1.shift() as string;\n    const num2 = arr2.shift() as string;\n    let num = parseInt(num1) + parseInt(num2) + go;\n    if (num >= 10) {\n      go = 1;\n      num -= 10;\n    } else go = 0;\n    ans.push(num);\n  }\n  while (arr1.length !== 0) {\n    let num = parseInt(arr1.shift()!) + go;\n    if (num >= 10) {\n      go = 1;\n      num -= 10;\n    } else go = 0;\n    ans.push(num);\n  }\n  while (arr2.length !== 0) {\n    let num = parseInt(arr2.shift()!) + go;\n    if (num >= 10) {\n      go = 1;\n      num -= 10;\n    } else go = 0;\n    ans.push(num);\n  }\n  if (go === 1) ans.push(1);\n  while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();\n  return ans.reverse().join('');\n}"
+        }
+    ]
+}

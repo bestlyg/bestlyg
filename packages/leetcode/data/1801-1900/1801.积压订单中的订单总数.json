@@ -1,0 +1,20 @@
+{
+    "name": "1801. 积压订单中的订单总数",
+    "url": "https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "堆"
+    ],
+    "desc": "给你一个二维整数数组 orders ，输入所有订单后，返回积压订单中的 订单总数 。由于数字可能很大，所以需要返回对 109 + 7 取余的结果。",
+    "solutions": [
+        {
+            "date": 1618070400000,
+            "time": 332,
+            "memory": 59.5,
+            "script": "typescript",
+            "desc": "利用买大顶堆和卖小顶堆维护最值。",
+            "code": "class Heap<T = number> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n  *[Symbol.iterator](): IterableIterator<T> {\n    for (const t of this.arr) {\n      yield t;\n    }\n  }\n}\nfunction getNumberOfBacklogOrders(orders: number[][]): number {\n  const buyHeap = new Heap<number[]>(([t1], [t2]) => t1 - t2);\n  const sellHeap = new Heap<number[]>(([t1], [t2]) => t2 - t1);\n  const add = (order: number[]) => {\n    (order[2] === 0 ? buyHeap : sellHeap).add(order);\n    while (buyHeap.size > 0 && sellHeap.size > 0 && buyHeap.top[0] >= sellHeap.top[0]) {\n      const buyTop = buyHeap.top;\n      const sellTop = sellHeap.top;\n      if (buyTop[1] > sellTop[1]) {\n        sellHeap.remove();\n        buyTop[1] -= sellTop[1];\n      } else if (buyTop[1] < sellTop[1]) {\n        buyHeap.remove();\n        sellTop[1] -= buyTop[1];\n      } else {\n        sellHeap.remove();\n        buyHeap.remove();\n      }\n    }\n  };\n  orders.forEach(order => add(order));\n  let ans = 0;\n  for (const [, c] of buyHeap) ans += c;\n  for (const [, c] of sellHeap) ans += c;\n  return ans % (10 ** 9 + 7);\n}"
+        }
+    ]
+}

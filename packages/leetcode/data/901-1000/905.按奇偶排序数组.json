@@ -1,0 +1,29 @@
+{
+    "name": "905. 按奇偶排序数组",
+    "url": "https://leetcode-cn.com/problems/sort-array-by-parity/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "desc": "给定一个非负整数数组 A，返回一个数组，在该数组中， A 的所有偶数元素之后跟着所有奇数元素。",
+    "solutions": [
+        {
+            "date": 1647964800000,
+            "time": 56,
+            "memory": 15.8,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    vector<int> sortArrayByParity(vector<int>& nums) {\n        vector<int> ans;\n        ans.reserve(nums.size());\n        for (auto& num : nums) {\n            if (num & 1)\n                ans.push_back(num);\n            else\n                ans.insert(ans.begin(), num);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1651075200000,
+            "time": 4,
+            "memory": 4.6,
+            "script": "go",
+            "desc": "双指针。",
+            "code": "func sortArrayByParity(nums []int) []int {\n    var i1, i2 = 0, len(nums) - 1\n    for i1 < i2 {\n        for i1 < i2 && nums[i1]&1 == 0 {\n            i1 += 1\n        }\n        for i1 < i2 && nums[i2]&1 == 1 {\n            i2 -= 1\n        }\n        nums[i1], nums[i2] = nums[i2], nums[i1]\n    }\n    return nums\n}"
+        }
+    ]
+}

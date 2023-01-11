@@ -1,0 +1,31 @@
+{
+    "name": "1823. 找出游戏的获胜者",
+    "url": "https://leetcode-cn.com/problems/find-the-winner-of-the-circular-game/",
+    "difficulty": "中等",
+    "tag": [
+        "递归",
+        "队列",
+        "数组",
+        "数学",
+        "模拟"
+    ],
+    "desc": "给你参与游戏的小伙伴总数 n ，和一个整数 k ，返回游戏的获胜者。",
+    "solutions": [
+        {
+            "date": 1651593600000,
+            "time": 0,
+            "memory": 5.4,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "int findTheWinner(int n, int k) {\n    int list[n], current = n - 1;\n    for (int i = 0; i < n; i++) list[i] = i + 1;\n    list[n - 1] = 0;\n    for (int jump = 0; n > 1; n--) {\n        jump = (k - 1) % n;\n        while (jump > 0) current = list[current], jump--;\n        list[current] = list[list[current]];\n    }\n    return current + 1;\n}"
+        },
+        {
+            "date": 1651593600000,
+            "time": 0,
+            "memory": 1.9,
+            "script": "go",
+            "desc": "遍历。",
+            "code": "func findTheWinner(n int, k int) int {\n    list := make([]int, n)\n    for i := 0; i < n; i++ {\n        list[i] = i + 1\n    }\n    list[n-1] = 0\n    current := n - 1\n    for jump := 0; n > 1; n-- {\n        jump = (k - 1) % n\n        for ; jump > 0; jump-- {\n            current = list[current]\n        }\n        list[current] = list[list[current]]\n    }\n    return current + 1\n}"
+        }
+    ]
+}

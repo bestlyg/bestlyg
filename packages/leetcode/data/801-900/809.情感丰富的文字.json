@@ -1,0 +1,12 @@
+{
+    "name": "809. 情感丰富的文字",
+    "url": "https://leetcode.cn/problems/expressive-words/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "双指针",
+        "字符串"
+    ],
+    "desc": "输入一组查询单词，输出其中可扩张的单词数量。",
+    "solutions": []
+}

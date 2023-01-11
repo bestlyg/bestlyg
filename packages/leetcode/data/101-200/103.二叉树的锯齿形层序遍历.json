@@ -1,0 +1,29 @@
+{
+    "name": "103. 二叉树的锯齿形层序遍历",
+    "url": "https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "树",
+        "广度优先搜索"
+    ],
+    "desc": "给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。",
+    "solutions": [
+        {
+            "date": 1587830400000,
+            "time": 76,
+            "memory": 34.1,
+            "script": "javascript",
+            "desc": "判断高度为偶数时倒序",
+            "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar zigzagLevelOrder = function (root) {\n  if (root === null) return [];\n  const res = [];\n  const queue = [root];\n  let height = 1;\n  const pushNode = () => {\n    let valArr = [];\n    for (const node of queue) valArr.push(node.val);\n    if (height % 2 === 0) res.push(valArr.reverse());\n    else res.push(valArr);\n  };\n  pushNode();\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift();\n    if (node.left !== null) queue.push(node.left);\n    if (node.right !== null) queue.push(node.right);\n    if (--size === 0) {\n      height++;\n      size = queue.length;\n      if (queue.length !== 0) pushNode();\n    }\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1638028800000,
+            "time": 0,
+            "memory": 7.1,
+            "script": "c",
+            "desc": "修改层序遍历，偶数层倒序。",
+            "code": "#define MAX 2000\nint** zigzagLevelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){\n    int **arr = (int **)malloc(sizeof(int) * MAX);\n    *returnSize = 0;\n    *returnColumnSizes = (int *)malloc(sizeof(int) * MAX);\n    if (!root) return arr;\n    // 维护队列储存节点信息\n    struct TreeNode *q[2000];\n    q[0] = root;\n    // 维护队列头尾指针\n    int head = 0, tail = 1;\n    // 维护当前层的元素数量，当前遍历的层级\n    int size = 1, height = 1, order = -1;\n    arr[0] = (int *)malloc(sizeof(int));\n    arr[0][0] = root->val;\n    (*returnColumnSizes)[0] = 1;\n    while (head != tail) {\n        // 每次出队一个节点\n        struct TreeNode *node = q[head++];\n        // 若左节点不为空则入队\n        if (node->left) q[tail++] = node->left;\n        // 若右节点不为空则入队\n        if (node->right) q[tail++] = node->right;\n        // 若当前层无元素，说明队列里都是下一层的元素\n        if (--size == 0) {\n            size = tail - head;\n            *returnSize += 1;\n            (*returnColumnSizes)[height] = size;\n            arr[height] = (int *)malloc(sizeof(int) * size);\n            if (order == 1) for(int i = head; i < tail; i++) arr[height][i - head] = q[i]->val;\n            else for(int i = tail - 1; i >= head; i--) arr[height][tail - 1 - i] = q[i]->val;\n            order *= -1;\n            ++height;\n        }\n    }\n    return arr;\n}"
+        }
+    ]
+}

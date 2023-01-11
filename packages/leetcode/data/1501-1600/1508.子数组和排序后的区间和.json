@@ -1,0 +1,20 @@
+{
+    "name": "1508. 子数组和排序后的区间和",
+    "url": "https://leetcode-cn.com/problems/range-sum-of-sorted-subarray-sums/",
+    "difficulty": "中等",
+    "tag": [
+        "排序",
+        "数组"
+    ],
+    "desc": "请你返回在新数组中下标为  left  到  right （下标从 1 开始）的所有数字和（包括左右端点）。由于答案可能很大，请你将它对 10^9 + 7 取模后返回。",
+    "solutions": [
+        {
+            "date": 1620835200000,
+            "time": 436,
+            "memory": 75.2,
+            "script": "typescript",
+            "desc": "排序。",
+            "code": "function rangeSum(nums: number[], n: number, left: number, right: number): number {\n  const prefixSumList: number[] = [];\n  let sum = 0;\n  nums.forEach(v => prefixSumList.push((sum += v)));\n  const list: number[] = nums.slice();\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      list.push(prefixSumList[i] - (prefixSumList[j - 1] ?? 0));\n    }\n  }\n  return (\n    list\n      .sort((a, b) => a - b)\n      .slice(left - 1, right)\n      .reduce((total, cur) => total + cur, 0) %\n    (10 ** 9 + 7)\n  );\n}"
+        }
+    ]
+}

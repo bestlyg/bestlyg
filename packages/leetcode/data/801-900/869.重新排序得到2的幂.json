@@ -1,0 +1,22 @@
+{
+    "name": "869. 重新排序得到 2 的幂",
+    "url": "https://leetcode-cn.com/problems/reordered-power-of-2/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "计数",
+        "枚举",
+        "排序"
+    ],
+    "desc": "给定正整数 N ，我们按任何顺序（包括原始顺序）将数字重新排序，注意其前导数字不能为零。",
+    "solutions": [
+        {
+            "date": 1635350400000,
+            "time": 2416,
+            "memory": 61.5,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function reorderedPowerOf2(n: number): boolean {\n  const chars = n.toString().split('');\n  const len = chars.length;\n  const list: number[] = [];\n  const set = new Set<number>();\n  dfs();\n  return list.some(num => (num & (num - 1)) === 0);\n  function dfs(num = 0) {\n    if (set.size === len) {\n      list.push(num);\n      return;\n    }\n    for (let i = 0; i < len; i++) {\n      if (set.has(i)) continue;\n      const ch = chars[i];\n      if (num === 0 && ch === '0') continue;\n      set.add(i);\n      dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);\n      set.delete(i);\n    }\n  }\n}"
+        }
+    ]
+}

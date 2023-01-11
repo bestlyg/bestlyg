@@ -1,0 +1,36 @@
+{
+    "name": "12. 整数转罗马数字",
+    "url": "https://leetcode-cn.com/problems/integer-to-roman/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "字符串"
+    ],
+    "desc": "给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。",
+    "solutions": [
+        {
+            "date": 1591027200000,
+            "time": 144,
+            "memory": 41.3,
+            "script": "typescript",
+            "desc": "递归判断每一位。",
+            "code": "function intToRoman(num: number): string {\n  const len = (num + '').length;\n  let s = '';\n  switch (len) {\n    case 4: {\n      const n = ~~(num / 1000);\n      for (let i = 0; i < n; i++) s += 'M';\n      s += intToRoman(num % 1000);\n      break;\n    }\n    case 3: {\n      const n = ~~(num / 100);\n      switch (n) {\n        case 9: {\n          s += 'CM';\n          break;\n        }\n        case 8: {\n          s += 'DCCC';\n          break;\n        }\n        case 7: {\n          s += 'DCC';\n          break;\n        }\n        case 6: {\n          s += 'DC';\n          break;\n        }\n        case 5: {\n          s += 'D';\n          break;\n        }\n        case 4: {\n          s += 'CD';\n          break;\n        }\n        case 3: {\n          s += 'CCC';\n          break;\n        }\n        case 2: {\n          s += 'CC';\n          break;\n        }\n        case 1: {\n          s += 'C';\n          break;\n        }\n      }\n      s += intToRoman(num % 100);\n      break;\n    }\n    case 2: {\n      const n = ~~(num / 10);\n      switch (n) {\n        case 9: {\n          s += 'XC';\n          break;\n        }\n        case 8: {\n          s += 'LXXX';\n          break;\n        }\n        case 7: {\n          s += 'LXX';\n          break;\n        }\n        case 6: {\n          s += 'LX';\n          break;\n        }\n        case 5: {\n          s += 'L';\n          break;\n        }\n        case 4: {\n          s += 'XL';\n          break;\n        }\n        case 3: {\n          s += 'XXX';\n          break;\n        }\n        case 2: {\n          s += 'XX';\n          break;\n        }\n        case 1: {\n          s += 'X';\n          break;\n        }\n      }\n      s += intToRoman(num % 10);\n      break;\n    }\n    case 1: {\n      switch (num) {\n        case 9: {\n          s += 'IX';\n          break;\n        }\n        case 8: {\n          s += 'VIII';\n          break;\n        }\n        case 7: {\n          s += 'VII';\n          break;\n        }\n        case 6: {\n          s += 'VI';\n          break;\n        }\n        case 5: {\n          s += 'V';\n          break;\n        }\n        case 4: {\n          s += 'IV';\n          break;\n        }\n        case 3: {\n          s += 'III';\n          break;\n        }\n        case 2: {\n          s += 'II';\n          break;\n        }\n        case 1: {\n          s += 'I';\n          break;\n        }\n      }\n      break;\n    }\n  }\n  return s;\n}"
+        },
+        {
+            "date": 1620921600000,
+            "time": 212,
+            "memory": 44.3,
+            "script": "typescript",
+            "desc": "分节处理。",
+            "code": "const config: Map<number, Map<number, string>> = new Map([\n  [\n    100,\n    new Map([\n      [1, 'C'],\n      [5, 'D'],\n      [10, 'M'],\n    ]),\n  ],\n  [\n    10,\n    new Map([\n      [1, 'X'],\n      [5, 'L'],\n      [10, 'C'],\n    ]),\n  ],\n  [\n    1,\n    new Map([\n      [1, 'I'],\n      [5, 'V'],\n      [10, 'X'],\n    ]),\n  ],\n]);\nfunction intToRoman(num: number): string {\n  let ans = '';\n  if (num >= 1000) {\n    ans += 'M'.repeat(~~(num / 1000));\n    num = num % 1000;\n  }\n  for (const [val, map] of config) {\n    if (num < val) continue;\n    const c1 = map.get(1)!;\n    const c5 = map.get(5)!;\n    const c10 = map.get(10)!;\n    const c = ~~(num / val);\n    num = num % val;\n    if (c === 9) ans += c1 + c10;\n    else if (c >= 5) ans += c5 + c1.repeat(c - 5);\n    else if (c === 4) ans += c1 + c5;\n    else ans += c1.repeat(c);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1634313600000,
+            "time": 148,
+            "memory": 44.2,
+            "script": "typescript",
+            "desc": "模拟。",
+            "code": "function intToRoman(num: number): string {\n  let ans = '';\n  const list: { val: number; template: [string, string, string] }[] = [\n    {\n      val: 1000,\n      template: ['M', 'M', 'M'],\n    },\n    {\n      val: 100,\n      template: ['M', 'D', 'C'],\n    },\n    {\n      val: 10,\n      template: ['C', 'L', 'X'],\n    },\n    {\n      val: 1,\n      template: ['X', 'V', 'I'],\n    },\n  ];\n  for (const { val, template } of list) {\n    if (num >= val) {\n      ans += createStr(Math.floor(num / val), ...template);\n      num %= val;\n    }\n  }\n  return ans;\n  function createStr(num: number, hight: string, mid: string, low: string) {\n    if (num <= 3) return low.repeat(num);\n    else if (num <= 5) return low.repeat(5 - num) + mid;\n    else if (num <= 8) return mid + low.repeat(num - 5);\n    else return low + hight;\n  }\n}"
+        }
+    ]
+}

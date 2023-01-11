@@ -1,0 +1,20 @@
+{
+    "name": "321. 拼接最大数",
+    "url": "https://leetcode-cn.com/problems/create-maximum-number//",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "动态规划"
+    ],
+    "desc": "给定长度分别为  m  和  n  的两个数组，其元素由  0-9  构成，表示两个自然数各位上的数字。现在从这两个数组中选出 k (k <= m + n)  个数字拼接成一个新的数，要求从同一个数组中取出的数字保持其在原数组中的相对顺序。求满足该条件的最大数。结果返回一个表示该最大数的长度为  k  的数组。",
+    "solutions": [
+        {
+            "date": 1606838400000,
+            "time": 228,
+            "memory": 48.7,
+            "script": "typescript",
+            "desc": "对于每个单调栈进行遍历。",
+            "code": "function maxNumber(nums1: number[], nums2: number[], k: number): number[] {\n  const ans: number[][] = [];\n  const pushArr = (nums: number[]) => {\n    const len = nums.length;\n    const arrLen = ans.length;\n    const elLen = ans[0]?.length;\n    if (arrLen === 0 || elLen === len) ans.push(nums);\n    else if (elLen < len) {\n      ans.length = 0;\n      ans.push(nums);\n    }\n  };\n  const getCache = (nums: number[], k: number): number[] => {\n    const len = nums.length;\n    const stack: number[] = [];\n    if (k === 0) return stack;\n    k = len - k;\n    if (k <= 0) return nums;\n    for (const num of nums) {\n      if (stack.length === 0) {\n        stack.push(num);\n      } else {\n        let top = stack[stack.length - 1];\n        while (num > top && k !== 0) {\n          stack.pop();\n          k--;\n          top = stack[stack.length - 1];\n        }\n        stack.push(num);\n      }\n    }\n    while (k-- > 0) stack.pop();\n    return stack;\n  };\n  for (let i = 0; i <= k; i++) {\n    const stack1 = getCache(nums1, i);\n    const stack2 = getCache(nums2, k - i);\n    const len1 = stack1.length;\n    const len2 = stack2.length;\n    if (len1 === 0) pushArr(stack2);\n    else if (len2 === 0) pushArr(stack1);\n    else {\n      const compare = (p1: number, p2: number): boolean =>\n        p2 >= len2\n          ? true\n          : p1 >= len1\n          ? false\n          : stack1[p1] > stack2[p2]\n          ? true\n          : stack1[p1] < stack2[p2]\n          ? false\n          : compare(p1 + 1, p2 + 1);\n      const arr: number[] = [];\n      let i1 = 0;\n      let i2 = 0;\n      while (i1 !== len1 || i2 !== len2) {\n        const num1 = stack1[i1];\n        const num2 = stack2[i2];\n        if (compare(i1, i2)) {\n          arr.push(num1);\n          i1++;\n        } else {\n          arr.push(num2);\n          i2++;\n        }\n      }\n      pushArr(arr);\n    }\n  }\n  const len = ans[0].length;\n  return ans.sort((nums1: number[], nums2: number[]) => {\n    let i1 = 0;\n    let i2 = 0;\n    while (i1 < len && i2 < len) {\n      const n1 = nums1[i1];\n      const n2 = nums2[i2];\n      if (n1 > n2) {\n        return -1;\n      } else if (n1 < n2) {\n        return 1;\n      } else {\n        i1++;\n        i2++;\n      }\n    }\n    return 0;\n  })[0];\n}"
+        }
+    ]
+}

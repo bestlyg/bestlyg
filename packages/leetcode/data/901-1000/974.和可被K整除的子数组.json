@@ -1,0 +1,20 @@
+{
+    "name": "974. 和可被 K 整除的子数组",
+    "url": "https://leetcode-cn.com/problems/subarray-sums-divisible-by-k/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "给定一个整数数组 A，返回其中元素之和可被 K 整除的（连续、非空）子数组的数目。",
+    "solutions": [
+        {
+            "date": 1590508800000,
+            "time": 96,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "遍历一遍，O(n)，遍历到该值时累加，然后判断是否能够整除，若不能则判断所相差数，存入数组，若相差数在数组中不为 1 则累加数量，总思想：前面 i 和与前面 j 和余数相同，相减必可被整除。",
+            "code": "var subarraysDivByK = function (A: number[], K: number): number {\n  const arr: number[] = new Array(K).fill(0);\n  let sum = 0;\n  let count = 0;\n  for (const num of A) {\n    sum += num;\n    if (sum % K === 0) count++;\n    const y = (K - (sum % K)) % K;\n    if (arr[y] !== 0) count += arr[y];\n    arr[y] += 1;\n  }\n  return count;\n};"
+        }
+    ]
+}

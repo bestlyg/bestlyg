@@ -1,0 +1,19 @@
+{
+    "name": "1800. 最大升序子数组和",
+    "url": "https://leetcode.cn/problems/maximum-ascending-subarray-sum/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一个正整数组成的数组 nums ，返回 nums 中一个 升序 子数组的最大可能元素和。",
+    "solutions": [
+        {
+            "date": 1665072000000,
+            "time": 0,
+            "memory": 8.1,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int maxAscendingSum(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            int sum = nums[i];\n            while (i + 1 < nums.size() && nums[i + 1] > nums[i]) sum += nums[++i];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

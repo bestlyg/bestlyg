@@ -1,0 +1,27 @@
+{
+    "name": "235. 二叉搜索树的最近公共祖先",
+    "url": "https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树"
+    ],
+    "desc": "给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。",
+    "solutions": [
+        {
+            "date": 1582473600000,
+            "time": 6,
+            "memory": 41.9,
+            "script": "java",
+            "desc": "二分判断如果值在两边则当前点就为公共祖先。",
+            "code": "class Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        int val = root.val;\n        if(p.val==val||q.val==val)return root;\n        if(p.val<val&&q.val>val)return root;\n        if(p.val<val&&q.val<val)return lowestCommonAncestor(root.left,p,q);\n        if(p.val>val&&q.val>val)return lowestCommonAncestor(root.right,p,q);\n        return root;\n    }\n}"
+        },
+        {
+            "date": 1601136000000,
+            "time": 112,
+            "memory": 47.2,
+            "script": "javascript",
+            "desc": "根据二叉搜索树的特性进行递归。",
+            "code": "/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function (root, p, q) {\n  const val = root.val;\n  const pVal = p.val;\n  const qVal = q.val;\n  if ((val < pVal && val > qVal) || (val > pVal && val < qVal) || val === pVal || val === qVal)\n    return root;\n  if (val < pVal && val < qVal) return lowestCommonAncestor(root.right, p, q);\n  if (val > pVal && val > qVal) return lowestCommonAncestor(root.left, p, q);\n};"
+        }
+    ]
+}

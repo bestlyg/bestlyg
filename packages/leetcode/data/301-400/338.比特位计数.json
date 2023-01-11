@@ -1,0 +1,28 @@
+{
+    "name": "338. 比特位计数",
+    "url": "https://leetcode-cn.com/problems/counting-bits/",
+    "difficulty": "中等",
+    "tag": [
+        "动态规划",
+        "位运算"
+    ],
+    "desc": "给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。",
+    "solutions": [
+        {
+            "date": 1614700800000,
+            "time": 284,
+            "memory": 48.7,
+            "script": "typescript",
+            "desc": "计算每一个数的 1 位。",
+            "code": "function countBits(num: number): number[] {\n  return new Array(num + 1).fill(0).map(\n    (_, i) =>\n      i\n        .toString(2)\n        .split('')\n        .filter(v => v === '1').length\n  );\n}"
+        },
+        {
+            "date": 1614700800000,
+            "time": 120,
+            "memory": 50.4,
+            "script": "typescript",
+            "desc": "计算每一个只含一个 1 的数，进行批量填充。",
+            "code": "function countBits(num: number): number[] {\n  const ans = [0, 1];\n  let max2 = 1;\n  while (max2 < num) {\n    max2 <<= 1;\n    ans.push(...ans.map(v => v + 1));\n  }\n  ans.length = num + 1;\n  return ans;\n}"
+        }
+    ]
+}

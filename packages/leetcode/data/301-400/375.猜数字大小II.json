@@ -1,0 +1,21 @@
+{
+    "name": "375. 猜数字大小 II",
+    "url": "https://leetcode-cn.com/problems/guess-number-higher-or-lower-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "动态规划",
+        "博弈"
+    ],
+    "desc": "给你一个特定的数字 n ，返回能够 确保你获胜 的最小现金数，不管我选择那个数字 。",
+    "solutions": [
+        {
+            "date": 1636646400000,
+            "time": 140,
+            "memory": 41.3,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function getMoneyAmount(n: number): number {\n  const dp: number[][] = new Array(n + 1).fill(0).map(_ => new Array(n + 1).fill(0));\n  for (let i = n; i >= 1; i--) {\n    for (let j = i + 1; j <= n; j++) {\n      let min = Infinity;\n      for (let k = i; k < j; k++) {\n        min = Math.min(min, k + Math.max(dp[i][k - 1], dp[k + 1][j]));\n      }\n      dp[i][j] = min;\n    }\n  }\n  return dp[1][n];\n}"
+        }
+    ]
+}

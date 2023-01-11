@@ -1,0 +1,21 @@
+{
+    "name": "166. 分数到小数",
+    "url": "https://leetcode-cn.com/problems/fraction-to-recurring-decimal/",
+    "difficulty": "中等",
+    "tag": [
+        "哈希表",
+        "数学",
+        "字符串"
+    ],
+    "desc": "给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。",
+    "solutions": [
+        {
+            "date": 1633276800000,
+            "time": 72,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "长除法，储存余数。",
+            "code": "function fractionToDecimal(numerator: number, denominator: number): string {\n  let flag = '';\n  if (numerator * denominator < 0) flag = '-';\n  numerator = Math.abs(numerator);\n  denominator = Math.abs(denominator);\n  const integer = `${flag}${Math.floor(numerator / denominator)}`;\n  let mod = numerator % denominator;\n  if (mod === 0) return `${integer}`;\n  const map: Record<number, [number, number]> = {};\n  let decimal = '';\n  numerator = mod;\n  while (true) {\n    numerator *= 10;\n    const num = ~~(numerator / denominator);\n    mod = numerator % denominator;\n    if (map[mod] !== undefined && map[mod][0] === num) break;\n    decimal += num;\n    map[mod] = [num, decimal.length - 1];\n    if (mod === 0) break;\n    numerator = mod;\n  }\n  if (mod === 0) return `${integer}.${decimal}`;\n  const [, idx] = map[mod];\n  if (idx === 0) return `${integer}.(${decimal})`;\n  return `${integer}.${decimal.substr(0, idx)}(${decimal.substr(idx)})`;\n}"
+        }
+    ]
+}

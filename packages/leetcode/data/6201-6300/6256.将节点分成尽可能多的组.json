@@ -1,0 +1,10 @@
+{
+    "name": "6256. 将节点分成尽可能多的组",
+    "url": "https://leetcode.cn/problems/divide-nodes-into-the-maximum-number-of-groups",
+    "difficulty": "简单",
+    "tag": [
+        ""
+    ],
+    "desc": "请你返回最多可以将节点分为多少个组（也就是最大的 m ）。如果没办法在给定条件下分组，请你返回 -1 。",
+    "solutions": []
+}

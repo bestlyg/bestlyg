@@ -1,0 +1,12 @@
+{
+    "name": "1806. 还原排列的最少操作步数",
+    "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-reinitialize-a-permutation/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "数学",
+        "模拟"
+    ],
+    "desc": "给你一个偶数 n​​​​​​ ，已知存在一个长度为 n 的排列 perm ，其中 perm[i] == i​（下标 从 0 开始 计数）。",
+    "solutions": []
+}

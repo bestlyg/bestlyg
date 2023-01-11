@@ -1,0 +1,20 @@
+{
+    "name": "84. 柱状图中最大的矩形",
+    "url": "https://leetcode-cn.com/problems/largest-rectangle-in-histogram/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "数组"
+    ],
+    "desc": "给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。",
+    "solutions": [
+        {
+            "date": 1590768000000,
+            "time": 1300,
+            "memory": 35.8,
+            "script": "typescript",
+            "desc": "暴力循环。",
+            "code": "var largestRectangleArea = function (heights: number[]): number {\n  const len = heights.length;\n  if (len === 0) return 0;\n  let max = 0;\n  for (let i = 0; i < len; i++) max = Math.max(getR(i), max);\n  return max;\n  function getR(i: number): number {\n    const num = heights[i];\n    let max = num;\n    let w = 1;\n    let low = num;\n    let temp = num;\n    while (temp >= 0 && i >= 1) {\n      temp = (low = Math.min(heights[--i], low)) * ++w;\n      max = Math.max(temp, max);\n    }\n    return max;\n  }\n};"
+        }
+    ]
+}

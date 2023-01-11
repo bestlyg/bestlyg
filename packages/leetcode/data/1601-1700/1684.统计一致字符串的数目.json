@@ -1,0 +1,13 @@
+{
+    "name": "1684. 统计一致字符串的数目",
+    "url": "https://leetcode.cn/problems/count-the-number-of-consistent-strings/",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "请你返回 words 数组中 一致字符串 的数目。",
+    "solutions": []
+}

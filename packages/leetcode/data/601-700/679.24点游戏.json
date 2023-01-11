@@ -1,0 +1,27 @@
+{
+    "name": "679. 24 点游戏",
+    "url": "https://leetcode-cn.com/problems/24-game/",
+    "difficulty": "困难",
+    "tag": [
+        "深度优先搜索"
+    ],
+    "desc": "你有 4 张写有 1 到 9 数字的牌。你需要判断是否能通过 \\*，/，+，-，(，) 的运算得到 24。",
+    "solutions": [
+        {
+            "date": 1598025600000,
+            "time": 1092,
+            "memory": 74.7,
+            "script": "typescript",
+            "desc": "遍历所有可能创建模板,使用 eval 进行计算。",
+            "code": "function judgePoint24(nums: number[]): boolean {\n  const numLen = nums.length;\n  const op = ['+', '-', '*', '/'];\n  const opLen = op.length;\n  const set = new Set<number>();\n  const getTemplates = (\n    num1: number,\n    num2: number,\n    num3: number,\n    num4: number,\n    op1: string,\n    op2: string,\n    op3: string\n  ): string[] => {\n    return [\n      `(${num1}${op1}${num2})${op2}(${num3}${op3}${num4})`,\n      `${num1}${op1}(${num2}${op2}${num3}${op3}${num4})`,\n      `(${num1}${op1}${num2}${op2}${num3})${op3}${num4}`,\n      `${num1}${op1}${num2}${op2}(${num3}${op3}${num4})`,\n      `(${num1}${op1}${num2})${op2}${num3}${op3}${num4}`,\n      `${num1}${op1}${num2}${op2}${num3}${op3}${num4}`,\n    ];\n  };\n  for (let i1 = 0; i1 < numLen; i1++) {\n    const num1 = nums[i1];\n    set.add(i1);\n    for (let i2 = 0; i2 < numLen; i2++) {\n      const num2 = nums[i2];\n      if (set.has(i2)) continue;\n      set.add(i2);\n      for (let i3 = 0; i3 < numLen; i3++) {\n        const num3 = nums[i3];\n        if (set.has(i3)) continue;\n        set.add(i3);\n        for (let i4 = 0; i4 < numLen; i4++) {\n          const num4 = nums[i4];\n          if (set.has(i4)) continue;\n          for (let o1 = 0; o1 < opLen; o1++) {\n            const op1 = op[o1];\n            for (let o2 = 0; o2 < opLen; o2++) {\n              const op2 = op[o2];\n              for (let o3 = 0; o3 < opLen; o3++) {\n                const op3 = op[o3];\n                for (const template of getTemplates(num1, num2, num3, num4, op1, op2, op3)) {\n                  const comp = eval(template);\n                  if (comp > 24 - 6e-10 && comp < 24 + 6e-10) return true;\n                }\n              }\n            }\n          }\n        }\n        set.delete(i3);\n      }\n      set.delete(i2);\n    }\n    set.delete(i1);\n  }\n  return false;\n}"
+        },
+        {
+            "date": 1598025600000,
+            "time": 108,
+            "memory": 43.4,
+            "script": "typescript",
+            "desc": "回溯算法。",
+            "code": "function judgePoint24(nums: number[]): boolean {\n  if (nums.length === 1) return nums[0] > 24 - 6e-11 && nums[0] < 24 + 6e-10;\n  const len = nums.length;\n  const getCopyArr = () => [...nums];\n  for (let i = 0; i < len; i++) {\n    const num1 = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      const num2 = nums[j];\n      const getArr = (num: number): number[] => {\n        const arr = getCopyArr();\n        arr.splice(j, 1);\n        arr.splice(i, 1);\n        arr.push(num);\n        return arr;\n      };\n      if (\n        judgePoint24(getArr(num1 + num2)) ||\n        judgePoint24(getArr(num1 * num2)) ||\n        judgePoint24(getArr(num1 - num2)) ||\n        judgePoint24(getArr(num2 - num1)) ||\n        judgePoint24(getArr(num1 / num2)) ||\n        judgePoint24(getArr(num2 / num1))\n      )\n        return true;\n    }\n  }\n  return false;\n}"
+        }
+    ]
+}

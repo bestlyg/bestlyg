@@ -1,0 +1,10 @@
+{
+    "name": "6258. 数组中最长的方波",
+    "url": "https://leetcode.cn/problems/longest-square-streak-in-an-array/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "返回 nums 中 最长方波 的长度，如果不存在 方波 则返回 -1 。",
+    "solutions": []
+}

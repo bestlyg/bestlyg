@@ -1,0 +1,23 @@
+{
+    "name": "522. 最长特殊序列 II",
+    "url": "https://leetcode.cn/problems/longest-uncommon-subsequence-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "字符串",
+        "排序"
+    ],
+    "desc": "给定字符串列表 strs ，返回其中 最长的特殊序列 。如果最长特殊序列不存在，返回 -1 。",
+    "solutions": [
+        {
+            "date": 1656259200000,
+            "time": 4,
+            "memory": 8,
+            "script": "cpp",
+            "desc": "对于每个字符串，查找是否有父串。",
+            "code": "class Solution {\n   public:\n    int findLUSlength(vector<string> &strs) {\n        int ans = -1, n = strs.size();\n        for (int i = 0; i < n; i++) {\n            string s1 = strs[i];\n            bool check = true;\n            for (int j = 0; j < n; j++) {\n                if (i != j && isSubStr(s1, strs[j])) {\n                    check = false;\n                    break;\n                }\n            }\n            if (check) ans = max(ans, (int)s1.size());\n        }\n        return ans;\n    }\n    bool isSubStr(const string &s1, const string &s2) {\n        int i1 = 0, i2 = 0, n1 = s1.size(), n2 = s2.size();\n        for (; i1 < n1 && i2 < n2; i2++)\n            if (s1[i1] == s2[i2]) i1++;\n        return i1 == n1;\n    }\n};"
+        }
+    ]
+}

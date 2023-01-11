@@ -1,0 +1,21 @@
+{
+    "name": "1218. 最长定差子序列",
+    "url": "https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "动态规划"
+    ],
+    "desc": "给你一个整数数组  arr  和一个整数  difference，请你找出并返回 arr  中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。",
+    "solutions": [
+        {
+            "date": 1636041600000,
+            "time": 96,
+            "memory": 48.5,
+            "script": "typescript",
+            "desc": "哈希存储。",
+            "code": "function longestSubsequence(arr: number[], difference: number): number {\n  let max = 1;\n  const map = new Map<number, number>();\n  for (const num of arr) {\n    const cnt = (map.get(num) ?? 0) + 1;\n    map.set(num + difference, cnt);\n    max = Math.max(max, cnt);\n  }\n  return max;\n}"
+        }
+    ]
+}

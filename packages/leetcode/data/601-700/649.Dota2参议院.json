@@ -1,0 +1,10 @@
+{
+    "name": "649. Dota2 参议院",
+    "url": "https://leetcode-cn.com/problems/dota2-senate/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇),假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是  Radiant  或  Dire。",
+    "solutions": []
+}

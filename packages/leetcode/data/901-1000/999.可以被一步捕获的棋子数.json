@@ -1,0 +1,21 @@
+{
+    "name": "999. 可以被一步捕获的棋子数",
+    "url": "https://leetcode-cn.com/problems/available-captures-for-rook/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "矩阵",
+        "模拟"
+    ],
+    "desc": "你现在可以控制车移动一次，请你统计有多少敌方的卒处于你的捕获范围内（即，可以被一步捕获的棋子数）。",
+    "solutions": [
+        {
+            "date": 1648224000000,
+            "time": 0,
+            "memory": 6.6,
+            "script": "cpp",
+            "desc": "方向数组。",
+            "code": "class Solution {\n   public:\n    int numRookCaptures(vector<vector<char>>& board) {\n        int row = -1, col = -1;\n        for (int i = 0; i < 8 && row == -1; i++) {\n            for (int j = 0; j < 8 && col == -1; j++) {\n                if (board[i][j] == 'R') {\n                    row = i;\n                    col = j;\n                }\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            while (nrow >= 0 && nrow < 8 && ncol >= 0 && ncol < 8 &&\n                   board[nrow][ncol] == '.') {\n                nrow += dirs[i][0];\n                ncol += dirs[i][1];\n            }\n            if (nrow < 0 || nrow == 8 || ncol < 0 || ncol == 8 ||\n                board[nrow][ncol] != 'p')\n                continue;\n            ans++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "909. 蛇梯棋",
+    "url": "https://leetcode-cn.com/problems/snakes-and-ladders/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "N x N 的棋盘 board 上，按从 1 到 N*N 的数字给方格编号，编号 从左下角开始，每一行交替方向。返回达到方格 N*N 所需的最少移动次数，如果不可能，则返回 -1。",
+    "solutions": [
+        {
+            "date": 1624723200000,
+            "time": 116,
+            "memory": 45.5,
+            "script": "typescript",
+            "desc": "广度优先搜索，储存后进行遍历。",
+            "code": "function snakesAndLadders(board: number[][]): number {\n  const N = board.length;\n  const toBlock = (row: number, col: number) => {\n    if ((N & 1) === 0) {\n      return N * (N - 1 - row) + ((row & 1) === 0 ? N - col : col + 1);\n    } else {\n      return N * (N - 1 - row) + ((row & 1) === 0 ? col + 1 : N - col);\n    }\n  };\n  const toBoard = (block: number): [number, number] => {\n    const row = N - 1 - ~~((block - 1) / N);\n    let col!: number;\n    if ((N & 1) === 0) {\n      col = (row & 1) === 0 ? N - 1 - ((block - 1) % N) : (block - 1) % N;\n    } else {\n      col = (row & 1) === 0 ? (block - 1) % N : N - 1 - ((block - 1) % N);\n    }\n    return [row, col];\n  };\n  const ANS_NUM = N ** 2;\n  const map = new Map<number, number>([[1, 0]]);\n  let ans = Infinity;\n  const queue: [number, number][] = [[N - 1, 0]];\n  while (queue.length !== 0) {\n    const [row, col] = queue.shift()!;\n    const block = toBlock(row, col);\n    const step = map.get(block)!;\n    if (ANS_NUM - block <= 6) {\n      ans = Math.min(ans, step + 1);\n      continue;\n    }\n    for (let i = 1; i <= 6; i++) {\n      let nextBlock = block + i;\n      let nextBoard = toBoard(nextBlock);\n      const [nextRow, nextCol] = nextBoard;\n      if (board[nextRow][nextCol] !== -1) {\n        nextBlock = board[nextRow][nextCol];\n        nextBoard = toBoard(nextBlock);\n      }\n      if (nextBlock === ANS_NUM) {\n        ans = Math.min(ans, step + 1);\n        continue;\n      }\n      if (!map.has(nextBlock)) queue.push(nextBoard);\n      map.set(nextBlock, Math.min(map.get(nextBlock) ?? Infinity, step + 1));\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        }
+    ]
+}

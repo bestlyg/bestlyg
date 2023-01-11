@@ -1,0 +1,21 @@
+{
+    "name": "剑指 Offer 13. 机器人的运动范围",
+    "url": "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个 n x n 的二进制矩阵 grid 中，返回矩阵中最短 畅通路径 的长度。如果不存在这样的路径，返回 -1 。",
+    "solutions": [
+        {
+            "date": 1627142400000,
+            "time": 92,
+            "memory": 43.9,
+            "script": "typescript",
+            "desc": "bfs。",
+            "code": "function movingCount(m: number, n: number, k: number): number {\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set(queue.map(([row, col]) => format(row, col)));\n  let ans = 1;\n  const add = (row: number, col: number, count: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    const data: [number, number, number] = [row, col, count];\n    let num = 0;\n    while (row) {\n      num += row % 10;\n      row = ~~(row / 10);\n    }\n    while (col) {\n      num += col % 10;\n      col = ~~(col / 10);\n    }\n    if (num > k) return;\n    queue.push(data);\n    ans++;\n  };\n  while (queue.length) {\n    const [row, col, count] = queue.shift()!;\n    if (row) if (row > 0) add(row - 1, col, count + 1);\n    if (col > 0) add(row, col - 1, count + 1);\n    if (row < n - 1) add(row + 1, col, count + 1);\n    if (col < m - 1) add(row, col + 1, count + 1);\n  }\n  return ans;\n}"
+        }
+    ]
+}

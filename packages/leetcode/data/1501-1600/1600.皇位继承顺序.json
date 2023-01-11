@@ -1,0 +1,20 @@
+{
+    "name": "1600. 皇位继承顺序",
+    "url": "https://leetcode-cn.com/problems/throne-inheritance/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "设计"
+    ],
+    "desc": "一个王国里住着国王、他的孩子们、他的孙子们等等。通过以上的函数，我们总是能得到一个唯一的继承顺序。",
+    "solutions": [
+        {
+            "date": 1624118400000,
+            "time": 188,
+            "memory": 43.8,
+            "script": "typescript",
+            "desc": "前序遍历。",
+            "code": "class Person {\n  children: Person[] = [];\n  dead = false;\n  constructor(public name: string) {}\n}\nclass ThroneInheritance {\n  king = new Person('');\n  nameMap = new Map<string, Person>();\n  constructor(kingName: string) {\n    this.king.name = kingName;\n    this.nameMap.set(kingName, this.king);\n  }\n  birth(parentName: string, childName: string): void {\n    const parent = this.nameMap.get(parentName)!;\n    const child = new Person(childName);\n    this.nameMap.set(childName, child);\n    parent.children.push(child);\n  }\n  death(name: string): void {\n    this.nameMap.get(name)!.dead = true;\n  }\n  getInheritanceOrder(): string[] {\n    return this._getInheritanceOrder(this.king)\n      .filter(v => !v.dead)\n      .map(v => v.name);\n  }\n  private _getInheritanceOrder(person: Person): Person[] {\n    const ans: Person[] = [person];\n    person.children.forEach(child => {\n      ans.push(...this._getInheritanceOrder(child));\n    });\n    return ans;\n  }\n}"
+        }
+    ]
+}

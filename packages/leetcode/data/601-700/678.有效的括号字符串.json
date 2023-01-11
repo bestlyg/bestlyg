@@ -1,0 +1,30 @@
+{
+    "name": "678. 有效的括号字符串",
+    "url": "https://leetcode-cn.com/problems/valid-parenthesis-string/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "贪心",
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定一个只包含三种字符的字符串：（ ，） 和 \\*，写一个函数来检验这个字符串是否为有效字符串。",
+    "solutions": [
+        {
+            "date": 1631808000000,
+            "time": 80,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "分别统计左括号和\\*的下标，遍历到右括号时消除。",
+            "code": "function checkValidString(s: string): boolean {\n  const leftStack: number[] = [];\n  const starStack: number[] = [];\n  for (let i = 0; i < s.length; i++) {\n    const c = s[i];\n    if (c === '(') leftStack.push(i);\n    else if (c === '*') starStack.push(i);\n    else {\n      if (leftStack.length === 0 && starStack.length === 0) return false;\n      if (leftStack.length !== 0) leftStack.pop();\n      else starStack.pop();\n    }\n  }\n  while (leftStack.length !== 0 && starStack.length !== 0) {\n    const left = leftStack.pop()!;\n    const star = starStack.pop()!;\n    if (left > star) return false;\n  }\n  return leftStack.length === 0;\n}"
+        },
+        {
+            "date": 1631808000000,
+            "time": 68,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "贪心，统计左括号可能的最大值和最小值。",
+            "code": "function checkValidString(s: string): boolean {\n  let min = 0;\n  let max = 0;\n  for (const c of s) {\n    if (c === '(') {\n      min++;\n      max++;\n    } else if (c === ')') {\n      min = Math.max(min - 1, 0);\n      max--;\n      if (max < 0) return false;\n    } else {\n      min = Math.max(min - 1, 0);\n      max++;\n    }\n  }\n  return min === 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "455. 分发饼干",
+    "url": "https://leetcode-cn.com/problems/assign-cookies/",
+    "difficulty": "简单",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。",
+    "solutions": [
+        {
+            "date": 1608825600000,
+            "time": 136,
+            "memory": 41.9,
+            "script": "typescript",
+            "desc": "排序后逐个比较，贪心。",
+            "code": "function findContentChildren(g: number[], s: number[]): number {\n  const sort = (a: number, b: number) => a - b;\n  g.sort(sort);\n  s.sort(sort);\n  const gLen = g.length;\n  const sLen = s.length;\n  let gI = 0;\n  let sI = 0;\n  let ans = 0;\n  while (gI < gLen) {\n    if (sI === sLen) return ans;\n    if (g[gI] <= s[sI]) {\n      gI++;\n      sI++;\n      ans++;\n    } else {\n      sI++;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
+}

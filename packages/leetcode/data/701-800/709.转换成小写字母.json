@@ -1,0 +1,35 @@
+{
+    "name": "709. 转换成小写字母",
+    "url": "https://leetcode-cn.com/problems/to-lower-case/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "实现函数 ToLowerCase()，该函数接收一个字符串参数 str，并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。",
+    "solutions": [
+        {
+            "date": 1581868800000,
+            "time": 0,
+            "memory": 40.8,
+            "script": "java",
+            "desc": "根据 asc 码如果是大写字母则改变成小写字母。",
+            "code": "class Solution {\n\tpublic String toLowerCase(String str) {\n\t\tfor (int i = 0, len = str.length(); i < len; i++) {\n\t\t\tchar c = str.charAt(i);\n\t\t\tif (c >= 65 && c <= 90) {\n\t\t\t\tchar newCh = (char) (c + 32);\n\t\t\t\tstr=str.replace(c, newCh);\n\t\t\t}\n\t\t}\n\t\treturn str;\n\t}\n}"
+        },
+        {
+            "date": 1639238400000,
+            "time": 68,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "调用内置函数。",
+            "code": "function toLowerCase(s: string): string {\n  return s.toLowerCase();\n}"
+        },
+        {
+            "date": 1639238400000,
+            "time": 776,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "转换 ascii。",
+            "code": "function toLowerCase(s: string): string {\n  let ans = '';\n  for (let i = 0, n = s.length; i < n; i++) {\n    const num = s.codePointAt(i)!;\n    if (num >= 65 && num <= 90) ans += String.fromCodePoint(num + 32);\n    else ans += s[i];\n  }\n  return ans;\n}"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "832. 翻转图像",
+    "url": "https://leetcode-cn.com/problems/flipping-an-image/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。",
+    "solutions": [
+        {
+            "date": 1614096000000,
+            "time": 92,
+            "memory": 40.5,
+            "script": "typescript",
+            "desc": "双循环直接翻转去反。",
+            "code": "function flipAndInvertImage(A: number[][]): number[][] {\n  const colLen = A[0].length;\n  for (let row = 0, rowLen = A.length; row < rowLen; row++)\n    for (let col = 0, colMidLen = (colLen - 1) / 2; col <= colMidLen; col++)\n      [A[row][col], A[row][colLen - col - 1]] = [A[row][colLen - col - 1] ^ 1, A[row][col] ^ 1];\n  return A;\n}"
+        }
+    ]
+}

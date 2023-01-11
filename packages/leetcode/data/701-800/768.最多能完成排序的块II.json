@@ -1,0 +1,23 @@
+{
+    "name": "768. 最多能完成排序的块 II",
+    "url": "https://leetcode.cn/problems/max-chunks-to-make-sorted-ii/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "贪心",
+        "数组",
+        "排序",
+        "单调栈"
+    ],
+    "desc": "我们最多能将数组分成多少块？。",
+    "solutions": [
+        {
+            "date": 1660492800000,
+            "time": 8,
+            "memory": 11.8,
+            "script": "cpp",
+            "desc": "单调栈，每次意味着左边块中所有的元素都小于右边块，如果不满足则合并。",
+            "code": "class Solution {\npublic:\n    int maxChunksToSorted(vector<int>& arr) {\n        vector<int> s;\n        for (auto &num : arr) {\n            if (s.empty() || s[s.size() - 1] <= num) {\n                s.push_back(num);\n            } else {\n                int num_max = s[s.size() - 1];\n                while (s.size() && s[s.size() - 1] > num) s.pop_back();\n                s.push_back(num_max);\n            }\n        }\n        return s.size();\n    }\n};"
+        }
+    ]
+}

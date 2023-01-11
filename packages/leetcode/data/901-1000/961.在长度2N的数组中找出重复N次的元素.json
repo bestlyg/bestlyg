@@ -1,0 +1,28 @@
+{
+    "name": "961. 在长度 2N 的数组中找出重复 N 次的元素",
+    "url": "https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "找出并返回重复了 n 次的那个元素。",
+    "solutions": [
+        {
+            "date": 1648137600000,
+            "time": 20,
+            "memory": 24.1,
+            "script": "cpp",
+            "desc": "查找某个元素的出现次数是否大于 1。",
+            "code": "class Solution {\n   public:\n    int repeatedNTimes(vector<int>& nums) {\n        int m[10004] = {0};\n        for (auto& num : nums) {\n            if (++m[num] > 1) return num;\n        }\n        return 0;\n    }\n};"
+        },
+        {
+            "date": 1653062400000,
+            "time": 28,
+            "memory": 24.1,
+            "script": "cpp",
+            "desc": "随机选择,只有目标数是重复的。",
+            "code": "class Solution {\n   public:\n    int repeatedNTimes(vector<int> &nums) {\n        srand(time(0));\n        int n = nums.size();\n        while (1) {\n            int x = rand() % n, y = rand() % n;\n            if (x != y && nums[x] == nums[y]) return nums[x];\n        }\n        return -1;\n    }\n};"
+        }
+    ]
+}

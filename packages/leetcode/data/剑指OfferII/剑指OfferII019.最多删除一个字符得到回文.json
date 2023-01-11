@@ -1,0 +1,21 @@
+{
+    "name": "剑指 Offer II 019. 最多删除一个字符得到回文",
+    "url": "https://leetcode-cn.com/problems/RQku0D/",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "双指针",
+        "字符串"
+    ],
+    "desc": "给定一个非空字符串 s，请判断如果 最多 从字符串中删除一个字符能否得到一个回文字符串。",
+    "solutions": [
+        {
+            "date": 1645113600000,
+            "time": 48,
+            "memory": 19,
+            "script": "c++",
+            "desc": "双指针遍历。",
+            "code": "class Solution {\n   public:\n    bool check(string &s, int l, int r) {\n        while (l < r) {\n            if (s[l] != s[r]) return 0;\n            l++;\n            r--;\n        }\n        return 1;\n    }\n    bool validPalindrome(string s) {\n        int l = 0, r = s.size() - 1;\n        for (int l = 0, r = s.size() - 1; l < r; l++, r--) {\n            if (s[l] == s[r])\n                continue;\n            else\n                return check(s, l, r - 1) || check(s, l + 1, r);\n        }\n        return 1;\n    }\n};"
+        }
+    ]
+}

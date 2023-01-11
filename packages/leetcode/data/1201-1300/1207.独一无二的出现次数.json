@@ -1,0 +1,19 @@
+{
+    "name": "1207. 独一无二的出现次数",
+    "url": "https://leetcode-cn.com/problems/unique-number-of-occurrences/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表"
+    ],
+    "desc": "给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。",
+    "solutions": [
+        {
+            "date": 1603814400000,
+            "time": 72,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "用 map 储存数据，用 set 去重比较。",
+            "code": "function uniqueOccurrences(arr: number[]): boolean {\n  const map = new Map<number, number>();\n  const setMap = (num: number) => map.set(num, map.has(num) ? map.get(num)! + 1 : 1);\n  arr.forEach(v => setMap(v));\n  // console.log(map);\n  return new Set(map.values()).size === map.size;\n}"
+        }
+    ]
+}

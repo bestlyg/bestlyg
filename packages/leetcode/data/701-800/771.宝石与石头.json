@@ -1,0 +1,19 @@
+{
+    "name": "771. 宝石与石头",
+    "url": "https://leetcode-cn.com/problems/jewels-and-stones/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表"
+    ],
+    "desc": "给定字符串 J 代表石头中宝石的类型，和字符串 S 代表你拥有的石头。 S 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。",
+    "solutions": [
+        {
+            "date": 1601568000000,
+            "time": 92,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "利用哈希储存值。",
+            "code": "function numJewelsInStones(J: string, S: string): number {\n  const cache: Record<string, number> = {};\n  const setCache = (c: string) => (cache[c] = cache[c] ? cache[c] + 1 : 1);\n  const getCache = (c: string) => (cache[c] ? cache[c] : 0);\n  for (const c of S) setCache(c);\n  let sum = 0;\n  for (const c of J) sum += getCache(c);\n  return sum;\n}"
+        }
+    ]
+}

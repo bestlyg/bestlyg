@@ -1,0 +1,29 @@
+{
+    "name": "剑指 Offer 42. 连续子数组的最大和",
+    "url": "https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "分治",
+        "动态规划"
+    ],
+    "desc": "输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。",
+    "solutions": [
+        {
+            "date": 1626451200000,
+            "time": 4620,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function maxSubArray(nums: number[]): number {\n  let num = 0;\n  const len = nums.length;\n  const sums = [0, ...nums.map(v => (num += v))];\n  let ans = -Infinity;\n  for (let i = 0; i < len; i++) {\n    ans = Math.max(ans, nums[i]);\n    const sum = sums[i + 1];\n    for (let j = 0; j < i; j++) {\n      const num = sum - sums[j];\n      ans = Math.max(ans, num);\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1626451200000,
+            "time": 88,
+            "memory": 47.6,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function maxSubArray(nums: number[]): number {\n  let num = 0;\n  const len = nums.length;\n  const sums = [0, ...nums.map(v => (num += v))];\n  let min = 0;\n  let ans = -Infinity;\n  for (let i = 0; i < len; i++) {\n    const sum = sums[i + 1];\n    ans = Math.max(ans, sum - min, nums[i]);\n    min = Math.min(min, sum);\n  }\n  return ans;\n}"
+        }
+    ]
+}

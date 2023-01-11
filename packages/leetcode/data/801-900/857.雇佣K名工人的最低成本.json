@@ -1,0 +1,22 @@
+{
+    "name": "857. 雇佣 K 名工人的最低成本",
+    "url": "https://leetcode.cn/problems/minimum-cost-to-hire-k-workers/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "排序",
+        "堆(优先队列)"
+    ],
+    "desc": "给定整数 k ，返回 组成满足上述条件的付费群体所需的最小金额 。",
+    "solutions": [
+        {
+            "date": 1662825600000,
+            "time": 140,
+            "memory": 49.8,
+            "script": "typescript",
+            "desc": "在工人数相同的情况下，对应 1 质量的完成，所有工人应该支付最高平均价格。",
+            "code": "class Heap<T = number> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n  *[Symbol.iterator](): IterableIterator<T> {\n    for (const t of this.arr) {\n      yield t;\n    }\n  }\n}\nfunction mincostToHireWorkers(quality: number[], wage: number[], k: number): number {\n  const len = quality.length;\n  const arr = new Array(len)\n    .fill(0)\n    .map((_, i) => i)\n    .sort((i1, i2) => wage[i1] / quality[i1] - wage[i2] / quality[i2]);\n  const heap = new Heap<number>((t1, t2) => t1 - t2);\n  let i = 0;\n  let sum = 0;\n  let ans = Infinity;\n  for (; i < k - 1; i++) {\n    sum += quality[arr[i]];\n    heap.add(quality[arr[i]]);\n  }\n  for (; i < len; i++) {\n    sum += quality[arr[i]];\n    heap.add(quality[arr[i]]);\n    ans = Math.min(ans, (wage[arr[i]] / quality[arr[i]]) * sum);\n    sum -= heap.remove();\n  }\n  return ans;\n}"
+        }
+    ]
+}

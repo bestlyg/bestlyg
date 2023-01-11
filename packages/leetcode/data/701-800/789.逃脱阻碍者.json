@@ -1,0 +1,20 @@
+{
+    "name": "789. 逃脱阻碍者",
+    "url": "https://leetcode-cn.com/problems/escape-the-ghosts/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "你在进行一个简化版的吃豆人游戏。 只有在你有可能成功逃脱时，输出 true ；否则，输出 false 。",
+    "solutions": [
+        {
+            "date": 1629561600000,
+            "time": 84,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "曼哈顿距离，只有阻碍者比起始点远才可到达。",
+            "code": "function escapeGhosts(ghosts: number[][], target: number[]): boolean {\n  const comp = (x: number, y: number): number => Math.abs(x - target[0]) + Math.abs(y - target[1]);\n  const distance = comp(0, 0);\n  for (const ghost of ghosts) {\n    if (comp(...(ghost as [number, number])) <= distance) return false;\n  }\n  return true;\n}"
+        }
+    ]
+}

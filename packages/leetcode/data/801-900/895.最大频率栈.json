@@ -1,0 +1,13 @@
+{
+    "name": "895. 最大频率栈",
+    "url": "https://leetcode.cn/problems/maximum-frequency-stack/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "设计",
+        "哈希表",
+        "有序合集"
+    ],
+    "desc": "设计一个类似堆栈的数据结构，将元素推入堆栈，并从堆栈中弹出出现频率最高的元素。",
+    "solutions": []
+}

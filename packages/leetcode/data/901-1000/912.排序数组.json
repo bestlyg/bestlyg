@@ -1,0 +1,19 @@
+{
+    "name": "912. 排序数组",
+    "url": "https://leetcode-cn.com/problems/sort-an-array/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个整数数组 nums，请你将该数组升序排列。",
+    "solutions": [
+        {
+            "date": 1620316800000,
+            "time": 156,
+            "memory": 51.9,
+            "script": "typescript",
+            "desc": "利用内部排序。",
+            "code": "function sortArray(nums: number[]): number[] {\n  return nums.sort((a, b) => a - b);\n}"
+        }
+    ]
+}

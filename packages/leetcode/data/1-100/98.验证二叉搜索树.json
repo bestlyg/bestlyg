@@ -1,0 +1,28 @@
+{
+    "name": "98. 验证二叉搜索树",
+    "url": "https://leetcode-cn.com/problems/validate-binary-search-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个二叉树，判断其是否是一个有效的二叉搜索树。",
+    "solutions": [
+        {
+            "date": 1582387200000,
+            "time": 334,
+            "memory": 41.3,
+            "script": "java",
+            "desc": "使用中序遍历，再进行冒泡排序，若存在排序则为非 bst。",
+            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tArrayList<Integer> list = new ArrayList<Integer>();\n\n\tpublic boolean isValidBST(TreeNode root) {\n\t\tif (root == null)\n\t\t\treturn true;\n\t\tpreorder(root);\n\t\tint size = list.size();\n\t\tfor (int i = 0; i < size - 1; i++)\n\t\t\tfor (int j = 0; j < size - 1 - i; j++)\n\t\t\t\tif (list.get(j) >= list.get(j + 1))\n\t\t\t\t\treturn false;\n\t\treturn true;\n\t}\n\n\tpublic void preorder(TreeNode node) {\n\t\tif (node.left != null) {\n\t\t\tpreorder(node.left);\n\t\t}\n\t\tlist.add(node.val);\n\t\tif (node.right != null) {\n\t\t\tpreorder(node.right);\n\t\t}\n\t}\n}"
+        },
+        {
+            "date": 1628265600000,
+            "time": 96,
+            "memory": 43.1,
+            "script": "typescript",
+            "desc": "中序遍历。",
+            "code": "function isValidBST(root: TreeNode | null): boolean {\n  if (root === null) return true;\n  const q: number[] = [];\n  inorder(root);\n  for (let i = 1; i < q.length; i++) if (q[i] <= q[i - 1]) return false;\n  return true;\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node.val);\n    inorder(node.right);\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "1646. 获取生成数组中的最大值",
+    "url": "https://leetcode-cn.com/problems/get-maximum-in-generated-array/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "动态规划",
+        "模拟"
+    ],
+    "desc": "返回生成数组 nums 中的 最大 值。",
+    "solutions": [
+        {
+            "date": 1629648000000,
+            "time": 80,
+            "memory": 39.1,
+            "script": "typescript",
+            "desc": "循环分别计算每个值。",
+            "code": "function getMaximumGenerated(n: number): number {\n  if (n === 0) return 0;\n  if (n === 1) return 1;\n  let ans = 1;\n  const arr = new Array(n + 1);\n  arr[0] = 0;\n  arr[1] = 1;\n  for (let i = 1; 2 * i + 1 <= n; i++) {\n    ans = Math.max(ans, (arr[i * 2] = arr[i]));\n    ans = Math.max(ans, (arr[i * 2 + 1] = arr[i] + arr[i + 1]));\n  }\n  return ans;\n}"
+        }
+    ]
+}

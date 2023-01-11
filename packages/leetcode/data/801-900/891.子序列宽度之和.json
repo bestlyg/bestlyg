@@ -1,0 +1,12 @@
+{
+    "name": "891. 子序列宽度之和",
+    "url": "https://leetcode.cn/problems/sum-of-subsequence-widths/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "数学",
+        "排序"
+    ],
+    "desc": "给你一个整数数组 nums ，返回 nums 的所有非空 子序列 的 宽度之和 。",
+    "solutions": []
+}

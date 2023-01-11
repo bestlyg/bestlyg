@@ -1,0 +1,30 @@
+{
+    "name": "229. 求众数 II",
+    "url": "https://leetcode-cn.com/problems/majority-element-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "计数",
+        "排序"
+    ],
+    "desc": "给定一个大小为 n 的整数数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。",
+    "solutions": [
+        {
+            "date": 1634832000000,
+            "time": 88,
+            "memory": 41.8,
+            "script": "typescript",
+            "desc": "哈希存储。",
+            "code": "function majorityElement(nums: number[]): number[] {\n  const map = new Map<number, number>();\n  const n = nums.length;\n  for (const num of nums) {\n    map.set(num, (map.get(num) ?? 0) + 1);\n  }\n  return Array.from(map.entries())\n    .filter(([, v]) => v > n / 3)\n    .map(([k]) => k);\n}"
+        },
+        {
+            "date": 1634832000000,
+            "time": 88,
+            "memory": 41.5,
+            "script": "typescript",
+            "desc": "摩尔投票，超过 n/3 的数最多有 2 个，每三个不同的数进行抵消。",
+            "code": "function majorityElement(nums: number[]): number[] {\n  const n = nums.length;\n  let num1 = nums[0];\n  let num2 = nums[0];\n  let val1 = 0;\n  let val2 = 0;\n  for (const num of nums) {\n    if (val1 > 0 && num === num1) {\n      val1++;\n    } else if (val2 > 0 && num === num2) {\n      val2++;\n    } else if (val1 === 0) {\n      num1 = num;\n      val1++;\n    } else if (val2 === 0) {\n      num2 = num;\n      val2++;\n    } else {\n      val1--;\n      val2--;\n    }\n  }\n  let cnt1 = 0;\n  let cnt2 = 0;\n  for (const num of nums) {\n    if (val1 > 0 && num1 === num) cnt1++;\n    if (val2 > 0 && num2 === num) cnt2++;\n  }\n  const ans: number[] = [];\n  if (val1 > 0 && cnt1 > n / 3) ans.push(num1);\n  if (val2 > 0 && cnt2 > n / 3) ans.push(num2);\n  return ans;\n}"
+        }
+    ]
+}

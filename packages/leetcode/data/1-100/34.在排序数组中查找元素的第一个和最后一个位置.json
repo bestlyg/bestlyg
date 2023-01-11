@@ -1,0 +1,28 @@
+{
+    "name": "34. 在排序数组中查找元素的第一个和最后一个位置",
+    "url": "https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。",
+    "solutions": [
+        {
+            "date": 1606752000000,
+            "time": 108,
+            "memory": 41.5,
+            "script": "typescript",
+            "desc": "直接调用原生方法。",
+            "code": "function searchRange(nums: number[], target: number): number[] {\n  return [nums.indexOf(target), nums.lastIndexOf(target)];\n}"
+        },
+        {
+            "date": 1606752000000,
+            "time": 80,
+            "memory": 41.4,
+            "script": "typescript",
+            "desc": "二分查找。",
+            "code": "function searchRange(nums: number[], target: number): number[] {\n  const len = nums.length;\n  return [find(), find(false)];\n  function find(order = true, l = 0, r = len): number {\n    if (l >= r) return -1;\n    const mid = ~~((l + r) / 2);\n    const num = nums[mid];\n    if (num > target) {\n      return find(order, l, mid);\n    } else if (num < target) {\n      return find(order, mid + 1, r);\n    } else {\n      let i = mid;\n      const index = order ? find(order, l, mid) : find(order, mid + 1, r);\n      return index === -1 ? i : index;\n    }\n  }\n}"
+        }
+    ]
+}

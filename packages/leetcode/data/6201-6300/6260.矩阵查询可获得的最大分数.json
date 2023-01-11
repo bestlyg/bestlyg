@@ -1,0 +1,10 @@
+{
+    "name": "6260. 矩阵查询可获得的最大分数",
+    "url": "https://leetcode.cn/problems/maximum-number-of-points-from-grid-queries/",
+    "difficulty": "困难",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个大小为 m x n 的整数矩阵 grid 和一个大小为 k 的数组 queries 。在过程结束后，answer[i] 是你可以获得的最大分数。注意，对于每个查询，你可以访问同一个单元格 多次 。返回结果数组 answer 。",
+    "solutions": []
+}

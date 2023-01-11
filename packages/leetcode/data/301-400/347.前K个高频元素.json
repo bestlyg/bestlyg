@@ -1,0 +1,20 @@
+{
+    "name": "347. 前 K 个高频元素",
+    "url": "https://leetcode-cn.com/problems/top-k-frequent-elements/",
+    "difficulty": "中等",
+    "tag": [
+        "堆",
+        "哈希表"
+    ],
+    "desc": "给定一个非空的整数数组，返回其中出现频率前 k 高的元素。",
+    "solutions": [
+        {
+            "date": 1599408000000,
+            "time": 108,
+            "memory": 41.5,
+            "script": "typescript",
+            "desc": "构造堆进行遍历。",
+            "code": "class Frequent {\n  count = 1;\n  constructor(public num: number) {}\n}\nclass Heap<T> {\n  get size(): number {\n    return this._elemenets.length;\n  }\n  constructor(private _elemenets: T[], private compare: (e1: T, e2: T) => number) {\n    this.heapify();\n  }\n  heapify(): void {\n    for (let i = (this.size >> 1) - 1; i >= 0; i--) {\n      this.siftDown(i);\n    }\n  }\n  remove(): T {\n    const root = this._elemenets[0];\n    this._elemenets[0] = this._elemenets.pop() as T;\n    this.siftDown(0);\n    return root;\n  }\n  siftDown(index: number) {\n    const element = this._elemenets[index];\n    const half = this.size >> 1;\n    while (index < half) {\n      let childIndex = (index << 1) + 1;\n      let child = this._elemenets[childIndex];\n      const rightIndex = childIndex + 1;\n      if (rightIndex < this.size && this.compare(this._elemenets[rightIndex], child) > 0) {\n        child = this._elemenets[(childIndex = rightIndex)];\n      }\n      if (this.compare(element, child) >= 0) break;\n      this._elemenets[index] = child;\n      index = childIndex;\n    }\n    this._elemenets[index] = element;\n  }\n}\nfunction topKFrequent(nums: number[], k: number): number[] {\n  const frequents: Record<number, Frequent> = {};\n  for (const num of nums) {\n    if (frequents[num]) frequents[num].count++;\n    else frequents[num] = new Frequent(num);\n  }\n  const heap = new Heap(Object.values(frequents), (e1, e2) => e1.count - e2.count);\n  const ans: number[] = [];\n  while (k-- !== 0) {\n    ans.push(heap.remove().num);\n  }\n  return ans;\n}"
+        }
+    ]
+}

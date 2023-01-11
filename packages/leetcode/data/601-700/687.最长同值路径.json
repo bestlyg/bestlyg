@@ -1,0 +1,21 @@
+{
+    "name": "687. 最长同值路径",
+    "url": "https://leetcode.cn/problems/longest-univalue-path/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "desc": "给定一个二叉树的 root ，返回 最长的路径的长度 ，这个路径中的 每个节点具有相同值 。 这条路径可以经过也可以不经过根节点。",
+    "solutions": [
+        {
+            "date": 1662048000000,
+            "time": 84,
+            "memory": 49.9,
+            "script": "cpp",
+            "desc": "递归,每次记录以根结点起的最长链路和子节点的最长内部链路。",
+            "code": "#define MAX(a, b) ((a) > (b) ? (a) : (b))\nint longestUnivaluePath(struct TreeNode *root){\n    if (!root) return 0;\n    int ans = 0;\n    _longestUnivaluePath(root, &ans);\n    return ans - 1;\n}\nint _longestUnivaluePath(struct TreeNode *root, int *ans) {\n    if (!root) return 0;\n    int cnt1 = 1, cnt2 = 1,\n        left = _longestUnivaluePath(root->left, ans),\n        right = _longestUnivaluePath(root->right, ans);\n    if (root->left && root->left->val == root->val) cnt1 = MAX(cnt1, 1 + left), cnt2 += left;\n    if (root->right && root->right->val == root->val) cnt1 = MAX(cnt1, 1 + right), cnt2 += right;\n    *ans = MAX(*ans, cnt1);\n    *ans = MAX(*ans, cnt2);\n    return cnt1;\n}"
+        }
+    ]
+}

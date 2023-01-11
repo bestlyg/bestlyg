@@ -1,0 +1,29 @@
+{
+    "name": "1051. 高度检查器",
+    "url": "https://leetcode-cn.com/problems/height-checker/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "计数排序",
+        "排序"
+    ],
+    "desc": "返回满足 heights[i] != expected[i] 的 下标数量 。",
+    "solutions": [
+        {
+            "date": 1648310400000,
+            "time": 0,
+            "memory": 7.9,
+            "script": "cpp",
+            "desc": "排序后比较。",
+            "code": "class Solution {\n   public:\n    int heightChecker(vector<int>& heights) {\n        vector<int> sorted(heights.begin(), heights.end());\n        sort(sorted.begin(), sorted.end());\n        int ans = 0;\n        for (int i = 0; i < heights.size(); i++) {\n            if (sorted[i] != heights[i]) ans++;\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1655049600000,
+            "time": 4,
+            "memory": 7.9,
+            "script": "cpp",
+            "desc": "排序后比较。",
+            "code": "class Solution {\n   public:\n    int heightChecker(vector<int>& heights) {\n        int n = heights.size();\n        vector<int> list(n);\n        for (int i = 0; i < n; i++) list[i] = heights[i];\n        sort(list.begin(), list.end());\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (list[i] != heights[i]) ans++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

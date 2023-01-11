@@ -1,0 +1,19 @@
+{
+    "name": "面试题 16.18. 模式匹配",
+    "url": "https://leetcode-cn.com/problems/pattern-matching-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "你有两个字符串，即 pattern 和 value。 pattern 字符串由字母\"a\"和\"b\"组成，用于描述字符串中的模式。例如，字符串\"catcatgocatgo\"匹配模式\"aabab\"（其中\"cat\"是\"a\"，\"go\"是\"b\"），该字符串也匹配像\"a\"、\"ab\"和\"b\"这样的模式。但需注意\"a\"和\"b\"不能同时表示相同的字符串。编写一个方法判断 value 字符串是否匹配 pattern 字符串。",
+    "solutions": [
+        {
+            "date": 1592755200000,
+            "time": 84,
+            "memory": 37.3,
+            "script": "typescript",
+            "desc": "细节判断，复刻 java 代码，并没有很深的理解。",
+            "code": "function patternMatching(pattern: string, value: string): boolean {\n  // 如果为空字符串 则只能匹配空字符串\n  if (pattern === '') return value === '';\n  // 如果匹配字符串只有a或b\n  if (pattern === 'a' || pattern === 'b') return true;\n  // 计算pattern里a和b的个数\n  let aCount = 0;\n  let bCount = 0;\n  for (const c of pattern) {\n    if (c === 'a') aCount++;\n    else bCount++;\n  }\n  const vLen = value.length;\n  // value为空时，判断pattern是否只有a或只有b\n  if (value === '') return aCount === 0 || bCount === 0;\n  // a或b的数量为0，判断value能否被等分\n  if (aCount * bCount == 0) {\n    const count = aCount + bCount;\n    if (vLen % count != 0) return false;\n    let len = vLen / count;\n    for (let i = len; i < vLen; i += len) if (!stringEquals(0, i, len)) return false;\n    return true;\n  }\n  // i代表a字符串的长度\n  for (let i = 0; i <= vLen; i++) {\n    // a字符串过长就break\n    if (vLen < aCount * i) break;\n    const bLen = ~~((vLen - aCount * i) / bCount);\n    // lenB满足条件才进行判断\n    if (bLen * bCount + aCount * i !== vLen) continue;\n    let index = 0;\n    // 初始化a和b的初始索引之前设置为-1\n    const ab = [-1, -1];\n    let notMatch = false;\n    for (const c of pattern) {\n      if (c === 'a') {\n        if (ab[0] === -1) ab[0] = index;\n        else if (!stringEquals(ab[0], index, i)) {\n          notMatch = true;\n          break;\n        }\n        index += i;\n      } else {\n        if (ab[1] === -1) ab[1] = index;\n        else if (!stringEquals(ab[1], index, bLen)) {\n          notMatch = true;\n          break;\n        }\n        index += bLen;\n      }\n      if (bLen === i && ab[0] !== -1 && ab[1] !== -1 && stringEquals(ab[0], ab[1], bLen)) {\n        notMatch = true;\n        break;\n      }\n    }\n    // notMatch为false说明之前的几个判断里面都不是因为break跳出\n    if (!notMatch) return true;\n  }\n  return false;\n  function stringEquals(i: number, j: number, len: number): boolean {\n    for (let k = 0; k < len; k++) if (value[i + k] !== value[j + k]) return false;\n    return true;\n  }\n}"
+        }
+    ]
+}

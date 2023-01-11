@@ -1,0 +1,19 @@
+{
+    "name": "46. 全排列",
+    "url": "https://leetcode-cn.com/problems/permutations/",
+    "difficulty": "中等",
+    "tag": [
+        "回溯算法"
+    ],
+    "desc": "给定一个 没有重复 数字的序列，返回其所有可能的全排列。",
+    "solutions": [
+        {
+            "date": 1587744000000,
+            "time": 80,
+            "memory": 37.3,
+            "script": "javascript",
+            "desc": "通过递归对每层判断后压栈。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nvar permute = function (nums) {\n  const len = nums.length;\n  if (len === 1) return [nums];\n  const res = [];\n  for (let i = 0; i < len; i++) {\n    const newNums = permute(nums.filter((_, index) => index !== i));\n    for (const newNum of newNums) res.push([nums[i]].concat(newNum));\n  }\n  return res;\n};"
+        }
+    ]
+}

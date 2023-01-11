@@ -1,0 +1,45 @@
+{
+    "name": "101. 对称二叉树",
+    "url": "https://leetcode-cn.com/problems/symmetric-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "广度优先搜索",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个二叉树，检查它是否是镜像对称的。",
+    "solutions": [
+        {
+            "date": 1582300800000,
+            "time": 1,
+            "memory": 37.7,
+            "script": "java",
+            "desc": "遍历。",
+            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tpublic boolean isSymmetric(TreeNode root) {\n\t\tif (root == null)\n\t\t\treturn true;\n\t\tDeque<TreeNode> deque = new LinkedList<TreeNode>();\n\t\tdeque.offer(root.left);\n\t\tdeque.offer(root.right);\n\t\twhile (!deque.isEmpty()) {\n\t\t\tTreeNode left = deque.pollFirst();\n\t\t\tTreeNode right = deque.pollLast();\n\t\t\tif (left == null && right == null)\n\t\t\t\tcontinue;\n\t\t\tif (left == null || right == null)\n\t\t\t\treturn false;\n\t\t\tif(left.val!=right.val)return false;\n\t\t\tdeque.offerFirst(left.right);\n\t\t\tdeque.offerFirst(left.left);\n\t\t\tdeque.offerLast(right.left);\n\t\t\tdeque.offerLast(right.right);\n\t\t}\n\t\treturn true;\n\t}\n}"
+        },
+        {
+            "date": 1582300800000,
+            "time": 1,
+            "memory": 37.9,
+            "script": "java",
+            "desc": "递归。",
+            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tpublic boolean isSymmetric(TreeNode root) {\n\t\tif (root == null)\n\t\t\treturn true;\n\t\tif (!inIsSymmetric(root.left, root.right))\n\t\t\treturn false;\n\t\treturn true;\n\t}\n\n\tpublic boolean inIsSymmetric(TreeNode node1, TreeNode node2) {\n\t\tif (node1 == null && node2 == null)\n\t\t\treturn true;\n\t\tif (node1 == null || node2 == null)\n\t\t\treturn false;\n\t\tif (node1.val != node2.val)\n\t\t\treturn false;\n\t\treturn inIsSymmetric(node1.left, node2.right) && inIsSymmetric(node1.right, node2.left);\n\t}\n}"
+        },
+        {
+            "date": 1582300800000,
+            "time": 88,
+            "memory": 37,
+            "script": "typescript",
+            "desc": "递归。",
+            "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nvar isSymmetric = function (root: TreeNode | null): boolean {\n  if (root === null) return true;\n  return isSymNode(root.left, root.right);\n  function isSymNode(node1: TreeNode | null, node2: TreeNode | null): boolean {\n    if (node1 === null && node2 === null) return true;\n    if (node1 === null || node2 === null || node1.val !== node2.val) return false;\n    return isSymNode(node1.left, node2.right) && isSymNode(node1.right, node2.left);\n  }\n};"
+        },
+        {
+            "date": 1637942400000,
+            "time": 4,
+            "memory": 6.5,
+            "script": "c",
+            "desc": "递归。",
+            "code": "// 校验两个树是否镜像\nbool _isSymmetric(struct TreeNode *node1, struct TreeNode *node2){\n    // 都为NULL就是\n    if (!node1 && !node2) return 1;\n    // 其中一个为NULL或者值不等就不是\n    if (!node1 || !node2 || node1->val != node2->val) return 0;\n    // 否则递归判断：node1的左和node2的右是否镜像、node1的右和node2的左是否镜像\n    return _isSymmetric(node1->left, node2->right) && _isSymmetric(node1->right, node2->left);\n}\nbool isSymmetric(struct TreeNode* root){\n    return _isSymmetric(root->left, root->right);\n}"
+        }
+    ]
+}

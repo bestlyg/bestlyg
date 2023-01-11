@@ -1,0 +1,27 @@
+{
+    "name": "160. 相交链表",
+    "url": "https://leetcode-cn.com/problems/intersection-of-two-linked-lists/",
+    "difficulty": "简单",
+    "tag": [
+        "链表"
+    ],
+    "desc": "给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。",
+    "solutions": [
+        {
+            "date": 1622736000000,
+            "time": 128,
+            "memory": 46.9,
+            "script": "typescript",
+            "desc": "利用 set 储存。",
+            "code": "function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {\n  if (headA === null || headB === null) return null;\n  const setA = new Set<ListNode>();\n  const setB = new Set<ListNode>();\n  let pA: ListNode | null = headA;\n  let pB: ListNode | null = headB;\n  while (pA !== null && pB !== null) {\n    setA.add(pA);\n    setB.add(pB);\n    if (setB.has(pA)) return pA;\n    if (setA.has(pB)) return pB;\n    pA = pA.next;\n    pB = pB.next;\n  }\n  while (pA !== null) {\n    if (setB.has(pA)) return pA;\n    pA = pA.next;\n  }\n  while (pB !== null) {\n    if (setA.has(pB)) return pB;\n    pB = pB.next;\n  }\n  return null;\n}"
+        },
+        {
+            "date": 1637251200000,
+            "time": 36,
+            "memory": 13.5,
+            "script": "c",
+            "desc": "双指针。",
+            "code": "struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {\n    struct ListNode *a = headA, *b = headB;\n    while(a != b){\n        a = a ? a->next : headB;\n        b = b ? b->next : headA;\n    }\n    return a;\n}"
+        }
+    ]
+}

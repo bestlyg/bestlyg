@@ -1,0 +1,29 @@
+{
+    "name": "714. 买卖股票的最佳时机含手续费",
+    "url": "https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给定一个整数数组  prices，其中第  i  个元素代表了第  i  天的股票价格 ；非负整数  fee 代表了交易股票的手续费用。你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。返回获得利润的最大值。",
+    "solutions": [
+        {
+            "date": 1608134400000,
+            "time": 452,
+            "memory": 67.9,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function maxProfit(prices: number[], fee: number): number {\n  const len = prices.length;\n  /**\n   * 0 手上无股票\n   * 1 手上有股票\n   */\n  const dp: number[][] = new Array(len).fill(0).map(_ => new Array(2).fill(0));\n  dp[0] = [0, -prices[0]];\n  for (let i = 1; i < len; i++) {\n    dp[i] = [\n      Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i] - fee),\n      Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]),\n    ];\n  }\n  return dp[len - 1][0];\n}"
+        },
+        {
+            "date": 1608134400000,
+            "time": 116,
+            "memory": 48.1,
+            "script": "typescript",
+            "desc": "完善题解 1。",
+            "code": "function maxProfit(prices: number[], fee: number): number {\n  /**\n   * 0 手上无股票\n   * 1 手上有股票\n   */\n  let price0 = 0;\n  let price1 = -prices[0];\n  for (let i = 1, len = prices.length; i < len; i++) {\n    [price0, price1] = [\n      Math.max(price0, price1 + prices[i] - fee),\n      Math.max(price1, price0 - prices[i]),\n    ];\n  }\n  return price0;\n}\nconsole.log(maxProfit([9, 8, 7, 1, 2], 3));"
+        }
+    ]
+}

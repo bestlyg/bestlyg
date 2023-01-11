@@ -1,0 +1,36 @@
+{
+    "name": "20. 有效的括号",
+    "url": "https://leetcode-cn.com/problems/valid-parentheses/",
+    "difficulty": "简单",
+    "tag": [
+        "栈",
+        "字符串"
+    ],
+    "desc": "给定一个只包括 '('，')'，'{'，'}'，'['，']'  的字符串，判断字符串是否有效。有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。注意空字符串可被认为是有效字符串。",
+    "solutions": [
+        {
+            "date": 1581782400000,
+            "time": 2,
+            "memory": 40.8,
+            "script": "java",
+            "desc": "遍历，左括号压栈，右括号判断。",
+            "code": "class Solution {\n    public boolean isValid(String s) {\n\t    \tStack<Character> stack= new Stack<Character>();\n\t    \tint len=s.length();\n\t    \tfor(int i =0;i<len;i++) {\n\t    \t\tchar c=s.charAt(i);\n\t    \t\tif(c=='('||c=='{'||c=='[') {\n\t    \t\t\tstack.push(c);\n\t    \t\t}else {\n\t    \t\t\tif(stack.isEmpty())\treturn false;\n\t    \t\t\tchar left=stack.pop();\n\t    \t\t\tif(left=='('&&c!=')')return false;\n\t    \t\t\tif(left=='{'&&c!='}')return false;\n\t    \t\t\tif(left=='['&&c!=']')return false;\n\t    \t\t}\n\t    \t}\n\t        return stack.isEmpty();\n    }\n}"
+        },
+        {
+            "date": 1581782400000,
+            "time": 4,
+            "memory": 41.4,
+            "script": "java",
+            "desc": "与 1 思路相似，用 map 储存三对大括号。",
+            "code": "class Solution {\n    public boolean isValid(String s) {\n\t    \tStack<Character> stack= new Stack<Character>();\n\t    \tint len=s.length();\n\t    \tfor(int i =0;i<len;i++) {\n\t    \t\tchar c=s.charAt(i);\n\t    \t\tif(c=='('||c=='{'||c=='[') {\n\t    \t\t\tstack.push(c);\n\t    \t\t}else {\n\t    \t\t\tif(stack.isEmpty())\treturn false;\n\t    \t\t\tchar left=stack.pop();\n\t    \t\t\tif(left=='('&&c!=')')return false;\n\t    \t\t\tif(left=='{'&&c!='}')return false;\n\t    \t\t\tif(left=='['&&c!=']')return false;\n\t    \t\t}\n\t    \t}\n\t        return stack.isEmpty();\n    }\n}"
+        },
+        {
+            "date": 1597334400000,
+            "time": 92,
+            "memory": 38.5,
+            "script": "typescript",
+            "desc": "利用栈进行判断。",
+            "code": "function isValid(s: string): boolean {\n  const stack: string[] = [];\n  for (const c of s) {\n    if (c === '(' || c === '[' || c === '{') {\n      stack.push(c);\n    } else {\n      const left = stack.pop();\n      if (\n        !left ||\n        (left === '(' && c !== ')') ||\n        (left === '[' && c !== ']') ||\n        (left === '{' && c !== '}')\n      )\n        return false;\n    }\n  }\n  return stack.length === 0;\n}"
+        }
+    ]
+}

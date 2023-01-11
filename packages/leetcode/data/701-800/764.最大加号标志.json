@@ -1,0 +1,11 @@
+{
+    "name": "764. 最大加号标志",
+    "url": "https://leetcode.cn/problems/largest-plus-sign/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "返回  grid 中包含 1 的最大的 轴对齐 加号标志的阶数 。如果未找到加号标志，则返回 0 。",
+    "solutions": []
+}

@@ -1,0 +1,10 @@
+{
+    "name": "377. 组合总和 Ⅳ",
+    "url": "https://leetcode-cn.com/problems/combination-sum-iv/",
+    "difficulty": "中等",
+    "tag": [
+        "动态规划"
+    ],
+    "desc": "给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。",
+    "solutions": []
+}

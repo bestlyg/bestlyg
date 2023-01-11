@@ -1,0 +1,11 @@
+{
+    "name": "1785. 构成特定和需要添加的最少元素",
+    "url": "https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组"
+    ],
+    "desc": "返回使数组元素总和等于 goal 所需要向数组中添加的 最少元素数量 ，添加元素 不应改变 数组中 abs(nums[i]) <= limit 这一属性。",
+    "solutions": []
+}

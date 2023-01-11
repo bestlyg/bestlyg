@@ -1,0 +1,22 @@
+{
+    "name": "677. 键值映射",
+    "url": "https://leetcode-cn.com/problems/rank-from-stream-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "字典树",
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "实现一个 MapSum 类。",
+    "solutions": [
+        {
+            "date": 1636819200000,
+            "time": 80,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "trie。",
+            "code": "const getIdx = (ch: string) => ch.codePointAt(0)! - 'a'.codePointAt(0)!;\nclass TrieNode {\n  data = 0;\n  end = false;\n  children: TrieNode[] = [];\n  constructor(public val: string) {}\n  sum() {\n    let sum = this.data;\n    for (const child of this.children) {\n      if (child) sum += child.sum();\n    }\n    return sum;\n  }\n}\nclass Trie {\n  root = new TrieNode('');\n  insert(word: string, data: number): void {\n    let node = this.root;\n    for (const ch of word) {\n      const idx = getIdx(ch);\n      if (!node.children[idx]) node.children[idx] = new TrieNode(ch);\n      node = node.children[idx];\n    }\n    node.data = data;\n    node.end = true;\n  }\n  findNode(word: string): TrieNode | null {\n    let node = this.root;\n    for (const ch of word) {\n      const idx = getIdx(ch);\n      if (!node.children[idx]) return null;\n      node = node.children[idx];\n    }\n    return node;\n  }\n  search(word: string): boolean {\n    return !!this.findNode(word)?.end;\n  }\n  startsWith(prefix: string): boolean {\n    return !!this.findNode(prefix);\n  }\n}\n\nclass MapSum {\n  trie = new Trie();\n  insert(key: string, val: number): void {\n    this.trie.insert(key, val);\n  }\n  sum(prefix: string): number {\n    return this.trie.findNode(prefix)?.sum() ?? 0;\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "name": "1310. 子数组异或查询",
+    "url": "https://leetcode-cn.com/problems/xor-queries-of-a-subarray/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算"
+    ],
+    "desc": "有一个正整数数组 arr，现给你一个对应的查询数组 queries，其中 queries[i] = [Li, Ri]，返回一个包含给定查询 queries 所有结果的数组。",
+    "solutions": [
+        {
+            "date": 1620748800000,
+            "time": 1492,
+            "memory": 52.9,
+            "script": "typescript",
+            "desc": "直接循环异或。",
+            "code": "function xorQueries(arr: number[], queries: number[][]): number[] {\n  return queries.map(([start, end]) => {\n    let ans!: number;\n    for (let i = start; i <= end; i++) {\n      if (ans) ans ^= arr[i];\n      else ans = arr[i];\n    }\n    return ans;\n  });\n}"
+        },
+        {
+            "date": 1620748800000,
+            "time": 132,
+            "memory": 53.2,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function xorQueries(arr: number[], queries: number[][]): number[] {\n  let num = arr[0];\n  const prefixSumList: number[] = arr.map((v, i) => (i === 0 ? num : (num ^= v)));\n  return queries.map(([start, end]) => prefixSumList[start - 1] ^ prefixSumList[end]);\n}"
+        }
+    ]
+}

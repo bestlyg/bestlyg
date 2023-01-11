@@ -1,0 +1,20 @@
+{
+    "name": "97. 交错字符串",
+    "url": "https://leetcode-cn.com/problems/interleaving-string/",
+    "difficulty": "困难",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。",
+    "solutions": [
+        {
+            "date": 1595001600000,
+            "time": 7876,
+            "memory": 45.1,
+            "script": "typescript",
+            "desc": "暴力解题。",
+            "code": "function isInterleave(s1: string, s2: string, s3: string): boolean {\n  if (s1 === '' && s2 === '' && s3 === '') return true;\n  if (s1.length + s2.length !== s3.length) return false;\n  if (s1[0] === s3[0]) {\n    if (isInterleave(s1.substr(1), s2, s3.substr(1))) return true;\n  }\n  if (s2[0] === s3[0]) {\n    if (isInterleave(s1, s2.substr(1), s3.substr(1))) return true;\n  }\n  return false;\n}"
+        }
+    ]
+}

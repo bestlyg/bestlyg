@@ -1,0 +1,20 @@
+{
+    "name": "495. 提莫攻击",
+    "url": "https://leetcode-cn.com/problems/teemo-attacking/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "模拟"
+    ],
+    "desc": "返回艾希处于中毒状态的 总 秒数。",
+    "solutions": [
+        {
+            "date": 1636473600000,
+            "time": 76,
+            "memory": 42.2,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function findPoisonedDuration(timeSeries: number[], duration: number): number {\n  let ans = 0;\n  for (let i = 0, n = timeSeries.length; i < n - 1; i++) {\n    const time = timeSeries[i];\n    const next_time = timeSeries[i + 1];\n    if (time + duration - 1 >= next_time) ans += next_time - time;\n    else ans += duration;\n  }\n  ans += duration;\n  return ans;\n}"
+        }
+    ]
+}

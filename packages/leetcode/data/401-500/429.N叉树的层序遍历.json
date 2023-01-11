@@ -1,0 +1,20 @@
+{
+    "name": "429. N 叉树的层序遍历",
+    "url": "https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "广度优先搜索"
+    ],
+    "desc": "给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。",
+    "solutions": [
+        {
+            "date": 1649347200000,
+            "time": 12,
+            "memory": 11.5,
+            "script": "cpp",
+            "desc": "层序遍历。",
+            "code": "class Solution {\n   public:\n    vector<vector<int>> levelOrder(Node *root) {\n        vector<vector<int>> ans;\n        if (!root) return ans;\n        queue<Node *> q;\n        q.push(root);\n        int size = 1;\n        vector<int> cur;\n        while (q.size()) {\n            Node *node = q.front();\n            q.pop();\n            cur.push_back(node->val);\n            for (auto child : node->children) q.push(child);\n            if (--size == 0) {\n                size = q.size();\n                ans.push_back(cur);\n                cur.clear();\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

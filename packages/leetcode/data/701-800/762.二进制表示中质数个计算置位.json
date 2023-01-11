@@ -1,0 +1,28 @@
+{
+    "name": "762. 二进制表示中质数个计算置位",
+    "url": "https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "数学"
+    ],
+    "desc": "给定两个整数 L 和 R ，找到闭区间 [L, R] 范围内，计算置位位数为质数的整数个数。",
+    "solutions": [
+        {
+            "date": 1647532800000,
+            "time": 48,
+            "memory": 6,
+            "script": "cpp",
+            "desc": "存储质数表，遍历。",
+            "code": "unordered_set<int> s = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};\nclass Solution {\n   public:\n    int countPrimeSetBits(int left, int right) {\n        int ans = 0;\n        for (int i = left; i <= right; i++) {\n            if (s.count(getc(i))) ans++;\n        }\n        return ans;\n    }\n    int getc(int num) {\n        int ans = 0;\n        for (; num; num >>= 1) {\n            if (num & 1) ans++;\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1649088000000,
+            "time": 36,
+            "memory": 5.8,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    int countPrimeSetBits(int left, int right) {\n        int ans = 0;\n        for (int i = left; i <= right; i++) {\n            if (is_prime(cnt(i))) ans++;\n        }\n        return ans;\n    }\n    int cnt(int num) {\n        int ans = 0;\n        for (; num; num >>= 1) {\n            if ((num & 1) == 1) ans++;\n        }\n        return ans;\n    }\n    bool is_prime(int num) {\n        if (num == 0 || num == 1) return 0;\n        for (int i = 2; i < num; i++) {\n            if (num % i == 0) return 0;\n        }\n        return 1;\n    }\n};"
+        }
+    ]
+}

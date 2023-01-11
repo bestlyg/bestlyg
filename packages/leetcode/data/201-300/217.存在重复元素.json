@@ -1,0 +1,20 @@
+{
+    "name": "217. 存在重复元素",
+    "url": "https://leetcode-cn.com/problems/contains-duplicate/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "给定一个整数数组，判断是否存在重复元素。",
+    "solutions": [
+        {
+            "date": 1607788800000,
+            "time": 100,
+            "memory": 44.5,
+            "script": "typescript",
+            "desc": "利用 set 去重。",
+            "code": "function containsDuplicate(nums: number[]): boolean {\n  return new Set(nums).size !== nums.length;\n}"
+        }
+    ]
+}

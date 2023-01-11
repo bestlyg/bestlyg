@@ -1,0 +1,20 @@
+{
+    "name": "927. 三等分",
+    "url": "https://leetcode.cn/problems/three-equal-parts/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "给定一个由 0 和 1 组成的数组 arr ，将数组分成 3 个非空的部分 ，使得所有这些部分表示相同的二进制值。",
+    "solutions": [
+        {
+            "date": 1664985600000,
+            "time": 296,
+            "memory": 39.3,
+            "script": "cpp",
+            "desc": "kmp 方式寻找前后缀。",
+            "code": "class Solution {\npublic:\n    vector<int> threeEqualParts(vector<int>& arr) {\n        int n = arr.size(), prefix0 = 0;\n        for (int i = 0; i < n && arr[i] == 0; i++) prefix0++; // 找到前缀有几个0\n        vector<int> ans(2, -1), next;\n        if (prefix0 == n) { // 优化全0的情况\n            ans[0] = 0;\n            ans[1] = 2;\n            return ans;\n        }\n        arr.erase(arr.begin(), arr.begin() + prefix0); // 排除前缀0\n        n = arr.size();\n        next = getNext(arr); // 利用kmp找到相同部分\n        // [0, next[cur]]     : 第一部分\n        // [next[cur] + 1, i] : 第二部分\n        // [i + 1, size() - 1]: 第三部分\n        for (int i = n - 2; i > 0; i--) {\n            int cur = i;\n            bool f = false;\n            while (next[cur] != -1 && !f) f = check(arr, ans, prefix0, next[cur], i + 1), cur = next[cur];\n            if (f) break;\n        }\n        return ans;\n    }\n    vector<int> getNext(vector<int> &arr) {\n        vector<int> next(arr.size(), -1);\n        for (int i = 1, j = -1; i < arr.size(); i++) {\n            while (j >= 0 && arr[i] != arr[j + 1]) j = next[j];\n            if (arr[j + 1] == arr[i]) j++;\n            next[i] = j;\n        }\n        return next;\n    }\n    bool check(vector<int> &arr, vector<int> &ans, int &prefix0, int s1, int s2) {\n        int i1 = s1, i2 = s2 - 1, i3 = arr.size() - 1;\n        // 从后往前依次比较\n        while (i1 >= 0 && i2 >= s1 + 1 && i3 >= s2) {\n            if (arr[i1] == arr[i2] && arr[i2] == arr[i3]) --i1, --i2, --i3;\n            else return false;\n        }\n        // 当一个部分解析完后，判断剩余是不是都是0\n        while (i1 >= 0 && arr[i1] == 0) --i1;\n        while (i2 >= s1 + 1 && arr[i2] == 0) --i2;\n        while (i3 >= s2 && arr[i3] == 0) --i3;\n        if (i1 != 0 - 1 || i2 != s1 || i3 != s2 - 1) return false;\n        ans[0] = s1 + prefix0;\n        ans[1] = s2 + prefix0;\n        return true;\n    }\n};"
+        }
+    ]
+}

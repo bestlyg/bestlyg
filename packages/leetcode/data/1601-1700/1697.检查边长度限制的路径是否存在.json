@@ -1,0 +1,13 @@
+{
+    "name": "1697. 检查边长度限制的路径是否存在",
+    "url": "https://leetcode.cn/problems/check-if-the-sentence-is-pangram",
+    "difficulty": "困难",
+    "tag": [
+        "并查集",
+        "图",
+        "数组",
+        "排序"
+    ],
+    "desc": "请你返回一个 布尔数组 answer ，其中 answer.length == queries.length ，当 queries[j] 的查询结果为 true 时， answer 第 j 个值为 true ，否则为 false 。",
+    "solutions": []
+}

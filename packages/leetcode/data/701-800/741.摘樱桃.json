@@ -1,0 +1,21 @@
+{
+    "name": "741. 摘樱桃",
+    "url": "https://leetcode.cn/problems/cherry-pickup/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "动态规划",
+        "矩阵"
+    ],
+    "desc": "你的任务是在遵守下列规则的情况下，尽可能的摘到最多樱桃。",
+    "solutions": [
+        {
+            "date": 1657468800000,
+            "time": 84,
+            "memory": 34.2,
+            "script": "cpp",
+            "desc": "问题转化为两个人从起点到终点路径中共有多少个樱桃,dp[i][j][k]表示总共 i 步的时候第一个人 x 在 j 第二个人 x 在 k,此时最大的樱桃数。",
+            "code": "class Solution {\n   public:\n    int cherryPickup(vector<vector<int>>& grid) {\n        int n = grid.size(), max_step = n * 2 - 1;\n        vector<vector<vector<int>>> dp(\n            max_step, vector<vector<int>>(n, vector<int>(n, INT_MIN)));\n        dp[0][0][0] = grid[0][0];\n        for (int step = 1; step < max_step; step++) {\n            int minCell = max(step - n + 1, 0), maxCell = min(n - 1, step);\n            for (\n                // x1最少走0格,如果step已经超过n,那x1最少也得n格\n                int x1 = minCell;\n                //  x1最多走到第n-1格\n                x1 <= maxCell; x1++) {\n                int y1 = step - x1;\n                if (grid[x1][y1] == -1) continue;\n                for (int x2 = minCell; x2 <= maxCell; x2++) {\n                    int y2 = step - x2;\n                    if (grid[x2][y2] == -1) continue;\n                    int cnt = dp[step - 1][x1][x2]; // 都向右走一步\n                    if (x1) cnt = max(cnt, dp[step - 1][x1 - 1][x2]); // x1向下走一步\n                    if (x2) cnt = max(cnt, dp[step - 1][x1][x2 - 1]); // x2向下走一步\n                    if (x1 && x2) cnt = max(cnt, dp[step - 1][x1 - 1][x2 - 1]); // 都向下走一步\n                    cnt += grid[x1][y1];\n                    if (x1 != x2) cnt += grid[x2][y2];\n                    dp[step][x1][x2] = cnt;\n                }\n            }\n        }\n        return max(0, dp[max_step - 1][n - 1][n - 1]);\n    }\n};"
+        }
+    ]
+}

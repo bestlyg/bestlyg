@@ -1,0 +1,20 @@
+{
+    "name": "1688. 比赛中的配对次数",
+    "url": "https://leetcode-cn.com/problems/count-of-matches-in-tournament/",
+    "difficulty": "简单",
+    "tag": [
+        "数学",
+        "模拟"
+    ],
+    "desc": "返回在比赛中进行的配对次数，直到决出获胜队伍为止。",
+    "solutions": [
+        {
+            "date": 1643126400000,
+            "time": 0,
+            "memory": 6,
+            "script": "c++",
+            "desc": "遍历一遍，统计每次的次数。",
+            "code": "class Solution {\n   public:\n    int numberOfMatches(int n) {\n        int cnt = 0;\n        while (n > 1) {\n            cnt += n / 2;\n            n = ceil(n / 2.0);\n        }\n        return cnt;\n    }\n};"
+        }
+    ]
+}

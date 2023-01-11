@@ -1,0 +1,20 @@
+{
+    "name": "1282. 用户分组",
+    "url": "https://leetcode.cn/problems/group-the-people-given-the-group-size-they-belong-to/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "返回一个组列表，使每个人 i 都在一个大小为 groupSizes[i] 的组中。",
+    "solutions": [
+        {
+            "date": 1660233600000,
+            "time": 4,
+            "memory": 2.3,
+            "script": "rust",
+            "desc": "map 重组。",
+            "code": "use std::collections::*;\nimpl Solution {\n    pub fn group_the_people(group_sizes: Vec<i32>) -> Vec<Vec<i32>> {\n        let mut ans = Vec::new();\n        let mut map = HashMap::<i32, Vec<Vec<i32>>>::new();\n        for i in 0..group_sizes.len() {\n            let k = group_sizes[i];\n            let list = map.entry(k).or_insert(vec![vec![]]);\n            let item = list.last_mut().unwrap();\n            item.push(i as i32);\n            if item.len() == k as usize {\n                ans.push(item.clone());\n                list.push(Vec::new());\n            }\n        }\n        ans\n    }\n}"
+        }
+    ]
+}

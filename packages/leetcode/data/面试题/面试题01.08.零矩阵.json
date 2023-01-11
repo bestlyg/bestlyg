@@ -1,0 +1,21 @@
+{
+    "name": "面试题 01.08. 零矩阵",
+    "url": "https://leetcode.cn/problems/zero-matrix-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "desc": "编写一种算法，若 M × N 矩阵中某个元素为 0，则将其所在的行与列清零。",
+    "solutions": [
+        {
+            "date": 1664467200000,
+            "time": 12,
+            "memory": 11.9,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        unordered_set<int> rows, cols;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (matrix[i][j] == 0) {\n                    rows.insert(i);\n                    cols.insert(j);\n                }\n            }\n        }\n        for (auto &row : rows) {\n            for (int i = 0; i < m; i++) matrix[row][i] = 0;\n        }\n        for (auto &col : cols) {\n            for (int i = 0; i < n; i++) matrix[i][col] = 0;\n        }\n    }\n};"
+        }
+    ]
+}

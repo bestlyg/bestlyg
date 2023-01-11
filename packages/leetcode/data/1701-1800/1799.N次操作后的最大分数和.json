@@ -1,0 +1,16 @@
+{
+    "name": "1799. N 次操作后的最大分数和",
+    "url": "https://leetcode.cn/problems/maximize-score-after-n-operations/",
+    "difficulty": "困难",
+    "tag": [
+        "位运算",
+        "数组",
+        "数学",
+        "动态规划",
+        "回溯",
+        "状态压缩",
+        "数论"
+    ],
+    "desc": "请你返回 n 次操作后你能获得的分数和最大为多少。",
+    "solutions": []
+}

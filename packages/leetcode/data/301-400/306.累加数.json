@@ -1,0 +1,20 @@
+{
+    "name": "306. 累加数",
+    "url": "https://leetcode-cn.com/problems/additive-number/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "回溯"
+    ],
+    "desc": "给你一个只包含数字 '0'-'9' 的字符串，编写一个算法来判断给定输入是否是 累加数 。如果是，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1641744000000,
+            "time": 4,
+            "memory": 6,
+            "script": "c++",
+            "desc": "dfs。",
+            "code": "class Solution {\n   public:\n    bool isAdditiveNumber(string num) {\n        string prev1 = \"\", prev2 = \"\";\n        for (int end1 = 0; end1 < num.size(); end1++) {\n            prev1 += num[end1];\n            prev2 = \"\";\n            for (int end2 = end1 + 1; end2 < num.size(); end2++) {\n                prev2 += num[end2];\n                if (dfs(num, end2 + 1, 1, prev1, prev2)) return 1;\n                if (end2 == end1 + 1 && num[end2] == '0') break;\n            }\n            if (end1 == 0 && num[end1] == '0') break;\n        }\n        return 0;\n    }\n    string add(string s1, string s2) {\n        string ans = \"\";\n        int i1 = s1.size() - 1, i2 = s2.size() - 1, tag = 0;\n        while (i1 >= 0 || i2 >= 0) {\n            int num = (i1 < 0 ? 0 : s1[i1--] - '0') +\n                      (i2 < 0 ? 0 : s2[i2--] - '0') + tag;\n            if (num >= 10) {\n                num -= 10;\n                tag = 1;\n            } else\n                tag = 0;\n            ans = to_string(num) + ans;\n        }\n        if (tag) ans = \"1\" + ans;\n        return ans;\n    }\n    int dfs(string& num, int start, int init, string prev1, string prev2) {\n        if (start == num.size()) return !init;\n        string next = \"\";\n        for (int i = start; i < num.size(); i++) {\n            next += num[i];\n            if (next == add(prev1, prev2))\n                return dfs(num, i + 1, 0, prev2, next);\n            if (i == start && num[i] == '0') break;\n        }\n        return 0;\n    }\n};"
+        }
+    ]
+}

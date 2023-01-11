@@ -1,0 +1,33 @@
+{
+    "name": "449. 序列化和反序列化二叉搜索树",
+    "url": "https://leetcode-cn.com/problems/serialize-and-deserialize-bst/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "设计",
+        "二叉搜索树",
+        "字符串",
+        "二叉树"
+    ],
+    "desc": "给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。 。",
+    "solutions": [
+        {
+            "date": 1628870400000,
+            "time": 108,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "JSON 序列化。",
+            "code": "function serialize(root: TreeNode | null): string {\n  return JSON.stringify(root);\n}\nfunction deserialize(data: string): TreeNode | null {\n  return JSON.parse(data);\n}"
+        },
+        {
+            "date": 1652198400000,
+            "time": 64,
+            "memory": 45.7,
+            "script": "cpp",
+            "desc": "递归。",
+            "code": "class Codec {\n   public:\n    string serialize(TreeNode *root) {\n        if (root == nullptr) return \"(-1)\";\n        return \"(\" + to_string(root->val) + \",\" + serialize(root->left) + \",\" +\n               serialize(root->right) + \")\";\n    }\n    TreeNode *deserialize(string data) {\n        if (data == \"(-1)\") return nullptr;\n        string l, r;\n        int val = analysis(data, l, r);\n        TreeNode *ans = new TreeNode(val);\n        ans->left = deserialize(l);\n        ans->right = deserialize(r);\n        return ans;\n    }\n    int analysis(string &data, string &l, string &r) {\n        int level = 0, n = data.size(), val;\n        int i = 0, prev = 1, cnt = 0;\n        for (; i < n; i++) {\n            int ch = data[i];\n            if (ch == '(') {\n                level++;\n            } else if (ch == ')') {\n                level--;\n            } else if (ch == ',' && level == 1) {\n                string substr = data.substr(prev, i - prev);\n                if (cnt == 0)\n                    val = stoi(substr);\n                else if (cnt == 1)\n                    l = substr;\n                cnt++;\n                prev = i + 1;\n            }\n        }\n        r = data.substr(prev, i - prev - 1);\n        return val;\n    }\n};"
+        }
+    ]
+}

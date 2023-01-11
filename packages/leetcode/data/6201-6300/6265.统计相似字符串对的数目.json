@@ -1,0 +1,10 @@
+{
+    "name": "6265. 统计相似字符串对的数目",
+    "url": "https://leetcode.cn/problems/count-pairs-of-similar-strings/",
+    "difficulty": "简单",
+    "tag": [
+        ""
+    ],
+    "desc": "如果两个字符串由相同的字符组成，则认为这两个字符串 相似 。请你找出满足字符串 words[i] 和 words[j] 相似的下标对 (i, j) ，并返回下标对的数目，其中 0 <= i < j <= word.length - 1 。",
+    "solutions": []
+}

@@ -1,0 +1,21 @@
+{
+    "name": "899. 有序队列",
+    "url": "https://leetcode.cn/problems/orderly-queue/",
+    "difficulty": "困难",
+    "tag": [
+        "数学",
+        "字符串",
+        "排序"
+    ],
+    "desc": "给定一个字符串 s 和一个整数 k 。你可以从 s 的前 k 个字母中选择一个，并把它加到字符串的末尾。 。",
+    "solutions": [
+        {
+            "date": 1659456000000,
+            "time": 0,
+            "memory": 2.3,
+            "script": "rust",
+            "desc": "如果 k 大于 1，说明可以任意调换顺序，如果 k 等于 1 说明只能把头部放入尾部。",
+            "code": "use std::cmp::Ordering;\nuse std::collections::VecDeque;\nimpl Solution {\n    pub fn orderly_queue(s: String, k: i32) -> String {\n        if k == 1 {\n            let mut s = s.chars().collect::<VecDeque<char>>();\n            let mut ans = s.clone();\n            let mut temp = s.clone();\n            for i in 0..s.len() {\n                temp.pop_front();\n                temp.push_back(s[i]);\n                if ans.cmp(&temp) == Ordering::Greater {\n                    ans = temp.clone();\n                }\n            }\n            ans.into_iter().collect()\n        } else {\n            let mut s = s.chars().collect::<Vec<char>>();\n            s.sort();\n            s.into_iter().collect()\n        }\n    }\n}"
+        }
+    ]
+}

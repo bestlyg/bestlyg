@@ -1,0 +1,27 @@
+{
+    "name": "1374. 生成每种字符都是奇数个的字符串",
+    "url": "https://leetcode.cn/problems/generate-a-string-with-characters-that-have-odd-counts/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给你一个整数 n，请你返回一个含 n 个字符的字符串，其中每种字符在该字符串中都恰好出现 奇数次 。",
+    "solutions": [
+        {
+            "date": 1659283200000,
+            "time": 0,
+            "memory": 6,
+            "script": "cpp",
+            "desc": "直接判断奇偶。",
+            "code": "class Solution {\n        public:\n         string generateTheString(int n) {\n             string ans = \"\";\n             if ((n & 1) == 0) {\n                 ans += 'b';\n                 n--;\n             }\n             for (int i = 0; i < n; i++) ans += 'a';\n             return ans;\n         }\n     };"
+        },
+        {
+            "date": 1659283200000,
+            "time": 0,
+            "memory": 2,
+            "script": "rust",
+            "desc": "直接判断奇偶。",
+            "code": "impl Solution {\n    pub fn generate_the_string(n: i32) -> String {\n        let mut n = n;\n        let mut ans = String::new();\n        if n & 1 == 0 {\n            ans.push('b');\n            n -= 1;\n        }\n        ans.push_str(&\"a\".repeat(n as usize));\n        ans\n    }\n}"
+        }
+    ]
+}

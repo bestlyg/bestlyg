@@ -1,0 +1,20 @@
+{
+    "name": "67. 二进制求和",
+    "url": "https://leetcode-cn.com/problems/add-binary/",
+    "difficulty": "简单",
+    "tag": [
+        "数学",
+        "字符串"
+    ],
+    "desc": "给你两个二进制字符串，返回它们的和（用二进制表示）。",
+    "solutions": [
+        {
+            "date": 1592841600000,
+            "time": 72,
+            "memory": 33.2,
+            "script": "typescript",
+            "desc": "利用字符串转数组后过滤获取所需字符进行判断。",
+            "code": "function addBinary(a: string, b: string): string {\n  return (BigInt(`0b${a}`) + BigInt(`0b${b}`)).toString(2);\n}"
+        }
+    ]
+}

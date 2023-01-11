@@ -1,0 +1,10 @@
+{
+    "name": "6223. 移除子树后的二叉树高度",
+    "url": "https://leetcode.cn/problems/height-of-binary-tree-after-subtree-removal-queries/",
+    "difficulty": "困难",
+    "tag": [
+        ""
+    ],
+    "desc": "返回一个长度为 m 的数组 answer ，其中 answer[i] 是执行第 i 个查询后树的高度。",
+    "solutions": []
+}

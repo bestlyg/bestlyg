@@ -1,0 +1,35 @@
+{
+    "name": "82. 删除排序链表中的重复元素 II",
+    "url": "https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "链表"
+    ],
+    "desc": "给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。",
+    "solutions": [
+        {
+            "date": 1581523200000,
+            "time": 5,
+            "memory": 44.3,
+            "script": "java",
+            "desc": "使用 map 储存元素，若元素不存在则 put 元素值为 1，若存在则值加 1，最后遍历若值不为 1 则删除。",
+            "code": "class Solution {\n    public ListNode deleteDuplicates(ListNode head) {\n        if (head == null) {\n\t\t\treturn null;\n\t\t}\n\t\tHashMap<Integer, Integer> map = new HashMap<Integer, Integer>();\n\t\tListNode newHead = new ListNode(0);\n\t\tnewHead.next = head;\n\t\twhile (head != null) {\n\t\t\tint tem = head.val;\n\t\t\tif (map.containsKey(tem)) {\n\t\t\t\tint num = map.get(tem) + 1;\n\t\t\t\tmap.put(tem, num);\n\t\t\t} else {\n\t\t\t\tmap.put(tem, 1);\n\t\t\t}\n\t\t\thead = head.next;\n\t\t}\n\t\thead = newHead;\n\t\twhile (head.next != null) {\n\t\t\tint val = head.next.val;\n\t\t\tif (map.get(val) > 1) {\n\t\t\t\thead.next = head.next.next;\n\t\t\t} else {\n\t\t\t\thead = head.next;\n\t\t\t}\n\t\t}\n\t\treturn newHead.next;\n    }\n}"
+        },
+        {
+            "date": 1614960000000,
+            "time": 80,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "利用已排序的特点直接进行比较。",
+            "code": "function deleteDuplicates(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const dummyHead = new ListNode(0, head);\n  let p = dummyHead;\n  let q: ListNode | null = dummyHead;\n  while (p.next !== null) {\n    if (p.next.next && p.next.val === p.next.next.val) {\n      q = p.next.next;\n      while (q && q.val === p.next.val) q = q.next;\n      p.next = q;\n    } else {\n      p = p.next;\n    }\n  }\n  return dummyHead.next;\n}"
+        },
+        {
+            "date": 1616601600000,
+            "time": 96,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "创建虚拟头节点依次比较值。",
+            "code": "function deleteDuplicates(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const dummyHead = new ListNode(0, head);\n  let p: ListNode | null = dummyHead;\n  while (p !== null) {\n    let q: ListNode | null = p.next;\n    if (q === null || q.next === null) break;\n    else if (q.val !== q.next.val) {\n      p.next = q;\n      p = q;\n    } else {\n      const val = q.val;\n      while (q !== null && q.val === val) q = q.next;\n      p.next = q;\n    }\n  }\n  return dummyHead.next;\n}"
+        }
+    ]
+}

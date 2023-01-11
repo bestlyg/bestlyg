@@ -1,0 +1,24 @@
+{
+    "name": "698. 划分为 k 个相等的子集",
+    "url": "https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "回溯",
+        "状态压缩"
+    ],
+    "desc": "给定一个整数数组 nums 和一个正整数 k，找出是否有可能把这个数组分成 k 个非空子集，其总和都相等。",
+    "solutions": [
+        {
+            "date": 1663603200000,
+            "time": 4,
+            "memory": 9,
+            "script": "cpp",
+            "desc": "构造 k 个桶进行回溯+剪枝。",
+            "code": "class Solution {\npublic:\n    bool canPartitionKSubsets(vector<int>& nums, int k) {\n        sort(nums.rbegin(), nums.rend());\n        int sum = accumulate(nums.begin(), nums.end(), 0);\n        if (sum % k != 0) return false; else sum /= k;\n        vector<int> list(k, 0);\n        return dfs(nums, list, sum, 0);\n    }\n    bool dfs(vector<int> &nums, vector<int> &list, int sum, int i) {\n        if (i == nums.size()) {\n            for (auto &item : list) if (item != sum) return false;\n            return true;\n        }\n        for (int j = 0; j < list.size(); j++) {\n            if (list[j] + nums[i] > sum || j && list[j - 1] == list[j]) continue;\n            list[j] += nums[i];\n            if (dfs(nums, list, sum, i + 1)) return true;\n            list[j] -= nums[i];\n        }\n        return false;\n    }\n};"
+        }
+    ]
+}

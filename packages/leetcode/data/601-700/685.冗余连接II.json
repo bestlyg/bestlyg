@@ -1,0 +1,22 @@
+{
+    "name": "685. 冗余连接 II",
+    "url": "https://leetcode-cn.com/problems/redundant-connection-ii/",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "desc": "在本问题中，有根树指满足以下条件的有向图。返回一条能删除的边，使得剩下的图是有 N 个节点的有根树。若有多个答案，返回最后出现在给定二维数组的答案。",
+    "solutions": [
+        {
+            "date": 1600272000000,
+            "time": 92,
+            "memory": 41.9,
+            "script": "typescript",
+            "desc": "[参考连接](https://leetcode-cn.com/problems/redundant-connection-ii/solution/rong-yu-lian-jie-ii-by-leetcode-solution/)。",
+            "code": "class UnionFind {\n  ancestor: number[];\n  constructor(n: number) {\n    this.ancestor = new Array(n).fill(0).map((_, i) => i);\n  }\n  find(index: number): number {\n    return index === this.ancestor[index]\n      ? index\n      : (this.ancestor[index] = this.find(this.ancestor[index]));\n  }\n  union(u: number, v: number): void {\n    this.ancestor[this.find(u)] = this.find(v);\n  }\n}\nfunction findRedundantDirectedConnection(edges: number[][]): number[] {\n  const nodeCount = edges.length;\n  const uf = new UnionFind(nodeCount + 1);\n  const parent: number[] = new Array(nodeCount + 1).fill(0).map((_, i) => i);\n  let conflict = -1;\n  let cycle = -1;\n  for (let i = 0; i < nodeCount; i++) {\n    const [node1, node2] = edges[i];\n    if (parent[node2] !== node2) {\n      conflict = i;\n    } else {\n      parent[node2] = node1;\n      if (uf.find(node1) === uf.find(node2)) {\n        cycle = i;\n      } else {\n        uf.union(node1, node2);\n      }\n    }\n  }\n  if (conflict < 0) {\n    return [edges[cycle][0], edges[cycle][1]];\n  } else {\n    const [edge1, edge2] = edges[conflict];\n    return cycle >= 0 ? [parent[edge2], edge2] : [edge1, edge2];\n  }\n}"
+        }
+    ]
+}

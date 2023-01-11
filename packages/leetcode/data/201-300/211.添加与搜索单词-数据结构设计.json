@@ -1,0 +1,22 @@
+{
+    "name": "211. 添加与搜索单词 - 数据结构设计",
+    "url": "https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "设计",
+        "字典树",
+        "字符串"
+    ],
+    "desc": "请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。",
+    "solutions": [
+        {
+            "date": 1634572800000,
+            "time": 216,
+            "memory": 56.6,
+            "script": "typescript",
+            "desc": "trie。",
+            "code": "class TrieNode {\n  end = false;\n  children: Map<string, TrieNode> = new Map();\n  constructor(public val: string) {}\n}\nclass Trie {\n  private _size = 0;\n  get size() {\n    return this._size;\n  }\n  get empty() {\n    return this._size === 0;\n  }\n  private _root = new TrieNode('');\n  get root() {\n    return this._root;\n  }\n  clear() {\n    this._root = new TrieNode('');\n    this._size = 0;\n  }\n  add(str: string) {\n    return this._add(str);\n  }\n  private _add(str: string, node = this._root) {\n    if (str.length === 0) {\n      this._root.end = true;\n      this._size++;\n      return;\n    }\n    if (str.length === 1) {\n      let endNode = node.children.get(str);\n      if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));\n      if (!endNode.end) {\n        endNode.end = true;\n        this._size++;\n      }\n      return;\n    }\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));\n    const nextStr = str.substr(1);\n    this._add(nextStr, nextNode);\n  }\n  contains(str: string) {\n    const endNode = this.findEndNode(str);\n    return endNode ? endNode.end : false;\n  }\n  remove(str: string) {\n    const endNode = this.findEndNode(str);\n    if (endNode && endNode.end) {\n      endNode.end = false;\n      this._size--;\n    }\n  }\n  starsWith(str: string) {\n    return this.findEndNode(str) !== null;\n  }\n  private findEndNode(str: string, node = this._root): TrieNode | null {\n    if (str.length === 0) return this._root;\n    if (str.length === 1) return node.children.get(str) ?? null;\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) return null;\n    const nextStr = str.substr(1);\n    return this.findEndNode(nextStr, nextNode);\n  }\n}\n\nclass WordDictionary {\n  private trie = new Trie();\n  addWord(word: string): void {\n    this.trie.add(word);\n  }\n  search(word: string): boolean {\n    return this._search(0, word, this.trie.root);\n  }\n  private _search(idx: number, word: string, node: TrieNode): boolean {\n    const ch = word[idx];\n    if (idx === word.length - 1) {\n      if (ch === '.') return Array.from(node.children.values()).some(node => node.end);\n      const lastNode = node.children.get(ch);\n      return !!lastNode?.end;\n    }\n    if (ch === '.') {\n      for (const nextNode of node.children.values()) {\n        if (this._search(idx + 1, word, nextNode)) return true;\n      }\n      return false;\n    }\n    const nextNode = node.children.get(ch);\n    if (!nextNode) return false;\n    return this._search(idx + 1, word, nextNode);\n  }\n}"
+        }
+    ]
+}

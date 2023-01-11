@@ -1,0 +1,28 @@
+{
+    "name": "208. 实现 Trie (前缀树)",
+    "url": "https://leetcode-cn.com/problems/implement-trie-prefix-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "字典树"
+    ],
+    "desc": "请你实现 Trie 类。",
+    "solutions": [
+        {
+            "date": 1618329600000,
+            "time": 248,
+            "memory": 55.5,
+            "script": "typescript",
+            "desc": "构建前缀树。",
+            "code": "class Trie {\n  private children = new Map<string, Trie>();\n  constructor(public char = '', public end = false) {}\n  insert(word: string): void {\n    if (word === '') {\n      this.end = true;\n      return;\n    }\n    const first = word[0];\n    let nextTrieNode = this.children.get(first);\n    if (!nextTrieNode)\n      this.children.set(first, (nextTrieNode = new Trie(first, word.length === 1)));\n    nextTrieNode.insert(word.substr(1));\n  }\n  search(word: string): boolean {\n    if (word === '') return this.end;\n    return !!this.children.get(word[0])?.search(word.substr(1));\n  }\n  startsWith(prefix: string): boolean {\n    if (prefix.length === 1) return this.children.has(prefix);\n    return !!this.children.get(prefix[0])?.startsWith(prefix.substr(1));\n  }\n}"
+        },
+        {
+            "date": 1635091200000,
+            "time": 196,
+            "memory": 56.4,
+            "script": "typescript",
+            "desc": "数组构建 trie。",
+            "code": "const MAX_COUNT = 26;\nconst getIdx = (ch: string) => ch.codePointAt(0)! - 'a'.codePointAt(0)!;\nclass TrieNode {\n  end = false;\n  children: TrieNode[] = new Array(MAX_COUNT);\n  constructor(public val: string) {}\n}\nclass Trie {\n  root = new TrieNode('');\n  insert(word: string): void {\n    let node = this.root;\n    for (const ch of word) {\n      const idx = getIdx(ch);\n      if (!node.children[idx]) node.children[idx] = new TrieNode(ch);\n      node = node.children[idx];\n    }\n    node.end = true;\n  }\n  findNode(word: string): TrieNode | null {\n    let node = this.root;\n    for (const ch of word) {\n      const idx = getIdx(ch);\n      if (!node.children[idx]) return null;\n      node = node.children[idx];\n    }\n    return node;\n  }\n  search(word: string): boolean {\n    return !!this.findNode(word)?.end;\n  }\n  startsWith(prefix: string): boolean {\n    return !!this.findNode(prefix);\n  }\n}"
+        }
+    ]
+}

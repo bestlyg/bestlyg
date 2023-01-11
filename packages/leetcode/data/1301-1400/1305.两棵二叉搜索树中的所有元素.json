@@ -1,0 +1,36 @@
+{
+    "name": "1305. 两棵二叉搜索树中的所有元素",
+    "url": "https://leetcode-cn.com/problems/all-elements-in-two-binary-search-trees/",
+    "difficulty": "中等",
+    "tag": [
+        "排序",
+        "树"
+    ],
+    "desc": "请你返回一个列表，其中包含 两棵树 中的所有整数并按 升序 排序。",
+    "solutions": [
+        {
+            "date": 1620835200000,
+            "time": 204,
+            "memory": 51.6,
+            "script": "typescript",
+            "desc": "归并。",
+            "code": "function getAllElements(root1: TreeNode | null, root2: TreeNode | null): number[] {\n  const inorder = (node: TreeNode | null, queue: number[]): void => {\n    if (node === null) return;\n    inorder(node.left, queue);\n    queue.push(node.val);\n    inorder(node.right, queue);\n  };\n  const queue1: number[] = [];\n  inorder(root1, queue1);\n  const queue2: number[] = [];\n  inorder(root2, queue2);\n  let p1 = 0;\n  const len1 = queue1.length;\n  let p2 = 0;\n  const len2 = queue2.length;\n  const ans: number[] = [];\n  while (p1 < len1 || p2 < len2) {\n    ans.push(p2 >= len2 || queue1[p1] <= queue2[p2] ? queue1[p1++] : queue2[p2++]);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1651334400000,
+            "time": 84,
+            "memory": 8.4,
+            "script": "go",
+            "desc": "dfs。",
+            "code": "func getAllElements(root1 *TreeNode, root2 *TreeNode) []int {\n  arr1 := getArr(root1)\n  n1 := len(arr1)\n  arr2 := getArr(root2)\n  n2 := len(arr2)\n  ans := make([]int, n1+n2)\n  var i1, i2 = 0, 0\n  for i := 0; i1 < n1 || i2 < n2; i++ {\n    if i1 != n1 && (i2 == n2 || arr1[i1] < arr2[i2]) {\n      ans[i] = arr1[i1]\n      i1++\n    } else {\n      ans[i] = arr2[i2]\n      i2++\n    }\n  }\n  return ans\n}\nfunc getArr(node *TreeNode) (arr []int) {\n  var dfs func(*TreeNode)\n  dfs = func(node *TreeNode) {\n    if node == nil {\n      return\n    }\n    dfs(node.Left)\n    arr = append(arr, node.Val)\n    dfs(node.Right)\n  }\n  dfs(node)\n  return arr\n}"
+        },
+        {
+            "date": 1651334400000,
+            "time": 196,
+            "memory": 56.4,
+            "script": "c",
+            "desc": "dfs。",
+            "code": "int *getAllElements(struct TreeNode *root1, struct TreeNode *root2,\n  int *returnSize) {\n    int n1 = 0, n2 = 0;\n    int *arr1 = (int *)malloc(sizeof(int) * 5005);\n    int *arr2 = (int *)malloc(sizeof(int) * 5005);\n    createArr(arr1, &n1, root1);\n    createArr(arr2, &n2, root2);\n    *returnSize = 0;\n    int *ans = (int *)malloc(sizeof(int) * (n1 + n2));\n    for (int i1 = 0, i2 = 0; i1 < n1 || i2 < n2;) {\n        if (i1 != n1 && (i2 == n2 || arr1[i1] < arr2[i2]))\n            ans[(*returnSize)++] = arr1[i1++];\n        else\n            ans[(*returnSize)++] = arr2[i2++];\n    }\n    free(arr1);\n    free(arr2);\n    return ans;\n}\nvoid createArr(int *arr, int *size, struct TreeNode *node) {\n    if (node == NULL) return;\n    createArr(arr, size, node->left);\n    arr[(*size)++] = node->val;\n    createArr(arr, size, node->right);\n}"
+        }
+    ]
+}

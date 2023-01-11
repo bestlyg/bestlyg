@@ -1,0 +1,19 @@
+{
+    "name": "1190. 反转每对括号间的子串",
+    "url": "https://leetcode-cn.com/problems/reverse-substrings-between-each-pair-of-parentheses/",
+    "difficulty": "中等",
+    "tag": [
+        "栈"
+    ],
+    "desc": "给出一个字符串 s（仅含有小写英文字母和括号）。请你按照从括号内到外的顺序，逐层反转每对匹配括号中的字符串，并返回最终的结果。",
+    "solutions": [
+        {
+            "date": 1621958400000,
+            "time": 72,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "栈储存。",
+            "code": "function reverseParentheses(s: string): string {\n  const stack: string[] = [];\n  for (const c of s) {\n    if (c === ')') {\n      let str = '';\n      while (stack[stack.length - 1] !== '(') str = stack.pop()! + str;\n      stack.pop();\n      stack.push(str.split('').reverse().join(''));\n    } else stack.push(c);\n  }\n  return stack.join('');\n}"
+        }
+    ]
+}

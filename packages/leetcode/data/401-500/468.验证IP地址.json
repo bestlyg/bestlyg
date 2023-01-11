@@ -1,0 +1,27 @@
+{
+    "name": "468. 验证 IP 地址",
+    "url": "https://leetcode-cn.com/problems/validate-ip-address/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "编写一个函数来验证输入的字符串是否是有效的 IPv4 或 IPv6 地址。",
+    "solutions": [
+        {
+            "date": 1636214400000,
+            "time": 72,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "每一个片段进行解析。",
+            "code": "function checkIpv4(query: string) {\n  const list = query.split('.');\n  if (list.length !== 4) return false;\n  for (const section of list) {\n    if (\n      section === '' ||\n      (section.length > 1 && section[0] === '0') ||\n      /[a-zA-Z]+/.test(section) ||\n      +section >= 256\n    )\n      return false;\n  }\n  return true;\n}\nfunction checkIpv6(query: string) {\n  const list = query.split(':');\n  if (list.length !== 8) return false;\n  for (const section of list) {\n    if (section === '0') continue;\n    if (section === '' || section.length > 4 || /[g-zG-Z]+/.test(section)) return false;\n  }\n  return true;\n}\nfunction validIPAddress(queryIP: string): string {\n  let ipv4 = false;\n  let ipv6 = false;\n  for (const c of queryIP) {\n    if (c === '.') {\n      ipv4 = true;\n      break;\n    } else if (c === ':') {\n      ipv6 = true;\n      break;\n    }\n  }\n  if (ipv4 && checkIpv4(queryIP)) return 'IPv4';\n  if (ipv6 && checkIpv6(queryIP)) return 'IPv6';\n  return 'Neither';\n}"
+        },
+        {
+            "date": 1653753600000,
+            "time": 64,
+            "memory": 42.5,
+            "script": "typescript",
+            "desc": "遍历，检测。",
+            "code": "const ipv4Reg = /^[0-9]+$/;\nfunction _checkIPV4(item: string): boolean {\n  if (!ipv4Reg.test(item)) return false;\n  if (item.length > 1 && item[0] === '0') return false;\n  if (parseInt(item) > 255) return false;\n  return true;\n}\nfunction checkIPV4(str: string): boolean {\n  const items = str.split('.');\n  if (items.length !== 4) return false;\n  return items.every(_checkIPV4);\n}\nconst ipv6Reg = /^[0-9a-fA-F]*$/;\nfunction _checkIPV6(item: string): boolean {\n  if (!ipv6Reg.test(item)) return false;\n  if (item.length > 4 || item.length === 0) return false;\n  return true;\n}\nfunction checkIPV6(str: string): boolean {\n  const items = str.split(':');\n  if (items.length !== 8) return false;\n  return items.every(_checkIPV6);\n}\nfunction validIPAddress(queryIP: string): string {\n  if (checkIPV4(queryIP)) return 'IPv4';\n  if (checkIPV6(queryIP)) return 'IPv6';\n  return 'Neither';\n}"
+        }
+    ]
+}

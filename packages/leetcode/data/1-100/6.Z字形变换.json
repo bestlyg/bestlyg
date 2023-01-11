@@ -1,0 +1,27 @@
+{
+    "name": "6.Z 字形变换",
+    "url": "https://leetcode-cn.com/problems/zigzag-conversion/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。",
+    "solutions": [
+        {
+            "date": 1586188800000,
+            "time": 92,
+            "memory": 42.5,
+            "script": "javascript",
+            "desc": "新建数组依次插入字符，通过字符在哪个位置插入来进行判断。",
+            "code": "/**\n * @param {string} s\n * @param {number} numRows\n * @return {string}\n */\nvar convert = function (s, numRows) {\n  if (numRows === 1) return s;\n  let result = '';\n  const arrs = new Array(numRows);\n  for (let i = 0; i < numRows; i++) arrs[i] = [];\n  function comp(i) {\n    if (i < numRows) return i;\n    const loop = numRows + numRows - 2;\n    let num;\n    do {\n      num = i % loop;\n    } while (num > loop);\n    if (num < numRows) return num;\n    else return loop - num;\n  }\n  for (let i = 0; i < s.length; i++) {\n    arrs[comp(i)].push(s[i]);\n  }\n  for (const arr of arrs) {\n    for (const s of arr) {\n      if (s !== undefined) result += s;\n    }\n  }\n  return result;\n};"
+        },
+        {
+            "date": 1646064000000,
+            "time": 1060,
+            "memory": 9.1,
+            "script": "c++",
+            "desc": "遍历后塞入数组。",
+            "code": "class Solution {\n   public:\n    string convert(string s, int numRows) {\n        if (numRows == 1) return s;\n        char arr[1000][1000];\n        memset(arr, 0, sizeof(char) * 1000 * 1000);\n        for (int idx = 0, row = 0, col = 0, n = s.size(); idx < n;) {\n            while (idx < n && row < numRows - 1) arr[row++][col] = s[idx++];\n            while (idx < n && row > 0) arr[row--][col++] = s[idx++];\n        }\n        string ans = \"\";\n        for (int i = 0; i < 1000; i++) {\n            for (int j = 0; j < 1000; j++) {\n                if (arr[i][j]) ans += arr[i][j];\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

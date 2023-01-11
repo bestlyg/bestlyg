@@ -1,0 +1,20 @@
+{
+    "name": "109. 有序链表转换二叉搜索树",
+    "url": "https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "链表"
+    ],
+    "desc": "给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。",
+    "solutions": [
+        {
+            "date": 1597680000000,
+            "time": 96,
+            "memory": 46.7,
+            "script": "typescript",
+            "desc": "通过有序数组进行深度遍历。",
+            "code": "function sortedListToBST(head: ListNode | null): TreeNode | null {\n  if (head === null) return null;\n  const arr: number[] = [];\n  while (head !== null) {\n    arr.push(head.val);\n    head = head.next;\n  }\n  return toBST(arr);\n  function toBST(array: number[]): TreeNode | null {\n    const len = array.length;\n    if (len === 0) return null;\n    const mid = len >> 1;\n    const node = new TreeNode(\n      array[mid],\n      toBST(array.slice(0, mid)),\n      toBST(array.slice(mid + 1, len))\n    );\n    return node;\n  }\n}"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "name": "1034. 边界着色",
+    "url": "https://leetcode-cn.com/problems/coloring-a-border/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你使用指定颜色 color 为所有包含网格块 grid[row][col] 的 连通分量的边界 进行着色，并返回最终的网格 grid 。",
+    "solutions": [
+        {
+            "date": 1638806400000,
+            "time": 84,
+            "memory": 41.7,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function colorBorder(grid: number[][], row: number, col: number, color: number): number[][] {\n  const ori_color = grid[row][col];\n  const m = grid.length;\n  const n = grid[0].length;\n  const list: number[][] = [];\n  const set = new Set<string>();\n  const format = (row: number, col: number) => `${row}:${col}`;\n  draw(row, col);\n  for (const [row, col] of list) grid[row][col] = color;\n  return grid;\n  function draw(row: number, col: number) {\n    if (\n      row < 0 ||\n      row >= m ||\n      col < 0 ||\n      col >= n ||\n      grid[row][col] !== ori_color ||\n      set.has(format(row, col))\n    )\n      return;\n    set.add(format(row, col));\n    if (\n      !(\n        row > 0 &&\n        col > 0 &&\n        row < m - 1 &&\n        col < n - 1 &&\n        grid[row - 1][col] === ori_color &&\n        grid[row + 1][col] === ori_color &&\n        grid[row][col - 1] === ori_color &&\n        grid[row][col + 1] === ori_color\n      )\n    ) {\n      list.push([row, col]);\n    }\n    draw(row - 1, col);\n    draw(row + 1, col);\n    draw(row, col - 1);\n    draw(row, col + 1);\n  }\n}"
+        }
+    ]
+}

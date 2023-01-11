@@ -1,0 +1,20 @@
+{
+    "name": "443. 压缩字符串",
+    "url": "https://leetcode-cn.com/problems/string-compression/",
+    "difficulty": "中等",
+    "tag": [
+        "双指针",
+        "字符串"
+    ],
+    "desc": "给你一个字符数组 chars ，请在 修改完输入数组后 ，返回该数组的新长度。",
+    "solutions": [
+        {
+            "date": 1629475200000,
+            "time": 84,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "双指针。",
+            "code": "function compress(chars: string[]): number {\n  let pos = 0;\n  const n = chars.length;\n  for (let i = 0; i < n; ) {\n    const c = chars[i];\n    let count = 1;\n    while (i + count < n && chars[i + count] === c) count++;\n    i += count;\n    chars[pos++] = c;\n    if (count > 1) {\n      let countStr = '';\n      while (count) {\n        countStr = (count % 10) + countStr;\n        count = ~~(count / 10);\n      }\n      for (const c of countStr) chars[pos++] = c;\n    }\n  }\n  return pos;\n}"
+        }
+    ]
+}

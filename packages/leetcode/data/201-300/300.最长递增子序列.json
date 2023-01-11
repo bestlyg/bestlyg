@@ -1,0 +1,36 @@
+{
+    "name": "300. 最长递增子序列",
+    "url": "https://leetcode-cn.com/problems/longest-increasing-subsequence/",
+    "difficulty": "中等",
+    "tag": [
+        "动态规划",
+        "二分查找"
+    ],
+    "desc": "给定一个无序的整数数组，找到其中最长上升子序列的长度。",
+    "solutions": [
+        {
+            "date": 1589040000000,
+            "time": 72,
+            "memory": 34.6,
+            "script": "javascript",
+            "desc": "递推的基础上，判断前一项是否值小于当前项。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar lengthOfLIS = function (nums) {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const dp = [1];\n  let max,\n    res = 1;\n  for (let i = 1; i < len; i++) {\n    const num = nums[i];\n    max = 0;\n    for (let j = 0; j < i; j++) {\n      if (nums[j] >= num) continue;\n      max = max > dp[j] ? max : dp[j];\n    }\n    dp[i] = max + 1;\n    res = res > dp[i] ? res : dp[i];\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1630684800000,
+            "time": 192,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function lengthOfLIS(nums: number[]): number {\n  const n = nums.length;\n  const dp = new Array(n).fill(1);\n  let ans = 1;\n  for (let i = 1; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      if (nums[i] > nums[j]) {\n        dp[i] = Math.max(dp[i], dp[j] + 1);\n        ans = Math.max(ans, dp[i]);\n      }\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1630684800000,
+            "time": 76,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "找尽可能长的序列。",
+            "code": "function lengthOfLIS(nums: number[]): number {\n  const list = [nums[0]];\n  for (const num of nums) list[find(num)] = num;\n  return list.length;\n  function find(num: number): number {\n    let l = 0;\n    let r = list.length - 1;\n    if (num > list[r]) return list.length;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (list[mid] >= num) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n}"
+        }
+    ]
+}

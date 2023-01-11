@@ -1,0 +1,27 @@
+{
+    "name": "47. 全排列 II",
+    "url": "https://leetcode-cn.com/problems/permutations-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "回溯算法"
+    ],
+    "desc": "给定一个可包含重复数字的序列，返回所有不重复的全排列。",
+    "solutions": [
+        {
+            "date": 1600358400000,
+            "time": 588,
+            "memory": 48.9,
+            "script": "typescript",
+            "desc": "递归后利用 set 去重。",
+            "code": "function permuteUnique(nums: number[]): number[][] {\n  const len = nums.length;\n  if (len === 1) return [nums];\n  const res: number[][] = [];\n  for (let i = 0; i < len; i++) {\n    res.push(\n      ...permuteUnique([...nums.slice(0, i), ...nums.slice(i + 1)]).map(v => [nums[i], ...v])\n    );\n  }\n  // 去重\n  const set = new Set(res.map(v => v.join(':')));\n  const ans: number[][] = [];\n  for (const arr of set) {\n    ans.push(arr.split(':').map(v => parseInt(v)));\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1628870400000,
+            "time": 176,
+            "memory": 44.5,
+            "script": "typescript",
+            "desc": "set 去重。",
+            "code": "function permuteUnique(nums: number[]): number[][] {\n  const ans = new Set<string>();\n  add(nums);\n  return [...ans].map(v => v.split('::').map(v => +v));\n  function add(list: number[], q: number[] = []): void {\n    if (list.length === 1) {\n      q.push(list[0]);\n      ans.add(q.join('::'));\n      q.pop();\n      return;\n    }\n    for (let i = 0; i < list.length; i++) {\n      q.push(list[i]);\n      add([...list.slice(0, i), ...list.slice(i + 1)], q);\n      q.pop();\n    }\n  }\n}"
+        }
+    ]
+}

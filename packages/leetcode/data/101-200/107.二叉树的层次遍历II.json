@@ -1,0 +1,28 @@
+{
+    "name": "107. 二叉树的层次遍历 II",
+    "url": "https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "广度优先搜索"
+    ],
+    "desc": "给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）。",
+    "solutions": [
+        {
+            "date": 1582214400000,
+            "time": 2,
+            "memory": 39.1,
+            "script": "java",
+            "desc": "层序遍历，利用链表每次在头结点添加。",
+            "code": "class Solution {\n\tLinkedList<List<Integer>> list = new LinkedList<List<Integer>>();\n    public List<List<Integer>> levelOrderBottom(TreeNode root) {\n        if(root==null)return list;\n        levelOrder(root, 0);\n        return list;\n    }\n    public void levelOrder(TreeNode node,int level) {\n    \tif(list.size()==level)list.addFirst(new ArrayList<Integer>());\n    \tlist.get(list.size()-level-1).add(node.val);\n    \tif(node.left!=null)levelOrder(node.left,1+ level);\n    \tif(node.right!=null)levelOrder(node.right,1+ level);\n    }\n}"
+        },
+        {
+            "date": 1599321600000,
+            "time": 76,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "层序遍历。",
+            "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction levelOrderBottom(root: TreeNode | null): number[][] {\n  if (root === null) return [];\n  const ans: number[][] = [[root.val]];\n  let size = 1;\n  const queue = [root];\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    if (node.left) queue.push(node.left);\n    if (node.right) queue.push(node.right);\n    if (--size === 0) {\n      size = queue.length;\n      ans.push(queue.map(node => node.val));\n    }\n  }\n  ans.pop();\n  return ans.reverse();\n}"
+        }
+    ]
+}

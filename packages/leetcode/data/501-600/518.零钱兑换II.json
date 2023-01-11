@@ -1,0 +1,27 @@
+{
+    "name": "518. 零钱兑换 II",
+    "url": "https://leetcode-cn.com/problems/coin-change-2/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。",
+    "solutions": [
+        {
+            "date": 1623254400000,
+            "time": 92,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "计算每种硬币的可能。",
+            "code": "function change(amount: number, coins: number[]): number {\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const coin of coins) {\n    for (let i = 1; i <= amount; i++) {\n      if (i >= coin) {\n        dp[i] += dp[i - coin];\n      }\n    }\n  }\n  return dp[amount];\n}"
+        },
+        {
+            "date": 1631462400000,
+            "time": 100,
+            "memory": 39.9,
+            "script": "javascript",
+            "desc": "动态规划。",
+            "code": "function change(amount: number, coins: number[]): number {\n  coins.sort((a, b) => a - b);\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const coin of coins) {\n    for (let i = 1; i <= amount; i++) {\n      if (i >= coin) dp[i] += dp[i - coin];\n    }\n  }\n  return dp[amount];\n}"
+        }
+    ]
+}

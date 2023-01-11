@@ -1,0 +1,20 @@
+{
+    "name": "5. 最长回文子串",
+    "url": "https://leetcode-cn.com/problems/longest-palindromic-substring/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。",
+    "solutions": [
+        {
+            "date": 1586188800000,
+            "time": 84,
+            "memory": 42.6,
+            "script": "javascript",
+            "desc": "对每个字符依次判断两边是否相等，相等则+1，不相等则跳过。",
+            "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar longestPalindrome = function (s) {\n  const len = s.length;\n  let maxRes = '';\n  if (len === 0) return maxRes;\n  for (let i = 0; i < len; i++) {\n    const c = s[i];\n    let left = i - 1;\n    let right = i + 1;\n    let maxS = c;\n    while (i < len && c === s[i + 1]) {\n      maxS += c;\n      right++;\n      i++;\n    }\n    while (left >= 0 && right <= len - 1) {\n      if (s[left] !== s[right]) break;\n      maxS = s[left] + maxS + s[right];\n      left--;\n      right++;\n    }\n    maxRes = maxS.length > maxRes.length ? maxS : maxRes;\n  }\n  return maxRes;\n};"
+        }
+    ]
+}

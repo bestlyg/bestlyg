@@ -1,0 +1,36 @@
+{
+    "name": "15. 三数之和",
+    "url": "https://leetcode-cn.com/problems/3sum/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "双指针"
+    ],
+    "desc": "给你一个包含 n 个整数的数组  nums，判断  nums  中是否存在三个元素 a，b，c ，使得  a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。",
+    "solutions": [
+        {
+            "date": 1591113600000,
+            "time": 148,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "排序后将每个点作为中心位，增加左右指针。",
+            "code": "function threeSum(nums: number[]): number[][] {\n  const len = nums.length;\n  if (len < 3) return [];\n  const res = [];\n  nums.sort((a, b) => a - b);\n  for (let i = 0; i < len || nums[i] > 0; i++) {\n    if (nums[i] == nums[i - 1]) continue; // 去重\n    let L = i + 1;\n    let R = len - 1;\n    while (L < R) {\n      const sum = nums[i] + nums[L] + nums[R];\n      if (sum == 0) {\n        res.push([nums[i], nums[L], nums[R]]);\n        while (L < R && nums[L] == nums[L + 1]) L++; // 去重\n        while (L < R && nums[R] == nums[R - 1]) R--; // 去重\n        L++;\n        R--;\n      } else if (sum < 0) L++;\n      else if (sum > 0) R--;\n    }\n  }\n  return res;\n}"
+        },
+        {
+            "date": 1591891200000,
+            "time": 144,
+            "memory": 45.9,
+            "script": "typescript",
+            "desc": "双指针判断。",
+            "code": "function threeSum(nums: number[]): number[][] {\n  const len = nums.length;\n  nums = nums.sort((a, b) => a - b);\n  const ans: number[][] = [];\n  for (let i = 0; nums[i] <= 0; i++) {\n    let l = i + 1;\n    let r = len - 1;\n    while (l < r) {\n      const num = nums[i] + nums[l] + nums[r];\n      if (num < 0) l++;\n      else if (num > 0) r--;\n      else {\n        ans.push([nums[i], nums[l], nums[r]]);\n        l++;\n        while (nums[l] === nums[l - 1]) l++;\n        r--;\n        while (nums[r] === nums[r + 1]) r--;\n      }\n    }\n    while (nums[i] === nums[i + 1]) i++;\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1645113600000,
+            "time": 60,
+            "memory": 19.3,
+            "script": "c++",
+            "desc": "循环双指针。",
+            "code": "class Solution {\n   public:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        vector<vector<int>> ans;\n        sort(nums.begin(), nums.end());\n        for (int i = 0; i < nums.size() && nums[i] <= 0; i++) {\n            if (i != 0 && nums[i] == nums[i - 1]) continue;\n            int sum, l = i + 1, r = nums.size() - 1;\n            while (l < r) {\n                sum = nums[l] + nums[r] + nums[i];\n                if (sum == 0) {\n                    ans.push_back(vector<int>{nums[i], nums[l], nums[r]});\n                    while (l < r && nums[l] == nums[l + 1]) l++;\n                    l++;\n                } else if (sum > 0)\n                    r--;\n                else\n                    l++;\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "name": "2038. 如果相邻两个颜色均相同则删除当前颜色",
+    "url": "https://leetcode-cn.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数学",
+        "字符串",
+        "博弈"
+    ],
+    "desc": "假设 Alice 和 Bob 都采用最优策略，如果 Alice 获胜，请返回 true，否则 Bob 获胜，返回 false。",
+    "solutions": [
+        {
+            "date": 1647878400000,
+            "time": 32,
+            "memory": 13,
+            "script": "cpp",
+            "desc": "统计 ab 的数量进行比较。",
+            "code": "class Solution {\n   public:\n    bool winnerOfGame(string colors) {\n        int a = 0, b = 0;\n        for (int i = 1; i < colors.size() - 1; i++) {\n            if (colors[i] == 'A' && colors[i - 1] == 'A' &&\n                colors[i + 1] == 'A')\n                a++;\n            else if (colors[i] == 'B' && colors[i - 1] == 'B' &&\n                     colors[i + 1] == 'B')\n                b++;\n        }\n        return a > b;\n    }\n};"
+        }
+    ]
+}

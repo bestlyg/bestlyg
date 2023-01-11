@@ -1,0 +1,13 @@
+{
+    "name": "1971. 寻找图中是否存在路径",
+    "url": "https://leetcode.cn/problems/find-if-path-exists-in-graph/",
+    "difficulty": "简单",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "desc": "请你确定是否存在从顶点 source 开始，到顶点 destination 结束的 有效路径 。",
+    "solutions": []
+}

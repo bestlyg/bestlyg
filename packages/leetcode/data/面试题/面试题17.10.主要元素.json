@@ -1,0 +1,28 @@
+{
+    "name": "面试题 17.10. 主要元素",
+    "url": "https://leetcode-cn.com/problems/find-majority-element-lcci/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "计数"
+    ],
+    "desc": "数组中占比超过一半的元素称之为主要元素。给你一个 整数 数组，找出其中的主要元素。若没有，返回 -1 。请设计时间复杂度为 O(N) 、空间复杂度为 O(1) 的解决方案。",
+    "solutions": [
+        {
+            "date": 1625760000000,
+            "time": 72,
+            "memory": 42.6,
+            "script": "typescript",
+            "desc": "利用 map 储存所有值。",
+            "code": "function majorityElement(nums: number[]): number {\n  const map: Map<number, number> = new Map();\n  const len = nums.length;\n  for (let i = 0; i < len; i++) {\n    const num = nums[i];\n    map.set(num, (map.get(num) ?? 0) + 1);\n  }\n  let num: number | null = null;\n  for (const [k, v] of map.entries()) if (v > len / 2) num = k;\n  return num ?? -1;\n}"
+        },
+        {
+            "date": 1625760000000,
+            "time": 76,
+            "memory": 42.1,
+            "script": "typescript",
+            "desc": "Boyer-Moore 投票算法。",
+            "code": "function majorityElement(nums: number[]): number {\n  let candidate = -1;\n  let count = 0;\n  nums.forEach(num => {\n    if (count === 0) candidate = num;\n    if (candidate === num) count++;\n    else count--;\n  });\n  count = 0;\n  nums.forEach(num => {\n    if (candidate === num) count++;\n  });\n  return count > nums.length / 2 ? candidate : -1;\n}"
+        }
+    ]
+}

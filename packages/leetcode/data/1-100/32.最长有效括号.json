@@ -1,0 +1,21 @@
+{
+    "name": "32. 最长有效括号",
+    "url": "https://leetcode-cn.com/problems/longest-valid-parentheses/",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。",
+    "solutions": [
+        {
+            "date": 1636128000000,
+            "time": 84,
+            "memory": 40.7,
+            "script": "typescript",
+            "desc": "动态规划分析括号出现的状态。",
+            "code": "function longestValidParentheses(s: string): number {\n  const n = s.length;\n  const dp = new Array(n + 1).fill(0);\n  let ans = 0;\n  for (let i = 1; i < n; i++) {\n    const ch = s[i];\n    if (ch === '(') dp[i + 1] = 0;\n    else if (s[i - 1] === '(') dp[i + 1] = dp[i - 1] + 2;\n    else if (s[i - dp[i] - 1] === '(') dp[i + 1] = dp[i] + 2 + dp[i - dp[i] - 1];\n    else dp[i + 1] = 0;\n    ans = Math.max(ans, dp[i + 1]);\n  }\n  return ans;\n}"
+        }
+    ]
+}

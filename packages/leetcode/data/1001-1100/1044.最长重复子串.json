@@ -1,0 +1,24 @@
+{
+    "name": "1044. 最长重复子串",
+    "url": "https://leetcode-cn.com/problems/longest-duplicate-substring/",
+    "difficulty": "困难",
+    "tag": [
+        "字符串",
+        "二分查找",
+        "后缀数组",
+        "滑动窗口",
+        "哈希函数",
+        "滚动哈希"
+    ],
+    "desc": "返回 任意一个 可能具有最长长度的重复子串。如果 s 不含重复子串，那么答案为 \"\" 。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 9236,
+            "memory": 60.3,
+            "script": "typescript",
+            "desc": "二分答案。",
+            "code": "function check(s: string, n: number, num: number): string {\n  let left = 0;\n  let right = num;\n  let str = s.substring(left, right);\n  const set = new Set([str]);\n  while (right < n) {\n    str = s.substring(++left, ++right);\n    if (set.has(str)) return str;\n    set.add(str);\n  }\n  return '';\n}\nfunction longestDupSubstring(s: string): string {\n  const n = s.length;\n  let left = 0;\n  let right = n;\n  let ans = '';\n  while (left < right) {\n    const mid = (left + right + 1) >> 1;\n    const str = check(s, n, mid);\n    if (str === '') right = mid - 1;\n    else {\n      left = mid;\n      ans = str;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
+}
