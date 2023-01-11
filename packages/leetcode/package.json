@@ -6,6 +6,7 @@
     "batch": "ts-node -r tsconfig-paths/register scripts/batchLeetCode.ts",
     "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
     "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",
+    "auto": "pnpm markdown && pnpm readme",
     "js": "node scripts/script.js",
     "ts": "ts-node -r tsconfig-paths/register scripts/script.ts"
   },
