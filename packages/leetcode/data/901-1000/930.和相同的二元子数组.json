@@ -1,25 +1,30 @@
 {
-  "name": "930. 和相同的二元子数组",
-  "url": "https://leetcode-cn.com/problems/binary-subarrays-with-sum/",
-  "difficulty": "中等",
-  "tag": ["数组", "哈希表", "前缀和", "滑动窗口"],
-  "desc": "给你一个二元数组 nums ，和一个整数 goal ，请你统计并返回有多少个和为 goal 的 非空 子数组。",
-  "solutions": [
-    {
-      "date": 1625673600000,
-      "time": 1800,
-      "memory": 46.1,
-      "script": "typescript",
-      "desc": "遍历两次。",
-      "code": "function numSubarraysWithSum(nums: number[], goal: number): number {\n  const len = nums.length;\n  const sums = [0];\n  for (let i = 0; i < len; i++) sums.push(nums[i] + sums[sums.length - 1]);\n  let ans = 0;\n  for (let i = 1; i <= len; i++) {\n    for (let j = 0; j < i; j++) {\n      const num = sums[i] - sums[j];\n      if (num < goal) break;\n      if (num === goal) ans++;\n    }\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1625673600000,
-      "time": 92,
-      "memory": 45.6,
-      "script": "typescript",
-      "desc": "利用哈希表储存前缀和进行快速遍历。",
-      "code": "function numSubarraysWithSum(nums: number[], goal: number): number {\n  let ans = 0;\n  let sum = 0;\n  const map = new Map<number, number>();\n  for (const num of nums) {\n    map.set(sum, (map.get(sum) ?? 0) + 1);\n    sum += num;\n    ans += map.get(sum - goal) ?? 0;\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "930. 和相同的二元子数组",
+    "url": "https://leetcode-cn.com/problems/binary-subarrays-with-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "前缀和",
+        "滑动窗口"
+    ],
+    "desc": "给你一个二元数组 nums ，和一个整数 goal ，请你统计并返回有多少个和为 goal 的 非空 子数组。",
+    "solutions": [
+        {
+            "date": 1625673600000,
+            "time": 1800,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "遍历两次。",
+            "code": "function numSubarraysWithSum(nums: number[], goal: number): number {\n  const len = nums.length;\n  const sums = [0];\n  for (let i = 0; i < len; i++) sums.push(nums[i] + sums[sums.length - 1]);\n  let ans = 0;\n  for (let i = 1; i <= len; i++) {\n    for (let j = 0; j < i; j++) {\n      const num = sums[i] - sums[j];\n      if (num < goal) break;\n      if (num === goal) ans++;\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1625673600000,
+            "time": 92,
+            "memory": 45.6,
+            "script": "typescript",
+            "desc": "利用哈希表储存前缀和进行快速遍历。",
+            "code": "function numSubarraysWithSum(nums: number[], goal: number): number {\n  let ans = 0;\n  let sum = 0;\n  const map = new Map<number, number>();\n  for (const num of nums) {\n    map.set(sum, (map.get(sum) ?? 0) + 1);\n    sum += num;\n    ans += map.get(sum - goal) ?? 0;\n  }\n  return ans;\n}"
+        }
+    ]
 }

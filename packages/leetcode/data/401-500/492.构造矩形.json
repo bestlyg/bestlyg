@@ -1,17 +1,19 @@
 {
-  "name": "492. 构造矩形",
-  "url": "https://leetcode-cn.com/problems/construct-the-rectangle/",
-  "difficulty": "简单",
-  "tag": ["数学"],
-  "desc": "你需要按顺序输出你设计的页面的长度 L 和宽度 W。",
-  "solutions": [
-    {
-      "date": 1634918400000,
-      "time": 84,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "从平方根开始找。",
-      "code": "function constructRectangle(area: number): number[] {\n  let l = ~~Math.sqrt(area);\n  while (l >= 1 && area % l !== 0) l--;\n  return [area / l, l];\n}"
-    }
-  ]
+    "name": "492. 构造矩形",
+    "url": "https://leetcode-cn.com/problems/construct-the-rectangle/",
+    "difficulty": "简单",
+    "tag": [
+        "数学"
+    ],
+    "desc": "你需要按顺序输出你设计的页面的长度 L 和宽度 W。",
+    "solutions": [
+        {
+            "date": 1634918400000,
+            "time": 84,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "从平方根开始找。",
+            "code": "function constructRectangle(area: number): number[] {\n  let l = ~~Math.sqrt(area);\n  while (l >= 1 && area % l !== 0) l--;\n  return [area / l, l];\n}"
+        }
+    ]
 }

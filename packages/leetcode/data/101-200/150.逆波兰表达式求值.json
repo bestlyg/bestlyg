@@ -1,33 +1,35 @@
 {
-  "name": "150. 逆波兰表达式求值",
-  "url": "https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/",
-  "difficulty": "中等",
-  "tag": ["栈"],
-  "desc": "根据逆波兰表示法，求表达式的值。有效的运算符包括 +, -, \\*, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。",
-  "solutions": [
-    {
-      "date": 1581523200000,
-      "time": 20,
-      "memory": 46.8,
-      "script": "java",
-      "desc": "使用栈，数字压栈，符号出栈。",
-      "code": "class Solution {\n    public int evalRPN(String[] tokens) {\n        Stack<String> stack = new Stack<String>();\n\t\tint a, b;\n\t\tfor (String s : tokens) {\n\t\t\tswitch (s) {\n\t\t\tcase \"+\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a + b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"-\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b - a) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"*\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a * b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"/\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b / a) + \"\");\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tstack.push(s);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\treturn Integer.parseInt(stack.pop());\n    }\n}"
-    },
-    {
-      "date": 1616169600000,
-      "time": 724,
-      "memory": 48.2,
-      "script": "typescript",
-      "desc": "栈。",
-      "code": "function evalRPN(tokens: string[]): number {\n  const opMap: Record<string, (num1: number, num2: number) => number> = {\n    '+': (num1, num2) => num1 + num2,\n    '-': (num1, num2) => num1 - num2,\n    '*': (num1, num2) => num1 * num2,\n    '/': (num1, num2) => ~~(num1 / num2),\n  };\n  const stack: number[] = [];\n  for (const token of tokens) {\n    console.log(token, stack);\n    if (token === '+' || token === '-' || token === '*' || token === '/') {\n      const num2 = stack.pop()!;\n      const num1 = stack.pop()!;\n      stack.push(opMap[token](num1, num2));\n    } else {\n      stack.push(Number(token));\n    }\n  }\n  return stack[0];\n}"
-    },
-    {
-      "date": 1640188800000,
-      "time": 12,
-      "memory": 11.6,
-      "script": "c++",
-      "desc": "栈存储。",
-      "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0, f = 1;\n        for (int i = 0; i < str.size(); i++) {\n            if (i == 0 && str[i] == '-') {\n                f = -1;\n                continue;\n            }\n            ans = ans * 10 + str[i] - '0';\n        }\n        return ans * f;\n    }\n    int evalRPN(vector<string>& tokens) {\n        stack<int> s;\n        for (auto& str : tokens) {\n            if (str == \"+\" || str == \"-\" || str == \"*\" || str == \"/\") {\n                int num1 = s.top();\n                s.pop();\n                int num2 = s.top();\n                s.pop();\n                int ans;\n                if (str == \"+\")\n                    ans = num2 + num1;\n                else if (str == \"-\")\n                    ans = num2 - num1;\n                else if (str == \"*\")\n                    ans = num2 * num1;\n                else\n                    ans = num2 / num1;\n                s.push(ans);\n            } else {\n                s.push(s2i(str));\n            }\n        }\n        return s.top();\n    }\n};"
-    }
-  ]
+    "name": "150. 逆波兰表达式求值",
+    "url": "https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/",
+    "difficulty": "中等",
+    "tag": [
+        "栈"
+    ],
+    "desc": "根据逆波兰表示法，求表达式的值。有效的运算符包括 +, -, \\*, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。",
+    "solutions": [
+        {
+            "date": 1581523200000,
+            "time": 20,
+            "memory": 46.8,
+            "script": "java",
+            "desc": "使用栈，数字压栈，符号出栈。",
+            "code": "class Solution {\n    public int evalRPN(String[] tokens) {\n        Stack<String> stack = new Stack<String>();\n\t\tint a, b;\n\t\tfor (String s : tokens) {\n\t\t\tswitch (s) {\n\t\t\tcase \"+\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a + b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"-\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b - a) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"*\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a * b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"/\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b / a) + \"\");\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tstack.push(s);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\treturn Integer.parseInt(stack.pop());\n    }\n}"
+        },
+        {
+            "date": 1616169600000,
+            "time": 724,
+            "memory": 48.2,
+            "script": "typescript",
+            "desc": "栈。",
+            "code": "function evalRPN(tokens: string[]): number {\n  const opMap: Record<string, (num1: number, num2: number) => number> = {\n    '+': (num1, num2) => num1 + num2,\n    '-': (num1, num2) => num1 - num2,\n    '*': (num1, num2) => num1 * num2,\n    '/': (num1, num2) => ~~(num1 / num2),\n  };\n  const stack: number[] = [];\n  for (const token of tokens) {\n    console.log(token, stack);\n    if (token === '+' || token === '-' || token === '*' || token === '/') {\n      const num2 = stack.pop()!;\n      const num1 = stack.pop()!;\n      stack.push(opMap[token](num1, num2));\n    } else {\n      stack.push(Number(token));\n    }\n  }\n  return stack[0];\n}"
+        },
+        {
+            "date": 1640188800000,
+            "time": 12,
+            "memory": 11.6,
+            "script": "c++",
+            "desc": "栈存储。",
+            "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0, f = 1;\n        for (int i = 0; i < str.size(); i++) {\n            if (i == 0 && str[i] == '-') {\n                f = -1;\n                continue;\n            }\n            ans = ans * 10 + str[i] - '0';\n        }\n        return ans * f;\n    }\n    int evalRPN(vector<string>& tokens) {\n        stack<int> s;\n        for (auto& str : tokens) {\n            if (str == \"+\" || str == \"-\" || str == \"*\" || str == \"/\") {\n                int num1 = s.top();\n                s.pop();\n                int num2 = s.top();\n                s.pop();\n                int ans;\n                if (str == \"+\")\n                    ans = num2 + num1;\n                else if (str == \"-\")\n                    ans = num2 - num1;\n                else if (str == \"*\")\n                    ans = num2 * num1;\n                else\n                    ans = num2 / num1;\n                s.push(ans);\n            } else {\n                s.push(s2i(str));\n            }\n        }\n        return s.top();\n    }\n};"
+        }
+    ]
 }

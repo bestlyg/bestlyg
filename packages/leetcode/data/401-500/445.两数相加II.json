@@ -1,17 +1,19 @@
 {
-  "name": "445. 两数相加 II",
-  "url": "https://leetcode-cn.com/problems/add-two-numbers-ii/",
-  "difficulty": "中等",
-  "tag": ["链表"],
-  "desc": "给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。",
-  "solutions": [
-    {
-      "date": 1586793600000,
-      "time": 140,
-      "memory": 38.6,
-      "script": "javascript",
-      "desc": "压栈后依次出栈。",
-      "code": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar addTwoNumbers = function (l1, l2) {\n  let res;\n  const arr1 = [];\n  while (true) {\n    arr1.push(l1);\n    if (l1.next === null) break;\n    l1 = l1.next;\n  }\n  const arr2 = [];\n  while (true) {\n    arr2.push(l2);\n    if (l2.next === null) break;\n    l2 = l2.next;\n  }\n  let f = false;\n  while (arr1.length !== 0 && arr2.length !== 0) {\n    let num = arr1.pop().val + arr2.pop().val;\n    if (f) num++;\n    if (num >= 10) {\n      num = num - 10;\n      f = true;\n    } else {\n      f = false;\n    }\n    let temp = new ListNode(num);\n    temp.next = res;\n    res = temp;\n  }\n  while (arr1.length !== 0) {\n    let temp = arr1.pop();\n    if (f) {\n      temp.val++;\n      if (temp.val >= 10) temp.val = temp.val - 10;\n      else f = false;\n    }\n    temp.next = res;\n    res = temp;\n  }\n  while (arr2.length !== 0) {\n    let temp = arr2.pop();\n    if (f) {\n      temp.val++;\n      if (temp.val >= 10) temp.val = temp.val - 10;\n      else f = false;\n    }\n    temp.next = res;\n    res = temp;\n  }\n  if (f) {\n    let temp = new ListNode(1);\n    temp.next = res;\n    res = temp;\n  }\n  return res;\n};"
-    }
-  ]
+    "name": "445. 两数相加 II",
+    "url": "https://leetcode-cn.com/problems/add-two-numbers-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "链表"
+    ],
+    "desc": "给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。",
+    "solutions": [
+        {
+            "date": 1586793600000,
+            "time": 140,
+            "memory": 38.6,
+            "script": "javascript",
+            "desc": "压栈后依次出栈。",
+            "code": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar addTwoNumbers = function (l1, l2) {\n  let res;\n  const arr1 = [];\n  while (true) {\n    arr1.push(l1);\n    if (l1.next === null) break;\n    l1 = l1.next;\n  }\n  const arr2 = [];\n  while (true) {\n    arr2.push(l2);\n    if (l2.next === null) break;\n    l2 = l2.next;\n  }\n  let f = false;\n  while (arr1.length !== 0 && arr2.length !== 0) {\n    let num = arr1.pop().val + arr2.pop().val;\n    if (f) num++;\n    if (num >= 10) {\n      num = num - 10;\n      f = true;\n    } else {\n      f = false;\n    }\n    let temp = new ListNode(num);\n    temp.next = res;\n    res = temp;\n  }\n  while (arr1.length !== 0) {\n    let temp = arr1.pop();\n    if (f) {\n      temp.val++;\n      if (temp.val >= 10) temp.val = temp.val - 10;\n      else f = false;\n    }\n    temp.next = res;\n    res = temp;\n  }\n  while (arr2.length !== 0) {\n    let temp = arr2.pop();\n    if (f) {\n      temp.val++;\n      if (temp.val >= 10) temp.val = temp.val - 10;\n      else f = false;\n    }\n    temp.next = res;\n    res = temp;\n  }\n  if (f) {\n    let temp = new ListNode(1);\n    temp.next = res;\n    res = temp;\n  }\n  return res;\n};"
+        }
+    ]
 }

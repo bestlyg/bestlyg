@@ -1,8 +1,21 @@
 {
-  "name": "1739. 放置盒子",
-  "url": "desc: `https://leetcode.cn/problems/building-boxes/",
-  "difficulty": "困难",
-  "tag": ["贪心", "数学", "二分查找"],
-  "desc": "给你一个整数 n ，返回接触地面的盒子的 最少 可能数量。",
-  "solutions": []
+    "name": "1739. 放置盒子",
+    "url": "desc: `https://leetcode.cn/problems/building-boxes/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数学",
+        "二分查找"
+    ],
+    "desc": "给你一个整数 n ，返回接触地面的盒子的 最少 可能数量。",
+    "solutions": [
+        {
+            "date": 1671897600000,
+            "time": 4,
+            "memory": 5.9,
+            "script": "cpp",
+            "desc": "找规律。",
+            "code": "class Solution {\npublic:\n    int minimumBoxes(int n) {\n        int sum = 0, cur = 1, ans = 0, prev = 0;\n        while (sum + prev + cur < n) sum = sum + prev + cur, prev += cur, ans += cur++;\n        return ans + comp(n - sum, cur);\n    }\n    int comp(int num, int cur) {\n        int ans = 1;\n        for (int sum = 0, i = 1; sum + i < num; i++) sum += i, ans++;\n        return ans;\n    }\n};"
+        }
+    ]
 }

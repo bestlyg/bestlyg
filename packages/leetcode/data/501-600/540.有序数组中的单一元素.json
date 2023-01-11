@@ -1,25 +1,28 @@
 {
-  "name": "540. 有序数组中的单一元素",
-  "url": "https://leetcode-cn.com/problems/single-element-in-a-sorted-array/",
-  "difficulty": "中等",
-  "tag": ["数组", "二分查找"],
-  "desc": "给你一个仅由整数组成的有序数组，其中每个元素都会出现两次，唯有一个数只会出现一次。请你找出并返回只出现一次的那个数。",
-  "solutions": [
-    {
-      "date": 1644768000000,
-      "time": 16,
-      "memory": 21.9,
-      "script": "c++",
-      "desc": "bs。",
-      "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        return bs(nums, 0, nums.size() - 1);\n    }\n    int bs(vector<int>& nums, int l, int r) {\n        int n = r - l + 1, m = (l + r) >> 1;\n        if (n == 1 || nums[l] != nums[l + 1]) return nums[l];\n        if (nums[r] != nums[r - 1]) return nums[r];\n        if (nums[m] != nums[m - 1] && nums[m] != nums[m + 1]) return nums[m];\n        if (nums[m] == nums[m - 1]) m--;\n        if ((m - l) & 1)\n            return bs(nums, l, m - 1);\n        else\n            return bs(nums, m + 2, r);\n    }\n};"
-    },
-    {
-      "date": 1644768000000,
-      "time": 20,
-      "memory": 21.9,
-      "script": "c++",
-      "desc": "bs, 如果是偶数下标与后面的比，奇数下标与前面的比。",
-      "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        int l = 0, r = nums.size() - 1, m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] == nums[m ^ 1])\n                l = m + 1;\n            else\n                r = m;\n        }\n        return nums[l];\n    }\n};"
-    }
-  ]
+    "name": "540. 有序数组中的单一元素",
+    "url": "https://leetcode-cn.com/problems/single-element-in-a-sorted-array/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给你一个仅由整数组成的有序数组，其中每个元素都会出现两次，唯有一个数只会出现一次。请你找出并返回只出现一次的那个数。",
+    "solutions": [
+        {
+            "date": 1644768000000,
+            "time": 16,
+            "memory": 21.9,
+            "script": "c++",
+            "desc": "bs。",
+            "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        return bs(nums, 0, nums.size() - 1);\n    }\n    int bs(vector<int>& nums, int l, int r) {\n        int n = r - l + 1, m = (l + r) >> 1;\n        if (n == 1 || nums[l] != nums[l + 1]) return nums[l];\n        if (nums[r] != nums[r - 1]) return nums[r];\n        if (nums[m] != nums[m - 1] && nums[m] != nums[m + 1]) return nums[m];\n        if (nums[m] == nums[m - 1]) m--;\n        if ((m - l) & 1)\n            return bs(nums, l, m - 1);\n        else\n            return bs(nums, m + 2, r);\n    }\n};"
+        },
+        {
+            "date": 1644768000000,
+            "time": 20,
+            "memory": 21.9,
+            "script": "c++",
+            "desc": "bs, 如果是偶数下标与后面的比，奇数下标与前面的比。",
+            "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        int l = 0, r = nums.size() - 1, m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] == nums[m ^ 1])\n                l = m + 1;\n            else\n                r = m;\n        }\n        return nums[l];\n    }\n};"
+        }
+    ]
 }

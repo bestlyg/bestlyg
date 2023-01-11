@@ -1,17 +1,21 @@
 {
-  "name": "1221. 分割平衡字符串",
-  "url": "https://leetcode-cn.com/problems/binary-search/",
-  "difficulty": "简单",
-  "tag": ["贪心", "字符串", "计数"],
-  "desc": "返回可以通过分割得到的平衡字符串的 最大数量 。",
-  "solutions": [
-    {
-      "date": 1630944000000,
-      "time": 64,
-      "memory": 39.7,
-      "script": "typescript",
-      "desc": "遍历，判断 rl 相等时。",
-      "code": "function balancedStringSplit(s: string): number {\n  let r = 0;\n  let l = 0;\n  let ans = 0;\n  for (const c of s) {\n    if (c === 'R') r++;\n    if (c === 'L') l++;\n    if (r === l) {\n      ans++;\n      r = l = 0;\n    }\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1221. 分割平衡字符串",
+    "url": "https://leetcode-cn.com/problems/binary-search/",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "字符串",
+        "计数"
+    ],
+    "desc": "返回可以通过分割得到的平衡字符串的 最大数量 。",
+    "solutions": [
+        {
+            "date": 1630944000000,
+            "time": 64,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "遍历，判断 rl 相等时。",
+            "code": "function balancedStringSplit(s: string): number {\n  let r = 0;\n  let l = 0;\n  let ans = 0;\n  for (const c of s) {\n    if (c === 'R') r++;\n    if (c === 'L') l++;\n    if (r === l) {\n      ans++;\n      r = l = 0;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
 }

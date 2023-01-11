@@ -1,8 +1,27 @@
 {
-  "name": "6241. 数组中不等三元组的数目",
-  "url": "https://leetcode.cn/problems/number-of-unequal-triplets-in-array/",
-  "difficulty": "简单",
-  "tag": [""],
-  "desc": "返回满足上述条件三元组的数目。",
-  "solutions": []
+    "name": "6241. 数组中不等三元组的数目",
+    "url": "https://leetcode.cn/problems/number-of-unequal-triplets-in-array/",
+    "difficulty": "简单",
+    "tag": [
+        ""
+    ],
+    "desc": "返回满足上述条件三元组的数目。",
+    "solutions": [
+        {
+            "date": 1668873600000,
+            "time": 344,
+            "memory": 8.4,
+            "script": "cpp",
+            "desc": "暴力。",
+            "code": "class Solution {\npublic:\n    int unequalTriplets(vector<int>& nums) {\n        map<int, int> m;\n        for (auto &num : nums) m[num]++;\n        vector<int> list;\n        for (auto &item : m) list.push_back(item.first);\n        int ans = 0;\n        for (int i = 0; i < list.size(); i++) {\n            for (int j = i + 1; j < list.size(); j++) {\n                for (int k = j + 1; k < list.size(); k++) {\n                    ans += m[list[i]] * m[list[j]] * m[list[k]];\n                }\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1668873600000,
+            "time": 4,
+            "memory": 8.3,
+            "script": "cpp",
+            "desc": "对于每一组相同的数，判断比他小的有几个数，比他大的有几个数。",
+            "code": "class Solution {\npublic:\n    int unequalTriplets(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int ans = 0, prev = 0;\n        for (int i = 0; i < nums.size() - 1; i++) {\n            if (nums[i] == nums[i + 1]) continue;\n            ans += prev * (i - prev + 1) * (nums.size() - i - 1);\n            prev = i + 1;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

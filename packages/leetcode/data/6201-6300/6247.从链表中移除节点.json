@@ -1,8 +1,19 @@
 {
-  "name": "6247. 从链表中移除节点",
-  "url": "https://leetcode.cn/problems/remove-nodes-from-linked-list",
-  "difficulty": "中等",
-  "tag": [""],
-  "desc": "给你一个链表的头节点 head 。对于列表中的每个节点 node ，如果其右侧存在一个具有 严格更大 值的节点，则移除 node 。返回修改后链表的头节点 head 。",
-  "solutions": []
+    "name": "6247. 从链表中移除节点",
+    "url": "https://leetcode.cn/problems/remove-nodes-from-linked-list",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个链表的头节点 head 。对于列表中的每个节点 node ，如果其右侧存在一个具有 严格更大 值的节点，则移除 node 。返回修改后链表的头节点 head 。",
+    "solutions": [
+        {
+            "date": 1669478400000,
+            "time": 356,
+            "memory": 157.1,
+            "script": "cpp",
+            "desc": "递归，记录后面的最大值。",
+            "code": "# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    ListNode* removeNodes(ListNode* head) {\n      int maxnum = 0;\n      return _removeNodes(head, maxnum);\n    }\n    ListNode* _removeNodes(ListNode *head, int &maxnum) {\n      if (head == nullptr) return nullptr;\n      ListNode *next = _removeNodes(head->next, maxnum);\n      if (head->val >= maxnum) {\n        head->next = next;\n        next = head;\n      }\n      maxnum = max(maxnum, head->val);\n      return next;\n    }\n};"
+        }
+    ]
 }

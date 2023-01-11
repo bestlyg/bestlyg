@@ -1,17 +1,24 @@
 {
-  "name": "剑指 Offer 37. 序列化二叉树",
-  "url": "https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/",
-  "difficulty": "困难",
-  "tag": ["广度优先搜索", "深度优先搜索", "树", "设计", "字符串", "二叉树"],
-  "desc": "请实现两个函数，分别用来序列化和反序列化二叉树。",
-  "solutions": [
-    {
-      "date": 1624982400000,
-      "time": 152,
-      "memory": 48.1,
-      "script": "typescript",
-      "desc": "利用 JSON 化。",
-      "code": "/**\n * Encodes a tree to a single string.\n *\n * @param {TreeNode} root\n * @return {string}\n */\nvar serialize = function (root) {\n  return JSON.stringify(root);\n};\n/**\n * Decodes your encoded data to tree.\n *\n * @param {string} data\n * @return {TreeNode}\n */\nvar deserialize = function (data) {\n  return JSON.parse(data);\n};"
-    }
-  ]
+    "name": "剑指 Offer 37. 序列化二叉树",
+    "url": "https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "深度优先搜索",
+        "树",
+        "设计",
+        "字符串",
+        "二叉树"
+    ],
+    "desc": "请实现两个函数，分别用来序列化和反序列化二叉树。",
+    "solutions": [
+        {
+            "date": 1624982400000,
+            "time": 152,
+            "memory": 48.1,
+            "script": "typescript",
+            "desc": "利用 JSON 化。",
+            "code": "/**\n * Encodes a tree to a single string.\n *\n * @param {TreeNode} root\n * @return {string}\n */\nvar serialize = function (root) {\n  return JSON.stringify(root);\n};\n/**\n * Decodes your encoded data to tree.\n *\n * @param {string} data\n * @return {TreeNode}\n */\nvar deserialize = function (data) {\n  return JSON.parse(data);\n};"
+        }
+    ]
 }

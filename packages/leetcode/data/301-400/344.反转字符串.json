@@ -1,33 +1,52 @@
 {
-  "name": "344. 反转字符串",
-  "url": "https://leetcode-cn.com/problems/reverse-string/",
-  "difficulty": "简单",
-  "tag": ["字符串", "双指针"],
-  "desc": "编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。",
-  "solutions": [
-    {
-      "date": 1586188800000,
-      "time": 136,
-      "memory": 46.7,
-      "script": "javascript",
-      "desc": "直接翻转即可。",
-      "code": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nvar reverseString = function (s) {\n  s.reverse();\n};"
-    },
-    {
-      "date": 1602086400000,
-      "time": 128,
-      "memory": 45.6,
-      "script": "typescript",
-      "desc": "调用原生方法。",
-      "code": "function reverseString(s: string[]): void {\n  s.reverse();\n}"
-    },
-    {
-      "date": 1602086400000,
-      "time": 140,
-      "memory": 46.1,
-      "script": "typescript",
-      "desc": "双指针替换。",
-      "code": "function reverseString(s: string[]): void {\n  for (let l = 0, r = s.length - 1; l < r; l++, r--) {\n    [s[l], s[r]] = [s[r], s[l]];\n  }\n}"
-    }
-  ]
+    "name": "344. 反转字符串",
+    "url": "https://leetcode-cn.com/problems/reverse-string/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串",
+        "双指针"
+    ],
+    "desc": "编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。",
+    "solutions": [
+        {
+            "date": 1586188800000,
+            "time": 136,
+            "memory": 46.7,
+            "script": "javascript",
+            "desc": "直接翻转即可。",
+            "code": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nvar reverseString = function (s) {\n  s.reverse();\n};"
+        },
+        {
+            "date": 1602086400000,
+            "time": 128,
+            "memory": 45.6,
+            "script": "typescript",
+            "desc": "调用原生方法。",
+            "code": "function reverseString(s: string[]): void {\n  s.reverse();\n}"
+        },
+        {
+            "date": 1602086400000,
+            "time": 140,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "双指针替换。",
+            "code": "function reverseString(s: string[]): void {\n  for (let l = 0, r = s.length - 1; l < r; l++, r--) {\n    [s[l], s[r]] = [s[r], s[l]];\n  }\n}"
+        },
+        {
+            "date": 1602086400000,
+            "time": 128,
+            "memory": 45.6,
+            "script": "typescript",
+            "desc": "调用原生方法。",
+            "code": "function reverseString(s: string[]): void {\n  s.reverse();\n}"
+        },
+        {
+            "date": 1602086400000,
+            "time": 140,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "双指针替换。",
+            "code": "function reverseString(s: string[]): void {\n  for (let l = 0, r = s.length - 1; l < r; l++, r--) {\n    [s[l], s[r]] = [s[r], s[l]];\n  }\n}"
+        }
+    ]
 }

@@ -1,17 +1,19 @@
 {
-  "name": "842. 将数组拆分成斐波那契序列",
-  "url": "https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence/",
-  "difficulty": "中等",
-  "tag": ["贪心"],
-  "desc": "给定一个数字字符串 S，比如 S = \"123456579\"，我们可以将它分成斐波那契式的序列 [123, 456, 579]。",
-  "solutions": [
-    {
-      "date": 1607356800000,
-      "time": 104,
-      "memory": 40.8,
-      "script": "typescript",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence/solution/jiang-shu-zu-chai-fen-cheng-fei-bo-na-qi-ts6c/)。",
-      "code": "function splitIntoFibonacci(S: string): number[] {\n  const list = [];\n  const maxNum = Math.pow(2, 31) - 1;\n  const len = S.length;\n  const numS = S.split('').map(v => +v);\n  (function backtrack(index = 0, sum = 0, prev = 0) {\n    if (index === len) return list.length >= 3;\n    let curLong = 0;\n    for (let i = index; i < len; i++) {\n      if (i > index && numS[index] === 0) break;\n      curLong = curLong * 10 + numS[i];\n      if (curLong > maxNum) break;\n      if (list.length >= 2) {\n        if (curLong < sum) continue;\n        else if (curLong > sum) break;\n      }\n      list.push(curLong);\n      if (backtrack(i + 1, prev + curLong, curLong)) return true;\n      list.pop();\n    }\n    return false;\n  })();\n  return list;\n}"
-    }
-  ]
+    "name": "842. 将数组拆分成斐波那契序列",
+    "url": "https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "给定一个数字字符串 S，比如 S = \"123456579\"，我们可以将它分成斐波那契式的序列 [123, 456, 579]。",
+    "solutions": [
+        {
+            "date": 1607356800000,
+            "time": 104,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence/solution/jiang-shu-zu-chai-fen-cheng-fei-bo-na-qi-ts6c/)。",
+            "code": "function splitIntoFibonacci(S: string): number[] {\n  const list = [];\n  const maxNum = Math.pow(2, 31) - 1;\n  const len = S.length;\n  const numS = S.split('').map(v => +v);\n  (function backtrack(index = 0, sum = 0, prev = 0) {\n    if (index === len) return list.length >= 3;\n    let curLong = 0;\n    for (let i = index; i < len; i++) {\n      if (i > index && numS[index] === 0) break;\n      curLong = curLong * 10 + numS[i];\n      if (curLong > maxNum) break;\n      if (list.length >= 2) {\n        if (curLong < sum) continue;\n        else if (curLong > sum) break;\n      }\n      list.push(curLong);\n      if (backtrack(i + 1, prev + curLong, curLong)) return true;\n      list.pop();\n    }\n    return false;\n  })();\n  return list;\n}"
+        }
+    ]
 }

@@ -1,8 +1,20 @@
 {
-  "name": "1668. 最大重复子字符串",
-  "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
-  "difficulty": "简单",
-  "tag": ["字符串", "字符串匹配"],
-  "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
-  "solutions": []
+    "name": "1668. 最大重复子字符串",
+    "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串",
+        "字符串匹配"
+    ],
+    "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
+    "solutions": [
+        {
+            "date": 1667404800000,
+            "time": 0,
+            "memory": 6.3,
+            "script": "cpp",
+            "desc": "字符串查找子串，通过 kmp 快速查找子串。",
+            "code": "class Solution {\npublic:\n    vector<int> getNext(string &word) {\n        int n = word.size();\n        vector<int> next(n, -1);\n        for (int i = 1, j = -1; i < n; i++) {\n            while (j != -1 && word[j + 1] != word[i]) j = next[j];\n            if (word[j + 1] == word[i]) j++;\n            next[i] = j;\n        }\n        return next;\n    }\n    int maxRepeating(string sequence, string word) {\n        int n = sequence.size(), ans = 0;\n        vector<int> next = getNext(word), list(n, 0);\n        for (int i = 0, j = -1; i < n; i++) {\n            while (j != -1 && word[j + 1] != sequence[i]) j = next[j];\n            if (word[j + 1] == sequence[i]) j++;\n            if (j == word.size() - 1) {\n                list[i] = (i >= word.size() ? list[i - word.size()] : 0)+ 1;\n                ans = max(ans, list[i]);\n                j = next[j];\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

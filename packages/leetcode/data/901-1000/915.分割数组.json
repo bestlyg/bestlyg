@@ -1,8 +1,27 @@
 {
-  "name": "915. 分割数组",
-  "url": "https://leetcode.cn/problems/partition-array-into-disjoint-intervals/",
-  "difficulty": "中等",
-  "tag": ["数组"],
-  "desc": "在完成这样的分组后返回 left 的 长度 。",
-  "solutions": []
+    "name": "915. 分割数组",
+    "url": "https://leetcode.cn/problems/partition-array-into-disjoint-intervals/",
+    "difficulty": "中等",
+    "tag": [
+        "数组"
+    ],
+    "desc": "在完成这样的分组后返回 left 的 长度 。",
+    "solutions": [
+        {
+            "date": 1666540800000,
+            "time": 732,
+            "memory": 136.2,
+            "script": "cpp",
+            "desc": "维护有序序列。",
+            "code": "class Solution {\npublic:\n    int partitionDisjoint(vector<int>& nums) {\n        int n = nums.size();\n        map<int, int> m1, m2;\n        m1[nums[0]]++;\n        for (int i = 1; i < n; i++) m2[nums[i]]++;\n        int idx = 1;\n        while (m1.crbegin()->first > m2.cbegin()->first) {\n            m1[nums[idx]]++;\n            m2[nums[idx]]--;\n            if (m2[nums[idx]] == 0) m2.erase(nums[idx]);\n            ++idx;\n        }\n        return idx;\n    }\n};"
+        },
+        {
+            "date": 1666540800000,
+            "time": 140,
+            "memory": 91.9,
+            "script": "cpp",
+            "desc": "一次遍历，维护左边的最大值。",
+            "code": "class Solution {\npublic:\n    int partitionDisjoint(vector<int>& nums) {\n        int n = nums.size(), cur_max = nums[0], ans = 1, ans_max = nums[0];\n        for (int i = 1; i < n; i++) {\n            cur_max = max(cur_max, nums[i]);\n            if (nums[i] < ans_max) {\n                ans_max = cur_max;\n                ans = i + 1;\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

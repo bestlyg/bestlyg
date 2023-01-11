@@ -1,17 +1,21 @@
 {
-  "name": "剑指 Offer II 011. 0 和 1 个数相同的子数组",
-  "url": "https://leetcode-cn.com/problems/A1NYOS/",
-  "difficulty": "中等",
-  "tag": ["数组", "哈希表", "前缀和"],
-  "desc": "给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。",
-  "solutions": [
-    {
-      "date": 1640188800000,
-      "time": 116,
-      "memory": 81.7,
-      "script": "c++",
-      "desc": "前缀和。",
-      "code": "class Solution {\n   public:\n    int findMaxLength(vector<int>& nums) {\n        int ans = 0, sum = 0;\n        unordered_map<int, int> mmap;\n        mmap[0] = -1;\n        for (int i = 0; i < nums.size(); i++) {\n            sum += nums[i] == 1 ? 1 : -1;\n            if (mmap.count(sum)) {\n                ans = max(ans, i - mmap[sum]);\n            } else {\n                mmap[sum] = i;\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "剑指 Offer II 011. 0 和 1 个数相同的子数组",
+    "url": "https://leetcode-cn.com/problems/A1NYOS/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "desc": "给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 116,
+            "memory": 81.7,
+            "script": "c++",
+            "desc": "前缀和。",
+            "code": "class Solution {\n   public:\n    int findMaxLength(vector<int>& nums) {\n        int ans = 0, sum = 0;\n        unordered_map<int, int> mmap;\n        mmap[0] = -1;\n        for (int i = 0; i < nums.size(); i++) {\n            sum += nums[i] == 1 ? 1 : -1;\n            if (mmap.count(sum)) {\n                ans = max(ans, i - mmap[sum]);\n            } else {\n                mmap[sum] = i;\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

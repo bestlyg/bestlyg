@@ -1,8 +1,44 @@
 {
-  "name": "1802. 有界数组中指定下标处的最大值",
-  "url": "https://leetcode.cn/problems/maximum-value-at-a-given-index-in-a-bounded-array/",
-  "difficulty": "中等",
-  "tag": ["贪心", "二分查找"],
-  "desc": "返回你所构造的数组中的 nums[index] 。",
-  "solutions": []
+    "name": "1802. 有界数组中指定下标处的最大值",
+    "url": "https://leetcode.cn/problems/maximum-value-at-a-given-index-in-a-bounded-array/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "二分查找"
+    ],
+    "desc": "返回你所构造的数组中的 nums[index] 。",
+    "solutions": [
+        {
+            "date": 1672761600000,
+            "time": 8,
+            "memory": 5.8,
+            "script": "cpp",
+            "desc": "双指针。",
+            "code": "class Solution {\npublic:\n    int maxValue(int n, int index, int maxSum) {\n        int ans = 1, sum = n, l = index, r = index;\n        while (sum + r - l + 1 <= maxSum && !(r == n - 1 && l == 0)) {\n            sum += r - l + 1;\n            ans += 1;\n            r = min(n - 1, r + 1);\n            l = max(0, l - 1);\n        }\n        if (r == n - 1 && l == 0 && sum < maxSum) ans += (maxSum - sum) / n;\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1672761600000,
+            "time": 8,
+            "memory": 2.1,
+            "script": "rust",
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_value(n: i32, index: i32, max_sum: i32) -> i32 {\n        let (mut ans, mut sum, mut l, mut r) = (1, n, index, index);\n        while sum + r - l + 1 <= max_sum && !(l == 0 && r == n - 1) {\n            sum += r - l + 1;\n            ans += 1;\n            l = (l - 1).max(0);\n            r = (r + 1).min(n - 1);\n        }\n        if l == 0 && r == n - 1 && sum < max_sum {\n            ans += (max_sum - sum) / n;\n        }\n        ans\n    }\n}"
+        },
+        {
+            "date": 1672761600000,
+            "time": 28,
+            "memory": 5.7,
+            "script": "cpp",
+            "desc": "二分。",
+            "code": "class Solution {\npublic:\n    int maxValue(int n, int index, int maxSum) {\n        int l = 1, r = maxSum;\n        while (l < r) {\n            int m = (l + r + 1) / 2;\n            if (check(n, index, m) <= maxSum) l = m;\n            else r = m - 1;\n        }\n        return l;\n    }\n    long long check(long long n, long long index, long long val) {\n        long long ans = val;\n        if (val - index >= 1) ans += (val - index + val - 1) * index / 2;\n        else ans += (1 + val - 1) * (val - 1) / 2 + (index - (val - 1));\n        if (n - 1 - index <= val - 1) ans += (val - (n - 1 - index) + val - 1) * (n - 1 - index) / 2;\n        else ans += (1 + val - 1) * (val - 1) / 2 + (n - 1 - index - (val - 1));\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1672761600000,
+            "time": 0,
+            "memory": 1.9,
+            "script": "rust",
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_value(n: i32, index: i32, max_sum: i32) -> i32 {\n        let (mut l, mut r) = (1, max_sum);\n        while l < r {\n            let m = (l + r + 1) / 2;\n            if Solution::check(n, index, m) <= max_sum  as i64{\n                l = m;\n            } else {\n                r = m - 1;\n            }\n        }\n        l\n    }\n    fn check(n: i32, index: i32, val: i32) -> i64 {\n        let (n, index, val) = (n as i64, index as i64, val as i64);\n        let mut ans = val;\n        if val - index >= 1 {\n            ans += (val - index + val - 1) * index / 2;\n        } else {\n            ans += (1 + val - 1) * (val - 1) / 2 + (index - (val - 1));\n        }\n        if n - 1 - index <= val - 1 {\n            ans += (val - (n - 1 - index) + val - 1) * (n - 1 - index) / 2;\n        } else {\n            ans += (1 + val - 1) * (val - 1) / 2 + (n - 1 - index - (val - 1));\n        };\n        ans\n    }\n}"
+        }
+    ]
 }

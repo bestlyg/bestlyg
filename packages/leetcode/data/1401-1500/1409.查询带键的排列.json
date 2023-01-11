@@ -1,25 +1,29 @@
 {
-  "name": "1409. 查询带键的排列",
-  "url": "https://leetcode-cn.com/problems/queries-on-a-permutation-with-key/",
-  "difficulty": "中等",
-  "tag": ["树状数组", "数组", "模拟"],
-  "desc": "给你一个待查数组 queries ，数组中的元素为 1 到 m 之间的正整数。 请你以数组形式返回待查数组 queries 的查询结果。",
-  "solutions": [
-    {
-      "date": 1636819200000,
-      "time": 92,
-      "memory": 40.3,
-      "script": "typescript",
-      "desc": "链表。",
-      "code": "class Data {\n  next: Data | null;\n  idx: number;\n  val: number = -1;\n}\nfunction processQueries(queries: number[], m: number): number[] {\n  const root = new Data();\n  let p = root;\n  for (let i = 1; i <= m; i++) {\n    const item = new Data();\n    item.idx = i - 1;\n    item.val = i;\n    p.next = item;\n    p = item;\n  }\n  const ans: number[] = [];\n  for (const query of queries) {\n    p = root;\n    while (p.next!.val !== query) {\n      p = p.next!;\n      p.idx++;\n    }\n    const node = p.next!;\n    p.next = node.next;\n    node.next = root.next;\n    root.next = node;\n    ans.push(node.idx);\n    node.idx = 0;\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1636819200000,
-      "time": 96,
-      "memory": 40.3,
-      "script": "typescript",
-      "desc": "树状数组。",
-      "code": "class FenwickTree {\n  arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nfunction processQueries(queries: number[], m: number): number[] {\n  const n = queries.length;\n  const tree = new FenwickTree(n + m);\n  const idxList = new Array(m + 1).fill(0).map((_, i) => n + i);\n  const ans: number[] = [];\n  for (let i = 1; i <= m; i++) tree.add(i + n, 1);\n  for (let i = 0; i < n; i++) {\n    const query = queries[i];\n    const idx = idxList[query];\n    const cnt = tree.query(idx);\n    ans.push(cnt - 1);\n    tree.add(idx, -1);\n    tree.add(n - i, 1);\n    idxList[query] = n - i;\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1409. 查询带键的排列",
+    "url": "https://leetcode-cn.com/problems/queries-on-a-permutation-with-key/",
+    "difficulty": "中等",
+    "tag": [
+        "树状数组",
+        "数组",
+        "模拟"
+    ],
+    "desc": "给你一个待查数组 queries ，数组中的元素为 1 到 m 之间的正整数。 请你以数组形式返回待查数组 queries 的查询结果。",
+    "solutions": [
+        {
+            "date": 1636819200000,
+            "time": 92,
+            "memory": 40.3,
+            "script": "typescript",
+            "desc": "链表。",
+            "code": "class Data {\n  next: Data | null;\n  idx: number;\n  val: number = -1;\n}\nfunction processQueries(queries: number[], m: number): number[] {\n  const root = new Data();\n  let p = root;\n  for (let i = 1; i <= m; i++) {\n    const item = new Data();\n    item.idx = i - 1;\n    item.val = i;\n    p.next = item;\n    p = item;\n  }\n  const ans: number[] = [];\n  for (const query of queries) {\n    p = root;\n    while (p.next!.val !== query) {\n      p = p.next!;\n      p.idx++;\n    }\n    const node = p.next!;\n    p.next = node.next;\n    node.next = root.next;\n    root.next = node;\n    ans.push(node.idx);\n    node.idx = 0;\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1636819200000,
+            "time": 96,
+            "memory": 40.3,
+            "script": "typescript",
+            "desc": "树状数组。",
+            "code": "class FenwickTree {\n  arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nfunction processQueries(queries: number[], m: number): number[] {\n  const n = queries.length;\n  const tree = new FenwickTree(n + m);\n  const idxList = new Array(m + 1).fill(0).map((_, i) => n + i);\n  const ans: number[] = [];\n  for (let i = 1; i <= m; i++) tree.add(i + n, 1);\n  for (let i = 0; i < n; i++) {\n    const query = queries[i];\n    const idx = idxList[query];\n    const cnt = tree.query(idx);\n    ans.push(cnt - 1);\n    tree.add(idx, -1);\n    tree.add(n - i, 1);\n    idxList[query] = n - i;\n  }\n  return ans;\n}"
+        }
+    ]
 }

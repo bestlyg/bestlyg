@@ -1,33 +1,39 @@
 {
-  "name": "1020. 飞地的数量",
-  "url": "https://leetcode-cn.com/problems/number-of-enclaves/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "矩阵"],
-  "desc": "返回网格中 无法 在任意次数的移动中离开网格边界的陆地单元格的数量。",
-  "solutions": [
-    {
-      "date": 1644595200000,
-      "time": 48,
-      "memory": 21.6,
-      "script": "c++",
-      "desc": "bfs,对于每个出口进行遍历,遍历到的陆地都可出。",
-      "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    typedef pair<int, int> node;\n    int m, n;\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        queue<node> q;\n        for (int i = 0; i < n; i++) {\n            if (grid[i][0]) {\n                q.push(make_pair(i, 0));\n                grid[i][0] = 0;\n            }\n            if (m > 1 && grid[i][m - 1]) {\n                q.push(make_pair(i, m - 1));\n                grid[i][m - 1] = 0;\n            }\n        }\n        for (int i = 1; i < m - 1; i++) {\n            if (grid[0][i]) {\n                q.push(make_pair(0, i));\n                grid[0][i] = 0;\n            }\n            if (n > 1 && grid[n - 1][i]) {\n                q.push(make_pair(n - 1, i));\n                grid[n - 1][i] = 0;\n            }\n        }\n        while (q.size()) {\n            node v = q.front();\n            q.pop();\n            for (int i = 0; i < 4; i++) {\n                int nrow = v.first + dirs[i][0], ncol = v.second + dirs[i][1];\n                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||\n                    grid[nrow][ncol] == 0)\n                    continue;\n                q.push(make_pair(nrow, ncol));\n                grid[nrow][ncol] = 0;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j]) ans++;\n            }\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1644595200000,
-      "time": 44,
-      "memory": 21.1,
-      "script": "c++",
-      "desc": "dfs,对于每个出口进行遍历,遍历到的陆地都可出。",
-      "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    typedef pair<int, int> node;\n    int m, n;\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        for (int i = 0; i < n; i++) {\n            if (grid[i][0]) {\n                grid[i][0] = 0;\n                dfs(grid, i, 0);\n            }\n            if (m > 1 && grid[i][m - 1]) {\n                grid[i][m - 1] = 0;\n                dfs(grid, i, m - 1);\n            }\n        }\n        for (int i = 1; i < m - 1; i++) {\n            if (grid[0][i]) {\n                grid[0][i] = 0;\n                dfs(grid, 0, i);\n            }\n            if (n > 1 && grid[n - 1][i]) {\n                grid[n - 1][i] = 0;\n                dfs(grid, n - 1, i);\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j]) ans++;\n            }\n        }\n        return ans;\n    }\n    void dfs(vector<vector<int>>& grid, const int row, const int col) {\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||\n                grid[nrow][ncol] == 0)\n                continue;\n            grid[nrow][ncol] = 0;\n            dfs(grid, nrow, ncol);\n        }\n    }\n};"
-    },
-    {
-      "date": 1644595200000,
-      "time": 84,
-      "memory": 23.6,
-      "script": "c++",
-      "desc": "uf,统计所有出口。",
-      "code": "int dirs[4][2] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};\nclass UnionFind {\n   public:\n    vector<int> data;\n    UnionFind(int size) : data(size) {\n        for (int i = 0; i < size; i++) data[i] = i;\n    }\n    int find(int e) {\n        if (data[e] == e) return e;\n        return data[e] = find(data[e]);\n    }\n    void uni(int e1, int e2) { data[find(e2)] = find(e1); }\n};\nclass Solution {\n   public:\n    int n, m;\n    int get_idx(int row, int col) { return row * m + col; }\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        int ans = 0;\n        UnionFind uf(n * m);\n        unordered_set<int> s1, s2;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 0) continue;\n                ans++;\n                if (i == 0 || j == 0 || i == n - 1 || j == m - 1)\n                    s1.insert(get_idx(i, j));\n                for (int k = 0; k < 4; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni >= n || nj < 0 || nj >= m ||\n                        grid[ni][nj] == 0)\n                        continue;\n                    uf.uni(get_idx(i, j), get_idx(ni, nj));\n                }\n            }\n        }\n        for (auto& idx : s1) s2.insert(uf.find(idx));\n        for (int i = 0; i < n * m; i++) {\n            if (s2.count(uf.find(i))) ans--;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "1020. 飞地的数量",
+    "url": "https://leetcode-cn.com/problems/number-of-enclaves/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "返回网格中 无法 在任意次数的移动中离开网格边界的陆地单元格的数量。",
+    "solutions": [
+        {
+            "date": 1644595200000,
+            "time": 48,
+            "memory": 21.6,
+            "script": "c++",
+            "desc": "bfs,对于每个出口进行遍历,遍历到的陆地都可出。",
+            "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    typedef pair<int, int> node;\n    int m, n;\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        queue<node> q;\n        for (int i = 0; i < n; i++) {\n            if (grid[i][0]) {\n                q.push(make_pair(i, 0));\n                grid[i][0] = 0;\n            }\n            if (m > 1 && grid[i][m - 1]) {\n                q.push(make_pair(i, m - 1));\n                grid[i][m - 1] = 0;\n            }\n        }\n        for (int i = 1; i < m - 1; i++) {\n            if (grid[0][i]) {\n                q.push(make_pair(0, i));\n                grid[0][i] = 0;\n            }\n            if (n > 1 && grid[n - 1][i]) {\n                q.push(make_pair(n - 1, i));\n                grid[n - 1][i] = 0;\n            }\n        }\n        while (q.size()) {\n            node v = q.front();\n            q.pop();\n            for (int i = 0; i < 4; i++) {\n                int nrow = v.first + dirs[i][0], ncol = v.second + dirs[i][1];\n                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||\n                    grid[nrow][ncol] == 0)\n                    continue;\n                q.push(make_pair(nrow, ncol));\n                grid[nrow][ncol] = 0;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j]) ans++;\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1644595200000,
+            "time": 44,
+            "memory": 21.1,
+            "script": "c++",
+            "desc": "dfs,对于每个出口进行遍历,遍历到的陆地都可出。",
+            "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    typedef pair<int, int> node;\n    int m, n;\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        for (int i = 0; i < n; i++) {\n            if (grid[i][0]) {\n                grid[i][0] = 0;\n                dfs(grid, i, 0);\n            }\n            if (m > 1 && grid[i][m - 1]) {\n                grid[i][m - 1] = 0;\n                dfs(grid, i, m - 1);\n            }\n        }\n        for (int i = 1; i < m - 1; i++) {\n            if (grid[0][i]) {\n                grid[0][i] = 0;\n                dfs(grid, 0, i);\n            }\n            if (n > 1 && grid[n - 1][i]) {\n                grid[n - 1][i] = 0;\n                dfs(grid, n - 1, i);\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j]) ans++;\n            }\n        }\n        return ans;\n    }\n    void dfs(vector<vector<int>>& grid, const int row, const int col) {\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||\n                grid[nrow][ncol] == 0)\n                continue;\n            grid[nrow][ncol] = 0;\n            dfs(grid, nrow, ncol);\n        }\n    }\n};"
+        },
+        {
+            "date": 1644595200000,
+            "time": 84,
+            "memory": 23.6,
+            "script": "c++",
+            "desc": "uf,统计所有出口。",
+            "code": "int dirs[4][2] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};\nclass UnionFind {\n   public:\n    vector<int> data;\n    UnionFind(int size) : data(size) {\n        for (int i = 0; i < size; i++) data[i] = i;\n    }\n    int find(int e) {\n        if (data[e] == e) return e;\n        return data[e] = find(data[e]);\n    }\n    void uni(int e1, int e2) { data[find(e2)] = find(e1); }\n};\nclass Solution {\n   public:\n    int n, m;\n    int get_idx(int row, int col) { return row * m + col; }\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        int ans = 0;\n        UnionFind uf(n * m);\n        unordered_set<int> s1, s2;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 0) continue;\n                ans++;\n                if (i == 0 || j == 0 || i == n - 1 || j == m - 1)\n                    s1.insert(get_idx(i, j));\n                for (int k = 0; k < 4; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni >= n || nj < 0 || nj >= m ||\n                        grid[ni][nj] == 0)\n                        continue;\n                    uf.uni(get_idx(i, j), get_idx(ni, nj));\n                }\n            }\n        }\n        for (auto& idx : s1) s2.insert(uf.find(idx));\n        for (int i = 0; i < n * m; i++) {\n            if (s2.count(uf.find(i))) ans--;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

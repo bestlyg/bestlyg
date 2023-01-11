@@ -1,25 +1,40 @@
 {
-  "name": "187. 重复的 DNA 序列",
-  "url": "https://leetcode-cn.com/problems/repeated-dna-sequences/",
-  "difficulty": "中等",
-  "tag": ["位运算", "哈希表", "字符串", "滑动窗口", "哈希函数", "滚动哈希"],
-  "desc": "编写一个函数来找出所有目标子串，目标子串的长度为 10，且在 DNA 字符串 s 中出现次数超过一次。",
-  "solutions": [
-    {
-      "date": 1627056000000,
-      "time": 92,
-      "memory": 50.4,
-      "script": "typescript",
-      "desc": "遍历所欲子串。",
-      "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  const ans = new Set<string>();\n  for (let i = 0, l = s.length; i <= l - 10; i++) {\n    const subStr = s.substr(i, 10);\n    if (set.has(subStr)) ans.add(subStr);\n    else set.add(subStr);\n  }\n  return [...ans];\n}"
-    },
-    {
-      "date": 1633622400000,
-      "time": 128,
-      "memory": 52.1,
-      "script": "typescript",
-      "desc": "滑动窗口。",
-      "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  const window = s.substr(0, 10).split('');\n  set.add(window.join(''));\n  const ans = new Set<string>();\n  for (let i = 10, l = s.length; i < l; i++) {\n    window.shift();\n    window.push(s[i]);\n    const str = window.join('');\n    if (set.has(str)) ans.add(str);\n    set.add(str);\n  }\n  return [...ans];\n}"
-    }
-  ]
+    "name": "187. 重复的 DNA 序列",
+    "url": "https://leetcode-cn.com/problems/repeated-dna-sequences/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "哈希表",
+        "字符串",
+        "滑动窗口",
+        "哈希函数",
+        "滚动哈希"
+    ],
+    "desc": "编写一个函数来找出所有目标子串，目标子串的长度为 10，且在 DNA 字符串 s 中出现次数超过一次。",
+    "solutions": [
+        {
+            "date": 1627056000000,
+            "time": 92,
+            "memory": 50.4,
+            "script": "typescript",
+            "desc": "遍历所欲子串。",
+            "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  const ans = new Set<string>();\n  for (let i = 0, l = s.length; i <= l - 10; i++) {\n    const subStr = s.substr(i, 10);\n    if (set.has(subStr)) ans.add(subStr);\n    else set.add(subStr);\n  }\n  return [...ans];\n}"
+        },
+        {
+            "date": 1633622400000,
+            "time": 128,
+            "memory": 52.1,
+            "script": "typescript",
+            "desc": "滑动窗口。",
+            "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  const window = s.substr(0, 10).split('');\n  set.add(window.join(''));\n  const ans = new Set<string>();\n  for (let i = 10, l = s.length; i < l; i++) {\n    window.shift();\n    window.push(s[i]);\n    const str = window.join('');\n    if (set.has(str)) ans.add(str);\n    set.add(str);\n  }\n  return [...ans];\n}"
+        },
+        {
+            "date": 1633622400000,
+            "time": 80,
+            "memory": 50.6,
+            "script": "typescript",
+            "desc": "滑动窗口。",
+            "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  let str = s.substr(0, 10);\n  set.add(str);\n  const ans = new Set<string>();\n  for (let i = 10, l = s.length; i < l; i++) {\n    str = str.substring(1) + s[i];\n    if (set.has(str)) ans.add(str);\n    set.add(str);\n  }\n  return [...ans];\n}"
+        }
+    ]
 }

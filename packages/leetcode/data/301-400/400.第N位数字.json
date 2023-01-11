@@ -1,17 +1,20 @@
 {
-  "name": "400. 第 N 位数字",
-  "url": "https://leetcode-cn.com/problems/nth-digit/",
-  "difficulty": "中等",
-  "tag": ["数学", "二分查找"],
-  "desc": "给你一个整数 n ，请你在无限的整数序列 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...] 中找出并返回第 n 位数字。",
-  "solutions": [
-    {
-      "date": 1638201600000,
-      "time": 68,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "直接分区间查找。",
-      "code": "// 每一段具有相同位数的数字算一个区间\nfunction findNthDigit(n: number): number {\n  // 当前数字占几位\n  let bit = 1;\n  // 当前区间最大值\n  let max = 9;\n  // 当前区间最小值\n  let min = 1;\n  // 前区间占用位数\n  let cnt = 0;\n  // 判断n是否大于下一个区间数量，大于则移动至下一区间\n  while (n > cnt + (max - Math.floor(max / 10)) * bit) {\n    cnt += (max - Math.floor(max / 10)) * bit++;\n    max = max * 10 + 9;\n    min *= 10;\n  }\n  // 删除前一区间的量\n  n -= cnt;\n  // 计算当前区间中所指向的数字\n  const num = Math.floor((n - 1) / bit) + min;\n  return +num.toString()[(n - 1) % bit];\n}"
-    }
-  ]
+    "name": "400. 第 N 位数字",
+    "url": "https://leetcode-cn.com/problems/nth-digit/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "二分查找"
+    ],
+    "desc": "给你一个整数 n ，请你在无限的整数序列 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...] 中找出并返回第 n 位数字。",
+    "solutions": [
+        {
+            "date": 1638201600000,
+            "time": 68,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "直接分区间查找。",
+            "code": "// 每一段具有相同位数的数字算一个区间\nfunction findNthDigit(n: number): number {\n  // 当前数字占几位\n  let bit = 1;\n  // 当前区间最大值\n  let max = 9;\n  // 当前区间最小值\n  let min = 1;\n  // 前区间占用位数\n  let cnt = 0;\n  // 判断n是否大于下一个区间数量，大于则移动至下一区间\n  while (n > cnt + (max - Math.floor(max / 10)) * bit) {\n    cnt += (max - Math.floor(max / 10)) * bit++;\n    max = max * 10 + 9;\n    min *= 10;\n  }\n  // 删除前一区间的量\n  n -= cnt;\n  // 计算当前区间中所指向的数字\n  const num = Math.floor((n - 1) / bit) + min;\n  return +num.toString()[(n - 1) % bit];\n}"
+        }
+    ]
 }

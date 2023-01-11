@@ -1,33 +1,35 @@
 {
-  "name": "1447. 最简分数",
-  "url": "https://leetcode-cn.com/problems/simplified-fractions/",
-  "difficulty": "中等",
-  "tag": ["数学"],
-  "desc": "给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于 n 的 最简 分数 。分数可以以 任意 顺序返回。",
-  "solutions": [
-    {
-      "date": 1639152000000,
-      "time": 104,
-      "memory": 44.8,
-      "script": "typescript",
-      "desc": "最大公约数为 1。",
-      "code": "function gcd(a: number, b: number) {\n  return b ? gcd(b, a % b) : a;\n}\nfunction simplifiedFractions(n: number): string[] {\n  const ans: string[] = [];\n  for (let i = 2; i <= n; i++) {\n    for (let j = 1; j < i; j++) {\n      if (gcd(i, j) === 1) ans.push(`${j}/${i}`);\n    }\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1644422400000,
-      "time": 116,
-      "memory": 32.5,
-      "script": "c++",
-      "desc": "判断最大公约数。",
-      "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        unordered_set<string> s;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                int num = gcd(i, j);\n                s.insert(to_string(j / num) + \"/\" + to_string(i / num));\n            }\n        }\n        vector<string> ans;\n        for (auto& str : s) ans.push_back(str);\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1644422400000,
-      "time": 48,
-      "memory": 21.3,
-      "script": "c++",
-      "desc": "判断最大公约数。",
-      "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        vector<string> ans;\n        for (int i = 2; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                if (j == 1 || gcd(i, j) == 1)\n                    ans.push_back(to_string(j) + \"/\" + to_string(i));\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "1447. 最简分数",
+    "url": "https://leetcode-cn.com/problems/simplified-fractions/",
+    "difficulty": "中等",
+    "tag": [
+        "数学"
+    ],
+    "desc": "给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于 n 的 最简 分数 。分数可以以 任意 顺序返回。",
+    "solutions": [
+        {
+            "date": 1639152000000,
+            "time": 104,
+            "memory": 44.8,
+            "script": "typescript",
+            "desc": "最大公约数为 1。",
+            "code": "function gcd(a: number, b: number) {\n  return b ? gcd(b, a % b) : a;\n}\nfunction simplifiedFractions(n: number): string[] {\n  const ans: string[] = [];\n  for (let i = 2; i <= n; i++) {\n    for (let j = 1; j < i; j++) {\n      if (gcd(i, j) === 1) ans.push(`${j}/${i}`);\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1644422400000,
+            "time": 116,
+            "memory": 32.5,
+            "script": "c++",
+            "desc": "判断最大公约数。",
+            "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        unordered_set<string> s;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                int num = gcd(i, j);\n                s.insert(to_string(j / num) + \"/\" + to_string(i / num));\n            }\n        }\n        vector<string> ans;\n        for (auto& str : s) ans.push_back(str);\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1644422400000,
+            "time": 48,
+            "memory": 21.3,
+            "script": "c++",
+            "desc": "判断最大公约数。",
+            "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        vector<string> ans;\n        for (int i = 2; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                if (j == 1 || gcd(i, j) == 1)\n                    ans.push_back(to_string(j) + \"/\" + to_string(i));\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

@@ -1,25 +1,36 @@
 {
-  "name": "421. 数组中两个数的最大异或值",
-  "url": "https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/",
-  "difficulty": "中等",
-  "tag": ["位运算", "字典树"],
-  "desc": "给你一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。",
-  "solutions": [
-    {
-      "date": 1621094400000,
-      "time": 6480,
-      "memory": 40.4,
-      "script": "typescript",
-      "desc": "O(n2)循环。",
-      "code": "function findMaximumXOR(nums: number[]): number {\n  let ans = -Infinity;\n  nums.forEach(v1 => nums.forEach(v2 => (ans = Math.max(ans, v1 ^ v2))));\n  return ans;\n}"
-    },
-    {
-      "date": 1621094400000,
-      "time": 156,
-      "memory": 49.2,
-      "script": "typescript",
-      "desc": "利用 trie 储存二进制，每次寻找尽可能大的数。",
-      "code": "class Trie {\n  /** 左 0  */\n  left: Trie | null = null;\n  /** 右 1  */\n  right: Trie | null = null;\n}\nfunction findMaximumXOR(nums: number[]): number {\n  const len = nums.length;\n  if (len === 1) return 0;\n  const root = new Trie();\n  let ans = -Infinity;\n  const add = (num: number) => {\n    let trie = root;\n    for (let i = 30; i >= 0; i--) {\n      const v = (num >> i) & 1;\n      if (v === 1) {\n        trie = trie.right ?? (trie.right = new Trie());\n      } else {\n        trie = trie.left ?? (trie.left = new Trie());\n      }\n    }\n  };\n  const check = (num: number): number => {\n    let trie = root;\n    let xorNum = 0;\n    for (let i = 30; i >= 0; i--) {\n      const v = (num >> i) & 1;\n      if (v === 1) {\n        if (trie.left) {\n          trie = trie.left;\n          xorNum = (xorNum << 1) + 1;\n        } else {\n          trie = trie.right!;\n          xorNum <<= 1;\n        }\n      } else {\n        if (trie.right) {\n          trie = trie.right;\n          xorNum = (xorNum << 1) + 1;\n        } else {\n          trie = trie.left!;\n          xorNum <<= 1;\n        }\n      }\n    }\n    return xorNum;\n  };\n  for (let i = 1; i < len; i++) {\n    add(nums[i - 1]);\n    ans = Math.max(ans, check(nums[i]));\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "421. 数组中两个数的最大异或值",
+    "url": "https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "字典树"
+    ],
+    "desc": "给你一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。",
+    "solutions": [
+        {
+            "date": 1621094400000,
+            "time": 6480,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "O(n2)循环。",
+            "code": "function findMaximumXOR(nums: number[]): number {\n  let ans = -Infinity;\n  nums.forEach(v1 => nums.forEach(v2 => (ans = Math.max(ans, v1 ^ v2))));\n  return ans;\n}"
+        },
+        {
+            "date": 1621094400000,
+            "time": 156,
+            "memory": 49.2,
+            "script": "typescript",
+            "desc": "利用 trie 储存二进制，每次寻找尽可能大的数。",
+            "code": "class Trie {\n  /** 左 0  */\n  left: Trie | null = null;\n  /** 右 1  */\n  right: Trie | null = null;\n}\nfunction findMaximumXOR(nums: number[]): number {\n  const len = nums.length;\n  if (len === 1) return 0;\n  const root = new Trie();\n  let ans = -Infinity;\n  const add = (num: number) => {\n    let trie = root;\n    for (let i = 30; i >= 0; i--) {\n      const v = (num >> i) & 1;\n      if (v === 1) {\n        trie = trie.right ?? (trie.right = new Trie());\n      } else {\n        trie = trie.left ?? (trie.left = new Trie());\n      }\n    }\n  };\n  const check = (num: number): number => {\n    let trie = root;\n    let xorNum = 0;\n    for (let i = 30; i >= 0; i--) {\n      const v = (num >> i) & 1;\n      if (v === 1) {\n        if (trie.left) {\n          trie = trie.left;\n          xorNum = (xorNum << 1) + 1;\n        } else {\n          trie = trie.right!;\n          xorNum <<= 1;\n        }\n      } else {\n        if (trie.right) {\n          trie = trie.right;\n          xorNum = (xorNum << 1) + 1;\n        } else {\n          trie = trie.left!;\n          xorNum <<= 1;\n        }\n      }\n    }\n    return xorNum;\n  };\n  for (let i = 1; i < len; i++) {\n    add(nums[i - 1]);\n    ans = Math.max(ans, check(nums[i]));\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1635091200000,
+            "time": 788,
+            "memory": 67.5,
+            "script": "typescript",
+            "desc": "二叉字典树。",
+            "code": "const MAX = 31;\nclass BitTrieNode {\n  // 0\n  left: BitTrieNode | null = null;\n  // 1\n  right: BitTrieNode | null = null;\n  val = -1;\n}\nclass BitTrie {\n  root = new BitTrieNode();\n  add(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      const ch = str[i];\n      if (ch === '0') node = node.left ?? (node.left = new BitTrieNode());\n      else node = node.right ?? (node.right = new BitTrieNode());\n    }\n    node.val = num;\n  }\n  find(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      if (!node.left && !node.right) break;\n      const ch = str[i];\n      if (ch === '0') {\n        node = node.right ?? node.left!;\n      } else {\n        node = node.left ?? node.right!;\n      }\n    }\n    return node;\n  }\n}\nfunction findMaximumXOR(nums: number[]): number {\n  const trie = new BitTrie();\n  nums.forEach(num => trie.add(num));\n  let ans = -Infinity;\n  nums.forEach(num => {\n    ans = Math.max(ans, trie.find(num).val ^ num);\n  });\n  return ans;\n}"
+        }
+    ]
 }

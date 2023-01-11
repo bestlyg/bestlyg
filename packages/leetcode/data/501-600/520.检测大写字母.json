@@ -1,25 +1,27 @@
 {
-  "name": "520. 检测大写字母",
-  "url": "https://leetcode-cn.com/problems/detect-capital/",
-  "difficulty": "简单",
-  "tag": ["字符串"],
-  "desc": "给定一个单词，你需要判断单词的大写使用是否正确。",
-  "solutions": [
-    {
-      "date": 1586188800000,
-      "time": 64,
-      "memory": 34.1,
-      "script": "javascript",
-      "desc": "通过转换大小写进行判断。",
-      "code": "/**\n * @param {string} word\n * @return {boolean}\n */\nvar detectCapitalUse = function (word) {\n  if (word.toLowerCase() === word) return true;\n  if (word.toUpperCase() === word) return true;\n  if (\n    word[0].toUpperCase() === word[0] &&\n    word.substring(1, word.length).toLowerCase() === word.substring(1, word.length)\n  )\n    return true;\n  return false;\n};"
-    },
-    {
-      "date": 1636819200000,
-      "time": 80,
-      "memory": 39.6,
-      "script": "typescript",
-      "desc": "正则。",
-      "code": "function detectCapitalUse(word: string): boolean {\n  return /(^[A-Z]*$)|(^[a-z]*$)|(^[A-Z]{1}[a-z]*$)/g.test(word);\n}"
-    }
-  ]
+    "name": "520. 检测大写字母",
+    "url": "https://leetcode-cn.com/problems/detect-capital/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定一个单词，你需要判断单词的大写使用是否正确。",
+    "solutions": [
+        {
+            "date": 1586188800000,
+            "time": 64,
+            "memory": 34.1,
+            "script": "javascript",
+            "desc": "通过转换大小写进行判断。",
+            "code": "/**\n * @param {string} word\n * @return {boolean}\n */\nvar detectCapitalUse = function (word) {\n  if (word.toLowerCase() === word) return true;\n  if (word.toUpperCase() === word) return true;\n  if (\n    word[0].toUpperCase() === word[0] &&\n    word.substring(1, word.length).toLowerCase() === word.substring(1, word.length)\n  )\n    return true;\n  return false;\n};"
+        },
+        {
+            "date": 1636819200000,
+            "time": 80,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "正则。",
+            "code": "function detectCapitalUse(word: string): boolean {\n  return /(^[A-Z]*$)|(^[a-z]*$)|(^[A-Z]{1}[a-z]*$)/g.test(word);\n}"
+        }
+    ]
 }

@@ -1,17 +1,23 @@
 {
-  "name": "2001. 可互换矩形的组数",
-  "url": "https://leetcode-cn.com/problems/number-of-pairs-of-interchangeable-rectangles/",
-  "difficulty": "中等",
-  "tag": ["数组", "哈希表", "数学", "计数", "数论"],
-  "desc": "计算并返回 rectangles 中有多少对 可互换 矩形。",
-  "solutions": [
-    {
-      "date": 1641484800000,
-      "time": 500,
-      "memory": 134.5,
-      "script": "c++",
-      "desc": "统计最简比例的个数。",
-      "code": "int gcd(int a, int b) {\n    if (b) return gcd(b, a % b);\n    return a;\n}\nclass Solution {\n   public:\n    struct Data {\n        int a, b;\n        Data(int a, int b) : a(a), b(b) {\n            int c = gcd(a, b);\n            this->a /= c;\n            this->b /= c;\n        }\n        bool operator<(const Data &obj) const {\n            if (a != obj.a) return a < obj.a;\n            return b < obj.b;\n        }\n    };\n    long long interchangeableRectangles(vector<vector<int>> &rectangles) {\n        map<Data, int> m;\n        long long ans = 0;\n        for (auto &x : rectangles) {\n            Data d(x[0], x[1]);\n            ans += m[d];\n            m[d] += 1;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "2001. 可互换矩形的组数",
+    "url": "https://leetcode-cn.com/problems/number-of-pairs-of-interchangeable-rectangles/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "数学",
+        "计数",
+        "数论"
+    ],
+    "desc": "计算并返回 rectangles 中有多少对 可互换 矩形。",
+    "solutions": [
+        {
+            "date": 1641484800000,
+            "time": 500,
+            "memory": 134.5,
+            "script": "c++",
+            "desc": "统计最简比例的个数。",
+            "code": "int gcd(int a, int b) {\n    if (b) return gcd(b, a % b);\n    return a;\n}\nclass Solution {\n   public:\n    struct Data {\n        int a, b;\n        Data(int a, int b) : a(a), b(b) {\n            int c = gcd(a, b);\n            this->a /= c;\n            this->b /= c;\n        }\n        bool operator<(const Data &obj) const {\n            if (a != obj.a) return a < obj.a;\n            return b < obj.b;\n        }\n    };\n    long long interchangeableRectangles(vector<vector<int>> &rectangles) {\n        map<Data, int> m;\n        long long ans = 0;\n        for (auto &x : rectangles) {\n            Data d(x[0], x[1]);\n            ans += m[d];\n            m[d] += 1;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

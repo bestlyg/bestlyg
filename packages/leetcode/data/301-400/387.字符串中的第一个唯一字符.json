@@ -1,17 +1,20 @@
 {
-  "name": "387. 字符串中的第一个唯一字符",
-  "url": "https://leetcode-cn.com/problems/first-unique-character-in-a-string/",
-  "difficulty": "简单",
-  "tag": ["哈希表", "字符串"],
-  "desc": "给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。",
-  "solutions": [
-    {
-      "date": 1608652800000,
-      "time": 160,
-      "memory": 43.4,
-      "script": "typescript",
-      "desc": "遍历后储存成 set。",
-      "code": "function firstUniqChar(s: string): number {\n  const dict: Record<string, number> = {};\n  for (const c of s) {\n    dict[c] = (dict[c] ?? 0) + 1;\n  }\n  const set = new Set(\n    Object.entries(dict)\n      .filter(([, v]) => v === 1)\n      .map(([k]) => k)\n  );\n  for (let i = 0, l = s.length; i < l; i++) {\n    if (set.has(s[i])) return i;\n  }\n  return -1;\n}"
-    }
-  ]
+    "name": "387. 字符串中的第一个唯一字符",
+    "url": "https://leetcode-cn.com/problems/first-unique-character-in-a-string/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。",
+    "solutions": [
+        {
+            "date": 1608652800000,
+            "time": 160,
+            "memory": 43.4,
+            "script": "typescript",
+            "desc": "遍历后储存成 set。",
+            "code": "function firstUniqChar(s: string): number {\n  const dict: Record<string, number> = {};\n  for (const c of s) {\n    dict[c] = (dict[c] ?? 0) + 1;\n  }\n  const set = new Set(\n    Object.entries(dict)\n      .filter(([, v]) => v === 1)\n      .map(([k]) => k)\n  );\n  for (let i = 0, l = s.length; i < l; i++) {\n    if (set.has(s[i])) return i;\n  }\n  return -1;\n}"
+        }
+    ]
 }

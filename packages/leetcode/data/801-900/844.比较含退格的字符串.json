@@ -1,25 +1,28 @@
 {
-  "name": "844. 比较含退格的字符串",
-  "url": "https://leetcode-cn.com/problems/backspace-string-compare/",
-  "difficulty": "简单",
-  "tag": ["栈", "双指针"],
-  "desc": "给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。",
-  "solutions": [
-    {
-      "date": 1603036800000,
-      "time": 92,
-      "memory": 40.2,
-      "script": "typescript",
-      "desc": "利用正则去掉退格。",
-      "code": "function backspaceCompare(S: string, T: string): boolean {\n  return replace(S) === replace(T);\n  function replace(str: string): string {\n    const reg = /[a-z]#/g;\n    let arr: RegExpMatchArray | null;\n    while ((arr = str.match(reg)) !== null) {\n      arr.forEach(v => (str = str.replace(v, '')));\n      arr = str.match(reg);\n      // console.log(str);\n    }\n    while (str.startsWith('#')) str = str.substr(1);\n    // console.log(str);\n    return str;\n  }\n}"
-    },
-    {
-      "date": 1616083200000,
-      "time": 84,
-      "memory": 39.7,
-      "script": "typescript",
-      "desc": "栈维护。",
-      "code": "function backspaceCompare(S: string, T: string): boolean {\n  function compStr(str: string): string {\n    const stack: string[] = [];\n    for (let i = 0, l = str.length; i < l; i++) {\n      const c = str[i];\n      if (c === '#') {\n        if (stack.length === 0) continue;\n        else stack.pop();\n      } else {\n        stack.push(c);\n      }\n    }\n    return stack.join('');\n  }\n  return compStr(S) === compStr(T);\n}"
-    }
-  ]
+    "name": "844. 比较含退格的字符串",
+    "url": "https://leetcode-cn.com/problems/backspace-string-compare/",
+    "difficulty": "简单",
+    "tag": [
+        "栈",
+        "双指针"
+    ],
+    "desc": "给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。",
+    "solutions": [
+        {
+            "date": 1603036800000,
+            "time": 92,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "利用正则去掉退格。",
+            "code": "function backspaceCompare(S: string, T: string): boolean {\n  return replace(S) === replace(T);\n  function replace(str: string): string {\n    const reg = /[a-z]#/g;\n    let arr: RegExpMatchArray | null;\n    while ((arr = str.match(reg)) !== null) {\n      arr.forEach(v => (str = str.replace(v, '')));\n      arr = str.match(reg);\n      // console.log(str);\n    }\n    while (str.startsWith('#')) str = str.substr(1);\n    // console.log(str);\n    return str;\n  }\n}"
+        },
+        {
+            "date": 1616083200000,
+            "time": 84,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "栈维护。",
+            "code": "function backspaceCompare(S: string, T: string): boolean {\n  function compStr(str: string): string {\n    const stack: string[] = [];\n    for (let i = 0, l = str.length; i < l; i++) {\n      const c = str[i];\n      if (c === '#') {\n        if (stack.length === 0) continue;\n        else stack.pop();\n      } else {\n        stack.push(c);\n      }\n    }\n    return stack.join('');\n  }\n  return compStr(S) === compStr(T);\n}"
+        }
+    ]
 }

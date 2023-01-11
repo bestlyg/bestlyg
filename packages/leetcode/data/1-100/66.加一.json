@@ -1,17 +1,20 @@
 {
-  "name": "66. 加一",
-  "url": "https://leetcode-cn.com/problems/plus-one/",
-  "difficulty": "简单",
-  "tag": ["数组", "数学"],
-  "desc": "给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。",
-  "solutions": [
-    {
-      "date": 1634745600000,
-      "time": 76,
-      "memory": 39.2,
-      "script": "typescript",
-      "desc": "每次 n-1 个元素加一，理解为每次 1 个元素减一。",
-      "code": "function plusOne(digits: number[]): number[] {\n  let add = true;\n  for (let n = digits.length, i = n - 1; add && i >= 0; i--) {\n    if (++digits[i] === 10) digits[i] = 0;\n    else add = false;\n  }\n  if (add) digits.unshift(1);\n  return digits;\n}"
-    }
-  ]
+    "name": "66. 加一",
+    "url": "https://leetcode-cn.com/problems/plus-one/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。",
+    "solutions": [
+        {
+            "date": 1634745600000,
+            "time": 76,
+            "memory": 39.2,
+            "script": "typescript",
+            "desc": "每次 n-1 个元素加一，理解为每次 1 个元素减一。",
+            "code": "function plusOne(digits: number[]): number[] {\n  let add = true;\n  for (let n = digits.length, i = n - 1; add && i >= 0; i--) {\n    if (++digits[i] === 10) digits[i] = 0;\n    else add = false;\n  }\n  if (add) digits.unshift(1);\n  return digits;\n}"
+        }
+    ]
 }

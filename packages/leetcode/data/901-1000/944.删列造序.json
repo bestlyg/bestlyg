@@ -1,25 +1,28 @@
 {
-  "name": "944. 删列造序",
-  "url": "https://leetcode-cn.com/problems/delete-columns-to-make-sorted/",
-  "difficulty": "简单",
-  "tag": ["数组", "字符串"],
-  "desc": "给你由 n 个小写字母字符串组成的数组 strs，其中每个字符串长度相等。返回你需要删除的列数。",
-  "solutions": [
-    {
-      "date": 1648137600000,
-      "time": 36,
-      "memory": 12,
-      "script": "cpp",
-      "desc": "按列遍历。",
-      "code": "class Solution {\n   public:\n    int minDeletionSize(vector<string>& strs) {\n        int ans = 0, n = strs.size(), m = strs[0].size();\n        for (int i = 0; i < m; i++) {\n            char prev = strs[0][i];\n            for (int j = 1; j < n; j++) {\n                if (strs[j][i] < prev) {\n                    ans++;\n                    break;\n                }\n                prev = strs[j][i];\n            }\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1652284800000,
-      "time": 52,
-      "memory": 12,
-      "script": "cpp",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    int minDeletionSize(vector<string>& strs) {\n        string prev = strs[0];\n        int ans = 0;\n        unordered_set<int> used;\n        for (int i = 1; i < strs.size(); i++) {\n            for (int j = 0; j < prev.size(); j++) {\n                if (used.count(j)) continue;\n                if (strs[i][j] < prev[j]) {\n                    ans++;\n                    used.insert(j);\n                }\n            }\n            prev = strs[i];\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "944. 删列造序",
+    "url": "https://leetcode-cn.com/problems/delete-columns-to-make-sorted/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "字符串"
+    ],
+    "desc": "给你由 n 个小写字母字符串组成的数组 strs，其中每个字符串长度相等。返回你需要删除的列数。",
+    "solutions": [
+        {
+            "date": 1648137600000,
+            "time": 36,
+            "memory": 12,
+            "script": "cpp",
+            "desc": "按列遍历。",
+            "code": "class Solution {\n   public:\n    int minDeletionSize(vector<string>& strs) {\n        int ans = 0, n = strs.size(), m = strs[0].size();\n        for (int i = 0; i < m; i++) {\n            char prev = strs[0][i];\n            for (int j = 1; j < n; j++) {\n                if (strs[j][i] < prev) {\n                    ans++;\n                    break;\n                }\n                prev = strs[j][i];\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1652284800000,
+            "time": 52,
+            "memory": 12,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    int minDeletionSize(vector<string>& strs) {\n        string prev = strs[0];\n        int ans = 0;\n        unordered_set<int> used;\n        for (int i = 1; i < strs.size(); i++) {\n            for (int j = 0; j < prev.size(); j++) {\n                if (used.count(j)) continue;\n                if (strs[i][j] < prev[j]) {\n                    ans++;\n                    used.insert(j);\n                }\n            }\n            prev = strs[i];\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

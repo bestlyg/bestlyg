@@ -1,17 +1,19 @@
 {
-  "name": "1431. 拥有最多糖果的孩子",
-  "url": "https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给你一个数组  candies  和一个整数  extraCandies ，其中  candies[i]  代表第 i 个孩子拥有的糖果数目。对每一个孩子，检查是否存在一种方案，将额外的  extraCandies  个糖果分配给孩子们之后，此孩子有 最多   的糖果。注意，允许有多个孩子同时拥有 最多   的糖果数目。",
-  "solutions": [
-    {
-      "date": 1590940800000,
-      "time": 92,
-      "memory": 36.3,
-      "script": "typescript",
-      "desc": "遍历两遍，第一遍获取最大值，第二遍判断是否值最大。",
-      "code": "var kidsWithCandies = function (candies: number[], extraCandies: number): boolean[] {\n  let max = -1;\n  for (const num of candies) max = max < num ? num : max;\n  const res: boolean[] = [];\n  for (const num of candies) res.push(num + extraCandies >= max);\n  return res;\n};"
-    }
-  ]
+    "name": "1431. 拥有最多糖果的孩子",
+    "url": "https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一个数组  candies  和一个整数  extraCandies ，其中  candies[i]  代表第 i 个孩子拥有的糖果数目。对每一个孩子，检查是否存在一种方案，将额外的  extraCandies  个糖果分配给孩子们之后，此孩子有 最多   的糖果。注意，允许有多个孩子同时拥有 最多   的糖果数目。",
+    "solutions": [
+        {
+            "date": 1590940800000,
+            "time": 92,
+            "memory": 36.3,
+            "script": "typescript",
+            "desc": "遍历两遍，第一遍获取最大值，第二遍判断是否值最大。",
+            "code": "var kidsWithCandies = function (candies: number[], extraCandies: number): boolean[] {\n  let max = -1;\n  for (const num of candies) max = max < num ? num : max;\n  const res: boolean[] = [];\n  for (const num of candies) res.push(num + extraCandies >= max);\n  return res;\n};"
+        }
+    ]
 }

@@ -1,41 +1,52 @@
 {
-  "name": "69. Sqrt(x)",
-  "url": "https://leetcode-cn.com/problems/sqrtx/",
-  "difficulty": "简单",
-  "tag": ["数学", "二分查找"],
-  "desc": "实现 int sqrt(int x) 函数。",
-  "solutions": [
-    {
-      "date": 1588953600000,
-      "time": 84,
-      "memory": 35.5,
-      "script": "javascript",
-      "desc": "调用自带 Math 函数即可。",
-      "code": "/**\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function (x) {\n  return Math.floor(Math.sqrt(x));\n};"
-    },
-    {
-      "date": 1588953600000,
-      "time": 80,
-      "memory": 35.4,
-      "script": "javascript",
-      "desc": "手动实现 Math.sqrt(),二分搜索。",
-      "code": "/**\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function (x) {\n  if (x === 1) return 1;\n  let right = x;\n  let left = 1;\n  let mid = (right >> 1) + (left >> 1);\n  while (true) {\n    console.log(mid);\n    if (mid ** 2 <= x) {\n      if ((mid + 1) ** 2 > x) return mid;\n      else {\n        left = mid;\n        mid = (right + left) >> 1;\n      }\n    } else {\n      right = mid;\n      mid = (right + left) >> 1;\n    }\n  }\n};"
-    },
-    {
-      "date": 1626883200000,
-      "time": 76,
-      "memory": 39.8,
-      "script": "typescript",
-      "desc": "二分查找。",
-      "code": "function mySqrt(x: number): number {\n  let l = 1;\n  let r = x;\n  while (l <= r) {\n    const mid = r + ((l - r) >> 1);\n    const midNum = mid ** 2;\n    if (midNum > x) r = mid - 1;\n    else if (midNum < x) l = mid + 1;\n    else return mid;\n  }\n  return l - 1;\n}"
-    },
-    {
-      "date": 1639929600000,
-      "time": 0,
-      "memory": 5.8,
-      "script": "c++",
-      "desc": "二分查找。",
-      "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        double l = 0, r = x, m;\n        while ((int)l != (int)r) {\n            m = l + (r - l) / 2.0;\n            if (m > x / m)\n                r = m;\n            else\n                l = m;\n        }\n        return (int)l;\n    }\n};"
-    }
-  ]
+    "name": "69. Sqrt(x)",
+    "url": "https://leetcode-cn.com/problems/sqrtx/",
+    "difficulty": "简单",
+    "tag": [
+        "数学",
+        "二分查找"
+    ],
+    "desc": "实现 int sqrt(int x) 函数。",
+    "solutions": [
+        {
+            "date": 1588953600000,
+            "time": 84,
+            "memory": 35.5,
+            "script": "javascript",
+            "desc": "调用自带 Math 函数即可。",
+            "code": "/**\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function (x) {\n  return Math.floor(Math.sqrt(x));\n};"
+        },
+        {
+            "date": 1588953600000,
+            "time": 80,
+            "memory": 35.4,
+            "script": "javascript",
+            "desc": "手动实现 Math.sqrt(),二分搜索。",
+            "code": "/**\n * @param {number} x\n * @return {number}\n */\nvar mySqrt = function (x) {\n  if (x === 1) return 1;\n  let right = x;\n  let left = 1;\n  let mid = (right >> 1) + (left >> 1);\n  while (true) {\n    console.log(mid);\n    if (mid ** 2 <= x) {\n      if ((mid + 1) ** 2 > x) return mid;\n      else {\n        left = mid;\n        mid = (right + left) >> 1;\n      }\n    } else {\n      right = mid;\n      mid = (right + left) >> 1;\n    }\n  }\n};"
+        },
+        {
+            "date": 1626883200000,
+            "time": 76,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "二分查找。",
+            "code": "function mySqrt(x: number): number {\n  let l = 1;\n  let r = x;\n  while (l <= r) {\n    const mid = r + ((l - r) >> 1);\n    const midNum = mid ** 2;\n    if (midNum > x) r = mid - 1;\n    else if (midNum < x) l = mid + 1;\n    else return mid;\n  }\n  return l - 1;\n}"
+        },
+        {
+            "date": 1639929600000,
+            "time": 0,
+            "memory": 5.8,
+            "script": "c++",
+            "desc": "二分查找。",
+            "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        double l = 0, r = x, m;\n        while ((int)l != (int)r) {\n            m = l + (r - l) / 2.0;\n            if (m > x / m)\n                r = m;\n            else\n                l = m;\n        }\n        return (int)l;\n    }\n};"
+        },
+        {
+            "date": 1639929600000,
+            "time": 0,
+            "memory": 6,
+            "script": "c++",
+            "desc": "二分查找。",
+            "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        long long l = 0, r = x, m;\n        while (l < r) {\n            m = (l + r + 1) >> 1;\n            if (m * m <= x)\n                l = m;\n            else\n                r = m - 1;\n        }\n        return l;\n    }\n};"
+        }
+    ]
 }

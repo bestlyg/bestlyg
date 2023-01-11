@@ -1,17 +1,21 @@
 {
-  "name": "396. 旋转函数",
-  "url": "https://leetcode-cn.com/problems/rotate-function/",
-  "difficulty": "中等",
-  "tag": ["数组", "数学", "动态规划"],
-  "desc": "返回 F(0), F(1), ..., F(n-1)中的最大值 。",
-  "solutions": [
-    {
-      "date": 1650556800000,
-      "time": 140,
-      "memory": 93.6,
-      "script": "cpp",
-      "desc": "每一次的值可以从上一次推导过来 f(n) = f(n-1) + sum - n \\* nums[i]。",
-      "code": "class Solution {\n   public:\n    int maxRotateFunction(vector<int>& nums) {\n        int sum = 0, prev = 0, n = nums.size();\n        for (int i = 0; i < n; i++) {\n            sum += nums[i];\n            prev += nums[i] * i;\n        }\n        int ans = prev;\n        for (int i = n - 1; i > 0; i--, ans = max(ans, prev))\n            prev = prev + sum - n * nums[i];\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "396. 旋转函数",
+    "url": "https://leetcode-cn.com/problems/rotate-function/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "数学",
+        "动态规划"
+    ],
+    "desc": "返回 F(0), F(1), ..., F(n-1)中的最大值 。",
+    "solutions": [
+        {
+            "date": 1650556800000,
+            "time": 140,
+            "memory": 93.6,
+            "script": "cpp",
+            "desc": "每一次的值可以从上一次推导过来 f(n) = f(n-1) + sum - n \\* nums[i]。",
+            "code": "class Solution {\n   public:\n    int maxRotateFunction(vector<int>& nums) {\n        int sum = 0, prev = 0, n = nums.size();\n        for (int i = 0; i < n; i++) {\n            sum += nums[i];\n            prev += nums[i] * i;\n        }\n        int ans = prev;\n        for (int i = n - 1; i > 0; i--, ans = max(ans, prev))\n            prev = prev + sum - n * nums[i];\n        return ans;\n    }\n};"
+        }
+    ]
 }

@@ -1,8 +1,29 @@
 {
-  "name": "457. 环形数组是否存在循环",
-  "url": "https://leetcode-cn.com/problems/circular-array-loop/",
-  "difficulty": "中等",
-  "tag": ["数组", "哈希表", "双指针"],
-  "desc": "如果 nums 中存在循环，返回 true ；否则，返回 false 。",
-  "solutions": []
+    "name": "457. 环形数组是否存在循环",
+    "url": "https://leetcode-cn.com/problems/circular-array-loop/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针"
+    ],
+    "desc": "如果 nums 中存在循环，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1628265600000,
+            "time": 644,
+            "memory": 89,
+            "script": "typescript",
+            "desc": "bfs。",
+            "code": "function circularArrayLoop(nums: number[]): boolean {\n  const n = nums.length;\n  const queue: [number, Set<number>][] = new Array(n).fill(0).map((_, i) => [i, new Set([i])]);\n  while (queue.length) {\n    const [idx, set] = queue.shift()!;\n    const next = getNextIdx(idx, nums[idx]);\n    if (next === idx) continue;\n    if (set.has(next)) return true;\n    if ((nums[idx] > 0 && nums[next] < 0) || (nums[idx] < 0 && nums[next] > 0) || set.size === n)\n      continue;\n    set.add(next);\n    queue.push([next, set]);\n  }\n  return false;\n  function getNextIdx(idx: number, step: number): number {\n    let ans = idx + step;\n    while (ans >= n) ans -= n;\n    while (ans < 0) ans += n;\n    return ans;\n  }\n}"
+        },
+        {
+            "date": 1641571200000,
+            "time": 0,
+            "memory": 7,
+            "script": "c++",
+            "desc": "对于每个起点进行双指针遍历。",
+            "code": "class Solution {\n   public:\n    int getNext(int i, vector<int>& nums) {\n        int delta = 1000 * nums.size(), n = nums.size();\n        if (nums[i] < 0) delta *= -1;\n        nums[i] += delta;\n        return ((i + nums[i]) % n + n) % n;\n    }\n    bool circularArrayLoop(vector<int>& nums) {\n        for (int i = 0; i < nums.size(); i++) {\n            if (abs(nums[i]) > 1000) continue;\n            int p = i, q = i;\n            do {\n                p = getNext(p, nums);\n                q = getNext(getNext(q, nums), nums);\n            } while (p != q);\n            int a = 0, b = 0, l = 0;\n            do {\n                if (nums[p] > 0)\n                    a++;\n                else\n                    b++;\n                l++;\n                p = getNext(p, nums);\n            } while (p != q);\n            if (l > 1 && (a == 0 || b == 0)) return 1;\n        }\n        return 0;\n    }\n};"
+        }
+    ]
 }

@@ -1,33 +1,36 @@
 {
-  "name": "868. 二进制间距",
-  "url": "https://leetcode-cn.com/problems/binary-gap/",
-  "difficulty": "简单",
-  "tag": ["位运算", "数学"],
-  "desc": "给定一个正整数 n，找到并返回 n 的二进制表示中两个 相邻 1 之间的 最长距离 。如果不存在两个相邻的 1，返回 0 。",
-  "solutions": [
-    {
-      "date": 1647878400000,
-      "time": 0,
-      "memory": 5.9,
-      "script": "cpp",
-      "desc": "找 1，统计中间 0 的个数。",
-      "code": "class Solution {\n   public:\n    int binaryGap(int n) {\n        if (n == 0) return 0;\n        int start = 0, ans = 0;\n        while (start < 32 && (n & 1 << start) == 0) start++;\n        for (int i = start + 1, prev = start; i < 32; i++) {\n            // 统计存在11的情况\n            if ((n & 1 << i) != 0) {\n                if (i == prev + 1) {\n                    ans = 1;\n                    break;\n                }\n                prev = i;\n            }\n        }\n        while (start < 32) {\n            // 找1\n            while (start < 32 && (n & 1 << start) != 0) start++;\n            if (start == 32) break;\n            int cnt = 0;\n            // 找0\n            while (start < 32 && (n & 1 << start) == 0) start++, cnt++;\n            if (start == 32) break;\n            ans = max(ans, cnt + 1);\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1647878400000,
-      "time": 0,
-      "memory": 5.8,
-      "script": "cpp",
-      "desc": "一次遍历，找当前 1 前面的 1。",
-      "code": "class Solution {\n   public:\n    int binaryGap(int n) {\n        int ans = 0, prev = -1;\n        for (int i = 0; i < 32; i++) {\n            if ((n & 1 << i) == 0) continue;\n            if (prev != -1) ans = max(ans, i - prev);\n            prev = i;\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1650729600000,
-      "time": 0,
-      "memory": 5.3,
-      "script": "cpp",
-      "desc": "遍历。",
-      "code": "int binaryGap(int n) {\n    int prev = -1, ans = 0;\n    for (int i = 0; n; i++, n >>= 1) {\n        int bit = n & 1;\n        if (bit == 0) continue;\n        if (prev != -1) ans = fmax(ans, i - prev);\n        prev = i;\n    }\n    return ans;\n}"
-    }
-  ]
+    "name": "868. 二进制间距",
+    "url": "https://leetcode-cn.com/problems/binary-gap/",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "数学"
+    ],
+    "desc": "给定一个正整数 n，找到并返回 n 的二进制表示中两个 相邻 1 之间的 最长距离 。如果不存在两个相邻的 1，返回 0 。",
+    "solutions": [
+        {
+            "date": 1647878400000,
+            "time": 0,
+            "memory": 5.9,
+            "script": "cpp",
+            "desc": "找 1，统计中间 0 的个数。",
+            "code": "class Solution {\n   public:\n    int binaryGap(int n) {\n        if (n == 0) return 0;\n        int start = 0, ans = 0;\n        while (start < 32 && (n & 1 << start) == 0) start++;\n        for (int i = start + 1, prev = start; i < 32; i++) {\n            // 统计存在11的情况\n            if ((n & 1 << i) != 0) {\n                if (i == prev + 1) {\n                    ans = 1;\n                    break;\n                }\n                prev = i;\n            }\n        }\n        while (start < 32) {\n            // 找1\n            while (start < 32 && (n & 1 << start) != 0) start++;\n            if (start == 32) break;\n            int cnt = 0;\n            // 找0\n            while (start < 32 && (n & 1 << start) == 0) start++, cnt++;\n            if (start == 32) break;\n            ans = max(ans, cnt + 1);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1647878400000,
+            "time": 0,
+            "memory": 5.8,
+            "script": "cpp",
+            "desc": "一次遍历，找当前 1 前面的 1。",
+            "code": "class Solution {\n   public:\n    int binaryGap(int n) {\n        int ans = 0, prev = -1;\n        for (int i = 0; i < 32; i++) {\n            if ((n & 1 << i) == 0) continue;\n            if (prev != -1) ans = max(ans, i - prev);\n            prev = i;\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1650729600000,
+            "time": 0,
+            "memory": 5.3,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "int binaryGap(int n) {\n    int prev = -1, ans = 0;\n    for (int i = 0; n; i++, n >>= 1) {\n        int bit = n & 1;\n        if (bit == 0) continue;\n        if (prev != -1) ans = fmax(ans, i - prev);\n        prev = i;\n    }\n    return ans;\n}"
+        }
+    ]
 }

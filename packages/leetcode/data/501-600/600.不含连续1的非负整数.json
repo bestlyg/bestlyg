@@ -1,17 +1,19 @@
 {
-  "name": "600. 不含连续 1 的非负整数",
-  "url": "https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/",
-  "difficulty": "困难",
-  "tag": ["动态规划"],
-  "desc": "给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的 1 的个数。",
-  "solutions": [
-    {
-      "date": 1631289600000,
-      "time": 84,
-      "memory": 39.8,
-      "script": "typescript",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/bu-han-lian-xu-1de-fei-fu-zheng-shu-by-l-9l86/)。",
-      "code": "function findIntegers(n: number): number {\n  const dp = new Array(31).fill(0);\n  dp[0] = dp[1] = 1;\n  for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];\n  let pre = 0;\n  let res = 0;\n  for (let i = 29; i >= 0; --i) {\n    let val = 1 << i;\n    if ((n & val) !== 0) {\n      res += dp[i + 1];\n      if (pre === 1) break;\n      pre = 1;\n    } else pre = 0;\n    if (i === 0) res++;\n  }\n  return res;\n}"
-    }
-  ]
+    "name": "600. 不含连续 1 的非负整数",
+    "url": "https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/",
+    "difficulty": "困难",
+    "tag": [
+        "动态规划"
+    ],
+    "desc": "给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的 1 的个数。",
+    "solutions": [
+        {
+            "date": 1631289600000,
+            "time": 84,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/solution/bu-han-lian-xu-1de-fei-fu-zheng-shu-by-l-9l86/)。",
+            "code": "function findIntegers(n: number): number {\n  const dp = new Array(31).fill(0);\n  dp[0] = dp[1] = 1;\n  for (let i = 2; i < 31; ++i) dp[i] = dp[i - 1] + dp[i - 2];\n  let pre = 0;\n  let res = 0;\n  for (let i = 29; i >= 0; --i) {\n    let val = 1 << i;\n    if ((n & val) !== 0) {\n      res += dp[i + 1];\n      if (pre === 1) break;\n      pre = 1;\n    } else pre = 0;\n    if (i === 0) res++;\n  }\n  return res;\n}"
+        }
+    ]
 }

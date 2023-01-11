@@ -1,17 +1,19 @@
 {
-  "name": "491. 递增子序列",
-  "url": "https://leetcode-cn.com/problems/increasing-subsequences/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索"],
-  "desc": "给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是 2。",
-  "solutions": [
-    {
-      "date": 1598284800000,
-      "time": 292,
-      "memory": 55.9,
-      "script": "typescript",
-      "desc": "深度遍历每种可能,剪纸+回溯",
-      "code": "function findSubsequences(nums: number[]): number[][] {\n  const len = nums.length;\n  if (len === 0) return [];\n  const arr: number[][] = [];\n  const arrSet = new Set<string>();\n  findNext();\n  return arr.filter(v => v.length !== 1);\n  function findNext(now: number[] = [], i = 0): void {\n    for (; i < len; i++) {\n      const num = nums[i];\n      if (now[now.length - 1] > num) continue;\n      now.push(num);\n      const clone = [...now];\n      const cloneSetStr = clone.join(',');\n      if (!arrSet.has(cloneSetStr)) {\n        arr.push(clone);\n        arrSet.add(cloneSetStr);\n      }\n      findNext(now, i + 1);\n      now.pop();\n    }\n  }\n}"
-    }
-  ]
+    "name": "491. 递增子序列",
+    "url": "https://leetcode-cn.com/problems/increasing-subsequences/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索"
+    ],
+    "desc": "给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是 2。",
+    "solutions": [
+        {
+            "date": 1598284800000,
+            "time": 292,
+            "memory": 55.9,
+            "script": "typescript",
+            "desc": "深度遍历每种可能,剪纸+回溯",
+            "code": "function findSubsequences(nums: number[]): number[][] {\n  const len = nums.length;\n  if (len === 0) return [];\n  const arr: number[][] = [];\n  const arrSet = new Set<string>();\n  findNext();\n  return arr.filter(v => v.length !== 1);\n  function findNext(now: number[] = [], i = 0): void {\n    for (; i < len; i++) {\n      const num = nums[i];\n      if (now[now.length - 1] > num) continue;\n      now.push(num);\n      const clone = [...now];\n      const cloneSetStr = clone.join(',');\n      if (!arrSet.has(cloneSetStr)) {\n        arr.push(clone);\n        arrSet.add(cloneSetStr);\n      }\n      findNext(now, i + 1);\n      now.pop();\n    }\n  }\n}"
+        }
+    ]
 }

@@ -1,17 +1,21 @@
 {
-  "name": "面试题 17.19. 消失的两个数字",
-  "url": "https://leetcode.cn/problems/missing-two-lcci/",
-  "difficulty": "困难",
-  "tag": ["位运算", "数组", "哈希表"],
-  "desc": "给定一个数组，包含从 1 到 N 所有的整数，但其中缺了两个数字。你能在 O(N) 时间内只用 O(1) 的空间找到它们吗？。",
-  "solutions": [
-    {
-      "date": 1664121600000,
-      "time": 24,
-      "memory": 21.7,
-      "script": "cpp",
-      "desc": "遍历,因为只缺少两个不同的数字,使用异或遍历所有数和所有存在数,只有缺少的两个数字会被异或,其他的都会抵消,此时利用最低位 1 说明两个不同的数字异或必存在一个 1 且一个数字有,一个数字无。",
-      "code": "class Solution {\npublic:\n    vector<int> missingTwo(vector<int>& nums) {\n        int xor_num = 0, n = nums.size() + 2;\n        for (auto &num : nums) xor_num ^= num;\n        for (int i = 1; i <= n; i++) xor_num ^= i;\n        int num = xor_num & -xor_num;\n        vector<int> list(2, 0);\n        for (auto &item : nums) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        for (int item = 1; item <= n; item++) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        return list;\n    }\n};"
-    }
-  ]
+    "name": "面试题 17.19. 消失的两个数字",
+    "url": "https://leetcode.cn/problems/missing-two-lcci/",
+    "difficulty": "困难",
+    "tag": [
+        "位运算",
+        "数组",
+        "哈希表"
+    ],
+    "desc": "给定一个数组，包含从 1 到 N 所有的整数，但其中缺了两个数字。你能在 O(N) 时间内只用 O(1) 的空间找到它们吗？。",
+    "solutions": [
+        {
+            "date": 1664121600000,
+            "time": 24,
+            "memory": 21.7,
+            "script": "cpp",
+            "desc": "遍历,因为只缺少两个不同的数字,使用异或遍历所有数和所有存在数,只有缺少的两个数字会被异或,其他的都会抵消,此时利用最低位 1 说明两个不同的数字异或必存在一个 1 且一个数字有,一个数字无。",
+            "code": "class Solution {\npublic:\n    vector<int> missingTwo(vector<int>& nums) {\n        int xor_num = 0, n = nums.size() + 2;\n        for (auto &num : nums) xor_num ^= num;\n        for (int i = 1; i <= n; i++) xor_num ^= i;\n        int num = xor_num & -xor_num;\n        vector<int> list(2, 0);\n        for (auto &item : nums) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        for (int item = 1; item <= n; item++) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        return list;\n    }\n};"
+        }
+    ]
 }

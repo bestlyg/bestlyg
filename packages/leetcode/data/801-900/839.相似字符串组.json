@@ -1,17 +1,21 @@
 {
-  "name": "839. 相似字符串组",
-  "url": "https://leetcode-cn.com/problems/similar-string-groups/",
-  "difficulty": "困难",
-  "tag": ["深度优先搜索", "并查集", "图"],
-  "desc": "如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等，那么称 X 和 Y 两个字符串相似。如果这两个字符串本身是相等的，那它们也是相似的。给你一个字符串列表 strs。列表中的每个字符串都是 strs 中其它所有字符串的一个字母异位词。请问 strs 中有多少个相似字符串组？。",
-  "solutions": [
-    {
-      "date": 1612108800000,
-      "time": 108,
-      "memory": 43.2,
-      "script": "typescript",
-      "desc": "利用并查集整合组。",
-      "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction numSimilarGroups(strs: string[]): number {\n  const len = strs.length;\n  const charLen = strs[0].length;\n  const check = (str1: string, str2: string) => {\n    let num = 0;\n    for (let i = 0; i < charLen; i++) {\n      if (str1[i] !== str2[i] && ++num > 2) return false;\n    }\n    return true;\n  };\n  const uf = new UnionFind(len);\n  for (let i = 0; i < len - 1; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const str1 = strs[i];\n      const str2 = strs[j];\n      if (check(str1, str2)) {\n        uf.union(i, j);\n      }\n    }\n  }\n  return uf.size;\n}"
-    }
-  ]
+    "name": "839. 相似字符串组",
+    "url": "https://leetcode-cn.com/problems/similar-string-groups/",
+    "difficulty": "困难",
+    "tag": [
+        "深度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "desc": "如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等，那么称 X 和 Y 两个字符串相似。如果这两个字符串本身是相等的，那它们也是相似的。给你一个字符串列表 strs。列表中的每个字符串都是 strs 中其它所有字符串的一个字母异位词。请问 strs 中有多少个相似字符串组？。",
+    "solutions": [
+        {
+            "date": 1612108800000,
+            "time": 108,
+            "memory": 43.2,
+            "script": "typescript",
+            "desc": "利用并查集整合组。",
+            "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction numSimilarGroups(strs: string[]): number {\n  const len = strs.length;\n  const charLen = strs[0].length;\n  const check = (str1: string, str2: string) => {\n    let num = 0;\n    for (let i = 0; i < charLen; i++) {\n      if (str1[i] !== str2[i] && ++num > 2) return false;\n    }\n    return true;\n  };\n  const uf = new UnionFind(len);\n  for (let i = 0; i < len - 1; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const str1 = strs[i];\n      const str2 = strs[j];\n      if (check(str1, str2)) {\n        uf.union(i, j);\n      }\n    }\n  }\n  return uf.size;\n}"
+        }
+    ]
 }

@@ -1,17 +1,19 @@
 {
-  "name": "766. 托普利茨矩阵",
-  "url": "https://leetcode-cn.com/problems/toeplitz-matrix/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。",
-  "solutions": [
-    {
-      "date": 1613923200000,
-      "time": 96,
-      "memory": 40.8,
-      "script": "typescript",
-      "desc": "从起始值开始比较遍历所有值。",
-      "code": "function isToeplitzMatrix(matrix: number[][]): boolean {\n  const rowLen = matrix.length;\n  const colLen = matrix[0].length;\n  const check = (row: number, col: number) => {\n    const num = matrix[row][col];\n    while (row < rowLen && col < colLen) {\n      if (num !== matrix[row++][col++]) return false;\n    }\n    return true;\n  };\n  for (let i = 0; i < colLen; i++) if (!check(0, i)) return false;\n  for (let i = 0; i < rowLen; i++) if (!check(i, 0)) return false;\n  return true;\n}"
-    }
-  ]
+    "name": "766. 托普利茨矩阵",
+    "url": "https://leetcode-cn.com/problems/toeplitz-matrix/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1613923200000,
+            "time": 96,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "从起始值开始比较遍历所有值。",
+            "code": "function isToeplitzMatrix(matrix: number[][]): boolean {\n  const rowLen = matrix.length;\n  const colLen = matrix[0].length;\n  const check = (row: number, col: number) => {\n    const num = matrix[row][col];\n    while (row < rowLen && col < colLen) {\n      if (num !== matrix[row++][col++]) return false;\n    }\n    return true;\n  };\n  for (let i = 0; i < colLen; i++) if (!check(0, i)) return false;\n  for (let i = 0; i < rowLen; i++) if (!check(i, 0)) return false;\n  return true;\n}"
+        }
+    ]
 }

@@ -1,8 +1,27 @@
 {
-  "name": "373. 查找和最小的 K 对数字",
-  "url": "https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/",
-  "difficulty": "中等",
-  "tag": ["堆"],
-  "desc": "找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。",
-  "solutions": []
+    "name": "373. 查找和最小的 K 对数字",
+    "url": "https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/",
+    "difficulty": "中等",
+    "tag": [
+        "堆"
+    ],
+    "desc": "找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。",
+    "solutions": [
+        {
+            "date": 1617897600000,
+            "time": 2136,
+            "memory": 77,
+            "script": "typescript",
+            "desc": "构建堆。",
+            "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  constructor(private compare: (num1: T, num2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 < this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nfunction kSmallestPairs(nums1: number[], nums2: number[], k: number): number[][] {\n  const sum = (arr: number[]) => arr.reduce((total, cur) => total + cur, 0);\n  const heap = new Heap<number[]>((nums1, nums2) => sum(nums2) - sum(nums1));\n  nums1.forEach(num1 => nums2.forEach(num2 => heap.add([num1, num2])));\n  const ans: number[][] = [];\n  while (heap.size && k--) ans.push(heap.remove());\n  return ans;\n}"
+        },
+        {
+            "date": 1642089600000,
+            "time": 924,
+            "memory": 62.6,
+            "script": "c++",
+            "desc": "堆。",
+            "code": "class Solution {\n   public:\n    struct node {\n        int num1, num2, sum;\n        bool operator<(const node& obj) const {\n            return sum == obj.sum\n                       ? num2 == obj.num2 ? num1 < obj.num1 : num2 < obj.num2\n                       : sum < obj.sum;\n        }\n    };\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,\n                                       int k) {\n        priority_queue<node> q;\n        int isBreak = 0, len = min(k, (int)(nums1.size() * nums2.size()));\n        // cout << \"len = \" << len << endl;\n        vector<vector<int>> ans(len, vector<int>(2));\n        for (auto& num1 : nums1) {\n            if (isBreak) break;\n            for (auto& num2 : nums2) {\n                if (q.size() >= len && num1 > 0 && num2 > 0 &&\n                    num1 > q.top().sum && num2 > q.top().sum)\n                    isBreak = 1;\n                if (isBreak) break;\n                if (q.size() < len) {\n                    q.push((node){num1, num2, num1 + num2});\n                } else if (q.top().sum > num1 + num2) {\n                    // cout << q.top().num1 << ',' << q.top().num2;\n                    // if (q.top() )\n                    q.pop();\n                    q.push((node){num1, num2, num1 + num2});\n                }\n            }\n        }\n        while (q.size()) {\n            node n = q.top();\n            q.pop();\n            ans[len - 1][0] = n.num1;\n            ans[len - 1][1] = n.num2;\n            len--;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

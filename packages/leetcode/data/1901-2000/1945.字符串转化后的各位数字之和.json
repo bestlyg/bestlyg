@@ -1,8 +1,28 @@
 {
-  "name": "1945. 字符串转化后的各位数字之和",
-  "url": "https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/",
-  "difficulty": "简单",
-  "tag": ["字符串", "模拟"],
-  "desc": "给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。",
-  "solutions": []
+    "name": "1945. 字符串转化后的各位数字之和",
+    "url": "https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串",
+        "模拟"
+    ],
+    "desc": "给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。",
+    "solutions": [
+        {
+            "date": 1671033600000,
+            "time": 0,
+            "memory": 5.9,
+            "script": "cpp",
+            "desc": "模拟。",
+            "code": "class Solution {\npublic:\n    int getLucky(string s, int k) {\n        int num = format(s);\n        for (int i = 1; i < k; i++) num = toNum(num);\n        return num;\n    }\n    int format(string &s) {\n        int ans = 0;\n        for (auto &c : s) ans = ans + toNum(c - 'a' + 1);\n        return ans;\n    }\n    int toNum(int num) {\n        int ans = 0;\n        for (; num; num /= 10) ans = ans + num % 10;\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1671033600000,
+            "time": 64,
+            "memory": 44.3,
+            "script": "typescript",
+            "desc": "模拟。",
+            "code": "function getLucky(s: string, k: number): number {\n  return new Array(k).fill(0).reduce(\n    cur =>\n      cur\n        .split('')\n        .map(v => Number(v))\n        .reduce((sum, cur) => sum + cur, 0)\n        .toString(),\n    s\n      .split('')\n      .map(c => c.codePointAt(0)! - 'a'.codePointAt(0)! + 1)\n      .join('')\n  );\n}"
+        }
+    ]
 }

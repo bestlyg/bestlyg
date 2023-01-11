@@ -1,17 +1,21 @@
 {
-  "name": "921. 使括号有效的最少添加",
-  "url": "https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/",
-  "difficulty": "中等",
-  "tag": ["栈", "贪心", "字符串"],
-  "desc": "返回 为使结果字符串 s 有效而必须添加的最少括号数。",
-  "solutions": [
-    {
-      "date": 1664812800000,
-      "time": 0,
-      "memory": 6,
-      "script": "cpp",
-      "desc": "遍历。",
-      "code": "class Solution {\npublic:\n    int minAddToMakeValid(string s) {\n        int cnt = 0, l = 0;\n        for (auto &c : s) {\n            if (c == '(') l++;\n            else if (l == 0) cnt++;\n            else l--;\n        }\n        return cnt + l;\n    }\n};"
-    }
-  ]
+    "name": "921. 使括号有效的最少添加",
+    "url": "https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "贪心",
+        "字符串"
+    ],
+    "desc": "返回 为使结果字符串 s 有效而必须添加的最少括号数。",
+    "solutions": [
+        {
+            "date": 1664812800000,
+            "time": 0,
+            "memory": 6,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int minAddToMakeValid(string s) {\n        int cnt = 0, l = 0;\n        for (auto &c : s) {\n            if (c == '(') l++;\n            else if (l == 0) cnt++;\n            else l--;\n        }\n        return cnt + l;\n    }\n};"
+        }
+    ]
 }

@@ -1,8 +1,22 @@
 {
-  "name": "1684. 统计一致字符串的数目",
-  "url": "https://leetcode.cn/problems/count-the-number-of-consistent-strings/",
-  "difficulty": "简单",
-  "tag": ["位运算", "数组", "哈希表", "字符串"],
-  "desc": "请你返回 words 数组中 一致字符串 的数目。",
-  "solutions": []
+    "name": "1684. 统计一致字符串的数目",
+    "url": "https://leetcode.cn/problems/count-the-number-of-consistent-strings/",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "请你返回 words 数组中 一致字符串 的数目。",
+    "solutions": [
+        {
+            "date": 1667836800000,
+            "time": 32,
+            "memory": 29.4,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int countConsistentStrings(string allowed, vector<string>& words) {\n        int list[26] = {0};\n        for (auto &c : allowed) list[c - 'a'] = 1;\n        int ans = 0;\n        for (auto &s : words) {\n            bool f = true;\n            for (auto &c : s) {\n                if (list[c - 'a'] == 0) {\n                    f = false;\n                    break;\n                }\n            }\n            if (f) ans++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

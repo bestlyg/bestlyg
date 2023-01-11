@@ -1,17 +1,20 @@
 {
-  "name": "剑指 Offer 53 - I. 在排序数组中查找数字 I",
-  "url": "https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/",
-  "difficulty": "简单",
-  "tag": ["数组", "二分查找"],
-  "desc": "统计一个数字在排序数组中出现的次数。",
-  "solutions": [
-    {
-      "date": 1626364800000,
-      "time": 84,
-      "memory": 40.8,
-      "script": "typescript",
-      "desc": "哈希储存。",
-      "code": "function search(nums: number[], target: number): number {\n  return (\n    nums.reduce<Record<number, number>>((record, cur) => {\n      record[cur] = (record[cur] ?? 0) + 1;\n      return record;\n    }, {})[target] ?? 0\n  );\n}"
-    }
-  ]
+    "name": "剑指 Offer 53 - I. 在排序数组中查找数字 I",
+    "url": "https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "统计一个数字在排序数组中出现的次数。",
+    "solutions": [
+        {
+            "date": 1626364800000,
+            "time": 84,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "哈希储存。",
+            "code": "function search(nums: number[], target: number): number {\n  return (\n    nums.reduce<Record<number, number>>((record, cur) => {\n      record[cur] = (record[cur] ?? 0) + 1;\n      return record;\n    }, {})[target] ?? 0\n  );\n}"
+        }
+    ]
 }

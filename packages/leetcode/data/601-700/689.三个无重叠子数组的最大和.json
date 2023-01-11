@@ -1,8 +1,20 @@
 {
-  "name": "689. 三个无重叠子数组的最大和",
-  "url": "https://leetcode-cn.com/problems/maximum-sum-of-3-non-overlapping-subarrays/",
-  "difficulty": "困难",
-  "tag": ["数组", "动态规划"],
-  "desc": "给你一个整数数组 nums 和一个整数 k ，找出三个长度为 k 、互不重叠、且 3 \\* k 项的和最大的子数组，并返回这三个子数组。",
-  "solutions": []
+    "name": "689. 三个无重叠子数组的最大和",
+    "url": "https://leetcode-cn.com/problems/maximum-sum-of-3-non-overlapping-subarrays/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给你一个整数数组 nums 和一个整数 k ，找出三个长度为 k 、互不重叠、且 3 \\* k 项的和最大的子数组，并返回这三个子数组。",
+    "solutions": [
+        {
+            "date": 1638892800000,
+            "time": 80,
+            "memory": 42,
+            "script": "typescript",
+            "desc": "滑动窗口，记录每次的最大值比较。",
+            "code": "function maxSumOfThreeSubarrays(nums: number[], k: number): number[] {\n  const n = nums.length;\n  let sum1 = 0,\n    max1 = 0,\n    idx1 = 0;\n  let sum2 = 0,\n    max2 = 0,\n    idx2 = 0,\n    idx2_1 = 0,\n    idx2_2 = 0;\n  let sum3 = 0,\n    max3 = 0,\n    idx3 = 0;\n  let idx = 0;\n  idx1 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max1 = sum1 += nums[i];\n  idx2_2 = idx2 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max2 = max1 + (sum2 += nums[i]);\n  idx3 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max3 = max2 + (sum3 += nums[i]);\n  const ans = [idx1, idx2, idx3];\n  for (; idx < n; idx++) {\n    sum1 = sum1 + nums[idx - 2 * k] - nums[idx - 3 * k];\n    sum2 = sum2 + nums[idx - 1 * k] - nums[idx - 2 * k];\n    sum3 = sum3 + nums[idx - 0 * k] - nums[idx - 1 * k];\n    if (max1 < sum1) {\n      max1 = sum1;\n      idx1 = idx - 3 * k + 1;\n    }\n    if (max2 < max1 + sum2) {\n      max2 = max1 + sum2;\n      idx2 = idx - 2 * k + 1;\n      idx2_1 = idx1;\n      idx2_2 = idx2;\n    }\n    if (max3 < max2 + sum3) {\n      max3 = max2 + sum3;\n      idx3 = idx - 1 * k + 1;\n      ans[0] = idx2_1;\n      ans[1] = idx2_2;\n      ans[2] = idx3;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
 }

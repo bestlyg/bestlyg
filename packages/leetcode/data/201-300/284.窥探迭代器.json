@@ -1,25 +1,27 @@
 {
-  "name": "284. 窥探迭代器",
-  "url": "https://leetcode-cn.com/problems/peeking-iterator/",
-  "difficulty": "中等",
-  "tag": ["设计"],
-  "desc": "给定一个迭代器类的接口，接口包含两个方法： next()  和  hasNext()。设计并实现一个支持  peek()  操作的顶端迭代器 -- 其本质就是把原本应由  next()  方法返回的元素  peek()  出来。",
-  "solutions": [
-    {
-      "date": 1587052800000,
-      "time": 75,
-      "memory": 35,
-      "script": "javascript",
-      "desc": "缓存值",
-      "code": "class PeekingIterator {\n  constructor(iterator) {\n    this.iterator = iterator;\n    this.cacheNext = iterator.next();\n    this.cacheHasNext = iterator.hasNext();\n  }\n  /**\n   * @return {number}\n   */\n  peek() {\n    return this.cacheNext;\n  }\n\n  /**\n   * @return {number}\n   */\n  next() {\n    const cache = this.cacheNext;\n    this.cacheHasNext = this.iterator.hasNext();\n    this.cacheNext = this.iterator.next();\n    return cache;\n  }\n\n  /**\n   * @return {boolean}\n   */\n  hasNext() {\n    return this.cacheHasNext;\n  }\n}"
-    },
-    {
-      "date": 1633363200000,
-      "time": 80,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "储存下一个值。",
-      "code": "class PeekingIterator {\n  private nextVal: number;\n  private nextState: boolean;\n  constructor(private iterator: Iterator) {\n    this.next();\n  }\n  peek(): number {\n    return this.nextVal;\n  }\n  next(): number {\n    const ans = this.nextVal;\n    this.nextState = this.iterator.hasNext();\n    this.nextVal = this.iterator.next();\n    return ans;\n  }\n  hasNext(): boolean {\n    return this.nextState;\n  }\n}"
-    }
-  ]
+    "name": "284. 窥探迭代器",
+    "url": "https://leetcode-cn.com/problems/peeking-iterator/",
+    "difficulty": "中等",
+    "tag": [
+        "设计"
+    ],
+    "desc": "给定一个迭代器类的接口，接口包含两个方法： next()  和  hasNext()。设计并实现一个支持  peek()  操作的顶端迭代器 -- 其本质就是把原本应由  next()  方法返回的元素  peek()  出来。",
+    "solutions": [
+        {
+            "date": 1587052800000,
+            "time": 75,
+            "memory": 35,
+            "script": "javascript",
+            "desc": "缓存值",
+            "code": "class PeekingIterator {\n  constructor(iterator) {\n    this.iterator = iterator;\n    this.cacheNext = iterator.next();\n    this.cacheHasNext = iterator.hasNext();\n  }\n  /**\n   * @return {number}\n   */\n  peek() {\n    return this.cacheNext;\n  }\n\n  /**\n   * @return {number}\n   */\n  next() {\n    const cache = this.cacheNext;\n    this.cacheHasNext = this.iterator.hasNext();\n    this.cacheNext = this.iterator.next();\n    return cache;\n  }\n\n  /**\n   * @return {boolean}\n   */\n  hasNext() {\n    return this.cacheHasNext;\n  }\n}"
+        },
+        {
+            "date": 1633363200000,
+            "time": 80,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "储存下一个值。",
+            "code": "class PeekingIterator {\n  private nextVal: number;\n  private nextState: boolean;\n  constructor(private iterator: Iterator) {\n    this.next();\n  }\n  peek(): number {\n    return this.nextVal;\n  }\n  next(): number {\n    const ans = this.nextVal;\n    this.nextState = this.iterator.hasNext();\n    this.nextVal = this.iterator.next();\n    return ans;\n  }\n  hasNext(): boolean {\n    return this.nextState;\n  }\n}"
+        }
+    ]
 }

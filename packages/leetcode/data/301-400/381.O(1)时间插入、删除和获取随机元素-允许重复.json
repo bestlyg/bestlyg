@@ -1,17 +1,29 @@
 {
-  "name": "381. O(1) 时间插入、删除和获取随机元素 - 允许重复",
-  "url": "https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/",
-  "difficulty": "困难",
-  "tag": ["设计", "数组", "哈希表"],
-  "desc": "设计一个支持在平均 时间复杂度 O(1) 下， 执行以下操作的数据结构。",
-  "solutions": [
-    {
-      "date": 1604246400000,
-      "time": 15,
-      "memory": 45.3,
-      "script": "java",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/solution/o1-shi-jian-cha-ru-shan-chu-he-huo-qu-sui-ji-yua-5/)。",
-      "code": "class RandomizedCollection {\n        Map<Integer, Set<Integer>> idx;\n        List<Integer> nums;\n\n        /** Initialize your data structure here. */\n        public RandomizedCollection() {\n            idx = new HashMap<Integer, Set<Integer>>();\n            nums = new ArrayList<Integer>();\n        }\n\n        /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */\n        public boolean insert(int val) {\n            nums.add(val);\n            Set<Integer> set = idx.getOrDefault(val, new HashSet<Integer>());\n            set.add(nums.size() - 1);\n            idx.put(val, set);\n            return set.size() == 1;\n        }\n\n        /** Removes a value from the collection. Returns true if the collection contained the specified element. */\n        public boolean remove(int val) {\n            if (!idx.containsKey(val)) {\n                return false;\n            }\n            Iterator<Integer> it = idx.get(val).iterator();\n            int i = it.next();\n            int lastNum = nums.get(nums.size() - 1);\n            nums.set(i, lastNum);\n            idx.get(val).remove(i);\n            idx.get(lastNum).remove(nums.size() - 1);\n            if (i < nums.size() - 1) {\n                idx.get(lastNum).add(i);\n            }\n            if (idx.get(val).size() == 0) {\n                idx.remove(val);\n            }\n            nums.remove(nums.size() - 1);\n            return true;\n        }\n\n        /** Get a random element from the collection. */\n        public int getRandom() {\n            return nums.get((int) (Math.random() * nums.size()));\n        }\n    }"
-    }
-  ]
+    "name": "381. O(1) 时间插入、删除和获取随机元素 - 允许重复",
+    "url": "https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/",
+    "difficulty": "困难",
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表"
+    ],
+    "desc": "设计一个支持在平均 时间复杂度 O(1) 下， 执行以下操作的数据结构。",
+    "solutions": [
+        {
+            "date": 1604246400000,
+            "time": 15,
+            "memory": 45.3,
+            "script": "java",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/solution/o1-shi-jian-cha-ru-shan-chu-he-huo-qu-sui-ji-yua-5/)。",
+            "code": "class RandomizedCollection {\n        Map<Integer, Set<Integer>> idx;\n        List<Integer> nums;\n\n        /** Initialize your data structure here. */\n        public RandomizedCollection() {\n            idx = new HashMap<Integer, Set<Integer>>();\n            nums = new ArrayList<Integer>();\n        }\n\n        /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */\n        public boolean insert(int val) {\n            nums.add(val);\n            Set<Integer> set = idx.getOrDefault(val, new HashSet<Integer>());\n            set.add(nums.size() - 1);\n            idx.put(val, set);\n            return set.size() == 1;\n        }\n\n        /** Removes a value from the collection. Returns true if the collection contained the specified element. */\n        public boolean remove(int val) {\n            if (!idx.containsKey(val)) {\n                return false;\n            }\n            Iterator<Integer> it = idx.get(val).iterator();\n            int i = it.next();\n            int lastNum = nums.get(nums.size() - 1);\n            nums.set(i, lastNum);\n            idx.get(val).remove(i);\n            idx.get(lastNum).remove(nums.size() - 1);\n            if (i < nums.size() - 1) {\n                idx.get(lastNum).add(i);\n            }\n            if (idx.get(val).size() == 0) {\n                idx.remove(val);\n            }\n            nums.remove(nums.size() - 1);\n            return true;\n        }\n\n        /** Get a random element from the collection. */\n        public int getRandom() {\n            return nums.get((int) (Math.random() * nums.size()));\n        }\n    }"
+        },
+        {
+            "date": 1604246400000,
+            "time": null,
+            "memory": null,
+            "script": "typescript",
+            "desc": "自认为达到 O(1)，但不懂随机规则导致无法正确匹配随机方法。",
+            "code": "class Num {\n  get count(): number {\n    return this.indexes.size;\n  }\n  indexes = new Set<number>();\n  constructor(index: number) {\n    this.indexes.add(index);\n  }\n}\nclass RandomizedCollection {\n  private map = new Map<number, Num>();\n  private arr: number[] = [];\n  constructor() {}\n  insert(val: number): boolean {\n    const num = this.map.get(val);\n    this.arr.push(val);\n    const index = this.arr.length;\n    if (num === undefined || num.count === 0) {\n      this.map.set(val, new Num(index));\n      return true;\n    } else {\n      num.indexes.add(index);\n      return false;\n    }\n  }\n  remove(val: number): boolean {\n    const num = this.map.get(val);\n    if (num === undefined || num.count === 0) return false;\n    let index!: number;\n    for (const i of num.indexes) {\n      if (index !== undefined) break;\n      index = i;\n    }\n    this.arr.splice(index, 1);\n    return true;\n  }\n  getRandom(): number {\n    return this.arr[Math.floor(Math.random() * this.arr.length)];\n  }\n}"
+        }
+    ]
 }

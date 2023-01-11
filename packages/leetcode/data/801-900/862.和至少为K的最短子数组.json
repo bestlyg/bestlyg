@@ -1,25 +1,41 @@
 {
-  "name": "862. 和至少为 K 的最短子数组",
-  "url": "https://leetcode-cn.com/problems/shortest-subarray-with-sum-at-least-k/",
-  "difficulty": "困难",
-  "tag": ["队列", "数组", "二分查找", "前缀和", "滑动窗口", "单调队列", "堆(优先队列)"],
-  "desc": "返回 A 的最短的非空连续子数组的长度，该子数组的和至少为 K 。",
-  "solutions": [
-    {
-      "date": 1626796800000,
-      "time": 6080,
-      "memory": 50.3,
-      "script": "typescript",
-      "desc": "单调递增队列。",
-      "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    for (const prevIndex of queue) {\n      if (sum - sums[prevIndex] >= k) {\n        ans = Math.min(ans, i - prevIndex);\n      } else break;\n    }\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
-    },
-    {
-      "date": 1626796800000,
-      "time": 2896,
-      "memory": 50.3,
-      "script": "typescript",
-      "desc": "优化题解 1。",
-      "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    let p = -1;\n    while (queue.length && sum - sums[queue[0]] >= k) p = queue.shift()!;\n    if (p !== -1) ans = Math.min(ans, i - p);\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
-    }
-  ]
+    "name": "862. 和至少为 K 的最短子数组",
+    "url": "https://leetcode-cn.com/problems/shortest-subarray-with-sum-at-least-k/",
+    "difficulty": "困难",
+    "tag": [
+        "队列",
+        "数组",
+        "二分查找",
+        "前缀和",
+        "滑动窗口",
+        "单调队列",
+        "堆(优先队列)"
+    ],
+    "desc": "返回 A 的最短的非空连续子数组的长度，该子数组的和至少为 K 。",
+    "solutions": [
+        {
+            "date": 1626796800000,
+            "time": 6080,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "单调递增队列。",
+            "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    for (const prevIndex of queue) {\n      if (sum - sums[prevIndex] >= k) {\n        ans = Math.min(ans, i - prevIndex);\n      } else break;\n    }\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        },
+        {
+            "date": 1626796800000,
+            "time": 2896,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "优化题解 1。",
+            "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const queue: number[] = [];\n  const sums = [0];\n  let sum = 0;\n  nums.forEach(num => sums.push((sum += num)));\n  let ans = Infinity;\n  for (let i = 0; i <= n; i++) {\n    const sum = sums[i];\n    let p = -1;\n    while (queue.length && sum - sums[queue[0]] >= k) p = queue.shift()!;\n    if (p !== -1) ans = Math.min(ans, i - p);\n    while (queue.length && sums[queue[queue.length - 1]] > sum) queue.pop();\n    queue.push(i);\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        },
+        {
+            "date": 1666713600000,
+            "time": 204,
+            "memory": 102.3,
+            "script": "cpp",
+            "desc": "前缀和+单调递增队列，遍历到一个值时，可以快速知道前面的前缀和。",
+            "code": "class Solution {\npublic:\n    int shortestSubarray(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 0x7fffffff;\n        vector<long long> sums(1 + n, 0);\n        for (int i = 0; i < n; i++) sums[i + 1] = sums[i] + nums[i];\n        deque<int> q;\n        q.push_back(0);\n        for (int i = 0; i < n; i++) {\n            int idx = -1;\n            while (q.size() && sums[i + 1] - sums[q.front()] >= k) idx = q.front(), q.pop_front();\n            if (idx != -1) ans = min(ans, i + 1 - idx);\n            while (q.size() && sums[q.back()] > sums[i + 1]) q.pop_back();\n            q.push_back(i + 1);\n        }\n        return ans == 0x7fffffff ? -1 : ans;\n    }\n};"
+        }
+    ]
 }

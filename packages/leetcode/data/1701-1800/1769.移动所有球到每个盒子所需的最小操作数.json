@@ -1,8 +1,20 @@
 {
-  "name": "1769. 移动所有球到每个盒子所需的最小操作数",
-  "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box",
-  "difficulty": "中等",
-  "tag": ["数组", "字符串"],
-  "desc": "返回一个长度为 n 的数组 answer ，其中 answer[i] 是将所有小球移动到第 i 个盒子所需的 最小 操作数。",
-  "solutions": []
+    "name": "1769. 移动所有球到每个盒子所需的最小操作数",
+    "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "字符串"
+    ],
+    "desc": "返回一个长度为 n 的数组 answer ，其中 answer[i] 是将所有小球移动到第 i 个盒子所需的 最小 操作数。",
+    "solutions": [
+        {
+            "date": 1669910400000,
+            "time": 76,
+            "memory": 8.6,
+            "script": "cpp",
+            "desc": "先统计右侧所有的点和数量，每次移动时快速计算左侧 1 数量和右侧 1 数量。",
+            "code": "class Solution {\npublic:\n    vector<int> minOperations(string boxes) {\n        int n = boxes.size(),\n            lsum = 0, lcnt = 0,\n            rsum = 0, rcnt = 0;\n        vector<int> list(n);\n        for (int i = 0; i < n; i++) {\n            if (boxes[i] == '1') {\n                rsum += i;\n                rcnt += 1;\n            }\n        }\n        list[0] = rsum;\n        for (int i = 1; i < n; i++) {\n            if (boxes[i - 1] == '1') rcnt--, lcnt++;\n            rsum -= rcnt;\n            lsum += lcnt;\n            list[i] = lsum + rsum;\n        }\n        return list;\n    }\n};"
+        }
+    ]
 }

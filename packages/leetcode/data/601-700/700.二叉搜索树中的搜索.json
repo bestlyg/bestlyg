@@ -1,33 +1,35 @@
 {
-  "name": "700. 二叉搜索树中的搜索",
-  "url": "https://leetcode-cn.com/problems/search-in-a-binary-search-tree/",
-  "difficulty": "简单",
-  "tag": ["树"],
-  "desc": "给定二叉搜索树（BST）的根节点和一个值。 你需要在 BST 中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。",
-  "solutions": [
-    {
-      "date": 1582387200000,
-      "time": 0,
-      "memory": 41.5,
-      "script": "java",
-      "desc": "遍历判断，根据 bst 的原理进行二分搜索。",
-      "code": "class Solution {\n\tpublic TreeNode searchBST(TreeNode root, int val) {\n\t\tif (root == null)\n\t\t\treturn null;\n\t\tif (root.val == val)\n\t\t\treturn root;\n\t\twhile (root != null && root.val != val) {\n\t\t\tif (val > root.val)\n\t\t\t\troot = root.right;\n\t\t\telse if (val < root.val)\n\t\t\t\troot = root.left;\n\t\t}\n\t\treturn root;\n\t}\n}"
-    },
-    {
-      "date": 1637856000000,
-      "time": 108,
-      "memory": 44.7,
-      "script": "typescript",
-      "desc": "递归。",
-      "code": "function searchBST(root: TreeNode | null, val: number): TreeNode | null {\n  if (root === null) return null;\n  if (root.val === val) return root;\n  if (root.val > val) return searchBST(root.left, val);\n  else return searchBST(root.right, val);\n}"
-    },
-    {
-      "date": 1637856000000,
-      "time": 28,
-      "memory": 14.9,
-      "script": "c",
-      "desc": "递归。",
-      "code": "struct TreeNode* searchBST(struct TreeNode* root, int val){\n    if (!root) return NULL;\n    if (root->val == val) return root;\n    if (root->val > val) return searchBST(root->left, val);\n    else return searchBST(root->right, val);\n}"
-    }
-  ]
+    "name": "700. 二叉搜索树中的搜索",
+    "url": "https://leetcode-cn.com/problems/search-in-a-binary-search-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树"
+    ],
+    "desc": "给定二叉搜索树（BST）的根节点和一个值。 你需要在 BST 中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。",
+    "solutions": [
+        {
+            "date": 1582387200000,
+            "time": 0,
+            "memory": 41.5,
+            "script": "java",
+            "desc": "遍历判断，根据 bst 的原理进行二分搜索。",
+            "code": "class Solution {\n\tpublic TreeNode searchBST(TreeNode root, int val) {\n\t\tif (root == null)\n\t\t\treturn null;\n\t\tif (root.val == val)\n\t\t\treturn root;\n\t\twhile (root != null && root.val != val) {\n\t\t\tif (val > root.val)\n\t\t\t\troot = root.right;\n\t\t\telse if (val < root.val)\n\t\t\t\troot = root.left;\n\t\t}\n\t\treturn root;\n\t}\n}"
+        },
+        {
+            "date": 1637856000000,
+            "time": 108,
+            "memory": 44.7,
+            "script": "typescript",
+            "desc": "递归。",
+            "code": "function searchBST(root: TreeNode | null, val: number): TreeNode | null {\n  if (root === null) return null;\n  if (root.val === val) return root;\n  if (root.val > val) return searchBST(root.left, val);\n  else return searchBST(root.right, val);\n}"
+        },
+        {
+            "date": 1637856000000,
+            "time": 28,
+            "memory": 14.9,
+            "script": "c",
+            "desc": "递归。",
+            "code": "struct TreeNode* searchBST(struct TreeNode* root, int val){\n    if (!root) return NULL;\n    if (root->val == val) return root;\n    if (root->val > val) return searchBST(root->left, val);\n    else return searchBST(root->right, val);\n}"
+        }
+    ]
 }

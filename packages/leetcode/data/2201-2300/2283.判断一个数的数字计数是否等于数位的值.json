@@ -1,8 +1,29 @@
 {
-  "name": "2283. 判断一个数的数字计数是否等于数位的值",
-  "url": "https://leetcode.cn/problems/check-if-number-has-equal-digit-count-and-digit-value/",
-  "difficulty": "简单",
-  "tag": ["哈希表", "字符串", "计数"],
-  "desc": "如果对于 每个 0 <= i < n 的下标 i ，都满足数位 i 在 num 中出现了 num[i]次，那么请你返回 true ，否则返回 false 。",
-  "solutions": []
+    "name": "2283. 判断一个数的数字计数是否等于数位的值",
+    "url": "https://leetcode.cn/problems/check-if-number-has-equal-digit-count-and-digit-value/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "desc": "如果对于 每个 0 <= i < n 的下标 i ，都满足数位 i 在 num 中出现了 num[i]次，那么请你返回 true ，否则返回 false 。",
+    "solutions": [
+        {
+            "date": 1673366400000,
+            "time": 4,
+            "memory": 5.7,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    bool digitCount(string num) {\n        int n = num.size(), l[10] = {0};\n        for (auto &c : num) l[c - '0']++;\n        for (int i = 0; i < n; i++) {\n            if (num[i] - '0' != l[i]) return false;\n        }\n        return true;\n    }\n};"
+        },
+        {
+            "date": 1673366400000,
+            "time": 0,
+            "memory": 2.2,
+            "script": "rust",
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn digit_count(num: String) -> bool {\n        let mut l = [0; 10];\n        let n = num.len();\n        let num = num.chars().collect::<Vec<char>>();\n        for c in num.iter() {\n            l[*c as usize - '0' as usize] += 1;\n        }\n        for i in 0..n {\n            if num[i] as usize - '0' as usize != l[i] {\n                return false;\n            }\n        }\n        true\n    }\n}"
+        }
+    ]
 }

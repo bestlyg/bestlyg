@@ -1,17 +1,22 @@
 {
-  "name": "539. 最小时间差",
-  "url": "https://leetcode-cn.com/problems/minimum-time-difference/",
-  "difficulty": "中等",
-  "tag": ["数组", "数学", "字符串", "排序"],
-  "desc": "给定一个 24 小时制（小时:分钟 \"HH:MM\"）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。",
-  "solutions": [
-    {
-      "date": 1640188800000,
-      "time": 16,
-      "memory": 13.8,
-      "script": "c++",
-      "desc": "排序后遍历。",
-      "code": "class Solution {\n   public:\n    int toMin(string s) {\n        int hor = (s[0] - '0') * 10 + s[1] - '0';\n        int min = (s[3] - '0') * 10 + s[4] - '0';\n        return hor * 60 + min;\n    }\n    int findMinDifference(vector<string>& timePoints) {\n        vector<int> data;\n        for (int i = 0; i < timePoints.size(); i++) {\n            int min = toMin(timePoints[i]);\n            data.push_back(min);\n            data.push_back(24 * 60 + min);\n        }\n        sort(data.begin(), data.end());\n        int ans = INT_MAX;\n        for (int i = 1; i < data.size(); i++) {\n            ans = min(ans, data[i] - data[i - 1]);\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "539. 最小时间差",
+    "url": "https://leetcode-cn.com/problems/minimum-time-difference/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "数学",
+        "字符串",
+        "排序"
+    ],
+    "desc": "给定一个 24 小时制（小时:分钟 \"HH:MM\"）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 16,
+            "memory": 13.8,
+            "script": "c++",
+            "desc": "排序后遍历。",
+            "code": "class Solution {\n   public:\n    int toMin(string s) {\n        int hor = (s[0] - '0') * 10 + s[1] - '0';\n        int min = (s[3] - '0') * 10 + s[4] - '0';\n        return hor * 60 + min;\n    }\n    int findMinDifference(vector<string>& timePoints) {\n        vector<int> data;\n        for (int i = 0; i < timePoints.size(); i++) {\n            int min = toMin(timePoints[i]);\n            data.push_back(min);\n            data.push_back(24 * 60 + min);\n        }\n        sort(data.begin(), data.end());\n        int ans = INT_MAX;\n        for (int i = 1; i < data.size(); i++) {\n            ans = min(ans, data[i] - data[i - 1]);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

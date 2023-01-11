@@ -1,8 +1,19 @@
 {
-  "name": "643. 子数组最大平均数 I",
-  "url": "https://leetcode-cn.com/problems/maximum-average-subarray-i/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。",
-  "solutions": []
+    "name": "643. 子数组最大平均数 I",
+    "url": "https://leetcode-cn.com/problems/maximum-average-subarray-i/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。",
+    "solutions": [
+        {
+            "date": 1612368000000,
+            "time": 116,
+            "memory": 49,
+            "script": "typescript",
+            "desc": "使用一个数去储存已遍历过的值。",
+            "code": "function findMaxAverage(nums: number[], k: number): number {\n  let num = nums.slice(0, k).reduce((total, cur) => total + cur, 0);\n  let max = num;\n  for (let i = k, l = nums.length; i < l; i++) {\n    max = Math.max((num = num - nums[i - k] + nums[i]), max);\n  }\n  return max / k;\n}"
+        }
+    ]
 }

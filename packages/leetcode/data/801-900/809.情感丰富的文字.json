@@ -1,8 +1,21 @@
 {
-  "name": "809. 情感丰富的文字",
-  "url": "https://leetcode.cn/problems/expressive-words/",
-  "difficulty": "中等",
-  "tag": ["数组", "双指针", "字符串"],
-  "desc": "输入一组查询单词，输出其中可扩张的单词数量。",
-  "solutions": []
+    "name": "809. 情感丰富的文字",
+    "url": "https://leetcode.cn/problems/expressive-words/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "双指针",
+        "字符串"
+    ],
+    "desc": "输入一组查询单词，输出其中可扩张的单词数量。",
+    "solutions": [
+        {
+            "date": 1669305600000,
+            "time": 0,
+            "memory": 7.3,
+            "script": "cpp",
+            "desc": "双指针遍历。",
+            "code": "class Solution {\npublic:\n    typedef pair<int, char> Node;\n    int expressiveWords(string s, vector<string>& words) {\n        vector<Node> list;\n        for (int i = 0; i < s.size(); i++) {\n            char c = s[i];\n            int cnt = 1;\n            while (i + 1 < s.size() && s[i + 1] == c) i++, cnt++;\n            list.push_back(make_pair(cnt, c));\n        }\n        int ans = 0;\n        for (auto &s : words) if (check(list, s)) ans++;\n        return ans;\n    }\n    bool check(vector<Node> &list, string &s) {\n        int cur = 0, i = 0;\n        for (; i < s.size() && cur < list.size(); i++, cur++) {\n            Node &node = list[cur];\n            char c = s[i];\n            int cnt = 1;\n            while (i + 1 < s.size() && s[i + 1] == c) i++, cnt++;\n            if (node.second != c ||\n                node.first < cnt ||\n                node.first == 2 && cnt == 1\n            ) return false;\n        }\n        return i == s.size() && cur == list.size();\n    }\n};"
+        }
+    ]
 }

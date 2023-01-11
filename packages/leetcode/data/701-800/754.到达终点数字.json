@@ -1,8 +1,20 @@
 {
-  "name": "754. 到达终点数字",
-  "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
-  "difficulty": "简单",
-  "tag": ["字符串", "字符串匹配"],
-  "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
-  "solutions": []
+    "name": "754. 到达终点数字",
+    "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串",
+        "字符串匹配"
+    ],
+    "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
+    "solutions": [
+        {
+            "date": 1667491200000,
+            "time": 0,
+            "memory": 6.3,
+            "script": "cpp",
+            "desc": "走的步数相当于 1+2+..+n，把其中某几个节点替换成-，当 sum 超过 target 时，如果相减是偶数，那就可以直接使用，如果是奇数则一直累加到相减是偶数。",
+            "code": "class Solution {\npublic:\n    int reachNumber(int target) {\n        target = abs(target);\n        int sum = 0, cnt = 1;\n        while (sum < target || (sum - target) % 2 != 0) sum += cnt++;\n        return cnt - 1;\n    }\n};"
+        }
+    ]
 }

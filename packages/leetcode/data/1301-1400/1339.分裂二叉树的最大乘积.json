@@ -1,17 +1,21 @@
 {
-  "name": "1339. 分裂二叉树的最大乘积",
-  "url": "https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/",
-  "difficulty": "中等",
-  "tag": ["树", "深度优先搜索", "二叉树"],
-  "desc": "给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。 。",
-  "solutions": [
-    {
-      "date": 1628870400000,
-      "time": 184,
-      "memory": 63.9,
-      "script": "typescript",
-      "desc": "寻找最接近 sum/2 的值。",
-      "code": "function maxProduct(root: TreeNode): number {\n  const map = new Map<TreeNode, number>();\n  const sum = dfsSum(root);\n  let ans = 0;\n  dfsNode(root);\n  return ((sum - ans) * ans) % (10 ** 9 + 7);\n  function dfsSum(node: TreeNode | null): number {\n    if (node === null) return 0;\n    const sum = dfsSum(node.left) + dfsSum(node.right) + node.val;\n    map.set(node, sum);\n    return sum;\n  }\n  function dfsNode(node: TreeNode | null): void {\n    if (node === null) return;\n    if (Math.abs(sum / 2 - ans) > Math.abs(sum / 2 - map.get(node!)!)) {\n      ans = map.get(node!)!;\n    }\n    dfsNode(node.left);\n    dfsNode(node.right);\n  }\n}"
-    }
-  ]
+    "name": "1339. 分裂二叉树的最大乘积",
+    "url": "https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "desc": "给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。 。",
+    "solutions": [
+        {
+            "date": 1628870400000,
+            "time": 184,
+            "memory": 63.9,
+            "script": "typescript",
+            "desc": "寻找最接近 sum/2 的值。",
+            "code": "function maxProduct(root: TreeNode): number {\n  const map = new Map<TreeNode, number>();\n  const sum = dfsSum(root);\n  let ans = 0;\n  dfsNode(root);\n  return ((sum - ans) * ans) % (10 ** 9 + 7);\n  function dfsSum(node: TreeNode | null): number {\n    if (node === null) return 0;\n    const sum = dfsSum(node.left) + dfsSum(node.right) + node.val;\n    map.set(node, sum);\n    return sum;\n  }\n  function dfsNode(node: TreeNode | null): void {\n    if (node === null) return;\n    if (Math.abs(sum / 2 - ans) > Math.abs(sum / 2 - map.get(node!)!)) {\n      ans = map.get(node!)!;\n    }\n    dfsNode(node.left);\n    dfsNode(node.right);\n  }\n}"
+        }
+    ]
 }

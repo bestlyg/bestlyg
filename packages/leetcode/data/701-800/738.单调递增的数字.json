@@ -1,17 +1,19 @@
 {
-  "name": "738. 单调递增的数字",
-  "url": "https://leetcode-cn.com/problems/monotone-increasing-digits/",
-  "difficulty": "中等",
-  "tag": ["贪心"],
-  "desc": "给定一个非负整数 N，找出小于或等于 N 的最大的整数，同时这个整数需要满足其各个位数上的数字是单调递增。",
-  "solutions": [
-    {
-      "date": 1607961600000,
-      "time": 88,
-      "memory": 39.7,
-      "script": "typescript",
-      "desc": "检测到第一位非递增位，后续置 9。",
-      "code": "function monotoneIncreasingDigits(N: number): number {\n  const arr: number[] = N.toString()\n    .split('')\n    .map(v => +v);\n  const len = arr.length;\n  let i = 1;\n  while (i < len && arr[i - 1] <= arr[i]) i++;\n  if (i === len) return N;\n  while (i > 0 && arr[i - 1] > arr[i]) {\n    arr[i - 1]--;\n    i--;\n  }\n  for (i += 1; i < len; i++) {\n    arr[i] = 9;\n  }\n  return arr.reduce((total, cur) => total * 10 + cur, 0);\n}"
-    }
-  ]
+    "name": "738. 单调递增的数字",
+    "url": "https://leetcode-cn.com/problems/monotone-increasing-digits/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "给定一个非负整数 N，找出小于或等于 N 的最大的整数，同时这个整数需要满足其各个位数上的数字是单调递增。",
+    "solutions": [
+        {
+            "date": 1607961600000,
+            "time": 88,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "检测到第一位非递增位，后续置 9。",
+            "code": "function monotoneIncreasingDigits(N: number): number {\n  const arr: number[] = N.toString()\n    .split('')\n    .map(v => +v);\n  const len = arr.length;\n  let i = 1;\n  while (i < len && arr[i - 1] <= arr[i]) i++;\n  if (i === len) return N;\n  while (i > 0 && arr[i - 1] > arr[i]) {\n    arr[i - 1]--;\n    i--;\n  }\n  for (i += 1; i < len; i++) {\n    arr[i] = 9;\n  }\n  return arr.reduce((total, cur) => total * 10 + cur, 0);\n}"
+        }
+    ]
 }

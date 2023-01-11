@@ -1,33 +1,36 @@
 {
-  "name": "739. 每日温度",
-  "url": "https://leetcode-cn.com/problems/daily-temperatures/",
-  "difficulty": "中等",
-  "tag": ["栈", "哈希表"],
-  "desc": "根据每日 气温 列表，请重新生成一个列表，对应位置的输出是需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用 0 来代替。",
-  "solutions": [
-    {
-      "date": 1591804800000,
-      "time": 1732,
-      "memory": 45.5,
-      "script": "typescript",
-      "desc": "倒序遍历，相比起正序遍历的每次都遍历到重复值节约时间。",
-      "code": "function dailyTemperatures(T: number[]): number[] {\n  const len = T.length;\n  if (len === 0) return [];\n  let ans: number[] = [];\n  for (let i = len - 1; i >= 0; i--) {\n    if (i === len - 1) {\n      ans.unshift(0);\n      continue;\n    }\n    ans.unshift(find(T[i], i + 1));\n  }\n  return ans;\n  function find(num: number, index: number): number {\n    for (let i = index; i < len; i++) if (T[i] > num) return i - index + 1;\n    return 0;\n  }\n}"
-    },
-    {
-      "date": 1591804800000,
-      "time": 196,
-      "memory": 50.3,
-      "script": "typescript",
-      "desc": "维护单调栈，栈顶元素小于当前元素即赋值。",
-      "code": "function dailyTemperatures(T: number[]): number[] {\n  const stack: number[] = [];\n  const ans: number[] = [];\n  for (let i = 0, len = T.length; i < len; i++) {\n    while (stack.length !== 0 && T[stack.slice(-1)[0]] < T[i]) {\n      const index = stack.pop() as number;\n      ans[index] = i - index;\n    }\n    stack.push(i);\n  }\n  while (stack.length !== 0) ans[stack.pop() as number] = 0;\n  return ans;\n}"
-    },
-    {
-      "date": 1626624000000,
-      "time": 240,
-      "memory": 60.6,
-      "script": "typescript",
-      "desc": "单调递增栈。",
-      "code": "function dailyTemperatures(temperatures: number[]): number[] {\n  const stack: number[] = [];\n  const len = temperatures.length;\n  const ans: number[] = new Array(len).fill(0);\n  for (let i = 0; i < len; i++) {\n    const v = temperatures[i];\n    while (stack.length && temperatures[stack[stack.length - 1]] < v) {\n      const prev = stack.pop()!;\n      ans[prev] = i - prev;\n    }\n    stack.push(i);\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "739. 每日温度",
+    "url": "https://leetcode-cn.com/problems/daily-temperatures/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "哈希表"
+    ],
+    "desc": "根据每日 气温 列表，请重新生成一个列表，对应位置的输出是需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用 0 来代替。",
+    "solutions": [
+        {
+            "date": 1591804800000,
+            "time": 1732,
+            "memory": 45.5,
+            "script": "typescript",
+            "desc": "倒序遍历，相比起正序遍历的每次都遍历到重复值节约时间。",
+            "code": "function dailyTemperatures(T: number[]): number[] {\n  const len = T.length;\n  if (len === 0) return [];\n  let ans: number[] = [];\n  for (let i = len - 1; i >= 0; i--) {\n    if (i === len - 1) {\n      ans.unshift(0);\n      continue;\n    }\n    ans.unshift(find(T[i], i + 1));\n  }\n  return ans;\n  function find(num: number, index: number): number {\n    for (let i = index; i < len; i++) if (T[i] > num) return i - index + 1;\n    return 0;\n  }\n}"
+        },
+        {
+            "date": 1591804800000,
+            "time": 196,
+            "memory": 50.3,
+            "script": "typescript",
+            "desc": "维护单调栈，栈顶元素小于当前元素即赋值。",
+            "code": "function dailyTemperatures(T: number[]): number[] {\n  const stack: number[] = [];\n  const ans: number[] = [];\n  for (let i = 0, len = T.length; i < len; i++) {\n    while (stack.length !== 0 && T[stack.slice(-1)[0]] < T[i]) {\n      const index = stack.pop() as number;\n      ans[index] = i - index;\n    }\n    stack.push(i);\n  }\n  while (stack.length !== 0) ans[stack.pop() as number] = 0;\n  return ans;\n}"
+        },
+        {
+            "date": 1626624000000,
+            "time": 240,
+            "memory": 60.6,
+            "script": "typescript",
+            "desc": "单调递增栈。",
+            "code": "function dailyTemperatures(temperatures: number[]): number[] {\n  const stack: number[] = [];\n  const len = temperatures.length;\n  const ans: number[] = new Array(len).fill(0);\n  for (let i = 0; i < len; i++) {\n    const v = temperatures[i];\n    while (stack.length && temperatures[stack[stack.length - 1]] < v) {\n      const prev = stack.pop()!;\n      ans[prev] = i - prev;\n    }\n    stack.push(i);\n  }\n  return ans;\n}"
+        }
+    ]
 }

@@ -1,17 +1,19 @@
 {
-  "name": "290. 单词规律",
-  "url": "https://leetcode-cn.com/problems/word-pattern/",
-  "difficulty": "简单",
-  "tag": ["哈希表"],
-  "desc": "给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。",
-  "solutions": [
-    {
-      "date": 1608048000000,
-      "time": 104,
-      "memory": 40.2,
-      "script": "typescript",
-      "desc": "利用哈希表和 set 储存已遍历过的值。",
-      "code": "function wordPattern(pattern: string, s: string): boolean {\n  const cache: Record<string, string> = {};\n  const set = new Set<string>();\n  const arr = s.split(' ');\n  const len = arr.length;\n  if (len !== pattern.length) return false;\n  for (let i = 0; i < len; i++) {\n    const p = pattern[i];\n    const str = arr[i];\n    if (!cache[p] && !set.has(str)) {\n      cache[p] = str;\n      set.add(str);\n    } else if (cache[p] !== str) return false;\n  }\n  return true;\n}"
-    }
-  ]
+    "name": "290. 单词规律",
+    "url": "https://leetcode-cn.com/problems/word-pattern/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表"
+    ],
+    "desc": "给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。",
+    "solutions": [
+        {
+            "date": 1608048000000,
+            "time": 104,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "利用哈希表和 set 储存已遍历过的值。",
+            "code": "function wordPattern(pattern: string, s: string): boolean {\n  const cache: Record<string, string> = {};\n  const set = new Set<string>();\n  const arr = s.split(' ');\n  const len = arr.length;\n  if (len !== pattern.length) return false;\n  for (let i = 0; i < len; i++) {\n    const p = pattern[i];\n    const str = arr[i];\n    if (!cache[p] && !set.has(str)) {\n      cache[p] = str;\n      set.add(str);\n    } else if (cache[p] !== str) return false;\n  }\n  return true;\n}"
+        }
+    ]
 }

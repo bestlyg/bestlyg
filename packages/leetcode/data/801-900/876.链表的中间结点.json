@@ -1,17 +1,19 @@
 {
-  "name": "876. 链表的中间结点",
-  "url": "https://leetcode-cn.com/problems/middle-of-the-linked-list/",
-  "difficulty": "简单",
-  "tag": ["链表"],
-  "desc": "给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。",
-  "solutions": [
-    {
-      "date": 1581523200000,
-      "time": 0,
-      "memory": 39.8,
-      "script": "java",
-      "desc": "使用快慢指针，若快指针到达 null 则满指针到达中间。",
-      "code": "class Solution {\n    public ListNode middleNode(ListNode head) {\n        if(head.next==null||head==null) {\n\t\t\treturn head;\n\t\t}\n\t\tif(head.next.next==null) {\n\t\t\treturn head.next;\n\t\t}\n\t\tListNode slowListNode=head;\n\t\tListNode fastListNode=head.next;\n\t\twhile(fastListNode!=null&&fastListNode.next!=null) {\n\t\t\tslowListNode=slowListNode.next;\n\t\t\tfastListNode=fastListNode.next.next;\n\t\t}\n\t\tif(fastListNode==null) {\n\t\t\treturn slowListNode;\n\t\t}else {\n\t\t\treturn slowListNode.next;\n\t\t}\n    }\n}"
-    }
-  ]
+    "name": "876. 链表的中间结点",
+    "url": "https://leetcode-cn.com/problems/middle-of-the-linked-list/",
+    "difficulty": "简单",
+    "tag": [
+        "链表"
+    ],
+    "desc": "给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。",
+    "solutions": [
+        {
+            "date": 1581523200000,
+            "time": 0,
+            "memory": 39.8,
+            "script": "java",
+            "desc": "使用快慢指针，若快指针到达 null 则满指针到达中间。",
+            "code": "class Solution {\n    public ListNode middleNode(ListNode head) {\n        if(head.next==null||head==null) {\n\t\t\treturn head;\n\t\t}\n\t\tif(head.next.next==null) {\n\t\t\treturn head.next;\n\t\t}\n\t\tListNode slowListNode=head;\n\t\tListNode fastListNode=head.next;\n\t\twhile(fastListNode!=null&&fastListNode.next!=null) {\n\t\t\tslowListNode=slowListNode.next;\n\t\t\tfastListNode=fastListNode.next.next;\n\t\t}\n\t\tif(fastListNode==null) {\n\t\t\treturn slowListNode;\n\t\t}else {\n\t\t\treturn slowListNode.next;\n\t\t}\n    }\n}"
+        }
+    ]
 }

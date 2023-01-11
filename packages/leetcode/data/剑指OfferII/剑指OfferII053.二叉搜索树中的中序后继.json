@@ -1,17 +1,22 @@
 {
-  "name": "剑指 Offer II 053. 二叉搜索树中的中序后继",
-  "url": "https://leetcode-cn.com/problems/P5rCT8/",
-  "difficulty": "中等",
-  "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
-  "desc": "给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 null 。",
-  "solutions": [
-    {
-      "date": 1628870400000,
-      "time": 96,
-      "memory": 48.1,
-      "script": "typescript",
-      "desc": "中序遍历。",
-      "code": "function inorderSuccessor(root: TreeNode | null, p: TreeNode | null): TreeNode | null {\n  if (p === null || root === null) return null;\n  let prev: TreeNode | null = null;\n  let ans: TreeNode | null = null;\n  inorder(root);\n  return ans;\n  function inorder(node: TreeNode | null): boolean {\n    if (node === null) return false;\n    if (inorder(node.left)) return true;\n    if (prev === p) {\n      ans = node;\n      return true;\n    }\n    prev = node;\n    if (inorder(node.right)) return true;\n    return false;\n  }\n}"
-    }
-  ]
+    "name": "剑指 Offer II 053. 二叉搜索树中的中序后继",
+    "url": "https://leetcode-cn.com/problems/P5rCT8/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "desc": "给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 null 。",
+    "solutions": [
+        {
+            "date": 1628870400000,
+            "time": 96,
+            "memory": 48.1,
+            "script": "typescript",
+            "desc": "中序遍历。",
+            "code": "function inorderSuccessor(root: TreeNode | null, p: TreeNode | null): TreeNode | null {\n  if (p === null || root === null) return null;\n  let prev: TreeNode | null = null;\n  let ans: TreeNode | null = null;\n  inorder(root);\n  return ans;\n  function inorder(node: TreeNode | null): boolean {\n    if (node === null) return false;\n    if (inorder(node.left)) return true;\n    if (prev === p) {\n      ans = node;\n      return true;\n    }\n    prev = node;\n    if (inorder(node.right)) return true;\n    return false;\n  }\n}"
+        }
+    ]
 }

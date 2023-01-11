@@ -1,17 +1,23 @@
 {
-  "name": "611. 有效三角形的个数",
-  "url": "https://leetcode-cn.com/problems/valid-triangle-number/",
-  "difficulty": "中等",
-  "tag": ["贪心", "数组", "双指针", "二分查找", "排序"],
-  "desc": "给定一个包含非负整数的数组，你的任务是统计其中可以组成三角形三条边的三元组个数。",
-  "solutions": [
-    {
-      "date": 1635177600000,
-      "time": 168,
-      "memory": 39.8,
-      "script": "typescript",
-      "desc": "固定两边长度进行二分。",
-      "code": "function triangleNumber(nums: number[]): number {\n  const n = nums.length;\n  nums.sort((a, b) => a - b);\n  let ans = 0;\n  for (let i1 = 0; i1 < n - 1; i1++) {\n    const num1 = nums[i1];\n    for (let i2 = i1 + 1; i2 < n - 1; i2++) {\n      const num2 = nums[i2];\n      if (num1 + num2 > nums[n - 1]) {\n        ans += n - 1 - i2;\n        continue;\n      }\n      let l = i2 + 1;\n      let r = n - 1;\n      while (l < r) {\n        const mid = (l + r) >> 1;\n        if (num1 + num2 <= nums[mid]) r = mid;\n        else l = mid + 1;\n      }\n      ans += l - 1 - i2;\n    }\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "611. 有效三角形的个数",
+    "url": "https://leetcode-cn.com/problems/valid-triangle-number/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "desc": "给定一个包含非负整数的数组，你的任务是统计其中可以组成三角形三条边的三元组个数。",
+    "solutions": [
+        {
+            "date": 1635177600000,
+            "time": 168,
+            "memory": 39.8,
+            "script": "typescript",
+            "desc": "固定两边长度进行二分。",
+            "code": "function triangleNumber(nums: number[]): number {\n  const n = nums.length;\n  nums.sort((a, b) => a - b);\n  let ans = 0;\n  for (let i1 = 0; i1 < n - 1; i1++) {\n    const num1 = nums[i1];\n    for (let i2 = i1 + 1; i2 < n - 1; i2++) {\n      const num2 = nums[i2];\n      if (num1 + num2 > nums[n - 1]) {\n        ans += n - 1 - i2;\n        continue;\n      }\n      let l = i2 + 1;\n      let r = n - 1;\n      while (l < r) {\n        const mid = (l + r) >> 1;\n        if (num1 + num2 <= nums[mid]) r = mid;\n        else l = mid + 1;\n      }\n      ans += l - 1 - i2;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
 }

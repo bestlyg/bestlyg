@@ -1,17 +1,20 @@
 {
-  "name": "332. 重新安排行程",
-  "url": "https://leetcode-cn.com/problems/reconstruct-itinerary/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索", "图"],
-  "desc": "给定一个机票的字符串二维数组 [from, to]，子数组中的两个成员分别表示飞机出发和降落的机场地点，对该行程进行重新规划排序。所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。",
-  "solutions": [
-    {
-      "date": 1598457600000,
-      "time": 164,
-      "memory": 49.1,
-      "script": "typescript",
-      "desc": "先进行排序字符，初始化数据，计算机票数量，再深度遍历",
-      "code": "function findItinerary(tickets: string[][]): string[] {\n  tickets.sort((a, b) => a[1].localeCompare(b[1]));\n  class Country {\n    to: Country[] = [];\n    constructor(public name: string) {}\n  }\n  const itinerary = new Map<string, number>();\n  const format = (from: string, to: string) => `${from}->${to}`;\n  const countries: Record<string, Country> = {};\n  const isOver = () => !Array.from(itinerary.values()).some(v => v > 0);\n  for (const [from, to] of tickets) {\n    let fromC = countries[from];\n    if (!fromC) countries[from] = fromC = new Country(from);\n    let toC = countries[to];\n    if (!toC) countries[to] = toC = new Country(to);\n    fromC.to.push(toC);\n    const formatName = format(from, to);\n    const num = itinerary.get(formatName);\n    itinerary.set(formatName, num === undefined ? 1 : num + 1);\n  }\n  const ans: string[][] = [];\n  const total: string[] = ['JFK'];\n  line('JFK');\n  return ans.sort((a, b) => (a.join('') < b.join('') ? -1 : 1))[0];\n  function line(countryName: string) {\n    // console.log('===');\n    // console.log(countryName);\n    // console.log(itinerary);\n    if (ans.length !== 0) return;\n    if (isOver()) {\n      ans.push([...total]);\n      return;\n    }\n    const country = countries[countryName];\n    for (const c of country.to) {\n      const formatName = format(countryName, c.name);\n      const num: number = itinerary.get(formatName)!;\n      if (num === 0) continue;\n      // console.log('---');\n      // console.log(formatName);\n      // console.log(num);\n      // console.log(total);\n      itinerary.set(formatName, num - 1);\n      total.push(c.name);\n      line(c.name);\n      total.pop();\n      itinerary.set(formatName, num);\n    }\n  }\n}"
-    }
-  ]
+    "name": "332. 重新安排行程",
+    "url": "https://leetcode-cn.com/problems/reconstruct-itinerary/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "图"
+    ],
+    "desc": "给定一个机票的字符串二维数组 [from, to]，子数组中的两个成员分别表示飞机出发和降落的机场地点，对该行程进行重新规划排序。所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。",
+    "solutions": [
+        {
+            "date": 1598457600000,
+            "time": 164,
+            "memory": 49.1,
+            "script": "typescript",
+            "desc": "先进行排序字符，初始化数据，计算机票数量，再深度遍历",
+            "code": "function findItinerary(tickets: string[][]): string[] {\n  tickets.sort((a, b) => a[1].localeCompare(b[1]));\n  class Country {\n    to: Country[] = [];\n    constructor(public name: string) {}\n  }\n  const itinerary = new Map<string, number>();\n  const format = (from: string, to: string) => `${from}->${to}`;\n  const countries: Record<string, Country> = {};\n  const isOver = () => !Array.from(itinerary.values()).some(v => v > 0);\n  for (const [from, to] of tickets) {\n    let fromC = countries[from];\n    if (!fromC) countries[from] = fromC = new Country(from);\n    let toC = countries[to];\n    if (!toC) countries[to] = toC = new Country(to);\n    fromC.to.push(toC);\n    const formatName = format(from, to);\n    const num = itinerary.get(formatName);\n    itinerary.set(formatName, num === undefined ? 1 : num + 1);\n  }\n  const ans: string[][] = [];\n  const total: string[] = ['JFK'];\n  line('JFK');\n  return ans.sort((a, b) => (a.join('') < b.join('') ? -1 : 1))[0];\n  function line(countryName: string) {\n    // console.log('===');\n    // console.log(countryName);\n    // console.log(itinerary);\n    if (ans.length !== 0) return;\n    if (isOver()) {\n      ans.push([...total]);\n      return;\n    }\n    const country = countries[countryName];\n    for (const c of country.to) {\n      const formatName = format(countryName, c.name);\n      const num: number = itinerary.get(formatName)!;\n      if (num === 0) continue;\n      // console.log('---');\n      // console.log(formatName);\n      // console.log(num);\n      // console.log(total);\n      itinerary.set(formatName, num - 1);\n      total.push(c.name);\n      line(c.name);\n      total.pop();\n      itinerary.set(formatName, num);\n    }\n  }\n}"
+        }
+    ]
 }

@@ -1,8 +1,19 @@
 {
-  "name": "6258. 数组中最长的方波",
-  "url": "https://leetcode.cn/problems/longest-square-streak-in-an-array/",
-  "difficulty": "中等",
-  "tag": [""],
-  "desc": "返回 nums 中 最长方波 的长度，如果不存在 方波 则返回 -1 。",
-  "solutions": []
+    "name": "6258. 数组中最长的方波",
+    "url": "https://leetcode.cn/problems/longest-square-streak-in-an-array/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "返回 nums 中 最长方波 的长度，如果不存在 方波 则返回 -1 。",
+    "solutions": [
+        {
+            "date": 1670688000000,
+            "time": 244,
+            "memory": 105.7,
+            "script": "cpp",
+            "desc": "哈希后遍历。",
+            "code": "class Solution {\npublic:\n    int longestSquareStreak(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), ans = -1;\n        unordered_map<int, int> m;\n        for (int i = 0; i < n; i++) {\n            if (!m.count(nums[i])) m[nums[i]] = i;\n        }\n        vector<int> dp(n, 1);\n        for (int i = 0; i < n; i++) {\n            int num = nums[i], prev = sqrt(num);\n            //cout << \"num = \" << num << \", p = \" << prev << endl;\n            if (prev * prev != num) continue;\n            if (!m.count(prev)) continue;\n            dp[i] = max(dp[i], dp[m[prev]] + 1);\n            //cout << \"i = \" << i << \", dp = \" << dp[i] << endl;\n            if (dp[i] > 1) ans = max(ans, dp[i]);\n        }\n        return ans;\n\n    }\n};"
+        }
+    ]
 }

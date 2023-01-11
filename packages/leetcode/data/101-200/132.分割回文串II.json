@@ -1,25 +1,27 @@
 {
-  "name": "132. 分割回文串 II",
-  "url": "https://leetcode-cn.com/problems/palindrome-partitioning-ii/",
-  "difficulty": "困难",
-  "tag": ["动态规划"],
-  "desc": "给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。返回符合要求的 最少分割次数 。",
-  "solutions": [
-    {
-      "date": 1615132800000,
-      "time": 160,
-      "memory": 57.68,
-      "script": "typescript",
-      "desc": "动态规划。",
-      "code": "function minCut(s: string): number {\n  const len = s.length;\n  if (len <= 1) return 0;\n  const f = new Array(len).fill(0).map(() => new Array(len).fill(true));\n  for (let i = len - 1; i >= 0; --i) {\n    for (let j = i + 1; j < len; ++j) {\n      f[i][j] = s[i] === s[j] && f[i + 1][j - 1];\n    }\n  }\n  const dp: number[] = new Array(len).fill(Infinity);\n  for (let i = 0; i < len; i++) {\n    if (f[0][i]) {\n      dp[i] = 0;\n    } else {\n      for (let j = 0; j < i; j++) {\n        if (f[j + 1][i]) {\n          dp[i] = Math.min(dp[i], dp[j] + 1);\n        }\n      }\n    }\n  }\n  return dp[len - 1];\n}"
-    },
-    {
-      "date": 1639238400000,
-      "time": 220,
-      "memory": 76.6,
-      "script": "typescript",
-      "desc": "先统计所有的以 i 开头 j 结尾的回文字符串，进行动态规划遍历。",
-      "code": "function getArr(s: string) {\n  const n = s.length;\n  const ans = new Array(n).fill(0).map(_ => new Array(n).fill(false));\n  const load = (l: number, r: number) => {\n    while (l >= 0 && r < n && s[l] === s[r]) ans[l--][r++] = true;\n  };\n  for (let i = 0; i < n; i++) {\n    load(i, i);\n    if (i < n - 1) load(i, i + 1);\n  }\n  return ans;\n}\nfunction minCut(s: string): number {\n  const n = s.length;\n  const arr = getArr(s);\n  const dp = new Array(n).fill(0).map((_, i) => i);\n  for (let i = 0; i < n; i++) {\n    if (arr[0][i]) {\n      dp[i] = 0;\n      continue;\n    }\n    for (let j = 0; j + 1 <= i; j++) {\n      if (!arr[j + 1][i]) continue;\n      dp[i] = Math.min(dp[i], dp[j] + 1);\n    }\n  }\n  return dp[n - 1];\n}"
-    }
-  ]
+    "name": "132. 分割回文串 II",
+    "url": "https://leetcode-cn.com/problems/palindrome-partitioning-ii/",
+    "difficulty": "困难",
+    "tag": [
+        "动态规划"
+    ],
+    "desc": "给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。返回符合要求的 最少分割次数 。",
+    "solutions": [
+        {
+            "date": 1615132800000,
+            "time": 160,
+            "memory": 57.68,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function minCut(s: string): number {\n  const len = s.length;\n  if (len <= 1) return 0;\n  const f = new Array(len).fill(0).map(() => new Array(len).fill(true));\n  for (let i = len - 1; i >= 0; --i) {\n    for (let j = i + 1; j < len; ++j) {\n      f[i][j] = s[i] === s[j] && f[i + 1][j - 1];\n    }\n  }\n  const dp: number[] = new Array(len).fill(Infinity);\n  for (let i = 0; i < len; i++) {\n    if (f[0][i]) {\n      dp[i] = 0;\n    } else {\n      for (let j = 0; j < i; j++) {\n        if (f[j + 1][i]) {\n          dp[i] = Math.min(dp[i], dp[j] + 1);\n        }\n      }\n    }\n  }\n  return dp[len - 1];\n}"
+        },
+        {
+            "date": 1639238400000,
+            "time": 220,
+            "memory": 76.6,
+            "script": "typescript",
+            "desc": "先统计所有的以 i 开头 j 结尾的回文字符串，进行动态规划遍历。",
+            "code": "function getArr(s: string) {\n  const n = s.length;\n  const ans = new Array(n).fill(0).map(_ => new Array(n).fill(false));\n  const load = (l: number, r: number) => {\n    while (l >= 0 && r < n && s[l] === s[r]) ans[l--][r++] = true;\n  };\n  for (let i = 0; i < n; i++) {\n    load(i, i);\n    if (i < n - 1) load(i, i + 1);\n  }\n  return ans;\n}\nfunction minCut(s: string): number {\n  const n = s.length;\n  const arr = getArr(s);\n  const dp = new Array(n).fill(0).map((_, i) => i);\n  for (let i = 0; i < n; i++) {\n    if (arr[0][i]) {\n      dp[i] = 0;\n      continue;\n    }\n    for (let j = 0; j + 1 <= i; j++) {\n      if (!arr[j + 1][i]) continue;\n      dp[i] = Math.min(dp[i], dp[j] + 1);\n    }\n  }\n  return dp[n - 1];\n}"
+        }
+    ]
 }

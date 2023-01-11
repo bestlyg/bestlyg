@@ -1,33 +1,36 @@
 {
-  "name": "120. 三角形最小路径和",
-  "url": "https://leetcode-cn.com/problems/triangle/",
-  "difficulty": "中等",
-  "tag": ["数组", "动态规划"],
-  "desc": "给定一个三角形，找出自顶向下的最小路径和。",
-  "solutions": [
-    {
-      "date": 1594656000000,
-      "time": 64,
-      "memory": 36.8,
-      "script": "typescript",
-      "desc": "逆向推导[0][0],dp[i][j]=i 行 j 列时的最小步数。",
-      "code": "function minimumTotal(triangle: number[][]): number {\n  const len = triangle.length;\n  const ans: number[][] = new Array(len + 1);\n  ans[len] = new Array(len + 1).fill(0);\n  for (let i = len - 1; i >= 0; i--) {\n    const arr: number[] = [];\n    for (let j = 0, l = triangle[i].length; j < l; j++) {\n      arr[j] = Math.min(ans[i + 1][j], ans[i + 1][j + 1]) + triangle[i][j];\n    }\n    ans[i] = arr;\n  }\n  return ans[0][0];\n}"
-    },
-    {
-      "date": 1594656000000,
-      "time": 76,
-      "memory": 37,
-      "script": "typescript",
-      "desc": "根据题解 1，利用滑动数组来节省空间。",
-      "code": "function minimumTotal(triangle: number[][]): number {\n  const len = triangle.length;\n  const ans: number[][] = new Array(2);\n  ans[len % 2] = new Array(len + 1).fill(0);\n  for (let i = len - 1; i >= 0; i--) {\n    const arr: number[] = [];\n    for (let j = 0, l = triangle[i].length; j < l; j++) {\n      arr[j] = Math.min(ans[(i + 1) % 2][j], ans[(i + 1) % 2][j + 1]) + triangle[i][j];\n    }\n    ans[i % 2] = arr;\n  }\n  return ans[0][0];\n}"
-    },
-    {
-      "date": 1630598400000,
-      "time": 80,
-      "memory": 39.7,
-      "script": "typescript",
-      "desc": "动态规划。",
-      "code": "function minimumTotal(triangle: number[][]): number {\n  const n = triangle.length;\n  for (let i = n - 2; i >= 0; i--)\n    for (let j = 0; j <= i; j++)\n      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);\n  return triangle[0][0];\n}"
-    }
-  ]
+    "name": "120. 三角形最小路径和",
+    "url": "https://leetcode-cn.com/problems/triangle/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给定一个三角形，找出自顶向下的最小路径和。",
+    "solutions": [
+        {
+            "date": 1594656000000,
+            "time": 64,
+            "memory": 36.8,
+            "script": "typescript",
+            "desc": "逆向推导[0][0],dp[i][j]=i 行 j 列时的最小步数。",
+            "code": "function minimumTotal(triangle: number[][]): number {\n  const len = triangle.length;\n  const ans: number[][] = new Array(len + 1);\n  ans[len] = new Array(len + 1).fill(0);\n  for (let i = len - 1; i >= 0; i--) {\n    const arr: number[] = [];\n    for (let j = 0, l = triangle[i].length; j < l; j++) {\n      arr[j] = Math.min(ans[i + 1][j], ans[i + 1][j + 1]) + triangle[i][j];\n    }\n    ans[i] = arr;\n  }\n  return ans[0][0];\n}"
+        },
+        {
+            "date": 1594656000000,
+            "time": 76,
+            "memory": 37,
+            "script": "typescript",
+            "desc": "根据题解 1，利用滑动数组来节省空间。",
+            "code": "function minimumTotal(triangle: number[][]): number {\n  const len = triangle.length;\n  const ans: number[][] = new Array(2);\n  ans[len % 2] = new Array(len + 1).fill(0);\n  for (let i = len - 1; i >= 0; i--) {\n    const arr: number[] = [];\n    for (let j = 0, l = triangle[i].length; j < l; j++) {\n      arr[j] = Math.min(ans[(i + 1) % 2][j], ans[(i + 1) % 2][j + 1]) + triangle[i][j];\n    }\n    ans[i % 2] = arr;\n  }\n  return ans[0][0];\n}"
+        },
+        {
+            "date": 1630598400000,
+            "time": 80,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function minimumTotal(triangle: number[][]): number {\n  const n = triangle.length;\n  for (let i = n - 2; i >= 0; i--)\n    for (let j = 0; j <= i; j++)\n      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);\n  return triangle[0][0];\n}"
+        }
+    ]
 }

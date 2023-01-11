@@ -1,17 +1,20 @@
 {
-  "name": "112. 路径总和",
-  "url": "https://leetcode-cn.com/problems/path-sum/",
-  "difficulty": "简单",
-  "tag": ["树", "深度优先搜索"],
-  "desc": "给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。",
-  "solutions": [
-    {
-      "date": 1594051200000,
-      "time": 88,
-      "memory": 38.2,
-      "script": "typescript",
-      "desc": "深度递归遍历即可。",
-      "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction hasPathSum(root: TreeNode | null, sum: number): boolean {\n  if (root === null) return false;\n  const val = root.val;\n  if (val === sum && root.left === null && root.right === null) return true;\n  else return hasPathSum(root.left, sum - val) || hasPathSum(root.right, sum - val);\n}"
-    }
-  ]
+    "name": "112. 路径总和",
+    "url": "https://leetcode-cn.com/problems/path-sum/",
+    "difficulty": "简单",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。",
+    "solutions": [
+        {
+            "date": 1594051200000,
+            "time": 88,
+            "memory": 38.2,
+            "script": "typescript",
+            "desc": "深度递归遍历即可。",
+            "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction hasPathSum(root: TreeNode | null, sum: number): boolean {\n  if (root === null) return false;\n  const val = root.val;\n  if (val === sum && root.left === null && root.right === null) return true;\n  else return hasPathSum(root.left, sum - val) || hasPathSum(root.right, sum - val);\n}"
+        }
+    ]
 }

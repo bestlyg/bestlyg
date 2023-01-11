@@ -1,8 +1,22 @@
 {
-  "name": "1838. 最高频元素的频数",
-  "url": "https://leetcode-cn.com/problems/frequency-of-the-most-frequent-element/",
-  "difficulty": "中等",
-  "tag": ["数组", "二分查找", "前缀和", "滑动窗口"],
-  "desc": "排序后，从后往前逐个比较。",
-  "solutions": []
+    "name": "1838. 最高频元素的频数",
+    "url": "https://leetcode-cn.com/problems/frequency-of-the-most-frequent-element/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找",
+        "前缀和",
+        "滑动窗口"
+    ],
+    "desc": "排序后，从后往前逐个比较。",
+    "solutions": [
+        {
+            "date": 1626624000000,
+            "time": 232,
+            "memory": 54,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function maxFrequency(nums: number[], k: number): number {\n  nums.sort((a, b) => a - b);\n  const len = nums.length;\n  let ans = 1;\n  let right = len - 1;\n  let left = right - 1;\n  while (left >= 0) {\n    const num = nums[right];\n    while (left >= 0) {\n      const v = num - nums[left];\n      if (k < v) break;\n      k -= v;\n      left--;\n    }\n    ans = Math.max(ans, right-- - left);\n    k += (right - left) * (nums[right + 1] - nums[right]);\n  }\n  return ans;\n}"
+        }
+    ]
 }

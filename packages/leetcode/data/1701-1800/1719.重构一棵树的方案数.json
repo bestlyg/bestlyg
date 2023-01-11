@@ -1,17 +1,20 @@
 {
-  "name": "1719. 重构一棵树的方案数",
-  "url": "https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/",
-  "difficulty": "困难",
-  "tag": ["数组", "矩阵"],
-  "desc": "请你返回 ways。",
-  "solutions": [
-    {
-      "date": 1644940800000,
-      "time": 728,
-      "memory": 159.7,
-      "script": "c++",
-      "desc": "找到根节点后，遍历所有节点找到其父节点。",
-      "code": "class Solution {\n   public:\n    int checkWays(vector<vector<int>>& pairs) {\n        unordered_map<int, unordered_set<int>> m;\n        int root = pairs[0][0];\n        // 装载pair到map中，同时记录相邻最多的节点\n        for (auto& pair : pairs) {\n            m[pair[0]].emplace(pair[1]);\n            m[pair[1]].emplace(pair[0]);\n            if (m[root].size() < m[pair[0]].size()) root = pair[0];\n            if (m[root].size() < m[pair[1]].size()) root = pair[1];\n        }\n        // 如果最多的节点没法覆盖所有其他节点，那就无法生成树\n        if (m[root].size() != m.size() - 1) return 0;\n        int ans = 1;\n        // 遍历所有子节点\n        for (auto& [node, list] : m) {\n            if (node == root) continue;\n            // 寻找当前子节点的最小父节点， 拥有比当前节点更多的相邻数，\n            // 且子节点的所有相邻也与父节点相邻\n            int degree = list.size(), parent = -1, parent_degree = INT_MAX;\n            for (auto& node : list) {\n                if (m[node].size() < parent_degree &&\n                    m[node].size() >= degree) {\n                    parent = node;\n                    parent_degree = m[node].size();\n                }\n            }\n            // 找不到父节点就不可能成树\n            if (parent == -1) return 0;\n            for (auto& node : list) {\n                if (node == parent) continue;\n                if (!m[parent].count(node)) return 0;\n            }\n            // 如果连接数相同说明父子可以替换\n            if (parent_degree == degree) ans = 2;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "1719. 重构一棵树的方案数",
+    "url": "https://leetcode-cn.com/problems/number-of-ways-to-reconstruct-a-tree/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你返回 ways。",
+    "solutions": [
+        {
+            "date": 1644940800000,
+            "time": 728,
+            "memory": 159.7,
+            "script": "c++",
+            "desc": "找到根节点后，遍历所有节点找到其父节点。",
+            "code": "class Solution {\n   public:\n    int checkWays(vector<vector<int>>& pairs) {\n        unordered_map<int, unordered_set<int>> m;\n        int root = pairs[0][0];\n        // 装载pair到map中，同时记录相邻最多的节点\n        for (auto& pair : pairs) {\n            m[pair[0]].emplace(pair[1]);\n            m[pair[1]].emplace(pair[0]);\n            if (m[root].size() < m[pair[0]].size()) root = pair[0];\n            if (m[root].size() < m[pair[1]].size()) root = pair[1];\n        }\n        // 如果最多的节点没法覆盖所有其他节点，那就无法生成树\n        if (m[root].size() != m.size() - 1) return 0;\n        int ans = 1;\n        // 遍历所有子节点\n        for (auto& [node, list] : m) {\n            if (node == root) continue;\n            // 寻找当前子节点的最小父节点， 拥有比当前节点更多的相邻数，\n            // 且子节点的所有相邻也与父节点相邻\n            int degree = list.size(), parent = -1, parent_degree = INT_MAX;\n            for (auto& node : list) {\n                if (m[node].size() < parent_degree &&\n                    m[node].size() >= degree) {\n                    parent = node;\n                    parent_degree = m[node].size();\n                }\n            }\n            // 找不到父节点就不可能成树\n            if (parent == -1) return 0;\n            for (auto& node : list) {\n                if (node == parent) continue;\n                if (!m[parent].count(node)) return 0;\n            }\n            // 如果连接数相同说明父子可以替换\n            if (parent_degree == degree) ans = 2;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

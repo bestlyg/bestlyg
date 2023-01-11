@@ -1,17 +1,19 @@
 {
-  "name": "482. 密钥格式化",
-  "url": "https://leetcode-cn.com/problems/license-key-formatting/",
-  "difficulty": "简单",
-  "tag": ["字符串"],
-  "desc": "给定非空字符串 S 和数字 K，按照上面描述的规则进行格式化。",
-  "solutions": [
-    {
-      "date": 1633276800000,
-      "time": 84,
-      "memory": 43.4,
-      "script": "typescript",
-      "desc": "遍历。",
-      "code": "function licenseKeyFormatting(s: string, k: number): string {\n  s = s.toUpperCase().replace(/-/g, '');\n  const sum = s.length;\n  if (sum <= k) return s;\n  const mod = sum % k || k;\n  let ans = s.substr(0, mod) + '-';\n  for (let i = 0, end = sum - mod; i < end; i++) {\n    if (i !== 0 && i % k === 0) ans += '-';\n    ans += s[i + mod];\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "482. 密钥格式化",
+    "url": "https://leetcode-cn.com/problems/license-key-formatting/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定非空字符串 S 和数字 K，按照上面描述的规则进行格式化。",
+    "solutions": [
+        {
+            "date": 1633276800000,
+            "time": 84,
+            "memory": 43.4,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function licenseKeyFormatting(s: string, k: number): string {\n  s = s.toUpperCase().replace(/-/g, '');\n  const sum = s.length;\n  if (sum <= k) return s;\n  const mod = sum % k || k;\n  let ans = s.substr(0, mod) + '-';\n  for (let i = 0, end = sum - mod; i < end; i++) {\n    if (i !== 0 && i % k === 0) ans += '-';\n    ans += s[i + mod];\n  }\n  return ans;\n}"
+        }
+    ]
 }

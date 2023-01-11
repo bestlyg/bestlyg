@@ -1,17 +1,19 @@
 {
-  "name": "236. 二叉树的最近公共祖先",
-  "url": "https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/",
-  "difficulty": "中等",
-  "tag": ["树"],
-  "desc": "给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。",
-  "solutions": [
-    {
-      "date": 1589040000000,
-      "time": 84,
-      "memory": 42.5,
-      "script": "javascript",
-      "desc": "通过 js 特性给每个节点添加 parent 属性，遍历是否有相同父节点进行判断。",
-      "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function (root, p, q) {\n  function treeNodeInorder(node) {\n    if (node.left !== null) {\n      node.left.parent = node;\n      treeNodeInorder(node.left);\n    }\n    if (node.right !== null) {\n      node.right.parent = node;\n      treeNodeInorder(node.right);\n    }\n  }\n  treeNodeInorder(root);\n  root.parent = root;\n  let temp = p;\n  const queueP = [temp];\n  while (temp.parent !== root) {\n    queueP.push(temp.parent);\n    temp = temp.parent;\n  }\n  queueP.push(root);\n  temp = q;\n  const queueQ = [temp];\n  while (temp.parent !== root) {\n    queueQ.push(temp.parent);\n    temp = temp.parent;\n  }\n  queueQ.push(root);\n  for (const node of queueP) {\n    if (queueQ.includes(node)) return node;\n  }\n  return root;\n};"
-    }
-  ]
+    "name": "236. 二叉树的最近公共祖先",
+    "url": "https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树"
+    ],
+    "desc": "给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。",
+    "solutions": [
+        {
+            "date": 1589040000000,
+            "time": 84,
+            "memory": 42.5,
+            "script": "javascript",
+            "desc": "通过 js 特性给每个节点添加 parent 属性，遍历是否有相同父节点进行判断。",
+            "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function (root, p, q) {\n  function treeNodeInorder(node) {\n    if (node.left !== null) {\n      node.left.parent = node;\n      treeNodeInorder(node.left);\n    }\n    if (node.right !== null) {\n      node.right.parent = node;\n      treeNodeInorder(node.right);\n    }\n  }\n  treeNodeInorder(root);\n  root.parent = root;\n  let temp = p;\n  const queueP = [temp];\n  while (temp.parent !== root) {\n    queueP.push(temp.parent);\n    temp = temp.parent;\n  }\n  queueP.push(root);\n  temp = q;\n  const queueQ = [temp];\n  while (temp.parent !== root) {\n    queueQ.push(temp.parent);\n    temp = temp.parent;\n  }\n  queueQ.push(root);\n  for (const node of queueP) {\n    if (queueQ.includes(node)) return node;\n  }\n  return root;\n};"
+        }
+    ]
 }

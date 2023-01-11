@@ -1,33 +1,43 @@
 {
-  "name": "14. 最长公共前缀",
-  "url": "https://leetcode-cn.com/problems/longest-common-prefix/",
-  "difficulty": "简单",
-  "tag": ["字符串"],
-  "desc": "编写一个函数来查找字符串数组中的最长公共前缀。",
-  "solutions": [
-    {
-      "date": 1591113600000,
-      "time": 80,
-      "memory": 36.4,
-      "script": "typescript",
-      "desc": "内部用函数判断头部重复字符数。",
-      "code": "function longestCommonPrefix(strs: string[]): string {\n  const len = strs.length;\n  if (len === 0) return '';\n  let commonS = strs[0];\n  for (let i = 1; i < len; i++) if ((commonS = comp(strs[i], commonS)) === '') return commonS;\n  return commonS;\n  function comp(s: string, commonS: string): string {\n    for (let i = 0, minLen = Math.min(s.length, commonS.length); i <= minLen; i++)\n      if (s[i] !== commonS[i]) return commonS.substring(0, i);\n    return commonS;\n  }\n}"
-    },
-    {
-      "date": 1592150400000,
-      "time": 84,
-      "memory": 37,
-      "script": "typescript",
-      "desc": "纵向判断。",
-      "code": "function longestCommonPrefix(strs: string[]): string {\n  const len = strs.length;\n  if (len === 0) return '';\n  const commonPrefix = strs[0];\n  for (let i = 0, cl = commonPrefix.length; i < cl; i++)\n    for (const str of strs) if (commonPrefix[i] !== str[i]) return commonPrefix.substring(0, i);\n  return commonPrefix;\n}"
-    },
-    {
-      "date": 1634313600000,
-      "time": 80,
-      "memory": 40.4,
-      "script": "typescript",
-      "desc": "字典树。",
-      "code": "class TrieNode {\n  end = false;\n  children: Map<string, TrieNode> = new Map();\n  constructor(public val: string) {}\n}\nclass Trie {\n  private _size = 0;\n  get size() {\n    return this._size;\n  }\n  get empty() {\n    return this._size === 0;\n  }\n  private _root = new TrieNode('');\n  get root() {\n    return this._root;\n  }\n  clear() {\n    this._root = new TrieNode('');\n    this._size = 0;\n  }\n  add(str: string) {\n    return this._add(str);\n  }\n  private _add(str: string, node = this._root) {\n    if (str.length === 0) {\n      this._root.end = true;\n      this._size++;\n      return;\n    }\n    if (str.length === 1) {\n      let endNode = node.children.get(str);\n      if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));\n      if (!endNode.end) {\n        endNode.end = true;\n        this._size++;\n      }\n      return;\n    }\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));\n    const nextStr = str.substr(1);\n    this._add(nextStr, nextNode);\n  }\n  contains(str: string) {\n    const endNode = this.findEndNode(str);\n    return endNode ? endNode.end : false;\n  }\n  remove(str: string) {\n    const endNode = this.findEndNode(str);\n    if (endNode && endNode.end) {\n      endNode.end = false;\n      this._size--;\n    }\n  }\n  starsWith(str: string) {\n    return this.findEndNode(str) !== null;\n  }\n  private findEndNode(str: string, node = this._root): TrieNode | null {\n    if (str.length === 0) return this._root;\n    if (str.length === 1) return node.children.get(str) ?? null;\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) return null;\n    const nextStr = str.substr(1);\n    return this.findEndNode(nextStr, nextNode);\n  }\n}\nfunction longestCommonPrefix(strs: string[]): string {\n  const trie = new Trie();\n  for (const str of strs) {\n    if (str === '') return '';\n    trie.add(str);\n  }\n  let node = trie.root;\n  let ans = '';\n  while (node.children.size === 1 && !node.end) {\n    ans += node.val;\n    node = [...node.children.values()][0];\n  }\n  ans += node.val;\n  return ans;\n}"
-    }
-  ]
+    "name": "14. 最长公共前缀",
+    "url": "https://leetcode-cn.com/problems/longest-common-prefix/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "编写一个函数来查找字符串数组中的最长公共前缀。",
+    "solutions": [
+        {
+            "date": 1591113600000,
+            "time": 80,
+            "memory": 36.4,
+            "script": "typescript",
+            "desc": "内部用函数判断头部重复字符数。",
+            "code": "function longestCommonPrefix(strs: string[]): string {\n  const len = strs.length;\n  if (len === 0) return '';\n  let commonS = strs[0];\n  for (let i = 1; i < len; i++) if ((commonS = comp(strs[i], commonS)) === '') return commonS;\n  return commonS;\n  function comp(s: string, commonS: string): string {\n    for (let i = 0, minLen = Math.min(s.length, commonS.length); i <= minLen; i++)\n      if (s[i] !== commonS[i]) return commonS.substring(0, i);\n    return commonS;\n  }\n}"
+        },
+        {
+            "date": 1592150400000,
+            "time": 84,
+            "memory": 37,
+            "script": "typescript",
+            "desc": "纵向判断。",
+            "code": "function longestCommonPrefix(strs: string[]): string {\n  const len = strs.length;\n  if (len === 0) return '';\n  const commonPrefix = strs[0];\n  for (let i = 0, cl = commonPrefix.length; i < cl; i++)\n    for (const str of strs) if (commonPrefix[i] !== str[i]) return commonPrefix.substring(0, i);\n  return commonPrefix;\n}"
+        },
+        {
+            "date": 1634313600000,
+            "time": 80,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "字典树。",
+            "code": "class TrieNode {\n  end = false;\n  children: Map<string, TrieNode> = new Map();\n  constructor(public val: string) {}\n}\nclass Trie {\n  private _size = 0;\n  get size() {\n    return this._size;\n  }\n  get empty() {\n    return this._size === 0;\n  }\n  private _root = new TrieNode('');\n  get root() {\n    return this._root;\n  }\n  clear() {\n    this._root = new TrieNode('');\n    this._size = 0;\n  }\n  add(str: string) {\n    return this._add(str);\n  }\n  private _add(str: string, node = this._root) {\n    if (str.length === 0) {\n      this._root.end = true;\n      this._size++;\n      return;\n    }\n    if (str.length === 1) {\n      let endNode = node.children.get(str);\n      if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));\n      if (!endNode.end) {\n        endNode.end = true;\n        this._size++;\n      }\n      return;\n    }\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));\n    const nextStr = str.substr(1);\n    this._add(nextStr, nextNode);\n  }\n  contains(str: string) {\n    const endNode = this.findEndNode(str);\n    return endNode ? endNode.end : false;\n  }\n  remove(str: string) {\n    const endNode = this.findEndNode(str);\n    if (endNode && endNode.end) {\n      endNode.end = false;\n      this._size--;\n    }\n  }\n  starsWith(str: string) {\n    return this.findEndNode(str) !== null;\n  }\n  private findEndNode(str: string, node = this._root): TrieNode | null {\n    if (str.length === 0) return this._root;\n    if (str.length === 1) return node.children.get(str) ?? null;\n    const first = str[0];\n    let nextNode = node.children.get(first);\n    if (!nextNode) return null;\n    const nextStr = str.substr(1);\n    return this.findEndNode(nextStr, nextNode);\n  }\n}\nfunction longestCommonPrefix(strs: string[]): string {\n  const trie = new Trie();\n  for (const str of strs) {\n    if (str === '') return '';\n    trie.add(str);\n  }\n  let node = trie.root;\n  let ans = '';\n  while (node.children.size === 1 && !node.end) {\n    ans += node.val;\n    node = [...node.children.values()][0];\n  }\n  ans += node.val;\n  return ans;\n}"
+        },
+        {
+            "date": 1639929600000,
+            "time": 4,
+            "memory": 9,
+            "script": "c++",
+            "desc": "遍历每一位。",
+            "code": "class Solution {\n   public:\n    string longestCommonPrefix(vector<string>& strs) {\n        int n = strs.size();\n        int maxn = 200;\n        for (int i = 0; i < n; i++) {\n            if (strs[i].size() < maxn) maxn = strs[i].size();\n        }\n        string ans = \"\";\n        if (maxn == 0) return ans;\n        for (int i = 0; i < maxn; i++) {\n            char ch = strs[0][i];\n            for (int j = 1; j < n; j++) {\n                if (strs[j][i] != ch) return ans;\n            }\n            ans += ch;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

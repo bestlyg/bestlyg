@@ -1,25 +1,29 @@
 {
-  "name": "388. 文件的最长绝对路径",
-  "url": "https://leetcode-cn.com/problems/longest-absolute-file-path/",
-  "difficulty": "中等",
-  "tag": ["栈", "深度优先搜索", "字符串"],
-  "desc": "给定一个以上述格式表示文件系统的字符串 input ，返回文件系统中 指向 文件 的 最长绝对路径 的长度 。 如果系统中没有文件，返回 0。",
-  "solutions": [
-    {
-      "date": 1648051200000,
-      "time": 68,
-      "memory": 42.4,
-      "script": "typescript",
-      "desc": "遍历，栈存储父级。",
-      "code": "class FNode {\n  parent: FNode | null = null;\n  constructor(public name: string, public level: number) {}\n  path() {\n    let res = this.name;\n    let parent = this.parent;\n    while (parent) {\n      res = parent.name + '/' + res;\n      parent = parent.parent;\n    }\n    return res;\n  }\n  isFile() {\n    return this.name.includes('.');\n  }\n}\nfunction format(str: string): [number, string] {\n  let level = 0;\n  while (str[level] == '\\t') level++;\n  return [level, str.substr(level)];\n}\nfunction lengthLongestPath(input: string): number {\n  const stack: FNode[] = [];\n  let ans = '';\n  for (const item of input.split('\\n')) {\n    const [level, str] = format(item);\n    const node = new FNode(str, level);\n    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();\n    if (stack.length) {\n      const parent = stack[stack.length - 1];\n      node.parent = parent;\n    }\n    stack.push(node);\n    if (node.isFile()) {\n      const path = node.path();\n      ans = ans.length < path.length ? path : ans;\n    }\n  }\n  return ans.length;\n}"
-    },
-    {
-      "date": 1650384000000,
-      "time": 0,
-      "memory": 6.4,
-      "script": "cpp",
-      "desc": "栈。",
-      "code": "class Solution {\n   public:\n    int lengthLongestPath(string input) {\n        vector<string> s;\n        istringstream iss(input);\n        string tmp;\n        int ans = 0;\n        while (getline(iss, tmp, '\n')) {\n            int idx = 0;\n            while (idx < tmp.size() && tmp[idx] == '\t') idx++;\n            while (s.size() && s.size() > idx) s.pop_back();\n            string next = tmp.substr(idx, tmp.size() - idx);\n            s.push_back(next);\n            if (next.rfind(\".\") < next.size()) ans = max(ans, format(s));\n        }\n        return ans;\n    }\n    int format(vector<string> &s) {\n        int res = s.size() - 1;\n        for (auto &str : s) res += str.size();\n        return res;\n    }\n};"
-    }
-  ]
+    "name": "388. 文件的最长绝对路径",
+    "url": "https://leetcode-cn.com/problems/longest-absolute-file-path/",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "深度优先搜索",
+        "字符串"
+    ],
+    "desc": "给定一个以上述格式表示文件系统的字符串 input ，返回文件系统中 指向 文件 的 最长绝对路径 的长度 。 如果系统中没有文件，返回 0。",
+    "solutions": [
+        {
+            "date": 1648051200000,
+            "time": 68,
+            "memory": 42.4,
+            "script": "typescript",
+            "desc": "遍历，栈存储父级。",
+            "code": "class FNode {\n  parent: FNode | null = null;\n  constructor(public name: string, public level: number) {}\n  path() {\n    let res = this.name;\n    let parent = this.parent;\n    while (parent) {\n      res = parent.name + '/' + res;\n      parent = parent.parent;\n    }\n    return res;\n  }\n  isFile() {\n    return this.name.includes('.');\n  }\n}\nfunction format(str: string): [number, string] {\n  let level = 0;\n  while (str[level] == '\\t') level++;\n  return [level, str.substr(level)];\n}\nfunction lengthLongestPath(input: string): number {\n  const stack: FNode[] = [];\n  let ans = '';\n  for (const item of input.split('\\n')) {\n    const [level, str] = format(item);\n    const node = new FNode(str, level);\n    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();\n    if (stack.length) {\n      const parent = stack[stack.length - 1];\n      node.parent = parent;\n    }\n    stack.push(node);\n    if (node.isFile()) {\n      const path = node.path();\n      ans = ans.length < path.length ? path : ans;\n    }\n  }\n  return ans.length;\n}"
+        },
+        {
+            "date": 1650384000000,
+            "time": 0,
+            "memory": 6.4,
+            "script": "cpp",
+            "desc": "栈。",
+            "code": "class Solution {\n   public:\n    int lengthLongestPath(string input) {\n        vector<string> s;\n        istringstream iss(input);\n        string tmp;\n        int ans = 0;\n        while (getline(iss, tmp, '\n')) {\n            int idx = 0;\n            while (idx < tmp.size() && tmp[idx] == '\t') idx++;\n            while (s.size() && s.size() > idx) s.pop_back();\n            string next = tmp.substr(idx, tmp.size() - idx);\n            s.push_back(next);\n            if (next.rfind(\".\") < next.size()) ans = max(ans, format(s));\n        }\n        return ans;\n    }\n    int format(vector<string> &s) {\n        int res = s.size() - 1;\n        for (auto &str : s) res += str.size();\n        return res;\n    }\n};"
+        }
+    ]
 }

@@ -1,17 +1,20 @@
 {
-  "name": "319. 灯泡开关",
-  "url": "https://leetcode-cn.com/problems/bulb-switcher/",
-  "difficulty": "中等",
-  "tag": ["脑筋急转弯", "数学"],
-  "desc": "找出并返回 n 轮后有多少个亮着的灯泡。",
-  "solutions": [
-    {
-      "date": 1636905600000,
-      "time": 76,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "求出完全平方数即亮灯个数。",
-      "code": "function bulbSwitch(n: number): number {\n  return Math.floor(Math.sqrt(n + 0.5));\n}"
-    }
-  ]
+    "name": "319. 灯泡开关",
+    "url": "https://leetcode-cn.com/problems/bulb-switcher/",
+    "difficulty": "中等",
+    "tag": [
+        "脑筋急转弯",
+        "数学"
+    ],
+    "desc": "找出并返回 n 轮后有多少个亮着的灯泡。",
+    "solutions": [
+        {
+            "date": 1636905600000,
+            "time": 76,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "求出完全平方数即亮灯个数。",
+            "code": "function bulbSwitch(n: number): number {\n  return Math.floor(Math.sqrt(n + 0.5));\n}"
+        }
+    ]
 }

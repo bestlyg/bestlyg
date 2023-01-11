@@ -1,17 +1,24 @@
 {
-  "name": "787. K 站中转内最便宜的航班",
-  "url": "https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索", "广度优先搜索", "图", "动态规划", "最短路", "堆(优先队列)"],
-  "desc": "现在给定所有的城市和航班，以及出发城市 src 和目的地 dst，你的任务是找到出一条最多经过 k  站中转的路线，使得从 src 到 dst 的 价格最便宜 ，并返回该价格。 如果不存在这样的路线，则输出 -1。",
-  "solutions": [
-    {
-      "date": 1629734400000,
-      "time": 128,
-      "memory": 44.6,
-      "script": "typescript",
-      "desc": "动态规划，计算每天每个航班的最小值。",
-      "code": "function findCheapestPrice(\n  n: number,\n  flights: number[][],\n  src: number,\n  dst: number,\n  k: number\n): number {\n  const map = new Map<number, number[]>();\n  for (let i = 0; i < flights.length; i++) {\n    const [from] = flights[i];\n    let list = map.get(from);\n    if (!list) map.set(from, (list = []));\n    list.push(i);\n  }\n  const dp = new Array(k + 2).fill(0).map(_ => new Array(n).fill(Infinity));\n  dp[0][src] = 0;\n  let ans = Infinity;\n  for (let i = 1; i <= k + 1; i++) {\n    for (let j = 0; j < n; j++) {\n      if (dp[i - 1][j] === Infinity) continue;\n      const list = map.get(j);\n      if (!list) continue;\n      for (const flightIdx of list) {\n        const [, to, price] = flights[flightIdx];\n        dp[i][to] = Math.min(dp[i][to], dp[i - 1][j] + price);\n        if (to === dst) ans = Math.min(dp[i][to], ans);\n      }\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
-    }
-  ]
+    "name": "787. K 站中转内最便宜的航班",
+    "url": "https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "动态规划",
+        "最短路",
+        "堆(优先队列)"
+    ],
+    "desc": "现在给定所有的城市和航班，以及出发城市 src 和目的地 dst，你的任务是找到出一条最多经过 k  站中转的路线，使得从 src 到 dst 的 价格最便宜 ，并返回该价格。 如果不存在这样的路线，则输出 -1。",
+    "solutions": [
+        {
+            "date": 1629734400000,
+            "time": 128,
+            "memory": 44.6,
+            "script": "typescript",
+            "desc": "动态规划，计算每天每个航班的最小值。",
+            "code": "function findCheapestPrice(\n  n: number,\n  flights: number[][],\n  src: number,\n  dst: number,\n  k: number\n): number {\n  const map = new Map<number, number[]>();\n  for (let i = 0; i < flights.length; i++) {\n    const [from] = flights[i];\n    let list = map.get(from);\n    if (!list) map.set(from, (list = []));\n    list.push(i);\n  }\n  const dp = new Array(k + 2).fill(0).map(_ => new Array(n).fill(Infinity));\n  dp[0][src] = 0;\n  let ans = Infinity;\n  for (let i = 1; i <= k + 1; i++) {\n    for (let j = 0; j < n; j++) {\n      if (dp[i - 1][j] === Infinity) continue;\n      const list = map.get(j);\n      if (!list) continue;\n      for (const flightIdx of list) {\n        const [, to, price] = flights[flightIdx];\n        dp[i][to] = Math.min(dp[i][to], dp[i - 1][j] + price);\n        if (to === dst) ans = Math.min(dp[i][to], ans);\n      }\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+        }
+    ]
 }

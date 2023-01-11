@@ -1,25 +1,27 @@
 {
-  "name": "25. K 个一组翻转链表",
-  "url": "https://leetcode-cn.com/problems/reverse-nodes-in-k-group/",
-  "difficulty": "困难",
-  "tag": ["链表"],
-  "desc": "给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。",
-  "solutions": [
-    {
-      "date": 1589558400000,
-      "time": 96,
-      "memory": 37.7,
-      "script": "javascript",
-      "desc": "每 K 个进行截取翻转。",
-      "code": "function listNodeLastNode(node) {\n  let temp = node;\n  if (temp === null) return null;\n  while (temp.next !== null) temp = temp.next;\n  return temp;\n}\nfunction listNodeReverse(node) {\n  let newRoot;\n  function _reverse(node, prevNode) {\n    if (node.next !== null) _reverse(node.next, node);\n    else newRoot = node;\n    node.next = prevNode;\n  }\n  _reverse(node, null);\n  return newRoot;\n}\nfunction listNodeLength(node) {\n  let l = 0,\n    temp = node;\n  if (temp === null) return l;\n  while (temp !== null) {\n    l++;\n    temp = temp.next;\n  }\n  return l;\n}\n/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} k\n * @return {ListNode}\n */\nvar reverseKGroup = function (head, k) {\n  if (head === null) return null;\n  let temp = head,\n    num = k;\n  const rootArr = [temp];\n  while (temp !== null) {\n    if (--num === 0) {\n      const next = temp.next;\n      temp.next = null;\n      temp = next;\n      num = k;\n      rootArr.push(next);\n    } else temp = temp.next;\n  }\n  const len = rootArr.length;\n  let root, lastNode;\n  for (let i = 0; i < len; i++) {\n    if (i === len - 1) {\n      if (listNodeLength(rootArr[i]) !== k) lastNode.next = rootArr[i];\n      else lastNode.next = listNodeReverse(rootArr[i]);\n    } else {\n      if (i === 0) root = listNodeReverse(rootArr[i]);\n      else lastNode.next = listNodeReverse(rootArr[i]);\n      lastNode = listNodeLastNode(root);\n    }\n  }\n  return root;\n};"
-    },
-    {
-      "date": 1614960000000,
-      "time": 100,
-      "memory": 42.5,
-      "script": "typescript",
-      "desc": "递归。",
-      "code": "function _reverseList(head: ListNode, count: number): ListNode | null {\n  if (count === 1 || head.next === null) return head;\n  const tail = head.next;\n  const nextList = _reverseList(tail, count - 1);\n  head.next = tail.next;\n  tail.next = head;\n  return nextList;\n}\nfunction reverseList(head: ListNode, count: number): ListNode | null {\n  let temp: ListNode | null = head;\n  let c = count;\n  while (--c && temp) temp = temp.next;\n  return temp ? _reverseList(head, count) : head;\n}\nfunction reverseKGroup(head: ListNode | null, k: number): ListNode | null {\n  const dummyHead = new ListNode(0, head);\n  let temp: ListNode = dummyHead;\n  while (temp !== null && temp.next !== null) {\n    temp!.next = reverseList(temp.next!, k);\n    let count = k;\n    while (count-- && temp !== null) temp = temp.next!;\n  }\n  return dummyHead.next;\n}"
-    }
-  ]
+    "name": "25. K 个一组翻转链表",
+    "url": "https://leetcode-cn.com/problems/reverse-nodes-in-k-group/",
+    "difficulty": "困难",
+    "tag": [
+        "链表"
+    ],
+    "desc": "给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。",
+    "solutions": [
+        {
+            "date": 1589558400000,
+            "time": 96,
+            "memory": 37.7,
+            "script": "javascript",
+            "desc": "每 K 个进行截取翻转。",
+            "code": "function listNodeLastNode(node) {\n  let temp = node;\n  if (temp === null) return null;\n  while (temp.next !== null) temp = temp.next;\n  return temp;\n}\nfunction listNodeReverse(node) {\n  let newRoot;\n  function _reverse(node, prevNode) {\n    if (node.next !== null) _reverse(node.next, node);\n    else newRoot = node;\n    node.next = prevNode;\n  }\n  _reverse(node, null);\n  return newRoot;\n}\nfunction listNodeLength(node) {\n  let l = 0,\n    temp = node;\n  if (temp === null) return l;\n  while (temp !== null) {\n    l++;\n    temp = temp.next;\n  }\n  return l;\n}\n/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode} head\n * @param {number} k\n * @return {ListNode}\n */\nvar reverseKGroup = function (head, k) {\n  if (head === null) return null;\n  let temp = head,\n    num = k;\n  const rootArr = [temp];\n  while (temp !== null) {\n    if (--num === 0) {\n      const next = temp.next;\n      temp.next = null;\n      temp = next;\n      num = k;\n      rootArr.push(next);\n    } else temp = temp.next;\n  }\n  const len = rootArr.length;\n  let root, lastNode;\n  for (let i = 0; i < len; i++) {\n    if (i === len - 1) {\n      if (listNodeLength(rootArr[i]) !== k) lastNode.next = rootArr[i];\n      else lastNode.next = listNodeReverse(rootArr[i]);\n    } else {\n      if (i === 0) root = listNodeReverse(rootArr[i]);\n      else lastNode.next = listNodeReverse(rootArr[i]);\n      lastNode = listNodeLastNode(root);\n    }\n  }\n  return root;\n};"
+        },
+        {
+            "date": 1614960000000,
+            "time": 100,
+            "memory": 42.5,
+            "script": "typescript",
+            "desc": "递归。",
+            "code": "function _reverseList(head: ListNode, count: number): ListNode | null {\n  if (count === 1 || head.next === null) return head;\n  const tail = head.next;\n  const nextList = _reverseList(tail, count - 1);\n  head.next = tail.next;\n  tail.next = head;\n  return nextList;\n}\nfunction reverseList(head: ListNode, count: number): ListNode | null {\n  let temp: ListNode | null = head;\n  let c = count;\n  while (--c && temp) temp = temp.next;\n  return temp ? _reverseList(head, count) : head;\n}\nfunction reverseKGroup(head: ListNode | null, k: number): ListNode | null {\n  const dummyHead = new ListNode(0, head);\n  let temp: ListNode = dummyHead;\n  while (temp !== null && temp.next !== null) {\n    temp!.next = reverseList(temp.next!, k);\n    let count = k;\n    while (count-- && temp !== null) temp = temp.next!;\n  }\n  return dummyHead.next;\n}"
+        }
+    ]
 }

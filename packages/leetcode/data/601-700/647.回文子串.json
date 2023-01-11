@@ -1,17 +1,20 @@
 {
-  "name": "647. 回文子串",
-  "url": "https://leetcode-cn.com/problems/palindromic-substrings/",
-  "difficulty": "中等",
-  "tag": ["字符串", "动态规划"],
-  "desc": "给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。",
-  "solutions": [
-    {
-      "date": 1597766400000,
-      "time": 88,
-      "memory": 37.5,
-      "script": "typescript",
-      "desc": "遍历每个中心点,进行向外扩张判断。",
-      "code": "function countSubstrings(s: string): number {\n  const n = s.length;\n  let ans = 0;\n  for (let i = 0; i < 2 * n - 1; ++i) {\n    let l = ~~(i / 2);\n    let r = l + (i % 2);\n    while (l >= 0 && r < n && s[l] === s[r]) {\n      --l;\n      ++r;\n      ++ans;\n    }\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "647. 回文子串",
+    "url": "https://leetcode-cn.com/problems/palindromic-substrings/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。",
+    "solutions": [
+        {
+            "date": 1597766400000,
+            "time": 88,
+            "memory": 37.5,
+            "script": "typescript",
+            "desc": "遍历每个中心点,进行向外扩张判断。",
+            "code": "function countSubstrings(s: string): number {\n  const n = s.length;\n  let ans = 0;\n  for (let i = 0; i < 2 * n - 1; ++i) {\n    let l = ~~(i / 2);\n    let r = l + (i % 2);\n    while (l >= 0 && r < n && s[l] === s[r]) {\n      --l;\n      ++r;\n      ++ans;\n    }\n  }\n  return ans;\n}"
+        }
+    ]
 }

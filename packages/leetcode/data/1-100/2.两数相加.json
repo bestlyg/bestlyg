@@ -1,33 +1,36 @@
 {
-  "name": "2. 两数相加",
-  "url": "https://leetcode-cn.com/problems/add-two-numbers/",
-  "difficulty": "中等",
-  "tag": ["链表", "数学"],
-  "desc": "给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照   逆序   的方式存储的，并且它们的每个节点只能存储   一位   数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。您可以假设除了数字 0 之外，这两个数都不会以 0  开头。",
-  "solutions": [
-    {
-      "date": 1568908800000,
-      "time": 144,
-      "memory": 38.4,
-      "script": "javascript",
-      "desc": "创建第三个链表，其中每个值为前两个链表相加，然后再次循环判断是否有一个节点值大于等于 10，若存在则-10 且下一个节点值+1。",
-      "code": "var addTwoNumbers = function (l1, l2) {\n  let node1 = l1,\n    node2 = l2;\n  let tempNode = new ListNode(node1.val + node2.val);\n  let node3 = tempNode;\n  while (node1.next !== null && node2.next !== null) {\n    node1 = node1.next;\n    node2 = node2.next;\n    tempNode.next = new ListNode(node1.val + node2.val);\n    tempNode = tempNode.next;\n  }\n  if (node1.next !== null) {\n    tempNode.next = node1.next;\n  }\n  if (node2.next !== null) {\n    tempNode.next = node2.next;\n  }\n  tempNode = node3;\n  while (tempNode !== null) {\n    if (tempNode.val >= 10) {\n      tempNode.val -= 10;\n      if (tempNode.next !== null) {\n        tempNode.next.val += 1;\n      } else {\n        tempNode.next = new ListNode(1);\n      }\n    }\n    tempNode = tempNode.next;\n  }\n  return node3;\n};"
-    },
-    {
-      "date": 1568908800000,
-      "time": 248,
-      "memory": 46.2,
-      "script": "javascript",
-      "desc": "创建待返回链表 node3，创建进位参数 carry，遍历 l1 和 l2，如果节点 1+节点 2+carry 没有大于 10 则直接储存，若相加大于 10 则存入 carry，余数部分直接储存。",
-      "code": "var addTwoNumbers = function (l1, l2) {\n  let tempNode = new ListNode(0);\n  let node3 = tempNode;\n  let carry = 0;\n  while (l1 !== null || l2 !== null) {\n    let x = l1 === null ? 0 : l1.val;\n    let y = l2 === null ? 0 : l2.val;\n    let sum = x + y + carry;\n    carry = Math.floor(sum / 10);\n    sum = Math.floor(sum % 10);\n    console.log(carry, sum);\n    tempNode.next = new ListNode(sum);\n    tempNode = tempNode.next;\n    if (l1 !== null) {\n      l1 = l1.next;\n    }\n    if (l2 !== null) {\n      l2 = l2.next;\n    }\n  }\n  if (carry === 1) {\n    tempNode.next = new ListNode(1);\n  }\n  return node3.next;\n};"
-    },
-    {
-      "date": 1601740800000,
-      "time": 144,
-      "memory": 43.6,
-      "script": "typescript",
-      "desc": "遍历所有节点。",
-      "code": "function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {\n  const list = new ListNode(0);\n  let temp = list;\n  let add = 0;\n  while (l1 !== null || l2 !== null) {\n    let sum = (l1?.val ?? 0) + (l2?.val ?? 0) + add;\n    add = 0;\n    if (sum >= 10) {\n      sum -= 10;\n      add++;\n    }\n    temp.next = new ListNode(sum);\n    temp = temp.next;\n    l1 = l1 === null ? null : l1.next;\n    l2 = l2 === null ? null : l2.next;\n  }\n  if (add !== 0) temp.next = new ListNode(add);\n  return list.next;\n}"
-    }
-  ]
+    "name": "2. 两数相加",
+    "url": "https://leetcode-cn.com/problems/add-two-numbers/",
+    "difficulty": "中等",
+    "tag": [
+        "链表",
+        "数学"
+    ],
+    "desc": "给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照   逆序   的方式存储的，并且它们的每个节点只能存储   一位   数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。您可以假设除了数字 0 之外，这两个数都不会以 0  开头。",
+    "solutions": [
+        {
+            "date": 1568908800000,
+            "time": 144,
+            "memory": 38.4,
+            "script": "javascript",
+            "desc": "创建第三个链表，其中每个值为前两个链表相加，然后再次循环判断是否有一个节点值大于等于 10，若存在则-10 且下一个节点值+1。",
+            "code": "var addTwoNumbers = function (l1, l2) {\n  let node1 = l1,\n    node2 = l2;\n  let tempNode = new ListNode(node1.val + node2.val);\n  let node3 = tempNode;\n  while (node1.next !== null && node2.next !== null) {\n    node1 = node1.next;\n    node2 = node2.next;\n    tempNode.next = new ListNode(node1.val + node2.val);\n    tempNode = tempNode.next;\n  }\n  if (node1.next !== null) {\n    tempNode.next = node1.next;\n  }\n  if (node2.next !== null) {\n    tempNode.next = node2.next;\n  }\n  tempNode = node3;\n  while (tempNode !== null) {\n    if (tempNode.val >= 10) {\n      tempNode.val -= 10;\n      if (tempNode.next !== null) {\n        tempNode.next.val += 1;\n      } else {\n        tempNode.next = new ListNode(1);\n      }\n    }\n    tempNode = tempNode.next;\n  }\n  return node3;\n};"
+        },
+        {
+            "date": 1568908800000,
+            "time": 248,
+            "memory": 46.2,
+            "script": "javascript",
+            "desc": "创建待返回链表 node3，创建进位参数 carry，遍历 l1 和 l2，如果节点 1+节点 2+carry 没有大于 10 则直接储存，若相加大于 10 则存入 carry，余数部分直接储存。",
+            "code": "var addTwoNumbers = function (l1, l2) {\n  let tempNode = new ListNode(0);\n  let node3 = tempNode;\n  let carry = 0;\n  while (l1 !== null || l2 !== null) {\n    let x = l1 === null ? 0 : l1.val;\n    let y = l2 === null ? 0 : l2.val;\n    let sum = x + y + carry;\n    carry = Math.floor(sum / 10);\n    sum = Math.floor(sum % 10);\n    console.log(carry, sum);\n    tempNode.next = new ListNode(sum);\n    tempNode = tempNode.next;\n    if (l1 !== null) {\n      l1 = l1.next;\n    }\n    if (l2 !== null) {\n      l2 = l2.next;\n    }\n  }\n  if (carry === 1) {\n    tempNode.next = new ListNode(1);\n  }\n  return node3.next;\n};"
+        },
+        {
+            "date": 1601740800000,
+            "time": 144,
+            "memory": 43.6,
+            "script": "typescript",
+            "desc": "遍历所有节点。",
+            "code": "function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {\n  const list = new ListNode(0);\n  let temp = list;\n  let add = 0;\n  while (l1 !== null || l2 !== null) {\n    let sum = (l1?.val ?? 0) + (l2?.val ?? 0) + add;\n    add = 0;\n    if (sum >= 10) {\n      sum -= 10;\n      add++;\n    }\n    temp.next = new ListNode(sum);\n    temp = temp.next;\n    l1 = l1 === null ? null : l1.next;\n    l2 = l2 === null ? null : l2.next;\n  }\n  if (add !== 0) temp.next = new ListNode(add);\n  return list.next;\n}"
+        }
+    ]
 }

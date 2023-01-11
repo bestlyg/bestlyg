@@ -1,17 +1,22 @@
 {
-  "name": "2043. 简易银行系统",
-  "url": "https://leetcode-cn.com/problems/simple-bank-system/",
-  "difficulty": "中等",
-  "tag": ["设计", "数组", "哈希表", "模拟"],
-  "desc": "实现 Bank 类。",
-  "solutions": [
-    {
-      "date": 1647532800000,
-      "time": 200,
-      "memory": 113.9,
-      "script": "cpp",
-      "desc": "存储数据后校验。",
-      "code": "class Bank {\n   public:\n    int n;\n    vector<long long> accounts;\n    Bank(vector<long long>& balance) {\n        n = balance.size();\n        this->accounts = balance;\n    }\n    bool transfer(int account1, int account2, long long money) {\n        if (!check_account(account1) || !check_account(account2) ||\n            !check_money(account1, money))\n            return false;\n        accounts[account1 - 1] -= money;\n        accounts[account2 - 1] += money;\n        return true;\n    }\n    bool deposit(int account, long long money) {\n        if (!check_account(account)) return false;\n        accounts[account - 1] += money;\n        return true;\n    }\n    bool withdraw(int account, long long money) {\n        if (!check_account(account) || !check_money(account, money))\n            return false;\n        accounts[account - 1] -= money;\n        return true;\n    }\n    bool check_account(int account) { return account >= 1 && account <= n; }\n    bool check_money(int account, long long money) {\n        return accounts[account - 1] >= money;\n    }\n};"
-    }
-  ]
+    "name": "2043. 简易银行系统",
+    "url": "https://leetcode-cn.com/problems/simple-bank-system/",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表",
+        "模拟"
+    ],
+    "desc": "实现 Bank 类。",
+    "solutions": [
+        {
+            "date": 1647532800000,
+            "time": 200,
+            "memory": 113.9,
+            "script": "cpp",
+            "desc": "存储数据后校验。",
+            "code": "class Bank {\n   public:\n    int n;\n    vector<long long> accounts;\n    Bank(vector<long long>& balance) {\n        n = balance.size();\n        this->accounts = balance;\n    }\n    bool transfer(int account1, int account2, long long money) {\n        if (!check_account(account1) || !check_account(account2) ||\n            !check_money(account1, money))\n            return false;\n        accounts[account1 - 1] -= money;\n        accounts[account2 - 1] += money;\n        return true;\n    }\n    bool deposit(int account, long long money) {\n        if (!check_account(account)) return false;\n        accounts[account - 1] += money;\n        return true;\n    }\n    bool withdraw(int account, long long money) {\n        if (!check_account(account) || !check_money(account, money))\n            return false;\n        accounts[account - 1] -= money;\n        return true;\n    }\n    bool check_account(int account) { return account >= 1 && account <= n; }\n    bool check_money(int account, long long money) {\n        return accounts[account - 1] >= money;\n    }\n};"
+        }
+    ]
 }

@@ -1,8 +1,20 @@
 {
-  "name": "650. 只有两个键的键盘",
-  "url": "https://leetcode-cn.com/problems/2-keys-keyboard/",
-  "difficulty": "中等",
-  "tag": ["数学", "动态规划"],
-  "desc": "给你一个数字 n ，你需要使用最少的操作次数，在记事本上输出 恰好 n 个 'A' 。返回能够打印出 n 个 'A' 的最少操作次数。",
-  "solutions": []
+    "name": "650. 只有两个键的键盘",
+    "url": "https://leetcode-cn.com/problems/2-keys-keyboard/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "动态规划"
+    ],
+    "desc": "给你一个数字 n ，你需要使用最少的操作次数，在记事本上输出 恰好 n 个 'A' 。返回能够打印出 n 个 'A' 的最少操作次数。",
+    "solutions": [
+        {
+            "date": 1631980800000,
+            "time": 76,
+            "memory": 40,
+            "script": "javascript",
+            "desc": "动态规划。",
+            "code": "function minSteps(n: number): number {\n  if (n === 1) return 0;\n  const dp = new Array(n + 1).fill(0);\n  for (let num = 2; num <= n; num++) {\n    if (num % 2 === 0) {\n      dp[num] = dp[num / 2] + 2;\n      continue;\n    }\n    for (let i = num - 1; i >= 2; i--) {\n      if (num % i === 0) {\n        dp[num] = dp[i] + num / i;\n        break;\n      }\n    }\n    if (dp[num] === 0) dp[num] = num;\n  }\n  return dp[n];\n}"
+        }
+    ]
 }

@@ -1,25 +1,43 @@
 {
-  "name": "77. 组合",
-  "url": "https://leetcode-cn.com/problems/combinations/",
-  "difficulty": "中等",
-  "tag": ["回溯算法"],
-  "desc": "给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。",
-  "solutions": [
-    {
-      "date": 1599494400000,
-      "time": 600,
-      "memory": 46.6,
-      "script": "typescript",
-      "desc": "回溯递归，利用 set 进行校验。",
-      "code": "function combine(n: number, k: number): number[][] {\n  const arr: number[] = [-1];\n  const ans: number[][] = [];\n  const used = new Set<number>();\n  find();\n  return ans;\n  function find() {\n    if (used.size === k) {\n      ans.push(arr.slice(1));\n      return;\n    }\n    for (let i = 1; i <= n; i++) {\n      if (!used.has(i) && arr[arr.length - 1] < i) {\n        used.add(i);\n        arr.push(i);\n        find();\n        arr.pop();\n        used.delete(i);\n      }\n    }\n  }\n}"
-    },
-    {
-      "date": 1599494400000,
-      "time": 140,
-      "memory": 46.2,
-      "script": "typescript",
-      "desc": "回溯+剪枝。",
-      "code": "function combine(n: number, k: number): number[][] {\n  const ans: number[][] = [];\n  dfs();\n  return ans;\n  function dfs(cur: number = 1, arr: number[] = []): void {\n    // 剪枝：temp 长度加上区间 [cur, n] 的长度小于 k，不可能构造出长度为 k 的 temp\n    if (arr.length + (n - cur + 1) < k) return;\n    if (arr.length === k) {\n      ans.push(arr);\n      return;\n    }\n    dfs(cur + 1, [...arr, cur]);\n    dfs(cur + 1, arr);\n  }\n}"
-    }
-  ]
+    "name": "77. 组合",
+    "url": "https://leetcode-cn.com/problems/combinations/",
+    "difficulty": "中等",
+    "tag": [
+        "回溯算法"
+    ],
+    "desc": "给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。",
+    "solutions": [
+        {
+            "date": 1599494400000,
+            "time": 600,
+            "memory": 46.6,
+            "script": "typescript",
+            "desc": "回溯递归，利用 set 进行校验。",
+            "code": "function combine(n: number, k: number): number[][] {\n  const arr: number[] = [-1];\n  const ans: number[][] = [];\n  const used = new Set<number>();\n  find();\n  return ans;\n  function find() {\n    if (used.size === k) {\n      ans.push(arr.slice(1));\n      return;\n    }\n    for (let i = 1; i <= n; i++) {\n      if (!used.has(i) && arr[arr.length - 1] < i) {\n        used.add(i);\n        arr.push(i);\n        find();\n        arr.pop();\n        used.delete(i);\n      }\n    }\n  }\n}"
+        },
+        {
+            "date": 1599494400000,
+            "time": 140,
+            "memory": 46.2,
+            "script": "typescript",
+            "desc": "回溯+剪枝。",
+            "code": "function combine(n: number, k: number): number[][] {\n  const ans: number[][] = [];\n  dfs();\n  return ans;\n  function dfs(cur: number = 1, arr: number[] = []): void {\n    // 剪枝：temp 长度加上区间 [cur, n] 的长度小于 k，不可能构造出长度为 k 的 temp\n    if (arr.length + (n - cur + 1) < k) return;\n    if (arr.length === k) {\n      ans.push(arr);\n      return;\n    }\n    dfs(cur + 1, [...arr, cur]);\n    dfs(cur + 1, arr);\n  }\n}"
+        },
+        {
+            "date": 1629388800000,
+            "time": 164,
+            "memory": 46.5,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function combine(n: number, k: number): number[][] {\n  const set = new Set<number>();\n  const ans: number[][] = [];\n  dfs();\n  return ans;\n  function dfs(list: number[] = [], min = 1) {\n    if (list.length === k) {\n      ans.push(list.slice());\n      return;\n    }\n    if (min > n) return;\n    for (let i = min; i <= n; i++) {\n      if (set.has(i)) continue;\n      list.push(i);\n      set.add(i);\n      dfs(list, i + 1);\n      set.delete(i);\n      list.pop();\n    }\n  }\n}"
+        },
+        {
+            "date": 1632067200000,
+            "time": 116,
+            "memory": 43.4,
+            "script": "javascript",
+            "desc": "dfs。",
+            "code": "function combine(n: number, k: number): number[][] {\n  const ans: number[][] = [];\n  for (let i = 1; i <= n; i++) dfs(i);\n  return ans;\n  function dfs(num: number, list: number[] = []): void {\n    if (num === n + 1) return;\n    list.push(num);\n    if (list.length === k) ans.push(list.slice());\n    else for (let i = num + 1; i <= n; i++) dfs(i, list);\n    list.pop();\n  }\n}"
+        }
+    ]
 }

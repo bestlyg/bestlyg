@@ -1,8 +1,20 @@
 {
-  "name": "726. 原子的数量",
-  "url": "https://leetcode-cn.com/problems/number-of-atoms/",
-  "difficulty": "困难",
-  "tag": ["哈希表", "栈"],
-  "desc": "给定一个化学式，输出所有原子的数量。格式为：第一个（按字典序）原子的名子，跟着它的数量（如果数量大于 1），然后是第二个原子的名字（按字典序），跟着它的数量（如果数量大于 1），以此类推。",
-  "solutions": []
+    "name": "726. 原子的数量",
+    "url": "https://leetcode-cn.com/problems/number-of-atoms/",
+    "difficulty": "困难",
+    "tag": [
+        "哈希表",
+        "栈"
+    ],
+    "desc": "给定一个化学式，输出所有原子的数量。格式为：第一个（按字典序）原子的名子，跟着它的数量（如果数量大于 1），然后是第二个原子的名字（按字典序），跟着它的数量（如果数量大于 1），以此类推。",
+    "solutions": [
+        {
+            "date": 1625414400000,
+            "time": 112,
+            "memory": 43,
+            "script": "typescript",
+            "desc": "递归检索括号，逐个存入哈希表中。",
+            "code": "function countOfAtoms(formula: string): string {\n  const uperChar = /^[A-Z]$/;\n  const lowerChar = /^[a-z]$/;\n  const numChar = /^[0-9]$/;\n  const data = getRecord(formula);\n  return Object.entries(data)\n    .sort(([k1], [k2]) => {\n      const len1 = k1.length;\n      const len2 = k2.length;\n      let i = 0;\n      while (i < Math.min(len1, len2)) {\n        const code1 = k1.codePointAt(i)!;\n        const code2 = k2.codePointAt(i)!;\n        if (code1 !== code2) return code1 - code2;\n        else i++;\n      }\n      if (i === len1) return -1;\n      else if (i === len2) return 1;\n      else return 0;\n    })\n    .map(([k, v]) => k + (v === 1 ? '' : v))\n    .join('');\n  function getRecord(str: string): Record<string, number> {\n    const len = str.length;\n    const stack: string[] = [];\n    const map: Record<string, number> = {};\n    for (let i = 0; i < len; i++) {\n      let c = str[i];\n      if (uperChar.test(c)) {\n        stack.push(c);\n      } else if (lowerChar.test(c)) {\n        stack.push(stack.pop()! + c);\n      } else if (c === '(') {\n        let left = 1;\n        let tempStr = '';\n        while (true) {\n          if (str[i + 1] === '(') left++;\n          if (str[i + 1] === ')' && --left === 0) break;\n          tempStr += str[++i];\n        }\n        const internalRecord = getRecord(tempStr);\n        i++;\n        let numStr = '';\n        while (numChar.test(str[i + 1])) numStr += str[++i];\n        const num = +numStr;\n        Object.entries(internalRecord).forEach(([k, v]) => {\n          map[k] = (map[k] ?? 0) + v * (num === 0 ? 1 : num);\n        });\n      } else {\n        while (numChar.test(str[i + 1])) c = c + str[++i];\n        const num = +c;\n        const char = stack.pop()!;\n        map[char] = (map[char] ?? 0) + num;\n      }\n    }\n    while (stack.length !== 0) {\n      const c = stack.pop()!;\n      map[c] = (map[c] ?? 0) + 1;\n    }\n    return map;\n  }\n}"
+        }
+    ]
 }

@@ -1,17 +1,21 @@
 {
-  "name": "556. 下一个更大元素 III",
-  "url": "https://leetcode.cn/problems/wiggle-sort-ii/",
-  "difficulty": "困难",
-  "tag": ["数学", "双指针", "字符串"],
-  "desc": "给你一个正整数 n ，请你找出符合条件的最小整数，其由重新排列 n 中存在的每位数字组成，并且其值大于 n 。如果不存在这样的正整数，则返回 -1 。",
-  "solutions": [
-    {
-      "date": 1656777600000,
-      "time": 0,
-      "memory": 5.8,
-      "script": "cpp",
-      "desc": "从小到大找到第一个逆序的数，再找到第一个逆序数大的数，进行交换，然后翻转后半段。",
-      "code": "class Solution {\n   public:\n    int nextGreaterElement(int n) {\n        string str = to_string(n);\n        int len = str.size(), i = len - 2, j = len - 1;\n        while (i >= 0 && str[i] - '0' >= str[i + 1] - '0') i--;\n        if (i == -1) return -1;\n        while (j > i && str[j] - '0' <= str[i] - '0') j--;\n        swap(str[i], str[j]);\n        reverse(str.begin() + i + 1, str.end());\n        long num = stol(str);\n        return num > INT_MAX ? -1 : num;\n    }\n};"
-    }
-  ]
+    "name": "556. 下一个更大元素 III",
+    "url": "https://leetcode.cn/problems/wiggle-sort-ii/",
+    "difficulty": "困难",
+    "tag": [
+        "数学",
+        "双指针",
+        "字符串"
+    ],
+    "desc": "给你一个正整数 n ，请你找出符合条件的最小整数，其由重新排列 n 中存在的每位数字组成，并且其值大于 n 。如果不存在这样的正整数，则返回 -1 。",
+    "solutions": [
+        {
+            "date": 1656777600000,
+            "time": 0,
+            "memory": 5.8,
+            "script": "cpp",
+            "desc": "从小到大找到第一个逆序的数，再找到第一个逆序数大的数，进行交换，然后翻转后半段。",
+            "code": "class Solution {\n   public:\n    int nextGreaterElement(int n) {\n        string str = to_string(n);\n        int len = str.size(), i = len - 2, j = len - 1;\n        while (i >= 0 && str[i] - '0' >= str[i + 1] - '0') i--;\n        if (i == -1) return -1;\n        while (j > i && str[j] - '0' <= str[i] - '0') j--;\n        swap(str[i], str[j]);\n        reverse(str.begin() + i + 1, str.end());\n        long num = stol(str);\n        return num > INT_MAX ? -1 : num;\n    }\n};"
+        }
+    ]
 }

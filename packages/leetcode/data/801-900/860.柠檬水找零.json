@@ -1,17 +1,19 @@
 {
-  "name": "860. 柠檬水找零",
-  "url": "https://leetcode-cn.com/problems/lemonade-change/",
-  "difficulty": "简单",
-  "tag": ["贪心"],
-  "desc": "在柠檬水摊上，每一杯柠檬水的售价为 5 美元。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。",
-  "solutions": [
-    {
-      "date": 1607529600000,
-      "time": 96,
-      "memory": 40.8,
-      "script": "typescript",
-      "desc": "贪心，20 时尽可能返回 10+5。",
-      "code": "function lemonadeChange(bills: number[]): boolean {\n  let five = 0;\n  let ten = 0;\n  for (const bill of bills) {\n    if (bill === 5) {\n      five++;\n    } else if (bill === 10) {\n      five--;\n      ten++;\n    } else if (ten > 0) {\n      ten--;\n      five--;\n    } else {\n      five -= 3;\n    }\n    if (five < 0) return false;\n  }\n  return true;\n}"
-    }
-  ]
+    "name": "860. 柠檬水找零",
+    "url": "https://leetcode-cn.com/problems/lemonade-change/",
+    "difficulty": "简单",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "在柠檬水摊上，每一杯柠檬水的售价为 5 美元。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。",
+    "solutions": [
+        {
+            "date": 1607529600000,
+            "time": 96,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "贪心，20 时尽可能返回 10+5。",
+            "code": "function lemonadeChange(bills: number[]): boolean {\n  let five = 0;\n  let ten = 0;\n  for (const bill of bills) {\n    if (bill === 5) {\n      five++;\n    } else if (bill === 10) {\n      five--;\n      ten++;\n    } else if (ten > 0) {\n      ten--;\n      five--;\n    } else {\n      five -= 3;\n    }\n    if (five < 0) return false;\n  }\n  return true;\n}"
+        }
+    ]
 }

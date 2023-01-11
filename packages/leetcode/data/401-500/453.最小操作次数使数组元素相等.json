@@ -1,17 +1,20 @@
 {
-  "name": "453. 最小操作次数使数组元素相等",
-  "url": "https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/",
-  "difficulty": "简单",
-  "tag": ["数组", "数学"],
-  "desc": "给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。",
-  "solutions": [
-    {
-      "date": 1634659200000,
-      "time": 92,
-      "memory": 41.4,
-      "script": "typescript",
-      "desc": "每次 n-1 个元素加一，理解为每次 1 个元素减一。",
-      "code": "function minMoves(nums: number[]): number {\n  const min = Math.min(...nums);\n  return nums.reduce((ans, num) => ans + num - min, 0);\n}"
-    }
-  ]
+    "name": "453. 最小操作次数使数组元素相等",
+    "url": "https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。",
+    "solutions": [
+        {
+            "date": 1634659200000,
+            "time": 92,
+            "memory": 41.4,
+            "script": "typescript",
+            "desc": "每次 n-1 个元素加一，理解为每次 1 个元素减一。",
+            "code": "function minMoves(nums: number[]): number {\n  const min = Math.min(...nums);\n  return nums.reduce((ans, num) => ans + num - min, 0);\n}"
+        }
+    ]
 }

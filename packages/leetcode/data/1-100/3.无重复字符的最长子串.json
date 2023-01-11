@@ -1,33 +1,46 @@
 {
-  "name": "3. 无重复字符的最长子串",
-  "url": "https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/",
-  "difficulty": "中等",
-  "tag": ["哈希表", "双指针", "字符串", "滑动窗口"],
-  "desc": "给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。",
-  "solutions": [
-    {
-      "date": 1568908800000,
-      "time": 128,
-      "memory": 37.1,
-      "script": "javascript",
-      "desc": "创建数组，遍历每个字符，若字符不存在数组中则压栈，若字符存在则循环出栈直到字符不存在，每次遍历的最后判断数组长度大于 length 长度，则赋值给 length。",
-      "code": "var lengthOfLongestSubstring = function (s) {\n  let arr = [],\n    length = 0;\n  for (let c of s) {\n    if (arr.indexOf(c) > -1) {\n      while (arr.indexOf(c) > -1) {\n        arr.shift();\n      }\n    }\n    arr.push(c);\n    if (arr.length > length) {\n      length = arr.length;\n    }\n  }\n  return length;\n};"
-    },
-    {
-      "date": 1634313600000,
-      "time": 180,
-      "memory": 47.7,
-      "script": "typescript",
-      "desc": "二分。",
-      "code": "function lengthOfLongestSubstring(s: string): number {\n  if (s.length === 0) return 0;\n  let min = 1;\n  let max = s.length;\n  while (min < max) {\n    const mid = (min + max + 1) >> 1;\n    if (check(mid)) min = mid;\n    else max = mid - 1;\n  }\n  return min;\n  function check(len: number): boolean {\n    const map: Record<string, number> = {};\n    let ans = 0;\n    for (let i = 0; s[i]; i++) {\n      if (!map[s[i]]) ans++;\n      map[s[i]] = (map[s[i]] ?? 0) + 1;\n      if (i >= len) {\n        map[s[i - len]]--;\n        if (map[s[i - len]] === 0) ans--;\n      }\n      if (ans === len) return true;\n    }\n    return false;\n  }\n}"
-    },
-    {
-      "date": 1638201600000,
-      "time": 4,
-      "memory": 5.7,
-      "script": "c",
-      "desc": "滑动窗口判断当前窗口中是否存在超过两次的字符，存在则左侧右移，否则右侧右移。",
-      "code": "int lengthOfLongestSubstring(char * s){\n    int arr[128] = {0};\n    int cnt = 0, l = 0, r = 0, n = strlen(s), ans = 0;\n    while (r < n) {\n        while (r < n && cnt == 0) {\n            arr[s[r]] += 1;\n            if (arr[s[r]] == 2) {\n                ++cnt;\n            }\n            ++r;\n            if (cnt == 0 && ans < r - l) ans = r - l;\n        }\n        while (cnt != 0) {\n            arr[s[l]] -= 1;\n            if (arr[s[l]] == 1) --cnt;\n            ++l;\n        }\n    }\n    return ans;\n}"
-    }
-  ]
+    "name": "3. 无重复字符的最长子串",
+    "url": "https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/",
+    "difficulty": "中等",
+    "tag": [
+        "哈希表",
+        "双指针",
+        "字符串",
+        "滑动窗口"
+    ],
+    "desc": "给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。",
+    "solutions": [
+        {
+            "date": 1568908800000,
+            "time": 128,
+            "memory": 37.1,
+            "script": "javascript",
+            "desc": "创建数组，遍历每个字符，若字符不存在数组中则压栈，若字符存在则循环出栈直到字符不存在，每次遍历的最后判断数组长度大于 length 长度，则赋值给 length。",
+            "code": "var lengthOfLongestSubstring = function (s) {\n  let arr = [],\n    length = 0;\n  for (let c of s) {\n    if (arr.indexOf(c) > -1) {\n      while (arr.indexOf(c) > -1) {\n        arr.shift();\n      }\n    }\n    arr.push(c);\n    if (arr.length > length) {\n      length = arr.length;\n    }\n  }\n  return length;\n};"
+        },
+        {
+            "date": 1634313600000,
+            "time": 180,
+            "memory": 47.7,
+            "script": "typescript",
+            "desc": "二分。",
+            "code": "function lengthOfLongestSubstring(s: string): number {\n  if (s.length === 0) return 0;\n  let min = 1;\n  let max = s.length;\n  while (min < max) {\n    const mid = (min + max + 1) >> 1;\n    if (check(mid)) min = mid;\n    else max = mid - 1;\n  }\n  return min;\n  function check(len: number): boolean {\n    const map: Record<string, number> = {};\n    let ans = 0;\n    for (let i = 0; s[i]; i++) {\n      if (!map[s[i]]) ans++;\n      map[s[i]] = (map[s[i]] ?? 0) + 1;\n      if (i >= len) {\n        map[s[i - len]]--;\n        if (map[s[i - len]] === 0) ans--;\n      }\n      if (ans === len) return true;\n    }\n    return false;\n  }\n}"
+        },
+        {
+            "date": 1638201600000,
+            "time": 4,
+            "memory": 5.7,
+            "script": "c",
+            "desc": "滑动窗口判断当前窗口中是否存在超过两次的字符，存在则左侧右移，否则右侧右移。",
+            "code": "int lengthOfLongestSubstring(char * s){\n    int arr[128] = {0};\n    int cnt = 0, l = 0, r = 0, n = strlen(s), ans = 0;\n    while (r < n) {\n        while (r < n && cnt == 0) {\n            arr[s[r]] += 1;\n            if (arr[s[r]] == 2) {\n                ++cnt;\n            }\n            ++r;\n            if (cnt == 0 && ans < r - l) ans = r - l;\n        }\n        while (cnt != 0) {\n            arr[s[l]] -= 1;\n            if (arr[s[l]] == 1) --cnt;\n            ++l;\n        }\n    }\n    return ans;\n}"
+        },
+        {
+            "date": 1640275200000,
+            "time": 4,
+            "memory": 6.7,
+            "script": "c++",
+            "desc": "双指针。",
+            "code": "class Solution {\n          public:\n    int lengthOfLongestSubstring(string s) {\n        int arr[200] = {0}, l = 0, r = 0, ans = 0, n = s.size();\n        while (r < n) {\n            while (r < n && arr[s[r]] < 1) arr[s[r++]]++;\n            ans = max(ans, r - l);\n            char ch = s[r++];\n            arr[ch]++;\n            while (s[l] != ch) arr[s[l++]]--;\n            arr[s[l++]]--;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

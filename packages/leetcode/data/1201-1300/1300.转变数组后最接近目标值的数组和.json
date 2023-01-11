@@ -1,17 +1,20 @@
 {
-  "name": "1300. 转变数组后最接近目标值的数组和",
-  "url": "https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/",
-  "difficulty": "中等",
-  "tag": ["数组", "二分查找"],
-  "desc": "排序后进行判断，四舍五入",
-  "solutions": [
-    {
-      "date": 1592323200000,
-      "time": 96,
-      "memory": 36,
-      "script": "typescript",
-      "desc": "description。",
-      "code": "function findBestValue(arr: number[], target: number): number {\n  const len = arr.length;\n  if (len === 1) return target > arr[0] ? target : arr[0];\n  arr.sort((a, b) => a - b);\n  let sum = 0;\n  let min = Infinity;\n  let cha = Infinity;\n  for (let i = 0; i < len; i++) {\n    const num = arr[i];\n    const sLen = len - i - 1;\n    sum += num;\n    const need = Math.round((target - sum) / sLen);\n    if (need < num || (i !== len - 1 && need > arr[i + 1])) continue;\n    const newCha = Math.abs(need * sLen + sum - target);\n    compCha(newCha, need);\n    const newCha2 = Math.abs((need - 1) * sLen + sum - target);\n    compCha(newCha2, need - 1);\n  }\n  if (min === Infinity) {\n    const num = Math.round(target / len);\n    if (num < arr[0]) {\n      const newCha = Math.abs(num * len - target);\n      compCha(newCha, num);\n    }\n  }\n  compCha(Math.abs(target - sum), arr[len - 1]);\n  return min;\n  function compCha(newCha: number, need: number): void {\n    if (newCha < cha || (newCha === cha && need < min)) {\n      cha = newCha;\n      min = need;\n    }\n  }\n}"
-    }
-  ]
+    "name": "1300. 转变数组后最接近目标值的数组和",
+    "url": "https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "排序后进行判断，四舍五入",
+    "solutions": [
+        {
+            "date": 1592323200000,
+            "time": 96,
+            "memory": 36,
+            "script": "typescript",
+            "desc": "description。",
+            "code": "function findBestValue(arr: number[], target: number): number {\n  const len = arr.length;\n  if (len === 1) return target > arr[0] ? target : arr[0];\n  arr.sort((a, b) => a - b);\n  let sum = 0;\n  let min = Infinity;\n  let cha = Infinity;\n  for (let i = 0; i < len; i++) {\n    const num = arr[i];\n    const sLen = len - i - 1;\n    sum += num;\n    const need = Math.round((target - sum) / sLen);\n    if (need < num || (i !== len - 1 && need > arr[i + 1])) continue;\n    const newCha = Math.abs(need * sLen + sum - target);\n    compCha(newCha, need);\n    const newCha2 = Math.abs((need - 1) * sLen + sum - target);\n    compCha(newCha2, need - 1);\n  }\n  if (min === Infinity) {\n    const num = Math.round(target / len);\n    if (num < arr[0]) {\n      const newCha = Math.abs(num * len - target);\n      compCha(newCha, num);\n    }\n  }\n  compCha(Math.abs(target - sum), arr[len - 1]);\n  return min;\n  function compCha(newCha: number, need: number): void {\n    if (newCha < cha || (newCha === cha && need < min)) {\n      cha = newCha;\n      min = need;\n    }\n  }\n}"
+        }
+    ]
 }

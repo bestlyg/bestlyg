@@ -1,17 +1,20 @@
 {
-  "name": "115. 不同的子序列",
-  "url": "https://leetcode-cn.com/problems/distinct-subsequences/",
-  "difficulty": "困难",
-  "tag": ["字符串", "动态规划"],
-  "desc": "给定一个字符串 s 和一个字符串 t ，计算在 s 的子序列中 t 出现的个数。",
-  "solutions": [
-    {
-      "date": 1615910400000,
-      "time": 100,
-      "memory": 41.6,
-      "script": "typescript",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/distinct-subsequences/solution/bu-tong-de-zi-xu-lie-by-leetcode-solutio-urw3/)。",
-      "code": "function generateMatrix(n: number): number[][] {\n        const ans: number[][] = new Array(n).fill(0).map(_ => new Array(n));\n        let num = 1;\n        dfs(0, n - 1);\n        retfunction numDistinct(s: string, t: string): number {\n          const sLen = s.length;\n          const tLen = t.length;\n          if (sLen < tLen) return 0;\n          const dp = new Array(sLen + 1).fill(0).map(_ => new Array(tLen + 1).fill(0));\n          for (let i = 0; i <= sLen; i++) dp[i][tLen] = 1;\n          for (let i = sLen - 1; i >= 0; i--) {\n            for (let j = tLen - 1; j >= 0; j--) {\n              if (s[i] === t[j]) {\n                dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];\n              } else {\n                dp[i][j] = dp[i + 1][j];\n              }\n            }\n          }\n          return dp[0][0];\n        }"
-    }
-  ]
+    "name": "115. 不同的子序列",
+    "url": "https://leetcode-cn.com/problems/distinct-subsequences/",
+    "difficulty": "困难",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定一个字符串 s 和一个字符串 t ，计算在 s 的子序列中 t 出现的个数。",
+    "solutions": [
+        {
+            "date": 1615910400000,
+            "time": 100,
+            "memory": 41.6,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/distinct-subsequences/solution/bu-tong-de-zi-xu-lie-by-leetcode-solutio-urw3/)。",
+            "code": "function generateMatrix(n: number): number[][] {\n        const ans: number[][] = new Array(n).fill(0).map(_ => new Array(n));\n        let num = 1;\n        dfs(0, n - 1);\n        retfunction numDistinct(s: string, t: string): number {\n          const sLen = s.length;\n          const tLen = t.length;\n          if (sLen < tLen) return 0;\n          const dp = new Array(sLen + 1).fill(0).map(_ => new Array(tLen + 1).fill(0));\n          for (let i = 0; i <= sLen; i++) dp[i][tLen] = 1;\n          for (let i = sLen - 1; i >= 0; i--) {\n            for (let j = tLen - 1; j >= 0; j--) {\n              if (s[i] === t[j]) {\n                dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];\n              } else {\n                dp[i][j] = dp[i + 1][j];\n              }\n            }\n          }\n          return dp[0][0];\n        }"
+        }
+    ]
 }

@@ -1,33 +1,36 @@
 {
-  "name": "378. 有序矩阵中第 K 小的元素",
-  "url": "https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/",
-  "difficulty": "中等",
-  "tag": ["堆", "二分查找"],
-  "desc": "给定一个 n x n 矩阵，其中每行和每列元素均按升序排序，找到矩阵中第 k 小的元素。",
-  "solutions": [
-    {
-      "date": 1593619200000,
-      "time": 100,
-      "memory": 52.8,
-      "script": "typescript",
-      "desc": "构建小顶堆进行读取。",
-      "code": "class Heap {\n  get size(): number {\n    return this._elemenets.length;\n  }\n  constructor(private _elemenets: number[]) {\n    this.heapify();\n  }\n  heapify(): void {\n    for (let i = (this.size >> 1) - 1; i >= 0; i--) {\n      this.siftDown(i);\n    }\n  }\n  remove(): number {\n    const root = this._elemenets[0];\n    this._elemenets[0] = this._elemenets.pop() as number;\n    this.siftDown(0);\n    return root;\n  }\n  siftDown(index: number) {\n    const element = this._elemenets[index];\n    const half = this.size >> 1;\n    while (index < half) {\n      let childIndex = (index << 1) + 1;\n      let child = this._elemenets[childIndex];\n      const rightIndex = childIndex + 1;\n      if (rightIndex < this.size && this._elemenets[rightIndex] < child) {\n        child = this._elemenets[(childIndex = rightIndex)];\n      }\n      if (element <= child) break;\n      this._elemenets[index] = child;\n      index = childIndex;\n    }\n    this._elemenets[index] = element;\n  }\n}\nfunction kthSmallest(matrix: number[][], k: number): number {\n  const heap = new Heap(matrix.reduce((total, value) => total.concat(value), []));\n  while (--k !== 0) {\n    heap.remove();\n  }\n  return heap.remove();\n}"
-    },
-    {
-      "date": 1593619200000,
-      "time": 112,
-      "memory": 51.4,
-      "script": "typescript",
-      "desc": "拍平后排序输出。",
-      "code": "function kthSmallest(matrix: number[][], k: number): number {\n  return matrix.reduce((total, value) => total.concat(value), []).sort((a, b) => a - b)[k - 1];\n}"
-    },
-    {
-      "date": 1638201600000,
-      "time": 32,
-      "memory": 8.1,
-      "script": "c",
-      "desc": "二分查找，根据矩阵有序特性。",
-      "code": "int check(int **matrix, int n, int num) {\n    int row = n - 1, col = 0, cnt = 0;\n    while (row >= 0) {\n        while(col < n && matrix[row][col] <= num) col++;\n        cnt += col;\n        row--;\n    }\n    return cnt;\n}\nint kthSmallest(int** matrix, int matrixSize, int* matrixColSize, int k){\n    int l = matrix[0][0], r = matrix[matrixSize - 1][matrixSize - 1], m;\n    while (l < r) {\n        m = (l + r) >> 1;\n        int cnt = check(matrix, matrixSize, m);\n        if (cnt >= k) r = m;\n        else l = m + 1;\n    }\n    return l;\n}"
-    }
-  ]
+    "name": "378. 有序矩阵中第 K 小的元素",
+    "url": "https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/",
+    "difficulty": "中等",
+    "tag": [
+        "堆",
+        "二分查找"
+    ],
+    "desc": "给定一个 n x n 矩阵，其中每行和每列元素均按升序排序，找到矩阵中第 k 小的元素。",
+    "solutions": [
+        {
+            "date": 1593619200000,
+            "time": 100,
+            "memory": 52.8,
+            "script": "typescript",
+            "desc": "构建小顶堆进行读取。",
+            "code": "class Heap {\n  get size(): number {\n    return this._elemenets.length;\n  }\n  constructor(private _elemenets: number[]) {\n    this.heapify();\n  }\n  heapify(): void {\n    for (let i = (this.size >> 1) - 1; i >= 0; i--) {\n      this.siftDown(i);\n    }\n  }\n  remove(): number {\n    const root = this._elemenets[0];\n    this._elemenets[0] = this._elemenets.pop() as number;\n    this.siftDown(0);\n    return root;\n  }\n  siftDown(index: number) {\n    const element = this._elemenets[index];\n    const half = this.size >> 1;\n    while (index < half) {\n      let childIndex = (index << 1) + 1;\n      let child = this._elemenets[childIndex];\n      const rightIndex = childIndex + 1;\n      if (rightIndex < this.size && this._elemenets[rightIndex] < child) {\n        child = this._elemenets[(childIndex = rightIndex)];\n      }\n      if (element <= child) break;\n      this._elemenets[index] = child;\n      index = childIndex;\n    }\n    this._elemenets[index] = element;\n  }\n}\nfunction kthSmallest(matrix: number[][], k: number): number {\n  const heap = new Heap(matrix.reduce((total, value) => total.concat(value), []));\n  while (--k !== 0) {\n    heap.remove();\n  }\n  return heap.remove();\n}"
+        },
+        {
+            "date": 1593619200000,
+            "time": 112,
+            "memory": 51.4,
+            "script": "typescript",
+            "desc": "拍平后排序输出。",
+            "code": "function kthSmallest(matrix: number[][], k: number): number {\n  return matrix.reduce((total, value) => total.concat(value), []).sort((a, b) => a - b)[k - 1];\n}"
+        },
+        {
+            "date": 1638201600000,
+            "time": 32,
+            "memory": 8.1,
+            "script": "c",
+            "desc": "二分查找，根据矩阵有序特性。",
+            "code": "int check(int **matrix, int n, int num) {\n    int row = n - 1, col = 0, cnt = 0;\n    while (row >= 0) {\n        while(col < n && matrix[row][col] <= num) col++;\n        cnt += col;\n        row--;\n    }\n    return cnt;\n}\nint kthSmallest(int** matrix, int matrixSize, int* matrixColSize, int k){\n    int l = matrix[0][0], r = matrix[matrixSize - 1][matrixSize - 1], m;\n    while (l < r) {\n        m = (l + r) >> 1;\n        int cnt = check(matrix, matrixSize, m);\n        if (cnt >= k) r = m;\n        else l = m + 1;\n    }\n    return l;\n}"
+        }
+    ]
 }

@@ -1,41 +1,43 @@
 {
-  "name": "41. 缺失的第一个正数",
-  "url": "https://leetcode-cn.com/problems/first-missing-positive/",
-  "difficulty": "困难",
-  "tag": ["数组"],
-  "desc": "给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。",
-  "solutions": [
-    {
-      "date": 1593187200000,
-      "time": 72,
-      "memory": 33.1,
-      "script": "typescript",
-      "desc": "直接排序后依次判断。",
-      "code": "function firstMissingPositive(nums: number[]): number {\n  nums.sort((a, b) => a - b);\n  let minNum = 1;\n  for (const num of nums) {\n    if (num > minNum) break;\n    else if (num === minNum) minNum++;\n  }\n  return minNum;\n}"
-    },
-    {
-      "date": 1593187200000,
-      "time": 96,
-      "memory": 39,
-      "script": "typescript",
-      "desc": "对数组进行赋值，负数赋值为 len+1,整数则在对应位置上取负。",
-      "code": "function firstMissingPositive(nums: number[]): number {\n  const len = nums.length;\n  for (let i = 0; i < len; i++) if (nums[i] <= 0) nums[i] = len + 1;\n  console.log(nums);\n  for (let i = 0; i < len; i++) {\n    const num = Math.abs(nums[i]);\n    if (num <= len) nums[num - 1] = -Math.abs(nums[num - 1]);\n  }\n  for (let i = 0; i < len; i++) if (nums[i] > 0) return i + 1;\n  return len + 1;\n}"
-    },
-    {
-      "date": 1628956800000,
-      "time": 92,
-      "memory": 57.3,
-      "script": "typescript",
-      "desc": "把每个正整数放置正确的位置最后做判断。",
-      "code": "function firstMissingPositive(nums: number[]): number {\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    while (nums[i] !== i + 1) {\n      if (nums[i] > n || nums[i] <= 0 || nums[nums[i] - 1] === nums[i]) break;\n      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];\n    }\n  }\n  let i = 0;\n  while (i < n && nums[i] === i + 1) i++;\n  return i + 1;\n}"
-    },
-    {
-      "date": 1628956800000,
-      "time": 92,
-      "memory": 57.3,
-      "script": "typescript",
-      "desc": "把每个正整数放置正确的位置最后做判断。",
-      "code": "function firstMissingPositive(nums: number[]): number {\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    while (nums[i] !== i + 1) {\n      if (nums[i] > n || nums[i] <= 0 || nums[nums[i] - 1] === nums[i]) break;\n      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];\n    }\n  }\n  let i = 0;\n  while (i < n && nums[i] === i + 1) i++;\n  return i + 1;\n}"
-    }
-  ]
+    "name": "41. 缺失的第一个正数",
+    "url": "https://leetcode-cn.com/problems/first-missing-positive/",
+    "difficulty": "困难",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。",
+    "solutions": [
+        {
+            "date": 1593187200000,
+            "time": 72,
+            "memory": 33.1,
+            "script": "typescript",
+            "desc": "直接排序后依次判断。",
+            "code": "function firstMissingPositive(nums: number[]): number {\n  nums.sort((a, b) => a - b);\n  let minNum = 1;\n  for (const num of nums) {\n    if (num > minNum) break;\n    else if (num === minNum) minNum++;\n  }\n  return minNum;\n}"
+        },
+        {
+            "date": 1593187200000,
+            "time": 96,
+            "memory": 39,
+            "script": "typescript",
+            "desc": "对数组进行赋值，负数赋值为 len+1,整数则在对应位置上取负。",
+            "code": "function firstMissingPositive(nums: number[]): number {\n  const len = nums.length;\n  for (let i = 0; i < len; i++) if (nums[i] <= 0) nums[i] = len + 1;\n  console.log(nums);\n  for (let i = 0; i < len; i++) {\n    const num = Math.abs(nums[i]);\n    if (num <= len) nums[num - 1] = -Math.abs(nums[num - 1]);\n  }\n  for (let i = 0; i < len; i++) if (nums[i] > 0) return i + 1;\n  return len + 1;\n}"
+        },
+        {
+            "date": 1628956800000,
+            "time": 92,
+            "memory": 57.3,
+            "script": "typescript",
+            "desc": "把每个正整数放置正确的位置最后做判断。",
+            "code": "function firstMissingPositive(nums: number[]): number {\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    while (nums[i] !== i + 1) {\n      if (nums[i] > n || nums[i] <= 0 || nums[nums[i] - 1] === nums[i]) break;\n      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];\n    }\n  }\n  let i = 0;\n  while (i < n && nums[i] === i + 1) i++;\n  return i + 1;\n}"
+        },
+        {
+            "date": 1628956800000,
+            "time": 92,
+            "memory": 57.3,
+            "script": "typescript",
+            "desc": "把每个正整数放置正确的位置最后做判断。",
+            "code": "function firstMissingPositive(nums: number[]): number {\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    while (nums[i] !== i + 1) {\n      if (nums[i] > n || nums[i] <= 0 || nums[nums[i] - 1] === nums[i]) break;\n      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];\n    }\n  }\n  let i = 0;\n  while (i < n && nums[i] === i + 1) i++;\n  return i + 1;\n}"
+        }
+    ]
 }

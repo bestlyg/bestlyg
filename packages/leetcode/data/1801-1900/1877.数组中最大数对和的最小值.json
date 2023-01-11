@@ -1,17 +1,22 @@
 {
-  "name": "1877. 数组中最大数对和的最小值",
-  "url": "https://leetcode-cn.com/problems/minimize-maximum-pair-sum-in-array/",
-  "difficulty": "中等",
-  "tag": ["贪心", "数组", "双指针", "排序"],
-  "desc": "请你在最优数对划分的方案下，返回最小的 最大数对和 。",
-  "solutions": [
-    {
-      "date": 1626710400000,
-      "time": 332,
-      "memory": 53.2,
-      "script": "typescript",
-      "desc": "贪心，排序后收尾相加。",
-      "code": "function minPairSum(nums: number[]): number {\n  const n = nums.length;\n  const arr = new Array(n / 2).fill(0);\n  nums.sort((a, b) => a - b);\n  for (let i = 0; i < n / 2; i++) arr[i] = nums[i] + nums[n - 1 - i];\n  return Math.max(...arr);\n}"
-    }
-  ]
+    "name": "1877. 数组中最大数对和的最小值",
+    "url": "https://leetcode-cn.com/problems/minimize-maximum-pair-sum-in-array/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "desc": "请你在最优数对划分的方案下，返回最小的 最大数对和 。",
+    "solutions": [
+        {
+            "date": 1626710400000,
+            "time": 332,
+            "memory": 53.2,
+            "script": "typescript",
+            "desc": "贪心，排序后收尾相加。",
+            "code": "function minPairSum(nums: number[]): number {\n  const n = nums.length;\n  const arr = new Array(n / 2).fill(0);\n  nums.sort((a, b) => a - b);\n  for (let i = 0; i < n / 2; i++) arr[i] = nums[i] + nums[n - 1 - i];\n  return Math.max(...arr);\n}"
+        }
+    ]
 }

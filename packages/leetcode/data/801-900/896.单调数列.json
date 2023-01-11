@@ -1,17 +1,19 @@
 {
-  "name": "896. 单调数列",
-  "url": "https://leetcode-cn.com/problems/monotonic-array/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "如果数组是单调递增或单调递减的，那么它是单调的。",
-  "solutions": [
-    {
-      "date": 1614441600000,
-      "time": 104,
-      "memory": 44.1,
-      "script": "typescript",
-      "desc": "分别判断单调性。",
-      "code": "function isMonotonic(A: number[]): boolean {\n  const len = A.length - 1;\n  let f = true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] > A[i + 1]) {\n      f = false;\n      break;\n    }\n  }\n  if (f) return true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] < A[i + 1]) {\n      return false;\n    }\n  }\n  return true;\n}"
-    }
-  ]
+    "name": "896. 单调数列",
+    "url": "https://leetcode-cn.com/problems/monotonic-array/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "如果数组是单调递增或单调递减的，那么它是单调的。",
+    "solutions": [
+        {
+            "date": 1614441600000,
+            "time": 104,
+            "memory": 44.1,
+            "script": "typescript",
+            "desc": "分别判断单调性。",
+            "code": "function isMonotonic(A: number[]): boolean {\n  const len = A.length - 1;\n  let f = true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] > A[i + 1]) {\n      f = false;\n      break;\n    }\n  }\n  if (f) return true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] < A[i + 1]) {\n      return false;\n    }\n  }\n  return true;\n}"
+        }
+    ]
 }

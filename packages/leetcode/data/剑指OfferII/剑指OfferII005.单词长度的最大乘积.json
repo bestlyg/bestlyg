@@ -1,17 +1,21 @@
 {
-  "name": "剑指 Offer II 005. 单词长度的最大乘积",
-  "url": "https://leetcode-cn.com/problems/aseY1I/",
-  "difficulty": "中等",
-  "tag": ["位运算", "数组", "字符串"],
-  "desc": "给定一个字符串数组  words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。",
-  "solutions": [
-    {
-      "date": 1640275200000,
-      "time": 380,
-      "memory": 20.2,
-      "script": "c++",
-      "desc": "用二进制存储每个字符串存在的字符，两个字符串值与运算为 0 说明无重复。",
-      "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0;\n        for (auto &ch : str) ans |= 1 << (ch - 'a');\n        return ans;\n    }\n    int maxProduct(vector<string> &words) {\n        unordered_map<string, int> mmap;\n        for (auto &word : words) mmap[word] = s2i(word);\n        int ans = 0;\n        for (int i = 0; i < words.size(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (mmap[words[i]] & mmap[words[j]]) continue;\n                ans = max(ans, (int)(words[i].size() * words[j].size()));\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "剑指 Offer II 005. 单词长度的最大乘积",
+    "url": "https://leetcode-cn.com/problems/aseY1I/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组",
+        "字符串"
+    ],
+    "desc": "给定一个字符串数组  words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。",
+    "solutions": [
+        {
+            "date": 1640275200000,
+            "time": 380,
+            "memory": 20.2,
+            "script": "c++",
+            "desc": "用二进制存储每个字符串存在的字符，两个字符串值与运算为 0 说明无重复。",
+            "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0;\n        for (auto &ch : str) ans |= 1 << (ch - 'a');\n        return ans;\n    }\n    int maxProduct(vector<string> &words) {\n        unordered_map<string, int> mmap;\n        for (auto &word : words) mmap[word] = s2i(word);\n        int ans = 0;\n        for (int i = 0; i < words.size(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (mmap[words[i]] & mmap[words[j]]) continue;\n                ans = max(ans, (int)(words[i].size() * words[j].size()));\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

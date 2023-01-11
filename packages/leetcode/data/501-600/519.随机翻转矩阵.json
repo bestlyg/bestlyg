@@ -1,17 +1,22 @@
 {
-  "name": "519. 随机翻转矩阵",
-  "url": "https://leetcode-cn.com/problems/random-flip-matrix/",
-  "difficulty": "中等",
-  "tag": ["水塘抽样", "哈希表", "数学", "随机化"],
-  "desc": "给你一个 m x n 的二元矩阵 matrix ，且所有值被初始化为 0 。请你设计一个算法，随机选取一个满足  matrix[i][j] == 0 的下标  (i, j) ，并将它的值变为 1 。所有满足 matrix[i][j] == 0 的下标 (i, j) 被选取的概率应当均等。",
-  "solutions": [
-    {
-      "date": 1637942400000,
-      "time": 100,
-      "memory": 43.8,
-      "script": "typescript",
-      "desc": "随机值，每次遍历到一个位置，把该位置与最后一个位置进行交换。",
-      "code": "class Solution {\n  map = new Map<number, number>();\n  total: number;\n  constructor(public m: number, public n: number) {\n    this.total = m * n;\n  }\n  flip(): number[] {\n    const num = this.random(0, --this.total);\n    const idx = this.map.get(num) ?? num;\n    this.map.set(num, this.map.get(this.total) ?? this.total);\n    return [Math.floor(idx / this.n), idx % this.n];\n  }\n  reset(): void {\n    this.map.clear();\n    this.total = this.m * this.n;\n  }\n  random(min: number, max: number): number {\n    return min + Math.floor(Math.random() * (max - min + 1));\n  }\n}"
-    }
-  ]
+    "name": "519. 随机翻转矩阵",
+    "url": "https://leetcode-cn.com/problems/random-flip-matrix/",
+    "difficulty": "中等",
+    "tag": [
+        "水塘抽样",
+        "哈希表",
+        "数学",
+        "随机化"
+    ],
+    "desc": "给你一个 m x n 的二元矩阵 matrix ，且所有值被初始化为 0 。请你设计一个算法，随机选取一个满足  matrix[i][j] == 0 的下标  (i, j) ，并将它的值变为 1 。所有满足 matrix[i][j] == 0 的下标 (i, j) 被选取的概率应当均等。",
+    "solutions": [
+        {
+            "date": 1637942400000,
+            "time": 100,
+            "memory": 43.8,
+            "script": "typescript",
+            "desc": "随机值，每次遍历到一个位置，把该位置与最后一个位置进行交换。",
+            "code": "class Solution {\n  map = new Map<number, number>();\n  total: number;\n  constructor(public m: number, public n: number) {\n    this.total = m * n;\n  }\n  flip(): number[] {\n    const num = this.random(0, --this.total);\n    const idx = this.map.get(num) ?? num;\n    this.map.set(num, this.map.get(this.total) ?? this.total);\n    return [Math.floor(idx / this.n), idx % this.n];\n  }\n  reset(): void {\n    this.map.clear();\n    this.total = this.m * this.n;\n  }\n  random(min: number, max: number): number {\n    return min + Math.floor(Math.random() * (max - min + 1));\n  }\n}"
+        }
+    ]
 }

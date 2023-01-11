@@ -1,8 +1,19 @@
 {
-  "name": "538. 把二叉搜索树转换为累加树",
-  "url": "https://leetcode-cn.com/problems/convert-bst-to-greater-tree/",
-  "difficulty": "简单",
-  "tag": ["树"],
-  "desc": "给定一个二叉搜索树（Binary Search Tree），把它转换成为累加树（Greater Tree)，使得每个节点的值是原来的节点值加上所有大于它的节点值之和。",
-  "solutions": []
+    "name": "538. 把二叉搜索树转换为累加树",
+    "url": "https://leetcode-cn.com/problems/convert-bst-to-greater-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树"
+    ],
+    "desc": "给定一个二叉搜索树（Binary Search Tree），把它转换成为累加树（Greater Tree)，使得每个节点的值是原来的节点值加上所有大于它的节点值之和。",
+    "solutions": [
+        {
+            "date": 1600617600000,
+            "time": 244,
+            "memory": 47,
+            "script": "typescript",
+            "desc": "中序遍历排序后利用 reduce 累加。",
+            "code": "function convertBST(root: TreeNode | null): TreeNode | null {\n  if (isNull(root)) return null;\n  const arr: number[] = [];\n  inorder(root);\n  toGreaterTree(root);\n  return root;\n  function isNull(node: TreeNode | null): node is null {\n    return node === null;\n  }\n  function toGreaterTree(node: TreeNode | null): void {\n    if (isNull(node)) return;\n    node.val = arr.reduce((total, cur) => total + (cur > node.val ? cur : 0), node.val);\n    toGreaterTree(node.left);\n    toGreaterTree(node.right);\n  }\n  function inorder(node: TreeNode | null): void {\n    if (isNull(node)) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  }\n}"
+        }
+    ]
 }

@@ -1,8 +1,31 @@
 {
-  "name": "987. 二叉树的垂序遍历",
-  "url": "https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/",
-  "difficulty": "困难",
-  "tag": ["树", "深度优先搜索", "广度优先搜索", "哈希表", "二叉树"],
-  "desc": "给你二叉树的根结点 root ，请你设计算法计算二叉树的 垂序遍历 序列。",
-  "solutions": []
+    "name": "987. 二叉树的垂序遍历",
+    "url": "https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "哈希表",
+        "二叉树"
+    ],
+    "desc": "给你二叉树的根结点 root ，请你设计算法计算二叉树的 垂序遍历 序列。",
+    "solutions": [
+        {
+            "date": 1627660800000,
+            "time": 92,
+            "memory": 40,
+            "script": "typescript",
+            "desc": "哈希储存。",
+            "code": "function verticalTraversal(root: TreeNode | null): number[][] {\n  if (root === null) return [];\n  const map = new Map<number, number[][]>();\n  order(root, 0, 0);\n  const list = [...map.entries()]\n    .sort(([col1], [col2]) => col1 - col2)\n    .map(([, list]) =>\n      list\n        .sort(([, row1, val1], [, row2, val2]) => (row1 === row2 ? val1 - val2 : row1 - row2))\n        .map(([, , v]) => v)\n    );\n  return list;\n  function order(node: TreeNode | null, row: number, col: number) {\n    if (node === null) return null;\n    let list = map.get(col);\n    if (!list) map.set(col, (list = []));\n    list.push([col, row, node.val]);\n    order(node.left, row + 1, col - 1);\n    order(node.right, row + 1, col + 1);\n  }\n}"
+        },
+        {
+            "date": 1635091200000,
+            "time": 88,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "哈希存储。",
+            "code": "function verticalTraversal(root: TreeNode | null): number[][] {\n  if (root === null) return [];\n  const map = new Map<number, [number, number][]>();\n  dfs(root);\n  return Array.from(map.entries())\n    .sort(([a], [b]) => a - b)\n    .map(([, arr]) =>\n      arr\n        .sort(([num1, row1], [num2, row2]) => (row1 === row2 ? num1 - num2 : row1 - row2))\n        .map(([num]) => num)\n    );\n  function dfs(node: TreeNode | null, row = 0, col = 0) {\n    if (node === null) return;\n    let arr = map.get(col);\n    if (!arr) map.set(col, (arr = []));\n    arr.push([node.val, row]);\n    dfs(node.left, row + 1, col - 1);\n    dfs(node.right, row + 1, col + 1);\n  }\n}"
+        }
+    ]
 }

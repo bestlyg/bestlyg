@@ -1,17 +1,19 @@
 {
-  "name": "330. 按要求补齐数组",
-  "url": "https://leetcode-cn.com/problems/patching-array/",
-  "difficulty": "困难",
-  "tag": ["贪心"],
-  "desc": "给定一个已排序的正整数数组 nums，和一个正整数  n 。从  [1, n]  区间内选取任意个数字补充到  nums  中，使得  [1, n]  区间内的任何数字都可以用  nums  中某几个数字的和来表示。请输出满足上述要求的最少需要补充的数字个数。",
-  "solutions": [
-    {
-      "date": 1609171200000,
-      "time": 88,
-      "memory": 40.4,
-      "script": "typescript",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/patching-array/solution/an-yao-qiu-bu-qi-shu-zu-by-leetcode-solu-klp1/)。",
-      "code": "function minPatches(nums: number[], n: number): number {\n  let patches = 0;\n  let x = 1;\n  const len = nums.length;\n  let i = 0;\n  while (x <= n) {\n    if (i < len && nums[i] <= x) {\n      x += nums[i];\n      i++;\n    } else {\n      x *= 2;\n      patches++;\n    }\n  }\n  return patches;\n}"
-    }
-  ]
+    "name": "330. 按要求补齐数组",
+    "url": "https://leetcode-cn.com/problems/patching-array/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心"
+    ],
+    "desc": "给定一个已排序的正整数数组 nums，和一个正整数  n 。从  [1, n]  区间内选取任意个数字补充到  nums  中，使得  [1, n]  区间内的任何数字都可以用  nums  中某几个数字的和来表示。请输出满足上述要求的最少需要补充的数字个数。",
+    "solutions": [
+        {
+            "date": 1609171200000,
+            "time": 88,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/patching-array/solution/an-yao-qiu-bu-qi-shu-zu-by-leetcode-solu-klp1/)。",
+            "code": "function minPatches(nums: number[], n: number): number {\n  let patches = 0;\n  let x = 1;\n  const len = nums.length;\n  let i = 0;\n  while (x <= n) {\n    if (i < len && nums[i] <= x) {\n      x += nums[i];\n      i++;\n    } else {\n      x *= 2;\n      patches++;\n    }\n  }\n  return patches;\n}"
+        }
+    ]
 }

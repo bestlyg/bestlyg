@@ -1,17 +1,22 @@
 {
-  "name": "478. 在圆内随机生成点",
-  "url": "https://leetcode.cn/problems/generate-random-point-in-a-circle/",
-  "difficulty": "中等",
-  "tag": ["几何", "数学", "拒绝采样", "随机化"],
-  "desc": "给定圆的半径和圆心的位置，实现函数 randPoint ，在圆中产生均匀随机点。",
-  "solutions": [
-    {
-      "date": 1654358400000,
-      "time": 128,
-      "memory": 58.3,
-      "script": "typescript",
-      "desc": "忽略边上的点。",
-      "code": "class Solution {\n  constructor(public radius: number, public x_center: number, public y_center: number) {}\n  randPoint(): number[] {\n    while (true) {\n      const [x, y] = [\n        2 * Math.random() * this.radius - this.radius,\n        2 * Math.random() * this.radius - this.radius,\n      ];\n      if (x ** 2 + y ** 2 <= this.radius * this.radius)\n        return [x + this.x_center, y + this.y_center];\n    }\n  }\n}"
-    }
-  ]
+    "name": "478. 在圆内随机生成点",
+    "url": "https://leetcode.cn/problems/generate-random-point-in-a-circle/",
+    "difficulty": "中等",
+    "tag": [
+        "几何",
+        "数学",
+        "拒绝采样",
+        "随机化"
+    ],
+    "desc": "给定圆的半径和圆心的位置，实现函数 randPoint ，在圆中产生均匀随机点。",
+    "solutions": [
+        {
+            "date": 1654358400000,
+            "time": 128,
+            "memory": 58.3,
+            "script": "typescript",
+            "desc": "忽略边上的点。",
+            "code": "class Solution {\n  constructor(public radius: number, public x_center: number, public y_center: number) {}\n  randPoint(): number[] {\n    while (true) {\n      const [x, y] = [\n        2 * Math.random() * this.radius - this.radius,\n        2 * Math.random() * this.radius - this.radius,\n      ];\n      if (x ** 2 + y ** 2 <= this.radius * this.radius)\n        return [x + this.x_center, y + this.y_center];\n    }\n  }\n}"
+        }
+    ]
 }

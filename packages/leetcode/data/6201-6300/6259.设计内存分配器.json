@@ -1,8 +1,19 @@
 {
-  "name": "6259. 设计内存分配器",
-  "url": "https://leetcode.cn/problems/design-memory-allocator/",
-  "difficulty": "中等",
-  "tag": [""],
-  "desc": "给你一个整数 n ，表示下标从 0 开始的内存数组的大小。所有内存单元开始都是空闲的。请你设计一个具备以下功能的内存分配器。",
-  "solutions": []
+    "name": "6259. 设计内存分配器",
+    "url": "https://leetcode.cn/problems/design-memory-allocator/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个整数 n ，表示下标从 0 开始的内存数组的大小。所有内存单元开始都是空闲的。请你设计一个具备以下功能的内存分配器。",
+    "solutions": [
+        {
+            "date": 1670688000000,
+            "time": 40,
+            "memory": 29.7,
+            "script": "cpp",
+            "desc": "链表。",
+            "code": "#include <vector>\n#include <set>\n#include <iostream>\n#include <unordered_map>\n#define X first\n#define Y second\n#define lb(x) ((x) & (-x))\n#define mem(a,b) memset(a,b,sizeof(a))\n#define debug freopen(\"input\",\"r\",stdin)\nusing namespace std;\ntypedef long long ll;\n\nclass Node {\npublic:\n    int l, r, mID;\n    Node *next, *prev;\n    Node() {}\n    Node(int l, int r, int mID): l(l), r(r), mID(mID), next(nullptr), prev(nullptr) {}\n    void insert(Node *node) {\n      node->next = next;\n      node->prev = prev;\n      if (next) next = node;\n      if (prev) prev->prev = node;\n    }\n    void remove() {\n      Node *nextNode = next;\n      next = nextNode->next;\n      nextNode->prev = this;\n    }\n};\nclass Allocator {\npublic:\n    int n;\n    Node *head, *tail;\n    Allocator(int n): n(n), head(new Node(-1, -1, 0)), tail(new Node(n, n, 0)){\n      head->next = tail;\n      tail->prev = head;\n    }\n    int allocate(int size, int mID) {\n        Node *p = head;\n        while (p != tail) {\n            int s = p->next->l - p->r - 1;\n            if (s >= size) {\n              Node *newNode = new Node(p->r + 1, p->r + size, mID);\n              p->insert(newNode);\n              return p->r + 1;\n            }\n            p = p->next;\n        }\n        return -1;\n    }\n\n    int free(int mID) {\n        Node *p = head;\n        int sum = 0;\n        while (p != tail) {\n          if (p->next->mID == mID) {\n            sum += p->next->r - p->next->l + 1;\n            p->remove();\n            continue;\n          }\n          p = p->next;\n        }\n        print();\n        return sum;\n    }\n    void print() {\n      Node *p = head;\n      while (true) {\n        if (p == tail) {\n          break;\n        }\n        p = p->next;\n      }\n    }\n};"
+        }
+    ]
 }

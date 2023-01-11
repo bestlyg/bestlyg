@@ -1,25 +1,29 @@
 {
-  "name": "819. 最常见的单词",
-  "url": "https://leetcode-cn.com/problems/most-common-word/",
-  "difficulty": "简单",
-  "tag": ["哈希表", "字符串", "计数"],
-  "desc": "给定一个段落 (paragraph) 和一个禁用单词列表 (banned)。返回出现次数最多，同时不在禁用列表中的单词。",
-  "solutions": [
-    {
-      "date": 1647705600000,
-      "time": 4,
-      "memory": 7.4,
-      "script": "cpp",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    string mostCommonWord(string paragraph, vector<string>& banned) {\n        unordered_map<string, int> m;\n        unordered_set<string> s;\n        for (auto& ban : banned) s.insert(ban);\n        string ans = \"\";\n        int maxlen = 0, n = paragraph.size();\n        for (int i = 0; i < n; i++) {\n            while (i < n && !isalpha(paragraph[i])) i++;\n            if (i == n) break;\n            string tmp = \"\";\n            while (i < n && isalpha(paragraph[i]))\n                tmp += tolower(paragraph[i++]);\n            if (s.count(tmp)) continue;\n            m[tmp]++;\n            if (m[tmp] > maxlen) {\n                ans = tmp;\n                maxlen = m[tmp];\n            }\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1650124800000,
-      "time": 4,
-      "memory": 7.6,
-      "script": "cpp",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    string mostCommonWord(string paragraph, vector<string>& banned) {\n        int n = paragraph.size();\n        string ans = \"\";\n        unordered_map<string, int> m;\n        unordered_set<string> s;\n        for (auto& str : banned) s.insert(str);\n        for (int i = 0; i < n; i++) {\n            while (i < n && !isalpha(paragraph[i])) i++;\n            if (i == n) break;\n            int end = i;\n            string next = \"\";\n            do {\n                next += tolower(paragraph[end++]);\n            } while (end < n && isalpha(paragraph[end]));\n            if (!s.count(next) && m[ans] < ++m[next]) ans = next;\n            i = end;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "819. 最常见的单词",
+    "url": "https://leetcode-cn.com/problems/most-common-word/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "desc": "给定一个段落 (paragraph) 和一个禁用单词列表 (banned)。返回出现次数最多，同时不在禁用列表中的单词。",
+    "solutions": [
+        {
+            "date": 1647705600000,
+            "time": 4,
+            "memory": 7.4,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    string mostCommonWord(string paragraph, vector<string>& banned) {\n        unordered_map<string, int> m;\n        unordered_set<string> s;\n        for (auto& ban : banned) s.insert(ban);\n        string ans = \"\";\n        int maxlen = 0, n = paragraph.size();\n        for (int i = 0; i < n; i++) {\n            while (i < n && !isalpha(paragraph[i])) i++;\n            if (i == n) break;\n            string tmp = \"\";\n            while (i < n && isalpha(paragraph[i]))\n                tmp += tolower(paragraph[i++]);\n            if (s.count(tmp)) continue;\n            m[tmp]++;\n            if (m[tmp] > maxlen) {\n                ans = tmp;\n                maxlen = m[tmp];\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1650124800000,
+            "time": 4,
+            "memory": 7.6,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    string mostCommonWord(string paragraph, vector<string>& banned) {\n        int n = paragraph.size();\n        string ans = \"\";\n        unordered_map<string, int> m;\n        unordered_set<string> s;\n        for (auto& str : banned) s.insert(str);\n        for (int i = 0; i < n; i++) {\n            while (i < n && !isalpha(paragraph[i])) i++;\n            if (i == n) break;\n            int end = i;\n            string next = \"\";\n            do {\n                next += tolower(paragraph[end++]);\n            } while (end < n && isalpha(paragraph[end]));\n            if (!s.count(next) && m[ans] < ++m[next]) ans = next;\n            i = end;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

@@ -1,25 +1,28 @@
 {
-  "name": "260. 只出现一次的数字 III",
-  "url": "https://leetcode-cn.com/problems/single-number-iii/",
-  "difficulty": "中等",
-  "tag": ["位运算", "数组"],
-  "desc": "给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。",
-  "solutions": [
-    {
-      "date": 1635609600000,
-      "time": 84,
-      "memory": 41.2,
-      "script": "typescript",
-      "desc": "哈希。",
-      "code": "function singleNumber(nums: number[]): number[] {\n  const map = new Map<number, number>();\n  nums.forEach(num => {\n    map.set(num, (map.get(num) ?? 0) + 1);\n  });\n  return Array.from(map.entries())\n    .filter(([, v]) => v === 1)\n    .map(([k]) => k);\n}"
-    },
-    {
-      "date": 1635609600000,
-      "time": 76,
-      "memory": 40.3,
-      "script": "typescript",
-      "desc": "位运算。",
-      "code": "function singleNumber(nums: number[]): number[] {\n  const xorNum = nums.reduce((ans, num) => ans ^ num, 0);\n  let i = 0;\n  while ((xorNum & (1 << i)) === 0) i++;\n  let num1 = 0;\n  let num2 = 0;\n  for (const num of nums) {\n    if (num & (1 << i)) num1 ^= num;\n    else num2 ^= num;\n  }\n  return [num1, num2];\n}"
-    }
-  ]
+    "name": "260. 只出现一次的数字 III",
+    "url": "https://leetcode-cn.com/problems/single-number-iii/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组"
+    ],
+    "desc": "给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 任意顺序 返回答案。",
+    "solutions": [
+        {
+            "date": 1635609600000,
+            "time": 84,
+            "memory": 41.2,
+            "script": "typescript",
+            "desc": "哈希。",
+            "code": "function singleNumber(nums: number[]): number[] {\n  const map = new Map<number, number>();\n  nums.forEach(num => {\n    map.set(num, (map.get(num) ?? 0) + 1);\n  });\n  return Array.from(map.entries())\n    .filter(([, v]) => v === 1)\n    .map(([k]) => k);\n}"
+        },
+        {
+            "date": 1635609600000,
+            "time": 76,
+            "memory": 40.3,
+            "script": "typescript",
+            "desc": "位运算。",
+            "code": "function singleNumber(nums: number[]): number[] {\n  const xorNum = nums.reduce((ans, num) => ans ^ num, 0);\n  let i = 0;\n  while ((xorNum & (1 << i)) === 0) i++;\n  let num1 = 0;\n  let num2 = 0;\n  for (const num of nums) {\n    if (num & (1 << i)) num1 ^= num;\n    else num2 ^= num;\n  }\n  return [num1, num2];\n}"
+        }
+    ]
 }

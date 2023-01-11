@@ -1,17 +1,21 @@
 {
-  "name": "258. 各位相加",
-  "url": "https://leetcode-cn.com/problems/add-digits/",
-  "difficulty": "中等",
-  "tag": ["数学", "数论", "模拟"],
-  "desc": "给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。",
-  "solutions": [
-    {
-      "date": 1646236800000,
-      "time": 0,
-      "memory": 5.7,
-      "script": "c++",
-      "desc": "递归遍历。",
-      "code": "class Solution {\n   public:\n    int addDigits(int num) {\n        if (num < 10) return num;\n        int ans = 0;\n        for (; num; num /= 10) ans += num % 10;\n        return addDigits(ans);\n    }\n};"
-    }
-  ]
+    "name": "258. 各位相加",
+    "url": "https://leetcode-cn.com/problems/add-digits/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "数论",
+        "模拟"
+    ],
+    "desc": "给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。",
+    "solutions": [
+        {
+            "date": 1646236800000,
+            "time": 0,
+            "memory": 5.7,
+            "script": "c++",
+            "desc": "递归遍历。",
+            "code": "class Solution {\n   public:\n    int addDigits(int num) {\n        if (num < 10) return num;\n        int ans = 0;\n        for (; num; num /= 10) ans += num % 10;\n        return addDigits(ans);\n    }\n};"
+        }
+    ]
 }

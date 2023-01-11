@@ -1,17 +1,22 @@
 {
-  "name": "2125. 银行中的激光束数量",
-  "url": "https://leetcode-cn.com/problems/number-of-laser-beams-in-a-bank/",
-  "difficulty": "中等",
-  "tag": ["数组", "数学", "字符串", "矩阵"],
-  "desc": "返回银行中激光束的总数量。",
-  "solutions": [
-    {
-      "date": 1641225600000,
-      "time": 80,
-      "memory": 22.5,
-      "script": "c++",
-      "desc": "遍历并记录上一次有多少个守卫 。",
-      "code": "class Solution {\n   public:\n    int numberOfBeams(vector<string>& bank) {\n        int pre = 0, ans = 0, cnt = 0;\n        for (string& str : bank) {\n            cnt = 0;\n            for (char& ch : str) if (ch == '1') cnt++;\n            if (!cnt) continue;\n            ans += pre * cnt;\n            pre = cnt;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "2125. 银行中的激光束数量",
+    "url": "https://leetcode-cn.com/problems/number-of-laser-beams-in-a-bank/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "数学",
+        "字符串",
+        "矩阵"
+    ],
+    "desc": "返回银行中激光束的总数量。",
+    "solutions": [
+        {
+            "date": 1641225600000,
+            "time": 80,
+            "memory": 22.5,
+            "script": "c++",
+            "desc": "遍历并记录上一次有多少个守卫 。",
+            "code": "class Solution {\n   public:\n    int numberOfBeams(vector<string>& bank) {\n        int pre = 0, ans = 0, cnt = 0;\n        for (string& str : bank) {\n            cnt = 0;\n            for (char& ch : str) if (ch == '1') cnt++;\n            if (!cnt) continue;\n            ans += pre * cnt;\n            pre = cnt;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

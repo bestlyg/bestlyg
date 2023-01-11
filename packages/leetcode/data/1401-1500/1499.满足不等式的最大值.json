@@ -1,17 +1,23 @@
 {
-  "name": "1499. 满足不等式的最大值",
-  "url": "https://leetcode-cn.com/problems/max-value-of-equation/",
-  "difficulty": "困难",
-  "tag": ["队列", "数组", "滑动窗口", "单调队列", "堆(优先队列)"],
-  "desc": "请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。",
-  "solutions": [
-    {
-      "date": 1627574400000,
-      "time": 208,
-      "memory": 67.2,
-      "script": "typescript",
-      "desc": "单调队列。",
-      "code": "function findMaxValueOfEquation(points: number[][], k: number): number {\n  const queue: number[] = [];\n  let ans = -Infinity;\n  for (let i = 0; i < points.length; i++) {\n    const p = points[i];\n    while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();\n    if (queue.length) {\n      ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);\n    }\n    while (\n      queue.length &&\n      points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]\n    )\n      queue.pop();\n    queue.push(i);\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1499. 满足不等式的最大值",
+    "url": "https://leetcode-cn.com/problems/max-value-of-equation/",
+    "difficulty": "困难",
+    "tag": [
+        "队列",
+        "数组",
+        "滑动窗口",
+        "单调队列",
+        "堆(优先队列)"
+    ],
+    "desc": "请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。",
+    "solutions": [
+        {
+            "date": 1627574400000,
+            "time": 208,
+            "memory": 67.2,
+            "script": "typescript",
+            "desc": "单调队列。",
+            "code": "function findMaxValueOfEquation(points: number[][], k: number): number {\n  const queue: number[] = [];\n  let ans = -Infinity;\n  for (let i = 0; i < points.length; i++) {\n    const p = points[i];\n    while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();\n    if (queue.length) {\n      ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);\n    }\n    while (\n      queue.length &&\n      points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]\n    )\n      queue.pop();\n    queue.push(i);\n  }\n  return ans;\n}"
+        }
+    ]
 }

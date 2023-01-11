@@ -1,49 +1,52 @@
 {
-  "name": "43. 字符串相乘",
-  "url": "https://leetcode-cn.com/problems/multiply-strings/",
-  "difficulty": "中等",
-  "tag": ["数学", "字符串"],
-  "desc": "给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。",
-  "solutions": [
-    {
-      "date": 1589299200000,
-      "time": 68,
-      "memory": 34,
-      "script": "javascript",
-      "desc": "使用 BigInt 直接运算。",
-      "code": "/**\n * @param {string} num1\n * @param {string} num2\n * @return {string}\n */\nvar multiply = (num1, num2) => (BigInt(num1) * BigInt(num2)).toString();"
-    },
-    {
-      "date": 1589299200000,
-      "time": 108,
-      "memory": 38.3,
-      "script": "javascript",
-      "desc": "转换成数组进行每位相乘。",
-      "code": "/**\n * @param {string} num1\n * @param {string} num2\n * @return {string}\n */\nvar multiply = (num1, num2) => {\n  if (num1 === '0' || num2 === '0') return '0';\n  const toArr = s =>\n    s\n      .split('')\n      .map(v => +v)\n      .reverse();\n  const merge = (arr1, arr2) => {\n    let jin = 0;\n    let i = 0;\n    let num;\n    for (len = arr2.length; i < len; i++) {\n      if (arr1[i] === undefined) num = arr2[i] + jin;\n      else num = arr1[i] + arr2[i] + jin;\n      jin = Math.floor(num / 10);\n      arr1[i] = num % 10;\n    }\n    if (jin !== 0) arr1[i] = jin;\n  };\n  const arr1 = toArr(num1);\n  const arr2 = toArr(num2);\n  let jin = 0;\n  const res = [],\n    temp = [];\n  for (let i = 0, len1 = arr1.length; i < len1; i++) {\n    temp.length = 0;\n    for (let tempNum = 1; tempNum <= i; tempNum++) temp.push(0);\n    for (let j = 0, len2 = arr2.length; j < len2; j++) {\n      const num = arr2[j] * arr1[i] + jin;\n      jin = Math.floor(num / 10);\n      temp.push(num % 10);\n    }\n    if (jin !== 0) {\n      temp.push(jin);\n      jin = 0;\n    }\n    merge(res, temp);\n  }\n  return res.reverse().join('');\n};"
-    },
-    {
-      "date": 1597248000000,
-      "time": 88,
-      "memory": 37.9,
-      "script": "typescript",
-      "desc": "使用 BigInt 直接相乘。",
-      "code": "function multiply(num1: string, num2: string): string {\n  return BigInt(num1) * BigInt(num2) + '';\n}"
-    },
-    {
-      "date": 1626796800000,
-      "time": 92,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "bigint。",
-      "code": "function multiply(num1: string, num2: string): string {\n  return BigInt(num1) * BigInt(num2) + '';\n}"
-    },
-    {
-      "date": 1626796800000,
-      "time": 100,
-      "memory": 40.4,
-      "script": "typescript",
-      "desc": "统计每一位。",
-      "code": "function multiply(num1: string, num2: string): string {\n  const n1 = num1.length;\n  const n2 = num2.length;\n  const list1 = new Array(n1)\n    .fill(0)\n    .map((_, i) => +num1[i])\n    .reverse();\n  const list2 = new Array(n2)\n    .fill(0)\n    .map((_, i) => +num2[i])\n    .reverse();\n  const n = n1 + n2 - 1;\n  const ans: number[] = new Array(n).fill(0);\n  for (let i = 0; i < n1; i++) {\n    for (let j = 0; j < n2; j++) {\n      ans[i + j] += list1[i] * list2[j];\n    }\n  }\n  let add = 0;\n  for (let i = 0; i < n; i++) {\n    if (add) {\n      ans[i] += add;\n      add = 0;\n    }\n    if (ans[i] >= 10) {\n      add = ~~(ans[i] / 10);\n      ans[i] = ans[i] % 10;\n    }\n  }\n  if (add) ans.push(add);\n  while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();\n  return ans.reverse().join('');\n}"
-    }
-  ]
+    "name": "43. 字符串相乘",
+    "url": "https://leetcode-cn.com/problems/multiply-strings/",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "字符串"
+    ],
+    "desc": "给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。",
+    "solutions": [
+        {
+            "date": 1589299200000,
+            "time": 68,
+            "memory": 34,
+            "script": "javascript",
+            "desc": "使用 BigInt 直接运算。",
+            "code": "/**\n * @param {string} num1\n * @param {string} num2\n * @return {string}\n */\nvar multiply = (num1, num2) => (BigInt(num1) * BigInt(num2)).toString();"
+        },
+        {
+            "date": 1589299200000,
+            "time": 108,
+            "memory": 38.3,
+            "script": "javascript",
+            "desc": "转换成数组进行每位相乘。",
+            "code": "/**\n * @param {string} num1\n * @param {string} num2\n * @return {string}\n */\nvar multiply = (num1, num2) => {\n  if (num1 === '0' || num2 === '0') return '0';\n  const toArr = s =>\n    s\n      .split('')\n      .map(v => +v)\n      .reverse();\n  const merge = (arr1, arr2) => {\n    let jin = 0;\n    let i = 0;\n    let num;\n    for (len = arr2.length; i < len; i++) {\n      if (arr1[i] === undefined) num = arr2[i] + jin;\n      else num = arr1[i] + arr2[i] + jin;\n      jin = Math.floor(num / 10);\n      arr1[i] = num % 10;\n    }\n    if (jin !== 0) arr1[i] = jin;\n  };\n  const arr1 = toArr(num1);\n  const arr2 = toArr(num2);\n  let jin = 0;\n  const res = [],\n    temp = [];\n  for (let i = 0, len1 = arr1.length; i < len1; i++) {\n    temp.length = 0;\n    for (let tempNum = 1; tempNum <= i; tempNum++) temp.push(0);\n    for (let j = 0, len2 = arr2.length; j < len2; j++) {\n      const num = arr2[j] * arr1[i] + jin;\n      jin = Math.floor(num / 10);\n      temp.push(num % 10);\n    }\n    if (jin !== 0) {\n      temp.push(jin);\n      jin = 0;\n    }\n    merge(res, temp);\n  }\n  return res.reverse().join('');\n};"
+        },
+        {
+            "date": 1597248000000,
+            "time": 88,
+            "memory": 37.9,
+            "script": "typescript",
+            "desc": "使用 BigInt 直接相乘。",
+            "code": "function multiply(num1: string, num2: string): string {\n  return BigInt(num1) * BigInt(num2) + '';\n}"
+        },
+        {
+            "date": 1626796800000,
+            "time": 92,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "bigint。",
+            "code": "function multiply(num1: string, num2: string): string {\n  return BigInt(num1) * BigInt(num2) + '';\n}"
+        },
+        {
+            "date": 1626796800000,
+            "time": 100,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "统计每一位。",
+            "code": "function multiply(num1: string, num2: string): string {\n  const n1 = num1.length;\n  const n2 = num2.length;\n  const list1 = new Array(n1)\n    .fill(0)\n    .map((_, i) => +num1[i])\n    .reverse();\n  const list2 = new Array(n2)\n    .fill(0)\n    .map((_, i) => +num2[i])\n    .reverse();\n  const n = n1 + n2 - 1;\n  const ans: number[] = new Array(n).fill(0);\n  for (let i = 0; i < n1; i++) {\n    for (let j = 0; j < n2; j++) {\n      ans[i + j] += list1[i] * list2[j];\n    }\n  }\n  let add = 0;\n  for (let i = 0; i < n; i++) {\n    if (add) {\n      ans[i] += add;\n      add = 0;\n    }\n    if (ans[i] >= 10) {\n      add = ~~(ans[i] / 10);\n      ans[i] = ans[i] % 10;\n    }\n  }\n  if (add) ans.push(add);\n  while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();\n  return ans.reverse().join('');\n}"
+        }
+    ]
 }

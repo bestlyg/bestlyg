@@ -1,17 +1,21 @@
 {
-  "name": "1403. 非递增顺序的最小子序列",
-  "url": "https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order/",
-  "difficulty": "简单",
-  "tag": ["贪心", "数组", "排序"],
-  "desc": "和 严格 大于未包含在该子序列中的各元素之和。",
-  "solutions": [
-    {
-      "date": 1659542400000,
-      "time": 0,
-      "memory": 2.1,
-      "script": "rust",
-      "desc": "排序后，从后往前取值。",
-      "code": "impl Solution {\n    pub fn min_subsequence(nums: Vec<i32>) -> Vec<i32> {\n        let mut nums = nums;\n        nums.sort();\n        let sum: i32 = nums.iter().sum();\n        let mut cur = 0;\n        let mut i = nums.len() - 1;\n        let mut ans = Vec::new();\n        while cur * 2 <= sum {\n            cur += nums[i];\n            ans.push(nums[i]);\n            i -= 1;\n        }\n        ans\n    }\n}"
-    }
-  ]
+    "name": "1403. 非递增顺序的最小子序列",
+    "url": "https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order/",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "desc": "和 严格 大于未包含在该子序列中的各元素之和。",
+    "solutions": [
+        {
+            "date": 1659542400000,
+            "time": 0,
+            "memory": 2.1,
+            "script": "rust",
+            "desc": "排序后，从后往前取值。",
+            "code": "impl Solution {\n    pub fn min_subsequence(nums: Vec<i32>) -> Vec<i32> {\n        let mut nums = nums;\n        nums.sort();\n        let sum: i32 = nums.iter().sum();\n        let mut cur = 0;\n        let mut i = nums.len() - 1;\n        let mut ans = Vec::new();\n        while cur * 2 <= sum {\n            cur += nums[i];\n            ans.push(nums[i]);\n            i -= 1;\n        }\n        ans\n    }\n}"
+        }
+    ]
 }

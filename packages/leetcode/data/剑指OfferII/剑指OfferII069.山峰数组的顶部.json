@@ -1,25 +1,28 @@
 {
-  "name": "剑指 Offer II 069. 山峰数组的顶部",
-  "url": "https://leetcode-cn.com/problems/B1IidL/",
-  "difficulty": "简单",
-  "tag": ["数组", "二分查找"],
-  "desc": "给定由整数组成的山峰数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i ，即山峰顶部。",
-  "solutions": [
-    {
-      "date": 1634140800000,
-      "time": 76,
-      "memory": 40.2,
-      "script": "typescript",
-      "desc": "遍历。",
-      "code": "function peakIndexInMountainArray(arr: number[]): number {\n  let ans = 0;\n  for (let i = 0, l = arr.length; i < l; i++) ans = arr[i] > arr[ans] ? i : ans;\n  return ans;\n}"
-    },
-    {
-      "date": 1634140800000,
-      "time": 68,
-      "memory": 40.1,
-      "script": "typescript",
-      "desc": "二分。",
-      "code": "function peakIndexInMountainArray(arr: number[]): number {\n  return find(0, arr.length - 1);\n  function find(l: number, r: number): number {\n    if (l >= r) return l;\n    const lnum = arr[l];\n    const rnum = arr[r];\n    const mid = (l + r) >> 1;\n    const midnum = arr[mid];\n    if (midnum > lnum && midnum > rnum) {\n      const i1 = find(l, mid);\n      const i2 = find(mid, r);\n      return arr[i1] > arr[i2] ? i1 : i2;\n    } else if (midnum <= rnum) {\n      return find(mid + 1, r);\n    } else {\n      return find(l, mid - 1);\n    }\n  }\n}"
-    }
-  ]
+    "name": "剑指 Offer II 069. 山峰数组的顶部",
+    "url": "https://leetcode-cn.com/problems/B1IidL/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给定由整数组成的山峰数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i ，即山峰顶部。",
+    "solutions": [
+        {
+            "date": 1634140800000,
+            "time": 76,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function peakIndexInMountainArray(arr: number[]): number {\n  let ans = 0;\n  for (let i = 0, l = arr.length; i < l; i++) ans = arr[i] > arr[ans] ? i : ans;\n  return ans;\n}"
+        },
+        {
+            "date": 1634140800000,
+            "time": 68,
+            "memory": 40.1,
+            "script": "typescript",
+            "desc": "二分。",
+            "code": "function peakIndexInMountainArray(arr: number[]): number {\n  return find(0, arr.length - 1);\n  function find(l: number, r: number): number {\n    if (l >= r) return l;\n    const lnum = arr[l];\n    const rnum = arr[r];\n    const mid = (l + r) >> 1;\n    const midnum = arr[mid];\n    if (midnum > lnum && midnum > rnum) {\n      const i1 = find(l, mid);\n      const i2 = find(mid, r);\n      return arr[i1] > arr[i2] ? i1 : i2;\n    } else if (midnum <= rnum) {\n      return find(mid + 1, r);\n    } else {\n      return find(l, mid - 1);\n    }\n  }\n}"
+        }
+    ]
 }

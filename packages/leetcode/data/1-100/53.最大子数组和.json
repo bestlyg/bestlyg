@@ -1,57 +1,109 @@
 {
-  "name": "53. 最大子数组和",
-  "url": "https://leetcode-cn.com/problems/maximum-subarray/",
-  "difficulty": "简单",
-  "tag": ["数组", "分治算法", "动态规划"],
-  "desc": "给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。",
-  "solutions": [
-    {
-      "date": 1588435200000,
-      "time": 64,
-      "memory": 35.4,
-      "script": "javascript",
-      "desc": "遍历数组，若前一项大于 0 则当前项+=前一项，最后获取数组中的最大值。",
-      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  let max = nums[0];\n  if (len === 1) return nums[0];\n  for (let i = 1; i < len; i++) {\n    if (nums[i - 1] > 0) nums[i] += nums[i - 1];\n    if (max < nums[i]) max = nums[i];\n  }\n  return max;\n};"
-    },
-    {
-      "date": 1588780800000,
-      "time": 80,
-      "memory": 35.2,
-      "script": "javascript",
-      "desc": "分治法。",
-      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  if (nums === null || nums.length === 0) return 0;\n  return _maxSubArray(nums, 0, nums.length);\n  function _maxSubArray(nums, begin, end) {\n    if (end - begin < 2) return nums[begin];\n    const mid = (begin + end) >> 1;\n    let leftMax = -Infinity;\n    let leftSum = 0;\n    for (let i = mid - 1; i >= begin; i--) {\n      leftSum += nums[i];\n      leftMax = Math.max(leftMax, leftSum);\n    }\n    let rightMax = -Infinity;\n    let rightSum = 0;\n    for (let i = mid; i < end; i++) {\n      rightSum += nums[i];\n      rightMax = Math.max(rightMax, rightSum);\n    }\n    const max = leftMax + rightMax;\n    return Math.max(max, _maxSubArray(nums, begin, mid), _maxSubArray(nums, mid, end));\n  }\n};"
-    },
-    {
-      "date": 1589040000000,
-      "time": 64,
-      "memory": 35.9,
-      "script": "javascript",
-      "desc": "动态规划，递推，dp[i]=以 nums[i]结尾的子序列和。",
-      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  if (nums == null || len == 0) return 0;\n  const dp = [nums[0]];\n  let max = dp[0];\n  for (let i = 1; i < len; i++) max = Math.max(max, (dp[i] = Math.max(0, dp[i - 1]) + nums[i]));\n  return max;\n};"
-    },
-    {
-      "date": 1589040000000,
-      "time": 92,
-      "memory": 34.8,
-      "script": "javascript",
-      "desc": "跟题解 3 思路一样，优化空间。",
-      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  if (nums == null || len == 0) return 0;\n  let max = (dp = nums[0]);\n  for (let i = 1; i < len; i++) max = Math.max(max, (dp = Math.max(0, dp) + nums[i]));\n  return max;\n};"
-    },
-    {
-      "date": 1620921600000,
-      "time": 92,
-      "memory": 40.5,
-      "script": "typescript",
-      "desc": "利用前缀和进行快速相减。",
-      "code": "function maxSubArray(nums: number[]): number {\n  const len = nums.length;\n  const prefixSumList = [0];\n  for (let i = 1; i <= len; i++) prefixSumList[i] = prefixSumList[i - 1] + nums[i - 1];\n  let min = prefixSumList[0];\n  let ans = nums[0];\n  for (let i = 1; i <= len; i++)\n    ans = Math.max(prefixSumList[i] - (min = Math.min(min, prefixSumList[i - 1])), ans);\n  return ans;\n}"
-    },
-    {
-      "date": 1626451200000,
-      "time": 4620,
-      "memory": 46.1,
-      "script": "typescript",
-      "desc": "前缀和。",
-      "code": "function maxSubArray(nums: number[]): number {\n  let num = 0;\n  const len = nums.length;\n  const sums = [0, ...nums.map(v => (num += v))];\n  let ans = -Infinity;\n  for (let i = 0; i < len; i++) {\n    ans = Math.max(ans, nums[i]);\n    const sum = sums[i + 1];\n    for (let j = 0; j < i; j++) {\n      const num = sum - sums[j];\n      ans = Math.max(ans, num);\n    }\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "53. 最大子数组和",
+    "url": "https://leetcode-cn.com/problems/maximum-subarray/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "分治算法",
+        "动态规划"
+    ],
+    "desc": "给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。",
+    "solutions": [
+        {
+            "date": 1588435200000,
+            "time": 64,
+            "memory": 35.4,
+            "script": "javascript",
+            "desc": "遍历数组，若前一项大于 0 则当前项+=前一项，最后获取数组中的最大值。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  let max = nums[0];\n  if (len === 1) return nums[0];\n  for (let i = 1; i < len; i++) {\n    if (nums[i - 1] > 0) nums[i] += nums[i - 1];\n    if (max < nums[i]) max = nums[i];\n  }\n  return max;\n};"
+        },
+        {
+            "date": 1588780800000,
+            "time": 80,
+            "memory": 35.2,
+            "script": "javascript",
+            "desc": "分治法。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  if (nums === null || nums.length === 0) return 0;\n  return _maxSubArray(nums, 0, nums.length);\n  function _maxSubArray(nums, begin, end) {\n    if (end - begin < 2) return nums[begin];\n    const mid = (begin + end) >> 1;\n    let leftMax = -Infinity;\n    let leftSum = 0;\n    for (let i = mid - 1; i >= begin; i--) {\n      leftSum += nums[i];\n      leftMax = Math.max(leftMax, leftSum);\n    }\n    let rightMax = -Infinity;\n    let rightSum = 0;\n    for (let i = mid; i < end; i++) {\n      rightSum += nums[i];\n      rightMax = Math.max(rightMax, rightSum);\n    }\n    const max = leftMax + rightMax;\n    return Math.max(max, _maxSubArray(nums, begin, mid), _maxSubArray(nums, mid, end));\n  }\n};"
+        },
+        {
+            "date": 1589040000000,
+            "time": 64,
+            "memory": 35.9,
+            "script": "javascript",
+            "desc": "动态规划，递推，dp[i]=以 nums[i]结尾的子序列和。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  if (nums == null || len == 0) return 0;\n  const dp = [nums[0]];\n  let max = dp[0];\n  for (let i = 1; i < len; i++) max = Math.max(max, (dp[i] = Math.max(0, dp[i - 1]) + nums[i]));\n  return max;\n};"
+        },
+        {
+            "date": 1589040000000,
+            "time": 92,
+            "memory": 34.8,
+            "script": "javascript",
+            "desc": "跟题解 3 思路一样，优化空间。",
+            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar maxSubArray = function (nums) {\n  const len = nums.length;\n  if (nums == null || len == 0) return 0;\n  let max = (dp = nums[0]);\n  for (let i = 1; i < len; i++) max = Math.max(max, (dp = Math.max(0, dp) + nums[i]));\n  return max;\n};"
+        },
+        {
+            "date": 1620921600000,
+            "time": 92,
+            "memory": 40.5,
+            "script": "typescript",
+            "desc": "利用前缀和进行快速相减。",
+            "code": "function maxSubArray(nums: number[]): number {\n  const len = nums.length;\n  const prefixSumList = [0];\n  for (let i = 1; i <= len; i++) prefixSumList[i] = prefixSumList[i - 1] + nums[i - 1];\n  let min = prefixSumList[0];\n  let ans = nums[0];\n  for (let i = 1; i <= len; i++)\n    ans = Math.max(prefixSumList[i] - (min = Math.min(min, prefixSumList[i - 1])), ans);\n  return ans;\n}"
+        },
+        {
+            "date": 1626451200000,
+            "time": 4620,
+            "memory": 46.1,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function maxSubArray(nums: number[]): number {\n  let num = 0;\n  const len = nums.length;\n  const sums = [0, ...nums.map(v => (num += v))];\n  let ans = -Infinity;\n  for (let i = 0; i < len; i++) {\n    ans = Math.max(ans, nums[i]);\n    const sum = sums[i + 1];\n    for (let j = 0; j < i; j++) {\n      const num = sum - sums[j];\n      ans = Math.max(ans, num);\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1626451200000,
+            "time": 88,
+            "memory": 47.6,
+            "script": "typescript",
+            "desc": "前缀和。",
+            "code": "function maxSubArray(nums: number[]): number {\n  let num = 0;\n  const len = nums.length;\n  const sums = [0, ...nums.map(v => (num += v))];\n  let min = 0;\n  let ans = -Infinity;\n  for (let i = 0; i < len; i++) {\n    const sum = sums[i + 1];\n    ans = Math.max(ans, sum - min, nums[i]);\n    min = Math.min(min, sum);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1626883200000,
+            "time": 72,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "取最大值。",
+            "code": "function maxSubArray(nums: number[]): number {\n  let ans = -Infinity;\n  let max = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (max > 0) max += nums[i];\n    else max = nums[i];\n    ans = Math.max(ans, max);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1626883200000,
+            "time": 72,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "单调递增队列。",
+            "code": "function maxSubArray(nums: number[]): number {\n  if (nums.length === 1) return nums[0];\n  const sums = [0];\n  nums.forEach((num, i) => sums.push(sums[i] + num));\n  const queue: number[] = [0];\n  let ans = -Infinity;\n  for (let i = 1; i <= nums.length; i++) {\n    const num = sums[i];\n    ans = Math.max(ans, num - queue[0]);\n    while (queue.length && queue[queue.length - 1] > num) queue.pop();\n    queue.push(num);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1630684800000,
+            "time": 75,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "前缀和，减去前面前缀和的最小值。",
+            "code": "function maxSubArray(nums: number[]): number {\n  const sums = [0];\n  const n = nums.length;\n  for (let i = 0; i < n; i++) sums.push(sums[sums.length - 1] + nums[i]);\n  let ans = -Infinity;\n  let min = 0;\n  for (let i = 1; i <= n; i++) {\n    ans = Math.max(sums[i] - min, ans);\n    min = Math.min(min, sums[i]);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1640016000000,
+            "time": 164,
+            "memory": 66.1,
+            "script": "c++",
+            "desc": "分治，求出左边最大值，右边最大值和中间最大值。",
+            "code": "class Solution {\n   public:\n    int maxSubArray(vector<int>& nums) { return dfs(nums, 0, nums.size() - 1); }\n    int dfs(vector<int>& nums, int l, int r) {\n        if (l == r) return nums[l];\n        int m = (l + r) >> 1, lmax = INT_MIN, rmax = INT_MIN, sum = 0;\n        for (int i = m; i >= l; i--) {\n            sum += nums[i];\n            lmax = max(lmax, sum);\n        }\n        sum = 0;\n        for (int i = m + 1; i <= r; i++) {\n            sum += nums[i];\n            rmax = max(rmax, sum);\n        }\n        return max(lmax + rmax, max(dfs(nums, l, m), dfs(nums, m + 1, r)));\n    }\n};"
+        },
+        {
+            "date": 1640016000000,
+            "time": 100,
+            "memory": 66,
+            "script": "c++",
+            "desc": "遍历，每次求出前面的最大值。",
+            "code": "class Solution {\n   public:\n    int maxSubArray(vector<int>& nums) {\n        int sum = nums[0], ans = sum;\n        for (int i = 1; i < nums.size(); i++) {\n            sum = max(0, sum) + nums[i];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

@@ -1,25 +1,28 @@
 {
-  "name": "11. 盛最多水的容器",
-  "url": "https://leetcode-cn.com/problems/container-with-most-water/",
-  "difficulty": "中等",
-  "tag": ["数组", "双指针"],
-  "desc": "给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点  (i, ai) 。在坐标内画 n 条垂直线，垂直线 i  的两个端点分别为  (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与  x  轴共同构成的容器可以容纳最多的水。",
-  "solutions": [
-    {
-      "date": 1586620800000,
-      "time": 956,
-      "memory": 35.8,
-      "script": "javascript",
-      "desc": "双重循环。",
-      "code": "/**\n * @param {number[]} height\n * @return {number}\n */\nvar maxArea = function (height) {\n  let res;\n  for (let i = 0; i < height.length; i++) {\n    for (let j = height.length - 1; j > i; j--) {\n      const area = (j - i) * Math.min(height[i], height[j]);\n      // console.log(`i=${i},j=${j},area=${area}`);\n      if (res === undefined || res < area) res = area;\n    }\n  }\n  return res;\n};"
-    },
-    {
-      "date": 1620316800000,
-      "time": 96,
-      "memory": 47.2,
-      "script": "typescript",
-      "desc": "双指针，向内移动。",
-      "code": "function maxArea(height: number[]): number {\n  let left = 0;\n  let right = height.length - 1;\n  let ans = 0;\n  while (left < right) {\n    const rightH = height[right];\n    const leftH = height[left];\n    ans = Math.max(ans, Math.min(rightH, leftH) * (right - left));\n    if (rightH > leftH) left++;\n    else right--;\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "11. 盛最多水的容器",
+    "url": "https://leetcode-cn.com/problems/container-with-most-water/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "双指针"
+    ],
+    "desc": "给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点  (i, ai) 。在坐标内画 n 条垂直线，垂直线 i  的两个端点分别为  (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与  x  轴共同构成的容器可以容纳最多的水。",
+    "solutions": [
+        {
+            "date": 1586620800000,
+            "time": 956,
+            "memory": 35.8,
+            "script": "javascript",
+            "desc": "双重循环。",
+            "code": "/**\n * @param {number[]} height\n * @return {number}\n */\nvar maxArea = function (height) {\n  let res;\n  for (let i = 0; i < height.length; i++) {\n    for (let j = height.length - 1; j > i; j--) {\n      const area = (j - i) * Math.min(height[i], height[j]);\n      // console.log(`i=${i},j=${j},area=${area}`);\n      if (res === undefined || res < area) res = area;\n    }\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1620316800000,
+            "time": 96,
+            "memory": 47.2,
+            "script": "typescript",
+            "desc": "双指针，向内移动。",
+            "code": "function maxArea(height: number[]): number {\n  let left = 0;\n  let right = height.length - 1;\n  let ans = 0;\n  while (left < right) {\n    const rightH = height[right];\n    const leftH = height[left];\n    ans = Math.max(ans, Math.min(rightH, leftH) * (right - left));\n    if (rightH > leftH) left++;\n    else right--;\n  }\n  return ans;\n}"
+        }
+    ]
 }

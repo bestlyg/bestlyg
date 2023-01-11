@@ -1,17 +1,28 @@
 {
-  "name": "95. 不同的二叉搜索树 II",
-  "url": "https://leetcode-cn.com/problems/unique-binary-search-trees-ii/",
-  "difficulty": "中等",
-  "tag": ["树", "动态规划"],
-  "desc": "给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树 。",
-  "solutions": [
-    {
-      "date": 1595260800000,
-      "time": 108,
-      "memory": 45.8,
-      "script": "typescript",
-      "desc": "递归遍历。",
-      "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction generateTrees(n: number): Array<TreeNode | null> {\n  if (n === 0) return [];\n  return _genTrees(1, n);\n  function _genTrees(start: number, end: number): Array<TreeNode | null> {\n    const trees: Array<TreeNode | null> = [];\n    if (start > end) {\n      trees.push(null);\n      return trees;\n    }\n    for (let i = start; i <= end; i++) {\n      const lefts = _genTrees(start, i - 1);\n      const rights = _genTrees(i + 1, end);\n      for (const left of lefts) {\n        for (const right of rights) {\n          const tree = new TreeNode(i);\n          tree.left = left;\n          tree.right = right;\n          trees.push(tree);\n        }\n      }\n    }\n    return trees;\n  }\n}"
-    }
-  ]
+    "name": "95. 不同的二叉搜索树 II",
+    "url": "https://leetcode-cn.com/problems/unique-binary-search-trees-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "动态规划"
+    ],
+    "desc": "给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树 。",
+    "solutions": [
+        {
+            "date": 1595260800000,
+            "time": 108,
+            "memory": 45.8,
+            "script": "typescript",
+            "desc": "递归遍历。",
+            "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction generateTrees(n: number): Array<TreeNode | null> {\n  if (n === 0) return [];\n  return _genTrees(1, n);\n  function _genTrees(start: number, end: number): Array<TreeNode | null> {\n    const trees: Array<TreeNode | null> = [];\n    if (start > end) {\n      trees.push(null);\n      return trees;\n    }\n    for (let i = start; i <= end; i++) {\n      const lefts = _genTrees(start, i - 1);\n      const rights = _genTrees(i + 1, end);\n      for (const left of lefts) {\n        for (const right of rights) {\n          const tree = new TreeNode(i);\n          tree.left = left;\n          tree.right = right;\n          trees.push(tree);\n        }\n      }\n    }\n    return trees;\n  }\n}"
+        },
+        {
+            "date": 1620316800000,
+            "time": 112,
+            "memory": 46,
+            "script": "typescript",
+            "desc": "递归左右子树。",
+            "code": "function generateTrees(n: number): Array<TreeNode | null> {\n  const createTree = (startNum: number, endNum: number): (TreeNode | null)[] => {\n    const ans: TreeNode[] = [];\n    if (startNum > endNum) return [null];\n    for (let i = startNum; i <= endNum; i++) {\n      const leftList = createTree(startNum, i - 1);\n      const rightList = createTree(i + 1, endNum);\n      for (const left of leftList) {\n        for (const right of rightList) {\n          const node = new TreeNode(i, left, right);\n          ans.push(node);\n        }\n      }\n    }\n    return ans;\n  };\n  return createTree(1, n);\n}"
+        }
+    ]
 }

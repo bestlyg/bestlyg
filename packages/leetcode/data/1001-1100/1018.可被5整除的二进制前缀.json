@@ -1,17 +1,19 @@
 {
-  "name": "1018. 可被 5 整除的二进制前缀",
-  "url": "https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给定由若干  0  和  1  组成的数组 A。我们定义  N_i：从  A[0] 到  A[i]  的第 i  个子数组被解释为一个二进制数（从最高有效位到最低有效位）。返回布尔值列表  answer，只有当  N_i  可以被 5  整除时，答案  answer[i] 为  true，否则为 false。",
-  "solutions": [
-    {
-      "date": 1610553600000,
-      "time": 104,
-      "memory": 42.7,
-      "script": "typescript",
-      "desc": "只保留后尾。",
-      "code": "function prefixesDivBy5(A: number[]): boolean[] {\n  const list = [];\n  let prefix = 0;\n  const length = A.length;\n  for (let i = 0; i < length; i++) {\n    prefix = ((prefix << 1) + A[i]) % 5;\n    list.push(prefix === 0);\n  }\n  return list;\n}"
-    }
-  ]
+    "name": "1018. 可被 5 整除的二进制前缀",
+    "url": "https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给定由若干  0  和  1  组成的数组 A。我们定义  N_i：从  A[0] 到  A[i]  的第 i  个子数组被解释为一个二进制数（从最高有效位到最低有效位）。返回布尔值列表  answer，只有当  N_i  可以被 5  整除时，答案  answer[i] 为  true，否则为 false。",
+    "solutions": [
+        {
+            "date": 1610553600000,
+            "time": 104,
+            "memory": 42.7,
+            "script": "typescript",
+            "desc": "只保留后尾。",
+            "code": "function prefixesDivBy5(A: number[]): boolean[] {\n  const list = [];\n  let prefix = 0;\n  const length = A.length;\n  for (let i = 0; i < length; i++) {\n    prefix = ((prefix << 1) + A[i]) % 5;\n    list.push(prefix === 0);\n  }\n  return list;\n}"
+        }
+    ]
 }

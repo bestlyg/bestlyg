@@ -1,17 +1,21 @@
 {
-  "name": "149. 直线上最多的点数",
-  "url": "https://leetcode-cn.com/problems/max-points-on-a-line/",
-  "difficulty": "困难",
-  "tag": ["几何", "哈希表", "数学"],
-  "desc": "给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。",
-  "solutions": [
-    {
-      "date": 1624464000000,
-      "time": 152,
-      "memory": 49.7,
-      "script": "typescript",
-      "desc": "储存下标进行判断数量。",
-      "code": "function maxPoints(points: number[][]): number {\n  const len = points.length;\n  if (len === 1) return 1;\n  const cacheKB: Record<string, Set<number>> = {};\n  const cacheX: Record<string, Set<number>> = {};\n  for (let i1 = 0; i1 < len; i1++) {\n    const [x1, y1] = points[i1];\n    for (let i2 = i1 + 1; i2 < len; i2++) {\n      const [x2, y2] = points[i2];\n      if (x1 === x2) {\n        let set = cacheX[x1];\n        if (!set) set = cacheX[x1] = new Set();\n        set.add(i1);\n        set.add(i2);\n      } else {\n        const k = (y1 - y2) / (x1 - x2);\n        const b = y1 - k * x1;\n        const str = `k=${k},b=${b}`;\n        let set = cacheKB[str];\n        if (!set) set = cacheKB[str] = new Set();\n        set.add(i1);\n        set.add(i2);\n      }\n    }\n  }\n  return Math.max(\n    ...Object.values(cacheKB).map(v => v.size),\n    ...Object.values(cacheX).map(v => v.size)\n  );\n}"
-    }
-  ]
+    "name": "149. 直线上最多的点数",
+    "url": "https://leetcode-cn.com/problems/max-points-on-a-line/",
+    "difficulty": "困难",
+    "tag": [
+        "几何",
+        "哈希表",
+        "数学"
+    ],
+    "desc": "给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。",
+    "solutions": [
+        {
+            "date": 1624464000000,
+            "time": 152,
+            "memory": 49.7,
+            "script": "typescript",
+            "desc": "储存下标进行判断数量。",
+            "code": "function maxPoints(points: number[][]): number {\n  const len = points.length;\n  if (len === 1) return 1;\n  const cacheKB: Record<string, Set<number>> = {};\n  const cacheX: Record<string, Set<number>> = {};\n  for (let i1 = 0; i1 < len; i1++) {\n    const [x1, y1] = points[i1];\n    for (let i2 = i1 + 1; i2 < len; i2++) {\n      const [x2, y2] = points[i2];\n      if (x1 === x2) {\n        let set = cacheX[x1];\n        if (!set) set = cacheX[x1] = new Set();\n        set.add(i1);\n        set.add(i2);\n      } else {\n        const k = (y1 - y2) / (x1 - x2);\n        const b = y1 - k * x1;\n        const str = `k=${k},b=${b}`;\n        let set = cacheKB[str];\n        if (!set) set = cacheKB[str] = new Set();\n        set.add(i1);\n        set.add(i2);\n      }\n    }\n  }\n  return Math.max(\n    ...Object.values(cacheKB).map(v => v.size),\n    ...Object.values(cacheX).map(v => v.size)\n  );\n}"
+        }
+    ]
 }

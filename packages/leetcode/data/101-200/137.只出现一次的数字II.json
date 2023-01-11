@@ -1,25 +1,27 @@
 {
-  "name": "137. 只出现一次的数字 II",
-  "url": "https://leetcode-cn.com/problems/single-number-ii/",
-  "difficulty": "中等",
-  "tag": ["位运算"],
-  "desc": "给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。",
-  "solutions": [
-    {
-      "date": 1619712000000,
-      "time": 96,
-      "memory": 40.1,
-      "script": "typescript",
-      "desc": "排序后判断数量。",
-      "code": "function singleNumber(nums: number[]): number {\n  const len = nums.length;\n  nums.sort((a, b) => a - b);\n  let i = 0;\n  while (i < len - 1) {\n    if (nums[i] === nums[i + 1]) i += 3;\n    else break;\n  }\n  return nums[i];\n}"
-    },
-    {
-      "date": 1619712000000,
-      "time": 76,
-      "memory": 40.4,
-      "script": "typescript",
-      "desc": "利用 map 储存。",
-      "code": "function singleNumber(nums: number[]): number {\n  return [\n    ...nums\n      .reduce((map, v) => {\n        map.set(v, (map.get(v) ?? 0) + 1);\n        return map;\n      }, new Map<number, number>())\n      .entries(),\n  ].filter(([, v]) => v === 1)[0][0];\n}"
-    }
-  ]
+    "name": "137. 只出现一次的数字 II",
+    "url": "https://leetcode-cn.com/problems/single-number-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算"
+    ],
+    "desc": "给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。",
+    "solutions": [
+        {
+            "date": 1619712000000,
+            "time": 96,
+            "memory": 40.1,
+            "script": "typescript",
+            "desc": "排序后判断数量。",
+            "code": "function singleNumber(nums: number[]): number {\n  const len = nums.length;\n  nums.sort((a, b) => a - b);\n  let i = 0;\n  while (i < len - 1) {\n    if (nums[i] === nums[i + 1]) i += 3;\n    else break;\n  }\n  return nums[i];\n}"
+        },
+        {
+            "date": 1619712000000,
+            "time": 76,
+            "memory": 40.4,
+            "script": "typescript",
+            "desc": "利用 map 储存。",
+            "code": "function singleNumber(nums: number[]): number {\n  return [\n    ...nums\n      .reduce((map, v) => {\n        map.set(v, (map.get(v) ?? 0) + 1);\n        return map;\n      }, new Map<number, number>())\n      .entries(),\n  ].filter(([, v]) => v === 1)[0][0];\n}"
+        }
+    ]
 }

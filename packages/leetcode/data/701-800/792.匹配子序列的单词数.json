@@ -1,8 +1,22 @@
 {
-  "name": "792. 匹配子序列的单词数",
-  "url": "https://leetcode.cn/problems/number-of-matching-subsequences/",
-  "difficulty": "中等",
-  "tag": ["字典树", "哈希表", "字符串", "排序"],
-  "desc": "给定字符串 s 和字符串数组 words, 返回  words[i] 中是s的子序列的单词个数 。",
-  "solutions": []
+    "name": "792. 匹配子序列的单词数",
+    "url": "https://leetcode.cn/problems/number-of-matching-subsequences/",
+    "difficulty": "中等",
+    "tag": [
+        "字典树",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "desc": "给定字符串 s 和字符串数组 words, 返回 words[i] 中是 s 的子序列的单词个数 。",
+    "solutions": [
+        {
+            "date": 1668614400000,
+            "time": 184,
+            "memory": 50.2,
+            "script": "cpp",
+            "desc": "把 s 的每个坐标存入后，进行二分。",
+            "code": "class Solution {\npublic:\n    int numMatchingSubseq(string s, vector<string>& words) {\n        vector<vector<int>> list(26);\n        for (int i = 0; i < s.size(); i++) list[s[i] - 'a'].push_back(i);\n        int ans = 0;\n        for (auto &word : words) {\n            if (word.size() > s.size()) continue;\n            int p = -1;\n            bool f = true;\n            for (auto &c : word) {\n                auto &ilist = list[c - 'a'];\n                auto it = upper_bound(ilist.begin(), ilist.end(), p);\n                if (it == ilist.end()) {\n                    f = false;\n                    break;\n                }\n                if (!f) break;\n                p = *it;\n            }\n            if (f) ans++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

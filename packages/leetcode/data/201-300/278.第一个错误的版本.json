@@ -1,25 +1,35 @@
 {
-  "name": "278. 第一个错误的版本",
-  "url": "https://leetcode-cn.com/problems/first-bad-version/",
-  "difficulty": "简单",
-  "tag": ["二分查找"],
-  "desc": "实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。",
-  "solutions": [
-    {
-      "date": 1623600000000,
-      "time": 84,
-      "memory": 39.2,
-      "script": "typescript",
-      "desc": "二分搜索。",
-      "code": "function solution(isBadVersion: (version: number) => boolean): (n: number) => number {\n  return (n: number): number => {\n    const find = (start = 1, end = n): number => {\n      if (start === end) return start;\n      const mid = ~~((start + end) / 2);\n      if (!isBadVersion(mid)) return find(mid + 1, end);\n      else if (mid === 1 || !isBadVersion(mid - 1)) return mid;\n      else return find(start, mid);\n    };\n    return find();\n  };\n}"
-    },
-    {
-      "date": 1638028800000,
-      "time": 0,
-      "memory": 5.5,
-      "script": "c",
-      "desc": "二分。",
-      "code": "int firstBadVersion(int n) {\n    long l = 1, r = 2147483647, m;\n    while (l < r) {\n        m = (r + l) / 2;\n        // 每次中间值是错误版本，就右侧值左移当中间值\n        if (isBadVersion(m)) r = m;\n        // 否则就左侧点是成功版本，找中间值的后一个\n        else l = m + 1;\n    }\n    return l;\n}"
-    }
-  ]
+    "name": "278. 第一个错误的版本",
+    "url": "https://leetcode-cn.com/problems/first-bad-version/",
+    "difficulty": "简单",
+    "tag": [
+        "二分查找"
+    ],
+    "desc": "实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。",
+    "solutions": [
+        {
+            "date": 1623600000000,
+            "time": 84,
+            "memory": 39.2,
+            "script": "typescript",
+            "desc": "二分搜索。",
+            "code": "function solution(isBadVersion: (version: number) => boolean): (n: number) => number {\n  return (n: number): number => {\n    const find = (start = 1, end = n): number => {\n      if (start === end) return start;\n      const mid = ~~((start + end) / 2);\n      if (!isBadVersion(mid)) return find(mid + 1, end);\n      else if (mid === 1 || !isBadVersion(mid - 1)) return mid;\n      else return find(start, mid);\n    };\n    return find();\n  };\n}"
+        },
+        {
+            "date": 1638028800000,
+            "time": 0,
+            "memory": 5.5,
+            "script": "c",
+            "desc": "二分。",
+            "code": "int firstBadVersion(int n) {\n    long l = 1, r = 2147483647, m;\n    while (l < r) {\n        m = (r + l) / 2;\n        // 每次中间值是错误版本，就右侧值左移当中间值\n        if (isBadVersion(m)) r = m;\n        // 否则就左侧点是成功版本，找中间值的后一个\n        else l = m + 1;\n    }\n    return l;\n}"
+        },
+        {
+            "date": 1639929600000,
+            "time": 0,
+            "memory": 5.9,
+            "script": "c++",
+            "desc": "二分查找。",
+            "code": "class Solution {\n   public:\n    int firstBadVersion(int n) {\n        long long l = 0, r = 0x7fffffff, m;\n        while (l < r) {\n            m = (r + l) / 2;\n            if (isBadVersion(m))\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n};"
+        }
+    ]
 }

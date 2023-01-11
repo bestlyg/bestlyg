@@ -1,17 +1,20 @@
 {
-  "name": "1518. 换酒问题",
-  "url": "https://leetcode-cn.com/problems/water-bottles/",
-  "difficulty": "简单",
-  "tag": ["数学", "模拟"],
-  "desc": "请你计算 最多 能喝到多少瓶酒。",
-  "solutions": [
-    {
-      "date": 1639670400000,
-      "time": 72,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "每次重新计算当前空瓶子数量。",
-      "code": "function numWaterBottles(numBottles: number, numExchange: number): number {\n  let ans = numBottles;\n  while (numBottles >= numExchange) {\n    const bottles = Math.floor(numBottles / numExchange);\n    ans += bottles;\n    numBottles = bottles + (numBottles % numExchange);\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1518. 换酒问题",
+    "url": "https://leetcode-cn.com/problems/water-bottles/",
+    "difficulty": "简单",
+    "tag": [
+        "数学",
+        "模拟"
+    ],
+    "desc": "请你计算 最多 能喝到多少瓶酒。",
+    "solutions": [
+        {
+            "date": 1639670400000,
+            "time": 72,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "每次重新计算当前空瓶子数量。",
+            "code": "function numWaterBottles(numBottles: number, numExchange: number): number {\n  let ans = numBottles;\n  while (numBottles >= numExchange) {\n    const bottles = Math.floor(numBottles / numExchange);\n    ans += bottles;\n    numBottles = bottles + (numBottles % numExchange);\n  }\n  return ans;\n}"
+        }
+    ]
 }

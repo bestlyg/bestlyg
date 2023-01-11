@@ -1,33 +1,35 @@
 {
-  "name": "1014. 最佳观光组合",
-  "url": "https://leetcode-cn.com/problems/best-sightseeing-pair/",
-  "difficulty": "中等",
-  "tag": ["数组"],
-  "desc": "给定正整数数组  A，A[i]  表示第 i 个观光景点的评分，并且两个景点  i 和  j  之间的距离为  j - i。一对景点（i < j）组成的观光组合的得分为（A[i] + A[j] + i - j）：景点的评分之和减去它们两者之间的距离。返回一对观光景点能取得的最高分。",
-  "solutions": [
-    {
-      "date": 1592323200000,
-      "time": 8640,
-      "memory": 40.7,
-      "script": "typescript",
-      "desc": "暴力运算。",
-      "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let max = 0;\n  for (let i = 0; i < len; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const num = comp(i, j);\n      if (num > max) max = num;\n    }\n  }\n  return max;\n  function comp(i: number, j: number): number {\n    return A[i] + A[j] + i - j;\n  }\n}"
-    },
-    {
-      "date": 1592323200000,
-      "time": 324,
-      "memory": 40.7,
-      "script": "typescript",
-      "desc": "在题解 1 的基础上增加小于 0 的值的判断，若小于 0 则跳出当前循环。",
-      "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let max = 0;\n  for (let i = 0; i < len; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const num = comp(i, j);\n      if (num > max) max = num;\n      if (num < 0) break;\n    }\n  }\n  return max;\n  function comp(i: number, j: number): number {\n    return A[i] + A[j] + i - j;\n  }\n}"
-    },
-    {
-      "date": 1592323200000,
-      "time": 80,
-      "memory": 40.7,
-      "script": "typescript",
-      "desc": "题目转化为 A[i]+i+A[j]-j,只要求出最大 A[i]+i，并于当前 i 值进行判断即可。",
-      "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let ans = 0;\n  let mx = A[0];\n  for (let i = 1; i < len; i++) {\n    ans = Math.max(ans, mx + A[i] - i);\n    mx = Math.max(mx, A[i] + i);\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1014. 最佳观光组合",
+    "url": "https://leetcode-cn.com/problems/best-sightseeing-pair/",
+    "difficulty": "中等",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给定正整数数组  A，A[i]  表示第 i 个观光景点的评分，并且两个景点  i 和  j  之间的距离为  j - i。一对景点（i < j）组成的观光组合的得分为（A[i] + A[j] + i - j）：景点的评分之和减去它们两者之间的距离。返回一对观光景点能取得的最高分。",
+    "solutions": [
+        {
+            "date": 1592323200000,
+            "time": 8640,
+            "memory": 40.7,
+            "script": "typescript",
+            "desc": "暴力运算。",
+            "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let max = 0;\n  for (let i = 0; i < len; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const num = comp(i, j);\n      if (num > max) max = num;\n    }\n  }\n  return max;\n  function comp(i: number, j: number): number {\n    return A[i] + A[j] + i - j;\n  }\n}"
+        },
+        {
+            "date": 1592323200000,
+            "time": 324,
+            "memory": 40.7,
+            "script": "typescript",
+            "desc": "在题解 1 的基础上增加小于 0 的值的判断，若小于 0 则跳出当前循环。",
+            "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let max = 0;\n  for (let i = 0; i < len; i++) {\n    for (let j = i + 1; j < len; j++) {\n      const num = comp(i, j);\n      if (num > max) max = num;\n      if (num < 0) break;\n    }\n  }\n  return max;\n  function comp(i: number, j: number): number {\n    return A[i] + A[j] + i - j;\n  }\n}"
+        },
+        {
+            "date": 1592323200000,
+            "time": 80,
+            "memory": 40.7,
+            "script": "typescript",
+            "desc": "题目转化为 A[i]+i+A[j]-j,只要求出最大 A[i]+i，并于当前 i 值进行判断即可。",
+            "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let ans = 0;\n  let mx = A[0];\n  for (let i = 1; i < len; i++) {\n    ans = Math.max(ans, mx + A[i] - i);\n    mx = Math.max(mx, A[i] + i);\n  }\n  return ans;\n}"
+        }
+    ]
 }

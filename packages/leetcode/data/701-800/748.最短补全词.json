@@ -1,17 +1,21 @@
 {
-  "name": "748. 最短补全词",
-  "url": "https://leetcode-cn.com/problems/shortest-completing-word/",
-  "difficulty": "简单",
-  "tag": ["数组", "哈希表", "字符串"],
-  "desc": "给你一个字符串 licensePlate 和一个字符串数组 words ，请你找出并返回 words 中的 最短补全词 。",
-  "solutions": [
-    {
-      "date": 1639065600000,
-      "time": 88,
-      "memory": 41.9,
-      "script": "typescript",
-      "desc": "哈希。",
-      "code": "function shortestCompletingWord(licensePlate: string, words: string[]): string {\n  const reg_lowchar = /[a-z]/;\n  const map: Record<string, number> = {};\n  for (const ch of licensePlate.toLowerCase()) {\n    if (reg_lowchar.test(ch)) map[ch] = (map[ch] ?? 0) + 1;\n  }\n  return words\n    .filter(word => {\n      const wmap = { ...map };\n      for (const ch of word) {\n        if (wmap[ch]) wmap[ch]--;\n      }\n      return Object.values(wmap).every(v => v <= 0);\n    })\n    .sort((a, b) => a.length - b.length)[0];\n}"
-    }
-  ]
+    "name": "748. 最短补全词",
+    "url": "https://leetcode-cn.com/problems/shortest-completing-word/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "给你一个字符串 licensePlate 和一个字符串数组 words ，请你找出并返回 words 中的 最短补全词 。",
+    "solutions": [
+        {
+            "date": 1639065600000,
+            "time": 88,
+            "memory": 41.9,
+            "script": "typescript",
+            "desc": "哈希。",
+            "code": "function shortestCompletingWord(licensePlate: string, words: string[]): string {\n  const reg_lowchar = /[a-z]/;\n  const map: Record<string, number> = {};\n  for (const ch of licensePlate.toLowerCase()) {\n    if (reg_lowchar.test(ch)) map[ch] = (map[ch] ?? 0) + 1;\n  }\n  return words\n    .filter(word => {\n      const wmap = { ...map };\n      for (const ch of word) {\n        if (wmap[ch]) wmap[ch]--;\n      }\n      return Object.values(wmap).every(v => v <= 0);\n    })\n    .sort((a, b) => a.length - b.length)[0];\n}"
+        }
+    ]
 }

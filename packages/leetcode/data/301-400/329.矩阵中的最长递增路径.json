@@ -1,25 +1,29 @@
 {
-  "name": "329. 矩阵中的最长递增路径",
-  "url": "https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/",
-  "difficulty": "困难",
-  "tag": ["深度优先搜索", "拓扑排序", "记忆化"],
-  "desc": "给定一个整数矩阵，找出最长递增路径的长度。",
-  "solutions": [
-    {
-      "date": 1595692800000,
-      "time": 232,
-      "memory": 47.1,
-      "script": "typescript",
-      "desc": "记忆化遍历。",
-      "code": "function longestIncreasingPath(matrix: number[][]): number {\n  const rowLen = matrix.length;\n  if (rowLen === 0) return 0;\n  const colLen = matrix[0].length;\n  const cache = new Map<string, number>();\n  const format = (row: number, col: number) => `${row}:${col}`;\n  let maxNum = 0;\n  const setMax = (num: number) => (maxNum = Math.max(maxNum, num));\n  for (let i = 0; i < rowLen; i++) for (let j = 0; j < colLen; j++) setMax(each(i, j));\n  return maxNum;\n  function each(row: number, col: number, set = new Set<string>()): number {\n    const num = matrix[row][col];\n    const name = format(row, col);\n    if (cache.has(name)) return cache.get(name)!;\n    set.add(name);\n    let max = 1;\n    const setMax = (num: number) => (max = Math.max(max, num));\n    if (row !== rowLen - 1 && matrix[row + 1][col] > num && !set.has(format(row + 1, col))) {\n      setMax(each(row + 1, col, set) + 1);\n    }\n    if (row !== 0 && matrix[row - 1][col] > num && !set.has(format(row - 1, col))) {\n      max = setMax(each(row - 1, col, set) + 1);\n    }\n    if (col !== 0 && matrix[row][col - 1] > num && !set.has(format(row, col - 1))) {\n      setMax(each(row, col - 1, set) + 1);\n    }\n    if (col !== colLen - 1 && matrix[row][col + 1] > num && !set.has(format(row, col + 1))) {\n      setMax(each(row, col + 1, set) + 1);\n    }\n    set.delete(name);\n    cache.set(name, max);\n    return max;\n  }\n}"
-    },
-    {
-      "date": 1640793600000,
-      "time": 32,
-      "memory": 14.3,
-      "script": "c++",
-      "desc": "记忆化 dfs。",
-      "code": "class Solution {\n   public:\n    int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\n    int dfs(int mmap[][200], vector<vector<int>>& matrix, int n, int m, int row,\n            int col) {\n        if (mmap[row][col]) return mmap[row][col];\n        int num = matrix[row][col], ans = 1;\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0];\n            int ncol = col + dirs[i][1];\n            if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m ||\n                matrix[nrow][ncol] <= num)\n                continue;\n            ans = max(ans, dfs(mmap, matrix, n, m, nrow, ncol) + 1);\n        }\n        return mmap[row][col] = ans;\n    }\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size(), ans = 0, mmap[n][200];\n        memset(mmap, 0, sizeof(int) * n * 200);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int tag = 1, num = matrix[i][j];\n                for (int k = 0; k < 4; k++) {\n                    int nrow = i + dirs[k][0];\n                    int ncol = j + dirs[k][1];\n                    if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m)\n                        continue;\n                    if (matrix[nrow][ncol] < num) {\n                        tag = 0;\n                        break;\n                    }\n                }\n                if (tag) ans = max(ans, dfs(mmap, matrix, n, m, i, j));\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "329. 矩阵中的最长递增路径",
+    "url": "https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/",
+    "difficulty": "困难",
+    "tag": [
+        "深度优先搜索",
+        "拓扑排序",
+        "记忆化"
+    ],
+    "desc": "给定一个整数矩阵，找出最长递增路径的长度。",
+    "solutions": [
+        {
+            "date": 1595692800000,
+            "time": 232,
+            "memory": 47.1,
+            "script": "typescript",
+            "desc": "记忆化遍历。",
+            "code": "function longestIncreasingPath(matrix: number[][]): number {\n  const rowLen = matrix.length;\n  if (rowLen === 0) return 0;\n  const colLen = matrix[0].length;\n  const cache = new Map<string, number>();\n  const format = (row: number, col: number) => `${row}:${col}`;\n  let maxNum = 0;\n  const setMax = (num: number) => (maxNum = Math.max(maxNum, num));\n  for (let i = 0; i < rowLen; i++) for (let j = 0; j < colLen; j++) setMax(each(i, j));\n  return maxNum;\n  function each(row: number, col: number, set = new Set<string>()): number {\n    const num = matrix[row][col];\n    const name = format(row, col);\n    if (cache.has(name)) return cache.get(name)!;\n    set.add(name);\n    let max = 1;\n    const setMax = (num: number) => (max = Math.max(max, num));\n    if (row !== rowLen - 1 && matrix[row + 1][col] > num && !set.has(format(row + 1, col))) {\n      setMax(each(row + 1, col, set) + 1);\n    }\n    if (row !== 0 && matrix[row - 1][col] > num && !set.has(format(row - 1, col))) {\n      max = setMax(each(row - 1, col, set) + 1);\n    }\n    if (col !== 0 && matrix[row][col - 1] > num && !set.has(format(row, col - 1))) {\n      setMax(each(row, col - 1, set) + 1);\n    }\n    if (col !== colLen - 1 && matrix[row][col + 1] > num && !set.has(format(row, col + 1))) {\n      setMax(each(row, col + 1, set) + 1);\n    }\n    set.delete(name);\n    cache.set(name, max);\n    return max;\n  }\n}"
+        },
+        {
+            "date": 1640793600000,
+            "time": 32,
+            "memory": 14.3,
+            "script": "c++",
+            "desc": "记忆化 dfs。",
+            "code": "class Solution {\n   public:\n    int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\n    int dfs(int mmap[][200], vector<vector<int>>& matrix, int n, int m, int row,\n            int col) {\n        if (mmap[row][col]) return mmap[row][col];\n        int num = matrix[row][col], ans = 1;\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0];\n            int ncol = col + dirs[i][1];\n            if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m ||\n                matrix[nrow][ncol] <= num)\n                continue;\n            ans = max(ans, dfs(mmap, matrix, n, m, nrow, ncol) + 1);\n        }\n        return mmap[row][col] = ans;\n    }\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size(), ans = 0, mmap[n][200];\n        memset(mmap, 0, sizeof(int) * n * 200);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int tag = 1, num = matrix[i][j];\n                for (int k = 0; k < 4; k++) {\n                    int nrow = i + dirs[k][0];\n                    int ncol = j + dirs[k][1];\n                    if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m)\n                        continue;\n                    if (matrix[nrow][ncol] < num) {\n                        tag = 0;\n                        break;\n                    }\n                }\n                if (tag) ans = max(ans, dfs(mmap, matrix, n, m, i, j));\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

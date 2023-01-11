@@ -1,17 +1,20 @@
 {
-  "name": "926. 将字符串翻转到单调递增",
-  "url": "https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/",
-  "difficulty": "中等",
-  "tag": ["字符串", "动态规划"],
-  "desc": "返回使 S 单调递增的最小翻转次数。",
-  "solutions": [
-    {
-      "date": 1641484800000,
-      "time": 20,
-      "memory": 10.8,
-      "script": "c++",
-      "desc": "对于每个位置统计前面有几个 1，后面有几个 0，和为要翻转的总数。",
-      "code": "class Solution {\n   public:\n    int minFlipsMonoIncr(string s) {\n        int cnt0 = 0, cnt1 = 0, ans;\n        for (auto &ch : s)\n            if (ch == '0') cnt0++;\n        ans = cnt0;\n        for (auto &ch : s) {\n            if (ch == '0')\n                cnt0--;\n            else\n                cnt1++;\n            ans = min(ans, cnt0 + cnt1);\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "926. 将字符串翻转到单调递增",
+    "url": "https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "返回使 S 单调递增的最小翻转次数。",
+    "solutions": [
+        {
+            "date": 1641484800000,
+            "time": 20,
+            "memory": 10.8,
+            "script": "c++",
+            "desc": "对于每个位置统计前面有几个 1，后面有几个 0，和为要翻转的总数。",
+            "code": "class Solution {\n   public:\n    int minFlipsMonoIncr(string s) {\n        int cnt0 = 0, cnt1 = 0, ans;\n        for (auto &ch : s)\n            if (ch == '0') cnt0++;\n        ans = cnt0;\n        for (auto &ch : s) {\n            if (ch == '0')\n                cnt0--;\n            else\n                cnt1++;\n            ans = min(ans, cnt0 + cnt1);\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

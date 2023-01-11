@@ -1,17 +1,19 @@
 {
-  "name": "572. 另一个树的子树",
-  "url": "https://leetcode-cn.com/problems/subtree-of-another-tree/",
-  "difficulty": "简单",
-  "tag": ["树"],
-  "desc": "给定两个非空二叉树 s 和 t，检验  s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。s 也可以看做它自身的一棵子树。",
-  "solutions": [
-    {
-      "date": 1588780800000,
-      "time": 84,
-      "memory": 41.5,
-      "script": "javascript",
-      "desc": "先遍历获取所有值相等的节点，通过中序遍历判断是否每项值都相等",
-      "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} s\n * @param {TreeNode} t\n * @return {boolean}\n */\nvar isSubtree = function (s, t) {\n  function searchNode(val) {\n    const queue = inorder(s);\n    const resArr = [];\n    for (const node of queue) {\n      if (node.val === val) resArr.push(node);\n    }\n    return resArr;\n  }\n  function inorder(node) {\n    const queue = [];\n    function _inorder(node) {\n      if (node.left !== null) _inorder(node.left);\n      queue.push(node);\n      if (node.right !== null) _inorder(node.right);\n    }\n    _inorder(node);\n    return queue;\n  }\n  function sameArrVal(arr1, arr2) {\n    const len1 = arr1.length;\n    if (len1 !== arr2.length) return false;\n    for (let i = 0; i < len1; i++) if (arr1[i].val !== arr2[i].val) return false;\n    return true;\n  }\n  const sameNodeArr = searchNode(t.val);\n  if (sameNodeArr.length === 0) return false;\n  const tArr = inorder(t);\n  for (const node of sameNodeArr) {\n    if (sameArrVal(inorder(node), tArr)) return true;\n  }\n  return false;\n};"
-    }
-  ]
+    "name": "572. 另一个树的子树",
+    "url": "https://leetcode-cn.com/problems/subtree-of-another-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树"
+    ],
+    "desc": "给定两个非空二叉树 s 和 t，检验  s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。s 也可以看做它自身的一棵子树。",
+    "solutions": [
+        {
+            "date": 1588780800000,
+            "time": 84,
+            "memory": 41.5,
+            "script": "javascript",
+            "desc": "先遍历获取所有值相等的节点，通过中序遍历判断是否每项值都相等",
+            "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} s\n * @param {TreeNode} t\n * @return {boolean}\n */\nvar isSubtree = function (s, t) {\n  function searchNode(val) {\n    const queue = inorder(s);\n    const resArr = [];\n    for (const node of queue) {\n      if (node.val === val) resArr.push(node);\n    }\n    return resArr;\n  }\n  function inorder(node) {\n    const queue = [];\n    function _inorder(node) {\n      if (node.left !== null) _inorder(node.left);\n      queue.push(node);\n      if (node.right !== null) _inorder(node.right);\n    }\n    _inorder(node);\n    return queue;\n  }\n  function sameArrVal(arr1, arr2) {\n    const len1 = arr1.length;\n    if (len1 !== arr2.length) return false;\n    for (let i = 0; i < len1; i++) if (arr1[i].val !== arr2[i].val) return false;\n    return true;\n  }\n  const sameNodeArr = searchNode(t.val);\n  if (sameNodeArr.length === 0) return false;\n  const tArr = inorder(t);\n  for (const node of sameNodeArr) {\n    if (sameArrVal(inorder(node), tArr)) return true;\n  }\n  return false;\n};"
+        }
+    ]
 }

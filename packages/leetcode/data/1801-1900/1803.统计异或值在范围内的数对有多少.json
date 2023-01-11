@@ -1,8 +1,45 @@
 {
-  "name": "1803. 统计异或值在范围内的数对有多少",
-  "url": "https://leetcode.cn/problems/count-pairs-with-xor-in-a-range/",
-  "difficulty": "困难",
-  "tag": ["位运算", "字典树", "数组"],
-  "desc": "给你一个整数数组 nums （下标 从 0 开始 计数）以及两个整数：low 和 high ，请返回 漂亮数对 的数目。",
-  "solutions": []
+    "name": "1803. 统计异或值在范围内的数对有多少",
+    "url": "https://leetcode.cn/problems/count-pairs-with-xor-in-a-range/",
+    "difficulty": "困难",
+    "tag": [
+        "位运算",
+        "字典树",
+        "数组"
+    ],
+    "desc": "给你一个整数数组 nums （下标 从 0 开始 计数）以及两个整数：low 和 high ，请返回 漂亮数对 的数目。",
+    "solutions": [
+        {
+            "date": 1672848000000,
+            "time": 7316,
+            "memory": 47.1,
+            "script": "typescript",
+            "desc": "暴力模拟。",
+            "code": "function countPairs(nums: number[], low: number, high: number): number {\n  const n = nums.length;\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    for (let j = i + 1; j < n; j++) {\n      const v = nums[i] ^ nums[j];\n      if (v >= low && v <= high) ans++;\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1672848000000,
+            "time": 432,
+            "memory": 132.2,
+            "script": "cpp",
+            "desc": "字典树，按位遍历，对于当前点找和 target 前缀一样，当前位小的数量。",
+            "code": "#include <vector>\n#include <numeric>\n#include <iostream>\n#include <unordered_map>\n// bestlyg\n#define X first\n#define Y second\n#define lb(x) ((x) & (-x))\n#define mem(a,b) memset(a,b,sizeof(a))\n#define debug freopen(\"input\",\"r\",stdin)\n#define PII pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args);}\n#else\n#define log(frm, args...)\n#endif\n\ntypedef long long ll;\nusing namespace std;\n\nclass UnionFind {\npublic:\n    int n;\n    vector<int> data, cnt;\n    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {\n        iota(data.begin(), data.end(), 0);\n    }\n    int size(int v) { return cnt[find(v)]; }\n    int find(int v) {\n        if (data[v] == v) return v;\n        return data[v] = find(data[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 != p2) {\n            cnt[p1] += cnt[p2];\n            data[p2] = p1;\n        }\n    }\n    bool same(int v1, int v2) { return find(v1) == find(v2); }\n};\nint pos2Idx(int x, int y, int size) { return x * size + y; }\nvoid idx2Pos(int idx, int size, int &x, int &y) { x = idx / size; y = idx % size; }\nvector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}};\n// START\n\nconst int MAX = 14;\nstruct TrieNode {\n    int sum, val;\n    TrieNode *children[2];\n    TrieNode(int val): sum(0), val(val) { children[0] = children[1] = nullptr; }\n    ~TrieNode() {\n        delete children[0];\n        delete children[1];\n    }\n};\nstruct Trie {\n    TrieNode *root;\n    Trie(): root(new TrieNode(0)) {}\n    void add(int num) {\n        TrieNode *p = root;\n        for (int i = MAX; i >= 0; i--) {\n            int tag = (num >> i) & 1;\n            TrieNode *next = p->children[tag];\n            if (next == nullptr) next = p->children[tag] = new TrieNode(tag);\n            p = next;\n            p->sum += 1;\n        }\n    }\n    int get(int num, int x) {\n        TrieNode *p = root;\n        int sum = 0;\n        for (int i = MAX; i >= 0; i--) {\n            int tag = (num >> i) & 1;\n            if ((x >> i) & 1) {\n                if (p->children[tag] != nullptr) sum += p->children[tag]->sum;\n                if (p->children[tag ^ 1] == nullptr) return sum;\n                p = p->children[tag ^ 1];\n            } else {\n                if (p->children[tag] == nullptr) return sum;\n                p = p->children[tag];\n            }\n        }\n        sum += p->sum;\n        return sum;\n    }\n    ~Trie() {\n        log(\"~trie\n\");\n        delete root;\n    }\n};\nclass Solution {\npublic:\n    int comp(vector<int> &nums, int num) {\n        Trie trie;\n        int ans = 0;\n        for (int i = 1; i < nums.size(); i++) {\n            trie.add(nums[i - 1]);\n            ans += trie.get(nums[i], num);\n        }\n        return ans;\n    }\n    int countPairs(vector<int>& nums, int low, int high) {\n        return comp(nums, high) - comp(nums, low - 1);\n    }\n};\n\n// END\n#ifdef LOCAL\nint main() {\n    Solution s;\n    // vector<int> nums = {1,4,2,7};\n    // int low = 2;\n    // int high = 6;\n    vector<int> nums = {9,8,4,2,1};\n    int low = 5;\n    int high = 14;\n    cout << s.countPairs(nums, low, high) << endl;\n    return 0;\n}\n#endif"
+        },
+        {
+            "date": 1672848000000,
+            "time": 132,
+            "memory": 4.6,
+            "script": "rust",
+            "desc": "同上。",
+            "code": "pub use std::{cell::RefCell, rc::Rc};\nconst MAX: i32 = 14;\nstruct TrieNode {\n    sum: i32,\n    children: [Option<Rc<RefCell<TrieNode>>>; 2],\n}\nimpl TrieNode {\n    fn new() -> TrieNode {\n        TrieNode {\n            sum: 0,\n            children: [None, None],\n        }\n    }\n}\nstruct Trie {\n    root: Option<Rc<RefCell<TrieNode>>>,\n}\nimpl Trie {\n    fn new() -> Trie {\n        Trie {\n            root: Some(Rc::new(RefCell::new(TrieNode::new()))),\n        }\n    }\n    fn add(&self, num: i32) {\n        let mut p = self.root.clone().unwrap();\n        let mut i = MAX;\n        while i >= 0 {\n            let tag = ((num >> i) & 1) as usize;\n            let mut next: Option<Rc<RefCell<TrieNode>>> = None;\n            if p.as_ref().borrow().children[tag].is_none() {\n                let node = Rc::new(RefCell::new(TrieNode::new()));\n                p.borrow_mut().children[tag] = Some(node.clone());\n                next = Some(node.clone());\n            } else {\n                let node = p.as_ref().borrow().children[tag].clone();\n                next = node\n            }\n            p = next.unwrap();\n            p.borrow_mut().sum += 1;\n            i -= 1;\n        }\n    }\n    fn get(&self, num: i32, x: i32) -> i32 {\n        let mut p = self.root.clone().unwrap();\n        let mut sum = 0;\n        let mut i = MAX;\n        while i >= 0 {\n            let tag = ((num >> i) & 1) as usize;\n            if ((x >> i) & 1) == 1 {\n                if p.as_ref().borrow().children[tag].is_some() {\n                    let child = p.as_ref().borrow().children[tag].clone();\n                    sum += child.unwrap().as_ref().borrow().sum;\n                }\n                if p.as_ref().borrow().children[tag ^ 1].is_none() {\n                    return sum;\n                }\n                let next = p.as_ref().borrow().children[tag ^ 1].clone();\n                p = next.unwrap();\n            } else {\n                if p.as_ref().borrow().children[tag].is_none() {\n                    return sum;\n                }\n                let next = p.as_ref().borrow().children[tag].clone();\n                p = next.unwrap();\n            }\n            i -= 1;\n        }\n        sum += p.as_ref().borrow().sum;\n        sum\n    }\n}\nimpl Solution {\n    fn comp(nums: &Vec<i32>, num: i32) -> i32 {\n        let trie = Trie::new();\n        let mut ans = 0;\n        for i in 1..nums.len() {\n            trie.add(nums[i - 1]);\n            ans += trie.get(nums[i], num);\n        }\n        ans\n    }\n    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {;\n        Solution::comp(&nums, high) - Solution::comp(&nums, low - 1)\n    }\n}"
+        },
+        {
+            "date": 1672848000000,
+            "time": 436,
+            "memory": 2.2,
+            "script": "rust",
+            "desc": "暴力。",
+            "code": "impl Solution {\n    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {\n        let mut ans = 0;\n        for i in 0..nums.len() {\n            for j in i + 1..nums.len() {\n                let val = nums[i] ^ nums[j];\n                if val >= low && val <= high {\n                    ans += 1;\n                }\n            }\n        }\n        ans\n    }\n}"
+        }
+    ]
 }

@@ -1,8 +1,20 @@
 {
-  "name": "1832. 判断句子是否为全字母句",
-  "url": "https://leetcode.cn/problems/check-if-the-sentence-is-pangram",
-  "difficulty": "中等",
-  "tag": ["哈希表", "字符串"],
-  "desc": "给你一个仅由小写英文字母组成的字符串 sentence ，请你判断 sentence 是否为 全字母句 。",
-  "solutions": []
+    "name": "1832. 判断句子是否为全字母句",
+    "url": "https://leetcode.cn/problems/check-if-the-sentence-is-pangram",
+    "difficulty": "中等",
+    "tag": [
+        "哈希表",
+        "字符串"
+    ],
+    "desc": "给你一个仅由小写英文字母组成的字符串 sentence ，请你判断 sentence 是否为 全字母句 。",
+    "solutions": [
+        {
+            "date": 1670860800000,
+            "time": 0,
+            "memory": 6.4,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    bool checkIfPangram(string sentence) {\n        int num = 0;\n        for (auto &c : sentence) num |= 1 << (c - 'a');\n        return num == 0b11111111111111111111111111;\n    }\n};"
+        }
+    ]
 }

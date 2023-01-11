@@ -1,17 +1,20 @@
 {
-  "name": "124. 二叉树中的最大路径和",
-  "url": "https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/",
-  "difficulty": "困难",
-  "tag": ["树", "深度优先搜索"],
-  "desc": "给定一个非空二叉树，返回其最大路径和。",
-  "solutions": [
-    {
-      "date": 1592668800000,
-      "time": 88,
-      "memory": 46.4,
-      "script": "typescript",
-      "desc": "递归调用判断部分和与单链和。",
-      "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction maxPathSum(root: TreeNode | null): number {\n  const [link, part] = sum(root);\n  return Math.max(link, part);\n  function sum(node: TreeNode | null): [number, number] {\n    if (node === null) return [0, -Infinity];\n    const [linkSumL, partSumL] = sum(node.left);\n    const [linkSumR, partSumR] = sum(node.right);\n    const partSum = Math.max(\n      node.val,\n      node.val + linkSumL + linkSumR,\n      node.val + linkSumL,\n      node.val + linkSumR,\n      partSumL,\n      partSumR\n    );\n    const linkSum = Math.max(linkSumL, linkSumR, 0) + node.val;\n    return [linkSum, partSum];\n  }\n}"
-    }
-  ]
+    "name": "124. 二叉树中的最大路径和",
+    "url": "https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "给定一个非空二叉树，返回其最大路径和。",
+    "solutions": [
+        {
+            "date": 1592668800000,
+            "time": 88,
+            "memory": 46.4,
+            "script": "typescript",
+            "desc": "递归调用判断部分和与单链和。",
+            "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction maxPathSum(root: TreeNode | null): number {\n  const [link, part] = sum(root);\n  return Math.max(link, part);\n  function sum(node: TreeNode | null): [number, number] {\n    if (node === null) return [0, -Infinity];\n    const [linkSumL, partSumL] = sum(node.left);\n    const [linkSumR, partSumR] = sum(node.right);\n    const partSum = Math.max(\n      node.val,\n      node.val + linkSumL + linkSumR,\n      node.val + linkSumL,\n      node.val + linkSumR,\n      partSumL,\n      partSumR\n    );\n    const linkSum = Math.max(linkSumL, linkSumR, 0) + node.val;\n    return [linkSum, partSum];\n  }\n}"
+        }
+    ]
 }

@@ -1,25 +1,29 @@
 {
-  "name": "209. 长度最小的子数组",
-  "url": "https://leetcode-cn.com/problems/minimum-size-subarray-sum/",
-  "difficulty": "中等",
-  "tag": ["数组", "双指针", "二分查找"],
-  "desc": "给定一个含有  n  个正整数的数组和一个正整数  s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组，并返回其长度。如果不存在符合条件的连续子数组，返回 0。",
-  "solutions": [
-    {
-      "date": 1593273600000,
-      "time": 68,
-      "memory": 36.3,
-      "script": "typescript",
-      "desc": "双指针，滑动窗口。",
-      "code": "function minSubArrayLen(s: number, nums: number[]): number {\n  const len = nums.length;\n  let i = 0,\n    minLen = Infinity,\n    sum = 0;\n  for (let j = 0; j < len; j++) {\n    sum += nums[j];\n    while (sum >= s) {\n      minLen = Math.min(minLen, j - i + 1);\n      sum -= nums[i++];\n    }\n  }\n  return minLen === Infinity ? 0 : minLen;\n}"
-    },
-    {
-      "date": 1640275200000,
-      "time": 4,
-      "memory": 10.2,
-      "script": "c++",
-      "desc": "双指针。",
-      "code": "class Solution {\n   public:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0, r = 0, num = 0, ans = INT_MAX, n = nums.size();\n        while (r < n) {\n            while (r < n && num < target) num += nums[r++];\n            while (l < r && num - nums[l] >= target) num -= nums[l++];\n            if (num >= target) ans = min(ans, r - l);\n            num -= nums[l++];\n        }\n        return ans == INT_MAX ? 0 : ans;\n    }\n};"
-    }
-  ]
+    "name": "209. 长度最小的子数组",
+    "url": "https://leetcode-cn.com/problems/minimum-size-subarray-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "双指针",
+        "二分查找"
+    ],
+    "desc": "给定一个含有  n  个正整数的数组和一个正整数  s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组，并返回其长度。如果不存在符合条件的连续子数组，返回 0。",
+    "solutions": [
+        {
+            "date": 1593273600000,
+            "time": 68,
+            "memory": 36.3,
+            "script": "typescript",
+            "desc": "双指针，滑动窗口。",
+            "code": "function minSubArrayLen(s: number, nums: number[]): number {\n  const len = nums.length;\n  let i = 0,\n    minLen = Infinity,\n    sum = 0;\n  for (let j = 0; j < len; j++) {\n    sum += nums[j];\n    while (sum >= s) {\n      minLen = Math.min(minLen, j - i + 1);\n      sum -= nums[i++];\n    }\n  }\n  return minLen === Infinity ? 0 : minLen;\n}"
+        },
+        {
+            "date": 1640275200000,
+            "time": 4,
+            "memory": 10.2,
+            "script": "c++",
+            "desc": "双指针。",
+            "code": "class Solution {\n   public:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0, r = 0, num = 0, ans = INT_MAX, n = nums.size();\n        while (r < n) {\n            while (r < n && num < target) num += nums[r++];\n            while (l < r && num - nums[l] >= target) num -= nums[l++];\n            if (num >= target) ans = min(ans, r - l);\n            num -= nums[l++];\n        }\n        return ans == INT_MAX ? 0 : ans;\n    }\n};"
+        }
+    ]
 }

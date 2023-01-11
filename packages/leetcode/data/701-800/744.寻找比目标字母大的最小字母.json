@@ -1,25 +1,28 @@
 {
-  "name": "744. 寻找比目标字母大的最小字母",
-  "url": "https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/",
-  "difficulty": "简单",
-  "tag": ["数组", "二分查找"],
-  "desc": "给你一个排序后的字符列表 letters ，列表中只包含小写英文字母。另给出一个目标字母 target，请你寻找在这一有序列表里比目标字母大的最小字母。",
-  "solutions": [
-    {
-      "date": 1647532800000,
-      "time": 20,
-      "memory": 15.4,
-      "script": "cpp",
-      "desc": "遍历字母表。",
-      "code": "class Solution {\n   public:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int list[26] = {0};\n        for (auto& ch : letters) {\n            list[ch - 'a'] = 1;\n        }\n        target -= 'a';\n        for (int i = (target + 1) % 26, cnt = 0; cnt < 26;\n             cnt++, i = (i + 1) % 26) {\n            if (list[i]) return i + 'a';\n        }\n        return 'a';\n    }\n};"
-    },
-    {
-      "date": 1648915200000,
-      "time": 20,
-      "memory": 15.4,
-      "script": "cpp",
-      "desc": "二分。",
-      "code": "class Solution {\n   public:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int l = 0, r = letters.size(), m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (letters[m] > target)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l == letters.size() ? letters[0] : letters[l];\n    }\n};"
-    }
-  ]
+    "name": "744. 寻找比目标字母大的最小字母",
+    "url": "https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给你一个排序后的字符列表 letters ，列表中只包含小写英文字母。另给出一个目标字母 target，请你寻找在这一有序列表里比目标字母大的最小字母。",
+    "solutions": [
+        {
+            "date": 1647532800000,
+            "time": 20,
+            "memory": 15.4,
+            "script": "cpp",
+            "desc": "遍历字母表。",
+            "code": "class Solution {\n   public:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int list[26] = {0};\n        for (auto& ch : letters) {\n            list[ch - 'a'] = 1;\n        }\n        target -= 'a';\n        for (int i = (target + 1) % 26, cnt = 0; cnt < 26;\n             cnt++, i = (i + 1) % 26) {\n            if (list[i]) return i + 'a';\n        }\n        return 'a';\n    }\n};"
+        },
+        {
+            "date": 1648915200000,
+            "time": 20,
+            "memory": 15.4,
+            "script": "cpp",
+            "desc": "二分。",
+            "code": "class Solution {\n   public:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int l = 0, r = letters.size(), m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (letters[m] > target)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l == letters.size() ? letters[0] : letters[l];\n    }\n};"
+        }
+    ]
 }

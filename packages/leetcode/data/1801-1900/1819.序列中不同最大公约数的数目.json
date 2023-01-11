@@ -1,25 +1,30 @@
 {
-  "name": "1819. 序列中不同最大公约数的数目",
-  "url": "https://leetcode-cn.com/problems/number-of-different-subsequences-gcds/",
-  "difficulty": "困难",
-  "tag": ["数组", "数学", "计数", "数论"],
-  "desc": "计算并返回 nums 的所有 非空 子序列中 不同 最大公约数的 数目 。",
-  "solutions": [
-    {
-      "date": 1641484800000,
-      "time": 1948,
-      "memory": 67.2,
-      "script": "typescript",
-      "desc": "对于每个可能出现的最大公约数 i 进行统计，所有数中的 i 的倍数和的最大公约数是否为 i，是则存在。",
-      "code": "function gcd(a: number, b: number) {\n  if (b) return gcd(b, a % b);\n  return a;\n}\nfunction countDifferentSubsequenceGCDs(nums: number[]): number {\n  const set = new Set(nums);\n  const max = Math.max(...nums);\n  let ans = 0;\n  for (let i = 1; i <= max; i++) {\n    let val = -1;\n    for (let j = i; j <= max; j += i) {\n      if (!set.has(j)) continue;\n      if (val == -1) val = j;\n      else val = gcd(val, j);\n    }\n    if (val == i) ans++;\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1641484800000,
-      "time": 292,
-      "memory": 70.1,
-      "script": "c++",
-      "desc": "对于每个可能出现的最大公约数 i 进行统计，所有数中的 i 的倍数和的最大公约数是否为 i，是则存在。",
-      "code": "class Solution {\n   public:\n    int gcd(int a, int b) {\n        if (b) return gcd(b, a % b);\n        return a;\n    }\n    int countDifferentSubsequenceGCDs(vector<int>& nums) {\n        int cnts[200005] = {0}, maxn = 0, ans = 0;\n        for (auto& num : nums) {\n            cnts[num] = 1;\n            maxn = max(maxn, num);\n        }\n        for (int i = 1; i <= maxn; i++) {\n            int val = -1;\n            for (int j = i; j <= maxn; j += i) {\n                if (!cnts[j]) continue;\n                if (val == -1)\n                    val = j;\n                else\n                    val = gcd(val, j);\n            }\n            if (val == i) ans++;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "1819. 序列中不同最大公约数的数目",
+    "url": "https://leetcode-cn.com/problems/number-of-different-subsequences-gcds/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "数学",
+        "计数",
+        "数论"
+    ],
+    "desc": "计算并返回 nums 的所有 非空 子序列中 不同 最大公约数的 数目 。",
+    "solutions": [
+        {
+            "date": 1641484800000,
+            "time": 1948,
+            "memory": 67.2,
+            "script": "typescript",
+            "desc": "对于每个可能出现的最大公约数 i 进行统计，所有数中的 i 的倍数和的最大公约数是否为 i，是则存在。",
+            "code": "function gcd(a: number, b: number) {\n  if (b) return gcd(b, a % b);\n  return a;\n}\nfunction countDifferentSubsequenceGCDs(nums: number[]): number {\n  const set = new Set(nums);\n  const max = Math.max(...nums);\n  let ans = 0;\n  for (let i = 1; i <= max; i++) {\n    let val = -1;\n    for (let j = i; j <= max; j += i) {\n      if (!set.has(j)) continue;\n      if (val == -1) val = j;\n      else val = gcd(val, j);\n    }\n    if (val == i) ans++;\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1641484800000,
+            "time": 292,
+            "memory": 70.1,
+            "script": "c++",
+            "desc": "对于每个可能出现的最大公约数 i 进行统计，所有数中的 i 的倍数和的最大公约数是否为 i，是则存在。",
+            "code": "class Solution {\n   public:\n    int gcd(int a, int b) {\n        if (b) return gcd(b, a % b);\n        return a;\n    }\n    int countDifferentSubsequenceGCDs(vector<int>& nums) {\n        int cnts[200005] = {0}, maxn = 0, ans = 0;\n        for (auto& num : nums) {\n            cnts[num] = 1;\n            maxn = max(maxn, num);\n        }\n        for (int i = 1; i <= maxn; i++) {\n            int val = -1;\n            for (int j = i; j <= maxn; j += i) {\n                if (!cnts[j]) continue;\n                if (val == -1)\n                    val = j;\n                else\n                    val = gcd(val, j);\n            }\n            if (val == i) ans++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

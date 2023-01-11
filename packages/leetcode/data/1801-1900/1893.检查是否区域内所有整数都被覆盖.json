@@ -1,17 +1,21 @@
 {
-  "name": "1893. 检查是否区域内所有整数都被覆盖",
-  "url": "https://leetcode-cn.com/problems/check-if-all-the-integers-in-a-range-are-covered/",
-  "difficulty": "简单",
-  "tag": ["数组", "哈希表", "前缀和"],
-  "desc": "给你一个二维整数数组  ranges  和两个整数  left  和  right 。每个  ranges[i] = [starti, endi]  表示一个从  starti  到  endi  的   闭区间  。如果闭区间  [left, right]  内每个整数都被  ranges  中   至少一个   区间覆盖，那么请你返回  true ，否则返回  false 。",
-  "solutions": [
-    {
-      "date": 1626969600000,
-      "time": 100,
-      "memory": 40.8,
-      "script": "typescript",
-      "desc": "合并相近区间。",
-      "code": "function isCovered(ranges: number[][], left: number, right: number): boolean {\n  ranges.sort(([l1, r1], [l2, r2]) => (l1 === l2 ? r1 - r2 : l1 - l2));\n  const rangeList: number[][] = [];\n  for (const range of ranges) {\n    if (rangeList.length === 0) {\n      rangeList.push(range);\n      continue;\n    }\n    const [l1, r1] = rangeList.pop()!;\n    const [l2, r2] = range;\n    if (l2 >= l1 && r2 <= r1) rangeList.push([l1, r1]);\n    else if (r1 < l2 - 1) rangeList.push([l1, r1], [l2, r2]);\n    else rangeList.push([l1, r2]);\n  }\n  for (const [l, r] of rangeList) {\n    if (left >= l && right <= r) return true;\n  }\n  return false;\n}"
-    }
-  ]
+    "name": "1893. 检查是否区域内所有整数都被覆盖",
+    "url": "https://leetcode-cn.com/problems/check-if-all-the-integers-in-a-range-are-covered/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "desc": "给你一个二维整数数组  ranges  和两个整数  left  和  right 。每个  ranges[i] = [starti, endi]  表示一个从  starti  到  endi  的   闭区间  。如果闭区间  [left, right]  内每个整数都被  ranges  中   至少一个   区间覆盖，那么请你返回  true ，否则返回  false 。",
+    "solutions": [
+        {
+            "date": 1626969600000,
+            "time": 100,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "合并相近区间。",
+            "code": "function isCovered(ranges: number[][], left: number, right: number): boolean {\n  ranges.sort(([l1, r1], [l2, r2]) => (l1 === l2 ? r1 - r2 : l1 - l2));\n  const rangeList: number[][] = [];\n  for (const range of ranges) {\n    if (rangeList.length === 0) {\n      rangeList.push(range);\n      continue;\n    }\n    const [l1, r1] = rangeList.pop()!;\n    const [l2, r2] = range;\n    if (l2 >= l1 && r2 <= r1) rangeList.push([l1, r1]);\n    else if (r1 < l2 - 1) rangeList.push([l1, r1], [l2, r2]);\n    else rangeList.push([l1, r2]);\n  }\n  for (const [l, r] of rangeList) {\n    if (left >= l && right <= r) return true;\n  }\n  return false;\n}"
+        }
+    ]
 }

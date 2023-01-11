@@ -1,17 +1,20 @@
 {
-  "name": "1111. 有效括号的嵌套深度",
-  "url": "https://leetcode-cn.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/",
-  "difficulty": "中等",
-  "tag": ["贪心", "二分查找"],
-  "desc": "给你一个「有效括号字符串」 seq，请你将其分成两个不相交的有效括号字符串，A 和 B，并使这两个字符串的深度最小。",
-  "solutions": [
-    {
-      "date": 1586361600000,
-      "time": 96,
-      "memory": 35.6,
-      "script": "javascript",
-      "desc": "深度平衡即奇数深度归类一边，偶数深度归类一边。",
-      "code": "/**\n * @param {string} seq\n * @return {number[]}\n */\nvar maxDepthAfterSplit = function (seq) {\n  let dep = 0;\n  return seq.split('').map(value => (value === '(' ? ++dep % 2 : dep-- % 2));\n};"
-    }
-  ]
+    "name": "1111. 有效括号的嵌套深度",
+    "url": "https://leetcode-cn.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "二分查找"
+    ],
+    "desc": "给你一个「有效括号字符串」 seq，请你将其分成两个不相交的有效括号字符串，A 和 B，并使这两个字符串的深度最小。",
+    "solutions": [
+        {
+            "date": 1586361600000,
+            "time": 96,
+            "memory": 35.6,
+            "script": "javascript",
+            "desc": "深度平衡即奇数深度归类一边，偶数深度归类一边。",
+            "code": "/**\n * @param {string} seq\n * @return {number[]}\n */\nvar maxDepthAfterSplit = function (seq) {\n  let dep = 0;\n  return seq.split('').map(value => (value === '(' ? ++dep % 2 : dep-- % 2));\n};"
+        }
+    ]
 }

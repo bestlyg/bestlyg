@@ -1,17 +1,21 @@
 {
-  "name": "2045. 到达目的地的第二短时间",
-  "url": "https://leetcode-cn.com/problems/second-minimum-time-to-reach-destination/",
-  "difficulty": "困难",
-  "tag": ["广度优先搜索", "图", "最短路"],
-  "desc": "给你 n、edges、time 和 change ，返回从节点 1 到节点 n 需要的 第二短时间 。",
-  "solutions": [
-    {
-      "date": 1642953600000,
-      "time": 400,
-      "memory": 67.8,
-      "script": "typescript",
-      "desc": "bfs，对于每个节点记录已经遍历过的值，进行剪枝。",
-      "code": "class Node {\n  next: Node[] = [];\n  min_time1 = Infinity;\n  min_time2 = Infinity;\n  constructor(public idx: number) {}\n}\nclass Car {\n  constructor(public current: Node, public time = 0) {}\n}\nfunction secondMinimum(n: number, edges: number[][], time: number, change: number): number {\n  const nodes: Record<number, Node> = {};\n  for (let i = 1; i <= n; i++) nodes[i] = new Node(i);\n  for (const [n1, n2] of edges) {\n    const node1 = nodes[n1];\n    const node2 = nodes[n2];\n    node1.next.push(node2);\n    node2.next.push(node1);\n  }\n  nodes[1].min_time1 = 0;\n  const queue: Car[] = [new Car(nodes[1])];\n  const arr: Car[] = [];\n  while (queue.length) {\n    const car = queue.shift()!;\n    const wait_check = Math.floor(car.time / change);\n    const next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;\n    for (const next of car.current.next) {\n      if (next_time < next.min_time1) {\n        const ncar = new Car(next, next_time);\n        next.min_time1 = next_time;\n        if (next === nodes[n]) {\n          arr.push(ncar);\n          continue;\n        }\n        queue.push(ncar);\n      } else if (next_time > next.min_time1 && next_time < next.min_time2) {\n        const ncar = new Car(next, next_time);\n        next.min_time2 = next_time;\n        if (next === nodes[n]) {\n          arr.push(ncar);\n          continue;\n        }\n        queue.push(ncar);\n      }\n    }\n  }\n  arr.sort((a, b) => a.time - b.time);\n  const min_car = arr[0];\n  let min21_car: Car | null = null;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i].time !== min_car.time) {\n      min21_car = arr[i];\n      break;\n    }\n  }\n  const min22 = getNext(min_car);\n  return Math.min(min21_car?.time ?? Infinity, min22);\n  function getNext(car: Car): number {\n    // 回去\n    let wait_check = Math.floor(car.time / change);\n    let next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;\n    // 回来\n    wait_check = Math.floor(next_time / change);\n    next_time = wait_check % 2 === 0 ? next_time + time : (wait_check + 1) * change + time;\n    return next_time;\n  }\n}"
-    }
-  ]
+    "name": "2045. 到达目的地的第二短时间",
+    "url": "https://leetcode-cn.com/problems/second-minimum-time-to-reach-destination/",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "图",
+        "最短路"
+    ],
+    "desc": "给你 n、edges、time 和 change ，返回从节点 1 到节点 n 需要的 第二短时间 。",
+    "solutions": [
+        {
+            "date": 1642953600000,
+            "time": 400,
+            "memory": 67.8,
+            "script": "typescript",
+            "desc": "bfs，对于每个节点记录已经遍历过的值，进行剪枝。",
+            "code": "class Node {\n  next: Node[] = [];\n  min_time1 = Infinity;\n  min_time2 = Infinity;\n  constructor(public idx: number) {}\n}\nclass Car {\n  constructor(public current: Node, public time = 0) {}\n}\nfunction secondMinimum(n: number, edges: number[][], time: number, change: number): number {\n  const nodes: Record<number, Node> = {};\n  for (let i = 1; i <= n; i++) nodes[i] = new Node(i);\n  for (const [n1, n2] of edges) {\n    const node1 = nodes[n1];\n    const node2 = nodes[n2];\n    node1.next.push(node2);\n    node2.next.push(node1);\n  }\n  nodes[1].min_time1 = 0;\n  const queue: Car[] = [new Car(nodes[1])];\n  const arr: Car[] = [];\n  while (queue.length) {\n    const car = queue.shift()!;\n    const wait_check = Math.floor(car.time / change);\n    const next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;\n    for (const next of car.current.next) {\n      if (next_time < next.min_time1) {\n        const ncar = new Car(next, next_time);\n        next.min_time1 = next_time;\n        if (next === nodes[n]) {\n          arr.push(ncar);\n          continue;\n        }\n        queue.push(ncar);\n      } else if (next_time > next.min_time1 && next_time < next.min_time2) {\n        const ncar = new Car(next, next_time);\n        next.min_time2 = next_time;\n        if (next === nodes[n]) {\n          arr.push(ncar);\n          continue;\n        }\n        queue.push(ncar);\n      }\n    }\n  }\n  arr.sort((a, b) => a.time - b.time);\n  const min_car = arr[0];\n  let min21_car: Car | null = null;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i].time !== min_car.time) {\n      min21_car = arr[i];\n      break;\n    }\n  }\n  const min22 = getNext(min_car);\n  return Math.min(min21_car?.time ?? Infinity, min22);\n  function getNext(car: Car): number {\n    // 回去\n    let wait_check = Math.floor(car.time / change);\n    let next_time = wait_check % 2 === 0 ? car.time + time : (wait_check + 1) * change + time;\n    // 回来\n    wait_check = Math.floor(next_time / change);\n    next_time = wait_check % 2 === 0 ? next_time + time : (wait_check + 1) * change + time;\n    return next_time;\n  }\n}"
+        }
+    ]
 }

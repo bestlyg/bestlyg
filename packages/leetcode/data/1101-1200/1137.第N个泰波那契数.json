@@ -1,17 +1,21 @@
 {
-  "name": "1137. 第 N 个泰波那契数",
-  "url": "https://leetcode-cn.com/problems/n-th-tribonacci-number/",
-  "difficulty": "简单",
-  "tag": ["记忆化搜索", "数学", "动态规划"],
-  "desc": "给你整数 n，请返回第 n 个泰波那契数 Tn 的值。",
-  "solutions": [
-    {
-      "date": 1628352000000,
-      "time": 68,
-      "memory": 39.5,
-      "script": "typescript",
-      "desc": "循环赋值。",
-      "code": "function tribonacci(n: number): number {\n  let [t0, t1, t2] = [0, 1, 1];\n  if (n === 0) return t0;\n  if (n === 1) return t1;\n  if (n === 2) return t2;\n  n -= 2;\n  while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];\n  return t2;\n}"
-    }
-  ]
+    "name": "1137. 第 N 个泰波那契数",
+    "url": "https://leetcode-cn.com/problems/n-th-tribonacci-number/",
+    "difficulty": "简单",
+    "tag": [
+        "记忆化搜索",
+        "数学",
+        "动态规划"
+    ],
+    "desc": "给你整数 n，请返回第 n 个泰波那契数 Tn 的值。",
+    "solutions": [
+        {
+            "date": 1628352000000,
+            "time": 68,
+            "memory": 39.5,
+            "script": "typescript",
+            "desc": "循环赋值。",
+            "code": "function tribonacci(n: number): number {\n  let [t0, t1, t2] = [0, 1, 1];\n  if (n === 0) return t0;\n  if (n === 1) return t1;\n  if (n === 2) return t2;\n  n -= 2;\n  while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];\n  return t2;\n}"
+        }
+    ]
 }

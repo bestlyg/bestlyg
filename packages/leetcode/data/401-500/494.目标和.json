@@ -1,25 +1,52 @@
 {
-  "name": "494. 目标和",
-  "url": "https://leetcode-cn.com/problems/target-sum/",
-  "difficulty": "中等",
-  "tag": ["动态规划", "深度优先搜索"],
-  "desc": "给你一个整数数组 nums 和一个整数 target 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。",
-  "solutions": [
-    {
-      "date": 1622995200000,
-      "time": 6868,
-      "memory": 93.7,
-      "script": "typescript",
-      "desc": "回溯。",
-      "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const len = nums.length;\n  const ans: number[] = [];\n  let val = 0;\n  const findNext = (index = 0): void => {\n    if (index === len) {\n      ans.push(val);\n      return;\n    }\n    val += nums[index];\n    findNext(index + 1);\n    val -= nums[index];\n    val -= nums[index];\n    findNext(index + 1);\n    val += nums[index];\n  };\n  findNext();\n  return ans.filter(v => v === target).length;\n}"
-    },
-    {
-      "date": 1623081600000,
-      "time": 116,
-      "memory": 42.2,
-      "script": "typescript",
-      "desc": "(sum-target)/2=neg,target 必为非负整数。",
-      "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const sum = nums.reduce((total, cur) => total + cur, 0);\n  if (target > sum || (sum - target) & 1) return 0;\n  const neg = (sum - target) >> 1;\n  const len = nums.length;\n  const dp = new Array(len + 1).fill(0).map(_ => new Array(neg + 1).fill(0));\n  dp[0][0] = 1;\n  for (let i = 1; i <= len; i++) {\n    const num = nums[i - 1];\n    for (let j = 0; j <= neg; j++) {\n      dp[i][j] = dp[i - 1][j];\n      if (j >= num) dp[i][j] += dp[i - 1][j - num];\n    }\n  }\n  return dp[len][neg];\n}"
-    }
-  ]
+    "name": "494. 目标和",
+    "url": "https://leetcode-cn.com/problems/target-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "动态规划",
+        "深度优先搜索"
+    ],
+    "desc": "给你一个整数数组 nums 和一个整数 target 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。",
+    "solutions": [
+        {
+            "date": 1622995200000,
+            "time": 6868,
+            "memory": 93.7,
+            "script": "typescript",
+            "desc": "回溯。",
+            "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const len = nums.length;\n  const ans: number[] = [];\n  let val = 0;\n  const findNext = (index = 0): void => {\n    if (index === len) {\n      ans.push(val);\n      return;\n    }\n    val += nums[index];\n    findNext(index + 1);\n    val -= nums[index];\n    val -= nums[index];\n    findNext(index + 1);\n    val += nums[index];\n  };\n  findNext();\n  return ans.filter(v => v === target).length;\n}"
+        },
+        {
+            "date": 1623081600000,
+            "time": 116,
+            "memory": 42.2,
+            "script": "typescript",
+            "desc": "(sum-target)/2=neg,target 必为非负整数。",
+            "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const sum = nums.reduce((total, cur) => total + cur, 0);\n  if (target > sum || (sum - target) & 1) return 0;\n  const neg = (sum - target) >> 1;\n  const len = nums.length;\n  const dp = new Array(len + 1).fill(0).map(_ => new Array(neg + 1).fill(0));\n  dp[0][0] = 1;\n  for (let i = 1; i <= len; i++) {\n    const num = nums[i - 1];\n    for (let j = 0; j <= neg; j++) {\n      dp[i][j] = dp[i - 1][j];\n      if (j >= num) dp[i][j] += dp[i - 1][j - num];\n    }\n  }\n  return dp[len][neg];\n}"
+        },
+        {
+            "date": 1627142400000,
+            "time": 2180,
+            "memory": 39.3,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function findTargetSumWays(nums: number[], target: number): number {\n  let ans = 0;\n  dfs();\n  return ans;\n  function dfs(index = 0, value = 0) {\n    if (index === nums.length) {\n      if (value === target) ans++;\n      return;\n    }\n    dfs(index + 1, value + nums[index]);\n    dfs(index + 1, value - nums[index]);\n  }\n}"
+        },
+        {
+            "date": 1631462400000,
+            "time": 104,
+            "memory": 44.7,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const n = nums.length;\n  let max = 0;\n  let min = 0;\n  nums.forEach(num => {\n    max += num;\n    min -= num;\n  });\n  if (target > max || target < min) return 0;\n  const count = max - min + 1;\n  const dp: number[][] = new Array(n).fill(0).map(_ => new Array(count).fill(0));\n  dp[0][nums[0] - min]++;\n  dp[0][-nums[0] - min]++;\n  for (let i = 1; i < n; i++) {\n    const num = nums[i];\n    for (let j = 0; j < count; j++) {\n      const cnt = dp[i - 1][j];\n      if (cnt !== 0) {\n        dp[i][j - num] += cnt;\n        dp[i][j + num] += cnt;\n      }\n    }\n  }\n  return dp[n - 1][target - min];\n}"
+        },
+        {
+            "date": 1631462400000,
+            "time": 96,
+            "memory": 40.9,
+            "script": "typescript",
+            "desc": "动态规划。",
+            "code": "function findTargetSumWays(nums: number[], target: number): number {\n  const n = nums.length;\n  let max = 0;\n  let min = 0;\n  nums.forEach(num => {\n    max += num;\n    min -= num;\n  });\n  if (target > max || target < min) return 0;\n  const count = max - min + 1;\n  const dp: number[][] = new Array(2).fill(0).map(_ => new Array(count).fill(0));\n  dp[0][nums[0] - min]++;\n  dp[0][-nums[0] - min]++;\n  for (let i = 1; i < n; i++) {\n    const idx = i % 2;\n    dp[idx].fill(0);\n    const prevIdx = idx ^ 1;\n    const num = nums[i];\n    for (let j = 0; j < count; j++) {\n      const cnt = dp[prevIdx][j];\n      if (cnt !== 0) {\n        dp[idx][j - num] += cnt;\n        dp[idx][j + num] += cnt;\n      }\n    }\n  }\n  return dp[(n - 1) % 2][target - min];\n}"
+        }
+    ]
 }

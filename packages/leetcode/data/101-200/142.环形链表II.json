@@ -1,25 +1,44 @@
 {
-  "name": "142. 环形链表 II",
-  "url": "https://leetcode-cn.com/problems/linked-list-cycle-ii/",
-  "difficulty": "中等",
-  "tag": ["链表", "双指针"],
-  "desc": "给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。",
-  "solutions": [
-    {
-      "date": 1602259200000,
-      "time": 120,
-      "memory": 41.4,
-      "script": "typescript",
-      "desc": "利用 set 去重。",
-      "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return null;\n  const set = new Set<ListNode>([head]);\n  let temp = head;\n  while (temp.next !== null) {\n    if (set.has(temp.next)) return temp.next;\n    set.add(temp.next);\n    temp = temp.next;\n  }\n  return null;\n}"
-    },
-    {
-      "date": 1602259200000,
-      "time": 100,
-      "memory": 40.9,
-      "script": "typescript",
-      "desc": "[参考链接](https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/)。",
-      "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let f: ListNode | null = head;\n  let s: ListNode | null = head;\n  while (f !== null && f.next !== null) {\n    f = f.next.next;\n    s = s.next!;\n    if (f === s) {\n      let h: ListNode | null = head;\n      while (h !== s) {\n        h = h.next!;\n        s = s.next!;\n      }\n      return h;\n    }\n  }\n  return null;\n}"
-    }
-  ]
+    "name": "142. 环形链表 II",
+    "url": "https://leetcode-cn.com/problems/linked-list-cycle-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "链表",
+        "双指针"
+    ],
+    "desc": "给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。",
+    "solutions": [
+        {
+            "date": 1602259200000,
+            "time": 120,
+            "memory": 41.4,
+            "script": "typescript",
+            "desc": "利用 set 去重。",
+            "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return null;\n  const set = new Set<ListNode>([head]);\n  let temp = head;\n  while (temp.next !== null) {\n    if (set.has(temp.next)) return temp.next;\n    set.add(temp.next);\n    temp = temp.next;\n  }\n  return null;\n}"
+        },
+        {
+            "date": 1602259200000,
+            "time": 100,
+            "memory": 40.9,
+            "script": "typescript",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/)。",
+            "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let f: ListNode | null = head;\n  let s: ListNode | null = head;\n  while (f !== null && f.next !== null) {\n    f = f.next.next;\n    s = s.next!;\n    if (f === s) {\n      let h: ListNode | null = head;\n      while (h !== s) {\n        h = h.next!;\n        s = s.next!;\n      }\n      return h;\n    }\n  }\n  return null;\n}"
+        },
+        {
+            "date": 1614960000000,
+            "time": 104,
+            "memory": 40.8,
+            "script": "typescript",
+            "desc": "快慢指针。",
+            "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return null;\n  let fast: ListNode | null = head;\n  let slow: ListNode | null = head;\n  while (fast !== null && fast.next !== null) {\n    fast = fast!.next!.next;\n    slow = slow!.next;\n    if (fast === slow) break;\n  }\n  if (fast !== slow) return null;\n  slow = head;\n  while (fast !== slow) {\n    fast = fast!.next;\n    slow = slow!.next;\n  }\n  return slow;\n}"
+        },
+        {
+            "date": 1646236800000,
+            "time": 8,
+            "memory": 7.3,
+            "script": "c++",
+            "desc": "双指针， 快指针跑了 a+b+c+b 时，慢指针跑了 a+b。",
+            "code": "class Solution {\n   public:\n    ListNode *detectCycle(ListNode *head) {\n        if (!head) return NULL;\n        ListNode *fast = head, *slow = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n            if (fast == slow) break;\n        }\n        if (!(fast && fast->next)) return NULL;\n        slow = head;\n        while (slow != fast) {\n            slow = slow->next;\n            fast = fast->next;\n        }\n        return slow;\n    }\n};"
+        }
+    ]
 }

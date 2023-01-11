@@ -1,8 +1,19 @@
 {
-  "name": "6234. 最小公倍数为 K 的子数组数目",
-  "url": "https://leetcode.cn/problems/number-of-subarrays-with-lcm-equal-to-k/",
-  "difficulty": "中等",
-  "tag": [""],
-  "desc": "给你一个整数数组 nums 和一个整数 k ，请你统计并返回 nums 的 子数组 中满足 元素最小公倍数为 k 的子数组数目。",
-  "solutions": []
+    "name": "6234. 最小公倍数为 K 的子数组数目",
+    "url": "https://leetcode.cn/problems/number-of-subarrays-with-lcm-equal-to-k/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个整数数组 nums 和一个整数 k ，请你统计并返回 nums 的 子数组 中满足 元素最小公倍数为 k 的子数组数目。",
+    "solutions": [
+        {
+            "date": 1668268800000,
+            "time": 20,
+            "memory": 9,
+            "script": "cpp",
+            "desc": "遍历，对每个子数组找最小公倍数。",
+            "code": "class Solution {\npublic:\n    int gcd(int a, int b) {\n        if (b == 0) return a;\n        return gcd(b, a % b);\n    }\n    int subarrayLCM(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 0;\n        for (int i = 0; i < n; i++) {\n            int cur_gcd = nums[i], num = nums[i];\n            for (int j = i; j < n; j++) {\n                num = num * nums[j] / gcd(num, nums[j]);\n                if (num == k) ans++;\n                if (num > k) break;\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

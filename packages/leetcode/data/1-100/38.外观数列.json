@@ -1,25 +1,35 @@
 {
-  "name": "38. 外观数列",
-  "url": "https://leetcode-cn.com/problems/count-and-say/",
-  "difficulty": "中等",
-  "tag": ["字符串"],
-  "desc": "给定一个正整数 n ，输出外观数列的第 n 项。",
-  "solutions": [
-    {
-      "date": 1634227200000,
-      "time": 80,
-      "memory": 40.1,
-      "script": "typescript",
-      "desc": "递归层级。",
-      "code": "function countAndSay(n: number): string {\n  return findNext();\n  function findNext(str = '1', level = n): string {\n    if (level === 1) return str;\n    let next = '';\n    for (let i = 0, l = str.length; i < l; i++) {\n      const ch = str[i];\n      let cnt = 1;\n      while (i < l - 1 && str[i + 1] === ch) {\n        i++;\n        cnt++;\n      }\n      next += cnt + ch;\n    }\n    return findNext(next, level - 1);\n  }\n}"
-    },
-    {
-      "date": 1638201600000,
-      "time": 4,
-      "memory": 6.4,
-      "script": "c",
-      "desc": "递归对每一层进行处理。",
-      "code": "#define MAX 20000\nchar *dfs(char *str, int cnt) {\n    if (cnt == 1) return str;\n    int len = strlen(str), idx = 0;\n    char next[MAX];\n    for (int i = 0; i < len; i++) {\n        char ch = str[i];\n        int cnt = 1;\n        while (i + 1 < len && ch == str[i + 1]) {\n            ++i;\n            ++cnt;\n        }\n        idx += sprintf(next + idx, \"%d\", cnt);\n        next[idx++] = ch;\n    }\n    next[idx] = '\\0';\n    return dfs(next, cnt - 1);\n}\nchar * countAndSay(int n){\n    return dfs(\"1\", n);\n}"
-    }
-  ]
+    "name": "38. 外观数列",
+    "url": "https://leetcode-cn.com/problems/count-and-say/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定一个正整数 n ，输出外观数列的第 n 项。",
+    "solutions": [
+        {
+            "date": 1634227200000,
+            "time": 80,
+            "memory": 40.1,
+            "script": "typescript",
+            "desc": "递归层级。",
+            "code": "function countAndSay(n: number): string {\n  return findNext();\n  function findNext(str = '1', level = n): string {\n    if (level === 1) return str;\n    let next = '';\n    for (let i = 0, l = str.length; i < l; i++) {\n      const ch = str[i];\n      let cnt = 1;\n      while (i < l - 1 && str[i + 1] === ch) {\n        i++;\n        cnt++;\n      }\n      next += cnt + ch;\n    }\n    return findNext(next, level - 1);\n  }\n}"
+        },
+        {
+            "date": 1638201600000,
+            "time": 4,
+            "memory": 6.4,
+            "script": "c",
+            "desc": "递归对每一层进行处理。",
+            "code": "#define MAX 20000\nchar *dfs(char *str, int cnt) {\n    if (cnt == 1) return str;\n    int len = strlen(str), idx = 0;\n    char next[MAX];\n    for (int i = 0; i < len; i++) {\n        char ch = str[i];\n        int cnt = 1;\n        while (i + 1 < len && ch == str[i + 1]) {\n            ++i;\n            ++cnt;\n        }\n        idx += sprintf(next + idx, \"%d\", cnt);\n        next[idx++] = ch;\n    }\n    next[idx] = '\\0';\n    return dfs(next, cnt - 1);\n}\nchar * countAndSay(int n){\n    return dfs(\"1\", n);\n}"
+        },
+        {
+            "date": 1639929600000,
+            "time": 0,
+            "memory": 6.5,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    string countAndSay(int n) {\n        string str = \"1\";\n        while (--n) {\n            string next = \"\";\n            for (int i = 0, n = str.size(); i < n; i++) {\n                char ch = str[i];\n                int cnt = 1;\n                while (i + 1 < n && str[i + 1] == ch) i++, cnt++;\n                while (cnt) {\n                    next += cnt % 10 + '0';\n                    cnt /= 10;\n                }\n                next += ch;\n            }\n            str = next;\n        }\n        return str;\n    }\n};"
+        }
+    ]
 }

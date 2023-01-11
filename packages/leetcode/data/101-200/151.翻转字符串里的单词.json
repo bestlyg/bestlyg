@@ -1,17 +1,19 @@
 {
-  "name": "151. 翻转字符串里的单词",
-  "url": "https://leetcode-cn.com/problems/reverse-words-in-a-string/",
-  "difficulty": "中等",
-  "tag": ["字符串"],
-  "desc": "给定一个字符串，逐个翻转字符串中的每个单词。",
-  "solutions": [
-    {
-      "date": 1586361600000,
-      "time": 60,
-      "memory": 34.8,
-      "script": "javascript",
-      "desc": "删除头尾空格，分割成数组，过滤空，翻转，组合字符串。",
-      "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseWords = s =>\n  s\n    .trim()\n    .split(' ')\n    .filter(v => v !== '')\n    .reverse()\n    .join(' ');"
-    }
-  ]
+    "name": "151. 翻转字符串里的单词",
+    "url": "https://leetcode-cn.com/problems/reverse-words-in-a-string/",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定一个字符串，逐个翻转字符串中的每个单词。",
+    "solutions": [
+        {
+            "date": 1586361600000,
+            "time": 60,
+            "memory": 34.8,
+            "script": "javascript",
+            "desc": "删除头尾空格，分割成数组，过滤空，翻转，组合字符串。",
+            "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseWords = s =>\n  s\n    .trim()\n    .split(' ')\n    .filter(v => v !== '')\n    .reverse()\n    .join(' ');"
+        }
+    ]
 }

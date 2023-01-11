@@ -1,17 +1,19 @@
 {
-  "name": "566. 重塑矩阵",
-  "url": "https://leetcode-cn.com/problems/reshape-the-matrix/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给出一个由二维数组表示的矩阵，以及两个正整数 r 和 c，分别表示想要的重构的矩阵的行数和列数。重构后的矩阵需要将原始矩阵的所有元素以相同的行遍历顺序填充。如果具有给定参数的 reshape 操作是可行且合理的，则输出新的重塑矩阵；否则，输出原始矩阵。",
-  "solutions": [
-    {
-      "date": 1613491200000,
-      "time": 104,
-      "memory": 45.4,
-      "script": "typescript",
-      "desc": "先计算总数，符合后直接拼接数组。",
-      "code": "function matrixReshape(nums: number[][], r: number, c: number): number[][] {\n  const sum = nums.length * nums[0].length;\n  if (sum !== r * c) return nums;\n  const arr = nums.reduce((totalArr, arr) => {\n    totalArr.push(...arr);\n    return totalArr;\n  }, [] as number[]);\n  const ans: number[][] = [];\n  for (let i = 0; i < r; i++) {\n    const temp: number[] = [];\n    for (let j = 0; j < c; j++) {\n      temp.push(arr[i * c + j]);\n    }\n    ans.push(temp);\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "566. 重塑矩阵",
+    "url": "https://leetcode-cn.com/problems/reshape-the-matrix/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给出一个由二维数组表示的矩阵，以及两个正整数 r 和 c，分别表示想要的重构的矩阵的行数和列数。重构后的矩阵需要将原始矩阵的所有元素以相同的行遍历顺序填充。如果具有给定参数的 reshape 操作是可行且合理的，则输出新的重塑矩阵；否则，输出原始矩阵。",
+    "solutions": [
+        {
+            "date": 1613491200000,
+            "time": 104,
+            "memory": 45.4,
+            "script": "typescript",
+            "desc": "先计算总数，符合后直接拼接数组。",
+            "code": "function matrixReshape(nums: number[][], r: number, c: number): number[][] {\n  const sum = nums.length * nums[0].length;\n  if (sum !== r * c) return nums;\n  const arr = nums.reduce((totalArr, arr) => {\n    totalArr.push(...arr);\n    return totalArr;\n  }, [] as number[]);\n  const ans: number[][] = [];\n  for (let i = 0; i < r; i++) {\n    const temp: number[] = [];\n    for (let j = 0; j < c; j++) {\n      temp.push(arr[i * c + j]);\n    }\n    ans.push(temp);\n  }\n  return ans;\n}"
+        }
+    ]
 }

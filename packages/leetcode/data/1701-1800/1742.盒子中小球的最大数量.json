@@ -1,8 +1,21 @@
 {
-  "name": "1742. 盒子中小球的最大数量",
-  "url": "https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/",
-  "difficulty": "简单",
-  "tag": ["哈希表", "数学", "计数"],
-  "desc": "给你两个整数 lowLimit 和 highLimit ，返回放有最多小球的盒子中的小球数量。",
-  "solutions": []
+    "name": "1742. 盒子中小球的最大数量",
+    "url": "https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "数学",
+        "计数"
+    ],
+    "desc": "给你两个整数 lowLimit 和 highLimit ，返回放有最多小球的盒子中的小球数量。",
+    "solutions": [
+        {
+            "date": 1669132800000,
+            "time": 8,
+            "memory": 5.8,
+            "script": "cpp",
+            "desc": "模拟。",
+            "code": "class Solution {\n public:\n     int countBalls(int lowLimit, int highLimit) {\n         int ans = 0, list[46] = {0};\n         for (int num = lowLimit; num <= highLimit; num++) ans = max(ans, ++list[t(num)]);\n         return ans;\n     }\n     int t(int num) {\n         int ans = 0;\n         for (; num; num /= 10) ans += num % 10;\n         return ans;\n     }\n };"
+        }
+    ]
 }

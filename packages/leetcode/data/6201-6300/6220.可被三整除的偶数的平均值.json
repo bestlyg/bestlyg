@@ -1,8 +1,19 @@
 {
-  "name": "6220. 可被三整除的偶数的平均值",
-  "url": "https://leetcode.cn/problems/most-popular-video-creator/",
-  "difficulty": "简单",
-  "tag": [""],
-  "desc": "给你一个由正整数组成的整数数组 nums ，返回其中可被 3 整除的所有偶数的平均值。",
-  "solutions": []
+    "name": "6220. 可被三整除的偶数的平均值",
+    "url": "https://leetcode.cn/problems/most-popular-video-creator/",
+    "difficulty": "简单",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个由正整数组成的整数数组 nums ，返回其中可被 3 整除的所有偶数的平均值。",
+    "solutions": [
+        {
+            "date": 1667059200000,
+            "time": 8,
+            "memory": 13.3,
+            "script": "cpp",
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int averageValue(vector<int>& nums) {\n        int sum = 0, cnt = 0;\n        for (auto &num : nums) {\n            if (num % 3 == 0 && num % 2 == 0) {\n                sum += num;\n                cnt += 1;\n            }\n        }\n        return cnt == 0 ? 0 : sum / cnt;\n    }\n};"
+        }
+    ]
 }

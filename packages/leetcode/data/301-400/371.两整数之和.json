@@ -1,8 +1,28 @@
 {
-  "name": "371. 两整数之和",
-  "url": "https://leetcode-cn.com/problems/delete-operation-for-two-strings/",
-  "difficulty": "中等",
-  "tag": ["位运算", "数学"],
-  "desc": "给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。",
-  "solutions": []
+    "name": "371. 两整数之和",
+    "url": "https://leetcode-cn.com/problems/delete-operation-for-two-strings/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数学"
+    ],
+    "desc": "给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。",
+    "solutions": [
+        {
+            "date": 1632585600000,
+            "time": 76,
+            "memory": 39,
+            "script": "typescript",
+            "desc": "不按照题目规则。",
+            "code": "function getSum(a: number, b: number): number {\n  return a + b;\n}"
+        },
+        {
+            "date": 1632585600000,
+            "time": 76,
+            "memory": 39.1,
+            "script": "typescript",
+            "desc": "利用 a&b<<1 计算出所有需要进位的位，利用异或求出两数相加后当前位所得到的结果。",
+            "code": "function getSum(a: number, b: number): number {\n  while (b != 0) {\n    const carry = (a & b) << 1;\n    a = a ^ b;\n    b = carry;\n  }\n  return a + b;\n}"
+        }
+    ]
 }

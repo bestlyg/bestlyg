@@ -6,9 +6,9 @@ import { Markdown, Solution } from '@/base';
 function main() {
   console.log(chalk.blue(`正在批处理LeetCode`));
   for (const { filepath } of travel()) {
-    if (!filepath.endsWith(`2283.判断一个数的数字计数是否等于数位的值.md`)) continue;
     const obj = {} as any as Markdown;
     console.log('=========');
+    console.log(filepath);
     console.log(filepath);
     let source = fs.readFileSync(filepath).toString();
     const linkReg = /> 链接：\[(.*?)\]\((.*?)\).*?\n/;
@@ -36,7 +36,7 @@ function main() {
     obj.solutions = [];
     for (let i = 1; ; i++) {
       const solutionReg = new RegExp(
-        `## 题解 ${i} - .*?\\n\\n- 编辑时间：(.*?)\\n- 执行用时：(.*?)ms\\n- 内存消耗：(.*?)MB\\n- 编程语言：(.*?)\\n- 解法介绍：(.*?)\\n\\n\`\`\`.*?\\n([\\s\\S]*?)\`\`\``
+        `## 题解 ${i} - .*?\\n\\n- 编辑时间：(.*?)\\n- 执行用时：(.*?)ms\\n- 内存消耗：(.*?)\\n- 编程语言：(.*?)\\n- 解法介绍：(.*?)\\n\\n\`\`\`.*?\\n([\\s\\S]*?)\`\`\``
       );
       if (!solutionReg.test(source)) break;
       const s = {} as Solution;
@@ -51,7 +51,7 @@ function main() {
       console.log(`code = ${RegExp.$6}`);
       s.date = new Date(RegExp.$1.trim()).getTime();
       s.time = +RegExp.$2.trim() as any;
-      s.memory = +RegExp.$3.trim() as any;
+      s.memory = +RegExp.$3.trim().substring(0, RegExp.$3.trim().length - 2) as any;
       s.script = RegExp.$4.trim() as any;
       s.desc = RegExp.$5.trim() as any;
       s.code = RegExp.$6.trim();

@@ -1,17 +1,21 @@
 {
-  "name": "剑指 Offer II 010. 和为 k 的子数组",
-  "url": "https://leetcode-cn.com/problems/QTMn0o/",
-  "difficulty": "中等",
-  "tag": ["数组", "哈希表", "前缀和"],
-  "desc": "给定一个整数数组和一个整数 k ，请找到该数组中和为 k 的连续子数组的个数。",
-  "solutions": [
-    {
-      "date": 1640188800000,
-      "time": 80,
-      "memory": 40.7,
-      "script": "c++",
-      "desc": "前缀和。",
-      "code": "class Solution {\n   public:\n    int subarraySum(vector<int>& nums, int k) {\n        unordered_map<int, int> mmap;\n        int sum = 0, ans = 0;\n        mmap[0] = 1;\n        for (auto& num : nums) {\n            sum += num;\n            if (mmap[sum - k]) ans += mmap[sum - k];\n            mmap[sum]++;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "剑指 Offer II 010. 和为 k 的子数组",
+    "url": "https://leetcode-cn.com/problems/QTMn0o/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "desc": "给定一个整数数组和一个整数 k ，请找到该数组中和为 k 的连续子数组的个数。",
+    "solutions": [
+        {
+            "date": 1640188800000,
+            "time": 80,
+            "memory": 40.7,
+            "script": "c++",
+            "desc": "前缀和。",
+            "code": "class Solution {\n   public:\n    int subarraySum(vector<int>& nums, int k) {\n        unordered_map<int, int> mmap;\n        int sum = 0, ans = 0;\n        mmap[0] = 1;\n        for (auto& num : nums) {\n            sum += num;\n            if (mmap[sum - k]) ans += mmap[sum - k];\n            mmap[sum]++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

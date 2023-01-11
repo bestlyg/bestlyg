@@ -1,17 +1,21 @@
 {
-  "name": "剑指 Offer 59 - II. 队列的最大值",
-  "url": "https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/",
-  "difficulty": "中等",
-  "tag": ["设计", "队列", "单调队列"],
-  "desc": "请定义一个队列并实现函数 max_value 得到队列里的最大值。",
-  "solutions": [
-    {
-      "date": 1626710400000,
-      "time": 200,
-      "memory": 48.3,
-      "script": "typescript",
-      "desc": "单调递减队列。",
-      "code": "class MaxQueue {\n  private queue: number[] = [];\n  private monoQueue: number[] = [];\n  max_value(): number {\n    if (this.queue.length === 0) return -1;\n    return this.queue[this.monoQueue[0]];\n  }\n  push_back(value: number): void {\n    this.queue.push(value);\n    while (this.monoQueue.length && this.queue[this.monoQueue[this.monoQueue.length - 1]] < value)\n      this.monoQueue.pop();\n    this.monoQueue.push(this.queue.length - 1);\n  }\n  pop_front(): number {\n    if (this.queue.length === 0) return -1;\n    const v = this.queue.shift()!;\n    for (let i = 0, n = this.monoQueue.length; i < n; i++) this.monoQueue[i]--;\n    if (this.monoQueue[0] === -1) this.monoQueue.shift();\n    return v;\n  }\n}"
-    }
-  ]
+    "name": "剑指 Offer 59 - II. 队列的最大值",
+    "url": "https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "队列",
+        "单调队列"
+    ],
+    "desc": "请定义一个队列并实现函数 max_value 得到队列里的最大值。",
+    "solutions": [
+        {
+            "date": 1626710400000,
+            "time": 200,
+            "memory": 48.3,
+            "script": "typescript",
+            "desc": "单调递减队列。",
+            "code": "class MaxQueue {\n  private queue: number[] = [];\n  private monoQueue: number[] = [];\n  max_value(): number {\n    if (this.queue.length === 0) return -1;\n    return this.queue[this.monoQueue[0]];\n  }\n  push_back(value: number): void {\n    this.queue.push(value);\n    while (this.monoQueue.length && this.queue[this.monoQueue[this.monoQueue.length - 1]] < value)\n      this.monoQueue.pop();\n    this.monoQueue.push(this.queue.length - 1);\n  }\n  pop_front(): number {\n    if (this.queue.length === 0) return -1;\n    const v = this.queue.shift()!;\n    for (let i = 0, n = this.monoQueue.length; i < n; i++) this.monoQueue[i]--;\n    if (this.monoQueue[0] === -1) this.monoQueue.shift();\n    return v;\n  }\n}"
+        }
+    ]
 }

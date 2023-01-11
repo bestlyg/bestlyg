@@ -1,25 +1,28 @@
 {
-  "name": "542. 01 矩阵",
-  "url": "https://leetcode-cn.com/problems/01-matrix/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索", "广度优先搜索"],
-  "desc": "给定一个由 0 和 1 组成的矩阵，找出每个元素到最近的 0 的距离。",
-  "solutions": [
-    {
-      "date": 1586880000000,
-      "time": 236,
-      "memory": 53.1,
-      "script": "javascript",
-      "desc": "广度优先搜索，一层一层判断。",
-      "code": "/**\n * @param {number[][]} matrix\n * @return {number[][]}\n */\nvar updateMatrix = function (matrix) {\n  const res = [];\n  const queue = [];\n  for (let i = 0; i < matrix.length; i++) {\n    res.push(new Array(matrix[i].length));\n    for (let j = 0; j < matrix[i].length; j++) {\n      if (matrix[i][j] === 0) {\n        queue.push([i, j]);\n        res[i][j] = 0;\n      }\n    }\n  }\n  while (queue.length !== 0) {\n    const [i, j] = queue.shift();\n    if (i !== 0 && res[i - 1][j] === undefined) {\n      res[i - 1][j] = 1 + res[i][j];\n      queue.push([i - 1, j]);\n    }\n    if (j !== 0 && res[i][j - 1] === undefined) {\n      res[i][j - 1] = 1 + res[i][j];\n      queue.push([i, j - 1]);\n    }\n    if (i !== res.length - 1 && res[i + 1][j] === undefined) {\n      res[i + 1][j] = 1 + res[i][j];\n      queue.push([i + 1, j]);\n    }\n    if (j !== res[i].length - 1 && res[i][j + 1] === undefined) {\n      res[i][j + 1] = 1 + res[i][j];\n      queue.push([i, j + 1]);\n    }\n  }\n  return res;\n};"
-    },
-    {
-      "date": 1627142400000,
-      "time": 324,
-      "memory": 52.8,
-      "script": "typescript",
-      "desc": "bfs。",
-      "code": "function updateMatrix(mat: number[][]): number[][] {\n  const n = mat.length;\n  const m = mat[0].length;\n  const queue: [number, number, number][] = [];\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (mat[i][j] === 0) queue.push([i, j, 0]);\n    }\n  }\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>(queue.map(([row, col]) => format(row, col)));\n  const add = (row: number, col: number, level: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    mat[row][col] = level;\n    if (row > 0) add(row - 1, col, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (col < m - 1) add(row, col + 1, level + 1);\n  }\n  return mat;\n}"
-    }
-  ]
+    "name": "542. 01 矩阵",
+    "url": "https://leetcode-cn.com/problems/01-matrix/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索"
+    ],
+    "desc": "给定一个由 0 和 1 组成的矩阵，找出每个元素到最近的 0 的距离。",
+    "solutions": [
+        {
+            "date": 1586880000000,
+            "time": 236,
+            "memory": 53.1,
+            "script": "javascript",
+            "desc": "广度优先搜索，一层一层判断。",
+            "code": "/**\n * @param {number[][]} matrix\n * @return {number[][]}\n */\nvar updateMatrix = function (matrix) {\n  const res = [];\n  const queue = [];\n  for (let i = 0; i < matrix.length; i++) {\n    res.push(new Array(matrix[i].length));\n    for (let j = 0; j < matrix[i].length; j++) {\n      if (matrix[i][j] === 0) {\n        queue.push([i, j]);\n        res[i][j] = 0;\n      }\n    }\n  }\n  while (queue.length !== 0) {\n    const [i, j] = queue.shift();\n    if (i !== 0 && res[i - 1][j] === undefined) {\n      res[i - 1][j] = 1 + res[i][j];\n      queue.push([i - 1, j]);\n    }\n    if (j !== 0 && res[i][j - 1] === undefined) {\n      res[i][j - 1] = 1 + res[i][j];\n      queue.push([i, j - 1]);\n    }\n    if (i !== res.length - 1 && res[i + 1][j] === undefined) {\n      res[i + 1][j] = 1 + res[i][j];\n      queue.push([i + 1, j]);\n    }\n    if (j !== res[i].length - 1 && res[i][j + 1] === undefined) {\n      res[i][j + 1] = 1 + res[i][j];\n      queue.push([i, j + 1]);\n    }\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1627142400000,
+            "time": 324,
+            "memory": 52.8,
+            "script": "typescript",
+            "desc": "bfs。",
+            "code": "function updateMatrix(mat: number[][]): number[][] {\n  const n = mat.length;\n  const m = mat[0].length;\n  const queue: [number, number, number][] = [];\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (mat[i][j] === 0) queue.push([i, j, 0]);\n    }\n  }\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>(queue.map(([row, col]) => format(row, col)));\n  const add = (row: number, col: number, level: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    mat[row][col] = level;\n    if (row > 0) add(row - 1, col, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (col < m - 1) add(row, col + 1, level + 1);\n  }\n  return mat;\n}"
+        }
+    ]
 }

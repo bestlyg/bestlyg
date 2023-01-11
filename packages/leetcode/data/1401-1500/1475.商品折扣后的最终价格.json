@@ -1,25 +1,29 @@
 {
-  "name": "1475. 商品折扣后的最终价格",
-  "url": "https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/",
-  "difficulty": "简单",
-  "tag": ["栈", "数组", "单调栈"],
-  "desc": "请你返回一个数组，数组中第 i 个元素是折扣后你购买商品 i 最终需要支付的价格。",
-  "solutions": [
-    {
-      "date": 1661961600000,
-      "time": 4,
-      "memory": 9.8,
-      "script": "cpp",
-      "desc": "单调栈。",
-      "code": "class Solution {\npublic:\n    vector<int> finalPrices(vector<int>& prices) {\n        stack<int> s;\n        vector<int> ans(prices.begin(), prices.end());\n        for (int i = 0; i < prices.size(); i++) {\n            while (s.size() && prices[s.top()] >= prices[i]) {\n                int prev = s.top();\n                s.pop();\n                ans[prev] -= prices[i];\n            }\n            s.push(i);\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1661961600000,
-      "time": 0,
-      "memory": 2.1,
-      "script": "cpp",
-      "desc": "单调栈。",
-      "code": "impl Solution {\n    pub fn final_prices(prices: Vec<i32>) -> Vec<i32> {\n        let mut s = Vec::<usize>::new();\n        let mut prices = prices;\n        for i in 0..prices.len() {\n            while !s.is_empty() && prices[*s.last().unwrap()] >= prices[i] {\n                let prev = s.pop().unwrap();\n                prices[prev] -= prices[i];\n            }\n            s.push(i);\n        }\n        prices\n    }\n}"
-    }
-  ]
+    "name": "1475. 商品折扣后的最终价格",
+    "url": "https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/",
+    "difficulty": "简单",
+    "tag": [
+        "栈",
+        "数组",
+        "单调栈"
+    ],
+    "desc": "请你返回一个数组，数组中第 i 个元素是折扣后你购买商品 i 最终需要支付的价格。",
+    "solutions": [
+        {
+            "date": 1661961600000,
+            "time": 4,
+            "memory": 9.8,
+            "script": "cpp",
+            "desc": "单调栈。",
+            "code": "class Solution {\npublic:\n    vector<int> finalPrices(vector<int>& prices) {\n        stack<int> s;\n        vector<int> ans(prices.begin(), prices.end());\n        for (int i = 0; i < prices.size(); i++) {\n            while (s.size() && prices[s.top()] >= prices[i]) {\n                int prev = s.top();\n                s.pop();\n                ans[prev] -= prices[i];\n            }\n            s.push(i);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1661961600000,
+            "time": 0,
+            "memory": 2.1,
+            "script": "cpp",
+            "desc": "单调栈。",
+            "code": "impl Solution {\n    pub fn final_prices(prices: Vec<i32>) -> Vec<i32> {\n        let mut s = Vec::<usize>::new();\n        let mut prices = prices;\n        for i in 0..prices.len() {\n            while !s.is_empty() && prices[*s.last().unwrap()] >= prices[i] {\n                let prev = s.pop().unwrap();\n                prices[prev] -= prices[i];\n            }\n            s.push(i);\n        }\n        prices\n    }\n}"
+        }
+    ]
 }

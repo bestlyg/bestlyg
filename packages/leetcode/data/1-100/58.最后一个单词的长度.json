@@ -1,25 +1,27 @@
 {
-  "name": "58. 最后一个单词的长度",
-  "url": "https://leetcode-cn.com/problems/length-of-last-word/",
-  "difficulty": "简单",
-  "tag": ["字符串"],
-  "desc": "给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。",
-  "solutions": [
-    {
-      "date": 1632153600000,
-      "time": 72,
-      "memory": 39.4,
-      "script": "javascript",
-      "desc": "分割。",
-      "code": "function lengthOfLastWord(s: string): number {\n  return s.trim().split(' ').slice(-1)[0].length;\n}"
-    },
-    {
-      "date": 1632153600000,
-      "time": 64,
-      "memory": 39.3,
-      "script": "javascript",
-      "desc": "循环。",
-      "code": "function lengthOfLastWord(s: string): number {\n  let start = s.length - 1;\n  while (s[start] === ' ') start--;\n  let end = start;\n  while (end >= 0 && s[end] !== ' ') end--;\n  return start - end;\n}"
-    }
-  ]
+    "name": "58. 最后一个单词的长度",
+    "url": "https://leetcode-cn.com/problems/length-of-last-word/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。",
+    "solutions": [
+        {
+            "date": 1632153600000,
+            "time": 72,
+            "memory": 39.4,
+            "script": "javascript",
+            "desc": "分割。",
+            "code": "function lengthOfLastWord(s: string): number {\n  return s.trim().split(' ').slice(-1)[0].length;\n}"
+        },
+        {
+            "date": 1632153600000,
+            "time": 64,
+            "memory": 39.3,
+            "script": "javascript",
+            "desc": "循环。",
+            "code": "function lengthOfLastWord(s: string): number {\n  let start = s.length - 1;\n  while (s[start] === ' ') start--;\n  let end = start;\n  while (end >= 0 && s[end] !== ' ') end--;\n  return start - end;\n}"
+        }
+    ]
 }

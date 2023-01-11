@@ -1,8 +1,27 @@
 {
-  "name": "6285. 执行 K 次操作后的最大分数",
-  "url": "https://leetcode.cn/problems/maximal-score-after-applying-k-operations/",
-  "difficulty": "中等",
-  "tag": [""],
-  "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。你的 起始分数 为 0 。返回在 恰好 执行 k 次操作后，你可能获得的最大分数。",
-  "solutions": []
+    "name": "6285. 执行 K 次操作后的最大分数",
+    "url": "https://leetcode.cn/problems/maximal-score-after-applying-k-operations/",
+    "difficulty": "中等",
+    "tag": [
+        ""
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。你的 起始分数 为 0 。返回在 恰好 执行 k 次操作后，你可能获得的最大分数。",
+    "solutions": [
+        {
+            "date": 1673107200000,
+            "time": 160,
+            "memory": 70.8,
+            "script": "c++",
+            "desc": "堆。",
+            "code": "class Solution {\npublic:\n    long long maxKelements(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        priority_queue<int> q;\n        long long ans = 0;\n        int idx = nums.size() - 1;\n        while (k--) {\n            if (q.size() && (idx < 0 || q.top() >= nums[idx])) {\n                int num = q.top();\n                q.pop();\n                ans += num;\n                q.push(ceil(1.0 * num / 3));\n            } else {\n                int num = nums[idx--];\n                ans += num;\n                q.push(ceil(1.0 * num / 3));\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1673107200000,
+            "time": 36,
+            "memory": 4.6,
+            "script": "rust",
+            "desc": "同上。",
+            "code": "use std::collections::BinaryHeap;\nimpl Solution {\n    pub fn max_kelements(nums: Vec<i32>, k: i32) -> i64 {\n        let mut k = k;\n        let mut heap = BinaryHeap::new();\n        for num in nums {\n            heap.push(num);\n        }\n        let mut ans: i64 = 0;\n        while k != 0 {\n            let num = heap.pop().unwrap() as i64;\n            ans += num;\n            let num = (num as f64 / 3.0).ceil() as i32;\n            heap.push(num);\n            k -= 1;\n        }\n        ans\n    }\n}"
+        }
+    ]
 }

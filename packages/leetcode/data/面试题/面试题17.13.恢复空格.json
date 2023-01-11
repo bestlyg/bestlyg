@@ -1,17 +1,20 @@
 {
-  "name": "面试题 17.13. 恢复空格",
-  "url": "https://leetcode-cn.com/problems/re-space-lcci/",
-  "difficulty": "中等",
-  "tag": ["记忆化", "字符串"],
-  "desc": "设计一个算法，把文章断开，要求未识别的字符最少，返回未识别的字符数。",
-  "solutions": [
-    {
-      "date": 1594224000000,
-      "time": 360,
-      "memory": 73.3,
-      "script": "typescript",
-      "desc": "构造前缀树，dp[i]为前 i 项有 n 项多余，每次遍历时向前比对是否匹配。",
-      "code": "class Trie {\n  private _tree = new Map<string, Trie>();\n  constructor(public end = false) {}\n  get(char: string): Trie | undefined {\n    return this._tree.get(char);\n  }\n  add(word: string): void {\n    if (word.length === 1) {\n      const t = this._tree.get(word);\n      if (t) {\n        t.end = true;\n      } else {\n        this._tree.set(word, new Trie(true));\n      }\n      return;\n    }\n    const chars = word;\n    const firstChar = chars[0];\n    const surplusChar = chars.substr(1);\n    const char = this._tree.get(firstChar);\n    if (char) {\n      this._tree.get(firstChar)?.add(surplusChar);\n    } else {\n      const trie = new Trie();\n      trie.add(surplusChar);\n      this._tree.set(firstChar, trie);\n    }\n  }\n  toString(intend = 0): string {\n    const blank = ''.padStart(intend);\n    let res = '';\n    for (const [k, v] of this._tree) {\n      res += `\n${intend === 0 ? '===\\n' : ''}${blank}${k}${v.end ? ']' : ''}`;\n      res += `${blank}${v ? v.toString(intend + 1) : ''}`;\n    }\n    return res;\n  }\n  print() {\n    console.log(this.toString());\n  }\n}\nfunction respace(dictionary: string[], sentence: string): number {\n  const trie = new Trie();\n  dictionary.forEach(word => {\n    trie.add(word.split('').reverse().join(''));\n  });\n  const len = sentence.length;\n  const dp = new Array(len + 1).fill(Infinity);\n  dp[0] = 0;\n  let rootTrie: Trie = trie;\n  for (let i = 1; i <= len; i++) {\n    dp[i] = dp[i - 1] + 1;\n    for (let j = i; j >= 1; j--) {\n      const char = sentence[j - 1];\n      const nextTrie = rootTrie.get(char);\n      if (!nextTrie) {\n        break;\n      } else if (nextTrie.end) {\n        dp[i] = Math.min(dp[i], dp[j - 1]);\n      }\n      if (dp[i] == 0) {\n        break;\n      }\n      rootTrie = nextTrie;\n    }\n    rootTrie = trie;\n  }\n  return dp[len];\n}"
-    }
-  ]
+    "name": "面试题 17.13. 恢复空格",
+    "url": "https://leetcode-cn.com/problems/re-space-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "记忆化",
+        "字符串"
+    ],
+    "desc": "设计一个算法，把文章断开，要求未识别的字符最少，返回未识别的字符数。",
+    "solutions": [
+        {
+            "date": 1594224000000,
+            "time": 360,
+            "memory": 73.3,
+            "script": "typescript",
+            "desc": "构造前缀树，dp[i]为前 i 项有 n 项多余，每次遍历时向前比对是否匹配。",
+            "code": "class Trie {\n  private _tree = new Map<string, Trie>();\n  constructor(public end = false) {}\n  get(char: string): Trie | undefined {\n    return this._tree.get(char);\n  }\n  add(word: string): void {\n    if (word.length === 1) {\n      const t = this._tree.get(word);\n      if (t) {\n        t.end = true;\n      } else {\n        this._tree.set(word, new Trie(true));\n      }\n      return;\n    }\n    const chars = word;\n    const firstChar = chars[0];\n    const surplusChar = chars.substr(1);\n    const char = this._tree.get(firstChar);\n    if (char) {\n      this._tree.get(firstChar)?.add(surplusChar);\n    } else {\n      const trie = new Trie();\n      trie.add(surplusChar);\n      this._tree.set(firstChar, trie);\n    }\n  }\n  toString(intend = 0): string {\n    const blank = ''.padStart(intend);\n    let res = '';\n    for (const [k, v] of this._tree) {\n      res += `\n${intend === 0 ? '===\\n' : ''}${blank}${k}${v.end ? ']' : ''}`;\n      res += `${blank}${v ? v.toString(intend + 1) : ''}`;\n    }\n    return res;\n  }\n  print() {\n    console.log(this.toString());\n  }\n}\nfunction respace(dictionary: string[], sentence: string): number {\n  const trie = new Trie();\n  dictionary.forEach(word => {\n    trie.add(word.split('').reverse().join(''));\n  });\n  const len = sentence.length;\n  const dp = new Array(len + 1).fill(Infinity);\n  dp[0] = 0;\n  let rootTrie: Trie = trie;\n  for (let i = 1; i <= len; i++) {\n    dp[i] = dp[i - 1] + 1;\n    for (let j = i; j >= 1; j--) {\n      const char = sentence[j - 1];\n      const nextTrie = rootTrie.get(char);\n      if (!nextTrie) {\n        break;\n      } else if (nextTrie.end) {\n        dp[i] = Math.min(dp[i], dp[j - 1]);\n      }\n      if (dp[i] == 0) {\n        break;\n      }\n      rootTrie = nextTrie;\n    }\n    rootTrie = trie;\n  }\n  return dp[len];\n}"
+        }
+    ]
 }

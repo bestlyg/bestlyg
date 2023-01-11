@@ -1,17 +1,20 @@
 {
-  "name": "1002. 查找常用字符",
-  "url": "https://leetcode-cn.com/problems/find-common-characters/",
-  "difficulty": "简单",
-  "tag": ["数组", "哈希表"],
-  "desc": "给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，则需要在最终答案中包含该字符 3 次。",
-  "solutions": [
-    {
-      "date": 1602604800000,
-      "time": 120,
-      "memory": 41.7,
-      "script": "typescript",
-      "desc": "计数。",
-      "code": "function commonChars(A: string[]): string[] {\n  if (A.length === 0) return [];\n  else if (A.length === 1) return A[0].split('');\n  const cache: number[] = new Array(26).fill(Infinity);\n  const compIndex = (c: string) => c.charCodeAt(0) - 'a'.charCodeAt(0);\n  for (const str of A) {\n    const count: number[] = new Array(26).fill(0);\n    const addCount = (i: number) => (count[i] = 1 + (count[i] ?? 0));\n    for (const c of str) {\n      addCount(compIndex(c));\n    }\n    count.forEach((v, i) => (cache[i] = Math.min(cache[i], v)));\n  }\n  const ans: string[] = [];\n  for (let i = 0; i < 26; i++) {\n    const v = cache[i];\n    if (v === Infinity) continue;\n    new Array(v).fill(0).forEach(_ => ans.push(String.fromCharCode(i + 97)));\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "1002. 查找常用字符",
+    "url": "https://leetcode-cn.com/problems/find-common-characters/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，则需要在最终答案中包含该字符 3 次。",
+    "solutions": [
+        {
+            "date": 1602604800000,
+            "time": 120,
+            "memory": 41.7,
+            "script": "typescript",
+            "desc": "计数。",
+            "code": "function commonChars(A: string[]): string[] {\n  if (A.length === 0) return [];\n  else if (A.length === 1) return A[0].split('');\n  const cache: number[] = new Array(26).fill(Infinity);\n  const compIndex = (c: string) => c.charCodeAt(0) - 'a'.charCodeAt(0);\n  for (const str of A) {\n    const count: number[] = new Array(26).fill(0);\n    const addCount = (i: number) => (count[i] = 1 + (count[i] ?? 0));\n    for (const c of str) {\n      addCount(compIndex(c));\n    }\n    count.forEach((v, i) => (cache[i] = Math.min(cache[i], v)));\n  }\n  const ans: string[] = [];\n  for (let i = 0; i < 26; i++) {\n    const v = cache[i];\n    if (v === Infinity) continue;\n    new Array(v).fill(0).forEach(_ => ans.push(String.fromCharCode(i + 97)));\n  }\n  return ans;\n}"
+        }
+    ]
 }

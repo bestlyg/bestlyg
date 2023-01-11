@@ -1,41 +1,46 @@
 {
-  "name": "349. 两个数组的交集",
-  "url": "https://leetcode-cn.com/problems/intersection-of-two-arrays/",
-  "difficulty": "简单",
-  "tag": ["排序", "哈希表", "双指针", "二分查找"],
-  "desc": "给定两个数组，编写一个函数来计算它们的交集。",
-  "solutions": [
-    {
-      "date": 1582819200000,
-      "time": 104,
-      "memory": 34.9,
-      "script": "javascript",
-      "desc": "使用 Set 对象去重后再遍历。",
-      "code": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @return {number[]}\n */\nvar intersection = function (nums1, nums2) {\n  const set1 = new Set(nums1);\n  const set2 = new Set(nums2);\n  const result = [];\n  for (const num of set2) {\n    if (set1.has(num)) {\n      result.push(num);\n    }\n  }\n  return result;\n};"
-    },
-    {
-      "date": 1582819200000,
-      "time": 48,
-      "memory": 34.8,
-      "script": "javascript",
-      "desc": "使用 Set 对象去重后用 filter 遍历。",
-      "code": "var intersection = function (nums1, nums2) {\n  const a = new Set(nums1);\n  const b = new Set(nums2);\n  return [...new Set([...a].filter(x => b.has(x)))];\n};"
-    },
-    {
-      "date": 1604246400000,
-      "time": 96,
-      "memory": 40.2,
-      "script": "typescript",
-      "desc": "利用 set 去重搜索。",
-      "code": "function intersection(nums1: number[], nums2: number[]): number[] {\n  const set = new Set(nums1);\n  const arr: number[] = [];\n  for (const num of nums2) {\n    set.has(num) && arr.push(num);\n  }\n  return [...new Set(arr)];\n}"
-    },
-    {
-      "date": 1638201600000,
-      "time": 4,
-      "memory": 6.4,
-      "script": "c",
-      "desc": "二分查找。",
-      "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint bs(int *nums, int n, int num) {\n    int l = 0, r = n - 1, m;\n    if (nums[l] > num || nums[r] < num) return 0;\n    while (l < r) {\n        m = (l + r) >> 1;\n        if (nums[m] == num) return 1;\n        if (nums[m] > num) r = m - 1;\n        else l = m + 1;\n    }\n    return nums[l] == num ? 1 : 0;\n}\nint* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){\n    qsort(nums2, nums2Size, sizeof(int), comp);\n    qsort(nums1, nums1Size, sizeof(int), comp);\n    int *ans = (int *)malloc(sizeof(int) * (nums1Size + nums2Size));\n    *returnSize = 0;\n    for (int i = 0; i < nums1Size; i++) {\n        if (i < nums1Size - 1 && nums1[i] == nums1[i + 1]) continue;\n        int num = nums1[i];\n        int check = bs(nums2, nums2Size, num);\n        if (check) ans[(*returnSize)++] = num;\n    }\n    return ans;\n}"
-    }
-  ]
+    "name": "349. 两个数组的交集",
+    "url": "https://leetcode-cn.com/problems/intersection-of-two-arrays/",
+    "difficulty": "简单",
+    "tag": [
+        "排序",
+        "哈希表",
+        "双指针",
+        "二分查找"
+    ],
+    "desc": "给定两个数组，编写一个函数来计算它们的交集。",
+    "solutions": [
+        {
+            "date": 1582819200000,
+            "time": 104,
+            "memory": 34.9,
+            "script": "javascript",
+            "desc": "使用 Set 对象去重后再遍历。",
+            "code": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @return {number[]}\n */\nvar intersection = function (nums1, nums2) {\n  const set1 = new Set(nums1);\n  const set2 = new Set(nums2);\n  const result = [];\n  for (const num of set2) {\n    if (set1.has(num)) {\n      result.push(num);\n    }\n  }\n  return result;\n};"
+        },
+        {
+            "date": 1582819200000,
+            "time": 48,
+            "memory": 34.8,
+            "script": "javascript",
+            "desc": "使用 Set 对象去重后用 filter 遍历。",
+            "code": "var intersection = function (nums1, nums2) {\n  const a = new Set(nums1);\n  const b = new Set(nums2);\n  return [...new Set([...a].filter(x => b.has(x)))];\n};"
+        },
+        {
+            "date": 1604246400000,
+            "time": 96,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "利用 set 去重搜索。",
+            "code": "function intersection(nums1: number[], nums2: number[]): number[] {\n  const set = new Set(nums1);\n  const arr: number[] = [];\n  for (const num of nums2) {\n    set.has(num) && arr.push(num);\n  }\n  return [...new Set(arr)];\n}"
+        },
+        {
+            "date": 1638201600000,
+            "time": 4,
+            "memory": 6.4,
+            "script": "c",
+            "desc": "二分查找。",
+            "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint bs(int *nums, int n, int num) {\n    int l = 0, r = n - 1, m;\n    if (nums[l] > num || nums[r] < num) return 0;\n    while (l < r) {\n        m = (l + r) >> 1;\n        if (nums[m] == num) return 1;\n        if (nums[m] > num) r = m - 1;\n        else l = m + 1;\n    }\n    return nums[l] == num ? 1 : 0;\n}\nint* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){\n    qsort(nums2, nums2Size, sizeof(int), comp);\n    qsort(nums1, nums1Size, sizeof(int), comp);\n    int *ans = (int *)malloc(sizeof(int) * (nums1Size + nums2Size));\n    *returnSize = 0;\n    for (int i = 0; i < nums1Size; i++) {\n        if (i < nums1Size - 1 && nums1[i] == nums1[i + 1]) continue;\n        int num = nums1[i];\n        int check = bs(nums2, nums2Size, num);\n        if (check) ans[(*returnSize)++] = num;\n    }\n    return ans;\n}"
+        }
+    ]
 }

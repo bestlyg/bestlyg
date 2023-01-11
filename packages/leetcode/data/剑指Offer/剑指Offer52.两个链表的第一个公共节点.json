@@ -1,25 +1,29 @@
 {
-  "name": "剑指 Offer 52. 两个链表的第一个公共节点",
-  "url": "https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/",
-  "difficulty": "简单",
-  "tag": ["哈希表", "链表", "双指针"],
-  "desc": "输入两个链表，找出它们的第一个公共节点。",
-  "solutions": [
-    {
-      "date": 1626796800000,
-      "time": 112,
-      "memory": 45.5,
-      "script": "typescript",
-      "desc": "利用 set 储存每个节点。",
-      "code": "var getIntersectionNode = function (headA, headB) {\n  const set = new Set();\n  let p = headA;\n  while (p) {\n    set.add(p);\n    p = p.next;\n  }\n  p = headB;\n  while (p) {\n    if (set.has(p)) return p;\n    p = p.next;\n  }\n  return null;\n};"
-    },
-    {
-      "date": 1626796800000,
-      "time": 88,
-      "memory": 45.1,
-      "script": "typescript",
-      "desc": "双指针。",
-      "code": "var getIntersectionNode = function (headA, headB) {\n  let pA = headA;\n  let pB = headB;\n  if (!pA || !pB) return null;\n  while (pA !== pB) {\n    pA = pA === null ? headB : pA.next;\n    pB = pB === null ? headA : pB.next;\n  }\n  return pA;\n};"
-    }
-  ]
+    "name": "剑指 Offer 52. 两个链表的第一个公共节点",
+    "url": "https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "链表",
+        "双指针"
+    ],
+    "desc": "输入两个链表，找出它们的第一个公共节点。",
+    "solutions": [
+        {
+            "date": 1626796800000,
+            "time": 112,
+            "memory": 45.5,
+            "script": "typescript",
+            "desc": "利用 set 储存每个节点。",
+            "code": "var getIntersectionNode = function (headA, headB) {\n  const set = new Set();\n  let p = headA;\n  while (p) {\n    set.add(p);\n    p = p.next;\n  }\n  p = headB;\n  while (p) {\n    if (set.has(p)) return p;\n    p = p.next;\n  }\n  return null;\n};"
+        },
+        {
+            "date": 1626796800000,
+            "time": 88,
+            "memory": 45.1,
+            "script": "typescript",
+            "desc": "双指针。",
+            "code": "var getIntersectionNode = function (headA, headB) {\n  let pA = headA;\n  let pB = headB;\n  if (!pA || !pB) return null;\n  while (pA !== pB) {\n    pA = pA === null ? headB : pA.next;\n    pB = pB === null ? headA : pB.next;\n  }\n  return pA;\n};"
+        }
+    ]
 }

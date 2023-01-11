@@ -1,25 +1,29 @@
 {
-  "name": "1359. 有效的快递序列数目",
-  "url": "https://leetcode-cn.com/problems/count-all-valid-pickup-and-delivery-options/",
-  "difficulty": "困难",
-  "tag": ["数学", "动态规划", "组合数学"],
-  "desc": "请你统计所有有效的 收件/配送 序列的数目，确保第 i 个物品的配送服务 delivery(i) 总是在其收件服务 pickup(i) 之后。",
-  "solutions": [
-    {
-      "date": 1639152000000,
-      "time": 76,
-      "memory": 39.4,
-      "script": "typescript",
-      "desc": "动态规划，每次多一个快递，就计算新快递可能放置的数量。",
-      "code": "const mod = 1e9 + 7;\nfunction sum(n: number) {\n  return ((1 + n) * n) / 2;\n}\nfunction countOrders(n: number): number {\n  const dp = new Array(n).fill(0);\n  dp[0] = 1;\n  for (let i = 1; i < n; i++) {\n    const num = 1 + 2 * i;\n    dp[i] = (dp[i - 1] * sum(num)) % mod;\n  }\n  return dp[n - 1];\n}"
-    },
-    {
-      "date": 1639152000000,
-      "time": 76,
-      "memory": 39.7,
-      "script": "typescript",
-      "desc": "优化上一题解。",
-      "code": "const mod = 1e9 + 7;\nfunction sum(n: number) {\n  return ((1 + n) * n) / 2;\n}\nfunction countOrders(n: number): number {\n  let ans = 1;\n  for (let i = 2; i <= n; i++) ans = (ans * sum(1 + 2 * (i - 1))) % mod;\n  return ans;\n}"
-    }
-  ]
+    "name": "1359. 有效的快递序列数目",
+    "url": "https://leetcode-cn.com/problems/count-all-valid-pickup-and-delivery-options/",
+    "difficulty": "困难",
+    "tag": [
+        "数学",
+        "动态规划",
+        "组合数学"
+    ],
+    "desc": "请你统计所有有效的 收件/配送 序列的数目，确保第 i 个物品的配送服务 delivery(i) 总是在其收件服务 pickup(i) 之后。",
+    "solutions": [
+        {
+            "date": 1639152000000,
+            "time": 76,
+            "memory": 39.4,
+            "script": "typescript",
+            "desc": "动态规划，每次多一个快递，就计算新快递可能放置的数量。",
+            "code": "const mod = 1e9 + 7;\nfunction sum(n: number) {\n  return ((1 + n) * n) / 2;\n}\nfunction countOrders(n: number): number {\n  const dp = new Array(n).fill(0);\n  dp[0] = 1;\n  for (let i = 1; i < n; i++) {\n    const num = 1 + 2 * i;\n    dp[i] = (dp[i - 1] * sum(num)) % mod;\n  }\n  return dp[n - 1];\n}"
+        },
+        {
+            "date": 1639152000000,
+            "time": 76,
+            "memory": 39.7,
+            "script": "typescript",
+            "desc": "优化上一题解。",
+            "code": "const mod = 1e9 + 7;\nfunction sum(n: number) {\n  return ((1 + n) * n) / 2;\n}\nfunction countOrders(n: number): number {\n  let ans = 1;\n  for (let i = 2; i <= n; i++) ans = (ans * sum(1 + 2 * (i - 1))) % mod;\n  return ans;\n}"
+        }
+    ]
 }

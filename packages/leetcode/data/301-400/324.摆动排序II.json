@@ -1,25 +1,30 @@
 {
-  "name": "324. 摆动排序 II",
-  "url": "https://leetcode-cn.com/problems/wiggle-sort-ii/",
-  "difficulty": "中等",
-  "tag": ["数组", "分治", "快速选择", "排序"],
-  "desc": "给你一个整数数组 nums，将它重新排列成 nums[0] < nums[1] > nums[2] < nums[3]... 的顺序。",
-  "solutions": [
-    {
-      "date": 1647360000000,
-      "time": 8,
-      "memory": 18.1,
-      "script": "c++",
-      "desc": "排序后遍历，最值尽可能放中间。",
-      "code": "class Solution {\n   public:\n    void wiggleSort(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), mid = (n + 1) / 2, imin = mid - 1, imax = n - 1;\n        vector<int> ans;\n        while (imin >= 0 || imax >= mid) {\n            if (imin >= 0) ans.push_back(nums[imin--]);\n            if (imax >= mid) ans.push_back(nums[imax--]);\n        }\n        nums = ans;\n    }\n};"
-    },
-    {
-      "date": 1656345600000,
-      "time": 16,
-      "memory": 17.2,
-      "script": "cpp",
-      "desc": "从最大值和中间值往左遍历。",
-      "code": "class Solution {\n   public:\n    void wiggleSort(vector<int>& nums) {\n        vector<int> list = nums;\n        sort(list.begin(), list.end());\n        int n = nums.size(), mid = (n + 1) / 2, i1 = mid - 1, i2 = n - 1, i = 0;\n        while (i1 >= 0 || i2 >= mid) {\n            if (i1 >= 0) nums[i++] = list[i1--];\n            if (i2 >= mid) nums[i++] = list[i2--];\n        }\n    }\n};"
-    }
-  ]
+    "name": "324. 摆动排序 II",
+    "url": "https://leetcode-cn.com/problems/wiggle-sort-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "分治",
+        "快速选择",
+        "排序"
+    ],
+    "desc": "给你一个整数数组 nums，将它重新排列成 nums[0] < nums[1] > nums[2] < nums[3]... 的顺序。",
+    "solutions": [
+        {
+            "date": 1647360000000,
+            "time": 8,
+            "memory": 18.1,
+            "script": "c++",
+            "desc": "排序后遍历，最值尽可能放中间。",
+            "code": "class Solution {\n   public:\n    void wiggleSort(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), mid = (n + 1) / 2, imin = mid - 1, imax = n - 1;\n        vector<int> ans;\n        while (imin >= 0 || imax >= mid) {\n            if (imin >= 0) ans.push_back(nums[imin--]);\n            if (imax >= mid) ans.push_back(nums[imax--]);\n        }\n        nums = ans;\n    }\n};"
+        },
+        {
+            "date": 1656345600000,
+            "time": 16,
+            "memory": 17.2,
+            "script": "cpp",
+            "desc": "从最大值和中间值往左遍历。",
+            "code": "class Solution {\n   public:\n    void wiggleSort(vector<int>& nums) {\n        vector<int> list = nums;\n        sort(list.begin(), list.end());\n        int n = nums.size(), mid = (n + 1) / 2, i1 = mid - 1, i2 = n - 1, i = 0;\n        while (i1 >= 0 || i2 >= mid) {\n            if (i1 >= 0) nums[i++] = list[i1--];\n            if (i2 >= mid) nums[i++] = list[i2--];\n        }\n    }\n};"
+        }
+    ]
 }

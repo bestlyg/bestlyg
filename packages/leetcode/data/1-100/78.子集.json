@@ -1,25 +1,29 @@
 {
-  "name": "78. 子集",
-  "url": "https://leetcode-cn.com/problems/subsets/",
-  "difficulty": "中等",
-  "tag": ["位运算", "数组", "回溯算法"],
-  "desc": "给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。",
-  "solutions": [
-    {
-      "date": 1600531200000,
-      "time": 84,
-      "memory": 39.6,
-      "script": "typescript",
-      "desc": "递归,利用二进制进行去重。",
-      "code": "function subsets(nums: number[]): number[][] {\n  const ans: number[][] = [];\n  const len = nums.length;\n  for (let i = 0; i < 1 << len; i++) ans.push(getArr(i));\n  return ans;\n  function getArr(num: number): number[] {\n    const arr: number[] = [];\n    for (let i = 0; i < len; ++i) num & (1 << i) && arr.push(nums[i]);\n    return arr;\n  }\n}"
-    },
-    {
-      "date": 1628870400000,
-      "time": 80,
-      "memory": 39.9,
-      "script": "typescript",
-      "desc": "二进制逐位判断。",
-      "code": "function subsets(nums: number[]): number[][] {\n  const n = nums.length;\n  const ans: number[][] = [];\n  for (let i = 0; i < 1 << n; i++) add(i);\n  return ans;\n  function add(num: number) {\n    const arr: number[] = [];\n    ans.push(arr);\n    for (let i = 0; i < n; i++) {\n      if (num & (1 << i)) arr.push(nums[i]);\n    }\n  }\n}"
-    }
-  ]
+    "name": "78. 子集",
+    "url": "https://leetcode-cn.com/problems/subsets/",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组",
+        "回溯算法"
+    ],
+    "desc": "给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。",
+    "solutions": [
+        {
+            "date": 1600531200000,
+            "time": 84,
+            "memory": 39.6,
+            "script": "typescript",
+            "desc": "递归,利用二进制进行去重。",
+            "code": "function subsets(nums: number[]): number[][] {\n  const ans: number[][] = [];\n  const len = nums.length;\n  for (let i = 0; i < 1 << len; i++) ans.push(getArr(i));\n  return ans;\n  function getArr(num: number): number[] {\n    const arr: number[] = [];\n    for (let i = 0; i < len; ++i) num & (1 << i) && arr.push(nums[i]);\n    return arr;\n  }\n}"
+        },
+        {
+            "date": 1628870400000,
+            "time": 80,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "二进制逐位判断。",
+            "code": "function subsets(nums: number[]): number[][] {\n  const n = nums.length;\n  const ans: number[][] = [];\n  for (let i = 0; i < 1 << n; i++) add(i);\n  return ans;\n  function add(num: number) {\n    const arr: number[] = [];\n    ans.push(arr);\n    for (let i = 0; i < n; i++) {\n      if (num & (1 << i)) arr.push(nums[i]);\n    }\n  }\n}"
+        }
+    ]
 }

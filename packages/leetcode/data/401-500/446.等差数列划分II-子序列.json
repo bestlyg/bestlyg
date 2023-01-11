@@ -1,17 +1,20 @@
 {
-  "name": "446. 等差数列划分 II - 子序列",
-  "url": "https://leetcode-cn.com/problems/arithmetic-slices-ii-subsequence/",
-  "difficulty": "困难",
-  "tag": ["数组", "动态规划"],
-  "desc": "给你一个整数数组 nums ，返回 nums 中所有 等差子序列 的数目。",
-  "solutions": [
-    {
-      "date": 1628611200000,
-      "time": 396,
-      "memory": 73.1,
-      "script": "typescript",
-      "desc": "动态规划,dp[i]=以 nums[i]结尾的公差映射。",
-      "code": "function numberOfArithmeticSlices(nums: number[]): number {\n  const map = new Map<number, Map<number, number>>(\n    nums.map((_, i) => [i, new Map<number, number>()])\n  );\n  const n = nums.length;\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    for (let j = 0; j < i; j++) {\n      const v = num - nums[j];\n      const c = map.get(j)!.get(v) ?? 0;\n      ans += c;\n      map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);\n    }\n  }\n  return ans;\n}"
-    }
-  ]
+    "name": "446. 等差数列划分 II - 子序列",
+    "url": "https://leetcode-cn.com/problems/arithmetic-slices-ii-subsequence/",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给你一个整数数组 nums ，返回 nums 中所有 等差子序列 的数目。",
+    "solutions": [
+        {
+            "date": 1628611200000,
+            "time": 396,
+            "memory": 73.1,
+            "script": "typescript",
+            "desc": "动态规划,dp[i]=以 nums[i]结尾的公差映射。",
+            "code": "function numberOfArithmeticSlices(nums: number[]): number {\n  const map = new Map<number, Map<number, number>>(\n    nums.map((_, i) => [i, new Map<number, number>()])\n  );\n  const n = nums.length;\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    for (let j = 0; j < i; j++) {\n      const v = num - nums[j];\n      const c = map.get(j)!.get(v) ?? 0;\n      ans += c;\n      map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);\n    }\n  }\n  return ans;\n}"
+        }
+    ]
 }

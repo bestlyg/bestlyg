@@ -1,17 +1,20 @@
 {
-  "name": "面试题 17.11. 单词距离",
-  "url": "https://leetcode.cn/problems/find-closest-lcci/",
-  "difficulty": "中等",
-  "tag": ["数组", "字符串"],
-  "desc": "有个内含单词的超大文本文件，给定任意两个不同的单词，找出在这个文件中这两个单词的最短距离(相隔单词数)。",
-  "solutions": [
-    {
-      "date": 1653580800000,
-      "time": 96,
-      "memory": 57.9,
-      "script": "cpp",
-      "desc": "一次遍历。",
-      "code": "class Solution {\n   public:\n    int findClosest(vector<string>& words, string word1, string word2) {\n        int p[2], ans = INT_MAX, n = words.size();\n        p[0] = p[1] = -1;\n        for (int i = 0; i < n; i++) {\n            string word = words[i];\n            int f = -1;\n            if (word == word1) f = 0;\n            if (word == word2) f = 1;\n            if (f == -1) continue;\n            p[f] = i;\n            if (p[0] == -1 || p[1] == -1) continue;\n            ans = min(ans, abs(p[0] - p[1]));\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "面试题 17.11. 单词距离",
+    "url": "https://leetcode.cn/problems/find-closest-lcci/",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "字符串"
+    ],
+    "desc": "有个内含单词的超大文本文件，给定任意两个不同的单词，找出在这个文件中这两个单词的最短距离(相隔单词数)。",
+    "solutions": [
+        {
+            "date": 1653580800000,
+            "time": 96,
+            "memory": 57.9,
+            "script": "cpp",
+            "desc": "一次遍历。",
+            "code": "class Solution {\n   public:\n    int findClosest(vector<string>& words, string word1, string word2) {\n        int p[2], ans = INT_MAX, n = words.size();\n        p[0] = p[1] = -1;\n        for (int i = 0; i < n; i++) {\n            string word = words[i];\n            int f = -1;\n            if (word == word1) f = 0;\n            if (word == word2) f = 1;\n            if (f == -1) continue;\n            p[f] = i;\n            if (p[0] == -1 || p[1] == -1) continue;\n            ans = min(ans, abs(p[0] - p[1]));\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

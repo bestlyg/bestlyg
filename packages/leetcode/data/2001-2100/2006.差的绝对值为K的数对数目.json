@@ -1,25 +1,29 @@
 {
-  "name": "2006. 差的绝对值为 K 的数对数目",
-  "url": "https://leetcode-cn.com/problems/count-number-of-pairs-with-absolute-difference-k/",
-  "difficulty": "简单",
-  "tag": ["数组", "哈希表", "计数"],
-  "desc": "给你一个整数数组 nums 和一个整数 k ，请你返回数对 (i, j) 的数目，满足 i < j 且 |nums[i] - nums[j]| == k 。",
-  "solutions": [
-    {
-      "date": 1644336000000,
-      "time": 4,
-      "memory": 12.1,
-      "script": "c++",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    int countKDifference(vector<int>& nums, int k) {\n        int m[300] = {0}, ans = 0;\n        for (auto& num : nums) {\n            ans += m[num + k + 100] + m[num - k + 100];\n            m[num + 100]++;\n        }\n        return ans;\n    }\n};"
-    },
-    {
-      "date": 1644336000000,
-      "time": 8,
-      "memory": 14,
-      "script": "c++",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    int countKDifference(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (auto& num : nums) {\n            ans += m[num + k] + m[num - k];\n            m[num]++;\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "2006. 差的绝对值为 K 的数对数目",
+    "url": "https://leetcode-cn.com/problems/count-number-of-pairs-with-absolute-difference-k/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "desc": "给你一个整数数组 nums 和一个整数 k ，请你返回数对 (i, j) 的数目，满足 i < j 且 |nums[i] - nums[j]| == k 。",
+    "solutions": [
+        {
+            "date": 1644336000000,
+            "time": 4,
+            "memory": 12.1,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    int countKDifference(vector<int>& nums, int k) {\n        int m[300] = {0}, ans = 0;\n        for (auto& num : nums) {\n            ans += m[num + k + 100] + m[num - k + 100];\n            m[num + 100]++;\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "date": 1644336000000,
+            "time": 8,
+            "memory": 14,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    int countKDifference(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (auto& num : nums) {\n            ans += m[num + k] + m[num - k];\n            m[num]++;\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

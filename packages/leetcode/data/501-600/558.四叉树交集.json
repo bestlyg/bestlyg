@@ -1,17 +1,20 @@
 {
-  "name": "558. 四叉树交集",
-  "url": "https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/",
-  "difficulty": "中等",
-  "tag": ["树", "分治"],
-  "desc": "请你返回一个表示 n \\* n 二进制矩阵的四叉树，它是 quadTree1 和 quadTree2 所表示的两个二进制矩阵进行 按位逻辑或运算 的结果。",
-  "solutions": [
-    {
-      "date": 1657814400000,
-      "time": 24,
-      "memory": 16.2,
-      "script": "cpp",
-      "desc": "分治,如果一个叶子且 true,则与该节点相同,如果 false,则与另一个节点相同,否则递归。",
-      "code": "class Solution {\n   public:\n    Node *intersect(Node *quadTree1, Node *quadTree2) {\n        if (quadTree1->isLeaf) {\n            if (quadTree1->val)\n                return new Node(true, true);\n            else\n                return new Node(quadTree2->val, quadTree2->isLeaf,\n                                quadTree2->topLeft, quadTree2->topRight,\n                                quadTree2->bottomLeft, quadTree2->bottomRight);\n        }\n        if (quadTree2->isLeaf) {\n            if (quadTree2->val)\n                return new Node(true, true);\n            else\n                return new Node(true, false, quadTree1->topLeft,\n                                quadTree1->topRight, quadTree1->bottomLeft,\n                                quadTree1->bottomRight);\n        }\n        Node *tl = intersect(quadTree1->topLeft, quadTree2->topLeft),\n             *tr = intersect(quadTree1->topRight, quadTree2->topRight),\n             *bl = intersect(quadTree1->bottomLeft, quadTree2->bottomLeft),\n             *br = intersect(quadTree1->bottomRight, quadTree2->bottomRight);\n        if (tl->isLeaf && tr->isLeaf && bl->isLeaf && br->isLeaf &&\n            tl->val == tr->val && tl->val == bl->val && tl->val == br->val)\n            return new Node(tl->val, true);\n        else\n            return new Node(false, false, tl, tr, bl, br);\n    }\n};"
-    }
-  ]
+    "name": "558. 四叉树交集",
+    "url": "https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "分治"
+    ],
+    "desc": "请你返回一个表示 n \\* n 二进制矩阵的四叉树，它是 quadTree1 和 quadTree2 所表示的两个二进制矩阵进行 按位逻辑或运算 的结果。",
+    "solutions": [
+        {
+            "date": 1657814400000,
+            "time": 24,
+            "memory": 16.2,
+            "script": "cpp",
+            "desc": "分治,如果一个叶子且 true,则与该节点相同,如果 false,则与另一个节点相同,否则递归。",
+            "code": "class Solution {\n   public:\n    Node *intersect(Node *quadTree1, Node *quadTree2) {\n        if (quadTree1->isLeaf) {\n            if (quadTree1->val)\n                return new Node(true, true);\n            else\n                return new Node(quadTree2->val, quadTree2->isLeaf,\n                                quadTree2->topLeft, quadTree2->topRight,\n                                quadTree2->bottomLeft, quadTree2->bottomRight);\n        }\n        if (quadTree2->isLeaf) {\n            if (quadTree2->val)\n                return new Node(true, true);\n            else\n                return new Node(true, false, quadTree1->topLeft,\n                                quadTree1->topRight, quadTree1->bottomLeft,\n                                quadTree1->bottomRight);\n        }\n        Node *tl = intersect(quadTree1->topLeft, quadTree2->topLeft),\n             *tr = intersect(quadTree1->topRight, quadTree2->topRight),\n             *bl = intersect(quadTree1->bottomLeft, quadTree2->bottomLeft),\n             *br = intersect(quadTree1->bottomRight, quadTree2->bottomRight);\n        if (tl->isLeaf && tr->isLeaf && bl->isLeaf && br->isLeaf &&\n            tl->val == tr->val && tl->val == bl->val && tl->val == br->val)\n            return new Node(tl->val, true);\n        else\n            return new Node(false, false, tl, tr, bl, br);\n    }\n};"
+        }
+    ]
 }

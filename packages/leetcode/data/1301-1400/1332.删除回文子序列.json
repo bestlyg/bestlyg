@@ -1,17 +1,20 @@
 {
-  "name": "1332. 删除回文子序列",
-  "url": "https://leetcode-cn.com/problems/remove-palindromic-subsequences/",
-  "difficulty": "简单",
-  "tag": ["双指针", "字符串"],
-  "desc": "返回删除给定字符串中所有字符（字符串为空）的最小删除次数。",
-  "solutions": [
-    {
-      "date": 1642780800000,
-      "time": 0,
-      "memory": 6.1,
-      "script": "c++",
-      "desc": "考虑是回文子序列，并非连续，且只有两种字母。",
-      "code": "class Solution {\n   public:\n    int removePalindromeSub(string s) {\n        for (int start = 0, end = s.size() - 1; start <= end; start++, end--) {\n            if (s[start] != s[end]) return 2;\n        }\n        return 1;\n    }\n};"
-    }
-  ]
+    "name": "1332. 删除回文子序列",
+    "url": "https://leetcode-cn.com/problems/remove-palindromic-subsequences/",
+    "difficulty": "简单",
+    "tag": [
+        "双指针",
+        "字符串"
+    ],
+    "desc": "返回删除给定字符串中所有字符（字符串为空）的最小删除次数。",
+    "solutions": [
+        {
+            "date": 1642780800000,
+            "time": 0,
+            "memory": 6.1,
+            "script": "c++",
+            "desc": "考虑是回文子序列，并非连续，且只有两种字母。",
+            "code": "class Solution {\n   public:\n    int removePalindromeSub(string s) {\n        for (int start = 0, end = s.size() - 1; start <= end; start++, end--) {\n            if (s[start] != s[end]) return 2;\n        }\n        return 1;\n    }\n};"
+        }
+    ]
 }

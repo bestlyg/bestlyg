@@ -1,25 +1,28 @@
 {
-  "name": "56. 合并区间",
-  "url": "https://leetcode-cn.com/problems/merge-intervals/",
-  "difficulty": "中等",
-  "tag": ["排序", "数组"],
-  "desc": "给出一个区间的集合，请合并所有重叠的区间。",
-  "solutions": [
-    {
-      "date": 1586966400000,
-      "time": 104,
-      "memory": 37.2,
-      "script": "javascript",
-      "desc": "先排序，再一次判断是否包含。",
-      "code": "/**\n * @param {number[][]} intervals\n * @return {number[][]}\n */\nvar merge = function (intervals) {\n  let res = [];\n  intervals = intervals.sort((arr1, arr2) => arr1[0] - arr2[0]);\n  const include = (num, left, right) => num >= left && num <= right;\n  for (let i = 0, len = intervals.length; i < len; i++) {\n    if (i === 0) {\n      res.push(intervals[i]);\n      continue;\n    }\n    const arr = intervals[i];\n    const [left, right] = arr;\n    const oldArr = res.pop();\n    const [oldLeft, oldRight] = oldArr;\n    if (include(left, oldLeft, oldRight)) {\n      if (include(right, oldLeft, oldRight)) res.push(oldArr);\n      else res.push([oldLeft, right]);\n    } else {\n      res.push(oldArr, arr);\n    }\n  }\n  return res;\n};"
-    },
-    {
-      "date": 1640188800000,
-      "time": 16,
-      "memory": 13.7,
-      "script": "c++",
-      "desc": "排序后合并。",
-      "code": "class Solution {\n   public:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> ans;\n        for (auto& interval : intervals) {\n            if (ans.size() > 0 && ans[ans.size() - 1][1] >= interval[0]) {\n                ans[ans.size() - 1][1] =\n                    max(interval[1], ans[ans.size() - 1][1]);\n            } else {\n                ans.push_back(interval);\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "56. 合并区间",
+    "url": "https://leetcode-cn.com/problems/merge-intervals/",
+    "difficulty": "中等",
+    "tag": [
+        "排序",
+        "数组"
+    ],
+    "desc": "给出一个区间的集合，请合并所有重叠的区间。",
+    "solutions": [
+        {
+            "date": 1586966400000,
+            "time": 104,
+            "memory": 37.2,
+            "script": "javascript",
+            "desc": "先排序，再一次判断是否包含。",
+            "code": "/**\n * @param {number[][]} intervals\n * @return {number[][]}\n */\nvar merge = function (intervals) {\n  let res = [];\n  intervals = intervals.sort((arr1, arr2) => arr1[0] - arr2[0]);\n  const include = (num, left, right) => num >= left && num <= right;\n  for (let i = 0, len = intervals.length; i < len; i++) {\n    if (i === 0) {\n      res.push(intervals[i]);\n      continue;\n    }\n    const arr = intervals[i];\n    const [left, right] = arr;\n    const oldArr = res.pop();\n    const [oldLeft, oldRight] = oldArr;\n    if (include(left, oldLeft, oldRight)) {\n      if (include(right, oldLeft, oldRight)) res.push(oldArr);\n      else res.push([oldLeft, right]);\n    } else {\n      res.push(oldArr, arr);\n    }\n  }\n  return res;\n};"
+        },
+        {
+            "date": 1640188800000,
+            "time": 16,
+            "memory": 13.7,
+            "script": "c++",
+            "desc": "排序后合并。",
+            "code": "class Solution {\n   public:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> ans;\n        for (auto& interval : intervals) {\n            if (ans.size() > 0 && ans[ans.size() - 1][1] >= interval[0]) {\n                ans[ans.size() - 1][1] =\n                    max(interval[1], ans[ans.size() - 1][1]);\n            } else {\n                ans.push_back(interval);\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

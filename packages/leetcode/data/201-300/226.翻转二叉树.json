@@ -1,57 +1,59 @@
 {
-  "name": "226. 翻转二叉树",
-  "url": "https://leetcode-cn.com/problems/invert-binary-tree/",
-  "difficulty": "简单",
-  "tag": ["树"],
-  "desc": "翻转一棵二叉树。",
-  "solutions": [
-    {
-      "date": 1582041600000,
-      "time": 0,
-      "memory": 39.7,
-      "script": "java",
-      "desc": "前序遍历",
-      "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode invertTree(TreeNode root) {\n        if(root==null)return root;\n\t\tTreeNode tmpNode=root.left;\n\t\troot.left=root.right;\n\t\troot.right=tmpNode;\n\t\tinvertTree(root.left);\n\t\tinvertTree(root.right);\n\t\treturn root;\n    }\n}"
-    },
-    {
-      "date": 1582041600000,
-      "time": 0,
-      "memory": 39.8,
-      "script": "java",
-      "desc": "后序遍历",
-      "code": "public TreeNode invertTree(TreeNode root) {\n    if(root==null)return root;\n    invertTree(root.left);\n    invertTree(root.right);\n    TreeNode tmpNode=root.left;\n    root.left=root.right;\n    root.right=tmpNode;\n    return root;\n}"
-    },
-    {
-      "date": 1582041600000,
-      "time": 0,
-      "memory": 40.2,
-      "script": "java",
-      "desc": "中序遍历",
-      "code": "public TreeNode invertTree(TreeNode root) {\n    if(root==null)return root;\n    invertTree(root.left);\n    TreeNode tmpNode=root.left;\n    root.left=root.right;\n    root.right=tmpNode;\n    invertTree(root.left);\n    return root;\n}"
-    },
-    {
-      "date": 1582041600000,
-      "time": 0,
-      "memory": 40.5,
-      "script": "java",
-      "desc": "层序遍历",
-      "code": "public TreeNode invertTree(TreeNode root) {\n\t\tif(root==null)return root;\n\t\tQueue<TreeNode> queue=new LinkedList<>();\n\t\tqueue.offer(root);\n\t\twhile(!queue.isEmpty()) {\n\t\t\tTreeNode node = queue.poll();\n\t\t\tTreeNode tmpNode=node.left;\n\t\t\tnode.left=node.right;\n\t\t\tnode.right=tmpNode;\n\t\t\tif(node.left!=null) {\n\t\t\t\tqueue.offer(node.left);\n\t\t\t}\n\t\t\tif(node.right!=null) {\n\t\t\t\tqueue.offer(node.right);\n\t\t\t}\n\t\t}\n\t\treturn root;\n\t}"
-    },
-    {
-      "date": 1600185600000,
-      "time": 72,
-      "memory": 37.6,
-      "script": "typescript",
-      "desc": "递归。",
-      "code": "function invertTree(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const left = invertTree(root.left);\n  const right = invertTree(root.right);\n  root.right = left;\n  root.left = right;\n  return root;\n}"
-    },
-    {
-      "date": 1637942400000,
-      "time": 0,
-      "memory": 5.9,
-      "script": "c",
-      "desc": "递归。",
-      "code": "struct TreeNode* invertTree(struct TreeNode* root){\n    if (!root) return root;\n    struct TreeNode *left = root->left, *right = root->right;\n    // 翻转右树赋值给左点\n    root->left = invertTree(right);\n    // 翻转左树赋值给右点\n    root->right = invertTree(left);\n    return root;\n}"
-    }
-  ]
+    "name": "226. 翻转二叉树",
+    "url": "https://leetcode-cn.com/problems/invert-binary-tree/",
+    "difficulty": "简单",
+    "tag": [
+        "树"
+    ],
+    "desc": "翻转一棵二叉树。",
+    "solutions": [
+        {
+            "date": 1582041600000,
+            "time": 0,
+            "memory": 39.7,
+            "script": "java",
+            "desc": "前序遍历",
+            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode invertTree(TreeNode root) {\n        if(root==null)return root;\n\t\tTreeNode tmpNode=root.left;\n\t\troot.left=root.right;\n\t\troot.right=tmpNode;\n\t\tinvertTree(root.left);\n\t\tinvertTree(root.right);\n\t\treturn root;\n    }\n}"
+        },
+        {
+            "date": 1582041600000,
+            "time": 0,
+            "memory": 39.8,
+            "script": "java",
+            "desc": "后序遍历",
+            "code": "public TreeNode invertTree(TreeNode root) {\n    if(root==null)return root;\n    invertTree(root.left);\n    invertTree(root.right);\n    TreeNode tmpNode=root.left;\n    root.left=root.right;\n    root.right=tmpNode;\n    return root;\n}"
+        },
+        {
+            "date": 1582041600000,
+            "time": 0,
+            "memory": 40.2,
+            "script": "java",
+            "desc": "中序遍历",
+            "code": "public TreeNode invertTree(TreeNode root) {\n    if(root==null)return root;\n    invertTree(root.left);\n    TreeNode tmpNode=root.left;\n    root.left=root.right;\n    root.right=tmpNode;\n    invertTree(root.left);\n    return root;\n}"
+        },
+        {
+            "date": 1582041600000,
+            "time": 0,
+            "memory": 40.5,
+            "script": "java",
+            "desc": "层序遍历",
+            "code": "public TreeNode invertTree(TreeNode root) {\n\t\tif(root==null)return root;\n\t\tQueue<TreeNode> queue=new LinkedList<>();\n\t\tqueue.offer(root);\n\t\twhile(!queue.isEmpty()) {\n\t\t\tTreeNode node = queue.poll();\n\t\t\tTreeNode tmpNode=node.left;\n\t\t\tnode.left=node.right;\n\t\t\tnode.right=tmpNode;\n\t\t\tif(node.left!=null) {\n\t\t\t\tqueue.offer(node.left);\n\t\t\t}\n\t\t\tif(node.right!=null) {\n\t\t\t\tqueue.offer(node.right);\n\t\t\t}\n\t\t}\n\t\treturn root;\n\t}"
+        },
+        {
+            "date": 1600185600000,
+            "time": 72,
+            "memory": 37.6,
+            "script": "typescript",
+            "desc": "递归。",
+            "code": "function invertTree(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const left = invertTree(root.left);\n  const right = invertTree(root.right);\n  root.right = left;\n  root.left = right;\n  return root;\n}"
+        },
+        {
+            "date": 1637942400000,
+            "time": 0,
+            "memory": 5.9,
+            "script": "c",
+            "desc": "递归。",
+            "code": "struct TreeNode* invertTree(struct TreeNode* root){\n    if (!root) return root;\n    struct TreeNode *left = root->left, *right = root->right;\n    // 翻转右树赋值给左点\n    root->left = invertTree(right);\n    // 翻转左树赋值给右点\n    root->right = invertTree(left);\n    return root;\n}"
+        }
+    ]
 }

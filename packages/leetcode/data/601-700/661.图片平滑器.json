@@ -1,17 +1,20 @@
 {
-  "name": "661. 图片平滑器",
-  "url": "https://leetcode-cn.com/problems/image-smoother/",
-  "difficulty": "简单",
-  "tag": ["数组", "矩阵"],
-  "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
-  "solutions": [
-    {
-      "date": 1647360000000,
-      "time": 44,
-      "memory": 21.1,
-      "script": "c++",
-      "desc": "遍历。",
-      "code": "class Solution {\n   public:\n    constexpr static int dirs[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},\n                                       {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};\n    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {\n        int n = img.size(), m = img[0].size();\n        vector<vector<int>> ans(n, vector<int>(m));\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int val = img[i][j], cnt = 1;\n                for (int k = 0; k < 8; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni == n || nj < 0 || nj == m) continue;\n                    val += img[ni][nj];\n                    cnt++;\n                }\n                ans[i][j] = val / cnt;\n            }\n        }\n        return ans;\n    }\n};"
-    }
-  ]
+    "name": "661. 图片平滑器",
+    "url": "https://leetcode-cn.com/problems/image-smoother/",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
+    "solutions": [
+        {
+            "date": 1647360000000,
+            "time": 44,
+            "memory": 21.1,
+            "script": "c++",
+            "desc": "遍历。",
+            "code": "class Solution {\n   public:\n    constexpr static int dirs[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},\n                                       {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};\n    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {\n        int n = img.size(), m = img[0].size();\n        vector<vector<int>> ans(n, vector<int>(m));\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int val = img[i][j], cnt = 1;\n                for (int k = 0; k < 8; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni == n || nj < 0 || nj == m) continue;\n                    val += img[ni][nj];\n                    cnt++;\n                }\n                ans[i][j] = val / cnt;\n            }\n        }\n        return ans;\n    }\n};"
+        }
+    ]
 }

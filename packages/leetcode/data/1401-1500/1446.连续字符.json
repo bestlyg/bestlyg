@@ -1,25 +1,27 @@
 {
-  "name": "1446. 连续字符",
-  "url": "https://leetcode-cn.com/problems/consecutive-characters/",
-  "difficulty": "简单",
-  "tag": ["字符串"],
-  "desc": "给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。",
-  "solutions": [
-    {
-      "date": 1638288000000,
-      "time": 88,
-      "memory": 39.9,
-      "script": "typescript",
-      "desc": "遍历。",
-      "code": "function maxPower(s: string): number {\n  let ans = 0;\n  for (let i = 0, n = s.length; i < n; i++) {\n    let cnt = 1;\n    const ch = s[i];\n    while (i + 1 < n && s[i + 1] === ch) {\n      i++;\n      cnt++;\n    }\n    ans = Math.max(ans, cnt);\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1638288000000,
-      "time": 4,
-      "memory": 5.9,
-      "script": "typescript",
-      "desc": "遍历。",
-      "code": "int maxPower(char * s){\n    int ans = 0;\n    for (int i = 0; i < strlen(s); i++) {\n        int cnt = 1;\n        char ch = s[i];\n        while (i + 1 < strlen(s) && s[i + 1] == ch) {\n            i++;\n            cnt++;\n        }\n        if (cnt > ans) ans = cnt;\n    }\n    return ans;\n}"
-    }
-  ]
+    "name": "1446. 连续字符",
+    "url": "https://leetcode-cn.com/problems/consecutive-characters/",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。",
+    "solutions": [
+        {
+            "date": 1638288000000,
+            "time": 88,
+            "memory": 39.9,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "function maxPower(s: string): number {\n  let ans = 0;\n  for (let i = 0, n = s.length; i < n; i++) {\n    let cnt = 1;\n    const ch = s[i];\n    while (i + 1 < n && s[i + 1] === ch) {\n      i++;\n      cnt++;\n    }\n    ans = Math.max(ans, cnt);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1638288000000,
+            "time": 4,
+            "memory": 5.9,
+            "script": "typescript",
+            "desc": "遍历。",
+            "code": "int maxPower(char * s){\n    int ans = 0;\n    for (int i = 0; i < strlen(s); i++) {\n        int cnt = 1;\n        char ch = s[i];\n        while (i + 1 < strlen(s) && s[i + 1] == ch) {\n            i++;\n            cnt++;\n        }\n        if (cnt > ans) ans = cnt;\n    }\n    return ans;\n}"
+        }
+    ]
 }

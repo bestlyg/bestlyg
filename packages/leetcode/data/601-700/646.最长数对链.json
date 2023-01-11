@@ -1,17 +1,22 @@
 {
-  "name": "646. 最长数对链",
-  "url": "https://leetcode.cn/problems/maximum-length-of-pair-chain/",
-  "difficulty": "中等",
-  "tag": ["贪心", "数组", "动态规划", "排序"],
-  "desc": "给定一个数对集合，找出能够形成的最长数对链的长度。你不需要用到所有的数对，你可以以任何顺序选择其中的一些数对来构造。",
-  "solutions": [
-    {
-      "date": 1662134400000,
-      "time": 32,
-      "memory": 2.2,
-      "script": "cpp",
-      "desc": "dp 记录当前点为结尾的最大链路。",
-      "code": "impl Solution {\n    pub fn find_longest_chain(pairs: Vec<Vec<i32>>) -> i32 {\n        let mut pairs = pairs;\n        pairs.sort_by(|a, b| {\n            if a[0] != b[0] {\n                a[0].cmp(&b[0])\n            } else {\n                a[1].cmp(&b[1])\n            }\n        });\n        let len = pairs.len();\n        let mut dp = vec![1; len];\n        let mut ans = 0;\n        for i in 0..len {\n            for j in 0..i {\n                if pairs[j][1] < pairs[i][0] {\n                    dp[i] = dp[i].max(dp[j] + 1)\n                }\n            }\n            ans = ans.max(dp[i]);\n        }\n        ans\n    }\n}"
-    }
-  ]
+    "name": "646. 最长数对链",
+    "url": "https://leetcode.cn/problems/maximum-length-of-pair-chain/",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划",
+        "排序"
+    ],
+    "desc": "给定一个数对集合，找出能够形成的最长数对链的长度。你不需要用到所有的数对，你可以以任何顺序选择其中的一些数对来构造。",
+    "solutions": [
+        {
+            "date": 1662134400000,
+            "time": 32,
+            "memory": 2.2,
+            "script": "cpp",
+            "desc": "dp 记录当前点为结尾的最大链路。",
+            "code": "impl Solution {\n    pub fn find_longest_chain(pairs: Vec<Vec<i32>>) -> i32 {\n        let mut pairs = pairs;\n        pairs.sort_by(|a, b| {\n            if a[0] != b[0] {\n                a[0].cmp(&b[0])\n            } else {\n                a[1].cmp(&b[1])\n            }\n        });\n        let len = pairs.len();\n        let mut dp = vec![1; len];\n        let mut ans = 0;\n        for i in 0..len {\n            for j in 0..i {\n                if pairs[j][1] < pairs[i][0] {\n                    dp[i] = dp[i].max(dp[j] + 1)\n                }\n            }\n            ans = ans.max(dp[i]);\n        }\n        ans\n    }\n}"
+        }
+    ]
 }

@@ -1,17 +1,20 @@
 {
-  "name": "998. 最大二叉树 II",
-  "url": "https://leetcode.cn/problems/maximum-binary-tree-ii/",
-  "difficulty": "中等",
-  "tag": ["树", "二叉树"],
-  "desc": "返回 Construct(b) 。",
-  "solutions": [
-    {
-      "date": 1661788800000,
-      "time": 8,
-      "memory": 12.9,
-      "script": "cpp",
-      "desc": "每次查看右子树。",
-      "code": "class Solution {\npublic:\n    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {\n        TreeNode *node = root, *pre = nullptr;\n        while (node && node->val > val) {\n            pre  = node;\n            node = node->right;\n        }\n        if (!pre) return new TreeNode(val, root, nullptr);\n        pre->right = new TreeNode(val, node, nullptr);\n        return root;\n    }\n};"
-    }
-  ]
+    "name": "998. 最大二叉树 II",
+    "url": "https://leetcode.cn/problems/maximum-binary-tree-ii/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "二叉树"
+    ],
+    "desc": "返回 Construct(b) 。",
+    "solutions": [
+        {
+            "date": 1661788800000,
+            "time": 8,
+            "memory": 12.9,
+            "script": "cpp",
+            "desc": "每次查看右子树。",
+            "code": "class Solution {\npublic:\n    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {\n        TreeNode *node = root, *pre = nullptr;\n        while (node && node->val > val) {\n            pre  = node;\n            node = node->right;\n        }\n        if (!pre) return new TreeNode(val, root, nullptr);\n        pre->right = new TreeNode(val, node, nullptr);\n        return root;\n    }\n};"
+        }
+    ]
 }

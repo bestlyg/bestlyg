@@ -1,17 +1,23 @@
 {
-  "name": "743. 网络延迟时间",
-  "url": "https://leetcode-cn.com/problems/network-delay-time/",
-  "difficulty": "中等",
-  "tag": ["深度优先搜索", "广度优先搜索", "图", "最短路", "堆(优先队列)"],
-  "desc": "现在，从某个节点 K 发出一个信号。需要多久才能使所有节点都收到信号？如果不能使所有节点收到信号，返回 -1。",
-  "solutions": [
-    {
-      "date": 1627833600000,
-      "time": 108,
-      "memory": 45.8,
-      "script": "typescript",
-      "desc": "哈希储存，每次删减。",
-      "code": "class NetNode {\n  next: [NetNode, number][] = [];\n  constructor(public val: number) {}\n}\nfunction getMap(times: number[][]): Map<number, NetNode> {\n  const map = new Map<number, NetNode>();\n  for (const [start, end, time] of times) {\n    let startNode = map.get(start);\n    if (!startNode) map.set(start, (startNode = new NetNode(start)));\n    let endNode = map.get(end);\n    if (!endNode) map.set(end, (endNode = new NetNode(end)));\n    startNode.next.push([endNode, time]);\n  }\n  return map;\n}\nfunction networkDelayTime(times: number[][], n: number, k: number): number {\n  const map = getMap(times);\n  const init = map.get(k)!;\n  const q: [NetNode, number][] = [[init, 0]];\n  const set = new Set<NetNode>();\n  let ans = -1;\n  while (q.length) {\n    const nextQ: [NetNode, number][] = [];\n    let f = false;\n    while (q.length) {\n      const info = q.shift()!;\n      if (set.has(info[0])) continue;\n      f = true;\n      if (info[1] === 0) {\n        set.add(info[0]);\n        for (const [next, time] of info[0].next) {\n          if (time !== 0) set.has(next) || nextQ.push([next, time - 1]);\n          else q.push([next, time]);\n        }\n      } else {\n        info[1]--;\n        nextQ.push(info);\n      }\n    }\n    q.push(...nextQ);\n    if (f) ans++;\n  }\n  return set.size === n ? ans : -1;\n}"
-    }
-  ]
+    "name": "743. 网络延迟时间",
+    "url": "https://leetcode-cn.com/problems/network-delay-time/",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "最短路",
+        "堆(优先队列)"
+    ],
+    "desc": "现在，从某个节点 K 发出一个信号。需要多久才能使所有节点都收到信号？如果不能使所有节点收到信号，返回 -1。",
+    "solutions": [
+        {
+            "date": 1627833600000,
+            "time": 108,
+            "memory": 45.8,
+            "script": "typescript",
+            "desc": "哈希储存，每次删减。",
+            "code": "class NetNode {\n  next: [NetNode, number][] = [];\n  constructor(public val: number) {}\n}\nfunction getMap(times: number[][]): Map<number, NetNode> {\n  const map = new Map<number, NetNode>();\n  for (const [start, end, time] of times) {\n    let startNode = map.get(start);\n    if (!startNode) map.set(start, (startNode = new NetNode(start)));\n    let endNode = map.get(end);\n    if (!endNode) map.set(end, (endNode = new NetNode(end)));\n    startNode.next.push([endNode, time]);\n  }\n  return map;\n}\nfunction networkDelayTime(times: number[][], n: number, k: number): number {\n  const map = getMap(times);\n  const init = map.get(k)!;\n  const q: [NetNode, number][] = [[init, 0]];\n  const set = new Set<NetNode>();\n  let ans = -1;\n  while (q.length) {\n    const nextQ: [NetNode, number][] = [];\n    let f = false;\n    while (q.length) {\n      const info = q.shift()!;\n      if (set.has(info[0])) continue;\n      f = true;\n      if (info[1] === 0) {\n        set.add(info[0]);\n        for (const [next, time] of info[0].next) {\n          if (time !== 0) set.has(next) || nextQ.push([next, time - 1]);\n          else q.push([next, time]);\n        }\n      } else {\n        info[1]--;\n        nextQ.push(info);\n      }\n    }\n    q.push(...nextQ);\n    if (f) ans++;\n  }\n  return set.size === n ? ans : -1;\n}"
+        }
+    ]
 }

@@ -1,25 +1,27 @@
 {
-  "name": "867. 转置矩阵",
-  "url": "https://leetcode-cn.com/problems/transpose-matrix/",
-  "difficulty": "简单",
-  "tag": ["数组"],
-  "desc": "给你一个二维整数数组 matrix， 返回 matrix 的 转置矩阵 。",
-  "solutions": [
-    {
-      "date": 1614182400000,
-      "time": 100,
-      "memory": 41.1,
-      "script": "typescript",
-      "desc": "双循环纵向取值。",
-      "code": "function transpose(matrix: number[][]): number[][] {\n  const ans: number[][] = [];\n  for (let i = 0, colLen = matrix[0].length; i < colLen; i++) {\n    const arr: number[] = [];\n    for (let j = 0, rowLen = matrix.length; j < rowLen; j++) arr.push(matrix[j][i]);\n    ans.push(arr);\n  }\n  return ans;\n}"
-    },
-    {
-      "date": 1614182400000,
-      "time": 96,
-      "memory": 40.2,
-      "script": "typescript",
-      "desc": "读取数组长度进行纵向映射。",
-      "code": "function transpose(matrix: number[][]): number[][] {\n  return matrix[0].map((_, i) => matrix.map(arr => arr[i]));\n}"
-    }
-  ]
+    "name": "867. 转置矩阵",
+    "url": "https://leetcode-cn.com/problems/transpose-matrix/",
+    "difficulty": "简单",
+    "tag": [
+        "数组"
+    ],
+    "desc": "给你一个二维整数数组 matrix， 返回 matrix 的 转置矩阵 。",
+    "solutions": [
+        {
+            "date": 1614182400000,
+            "time": 100,
+            "memory": 41.1,
+            "script": "typescript",
+            "desc": "双循环纵向取值。",
+            "code": "function transpose(matrix: number[][]): number[][] {\n  const ans: number[][] = [];\n  for (let i = 0, colLen = matrix[0].length; i < colLen; i++) {\n    const arr: number[] = [];\n    for (let j = 0, rowLen = matrix.length; j < rowLen; j++) arr.push(matrix[j][i]);\n    ans.push(arr);\n  }\n  return ans;\n}"
+        },
+        {
+            "date": 1614182400000,
+            "time": 96,
+            "memory": 40.2,
+            "script": "typescript",
+            "desc": "读取数组长度进行纵向映射。",
+            "code": "function transpose(matrix: number[][]): number[][] {\n  return matrix[0].map((_, i) => matrix.map(arr => arr[i]));\n}"
+        }
+    ]
 }

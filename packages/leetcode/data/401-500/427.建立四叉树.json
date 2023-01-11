@@ -1,25 +1,30 @@
 {
-  "name": "427. 建立四叉树",
-  "url": "https://leetcode-cn.com/problems/construct-quad-tree/",
-  "difficulty": "中等",
-  "tag": ["树", "数组", "分治", "矩阵"],
-  "desc": "你需要返回能表示矩阵的 四叉树 的根结点。",
-  "solutions": [
-    {
-      "date": 1651161600000,
-      "time": 24,
-      "memory": 23.7,
-      "script": "cpp",
-      "desc": "dfs。",
-      "code": "class Solution {\n   public:\n    Node *construct(vector<vector<int>> &grid) {\n        int n = grid.size(), check;\n        return dfs(grid, 0, n - 1, 0, n - 1, &check);\n    }\n    Node *dfs(vector<vector<int>> &grid, int srow, int erow, int scol, int ecol,\n              int *check) {\n        if (srow == erow && scol == ecol) {\n            *check = 1;\n            return getNode(grid[srow][scol], true);\n        }\n        int mrow = (erow + srow) >> 1, mcol = (ecol + scol) >> 1;\n        int checkTL, checkTR, checkBL, checkBR;\n        Node *tl = dfs(grid, srow, mrow, scol, mcol, &checkTL),\n             *tr = dfs(grid, srow, mrow, mcol + 1, ecol, &checkTR),\n             *bl = dfs(grid, mrow + 1, erow, scol, mcol, &checkBL),\n             *br = dfs(grid, mrow + 1, erow, mcol + 1, ecol, &checkBR);\n        if (tl->val == tr->val && tl->val == bl->val && tl->val == br->val &&\n            checkTL & checkTR & checkBL & checkBR) {\n            *check = 1;\n            int val = tl->val;\n            free(tl);\n            free(tr);\n            free(bl);\n            free(br);\n            return getNode(val, true);\n        }\n        Node *node = getNode(tl->val ^ tr->val ^ bl->val ^ br->val, false);\n        *check = 0;\n        node->topLeft = tl;\n        node->topRight = tr;\n        node->bottomLeft = bl;\n        node->bottomRight = br;\n        return node;\n    }\n    Node *getNode(bool val, bool isLeaf) {\n        Node *node = (Node *)malloc(sizeof(Node));\n        node->isLeaf = isLeaf;\n        node->val = val;\n        node->topLeft = node->topRight = node->bottomLeft = node->bottomRight =\n            nullptr;\n        return node;\n    }\n};"
-    },
-    {
-      "date": 1651161600000,
-      "time": 12,
-      "memory": 6.5,
-      "script": "go",
-      "desc": "递归看是否成树。",
-      "code": "func construct(grid [][]int) *Node {\n    n := len(grid)\n    return dfs(grid, 0, n-1, 0, n-1)\n}\nfunc dfs(grid [][]int, srow, erow, scol, ecol int) *Node {\n    mrow, mcol := (srow+erow)>>1, (scol+ecol)>>1\n    for i := srow; i <= erow; i++ {\n        for j := scol; j <= ecol; j++ {\n            if grid[i][j] != grid[srow][scol] {\n                return &Node{\n                    Val:         false,\n                    IsLeaf:      false,\n                    TopLeft:     dfs(grid, srow, mrow, scol, mcol),\n                    TopRight:    dfs(grid, srow, mrow, mcol+1, ecol),\n                    BottomLeft:  dfs(grid, mrow+1, erow, scol, mcol),\n                    BottomRight: dfs(grid, mrow+1, erow, mcol+1, ecol),\n                }\n            }\n        }\n    }\n    return &Node{Val: grid[srow][scol] == 1, IsLeaf: true}\n}"
-    }
-  ]
+    "name": "427. 建立四叉树",
+    "url": "https://leetcode-cn.com/problems/construct-quad-tree/",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "数组",
+        "分治",
+        "矩阵"
+    ],
+    "desc": "你需要返回能表示矩阵的 四叉树 的根结点。",
+    "solutions": [
+        {
+            "date": 1651161600000,
+            "time": 24,
+            "memory": 23.7,
+            "script": "cpp",
+            "desc": "dfs。",
+            "code": "class Solution {\n   public:\n    Node *construct(vector<vector<int>> &grid) {\n        int n = grid.size(), check;\n        return dfs(grid, 0, n - 1, 0, n - 1, &check);\n    }\n    Node *dfs(vector<vector<int>> &grid, int srow, int erow, int scol, int ecol,\n              int *check) {\n        if (srow == erow && scol == ecol) {\n            *check = 1;\n            return getNode(grid[srow][scol], true);\n        }\n        int mrow = (erow + srow) >> 1, mcol = (ecol + scol) >> 1;\n        int checkTL, checkTR, checkBL, checkBR;\n        Node *tl = dfs(grid, srow, mrow, scol, mcol, &checkTL),\n             *tr = dfs(grid, srow, mrow, mcol + 1, ecol, &checkTR),\n             *bl = dfs(grid, mrow + 1, erow, scol, mcol, &checkBL),\n             *br = dfs(grid, mrow + 1, erow, mcol + 1, ecol, &checkBR);\n        if (tl->val == tr->val && tl->val == bl->val && tl->val == br->val &&\n            checkTL & checkTR & checkBL & checkBR) {\n            *check = 1;\n            int val = tl->val;\n            free(tl);\n            free(tr);\n            free(bl);\n            free(br);\n            return getNode(val, true);\n        }\n        Node *node = getNode(tl->val ^ tr->val ^ bl->val ^ br->val, false);\n        *check = 0;\n        node->topLeft = tl;\n        node->topRight = tr;\n        node->bottomLeft = bl;\n        node->bottomRight = br;\n        return node;\n    }\n    Node *getNode(bool val, bool isLeaf) {\n        Node *node = (Node *)malloc(sizeof(Node));\n        node->isLeaf = isLeaf;\n        node->val = val;\n        node->topLeft = node->topRight = node->bottomLeft = node->bottomRight =\n            nullptr;\n        return node;\n    }\n};"
+        },
+        {
+            "date": 1651161600000,
+            "time": 12,
+            "memory": 6.5,
+            "script": "go",
+            "desc": "递归看是否成树。",
+            "code": "func construct(grid [][]int) *Node {\n    n := len(grid)\n    return dfs(grid, 0, n-1, 0, n-1)\n}\nfunc dfs(grid [][]int, srow, erow, scol, ecol int) *Node {\n    mrow, mcol := (srow+erow)>>1, (scol+ecol)>>1\n    for i := srow; i <= erow; i++ {\n        for j := scol; j <= ecol; j++ {\n            if grid[i][j] != grid[srow][scol] {\n                return &Node{\n                    Val:         false,\n                    IsLeaf:      false,\n                    TopLeft:     dfs(grid, srow, mrow, scol, mcol),\n                    TopRight:    dfs(grid, srow, mrow, mcol+1, ecol),\n                    BottomLeft:  dfs(grid, mrow+1, erow, scol, mcol),\n                    BottomRight: dfs(grid, mrow+1, erow, mcol+1, ecol),\n                }\n            }\n        }\n    }\n    return &Node{Val: grid[srow][scol] == 1, IsLeaf: true}\n}"
+        }
+    ]
 }
