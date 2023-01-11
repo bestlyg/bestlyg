@@ -1,19 +1,17 @@
 {
-    "name": "2016. 增量元素之间的最大差值",
-    "url": "https://leetcode-cn.com/problems/maximum-difference-between-increasing-elements/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给你一个下标从 0 开始的整数数组 nums ，该数组的大小为 n ，请你计算 nums[j] - nums[i] 能求得的 最大差值 ，其中 0 <= i < j < n 且 nums[i] < nums[j] 。返回 最大差值 。如果不存在满足要求的 i 和 j ，返回 -1 。",
-    "solutions": [
-        {
-            "date": 1645804800000,
-            "time": 4,
-            "memory": 8,
-            "script": "c++",
-            "desc": "遍历，记录最小值。",
-            "code": "class Solution {\n   public:\n    int maximumDifference(vector<int>& nums) {\n        int minnum = nums[0], ans = INT_MIN;\n        for (auto& num : nums) {\n            if (num > minnum) {\n                ans = max(ans, num - minnum);\n            }\n            minnum = min(minnum, num);\n        }\n        return ans == INT_MIN ? -1 : ans;\n    }\n};"
-        }
-    ]
+  "name": "2016. 增量元素之间的最大差值",
+  "url": "https://leetcode-cn.com/problems/maximum-difference-between-increasing-elements/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "给你一个下标从 0 开始的整数数组 nums ，该数组的大小为 n ，请你计算 nums[j] - nums[i] 能求得的 最大差值 ，其中 0 <= i < j < n 且 nums[i] < nums[j] 。返回 最大差值 。如果不存在满足要求的 i 和 j ，返回 -1 。",
+  "solutions": [
+    {
+      "date": 1645804800000,
+      "time": 4,
+      "memory": 8,
+      "script": "c++",
+      "desc": "遍历，记录最小值。",
+      "code": "class Solution {\n   public:\n    int maximumDifference(vector<int>& nums) {\n        int minnum = nums[0], ans = INT_MIN;\n        for (auto& num : nums) {\n            if (num > minnum) {\n                ans = max(ans, num - minnum);\n            }\n            minnum = min(minnum, num);\n        }\n        return ans == INT_MIN ? -1 : ans;\n    }\n};"
+    }
+  ]
 }

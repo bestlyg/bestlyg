@@ -1,35 +1,33 @@
 {
-    "name": "933. 最近的请求次数",
-    "url": "https://leetcode-cn.com/problems/number-of-recent-calls/",
-    "difficulty": "简单",
-    "tag": [
-        "队列"
-    ],
-    "desc": "写一个 RecentCounter 类来计算特定时间范围内最近的请求。",
-    "solutions": [
-        {
-            "date": 1615651200000,
-            "time": 264,
-            "memory": 47.9,
-            "script": "typescript",
-            "desc": "队列直接判断头部值是否符合要求。",
-            "code": "class RecentCounter {\n  private queue: number[] = [];\n  ping(t: number): number {\n    this.queue.push(t);\n    while (this.queue[0] < t - 3000) {\n      this.queue.shift();\n    }\n    return this.queue.length;\n  }\n}"
-        },
-        {
-            "date": 1651766400000,
-            "time": 132,
-            "memory": 56,
-            "script": "cpp",
-            "desc": "queue。",
-            "code": "class RecentCounter {\n   public:\n    queue<int> q;\n    RecentCounter() {}\n    int ping(int t) {\n        q.push(t);\n        while (t - q.front() > 3000) q.pop();\n        return q.size();\n    }\n};"
-        },
-        {
-            "date": 1651766400000,
-            "time": 136,
-            "memory": 8.1,
-            "script": "go",
-            "desc": "queue。",
-            "code": "type RecentCounter struct {\n    queue []int\n}\n\nfunc Constructor() RecentCounter {\n    res := RecentCounter{}\n    return res\n}\nfunc (this *RecentCounter) Ping(t int) int {\n    this.queue = append(this.queue, t)\n    for t-this.queue[0] > 3000 {\n        this.queue = this.queue[1:]\n    }\n    return len(this.queue)\n}"
-        }
-    ]
+  "name": "933. 最近的请求次数",
+  "url": "https://leetcode-cn.com/problems/number-of-recent-calls/",
+  "difficulty": "简单",
+  "tag": ["队列"],
+  "desc": "写一个 RecentCounter 类来计算特定时间范围内最近的请求。",
+  "solutions": [
+    {
+      "date": 1615651200000,
+      "time": 264,
+      "memory": 47.9,
+      "script": "typescript",
+      "desc": "队列直接判断头部值是否符合要求。",
+      "code": "class RecentCounter {\n  private queue: number[] = [];\n  ping(t: number): number {\n    this.queue.push(t);\n    while (this.queue[0] < t - 3000) {\n      this.queue.shift();\n    }\n    return this.queue.length;\n  }\n}"
+    },
+    {
+      "date": 1651766400000,
+      "time": 132,
+      "memory": 56,
+      "script": "cpp",
+      "desc": "queue。",
+      "code": "class RecentCounter {\n   public:\n    queue<int> q;\n    RecentCounter() {}\n    int ping(int t) {\n        q.push(t);\n        while (t - q.front() > 3000) q.pop();\n        return q.size();\n    }\n};"
+    },
+    {
+      "date": 1651766400000,
+      "time": 136,
+      "memory": 8.1,
+      "script": "go",
+      "desc": "queue。",
+      "code": "type RecentCounter struct {\n    queue []int\n}\n\nfunc Constructor() RecentCounter {\n    res := RecentCounter{}\n    return res\n}\nfunc (this *RecentCounter) Ping(t int) int {\n    this.queue = append(this.queue, t)\n    for t-this.queue[0] > 3000 {\n        this.queue = this.queue[1:]\n    }\n    return len(this.queue)\n}"
+    }
+  ]
 }

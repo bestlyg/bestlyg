@@ -1,11 +1,8 @@
 {
-    "name": "1046. 最后一块石头的重量",
-    "url": "https://leetcode-cn.com/problems/last-stone-weight/",
-    "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "堆"
-    ],
-    "desc": "有一堆石头，每块石头的重量都是正整数。最后，最多只会剩下一块石头。返回此石头的重量。如果没有石头剩下，就返回 0。",
-    "solutions": []
+  "name": "1046. 最后一块石头的重量",
+  "url": "https://leetcode-cn.com/problems/last-stone-weight/",
+  "difficulty": "简单",
+  "tag": ["贪心", "堆"],
+  "desc": "有一堆石头，每块石头的重量都是正整数。最后，最多只会剩下一块石头。返回此石头的重量。如果没有石头剩下，就返回 0。",
+  "solutions": []
 }

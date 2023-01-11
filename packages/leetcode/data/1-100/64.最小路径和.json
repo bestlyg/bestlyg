@@ -1,20 +1,17 @@
 {
-    "name": "64. 最小路径和",
-    "url": "https://leetcode-cn.com/problems/minimum-path-sum/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
-    "desc": "给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。",
-    "solutions": [
-        {
-            "date": 1595433600000,
-            "time": 116,
-            "memory": 40.5,
-            "script": "typescript",
-            "desc": "动态规划,dp[i][j]=i，j 坐标时的最小值。",
-            "code": "function minPathSum(grid: number[][]): number {\n  const row = grid.length;\n  const col = grid[0].length;\n  const dp = new Array(row).fill(0).map(_ => new Array(col));\n  dp[row - 1][col - 1] = grid[row - 1][col - 1];\n  for (let i = row - 1; i >= 0; i--) {\n    for (let j = col - 1; j >= 0; j--) {\n      const num = grid[i][j];\n      if (i === row - 1 && j === col - 1) {\n      } else if (i === row - 1) {\n        dp[i][j] = dp[i][j + 1] + num;\n      } else if (j === col - 1) {\n        dp[i][j] = dp[i + 1][j] + num;\n      } else {\n        dp[i][j] = Math.min(dp[i][j + 1], dp[i + 1][j]) + num;\n      }\n    }\n  }\n  return dp[0][0];\n}"
-        }
-    ]
+  "name": "64. 最小路径和",
+  "url": "https://leetcode-cn.com/problems/minimum-path-sum/",
+  "difficulty": "中等",
+  "tag": ["数组", "动态规划"],
+  "desc": "给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。",
+  "solutions": [
+    {
+      "date": 1595433600000,
+      "time": 116,
+      "memory": 40.5,
+      "script": "typescript",
+      "desc": "动态规划,dp[i][j]=i，j 坐标时的最小值。",
+      "code": "function minPathSum(grid: number[][]): number {\n  const row = grid.length;\n  const col = grid[0].length;\n  const dp = new Array(row).fill(0).map(_ => new Array(col));\n  dp[row - 1][col - 1] = grid[row - 1][col - 1];\n  for (let i = row - 1; i >= 0; i--) {\n    for (let j = col - 1; j >= 0; j--) {\n      const num = grid[i][j];\n      if (i === row - 1 && j === col - 1) {\n      } else if (i === row - 1) {\n        dp[i][j] = dp[i][j + 1] + num;\n      } else if (j === col - 1) {\n        dp[i][j] = dp[i + 1][j] + num;\n      } else {\n        dp[i][j] = Math.min(dp[i][j + 1], dp[i + 1][j]) + num;\n      }\n    }\n  }\n  return dp[0][0];\n}"
+    }
+  ]
 }

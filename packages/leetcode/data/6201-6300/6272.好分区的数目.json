@@ -1,10 +1,8 @@
 {
-    "name": "6272. 好分区的数目",
-    "url": "https://leetcode.cn/problems/number-of-great-partitions/",
-    "difficulty": "困难",
-    "tag": [
-        ""
-    ],
-    "desc": "返回 不同 的好分区的数目。由于答案可能很大，请返回对 109 + 7 取余 后的结果。",
-    "solutions": []
+  "name": "6272. 好分区的数目",
+  "url": "https://leetcode.cn/problems/number-of-great-partitions/",
+  "difficulty": "困难",
+  "tag": [""],
+  "desc": "返回 不同 的好分区的数目。由于答案可能很大，请返回对 109 + 7 取余 后的结果。",
+  "solutions": []
 }

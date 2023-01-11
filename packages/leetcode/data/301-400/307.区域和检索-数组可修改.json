@@ -1,30 +1,25 @@
 {
-    "name": "307. 区域和检索 - 数组可修改",
-    "url": "https://leetcode-cn.com/problems/range-sum-query-mutable/",
-    "difficulty": "中等",
-    "tag": [
-        "设计",
-        "树状数组",
-        "线段树",
-        "数组"
-    ],
-    "desc": "给你一个数组 nums ，请你完成两类查询，其中一类查询要求更新数组下标对应的值，另一类查询要求返回数组中某个范围内元素的总和。",
-    "solutions": [
-        {
-            "date": 1636819200000,
-            "time": 532,
-            "memory": 70.5,
-            "script": "typescript",
-            "desc": "树状数组。",
-            "code": "class FenwickTree {\n  private arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nclass NumArray {\n  private tree: FenwickTree;\n  constructor(nums: number[]) {\n    this.tree = new FenwickTree(nums.length);\n    for (let i = 0; i < nums.length; i++) {\n      this.tree.add(i + 1, nums[i]);\n    }\n  }\n  update(index: number, val: number): void {\n    this.tree.add(index + 1, val - this.tree.at(index + 1));\n  }\n  sumRange(left: number, right: number): number {\n    return this.tree.query(right + 1) - this.tree.query(left);\n  }\n}"
-        },
-        {
-            "date": 1649001600000,
-            "time": 372,
-            "memory": 146.4,
-            "script": "cpp",
-            "desc": "树状数组。",
-            "code": "class FenwickTree {\n   public:\n    int n;\n    vector<int> arr;\n    FenwickTree(int n) : n(n + 1), arr(vector<int>(n + 1, 0)) {}\n    int lowbit(int num) { return num & -num; }\n    void add(int idx, int num) {\n        idx += 1;\n        while (idx < n) {\n            arr[idx] += num;\n            idx += lowbit(idx);\n        }\n    }\n    int at(int idx) { return query(idx) - query(idx - 1); }\n    int query(int idx) {\n        idx += 1;\n        int num = 0;\n        while (idx) {\n            num += arr[idx];\n            idx -= lowbit(idx);\n        }\n        return num;\n    }\n};\nclass NumArray {\n   public:\n    FenwickTree tree;\n    NumArray(vector<int>& nums) : tree(nums.size()) {\n        for (int i = 0; i < nums.size(); i++) {\n            tree.add(i, nums[i]);\n        }\n    }\n    void update(int index, int val) { tree.add(index, val - tree.at(index)); }\n    int sumRange(int left, int right) {\n        return tree.query(right) - tree.query(left - 1);\n    }\n};"
-        }
-    ]
+  "name": "307. 区域和检索 - 数组可修改",
+  "url": "https://leetcode-cn.com/problems/range-sum-query-mutable/",
+  "difficulty": "中等",
+  "tag": ["设计", "树状数组", "线段树", "数组"],
+  "desc": "给你一个数组 nums ，请你完成两类查询，其中一类查询要求更新数组下标对应的值，另一类查询要求返回数组中某个范围内元素的总和。",
+  "solutions": [
+    {
+      "date": 1636819200000,
+      "time": 532,
+      "memory": 70.5,
+      "script": "typescript",
+      "desc": "树状数组。",
+      "code": "class FenwickTree {\n  private arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nclass NumArray {\n  private tree: FenwickTree;\n  constructor(nums: number[]) {\n    this.tree = new FenwickTree(nums.length);\n    for (let i = 0; i < nums.length; i++) {\n      this.tree.add(i + 1, nums[i]);\n    }\n  }\n  update(index: number, val: number): void {\n    this.tree.add(index + 1, val - this.tree.at(index + 1));\n  }\n  sumRange(left: number, right: number): number {\n    return this.tree.query(right + 1) - this.tree.query(left);\n  }\n}"
+    },
+    {
+      "date": 1649001600000,
+      "time": 372,
+      "memory": 146.4,
+      "script": "cpp",
+      "desc": "树状数组。",
+      "code": "class FenwickTree {\n   public:\n    int n;\n    vector<int> arr;\n    FenwickTree(int n) : n(n + 1), arr(vector<int>(n + 1, 0)) {}\n    int lowbit(int num) { return num & -num; }\n    void add(int idx, int num) {\n        idx += 1;\n        while (idx < n) {\n            arr[idx] += num;\n            idx += lowbit(idx);\n        }\n    }\n    int at(int idx) { return query(idx) - query(idx - 1); }\n    int query(int idx) {\n        idx += 1;\n        int num = 0;\n        while (idx) {\n            num += arr[idx];\n            idx -= lowbit(idx);\n        }\n        return num;\n    }\n};\nclass NumArray {\n   public:\n    FenwickTree tree;\n    NumArray(vector<int>& nums) : tree(nums.size()) {\n        for (int i = 0; i < nums.size(); i++) {\n            tree.add(i, nums[i]);\n        }\n    }\n    void update(int index, int val) { tree.add(index, val - tree.at(index)); }\n    int sumRange(int left, int right) {\n        return tree.query(right) - tree.query(left - 1);\n    }\n};"
+    }
+  ]
 }

@@ -1,21 +1,17 @@
 {
-    "name": "773. 滑动谜题",
-    "url": "https://leetcode-cn.com/problems/sliding-puzzle/",
-    "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
-    "desc": "给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。",
-    "solutions": [
-        {
-            "date": 1624636800000,
-            "time": 192,
-            "memory": 50.8,
-            "script": "typescript",
-            "desc": "广度悠闲搜索，计算每次移动后的最小步数。",
-            "code": "function slidingPuzzle(board: number[][]): number {\n  const ANS_STR = '123,450';\n  const stringify = (board: (number | string)[][]) => board.map(v => v.join('')).join(',');\n  if (stringify(board) === ANS_STR) return 0;\n  const parse = (boardStr: string) => boardStr.split(',').map(v => v.split(''));\n  const getZeroIndex = (index: number): [number, number] =>\n    index <= 2 ? [0, index] : [1, index - 4];\n  const queue: string[] = [stringify(board)];\n  const map = new Map<string, number>([[queue[0], 0]]);\n  let ans = Infinity;\n  const updateMap = (newStr: string, step: number) => {\n    if (newStr === ANS_STR) ans = Math.min(ans, step + 1);\n    else {\n      map.has(newStr) || queue.push(newStr);\n      map.set(newStr, Math.min(map.get(newStr) ?? Infinity, step + 1));\n    }\n  };\n  const swap = (board: string[][], row1: number, col1: number, row2: number, col2: number) => {\n    [board[row1][col1], board[row2][col2]] = [board[row2][col2], board[row1][col1]];\n  };\n  while (queue.length !== 0) {\n    const boardStr = queue.shift()!;\n    const step = map.get(boardStr)!;\n    const [row, col] = getZeroIndex(boardStr.indexOf('0'));\n    const board = parse(boardStr);\n    if (row === 0) {\n      swap(board, row, col, row + 1, col);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row + 1, col);\n    }\n    if (row === 1) {\n      swap(board, row, col, row - 1, col);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row - 1, col);\n    }\n    if (col > 0) {\n      swap(board, row, col, row, col - 1);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row, col - 1);\n    }\n    if (col < 2) {\n      swap(board, row, col, row, col + 1);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row, col + 1);\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
-        }
-    ]
+  "name": "773. 滑动谜题",
+  "url": "https://leetcode-cn.com/problems/sliding-puzzle/",
+  "difficulty": "困难",
+  "tag": ["广度优先搜索", "数组", "矩阵"],
+  "desc": "给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。",
+  "solutions": [
+    {
+      "date": 1624636800000,
+      "time": 192,
+      "memory": 50.8,
+      "script": "typescript",
+      "desc": "广度悠闲搜索，计算每次移动后的最小步数。",
+      "code": "function slidingPuzzle(board: number[][]): number {\n  const ANS_STR = '123,450';\n  const stringify = (board: (number | string)[][]) => board.map(v => v.join('')).join(',');\n  if (stringify(board) === ANS_STR) return 0;\n  const parse = (boardStr: string) => boardStr.split(',').map(v => v.split(''));\n  const getZeroIndex = (index: number): [number, number] =>\n    index <= 2 ? [0, index] : [1, index - 4];\n  const queue: string[] = [stringify(board)];\n  const map = new Map<string, number>([[queue[0], 0]]);\n  let ans = Infinity;\n  const updateMap = (newStr: string, step: number) => {\n    if (newStr === ANS_STR) ans = Math.min(ans, step + 1);\n    else {\n      map.has(newStr) || queue.push(newStr);\n      map.set(newStr, Math.min(map.get(newStr) ?? Infinity, step + 1));\n    }\n  };\n  const swap = (board: string[][], row1: number, col1: number, row2: number, col2: number) => {\n    [board[row1][col1], board[row2][col2]] = [board[row2][col2], board[row1][col1]];\n  };\n  while (queue.length !== 0) {\n    const boardStr = queue.shift()!;\n    const step = map.get(boardStr)!;\n    const [row, col] = getZeroIndex(boardStr.indexOf('0'));\n    const board = parse(boardStr);\n    if (row === 0) {\n      swap(board, row, col, row + 1, col);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row + 1, col);\n    }\n    if (row === 1) {\n      swap(board, row, col, row - 1, col);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row - 1, col);\n    }\n    if (col > 0) {\n      swap(board, row, col, row, col - 1);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row, col - 1);\n    }\n    if (col < 2) {\n      swap(board, row, col, row, col + 1);\n      updateMap(stringify(board), step);\n      swap(board, row, col, row, col + 1);\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+    }
+  ]
 }

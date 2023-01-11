@@ -1,36 +1,33 @@
 {
-    "name": "788. 旋转数字",
-    "url": "https://leetcode.cn/problems/rotated-digits/",
-    "difficulty": "中等",
-    "tag": [
-        "数学",
-        "动态规划"
-    ],
-    "desc": "现在我们有一个正整数 N, 计算从 1 到 N 中有多少个数 X 是好数？。",
-    "solutions": [
-        {
-            "date": 1664035200000,
-            "time": 4,
-            "memory": 6.8,
-            "script": "cpp",
-            "desc": "动态规划，每次从前面状态推进。",
-            "code": "class Solution {\npublic:\n    // 0 -> 无法旋转\n    // 1 -> 旋转后是本身\n    // 2 -> 旋转后不是本身\n    int rotatedDigits(int n) {\n        vector<int> list(n + 1, 0);\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            if (i < 10) {\n                switch (i) {\n                    case 0:\n                    case 1:\n                    case 8: list[i] = 1; break;\n                    case 2:\n                    case 5:\n                    case 6:\n                    case 9: list[i] = 2; break;\n                    default: list[i] = 0; break;\n                }\n            } else {\n                int num1 = i / 10, num2 = i % 10;\n                if (list[num1] == 0 || num2 == 3 || num2 == 4 || num2 == 7) list[i] = 0;\n                else if (list[num1] == 1) list[i] = num2 == 0 || num2 == 1 || num2 == 8 ? 1 : 2;\n                else list[i] = 2;\n            }\n            if (list[i] == 2) ans++;\n        }\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1664035200000,
-            "time": 4,
-            "memory": 5.8,
-            "script": "cpp",
-            "desc": "动态规划，每次构造相同位数的数字。",
-            "code": "class Solution {\npublic:\n    int rotatedDigits(int n) {\n        int len = get_len(n), list[3] = {0}, ans = 0;\n        dfs(len, n, list, 0, 0, ans);\n        return ans;\n    }\n    void dfs(int len, int n, int (&list)[3], int num, int cnt, int &ans) {\n        if (num > n) return;\n        if (cnt == len) {\n            if (list[0] == 0 && list[2] > 0) ans++;\n            // cout << \"len = \" << len\n            //      << \", list = [\" << list[0] << \", \" << list[1] << \", \" << list[2]\n            //      << \"], num = \" << num << \", cnt = \" << cnt << \", ans = \" << ans << endl;\n            return;\n        }\n        for (int i = 0; i < 10; i++) {\n            list[get_tag(i)]++;\n            dfs(len, n, list, num * 10 + i, cnt + 1, ans);\n            list[get_tag(i)]--;\n        }\n    }\n    int get_len(int n) {\n        int ans = 0;\n        while (n) n /= 10, ans++;\n        return ans;\n    }\n    int get_tag(int n) {\n        switch (n) {\n            case 0:\n            case 1:\n            case 8: return 1;\n            case 2:\n            case 5:\n            case 6:\n            case 9: return 2;\n            default: return 0;\n        }\n    }\n};"
-        },
-        {
-            "date": 1664035200000,
-            "time": 0,
-            "memory": 5.7,
-            "script": "cpp",
-            "desc": "同上，优化非倒数。",
-            "code": "class Solution {\npublic:\n    int rotatedDigits(int n) {\n        int len = get_len(n), list[2] = {0}, ans = 0;\n        dfs(len, n, list, 0, 0, ans);\n        return ans;\n    }\n    void dfs(int len, int n, int (&list)[2], int num, int cnt, int &ans) {\n        if (num > n) return;\n        if (cnt == len) {\n            if (list[1] > 0) ans++;\n            return;\n        }\n        for (int i = 0; i < 10; i++) {\n            int tag = get_tag(i);\n            if (tag == -1) continue;\n            list[tag]++;\n            dfs(len, n, list, num * 10 + i, cnt + 1, ans);\n            list[tag]--;\n        }\n    }\n    int get_len(int n) {\n        int ans = 0;\n        while (n) n /= 10, ans++;\n        return ans;\n    }\n    int get_tag(int n) {\n        switch (n) {\n            case 0:\n            case 1:\n            case 8: return 0;\n            case 2:\n            case 5:\n            case 6:\n            case 9: return 1;\n            default: return -1;\n        }\n    }\n};"
-        }
-    ]
+  "name": "788. 旋转数字",
+  "url": "https://leetcode.cn/problems/rotated-digits/",
+  "difficulty": "中等",
+  "tag": ["数学", "动态规划"],
+  "desc": "现在我们有一个正整数 N, 计算从 1 到 N 中有多少个数 X 是好数？。",
+  "solutions": [
+    {
+      "date": 1664035200000,
+      "time": 4,
+      "memory": 6.8,
+      "script": "cpp",
+      "desc": "动态规划，每次从前面状态推进。",
+      "code": "class Solution {\npublic:\n    // 0 -> 无法旋转\n    // 1 -> 旋转后是本身\n    // 2 -> 旋转后不是本身\n    int rotatedDigits(int n) {\n        vector<int> list(n + 1, 0);\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            if (i < 10) {\n                switch (i) {\n                    case 0:\n                    case 1:\n                    case 8: list[i] = 1; break;\n                    case 2:\n                    case 5:\n                    case 6:\n                    case 9: list[i] = 2; break;\n                    default: list[i] = 0; break;\n                }\n            } else {\n                int num1 = i / 10, num2 = i % 10;\n                if (list[num1] == 0 || num2 == 3 || num2 == 4 || num2 == 7) list[i] = 0;\n                else if (list[num1] == 1) list[i] = num2 == 0 || num2 == 1 || num2 == 8 ? 1 : 2;\n                else list[i] = 2;\n            }\n            if (list[i] == 2) ans++;\n        }\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1664035200000,
+      "time": 4,
+      "memory": 5.8,
+      "script": "cpp",
+      "desc": "动态规划，每次构造相同位数的数字。",
+      "code": "class Solution {\npublic:\n    int rotatedDigits(int n) {\n        int len = get_len(n), list[3] = {0}, ans = 0;\n        dfs(len, n, list, 0, 0, ans);\n        return ans;\n    }\n    void dfs(int len, int n, int (&list)[3], int num, int cnt, int &ans) {\n        if (num > n) return;\n        if (cnt == len) {\n            if (list[0] == 0 && list[2] > 0) ans++;\n            // cout << \"len = \" << len\n            //      << \", list = [\" << list[0] << \", \" << list[1] << \", \" << list[2]\n            //      << \"], num = \" << num << \", cnt = \" << cnt << \", ans = \" << ans << endl;\n            return;\n        }\n        for (int i = 0; i < 10; i++) {\n            list[get_tag(i)]++;\n            dfs(len, n, list, num * 10 + i, cnt + 1, ans);\n            list[get_tag(i)]--;\n        }\n    }\n    int get_len(int n) {\n        int ans = 0;\n        while (n) n /= 10, ans++;\n        return ans;\n    }\n    int get_tag(int n) {\n        switch (n) {\n            case 0:\n            case 1:\n            case 8: return 1;\n            case 2:\n            case 5:\n            case 6:\n            case 9: return 2;\n            default: return 0;\n        }\n    }\n};"
+    },
+    {
+      "date": 1664035200000,
+      "time": 0,
+      "memory": 5.7,
+      "script": "cpp",
+      "desc": "同上，优化非倒数。",
+      "code": "class Solution {\npublic:\n    int rotatedDigits(int n) {\n        int len = get_len(n), list[2] = {0}, ans = 0;\n        dfs(len, n, list, 0, 0, ans);\n        return ans;\n    }\n    void dfs(int len, int n, int (&list)[2], int num, int cnt, int &ans) {\n        if (num > n) return;\n        if (cnt == len) {\n            if (list[1] > 0) ans++;\n            return;\n        }\n        for (int i = 0; i < 10; i++) {\n            int tag = get_tag(i);\n            if (tag == -1) continue;\n            list[tag]++;\n            dfs(len, n, list, num * 10 + i, cnt + 1, ans);\n            list[tag]--;\n        }\n    }\n    int get_len(int n) {\n        int ans = 0;\n        while (n) n /= 10, ans++;\n        return ans;\n    }\n    int get_tag(int n) {\n        switch (n) {\n            case 0:\n            case 1:\n            case 8: return 0;\n            case 2:\n            case 5:\n            case 6:\n            case 9: return 1;\n            default: return -1;\n        }\n    }\n};"
+    }
+  ]
 }

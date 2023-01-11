@@ -1,20 +1,17 @@
 {
-    "name": "222. 完全二叉树的节点个数",
-    "url": "https://leetcode-cn.com/problems/count-complete-tree-nodes/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "二分查找"
-    ],
-    "desc": "给出一个完全二叉树，求出该树的节点个数。",
-    "solutions": [
-        {
-            "date": 1606147200000,
-            "time": 108,
-            "memory": 57.1,
-            "script": "typescript",
-            "desc": "深度遍历。",
-            "code": "function countNodes(root: TreeNode | null): number {\n  return root === null ? 0 : countNodes(root.left) + countNodes(root.right) + 1;\n}"
-        }
-    ]
+  "name": "222. 完全二叉树的节点个数",
+  "url": "https://leetcode-cn.com/problems/count-complete-tree-nodes/",
+  "difficulty": "中等",
+  "tag": ["树", "二分查找"],
+  "desc": "给出一个完全二叉树，求出该树的节点个数。",
+  "solutions": [
+    {
+      "date": 1606147200000,
+      "time": 108,
+      "memory": 57.1,
+      "script": "typescript",
+      "desc": "深度遍历。",
+      "code": "function countNodes(root: TreeNode | null): number {\n  return root === null ? 0 : countNodes(root.left) + countNodes(root.right) + 1;\n}"
+    }
+  ]
 }

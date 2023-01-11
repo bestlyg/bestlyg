@@ -1,21 +1,17 @@
 {
-    "name": "1833. 雪糕的最大数量",
-    "url": "https://leetcode-cn.com/problems/maximum-ice-cream-bars/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
-    "desc": "给你价格数组 costs 和现金量 coins ，请你计算并返回 Tony 用 coins 现金能够买到的雪糕的 最大数量 。",
-    "solutions": [
-        {
-            "date": 1625155200000,
-            "time": 280,
-            "memory": 52.6,
-            "script": "typescript",
-            "desc": "每次取最小 cost。",
-            "code": "function maxIceCream(costs: number[], coins: number): number {\n  costs.sort((a, b) => a - b);\n  let ans = 0;\n  for (const cost of costs) {\n    if (coins >= cost) {\n      ans++;\n      coins -= cost;\n    } else break;\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "1833. 雪糕的最大数量",
+  "url": "https://leetcode-cn.com/problems/maximum-ice-cream-bars/",
+  "difficulty": "中等",
+  "tag": ["贪心", "数组", "排序"],
+  "desc": "给你价格数组 costs 和现金量 coins ，请你计算并返回 Tony 用 coins 现金能够买到的雪糕的 最大数量 。",
+  "solutions": [
+    {
+      "date": 1625155200000,
+      "time": 280,
+      "memory": 52.6,
+      "script": "typescript",
+      "desc": "每次取最小 cost。",
+      "code": "function maxIceCream(costs: number[], coins: number): number {\n  costs.sort((a, b) => a - b);\n  let ans = 0;\n  for (const cost of costs) {\n    if (coins >= cost) {\n      ans++;\n      coins -= cost;\n    } else break;\n  }\n  return ans;\n}"
+    }
+  ]
 }

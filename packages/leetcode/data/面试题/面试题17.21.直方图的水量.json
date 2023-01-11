@@ -1,29 +1,25 @@
 {
-    "name": "面试题 17.21. 直方图的水量",
-    "url": "https://leetcode-cn.com/problems/volume-of-histogram-lcci/",
-    "difficulty": "困难",
-    "tag": [
-        "栈",
-        "双指针",
-        "数组"
-    ],
-    "desc": "给定一个直方图(也称柱状图)，假设有人从上面源源不断地倒水，最后直方图能存多少水量?直方图的宽度为 1。",
-    "solutions": [
-        {
-            "date": 1617292800000,
-            "time": 108,
-            "memory": 39.9,
-            "script": "typescript",
-            "desc": "求出左右最高高度进行比较。",
-            "code": "function trap(height: number[]): number {\n  let max = 0;\n  const len = height.length;\n  const left: number[] = [0];\n  for (let i = 1; i < len; i++) left.push((max = Math.max(max, height[i - 1])));\n  const right: number[] = [0];\n  max = 0;\n  for (let i = len - 2; i >= 0; i--) right.unshift((max = Math.max(max, height[i + 1])));\n  let ans = 0;\n  for (let i = 0; i < len; i++) {\n    const num = Math.min(left[i], right[i]) - height[i];\n    ans += num > 0 ? num : 0;\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1617292800000,
-            "time": 112,
-            "memory": 39.8,
-            "script": "typescript",
-            "desc": "优化题解 1，取消右数组。",
-            "code": "function trap(height: number[]): number {\n  let max = 0;\n  const len = height.length;\n  const left: number[] = [0];\n  for (let i = 1; i < len; i++) left.push((max = Math.max(max, height[i - 1])));\n  let ans = 0;\n  max = 0;\n  for (let i = len - 2; i >= 0; i--) {\n    const num = Math.min(left[i], (max = Math.max(max, height[i + 1]))) - height[i];\n    ans += num > 0 ? num : 0;\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "面试题 17.21. 直方图的水量",
+  "url": "https://leetcode-cn.com/problems/volume-of-histogram-lcci/",
+  "difficulty": "困难",
+  "tag": ["栈", "双指针", "数组"],
+  "desc": "给定一个直方图(也称柱状图)，假设有人从上面源源不断地倒水，最后直方图能存多少水量?直方图的宽度为 1。",
+  "solutions": [
+    {
+      "date": 1617292800000,
+      "time": 108,
+      "memory": 39.9,
+      "script": "typescript",
+      "desc": "求出左右最高高度进行比较。",
+      "code": "function trap(height: number[]): number {\n  let max = 0;\n  const len = height.length;\n  const left: number[] = [0];\n  for (let i = 1; i < len; i++) left.push((max = Math.max(max, height[i - 1])));\n  const right: number[] = [0];\n  max = 0;\n  for (let i = len - 2; i >= 0; i--) right.unshift((max = Math.max(max, height[i + 1])));\n  let ans = 0;\n  for (let i = 0; i < len; i++) {\n    const num = Math.min(left[i], right[i]) - height[i];\n    ans += num > 0 ? num : 0;\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1617292800000,
+      "time": 112,
+      "memory": 39.8,
+      "script": "typescript",
+      "desc": "优化题解 1，取消右数组。",
+      "code": "function trap(height: number[]): number {\n  let max = 0;\n  const len = height.length;\n  const left: number[] = [0];\n  for (let i = 1; i < len; i++) left.push((max = Math.max(max, height[i - 1])));\n  let ans = 0;\n  max = 0;\n  for (let i = len - 2; i >= 0; i--) {\n    const num = Math.min(left[i], (max = Math.max(max, height[i + 1]))) - height[i];\n    ans += num > 0 ? num : 0;\n  }\n  return ans;\n}"
+    }
+  ]
 }

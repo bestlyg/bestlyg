@@ -1,29 +1,25 @@
 {
-    "name": "419. 甲板上的战舰",
-    "url": "https://leetcode-cn.com/problems/battleships-in-a-board/",
-    "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "数组",
-        "矩阵"
-    ],
-    "desc": "给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。",
-    "solutions": [
-        {
-            "date": 1639756800000,
-            "time": 80,
-            "memory": 41.1,
-            "script": "typescript",
-            "desc": "并查集。",
-            "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nconst dirs = [\n  [1, 0],\n  [0, 1],\n  [-1, 0],\n  [0, -1],\n];\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  const uf = new UnionFind(n * m);\n  const getIdx = (row: number, col: number) => row * m + col;\n  let cnt = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] !== 'X') {\n        cnt++;\n      } else {\n        for (let i = 0; i < 4; i++) {\n          const next_row = row + dirs[i][0];\n          const next_col = col + dirs[i][1];\n          if (\n            next_row < 0 ||\n            next_row >= n ||\n            next_col < 0 ||\n            next_col >= m ||\n            board[next_row][next_col] === '.'\n          )\n            continue;\n          uf.union(getIdx(row, col), getIdx(next_row, next_col));\n        }\n      }\n    }\n  }\n  return uf.size - cnt;\n}"
-        },
-        {
-            "date": 1639756800000,
-            "time": 80,
-            "memory": 39.7,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "function setDot(board: string[][], n: number, m: number, row: number, col: number): void {\n  if (row < 0 || row >= n || col < 0 || col >= m || board[row][col] === '.') return;\n  board[row][col] = '.';\n  setDot(board, n, m, row + 1, col);\n  setDot(board, n, m, row - 1, col);\n  setDot(board, n, m, row, col + 1);\n  setDot(board, n, m, row, col - 1);\n}\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] === '.') continue;\n      ans++;\n      setDot(board, n, m, row, col);\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "419. 甲板上的战舰",
+  "url": "https://leetcode-cn.com/problems/battleships-in-a-board/",
+  "difficulty": "中等",
+  "tag": ["深度优先搜索", "数组", "矩阵"],
+  "desc": "给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。",
+  "solutions": [
+    {
+      "date": 1639756800000,
+      "time": 80,
+      "memory": 41.1,
+      "script": "typescript",
+      "desc": "并查集。",
+      "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nconst dirs = [\n  [1, 0],\n  [0, 1],\n  [-1, 0],\n  [0, -1],\n];\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  const uf = new UnionFind(n * m);\n  const getIdx = (row: number, col: number) => row * m + col;\n  let cnt = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] !== 'X') {\n        cnt++;\n      } else {\n        for (let i = 0; i < 4; i++) {\n          const next_row = row + dirs[i][0];\n          const next_col = col + dirs[i][1];\n          if (\n            next_row < 0 ||\n            next_row >= n ||\n            next_col < 0 ||\n            next_col >= m ||\n            board[next_row][next_col] === '.'\n          )\n            continue;\n          uf.union(getIdx(row, col), getIdx(next_row, next_col));\n        }\n      }\n    }\n  }\n  return uf.size - cnt;\n}"
+    },
+    {
+      "date": 1639756800000,
+      "time": 80,
+      "memory": 39.7,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "function setDot(board: string[][], n: number, m: number, row: number, col: number): void {\n  if (row < 0 || row >= n || col < 0 || col >= m || board[row][col] === '.') return;\n  board[row][col] = '.';\n  setDot(board, n, m, row + 1, col);\n  setDot(board, n, m, row - 1, col);\n  setDot(board, n, m, row, col + 1);\n  setDot(board, n, m, row, col - 1);\n}\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] === '.') continue;\n      ans++;\n      setDot(board, n, m, row, col);\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

@@ -1,21 +1,17 @@
 {
-    "name": "2028. 找出缺失的观测数据",
-    "url": "https://leetcode-cn.com/problems/find-missing-observations/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "模拟"
-    ],
-    "desc": "返回一个长度为 n 的数组，包含所有缺失的观测数据，且满足这 n + m 次投掷的 平均值 是 mean 。如果存在多组符合要求的答案，只需要返回其中任意一组即可。如果不存在答案，返回一个空数组。",
-    "solutions": [
-        {
-            "date": 1648310400000,
-            "time": 112,
-            "memory": 120.7,
-            "script": "cpp",
-            "desc": "找到平均值进行分摊。",
-            "code": "class Solution {\n   public:\n    vector<int> missingRolls(vector<int>& rolls, int mean, int n) {\n        int sum = (n + rolls.size()) * mean;\n        vector<int> ans;\n        for (auto& roll : rolls) sum -= roll;\n        if (n * 6 < sum || n > sum) return ans;\n        int avg = sum / n, surplus = sum - (n - 1) * avg;\n        for (int i = 0; i < n - 1; i++) {\n            int num = avg;\n            if (surplus > 6) {\n                num++;\n                surplus--;\n            }\n            ans.push_back(num);\n            sum -= num;\n        }\n        ans.push_back(sum);\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "2028. 找出缺失的观测数据",
+  "url": "https://leetcode-cn.com/problems/find-missing-observations/",
+  "difficulty": "中等",
+  "tag": ["数组", "数学", "模拟"],
+  "desc": "返回一个长度为 n 的数组，包含所有缺失的观测数据，且满足这 n + m 次投掷的 平均值 是 mean 。如果存在多组符合要求的答案，只需要返回其中任意一组即可。如果不存在答案，返回一个空数组。",
+  "solutions": [
+    {
+      "date": 1648310400000,
+      "time": 112,
+      "memory": 120.7,
+      "script": "cpp",
+      "desc": "找到平均值进行分摊。",
+      "code": "class Solution {\n   public:\n    vector<int> missingRolls(vector<int>& rolls, int mean, int n) {\n        int sum = (n + rolls.size()) * mean;\n        vector<int> ans;\n        for (auto& roll : rolls) sum -= roll;\n        if (n * 6 < sum || n > sum) return ans;\n        int avg = sum / n, surplus = sum - (n - 1) * avg;\n        for (int i = 0; i < n - 1; i++) {\n            int num = avg;\n            if (surplus > 6) {\n                num++;\n                surplus--;\n            }\n            ans.push_back(num);\n            sum -= num;\n        }\n        ans.push_back(sum);\n        return ans;\n    }\n};"
+    }
+  ]
 }

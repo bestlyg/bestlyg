@@ -1,27 +1,25 @@
 {
-    "name": "434. 字符串中的单词数",
-    "url": "https://leetcode-cn.com/problems/number-of-segments-in-a-string/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。",
-    "solutions": [
-        {
-            "date": 1633536000000,
-            "time": 80,
-            "memory": 39.1,
-            "script": "typescript",
-            "desc": "分割。",
-            "code": "function countSegments(s: string): number {\n  return s.split(' ').filter(v => v.length).length;\n}"
-        },
-        {
-            "date": 1633536000000,
-            "time": 72,
-            "memory": 39.5,
-            "script": "typescript",
-            "desc": "遍历。",
-            "code": "function countSegments(s: string): number {\n  let ans = 0;\n  let f = false;\n  for (const c of s) {\n    if (c === ' ') {\n      if (f) {\n        ans++;\n        f = false;\n      }\n      f = false;\n    } else {\n      f = true;\n    }\n  }\n  if (f) ans++;\n  return ans;\n}"
-        }
-    ]
+  "name": "434. 字符串中的单词数",
+  "url": "https://leetcode-cn.com/problems/number-of-segments-in-a-string/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。",
+  "solutions": [
+    {
+      "date": 1633536000000,
+      "time": 80,
+      "memory": 39.1,
+      "script": "typescript",
+      "desc": "分割。",
+      "code": "function countSegments(s: string): number {\n  return s.split(' ').filter(v => v.length).length;\n}"
+    },
+    {
+      "date": 1633536000000,
+      "time": 72,
+      "memory": 39.5,
+      "script": "typescript",
+      "desc": "遍历。",
+      "code": "function countSegments(s: string): number {\n  let ans = 0;\n  let f = false;\n  for (const c of s) {\n    if (c === ' ') {\n      if (f) {\n        ans++;\n        f = false;\n      }\n      f = false;\n    } else {\n      f = true;\n    }\n  }\n  if (f) ans++;\n  return ans;\n}"
+    }
+  ]
 }

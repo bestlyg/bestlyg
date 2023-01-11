@@ -1,35 +1,33 @@
 {
-    "name": "237. 删除链表中的节点",
-    "url": "https://leetcode-cn.com/problems/delete-node-in-a-linked-list/",
-    "difficulty": "简单",
-    "tag": [
-        "链表"
-    ],
-    "desc": "请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点。",
-    "solutions": [
-        {
-            "date": 1581523200000,
-            "time": 0,
-            "memory": 43,
-            "script": "java",
-            "desc": "获取下一个节点的值赋值给当前节点，当前节点的下一个等于下一个节点的下一个。",
-            "code": "class Solution {\n    public void deleteNode(ListNode node) {\n\t\tnode.val=node.next.val;\n\t\tnode.next=node.next.next;\n    }\n}"
-        },
-        {
-            "date": 1635782400000,
-            "time": 88,
-            "memory": 39.7,
-            "script": "typescript",
-            "desc": "依次对当前节点赋值后面的节点的值。",
-            "code": "function deleteNode(root: ListNode | null): void {\n  if (root === null) return;\n  let p = root;\n  let pre = p;\n  while (p.next) {\n    p.val = p.next.val;\n    pre = p;\n    p = p.next;\n  }\n  pre.next = null;\n}"
-        },
-        {
-            "date": 1635782400000,
-            "time": 88,
-            "memory": 39.6,
-            "script": "typescript",
-            "desc": "与下一节点替换。",
-            "code": "function deleteNode(root: ListNode | null): void {\n  if (root === null) return;\n  root.val = root.next.val;\n  root.next = root.next.next;\n}"
-        }
-    ]
+  "name": "237. 删除链表中的节点",
+  "url": "https://leetcode-cn.com/problems/delete-node-in-a-linked-list/",
+  "difficulty": "简单",
+  "tag": ["链表"],
+  "desc": "请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点。",
+  "solutions": [
+    {
+      "date": 1581523200000,
+      "time": 0,
+      "memory": 43,
+      "script": "java",
+      "desc": "获取下一个节点的值赋值给当前节点，当前节点的下一个等于下一个节点的下一个。",
+      "code": "class Solution {\n    public void deleteNode(ListNode node) {\n\t\tnode.val=node.next.val;\n\t\tnode.next=node.next.next;\n    }\n}"
+    },
+    {
+      "date": 1635782400000,
+      "time": 88,
+      "memory": 39.7,
+      "script": "typescript",
+      "desc": "依次对当前节点赋值后面的节点的值。",
+      "code": "function deleteNode(root: ListNode | null): void {\n  if (root === null) return;\n  let p = root;\n  let pre = p;\n  while (p.next) {\n    p.val = p.next.val;\n    pre = p;\n    p = p.next;\n  }\n  pre.next = null;\n}"
+    },
+    {
+      "date": 1635782400000,
+      "time": 88,
+      "memory": 39.6,
+      "script": "typescript",
+      "desc": "与下一节点替换。",
+      "code": "function deleteNode(root: ListNode | null): void {\n  if (root === null) return;\n  root.val = root.next.val;\n  root.next = root.next.next;\n}"
+    }
+  ]
 }

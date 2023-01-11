@@ -1,28 +1,25 @@
 {
-    "name": "117. 填充每个节点的下一个右侧节点指针 II",
-    "url": "https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索"
-    ],
-    "desc": "给定一个二叉树，填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。",
-    "solutions": [
-        {
-            "date": 1601222400000,
-            "time": 120,
-            "memory": 42.8,
-            "script": "javascript",
-            "desc": "层序遍历。",
-            "code": "var connect = function (root) {\n  if (root === null) return root;\n  const queue = [root];\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift();\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0) {\n      node.next = null;\n      size = queue.length;\n    } else {\n      node.next = queue[0];\n    }\n  }\n  return root;\n};"
-        },
-        {
-            "date": 1628870400000,
-            "time": 96,
-            "memory": 43.6,
-            "script": "typescript",
-            "desc": "层序遍历。",
-            "code": "function connect(root: Node | null): Node | null {\n  if (root === null) return null;\n  const q: Node[] = [root];\n  let size = 1;\n  while (q.length) {\n    const node = q.shift()!;\n    node.left && q.push(node.left);\n    node.right && q.push(node.right);\n    if (--size === 0) {\n      size = q.length;\n      for (let i = 0; i < size; i++) {\n        q[i].next = i === size - 1 ? null : q[i + 1];\n      }\n    }\n  }\n  return root;\n}"
-        }
-    ]
+  "name": "117. 填充每个节点的下一个右侧节点指针 II",
+  "url": "https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/",
+  "difficulty": "中等",
+  "tag": ["树", "深度优先搜索"],
+  "desc": "给定一个二叉树，填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。",
+  "solutions": [
+    {
+      "date": 1601222400000,
+      "time": 120,
+      "memory": 42.8,
+      "script": "javascript",
+      "desc": "层序遍历。",
+      "code": "var connect = function (root) {\n  if (root === null) return root;\n  const queue = [root];\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift();\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0) {\n      node.next = null;\n      size = queue.length;\n    } else {\n      node.next = queue[0];\n    }\n  }\n  return root;\n};"
+    },
+    {
+      "date": 1628870400000,
+      "time": 96,
+      "memory": 43.6,
+      "script": "typescript",
+      "desc": "层序遍历。",
+      "code": "function connect(root: Node | null): Node | null {\n  if (root === null) return null;\n  const q: Node[] = [root];\n  let size = 1;\n  while (q.length) {\n    const node = q.shift()!;\n    node.left && q.push(node.left);\n    node.right && q.push(node.right);\n    if (--size === 0) {\n      size = q.length;\n      for (let i = 0; i < size; i++) {\n        q[i].next = i === size - 1 ? null : q[i + 1];\n      }\n    }\n  }\n  return root;\n}"
+    }
+  ]
 }

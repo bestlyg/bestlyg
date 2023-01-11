@@ -1,29 +1,25 @@
 {
-    "name": "897. 递增顺序搜索树",
-    "url": "https://leetcode-cn.com/problems/increasing-order-search-tree/",
-    "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "递归"
-    ],
-    "desc": "给你一棵二叉搜索树，请你 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。",
-    "solutions": [
-        {
-            "date": 1619280000000,
-            "time": 88,
-            "memory": 39.7,
-            "script": "typescript",
-            "desc": "递归遍历每个点。",
-            "code": "function increasingBST(root: TreeNode | null): TreeNode | null {\n  function increasing(node: TreeNode): [TreeNode, TreeNode] {\n    if (!root.left && !root.right) return [root, root];\n    let first = node;\n    let last = node;\n    if (node.left !== null) {\n      const data = increasing(node.left);\n      first = data[0];\n      data[1].right = node;\n      node.left = null;\n    }\n    if (node.right !== null) {\n      const data = increasing(node.right);\n      last.right = data[0];\n      last = data[1];\n    }\n    return [first, last];\n  }\n  return increasing(root)[0];\n}"
-        },
-        {
-            "date": 1619280000000,
-            "time": 132,
-            "memory": 40.2,
-            "script": "typescript",
-            "desc": "先中序遍历后逐个赋值。",
-            "code": "function increasingBST(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const queue: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0, l = queue.length - 1; i < l; i++) {\n    const node = queue[i];\n    node.left = null;\n    node.right = queue[i + 1];\n  }\n  const last = queue[queue.length - 1];\n  last.right = last.left = null;\n  return queue[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    queue.push(node);\n    inorder(node.right);\n  }\n}"
-        }
-    ]
+  "name": "897. 递增顺序搜索树",
+  "url": "https://leetcode-cn.com/problems/increasing-order-search-tree/",
+  "difficulty": "简单",
+  "tag": ["树", "深度优先搜索", "递归"],
+  "desc": "给你一棵二叉搜索树，请你 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。",
+  "solutions": [
+    {
+      "date": 1619280000000,
+      "time": 88,
+      "memory": 39.7,
+      "script": "typescript",
+      "desc": "递归遍历每个点。",
+      "code": "function increasingBST(root: TreeNode | null): TreeNode | null {\n  function increasing(node: TreeNode): [TreeNode, TreeNode] {\n    if (!root.left && !root.right) return [root, root];\n    let first = node;\n    let last = node;\n    if (node.left !== null) {\n      const data = increasing(node.left);\n      first = data[0];\n      data[1].right = node;\n      node.left = null;\n    }\n    if (node.right !== null) {\n      const data = increasing(node.right);\n      last.right = data[0];\n      last = data[1];\n    }\n    return [first, last];\n  }\n  return increasing(root)[0];\n}"
+    },
+    {
+      "date": 1619280000000,
+      "time": 132,
+      "memory": 40.2,
+      "script": "typescript",
+      "desc": "先中序遍历后逐个赋值。",
+      "code": "function increasingBST(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const queue: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0, l = queue.length - 1; i < l; i++) {\n    const node = queue[i];\n    node.left = null;\n    node.right = queue[i + 1];\n  }\n  const last = queue[queue.length - 1];\n  last.right = last.left = null;\n  return queue[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    queue.push(node);\n    inorder(node.right);\n  }\n}"
+    }
+  ]
 }

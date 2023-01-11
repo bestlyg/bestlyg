@@ -1,22 +1,17 @@
 {
-    "name": "397. 整数替换",
-    "url": "https://leetcode-cn.com/problems/integer-replacement/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "位运算",
-        "记忆化搜索",
-        "动态规划"
-    ],
-    "desc": "给定一个正整数 n ，n 变为 1 所需的最小替换次数是多少？。",
-    "solutions": [
-        {
-            "date": 1637251200000,
-            "time": 80,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "const map: Record<number, number> = { 1: 0 };\nfunction integerReplacement(n: number): number {\n  if (map[n] !== undefined) return map[n];\n  const ans =\n    (n & 1\n      ? Math.min(integerReplacement(n + 1), integerReplacement(n - 1))\n      : integerReplacement(n / 2)) + 1;\n  return (map[n] = ans);\n}"
-        }
-    ]
+  "name": "397. 整数替换",
+  "url": "https://leetcode-cn.com/problems/integer-replacement/",
+  "difficulty": "中等",
+  "tag": ["贪心", "位运算", "记忆化搜索", "动态规划"],
+  "desc": "给定一个正整数 n ，n 变为 1 所需的最小替换次数是多少？。",
+  "solutions": [
+    {
+      "date": 1637251200000,
+      "time": 80,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "const map: Record<number, number> = { 1: 0 };\nfunction integerReplacement(n: number): number {\n  if (map[n] !== undefined) return map[n];\n  const ans =\n    (n & 1\n      ? Math.min(integerReplacement(n + 1), integerReplacement(n - 1))\n      : integerReplacement(n / 2)) + 1;\n  return (map[n] = ans);\n}"
+    }
+  ]
 }

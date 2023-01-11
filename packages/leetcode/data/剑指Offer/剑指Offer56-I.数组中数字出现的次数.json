@@ -1,21 +1,17 @@
 {
-    "name": "剑指 Offer 56 - I. 数组中数字出现的次数",
-    "url": "https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "堆(优先队列)"
-    ],
-    "desc": "给你两个长度为 n 的整数数组 days 和 apples ，返回你可以吃掉的苹果的最大数目。",
-    "solutions": [
-        {
-            "date": 1640275200000,
-            "time": 16,
-            "memory": 15.6,
-            "script": "c++",
-            "desc": "异或得到两个唯一数的值，根据首个不同的位数，分别异或。",
-            "code": "class Solution {\n   public:\n    vector<int> singleNumbers(vector<int> &nums) {\n        int val = 0;\n        for (auto &num : nums) val ^= num;\n        vector<int> ans(2, 0);\n        int bit = 0;\n        while ((val & 1 << bit) == 0) bit++;\n        bit = 1 << bit;\n        for (auto &num : nums) {\n            if (num & bit)\n                ans[0] ^= num;\n            else\n                ans[1] ^= num;\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "剑指 Offer 56 - I. 数组中数字出现的次数",
+  "url": "https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/",
+  "difficulty": "中等",
+  "tag": ["贪心", "数组", "堆(优先队列)"],
+  "desc": "给你两个长度为 n 的整数数组 days 和 apples ，返回你可以吃掉的苹果的最大数目。",
+  "solutions": [
+    {
+      "date": 1640275200000,
+      "time": 16,
+      "memory": 15.6,
+      "script": "c++",
+      "desc": "异或得到两个唯一数的值，根据首个不同的位数，分别异或。",
+      "code": "class Solution {\n   public:\n    vector<int> singleNumbers(vector<int> &nums) {\n        int val = 0;\n        for (auto &num : nums) val ^= num;\n        vector<int> ans(2, 0);\n        int bit = 0;\n        while ((val & 1 << bit) == 0) bit++;\n        bit = 1 << bit;\n        for (auto &num : nums) {\n            if (num & bit)\n                ans[0] ^= num;\n            else\n                ans[1] ^= num;\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

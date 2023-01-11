@@ -1,22 +1,17 @@
 {
-    "name": "1512. 好数对的数目",
-    "url": "https://leetcode-cn.com/problems/number-of-good-pairs/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "数学",
-        "计数"
-    ],
-    "desc": "返回好数对的数目。",
-    "solutions": [
-        {
-            "date": 1639152000000,
-            "time": 76,
-            "memory": 39.5,
-            "script": "typescript",
-            "desc": "每次遍历到一个数就查看前面有多少个相同的数。",
-            "code": "function numIdenticalPairs(nums: number[]): number {\n  const map: Record<number, number> = {};\n  let ans = 0;\n  for (const num of nums) {\n    if (!map[num]) {\n      map[num] = 1;\n    } else ans += map[num]++;\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "1512. 好数对的数目",
+  "url": "https://leetcode-cn.com/problems/number-of-good-pairs/",
+  "difficulty": "简单",
+  "tag": ["数组", "哈希表", "数学", "计数"],
+  "desc": "返回好数对的数目。",
+  "solutions": [
+    {
+      "date": 1639152000000,
+      "time": 76,
+      "memory": 39.5,
+      "script": "typescript",
+      "desc": "每次遍历到一个数就查看前面有多少个相同的数。",
+      "code": "function numIdenticalPairs(nums: number[]): number {\n  const map: Record<number, number> = {};\n  let ans = 0;\n  for (const num of nums) {\n    if (!map[num]) {\n      map[num] = 1;\n    } else ans += map[num]++;\n  }\n  return ans;\n}"
+    }
+  ]
 }

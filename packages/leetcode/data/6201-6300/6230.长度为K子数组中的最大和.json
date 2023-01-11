@@ -1,19 +1,17 @@
 {
-    "name": "6230. 长度为 K 子数组中的最大和",
-    "url": "https://leetcode.cn/problems/maximum-sum-of-distinct-subarrays-with-length-k/",
-    "difficulty": "中等",
-    "tag": [
-        ""
-    ],
-    "desc": "返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。",
-    "solutions": [
-        {
-            "date": 1667664000000,
-            "time": 192,
-            "memory": 90.8,
-            "script": "cpp",
-            "desc": "滑动窗口遍历。",
-            "code": "class Solution {\npublic:\n    long long maximumSubarraySum(vector<int>& nums, int k) {\n        long long sum = 0, ans = 0;\n        int l = 0, r = 0, n = nums.size();\n        int cnt = 0;\n        unordered_map<int, int> m;\n        while (r < k) {\n            m[nums[r]]++;\n            sum += nums[r];\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n        }\n        if (cnt == 0) ans = sum;\n        // cout << \"l = \" << l << \", r = \" << r << endl;\n        // cout << \"sum = \" << sum << \", cnt = \" << cnt << endl;\n        while (r < n) {\n            sum -= nums[l];\n            m[nums[l]]--;\n            if (m[nums[l]] == 1) cnt--;\n            l++;\n\n            sum += nums[r];\n            m[nums[r]]++;\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n\n            // cout << \"l = \" << l << \", r = \" << r << endl;\n            if (cnt == 0) ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "6230. 长度为 K 子数组中的最大和",
+  "url": "https://leetcode.cn/problems/maximum-sum-of-distinct-subarrays-with-length-k/",
+  "difficulty": "中等",
+  "tag": [""],
+  "desc": "返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。",
+  "solutions": [
+    {
+      "date": 1667664000000,
+      "time": 192,
+      "memory": 90.8,
+      "script": "cpp",
+      "desc": "滑动窗口遍历。",
+      "code": "class Solution {\npublic:\n    long long maximumSubarraySum(vector<int>& nums, int k) {\n        long long sum = 0, ans = 0;\n        int l = 0, r = 0, n = nums.size();\n        int cnt = 0;\n        unordered_map<int, int> m;\n        while (r < k) {\n            m[nums[r]]++;\n            sum += nums[r];\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n        }\n        if (cnt == 0) ans = sum;\n        // cout << \"l = \" << l << \", r = \" << r << endl;\n        // cout << \"sum = \" << sum << \", cnt = \" << cnt << endl;\n        while (r < n) {\n            sum -= nums[l];\n            m[nums[l]]--;\n            if (m[nums[l]] == 1) cnt--;\n            l++;\n\n            sum += nums[r];\n            m[nums[r]]++;\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n\n            // cout << \"l = \" << l << \", r = \" << r << endl;\n            if (cnt == 0) ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

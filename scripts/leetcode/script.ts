@@ -34,7 +34,6 @@
 // const dist = 'abcabba';
 // myers(src, dist);
 
-
 console.log(
   findCrossingTime(10, 6, [
     [2, 10, 5, 8],

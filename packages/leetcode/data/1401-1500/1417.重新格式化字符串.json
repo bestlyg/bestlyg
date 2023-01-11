@@ -1,19 +1,17 @@
 {
-    "name": "1417. 重新格式化字符串",
-    "url": "https://leetcode.cn/problems/reformat-the-string/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "请你返回 重新格式化后 的字符串；如果无法按要求重新格式化，则返回一个 空字符串 。",
-    "solutions": [
-        {
-            "date": 1660147200000,
-            "time": 4,
-            "memory": 2.1,
-            "script": "rust",
-            "desc": "重新排列。",
-            "code": "impl Solution {\n    pub fn reformat(s: String) -> String {\n        let (mut list_num, mut list_char) = (Vec::new(), Vec::new());\n        for c in s.chars().collect::<Vec<char>>() {\n            if c.is_numeric() {\n                list_num.push(c);\n            } else {\n                list_char.push(c);\n            }\n        }\n        let mut ans = String::new();\n        if (list_num.len() as i32 - list_char.len() as i32).abs() > 1 {\n            return ans;\n        }\n        let (mut list1, mut list2) = if list_num.len() > list_char.len() {\n            (list_num.into_iter(), list_char.into_iter())\n        } else {\n            (list_char.into_iter(), list_num.into_iter())\n        };\n        loop {\n            let mut c;\n            c = list1.next();\n            if c.is_none() {\n                break;\n            };\n            ans.push(c.unwrap());\n            c = list2.next();\n            if c.is_none() {\n                break;\n            };\n            ans.push(c.unwrap());\n        }\n        ans\n    }\n}"
-        }
-    ]
+  "name": "1417. 重新格式化字符串",
+  "url": "https://leetcode.cn/problems/reformat-the-string/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "请你返回 重新格式化后 的字符串；如果无法按要求重新格式化，则返回一个 空字符串 。",
+  "solutions": [
+    {
+      "date": 1660147200000,
+      "time": 4,
+      "memory": 2.1,
+      "script": "rust",
+      "desc": "重新排列。",
+      "code": "impl Solution {\n    pub fn reformat(s: String) -> String {\n        let (mut list_num, mut list_char) = (Vec::new(), Vec::new());\n        for c in s.chars().collect::<Vec<char>>() {\n            if c.is_numeric() {\n                list_num.push(c);\n            } else {\n                list_char.push(c);\n            }\n        }\n        let mut ans = String::new();\n        if (list_num.len() as i32 - list_char.len() as i32).abs() > 1 {\n            return ans;\n        }\n        let (mut list1, mut list2) = if list_num.len() > list_char.len() {\n            (list_num.into_iter(), list_char.into_iter())\n        } else {\n            (list_char.into_iter(), list_num.into_iter())\n        };\n        loop {\n            let mut c;\n            c = list1.next();\n            if c.is_none() {\n                break;\n            };\n            ans.push(c.unwrap());\n            c = list2.next();\n            if c.is_none() {\n                break;\n            };\n            ans.push(c.unwrap());\n        }\n        ans\n    }\n}"
+    }
+  ]
 }

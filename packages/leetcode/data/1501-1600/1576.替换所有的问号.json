@@ -1,19 +1,17 @@
 {
-    "name": "1576. 替换所有的问号",
-    "url": "https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "给你一个仅包含小写英文字母和 '?' 字符的字符串 s，请你将所有的 '?' 转换为若干小写字母，使最终的字符串不包含任何 连续重复 的字符。",
-    "solutions": [
-        {
-            "date": 1641312000000,
-            "time": 0,
-            "memory": 5.8,
-            "script": "c++",
-            "desc": "遍历到问号进行重新赋值 。",
-            "code": "class Solution {\n   public:\n    string modifyString(string s) {\n        for (int i = 0, n = s.size(); i < n; i++) {\n            if (s[i] != '?') continue;\n            char prev = i > 0 ? s[i - 1] : '\\0',\n                 next = i < n - 1 ? s[i + 1] : '\\0';\n            for (char ch = 'a'; ch <= 'z'; ch++) {\n                if (prev != ch && next != ch) {\n                    s[i] = ch;\n                    break;\n                }\n            }\n        }\n        return s;\n    }\n};"
-        }
-    ]
+  "name": "1576. 替换所有的问号",
+  "url": "https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "给你一个仅包含小写英文字母和 '?' 字符的字符串 s，请你将所有的 '?' 转换为若干小写字母，使最终的字符串不包含任何 连续重复 的字符。",
+  "solutions": [
+    {
+      "date": 1641312000000,
+      "time": 0,
+      "memory": 5.8,
+      "script": "c++",
+      "desc": "遍历到问号进行重新赋值 。",
+      "code": "class Solution {\n   public:\n    string modifyString(string s) {\n        for (int i = 0, n = s.size(); i < n; i++) {\n            if (s[i] != '?') continue;\n            char prev = i > 0 ? s[i - 1] : '\\0',\n                 next = i < n - 1 ? s[i + 1] : '\\0';\n            for (char ch = 'a'; ch <= 'z'; ch++) {\n                if (prev != ch && next != ch) {\n                    s[i] = ch;\n                    break;\n                }\n            }\n        }\n        return s;\n    }\n};"
+    }
+  ]
 }

@@ -1,29 +1,25 @@
 {
-    "name": "594. 最长和谐子序列",
-    "url": "https://leetcode-cn.com/problems/longest-harmonious-subsequence/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
-    "desc": "现在，给你一个整数数组 nums ，请你在所有可能的子序列中找到最长的和谐子序列的长度。",
-    "solutions": [
-        {
-            "date": 1637337600000,
-            "time": 120,
-            "memory": 48.6,
-            "script": "typescript",
-            "desc": "哈希存储。",
-            "code": "function findLHS(nums: number[]): number {\n  const map = new Map<number, number>();\n  for (const num of nums) map.set(num, (map.get(num) ?? 0) + 1);\n  const list = Array.from(map.entries()).sort(([num1], [num2]) => num1 - num2);\n  let ans = 0;\n  for (let i = 0, l = list.length; i < l - 1; i++) {\n    const [num1, cnt1] = list[i];\n    const [num2, cnt2] = list[i + 1];\n    if (num2 !== num1 + 1) continue;\n    ans = Math.max(ans, cnt1 + cnt2);\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1637337600000,
-            "time": 52,
-            "memory": 8.6,
-            "script": "c",
-            "desc": "排序。",
-            "code": "int comp(int *num1, int *num2){\n    return *num1 - *num2;\n}\nint findLHS(int* nums, int numsSize){\n    qsort(nums, numsSize, sizeof(int), comp);\n    int ans = 0, left = 0, right = 0;\n    while(right < numsSize - 1){\n        while(right < numsSize - 1 && nums[right] == nums[left]) right++;\n        while(right < numsSize - 1 && nums[right] == nums[right + 1]) right++;\n        if(nums[left] == nums[right] - 1 && right - left + 1 > ans) ans = right - left + 1;\n        while(nums[left] != nums[right]) left++;\n    }\n    return ans;\n}"
-        }
-    ]
+  "name": "594. 最长和谐子序列",
+  "url": "https://leetcode-cn.com/problems/longest-harmonious-subsequence/",
+  "difficulty": "简单",
+  "tag": ["数组", "哈希表", "排序"],
+  "desc": "现在，给你一个整数数组 nums ，请你在所有可能的子序列中找到最长的和谐子序列的长度。",
+  "solutions": [
+    {
+      "date": 1637337600000,
+      "time": 120,
+      "memory": 48.6,
+      "script": "typescript",
+      "desc": "哈希存储。",
+      "code": "function findLHS(nums: number[]): number {\n  const map = new Map<number, number>();\n  for (const num of nums) map.set(num, (map.get(num) ?? 0) + 1);\n  const list = Array.from(map.entries()).sort(([num1], [num2]) => num1 - num2);\n  let ans = 0;\n  for (let i = 0, l = list.length; i < l - 1; i++) {\n    const [num1, cnt1] = list[i];\n    const [num2, cnt2] = list[i + 1];\n    if (num2 !== num1 + 1) continue;\n    ans = Math.max(ans, cnt1 + cnt2);\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1637337600000,
+      "time": 52,
+      "memory": 8.6,
+      "script": "c",
+      "desc": "排序。",
+      "code": "int comp(int *num1, int *num2){\n    return *num1 - *num2;\n}\nint findLHS(int* nums, int numsSize){\n    qsort(nums, numsSize, sizeof(int), comp);\n    int ans = 0, left = 0, right = 0;\n    while(right < numsSize - 1){\n        while(right < numsSize - 1 && nums[right] == nums[left]) right++;\n        while(right < numsSize - 1 && nums[right] == nums[right + 1]) right++;\n        if(nums[left] == nums[right] - 1 && right - left + 1 > ans) ans = right - left + 1;\n        while(nums[left] != nums[right]) left++;\n    }\n    return ans;\n}"
+    }
+  ]
 }

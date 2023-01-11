@@ -15,12 +15,15 @@ export interface Markdown {
   tag: Tag[];
   solutions: Solution[];
 }
-export interface ReadmeItem { dir: string; list: string[] }
+export interface ReadmeItem {
+  dir: string;
+  list: string[];
+}
 export interface Readme {
   markdownCount: number;
   solutionCount: number;
-  index:ReadmeItem[];
-  tag:ReadmeItem[];
+  index: ReadmeItem[];
+  tag: ReadmeItem[];
   difficulty: [
     { dir: Difficulty.简单; list: string[] },
     { dir: Difficulty.中等; list: string[] },

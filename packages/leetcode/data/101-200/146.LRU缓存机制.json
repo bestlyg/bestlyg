@@ -1,18 +1,16 @@
 {
-    "name": "146. LRU 缓存机制",
-    "url": "https://leetcode-cn.com/problems/lru-cache/",
-    "tag": [
-        "设计"
-    ],
-    "desc": "根据逆波兰表示法，求表达式的值。有效的运算符包括 +, -, \\*, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。",
-    "solutions": [
-        {
-            "date": 1590336000000,
-            "time": 228,
-            "memory": 47.8,
-            "script": "typescript",
-            "desc": "利用哈希映射储存键值对，值为链表节点，利用链表的增删控制复杂度 O(1)。",
-            "code": "class LinkedNode {\n  public prev: LinkedNode = this;\n  public next: LinkedNode = this;\n  constructor(public key: number, public val: number, prev?: LinkedNode, next?: LinkedNode) {\n    if (prev !== undefined) this.prev = prev;\n    if (next !== undefined) this.next = next;\n  }\n}\nclass LRUCache {\n  cache = new Map<number, LinkedNode>();\n  firstNode: LinkedNode | null = null;\n  get lastNode(): LinkedNode | null {\n    return this.firstNode ? this.firstNode.prev : null;\n  }\n  get size(): number {\n    return this.cache.size;\n  }\n  constructor(public capacity: number) {}\n  get(key: number): number {\n    if (this.capacity === 0) return -1;\n    if (this.firstNode === null) return -1;\n    const node = this.cache.get(key);\n    if (node === undefined) return -1;\n    const { key: k, val: v } = node;\n    this.put(k, v);\n    return v;\n  }\n  put(key: number, value: number): void {\n    if (this.capacity === 0) {\n    } else if (this.firstNode === null || this.lastNode === null) {\n      const node = new LinkedNode(key, value);\n      this.cache.set(key, node);\n      this.firstNode = node;\n    } else if (this.cache.has(key)) {\n      const node: LinkedNode = this.cache.get(key)!;\n      node.val = value;\n      if (node === this.firstNode) this.firstNode = node.next;\n      node.prev.next = node.next;\n      node.next.prev = node.prev;\n      node.prev = this.lastNode;\n      node.next = this.firstNode;\n      this.lastNode.next = node;\n      this.firstNode.prev = node;\n    } else if (this.size < this.capacity) {\n      const node = new LinkedNode(key, value, this.lastNode, this.firstNode);\n      this.cache.set(key, node);\n      this.lastNode.next = node;\n      this.firstNode.prev = node;\n    } else {\n      const delNode = this.firstNode;\n      this.firstNode = delNode.next;\n      this.firstNode.prev = delNode.prev;\n      this.cache.delete(delNode.key);\n      this.put(key, value);\n    }\n  }\n}"
-        }
-    ]
+  "name": "146. LRU 缓存机制",
+  "url": "https://leetcode-cn.com/problems/lru-cache/",
+  "tag": ["设计"],
+  "desc": "根据逆波兰表示法，求表达式的值。有效的运算符包括 +, -, \\*, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。",
+  "solutions": [
+    {
+      "date": 1590336000000,
+      "time": 228,
+      "memory": 47.8,
+      "script": "typescript",
+      "desc": "利用哈希映射储存键值对，值为链表节点，利用链表的增删控制复杂度 O(1)。",
+      "code": "class LinkedNode {\n  public prev: LinkedNode = this;\n  public next: LinkedNode = this;\n  constructor(public key: number, public val: number, prev?: LinkedNode, next?: LinkedNode) {\n    if (prev !== undefined) this.prev = prev;\n    if (next !== undefined) this.next = next;\n  }\n}\nclass LRUCache {\n  cache = new Map<number, LinkedNode>();\n  firstNode: LinkedNode | null = null;\n  get lastNode(): LinkedNode | null {\n    return this.firstNode ? this.firstNode.prev : null;\n  }\n  get size(): number {\n    return this.cache.size;\n  }\n  constructor(public capacity: number) {}\n  get(key: number): number {\n    if (this.capacity === 0) return -1;\n    if (this.firstNode === null) return -1;\n    const node = this.cache.get(key);\n    if (node === undefined) return -1;\n    const { key: k, val: v } = node;\n    this.put(k, v);\n    return v;\n  }\n  put(key: number, value: number): void {\n    if (this.capacity === 0) {\n    } else if (this.firstNode === null || this.lastNode === null) {\n      const node = new LinkedNode(key, value);\n      this.cache.set(key, node);\n      this.firstNode = node;\n    } else if (this.cache.has(key)) {\n      const node: LinkedNode = this.cache.get(key)!;\n      node.val = value;\n      if (node === this.firstNode) this.firstNode = node.next;\n      node.prev.next = node.next;\n      node.next.prev = node.prev;\n      node.prev = this.lastNode;\n      node.next = this.firstNode;\n      this.lastNode.next = node;\n      this.firstNode.prev = node;\n    } else if (this.size < this.capacity) {\n      const node = new LinkedNode(key, value, this.lastNode, this.firstNode);\n      this.cache.set(key, node);\n      this.lastNode.next = node;\n      this.firstNode.prev = node;\n    } else {\n      const delNode = this.firstNode;\n      this.firstNode = delNode.next;\n      this.firstNode.prev = delNode.prev;\n      this.cache.delete(delNode.key);\n      this.put(key, value);\n    }\n  }\n}"
+    }
+  ]
 }

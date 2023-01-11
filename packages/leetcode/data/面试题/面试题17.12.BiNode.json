@@ -1,24 +1,17 @@
 {
-    "name": "面试题 17.12. BiNode",
-    "url": "https://leetcode-cn.com/problems/binode-lcci/",
-    "difficulty": "简单",
-    "tag": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "链表",
-        "二叉树"
-    ],
-    "desc": "二叉树数据结构 TreeNode 可用来表示单向链表（其中 left 置空，right 为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求依然符合二叉搜索树的性质，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。返回转换后的单向链表的头节点。",
-    "solutions": [
-        {
-            "date": 1628265600000,
-            "time": 120,
-            "memory": 53.6,
-            "script": "typescript",
-            "desc": "中序遍历。",
-            "code": "function convertBiNode(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const q: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0; i < q.length - 1; i++) {\n    q[i].left = null;\n    q[i].right = q[i + 1];\n  }\n  q[q.length - 1].left = q[q.length - 1].right = null;\n  return q[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node);\n    inorder(node.right);\n  }\n}"
-        }
-    ]
+  "name": "面试题 17.12. BiNode",
+  "url": "https://leetcode-cn.com/problems/binode-lcci/",
+  "difficulty": "简单",
+  "tag": ["栈", "树", "深度优先搜索", "二叉搜索树", "链表", "二叉树"],
+  "desc": "二叉树数据结构 TreeNode 可用来表示单向链表（其中 left 置空，right 为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求依然符合二叉搜索树的性质，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。返回转换后的单向链表的头节点。",
+  "solutions": [
+    {
+      "date": 1628265600000,
+      "time": 120,
+      "memory": 53.6,
+      "script": "typescript",
+      "desc": "中序遍历。",
+      "code": "function convertBiNode(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const q: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0; i < q.length - 1; i++) {\n    q[i].left = null;\n    q[i].right = q[i + 1];\n  }\n  q[q.length - 1].left = q[q.length - 1].right = null;\n  return q[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node);\n    inorder(node.right);\n  }\n}"
+    }
+  ]
 }

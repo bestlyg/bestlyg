@@ -1,19 +1,17 @@
 {
-    "name": "139. 单词拆分",
-    "url": "https://leetcode-cn.com/problems/word-break/",
-    "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
-    "desc": "给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。",
-    "solutions": [
-        {
-            "date": 1593014400000,
-            "time": 96,
-            "memory": 38,
-            "script": "typescript",
-            "desc": "dp[i]=dp[j]&&set.has(j,i-j)。",
-            "code": "function wordBreak(s: string, wordDict: string[]): boolean {\n  const len = s.length;\n  const wordSet = new Set(wordDict);\n  const dp = [true];\n  for (let i = 1; i <= len; i++)\n    for (let j = 0; j < i; j++)\n      if (dp[j] && wordSet.has(s.substr(j, i - j))) {\n        dp[i] = true;\n        break;\n      }\n  return dp[len] ? dp[len] : false;\n}"
-        }
-    ]
+  "name": "139. 单词拆分",
+  "url": "https://leetcode-cn.com/problems/word-break/",
+  "difficulty": "中等",
+  "tag": ["动态规划"],
+  "desc": "给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。",
+  "solutions": [
+    {
+      "date": 1593014400000,
+      "time": 96,
+      "memory": 38,
+      "script": "typescript",
+      "desc": "dp[i]=dp[j]&&set.has(j,i-j)。",
+      "code": "function wordBreak(s: string, wordDict: string[]): boolean {\n  const len = s.length;\n  const wordSet = new Set(wordDict);\n  const dp = [true];\n  for (let i = 1; i <= len; i++)\n    for (let j = 0; j < i; j++)\n      if (dp[j] && wordSet.has(s.substr(j, i - j))) {\n        dp[i] = true;\n        break;\n      }\n  return dp[len] ? dp[len] : false;\n}"
+    }
+  ]
 }

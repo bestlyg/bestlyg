@@ -1,44 +1,41 @@
 {
-    "name": "144. 二叉树的前序遍历",
-    "url": "https://leetcode-cn.com/problems/binary-tree-preorder-traversal/",
-    "difficulty": "中等",
-    "tag": [
-        "栈",
-        "树"
-    ],
-    "desc": "给定一个二叉树，返回它的前序遍历。",
-    "solutions": [
-        {
-            "date": 1582214400000,
-            "time": 0,
-            "memory": 37.8,
-            "script": "java",
-            "desc": "递归。",
-            "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tpreorder(root, list);\n\t\treturn list;\n\t}\n\n\tpublic void preorder(TreeNode node, List<Integer> list) {\n\t\tlist.add(node.val);\n\t\tif (node.left != null)\n\t\t\tpreorder(node.left,list);\n\t\tif (node.right != null)\n\t\t\tpreorder(node.right,list);\n\t}\n}"
-        },
-        {
-            "date": 1582214400000,
-            "time": 1,
-            "memory": 38.2,
-            "script": "java",
-            "desc": "迭代。",
-            "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tStack<TreeNode> stack = new Stack<TreeNode>();\n\t\tstack.push(root);\n\t\twhile (!stack.isEmpty()) {\n\t\t\tTreeNode node = stack.pop();\n\t\t\tlist.add(node.val);\n\t\t\tif(node.right!=null)stack.push(node.right);\n\t\t\tif(node.left!=null)stack.push(node.left);\n\t\t}\n\t\treturn list;\n\t}\n}"
-        },
-        {
-            "date": 1603728000000,
-            "time": 84,
-            "memory": 40.2,
-            "script": "typescript",
-            "desc": "递归。",
-            "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  preorder(root);\n  return ans;\n  function preorder(root: TreeNode | null) {\n    if (root === null) return;\n    ans.push(root.val);\n    preorder(root.left);\n    preorder(root.right);\n  }\n}"
-        },
-        {
-            "date": 1603728000000,
-            "time": 80,
-            "memory": 40.3,
-            "script": "typescript",
-            "desc": "迭代。",
-            "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  if (root === null) return ans;\n  const stack: TreeNode[] = [root];\n  while (stack.length !== 0) {\n    const node = stack.pop()!;\n    ans.push(node.val);\n    node.right && stack.push(node.right);\n    node.left && stack.push(node.left);\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "144. 二叉树的前序遍历",
+  "url": "https://leetcode-cn.com/problems/binary-tree-preorder-traversal/",
+  "difficulty": "中等",
+  "tag": ["栈", "树"],
+  "desc": "给定一个二叉树，返回它的前序遍历。",
+  "solutions": [
+    {
+      "date": 1582214400000,
+      "time": 0,
+      "memory": 37.8,
+      "script": "java",
+      "desc": "递归。",
+      "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tpreorder(root, list);\n\t\treturn list;\n\t}\n\n\tpublic void preorder(TreeNode node, List<Integer> list) {\n\t\tlist.add(node.val);\n\t\tif (node.left != null)\n\t\t\tpreorder(node.left,list);\n\t\tif (node.right != null)\n\t\t\tpreorder(node.right,list);\n\t}\n}"
+    },
+    {
+      "date": 1582214400000,
+      "time": 1,
+      "memory": 38.2,
+      "script": "java",
+      "desc": "迭代。",
+      "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tStack<TreeNode> stack = new Stack<TreeNode>();\n\t\tstack.push(root);\n\t\twhile (!stack.isEmpty()) {\n\t\t\tTreeNode node = stack.pop();\n\t\t\tlist.add(node.val);\n\t\t\tif(node.right!=null)stack.push(node.right);\n\t\t\tif(node.left!=null)stack.push(node.left);\n\t\t}\n\t\treturn list;\n\t}\n}"
+    },
+    {
+      "date": 1603728000000,
+      "time": 84,
+      "memory": 40.2,
+      "script": "typescript",
+      "desc": "递归。",
+      "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  preorder(root);\n  return ans;\n  function preorder(root: TreeNode | null) {\n    if (root === null) return;\n    ans.push(root.val);\n    preorder(root.left);\n    preorder(root.right);\n  }\n}"
+    },
+    {
+      "date": 1603728000000,
+      "time": 80,
+      "memory": 40.3,
+      "script": "typescript",
+      "desc": "迭代。",
+      "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  if (root === null) return ans;\n  const stack: TreeNode[] = [root];\n  while (stack.length !== 0) {\n    const node = stack.pop()!;\n    ans.push(node.val);\n    node.right && stack.push(node.right);\n    node.left && stack.push(node.left);\n  }\n  return ans;\n}"
+    }
+  ]
 }

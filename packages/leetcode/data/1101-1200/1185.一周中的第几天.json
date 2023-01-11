@@ -1,19 +1,17 @@
 {
-    "name": "1185. 一周中的第几天",
-    "url": "https://leetcode-cn.com/problems/day-of-the-week/",
-    "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
-    "desc": "给你一个日期，请你设计一个算法来判断它是对应一周中的哪一天。",
-    "solutions": [
-        {
-            "date": 1641225600000,
-            "time": 0,
-            "memory": 5.9,
-            "script": "c++",
-            "desc": "遍历求出距离第一天的天数并取模。",
-            "code": "string names[] = {\"Friday\",  \"Saturday\",  \"Sunday\",  \"Monday\",\n                  \"Tuesday\", \"Wednesday\", \"Thursday\"};\nint isLeapYear(int year) {\n    return year % 400 == 0 || year % 100 != 0 && year % 4 == 0;\n}\nclass Solution {\n   public:\n    string dayOfTheWeek(int day, int month, int year) {\n        int months[] = {\n            0,  31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31,\n            30, 31};\n        while (month) day += months[--month];\n        while (year > 1971) day += isLeapYear(--year) ? 366 : 365;\n        return names[(day - 1) % 7];\n    }\n};"
-        }
-    ]
+  "name": "1185. 一周中的第几天",
+  "url": "https://leetcode-cn.com/problems/day-of-the-week/",
+  "difficulty": "简单",
+  "tag": ["数学"],
+  "desc": "给你一个日期，请你设计一个算法来判断它是对应一周中的哪一天。",
+  "solutions": [
+    {
+      "date": 1641225600000,
+      "time": 0,
+      "memory": 5.9,
+      "script": "c++",
+      "desc": "遍历求出距离第一天的天数并取模。",
+      "code": "string names[] = {\"Friday\",  \"Saturday\",  \"Sunday\",  \"Monday\",\n                  \"Tuesday\", \"Wednesday\", \"Thursday\"};\nint isLeapYear(int year) {\n    return year % 400 == 0 || year % 100 != 0 && year % 4 == 0;\n}\nclass Solution {\n   public:\n    string dayOfTheWeek(int day, int month, int year) {\n        int months[] = {\n            0,  31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31,\n            30, 31};\n        while (month) day += months[--month];\n        while (year > 1971) day += isLeapYear(--year) ? 366 : 365;\n        return names[(day - 1) % 7];\n    }\n};"
+    }
+  ]
 }

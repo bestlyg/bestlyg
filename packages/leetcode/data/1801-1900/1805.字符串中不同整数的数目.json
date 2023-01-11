@@ -1,20 +1,17 @@
 {
-    "name": "1805. 字符串中不同整数的数目",
-    "url": "https://leetcode-cn.com/problems/number-of-different-integers-in-a-string/",
-    "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
-    "desc": "给你一个字符串 word ，该字符串由数字和小写英文字母组成。返回对 word 完成替换后形成的 不同 整数的数目。",
-    "solutions": [
-        {
-            "date": 1647446400000,
-            "time": 0,
-            "memory": 6.4,
-            "script": "c++",
-            "desc": "遍历。",
-            "code": "class Solution {\n   public:\n    int numDifferentIntegers(string word) {\n        unordered_set<string> s;\n        int idx = 0, n = word.size();\n        while (idx < n) {\n            while (idx < n && isalpha(word[idx])) idx++;\n            if (idx == n) break;\n            string num = \"\";\n            for (; isdigit(word[idx]); idx++) {\n                if (num == \"\" && word[idx] == '0') continue;\n                num += word[idx];\n            }\n            s.insert(num);\n        }\n        return s.size();\n    }\n};"
-        }
-    ]
+  "name": "1805. 字符串中不同整数的数目",
+  "url": "https://leetcode-cn.com/problems/number-of-different-integers-in-a-string/",
+  "difficulty": "简单",
+  "tag": ["哈希表", "字符串"],
+  "desc": "给你一个字符串 word ，该字符串由数字和小写英文字母组成。返回对 word 完成替换后形成的 不同 整数的数目。",
+  "solutions": [
+    {
+      "date": 1647446400000,
+      "time": 0,
+      "memory": 6.4,
+      "script": "c++",
+      "desc": "遍历。",
+      "code": "class Solution {\n   public:\n    int numDifferentIntegers(string word) {\n        unordered_set<string> s;\n        int idx = 0, n = word.size();\n        while (idx < n) {\n            while (idx < n && isalpha(word[idx])) idx++;\n            if (idx == n) break;\n            string num = \"\";\n            for (; isdigit(word[idx]); idx++) {\n                if (num == \"\" && word[idx] == '0') continue;\n                num += word[idx];\n            }\n            s.insert(num);\n        }\n        return s.size();\n    }\n};"
+    }
+  ]
 }

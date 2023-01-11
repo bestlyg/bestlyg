@@ -1,20 +1,17 @@
 {
-    "name": "1071. 字符串的最大公因子",
-    "url": "https://leetcode-cn.com/problems/greatest-common-divisor-of-strings/",
-    "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
-    "desc": "返回最长字符串 X，要求满足 X 能除尽 str1 且 X 能除尽 str2。",
-    "solutions": [
-        {
-            "date": 1638547200000,
-            "time": 80,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "算出质数位置进行阶乘。",
-            "code": "function gcd(a: number, b: number) {\n  if (!b) return a;\n  return gcd(b, a % b);\n}\nfunction gcdOfStrings(str1: string, str2: string): string {\n  if (str1 + str2 !== str2 + str1) return '';\n  return str1.substr(0, gcd(str1.length, str2.length));\n}"
-        }
-    ]
+  "name": "1071. 字符串的最大公因子",
+  "url": "https://leetcode-cn.com/problems/greatest-common-divisor-of-strings/",
+  "difficulty": "简单",
+  "tag": ["数学", "字符串"],
+  "desc": "返回最长字符串 X，要求满足 X 能除尽 str1 且 X 能除尽 str2。",
+  "solutions": [
+    {
+      "date": 1638547200000,
+      "time": 80,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "算出质数位置进行阶乘。",
+      "code": "function gcd(a: number, b: number) {\n  if (!b) return a;\n  return gcd(b, a % b);\n}\nfunction gcdOfStrings(str1: string, str2: string): string {\n  if (str1 + str2 !== str2 + str1) return '';\n  return str1.substr(0, gcd(str1.length, str2.length));\n}"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "343. 整数拆分",
-    "url": "https://leetcode-cn.com/problems/integer-break/",
-    "difficulty": "中等",
-    "tag": [
-        "数学",
-        "动态规划"
-    ],
-    "desc": "给定一个正整数 n，将其拆分为至少两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。",
-    "solutions": [
-        {
-            "date": 1596038400000,
-            "time": 84,
-            "memory": 37.4,
-            "script": "typescript",
-            "desc": "dp[i]=i 的最大值。",
-            "code": "function integerBreak(n: number): number {\n  const dp = new Array(n + 1).fill(0);\n  for (let i = 2; i <= n; i++) {\n    let max = 0;\n    for (let j = 1; j <= i - 1; j++) {\n      max = Math.max(max, j * Math.max(i - j, dp[i - j]));\n    }\n    dp[i] = max;\n  }\n  return dp[n];\n}"
-        }
-    ]
+  "name": "343. 整数拆分",
+  "url": "https://leetcode-cn.com/problems/integer-break/",
+  "difficulty": "中等",
+  "tag": ["数学", "动态规划"],
+  "desc": "给定一个正整数 n，将其拆分为至少两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。",
+  "solutions": [
+    {
+      "date": 1596038400000,
+      "time": 84,
+      "memory": 37.4,
+      "script": "typescript",
+      "desc": "dp[i]=i 的最大值。",
+      "code": "function integerBreak(n: number): number {\n  const dp = new Array(n + 1).fill(0);\n  for (let i = 2; i <= n; i++) {\n    let max = 0;\n    for (let j = 1; j <= i - 1; j++) {\n      max = Math.max(max, j * Math.max(i - j, dp[i - j]));\n    }\n    dp[i] = max;\n  }\n  return dp[n];\n}"
+    }
+  ]
 }

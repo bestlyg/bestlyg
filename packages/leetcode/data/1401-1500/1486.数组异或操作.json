@@ -1,20 +1,17 @@
 {
-    "name": "1486. 数组异或操作",
-    "url": "https://leetcode-cn.com/problems/xor-operation-in-an-array/",
-    "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数组"
-    ],
-    "desc": "请返回 nums 中所有元素按位异或（XOR）后得到的结果。",
-    "solutions": [
-        {
-            "date": 1620316800000,
-            "time": 76,
-            "memory": 39.3,
-            "script": "typescript",
-            "desc": "利用异或读取下一个值。",
-            "code": "function xorOperation(n: number, start: number): number {\n  return new Array(n)\n    .fill(0)\n    .map((_, i) => start + 2 * i)\n    .reduce((total, cur, i) => (i === 0 ? cur : total ^ cur));\n}"
-        }
-    ]
+  "name": "1486. 数组异或操作",
+  "url": "https://leetcode-cn.com/problems/xor-operation-in-an-array/",
+  "difficulty": "简单",
+  "tag": ["位运算", "数组"],
+  "desc": "请返回 nums 中所有元素按位异或（XOR）后得到的结果。",
+  "solutions": [
+    {
+      "date": 1620316800000,
+      "time": 76,
+      "memory": 39.3,
+      "script": "typescript",
+      "desc": "利用异或读取下一个值。",
+      "code": "function xorOperation(n: number, start: number): number {\n  return new Array(n)\n    .fill(0)\n    .map((_, i) => start + 2 * i)\n    .reduce((total, cur, i) => (i === 0 ? cur : total ^ cur));\n}"
+    }
+  ]
 }

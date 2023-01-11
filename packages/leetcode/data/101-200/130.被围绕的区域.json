@@ -1,29 +1,25 @@
 {
-    "name": "130. 被围绕的区域",
-    "url": "https://leetcode-cn.com/problems/surrounded-regions/",
-    "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集"
-    ],
-    "desc": "给定一个二维的矩阵，包含 'X' 和 'O'（字母 O）。找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。",
-    "solutions": [
-        {
-            "date": 1597075200000,
-            "time": 132,
-            "memory": 41,
-            "script": "typescript",
-            "desc": "从边缘开始找，进行深度优先搜索。",
-            "code": "function solve(board: string[][]): void {\n  const row = board.length;\n  if (row === 0) return;\n  const col = board[0].length;\n  const isEdge = (i: number, j: number): boolean =>\n    i === 0 || j === 0 || i === row - 1 || j === col - 1;\n  const check = (i: number, j: number): void => {\n    const tag = board[i][j];\n    if (tag === 'O') {\n      board[i][j] = 'A';\n      dfs(i, j);\n    }\n  };\n  const dfs = (i: number, j: number): void => {\n    // top\n    if (i !== 0 && !isEdge(i - 1, j) && board[i - 1][j] === 'O') {\n      board[i - 1][j] = 'A';\n      dfs(i - 1, j);\n    }\n    // bottom\n    if (i !== row - 1 && !isEdge(i + 1, j) && board[i + 1][j] === 'O') {\n      board[i + 1][j] = 'A';\n      dfs(i + 1, j);\n    }\n    // left\n    if (j !== 0 && !isEdge(i, j - 1) && board[i][j - 1] === 'O') {\n      board[i][j - 1] = 'A';\n      dfs(i, j - 1);\n    }\n    // right\n    if (j !== col - 1 && !isEdge(i, j + 1) && board[i][j + 1] === 'O') {\n      board[i][j + 1] = 'A';\n      dfs(i, j + 1);\n    }\n  };\n  // top bottom\n  for (let j = 0; j < col; j++) {\n    check(0, j);\n    check(row - 1, j);\n  }\n  // left right\n  for (let i = 0; i < row; i++) {\n    check(i, 0);\n    check(i, col - 1);\n  }\n  for (let i = 0; i < row; i++) {\n    for (let j = 0; j < col; j++) {\n      const tag = board[i][j];\n      if (tag === 'O') board[i][j] = 'X';\n      else if (tag === 'A') board[i][j] = 'O';\n    }\n  }\n}"
-        },
-        {
-            "date": 1627142400000,
-            "time": 96,
-            "memory": 42.9,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "function solve(board: string[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  for (let i = 0; i < n; i++) {\n    dfs(i, 0);\n    dfs(i, m - 1);\n  }\n  for (let i = 0; i < m; i++) {\n    dfs(0, i);\n    dfs(n - 1, i);\n  }\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (board[i][j] === 'O') board[i][j] = 'X';\n      if (board[i][j] === 'A') board[i][j] = 'O';\n    }\n  }\n  function dfs(row: number, col: number): void {\n    if (board[row][col] !== 'O') return;\n    board[row][col] = 'A';\n    if (row > 0) dfs(row - 1, col);\n    if (col > 0) dfs(row, col - 1);\n    if (row < n - 1) dfs(row + 1, col);\n    if (col < m - 1) dfs(row, col + 1);\n  }\n}"
-        }
-    ]
+  "name": "130. 被围绕的区域",
+  "url": "https://leetcode-cn.com/problems/surrounded-regions/",
+  "difficulty": "中等",
+  "tag": ["深度优先搜索", "广度优先搜索", "并查集"],
+  "desc": "给定一个二维的矩阵，包含 'X' 和 'O'（字母 O）。找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。",
+  "solutions": [
+    {
+      "date": 1597075200000,
+      "time": 132,
+      "memory": 41,
+      "script": "typescript",
+      "desc": "从边缘开始找，进行深度优先搜索。",
+      "code": "function solve(board: string[][]): void {\n  const row = board.length;\n  if (row === 0) return;\n  const col = board[0].length;\n  const isEdge = (i: number, j: number): boolean =>\n    i === 0 || j === 0 || i === row - 1 || j === col - 1;\n  const check = (i: number, j: number): void => {\n    const tag = board[i][j];\n    if (tag === 'O') {\n      board[i][j] = 'A';\n      dfs(i, j);\n    }\n  };\n  const dfs = (i: number, j: number): void => {\n    // top\n    if (i !== 0 && !isEdge(i - 1, j) && board[i - 1][j] === 'O') {\n      board[i - 1][j] = 'A';\n      dfs(i - 1, j);\n    }\n    // bottom\n    if (i !== row - 1 && !isEdge(i + 1, j) && board[i + 1][j] === 'O') {\n      board[i + 1][j] = 'A';\n      dfs(i + 1, j);\n    }\n    // left\n    if (j !== 0 && !isEdge(i, j - 1) && board[i][j - 1] === 'O') {\n      board[i][j - 1] = 'A';\n      dfs(i, j - 1);\n    }\n    // right\n    if (j !== col - 1 && !isEdge(i, j + 1) && board[i][j + 1] === 'O') {\n      board[i][j + 1] = 'A';\n      dfs(i, j + 1);\n    }\n  };\n  // top bottom\n  for (let j = 0; j < col; j++) {\n    check(0, j);\n    check(row - 1, j);\n  }\n  // left right\n  for (let i = 0; i < row; i++) {\n    check(i, 0);\n    check(i, col - 1);\n  }\n  for (let i = 0; i < row; i++) {\n    for (let j = 0; j < col; j++) {\n      const tag = board[i][j];\n      if (tag === 'O') board[i][j] = 'X';\n      else if (tag === 'A') board[i][j] = 'O';\n    }\n  }\n}"
+    },
+    {
+      "date": 1627142400000,
+      "time": 96,
+      "memory": 42.9,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "function solve(board: string[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  for (let i = 0; i < n; i++) {\n    dfs(i, 0);\n    dfs(i, m - 1);\n  }\n  for (let i = 0; i < m; i++) {\n    dfs(0, i);\n    dfs(n - 1, i);\n  }\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (board[i][j] === 'O') board[i][j] = 'X';\n      if (board[i][j] === 'A') board[i][j] = 'O';\n    }\n  }\n  function dfs(row: number, col: number): void {\n    if (board[row][col] !== 'O') return;\n    board[row][col] = 'A';\n    if (row > 0) dfs(row - 1, col);\n    if (col > 0) dfs(row, col - 1);\n    if (row < n - 1) dfs(row + 1, col);\n    if (col < m - 1) dfs(row, col + 1);\n  }\n}"
+    }
+  ]
 }

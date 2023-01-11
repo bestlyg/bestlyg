@@ -1,22 +1,17 @@
 {
-    "name": "剑指 Offer II 067. 最大的异或",
-    "url": "https://leetcode-cn.com/problems/ms70jA/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "字典树",
-        "数组",
-        "哈希表"
-    ],
-    "desc": "给定一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。",
-    "solutions": [
-        {
-            "date": 1635091200000,
-            "time": 784,
-            "memory": 67.3,
-            "script": "typescript",
-            "desc": "二叉字典树。",
-            "code": "const MAX = 31;\nclass BitTrieNode {\n  // 0\n  left: BitTrieNode | null = null;\n  // 1\n  right: BitTrieNode | null = null;\n  val = -1;\n}\nclass BitTrie {\n  root = new BitTrieNode();\n  add(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      const ch = str[i];\n      if (ch === '0') node = node.left ?? (node.left = new BitTrieNode());\n      else node = node.right ?? (node.right = new BitTrieNode());\n    }\n    node.val = num;\n  }\n  find(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      if (!node.left && !node.right) break;\n      const ch = str[i];\n      if (ch === '0') {\n        node = node.right ?? node.left!;\n      } else {\n        node = node.left ?? node.right!;\n      }\n    }\n    return node;\n  }\n}\nfunction findMaximumXOR(nums: number[]): number {\n  const trie = new BitTrie();\n  nums.forEach(num => trie.add(num));\n  trie.find(5).val;\n  let ans = -Infinity;\n  nums.forEach(num => {\n    ans = Math.max(ans, trie.find(num).val ^ num);\n  });\n  return ans;\n}"
-        }
-    ]
+  "name": "剑指 Offer II 067. 最大的异或",
+  "url": "https://leetcode-cn.com/problems/ms70jA/",
+  "difficulty": "中等",
+  "tag": ["位运算", "字典树", "数组", "哈希表"],
+  "desc": "给定一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。",
+  "solutions": [
+    {
+      "date": 1635091200000,
+      "time": 784,
+      "memory": 67.3,
+      "script": "typescript",
+      "desc": "二叉字典树。",
+      "code": "const MAX = 31;\nclass BitTrieNode {\n  // 0\n  left: BitTrieNode | null = null;\n  // 1\n  right: BitTrieNode | null = null;\n  val = -1;\n}\nclass BitTrie {\n  root = new BitTrieNode();\n  add(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      const ch = str[i];\n      if (ch === '0') node = node.left ?? (node.left = new BitTrieNode());\n      else node = node.right ?? (node.right = new BitTrieNode());\n    }\n    node.val = num;\n  }\n  find(num: number) {\n    const str = num.toString(2).padStart(MAX, '0');\n    let node = this.root;\n    for (let i = 0, l = str.length; i < l; i++) {\n      if (!node.left && !node.right) break;\n      const ch = str[i];\n      if (ch === '0') {\n        node = node.right ?? node.left!;\n      } else {\n        node = node.left ?? node.right!;\n      }\n    }\n    return node;\n  }\n}\nfunction findMaximumXOR(nums: number[]): number {\n  const trie = new BitTrie();\n  nums.forEach(num => trie.add(num));\n  trie.find(5).val;\n  let ans = -Infinity;\n  nums.forEach(num => {\n    ans = Math.max(ans, trie.find(num).val ^ num);\n  });\n  return ans;\n}"
+    }
+  ]
 }

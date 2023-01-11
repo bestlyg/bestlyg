@@ -1,10 +1,8 @@
 {
-    "name": "6244. 完美分割的方案数",
-    "url": "https://leetcode.cn/problems/number-of-beautiful-partitions/",
-    "difficulty": "困难",
-    "tag": [
-        ""
-    ],
-    "desc": "给你一个字符串 s ，每个字符是数字 '1' 到 '9' ，再给你两个整数 k 和 minLength 。请你返回 s 的 完美 分割数目。由于答案可能很大，请返回答案对 109 + 7 取余 后的结果。",
-    "solutions": []
+  "name": "6244. 完美分割的方案数",
+  "url": "https://leetcode.cn/problems/number-of-beautiful-partitions/",
+  "difficulty": "困难",
+  "tag": [""],
+  "desc": "给你一个字符串 s ，每个字符是数字 '1' 到 '9' ，再给你两个整数 k 和 minLength 。请你返回 s 的 完美 分割数目。由于答案可能很大，请返回答案对 109 + 7 取余 后的结果。",
+  "solutions": []
 }

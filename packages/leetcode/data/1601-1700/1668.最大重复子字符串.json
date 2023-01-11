@@ -1,11 +1,8 @@
 {
-    "name": "1668. 最大重复子字符串",
-    "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "字符串匹配"
-    ],
-    "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
-    "solutions": []
+  "name": "1668. 最大重复子字符串",
+  "url": "https://leetcode.cn/problems/maximum-repeating-substring/",
+  "difficulty": "简单",
+  "tag": ["字符串", "字符串匹配"],
+  "desc": "给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。",
+  "solutions": []
 }

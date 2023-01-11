@@ -1,10 +1,8 @@
 {
-    "name": "2042. 检查句子中的数字是否递增",
-    "url": "https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "给你一个表示句子的字符串 s ，你需要检查 s 中的 全部 数字是否从左到右严格递增（即，除了最后一个数字，s 中的 每个 数字都严格小于它 右侧 的数字）。",
-    "solutions": []
+  "name": "2042. 检查句子中的数字是否递增",
+  "url": "https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "给你一个表示句子的字符串 s ，你需要检查 s 中的 全部 数字是否从左到右严格递增（即，除了最后一个数字，s 中的 每个 数字都严格小于它 右侧 的数字）。",
+  "solutions": []
 }

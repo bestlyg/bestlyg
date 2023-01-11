@@ -1,29 +1,25 @@
 {
-    "name": "506. 相对名次",
-    "url": "https://leetcode-cn.com/problems/relative-ranks/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序",
-        "堆(优先队列)"
-    ],
-    "desc": "使用长度为 n 的数组 answer 返回获奖，其中 answer[i] 是第 i 位运动员的获奖情况。",
-    "solutions": [
-        {
-            "date": 1638374400000,
-            "time": 96,
-            "memory": 40.9,
-            "script": "typescript",
-            "desc": "排序。",
-            "code": "function findRelativeRanks(score: number[]): string[] {\n  const n = score.length;\n  const idxs = new Array(n)\n    .fill(0)\n    .map((_, i) => i)\n    .sort((a, b) => score[b] - score[a]);\n  const ans: string[] = [];\n  for (let i = 0; i < n; i++) {\n    const str =\n      i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : `${i + 1}`;\n    ans[idxs[i]] = str;\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1638374400000,
-            "time": 16,
-            "memory": 7.9,
-            "script": "c",
-            "desc": "遍历。",
-            "code": "int *g_score;\nint comp(const void *a, const void *b) {\n    return g_score[*(int *)b] - g_score[*(int *)a];\n}\nchar ** findRelativeRanks(int* score, int scoreSize, int* returnSize){\n    g_score = score;\n    *returnSize = scoreSize;\n    int *idxs = (int *)malloc(sizeof(int) * scoreSize);\n    for (int i = 0; i < scoreSize; i++) idxs[i] = i;\n    qsort(idxs, scoreSize, sizeof(int), comp);\n    char **ans = (char **)malloc(sizeof(char *) * scoreSize);\n    for (int i = 0; i < scoreSize; i++) {\n        if (i == 0) ans[idxs[i]] = \"Gold Medal\";\n        else if (i == 1) ans[idxs[i]] = \"Silver Medal\";\n        else if (i == 2) ans[idxs[i]] = \"Bronze Medal\";\n        else {\n            ans[idxs[i]] = (char *)malloc(10);\n            sprintf(ans[idxs[i]], \"%d\", i + 1);\n        }\n    }\n    return ans;\n\n}"
-        }
-    ]
+  "name": "506. 相对名次",
+  "url": "https://leetcode-cn.com/problems/relative-ranks/",
+  "difficulty": "简单",
+  "tag": ["数组", "排序", "堆(优先队列)"],
+  "desc": "使用长度为 n 的数组 answer 返回获奖，其中 answer[i] 是第 i 位运动员的获奖情况。",
+  "solutions": [
+    {
+      "date": 1638374400000,
+      "time": 96,
+      "memory": 40.9,
+      "script": "typescript",
+      "desc": "排序。",
+      "code": "function findRelativeRanks(score: number[]): string[] {\n  const n = score.length;\n  const idxs = new Array(n)\n    .fill(0)\n    .map((_, i) => i)\n    .sort((a, b) => score[b] - score[a]);\n  const ans: string[] = [];\n  for (let i = 0; i < n; i++) {\n    const str =\n      i === 0 ? 'Gold Medal' : i === 1 ? 'Silver Medal' : i === 2 ? 'Bronze Medal' : `${i + 1}`;\n    ans[idxs[i]] = str;\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1638374400000,
+      "time": 16,
+      "memory": 7.9,
+      "script": "c",
+      "desc": "遍历。",
+      "code": "int *g_score;\nint comp(const void *a, const void *b) {\n    return g_score[*(int *)b] - g_score[*(int *)a];\n}\nchar ** findRelativeRanks(int* score, int scoreSize, int* returnSize){\n    g_score = score;\n    *returnSize = scoreSize;\n    int *idxs = (int *)malloc(sizeof(int) * scoreSize);\n    for (int i = 0; i < scoreSize; i++) idxs[i] = i;\n    qsort(idxs, scoreSize, sizeof(int), comp);\n    char **ans = (char **)malloc(sizeof(char *) * scoreSize);\n    for (int i = 0; i < scoreSize; i++) {\n        if (i == 0) ans[idxs[i]] = \"Gold Medal\";\n        else if (i == 1) ans[idxs[i]] = \"Silver Medal\";\n        else if (i == 2) ans[idxs[i]] = \"Bronze Medal\";\n        else {\n            ans[idxs[i]] = (char *)malloc(10);\n            sprintf(ans[idxs[i]], \"%d\", i + 1);\n        }\n    }\n    return ans;\n\n}"
+    }
+  ]
 }

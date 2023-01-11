@@ -1,30 +1,25 @@
 {
-    "name": "1700. 无法吃午餐的学生数量",
-    "url": "https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/",
-    "difficulty": "简单",
-    "tag": [
-        "栈",
-        "队列",
-        "数组",
-        "模拟"
-    ],
-    "desc": "请你返回无法吃午餐的学生数量。",
-    "solutions": [
-        {
-            "date": 1666108800000,
-            "time": 0,
-            "memory": 8,
-            "script": "cpp",
-            "desc": "模拟。",
-            "code": "class Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int n = sandwiches.size(), list[2] = {0};\n        queue<int> q1, q2;\n        for (auto &s : students) q1.push(s), list[s]++;;\n        for (auto &s : sandwiches) q2.push(s);\n        while (q2.size()) {\n            int size = q2.size();\n            while (q1.size() && q1.front() == q2.front()) list[q1.front()]--, q1.pop(), q2.pop();\n            if (q2.size()) q1.push(q1.front()), q1.pop();\n            if (q2.size() && list[q2.front()] == 0) break;\n        }\n        return q1.size();\n    }\n};"
-        },
-        {
-            "date": 1666108800000,
-            "time": 4,
-            "memory": 8.4,
-            "script": "cpp",
-            "desc": "模拟。",
-            "code": "class Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int list[2] = {0};\n        for (auto &s : students) list[s]++;\n        for (int i = 0; i < sandwiches.size() && list[sandwiches[i]]; i++) list[sandwiches[i]]--;\n        return list[0] + list[1];\n    }\n};"
-        }
-    ]
+  "name": "1700. 无法吃午餐的学生数量",
+  "url": "https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/",
+  "difficulty": "简单",
+  "tag": ["栈", "队列", "数组", "模拟"],
+  "desc": "请你返回无法吃午餐的学生数量。",
+  "solutions": [
+    {
+      "date": 1666108800000,
+      "time": 0,
+      "memory": 8,
+      "script": "cpp",
+      "desc": "模拟。",
+      "code": "class Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int n = sandwiches.size(), list[2] = {0};\n        queue<int> q1, q2;\n        for (auto &s : students) q1.push(s), list[s]++;;\n        for (auto &s : sandwiches) q2.push(s);\n        while (q2.size()) {\n            int size = q2.size();\n            while (q1.size() && q1.front() == q2.front()) list[q1.front()]--, q1.pop(), q2.pop();\n            if (q2.size()) q1.push(q1.front()), q1.pop();\n            if (q2.size() && list[q2.front()] == 0) break;\n        }\n        return q1.size();\n    }\n};"
+    },
+    {
+      "date": 1666108800000,
+      "time": 4,
+      "memory": 8.4,
+      "script": "cpp",
+      "desc": "模拟。",
+      "code": "class Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int list[2] = {0};\n        for (auto &s : students) list[s]++;\n        for (int i = 0; i < sandwiches.size() && list[sandwiches[i]]; i++) list[sandwiches[i]]--;\n        return list[0] + list[1];\n    }\n};"
+    }
+  ]
 }

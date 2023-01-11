@@ -1,28 +1,25 @@
 {
-    "name": "231. 2 的幂",
-    "url": "https://leetcode-cn.com/problems/power-of-two/",
-    "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "位运算"
-    ],
-    "desc": "给定一个整数，编写一个函数来判断它是否是 2 的幂次方。",
-    "solutions": [
-        {
-            "date": 1618243200000,
-            "time": 100,
-            "memory": 39.2,
-            "script": "typescript",
-            "desc": "log 去对数后判断是否为整数。",
-            "code": "function isPowerOfTwo(n: number): boolean {\n  return Number.isInteger(Math.log2(n));\n}"
-        },
-        {
-            "date": 1618243200000,
-            "time": 108,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "判读数的二进制状态是否只存在一个 1。",
-            "code": "function isPowerOfTwo(n: number): boolean {\n  return n <= 0\n    ? false\n    : n\n        .toString(2)\n        .split('')\n        .filter(v => v === '1').length === 1;\n}"
-        }
-    ]
+  "name": "231. 2 的幂",
+  "url": "https://leetcode-cn.com/problems/power-of-two/",
+  "difficulty": "简单",
+  "tag": ["位运算", "位运算"],
+  "desc": "给定一个整数，编写一个函数来判断它是否是 2 的幂次方。",
+  "solutions": [
+    {
+      "date": 1618243200000,
+      "time": 100,
+      "memory": 39.2,
+      "script": "typescript",
+      "desc": "log 去对数后判断是否为整数。",
+      "code": "function isPowerOfTwo(n: number): boolean {\n  return Number.isInteger(Math.log2(n));\n}"
+    },
+    {
+      "date": 1618243200000,
+      "time": 108,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "判读数的二进制状态是否只存在一个 1。",
+      "code": "function isPowerOfTwo(n: number): boolean {\n  return n <= 0\n    ? false\n    : n\n        .toString(2)\n        .split('')\n        .filter(v => v === '1').length === 1;\n}"
+    }
+  ]
 }

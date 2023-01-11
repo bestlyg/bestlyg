@@ -1,28 +1,25 @@
 {
-    "name": "220. 存在重复元素 III",
-    "url": "https://leetcode-cn.com/problems/contains-duplicate-iii/",
-    "difficulty": "中等",
-    "tag": [
-        "排序",
-        "OrderedMap"
-    ],
-    "desc": "给你一个整数数组 nums 和两个整数  k 和 t 。请你判断是否存在 两个不同下标 i 和 j，使得  abs(nums[i] - nums[j]) <= t ，同时又满足 abs(i - j) <= k 。如果存在则返回 true，不存在返回 false。",
-    "solutions": [
-        {
-            "date": 1618588800000,
-            "time": 176,
-            "memory": 56.9,
-            "script": "typescript",
-            "desc": "利用 map 储存后排序计算。",
-            "code": "function containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {\n  if (k === 0) return false;\n  const map = new Map<number, number[]>();\n  for (let i = 0, len = nums.length; i < len; i++) {\n    const num = nums[i];\n    let arr = map.get(num);\n    if (!arr) map.set(num, (arr = []));\n    arr.push(i);\n  }\n  const data = [...map.entries()].sort(([num1], [num2]) => num1 - num2);\n  const check = (arr1: number[], arr2: number[]) =>\n    (arr1[arr1.length] < arr2[0] && Math.abs(arr1[arr1.length] - arr2[0]) <= k) ||\n    (arr2[arr2.length] < arr1[0] && Math.abs(arr2[arr2.length] - arr1[0]) <= k) ||\n    arr1.some(i1 => arr2.some(i2 => Math.abs(i1 - i2) <= k));\n  for (let i = 0, l = data.length; i < l; i++) {\n    const arr1 = data[i][1];\n    if (arr1.some((v, i, arr) => (i === 0 ? false : v - arr[i - 1] <= k))) return true;\n    let index = i - 1;\n    while (index >= 0 && data[i][0] - data[index][0] <= t)\n      if (check(arr1, data[index--][1])) return true;\n  }\n  return false;\n}"
-        },
-        {
-            "date": 1628956800000,
-            "time": 864,
-            "memory": 46.3,
-            "script": "typescript",
-            "desc": "针对每次窗口进行二分排序。",
-            "code": "class SortSet {\n  set = new Set<number>();\n  initSuccess = true;\n  constructor(public arr: number[], public k: number) {\n    arr.sort((a, b) => a - b);\n    if (this.check()) {\n      this.initSuccess = false;\n      return;\n    }\n    for (const num of arr) {\n      if (this.set.has(num)) {\n        this.initSuccess = false;\n        break;\n      }\n      this.set.add(num);\n    }\n  }\n  add(num: number): boolean {\n    if (this.set.has(num)) return false;\n    let l = 0;\n    let r = this.arr.length - 1;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (this.arr[mid] >= num) r = mid;\n      else l = mid + 1;\n    }\n    this.arr.splice(this.arr[l] < num ? this.arr.length : l, 0, num);\n    this.set.add(num);\n    return true;\n  }\n  del(num: number): void {\n    let l = 0;\n    let r = this.arr.length - 1;\n    let mid!: number;\n    while (l <= r) {\n      mid = (l + r) >> 1;\n      if (this.arr[mid] > num) r = mid - 1;\n      else if (this.arr[mid] < num) l = mid + 1;\n      else break;\n    }\n    this.arr.splice(mid, 1);\n    this.set.delete(num);\n  }\n  check(): boolean {\n    for (let i = 0; i < this.arr.length - 1; i++) {\n      if (this.arr[i + 1] - this.arr[i] <= this.k) return true;\n    }\n    return false;\n  }\n}\nfunction containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {\n  const n = nums.length;\n  const set = new SortSet(nums.slice(0, k + 1), t);\n  if (!set.initSuccess) return true;\n  for (let i = k + 1; i < n; i++) {\n    set.del(nums[i - k - 1]);\n    if (!set.add(nums[i])) return true;\n    if (set.check()) return true;\n  }\n  return false;\n}"
-        }
-    ]
+  "name": "220. 存在重复元素 III",
+  "url": "https://leetcode-cn.com/problems/contains-duplicate-iii/",
+  "difficulty": "中等",
+  "tag": ["排序", "OrderedMap"],
+  "desc": "给你一个整数数组 nums 和两个整数  k 和 t 。请你判断是否存在 两个不同下标 i 和 j，使得  abs(nums[i] - nums[j]) <= t ，同时又满足 abs(i - j) <= k 。如果存在则返回 true，不存在返回 false。",
+  "solutions": [
+    {
+      "date": 1618588800000,
+      "time": 176,
+      "memory": 56.9,
+      "script": "typescript",
+      "desc": "利用 map 储存后排序计算。",
+      "code": "function containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {\n  if (k === 0) return false;\n  const map = new Map<number, number[]>();\n  for (let i = 0, len = nums.length; i < len; i++) {\n    const num = nums[i];\n    let arr = map.get(num);\n    if (!arr) map.set(num, (arr = []));\n    arr.push(i);\n  }\n  const data = [...map.entries()].sort(([num1], [num2]) => num1 - num2);\n  const check = (arr1: number[], arr2: number[]) =>\n    (arr1[arr1.length] < arr2[0] && Math.abs(arr1[arr1.length] - arr2[0]) <= k) ||\n    (arr2[arr2.length] < arr1[0] && Math.abs(arr2[arr2.length] - arr1[0]) <= k) ||\n    arr1.some(i1 => arr2.some(i2 => Math.abs(i1 - i2) <= k));\n  for (let i = 0, l = data.length; i < l; i++) {\n    const arr1 = data[i][1];\n    if (arr1.some((v, i, arr) => (i === 0 ? false : v - arr[i - 1] <= k))) return true;\n    let index = i - 1;\n    while (index >= 0 && data[i][0] - data[index][0] <= t)\n      if (check(arr1, data[index--][1])) return true;\n  }\n  return false;\n}"
+    },
+    {
+      "date": 1628956800000,
+      "time": 864,
+      "memory": 46.3,
+      "script": "typescript",
+      "desc": "针对每次窗口进行二分排序。",
+      "code": "class SortSet {\n  set = new Set<number>();\n  initSuccess = true;\n  constructor(public arr: number[], public k: number) {\n    arr.sort((a, b) => a - b);\n    if (this.check()) {\n      this.initSuccess = false;\n      return;\n    }\n    for (const num of arr) {\n      if (this.set.has(num)) {\n        this.initSuccess = false;\n        break;\n      }\n      this.set.add(num);\n    }\n  }\n  add(num: number): boolean {\n    if (this.set.has(num)) return false;\n    let l = 0;\n    let r = this.arr.length - 1;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (this.arr[mid] >= num) r = mid;\n      else l = mid + 1;\n    }\n    this.arr.splice(this.arr[l] < num ? this.arr.length : l, 0, num);\n    this.set.add(num);\n    return true;\n  }\n  del(num: number): void {\n    let l = 0;\n    let r = this.arr.length - 1;\n    let mid!: number;\n    while (l <= r) {\n      mid = (l + r) >> 1;\n      if (this.arr[mid] > num) r = mid - 1;\n      else if (this.arr[mid] < num) l = mid + 1;\n      else break;\n    }\n    this.arr.splice(mid, 1);\n    this.set.delete(num);\n  }\n  check(): boolean {\n    for (let i = 0; i < this.arr.length - 1; i++) {\n      if (this.arr[i + 1] - this.arr[i] <= this.k) return true;\n    }\n    return false;\n  }\n}\nfunction containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): boolean {\n  const n = nums.length;\n  const set = new SortSet(nums.slice(0, k + 1), t);\n  if (!set.initSuccess) return true;\n  for (let i = k + 1; i < n; i++) {\n    set.del(nums[i - k - 1]);\n    if (!set.add(nums[i])) return true;\n    if (set.check()) return true;\n  }\n  return false;\n}"
+    }
+  ]
 }

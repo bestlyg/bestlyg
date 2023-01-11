@@ -1,20 +1,17 @@
 {
-    "name": "488. 祖玛游戏",
-    "url": "https://leetcode-cn.com/problems/zuma-game/",
-    "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "回溯"
-    ],
-    "desc": "给你一个字符串 board ，表示桌面上最开始的那排球。另给你一个字符串 hand ，表示手里的彩球。请你按上述操作步骤移除掉桌上所有球，计算并返回所需的 最少 球数。如果不能移除桌上所有的球，返回 -1 。",
-    "solutions": [
-        {
-            "date": 1636387200000,
-            "time": 800,
-            "memory": 64.7,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "function format(board: string): string {\n  let flag = false;\n  let n = board.length;\n  do {\n    flag = false;\n    for (let i = 0; i < n - 1; i++) {\n      const ball = board[i];\n      let end = i;\n      let cnt = 1;\n      while (end < n - 1 && ball === board[end + 1]) {\n        end++;\n        cnt++;\n      }\n      if (cnt < 3) {\n        i = end;\n        continue;\n      }\n      board = board.substring(0, i) + board.substring(end + 1);\n      n = board.length;\n      flag = true;\n    }\n  } while (flag);\n  return board;\n}\nfunction findMinStep(board: string, hand: string): number {\n  const cache: Record<string, number> = {};\n  const map: Record<string, number> = { R: 0, Y: 0, B: 0, G: 0, W: 0 };\n  for (const ball of hand) map[ball]++;\n  return dfs(board, 0, map);\n  function dfs(board: string, cnt: number, map: Record<string, number>): number {\n    if (cache[board]) return cache[board];\n    if (board === '') return cnt;\n    const n = board.length;\n    const list = Object.entries(map)\n      .filter(([, v]) => v > 0)\n      .map(([k]) => k);\n    let ans = Infinity;\n    for (let i = 0; i < n; i++) {\n      for (let j = 0; j < list.length; j++) {\n        const ball = list[j];\n        map[ball]--;\n        const nextBoard = board.substring(0, i) + ball + board.substring(i);\n        const res = dfs(format(nextBoard), cnt + 1, map);\n        if (res !== -1) ans = Math.min(ans, res);\n        map[ball]++;\n      }\n    }\n    return (cache[board] = ans === Infinity ? -1 : ans);\n  }\n}"
-        }
-    ]
+  "name": "488. 祖玛游戏",
+  "url": "https://leetcode-cn.com/problems/zuma-game/",
+  "difficulty": "困难",
+  "tag": ["字符串", "回溯"],
+  "desc": "给你一个字符串 board ，表示桌面上最开始的那排球。另给你一个字符串 hand ，表示手里的彩球。请你按上述操作步骤移除掉桌上所有球，计算并返回所需的 最少 球数。如果不能移除桌上所有的球，返回 -1 。",
+  "solutions": [
+    {
+      "date": 1636387200000,
+      "time": 800,
+      "memory": 64.7,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "function format(board: string): string {\n  let flag = false;\n  let n = board.length;\n  do {\n    flag = false;\n    for (let i = 0; i < n - 1; i++) {\n      const ball = board[i];\n      let end = i;\n      let cnt = 1;\n      while (end < n - 1 && ball === board[end + 1]) {\n        end++;\n        cnt++;\n      }\n      if (cnt < 3) {\n        i = end;\n        continue;\n      }\n      board = board.substring(0, i) + board.substring(end + 1);\n      n = board.length;\n      flag = true;\n    }\n  } while (flag);\n  return board;\n}\nfunction findMinStep(board: string, hand: string): number {\n  const cache: Record<string, number> = {};\n  const map: Record<string, number> = { R: 0, Y: 0, B: 0, G: 0, W: 0 };\n  for (const ball of hand) map[ball]++;\n  return dfs(board, 0, map);\n  function dfs(board: string, cnt: number, map: Record<string, number>): number {\n    if (cache[board]) return cache[board];\n    if (board === '') return cnt;\n    const n = board.length;\n    const list = Object.entries(map)\n      .filter(([, v]) => v > 0)\n      .map(([k]) => k);\n    let ans = Infinity;\n    for (let i = 0; i < n; i++) {\n      for (let j = 0; j < list.length; j++) {\n        const ball = list[j];\n        map[ball]--;\n        const nextBoard = board.substring(0, i) + ball + board.substring(i);\n        const res = dfs(format(nextBoard), cnt + 1, map);\n        if (res !== -1) ans = Math.min(ans, res);\n        map[ball]++;\n      }\n    }\n    return (cache[board] = ans === Infinity ? -1 : ans);\n  }\n}"
+    }
+  ]
 }

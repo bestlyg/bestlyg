@@ -1,20 +1,17 @@
 {
-    "name": "1629. 按键持续时间最长的键",
-    "url": "https://leetcode-cn.com/problems/slowest-key/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
-    "desc": "请返回按键 持续时间最长 的键，如果有多个这样的键，则返回 按字母顺序排列最大 的那个键。",
-    "solutions": [
-        {
-            "date": 1641657600000,
-            "time": 4,
-            "memory": 10.5,
-            "script": "c++",
-            "desc": "遍历，记录最大值。",
-            "code": "class Solution {\n   public:\n    char slowestKey(vector<int>& releaseTimes, string keysPressed) {\n        int pre = 0, max_v = 0;\n        char max_c;\n        for (int i = 0; i < releaseTimes.size(); i++) {\n            int time = releaseTimes[i] - pre;\n            if (time > max_v || time == max_v && keysPressed[i] > max_c) {\n                max_v = time;\n                max_c = keysPressed[i];\n            }\n            pre = releaseTimes[i];\n        }\n        return max_c;\n    }\n};"
-        }
-    ]
+  "name": "1629. 按键持续时间最长的键",
+  "url": "https://leetcode-cn.com/problems/slowest-key/",
+  "difficulty": "简单",
+  "tag": ["数组", "字符串"],
+  "desc": "请返回按键 持续时间最长 的键，如果有多个这样的键，则返回 按字母顺序排列最大 的那个键。",
+  "solutions": [
+    {
+      "date": 1641657600000,
+      "time": 4,
+      "memory": 10.5,
+      "script": "c++",
+      "desc": "遍历，记录最大值。",
+      "code": "class Solution {\n   public:\n    char slowestKey(vector<int>& releaseTimes, string keysPressed) {\n        int pre = 0, max_v = 0;\n        char max_c;\n        for (int i = 0; i < releaseTimes.size(); i++) {\n            int time = releaseTimes[i] - pre;\n            if (time > max_v || time == max_v && keysPressed[i] > max_c) {\n                max_v = time;\n                max_c = keysPressed[i];\n            }\n            pre = releaseTimes[i];\n        }\n        return max_c;\n    }\n};"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "707. 设计链表",
-    "url": "https://leetcode.cn/problems/design-linked-list/",
-    "difficulty": "中等",
-    "tag": [
-        "设计",
-        "链表"
-    ],
-    "desc": "设计链表的实现。",
-    "solutions": [
-        {
-            "date": 1663862400000,
-            "time": 36,
-            "memory": 19.2,
-            "script": "cpp",
-            "desc": "构造链表。",
-            "code": "class Node {\npublic:\n    Node *next;\n    int val;\n    Node(int val): Node(val, nullptr) {}\n    Node(int val, Node *next): val(val), next(next) {}\n};\nclass MyLinkedList {\npublic:\n    int size;\n    Node *head, *tail;\n    MyLinkedList(): head(nullptr), tail(nullptr), size(0) {}\n    int get(int index) {\n        if (index < 0 || index >= size) return -1;\n        Node *p = head;\n        while (index--) p = p->next;\n        return p->val;\n    }\n    void addAtHead(int val) {\n        if (size == 0) return addFirst(val);\n        head = new Node(val, head);\n        size++;\n    }\n    void addAtTail(int val) {\n        if (size == 0) return addFirst(val);\n        Node *node = new Node(val);\n        tail->next = node;\n        tail = node;\n        size++;\n    }\n    void addAtIndex(int index, int val) {\n        if (index < 0 || index > size) return;\n        if (index == 0) return addAtHead(val);\n        if (index == size) return addAtTail(val);\n        Node *p = head;\n        while (--index) p = p->next;\n        Node *node = new Node(val, p->next);\n        p->next = node;\n        size++;\n    }\n    void deleteAtIndex(int index) {\n        if (index < 0 || index >= size) return;\n        if (size == 1) {\n            delete head;\n            head = tail = nullptr;\n        } else if (index == 0) {\n            Node *node = head;\n            head = head->next;\n            delete node;\n        } else {\n            bool isTail = index == size - 1;\n            Node *p = head;\n            while (--index) p = p->next;\n            Node *node = p->next;\n            p->next = node->next;\n            if (isTail) tail = p;\n            delete node;\n        }\n        size--;\n    }\n    void addFirst(int val){\n        head = tail = new Node(val);\n        size++;\n    }\n};"
-        }
-    ]
+  "name": "707. 设计链表",
+  "url": "https://leetcode.cn/problems/design-linked-list/",
+  "difficulty": "中等",
+  "tag": ["设计", "链表"],
+  "desc": "设计链表的实现。",
+  "solutions": [
+    {
+      "date": 1663862400000,
+      "time": 36,
+      "memory": 19.2,
+      "script": "cpp",
+      "desc": "构造链表。",
+      "code": "class Node {\npublic:\n    Node *next;\n    int val;\n    Node(int val): Node(val, nullptr) {}\n    Node(int val, Node *next): val(val), next(next) {}\n};\nclass MyLinkedList {\npublic:\n    int size;\n    Node *head, *tail;\n    MyLinkedList(): head(nullptr), tail(nullptr), size(0) {}\n    int get(int index) {\n        if (index < 0 || index >= size) return -1;\n        Node *p = head;\n        while (index--) p = p->next;\n        return p->val;\n    }\n    void addAtHead(int val) {\n        if (size == 0) return addFirst(val);\n        head = new Node(val, head);\n        size++;\n    }\n    void addAtTail(int val) {\n        if (size == 0) return addFirst(val);\n        Node *node = new Node(val);\n        tail->next = node;\n        tail = node;\n        size++;\n    }\n    void addAtIndex(int index, int val) {\n        if (index < 0 || index > size) return;\n        if (index == 0) return addAtHead(val);\n        if (index == size) return addAtTail(val);\n        Node *p = head;\n        while (--index) p = p->next;\n        Node *node = new Node(val, p->next);\n        p->next = node;\n        size++;\n    }\n    void deleteAtIndex(int index) {\n        if (index < 0 || index >= size) return;\n        if (size == 1) {\n            delete head;\n            head = tail = nullptr;\n        } else if (index == 0) {\n            Node *node = head;\n            head = head->next;\n            delete node;\n        } else {\n            bool isTail = index == size - 1;\n            Node *p = head;\n            while (--index) p = p->next;\n            Node *node = p->next;\n            p->next = node->next;\n            if (isTail) tail = p;\n            delete node;\n        }\n        size--;\n    }\n    void addFirst(int val){\n        head = tail = new Node(val);\n        size++;\n    }\n};"
+    }
+  ]
 }

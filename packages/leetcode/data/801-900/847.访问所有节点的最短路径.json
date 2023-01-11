@@ -1,14 +1,8 @@
 {
-    "name": "847. 访问所有节点的最短路径",
-    "url": "https://leetcode-cn.com/problems/shortest-path-visiting-all-nodes/",
-    "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "广度优先搜索",
-        "图",
-        "动态规划",
-        "状态压缩"
-    ],
-    "desc": "返回能够访问所有节点的最短路径的长度。",
-    "solutions": []
+  "name": "847. 访问所有节点的最短路径",
+  "url": "https://leetcode-cn.com/problems/shortest-path-visiting-all-nodes/",
+  "difficulty": "困难",
+  "tag": ["位运算", "广度优先搜索", "图", "动态规划", "状态压缩"],
+  "desc": "返回能够访问所有节点的最短路径的长度。",
+  "solutions": []
 }

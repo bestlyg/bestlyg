@@ -1,32 +1,25 @@
 {
-    "name": "464. 我能赢吗",
-    "url": "https://leetcode-cn.com/problems/can-i-win/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "记忆化搜索",
-        "数学",
-        "动态规划",
-        "状态压缩",
-        "博弈"
-    ],
-    "desc": "判断先出手的玩家是否能稳赢。",
-    "solutions": [
-        {
-            "date": 1627488000000,
-            "time": 1008,
-            "memory": 161.2,
-            "script": "javascript",
-            "desc": "记忆化 dfs。",
-            "code": "var canIWin = function (maxChoosableInteger, desiredTotal) {\n  if (((maxChoosableInteger + 1) * maxChoosableInteger) / 2 < desiredTotal) return false;\n  const map = {};\n  return dfs();\n  function dfs(num = 0, total = desiredTotal) {\n    if (map[num]) return map[num];\n    if (total <= 0) return (map[num] = true);\n    for (let i = 1; i <= maxChoosableInteger; i++) {\n      if (num & (1 << i)) continue;\n      if (i >= total || !dfs(num | (1 << i), total - i)) return (map[num] = true);\n    }\n    return (map[num] = false);\n  }\n};"
-        },
-        {
-            "date": 1653148800000,
-            "time": 856,
-            "memory": 85.7,
-            "script": "cpp",
-            "desc": "dfs,记忆化，当前人赢的时候说明下一层级需要输。",
-            "code": "class Solution {\n   public:\n    int maxChoosableInteger, desiredTotal, maxBit;\n    unordered_map<int, bool> m;\n    bool canIWin(int maxChoosableInteger, int desiredTotal) {\n        if ((1 + maxChoosableInteger) * maxChoosableInteger / 2 < desiredTotal)\n            return false;\n        this->maxBit = 1 << maxChoosableInteger;\n        this->maxChoosableInteger = maxChoosableInteger;\n        this->desiredTotal = desiredTotal;\n        return dfs(0, 0);\n    }\n    bool dfs(int used, int sum) {\n        if (m.count(used)) return m[used];\n        if (sum >= desiredTotal) return m[used] = true;\n        if (check(used, sum)) return m[used] = true;\n        int ans = false;\n        for (int i = 1; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (used & bit) continue;\n            ans = ans || !dfs(used | bit, sum + i);\n        }\n        return m[used] = ans;\n    }\n    bool check(int used, int sum) {\n        int num = desiredTotal - sum;\n        if (num > maxChoosableInteger) return false;\n        for (int i = num; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (!(used & bit)) return true;\n        }\n        return false;\n    }\n};"
-        }
-    ]
+  "name": "464. 我能赢吗",
+  "url": "https://leetcode-cn.com/problems/can-i-win/",
+  "difficulty": "中等",
+  "tag": ["位运算", "记忆化搜索", "数学", "动态规划", "状态压缩", "博弈"],
+  "desc": "判断先出手的玩家是否能稳赢。",
+  "solutions": [
+    {
+      "date": 1627488000000,
+      "time": 1008,
+      "memory": 161.2,
+      "script": "javascript",
+      "desc": "记忆化 dfs。",
+      "code": "var canIWin = function (maxChoosableInteger, desiredTotal) {\n  if (((maxChoosableInteger + 1) * maxChoosableInteger) / 2 < desiredTotal) return false;\n  const map = {};\n  return dfs();\n  function dfs(num = 0, total = desiredTotal) {\n    if (map[num]) return map[num];\n    if (total <= 0) return (map[num] = true);\n    for (let i = 1; i <= maxChoosableInteger; i++) {\n      if (num & (1 << i)) continue;\n      if (i >= total || !dfs(num | (1 << i), total - i)) return (map[num] = true);\n    }\n    return (map[num] = false);\n  }\n};"
+    },
+    {
+      "date": 1653148800000,
+      "time": 856,
+      "memory": 85.7,
+      "script": "cpp",
+      "desc": "dfs,记忆化，当前人赢的时候说明下一层级需要输。",
+      "code": "class Solution {\n   public:\n    int maxChoosableInteger, desiredTotal, maxBit;\n    unordered_map<int, bool> m;\n    bool canIWin(int maxChoosableInteger, int desiredTotal) {\n        if ((1 + maxChoosableInteger) * maxChoosableInteger / 2 < desiredTotal)\n            return false;\n        this->maxBit = 1 << maxChoosableInteger;\n        this->maxChoosableInteger = maxChoosableInteger;\n        this->desiredTotal = desiredTotal;\n        return dfs(0, 0);\n    }\n    bool dfs(int used, int sum) {\n        if (m.count(used)) return m[used];\n        if (sum >= desiredTotal) return m[used] = true;\n        if (check(used, sum)) return m[used] = true;\n        int ans = false;\n        for (int i = 1; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (used & bit) continue;\n            ans = ans || !dfs(used | bit, sum + i);\n        }\n        return m[used] = ans;\n    }\n    bool check(int used, int sum) {\n        int num = desiredTotal - sum;\n        if (num > maxChoosableInteger) return false;\n        for (int i = num; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (!(used & bit)) return true;\n        }\n        return false;\n    }\n};"
+    }
+  ]
 }

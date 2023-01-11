@@ -1,28 +1,25 @@
 {
-    "name": "967. 连续差相同的数字",
-    "url": "https://leetcode-cn.com/problems/numbers-with-same-consecutive-differences/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "回溯"
-    ],
-    "desc": "返回所有长度为 n 且满足其每两个连续位上的数字之间的差的绝对值为 k 的 非负整数 。",
-    "solutions": [
-        {
-            "date": 1640793600000,
-            "time": 0,
-            "memory": 8.5,
-            "script": "c++",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    void dfs(vector<int> &ans, int n, int k, int num) {\n        if (n == 0) {\n            ans.push_back(num);\n            return;\n        }\n        if (num % 10 + k <= 9) {\n            dfs(ans, n - 1, k, num * 10 + k + num % 10);\n        }\n        if (k != 0 && num % 10 - k >= 0) {\n            dfs(ans, n - 1, k, num * 10 - k + num % 10);\n        }\n    }\n    vector<int> numsSameConsecDiff(int n, int k) {\n        vector<int> ans;\n        for (int i = 1; i <= 9; i++) dfs(ans, n - 1, k, i);\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1645113600000,
-            "time": 0,
-            "memory": 8.3,
-            "script": "c++",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    int n, k;\n    vector<int> ans;\n    void dfs(int cur, int cnt, int last) {\n        if (cnt == 0) {\n            ans.push_back(cur);\n            return;\n        }\n        if (last + k < 10) dfs(cur * 10 + last + k, cnt - 1, last + k);\n        if (k != 0 && last - k >= 0)\n            dfs(cur * 10 + last - k, cnt - 1, last - k);\n    }\n    vector<int> numsSameConsecDiff(int n, int k) {\n        this->n = n;\n        this->k = k;\n        for (int i = 1; i <= 9; i++) dfs(i, n - 1, i);\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "967. 连续差相同的数字",
+  "url": "https://leetcode-cn.com/problems/numbers-with-same-consecutive-differences/",
+  "difficulty": "中等",
+  "tag": ["广度优先搜索", "回溯"],
+  "desc": "返回所有长度为 n 且满足其每两个连续位上的数字之间的差的绝对值为 k 的 非负整数 。",
+  "solutions": [
+    {
+      "date": 1640793600000,
+      "time": 0,
+      "memory": 8.5,
+      "script": "c++",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    void dfs(vector<int> &ans, int n, int k, int num) {\n        if (n == 0) {\n            ans.push_back(num);\n            return;\n        }\n        if (num % 10 + k <= 9) {\n            dfs(ans, n - 1, k, num * 10 + k + num % 10);\n        }\n        if (k != 0 && num % 10 - k >= 0) {\n            dfs(ans, n - 1, k, num * 10 - k + num % 10);\n        }\n    }\n    vector<int> numsSameConsecDiff(int n, int k) {\n        vector<int> ans;\n        for (int i = 1; i <= 9; i++) dfs(ans, n - 1, k, i);\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1645113600000,
+      "time": 0,
+      "memory": 8.3,
+      "script": "c++",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    int n, k;\n    vector<int> ans;\n    void dfs(int cur, int cnt, int last) {\n        if (cnt == 0) {\n            ans.push_back(cur);\n            return;\n        }\n        if (last + k < 10) dfs(cur * 10 + last + k, cnt - 1, last + k);\n        if (k != 0 && last - k >= 0)\n            dfs(cur * 10 + last - k, cnt - 1, last - k);\n    }\n    vector<int> numsSameConsecDiff(int n, int k) {\n        this->n = n;\n        this->k = k;\n        for (int i = 1; i <= 9; i++) dfs(i, n - 1, i);\n        return ans;\n    }\n};"
+    }
+  ]
 }

@@ -1,30 +1,25 @@
 {
-    "name": "310. 最小高度树",
-    "url": "https://leetcode-cn.com/problems/minimum-height-trees/",
-    "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "拓扑排序"
-    ],
-    "desc": "请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。",
-    "solutions": [
-        {
-            "date": 1647187200000,
-            "time": 180,
-            "memory": 77.6,
-            "script": "c++",
-            "desc": "从所有叶子节点开始遍历，由外到内。",
-            "code": "class Solution {\n   public:\n    struct node {\n        int idx, cnt;\n        unordered_set<int> chilren;\n    };\n    vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges) {\n        if (n == 1) return vector(1, 0);\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].idx = i;\n            list[i].cnt = 0;\n        }\n        for (auto &edge : edges) {\n            int n1 = edge[0], n2 = edge[1];\n            list[n1].cnt++;\n            list[n2].cnt++;\n            list[n1].chilren.insert(n2);\n            list[n2].chilren.insert(n1);\n        }\n        queue<int> q;\n        for (int i = 0; i < n; i++) {\n            if (list[i].cnt == 1) q.push(i);\n        }\n        vector<int> ans;\n        while (q.size()) {\n            ans.clear();\n            int size = q.size();\n            for (int i = 0; i < size; i++) {\n                int node = q.front();\n                q.pop();\n                ans.push_back(node);\n                list[node].cnt--;\n                for (auto &child : list[node].chilren) {\n                    list[child].cnt--;\n                    if (list[child].cnt == 1) q.push(child);\n                }\n            }\n        }\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1649174400000,
-            "time": 172,
-            "memory": 77.7,
-            "script": "cpp",
-            "desc": "从外向内遍历。",
-            "code": "class Solution {\n   public:\n    struct node {\n        int val, cnt;\n        unordered_set<int> children;\n    };\n    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {\n        if (n == 1) return {0};\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].val = i;\n            list[i].cnt = 0;\n        }\n        for (auto& edge : edges) {\n            int n0 = edge[0], n1 = edge[1];\n            list[n0].children.insert(n1);\n            list[n1].children.insert(n0);\n            list[n0].cnt++;\n            list[n1].cnt++;\n        }\n        queue<int> q;\n        for (auto& node : list) {\n            if (node.cnt == 1) q.push(node.val);\n        }\n        vector<int> ans;\n        int size = q.size();\n        while (q.size()) {\n            int idx = q.front();\n            ans.push_back(idx);\n            q.pop();\n            list[idx].cnt--;\n            for (auto& child : list[idx].children) {\n                if (--list[child].cnt != 1) continue;\n                q.push(child);\n            }\n            if (--size == 0) {\n                size = q.size();\n                if (size) ans.clear();\n            }\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "310. 最小高度树",
+  "url": "https://leetcode-cn.com/problems/minimum-height-trees/",
+  "difficulty": "中等",
+  "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
+  "desc": "请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。",
+  "solutions": [
+    {
+      "date": 1647187200000,
+      "time": 180,
+      "memory": 77.6,
+      "script": "c++",
+      "desc": "从所有叶子节点开始遍历，由外到内。",
+      "code": "class Solution {\n   public:\n    struct node {\n        int idx, cnt;\n        unordered_set<int> chilren;\n    };\n    vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges) {\n        if (n == 1) return vector(1, 0);\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].idx = i;\n            list[i].cnt = 0;\n        }\n        for (auto &edge : edges) {\n            int n1 = edge[0], n2 = edge[1];\n            list[n1].cnt++;\n            list[n2].cnt++;\n            list[n1].chilren.insert(n2);\n            list[n2].chilren.insert(n1);\n        }\n        queue<int> q;\n        for (int i = 0; i < n; i++) {\n            if (list[i].cnt == 1) q.push(i);\n        }\n        vector<int> ans;\n        while (q.size()) {\n            ans.clear();\n            int size = q.size();\n            for (int i = 0; i < size; i++) {\n                int node = q.front();\n                q.pop();\n                ans.push_back(node);\n                list[node].cnt--;\n                for (auto &child : list[node].chilren) {\n                    list[child].cnt--;\n                    if (list[child].cnt == 1) q.push(child);\n                }\n            }\n        }\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1649174400000,
+      "time": 172,
+      "memory": 77.7,
+      "script": "cpp",
+      "desc": "从外向内遍历。",
+      "code": "class Solution {\n   public:\n    struct node {\n        int val, cnt;\n        unordered_set<int> children;\n    };\n    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {\n        if (n == 1) return {0};\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].val = i;\n            list[i].cnt = 0;\n        }\n        for (auto& edge : edges) {\n            int n0 = edge[0], n1 = edge[1];\n            list[n0].children.insert(n1);\n            list[n1].children.insert(n0);\n            list[n0].cnt++;\n            list[n1].cnt++;\n        }\n        queue<int> q;\n        for (auto& node : list) {\n            if (node.cnt == 1) q.push(node.val);\n        }\n        vector<int> ans;\n        int size = q.size();\n        while (q.size()) {\n            int idx = q.front();\n            ans.push_back(idx);\n            q.pop();\n            list[idx].cnt--;\n            for (auto& child : list[idx].children) {\n                if (--list[child].cnt != 1) continue;\n                q.push(child);\n            }\n            if (--size == 0) {\n                size = q.size();\n                if (size) ans.clear();\n            }\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

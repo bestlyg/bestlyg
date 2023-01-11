@@ -33,4 +33,3 @@
 // const src = 'cbabc';
 // const dist = 'abcabba';
 // myers(src, dist);
-

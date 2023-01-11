@@ -1,28 +1,25 @@
 {
-    "name": "1109. 航班预订统计",
-    "url": "https://leetcode-cn.com/problems/corporate-flight-bookings/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
-    "desc": "请你返回一个长度为 n 的数组 answer，其中 answer[i] 是航班 i 上预订的座位总数。",
-    "solutions": [
-        {
-            "date": 1630339200000,
-            "time": 164,
-            "memory": 58.4,
-            "script": "typescript",
-            "desc": "差分。",
-            "code": "function corpFlightBookings(bookings: number[][], n: number): number[] {\n  const nums = new Array(n).fill(0);\n  for (const [first, last, seats] of bookings) {\n    nums[first - 1] += seats;\n    if (last < n) nums[last] -= seats;\n  }\n  for (let i = 1; i < n; i++) nums[i] += nums[i - 1];\n  return nums;\n}"
-        },
-        {
-            "date": 1636819200000,
-            "time": 1544,
-            "memory": 58.5,
-            "script": "typescript",
-            "desc": "遍历。",
-            "code": "function corpFlightBookings(bookings: number[][], n: number): number[] {\n  const ans: number[] = new Array(n).fill(0);\n  for (const [first, last, cnt] of bookings) {\n    for (let i = first; i <= last; i++) ans[i - 1] += cnt;\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "1109. 航班预订统计",
+  "url": "https://leetcode-cn.com/problems/corporate-flight-bookings/",
+  "difficulty": "中等",
+  "tag": ["数组", "前缀和"],
+  "desc": "请你返回一个长度为 n 的数组 answer，其中 answer[i] 是航班 i 上预订的座位总数。",
+  "solutions": [
+    {
+      "date": 1630339200000,
+      "time": 164,
+      "memory": 58.4,
+      "script": "typescript",
+      "desc": "差分。",
+      "code": "function corpFlightBookings(bookings: number[][], n: number): number[] {\n  const nums = new Array(n).fill(0);\n  for (const [first, last, seats] of bookings) {\n    nums[first - 1] += seats;\n    if (last < n) nums[last] -= seats;\n  }\n  for (let i = 1; i < n; i++) nums[i] += nums[i - 1];\n  return nums;\n}"
+    },
+    {
+      "date": 1636819200000,
+      "time": 1544,
+      "memory": 58.5,
+      "script": "typescript",
+      "desc": "遍历。",
+      "code": "function corpFlightBookings(bookings: number[][], n: number): number[] {\n  const ans: number[] = new Array(n).fill(0);\n  for (const [first, last, cnt] of bookings) {\n    for (let i = first; i <= last; i++) ans[i - 1] += cnt;\n  }\n  return ans;\n}"
+    }
+  ]
 }

@@ -1,21 +1,17 @@
 {
-    "name": "1091. 二进制矩阵中的最短路径",
-    "url": "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
-    "desc": "给你一个 n x n 的二进制矩阵 grid 中，返回矩阵中最短 畅通路径 的长度。如果不存在这样的路径，返回 -1 。",
-    "solutions": [
-        {
-            "date": 1627142400000,
-            "time": 208,
-            "memory": 47.8,
-            "script": "typescript",
-            "desc": "bfs。",
-            "code": "function shortestPathBinaryMatrix(grid: number[][]): number {\n  const n = grid.length;\n  if (grid[0][0] === 1) return -1;\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>([format(0, 0)]);\n  const add = (row: number, col: number, level: number) => {\n    if (grid[row][col] === 1) return;\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  let ans = -1;\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    if (row === n - 1 && col === n - 1) ans = Math.max(ans, level);\n    if (row > 0) add(row - 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (row > 0 && col > 0) add(row - 1, col - 1, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col < n - 1) add(row, col + 1, level + 1);\n    if (row < n - 1 && col < n - 1) add(row + 1, col + 1, level + 1);\n    if (row > 0 && col < n - 1) add(row - 1, col + 1, level + 1);\n    if (row < n - 1 && col > 0) add(row + 1, col - 1, level + 1);\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "1091. 二进制矩阵中的最短路径",
+  "url": "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/",
+  "difficulty": "中等",
+  "tag": ["广度优先搜索", "数组", "矩阵"],
+  "desc": "给你一个 n x n 的二进制矩阵 grid 中，返回矩阵中最短 畅通路径 的长度。如果不存在这样的路径，返回 -1 。",
+  "solutions": [
+    {
+      "date": 1627142400000,
+      "time": 208,
+      "memory": 47.8,
+      "script": "typescript",
+      "desc": "bfs。",
+      "code": "function shortestPathBinaryMatrix(grid: number[][]): number {\n  const n = grid.length;\n  if (grid[0][0] === 1) return -1;\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>([format(0, 0)]);\n  const add = (row: number, col: number, level: number) => {\n    if (grid[row][col] === 1) return;\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  let ans = -1;\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    if (row === n - 1 && col === n - 1) ans = Math.max(ans, level);\n    if (row > 0) add(row - 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (row > 0 && col > 0) add(row - 1, col - 1, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col < n - 1) add(row, col + 1, level + 1);\n    if (row < n - 1 && col < n - 1) add(row + 1, col + 1, level + 1);\n    if (row > 0 && col < n - 1) add(row - 1, col + 1, level + 1);\n    if (row < n - 1 && col > 0) add(row + 1, col - 1, level + 1);\n  }\n  return ans;\n}"
+    }
+  ]
 }

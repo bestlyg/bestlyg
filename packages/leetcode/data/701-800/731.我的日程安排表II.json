@@ -1,22 +1,17 @@
 {
-    "name": "731. 我的日程安排表 II",
-    "url": "https://leetcode.cn/problems/my-calendar-ii/",
-    "difficulty": "中等",
-    "tag": [
-        "设计",
-        "线段树",
-        "二分查找",
-        "有序集合"
-    ],
-    "desc": "实现一个 MyCalendar 类来存放你的日程安排。如果要添加的时间内不会导致三重预订时，则可以存储这个新的日程安排。",
-    "solutions": [
-        {
-            "date": 1658160000000,
-            "time": 28,
-            "memory": 2.7,
-            "script": "rust",
-            "desc": "记录已经重叠的部分，每次遍历时判断新添加的是否和已重叠部分有冲突。",
-            "code": "struct MyCalendarTwo {\n    list: Vec<(i32, i32)>,\n    overlap: Vec<(i32, i32)>,\n}\nimpl MyCalendarTwo {\n    fn new() -> Self {\n        MyCalendarTwo {\n            list: Vec::new(),\n            overlap: Vec::new(),\n        }\n    }\n    fn book(&mut self, start: i32, end: i32) -> bool {\n        let block = (start, end);\n        for item in &self.overlap {\n            if self.is_overlap(&block, item) {\n                return false;\n            }\n        }\n        for item in &self.list {\n            if self.is_overlap(&block, item) {\n                self.overlap.push((block.0.max(item.0), block.1.min(item.1)));\n            }\n        }\n        self.list.push(block);\n        print!(\"{}\", block.0);\n        true\n    }\n    fn is_overlap(&self, v1: &(i32, i32), v2: &(i32, i32)) -> bool {\n        v1.0 < v2.1 && v1.1 > v2.0\n    }\n}"
-        }
-    ]
+  "name": "731. 我的日程安排表 II",
+  "url": "https://leetcode.cn/problems/my-calendar-ii/",
+  "difficulty": "中等",
+  "tag": ["设计", "线段树", "二分查找", "有序集合"],
+  "desc": "实现一个 MyCalendar 类来存放你的日程安排。如果要添加的时间内不会导致三重预订时，则可以存储这个新的日程安排。",
+  "solutions": [
+    {
+      "date": 1658160000000,
+      "time": 28,
+      "memory": 2.7,
+      "script": "rust",
+      "desc": "记录已经重叠的部分，每次遍历时判断新添加的是否和已重叠部分有冲突。",
+      "code": "struct MyCalendarTwo {\n    list: Vec<(i32, i32)>,\n    overlap: Vec<(i32, i32)>,\n}\nimpl MyCalendarTwo {\n    fn new() -> Self {\n        MyCalendarTwo {\n            list: Vec::new(),\n            overlap: Vec::new(),\n        }\n    }\n    fn book(&mut self, start: i32, end: i32) -> bool {\n        let block = (start, end);\n        for item in &self.overlap {\n            if self.is_overlap(&block, item) {\n                return false;\n            }\n        }\n        for item in &self.list {\n            if self.is_overlap(&block, item) {\n                self.overlap.push((block.0.max(item.0), block.1.min(item.1)));\n            }\n        }\n        self.list.push(block);\n        print!(\"{}\", block.0);\n        true\n    }\n    fn is_overlap(&self, v1: &(i32, i32), v2: &(i32, i32)) -> bool {\n        v1.0 < v2.1 && v1.1 > v2.0\n    }\n}"
+    }
+  ]
 }

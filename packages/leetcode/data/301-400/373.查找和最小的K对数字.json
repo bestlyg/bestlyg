@@ -1,10 +1,8 @@
 {
-    "name": "373. 查找和最小的 K 对数字",
-    "url": "https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/",
-    "difficulty": "中等",
-    "tag": [
-        "堆"
-    ],
-    "desc": "找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。",
-    "solutions": []
+  "name": "373. 查找和最小的 K 对数字",
+  "url": "https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/",
+  "difficulty": "中等",
+  "tag": ["堆"],
+  "desc": "找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。",
+  "solutions": []
 }

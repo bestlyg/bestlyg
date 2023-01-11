@@ -1,29 +1,25 @@
 {
-    "name": "1464. 数组中两元素的最大乘积",
-    "url": "https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序",
-        "堆(优先队列)"
-    ],
-    "desc": "给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)\\*(nums[j]-1) 取得最大值。",
-    "solutions": [
-        {
-            "date": 1661443200000,
-            "time": 0,
-            "memory": 2,
-            "script": "rust",
-            "desc": "排序。",
-            "code": "impl Solution {\n    pub fn max_product(nums: Vec<i32>) -> i32 {\n        let mut nums = nums;\n        nums.sort();\n        (nums[nums.len() - 1] - 1) * (nums[nums.len() - 2] - 1)\n    }\n}"
-        },
-        {
-            "date": 1661443200000,
-            "time": 0,
-            "memory": 2,
-            "script": "rust",
-            "desc": "遍历。",
-            "code": "impl Solution {\n    pub fn max_product(nums: Vec<i32>) -> i32 {\n        let (mut num1, mut num2) = (nums[0], nums[1]);\n        if num2 > num1 {\n            num1 ^= num2;\n            num2 ^= num1;\n            num1 ^= num2;\n        }\n        let mut i = 2;\n        while i < nums.len() {\n            if nums[i] > num1 {\n                num2 = num1;\n                num1 = nums[i];\n            } else if nums[i] > num2 {\n                num2 = nums[i];\n            }\n            i += 1;\n        }\n        (num1 - 1) * (num2 - 1)\n    }\n}"
-        }
-    ]
+  "name": "1464. 数组中两元素的最大乘积",
+  "url": "https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array/",
+  "difficulty": "简单",
+  "tag": ["数组", "排序", "堆(优先队列)"],
+  "desc": "给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)\\*(nums[j]-1) 取得最大值。",
+  "solutions": [
+    {
+      "date": 1661443200000,
+      "time": 0,
+      "memory": 2,
+      "script": "rust",
+      "desc": "排序。",
+      "code": "impl Solution {\n    pub fn max_product(nums: Vec<i32>) -> i32 {\n        let mut nums = nums;\n        nums.sort();\n        (nums[nums.len() - 1] - 1) * (nums[nums.len() - 2] - 1)\n    }\n}"
+    },
+    {
+      "date": 1661443200000,
+      "time": 0,
+      "memory": 2,
+      "script": "rust",
+      "desc": "遍历。",
+      "code": "impl Solution {\n    pub fn max_product(nums: Vec<i32>) -> i32 {\n        let (mut num1, mut num2) = (nums[0], nums[1]);\n        if num2 > num1 {\n            num1 ^= num2;\n            num2 ^= num1;\n            num1 ^= num2;\n        }\n        let mut i = 2;\n        while i < nums.len() {\n            if nums[i] > num1 {\n                num2 = num1;\n                num1 = nums[i];\n            } else if nums[i] > num2 {\n                num2 = nums[i];\n            }\n            i += 1;\n        }\n        (num1 - 1) * (num2 - 1)\n    }\n}"
+    }
+  ]
 }

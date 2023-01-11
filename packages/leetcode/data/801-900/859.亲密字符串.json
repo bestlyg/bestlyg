@@ -1,27 +1,25 @@
 {
-    "name": "859. 亲密字符串",
-    "url": "https://leetcode-cn.com/problems/buddy-strings/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "给定两个由小写字母构成的字符串 A 和 B ，只要我们可以通过交换 A 中的两个字母得到与 B 相等的结果，就返回 true ；否则返回 false 。",
-    "solutions": [
-        {
-            "date": 1615651200000,
-            "time": 92,
-            "memory": 40.5,
-            "script": "typescript",
-            "desc": "取三段进行比较。",
-            "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  return (\n    a.substring(0, i) === b.substring(0, i) &&\n    a.substring(i + 1, j) === b.substring(i + 1, j) &&\n    a.substring(j + 1) === b.substring(j + 1)\n  );\n}"
-        },
-        {
-            "date": 1615651200000,
-            "time": 100,
-            "memory": 40.6,
-            "script": "typescript",
-            "desc": "优化题解 1,直接判断最后一段。",
-            "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  while (++j < len) if (a[j] !== b[j]) return false;\n  return true;\n}"
-        }
-    ]
+  "name": "859. 亲密字符串",
+  "url": "https://leetcode-cn.com/problems/buddy-strings/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "给定两个由小写字母构成的字符串 A 和 B ，只要我们可以通过交换 A 中的两个字母得到与 B 相等的结果，就返回 true ；否则返回 false 。",
+  "solutions": [
+    {
+      "date": 1615651200000,
+      "time": 92,
+      "memory": 40.5,
+      "script": "typescript",
+      "desc": "取三段进行比较。",
+      "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  return (\n    a.substring(0, i) === b.substring(0, i) &&\n    a.substring(i + 1, j) === b.substring(i + 1, j) &&\n    a.substring(j + 1) === b.substring(j + 1)\n  );\n}"
+    },
+    {
+      "date": 1615651200000,
+      "time": 100,
+      "memory": 40.6,
+      "script": "typescript",
+      "desc": "优化题解 1,直接判断最后一段。",
+      "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  while (++j < len) if (a[j] !== b[j]) return false;\n  return true;\n}"
+    }
+  ]
 }

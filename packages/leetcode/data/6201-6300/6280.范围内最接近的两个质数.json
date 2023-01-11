@@ -1,10 +1,8 @@
 {
-    "name": "6280. 范围内最接近的两个质数",
-    "url": "https://leetcode.cn/problems/closest-prime-numbers-in-range/",
-    "difficulty": "中等",
-    "tag": [
-        ""
-    ],
-    "desc": "请你返回正整数数组 ans = [nums1, nums2] 。",
-    "solutions": []
+  "name": "6280. 范围内最接近的两个质数",
+  "url": "https://leetcode.cn/problems/closest-prime-numbers-in-range/",
+  "difficulty": "中等",
+  "tag": [""],
+  "desc": "请你返回正整数数组 ans = [nums1, nums2] 。",
+  "solutions": []
 }

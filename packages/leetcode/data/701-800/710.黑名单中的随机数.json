@@ -1,23 +1,17 @@
 {
-    "name": "710. 黑名单中的随机数",
-    "url": "https://leetcode.cn/problems/random-pick-with-blacklist/",
-    "difficulty": "困难",
-    "tag": [
-        "哈希表",
-        "数学",
-        "二分查找",
-        "排序",
-        "随机化"
-    ],
-    "desc": "给定一个整数 n 和一个 无重复 黑名单整数数组  blacklist 。设计一种算法，从 [0, n - 1] 范围内的任意整数中选取一个   未加入   黑名单  blacklist  的整数。任何在上述范围内且不在黑名单  blacklist  中的整数都应该有 同等的可能性 被返回。",
-    "solutions": [
-        {
-            "date": 1656172800000,
-            "time": 112,
-            "memory": 68.6,
-            "script": "cpp",
-            "desc": "修改随机范围把范围内不可能取到的值映射出去。",
-            "code": "class Solution {\n   public:\n    int n;\n    unordered_map<int, int> m;\n    Solution(int n, vector<int> &blacklist) {\n        srand(time(0));\n        int size = blacklist.size(), nextN = n - size;\n        unordered_set<int> s;\n        for (auto &num : blacklist) {\n            if (num >= nextN) s.emplace(num);\n        }\n        int i = nextN;\n        for (auto &num : blacklist) {\n            if (num >= nextN) continue;\n            while (s.count(i)) i++;\n            m[num] = i++;\n        }\n        this->n = nextN;\n    }\n    int pick() {\n        int num = floor(random() % n);\n        return m.count(num) ? m[num] : num;\n    }\n};"
-        }
-    ]
+  "name": "710. 黑名单中的随机数",
+  "url": "https://leetcode.cn/problems/random-pick-with-blacklist/",
+  "difficulty": "困难",
+  "tag": ["哈希表", "数学", "二分查找", "排序", "随机化"],
+  "desc": "给定一个整数 n 和一个 无重复 黑名单整数数组  blacklist 。设计一种算法，从 [0, n - 1] 范围内的任意整数中选取一个   未加入   黑名单  blacklist  的整数。任何在上述范围内且不在黑名单  blacklist  中的整数都应该有 同等的可能性 被返回。",
+  "solutions": [
+    {
+      "date": 1656172800000,
+      "time": 112,
+      "memory": 68.6,
+      "script": "cpp",
+      "desc": "修改随机范围把范围内不可能取到的值映射出去。",
+      "code": "class Solution {\n   public:\n    int n;\n    unordered_map<int, int> m;\n    Solution(int n, vector<int> &blacklist) {\n        srand(time(0));\n        int size = blacklist.size(), nextN = n - size;\n        unordered_set<int> s;\n        for (auto &num : blacklist) {\n            if (num >= nextN) s.emplace(num);\n        }\n        int i = nextN;\n        for (auto &num : blacklist) {\n            if (num >= nextN) continue;\n            while (s.count(i)) i++;\n            m[num] = i++;\n        }\n        this->n = nextN;\n    }\n    int pick() {\n        int num = floor(random() % n);\n        return m.count(num) ? m[num] : num;\n    }\n};"
+    }
+  ]
 }

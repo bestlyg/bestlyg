@@ -1,27 +1,25 @@
 {
-    "name": "456. 132 模式",
-    "url": "https://leetcode-cn.com/problems/132-pattern/",
-    "difficulty": "中等",
-    "tag": [
-        "栈"
-    ],
-    "desc": "给定一个整数序列：a1, a2, ..., an，一个 132 模式的子序列  ai, aj, ak  被定义为：当 i < j < k 时，ai < ak < aj。设计一个算法，当给定有  n 个数字的序列时，验证这个序列中是否含有 132 模式的子序列。",
-    "solutions": [
-        {
-            "date": 1616515200000,
-            "time": 112,
-            "memory": 40.1,
-            "script": "typescript",
-            "desc": "单调栈。",
-            "code": "function find132pattern(nums: number[]): boolean {\n  const len = nums.length;\n  if (len < 3) return false;\n  const stack: number[] = [];\n  let num2: number = -Infinity;\n  for (let i = len - 1; i >= 0; i--) {\n    const num = nums[i];\n    if (num < num2) return true;\n    while (stack.length > 0 && stack[stack.length - 1] < num) num2 = stack.pop()!;\n    stack.push(num);\n  }\n  return false;\n}"
-        },
-        {
-            "date": 1626710400000,
-            "time": 92,
-            "memory": 53.2,
-            "script": "typescript",
-            "desc": "找当前值，左侧最小值和右侧不大于当前值的最大值。",
-            "code": "function find132pattern(nums: number[]): boolean {\n  const n = nums.length;\n  const l: number[] = [Infinity];\n  for (let i = 1; i < n; i++) l[i] = Math.min(l[i - 1], nums[i - 1]);\n  const stack: number[] = [];\n  for (let i = n - 1; i >= 0; i--) {\n    const mid = nums[i];\n    let r: number | null = null;\n    while (stack.length && stack[stack.length - 1] < mid) r = stack.pop()!;\n    if (r && mid > r && mid > l[i] && r > l[i]) return true;\n    stack.push(mid);\n  }\n  return false;\n}"
-        }
-    ]
+  "name": "456. 132 模式",
+  "url": "https://leetcode-cn.com/problems/132-pattern/",
+  "difficulty": "中等",
+  "tag": ["栈"],
+  "desc": "给定一个整数序列：a1, a2, ..., an，一个 132 模式的子序列  ai, aj, ak  被定义为：当 i < j < k 时，ai < ak < aj。设计一个算法，当给定有  n 个数字的序列时，验证这个序列中是否含有 132 模式的子序列。",
+  "solutions": [
+    {
+      "date": 1616515200000,
+      "time": 112,
+      "memory": 40.1,
+      "script": "typescript",
+      "desc": "单调栈。",
+      "code": "function find132pattern(nums: number[]): boolean {\n  const len = nums.length;\n  if (len < 3) return false;\n  const stack: number[] = [];\n  let num2: number = -Infinity;\n  for (let i = len - 1; i >= 0; i--) {\n    const num = nums[i];\n    if (num < num2) return true;\n    while (stack.length > 0 && stack[stack.length - 1] < num) num2 = stack.pop()!;\n    stack.push(num);\n  }\n  return false;\n}"
+    },
+    {
+      "date": 1626710400000,
+      "time": 92,
+      "memory": 53.2,
+      "script": "typescript",
+      "desc": "找当前值，左侧最小值和右侧不大于当前值的最大值。",
+      "code": "function find132pattern(nums: number[]): boolean {\n  const n = nums.length;\n  const l: number[] = [Infinity];\n  for (let i = 1; i < n; i++) l[i] = Math.min(l[i - 1], nums[i - 1]);\n  const stack: number[] = [];\n  for (let i = n - 1; i >= 0; i--) {\n    const mid = nums[i];\n    let r: number | null = null;\n    while (stack.length && stack[stack.length - 1] < mid) r = stack.pop()!;\n    if (r && mid > r && mid > l[i] && r > l[i]) return true;\n    stack.push(mid);\n  }\n  return false;\n}"
+    }
+  ]
 }

@@ -1,28 +1,25 @@
 {
-    "name": "1200. 最小绝对差",
-    "url": "https://leetcode-cn.com/problems/minimum-absolute-difference/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序"
-    ],
-    "desc": "请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。",
-    "solutions": [
-        {
-            "date": 1648483200000,
-            "time": 52,
-            "memory": 32.3,
-            "script": "cpp",
-            "desc": "排序。",
-            "code": "class Solution {\n   public:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        vector<vector<int>> ans;\n        sort(arr.begin(), arr.end());\n        int prev = arr[0], nmax = INT_MAX;\n        for (int i = 1; i < arr.size(); i++) {\n            int num = arr[i];\n            if (num - prev <= nmax) {\n                if (num - prev < nmax) ans.clear();\n                vector<int> item;\n                item.push_back(prev);\n                item.push_back(num);\n                ans.push_back(item);\n                nmax = num - prev;\n            }\n            prev = num;\n        }\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1656864000000,
-            "time": 60,
-            "memory": 31.8,
-            "script": "cpp",
-            "desc": "遍历，对于每个点找到他的最小值。",
-            "code": "class Solution {\n  public:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        vector<vector<int>> ans;\n        sort(arr.begin(), arr.end());\n        int nmin = INT_MAX;\n        for (int l = 0, r = 1; r < arr.size(); r++) {\n            while (l < r && abs(arr[l] - arr[r]) > nmin) l++;\n            if (l == r) continue;\n            int nextmin = abs(arr[l] - arr[r]);\n            if (nextmin < nmin) ans.clear();\n            nmin = nextmin;\n            vector<int> item(2);\n            item[0] = arr[l];\n            item[1] = arr[r];\n            ans.push_back(item);\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "1200. 最小绝对差",
+  "url": "https://leetcode-cn.com/problems/minimum-absolute-difference/",
+  "difficulty": "简单",
+  "tag": ["数组", "排序"],
+  "desc": "请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。",
+  "solutions": [
+    {
+      "date": 1648483200000,
+      "time": 52,
+      "memory": 32.3,
+      "script": "cpp",
+      "desc": "排序。",
+      "code": "class Solution {\n   public:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        vector<vector<int>> ans;\n        sort(arr.begin(), arr.end());\n        int prev = arr[0], nmax = INT_MAX;\n        for (int i = 1; i < arr.size(); i++) {\n            int num = arr[i];\n            if (num - prev <= nmax) {\n                if (num - prev < nmax) ans.clear();\n                vector<int> item;\n                item.push_back(prev);\n                item.push_back(num);\n                ans.push_back(item);\n                nmax = num - prev;\n            }\n            prev = num;\n        }\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1656864000000,
+      "time": 60,
+      "memory": 31.8,
+      "script": "cpp",
+      "desc": "遍历，对于每个点找到他的最小值。",
+      "code": "class Solution {\n  public:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        vector<vector<int>> ans;\n        sort(arr.begin(), arr.end());\n        int nmin = INT_MAX;\n        for (int l = 0, r = 1; r < arr.size(); r++) {\n            while (l < r && abs(arr[l] - arr[r]) > nmin) l++;\n            if (l == r) continue;\n            int nextmin = abs(arr[l] - arr[r]);\n            if (nextmin < nmin) ans.clear();\n            nmin = nextmin;\n            vector<int> item(2);\n            item[0] = arr[l];\n            item[1] = arr[r];\n            ans.push_back(item);\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

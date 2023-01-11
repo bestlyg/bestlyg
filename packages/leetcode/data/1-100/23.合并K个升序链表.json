@@ -1,29 +1,25 @@
 {
-    "name": "23. 合并 K 个升序链表",
-    "url": "https://leetcode-cn.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/",
-    "difficulty": "困难",
-    "tag": [
-        "堆",
-        "链表",
-        "分治算法"
-    ],
-    "desc": "给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。",
-    "solutions": [
-        {
-            "date": 1587830400000,
-            "time": 404,
-            "memory": 37.3,
-            "script": "javascript",
-            "desc": "循环数组进行添加，把数组两两添加，添加时判断数值小以及是否为 null。",
-            "code": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode[]} lists\n * @return {ListNode}\n */\nvar mergeKLists = function (lists) {\n  if (lists.length === 0) return null;\n  if (lists.length === 1) return lists[0];\n  let resNode;\n  for (const node of lists) {\n    if (node === null) continue;\n    if (resNode === undefined) resNode = node;\n    else resNode = add(resNode, node);\n  }\n  return resNode === undefined ? null : resNode;\n};\nfunction add(node1, node2) {\n  let tempNode1 = node1;\n  let tempNode2 = node2;\n  let resNode;\n  let tempNode3;\n  while (tempNode1 !== null || tempNode2 !== null) {\n    let minNode;\n    if (tempNode1 === null) {\n      minNode = tempNode2;\n      tempNode2 = tempNode2.next;\n    } else if (tempNode2 === null) {\n      minNode = tempNode1;\n      tempNode1 = tempNode1.next;\n    } else if (tempNode1.val < tempNode2.val) {\n      minNode = tempNode1;\n      tempNode1 = tempNode1.next;\n    } else {\n      minNode = tempNode2;\n      tempNode2 = tempNode2.next;\n    }\n    if (resNode === undefined) {\n      tempNode3 = resNode = minNode;\n    } else {\n      tempNode3.next = minNode;\n      tempNode3 = tempNode3.next;\n    }\n  }\n  return resNode;\n}"
-        },
-        {
-            "date": 1620835200000,
-            "time": 220,
-            "memory": 48.3,
-            "script": "typescript",
-            "desc": "归并思想排序。",
-            "code": "function mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n  lists = lists.filter(list => list !== null);\n  const len = lists.length;\n  if (len === 0) return null;\n  const merge = (start: number, end: number): ListNode | null => {\n    console.log(start, end);\n    if (start > end) return null;\n    if (start === end) return lists[start];\n    const mid = (start + end) >> 1;\n    const list1 = merge(start, mid);\n    const list2 = merge(mid + 1, end);\n    if (list1 === null) return list2;\n    if (list2 === null) return list1;\n    const first = new ListNode(0);\n    let temp = first;\n    let p1: ListNode | null = list1;\n    let p2: ListNode | null = list2;\n    while (p1 && p2) {\n      if (p1.val <= p2.val) {\n        temp.next = p1;\n        temp = temp.next;\n        p1 = p1.next;\n      } else {\n        temp.next = p2;\n        temp = temp.next;\n        p2 = p2.next;\n      }\n    }\n    if (p1) temp.next = p1;\n    if (p2) temp.next = p2;\n    return first.next;\n  };\n  return merge(0, len - 1);\n}"
-        }
-    ]
+  "name": "23. 合并 K 个升序链表",
+  "url": "https://leetcode-cn.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/",
+  "difficulty": "困难",
+  "tag": ["堆", "链表", "分治算法"],
+  "desc": "给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。",
+  "solutions": [
+    {
+      "date": 1587830400000,
+      "time": 404,
+      "memory": 37.3,
+      "script": "javascript",
+      "desc": "循环数组进行添加，把数组两两添加，添加时判断数值小以及是否为 null。",
+      "code": "/**\n * Definition for singly-linked list.\n * function ListNode(val) {\n *     this.val = val;\n *     this.next = null;\n * }\n */\n/**\n * @param {ListNode[]} lists\n * @return {ListNode}\n */\nvar mergeKLists = function (lists) {\n  if (lists.length === 0) return null;\n  if (lists.length === 1) return lists[0];\n  let resNode;\n  for (const node of lists) {\n    if (node === null) continue;\n    if (resNode === undefined) resNode = node;\n    else resNode = add(resNode, node);\n  }\n  return resNode === undefined ? null : resNode;\n};\nfunction add(node1, node2) {\n  let tempNode1 = node1;\n  let tempNode2 = node2;\n  let resNode;\n  let tempNode3;\n  while (tempNode1 !== null || tempNode2 !== null) {\n    let minNode;\n    if (tempNode1 === null) {\n      minNode = tempNode2;\n      tempNode2 = tempNode2.next;\n    } else if (tempNode2 === null) {\n      minNode = tempNode1;\n      tempNode1 = tempNode1.next;\n    } else if (tempNode1.val < tempNode2.val) {\n      minNode = tempNode1;\n      tempNode1 = tempNode1.next;\n    } else {\n      minNode = tempNode2;\n      tempNode2 = tempNode2.next;\n    }\n    if (resNode === undefined) {\n      tempNode3 = resNode = minNode;\n    } else {\n      tempNode3.next = minNode;\n      tempNode3 = tempNode3.next;\n    }\n  }\n  return resNode;\n}"
+    },
+    {
+      "date": 1620835200000,
+      "time": 220,
+      "memory": 48.3,
+      "script": "typescript",
+      "desc": "归并思想排序。",
+      "code": "function mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n  lists = lists.filter(list => list !== null);\n  const len = lists.length;\n  if (len === 0) return null;\n  const merge = (start: number, end: number): ListNode | null => {\n    console.log(start, end);\n    if (start > end) return null;\n    if (start === end) return lists[start];\n    const mid = (start + end) >> 1;\n    const list1 = merge(start, mid);\n    const list2 = merge(mid + 1, end);\n    if (list1 === null) return list2;\n    if (list2 === null) return list1;\n    const first = new ListNode(0);\n    let temp = first;\n    let p1: ListNode | null = list1;\n    let p2: ListNode | null = list2;\n    while (p1 && p2) {\n      if (p1.val <= p2.val) {\n        temp.next = p1;\n        temp = temp.next;\n        p1 = p1.next;\n      } else {\n        temp.next = p2;\n        temp = temp.next;\n        p2 = p2.next;\n      }\n    }\n    if (p1) temp.next = p1;\n    if (p2) temp.next = p2;\n    return first.next;\n  };\n  return merge(0, len - 1);\n}"
+    }
+  ]
 }

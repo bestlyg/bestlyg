@@ -1,20 +1,17 @@
 {
-    "name": "452. 用最少数量的箭引爆气球",
-    "url": "https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "排序"
-    ],
-    "desc": "给你一个数组 points ，其中 points [i] = [xstart,xend] ，返回引爆所有气球所必须射出的最小弓箭数。",
-    "solutions": [
-        {
-            "date": 1606147200000,
-            "time": 140,
-            "memory": 45.9,
-            "script": "typescript",
-            "desc": "[参考链接](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/solution/yong-zui-shao-shu-liang-de-jian-yin-bao-qi-qiu-1-2/)。",
-            "code": "function findMinArrowShots(points: number[][]): number {\n  if (points.length === 0) return 0;\n  points.sort(([, p1], [, p2]) => p1 - p2);\n  let [, pos] = points[0];\n  let ans = 1;\n  for (let [b0, b1] of points) {\n    if (b0 > pos) {\n      pos = b1;\n      ans++;\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "452. 用最少数量的箭引爆气球",
+  "url": "https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/",
+  "difficulty": "中等",
+  "tag": ["贪心", "排序"],
+  "desc": "给你一个数组 points ，其中 points [i] = [xstart,xend] ，返回引爆所有气球所必须射出的最小弓箭数。",
+  "solutions": [
+    {
+      "date": 1606147200000,
+      "time": 140,
+      "memory": 45.9,
+      "script": "typescript",
+      "desc": "[参考链接](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/solution/yong-zui-shao-shu-liang-de-jian-yin-bao-qi-qiu-1-2/)。",
+      "code": "function findMinArrowShots(points: number[][]): number {\n  if (points.length === 0) return 0;\n  points.sort(([, p1], [, p2]) => p1 - p2);\n  let [, pos] = points[0];\n  let ans = 1;\n  for (let [b0, b1] of points) {\n    if (b0 > pos) {\n      pos = b1;\n      ans++;\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

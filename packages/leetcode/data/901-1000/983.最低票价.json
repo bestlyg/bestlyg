@@ -1,19 +1,17 @@
 {
-    "name": "983. 最低票价",
-    "url": "https://leetcode-cn.com/problems/minimum-cost-for-tickets/",
-    "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
-    "desc": "在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为  days  的数组给出。每一项是一个从  1  到  365  的整数。",
-    "solutions": [
-        {
-            "date": 1588694400000,
-            "time": 208,
-            "memory": 38.2,
-            "script": "javascript",
-            "desc": "回溯+剪枝，递归判断每次遍历的值，通过 cache 储存计算过的值。",
-            "code": "/**\n * @param {number[]} days\n * @param {number[]} costs\n * @return {number}\n */\nvar mincostTickets = function (days, costs) {\n  const len = days.length;\n  const costDays = [1, 7, 30];\n  const lastDay = days[len];\n  const cache = {};\n  return getMin(0, 0);\n  function getMin(start, maxDay) {\n    if (cache[format(start, maxDay)]) return cache[format(start, maxDay)];\n    while (start < len && days[start] < maxDay) start++;\n    if (start === len || lastDay <= maxDay) return 0;\n    let minCost = 999999;\n    if (days[start] > maxDay)\n      for (let j = 0; j < 3; j++) {\n        const cost = costs[j];\n        minCost = Math.min(getMin(start + 1, days[start] + costDays[j] - 1) + cost, minCost);\n      }\n    else minCost = getMin(start + 1, maxDay);\n    cache[format(start, maxDay)] = minCost;\n    return minCost;\n  }\n  function format(start, maxDay) {\n    return `${start}-${maxDay}`;\n  }\n};"
-        }
-    ]
+  "name": "983. 最低票价",
+  "url": "https://leetcode-cn.com/problems/minimum-cost-for-tickets/",
+  "difficulty": "中等",
+  "tag": ["动态规划"],
+  "desc": "在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为  days  的数组给出。每一项是一个从  1  到  365  的整数。",
+  "solutions": [
+    {
+      "date": 1588694400000,
+      "time": 208,
+      "memory": 38.2,
+      "script": "javascript",
+      "desc": "回溯+剪枝，递归判断每次遍历的值，通过 cache 储存计算过的值。",
+      "code": "/**\n * @param {number[]} days\n * @param {number[]} costs\n * @return {number}\n */\nvar mincostTickets = function (days, costs) {\n  const len = days.length;\n  const costDays = [1, 7, 30];\n  const lastDay = days[len];\n  const cache = {};\n  return getMin(0, 0);\n  function getMin(start, maxDay) {\n    if (cache[format(start, maxDay)]) return cache[format(start, maxDay)];\n    while (start < len && days[start] < maxDay) start++;\n    if (start === len || lastDay <= maxDay) return 0;\n    let minCost = 999999;\n    if (days[start] > maxDay)\n      for (let j = 0; j < 3; j++) {\n        const cost = costs[j];\n        minCost = Math.min(getMin(start + 1, days[start] + costDays[j] - 1) + cost, minCost);\n      }\n    else minCost = getMin(start + 1, maxDay);\n    cache[format(start, maxDay)] = minCost;\n    return minCost;\n  }\n  function format(start, maxDay) {\n    return `${start}-${maxDay}`;\n  }\n};"
+    }
+  ]
 }

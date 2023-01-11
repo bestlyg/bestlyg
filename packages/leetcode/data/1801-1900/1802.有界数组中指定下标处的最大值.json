@@ -1,11 +1,8 @@
 {
-    "name": "1802. 有界数组中指定下标处的最大值",
-    "url": "https://leetcode.cn/problems/maximum-value-at-a-given-index-in-a-bounded-array/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "二分查找"
-    ],
-    "desc": "返回你所构造的数组中的 nums[index] 。",
-    "solutions": []
+  "name": "1802. 有界数组中指定下标处的最大值",
+  "url": "https://leetcode.cn/problems/maximum-value-at-a-given-index-in-a-bounded-array/",
+  "difficulty": "中等",
+  "tag": ["贪心", "二分查找"],
+  "desc": "返回你所构造的数组中的 nums[index] 。",
+  "solutions": []
 }

@@ -1,36 +1,33 @@
 {
-    "name": "442. 数组中重复的数据",
-    "url": "https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
-    "desc": "给你一个长度为 n 的整数数组 nums ，其中 nums 的所有整数都在范围 [1, n] 内，且每个整数出现 一次 或 两次 。请你找出所有出现 两次 的整数，并以数组形式返回。",
-    "solutions": [
-        {
-            "date": 1651939200000,
-            "time": 80,
-            "memory": 43.5,
-            "script": "cpp",
-            "desc": "哈希存储。",
-            "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        unordered_set<int> s;\n        vector<int> ans;\n        for (auto& num : nums) {\n            if (s.count(num))\n                ans.push_back(num);\n            else\n                s.insert(num);\n        }\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1651939200000,
-            "time": 24,
-            "memory": 32.7,
-            "script": "cpp",
-            "desc": "遍历，与对应索引的位置进行交换，如果索引上已存在说明重复。",
-            "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        vector<int> ans;\n        for (int i = 0; i < nums.size(); i++) {\n            while (nums[i] != nums[nums[i] - 1])\n                swap(nums[i], nums[nums[i] - 1]);\n        }\n        for (int i = 0; i < nums.size(); i++) {\n            if (nums[i] != i + 1) ans.push_back(nums[i]);\n        }\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1651939200000,
-            "time": 48,
-            "memory": 32.7,
-            "script": "cpp",
-            "desc": "遍历，对应位置取负。",
-            "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        vector<int> ans;\n        for (int i = 0; i < nums.size(); i++) {\n            int num = abs(nums[i]);\n            if (nums[num - 1] < 0)\n                ans.push_back(num);\n            else\n                nums[num - 1] *= -1;\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "442. 数组中重复的数据",
+  "url": "https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/",
+  "difficulty": "中等",
+  "tag": ["数组", "哈希表"],
+  "desc": "给你一个长度为 n 的整数数组 nums ，其中 nums 的所有整数都在范围 [1, n] 内，且每个整数出现 一次 或 两次 。请你找出所有出现 两次 的整数，并以数组形式返回。",
+  "solutions": [
+    {
+      "date": 1651939200000,
+      "time": 80,
+      "memory": 43.5,
+      "script": "cpp",
+      "desc": "哈希存储。",
+      "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        unordered_set<int> s;\n        vector<int> ans;\n        for (auto& num : nums) {\n            if (s.count(num))\n                ans.push_back(num);\n            else\n                s.insert(num);\n        }\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1651939200000,
+      "time": 24,
+      "memory": 32.7,
+      "script": "cpp",
+      "desc": "遍历，与对应索引的位置进行交换，如果索引上已存在说明重复。",
+      "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        vector<int> ans;\n        for (int i = 0; i < nums.size(); i++) {\n            while (nums[i] != nums[nums[i] - 1])\n                swap(nums[i], nums[nums[i] - 1]);\n        }\n        for (int i = 0; i < nums.size(); i++) {\n            if (nums[i] != i + 1) ans.push_back(nums[i]);\n        }\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1651939200000,
+      "time": 48,
+      "memory": 32.7,
+      "script": "cpp",
+      "desc": "遍历，对应位置取负。",
+      "code": "class Solution {\n   public:\n    vector<int> findDuplicates(vector<int>& nums) {\n        vector<int> ans;\n        for (int i = 0; i < nums.size(); i++) {\n            int num = abs(nums[i]);\n            if (nums[num - 1] < 0)\n                ans.push_back(num);\n            else\n                nums[num - 1] *= -1;\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

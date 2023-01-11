@@ -1,12 +1,8 @@
 {
-    "name": "1781. 所有子字符串美丽值之和",
-    "url": "https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/",
-    "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
-    "desc": "给你一个字符串 s ，请你返回它所有子字符串的 美丽值 之和。",
-    "solutions": []
+  "name": "1781. 所有子字符串美丽值之和",
+  "url": "https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/",
+  "difficulty": "中等",
+  "tag": ["哈希表", "字符串", "计数"],
+  "desc": "给你一个字符串 s ，请你返回它所有子字符串的 美丽值 之和。",
+  "solutions": []
 }

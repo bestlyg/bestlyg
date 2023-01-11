@@ -1,20 +1,17 @@
 {
-    "name": "940. 不同的子序列 II",
-    "url": "https://leetcode.cn/problems/distinct-subsequences-ii/",
-    "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
-    "desc": "给定一个字符串 s，计算 s 的 不同非空子序列 的个数。因为结果可能很大，所以返回答案需要对 10^9 + 7 取余 。",
-    "solutions": [
-        {
-            "date": 1665676800000,
-            "time": 160,
-            "memory": 8.4,
-            "script": "cpp",
-            "desc": "动态规划，每个点记录当前值和遍历过的后个节点。",
-            "code": "const int mod = 1e9 + 7;\nstruct Item {\n    int val;\n    bool next[26];\n    Item(): val(0) {\n        memset(next, 0, sizeof(bool) * 26);\n    }\n};\nclass Solution {\npublic:\n    int distinctSubseqII(string s) {\n        int n = s.size(), ans = 0;\n        bool charList[26] = {0};\n        vector<Item> dp(n);\n        for (int i = 0; i < n; i++) {\n            char c = s[i];\n            if (charList[c - 'a'] == 0) dp[i].val += 1, charList[c - 'a'] = 1;\n            for (int j = 0; j < i; j++) {\n                if (dp[j].next[c - 'a']) continue;\n                dp[j].next[c - 'a'] = true;\n                dp[i].val = (dp[i].val + dp[j].val) % mod;\n            }\n            ans = (ans + dp[i].val) % mod;\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "940. 不同的子序列 II",
+  "url": "https://leetcode.cn/problems/distinct-subsequences-ii/",
+  "difficulty": "困难",
+  "tag": ["字符串", "动态规划"],
+  "desc": "给定一个字符串 s，计算 s 的 不同非空子序列 的个数。因为结果可能很大，所以返回答案需要对 10^9 + 7 取余 。",
+  "solutions": [
+    {
+      "date": 1665676800000,
+      "time": 160,
+      "memory": 8.4,
+      "script": "cpp",
+      "desc": "动态规划，每个点记录当前值和遍历过的后个节点。",
+      "code": "const int mod = 1e9 + 7;\nstruct Item {\n    int val;\n    bool next[26];\n    Item(): val(0) {\n        memset(next, 0, sizeof(bool) * 26);\n    }\n};\nclass Solution {\npublic:\n    int distinctSubseqII(string s) {\n        int n = s.size(), ans = 0;\n        bool charList[26] = {0};\n        vector<Item> dp(n);\n        for (int i = 0; i < n; i++) {\n            char c = s[i];\n            if (charList[c - 'a'] == 0) dp[i].val += 1, charList[c - 'a'] = 1;\n            for (int j = 0; j < i; j++) {\n                if (dp[j].next[c - 'a']) continue;\n                dp[j].next[c - 'a'] = true;\n                dp[i].val = (dp[i].val + dp[j].val) % mod;\n            }\n            ans = (ans + dp[i].val) % mod;\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

@@ -1,25 +1,17 @@
 {
-    "name": "218. 天际线问题",
-    "url": "https://leetcode-cn.com/problems/the-skyline-problem/",
-    "difficulty": "困难",
-    "tag": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "分治",
-        "有序集合",
-        "扫描线",
-        "堆(优先队列)"
-    ],
-    "desc": "城市的天际线是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回由这些建筑物形成的 天际线 。",
-    "solutions": [
-        {
-            "date": 1626105600000,
-            "time": 392,
-            "memory": 46.2,
-            "script": "typescript",
-            "desc": "[参考链接](https://leetcode-cn.com/problems/the-skyline-problem/solution/js-sao-miao-xian-fa-jian-dan-yi-dong-by-fleetingso/)。",
-            "code": "function getSkyline(buildings: number[][]): number[][] {\n  const list: [number, number][] = [];\n  buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));\n  list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));\n  const heights: number[] = [0];\n  const remove = (h: number) => {\n    for (let i = 0, l = heights.length; i < l; i++)\n      if (heights[i] === h) {\n        heights.splice(i, 1);\n        return;\n      }\n  };\n  let ans: number[][] = [];\n  let preH: number | null = null;\n  for (const [idx, h] of list) {\n    if (h < 0) heights.push(-h);\n    else remove(h);\n    let maxH = Math.max(...heights);\n    if (preH !== maxH) ans.push([idx, (preH = maxH)]);\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "218. 天际线问题",
+  "url": "https://leetcode-cn.com/problems/the-skyline-problem/",
+  "difficulty": "困难",
+  "tag": ["树状数组", "线段树", "数组", "分治", "有序集合", "扫描线", "堆(优先队列)"],
+  "desc": "城市的天际线是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回由这些建筑物形成的 天际线 。",
+  "solutions": [
+    {
+      "date": 1626105600000,
+      "time": 392,
+      "memory": 46.2,
+      "script": "typescript",
+      "desc": "[参考链接](https://leetcode-cn.com/problems/the-skyline-problem/solution/js-sao-miao-xian-fa-jian-dan-yi-dong-by-fleetingso/)。",
+      "code": "function getSkyline(buildings: number[][]): number[][] {\n  const list: [number, number][] = [];\n  buildings.forEach(([l, r, h]) => list.push([l, -h], [r, h]));\n  list.sort(([i1, h1], [i2, h2]) => (i1 === i2 ? h1 - h2 : i1 - i2));\n  const heights: number[] = [0];\n  const remove = (h: number) => {\n    for (let i = 0, l = heights.length; i < l; i++)\n      if (heights[i] === h) {\n        heights.splice(i, 1);\n        return;\n      }\n  };\n  let ans: number[][] = [];\n  let preH: number | null = null;\n  for (const [idx, h] of list) {\n    if (h < 0) heights.push(-h);\n    else remove(h);\n    let maxH = Math.max(...heights);\n    if (preH !== maxH) ans.push([idx, (preH = maxH)]);\n  }\n  return ans;\n}"
+    }
+  ]
 }

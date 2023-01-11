@@ -1,27 +1,25 @@
 {
-    "name": "693. 交替位二进制数",
-    "url": "https://leetcode-cn.com/problems/binary-number-with-alternating-bits/",
-    "difficulty": "简单",
-    "tag": [
-        "位运算"
-    ],
-    "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
-    "solutions": [
-        {
-            "date": 1647360000000,
-            "time": 0,
-            "memory": 5.8,
-            "script": "c++",
-            "desc": "遍历每一位。",
-            "code": "class Solution {\n   public:\n    bool hasAlternatingBits(int n) {\n        bool check = (n & 1) == 0;\n        for (n >>= 1; n; n >>= 1, check = !check) {\n            if ((n & 1) == 0) {\n                if (check) return false;\n            } else {\n                if (!check) return false;\n            }\n        }\n        return true;\n    }\n};"
-        },
-        {
-            "date": 1648396800000,
-            "time": 0,
-            "memory": 5.9,
-            "script": "typescript",
-            "desc": "遍历。",
-            "code": "class Solution {\n   public:\n    bool hasAlternatingBits(int n) {\n        bool f = n & 1;\n        for (; n; f ^= 1, n >>= 1) {\n            if ((n & 1) != f) return false;\n        }\n        return true;\n    }\n};"
-        }
-    ]
+  "name": "693. 交替位二进制数",
+  "url": "https://leetcode-cn.com/problems/binary-number-with-alternating-bits/",
+  "difficulty": "简单",
+  "tag": ["位运算"],
+  "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
+  "solutions": [
+    {
+      "date": 1647360000000,
+      "time": 0,
+      "memory": 5.8,
+      "script": "c++",
+      "desc": "遍历每一位。",
+      "code": "class Solution {\n   public:\n    bool hasAlternatingBits(int n) {\n        bool check = (n & 1) == 0;\n        for (n >>= 1; n; n >>= 1, check = !check) {\n            if ((n & 1) == 0) {\n                if (check) return false;\n            } else {\n                if (!check) return false;\n            }\n        }\n        return true;\n    }\n};"
+    },
+    {
+      "date": 1648396800000,
+      "time": 0,
+      "memory": 5.9,
+      "script": "typescript",
+      "desc": "遍历。",
+      "code": "class Solution {\n   public:\n    bool hasAlternatingBits(int n) {\n        bool f = n & 1;\n        for (; n; f ^= 1, n >>= 1) {\n            if ((n & 1) != f) return false;\n        }\n        return true;\n    }\n};"
+    }
+  ]
 }

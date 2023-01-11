@@ -1,11 +1,8 @@
 {
-    "name": "2180. 统计各位数字之和为偶数的整数个数",
-    "url": "/leetcode.cn/problems/count-integers-with-even-digit-sum/",
-    "difficulty": "简单",
-    "tag": [
-        "数学",
-        "模拟"
-    ],
-    "desc": "给你一个正整数 num ，请你统计并返回 小于或等于 num 且各位数字之和为 偶数 的正整数的数目。",
-    "solutions": []
+  "name": "2180. 统计各位数字之和为偶数的整数个数",
+  "url": "/leetcode.cn/problems/count-integers-with-even-digit-sum/",
+  "difficulty": "简单",
+  "tag": ["数学", "模拟"],
+  "desc": "给你一个正整数 num ，请你统计并返回 小于或等于 num 且各位数字之和为 偶数 的正整数的数目。",
+  "solutions": []
 }

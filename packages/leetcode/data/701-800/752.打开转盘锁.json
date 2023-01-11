@@ -1,30 +1,25 @@
 {
-    "name": "752. 打开转盘锁",
-    "url": "https://leetcode-cn.com/problems/open-the-lock/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
-    "desc": "字符串 target 代表可以解锁的数字，你需要给出解锁需要的最小旋转次数，如果无论如何不能解锁，返回 -1 。",
-    "solutions": [
-        {
-            "date": 1624636800000,
-            "time": 776,
-            "memory": 56.8,
-            "script": "typescript",
-            "desc": "广度优先搜索，储存后进行遍历。",
-            "code": "function openLock(deadends: string[], target: string): number {\n  const prevMap: Record<string, string> = {\n    0: '9',\n    1: '0',\n    2: '1',\n    3: '2',\n    4: '3',\n    5: '4',\n    6: '5',\n    7: '6',\n    8: '7',\n    9: '8',\n  };\n  const nextMap: Record<string, string> = {\n    0: '1',\n    1: '2',\n    2: '3',\n    3: '4',\n    4: '5',\n    5: '6',\n    6: '7',\n    7: '8',\n    8: '9',\n    9: '0',\n  };\n  const INIT_STR = '0000';\n  const set = new Set(deadends);\n  if (set.has(INIT_STR)) return -1;\n  if (target === INIT_STR) return 0;\n  const queue = [INIT_STR];\n  const map = new Map<string, number>([[INIT_STR, 0]]);\n  let ans = Infinity;\n  const updateQueue = (str: string, index: number, dict: Record<string, string>, step: number) => {\n    const replaceStr = str.substring(0, index) + dict[str[index]] + str.substring(index + 1);\n    if (replaceStr === target) {\n      ans = Math.min(ans, step + 1);\n      return;\n    }\n    if (!set.has(replaceStr)) {\n      map.has(replaceStr) || queue.push(replaceStr);\n      map.set(replaceStr, Math.min(map.get(replaceStr) ?? Infinity, step + 1));\n    }\n  };\n  while (queue.length !== 0) {\n    const str = queue.shift()!;\n    const step = map.get(str)!;\n    for (let i = 0; i < 4; i++) {\n      updateQueue(str, i, prevMap, step);\n      updateQueue(str, i, nextMap, step);\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
-        },
-        {
-            "date": 1627142400000,
-            "time": 200,
-            "memory": 49.1,
-            "script": "typescript",
-            "desc": "bfs。",
-            "code": "function openLock(deadends: string[], target: string): number {\n  const headendSet = new Set(deadends);\n  if (headendSet.has('0000')) return -1;\n  const queue: [string, number][] = [['0000', 0]];\n  const set = new Set<string>(['0000']);\n  const getNext = (num: number) => (num + 1) % 10;\n  const getPrev = (num: number) => (num === 0 ? 10 : num) - 1;\n  const add = (str: string, count) => {\n    if (set.has(str) || headendSet.has(str)) return;\n    set.add(str);\n    queue.push([str, count]);\n  };\n  while (queue.length) {\n    const [str, count] = queue.shift()!;\n    if (str === target) return count;\n    for (let i = 0; i < 4; i++) {\n      const num = str.codePointAt(i)! - '0'.codePointAt(0)!;\n      add(str.substr(0, i) + getNext(num) + str.substr(i + 1), count + 1);\n      add(str.substr(0, i) + getPrev(num) + str.substr(i + 1), count + 1);\n    }\n  }\n  return -1;\n}"
-        }
-    ]
+  "name": "752. 打开转盘锁",
+  "url": "https://leetcode-cn.com/problems/open-the-lock/",
+  "difficulty": "中等",
+  "tag": ["广度优先搜索", "数组", "哈希表", "字符串"],
+  "desc": "字符串 target 代表可以解锁的数字，你需要给出解锁需要的最小旋转次数，如果无论如何不能解锁，返回 -1 。",
+  "solutions": [
+    {
+      "date": 1624636800000,
+      "time": 776,
+      "memory": 56.8,
+      "script": "typescript",
+      "desc": "广度优先搜索，储存后进行遍历。",
+      "code": "function openLock(deadends: string[], target: string): number {\n  const prevMap: Record<string, string> = {\n    0: '9',\n    1: '0',\n    2: '1',\n    3: '2',\n    4: '3',\n    5: '4',\n    6: '5',\n    7: '6',\n    8: '7',\n    9: '8',\n  };\n  const nextMap: Record<string, string> = {\n    0: '1',\n    1: '2',\n    2: '3',\n    3: '4',\n    4: '5',\n    5: '6',\n    6: '7',\n    7: '8',\n    8: '9',\n    9: '0',\n  };\n  const INIT_STR = '0000';\n  const set = new Set(deadends);\n  if (set.has(INIT_STR)) return -1;\n  if (target === INIT_STR) return 0;\n  const queue = [INIT_STR];\n  const map = new Map<string, number>([[INIT_STR, 0]]);\n  let ans = Infinity;\n  const updateQueue = (str: string, index: number, dict: Record<string, string>, step: number) => {\n    const replaceStr = str.substring(0, index) + dict[str[index]] + str.substring(index + 1);\n    if (replaceStr === target) {\n      ans = Math.min(ans, step + 1);\n      return;\n    }\n    if (!set.has(replaceStr)) {\n      map.has(replaceStr) || queue.push(replaceStr);\n      map.set(replaceStr, Math.min(map.get(replaceStr) ?? Infinity, step + 1));\n    }\n  };\n  while (queue.length !== 0) {\n    const str = queue.shift()!;\n    const step = map.get(str)!;\n    for (let i = 0; i < 4; i++) {\n      updateQueue(str, i, prevMap, step);\n      updateQueue(str, i, nextMap, step);\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
+    },
+    {
+      "date": 1627142400000,
+      "time": 200,
+      "memory": 49.1,
+      "script": "typescript",
+      "desc": "bfs。",
+      "code": "function openLock(deadends: string[], target: string): number {\n  const headendSet = new Set(deadends);\n  if (headendSet.has('0000')) return -1;\n  const queue: [string, number][] = [['0000', 0]];\n  const set = new Set<string>(['0000']);\n  const getNext = (num: number) => (num + 1) % 10;\n  const getPrev = (num: number) => (num === 0 ? 10 : num) - 1;\n  const add = (str: string, count) => {\n    if (set.has(str) || headendSet.has(str)) return;\n    set.add(str);\n    queue.push([str, count]);\n  };\n  while (queue.length) {\n    const [str, count] = queue.shift()!;\n    if (str === target) return count;\n    for (let i = 0; i < 4; i++) {\n      const num = str.codePointAt(i)! - '0'.codePointAt(0)!;\n      add(str.substr(0, i) + getNext(num) + str.substr(i + 1), count + 1);\n      add(str.substr(0, i) + getPrev(num) + str.substr(i + 1), count + 1);\n    }\n  }\n  return -1;\n}"
+    }
+  ]
 }

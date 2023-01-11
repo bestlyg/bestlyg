@@ -1,19 +1,17 @@
 {
-    "name": "剑指 Offer 38. 字符串的排列",
-    "url": "https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/",
-    "difficulty": "中等",
-    "tag": [
-        "回溯算法"
-    ],
-    "desc": "输入一个字符串，打印出该字符串中字符的所有排列。",
-    "solutions": [
-        {
-            "date": 1624291200000,
-            "time": 140,
-            "memory": 47.5,
-            "script": "typescript",
-            "desc": "全排列。",
-            "code": "function permutation(s: string): string[] {\n  const list = new Set<string>();\n  const dfs = (curStr: string = '', waitStr: string = s) => {\n    if (waitStr.length === 1) {\n      list.add(curStr + waitStr);\n      return;\n    }\n    for (let i = 0, l = waitStr.length; i < l; i++) {\n      const newCurStr = curStr + waitStr[i];\n      const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);\n      dfs(newCurStr, newWaitStr);\n    }\n  };\n  dfs();\n  return [...list];\n}"
-        }
-    ]
+  "name": "剑指 Offer 38. 字符串的排列",
+  "url": "https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/",
+  "difficulty": "中等",
+  "tag": ["回溯算法"],
+  "desc": "输入一个字符串，打印出该字符串中字符的所有排列。",
+  "solutions": [
+    {
+      "date": 1624291200000,
+      "time": 140,
+      "memory": 47.5,
+      "script": "typescript",
+      "desc": "全排列。",
+      "code": "function permutation(s: string): string[] {\n  const list = new Set<string>();\n  const dfs = (curStr: string = '', waitStr: string = s) => {\n    if (waitStr.length === 1) {\n      list.add(curStr + waitStr);\n      return;\n    }\n    for (let i = 0, l = waitStr.length; i < l; i++) {\n      const newCurStr = curStr + waitStr[i];\n      const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);\n      dfs(newCurStr, newWaitStr);\n    }\n  };\n  dfs();\n  return [...list];\n}"
+    }
+  ]
 }

@@ -1,19 +1,17 @@
 {
-    "name": "1124. 表现良好的最长时间段",
-    "url": "https://leetcode-cn.com/problems/longest-well-performing-interval/",
-    "difficulty": "中等",
-    "tag": [
-        "栈"
-    ],
-    "desc": "给你一份工作时间表 hours，上面记录着某一位员工每天的工作小时数。",
-    "solutions": [
-        {
-            "date": 1616169600000,
-            "time": 1044,
-            "memory": 42.8,
-            "script": "typescript",
-            "desc": "前缀和。",
-            "code": "function longestWPI(hours: number[]): number {\n  hours = hours.map(v => (v > 8 ? 1 : -1));\n  const len = hours.length;\n  const sums = [0];\n  let sum = 0;\n  hours.forEach(hour => sums.push((sum += hour)));\n  let max = 0;\n  for (let i = 1; i < len + 1; i++) {\n    for (let j = 0; j < i; j++) {\n      if (sums[i] - sums[j] > 0) max = Math.max(max, i - j);\n    }\n  }\n  return max;\n}"
-        }
-    ]
+  "name": "1124. 表现良好的最长时间段",
+  "url": "https://leetcode-cn.com/problems/longest-well-performing-interval/",
+  "difficulty": "中等",
+  "tag": ["栈"],
+  "desc": "给你一份工作时间表 hours，上面记录着某一位员工每天的工作小时数。",
+  "solutions": [
+    {
+      "date": 1616169600000,
+      "time": 1044,
+      "memory": 42.8,
+      "script": "typescript",
+      "desc": "前缀和。",
+      "code": "function longestWPI(hours: number[]): number {\n  hours = hours.map(v => (v > 8 ? 1 : -1));\n  const len = hours.length;\n  const sums = [0];\n  let sum = 0;\n  hours.forEach(hour => sums.push((sum += hour)));\n  let max = 0;\n  for (let i = 1; i < len + 1; i++) {\n    for (let j = 0; j < i; j++) {\n      if (sums[i] - sums[j] > 0) max = Math.max(max, i - j);\n    }\n  }\n  return max;\n}"
+    }
+  ]
 }

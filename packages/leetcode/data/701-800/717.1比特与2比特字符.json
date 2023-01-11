@@ -1,19 +1,17 @@
 {
-    "name": "717. 1 比特与 2 比特字符",
-    "url": "https://leetcode-cn.com/problems/1-bit-and-2-bit-characters/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给定一个以 0 结尾的二进制数组 bits ，如果最后一个字符必须是一位字符，则返回 true 。",
-    "solutions": [
-        {
-            "date": 1645286400000,
-            "time": 4,
-            "memory": 9.3,
-            "script": "c++",
-            "desc": "遍历， 判断最后的下标是否等于末尾。",
-            "code": "class Solution {\n   public:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int idx = 0;\n        while (idx < bits.size() - 1) {\n            if (bits[idx] == 0)\n                idx += 1;\n            else\n                idx += 2;\n        }\n        return idx == bits.size() - 1;\n    }\n};"
-        }
-    ]
+  "name": "717. 1 比特与 2 比特字符",
+  "url": "https://leetcode-cn.com/problems/1-bit-and-2-bit-characters/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "给定一个以 0 结尾的二进制数组 bits ，如果最后一个字符必须是一位字符，则返回 true 。",
+  "solutions": [
+    {
+      "date": 1645286400000,
+      "time": 4,
+      "memory": 9.3,
+      "script": "c++",
+      "desc": "遍历， 判断最后的下标是否等于末尾。",
+      "code": "class Solution {\n   public:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int idx = 0;\n        while (idx < bits.size() - 1) {\n            if (bits[idx] == 0)\n                idx += 1;\n            else\n                idx += 2;\n        }\n        return idx == bits.size() - 1;\n    }\n};"
+    }
+  ]
 }

@@ -1,12 +1,8 @@
 {
-    "name": "1710. 卡车上的最大单元数",
-    "url": "https://leetcode.cn/problems/maximum-units-on-a-truck/",
-    "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
-    "desc": "返回卡车可以装载 单元 的 最大 总数。",
-    "solutions": []
+  "name": "1710. 卡车上的最大单元数",
+  "url": "https://leetcode.cn/problems/maximum-units-on-a-truck/",
+  "difficulty": "简单",
+  "tag": ["贪心", "数组", "排序"],
+  "desc": "返回卡车可以装载 单元 的 最大 总数。",
+  "solutions": []
 }

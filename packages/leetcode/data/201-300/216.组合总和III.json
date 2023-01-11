@@ -1,20 +1,17 @@
 {
-    "name": "216. 组合总和 III",
-    "url": "https://leetcode-cn.com/problems/combination-sum-iii/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "回溯算法"
-    ],
-    "desc": "找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。",
-    "solutions": [
-        {
-            "date": 1599753600000,
-            "time": 76,
-            "memory": 37.7,
-            "script": "typescript",
-            "desc": "回溯递归。",
-            "code": "function combinationSum3(k: number, n: number): number[][] {\n  const ans: number[][] = [];\n  const used: number[] = [];\n  dfs(k, n);\n  return ans;\n  function dfs(count: number, sum: number): void {\n    if (count === 1) {\n      if (sum >= 1 && sum <= 9 && sum > used[used.length - 1]) ans.push([...used, sum]);\n      return;\n    }\n    const max = used[used.length - 1] || 0;\n    for (let i = max + 1; i <= 9; i++) {\n      if (used.includes(i)) continue;\n      used.push(i);\n      dfs(count - 1, sum - i);\n      used.pop();\n    }\n  }\n}"
-        }
-    ]
+  "name": "216. 组合总和 III",
+  "url": "https://leetcode-cn.com/problems/combination-sum-iii/",
+  "difficulty": "中等",
+  "tag": ["数组", "回溯算法"],
+  "desc": "找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。",
+  "solutions": [
+    {
+      "date": 1599753600000,
+      "time": 76,
+      "memory": 37.7,
+      "script": "typescript",
+      "desc": "回溯递归。",
+      "code": "function combinationSum3(k: number, n: number): number[][] {\n  const ans: number[][] = [];\n  const used: number[] = [];\n  dfs(k, n);\n  return ans;\n  function dfs(count: number, sum: number): void {\n    if (count === 1) {\n      if (sum >= 1 && sum <= 9 && sum > used[used.length - 1]) ans.push([...used, sum]);\n      return;\n    }\n    const max = used[used.length - 1] || 0;\n    for (let i = max + 1; i <= 9; i++) {\n      if (used.includes(i)) continue;\n      used.push(i);\n      dfs(count - 1, sum - i);\n      used.pop();\n    }\n  }\n}"
+    }
+  ]
 }

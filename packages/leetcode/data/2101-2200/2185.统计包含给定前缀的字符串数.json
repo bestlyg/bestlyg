@@ -1,11 +1,8 @@
 {
-    "name": "2185. 统计包含给定前缀的字符串数",
-    "url": "https://leetcode.cn/problems/counting-words-with-a-given-prefix/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
-    "desc": "给你一个字符串数组 words 和一个字符串 pref 。返回 words 中以 pref 作为 前缀 的字符串的数目。",
-    "solutions": []
+  "name": "2185. 统计包含给定前缀的字符串数",
+  "url": "https://leetcode.cn/problems/counting-words-with-a-given-prefix/",
+  "difficulty": "简单",
+  "tag": ["数组", "字符串"],
+  "desc": "给你一个字符串数组 words 和一个字符串 pref 。返回 words 中以 pref 作为 前缀 的字符串的数目。",
+  "solutions": []
 }

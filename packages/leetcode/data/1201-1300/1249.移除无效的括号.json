@@ -1,20 +1,17 @@
 {
-    "name": "1249. 移除无效的括号",
-    "url": "https://leetcode-cn.com/problems/minimum-remove-to-make-valid-parentheses/",
-    "difficulty": "中等",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
-    "desc": "给你一个由 '('、')' 和小写字母组成的字符串 s。你需要从字符串中删除最少数目的 '(' 或者 ')' （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。请返回任意一个合法字符串。",
-    "solutions": [
-        {
-            "date": 1616083200000,
-            "time": 112,
-            "memory": 45.3,
-            "script": "typescript",
-            "desc": "从左到右去除右括号，从右到左去除左括号。",
-            "code": "function minRemoveToMakeValid(s: string): string {\n  let fCount = 0;\n  let ans = '';\n  for (const c of s) {\n    if (c === '(') {\n      fCount++;\n      ans += c;\n    } else if (c === ')') {\n      if (fCount !== 0) {\n        ans += c;\n        fCount--;\n      }\n    } else {\n      ans += c;\n    }\n  }\n  const temp = ans;\n  fCount = 0;\n  ans = '';\n  for (let i = temp.length - 1; i >= 0; i--) {\n    const c = temp[i];\n    if (c === ')') {\n      fCount++;\n      ans = c + ans;\n    } else if (c === '(') {\n      if (fCount !== 0) {\n        ans = c + ans;\n        fCount--;\n      }\n    } else {\n      ans = c + ans;\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "1249. 移除无效的括号",
+  "url": "https://leetcode-cn.com/problems/minimum-remove-to-make-valid-parentheses/",
+  "difficulty": "中等",
+  "tag": ["栈", "字符串"],
+  "desc": "给你一个由 '('、')' 和小写字母组成的字符串 s。你需要从字符串中删除最少数目的 '(' 或者 ')' （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。请返回任意一个合法字符串。",
+  "solutions": [
+    {
+      "date": 1616083200000,
+      "time": 112,
+      "memory": 45.3,
+      "script": "typescript",
+      "desc": "从左到右去除右括号，从右到左去除左括号。",
+      "code": "function minRemoveToMakeValid(s: string): string {\n  let fCount = 0;\n  let ans = '';\n  for (const c of s) {\n    if (c === '(') {\n      fCount++;\n      ans += c;\n    } else if (c === ')') {\n      if (fCount !== 0) {\n        ans += c;\n        fCount--;\n      }\n    } else {\n      ans += c;\n    }\n  }\n  const temp = ans;\n  fCount = 0;\n  ans = '';\n  for (let i = temp.length - 1; i >= 0; i--) {\n    const c = temp[i];\n    if (c === ')') {\n      fCount++;\n      ans = c + ans;\n    } else if (c === '(') {\n      if (fCount !== 0) {\n        ans = c + ans;\n        fCount--;\n      }\n    } else {\n      ans = c + ans;\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

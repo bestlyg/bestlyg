@@ -1,11 +1,8 @@
 {
-    "name": "1945. 字符串转化后的各位数字之和",
-    "url": "https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "模拟"
-    ],
-    "desc": "给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。",
-    "solutions": []
+  "name": "1945. 字符串转化后的各位数字之和",
+  "url": "https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/",
+  "difficulty": "简单",
+  "tag": ["字符串", "模拟"],
+  "desc": "给你一个由小写字母组成的字符串 s ，以及一个整数 k 。返回执行上述操作后得到的结果整数。",
+  "solutions": []
 }

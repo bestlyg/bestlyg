@@ -1,20 +1,17 @@
 {
-    "name": "1624. 两个相同字符之间的最长子字符串",
-    "url": "https://leetcode.cn/problems/largest-substring-between-two-equal-characters/",
-    "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
-    "desc": "给你一个字符串 s，请你返回 两个相同字符之间的最长子字符串的长度 ，计算长度时不含这两个字符。如果不存在这样的子字符串，返回 -1 。",
-    "solutions": [
-        {
-            "date": 1663430400000,
-            "time": 0,
-            "memory": 6,
-            "script": "cpp",
-            "desc": "遍历，数组记录。",
-            "code": "#define CNT 26\n      class Solution {\npublic:\n    int maxLengthBetweenEqualCharacters(string s) {\n        int list[CNT], ans = -1;\n        memset(list, -1, sizeof(int) * 26);\n        for (int i = 0; i < s.size(); i++) {\n            if (list[s[i] - 'a'] != -1) ans = max(ans, i - list[s[i] - 'a'] + 1 - 2);\n            else list[s[i] - 'a'] = i;\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "1624. 两个相同字符之间的最长子字符串",
+  "url": "https://leetcode.cn/problems/largest-substring-between-two-equal-characters/",
+  "difficulty": "简单",
+  "tag": ["哈希表", "字符串"],
+  "desc": "给你一个字符串 s，请你返回 两个相同字符之间的最长子字符串的长度 ，计算长度时不含这两个字符。如果不存在这样的子字符串，返回 -1 。",
+  "solutions": [
+    {
+      "date": 1663430400000,
+      "time": 0,
+      "memory": 6,
+      "script": "cpp",
+      "desc": "遍历，数组记录。",
+      "code": "#define CNT 26\n      class Solution {\npublic:\n    int maxLengthBetweenEqualCharacters(string s) {\n        int list[CNT], ans = -1;\n        memset(list, -1, sizeof(int) * 26);\n        for (int i = 0; i < s.size(); i++) {\n            if (list[s[i] - 'a'] != -1) ans = max(ans, i - list[s[i] - 'a'] + 1 - 2);\n            else list[s[i] - 'a'] = i;\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

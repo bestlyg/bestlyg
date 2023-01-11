@@ -1,19 +1,17 @@
 {
-    "name": "674. 最长连续递增序列",
-    "url": "https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。",
-    "solutions": [
-        {
-            "date": 1611417600000,
-            "time": 92,
-            "memory": 41.2,
-            "script": "typescript",
-            "desc": "遍历一遍。",
-            "code": "function findLengthOfLCIS(nums: number[]): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const dp = new Array(len).fill(1);\n  let max = 1;\n  for (let i = 1; i < len; i++)\n    nums[i] > nums[i - 1] && (max = Math.max(max, (dp[i] = dp[i - 1] + 1)));\n  return max;\n}"
-        }
-    ]
+  "name": "674. 最长连续递增序列",
+  "url": "https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。",
+  "solutions": [
+    {
+      "date": 1611417600000,
+      "time": 92,
+      "memory": 41.2,
+      "script": "typescript",
+      "desc": "遍历一遍。",
+      "code": "function findLengthOfLCIS(nums: number[]): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const dp = new Array(len).fill(1);\n  let max = 1;\n  for (let i = 1; i < len; i++)\n    nums[i] > nums[i - 1] && (max = Math.max(max, (dp[i] = dp[i - 1] + 1)));\n  return max;\n}"
+    }
+  ]
 }

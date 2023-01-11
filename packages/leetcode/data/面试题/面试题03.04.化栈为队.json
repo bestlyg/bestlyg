@@ -1,19 +1,17 @@
 {
-    "name": "面试题 03.04. 化栈为队",
-    "url": "https://leetcode-cn.com/problems/implement-queue-using-stacks-lcci/",
-    "difficulty": "简单",
-    "tag": [
-        "栈"
-    ],
-    "desc": "实现一个 MyQueue 类，该类用两个栈来实现一个队列。",
-    "solutions": [
-        {
-            "date": 1616083200000,
-            "time": 88,
-            "memory": 39.2,
-            "script": "typescript",
-            "desc": "利用两个栈维护。",
-            "code": "class MyQueue {\n  private inStack: number[] = [];\n  private outStack: number[] = [];\n  get len() {\n    return this.inStack.length + this.outStack.length;\n  }\n  push(x: number): void {\n    this.inStack.push(x);\n  }\n  pop(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack.pop()!;\n  }\n  peek(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack[this.outStack.length - 1];\n  }\n  empty(): boolean {\n    return this.len === 0;\n  }\n  private numberChange() {\n    while (this.inStack.length > 0) {\n      this.outStack.push(this.inStack.pop()!);\n    }\n  }\n}"
-        }
-    ]
+  "name": "面试题 03.04. 化栈为队",
+  "url": "https://leetcode-cn.com/problems/implement-queue-using-stacks-lcci/",
+  "difficulty": "简单",
+  "tag": ["栈"],
+  "desc": "实现一个 MyQueue 类，该类用两个栈来实现一个队列。",
+  "solutions": [
+    {
+      "date": 1616083200000,
+      "time": 88,
+      "memory": 39.2,
+      "script": "typescript",
+      "desc": "利用两个栈维护。",
+      "code": "class MyQueue {\n  private inStack: number[] = [];\n  private outStack: number[] = [];\n  get len() {\n    return this.inStack.length + this.outStack.length;\n  }\n  push(x: number): void {\n    this.inStack.push(x);\n  }\n  pop(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack.pop()!;\n  }\n  peek(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack[this.outStack.length - 1];\n  }\n  empty(): boolean {\n    return this.len === 0;\n  }\n  private numberChange() {\n    while (this.inStack.length > 0) {\n      this.outStack.push(this.inStack.pop()!);\n    }\n  }\n}"
+    }
+  ]
 }

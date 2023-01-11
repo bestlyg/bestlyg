@@ -1,31 +1,25 @@
 {
-    "name": "327. 区间和的个数",
-    "url": "https://leetcode-cn.com/problems/count-of-range-sum/",
-    "difficulty": "困难",
-    "tag": [
-        "排序",
-        "树状数组",
-        "线段树",
-        "二分查找",
-        "分治算法"
-    ],
-    "desc": "给定一个整数数组 nums，返回区间和在 [lower, upper] 之间的个数，包含 lower 和 upper。",
-    "solutions": [
-        {
-            "date": 1604678400000,
-            "time": 280,
-            "memory": 40.4,
-            "script": "typescript",
-            "desc": "暴力法循环所有数，此题有多种解法,[参考链接](https://leetcode-cn.com/problems/count-of-range-sum/solution/qu-jian-he-de-ge-shu-by-leetcode-solution/)。",
-            "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const len = nums.length;\n  let c = 0;\n  for (let i = 0; i < len; i++) {\n    let sum = 0;\n    for (let j = i; j < len; j++) {\n      sum += nums[j];\n      if (lower <= sum && sum <= upper) c++;\n    }\n  }\n  return c;\n}"
-        },
-        {
-            "date": 1620921600000,
-            "time": 160,
-            "memory": 50.7,
-            "script": "typescript",
-            "desc": "分治，统计两部分中的符合结果的前缀和。",
-            "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const prefixSumList = [0];\n  for (let i = 0; i < len; i++) prefixSumList[i + 1] = prefixSumList[i] + nums[i];\n  const count = (left: number, mid: number, right: number) => {\n    let i1 = left,\n      i2 = left,\n      ans = 0;\n    for (let i = mid + 1; i <= right; i++) {\n      const sum = prefixSumList[i];\n      const l = sum - upper;\n      const r = sum - lower;\n      while (i1 <= mid && prefixSumList[i1] < l) i1++;\n      while (i2 <= mid && prefixSumList[i2] <= r) i2++;\n      ans += i2 - i1;\n    }\n    return ans;\n  };\n  const mergeSort = (left: number, right: number): number => {\n    if (left === right) return 0;\n    const mid = (left + right) >> 1;\n    const ans = mergeSort(left, mid) + mergeSort(mid + 1, right) + count(left, mid, right);\n    const temp = prefixSumList.slice(left, mid + 1);\n    let p1 = 0,\n      end1 = mid - left,\n      p2 = mid + 1,\n      i = left;\n    while (p1 <= end1) {\n      if (p2 > right || temp[p1] <= prefixSumList[p2]) prefixSumList[i++] = temp[p1++];\n      else prefixSumList[i++] = prefixSumList[p2++];\n    }\n    return ans;\n  };\n  return mergeSort(0, len);\n}"
-        }
-    ]
+  "name": "327. 区间和的个数",
+  "url": "https://leetcode-cn.com/problems/count-of-range-sum/",
+  "difficulty": "困难",
+  "tag": ["排序", "树状数组", "线段树", "二分查找", "分治算法"],
+  "desc": "给定一个整数数组 nums，返回区间和在 [lower, upper] 之间的个数，包含 lower 和 upper。",
+  "solutions": [
+    {
+      "date": 1604678400000,
+      "time": 280,
+      "memory": 40.4,
+      "script": "typescript",
+      "desc": "暴力法循环所有数，此题有多种解法,[参考链接](https://leetcode-cn.com/problems/count-of-range-sum/solution/qu-jian-he-de-ge-shu-by-leetcode-solution/)。",
+      "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const len = nums.length;\n  let c = 0;\n  for (let i = 0; i < len; i++) {\n    let sum = 0;\n    for (let j = i; j < len; j++) {\n      sum += nums[j];\n      if (lower <= sum && sum <= upper) c++;\n    }\n  }\n  return c;\n}"
+    },
+    {
+      "date": 1620921600000,
+      "time": 160,
+      "memory": 50.7,
+      "script": "typescript",
+      "desc": "分治，统计两部分中的符合结果的前缀和。",
+      "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const prefixSumList = [0];\n  for (let i = 0; i < len; i++) prefixSumList[i + 1] = prefixSumList[i] + nums[i];\n  const count = (left: number, mid: number, right: number) => {\n    let i1 = left,\n      i2 = left,\n      ans = 0;\n    for (let i = mid + 1; i <= right; i++) {\n      const sum = prefixSumList[i];\n      const l = sum - upper;\n      const r = sum - lower;\n      while (i1 <= mid && prefixSumList[i1] < l) i1++;\n      while (i2 <= mid && prefixSumList[i2] <= r) i2++;\n      ans += i2 - i1;\n    }\n    return ans;\n  };\n  const mergeSort = (left: number, right: number): number => {\n    if (left === right) return 0;\n    const mid = (left + right) >> 1;\n    const ans = mergeSort(left, mid) + mergeSort(mid + 1, right) + count(left, mid, right);\n    const temp = prefixSumList.slice(left, mid + 1);\n    let p1 = 0,\n      end1 = mid - left,\n      p2 = mid + 1,\n      i = left;\n    while (p1 <= end1) {\n      if (p2 > right || temp[p1] <= prefixSumList[p2]) prefixSumList[i++] = temp[p1++];\n      else prefixSumList[i++] = prefixSumList[p2++];\n    }\n    return ans;\n  };\n  return mergeSort(0, len);\n}"
+    }
+  ]
 }

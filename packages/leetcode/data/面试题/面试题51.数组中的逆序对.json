@@ -1,18 +1,16 @@
 {
-    "name": "面试题 51. 数组中的逆序对",
-    "url": "https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/",
-    "tag": [
-        ""
-    ],
-    "desc": "在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。",
-    "solutions": [
-        {
-            "date": 1587744000000,
-            "time": 180,
-            "memory": 43,
-            "script": "javascript",
-            "desc": "通过归并排序，进行快速判断。",
-            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar reversePairs = function (nums) {\n  let count = 0;\n  const leftArray = [];\n  sort(0, nums.length);\n  function sort(begin, end) {\n    if (end - begin < 2) return;\n    const mid = (end + begin) >> 1;\n    sort(begin, mid);\n    sort(mid, end);\n    merge(begin, mid, end);\n  }\n  function merge(begin, mid, end) {\n    let li = 0,\n      ri = mid;\n    const le = mid - begin,\n      re = end;\n    let ai = begin;\n    for (let i = li; i < le; i++) leftArray[i] = nums[begin + i];\n    while (li < le) {\n      if (ri < re && nums[ri] < leftArray[li]) {\n        nums[ai++] = nums[ri++];\n        count += le - li;\n      } else nums[ai++] = leftArray[li++];\n    }\n  }\n  return count;\n};"
-        }
-    ]
+  "name": "面试题 51. 数组中的逆序对",
+  "url": "https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/",
+  "tag": [""],
+  "desc": "在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。",
+  "solutions": [
+    {
+      "date": 1587744000000,
+      "time": 180,
+      "memory": 43,
+      "script": "javascript",
+      "desc": "通过归并排序，进行快速判断。",
+      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar reversePairs = function (nums) {\n  let count = 0;\n  const leftArray = [];\n  sort(0, nums.length);\n  function sort(begin, end) {\n    if (end - begin < 2) return;\n    const mid = (end + begin) >> 1;\n    sort(begin, mid);\n    sort(mid, end);\n    merge(begin, mid, end);\n  }\n  function merge(begin, mid, end) {\n    let li = 0,\n      ri = mid;\n    const le = mid - begin,\n      re = end;\n    let ai = begin;\n    for (let i = li; i < le; i++) leftArray[i] = nums[begin + i];\n    while (li < le) {\n      if (ri < re && nums[ri] < leftArray[li]) {\n        nums[ai++] = nums[ri++];\n        count += le - li;\n      } else nums[ai++] = leftArray[li++];\n    }\n  }\n  return count;\n};"
+    }
+  ]
 }

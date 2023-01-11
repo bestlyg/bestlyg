@@ -1,21 +1,17 @@
 {
-    "name": "2044. 统计按位或能得到最大值的子集数目",
-    "url": "https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "回溯"
-    ],
-    "desc": "给你一个整数数组 nums ，请你找出 nums 子集 按位或 可能得到的 最大值 ，并返回按位或能得到最大值的 不同非空子集的数目 。",
-    "solutions": [
-        {
-            "date": 1647273600000,
-            "time": 16,
-            "memory": 8.1,
-            "script": "c++",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    int ans = 0, nmax = INT_MIN;\n    void add(int num) {\n        if (num >= nmax) {\n            if (num > nmax) ans = 0;\n            ans++;\n            nmax = num;\n        }\n    }\n    int countMaxOrSubsets(vector<int>& nums) {\n        dfs(nums, 0, 0);\n        return ans;\n    }\n    void dfs(vector<int>& nums, int idx, int num) {\n        add(num);\n        if (idx == nums.size()) return;\n        for (int i = idx; i < nums.size(); i++) {\n            dfs(nums, i + 1, num | nums[i]);\n        }\n    }\n};"
-        }
-    ]
+  "name": "2044. 统计按位或能得到最大值的子集数目",
+  "url": "https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets/",
+  "difficulty": "中等",
+  "tag": ["位运算", "数组", "回溯"],
+  "desc": "给你一个整数数组 nums ，请你找出 nums 子集 按位或 可能得到的 最大值 ，并返回按位或能得到最大值的 不同非空子集的数目 。",
+  "solutions": [
+    {
+      "date": 1647273600000,
+      "time": 16,
+      "memory": 8.1,
+      "script": "c++",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    int ans = 0, nmax = INT_MIN;\n    void add(int num) {\n        if (num >= nmax) {\n            if (num > nmax) ans = 0;\n            ans++;\n            nmax = num;\n        }\n    }\n    int countMaxOrSubsets(vector<int>& nums) {\n        dfs(nums, 0, 0);\n        return ans;\n    }\n    void dfs(vector<int>& nums, int idx, int num) {\n        add(num);\n        if (idx == nums.size()) return;\n        for (int i = idx; i < nums.size(); i++) {\n            dfs(nums, i + 1, num | nums[i]);\n        }\n    }\n};"
+    }
+  ]
 }

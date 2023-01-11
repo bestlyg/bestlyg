@@ -1,21 +1,17 @@
 {
-    "name": "973. 最接近原点的 K 个点",
-    "url": "https://leetcode-cn.com/problems/k-closest-points-to-origin/",
-    "difficulty": "中等",
-    "tag": [
-        "堆",
-        "排序",
-        "分治算法"
-    ],
-    "desc": "我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。",
-    "solutions": [
-        {
-            "date": 1604851200000,
-            "time": 280,
-            "memory": 51.1,
-            "script": "typescript",
-            "desc": "计算距离后排序。",
-            "code": "function kClosest(points: number[][], K: number): number[][] {\n  return points\n    .sort(([x1, y1], [x2, y2]) => Math.sqrt(x1 ** 2 + y1 ** 2) - Math.sqrt(x2 ** 2 + y2 ** 2))\n    .slice(0, K);\n}"
-        }
-    ]
+  "name": "973. 最接近原点的 K 个点",
+  "url": "https://leetcode-cn.com/problems/k-closest-points-to-origin/",
+  "difficulty": "中等",
+  "tag": ["堆", "排序", "分治算法"],
+  "desc": "我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。",
+  "solutions": [
+    {
+      "date": 1604851200000,
+      "time": 280,
+      "memory": 51.1,
+      "script": "typescript",
+      "desc": "计算距离后排序。",
+      "code": "function kClosest(points: number[][], K: number): number[][] {\n  return points\n    .sort(([x1, y1], [x2, y2]) => Math.sqrt(x1 ** 2 + y1 ** 2) - Math.sqrt(x2 ** 2 + y2 ** 2))\n    .slice(0, K);\n}"
+    }
+  ]
 }

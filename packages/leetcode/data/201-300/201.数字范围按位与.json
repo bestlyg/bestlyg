@@ -1,27 +1,25 @@
 {
-    "name": "201. 数字范围按位与",
-    "url": "https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算"
-    ],
-    "desc": "给定范围 [m, n]，其中 0 <= m <= n <= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。",
-    "solutions": [
-        {
-            "date": 1598112000000,
-            "time": 240,
-            "memory": 45.3,
-            "script": "typescript",
-            "desc": "把题目转换为公共前缀。",
-            "code": "function rangeBitwiseAnd(m: number, n: number): number {\n  let shift = 0;\n  while (m < n) {\n    m >>= 1;\n    n >>= 1;\n    ++shift;\n  }\n  return m << shift;\n}"
-        },
-        {
-            "date": 1646236800000,
-            "time": 20,
-            "memory": 5.8,
-            "script": "c++",
-            "desc": "只有当两数最高位一致才可能非 0。",
-            "code": "class Solution {\n   public:\n    int rangeBitwiseAnd(int left, int right) {\n        int cnt = 0;\n        for (; left != right; cnt++) {\n            left >>= 1;\n            right >>= 1;\n        }\n        return left << cnt;\n    }\n};"
-        }
-    ]
+  "name": "201. 数字范围按位与",
+  "url": "https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/",
+  "difficulty": "中等",
+  "tag": ["位运算"],
+  "desc": "给定范围 [m, n]，其中 0 <= m <= n <= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。",
+  "solutions": [
+    {
+      "date": 1598112000000,
+      "time": 240,
+      "memory": 45.3,
+      "script": "typescript",
+      "desc": "把题目转换为公共前缀。",
+      "code": "function rangeBitwiseAnd(m: number, n: number): number {\n  let shift = 0;\n  while (m < n) {\n    m >>= 1;\n    n >>= 1;\n    ++shift;\n  }\n  return m << shift;\n}"
+    },
+    {
+      "date": 1646236800000,
+      "time": 20,
+      "memory": 5.8,
+      "script": "c++",
+      "desc": "只有当两数最高位一致才可能非 0。",
+      "code": "class Solution {\n   public:\n    int rangeBitwiseAnd(int left, int right) {\n        int cnt = 0;\n        for (; left != right; cnt++) {\n            left >>= 1;\n            right >>= 1;\n        }\n        return left << cnt;\n    }\n};"
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-import { Markdown, Difficulty, Tag, Script } from "@/base";
+import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,

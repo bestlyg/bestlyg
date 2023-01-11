@@ -1,10 +1,8 @@
 {
-    "name": "799. 香槟塔",
-    "url": "https://leetcode.cn/problems/champagne-tower/",
-    "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
-    "desc": "现在当倾倒了非负整数杯香槟后，返回第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从0开始）。",
-    "solutions": []
+  "name": "799. 香槟塔",
+  "url": "https://leetcode.cn/problems/champagne-tower/",
+  "difficulty": "中等",
+  "tag": ["动态规划"],
+  "desc": "现在当倾倒了非负整数杯香槟后，返回第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从0开始）。",
+  "solutions": []
 }

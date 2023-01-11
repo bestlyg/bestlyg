@@ -1,19 +1,17 @@
 {
-    "name": "404. 左叶子之和",
-    "url": "https://leetcode-cn.com/problems/sum-of-left-leaves/",
-    "difficulty": "简单",
-    "tag": [
-        "树"
-    ],
-    "desc": "计算给定二叉树的所有左叶子之和。",
-    "solutions": [
-        {
-            "date": 1600444800000,
-            "time": 88,
-            "memory": 39.6,
-            "script": "typescript",
-            "desc": "递归。",
-            "code": "function sumOfLeftLeaves(root: TreeNode | null): number {\n  let sum = 0;\n  order(root);\n  return sum;\n  function order(root: TreeNode | null): void {\n    if (root === null) return;\n    root.left && !root.left.left && !root.left.right && (sum += root.left.val);\n    order(root.left);\n    order(root.right);\n  }\n}"
-        }
-    ]
+  "name": "404. 左叶子之和",
+  "url": "https://leetcode-cn.com/problems/sum-of-left-leaves/",
+  "difficulty": "简单",
+  "tag": ["树"],
+  "desc": "计算给定二叉树的所有左叶子之和。",
+  "solutions": [
+    {
+      "date": 1600444800000,
+      "time": 88,
+      "memory": 39.6,
+      "script": "typescript",
+      "desc": "递归。",
+      "code": "function sumOfLeftLeaves(root: TreeNode | null): number {\n  let sum = 0;\n  order(root);\n  return sum;\n  function order(root: TreeNode | null): void {\n    if (root === null) return;\n    root.left && !root.left.left && !root.left.right && (sum += root.left.val);\n    order(root.left);\n    order(root.right);\n  }\n}"
+    }
+  ]
 }

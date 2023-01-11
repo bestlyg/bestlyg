@@ -1,35 +1,33 @@
 {
-    "name": "289. 生命游戏",
-    "url": "https://leetcode-cn.com/problems/game-of-life/",
-    "difficulty": "中等",
-    "tag": [
-        "数组"
-    ],
-    "desc": "根据 百度百科 ，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在 1970 年发明的细胞自动机。",
-    "solutions": [
-        {
-            "date": 1586361600000,
-            "time": 60,
-            "memory": 34,
-            "script": "javascript",
-            "desc": "判断周围 8 个位置的活细胞个数进行新数组赋值",
-            "code": "/**\n * @param {number[][]} board\n * @return {void} Do not return anything, modify board in-place instead.\n */\nvar gameOfLife = function (board) {\n  function lifeOrDead(arr, now) {\n    let result = 0;\n    for (let item of arr) if (item === 1) result++;\n    if (result === 2) return now;\n    else if (result === 3) return 1;\n    else return 0;\n  }\n  const res = [];\n  for (let i = 0, len1 = board.length; i < len1; i++) res[i] = [];\n  for (let i = 0, len1 = board.length; i < len1; i++) {\n    for (let j = 0, len2 = board[i].length; j < len2; j++) {\n      const arr = [];\n      if (i > 0 && j > 0) arr.push(board[i - 1][j - 1]);\n      if (i > 0) arr.push(board[i - 1][j]);\n      if (j > 0) arr.push(board[i][j - 1]);\n      if (i < len1 - 1 && j < len2 - 1) arr.push(board[i + 1][j + 1]);\n      if (i < len1 - 1) arr.push(board[i + 1][j]);\n      if (j < len2 - 1) arr.push(board[i][j + 1]);\n      if (i < len1 - 1 && j > 0) arr.push(board[i + 1][j - 1]);\n      if (j < len2 - 1 && i > 0) arr.push(board[i - 1][j + 1]);\n      res[i][j] = lifeOrDead(arr, board[i][j]);\n    }\n  }\n  for (let i = 0, len1 = board.length; i < len1; i++) board[i] = res[i];\n};"
-        },
-        {
-            "date": 1639238400000,
-            "time": 68,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "生成周围有几个活细胞的数组进行赋值。",
-            "code": "function getCntArr(board: number[][]) {\n  const n = board.length;\n  const m = board[0].length;\n  const ans = new Array(n).fill(0).map(_ => new Array(m).fill(0));\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (board[i][j] === 0) continue;\n      if (i > 0) ans[i - 1][j]++;\n      if (i < n - 1) ans[i + 1][j]++;\n      if (j > 0) ans[i][j - 1]++;\n      if (j < m - 1) ans[i][j + 1]++;\n      if (i > 0 && j > 0) ans[i - 1][j - 1]++;\n      if (i > 0 && j < m - 1) ans[i - 1][j + 1]++;\n      if (i < n - 1 && j > 0) ans[i + 1][j - 1]++;\n      if (i < n - 1 && j < m - 1) ans[i + 1][j + 1]++;\n    }\n  }\n  return ans;\n}\nfunction gameOfLife(board: number[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  const cntArr = getCntArr(board);\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      const cnt = cntArr[i][j];\n      const state = board[i][j];\n      if (state === 1 && (cnt < 2 || cnt > 3)) board[i][j] = 0;\n      else if (state === 0 && cnt === 3) board[i][j] = 1;\n    }\n  }\n}"
-        },
-        {
-            "date": 1639238400000,
-            "time": 68,
-            "memory": 39.6,
-            "script": "typescript",
-            "desc": "优化上一题解。",
-            "code": "const dirs = [\n  [0, 1],\n  [0, -1],\n  [1, 0],\n  [-1, 0],\n  [1, 1],\n  [-1, -1],\n  [1, -1],\n  [-1, 1],\n];\nfunction getCntArr(board: number[][]) {\n  const n = board.length;\n  const m = board[0].length;\n  const ans = new Array(n).fill(0).map(_ => new Array(m).fill(0));\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      for (let k = 0; k < 8; k++) {\n        const x = i + dirs[k][0];\n        const y = j + dirs[k][1];\n        if (x < 0 || x >= n || y < 0 || y >= m) continue;\n        ans[x][y] += board[i][j];\n      }\n    }\n  }\n  return ans;\n}\nfunction gameOfLife(board: number[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  const cntArr = getCntArr(board);\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      const cnt = cntArr[i][j];\n      const state = board[i][j];\n      if (state === 1 && (cnt < 2 || cnt > 3)) board[i][j] = 0;\n      else if (state === 0 && cnt === 3) board[i][j] = 1;\n    }\n  }\n}"
-        }
-    ]
+  "name": "289. 生命游戏",
+  "url": "https://leetcode-cn.com/problems/game-of-life/",
+  "difficulty": "中等",
+  "tag": ["数组"],
+  "desc": "根据 百度百科 ，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在 1970 年发明的细胞自动机。",
+  "solutions": [
+    {
+      "date": 1586361600000,
+      "time": 60,
+      "memory": 34,
+      "script": "javascript",
+      "desc": "判断周围 8 个位置的活细胞个数进行新数组赋值",
+      "code": "/**\n * @param {number[][]} board\n * @return {void} Do not return anything, modify board in-place instead.\n */\nvar gameOfLife = function (board) {\n  function lifeOrDead(arr, now) {\n    let result = 0;\n    for (let item of arr) if (item === 1) result++;\n    if (result === 2) return now;\n    else if (result === 3) return 1;\n    else return 0;\n  }\n  const res = [];\n  for (let i = 0, len1 = board.length; i < len1; i++) res[i] = [];\n  for (let i = 0, len1 = board.length; i < len1; i++) {\n    for (let j = 0, len2 = board[i].length; j < len2; j++) {\n      const arr = [];\n      if (i > 0 && j > 0) arr.push(board[i - 1][j - 1]);\n      if (i > 0) arr.push(board[i - 1][j]);\n      if (j > 0) arr.push(board[i][j - 1]);\n      if (i < len1 - 1 && j < len2 - 1) arr.push(board[i + 1][j + 1]);\n      if (i < len1 - 1) arr.push(board[i + 1][j]);\n      if (j < len2 - 1) arr.push(board[i][j + 1]);\n      if (i < len1 - 1 && j > 0) arr.push(board[i + 1][j - 1]);\n      if (j < len2 - 1 && i > 0) arr.push(board[i - 1][j + 1]);\n      res[i][j] = lifeOrDead(arr, board[i][j]);\n    }\n  }\n  for (let i = 0, len1 = board.length; i < len1; i++) board[i] = res[i];\n};"
+    },
+    {
+      "date": 1639238400000,
+      "time": 68,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "生成周围有几个活细胞的数组进行赋值。",
+      "code": "function getCntArr(board: number[][]) {\n  const n = board.length;\n  const m = board[0].length;\n  const ans = new Array(n).fill(0).map(_ => new Array(m).fill(0));\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (board[i][j] === 0) continue;\n      if (i > 0) ans[i - 1][j]++;\n      if (i < n - 1) ans[i + 1][j]++;\n      if (j > 0) ans[i][j - 1]++;\n      if (j < m - 1) ans[i][j + 1]++;\n      if (i > 0 && j > 0) ans[i - 1][j - 1]++;\n      if (i > 0 && j < m - 1) ans[i - 1][j + 1]++;\n      if (i < n - 1 && j > 0) ans[i + 1][j - 1]++;\n      if (i < n - 1 && j < m - 1) ans[i + 1][j + 1]++;\n    }\n  }\n  return ans;\n}\nfunction gameOfLife(board: number[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  const cntArr = getCntArr(board);\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      const cnt = cntArr[i][j];\n      const state = board[i][j];\n      if (state === 1 && (cnt < 2 || cnt > 3)) board[i][j] = 0;\n      else if (state === 0 && cnt === 3) board[i][j] = 1;\n    }\n  }\n}"
+    },
+    {
+      "date": 1639238400000,
+      "time": 68,
+      "memory": 39.6,
+      "script": "typescript",
+      "desc": "优化上一题解。",
+      "code": "const dirs = [\n  [0, 1],\n  [0, -1],\n  [1, 0],\n  [-1, 0],\n  [1, 1],\n  [-1, -1],\n  [1, -1],\n  [-1, 1],\n];\nfunction getCntArr(board: number[][]) {\n  const n = board.length;\n  const m = board[0].length;\n  const ans = new Array(n).fill(0).map(_ => new Array(m).fill(0));\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      for (let k = 0; k < 8; k++) {\n        const x = i + dirs[k][0];\n        const y = j + dirs[k][1];\n        if (x < 0 || x >= n || y < 0 || y >= m) continue;\n        ans[x][y] += board[i][j];\n      }\n    }\n  }\n  return ans;\n}\nfunction gameOfLife(board: number[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  const cntArr = getCntArr(board);\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      const cnt = cntArr[i][j];\n      const state = board[i][j];\n      if (state === 1 && (cnt < 2 || cnt > 3)) board[i][j] = 0;\n      else if (state === 0 && cnt === 3) board[i][j] = 1;\n    }\n  }\n}"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "1753. 移除石子的最大得分",
-    "url": "https://leetcode-cn.com/problems/maximum-score-from-removing-stones/",
-    "difficulty": "中等",
-    "tag": [
-        "数学",
-        "堆"
-    ],
-    "desc": "给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。",
-    "solutions": [
-        {
-            "date": 1618070400000,
-            "time": 96,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "排序后先使 bc 尽可能保持一致再进行相除。",
-            "code": "function maximumScore(a: number, b: number, c: number): number {\n  if (a > b) [a, b] = [b, a];\n  if (a > c) [a, c] = [c, a];\n  if (b > c) [b, c] = [c, b];\n  const num1 = Math.min(a, c - b);\n  a -= num1;\n  c -= num1;\n  if (a === 0) return num1 + b;\n  else return num1 + (a >> 1) + b;\n}"
-        }
-    ]
+  "name": "1753. 移除石子的最大得分",
+  "url": "https://leetcode-cn.com/problems/maximum-score-from-removing-stones/",
+  "difficulty": "中等",
+  "tag": ["数学", "堆"],
+  "desc": "给你三个整数 a 、b 和 c ，返回可以得到的 最大分数 。",
+  "solutions": [
+    {
+      "date": 1618070400000,
+      "time": 96,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "排序后先使 bc 尽可能保持一致再进行相除。",
+      "code": "function maximumScore(a: number, b: number, c: number): number {\n  if (a > b) [a, b] = [b, a];\n  if (a > c) [a, c] = [c, a];\n  if (b > c) [b, c] = [c, b];\n  const num1 = Math.min(a, c - b);\n  a -= num1;\n  c -= num1;\n  if (a === 0) return num1 + b;\n  else return num1 + (a >> 1) + b;\n}"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "1380. 矩阵中的幸运数",
-    "url": "https://leetcode-cn.com/problems/lucky-numbers-in-a-matrix/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
-    "desc": "给你一个 m \\* n 的矩阵，矩阵中的数字 各不相同 。请你按 任意 顺序返回矩阵中的所有幸运数。",
-    "solutions": [
-        {
-            "date": 1644854400000,
-            "time": 20,
-            "memory": 10.9,
-            "script": "c++",
-            "desc": "遍历后记录每行最小值和每列最大值，如果第 i 行最小为 j 且第 j 列最大位 i，即可成立。",
-            "code": "class Solution {\n   public:\n    int rows[50] = {0}, cols[50] = {0};\n    vector<int> luckyNumbers(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (matrix[i][j] < matrix[i][rows[i]]) rows[i] = j;\n                if (matrix[i][j] > matrix[cols[j]][j]) cols[j] = i;\n            }\n        }\n        vector<int> ans;\n        for (int i = 0; i < n; i++) {\n            if (i == cols[rows[i]]) ans.push_back(matrix[i][rows[i]]);\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "1380. 矩阵中的幸运数",
+  "url": "https://leetcode-cn.com/problems/lucky-numbers-in-a-matrix/",
+  "difficulty": "简单",
+  "tag": ["数组", "矩阵"],
+  "desc": "给你一个 m \\* n 的矩阵，矩阵中的数字 各不相同 。请你按 任意 顺序返回矩阵中的所有幸运数。",
+  "solutions": [
+    {
+      "date": 1644854400000,
+      "time": 20,
+      "memory": 10.9,
+      "script": "c++",
+      "desc": "遍历后记录每行最小值和每列最大值，如果第 i 行最小为 j 且第 j 列最大位 i，即可成立。",
+      "code": "class Solution {\n   public:\n    int rows[50] = {0}, cols[50] = {0};\n    vector<int> luckyNumbers(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (matrix[i][j] < matrix[i][rows[i]]) rows[i] = j;\n                if (matrix[i][j] > matrix[cols[j]][j]) cols[j] = i;\n            }\n        }\n        vector<int> ans;\n        for (int i = 0; i < n; i++) {\n            if (i == cols[rows[i]]) ans.push_back(matrix[i][rows[i]]);\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

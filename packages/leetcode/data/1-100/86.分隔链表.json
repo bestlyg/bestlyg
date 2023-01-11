@@ -1,28 +1,25 @@
 {
-    "name": "86. 分隔链表",
-    "url": "https://leetcode-cn.com/problems/partition-list/",
-    "difficulty": "中等",
-    "tag": [
-        "链表",
-        "双指针"
-    ],
-    "desc": "给你一个链表和一个特定值 x ，请你对链表进行分隔，使得所有小于 x 的节点都出现在大于或等于 x 的节点之前。",
-    "solutions": [
-        {
-            "date": 1609603200000,
-            "time": 92,
-            "memory": 40.5,
-            "script": "typescript",
-            "desc": "利用两个节点进行储存。",
-            "code": "function partition(head: ListNode | null, x: number): ListNode | null {\n  if (head === null) return null;\n  const small = new ListNode(0);\n  let smallTemp = small;\n  const big = new ListNode(0);\n  let bigTemp = big;\n  let temp: ListNode | null = head;\n  while (temp !== null) {\n    if (temp.val < x) {\n      smallTemp.next = temp;\n      smallTemp = smallTemp.next;\n    } else {\n      bigTemp.next = temp;\n      bigTemp = bigTemp.next;\n    }\n    temp = temp.next;\n  }\n  smallTemp.next = big.next;\n  bigTemp.next = null;\n  return small.next;\n}"
-        },
-        {
-            "date": 1615651200000,
-            "time": 100,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "创建新链表进行储存 x 两边的值。",
-            "code": "function partition(head: ListNode | null, x: number): ListNode | null {\n  if (head === null) return null;\n  const big = new ListNode(0);\n  let bigP = big;\n  const small = new ListNode(0);\n  let smallP = small;\n  let p: ListNode | null = head;\n  while (p !== null) {\n    if (p.val >= x) {\n      bigP.next = p;\n      bigP = p;\n      p = p.next;\n      bigP.next = null;\n    } else {\n      smallP.next = p;\n      smallP = p;\n      p = p.next;\n      smallP.next = null;\n    }\n  }\n  smallP.next = big.next;\n  return small.next;\n}"
-        }
-    ]
+  "name": "86. 分隔链表",
+  "url": "https://leetcode-cn.com/problems/partition-list/",
+  "difficulty": "中等",
+  "tag": ["链表", "双指针"],
+  "desc": "给你一个链表和一个特定值 x ，请你对链表进行分隔，使得所有小于 x 的节点都出现在大于或等于 x 的节点之前。",
+  "solutions": [
+    {
+      "date": 1609603200000,
+      "time": 92,
+      "memory": 40.5,
+      "script": "typescript",
+      "desc": "利用两个节点进行储存。",
+      "code": "function partition(head: ListNode | null, x: number): ListNode | null {\n  if (head === null) return null;\n  const small = new ListNode(0);\n  let smallTemp = small;\n  const big = new ListNode(0);\n  let bigTemp = big;\n  let temp: ListNode | null = head;\n  while (temp !== null) {\n    if (temp.val < x) {\n      smallTemp.next = temp;\n      smallTemp = smallTemp.next;\n    } else {\n      bigTemp.next = temp;\n      bigTemp = bigTemp.next;\n    }\n    temp = temp.next;\n  }\n  smallTemp.next = big.next;\n  bigTemp.next = null;\n  return small.next;\n}"
+    },
+    {
+      "date": 1615651200000,
+      "time": 100,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "创建新链表进行储存 x 两边的值。",
+      "code": "function partition(head: ListNode | null, x: number): ListNode | null {\n  if (head === null) return null;\n  const big = new ListNode(0);\n  let bigP = big;\n  const small = new ListNode(0);\n  let smallP = small;\n  let p: ListNode | null = head;\n  while (p !== null) {\n    if (p.val >= x) {\n      bigP.next = p;\n      bigP = p;\n      p = p.next;\n      bigP.next = null;\n    } else {\n      smallP.next = p;\n      smallP = p;\n      p = p.next;\n      smallP.next = null;\n    }\n  }\n  smallP.next = big.next;\n  return small.next;\n}"
+    }
+  ]
 }

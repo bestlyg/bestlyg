@@ -1,20 +1,17 @@
 {
-    "name": "60. 排列序列",
-    "url": "https://leetcode-cn.com/problems/permutation-sequence/",
-    "difficulty": "困难",
-    "tag": [
-        "递归",
-        "数学"
-    ],
-    "desc": "给出集合 [1,2,3,...,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
-    "solutions": [
-        {
-            "date": 1639238400000,
-            "time": 88,
-            "memory": 39.7,
-            "script": "typescript",
-            "desc": "每次循环遍历 n 个数的值。",
-            "code": "const map: Record<number, number> = { 1: 1 };\nfor (let i = 2; i <= 9; i++) map[i] = map[i - 1] * i;\nfunction getPermutation(n: number, k: number): string {\n  const set = new Set<number>();\n  const getNum = (idx: number) => {\n    for (let i = 1; i <= n; i++) {\n      if (!set.has(i) && --idx === 0) {\n        set.add(i);\n        return i;\n      }\n    }\n    return -1;\n  };\n  let ans = '';\n  let tmpn = n;\n  while (k > 1) {\n    const cnt = Math.floor((k - 1) / map[tmpn - 1]);\n    ans += getNum(cnt + 1);\n    k -= cnt * map[tmpn - 1];\n    tmpn--;\n  }\n  while (set.size !== n) ans += getNum(1);\n  return ans;\n}"
-        }
-    ]
+  "name": "60. 排列序列",
+  "url": "https://leetcode-cn.com/problems/permutation-sequence/",
+  "difficulty": "困难",
+  "tag": ["递归", "数学"],
+  "desc": "给出集合 [1,2,3,...,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
+  "solutions": [
+    {
+      "date": 1639238400000,
+      "time": 88,
+      "memory": 39.7,
+      "script": "typescript",
+      "desc": "每次循环遍历 n 个数的值。",
+      "code": "const map: Record<number, number> = { 1: 1 };\nfor (let i = 2; i <= 9; i++) map[i] = map[i - 1] * i;\nfunction getPermutation(n: number, k: number): string {\n  const set = new Set<number>();\n  const getNum = (idx: number) => {\n    for (let i = 1; i <= n; i++) {\n      if (!set.has(i) && --idx === 0) {\n        set.add(i);\n        return i;\n      }\n    }\n    return -1;\n  };\n  let ans = '';\n  let tmpn = n;\n  while (k > 1) {\n    const cnt = Math.floor((k - 1) / map[tmpn - 1]);\n    ans += getNum(cnt + 1);\n    k -= cnt * map[tmpn - 1];\n    tmpn--;\n  }\n  while (set.size !== n) ans += getNum(1);\n  return ans;\n}"
+    }
+  ]
 }

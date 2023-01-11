@@ -1,12 +1,8 @@
 {
-    "name": "882. 细分图中的可到达节点",
-    "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/",
-    "difficulty": "困难",
-    "tag": [
-        "图",
-        "最短路",
-        "堆(优先队列)"
-    ],
-    "desc": "给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。",
-    "solutions": []
+  "name": "882. 细分图中的可到达节点",
+  "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/",
+  "difficulty": "困难",
+  "tag": ["图", "最短路", "堆(优先队列)"],
+  "desc": "给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。",
+  "solutions": []
 }

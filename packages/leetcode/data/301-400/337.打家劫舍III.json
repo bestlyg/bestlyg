@@ -1,20 +1,17 @@
 {
-    "name": "337. 打家劫舍 III",
-    "url": "https://leetcode-cn.com/problems/house-robber-iii/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索"
-    ],
-    "desc": "计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。",
-    "solutions": [
-        {
-            "date": 1596556800000,
-            "time": 108,
-            "memory": 44,
-            "script": "typescript",
-            "desc": "深度优先搜索，对每个节点进行判断偷与不偷的情况。",
-            "code": "function rob(root: TreeNode | null): number {\n  const f = new Map<TreeNode | null, number>();\n  const g = new Map<TreeNode | null, number>();\n  f.set(null, 0);\n  g.set(null, 0);\n  dfs(root);\n  return Math.max(f.get(root)!, g.get(root)!);\n  function dfs(node: TreeNode | null) {\n    if (node === null) return;\n    dfs(node.left);\n    dfs(node.right);\n    f.set(node, node.val + g.get(node.left)! + g.get(node.right)!);\n    g.set(\n      node,\n      Math.max(f.get(node.left)!, g.get(node.left)!) +\n        Math.max(f.get(node.right)!, g.get(node.right)!)\n    );\n  }\n}"
-        }
-    ]
+  "name": "337. 打家劫舍 III",
+  "url": "https://leetcode-cn.com/problems/house-robber-iii/",
+  "difficulty": "中等",
+  "tag": ["树", "深度优先搜索"],
+  "desc": "计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。",
+  "solutions": [
+    {
+      "date": 1596556800000,
+      "time": 108,
+      "memory": 44,
+      "script": "typescript",
+      "desc": "深度优先搜索，对每个节点进行判断偷与不偷的情况。",
+      "code": "function rob(root: TreeNode | null): number {\n  const f = new Map<TreeNode | null, number>();\n  const g = new Map<TreeNode | null, number>();\n  f.set(null, 0);\n  g.set(null, 0);\n  dfs(root);\n  return Math.max(f.get(root)!, g.get(root)!);\n  function dfs(node: TreeNode | null) {\n    if (node === null) return;\n    dfs(node.left);\n    dfs(node.right);\n    f.set(node, node.val + g.get(node.left)! + g.get(node.right)!);\n    g.set(\n      node,\n      Math.max(f.get(node.left)!, g.get(node.left)!) +\n        Math.max(f.get(node.right)!, g.get(node.right)!)\n    );\n  }\n}"
+    }
+  ]
 }

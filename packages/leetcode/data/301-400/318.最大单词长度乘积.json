@@ -1,29 +1,25 @@
 {
-    "name": "318. 最大单词长度乘积",
-    "url": "https://leetcode-cn.com/problems/maximum-product-of-word-lengths/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "字符串"
-    ],
-    "desc": "给定一个字符串数组  words，找到  length(word[i]) \\* length(word[j])  的最大值，并且这两个单词不含有公共字母。你可以认为每个单词只包含小写字母。如果不存在这样的两个单词，返回 0。",
-    "solutions": [
-        {
-            "date": 1627056000000,
-            "time": 140,
-            "memory": 40.2,
-            "script": "typescript",
-            "desc": "利用二进制从储存每个单词的哈希值。",
-            "code": "function maxProduct(words: string[]): number {\n  const map: Record<string, number> = {};\n  for (const word of words) {\n    let v = 0;\n    for (let i = 0, l = word.length; i < l; i++) {\n      v |= 1 << word.codePointAt(i)!;\n    }\n    map[word] = v;\n  }\n  let ans = 0;\n  for (let i = 0; i < words.length; i++) {\n    for (let j = i + 1; j < words.length; j++) {\n      if ((map[words[i]] & map[words[j]]) === 0) {\n        ans = Math.max(ans, words[i].length * words[j].length);\n      }\n    }\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1637078400000,
-            "time": 96,
-            "memory": 41.5,
-            "script": "typescript",
-            "desc": "位运算统计每个词出现的字母。",
-            "code": "function maxProduct(words: string[]): number {\n  const n = words.length;\n  const bit_words = new Array(n).fill(0);\n  for (let i = 0; i < n; i++) {\n    const word = words[i];\n    for (let pos = 0, l = word.length; pos < l; pos++) {\n      bit_words[i] |= 1 << (word.codePointAt(pos)! - 97);\n    }\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const len1 = words[i].length;\n    const bit1 = bit_words[i];\n    for (let j = i + 1; j < n; j++) {\n      const len2 = words[j].length;\n      const bit2 = bit_words[j];\n      if (bit1 & bit2) continue;\n      ans = Math.max(ans, len1 * len2);\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "318. 最大单词长度乘积",
+  "url": "https://leetcode-cn.com/problems/maximum-product-of-word-lengths/",
+  "difficulty": "中等",
+  "tag": ["位运算", "数组", "字符串"],
+  "desc": "给定一个字符串数组  words，找到  length(word[i]) \\* length(word[j])  的最大值，并且这两个单词不含有公共字母。你可以认为每个单词只包含小写字母。如果不存在这样的两个单词，返回 0。",
+  "solutions": [
+    {
+      "date": 1627056000000,
+      "time": 140,
+      "memory": 40.2,
+      "script": "typescript",
+      "desc": "利用二进制从储存每个单词的哈希值。",
+      "code": "function maxProduct(words: string[]): number {\n  const map: Record<string, number> = {};\n  for (const word of words) {\n    let v = 0;\n    for (let i = 0, l = word.length; i < l; i++) {\n      v |= 1 << word.codePointAt(i)!;\n    }\n    map[word] = v;\n  }\n  let ans = 0;\n  for (let i = 0; i < words.length; i++) {\n    for (let j = i + 1; j < words.length; j++) {\n      if ((map[words[i]] & map[words[j]]) === 0) {\n        ans = Math.max(ans, words[i].length * words[j].length);\n      }\n    }\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1637078400000,
+      "time": 96,
+      "memory": 41.5,
+      "script": "typescript",
+      "desc": "位运算统计每个词出现的字母。",
+      "code": "function maxProduct(words: string[]): number {\n  const n = words.length;\n  const bit_words = new Array(n).fill(0);\n  for (let i = 0; i < n; i++) {\n    const word = words[i];\n    for (let pos = 0, l = word.length; pos < l; pos++) {\n      bit_words[i] |= 1 << (word.codePointAt(pos)! - 97);\n    }\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const len1 = words[i].length;\n    const bit1 = bit_words[i];\n    for (let j = i + 1; j < n; j++) {\n      const len2 = words[j].length;\n      const bit2 = bit_words[j];\n      if (bit1 & bit2) continue;\n      ans = Math.max(ans, len1 * len2);\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

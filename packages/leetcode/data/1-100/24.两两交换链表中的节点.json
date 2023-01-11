@@ -1,27 +1,25 @@
 {
-    "name": "24. 两两交换链表中的节点",
-    "url": "https://leetcode-cn.com/problems/swap-nodes-in-pairs/",
-    "difficulty": "中等",
-    "tag": [
-        "链表"
-    ],
-    "desc": "给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。",
-    "solutions": [
-        {
-            "date": 1602518400000,
-            "time": 96,
-            "memory": 39.5,
-            "script": "typescript",
-            "desc": "入队后两两交换顺序后重新组合。",
-            "code": "function swapPairs(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const queue: ListNode[] = [];\n  let temp: ListNode | null = head;\n  while (temp !== null) {\n    queue.push(temp);\n    temp = temp.next;\n    queue[queue.length - 1].next = null;\n  }\n  for (let i = 0, l = queue.length; i < l; i++) {\n    if (i & 1) {\n      let tempNode = queue[i];\n      queue[i] = queue[i - 1];\n      queue[i - 1] = tempNode;\n    }\n  }\n  queue.forEach((v, i, arr) => {\n    if (i !== 0) {\n      arr[i - 1].next = v;\n    }\n  });\n  return queue[0];\n}"
-        },
-        {
-            "date": 1602518400000,
-            "time": 84,
-            "memory": 39.6,
-            "script": "typescript",
-            "desc": "递归。",
-            "code": "function swapPairs(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return head;\n  const nextHead = head.next;\n  head.next = swapPairs(nextHead.next);\n  nextHead.next = head;\n  return nextHead;\n}"
-        }
-    ]
+  "name": "24. 两两交换链表中的节点",
+  "url": "https://leetcode-cn.com/problems/swap-nodes-in-pairs/",
+  "difficulty": "中等",
+  "tag": ["链表"],
+  "desc": "给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。",
+  "solutions": [
+    {
+      "date": 1602518400000,
+      "time": 96,
+      "memory": 39.5,
+      "script": "typescript",
+      "desc": "入队后两两交换顺序后重新组合。",
+      "code": "function swapPairs(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const queue: ListNode[] = [];\n  let temp: ListNode | null = head;\n  while (temp !== null) {\n    queue.push(temp);\n    temp = temp.next;\n    queue[queue.length - 1].next = null;\n  }\n  for (let i = 0, l = queue.length; i < l; i++) {\n    if (i & 1) {\n      let tempNode = queue[i];\n      queue[i] = queue[i - 1];\n      queue[i - 1] = tempNode;\n    }\n  }\n  queue.forEach((v, i, arr) => {\n    if (i !== 0) {\n      arr[i - 1].next = v;\n    }\n  });\n  return queue[0];\n}"
+    },
+    {
+      "date": 1602518400000,
+      "time": 84,
+      "memory": 39.6,
+      "script": "typescript",
+      "desc": "递归。",
+      "code": "function swapPairs(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return head;\n  const nextHead = head.next;\n  head.next = swapPairs(nextHead.next);\n  nextHead.next = head;\n  return nextHead;\n}"
+    }
+  ]
 }

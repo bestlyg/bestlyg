@@ -1,20 +1,17 @@
 {
-    "name": "1365. 有多少小于当前数字的数字",
-    "url": "https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
-    "desc": "给你一个数组 nums，对于其中每个元素 nums[i]，请你统计数组中比它小的所有数字的数目。",
-    "solutions": [
-        {
-            "date": 1603641600000,
-            "time": 120,
-            "memory": 40.6,
-            "script": "typescript",
-            "desc": "对于每一个数进行重复统计。",
-            "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const ans: number[] = [];\n  for (let i = 0, l = nums.length; i < l; i++) {\n    ans[i] = count(i);\n  }\n  return ans;\n  function count(i: number) {\n    const num = nums[i];\n    let c = 0;\n    nums.forEach(v => {\n      if (v < num) c++;\n    });\n    return c;\n  }\n}"
-        }
-    ]
+  "name": "1365. 有多少小于当前数字的数字",
+  "url": "https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/",
+  "difficulty": "简单",
+  "tag": ["数组", "哈希表"],
+  "desc": "给你一个数组 nums，对于其中每个元素 nums[i]，请你统计数组中比它小的所有数字的数目。",
+  "solutions": [
+    {
+      "date": 1603641600000,
+      "time": 120,
+      "memory": 40.6,
+      "script": "typescript",
+      "desc": "对于每一个数进行重复统计。",
+      "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const ans: number[] = [];\n  for (let i = 0, l = nums.length; i < l; i++) {\n    ans[i] = count(i);\n  }\n  return ans;\n  function count(i: number) {\n    const num = nums[i];\n    let c = 0;\n    nums.forEach(v => {\n      if (v < num) c++;\n    });\n    return c;\n  }\n}"
+    }
+  ]
 }

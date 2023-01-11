@@ -1,19 +1,17 @@
 {
-    "name": "879. 盈利计划",
-    "url": "https://leetcode-cn.com/problems/profitable-schemes/",
-    "difficulty": "困难",
-    "tag": [
-        "动态规划"
-    ],
-    "desc": "集团里有 n 名员工，他们可以完成各种各样的工作创造利润。有多少种计划可以选择？因为答案很大，所以 返回结果模 10^9 + 7 的值。",
-    "solutions": [
-        {
-            "date": 1623168000000,
-            "time": 320,
-            "memory": 76.8,
-            "script": "typescript",
-            "desc": "[参考链接](https://leetcode-cn.com/problems/profitable-schemes/solution/ying-li-ji-hua-by-leetcode-solution-3t8o/)。",
-            "code": "function profitableSchemes(\n  n: number,\n  minProfit: number,\n  group: number[],\n  profit: number[]\n): number {\n  const MOD = 1e9 + 7;\n  const len = group.length;\n  const dp = new Array(len + 1)\n    .fill(0)\n    .map(_ => new Array(n + 1).fill(0).map(_ => new Array(minProfit + 1).fill(0)));\n  dp[0][0][0] = 1;\n  for (let i = 1; i <= len; i++) {\n    const member = group[i - 1];\n    const earn = profit[i - 1];\n    for (let j = 0; j <= n; j++) {\n      for (let k = 0; k <= minProfit; k++) {\n        if (j < member) {\n          dp[i][j][k] = dp[i - 1][j][k];\n        } else {\n          dp[i][j][k] = (dp[i - 1][j][k] + dp[i - 1][j - member][Math.max(0, k - earn)]) % MOD;\n        }\n      }\n    }\n  }\n  let ans = 0;\n  for (let i = 0; i <= n; i++) ans = (ans + dp[len][i][minProfit]) % MOD;\n  return ans;\n}"
-        }
-    ]
+  "name": "879. 盈利计划",
+  "url": "https://leetcode-cn.com/problems/profitable-schemes/",
+  "difficulty": "困难",
+  "tag": ["动态规划"],
+  "desc": "集团里有 n 名员工，他们可以完成各种各样的工作创造利润。有多少种计划可以选择？因为答案很大，所以 返回结果模 10^9 + 7 的值。",
+  "solutions": [
+    {
+      "date": 1623168000000,
+      "time": 320,
+      "memory": 76.8,
+      "script": "typescript",
+      "desc": "[参考链接](https://leetcode-cn.com/problems/profitable-schemes/solution/ying-li-ji-hua-by-leetcode-solution-3t8o/)。",
+      "code": "function profitableSchemes(\n  n: number,\n  minProfit: number,\n  group: number[],\n  profit: number[]\n): number {\n  const MOD = 1e9 + 7;\n  const len = group.length;\n  const dp = new Array(len + 1)\n    .fill(0)\n    .map(_ => new Array(n + 1).fill(0).map(_ => new Array(minProfit + 1).fill(0)));\n  dp[0][0][0] = 1;\n  for (let i = 1; i <= len; i++) {\n    const member = group[i - 1];\n    const earn = profit[i - 1];\n    for (let j = 0; j <= n; j++) {\n      for (let k = 0; k <= minProfit; k++) {\n        if (j < member) {\n          dp[i][j][k] = dp[i - 1][j][k];\n        } else {\n          dp[i][j][k] = (dp[i - 1][j][k] + dp[i - 1][j - member][Math.max(0, k - earn)]) % MOD;\n        }\n      }\n    }\n  }\n  let ans = 0;\n  for (let i = 0; i <= n; i++) ans = (ans + dp[len][i][minProfit]) % MOD;\n  return ans;\n}"
+    }
+  ]
 }

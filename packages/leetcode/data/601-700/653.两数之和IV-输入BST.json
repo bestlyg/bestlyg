@@ -1,33 +1,25 @@
 {
-    "name": "653. 两数之和 IV - 输入 BST",
-    "url": "https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/",
-    "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉搜索树",
-        "哈希表",
-        "双指针",
-        "二叉树"
-    ],
-    "desc": "给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。",
-    "solutions": [
-        {
-            "date": 1629388800000,
-            "time": 168,
-            "memory": 46.8,
-            "script": "typescript",
-            "desc": "层序遍历时判断每个值。",
-            "code": "function findTarget(root: TreeNode | null, k: number): boolean {\n  if (root === null) return false;\n  const set = new Set<number>();\n  const q = [root];\n  while (q.length) {\n    const node = q.shift()!;\n    if (set.has(node.val)) return true;\n    set.add(k - node.val);\n    node.left && q.push(node.left);\n    node.right && q.push(node.right);\n  }\n  return false;\n}"
-        },
-        {
-            "date": 1647792000000,
-            "time": 36,
-            "memory": 37.7,
-            "script": "cpp",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    unordered_set<int> s;\n    bool findTarget(TreeNode *root, int k) {\n        if (!root) return false;\n        if (s.count(k - root->val)) return true;\n        s.insert(root->val);\n        return findTarget(root->left, k) || findTarget(root->right, k);\n    }\n};"
-        }
-    ]
+  "name": "653. 两数之和 IV - 输入 BST",
+  "url": "https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/",
+  "difficulty": "简单",
+  "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "哈希表", "双指针", "二叉树"],
+  "desc": "给定一个二叉搜索树 root 和一个目标结果 k，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 true。",
+  "solutions": [
+    {
+      "date": 1629388800000,
+      "time": 168,
+      "memory": 46.8,
+      "script": "typescript",
+      "desc": "层序遍历时判断每个值。",
+      "code": "function findTarget(root: TreeNode | null, k: number): boolean {\n  if (root === null) return false;\n  const set = new Set<number>();\n  const q = [root];\n  while (q.length) {\n    const node = q.shift()!;\n    if (set.has(node.val)) return true;\n    set.add(k - node.val);\n    node.left && q.push(node.left);\n    node.right && q.push(node.right);\n  }\n  return false;\n}"
+    },
+    {
+      "date": 1647792000000,
+      "time": 36,
+      "memory": 37.7,
+      "script": "cpp",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    unordered_set<int> s;\n    bool findTarget(TreeNode *root, int k) {\n        if (!root) return false;\n        if (s.count(k - root->val)) return true;\n        s.insert(root->val);\n        return findTarget(root->left, k) || findTarget(root->right, k);\n    }\n};"
+    }
+  ]
 }

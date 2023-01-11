@@ -1,27 +1,25 @@
 {
-    "name": "541. 反转字符串 II",
-    "url": "https://leetcode-cn.com/problems/reverse-string-ii/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "给定一个字符串和一个整数 k，你需要对从字符串开头算起的每个 2k 个字符的前 k 个字符进行反转。如果剩余少于 k 个字符，则将剩余的所有全部反转。如果有小于 2k 但大于或等于 k 个字符，则反转前 k 个字符，并将剩余的字符保持原样。",
-    "solutions": [
-        {
-            "date": 1586188800000,
-            "time": 120,
-            "memory": 37.3,
-            "script": "javascript",
-            "desc": "解构翻转。",
-            "code": "/**\n * @param {string} s\n * @param {number} k\n * @return {string}\n */\nvar reverseStr = function (s, k) {\n  function reverse(s) {\n    return [...s].reverse().join('');\n  }\n  if (s.length < k) return reverse(s);\n  const reverseS = reverse(s.substr(0, k));\n  if (s.length <= 2 * k) {\n    return reverseS + s.substr(k);\n  }\n  return reverseS + s.substr(k, k) + reverseStr(s.substr(k * 2), k);\n};"
-        },
-        {
-            "date": 1629388800000,
-            "time": 76,
-            "memory": 44.1,
-            "script": "typescript",
-            "desc": "转为数组逐个翻转。",
-            "code": "function reverseStr(s: string, k: number): string {\n  const arr = s.split('');\n  for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));\n  return arr.join('');\n  function reverse(start: number, end: number) {\n    while (start < end) {\n      [arr[start], arr[end]] = [arr[end], arr[start]];\n      end--;\n      start++;\n    }\n  }\n}"
-        }
-    ]
+  "name": "541. 反转字符串 II",
+  "url": "https://leetcode-cn.com/problems/reverse-string-ii/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "给定一个字符串和一个整数 k，你需要对从字符串开头算起的每个 2k 个字符的前 k 个字符进行反转。如果剩余少于 k 个字符，则将剩余的所有全部反转。如果有小于 2k 但大于或等于 k 个字符，则反转前 k 个字符，并将剩余的字符保持原样。",
+  "solutions": [
+    {
+      "date": 1586188800000,
+      "time": 120,
+      "memory": 37.3,
+      "script": "javascript",
+      "desc": "解构翻转。",
+      "code": "/**\n * @param {string} s\n * @param {number} k\n * @return {string}\n */\nvar reverseStr = function (s, k) {\n  function reverse(s) {\n    return [...s].reverse().join('');\n  }\n  if (s.length < k) return reverse(s);\n  const reverseS = reverse(s.substr(0, k));\n  if (s.length <= 2 * k) {\n    return reverseS + s.substr(k);\n  }\n  return reverseS + s.substr(k, k) + reverseStr(s.substr(k * 2), k);\n};"
+    },
+    {
+      "date": 1629388800000,
+      "time": 76,
+      "memory": 44.1,
+      "script": "typescript",
+      "desc": "转为数组逐个翻转。",
+      "code": "function reverseStr(s: string, k: number): string {\n  const arr = s.split('');\n  for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));\n  return arr.join('');\n  function reverse(start: number, end: number) {\n    while (start < end) {\n      [arr[start], arr[end]] = [arr[end], arr[start]];\n      end--;\n      start++;\n    }\n  }\n}"
+    }
+  ]
 }

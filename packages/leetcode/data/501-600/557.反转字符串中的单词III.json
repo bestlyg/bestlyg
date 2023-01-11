@@ -1,27 +1,25 @@
 {
-    "name": "557. 反转字符串中的单词 III",
-    "url": "https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
-    "desc": "给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。",
-    "solutions": [
-        {
-            "date": 1586188800000,
-            "time": 104,
-            "memory": 43.2,
-            "script": "javascript",
-            "desc": "通过解构成字符串进行转换。",
-            "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseWords = function (s) {\n  const words = s.split(' ');\n  for (let num in words) {\n    words[num] = [...words[num]].reverse().join('');\n  }\n  return words.join(' ');\n};"
-        },
-        {
-            "date": 1598716800000,
-            "time": 112,
-            "memory": 44.5,
-            "script": "typescript",
-            "desc": "分割后重新映射。",
-            "code": "function reverseWords(s: string): string {\n  return s\n    .split(' ')\n    .map(v => v.split('').reverse().join(''))\n    .join(' ');\n}"
-        }
-    ]
+  "name": "557. 反转字符串中的单词 III",
+  "url": "https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/",
+  "difficulty": "简单",
+  "tag": ["字符串"],
+  "desc": "给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。",
+  "solutions": [
+    {
+      "date": 1586188800000,
+      "time": 104,
+      "memory": 43.2,
+      "script": "javascript",
+      "desc": "通过解构成字符串进行转换。",
+      "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseWords = function (s) {\n  const words = s.split(' ');\n  for (let num in words) {\n    words[num] = [...words[num]].reverse().join('');\n  }\n  return words.join(' ');\n};"
+    },
+    {
+      "date": 1598716800000,
+      "time": 112,
+      "memory": 44.5,
+      "script": "typescript",
+      "desc": "分割后重新映射。",
+      "code": "function reverseWords(s: string): string {\n  return s\n    .split(' ')\n    .map(v => v.split('').reverse().join(''))\n    .join(' ');\n}"
+    }
+  ]
 }

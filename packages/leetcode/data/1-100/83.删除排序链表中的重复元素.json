@@ -1,19 +1,17 @@
 {
-    "name": "83. 删除排序链表中的重复元素",
-    "url": "https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/",
-    "difficulty": "简单",
-    "tag": [
-        "链表"
-    ],
-    "desc": "给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。",
-    "solutions": [
-        {
-            "date": 1581523200000,
-            "time": 3,
-            "memory": 45,
-            "script": "java",
-            "desc": "使用 set 储存元素，储存前会先判断 set 中是否已存在，若存在则移除。",
-            "code": "class Solution {\n    public ListNode deleteDuplicates(ListNode head) {\n        if(head==null) {\n\t\t\treturn null;\n\t\t}\n\t\tHashSet<Integer> set = new HashSet<Integer>();\n\t\tListNode newHead=head;\n\t\tset.add(head.val);\n\t\twhile(head.next!=null) {\n\t\t\tif(!set.contains(head.next.val)) {\n\t\t\t\tset.add(head.next.val);\n\t\t\t\thead=head.next;\n\t\t\t}else {\n\t\t\t\thead.next=head.next.next;\n\t\t\t}\n\t\t}\n        return newHead;\n    }\n}"
-        }
-    ]
+  "name": "83. 删除排序链表中的重复元素",
+  "url": "https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/",
+  "difficulty": "简单",
+  "tag": ["链表"],
+  "desc": "给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。",
+  "solutions": [
+    {
+      "date": 1581523200000,
+      "time": 3,
+      "memory": 45,
+      "script": "java",
+      "desc": "使用 set 储存元素，储存前会先判断 set 中是否已存在，若存在则移除。",
+      "code": "class Solution {\n    public ListNode deleteDuplicates(ListNode head) {\n        if(head==null) {\n\t\t\treturn null;\n\t\t}\n\t\tHashSet<Integer> set = new HashSet<Integer>();\n\t\tListNode newHead=head;\n\t\tset.add(head.val);\n\t\twhile(head.next!=null) {\n\t\t\tif(!set.contains(head.next.val)) {\n\t\t\t\tset.add(head.next.val);\n\t\t\t\thead=head.next;\n\t\t\t}else {\n\t\t\t\thead.next=head.next.next;\n\t\t\t}\n\t\t}\n        return newHead;\n    }\n}"
+    }
+  ]
 }

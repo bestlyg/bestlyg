@@ -1,20 +1,17 @@
 {
-    "name": "523. 连续的子数组和",
-    "url": "https://leetcode-cn.com/problems/continuous-subarray-sum/",
-    "difficulty": "中等",
-    "tag": [
-        "数学",
-        "动态规划"
-    ],
-    "desc": "给你一个整数数组 nums 和一个整数 k。如果存在一个整数 n ，令整数 x 符合 x = n \\* k ，则称 x 是 k 的一个倍数。",
-    "solutions": [
-        {
-            "date": 1622563200000,
-            "time": 156,
-            "memory": 53.9,
-            "script": "typescript",
-            "desc": "当 prefixSums[q]−prefixSums[p] 为 kk 的倍数时，prefixSums[p] 和 prefixSums[q] 除以 k 的余数相同。",
-            "code": "function checkSubarraySum(nums: number[], k: number): boolean {\n  const len = nums.length;\n  if (len < 2 || k === 0) return false;\n  const map = new Map<number, number>([[0, -1]]);\n  let num = 0;\n  for (let i = 0; i < len; i++) {\n    num = (num + nums[i]) % k;\n    let prev = map.get(num);\n    if (prev !== undefined) {\n      if (i - prev >= 2) return true;\n    } else map.set(num, i);\n  }\n  return false;\n}"
-        }
-    ]
+  "name": "523. 连续的子数组和",
+  "url": "https://leetcode-cn.com/problems/continuous-subarray-sum/",
+  "difficulty": "中等",
+  "tag": ["数学", "动态规划"],
+  "desc": "给你一个整数数组 nums 和一个整数 k。如果存在一个整数 n ，令整数 x 符合 x = n \\* k ，则称 x 是 k 的一个倍数。",
+  "solutions": [
+    {
+      "date": 1622563200000,
+      "time": 156,
+      "memory": 53.9,
+      "script": "typescript",
+      "desc": "当 prefixSums[q]−prefixSums[p] 为 kk 的倍数时，prefixSums[p] 和 prefixSums[q] 除以 k 的余数相同。",
+      "code": "function checkSubarraySum(nums: number[], k: number): boolean {\n  const len = nums.length;\n  if (len < 2 || k === 0) return false;\n  const map = new Map<number, number>([[0, -1]]);\n  let num = 0;\n  for (let i = 0; i < len; i++) {\n    num = (num + nums[i]) % k;\n    let prev = map.get(num);\n    if (prev !== undefined) {\n      if (i - prev >= 2) return true;\n    } else map.set(num, i);\n  }\n  return false;\n}"
+    }
+  ]
 }

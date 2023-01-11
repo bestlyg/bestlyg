@@ -1,30 +1,25 @@
 {
-    "name": "496. 下一个更大元素 I",
-    "url": "https://leetcode-cn.com/problems/next-greater-element-i/",
-    "difficulty": "简单",
-    "tag": [
-        "栈",
-        "数组",
-        "哈希表",
-        "单调栈"
-    ],
-    "desc": "请你找出 nums1 中每个元素在 nums2 中的下一个比其大的值。",
-    "solutions": [
-        {
-            "date": 1626710400000,
-            "time": 76,
-            "memory": 39.9,
-            "script": "typescript",
-            "desc": "单调递减栈。",
-            "code": "function nextGreaterElement(nums1: number[], nums2: number[]): number[] {\n  const map: Record<number, number> = {};\n  const n2 = nums2.length;\n  for (let i = 0; i < n2; i++) map[nums2[i]] = i;\n  const stack: number[] = [];\n  const arr = new Array(n2).fill(-1);\n  for (let i = 0; i < n2; i++) {\n    const num = nums2[i];\n    while (stack.length && nums2[stack[stack.length - 1]] < num) arr[stack.pop()!] = num;\n    stack.push(i);\n  }\n  return nums1.map(num => arr[map[num]]);\n}"
-        },
-        {
-            "date": 1635177600000,
-            "time": 76,
-            "memory": 40.2,
-            "script": "typescript",
-            "desc": "单调栈。",
-            "code": "function nextGreaterElement(nums1: number[], nums2: number[]): number[] {\n  const map = new Map<number, number>();\n  nums1.forEach((v, i) => map.set(v, i));\n  const ans: number[] = new Array(nums1.length).fill(-1);\n  const stack: number[] = [];\n  for (const num2 of nums2) {\n    while (stack.length && stack[stack.length - 1] < num2) {\n      const num = stack.pop()!;\n      if (map.has(num)) ans[map.get(num)!] = num2;\n    }\n    stack.push(num2);\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "496. 下一个更大元素 I",
+  "url": "https://leetcode-cn.com/problems/next-greater-element-i/",
+  "difficulty": "简单",
+  "tag": ["栈", "数组", "哈希表", "单调栈"],
+  "desc": "请你找出 nums1 中每个元素在 nums2 中的下一个比其大的值。",
+  "solutions": [
+    {
+      "date": 1626710400000,
+      "time": 76,
+      "memory": 39.9,
+      "script": "typescript",
+      "desc": "单调递减栈。",
+      "code": "function nextGreaterElement(nums1: number[], nums2: number[]): number[] {\n  const map: Record<number, number> = {};\n  const n2 = nums2.length;\n  for (let i = 0; i < n2; i++) map[nums2[i]] = i;\n  const stack: number[] = [];\n  const arr = new Array(n2).fill(-1);\n  for (let i = 0; i < n2; i++) {\n    const num = nums2[i];\n    while (stack.length && nums2[stack[stack.length - 1]] < num) arr[stack.pop()!] = num;\n    stack.push(i);\n  }\n  return nums1.map(num => arr[map[num]]);\n}"
+    },
+    {
+      "date": 1635177600000,
+      "time": 76,
+      "memory": 40.2,
+      "script": "typescript",
+      "desc": "单调栈。",
+      "code": "function nextGreaterElement(nums1: number[], nums2: number[]): number[] {\n  const map = new Map<number, number>();\n  nums1.forEach((v, i) => map.set(v, i));\n  const ans: number[] = new Array(nums1.length).fill(-1);\n  const stack: number[] = [];\n  for (const num2 of nums2) {\n    while (stack.length && stack[stack.length - 1] < num2) {\n      const num = stack.pop()!;\n      if (map.has(num)) ans[map.get(num)!] = num2;\n    }\n    stack.push(num2);\n  }\n  return ans;\n}"
+    }
+  ]
 }

@@ -1,22 +1,17 @@
 {
-    "name": "1856. 子数组最小乘积的最大值",
-    "url": "https://leetcode-cn.com/problems/maximum-subarray-min-product/",
-    "difficulty": "中等",
-    "tag": [
-        "栈",
-        "数组",
-        "前缀和",
-        "单调栈"
-    ],
-    "desc": "给你一个正整数数组  nums ，请你返回  nums  任意   非空子数组   的最小乘积   的   最大值  。",
-    "solutions": [
-        {
-            "date": 1626624000000,
-            "time": 352,
-            "memory": 67.2,
-            "script": "typescript",
-            "desc": "单调栈，获取两边的最大值，由于 js 最多表示 53 位，需要用 bigint。",
-            "code": "function maxSumMinProduct(nums: number[]): number {\n  const n = nums.length;\n  const l = new Array(n).fill(-1);\n  const r = new Array(n).fill(n);\n  const stack: number[] = [];\n  const sums: number[] = [0];\n  let sum = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    sums.push((sum += num));\n    while (stack.length && nums[stack[stack.length - 1]] >= num) r[stack.pop()!] = i;\n    if (stack.length) l[i] = stack[stack.length - 1];\n    stack.push(i);\n  }\n  let ans = 0n;\n  for (let i = 0; i < n; i++) {\n    const num = (BigInt(sums[r[i]]) - BigInt(sums[l[i] + 1])) * BigInt(nums[i]);\n    ans = ans > num ? ans : num;\n  }\n  ans %= BigInt(10 ** 9 + 7);\n  return Number(ans);\n}"
-        }
-    ]
+  "name": "1856. 子数组最小乘积的最大值",
+  "url": "https://leetcode-cn.com/problems/maximum-subarray-min-product/",
+  "difficulty": "中等",
+  "tag": ["栈", "数组", "前缀和", "单调栈"],
+  "desc": "给你一个正整数数组  nums ，请你返回  nums  任意   非空子数组   的最小乘积   的   最大值  。",
+  "solutions": [
+    {
+      "date": 1626624000000,
+      "time": 352,
+      "memory": 67.2,
+      "script": "typescript",
+      "desc": "单调栈，获取两边的最大值，由于 js 最多表示 53 位，需要用 bigint。",
+      "code": "function maxSumMinProduct(nums: number[]): number {\n  const n = nums.length;\n  const l = new Array(n).fill(-1);\n  const r = new Array(n).fill(n);\n  const stack: number[] = [];\n  const sums: number[] = [0];\n  let sum = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    sums.push((sum += num));\n    while (stack.length && nums[stack[stack.length - 1]] >= num) r[stack.pop()!] = i;\n    if (stack.length) l[i] = stack[stack.length - 1];\n    stack.push(i);\n  }\n  let ans = 0n;\n  for (let i = 0; i < n; i++) {\n    const num = (BigInt(sums[r[i]]) - BigInt(sums[l[i] + 1])) * BigInt(nums[i]);\n    ans = ans > num ? ans : num;\n  }\n  ans %= BigInt(10 ** 9 + 7);\n  return Number(ans);\n}"
+    }
+  ]
 }

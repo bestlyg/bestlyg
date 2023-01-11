@@ -1,27 +1,25 @@
 {
-    "name": "1184. 公交站间的距离",
-    "url": "https://leetcode-cn.com/problems/distance-between-bus-stops/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "返回乘客从出发点 start 到目的地 destination 之间的最短距离。",
-    "solutions": [
-        {
-            "date": 1648483200000,
-            "time": 0,
-            "memory": 8.6,
-            "script": "cpp",
-            "desc": "遍历。",
-            "code": "class Solution {\n   public:\n    int comp(vector<int>& distance, int start, int destination, int f) {\n        int sum = 0;\n        while (start != destination) {\n            if (f == 1) sum += distance[start];\n            start += f;\n            if (start == distance.size())\n                start = 0;\n            else if (start == -1)\n                start = distance.size() - 1;\n            if (f == -1) sum += distance[start];\n        }\n        return sum;\n    }\n    int distanceBetweenBusStops(vector<int>& distance, int start,\n                                int destination) {\n        return min(comp(distance, start, destination, 1),\n                   comp(distance, start, destination, -1));\n    }\n};"
-        },
-        {
-            "date": 1658592000000,
-            "time": 0,
-            "memory": 2.1,
-            "script": "rust",
-            "desc": "遍历。",
-            "code": "impl Solution {\n    pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {\n        let n = distance.len() as i32;\n        let (mut sum1, mut sum2) = (0, 0);\n        let (mut cur1, mut cur2) = (start, destination);\n        let mut i = start;\n        while i != destination {\n            sum1 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        i = destination;\n        while i != start {\n            sum2 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        sum1.min(sum2)\n    }\n}"
-        }
-    ]
+  "name": "1184. 公交站间的距离",
+  "url": "https://leetcode-cn.com/problems/distance-between-bus-stops/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "返回乘客从出发点 start 到目的地 destination 之间的最短距离。",
+  "solutions": [
+    {
+      "date": 1648483200000,
+      "time": 0,
+      "memory": 8.6,
+      "script": "cpp",
+      "desc": "遍历。",
+      "code": "class Solution {\n   public:\n    int comp(vector<int>& distance, int start, int destination, int f) {\n        int sum = 0;\n        while (start != destination) {\n            if (f == 1) sum += distance[start];\n            start += f;\n            if (start == distance.size())\n                start = 0;\n            else if (start == -1)\n                start = distance.size() - 1;\n            if (f == -1) sum += distance[start];\n        }\n        return sum;\n    }\n    int distanceBetweenBusStops(vector<int>& distance, int start,\n                                int destination) {\n        return min(comp(distance, start, destination, 1),\n                   comp(distance, start, destination, -1));\n    }\n};"
+    },
+    {
+      "date": 1658592000000,
+      "time": 0,
+      "memory": 2.1,
+      "script": "rust",
+      "desc": "遍历。",
+      "code": "impl Solution {\n    pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {\n        let n = distance.len() as i32;\n        let (mut sum1, mut sum2) = (0, 0);\n        let (mut cur1, mut cur2) = (start, destination);\n        let mut i = start;\n        while i != destination {\n            sum1 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        i = destination;\n        while i != start {\n            sum2 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        sum1.min(sum2)\n    }\n}"
+    }
+  ]
 }

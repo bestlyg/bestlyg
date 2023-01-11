@@ -1,27 +1,25 @@
 {
-    "name": "501. 二叉搜索树中的众数",
-    "url": "https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/",
-    "difficulty": "简单",
-    "tag": [
-        "树"
-    ],
-    "desc": "给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。",
-    "solutions": [
-        {
-            "date": 1600876800000,
-            "time": 120,
-            "memory": 47.2,
-            "script": "typescript",
-            "desc": "中序遍历。",
-            "code": "function findMode(root: TreeNode | null): number[] {\n  const cache: Record<number, number> = {};\n  const setCache = (val: number) => {\n    if (!cache[val]) cache[val] = 0;\n    cache[val] += 1;\n  };\n  const inorder = (root: TreeNode | null) => {\n    if (root === null) return;\n    inorder(root.left);\n    setCache(root.val);\n    inorder(root.right);\n  };\n  inorder(root);\n  return Object.entries(cache)\n    .sort(([, c1], [, c2]) => c2 - c1)\n    .filter(([, c], _, arr) => c === arr[0][1])\n    .map(([val]) => parseInt(val));\n}"
-        },
-        {
-            "date": 1600876800000,
-            "time": 88,
-            "memory": 44.1,
-            "script": "typescript",
-            "desc": "[参考链接](https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/solution/er-cha-sou-suo-shu-zhong-de-zhong-shu-by-leetcode-/)。",
-            "code": "function findMode(root: TreeNode | null): number[] {\n  let base = 0;\n  let count = 0;\n  let maxCount = 0;\n  let answer: number[] = [];\n  const update = (x: number) => {\n    if (x === base) count++;\n    else {\n      count = 1;\n      base = x;\n    }\n    if (count === maxCount) answer.push(base);\n    if (count > maxCount) {\n      maxCount = count;\n      answer = [base];\n    }\n  };\n\n  let cur = root,\n    pre = null;\n  while (cur !== null) {\n    if (cur.left === null) {\n      update(cur.val);\n      cur = cur.right;\n      continue;\n    }\n    pre = cur.left;\n    while (pre.right !== null && pre.right !== cur) pre = pre.right;\n    if (pre.right === null) {\n      pre.right = cur;\n      cur = cur.left;\n    } else {\n      pre.right = null;\n      update(cur.val);\n      cur = cur.right;\n    }\n  }\n  return answer;\n}"
-        }
-    ]
+  "name": "501. 二叉搜索树中的众数",
+  "url": "https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/",
+  "difficulty": "简单",
+  "tag": ["树"],
+  "desc": "给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。",
+  "solutions": [
+    {
+      "date": 1600876800000,
+      "time": 120,
+      "memory": 47.2,
+      "script": "typescript",
+      "desc": "中序遍历。",
+      "code": "function findMode(root: TreeNode | null): number[] {\n  const cache: Record<number, number> = {};\n  const setCache = (val: number) => {\n    if (!cache[val]) cache[val] = 0;\n    cache[val] += 1;\n  };\n  const inorder = (root: TreeNode | null) => {\n    if (root === null) return;\n    inorder(root.left);\n    setCache(root.val);\n    inorder(root.right);\n  };\n  inorder(root);\n  return Object.entries(cache)\n    .sort(([, c1], [, c2]) => c2 - c1)\n    .filter(([, c], _, arr) => c === arr[0][1])\n    .map(([val]) => parseInt(val));\n}"
+    },
+    {
+      "date": 1600876800000,
+      "time": 88,
+      "memory": 44.1,
+      "script": "typescript",
+      "desc": "[参考链接](https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/solution/er-cha-sou-suo-shu-zhong-de-zhong-shu-by-leetcode-/)。",
+      "code": "function findMode(root: TreeNode | null): number[] {\n  let base = 0;\n  let count = 0;\n  let maxCount = 0;\n  let answer: number[] = [];\n  const update = (x: number) => {\n    if (x === base) count++;\n    else {\n      count = 1;\n      base = x;\n    }\n    if (count === maxCount) answer.push(base);\n    if (count > maxCount) {\n      maxCount = count;\n      answer = [base];\n    }\n  };\n\n  let cur = root,\n    pre = null;\n  while (cur !== null) {\n    if (cur.left === null) {\n      update(cur.val);\n      cur = cur.right;\n      continue;\n    }\n    pre = cur.left;\n    while (pre.right !== null && pre.right !== cur) pre = pre.right;\n    if (pre.right === null) {\n      pre.right = cur;\n      cur = cur.left;\n    } else {\n      pre.right = null;\n      update(cur.val);\n      cur = cur.right;\n    }\n  }\n  return answer;\n}"
+    }
+  ]
 }

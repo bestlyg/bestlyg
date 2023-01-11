@@ -1,28 +1,25 @@
 {
-    "name": "295. 数据流的中位数",
-    "url": "https://leetcode-cn.com/problems/find-median-from-data-stream/",
-    "difficulty": "困难",
-    "tag": [
-        "堆",
-        "设计"
-    ],
-    "desc": "中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。",
-    "solutions": [
-        {
-            "date": 1617984000000,
-            "time": 272,
-            "memory": 58.5,
-            "script": "typescript",
-            "desc": "构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较。",
-            "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nclass MedianFinder {\n  private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);\n  private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);\n  get size() {\n    return this.leftHeap.size + this.rightHeap.size;\n  }\n  addNum(num: number): void {\n    if (!this.leftHeap.size || this.leftHeap.top >= num) {\n      this.leftHeap.add(num);\n    } else {\n      this.rightHeap.add(num);\n    }\n    if (this.leftHeap.size === this.rightHeap.size + 2) {\n      this.rightHeap.add(this.leftHeap.remove());\n    } else if (this.leftHeap.size === this.rightHeap.size - 1) {\n      this.leftHeap.add(this.rightHeap.remove());\n    }\n  }\n  findMedian(): number {\n    if (this.size % 2 === 0) {\n      return (this.leftHeap.top + this.rightHeap.top) / 2;\n    } else {\n      return this.leftHeap.top;\n    }\n  }\n}"
-        },
-        {
-            "date": 1629993600000,
-            "time": 1648,
-            "memory": 68.1,
-            "script": "typescript",
-            "desc": "构建左侧大顶堆，右侧小顶堆，快速取中值。",
-            "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\nclass MedianFinder {\n  left = new Heap<number>((t1, t2) => t1 - t2);\n  right = new Heap<number>((t1, t2) => t2 - t1);\n  get cnt() {\n    return this.left.size + this.right.size;\n  }\n  addNum(num: number): void {\n    if (this.left.size === 0 && this.right.size === 0) {\n      this.left.add(num);\n    } else if (this.left.top < num) {\n      this.right.add(num);\n    } else {\n      this.left.add(num);\n    }\n    if (this.right.size + 1 > this.left.size) this.left.add(this.right.remove());\n    if (this.left.size - 1 > this.right.size) this.right.add(this.left.remove());\n  }\n  findMedian(): number {\n    return this.cnt % 2 === 0 ? (this.left.top + this.right.top) / 2 : this.left.top;\n  }\n}"
-        }
-    ]
+  "name": "295. 数据流的中位数",
+  "url": "https://leetcode-cn.com/problems/find-median-from-data-stream/",
+  "difficulty": "困难",
+  "tag": ["堆", "设计"],
+  "desc": "中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。",
+  "solutions": [
+    {
+      "date": 1617984000000,
+      "time": 272,
+      "memory": 58.5,
+      "script": "typescript",
+      "desc": "构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较。",
+      "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nclass MedianFinder {\n  private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);\n  private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);\n  get size() {\n    return this.leftHeap.size + this.rightHeap.size;\n  }\n  addNum(num: number): void {\n    if (!this.leftHeap.size || this.leftHeap.top >= num) {\n      this.leftHeap.add(num);\n    } else {\n      this.rightHeap.add(num);\n    }\n    if (this.leftHeap.size === this.rightHeap.size + 2) {\n      this.rightHeap.add(this.leftHeap.remove());\n    } else if (this.leftHeap.size === this.rightHeap.size - 1) {\n      this.leftHeap.add(this.rightHeap.remove());\n    }\n  }\n  findMedian(): number {\n    if (this.size % 2 === 0) {\n      return (this.leftHeap.top + this.rightHeap.top) / 2;\n    } else {\n      return this.leftHeap.top;\n    }\n  }\n}"
+    },
+    {
+      "date": 1629993600000,
+      "time": 1648,
+      "memory": 68.1,
+      "script": "typescript",
+      "desc": "构建左侧大顶堆，右侧小顶堆，快速取中值。",
+      "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\nclass MedianFinder {\n  left = new Heap<number>((t1, t2) => t1 - t2);\n  right = new Heap<number>((t1, t2) => t2 - t1);\n  get cnt() {\n    return this.left.size + this.right.size;\n  }\n  addNum(num: number): void {\n    if (this.left.size === 0 && this.right.size === 0) {\n      this.left.add(num);\n    } else if (this.left.top < num) {\n      this.right.add(num);\n    } else {\n      this.left.add(num);\n    }\n    if (this.right.size + 1 > this.left.size) this.left.add(this.right.remove());\n    if (this.left.size - 1 > this.right.size) this.right.add(this.left.remove());\n  }\n  findMedian(): number {\n    return this.cnt % 2 === 0 ? (this.left.top + this.right.top) / 2 : this.left.top;\n  }\n}"
+    }
+  ]
 }

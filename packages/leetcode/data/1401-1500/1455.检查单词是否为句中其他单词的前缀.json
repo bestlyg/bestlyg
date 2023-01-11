@@ -1,28 +1,25 @@
 {
-    "name": "1455. 检查单词是否为句中其他单词的前缀",
-    "url": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/",
-    "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "字符串匹配"
-    ],
-    "desc": "请你检查检索词 searchWord 是否为句子 sentence 中任意单词的前缀。",
-    "solutions": [
-        {
-            "date": 1661011200000,
-            "time": 4,
-            "memory": 6.1,
-            "script": "cpp",
-            "desc": "分割字符串。",
-            "code": "class Solution {\npublic:\n    int isPrefixOfWord(string sentence, string searchWord) {\n        istringstream iss(sentence);\n        string tmp;\n        int cnt = 1;\n        while (getline(iss, tmp, ' ')) {\n            int i = 0, j = 0;\n            bool f = true;\n            for (; i < tmp.size() && j < searchWord.size(); i++, j++) {\n                if (tmp[i] != searchWord[j]) {\n                    f = false;\n                    break;\n                }\n            }\n            if (f && j == searchWord.size()) return cnt;\n            cnt++;\n        }\n        return -1;\n    }\n};"
-        },
-        {
-            "date": 1661011200000,
-            "time": 56,
-            "memory": 42.2,
-            "script": "typescript",
-            "desc": "分割字符串。",
-            "code": "function isPrefixOfWord(sentence: string, searchWord: string): number {\n  const list = sentence.split(' ');\n  for (let i = 0; i < list.length; i++) {\n    if (list[i].startsWith(searchWord)) return i + 1;\n  }\n  return -1;\n}"
-        }
-    ]
+  "name": "1455. 检查单词是否为句中其他单词的前缀",
+  "url": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/",
+  "difficulty": "简单",
+  "tag": ["字符串", "字符串匹配"],
+  "desc": "请你检查检索词 searchWord 是否为句子 sentence 中任意单词的前缀。",
+  "solutions": [
+    {
+      "date": 1661011200000,
+      "time": 4,
+      "memory": 6.1,
+      "script": "cpp",
+      "desc": "分割字符串。",
+      "code": "class Solution {\npublic:\n    int isPrefixOfWord(string sentence, string searchWord) {\n        istringstream iss(sentence);\n        string tmp;\n        int cnt = 1;\n        while (getline(iss, tmp, ' ')) {\n            int i = 0, j = 0;\n            bool f = true;\n            for (; i < tmp.size() && j < searchWord.size(); i++, j++) {\n                if (tmp[i] != searchWord[j]) {\n                    f = false;\n                    break;\n                }\n            }\n            if (f && j == searchWord.size()) return cnt;\n            cnt++;\n        }\n        return -1;\n    }\n};"
+    },
+    {
+      "date": 1661011200000,
+      "time": 56,
+      "memory": 42.2,
+      "script": "typescript",
+      "desc": "分割字符串。",
+      "code": "function isPrefixOfWord(sentence: string, searchWord: string): number {\n  const list = sentence.split(' ');\n  for (let i = 0; i < list.length; i++) {\n    if (list[i].startsWith(searchWord)) return i + 1;\n  }\n  return -1;\n}"
+    }
+  ]
 }

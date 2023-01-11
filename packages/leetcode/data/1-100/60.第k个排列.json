@@ -1,11 +1,8 @@
 {
-    "name": "60. 第 k 个排列",
-    "url": "https://leetcode-cn.com/problems/permutation-sequence/",
-    "difficulty": "简单",
-    "tag": [
-        "数学",
-        "回溯算法"
-    ],
-    "desc": "给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
-    "solutions": []
+  "name": "60. 第 k 个排列",
+  "url": "https://leetcode-cn.com/problems/permutation-sequence/",
+  "difficulty": "简单",
+  "tag": ["数学", "回溯算法"],
+  "desc": "给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
+  "solutions": []
 }

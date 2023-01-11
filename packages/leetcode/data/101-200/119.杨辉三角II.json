@@ -1,27 +1,25 @@
 {
-    "name": "119. 杨辉三角 II",
-    "url": "https://leetcode-cn.com/problems/pascals-triangle-ii/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。",
-    "solutions": [
-        {
-            "date": 1613059200000,
-            "time": 88,
-            "memory": 40.5,
-            "script": "typescript",
-            "desc": "遍历所有值进行储存。",
-            "code": "function getRow(rowIndex: number): number[] {\n  const cache: number[][] = [[1], [1, 1]];\n  for (let i = 2; i <= 33; i++) {\n    const arr = [1];\n    const prev = cache[i - 1];\n    for (let j = 0, l = prev.length; j < l - 1; j++) {\n      arr.push(prev[j] + prev[j + 1]);\n    }\n    arr.push(1);\n    cache.push(arr);\n  }\n  return cache[rowIndex];\n}"
-        },
-        {
-            "date": 1613059200000,
-            "time": 88,
-            "memory": 40.5,
-            "script": "typescript",
-            "desc": "优化题解 1。",
-            "code": "const cache = [[1],[1,1],...]\n      function getRow(rowIndex: number): number[] {\n        return cache[rowIndex];\n      }"
-        }
-    ]
+  "name": "119. 杨辉三角 II",
+  "url": "https://leetcode-cn.com/problems/pascals-triangle-ii/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。",
+  "solutions": [
+    {
+      "date": 1613059200000,
+      "time": 88,
+      "memory": 40.5,
+      "script": "typescript",
+      "desc": "遍历所有值进行储存。",
+      "code": "function getRow(rowIndex: number): number[] {\n  const cache: number[][] = [[1], [1, 1]];\n  for (let i = 2; i <= 33; i++) {\n    const arr = [1];\n    const prev = cache[i - 1];\n    for (let j = 0, l = prev.length; j < l - 1; j++) {\n      arr.push(prev[j] + prev[j + 1]);\n    }\n    arr.push(1);\n    cache.push(arr);\n  }\n  return cache[rowIndex];\n}"
+    },
+    {
+      "date": 1613059200000,
+      "time": 88,
+      "memory": 40.5,
+      "script": "typescript",
+      "desc": "优化题解 1。",
+      "code": "const cache = [[1],[1,1],...]\n      function getRow(rowIndex: number): number[] {\n        return cache[rowIndex];\n      }"
+    }
+  ]
 }

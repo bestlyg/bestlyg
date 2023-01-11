@@ -1,27 +1,25 @@
 {
-    "name": "剑指 Offer 54. 二叉搜索树的第 k 大节点",
-    "url": "https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/",
-    "difficulty": "简单",
-    "tag": [
-        "树"
-    ],
-    "desc": "给定一棵二叉搜索树，请找出其中第 k 大的节点。",
-    "solutions": [
-        {
-            "date": 1617379200000,
-            "time": 104,
-            "memory": 44.5,
-            "script": "typescript",
-            "desc": "中序遍历后读取第 k 个值。",
-            "code": "function kthLargest(root: TreeNode | null, k: number): number {\n  const arr: number[] = [];\n  const inorder = (node: TreeNode | null): void => {\n    if (!node) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  };\n  inorder(root);\n  return arr[arr.length - k];\n}"
-        },
-        {
-            "date": 1617379200000,
-            "time": 88,
-            "memory": 44.8,
-            "script": "typescript",
-            "desc": "统计右侧节点数进行计算。",
-            "code": "const countNode = (node: TreeNode | null): number =>\n  node ? 1 + countNode(node.left) + countNode(node.right) : 0;\nfunction kthLargest(root: TreeNode | null, k: number): number {\n  if (!root) return 0;\n  const rightCount = countNode(root.right) + 1;\n  return rightCount > k\n    ? kthLargest(root.right, k)\n    : rightCount < k\n    ? kthLargest(root.left, k - rightCount)\n    : root.val;\n}"
-        }
-    ]
+  "name": "剑指 Offer 54. 二叉搜索树的第 k 大节点",
+  "url": "https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/",
+  "difficulty": "简单",
+  "tag": ["树"],
+  "desc": "给定一棵二叉搜索树，请找出其中第 k 大的节点。",
+  "solutions": [
+    {
+      "date": 1617379200000,
+      "time": 104,
+      "memory": 44.5,
+      "script": "typescript",
+      "desc": "中序遍历后读取第 k 个值。",
+      "code": "function kthLargest(root: TreeNode | null, k: number): number {\n  const arr: number[] = [];\n  const inorder = (node: TreeNode | null): void => {\n    if (!node) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  };\n  inorder(root);\n  return arr[arr.length - k];\n}"
+    },
+    {
+      "date": 1617379200000,
+      "time": 88,
+      "memory": 44.8,
+      "script": "typescript",
+      "desc": "统计右侧节点数进行计算。",
+      "code": "const countNode = (node: TreeNode | null): number =>\n  node ? 1 + countNode(node.left) + countNode(node.right) : 0;\nfunction kthLargest(root: TreeNode | null, k: number): number {\n  if (!root) return 0;\n  const rightCount = countNode(root.right) + 1;\n  return rightCount > k\n    ? kthLargest(root.right, k)\n    : rightCount < k\n    ? kthLargest(root.left, k - rightCount)\n    : root.val;\n}"
+    }
+  ]
 }

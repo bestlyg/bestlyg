@@ -1,20 +1,17 @@
 {
-    "name": "917. 仅仅反转字母",
-    "url": "https://leetcode-cn.com/problems/reverse-only-letters/",
-    "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
-    "desc": "返回反转后的 s 。",
-    "solutions": [
-        {
-            "date": 1645545600000,
-            "time": 0,
-            "memory": 5.9,
-            "script": "c++",
-            "desc": "双指针。",
-            "code": "class Solution {\n   public:\n    string reverseOnlyLetters(string s) {\n        for (int l = 0, r = s.size() - 1; l < r; l++, r--) {\n            while (l < s.size() && !isalpha(s[l])) l++;\n            while (r >= 0 && !isalpha(s[r])) r--;\n            if (l < r) swap(s[l], s[r]);\n        }\n        return s;\n    }\n};"
-        }
-    ]
+  "name": "917. 仅仅反转字母",
+  "url": "https://leetcode-cn.com/problems/reverse-only-letters/",
+  "difficulty": "简单",
+  "tag": ["双指针", "字符串"],
+  "desc": "返回反转后的 s 。",
+  "solutions": [
+    {
+      "date": 1645545600000,
+      "time": 0,
+      "memory": 5.9,
+      "script": "c++",
+      "desc": "双指针。",
+      "code": "class Solution {\n   public:\n    string reverseOnlyLetters(string s) {\n        for (int l = 0, r = s.size() - 1; l < r; l++, r--) {\n            while (l < s.size() && !isalpha(s[l])) l++;\n            while (r >= 0 && !isalpha(s[r])) r--;\n            if (l < r) swap(s[l], s[r]);\n        }\n        return s;\n    }\n};"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "45. 跳跃游戏 II",
-    "url": "https://leetcode-cn.com/problems/jump-game-ii/",
-    "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组"
-    ],
-    "desc": "给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。你的目标是使用最少的跳跃次数到达数组的最后一个位置。",
-    "solutions": [
-        {
-            "date": 1588521600000,
-            "time": 84,
-            "memory": 36.43,
-            "script": "javascript",
-            "desc": "通过递归对每层判断后压栈。",
-            "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar jump = function (nums) {\n  const len = nums.length;\n  if (len === 1) return 0;\n  // console.log(len);\n  let maxStep = 1;\n  let maxIndex = nums[0];\n  let tempMaxIndex = 0;\n  const newArr = new Array();\n  newArr[0] = 0;\n  newArr[maxIndex] = 1;\n  for (let i = 1; i < len; i++) {\n    const num = nums[i];\n    // console.log(\"==\");\n    // console.log(\"i:\" + i);\n    // console.log(\"num:\" + num);\n    // console.log(\"num+i:\" + (num + i));\n    if (i > maxIndex) {\n      maxIndex = tempMaxIndex;\n      newArr[maxIndex] = ++maxStep;\n      if (newArr.length >= len) break;\n    }\n    const nextIndex = num + i;\n    if (nextIndex >= tempMaxIndex) {\n      tempMaxIndex = nextIndex;\n    }\n  }\n  // console.log(newArr);\n  let resIndex = len - 1;\n  let res = newArr[resIndex];\n  while (res === undefined) {\n    res = newArr[++resIndex];\n  }\n  return res;\n};"
-        }
-    ]
+  "name": "45. 跳跃游戏 II",
+  "url": "https://leetcode-cn.com/problems/jump-game-ii/",
+  "difficulty": "困难",
+  "tag": ["贪心", "数组"],
+  "desc": "给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。你的目标是使用最少的跳跃次数到达数组的最后一个位置。",
+  "solutions": [
+    {
+      "date": 1588521600000,
+      "time": 84,
+      "memory": 36.43,
+      "script": "javascript",
+      "desc": "通过递归对每层判断后压栈。",
+      "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar jump = function (nums) {\n  const len = nums.length;\n  if (len === 1) return 0;\n  // console.log(len);\n  let maxStep = 1;\n  let maxIndex = nums[0];\n  let tempMaxIndex = 0;\n  const newArr = new Array();\n  newArr[0] = 0;\n  newArr[maxIndex] = 1;\n  for (let i = 1; i < len; i++) {\n    const num = nums[i];\n    // console.log(\"==\");\n    // console.log(\"i:\" + i);\n    // console.log(\"num:\" + num);\n    // console.log(\"num+i:\" + (num + i));\n    if (i > maxIndex) {\n      maxIndex = tempMaxIndex;\n      newArr[maxIndex] = ++maxStep;\n      if (newArr.length >= len) break;\n    }\n    const nextIndex = num + i;\n    if (nextIndex >= tempMaxIndex) {\n      tempMaxIndex = nextIndex;\n    }\n  }\n  // console.log(newArr);\n  let resIndex = len - 1;\n  let res = newArr[resIndex];\n  while (res === undefined) {\n    res = newArr[++resIndex];\n  }\n  return res;\n};"
+    }
+  ]
 }

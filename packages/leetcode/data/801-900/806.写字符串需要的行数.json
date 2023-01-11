@@ -1,28 +1,25 @@
 {
-    "name": "806. 写字符串需要的行数",
-    "url": "https://leetcode-cn.com/problems/number-of-lines-to-write-string/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
-    "desc": "至少多少行能放下 S，以及最后一行使用的宽度是多少个单位？。",
-    "solutions": [
-        {
-            "date": 1647619200000,
-            "time": 0,
-            "memory": 6.6,
-            "script": "cpp",
-            "desc": "遍历。",
-            "code": "class Solution {\n   public:\n    vector<int> numberOfLines(vector<int>& widths, string s) {\n        int line = 1, surplus = 100;\n        for (auto& ch : s) {\n            int width = widths[ch - 'a'];\n            if (surplus < width) {\n                line++;\n                surplus = 100;\n            }\n            surplus -= width;\n        }\n        vector<int> ans = {line, 100 - surplus};\n        return ans;\n    }\n};"
-        },
-        {
-            "date": 1649692800000,
-            "time": 0,
-            "memory": 6.8,
-            "script": "cpp",
-            "desc": "遍历。",
-            "code": "class Solution {\npublic:\n    vector<int> numberOfLines(vector<int>& widths, string s) {\n        int surplus = 100, line = 1;\n        for (auto &ch : s) {\n            int cnt = widths[ch - 'a'];\n            if (cnt > surplus) {\n                surplus = 100;\n                line++;\n            }\n            surplus -= cnt;\n        }\n        return {line, 100 - surplus};\n    }\n};"
-        }
-    ]
+  "name": "806. 写字符串需要的行数",
+  "url": "https://leetcode-cn.com/problems/number-of-lines-to-write-string/",
+  "difficulty": "简单",
+  "tag": ["数组", "字符串"],
+  "desc": "至少多少行能放下 S，以及最后一行使用的宽度是多少个单位？。",
+  "solutions": [
+    {
+      "date": 1647619200000,
+      "time": 0,
+      "memory": 6.6,
+      "script": "cpp",
+      "desc": "遍历。",
+      "code": "class Solution {\n   public:\n    vector<int> numberOfLines(vector<int>& widths, string s) {\n        int line = 1, surplus = 100;\n        for (auto& ch : s) {\n            int width = widths[ch - 'a'];\n            if (surplus < width) {\n                line++;\n                surplus = 100;\n            }\n            surplus -= width;\n        }\n        vector<int> ans = {line, 100 - surplus};\n        return ans;\n    }\n};"
+    },
+    {
+      "date": 1649692800000,
+      "time": 0,
+      "memory": 6.8,
+      "script": "cpp",
+      "desc": "遍历。",
+      "code": "class Solution {\npublic:\n    vector<int> numberOfLines(vector<int>& widths, string s) {\n        int surplus = 100, line = 1;\n        for (auto &ch : s) {\n            int cnt = widths[ch - 'a'];\n            if (cnt > surplus) {\n                surplus = 100;\n                line++;\n            }\n            surplus -= cnt;\n        }\n        return {line, 100 - surplus};\n    }\n};"
+    }
+  ]
 }

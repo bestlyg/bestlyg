@@ -1,22 +1,17 @@
 {
-    "name": "669. 修剪二叉搜索树",
-    "url": "https://leetcode.cn/problems/trim-a-binary-search-tree/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
-    "desc": "通过修剪二叉搜索树，使得所有节点的值在[low, high]中。",
-    "solutions": [
-        {
-            "date": 1662739200000,
-            "time": 12,
-            "memory": 16.7,
-            "script": "cpp",
-            "desc": "dfs。",
-            "code": "class Solution {\npublic:\n    TreeNode* trimBST(TreeNode* root, int low, int high) {\n        if (!root) return nullptr;\n        root->left = trimBST(root->left, low, high);\n        root->right = trimBST(root->right, low, high);\n        if (root->val < low) root = root->right;\n        else if (root->val > high) root = root->left;\n        return root;\n    }\n};"
-        }
-    ]
+  "name": "669. 修剪二叉搜索树",
+  "url": "https://leetcode.cn/problems/trim-a-binary-search-tree/",
+  "difficulty": "中等",
+  "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
+  "desc": "通过修剪二叉搜索树，使得所有节点的值在[low, high]中。",
+  "solutions": [
+    {
+      "date": 1662739200000,
+      "time": 12,
+      "memory": 16.7,
+      "script": "cpp",
+      "desc": "dfs。",
+      "code": "class Solution {\npublic:\n    TreeNode* trimBST(TreeNode* root, int low, int high) {\n        if (!root) return nullptr;\n        root->left = trimBST(root->left, low, high);\n        root->right = trimBST(root->right, low, high);\n        if (root->val < low) root = root->right;\n        else if (root->val > high) root = root->left;\n        return root;\n    }\n};"
+    }
+  ]
 }

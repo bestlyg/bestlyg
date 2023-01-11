@@ -1,21 +1,17 @@
 {
-    "name": "105. 从前序与中序遍历序列构造二叉树",
-    "url": "https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "数组"
-    ],
-    "desc": "根据一棵树的前序遍历与中序遍历构造二叉树。",
-    "solutions": [
-        {
-            "date": 1582214400000,
-            "time": 26,
-            "memory": 76.4,
-            "script": "java",
-            "desc": "使用递归，通过切割数组进行遍历左右节点。",
-            "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tpublic TreeNode buildTree(int[] preorder, int[] inorder) {\n        if(preorder.length==0)return null;\n\t\tint center = preorder[0];\n\t\tTreeNode node = new TreeNode(center);\n\t\tint index=indexOf(inorder, center);\n\t\tint left = index-0,right=inorder.length-1-index;\n\t\tif(left!=0) {\n\t\t\tnode.left=buildTree(split(preorder,1,left), subString(inorder, 0,index));\n\t\t}\n\t\tif(right!=0) {\n\t\t\tnode.right=buildTree(subString(preorder,1+left), subString(inorder, index+1));\n\t\t}\n\t\treturn node;\n\n\t}\n\tpublic int[] split(int[] arr,int start,int length) {\n\t\tint[] newArr = new int[length];\n\t\tfor(int i=0;i<length;i++) {\n\t\t\tnewArr[i]=arr[start];\n\t\t\tstart++;\n\t\t}\n\t\treturn newArr;\n\t}\n\tpublic int indexOf(int[] arr, int num) {\n\t\tfor (int i = 0, len = arr.length; i < len; i++) {\n\t\t\tif (arr[i] == num)\n\t\t\t\treturn i;\n\t\t}\n\t\treturn -1;\n\t}\n\n\tpublic int[] subString(int[] arr, int start) {\n\t\treturn subString(arr, start, arr.length);\n\t}\n\n\tpublic int[] subString(int[] arr, int start, int end) {\n\t\tint length = end - start;\n\t\tint[] newArr = new int[length];\n\t\tfor (int i = 0; i < length; i++) {\n\t\t\tnewArr[i] = arr[start];\n\t\t\tstart++;\n\t\t}\n\t\treturn newArr;\n\t}\n\n}"
-        }
-    ]
+  "name": "105. 从前序与中序遍历序列构造二叉树",
+  "url": "https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+  "difficulty": "中等",
+  "tag": ["树", "深度优先搜索", "数组"],
+  "desc": "根据一棵树的前序遍历与中序遍历构造二叉树。",
+  "solutions": [
+    {
+      "date": 1582214400000,
+      "time": 26,
+      "memory": 76.4,
+      "script": "java",
+      "desc": "使用递归，通过切割数组进行遍历左右节点。",
+      "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tpublic TreeNode buildTree(int[] preorder, int[] inorder) {\n        if(preorder.length==0)return null;\n\t\tint center = preorder[0];\n\t\tTreeNode node = new TreeNode(center);\n\t\tint index=indexOf(inorder, center);\n\t\tint left = index-0,right=inorder.length-1-index;\n\t\tif(left!=0) {\n\t\t\tnode.left=buildTree(split(preorder,1,left), subString(inorder, 0,index));\n\t\t}\n\t\tif(right!=0) {\n\t\t\tnode.right=buildTree(subString(preorder,1+left), subString(inorder, index+1));\n\t\t}\n\t\treturn node;\n\n\t}\n\tpublic int[] split(int[] arr,int start,int length) {\n\t\tint[] newArr = new int[length];\n\t\tfor(int i=0;i<length;i++) {\n\t\t\tnewArr[i]=arr[start];\n\t\t\tstart++;\n\t\t}\n\t\treturn newArr;\n\t}\n\tpublic int indexOf(int[] arr, int num) {\n\t\tfor (int i = 0, len = arr.length; i < len; i++) {\n\t\t\tif (arr[i] == num)\n\t\t\t\treturn i;\n\t\t}\n\t\treturn -1;\n\t}\n\n\tpublic int[] subString(int[] arr, int start) {\n\t\treturn subString(arr, start, arr.length);\n\t}\n\n\tpublic int[] subString(int[] arr, int start, int end) {\n\t\tint length = end - start;\n\t\tint[] newArr = new int[length];\n\t\tfor (int i = 0; i < length; i++) {\n\t\t\tnewArr[i] = arr[start];\n\t\t\tstart++;\n\t\t}\n\t\treturn newArr;\n\t}\n\n}"
+    }
+  ]
 }

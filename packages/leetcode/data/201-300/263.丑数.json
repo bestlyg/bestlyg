@@ -1,19 +1,17 @@
 {
-    "name": "263. 丑数",
-    "url": "https://leetcode-cn.com/problems/ugly-number/",
-    "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
-    "desc": "给你一个整数 n ，请你判断 n 是否为 丑数 。如果是，返回 true ；否则，返回 false 。",
-    "solutions": [
-        {
-            "date": 1618070400000,
-            "time": 84,
-            "memory": 39.3,
-            "script": "typescript",
-            "desc": "除以 235 检测是否为 1。",
-            "code": "function isUgly(n: number): boolean {\n  return n === 0\n    ? false\n    : 1 ===\n        [2, 3, 5].reduce((num, cur) => {\n          while (!(num % cur)) num /= cur;\n          return num;\n        }, n);\n}"
-        }
-    ]
+  "name": "263. 丑数",
+  "url": "https://leetcode-cn.com/problems/ugly-number/",
+  "difficulty": "简单",
+  "tag": ["数学"],
+  "desc": "给你一个整数 n ，请你判断 n 是否为 丑数 。如果是，返回 true ；否则，返回 false 。",
+  "solutions": [
+    {
+      "date": 1618070400000,
+      "time": 84,
+      "memory": 39.3,
+      "script": "typescript",
+      "desc": "除以 235 检测是否为 1。",
+      "code": "function isUgly(n: number): boolean {\n  return n === 0\n    ? false\n    : 1 ===\n        [2, 3, 5].reduce((num, cur) => {\n          while (!(num % cur)) num /= cur;\n          return num;\n        }, n);\n}"
+    }
+  ]
 }

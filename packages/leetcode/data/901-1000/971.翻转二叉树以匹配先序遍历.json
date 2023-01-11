@@ -1,21 +1,17 @@
 {
-    "name": "971. 翻转二叉树以匹配先序遍历",
-    "url": "https://leetcode-cn.com/problems/flip-binary-tree-to-match-preorder-traversal/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
-    "desc": "请翻转 最少 的树中节点，使二叉树的 先序遍历 与预期的遍历行程 voyage 相匹配 。 。",
-    "solutions": [
-        {
-            "date": 1628870400000,
-            "time": 84,
-            "memory": 39.5,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "function flipMatchVoyage(root: TreeNode | null, voyage: number[]): number[] {\n  if (root === null) return [];\n  const ans: number[] = [];\n  let stop = false;\n  dfs(root, voyage);\n  return stop ? [-1] : ans;\n  function dfs(node: TreeNode, voyage: number[]) {\n    if (stop) return;\n    const val = node.val;\n    const n = voyage.length;\n    if (val !== voyage[0]) {\n      stop = true;\n      return;\n    }\n    if (node.left === null && node.right === null) {\n      if (!(n === 1 && voyage[0] === val)) stop = true;\n      return;\n    }\n    if (node.left === null) {\n      if (voyage[1] !== node.right!.val) stop = true;\n      else dfs(node.right!, voyage.slice(1));\n      return;\n    }\n    if (node.right === null) {\n      if (voyage[1] !== node.left!.val) stop = true;\n      else dfs(node.left!, voyage.slice(1));\n      return;\n    }\n    const valL = node.left!.val;\n    const valR = node.right!.val;\n    if (voyage[1] === valL) {\n      let idx = 1;\n      while (idx < n && voyage[idx] !== valR) idx++;\n      dfs(node.left!, voyage.slice(1, idx));\n      dfs(node.right!, voyage.slice(idx));\n    } else {\n      let idx = 1;\n      while (idx < n && voyage[idx] !== valL) idx++;\n      dfs(node.right!, voyage.slice(1, idx));\n      dfs(node.left!, voyage.slice(idx));\n      ans.push(val);\n    }\n  }\n}"
-        }
-    ]
+  "name": "971. 翻转二叉树以匹配先序遍历",
+  "url": "https://leetcode-cn.com/problems/flip-binary-tree-to-match-preorder-traversal/",
+  "difficulty": "中等",
+  "tag": ["树", "深度优先搜索", "二叉树"],
+  "desc": "请翻转 最少 的树中节点，使二叉树的 先序遍历 与预期的遍历行程 voyage 相匹配 。 。",
+  "solutions": [
+    {
+      "date": 1628870400000,
+      "time": 84,
+      "memory": 39.5,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "function flipMatchVoyage(root: TreeNode | null, voyage: number[]): number[] {\n  if (root === null) return [];\n  const ans: number[] = [];\n  let stop = false;\n  dfs(root, voyage);\n  return stop ? [-1] : ans;\n  function dfs(node: TreeNode, voyage: number[]) {\n    if (stop) return;\n    const val = node.val;\n    const n = voyage.length;\n    if (val !== voyage[0]) {\n      stop = true;\n      return;\n    }\n    if (node.left === null && node.right === null) {\n      if (!(n === 1 && voyage[0] === val)) stop = true;\n      return;\n    }\n    if (node.left === null) {\n      if (voyage[1] !== node.right!.val) stop = true;\n      else dfs(node.right!, voyage.slice(1));\n      return;\n    }\n    if (node.right === null) {\n      if (voyage[1] !== node.left!.val) stop = true;\n      else dfs(node.left!, voyage.slice(1));\n      return;\n    }\n    const valL = node.left!.val;\n    const valR = node.right!.val;\n    if (voyage[1] === valL) {\n      let idx = 1;\n      while (idx < n && voyage[idx] !== valR) idx++;\n      dfs(node.left!, voyage.slice(1, idx));\n      dfs(node.right!, voyage.slice(idx));\n    } else {\n      let idx = 1;\n      while (idx < n && voyage[idx] !== valL) idx++;\n      dfs(node.right!, voyage.slice(1, idx));\n      dfs(node.left!, voyage.slice(idx));\n      ans.push(val);\n    }\n  }\n}"
+    }
+  ]
 }

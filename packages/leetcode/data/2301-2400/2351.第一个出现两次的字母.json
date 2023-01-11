@@ -1,12 +1,8 @@
 {
-    "name": "2351. 第一个出现两次的字母",
-    "url": "https://leetcode.cn/problems/first-letter-to-appear-twice/",
-    "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
-    "desc": "给你一个由小写英文字母组成的字符串 s ，请你找出并返回第一个出现 两次 的字母。",
-    "solutions": []
+  "name": "2351. 第一个出现两次的字母",
+  "url": "https://leetcode.cn/problems/first-letter-to-appear-twice/",
+  "difficulty": "简单",
+  "tag": ["哈希表", "字符串", "计数"],
+  "desc": "给你一个由小写英文字母组成的字符串 s ，请你找出并返回第一个出现 两次 的字母。",
+  "solutions": []
 }

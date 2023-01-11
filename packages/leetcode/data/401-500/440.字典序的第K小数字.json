@@ -1,19 +1,17 @@
 {
-    "name": "440. 字典序的第 K 小数字",
-    "url": "https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order/",
-    "difficulty": "困难",
-    "tag": [
-        "字典树"
-    ],
-    "desc": "给定整数 n 和 k，找到 1 到 n 中字典序第 k 小的数字。",
-    "solutions": [
-        {
-            "date": 1635177600000,
-            "time": 76,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "构建字典树，计算每个字数包含的节点数。",
-            "code": "function findKthNumber(n: number, k: number): number {\n  for (let i = 1; i <= 9; i++) {\n    const c = count(i);\n    if (c < k) k -= c;\n    else return find(i, k);\n  }\n  return 0;\n  function find(prifix: number, k: number): number {\n    if (k === 1) return prifix;\n    k--;\n    for (let i = 0; i <= 9; i++) {\n      const next = prifix * 10 + i;\n      if (next > n) continue;\n      const c = count(next);\n      if (c >= k) return find(next, k);\n      else k -= c;\n    }\n    return 0;\n  }\n  function count(prifix: number): number {\n    let nextPrifix = prifix + 1;\n    let ans = 0;\n    while (prifix <= n) {\n      ans += Math.min(n + 1, nextPrifix) - prifix;\n      prifix *= 10;\n      nextPrifix *= 10;\n    }\n    return ans;\n  }\n}"
-        }
-    ]
+  "name": "440. 字典序的第 K 小数字",
+  "url": "https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order/",
+  "difficulty": "困难",
+  "tag": ["字典树"],
+  "desc": "给定整数 n 和 k，找到 1 到 n 中字典序第 k 小的数字。",
+  "solutions": [
+    {
+      "date": 1635177600000,
+      "time": 76,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "构建字典树，计算每个字数包含的节点数。",
+      "code": "function findKthNumber(n: number, k: number): number {\n  for (let i = 1; i <= 9; i++) {\n    const c = count(i);\n    if (c < k) k -= c;\n    else return find(i, k);\n  }\n  return 0;\n  function find(prifix: number, k: number): number {\n    if (k === 1) return prifix;\n    k--;\n    for (let i = 0; i <= 9; i++) {\n      const next = prifix * 10 + i;\n      if (next > n) continue;\n      const c = count(next);\n      if (c >= k) return find(next, k);\n      else k -= c;\n    }\n    return 0;\n  }\n  function count(prifix: number): number {\n    let nextPrifix = prifix + 1;\n    let ans = 0;\n    while (prifix <= n) {\n      ans += Math.min(n + 1, nextPrifix) - prifix;\n      prifix *= 10;\n      nextPrifix *= 10;\n    }\n    return ans;\n  }\n}"
+    }
+  ]
 }

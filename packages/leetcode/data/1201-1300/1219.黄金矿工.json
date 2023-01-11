@@ -1,21 +1,17 @@
 {
-    "name": "1219. 黄金矿工",
-    "url": "https://leetcode-cn.com/problems/path-with-maximum-gold/",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "回溯",
-        "矩阵"
-    ],
-    "desc": "要开发一座金矿，地质勘测学家已经探明了这座金矿中的资源分布，并用大小为  m \\* n 的网格 grid 进行了标注。每个单元格中的整数就表示这一单元格中的黄金数量；如果该单元格是空的，那么就是 0。",
-    "solutions": [
-        {
-            "date": 1643990400000,
-            "time": 580,
-            "memory": 169.2,
-            "script": "c++",
-            "desc": "dfs。",
-            "code": "int dirs[4][2] = {\n    {0, 1},\n    {0, -1},\n    {1, 0},\n    {-1, 0},\n};\n\nclass Solution {\n   public:\n    int m, n, ans = 0;\n    int getMaximumGold(vector<vector<int>>& grid) {\n        m = grid.size();\n        n = grid[0].size();\n        vector<vector<int>> check(m, vector(n, 0));\n        for (int row = 0; row < m; row++) {\n            for (int col = 0; col < n; col++) {\n                if (grid[row][col] == 0) continue;\n                int cnt = 0;\n                for (int i = 0; i < 4; i++) {\n                    int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n                    if (nrow >= 0 && nrow < m && ncol >= 0 && ncol < n &&\n                        grid[nrow][ncol] != 0)\n                        cnt++;\n                }\n                if (cnt < 3) dfs(grid, check, row, col, 0);\n            }\n        }\n        return ans;\n    }\n    void dfs(vector<vector<int>>& grid, vector<vector<int>> check, int row,\n             int col, int cur) {\n        check[row][col] = 1;\n        cur += grid[row][col];\n        ans = max(ans, cur);\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || nrow >= m || ncol < 0 || ncol >= n ||\n                grid[nrow][ncol] == 0 || check[nrow][ncol] == 1)\n                continue;\n            dfs(grid, check, nrow, ncol, cur);\n        }\n        check[row][col] = 0;\n    }\n};"
-        }
-    ]
+  "name": "1219. 黄金矿工",
+  "url": "https://leetcode-cn.com/problems/path-with-maximum-gold/",
+  "difficulty": "中等",
+  "tag": ["数组", "回溯", "矩阵"],
+  "desc": "要开发一座金矿，地质勘测学家已经探明了这座金矿中的资源分布，并用大小为  m \\* n 的网格 grid 进行了标注。每个单元格中的整数就表示这一单元格中的黄金数量；如果该单元格是空的，那么就是 0。",
+  "solutions": [
+    {
+      "date": 1643990400000,
+      "time": 580,
+      "memory": 169.2,
+      "script": "c++",
+      "desc": "dfs。",
+      "code": "int dirs[4][2] = {\n    {0, 1},\n    {0, -1},\n    {1, 0},\n    {-1, 0},\n};\n\nclass Solution {\n   public:\n    int m, n, ans = 0;\n    int getMaximumGold(vector<vector<int>>& grid) {\n        m = grid.size();\n        n = grid[0].size();\n        vector<vector<int>> check(m, vector(n, 0));\n        for (int row = 0; row < m; row++) {\n            for (int col = 0; col < n; col++) {\n                if (grid[row][col] == 0) continue;\n                int cnt = 0;\n                for (int i = 0; i < 4; i++) {\n                    int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n                    if (nrow >= 0 && nrow < m && ncol >= 0 && ncol < n &&\n                        grid[nrow][ncol] != 0)\n                        cnt++;\n                }\n                if (cnt < 3) dfs(grid, check, row, col, 0);\n            }\n        }\n        return ans;\n    }\n    void dfs(vector<vector<int>>& grid, vector<vector<int>> check, int row,\n             int col, int cur) {\n        check[row][col] = 1;\n        cur += grid[row][col];\n        ans = max(ans, cur);\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || nrow >= m || ncol < 0 || ncol >= n ||\n                grid[nrow][ncol] == 0 || check[nrow][ncol] == 1)\n                continue;\n            dfs(grid, check, nrow, ncol, cur);\n        }\n        check[row][col] = 0;\n    }\n};"
+    }
+  ]
 }

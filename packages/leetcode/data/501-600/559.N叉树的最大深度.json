@@ -1,37 +1,33 @@
 {
-    "name": "559. N 叉树的最大深度",
-    "url": "https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/",
-    "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索"
-    ],
-    "desc": "给定一个 N 叉树，找到其最大深度。最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。",
-    "solutions": [
-        {
-            "date": 1582214400000,
-            "time": 4,
-            "memory": 40.7,
-            "script": "java",
-            "desc": "层序遍历。",
-            "code": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public List<Node> children;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, List<Node> _children) {\n        val = _val;\n        children = _children;\n    }\n};\n*/\nclass Solution {\n\tpublic int maxDepth(Node root) {\n\t\tif (root == null)\n\t\t\treturn 0;\n\t\tQueue<Node> queue = new LinkedList<Node>();\n\t\tint height = 0, size = 1;\n\t\tqueue.offer(root);\n\t\twhile (!queue.isEmpty()) {\n\t\t\tNode node = queue.poll();\n\t\t\tif (node.children != null)\n\t\t\t\tfor (int i = 0, len = node.children.size(); i < len; i++)\n\t\t\t\t\tqueue.offer(node.children.get(i));\n\t\t\tsize--;\n\t\t\tif (size == 0) {\n\t\t\t\theight++;\n\t\t\t\tsize = queue.size();\n\t\t\t}\n\t\t}\n\t\treturn height;\n\t}\n}"
-        },
-        {
-            "date": 1637424000000,
-            "time": 108,
-            "memory": 48.4,
-            "script": "typescript",
-            "desc": "dfs。",
-            "code": "function maxDepth(root: Node | null): number {\n  if (root === null) return 0;\n  return Math.max(...root.children.map(node => maxDepth(node)), 0) + 1;\n}"
-        },
-        {
-            "date": 1637424000000,
-            "time": 4,
-            "memory": 6.9,
-            "script": "c",
-            "desc": "dfs。",
-            "code": "int maxDepth(struct Node* root) {\n    if (!root) return 0;\n    int ans = 1;\n    for (int i = 0; i < root->numChildren; i++) {\n        int next_ans = maxDepth(root->children[i]) + 1;\n        ans = next_ans > ans ? next_ans : ans;\n    }\n    return ans;\n}"
-        }
-    ]
+  "name": "559. N 叉树的最大深度",
+  "url": "https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/",
+  "difficulty": "简单",
+  "tag": ["树", "深度优先搜索", "广度优先搜索"],
+  "desc": "给定一个 N 叉树，找到其最大深度。最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。",
+  "solutions": [
+    {
+      "date": 1582214400000,
+      "time": 4,
+      "memory": 40.7,
+      "script": "java",
+      "desc": "层序遍历。",
+      "code": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public List<Node> children;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, List<Node> _children) {\n        val = _val;\n        children = _children;\n    }\n};\n*/\nclass Solution {\n\tpublic int maxDepth(Node root) {\n\t\tif (root == null)\n\t\t\treturn 0;\n\t\tQueue<Node> queue = new LinkedList<Node>();\n\t\tint height = 0, size = 1;\n\t\tqueue.offer(root);\n\t\twhile (!queue.isEmpty()) {\n\t\t\tNode node = queue.poll();\n\t\t\tif (node.children != null)\n\t\t\t\tfor (int i = 0, len = node.children.size(); i < len; i++)\n\t\t\t\t\tqueue.offer(node.children.get(i));\n\t\t\tsize--;\n\t\t\tif (size == 0) {\n\t\t\t\theight++;\n\t\t\t\tsize = queue.size();\n\t\t\t}\n\t\t}\n\t\treturn height;\n\t}\n}"
+    },
+    {
+      "date": 1637424000000,
+      "time": 108,
+      "memory": 48.4,
+      "script": "typescript",
+      "desc": "dfs。",
+      "code": "function maxDepth(root: Node | null): number {\n  if (root === null) return 0;\n  return Math.max(...root.children.map(node => maxDepth(node)), 0) + 1;\n}"
+    },
+    {
+      "date": 1637424000000,
+      "time": 4,
+      "memory": 6.9,
+      "script": "c",
+      "desc": "dfs。",
+      "code": "int maxDepth(struct Node* root) {\n    if (!root) return 0;\n    int ans = 1;\n    for (int i = 0; i < root->numChildren; i++) {\n        int next_ans = maxDepth(root->children[i]) + 1;\n        ans = next_ans > ans ? next_ans : ans;\n    }\n    return ans;\n}"
+    }
+  ]
 }

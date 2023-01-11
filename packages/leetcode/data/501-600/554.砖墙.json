@@ -1,19 +1,17 @@
 {
-    "name": "554. 砖墙",
-    "url": "https://leetcode-cn.com/problems/brick-wall/",
-    "difficulty": "中等",
-    "tag": [
-        "哈希表"
-    ],
-    "desc": "你需要找出怎样画才能使这条线 穿过的砖块数量最少 ，并且返回 穿过的砖块数量 。",
-    "solutions": [
-        {
-            "date": 1619884800000,
-            "time": 136,
-            "memory": 45.2,
-            "script": "typescript",
-            "desc": "统计每个边界的空数。",
-            "code": "function leastBricks(wall: number[][]): number {\n  const rowLen = wall.length;\n  const size = wall[0].reduce((total, cur) => total + cur, 0);\n  if (wall.every(row => row.length === 1)) return rowLen;\n  const map: Record<number, number> = {};\n  for (const row of wall) {\n    let sum = -1;\n    for (const col of row) {\n      sum += col;\n      map[sum] = 1 + (map[sum] ?? 0);\n    }\n  }\n  Reflect.deleteProperty(map, size - 1);\n  return rowLen - Math.max(...Object.values(map));\n}"
-        }
-    ]
+  "name": "554. 砖墙",
+  "url": "https://leetcode-cn.com/problems/brick-wall/",
+  "difficulty": "中等",
+  "tag": ["哈希表"],
+  "desc": "你需要找出怎样画才能使这条线 穿过的砖块数量最少 ，并且返回 穿过的砖块数量 。",
+  "solutions": [
+    {
+      "date": 1619884800000,
+      "time": 136,
+      "memory": 45.2,
+      "script": "typescript",
+      "desc": "统计每个边界的空数。",
+      "code": "function leastBricks(wall: number[][]): number {\n  const rowLen = wall.length;\n  const size = wall[0].reduce((total, cur) => total + cur, 0);\n  if (wall.every(row => row.length === 1)) return rowLen;\n  const map: Record<number, number> = {};\n  for (const row of wall) {\n    let sum = -1;\n    for (const col of row) {\n      sum += col;\n      map[sum] = 1 + (map[sum] ?? 0);\n    }\n  }\n  Reflect.deleteProperty(map, size - 1);\n  return rowLen - Math.max(...Object.values(map));\n}"
+    }
+  ]
 }

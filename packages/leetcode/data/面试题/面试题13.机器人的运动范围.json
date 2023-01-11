@@ -1,18 +1,16 @@
 {
-    "name": "面试题 13. 机器人的运动范围",
-    "url": "https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/",
-    "tag": [
-        "数组"
-    ],
-    "desc": "地上有一个 m 行 n 列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于 k 的格子。例如，当 k 为 18 时，机器人能够进入方格 [35, 37] ，因为 3+5+3+7=18。但它不能进入方格 [35, 38]，因为 3+5+3+8=19。请问该机器人能够到达多少个格子？",
-    "solutions": [
-        {
-            "date": 1586275200000,
-            "time": 92,
-            "memory": 37.6,
-            "script": "javascript",
-            "desc": "广度优先搜索，从 0，0 开始依次向左下搜索。",
-            "code": "/**\n * @param {number} m\n * @param {number} n\n * @param {number} k\n * @return {number}\n */\nvar movingCount = function (m, n, k) {\n  const comp = num => (num < 10 ? num : (num % 10) + Math.floor(num / 10));\n  const nowComp = (num1, num2) => comp(num1) + comp(num2);\n  let result = 0;\n  const find = [[0, 0]],\n    finded = {};\n  while (find.length !== 0) {\n    const [row, col] = find.shift();\n    if (finded[`${row}:${col}`]) continue;\n    if (col >= n || row >= m) continue;\n    result++;\n    finded[`${row}:${col}`] = true;\n    if (nowComp(row, col + 1) <= k) find.push([row, col + 1]);\n    if (nowComp(row + 1, col) <= k) find.push([row + 1, col]);\n  }\n  return result;\n};"
-        }
-    ]
+  "name": "面试题 13. 机器人的运动范围",
+  "url": "https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/",
+  "tag": ["数组"],
+  "desc": "地上有一个 m 行 n 列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于 k 的格子。例如，当 k 为 18 时，机器人能够进入方格 [35, 37] ，因为 3+5+3+7=18。但它不能进入方格 [35, 38]，因为 3+5+3+8=19。请问该机器人能够到达多少个格子？",
+  "solutions": [
+    {
+      "date": 1586275200000,
+      "time": 92,
+      "memory": 37.6,
+      "script": "javascript",
+      "desc": "广度优先搜索，从 0，0 开始依次向左下搜索。",
+      "code": "/**\n * @param {number} m\n * @param {number} n\n * @param {number} k\n * @return {number}\n */\nvar movingCount = function (m, n, k) {\n  const comp = num => (num < 10 ? num : (num % 10) + Math.floor(num / 10));\n  const nowComp = (num1, num2) => comp(num1) + comp(num2);\n  let result = 0;\n  const find = [[0, 0]],\n    finded = {};\n  while (find.length !== 0) {\n    const [row, col] = find.shift();\n    if (finded[`${row}:${col}`]) continue;\n    if (col >= n || row >= m) continue;\n    result++;\n    finded[`${row}:${col}`] = true;\n    if (nowComp(row, col + 1) <= k) find.push([row, col + 1]);\n    if (nowComp(row + 1, col) <= k) find.push([row + 1, col]);\n  }\n  return result;\n};"
+    }
+  ]
 }

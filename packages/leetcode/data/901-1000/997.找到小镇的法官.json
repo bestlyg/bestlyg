@@ -1,21 +1,17 @@
 {
-    "name": "997. 找到小镇的法官",
-    "url": "https://leetcode-cn.com/problems/find-the-town-judge/",
-    "difficulty": "简单",
-    "tag": [
-        "图",
-        "数组",
-        "哈希表"
-    ],
-    "desc": "如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。",
-    "solutions": [
-        {
-            "date": 1639843200000,
-            "time": 112,
-            "memory": 46.8,
-            "script": "typescript",
-            "desc": "统计每个人是否都有 n-1 个人相信且没有相信别人。",
-            "code": "class Person {\n  parent: number = 0;\n  children: number = 0;\n  constructor(public idx: number) {}\n}\nfunction findJudge(n: number, trust: number[][]): number {\n  const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));\n  for (const [i1, i2] of trust) {\n    persons[i1 - 1].parent++;\n    persons[i2 - 1].children++;\n  }\n  return persons.find(p => p.children === n - 1 && p.parent === 0)?.idx ?? -1;\n}"
-        }
-    ]
+  "name": "997. 找到小镇的法官",
+  "url": "https://leetcode-cn.com/problems/find-the-town-judge/",
+  "difficulty": "简单",
+  "tag": ["图", "数组", "哈希表"],
+  "desc": "如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。",
+  "solutions": [
+    {
+      "date": 1639843200000,
+      "time": 112,
+      "memory": 46.8,
+      "script": "typescript",
+      "desc": "统计每个人是否都有 n-1 个人相信且没有相信别人。",
+      "code": "class Person {\n  parent: number = 0;\n  children: number = 0;\n  constructor(public idx: number) {}\n}\nfunction findJudge(n: number, trust: number[][]): number {\n  const persons = new Array(n).fill(0).map((_, i) => new Person(i + 1));\n  for (const [i1, i2] of trust) {\n    persons[i1 - 1].parent++;\n    persons[i2 - 1].children++;\n  }\n  return persons.find(p => p.children === n - 1 && p.parent === 0)?.idx ?? -1;\n}"
+    }
+  ]
 }

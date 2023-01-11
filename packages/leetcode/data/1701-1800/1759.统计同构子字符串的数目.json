@@ -1,11 +1,8 @@
 {
-    "name": "1759. 统计同构子字符串的数目",
-    "url": "https://leetcode.cn/problems/count-number-of-homogenous-substrings/",
-    "difficulty": "中等",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
-    "desc": "给你一个字符串 s ，返回 s 中 同构子字符串 的数目。",
-    "solutions": []
+  "name": "1759. 统计同构子字符串的数目",
+  "url": "https://leetcode.cn/problems/count-number-of-homogenous-substrings/",
+  "difficulty": "中等",
+  "tag": ["数学", "字符串"],
+  "desc": "给你一个字符串 s ，返回 s 中 同构子字符串 的数目。",
+  "solutions": []
 }

@@ -1,20 +1,17 @@
 {
-    "name": "242. 有效的字母异位词",
-    "url": "https://leetcode-cn.com/problems/valid-anagram/",
-    "difficulty": "简单",
-    "tag": [
-        "排序",
-        "哈希表"
-    ],
-    "desc": "给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。",
-    "solutions": [
-        {
-            "date": 1605974400000,
-            "time": 108,
-            "memory": 41.4,
-            "script": "typescript",
-            "desc": "利用 cache 储存。",
-            "code": "function isAnagram(s: string, t: string): boolean {\n  const cache: Record<string, number> = {};\n  const setCache = (c: string) => {\n    cache[c] = 1 + (cache[c] ?? 0);\n  };\n  const delCache = (c: string) => {\n    cache[c]--;\n  };\n  for (const c of s) setCache(c);\n  for (const c of t) delCache(c);\n  return Object.entries(cache).every(([, c]) => c === 0);\n}"
-        }
-    ]
+  "name": "242. 有效的字母异位词",
+  "url": "https://leetcode-cn.com/problems/valid-anagram/",
+  "difficulty": "简单",
+  "tag": ["排序", "哈希表"],
+  "desc": "给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。",
+  "solutions": [
+    {
+      "date": 1605974400000,
+      "time": 108,
+      "memory": 41.4,
+      "script": "typescript",
+      "desc": "利用 cache 储存。",
+      "code": "function isAnagram(s: string, t: string): boolean {\n  const cache: Record<string, number> = {};\n  const setCache = (c: string) => {\n    cache[c] = 1 + (cache[c] ?? 0);\n  };\n  const delCache = (c: string) => {\n    cache[c]--;\n  };\n  for (const c of s) setCache(c);\n  for (const c of t) delCache(c);\n  return Object.entries(cache).every(([, c]) => c === 0);\n}"
+    }
+  ]
 }

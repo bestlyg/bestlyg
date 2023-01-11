@@ -1,22 +1,17 @@
 {
-    "name": "2024. 考试的最大困扰度",
-    "url": "https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/",
-    "difficulty": "中等",
-    "tag": [
-        "字符串",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
-    "desc": "请你返回在不超过 k 次操作的情况下，最大 连续 'T' 或者 'F' 的数目。",
-    "solutions": [
-        {
-            "date": 1648483200000,
-            "time": 24,
-            "memory": 11.7,
-            "script": "cpp",
-            "desc": "双指针维护中间 k。",
-            "code": "class Solution {\n   public:\n    int maxConsecutiveAnswers(string answerKey, int k) {\n        return max(check('T', answerKey, k), check('F', answerKey, k));\n    }\n    int check(char ch, string str, int k) {\n        int n = str.size(), l = 0, r = 0, ans = 0;\n        do {\n            while (r < n && k > 0) {\n                while (r < n && str[r] == ch) r++;\n                k--;\n                if (r < n) r++;\n                while (r < n && str[r] == ch) r++;\n            }\n            ans = max(ans, r - l);\n            while (l < n && k <= 0) {\n                if (str[l] != ch) k++;\n                l++;\n            }\n        } while (r < n);\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "2024. 考试的最大困扰度",
+  "url": "https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/",
+  "difficulty": "中等",
+  "tag": ["字符串", "二分查找", "前缀和", "滑动窗口"],
+  "desc": "请你返回在不超过 k 次操作的情况下，最大 连续 'T' 或者 'F' 的数目。",
+  "solutions": [
+    {
+      "date": 1648483200000,
+      "time": 24,
+      "memory": 11.7,
+      "script": "cpp",
+      "desc": "双指针维护中间 k。",
+      "code": "class Solution {\n   public:\n    int maxConsecutiveAnswers(string answerKey, int k) {\n        return max(check('T', answerKey, k), check('F', answerKey, k));\n    }\n    int check(char ch, string str, int k) {\n        int n = str.size(), l = 0, r = 0, ans = 0;\n        do {\n            while (r < n && k > 0) {\n                while (r < n && str[r] == ch) r++;\n                k--;\n                if (r < n) r++;\n                while (r < n && str[r] == ch) r++;\n            }\n            ans = max(ans, r - l);\n            while (l < n && k <= 0) {\n                if (str[l] != ch) k++;\n                l++;\n            }\n        } while (r < n);\n        return ans;\n    }\n};"
+    }
+  ]
 }

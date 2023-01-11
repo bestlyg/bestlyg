@@ -1,20 +1,17 @@
 {
-    "name": "165. 比较版本号",
-    "url": "https://leetcode-cn.com/problems/compare-version-numbers/",
-    "difficulty": "中等",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
-    "desc": "给你两个版本号 version1 和 version2 ，请你比较它们。",
-    "solutions": [
-        {
-            "date": 1630425600000,
-            "time": 76,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "格式化后比较。",
-            "code": "function compareVersion(version1: string, version2: string): number {\n  const v1 = version1.split('.').map(v => +v);\n  const v2 = version2.split('.').map(v => +v);\n  const len = Math.max(v1.length, v2.length);\n  while (v1.length < len) v1.push(0);\n  while (v2.length < len) v2.push(0);\n  let i = 0;\n  while (i < len) {\n    if (v1[i] < v2[i]) return -1;\n    if (v1[i] > v2[i]) return 1;\n    i++;\n  }\n  return 0;\n}"
-        }
-    ]
+  "name": "165. 比较版本号",
+  "url": "https://leetcode-cn.com/problems/compare-version-numbers/",
+  "difficulty": "中等",
+  "tag": ["双指针", "字符串"],
+  "desc": "给你两个版本号 version1 和 version2 ，请你比较它们。",
+  "solutions": [
+    {
+      "date": 1630425600000,
+      "time": 76,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "格式化后比较。",
+      "code": "function compareVersion(version1: string, version2: string): number {\n  const v1 = version1.split('.').map(v => +v);\n  const v2 = version2.split('.').map(v => +v);\n  const len = Math.max(v1.length, v2.length);\n  while (v1.length < len) v1.push(0);\n  while (v2.length < len) v2.push(0);\n  let i = 0;\n  while (i < len) {\n    if (v1[i] < v2[i]) return -1;\n    if (v1[i] > v2[i]) return 1;\n    i++;\n  }\n  return 0;\n}"
+    }
+  ]
 }

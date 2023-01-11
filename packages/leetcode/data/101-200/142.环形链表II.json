@@ -1,28 +1,25 @@
 {
-    "name": "142. 环形链表 II",
-    "url": "https://leetcode-cn.com/problems/linked-list-cycle-ii/",
-    "difficulty": "中等",
-    "tag": [
-        "链表",
-        "双指针"
-    ],
-    "desc": "给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。",
-    "solutions": [
-        {
-            "date": 1602259200000,
-            "time": 120,
-            "memory": 41.4,
-            "script": "typescript",
-            "desc": "利用 set 去重。",
-            "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return null;\n  const set = new Set<ListNode>([head]);\n  let temp = head;\n  while (temp.next !== null) {\n    if (set.has(temp.next)) return temp.next;\n    set.add(temp.next);\n    temp = temp.next;\n  }\n  return null;\n}"
-        },
-        {
-            "date": 1602259200000,
-            "time": 100,
-            "memory": 40.9,
-            "script": "typescript",
-            "desc": "[参考链接](https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/)。",
-            "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let f: ListNode | null = head;\n  let s: ListNode | null = head;\n  while (f !== null && f.next !== null) {\n    f = f.next.next;\n    s = s.next!;\n    if (f === s) {\n      let h: ListNode | null = head;\n      while (h !== s) {\n        h = h.next!;\n        s = s.next!;\n      }\n      return h;\n    }\n  }\n  return null;\n}"
-        }
-    ]
+  "name": "142. 环形链表 II",
+  "url": "https://leetcode-cn.com/problems/linked-list-cycle-ii/",
+  "difficulty": "中等",
+  "tag": ["链表", "双指针"],
+  "desc": "给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。",
+  "solutions": [
+    {
+      "date": 1602259200000,
+      "time": 120,
+      "memory": 41.4,
+      "script": "typescript",
+      "desc": "利用 set 去重。",
+      "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null || head.next === null) return null;\n  const set = new Set<ListNode>([head]);\n  let temp = head;\n  while (temp.next !== null) {\n    if (set.has(temp.next)) return temp.next;\n    set.add(temp.next);\n    temp = temp.next;\n  }\n  return null;\n}"
+    },
+    {
+      "date": 1602259200000,
+      "time": 100,
+      "memory": 40.9,
+      "script": "typescript",
+      "desc": "[参考链接](https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/)。",
+      "code": "function detectCycle(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let f: ListNode | null = head;\n  let s: ListNode | null = head;\n  while (f !== null && f.next !== null) {\n    f = f.next.next;\n    s = s.next!;\n    if (f === s) {\n      let h: ListNode | null = head;\n      while (h !== s) {\n        h = h.next!;\n        s = s.next!;\n      }\n      return h;\n    }\n  }\n  return null;\n}"
+    }
+  ]
 }

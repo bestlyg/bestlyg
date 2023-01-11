@@ -1,29 +1,25 @@
 {
-    "name": "1260. 二维网格迁移",
-    "url": "https://leetcode.cn/problems/shift-2d-grid/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
-    "desc": "请你返回 k 次迁移操作后最终得到的 二维网格。",
-    "solutions": [
-        {
-            "date": 1658246400000,
-            "time": 20,
-            "memory": 2.3,
-            "script": "rust",
-            "desc": "对于每个下标找到对应的下一个值。",
-            "code": "impl Solution {\n    pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let n = grid.len();\n        let m = grid[0].len();\n        let mut newGrid = grid.clone();\n        let mut i: usize = 0;\n        while i < n {\n            let mut j: usize = 0;\n            while j < m {\n                let (ni, nj) = Solution::get_next(n, m, i, j, k);\n                newGrid[i][j] = grid[ni][nj];\n                j += 1;\n            }\n            i += 1;\n        }\n        newGrid\n    }\n    fn get_next(n: usize, m: usize, i: usize, j: usize, cnt: i32) -> (usize, usize) {\n        if cnt == 0 {\n            (i, j)\n        } else if j != 0 {\n            return Solution::get_next(n, m, i, j - 1, cnt - 1);\n        } else if i != 0 {\n            return Solution::get_next(n, m, i - 1, m - 1, cnt - 1);\n        } else {\n            return Solution::get_next(n, m, n - 1, m - 1, cnt - 1);\n        }\n    }\n}"
-        },
-        {
-            "date": 1658246400000,
-            "time": 8,
-            "memory": 2.3,
-            "script": "rust",
-            "desc": "对于每个下标找到对应的下一个值。",
-            "code": "impl Solution {\n    pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let (n, m) = (grid.len(), grid[0].len());\n        let num = m * n;\n        let k = (k as usize) % num;\n        let mut ans = vec![vec![0; m]; n];\n        for idx in 0..num {\n            let next = (idx + num - k) % num;\n            ans[idx / m][idx % m] = grid[next / m][next % m];\n        }\n        ans\n    }\n}"
-        }
-    ]
+  "name": "1260. 二维网格迁移",
+  "url": "https://leetcode.cn/problems/shift-2d-grid/",
+  "difficulty": "简单",
+  "tag": ["数组", "矩阵", "模拟"],
+  "desc": "请你返回 k 次迁移操作后最终得到的 二维网格。",
+  "solutions": [
+    {
+      "date": 1658246400000,
+      "time": 20,
+      "memory": 2.3,
+      "script": "rust",
+      "desc": "对于每个下标找到对应的下一个值。",
+      "code": "impl Solution {\n    pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let n = grid.len();\n        let m = grid[0].len();\n        let mut newGrid = grid.clone();\n        let mut i: usize = 0;\n        while i < n {\n            let mut j: usize = 0;\n            while j < m {\n                let (ni, nj) = Solution::get_next(n, m, i, j, k);\n                newGrid[i][j] = grid[ni][nj];\n                j += 1;\n            }\n            i += 1;\n        }\n        newGrid\n    }\n    fn get_next(n: usize, m: usize, i: usize, j: usize, cnt: i32) -> (usize, usize) {\n        if cnt == 0 {\n            (i, j)\n        } else if j != 0 {\n            return Solution::get_next(n, m, i, j - 1, cnt - 1);\n        } else if i != 0 {\n            return Solution::get_next(n, m, i - 1, m - 1, cnt - 1);\n        } else {\n            return Solution::get_next(n, m, n - 1, m - 1, cnt - 1);\n        }\n    }\n}"
+    },
+    {
+      "date": 1658246400000,
+      "time": 8,
+      "memory": 2.3,
+      "script": "rust",
+      "desc": "对于每个下标找到对应的下一个值。",
+      "code": "impl Solution {\n    pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let (n, m) = (grid.len(), grid[0].len());\n        let num = m * n;\n        let k = (k as usize) % num;\n        let mut ans = vec![vec![0; m]; n];\n        for idx in 0..num {\n            let next = (idx + num - k) % num;\n            ans[idx / m][idx % m] = grid[next / m][next % m];\n        }\n        ans\n    }\n}"
+    }
+  ]
 }

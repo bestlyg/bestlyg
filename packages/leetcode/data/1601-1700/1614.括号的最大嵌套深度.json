@@ -1,20 +1,17 @@
 {
-    "name": "1614. 括号的最大嵌套深度",
-    "url": "https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/",
-    "difficulty": "简单",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
-    "desc": "给你一个 有效括号字符串 s，返回该字符串的 s 嵌套深度 。",
-    "solutions": [
-        {
-            "date": 1641484800000,
-            "time": 0,
-            "memory": 6.1,
-            "script": "c++",
-            "desc": "记录括号。",
-            "code": "class Solution {\n   public:\n    int maxDepth(string s) {\n        int ans = 0, cur = 0;\n        for (auto& ch : s) {\n            if (ch == '(')\n                ans = max(ans, ++cur);\n            else if (ch == ')')\n                --cur;\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "1614. 括号的最大嵌套深度",
+  "url": "https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/",
+  "difficulty": "简单",
+  "tag": ["栈", "字符串"],
+  "desc": "给你一个 有效括号字符串 s，返回该字符串的 s 嵌套深度 。",
+  "solutions": [
+    {
+      "date": 1641484800000,
+      "time": 0,
+      "memory": 6.1,
+      "script": "c++",
+      "desc": "记录括号。",
+      "code": "class Solution {\n   public:\n    int maxDepth(string s) {\n        int ans = 0, cur = 0;\n        for (auto& ch : s) {\n            if (ch == '(')\n                ans = max(ans, ++cur);\n            else if (ch == ')')\n                --cur;\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

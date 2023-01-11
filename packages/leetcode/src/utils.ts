@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { Type, typeList ,} from './base';
+import { Type, typeList } from './base';
 
 export const LOGO = `***********************************************************
 *      ____  ______  _____ _______ _  __     _______      *

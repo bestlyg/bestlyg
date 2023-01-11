@@ -1,31 +1,25 @@
 {
-    "name": "315. 计算右侧小于当前元素的个数",
-    "url": "https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/",
-    "difficulty": "困难",
-    "tag": [
-        "排序",
-        "树状数组",
-        "线段树",
-        "二分查找",
-        "分治算法"
-    ],
-    "desc": "给定一个整数数组 nums，按要求返回一个新数组  counts。数组 counts 有该性质： counts[i] 的值是   nums[i] 右侧小于  nums[i] 的元素的数量。",
-    "solutions": [
-        {
-            "date": 1594396800000,
-            "time": 828,
-            "memory": 38.8,
-            "script": "typescript",
-            "desc": "双重循环。",
-            "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  const res: number[] = [];\n  for (let i = 0; i < len; i++) {\n    let c = 0;\n    const num = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      if (num > nums[j]) c++;\n    }\n    res[i] = c;\n  }\n  return res;\n}"
-        },
-        {
-            "date": 1620921600000,
-            "time": 368,
-            "memory": 64.5,
-            "script": "typescript",
-            "desc": "分治，统计两部分中下标排序时计算。",
-            "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  if (len === 0) return [];\n  const list = new Array(len).fill(0).map((_, i) => i);\n  const ans = new Array(len).fill(0);\n  const mergeSort = (left: number, right: number): void => {\n    if (left === right) return;\n    const mid = (left + right) >> 1;\n    mergeSort(left, mid);\n    mergeSort(mid + 1, right);\n    const temp = list.slice(left, mid + 1);\n    let p1 = 0,\n      end1 = mid - left,\n      p2 = mid + 1,\n      i = left;\n    while (p1 <= end1) {\n      if (p2 > right || nums[temp[p1]] <= nums[list[p2]]) {\n        const index = temp[p1++];\n        list[i++] = index;\n        ans[index] += p2 - mid - 1;\n      } else {\n        list[i++] = list[p2++];\n      }\n    }\n  };\n  mergeSort(0, len - 1);\n  return ans;\n}"
-        }
-    ]
+  "name": "315. 计算右侧小于当前元素的个数",
+  "url": "https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/",
+  "difficulty": "困难",
+  "tag": ["排序", "树状数组", "线段树", "二分查找", "分治算法"],
+  "desc": "给定一个整数数组 nums，按要求返回一个新数组  counts。数组 counts 有该性质： counts[i] 的值是   nums[i] 右侧小于  nums[i] 的元素的数量。",
+  "solutions": [
+    {
+      "date": 1594396800000,
+      "time": 828,
+      "memory": 38.8,
+      "script": "typescript",
+      "desc": "双重循环。",
+      "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  const res: number[] = [];\n  for (let i = 0; i < len; i++) {\n    let c = 0;\n    const num = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      if (num > nums[j]) c++;\n    }\n    res[i] = c;\n  }\n  return res;\n}"
+    },
+    {
+      "date": 1620921600000,
+      "time": 368,
+      "memory": 64.5,
+      "script": "typescript",
+      "desc": "分治，统计两部分中下标排序时计算。",
+      "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  if (len === 0) return [];\n  const list = new Array(len).fill(0).map((_, i) => i);\n  const ans = new Array(len).fill(0);\n  const mergeSort = (left: number, right: number): void => {\n    if (left === right) return;\n    const mid = (left + right) >> 1;\n    mergeSort(left, mid);\n    mergeSort(mid + 1, right);\n    const temp = list.slice(left, mid + 1);\n    let p1 = 0,\n      end1 = mid - left,\n      p2 = mid + 1,\n      i = left;\n    while (p1 <= end1) {\n      if (p2 > right || nums[temp[p1]] <= nums[list[p2]]) {\n        const index = temp[p1++];\n        list[i++] = index;\n        ans[index] += p2 - mid - 1;\n      } else {\n        list[i++] = list[p2++];\n      }\n    }\n  };\n  mergeSort(0, len - 1);\n  return ans;\n}"
+    }
+  ]
 }

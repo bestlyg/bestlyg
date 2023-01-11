@@ -1,28 +1,25 @@
 {
-    "name": "剑指 Offer 22. 链表中倒数第 k 个节点",
-    "url": "https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/",
-    "difficulty": "简单",
-    "tag": [
-        "链表",
-        "双指针"
-    ],
-    "desc": "输入一个链表，输出该链表中倒数第 k 个节点。为了符合大多数人的习惯，本题从 1 开始计数，即链表的尾节点是倒数第 1 个节点。",
-    "solutions": [
-        {
-            "date": 1630512000000,
-            "time": 72,
-            "memory": 39.5,
-            "script": "typescript",
-            "desc": "计算总长度相减后 dfs。",
-            "code": "function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {\n  let count = 0;\n  let p = head;\n  while (p !== null) {\n    count++;\n    p = p.next;\n  }\n  return dfs(head, count - k);\n  function dfs(node: ListNode | null, count: number): ListNode | null {\n    if (node === null) return null;\n    if (count === 0) return node;\n    return dfs(node.next, count - 1);\n  }\n}"
-        },
-        {
-            "date": 1630512000000,
-            "time": 80,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "双指针。",
-            "code": "function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {\n  let slow = head;\n  let fast = head;\n  while (fast && k) {\n    fast = fast.next;\n    k--;\n  }\n  while (fast) {\n    fast = fast.next;\n    slow = slow!.next;\n  }\n  return slow;\n}"
-        }
-    ]
+  "name": "剑指 Offer 22. 链表中倒数第 k 个节点",
+  "url": "https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/",
+  "difficulty": "简单",
+  "tag": ["链表", "双指针"],
+  "desc": "输入一个链表，输出该链表中倒数第 k 个节点。为了符合大多数人的习惯，本题从 1 开始计数，即链表的尾节点是倒数第 1 个节点。",
+  "solutions": [
+    {
+      "date": 1630512000000,
+      "time": 72,
+      "memory": 39.5,
+      "script": "typescript",
+      "desc": "计算总长度相减后 dfs。",
+      "code": "function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {\n  let count = 0;\n  let p = head;\n  while (p !== null) {\n    count++;\n    p = p.next;\n  }\n  return dfs(head, count - k);\n  function dfs(node: ListNode | null, count: number): ListNode | null {\n    if (node === null) return null;\n    if (count === 0) return node;\n    return dfs(node.next, count - 1);\n  }\n}"
+    },
+    {
+      "date": 1630512000000,
+      "time": 80,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "双指针。",
+      "code": "function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {\n  let slow = head;\n  let fast = head;\n  while (fast && k) {\n    fast = fast.next;\n    k--;\n  }\n  while (fast) {\n    fast = fast.next;\n    slow = slow!.next;\n  }\n  return slow;\n}"
+    }
+  ]
 }

@@ -1,29 +1,25 @@
 {
-    "name": "475. 供暖器",
-    "url": "https://leetcode-cn.com/problems/heaters",
-    "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "排序"
-    ],
-    "desc": "现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。",
-    "solutions": [
-        {
-            "date": 1626969600000,
-            "time": 100,
-            "memory": 42.4,
-            "script": "typescript",
-            "desc": "遍历房子取最近供暖器。",
-            "code": "function findRadius(houses: number[], heaters: number[]): number {\n  heaters.sort((a, b) => a - b);\n  let ans = -Infinity;\n  for (const house of houses) {\n    const i = bs(house);\n    ans = Math.max(\n      ans,\n      i === 0\n        ? Math.abs(heaters[i] - house)\n        : i === heaters.length\n        ? Math.abs(heaters[heaters.length - 1] - house)\n        : Math.min(heaters[i] - house, house - heaters[i - 1])\n    );\n  }\n  return ans;\n  function bs(target: number): number {\n    let l = 0;\n    let r = heaters.length - 1;\n    while (r - l > 3) {\n      const mid = (r + l) >> 1;\n      if (heaters[mid] >= target) r = mid;\n      else l = mid + 1;\n    }\n    for (let i = l; i <= r; i++) if (heaters[i] >= target) return i;\n    return heaters.length;\n  }\n}"
-        },
-        {
-            "date": 1639929600000,
-            "time": 108,
-            "memory": 42.6,
-            "script": "typescript",
-            "desc": "二分答案。",
-            "code": "function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {\n  let idx = 0;\n  for (let i = 0; i < m && idx < n; i++) {\n    const heater = heaters[i];\n    while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;\n  }\n  return idx === n;\n}\nfunction findRadius(houses: number[], heaters: number[]): number {\n  houses.sort((a, b) => a - b);\n  heaters.sort((a, b) => a - b);\n  const houseLen = houses.length;\n  const heaterLen = heaters.length;\n  let l = 0;\n  let r = 1e9;\n  while (l < r) {\n    const m = (l + r) >> 1;\n    if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;\n    else l = m + 1;\n  }\n  return l;\n}"
-        }
-    ]
+  "name": "475. 供暖器",
+  "url": "https://leetcode-cn.com/problems/heaters",
+  "difficulty": "中等",
+  "tag": ["数组", "二分查找", "排序"],
+  "desc": "现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。",
+  "solutions": [
+    {
+      "date": 1626969600000,
+      "time": 100,
+      "memory": 42.4,
+      "script": "typescript",
+      "desc": "遍历房子取最近供暖器。",
+      "code": "function findRadius(houses: number[], heaters: number[]): number {\n  heaters.sort((a, b) => a - b);\n  let ans = -Infinity;\n  for (const house of houses) {\n    const i = bs(house);\n    ans = Math.max(\n      ans,\n      i === 0\n        ? Math.abs(heaters[i] - house)\n        : i === heaters.length\n        ? Math.abs(heaters[heaters.length - 1] - house)\n        : Math.min(heaters[i] - house, house - heaters[i - 1])\n    );\n  }\n  return ans;\n  function bs(target: number): number {\n    let l = 0;\n    let r = heaters.length - 1;\n    while (r - l > 3) {\n      const mid = (r + l) >> 1;\n      if (heaters[mid] >= target) r = mid;\n      else l = mid + 1;\n    }\n    for (let i = l; i <= r; i++) if (heaters[i] >= target) return i;\n    return heaters.length;\n  }\n}"
+    },
+    {
+      "date": 1639929600000,
+      "time": 108,
+      "memory": 42.6,
+      "script": "typescript",
+      "desc": "二分答案。",
+      "code": "function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {\n  let idx = 0;\n  for (let i = 0; i < m && idx < n; i++) {\n    const heater = heaters[i];\n    while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;\n  }\n  return idx === n;\n}\nfunction findRadius(houses: number[], heaters: number[]): number {\n  houses.sort((a, b) => a - b);\n  heaters.sort((a, b) => a - b);\n  const houseLen = houses.length;\n  const heaterLen = heaters.length;\n  let l = 0;\n  let r = 1e9;\n  while (l < r) {\n    const m = (l + r) >> 1;\n    if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;\n    else l = m + 1;\n  }\n  return l;\n}"
+    }
+  ]
 }

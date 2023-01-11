@@ -1,22 +1,17 @@
 {
-    "name": "44. 通配符匹配",
-    "url": "https://leetcode-cn.com/problems/wildcard-matching/",
-    "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "字符串",
-        "动态规划",
-        "回溯算法"
-    ],
-    "desc": "给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '\\*' 的通配符匹配。",
-    "solutions": [
-        {
-            "date": 1593878400000,
-            "time": 172,
-            "memory": 49.9,
-            "script": "typescript",
-            "desc": "如果是?或者字母，则匹配前一个，如果是\\*则判断前一个是否能匹配。",
-            "code": "function isMatch(s: string, p: string): boolean {\n  const sLen = s.length;\n  const pLen = p.length;\n  const dp = new Array(sLen + 1).fill(0).map(_ => new Array(pLen + 1).fill(false));\n  dp[0][0] = true;\n  for (let i = 1; i <= pLen; i++) {\n    dp[0][i] = p[i - 1] === '*' && dp[0][i - 1];\n  }\n  for (let i = 1; i <= sLen; i++) {\n    for (let j = 1; j <= pLen; j++) {\n      const cP = p[j - 1];\n      if (cP === '?' || s[i - 1] === cP) {\n        dp[i][j] = dp[i - 1][j - 1];\n      } else if (cP === '*' && (dp[i - 1][j] || dp[i][j - 1])) {\n        dp[i][j] = true;\n      }\n    }\n  }\n  return dp[sLen][pLen];\n}"
-        }
-    ]
+  "name": "44. 通配符匹配",
+  "url": "https://leetcode-cn.com/problems/wildcard-matching/",
+  "difficulty": "困难",
+  "tag": ["贪心", "字符串", "动态规划", "回溯算法"],
+  "desc": "给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '\\*' 的通配符匹配。",
+  "solutions": [
+    {
+      "date": 1593878400000,
+      "time": 172,
+      "memory": 49.9,
+      "script": "typescript",
+      "desc": "如果是?或者字母，则匹配前一个，如果是\\*则判断前一个是否能匹配。",
+      "code": "function isMatch(s: string, p: string): boolean {\n  const sLen = s.length;\n  const pLen = p.length;\n  const dp = new Array(sLen + 1).fill(0).map(_ => new Array(pLen + 1).fill(false));\n  dp[0][0] = true;\n  for (let i = 1; i <= pLen; i++) {\n    dp[0][i] = p[i - 1] === '*' && dp[0][i - 1];\n  }\n  for (let i = 1; i <= sLen; i++) {\n    for (let j = 1; j <= pLen; j++) {\n      const cP = p[j - 1];\n      if (cP === '?' || s[i - 1] === cP) {\n        dp[i][j] = dp[i - 1][j - 1];\n      } else if (cP === '*' && (dp[i - 1][j] || dp[i][j - 1])) {\n        dp[i][j] = true;\n      }\n    }\n  }\n  return dp[sLen][pLen];\n}"
+    }
+  ]
 }

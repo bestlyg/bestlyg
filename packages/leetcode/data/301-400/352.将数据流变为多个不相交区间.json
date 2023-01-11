@@ -1,21 +1,17 @@
 {
-    "name": "352. 将数据流变为多个不相交区间",
-    "url": "https://leetcode-cn.com/problems/data-stream-as-disjoint-intervals/",
-    "difficulty": "困难",
-    "tag": [
-        "设计",
-        "二分查找",
-        "有序集合"
-    ],
-    "desc": "给你一个由非负整数 a1, a2, ..., an 组成的数据流输入，请你将到目前为止看到的数字总结为不相交的区间列表。",
-    "solutions": [
-        {
-            "date": 1633708800000,
-            "time": 180,
-            "memory": 48.5,
-            "script": "typescript",
-            "desc": "二分插入。",
-            "code": "class SummaryRanges {\n  private set = new Set<number>();\n  private list: number[] = [];\n  addNum(val: number): void {\n    if (this.set.has(val)) return;\n    this.set.add(val);\n    let l = 0;\n    let r = this.list.length - 1;\n    if (this.list[r] < val) {\n      this.list.push(val);\n      return;\n    }\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (this.list[mid] > val) r = mid;\n      else l = mid + 1;\n    }\n    this.list.splice(l, 0, val);\n  }\n  getIntervals(): number[][] {\n    const ans: number[][] = [];\n    for (let i = 0, l = this.list.length; i < l; i++) {\n      const num = this.list[i];\n      const last = ans[ans.length - 1];\n      if (ans.length === 0 || last[1] + 1 < num) {\n        ans.push([num, num]);\n      } else {\n        last[1] = num;\n      }\n    }\n    return ans;\n  }\n}"
-        }
-    ]
+  "name": "352. 将数据流变为多个不相交区间",
+  "url": "https://leetcode-cn.com/problems/data-stream-as-disjoint-intervals/",
+  "difficulty": "困难",
+  "tag": ["设计", "二分查找", "有序集合"],
+  "desc": "给你一个由非负整数 a1, a2, ..., an 组成的数据流输入，请你将到目前为止看到的数字总结为不相交的区间列表。",
+  "solutions": [
+    {
+      "date": 1633708800000,
+      "time": 180,
+      "memory": 48.5,
+      "script": "typescript",
+      "desc": "二分插入。",
+      "code": "class SummaryRanges {\n  private set = new Set<number>();\n  private list: number[] = [];\n  addNum(val: number): void {\n    if (this.set.has(val)) return;\n    this.set.add(val);\n    let l = 0;\n    let r = this.list.length - 1;\n    if (this.list[r] < val) {\n      this.list.push(val);\n      return;\n    }\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (this.list[mid] > val) r = mid;\n      else l = mid + 1;\n    }\n    this.list.splice(l, 0, val);\n  }\n  getIntervals(): number[][] {\n    const ans: number[][] = [];\n    for (let i = 0, l = this.list.length; i < l; i++) {\n      const num = this.list[i];\n      const last = ans[ans.length - 1];\n      if (ans.length === 0 || last[1] + 1 < num) {\n        ans.push([num, num]);\n      } else {\n        last[1] = num;\n      }\n    }\n    return ans;\n  }\n}"
+    }
+  ]
 }

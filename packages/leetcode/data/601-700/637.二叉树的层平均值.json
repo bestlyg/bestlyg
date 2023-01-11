@@ -1,19 +1,17 @@
 {
-    "name": "637. 二叉树的层平均值",
-    "url": "https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/",
-    "difficulty": "简单",
-    "tag": [
-        "树"
-    ],
-    "desc": "给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。",
-    "solutions": [
-        {
-            "date": 1599840000000,
-            "time": 104,
-            "memory": 42.5,
-            "script": "typescript",
-            "desc": "层序遍历。",
-            "code": "function averageOfLevels(root: TreeNode | null): number[] {\n  if (root === null) return [];\n  const queue: TreeNode[] = [root];\n  let size = 1;\n  const ans: number[] = [root.val];\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0 && queue.length !== 0) {\n      size = queue.length;\n      ans.push(queue.reduce((total, cur) => total + cur.val, 0) / size);\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "637. 二叉树的层平均值",
+  "url": "https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/",
+  "difficulty": "简单",
+  "tag": ["树"],
+  "desc": "给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。",
+  "solutions": [
+    {
+      "date": 1599840000000,
+      "time": 104,
+      "memory": 42.5,
+      "script": "typescript",
+      "desc": "层序遍历。",
+      "code": "function averageOfLevels(root: TreeNode | null): number[] {\n  if (root === null) return [];\n  const queue: TreeNode[] = [root];\n  let size = 1;\n  const ans: number[] = [root.val];\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0 && queue.length !== 0) {\n      size = queue.length;\n      ans.push(queue.reduce((total, cur) => total + cur.val, 0) / size);\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-    "name": "55. 跳跃游戏",
-    "url": "https://leetcode-cn.com/problems/jump-game/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组"
-    ],
-    "desc": "给定一个非负整数数组，你最初位于数组的第一个位置。",
-    "solutions": [
-        {
-            "date": 1587052800000,
-            "time": 68,
-            "memory": 35.8,
-            "script": "javascript",
-            "desc": "遍历数组，判断每次跳跃后的最大下标并于当前遍历下标进行比较，如果一个位置能够到达，那么这个位置左侧所有位置都能到达。",
-            "code": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canJump = function (nums) {\n  let k = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (i > k) return false;\n    k = Math.max(k, i + nums[i]);\n  }\n  return true;\n};"
-        }
-    ]
+  "name": "55. 跳跃游戏",
+  "url": "https://leetcode-cn.com/problems/jump-game/",
+  "difficulty": "中等",
+  "tag": ["贪心", "数组"],
+  "desc": "给定一个非负整数数组，你最初位于数组的第一个位置。",
+  "solutions": [
+    {
+      "date": 1587052800000,
+      "time": 68,
+      "memory": 35.8,
+      "script": "javascript",
+      "desc": "遍历数组，判断每次跳跃后的最大下标并于当前遍历下标进行比较，如果一个位置能够到达，那么这个位置左侧所有位置都能到达。",
+      "code": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canJump = function (nums) {\n  let k = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (i > k) return false;\n    k = Math.max(k, i + nums[i]);\n  }\n  return true;\n};"
+    }
+  ]
 }

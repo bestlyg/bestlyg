@@ -1,11 +1,8 @@
 {
-    "name": "2027. 转换字符串的最少操作次数",
-    "url": "https://leetcode.cn/problems/minimum-moves-to-convert-string/",
-    "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "字符串"
-    ],
-    "desc": "返回将 s 中所有字符均转换为 'O' 需要执行的 最少 操作次数。",
-    "solutions": []
+  "name": "2027. 转换字符串的最少操作次数",
+  "url": "https://leetcode.cn/problems/minimum-moves-to-convert-string/",
+  "difficulty": "简单",
+  "tag": ["贪心", "字符串"],
+  "desc": "返回将 s 中所有字符均转换为 'O' 需要执行的 最少 操作次数。",
+  "solutions": []
 }

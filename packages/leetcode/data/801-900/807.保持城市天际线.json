@@ -1,21 +1,17 @@
 {
-    "name": "807. 保持城市天际线",
-    "url": "https://leetcode-cn.com/problems/max-increase-to-keep-city-skyline/",
-    "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "矩阵"
-    ],
-    "desc": "在二维数组 grid 中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。建筑物高度可以增加的最大总和是多少？。",
-    "solutions": [
-        {
-            "date": 1639324800000,
-            "time": 88,
-            "memory": 40.1,
-            "script": "typescript",
-            "desc": "遍历后存储最大值数组。",
-            "code": "function maxIncreaseKeepingSkyline(grid: number[][]): number {\n  const n = grid.length;\n  const m = grid[0].length;\n  const vmax = new Array(m).fill(0);\n  const hmax = new Array(n).fill(0);\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    let max = 0;\n    for (let col = 0; col < m; col++) {\n      max = Math.max(max, grid[row][col]);\n    }\n    hmax[row] = max;\n  }\n  for (let col = 0; col < m; col++) {\n    let max = 0;\n    for (let row = 0; row < n; row++) {\n      max = Math.max(max, grid[row][col]);\n    }\n    vmax[col] = max;\n  }\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      ans += Math.min(vmax[col] - grid[row][col], hmax[row] - grid[row][col]);\n    }\n  }\n  return ans;\n}"
-        }
-    ]
+  "name": "807. 保持城市天际线",
+  "url": "https://leetcode-cn.com/problems/max-increase-to-keep-city-skyline/",
+  "difficulty": "中等",
+  "tag": ["贪心", "数组", "矩阵"],
+  "desc": "在二维数组 grid 中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。建筑物高度可以增加的最大总和是多少？。",
+  "solutions": [
+    {
+      "date": 1639324800000,
+      "time": 88,
+      "memory": 40.1,
+      "script": "typescript",
+      "desc": "遍历后存储最大值数组。",
+      "code": "function maxIncreaseKeepingSkyline(grid: number[][]): number {\n  const n = grid.length;\n  const m = grid[0].length;\n  const vmax = new Array(m).fill(0);\n  const hmax = new Array(n).fill(0);\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    let max = 0;\n    for (let col = 0; col < m; col++) {\n      max = Math.max(max, grid[row][col]);\n    }\n    hmax[row] = max;\n  }\n  for (let col = 0; col < m; col++) {\n    let max = 0;\n    for (let row = 0; row < n; row++) {\n      max = Math.max(max, grid[row][col]);\n    }\n    vmax[col] = max;\n  }\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      ans += Math.min(vmax[col] - grid[row][col], hmax[row] - grid[row][col]);\n    }\n  }\n  return ans;\n}"
+    }
+  ]
 }

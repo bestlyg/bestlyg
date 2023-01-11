@@ -1,28 +1,25 @@
 {
-    "name": "1670. 设计前中后队列",
-    "url": "https://leetcode-cn.com/problems/design-front-middle-back-queue/",
-    "difficulty": "中等",
-    "tag": [
-        "设计",
-        "链表"
-    ],
-    "desc": "请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。",
-    "solutions": [
-        {
-            "date": 1615651200000,
-            "time": 144,
-            "memory": 45.1,
-            "script": "typescript",
-            "desc": "利用两个数组维护中间值。",
-            "code": "class FrontMiddleBackQueue {\n  get frontLen() {\n    return this.front.length;\n  }\n  get backLen() {\n    return this.back.length;\n  }\n  get len() {\n    return this.frontLen + this.backLen;\n  }\n  private front: number[] = [];\n  private back: number[] = [];\n  pushFront(val: number): void {\n    this.front.unshift(val);\n    this.check();\n  }\n  pushMiddle(val: number): void {\n    this.front.push(val);\n    this.check();\n  }\n  pushBack(val: number): void {\n    this.back.push(val);\n    this.check();\n  }\n  popFront(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 ? this.back.shift()! : this.front.shift()!;\n    this.check();\n    return num;\n  }\n  popMiddle(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 || this.len & 1 ? this.back.shift()! : this.front.pop()!;\n    this.check();\n    return num;\n  }\n  popBack(): number {\n    if (this.len === 0) return -1;\n    const num = this.backLen === 0 ? this.front.pop()! : this.back.pop()!;\n    this.check();\n    return num;\n  }\n  private check() {\n    if (this.frontLen > this.backLen) {\n      this.back.unshift(this.front.pop()!);\n    }\n    if (this.backLen > this.frontLen + 1) {\n      this.front.push(this.back.shift()!);\n    }\n  }\n}"
-        },
-        {
-            "date": 1646236800000,
-            "time": 28,
-            "memory": 20.4,
-            "script": "c++",
-            "desc": "维护两个双端队列。",
-            "code": "class FrontMiddleBackQueue {\n   public:\n    deque<int> q1, q2;\n    FrontMiddleBackQueue() {}\n    void balance() {\n        if (empty()) return;\n        while (q1.size() > q2.size()) {\n            q2.push_front(q1.back());\n            q1.pop_back();\n        }\n        while (q1.size() < q2.size() - 1) {\n            q1.push_back(q2.front());\n            q2.pop_front();\n        }\n    }\n    void pushFront(int val) {\n        q1.push_front(val);\n        balance();\n    }\n    void pushMiddle(int val) {\n        if (q1.size() == q2.size())\n            q1.push_back(val);\n        else\n            q2.push_front(val);\n        balance();\n    }\n    void pushBack(int val) {\n        q2.push_back(val);\n        balance();\n    }\n    int popFront() {\n        if (empty()) return -1;\n        int res;\n        if (q1.size()) {\n            res = q1.front();\n            q1.pop_front();\n        } else {\n            res = q2.front();\n            q2.pop_front();\n        }\n        balance();\n        return res;\n    }\n    int popMiddle() {\n        if (empty()) return -1;\n        int res;\n        if (q1.size() == q2.size()) {\n            res = q1.back();\n            q1.pop_back();\n        } else {\n            res = q2.front();\n            q2.pop_front();\n        }\n        balance();\n        return res;\n    }\n    int popBack() {\n        if (empty()) return -1;\n        int res = q2.back();\n        q2.pop_back();\n        balance();\n        return res;\n    }\n    int empty() { return q1.size() + q2.size() == 0; }\n};"
-        }
-    ]
+  "name": "1670. 设计前中后队列",
+  "url": "https://leetcode-cn.com/problems/design-front-middle-back-queue/",
+  "difficulty": "中等",
+  "tag": ["设计", "链表"],
+  "desc": "请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。",
+  "solutions": [
+    {
+      "date": 1615651200000,
+      "time": 144,
+      "memory": 45.1,
+      "script": "typescript",
+      "desc": "利用两个数组维护中间值。",
+      "code": "class FrontMiddleBackQueue {\n  get frontLen() {\n    return this.front.length;\n  }\n  get backLen() {\n    return this.back.length;\n  }\n  get len() {\n    return this.frontLen + this.backLen;\n  }\n  private front: number[] = [];\n  private back: number[] = [];\n  pushFront(val: number): void {\n    this.front.unshift(val);\n    this.check();\n  }\n  pushMiddle(val: number): void {\n    this.front.push(val);\n    this.check();\n  }\n  pushBack(val: number): void {\n    this.back.push(val);\n    this.check();\n  }\n  popFront(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 ? this.back.shift()! : this.front.shift()!;\n    this.check();\n    return num;\n  }\n  popMiddle(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 || this.len & 1 ? this.back.shift()! : this.front.pop()!;\n    this.check();\n    return num;\n  }\n  popBack(): number {\n    if (this.len === 0) return -1;\n    const num = this.backLen === 0 ? this.front.pop()! : this.back.pop()!;\n    this.check();\n    return num;\n  }\n  private check() {\n    if (this.frontLen > this.backLen) {\n      this.back.unshift(this.front.pop()!);\n    }\n    if (this.backLen > this.frontLen + 1) {\n      this.front.push(this.back.shift()!);\n    }\n  }\n}"
+    },
+    {
+      "date": 1646236800000,
+      "time": 28,
+      "memory": 20.4,
+      "script": "c++",
+      "desc": "维护两个双端队列。",
+      "code": "class FrontMiddleBackQueue {\n   public:\n    deque<int> q1, q2;\n    FrontMiddleBackQueue() {}\n    void balance() {\n        if (empty()) return;\n        while (q1.size() > q2.size()) {\n            q2.push_front(q1.back());\n            q1.pop_back();\n        }\n        while (q1.size() < q2.size() - 1) {\n            q1.push_back(q2.front());\n            q2.pop_front();\n        }\n    }\n    void pushFront(int val) {\n        q1.push_front(val);\n        balance();\n    }\n    void pushMiddle(int val) {\n        if (q1.size() == q2.size())\n            q1.push_back(val);\n        else\n            q2.push_front(val);\n        balance();\n    }\n    void pushBack(int val) {\n        q2.push_back(val);\n        balance();\n    }\n    int popFront() {\n        if (empty()) return -1;\n        int res;\n        if (q1.size()) {\n            res = q1.front();\n            q1.pop_front();\n        } else {\n            res = q2.front();\n            q2.pop_front();\n        }\n        balance();\n        return res;\n    }\n    int popMiddle() {\n        if (empty()) return -1;\n        int res;\n        if (q1.size() == q2.size()) {\n            res = q1.back();\n            q1.pop_back();\n        } else {\n            res = q2.front();\n            q2.pop_front();\n        }\n        balance();\n        return res;\n    }\n    int popBack() {\n        if (empty()) return -1;\n        int res = q2.back();\n        q2.pop_back();\n        balance();\n        return res;\n    }\n    int empty() { return q1.size() + q2.size() == 0; }\n};"
+    }
+  ]
 }

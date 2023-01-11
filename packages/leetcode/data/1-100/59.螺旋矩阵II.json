@@ -1,19 +1,17 @@
 {
-    "name": "59. 螺旋矩阵 II",
-    "url": "https://leetcode-cn.com/problems/spiral-matrix-ii/",
-    "difficulty": "中等",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。",
-    "solutions": [
-        {
-            "date": 1615824000000,
-            "time": 100,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "旋转赋值。",
-            "code": "function generateMatrix(n: number): number[][] {\n  const ans: number[][] = new Array(n).fill(0).map(_ => new Array(n));\n  let num = 1;\n  dfs(0, n - 1);\n  return ans;\n  function dfs(startI: number, endI: number): void {\n    if (startI > endI || startI > endI) return;\n    for (let i = startI; i <= endI; i++) ans[startI][i] = num++;\n    for (let i = startI + 1; i <= endI; i++) ans[i][endI] = num++;\n    for (let i = endI - 1; i >= startI; i--) ans[endI][i] = num++;\n    for (let i = endI - 1; i >= startI + 1; i--) ans[i][startI] = num++;\n    dfs(startI + 1, endI - 1);\n  }\n}"
-        }
-    ]
+  "name": "59. 螺旋矩阵 II",
+  "url": "https://leetcode-cn.com/problems/spiral-matrix-ii/",
+  "difficulty": "中等",
+  "tag": ["数组"],
+  "desc": "给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。",
+  "solutions": [
+    {
+      "date": 1615824000000,
+      "time": 100,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "旋转赋值。",
+      "code": "function generateMatrix(n: number): number[][] {\n  const ans: number[][] = new Array(n).fill(0).map(_ => new Array(n));\n  let num = 1;\n  dfs(0, n - 1);\n  return ans;\n  function dfs(startI: number, endI: number): void {\n    if (startI > endI || startI > endI) return;\n    for (let i = startI; i <= endI; i++) ans[startI][i] = num++;\n    for (let i = startI + 1; i <= endI; i++) ans[i][endI] = num++;\n    for (let i = endI - 1; i >= startI; i--) ans[endI][i] = num++;\n    for (let i = endI - 1; i >= startI + 1; i--) ans[i][startI] = num++;\n    dfs(startI + 1, endI - 1);\n  }\n}"
+    }
+  ]
 }

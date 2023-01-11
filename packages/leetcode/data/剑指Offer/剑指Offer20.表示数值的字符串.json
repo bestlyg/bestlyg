@@ -1,19 +1,17 @@
 {
-    "name": "剑指 Offer 20. 表示数值的字符串",
-    "url": "https://leetcode-cn.com/problems/predict-the-winner/",
-    "difficulty": "中等",
-    "tag": [
-        "数学"
-    ],
-    "desc": "请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。",
-    "solutions": [
-        {
-            "date": 1598976000000,
-            "time": 120,
-            "memory": 40.2,
-            "script": "typescript",
-            "desc": "直接利用正则判断。",
-            "code": "function isNumber(s: string): boolean {\n  return /^[+-]?(\\d+(\\.\\d*)?|(\\.\\d+))(e[+-]?\\d+)?$/i.test(s.trim());\n}"
-        }
-    ]
+  "name": "剑指 Offer 20. 表示数值的字符串",
+  "url": "https://leetcode-cn.com/problems/predict-the-winner/",
+  "difficulty": "中等",
+  "tag": ["数学"],
+  "desc": "请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。",
+  "solutions": [
+    {
+      "date": 1598976000000,
+      "time": 120,
+      "memory": 40.2,
+      "script": "typescript",
+      "desc": "直接利用正则判断。",
+      "code": "function isNumber(s: string): boolean {\n  return /^[+-]?(\\d+(\\.\\d*)?|(\\.\\d+))(e[+-]?\\d+)?$/i.test(s.trim());\n}"
+    }
+  ]
 }

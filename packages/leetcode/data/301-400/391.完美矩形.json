@@ -1,20 +1,17 @@
 {
-    "name": "391. 完美矩形",
-    "url": "https://leetcode-cn.com/problems/perfect-rectangle/",
-    "difficulty": "困难",
-    "tag": [
-        "数组",
-        "扫描线"
-    ],
-    "desc": "如果所有矩形一起精确覆盖了某个矩形区域，则返回 true ；否则，返回 false 。",
-    "solutions": [
-        {
-            "date": 1636992000000,
-            "time": 272,
-            "memory": 62.8,
-            "script": "typescript",
-            "desc": "计数判断面积和顶点重合次数。",
-            "code": "function isRectangleCover(rectangles: number[][]): boolean {\n  /**\n           完美矩形要满足:\n           1. 最左上、左下、右上、右下四个顶点只出现1次;\n           2. 重合顶点重合次数必须为2、4，不能出现一次。\n           3. 大矩形面积等于小矩形面积之和。\n           */\n  type Data = { cnt: number; point: number[] };\n  const set = new Set<string>();\n  const map: Record<string, Data> = {};\n  const format = (x: number, y: number) => `${x}:${y}`;\n  const map_add = (x: number, y: number) => {\n    const formatStr = format(x, y);\n    let data = map[formatStr];\n    if (!data) map[formatStr] = data = { cnt: 0, point: [x, y] };\n    data.cnt++;\n  };\n  let sum = 0;\n  const vertex: number[] = [];\n  const is_vertex = (x: number, y: number) =>\n    (x === vertex[0] && y === vertex[1]) ||\n    (x === vertex[2] && y === vertex[3]) ||\n    (x === vertex[0] && y === vertex[3]) ||\n    (x === vertex[2] && y === vertex[1]);\n  for (const [x, y, a, b] of rectangles) {\n    const formatStr = format(x, y) + ':' + format(a, b);\n    if (set.has(formatStr)) return false;\n    set.add(formatStr);\n    if (vertex[0] === undefined || vertex[0] > x || vertex[1] > y) {\n      vertex[0] = x;\n      vertex[1] = y;\n    }\n    if (vertex[2] === undefined || vertex[2] < a || vertex[3] < b) {\n      vertex[2] = a;\n      vertex[3] = b;\n    }\n    sum += (a - x) * (b - y);\n    map_add(x, y);\n    map_add(a, b);\n    map_add(x, b);\n    map_add(a, y);\n  }\n  if ((vertex[2] - vertex[0]) * (vertex[3] - vertex[1]) !== sum) return false;\n  for (const {\n    cnt,\n    point: [x, y],\n  } of Object.values(map)) {\n    if ((cnt === 1 && !is_vertex(x, y)) || (cnt !== 1 && cnt !== 2 && cnt !== 4)) {\n      return false;\n    }\n  }\n  return true;\n}"
-        }
-    ]
+  "name": "391. 完美矩形",
+  "url": "https://leetcode-cn.com/problems/perfect-rectangle/",
+  "difficulty": "困难",
+  "tag": ["数组", "扫描线"],
+  "desc": "如果所有矩形一起精确覆盖了某个矩形区域，则返回 true ；否则，返回 false 。",
+  "solutions": [
+    {
+      "date": 1636992000000,
+      "time": 272,
+      "memory": 62.8,
+      "script": "typescript",
+      "desc": "计数判断面积和顶点重合次数。",
+      "code": "function isRectangleCover(rectangles: number[][]): boolean {\n  /**\n           完美矩形要满足:\n           1. 最左上、左下、右上、右下四个顶点只出现1次;\n           2. 重合顶点重合次数必须为2、4，不能出现一次。\n           3. 大矩形面积等于小矩形面积之和。\n           */\n  type Data = { cnt: number; point: number[] };\n  const set = new Set<string>();\n  const map: Record<string, Data> = {};\n  const format = (x: number, y: number) => `${x}:${y}`;\n  const map_add = (x: number, y: number) => {\n    const formatStr = format(x, y);\n    let data = map[formatStr];\n    if (!data) map[formatStr] = data = { cnt: 0, point: [x, y] };\n    data.cnt++;\n  };\n  let sum = 0;\n  const vertex: number[] = [];\n  const is_vertex = (x: number, y: number) =>\n    (x === vertex[0] && y === vertex[1]) ||\n    (x === vertex[2] && y === vertex[3]) ||\n    (x === vertex[0] && y === vertex[3]) ||\n    (x === vertex[2] && y === vertex[1]);\n  for (const [x, y, a, b] of rectangles) {\n    const formatStr = format(x, y) + ':' + format(a, b);\n    if (set.has(formatStr)) return false;\n    set.add(formatStr);\n    if (vertex[0] === undefined || vertex[0] > x || vertex[1] > y) {\n      vertex[0] = x;\n      vertex[1] = y;\n    }\n    if (vertex[2] === undefined || vertex[2] < a || vertex[3] < b) {\n      vertex[2] = a;\n      vertex[3] = b;\n    }\n    sum += (a - x) * (b - y);\n    map_add(x, y);\n    map_add(a, b);\n    map_add(x, b);\n    map_add(a, y);\n  }\n  if ((vertex[2] - vertex[0]) * (vertex[3] - vertex[1]) !== sum) return false;\n  for (const {\n    cnt,\n    point: [x, y],\n  } of Object.values(map)) {\n    if ((cnt === 1 && !is_vertex(x, y)) || (cnt !== 1 && cnt !== 2 && cnt !== 4)) {\n      return false;\n    }\n  }\n  return true;\n}"
+    }
+  ]
 }

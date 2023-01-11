@@ -1,29 +1,25 @@
 {
-    "name": "684. 冗余连接",
-    "url": "https://leetcode-cn.com/problems/redundant-connection/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "并查集",
-        "图"
-    ],
-    "desc": "输入一个图，该图由一个有着 N 个节点 (节点值不重复 1, 2, ..., N) 的树及一条附加的边构成。附加的边的两个顶点包含在 1 到 N 中间，这条附加的边不属于树中已存在的边。返回一条可以删去的边，使得结果图是一个有着 N 个节点的树。如果有多个答案，则返回二维数组中最后出现的边。答案边 [u, v] 应满足相同的格式 u < v。",
-    "solutions": [
-        {
-            "date": 1610467200000,
-            "time": 96,
-            "memory": 45.3,
-            "script": "typescript",
-            "desc": "利用 set 储存遍历结果。",
-            "code": "function findRedundantConnection(edges: number[][]): number[] {\n  const map = new Map<number, Set<number>>();\n  let ans: number[][] = [];\n  for (const edge of edges) {\n    const [num1, num2] = edge;\n    const set1 = map.get(num1);\n    const set2 = map.get(num2);\n    if (set1 && set2 && set1 !== set2) {\n      const set = new Set([...set1, ...set2]);\n      set.forEach(v => map.set(v, set));\n    } else if (!set1 && !set2) {\n      const set = new Set([num1, num2]);\n      map.set(num1, set);\n      map.set(num2, set);\n    } else if (!set1 && set2) {\n      set2.add(num1);\n      map.set(num1, set2);\n    } else if (set1 && !set2) {\n      set1.add(num2);\n      map.set(num2, set1);\n    } else {\n      ans.push(edge);\n    }\n  }\n  return ans.pop()!;\n}"
-        },
-        {
-            "date": 1619712000000,
-            "time": 92,
-            "memory": 40.9,
-            "script": "typescript",
-            "desc": "并查集。",
-            "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction findRedundantConnection(edges: number[][]): number[] {\n  const uf = new UnionFind(edges.length);\n  for (const edge of edges) {\n    const [node1, node2] = edge;\n    if (uf.same(node1, node2)) return edge;\n    uf.union(node1, node2);\n  }\n  return [];\n}"
-        }
-    ]
+  "name": "684. 冗余连接",
+  "url": "https://leetcode-cn.com/problems/redundant-connection/",
+  "difficulty": "中等",
+  "tag": ["树", "并查集", "图"],
+  "desc": "输入一个图，该图由一个有着 N 个节点 (节点值不重复 1, 2, ..., N) 的树及一条附加的边构成。附加的边的两个顶点包含在 1 到 N 中间，这条附加的边不属于树中已存在的边。返回一条可以删去的边，使得结果图是一个有着 N 个节点的树。如果有多个答案，则返回二维数组中最后出现的边。答案边 [u, v] 应满足相同的格式 u < v。",
+  "solutions": [
+    {
+      "date": 1610467200000,
+      "time": 96,
+      "memory": 45.3,
+      "script": "typescript",
+      "desc": "利用 set 储存遍历结果。",
+      "code": "function findRedundantConnection(edges: number[][]): number[] {\n  const map = new Map<number, Set<number>>();\n  let ans: number[][] = [];\n  for (const edge of edges) {\n    const [num1, num2] = edge;\n    const set1 = map.get(num1);\n    const set2 = map.get(num2);\n    if (set1 && set2 && set1 !== set2) {\n      const set = new Set([...set1, ...set2]);\n      set.forEach(v => map.set(v, set));\n    } else if (!set1 && !set2) {\n      const set = new Set([num1, num2]);\n      map.set(num1, set);\n      map.set(num2, set);\n    } else if (!set1 && set2) {\n      set2.add(num1);\n      map.set(num1, set2);\n    } else if (set1 && !set2) {\n      set1.add(num2);\n      map.set(num2, set1);\n    } else {\n      ans.push(edge);\n    }\n  }\n  return ans.pop()!;\n}"
+    },
+    {
+      "date": 1619712000000,
+      "time": 92,
+      "memory": 40.9,
+      "script": "typescript",
+      "desc": "并查集。",
+      "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction findRedundantConnection(edges: number[][]): number[] {\n  const uf = new UnionFind(edges.length);\n  for (const edge of edges) {\n    const [node1, node2] = edge;\n    if (uf.same(node1, node2)) return edge;\n    uf.union(node1, node2);\n  }\n  return [];\n}"
+    }
+  ]
 }

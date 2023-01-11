@@ -1,28 +1,25 @@
 {
-    "name": "1089. 复写零",
-    "url": "https://leetcode-cn.com/problems/duplicate-zeros/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "双指针"
-    ],
-    "desc": "给你一个长度固定的整数数组 arr，请你将该数组中出现的每个零都复写一遍，并将其余的元素向右平移。",
-    "solutions": [
-        {
-            "date": 1648310400000,
-            "time": 76,
-            "memory": 43.9,
-            "script": "typescript",
-            "desc": "统计 0 的下标。",
-            "code": "function duplicateZeros(arr: number[]): void {\n  const list = new Array(arr.length)\n    .fill(0)\n    .map((_, i) => i)\n    .filter(v => arr[v] === 0)\n    .reverse();\n  for (const idx of list) {\n    arr.splice(idx, 0, 0);\n    arr.pop();\n  }\n}"
-        },
-        {
-            "date": 1655395200000,
-            "time": 4,
-            "memory": 9.3,
-            "script": "cpp",
-            "desc": "从后往前遍历。",
-            "code": "class Solution {\n   public:\n    void duplicateZeros(vector<int>& arr) {\n        int n = arr.size(), p = n - 1;\n        auto setNum = [&](int i, int p) -> void {\n            if (p < n) arr[p] = arr[i];\n        };\n        for (int i = 0; i < n; i++) {\n            if (arr[i] == 0) p++;\n        }\n        for (int i = n - 1; i >= 0; i--, p--) {\n            if (arr[i] == 0) {\n                setNum(i, p--);\n                setNum(i, p);\n            } else {\n                setNum(i, p);\n            }\n        }\n    }\n};"
-        }
-    ]
+  "name": "1089. 复写零",
+  "url": "https://leetcode-cn.com/problems/duplicate-zeros/",
+  "difficulty": "简单",
+  "tag": ["数组", "双指针"],
+  "desc": "给你一个长度固定的整数数组 arr，请你将该数组中出现的每个零都复写一遍，并将其余的元素向右平移。",
+  "solutions": [
+    {
+      "date": 1648310400000,
+      "time": 76,
+      "memory": 43.9,
+      "script": "typescript",
+      "desc": "统计 0 的下标。",
+      "code": "function duplicateZeros(arr: number[]): void {\n  const list = new Array(arr.length)\n    .fill(0)\n    .map((_, i) => i)\n    .filter(v => arr[v] === 0)\n    .reverse();\n  for (const idx of list) {\n    arr.splice(idx, 0, 0);\n    arr.pop();\n  }\n}"
+    },
+    {
+      "date": 1655395200000,
+      "time": 4,
+      "memory": 9.3,
+      "script": "cpp",
+      "desc": "从后往前遍历。",
+      "code": "class Solution {\n   public:\n    void duplicateZeros(vector<int>& arr) {\n        int n = arr.size(), p = n - 1;\n        auto setNum = [&](int i, int p) -> void {\n            if (p < n) arr[p] = arr[i];\n        };\n        for (int i = 0; i < n; i++) {\n            if (arr[i] == 0) p++;\n        }\n        for (int i = n - 1; i >= 0; i--, p--) {\n            if (arr[i] == 0) {\n                setNum(i, p--);\n                setNum(i, p);\n            } else {\n                setNum(i, p);\n            }\n        }\n    }\n};"
+    }
+  ]
 }

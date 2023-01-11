@@ -1,28 +1,25 @@
 {
-    "name": "908. 最小差值 I",
-    "url": "https://leetcode-cn.com/problems/smallest-range-i/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "数学"
-    ],
-    "desc": "在对 nums 中的每个索引最多应用一次上述操作后，返回 nums 的最低 分数 。",
-    "solutions": [
-        {
-            "date": 1647964800000,
-            "time": 20,
-            "memory": 15.1,
-            "script": "cpp",
-            "desc": "排序后获得最大最小值进行比较。",
-            "code": "class Solution {\n   public:\n    int smallestRangeI(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), nmin = nums[0], nmax = nums[n - 1],\n            mid = (nmax + nmin) / 2;\n        if (mid - k > nmin)\n            nmin += k;\n        else\n            nmin = mid;\n        if (mid + k < nmax)\n            nmax -= k;\n        else\n            nmax = mid;\n        return nmax - nmin;\n    }\n};"
-        },
-        {
-            "date": 1651248000000,
-            "time": 12,
-            "memory": 5.9,
-            "script": "go",
-            "desc": "查看最大最小值。",
-            "code": "func smallestRangeI(nums []int, k int) int {\n  n := len(nums)\n  if n == 1 {\n    return 0\n  }\n  var (\n    min = nums[0]\n    max = nums[0]\n  )\n  for _, val := range nums {\n    if min > val {\n      min = val\n    }\n    if max < val {\n      max = val\n    }\n  }\n  mid := (min + max) >> 1\n  if mid-min <= k {\n    min = mid\n  } else {\n    min += k\n  }\n  if max-mid <= k {\n    max = mid\n  } else {\n    max -= k\n  }\n  return max - min\n}"
-        }
-    ]
+  "name": "908. 最小差值 I",
+  "url": "https://leetcode-cn.com/problems/smallest-range-i/",
+  "difficulty": "简单",
+  "tag": ["数组", "数学"],
+  "desc": "在对 nums 中的每个索引最多应用一次上述操作后，返回 nums 的最低 分数 。",
+  "solutions": [
+    {
+      "date": 1647964800000,
+      "time": 20,
+      "memory": 15.1,
+      "script": "cpp",
+      "desc": "排序后获得最大最小值进行比较。",
+      "code": "class Solution {\n   public:\n    int smallestRangeI(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), nmin = nums[0], nmax = nums[n - 1],\n            mid = (nmax + nmin) / 2;\n        if (mid - k > nmin)\n            nmin += k;\n        else\n            nmin = mid;\n        if (mid + k < nmax)\n            nmax -= k;\n        else\n            nmax = mid;\n        return nmax - nmin;\n    }\n};"
+    },
+    {
+      "date": 1651248000000,
+      "time": 12,
+      "memory": 5.9,
+      "script": "go",
+      "desc": "查看最大最小值。",
+      "code": "func smallestRangeI(nums []int, k int) int {\n  n := len(nums)\n  if n == 1 {\n    return 0\n  }\n  var (\n    min = nums[0]\n    max = nums[0]\n  )\n  for _, val := range nums {\n    if min > val {\n      min = val\n    }\n    if max < val {\n      max = val\n    }\n  }\n  mid := (min + max) >> 1\n  if mid-min <= k {\n    min = mid\n  } else {\n    min += k\n  }\n  if max-mid <= k {\n    max = mid\n  } else {\n    max -= k\n  }\n  return max - min\n}"
+    }
+  ]
 }

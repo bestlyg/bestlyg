@@ -1,59 +1,57 @@
 {
-    "name": "1143. 最长公共子序列",
-    "url": "https://leetcode-cn.com/problems/longest-common-subsequence/",
-    "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
-    "desc": "给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。",
-    "solutions": [
-        {
-            "date": 1589126400000,
-            "time": 92,
-            "memory": 57.5,
-            "script": "javascript",
-            "desc": "动态规划，递推。",
-            "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i <= len1; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  for (let i = 1; i <= len1; i++)\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;\n      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);\n  return dp[len1][len2];\n};"
-        },
-        {
-            "date": 1589126400000,
-            "time": 76,
-            "memory": 35.1,
-            "script": "javascript",
-            "desc": "根据题解 1，利用滚动数组优化空间。",
-            "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i < 2; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  for (let i = 1; i <= len1; i++) {\n    const compI = i % 2;\n    const preCompI = (i - 1) % 2;\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[compI][j] = dp[preCompI][j - 1] + 1;\n      else dp[compI][j] = Math.max(dp[preCompI][j], dp[compI][j - 1]);\n  }\n  return dp[len1 % 2][len2];\n};"
-        },
-        {
-            "date": 1589126400000,
-            "time": 64,
-            "memory": 35.6,
-            "script": "javascript",
-            "desc": "根据题解 2，利用&1 取代%2。",
-            "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i < 2; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  let compI, preCompI;\n  for (let i = 1; i <= len1; i++) {\n    compI = i & 1;\n    preCompI = (i - 1) & 1;\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[compI][j] = dp[preCompI][j - 1] + 1;\n      else dp[compI][j] = Math.max(dp[preCompI][j], dp[compI][j - 1]);\n  }\n  return dp[len1 & 1][len2];\n};"
-        },
-        {
-            "date": 1589212800000,
-            "time": 72,
-            "memory": 35.1,
-            "script": "javascript",
-            "desc": "根据题解 2，利用一维数组替代二维数组。",
-            "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(Math.max(len1, len2) + 1).fill(0);\n  let leftTop = 0,\n    replace = 0;\n  for (let i = 1; i <= len1; i++) {\n    for (let j = 1; j <= len2; j++) {\n      replace = text1[i - 1] === text2[j - 1] ? leftTop + 1 : Math.max(dp[j], dp[j - 1]);\n      leftTop = dp[j];\n      dp[j] = replace;\n    }\n    leftTop = dp[0];\n  }\n  return dp[len2];\n};"
-        },
-        {
-            "date": 1617379200000,
-            "time": 136,
-            "memory": 50.7,
-            "script": "typescript",
-            "desc": "动态规划。",
-            "code": "function longestCommonSubsequence(text1: string, text2: string): number {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));\n  for (let i = 0; i < len1; i++) {\n    for (let j = 0; j < len2; j++) {\n      dp[i + 1][j + 1] =\n        text1[i] === text2[j] ? dp[i][j] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);\n    }\n  }\n  return dp[len1][len2];\n}"
-        },
-        {
-            "date": 1631203200000,
-            "time": 108,
-            "memory": 51.8,
-            "script": "typescript",
-            "desc": "动态规划。",
-            "code": "function longestCommonSubsequence(text1: string, text2: string): number {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));\n  for (let i = 1; i <= len1; i++) {\n    for (let j = 1; j <= len2; j++) {\n      dp[i][j] = Math.max(\n        dp[i - 1][j],\n        dp[i][j - 1],\n        dp[i - 1][j - 1] + (text1[i - 1] === text2[j - 1] ? 1 : 0)\n      );\n    }\n  }\n  return dp[len1][len2];\n}"
-        }
-    ]
+  "name": "1143. 最长公共子序列",
+  "url": "https://leetcode-cn.com/problems/longest-common-subsequence/",
+  "difficulty": "中等",
+  "tag": ["动态规划"],
+  "desc": "给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。",
+  "solutions": [
+    {
+      "date": 1589126400000,
+      "time": 92,
+      "memory": 57.5,
+      "script": "javascript",
+      "desc": "动态规划，递推。",
+      "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i <= len1; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  for (let i = 1; i <= len1; i++)\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;\n      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);\n  return dp[len1][len2];\n};"
+    },
+    {
+      "date": 1589126400000,
+      "time": 76,
+      "memory": 35.1,
+      "script": "javascript",
+      "desc": "根据题解 1，利用滚动数组优化空间。",
+      "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i < 2; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  for (let i = 1; i <= len1; i++) {\n    const compI = i % 2;\n    const preCompI = (i - 1) % 2;\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[compI][j] = dp[preCompI][j - 1] + 1;\n      else dp[compI][j] = Math.max(dp[preCompI][j], dp[compI][j - 1]);\n  }\n  return dp[len1 % 2][len2];\n};"
+    },
+    {
+      "date": 1589126400000,
+      "time": 64,
+      "memory": 35.6,
+      "script": "javascript",
+      "desc": "根据题解 2，利用&1 取代%2。",
+      "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = [];\n  for (let i = 0; i < 2; i++) {\n    dp[i] = [];\n    for (let j = 0; j <= len2; j++) if (i === 0 || j === 0) dp[i][j] = 0;\n  }\n  let compI, preCompI;\n  for (let i = 1; i <= len1; i++) {\n    compI = i & 1;\n    preCompI = (i - 1) & 1;\n    for (let j = 1; j <= len2; j++)\n      if (text1[i - 1] === text2[j - 1]) dp[compI][j] = dp[preCompI][j - 1] + 1;\n      else dp[compI][j] = Math.max(dp[preCompI][j], dp[compI][j - 1]);\n  }\n  return dp[len1 & 1][len2];\n};"
+    },
+    {
+      "date": 1589212800000,
+      "time": 72,
+      "memory": 35.1,
+      "script": "javascript",
+      "desc": "根据题解 2，利用一维数组替代二维数组。",
+      "code": "/**\n * @param {string} text1\n * @param {string} text2\n * @return {number}\n */\nvar longestCommonSubsequence = function (text1, text2) {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(Math.max(len1, len2) + 1).fill(0);\n  let leftTop = 0,\n    replace = 0;\n  for (let i = 1; i <= len1; i++) {\n    for (let j = 1; j <= len2; j++) {\n      replace = text1[i - 1] === text2[j - 1] ? leftTop + 1 : Math.max(dp[j], dp[j - 1]);\n      leftTop = dp[j];\n      dp[j] = replace;\n    }\n    leftTop = dp[0];\n  }\n  return dp[len2];\n};"
+    },
+    {
+      "date": 1617379200000,
+      "time": 136,
+      "memory": 50.7,
+      "script": "typescript",
+      "desc": "动态规划。",
+      "code": "function longestCommonSubsequence(text1: string, text2: string): number {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));\n  for (let i = 0; i < len1; i++) {\n    for (let j = 0; j < len2; j++) {\n      dp[i + 1][j + 1] =\n        text1[i] === text2[j] ? dp[i][j] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);\n    }\n  }\n  return dp[len1][len2];\n}"
+    },
+    {
+      "date": 1631203200000,
+      "time": 108,
+      "memory": 51.8,
+      "script": "typescript",
+      "desc": "动态规划。",
+      "code": "function longestCommonSubsequence(text1: string, text2: string): number {\n  const len1 = text1.length;\n  const len2 = text2.length;\n  const dp = new Array(len1 + 1).fill(0).map(_ => new Array(len2 + 1).fill(0));\n  for (let i = 1; i <= len1; i++) {\n    for (let j = 1; j <= len2; j++) {\n      dp[i][j] = Math.max(\n        dp[i - 1][j],\n        dp[i][j - 1],\n        dp[i - 1][j - 1] + (text1[i - 1] === text2[j - 1] ? 1 : 0)\n      );\n    }\n  }\n  return dp[len1][len2];\n}"
+    }
+  ]
 }

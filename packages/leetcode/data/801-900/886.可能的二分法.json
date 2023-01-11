@@ -1,22 +1,17 @@
 {
-    "name": "886. 可能的二分法",
-    "url": "https://leetcode.cn/problems/possible-bipartition/",
-    "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "图"
-    ],
-    "desc": "给定整数 n  和数组 dislikes ，其中  dislikes[i] = [ai, bi] ，表示不允许将编号为 ai  和   bi 的人归入同一组。当可以用这种方法将所有人分进两组时，返回 true；否则返回 false。",
-    "solutions": [
-        {
-            "date": 1665849600000,
-            "time": 220,
-            "memory": 62.7,
-            "script": "cpp",
-            "desc": "并查集，把所有人的对立连成一块，并不可能和当前值在同一个集。",
-            "code": "struct UnionFind {\n    vector<int> list;\n    UnionFind(int n): list(vector<int>(n)) {\n        for (int i = 0; i < n; i++) list[i] = i;\n    }\n    int find(int v) {\n        return list[v] == v ? v : list[v] = find(list[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 == p2) return;\n        list[p1] = p2;\n    }\n    bool same(int v1, int v2) {\n        return find(v1) == find(v2);\n    }\n};\nclass Solution {\npublic:\n    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {\n        UnionFind uf(n + 1);\n        vector<vector<int>> list(n + 1);\n        for (auto &item : dislikes) {\n            list[item[0]].push_back(item[1]);\n            list[item[1]].push_back(item[0]);\n        }\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < list[i].size(); j++) {\n                uf.uni(list[i][0], list[i][j]);\n                if (uf.same(i, list[i][j])) return false;\n            }\n        }\n        return true;\n    }\n};"
-        }
-    ]
+  "name": "886. 可能的二分法",
+  "url": "https://leetcode.cn/problems/possible-bipartition/",
+  "difficulty": "中等",
+  "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
+  "desc": "给定整数 n  和数组 dislikes ，其中  dislikes[i] = [ai, bi] ，表示不允许将编号为 ai  和   bi 的人归入同一组。当可以用这种方法将所有人分进两组时，返回 true；否则返回 false。",
+  "solutions": [
+    {
+      "date": 1665849600000,
+      "time": 220,
+      "memory": 62.7,
+      "script": "cpp",
+      "desc": "并查集，把所有人的对立连成一块，并不可能和当前值在同一个集。",
+      "code": "struct UnionFind {\n    vector<int> list;\n    UnionFind(int n): list(vector<int>(n)) {\n        for (int i = 0; i < n; i++) list[i] = i;\n    }\n    int find(int v) {\n        return list[v] == v ? v : list[v] = find(list[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 == p2) return;\n        list[p1] = p2;\n    }\n    bool same(int v1, int v2) {\n        return find(v1) == find(v2);\n    }\n};\nclass Solution {\npublic:\n    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {\n        UnionFind uf(n + 1);\n        vector<vector<int>> list(n + 1);\n        for (auto &item : dislikes) {\n            list[item[0]].push_back(item[1]);\n            list[item[1]].push_back(item[0]);\n        }\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < list[i].size(); j++) {\n                uf.uni(list[i][0], list[i][j]);\n                if (uf.same(i, list[i][j])) return false;\n            }\n        }\n        return true;\n    }\n};"
+    }
+  ]
 }

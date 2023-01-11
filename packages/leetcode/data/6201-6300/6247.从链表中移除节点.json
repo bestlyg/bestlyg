@@ -1,10 +1,8 @@
 {
-    "name": "6247. 从链表中移除节点",
-    "url": "https://leetcode.cn/problems/remove-nodes-from-linked-list",
-    "difficulty": "中等",
-    "tag": [
-        ""
-    ],
-    "desc": "给你一个链表的头节点 head 。对于列表中的每个节点 node ，如果其右侧存在一个具有 严格更大 值的节点，则移除 node 。返回修改后链表的头节点 head 。",
-    "solutions": []
+  "name": "6247. 从链表中移除节点",
+  "url": "https://leetcode.cn/problems/remove-nodes-from-linked-list",
+  "difficulty": "中等",
+  "tag": [""],
+  "desc": "给你一个链表的头节点 head 。对于列表中的每个节点 node ，如果其右侧存在一个具有 严格更大 值的节点，则移除 node 。返回修改后链表的头节点 head 。",
+  "solutions": []
 }

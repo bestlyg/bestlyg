@@ -1,29 +1,25 @@
 {
-    "name": "219. 存在重复元素 II",
-    "url": "https://leetcode-cn.com/problems/contains-duplicate-ii/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "滑动窗口"
-    ],
-    "desc": "给定一个整数数组和一个整数  k，判断数组中是否存在两个不同的索引  i  和  j，使得  nums [i] = nums [j]，并且 i 和 j  的差的 绝对值 至多为 k。",
-    "solutions": [
-        {
-            "date": 1638201600000,
-            "time": 140,
-            "memory": 42.4,
-            "script": "c",
-            "desc": "哈希表存储值和下标。",
-            "code": "typedef struct hashTable{\n    int key;\n    int idx;\n    UT_hash_handle hh;\n} hashTable;\nbool containsNearbyDuplicate(int* nums, int numsSize, int k){\n    hashTable* map = NULL;\n    for (int i = 0; i < numsSize; i++) {\n        hashTable* temp = NULL;\n        HASH_FIND_INT(map, &nums[i], temp);\n        if (temp) {\n            if (i - temp->idx <= k) return 1;\n            else temp->idx = i;\n        } else {\n            temp = (hashTable*)malloc(sizeof(hashTable));\n            temp->key = nums[i];\n            temp->idx = i;\n            HASH_ADD_INT(map, key, temp);\n        }\n    }\n    return 0;\n}"
-        },
-        {
-            "date": 1642521600000,
-            "time": 188,
-            "memory": 75.3,
-            "script": "c++",
-            "desc": "哈希存储。",
-            "code": "class Solution {\n   public:\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        for (int i = 0; i < nums.size(); i++) {\n            if (m.count(nums[i]) && i - m[nums[i]] <= k) return 1;\n            m[nums[i]] = i;\n        }\n        return 0;\n    }\n};"
-        }
-    ]
+  "name": "219. 存在重复元素 II",
+  "url": "https://leetcode-cn.com/problems/contains-duplicate-ii/",
+  "difficulty": "简单",
+  "tag": ["数组", "哈希表", "滑动窗口"],
+  "desc": "给定一个整数数组和一个整数  k，判断数组中是否存在两个不同的索引  i  和  j，使得  nums [i] = nums [j]，并且 i 和 j  的差的 绝对值 至多为 k。",
+  "solutions": [
+    {
+      "date": 1638201600000,
+      "time": 140,
+      "memory": 42.4,
+      "script": "c",
+      "desc": "哈希表存储值和下标。",
+      "code": "typedef struct hashTable{\n    int key;\n    int idx;\n    UT_hash_handle hh;\n} hashTable;\nbool containsNearbyDuplicate(int* nums, int numsSize, int k){\n    hashTable* map = NULL;\n    for (int i = 0; i < numsSize; i++) {\n        hashTable* temp = NULL;\n        HASH_FIND_INT(map, &nums[i], temp);\n        if (temp) {\n            if (i - temp->idx <= k) return 1;\n            else temp->idx = i;\n        } else {\n            temp = (hashTable*)malloc(sizeof(hashTable));\n            temp->key = nums[i];\n            temp->idx = i;\n            HASH_ADD_INT(map, key, temp);\n        }\n    }\n    return 0;\n}"
+    },
+    {
+      "date": 1642521600000,
+      "time": 188,
+      "memory": 75.3,
+      "script": "c++",
+      "desc": "哈希存储。",
+      "code": "class Solution {\n   public:\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        for (int i = 0; i < nums.size(); i++) {\n            if (m.count(nums[i]) && i - m[nums[i]] <= k) return 1;\n            m[nums[i]] = i;\n        }\n        return 0;\n    }\n};"
+    }
+  ]
 }

@@ -1,12 +1,8 @@
 {
-    "name": "1691. 堆叠长方体的最大高度",
-    "url": "https://leetcode.cn/problems/maximum-height-by-stacking-cuboids",
-    "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划",
-        "排序"
-    ],
-    "desc": "返回 堆叠长方体 cuboids 可以得到的 最大高度 。",
-    "solutions": []
+  "name": "1691. 堆叠长方体的最大高度",
+  "url": "https://leetcode.cn/problems/maximum-height-by-stacking-cuboids",
+  "difficulty": "困难",
+  "tag": ["数组", "动态规划", "排序"],
+  "desc": "返回 堆叠长方体 cuboids 可以得到的 最大高度 。",
+  "solutions": []
 }

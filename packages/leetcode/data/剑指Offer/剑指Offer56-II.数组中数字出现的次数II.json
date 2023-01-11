@@ -1,20 +1,17 @@
 {
-    "name": "剑指 Offer 56 - II. 数组中数字出现的次数 II",
-    "url": "https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/",
-    "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组"
-    ],
-    "desc": "在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。",
-    "solutions": [
-        {
-            "date": 1640275200000,
-            "time": 40,
-            "memory": 15.8,
-            "script": "c++",
-            "desc": "用数组存储每个位有几个 1。",
-            "code": "class Solution {\n   public:\n    int singleNumber(vector<int>& nums) {\n        int list[40] = {0};\n        for (auto& num : nums) {\n            for (int i = 0; i < 32; i++) {\n                if (num & (1 << i)) list[i]++;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < 32; i++) {\n            if (list[i] % 3) {\n                ans |= 1 << i;\n            }\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "剑指 Offer 56 - II. 数组中数字出现的次数 II",
+  "url": "https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/",
+  "difficulty": "中等",
+  "tag": ["位运算", "数组"],
+  "desc": "在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。",
+  "solutions": [
+    {
+      "date": 1640275200000,
+      "time": 40,
+      "memory": 15.8,
+      "script": "c++",
+      "desc": "用数组存储每个位有几个 1。",
+      "code": "class Solution {\n   public:\n    int singleNumber(vector<int>& nums) {\n        int list[40] = {0};\n        for (auto& num : nums) {\n            for (int i = 0; i < 32; i++) {\n                if (num & (1 << i)) list[i]++;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < 32; i++) {\n            if (list[i] % 3) {\n                ans |= 1 << i;\n            }\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

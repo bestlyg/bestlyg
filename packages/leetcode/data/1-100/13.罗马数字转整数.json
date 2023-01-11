@@ -1,36 +1,33 @@
 {
-    "name": "13. 罗马数字转整数",
-    "url": "https://leetcode-cn.com/problems/roman-to-integer/",
-    "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
-    "desc": "给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。",
-    "solutions": [
-        {
-            "date": 1591027200000,
-            "time": 192,
-            "memory": 42,
-            "script": "typescript",
-            "desc": "特殊值进行特殊情况处理，为防止超标，在最后一位增加 0。",
-            "code": "function romanToInt(s: string): number {\n  const len = s.length;\n  const romans: {\n    [index: string]: number;\n  } = {\n    I: 1,\n    V: 5,\n    X: 10,\n    L: 50,\n    C: 100,\n    D: 500,\n    M: 1000,\n    N: 0,\n  };\n  s += 'N';\n  let num = 0;\n  let tempNum = 0;\n  let preRoman = '';\n  for (let i = 0; i < len; i++) {\n    const c = s[i];\n    switch (c) {\n      case 'C': {\n        if (preRoman === 'X') {\n          num += romans[(preRoman = c)] - tempNum;\n          tempNum = 0;\n        } else {\n          const n = romans[(preRoman = c)];\n          tempNum += n;\n          while (s[i + 1] === 'C') {\n            tempNum += n;\n            i++;\n          }\n          if (s[i + 1] !== 'D' && s[i + 1] !== 'M') {\n            num += tempNum;\n            tempNum = 0;\n          }\n        }\n        break;\n      }\n      case 'X': {\n        if (preRoman === 'I') {\n          num += romans[(preRoman = c)] - tempNum;\n          tempNum = 0;\n        } else {\n          const n = romans[(preRoman = c)];\n          tempNum += n;\n          while (s[i + 1] === 'X') {\n            tempNum += n;\n            i++;\n          }\n          if (s[i + 1] !== 'L' && s[i + 1] !== 'C') {\n            num += tempNum;\n            tempNum = 0;\n          }\n        }\n        break;\n      }\n      case 'I': {\n        const n = romans[(preRoman = c)];\n        tempNum += n;\n        while (s[i + 1] === 'I') {\n          tempNum += n;\n          i++;\n        }\n        if (s[i + 1] !== 'V' && s[i + 1] !== 'X') {\n          num += tempNum;\n          tempNum = 0;\n        }\n        break;\n      }\n      default: {\n        num += romans[(preRoman = c)] - tempNum;\n        tempNum = 0;\n      }\n    }\n  }\n  return num;\n}"
-        },
-        {
-            "date": 1621008000000,
-            "time": 160,
-            "memory": 46.2,
-            "script": "typescript",
-            "desc": "遍历。",
-            "code": "function romanToInt(s: string): number {\n  let ans = 0;\n  const scoreCache: Record<string, number> = {\n    M: 1000,\n    D: 500,\n    L: 50,\n    V: 5,\n  };\n  const specCache: Record<string, [string, string, number]> = {\n    C: ['D', 'M', 100],\n    X: ['L', 'C', 10],\n    I: ['V', 'X', 1],\n  };\n  for (let i = 0, l = s.length; i < l; i++) {\n    const c = s[i];\n    const data = specCache[c];\n    if (data) {\n      const [c1, c2, num] = data;\n      if (s[i + 1] === c1) {\n        i++;\n        ans += 4 * num;\n      } else if (s[i + 1] === c2) {\n        i++;\n        ans += 9 * num;\n      } else {\n        ans += 1 * num;\n      }\n    } else ans += scoreCache[c];\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1639929600000,
-            "time": 4,
-            "memory": 5.9,
-            "script": "c++",
-            "desc": "遍历模拟。",
-            "code": "class Solution {\n   public:\n    int romanToInt(string s) {\n        int ans = 0;\n        for (int i = 0; i < s.size(); i++) {\n            char ch = s[i];\n            if (ch == 'M')\n                ans += 1000;\n            else if (ch == 'D')\n                ans += 500;\n            else if (ch == 'C') {\n                if (s[i + 1] == 'M') {\n                    ans += 900;\n                    i++;\n                } else if (s[i + 1] == 'D') {\n                    ans += 400;\n                    i++;\n                } else\n                    ans += 100;\n            } else if (ch == 'L')\n                ans += 50;\n            else if (ch == 'X') {\n                if (s[i + 1] == 'C') {\n                    ans += 90;\n                    i++;\n                } else if (s[i + 1] == 'L') {\n                    ans += 40;\n                    i++;\n                } else\n                    ans += 10;\n            } else if (ch == 'V')\n                ans += 5;\n            else if (ch == 'I') {\n                if (s[i + 1] == 'X') {\n                    ans += 9;\n                    i++;\n                } else if (s[i + 1] == 'V') {\n                    ans += 4;\n                    i++;\n                } else\n                    ans += 1;\n            }\n        }\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "13. 罗马数字转整数",
+  "url": "https://leetcode-cn.com/problems/roman-to-integer/",
+  "difficulty": "简单",
+  "tag": ["数学", "字符串"],
+  "desc": "给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。",
+  "solutions": [
+    {
+      "date": 1591027200000,
+      "time": 192,
+      "memory": 42,
+      "script": "typescript",
+      "desc": "特殊值进行特殊情况处理，为防止超标，在最后一位增加 0。",
+      "code": "function romanToInt(s: string): number {\n  const len = s.length;\n  const romans: {\n    [index: string]: number;\n  } = {\n    I: 1,\n    V: 5,\n    X: 10,\n    L: 50,\n    C: 100,\n    D: 500,\n    M: 1000,\n    N: 0,\n  };\n  s += 'N';\n  let num = 0;\n  let tempNum = 0;\n  let preRoman = '';\n  for (let i = 0; i < len; i++) {\n    const c = s[i];\n    switch (c) {\n      case 'C': {\n        if (preRoman === 'X') {\n          num += romans[(preRoman = c)] - tempNum;\n          tempNum = 0;\n        } else {\n          const n = romans[(preRoman = c)];\n          tempNum += n;\n          while (s[i + 1] === 'C') {\n            tempNum += n;\n            i++;\n          }\n          if (s[i + 1] !== 'D' && s[i + 1] !== 'M') {\n            num += tempNum;\n            tempNum = 0;\n          }\n        }\n        break;\n      }\n      case 'X': {\n        if (preRoman === 'I') {\n          num += romans[(preRoman = c)] - tempNum;\n          tempNum = 0;\n        } else {\n          const n = romans[(preRoman = c)];\n          tempNum += n;\n          while (s[i + 1] === 'X') {\n            tempNum += n;\n            i++;\n          }\n          if (s[i + 1] !== 'L' && s[i + 1] !== 'C') {\n            num += tempNum;\n            tempNum = 0;\n          }\n        }\n        break;\n      }\n      case 'I': {\n        const n = romans[(preRoman = c)];\n        tempNum += n;\n        while (s[i + 1] === 'I') {\n          tempNum += n;\n          i++;\n        }\n        if (s[i + 1] !== 'V' && s[i + 1] !== 'X') {\n          num += tempNum;\n          tempNum = 0;\n        }\n        break;\n      }\n      default: {\n        num += romans[(preRoman = c)] - tempNum;\n        tempNum = 0;\n      }\n    }\n  }\n  return num;\n}"
+    },
+    {
+      "date": 1621008000000,
+      "time": 160,
+      "memory": 46.2,
+      "script": "typescript",
+      "desc": "遍历。",
+      "code": "function romanToInt(s: string): number {\n  let ans = 0;\n  const scoreCache: Record<string, number> = {\n    M: 1000,\n    D: 500,\n    L: 50,\n    V: 5,\n  };\n  const specCache: Record<string, [string, string, number]> = {\n    C: ['D', 'M', 100],\n    X: ['L', 'C', 10],\n    I: ['V', 'X', 1],\n  };\n  for (let i = 0, l = s.length; i < l; i++) {\n    const c = s[i];\n    const data = specCache[c];\n    if (data) {\n      const [c1, c2, num] = data;\n      if (s[i + 1] === c1) {\n        i++;\n        ans += 4 * num;\n      } else if (s[i + 1] === c2) {\n        i++;\n        ans += 9 * num;\n      } else {\n        ans += 1 * num;\n      }\n    } else ans += scoreCache[c];\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1639929600000,
+      "time": 4,
+      "memory": 5.9,
+      "script": "c++",
+      "desc": "遍历模拟。",
+      "code": "class Solution {\n   public:\n    int romanToInt(string s) {\n        int ans = 0;\n        for (int i = 0; i < s.size(); i++) {\n            char ch = s[i];\n            if (ch == 'M')\n                ans += 1000;\n            else if (ch == 'D')\n                ans += 500;\n            else if (ch == 'C') {\n                if (s[i + 1] == 'M') {\n                    ans += 900;\n                    i++;\n                } else if (s[i + 1] == 'D') {\n                    ans += 400;\n                    i++;\n                } else\n                    ans += 100;\n            } else if (ch == 'L')\n                ans += 50;\n            else if (ch == 'X') {\n                if (s[i + 1] == 'C') {\n                    ans += 90;\n                    i++;\n                } else if (s[i + 1] == 'L') {\n                    ans += 40;\n                    i++;\n                } else\n                    ans += 10;\n            } else if (ch == 'V')\n                ans += 5;\n            else if (ch == 'I') {\n                if (s[i + 1] == 'X') {\n                    ans += 9;\n                    i++;\n                } else if (s[i + 1] == 'V') {\n                    ans += 4;\n                    i++;\n                } else\n                    ans += 1;\n            }\n        }\n        return ans;\n    }\n};"
+    }
+  ]
 }

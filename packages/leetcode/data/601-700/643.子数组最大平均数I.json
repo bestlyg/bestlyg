@@ -1,10 +1,8 @@
 {
-    "name": "643. 子数组最大平均数 I",
-    "url": "https://leetcode-cn.com/problems/maximum-average-subarray-i/",
-    "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
-    "desc": "给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。",
-    "solutions": []
+  "name": "643. 子数组最大平均数 I",
+  "url": "https://leetcode-cn.com/problems/maximum-average-subarray-i/",
+  "difficulty": "简单",
+  "tag": ["数组"],
+  "desc": "给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。",
+  "solutions": []
 }

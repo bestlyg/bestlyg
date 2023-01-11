@@ -1,30 +1,25 @@
 {
-    "name": "919. 完全二叉树插入器",
-    "url": "https://leetcode.cn/problems/complete-binary-tree-inserter/",
-    "difficulty": "中等",
-    "tag": [
-        "树",
-        "广度优先搜索",
-        "设计",
-        "二叉树"
-    ],
-    "desc": "设计一种算法，将一个新节点插入到一个完整的二叉树中，并在插入后保持其完整。",
-    "solutions": [
-        {
-            "date": 1658678400000,
-            "time": 0,
-            "memory": 2.1,
-            "script": "cpp",
-            "desc": "利用完全二叉树特性，列表快速查找父亲。",
-            "code": "class CBTInserter {\n   public:\n    TreeNode* root;\n    vector<TreeNode*> list;\n    CBTInserter(TreeNode* _root) {\n        this->root = _root;\n        queue<TreeNode*> q;\n        q.push(root);\n        list.push_back(root);\n        while (q.size()) {\n            TreeNode* node = q.front();\n            q.pop();\n            if (node->left) {\n                q.push(node->left);\n                list.push_back(node->left);\n            }\n            if (node->right) {\n                q.push(node->right);\n                list.push_back(node->right);\n            }\n        }\n    }\n    int insert(int val) {\n        int idx = list.size(), pidx = idx / 2 - (idx & 1 ? 0 : 1);\n        list.push_back(new TreeNode(val));\n        if (idx & 1)\n            list[pidx]->left = list[idx];\n        else\n            list[pidx]->right = list[idx];\n        return list[pidx]->val;\n    }\n    TreeNode* get_root() { return root; }\n};"
-        },
-        {
-            "date": 1658678400000,
-            "time": 0,
-            "memory": 2.5,
-            "script": "rust",
-            "desc": "利用完全二叉树特性，列表快速查找父亲。",
-            "code": "use std::cell::RefCell;\nuse std::collections::VecDeque;\nuse std::rc::Rc;\nstruct CBTInserter {\n    root: Rc<RefCell<TreeNode>>,\n    list: RefCell<Vec<Rc<RefCell<TreeNode>>>>,\n}\nimpl CBTInserter {\n    fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {\n        let root = root.unwrap();\n        let list: RefCell<Vec<Rc<RefCell<TreeNode>>>> = RefCell::new(Vec::new());\n        {\n            let mut list = list.borrow_mut();\n            let mut q: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();\n            q.push_back(root.clone());\n            list.push(root.clone());\n            while q.len() > 0 {\n                let node = q.pop_front().unwrap();\n                if node.as_ref().borrow().left.is_some() {\n                    q.push_back(node.as_ref().borrow().left.as_ref().unwrap().clone());\n                    list\n                        .push(node.as_ref().borrow().left.as_ref().unwrap().clone());\n                }\n                if node.as_ref().borrow().right.is_some() {\n                    q.push_back(node.as_ref().borrow().right.as_ref().unwrap().clone());\n                    list\n                        .push(node.as_ref().borrow().right.as_ref().unwrap().clone());\n                }\n            }\n        }\n        Self { root, list }\n    }\n    fn insert(&self, val: i32) -> i32 {\n        let mut list = self.list.borrow_mut();\n        let idx = list.len();\n        let pidx = if idx & 1 == 1 { idx / 2 } else { idx / 2 - 1 };\n        let node = Rc::new(RefCell::new(TreeNode::new(val)));\n        list.push(node.clone());\n        let mut parent = list.get(pidx).unwrap().as_ref().borrow_mut();\n        if idx & 1 == 1 {\n            parent.left = Some(node.clone());\n        } else {\n            parent.right = Some(node.clone());\n        }\n        parent.val\n    }\n    fn get_root(&self) -> Option<Rc<RefCell<TreeNode>>> {\n        Some(self.root.clone())\n    }\n}"
-        }
-    ]
+  "name": "919. 完全二叉树插入器",
+  "url": "https://leetcode.cn/problems/complete-binary-tree-inserter/",
+  "difficulty": "中等",
+  "tag": ["树", "广度优先搜索", "设计", "二叉树"],
+  "desc": "设计一种算法，将一个新节点插入到一个完整的二叉树中，并在插入后保持其完整。",
+  "solutions": [
+    {
+      "date": 1658678400000,
+      "time": 0,
+      "memory": 2.1,
+      "script": "cpp",
+      "desc": "利用完全二叉树特性，列表快速查找父亲。",
+      "code": "class CBTInserter {\n   public:\n    TreeNode* root;\n    vector<TreeNode*> list;\n    CBTInserter(TreeNode* _root) {\n        this->root = _root;\n        queue<TreeNode*> q;\n        q.push(root);\n        list.push_back(root);\n        while (q.size()) {\n            TreeNode* node = q.front();\n            q.pop();\n            if (node->left) {\n                q.push(node->left);\n                list.push_back(node->left);\n            }\n            if (node->right) {\n                q.push(node->right);\n                list.push_back(node->right);\n            }\n        }\n    }\n    int insert(int val) {\n        int idx = list.size(), pidx = idx / 2 - (idx & 1 ? 0 : 1);\n        list.push_back(new TreeNode(val));\n        if (idx & 1)\n            list[pidx]->left = list[idx];\n        else\n            list[pidx]->right = list[idx];\n        return list[pidx]->val;\n    }\n    TreeNode* get_root() { return root; }\n};"
+    },
+    {
+      "date": 1658678400000,
+      "time": 0,
+      "memory": 2.5,
+      "script": "rust",
+      "desc": "利用完全二叉树特性，列表快速查找父亲。",
+      "code": "use std::cell::RefCell;\nuse std::collections::VecDeque;\nuse std::rc::Rc;\nstruct CBTInserter {\n    root: Rc<RefCell<TreeNode>>,\n    list: RefCell<Vec<Rc<RefCell<TreeNode>>>>,\n}\nimpl CBTInserter {\n    fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {\n        let root = root.unwrap();\n        let list: RefCell<Vec<Rc<RefCell<TreeNode>>>> = RefCell::new(Vec::new());\n        {\n            let mut list = list.borrow_mut();\n            let mut q: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();\n            q.push_back(root.clone());\n            list.push(root.clone());\n            while q.len() > 0 {\n                let node = q.pop_front().unwrap();\n                if node.as_ref().borrow().left.is_some() {\n                    q.push_back(node.as_ref().borrow().left.as_ref().unwrap().clone());\n                    list\n                        .push(node.as_ref().borrow().left.as_ref().unwrap().clone());\n                }\n                if node.as_ref().borrow().right.is_some() {\n                    q.push_back(node.as_ref().borrow().right.as_ref().unwrap().clone());\n                    list\n                        .push(node.as_ref().borrow().right.as_ref().unwrap().clone());\n                }\n            }\n        }\n        Self { root, list }\n    }\n    fn insert(&self, val: i32) -> i32 {\n        let mut list = self.list.borrow_mut();\n        let idx = list.len();\n        let pidx = if idx & 1 == 1 { idx / 2 } else { idx / 2 - 1 };\n        let node = Rc::new(RefCell::new(TreeNode::new(val)));\n        list.push(node.clone());\n        let mut parent = list.get(pidx).unwrap().as_ref().borrow_mut();\n        if idx & 1 == 1 {\n            parent.left = Some(node.clone());\n        } else {\n            parent.right = Some(node.clone());\n        }\n        parent.val\n    }\n    fn get_root(&self) -> Option<Rc<RefCell<TreeNode>>> {\n        Some(self.root.clone())\n    }\n}"
+    }
+  ]
 }

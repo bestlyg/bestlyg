@@ -1,10 +1,8 @@
 {
-    "name": "6253. 回环句",
-    "url": "https://leetcode.cn/problems/circular-sentence/",
-    "difficulty": "简单",
-    "tag": [
-        ""
-    ],
-    "desc": "给你一个字符串 sentence ，请你判断它是不是一个回环句。如果是，返回 true ；否则，返回 false 。",
-    "solutions": []
+  "name": "6253. 回环句",
+  "url": "https://leetcode.cn/problems/circular-sentence/",
+  "difficulty": "简单",
+  "tag": [""],
+  "desc": "给你一个字符串 sentence ，请你判断它是不是一个回环句。如果是，返回 true ；否则，返回 false 。",
+  "solutions": []
 }

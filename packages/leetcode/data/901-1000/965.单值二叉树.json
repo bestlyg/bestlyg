@@ -1,38 +1,33 @@
 {
-    "name": "965. 单值二叉树",
-    "url": "https://leetcode-cn.com/problems/univalued-binary-tree/",
-    "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
-    "desc": "如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。",
-    "solutions": [
-        {
-            "date": 1648137600000,
-            "time": 4,
-            "memory": 9.6,
-            "script": "cpp",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    bool isUnivalTree(TreeNode* root) { return dfs(root, root->val); }\n    bool dfs(TreeNode* node, int val) {\n        if (!node) return true;\n        if (node->val != val) return false;\n        return dfs(node->left, val) && dfs(node->right, val);\n    }\n};"
-        },
-        {
-            "date": 1653321600000,
-            "time": 0,
-            "memory": 9.5,
-            "script": "cpp",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    bool isUnivalTree(TreeNode* root) { return _isUnivalTree(root, root->val); }\n    bool _isUnivalTree(TreeNode* node, int val) {\n        if (node == nullptr) return true;\n        return node->val == val && _isUnivalTree(node->left, val) &&\n               _isUnivalTree(node->right, val);\n    }\n};"
-        },
-        {
-            "date": 1653321600000,
-            "time": 0,
-            "memory": 9.6,
-            "script": "cpp",
-            "desc": "dfs。",
-            "code": "class Solution {\n   public:\n    int val = 0;\n    bool isUnivalTree(TreeNode* root) {\n        if (!root) return true;\n        if (val == 0) val = root->val;\n        return root->val == val && isUnivalTree(root->left) &&\n               isUnivalTree(root->right);\n    }\n};"
-        }
-    ]
+  "name": "965. 单值二叉树",
+  "url": "https://leetcode-cn.com/problems/univalued-binary-tree/",
+  "difficulty": "简单",
+  "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
+  "desc": "如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。",
+  "solutions": [
+    {
+      "date": 1648137600000,
+      "time": 4,
+      "memory": 9.6,
+      "script": "cpp",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    bool isUnivalTree(TreeNode* root) { return dfs(root, root->val); }\n    bool dfs(TreeNode* node, int val) {\n        if (!node) return true;\n        if (node->val != val) return false;\n        return dfs(node->left, val) && dfs(node->right, val);\n    }\n};"
+    },
+    {
+      "date": 1653321600000,
+      "time": 0,
+      "memory": 9.5,
+      "script": "cpp",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    bool isUnivalTree(TreeNode* root) { return _isUnivalTree(root, root->val); }\n    bool _isUnivalTree(TreeNode* node, int val) {\n        if (node == nullptr) return true;\n        return node->val == val && _isUnivalTree(node->left, val) &&\n               _isUnivalTree(node->right, val);\n    }\n};"
+    },
+    {
+      "date": 1653321600000,
+      "time": 0,
+      "memory": 9.6,
+      "script": "cpp",
+      "desc": "dfs。",
+      "code": "class Solution {\n   public:\n    int val = 0;\n    bool isUnivalTree(TreeNode* root) {\n        if (!root) return true;\n        if (val == 0) val = root->val;\n        return root->val == val && isUnivalTree(root->left) &&\n               isUnivalTree(root->right);\n    }\n};"
+    }
+  ]
 }

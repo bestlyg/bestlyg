@@ -1,19 +1,17 @@
 {
-    "name": "1095. 山脉数组中查找目标值",
-    "url": "https://leetcode-cn.com/problems/find-in-mountain-array/",
-    "difficulty": "困难",
-    "tag": [
-        "二分查找"
-    ],
-    "desc": "给你一个 山脉数组 mountainArr，请你返回能够使得 mountainArr.get(index) 等于 target 最小 的下标 index 值。",
-    "solutions": [
-        {
-            "date": 1588089600000,
-            "time": 64,
-            "memory": 34.3,
-            "script": "javascript",
-            "desc": "二分查找减少次数。",
-            "code": "/**\n * // This is the MountainArray's API interface.\n * // You should not implement it, or speculate about its implementation\n * function MountainArray() {\n *     @param {number} index\n *     @return {number}\n *     this.get = function(index) {\n *         ...\n *     };\n *\n *     @return {number}\n *     this.length = function() {\n *         ...\n *     };\n * };\n */\n\n/**\n * @param {number} target\n * @param {MountainArray} mountainArr\n * @return {number}\n */\nvar findInMountainArray = function (target, mountainArr) {\n  const data = new Map();\n  // 递归搜索，初始化为首位下标\n  return search(0, mountainArr.length() - 1);\n  function search(left, right) {\n    // 如果 长度为负则不存在\n    if (left > right) return -1;\n    // 如果下标相等则直接判断该值是否为目标\n    else if (left === right) return getNum(left) === target ? left : -1;\n    const leftNum = getNum(left),\n      rightNum = getNum(right);\n    if (target < leftNum && target < rightNum) return -1;\n    const mid = (right + left) >> 1;\n    const midNum = getNum(mid);\n    // 如果左右值直接为目标值则返回\n    if (target === leftNum) return left;\n    if (target === rightNum) return right;\n    // 如果中间值为目标值则再次判断左下标到中间值是否存在更小值\n    if (target === midNum) {\n      if (midNum > leftNum) {\n        let index = search(left, mid - 1);\n        return index === -1 ? mid : index;\n      }\n      return mid;\n    }\n    if (target < leftNum) {\n      // 如果目标值小于左值则判断可能出现的一边坡度\n      if (target < midNum) return search(mid + 1, right);\n      else return search(left, mid - 1);\n    } else if (target < rightNum) {\n      // 如果目标值小于右值则判断可能出现的一边坡度\n      if (target < midNum) return search(left, mid - 1);\n      else return search(mid + 1, right);\n    } else {\n      // 如果目标值大于中值则判断左右值的大小进行划分区域\n      if (target > midNum) {\n        if (leftNum < rightNum) return search(mid + 1, right);\n        else if (leftNum > rightNum) return search(left, mid - 1);\n      }\n      // 否则分段判断\n      let index = search(left, mid - 1);\n      if (index === -1) index = search(mid + 1, right);\n      return index;\n    }\n  }\n  // 获取值，储存在本地data中减少获取次数\n  function getNum(index) {\n    let res = data.get(index);\n    if (res === undefined) {\n      res = mountainArr.get(index);\n      data.set(index, res);\n    }\n    return res;\n  }\n};"
-        }
-    ]
+  "name": "1095. 山脉数组中查找目标值",
+  "url": "https://leetcode-cn.com/problems/find-in-mountain-array/",
+  "difficulty": "困难",
+  "tag": ["二分查找"],
+  "desc": "给你一个 山脉数组 mountainArr，请你返回能够使得 mountainArr.get(index) 等于 target 最小 的下标 index 值。",
+  "solutions": [
+    {
+      "date": 1588089600000,
+      "time": 64,
+      "memory": 34.3,
+      "script": "javascript",
+      "desc": "二分查找减少次数。",
+      "code": "/**\n * // This is the MountainArray's API interface.\n * // You should not implement it, or speculate about its implementation\n * function MountainArray() {\n *     @param {number} index\n *     @return {number}\n *     this.get = function(index) {\n *         ...\n *     };\n *\n *     @return {number}\n *     this.length = function() {\n *         ...\n *     };\n * };\n */\n\n/**\n * @param {number} target\n * @param {MountainArray} mountainArr\n * @return {number}\n */\nvar findInMountainArray = function (target, mountainArr) {\n  const data = new Map();\n  // 递归搜索，初始化为首位下标\n  return search(0, mountainArr.length() - 1);\n  function search(left, right) {\n    // 如果 长度为负则不存在\n    if (left > right) return -1;\n    // 如果下标相等则直接判断该值是否为目标\n    else if (left === right) return getNum(left) === target ? left : -1;\n    const leftNum = getNum(left),\n      rightNum = getNum(right);\n    if (target < leftNum && target < rightNum) return -1;\n    const mid = (right + left) >> 1;\n    const midNum = getNum(mid);\n    // 如果左右值直接为目标值则返回\n    if (target === leftNum) return left;\n    if (target === rightNum) return right;\n    // 如果中间值为目标值则再次判断左下标到中间值是否存在更小值\n    if (target === midNum) {\n      if (midNum > leftNum) {\n        let index = search(left, mid - 1);\n        return index === -1 ? mid : index;\n      }\n      return mid;\n    }\n    if (target < leftNum) {\n      // 如果目标值小于左值则判断可能出现的一边坡度\n      if (target < midNum) return search(mid + 1, right);\n      else return search(left, mid - 1);\n    } else if (target < rightNum) {\n      // 如果目标值小于右值则判断可能出现的一边坡度\n      if (target < midNum) return search(left, mid - 1);\n      else return search(mid + 1, right);\n    } else {\n      // 如果目标值大于中值则判断左右值的大小进行划分区域\n      if (target > midNum) {\n        if (leftNum < rightNum) return search(mid + 1, right);\n        else if (leftNum > rightNum) return search(left, mid - 1);\n      }\n      // 否则分段判断\n      let index = search(left, mid - 1);\n      if (index === -1) index = search(mid + 1, right);\n      return index;\n    }\n  }\n  // 获取值，储存在本地data中减少获取次数\n  function getNum(index) {\n    let res = data.get(index);\n    if (res === undefined) {\n      res = mountainArr.get(index);\n      data.set(index, res);\n    }\n    return res;\n  }\n};"
+    }
+  ]
 }

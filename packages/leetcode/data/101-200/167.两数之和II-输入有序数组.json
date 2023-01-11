@@ -1,21 +1,17 @@
 {
-    "name": "167. 两数之和 II - 输入有序数组",
-    "url": "https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/",
-    "difficulty": "简单",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找"
-    ],
-    "desc": "给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。",
-    "solutions": [
-        {
-            "date": 1595174400000,
-            "time": 108,
-            "memory": 38.1,
-            "script": "typescript",
-            "desc": "二分查找。",
-            "code": "function twoSum(numbers: number[], target: number): number[] {\n  const len = numbers.length;\n  for (let i = 0; i < len; i++) {\n    const index = _find(target - numbers[i], i + 1);\n    if (index !== -1) return [i + 1, index + 1];\n  }\n  return [];\n  function _find(num: number, l: number = 0, r: number = len): number {\n    if (l >= r) return -1;\n    const mid = (l + r) >> 1;\n    const val = numbers[mid];\n    if (val < num) return _find(num, mid + 1, r);\n    else if (val > num) return _find(num, l, mid);\n    else return mid;\n  }\n}"
-        }
-    ]
+  "name": "167. 两数之和 II - 输入有序数组",
+  "url": "https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/",
+  "difficulty": "简单",
+  "tag": ["数组", "双指针", "二分查找"],
+  "desc": "给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。",
+  "solutions": [
+    {
+      "date": 1595174400000,
+      "time": 108,
+      "memory": 38.1,
+      "script": "typescript",
+      "desc": "二分查找。",
+      "code": "function twoSum(numbers: number[], target: number): number[] {\n  const len = numbers.length;\n  for (let i = 0; i < len; i++) {\n    const index = _find(target - numbers[i], i + 1);\n    if (index !== -1) return [i + 1, index + 1];\n  }\n  return [];\n  function _find(num: number, l: number = 0, r: number = len): number {\n    if (l >= r) return -1;\n    const mid = (l + r) >> 1;\n    const val = numbers[mid];\n    if (val < num) return _find(num, mid + 1, r);\n    else if (val > num) return _find(num, l, mid);\n    else return mid;\n  }\n}"
+    }
+  ]
 }

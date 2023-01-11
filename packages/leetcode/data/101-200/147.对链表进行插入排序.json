@@ -1,20 +1,17 @@
 {
-    "name": "147. 对链表进行插入排序",
-    "url": "https://leetcode-cn.com/problems/insertion-sort-list/",
-    "difficulty": "中等",
-    "tag": [
-        "排序",
-        "链表"
-    ],
-    "desc": "对链表进行插入排序。",
-    "solutions": [
-        {
-            "date": 1605801600000,
-            "time": 128,
-            "memory": 41.5,
-            "script": "typescript",
-            "desc": "遍历两次进行插入。",
-            "code": "function insertionSortList(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const tempHead = new ListNode(0, head);\n  let last = head;\n  let p = head.next;\n  last.next = null;\n  while (p !== null) {\n    const next = p.next;\n    add(p);\n    p = next;\n  }\n  return tempHead.next;\n  function add(node: ListNode): void {\n    let temp = tempHead;\n    const val = node.val;\n    while (temp.next !== null && temp.next !== last) {\n      if (temp.next.val < val) {\n        temp = temp.next;\n      } else {\n        node.next = temp.next;\n        temp.next = node;\n        return;\n      }\n    }\n    if (temp.next === last) {\n      if (last.val > val) {\n        node.next = temp.next;\n        temp.next = node;\n      } else {\n        last.next = node;\n        node.next = null;\n        last = node;\n      }\n    }\n  }\n}"
-        }
-    ]
+  "name": "147. 对链表进行插入排序",
+  "url": "https://leetcode-cn.com/problems/insertion-sort-list/",
+  "difficulty": "中等",
+  "tag": ["排序", "链表"],
+  "desc": "对链表进行插入排序。",
+  "solutions": [
+    {
+      "date": 1605801600000,
+      "time": 128,
+      "memory": 41.5,
+      "script": "typescript",
+      "desc": "遍历两次进行插入。",
+      "code": "function insertionSortList(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const tempHead = new ListNode(0, head);\n  let last = head;\n  let p = head.next;\n  last.next = null;\n  while (p !== null) {\n    const next = p.next;\n    add(p);\n    p = next;\n  }\n  return tempHead.next;\n  function add(node: ListNode): void {\n    let temp = tempHead;\n    const val = node.val;\n    while (temp.next !== null && temp.next !== last) {\n      if (temp.next.val < val) {\n        temp = temp.next;\n      } else {\n        node.next = temp.next;\n        temp.next = node;\n        return;\n      }\n    }\n    if (temp.next === last) {\n      if (last.val > val) {\n        node.next = temp.next;\n        temp.next = node;\n      } else {\n        last.next = node;\n        node.next = null;\n        last = node;\n      }\n    }\n  }\n}"
+    }
+  ]
 }

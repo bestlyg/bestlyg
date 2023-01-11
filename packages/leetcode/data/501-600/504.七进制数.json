@@ -1,27 +1,25 @@
 {
-    "name": "504. 七进制数",
-    "url": "https://leetcode-cn.com/problems/base-7/",
-    "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
-    "desc": "给定一个整数 num，将其转化为 7 进制，并以字符串形式输出。",
-    "solutions": [
-        {
-            "date": 1629388800000,
-            "time": 84,
-            "memory": 39.4,
-            "script": "typescript",
-            "desc": "计数法。",
-            "code": "function convertToBase7(num: number): string {\n  if (num === 0) return '0';\n  let f = false;\n  if (num < 0) {\n    f = true;\n    num = -1 * num;\n  }\n  let ans = '';\n  while (num !== 0) {\n    ans = (num % 7) + ans;\n    num = ~~(num / 7);\n  }\n  return (f ? '-' : '') + ans;\n}"
-        },
-        {
-            "date": 1646582400000,
-            "time": 0,
-            "memory": 5.8,
-            "script": "c++",
-            "desc": "短除法。",
-            "code": "class Solution {\n   public:\n    string convertToBase7(int num) {\n        int f = 0;\n        if (num < 0) {\n            num = -num;\n            f = 1;\n        }\n        string ans = \"\";\n        while (num >= 7) {\n            ans = to_string(num % 7) + ans;\n            num /= 7;\n        }\n        ans = to_string(num) + ans;\n        if (f) ans = \"-\" + ans;\n        return ans;\n    }\n};"
-        }
-    ]
+  "name": "504. 七进制数",
+  "url": "https://leetcode-cn.com/problems/base-7/",
+  "difficulty": "简单",
+  "tag": ["数学"],
+  "desc": "给定一个整数 num，将其转化为 7 进制，并以字符串形式输出。",
+  "solutions": [
+    {
+      "date": 1629388800000,
+      "time": 84,
+      "memory": 39.4,
+      "script": "typescript",
+      "desc": "计数法。",
+      "code": "function convertToBase7(num: number): string {\n  if (num === 0) return '0';\n  let f = false;\n  if (num < 0) {\n    f = true;\n    num = -1 * num;\n  }\n  let ans = '';\n  while (num !== 0) {\n    ans = (num % 7) + ans;\n    num = ~~(num / 7);\n  }\n  return (f ? '-' : '') + ans;\n}"
+    },
+    {
+      "date": 1646582400000,
+      "time": 0,
+      "memory": 5.8,
+      "script": "c++",
+      "desc": "短除法。",
+      "code": "class Solution {\n   public:\n    string convertToBase7(int num) {\n        int f = 0;\n        if (num < 0) {\n            num = -num;\n            f = 1;\n        }\n        string ans = \"\";\n        while (num >= 7) {\n            ans = to_string(num % 7) + ans;\n            num /= 7;\n        }\n        ans = to_string(num) + ans;\n        if (f) ans = \"-\" + ans;\n        return ans;\n    }\n};"
+    }
+  ]
 }

@@ -1,10 +1,8 @@
 {
-    "name": "6216. 使数组相等的最小开销",
-    "url": "https://leetcode.cn/problems/minimum-cost-to-make-array-equal/",
-    "difficulty": "困难",
-    "tag": [
-        ""
-    ],
-    "desc": "请你返回使 nums 中所有元素 相等 的 最少 总开销。",
-    "solutions": []
+  "name": "6216. 使数组相等的最小开销",
+  "url": "https://leetcode.cn/problems/minimum-cost-to-make-array-equal/",
+  "difficulty": "困难",
+  "tag": [""],
+  "desc": "请你返回使 nums 中所有元素 相等 的 最少 总开销。",
+  "solutions": []
 }

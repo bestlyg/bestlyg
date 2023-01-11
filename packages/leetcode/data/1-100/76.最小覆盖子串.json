@@ -1,22 +1,17 @@
 {
-    "name": "76. 最小覆盖子串",
-    "url": "https://leetcode-cn.com/problems/minimum-window-substring/",
-    "difficulty": "困难",
-    "tag": [
-        "哈希表",
-        "双指针",
-        "字符串",
-        "滑动窗口"
-    ],
-    "desc": "给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字符的最小子串。",
-    "solutions": [
-        {
-            "date": 1590163200000,
-            "time": 1400,
-            "memory": 43.8,
-            "script": "typescript",
-            "desc": "定义 i,j 指向 0，不满足条件时 j++，满足时 i++。",
-            "code": "type CharCount = { [c: string]: number };\nvar minWindow = function (s: string, t: string): string {\n  // 储存值\n  const map: CharCount = {};\n  for (const c of t) map[c] = map[c] ? map[c] + 1 : 1;\n  function valid(now: CharCount) {\n    for (const [k, v] of Object.entries(map)) if (!now[k] || now[k] < v) return false;\n    return true;\n  }\n  console.log(map);\n  const slen = s.length;\n  const nowMap: CharCount = {};\n  let i = 0,\n    j = 0;\n  let resi = 0,\n    resj = Number.MAX_VALUE;\n  let isV = false;\n  while (j <= slen) {\n    if ((isV = valid(nowMap))) {\n      if (j - i < resj - resi) {\n        resj = j;\n        resi = i;\n      }\n    }\n    if (isV) {\n      const prevC = s[i++];\n      if (nowMap[prevC] === 1) {\n        delete nowMap[prevC];\n      } else {\n        nowMap[prevC]--;\n      }\n    } else {\n      const nextC = s[j++];\n      nowMap[nextC] = nowMap[nextC] ? nowMap[nextC] + 1 : 1;\n    }\n  }\n  console.log(resi, resj);\n  return resj === Number.MAX_VALUE ? '' : s.substring(resi, resj);\n};"
-        }
-    ]
+  "name": "76. 最小覆盖子串",
+  "url": "https://leetcode-cn.com/problems/minimum-window-substring/",
+  "difficulty": "困难",
+  "tag": ["哈希表", "双指针", "字符串", "滑动窗口"],
+  "desc": "给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字符的最小子串。",
+  "solutions": [
+    {
+      "date": 1590163200000,
+      "time": 1400,
+      "memory": 43.8,
+      "script": "typescript",
+      "desc": "定义 i,j 指向 0，不满足条件时 j++，满足时 i++。",
+      "code": "type CharCount = { [c: string]: number };\nvar minWindow = function (s: string, t: string): string {\n  // 储存值\n  const map: CharCount = {};\n  for (const c of t) map[c] = map[c] ? map[c] + 1 : 1;\n  function valid(now: CharCount) {\n    for (const [k, v] of Object.entries(map)) if (!now[k] || now[k] < v) return false;\n    return true;\n  }\n  console.log(map);\n  const slen = s.length;\n  const nowMap: CharCount = {};\n  let i = 0,\n    j = 0;\n  let resi = 0,\n    resj = Number.MAX_VALUE;\n  let isV = false;\n  while (j <= slen) {\n    if ((isV = valid(nowMap))) {\n      if (j - i < resj - resi) {\n        resj = j;\n        resi = i;\n      }\n    }\n    if (isV) {\n      const prevC = s[i++];\n      if (nowMap[prevC] === 1) {\n        delete nowMap[prevC];\n      } else {\n        nowMap[prevC]--;\n      }\n    } else {\n      const nextC = s[j++];\n      nowMap[nextC] = nowMap[nextC] ? nowMap[nextC] + 1 : 1;\n    }\n  }\n  console.log(resi, resj);\n  return resj === Number.MAX_VALUE ? '' : s.substring(resi, resj);\n};"
+    }
+  ]
 }

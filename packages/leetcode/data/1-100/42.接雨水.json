@@ -1,37 +1,33 @@
 {
-    "name": "42. 接雨水",
-    "url": "https://leetcode-cn.com/problems/trapping-rain-water/",
-    "difficulty": "困难",
-    "tag": [
-        "栈",
-        "数组",
-        "双指针"
-    ],
-    "desc": "给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。",
-    "solutions": [
-        {
-            "date": 1586275200000,
-            "time": 84,
-            "memory": 36.1,
-            "script": "javascript",
-            "desc": "先算出每个点的左高和右高，再通过判断两边高度来判断是否储水。",
-            "code": "/**\n * @param {number[]} height\n * @return {number}\n */\nvar trap = function (height) {\n  let max = 0;\n  let volumn = 0;\n  const leftMax = [];\n  const rightMax = [];\n  for (let i = 0; i < height.length; i++) {\n    leftMax[i] = max = Math.max(height[i], max);\n  }\n  max = 0;\n  for (let i = height.length - 1; i >= 0; i--) {\n    rightMax[i] = max = Math.max(height[i], max);\n  }\n  for (let i = 0; i < height.length; i++) {\n    volumn += Math.min(leftMax[i], rightMax[i]) - height[i];\n  }\n  return volumn;\n};"
-        },
-        {
-            "date": 1626710400000,
-            "time": 88,
-            "memory": 39.6,
-            "script": "typescript",
-            "desc": "逐层增加。",
-            "code": "function trap(height: number[]): number {\n  const n = height.length;\n  const stack: number[] = [];\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const h = height[i];\n    while (stack.length && height[stack[stack.length - 1]] < h) {\n      const cur = stack.pop()!;\n      if (stack.length === 0) continue;\n      const left = stack[stack.length - 1];\n      ans += (Math.min(height[left], h) - height[cur]) * (i - left - 1);\n    }\n    stack.push(i);\n  }\n  return ans;\n}"
-        },
-        {
-            "date": 1626883200000,
-            "time": 80,
-            "memory": 40.1,
-            "script": "typescript",
-            "desc": "按列求出每一列接水量。",
-            "code": "function trap(height: number[]): number {\n  const n = height.length;\n  const l = new Array(n).fill(0);\n  const r = new Array(n).fill(0);\n  let max = height[0];\n  for (let i = 1; i < n; i++) {\n    l[i] = max;\n    max = Math.max(max, height[i]);\n  }\n  max = height[n - 1];\n  for (let i = n - 2; i >= 0; i--) {\n    r[i] = max;\n    max = Math.max(max, height[i]);\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) ans += Math.max(Math.min(l[i], r[i]) - height[i], 0);\n  return ans;\n}"
-        }
-    ]
+  "name": "42. 接雨水",
+  "url": "https://leetcode-cn.com/problems/trapping-rain-water/",
+  "difficulty": "困难",
+  "tag": ["栈", "数组", "双指针"],
+  "desc": "给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。",
+  "solutions": [
+    {
+      "date": 1586275200000,
+      "time": 84,
+      "memory": 36.1,
+      "script": "javascript",
+      "desc": "先算出每个点的左高和右高，再通过判断两边高度来判断是否储水。",
+      "code": "/**\n * @param {number[]} height\n * @return {number}\n */\nvar trap = function (height) {\n  let max = 0;\n  let volumn = 0;\n  const leftMax = [];\n  const rightMax = [];\n  for (let i = 0; i < height.length; i++) {\n    leftMax[i] = max = Math.max(height[i], max);\n  }\n  max = 0;\n  for (let i = height.length - 1; i >= 0; i--) {\n    rightMax[i] = max = Math.max(height[i], max);\n  }\n  for (let i = 0; i < height.length; i++) {\n    volumn += Math.min(leftMax[i], rightMax[i]) - height[i];\n  }\n  return volumn;\n};"
+    },
+    {
+      "date": 1626710400000,
+      "time": 88,
+      "memory": 39.6,
+      "script": "typescript",
+      "desc": "逐层增加。",
+      "code": "function trap(height: number[]): number {\n  const n = height.length;\n  const stack: number[] = [];\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const h = height[i];\n    while (stack.length && height[stack[stack.length - 1]] < h) {\n      const cur = stack.pop()!;\n      if (stack.length === 0) continue;\n      const left = stack[stack.length - 1];\n      ans += (Math.min(height[left], h) - height[cur]) * (i - left - 1);\n    }\n    stack.push(i);\n  }\n  return ans;\n}"
+    },
+    {
+      "date": 1626883200000,
+      "time": 80,
+      "memory": 40.1,
+      "script": "typescript",
+      "desc": "按列求出每一列接水量。",
+      "code": "function trap(height: number[]): number {\n  const n = height.length;\n  const l = new Array(n).fill(0);\n  const r = new Array(n).fill(0);\n  let max = height[0];\n  for (let i = 1; i < n; i++) {\n    l[i] = max;\n    max = Math.max(max, height[i]);\n  }\n  max = height[n - 1];\n  for (let i = n - 2; i >= 0; i--) {\n    r[i] = max;\n    max = Math.max(max, height[i]);\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) ans += Math.max(Math.min(l[i], r[i]) - height[i], 0);\n  return ans;\n}"
+    }
+  ]
 }

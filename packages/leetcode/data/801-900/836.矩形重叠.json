@@ -1,20 +1,17 @@
 {
-    "name": "836. 矩形重叠",
-    "url": "https://leetcode-cn.com/problems/rectangle-overlap/",
-    "difficulty": "简单",
-    "tag": [
-        "几何",
-        "数学"
-    ],
-    "desc": "给出两个矩形 rec1 和 rec2 。如果它们重叠，返回 true；否则，返回 false 。",
-    "solutions": [
-        {
-            "date": 1647792000000,
-            "time": 0,
-            "memory": 7.6,
-            "script": "cpp",
-            "desc": "统计所有不可能重叠的情况。",
-            "code": "class Solution {\n   public:\n    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {\n        int x1_1 = rec1[0], y1_1 = rec1[1], x1_2 = rec1[2], y1_2 = rec1[3];\n        int x2_1 = rec2[0], y2_1 = rec2[1], x2_2 = rec2[2], y2_2 = rec2[3];\n        if (x1_2 <= x2_1 || x2_2 <= x1_1 || y1_2 <= y2_1 || y2_2 <= y1_1)\n            return false;\n        return true;\n    }\n};"
-        }
-    ]
+  "name": "836. 矩形重叠",
+  "url": "https://leetcode-cn.com/problems/rectangle-overlap/",
+  "difficulty": "简单",
+  "tag": ["几何", "数学"],
+  "desc": "给出两个矩形 rec1 和 rec2 。如果它们重叠，返回 true；否则，返回 false 。",
+  "solutions": [
+    {
+      "date": 1647792000000,
+      "time": 0,
+      "memory": 7.6,
+      "script": "cpp",
+      "desc": "统计所有不可能重叠的情况。",
+      "code": "class Solution {\n   public:\n    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {\n        int x1_1 = rec1[0], y1_1 = rec1[1], x1_2 = rec1[2], y1_2 = rec1[3];\n        int x2_1 = rec2[0], y2_1 = rec2[1], x2_2 = rec2[2], y2_2 = rec2[3];\n        if (x1_2 <= x2_1 || x2_2 <= x1_1 || y1_2 <= y2_1 || y2_2 <= y1_1)\n            return false;\n        return true;\n    }\n};"
+    }
+  ]
 }

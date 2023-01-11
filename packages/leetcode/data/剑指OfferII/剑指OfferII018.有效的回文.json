@@ -1,20 +1,17 @@
 {
-    "name": "剑指 Offer II 018. 有效的回文",
-    "url": "https://leetcode-cn.com/problems/XltzEq/",
-    "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
-    "desc": "给定一个字符串 s ，验证 s 是否是 回文串 ，只考虑字母和数字字符，可以忽略字母的大小写。",
-    "solutions": [
-        {
-            "date": 1645113600000,
-            "time": 4,
-            "memory": 7.2,
-            "script": "c++",
-            "desc": "双指针遍历。",
-            "code": "class Solution {\n   public:\n    bool isPalindrome(string s) {\n        if (s == \" \") return 1;\n        int l = 0, r = s.size() - 1;\n        char lc, rc;\n        while (l < r) {\n            do {\n                lc = tolower(s[l++]);\n            } while (l < s.size() && !isdigit(lc) && !isalpha(lc));\n            do {\n                rc = tolower(s[r--]);\n            } while (r >= 0 && !isdigit(rc) && !isalpha(rc));\n            if (l < s.size() && r >= 0 && lc != rc) return 0;\n        }\n        return 1;\n    }\n};"
-        }
-    ]
+  "name": "剑指 Offer II 018. 有效的回文",
+  "url": "https://leetcode-cn.com/problems/XltzEq/",
+  "difficulty": "简单",
+  "tag": ["双指针", "字符串"],
+  "desc": "给定一个字符串 s ，验证 s 是否是 回文串 ，只考虑字母和数字字符，可以忽略字母的大小写。",
+  "solutions": [
+    {
+      "date": 1645113600000,
+      "time": 4,
+      "memory": 7.2,
+      "script": "c++",
+      "desc": "双指针遍历。",
+      "code": "class Solution {\n   public:\n    bool isPalindrome(string s) {\n        if (s == \" \") return 1;\n        int l = 0, r = s.size() - 1;\n        char lc, rc;\n        while (l < r) {\n            do {\n                lc = tolower(s[l++]);\n            } while (l < s.size() && !isdigit(lc) && !isalpha(lc));\n            do {\n                rc = tolower(s[r--]);\n            } while (r >= 0 && !isdigit(rc) && !isalpha(rc));\n            if (l < s.size() && r >= 0 && lc != rc) return 0;\n        }\n        return 1;\n    }\n};"
+    }
+  ]
 }

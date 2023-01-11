@@ -1,19 +1,17 @@
 {
-    "name": "1720. 解码异或后的数组",
-    "url": "https://leetcode-cn.com/problems/decode-xored-array/",
-    "difficulty": "简单",
-    "tag": [
-        "位运算"
-    ],
-    "desc": "请解码返回原数组 arr 。可以证明答案存在并且是唯一的。",
-    "solutions": [
-        {
-            "date": 1620230400000,
-            "time": 144,
-            "memory": 45.1,
-            "script": "typescript",
-            "desc": "利用异或读取下一个值。",
-            "code": "function decode(encoded: number[], first: number): number[] {\n  return [first, ...encoded.map(num => (first = num ^ first))];\n}"
-        }
-    ]
+  "name": "1720. 解码异或后的数组",
+  "url": "https://leetcode-cn.com/problems/decode-xored-array/",
+  "difficulty": "简单",
+  "tag": ["位运算"],
+  "desc": "请解码返回原数组 arr 。可以证明答案存在并且是唯一的。",
+  "solutions": [
+    {
+      "date": 1620230400000,
+      "time": 144,
+      "memory": 45.1,
+      "script": "typescript",
+      "desc": "利用异或读取下一个值。",
+      "code": "function decode(encoded: number[], first: number): number[] {\n  return [first, ...encoded.map(num => (first = num ^ first))];\n}"
+    }
+  ]
 }

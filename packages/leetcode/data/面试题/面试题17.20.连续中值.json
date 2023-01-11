@@ -1,19 +1,17 @@
 {
-    "name": "面试题 17.20. 连续中值",
-    "url": "https://leetcode-cn.com/problems/continuous-median-lcci/",
-    "difficulty": "困难",
-    "tag": [
-        "堆"
-    ],
-    "desc": "随机产生数字并传递给一个方法。你能否完成这个方法，在每次产生新值时，寻找当前所有值的中间值（中位数）并保存。",
-    "solutions": [
-        {
-            "date": 1617984000000,
-            "time": 280,
-            "memory": 58.9,
-            "script": "typescript",
-            "desc": "构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较。",
-            "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nclass MedianFinder {\n  private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);\n  private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);\n  get size() {\n    return this.leftHeap.size + this.rightHeap.size;\n  }\n  addNum(num: number): void {\n    if (!this.leftHeap.size || this.leftHeap.top >= num) {\n      this.leftHeap.add(num);\n    } else {\n      this.rightHeap.add(num);\n    }\n    if (this.leftHeap.size === this.rightHeap.size + 2) {\n      this.rightHeap.add(this.leftHeap.remove());\n    } else if (this.leftHeap.size === this.rightHeap.size - 1) {\n      this.leftHeap.add(this.rightHeap.remove());\n    }\n  }\n  findMedian(): number {\n    if (this.size % 2 === 0) {\n      return (this.leftHeap.top + this.rightHeap.top) / 2;\n    } else {\n      return this.leftHeap.top;\n    }\n  }\n}"
-        }
-    ]
+  "name": "面试题 17.20. 连续中值",
+  "url": "https://leetcode-cn.com/problems/continuous-median-lcci/",
+  "difficulty": "困难",
+  "tag": ["堆"],
+  "desc": "随机产生数字并传递给一个方法。你能否完成这个方法，在每次产生新值时，寻找当前所有值的中间值（中位数）并保存。",
+  "solutions": [
+    {
+      "date": 1617984000000,
+      "time": 280,
+      "memory": 58.9,
+      "script": "typescript",
+      "desc": "构建左侧大顶堆和右侧小顶堆，中间值为左侧堆最大值和右侧堆最小值的比较。",
+      "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nclass MedianFinder {\n  private leftHeap = new Heap<number>((num1: number, num2: number) => num1 - num2);\n  private rightHeap = new Heap<number>((num1: number, num2: number) => num2 - num1);\n  get size() {\n    return this.leftHeap.size + this.rightHeap.size;\n  }\n  addNum(num: number): void {\n    if (!this.leftHeap.size || this.leftHeap.top >= num) {\n      this.leftHeap.add(num);\n    } else {\n      this.rightHeap.add(num);\n    }\n    if (this.leftHeap.size === this.rightHeap.size + 2) {\n      this.rightHeap.add(this.leftHeap.remove());\n    } else if (this.leftHeap.size === this.rightHeap.size - 1) {\n      this.leftHeap.add(this.rightHeap.remove());\n    }\n  }\n  findMedian(): number {\n    if (this.size % 2 === 0) {\n      return (this.leftHeap.top + this.rightHeap.top) / 2;\n    } else {\n      return this.leftHeap.top;\n    }\n  }\n}"
+    }
+  ]
 }
