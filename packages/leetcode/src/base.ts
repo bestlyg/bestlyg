@@ -1,6 +1,6 @@
 export interface Solution {
   script: Script;
-  date: number;
+  date?: number;
   time: number;
   memory: number;
   desc: string;

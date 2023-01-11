@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import dayjs from 'dayjs';
 import fs from 'fs-extra';
-import { Solution } from '@/base';
+import { Markdown, Solution } from '@/base';
 import {
   analysisFileName,
   rootPath,
@@ -14,72 +14,31 @@ import {
 import md from './leetCodeMarkdown';
 
 const descFormat = (str: string) => (str.endsWith('。') ? str : str + '。');
-const { dirname, fileorder, dirorder } = analysisFileName(md.name);
+const { dirname } = analysisFileName(md.name);
 const dirpath = resolve(rootPath, dirname);
-const filepath = resolve(dirpath, trimBlank(md.name) + '.md');
+const filepath = resolve(dirpath, trimBlank(md.name) + '.json');
 
 function main() {
   console.log(chalk.blue(`正在生成LeetCode题解`));
   console.log(LOGO);
-  md.exist ? addSolution() : addMarkdown();
+  transform();
+  let markdown = {} as Markdown;
+  if (md.exist) {
+    markdown = fs.readJsonSync(filepath);
+    markdown.solutions.push(...md.solutions);
+  } else {
+    markdown = { ...md };
+    delete markdown.exist;
+  }
+  fs.writeFileSync(filepath, JSON.stringify(markdown, null, 4));
   console.log(chalk.blue(`${md.name}生成完成`));
   console.log(chalk.green(`生成完成`));
 }
-main();
-function addMarkdown() {
-  fs.ensureDirSync(dirpath);
-  fs.writeFileSync(
-    filepath,
-    `---
-title: ${md.name}
-order: ${fileorder}
-nav:
-  title: 力扣题解
-  path: /leetcode
-  order: 4
-group:
-  title: ${dirname}
-  path: /${dirname}
-  order: ${dirorder}
----
-
-# ${md.name}
-    
-> 链接：[${md.name}](${md.url})  
-> 难度：${md.difficulty}  
-> 标签：${md.tag.join('、')}  
-> 简介：${descFormat(md.desc)}
-      
-${md.solutions.map((data, index) => analysisSolution(data, index + 1)).join('\n')}
-      `
-  );
-}
-function addSolution() {
-  let file!: string;
-  try {
-    file = fs.readFileSync(filepath).toString();
-  } catch (e) {
-    console.log(filepath);
-    console.log(chalk.red('没有这个文件'));
-    process.exit(1);
+function transform() {
+  md.desc = descFormat(md.desc);
+  for (const s of md.solutions) {
+    s.date = new Date(dayjs().format('YYYY.MM.DD')).getTime();
+    s.desc = descFormat(s.desc);
   }
-  fs.writeFileSync(
-    filepath,
-    file +
-      md.solutions
-        .map((data, index) => analysisSolution(data, index + 1 + findLastSolutionIdx(file)))
-        .join('\n')
-  );
 }
-function analysisSolution({ script, time, memory, desc, code }: Solution, index: number) {
-  return `## 题解 ${index} - ${script}
-- 编辑时间：${dayjs().format('YYYY.MM.DD')}
-- 执行用时：${time}ms
-- 内存消耗：${memory}MB
-- 编程语言：${script}
-- 解法介绍：${descFormat(desc)}
-${backquote}${backquote}${backquote}${script}
-${code}
-${backquote}${backquote}${backquote}
-`;
-}
+main();

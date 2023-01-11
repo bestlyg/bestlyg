@@ -6,6 +6,7 @@ import { Markdown, Solution } from '@/base';
 function main() {
   console.log(chalk.blue(`正在批处理LeetCode`));
   for (const { filepath } of travel()) {
+    if (!filepath.endsWith(`2283.判断一个数的数字计数是否等于数位的值.md`)) continue;
     const obj = {} as any as Markdown;
     console.log('=========');
     console.log(filepath);
