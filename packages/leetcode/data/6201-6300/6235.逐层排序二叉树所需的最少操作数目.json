@@ -2,9 +2,7 @@
     "name": "6235. 逐层排序二叉树所需的最少操作数目",
     "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/",
     "difficulty": "中等",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "返回每一层按 严格递增顺序 排序所需的最少操作数目。",
     "solutions": [
         {

@@ -16,7 +16,7 @@ export const resolve = (...p: string[]) => path.resolve(__dirname, '../', ...p);
 
 export const trimBlank = (str: string) => str.replace(/ /g, '');
 
-export const rootPath = resolve('temp');
+export const rootPath = resolve('data');
 export interface SolutionList {
   name: string;
   solutions: string[];

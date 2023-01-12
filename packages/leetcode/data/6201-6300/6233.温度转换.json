@@ -2,9 +2,7 @@
     "name": "6233. 温度转换",
     "url": "https://leetcode.cn/problems/convert-the-temperature/",
     "difficulty": "简单",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "返回数组 ans 。与实际答案误差不超过 10-5 的会视为正确答案。",
     "solutions": [
         {

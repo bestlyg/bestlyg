@@ -2,9 +2,7 @@
     "name": "6236. 不重叠回文子字符串的最大数目",
     "url": "https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/",
     "difficulty": "困难",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "返回最优方案中能选择的子字符串的 最大 数目。",
     "solutions": [
         {

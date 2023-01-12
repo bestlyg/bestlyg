@@ -2,9 +2,7 @@
     "name": "6222. 美丽整数的最小增量",
     "url": "https://leetcode.cn/problems/minimum-addition-to-make-integer-beautiful/",
     "difficulty": "中等",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "找出并返回满足 n + x 是 美丽整数 的最小非负整数 x 。生成的输入保证总可以使 n 变成一个美丽整数。",
     "solutions": [
         {

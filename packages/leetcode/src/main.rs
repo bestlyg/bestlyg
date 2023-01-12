@@ -2,23 +2,41 @@ mod preclude;
 
 use preclude::*;
 fn main() {
-    let res = Solution::digit_count("123".to_string());
+    let res = Solution::evaluate(
+        "(name)is(age)yearsold".to_string(),
+        vec![
+            vec!["name".to_string(), "bob".to_string()],
+            vec!["age".to_string(), "two".to_string()],
+        ],
+    );
     println!("res = {res:#?}");
 }
 
+use std::collections::HashMap;
 impl Solution {
-    pub fn digit_count(num: String) -> bool {
-        let mut l = [0; 10];
-        let n = num.len();
-        let num = num.chars().collect::<Vec<char>>();
-        for c in num.iter() {
-            l[*c as usize - '0' as usize] += 1;
+    pub fn evaluate(s: String, knowledge: Vec<Vec<String>>) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        let mut ans = String::new();
+        let mut m = HashMap::<String, String>::new();
+        for item in knowledge {
+            m.insert(item[0].clone(), item[1].clone());
         }
-        for i in 0..n {
-            if num[i] as usize - '0' as usize != l[i] {
-                return false;
+        let default_value = "?".to_string();
+        let mut i = 0;
+        while i < s.len() {
+            if s[i] != '(' {
+                ans.push(s[i]);
+            } else {
+                let start = i + 1;
+                while s[i] != ')' {
+                    i += 1;
+                }
+                let key = s[start..i].iter().collect::<String>();
+                let s: &String = m.get(&key).unwrap_or_else(||&default_value);
+                ans.push_str(s);
             }
+            i += 1;
         }
-        true
+        ans
     }
 }

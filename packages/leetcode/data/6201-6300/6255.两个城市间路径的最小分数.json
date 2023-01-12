@@ -2,9 +2,7 @@
     "name": "6255. 两个城市间路径的最小分数",
     "url": "https://leetcode.cn/problems/minimum-score-of-a-path-between-two-cities/",
     "difficulty": "中等",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "城市 1 和城市 n 之间的所有路径的 最小 分数。",
     "solutions": [
         {

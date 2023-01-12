@@ -2,9 +2,7 @@
     "name": "6196. 将字符串分割成值不超过 K 的子字符串",
     "url": "https://leetcode.cn/problems/partition-string-into-substrings-with-values-at-most-k/",
     "difficulty": "中等",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "请你返回 s 所有的 好 分割中，子字符串的 最少 数目。",
     "solutions": [
         {

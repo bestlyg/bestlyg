@@ -2,9 +2,7 @@
     "name": "6245. 找出中枢整数",
     "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/",
     "difficulty": "简单",
-    "tag": [
-        ""
-    ],
+    "tag": [],
     "desc": "返回中枢整数 x 。如果不存在中枢整数，则返回 -1 。题目保证对于给定的输入，至多存在一个中枢整数。",
     "solutions": [
         {

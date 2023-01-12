@@ -1,6 +1,7 @@
 {
     "name": "面试题 29. 顺时针打印矩阵",
     "url": "https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/",
+    "difficulty": "简单",
     "tag": [
         "数组"
     ],

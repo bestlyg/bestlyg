@@ -2,48 +2,69 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2283. 判断一个数的数字计数是否等于数位的值',
-  url: 'https://leetcode.cn/problems/check-if-number-has-equal-digit-count-and-digit-value/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
-  desc: `如果对于 每个 0 <= i < n 的下标 i ，都满足数位 i 在 num 中出现了 num[i]次，那么请你返回 true ，否则返回 false 。`,
+  name: '1807. 替换字符串中的括号内容',
+  url: 'https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组, Tag.哈希表, Tag.字符串],
+  desc: `给你一个字符串 s ，它包含一些括号对，每个括号中包含一个 非空 的键。请你返回替换 所有 括号对后的结果字符串。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 5.7,
+      time: 368,
+      memory: 114.3,
       desc: '遍历',
       code: `class Solution {
 public:
-    bool digitCount(string num) {
-        int n = num.size(), l[10] = {0};
-        for (auto &c : num) l[c - '0']++;
-        for (int i = 0; i < n; i++) {
-            if (num[i] - '0' != l[i]) return false;
+    string evaluate(string s, vector<vector<string>>& knowledge) {
+        unordered_map<string, string> m;
+        for (auto &item : knowledge) m[item[0]] = item[1];
+        string ans = "";
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] != '(') ans += s[i];
+            else {
+                cout << "i = " << i << endl;
+                int start = i + 1;
+                while (s[i] != ')') i++;
+                string key = s.substr(start, i - start);
+                if (!m.count(key)) ans += "?";
+                else ans += m[key];
+            }
         }
-        return true;
+        return ans;
     }
 };`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.2,
+      time: 76,
+      memory: 33.9,
       desc: '同上',
-      code: `impl Solution {
-    pub fn digit_count(num: String) -> bool {
-        let mut l = [0; 10];
-        let n = num.len();
-        let num = num.chars().collect::<Vec<char>>();
-        for c in num.iter() {
-            l[*c as usize - '0' as usize] += 1;
+      code: `use std::collections::HashMap;
+impl Solution {
+    pub fn evaluate(s: String, knowledge: Vec<Vec<String>>) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        let mut ans = String::new();
+        let mut m = HashMap::<String, String>::new();
+        for item in knowledge {
+            m.insert(item[0].clone(), item[1].clone());
         }
-        for i in 0..n {
-            if num[i] as usize - '0' as usize != l[i] {
-                return false;
+        let default_value = "?".to_string();
+        let mut i = 0;
+        while i < s.len() {
+            if s[i] != '(' {
+                ans.push(s[i]);
+            } else {
+                let start = i + 1;
+                while s[i] != ')' {
+                    i += 1;
+                }
+                let key = s[start..i].iter().collect::<String>();
+                let s: &String = m.get(&key).unwrap_or_else(||&default_value);
+                ans.push_str(s);
             }
+            i += 1;
         }
-        true
+        ans
     }
 }`,
     },

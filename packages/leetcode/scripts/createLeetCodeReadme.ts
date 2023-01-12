@@ -11,7 +11,7 @@ import {
   travel,
   trimBlank,
 } from '@/utils';
-import { Difficulty, Readme } from '@/base';
+import { Difficulty, Readme, Markdown } from '@/base';
 
 const waitSolutions = [
   {
@@ -90,16 +90,16 @@ const cache = {
 const indexCache = cache.index;
 const tagCache = cache.tag;
 const difficultyCache = cache.difficulty;
-let template = '';
-let fileName = '';
+let md!: Markdown;
 
 function main() {
   console.log(chalk.blue(`正在生成LeetCode目录`));
   console.log(LOGO);
   for (const { filepath } of travel()) {
-    template = fs.readFileSync(filepath).toString();
+    console.log(filepath);
+    md = JSON.parse(fs.readFileSync(filepath).toString());
     cache.markdownCount++;
-    cache.solutionCount += findLastSolutionIdx(template);
+    cache.solutionCount += md.solutions.length;
     analysisIndex();
     analysisTag();
     analysisDifficulty();
@@ -110,30 +110,23 @@ function main() {
 }
 
 function analysisIndex() {
-  if (!reg.index.test(template)) return;
-  fileName = trimBlank(RegExp.$1);
-  const { dirname } = analysisFileName(fileName);
+  const { dirname } = analysisFileName(md.name);
   let obj = indexCache.find(v => v.dir.startsWith(dirname));
   if (!obj) indexCache.push((obj = { dir: dirname, list: [] }));
-  obj.list.push(fileName);
+  obj.list.push(md.name);
 }
 function analysisTag() {
-  if (!reg.tag.test(template)) return;
-  const name = trimBlank(RegExp.$1);
-  if (!name) return;
-  const tagList = name.split('、');
-  for (const tag of tagList) {
+  if (!md.tag.length) return  
+  for (const tag of md.tag) {
     let obj = tagCache.find(v => v.dir.startsWith(tag));
     if (!obj) tagCache.push((obj = { dir: tag, list: [] }));
-    obj.list.push(fileName);
+    obj.list.push(md.name);
   }
 }
 function analysisDifficulty() {
-  if (!reg.dif.test(template)) return;
-  const name = trimBlank(RegExp.$1);
-  let obj = difficultyCache.find(v => v.dir.startsWith(name));
-  if (!obj) difficultyCache.push((obj = { dir: name as any, list: [] }));
-  obj.list.push(fileName);
+  let obj = difficultyCache.find(v => v.dir.startsWith(md.difficulty))!;
+  if (!obj) difficultyCache.push((obj = { dir: md.difficulty, list: [] }));
+  obj.list.push(md.name);
 }
 
 main();
