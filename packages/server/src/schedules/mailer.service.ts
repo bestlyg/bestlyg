@@ -4,11 +4,59 @@ import { MailerService } from '@/services';
 import * as MarkdownIt from 'markdown-it';
 import * as dayjs from 'dayjs';
 
+const format = 'YYYY-MM-DD';
+class ForbiddenFoods {
+  startDate = new Date('2023/1/1');
+  endDate = new Date('2023/6/30');
+  list = [
+    '猪肝',
+    '鸡肝',
+    '猪肾',
+    '沙丁鱼',
+    '龙虾',
+    '鲭鱼',
+    '凤尾鱼',
+    '花生',
+    '腰果',
+    '瓜子',
+    '开心果',
+    '黄豆芽',
+    '芦笋',
+    '香菇',
+    '蘑菇',
+    '西瓜',
+    '龙眼',
+    '木瓜',
+    '葡萄',
+    '柠檬',
+    '薯片',
+    '巧克力',
+    '汉堡',
+    '披萨',
+    '浓茶',
+    '咖啡',
+    '酒',
+  ];
+  current = new Set<string>(['巧克力']);
+  title() {
+    const startDate = dayjs(this.startDate).format(format);
+    const endDate = dayjs(this.endDate).format(format);
+    return `高尿酸禁止食物(${startDate}-${endDate})`;
+  }
+  render() {
+    const list = this.list.map((v) => {
+      const f = this.current.has(v) ? 'x' : ' ';
+      return `- [${f}] ${v}`;
+    });
+    return [`## ${this.title()}`, list.join('\n')].join('\n\n');
+  }
+}
+
 @Injectable()
 export class MailerTaskService {
-  private format = 'YYYY-MM-DD';
   private md = new MarkdownIt();
   private menses = dayjs('2023-1-5');
+  private forbiddenFoods = new ForbiddenFoods();
   constructor(private readonly mailer: MailerService) {}
 
   async lyg_mailerTask(name: string, content: string) {
@@ -25,22 +73,35 @@ export class MailerTaskService {
     const mensesCnt = now.diff(this.menses, 'day');
     await this.lyg_mailerTask(
       subject,
-      this.md.render(`
-# 日报
-
-> 这是一份专属的每日日报  
-> 记录每日应该要记得的事  
-
-1. 距离2018年1月1日已有${now.diff('2018-1-1', 'day')}天。
-1. 距离上一次大姨妈(${this.menses.format(this.format)})已有${mensesCnt}天。
-1. 建行生活签到。
-1. 腾信视频签到。
-1. 拼多多每周5元无门槛领取。
-1. LeetCode每日一题。
-1. Arcaea每日能量。
-1. 扇贝英语每日打卡。
-1. 番茄小说每日签到。
-`),
+      this.md.render(
+        [
+          `# 日报`,
+          ``,
+          `> 这是一份专属的每日日报  `,
+          `> 记录每日应该要记得的事  `,
+          ``,
+          `1. 距离2018年1月1日已有${now.diff('2018-1-1', 'day')}天。`,
+          `1. 距离上一次大姨妈(${this.menses.format(
+            format,
+          )})已有${mensesCnt}天。`,
+          `1. 建行生活签到。`,
+          `1. 腾信视频签到。`,
+          `1. 拼多多每周5元无门槛领取。`,
+          `1. LeetCode每日一题。`,
+          `1. Arcaea每日能量。`,
+          `1. 扇贝英语每日打卡。`,
+          `1. 番茄小说每日签到。`,
+          ``,
+          `${this.md.render(this.forbiddenFoods.render())}`,
+        ].join('\n'),
+      ),
+    );
+  }
+  @Cron('0 0 8,20 * * *')
+  async yzx_ForbiddenFoods() {
+    await this.yzx_mailerTask(
+      this.forbiddenFoods.title(),
+      this.md.render(this.forbiddenFoods.render()),
     );
   }
   @Cron('0 30 20 * * *')
