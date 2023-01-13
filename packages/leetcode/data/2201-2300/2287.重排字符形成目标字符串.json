@@ -1,0 +1,29 @@
+{
+    "name": "2287. 重排字符形成目标字符串",
+    "url": "https://leetcode.cn/problems/rearrange-characters-to-make-target-string/",
+    "difficulty": "简单",
+    "tag": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "desc": "从 s 中取出字符并重新排列，返回可以形成 target 的 最大 副本数。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int rearrangeCharacters(string s, string target) {\n        int l1[26] = {0}, l2[26] = {0}, ans = 0x7fffffff;\n        for (auto &c : s) l1[c - 'a']++;\n        for (auto &c : target) l2[c - 'a']++;\n        for (int i = 0; i < 26; i++) {\n            if (l2[i] == 0) continue;\n            ans = min(ans, l1[i] / l2[i]);\n        }\n        return ans;\n    }\n};",
+            "date": 1673539200000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn rearrange_characters(s: String, target: String) -> i32 {\n        let mut ans = i32::MAX;\n        let (mut l1, mut l2) = ([0; 26], [0; 26]);\n        s.chars().for_each(|c| {\n            l1[c as usize - 'a' as usize] += 1;\n        });\n        target.chars().for_each(|c| {\n            l2[c as usize - 'a' as usize] += 1;\n        });\n        for i in 0..26 {\n            if l2[i] != 0 {\n                ans = ans.min(l1[i] / l2[i]);\n            }\n        }\n        ans\n    }\n}",
+            "date": 1673539200000
+        }
+    ]
+}

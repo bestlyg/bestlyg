@@ -2,33 +2,26 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1807. 替换字符串中的括号内容',
-  url: 'https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.哈希表, Tag.字符串],
-  desc: `给你一个字符串 s ，它包含一些括号对，每个括号中包含一个 非空 的键。请你返回替换 所有 括号对后的结果字符串。`,
+  name: '2287. 重排字符形成目标字符串',
+  url: 'https://leetcode.cn/problems/rearrange-characters-to-make-target-string/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
+  desc: `从 s 中取出字符并重新排列，返回可以形成 target 的 最大 副本数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 368,
-      memory: 114.3,
+      time: 0,
+      memory: 6,
       desc: '遍历',
       code: `class Solution {
 public:
-    string evaluate(string s, vector<vector<string>>& knowledge) {
-        unordered_map<string, string> m;
-        for (auto &item : knowledge) m[item[0]] = item[1];
-        string ans = "";
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] != '(') ans += s[i];
-            else {
-                cout << "i = " << i << endl;
-                int start = i + 1;
-                while (s[i] != ')') i++;
-                string key = s.substr(start, i - start);
-                if (!m.count(key)) ans += "?";
-                else ans += m[key];
-            }
+    int rearrangeCharacters(string s, string target) {
+        int l1[26] = {0}, l2[26] = {0}, ans = 0x7fffffff;
+        for (auto &c : s) l1[c - 'a']++;
+        for (auto &c : target) l2[c - 'a']++;
+        for (int i = 0; i < 26; i++) {
+            if (l2[i] == 0) continue;
+            ans = min(ans, l1[i] / l2[i]);
         }
         return ans;
     }
@@ -36,33 +29,23 @@ public:
     },
     {
       script: Script.RUST,
-      time: 76,
-      memory: 33.9,
+      time: 0,
+      memory: 2.2,
       desc: '同上',
-      code: `use std::collections::HashMap;
-impl Solution {
-    pub fn evaluate(s: String, knowledge: Vec<Vec<String>>) -> String {
-        let s = s.chars().collect::<Vec<char>>();
-        let mut ans = String::new();
-        let mut m = HashMap::<String, String>::new();
-        for item in knowledge {
-            m.insert(item[0].clone(), item[1].clone());
-        }
-        let default_value = "?".to_string();
-        let mut i = 0;
-        while i < s.len() {
-            if s[i] != '(' {
-                ans.push(s[i]);
-            } else {
-                let start = i + 1;
-                while s[i] != ')' {
-                    i += 1;
-                }
-                let key = s[start..i].iter().collect::<String>();
-                let s: &String = m.get(&key).unwrap_or_else(||&default_value);
-                ans.push_str(s);
+      code: `impl Solution {
+    pub fn rearrange_characters(s: String, target: String) -> i32 {
+        let mut ans = i32::MAX;
+        let (mut l1, mut l2) = ([0; 26], [0; 26]);
+        s.chars().for_each(|c| {
+            l1[c as usize - 'a' as usize] += 1;
+        });
+        target.chars().for_each(|c| {
+            l2[c as usize - 'a' as usize] += 1;
+        });
+        for i in 0..26 {
+            if l2[i] != 0 {
+                ans = ans.min(l1[i] / l2[i]);
             }
-            i += 1;
         }
         ans
     }
