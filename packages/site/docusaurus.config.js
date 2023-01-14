@@ -10,7 +10,7 @@ const config = {
   title: '信韵的小奥特',
   tagline: '信韵的小奥特',
   url: 'https:/bestlyg.com',
-  baseUrl: '/',
+  baseUrl: '/site',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.ico',

@@ -7,7 +7,7 @@ export class AppController extends BaseController {
     super();
   }
   @Get()
-  @Redirect('/blog')
+  @Redirect('/site')
   async index() {
     return this.result();
   }
