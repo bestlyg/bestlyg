@@ -1,6 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import LeetCode_SVG from './undraw_docusaurus_mountain.svg';
+import Journal_SVG from './undraw_docusaurus_tree.svg';
+import Record_SVG from './undraw_docusaurus_react.svg';
 
 type FeatureItem = {
   title: string;
@@ -10,38 +13,23 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    title: 'LeetCode',
+    Svg: LeetCode_SVG,
+    description: <>LeetCode</>,
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    title: 'Journal',
+    Svg: Journal_SVG,
+    description: <>Journal</>,
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    title: 'Record',
+    Svg: Record_SVG,
+    description: <>Record</>,
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

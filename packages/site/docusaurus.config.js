@@ -70,7 +70,7 @@ const config = {
             position: 'right',
             label: 'Journal',
           },
-          { to: '/blog', label: 'Blog', position: 'right' },
+          { to: '/blog', label: 'Record', position: 'right' },
           {
             type: 'dropdown',
             label: 'Link',
