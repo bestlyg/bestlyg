@@ -6,6 +6,7 @@ pm2 delete $server
 git pull
 pnpm i
 # pnpm run build
+pnpm --filter site run build
 pnpm --filter server run build
 # 强制重新编译容器
 # docker-compose down
