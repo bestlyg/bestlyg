@@ -72,7 +72,7 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'leetcode/index',
             position: 'right',
             label: 'LeetCode',
           },

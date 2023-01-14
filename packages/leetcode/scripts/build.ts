@@ -4,14 +4,15 @@ import dayjs from 'dayjs';
 import chalk from 'chalk';
 import fs from 'fs-extra';
 
+let curPosition = 2;
+const dirSet = new Set();
 const distpath = resolve('dist');
 
 function writeMarkdown() {
   fs.ensureDirSync(distpath);
   fs.emptyDirSync(distpath);
   for (const item of travel()) {
-    const { meta, dirname, filename, filepath } = item;
-    // console.log(filepath);
+    const { meta, dirname, filename } = item;
     const file = [
       `# ${meta.name}`,
       ``,
@@ -39,6 +40,20 @@ function writeMarkdown() {
     ].join('\n');
     const dirpath = resolve(distpath, dirname);
     fs.ensureDirSync(dirpath);
+    if (!dirSet.has(dirpath)) {
+      dirSet.add(dirpath);
+      fs.writeFileSync(
+        resolve(dirpath, '_category_.json'),
+        JSON.stringify(
+          {
+            label: dirname,
+            position: curPosition++,
+          },
+          null,
+          4
+        )
+      );
+    }
     fs.writeFileSync(resolve(dirpath, filename + '.md'), file);
   }
 }
@@ -46,7 +61,11 @@ function writeReadme() {
   const mainpath = resolve('data/main.json');
   const meta: Readme = JSON.parse(fs.readFileSync(mainpath).toString());
   const file = [
-    `# 目录索引`,
+    `---`,
+    `sidebar_position: 1`,
+    `---`,
+    '',
+    `# LeetCode`,
     ``,
     `## 介绍`,
     ``,
