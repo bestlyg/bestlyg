@@ -1,5 +1,5 @@
 {
-    "name": "395. 至少有 K 个重复字符的最长子串",
+    "name": "395.至少有K个重复字符的最长子串",
     "url": "https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/",
     "difficulty": "中等",
     "tag": [

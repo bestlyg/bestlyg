@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
+    "build": "ts-node -r tsconfig-paths/register scripts/build.ts",
     "batch": "ts-node -r tsconfig-paths/register scripts/batchLeetCode.ts",
     "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
     "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",

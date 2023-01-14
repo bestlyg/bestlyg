@@ -1,5 +1,5 @@
 {
-    "name": "1047. 删除字符串中的所有相邻重复项",
+    "name": "1047.删除字符串中的所有相邻重复项",
     "url": "https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string/",
     "difficulty": "困难",
     "tag": [

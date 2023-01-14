@@ -70,6 +70,12 @@ const config = {
             position: 'right',
             label: 'Journal',
           },
+          {
+            type: 'doc',
+            docId: 'intro',
+            position: 'right',
+            label: 'LeetCode',
+          },
           { to: '/blog', label: 'Record', position: 'right' },
           {
             type: 'dropdown',
@@ -93,36 +99,6 @@ const config = {
               {
                 label: '目录索引',
                 to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
               },
             ],
           },

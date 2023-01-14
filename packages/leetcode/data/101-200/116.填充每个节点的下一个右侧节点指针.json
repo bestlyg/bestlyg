@@ -1,5 +1,5 @@
 {
-    "name": "116. 填充每个节点的下一个右侧节点指针",
+    "name": "116.填充每个节点的下一个右侧节点指针",
     "url": "https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/",
     "difficulty": "中等",
     "tag": [

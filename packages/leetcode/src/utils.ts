@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { Type, typeList } from './base';
+import { Type, typeList, Markdown } from './base';
 
 export const LOGO = `***********************************************************
 *      ____  ______  _____ _______ _  __     _______      *
@@ -68,7 +68,13 @@ export function travel() {
       const order2 = typeList.find(v => v.prefix === name2)?.order ?? parseFloat(name2);
       return order1 - order2;
     });
-  const ans: { filepath: string }[] = [];
+  const ans: {
+    filepath: string;
+    dirname: string;
+    filename: string;
+    meta: Markdown;
+    filetype: string;
+  }[] = [];
   for (const dir of dirList) {
     const dirPath = `${rootPath}/${dir}`;
     const list = fs.readdirSync(dirPath).sort((name1, name2) => {
@@ -83,7 +89,13 @@ export function travel() {
     });
     for (const file of list) {
       const filepath = `${dirPath}/${file}`;
-      ans.push({ filepath });
+      ans.push({
+        filepath,
+        dirname: dir,
+        filename: file.replace('.json', ''),
+        filetype: 'json',
+        meta: JSON.parse(fs.readFileSync(filepath).toString()),
+      });
     }
   }
   return ans;
