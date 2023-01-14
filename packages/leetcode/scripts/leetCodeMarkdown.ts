@@ -1,8 +1,8 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '2287. 重排字符形成目标字符串',
+  exist: true,
+  name: '1819. 序列中不同最大公约数的数目',
   url: 'https://leetcode.cn/problems/rearrange-characters-to-make-target-string/',
   difficulty: Difficulty.简单,
   tag: [Tag.哈希表, Tag.字符串, Tag.计数],
@@ -10,18 +10,35 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6,
-      desc: '遍历',
+      time: 1156,
+      memory: 114.2,
+      desc: '对每个数进行判断是否可能是最大公约数',
       code: `class Solution {
 public:
-    int rearrangeCharacters(string s, string target) {
-        int l1[26] = {0}, l2[26] = {0}, ans = 0x7fffffff;
-        for (auto &c : s) l1[c - 'a']++;
-        for (auto &c : target) l2[c - 'a']++;
-        for (int i = 0; i < 26; i++) {
-            if (l2[i] == 0) continue;
-            ans = min(ans, l1[i] / l2[i]);
+    int gcd(int a, int b) {
+        if (!b)return a;
+        return gcd(b, a % b);
+    }
+    int countDifferentSubsequenceGCDs(vector<int>& nums) {
+        int n = nums.size(), ans = 0, nmax = 0;
+        unordered_set<int> s;
+        for (auto &num : nums) {
+            nmax = max(nmax, num);
+            s.insert(num);
+        }
+        vector<bool> l(nmax + 1, false);
+        for (int i = 1; i <= nmax; i++) {
+            if (s.count(i)) {
+                ans++;
+                continue;
+            }
+            int cur = -1;
+            for (int j = 2; i * j <= nmax && cur != i; j++) {
+                if (!s.count(i * j)) continue;
+                if (cur == -1) cur = i * j;
+                else cur = gcd(cur, i * j);
+            }
+            if (cur == i) ans++;
         }
         return ans;
     }
@@ -29,22 +46,45 @@ public:
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.2,
+      time: 60,
+      memory: 3.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn rearrange_characters(s: String, target: String) -> i32 {
-        let mut ans = i32::MAX;
-        let (mut l1, mut l2) = ([0; 26], [0; 26]);
-        s.chars().for_each(|c| {
-            l1[c as usize - 'a' as usize] += 1;
-        });
-        target.chars().for_each(|c| {
-            l2[c as usize - 'a' as usize] += 1;
-        });
-        for i in 0..26 {
-            if l2[i] != 0 {
-                ans = ans.min(l1[i] / l2[i]);
+    fn gcd(a: i32, b: i32) -> i32 {
+        if b == 0 {
+            a
+        } else {
+            Solution::gcd(b, a % b)
+        }
+    }
+    pub fn count_different_subsequence_gc_ds(nums: Vec<i32>) -> i32 {
+        let mut max = 0;
+        let mut ans = 0;
+        let mut l = [false; 200005];
+        for num in nums {
+            max = max.max(num);
+            l[num as usize] = true;
+        }
+        for i in 1..=max {
+            if l[i as usize] {
+                ans += 1;
+                continue;
+            }
+            let mut j = 2;
+            let mut cur = -1;
+            while j * i <= max && cur != i {
+                let num = i * j;
+                if l[num as usize] {
+                    cur = if cur == -1 {
+                        num
+                    } else {
+                        Solution::gcd(cur, num)
+                    }
+                }
+                j += 1;
+            }
+            if cur == i {
+                ans += 1;
             }
         }
         ans

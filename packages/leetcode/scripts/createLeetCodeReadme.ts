@@ -96,7 +96,6 @@ function main() {
   console.log(chalk.blue(`正在生成LeetCode目录`));
   console.log(LOGO);
   for (const { filepath } of travel()) {
-    console.log(filepath);
     md = JSON.parse(fs.readFileSync(filepath).toString());
     cache.markdownCount++;
     cache.solutionCount += md.solutions.length;
