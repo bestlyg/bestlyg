@@ -35,6 +35,7 @@ function main() {
   console.log(chalk.green(`生成完成`));
 }
 function transform() {
+  md.name = md.name.replace(/ /g, '');
   md.desc = descFormat(md.desc);
   for (const s of md.solutions) {
     s.date = new Date(dayjs().format('YYYY.MM.DD')).getTime();

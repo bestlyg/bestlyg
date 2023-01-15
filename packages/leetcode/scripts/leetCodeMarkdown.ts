@@ -1,93 +1,79 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '1819. 序列中不同最大公约数的数目',
-  url: 'https://leetcode.cn/problems/rearrange-characters-to-make-target-string/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串, Tag.计数],
-  desc: `从 s 中取出字符并重新排列，返回可以形成 target 的 最大 副本数。`,
+  exist: !true,
+  name: '6294. 最大价值和与最小价值和的差值',
+  url: 'https://leetcode.cn/problems/difference-between-maximum-and-minimum-price-sum/',
+  difficulty: Difficulty.困难,
+  tag: [],
+  desc: `请你返回所有节点作为根节点的选择中，最大 的 开销 为多少。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 1156,
-      memory: 114.2,
-      desc: '对每个数进行判断是否可能是最大公约数',
+      time: 360,
+      memory: 191.3,
+      desc: '',
       code: `class Solution {
 public:
-    int gcd(int a, int b) {
-        if (!b)return a;
-        return gcd(b, a % b);
-    }
-    int countDifferentSubsequenceGCDs(vector<int>& nums) {
-        int n = nums.size(), ans = 0, nmax = 0;
-        unordered_set<int> s;
-        for (auto &num : nums) {
-            nmax = max(nmax, num);
-            s.insert(num);
+    typedef long long ll;
+    typedef pair<ll, ll> pll;
+    ll maxOutput(int n, vector<vector<int>>& edges, vector<int>& price) {
+        vector<vector<int>> nodes(n);
+        for (auto &e : edges) {
+            nodes[e[0]].push_back(e[1]);
+            nodes[e[1]].push_back(e[0]);
         }
-        vector<bool> l(nmax + 1, false);
-        for (int i = 1; i <= nmax; i++) {
-            if (s.count(i)) {
-                ans++;
-                continue;
+        ll ans = 0;
+        function<pll(int, int)> dfs = [&](int cur, int parent) -> pll {
+            ll p = price[cur], max1 = p, max2 = 0;
+            for (auto &child : nodes[cur]) {
+                if (child == parent) continue;
+                auto res = dfs(child, cur);
+                ans = max(ans, max(max1 + res.second, max2 + res.first));
+                max1 = max(max1, res.first + p);
+                max2 = max(max2, res.second + p);
             }
-            int cur = -1;
-            for (int j = 2; i * j <= nmax && cur != i; j++) {
-                if (!s.count(i * j)) continue;
-                if (cur == -1) cur = i * j;
-                else cur = gcd(cur, i * j);
-            }
-            if (cur == i) ans++;
-        }
+            return make_pair(max1, max2);
+        };
+        dfs(0, -1);
         return ans;
     }
 };`,
     },
     {
       script: Script.RUST,
-      time: 60,
-      memory: 3.2,
+      time: 48,
+      memory: 25.6,
       desc: '同上',
       code: `impl Solution {
-    fn gcd(a: i32, b: i32) -> i32 {
-        if b == 0 {
-            a
-        } else {
-            Solution::gcd(b, a % b)
+    pub fn max_output(n: i32, edges: Vec<Vec<i32>>, price: Vec<i32>) -> i64 {
+        let n = n as usize;
+        let mut nodes: Vec<Vec<i32>> = vec![vec![]; n];
+        for e in edges {
+            nodes[e[0] as usize].push(e[1]);
+            nodes[e[1] as usize].push(e[0]);
         }
+        Solution::dfs(&nodes, &price, &mut 0, 0, -1).0
     }
-    pub fn count_different_subsequence_gc_ds(nums: Vec<i32>) -> i32 {
-        let mut max = 0;
-        let mut ans = 0;
-        let mut l = [false; 200005];
-        for num in nums {
-            max = max.max(num);
-            l[num as usize] = true;
-        }
-        for i in 1..=max {
-            if l[i as usize] {
-                ans += 1;
-                continue;
-            }
-            let mut j = 2;
-            let mut cur = -1;
-            while j * i <= max && cur != i {
-                let num = i * j;
-                if l[num as usize] {
-                    cur = if cur == -1 {
-                        num
-                    } else {
-                        Solution::gcd(cur, num)
-                    }
-                }
-                j += 1;
-            }
-            if cur == i {
-                ans += 1;
+    fn dfs(
+        nodes: &Vec<Vec<i32>>,
+        price: &Vec<i32>,
+        ans: &mut i64,
+        cur: i32,
+        parent: i32,
+    ) -> (i64, i64, i64) {
+        let p = price[cur as usize] as i64;
+        let mut max1 = p;
+        let mut max2 = 0;
+        for child in (*nodes)[cur as usize].iter() {
+            if *child != parent {
+                let (_, res_max1, res_max2) = Solution::dfs(nodes, price, ans, *child, cur);
+                *ans = *ans.max(&mut (res_max1 + max2)).max(&mut (res_max2 + max1));
+                max1 = max1.max(res_max1 + p);
+                max2 = max2.max(res_max2 + p);
             }
         }
-        ans
+        (*ans, max1, max2)
     }
 }`,
     },
