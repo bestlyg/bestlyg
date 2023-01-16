@@ -9,7 +9,7 @@
             "script": "cpp",
             "time": 360,
             "memory": 191.3,
-            "desc": "。",
+            "desc": "[参考链接](https://leetcode.cn/problems/difference-between-maximum-and-minimum-price-sum/solution/by-endlesscheng-5l70/)。",
             "code": "class Solution {\npublic:\n    typedef long long ll;\n    typedef pair<ll, ll> pll;\n    ll maxOutput(int n, vector<vector<int>>& edges, vector<int>& price) {\n        vector<vector<int>> nodes(n);\n        for (auto &e : edges) {\n            nodes[e[0]].push_back(e[1]);\n            nodes[e[1]].push_back(e[0]);\n        }\n        ll ans = 0;\n        function<pll(int, int)> dfs = [&](int cur, int parent) -> pll {\n            ll p = price[cur], max1 = p, max2 = 0;\n            for (auto &child : nodes[cur]) {\n                if (child == parent) continue;\n                auto res = dfs(child, cur);\n                ans = max(ans, max(max1 + res.second, max2 + res.first));\n                max1 = max(max1, res.first + p);\n                max2 = max(max2, res.second + p);\n            }\n            return make_pair(max1, max2);\n        };\n        dfs(0, -1);\n        return ans;\n    }\n};",
             "date": 1673712000000
         },

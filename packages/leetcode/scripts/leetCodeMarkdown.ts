@@ -2,78 +2,110 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6294. 最大价值和与最小价值和的差值',
-  url: 'https://leetcode.cn/problems/difference-between-maximum-and-minimum-price-sum/',
-  difficulty: Difficulty.困难,
-  tag: [],
-  desc: `请你返回所有节点作为根节点的选择中，最大 的 开销 为多少。`,
+  name: '1813. 句子相似性 III',
+  url: 'https://leetcode.cn/problems/sentence-similarity-iii/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组,Tag.双指针,Tag.字符串],
+  desc: `给你两个句子 sentence1 和 sentence2 ，如果 sentence1 和 sentence2 是相似的，请你返回 true ，否则返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 360,
-      memory: 191.3,
-      desc: '',
+      time: 0,
+      memory: 6.4,
+      desc: '双指针递归',
       code: `class Solution {
 public:
-    typedef long long ll;
-    typedef pair<ll, ll> pll;
-    ll maxOutput(int n, vector<vector<int>>& edges, vector<int>& price) {
-        vector<vector<int>> nodes(n);
-        for (auto &e : edges) {
-            nodes[e[0]].push_back(e[1]);
-            nodes[e[1]].push_back(e[0]);
+    bool areSentencesSimilar(string sentence1, string sentence2) {
+        vector<string> l1 = split(sentence1), l2 = split(sentence2);
+        return compare(l1, l2, 0, 0, false);
+    }
+    bool compare(vector<string> &l1, vector<string> &l2, int i1, int i2, bool inserted) {
+        if (i1 == l1.size() && i2 == l2.size()) return true;
+        if (i2 == l2.size() || i1 == l1.size()) return !inserted;
+        if (l1[i1] == l2[i2]) return compare(l1, l2, i1 + 1, i2 + 1, inserted);
+        if (inserted) return false;
+        int next = i1;
+        while ((next = indexof(l1, next + 1, l2[i2])) != -1)
+            if (compare(l1, l2, next, i2, true)) return true;
+        next = i2;
+        while ((next = indexof(l2, next + 1, l1[i1])) != -1)
+            if (compare(l1, l2, i1, next, true)) return true;
+        return false;
+    }
+    int indexof(vector<string> &l, int start, string &s) {
+        for (int i = start; i < l.size(); i++)
+            if (l[i] == s) return i;
+        return -1;
+    }
+    vector<string> split(string &s) {
+        vector<string> ans;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == ' ') continue;
+            string cur = "";
+            while (i < s.size() && s[i] != ' ') cur += s[i++];
+            ans.push_back(cur);
         }
-        ll ans = 0;
-        function<pll(int, int)> dfs = [&](int cur, int parent) -> pll {
-            ll p = price[cur], max1 = p, max2 = 0;
-            for (auto &child : nodes[cur]) {
-                if (child == parent) continue;
-                auto res = dfs(child, cur);
-                ans = max(ans, max(max1 + res.second, max2 + res.first));
-                max1 = max(max1, res.first + p);
-                max2 = max(max2, res.second + p);
-            }
-            return make_pair(max1, max2);
-        };
-        dfs(0, -1);
         return ans;
     }
 };`,
     },
     {
       script: Script.RUST,
-      time: 48,
-      memory: 25.6,
+      time: 0,
+      memory: 2.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn max_output(n: i32, edges: Vec<Vec<i32>>, price: Vec<i32>) -> i64 {
-        let n = n as usize;
-        let mut nodes: Vec<Vec<i32>> = vec![vec![]; n];
-        for e in edges {
-            nodes[e[0] as usize].push(e[1]);
-            nodes[e[1] as usize].push(e[0]);
-        }
-        Solution::dfs(&nodes, &price, &mut 0, 0, -1).0
+    pub fn are_sentences_similar(sentence1: String, sentence2: String) -> bool {
+        let l1 = sentence1.split(" ").collect::<Vec<&str>>();
+        let l2 = sentence2.split(" ").collect::<Vec<&str>>();
+        Solution::compare(&l1, &l2, 0, 0, false)
     }
-    fn dfs(
-        nodes: &Vec<Vec<i32>>,
-        price: &Vec<i32>,
-        ans: &mut i64,
-        cur: i32,
-        parent: i32,
-    ) -> (i64, i64, i64) {
-        let p = price[cur as usize] as i64;
-        let mut max1 = p;
-        let mut max2 = 0;
-        for child in (*nodes)[cur as usize].iter() {
-            if *child != parent {
-                let (_, res_max1, res_max2) = Solution::dfs(nodes, price, ans, *child, cur);
-                *ans = *ans.max(&mut (res_max1 + max2)).max(&mut (res_max2 + max1));
-                max1 = max1.max(res_max1 + p);
-                max2 = max2.max(res_max2 + p);
+    fn compare(l1: &Vec<&str>, l2: &Vec<&str>, i1: usize, i2: usize, inserted: bool) -> bool {
+        if i1 == l1.len() && i2 == l2.len() {
+            true
+        } else if i1 == l1.len() || i2 == l2.len() {
+            !inserted
+        } else if l1[i1].cmp(l2[i2]).is_eq() {
+            Solution::compare(l1, l2, i1 + 1, i2 + 1, inserted)
+        } else if inserted {
+            false
+        } else {
+            let mut next = i1;
+            loop {
+                let res = Solution::indexof(l1, next + 1, l2[i2]);
+                if res == -1 {
+                    break;
+                }
+                let res = res as usize;
+                if Solution::compare(l1, l2, res, i2, true) {
+                    return true;
+                }
+                next = res;
             }
+            let mut next = i2;
+            loop {
+                let res = Solution::indexof(l2, next + 1, l1[i1]);
+                if res == -1 {
+                    break;
+                }
+                let res = res as usize;
+                if Solution::compare(l1, l2, i1, res, true) {
+                    return true;
+                }
+                next = res;
+            }
+            false
         }
-        (*ans, max1, max2)
+    }
+    fn indexof(l: &Vec<&str>, start: usize, s: &str) -> i32 {
+        let mut i = start;
+        while i < l.len() {
+            if l[i].cmp(s).is_eq() {
+                return i as i32;
+            }
+            i += 1;
+        }
+        return -1;
     }
 }`,
     },
