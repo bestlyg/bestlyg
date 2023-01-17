@@ -110,7 +110,7 @@ export enum Tag {
 export enum Script {
   JS = 'javascript',
   TS = 'typescript',
-  PY = 'python',
+  PY3 = 'python3',
   CS = 'c#',
   C = 'c',
   CPP = 'cpp',

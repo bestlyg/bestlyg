@@ -1,7 +1,7 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
+  exist: true,
   name: '1814. 统计一个数组中好对子的数目',
   url: 'https://leetcode.cn/problems/count-nice-pairs-in-an-array/',
   difficulty: Difficulty.中等,
@@ -9,60 +9,19 @@ const leetCodeMarkdown: Markdown = {
   desc: `请你返回好下标对的数目。`,
   solutions: [
     {
-      script: Script.CPP,
-      time: 84,
-      memory: 55.5,
+      script: Script.PY3,
+      time: 260,
+      memory: 23.1,
       desc: '双指针递归',
-      code: `const int mod = 1e9 + 7;
-class Solution {
-public:
-    int countNicePairs(vector<int>& nums) {
-        unordered_map<int, int> m;
-        int ans = 0;
-        for (auto &num : nums) ans = (ans + m[num - rev(num)]++) % mod;
-        return ans;
-    }
-    int rev(int num) {
-        int ans = 0;
-        for (; num; num /= 10) ans = ans * 10 + num % 10;
-        return ans;
-    }
-};`,
-    },
-    {
-      script: Script.RUST,
-      time: 24,
-      memory: 3.7,
-      desc: '同上',
-      code: `use std::collections::HashMap;
-const MOD: i32 = 1000000007;
-impl Solution {
-    pub fn count_nice_pairs(nums: Vec<i32>) -> i32 {
-        let mut m = HashMap::<i32, i32>::new();
-        let mut ans = 0;
-        for num in nums {
-            let k = num - Solution::rev(num);
-            let v = if m.contains_key(&k) {
-                m.get_mut(&k).unwrap()
-            } else {
-                m.insert(k, 0);
-                m.get_mut(&k).unwrap()
-            };
-            ans = (ans + *v) % MOD;
-            *v += 1;
-        }
-        ans
-    }
-    fn rev(num: i32) -> i32 {
-        let mut num = num;
-        let mut ans = 0;
-        while num != 0 {
-            ans = ans * 10 + num % 10;
-            num /= 10;
-        }
-        ans
-    }
-}`,
+      code: `class Solution:
+def countNicePairs(self, nums: List[int]) -> int:
+    m = Counter()
+    ans = 0
+    for num in nums:
+        k = num - int(str(num)[::-1])
+        ans += m[k]
+        m[k] += 1
+    return int(ans % (1e9 + 7))`,
     },
   ],
 };

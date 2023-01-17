@@ -25,6 +25,14 @@
             "desc": "同上。",
             "code": "use std::collections::HashMap;\nconst MOD: i32 = 1000000007;\nimpl Solution {\n    pub fn count_nice_pairs(nums: Vec<i32>) -> i32 {\n        let mut m = HashMap::<i32, i32>::new();\n        let mut ans = 0;\n        for num in nums {\n            let k = num - Solution::rev(num);\n            let v = if m.contains_key(&k) {\n                m.get_mut(&k).unwrap()\n            } else {\n                m.insert(k, 0);\n                m.get_mut(&k).unwrap()\n            };\n            ans = (ans + *v) % MOD;\n            *v += 1;\n        }\n        ans\n    }\n    fn rev(num: i32) -> i32 {\n        let mut num = num;\n        let mut ans = 0;\n        while num != 0 {\n            ans = ans * 10 + num % 10;\n            num /= 10;\n        }\n        ans\n    }\n}",
             "date": 1673884800000
+        },
+        {
+            "script": "python3",
+            "time": 260,
+            "memory": 23.1,
+            "desc": "双指针递归。",
+            "code": "class Solution:\ndef countNicePairs(self, nums: List[int]) -> int:\n    m = Counter()\n    ans = 0\n    for num in nums:\n        k = num - int(str(num)[::-1])\n        ans += m[k]\n        m[k] += 1\n    return int(ans % (1e9 + 7))",
+            "date": 1673884800000
         }
     ]
 }
