@@ -52,10 +52,25 @@ class ForbiddenFoods {
   }
 }
 
+const menseHistory: string[] = [
+  '2023-1-5',
+  '2022-12-7',
+  '2022-11-5',
+  '2022-10-5',
+  '2022-8-29',
+  '2022-7-26',
+  '2022-6-25',
+  '2022-5-21',
+  '2022-4-21',
+  '2022-3-21',
+  '2022-2-19',
+  '2022-1-19',
+];
+
 @Injectable()
 export class MailerTaskService {
   private md = new MarkdownIt();
-  private menses = dayjs('2023-1-5');
+  private menses = dayjs(menseHistory[0]);
   private forbiddenFoods = new ForbiddenFoods();
   constructor(private readonly mailer: MailerService) {}
 
