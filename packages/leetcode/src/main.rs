@@ -12,27 +12,17 @@ fn main() {
 }
 
 impl Solution {
-    pub fn strong_password_checker_ii(password: String) -> bool {
-        let spec = "!@#$%^&*()-+";
-        let s = password.chars().collect::<Vec<char>>();
-        let mut f = [false; 4];
-        for i in 0..s.len() {
-            if s[i].is_lowercase() {
-                f[0] = true;
-            }
-            if s[i].is_uppercase() {
-                f[1] = true;
-            }
-            if s[i].is_digit(10) {
-                f[2] = true;
-            }
-            if spec.contains(s[i]) {
-                f[3] = true;
-            }
-            if i > 0 && s[i] == s[i - 1] {
-                return false;
-            }
+    pub fn finding_users_active_minutes(logs: Vec<Vec<i32>>, k: i32) -> Vec<i32> {
+        use std::collections::{HashMap, HashSet};
+        let mut ans = vec![0; k as usize];
+        let mut m = HashMap::<i32, HashSet<i32>>::new();
+        for log in logs {
+            let s = m.entry(log[0]).or_insert(HashSet::new());
+            s.insert(log[1]);
         }
-        s.len() >= 8 && f[0] && f[1] && f[2] && f[3]
+        for (_, v) in m {
+            ans[v.len() - 1] += 1;
+        }
+        ans
     }
 }

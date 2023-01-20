@@ -2,80 +2,64 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2299. 强密码检验器 II',
-  url: 'https://leetcode.cn/problems/strong-password-checker-ii/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `给你一个字符串 password ，如果它是一个 强 密码，返回 true，否则返回 false 。`,
+  name: '1817. 查找用户活跃分钟数',
+  url: 'https://leetcode.cn/problems/finding-the-users-active-minutes/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.数组,Tag.哈希表],
+  desc: `请你统计用户活跃分钟数的分布情况，统计结果是一个长度为 k 且 下标从 1 开始计数 的数组 answer ，对于每个 j（1 <= j <= k），answer[j] 表示 用户活跃分钟数 等于 j 的用户数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.9,
+      time: 208,
+      memory: 83.4,
       desc: '遍历',
       code: `class Solution {
 public:
-    bool strongPasswordCheckerII(string password) {
-        bool f[4] = {false};
-        string spec = "!@#$%^&*()-+";
-        for (int i = 0; i < password.size(); i++) {
-            if (islower(password[i])) f[0] = true;
-            if (isupper(password[i])) f[1] = true;
-            if (isdigit(password[i])) f[2] = true;
-            if (spec.find(password[i]) != string::npos) f[3] = true;
-            if (i != 0 && password[i] == password[i - 1]) return false;
-        }
-        return f[0] && f[1] && f[2] && f[3] && password.size() >= 8;
+    vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {
+        vector<int> list(k, 0);
+        unordered_map<int, unordered_set<int>> m;
+        for (auto &log : logs) m[log[0]].insert(log[1]);
+        for (auto &user : m) list[user.second.size() - 1]++;
+        return list;
     }
 };`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2,
+      time: 60,
+      memory: 4.9,
       desc: '同上',
       code: `impl Solution {
-pub fn strong_password_checker_ii(password: String) -> bool {
-    let spec = "!@#$%^&*()-+";
-    let s = password.chars().collect::<Vec<char>>();
-    let mut f = [false; 4];
-    for i in 0..s.len() {
-        if s[i].is_lowercase() {
-            f[0] = true;
+    pub fn finding_users_active_minutes(logs: Vec<Vec<i32>>, k: i32) -> Vec<i32> {
+        use std::collections::{HashMap, HashSet};
+        let mut ans = vec![0; k as usize];
+        let mut m = HashMap::<i32, HashSet<i32>>::new();
+        for log in logs {
+            let s = m.entry(log[0]).or_insert(HashSet::new());
+            s.insert(log[1]);
         }
-        if s[i].is_uppercase() {
-            f[1] = true;
+        for (_, v) in m {
+            ans[v.len() - 1] += 1;
         }
-        if s[i].is_digit(10) {
-            f[2] = true;
-        }
-        if spec.contains(s[i]) {
-            f[3] = true;
-        }
-        if i > 0 && s[i] == s[i - 1] {
-            return false;
-        }
+        ans
     }
-    s.len() >= 8 && f[0] && f[1] && f[2] && f[3]
 }`,
     },
     {
       script: Script.PY3,
-      time: 40,
-      memory: 14.9,
+      time: 132,
+      memory: 20.5,
       desc: '同上',
       code: `class Solution:
-def strongPasswordCheckerII(self, password: str) -> bool:
-    spec = "!@#$%^&*()-+"
-    f = [False for _ in range(4)]
-    for i, c in enumerate(password):
-        f[0] |= c.islower()
-        f[1] |= c.isupper()
-        f[2] |= c.isdigit()
-        f[3] |= spec.find(c) != -1
-        if i != 0 and password[i - 1] == c:
-            return False
-    return len(password) >= 8 and f[0] and f[1] and f[2] and f[3]`,
+def findingUsersActiveMinutes(self, logs: List[List[int]], k: int) -> List[int]:
+    ans = [0 for _ in range(k)]
+    m = {}
+    for log in logs:
+        s = m.setdefault(log[0], set())
+        s.add(log[1])
+    for (_, v) in m.items():
+        ans[len(v) - 1] += 1
+    return ans`,
     },
   ],
 };

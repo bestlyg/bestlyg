@@ -55,5 +55,10 @@ async function sum(...data) {
 //
 
 //
-const [a, b, c] = { a: 1, b: 2, c: 1234 };
-console.log(a, b, c);
+// const [a, b, c] = { a: 1, b: 2, c: 1234 };
+// console.log(a, b, c);
+const net = require('net');
+const client = new net.Socket();
+client.connect(8001, '10.68.177.80', function () {
+  console.log('连接服务器成功');
+});
