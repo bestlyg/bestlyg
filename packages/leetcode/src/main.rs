@@ -12,17 +12,32 @@ fn main() {
 }
 
 impl Solution {
-    pub fn finding_users_active_minutes(logs: Vec<Vec<i32>>, k: i32) -> Vec<i32> {
-        use std::collections::{HashMap, HashSet};
-        let mut ans = vec![0; k as usize];
-        let mut m = HashMap::<i32, HashSet<i32>>::new();
-        for log in logs {
-            let s = m.entry(log[0]).or_insert(HashSet::new());
-            s.insert(log[1]);
+    pub fn min_side_jumps(obstacles: Vec<i32>) -> i32 {
+        let n = obstacles.len();
+        let mut dp = vec![vec![0x3f3f3f3f; 4]; n];
+        dp[0][1] = 1;
+        dp[0][2] = 0;
+        dp[0][3] = 1;
+        for i in 1..n {
+            if obstacles[i] != 1 {
+                dp[i][1] = dp[i - 1][1];
+            }
+            if obstacles[i] != 2 {
+                dp[i][2] = dp[i - 1][2];
+            }
+            if obstacles[i] != 3 {
+                dp[i][3] = dp[i - 1][3];
+            }
+            if obstacles[i - 1] == 1 {
+                dp[i][1] = dp[i][2].min(dp[i][3]) + 1;
+            }
+            if obstacles[i - 1] == 2 {
+                dp[i][2] = dp[i][1].min(dp[i][3]) + 1;
+            }
+            if obstacles[i - 1] == 3 {
+                dp[i][3] = dp[i][1].min(dp[i][2]) + 1;
+            }
         }
-        for (_, v) in m {
-            ans[v.len() - 1] += 1;
-        }
-        ans
+        dp[n - 1][1].min(dp[n - 1][2]).min(dp[n - 1][3])
     }
 }
