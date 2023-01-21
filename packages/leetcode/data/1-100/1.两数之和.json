@@ -55,6 +55,14 @@
             "script": "c++",
             "desc": "哈希存储。",
             "code": "class Solution {\n   public:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        unordered_map<int, int> m;\n        vector<int> ans;\n        for (int i = 0; i < nums.size(); i++) {\n            int num = nums[i];\n            if (m.count(target - num)) {\n                ans.push_back(m[target - num]);\n                ans.push_back(i);\n                return ans;\n            } else {\n                m[num] = i;\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 16,
+            "desc": "哈希。",
+            "code": "class Solution:\ndef twoSum(self, nums: List[int], target: int) -> List[int]:\n    m = defaultdict()\n    for i, num in enumerate(nums):\n        if target - num in m:\n            return [m[target- num], i]\n        m[num] = i\n    return []",
+            "date": 1674230400000
         }
     ]
 }
