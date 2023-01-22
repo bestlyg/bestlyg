@@ -1,9 +1,9 @@
 from solution import Solution
+from sortedcontainers import SortedList, SortedDict
 
 def main():
     o = Solution()
-    res = o.canThreePartsEqualSum([0,2,1,-6,6,-7,9,1,2,0,1])
+    res = o.maxHappyGroups(3, [1,2,3,4,5,6])
     print(res)
-
 
 main()

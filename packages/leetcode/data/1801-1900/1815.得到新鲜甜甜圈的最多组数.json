@@ -1,0 +1,39 @@
+{
+    "name": "1815.得到新鲜甜甜圈的最多组数",
+    "url": "https://leetcode.cn/problems/maximum-number-of-groups-getting-fresh-donuts/",
+    "difficulty": "困难",
+    "tag": [
+        "位运算",
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "状态压缩"
+    ],
+    "desc": "你可以随意安排每批顾客到来的顺序。请你返回在此前提下，最多 有多少组人会感到开心。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 8.1,
+            "desc": "先统计1个组无余数，2个组组合无余数，剩下的记忆化搜索。",
+            "code": "class Solution {\npublic:\n    unordered_map<int, int> cache;\n    int maxHappyGroups(int batchSize, vector<int>& groups) {\n        map<int, int> m;\n        int sum = 0;\n        for (int i = 0; i < groups.size(); i++) {\n            int num = groups[i] % batchSize;\n            if (num == 0) sum++;\n            else if (m[batchSize - num]) m[batchSize - num]--, sum++;\n            else m[num]++;\n        }\n        return sum + dfs(m, batchSize, 0);\n    }\n    int dfs(map<int, int> &m, int batchSize, int surplus) {\n        int cachek = trans(m);\n        if (cache[cachek]) return cache[cachek];\n        int res = 0;\n        for (auto &item : m) {\n            if (item.second == 0) continue;\n            item.second--;\n            res = max(res, (surplus == 0) + dfs(m, batchSize, (batchSize - item.first + surplus) % batchSize));\n            item.second++;\n        }\n        return cache[cachek] = res;\n    }\n    int trans(map<int, int> &m) {\n        int ans = 0, i = 0;\n        for (auto &item : m) ans |= item.second << (4 * i++);\n        return ans;\n    }\n};",
+            "date": 1674316800000
+        },
+        {
+            "script": "python3",
+            "time": 64,
+            "memory": 15.8,
+            "desc": "同上。",
+            "code": "from sortedcontainers import SortedDict\nclass Solution:\n    def maxHappyGroups(self, batchSize: int, groups: List[int]) -> int:\n        cache = defaultdict()\n        m = SortedDict()\n        nsum = 0\n        for group in groups:\n            num = group % batchSize\n            if num == 0:\n                nsum += 1\n            elif (batchSize - num) in m and m[batchSize - num] > 0:\n                m[batchSize - num] -= 1\n                nsum += 1\n            else:\n                item = m.setdefault(num, 0)\n                m[num] = item + 1\n        def trans(m: SortedDict):\n            ans = 0\n            i = 0\n            for item in m.values():\n                ans |= item << (4 * i)\n                i += 1\n            return ans\n        def dfs(m: SortedDict, surplus: int):\n            cachek = trans(m)\n            if cachek in cache:\n                return cache[cachek]\n            res = 0\n            for k in m.keys():\n                if m[k] == 0:\n                    continue\n                m[k] -= 1\n                res = max(res, (surplus == 0) +\n                          dfs(m, (batchSize - k + surplus) % batchSize))\n                m[k] += 1\n            cache[cachek] = res\n            return res\n        return nsum + dfs(m, 0)",
+            "date": 1674316800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "use std::collections::{BTreeMap, HashMap};\nimpl Solution {\n    pub fn max_happy_groups(batch_size: i32, groups: Vec<i32>) -> i32 {\n        let mut m = BTreeMap::<i32, i32>::new();\n        let mut sum = 0;\n        for group in groups {\n            let num = group % batch_size;\n            if num == 0 {\n                sum += 1;\n            } else if m.contains_key(&(batch_size - num)) && m[&(batch_size - num)] > 0 {\n                let item = m.get_mut(&(batch_size - num)).unwrap();\n                *item -= 1;\n                sum += 1;\n            } else {\n                let item = m.entry(num).or_insert(0);\n                *item += 1;\n            }\n        }\n        let mut cache = HashMap::<i32, i32>::new();\n        sum + Solution::dfs(m, &mut cache, batch_size, 0)\n    }\n    fn trans(m: &BTreeMap<i32, i32>) -> i32 {\n        let mut ans = 0;\n        let mut i = 0;\n        for (_, v) in m.iter() {\n            ans |= v << (4 * i);\n            i += 1;\n        }\n        ans\n    }\n    fn dfs(\n        m: BTreeMap<i32, i32>,\n        cache: &mut HashMap<i32, i32>,\n        batch_size: i32,\n        surplus: i32,\n    ) -> i32 {\n        let cachek = Solution::trans(&m);\n        if cache.contains_key(&cachek) {\n            *cache.get(&cachek).unwrap()\n        } else {\n            let mut res = 0;\n            for (k, v) in m.iter() {\n                if *v != 0 {\n                    let mut next_m = m.clone();\n                    *next_m.get_mut(k).unwrap() -= 1;\n                    res = res.max(\n                        i32::from(surplus == 0)\n                            + Solution::dfs(\n                                next_m,\n                                cache,\n                                batch_size,\n                                (batch_size - *k + surplus) % batch_size,\n                            ),\n                    );\n                }\n            }\n            cache.insert(cachek, res);\n            res\n        }\n    }\n}",
+            "date": 1674316800000
+        }
+    ]
+}

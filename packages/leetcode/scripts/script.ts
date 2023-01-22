@@ -33,3 +33,71 @@
 // const src = 'cbabc';
 // const dist = 'abcabba';
 // myers(src, dist);
+
+function makeStringsEqual(s: string, target: string): boolean {
+  const n = s.length;
+  const set = new Set([s]);
+  const q = [s];
+  while (q.length) {
+    const s = q.shift()!;
+    if (s === target) return true;
+    // console.log('========\n', s);
+    for (let i = 0; i < n; i++) {
+      const inum = +s[i];
+      for (let j = i + 1; j < n; j++) {
+        if (i === j) continue;
+        const jnum = +s[j];
+        let next =
+          s.substring(0, i) +
+          (inum | jnum) +
+          s.substring(i + 1, j) +
+          (inum ^ jnum) +
+          s.substring(j + 1);
+        if (!set.has(next)) {
+          set.add(next);
+          q.push(next);
+        }
+        next =
+          s.substring(0, i) +
+          (inum ^ jnum) +
+          s.substring(i + 1, j) +
+          (inum | jnum) +
+          s.substring(j + 1);
+        if (!set.has(next)) {
+          set.add(next);
+          q.push(next);
+        }
+      }
+    }
+  }
+  return false;
+}
+
+console.log(makeStringsEqual('1010', '0110'));
+
+
+// "00110000111001111011110001111111011000101100010100000101100110111010100001110001111100101000"
+// "10000010100000101001001110011001011001110111100001110110010000110011100100111010010010100110"
+
+// "00011"
+// "01010"
+
+"1010"
+"0110"
+"11"
+"00"
+"00011"
+"01010"
+"00110000111001111011110001111111011000101100010100000101100110111010100001110001111100101000"
+"10000010100000101001001110011001011001110111100001110110010000110011100100111010010010100110"
+"1110110"
+"1110100"
+
+"000000"
+"000010"
+
+"1110110"
+"1110100"
+
+"11"
+"00"
