@@ -11,16 +11,16 @@ fn main() {
     println!("res = {res:#?}");
 }
 impl Solution {
-    pub fn calculate_tax(brackets: Vec<Vec<i32>>, income: i32) -> f64 {
-        let mut ans = 0f64;
-        let mut prev = 0;
-        for item in brackets {
-            if prev > income {
-                break;
-            } else {
-                ans += ((income.min(item[0]) - prev) * item[1]) as f64 / 100f64;
+    pub fn count_points(points: Vec<Vec<i32>>, queries: Vec<Vec<i32>>) -> Vec<i32> {
+        let d =
+            |a: &Vec<i32>, b: &Vec<i32>| (a[0] - b[0]).abs().pow(2) + (a[1] - b[1]).abs().pow(2);
+        let ans = vec![0; queries.len()];
+        for i in 0..queries.len() {
+            for p in points.iter() {
+                if d(&queries[i], p) <= queries[i][2].pow(2) {
+                    ans[i] += 1;
+                }
             }
-            prev = item[0]
         }
         ans
     }

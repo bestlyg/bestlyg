@@ -7,12 +7,11 @@ from sortedcontainers import SortedDict
 
 
 class Solution:
-    def calculateTax(self, brackets: List[List[int]], income: int) -> float:
-        ans = 0.0
-        prev = 0
-        for [k, v] in brackets:
-            if prev > income:
-                break
-            ans += (min(income, k) - prev) * v / 100
-            prev = k
+    def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List[int]:
+        ans = [0] * len(queries)
+        def d(a, b): return pow(abs(a[0] - b[0]), 2) + pow(abs(a[1] - b[1]), 2)
+        for i in range(0, len(queries)):
+            for p in points:
+                if d(p, queries[i]) <= pow(queries[i][2], 2):
+                    ans[i] += 1
         return ans
