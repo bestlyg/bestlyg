@@ -1,0 +1,24 @@
+{
+    "name": "1632.矩阵转换后的秩",
+    "url": "https://leetcode.cn/problems/rank-transform-of-a-matrix/",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "并查集",
+        "图",
+        "拓扑排序",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个 m x n 的矩阵 matrix ，请你返回一个新的矩阵 answer ，其中 answer[row][col] 是 matrix[row][col] 的秩。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 580,
+            "memory": 85.8,
+            "desc": "对于所有数字进行排序，快速查找当前行列中的最大秩，并对当前行列所有相同的值的秩都进行赋值，利用并查集+缓存快速查找。",
+            "code": "# define X first\n# define Y second\n# define pii pair<int,int>\nclass UnionFind {\npublic:\n    int n;\n    vector<int> data, cnt;\n    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {\n        iota(data.begin(), data.end(), 0);\n    } \n    int size(int v) { return cnt[find(v)]; }\n    int find(int v) {\n        if (data[v] == v) return v;\n        return data[v] = find(data[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;\n    }\n    bool same(int v1, int v2) { return find(v1) == find(v2); }\n};\nint pos2Idx(int x, int y, int size) { \n    return x * size + y; \n}\nvoid idx2Pos(int idx, int size, int &x, int &y) {\n    x = idx / size;\n    y = idx % size;\n}\nvector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };\n// START\n\nclass Solution {\npublic:\n    vector<vector<int>> matrixRankTransform(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        vector<vector<int>> ans(n, vector<int>(m, 0));\n        vector<vector<bool>> cache(n, vector<bool>(m, false));\n        UnionFind uf(n * m);\n        for (int i = 0; i < n; i++) {\n            unordered_map<int, pii> mmap;\n            for (int j = 0; j < m; j++) {\n                int val = matrix[i][j];\n                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));\n                else mmap[val] = make_pair(i, j);\n            }\n        }\n        for (int j = 0; j < m; j++) {\n            unordered_map<int, pii> mmap;\n            for (int i = 0; i < n; i++) {\n                int val = matrix[i][j];\n                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));\n                else mmap[val] = make_pair(i, j);\n            }\n        }\n        unordered_map<int, vector<pii>> mmap;\n        for (int i = 0; i < n * m; i++) {\n            int p = uf.find(i), row, col;\n            idx2Pos(i, m, row, col);\n            mmap[p].push_back(make_pair(row, col));\n        }\n\n        vector<pii> list, rows(n, make_pair(-1, -1)), cols(m, make_pair(-1, -1));\n        for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) list.push_back(make_pair(i, j));\n        sort(list.begin(), list.end(), [&](auto &a, auto &b){ return matrix[a.X][a.Y] < matrix[b.X][b.Y]; });\n\n        auto get_rank = [&](pii &item) -> int {\n            int rank_row = 1, rank_col = 1, rank = ans[item.X][item.Y], val = matrix[item.X][item.Y];\n            auto &row = rows[item.X], &col = cols[item.Y];\n            if (row.X != -1) rank_row = ans[row.X][row.Y] + (matrix[row.X][row.Y] != val);\n            if (col.Y != -1) rank_col = ans[col.X][col.Y] + (matrix[col.X][col.Y] != val);\n            rank = max(rank, max(rank_row, rank_col));\n            return rank;\n        };\n\n        for (auto &item : list) {\n            if (!cache[item.X][item.Y]) {\n                int idx = uf.find(pos2Idx(item.X, item.Y, m)), rank = get_rank(item);\n                for (auto &next : mmap[idx]) {\n                    rank = max(rank, get_rank(next));\n                }\n                for (auto &next : mmap[idx]) {\n                    cache[next.X][next.Y] = true;\n                    ans[next.X][next.Y] = rank;\n                }\n            }\n            rows[item.X] = cols[item.Y] = item;\n        }\n\n        return ans;\n    }\n};\n// END",
+            "date": 1674576000000
+        }
+    ]
+}
