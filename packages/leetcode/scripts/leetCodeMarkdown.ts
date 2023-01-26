@@ -2,143 +2,73 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1632. 矩阵转换后的秩',
-  url: 'https://leetcode.cn/problems/rank-transform-of-a-matrix/',
-  difficulty: Difficulty.困难,
-  tag: [Tag.贪心, Tag.并查集, Tag.图, Tag.拓扑排序, Tag.数组, Tag.矩阵],
-  desc: `给你一个 m x n 的矩阵 matrix ，请你返回一个新的矩阵 answer ，其中 answer[row][col] 是 matrix[row][col] 的秩。`,
+  name: '1663. 具有给定数值的最小字符串',
+  url: 'https://leetcode.cn/problems/smallest-string-with-a-given-numeric-value/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.贪心, Tag.字符串],
+  desc: `给你两个整数 n 和 k 。返回 长度 等于 n 且 数值 等于 k 的 字典序最小 的字符串。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 580,
-      memory: 85.8,
-      desc: '遍历',
-      code: `# define X first
-# define Y second
-# define pii pair<int,int>
-class UnionFind {
+      time: 64,
+      memory: 26.5,
+      desc: '贪心遍历',
+      code: `class Solution {
 public:
-    int n;
-    vector<int> data, cnt;
-    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {
-        iota(data.begin(), data.end(), 0);
-    } 
-    int size(int v) { return cnt[find(v)]; }
-    int find(int v) {
-        if (data[v] == v) return v;
-        return data[v] = find(data[v]);
-    }
-    void uni(int v1, int v2) {
-        int p1 = find(v1), p2 = find(v2);
-        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;
-    }
-    bool same(int v1, int v2) { return find(v1) == find(v2); }
-};
-int pos2Idx(int x, int y, int size) { 
-    return x * size + y; 
-}
-void idx2Pos(int idx, int size, int &x, int &y) {
-    x = idx / size;
-    y = idx % size;
-}
-vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-// START
-
-class Solution {
-public:
-    vector<vector<int>> matrixRankTransform(vector<vector<int>>& matrix) {
-        int n = matrix.size(), m = matrix[0].size();
-        vector<vector<int>> ans(n, vector<int>(m, 0));
-        vector<vector<bool>> cache(n, vector<bool>(m, false));
-        UnionFind uf(n * m);
-        for (int i = 0; i < n; i++) {
-            unordered_map<int, pii> mmap;
-            for (int j = 0; j < m; j++) {
-                int val = matrix[i][j];
-                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));
-                else mmap[val] = make_pair(i, j);
-            }
+    string getSmallestString(int n, int k) {
+        k -= n;
+        string ans = "";
+        while (n--) ans += "a";
+        for (int i = ans.size() - 1; i >= 0 && k; i--) {
+            if (k >= 25) ans[i] = 'z', k -= 25;
+            else ans[i] += k, k = 0;
         }
-        for (int j = 0; j < m; j++) {
-            unordered_map<int, pii> mmap;
-            for (int i = 0; i < n; i++) {
-                int val = matrix[i][j];
-                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));
-                else mmap[val] = make_pair(i, j);
-            }
-        }
-        unordered_map<int, vector<pii>> mmap;
-        for (int i = 0; i < n * m; i++) {
-            int p = uf.find(i), row, col;
-            idx2Pos(i, m, row, col);
-            mmap[p].push_back(make_pair(row, col));
-        }
-
-        vector<pii> list, rows(n, make_pair(-1, -1)), cols(m, make_pair(-1, -1));
-        for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) list.push_back(make_pair(i, j));
-        sort(list.begin(), list.end(), [&](auto &a, auto &b){ return matrix[a.X][a.Y] < matrix[b.X][b.Y]; });
-
-        auto get_rank = [&](pii &item) -> int {
-            int rank_row = 1, rank_col = 1, rank = ans[item.X][item.Y], val = matrix[item.X][item.Y];
-            auto &row = rows[item.X], &col = cols[item.Y];
-            if (row.X != -1) rank_row = ans[row.X][row.Y] + (matrix[row.X][row.Y] != val);
-            if (col.Y != -1) rank_col = ans[col.X][col.Y] + (matrix[col.X][col.Y] != val);
-            rank = max(rank, max(rank_row, rank_col));
-            return rank;
-        };
-
-        for (auto &item : list) {
-            if (!cache[item.X][item.Y]) {
-                int idx = uf.find(pos2Idx(item.X, item.Y, m)), rank = get_rank(item);
-                for (auto &next : mmap[idx]) {
-                    rank = max(rank, get_rank(next));
-                }
-                for (auto &next : mmap[idx]) {
-                    cache[next.X][next.Y] = true;
-                    ans[next.X][next.Y] = rank;
-                }
-            }
-            rows[item.X] = cols[item.Y] = item;
-        }
-
         return ans;
     }
-};
-// END`,
+};`,
     },
     {
       script: Script.PY3,
-      time: 2832,
-      memory: 15.2,
+      time: 7856,
+      memory: 17.3,
       desc: '同上',
       code: `class Solution:
-    def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List[int]:
-        ans = [0] * len(queries)
-        def d(a, b): return pow(abs(a[0] - b[0]), 2) + pow(abs(a[1] - b[1]), 2)
-        for i in range(0, len(queries)):
-            for p in points:
-                if d(p, queries[i]) <= pow(queries[i][2], 2):
-                    ans[i] += 1
+    def getSmallestString(self, n: int, k: int) -> str:
+        ans = ''.join(['a'] * n)
+        k -= n
+        for i in range(n - 1, -1, -1):
+            if k >= 25:
+                ans = ans[:i] + "z" + ans[i + 1:]
+                k -= 25
+            else:
+                ans = ans[:i] + chr(k + ord('a')) + ans[i + 1:]
+                k = 0
+            if not k:
+                break
         return ans`,
     },
     {
       script: Script.RUST,
-      time: 20,
-      memory: 2.2,
+      time: 8,
+      memory: 2.5,
       desc: '同上',
       code: `impl Solution {
-    pub fn count_points(points: Vec<Vec<i32>>, queries: Vec<Vec<i32>>) -> Vec<i32> {
-        let d =
-            |a: &Vec<i32>, b: &Vec<i32>| (a[0] - b[0]).abs().pow(2) + (a[1] - b[1]).abs().pow(2);
-        let mut ans = vec![0; queries.len()];
-        for i in 0..queries.len() {
-            for p in points.iter() {
-                if d(&queries[i], p) <= queries[i][2].pow(2) {
-                    ans[i] += 1;
-                }
+    pub fn get_smallest_string(n: i32, k: i32) -> String {
+        let mut k = k;
+        k -= n;
+        let mut ans = vec!['a'; n as usize];
+        let mut i = n as usize - 1;
+        while k != 0 {
+            if k >= 25 {
+                ans[i] = 'z';
+                k -= 25;
+            } else {
+                ans[i] = ('a' as i32 + k) as u8 as char;
+                k = 0
             }
+            i -= 1;
         }
-        ans
+        ans.into_iter().collect::<String>()
     }
 }`,
     },
