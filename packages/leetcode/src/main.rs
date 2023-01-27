@@ -11,22 +11,20 @@ fn main() {
     println!("res = {res:#?}");
 }
 impl Solution {
-    pub fn greatest_letter(s: String) -> String {
-        let s = s.chars().collect::<Vec<char>>();
-        let mut ans = 0usize;
-        let mut map = [0; 128];
-        for c in s {
-            map[c as usize] += 1;
-            let upper_c = c.to_uppercase().next().unwrap() as usize;
-            let lower_c = c.to_lowercase().next().unwrap() as usize;
-            if map[upper_c] > 0 && map[lower_c] > 0 && ans < upper_c {
-                ans = upper_c;
+    pub fn ways_to_make_fair(nums: Vec<i32>) -> i32 {
+        let mut l = [0; 2];
+        let mut r = [0; 2];
+        let mut ans = 0;
+        for i in 0..nums.len() {
+            r[i % 2] += nums[i];
+        }
+        for i in 0..nums.len() {
+            r[i % 2] -= nums[i];
+            if l[0] + r[1] == l[1] + r[0] {
+                ans += 1;
             }
+            l[i % 2] += nums[i];
         }
-        if ans == 0 {
-            "".to_string()
-        } else {
-            String::from(ans as u8 as char)
-        }
+        ans
     }
 }

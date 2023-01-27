@@ -7,21 +7,24 @@ from sortedcontainers import SortedDict
 
 
 class Solution:
-    def greatestLetter(self, s: str) -> str:
-        ans = ""
-        sset = set()
-        for i, c in enumerate(s):
-            sset.add(c)
-            if c.isupper() and c.lower() in sset and (ans == "" or ans[0] < c) or c.islower() and c.upper() in sset and (ans == "" or ans[0] < c.upper()):
-                 ans = c.upper()
-            print(i, c, ans)
+    def waysToMakeFair(self, nums: List[int]) -> int:
+        l = [0] * 2
+        r = [0] * 2
+        ans = 0
+        for i, num in enumerate(nums):
+            r[i % 2] += num
+        for i, num in enumerate(nums):
+            r[i % 2] -= num
+            if l[0] + r[1] == l[1] + r[0]:
+                ans += 1
+            l[i % 2] += num
         return ans
-
 
 
 def main():
     o = Solution()
     res = o.greatestLetter("arRAzFif")
     print(res)
+
 
 main()
