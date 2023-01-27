@@ -11,21 +11,22 @@ fn main() {
     println!("res = {res:#?}");
 }
 impl Solution {
-    pub fn get_smallest_string(n: i32, k: i32) -> String {
-        let mut k = k;
-        let mut ans = vec!['a'; n as usize];
-        k -= n;
-        let mut i = n as usize - 1;
-        while k != 0 {
-            if k >= 25 {
-                ans[i] = 'z';
-                k -= 25;
-            } else {
-                ans[i] = ('a' as i32 + k) as u8 as char;
-                k = 0
+    pub fn greatest_letter(s: String) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        let mut ans = 0usize;
+        let mut map = [0; 128];
+        for c in s {
+            map[c as usize] += 1;
+            let upper_c = c.to_uppercase().next().unwrap() as usize;
+            let lower_c = c.to_lowercase().next().unwrap() as usize;
+            if map[upper_c] > 0 && map[lower_c] > 0 && ans < upper_c {
+                ans = upper_c;
             }
-            i -= 1;
         }
-        ans.into_iter().collect::<String>()
+        if ans == 0 {
+            "".to_string()
+        } else {
+            String::from(ans as u8 as char)
+        }
     }
 }

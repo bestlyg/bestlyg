@@ -2,7 +2,7 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1663. 具有给定数值的最小字符串',
+  name: '2309. 兼具大小写的最好英文字母',
   url: 'https://leetcode.cn/problems/smallest-string-with-a-given-numeric-value/',
   difficulty: Difficulty.中等,
   tag: [Tag.贪心, Tag.字符串],
@@ -10,18 +10,18 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 64,
-      memory: 26.5,
-      desc: '贪心遍历',
+      time: 8,
+      memory: 6.4,
+      desc: '遍历',
       code: `class Solution {
 public:
-    string getSmallestString(int n, int k) {
-        k -= n;
+    string greatestLetter(string s) {
         string ans = "";
-        while (n--) ans += "a";
-        for (int i = ans.size() - 1; i >= 0 && k; i--) {
-            if (k >= 25) ans[i] = 'z', k -= 25;
-            else ans[i] += k, k = 0;
+        int map[128] = {0};
+        for (auto &c : s) {
+            map[c]++;
+            if (isupper(c) && map[tolower(c)] && (ans == "" || ans[0] < c) ||
+                islower(c) && map[toupper(c)] && (ans == "" || ans[0] < toupper(c))) ans = toupper(c);
         }
         return ans;
     }
@@ -29,46 +29,42 @@ public:
     },
     {
       script: Script.PY3,
-      time: 7856,
-      memory: 17.3,
+      time: 56,
+      memory: 15,
       desc: '同上',
       code: `class Solution:
-    def getSmallestString(self, n: int, k: int) -> str:
-        ans = ''.join(['a'] * n)
-        k -= n
-        for i in range(n - 1, -1, -1):
-            if k >= 25:
-                ans = ans[:i] + "z" + ans[i + 1:]
-                k -= 25
-            else:
-                ans = ans[:i] + chr(k + ord('a')) + ans[i + 1:]
-                k = 0
-            if not k:
-                break
-        return ans`,
+def greatestLetter(self, s: str) -> str:
+    ans = ""
+    sset = set()
+    for i, c in enumerate(s):
+        sset.add(c)
+        if c.isupper() and c.lower() in sset and (ans == "" or ans[0] < c) or c.islower() and c.upper() in sset and (ans == "" or ans[0] < c.upper()):
+             ans = c.upper()
+    return ans`,
     },
     {
       script: Script.RUST,
-      time: 8,
-      memory: 2.5,
+      time: 4,
+      memory: 2,
       desc: '同上',
       code: `impl Solution {
-    pub fn get_smallest_string(n: i32, k: i32) -> String {
-        let mut k = k;
-        k -= n;
-        let mut ans = vec!['a'; n as usize];
-        let mut i = n as usize - 1;
-        while k != 0 {
-            if k >= 25 {
-                ans[i] = 'z';
-                k -= 25;
-            } else {
-                ans[i] = ('a' as i32 + k) as u8 as char;
-                k = 0
+    pub fn greatest_letter(s: String) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        let mut ans = 0usize;
+        let mut map = [0; 128];
+        for c in s {
+            map[c as usize] += 1;
+            let upper_c = c.to_uppercase().next().unwrap() as usize;
+            let lower_c = c.to_lowercase().next().unwrap() as usize;
+            if map[upper_c] > 0 && map[lower_c] > 0 && ans < upper_c {
+                ans = upper_c;
             }
-            i -= 1;
         }
-        ans.into_iter().collect::<String>()
+        if ans == 0 {
+            "".to_string()
+        } else {
+            String::from(ans as u8 as char)
+        }
     }
 }`,
     },

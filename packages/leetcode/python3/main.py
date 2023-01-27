@@ -7,25 +7,21 @@ from sortedcontainers import SortedDict
 
 
 class Solution:
-    def getSmallestString(self, n: int, k: int) -> str:
-        ans = ''.join(['a'] * n)
-        k -= n
-        for i in range(n - 1, 0, -1):
-            print(i, ans, k)
-            if k >= 25:
-                ans = ans[:i] + "z" + ans[i + 1:]
-                k -= 25
-            else:
-                ans = ans[:i] + chr(k + ord('a')) + ans[i + 1:]
-                k = 0
-            if not k:
-                break
+    def greatestLetter(self, s: str) -> str:
+        ans = ""
+        sset = set()
+        for i, c in enumerate(s):
+            sset.add(c)
+            if c.isupper() and c.lower() in sset and (ans == "" or ans[0] < c) or c.islower() and c.upper() in sset and (ans == "" or ans[0] < c.upper()):
+                 ans = c.upper()
+            print(i, c, ans)
         return ans
+
 
 
 def main():
     o = Solution()
-    res = o.getSmallestString(3, 27)
+    res = o.greatestLetter("arRAzFif")
     print(res)
 
 main()
