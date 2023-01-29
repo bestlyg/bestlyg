@@ -7,17 +7,14 @@ from sortedcontainers import SortedDict
 
 
 class Solution:
-    def waysToMakeFair(self, nums: List[int]) -> int:
-        l = [0] * 2
-        r = [0] * 2
+    def countAsterisks(self, s: str) -> int:
+        list = s.split('|')
         ans = 0
-        for i, num in enumerate(nums):
-            r[i % 2] += num
-        for i, num in enumerate(nums):
-            r[i % 2] -= num
-            if l[0] + r[1] == l[1] + r[0]:
-                ans += 1
-            l[i % 2] += num
+        for i in range(len(list)):
+            if i % 2 == 0:
+                for c in list[i]:
+                    if c == '*':
+                        ans += 1
         return ans
 
 

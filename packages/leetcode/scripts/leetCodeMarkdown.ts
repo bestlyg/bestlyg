@@ -2,26 +2,26 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1664. 生成平衡数组的方案数',
-  url: 'https://leetcode.cn/problems/ways-to-make-a-fair-array/',
-  difficulty: Difficulty.中等,
-  tag: [Tag.数组, Tag.动态规划],
-  desc: `如果一个数组满足奇数下标元素的和与偶数下标元素的和相等，该数组就是一个 平衡数组 。请你返回删除操作后，剩下的数组 nums 是 平衡数组 的 方案数 。`,
+  name: '2315. 统计星号',
+  url: 'https://leetcode.cn/problems/count-asterisks/',
+  difficulty: Difficulty.简单,
+  tag: [Tag.字符串],
+  desc: `请你返回 不在 竖线对之间，s 中 '*' 的数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 108,
-      memory: 92,
+      time: 4,
+      memory: 6.5,
       desc: '遍历',
       code: `class Solution {
 public:
-    int waysToMakeFair(vector<int>& nums) {
-        int l[2] = {0}, r[2] = {0}, ans = 0;
-        for (int i = 0; i < nums.size(); i++) r[i % 2] += nums[i];
-        for (int i = 0; i < nums.size(); i++) {
-            r[i % 2] -= nums[i];
-            if (l[0] + r[1] == l[1] + r[0]) ans++;
-            l[i % 2] += nums[i];
+    int countAsterisks(string s) {
+        istringstream iss(s);
+        string tmp;
+        int ans = 0;
+        for (int i = 0; getline(iss, tmp, '|'); i++) {
+            if (i % 2 == 0) 
+                for (auto &c : tmp) if (c == '*') ans++;
         }
         return ans;
     }
@@ -29,46 +29,50 @@ public:
     },
     {
       script: Script.PY3,
-      time: 328,
-      memory: 19.7,
+      time: 48,
+      memory: 15,
       desc: '同上',
       code: `class Solution:
-def waysToMakeFair(self, nums: List[int]) -> int:
-    l = [0] * 2
-    r = [0] * 2
-    ans = 0
-    for i, num in enumerate(nums):
-        r[i % 2] += num
-    for i, num in enumerate(nums):
-        r[i % 2] -= num
-        if l[0] + r[1] == l[1] + r[0]:
-            ans += 1
-        l[i % 2] += num
-    return ans`,
+    def countAsterisks(self, s: str) -> int:
+        list = s.split('|')
+        ans = 0
+        for i in range(len(list)):
+            if i % 2 == 0:
+                for c in list[i]:
+                    if c == '*':
+                        ans += 1
+        return ans`,
     },
     {
       script: Script.RUST,
-      time: 8,
-      memory: 2.5,
+      time: 0,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn ways_to_make_fair(nums: Vec<i32>) -> i32 {
-        let mut l = [0; 2];
-        let mut r = [0; 2];
+    pub fn count_asterisks(s: String) -> i32 {
+        let list = s.split('|').collect::<Vec<_>>();
         let mut ans = 0;
-        for i in 0..nums.len() {
-            r[i % 2] += nums[i];
-        }
-        for i in 0..nums.len() {
-            r[i % 2] -= nums[i];
-            if l[0] + r[1] == l[1] + r[0] {
-                ans += 1;
+        for i in 0..list.len() {
+            if i % 2 == 0 {
+                for c in list[i].chars() {
+                    if c == '*' {
+                        ans += 1
+                    }
+                }
             }
-            l[i % 2] += nums[i];
         }
         ans
     }
 }`,
+    },
+    {
+      script: Script.TS,
+      time: 68,
+      memory: 43.9,
+      desc: '同上',
+      code: `function countAsterisks(s: string): number {
+        return s.split('|').filter((_, i) => i % 2 === 0).reduce((sum, cur) => sum + cur.split('').filter(v => v === '*').length, 0)
+    };`,
     },
   ],
 };
