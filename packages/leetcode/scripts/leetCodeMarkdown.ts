@@ -2,42 +2,51 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6339. 将珠子放入背包中',
-  url: 'https://leetcode.cn/problems/put-marbles-in-bags/',
-  difficulty: Difficulty.困难,
-  tag: [],
-  desc: `一个珠子分配方案的 分数 是所有 k 个背包的价格之和。请你返回所有分配方案中，最大分数 与 最小分数 的 差值 为多少。`,
+  name: '1669. 合并两个链表',
+  url: 'https://leetcode.cn/problems/merge-in-between-linked-lists/',
+  difficulty: Difficulty.中等,
+  tag: [Tag.链表],
+  desc: `给你两个链表 list1 和 list2 ，它们包含的元素分别为 n 个和 m 个。请你将 list1 中下标从 a 到 b 的全部节点都删除，并将list2 接在被删除节点的位置。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 152,
-      memory: 67.6,
-      desc: '贪心，只统计首位，当一个珠子当前组是末尾时，下一个珠子是下一组的首个',
+      time: 260,
+      memory: 92.2,
+      desc: '双指针',
       code: `class Solution {
 public:
-    long long putMarbles(vector<int>& weights, int k) {
-        vector<long long> list;
-        for (int i = 1; i < weights.size(); i++) list.push_back(weights[i - 1] + weights[i]);
-        sort(list.begin(), list.end());
-        long long ans = 0;
-        for (int i = 0; i < k - 1; i++) ans += list[list.size() - i - 1] - list[i];
-        return ans;
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        ListNode *p1 = list1, *p2 = list2, *tmp;
+        for (int i = 0; i < a - 1; i++) p1 = p1->next;
+        tmp = p1->next;
+        p1->next = list2;
+        p1 = tmp;
+        while (p2->next) p2 = p2->next;
+        for (int i = 0; i < b - a; i++) p1 = p1->next;
+        p2->next = p1->next;
+        return list1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 224,
-      memory: 25.4,
+      time: 372,
+      memory: 21.8,
       desc: '同上',
       code: `class Solution:
-    def putMarbles(self, weights: List[int], k: int) -> int:
-        list=[]
-        n = len(weights)
-        for i in range(1, n):
-            list.append(weights[i - 1] + weights[i])
-        list.sort()
-        return sum(list[len(list) - k + 1:]) - sum(list[:k - 1])`,
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        p1, p2 = list1, list2
+        for _ in range(a - 1):
+            p1 = p1.next
+        tmp = p1.next
+        p1.next = list2
+        p1 = tmp
+        while p2.next:
+            p2 = p2.next
+        for _ in range(b - a):
+            p1 = p1.next
+        p2.next = p1.next
+        return list1`,
     },
     {
       script: Script.RUST,
@@ -62,19 +71,42 @@ public:
     },
     {
       script: Script.RUST,
-      time: 36,
-      memory: 3.5,
+      time: 52,
+      memory: 3.6,
       desc: '同上',
       code: `impl Solution {
-    pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
-        let mut list = Vec::new();
-        for i in 1..weights.len() {
-            list.push(weights[i - 1] + weights[i]);
+    pub fn merge_in_between(
+        list1: Option<Box<ListNode>>,
+        a: i32,
+        b: i32,
+        list2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
+        let mut list = Vec::<i32>::new();
+        let mut p1 = &list1;
+        let mut p2 = &list2;
+        for _ in 0..a {
+            list.push(p1.as_ref().unwrap().val);
+            p1 = &p1.as_ref().unwrap().next;
         }
-        list.sort();
-        let fold = |sum, cur: &i32| sum + (*cur) as i64;
-        list[list.len() - k as usize + 1..].iter().fold(0, fold)
-            - list[..k as usize - 1].iter().fold(0, fold)
+        while let Some(ref node) = p2 {
+            list.push(node.val);
+            p2 = &node.next;
+        }
+        for _ in a..=b {
+            p1 = &p1.as_ref().unwrap().next;
+        }
+        while let Some(ref node) = p1 {
+            list.push(node.val);
+            p1 = &node.next;
+        }
+        let mut ans = Box::new(ListNode::new(0));
+        let mut p = &mut ans;
+        for num in list {
+            let mut node = p.as_mut();
+            node.next = Some(Box::new(ListNode::new(num)));
+            p = node.next.as_mut().unwrap();
+        }
+        ans.next
     }
 }`,
     },

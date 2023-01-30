@@ -26,6 +26,16 @@
 typedef long long ll;
 using namespace std;
 
+#ifdef LOCAL
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+#endif
+
 class UnionFind {
 public:
     int n;
@@ -54,28 +64,21 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-typedef long long ll;
 class Solution {
 public:
-    ll putMarbles(vector<int>& weights, int k) {
-        ll n = weights.size();
-        vector<vector<ll>> dp1(k + 1, vector<ll>(n + 1, 0)), dp2(k + 1, vector<ll>(n + 1, 0x7fffffff));
-        for (ll c = 1; c <= k; c++) {
-            for (ll i = 1; i <= n; i++) {
-                ll val = weights[i - 1];
-                for (ll j = i - 1; j >= k; j--) {
-                    dp1[c][i] = max(dp1[c][i], val + weights[j - 1] + dp1[c - 1][j - 1]);
-                    dp2[c][i] = min(dp1[c][i], val + weights[j - 1] + dp1[c - 1][j - 1]);
-                    cout << "c = " << c << ", i = " <<  i << ", j = " << j 
-                         << ", dp1 = " << dp1[c][i] << ", dp2 = " << dp2[c][i] << endl;
-                }
-            }
-        }
-        cout << dp1[k][n] << ", " << dp2[k][n] << endl;
-        return dp1[k][n] - dp2[k][n];
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        ListNode *p1 = list1, *p2 = list2, *tmp;
+        for (int i = 0; i < a - 1; i++) p1 = p1->next;
+        tmp = p1->next;
+        p1->next = list2;
+        p1 = tmp;
+        while (p2->next) p2 = p2->next;
+        for (int i = 0; i < b - a; i++) p1 = p1->next;
+        p2->next = p1->next;
+        cout << p1->val << endl;
+        return list1;
     }
 };
-
 
 // END
 #ifdef LOCAL
