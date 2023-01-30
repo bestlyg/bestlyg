@@ -2,77 +2,81 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2315. 统计星号',
-  url: 'https://leetcode.cn/problems/count-asterisks/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.字符串],
-  desc: `请你返回 不在 竖线对之间，s 中 '*' 的数目。`,
+  name: '6339. 将珠子放入背包中',
+  url: 'https://leetcode.cn/problems/put-marbles-in-bags/',
+  difficulty: Difficulty.困难,
+  tag: [],
+  desc: `一个珠子分配方案的 分数 是所有 k 个背包的价格之和。请你返回所有分配方案中，最大分数 与 最小分数 的 差值 为多少。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 6.5,
-      desc: '遍历',
+      time: 152,
+      memory: 67.6,
+      desc: '贪心，只统计首位，当一个珠子当前组是末尾时，下一个珠子是下一组的首个',
       code: `class Solution {
 public:
-    int countAsterisks(string s) {
-        istringstream iss(s);
-        string tmp;
-        int ans = 0;
-        for (int i = 0; getline(iss, tmp, '|'); i++) {
-            if (i % 2 == 0) 
-                for (auto &c : tmp) if (c == '*') ans++;
-        }
+    long long putMarbles(vector<int>& weights, int k) {
+        vector<long long> list;
+        for (int i = 1; i < weights.size(); i++) list.push_back(weights[i - 1] + weights[i]);
+        sort(list.begin(), list.end());
+        long long ans = 0;
+        for (int i = 0; i < k - 1; i++) ans += list[list.size() - i - 1] - list[i];
         return ans;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 48,
-      memory: 15,
+      time: 224,
+      memory: 25.4,
       desc: '同上',
       code: `class Solution:
-    def countAsterisks(self, s: str) -> int:
-        list = s.split('|')
-        ans = 0
-        for i in range(len(list)):
-            if i % 2 == 0:
-                for c in list[i]:
-                    if c == '*':
-                        ans += 1
-        return ans`,
+    def putMarbles(self, weights: List[int], k: int) -> int:
+        list=[]
+        n = len(weights)
+        for i in range(1, n):
+            list.append(weights[i - 1] + weights[i])
+        list.sort()
+        return sum(list[len(list) - k + 1:]) - sum(list[:k - 1])`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 40,
+      memory: 3.5,
       desc: '同上',
       code: `impl Solution {
-    pub fn count_asterisks(s: String) -> i32 {
-        let list = s.split('|').collect::<Vec<_>>();
+    pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
+        let mut list = Vec::new();
+        for i in 1..weights.len() {
+            list.push(weights[i - 1] + weights[i]);
+        }
+        list.sort();
         let mut ans = 0;
-        for i in 0..list.len() {
-            if i % 2 == 0 {
-                for c in list[i].chars() {
-                    if c == '*' {
-                        ans += 1
-                    }
-                }
-            }
+        for i in 0..k - 1 {
+            let i = i as usize;
+            ans += (list[list.len() - i - 1] - list[i]) as i64;
         }
         ans
     }
 }`,
     },
     {
-      script: Script.TS,
-      time: 68,
-      memory: 43.9,
+      script: Script.RUST,
+      time: 36,
+      memory: 3.5,
       desc: '同上',
-      code: `function countAsterisks(s: string): number {
-        return s.split('|').filter((_, i) => i % 2 === 0).reduce((sum, cur) => sum + cur.split('').filter(v => v === '*').length, 0)
-    };`,
+      code: `impl Solution {
+    pub fn put_marbles(weights: Vec<i32>, k: i32) -> i64 {
+        let mut list = Vec::new();
+        for i in 1..weights.len() {
+            list.push(weights[i - 1] + weights[i]);
+        }
+        list.sort();
+        let fold = |sum, cur: &i32| sum + (*cur) as i64;
+        list[list.len() - k as usize + 1..].iter().fold(0, fold)
+            - list[..k as usize - 1].iter().fold(0, fold)
+    }
+}`,
     },
   ],
 };

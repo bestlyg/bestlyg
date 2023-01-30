@@ -79,5 +79,17 @@ impl<T: Ord + Copy + Clone> MulitSet<T> {
         key
     }
 }
-
+pub fn pow(base: i64, exp: i64, mod_num: i64) -> i64 {
+    let mut exp = exp;
+    let mut tmp = base;
+    let mut ans = 1;
+    while exp != 0 {
+        if exp % 2 == 1 {
+            ans = (ans * tmp) % mod_num;
+        }
+        tmp = (tmp * tmp) % mod_num;
+        exp >>= 1
+    }
+    ans
+}
 pub struct Solution;

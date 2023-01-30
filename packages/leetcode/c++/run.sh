@@ -12,5 +12,5 @@ else
     debug=
 fi
 
-g++ $file --std=c++17 $debug -O2
+g++ $file --std=c++17 -DLOCAL $debug -O2
 ./a.out < input

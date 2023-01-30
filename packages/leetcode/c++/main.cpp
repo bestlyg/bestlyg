@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <unordered_set>
 #include <unordered_map>
+#include <queue>
 
 // bestlyg
 # define X first
@@ -53,109 +54,35 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
+typedef long long ll;
 class Solution {
 public:
-    vector<vector<int>> matrixRankTransform(vector<vector<int>>& matrix) {
-        int n = matrix.size(), m = matrix[0].size();
-        vector<vector<int>> ans(n, vector<int>(m, 0));
-
-        UnionFind uf(n * m);
-        for (int i = 0; i < n; i++) {
-            unordered_map<int, pii> mmap;
-            for (int j = 0; j < m; j++) {
-                int val = matrix[i][j];
-                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));
-                else mmap[val] = make_pair(i, j);
+    ll putMarbles(vector<int>& weights, int k) {
+        ll n = weights.size();
+        vector<vector<ll>> dp1(k + 1, vector<ll>(n + 1, 0)), dp2(k + 1, vector<ll>(n + 1, 0x7fffffff));
+        for (ll c = 1; c <= k; c++) {
+            for (ll i = 1; i <= n; i++) {
+                ll val = weights[i - 1];
+                for (ll j = i - 1; j >= k; j--) {
+                    dp1[c][i] = max(dp1[c][i], val + weights[j - 1] + dp1[c - 1][j - 1]);
+                    dp2[c][i] = min(dp1[c][i], val + weights[j - 1] + dp1[c - 1][j - 1]);
+                    cout << "c = " << c << ", i = " <<  i << ", j = " << j 
+                         << ", dp1 = " << dp1[c][i] << ", dp2 = " << dp2[c][i] << endl;
+                }
             }
         }
-        for (int j = 0; j < m; j++) {
-            unordered_map<int, pii> mmap;
-            for (int i = 0; i < n; i++) {
-                int val = matrix[i][j];
-                if (mmap.count(val)) uf.uni(pos2Idx(mmap[val].X, mmap[val].Y, m), pos2Idx(i, j, m));
-                else mmap[val] = make_pair(i, j);
-            }
-        }
-        unordered_map<int, vector<pii>> mmap;
-        for (int i = 0; i < n * m; i++) {
-            int p = uf.find(i), row, col;
-            idx2Pos(i, m, row, col);
-            mmap[p].push_back(make_pair(row, col));
-        }
-
-        vector<pii> list, rows(n, make_pair(-1, -1)), cols(m, make_pair(-1, -1));
-        for (int i = 0; i < n; i++) for (int j = 0; j < m; j++) list.push_back(make_pair(i, j));
-        sort(list.begin(), list.end(), [&](auto &a, auto &b){ return matrix[a.X][a.Y] < matrix[b.X][b.Y]; });
-        
-
-        for (auto &item : list) {
-            cout << "====" << endl
-                 << "item(" << item.X << ", " << item.Y << ")" << matrix[item.X][item.Y]
-                 << ", rows(" << rows[item.X].X << ", " << rows[item.X].Y << ")"
-                 << ", cols(" << cols[item.Y].X << ", " << cols[item.Y].Y << ")" 
-                 << endl;
-            int rank_row = 1, rank_col = 1, rank, idx = uf.find(pos2Idx(item.X, item.Y, m)), val = matrix[item.X][item.Y];
-            auto &row = rows[item.X], &col = cols[item.Y];
-            if (row.X != -1)
-                rank_row = ans[row.X][row.Y] + (matrix[row.X][row.Y] != val);
-            if (col.Y != -1)
-                rank_col = ans[col.X][col.Y] + (matrix[col.X][col.Y] != val);
-            rank = max(rank_row, rank_col);
-            cout << "rank_row = " << rank_row << ", rank_col = " << rank_col << endl;
-            for (auto &next : mmap[idx]) {
-                cout << "next(" << next.X << ", " << next.Y << ")" << endl;
-                ans[next.X][next.Y] = rank;
-            }
-            row = col = item;
-        }
-
-        return ans;
-    }
-
-    void print(vector<vector<int>> &list) {
-        cout << "====ans====" << endl;
-        for (auto &item : list) {
-            for (auto &v : item) {
-                cout << v << " ";
-            }
-            cout << endl;
-        }
+        cout << dp1[k][n] << ", " << dp2[k][n] << endl;
+        return dp1[k][n] - dp2[k][n];
     }
 };
+
+
 // END
-
-
-void print(vector<vector<int>> &list) {
-    cout << "====ans====" << endl;
-    for (auto &item : list) {
-        for (auto &v : item) {
-            printf("%3d ", v);
-        }
-        cout << endl;
-    }
-}
-
+#ifdef LOCAL
 int main() {
-    vector<vector<int>> matrix = {
-        {25, 8, 31, 42, -39, 8, 31, -10, 33, -44, 7, -30, 9, 44, 15, 26}, 
-        {-3, -48, -17, -18, 9, -12, -21, 10, 1, 44, -17, 14, -27, 48, -21, -6}, 
-        {49, 28, 27, -18, -31, 4, -13, 34, 49, 48, 47, -18, 33, 40, 15, 38}, 
-        {5, -28, -49, -38, 1, 32, -25, -50, 29, -32, 35, -46, -43, 48, -49, -6}, 
-        {-27, -24, 23, -14, -47, -12, 7, 6, 25, -16, 47, -26, 13, -12, -33, -18}, 
-        {45, -48, 3, -26, -23, -36, -17, 38, 17, 12, 15, 46, 37, 40, 47, 26}, 
-        {-19, -24, -21, -2, -7, -48, 47, 30, 5, -8, 23, -46, 21, -32, -33, -26}, 
-        {-27, 32, 27, -26, 21, -32, -49, -10, 5, 20, -29, 46, -43, -44, 39, 22}, 
-        {-43, 48, 27, 26, -27, 12, -1, -10, -27, 12, -29, -34, 41, -28, -25, -30}, 
-        {25, -36, 35, -26, 37, -20, 31, 14, -19, -40, -29, -2, -39, -28, 11, 46}, 
-        {49, -32, -29, -6, -47, 32, -17, -18, -23, 24, 23, 22, -47, -44, 27, 14}, 
-        {37, -44, -33, -18, -47, 24, -17, -46, -43, -32, 15, -46, -27, -8, -25, 46}, 
-        {41, -40, 31, -30, 13, -24, -29, 22, -15, -16, 47, 2, -39, 4, -25, -42}, 
-        {-3, 12, 7, 14, -7, 8, -37, -34, -7, -12, 39, -38, 1, 44, 27, -34}, 
-        {-47, 4, 7, -2, -43, -32, 27, 2, -43, -8, -33, 14, 49, -48, -5, 30}, 
-        {-15, 8, -33, -26, -23, -32, -25, 22, 13, -20, -9, 26, 29, 4, -1, 2}, 
-    };
     Solution s;
     auto res = s.matrixRankTransform(matrix);
     print(res);
     return 0;
 }
+#endif
