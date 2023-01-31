@@ -1,22 +1,22 @@
 server=bestlyg-server
 # echo Deploy Project
 # docker-compose up -d --force-recreate --build
-echo `pm2 delete $delete`
+echo "pm2 delete $delete"
 pm2 delete $server
-echo `git pull`
+echo "git pull"
 git pull
-echo `pnpm i`
+echo "pnpm i"
 pnpm i
 # pnpm run build
-echo `pnpm --filter leetcode build`
+echo "pnpm --filter leetcode build"
 pnpm --filter leetcode build
-echo `rm -rf ./packages/site/docs/leetcode`
+echo "rm -rf ./packages/site/docs/leetcode"
 rm -rf ./packages/site/docs/leetcode
-echo `cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode`
+echo "cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode"
 cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode
-echo `pnpm --filter site build`
+echo "pnpm --filter site build"
 pnpm --filter site build
-echo `pnpm --filter server build`
+echo "pnpm --filter server build"
 pnpm --filter server build
 # 强制重新编译容器
 # docker-compose down
@@ -25,7 +25,7 @@ pnpm --filter server build
 # rm -rf /etc/nginx/conf.d
 # cp -r nginx/server /etc/nginx/conf.d
 # nginx -s reload
-echo `pm2 start packages/server/dist/main.js --name $server`
+echo "pm2 start packages/server/dist/main.js --name $server"
 pm2 start packages/server/dist/main.js --name $server
 
 # docker-compose up -d --force-recreate --build
