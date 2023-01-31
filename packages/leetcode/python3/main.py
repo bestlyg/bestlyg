@@ -9,19 +9,17 @@ class ListNode:
         self.next = next
 
 class Solution:
-    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
-        p1, p2 = list1, list2
-        for _ in range(a - 1):
-            p1 = p1.next
-        tmp = p1.next
-        p1.next = list2
-        p1 = tmp
-        while p2.next:
-            p2 = p2.next
-        for _ in range(b - a):
-            p1 = p1.next
-        p2.next = p1.next
-        return list1
+    def checkXMatrix(self, grid: List[List[int]]) -> bool:
+        n = len(grid)
+        for i in range(n):
+            for j in range(n):
+                if i == j or i == n - 1 - j:
+                    if grid[i][j] == 0:
+                        return False
+                elif grid[i][j] != 0:
+                    return False
+        return True
+
 
 
 def main():
