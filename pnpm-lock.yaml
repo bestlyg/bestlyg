@@ -72,6 +72,7 @@ importers:
   packages/leetcode:
     specifiers:
       '@types/node': ^18.11.18
+      axios: ^0.27.2
       chalk: '4'
       dayjs: ^1.11.7
       fs-extra: ^11.1.0
@@ -81,6 +82,7 @@ importers:
       typescript: ^4.9.4
     devDependencies:
       '@types/node': 18.11.18
+      axios: 0.27.2
       chalk: 4.1.2
       dayjs: 1.11.7
       fs-extra: 11.1.0
