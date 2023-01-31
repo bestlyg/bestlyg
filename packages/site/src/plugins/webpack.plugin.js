@@ -9,7 +9,7 @@ module.exports = function () {
         content,
       });
       return {
-        // cache: { type: 'filesystem' },
+        cache: { type: 'filesystem' },
         // proxy: {},
       };
     },
