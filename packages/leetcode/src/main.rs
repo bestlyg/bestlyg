@@ -10,20 +10,28 @@ fn main() {
     // let res = func(55);
     // println!("res = {res:#?}");
 }
+
 impl Solution {
-    pub fn check_x_matrix(grid: Vec<Vec<i32>>) -> bool {
-        let n = grid.len();
-        for i in 0..n {
-            for j in 0..n {
-                if i == j || i == n - 1 - j {
-                    if grid[i][j] == 0 {
-                        return false;
-                    }
-                } else if grid[i][j] != 0 {
-                    return false;
-                }
+    pub fn decode_message(key: String, message: String) -> String {
+        let message = message.chars().collect::<Vec<char>>();
+        let key = key.chars().collect::<Vec<char>>();
+        let mut list = ['\0'; 26];
+        let mut ans = String::new();
+        let mut p = 'a';
+        for c in key {
+            let i = c as usize - 'a' as usize;
+            if c != ' ' && list[i] == '\0' {
+                list[i] = p;
+                p = (p as u8 + 1) as char;
             }
         }
-        return true;
+        for c in message {
+            if c == ' ' {
+                ans.push(' ');
+            } else {
+                ans.push(list[c as usize - 'a' as usize]);
+            }
+        }
+        ans
     }
 }

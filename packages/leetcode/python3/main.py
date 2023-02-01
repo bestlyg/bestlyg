@@ -3,23 +3,30 @@ from typing import List
 from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
-class Solution:
-    def checkXMatrix(self, grid: List[List[int]]) -> bool:
-        n = len(grid)
-        for i in range(n):
-            for j in range(n):
-                if i == j or i == n - 1 - j:
-                    if grid[i][j] == 0:
-                        return False
-                elif grid[i][j] != 0:
-                    return False
-        return True
 
+class Solution:
+    def decodeMessage(self, key: str, message: str) -> str:
+        list = [''] * 26
+        p = 'a'
+        for c in key:
+            i = ord(c) - ord('a')
+            if c != ' ' and list[i] == 0:
+                list[i] = p
+                p = p + 1
+        ans = ''
+        for c in message:
+            if c == ' ':
+                ans += ' '
+            else:
+                ans += list[ord(c) - ord('a')]
+        return ans
 
 
 def main():

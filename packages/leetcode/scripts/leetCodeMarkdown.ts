@@ -2,11 +2,11 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2319. 判断矩阵是否是一个 X 矩阵',
-  url: 'https://leetcode.cn/problems/check-if-matrix-is-x-matrix/',
+  name: '2325. 解密消息',
+  url: 'https://leetcode.cn/problems/decode-the-message/',
   difficulty: Difficulty.简单,
-  tag: [Tag.数组,Tag.矩阵],
-  desc: `给你一个大小为 n x n 的二维整数数组 grid ，表示一个正方形矩阵。如果 grid 是一个 X 矩阵 ，返回 true ；否则，返回 false 。`,
+  tag: [Tag.哈希表, Tag.字符串],
+  desc: `返回解密后的消息。`,
   solutions: [
     {
       script: Script.CPP,
@@ -15,58 +15,69 @@ const leetCodeMarkdown: Markdown = {
       desc: '遍历',
       code: `class Solution {
 public:
-    bool checkXMatrix(vector<vector<int>>& grid) {
-        int n = grid.size();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j || i == n - 1 - j) {
-                    if (grid[i][j] == 0) return false;
-                } else if (grid[i][j] != 0) {
-                    return false;
-                }
-            }
+    string decodeMessage(string key, string message) {
+        char list[26] = {0};
+        for (int i = 0, p = 'a'; i < key.size(); i++) {
+            if (key[i] != ' ' && list[key[i] - 'a'] == 0) list[key[i] - 'a'] = p++;
         }
-        return true;
+        string ans = "";
+        for (auto &c : message) {
+            if (c == ' ') ans += " ";
+            else ans += list[c - 'a'];
+        }
+        return ans;
     }
 };`,
     },
     {
       script: Script.PY3,
       time: 48,
-      memory: 15.8,
+      memory: 15.1,
       desc: '同上',
       code: `class Solution:
-    def checkXMatrix(self, grid: List[List[int]]) -> bool:
-        n = len(grid)
-        for i in range(n):
-            for j in range(n):
-                if i == j or i == n - 1 - j:
-                    if grid[i][j] == 0:
-                        return False
-                elif grid[i][j] != 0:
-                    return False
-        return True`,
+    def decodeMessage(self, key: str, message: str) -> str:
+        list = [''] * 26
+        p = 'a'
+        for c in key:
+            i = ord(c) - ord('a')
+            if c != ' ' and list[i] == '':
+                list[i] = p
+                p = chr(ord(p) + 1)
+        ans = ''
+        for c in message:
+            if c == ' ':
+                ans += ' '
+            else:
+                ans += list[ord(c) - ord('a')]
+        return ans`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.3,
+      time: 0,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn check_x_matrix(grid: Vec<Vec<i32>>) -> bool {
-        let n = grid.len();
-        for i in 0..n {
-            for j in 0..n {
-                if i == j || i == n - 1 - j {
-                    if grid[i][j] == 0 {
-                        return false;
-                    }
-                } else if grid[i][j] != 0 {
-                    return false;
-                }
+    pub fn decode_message(key: String, message: String) -> String {
+        let message = message.chars().collect::<Vec<char>>();
+        let key = key.chars().collect::<Vec<char>>();
+        let mut list = ['\\0'; 26];
+        let mut ans = String::new();
+        let mut p = 'a';
+        for c in key {
+            let i = c as usize - 'a' as usize;
+            if c != ' ' && list[i] == '\\0' {
+                list[i] = p;
+                p = (p as u8 + 1) as char;
             }
         }
-        return true;
+        for c in message {
+            if c == ' ' {
+                ans.push(' ');
+            } else {
+                ans.push(list[c as usize - 'a' as usize]);
+            }
+        }
+        ans
     }
 }`,
     },
