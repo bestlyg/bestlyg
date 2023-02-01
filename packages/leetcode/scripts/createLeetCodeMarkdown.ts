@@ -30,6 +30,7 @@ function main() {
     markdown = { ...md };
     delete markdown.exist;
   }
+  fs.ensureDirSync(resolve(filepath, '../'));
   fs.writeFileSync(filepath, JSON.stringify(markdown, null, 4));
   console.log(chalk.blue(`${md.name}生成完成`));
   console.log(chalk.green(`生成完成`));

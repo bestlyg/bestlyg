@@ -2,28 +2,32 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2325. 解密消息',
-  url: 'https://leetcode.cn/problems/decode-the-message/',
-  difficulty: Difficulty.简单,
-  tag: [Tag.哈希表, Tag.字符串],
-  desc: `返回解密后的消息。`,
+  name: '2552. 统计上升四元组',
+  url: 'https://leetcode.cn/problems/count-increasing-quadruplets/',
+  difficulty: Difficulty.困难,
+  tag: [],
+  desc: `给你一个长度为 n 下标从 0 开始的整数数组 nums ，它包含 1 到 n 的所有数字，请你返回上升四元组的数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 15.9,
-      desc: '遍历',
+      time: 272,
+      memory: 10.6,
+      desc: '枚举l，对于每一个l，查找可能的j，记录j的132模式个数，即i<j<k&&v[i]<v[k]<v[j]',
       code: `class Solution {
 public:
-    string decodeMessage(string key, string message) {
-        char list[26] = {0};
-        for (int i = 0, p = 'a'; i < key.size(); i++) {
-            if (key[i] != ' ' && list[key[i] - 'a'] == 0) list[key[i] - 'a'] = p++;
-        }
-        string ans = "";
-        for (auto &c : message) {
-            if (c == ' ') ans += " ";
-            else ans += list[c - 'a'];
+    typedef long long ll;
+    ll countQuadruplets(vector<int>& nums) {
+        int n = nums.size();
+        ll ans = 0;
+        vector<int> list(n, 0);
+        for (int l = 0; l < n; l++) {
+            for (int j = 0; j < l - 1; j++) {
+                if (nums[j] < nums[l]) ans += list[j];
+            }
+            for (int j = 0, cnt = 0; j < l; j++) {
+                if (nums[j] > nums[l]) list[j] += cnt;
+                if (nums[j] < nums[l]) cnt++;
+            }
         }
         return ans;
     }
@@ -31,50 +35,50 @@ public:
     },
     {
       script: Script.PY3,
-      time: 48,
-      memory: 15.1,
+      time: 2284,
+      memory: 15.2,
       desc: '同上',
       code: `class Solution:
-    def decodeMessage(self, key: str, message: str) -> str:
-        list = [''] * 26
-        p = 'a'
-        for c in key:
-            i = ord(c) - ord('a')
-            if c != ' ' and list[i] == '':
-                list[i] = p
-                p = chr(ord(p) + 1)
-        ans = ''
-        for c in message:
-            if c == ' ':
-                ans += ' '
-            else:
-                ans += list[ord(c) - ord('a')]
+    def countQuadruplets(self, nums: List[int]) -> int:
+        n = len(nums)
+        ans = 0
+        list = [0] * n
+        for l in range(n):
+            for j in range(l):
+                if nums[j] < nums[l]:
+                    ans += list[j]
+            cnt = 0
+            for j in range(l):
+                if nums[j] > nums[l]:
+                    list[j] += cnt
+                if nums[j] < nums[l]:
+                    cnt += 1
         return ans`,
     },
     {
       script: Script.RUST,
-      time: 0,
+      time: 72,
       memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn decode_message(key: String, message: String) -> String {
-        let message = message.chars().collect::<Vec<char>>();
-        let key = key.chars().collect::<Vec<char>>();
-        let mut list = ['\\0'; 26];
-        let mut ans = String::new();
-        let mut p = 'a';
-        for c in key {
-            let i = c as usize - 'a' as usize;
-            if c != ' ' && list[i] == '\\0' {
-                list[i] = p;
-                p = (p as u8 + 1) as char;
+    pub fn count_quadruplets(nums: Vec<i32>) -> i64 {
+        let n = nums.len();
+        let mut list = vec![0; n];
+        let mut ans = 0;
+        for l in 0..n {
+            for j in 0..l {
+                if nums[j] < nums[l] {
+                    ans += list[j];
+                }
             }
-        }
-        for c in message {
-            if c == ' ' {
-                ans.push(' ');
-            } else {
-                ans.push(list[c as usize - 'a' as usize]);
+            let mut cnt = 0;
+            for j in 0..l {
+                if nums[j] > nums[l] {
+                    list[j] += cnt;
+                }
+                if nums[j] < nums[l] {
+                    cnt += 1;
+                }
             }
         }
         ans
