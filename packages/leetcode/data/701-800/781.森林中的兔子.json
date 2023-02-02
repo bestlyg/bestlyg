@@ -1,8 +1,11 @@
 {
+    "id": "797",
     "name": "781.森林中的兔子",
-    "url": "https://leetcode-cn.com/problems/rabbits-in-forest/",
+    "url": "https://leetcode.cn/problems/rabbits-in-forest",
     "difficulty": "中等",
     "tag": [
+        "贪心",
+        "数组",
         "哈希表",
         "数学"
     ],

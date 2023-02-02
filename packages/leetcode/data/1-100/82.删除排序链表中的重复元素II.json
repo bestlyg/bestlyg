@@ -1,9 +1,11 @@
 {
+    "id": "82",
     "name": "82.删除排序链表中的重复元素II",
-    "url": "https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/",
+    "url": "https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii",
     "difficulty": "中等",
     "tag": [
-        "链表"
+        "链表",
+        "双指针"
     ],
     "desc": "给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "866",
     "name": "836.矩形重叠",
-    "url": "https://leetcode-cn.com/problems/rectangle-overlap/",
+    "url": "https://leetcode.cn/problems/rectangle-overlap",
     "difficulty": "简单",
     "tag": [
         "几何",

@@ -1,6 +1,7 @@
 {
+    "id": "913",
     "name": "519.随机翻转矩阵",
-    "url": "https://leetcode-cn.com/problems/random-flip-matrix/",
+    "url": "https://leetcode.cn/problems/random-flip-matrix",
     "difficulty": "中等",
     "tag": [
         "水塘抽样",

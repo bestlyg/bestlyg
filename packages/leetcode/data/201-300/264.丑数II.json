@@ -1,11 +1,13 @@
 {
+    "id": "264",
     "name": "264.丑数II",
-    "url": "https://leetcode-cn.com/problems/ugly-number-ii/",
+    "url": "https://leetcode.cn/problems/ugly-number-ii",
     "difficulty": "中等",
     "tag": [
-        "堆",
+        "哈希表",
         "数学",
-        "动态规划"
+        "动态规划",
+        "堆（优先队列）"
     ],
     "desc": "给你一个整数 n ，请你找出并返回第 n 个 丑数 。",
     "solutions": [

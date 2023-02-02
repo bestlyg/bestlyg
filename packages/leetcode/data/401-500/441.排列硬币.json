@@ -1,6 +1,7 @@
 {
+    "id": "441",
     "name": "441.排列硬币",
-    "url": "https://leetcode-cn.com/problems/arranging-coins/",
+    "url": "https://leetcode.cn/problems/arranging-coins",
     "difficulty": "简单",
     "tag": [
         "数学",

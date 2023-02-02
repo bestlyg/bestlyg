@@ -1,6 +1,7 @@
 {
+    "id": "1005",
     "name": "965.单值二叉树",
-    "url": "https://leetcode-cn.com/problems/univalued-binary-tree/",
+    "url": "https://leetcode.cn/problems/univalued-binary-tree",
     "difficulty": "简单",
     "tag": [
         "树",

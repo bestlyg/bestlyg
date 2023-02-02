@@ -1,10 +1,12 @@
 {
+    "id": "1928",
     "name": "1801.积压订单中的订单总数",
-    "url": "https://leetcode-cn.com/problems/number-of-orders-in-the-backlog/",
+    "url": "https://leetcode.cn/problems/number-of-orders-in-the-backlog",
     "difficulty": "中等",
     "tag": [
-        "贪心",
-        "堆"
+        "数组",
+        "模拟",
+        "堆（优先队列）"
     ],
     "desc": "给你一个二维整数数组 orders ，输入所有订单后，返回积压订单中的 订单总数 。由于数字可能很大，所以需要返回对 109 + 7 取余的结果。",
     "solutions": [

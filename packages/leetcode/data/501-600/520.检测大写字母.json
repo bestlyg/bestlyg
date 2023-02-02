@@ -1,6 +1,7 @@
 {
+    "id": "520",
     "name": "520.检测大写字母",
-    "url": "https://leetcode-cn.com/problems/detect-capital/",
+    "url": "https://leetcode.cn/problems/detect-capital",
     "difficulty": "简单",
     "tag": [
         "字符串"

@@ -1,6 +1,7 @@
 {
+    "id": "263",
     "name": "263.丑数",
-    "url": "https://leetcode-cn.com/problems/ugly-number/",
+    "url": "https://leetcode.cn/problems/ugly-number",
     "difficulty": "简单",
     "tag": [
         "数学"

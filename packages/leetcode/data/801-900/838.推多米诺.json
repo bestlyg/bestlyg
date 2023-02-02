@@ -1,6 +1,7 @@
 {
+    "id": "868",
     "name": "838.推多米诺",
-    "url": "https://leetcode-cn.com/problems/push-dominoes/",
+    "url": "https://leetcode.cn/problems/push-dominoes",
     "difficulty": "中等",
     "tag": [
         "双指针",

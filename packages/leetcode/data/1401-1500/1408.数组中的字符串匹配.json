@@ -1,8 +1,10 @@
 {
+    "id": "1524",
     "name": "1408.数组中的字符串匹配",
-    "url": "https://leetcode.cn/problems/string-matching-in-an-array/",
+    "url": "https://leetcode.cn/problems/string-matching-in-an-array",
     "difficulty": "简单",
     "tag": [
+        "数组",
         "字符串",
         "字符串匹配"
     ],

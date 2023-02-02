@@ -1,6 +1,7 @@
 {
+    "id": "648",
     "name": "648.单词替换",
-    "url": "https://leetcode.cn/problems/replace-words/",
+    "url": "https://leetcode.cn/problems/replace-words",
     "difficulty": "中等",
     "tag": [
         "字典树",

@@ -1,6 +1,7 @@
 {
+    "id": "393",
     "name": "393.UTF-8编码验证",
-    "url": "https://leetcode-cn.com/problems/utf-8-validation/",
+    "url": "https://leetcode.cn/problems/utf-8-validation",
     "difficulty": "中等",
     "tag": [
         "位运算",

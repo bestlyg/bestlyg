@@ -1,7 +1,8 @@
 {
+    "id": "97",
     "name": "97.交错字符串",
-    "url": "https://leetcode-cn.com/problems/interleaving-string/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/interleaving-string",
+    "difficulty": "中等",
     "tag": [
         "字符串",
         "动态规划"

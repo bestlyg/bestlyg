@@ -1,6 +1,7 @@
 {
+    "id": "449",
     "name": "449.序列化和反序列化二叉搜索树",
-    "url": "https://leetcode-cn.com/problems/serialize-and-deserialize-bst/",
+    "url": "https://leetcode.cn/problems/serialize-and-deserialize-bst",
     "difficulty": "中等",
     "tag": [
         "树",

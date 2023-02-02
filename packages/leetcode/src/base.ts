@@ -8,6 +8,7 @@ export interface Solution {
 }
 export interface Markdown {
   exist?: boolean;
+  id?: string;
   name: string;
   url: string;
   desc: string;

@@ -1,7 +1,8 @@
 {
+    "id": "155",
     "name": "155.最小栈",
-    "url": "https://leetcode-cn.com/problems/min-stack/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/min-stack",
+    "difficulty": "中等",
     "tag": [
         "栈",
         "设计"

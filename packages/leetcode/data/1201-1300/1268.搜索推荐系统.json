@@ -1,6 +1,7 @@
 {
+    "id": "1397",
     "name": "1268.搜索推荐系统",
-    "url": "https://leetcode-cn.com/problems/search-suggestions-system/",
+    "url": "https://leetcode.cn/problems/search-suggestions-system",
     "difficulty": "中等",
     "tag": [
         "字典树",

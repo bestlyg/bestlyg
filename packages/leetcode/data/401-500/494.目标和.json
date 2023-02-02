@@ -1,10 +1,12 @@
 {
+    "id": "494",
     "name": "494.目标和",
-    "url": "https://leetcode-cn.com/problems/target-sum/",
+    "url": "https://leetcode.cn/problems/target-sum",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "动态规划",
-        "深度优先搜索"
+        "回溯"
     ],
     "desc": "给你一个整数数组 nums 和一个整数 target 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。",
     "solutions": [

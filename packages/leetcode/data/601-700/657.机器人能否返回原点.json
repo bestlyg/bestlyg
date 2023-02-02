@@ -1,9 +1,11 @@
 {
+    "id": "657",
     "name": "657.机器人能否返回原点",
-    "url": "https://leetcode-cn.com/problems/robot-return-to-origin/",
+    "url": "https://leetcode.cn/problems/robot-return-to-origin",
     "difficulty": "简单",
     "tag": [
-        "字符串"
+        "字符串",
+        "模拟"
     ],
     "desc": "在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，判断这个机器人在完成移动后是否在 (0, 0) 处结束。",
     "solutions": [

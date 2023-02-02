@@ -1,7 +1,8 @@
 {
+    "id": "1378",
     "name": "1252.奇数值单元格的数目",
-    "url": "https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix",
+    "difficulty": "简单",
     "tag": [
         "数组",
         "数学",

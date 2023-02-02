@@ -1,6 +1,7 @@
 {
+    "id": "443",
     "name": "443.压缩字符串",
-    "url": "https://leetcode-cn.com/problems/string-compression/",
+    "url": "https://leetcode.cn/problems/string-compression",
     "difficulty": "中等",
     "tag": [
         "双指针",

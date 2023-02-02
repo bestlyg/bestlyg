@@ -1,9 +1,13 @@
 {
+    "id": "538",
     "name": "538.把二叉搜索树转换为累加树",
-    "url": "https://leetcode-cn.com/problems/convert-bst-to-greater-tree/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/convert-bst-to-greater-tree",
+    "difficulty": "中等",
     "tag": [
-        "树"
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
     ],
     "desc": "给定一个二叉搜索树（Binary Search Tree），把它转换成为累加树（Greater Tree)，使得每个节点的值是原来的节点值加上所有大于它的节点值之和。",
     "solutions": [

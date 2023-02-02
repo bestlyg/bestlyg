@@ -1,6 +1,7 @@
 {
+    "id": "1000239",
     "name": "剑指OfferII007.数组中和为0的三个数",
-    "url": "https://leetcode-cn.com/problems/1fGaJU/",
+    "url": "https://leetcode.cn/problems/1fGaJU",
     "difficulty": "中等",
     "tag": [
         "数组",

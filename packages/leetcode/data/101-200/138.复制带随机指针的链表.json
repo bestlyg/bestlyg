@@ -1,6 +1,7 @@
 {
+    "id": "138",
     "name": "138.复制带随机指针的链表",
-    "url": "https://leetcode-cn.com/problems/copy-list-with-random-pointer/",
+    "url": "https://leetcode.cn/problems/copy-list-with-random-pointer",
     "difficulty": "中等",
     "tag": [
         "哈希表",

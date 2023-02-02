@@ -1,6 +1,7 @@
 {
+    "id": "1206",
     "name": "1109.航班预订统计",
-    "url": "https://leetcode-cn.com/problems/corporate-flight-bookings/",
+    "url": "https://leetcode.cn/problems/corporate-flight-bookings",
     "difficulty": "中等",
     "tag": [
         "数组",

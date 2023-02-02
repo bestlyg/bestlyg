@@ -1,6 +1,7 @@
 {
+    "id": "1829",
     "name": "1710.卡车上的最大单元数",
-    "url": "https://leetcode.cn/problems/maximum-units-on-a-truck/",
+    "url": "https://leetcode.cn/problems/maximum-units-on-a-truck",
     "difficulty": "简单",
     "tag": [
         "贪心",

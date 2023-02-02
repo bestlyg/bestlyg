@@ -1,6 +1,7 @@
 {
+    "id": "773",
     "name": "558.四叉树交集",
-    "url": "https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/",
+    "url": "https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees",
     "difficulty": "中等",
     "tag": [
         "树",

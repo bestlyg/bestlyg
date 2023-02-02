@@ -1,6 +1,7 @@
 {
+    "id": "100162",
     "name": "面试题01.09.字符串轮转",
-    "url": "https://leetcode.cn/problems/string-rotation-lcci/",
+    "url": "https://leetcode.cn/problems/string-rotation-lcci",
     "difficulty": "简单",
     "tag": [
         "字符串",

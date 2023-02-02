@@ -1,10 +1,14 @@
 {
+    "id": "1767",
     "name": "1670.设计前中后队列",
-    "url": "https://leetcode-cn.com/problems/design-front-middle-back-queue/",
+    "url": "https://leetcode.cn/problems/design-front-middle-back-queue",
     "difficulty": "中等",
     "tag": [
         "设计",
-        "链表"
+        "队列",
+        "数组",
+        "链表",
+        "数据流"
     ],
     "desc": "请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。",
     "solutions": [

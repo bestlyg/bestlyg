@@ -1,6 +1,7 @@
 {
+    "id": "1532",
     "name": "1417.重新格式化字符串",
-    "url": "https://leetcode.cn/problems/reformat-the-string/",
+    "url": "https://leetcode.cn/problems/reformat-the-string",
     "difficulty": "简单",
     "tag": [
         "字符串"

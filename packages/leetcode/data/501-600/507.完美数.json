@@ -1,6 +1,7 @@
 {
+    "id": "507",
     "name": "507.完美数",
-    "url": "https://leetcode-cn.com/problems/perfect-number/",
+    "url": "https://leetcode.cn/problems/perfect-number",
     "difficulty": "简单",
     "tag": [
         "数学"

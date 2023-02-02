@@ -1,6 +1,7 @@
 {
+    "id": "100329",
     "name": "剑指Offer53-I.在排序数组中查找数字I",
-    "url": "https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/",
+    "url": "https://leetcode.cn/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof",
     "difficulty": "简单",
     "tag": [
         "数组",

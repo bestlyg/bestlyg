@@ -1,6 +1,7 @@
 {
+    "id": "29",
     "name": "29.两数相除",
-    "url": "https://leetcode-cn.com/problems/divide-two-integers/",
+    "url": "https://leetcode.cn/problems/divide-two-integers",
     "difficulty": "中等",
     "tag": [
         "位运算",

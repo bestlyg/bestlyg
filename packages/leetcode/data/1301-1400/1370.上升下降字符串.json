@@ -1,10 +1,12 @@
 {
+    "id": "1472",
     "name": "1370.上升下降字符串",
-    "url": "https://leetcode-cn.com/problems/increasing-decreasing-string/",
+    "url": "https://leetcode.cn/problems/increasing-decreasing-string",
     "difficulty": "简单",
     "tag": [
+        "哈希表",
         "字符串",
-        "排序"
+        "计数"
     ],
     "desc": "给你一个字符串 s ，请你根据下面的算法重新构造字符串，请你返回将 s 中字符重新排序后的 结果字符串 。",
     "solutions": [

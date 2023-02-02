@@ -1,6 +1,7 @@
 {
+    "id": "759",
     "name": "757.设置交集大小至少为2",
-    "url": "https://leetcode.cn/problems/set-intersection-size-at-least-two/",
+    "url": "https://leetcode.cn/problems/set-intersection-size-at-least-two",
     "difficulty": "困难",
     "tag": [
         "贪心",

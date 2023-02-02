@@ -1,6 +1,7 @@
 {
+    "id": "540",
     "name": "540.有序数组中的单一元素",
-    "url": "https://leetcode-cn.com/problems/single-element-in-a-sorted-array/",
+    "url": "https://leetcode.cn/problems/single-element-in-a-sorted-array",
     "difficulty": "中等",
     "tag": [
         "数组",

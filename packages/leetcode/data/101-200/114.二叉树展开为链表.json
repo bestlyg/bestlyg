@@ -1,10 +1,14 @@
 {
+    "id": "114",
     "name": "114.二叉树展开为链表",
-    "url": "https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/",
+    "url": "https://leetcode.cn/problems/flatten-binary-tree-to-linked-list",
     "difficulty": "中等",
     "tag": [
+        "栈",
         "树",
-        "深度优先搜索"
+        "深度优先搜索",
+        "链表",
+        "二叉树"
     ],
     "desc": "给定一个二叉树，原地将它展开为链表。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "1122",
     "name": "1044.最长重复子串",
-    "url": "https://leetcode-cn.com/problems/longest-duplicate-substring/",
+    "url": "https://leetcode.cn/problems/longest-duplicate-substring",
     "difficulty": "困难",
     "tag": [
         "字符串",

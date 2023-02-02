@@ -1,9 +1,12 @@
 {
+    "id": "342",
     "name": "342.4的幂",
-    "url": "https://leetcode-cn.com/problems/power-of-four/",
+    "url": "https://leetcode.cn/problems/power-of-four",
     "difficulty": "简单",
     "tag": [
-        "位运算"
+        "位运算",
+        "递归",
+        "数学"
     ],
     "desc": "给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。",
     "solutions": [

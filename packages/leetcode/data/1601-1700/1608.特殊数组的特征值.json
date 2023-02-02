@@ -1,6 +1,7 @@
 {
+    "id": "1730",
     "name": "1608.特殊数组的特征值",
-    "url": "https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x/",
+    "url": "https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x",
     "difficulty": "简单",
     "tag": [
         "数组",

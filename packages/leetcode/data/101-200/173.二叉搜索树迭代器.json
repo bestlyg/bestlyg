@@ -1,11 +1,15 @@
 {
+    "id": "173",
     "name": "173.二叉搜索树迭代器",
-    "url": "https://leetcode-cn.com/problems/binary-search-tree-iterator/",
+    "url": "https://leetcode.cn/problems/binary-search-tree-iterator",
     "difficulty": "中等",
     "tag": [
         "栈",
         "树",
-        "设计"
+        "设计",
+        "二叉搜索树",
+        "二叉树",
+        "迭代器"
     ],
     "desc": "实现一个二叉搜索树迭代器。你将使用二叉搜索树的根节点初始化迭代器。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "414",
     "name": "414.第三大的数",
-    "url": "https://leetcode-cn.com/problems/third-maximum-number/",
+    "url": "https://leetcode.cn/problems/third-maximum-number",
     "difficulty": "简单",
     "tag": [
         "数组",

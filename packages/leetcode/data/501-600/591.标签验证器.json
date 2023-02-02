@@ -1,6 +1,7 @@
 {
+    "id": "591",
     "name": "591.标签验证器",
-    "url": "https://leetcode-cn.com/problems/tag-validator/",
+    "url": "https://leetcode.cn/problems/tag-validator",
     "difficulty": "困难",
     "tag": [
         "栈",

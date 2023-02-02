@@ -1,6 +1,7 @@
 {
+    "id": "1961",
     "name": "1833.雪糕的最大数量",
-    "url": "https://leetcode-cn.com/problems/maximum-ice-cream-bars/",
+    "url": "https://leetcode.cn/problems/maximum-ice-cream-bars",
     "difficulty": "中等",
     "tag": [
         "贪心",

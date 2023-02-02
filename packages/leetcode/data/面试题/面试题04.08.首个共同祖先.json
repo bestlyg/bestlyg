@@ -1,9 +1,12 @@
 {
+    "id": "100179",
     "name": "面试题04.08.首个共同祖先",
-    "url": "https://leetcode-cn.com/problems/first-common-ancestor-lcci/",
+    "url": "https://leetcode.cn/problems/first-common-ancestor-lcci",
     "difficulty": "中等",
     "tag": [
-        "树"
+        "树",
+        "深度优先搜索",
+        "二叉树"
     ],
     "desc": "设计并实现一个算法，找出二叉树中某两个节点的第一个共同祖先。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "1776",
     "name": "1658.将x减到0的最小操作数",
-    "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero",
     "difficulty": "中等",
     "tag": [
         "数组",

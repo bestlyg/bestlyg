@@ -1,6 +1,7 @@
 {
+    "id": "328",
     "name": "328.奇偶链表",
-    "url": "https://leetcode-cn.com/problems/odd-even-linked-list/",
+    "url": "https://leetcode.cn/problems/odd-even-linked-list",
     "difficulty": "中等",
     "tag": [
         "链表"

@@ -1,6 +1,7 @@
 {
+    "id": "2205",
     "name": "2100.适合打劫银行的日子",
-    "url": "https://leetcode-cn.com/problems/find-good-days-to-rob-the-bank/",
+    "url": "https://leetcode.cn/problems/find-good-days-to-rob-the-bank",
     "difficulty": "中等",
     "tag": [
         "数组",

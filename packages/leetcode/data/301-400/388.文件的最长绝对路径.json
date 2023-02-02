@@ -1,6 +1,7 @@
 {
+    "id": "388",
     "name": "388.文件的最长绝对路径",
-    "url": "https://leetcode-cn.com/problems/longest-absolute-file-path/",
+    "url": "https://leetcode.cn/problems/longest-absolute-file-path",
     "difficulty": "中等",
     "tag": [
         "栈",

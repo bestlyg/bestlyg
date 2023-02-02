@@ -1,6 +1,7 @@
 {
+    "id": "917",
     "name": "881.救生艇",
-    "url": "https://leetcode-cn.com/problems/boats-to-save-people/",
+    "url": "https://leetcode.cn/problems/boats-to-save-people",
     "difficulty": "中等",
     "tag": [
         "贪心",

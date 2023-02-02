@@ -1,6 +1,7 @@
 {
+    "id": "999",
     "name": "959.由斜杠划分区域",
-    "url": "https://leetcode-cn.com/problems/regions-cut-by-slashes/",
+    "url": "https://leetcode.cn/problems/regions-cut-by-slashes",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

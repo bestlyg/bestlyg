@@ -1,6 +1,7 @@
 {
+    "id": "80",
     "name": "80.删除有序数组中的重复项II",
-    "url": "https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/",
+    "url": "https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii",
     "difficulty": "中等",
     "tag": [
         "数组",

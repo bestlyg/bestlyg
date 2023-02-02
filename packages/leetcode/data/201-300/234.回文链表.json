@@ -1,8 +1,11 @@
 {
+    "id": "234",
     "name": "234.回文链表",
-    "url": "https://leetcode-cn.com/problems/palindrome-linked-list/",
+    "url": "https://leetcode.cn/problems/palindrome-linked-list",
     "difficulty": "简单",
     "tag": [
+        "栈",
+        "递归",
         "链表",
         "双指针"
     ],

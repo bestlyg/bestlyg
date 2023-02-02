@@ -1,6 +1,7 @@
 {
+    "id": "581",
     "name": "581.最短无序连续子数组",
-    "url": "https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/",
+    "url": "https://leetcode.cn/problems/shortest-unsorted-continuous-subarray",
     "difficulty": "中等",
     "tag": [
         "栈",

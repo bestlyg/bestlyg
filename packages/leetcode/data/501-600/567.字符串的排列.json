@@ -1,9 +1,12 @@
 {
+    "id": "567",
     "name": "567.字符串的排列",
-    "url": "https://leetcode-cn.com/problems/permutation-in-string/",
+    "url": "https://leetcode.cn/problems/permutation-in-string",
     "difficulty": "中等",
     "tag": [
+        "哈希表",
         "双指针",
+        "字符串",
         "滑动窗口"
     ],
     "desc": "给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。",

@@ -1,6 +1,7 @@
 {
+    "id": "1783",
     "name": "1664.生成平衡数组的方案数",
-    "url": "https://leetcode.cn/problems/ways-to-make-a-fair-array/",
+    "url": "https://leetcode.cn/problems/ways-to-make-a-fair-array",
     "difficulty": "中等",
     "tag": [
         "数组",

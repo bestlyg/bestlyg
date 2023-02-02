@@ -1,6 +1,7 @@
 {
+    "id": "260",
     "name": "260.只出现一次的数字III",
-    "url": "https://leetcode-cn.com/problems/single-number-iii/",
+    "url": "https://leetcode.cn/problems/single-number-iii",
     "difficulty": "中等",
     "tag": [
         "位运算",

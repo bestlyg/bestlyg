@@ -1,10 +1,11 @@
 {
+    "id": "1610",
     "name": "1486.数组异或操作",
-    "url": "https://leetcode-cn.com/problems/xor-operation-in-an-array/",
+    "url": "https://leetcode.cn/problems/xor-operation-in-an-array",
     "difficulty": "简单",
     "tag": [
         "位运算",
-        "数组"
+        "数学"
     ],
     "desc": "请返回 nums 中所有元素按位异或（XOR）后得到的结果。",
     "solutions": [

@@ -1,13 +1,14 @@
 {
+    "id": "1953",
     "name": "1825.求出MK平均值",
-    "url": "https://leetcode.cn/problems/finding-mk-average/",
+    "url": "https://leetcode.cn/problems/finding-mk-average",
     "difficulty": "困难",
     "tag": [
         "设计",
         "队列",
         "数据流",
-        "有序合集",
-        "堆(优先队列)"
+        "有序集合",
+        "堆（优先队列）"
     ],
     "desc": "请你实现 MKAverage 类。",
     "solutions": [

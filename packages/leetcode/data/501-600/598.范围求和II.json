@@ -1,6 +1,7 @@
 {
+    "id": "598",
     "name": "598.范围求和II",
-    "url": "https://leetcode-cn.com/problems/range-addition-ii/",
+    "url": "https://leetcode.cn/problems/range-addition-ii",
     "difficulty": "简单",
     "tag": [
         "数组",

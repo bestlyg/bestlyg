@@ -1,6 +1,7 @@
 {
+    "id": "769",
     "name": "764.最大加号标志",
-    "url": "https://leetcode.cn/problems/largest-plus-sign/",
+    "url": "https://leetcode.cn/problems/largest-plus-sign",
     "difficulty": "中等",
     "tag": [
         "数组",

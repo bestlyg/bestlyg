@@ -1,6 +1,7 @@
 {
+    "id": "809",
     "name": "793.阶乘函数后K个零",
-    "url": "https://leetcode.cn/problems/preimage-size-of-factorial-zeroes-function/",
+    "url": "https://leetcode.cn/problems/preimage-size-of-factorial-zeroes-function",
     "difficulty": "困难",
     "tag": [
         "数学",

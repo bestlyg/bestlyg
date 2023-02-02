@@ -1,9 +1,11 @@
 {
+    "id": "278",
     "name": "278.第一个错误的版本",
-    "url": "https://leetcode-cn.com/problems/first-bad-version/",
+    "url": "https://leetcode.cn/problems/first-bad-version",
     "difficulty": "简单",
     "tag": [
-        "二分查找"
+        "二分查找",
+        "交互"
     ],
     "desc": "实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。",
     "solutions": [

@@ -1,9 +1,12 @@
 {
+    "id": "477",
     "name": "477.汉明距离总和",
-    "url": "https://leetcode-cn.com/problems/total-hamming-distance/",
+    "url": "https://leetcode.cn/problems/total-hamming-distance",
     "difficulty": "中等",
     "tag": [
-        "位运算"
+        "位运算",
+        "数组",
+        "数学"
     ],
     "desc": "两个整数的 汉明距离 指的是这两个数字的二进制数对应位不同的数量。",
     "solutions": [

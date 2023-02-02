@@ -1,6 +1,7 @@
 {
+    "id": "796",
     "name": "780.到达终点",
-    "url": "https://leetcode-cn.com/problems/reaching-points/",
+    "url": "https://leetcode.cn/problems/reaching-points",
     "difficulty": "困难",
     "tag": [
         "数学"

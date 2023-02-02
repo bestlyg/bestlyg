@@ -1,6 +1,7 @@
 {
+    "id": "492",
     "name": "492.构造矩形",
-    "url": "https://leetcode-cn.com/problems/construct-the-rectangle/",
+    "url": "https://leetcode.cn/problems/construct-the-rectangle",
     "difficulty": "简单",
     "tag": [
         "数学"

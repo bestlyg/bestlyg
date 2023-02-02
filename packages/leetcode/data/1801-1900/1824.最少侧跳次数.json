@@ -1,6 +1,7 @@
 {
+    "id": "1952",
     "name": "1824.最少侧跳次数",
-    "url": "https://leetcode.cn/problems/minimum-sideway-jumps/",
+    "url": "https://leetcode.cn/problems/minimum-sideway-jumps",
     "difficulty": "中等",
     "tag": [
         "贪心",

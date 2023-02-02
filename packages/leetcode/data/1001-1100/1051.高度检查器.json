@@ -1,6 +1,7 @@
 {
+    "id": "1137",
     "name": "1051.高度检查器",
-    "url": "https://leetcode-cn.com/problems/height-checker/",
+    "url": "https://leetcode.cn/problems/height-checker",
     "difficulty": "简单",
     "tag": [
         "数组",

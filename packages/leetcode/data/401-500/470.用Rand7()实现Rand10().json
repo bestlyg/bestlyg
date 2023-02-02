@@ -1,10 +1,13 @@
 {
+    "id": "903",
     "name": "470.用Rand7()实现Rand10()",
-    "url": "https://leetcode-cn.com/problems/implement-rand10-using-rand7/",
+    "url": "https://leetcode.cn/problems/implement-rand10-using-rand7",
     "difficulty": "中等",
     "tag": [
-        "随机",
-        "拒绝采样"
+        "数学",
+        "拒绝采样",
+        "概率与统计",
+        "随机化"
     ],
     "desc": "已有方法 rand7 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 rand10 生成 1 到 10 范围内的均匀随机整数。",
     "solutions": [

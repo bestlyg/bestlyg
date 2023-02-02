@@ -1,10 +1,13 @@
 {
+    "id": "208",
     "name": "208.实现Trie(前缀树)",
-    "url": "https://leetcode-cn.com/problems/implement-trie-prefix-tree/",
+    "url": "https://leetcode.cn/problems/implement-trie-prefix-tree",
     "difficulty": "中等",
     "tag": [
         "设计",
-        "字典树"
+        "字典树",
+        "哈希表",
+        "字符串"
     ],
     "desc": "请你实现 Trie 类。",
     "solutions": [

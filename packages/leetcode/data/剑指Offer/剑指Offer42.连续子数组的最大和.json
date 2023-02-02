@@ -1,6 +1,7 @@
 {
+    "id": "100304",
     "name": "剑指Offer42.连续子数组的最大和",
-    "url": "https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/",
+    "url": "https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof",
     "difficulty": "简单",
     "tag": [
         "数组",

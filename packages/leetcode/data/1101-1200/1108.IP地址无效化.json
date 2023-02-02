@@ -1,6 +1,7 @@
 {
+    "id": "1205",
     "name": "1108.IP地址无效化",
-    "url": "https://leetcode-cn.com/problems/defanging-an-ip-address/",
+    "url": "https://leetcode.cn/problems/defanging-an-ip-address",
     "difficulty": "简单",
     "tag": [
         "字符串"

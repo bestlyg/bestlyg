@@ -1,6 +1,7 @@
 {
+    "id": "440",
     "name": "440.字典序的第K小数字",
-    "url": "https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order/",
+    "url": "https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order",
     "difficulty": "困难",
     "tag": [
         "字典树"

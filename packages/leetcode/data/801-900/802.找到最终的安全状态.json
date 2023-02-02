@@ -1,6 +1,7 @@
 {
+    "id": "820",
     "name": "802.找到最终的安全状态",
-    "url": "https://leetcode-cn.com/problems/find-eventual-safe-states/",
+    "url": "https://leetcode.cn/problems/find-eventual-safe-states",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

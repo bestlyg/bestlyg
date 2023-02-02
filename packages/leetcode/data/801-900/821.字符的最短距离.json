@@ -1,6 +1,7 @@
 {
+    "id": "841",
     "name": "821.字符的最短距离",
-    "url": "https://leetcode-cn.com/problems/shortest-distance-to-a-character/",
+    "url": "https://leetcode.cn/problems/shortest-distance-to-a-character",
     "difficulty": "简单",
     "tag": [
         "数组",

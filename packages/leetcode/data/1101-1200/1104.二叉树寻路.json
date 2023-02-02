@@ -1,6 +1,7 @@
 {
+    "id": "1194",
     "name": "1104.二叉树寻路",
-    "url": "https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/",
+    "url": "https://leetcode.cn/problems/path-in-zigzag-labelled-binary-tree",
     "difficulty": "中等",
     "tag": [
         "树",

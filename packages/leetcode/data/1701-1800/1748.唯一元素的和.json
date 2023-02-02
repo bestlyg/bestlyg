@@ -1,6 +1,7 @@
 {
+    "id": "1848",
     "name": "1748.唯一元素的和",
-    "url": "https://leetcode-cn.com/problems/sum-of-unique-elements/",
+    "url": "https://leetcode.cn/problems/sum-of-unique-elements",
     "difficulty": "简单",
     "tag": [
         "数组",

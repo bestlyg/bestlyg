@@ -1,9 +1,11 @@
 {
+    "id": "190",
     "name": "190.颠倒二进制位",
-    "url": "https://leetcode-cn.com/problems/reverse-bits/",
+    "url": "https://leetcode.cn/problems/reverse-bits",
     "difficulty": "简单",
     "tag": [
-        "位运算"
+        "位运算",
+        "分治"
     ],
     "desc": "颠倒给定的 32 位无符号整数的二进制位。",
     "solutions": [

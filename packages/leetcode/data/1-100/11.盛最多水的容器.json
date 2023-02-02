@@ -1,8 +1,10 @@
 {
+    "id": "11",
     "name": "11.盛最多水的容器",
-    "url": "https://leetcode-cn.com/problems/container-with-most-water/",
+    "url": "https://leetcode.cn/problems/container-with-most-water",
     "difficulty": "中等",
     "tag": [
+        "贪心",
         "数组",
         "双指针"
     ],

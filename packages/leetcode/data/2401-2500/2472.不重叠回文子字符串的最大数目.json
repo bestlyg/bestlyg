@@ -1,0 +1,29 @@
+{
+    "id": "2559",
+    "name": "2472.不重叠回文子字符串的最大数目",
+    "url": "https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings",
+    "difficulty": "困难",
+    "tag": [
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "返回最优方案中能选择的子字符串的 最大 数目。",
+    "solutions": [
+        {
+            "date": 1668268800000,
+            "time": 44,
+            "memory": 6.6,
+            "script": "cpp",
+            "desc": "dp[i]表示存在 i 个字符的时候最大回文个数。",
+            "code": "class Solution {\npublic:\n    string s;\n    int n;\n    int maxPalindromes(string s, int k) {\n        this->s = s;\n        n = s.size();\n        vector<int> dp(n + 1, 0);\n        for (int i = 0; i < n; i++) {\n            check(dp, k, i, i);\n            check(dp, k, i, i + 1);\n        }\n        return dp[n];\n    }\n    void check(vector<int> &dp, int k, int l, int r) {\n        dp[l + 1] = max(dp[l + 1], dp[l]);\n        for (; l >= 0 && r < n && s[l] == s[r]; l--, r++) {\n            if (r - l + 1 >= k) dp[r + 1] = max(dp[r + 1], dp[l] + 1);\n        }\n    }\n};"
+        },
+        {
+            "date": 1668268800000,
+            "time": 40,
+            "memory": 6.5,
+            "script": "cpp",
+            "desc": "方便获取 l 和 r。",
+            "code": "class Solution {\npublic:\n    int maxPalindromes(string s, int k) {\n        int n = s.size();\n        vector<int> dp(n + 1, 0);\n        for (int i = 0; i < 2 * n - 1; i++) {\n            int l = i / 2, r = l + i % 2;\n            dp[l + 1] = max(dp[l + 1], dp[l]);\n            for (; l >= 0 && r < n && s[l] == s[r]; l--, r++) {\n                if (r - l + 1 >= k) dp[r + 1] = max(dp[r + 1], dp[l] + 1);\n            }\n        }\n        return dp[n];\n    }\n};"
+        }
+    ]
+}

@@ -1,8 +1,10 @@
 {
+    "id": "1319",
     "name": "1207.独一无二的出现次数",
-    "url": "https://leetcode-cn.com/problems/unique-number-of-occurrences/",
+    "url": "https://leetcode.cn/problems/unique-number-of-occurrences",
     "difficulty": "简单",
     "tag": [
+        "数组",
         "哈希表"
     ],
     "desc": "给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。",

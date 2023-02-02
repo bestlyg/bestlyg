@@ -1,6 +1,7 @@
 {
+    "id": "1000312",
     "name": "剑指OfferII114.外星文字典",
-    "url": "https://leetcode.cn/problems/Jf1JuT/",
+    "url": "https://leetcode.cn/problems/Jf1JuT",
     "difficulty": "困难",
     "tag": [
         "深度优先搜索",

@@ -1,6 +1,7 @@
 {
+    "id": "1775",
     "name": "1656.设计有序流",
-    "url": "https://leetcode.cn/problems/design-an-ordered-stream/",
+    "url": "https://leetcode.cn/problems/design-an-ordered-stream",
     "difficulty": "简单",
     "tag": [
         "设计",

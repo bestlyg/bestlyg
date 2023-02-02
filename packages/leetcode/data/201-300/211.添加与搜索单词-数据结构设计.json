@@ -1,6 +1,7 @@
 {
+    "id": "211",
     "name": "211.添加与搜索单词-数据结构设计",
-    "url": "https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/",
+    "url": "https://leetcode.cn/problems/design-add-and-search-words-data-structure",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

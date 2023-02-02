@@ -1,6 +1,7 @@
 {
+    "id": "171",
     "name": "171.Excel表列序号",
-    "url": "https://leetcode-cn.com/problems/excel-sheet-column-number/",
+    "url": "https://leetcode.cn/problems/excel-sheet-column-number",
     "difficulty": "简单",
     "tag": [
         "数学",

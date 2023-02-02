@@ -1,6 +1,7 @@
 {
+    "id": "1297",
     "name": "1189.“气球”的最大数量",
-    "url": "https://leetcode-cn.com/problems/maximum-number-of-balloons/",
+    "url": "https://leetcode.cn/problems/maximum-number-of-balloons",
     "difficulty": "简单",
     "tag": [
         "哈希表",

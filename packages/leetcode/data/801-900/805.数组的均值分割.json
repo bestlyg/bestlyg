@@ -1,7 +1,8 @@
 {
+    "id": "823",
     "name": "805.数组的均值分割",
-    "url": "https://leetcode.cn/problems/split-array-with-same-average/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/split-array-with-same-average",
+    "difficulty": "困难",
     "tag": [
         "位运算",
         "数组",

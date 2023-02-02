@@ -1,6 +1,7 @@
 {
+    "id": "461",
     "name": "461.汉明距离",
-    "url": "https://leetcode-cn.com/problems/hamming-distance/",
+    "url": "https://leetcode.cn/problems/hamming-distance",
     "difficulty": "简单",
     "tag": [
         "位运算"

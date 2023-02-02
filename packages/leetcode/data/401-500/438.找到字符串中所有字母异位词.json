@@ -1,6 +1,7 @@
 {
+    "id": "438",
     "name": "438.找到字符串中所有字母异位词",
-    "url": "https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/",
+    "url": "https://leetcode.cn/problems/find-all-anagrams-in-a-string",
     "difficulty": "中等",
     "tag": [
         "哈希表",

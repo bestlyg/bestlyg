@@ -1,6 +1,7 @@
 {
+    "id": "661",
     "name": "661.图片平滑器",
-    "url": "https://leetcode-cn.com/problems/image-smoother/",
+    "url": "https://leetcode.cn/problems/image-smoother",
     "difficulty": "简单",
     "tag": [
         "数组",

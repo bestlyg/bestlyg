@@ -1,6 +1,7 @@
 {
+    "id": "2122",
     "name": "1995.统计特殊四元组",
-    "url": "https://leetcode-cn.com/problems/count-special-quadruplets/",
+    "url": "https://leetcode.cn/problems/count-special-quadruplets",
     "difficulty": "简单",
     "tag": [
         "数组",

@@ -1,6 +1,7 @@
 {
+    "id": "2406",
     "name": "2325.解密消息",
-    "url": "https://leetcode.cn/problems/decode-the-message/",
+    "url": "https://leetcode.cn/problems/decode-the-message",
     "difficulty": "简单",
     "tag": [
         "哈希表",

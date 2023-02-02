@@ -1,6 +1,7 @@
 {
+    "id": "1899",
     "name": "1773.统计匹配检索规则的物品数量",
-    "url": "https://leetcode.cn/problems/count-items-matching-a-rule/",
+    "url": "https://leetcode.cn/problems/count-items-matching-a-rule",
     "difficulty": "简单",
     "tag": [
         "数组",

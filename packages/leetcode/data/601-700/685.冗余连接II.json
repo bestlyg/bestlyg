@@ -1,10 +1,11 @@
 {
+    "id": "685",
     "name": "685.冗余连接II",
-    "url": "https://leetcode-cn.com/problems/redundant-connection-ii/",
+    "url": "https://leetcode.cn/problems/redundant-connection-ii",
     "difficulty": "困难",
     "tag": [
-        "树",
         "深度优先搜索",
+        "广度优先搜索",
         "并查集",
         "图"
     ],

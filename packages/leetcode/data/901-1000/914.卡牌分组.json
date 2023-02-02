@@ -1,6 +1,7 @@
 {
+    "id": "950",
     "name": "914.卡牌分组",
-    "url": "https://leetcode-cn.com/problems/x-of-a-kind-in-a-deck-of-cards/",
+    "url": "https://leetcode.cn/problems/x-of-a-kind-in-a-deck-of-cards",
     "difficulty": "简单",
     "tag": [
         "数组",

@@ -1,6 +1,7 @@
 {
+    "id": "385",
     "name": "385.迷你语法分析器",
-    "url": "https://leetcode-cn.com/problems/mini-parser/",
+    "url": "https://leetcode.cn/problems/mini-parser",
     "difficulty": "中等",
     "tag": [
         "栈",

@@ -1,6 +1,7 @@
 {
+    "id": "678",
     "name": "678.有效的括号字符串",
-    "url": "https://leetcode-cn.com/problems/valid-parenthesis-string/",
+    "url": "https://leetcode.cn/problems/valid-parenthesis-string",
     "difficulty": "中等",
     "tag": [
         "栈",

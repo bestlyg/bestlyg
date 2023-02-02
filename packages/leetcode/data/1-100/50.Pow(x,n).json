@@ -1,10 +1,11 @@
 {
+    "id": "50",
     "name": "50.Pow(x,n)",
-    "url": "https://leetcode-cn.com/problems/powx-n/",
+    "url": "https://leetcode.cn/problems/powx-n",
     "difficulty": "中等",
     "tag": [
-        "数学",
-        "二分查找"
+        "递归",
+        "数学"
     ],
     "desc": "实现 pow(x, n) ，即计算 x 的 n 次幂函数。",
     "solutions": [

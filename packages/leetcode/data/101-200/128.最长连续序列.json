@@ -1,10 +1,12 @@
 {
+    "id": "128",
     "name": "128.最长连续序列",
-    "url": "https://leetcode-cn.com/problems/longest-consecutive-sequence/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/longest-consecutive-sequence",
+    "difficulty": "中等",
     "tag": [
         "并查集",
-        "数组"
+        "数组",
+        "哈希表"
     ],
     "desc": "给定一个未排序的整数数组，找出最长连续序列的长度。",
     "solutions": [

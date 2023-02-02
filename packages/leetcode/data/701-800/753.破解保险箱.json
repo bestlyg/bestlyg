@@ -1,6 +1,7 @@
 {
+    "id": "754",
     "name": "753.破解保险箱",
-    "url": "https://leetcode.cn/problems/cracking-the-safe/",
+    "url": "https://leetcode.cn/problems/cracking-the-safe",
     "difficulty": "困难",
     "tag": [
         "深度优先搜索",

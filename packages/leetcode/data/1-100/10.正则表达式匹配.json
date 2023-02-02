@@ -1,11 +1,12 @@
 {
+    "id": "10",
     "name": "10.正则表达式匹配",
-    "url": "https://leetcode-cn.com/problems/regular-expression-matching/",
+    "url": "https://leetcode.cn/problems/regular-expression-matching",
     "difficulty": "困难",
     "tag": [
+        "递归",
         "字符串",
-        "动态规划",
-        "回溯算法"
+        "动态规划"
     ],
     "desc": "给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '\\*' 的正则表达式匹配。",
     "solutions": [

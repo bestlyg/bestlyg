@@ -1,6 +1,7 @@
 {
+    "id": "432",
     "name": "432.全O(1)的数据结构",
-    "url": "https://leetcode-cn.com/problems/all-oone-data-structure/",
+    "url": "https://leetcode.cn/problems/all-oone-data-structure",
     "difficulty": "困难",
     "tag": [
         "设计",

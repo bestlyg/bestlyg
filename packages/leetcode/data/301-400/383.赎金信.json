@@ -1,6 +1,7 @@
 {
+    "id": "383",
     "name": "383.赎金信",
-    "url": "https://leetcode-cn.com/problems/ransom-note/",
+    "url": "https://leetcode.cn/problems/ransom-note",
     "difficulty": "简单",
     "tag": [
         "哈希表",

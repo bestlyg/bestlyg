@@ -1,6 +1,7 @@
 {
+    "id": "1508",
     "name": "1392.最长快乐前缀",
-    "url": "https://leetcode-cn.com/problems/longest-happy-prefix/",
+    "url": "https://leetcode.cn/problems/longest-happy-prefix",
     "difficulty": "困难",
     "tag": [
         "字符串",

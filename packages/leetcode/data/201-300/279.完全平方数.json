@@ -1,6 +1,7 @@
 {
+    "id": "279",
     "name": "279.完全平方数",
-    "url": "https://leetcode-cn.com/problems/perfect-squares/",
+    "url": "https://leetcode.cn/problems/perfect-squares",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

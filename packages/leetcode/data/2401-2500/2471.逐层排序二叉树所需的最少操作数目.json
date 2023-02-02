@@ -1,0 +1,22 @@
+{
+    "id": "2558",
+    "name": "2471.逐层排序二叉树所需的最少操作数目",
+    "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "desc": "返回每一层按 严格递增顺序 排序所需的最少操作数目。",
+    "solutions": [
+        {
+            "date": 1668268800000,
+            "time": 324,
+            "memory": 144.3,
+            "script": "cpp",
+            "desc": "bfs 后遍历每行统计次数。",
+            "code": "int m[100005] = {0};\nclass Solution {\npublic:\n    set<int> s;\n    vector<int> list;\n    int minimumOperations(TreeNode* root) {\n        queue<TreeNode*> q;\n        q.push(root);\n        int size = 1, ans = 0;\n        while (q.size()) {\n            TreeNode *node = q.front();\n            q.pop();\n            if (node->left) {\n                q.push(node->left);\n                int val = node->left->val;\n                m[val] = list.size();\n                list.push_back(val);\n                s.insert(val);\n            }\n            if (node->right) {\n                q.push(node->right);\n                int val = node->right->val;\n                m[val] = list.size();\n                list.push_back(val);\n                s.insert(val);\n            }\n            if (--size == 0) {\n                ans += check();\n                list.clear();\n                s.clear();\n                size = q.size();\n            }\n        }\n        return ans;\n    }\n    int check() {\n        if (list.empty()) return 0;\n        int cnt = 0, idx = 0;\n        for (auto &num : s) {\n            if (list[idx] != num) {\n                cnt++;\n                int next = m[num];\n                swap(list[idx], list[next]);\n                m[list[next]] = next;\n                m[num] = idx;\n            }\n            idx++;\n        }\n        return cnt;\n    }\n};"
+        }
+    ]
+}

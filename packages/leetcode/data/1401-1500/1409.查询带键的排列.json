@@ -1,6 +1,7 @@
 {
+    "id": "1525",
     "name": "1409.查询带键的排列",
-    "url": "https://leetcode-cn.com/problems/queries-on-a-permutation-with-key/",
+    "url": "https://leetcode.cn/problems/queries-on-a-permutation-with-key",
     "difficulty": "中等",
     "tag": [
         "树状数组",

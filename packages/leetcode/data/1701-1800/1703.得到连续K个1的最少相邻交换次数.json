@@ -1,6 +1,7 @@
 {
+    "id": "1805",
     "name": "1703.得到连续K个1的最少相邻交换次数",
-    "url": "https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/",
+    "url": "https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones",
     "difficulty": "困难",
     "tag": [
         "贪心",

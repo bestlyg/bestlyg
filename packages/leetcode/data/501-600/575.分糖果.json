@@ -1,6 +1,7 @@
 {
+    "id": "575",
     "name": "575.分糖果",
-    "url": "https://leetcode-cn.com/problems/distribute-candies/",
+    "url": "https://leetcode.cn/problems/distribute-candies",
     "difficulty": "简单",
     "tag": [
         "数组",

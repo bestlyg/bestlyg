@@ -1,9 +1,13 @@
 {
+    "id": "861",
     "name": "832.翻转图像",
-    "url": "https://leetcode-cn.com/problems/flipping-an-image/",
+    "url": "https://leetcode.cn/problems/flipping-an-image",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "数组",
+        "双指针",
+        "矩阵",
+        "模拟"
     ],
     "desc": "给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。",
     "solutions": [

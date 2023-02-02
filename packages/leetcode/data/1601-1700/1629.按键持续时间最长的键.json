@@ -1,6 +1,7 @@
 {
+    "id": "1751",
     "name": "1629.按键持续时间最长的键",
-    "url": "https://leetcode-cn.com/problems/slowest-key/",
+    "url": "https://leetcode.cn/problems/slowest-key",
     "difficulty": "简单",
     "tag": [
         "数组",

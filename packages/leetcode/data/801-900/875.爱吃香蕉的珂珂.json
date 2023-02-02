@@ -1,6 +1,7 @@
 {
+    "id": "907",
     "name": "875.爱吃香蕉的珂珂",
-    "url": "https://leetcode.cn/problems/koko-eating-bananas/",
+    "url": "https://leetcode.cn/problems/koko-eating-bananas",
     "difficulty": "中等",
     "tag": [
         "数组",
@@ -9,12 +10,12 @@
     "desc": "返回她可以在 h 小时内吃掉所有香蕉的最小速度 k（k 为整数）。",
     "solutions": [
         {
-            "date": 1654531200000,
-            "time": 52,
-            "memory": 18.2,
+            "date": 1654617600000,
+            "time": 0,
+            "memory": 9.9,
             "script": "typescript",
-            "desc": "bs。",
-            "code": "class Solution {\n   public:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        int nmin = 1, nmax = INT_MIN;\n        for (auto& pile : piles) nmax = max(nmax, pile);\n        while (nmin < nmax) {\n            int m = (nmin + nmax) >> 1;\n            int c = check(piles, m);\n            if (c > h)\n                nmin = m + 1;\n            else\n                nmax = m;\n        }\n        return nmin;\n    }\n    int check(vector<int>& piles, int target) {\n        int ans = 0;\n        for (auto pile : piles) {\n            ans += pile / target;\n            if (pile % target) ans += 1;\n        }\n        return ans;\n    }\n};"
+            "desc": "算斜率是否相等。",
+            "code": "class Solution {\n   public:\n    bool isBoomerang(vector<vector<int>>& points) {\n        int x1 = points[0][0], y1 = points[0][1], x2 = points[1][0],\n            y2 = points[1][1], x3 = points[2][0], y3 = points[2][1];\n        return (y2 - y1) * (x3 - x1) != (y3 - y1) * (x2 - x1);\n    }\n};"
         }
     ]
 }

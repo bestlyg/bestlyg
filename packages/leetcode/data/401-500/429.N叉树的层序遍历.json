@@ -1,6 +1,7 @@
 {
+    "id": "764",
     "name": "429.N叉树的层序遍历",
-    "url": "https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/",
+    "url": "https://leetcode.cn/problems/n-ary-tree-level-order-traversal",
     "difficulty": "中等",
     "tag": [
         "树",

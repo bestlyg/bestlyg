@@ -1,7 +1,8 @@
 {
+    "id": "2137",
     "name": "2011.执行操作后的变量值",
-    "url": "https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/final-value-of-variable-after-performing-operations",
+    "difficulty": "简单",
     "tag": [
         "数组",
         "字符串",

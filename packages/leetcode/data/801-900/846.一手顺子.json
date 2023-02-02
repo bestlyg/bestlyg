@@ -1,6 +1,7 @@
 {
+    "id": "876",
     "name": "846.一手顺子",
-    "url": "https://leetcode-cn.com/problems/hand-of-straights/",
+    "url": "https://leetcode.cn/problems/hand-of-straights",
     "difficulty": "中等",
     "tag": [
         "贪心",

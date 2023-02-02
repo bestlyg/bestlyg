@@ -1,6 +1,7 @@
 {
+    "id": "2554",
     "name": "2463.最小移动总距离",
-    "url": "https://leetcode.cn/problems/minimum-total-distance-traveled/",
+    "url": "https://leetcode.cn/problems/minimum-total-distance-traveled",
     "difficulty": "困难",
     "tag": [
         "数组",

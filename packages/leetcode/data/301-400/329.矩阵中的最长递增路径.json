@@ -1,11 +1,17 @@
 {
+    "id": "329",
     "name": "329.矩阵中的最长递增路径",
-    "url": "https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/",
+    "url": "https://leetcode.cn/problems/longest-increasing-path-in-a-matrix",
     "difficulty": "困难",
     "tag": [
         "深度优先搜索",
+        "广度优先搜索",
+        "图",
         "拓扑排序",
-        "记忆化"
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "矩阵"
     ],
     "desc": "给定一个整数矩阵，找出最长递增路径的长度。",
     "solutions": [

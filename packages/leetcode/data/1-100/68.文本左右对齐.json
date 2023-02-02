@@ -1,8 +1,10 @@
 {
+    "id": "68",
     "name": "68.文本左右对齐",
-    "url": "https://leetcode-cn.com/problems/text-justification/",
+    "url": "https://leetcode.cn/problems/text-justification",
     "difficulty": "困难",
     "tag": [
+        "数组",
         "字符串",
         "模拟"
     ],

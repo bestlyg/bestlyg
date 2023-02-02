@@ -1,6 +1,7 @@
 {
+    "id": "2220",
     "name": "2115.从给定原材料中找到所有可以做出的菜",
-    "url": "https://leetcode-cn.com/problems/find-all-possible-recipes-from-given-supplies/",
+    "url": "https://leetcode.cn/problems/find-all-possible-recipes-from-given-supplies",
     "difficulty": "中等",
     "tag": [
         "图",

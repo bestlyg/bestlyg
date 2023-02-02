@@ -1,6 +1,7 @@
 {
+    "id": "33",
     "name": "33.搜索旋转排序数组",
-    "url": "https://leetcode-cn.com/problems/search-in-rotated-sorted-array/",
+    "url": "https://leetcode.cn/problems/search-in-rotated-sorted-array",
     "difficulty": "中等",
     "tag": [
         "数组",

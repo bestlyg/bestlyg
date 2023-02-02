@@ -1,9 +1,11 @@
 {
+    "id": "1693",
     "name": "1588.所有奇数长度子数组的和",
-    "url": "https://leetcode-cn.com/problems/sum-of-all-odd-length-subarrays/",
+    "url": "https://leetcode.cn/problems/sum-of-all-odd-length-subarrays",
     "difficulty": "简单",
     "tag": [
         "数组",
+        "数学",
         "前缀和"
     ],
     "desc": "请你返回 arr 中 所有奇数长度子数组的和 。",

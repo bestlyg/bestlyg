@@ -1,6 +1,7 @@
 {
+    "id": "1925",
     "name": "1814.统计一个数组中好对子的数目",
-    "url": "https://leetcode.cn/problems/count-nice-pairs-in-an-array/",
+    "url": "https://leetcode.cn/problems/count-nice-pairs-in-an-array",
     "difficulty": "中等",
     "tag": [
         "数组",

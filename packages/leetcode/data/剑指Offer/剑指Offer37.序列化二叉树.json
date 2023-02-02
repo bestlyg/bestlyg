@@ -1,11 +1,12 @@
 {
+    "id": "100307",
     "name": "剑指Offer37.序列化二叉树",
-    "url": "https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/",
+    "url": "https://leetcode.cn/problems/xu-lie-hua-er-cha-shu-lcof",
     "difficulty": "困难",
     "tag": [
-        "广度优先搜索",
-        "深度优先搜索",
         "树",
+        "深度优先搜索",
+        "广度优先搜索",
         "设计",
         "字符串",
         "二叉树"

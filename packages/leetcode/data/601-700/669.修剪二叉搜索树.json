@@ -1,6 +1,7 @@
 {
+    "id": "669",
     "name": "669.修剪二叉搜索树",
-    "url": "https://leetcode.cn/problems/trim-a-binary-search-tree/",
+    "url": "https://leetcode.cn/problems/trim-a-binary-search-tree",
     "difficulty": "中等",
     "tag": [
         "树",

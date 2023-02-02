@@ -1,6 +1,7 @@
 {
+    "id": "928",
     "name": "892.三维形体的表面积",
-    "url": "https://leetcode-cn.com/problems/surface-area-of-3d-shapes/",
+    "url": "https://leetcode.cn/problems/surface-area-of-3d-shapes",
     "difficulty": "简单",
     "tag": [
         "几何",

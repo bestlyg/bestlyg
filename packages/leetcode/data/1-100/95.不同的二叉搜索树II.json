@@ -1,10 +1,14 @@
 {
+    "id": "95",
     "name": "95.不同的二叉搜索树II",
-    "url": "https://leetcode-cn.com/problems/unique-binary-search-trees-ii/",
+    "url": "https://leetcode.cn/problems/unique-binary-search-trees-ii",
     "difficulty": "中等",
     "tag": [
         "树",
-        "动态规划"
+        "二叉搜索树",
+        "动态规划",
+        "回溯",
+        "二叉树"
     ],
     "desc": "给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树 。",
     "solutions": [

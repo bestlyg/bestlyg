@@ -1,6 +1,7 @@
 {
+    "id": "1287",
     "name": "1184.公交站间的距离",
-    "url": "https://leetcode-cn.com/problems/distance-between-bus-stops/",
+    "url": "https://leetcode.cn/problems/distance-between-bus-stops",
     "difficulty": "简单",
     "tag": [
         "数组"

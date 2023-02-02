@@ -1,6 +1,7 @@
 {
+    "id": "1806",
     "name": "1688.比赛中的配对次数",
-    "url": "https://leetcode-cn.com/problems/count-of-matches-in-tournament/",
+    "url": "https://leetcode.cn/problems/count-of-matches-in-tournament",
     "difficulty": "简单",
     "tag": [
         "数学",

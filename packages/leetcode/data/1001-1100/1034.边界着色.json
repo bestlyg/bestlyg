@@ -1,6 +1,7 @@
 {
+    "id": "1104",
     "name": "1034.边界着色",
-    "url": "https://leetcode-cn.com/problems/coloring-a-border/",
+    "url": "https://leetcode.cn/problems/coloring-a-border",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

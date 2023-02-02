@@ -1,6 +1,7 @@
 {
+    "id": "1171",
     "name": "1091.二进制矩阵中的最短路径",
-    "url": "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/",
+    "url": "https://leetcode.cn/problems/shortest-path-in-binary-matrix",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",
@@ -11,11 +12,11 @@
     "solutions": [
         {
             "date": 1627142400000,
-            "time": 208,
-            "memory": 47.8,
+            "time": 92,
+            "memory": 43.9,
             "script": "typescript",
             "desc": "bfs。",
-            "code": "function shortestPathBinaryMatrix(grid: number[][]): number {\n  const n = grid.length;\n  if (grid[0][0] === 1) return -1;\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>([format(0, 0)]);\n  const add = (row: number, col: number, level: number) => {\n    if (grid[row][col] === 1) return;\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  let ans = -1;\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    if (row === n - 1 && col === n - 1) ans = Math.max(ans, level);\n    if (row > 0) add(row - 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (row > 0 && col > 0) add(row - 1, col - 1, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col < n - 1) add(row, col + 1, level + 1);\n    if (row < n - 1 && col < n - 1) add(row + 1, col + 1, level + 1);\n    if (row > 0 && col < n - 1) add(row - 1, col + 1, level + 1);\n    if (row < n - 1 && col > 0) add(row + 1, col - 1, level + 1);\n  }\n  return ans;\n}"
+            "code": "function movingCount(m: number, n: number, k: number): number {\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set(queue.map(([row, col]) => format(row, col)));\n  let ans = 1;\n  const add = (row: number, col: number, count: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    const data: [number, number, number] = [row, col, count];\n    let num = 0;\n    while (row) {\n      num += row % 10;\n      row = ~~(row / 10);\n    }\n    while (col) {\n      num += col % 10;\n      col = ~~(col / 10);\n    }\n    if (num > k) return;\n    queue.push(data);\n    ans++;\n  };\n  while (queue.length) {\n    const [row, col, count] = queue.shift()!;\n    if (row) if (row > 0) add(row - 1, col, count + 1);\n    if (col > 0) add(row, col - 1, count + 1);\n    if (row < n - 1) add(row + 1, col, count + 1);\n    if (col < m - 1) add(row, col + 1, count + 1);\n  }\n  return ans;\n}"
         }
     ]
 }

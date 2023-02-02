@@ -1,6 +1,7 @@
 {
+    "id": "473",
     "name": "473.火柴拼正方形",
-    "url": "https://leetcode-cn.com/problems/matchsticks-to-square/",
+    "url": "https://leetcode.cn/problems/matchsticks-to-square",
     "difficulty": "中等",
     "tag": [
         "位运算",

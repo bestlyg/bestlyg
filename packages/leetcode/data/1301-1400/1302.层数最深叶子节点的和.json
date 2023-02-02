@@ -1,10 +1,13 @@
 {
+    "id": "1254",
     "name": "1302.层数最深叶子节点的和",
-    "url": "https://leetcode-cn.com/problems/deepest-leaves-sum/",
+    "url": "https://leetcode.cn/problems/deepest-leaves-sum",
     "difficulty": "中等",
     "tag": [
         "树",
-        "深度优先搜索"
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
     ],
     "desc": "给你一棵二叉树的根节点 root ，请你返回 层数最深的叶子节点的和 。",
     "solutions": [

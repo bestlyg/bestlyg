@@ -1,6 +1,7 @@
 {
+    "id": "1263",
     "name": "1155.掷骰子的N种方法",
-    "url": "https://leetcode-cn.com/problems/number-of-dice-rolls-with-target-sum/",
+    "url": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum",
     "difficulty": "中等",
     "tag": [
         "动态规划"

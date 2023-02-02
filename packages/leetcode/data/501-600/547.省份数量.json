@@ -1,10 +1,13 @@
 {
+    "id": "547",
     "name": "547.省份数量",
-    "url": "https://leetcode-cn.com/problems/number-of-provinces/",
+    "url": "https://leetcode.cn/problems/number-of-provinces",
     "difficulty": "中等",
     "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
         "并查集",
-        "深度优先搜索"
+        "图"
     ],
     "desc": "在一个由小写字母构成的字符串 s 中，包含由一些连续的相同字符所构成的分组。找到每一个 较大分组 的区间，按起始位置下标递增顺序排序后，返回结果。有 n 个城市，其中一些彼此相连，另一些没有相连。如果城市 a 与城市 b 直接相连，且城市 b 与城市 c 直接相连，那么城市 a 与城市 c 间接相连。返回矩阵中 省份 的数量。",
     "solutions": [

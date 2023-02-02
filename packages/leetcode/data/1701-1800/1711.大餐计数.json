@@ -1,6 +1,7 @@
 {
+    "id": "1830",
     "name": "1711.大餐计数",
-    "url": "https://leetcode-cn.com/problems/count-good-meals/",
+    "url": "https://leetcode.cn/problems/count-good-meals",
     "difficulty": "中等",
     "tag": [
         "数组",

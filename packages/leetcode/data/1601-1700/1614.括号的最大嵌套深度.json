@@ -1,6 +1,7 @@
 {
+    "id": "1737",
     "name": "1614.括号的最大嵌套深度",
-    "url": "https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/",
+    "url": "https://leetcode.cn/problems/maximum-nesting-depth-of-the-parentheses",
     "difficulty": "简单",
     "tag": [
         "栈",

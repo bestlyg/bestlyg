@@ -1,6 +1,7 @@
 {
+    "id": "537",
     "name": "537.复数乘法",
-    "url": "https://leetcode-cn.com/problems/complex-number-multiplication/",
+    "url": "https://leetcode.cn/problems/complex-number-multiplication",
     "difficulty": "中等",
     "tag": [
         "数学",

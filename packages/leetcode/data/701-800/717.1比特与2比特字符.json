@@ -1,6 +1,7 @@
 {
+    "id": "717",
     "name": "717.1比特与2比特字符",
-    "url": "https://leetcode-cn.com/problems/1-bit-and-2-bit-characters/",
+    "url": "https://leetcode.cn/problems/1-bit-and-2-bit-characters",
     "difficulty": "简单",
     "tag": [
         "数组"

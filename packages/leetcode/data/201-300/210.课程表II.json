@@ -1,6 +1,7 @@
 {
+    "id": "210",
     "name": "210.课程表II",
-    "url": "https://leetcode-cn.com/problems/course-schedule-ii/",
+    "url": "https://leetcode.cn/problems/course-schedule-ii",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

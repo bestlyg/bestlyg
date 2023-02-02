@@ -1,6 +1,7 @@
 {
+    "id": "1000236",
     "name": "剑指OfferII005.单词长度的最大乘积",
-    "url": "https://leetcode-cn.com/problems/aseY1I/",
+    "url": "https://leetcode.cn/problems/aseY1I",
     "difficulty": "中等",
     "tag": [
         "位运算",

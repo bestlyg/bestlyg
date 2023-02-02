@@ -1,8 +1,10 @@
 {
+    "id": "141",
     "name": "141.环形链表",
-    "url": "https://leetcode-cn.com/problems/linked-list-cycle/",
+    "url": "https://leetcode.cn/problems/linked-list-cycle",
     "difficulty": "简单",
     "tag": [
+        "哈希表",
         "链表",
         "双指针"
     ],

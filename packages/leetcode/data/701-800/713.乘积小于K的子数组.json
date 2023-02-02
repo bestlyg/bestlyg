@@ -1,6 +1,7 @@
 {
+    "id": "713",
     "name": "713.乘积小于K的子数组",
-    "url": "https://leetcode-cn.com/problems/subarray-product-less-than-k/",
+    "url": "https://leetcode.cn/problems/subarray-product-less-than-k",
     "difficulty": "中等",
     "tag": [
         "数组",

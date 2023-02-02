@@ -1,6 +1,7 @@
 {
+    "id": "808",
     "name": "792.匹配子序列的单词数",
-    "url": "https://leetcode.cn/problems/number-of-matching-subsequences/",
+    "url": "https://leetcode.cn/problems/number-of-matching-subsequences",
     "difficulty": "中等",
     "tag": [
         "字典树",

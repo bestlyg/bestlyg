@@ -1,6 +1,7 @@
 {
+    "id": "1944",
     "name": "1816.截断句子",
-    "url": "https://leetcode-cn.com/problems/truncate-sentence/",
+    "url": "https://leetcode.cn/problems/truncate-sentence",
     "difficulty": "简单",
     "tag": [
         "数组",

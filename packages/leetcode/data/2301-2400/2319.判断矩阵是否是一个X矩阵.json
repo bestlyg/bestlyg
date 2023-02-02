@@ -1,6 +1,7 @@
 {
+    "id": "2398",
     "name": "2319.判断矩阵是否是一个X矩阵",
-    "url": "https://leetcode.cn/problems/check-if-matrix-is-x-matrix/",
+    "url": "https://leetcode.cn/problems/check-if-matrix-is-x-matrix",
     "difficulty": "简单",
     "tag": [
         "数组",

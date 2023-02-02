@@ -1,7 +1,8 @@
 {
+    "id": "2102",
     "name": "1991.找到数组的中间位置",
-    "url": "https://leetcode-cn.com/problems/find-the-middle-index-in-array/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/find-the-middle-index-in-array",
+    "difficulty": "简单",
     "tag": [
         "数组",
         "前缀和"

@@ -1,9 +1,11 @@
 {
+    "id": "908",
     "name": "876.链表的中间结点",
-    "url": "https://leetcode-cn.com/problems/middle-of-the-linked-list/",
+    "url": "https://leetcode.cn/problems/middle-of-the-linked-list",
     "difficulty": "简单",
     "tag": [
-        "链表"
+        "链表",
+        "双指针"
     ],
     "desc": "给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。",
     "solutions": [

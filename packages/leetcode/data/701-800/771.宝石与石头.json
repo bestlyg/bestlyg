@@ -1,9 +1,11 @@
 {
+    "id": "782",
     "name": "771.宝石与石头",
-    "url": "https://leetcode-cn.com/problems/jewels-and-stones/",
+    "url": "https://leetcode.cn/problems/jewels-and-stones",
     "difficulty": "简单",
     "tag": [
-        "哈希表"
+        "哈希表",
+        "字符串"
     ],
     "desc": "给定字符串 J 代表石头中宝石的类型，和字符串 S 代表你拥有的石头。 S 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。",
     "solutions": [

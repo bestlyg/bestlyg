@@ -1,6 +1,7 @@
 {
+    "id": "391",
     "name": "391.完美矩形",
-    "url": "https://leetcode-cn.com/problems/perfect-rectangle/",
+    "url": "https://leetcode.cn/problems/perfect-rectangle",
     "difficulty": "困难",
     "tag": [
         "数组",

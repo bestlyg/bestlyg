@@ -1,6 +1,7 @@
 {
+    "id": "1000246",
     "name": "剑指OfferII010.和为k的子数组",
-    "url": "https://leetcode-cn.com/problems/QTMn0o/",
+    "url": "https://leetcode.cn/problems/QTMn0o",
     "difficulty": "中等",
     "tag": [
         "数组",

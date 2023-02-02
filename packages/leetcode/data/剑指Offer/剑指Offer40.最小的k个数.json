@@ -1,10 +1,14 @@
 {
+    "id": "100301",
     "name": "剑指Offer40.最小的k个数",
-    "url": "https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/",
+    "url": "https://leetcode.cn/problems/zui-xiao-de-kge-shu-lcof",
     "difficulty": "简单",
     "tag": [
-        "堆",
-        "分治算法"
+        "数组",
+        "分治",
+        "快速选择",
+        "排序",
+        "堆（优先队列）"
     ],
     "desc": "输入整数数组 arr ，找出其中最小的 k 个数。",
     "solutions": [

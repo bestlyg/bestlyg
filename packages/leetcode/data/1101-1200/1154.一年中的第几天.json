@@ -1,6 +1,7 @@
 {
+    "id": "1260",
     "name": "1154.一年中的第几天",
-    "url": "https://leetcode-cn.com/problems/day-of-the-year/",
+    "url": "https://leetcode.cn/problems/day-of-the-year",
     "difficulty": "简单",
     "tag": [
         "数学",

@@ -1,7 +1,8 @@
 {
+    "id": "1760",
     "name": "1640.能否连接形成数组",
-    "url": "https://leetcode.cn/problems/check-array-formation-through-concatenation/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/check-array-formation-through-concatenation",
+    "difficulty": "简单",
     "tag": [
         "数组",
         "哈希表"

@@ -1,6 +1,7 @@
 {
+    "id": "125",
     "name": "125.验证回文串",
-    "url": "https://leetcode-cn.com/problems/valid-palindrome/",
+    "url": "https://leetcode.cn/problems/valid-palindrome",
     "difficulty": "简单",
     "tag": [
         "双指针",

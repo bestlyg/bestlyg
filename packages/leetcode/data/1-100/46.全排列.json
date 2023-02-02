@@ -1,9 +1,11 @@
 {
+    "id": "46",
     "name": "46.全排列",
-    "url": "https://leetcode-cn.com/problems/permutations/",
+    "url": "https://leetcode.cn/problems/permutations",
     "difficulty": "中等",
     "tag": [
-        "回溯算法"
+        "数组",
+        "回溯"
     ],
     "desc": "给定一个 没有重复 数字的序列，返回其所有可能的全排列。",
     "solutions": [

@@ -1,10 +1,12 @@
 {
+    "id": "122",
     "name": "122.买卖股票的最佳时机II",
-    "url": "https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii",
+    "difficulty": "中等",
     "tag": [
         "贪心",
-        "数组"
+        "数组",
+        "动态规划"
     ],
     "desc": "给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "594",
     "name": "594.最长和谐子序列",
-    "url": "https://leetcode-cn.com/problems/longest-harmonious-subsequence/",
+    "url": "https://leetcode.cn/problems/longest-harmonious-subsequence",
     "difficulty": "简单",
     "tag": [
         "数组",

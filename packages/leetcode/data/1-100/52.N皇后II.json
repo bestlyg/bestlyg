@@ -1,9 +1,10 @@
 {
+    "id": "52",
     "name": "52.N皇后II",
-    "url": "https://leetcode-cn.com/problems/n-queens-ii/",
+    "url": "https://leetcode.cn/problems/n-queens-ii",
     "difficulty": "困难",
     "tag": [
-        "回溯算法"
+        "回溯"
     ],
     "desc": "n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。",
     "solutions": [

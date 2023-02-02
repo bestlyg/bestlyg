@@ -1,10 +1,12 @@
 {
+    "id": "64",
     "name": "64.最小路径和",
-    "url": "https://leetcode-cn.com/problems/minimum-path-sum/",
+    "url": "https://leetcode.cn/problems/minimum-path-sum",
     "difficulty": "中等",
     "tag": [
         "数组",
-        "动态规划"
+        "动态规划",
+        "矩阵"
     ],
     "desc": "给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。",
     "solutions": [

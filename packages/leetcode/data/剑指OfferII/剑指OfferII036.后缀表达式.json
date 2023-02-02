@@ -1,6 +1,7 @@
 {
+    "id": "1000279",
     "name": "剑指OfferII036.后缀表达式",
-    "url": "https://leetcode-cn.com/problems/8Zf90G/",
+    "url": "https://leetcode.cn/problems/8Zf90G",
     "difficulty": "中等",
     "tag": [
         "栈",

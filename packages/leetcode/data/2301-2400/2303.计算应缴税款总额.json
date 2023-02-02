@@ -1,6 +1,7 @@
 {
+    "id": "1382",
     "name": "2303.计算应缴税款总额",
-    "url": "https://leetcode.cn/problems/calculate-amount-paid-in-taxes/",
+    "url": "https://leetcode.cn/problems/calculate-amount-paid-in-taxes",
     "difficulty": "简单",
     "tag": [
         "数组",

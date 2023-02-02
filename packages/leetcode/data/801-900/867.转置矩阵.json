@@ -1,9 +1,12 @@
 {
+    "id": "898",
     "name": "867.转置矩阵",
-    "url": "https://leetcode-cn.com/problems/transpose-matrix/",
+    "url": "https://leetcode.cn/problems/transpose-matrix",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "数组",
+        "矩阵",
+        "模拟"
     ],
     "desc": "给你一个二维整数数组 matrix， 返回 matrix 的 转置矩阵 。",
     "solutions": [

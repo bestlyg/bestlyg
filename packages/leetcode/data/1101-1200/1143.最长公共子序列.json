@@ -1,8 +1,10 @@
 {
+    "id": "1250",
     "name": "1143.最长公共子序列",
-    "url": "https://leetcode-cn.com/problems/longest-common-subsequence/",
+    "url": "https://leetcode.cn/problems/longest-common-subsequence",
     "difficulty": "中等",
     "tag": [
+        "字符串",
         "动态规划"
     ],
     "desc": "给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。",

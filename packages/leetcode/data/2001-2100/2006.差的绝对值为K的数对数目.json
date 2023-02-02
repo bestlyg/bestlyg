@@ -1,6 +1,7 @@
 {
+    "id": "2116",
     "name": "2006.差的绝对值为K的数对数目",
-    "url": "https://leetcode-cn.com/problems/count-number-of-pairs-with-absolute-difference-k/",
+    "url": "https://leetcode.cn/problems/count-number-of-pairs-with-absolute-difference-k",
     "difficulty": "简单",
     "tag": [
         "数组",

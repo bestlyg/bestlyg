@@ -1,6 +1,7 @@
 {
+    "id": "893",
     "name": "863.二叉树中所有距离为K的结点",
-    "url": "https://leetcode-cn.com/problems/all-nodes-distance-k-in-binary-tree/",
+    "url": "https://leetcode.cn/problems/all-nodes-distance-k-in-binary-tree",
     "difficulty": "中等",
     "tag": [
         "树",

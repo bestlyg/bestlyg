@@ -1,9 +1,12 @@
 {
+    "id": "1708",
     "name": "1603.设计停车系统",
-    "url": "https://leetcode-cn.com/problems/design-parking-system/",
+    "url": "https://leetcode.cn/problems/design-parking-system",
     "difficulty": "简单",
     "tag": [
-        "设计"
+        "设计",
+        "计数",
+        "模拟"
     ],
     "desc": "请你给一个停车场设计一个停车系统。停车场总共有三种不同大小的车位：大，中和小，每种尺寸分别有固定数目的车位。",
     "solutions": [

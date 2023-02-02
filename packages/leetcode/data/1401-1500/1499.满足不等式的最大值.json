@@ -1,13 +1,14 @@
 {
+    "id": "1622",
     "name": "1499.满足不等式的最大值",
-    "url": "https://leetcode-cn.com/problems/max-value-of-equation/",
+    "url": "https://leetcode.cn/problems/max-value-of-equation",
     "difficulty": "困难",
     "tag": [
         "队列",
         "数组",
         "滑动窗口",
         "单调队列",
-        "堆(优先队列)"
+        "堆（优先队列）"
     ],
     "desc": "请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "1330",
     "name": "1218.最长定差子序列",
-    "url": "https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/",
+    "url": "https://leetcode.cn/problems/longest-arithmetic-subsequence-of-given-difference",
     "difficulty": "中等",
     "tag": [
         "数组",

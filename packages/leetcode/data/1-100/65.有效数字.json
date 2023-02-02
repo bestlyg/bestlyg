@@ -1,9 +1,9 @@
 {
+    "id": "65",
     "name": "65.有效数字",
-    "url": "https://leetcode-cn.com/problems/valid-number/",
+    "url": "https://leetcode.cn/problems/valid-number",
     "difficulty": "困难",
     "tag": [
-        "数学",
         "字符串"
     ],
     "desc": "验证给定的字符串是否可以解释为十进制数字。",

@@ -1,6 +1,7 @@
 {
+    "id": "1306",
     "name": "1200.最小绝对差",
-    "url": "https://leetcode-cn.com/problems/minimum-absolute-difference/",
+    "url": "https://leetcode.cn/problems/minimum-absolute-difference",
     "difficulty": "简单",
     "tag": [
         "数组",

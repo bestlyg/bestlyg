@@ -1,9 +1,11 @@
 {
+    "id": "475",
     "name": "475.供暖器",
-    "url": "https://leetcode-cn.com/problems/heaters",
+    "url": "https://leetcode.cn/problems/heaters",
     "difficulty": "中等",
     "tag": [
         "数组",
+        "双指针",
         "二分查找",
         "排序"
     ],

@@ -1,10 +1,13 @@
 {
+    "id": "368",
     "name": "368.最大整除子集",
-    "url": "https://leetcode-cn.com/problems/largest-divisible-subset/",
+    "url": "https://leetcode.cn/problems/largest-divisible-subset",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "数学",
-        "动态规划"
+        "动态规划",
+        "排序"
     ],
     "desc": "给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer。",
     "solutions": [

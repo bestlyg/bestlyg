@@ -1,6 +1,7 @@
 {
+    "id": "1733",
     "name": "1610.可见点的最大数目",
-    "url": "https://leetcode-cn.com/problems/maximum-number-of-visible-points/",
+    "url": "https://leetcode.cn/problems/maximum-number-of-visible-points",
     "difficulty": "困难",
     "tag": [
         "几何",

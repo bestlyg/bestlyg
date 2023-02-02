@@ -1,9 +1,12 @@
 {
+    "id": "100163",
     "name": "面试题02.01.移除重复节点",
-    "url": "https://leetcode-cn.com/problems/remove-duplicate-node-lcci/",
+    "url": "https://leetcode.cn/problems/remove-duplicate-node-lcci",
     "difficulty": "简单",
     "tag": [
-        "链表"
+        "哈希表",
+        "链表",
+        "双指针"
     ],
     "desc": "编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。",
     "solutions": [

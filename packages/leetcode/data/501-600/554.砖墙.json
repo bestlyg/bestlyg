@@ -1,8 +1,10 @@
 {
+    "id": "554",
     "name": "554.砖墙",
-    "url": "https://leetcode-cn.com/problems/brick-wall/",
+    "url": "https://leetcode.cn/problems/brick-wall",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "哈希表"
     ],
     "desc": "你需要找出怎样画才能使这条线 穿过的砖块数量最少 ，并且返回 穿过的砖块数量 。",

@@ -1,6 +1,7 @@
 {
+    "id": "650",
     "name": "650.只有两个键的键盘",
-    "url": "https://leetcode-cn.com/problems/2-keys-keyboard/",
+    "url": "https://leetcode.cn/problems/2-keys-keyboard",
     "difficulty": "中等",
     "tag": [
         "数学",

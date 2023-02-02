@@ -1,7 +1,8 @@
 {
+    "id": "476",
     "name": "476.数字的补数",
-    "url": "https://leetcode-cn.com/problems/number-complement/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/number-complement",
+    "difficulty": "简单",
     "tag": [
         "位运算"
     ],

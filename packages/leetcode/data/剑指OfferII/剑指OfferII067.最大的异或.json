@@ -1,6 +1,7 @@
 {
+    "id": "1000331",
     "name": "剑指OfferII067.最大的异或",
-    "url": "https://leetcode-cn.com/problems/ms70jA/",
+    "url": "https://leetcode.cn/problems/ms70jA",
     "difficulty": "中等",
     "tag": [
         "位运算",

@@ -1,9 +1,11 @@
 {
+    "id": "227",
     "name": "227.基本计算器II",
-    "url": "https://leetcode-cn.com/problems/basic-calculator-ii/",
+    "url": "https://leetcode.cn/problems/basic-calculator-ii",
     "difficulty": "中等",
     "tag": [
         "栈",
+        "数学",
         "字符串"
     ],
     "desc": "给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。",

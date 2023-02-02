@@ -1,6 +1,7 @@
 {
+    "id": "855",
     "name": "828.统计子串中的唯一字符",
-    "url": "https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/",
+    "url": "https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string",
     "difficulty": "困难",
     "tag": [
         "哈希表",

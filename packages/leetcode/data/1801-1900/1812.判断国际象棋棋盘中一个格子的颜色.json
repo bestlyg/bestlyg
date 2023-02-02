@@ -1,6 +1,7 @@
 {
+    "id": "1920",
     "name": "1812.判断国际象棋棋盘中一个格子的颜色",
-    "url": "https://leetcode.cn/problems/determine-color-of-a-chessboard-square/",
+    "url": "https://leetcode.cn/problems/determine-color-of-a-chessboard-square",
     "difficulty": "简单",
     "tag": [
         "数学",

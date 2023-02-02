@@ -1,9 +1,10 @@
 {
+    "id": "690",
     "name": "690.员工的重要性",
-    "url": "https://leetcode-cn.com/problems/employee-importance/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/employee-importance",
+    "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
+        "深度优先搜索",
         "广度优先搜索",
         "哈希表"
     ],

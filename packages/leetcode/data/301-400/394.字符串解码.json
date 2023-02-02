@@ -1,10 +1,12 @@
 {
+    "id": "394",
     "name": "394.字符串解码",
-    "url": "https://leetcode-cn.com/problems/decode-string/",
+    "url": "https://leetcode.cn/problems/decode-string",
     "difficulty": "中等",
     "tag": [
         "栈",
-        "深度优先搜索"
+        "递归",
+        "字符串"
     ],
     "desc": "给定一个经过编码的字符串，返回它解码后的字符串。",
     "solutions": [

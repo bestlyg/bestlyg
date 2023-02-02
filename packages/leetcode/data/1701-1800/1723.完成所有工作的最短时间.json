@@ -1,10 +1,14 @@
 {
+    "id": "1825",
     "name": "1723.完成所有工作的最短时间",
-    "url": "https://leetcode-cn.com/problems/find-minimum-time-to-finish-all-jobs/",
+    "url": "https://leetcode.cn/problems/find-minimum-time-to-finish-all-jobs",
     "difficulty": "困难",
     "tag": [
-        "回溯算法",
-        "递归"
+        "位运算",
+        "数组",
+        "动态规划",
+        "回溯",
+        "状态压缩"
     ],
     "desc": "返回分配方案中尽可能 最小 的 最大工作时间 。",
     "solutions": [

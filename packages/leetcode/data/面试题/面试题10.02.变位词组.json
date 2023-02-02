@@ -1,8 +1,10 @@
 {
+    "id": "1000040",
     "name": "面试题10.02.变位词组",
-    "url": "https://leetcode-cn.com/problems/group-anagrams-lcci/",
+    "url": "https://leetcode.cn/problems/group-anagrams-lcci",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "哈希表",
         "字符串",
         "排序"

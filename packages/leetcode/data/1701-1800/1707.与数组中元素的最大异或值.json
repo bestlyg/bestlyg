@@ -1,10 +1,12 @@
 {
+    "id": "1826",
     "name": "1707.与数组中元素的最大异或值",
-    "url": "https://leetcode-cn.com/problems/maximum-xor-with-an-element-from-array/",
+    "url": "https://leetcode.cn/problems/maximum-xor-with-an-element-from-array",
     "difficulty": "困难",
     "tag": [
         "位运算",
-        "字典树"
+        "字典树",
+        "数组"
     ],
     "desc": "返回一个整数数组 answer 作为查询的答案，其中 answer.length == queries.length 且 answer[i] 是第 i 个查询的答案。",
     "solutions": [

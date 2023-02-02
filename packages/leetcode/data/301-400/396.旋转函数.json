@@ -1,6 +1,7 @@
 {
+    "id": "396",
     "name": "396.旋转函数",
-    "url": "https://leetcode-cn.com/problems/rotate-function/",
+    "url": "https://leetcode.cn/problems/rotate-function",
     "difficulty": "中等",
     "tag": [
         "数组",

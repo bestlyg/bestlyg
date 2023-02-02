@@ -1,6 +1,7 @@
 {
+    "id": "2005",
     "name": "1893.检查是否区域内所有整数都被覆盖",
-    "url": "https://leetcode-cn.com/problems/check-if-all-the-integers-in-a-range-are-covered/",
+    "url": "https://leetcode.cn/problems/check-if-all-the-integers-in-a-range-are-covered",
     "difficulty": "简单",
     "tag": [
         "数组",

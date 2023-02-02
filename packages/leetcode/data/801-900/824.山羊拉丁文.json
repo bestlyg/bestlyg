@@ -1,6 +1,7 @@
 {
+    "id": "851",
     "name": "824.山羊拉丁文",
-    "url": "https://leetcode-cn.com/problems/goat-latin/",
+    "url": "https://leetcode.cn/problems/goat-latin",
     "difficulty": "简单",
     "tag": [
         "字符串"

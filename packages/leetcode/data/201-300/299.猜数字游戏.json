@@ -1,6 +1,7 @@
 {
+    "id": "299",
     "name": "299.猜数字游戏",
-    "url": "https://leetcode-cn.com/problems/bulls-and-cows/",
+    "url": "https://leetcode.cn/problems/bulls-and-cows",
     "difficulty": "中等",
     "tag": [
         "哈希表",

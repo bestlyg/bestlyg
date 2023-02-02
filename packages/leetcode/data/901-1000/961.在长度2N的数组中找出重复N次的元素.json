@@ -1,6 +1,7 @@
 {
+    "id": "1001",
     "name": "961.在长度2N的数组中找出重复N次的元素",
-    "url": "https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/",
+    "url": "https://leetcode.cn/problems/n-repeated-element-in-size-2n-array",
     "difficulty": "简单",
     "tag": [
         "数组",

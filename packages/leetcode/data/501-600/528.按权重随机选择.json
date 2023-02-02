@@ -1,8 +1,10 @@
 {
+    "id": "912",
     "name": "528.按权重随机选择",
-    "url": "https://leetcode-cn.com/problems/random-pick-with-weight/",
+    "url": "https://leetcode.cn/problems/random-pick-with-weight",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "数学",
         "二分查找",
         "前缀和",

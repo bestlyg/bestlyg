@@ -1,6 +1,7 @@
 {
+    "id": "1324",
     "name": "1706.球会落何处",
-    "url": "https://leetcode-cn.com/problems/where-will-the-ball-fall/",
+    "url": "https://leetcode.cn/problems/where-will-the-ball-fall",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

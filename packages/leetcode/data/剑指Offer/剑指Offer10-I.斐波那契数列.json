@@ -1,7 +1,8 @@
 {
+    "id": "100274",
     "name": "剑指Offer10-I.斐波那契数列",
-    "url": "https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof",
+    "difficulty": "简单",
     "tag": [
         "记忆化搜索",
         "数学",

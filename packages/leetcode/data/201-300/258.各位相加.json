@@ -1,7 +1,8 @@
 {
+    "id": "258",
     "name": "258.各位相加",
-    "url": "https://leetcode-cn.com/problems/add-digits/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/add-digits",
+    "difficulty": "简单",
     "tag": [
         "数学",
         "数论",

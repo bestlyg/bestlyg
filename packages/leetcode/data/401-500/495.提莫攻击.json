@@ -1,6 +1,7 @@
 {
+    "id": "495",
     "name": "495.提莫攻击",
-    "url": "https://leetcode-cn.com/problems/teemo-attacking/",
+    "url": "https://leetcode.cn/problems/teemo-attacking",
     "difficulty": "简单",
     "tag": [
         "数组",

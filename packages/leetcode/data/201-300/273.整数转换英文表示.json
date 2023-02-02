@@ -1,6 +1,7 @@
 {
+    "id": "273",
     "name": "273.整数转换英文表示",
-    "url": "https://leetcode-cn.com/problems/integer-to-english-words/",
+    "url": "https://leetcode.cn/problems/integer-to-english-words",
     "difficulty": "困难",
     "tag": [
         "递归",

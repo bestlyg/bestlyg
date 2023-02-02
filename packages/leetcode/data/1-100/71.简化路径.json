@@ -1,6 +1,7 @@
 {
+    "id": "71",
     "name": "71.简化路径",
-    "url": "https://leetcode-cn.com/problems/simplify-path/",
+    "url": "https://leetcode.cn/problems/simplify-path",
     "difficulty": "中等",
     "tag": [
         "栈",

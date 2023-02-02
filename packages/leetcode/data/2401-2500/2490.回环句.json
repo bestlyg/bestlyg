@@ -1,0 +1,20 @@
+{
+    "id": "2580",
+    "name": "2490.回环句",
+    "url": "https://leetcode.cn/problems/circular-sentence",
+    "difficulty": "简单",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给你一个字符串 sentence ，请你判断它是不是一个回环句。如果是，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "date": 1670083200000,
+            "time": 0,
+            "memory": 6.7,
+            "script": "cpp",
+            "desc": "分割后判断。",
+            "code": "#include <iostream>\n#include <vector>\n// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args); }\n#else\n#define log(frm, args...)\n#endif\ntypedef long long ll;\n\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isCircularSentence(string sentence) {\n        int n = sentence.size();\n        istringstream iss(sentence);\n        string temp, prev = \"\", first = \"\";\n        while (getline(iss, temp, ' ')) {\n            if (prev == \"\") {\n                first = temp;\n            } else {\n                if (prev.back() != temp.front()) return false;\n            }\n            prev = temp;\n        }\n        if (temp.back() != first.front()) return false;\n        return true;\n    }\n};"
+        }
+    ]
+}

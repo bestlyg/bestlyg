@@ -1,6 +1,7 @@
 {
+    "id": "1890",
     "name": "1781.所有子字符串美丽值之和",
-    "url": "https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/",
+    "url": "https://leetcode.cn/problems/sum-of-beauty-of-all-substrings",
     "difficulty": "中等",
     "tag": [
         "哈希表",

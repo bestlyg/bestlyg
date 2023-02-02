@@ -1,10 +1,13 @@
 {
+    "id": "859",
     "name": "641.设计循环双端队列",
-    "url": "https://leetcode-cn.com/problems/design-circular-deque/",
+    "url": "https://leetcode.cn/problems/design-circular-deque",
     "difficulty": "中等",
     "tag": [
         "设计",
-        "队列"
+        "队列",
+        "数组",
+        "链表"
     ],
     "desc": "设计实现双端队列。",
     "solutions": [

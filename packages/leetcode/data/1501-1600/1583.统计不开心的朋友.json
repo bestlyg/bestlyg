@@ -1,6 +1,7 @@
 {
+    "id": "1705",
     "name": "1583.统计不开心的朋友",
-    "url": "https://leetcode-cn.com/problems/count-unhappy-friends/",
+    "url": "https://leetcode.cn/problems/count-unhappy-friends",
     "difficulty": "中等",
     "tag": [
         "数组",

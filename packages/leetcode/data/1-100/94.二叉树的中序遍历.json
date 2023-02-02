@@ -1,11 +1,13 @@
 {
+    "id": "94",
     "name": "94.二叉树的中序遍历",
-    "url": "https://leetcode-cn.com/problems/binary-tree-inorder-traversal/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/binary-tree-inorder-traversal",
+    "difficulty": "简单",
     "tag": [
         "栈",
         "树",
-        "哈希表"
+        "深度优先搜索",
+        "二叉树"
     ],
     "desc": "给定一个二叉树，返回它的中序 遍历。",
     "solutions": [

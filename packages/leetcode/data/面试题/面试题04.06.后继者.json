@@ -1,6 +1,7 @@
 {
+    "id": "100178",
     "name": "面试题04.06.后继者",
-    "url": "https://leetcode-cn.com/problems/successor-lcci/",
+    "url": "https://leetcode.cn/problems/successor-lcci",
     "difficulty": "中等",
     "tag": [
         "树",

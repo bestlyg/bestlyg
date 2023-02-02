@@ -1,6 +1,7 @@
 {
+    "id": "833",
     "name": "815.公交路线",
-    "url": "https://leetcode-cn.com/problems/bus-routes/",
+    "url": "https://leetcode.cn/problems/bus-routes",
     "difficulty": "困难",
     "tag": [
         "广度优先搜索",

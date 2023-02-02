@@ -1,6 +1,7 @@
 {
+    "id": "1547",
     "name": "1436.旅行终点站",
-    "url": "https://leetcode-cn.com/problems/destination-city/",
+    "url": "https://leetcode.cn/problems/destination-city",
     "difficulty": "简单",
     "tag": [
         "哈希表",

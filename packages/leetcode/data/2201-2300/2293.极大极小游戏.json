@@ -1,6 +1,7 @@
 {
+    "id": "2386",
     "name": "2293.极大极小游戏",
-    "url": "https://leetcode.cn/problems/min-max-game/",
+    "url": "https://leetcode.cn/problems/min-max-game",
     "difficulty": "简单",
     "tag": [
         "数组",

@@ -1,11 +1,14 @@
 {
+    "id": "381",
     "name": "381.O(1)时间插入、删除和获取随机元素-允许重复",
-    "url": "https://leetcode-cn.com/problems/insert-delete-getrandom-o1-duplicates-allowed/",
+    "url": "https://leetcode.cn/problems/insert-delete-getrandom-o1-duplicates-allowed",
     "difficulty": "困难",
     "tag": [
         "设计",
         "数组",
-        "哈希表"
+        "哈希表",
+        "数学",
+        "随机化"
     ],
     "desc": "设计一个支持在平均 时间复杂度 O(1) 下， 执行以下操作的数据结构。",
     "solutions": [

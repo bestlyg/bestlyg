@@ -1,6 +1,7 @@
 {
+    "id": "409",
     "name": "409.最长回文串",
-    "url": "https://leetcode-cn.com/problems/longest-palindrome/",
+    "url": "https://leetcode.cn/problems/longest-palindrome",
     "difficulty": "简单",
     "tag": [
         "贪心",

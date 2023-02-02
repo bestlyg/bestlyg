@@ -1,6 +1,7 @@
 {
+    "id": "1159",
     "name": "1081.不同字符的最小子序列",
-    "url": "https://leetcode-cn.com/problems/smallest-subsequence-of-distinct-characters/",
+    "url": "https://leetcode.cn/problems/smallest-subsequence-of-distinct-characters",
     "difficulty": "中等",
     "tag": [
         "栈",

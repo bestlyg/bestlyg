@@ -1,6 +1,7 @@
 {
+    "id": "881",
     "name": "851.喧闹和富有",
-    "url": "https://leetcode-cn.com/problems/loud-and-rich/",
+    "url": "https://leetcode.cn/problems/loud-and-rich",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

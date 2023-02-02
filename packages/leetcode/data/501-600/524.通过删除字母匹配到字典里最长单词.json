@@ -1,6 +1,7 @@
 {
+    "id": "524",
     "name": "524.通过删除字母匹配到字典里最长单词",
-    "url": "https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/",
+    "url": "https://leetcode.cn/problems/longest-word-in-dictionary-through-deleting",
     "difficulty": "中等",
     "tag": [
         "数组",

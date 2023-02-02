@@ -1,8 +1,10 @@
 {
+    "id": "14",
     "name": "14.最长公共前缀",
-    "url": "https://leetcode-cn.com/problems/longest-common-prefix/",
+    "url": "https://leetcode.cn/problems/longest-common-prefix",
     "difficulty": "简单",
     "tag": [
+        "字典树",
         "字符串"
     ],
     "desc": "编写一个函数来查找字符串数组中的最长公共前缀。",

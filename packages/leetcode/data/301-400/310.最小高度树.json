@@ -1,6 +1,7 @@
 {
+    "id": "310",
     "name": "310.最小高度树",
-    "url": "https://leetcode-cn.com/problems/minimum-height-trees/",
+    "url": "https://leetcode.cn/problems/minimum-height-trees",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

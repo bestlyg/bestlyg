@@ -1,6 +1,7 @@
 {
+    "id": "168",
     "name": "168.Excel表列名称",
-    "url": "https://leetcode-cn.com/problems/excel-sheet-column-title/",
+    "url": "https://leetcode.cn/problems/excel-sheet-column-title",
     "difficulty": "简单",
     "tag": [
         "数学",

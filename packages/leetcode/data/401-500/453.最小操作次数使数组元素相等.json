@@ -1,7 +1,8 @@
 {
+    "id": "453",
     "name": "453.最小操作次数使数组元素相等",
-    "url": "https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/minimum-moves-to-equal-array-elements",
+    "difficulty": "中等",
     "tag": [
         "数组",
         "数学"

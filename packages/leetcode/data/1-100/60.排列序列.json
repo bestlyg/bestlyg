@@ -1,20 +1,29 @@
 {
+    "id": "60",
     "name": "60.排列序列",
-    "url": "https://leetcode-cn.com/problems/permutation-sequence/",
+    "url": "https://leetcode.cn/problems/permutation-sequence",
     "difficulty": "困难",
     "tag": [
         "递归",
         "数学"
     ],
-    "desc": "给出集合 [1,2,3,...,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
+    "desc": "给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。给定 n 和 k，返回第 k 个排列。",
     "solutions": [
         {
-            "date": 1639238400000,
-            "time": 88,
-            "memory": 39.7,
+            "date": 1599235200000,
+            "time": 5932,
+            "memory": 76,
             "script": "typescript",
-            "desc": "每次循环遍历 n 个数的值。",
-            "code": "const map: Record<number, number> = { 1: 1 };\nfor (let i = 2; i <= 9; i++) map[i] = map[i - 1] * i;\nfunction getPermutation(n: number, k: number): string {\n  const set = new Set<number>();\n  const getNum = (idx: number) => {\n    for (let i = 1; i <= n; i++) {\n      if (!set.has(i) && --idx === 0) {\n        set.add(i);\n        return i;\n      }\n    }\n    return -1;\n  };\n  let ans = '';\n  let tmpn = n;\n  while (k > 1) {\n    const cnt = Math.floor((k - 1) / map[tmpn - 1]);\n    ans += getNum(cnt + 1);\n    k -= cnt * map[tmpn - 1];\n    tmpn--;\n  }\n  while (set.size !== n) ans += getNum(1);\n  return ans;\n}"
+            "desc": "遍历所有可能,在达到需要的值时暂停。",
+            "code": "function getPermutation(n: number, k: number): string {\n  const ans: string[] = [];\n  dfs();\n  return ans[k - 1];\n  function dfs(arr: number[] = [], set: Set<number> = new Set()): void {\n    if (ans.length > k - 1) return;\n    let f = false;\n    for (let i = 1; i <= n; i++) {\n      if (set.has(i)) continue;\n      f = true;\n      set.add(i);\n      arr.push(i);\n      dfs(arr, set);\n      arr.pop();\n      set.delete(i);\n    }\n    if (!f) ans.push(arr.join(''));\n  }\n}"
+        },
+        {
+            "date": 1599235200000,
+            "time": 80,
+            "memory": 37.8,
+            "script": "typescript",
+            "desc": "[官方题解](https://leetcode-cn.com/problems/permutation-sequence/solution/di-kge-pai-lie-by-leetcode-solution/)。",
+            "code": "function getPermutation(n: number, k: number): string {\n  const factorials = [1];\n  for (let i = 1; i < n; i++) factorials[i] = factorials[i - 1] * i;\n  k--;\n  let ans = '';\n  const valid: number[] = new Array(n + 1).fill(1);\n  for (let i = 1; i <= n; i++) {\n    let order = ~~(k / factorials[n - i]) + 1;\n    for (let j = 1; j <= n; j++) {\n      order -= valid[j];\n      if (order === 0) {\n        ans += j;\n        valid[j] = 0;\n        break;\n      }\n    }\n    k %= factorials[n - i];\n  }\n  return ans;\n}"
         }
     ]
 }

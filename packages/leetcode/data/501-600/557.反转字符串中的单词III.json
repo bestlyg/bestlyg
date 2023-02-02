@@ -1,8 +1,10 @@
 {
+    "id": "557",
     "name": "557.反转字符串中的单词III",
-    "url": "https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/",
+    "url": "https://leetcode.cn/problems/reverse-words-in-a-string-iii",
     "difficulty": "简单",
     "tag": [
+        "双指针",
         "字符串"
     ],
     "desc": "给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。",

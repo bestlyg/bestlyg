@@ -1,6 +1,7 @@
 {
+    "id": "1566",
     "name": "1455.检查单词是否为句中其他单词的前缀",
-    "url": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/",
+    "url": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence",
     "difficulty": "简单",
     "tag": [
         "字符串",

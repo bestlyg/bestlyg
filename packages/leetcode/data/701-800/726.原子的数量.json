@@ -1,10 +1,13 @@
 {
+    "id": "726",
     "name": "726.原子的数量",
-    "url": "https://leetcode-cn.com/problems/number-of-atoms/",
+    "url": "https://leetcode.cn/problems/number-of-atoms",
     "difficulty": "困难",
     "tag": [
+        "栈",
         "哈希表",
-        "栈"
+        "字符串",
+        "排序"
     ],
     "desc": "给定一个化学式，输出所有原子的数量。格式为：第一个（按字典序）原子的名子，跟着它的数量（如果数量大于 1），然后是第二个原子的名字（按字典序），跟着它的数量（如果数量大于 1），以此类推。",
     "solutions": [

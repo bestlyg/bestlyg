@@ -1,0 +1,23 @@
+{
+    "id": "2568",
+    "name": "2477.到达首都的最少油耗",
+    "url": "https://leetcode.cn/problems/minimum-fuel-cost-to-report-to-the-capital",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "图"
+    ],
+    "desc": "请你返回到达首都最少需要多少升汽油。",
+    "solutions": [
+        {
+            "date": 1668873600000,
+            "time": 796,
+            "memory": 256.5,
+            "script": "cpp",
+            "desc": "递归，从外向里遍历。",
+            "code": "// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args);}\n#else\n#define log(frm, args...)\n#endif\n\ntypedef long long ll;\n\nusing namespace std;\n\nstruct City {\n    int len, idx, size;\n    unordered_set<int> next;\n    City(): len(0), idx(0), size(1) {}\n};\nclass Solution {\npublic:\n    vector<City> list;\n    vector<int> idxlist;\n    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {\n        int n = roads.size() + 1;\n        if (n == 1) return 0;\n        list = vector<City>(n);\n        idxlist = vector<int>(n);\n        for (int i = 0; i < n; i++) {\n            list[i].idx = i;\n            idxlist[i] = i;\n        }\n        for (auto &road : roads) {\n            list[road[0]].next.insert(road[1]);\n            list[road[1]].next.insert(road[0]);\n        }\n        initLen();\n        // for (int i = 0; i < n; i++) {\n        //     cout << \"i = \" << i\n        //          << \", len = \" << list[i].len\n        //          << \", idx = \" << list[i].idx\n        //          << \", next = \";\n        //     for (auto &next : list[i].next) {\n        //         cout << next << \", \";\n        //     }\n        //     cout << endl;\n        // }\n        sort(idxlist.begin(), idxlist.end(), [&](auto &a, auto &b){\n            return list[a].len < list[b].len;\n        });\n        // cout << \"-====\" << endl;\n        long long ans = 0;\n        for (int idx = n - 1; idx > 0; idx--) {\n            int i = idxlist[idx];\n            ans += 1 + (list[i].size - 1) / seats;\n            int next = *list[i].next.begin();\n            list[next].size += list[i].size;\n            list[next].next.erase(i);\n            // cout << \"i = \" << i\n            //      << \", idx = \" << list[i].idx\n            //      << \", next = \" << list[next].idx\n            //      << \", cursize = \" << list[i].size\n            //      << \", nextsize = \" << list[next].size\n            //      << endl;\n        }\n        return ans;\n    }\n    void initLen() {\n        queue<int> q;\n        q.push(0);\n        int size = 1, cur = 1;\n        while (q.size()) {\n            int node = q.front();\n            q.pop();\n            for (auto &next : list[node].next) {\n                if (next == 0 || list[next].len != 0) continue;\n                list[next].len = cur;\n                q.push(next);\n            }\n            if (--size == 0) {\n                size = q.size();\n                cur++;\n            }\n        }\n    }\n};"
+        }
+    ]
+}

@@ -1,8 +1,10 @@
 {
+    "id": "25",
     "name": "25.K个一组翻转链表",
-    "url": "https://leetcode-cn.com/problems/reverse-nodes-in-k-group/",
+    "url": "https://leetcode.cn/problems/reverse-nodes-in-k-group",
     "difficulty": "困难",
     "tag": [
+        "递归",
         "链表"
     ],
     "desc": "给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。",

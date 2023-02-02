@@ -1,6 +1,7 @@
 {
+    "id": "1723",
     "name": "1601.最多可达成的换楼请求数目",
-    "url": "https://leetcode-cn.com/problems/maximum-number-of-achievable-transfer-requests/",
+    "url": "https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests",
     "difficulty": "困难",
     "tag": [
         "位运算",

@@ -1,0 +1,21 @@
+{
+    "id": "2544",
+    "name": "2457.美丽整数的最小增量",
+    "url": "https://leetcode.cn/problems/minimum-addition-to-make-integer-beautiful",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数学"
+    ],
+    "desc": "返回一个二维字符串数组 answer ，其中 answer[i] = [creatori, idi] 表示 creatori 的流行度 最高 且其最流行的视频 id 是 idi ，可以按任何顺序返回该结果。",
+    "solutions": [
+        {
+            "date": 1667059200000,
+            "time": 724,
+            "memory": 240.8,
+            "script": "cpp",
+            "desc": "暴力枚举，通过 map 排序。",
+            "code": "struct MyData {\n    long long sum;\n    int nmax;\n    string name, smax;\n    map<string, int> m;\n    MyData() {};\n    MyData(string name): name(name), sum(0), nmax(0), smax(\"\"){}\n    void setMap(string id, int view) {\n        if (nmax < view || nmax == view && (smax == \"\" || smax > id)) {\n            nmax = view;\n            smax = id;\n        }\n        sum += view;\n        m[id] = view;\n    }\n};\nclass Solution {\npublic:\n    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {\n        int n = creators.size();\n        map<string, MyData> m;\n        vector<vector<string>> ans;\n        for (int i = 0; i < n; i++) {\n            if (!m.count(creators[i])) m[creators[i]] = MyData(creators[i]);\n            m[creators[i]].setMap(ids[i], views[i]);\n        }\n        int maxsum = m.begin()->second.sum;\n        for (auto &item : m) {\n            if (item.second.sum > maxsum) ans.clear(), maxsum = item.second.sum;\n            if (item.second.sum < maxsum) continue;\n            vector<string> data(2);\n            data[0] = item.first;\n            data[1] = item.second.smax;\n            ans.push_back(move(data));\n        }\n        return ans;\n    }\n};"
+        }
+    ]
+}

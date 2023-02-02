@@ -1,6 +1,7 @@
 {
+    "id": "283",
     "name": "283.移动零",
-    "url": "https://leetcode-cn.com/problems/move-zeroes/",
+    "url": "https://leetcode.cn/problems/move-zeroes",
     "difficulty": "简单",
     "tag": [
         "数组",

@@ -1,11 +1,14 @@
 {
+    "id": "130",
     "name": "130.被围绕的区域",
-    "url": "https://leetcode-cn.com/problems/surrounded-regions/",
+    "url": "https://leetcode.cn/problems/surrounded-regions",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",
         "广度优先搜索",
-        "并查集"
+        "并查集",
+        "数组",
+        "矩阵"
     ],
     "desc": "给定一个二维的矩阵，包含 'X' 和 'O'（字母 O）。找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。",
     "solutions": [

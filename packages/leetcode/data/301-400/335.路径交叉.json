@@ -1,6 +1,7 @@
 {
+    "id": "335",
     "name": "335.路径交叉",
-    "url": "https://leetcode-cn.com/problems/self-crossing//",
+    "url": "https://leetcode.cn/problems/self-crossing",
     "difficulty": "困难",
     "tag": [
         "几何",

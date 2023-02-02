@@ -1,6 +1,7 @@
 {
+    "id": "1",
     "name": "1.两数之和",
-    "url": "https://leetcode-cn.com/problems/two-sum/",
+    "url": "https://leetcode.cn/problems/two-sum",
     "difficulty": "简单",
     "tag": [
         "数组",

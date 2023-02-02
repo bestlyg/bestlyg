@@ -1,6 +1,7 @@
 {
+    "id": "412",
     "name": "412.FizzBuzz",
-    "url": "https://leetcode-cn.com/problems/fizz-buzz/",
+    "url": "https://leetcode.cn/problems/fizz-buzz",
     "difficulty": "简单",
     "tag": [
         "数学",

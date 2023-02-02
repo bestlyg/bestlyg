@@ -1,6 +1,7 @@
 {
+    "id": "1000254",
     "name": "剑指OfferII018.有效的回文",
-    "url": "https://leetcode-cn.com/problems/XltzEq/",
+    "url": "https://leetcode.cn/problems/XltzEq",
     "difficulty": "简单",
     "tag": [
         "双指针",

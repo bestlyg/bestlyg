@@ -1,6 +1,7 @@
 {
+    "id": "2151",
     "name": "2039.网络空闲的时刻",
-    "url": "https://leetcode-cn.com/problems/the-time-when-the-network-becomes-idle/",
+    "url": "https://leetcode.cn/problems/the-time-when-the-network-becomes-idle",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

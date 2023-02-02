@@ -1,6 +1,7 @@
 {
+    "id": "1307",
     "name": "1201.丑数III",
-    "url": "https://leetcode-cn.com/problems/ugly-number-iii/",
+    "url": "https://leetcode.cn/problems/ugly-number-iii",
     "difficulty": "中等",
     "tag": [
         "数学",

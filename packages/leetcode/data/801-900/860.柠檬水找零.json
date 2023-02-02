@@ -1,9 +1,11 @@
 {
+    "id": "890",
     "name": "860.柠檬水找零",
-    "url": "https://leetcode-cn.com/problems/lemonade-change/",
+    "url": "https://leetcode.cn/problems/lemonade-change",
     "difficulty": "简单",
     "tag": [
-        "贪心"
+        "贪心",
+        "数组"
     ],
     "desc": "在柠檬水摊上，每一杯柠檬水的售价为 5 美元。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。",
     "solutions": [

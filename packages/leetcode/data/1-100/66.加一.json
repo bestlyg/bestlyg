@@ -1,6 +1,7 @@
 {
+    "id": "66",
     "name": "66.加一",
-    "url": "https://leetcode-cn.com/problems/plus-one/",
+    "url": "https://leetcode.cn/problems/plus-one",
     "difficulty": "简单",
     "tag": [
         "数组",

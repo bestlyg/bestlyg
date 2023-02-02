@@ -1,6 +1,7 @@
 {
+    "id": "1552",
     "name": "1441.用栈操作构建数组",
-    "url": "https://leetcode.cn/problems/build-an-array-with-stack-operations/",
+    "url": "https://leetcode.cn/problems/build-an-array-with-stack-operations",
     "difficulty": "中等",
     "tag": [
         "栈",

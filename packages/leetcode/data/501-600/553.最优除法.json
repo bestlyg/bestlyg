@@ -1,6 +1,7 @@
 {
+    "id": "553",
     "name": "553.最优除法",
-    "url": "https://leetcode-cn.com/problems/optimal-division/",
+    "url": "https://leetcode.cn/problems/optimal-division",
     "difficulty": "中等",
     "tag": [
         "数组",

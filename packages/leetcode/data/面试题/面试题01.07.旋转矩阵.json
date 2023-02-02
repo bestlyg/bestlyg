@@ -1,9 +1,12 @@
 {
+    "id": "100185",
     "name": "面试题01.07.旋转矩阵",
-    "url": "https://leetcode-cn.com/problems/rotate-matrix-lcci/",
+    "url": "https://leetcode.cn/problems/rotate-matrix-lcci",
     "difficulty": "中等",
     "tag": [
-        "数组"
+        "数组",
+        "数学",
+        "矩阵"
     ],
     "desc": "给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。",
     "solutions": [

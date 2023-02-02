@@ -1,6 +1,7 @@
 {
+    "id": "405",
     "name": "405.数字转换为十六进制数",
-    "url": "https://leetcode-cn.com/problems/convert-a-number-to-hexadecimal/",
+    "url": "https://leetcode.cn/problems/convert-a-number-to-hexadecimal",
     "difficulty": "简单",
     "tag": [
         "位运算",

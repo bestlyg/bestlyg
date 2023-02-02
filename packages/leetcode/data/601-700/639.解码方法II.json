@@ -1,6 +1,7 @@
 {
+    "id": "639",
     "name": "639.解码方法II",
-    "url": "https://leetcode-cn.com/problems/decode-ways-ii/",
+    "url": "https://leetcode.cn/problems/decode-ways-ii",
     "difficulty": "困难",
     "tag": [
         "字符串",
@@ -9,12 +10,20 @@
     "desc": "给你一个字符串 s ，由数字和 '\\*' 字符组成，返回 解码 该字符串的方法 数目 。",
     "solutions": [
         {
-            "date": 1632672000000,
-            "time": 104,
-            "memory": 48.9,
+            "date": 1632758400000,
+            "time": 152,
+            "memory": 52.4,
             "script": "typescript",
-            "desc": "动态规划。",
-            "code": "function numDecodings(s: string): number {\n  const MOD = 10 ** 9 + 7;\n  const n = s.length;\n  const dp: number[] = new Array(n).fill(0);\n  dp[0] = s[0] === '*' ? 9 : s[0] === '0' ? 0 : 1;\n  let prev = s[0];\n  const add = (idx: number, val: number) => (dp[idx] = (dp[idx] + val) % MOD);\n  for (let i = 1; i < n; i++) {\n    const prev2Num = dp[i - 2] ?? 1;\n    const char = s[i];\n    if (char === '*') {\n      add(i, 9 * dp[i - 1]);\n      const c = prev === '1' ? 9 : prev === '*' ? 9 + 6 : prev === '2' ? 6 : 0;\n      add(i, c * prev2Num);\n    } else if (char !== '0') {\n      dp[i] += dp[i - 1];\n      let c = 0;\n      if (prev === '1' || prev === '*') c++;\n      if ((prev === '2' || prev === '*') && char !== '7' && char !== '8' && char !== '9') c++;\n      add(i, c * prev2Num);\n    } else {\n      if (prev !== '1' && prev !== '2' && prev !== '*') return 0;\n      const c = prev === '*' ? 2 : 1;\n      add(i, c * prev2Num);\n    }\n    prev = char;\n  }\n  return dp[n - 1];\n}"
+            "desc": "dfs。",
+            "code": "function pathSum(root: TreeNode | null, targetSum: number): number {\n  if (root === null) return 0;\n  let ans = 0;\n  dfs(root);\n  return ans;\n  function dfs(node: TreeNode | null, list: number[] = []) {\n    if (node === null) return;\n    const newList = list.map(v => v + node.val);\n    newList.push(node.val);\n    newList.forEach(v => {\n      if (v === targetSum) ans++;\n    });\n    dfs(node.left, newList);\n    dfs(node.right, newList);\n  }\n}"
+        },
+        {
+            "date": 1632758400000,
+            "time": 88,
+            "memory": 42.6,
+            "script": "typescript",
+            "desc": "dfs。",
+            "code": "function pathSum(root: TreeNode | null, targetSum: number): number {\n  if (root === null) return 0;\n  let ans = 0;\n  dfs(root);\n  return ans;\n  function dfs(node: TreeNode | null, list: number[] = []) {\n    if (node === null) return;\n    const val = node.val;\n    const len = list.length;\n    if (val === targetSum) ans++;\n    for (let i = 0; i < len; i++) {\n      list[i] += val;\n      if (list[i] === targetSum) ans++;\n    }\n    list.push(val);\n    dfs(node.left, list);\n    dfs(node.right, list);\n    list.pop();\n    for (let i = 0; i < len; i++) {\n      list[i] -= val;\n    }\n  }\n}"
         }
     ]
 }

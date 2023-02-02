@@ -1,6 +1,7 @@
 {
+    "id": "223",
     "name": "223.矩形面积",
-    "url": "https://leetcode-cn.com/problems/rectangle-area/",
+    "url": "https://leetcode.cn/problems/rectangle-area",
     "difficulty": "中等",
     "tag": [
         "几何",

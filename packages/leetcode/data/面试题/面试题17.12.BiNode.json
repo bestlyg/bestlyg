@@ -1,6 +1,7 @@
 {
+    "id": "1000019",
     "name": "面试题17.12.BiNode",
-    "url": "https://leetcode-cn.com/problems/binode-lcci/",
+    "url": "https://leetcode.cn/problems/binode-lcci",
     "difficulty": "简单",
     "tag": [
         "栈",

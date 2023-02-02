@@ -1,12 +1,13 @@
 {
+    "id": "675",
     "name": "675.为高尔夫比赛砍树",
-    "url": "https://leetcode.cn/problems/cut-off-trees-for-golf-event/",
+    "url": "https://leetcode.cn/problems/cut-off-trees-for-golf-event",
     "difficulty": "困难",
     "tag": [
         "广度优先搜索",
         "数组",
         "矩阵",
-        "堆(优先队列)"
+        "堆（优先队列）"
     ],
     "desc": "你将从 (0, 0) 点开始工作，返回你砍完所有树需要走的最小步数。 如果你无法砍完所有的树，返回 -1 。",
     "solutions": [

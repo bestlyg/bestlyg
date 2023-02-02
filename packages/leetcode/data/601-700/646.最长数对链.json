@@ -1,6 +1,7 @@
 {
+    "id": "646",
     "name": "646.最长数对链",
-    "url": "https://leetcode.cn/problems/maximum-length-of-pair-chain/",
+    "url": "https://leetcode.cn/problems/maximum-length-of-pair-chain",
     "difficulty": "中等",
     "tag": [
         "贪心",

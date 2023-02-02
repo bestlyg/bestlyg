@@ -1,6 +1,7 @@
 {
+    "id": "774",
     "name": "559.N叉树的最大深度",
-    "url": "https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/",
+    "url": "https://leetcode.cn/problems/maximum-depth-of-n-ary-tree",
     "difficulty": "简单",
     "tag": [
         "树",

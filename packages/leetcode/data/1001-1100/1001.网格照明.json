@@ -1,6 +1,7 @@
 {
+    "id": "1043",
     "name": "1001.网格照明",
-    "url": "https://leetcode-cn.com/problems/grid-illumination/",
+    "url": "https://leetcode.cn/problems/grid-illumination",
     "difficulty": "困难",
     "tag": [
         "数组",

@@ -1,9 +1,12 @@
 {
+    "id": "770",
     "name": "765.情侣牵手",
-    "url": "https://leetcode-cn.com/problems/couples-holding-hands/",
+    "url": "https://leetcode.cn/problems/couples-holding-hands",
     "difficulty": "困难",
     "tag": [
         "贪心",
+        "深度优先搜索",
+        "广度优先搜索",
         "并查集",
         "图"
     ],

@@ -1,6 +1,7 @@
 {
+    "id": "2134",
     "name": "2024.考试的最大困扰度",
-    "url": "https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/",
+    "url": "https://leetcode.cn/problems/maximize-the-confusion-of-an-exam",
     "difficulty": "中等",
     "tag": [
         "字符串",

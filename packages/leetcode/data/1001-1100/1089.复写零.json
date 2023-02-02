@@ -1,6 +1,7 @@
 {
+    "id": "1168",
     "name": "1089.复写零",
-    "url": "https://leetcode-cn.com/problems/duplicate-zeros/",
+    "url": "https://leetcode.cn/problems/duplicate-zeros",
     "difficulty": "简单",
     "tag": [
         "数组",

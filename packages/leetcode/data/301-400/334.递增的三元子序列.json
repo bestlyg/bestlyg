@@ -1,6 +1,7 @@
 {
+    "id": "334",
     "name": "334.递增的三元子序列",
-    "url": "https://leetcode-cn.com/problems/increasing-triplet-subsequence/",
+    "url": "https://leetcode.cn/problems/increasing-triplet-subsequence",
     "difficulty": "中等",
     "tag": [
         "贪心",

@@ -1,6 +1,7 @@
 {
+    "id": "767",
     "name": "762.二进制表示中质数个计算置位",
-    "url": "https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/",
+    "url": "https://leetcode.cn/problems/prime-number-of-set-bits-in-binary-representation",
     "difficulty": "简单",
     "tag": [
         "位运算",

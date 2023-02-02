@@ -1,6 +1,7 @@
 {
+    "id": "938",
     "name": "902.最大为N的数字组合",
-    "url": "https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/",
+    "url": "https://leetcode.cn/problems/numbers-at-most-n-given-digit-set",
     "difficulty": "困难",
     "tag": [
         "数组",

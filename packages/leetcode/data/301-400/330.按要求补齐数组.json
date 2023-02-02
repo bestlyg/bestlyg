@@ -1,9 +1,11 @@
 {
+    "id": "330",
     "name": "330.按要求补齐数组",
-    "url": "https://leetcode-cn.com/problems/patching-array/",
+    "url": "https://leetcode.cn/problems/patching-array",
     "difficulty": "困难",
     "tag": [
-        "贪心"
+        "贪心",
+        "数组"
     ],
     "desc": "给定一个已排序的正整数数组 nums，和一个正整数  n 。从  [1, n]  区间内选取任意个数字补充到  nums  中，使得  [1, n]  区间内的任何数字都可以用  nums  中某几个数字的和来表示。请输出满足上述要求的最少需要补充的数字个数。",
     "solutions": [

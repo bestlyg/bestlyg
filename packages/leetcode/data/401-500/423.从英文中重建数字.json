@@ -1,6 +1,7 @@
 {
+    "id": "423",
     "name": "423.从英文中重建数字",
-    "url": "https://leetcode-cn.com/problems/reconstruct-original-digits-from-english/",
+    "url": "https://leetcode.cn/problems/reconstruct-original-digits-from-english",
     "difficulty": "中等",
     "tag": [
         "哈希表",

@@ -1,6 +1,7 @@
 {
+    "id": "1023",
     "name": "981.基于时间的键值存储",
-    "url": "https://leetcode-cn.com/problems/time-based-key-value-store/",
+    "url": "https://leetcode.cn/problems/time-based-key-value-store",
     "difficulty": "中等",
     "tag": [
         "设计",

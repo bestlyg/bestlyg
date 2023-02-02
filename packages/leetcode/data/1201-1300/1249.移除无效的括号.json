@@ -1,6 +1,7 @@
 {
+    "id": "1371",
     "name": "1249.移除无效的括号",
-    "url": "https://leetcode-cn.com/problems/minimum-remove-to-make-valid-parentheses/",
+    "url": "https://leetcode.cn/problems/minimum-remove-to-make-valid-parentheses",
     "difficulty": "中等",
     "tag": [
         "栈",

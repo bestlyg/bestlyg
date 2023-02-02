@@ -1,9 +1,10 @@
 {
+    "id": "857",
     "name": "830.较大分组的位置",
-    "url": "https://leetcode-cn.com/problems/positions-of-large-groups/",
+    "url": "https://leetcode.cn/problems/positions-of-large-groups",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "字符串"
     ],
     "desc": "在一个由小写字母构成的字符串 s 中，包含由一些连续的相同字符所构成的分组。找到每一个 较大分组 的区间，按起始位置下标递增顺序排序后，返回结果。",
     "solutions": [

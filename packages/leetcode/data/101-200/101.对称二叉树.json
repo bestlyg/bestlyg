@@ -1,11 +1,13 @@
 {
+    "id": "101",
     "name": "101.对称二叉树",
-    "url": "https://leetcode-cn.com/problems/symmetric-tree/",
+    "url": "https://leetcode.cn/problems/symmetric-tree",
     "difficulty": "简单",
     "tag": [
         "树",
+        "深度优先搜索",
         "广度优先搜索",
-        "深度优先搜索"
+        "二叉树"
     ],
     "desc": "给定一个二叉树，检查它是否是镜像对称的。",
     "solutions": [

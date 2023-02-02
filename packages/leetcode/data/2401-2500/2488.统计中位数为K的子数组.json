@@ -1,0 +1,22 @@
+{
+    "id": "2574",
+    "name": "2488.统计中位数为K的子数组",
+    "url": "https://leetcode.cn/problems/count-subarrays-with-median-k",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "desc": "给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。",
+    "solutions": [
+        {
+            "date": 1669478400000,
+            "time": 76,
+            "memory": 51.4,
+            "script": "cpp",
+            "desc": "因为是中位数且只有一个，找到唯一的 k，向左遍历记录情况存储，再向右遍历统计。",
+            "code": "#define X first\n#define Y second\n#define lb(x) ((x) & (-x))\n#define mem(a,b) memset(a,b,sizeof(a))\n#define debug freopen(\"r.txt\",\"r\",stdin)\n#define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    int countSubarrays(vector<int>& nums, int k) {\n        int ans = 1, idx = findK(nums, k), n = nums.size();\n        unordered_map<int, int> m;\n        pi item = make_pair(0, 0);\n        for (int i = idx - 1; i >= 0; i--) {\n            if (nums[i] > k) item.Y += 1;\n            else item.X += 1;\n            if (item.Y - item.X == 0 || item.Y - item.X == 1) ans++;\n            m[item.Y - item.X]++;\n        }\n        item = make_pair(0, 0);\n        for (int j = idx + 1; j < n; j++) {\n          if (nums[j] > k) item.Y += 1;\n          else item.X += 1;\n          if (item.Y - item.X == 0) ans += 1 + m[0] + m[1];\n          else if (item.Y - item.X == 1) ans += 1 + m[0] + m[-1];\n          else ans += m[item.X - item.Y] + m[item.X - item.Y + 1];\n        }\n        return ans;\n    }\n    int findK(vector<int>& nums, int k) {\n      for (int i = 0; i < nums.size(); i++) if (nums[i] == k) return i;\n      return -1;\n    }\n};"
+        }
+    ]
+}

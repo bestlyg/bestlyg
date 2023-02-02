@@ -1,6 +1,7 @@
 {
+    "id": "910",
     "name": "878.第N个神奇数字",
-    "url": "https://leetcode-cn.com/problems/nth-magical-number/",
+    "url": "https://leetcode.cn/problems/nth-magical-number",
     "difficulty": "困难",
     "tag": [
         "数学",

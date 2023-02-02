@@ -1,8 +1,10 @@
 {
+    "id": "206",
     "name": "206.反转链表",
-    "url": "https://leetcode-cn.com/problems/reverse-linked-list/",
+    "url": "https://leetcode.cn/problems/reverse-linked-list",
     "difficulty": "简单",
     "tag": [
+        "递归",
         "链表"
     ],
     "desc": "反转一个单链表。",

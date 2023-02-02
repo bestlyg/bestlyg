@@ -1,6 +1,7 @@
 {
+    "id": "989",
     "name": "952.按公因数计算最大组件大小",
-    "url": "https://leetcode.cn/problems/largest-component-size-by-common-factor/",
+    "url": "https://leetcode.cn/problems/largest-component-size-by-common-factor",
     "difficulty": "困难",
     "tag": [
         "并查集",

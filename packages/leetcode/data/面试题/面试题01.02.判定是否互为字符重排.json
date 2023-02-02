@@ -1,6 +1,7 @@
 {
+    "id": "100159",
     "name": "面试题01.02.判定是否互为字符重排",
-    "url": "https://leetcode.cn/problems/check-permutation-lcci/",
+    "url": "https://leetcode.cn/problems/check-permutation-lcci",
     "difficulty": "简单",
     "tag": [
         "哈希表",

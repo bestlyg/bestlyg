@@ -1,6 +1,7 @@
 {
+    "id": "115",
     "name": "115.不同的子序列",
-    "url": "https://leetcode-cn.com/problems/distinct-subsequences/",
+    "url": "https://leetcode.cn/problems/distinct-subsequences",
     "difficulty": "困难",
     "tag": [
         "字符串",

@@ -1,6 +1,7 @@
 {
+    "id": "1040",
     "name": "998.最大二叉树II",
-    "url": "https://leetcode.cn/problems/maximum-binary-tree-ii/",
+    "url": "https://leetcode.cn/problems/maximum-binary-tree-ii",
     "difficulty": "中等",
     "tag": [
         "树",

@@ -1,6 +1,7 @@
 {
+    "id": "1915",
     "name": "1790.仅执行一次字符串交换能否使两个字符串相等",
-    "url": "https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/",
+    "url": "https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal",
     "difficulty": "简单",
     "tag": [
         "哈希表",

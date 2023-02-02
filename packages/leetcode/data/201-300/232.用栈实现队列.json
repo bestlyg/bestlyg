@@ -1,10 +1,12 @@
 {
+    "id": "232",
     "name": "232.用栈实现队列",
-    "url": "https://leetcode-cn.com/problems/implement-queue-using-stacks/",
+    "url": "https://leetcode.cn/problems/implement-queue-using-stacks",
     "difficulty": "简单",
     "tag": [
         "栈",
-        "设计"
+        "设计",
+        "队列"
     ],
     "desc": "使用栈实现队列的下列操作：push(x) -- 将一个元素放入队列的尾部。pop() -- 从队列首部移除元素。peek() -- 返回队列首部的元素。empty() -- 返回队列是否为空。",
     "solutions": [

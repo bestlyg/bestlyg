@@ -1,9 +1,11 @@
 {
+    "id": "205",
     "name": "205.同构字符串",
-    "url": "https://leetcode-cn.com/problems/isomorphic-strings/",
+    "url": "https://leetcode.cn/problems/isomorphic-strings",
     "difficulty": "简单",
     "tag": [
-        "哈希表"
+        "哈希表",
+        "字符串"
     ],
     "desc": "给定两个字符串 s 和 t，判断它们是否是同构的。",
     "solutions": [

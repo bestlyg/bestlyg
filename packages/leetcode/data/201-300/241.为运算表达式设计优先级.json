@@ -1,6 +1,7 @@
 {
+    "id": "241",
     "name": "241.为运算表达式设计优先级",
-    "url": "https://leetcode-cn.com/problems/different-ways-to-add-parentheses/",
+    "url": "https://leetcode.cn/problems/different-ways-to-add-parentheses",
     "difficulty": "中等",
     "tag": [
         "递归",

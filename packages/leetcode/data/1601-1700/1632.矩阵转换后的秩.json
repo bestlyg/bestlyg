@@ -1,6 +1,7 @@
 {
+    "id": "1257",
     "name": "1632.矩阵转换后的秩",
-    "url": "https://leetcode.cn/problems/rank-transform-of-a-matrix/",
+    "url": "https://leetcode.cn/problems/rank-transform-of-a-matrix",
     "difficulty": "困难",
     "tag": [
         "贪心",

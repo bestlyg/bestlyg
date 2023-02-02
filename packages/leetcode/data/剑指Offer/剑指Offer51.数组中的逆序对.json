@@ -1,8 +1,17 @@
 {
+    "id": "100318",
     "name": "剑指Offer51.数组中的逆序对",
-    "url": "https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/",
+    "url": "https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof",
     "difficulty": "困难",
-    "tag": [],
+    "tag": [
+        "树状数组",
+        "线段树",
+        "数组",
+        "二分查找",
+        "分治",
+        "有序集合",
+        "归并排序"
+    ],
     "desc": "在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。",
     "solutions": [
         {

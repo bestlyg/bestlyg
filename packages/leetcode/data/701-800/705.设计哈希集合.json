@@ -1,7 +1,8 @@
 {
+    "id": "816",
     "name": "705.设计哈希集合",
-    "url": "https://leetcode-cn.com/problems/design-hashset/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/design-hashset",
+    "difficulty": "简单",
     "tag": [
         "设计",
         "数组",
@@ -9,15 +10,15 @@
         "链表",
         "哈希函数"
     ],
-    "desc": "不使用任何内建的哈希表库设计一个哈希集合（HashSet）。",
+    "desc": "设计和构建一个“最近最少使用”缓存，该缓存会删除最近最少使用的项目。缓存应该从键映射到值(允许你插入和检索特定键对应的值)，并在初始化时指定最大容量。当缓存被填满时，它应该删除最近最少使用的项目。",
     "solutions": [
         {
             "date": 1627056000000,
-            "time": 188,
-            "memory": 48.2,
+            "time": 176,
+            "memory": 54,
             "script": "typescript",
-            "desc": "利用链表解决哈希冲突。",
-            "code": "class LinkedListNode {\n  constructor(\n    public val: number,\n    public prev: LinkedListNode | null = null,\n    public next: LinkedListNode | null = null\n  ) {}\n}\nclass LinkedList {\n  private head = new LinkedListNode(0);\n  private last: LinkedListNode | null = null;\n  private getNode(key: number): LinkedListNode | null {\n    let p: LinkedListNode = this.head;\n    while (p.next) {\n      if (p.next.val === key) return p;\n      p = p.next;\n    }\n    return null;\n  }\n  contains(key: number): boolean {\n    return this.getNode(key) !== null;\n  }\n  add(key: number): void {\n    if (this.contains(key)) return;\n    const node = new LinkedListNode(key);\n    if (this.last === null) this.head.next = node;\n    else this.last.next = node;\n    this.last = node;\n  }\n  remove(key: number): void {\n    const node = this.getNode(key);\n    if (node === null) return;\n    if (this.last === node.next) this.last = node;\n    node.next = node.next!.next;\n  }\n}\nconst SIZE = 1000;\nclass MyHashSet {\n  private list = new Array(SIZE).fill(0).map(_ => new LinkedList());\n  private hash(key: number) {\n    return key % SIZE;\n  }\n  add(key: number): void {\n    this.list[this.hash(key)].add(key);\n  }\n  remove(key: number): void {\n    this.list[this.hash(key)].remove(key);\n  }\n  contains(key: number): boolean {\n    return this.list[this.hash(key)].contains(key);\n  }\n}"
+            "desc": "哈希链表。",
+            "code": "class LNode {\n  constructor(\n    public key: number,\n    public value: number,\n    public prev: LNode | null = null,\n    public next: LNode | null = null\n  ) {}\n  remove() {\n    if (this.prev) this.prev.next = this.next;\n    if (this.next) this.next.prev = this.prev;\n  }\n}\nclass HashLinkedList {\n  private head = new LNode(0, 0);\n  private last: LNode = this.head;\n  private map = new Map<number, LNode>();\n  private count = 0;\n  constructor(private capacity: number) {}\n  get(key: number): number {\n    const node = this.map.get(key);\n    if (!node) return -1;\n    this.moveLast(node);\n    return node.value;\n  }\n  put(key: number, value: number): void {\n    let node = this.map.get(key);\n    if (!node) {\n      this.map.set(key, (node = new LNode(key, value, this.last)));\n      this.last.next = node;\n      this.last = node;\n      if (++this.count > this.capacity) {\n        const first = this.head.next!;\n        this.map.delete(first.key);\n        this.head.next = first.next!;\n        first.next!.prev = this.head;\n      }\n    } else {\n      node.value = value;\n      this.moveLast(node);\n    }\n  }\n  private moveLast(node: LNode) {\n    if (this.last === node) return;\n    node.remove();\n    node.prev = this.last;\n    this.last.next = node;\n    node.next = null;\n    this.last = node;\n  }\n}\nclass LRUCache {\n  private list: HashLinkedList;\n  constructor(capacity: number) {\n    this.list = new HashLinkedList(capacity);\n  }\n  get(key: number): number {\n    return this.list.get(key);\n  }\n  put(key: number, value: number): void {\n    this.list.put(key, value);\n  }\n}"
         }
     ]
 }

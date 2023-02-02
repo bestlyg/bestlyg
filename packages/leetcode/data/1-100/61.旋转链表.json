@@ -1,6 +1,7 @@
 {
+    "id": "61",
     "name": "61.旋转链表",
-    "url": "https://leetcode-cn.com/problems/rotate-list/",
+    "url": "https://leetcode.cn/problems/rotate-list",
     "difficulty": "中等",
     "tag": [
         "链表",

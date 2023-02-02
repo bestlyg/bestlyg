@@ -1,6 +1,7 @@
 {
+    "id": "955",
     "name": "919.完全二叉树插入器",
-    "url": "https://leetcode.cn/problems/complete-binary-tree-inserter/",
+    "url": "https://leetcode.cn/problems/complete-binary-tree-inserter",
     "difficulty": "中等",
     "tag": [
         "树",

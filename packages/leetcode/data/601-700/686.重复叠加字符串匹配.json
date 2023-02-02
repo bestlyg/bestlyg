@@ -1,6 +1,7 @@
 {
+    "id": "686",
     "name": "686.重复叠加字符串匹配",
-    "url": "https://leetcode-cn.com/problems/repeated-string-match/",
+    "url": "https://leetcode.cn/problems/repeated-string-match",
     "difficulty": "中等",
     "tag": [
         "字符串",

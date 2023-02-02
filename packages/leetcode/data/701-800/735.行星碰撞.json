@@ -1,6 +1,7 @@
 {
+    "id": "735",
     "name": "735.行星碰撞",
-    "url": "https://leetcode.cn/problems/asteroid-collision/",
+    "url": "https://leetcode.cn/problems/asteroid-collision",
     "difficulty": "中等",
     "tag": [
         "栈",

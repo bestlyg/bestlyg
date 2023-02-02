@@ -1,6 +1,7 @@
 {
+    "id": "1251",
     "name": "1147.段式回文",
-    "url": "https://leetcode-cn.com/problems/longest-chunked-palindrome-decomposition/",
+    "url": "https://leetcode.cn/problems/longest-chunked-palindrome-decomposition",
     "difficulty": "困难",
     "tag": [
         "贪心",

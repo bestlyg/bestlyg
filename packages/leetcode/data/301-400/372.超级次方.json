@@ -1,6 +1,7 @@
 {
+    "id": "372",
     "name": "372.超级次方",
-    "url": "https://leetcode-cn.com/problems/super-pow/",
+    "url": "https://leetcode.cn/problems/super-pow",
     "difficulty": "中等",
     "tag": [
         "数学",

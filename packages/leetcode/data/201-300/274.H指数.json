@@ -1,6 +1,7 @@
 {
+    "id": "274",
     "name": "274.H指数",
-    "url": "https://leetcode-cn.com/problems/h-index/",
+    "url": "https://leetcode.cn/problems/h-index",
     "difficulty": "中等",
     "tag": [
         "数组",

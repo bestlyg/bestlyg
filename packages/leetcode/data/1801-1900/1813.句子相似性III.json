@@ -1,6 +1,7 @@
 {
+    "id": "1923",
     "name": "1813.句子相似性III",
-    "url": "https://leetcode.cn/problems/sentence-similarity-iii/",
+    "url": "https://leetcode.cn/problems/sentence-similarity-iii",
     "difficulty": "中等",
     "tag": [
         "数组",

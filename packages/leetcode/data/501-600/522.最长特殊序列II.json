@@ -1,6 +1,7 @@
 {
+    "id": "522",
     "name": "522.最长特殊序列II",
-    "url": "https://leetcode.cn/problems/longest-uncommon-subsequence-ii/",
+    "url": "https://leetcode.cn/problems/longest-uncommon-subsequence-ii",
     "difficulty": "中等",
     "tag": [
         "数组",

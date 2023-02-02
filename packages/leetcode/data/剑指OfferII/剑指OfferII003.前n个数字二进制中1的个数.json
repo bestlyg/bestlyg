@@ -1,6 +1,7 @@
 {
+    "id": "1000230",
     "name": "剑指OfferII003.前n个数字二进制中1的个数",
-    "url": "https://leetcode-cn.com/problems/w3tCBm/",
+    "url": "https://leetcode.cn/problems/w3tCBm",
     "difficulty": "简单",
     "tag": [
         "位运算",

@@ -1,6 +1,7 @@
 {
+    "id": "576",
     "name": "576.出界的路径数",
-    "url": "https://leetcode-cn.com/problems/out-of-boundary-paths/",
+    "url": "https://leetcode.cn/problems/out-of-boundary-paths",
     "difficulty": "中等",
     "tag": [
         "动态规划"

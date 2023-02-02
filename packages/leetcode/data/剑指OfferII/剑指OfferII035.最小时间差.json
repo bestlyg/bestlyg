@@ -1,6 +1,7 @@
 {
+    "id": "1000278",
     "name": "剑指OfferII035.最小时间差",
-    "url": "https://leetcode-cn.com/problems/569nqc/",
+    "url": "https://leetcode.cn/problems/569nqc",
     "difficulty": "中等",
     "tag": [
         "数组",

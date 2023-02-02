@@ -1,6 +1,7 @@
 {
+    "id": "2171",
     "name": "2045.到达目的地的第二短时间",
-    "url": "https://leetcode-cn.com/problems/second-minimum-time-to-reach-destination/",
+    "url": "https://leetcode.cn/problems/second-minimum-time-to-reach-destination",
     "difficulty": "困难",
     "tag": [
         "广度优先搜索",

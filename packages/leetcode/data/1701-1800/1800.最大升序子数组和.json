@@ -1,6 +1,7 @@
 {
+    "id": "1927",
     "name": "1800.最大升序子数组和",
-    "url": "https://leetcode.cn/problems/maximum-ascending-subarray-sum/",
+    "url": "https://leetcode.cn/problems/maximum-ascending-subarray-sum",
     "difficulty": "简单",
     "tag": [
         "数组"

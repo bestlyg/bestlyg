@@ -1,8 +1,10 @@
 {
+    "id": "12",
     "name": "12.整数转罗马数字",
-    "url": "https://leetcode-cn.com/problems/integer-to-roman/",
+    "url": "https://leetcode.cn/problems/integer-to-roman",
     "difficulty": "中等",
     "tag": [
+        "哈希表",
         "数学",
         "字符串"
     ],

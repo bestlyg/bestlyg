@@ -1,8 +1,10 @@
 {
+    "id": "894",
     "name": "710.黑名单中的随机数",
-    "url": "https://leetcode.cn/problems/random-pick-with-blacklist/",
+    "url": "https://leetcode.cn/problems/random-pick-with-blacklist",
     "difficulty": "困难",
     "tag": [
+        "数组",
         "哈希表",
         "数学",
         "二分查找",

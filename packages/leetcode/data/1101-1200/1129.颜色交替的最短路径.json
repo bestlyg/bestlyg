@@ -1,7 +1,8 @@
 {
+    "id": "1229",
     "name": "1129.颜色交替的最短路径",
-    "url": "https://leetcode.cn/problems/shortest-path-with-alternating-colors/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/shortest-path-with-alternating-colors",
+    "difficulty": "中等",
     "tag": [
         "广度优先搜索",
         "图"

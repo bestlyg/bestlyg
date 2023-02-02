@@ -1,6 +1,7 @@
 {
+    "id": "1635",
     "name": "1512.好数对的数目",
-    "url": "https://leetcode-cn.com/problems/number-of-good-pairs/",
+    "url": "https://leetcode.cn/problems/number-of-good-pairs",
     "difficulty": "简单",
     "tag": [
         "数组",

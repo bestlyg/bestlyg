@@ -1,6 +1,7 @@
 {
+    "id": "120",
     "name": "120.三角形最小路径和",
-    "url": "https://leetcode-cn.com/problems/triangle/",
+    "url": "https://leetcode.cn/problems/triangle",
     "difficulty": "中等",
     "tag": [
         "数组",

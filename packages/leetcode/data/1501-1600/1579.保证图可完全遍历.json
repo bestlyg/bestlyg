@@ -1,9 +1,11 @@
 {
+    "id": "1701",
     "name": "1579.保证图可完全遍历",
-    "url": "https://leetcode-cn.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/",
+    "url": "https://leetcode.cn/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable",
     "difficulty": "困难",
     "tag": [
-        "并查集"
+        "并查集",
+        "图"
     ],
     "desc": "给你一个数组 edges ，其中 edges[i] = [typei, ui, vi]  表示节点 ui 和 vi 之间存在类型为 typei 的双向边。请你在保证图仍能够被 Alice 和 Bob 完全遍历的前提下，找出可以删除的最大边数。如果从任何节点开始，Alice 和 Bob 都可以到达所有其他节点，则认为图是可以完全遍历的。返回可以删除的最大边数，如果 Alice 和 Bob 无法完全遍历图，则返回 -1 。",
     "solutions": [

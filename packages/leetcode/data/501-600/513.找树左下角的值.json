@@ -1,6 +1,7 @@
 {
+    "id": "513",
     "name": "513.找树左下角的值",
-    "url": "https://leetcode-cn.com/problems/find-bottom-left-tree-value/",
+    "url": "https://leetcode.cn/problems/find-bottom-left-tree-value",
     "difficulty": "中等",
     "tag": [
         "树",

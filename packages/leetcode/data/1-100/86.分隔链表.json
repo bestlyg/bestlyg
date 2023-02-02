@@ -1,6 +1,7 @@
 {
+    "id": "86",
     "name": "86.分隔链表",
-    "url": "https://leetcode-cn.com/problems/partition-list/",
+    "url": "https://leetcode.cn/problems/partition-list",
     "difficulty": "中等",
     "tag": [
         "链表",

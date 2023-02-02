@@ -1,6 +1,7 @@
 {
+    "id": "1000265",
     "name": "剑指OfferII029.排序的循环链表",
-    "url": "https://leetcode.cn/problems/4ueAj6/",
+    "url": "https://leetcode.cn/problems/4ueAj6",
     "difficulty": "中等",
     "tag": [
         "链表"

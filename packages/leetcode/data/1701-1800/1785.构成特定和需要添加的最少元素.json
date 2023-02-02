@@ -1,6 +1,7 @@
 {
+    "id": "1911",
     "name": "1785.构成特定和需要添加的最少元素",
-    "url": "https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/",
+    "url": "https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum",
     "difficulty": "中等",
     "tag": [
         "贪心",

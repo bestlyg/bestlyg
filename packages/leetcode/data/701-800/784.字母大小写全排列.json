@@ -1,6 +1,7 @@
 {
+    "id": "800",
     "name": "784.字母大小写全排列",
-    "url": "https://leetcode.cn/problems/letter-case-permutation/",
+    "url": "https://leetcode.cn/problems/letter-case-permutation",
     "difficulty": "中等",
     "tag": [
         "位运算",

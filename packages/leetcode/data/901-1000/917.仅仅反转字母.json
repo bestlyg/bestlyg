@@ -1,6 +1,7 @@
 {
+    "id": "953",
     "name": "917.仅仅反转字母",
-    "url": "https://leetcode-cn.com/problems/reverse-only-letters/",
+    "url": "https://leetcode.cn/problems/reverse-only-letters",
     "difficulty": "简单",
     "tag": [
         "双指针",

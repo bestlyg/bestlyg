@@ -1,6 +1,7 @@
 {
+    "id": "1349",
     "name": "1232.缀点成线",
-    "url": "https://leetcode-cn.com/problems/check-if-it-is-a-straight-line/",
+    "url": "https://leetcode.cn/problems/check-if-it-is-a-straight-line",
     "difficulty": "简单",
     "tag": [
         "几何",

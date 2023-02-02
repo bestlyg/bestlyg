@@ -1,6 +1,7 @@
 {
+    "id": "1850",
     "name": "1750.删除字符串两端相同字符后的最短长度",
-    "url": "https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends/",
+    "url": "https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends",
     "difficulty": "中等",
     "tag": [
         "双指针",

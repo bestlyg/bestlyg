@@ -1,6 +1,7 @@
 {
+    "id": "1000248",
     "name": "剑指OfferII012.左右两边子数组的和相等",
-    "url": "https://leetcode-cn.com/problems/tvdfij/",
+    "url": "https://leetcode.cn/problems/tvdfij",
     "difficulty": "简单",
     "tag": [
         "数组",

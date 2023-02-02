@@ -1,10 +1,13 @@
 {
+    "id": "145",
     "name": "145.二叉树的后序遍历",
-    "url": "https://leetcode-cn.com/problems/binary-tree-postorder-traversal/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/binary-tree-postorder-traversal",
+    "difficulty": "简单",
     "tag": [
         "栈",
-        "树"
+        "树",
+        "深度优先搜索",
+        "二叉树"
     ],
     "desc": "给定一个二叉树，返回它的 后序 遍历。",
     "solutions": [

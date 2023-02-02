@@ -1,6 +1,7 @@
 {
+    "id": "1000255",
     "name": "剑指OfferII019.最多删除一个字符得到回文",
-    "url": "https://leetcode-cn.com/problems/RQku0D/",
+    "url": "https://leetcode.cn/problems/RQku0D",
     "difficulty": "简单",
     "tag": [
         "贪心",

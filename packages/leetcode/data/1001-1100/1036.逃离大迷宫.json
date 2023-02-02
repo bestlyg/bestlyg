@@ -1,6 +1,7 @@
 {
+    "id": "1106",
     "name": "1036.逃离大迷宫",
-    "url": "https://leetcode-cn.com/problems/escape-a-large-maze/",
+    "url": "https://leetcode.cn/problems/escape-a-large-maze",
     "difficulty": "困难",
     "tag": [
         "深度优先搜索",

@@ -1,6 +1,7 @@
 {
+    "id": "944",
     "name": "908.最小差值I",
-    "url": "https://leetcode-cn.com/problems/smallest-range-i/",
+    "url": "https://leetcode.cn/problems/smallest-range-i",
     "difficulty": "简单",
     "tag": [
         "数组",

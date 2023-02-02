@@ -1,6 +1,7 @@
 {
+    "id": "500",
     "name": "500.键盘行",
-    "url": "https://leetcode-cn.com/problems/keyboard-row/",
+    "url": "https://leetcode.cn/problems/keyboard-row",
     "difficulty": "简单",
     "tag": [
         "数组",

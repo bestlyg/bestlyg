@@ -1,7 +1,8 @@
 {
+    "id": "720",
     "name": "720.词典中最长的单词",
-    "url": "https://leetcode-cn.com/problems/longest-word-in-dictionary/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/longest-word-in-dictionary",
+    "difficulty": "中等",
     "tag": [
         "字典树",
         "数组",

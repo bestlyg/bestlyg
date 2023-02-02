@@ -1,6 +1,7 @@
 {
+    "id": "2129",
     "name": "2001.可互换矩形的组数",
-    "url": "https://leetcode-cn.com/problems/number-of-pairs-of-interchangeable-rectangles/",
+    "url": "https://leetcode.cn/problems/number-of-pairs-of-interchangeable-rectangles",
     "difficulty": "中等",
     "tag": [
         "数组",

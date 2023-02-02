@@ -1,6 +1,7 @@
 {
+    "id": "829",
     "name": "811.子域名访问计数",
-    "url": "https://leetcode.cn/problems/subdomain-visit-count/",
+    "url": "https://leetcode.cn/problems/subdomain-visit-count",
     "difficulty": "中等",
     "tag": [
         "数组",

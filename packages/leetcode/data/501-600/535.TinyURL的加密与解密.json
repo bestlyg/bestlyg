@@ -1,6 +1,7 @@
 {
+    "id": "535",
     "name": "535.TinyURL的加密与解密",
-    "url": "https://leetcode-cn.com/problems/encode-and-decode-tinyurl/",
+    "url": "https://leetcode.cn/problems/encode-and-decode-tinyurl",
     "difficulty": "中等",
     "tag": [
         "设计",

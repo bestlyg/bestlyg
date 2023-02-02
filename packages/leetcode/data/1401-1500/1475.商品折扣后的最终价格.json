@@ -1,6 +1,7 @@
 {
+    "id": "1570",
     "name": "1475.商品折扣后的最终价格",
-    "url": "https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/",
+    "url": "https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop",
     "difficulty": "简单",
     "tag": [
         "栈",

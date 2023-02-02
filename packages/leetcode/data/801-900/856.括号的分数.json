@@ -1,6 +1,7 @@
 {
+    "id": "886",
     "name": "856.括号的分数",
-    "url": "https://leetcode-cn.com/problems/score-of-parentheses/",
+    "url": "https://leetcode.cn/problems/score-of-parentheses",
     "difficulty": "中等",
     "tag": [
         "栈",

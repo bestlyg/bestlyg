@@ -1,6 +1,7 @@
 {
+    "id": "824",
     "name": "806.写字符串需要的行数",
-    "url": "https://leetcode-cn.com/problems/number-of-lines-to-write-string/",
+    "url": "https://leetcode.cn/problems/number-of-lines-to-write-string",
     "difficulty": "简单",
     "tag": [
         "数组",

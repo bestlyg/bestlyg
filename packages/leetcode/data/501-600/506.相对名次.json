@@ -1,11 +1,12 @@
 {
+    "id": "506",
     "name": "506.相对名次",
-    "url": "https://leetcode-cn.com/problems/relative-ranks/",
+    "url": "https://leetcode.cn/problems/relative-ranks",
     "difficulty": "简单",
     "tag": [
         "数组",
         "排序",
-        "堆(优先队列)"
+        "堆（优先队列）"
     ],
     "desc": "使用长度为 n 的数组 answer 返回获奖，其中 answer[i] 是第 i 位运动员的获奖情况。",
     "solutions": [

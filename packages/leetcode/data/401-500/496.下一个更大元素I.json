@@ -1,6 +1,7 @@
 {
+    "id": "496",
     "name": "496.下一个更大元素I",
-    "url": "https://leetcode-cn.com/problems/next-greater-element-i/",
+    "url": "https://leetcode.cn/problems/next-greater-element-i",
     "difficulty": "简单",
     "tag": [
         "栈",

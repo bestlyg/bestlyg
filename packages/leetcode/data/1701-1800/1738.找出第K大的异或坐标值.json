@@ -1,9 +1,16 @@
 {
+    "id": "1860",
     "name": "1738.找出第K大的异或坐标值",
-    "url": "https://leetcode-cn.com/problems/find-kth-largest-xor-coordinate-value/",
+    "url": "https://leetcode.cn/problems/find-kth-largest-xor-coordinate-value",
     "difficulty": "中等",
     "tag": [
-        "数组"
+        "位运算",
+        "数组",
+        "分治",
+        "矩阵",
+        "前缀和",
+        "快速选择",
+        "堆（优先队列）"
     ],
     "desc": "请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。",
     "solutions": [

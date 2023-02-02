@@ -1,6 +1,7 @@
 {
+    "id": "436",
     "name": "436.寻找右区间",
-    "url": "https://leetcode.cn/problems/find-right-interval/",
+    "url": "https://leetcode.cn/problems/find-right-interval",
     "difficulty": "中等",
     "tag": [
         "数组",

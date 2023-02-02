@@ -1,6 +1,7 @@
 {
+    "id": "611",
     "name": "611.有效三角形的个数",
-    "url": "https://leetcode-cn.com/problems/valid-triangle-number/",
+    "url": "https://leetcode.cn/problems/valid-triangle-number",
     "difficulty": "中等",
     "tag": [
         "贪心",

@@ -1,6 +1,7 @@
 {
+    "id": "1605",
     "name": "1482.制作m束花所需的最少天数",
-    "url": "https://leetcode-cn.com/problems/minimum-number-of-days-to-make-m-bouquets/",
+    "url": "https://leetcode.cn/problems/minimum-number-of-days-to-make-m-bouquets",
     "difficulty": "中等",
     "tag": [
         "数组",

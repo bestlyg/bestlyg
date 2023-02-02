@@ -1,6 +1,7 @@
 {
+    "id": "676",
     "name": "676.实现一个魔法字典",
-    "url": "https://leetcode-cn.com/problems/implement-magic-dictionary/",
+    "url": "https://leetcode.cn/problems/implement-magic-dictionary",
     "difficulty": "中等",
     "tag": [
         "设计",

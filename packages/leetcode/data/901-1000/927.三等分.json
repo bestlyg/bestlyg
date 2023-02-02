@@ -1,6 +1,7 @@
 {
+    "id": "963",
     "name": "927.三等分",
-    "url": "https://leetcode.cn/problems/three-equal-parts/",
+    "url": "https://leetcode.cn/problems/three-equal-parts",
     "difficulty": "困难",
     "tag": [
         "数组",

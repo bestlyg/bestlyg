@@ -1,9 +1,12 @@
 {
+    "id": "1435",
     "name": "1310.子数组异或查询",
-    "url": "https://leetcode-cn.com/problems/xor-queries-of-a-subarray/",
+    "url": "https://leetcode.cn/problems/xor-queries-of-a-subarray",
     "difficulty": "中等",
     "tag": [
-        "位运算"
+        "位运算",
+        "数组",
+        "前缀和"
     ],
     "desc": "有一个正整数数组 arr，现给你一个对应的查询数组 queries，其中 queries[i] = [Li, Ri]，返回一个包含给定查询 queries 所有结果的数组。",
     "solutions": [

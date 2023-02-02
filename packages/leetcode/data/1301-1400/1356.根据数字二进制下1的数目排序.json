@@ -1,10 +1,13 @@
 {
+    "id": "1458",
     "name": "1356.根据数字二进制下1的数目排序",
-    "url": "https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits/",
+    "url": "https://leetcode.cn/problems/sort-integers-by-the-number-of-1-bits",
     "difficulty": "简单",
     "tag": [
-        "排序",
-        "位运算"
+        "位运算",
+        "数组",
+        "计数",
+        "排序"
     ],
     "desc": "给你一个整数数组 arr 。请你将数组中的元素按照其二进制表示中数字 1 的数目升序排序。",
     "solutions": [

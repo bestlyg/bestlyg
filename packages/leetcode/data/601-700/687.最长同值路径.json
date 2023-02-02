@@ -1,6 +1,7 @@
 {
+    "id": "687",
     "name": "687.最长同值路径",
-    "url": "https://leetcode.cn/problems/longest-univalue-path/",
+    "url": "https://leetcode.cn/problems/longest-univalue-path",
     "difficulty": "中等",
     "tag": [
         "树",

@@ -1,10 +1,11 @@
 {
+    "id": "1000063",
     "name": "LCP07.传递信息",
-    "url": "https://leetcode-cn.com/problems/chuan-di-xin-xi/",
+    "url": "https://leetcode.cn/problems/chuan-di-xin-xi",
     "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
         "深度优先搜索",
+        "广度优先搜索",
         "图",
         "动态规划"
     ],

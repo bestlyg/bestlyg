@@ -1,9 +1,14 @@
 {
+    "id": "828",
     "name": "810.黑板异或游戏",
-    "url": "https://leetcode-cn.com/problems/chalkboard-xor-game/",
+    "url": "https://leetcode.cn/problems/chalkboard-xor-game",
     "difficulty": "困难",
     "tag": [
-        "数学"
+        "位运算",
+        "脑筋急转弯",
+        "数组",
+        "数学",
+        "博弈"
     ],
     "desc": "假设两个玩家每步都使用最优解，当且仅当 Alice 获胜时返回 true。",
     "solutions": [

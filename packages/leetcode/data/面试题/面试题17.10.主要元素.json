@@ -1,6 +1,7 @@
 {
+    "id": "1000038",
     "name": "面试题17.10.主要元素",
-    "url": "https://leetcode-cn.com/problems/find-majority-element-lcci/",
+    "url": "https://leetcode.cn/problems/find-majority-element-lcci",
     "difficulty": "简单",
     "tag": [
         "数组",

@@ -1,9 +1,11 @@
 {
+    "id": "373",
     "name": "373.查找和最小的K对数字",
-    "url": "https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/",
+    "url": "https://leetcode.cn/problems/find-k-pairs-with-smallest-sums",
     "difficulty": "中等",
     "tag": [
-        "堆"
+        "数组",
+        "堆（优先队列）"
     ],
     "desc": "找到和最小的 k 对数字 (u1,v1), (u2,v2) ... (uk,vk)。",
     "solutions": [

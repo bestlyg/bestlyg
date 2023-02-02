@@ -1,9 +1,10 @@
 {
+    "id": "77",
     "name": "77.组合",
-    "url": "https://leetcode-cn.com/problems/combinations/",
+    "url": "https://leetcode.cn/problems/combinations",
     "difficulty": "中等",
     "tag": [
-        "回溯算法"
+        "回溯"
     ],
     "desc": "给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。",
     "solutions": [

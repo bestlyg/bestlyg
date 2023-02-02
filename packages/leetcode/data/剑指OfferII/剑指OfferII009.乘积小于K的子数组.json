@@ -1,6 +1,7 @@
 {
+    "id": "1000244",
     "name": "剑指OfferII009.乘积小于K的子数组",
-    "url": "https://leetcode-cn.com/problems/ZVAVXX/",
+    "url": "https://leetcode.cn/problems/ZVAVXX",
     "difficulty": "中等",
     "tag": [
         "数组",

@@ -1,6 +1,7 @@
 {
+    "id": "1533",
     "name": "1418.点菜展示表",
-    "url": "https://leetcode-cn.com/problems/display-table-of-food-orders-in-a-restaurant/",
+    "url": "https://leetcode.cn/problems/display-table-of-food-orders-in-a-restaurant",
     "difficulty": "中等",
     "tag": [
         "数组",

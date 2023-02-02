@@ -1,6 +1,7 @@
 {
+    "id": "1876",
     "name": "1765.地图中的最高点",
-    "url": "https://leetcode-cn.com/problems/map-of-highest-peak/",
+    "url": "https://leetcode.cn/problems/map-of-highest-peak",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

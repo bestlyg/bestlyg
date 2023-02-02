@@ -1,6 +1,7 @@
 {
+    "id": "813",
     "name": "797.所有可能的路径",
-    "url": "https://leetcode-cn.com/problems/all-paths-from-source-to-target/",
+    "url": "https://leetcode.cn/problems/all-paths-from-source-to-target",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

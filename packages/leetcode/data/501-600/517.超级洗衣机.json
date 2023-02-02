@@ -1,6 +1,7 @@
 {
+    "id": "517",
     "name": "517.超级洗衣机",
-    "url": "https://leetcode-cn.com/problems/super-washing-machines/",
+    "url": "https://leetcode.cn/problems/super-washing-machines",
     "difficulty": "困难",
     "tag": [
         "贪心",

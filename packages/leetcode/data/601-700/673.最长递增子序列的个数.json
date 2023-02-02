@@ -1,6 +1,7 @@
 {
+    "id": "673",
     "name": "673.最长递增子序列的个数",
-    "url": "https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/",
+    "url": "https://leetcode.cn/problems/number-of-longest-increasing-subsequence",
     "difficulty": "中等",
     "tag": [
         "树状数组",

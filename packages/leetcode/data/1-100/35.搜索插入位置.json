@@ -1,6 +1,7 @@
 {
+    "id": "35",
     "name": "35.搜索插入位置",
-    "url": "https://leetcode-cn.com/problems/search-insert-position/",
+    "url": "https://leetcode.cn/problems/search-insert-position",
     "difficulty": "简单",
     "tag": [
         "数组",

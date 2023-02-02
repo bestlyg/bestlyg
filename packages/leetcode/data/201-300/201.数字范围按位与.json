@@ -1,6 +1,7 @@
 {
+    "id": "201",
     "name": "201.数字范围按位与",
-    "url": "https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/",
+    "url": "https://leetcode.cn/problems/bitwise-and-of-numbers-range",
     "difficulty": "中等",
     "tag": [
         "位运算"

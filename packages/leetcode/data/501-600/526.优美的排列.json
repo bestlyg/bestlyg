@@ -1,6 +1,7 @@
 {
+    "id": "526",
     "name": "526.优美的排列",
-    "url": "https://leetcode-cn.com/problems/beautiful-arrangement/",
+    "url": "https://leetcode.cn/problems/beautiful-arrangement",
     "difficulty": "中等",
     "tag": [
         "位运算",

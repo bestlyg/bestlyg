@@ -1,0 +1,22 @@
+{
+    "id": "2583",
+    "name": "2493.将节点分成尽可能多的组",
+    "url": "https://leetcode.cn/problems/divide-nodes-into-the-maximum-number-of-groups",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "desc": "请你返回最多可以将节点分为多少个组（也就是最大的 m ）。如果没办法在给定条件下分组，请你返回 -1 。",
+    "solutions": [
+        {
+            "date": 1670083200000,
+            "time": 1960,
+            "memory": 141.3,
+            "script": "cpp",
+            "desc": "先通过并查集区分不同的连通图，对每个连通图的每个点进行枚举 bfs 判断对长组。",
+            "code": "#include <iostream>\n#include <vector>\n// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args); }\n#else\n#define log(frm, args...)\n#endif\ntypedef long long ll;\n\nusing namespace std;\n\nclass UnionFind {\npublic:\n    int n;\n    vector<int> list;\n    UnionFind(int n): n(n) {\n        list = vector<int>(n);\n        for (int i = 0; i < n; i++) list[i] = i;\n    }\n    int find(int v) {\n        if (list[v] == v) return v;\n        return list[v] = find(list[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 != p2) list[p1] = p2;\n    }\n\n};\nclass Node {\npublic:\n    int v;\n    unordered_set<int> next;\n};\nclass Solution {\npublic:\n    int magnificentSets(int n, vector<vector<int>>& edges) {\n        vector<Node> list(n);\n        UnionFind uf(n);\n        for (int i = 0; i < n; i++) list[i].v = i;\n        for (auto &edge : edges) {\n            int v1 = edge[0] - 1, v2 = edge[1] - 1;\n            list[v1].next.insert(v2);\n            list[v2].next.insert(v1);\n            uf.uni(v1, v2);\n        }\n        auto comp = [&](int start){\n            // cout << \"====\" << start << endl;\n            queue<int> q;\n            q.push(start);\n            unordered_set<int> used;\n            unordered_map<int, unordered_set<int>> m;\n            int level = 0, size = 1;\n            used.insert(start);\n            m[0].insert(start);\n            while (q.size()) {\n                int cur = q.front();\n                // cout << \"cur = \" << cur << \", level = \" << level << endl;\n                q.pop();\n                for (auto &next : list[cur].next) {\n                    // cout << \"next = \" << next << \", \" << used.count(next) << endl;\n                    if (used.count(next)) {\n                        if (m[level - 1].count(next) || m[level + 1].count(next)) continue;\n                        else return -1;\n                    }\n                    used.insert(next);\n                    m[level + 1].insert(next);\n                    q.push(next);\n                }\n                if (--size == 0) {\n                    size = q.size();\n                    level++;\n                }\n            }\n            return level;\n        };\n        unordered_map<int, int> m;\n        for (int i = 0; i < n; i++) {\n            int p = uf.find(i), v = comp(i);\n            if (v == -1) return -1;\n            m[p] = max(m[p], v);\n        }\n        int ans = 0;\n        for (auto &item : m) ans += item.Y;\n        return ans;\n    }\n};"
+        }
+    ]
+}

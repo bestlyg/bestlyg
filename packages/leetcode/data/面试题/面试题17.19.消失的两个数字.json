@@ -1,6 +1,7 @@
 {
+    "id": "1000044",
     "name": "面试题17.19.消失的两个数字",
-    "url": "https://leetcode.cn/problems/missing-two-lcci/",
+    "url": "https://leetcode.cn/problems/missing-two-lcci",
     "difficulty": "困难",
     "tag": [
         "位运算",

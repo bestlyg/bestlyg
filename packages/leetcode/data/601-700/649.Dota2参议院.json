@@ -1,18 +1,21 @@
 {
+    "id": "649",
     "name": "649.Dota2参议院",
-    "url": "https://leetcode-cn.com/problems/dota2-senate/",
+    "url": "https://leetcode.cn/problems/dota2-senate",
     "difficulty": "中等",
     "tag": [
-        "贪心"
+        "贪心",
+        "队列",
+        "字符串"
     ],
-    "desc": "Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇),假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是  Radiant  或  Dire。",
+    "desc": "给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。",
     "solutions": [
         {
-            "date": 1607616000000,
-            "time": 864,
-            "memory": 46,
+            "date": 1607702400000,
+            "time": 80,
+            "memory": 39.3,
             "script": "typescript",
-            "desc": "贪心。",
+            "desc": "[参考链接](https://leetcode-cn.com/problems/wiggle-subsequence/solution/bai-dong-xu-lie-by-leetcode-solution-yh2m/)。",
             "code": "function predictPartyVictory(senate: string): string {\n  const l = senate.length;\n  const arr = new Array(l).fill(1);\n  const check = (c: string) => () => arr.every((v, i) => (senate[i] === c ? true : v === 0));\n  const checkR = check('R');\n  const checkD = check('D');\n  const setNext = (i: number, c: string) => {\n    for (let j = i + 1; j < l; j++) {\n      if (senate[j] === c && arr[j] === 1) {\n        arr[j] = 0;\n        return;\n      }\n    }\n    for (let j = 0; j < i; j++) {\n      if (senate[j] === c && arr[j] === 1) {\n        arr[j] = 0;\n        return;\n      }\n    }\n  };\n  while (true) {\n    for (let i = 0; i < l; i++) {\n      if (arr[i] === 0) continue;\n      if (senate[i] === 'R') {\n        if (checkR()) return 'Radiant';\n        setNext(i, 'D');\n      } else {\n        if (checkD()) return 'Dire';\n        setNext(i, 'R');\n      }\n    }\n  }\n  return '';\n}"
         }
     ]

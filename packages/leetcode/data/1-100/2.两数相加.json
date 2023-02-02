@@ -1,8 +1,10 @@
 {
+    "id": "2",
     "name": "2.两数相加",
-    "url": "https://leetcode-cn.com/problems/add-two-numbers/",
+    "url": "https://leetcode.cn/problems/add-two-numbers",
     "difficulty": "中等",
     "tag": [
+        "递归",
         "链表",
         "数学"
     ],

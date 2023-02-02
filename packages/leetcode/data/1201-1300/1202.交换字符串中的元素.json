@@ -1,10 +1,14 @@
 {
+    "id": "1308",
     "name": "1202.交换字符串中的元素",
-    "url": "https://leetcode-cn.com/problems/smallest-string-with-swaps/",
+    "url": "https://leetcode.cn/problems/smallest-string-with-swaps",
     "difficulty": "中等",
     "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
         "并查集",
-        "数组"
+        "哈希表",
+        "字符串"
     ],
     "desc": "给你一个字符串 s,返回在经过若干次交换后，s 可以变成的按字典序最小的字符串。",
     "solutions": [

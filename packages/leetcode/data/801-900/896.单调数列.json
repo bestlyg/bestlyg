@@ -1,6 +1,7 @@
 {
+    "id": "932",
     "name": "896.单调数列",
-    "url": "https://leetcode-cn.com/problems/monotonic-array/",
+    "url": "https://leetcode.cn/problems/monotonic-array",
     "difficulty": "简单",
     "tag": [
         "数组"

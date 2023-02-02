@@ -1,9 +1,12 @@
 {
+    "id": "1048",
     "name": "1006.笨阶乘",
-    "url": "https://leetcode-cn.com/problems/clumsy-factorial/",
+    "url": "https://leetcode.cn/problems/clumsy-factorial",
     "difficulty": "中等",
     "tag": [
-        "数学"
+        "栈",
+        "数学",
+        "模拟"
     ],
     "desc": "给定一个整数 N，它返回 N 的笨阶乘。",
     "solutions": [

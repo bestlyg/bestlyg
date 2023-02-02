@@ -1,6 +1,7 @@
 {
+    "id": "1000292",
     "name": "剑指OfferII041.滑动窗口的平均值",
-    "url": "https://leetcode.cn/problems/qIsx9U/",
+    "url": "https://leetcode.cn/problems/qIsx9U",
     "difficulty": "简单",
     "tag": [
         "设计",

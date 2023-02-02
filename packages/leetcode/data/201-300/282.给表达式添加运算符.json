@@ -1,6 +1,7 @@
 {
+    "id": "282",
     "name": "282.给表达式添加运算符",
-    "url": "https://leetcode-cn.com/problems/expression-add-operators/",
+    "url": "https://leetcode.cn/problems/expression-add-operators",
     "difficulty": "困难",
     "tag": [
         "数学",

@@ -1,6 +1,7 @@
 {
+    "id": "935",
     "name": "899.有序队列",
-    "url": "https://leetcode.cn/problems/orderly-queue/",
+    "url": "https://leetcode.cn/problems/orderly-queue",
     "difficulty": "困难",
     "tag": [
         "数学",

@@ -1,6 +1,7 @@
 {
+    "id": "787",
     "name": "773.滑动谜题",
-    "url": "https://leetcode-cn.com/problems/sliding-puzzle/",
+    "url": "https://leetcode.cn/problems/sliding-puzzle",
     "difficulty": "困难",
     "tag": [
         "广度优先搜索",

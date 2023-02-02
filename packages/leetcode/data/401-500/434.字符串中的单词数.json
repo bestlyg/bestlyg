@@ -1,6 +1,7 @@
 {
+    "id": "434",
     "name": "434.字符串中的单词数",
-    "url": "https://leetcode-cn.com/problems/number-of-segments-in-a-string/",
+    "url": "https://leetcode.cn/problems/number-of-segments-in-a-string",
     "difficulty": "简单",
     "tag": [
         "字符串"

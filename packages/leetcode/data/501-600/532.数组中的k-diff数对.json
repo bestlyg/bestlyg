@@ -1,6 +1,7 @@
 {
+    "id": "532",
     "name": "532.数组中的k-diff数对",
-    "url": "https://leetcode.cn/problems/k-diff-pairs-in-an-array/",
+    "url": "https://leetcode.cn/problems/k-diff-pairs-in-an-array",
     "difficulty": "中等",
     "tag": [
         "数组",

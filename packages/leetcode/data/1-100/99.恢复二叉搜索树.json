@@ -1,10 +1,13 @@
 {
+    "id": "99",
     "name": "99.恢复二叉搜索树",
-    "url": "https://leetcode-cn.com/problems/recover-binary-search-tree/",
-    "difficulty": "困难",
+    "url": "https://leetcode.cn/problems/recover-binary-search-tree",
+    "difficulty": "中等",
     "tag": [
         "树",
-        "深度优先搜索"
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
     ],
     "desc": "二叉搜索树中的两个节点被错误地交换。",
     "solutions": [

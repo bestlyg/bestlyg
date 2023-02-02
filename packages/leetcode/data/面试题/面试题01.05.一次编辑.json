@@ -1,6 +1,7 @@
 {
+    "id": "1000006",
     "name": "面试题01.05.一次编辑",
-    "url": "https://leetcode-cn.com/problems/one-away-lcci/",
+    "url": "https://leetcode.cn/problems/one-away-lcci",
     "difficulty": "中等",
     "tag": [
         "双指针",

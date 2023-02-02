@@ -1,10 +1,12 @@
 {
+    "id": "202",
     "name": "202.快乐数",
-    "url": "https://leetcode-cn.com/problems/happy-number/",
+    "url": "https://leetcode.cn/problems/happy-number",
     "difficulty": "简单",
     "tag": [
         "哈希表",
-        "数学"
+        "数学",
+        "双指针"
     ],
     "desc": "编写一个算法来判断一个数 n 是不是快乐数。",
     "solutions": [

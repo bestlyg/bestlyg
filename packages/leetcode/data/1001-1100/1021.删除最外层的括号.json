@@ -1,9 +1,11 @@
 {
+    "id": "1078",
     "name": "1021.删除最外层的括号",
-    "url": "https://leetcode-cn.com/problems/remove-outermost-parentheses/",
+    "url": "https://leetcode.cn/problems/remove-outermost-parentheses",
     "difficulty": "简单",
     "tag": [
-        "栈"
+        "栈",
+        "字符串"
     ],
     "desc": "对 S 进行原语化分解，删除分解中每个原语字符串的最外层括号，返回 S 。",
     "solutions": [

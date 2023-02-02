@@ -1,6 +1,7 @@
 {
+    "id": "940",
     "name": "904.水果成篮",
-    "url": "https://leetcode.cn/problems/fruit-into-baskets/",
+    "url": "https://leetcode.cn/problems/fruit-into-baskets",
     "difficulty": "中等",
     "tag": [
         "数组",

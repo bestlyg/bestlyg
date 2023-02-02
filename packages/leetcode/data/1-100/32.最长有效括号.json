@@ -1,6 +1,7 @@
 {
+    "id": "32",
     "name": "32.最长有效括号",
-    "url": "https://leetcode-cn.com/problems/longest-valid-parentheses/",
+    "url": "https://leetcode.cn/problems/longest-valid-parentheses",
     "difficulty": "困难",
     "tag": [
         "栈",

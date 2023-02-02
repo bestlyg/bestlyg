@@ -1,6 +1,7 @@
 {
+    "id": "219",
     "name": "219.存在重复元素II",
-    "url": "https://leetcode-cn.com/problems/contains-duplicate-ii/",
+    "url": "https://leetcode.cn/problems/contains-duplicate-ii",
     "difficulty": "简单",
     "tag": [
         "数组",

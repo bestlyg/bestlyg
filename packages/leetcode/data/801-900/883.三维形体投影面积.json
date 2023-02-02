@@ -1,6 +1,7 @@
 {
+    "id": "919",
     "name": "883.三维形体投影面积",
-    "url": "https://leetcode-cn.com/problems/projection-area-of-3d-shapes/",
+    "url": "https://leetcode.cn/problems/projection-area-of-3d-shapes",
     "difficulty": "简单",
     "tag": [
         "几何",

@@ -1,8 +1,10 @@
 {
+    "id": "1000275",
     "name": "剑指OfferII033.变位词组",
-    "url": "https://leetcode-cn.com/problems/sfvd7V/",
+    "url": "https://leetcode.cn/problems/sfvd7V",
     "difficulty": "中等",
     "tag": [
+        "数组",
         "哈希表",
         "字符串",
         "排序"

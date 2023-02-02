@@ -1,6 +1,7 @@
 {
+    "id": "947",
     "name": "911.在线选举",
-    "url": "https://leetcode-cn.com/problems/online-election/",
+    "url": "https://leetcode.cn/problems/online-election",
     "difficulty": "中等",
     "tag": [
         "设计",

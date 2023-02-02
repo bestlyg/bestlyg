@@ -1,6 +1,7 @@
 {
+    "id": "1329",
     "name": "1217.玩筹码",
-    "url": "https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position/",
+    "url": "https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position",
     "difficulty": "简单",
     "tag": [
         "贪心",

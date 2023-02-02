@@ -1,6 +1,7 @@
 {
+    "id": "892",
     "name": "862.和至少为K的最短子数组",
-    "url": "https://leetcode-cn.com/problems/shortest-subarray-with-sum-at-least-k/",
+    "url": "https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k",
     "difficulty": "困难",
     "tag": [
         "队列",
@@ -9,7 +10,7 @@
         "前缀和",
         "滑动窗口",
         "单调队列",
-        "堆(优先队列)"
+        "堆（优先队列）"
     ],
     "desc": "返回 A 的最短的非空连续子数组的长度，该子数组的和至少为 K 。",
     "solutions": [

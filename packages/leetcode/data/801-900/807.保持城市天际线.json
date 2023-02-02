@@ -1,6 +1,7 @@
 {
+    "id": "825",
     "name": "807.保持城市天际线",
-    "url": "https://leetcode-cn.com/problems/max-increase-to-keep-city-skyline/",
+    "url": "https://leetcode.cn/problems/max-increase-to-keep-city-skyline",
     "difficulty": "中等",
     "tag": [
         "贪心",

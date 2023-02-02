@@ -1,8 +1,11 @@
 {
+    "id": "1878",
     "name": "1752.检查数组是否经排序和轮转得到",
     "url": "https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组"
+    ],
     "desc": "给你一个数组 nums 。nums 的源数组中，所有元素与 nums 相同，但按非递减顺序排列。如果  nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false 。",
     "solutions": [
         {

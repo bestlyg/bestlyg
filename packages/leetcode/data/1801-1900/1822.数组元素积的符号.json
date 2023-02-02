@@ -1,6 +1,7 @@
 {
+    "id": "1950",
     "name": "1822.数组元素积的符号",
-    "url": "https://leetcode.cn/problems/sign-of-the-product-of-an-array/",
+    "url": "https://leetcode.cn/problems/sign-of-the-product-of-an-array",
     "difficulty": "简单",
     "tag": [
         "数组",

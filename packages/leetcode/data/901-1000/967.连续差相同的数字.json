@@ -1,6 +1,7 @@
 {
+    "id": "1007",
     "name": "967.连续差相同的数字",
-    "url": "https://leetcode-cn.com/problems/numbers-with-same-consecutive-differences/",
+    "url": "https://leetcode.cn/problems/numbers-with-same-consecutive-differences",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

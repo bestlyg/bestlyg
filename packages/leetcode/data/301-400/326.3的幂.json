@@ -1,6 +1,7 @@
 {
+    "id": "326",
     "name": "326.3的幂",
-    "url": "https://leetcode-cn.com/problems/power-of-three/",
+    "url": "https://leetcode.cn/problems/power-of-three",
     "difficulty": "简单",
     "tag": [
         "递归",

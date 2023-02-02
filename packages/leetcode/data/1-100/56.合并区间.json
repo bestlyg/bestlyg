@@ -1,10 +1,11 @@
 {
+    "id": "56",
     "name": "56.合并区间",
-    "url": "https://leetcode-cn.com/problems/merge-intervals/",
+    "url": "https://leetcode.cn/problems/merge-intervals",
     "difficulty": "中等",
     "tag": [
-        "排序",
-        "数组"
+        "数组",
+        "排序"
     ],
     "desc": "给出一个区间的集合，请合并所有重叠的区间。",
     "solutions": [

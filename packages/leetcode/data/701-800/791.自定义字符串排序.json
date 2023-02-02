@@ -1,6 +1,7 @@
 {
+    "id": "807",
     "name": "791.自定义字符串排序",
-    "url": "https://leetcode.cn/problems/custom-sort-string/",
+    "url": "https://leetcode.cn/problems/custom-sort-string",
     "difficulty": "中等",
     "tag": [
         "哈希表",

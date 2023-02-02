@@ -1,7 +1,8 @@
 {
+    "id": "472",
     "name": "472.连接词",
-    "url": "https://leetcode-cn.com/problems/concatenated-words/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/concatenated-words",
+    "difficulty": "困难",
     "tag": [
         "深度优先搜索",
         "字典树",

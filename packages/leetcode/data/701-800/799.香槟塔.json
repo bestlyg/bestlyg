@@ -1,6 +1,7 @@
 {
+    "id": "815",
     "name": "799.香槟塔",
-    "url": "https://leetcode.cn/problems/champagne-tower/",
+    "url": "https://leetcode.cn/problems/champagne-tower",
     "difficulty": "中等",
     "tag": [
         "动态规划"

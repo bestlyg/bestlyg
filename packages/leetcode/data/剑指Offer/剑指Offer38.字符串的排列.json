@@ -1,9 +1,11 @@
 {
+    "id": "100308",
     "name": "剑指Offer38.字符串的排列",
-    "url": "https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/",
+    "url": "https://leetcode.cn/problems/zi-fu-chuan-de-pai-lie-lcof",
     "difficulty": "中等",
     "tag": [
-        "回溯算法"
+        "字符串",
+        "回溯"
     ],
     "desc": "输入一个字符串，打印出该字符串中字符的所有排列。",
     "solutions": [

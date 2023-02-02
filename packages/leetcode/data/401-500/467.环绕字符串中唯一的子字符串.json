@@ -1,6 +1,7 @@
 {
+    "id": "467",
     "name": "467.环绕字符串中唯一的子字符串",
-    "url": "https://leetcode.cn/problems/unique-substrings-in-wraparound-string/",
+    "url": "https://leetcode.cn/problems/unique-substrings-in-wraparound-string",
     "difficulty": "中等",
     "tag": [
         "字符串",

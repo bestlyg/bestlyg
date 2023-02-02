@@ -1,6 +1,7 @@
 {
+    "id": "5",
     "name": "5.最长回文子串",
-    "url": "https://leetcode-cn.com/problems/longest-palindromic-substring/",
+    "url": "https://leetcode.cn/problems/longest-palindromic-substring",
     "difficulty": "中等",
     "tag": [
         "字符串",

@@ -1,6 +1,7 @@
 {
+    "id": "2239",
     "name": "2120.执行所有后缀指令",
-    "url": "https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/",
+    "url": "https://leetcode.cn/problems/execution-of-all-suffix-instructions-staying-in-a-grid",
     "difficulty": "中等",
     "tag": [
         "字符串",

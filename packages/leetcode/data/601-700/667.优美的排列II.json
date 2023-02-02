@@ -1,6 +1,7 @@
 {
+    "id": "667",
     "name": "667.优美的排列II",
-    "url": "https://leetcode.cn/problems/beautiful-arrangement-ii/",
+    "url": "https://leetcode.cn/problems/beautiful-arrangement-ii",
     "difficulty": "中等",
     "tag": [
         "数组",

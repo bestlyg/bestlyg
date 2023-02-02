@@ -1,6 +1,7 @@
 {
+    "id": "154",
     "name": "154.寻找旋转排序数组中的最小值II",
-    "url": "https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/",
+    "url": "https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array-ii",
     "difficulty": "困难",
     "tag": [
         "数组",

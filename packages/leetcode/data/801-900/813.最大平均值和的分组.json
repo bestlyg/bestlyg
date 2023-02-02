@@ -1,8 +1,13 @@
 {
+    "id": "831",
     "name": "813.最大平均值和的分组",
     "url": "https://leetcode.cn/problems/largest-sum-of-averages",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "数组",
+        "动态规划",
+        "前缀和"
+    ],
     "desc": "给定数组 nums 和一个整数 k 。我们将给定的数组 nums 分成 最多 k 个相邻的非空子数组 。 分数 由每个子数组内的平均值的总和构成。",
     "solutions": [
         {

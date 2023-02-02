@@ -1,11 +1,13 @@
 {
+    "id": "395",
     "name": "395.至少有K个重复字符的最长子串",
-    "url": "https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/",
+    "url": "https://leetcode.cn/problems/longest-substring-with-at-least-k-repeating-characters",
     "difficulty": "中等",
     "tag": [
-        "递归",
-        "滑动窗口",
-        "分治算法"
+        "哈希表",
+        "字符串",
+        "分治",
+        "滑动窗口"
     ],
     "desc": "给你一个二维整数数组 matrix， 返回 matrix 的 转置矩阵 。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "1889",
     "name": "1780.判断一个数字是否可以表示成三的幂的和",
-    "url": "https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three/",
+    "url": "https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three",
     "difficulty": "中等",
     "tag": [
         "数学"

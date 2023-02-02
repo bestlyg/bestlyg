@@ -1,6 +1,7 @@
 {
+    "id": "1945",
     "name": "1817.查找用户活跃分钟数",
-    "url": "https://leetcode.cn/problems/finding-the-users-active-minutes/",
+    "url": "https://leetcode.cn/problems/finding-the-users-active-minutes",
     "difficulty": "中等",
     "tag": [
         "数组",

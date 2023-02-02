@@ -1,10 +1,11 @@
 {
+    "id": "93",
     "name": "93.复原IP地址",
-    "url": "https://leetcode-cn.com/problems/restore-ip-addresses/",
+    "url": "https://leetcode.cn/problems/restore-ip-addresses",
     "difficulty": "中等",
     "tag": [
         "字符串",
-        "回溯算法"
+        "回溯"
     ],
     "desc": "给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。",
     "solutions": [

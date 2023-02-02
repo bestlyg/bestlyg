@@ -1,10 +1,14 @@
 {
+    "id": "721",
     "name": "721.账户合并",
-    "url": "https://leetcode-cn.com/problems/accounts-merge/",
+    "url": "https://leetcode.cn/problems/accounts-merge",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",
-        "并查集"
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "字符串"
     ],
     "desc": "给定一个列表 accounts，合并账户后，按以下格式返回账户：每个账户的第一个元素是名称，其余元素是按字符 ASCII 顺序排列的邮箱地址。账户本身可以以任意顺序返回。",
     "solutions": [

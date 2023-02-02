@@ -1,6 +1,7 @@
 {
+    "id": "1866",
     "name": "1743.从相邻元素对还原数组",
-    "url": "https://leetcode-cn.com/problems/restore-the-array-from-adjacent-pairs/",
+    "url": "https://leetcode.cn/problems/restore-the-array-from-adjacent-pairs",
     "difficulty": "中等",
     "tag": [
         "数组",

@@ -1,6 +1,7 @@
 {
+    "id": "1337",
     "name": "1206.设计跳表",
-    "url": "https://leetcode.cn/problems/design-skiplist/",
+    "url": "https://leetcode.cn/problems/design-skiplist",
     "difficulty": "困难",
     "tag": [
         "设计",

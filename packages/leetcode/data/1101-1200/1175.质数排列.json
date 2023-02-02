@@ -1,6 +1,7 @@
 {
+    "id": "1279",
     "name": "1175.质数排列",
-    "url": "https://leetcode-cn.com/problems/prime-arrangements/",
+    "url": "https://leetcode.cn/problems/prime-arrangements",
     "difficulty": "简单",
     "tag": [
         "数学"

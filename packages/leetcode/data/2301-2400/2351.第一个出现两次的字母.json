@@ -1,6 +1,7 @@
 {
+    "id": "2427",
     "name": "2351.第一个出现两次的字母",
-    "url": "https://leetcode.cn/problems/first-letter-to-appear-twice/",
+    "url": "https://leetcode.cn/problems/first-letter-to-appear-twice",
     "difficulty": "简单",
     "tag": [
         "哈希表",

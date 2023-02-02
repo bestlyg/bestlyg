@@ -1,6 +1,7 @@
 {
+    "id": "58",
     "name": "58.最后一个单词的长度",
-    "url": "https://leetcode-cn.com/problems/length-of-last-word/",
+    "url": "https://leetcode.cn/problems/length-of-last-word",
     "difficulty": "简单",
     "tag": [
         "字符串"

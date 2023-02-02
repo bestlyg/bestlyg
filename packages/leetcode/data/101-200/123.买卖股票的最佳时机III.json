@@ -1,6 +1,7 @@
 {
+    "id": "123",
     "name": "123.买卖股票的最佳时机III",
-    "url": "https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/",
+    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii",
     "difficulty": "困难",
     "tag": [
         "数组",

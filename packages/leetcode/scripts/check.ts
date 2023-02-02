@@ -27,7 +27,7 @@ const difficultyMap = {
   Medium: Difficulty.中等,
   Hard: Difficulty.困难,
 };
-const log = (k: string, v: string) => console.log(`${k.padEnd(10)} : ${v}`);
+const log = (k: string, v: string) => console.log(`${k.padEnd(18)} : ${v}`);
 function clear() {
   const dirs = fs.readdirSync(rootPath).filter(v => v !== 'main.json');
   for (const dir of dirs) {
@@ -38,13 +38,15 @@ function clear() {
     }
   }
 }
-async function main() {
-  clear();
-  console.log(LOGO);
-  console.log(chalk.blue(`正在批处理LeetCode`));
-  const map = await allQuestions();
-  for (const { filepath } of travel()) {
-    const obj: Markdown = JSON.parse(fs.readFileSync(filepath).toString());
+async function walk({
+  map,
+  filepath,
+}: {
+  map: Record<string, AllQuestionsItem>;
+  filepath: string;
+}) {
+  try {
+    let obj: Markdown = JSON.parse(fs.readFileSync(filepath).toString());
     console.log(`=====【${obj.name}】=====`);
     log(`path`, `${filepath}`);
     obj.url = obj.url.replace('leetcode-cn.com', 'leetcode.cn');
@@ -55,6 +57,9 @@ async function main() {
     const res = (await fetchQuestionData({ titleSlug })).question;
     const data = map[res.questionId];
     log(`questionId`, `${res.questionId}`);
+    obj.id = res.questionId;
+    delete obj.id;
+    obj = { id: res.questionId, ...obj };
     log(`questionFrontendId`, `${res.questionFrontendId}`);
     log(`translatedTitle`, `${res.translatedTitle}`);
     obj.name = `${res.questionFrontendId}.${data.translatedTitle}`.replace(/ /g, '');
@@ -67,7 +72,19 @@ async function main() {
     log(`path`, `${nextFilepath}`);
     fs.ensureDirSync(resolve(nextFilepath, '../'));
     fs.writeFileSync(nextFilepath, JSON.stringify(obj, null, 4));
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
   }
+}
+async function main() {
   clear();
+  console.log(LOGO);
+  console.log(chalk.blue(`正在批处理LeetCode`));
+  const map = await allQuestions();
+  for (const { filepath } of travel()) {
+    walk({ map, filepath });
+  }
+  // clear();
 }
 main();

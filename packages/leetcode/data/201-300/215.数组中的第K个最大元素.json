@@ -1,10 +1,14 @@
 {
+    "id": "215",
     "name": "215.数组中的第K个最大元素",
-    "url": "https://leetcode-cn.com/problems/kth-largest-element-in-an-array/",
+    "url": "https://leetcode.cn/problems/kth-largest-element-in-an-array",
     "difficulty": "中等",
     "tag": [
-        "堆",
-        "分治算法"
+        "数组",
+        "分治",
+        "快速选择",
+        "排序",
+        "堆（优先队列）"
     ],
     "desc": "在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。",
     "solutions": [

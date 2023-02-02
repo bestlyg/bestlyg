@@ -1,6 +1,7 @@
 {
+    "id": "2156",
     "name": "2029.石子游戏IX",
-    "url": "https://leetcode-cn.com/problems/stone-game-ix/",
+    "url": "https://leetcode.cn/problems/stone-game-ix",
     "difficulty": "中等",
     "tag": [
         "贪心",

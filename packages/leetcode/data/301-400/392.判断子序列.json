@@ -1,10 +1,11 @@
 {
+    "id": "392",
     "name": "392.判断子序列",
-    "url": "https://leetcode-cn.com/problems/is-subsequence/",
+    "url": "https://leetcode.cn/problems/is-subsequence",
     "difficulty": "简单",
     "tag": [
-        "贪心",
-        "二分查找",
+        "双指针",
+        "字符串",
         "动态规划"
     ],
     "desc": "给定字符串 s 和 t ，判断 s 是否为 t 的子序列。",

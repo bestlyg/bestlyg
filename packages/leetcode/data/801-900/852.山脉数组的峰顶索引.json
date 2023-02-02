@@ -1,8 +1,10 @@
 {
+    "id": "882",
     "name": "852.山脉数组的峰顶索引",
-    "url": "https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/peak-index-in-a-mountain-array",
+    "difficulty": "中等",
     "tag": [
+        "数组",
         "二分查找"
     ],
     "desc": "给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。",

@@ -1,6 +1,7 @@
 {
+    "id": "187",
     "name": "187.重复的DNA序列",
-    "url": "https://leetcode-cn.com/problems/repeated-dna-sequences/",
+    "url": "https://leetcode.cn/problems/repeated-dna-sequences",
     "difficulty": "中等",
     "tag": [
         "位运算",

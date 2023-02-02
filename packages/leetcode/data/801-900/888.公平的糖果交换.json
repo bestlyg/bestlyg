@@ -1,0 +1,23 @@
+{
+    "id": "924",
+    "name": "888.公平的糖果交换",
+    "url": "https://leetcode.cn/problems/fair-candy-swap",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "二分查找",
+        "排序"
+    ],
+    "desc": "爱丽丝和鲍勃有不同大小的糖果棒：A[i] 是爱丽丝拥有的第 i 根糖果棒的大小，B[j] 是鲍勃拥有的第 j 根糖果棒的大小。返回一个整数数组 ans，其中 ans[0] 是爱丽丝必须交换的糖果棒的大小，ans[1] 是 Bob 必须交换的糖果棒的大小。",
+    "solutions": [
+        {
+            "date": 1612108800000,
+            "time": 132,
+            "memory": 49.2,
+            "script": "typescript",
+            "desc": "利用 set 进行比较存在值。",
+            "code": "function fairCandySwap(A: number[], B: number[]): number[] {\n  const num =\n    (A.reduce((total, cur) => total + cur, 0) - B.reduce((total, cur) => total + cur, 0)) / 2;\n  const set = new Set(A);\n  for (const y of B) {\n    const x = y + num;\n    if (set.has(x)) return [x, y];\n  }\n  return [];\n}"
+        }
+    ]
+}

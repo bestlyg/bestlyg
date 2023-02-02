@@ -1,6 +1,7 @@
 {
+    "id": "2112",
     "name": "1984.学生分数的最小差值",
-    "url": "https://leetcode-cn.com/problems/minimum-difference-between-highest-and-lowest-of-k-scores/",
+    "url": "https://leetcode.cn/problems/minimum-difference-between-highest-and-lowest-of-k-scores",
     "difficulty": "简单",
     "tag": [
         "数组",

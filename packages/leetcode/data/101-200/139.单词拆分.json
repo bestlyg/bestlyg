@@ -1,8 +1,13 @@
 {
+    "id": "139",
     "name": "139.单词拆分",
-    "url": "https://leetcode-cn.com/problems/word-break/",
+    "url": "https://leetcode.cn/problems/word-break",
     "difficulty": "中等",
     "tag": [
+        "字典树",
+        "记忆化搜索",
+        "哈希表",
+        "字符串",
         "动态规划"
     ],
     "desc": "给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。",

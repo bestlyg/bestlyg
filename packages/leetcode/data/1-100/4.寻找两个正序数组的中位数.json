@@ -1,11 +1,12 @@
 {
+    "id": "4",
     "name": "4.寻找两个正序数组的中位数",
-    "url": "https://leetcode-cn.com/problems/median-of-two-sorted-arrays/",
+    "url": "https://leetcode.cn/problems/median-of-two-sorted-arrays",
     "difficulty": "困难",
     "tag": [
         "数组",
         "二分查找",
-        "分治算法"
+        "分治"
     ],
     "desc": "给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "398",
     "name": "398.随机数索引",
-    "url": "https://leetcode-cn.com/problems/random-pick-index/",
+    "url": "https://leetcode.cn/problems/random-pick-index",
     "difficulty": "中等",
     "tag": [
         "水塘抽样",

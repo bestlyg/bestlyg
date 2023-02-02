@@ -1,6 +1,7 @@
 {
+    "id": "725",
     "name": "725.分隔链表",
-    "url": "https://leetcode-cn.com/problems/split-linked-list-in-parts/",
+    "url": "https://leetcode.cn/problems/split-linked-list-in-parts",
     "difficulty": "中等",
     "tag": [
         "链表"

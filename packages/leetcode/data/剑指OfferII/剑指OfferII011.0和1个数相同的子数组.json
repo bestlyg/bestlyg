@@ -1,6 +1,7 @@
 {
+    "id": "1000247",
     "name": "剑指OfferII011.0和1个数相同的子数组",
-    "url": "https://leetcode-cn.com/problems/A1NYOS/",
+    "url": "https://leetcode.cn/problems/A1NYOS",
     "difficulty": "中等",
     "tag": [
         "数组",

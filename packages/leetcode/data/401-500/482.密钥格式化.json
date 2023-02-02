@@ -1,6 +1,7 @@
 {
+    "id": "482",
     "name": "482.密钥格式化",
-    "url": "https://leetcode-cn.com/problems/license-key-formatting/",
+    "url": "https://leetcode.cn/problems/license-key-formatting",
     "difficulty": "简单",
     "tag": [
         "字符串"

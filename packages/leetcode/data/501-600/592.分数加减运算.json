@@ -1,6 +1,7 @@
 {
+    "id": "592",
     "name": "592.分数加减运算",
-    "url": "https://leetcode.cn/problems/fraction-addition-and-subtraction/",
+    "url": "https://leetcode.cn/problems/fraction-addition-and-subtraction",
     "difficulty": "中等",
     "tag": [
         "数学",

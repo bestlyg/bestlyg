@@ -1,6 +1,7 @@
 {
+    "id": "1519",
     "name": "1403.非递增顺序的最小子序列",
-    "url": "https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order/",
+    "url": "https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order",
     "difficulty": "简单",
     "tag": [
         "贪心",

@@ -1,10 +1,12 @@
 {
+    "id": "1034",
     "name": "992.K个不同整数的子数组",
-    "url": "https://leetcode-cn.com/problems/subarrays-with-k-different-integers/",
+    "url": "https://leetcode.cn/problems/subarrays-with-k-different-integers",
     "difficulty": "困难",
     "tag": [
-        "双指针",
+        "数组",
         "哈希表",
+        "计数",
         "滑动窗口"
     ],
     "desc": "返回 A 中好子数组的数目。",

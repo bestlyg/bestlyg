@@ -1,6 +1,7 @@
 {
+    "id": "753",
     "name": "752.打开转盘锁",
-    "url": "https://leetcode-cn.com/problems/open-the-lock/",
+    "url": "https://leetcode.cn/problems/open-the-lock",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

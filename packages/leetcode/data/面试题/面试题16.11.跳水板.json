@@ -1,10 +1,11 @@
 {
+    "id": "100352",
     "name": "面试题16.11.跳水板",
-    "url": "https://leetcode-cn.com/problems/diving-board-lcci/",
+    "url": "https://leetcode.cn/problems/diving-board-lcci",
     "difficulty": "简单",
     "tag": [
-        "递归",
-        "记忆化"
+        "数组",
+        "数学"
     ],
     "desc": "你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为 shorter，长度较长的木板长度为 longer。你必须正好使用 k 块木板。编写一个方法，生成跳水板所有可能的长度。",
     "solutions": [

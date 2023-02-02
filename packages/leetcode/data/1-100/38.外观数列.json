@@ -1,6 +1,7 @@
 {
+    "id": "38",
     "name": "38.外观数列",
-    "url": "https://leetcode-cn.com/problems/count-and-say/",
+    "url": "https://leetcode.cn/problems/count-and-say",
     "difficulty": "中等",
     "tag": [
         "字符串"

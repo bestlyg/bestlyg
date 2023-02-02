@@ -1,6 +1,7 @@
 {
+    "id": "1011",
     "name": "971.翻转二叉树以匹配先序遍历",
-    "url": "https://leetcode-cn.com/problems/flip-binary-tree-to-match-preorder-traversal/",
+    "url": "https://leetcode.cn/problems/flip-binary-tree-to-match-preorder-traversal",
     "difficulty": "中等",
     "tag": [
         "树",

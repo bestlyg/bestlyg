@@ -1,6 +1,7 @@
 {
+    "id": "397",
     "name": "397.整数替换",
-    "url": "https://leetcode-cn.com/problems/integer-replacement/",
+    "url": "https://leetcode.cn/problems/integer-replacement",
     "difficulty": "中等",
     "tag": [
         "贪心",

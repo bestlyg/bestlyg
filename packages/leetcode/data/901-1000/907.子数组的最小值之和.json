@@ -1,6 +1,7 @@
 {
+    "id": "943",
     "name": "907.子数组的最小值之和",
-    "url": "https://leetcode.cn/problems/sum-of-subarray-minimums/",
+    "url": "https://leetcode.cn/problems/sum-of-subarray-minimums",
     "difficulty": "中等",
     "tag": [
         "栈",

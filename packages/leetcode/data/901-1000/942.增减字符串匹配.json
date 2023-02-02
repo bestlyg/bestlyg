@@ -1,11 +1,11 @@
 {
+    "id": "979",
     "name": "942.增减字符串匹配",
-    "url": "https://leetcode-cn.com/problems/di-string-match/",
+    "url": "https://leetcode.cn/problems/di-string-match",
     "difficulty": "简单",
     "tag": [
         "贪心",
         "数组",
-        "数学",
         "双指针",
         "字符串"
     ],

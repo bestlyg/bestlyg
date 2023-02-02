@@ -1,9 +1,11 @@
 {
+    "id": "118",
     "name": "118.杨辉三角",
-    "url": "https://leetcode-cn.com/problems/pascals-triangle/",
+    "url": "https://leetcode.cn/problems/pascals-triangle",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "数组",
+        "动态规划"
     ],
     "desc": "给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。",
     "solutions": [

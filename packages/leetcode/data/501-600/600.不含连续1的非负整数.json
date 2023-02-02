@@ -1,6 +1,7 @@
 {
+    "id": "600",
     "name": "600.不含连续1的非负整数",
-    "url": "https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/",
+    "url": "https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones",
     "difficulty": "困难",
     "tag": [
         "动态规划"

@@ -1,6 +1,7 @@
 {
+    "id": "728",
     "name": "728.自除数",
-    "url": "https://leetcode-cn.com/problems/self-dividing-numbers/",
+    "url": "https://leetcode.cn/problems/self-dividing-numbers",
     "difficulty": "简单",
     "tag": [
         "数学"

@@ -1,6 +1,7 @@
 {
+    "id": "100315",
     "name": "剑指Offer33.二叉搜索树的后序遍历序列",
-    "url": "https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/",
+    "url": "https://leetcode.cn/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof",
     "difficulty": "中等",
     "tag": [
         "栈",

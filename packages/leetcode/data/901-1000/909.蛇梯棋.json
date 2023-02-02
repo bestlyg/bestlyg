@@ -1,6 +1,7 @@
 {
+    "id": "945",
     "name": "909.蛇梯棋",
-    "url": "https://leetcode-cn.com/problems/snakes-and-ladders/",
+    "url": "https://leetcode.cn/problems/snakes-and-ladders",
     "difficulty": "中等",
     "tag": [
         "广度优先搜索",

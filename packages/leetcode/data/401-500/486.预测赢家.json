@@ -1,28 +1,24 @@
 {
+    "id": "486",
     "name": "486.预测赢家",
-    "url": "https://leetcode-cn.com/problems/predict-the-winner/",
+    "url": "https://leetcode.cn/problems/predict-the-winner",
     "difficulty": "中等",
     "tag": [
-        "极小化极大",
-        "动态规划"
+        "递归",
+        "数组",
+        "数学",
+        "动态规划",
+        "博弈"
     ],
-    "desc": "给定一个表示分数的非负整数数组。 玩家 1 从数组任意一端拿取一个分数，随后玩家 2 继续从剩余数组任意一端拿取分数，然后玩家 1 拿，…… 。每次一个玩家只能拿取一个分数，分数被拿取之后不再可取。直到没有剩余分数可取时游戏结束。最终获得分数总和最多的玩家获胜。",
+    "desc": "请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。",
     "solutions": [
         {
-            "date": 1598889600000,
-            "time": 372,
-            "memory": 43.6,
+            "date": 1598976000000,
+            "time": 120,
+            "memory": 40.2,
             "script": "typescript",
-            "desc": "递归。",
-            "code": "function PredictTheWinner(nums: number[]): boolean {\n  return total(0, nums.length - 1, 1) >= 0;\n  function total(left: number, right: number, turn: number): number {\n    if (left === right) return nums[left] * turn;\n    const scoreL = nums[left] * turn + total(left + 1, right, -turn);\n    const scoreR = nums[right] * turn + total(left, right - 1, -turn);\n    return Math.max(scoreL * turn, scoreR * turn) * turn;\n  }\n}"
-        },
-        {
-            "date": 1598889600000,
-            "time": 104,
-            "memory": 38.3,
-            "script": "typescript",
-            "desc": "动态规划。",
-            "code": "function PredictTheWinner(nums: number[]): boolean {\n  const len = nums.length;\n  const dp = new Array(len).fill(0).map(_ => new Array(len).fill(0));\n  for (let i = 0; i < len; i++) dp[i][i] = nums[i];\n  for (let i = len - 2; i >= 0; i--) {\n    for (let j = i + 1; j < len; j++) {\n      dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);\n    }\n  }\n  return dp[0][len - 1] >= 0;\n}"
+            "desc": "直接利用正则判断。",
+            "code": "function isNumber(s: string): boolean {\n  return /^[+-]?(\\d+(\\.\\d*)?|(\\.\\d+))(e[+-]?\\d+)?$/i.test(s.trim());\n}"
         }
     ]
 }

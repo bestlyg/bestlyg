@@ -1,6 +1,7 @@
 {
+    "id": "670",
     "name": "670.最大交换",
-    "url": "https://leetcode.cn/problems/maximum-swap/",
+    "url": "https://leetcode.cn/problems/maximum-swap",
     "difficulty": "中等",
     "tag": [
         "贪心",

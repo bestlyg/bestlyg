@@ -1,10 +1,14 @@
 {
+    "id": "148",
     "name": "148.排序链表",
-    "url": "https://leetcode-cn.com/problems/sort-list/",
+    "url": "https://leetcode.cn/problems/sort-list",
     "difficulty": "中等",
     "tag": [
+        "链表",
+        "双指针",
+        "分治",
         "排序",
-        "链表"
+        "归并排序"
     ],
     "desc": "给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。",
     "solutions": [

@@ -1,6 +1,7 @@
 {
+    "id": "812",
     "name": "796.旋转字符串",
-    "url": "https://leetcode-cn.com/problems/rotate-string/",
+    "url": "https://leetcode.cn/problems/rotate-string",
     "difficulty": "简单",
     "tag": [
         "字符串",

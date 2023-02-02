@@ -1,10 +1,12 @@
 {
+    "id": "628",
     "name": "628.三个数的最大乘积",
-    "url": "https://leetcode-cn.com/problems/maximum-product-of-three-numbers/",
+    "url": "https://leetcode.cn/problems/maximum-product-of-three-numbers",
     "difficulty": "简单",
     "tag": [
         "数组",
-        "数学"
+        "数学",
+        "排序"
     ],
     "desc": "给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。",
     "solutions": [

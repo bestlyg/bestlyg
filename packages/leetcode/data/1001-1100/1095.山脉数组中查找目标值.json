@@ -1,9 +1,12 @@
 {
+    "id": "1185",
     "name": "1095.山脉数组中查找目标值",
-    "url": "https://leetcode-cn.com/problems/find-in-mountain-array/",
+    "url": "https://leetcode.cn/problems/find-in-mountain-array",
     "difficulty": "困难",
     "tag": [
-        "二分查找"
+        "数组",
+        "二分查找",
+        "交互"
     ],
     "desc": "给你一个 山脉数组 mountainArr，请你返回能够使得 mountainArr.get(index) 等于 target 最小 的下标 index 值。",
     "solutions": [

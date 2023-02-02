@@ -1,0 +1,29 @@
+{
+    "id": "2624",
+    "name": "2535.数组元素和与数字和的绝对差",
+    "url": "https://leetcode.cn/problems/difference-between-element-sum-and-digit-sum-of-an-array",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "返回 元素和 与 数字和 的绝对差。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 12,
+            "memory": 15.2,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int differenceOfSum(vector<int>& nums) {\n        int num1 = 0, num2 = 0;\n        for (int num : nums) num1 += num, num2 += comp(num);\n        return abs(num1 - num2);\n    }\n    int comp(int num) {\n        int ans = 0;\n        for (; num; num /= 10) ans += num % 10;\n        return ans;\n    }\n};",
+            "date": 1673712000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn difference_of_sum(nums: Vec<i32>) -> i32 {\n        let mut ans = 0;\n        for num in nums {\n            ans += num;\n            ans -= Solution::comp(num);\n        }\n        ans.abs()\n    }\n    fn comp(num: i32) -> i32 {\n        let mut num = num;\n        let mut ans = 0;\n        while num > 0 {\n            ans += num % 10;\n            num /= 10;\n        }\n        ans\n    }\n}",
+            "date": 1673712000000
+        }
+    ]
+}

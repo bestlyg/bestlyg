@@ -1,6 +1,7 @@
 {
+    "id": "1073",
     "name": "1020.飞地的数量",
-    "url": "https://leetcode-cn.com/problems/number-of-enclaves/",
+    "url": "https://leetcode.cn/problems/number-of-enclaves",
     "difficulty": "中等",
     "tag": [
         "深度优先搜索",

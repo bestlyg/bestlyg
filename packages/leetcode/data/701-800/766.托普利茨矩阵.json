@@ -1,9 +1,11 @@
 {
+    "id": "777",
     "name": "766.托普利茨矩阵",
-    "url": "https://leetcode-cn.com/problems/toeplitz-matrix/",
+    "url": "https://leetcode.cn/problems/toeplitz-matrix",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "数组",
+        "矩阵"
     ],
     "desc": "给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。",
     "solutions": [

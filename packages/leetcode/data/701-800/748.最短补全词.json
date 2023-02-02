@@ -1,6 +1,7 @@
 {
+    "id": "749",
     "name": "748.最短补全词",
-    "url": "https://leetcode-cn.com/problems/shortest-completing-word/",
+    "url": "https://leetcode.cn/problems/shortest-completing-word",
     "difficulty": "简单",
     "tag": [
         "数组",

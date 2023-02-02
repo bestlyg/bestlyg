@@ -1,10 +1,13 @@
 {
+    "id": "222",
     "name": "222.完全二叉树的节点个数",
-    "url": "https://leetcode-cn.com/problems/count-complete-tree-nodes/",
+    "url": "https://leetcode.cn/problems/count-complete-tree-nodes",
     "difficulty": "中等",
     "tag": [
         "树",
-        "二分查找"
+        "深度优先搜索",
+        "二分查找",
+        "二叉树"
     ],
     "desc": "给出一个完全二叉树，求出该树的节点个数。",
     "solutions": [

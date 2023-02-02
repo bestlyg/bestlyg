@@ -1,6 +1,7 @@
 {
+    "id": "1765",
     "name": "1669.合并两个链表",
-    "url": "https://leetcode.cn/problems/merge-in-between-linked-lists/",
+    "url": "https://leetcode.cn/problems/merge-in-between-linked-lists",
     "difficulty": "中等",
     "tag": [
         "链表"

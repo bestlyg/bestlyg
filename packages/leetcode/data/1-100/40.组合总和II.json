@@ -1,10 +1,11 @@
 {
+    "id": "40",
     "name": "40.组合总和II",
-    "url": "https://leetcode-cn.com/problems/combination-sum-ii/",
+    "url": "https://leetcode.cn/problems/combination-sum-ii",
     "difficulty": "中等",
     "tag": [
         "数组",
-        "回溯算法"
+        "回溯"
     ],
     "desc": "给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。",
     "solutions": [

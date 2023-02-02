@@ -1,10 +1,12 @@
 {
+    "id": "74",
     "name": "74.搜索二维矩阵",
-    "url": "https://leetcode-cn.com/problems/search-a-2d-matrix/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/search-a-2d-matrix",
+    "difficulty": "中等",
     "tag": [
+        "数组",
         "二分查找",
-        "数组"
+        "矩阵"
     ],
     "desc": "编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。",
     "solutions": [

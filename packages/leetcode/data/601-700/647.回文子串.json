@@ -1,6 +1,7 @@
 {
+    "id": "647",
     "name": "647.回文子串",
-    "url": "https://leetcode-cn.com/problems/palindromic-substrings/",
+    "url": "https://leetcode.cn/problems/palindromic-substrings",
     "difficulty": "中等",
     "tag": [
         "字符串",

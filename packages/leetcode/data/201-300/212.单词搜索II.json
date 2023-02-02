@@ -1,6 +1,7 @@
 {
+    "id": "212",
     "name": "212.单词搜索II",
-    "url": "https://leetcode-cn.com/problems/word-search-ii/",
+    "url": "https://leetcode.cn/problems/word-search-ii",
     "difficulty": "困难",
     "tag": [
         "字典树",

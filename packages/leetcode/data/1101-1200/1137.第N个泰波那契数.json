@@ -1,6 +1,7 @@
 {
+    "id": "1236",
     "name": "1137.第N个泰波那契数",
-    "url": "https://leetcode-cn.com/problems/n-th-tribonacci-number/",
+    "url": "https://leetcode.cn/problems/n-th-tribonacci-number",
     "difficulty": "简单",
     "tag": [
         "记忆化搜索",
@@ -10,12 +11,12 @@
     "desc": "给你整数 n，请返回第 n 个泰波那契数 Tn 的值。",
     "solutions": [
         {
-            "date": 1628352000000,
-            "time": 68,
-            "memory": 39.5,
+            "date": 1628438400000,
+            "time": 148,
+            "memory": 46.4,
             "script": "typescript",
-            "desc": "循环赋值。",
-            "code": "function tribonacci(n: number): number {\n  let [t0, t1, t2] = [0, 1, 1];\n  if (n === 0) return t0;\n  if (n === 1) return t1;\n  if (n === 2) return t2;\n  n -= 2;\n  while (n--) [t0, t1, t2] = [t1, t2, t0 + t1 + t2];\n  return t2;\n}"
+            "desc": "遍历数组进行相乘。",
+            "code": "function nthSuperUglyNumber(n: number, primes: number[]): number {\n  const len = primes.length;\n  const pos = new Array(len).fill(0);\n  const list: number[] = [1];\n  let val = 1;\n  for (let i = 1; i < n; i++) {\n    val = Math.min(...pos.map((v, i) => list[v] * primes[i]));\n    for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;\n    list.push(val);\n  }\n  return val;\n}"
         }
     ]
 }

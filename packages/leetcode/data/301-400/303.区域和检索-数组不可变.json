@@ -1,9 +1,12 @@
 {
+    "id": "303",
     "name": "303.区域和检索-数组不可变",
-    "url": "https://leetcode-cn.com/problems/range-sum-query-immutable/",
+    "url": "https://leetcode.cn/problems/range-sum-query-immutable",
     "difficulty": "简单",
     "tag": [
-        "动态规划"
+        "设计",
+        "数组",
+        "前缀和"
     ],
     "desc": "给定一个整数数组 nums，求出数组从索引 i 到 j（i ≤ j）范围内元素的总和，包含 i、j 两点。",
     "solutions": [

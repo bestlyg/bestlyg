@@ -1,6 +1,7 @@
 {
+    "id": "2391",
     "name": "2299.强密码检验器II",
-    "url": "https://leetcode.cn/problems/strong-password-checker-ii/",
+    "url": "https://leetcode.cn/problems/strong-password-checker-ii",
     "difficulty": "简单",
     "tag": [
         "字符串"

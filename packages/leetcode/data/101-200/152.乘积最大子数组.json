@@ -1,6 +1,7 @@
 {
+    "id": "152",
     "name": "152.乘积最大子数组",
-    "url": "https://leetcode-cn.com/problems/maximum-product-subarray/",
+    "url": "https://leetcode.cn/problems/maximum-product-subarray",
     "difficulty": "中等",
     "tag": [
         "数组",

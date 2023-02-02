@@ -1,6 +1,7 @@
 {
+    "id": "1939",
     "name": "1828.统计一个圆中点的数目",
-    "url": "https://leetcode.cn/problems/queries-on-number-of-points-inside-a-circle/",
+    "url": "https://leetcode.cn/problems/queries-on-number-of-points-inside-a-circle",
     "difficulty": "中等",
     "tag": [
         "几何",

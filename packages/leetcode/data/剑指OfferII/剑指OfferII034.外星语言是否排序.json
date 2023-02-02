@@ -1,6 +1,7 @@
 {
+    "id": "1000276",
     "name": "剑指OfferII034.外星语言是否排序",
-    "url": "https://leetcode-cn.com/problems/lwyVBB/",
+    "url": "https://leetcode.cn/problems/lwyVBB",
     "difficulty": "简单",
     "tag": [
         "数组",

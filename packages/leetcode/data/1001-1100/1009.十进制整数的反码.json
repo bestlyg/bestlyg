@@ -1,7 +1,8 @@
 {
+    "id": "1054",
     "name": "1009.十进制整数的反码",
-    "url": "https://leetcode-cn.com/problems/complement-of-base-10-integer/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/complement-of-base-10-integer",
+    "difficulty": "简单",
     "tag": [
         "位运算"
     ],

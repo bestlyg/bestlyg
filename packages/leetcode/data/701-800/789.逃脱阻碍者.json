@@ -1,6 +1,7 @@
 {
+    "id": "805",
     "name": "789.逃脱阻碍者",
-    "url": "https://leetcode-cn.com/problems/escape-the-ghosts/",
+    "url": "https://leetcode.cn/problems/escape-the-ghosts",
     "difficulty": "中等",
     "tag": [
         "数组",

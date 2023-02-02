@@ -1,6 +1,7 @@
 {
+    "id": "822",
     "name": "804.唯一摩尔斯密码词",
-    "url": "https://leetcode-cn.com/problems/unique-morse-code-words/",
+    "url": "https://leetcode.cn/problems/unique-morse-code-words",
     "difficulty": "简单",
     "tag": [
         "数组",

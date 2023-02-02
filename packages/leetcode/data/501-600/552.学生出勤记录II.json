@@ -1,6 +1,7 @@
 {
+    "id": "552",
     "name": "552.学生出勤记录II",
-    "url": "https://leetcode-cn.com/problems/student-attendance-record-ii/",
+    "url": "https://leetcode.cn/problems/student-attendance-record-ii",
     "difficulty": "困难",
     "tag": [
         "动态规划"

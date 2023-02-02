@@ -1,6 +1,7 @@
 {
+    "id": "1698",
     "name": "1576.替换所有的问号",
-    "url": "https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/",
+    "url": "https://leetcode.cn/problems/replace-all-s-to-avoid-consecutive-repeating-characters",
     "difficulty": "简单",
     "tag": [
         "字符串"

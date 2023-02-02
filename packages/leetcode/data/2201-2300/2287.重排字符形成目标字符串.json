@@ -1,6 +1,7 @@
 {
+    "id": "2372",
     "name": "2287.重排字符形成目标字符串",
-    "url": "https://leetcode.cn/problems/rearrange-characters-to-make-target-string/",
+    "url": "https://leetcode.cn/problems/rearrange-characters-to-make-target-string",
     "difficulty": "简单",
     "tag": [
         "哈希表",

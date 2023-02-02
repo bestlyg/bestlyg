@@ -1,6 +1,7 @@
 {
+    "id": "367",
     "name": "367.有效的完全平方数",
-    "url": "https://leetcode-cn.com/problems/valid-perfect-square/",
+    "url": "https://leetcode.cn/problems/valid-perfect-square",
     "difficulty": "简单",
     "tag": [
         "数学",

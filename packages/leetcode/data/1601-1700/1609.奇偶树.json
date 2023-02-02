@@ -1,6 +1,7 @@
 {
+    "id": "1731",
     "name": "1609.奇偶树",
-    "url": "https://leetcode-cn.com/problems/even-odd-tree/",
+    "url": "https://leetcode.cn/problems/even-odd-tree",
     "difficulty": "中等",
     "tag": [
         "树",

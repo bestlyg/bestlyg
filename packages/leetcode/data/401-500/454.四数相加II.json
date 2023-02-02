@@ -1,10 +1,11 @@
 {
+    "id": "454",
     "name": "454.四数相加II",
-    "url": "https://leetcode-cn.com/problems/4sum-ii/",
+    "url": "https://leetcode.cn/problems/4sum-ii",
     "difficulty": "中等",
     "tag": [
-        "哈希表",
-        "二分查找"
+        "数组",
+        "哈希表"
     ],
     "desc": "给定四个包含整数的数组列表  A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得  A[i] + B[j] + C[k] + D[l] = 0。",
     "solutions": [

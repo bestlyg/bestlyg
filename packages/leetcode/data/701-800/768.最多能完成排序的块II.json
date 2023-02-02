@@ -1,6 +1,7 @@
 {
+    "id": "779",
     "name": "768.最多能完成排序的块II",
-    "url": "https://leetcode.cn/problems/max-chunks-to-make-sorted-ii/",
+    "url": "https://leetcode.cn/problems/max-chunks-to-make-sorted-ii",
     "difficulty": "困难",
     "tag": [
         "栈",

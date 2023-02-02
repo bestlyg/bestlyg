@@ -1,6 +1,7 @@
 {
+    "id": "772",
     "name": "427.建立四叉树",
-    "url": "https://leetcode-cn.com/problems/construct-quad-tree/",
+    "url": "https://leetcode.cn/problems/construct-quad-tree",
     "difficulty": "中等",
     "tag": [
         "树",

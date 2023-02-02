@@ -1,21 +1,22 @@
 {
+    "id": "918",
     "name": "882.细分图中的可到达节点",
-    "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/",
+    "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph",
     "difficulty": "困难",
     "tag": [
         "图",
         "最短路",
-        "堆(优先队列)"
+        "堆（优先队列）"
     ],
-    "desc": "给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。",
+    "desc": "返回中枢整数 x 。如果不存在中枢整数，则返回 -1 。题目保证对于给定的输入，至多存在一个中枢整数。",
     "solutions": [
         {
-            "date": 1669392000000,
-            "time": 268,
-            "memory": 70.6,
+            "date": 1669478400000,
+            "time": 0,
+            "memory": 5.8,
             "script": "cpp",
-            "desc": "Dijkstra。",
-            "code": "struct Node {\n    int visit;\n    unordered_map<int, int> to;\n    vector<int> next;\n    Node(): visit(-1) {}\n};\nstruct Item {\n    int from, to, cnt;\n    Item() {}\n    Item(int from, int to, int cnt): from(from), to(to), cnt(cnt) {}\n};\nclass Solution {\npublic:\n    int reachableNodes(vector<vector<int>>& edges, int maxMoves, int n) {\n        vector<Node> list(n);\n        unordered_map<int, unordered_map<int, int>> mcnt;\n        for (auto &edge : edges) {\n            int from = edge[0], to = edge[1], cnt = edge[2];\n            list[from].next.push_back(to);\n            list[to].next.push_back(from);\n            mcnt[from][to] = mcnt[to][from] = cnt;\n        }\n        auto ItemCmp = [&](Item &a, Item &b){ return a.cnt < b.cnt; };\n        priority_queue<Item, vector<Item>, decltype(ItemCmp)> q(ItemCmp);\n        q.push(Item(-1, 0, maxMoves));\n        list[0].visit = maxMoves;\n        while (q.size()) {\n            Item item = q.top();\n            q.pop();\n            for (auto &next : list[item.to].next) {\n                int cnt = mcnt[item.to][next];\n                if (cnt > 0 && item.cnt <= cnt)\n                    list[item.to].to[next] = max(item.cnt, list[item.to].to[next]);\n                else {\n                    list[item.to].to[next] = cnt;\n                    int surplus = item.cnt - cnt - 1;\n                    if (surplus > list[next].visit) {\n                        list[next].visit = surplus;\n                        if (surplus > 0) q.push(Item(item.to, next, surplus));\n                    }\n                }\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < list.size(); i++) {\n            if (list[i].visit != -1) ans++;\n            for (auto &item : list[i].to) {\n                if (item.first >= i || list[item.first].to[i] == 0)\n                    ans += min(mcnt[i][item.first], item.second + list[item.first].to[i]);\n            }\n        }\n        return ans;\n    }\n};"
+            "desc": "遍历对每个值尝试。",
+            "code": "# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    int pivotInteger(int n) {\n        int sum = (1 + n) * n / 2;\n        int prev_sum = 0;\n        for (int i = 1; i <=n ; i++) {\n            int next_sum = sum - prev_sum;\n            prev_sum += i;\n            if (prev_sum == next_sum) return i;\n        }\n        return -1;\n    }\n};"
         }
     ]
 }

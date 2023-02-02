@@ -1,6 +1,7 @@
 {
+    "id": "1444",
     "name": "1342.将数字变成0的操作次数",
-    "url": "https://leetcode-cn.com/problems/number-of-steps-to-reduce-a-number-to-zero/",
+    "url": "https://leetcode.cn/problems/number-of-steps-to-reduce-a-number-to-zero",
     "difficulty": "简单",
     "tag": [
         "位运算",

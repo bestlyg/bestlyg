@@ -1,10 +1,13 @@
 {
+    "id": "337",
     "name": "337.打家劫舍III",
-    "url": "https://leetcode-cn.com/problems/house-robber-iii/",
+    "url": "https://leetcode.cn/problems/house-robber-iii",
     "difficulty": "中等",
     "tag": [
         "树",
-        "深度优先搜索"
+        "深度优先搜索",
+        "动态规划",
+        "二叉树"
     ],
     "desc": "计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。",
     "solutions": [

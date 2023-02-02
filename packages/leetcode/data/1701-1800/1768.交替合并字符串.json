@@ -1,6 +1,7 @@
 {
+    "id": "1894",
     "name": "1768.交替合并字符串",
-    "url": "https://leetcode.cn/problems/merge-strings-alternately/",
+    "url": "https://leetcode.cn/problems/merge-strings-alternately",
     "difficulty": "简单",
     "tag": [
         "双指针",

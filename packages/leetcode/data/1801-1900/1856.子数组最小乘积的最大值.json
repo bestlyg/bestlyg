@@ -1,6 +1,7 @@
 {
+    "id": "1985",
     "name": "1856.子数组最小乘积的最大值",
-    "url": "https://leetcode-cn.com/problems/maximum-subarray-min-product/",
+    "url": "https://leetcode.cn/problems/maximum-subarray-min-product",
     "difficulty": "中等",
     "tag": [
         "栈",

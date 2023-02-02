@@ -1,10 +1,14 @@
 {
+    "id": "116",
     "name": "116.填充每个节点的下一个右侧节点指针",
-    "url": "https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/",
+    "url": "https://leetcode.cn/problems/populating-next-right-pointers-in-each-node",
     "difficulty": "中等",
     "tag": [
         "树",
-        "深度优先搜索"
+        "深度优先搜索",
+        "广度优先搜索",
+        "链表",
+        "二叉树"
     ],
     "desc": "给定一个完美二叉树，填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。",
     "solutions": [
