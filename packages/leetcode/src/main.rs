@@ -6,30 +6,66 @@ use std::char::MAX;
 
 use preclude::*;
 fn main() {
-    let func = Solution::merge_in_between;
-    // let res = func(55);
-    // println!("res = {res:#?}");
+    let func = Solution::shortest_alternating_paths;
+    let res = func(3, vec![vec![0, 1], vec![0, 2]], vec![vec![1, 0]]);
+    println!("res = {res:#?}");
+}
+
+#[derive(Clone)]
+struct Node {
+    next: Vec<Vec<i32>>,
+}
+impl Node {
+    fn new() -> Self {
+        Self {
+            next: vec![vec![]; 2],
+        }
+    }
 }
 
 impl Solution {
-    pub fn decode_message(key: String, message: String) -> String {
-        let message = message.chars().collect::<Vec<char>>();
-        let key = key.chars().collect::<Vec<char>>();
-        let mut list = ['\0'; 26];
-        let mut ans = String::new();
-        let mut p = 'a';
-        for c in key {
-            let i = c as usize - 'a' as usize;
-            if c != ' ' && list[i] == '\0' {
-                list[i] = p;
-                p = (p as u8 + 1) as char;
-            }
+    pub fn shortest_alternating_paths(
+        n: i32,
+        red_edges: Vec<Vec<i32>>,
+        blue_edges: Vec<Vec<i32>>,
+    ) -> Vec<i32> {
+        let n = n as usize;
+        let mut ans = vec![-1; n];
+        ans[0] = 0;
+        let mut cache = vec![vec![false; n]; 2];
+        let mut list = vec![Node::new(); n];
+        for item in red_edges {
+            list[item[0] as usize].next[0].push(item[1]);
         }
-        for c in message {
-            if c == ' ' {
-                ans.push(' ');
-            } else {
-                ans.push(list[c as usize - 'a' as usize]);
+        for item in blue_edges {
+            list[item[0] as usize].next[1].push(item[1]);
+        }
+        use std::collections::VecDeque;
+        let mut q = VecDeque::<(usize, usize)>::new();
+        q.push_back((0, 2));
+        let (mut l, mut size) = (0, 1);
+        while !q.is_empty() {
+            let (node, color) = q.pop_front().unwrap();
+            for i in 0..2 {
+                if color == i {
+                    continue;
+                }
+                for next in list[node].next[i].iter() {
+                    let next = *next as usize;
+                    if cache[i][next] {
+                        continue;
+                    }
+                    cache[i][next] = true;
+                    if ans[next] == -1 {
+                        ans[next] = l + 1;
+                    }
+                    q.push_back((next, i));
+                }
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                l += 1
             }
         }
         ans
