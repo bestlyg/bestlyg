@@ -20,11 +20,19 @@ const request = axios.create({
     'Referrer-Policy': 'strict-origin-when-cross-origin',
   },
 });
-
-export function fetchQuestionData() {
+export interface QuestionDataRes {
+  question: {
+    questionFrontendId: string;
+    questionId: string;
+    translatedTitle: string;
+    difficulty: string;
+    topicTags: { translatedName: string }[];
+  };
+}
+export function fetchQuestionData({ titleSlug }: { titleSlug: string }): Promise<QuestionDataRes> {
   const body = {
     operationName: 'questionData',
-    variables: { titleSlug: 'two-sum' },
+    variables: { titleSlug },
     query: [
       'query questionData($titleSlug: String!) {',
       '  question(titleSlug: $titleSlug) {',
@@ -103,10 +111,17 @@ export function fetchQuestionData() {
       '}\n',
     ].join('\n'),
   };
-  return request.post('', body).then(res => res.data);
+  return request.post('', body).then(res => res.data.data);
 }
 
-export function fetchAllQuestions() {
+export interface AllQuestionsItem {
+  questionId: string;
+  translatedTitle: string;
+}
+export interface AllQuestionsRes {
+  allQuestionsBeta: AllQuestionsItem[];
+}
+export function fetchAllQuestions(): Promise<AllQuestionsRes> {
   const body = {
     operationName: 'allQuestions',
     variables: {},
@@ -134,6 +149,6 @@ export function fetchAllQuestions() {
   };
   return request
     .post('/', body)
-    .then(res => res.data)
+    .then(res => res.data.data)
     .catch(err => console.error(err));
 }
