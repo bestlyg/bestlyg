@@ -1,0 +1,38 @@
+{
+    "id": "1248",
+    "name": "1145.二叉树着色游戏",
+    "url": "https://leetcode.cn/problems/binary-tree-coloring-game",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "desc": "现在，假设你是「二号」玩家，根据所给出的输入，假如存在一个 y 值可以确保你赢得这场游戏，则返回 true ；若无法获胜，就请返回 false 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 10.9,
+            "desc": "x把树分成三部分，y只可能拦住x的某一条去路才是最大值，计算三个方向可以拦住的最多节点。",
+            "code": "struct Node {\n    int cnt, lcnt, rcnt;\n    TreeNode *p;\n    Node(): cnt(0), lcnt(0), rcnt(0), p(nullptr) {}\n};\nclass Solution {\npublic:\n    bool btreeGameWinningMove(TreeNode* root, int n, int x) {\n        vector<Node> list(n + 1);\n        int parent = -1;\n        dfs(list, root, parent, parent, x);\n        bool ans = false;\n        if (parent != -1) ans |= list[root->val].cnt - list[x].cnt > list[x].cnt;\n        if (list[x].p->left) ans |= list[root->val].cnt - list[list[x].p->left->val].cnt < list[list[x].p->left->val].cnt;\n        if (list[x].p->right) ans |= list[root->val].cnt - list[list[x].p->right->val].cnt < list[list[x].p->right->val].cnt;\n        return ans;\n    }\n    int dfs(vector<Node> &list, TreeNode *root, int &parent, int cur_parent, int x) {\n        if (!root) return 0;\n        if (root->val == x) parent = cur_parent;\n        auto &node = list[root->val];\n        node.p = root;\n        node.lcnt = dfs(list, root->left, parent, root->val, x);\n        node.rcnt = dfs(list, root->right, parent, root->val, x);\n        node.cnt = node.lcnt + node.rcnt + 1;\n        return node.cnt;\n    }\n};",
+            "date": 1675353600000
+        },
+        {
+            "script": "python3",
+            "time": 40,
+            "memory": 15.2,
+            "desc": "同上。",
+            "code": "class Node:\n    def __init__(self) -> None:\n        self.cnt = self.lcnt = self.rcnt = 0\n        self.p = None\n\nclass Solution:\n    def btreeGameWinningMove(self, root: Optional[TreeNode], n: int, x: int) -> bool:\n        list = [Node() for _ in range(n + 1)]\n        parent = -1\n\n        def dfs(root: Optional[TreeNode], cur_parent: int) -> int:\n            nonlocal parent\n            if root == None:\n                return 0\n            if root.val == x:\n                parent = cur_parent\n            node = list[root.val]\n            node.p = root\n            node.lcnt = dfs(root.left, root.val)\n            node.rcnt = dfs(root.right, root.val)\n            node.cnt = node.lcnt + node.rcnt + 1\n            return node.cnt\n\n        dfs(root, -1)\n        ans = False\n        if parent != -1:\n            ans |= list[root.val].cnt - list[x].cnt > list[x].cnt\n        if list[x].p.left:\n            ans |= list[root.val].cnt -                 list[list[x].p.left.val].cnt < list[list[x].p.left.val].cnt\n        if list[x].p.right:\n            ans |= list[root.val].cnt -                 list[list[x].p.right.val].cnt < list[list[x].p.right.val].cnt\n        return ans",
+            "date": 1675353600000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "use std::cell::RefCell;\nuse std::rc::Rc;\n#[derive(Clone)]\nstruct Node {\n    cnt: i32,\n    lcnt: i32,\n    rcnt: i32,\n    p: Option<Rc<RefCell<TreeNode>>>,\n}\nimpl Node {\n    fn new() -> Self {\n        Self {\n            cnt: 0,\n            lcnt: 0,\n            rcnt: 0,\n            p: None,\n        }\n    }\n}\n\nimpl Solution {\n    pub fn btree_game_winning_move(root: Option<Rc<RefCell<TreeNode>>>, n: i32, x: i32) -> bool {\n        let val = root.as_ref().unwrap().as_ref().borrow().val as usize;\n        let x = x as usize;\n        let n = n as usize;\n        let list = vec![Node::new(); n + 1];\n        let mut parent = -1;\n        let (list, _) = Solution::dfs(list, root, &mut parent, -1, x as i32);\n        let mut ans = false;\n        if parent != -1 {\n            ans |= list[val].cnt - list[x].cnt > list[x].cnt;\n        }\n        let child = &list[x].p.as_ref().unwrap().as_ref().borrow().left;\n        if child.is_some() {\n            let lval = child.as_ref().unwrap().as_ref().borrow().val as usize;\n            ans |= list[val].cnt - list[lval].cnt < list[lval].cnt;\n        }\n        let child = &list[x].p.as_ref().unwrap().as_ref().borrow().right;\n        if child.is_some() {\n            let rval = child.as_ref().unwrap().as_ref().borrow().val as usize;\n            ans |= list[val].cnt - list[rval].cnt < list[rval].cnt;\n        }\n        ans\n    }\n    fn dfs(\n        list: Vec<Node>,\n        root: Option<Rc<RefCell<TreeNode>>>,\n        parent: *mut i32,\n        cur_parent: i32,\n        x: i32,\n    ) -> (Vec<Node>, i32) {\n        match root {\n            Some(root) => {\n                let mut list = list;\n                let root_node = root.as_ref().borrow();\n                if root_node.val == x {\n                    unsafe {\n                        *parent = cur_parent;\n                    }\n                }\n                let val = root_node.val as usize;\n                list[val].p = Some(root.clone());\n                let (mut list, cnt) =\n                    Solution::dfs(list, root_node.left.clone(), parent, root_node.val, x);\n                list[val].lcnt = cnt;\n                let (mut list, cnt) =\n                    Solution::dfs(list, root_node.right.clone(), parent, root_node.val, x);\n                list[val].rcnt = cnt;\n                list[val].cnt = list[val].lcnt + list[val].rcnt + 1;\n                let cnt = list[val].cnt;\n                (list, cnt)\n            }\n            None => (list, 0),\n        }\n    }\n}",
+            "date": 1675353600000
+        }
+    ]
+}
