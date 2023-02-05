@@ -2,165 +2,179 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1145. 二叉树着色游戏',
-  url: 'https://leetcode.cn/problems/binary-tree-coloring-game',
-  difficulty: Difficulty.中等,
-  tag: [Tag.树, Tag.深度优先搜索, Tag.二叉树],
-  desc: `现在，假设你是「二号」玩家，根据所给出的输入，假如存在一个 y 值可以确保你赢得这场游戏，则返回 true ；若无法获胜，就请返回 false 。`,
+  name: '1210.穿过迷宫的最少移动次数',
+  url: 'https://leetcode.cn/problems/minimum-moves-to-reach-target-with-rotations/',
+  difficulty: Difficulty.困难,
+  tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
+  desc: `返回蛇抵达目的地所需的最少移动次数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 10.9,
-      desc: 'x把树分成三部分，y只可能拦住x的某一条去路才是最大值，计算三个方向可以拦住的最多节点',
+      time: 24,
+      memory: 12.9,
+      desc: 'bfs',
       code: `struct Node {
-    int cnt, lcnt, rcnt;
-    TreeNode *p;
-    Node(): cnt(0), lcnt(0), rcnt(0), p(nullptr) {}
+    int x, y, dir;
+    Node(int x, int y, int dir): x(x), y(y), dir(dir) {}
 };
 class Solution {
 public:
-    bool btreeGameWinningMove(TreeNode* root, int n, int x) {
-        vector<Node> list(n + 1);
-        int parent = -1;
-        dfs(list, root, parent, parent, x);
-        bool ans = false;
-        if (parent != -1) ans |= list[root->val].cnt - list[x].cnt > list[x].cnt;
-        if (list[x].p->left) ans |= list[root->val].cnt - list[list[x].p->left->val].cnt < list[list[x].p->left->val].cnt;
-        if (list[x].p->right) ans |= list[root->val].cnt - list[list[x].p->right->val].cnt < list[list[x].p->right->val].cnt;
-        return ans;
-    }
-    int dfs(vector<Node> &list, TreeNode *root, int &parent, int cur_parent, int x) {
-        if (!root) return 0;
-        if (root->val == x) parent = cur_parent;
-        auto &node = list[root->val];
-        node.p = root;
-        node.lcnt = dfs(list, root->left, parent, root->val, x);
-        node.rcnt = dfs(list, root->right, parent, root->val, x);
-        node.cnt = node.lcnt + node.rcnt + 1;
-        return node.cnt;
+    int minimumMoves(vector<vector<int>>& grid) {
+        int n = grid.size();
+        bool cache[n][n][2];
+        memset(cache, false, sizeof(bool) * n * n * 2);
+        cache[0][0][0] = true;
+        queue<Node> q;
+        q.push(Node(0, 0, 0));
+        int step = 0, size = 1;
+        while (q.size()) {
+            Node node = q.front();
+            q.pop();
+            int x = node.x, y = node.y, dir = node.dir;
+            if (x == n - 1 && y == n - 2 && dir == 0) return step;
+            if (dir == 0 && y + 2 < n && grid[x][y + 2] == 0 && !cache[x][y + 1][0]) {
+                q.push(Node(x, y + 1, 0));
+                cache[x][y + 1][0] = true;
+            }
+            if (dir == 0 && x + 1 < n && grid[x + 1][y + 1] == 0 && grid[x + 1][y] == 0 && !cache[x][y][1]) {
+                q.push(Node(x, y, 1));
+                cache[x][y][1] = true;
+            }
+            if (dir == 0 && x + 1 < n && grid[x + 1][y] == 0 && grid[x + 1][y + 1] == 0 && !cache[x + 1][y][0]) {
+                q.push(Node(x + 1, y, 0));
+                cache[x + 1][y][0] = true;
+            }
+
+            if (dir == 1 && x + 2 < n && grid[x + 2][y] == 0 && !cache[x + 1][y][1]) {
+                q.push(Node(x + 1, y, 1));
+                cache[x + 1][y][1] = true;
+            }
+            if (dir == 1 && y + 1 < n && grid[x + 1][y + 1] == 0 && grid[x][y + 1] == 0 && !cache[x][y][0]) {
+                q.push(Node(x, y, 0));
+                cache[x][y][0] = true;
+            }
+            if (dir == 1 && y + 1 < n && grid[x + 1][y + 1] == 0 && grid[x][y + 1] == 0 && !cache[x][y + 1][1]) {
+                q.push(Node(x, y + 1, 1));
+                cache[x][y + 1][1] = true;
+            }
+            if (--size == 0) step += 1, size = q.size();
+        }
+        return -1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 40,
-      memory: 15.2,
+      time: 364,
+      memory: 16.4,
       desc: '同上',
-      code: `class Node:
-    def __init__(self) -> None:
-        self.cnt = self.lcnt = self.rcnt = 0
-        self.p = None
-
+      code: `from queue import Queue
 class Solution:
-    def btreeGameWinningMove(self, root: Optional[TreeNode], n: int, x: int) -> bool:
-        list = [Node() for _ in range(n + 1)]
-        parent = -1
-
-        def dfs(root: Optional[TreeNode], cur_parent: int) -> int:
-            nonlocal parent
-            if root == None:
-                return 0
-            if root.val == x:
-                parent = cur_parent
-            node = list[root.val]
-            node.p = root
-            node.lcnt = dfs(root.left, root.val)
-            node.rcnt = dfs(root.right, root.val)
-            node.cnt = node.lcnt + node.rcnt + 1
-            return node.cnt
-
-        dfs(root, -1)
-        ans = False
-        if parent != -1:
-            ans |= list[root.val].cnt - list[x].cnt > list[x].cnt
-        if list[x].p.left:
-            ans |= list[root.val].cnt - \
-                list[list[x].p.left.val].cnt < list[list[x].p.left.val].cnt
-        if list[x].p.right:
-            ans |= list[root.val].cnt - \
-                list[list[x].p.right.val].cnt < list[list[x].p.right.val].cnt
-        return ans`,
+    def minimumMoves(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        cache = [[[False for _ in range(2)] for _ in range(n)] for _ in range(n)]
+        cache[0][0][0] = True
+        q = Queue()
+        q.put((0, 0, 0))
+        step, size = 0, 1
+        while q.qsize():
+            (x, y, d) = q.get()
+            if x == n - 1 and y == n - 2 and d == 0:
+                return step
+            if d == 0 and y + 2 < n and grid[x][y + 2] == 0 and not cache[x][y + 1][0]:
+                q.put((x, y + 1, 0))
+                cache[x][y + 1][0] = True
+            if d == 0 and x + 1 < n and grid[x + 1][y + 1] == 0 and grid[x + 1][y] == 0 and not cache[x][y][1]:
+                q.put((x, y, 1))
+                cache[x][y][1] = True
+            if d == 0 and x + 1 < n and grid[x + 1][y] == 0 and grid[x + 1][y + 1] == 0 and not cache[x + 1][y][0]:
+                q.put((x + 1, y, 0))
+                cache[x + 1][y][0] = True
+            if d == 1 and x + 2 < n and grid[x + 2][y] == 0 and not cache[x + 1][y][1]:
+                q.put((x + 1, y, 1))
+                cache[x + 1][y][1] = True
+            if d == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y][0]:
+                q.put((x, y, 0))
+                cache[x][y][0] = True
+            if d == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y + 1][1]:
+                q.put((x, y + 1, 1))
+                cache[x][y + 1][1] = True
+            size -= 1
+            if size == 0:
+                 step += 1
+                 size = q.qsize()
+        return -1`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.2,
+      time: 4,
+      memory: 2.7,
       desc: '同上',
-      code: `use std::cell::RefCell;
-use std::rc::Rc;
-#[derive(Clone)]
-struct Node {
-    cnt: i32,
-    lcnt: i32,
-    rcnt: i32,
-    p: Option<Rc<RefCell<TreeNode>>>,
-}
-impl Node {
-    fn new() -> Self {
-        Self {
-            cnt: 0,
-            lcnt: 0,
-            rcnt: 0,
-            p: None,
-        }
-    }
-}
-
-impl Solution {
-    pub fn btree_game_winning_move(root: Option<Rc<RefCell<TreeNode>>>, n: i32, x: i32) -> bool {
-        let val = root.as_ref().unwrap().as_ref().borrow().val as usize;
-        let x = x as usize;
-        let n = n as usize;
-        let list = vec![Node::new(); n + 1];
-        let mut parent = -1;
-        let (list, _) = Solution::dfs(list, root, &mut parent, -1, x as i32);
-        let mut ans = false;
-        if parent != -1 {
-            ans |= list[val].cnt - list[x].cnt > list[x].cnt;
-        }
-        let child = &list[x].p.as_ref().unwrap().as_ref().borrow().left;
-        if child.is_some() {
-            let lval = child.as_ref().unwrap().as_ref().borrow().val as usize;
-            ans |= list[val].cnt - list[lval].cnt < list[lval].cnt;
-        }
-        let child = &list[x].p.as_ref().unwrap().as_ref().borrow().right;
-        if child.is_some() {
-            let rval = child.as_ref().unwrap().as_ref().borrow().val as usize;
-            ans |= list[val].cnt - list[rval].cnt < list[rval].cnt;
-        }
-        ans
-    }
-    fn dfs(
-        list: Vec<Node>,
-        root: Option<Rc<RefCell<TreeNode>>>,
-        parent: *mut i32,
-        cur_parent: i32,
-        x: i32,
-    ) -> (Vec<Node>, i32) {
-        match root {
-            Some(root) => {
-                let mut list = list;
-                let root_node = root.as_ref().borrow();
-                if root_node.val == x {
-                    unsafe {
-                        *parent = cur_parent;
-                    }
-                }
-                let val = root_node.val as usize;
-                list[val].p = Some(root.clone());
-                let (mut list, cnt) =
-                    Solution::dfs(list, root_node.left.clone(), parent, root_node.val, x);
-                list[val].lcnt = cnt;
-                let (mut list, cnt) =
-                    Solution::dfs(list, root_node.right.clone(), parent, root_node.val, x);
-                list[val].rcnt = cnt;
-                list[val].cnt = list[val].lcnt + list[val].rcnt + 1;
-                let cnt = list[val].cnt;
-                (list, cnt)
+      code: `impl Solution {
+    pub fn minimum_moves(grid: Vec<Vec<i32>>) -> i32 {
+        use std::collections::VecDeque;
+        let n = grid.len();
+        let mut cache = vec![vec![vec![false; 2]; n]; n];
+        cache[0][0][0] = true;
+        let mut q = VecDeque::<(usize, usize, usize)>::new();
+        q.push_back((0, 0, 0));
+        let (mut step, mut size) = (0, 1);
+        while !q.is_empty() {
+            let (x, y, dir) = q.pop_front().unwrap();
+            if x == n - 1 && y == n - 2 && dir == 0 {
+                return step;
             }
-            None => (list, 0),
+            if dir == 0 && y + 2 < n && grid[x][y + 2] == 0 && !cache[x][y + 1][0] {
+                q.push_back((x, y + 1, 0));
+                cache[x][y + 1][0] = true;
+            }
+            if dir == 0
+                && x + 1 < n
+                && grid[x + 1][y + 1] == 0
+                && grid[x + 1][y] == 0
+                && !cache[x][y][1]
+            {
+                q.push_back((x, y, 1));
+                cache[x][y][1] = true;
+            }
+            if dir == 0
+                && x + 1 < n
+                && grid[x + 1][y] == 0
+                && grid[x + 1][y + 1] == 0
+                && !cache[x + 1][y][0]
+            {
+                q.push_back((x + 1, y, 0));
+                cache[x + 1][y][0] = true;
+            }
+            if dir == 1 && x + 2 < n && grid[x + 2][y] == 0 && !cache[x + 1][y][1] {
+                q.push_back((x + 1, y, 1));
+                cache[x + 1][y][1] = true;
+            }
+            if dir == 1
+                && y + 1 < n
+                && grid[x + 1][y + 1] == 0
+                && grid[x][y + 1] == 0
+                && !cache[x][y][0]
+            {
+                q.push_back((x, y, 0));
+                cache[x][y][0] = true;
+            }
+            if dir == 1
+                && y + 1 < n
+                && grid[x + 1][y + 1] == 0
+                && grid[x][y + 1] == 0
+                && !cache[x][y + 1][1]
+            {
+                q.push_back((x, y + 1, 1));
+                cache[x][y + 1][1] = true;
+            }
+            size -= 1;
+            if size == 0 {
+                step += 1;
+                size = q.len();
+            }
         }
+        -1
     }
 }`,
     },

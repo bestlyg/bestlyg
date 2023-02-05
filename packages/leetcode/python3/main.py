@@ -19,53 +19,56 @@ class TreeNode:
         self.right = right
 
 
-class Node:
-    def __init__(self) -> None:
-        self.cnt = self.lcnt = self.rcnt = 0
-        self.p = None
-
-
+from queue import Queue
 class Solution:
-    def btreeGameWinningMove(self, root: Optional[TreeNode], n: int, x: int) -> bool:
-        list = [Node() for _ in range(n + 1)]
-        parent = -1
+    def minimumMoves(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        cache = [[[False for _ in range(2)] for _ in range(n)] for _ in range(n)]
+        cache[0][0][0] = True
+        q = Queue()
+        q.put((0, 0, 0))
+        step, size = 0, 1
+        while q.qsize():
+            (x, y, d) = q.get()
+            if x == n - 1 and y == n - 2 and d == 0:
+                return step
+            if dir == 0 and y + 2 < n and grid[x][y + 2] == 0 and not cache[x][y + 1][0]:
+                q.push((x, y + 1, 0));
+                cache[x][y + 1][0] = True;
+            if dir == 0 and x + 1 < n and grid[x + 1][y + 1] == 0 and grid[x + 1][y] == 0 and not cache[x][y][1]:
+                q.push((x, y, 1));
+                cache[x][y][1] = True;
+            if dir == 0 and x + 1 < n and grid[x + 1][y] == 0 and grid[x + 1][y + 1] == 0 and not cache[x + 1][y][0]:
+                q.push((x + 1, y, 0));
+                cache[x + 1][y][0] = True;
+            if dir == 1 and x + 2 < n and grid[x + 2][y] == 0 and not cache[x + 1][y][1]:
+                q.push((x + 1, y, 1));
+                cache[x + 1][y][1] = True;
+            if dir == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y][0]:
+                q.push((x, y, 0));
+                cache[x][y][0] = True;
+            if dir == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y + 1][1]:
+                q.push((x, y + 1, 1));
+                cache[x][y + 1][1] = True;
+            size -= 1
+            if size == 0:
+                 step += 1
+                 size = q.qsize()
+        return -1
+        
 
-        def dfs(root: Optional[TreeNode], cur_parent: int) -> int:
-            nonlocal parent
-            if root == None:
-                return 0
-            if root.val == x:
-                parent = cur_parent
-            node = list[root.val]
-            node.p = root
-            node.lcnt = dfs(root.left, root.val)
-            node.rcnt = dfs(root.right, root.val)
-            node.cnt = node.lcnt + node.rcnt + 1
-            return node.cnt
 
-        dfs(root, -1)
-        ans = False
-        if parent != -1:
-            ans |= list[root.val].cnt - list[x].cnt > list[x].cnt
-        if list[x].p.left:
-            ans |= list[root.val].cnt - \
-                list[list[x].p.left.val].cnt < list[list[x].p.left.val].cnt
-        if list[x].p.right:
-            ans |= list[root.val].cnt - \
-                list[list[x].p.right.val].cnt < list[list[x].p.right.val].cnt
-        return ans
 
 
 def main():
     o = Solution()
     res = o.shortestAlternatingPaths(
-        5,
-        [[0, 1], [1, 2], [2, 3], [3, 4]],
-        [[1, 2], [2, 3], [3, 1]]
-
-        # 3,
-        # [[0, 1], [0, 2]],
-        # [[1, 0]]
+        [[0,0,0,0,0,1],
+        [1,1,0,0,1,0],
+        [0,0,0,0,1,1],
+        [0,0,1,0,1,0],
+        [0,1,1,0,0,0],
+        [0,1,1,0,0,0]]
     )
     print(res)
 
