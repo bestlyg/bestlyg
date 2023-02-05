@@ -3,6 +3,7 @@ mod preclude;
 use std::borrow::Borrow;
 use std::borrow::BorrowMut;
 use std::char::MAX;
+use std::hash::Hash;
 
 use preclude::*;
 fn main() {
@@ -30,70 +31,35 @@ fn main() {
 //         }
 //     }
 // }
+
 impl Solution {
-    pub fn minimum_moves(grid: Vec<Vec<i32>>) -> i32 {
-        use std::collections::VecDeque;
-        let n = grid.len();
-        let mut cache = vec![vec![vec![false; 2]; n]; n];
-        cache[0][0][0] = true;
-        let mut q = VecDeque::<(usize, usize, usize)>::new();
-        q.push_back((0, 0, 0));
-        let (mut step, mut size) = (0, 1);
-        while !q.is_empty() {
-            let (x, y, dir) = q.pop_front().unwrap();
-            if x == n - 1 && y == n - 2 && dir == 0 {
-                return step;
+    pub fn min_cost(basket1: Vec<i32>, basket2: Vec<i32>) -> i64 {
+        use std::collections::HashMap;
+        let mut m = HashMap::<i32, i32>::new();
+        for num in basket1 {
+            let v = m.entry(num).or_insert(0);
+            *v += 1;
+        }
+        for num in basket2 {
+            let v = m.entry(num).or_insert(0);
+            *v -= 1;
+        }
+        let mut nmin = i32::MAX;
+        let mut list = vec![];
+        for (k, v) in m.iter() {
+            if *v % 2 != 0 {
+                return -1;
             }
-            if dir == 0 && y + 2 < n && grid[x][y + 2] == 0 && !cache[x][y + 1][0] {
-                q.push_back((x, y + 1, 0));
-                cache[x][y + 1][0] = true;
-            }
-            if dir == 0
-                && x + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x + 1][y] == 0
-                && !cache[x][y][1]
-            {
-                q.push_back((x, y, 1));
-                cache[x][y][1] = true;
-            }
-            if dir == 0
-                && x + 1 < n
-                && grid[x + 1][y] == 0
-                && grid[x + 1][y + 1] == 0
-                && !cache[x + 1][y][0]
-            {
-                q.push_back((x + 1, y, 0));
-                cache[x + 1][y][0] = true;
-            }
-            if dir == 1 && x + 2 < n && grid[x + 2][y] == 0 && !cache[x + 1][y][1] {
-                q.push_back((x + 1, y, 1));
-                cache[x + 1][y][1] = true;
-            }
-            if dir == 1
-                && y + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x][y + 1] == 0
-                && !cache[x][y][0]
-            {
-                q.push_back((x, y, 0));
-                cache[x][y][0] = true;
-            }
-            if dir == 1
-                && y + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x][y + 1] == 0
-                && !cache[x][y + 1][1]
-            {
-                q.push_back((x, y + 1, 1));
-                cache[x][y + 1][1] = true;
-            }
-            size -= 1;
-            if size == 0 {
-                step += 1;
-                size = q.len();
+            nmin = nmin.min(*k);
+            for _ in 0..(*v).abs() / 2 {
+                list.push(*k);
             }
         }
-        -1
+        list.sort()
+        let ans = 0;
+        for i in 0..list.len() / 2 {
+            ans += list[i].min(nmin * 2) as i64;
+        }
+        ans
     }
 }

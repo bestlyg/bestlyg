@@ -34,6 +34,8 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+// auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
+// priority_queue<node, vector<node>, declty   pe(cmp)> q(cmp);
 #endif
 
 class UnionFind {
@@ -66,17 +68,50 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
-        ListNode *p1 = list1, *p2 = list2, *tmp;
-        for (int i = 0; i < a - 1; i++) p1 = p1->next;
-        tmp = p1->next;
-        p1->next = list2;
-        p1 = tmp;
-        while (p2->next) p2 = p2->next;
-        for (int i = 0; i < b - a; i++) p1 = p1->next;
-        p2->next = p1->next;
-        cout << p1->val << endl;
-        return list1;
+    int minCapability(vector<int>& nums, int k) {
+        int l = 0, r = 0;
+        for (auto &num : nums) r = max(r, num);
+        while (l < r) {
+            int m = (l + r + 1) / 2;
+            if (bs(nums, m) > k) r = m - 1;
+            else l = m;
+        }
+        return l;
+    }
+    int bs(vector<int> &nums, int num) {
+        vector<int> dp(nums.size(), 0);
+        dp[0] = nums[0] <= num;
+        dp[1] = nums[1] <= num;
+        for (int i = 2; i < nums.size(); i++) {
+            dp[i] = dp[i - 1];
+            if (nums[i] >= num) {
+                dp[i] = max(dp[i], dp[i - 2] + 1);
+            }
+        }
+        return dp[nums.size() - 1];
+    }
+};
+
+class Solution {
+public:
+    long long minCost(vector<int>& basket1, vector<int>& basket2) {
+        map<int, int> m1, m2;
+        for (auto &num : basket1) m1[num]++;
+        for (auto &num : basket2) m2[num]++;
+        for (auto &item : m1) {
+            if (m2[item.first]) {
+                int num = min(m1[item.first], m2[item.first]);
+                m1[item.first] -= num;
+                m2[item.first] -= num;
+                if (m1[item.first] == 0) m1.erase(item.first);
+                if (m2[item.first] == 0) m2.erase(item.first);
+            }
+        }
+        
+        return -1;
+    }
+    void change(map<int, int> &m1, map<int, int> &m2, int num1, int num2) {
+
     }
 };
 
@@ -84,8 +119,8 @@ public:
 #ifdef LOCAL
 int main() {
     Solution s;
-    auto res = s.matrixRankTransform(matrix);
-    print(res);
+    auto res = s.print();
     return 0;
 }
 #endif
+

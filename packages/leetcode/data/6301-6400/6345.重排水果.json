@@ -1,0 +1,37 @@
+{
+    "name": "6345.重排水果",
+    "url": "https://leetcode.cn/problems/rearranging-fruits/",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 140,
+            "memory": 83.8,
+            "desc": "先抵消相同数字, 后最小和最大值进行匹配, 同时考虑两个值通过最小值进行一次交换。",
+            "code": "class Solution {\npublic:\n    long long minCost(vector<int>& basket1, vector<int>& basket2) {\n        unordered_map<int, int> m;\n        for (auto &v : basket1) m[v]++;\n        for (auto &v : basket2) m[v]--;\n        vector<int> list;\n        int nmin = 0x3f3f3f3f;\n        for (auto &item : m) {\n            if (item.second % 2  != 0) return -1;\n            nmin = min(nmin, item.first);\n            for (int i = 0; i < abs(item.second) / 2; i++) list.push_back(item.first);\n        }\n        sort(list.begin(), list.end());\n        long long ans = 0;\n        for (int i = 0; i < list.size() / 2; i++) ans += min(list[i], nmin * 2);\n        return ans;\n    }\n};",
+            "date": 1675526400000
+        },
+        {
+            "script": "python3",
+            "time": 212,
+            "memory": 36.7,
+            "desc": "同上。",
+            "code": "class Solution:\n  def minCost(self, basket1: List[int], basket2: List[int]) -> int:\n      m = Counter()\n      for num1, num2 in zip(basket1, basket2):\n          m[num1] += 1\n          m[num2] -= 1\n      nmin = min(m)\n      l = []\n      for k, v in m.items():\n          if v % 2 != 0:\n              return -1\n          for _ in range(abs(v) // 2):\n              l.append(k)\n      l.sort()\n      ans = 0\n      for i in range(len(l) // 2):\n          ans += min(l[i], nmin * 2)\n      return ans",
+            "date": 1675526400000
+        },
+        {
+            "script": "rust",
+            "time": 32,
+            "memory": 4.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn min_cost(basket1: Vec<i32>, basket2: Vec<i32>) -> i64 {\n        use std::collections::HashMap;\n        let mut m = HashMap::<i32, i32>::new();\n        for num in basket1 {\n            let v = m.entry(num).or_insert(0);\n            *v += 1;\n        }\n        for num in basket2 {\n            let v = m.entry(num).or_insert(0);\n            *v -= 1;\n        }\n        let mut nmin = i32::MAX;\n        let mut list = vec![];\n        for (k, v) in m.iter() {\n            if *v % 2 != 0 {\n                return -1;\n            }\n            nmin = nmin.min(*k);\n            for _ in 0..(*v).abs() / 2 {\n                list.push(*k);\n            }\n        }\n        list.sort();\n        let mut ans = 0;\n        for i in 0..list.len() / 2 {\n            ans += list[i].min(nmin * 2) as i64;\n        }\n        ans\n    }\n}",
+            "date": 1675526400000
+        }
+    ]
+}

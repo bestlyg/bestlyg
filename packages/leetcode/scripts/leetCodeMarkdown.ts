@@ -2,179 +2,92 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1210.穿过迷宫的最少移动次数',
-  url: 'https://leetcode.cn/problems/minimum-moves-to-reach-target-with-rotations/',
-  difficulty: Difficulty.困难,
+  name: '6346. 打家劫舍 IV',
+  url: 'https://leetcode.cn/problems/house-robber-iv/',
+  difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回蛇抵达目的地所需的最少移动次数。`,
+  desc: `给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 12.9,
-      desc: 'bfs',
-      code: `struct Node {
-    int x, y, dir;
-    Node(int x, int y, int dir): x(x), y(y), dir(dir) {}
-};
-class Solution {
+      time: 136,
+      memory: 55.6,
+      desc: '结果二分+dp',
+      code: `class Solution {
 public:
-    int minimumMoves(vector<vector<int>>& grid) {
-        int n = grid.size();
-        bool cache[n][n][2];
-        memset(cache, false, sizeof(bool) * n * n * 2);
-        cache[0][0][0] = true;
-        queue<Node> q;
-        q.push(Node(0, 0, 0));
-        int step = 0, size = 1;
-        while (q.size()) {
-            Node node = q.front();
-            q.pop();
-            int x = node.x, y = node.y, dir = node.dir;
-            if (x == n - 1 && y == n - 2 && dir == 0) return step;
-            if (dir == 0 && y + 2 < n && grid[x][y + 2] == 0 && !cache[x][y + 1][0]) {
-                q.push(Node(x, y + 1, 0));
-                cache[x][y + 1][0] = true;
-            }
-            if (dir == 0 && x + 1 < n && grid[x + 1][y + 1] == 0 && grid[x + 1][y] == 0 && !cache[x][y][1]) {
-                q.push(Node(x, y, 1));
-                cache[x][y][1] = true;
-            }
-            if (dir == 0 && x + 1 < n && grid[x + 1][y] == 0 && grid[x + 1][y + 1] == 0 && !cache[x + 1][y][0]) {
-                q.push(Node(x + 1, y, 0));
-                cache[x + 1][y][0] = true;
-            }
-
-            if (dir == 1 && x + 2 < n && grid[x + 2][y] == 0 && !cache[x + 1][y][1]) {
-                q.push(Node(x + 1, y, 1));
-                cache[x + 1][y][1] = true;
-            }
-            if (dir == 1 && y + 1 < n && grid[x + 1][y + 1] == 0 && grid[x][y + 1] == 0 && !cache[x][y][0]) {
-                q.push(Node(x, y, 0));
-                cache[x][y][0] = true;
-            }
-            if (dir == 1 && y + 1 < n && grid[x + 1][y + 1] == 0 && grid[x][y + 1] == 0 && !cache[x][y + 1][1]) {
-                q.push(Node(x, y + 1, 1));
-                cache[x][y + 1][1] = true;
-            }
-            if (--size == 0) step += 1, size = q.size();
+    long long minCost(vector<int>& basket1, vector<int>& basket2) {
+        unordered_map<int, int> m;
+        for (auto &v : basket1) m[v]++;
+        for (auto &v : basket2) m[v]--;
+        vector<int> list;
+        int nmin = 0x3f3f3f3f;
+        for (auto &item : m) {
+            if (item.second % 2 != 0) return -1;
+            nmin = min(nmin, item.first);
+            for (int i = 0; i < abs(item.second) / 2; i++) list.push_back(item.first);
         }
-        return -1;
+        sort(list.begin(), list.end());
+        long long ans = 0;
+        for (int i = 0; i < list.size() / 2; i++) ans += min(list[i], nmin * 2);
+        return ans;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 364,
-      memory: 16.4,
+      time: 740,
+      memory: 22.9,
       desc: '同上',
-      code: `from queue import Queue
-class Solution:
-    def minimumMoves(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        cache = [[[False for _ in range(2)] for _ in range(n)] for _ in range(n)]
-        cache[0][0][0] = True
-        q = Queue()
-        q.put((0, 0, 0))
-        step, size = 0, 1
-        while q.qsize():
-            (x, y, d) = q.get()
-            if x == n - 1 and y == n - 2 and d == 0:
-                return step
-            if d == 0 and y + 2 < n and grid[x][y + 2] == 0 and not cache[x][y + 1][0]:
-                q.put((x, y + 1, 0))
-                cache[x][y + 1][0] = True
-            if d == 0 and x + 1 < n and grid[x + 1][y + 1] == 0 and grid[x + 1][y] == 0 and not cache[x][y][1]:
-                q.put((x, y, 1))
-                cache[x][y][1] = True
-            if d == 0 and x + 1 < n and grid[x + 1][y] == 0 and grid[x + 1][y + 1] == 0 and not cache[x + 1][y][0]:
-                q.put((x + 1, y, 0))
-                cache[x + 1][y][0] = True
-            if d == 1 and x + 2 < n and grid[x + 2][y] == 0 and not cache[x + 1][y][1]:
-                q.put((x + 1, y, 1))
-                cache[x + 1][y][1] = True
-            if d == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y][0]:
-                q.put((x, y, 0))
-                cache[x][y][0] = True
-            if d == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y + 1][1]:
-                q.put((x, y + 1, 1))
-                cache[x][y + 1][1] = True
-            size -= 1
-            if size == 0:
-                 step += 1
-                 size = q.qsize()
-        return -1`,
+      code: `class Solution:
+    def minCapability(self, nums: List[int], k: int) -> int:
+        def bs(target):
+            prev1, prev2 = 0, 0
+            for num in nums:
+                if num <= target:
+                    prev1, prev2 = prev2, max(prev1 + 1, prev2)
+                else:
+                    prev1 = prev2
+            return prev2
+        l, r = 1, max(nums)
+        while l < r:
+            m = (l + r) // 2
+            if bs(m) >= k: r = m
+            else: l = m + 1
+        return l`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.7,
+      time: 16,
+      memory: 4,
       desc: '同上',
       code: `impl Solution {
-    pub fn minimum_moves(grid: Vec<Vec<i32>>) -> i32 {
-        use std::collections::VecDeque;
-        let n = grid.len();
-        let mut cache = vec![vec![vec![false; 2]; n]; n];
-        cache[0][0][0] = true;
-        let mut q = VecDeque::<(usize, usize, usize)>::new();
-        q.push_back((0, 0, 0));
-        let (mut step, mut size) = (0, 1);
-        while !q.is_empty() {
-            let (x, y, dir) = q.pop_front().unwrap();
-            if x == n - 1 && y == n - 2 && dir == 0 {
-                return step;
+    pub fn min_capability(nums: Vec<i32>, k: i32) -> i32 {
+        let (mut l, mut r) = (1, 1);
+        for num in nums.iter() {
+            r = r.max(*num);
+        }
+        let bs = move |target| {
+            let (mut prev1, mut prev2) = (0, 0);
+            for num in nums.iter() {
+                if *num <= target {
+                    let tmp = prev2;
+                    prev2 = prev2.max(prev1 + 1);
+                    prev1 = tmp;
+                } else {
+                    prev1 = prev2;
+                }
             }
-            if dir == 0 && y + 2 < n && grid[x][y + 2] == 0 && !cache[x][y + 1][0] {
-                q.push_back((x, y + 1, 0));
-                cache[x][y + 1][0] = true;
-            }
-            if dir == 0
-                && x + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x + 1][y] == 0
-                && !cache[x][y][1]
-            {
-                q.push_back((x, y, 1));
-                cache[x][y][1] = true;
-            }
-            if dir == 0
-                && x + 1 < n
-                && grid[x + 1][y] == 0
-                && grid[x + 1][y + 1] == 0
-                && !cache[x + 1][y][0]
-            {
-                q.push_back((x + 1, y, 0));
-                cache[x + 1][y][0] = true;
-            }
-            if dir == 1 && x + 2 < n && grid[x + 2][y] == 0 && !cache[x + 1][y][1] {
-                q.push_back((x + 1, y, 1));
-                cache[x + 1][y][1] = true;
-            }
-            if dir == 1
-                && y + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x][y + 1] == 0
-                && !cache[x][y][0]
-            {
-                q.push_back((x, y, 0));
-                cache[x][y][0] = true;
-            }
-            if dir == 1
-                && y + 1 < n
-                && grid[x + 1][y + 1] == 0
-                && grid[x][y + 1] == 0
-                && !cache[x][y + 1][1]
-            {
-                q.push_back((x, y + 1, 1));
-                cache[x][y + 1][1] = true;
-            }
-            size -= 1;
-            if size == 0 {
-                step += 1;
-                size = q.len();
+            prev2
+        };
+        while l < r {
+            let m = (l + r) / 2;
+            if bs(m) >= k {
+                r = m;
+            } else {
+                l = m + 1
             }
         }
-        -1
+        l
     }
 }`,
     },

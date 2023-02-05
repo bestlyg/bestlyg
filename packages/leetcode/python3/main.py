@@ -1,11 +1,16 @@
 from collections import defaultdict
+from itertools import accumulate
 from typing import List, Optional
 from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict
+import heapq
+import math
 
 # global
 # nonlocal
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -19,56 +24,35 @@ class TreeNode:
         self.right = right
 
 
-from queue import Queue
 class Solution:
-    def minimumMoves(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        cache = [[[False for _ in range(2)] for _ in range(n)] for _ in range(n)]
-        cache[0][0][0] = True
-        q = Queue()
-        q.put((0, 0, 0))
-        step, size = 0, 1
-        while q.qsize():
-            (x, y, d) = q.get()
-            if x == n - 1 and y == n - 2 and d == 0:
-                return step
-            if dir == 0 and y + 2 < n and grid[x][y + 2] == 0 and not cache[x][y + 1][0]:
-                q.push((x, y + 1, 0));
-                cache[x][y + 1][0] = True;
-            if dir == 0 and x + 1 < n and grid[x + 1][y + 1] == 0 and grid[x + 1][y] == 0 and not cache[x][y][1]:
-                q.push((x, y, 1));
-                cache[x][y][1] = True;
-            if dir == 0 and x + 1 < n and grid[x + 1][y] == 0 and grid[x + 1][y + 1] == 0 and not cache[x + 1][y][0]:
-                q.push((x + 1, y, 0));
-                cache[x + 1][y][0] = True;
-            if dir == 1 and x + 2 < n and grid[x + 2][y] == 0 and not cache[x + 1][y][1]:
-                q.push((x + 1, y, 1));
-                cache[x + 1][y][1] = True;
-            if dir == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y][0]:
-                q.push((x, y, 0));
-                cache[x][y][0] = True;
-            if dir == 1 and y + 1 < n and grid[x + 1][y + 1] == 0 and grid[x][y + 1] == 0 and not cache[x][y + 1][1]:
-                q.push((x, y + 1, 1));
-                cache[x][y + 1][1] = True;
-            size -= 1
-            if size == 0:
-                 step += 1
-                 size = q.qsize()
-        return -1
-        
-
-
+    def minCost(self, basket1: List[int], basket2: List[int]) -> int:
+        m = Counter()
+        for num1, num2 in zip(basket1, basket2):
+            m[num1] += 1
+            m[num2] -= 1
+        nmin = min(m)
+        l = []
+        for k, v in m.items():
+            if v % 2 == 0:
+                return -1
+            for _ in range(abs(v) / 2):
+                l.append(k)
+        l.sort()
+        ans = 0
+        for i in range(len(l) / 2):
+            ans += min(list[i], nmin * 2)
+        return ans
 
 
 def main():
     o = Solution()
     res = o.shortestAlternatingPaths(
-        [[0,0,0,0,0,1],
-        [1,1,0,0,1,0],
-        [0,0,0,0,1,1],
-        [0,0,1,0,1,0],
-        [0,1,1,0,0,0],
-        [0,1,1,0,0,0]]
+        [[0, 0, 0, 0, 0, 1],
+         [1, 1, 0, 0, 1, 0],
+         [0, 0, 0, 0, 1, 1],
+         [0, 0, 1, 0, 1, 0],
+         [0, 1, 1, 0, 0, 0],
+         [0, 1, 1, 0, 0, 0]]
     )
     print(res)
 
