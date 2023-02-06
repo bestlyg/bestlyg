@@ -24,24 +24,21 @@ class TreeNode:
         self.right = right
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def minCost(self, basket1: List[int], basket2: List[int]) -> int:
-        m = Counter()
-        for num1, num2 in zip(basket1, basket2):
-            m[num1] += 1
-            m[num2] -= 1
-        nmin = min(m)
-        l = []
-        for k, v in m.items():
-            if v % 2 == 0:
-                return -1
-            for _ in range(abs(v) / 2):
-                l.append(k)
-        l.sort()
-        ans = 0
-        for i in range(len(l) / 2):
-            ans += min(list[i], nmin * 2)
-        return ans
+    def dfs(self, root: Optional[TreeNode]) -> bool:
+        if node.val == 0: return False
+        if node.val == 1: return True
+        if node.left and node.val == 2: return dfs(node.left) or dfs(node.right)
+        if node.left and node.val == 3: return dfs(node.left) and dfs(node.right)
+        return False
+    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
+        return self.dfs(root)
 
 
 def main():

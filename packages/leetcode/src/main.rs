@@ -32,34 +32,42 @@ fn main() {
 //     }
 // }
 
+// Definition for a binary tree node.
+// #[derive(Debug, PartialEq, Eq)]
+// pub struct TreeNode {
+//   pub val: i32,
+//   pub left: Option<Rc<RefCell<TreeNode>>>,
+//   pub right: Option<Rc<RefCell<TreeNode>>>,
+// }
+//
+// impl TreeNode {
+//   #[inline]
+//   pub fn new(val: i32) -> Self {
+//     TreeNode {
+//       val,
+//       left: None,
+//       right: None
+//     }
+//   }
+// }
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn min_cost(basket1: Vec<i32>, basket2: Vec<i32>) -> i64 {
-        use std::collections::HashMap;
-        let mut m = HashMap::<i32, i32>::new();
-        for num in basket1 {
-            let v = m.entry(num).or_insert(0);
-            *v += 1;
+    pub fn evaluate_tree(node: Option<Rc<RefCell<TreeNode>>>) -> bool {
+        let node = node.unwrap();
+        let node = node.as_ref().borrow();
+        if node.val == 0 {
+            return false;
         }
-        for num in basket2 {
-            let v = m.entry(num).or_insert(0);
-            *v -= 1;
+        if node.val == 1 {
+            return true;
         }
-        let mut nmin = i32::MAX;
-        let mut list = vec![];
-        for (k, v) in m.iter() {
-            if *v % 2 != 0 {
-                return -1;
-            }
-            nmin = nmin.min(*k);
-            for _ in 0..(*v).abs() / 2 {
-                list.push(*k);
-            }
+        if node.left.is_some() && node.val == 2 {
+            return Solution::evaluate_tree(node.left.clone()) || Solution::evaluate_tree(node.right.clone());
         }
-        list.sort()
-        let ans = 0;
-        for i in 0..list.len() / 2 {
-            ans += list[i].min(nmin * 2) as i64;
+        if node.left.is_some() && node.val == 3 {
+            return Solution::evaluate_tree(node.left.clone()) && Solution::evaluate_tree(node.right.clone());
         }
-        ans
+        return false;
     }
 }
