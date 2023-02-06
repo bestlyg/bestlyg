@@ -1,11 +1,12 @@
 {
+    "id": "2416",
     "name": "2331.计算布尔二叉树的值",
-    "url": "https://leetcode.cn/problems/evaluate-boolean-binary-tree/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/evaluate-boolean-binary-tree",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "树",
+        "深度优先搜索",
+        "二叉树"
     ],
     "desc": "返回根节点 root 的布尔运算值。",
     "solutions": [

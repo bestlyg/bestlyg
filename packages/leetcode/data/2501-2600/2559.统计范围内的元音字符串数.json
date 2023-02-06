@@ -1,12 +1,9 @@
 {
-    "name": "6347.统计范围内的元音字符串数",
-    "url": "https://leetcode.cn/problems/count-vowel-strings-in-ranges/",
+    "id": "2691",
+    "name": "2559.统计范围内的元音字符串数",
+    "url": "https://leetcode.cn/problems/count-vowel-strings-in-ranges",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。",
     "solutions": [
         {
