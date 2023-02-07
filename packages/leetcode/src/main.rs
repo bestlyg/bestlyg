@@ -7,7 +7,7 @@ use std::hash::Hash;
 
 use preclude::*;
 fn main() {
-    let func = Solution::btree_game_winning_move;
+    let func = Solution::alert_names;
     // let res = func(3, vec![vec![0, 1], vec![0, 2]], vec![vec![1, 0]]);
     // println!("res = {res:#?}");
 }
@@ -50,24 +50,35 @@ fn main() {
 //     }
 //   }
 // }
-use std::cell::RefCell;
-use std::rc::Rc;
 impl Solution {
-    pub fn evaluate_tree(node: Option<Rc<RefCell<TreeNode>>>) -> bool {
-        let node = node.unwrap();
-        let node = node.as_ref().borrow();
-        if node.val == 0 {
-            return false;
+    pub fn alert_names(key_name: Vec<String>, key_time: Vec<String>) -> Vec<String> {
+        use std::collections::HashMap;
+        let mut m = HashMap::<String, Vec<i32>>::new();
+        let mut key_name = key_name.into_iter();
+        let mut key_time = key_time.into_iter();
+        loop {
+            let key_name = key_name.next();
+            let key_time = key_time.next().map(|time| {
+                let time = time.chars().map(|v| v as i32).collect::<Vec<i32>>();
+                (time[0] * 10 + time[1]) * 60 + time[3] * 10 + time[4]
+            });
+            if key_name.is_none() {
+                break;
+            }
+            let list = m.entry(key_name.unwrap()).or_insert(Vec::new());
+            list.push(key_time.unwrap());
         }
-        if node.val == 1 {
-            return true;
+        let mut ans = Vec::new();
+        for (k, mut v) in m {
+            v.sort();
+            for i in 2..v.len() {
+                if v[i] - v[i - 2] <= 60 {
+                    ans.push(k);
+                    break;
+                }
+            }
         }
-        if node.left.is_some() && node.val == 2 {
-            return Solution::evaluate_tree(node.left.clone()) || Solution::evaluate_tree(node.right.clone());
-        }
-        if node.left.is_some() && node.val == 3 {
-            return Solution::evaluate_tree(node.left.clone()) && Solution::evaluate_tree(node.right.clone());
-        }
-        return false;
+        ans.sort();
+        ans
     }
 }

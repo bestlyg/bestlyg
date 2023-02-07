@@ -24,21 +24,21 @@ class TreeNode:
         self.right = right
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def dfs(self, root: Optional[TreeNode]) -> bool:
-        if node.val == 0: return False
-        if node.val == 1: return True
-        if node.left and node.val == 2: return dfs(node.left) or dfs(node.right)
-        if node.left and node.val == 3: return dfs(node.left) and dfs(node.right)
-        return False
-    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
-        return self.dfs(root)
+    def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
+        m = defaultdict(list)
+        for i in range(len(keyName)):
+            time = (ord(keyTime[i][0]) * 10 + ord(keyTime[i][1])) * \
+                60 + ord(keyTime[i][3]) * 10 + ord(keyTime[i][4])
+            m[keyName[i]].append(time)
+        ans = []
+        for k, v in m.items():
+            v.sort()
+            for i in range(2, len(v)):
+                if v[i] - v[i - 2] <= 60:
+                    ans.append(k)
+        ans.sort()
+        return ans
 
 
 def main():
