@@ -7,78 +7,58 @@ use std::hash::Hash;
 
 use preclude::*;
 fn main() {
-    let func = Solution::alert_names;
-    // let res = func(3, vec![vec![0, 1], vec![0, 2]], vec![vec![1, 0]]);
-    // println!("res = {res:#?}");
+    let func = Solution::remove_subfolders;
+    let res = func(
+        vec!["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"]
+            .into_iter()
+            .map(|v| v.to_string())
+            .collect(),
+    );
+    println!("res = {res:#?}");
 }
 
-// use std::cell::RefCell;
-// use std::rc::Rc;
-// #[derive(Clone)]
-// struct Node {
-//     cnt: i32,
-//     lcnt: i32,
-//     rcnt: i32,
-//     p: Option<Rc<RefCell<TreeNode>>>,
-// }
-// impl Node {
-//     fn new() -> Self {
-//         Self {
-//             cnt: 0,
-//             lcnt: 0,
-//             rcnt: 0,
-//             p: None,
-//         }
-//     }
-// }
-
-// Definition for a binary tree node.
-// #[derive(Debug, PartialEq, Eq)]
-// pub struct TreeNode {
-//   pub val: i32,
-//   pub left: Option<Rc<RefCell<TreeNode>>>,
-//   pub right: Option<Rc<RefCell<TreeNode>>>,
-// }
-//
-// impl TreeNode {
-//   #[inline]
-//   pub fn new(val: i32) -> Self {
-//     TreeNode {
-//       val,
-//       left: None,
-//       right: None
-//     }
-//   }
-// }
-impl Solution {
-    pub fn alert_names(key_name: Vec<String>, key_time: Vec<String>) -> Vec<String> {
-        use std::collections::HashMap;
-        let mut m = HashMap::<String, Vec<i32>>::new();
-        let mut key_name = key_name.into_iter();
-        let mut key_time = key_time.into_iter();
-        loop {
-            let key_name = key_name.next();
-            let key_time = key_time.next().map(|time| {
-                let time = time.chars().map(|v| v as i32).collect::<Vec<i32>>();
-                (time[0] * 10 + time[1]) * 60 + time[3] * 10 + time[4]
-            });
-            if key_name.is_none() {
-                break;
-            }
-            let list = m.entry(key_name.unwrap()).or_insert(Vec::new());
-            list.push(key_time.unwrap());
+use std::cell::RefCell;
+use std::rc::Rc;
+use std::collections::HashMap;
+#[derive(Clone)]
+struct Node {
+    end: bool,
+    children: HashMap<String, Node>,
+}
+impl Node {
+    fn new() -> Self {
+        Self {
+            end: false,
+            children: HashMap::new(),
         }
-        let mut ans = Vec::new();
-        for (k, mut v) in m {
-            v.sort();
-            for i in 2..v.len() {
-                if v[i] - v[i - 2] <= 60 {
-                    ans.push(k);
+    }
+}
+
+impl Solution {
+    pub fn remove_subfolders(folder: Vec<String>) -> Vec<String> {
+        let mut folder = folder;
+        folder.sort();
+        let mut root = Node::new();
+        let mut ans = vec![];
+        for path in folder {
+            println!("===\npath: {path}");
+            let mut next = &mut root;
+            let l: Vec<&str> = path.split("/").collect();
+            for i in 1..l.len() {
+                println!("next: {}", l[i]);
+                if !next.children.contains_key(l[i]) {
+                    next.children.insert(l[i].to_string(), Node::new());
+                }
+                next = next.children.get_mut(l[i]).unwrap();
+                if next.end {
                     break;
                 }
             }
+            if !next.end {
+                ans.push(path);
+            }
+            next.end = true;
         }
-        ans.sort();
         ans
     }
 }

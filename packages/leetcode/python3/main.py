@@ -24,20 +24,27 @@ class TreeNode:
         self.right = right
 
 
+class Node:
+    def __init__(self) -> None:
+        self.end = False
+        self.children = defaultdict(Node)
+
+
 class Solution:
-    def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
-        m = defaultdict(list)
-        for i in range(len(keyName)):
-            time = (ord(keyTime[i][0]) * 10 + ord(keyTime[i][1])) * \
-                60 + ord(keyTime[i][3]) * 10 + ord(keyTime[i][4])
-            m[keyName[i]].append(time)
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        folder.sort()
+        root = Node()
         ans = []
-        for k, v in m.items():
-            v.sort()
-            for i in range(2, len(v)):
-                if v[i] - v[i - 2] <= 60:
-                    ans.append(k)
-        ans.sort()
+        for path in folder:
+            nextNode = root
+            l = path.split('/')
+            for i in range(1, len(l)):
+                nextNode = nextNode.children[l[i]]
+                if nextNode.end:
+                    break
+            if not nextNode.end:
+                ans.append(path)
+            nextNode.end = True
         return ans
 
 

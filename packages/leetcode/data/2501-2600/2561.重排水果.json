@@ -3,7 +3,11 @@
     "name": "2561.重排水果",
     "url": "https://leetcode.cn/problems/rearranging-fruits",
     "difficulty": "困难",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数组",
+        "哈希表"
+    ],
     "desc": "给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。",
     "solutions": [
         {

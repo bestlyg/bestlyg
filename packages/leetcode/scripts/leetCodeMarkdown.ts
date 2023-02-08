@@ -2,99 +2,118 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1604. 警告一小时内使用相同员工卡大于等于三次的人',
-  url: 'https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/',
+  name: '1233. 删除子文件夹',
+  url: 'https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回去重后的收到系统警告的员工名字，将它们按 字典序升序 排序后返回。`,
+  desc: `你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 236,
-      memory: 97.4,
-      desc: '遍历',
-      code: `class Solution {
+      time: 208,
+      memory: 51.4,
+      desc: 'trie',
+      code: `struct Node {
+    bool end;
+    unordered_map<string, Node*> children;
+    Node(): end(false) {}
+};
+class Solution {
 public:
-    vector<string> alertNames(vector<string>& keyName, vector<string>& keyTime) {
-        unordered_map<string, vector<int>> m;
+    vector<string> removeSubfolders(vector<string>& folder) {
+        sort(folder.begin(), folder.end());
+        Node *root = new Node();
         vector<string> ans;
-        for (int i = 0; i < keyName.size(); i++) {
-            string &name = keyName[i];
-            int time = (keyTime[i][0] * 10 + keyTime[i][1]) * 60 + keyTime[i][3] * 10 + keyTime[i][4];
-            m[name].push_back(time);
-        }
-        for (auto &item : m) {
-            sort(item.second.begin(), item.second.end());
-            for (int i = 2; i < item.second.size(); i++) {
-                if (item.second[i] - item.second[i - 2] <= 60) {
-                    ans.push_back(item.first);
-                    break;
-                }
+        for (auto &path : folder) {
+            Node *next = root;
+            istringstream iss(path);
+            string tmp;
+            getline(iss, tmp, '/');
+            while (getline(iss, tmp, '/')) {
+                if (!next->children.count(tmp)) next = next->children[tmp] = new Node();
+                else next = next->children[tmp];
+                if (next->end) break;
             }
+            if (!next->end) ans.push_back(path);
+            next->end = true;
         }
-        sort(ans.begin(), ans.end());
         return ans;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 188,
-      memory: 36.8,
+      time: 140,
+      memory: 25.4,
       desc: '同上',
-      code: `class Solution:
-    def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
-        m = defaultdict(list)
-        for i in range(len(keyName)):
-            time = (ord(keyTime[i][0]) * 10 + ord(keyTime[i][1])) * \
-                60 + ord(keyTime[i][3]) * 10 + ord(keyTime[i][4])
-            m[keyName[i]].append(time)
+      code: `class Node:
+    def __init__(self) -> None:
+        self.end = False
+        self.children = defaultdict(Node)
+
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        folder.sort()
+        root = Node()
         ans = []
-        for k, v in m.items():
-            v.sort()
-            for i in range(2, len(v)):
-                if v[i] - v[i - 2] <= 60:
-                    ans.append(k)
+        for path in folder:
+            nextNode = root
+            l = path.split('/')
+            for i in range(1, len(l)):
+                nextNode = nextNode.children[l[i]]
+                if nextNode.end:
                     break
-        ans.sort()
+            if not nextNode.end:
+                ans.append(path)
+            nextNode.end = True
         return ans`,
     },
     {
       script: Script.RUST,
-      time: 76,
-      memory: 18.6,
+      time: 56,
+      memory: 6.8,
       desc: '同上',
-      code: `impl Solution {
-  pub fn alert_names(key_name: Vec<String>, key_time: Vec<String>) -> Vec<String> {
-      use std::collections::HashMap;
-      let mut m = HashMap::<String, Vec<i32>>::new();
-      let mut key_name = key_name.into_iter();
-      let mut key_time = key_time.into_iter();
-      loop {
-          let key_name = key_name.next();
-          let key_time = key_time.next().map(|time| {
-              let time = time.chars().map(|v| v as i32).collect::<Vec<i32>>();
-              (time[0] * 10 + time[1]) * 60 + time[3] * 10 + time[4]
-          });
-          if key_name.is_none() {
-              break;
-          }
-          let list = m.entry(key_name.unwrap()).or_insert(Vec::new());
-          list.push(key_time.unwrap());
-      }
-      let mut ans = Vec::new();
-      for (k, mut v) in m {
-          v.sort();
-          for i in 2..v.len() {
-              if v[i] - v[i - 2] <= 60 {
-                  ans.push(k);
-                  break;
-              }
-          }
-      }
-      ans.sort();
-      ans
-  }`
+      code: `use std::collections::HashMap;
+#[derive(Clone)]
+struct Node {
+    end: bool,
+    children: HashMap<String, Node>,
+}
+impl Node {
+    fn new() -> Self {
+        Self {
+            end: false,
+            children: HashMap::new(),
+        }
+    }
+}
+
+impl Solution {
+    pub fn remove_subfolders(folder: Vec<String>) -> Vec<String> {
+        let mut folder = folder;
+        folder.sort();
+        let mut root = Node::new();
+        let mut ans = vec![];
+        for path in folder {
+            let mut next = &mut root;
+            let l: Vec<&str> = path.split("/").collect();
+            for i in 1..l.len() {
+                if !next.children.contains_key(l[i]) {
+                    next.children.insert(l[i].to_string(), Node::new());
+                }
+                next = next.children.get_mut(l[i]).unwrap();
+                if next.end {
+                    break;
+                }
+            }
+            if !next.end {
+                ans.push(path);
+            }
+            next.end = true;
+        }
+        ans
+    }
+}`
 ,
     },
   ],
