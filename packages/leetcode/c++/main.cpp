@@ -66,54 +66,42 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-class Solution {
+["AuthenticationManager","countUnexpiredTokens","renew","generate","renew","countUnexpiredTokens","renew","generate","countUnexpiredTokens","countUnexpiredTokens","countUnexpiredTokens"]
+[[28],[2],["xokiw",6],["ofn",7],["dses",15],[17],["ofzu",19],["dses",20],[23],[27],[30]]
+
+
+class AuthenticationManager {
 public:
-    int minCapability(vector<int>& nums, int k) {
-        int l = 0, r = 0;
-        for (auto &num : nums) r = max(r, num);
-        while (l < r) {
-            int m = (l + r + 1) / 2;
-            if (bs(nums, m) > k) r = m - 1;
-            else l = m;
-        }
-        return l;
+    int timeToLive;
+    unordered_map<string, int> m;
+    AuthenticationManager(int timeToLive): timeToLive(timeToLive) {}
+    
+    void generate(string tokenId, int currentTime) {
+        m[tokenId] = currentTime;
     }
-    int bs(vector<int> &nums, int num) {
-        vector<int> dp(nums.size(), 0);
-        dp[0] = nums[0] <= num;
-        dp[1] = nums[1] <= num;
-        for (int i = 2; i < nums.size(); i++) {
-            dp[i] = dp[i - 1];
-            if (nums[i] >= num) {
-                dp[i] = max(dp[i], dp[i - 2] + 1);
-            }
+    
+    void renew(string tokenId, int currentTime) {
+        if (!m.count(tokenId)) return;
+        if (currentTime - m[tokenId] >= timeToLive) m.erase(tokenId);
+        else m[tokenId] = currentTime;
+    }
+    
+    int countUnexpiredTokens(int currentTime) {
+        int ans = 0;
+        for (auto &item : m) {
+            if (currentTime - item.second < timeToLive) ans++;
         }
-        return dp[nums.size() - 1];
+        return ans;
     }
 };
 
-class Solution {
-public:
-    long long minCost(vector<int>& basket1, vector<int>& basket2) {
-        map<int, int> m1, m2;
-        for (auto &num : basket1) m1[num]++;
-        for (auto &num : basket2) m2[num]++;
-        for (auto &item : m1) {
-            if (m2[item.first]) {
-                int num = min(m1[item.first], m2[item.first]);
-                m1[item.first] -= num;
-                m2[item.first] -= num;
-                if (m1[item.first] == 0) m1.erase(item.first);
-                if (m2[item.first] == 0) m2.erase(item.first);
-            }
-        }
-        
-        return -1;
-    }
-    void change(map<int, int> &m1, map<int, int> &m2, int num1, int num2) {
-
-    }
-};
+/**
+ * Your AuthenticationManager object will be instantiated and called as such:
+ * AuthenticationManager* obj = new AuthenticationManager(timeToLive);
+ * obj->generate(tokenId,currentTime);
+ * obj->renew(tokenId,currentTime);
+ * int param_3 = obj->countUnexpiredTokens(currentTime);
+ */
 
 // END
 #ifdef LOCAL

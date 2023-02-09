@@ -30,21 +30,27 @@ class Node:
         self.children = defaultdict(Node)
 
 
-class Solution:
-    def removeSubfolders(self, folder: List[str]) -> List[str]:
-        folder.sort()
-        root = Node()
-        ans = []
-        for path in folder:
-            nextNode = root
-            l = path.split('/')
-            for i in range(1, len(l)):
-                nextNode = nextNode.children[l[i]]
-                if nextNode.end:
-                    break
-            if not nextNode.end:
-                ans.append(path)
-            nextNode.end = True
+class AuthenticationManager:
+    def __init__(self, timeToLive: int):
+        self.timeToLive = timeToLive
+        self.m = defaultdict()
+
+    def generate(self, tokenId: str, currentTime: int) -> None:
+        self.m[tokenId] = currentTime
+
+    def renew(self, tokenId: str, currentTime: int) -> None:
+        if not tokenId in self.m:
+            return
+        if currentTime - self.m[tokenId] >= self.timeToLive:
+            self.m.pop(tokenId)
+        else:
+            self.m[tokenId] = currentTime
+
+    def countUnexpiredTokens(self, currentTime: int) -> int:
+        ans = 0
+        for v in self.m.values():
+            if currentTime - v < self.timeToLive:
+                ans += 1
         return ans
 
 
