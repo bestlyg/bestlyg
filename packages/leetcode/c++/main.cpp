@@ -66,42 +66,35 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-["AuthenticationManager","countUnexpiredTokens","renew","generate","renew","countUnexpiredTokens","renew","generate","countUnexpiredTokens","countUnexpiredTokens","countUnexpiredTokens"]
-[[28],[2],["xokiw",6],["ofn",7],["dses",15],[17],["ofzu",19],["dses",20],[23],[27],[30]]
-
-
-class AuthenticationManager {
+class Solution {
 public:
-    int timeToLive;
-    unordered_map<string, int> m;
-    AuthenticationManager(int timeToLive): timeToLive(timeToLive) {}
-    
-    void generate(string tokenId, int currentTime) {
-        m[tokenId] = currentTime;
-    }
-    
-    void renew(string tokenId, int currentTime) {
-        if (!m.count(tokenId)) return;
-        if (currentTime - m[tokenId] >= timeToLive) m.erase(tokenId);
-        else m[tokenId] = currentTime;
-    }
-    
-    int countUnexpiredTokens(int currentTime) {
-        int ans = 0;
-        for (auto &item : m) {
-            if (currentTime - item.second < timeToLive) ans++;
+    int dieSimulator(int n, vector<int>& rollMax) {
+        int mod = 1e9 + 7;
+        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(6, vector<int>(16, 0)));
+        for (int j = 0; j < 6; j++) dp[1][j][1] = 1;
+        // 第i次投骰子
+        for (int i = 1; i <= n; i++) {
+            // 骰子点数是j
+            for (int j = 0; j < 6; j++) {
+                // 对于每个点数已经消耗了k次连续投掷次数
+                for (int k = 0; k < rollMax[j]; k++) {
+                    // 当前次投了p点
+                    for (int p = 0; p < 6; p++) {
+                        if (p != j) dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod;
+                        else if (k < rollMax[j] - 1) dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % mod;
+                    }
+                }
+            }
         }
-        return ans;
+        int res = 0;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 1; j <= rollMax[i]; j++) {
+                res = (res + dp[n][i][j]) % mod;
+            }
+        }
+        return res;
     }
 };
-
-/**
- * Your AuthenticationManager object will be instantiated and called as such:
- * AuthenticationManager* obj = new AuthenticationManager(timeToLive);
- * obj->generate(tokenId,currentTime);
- * obj->renew(tokenId,currentTime);
- * int param_3 = obj->countUnexpiredTokens(currentTime);
- */
 
 // END
 #ifdef LOCAL

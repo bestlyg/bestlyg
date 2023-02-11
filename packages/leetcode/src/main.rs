@@ -33,50 +33,33 @@ impl Node {
         }
     }
 }
-
-use std::collections::HashMap;
-struct AuthenticationManager {
-    timeToLive: i32,
-    m: HashMap<String, i32>,
-}
-
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
-impl AuthenticationManager {
-    fn new(timeToLive: i32) -> Self {
-        Self {
-            timeToLive,
-            m: HashMap::new(),
+impl Solution {
+    pub fn die_simulator(n: i32, roll_max: Vec<i32>) -> i32 {
+        let n = n as usize;
+        let MOD = 10i32.pow(9) + 7;
+        let mut dp = vec![vec![vec![0; 16]; 6]; n + 1];
+        for j in 0..6 {
+            dp[1][j][1] = 1;
         }
-    }
-    fn generate(&self, token_id: String, current_time: i32) {
-        if !self.m.contains_key(&token_id) {
-            self.m.insert(token_id, current_time);
-        } else {
-            *self.m.get_mut(&token_id).unwrap() = current_time;
-        }
-    }
-
-    fn renew(&self, token_id: String, current_time: i32) {
-        if self.m.contains_key(&token_id) {
-            let item = self.m.get_mut(&token_id).unwrap();
-            if current_time - *item >= self.timeToLive {
-                self.m.remove(&token_id);
-            } else {
-                *item = current_time;
+        for i in 1..=n {
+            for j in 0..6 {
+                for k in 1..=roll_max[j] as usize {
+                    for p in 0..6 {
+                        if p != j {
+                            dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % MOD;
+                        } else if k + 1 <= roll_max[j] as usize {
+                            dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % MOD;
+                        }
+                    }
+                }
             }
         }
-    }
-
-    fn count_unexpired_tokens(&self, current_time: i32) -> i32 {
-        let mut ans = 0;
-        self.m
-            .iter()
-            .map(|(_, v)| v)
-            .filter(|v| current_time - *v < self.timeToLive)
-            .collect::<Vec<&i32>>()
-            .len() as i32
+        let mut res = 0;
+        for i in 0..6 {
+            for j in 1..=roll_max[i] as usize {
+                res = (res + dp[n][i][j]) % MOD;
+            }
+        }
+        res
     }
 }

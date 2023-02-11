@@ -83,7 +83,7 @@ async function main() {
   console.log(chalk.blue(`正在批处理LeetCode`));
   const map = await allQuestions();
   for (const { filepath } of travel()) {
-    walk({ map, filepath });
+    await walk({ map, filepath });
   }
   // clear();
 }

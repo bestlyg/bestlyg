@@ -2,115 +2,106 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1797. 设计一个验证系统',
-  url: 'https://leetcode.cn/problems/design-authentication-manager/',
+  name: '1223. 掷骰子模拟',
+  url: 'https://leetcode.cn/problems/dice-roll-simulation/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
   desc: `你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 80,
-      memory: 29.4,
-      desc: '哈希存储',
-      code: `class AuthenticationManager {
+      time: 196,
+      memory: 29.7,
+      desc: 'dp[i][j][k]表示第i次投掷时投了j点，且连续投了k次j点的次数',
+      code: `class Solution {
 public:
-    int timeToLive;
-    unordered_map<string, int> m;
-    AuthenticationManager(int timeToLive): timeToLive(timeToLive) {}
-    
-    void generate(string tokenId, int currentTime) {
-        m[tokenId] = currentTime;
-    }
-    
-    void renew(string tokenId, int currentTime) {
-        if (!m.count(tokenId)) return;
-        if (currentTime - m[tokenId] >= timeToLive) m.erase(tokenId);
-        else m[tokenId] = currentTime;
-    }
-    
-    int countUnexpiredTokens(int currentTime) {
-        int ans = 0;
-        for (auto &item : m) {
-            if (currentTime - item.second < timeToLive) ans++;
+    int dieSimulator(int n, vector<int>& rollMax) {
+        int mod = 1e9 + 7;
+        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(6, vector<int>(16, 0)));
+        for (int j = 0; j < 6; j++) dp[1][j][1] = 1;
+        // 第i次投骰子
+        for (int i = 1; i <= n; i++) {
+            // 骰子点数是j
+            for (int j = 0; j < 6; j++) {
+                // 对于每个点数已经消耗了k次连续投掷次数
+                for (int k = 1; k <= rollMax[j]; k++) {
+                    // 当前次投了p点
+                    for (int p = 0; p < 6; p++) {
+                        if (p != j) dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod;
+                        else if (k + 1 <= rollMax[j]) dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % mod;
+                    }
+                }
+            }
         }
-        return ans;
+        int res = 0;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 1; j <= rollMax[i]; j++) {
+                res = (res + dp[n][i][j]) % mod;
+            }
+        }
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 220,
-      memory: 16.5,
+      time: 1764,
+      memory: 30.7,
       desc: '同上',
-      code: `class AuthenticationManager:
-    def __init__(self, timeToLive: int):
-        self.timeToLive = timeToLive
-        self.m = defaultdict()
-
-    def generate(self, tokenId: str, currentTime: int) -> None:
-        self.m[tokenId] = currentTime
-
-    def renew(self, tokenId: str, currentTime: int) -> None:
-        if not tokenId in self.m:
-            return
-        if currentTime - self.m[tokenId] >= self.timeToLive:
-            self.m.pop(tokenId)
-        else:
-            self.m[tokenId] = currentTime
-
-    def countUnexpiredTokens(self, currentTime: int) -> int:
-        ans = 0
-        for v in self.m.values():
-            if currentTime - v < self.timeToLive:
-                ans += 1
-        return ans`,
+      code: `class Solution:
+  def dieSimulator(self, n: int, rollMax: List[int]) -> int:
+      mod = 10 ** 9 + 7
+      dp = [[([0] * 16) for _ in range(6)] for _ in range(n + 1)]
+      for j in range(6):
+          dp[1][j][1] = 1
+      for i in range(1, n + 1):
+          for j in range(6):
+              for k in range(1, rollMax[j] + 1):
+                  for p in range(6):
+                      if p != j:
+                          dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod
+                      elif k + 1 <= rollMax[j]:
+                          dp[i][p][k + 1] = (dp[i][p]
+                                             [k + 1] + dp[i-1][j][k]) % mod
+      res = 0
+      for i in range(6):
+          for j in range(1, rollMax[i] + 1):
+              res = (res + dp[n][i][j]) % mod
+      return res`,
     },
     {
       script: Script.RUST,
       time: 20,
-      memory: 3.6,
+      memory: 5,
       desc: '同上',
-      code: `use std::collections::HashMap;
-struct AuthenticationManager {
-    timeToLive: i32,
-    m: HashMap<String, i32>,
-}
-
-impl AuthenticationManager {
-    fn new(timeToLive: i32) -> Self {
-        Self {
-            timeToLive,
-            m: HashMap::new(),
+      code: `impl Solution {
+    pub fn die_simulator(n: i32, roll_max: Vec<i32>) -> i32 {
+        let n = n as usize;
+        let MOD = 10i32.pow(9) + 7;
+        let mut dp = vec![vec![vec![0; 16]; 6]; n + 1];
+        for j in 0..6 {
+            dp[1][j][1] = 1;
         }
-    }
-    fn generate(&mut self, token_id: String, current_time: i32) {
-        if !self.m.contains_key(&token_id) {
-            self.m.insert(token_id, current_time);
-        } else {
-            *self.m.get_mut(&token_id).unwrap() = current_time;
-        }
-    }
-
-    fn renew(&mut self, token_id: String, current_time: i32) {
-        if self.m.contains_key(&token_id) {
-            let item = self.m.get_mut(&token_id).unwrap();
-            if current_time - *item >= self.timeToLive {
-                self.m.remove(&token_id);
-            } else {
-                *item = current_time;
+        for i in 1..=n {
+            for j in 0..6 {
+                for k in 1..=roll_max[j] as usize {
+                    for p in 0..6 {
+                        if p != j {
+                            dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % MOD;
+                        } else if k + 1 <= roll_max[j] as usize {
+                            dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % MOD;
+                        }
+                    }
+                }
             }
         }
-    }
-
-    fn count_unexpired_tokens(&self, current_time: i32) -> i32 {
-        let mut ans = 0;
-        self.m
-            .iter()
-            .map(|(_, v)| v)
-            .filter(|v| current_time - *v < self.timeToLive)
-            .collect::<Vec<&i32>>()
-            .len() as i32
+        let mut res = 0;
+        for i in 0..6 {
+            for j in 1..=roll_max[i] as usize {
+                res = (res + dp[n][i][j]) % MOD;
+            }
+        }
+        res
     }
 }`
 ,
