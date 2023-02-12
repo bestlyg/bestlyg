@@ -13,7 +13,7 @@
 # define lb(x) ((x) & (-x))
 # define mem(a,b) memset(a,b,sizeof(a))
 # define debug freopen("input","r",stdin)
-# define pii pair<int,int>
+// # define pii pair<int,int>
 
 #ifdef DEBUG
 #define log(frm, args...) {\
@@ -63,36 +63,66 @@ void idx2Pos(int idx, int size, int &x, int &y) {
     x = idx / size;
     y = idx % size;
 }
-vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+// vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
+
+int dirs[4][2] = {
+    {-1, 0}, {1, 0},
+    {0, -1}, {0, 1}, 
+};
+string dir_str = "UDLR";
+
+typedef pair<int, int> pii;
+
+struct Node {
+    pii dir;
+    string s; 
+    Node(pii dir, string s): dir(dir), s(s) {}
+};
 class Solution {
 public:
-    int dieSimulator(int n, vector<int>& rollMax) {
-        int mod = 1e9 + 7;
-        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(6, vector<int>(16, 0)));
-        for (int j = 0; j < 6; j++) dp[1][j][1] = 1;
-        // 第i次投骰子
-        for (int i = 1; i <= n; i++) {
-            // 骰子点数是j
-            for (int j = 0; j < 6; j++) {
-                // 对于每个点数已经消耗了k次连续投掷次数
-                for (int k = 0; k < rollMax[j]; k++) {
-                    // 当前次投了p点
-                    for (int p = 0; p < 6; p++) {
-                        if (p != j) dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod;
-                        else if (k < rollMax[j] - 1) dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % mod;
-                    }
-                }
+    string alphabetBoardPath(string target) {
+        vector<string> list = { "abcde", "fghij", "klmno", "pqrst", "uvwxy", "z" };
+        vector<pii> idxs(26);
+        for (int i = 0; i < list.size(); i++) for (int j = 0; j < list[i].size(); j++) idxs[list[i][j] - 'a'] = make_pair(i, j);
+        vector<vector<string>> cache(26, vector<string>(26, ""));
+        for (int i = 0; i < 26; i++) prebuild(cache, idxs, list, i);
+
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                cout << 
+                (char)(i + 'a') << " to "
+                << (char)(j + 'a') << " = "<<
+                cache[i][j] << endl;
             }
         }
-        int res = 0;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 1; j <= rollMax[i]; j++) {
-                res = (res + dp[n][i][j]) % mod;
+
+        string res = "";
+        char prev = 'a';
+        for (int i = 0; i < target.size(); i++) {
+            string a = cache[prev - 'a'][target[i] - 'a'];
+            res += cache[prev - 'a'][target[i] - 'a'] + "!";
+            prev = target[i];
+        }
+        return res;    
+    }
+
+    void prebuild(vector<vector<string>> &cache, vector<pii> &idxs, vector<string> &list, int idx) {
+        queue<Node> q; 
+        q.push(Node(idxs[idx], ""));
+        while (q.size()) {
+            Node cur = q.front();
+            q.pop();
+            for (int i = 0; i < 4; i++) {
+                int nrow = cur.dir.first + dirs[i][0], ncol = cur.dir.second + dirs[i][1];
+                if (nrow < 0 || nrow >= list.size() || ncol < 0 || ncol >= list[nrow].size()) continue;
+                if (list[nrow][ncol] - 'a' == idx || cache[idx][list[nrow][ncol] - 'a'] != "") continue;
+                string s = cur.s + dir_str[i];
+                q.push(Node(make_pair(nrow, ncol), s));
+                cache[idx][list[nrow][ncol] - 'a'] = s;
             }
         }
-        return res;
     }
 };
 
@@ -100,8 +130,7 @@ public:
 #ifdef LOCAL
 int main() {
     Solution s;
-    auto res = s.print();
+    auto res = s.alphabetBoardPath("leet");
     return 0;
 }
 #endif
-

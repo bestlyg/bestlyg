@@ -86,3 +86,13 @@ function evaluateTree(root: TreeNode | null): boolean {
   }
   return loop(root);
 }
+
+function substringXorQueries(s: string, queries: number[][]): number[][] {
+  return queries
+    .map(([v1, v2]) => (v1 ^ v2).toString())
+    .map(item => {
+      const i = s.indexOf(item);
+      if (i == -1) return [-1, -1];
+      return [i, i + item.length];
+    });
+}
