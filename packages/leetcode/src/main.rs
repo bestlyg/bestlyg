@@ -33,63 +33,37 @@ impl Node {
         }
     }
 }
-
 impl Solution {
-    pub fn alphabet_board_path(target: String) -> String {
-        let dirs: [[i32; 2]; 4] = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-        let dir_str = "UDLR".chars().collect::<Vec<char>>();
-        let l = vec!["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"]
-            .into_iter()
-            .map(|s| s.chars().collect::<Vec<char>>())
-            .collect::<Vec<Vec<char>>>();
-        let mut cache = vec![vec![String::new(); 26]; 26];
-        let mut idxs = vec![(0, 0); 26];
-        for i in 0..l.len() {
-            for j in 0..l[i].len() {
-                idxs[l[i][j] as usize - 'a' as usize] = (i, j)
+    pub fn minimum_score(s: String, t: String) -> i32 {
+        let (s, t) = (
+            s.chars().collect::<Vec<char>>(),
+            t.chars().collect::<Vec<char>>(),
+        );
+        let (n, m) = (s.len(), t.len());
+        let (mut pre, mut suf) = (vec![0; n], vec![m; n + 1]);
+        let (mut i, mut p) = (0, 0);
+        while i < n && p < m {
+            if s[i] == t[p] {
+                p += 1;
             }
+            pre[i] = p;
+            i += 1;
         }
-        let mut prebuild = |idx: usize| {
-            use std::collections::VecDeque;
-            let mut q = VecDeque::<(usize, usize, String)>::new();
-            q.push_back((idxs[idx].0, idxs[idx].1, String::new()));
-            while !q.is_empty() {
-                let (row, col, s) = q.pop_front().unwrap();
-                for i in 0..4 {
-                    let nrow = row as i32 + dirs[i][0];
-                    let ncol = col as i32 + dirs[i][1];
-                    if nrow < 0
-                        || nrow as usize >= l.len()
-                        || ncol < 0
-                        || ncol as usize >= l[nrow as usize].len()
-                    {
-                        continue;
-                    }
-                    let nrow = nrow as usize;
-                    let ncol = ncol as usize;
-                    if l[nrow][ncol] as usize - 'a' as usize == idx
-                        || cache[idx][l[nrow][ncol] as usize - 'a' as usize] != ""
-                    {
-                        continue;
-                    }
-                    let mut next_s = s.clone();
-                    next_s.push(dir_str[i]);
-                    q.push_back((nrow, ncol, next_s.clone()));
-                    cache[idx][l[nrow][ncol] as usize - 'a' as usize] = next_s;
-                }
+        let (mut i, mut p) = ((n - 1) as i32, (m - 1) as i32);
+        while i >= 0 && p >= 0 {
+            if s[i as usize] == t[p as usize] {
+                p -= 1;
             }
-        };
-        for i in 0..26 {
-            prebuild(i)
+            suf[i as usize] = p as usize + 1;
+            i -= 1;
         }
-
-        let mut res = String::new();
-        let mut prev = 'a';
-        for cur in target.chars() {
-            res.push_str(&cache[prev as usize - 'a' as usize][cur as usize - 'a' as usize]);
-            res.push('!');
-            prev = cur
+        let mut res = suf[0];
+        for i in 0..n {
+            if suf[i + 1] < pre[i] {
+                return 0;
+            }
+            res = res.min(suf[i + 1] - pre[i]);
         }
-        res
+        res as i32
     }
 }
