@@ -84,6 +84,7 @@ async function main() {
   const map = await allQuestions();
   for (const { filepath } of travel()) {
     await walk({ map, filepath });
+    // walk({ map, filepath });
   }
   // clear();
 }

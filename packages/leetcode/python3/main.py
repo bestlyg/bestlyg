@@ -1,3 +1,4 @@
+from heapq import *
 from collections import defaultdict
 from itertools import accumulate
 from typing import List, Optional
@@ -24,31 +25,20 @@ class TreeNode:
         self.right = right
 
 
-class Node:
-    def __init__(self) -> None:
-        self.end = False
-        self.children = defaultdict(Node)
-
-
 class Solution:
-    def dieSimulator(self, n: int, rollMax: List[int]) -> int:
-        mod = 10 ** 9 + 7
-        dp = [[([0] * 16) for _ in range(6)] for _ in range(n + 1)]
-        for j in range(6):
-            dp[1][j][1] = 1
-        for i in range(1, n + 1):
-            for j in range(6):
-                for k in range(1, rollMax[j] + 1):
-                    for p in range(6):
-                        if p != j:
-                            dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod
-                        elif k + 1 <= rollMax[j]:
-                            dp[i][p][k + 1] = (dp[i][p]
-                                               [k + 1] + dp[i-1][j][k]) % mod
+    def fillCups(self, amount: List[int]) -> int:
+        amount = [-v for v in amount]
+        heapify(amount)
         res = 0
-        for i in range(6):
-            for j in range(1, rollMax[i] + 1):
-                res = (res + dp[n][i][j]) % mod
+        while len(amount) >= 2:
+            num1, num2 = heappop(amount), heappop(amount)
+            if num1 < -1:
+                heappush(amount, num1+1)
+            if num2 < -1:
+                heappush(amount, num2+1)
+            res += 1
+        if len(amount):
+            res += heappop(amount)
         return res
 
 

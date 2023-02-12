@@ -33,32 +33,29 @@ impl Node {
         }
     }
 }
+
 impl Solution {
-    pub fn die_simulator(n: i32, roll_max: Vec<i32>) -> i32 {
-        let n = n as usize;
-        let MOD = 10i32.pow(9) + 7;
-        let mut dp = vec![vec![vec![0; 16]; 6]; n + 1];
-        for j in 0..6 {
-            dp[1][j][1] = 1;
-        }
-        for i in 1..=n {
-            for j in 0..6 {
-                for k in 1..=roll_max[j] as usize {
-                    for p in 0..6 {
-                        if p != j {
-                            dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % MOD;
-                        } else if k + 1 <= roll_max[j] as usize {
-                            dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % MOD;
-                        }
-                    }
-                }
+    pub fn fill_cups(amount: Vec<i32>) -> i32 {
+        use std::collections::BinaryHeap;
+        let mut heap = BinaryHeap::new();
+        for num in amount {
+            if num != 0 {
+                heap.push(num)
             }
         }
         let mut res = 0;
-        for i in 0..6 {
-            for j in 1..=roll_max[i] as usize {
-                res = (res + dp[n][i][j]) % MOD;
+        while heap.len() >= 2 {
+            let (num1, num2) = (heap.pop().unwrap(), heap.pop().unwrap());
+            if num1 != 1 {
+                heap.push(num1 - 1);
             }
+            if num2 != 1 {
+                heap.push(num2 - 1)
+            }
+            res += 1
+        }
+        if !heap.is_empty() {
+            res += heap.pop().unwrap();
         }
         res
     }
