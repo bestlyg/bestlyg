@@ -8,6 +8,9 @@
         "unordered_map": "cpp",
         "cctype": "cpp",
         "vector": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "string": "cpp",
+        "__functional_03": "cpp",
+        "functional": "cpp"
     }
 }

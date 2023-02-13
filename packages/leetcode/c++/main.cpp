@@ -66,63 +66,35 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 // vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-
-int dirs[4][2] = {
-    {-1, 0}, {1, 0},
-    {0, -1}, {0, 1}, 
-};
-string dir_str = "UDLR";
-
-typedef pair<int, int> pii;
-
-struct Node {
-    pii dir;
-    string s; 
-    Node(pii dir, string s): dir(dir), s(s) {}
-};
 class Solution {
 public:
-    string alphabetBoardPath(string target) {
-        vector<string> list = { "abcde", "fghij", "klmno", "pqrst", "uvwxy", "z" };
-        vector<pii> idxs(26);
-        for (int i = 0; i < list.size(); i++) for (int j = 0; j < list[i].size(); j++) idxs[list[i][j] - 'a'] = make_pair(i, j);
-        vector<vector<string>> cache(26, vector<string>(26, ""));
-        for (int i = 0; i < 26; i++) prebuild(cache, idxs, list, i);
-
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < 26; j++) {
-                cout << 
-                (char)(i + 'a') << " to "
-                << (char)(j + 'a') << " = "<<
-                cache[i][j] << endl;
-            }
+    int id(char c) {
+        switch (c) {
+            case 'Q': return 0;
+            case 'W': return 1;
+            case 'E': return 2;
+            case 'R': return 3;
         }
-
-        string res = "";
-        char prev = 'a';
-        for (int i = 0; i < target.size(); i++) {
-            string a = cache[prev - 'a'][target[i] - 'a'];
-            res += cache[prev - 'a'][target[i] - 'a'] + "!";
-            prev = target[i];
-        }
-        return res;    
+        return -1;
     }
-
-    void prebuild(vector<vector<string>> &cache, vector<pii> &idxs, vector<string> &list, int idx) {
-        queue<Node> q; 
-        q.push(Node(idxs[idx], ""));
-        while (q.size()) {
-            Node cur = q.front();
-            q.pop();
-            for (int i = 0; i < 4; i++) {
-                int nrow = cur.dir.first + dirs[i][0], ncol = cur.dir.second + dirs[i][1];
-                if (nrow < 0 || nrow >= list.size() || ncol < 0 || ncol >= list[nrow].size()) continue;
-                if (list[nrow][ncol] - 'a' == idx || cache[idx][list[nrow][ncol] - 'a'] != "") continue;
-                string s = cur.s + dir_str[i];
-                q.push(Node(make_pair(nrow, ncol), s));
-                cache[idx][list[nrow][ncol] - 'a'] = s;
+    bool isBalance(int *cnt, int target) {
+        return cnt[0] <= target && cnt[1] <= target && cnt[2] <= target && cnt[3] <= target;
+    }
+    int balancedString(string s) {
+        int n = s.size(), m = n / 4, cnt[4] = {0};
+        for (auto &c : s) cnt[id(c)] += 1;
+        if (isBalance(cnt, m)) return 0;
+        int ans = 0x3f3f3f3f;
+        for (int l = 0, r = 0; r < n; r++) {
+            cnt[id(s[r])]--;
+            while (l < r && isBalance(cnt, m)) {
+                cnt[id(s[l])]++;
+                if (isBalance(cnt, m)) l++;
+                else { cnt[id(s[l])]--; break; }
             }
+            if (isBalance(cnt, m)) ans = min(ans, r - l + 1);
         }
+        return ans;
     }
 };
 

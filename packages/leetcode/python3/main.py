@@ -26,27 +26,41 @@ class TreeNode:
 
 
 class Solution:
-    def minimumScore(self, s: str, t: str) -> int:
-        n, m = len(s), len(t)
-        pre, suf = [] * n, [m] * (n + 1)
-        i, p = 0, 0
-        while i < n and p < m:
-            if s[i] == t[p]:
-                p += 1
-            pre[i] = p
-            i += 1
-        i, p = n-1, m-1
-        while i >= 0 and p >= 0:
-            if s[i] == t[p]:
-                p -= 1
-            suf[i] = p+1
-            i -= 1
-        res = suf[0]
-        for i in range(n):
-            if suf[i + 1] < pre[i]:
-                return 0
-            res = min(res, suf[i + 1] - pre[i])
-        return res
+    def balancedString(self, s: str) -> int:
+        n = len(s)
+        m = int(n/4)
+        cnt = [0] * 4
+
+        def getId(c: str) -> int:
+            match c:
+                case 'Q': return 0
+                case 'W': return 1
+                case 'E': return 2
+                case 'R': return 3
+            return -1
+
+        def isBalance() -> bool:
+            nonlocal m, cnt
+            return cnt[0] <= m and cnt[1] <= m and cnt[2] <= m and cnt[3] <= m
+
+        for c in s:
+            cnt[getId(c)] += 1
+        if isBalance():
+            return 0
+        ans = 0x3f3f3f3f
+        l = 0
+        for r in range(0, n):
+            cnt[getId(s[r])] -= 1
+            while l < r and isBalance():
+                cnt[getId(s[l])] += 1
+                if isBalance():
+                    l += 1
+                else:
+                    cnt[getId(s[l])] -= 1
+                    break
+            if isBalance():
+                ans = min(ans, r - l+1)
+        return ans
 
 
 def main():

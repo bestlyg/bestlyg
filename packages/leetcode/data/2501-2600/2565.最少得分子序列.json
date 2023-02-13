@@ -1,12 +1,9 @@
 {
-    "name": "6357.最少得分子序列",
-    "url": "https://leetcode.cn/problems/subsequence-with-the-minimum-score/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "id": "2701",
+    "name": "2565.最少得分子序列",
+    "url": "https://leetcode.cn/problems/subsequence-with-the-minimum-score",
+    "difficulty": "困难",
+    "tag": [],
     "desc": "请你返回使 t 成为 s 子序列的最小得分。",
     "solutions": [
         {

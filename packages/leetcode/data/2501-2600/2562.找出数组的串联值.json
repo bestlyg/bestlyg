@@ -1,12 +1,9 @@
 {
-    "name": "6354.找出数组的串联值",
-    "url": "https://leetcode.cn/problems/find-the-array-concatenation-value/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "id": "2698",
+    "name": "2562.找出数组的串联值",
+    "url": "https://leetcode.cn/problems/find-the-array-concatenation-value",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "返回执行完所有操作后 nums 的串联值。",
     "solutions": [
         {

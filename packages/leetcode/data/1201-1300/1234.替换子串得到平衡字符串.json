@@ -1,0 +1,37 @@
+{
+    "id": "1351",
+    "name": "1234.替换子串得到平衡字符串",
+    "url": "https://leetcode.cn/problems/replace-the-substring-for-balanced-string",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "滑动窗口"
+    ],
+    "desc": "请返回待替换子串的最小可能长度。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 7.5,
+            "desc": "双指针，找出所有可以匹配的段落。",
+            "code": "class Solution {\npublic:\n    int id(char c) {\n        switch (c) {\n            case 'Q': return 0;\n            case 'W': return 1;\n            case 'E': return 2;\n            case 'R': return 3;\n        }\n        return -1;\n    }\n    bool isBalance(int *cnt, int target) {\n        return cnt[0] <= target && cnt[1] <= target && cnt[2] <= target && cnt[3] <= target;\n    }\n    int balancedString(string s) {\n        int n = s.size(), m = n / 4, cnt[4] = {0};\n        for (auto &c : s) cnt[id(c)] += 1;\n        if (isBalance(cnt, m)) return 0;\n        int ans = 0x3f3f3f3f;\n        for (int l = 0, r = 0; r < n; r++) {\n            cnt[id(s[r])]--;\n            while (l < r && isBalance(cnt, m)) {\n                cnt[id(s[l])]++;\n                if (isBalance(cnt, m)) l++;\n                else { cnt[id(s[l])]--; break; }\n            }\n            if (isBalance(cnt, m)) ans = min(ans, r - l + 1);\n        }\n        return ans;\n    }\n};",
+            "date": 1676217600000
+        },
+        {
+            "script": "python3",
+            "time": 348,
+            "memory": 15.4,
+            "desc": "同上。",
+            "code": "class Solution:\n    def balancedString(self, s: str) -> int:\n        n = len(s)\n        m = int(n/4)\n        cnt = [0] * 4\n\n        def getId(c: str) -> int:\n            match c:\n                case 'Q': return 0\n                case 'W': return 1\n                case 'E': return 2\n                case 'R': return 3\n            return -1\n\n        def isBalance() -> bool:\n            nonlocal m, cnt\n            return cnt[0] <= m and cnt[1] <= m and cnt[2] <= m and cnt[3] <= m\n\n        for c in s:\n            cnt[getId(c)] += 1\n        if isBalance():\n            return 0\n        ans = 0x3f3f3f3f\n        l = 0\n        for r in range(0, n):\n            cnt[getId(s[r])] -= 1\n            while l < r and isBalance():\n                cnt[getId(s[l])] += 1\n                if isBalance():\n                    l += 1\n                else:\n                    cnt[getId(s[l])] -= 1\n                    break\n            if isBalance():\n                ans = min(ans, r - l+1)\n        return ans",
+            "date": 1676217600000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.5,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn balanced_string(s: String) -> i32 {\n        let s = s.chars().collect::<Vec<char>>();\n        let n = s.len();\n        let m = (n / 4) as i32;\n        let mut cnt = [0; 4];\n        let id = |c| match c {\n            'Q' => 0,\n            'W' => 1,\n            'E' => 2,\n            'R' => 3,\n            _ => 0,\n        };\n        let is_balance = |cnt: &[i32; 4]| cnt[0] <= m && cnt[1] <= m && cnt[2] <= m && cnt[3] <= m;\n        for c in s.iter() {\n            cnt[id(*c)] += 1;\n        }\n        if is_balance(&cnt) {\n            0\n        } else {\n            let mut ans = 0x3f3f3f3f;\n            let mut l = 0;\n            for r in 0..n {\n                cnt[id(s[r])] -= 1;\n                while l < r && is_balance(&cnt) {\n                    cnt[id(s[l])] += 1;\n                    if is_balance(&cnt) {\n                        l += 1;\n                    } else {\n                        cnt[id(s[l])] -= 1;\n                        break;\n                    }\n                }\n                if is_balance(&cnt) {\n                    ans = ans.min(r - l + 1);\n                }\n            }\n            ans as i32\n        }\n    }\n}",
+            "date": 1676217600000
+        }
+    ]
+}

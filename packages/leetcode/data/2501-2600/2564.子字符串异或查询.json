@@ -1,12 +1,9 @@
 {
-    "name": "6356.子字符串异或查询",
-    "url": "https://leetcode.cn/problems/substring-xor-queries/",
+    "id": "2700",
+    "name": "2564.子字符串异或查询",
+    "url": "https://leetcode.cn/problems/substring-xor-queries",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "请你返回一个数组 ans ，其中 ans[i] = [lefti, righti] 是第 i 个查询的答案。",
     "solutions": [
         {

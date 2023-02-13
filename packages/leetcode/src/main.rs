@@ -33,37 +33,45 @@ impl Node {
         }
     }
 }
+
 impl Solution {
-    pub fn minimum_score(s: String, t: String) -> i32 {
-        let (s, t) = (
-            s.chars().collect::<Vec<char>>(),
-            t.chars().collect::<Vec<char>>(),
-        );
-        let (n, m) = (s.len(), t.len());
-        let (mut pre, mut suf) = (vec![0; n], vec![m; n + 1]);
-        let (mut i, mut p) = (0, 0);
-        while i < n && p < m {
-            if s[i] == t[p] {
-                p += 1;
-            }
-            pre[i] = p;
-            i += 1;
+    pub fn balanced_string(s: String) -> i32 {
+        let s = s.chars().collect::<Vec<char>>();
+        let n = s.len();
+        let m = (n / 4) as i32;
+        let mut cnt = [0; 4];
+        let id = |c| match c {
+            'Q' => 0,
+            'W' => 1,
+            'E' => 2,
+            'R' => 3,
+            _ => 0,
+        };
+        let is_balance = |cnt: &[i32; 4]| cnt[0] <= m && cnt[1] <= m && cnt[2] <= m && cnt[3] <= m;
+        for c in s.iter() {
+            cnt[id(*c)] += 1;
         }
-        let (mut i, mut p) = ((n - 1) as i32, (m - 1) as i32);
-        while i >= 0 && p >= 0 {
-            if s[i as usize] == t[p as usize] {
-                p -= 1;
+        if is_balance(&cnt) {
+            0
+        } else {
+            let mut ans = 0x3f3f3f3f;
+            let mut l = 0;
+            for r in 0..n {
+                cnt[id(s[r])] -= 1;
+                while l < r && is_balance(&cnt) {
+                    cnt[id(s[l])] += 1;
+                    if is_balance(&cnt) {
+                        l += 1;
+                    } else {
+                        cnt[id(s[l])] -= 1;
+                        break;
+                    }
+                }
+                if is_balance(&cnt) {
+                    ans = ans.min(r - l + 1);
+                }
             }
-            suf[i as usize] = p as usize + 1;
-            i -= 1;
+            ans as i32
         }
-        let mut res = suf[0];
-        for i in 0..n {
-            if suf[i + 1] < pre[i] {
-                return 0;
-            }
-            res = res.min(suf[i + 1] - pre[i]);
-        }
-        res as i32
     }
 }
