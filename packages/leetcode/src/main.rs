@@ -35,43 +35,32 @@ impl Node {
 }
 
 impl Solution {
-    pub fn balanced_string(s: String) -> i32 {
-        let s = s.chars().collect::<Vec<char>>();
-        let n = s.len();
-        let m = (n / 4) as i32;
-        let mut cnt = [0; 4];
-        let id = |c| match c {
-            'Q' => 0,
-            'W' => 1,
-            'E' => 2,
-            'R' => 3,
-            _ => 0,
-        };
-        let is_balance = |cnt: &[i32; 4]| cnt[0] <= m && cnt[1] <= m && cnt[2] <= m && cnt[3] <= m;
-        for c in s.iter() {
-            cnt[id(*c)] += 1;
+    pub fn longest_wpi(hours: Vec<i32>) -> i32 {
+        use std::collections::VecDeque;
+        let n = hours.len();
+        let mut ans = 0;
+        let mut sums = vec![0; 1];
+        for h in hours {
+            let h: i32 = if h > 8 { 1 } else { -1 };
+            sums.push(sums.last().unwrap() + h);
         }
-        if is_balance(&cnt) {
-            0
-        } else {
-            let mut ans = 0x3f3f3f3f;
-            let mut l = 0;
-            for r in 0..n {
-                cnt[id(s[r])] -= 1;
-                while l < r && is_balance(&cnt) {
-                    cnt[id(s[l])] += 1;
-                    if is_balance(&cnt) {
-                        l += 1;
-                    } else {
-                        cnt[id(s[l])] -= 1;
-                        break;
-                    }
-                }
-                if is_balance(&cnt) {
-                    ans = ans.min(r - l + 1);
-                }
+        let mut s = VecDeque::<usize>::new();
+        s.push_back(0);
+        for i in 1..=n {
+            if sums[*s.back().unwrap()] > sums[i] {
+                println!("push {i}");
+                s.push_back(i);
             }
-            ans as i32
         }
+        let mut i = n;
+        while i >= 1 {
+            while !s.is_empty() && sums[*s.back().unwrap()] < sums[i] {
+                println!("pop {}", *s.back().unwrap());
+                println!("ans = {}, i = {}", ans, i);
+                ans = ans.max(i as i32 - s.pop_back().unwrap() as i32);
+            }
+            i -= 1;
+        }
+        ans
     }
 }

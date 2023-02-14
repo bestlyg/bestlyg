@@ -68,31 +68,22 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 
 class Solution {
 public:
-    int id(char c) {
-        switch (c) {
-            case 'Q': return 0;
-            case 'W': return 1;
-            case 'E': return 2;
-            case 'R': return 3;
-        }
-        return -1;
-    }
-    bool isBalance(int *cnt, int target) {
-        return cnt[0] <= target && cnt[1] <= target && cnt[2] <= target && cnt[3] <= target;
-    }
-    int balancedString(string s) {
-        int n = s.size(), m = n / 4, cnt[4] = {0};
-        for (auto &c : s) cnt[id(c)] += 1;
-        if (isBalance(cnt, m)) return 0;
-        int ans = 0x3f3f3f3f;
-        for (int l = 0, r = 0; r < n; r++) {
-            cnt[id(s[r])]--;
-            while (l < r && isBalance(cnt, m)) {
-                cnt[id(s[l])]++;
-                if (isBalance(cnt, m)) l++;
-                else { cnt[id(s[l])]--; break; }
-            }
-            if (isBalance(cnt, m)) ans = min(ans, r - l + 1);
+    int longestWPI(vector<int>& hours) {
+        int n = hours.size(), ans = 0;
+        for (auto &h : hours) h = h > 8 ? 1 : -1;
+        vector<int> sums(1, 0);
+        for (auto &h : hours) sums.push_back(sums.back() + h);
+
+        cout << "sums: ";
+        for (auto &v : sums) cout << v << ", ";
+        cout << endl;
+
+        int prev = 0;
+        for (int i = 1; i <= n; i++) {
+            cout << "i = " << i << ", ans = " << ans << ", prev = " << prev << ", val = " << i - prev << endl;
+            if (sums[i] - prev > 0)
+            ans = max(ans, i - prev);
+            if (sums[i] < sums[prev]) prev = i;
         }
         return ans;
     }

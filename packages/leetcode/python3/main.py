@@ -26,40 +26,22 @@ class TreeNode:
 
 
 class Solution:
-    def balancedString(self, s: str) -> int:
-        n = len(s)
-        m = int(n/4)
-        cnt = [0] * 4
-
-        def getId(c: str) -> int:
-            match c:
-                case 'Q': return 0
-                case 'W': return 1
-                case 'E': return 2
-                case 'R': return 3
-            return -1
-
-        def isBalance() -> bool:
-            nonlocal m, cnt
-            return cnt[0] <= m and cnt[1] <= m and cnt[2] <= m and cnt[3] <= m
-
-        for c in s:
-            cnt[getId(c)] += 1
-        if isBalance():
-            return 0
-        ans = 0x3f3f3f3f
-        l = 0
-        for r in range(0, n):
-            cnt[getId(s[r])] -= 1
-            while l < r and isBalance():
-                cnt[getId(s[l])] += 1
-                if isBalance():
-                    l += 1
-                else:
-                    cnt[getId(s[l])] -= 1
-                    break
-            if isBalance():
-                ans = min(ans, r - l+1)
+    def longestWPI(self, hours: List[int]) -> int:
+        n = len(hours)
+        ans = 0
+        sums = [0]
+        for h in hours:
+            v = -1
+            if (h > 8):
+                v = 1
+            sums.append(sums[-1] + h)
+        s = [0]
+        for i in range(1, n+1):
+            if sums[s[-1]] > sums[i]:
+                s.append(i)
+        for i in range(n, 0, -1):
+            while len(s) and sums[s[-1]] < sums[i]:
+                ans = max(ans, i - s.pop())
         return ans
 
 

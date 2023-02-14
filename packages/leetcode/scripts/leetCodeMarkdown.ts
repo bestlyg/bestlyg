@@ -1,8 +1,8 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1234. 替换子串得到平衡字符串',
+  exist: true,
+  name: '1124. 表现良好的最长时间段',
   url: 'https://leetcode.cn/problems/replace-the-substring-for-balanced-string/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
@@ -10,36 +10,25 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 7.5,
-      desc: '双指针，找出所有可以匹配的段落',
+      time: 32,
+      memory: 23.3,
+      desc: '单调栈，找出最远最小的值',
       code: `class Solution {
 public:
-    int id(char c) {
-        switch (c) {
-            case 'Q': return 0;
-            case 'W': return 1;
-            case 'E': return 2;
-            case 'R': return 3;
+    int longestWPI(vector<int>& hours) {
+        int n = hours.size(), ans = 0;
+        for (auto &h : hours) h = h > 8 ? 1 : -1;
+        vector<int> sums(1, 0);
+        for (auto &h : hours) sums.push_back(sums.back() + h);
+        stack<int> s; s.push(0);
+        for (int i = 1; i <= n; i++) {
+            if (sums[s.top()] > sums[i]) s.push(i);
         }
-        return -1;
-    }
-    bool isBalance(int *cnt, int target) {
-        return cnt[0] <= target && cnt[1] <= target && cnt[2] <= target && cnt[3] <= target;
-    }
-    int balancedString(string s) {
-        int n = s.size(), m = n / 4, cnt[4] = {0};
-        for (auto &c : s) cnt[id(c)] += 1;
-        if (isBalance(cnt, m)) return 0;
-        int ans = 0x3f3f3f3f;
-        for (int l = 0, r = 0; r < n; r++) {
-            cnt[id(s[r])]--;
-            while (l < r && isBalance(cnt, m)) {
-                cnt[id(s[l])]++;
-                if (isBalance(cnt, m)) l++;
-                else { cnt[id(s[l])]--; break; }
+        for (int i = n; i >= 1; i--) {
+            while (s.size() && sums[s.top()] < sums[i]) {
+                ans = max(ans, i - s.top());
+                s.pop();
             }
-            if (isBalance(cnt, m)) ans = min(ans, r - l + 1);
         }
         return ans;
     }
@@ -47,90 +36,58 @@ public:
     },
     {
       script: Script.PY3,
-      time: 348,
-      memory: 15.4,
+      time: 72,
+      memory: 15.7,
       desc: '同上',
       code: `class Solution:
-    def balancedString(self, s: str) -> int:
-        n = len(s)
-        m = int(n/4)
-        cnt = [0] * 4
-
-        def getId(c: str) -> int:
-            match c:
-                case 'Q': return 0
-                case 'W': return 1
-                case 'E': return 2
-                case 'R': return 3
-            return -1
-
-        def isBalance() -> bool:
-            nonlocal m, cnt
-            return cnt[0] <= m and cnt[1] <= m and cnt[2] <= m and cnt[3] <= m
-
-        for c in s:
-            cnt[getId(c)] += 1
-        if isBalance():
-            return 0
-        ans = 0x3f3f3f3f
-        l = 0
-        for r in range(0, n):
-            cnt[getId(s[r])] -= 1
-            while l < r and isBalance():
-                cnt[getId(s[l])] += 1
-                if isBalance():
-                    l += 1
-                else:
-                    cnt[getId(s[l])] -= 1
-                    break
-            if isBalance():
-                ans = min(ans, r - l+1)
+    def longestWPI(self, hours: List[int]) -> int:
+        n = len(hours)
+        ans = 0
+        sums = [0]
+        for h in hours:
+            v = -1
+            if (h > 8):
+                v = 1
+            sums.append(sums[-1] + v)
+        s = [0]
+        for i in range(1, n+1):
+            if sums[s[-1]] > sums[i]:
+                s.append(i)
+        for i in range(n, 0, -1):
+            while len(s) and sums[s[-1]] < sums[i]:
+                ans = max(ans, i - s.pop())
         return ans`,
     },
     {
       script: Script.RUST,
-      time: 8,
-      memory:2.5,
+      time: 12,
+      memory:2.4,
       desc: '同上',
       code: `impl Solution {
-    pub fn balanced_string(s: String) -> i32 {
-        let s = s.chars().collect::<Vec<char>>();
-        let n = s.len();
-        let m = (n / 4) as i32;
-        let mut cnt = [0; 4];
-        let id = |c| match c {
-            'Q' => 0,
-            'W' => 1,
-            'E' => 2,
-            'R' => 3,
-            _ => 0,
-        };
-        let is_balance = |cnt: &[i32; 4]| cnt[0] <= m && cnt[1] <= m && cnt[2] <= m && cnt[3] <= m;
-        for c in s.iter() {
-            cnt[id(*c)] += 1;
+    pub fn longest_wpi(hours: Vec<i32>) -> i32 {
+        use std::collections::VecDeque;
+        let n = hours.len();
+        let mut ans = 0;
+        let mut sums = vec![0; 1];
+        for h in hours {
+            let h: i32 = if h > 8 { 1 } else { -1 };
+            sums.push(sums.last().unwrap() + h);
         }
-        if is_balance(&cnt) {
-            0
-        } else {
-            let mut ans = 0x3f3f3f3f;
-            let mut l = 0;
-            for r in 0..n {
-                cnt[id(s[r])] -= 1;
-                while l < r && is_balance(&cnt) {
-                    cnt[id(s[l])] += 1;
-                    if is_balance(&cnt) {
-                        l += 1;
-                    } else {
-                        cnt[id(s[l])] -= 1;
-                        break;
-                    }
-                }
-                if is_balance(&cnt) {
-                    ans = ans.min(r - l + 1);
-                }
+        let mut s = VecDeque::<usize>::new();
+        s.push_back(0);
+        for i in 1..=n {
+            if sums[*s.back().unwrap()] > sums[i] {
+                s.push_back(i);
             }
-            ans as i32
         }
+        let mut i = n;
+        while i >= 1 {
+            while !s.is_empty() && sums[*s.back().unwrap()] < sums[i] {
+                ans = ans.max(i as i32 - s.pop_back().unwrap() as i32);
+            }
+            i -= 1;
+        }
+        ans
     }
 }`,
     },
@@ -138,3 +95,4 @@ public:
 };
 
 export default leetCodeMarkdown;
+
