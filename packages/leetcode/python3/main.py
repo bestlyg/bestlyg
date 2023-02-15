@@ -26,23 +26,19 @@ class TreeNode:
 
 
 class Solution:
-    def longestWPI(self, hours: List[int]) -> int:
-        n = len(hours)
-        ans = 0
-        sums = [0]
-        for h in hours:
-            v = -1
-            if (h > 8):
-                v = 1
-            sums.append(sums[-1] + h)
-        s = [0]
-        for i in range(1, n+1):
-            if sums[s[-1]] > sums[i]:
-                s.append(i)
-        for i in range(n, 0, -1):
-            while len(s) and sums[s[-1]] < sums[i]:
-                ans = max(ans, i - s.pop())
-        return ans
+    def isGoodArray(self, nums: List[int]) -> bool:
+        def gcd(a, b):
+            if not b:
+                return a
+            if a < b:
+                return gcd(b, a)
+            return gcd(b, a % b)
+        res = nums[0]
+        for num in nums:
+            res = gcd(res, num)
+            if res == 1:
+                break
+        return res
 
 
 def main():

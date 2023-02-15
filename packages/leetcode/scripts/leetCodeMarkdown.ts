@@ -1,93 +1,80 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '1124. 表现良好的最长时间段',
-  url: 'https://leetcode.cn/problems/replace-the-substring-for-balanced-string/',
+  exist: !true,
+  name: '1250. 检查「好数组」',
+  url: 'https://leetcode.cn/problems/check-if-it-is-a-good-array/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请返回待替换子串的最小可能长度。`,
+  desc: `给你一个正整数数组 nums，你需要从中任选一些子集，然后将子集中每一个数乘以一个 任意整数，并求出他们的和。假如该和结果为 1，那么原数组就是一个「好数组」，则返回 True；否则请返回 False。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 32,
-      memory: 23.3,
-      desc: '单调栈，找出最远最小的值',
+      time: 44,
+      memory: 28.5,
+      desc: '裴蜀定理',
       code: `class Solution {
 public:
-    int longestWPI(vector<int>& hours) {
-        int n = hours.size(), ans = 0;
-        for (auto &h : hours) h = h > 8 ? 1 : -1;
-        vector<int> sums(1, 0);
-        for (auto &h : hours) sums.push_back(sums.back() + h);
-        stack<int> s; s.push(0);
-        for (int i = 1; i <= n; i++) {
-            if (sums[s.top()] > sums[i]) s.push(i);
+    int gcd(int a, int b) {
+        if (!b) return a;
+        if (a < b) return gcd(b, a);
+        return gcd(b, a % b);
+    }
+    bool isGoodArray(vector<int>& nums) {
+        int res = nums[0];
+        for (auto &num : nums) {
+            res = gcd(res, num);
+            if (res == 1) break;
         }
-        for (int i = n; i >= 1; i--) {
-            while (s.size() && sums[s.top()] < sums[i]) {
-                ans = max(ans, i - s.top());
-                s.pop();
-            }
-        }
-        return ans;
+        return res == 1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 72,
-      memory: 15.7,
+      time: 92,
+      memory: 22.7,
       desc: '同上',
       code: `class Solution:
-    def longestWPI(self, hours: List[int]) -> int:
-        n = len(hours)
-        ans = 0
-        sums = [0]
-        for h in hours:
-            v = -1
-            if (h > 8):
-                v = 1
-            sums.append(sums[-1] + v)
-        s = [0]
-        for i in range(1, n+1):
-            if sums[s[-1]] > sums[i]:
-                s.append(i)
-        for i in range(n, 0, -1):
-            while len(s) and sums[s[-1]] < sums[i]:
-                ans = max(ans, i - s.pop())
-        return ans`,
+    def isGoodArray(self, nums: List[int]) -> bool:
+        def gcd(a, b):
+            if not b:
+                return a
+            if a < b:
+                return gcd(b, a)
+            return gcd(b, a % b)
+        res = nums[0]
+        for num in nums:
+            res = gcd(res, num)
+            if res == 1:
+                break
+        return res == 1`,
     },
     {
       script: Script.RUST,
-      time: 12,
-      memory:2.4,
+      time: 4,
+      memory:3.4,
       desc: '同上',
-      code: `impl Solution {
-    pub fn longest_wpi(hours: Vec<i32>) -> i32 {
-        use std::collections::VecDeque;
-        let n = hours.len();
-        let mut ans = 0;
-        let mut sums = vec![0; 1];
-        for h in hours {
-            let h: i32 = if h > 8 { 1 } else { -1 };
-            sums.push(sums.last().unwrap() + h);
-        }
-        let mut s = VecDeque::<usize>::new();
-        s.push_back(0);
-        for i in 1..=n {
-            if sums[*s.back().unwrap()] > sums[i] {
-                s.push_back(i);
+      code: `fn gcd(a: i32, b: i32) -> i32 {
+    if b == 0 {
+        a
+    } else if a < b {
+        gcd(b, a)
+    } else {
+        gcd(b, a % b)
+    }
+}
+
+impl Solution {
+    pub fn is_good_array(nums: Vec<i32>) -> bool {
+        let mut res = nums[0];
+        for num in nums {
+            res = gcd(res, num);
+            if res == 1 {
+                break;
             }
         }
-        let mut i = n;
-        while i >= 1 {
-            while !s.is_empty() && sums[*s.back().unwrap()] < sums[i] {
-                ans = ans.max(i as i32 - s.pop_back().unwrap() as i32);
-            }
-            i -= 1;
-        }
-        ans
+        res == 1
     }
 }`,
     },
