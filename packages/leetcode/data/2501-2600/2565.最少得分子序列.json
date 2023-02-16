@@ -3,7 +3,11 @@
     "name": "2565.最少得分子序列",
     "url": "https://leetcode.cn/problems/subsequence-with-the-minimum-score",
     "difficulty": "困难",
-    "tag": [],
+    "tag": [
+        "双指针",
+        "字符串",
+        "二分查找"
+    ],
     "desc": "请你返回使 t 成为 s 子序列的最小得分。",
     "solutions": [
         {

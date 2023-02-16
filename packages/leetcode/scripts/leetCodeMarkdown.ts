@@ -2,81 +2,70 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1250. 检查「好数组」',
-  url: 'https://leetcode.cn/problems/check-if-it-is-a-good-array/',
+  name: '2341. 数组能形成多少数对',
+  url: 'https://leetcode.cn/problems/maximum-number-of-pairs-in-array/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个正整数数组 nums，你需要从中任选一些子集，然后将子集中每一个数乘以一个 任意整数，并求出他们的和。假如该和结果为 1，那么原数组就是一个「好数组」，则返回 True；否则请返回 False。`,
+  desc: `返回一个下标从 0 开始、长度为 2 的整数数组 answer 作为答案，其中 answer[0] 是形成的数对数目，answer[1] 是对 nums 尽可能执行上述操作后剩下的整数数目。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 44,
-      memory: 28.5,
-      desc: '裴蜀定理',
+      time: 4,
+      memory: 8.9,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int gcd(int a, int b) {
-        if (!b) return a;
-        if (a < b) return gcd(b, a);
-        return gcd(b, a % b);
-    }
-    bool isGoodArray(vector<int>& nums) {
-        int res = nums[0];
+    vector<int> numberOfPairs(vector<int>& nums) {
+        int list[105] = {0};
+        vector<int> res(2, 0);
         for (auto &num : nums) {
-            res = gcd(res, num);
-            if (res == 1) break;
+            list[num] ^= 1;
+            if (list[num] == 0) res[0]++;
         }
-        return res == 1;
+        for (int i = 0; i < 105; i++) res[1] += list[i];
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 92,
-      memory: 22.7,
+      time: 36,
+      memory: 14.9,
       desc: '同上',
       code: `class Solution:
-    def isGoodArray(self, nums: List[int]) -> bool:
-        def gcd(a, b):
-            if not b:
-                return a
-            if a < b:
-                return gcd(b, a)
-            return gcd(b, a % b)
-        res = nums[0]
+    def numberOfPairs(self, nums: List[int]) -> List[int]:
+        l = [0] * 105
+        res = [0] * 2
         for num in nums:
-            res = gcd(res, num)
-            if res == 1:
-                break
-        return res == 1`,
+            l[num] ^= 1
+            if l[num] == 0:
+                res[0] += 1
+        for i in range(105):
+            res[1] += l[i]
+        return res`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory:3.4,
+      time: 0,
+      memory:2.1,
       desc: '同上',
-      code: `fn gcd(a: i32, b: i32) -> i32 {
-    if b == 0 {
-        a
-    } else if a < b {
-        gcd(b, a)
-    } else {
-        gcd(b, a % b)
-    }
-}
-
-impl Solution {
-    pub fn is_good_array(nums: Vec<i32>) -> bool {
-        let mut res = nums[0];
-        for num in nums {
-            res = gcd(res, num);
-            if res == 1 {
-                break;
+      code: `impl Solution {
+        pub fn number_of_pairs(nums: Vec<i32>) -> Vec<i32> {
+            let mut list = [0; 105];
+            let mut ans = vec![0; 2];
+            for num in nums {
+                let num = num as usize;
+                list[num] ^= 1;
+                if list[num] == 0 {
+                    ans[0] += 1;
+                }
             }
+            for i in 0..105 {
+                ans[1] += list[i];
+            }
+            ans
         }
-        res == 1
-    }
-}`,
+    }`,
     },
   ],
 };

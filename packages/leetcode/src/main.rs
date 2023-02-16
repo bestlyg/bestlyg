@@ -34,25 +34,20 @@ impl Node {
     }
 }
 
-fn gcd(a: i32, b: i32) -> i32 {
-    if b == 0 {
-        a
-    } else if a < b {
-        gcd(b, a)
-    } else {
-        gcd(b, a % b)
-    }
-}
-
 impl Solution {
-    pub fn is_good_array(nums: Vec<i32>) -> bool {
-        let mut res = nums[0];
+    pub fn number_of_pairs(nums: Vec<i32>) -> Vec<i32> {
+        let mut list = [0; 105];
+        let mut ans = vec![0; 2];
         for num in nums {
-            res = gcd(res, num);
-            if res == 1 {
-                break;
+            let num = num as usize;
+            list[num] ^= 1;
+            if list[num] == 0 {
+                ans[0] += 1;
             }
         }
-        res == 1
+        for i in 0..105 {
+            ans[1] += list[0];
+        }
+        ans
     }
 }

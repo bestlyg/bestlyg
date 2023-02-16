@@ -26,18 +26,15 @@ class TreeNode:
 
 
 class Solution:
-    def isGoodArray(self, nums: List[int]) -> bool:
-        def gcd(a, b):
-            if not b:
-                return a
-            if a < b:
-                return gcd(b, a)
-            return gcd(b, a % b)
-        res = nums[0]
+    def numberOfPairs(self, nums: List[int]) -> List[int]:
+        l = [0] * 105
+        res = [0] * 2
         for num in nums:
-            res = gcd(res, num)
-            if res == 1:
-                break
+            l[num] ^= 1
+            if l[num] == 0:
+                res[0] += 1
+        for i in range(105):
+            res[1] += l[i]
         return res
 
 

@@ -3,7 +3,12 @@
     "name": "2563.统计公平数对的数目",
     "url": "https://leetcode.cn/problems/count-the-number-of-fair-pairs",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
     "desc": "给你一个下标从 0 开始、长度为 n 的整数数组 nums ，和两个整数 lower 和 upper ，返回 公平数对的数目 。",
     "solutions": [
         {

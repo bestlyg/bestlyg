@@ -1,0 +1,38 @@
+{
+    "id": "2421",
+    "name": "2341.数组能形成多少数对",
+    "url": "https://leetcode.cn/problems/maximum-number-of-pairs-in-array",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "desc": "返回一个下标从 0 开始、长度为 2 的整数数组 answer 作为答案，其中 answer[0] 是形成的数对数目，answer[1] 是对 nums 尽可能执行上述操作后剩下的整数数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 8.9,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<int> numberOfPairs(vector<int>& nums) {\n        int list[105] = {0};\n        vector<int> res(2, 0);\n        for (auto &num : nums) {\n            list[num] ^= 1;\n            if (list[num] == 0) res[0]++;\n        }\n        for (int i = 0; i < 105; i++) res[1] += list[i];\n        return res;\n    }\n};",
+            "date": 1676476800000
+        },
+        {
+            "script": "python3",
+            "time": 36,
+            "memory": 14.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def numberOfPairs(self, nums: List[int]) -> List[int]:\n        l = [0] * 105\n        res = [0] * 2\n        for num in nums:\n            l[num] ^= 1\n            if l[num] == 0:\n                res[0] += 1\n        for i in range(105):\n            res[1] += l[i]\n        return res",
+            "date": 1676476800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n        pub fn number_of_pairs(nums: Vec<i32>) -> Vec<i32> {\n            let mut list = [0; 105];\n            let mut ans = vec![0; 2];\n            for num in nums {\n                let num = num as usize;\n                list[num] ^= 1;\n                if list[num] == 0 {\n                    ans[0] += 1;\n                }\n            }\n            for i in 0..105 {\n                ans[1] += list[i];\n            }\n            ans\n        }\n    }",
+            "date": 1676476800000
+        }
+    ]
+}
