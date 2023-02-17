@@ -26,16 +26,38 @@ class TreeNode:
 
 
 class Solution:
-    def numberOfPairs(self, nums: List[int]) -> List[int]:
-        l = [0] * 105
-        res = [0] * 2
-        for num in nums:
-            l[num] ^= 1
-            if l[num] == 0:
-                res[0] += 1
-        for i in range(105):
-            res[1] += l[i]
-        return res
+    def largest1BorderedSquare(self, grid: List[List[int]]) -> int:
+        n, m, cnt = len(grid), len(grid[0]), 0
+        MAX = 105
+        cache = [[[0] * 4 for _ in range(MAX)] for _ in range(MAX)]
+        for i in range(n):
+            cnt = 0
+            for j in range(m):
+                cache[i][j][0] = cnt
+                cnt = cnt + 1 if grid[i][j] == 1 else 0
+            cnt = 0
+            for j in range(m - 1, -1, -1):
+                cache[i][j][1] = cnt
+                cnt = cnt + 1 if grid[i][j] == 1 else 0
+        for j in range(m):
+            cnt = 0
+            for i in range(n):
+                cache[i][j][2] = cnt
+                cnt = cnt + 1 if grid[i][j] == 1 else 0
+            cnt = 0
+            for i in range(n - 1, -1, -1):
+                cache[i][j][3] = cnt
+                cnt = cnt + 1 if grid[i][j] == 1 else 0
+        cnt = 0
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 0:
+                    continue
+                cnt = max(cnt, 1)
+                for k in range(1, min(cache[i][j][1], cache[i][j][3]) + 1):
+                    if cache[i + k][j][1] >= k and cache[i][j + k][3] >= k:
+                        cnt = max(cnt, pow(k + 1, 2))
+        return cnt
 
 
 def main():

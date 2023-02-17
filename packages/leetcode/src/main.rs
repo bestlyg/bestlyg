@@ -35,19 +35,50 @@ impl Node {
 }
 
 impl Solution {
-    pub fn number_of_pairs(nums: Vec<i32>) -> Vec<i32> {
-        let mut list = [0; 105];
-        let mut ans = vec![0; 2];
-        for num in nums {
-            let num = num as usize;
-            list[num] ^= 1;
-            if list[num] == 0 {
-                ans[0] += 1;
+    pub fn largest1_bordered_square(grid: Vec<Vec<i32>>) -> i32 {
+        const MAX: usize = 105;
+        let n = grid.len();
+        let m = grid[0].len();
+        let mut cnt = 0;
+        let mut cache = [[[0; 4]; MAX]; MAX];
+        for i in 0..n {
+            cnt = 0;
+            for j in 0..m {
+                cache[i][j][0] = cnt;
+                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
+            }
+            cnt = 0;
+            for j in (0..m).rev() {
+                cache[i][j][1] = cnt;
+                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
             }
         }
-        for i in 0..105 {
-            ans[1] += list[0];
+        for j in 0..m {
+            cnt = 0;
+            for i in 0..n {
+                cache[i][j][2] = cnt;
+                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
+            }
+            cnt = 0;
+            for i in (0..n).rev() {
+                cache[i][j][3] = cnt;
+                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
+            }
         }
-        ans
+        cnt = 0;
+        for i in 0..n {
+            for j in 0..m {
+                if grid[i][j] == 0 {
+                    continue;
+                }
+                cnt = cnt.max(1);
+                for k in 1..=cache[i][j][1].min(cache[i][j][3]) {
+                    if cache[i + k][j][1] >= k && cache[i][j + k][3] >= k {
+                        cnt = cnt.max((k + 1).pow(2));
+                    }
+                }
+            }
+        }
+        cnt as i32
     }
 }

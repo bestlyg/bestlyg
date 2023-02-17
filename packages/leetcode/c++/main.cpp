@@ -66,26 +66,59 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 // vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
+
+#define MAX 105
+
 class Solution {
 public:
-    int longestWPI(vector<int>& hours) {
-        int n = hours.size(), ans = 0;
-        for (auto &h : hours) h = h > 8 ? 1 : -1;
-        vector<int> sums(1, 0);
-        for (auto &h : hours) sums.push_back(sums.back() + h);
-
-        cout << "sums: ";
-        for (auto &v : sums) cout << v << ", ";
-        cout << endl;
-
-        int prev = 0;
-        for (int i = 1; i <= n; i++) {
-            cout << "i = " << i << ", ans = " << ans << ", prev = " << prev << ", val = " << i - prev << endl;
-            if (sums[i] - prev > 0)
-            ans = max(ans, i - prev);
-            if (sums[i] < sums[prev]) prev = i;
+    int largest1BorderedSquare(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        // 0: l, 1: r, 2 : t, 3: b
+        int cache[MAX][MAX][4] = {0}, cnt;
+        for (int i = 0; i < n; i++) {
+            cnt = 0;
+            for (int j = 0; j < m; j++) {
+                cache[i][j][0] = cnt;
+                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
+            }
+            cnt = 0;
+            for (int j = n - 1; j >= 0; j--) {
+                cache[i][j][1] = cnt;
+                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
+            }
         }
-        return ans;
+        for (int j = 0; j < m; j++) {
+            cnt = 0;
+            for (int i = 0; i < n; i++) {
+                cache[i][j][2] = cnt;
+                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
+            }
+            cnt = 0;
+            for (int i = n - 1; i >= 0; i--) {
+                cache[i][j][3] = cnt;
+                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+             for (int j = 0; j < m; j++) {
+                printf("(%d, %d, %d, %d), ", cache[i][j][0],cache[i][j][1],cache[i][j][2],cache[i][j][3]);
+             }
+             cout << endl;
+        }
+        cnt = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 0) continue;
+                cout << "i = " << i << ", j = " << j << endl;
+                cnt = max(cnt, 1);
+                for (int k = 1; k <= min(cache[i][j][1], cache[i][j][3]); k++) {
+                    if (cache[i + k][j][2] >= k && cache[i][j + k][3] >= k) cnt = max(cnt, (int)pow(k + 1, 2));
+                }
+            }
+        }
+
+        return cnt;
     }
 };
 
