@@ -33,52 +33,32 @@ impl Node {
         }
     }
 }
+struct CustomFunction {}
+impl CustomFunction {
+    fn f(self, x: i32, y: i32) -> i32 {
+        0
+    }
+}
 
 impl Solution {
-    pub fn largest1_bordered_square(grid: Vec<Vec<i32>>) -> i32 {
-        const MAX: usize = 105;
-        let n = grid.len();
-        let m = grid[0].len();
-        let mut cnt = 0;
-        let mut cache = [[[0; 4]; MAX]; MAX];
-        for i in 0..n {
-            cnt = 0;
-            for j in 0..m {
-                cache[i][j][0] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-            cnt = 0;
-            for j in (0..m).rev() {
-                cache[i][j][1] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-        }
-        for j in 0..m {
-            cnt = 0;
-            for i in 0..n {
-                cache[i][j][2] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-            cnt = 0;
-            for i in (0..n).rev() {
-                cache[i][j][3] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-        }
-        cnt = 0;
-        for i in 0..n {
-            for j in 0..m {
-                if grid[i][j] == 0 {
-                    continue;
+    pub fn find_solution(customfunction: &CustomFunction, z: i32) -> Vec<Vec<i32>> {
+        let mut res = vec![];
+        for x in 1..=1000 {
+            let (mut l, mut r) = (1, 1000);
+            while l <= r {
+                let m = (l + r) / 2;
+                let val = customfunction.f(x, m);
+                if val == z {
+                    res.push(vec![x, m]);
+                    break;
                 }
-                cnt = cnt.max(1);
-                for k in 1..=cache[i][j][1].min(cache[i][j][3]) {
-                    if cache[i + k][j][1] >= k && cache[i][j + k][3] >= k {
-                        cnt = cnt.max((k + 1).pow(2));
-                    }
+                if val > z {
+                    r = m - 1;
+                } else {
+                    l = m + 1;
                 }
             }
         }
-        cnt as i32
+        res
     }
 }

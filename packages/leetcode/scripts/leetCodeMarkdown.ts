@@ -2,154 +2,86 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1139. 最大的以 1 为边界的正方形',
-  url: 'https://leetcode.cn/problems/largest-1-bordered-square/',
+  name: '1237. 找出给定方程的正整数解',
+  url: 'https://leetcode.cn/problems/find-positive-integer-solution-for-a-given-equation/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个由若干 0 和 1 组成的二维网格 grid，请你找出边界全部由 1 组成的最大 正方形 子网格，并返回该子网格中的元素数量。如果不存在，则返回 0。`,
+  desc: `给你一个函数  f(x, y) 和一个目标结果 z，函数公式未知，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 12,
-      memory: 10.6,
-      desc: '预处理每个点的最大延长后遍历',
-      code: `#define MAX 105
-class Solution {
+      time: 0,
+      memory: 6.3,
+      desc: '二分',
+      code: `class Solution {
 public:
-    int largest1BorderedSquare(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size();
-        // 0: l, 1: r, 2 : t, 3: b
-        int cache[MAX][MAX][4] = {0}, cnt;
-        for (int i = 0; i < n; i++) {
-            cnt = 0;
-            for (int j = 0; j < m; j++) {
-                cache[i][j][0] = cnt;
-                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
-            }
-            cnt = 0;
-            for (int j = m - 1; j >= 0; j--) {
-                cache[i][j][1] = cnt;
-                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
-            }
-        }
-        for (int j = 0; j < m; j++) {
-            cnt = 0;
-            for (int i = 0; i < n; i++) {
-                cache[i][j][2] = cnt;
-                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
-            }
-            cnt = 0;
-            for (int i = n - 1; i >= 0; i--) {
-                cache[i][j][3] = cnt;
-                cnt = grid[i][j] == 1 ? cnt + 1 : 0;
-            }
-        }
-
-        cnt = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 0) continue;
-                cnt = max(cnt, 1);
-                for (int k = 1; k <= min(cache[i][j][1], cache[i][j][3]); k++) {
-                    if (cache[i + k][j][1] >= k && cache[i][j + k][3] >= k) cnt = max(cnt, (int)pow(k + 1, 2));
+    vector<vector<int>> findSolution(CustomFunction& customfunction, int z) {
+        vector<vector<int>> res;
+        for (int x = 1; x <= 1000; x++) {
+            int l = 1, r = 1000, m;
+            while (l <= r) {
+                m = (l + r) / 2;
+                int val = customfunction.f(x, m);
+                if (val == z) {
+                    vector<int> item{ x, m };
+                    res.push_back(item);
+                    break;
                 }
+                if (val > z) r = m - 1;
+                else l = m + 1;
             }
         }
-
-        return cnt;
+        return res;
     }
-};`,
+  };`,
     },
     {
       script: Script.PY3,
-      time: 272,
-      memory: 16.3,
+      time: 148,
+      memory: 14.9,
       desc: '同上',
       code: `class Solution:
-    def largest1BorderedSquare(self, grid: List[List[int]]) -> int:
-        n, m, cnt = len(grid), len(grid[0]), 0
-        MAX = 105
-        cache = [[[0] * 4 for _ in range(MAX)] for _ in range(MAX)]
-        for i in range(n):
-            cnt = 0
-            for j in range(m):
-                cache[i][j][0] = cnt
-                cnt = cnt + 1 if grid[i][j] == 1 else 0
-            cnt = 0
-            for j in range(m - 1, -1, -1):
-                cache[i][j][1] = cnt
-                cnt = cnt + 1 if grid[i][j] == 1 else 0
-        for j in range(m):
-            cnt = 0
-            for i in range(n):
-                cache[i][j][2] = cnt
-                cnt = cnt + 1 if grid[i][j] == 1 else 0
-            cnt = 0
-            for i in range(n - 1, -1, -1):
-                cache[i][j][3] = cnt
-                cnt = cnt + 1 if grid[i][j] == 1 else 0
-        cnt = 0
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j] == 0:
-                    continue
-                cnt = max(cnt, 1)
-                for k in range(1, min(cache[i][j][1], cache[i][j][3]) + 1):
-                    if cache[i + k][j][1] >= k and cache[i][j + k][3] >= k:
-                        cnt = max(cnt, pow(k + 1, 2))
-        return cnt`,
+    def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]:
+        res = []
+        for x in range(1, 1001):
+            l, r = 1, 1000
+            while l <= r:
+                m = (l + r)//2
+                val = customfunction.f(x, m)
+                if val == z:
+                    res.append([x, m])
+                    break
+                if val > z:
+                    r = m - 1
+                else:
+                    l = m + 1
+        return res`,
     },
     {
       script: Script.RUST,
       time: 4,
-      memory: 2.5,
+      memory: 2.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn largest1_bordered_square(grid: Vec<Vec<i32>>) -> i32 {
-        const MAX: usize = 105;
-        let n = grid.len();
-        let m = grid[0].len();
-        let mut cnt = 0;
-        let mut cache = [[[0; 4]; MAX]; MAX];
-        for i in 0..n {
-            cnt = 0;
-            for j in 0..m {
-                cache[i][j][0] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-            cnt = 0;
-            for j in (0..m).rev() {
-                cache[i][j][1] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-        }
-        for j in 0..m {
-            cnt = 0;
-            for i in 0..n {
-                cache[i][j][2] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-            cnt = 0;
-            for i in (0..n).rev() {
-                cache[i][j][3] = cnt;
-                cnt = if grid[i][j] == 1 { cnt + 1 } else { 0 };
-            }
-        }
-        cnt = 0;
-        for i in 0..n {
-            for j in 0..m {
-                if grid[i][j] == 0 {
-                    continue;
+    pub fn find_solution(customfunction: &CustomFunction, z: i32) -> Vec<Vec<i32>> {
+        let mut res = vec![];
+        for x in 1..=1000 {
+            let (mut l, mut r) = (1, 1000);
+            while l <= r {
+                let m = (l + r) / 2;
+                let val = customfunction.f(x, m);
+                if val == z {
+                    res.push(vec![x, m]);
+                    break;
                 }
-                cnt = cnt.max(1);
-                for k in 1..=cache[i][j][1].min(cache[i][j][3]) {
-                    if cache[i + k][j][1] >= k && cache[i][j + k][3] >= k {
-                        cnt = cnt.max((k + 1).pow(2));
-                    }
+                if val > z {
+                    r = m - 1;
+                } else {
+                    l = m + 1;
                 }
             }
         }
-        cnt as i32
+        res
     }
 }`,
     },
