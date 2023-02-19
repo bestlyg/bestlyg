@@ -5,54 +5,9 @@ import * as MarkdownIt from 'markdown-it';
 import * as dayjs from 'dayjs';
 
 const format = 'YYYY-MM-DD';
-class ForbiddenFoods {
-  startDate = new Date('2023/1/1');
-  endDate = new Date('2023/6/30');
-  list = [
-    '猪肝',
-    '鸡肝',
-    '猪肾',
-    '沙丁鱼',
-    '龙虾',
-    '鲭鱼',
-    '凤尾鱼',
-    '花生',
-    '腰果',
-    '瓜子',
-    '开心果',
-    '黄豆芽',
-    '芦笋',
-    '香菇',
-    '蘑菇',
-    '西瓜',
-    '龙眼',
-    '木瓜',
-    '葡萄',
-    '柠檬',
-    '薯片',
-    '巧克力',
-    '汉堡',
-    '披萨',
-    '浓茶',
-    '咖啡',
-    '酒',
-  ];
-  current = new Set<string>(['巧克力']);
-  title() {
-    const startDate = dayjs(this.startDate).format(format);
-    const endDate = dayjs(this.endDate).format(format);
-    return `高尿酸禁止食物(${startDate}-${endDate})`;
-  }
-  render() {
-    const list = this.list.map((v) => {
-      const f = this.current.has(v) ? 'x' : ' ';
-      return `- [${f}] ${v}`;
-    });
-    return [`## ${this.title()}`, list.join('\n')].join('\n\n');
-  }
-}
 
 const menseHistory: string[] = [
+  '2023-2-14',
   '2023-1-5',
   '2022-12-7',
   '2022-11-5',
@@ -71,7 +26,6 @@ const menseHistory: string[] = [
 export class MailerTaskService {
   private md = new MarkdownIt();
   private menses = dayjs(menseHistory[0]);
-  private forbiddenFoods = new ForbiddenFoods();
   constructor(private readonly mailer: MailerService) {}
 
   async lyg_mailerTask(name: string, content: string) {
@@ -112,13 +66,6 @@ export class MailerTaskService {
       ),
     );
   }
-  @Cron('0 0 8,20 * * *')
-  async yzx_ForbiddenFoods() {
-    await this.yzx_mailerTask(
-      this.forbiddenFoods.title(),
-      this.md.render(this.forbiddenFoods.render()),
-    );
-  }
   @Cron('0 30 20 * * *')
   async ownerXXYX() {
     await this.lyg_mailerTask('定时提醒-晓晓优选', '晓晓优选记得提交');
@@ -141,7 +88,8 @@ export class MailerTaskService {
     const format = 'YYYY-MM-DD';
     const date_now = dayjs();
     const cnt = date_now.diff(this.menses, 'day');
-    if (cnt >= 25) {
+    const set = new Set([21, 24, 28]);
+    if (set.has(cnt)) {
       await this.yzx_mailerTask(
         '大姨妈提醒',
         `距离上一次大姨妈(${this.menses.format(format)})已有${cnt}天。`,
