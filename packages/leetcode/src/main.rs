@@ -20,45 +20,41 @@ fn main() {
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Eq, Ord)]
 struct Node {
-    end: bool,
-    children: HashMap<String, Node>,
+    x: i32,
+    y: i32,
 }
 impl Node {
-    fn new() -> Self {
-        Self {
-            end: false,
-            children: HashMap::new(),
-        }
+    fn new(x: i32, y: i32) -> Self {
+        Node { x, y }
+    }
+    fn val(&self) -> f64 {
+        (self.x + 1) as f64 / (self.y + 1) as f64 - self.x as f64 / self.y as f64
     }
 }
-struct CustomFunction {}
-impl CustomFunction {
-    fn f(self, x: i32, y: i32) -> i32 {
-        0
+impl PartialOrd for Node {
+    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
+        self.val().partial_cmp(&o.val())
     }
 }
-
 impl Solution {
-    pub fn find_solution(customfunction: &CustomFunction, z: i32) -> Vec<Vec<i32>> {
-        let mut res = vec![];
-        for x in 1..=1000 {
-            let (mut l, mut r) = (1, 1000);
-            while l <= r {
-                let m = (l + r) / 2;
-                let val = customfunction.f(x, m);
-                if val == z {
-                    res.push(vec![x, m]);
-                    break;
-                }
-                if val > z {
-                    r = m - 1;
-                } else {
-                    l = m + 1;
-                }
-            }
+    pub fn max_average_ratio(classes: Vec<Vec<i32>>, extra_students: i32) -> f64 {
+        use std::collections::BinaryHeap;
+        let heap = BinaryHeap::<Node>::new();
+        for item in classes.iter() {
+            heap.push(Node::new(item[0], item[1]));
         }
-        res
+        for _ in 0..extra_students {
+            let mut node = heap.pop().unwrap();
+            node.x += 1;
+            node.y += 1;
+            heap.push(node);
+        }
+        let mut res: f64 = 0.0;
+        while let Some(node) = heap.pop() {
+            res += node.val();
+        }
+        res / classes.len() as f64
     }
 }

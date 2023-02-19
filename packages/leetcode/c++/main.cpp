@@ -35,7 +35,7 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 // auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
-// priority_queue<node, vector<node>, declty   pe(cmp)> q(cmp);
+// priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
 #endif
 
 class UnionFind {
@@ -67,6 +67,7 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 // START
 
 
+<<<<<<< Updated upstream
 #define MAX 105
 
 class Solution {
@@ -119,8 +120,71 @@ public:
         }
 
         return cnt;
+=======
+class Solution {
+public:
+    int squareFreeSubsets(vector<int>& nums) {
+        unordered_map<int, int> cm;
+        map<int, int> m;
+        for (auto &num : nums) m[num]++;
+        vector<int> numlist;
+        for (auto &item : m) numlist.push_back(item.first);
+        int ans = 0, cnt = 0;
+        for (auto &item : m) {
+            if (canMod(item.first)) continue;
+
+            const s = toSet(item.first);
+
+            int cnt = 0;
+            for (auto &num : numlist) {
+                if (!s.count(num)) cnt++;
+            }
+
+            ans += count(cnt) * item.second;
+            ans += 1;
+
+            for (auto &citem : cm) {
+                ans += count(cnt + 1) * item.second;
+                ans += count(cnt + citem.second) * item.second;
+            }
+
+            cnt++;
+            cm[item.first] = s.size() - cnt;
+            cout << "ans = " << ans << ", cnt = " << cnt << endl;
+        }
+        return ans;
+    }
+    bool canMod(int num) {
+        if (num == 1) return false;
+        int v = sqrt(num);
+        if (v * v == num) return true;
+        for (int i = 2; i <= num; i++) {
+            if (num % i == 0) {
+                num /= i;
+                if (num % i == 0) return true;
+            }
+        }
+        return false;
+    }
+    unordered_set<int> toSet(int num) {
+        unordered_set<int> list;
+        for (int i = 2; i <= num; i++) {
+            if (num % i == 0) list.insert(i), num /= i;
+        }
+        return list;
+    }
+    int count(int cnt) {
+        int res = cnt, prev = 1, next = 2;
+        for (int i = cnt; i > 1; i--) {
+            res += prev;
+            prev += next++;
+        }
+        return res;
+>>>>>>> Stashed changes
     }
 };
+
+
 
 // END
 #ifdef LOCAL
@@ -130,3 +194,53 @@ int main() {
     return 0;
 }
 #endif
+
+
+/*
+11 
+11 2
+11 19
+11 7
+2
+2 19
+2 7
+19 
+19 7
+7
+11 2 19
+
+
+[11,2,19,7,9,27]
+输出：
+10
+预期：
+15
+
+[26,6,4,27,6,18]
+输出：
+10
+预期：
+3
+
+[26,6,4,27,6,18]
+[3,5,6,2]
+[11,2,19,7,9,27]
+[1]
+[3,4,4,5]
+
+
+
+输入：
+[8,11,17,2,29,21,20,22]
+输出：
+45
+预期：
+39
+
+2 11 17 21 22 29
+
+
+
+*/
+
+

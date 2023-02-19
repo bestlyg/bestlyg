@@ -25,22 +25,24 @@ class TreeNode:
         self.right = right
 
 
+class Node:
+    def __init__(self, x: int, y: int):
+        self.x = x
+        self.y = y
+
+    def __lt__(self, o: 'Node') -> bool:
+        v1 = 1.0 * (self.x + 1) / (self.y + 1) - 1.0 * self.x / self.y,
+        v2 = 1.0 * (o.x + 1) / (o.y + 1) - 1.0 * o.x / o.y
+        return v1 < v2
+
+
 class Solution:
-    def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]
-        res = []
-        for x in range(1, 1001):
-            l, r = 1, 1000
-            while l <= r:
-                m = (l + r)//2
-                val = customfunction.f(x, m)
-                if val == z:
-                    res.append([x, m])
-                    break
-                if val > z:
-                    r = m - 1
-                else:
-                    l = m + 1
-        return res
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
+        heap = [Node(item[0], item[1]) for item in classes]
+        heapify(heap)
+        for _ in range(extraStudents):
+            heapreplace(heap, Node(heap[0].x + 1, heap[0].y + 1))
+        return sum(1.0 * item.x / item.y for item in heap) / len(classes)
 
 
 def main():
