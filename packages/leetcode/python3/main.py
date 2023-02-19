@@ -1,6 +1,8 @@
+from functools import cache
 from heapq import *
 from collections import defaultdict
 from itertools import accumulate
+from string import ascii_lowercase
 from typing import List, Optional, Tuple
 from collections import Counter, defaultdict
 from queue import Queue
@@ -37,12 +39,31 @@ class Node:
 
 
 class Solution:
-    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
-        heap = [Node(item[0], item[1]) for item in classes]
-        heapify(heap)
-        for _ in range(extraStudents):
-            heapreplace(heap, Node(heap[0].x + 1, heap[0].y + 1))
-        return sum(1.0 * item.x / item.y for item in heap) / len(classes)
+    def findTheString(self, lcp: List[List[int]]) -> str:
+        n = len(lcp)
+        i = 0
+        s = [''] * n
+        for c in ascii_lowercase:
+            while i < n and s[i] != '':
+                i += 1
+            if i == n:
+                break
+            for j in range(i, n):
+                if lcp[i][j]:
+                    s[i] = c
+        if '' in s:
+            return ''
+        for i in range(n-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                if s[i] == s[j]:
+                    if i == n - 1 or j == n - 1:
+                        if lcp[i][j] != 1:
+                            return ''
+                    elif lcp[i][j] != lcp[i+1][j+1]:
+                        return ''
+                elif lcp[i][j]:
+                    return ''
+        ''.join(s)
 
 
 def main():

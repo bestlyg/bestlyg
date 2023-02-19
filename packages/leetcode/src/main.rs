@@ -39,22 +39,44 @@ impl PartialOrd for Node {
     }
 }
 impl Solution {
-    pub fn max_average_ratio(classes: Vec<Vec<i32>>, extra_students: i32) -> f64 {
-        use std::collections::BinaryHeap;
-        let heap = BinaryHeap::<Node>::new();
-        for item in classes.iter() {
-            heap.push(Node::new(item[0], item[1]));
+    pub fn find_the_string(lcp: Vec<Vec<i32>>) -> String {
+        let n = lcp.len();
+        let mut list = vec!['\0'; n];
+        let mut c = 'a';
+        let mut i = 0;
+        while (c as u8) <= ('z' as u8) {
+            while i < n && list[i] != '\0' {
+                i += 1;
+            }
+            if i == n {
+                break;
+            }
+            for j in i..n {
+                if lcp[i][j] != 0 {
+                    list[j] = c;
+                }
+            }
+            c = ((c as u8) + 1) as char;
         }
-        for _ in 0..extra_students {
-            let mut node = heap.pop().unwrap();
-            node.x += 1;
-            node.y += 1;
-            heap.push(node);
+        if list.contains(&'\0') {
+            String::new()
+        } else {
+            for i in (0..n).rev() {
+                for j in (0..n).rev() {
+                    if list[i] == list[j] {
+                        if i == n - 1 || j == n - 1 {
+                            if lcp[i][j] != 1 {
+                                return String::new();
+                            }
+                        } else if lcp[i][j] != lcp[i + 1][j + 1] + 1 {
+                            return String::new();
+                        }
+                    } else if lcp[i][j] != 0 {
+                        return String::new();
+                    }
+                }
+            }
+            String::from_utf8(list.into_iter().map(|c| c as u8).collect::<Vec<u8>>()).unwrap()
         }
-        let mut res: f64 = 0.0;
-        while let Some(node) = heap.pop() {
-            res += node.val();
-        }
-        res / classes.len() as f64
     }
 }

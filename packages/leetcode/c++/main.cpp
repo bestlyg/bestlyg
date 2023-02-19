@@ -36,6 +36,11 @@ struct ListNode {
 };
 // auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
 // priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
+void binary(unsigned n, int lastbit = 31) {
+    unsigned i;
+    for (i = 1 << lastbit; i > 0; i >>= 1)
+        printf("%u", !!(n & i));
+}
 #endif
 
 class UnionFind {
@@ -63,11 +68,10 @@ void idx2Pos(int idx, int size, int &x, int &y) {
     x = idx / size;
     y = idx % size;
 }
-// vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
 
-<<<<<<< Updated upstream
 #define MAX 105
 
 class Solution {
@@ -180,7 +184,6 @@ public:
             prev += next++;
         }
         return res;
->>>>>>> Stashed changes
     }
 };
 
@@ -240,6 +243,49 @@ int main() {
 2 11 17 21 22 29
 
 
+class Solution {
+public:
+    int squareFreeSubsets(vector<int>& nums) {
+        // 质数表
+        const int MAXK = 10;
+        int prime[10] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+
+        // 检查 x 是否为平方数
+        auto check = [&](int x) {
+            for (int i = 0; i < MAXK; i++) if (x % (prime[i] * prime[i]) == 0) return true;
+            return false;
+        };
+
+        const int MOD = 1e9 + 7;
+        int n = nums.size();
+        long long f[n + 1][1 << MAXK];
+        memset(f, 0, sizeof(f));
+        f[0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            // 不把第 i 个数加入子集的方案数
+            for (int j = 0; j < (1 << MAXK); j++) f[i][j] = f[i - 1][j];
+            int x = nums[i - 1];
+            // 如果 x 是平方数，那么肯定不能把它加入子集，直接看下一个数
+            if (check(x)) continue;
+            // 计算第 i 个数的质因数分解
+            int msk = 0;
+            for (int j = 0; j < MAXK; j++) if (x % prime[j] == 0) msk |= 1 << j;
+            // 把第 i 个数加入子集的方案数
+            for (int j = 0; j < (1 << MAXK); j++) if ((j & msk) == 0) f[i][j | msk] = (f[i][j | msk] + f[i - 1][j]) % MOD;
+        }
+
+        long long ans = 0;
+        for (int j = 0; j < (1 << MAXK); j++) ans = (ans + f[n][j]) % MOD;
+        // 注意题目求的是非空子集，因此要扣掉空集合
+        ans = (ans - 1 + MOD) % MOD;
+        return ans;
+    }
+};
+
+作者：tsreaper
+链接：https://leetcode.cn/problems/count-the-number-of-square-free-subsets/solution/zhuang-ya-dp-by-tsreaper-dwts/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 */
 

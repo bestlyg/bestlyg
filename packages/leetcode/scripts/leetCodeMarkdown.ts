@@ -2,110 +2,120 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1792. 最大平均通过率',
-  url: 'https://leetcode.cn/problems/maximum-average-pass-ratio/',
+  name: '6363. 找出对应 LCP 矩阵的字符串',
+  url: 'https://leetcode.cn/problems/find-the-string-with-lcp/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回在安排这 extraStudents 个学生去对应班级后的 最大 平均通过率。`,
+  desc: `给你一个 n x n 的矩阵 lcp 。返回与 lcp 对应的、按字典序最小的字符串 word 。如果不存在这样的字符串，则返回空字符串。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 844,
-      memory: 85.8,
-      desc: '堆，按增长幅度排序',
+      time: 168,
+      memory: 67.1,
+      desc: '贪心的构造出字符串，再通过lcp验证字符串是否成立',
       code: `class Solution {
-    public:
-        typedef pair<int, int> node;
-        double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
-            double ans = 0.0;
-            auto cmp = [&](node x, node y) -> bool {
-                double v1 = 1.0 * (x.first + 1) / (x.second + 1) - 1.0 * x.first / x.second,
-                       v2 = 1.0 * (y.first + 1) / (y.second + 1) - 1.0 * y.first / y.second;
-                return v1 < v2;
-            };
-            priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
-            for (auto &item : classes) q.push(make_pair(item[0], item[1]));
-            while (extraStudents--) {
-                node item = q.top(); q.pop();
-                item.first += 1;
-                item.second += 1;
-                q.push(item);
-            }
-            while (q.size()) {
-                node item = q.top(); q.pop();
-                ans += 1.0 * item.first / item.second;
-            }
-            return ans / classes.size();
+public:
+    string findTheString(vector<vector<int>>& lcp) {
+        int n = lcp.size(), i = 0;
+        string s;
+        for (int j = 0; j < n; j++) s += "#";
+        for (char c = 'a'; c <= 'z'; c++) {
+            while (i < n && s[i] != '#') i++;
+            if (i == n) break;
+            for (int j = i; j < n; j++)
+                if (lcp[i][j]) s[j] = c;
         }
-    };`,
+        if (s.find('#') != string::npos) return "";
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (s[i] == s[j]) {
+                    if (i == n - 1 || j == n - 1) {
+                        if (lcp[i][j] != 1) return "";
+                    } else if (lcp[i][j] != lcp[i + 1][j + 1] + 1) return "";
+                } else if (lcp[i][j]) return "";
+            }
+        }
+        return s;
+    }
+};`,
     },
     {
       script: Script.PY3,
-      time: 8748,
-      memory: 48.4,
+      time: 320,
+      memory: 45.2,
       desc: '同上',
-      code: `class Node:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
-
-    def __lt__(self, o: 'Node') -> bool:
-        v1 = (self.x + 1) / (self.y + 1) - self.x / self.y
-        v2 = (o.x + 1) / (o.y + 1) - o.x / o.y
-        return v1 > v2
-
-class Solution:
-    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
-        heap = [Node(item[0], item[1]) for item in classes]
-        heapify(heap)
-        for _ in range(extraStudents):
-            heapreplace(heap, Node(heap[0].x + 1, heap[0].y + 1))
-        return sum(item.x / item.y for item in heap) / len(classes)`,
+      code: `class Solution:
+    def findTheString(self, lcp: List[List[int]]) -> str:
+        n = len(lcp)
+        i = 0
+        s = [''] * n
+        for c in ascii_lowercase:
+            while i < n and s[i] != '':
+                i += 1
+            if i == n:
+                break
+            for j in range(i, n):
+                if lcp[i][j]:
+                    s[j] = c
+        if '' in s:
+            return ''
+        for i in range(n-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                if s[i] == s[j]:
+                    if i == n - 1 or j == n - 1:
+                        if lcp[i][j] != 1:
+                            return ''
+                    elif lcp[i][j] != lcp[i+1][j+1] + 1:
+                        return ''
+                elif lcp[i][j]:
+                    return ''
+        return ''.join(s)`,
     },
     {
       script: Script.RUST,
-      time: 424,
-      memory: 10,
+      time: 28,
+      memory: 9.4,
       desc: '同上',
-      code: `#[derive(Clone, PartialEq, Eq, Ord)]
-struct Node {
-    x: i32,
-    y: i32,
-}
-impl Node {
-    fn new(x: i32, y: i32) -> Self {
-        Node { x, y }
-    }
-    fn inc_val(&self) -> f64 {
-        ((self.x + 1) as f64) / ((self.y + 1) as f64) - (self.x as f64) / (self.y as f64)
-    }
-    fn val(&self) -> f64 {
-        (self.x as f64) / (self.y as f64)
-    }
-}
-impl PartialOrd for Node {
-    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
-        self.inc_val().partial_cmp(&o.inc_val())
-    }
-}
-impl Solution {
-    pub fn max_average_ratio(classes: Vec<Vec<i32>>, extra_students: i32) -> f64 {
-        use std::collections::BinaryHeap;
-        let mut heap = BinaryHeap::<Node>::new();
-        for item in classes.iter() {
-            heap.push(Node::new(item[0], item[1]));
+      code: `impl Solution {
+    pub fn find_the_string(lcp: Vec<Vec<i32>>) -> String {
+        let n = lcp.len();
+        let mut list = vec!['\\0'; n];
+        let mut c = 'a';
+        let mut i = 0;
+        while (c as u8) <= ('z' as u8) {
+            while i < n && list[i] != '\\0' {
+                i += 1;
+            }
+            if i == n {
+                break;
+            }
+            for j in i..n {
+                if lcp[i][j] != 0 {
+                    list[j] = c;
+                }
+            }
+            c = ((c as u8) + 1) as char;
         }
-        for _ in 0..extra_students {
-            let mut node = heap.pop().unwrap();
-            node.x += 1;
-            node.y += 1;
-            heap.push(node);
+        if list.contains(&'\\0') {
+            String::new()
+        } else {
+            for i in (0..n).rev() {
+                for j in (0..n).rev() {
+                    if list[i] == list[j] {
+                        if i == n - 1 || j == n - 1 {
+                            if lcp[i][j] != 1 {
+                                return String::new();
+                            }
+                        } else if lcp[i][j] != lcp[i + 1][j + 1] + 1 {
+                            return String::new();
+                        }
+                    } else if lcp[i][j] != 0 {
+                        return String::new();
+                    }
+                }
+            }
+            String::from_utf8(list.into_iter().map(|c| c as u8).collect::<Vec<u8>>()).unwrap()
         }
-        let mut res: f64 = 0.0;
-        while let Some(node) = heap.pop() {
-            res += node.val();
-        }
-        res / classes.len() as f64
     }
 }`,
     },
