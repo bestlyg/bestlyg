@@ -1,0 +1,37 @@
+{
+    "name": "2347.最好的扑克手牌",
+    "url": "https://leetcode.cn/problems/best-poker-hand/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你返回一个字符串，表示给定的 5 张牌中，你能组成的 最好手牌类型 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 10,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    string bestHand(vector<int>& ranks, vector<char>& suits) {\n        unordered_map<int, int> m;\n        for (auto &v : suits) {\n            m[v] += 1;\n            if (m[v] == 5) return \"Flush\";\n        }\n        m.clear();\n        for (auto &v : ranks) {\n            m[v] += 1;\n            if (m[v] >= 3) return \"Three of a Kind\";\n        }\n        for (auto &item : m) {\n            if (item.second >= 2) return \"Pair\";\n        }\n        return \"High Card\";\n    }\n};",
+            "date": 1676822400000
+        },
+        {
+            "script": "python3",
+            "time": 44,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def bestHand(self, ranks: List[int], suits: List[str]) -> str:\n        n = len(set(suits))\n        if n == 1:\n            return 'Flush'\n        c = Counter(ranks)\n        if len(c) == 5:\n            return 'High Card'\n        for _, v in c.items():\n            if v >= 3:\n                return 'Three of a Kind'\n        return 'Pair'",
+            "date": 1676822400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn best_hand(ranks: Vec<i32>, suits: Vec<char>) -> String {\n        use std::collections::HashMap;\n        let mut m = HashMap::<i32, i32>::new();\n        for v in suits {\n            let v = v as i32;\n            let item = m.entry(v).or_insert(0);\n            *item += 1;\n            if *item == 5 {\n                return \"Flush\".to_string();\n            }\n        }\n        m.clear();\n        for v in ranks {\n            let item = m.entry(v).or_insert(0);\n            *item += 1;\n            if *item >= 3 {\n                return \"Three of a Kind\".to_string();\n            }\n        }\n        for (_, v) in m {\n            if v >= 2 {\n                return \"Pair\".to_string();\n            }\n        }\n        \"High Card\".to_string()\n    }\n}",
+            "date": 1676822400000
+        }
+    ]
+}

@@ -39,44 +39,30 @@ impl PartialOrd for Node {
     }
 }
 impl Solution {
-    pub fn find_the_string(lcp: Vec<Vec<i32>>) -> String {
-        let n = lcp.len();
-        let mut list = vec!['\0'; n];
-        let mut c = 'a';
-        let mut i = 0;
-        while (c as u8) <= ('z' as u8) {
-            while i < n && list[i] != '\0' {
-                i += 1;
+    pub fn best_hand(ranks: Vec<i32>, suits: Vec<char>) -> String {
+        use std::collections::HashMap;
+        let mut m = HashMap::<i32, i32>::new();
+        for v in suits {
+            let v = v as i32;
+            let item = m.entry(v).or_insert(0);
+            *item += 1;
+            if *item == 5 {
+                return "Flush".to_string();
             }
-            if i == n {
-                break;
-            }
-            for j in i..n {
-                if lcp[i][j] != 0 {
-                    list[j] = c;
-                }
-            }
-            c = ((c as u8) + 1) as char;
         }
-        if list.contains(&'\0') {
-            String::new()
-        } else {
-            for i in (0..n).rev() {
-                for j in (0..n).rev() {
-                    if list[i] == list[j] {
-                        if i == n - 1 || j == n - 1 {
-                            if lcp[i][j] != 1 {
-                                return String::new();
-                            }
-                        } else if lcp[i][j] != lcp[i + 1][j + 1] + 1 {
-                            return String::new();
-                        }
-                    } else if lcp[i][j] != 0 {
-                        return String::new();
-                    }
-                }
+        m.clear();
+        for v in ranks {
+            let item = m.entry(v).or_insert(0);
+            *item += 1;
+            if *item >= 3 {
+                return "Three of a Kind".to_string();
             }
-            String::from_utf8(list.into_iter().map(|c| c as u8).collect::<Vec<u8>>()).unwrap()
         }
+        for (_, v) in m {
+            if v >= 2 {
+                return "Pair".to_string();
+            }
+        }
+        "High Card".to_string()
     }
 }
