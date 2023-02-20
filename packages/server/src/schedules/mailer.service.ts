@@ -60,8 +60,6 @@ export class MailerTaskService {
           `1. Arcaea每日能量。`,
           `1. 扇贝英语每日打卡。`,
           `1. 番茄小说每日签到。`,
-          ``,
-          `${this.md.render(this.forbiddenFoods.render())}`,
         ].join('\n'),
       ),
     );
