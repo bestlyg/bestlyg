@@ -1,11 +1,12 @@
 {
+    "id": "2433",
     "name": "2347.最好的扑克手牌",
-    "url": "https://leetcode.cn/problems/best-poker-hand/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/best-poker-hand",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
         "数组",
-        "矩阵"
+        "哈希表",
+        "计数"
     ],
     "desc": "请你返回一个字符串，表示给定的 5 张牌中，你能组成的 最好手牌类型 。",
     "solutions": [

@@ -1,8 +1,8 @@
 {
     "id": "2710",
-    "name": "6365.将整数减少到零需要的最少操作数",
+    "name": "2571.将整数减少到零需要的最少操作数",
     "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-an-integer-to-0",
-    "difficulty": "简单",
+    "difficulty": "中等",
     "tag": [],
     "desc": "返回使 n 等于 0 需要执行的 最少 操作数。",
     "solutions": [
