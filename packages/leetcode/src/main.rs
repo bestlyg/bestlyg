@@ -38,31 +38,27 @@ impl PartialOrd for Node {
         self.val().partial_cmp(&o.val())
     }
 }
+
 impl Solution {
-    pub fn best_hand(ranks: Vec<i32>, suits: Vec<char>) -> String {
-        use std::collections::HashMap;
-        let mut m = HashMap::<i32, i32>::new();
-        for v in suits {
-            let v = v as i32;
-            let item = m.entry(v).or_insert(0);
-            *item += 1;
-            if *item == 5 {
-                return "Flush".to_string();
+    pub fn min_taps(n: i32, ranges: Vec<i32>) -> i32 {
+        let n = n as usize;
+        let mut l = vec![0; n + 1];
+        for i in 0..ranges.len() {
+            let start = 0.max(i as i32 - ranges[i]) as usize;
+            let end = (n as i32).min(i as i32 + ranges[i]) as usize;
+            l[start] = l[start].max(end);
+        }
+        let (mut res, mut pre, mut last) = (0, 0, 0);
+        for i in 0..n {
+            last = last.max(l[i]);
+            if last == i {
+                return -1;
+            }
+            if i == pre {
+                res += 1;
+                pre = last
             }
         }
-        m.clear();
-        for v in ranks {
-            let item = m.entry(v).or_insert(0);
-            *item += 1;
-            if *item >= 3 {
-                return "Three of a Kind".to_string();
-            }
-        }
-        for (_, v) in m {
-            if v >= 2 {
-                return "Pair".to_string();
-            }
-        }
-        "High Card".to_string()
+        res
     }
 }

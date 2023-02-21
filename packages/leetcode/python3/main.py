@@ -39,17 +39,21 @@ class Node:
 
 
 class Solution:
-    def bestHand(self, ranks: List[int], suits: List[str]) -> str:
-        n = len(set(suits))
-        if n == 1:
-            return 'Flush'
-        c = Counter(ranks)
-        if len(c) == 5:
-            return 'High Card'
-        for _, v in c.items():
-            if v >= 3:
-                return 'Three of a Kind'
-        return 'Pair'
+    def minTaps(self, n: int, ranges: List[int]) -> int:
+        l = [-1] * (n + 1)
+        for i in range(len(ranges)):
+            start = max(i - ranges[i], 0)
+            end = min(i + ranges[i], n)
+            l[start] = max(l[start], end)
+        cnt = prev = last = 0
+        for i in range(n):
+            last = max(last, l[i])
+            if last == i:
+                return -1
+            if i == prev:
+                prev = last
+                cnt += 1
+        return cnt
 
 
 def main():

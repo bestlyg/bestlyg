@@ -1,0 +1,38 @@
+{
+    "id": "1451",
+    "name": "1326.灌溉花园的最少水龙头数目",
+    "url": "https://leetcode.cn/problems/minimum-number-of-taps-to-open-to-water-a-garden",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划"
+    ],
+    "desc": "请你返回可以灌溉整个花园的 最少水龙头数目 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 14.3,
+            "desc": "贪心，对每个起点找尽可能远的终点。",
+            "code": "class Solution {\npublic:\n    int minTaps(int n, vector<int>& ranges) {\n        vector<int> list(n + 1, -1);\n        for (int i = 0; i < n + 1; i++) {\n            int start = max(i - ranges[i], 0), end = min(i + ranges[i], n);\n            list[start] = max(list[start], end);\n        }\n        int cnt = 0, prev = 0, last = 0;\n        for (int i = 0; i < n; i++) {\n            last = max(last, list[i]);\n            if (last == i) return -1;\n            if (i == prev) cnt++, prev = last;\n        }\n        return cnt;\n    }\n};",
+            "date": 1676908800000
+        },
+        {
+            "script": "python3",
+            "time": 84,
+            "memory": 15.3,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minTaps(self, n: int, ranges: List[int]) -> int:\n        l = [-1] * (n + 1)\n        for i in range(len(ranges)):\n            start = max(i - ranges[i], 0)\n            end = min(i + ranges[i], n)\n            l[start] = max(l[start], end)\n        cnt = prev = last = 0\n        for i in range(n):\n            last = max(last, l[i])\n            if last == i:\n                return -1\n            if i == prev:\n                prev = last\n                cnt += 1\n        return cnt",
+            "date": 1676908800000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.4,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn min_taps(n: i32, ranges: Vec<i32>) -> i32 {\n        let n = n as usize;\n        let mut l = vec![0; n + 1];\n        for i in 0..ranges.len() {\n            let start = 0.max(i as i32 - ranges[i]) as usize;\n            let end = (n as i32).min(i as i32 + ranges[i]) as usize;\n            l[start] = l[start].max(end);\n        }\n        let (mut res, mut pre, mut last) = (0, 0, 0);\n        for i in 0..n {\n            last = last.max(l[i]);\n            if last == i {\n                return -1;\n            }\n            if i == pre {\n                res += 1;\n                pre = last\n            }\n        }\n        res\n    }\n}",
+            "date": 1676908800000
+        }
+    ]
+}

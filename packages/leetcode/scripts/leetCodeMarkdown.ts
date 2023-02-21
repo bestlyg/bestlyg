@@ -2,86 +2,83 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2347. 最好的扑克手牌',
-  url: 'https://leetcode.cn/problems/best-poker-hand/',
+  name: '1326. 灌溉花园的最少水龙头数目',
+  url: 'https://leetcode.cn/problems/minimum-number-of-taps-to-open-to-water-a-garden/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回一个字符串，表示给定的 5 张牌中，你能组成的 最好手牌类型 。`,
+  desc: `请你返回可以灌溉整个花园的 最少水龙头数目 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 10,
-      desc: '遍历',
+      time: 16,
+      memory: 14.3,
+      desc: '贪心，对每个起点找尽可能远的终点',
       code: `class Solution {
 public:
-    string bestHand(vector<int>& ranks, vector<char>& suits) {
-        unordered_map<int, int> m;
-        for (auto &v : suits) {
-            m[v] += 1;
-            if (m[v] == 5) return "Flush";
+    int minTaps(int n, vector<int>& ranges) {
+        vector<int> list(n + 1, -1);
+        for (int i = 0; i < n + 1; i++) {
+            int start = max(i - ranges[i], 0), end = min(i + ranges[i], n);
+            list[start] = max(list[start], end);
         }
-        m.clear();
-        for (auto &v : ranks) {
-            m[v] += 1;
-            if (m[v] >= 3) return "Three of a Kind";
+        int cnt = 0, prev = 0, last = 0;
+        for (int i = 0; i < n; i++) {
+            last = max(last, list[i]);
+            if (last == i) return -1;
+            if (i == prev) cnt++, prev = last;
         }
-        for (auto &item : m) {
-            if (item.second >= 2) return "Pair";
-        }
-        return "High Card";
+        return cnt;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 44,
-      memory: 15,
+      time: 84,
+      memory: 15.3,
       desc: '同上',
       code: `class Solution:
-    def bestHand(self, ranks: List[int], suits: List[str]) -> str:
-        n = len(set(suits))
-        if n == 1:
-            return 'Flush'
-        c = Counter(ranks)
-        if len(c) == 5:
-            return 'High Card'
-        for _, v in c.items():
-            if v >= 3:
-                return 'Three of a Kind'
-        return 'Pair'`,
+    def minTaps(self, n: int, ranges: List[int]) -> int:
+        l = [-1] * (n + 1)
+        for i in range(len(ranges)):
+            start = max(i - ranges[i], 0)
+            end = min(i + ranges[i], n)
+            l[start] = max(l[start], end)
+        cnt = prev = last = 0
+        for i in range(n):
+            last = max(last, l[i])
+            if last == i:
+                return -1
+            if i == prev:
+                prev = last
+                cnt += 1
+        return cnt`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 4,
+      memory: 2.4,
       desc: '同上',
       code: `impl Solution {
-    pub fn best_hand(ranks: Vec<i32>, suits: Vec<char>) -> String {
-        use std::collections::HashMap;
-        let mut m = HashMap::<i32, i32>::new();
-        for v in suits {
-            let v = v as i32;
-            let item = m.entry(v).or_insert(0);
-            *item += 1;
-            if *item == 5 {
-                return "Flush".to_string();
+    pub fn min_taps(n: i32, ranges: Vec<i32>) -> i32 {
+        let n = n as usize;
+        let mut l = vec![0; n + 1];
+        for i in 0..ranges.len() {
+            let start = 0.max(i as i32 - ranges[i]) as usize;
+            let end = (n as i32).min(i as i32 + ranges[i]) as usize;
+            l[start] = l[start].max(end);
+        }
+        let (mut res, mut pre, mut last) = (0, 0, 0);
+        for i in 0..n {
+            last = last.max(l[i]);
+            if last == i {
+                return -1;
+            }
+            if i == pre {
+                res += 1;
+                pre = last
             }
         }
-        m.clear();
-        for v in ranks {
-            let item = m.entry(v).or_insert(0);
-            *item += 1;
-            if *item >= 3 {
-                return "Three of a Kind".to_string();
-            }
-        }
-        for (_, v) in m {
-            if v >= 2 {
-                return "Pair".to_string();
-            }
-        }
-        "High Card".to_string()
+        res
     }
 }`,
     },
