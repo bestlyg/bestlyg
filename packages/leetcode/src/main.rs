@@ -40,25 +40,22 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn min_taps(n: i32, ranges: Vec<i32>) -> i32 {
-        let n = n as usize;
-        let mut l = vec![0; n + 1];
-        for i in 0..ranges.len() {
-            let start = 0.max(i as i32 - ranges[i]) as usize;
-            let end = (n as i32).min(i as i32 + ranges[i]) as usize;
-            l[start] = l[start].max(end);
-        }
-        let (mut res, mut pre, mut last) = (0, 0, 0);
-        for i in 0..n {
-            last = last.max(l[i]);
-            if last == i {
-                return -1;
-            }
-            if i == pre {
-                res += 1;
-                pre = last
+    pub fn stone_game_ii(piles: Vec<i32>) -> i32 {
+        let n = piles.len();
+        let mut sum = 0;
+        let mut dp = vec![vec![0; n + 1]; n];
+        for i in (0..n).rev() {
+            sum += piles[i];
+            for m in 1..=n {
+                if i + 2 * m >= n {
+                    dp[i][m] = sum
+                } else {
+                    for x in 1..=(2 * m) {
+                        dp[i][m] = dp[i][m].max(sum - dp[i + x][x.max(m)])
+                    }
+                }
             }
         }
-        res
+        dp[0][1]
     }
 }

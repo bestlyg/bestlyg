@@ -39,21 +39,18 @@ class Node:
 
 
 class Solution:
-    def minTaps(self, n: int, ranges: List[int]) -> int:
-        l = [-1] * (n + 1)
-        for i in range(len(ranges)):
-            start = max(i - ranges[i], 0)
-            end = min(i + ranges[i], n)
-            l[start] = max(l[start], end)
-        cnt = prev = last = 0
-        for i in range(n):
-            last = max(last, l[i])
-            if last == i:
-                return -1
-            if i == prev:
-                prev = last
-                cnt += 1
-        return cnt
+    def stoneGameII(self, piles: List[int]) -> int:
+        n, sumv = len(piles), 0
+        dp = [[0] * (n + 1) for _ in range(n)]
+        for i in range(n - 1, -1, -1):
+            sumv += piles[i]
+            for m in range(1, n + 1):
+                if i + 2 * m >= n:
+                    dp[i][m] = sumv
+                else:
+                    for x in range(1, 2*m+1):
+                        dp[i][m] = max(dp[i][m], dp[i + x][max(x, m)])
+        return dp[0][1]
 
 
 def main():
