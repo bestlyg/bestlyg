@@ -39,18 +39,41 @@ class Node:
 
 
 class Solution:
-    def stoneGameII(self, piles: List[int]) -> int:
-        n, sumv = len(piles), 0
-        dp = [[0] * (n + 1) for _ in range(n)]
-        for i in range(n - 1, -1, -1):
-            sumv += piles[i]
-            for m in range(1, n + 1):
-                if i + 2 * m >= n:
-                    dp[i][m] = sumv
+    def circularPermutation(self, n: int, start: int) -> List[int]:
+        ans = [0] * pow(2, n)
+        ans[0] = start
+        used = set()
+        used.add(start)
+
+        def compare(num1: int, num2: int) -> bool:
+            cnt = 0
+            for i in range(n):
+                v1 = num1 & (1 << i)
+                v2 = num2 & (1 << i)
+                if v1 != v2:
+                    cnt += 1
+            return cnt == 1
+
+        def dfs(prev: int, idx: int) -> bool:
+            if idx == pow(2, n):
+                return compare(ans[0], ans[-1])
+            for i in range(n):
+                v = prev & (1 << i)
+                nextv = prev
+                if v:
+                    nextv &= ~(1 << i)
                 else:
-                    for x in range(1, 2*m+1):
-                        dp[i][m] = max(dp[i][m], dp[i + x][max(x, m)])
-        return dp[0][1]
+                    nextv |= (1 << i)
+                if nextv in used:
+                    continue
+                used.add(nextv)
+                ans[idx] = nextv
+                if dfs(nextv, idx+1):
+                    return True
+                used.remove(nextv)
+            return False
+        dfs(start, 1)
+        return ans
 
 
 def main():

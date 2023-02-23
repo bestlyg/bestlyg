@@ -2,75 +2,146 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1140. 石子游戏 II',
-  url: 'https://leetcode.cn/problems/stone-game-ii/',
+  name: '1238. 循环码排列',
+  url: 'https://leetcode.cn/problems/circular-permutation-in-binary-representation//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `假设爱丽丝和鲍勃都发挥出最佳水平，返回爱丽丝可以得到的最大数量的石头。`,
+  desc: `给你两个整数 n 和 start。你的任务是返回任意 (0,1,2,,...,2^n-1) 的排列 p，并且满足：, p[0] = start, p[i] 和 p[i+1] 的二进制表示形式只有一位不同, p[0] 和 p[2^n -1] 的二进制表示形式也只有一位不同`,
   solutions: [
     {
       script: Script.CPP,
-      time: 16,
-      memory: 14.3,
-      desc: 'dp[i][m]=第i轮拾取时m情况下的最大数量',
+      time: 120,
+      memory: 57,
+      desc: 'dfs',
       code: `class Solution {
 public:
-    int stoneGameII(vector<int>& piles) {
-        int n = piles.size(), sum = 0;
-        vector<vector<int>> dp(n, vector<int>(n + 1));
-        for (int i = n - 1; i >= 0; i--) {
-            sum += piles[i];
-            for (int m = 1; m <= n; m++) {
-                if (i + 2 * m >= n) dp[i][m] = sum;
-                else for (int x = 1; x <= 2 * m; x++) dp[i][m] = max(dp[i][m], sum - dp[i + x][max(m, x)]);
-            }
+    vector<int> circularPermutation(int n, int start) {
+        vector<int> ans(pow(2, n));
+        ans[0] = start;
+        unordered_set<int> used;
+        used.insert(start);
+        dfs(ans, used, n, start, 1);
+        return ans;
+    }
+    bool dfs(vector<int> &ans, unordered_set<int> &used, int n, int prev, int idx) {
+        if (idx == pow(2, n)) {
+            return compare(n, ans[0], ans[idx - 1]);
         }
-        return dp[0][1];
+        for (int i = 0; i < n; i++) {
+            int v = prev & (1 << i), next = prev;
+            if (v) next &= ~(1 << i);
+            else next |= (1 << i); 
+            if (used.count(next)) continue;
+            used.insert(next);
+            ans[idx] = next;
+            if (dfs(ans, used, n, next, idx + 1)) return true;
+            used.erase(next);
+        }
+        return false;
+    }
+    bool compare(int n, int num1, int num2) {
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            int v1 = num1 & (1 << i), v2 = num2 & (1 << i);
+            if (v1 != v2) cnt++;
+        }
+        return cnt == 1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 428,
-      memory: 15.3,
+      time: 372,
+      memory: 106.3,
       desc: '同上',
       code: `class Solution:
-    def stoneGameII(self, piles: List[int]) -> int:
-        n, sumv = len(piles), 0
-        dp = [[0] * (n + 1) for _ in range(n)]
-        for i in range(n - 1, -1, -1):
-            sumv += piles[i]
-            for m in range(1, n + 1):
-                if i + 2 * m >= n:
-                    dp[i][m] = sumv
-                else:
-                    for x in range(1, 2*m+1):
-                        dp[i][m] = max(dp[i][m], sumv - dp[i + x][max(x, m)])
-        return dp[0][1]`,
+        def circularPermutation(self, n: int, start: int) -> List[int]:
+            ans = [0] * pow(2, n)
+            ans[0] = start
+            used = set()
+            used.add(start)
+    
+            def compare(num1: int, num2: int) -> bool:
+                cnt = 0
+                for i in range(n):
+                    v1 = num1 & (1 << i)
+                    v2 = num2 & (1 << i)
+                    if v1 != v2:
+                        cnt += 1
+                return cnt == 1
+    
+            def dfs(prev: int, idx: int) -> bool:
+                if idx == pow(2, n):
+                    return compare(ans[0], ans[-1])
+                for i in range(n):
+                    v = prev & (1 << i)
+                    nextv = prev
+                    if v:
+                        nextv &= ~(1 << i)
+                    else:
+                        nextv |= (1 << i)
+                    if nextv in used:
+                        continue
+                    used.add(nextv)
+                    ans[idx] = nextv
+                    if dfs(nextv, idx+1):
+                        return True
+                    used.remove(nextv)
+                return False
+            dfs(start, 1)
+            return ans`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.2,
+      time: 44,
+      memory: 12.4,
       desc: '同上',
-      code: `impl Solution {
-    pub fn stone_game_ii(piles: Vec<i32>) -> i32 {
-        let n = piles.len();
-        let mut sum = 0;
-        let mut dp = vec![vec![0; n + 1]; n];
-        for i in (0..n).rev() {
-            sum += piles[i];
-            for m in 1..=n {
-                if i + 2 * m >= n {
-                    dp[i][m] = sum
+      code: `use std::collections::HashSet;
+impl Solution {
+    pub fn circular_permutation(n: i32, start: i32) -> Vec<i32> {
+        let n = n as u32;
+        let mut ans = vec![0; 2usize.pow(n)];
+        ans[0] = start;
+        let mut used = HashSet::<i32>::new();
+        used.insert(start);
+        Solution::dfs(&mut ans, &mut used, n, start, 1);
+        ans
+    }
+    fn dfs(ans: &mut Vec<i32>, used: &mut HashSet<i32>, n: u32, prev: i32, idx: usize) -> bool {
+        if idx == 2usize.pow(n) {
+            Solution::compare(n, *ans.first().unwrap(), *ans.last().unwrap())
+        } else {
+            for i in 0..n {
+                let v = prev & (1 << i);
+                let mut next = prev;
+                if v != 0 {
+                    next &= !(1 << i);
                 } else {
-                    for x in 1..=(2 * m) {
-                        dp[i][m] = dp[i][m].max(sum - dp[i + x][x.max(m)])
-                    }
+                    next |= 1 << i;
                 }
+                if used.contains(&next) {
+                    continue;
+                }
+                used.insert(next);
+                ans[idx] = next;
+                if Solution::dfs(ans, used, n, next, idx + 1) {
+                    return true;
+                }
+                used.remove(&next);
+            }
+            false
+        }
+    }
+    fn compare(n: u32, num1: i32, num2: i32) -> bool {
+        let mut cnt = 0;
+        for i in 0..n {
+            let v1 = num1 & (1 << i);
+            let v2 = num2 & (1 << i);
+            if v1 != v2 {
+                cnt += 1;
             }
         }
-        dp[0][1]
+        cnt == 1
     }
 }`,
     },

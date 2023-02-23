@@ -70,20 +70,39 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
-
 class Solution {
 public:
-    int stoneGameII(vector<int>& piles) {
-        int n = piles.size(), sum = 0;
-        vector<vector<int>> dp(n, vector<int>(n + 1));
-        for (int i = n - 1; i >= 0; i--) {
-            sum += piles[i];
-            for (int m = 1; m <= n; m++) {
-                if (i + 2 * m >= n) dp[i][m] = sum;
-                else for (int x = 1; x <= 2 * m; x++) dp[i][m] = max(dp[i][m], sum - dp[i + x][max(m, x)]);
-            }
+    vector<int> circularPermutation(int n, int start) {
+        vector<int> ans(pow(2, n));
+        ans[0] = start;
+        unordered_set<int> used;
+        used.insert(start);
+        dfs(ans, used, n, start, 1);
+        return ans;
+    }
+    bool dfs(vector<int> &ans, unordered_set<int> &used, int n, int prev, int idx) {
+        if (idx == pow(2, n)) {
+            return compare(n, ans[0], ans[idx - 1]);
         }
-        return dp[0][1];
+        for (int i = 0; i < n; i++) {
+            int v = prev & (1 << i), next = prev;
+            if (v) next &= ~(1 << i);
+            else next |= (1 << i); 
+            if (used.count(next)) continue;
+            used.insert(next);
+            ans[idx] = next;
+            if (dfs(ans, used, n, next, idx + 1)) return true;
+            used.erase(next);
+        }
+        return false;
+    }
+    bool compare(int n, int num1, int num2) {
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            int v1 = num1 & (1 << i), v2 = num2 & (1 << i);
+            if (v1 != v2) cnt++;
+        }
+        return cnt == 1;
     }
 };
 
