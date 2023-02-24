@@ -39,60 +39,12 @@ impl PartialOrd for Node {
     }
 }
 
-use std::collections::HashSet;
 impl Solution {
-    pub fn circular_permutation(n: i32, start: i32) -> Vec<i32> {
-        let n = n as u32;
-        let mut ans = vec![0; 2usize.pow(n)];
-        ans[0] = start;
-        let mut used = HashSet::<i32>::new();
-        used.insert(start);
-        Solution::dfs(&mut ans, &mut used, n, start, 1);
-        ans
-    }
-    fn dfs(ans: &mut Vec<i32>, used: &mut HashSet<i32>, n: u32, prev: i32, idx: usize) -> bool {
-        println!(
-            "===\nn = {n}, prev = {prev:b}, idx = {idx}, max = {}",
-            2usize.pow(n)
-        );
-        print!("ans: ");
-        for i in 0..2usize.pow(n) {
-            print!("{}, ", ans[i]);
+    pub fn minimum_operations(nums: Vec<i32>) -> i32 {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for num in nums {
+            s.insert(num);
         }
-        println!("");
-        if idx == 2usize.pow(n) {
-            Solution::compare(n, *ans.first().unwrap(), *ans.last().unwrap())
-        } else {
-            for i in 0..n {
-                let v = prev & (1 << i);
-                let mut next = prev;
-                if v == 1 {
-                    next &= !(1 << i);
-                } else {
-                    next |= 1 << i;
-                }
-                if used.contains(&next) {
-                    continue;
-                }
-                used.insert(next);
-                ans[idx] = next;
-                if Solution::dfs(ans, used, n, next, idx + 1) {
-                    return true;
-                }
-                used.remove(&next);
-            }
-            false
-        }
-    }
-    fn compare(n: u32, num1: i32, num2: i32) -> bool {
-        let mut cnt = 0;
-        for i in 0..n {
-            let v1 = num1 & (1 << i);
-            let v2 = num2 & (1 << i);
-            if v1 != v2 {
-                cnt += 1;
-            }
-        }
-        cnt == 1
+        return s.len() as i32 - if s.contains(&0) { 1 } else { 0 };
     }
 }

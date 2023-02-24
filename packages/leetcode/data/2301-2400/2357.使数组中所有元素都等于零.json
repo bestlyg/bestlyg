@@ -1,0 +1,41 @@
+{
+    "id": "2436",
+    "name": "2357.使数组中所有元素都等于零",
+    "url": "https://leetcode.cn/problems/make-array-zero-by-subtracting-equal-amounts",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "排序",
+        "模拟",
+        "堆（优先队列）"
+    ],
+    "desc": "返回使 nums 中所有元素都等于 0 需要的 最少 操作数。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 8.3,
+            "desc": "哈希存储。",
+            "code": "class Solution {\npublic:\n    int minimumOperations(vector<int>& nums) {\n        unordered_set<int> s(nums.begin(), nums.end());\n        return s.size() - (s.count(0));\n    }\n};",
+            "date": 1677168000000
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 14.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minimumOperations(self, nums: List[int]) -> int:\n        return len(set(nums) - {0})",
+            "date": 1677168000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.3,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn minimum_operations(nums: Vec<i32>) -> i32 {\n        let mut s = std::collections::HashSet::<i32>::new();\n        for num in nums {\n            s.insert(num);\n        }\n        return s.len() as i32 - if s.contains(&0) { 1 } else { 0 };\n    }\n}",
+            "date": 1677168000000
+        }
+    ]
+}
