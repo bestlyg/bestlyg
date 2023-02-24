@@ -77,15 +77,38 @@ async function walk({
     process.exit(1);
   }
 }
+
+type AsyncFunction = (...args: any[]) => Promise<any>;
+class AsyncQueue {
+  start = false;
+  current = 0;
+  queue: AsyncFunction[] = [];
+  constructor(public size: number) {}
+  push(fn: AsyncFunction) {
+    this.queue.push(fn);
+    this.run();
+  }
+  run() {
+    if (this.current < this.size || !this.start) {
+      this.start = true;
+      this.current++;
+      const fn = this.queue.shift()!;
+      fn?.().finally(() => {
+        if (--this.current === 0) this.start = false;
+        this.run();
+      });
+    }
+  }
+}
+
 async function main() {
   clear();
   console.log(LOGO);
   console.log(chalk.blue(`正在批处理LeetCode`));
+  const queue = new AsyncQueue(100);
   const map = await allQuestions();
-  for (const { filepath } of travel()) {
-    // await walk({ map, filepath });
-    walk({ map, filepath });
+  for (const item of travel()) {
+    queue.push(() => walk({ map, filepath: item.filepath }));
   }
-  // clear();
 }
 main();
