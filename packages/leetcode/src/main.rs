@@ -40,11 +40,33 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn minimum_operations(nums: Vec<i32>) -> i32 {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for num in nums {
-            s.insert(num);
+    pub fn minimum_swap(s1: String, s2: String) -> i32 {
+        let s1 = s1.chars().collect::<Vec<char>>();
+        let s2 = s2.chars().collect::<Vec<char>>();
+        let n = s1.len();
+        let mut ans = 0;
+        let (mut x, mut y) = (0, 0);
+        for i in 0..n {
+            if s1[i] != s2[i] {
+                if s1[i] == 'x' {
+                    x += 1;
+                } else {
+                    y += 1;
+                }
+            }
         }
-        return s.len() as i32 - if s.contains(&0) { 1 } else { 0 };
+        ans += x / 2 + y / 2;
+        x %= 2;
+        y %= 2;
+        if x != 0 && y != 0 {
+            ans += 2;
+            x = 0;
+            y = 0;
+        }
+        if x != 0 || y != 0 {
+            -1
+        } else {
+            ans
+        }
     }
 }
