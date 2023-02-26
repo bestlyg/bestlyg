@@ -38,35 +38,49 @@ impl PartialOrd for Node {
         self.val().partial_cmp(&o.val())
     }
 }
-
 impl Solution {
-    pub fn minimum_swap(s1: String, s2: String) -> i32 {
-        let s1 = s1.chars().collect::<Vec<char>>();
-        let s2 = s2.chars().collect::<Vec<char>>();
-        let n = s1.len();
+    pub fn max_score_words(words: Vec<String>, letters: Vec<char>, score: Vec<i32>) -> i32 {
+        let words = words
+            .into_iter()
+            .map(|s| s.chars().collect::<Vec<char>>())
+            .collect::<Vec<Vec<char>>>();
         let mut ans = 0;
-        let (mut x, mut y) = (0, 0);
-        for i in 0..n {
-            if s1[i] != s2[i] {
-                if s1[i] == 'x' {
-                    x += 1;
-                } else {
-                    y += 1;
+        let n = words.len();
+        let list = letters.into_iter().fold([0; 26], |list, c| {
+            let mut list = list;
+            list[c as usize - 'a' as usize] += 1;
+            list
+        });
+        let wscore = words
+            .iter()
+            .map(|w| {
+                let mut s = 0;
+                for c in w.iter() {
+                    s += score[*c as usize - 'a' as usize];
+                }
+                s
+            })
+            .collect::<Vec<i32>>();
+        for i in 0..(1 << n) {
+            let mut clist = list.clone();
+            let mut f = true;
+            let mut s = 0;
+            for j in 0..n {
+                if (i & (1 << j)) != 0 {
+                    s += wscore[j];
+                    for c in words[j].iter() {
+                        if clist[*c as usize - 'a' as usize] == 0 {
+                            f = false;
+                            break;
+                        }
+                        clist[*c as usize - 'a' as usize] -= 1;
+                    }
                 }
             }
+            if f {
+                ans = ans.max(s);
+            }
         }
-        ans += x / 2 + y / 2;
-        x %= 2;
-        y %= 2;
-        if x != 0 && y != 0 {
-            ans += 2;
-            x = 0;
-            y = 0;
-        }
-        if x != 0 || y != 0 {
-            -1
-        } else {
-            ans
-        }
+        ans
     }
 }

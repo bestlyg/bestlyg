@@ -39,24 +39,34 @@ class Node:
 
 
 class Solution:
-    def minimumSwap(self, s1: str, s2: str) -> int:
-        xcnt, ycnt = 0, 0
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        def toScore(word: str) -> int:
+            res = 0
+            for c in word:
+                res += score[ord(c) - ord('a')]
+            return res
+
         ans = 0
-        for a, b in zip(s1, s2):
-            if a != b:
-                if a == 'x':
-                    xcnt += 1
-                else:
-                    ycnt += 1
-        ans += xcnt // 2
-        xcnt %= 2
-        ans += ycnt // 2
-        ycnt %= 2
-        if xcnt and ycnt:
-            ans += 2
-            xcnt = 0
-            ycnt = 0
-        return -1 if xcnt or ycnt else ans
+        n = len(words)
+        clist = [0] * 26
+        for c in letters:
+            clist[ord(c) - ord('a')] += 1
+        wscore = [toScore(w) for w in words]
+        for i in range(1 << n):
+            cclist = [clist[i] for i in range(26)]
+            f = True
+            s = 0
+            for j in range(n):
+                if i & (1 << j):
+                    s += wscore[j]
+                    for c in words[j]:
+                        if cclist[ord(c) - ord('a')] == 0:
+                            f = False
+                            break
+                        cclist[ord(c) - ord('a')] -= 1
+                if f:
+                    ans = max(ans, s)
+        return ans
 
 
 def main():

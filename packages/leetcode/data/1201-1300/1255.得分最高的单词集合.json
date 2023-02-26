@@ -1,0 +1,37 @@
+{
+    "name": "1255.得分最高的单词集合",
+    "url": "https://leetcode.cn/problems/maximum-score-words-formed-by-letters/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你帮忙计算玩家在单词拼写游戏中所能获得的「最高得分」：能够由 letters 里的字母拼写出的 任意 属于 words 单词子集中，分数最高的单词集合的得分。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 9.3,
+            "desc": "状态压缩后遍历所有可能。",
+            "code": "class Solution {\npublic:\n    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {\n        int ans = 0, n = words.size();\n        vector<int> clist(26, 0), wscore(n, 0), cclist;\n        for (auto &c : letters) clist[c - 'a']++;\n        for (int i = 0; i < n; i++) {\n            for (auto &c : words[i]) wscore[i] += score[c - 'a'];\n        }\n        for (int i = 0; i < (1 << n); i++) {\n            cclist = clist;\n            bool f = true;\n            int s = 0;\n            for (int j = 0; j < n && f; j++) {\n                if (i & (1 << j)) {\n                    s += wscore[j];\n                    for (auto &c : words[j]) {\n                        if (cclist[c - 'a'] == 0) {\n                            f = false;\n                            break;\n                        }\n                        cclist[c - 'a']--;\n                    }\n                }\n            }\n            if (f) ans = max(ans, s);\n        }\n        return ans;\n    }\n};",
+            "date": 1677340800000
+        },
+        {
+            "script": "python3",
+            "time": 468,
+            "memory": 14.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:\n        def toScore(word: str) -> int:\n            res = 0\n            for c in word:\n                res += score[ord(c) - ord('a')]\n            return res\n  \n        ans = 0\n        n = len(words)\n        clist = [0] * 26\n        for c in letters:\n            clist[ord(c) - ord('a')] += 1\n        wscore = [toScore(w) for w in words]\n        for i in range(1 << n):\n            cclist = [clist[i] for i in range(26)]\n            f = True\n            s = 0\n            for j in range(n):\n                if i & (1 << j):\n                    s += wscore[j]\n                    for c in words[j]:\n                        if cclist[ord(c) - ord('a')] == 0:\n                            f = False\n                            break\n                        cclist[ord(c) - ord('a')] -= 1\n                if f:\n                    ans = max(ans, s)\n        return ans",
+            "date": 1677340800000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n        pub fn max_score_words(words: Vec<String>, letters: Vec<char>, score: Vec<i32>) -> i32 {\n            let words = words\n                .into_iter()\n                .map(|s| s.chars().collect::<Vec<char>>())\n                .collect::<Vec<Vec<char>>>();\n            let mut ans = 0;\n            let n = words.len();\n            let list = letters.into_iter().fold([0; 26], |list, c| {\n                let mut list = list;\n                list[c as usize - 'a' as usize] += 1;\n                list\n            });\n            let wscore = words\n                .iter()\n                .map(|w| {\n                    let mut s = 0;\n                    for c in w.iter() {\n                        s += score[*c as usize - 'a' as usize];\n                    }\n                    s\n                })\n                .collect::<Vec<i32>>();\n            for i in 0..(1 << n) {\n                let mut clist = list.clone();\n                let mut f = true;\n                let mut s = 0;\n                for j in 0..n {\n                    if (i & (1 << j)) != 0 {\n                        s += wscore[j];\n                        for c in words[j].iter() {\n                            if clist[*c as usize - 'a' as usize] == 0 {\n                                f = false;\n                                break;\n                            }\n                            clist[*c as usize - 'a' as usize] -= 1;\n                        }\n                    }\n                }\n                if f {\n                    ans = ans.max(s);\n                }\n            }\n            ans\n        }\n    }",
+            "date": 1677340800000
+        }
+    ]
+}

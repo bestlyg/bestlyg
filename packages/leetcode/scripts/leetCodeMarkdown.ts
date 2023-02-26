@@ -2,98 +2,134 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1247. 交换字符使得字符串相同',
-  url: 'https://leetcode.cn/problems/minimum-swaps-to-make-strings-equal//',
+  name: '1255. 得分最高的单词集合',
+  url: 'https://leetcode.cn/problems/maximum-score-words-formed-by-letters/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `最后，请你返回使 s1 和 s2 相同的最小交换次数，如果没有方法能够使得这两个字符串相同，则返回 -1 。
-
-  `,
+  desc: `请你帮忙计算玩家在单词拼写游戏中所能获得的「最高得分」：能够由 letters 里的字母拼写出的 任意 属于 words 单词子集中，分数最高的单词集合的得分。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 6.1,
-      desc: '贪心',
+      time: 8,
+      memory: 9.3,
+      desc: '状态压缩后遍历所有可能',
       code: `class Solution {
 public:
-    int minimumSwap(string s1, string s2) {
-        int xcnt = 0, ycnt = 0, n = s1.size(), ans = 0;
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+        int ans = 0, n = words.size();
+        vector<int> clist(26, 0), wscore(n, 0), cclist;
+        for (auto &c : letters) clist[c - 'a']++;
         for (int i = 0; i < n; i++) {
-            if (s1[i] == s2[i]) continue;
-            if (s1[i] == 'x') xcnt++;
-            else ycnt++;
+            for (auto &c : words[i]) wscore[i] += score[c - 'a'];
         }
-        ans += xcnt / 2;
-        xcnt %= 2;
-        ans += ycnt / 2;
-        ycnt %= 2;
-        if (xcnt && ycnt) ans += 2, xcnt = 0, ycnt = 0;
-        return xcnt || ycnt ? -1 : ans;
+        for (int i = 0; i < (1 << n); i++) {
+            cclist = clist;
+            bool f = true;
+            int s = 0;
+            for (int j = 0; j < n && f; j++) {
+                if (i & (1 << j)) {
+                    s += wscore[j];
+                    for (auto &c : words[j]) {
+                        if (cclist[c - 'a'] == 0) {
+                            f = false;
+                            break;
+                        }
+                        cclist[c - 'a']--;
+                    }
+                }
+            }
+            if (f) ans = max(ans, s);
+        }
+        return ans;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 36,
-      memory: 15,
+      time: 468,
+      memory: 14.9,
       desc: '同上',
       code: `class Solution:
-    def minimumSwap(self, s1: str, s2: str) -> int:
-        xcnt, ycnt = 0, 0
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        def toScore(word: str) -> int:
+            res = 0
+            for c in word:
+                res += score[ord(c) - ord('a')]
+            return res
+  
         ans = 0
-        for a, b in zip(s1, s2):
-            if a != b:
-                if a == 'x':
-                    xcnt += 1
-                else:
-                    ycnt += 1
-        ans += xcnt // 2
-        xcnt %= 2
-        ans += ycnt // 2
-        ycnt %= 2
-        if xcnt and ycnt:
-            ans += 2
-            xcnt = 0
-            ycnt = 0
-        return -1 if xcnt or ycnt else ans`,
+        n = len(words)
+        clist = [0] * 26
+        for c in letters:
+            clist[ord(c) - ord('a')] += 1
+        wscore = [toScore(w) for w in words]
+        for i in range(1 << n):
+            cclist = [clist[i] for i in range(26)]
+            f = True
+            s = 0
+            for j in range(n):
+                if i & (1 << j):
+                    s += wscore[j]
+                    for c in words[j]:
+                        if cclist[ord(c) - ord('a')] == 0:
+                            f = False
+                            break
+                        cclist[ord(c) - ord('a')] -= 1
+                if f:
+                    ans = max(ans, s)
+        return ans`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2,
+      time: 4,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn minimum_swap(s1: String, s2: String) -> i32 {
-        let s1 = s1.chars().collect::<Vec<char>>();
-        let s2 = s2.chars().collect::<Vec<char>>();
-        let n = s1.len();
-        let mut ans = 0;
-        let (mut x, mut y) = (0, 0);
-        for i in 0..n {
-            if s1[i] != s2[i] {
-                if s1[i] == 'x' {
-                    x += 1;
-                } else {
-                    y += 1;
+        pub fn max_score_words(words: Vec<String>, letters: Vec<char>, score: Vec<i32>) -> i32 {
+            let words = words
+                .into_iter()
+                .map(|s| s.chars().collect::<Vec<char>>())
+                .collect::<Vec<Vec<char>>>();
+            let mut ans = 0;
+            let n = words.len();
+            let list = letters.into_iter().fold([0; 26], |list, c| {
+                let mut list = list;
+                list[c as usize - 'a' as usize] += 1;
+                list
+            });
+            let wscore = words
+                .iter()
+                .map(|w| {
+                    let mut s = 0;
+                    for c in w.iter() {
+                        s += score[*c as usize - 'a' as usize];
+                    }
+                    s
+                })
+                .collect::<Vec<i32>>();
+            for i in 0..(1 << n) {
+                let mut clist = list.clone();
+                let mut f = true;
+                let mut s = 0;
+                for j in 0..n {
+                    if (i & (1 << j)) != 0 {
+                        s += wscore[j];
+                        for c in words[j].iter() {
+                            if clist[*c as usize - 'a' as usize] == 0 {
+                                f = false;
+                                break;
+                            }
+                            clist[*c as usize - 'a' as usize] -= 1;
+                        }
+                    }
+                }
+                if f {
+                    ans = ans.max(s);
                 }
             }
-        }
-        ans += x / 2 + y / 2;
-        x %= 2;
-        y %= 2;
-        if x != 0 && y != 0 {
-            ans += 2;
-            x = 0;
-            y = 0;
-        }
-        if x != 0 || y != 0 {
-            -1
-        } else {
             ans
         }
-    }
-}`,
+    }`,
     },
   ],
 };
