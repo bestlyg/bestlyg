@@ -1,0 +1,37 @@
+{
+    "name": "6368.找出字符串的可整除数组",
+    "url": "https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "返回 word 的可整除数组。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 32,
+            "memory": 25.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<int> divisibilityArray(string word, int m) {\n        vector<int> ans;\n        long long cur = 0;\n        for (auto &c : word) {\n            cur = (cur * 10 + c - '0') % m;\n            int num = cur == 0 ? 1 : 0;\n            ans.push_back(num);\n        }\n        return ans;\n    }\n};",
+            "date": 1677340800000
+        },
+        {
+            "script": "python3",
+            "time": 164,
+            "memory": 18.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def divisibilityArray(self, word: str, m: int) -> List[int]:\n        ans = []\n        cur = 0\n        for c in word:\n            cur = (cur * 10 + ord(c) - ord('0')) % m\n            ans.append(1 if cur == 0 else 0)\n        return ans",
+            "date": 1677340800000
+        },
+        {
+            "script": "rust",
+            "time": 36,
+            "memory": 3,
+            "desc": "同上。",
+            "code": "impl Solution {\n        pub fn divisibility_array(word: String, m: i32) -> Vec<i32> {\n            let word = word.chars().collect::<Vec<char>>();\n            let m = m as i64;\n            let mut ans = vec![];\n            let mut cur = 0i64;\n            for c in word {\n                cur = (cur * 10 + c as i64 - '0' as i64) % m;\n                ans.push(if cur == 0 { 1 } else { 0 })\n            }\n            ans\n        }\n    }",
+            "date": 1677340800000
+        }
+    ]
+}

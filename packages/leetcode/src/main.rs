@@ -17,70 +17,64 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 #[derive(Clone, PartialEq, Eq, Ord)]
 struct Node {
-    x: i32,
-    y: i32,
+    row: usize,
+    col: usize,
+    time: i32,
 }
 impl Node {
-    fn new(x: i32, y: i32) -> Self {
-        Node { x, y }
-    }
-    fn val(&self) -> f64 {
-        (self.x + 1) as f64 / (self.y + 1) as f64 - self.x as f64 / self.y as f64
+    fn new(row: usize, col: usize, time: i32) -> Self {
+        Node { row, col, time }
     }
 }
 impl PartialOrd for Node {
     fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
-        self.val().partial_cmp(&o.val())
+        self.time.partial_cmp(&o.time)
     }
 }
+
 impl Solution {
-    pub fn max_score_words(words: Vec<String>, letters: Vec<char>, score: Vec<i32>) -> i32 {
-        let words = words
-            .into_iter()
-            .map(|s| s.chars().collect::<Vec<char>>())
-            .collect::<Vec<Vec<char>>>();
-        let mut ans = 0;
-        let n = words.len();
-        let list = letters.into_iter().fold([0; 26], |list, c| {
-            let mut list = list;
-            list[c as usize - 'a' as usize] += 1;
-            list
-        });
-        let wscore = words
-            .iter()
-            .map(|w| {
-                let mut s = 0;
-                for c in w.iter() {
-                    s += score[*c as usize - 'a' as usize];
+    pub fn minimum_time(grid: Vec<Vec<i32>>) -> i32 {
+        let n = grid.len();
+        let m = grid[0].len();
+        if grid[0][1] > 1 && grid[1][0] > 1 {
+            -1
+        } else {
+            let mut q = std::collections::BinaryHeap::<Node>::new();
+            q.push(Node::new(0, 0, 0));
+            let cache = [[false; 1005]; 1005];
+            cache[0][0] = 1;
+            loop {
+                let cur = q.pop().unwrap();
+                if cur.row == n - 1 && cur.col == m - 1 {
+                    return cur.time;
                 }
-                s
-            })
-            .collect::<Vec<i32>>();
-        for i in 0..(1 << n) {
-            let mut clist = list.clone();
-            let mut f = true;
-            let mut s = 0;
-            for j in 0..n {
-                if (i & (1 << j)) != 0 {
-                    s += wscore[j];
-                    for c in words[j].iter() {
-                        if clist[*c as usize - 'a' as usize] == 0 {
-                            f = false;
-                            break;
-                        }
-                        clist[*c as usize - 'a' as usize] -= 1;
+                for dir in dirs {
+                    let nrow = cur.row as i32 + dir[0];
+                    let ncol = cur.col as i32 + dir[1];
+                    if nrow < 0 || nrow >= n as i32 || ncol < 0 || ncol >= m as i32 {
+                        continue;
                     }
+                    let mut time = cur.time + 1;
+                    let nrow = nrow as usize;
+                    let ncol = ncol as usize;
+                    if grid[nrow][ncol] > time {
+                        let minus = (grid[nrow][ncol] - time + 1) / 2;
+                        time = cur.time + minus * 2 + 1;
+                    }
+                    if cache[nrow][ncol] {
+                        continue;
+                    }
+                    cache[nrow][ncol] = true;
+                    q.push(Node::new(nrow, ncol, time));
                 }
-            }
-            if f {
-                ans = ans.max(s);
             }
         }
-        ans
     }
 }

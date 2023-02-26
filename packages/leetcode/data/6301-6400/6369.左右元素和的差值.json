@@ -1,0 +1,37 @@
+{
+    "name": "6369.左右元素和的差值",
+    "url": "https://leetcode.cn/problems/left-and-right-sum-differences/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums ，请你找出一个下标从 0 开始的整数数组 answer。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 10.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<int> leftRigthDifference(vector<int>& nums) {\n        int sum = 0;\n        for (auto &num : nums) sum += num;\n        vector<int> ans;\n        int left = 0;\n        for (auto &num : nums) {\n            ans.push_back(abs(sum - num - left));\n            sum -= num;\n            left += num;\n        }\n        return ans;\n    }\n};",
+            "date": 1677340800000
+        },
+        {
+            "script": "python3",
+            "time": 44,
+            "memory": 15.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def leftRigthDifference(self, nums: List[int]) -> List[int]:\n        vsum = sum(nums)\n        ans = []\n        left = 0\n        for num in nums:\n            ans .append(abs(vsum - num - left))\n            vsum -= num\n            left += num\n        return ans",
+            "date": 1677340800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn left_rigth_difference(nums: Vec<i32>) -> Vec<i32> {\n        let mut sum = nums.iter().fold(0, |sum, cur| sum + cur);\n        let mut ans = vec![];\n        let mut left = 0;\n        for num in nums {\n            ans.push((sum - num - left).abs());\n            sum -= num;\n            left += num;\n        }\n        ans\n    }\n}",
+            "date": 1677340800000
+        }
+    ]
+}

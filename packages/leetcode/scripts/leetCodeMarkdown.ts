@@ -2,134 +2,160 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1255. 得分最高的单词集合',
-  url: 'https://leetcode.cn/problems/maximum-score-words-formed-by-letters/',
+  name: '6366. 在网格图中访问一个格子的最少时间',
+  url: 'https://leetcode.cn/problems/minimum-time-to-visit-a-cell-in-a-grid//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你帮忙计算玩家在单词拼写游戏中所能获得的「最高得分」：能够由 letters 里的字母拼写出的 任意 属于 words 单词子集中，分数最高的单词集合的得分。`,
+  desc: `你从 最左上角 出发，出发时刻为 0 ，你必须一直移动到上下左右相邻四个格子中的 任意 一个格子（即不能停留在格子上）。每次移动都需要花费 1 单位时间。请你返回 最早 到达右下角格子的时间，如果你无法到达右下角的格子，请你返回 -1 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 9.3,
-      desc: '状态压缩后遍历所有可能',
-      code: `class Solution {
+      time: 384,
+      memory: 46.2,
+      desc: '优先队列，找最先可以触达的时间',
+      code: `struct Node {
+    int row, col, time;
+    Node(int row, int col, int time): row(row), col(col), time(time) {}
+};
+vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+class Solution {
 public:
-    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
-        int ans = 0, n = words.size();
-        vector<int> clist(26, 0), wscore(n, 0), cclist;
-        for (auto &c : letters) clist[c - 'a']++;
-        for (int i = 0; i < n; i++) {
-            for (auto &c : words[i]) wscore[i] += score[c - 'a'];
-        }
-        for (int i = 0; i < (1 << n); i++) {
-            cclist = clist;
-            bool f = true;
-            int s = 0;
-            for (int j = 0; j < n && f; j++) {
-                if (i & (1 << j)) {
-                    s += wscore[j];
-                    for (auto &c : words[j]) {
-                        if (cclist[c - 'a'] == 0) {
-                            f = false;
-                            break;
-                        }
-                        cclist[c - 'a']--;
-                    }
+    int minimumTime(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        if (grid[0][1] > 1 && grid[1][0] > 1) return -1;
+        auto cmp = [&](Node &x, Node &y) -> bool { return x.time > y.time; };
+        priority_queue<Node, vector<Node>, decltype(cmp)> q(cmp);
+        q.push(Node(0, 0, 0));
+        bool cache[1005][1005] = {0};
+        cache[0][0] = true;
+        while (q.size()) {
+            Node cur = q.top();
+            if (cur.row == n - 1 && cur.col == m - 1) return cur.time;
+            q.pop();
+            for (auto &dir : dirs) {
+                int nrow = cur.row + dir[0], ncol = cur.col + dir[1];
+                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m) continue;
+                int time = cur.time + 1;
+                if (grid[nrow][ncol] > time) {
+                    int minus = (grid[nrow][ncol] - time + 1) / 2;
+                    time = cur.time + minus * 2 + 1;
                 }
+                if (cache[nrow][ncol]) continue;
+                cache[nrow][ncol] = true;
+                q.push(Node(nrow, ncol, time));
             }
-            if (f) ans = max(ans, s);
         }
-        return ans;
+        return -1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 468,
-      memory: 14.9,
+      time: 2076,
+      memory: 37.1,
       desc: '同上',
-      code: `class Solution:
-    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
-        def toScore(word: str) -> int:
-            res = 0
-            for c in word:
-                res += score[ord(c) - ord('a')]
-            return res
-  
-        ans = 0
-        n = len(words)
-        clist = [0] * 26
-        for c in letters:
-            clist[ord(c) - ord('a')] += 1
-        wscore = [toScore(w) for w in words]
-        for i in range(1 << n):
-            cclist = [clist[i] for i in range(26)]
-            f = True
-            s = 0
-            for j in range(n):
-                if i & (1 << j):
-                    s += wscore[j]
-                    for c in words[j]:
-                        if cclist[ord(c) - ord('a')] == 0:
-                            f = False
-                            break
-                        cclist[ord(c) - ord('a')] -= 1
-                if f:
-                    ans = max(ans, s)
-        return ans`,
+      code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    
+    class Node:
+        def __init__(self, row: int, col: int, time: int):
+            self.row = row
+            self.col = col
+            self.time = time
+    
+        def __lt__(self, o: 'Node') -> bool:
+            return self.time < o.time
+    
+    class Solution:
+        def minimumTime(self, grid: List[List[int]]) -> int:
+            n, m = len(grid), len(grid[0])
+            if grid[0][1] > 1 and grid[1][0] > 1:
+                return -1
+            q = []
+            heappush(q, Node(0, 0, 0))
+            cache = [[0] * 1005 for _ in range(1005)]
+            cache[0][0] = 1
+            while True:
+                cur: Node = heappop(q)
+                if cur.row == n - 1 and cur.col == m - 1:
+                    return cur.time
+                for (i, j) in dirs:
+                    nrow = cur.row + i
+                    ncol = cur.col + j
+                    if 0 <= nrow < n and 0 <= ncol < m:
+                        time = cur.time + 1
+                        if grid[nrow][ncol] > time:
+                            minus = (grid[nrow][ncol] - time + 1) // 2
+                            time = cur.time + minus * 2 + 1
+                        if cache[nrow][ncol]:
+                            continue
+                        cache[nrow][ncol] = 1
+                        heappush(q, Node(nrow, ncol, time))`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.1,
+      time: 72,
+      memory: 5.1,
       desc: '同上',
-      code: `impl Solution {
-        pub fn max_score_words(words: Vec<String>, letters: Vec<char>, score: Vec<i32>) -> i32 {
-            let words = words
-                .into_iter()
-                .map(|s| s.chars().collect::<Vec<char>>())
-                .collect::<Vec<Vec<char>>>();
-            let mut ans = 0;
-            let n = words.len();
-            let list = letters.into_iter().fold([0; 26], |list, c| {
-                let mut list = list;
-                list[c as usize - 'a' as usize] += 1;
-                list
-            });
-            let wscore = words
-                .iter()
-                .map(|w| {
-                    let mut s = 0;
-                    for c in w.iter() {
-                        s += score[*c as usize - 'a' as usize];
-                    }
-                    s
-                })
-                .collect::<Vec<i32>>();
-            for i in 0..(1 << n) {
-                let mut clist = list.clone();
-                let mut f = true;
-                let mut s = 0;
-                for j in 0..n {
-                    if (i & (1 << j)) != 0 {
-                        s += wscore[j];
-                        for c in words[j].iter() {
-                            if clist[*c as usize - 'a' as usize] == 0 {
-                                f = false;
-                                break;
-                            }
-                            clist[*c as usize - 'a' as usize] -= 1;
-                        }
-                    }
+      code: `const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::rc::Rc;
+#[derive(Clone, PartialEq, Eq, Ord)]
+struct Node {
+    row: usize,
+    col: usize,
+    time: i32,
+}
+impl Node {
+    fn new(row: usize, col: usize, time: i32) -> Self {
+        Node { row, col, time }
+    }
+}
+impl PartialOrd for Node {
+    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
+        o.time.partial_cmp(&self.time)
+    }
+}
+
+impl Solution {
+    pub fn minimum_time(grid: Vec<Vec<i32>>) -> i32 {
+        let n = grid.len();
+        let m = grid[0].len();
+        if grid[0][1] > 1 && grid[1][0] > 1 {
+            -1
+        } else {
+            let mut q = std::collections::BinaryHeap::<Node>::new();
+            q.push(Node::new(0, 0, 0));
+            let mut cache = [[false; 1005]; 1005];
+            cache[0][0] = true;
+            loop {
+                let cur = q.pop().unwrap();
+                if cur.row == n - 1 && cur.col == m - 1 {
+                    return cur.time;
                 }
-                if f {
-                    ans = ans.max(s);
+                for dir in dirs {
+                    let nrow = cur.row as i32 + dir[0];
+                    let ncol = cur.col as i32 + dir[1];
+                    if nrow < 0 || nrow >= n as i32 || ncol < 0 || ncol >= m as i32 {
+                        continue;
+                    }
+                    let mut time = cur.time + 1;
+                    let nrow = nrow as usize;
+                    let ncol = ncol as usize;
+                    if grid[nrow][ncol] > time {
+                        let minus = (grid[nrow][ncol] - time + 1) / 2;
+                        time = cur.time + minus * 2 + 1;
+                    }
+                    if cache[nrow][ncol] {
+                        continue;
+                    }
+                    cache[nrow][ncol] = true;
+                    q.push(Node::new(nrow, ncol, time));
                 }
             }
-            ans
         }
-    }`,
+    }
+}`,
     },
   ],
 };

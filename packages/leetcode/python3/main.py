@@ -27,46 +27,42 @@ class TreeNode:
         self.right = right
 
 
+dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
 class Node:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
+    def __init__(self, row: int, col: int, time: int):
+        self.row = row
+        self.col = col
+        self.time = time
 
     def __lt__(self, o: 'Node') -> bool:
-        v1 = 1.0 * (self.x + 1) / (self.y + 1) - 1.0 * self.x / self.y,
-        v2 = 1.0 * (o.x + 1) / (o.y + 1) - 1.0 * o.x / o.y
-        return v1 < v2
-
+        return self.time < o.time
 
 class Solution:
-    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
-        def toScore(word: str) -> int:
-            res = 0
-            for c in word:
-                res += score[ord(c) - ord('a')]
-            return res
-
-        ans = 0
-        n = len(words)
-        clist = [0] * 26
-        for c in letters:
-            clist[ord(c) - ord('a')] += 1
-        wscore = [toScore(w) for w in words]
-        for i in range(1 << n):
-            cclist = [clist[i] for i in range(26)]
-            f = True
-            s = 0
-            for j in range(n):
-                if i & (1 << j):
-                    s += wscore[j]
-                    for c in words[j]:
-                        if cclist[ord(c) - ord('a')] == 0:
-                            f = False
-                            break
-                        cclist[ord(c) - ord('a')] -= 1
-                if f:
-                    ans = max(ans, s)
-        return ans
+    def minimumTime(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        if grid[0][1] > 1 and grid[1][0] > 1:
+            return -1
+        q = []
+        heappush(q, Node(0, 0, 0))
+        cache = [[0] * 1005 for _ in range(1005)]
+        cache[0][0] = 1
+        while True:
+            cur: Node = heappop(q)
+            if cur.row == n - 1 and cur.col == m - 1:
+                return cur.time
+            for (i, j) in dirs:
+                nrow = cur.row + i
+                ncol = cur.col + j
+                if 0 <= nrow < n and 0 <= ncol < m:
+                    time = cur.time + 1
+                    if grid[nrow][ncol] > time:
+                        minus = (grid[nrow][ncol] - time + 1) // 2
+                        time = cur.time + minus * 2 + 1
+                    if cache[nrow][ncol]:
+                        continue
+                    cache[nrow][ncol] = 1
+                    heappush(q, Node(nrow, ncol, time))
 
 
 def main():
