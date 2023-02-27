@@ -108,4 +108,10 @@ export class MailerTaskService {
       await this.yzx_mailerTask('腾讯视频提醒', '腾讯视频签到');
     }
   }
+  // 维生素，早上8.50 晚上7.00
+  @Cron('0 50 8 * * *')
+  @Cron('0 0 19 * * *')
+  async yzx_wss() {
+    await this.yzx_mailerTask('维生素提醒', '补充钙片维生素');
+  }
 }
