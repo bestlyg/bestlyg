@@ -2,157 +2,123 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6366. 在网格图中访问一个格子的最少时间',
-  url: 'https://leetcode.cn/problems/minimum-time-to-visit-a-cell-in-a-grid//',
+  name: '1144. 递减元素使数组呈锯齿状',
+  url: 'https://leetcode.cn/problems/decrease-elements-to-make-array-zigzag//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `你从 最左上角 出发，出发时刻为 0 ，你必须一直移动到上下左右相邻四个格子中的 任意 一个格子（即不能停留在格子上）。每次移动都需要花费 1 单位时间。请你返回 最早 到达右下角格子的时间，如果你无法到达右下角的格子，请你返回 -1 。`,
+  desc: `返回将数组 nums 转换为锯齿数组所需的最小操作次数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 384,
-      memory: 46.2,
-      desc: '优先队列，找最先可以触达的时间',
-      code: `struct Node {
-    int row, col, time;
-    Node(int row, int col, int time): row(row), col(col), time(time) {}
-};
-vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-class Solution {
+      time: 0,
+      memory: 7,
+      desc: '遍历',
+      code: `class Solution {
 public:
-    int minimumTime(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size();
-        if (grid[0][1] > 1 && grid[1][0] > 1) return -1;
-        auto cmp = [&](Node &x, Node &y) -> bool { return x.time > y.time; };
-        priority_queue<Node, vector<Node>, decltype(cmp)> q(cmp);
-        q.push(Node(0, 0, 0));
-        bool cache[1005][1005] = {0};
-        cache[0][0] = true;
-        while (q.size()) {
-            Node cur = q.top();
-            if (cur.row == n - 1 && cur.col == m - 1) return cur.time;
-            q.pop();
-            for (auto &dir : dirs) {
-                int nrow = cur.row + dir[0], ncol = cur.col + dir[1];
-                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m) continue;
-                int time = cur.time + 1;
-                if (grid[nrow][ncol] > time) {
-                    int minus = (grid[nrow][ncol] - time + 1) / 2;
-                    time = cur.time + minus * 2 + 1;
-                }
-                if (cache[nrow][ncol]) continue;
-                cache[nrow][ncol] = true;
-                q.push(Node(nrow, ncol, time));
-            }
+    int movesToMakeZigzag(vector<int>& nums) {
+        if (nums.size() == 1) return 0;
+        return min(try1(nums), try2(nums));
+    }
+    int try1(vector<int> &nums) {
+        int res = 0;
+        for (int i = 1; i < nums.size(); i += 2) {
+            int p = nums[i - 1];
+            if (i + 1 < nums.size()) p = min(p, nums[i + 1]);
+            if (nums[i] >= p) res += nums[i] - p + 1;
         }
-        return -1;
+        return res;
+    }
+    int try2(vector<int> &nums) {
+        int res = 0;
+        if (nums[0] >= nums[1]) res += nums[0] - nums[1] + 1;
+        for (int i = 2; i < nums.size(); i += 2) {
+            int p = nums[i - 1];
+            if (i + 1 < nums.size()) p = min(p, nums[i + 1]);
+            if (nums[i] >= p) res += nums[i] - p + 1;
+        }
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 2076,
-      memory: 37.1,
+      time: 32,
+      memory: 14.9,
       desc: '同上',
-      code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    
-    class Node:
-        def __init__(self, row: int, col: int, time: int):
-            self.row = row
-            self.col = col
-            self.time = time
-    
-        def __lt__(self, o: 'Node') -> bool:
-            return self.time < o.time
-    
-    class Solution:
-        def minimumTime(self, grid: List[List[int]]) -> int:
-            n, m = len(grid), len(grid[0])
-            if grid[0][1] > 1 and grid[1][0] > 1:
-                return -1
-            q = []
-            heappush(q, Node(0, 0, 0))
-            cache = [[0] * 1005 for _ in range(1005)]
-            cache[0][0] = 1
-            while True:
-                cur: Node = heappop(q)
-                if cur.row == n - 1 and cur.col == m - 1:
-                    return cur.time
-                for (i, j) in dirs:
-                    nrow = cur.row + i
-                    ncol = cur.col + j
-                    if 0 <= nrow < n and 0 <= ncol < m:
-                        time = cur.time + 1
-                        if grid[nrow][ncol] > time:
-                            minus = (grid[nrow][ncol] - time + 1) // 2
-                            time = cur.time + minus * 2 + 1
-                        if cache[nrow][ncol]:
-                            continue
-                        cache[nrow][ncol] = 1
-                        heappush(q, Node(nrow, ncol, time))`,
+      code: `class Solution:
+    def movesToMakeZigzag(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1:
+            return 0
+  
+        def try1():
+            res = 0
+            for i in range(1, n, 2):
+                p = nums[i-1]
+                if i+1 < n:
+                    p = min(p, nums[i+1])
+                if nums[i] >= p:
+                    res += nums[i] - p + 1
+            return res
+  
+        def try2():
+            res = 0
+            if nums[0] >= nums[1]:
+                res += nums[0] - nums[1] + 1
+            for i in range(2, n, 2):
+                p = nums[i - 1]
+                if i + 1 < n:
+                    p = min(p, nums[i + 1])
+                if nums[i] >= p:
+                    res += nums[i] - p + 1
+            return res
+        return min(try1(), try2())`,
     },
     {
       script: Script.RUST,
-      time: 72,
-      memory: 5.1,
+      time: 0,
+      memory: 1.9,
       desc: '同上',
-      code: `const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::rc::Rc;
-#[derive(Clone, PartialEq, Eq, Ord)]
-struct Node {
-    row: usize,
-    col: usize,
-    time: i32,
-}
-impl Node {
-    fn new(row: usize, col: usize, time: i32) -> Self {
-        Node { row, col, time }
-    }
-}
-impl PartialOrd for Node {
-    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
-        o.time.partial_cmp(&self.time)
-    }
-}
-
-impl Solution {
-    pub fn minimum_time(grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let m = grid[0].len();
-        if grid[0][1] > 1 && grid[1][0] > 1 {
-            -1
+      code: `impl Solution {
+    pub fn moves_to_make_zigzag(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        if n == 1 {
+            0
         } else {
-            let mut q = std::collections::BinaryHeap::<Node>::new();
-            q.push(Node::new(0, 0, 0));
-            let mut cache = [[false; 1005]; 1005];
-            cache[0][0] = true;
-            loop {
-                let cur = q.pop().unwrap();
-                if cur.row == n - 1 && cur.col == m - 1 {
-                    return cur.time;
+            let try1 = || {
+                let mut res = 0;
+                let mut i = 1;
+                while i < n {
+                    let mut p = nums[i - 1];
+                    if i + 1 < n {
+                        p = p.min(nums[i + 1]);
+                    }
+                    if nums[i] >= p {
+                        res += nums[i] - p + 1;
+                    }
+                    i += 2;
                 }
-                for dir in dirs {
-                    let nrow = cur.row as i32 + dir[0];
-                    let ncol = cur.col as i32 + dir[1];
-                    if nrow < 0 || nrow >= n as i32 || ncol < 0 || ncol >= m as i32 {
-                        continue;
-                    }
-                    let mut time = cur.time + 1;
-                    let nrow = nrow as usize;
-                    let ncol = ncol as usize;
-                    if grid[nrow][ncol] > time {
-                        let minus = (grid[nrow][ncol] - time + 1) / 2;
-                        time = cur.time + minus * 2 + 1;
-                    }
-                    if cache[nrow][ncol] {
-                        continue;
-                    }
-                    cache[nrow][ncol] = true;
-                    q.push(Node::new(nrow, ncol, time));
+                res
+            };
+            let try2 = || {
+                let mut res = 0;
+                if nums[0] >= nums[1] {
+                    res += nums[0] - nums[1] + 1;
                 }
-            }
+                let mut i = 2;
+                while i < n {
+                    let mut p = nums[i - 1];
+                    if i + 1 < n {
+                        p = p.min(nums[i + 1]);
+                    }
+                    if nums[i] >= p {
+                        res += nums[i] - p + 1;
+                    }
+                    i += 2;
+                }
+                res
+            };
+            try1().min(try2())
         }
     }
 }`,

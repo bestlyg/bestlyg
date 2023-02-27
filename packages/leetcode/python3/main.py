@@ -29,6 +29,7 @@ class TreeNode:
 
 dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
+
 class Node:
     def __init__(self, row: int, col: int, time: int):
         self.row = row
@@ -38,31 +39,35 @@ class Node:
     def __lt__(self, o: 'Node') -> bool:
         return self.time < o.time
 
+
 class Solution:
-    def minimumTime(self, grid: List[List[int]]) -> int:
-        n, m = len(grid), len(grid[0])
-        if grid[0][1] > 1 and grid[1][0] > 1:
-            return -1
-        q = []
-        heappush(q, Node(0, 0, 0))
-        cache = [[0] * 1005 for _ in range(1005)]
-        cache[0][0] = 1
-        while True:
-            cur: Node = heappop(q)
-            if cur.row == n - 1 and cur.col == m - 1:
-                return cur.time
-            for (i, j) in dirs:
-                nrow = cur.row + i
-                ncol = cur.col + j
-                if 0 <= nrow < n and 0 <= ncol < m:
-                    time = cur.time + 1
-                    if grid[nrow][ncol] > time:
-                        minus = (grid[nrow][ncol] - time + 1) // 2
-                        time = cur.time + minus * 2 + 1
-                    if cache[nrow][ncol]:
-                        continue
-                    cache[nrow][ncol] = 1
-                    heappush(q, Node(nrow, ncol, time))
+    def movesToMakeZigzag(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1:
+            return 0
+
+        def try1():
+            res = 0
+            for i in range(1, n, 2):
+                p = nums[i-1]
+                if i+1 < n:
+                    p = min(p, nums[i+1])
+                if nums[i] >= p:
+                    res += nums[i] - p + 1
+            return res
+
+        def try2():
+            res = 0
+            if nums[0] >= nums[1]:
+                res += nums[0] - nums[1] + 1
+            for i in range(2, n, 2):
+                p = nums[i - 1]
+                if i + 1 < n:
+                    p = min(p, nums[i + 1])
+                if nums[i] >= p:
+                    res += nums[i] - p + 1
+            return res
+        return min(try1(), try2())
 
 
 def main():

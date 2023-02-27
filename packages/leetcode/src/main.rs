@@ -38,43 +38,46 @@ impl PartialOrd for Node {
         self.time.partial_cmp(&o.time)
     }
 }
-
 impl Solution {
-    pub fn minimum_time(grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let m = grid[0].len();
-        if grid[0][1] > 1 && grid[1][0] > 1 {
-            -1
+    pub fn moves_to_make_zigzag(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        if n == 1 {
+            0
         } else {
-            let mut q = std::collections::BinaryHeap::<Node>::new();
-            q.push(Node::new(0, 0, 0));
-            let cache = [[false; 1005]; 1005];
-            cache[0][0] = 1;
-            loop {
-                let cur = q.pop().unwrap();
-                if cur.row == n - 1 && cur.col == m - 1 {
-                    return cur.time;
+            let try1 = || {
+                let mut res = 0;
+                let mut i = 1;
+                while i < n {
+                    let mut p = nums[i - 1];
+                    if i + 1 < n {
+                        p = p.min(nums[i + 1]);
+                    }
+                    if nums[i] >= p {
+                        res += nums[i] - p + 1;
+                    }
+                    i += 2;
                 }
-                for dir in dirs {
-                    let nrow = cur.row as i32 + dir[0];
-                    let ncol = cur.col as i32 + dir[1];
-                    if nrow < 0 || nrow >= n as i32 || ncol < 0 || ncol >= m as i32 {
-                        continue;
-                    }
-                    let mut time = cur.time + 1;
-                    let nrow = nrow as usize;
-                    let ncol = ncol as usize;
-                    if grid[nrow][ncol] > time {
-                        let minus = (grid[nrow][ncol] - time + 1) / 2;
-                        time = cur.time + minus * 2 + 1;
-                    }
-                    if cache[nrow][ncol] {
-                        continue;
-                    }
-                    cache[nrow][ncol] = true;
-                    q.push(Node::new(nrow, ncol, time));
+                res
+            };
+            let try2 = || {
+                let mut res = 0;
+                if nums[0] >= nums[1] {
+                    res += nums[0] - nums[1] + 1;
                 }
-            }
+                let mut i = 2;
+                while i < n {
+                    let mut p = nums[i - 1];
+                    if i + 1 < n {
+                        p = p.min(nums[i + 1]);
+                    }
+                    if nums[i] >= p {
+                        res += nums[i] - p + 1;
+                    }
+                    i += 2;
+                }
+                res
+            };
+            try1().min(try2())
         }
     }
 }
