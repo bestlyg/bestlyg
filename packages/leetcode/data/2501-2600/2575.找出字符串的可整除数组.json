@@ -1,12 +1,9 @@
 {
-    "name": "6368.找出字符串的可整除数组",
-    "url": "https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/",
+    "id": "2713",
+    "name": "2575.找出字符串的可整除数组",
+    "url": "https://leetcode.cn/problems/find-the-divisibility-array-of-a-string",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "返回 word 的可整除数组。",
     "solutions": [
         {

@@ -1,11 +1,11 @@
 {
+    "id": "1247",
     "name": "1144.递减元素使数组呈锯齿状",
-    "url": "https://leetcode.cn/problems/decrease-elements-to-make-array-zigzag//",
+    "url": "https://leetcode.cn/problems/decrease-elements-to-make-array-zigzag",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "贪心",
+        "数组"
     ],
     "desc": "返回将数组 nums 转换为锯齿数组所需的最小操作次数。",
     "solutions": [
