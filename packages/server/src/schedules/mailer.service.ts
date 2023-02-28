@@ -113,5 +113,6 @@ export class MailerTaskService {
   @Cron('0 0 19 * * *')
   async yzx_wss() {
     await this.yzx_mailerTask('维生素提醒', '补充钙片维生素');
+    await this.lyg_mailerTask('维生素提醒', '补充钙片维生素');
   }
 }
