@@ -39,45 +39,21 @@ impl PartialOrd for Node {
     }
 }
 impl Solution {
-    pub fn moves_to_make_zigzag(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        if n == 1 {
-            0
-        } else {
-            let try1 = || {
-                let mut res = 0;
-                let mut i = 1;
-                while i < n {
-                    let mut p = nums[i - 1];
-                    if i + 1 < n {
-                        p = p.min(nums[i + 1]);
-                    }
-                    if nums[i] >= p {
-                        res += nums[i] - p + 1;
-                    }
-                    i += 2;
-                }
-                res
-            };
-            let try2 = || {
-                let mut res = 0;
-                if nums[0] >= nums[1] {
-                    res += nums[0] - nums[1] + 1;
-                }
-                let mut i = 2;
-                while i < n {
-                    let mut p = nums[i - 1];
-                    if i + 1 < n {
-                        p = p.min(nums[i + 1]);
-                    }
-                    if nums[i] >= p {
-                        res += nums[i] - p + 1;
-                    }
-                    i += 2;
-                }
-                res
-            };
-            try1().min(try2())
+    pub fn merge_similar_items(items1: Vec<Vec<i32>>, items2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        for item in items1 {
+            let v = m.entry(item[0]).or_insert(0);
+            *v += item[1];
         }
+        for item in items2 {
+            let v = m.entry(item[0]).or_insert(0);
+            *v += item[1];
+        }
+        let mut res = m
+            .into_iter()
+            .map(|(k, v)| vec![k, v])
+            .collect::<Vec<Vec<i32>>>();
+        res.sort_by_key(|item| item[0]);
+        res
     }
 }

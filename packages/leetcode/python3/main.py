@@ -41,33 +41,17 @@ class Node:
 
 
 class Solution:
-    def movesToMakeZigzag(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n == 1:
-            return 0
-
-        def try1():
-            res = 0
-            for i in range(1, n, 2):
-                p = nums[i-1]
-                if i+1 < n:
-                    p = min(p, nums[i+1])
-                if nums[i] >= p:
-                    res += nums[i] - p + 1
-            return res
-
-        def try2():
-            res = 0
-            if nums[0] >= nums[1]:
-                res += nums[0] - nums[1] + 1
-            for i in range(2, n, 2):
-                p = nums[i - 1]
-                if i + 1 < n:
-                    p = min(p, nums[i + 1])
-                if nums[i] >= p:
-                    res += nums[i] - p + 1
-            return res
-        return min(try1(), try2())
+    def mergeSimilarItems(self, items1: List[List[int]], items2: List[List[int]]) -> List[List[int]]:
+        l = [0] * 1005
+        for [k, v] in items1:
+            l[k] += v
+        for [k, v] in items2:
+            l[k] += v
+        res = []
+        for i in range(1005):
+            if l[i]:
+                res.append([i, l[i]])
+        return res
 
 
 def main():
