@@ -110,9 +110,11 @@ export class MailerTaskService {
   }
   // 维生素，早上8.50 晚上7.00
   @Cron('0 50 8 * * *')
-  @Cron('0 0 19 * * *')
-  async yzx_wss() {
+  async yzx_wss1() {
     await this.yzx_mailerTask('维生素提醒', '补充钙片维生素');
-    await this.lyg_mailerTask('维生素提醒', '补充钙片维生素');
+  }
+  @Cron('0 0 19 * * *')
+  async yzx_wss2() {
+    await this.yzx_mailerTask('维生素提醒', '补充钙片维生素');
   }
 }
