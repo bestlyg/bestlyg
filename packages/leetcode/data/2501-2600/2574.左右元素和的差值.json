@@ -3,7 +3,10 @@
     "name": "2574.左右元素和的差值",
     "url": "https://leetcode.cn/problems/left-and-right-sum-differences",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "前缀和"
+    ],
     "desc": "给你一个下标从 0 开始的整数数组 nums ，请你找出一个下标从 0 开始的整数数组 answer。",
     "solutions": [
         {

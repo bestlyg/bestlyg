@@ -3,7 +3,13 @@
     "name": "2576.求出最多标记下标",
     "url": "https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
     "desc": "返回 nums 中最多可以标记的下标数目。",
     "solutions": [
         {

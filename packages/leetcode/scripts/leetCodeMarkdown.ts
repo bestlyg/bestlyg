@@ -2,25 +2,31 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2363. 合并相似的物品',
-  url: 'https://leetcode.cn/problems/merge-similar-items///',
+  name: '2373. 矩阵中的局部最大值',
+  url: 'https://leetcode.cn/problems/largest-local-values-in-a-matrix/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回一个二维数组 ret，其中 ret[i] = [valuei, weighti]， weighti 是所有价值为 valuei 物品的 重量之和 。`,
+  desc: `找出 grid 中每个 3 x 3 矩阵中的最大值。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 24,
-      memory: 6.4,
+      time: 12,
+      memory: 10.8,
       desc: '遍历',
       code: `class Solution {
 public:
-    vector<vector<int>> mergeSimilarItems(vector<vector<int>>& items1, vector<vector<int>>& items2) {
-        map<int, int> m;
-        for (auto &item : items1) m[item[0]] += item[1];
-        for (auto &item : items2) m[item[0]] += item[1];
-        vector<vector<int>> res;
-        for (auto &item : m) res.push_back({ item.first, item.second });
+    vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<int>> res(n - 2, vector<int>(n - 2, 0));
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < n - 1; j++) {
+                for (int row = i - 1; row <= i + 1; row++) {
+                    for (int col = j - 1; col <= j + 1; col++) {
+                        res[i - 1][j - 1] = max(res[i - 1][j - 1], grid[row][col]);
+                    }
+                }
+            }
+        }
         return res;
     }
 };`,
@@ -31,42 +37,39 @@ public:
       memory: 15.5,
       desc: '同上',
       code: `class Solution:
-    def mergeSimilarItems(self, items1: List[List[int]], items2: List[List[int]]) -> List[List[int]]:
-        l = [0] * 1005
-        for [k, v] in items1:
-            l[k] += v
-        for [k, v] in items2:
-            l[k] += v
-        res = []
-        for i in range(1005):
-            if l[i]:
-                res.append([i, l[i]])
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+        n = len(grid)
+        res = [[0] * (n-2) for _ in range(n-2)]
+        for i in range(1, n-1):
+            for j in range(1, n-1):
+                res[i-1][j-1] = max(
+                    grid[row][col]
+                    for row in range(i-1, i+2)
+                    for col in range(j-1, j+2)
+                )
         return res`,
     },
     {
       script: Script.RUST,
       time: 4,
-      memory: 2.3,
+      memory: 2.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn merge_similar_items(items1: Vec<Vec<i32>>, items2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        for item in items1 {
-            let v = m.entry(item[0]).or_insert(0);
-            *v += item[1];
+        pub fn largest_local(grid: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+            let n = grid.len();
+            let mut res = vec![vec![0; n - 2]; n - 2];
+            for i in 1..(n - 1) {
+                for j in 1..(n - 1) {
+                    for row in (i - 1)..=(i + 1) {
+                        for col in (j - 1)..=(j + 1) {
+                            res[i - 1][j - 1] = res[i - 1][j - 1].max(grid[row][col]);
+                        }
+                    }
+                }
+            }
+            res
         }
-        for item in items2 {
-            let v = m.entry(item[0]).or_insert(0);
-            *v += item[1];
-        }
-        let mut res = m
-            .into_iter()
-            .map(|(k, v)| vec![k, v])
-            .collect::<Vec<Vec<i32>>>();
-        res.sort_by_key(|item| item[0]);
-        res
-    }
-}`,
+    }`,
     },
   ],
 };

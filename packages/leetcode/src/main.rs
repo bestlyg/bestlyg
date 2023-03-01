@@ -38,22 +38,20 @@ impl PartialOrd for Node {
         self.time.partial_cmp(&o.time)
     }
 }
+
 impl Solution {
-    pub fn merge_similar_items(items1: Vec<Vec<i32>>, items2: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        for item in items1 {
-            let v = m.entry(item[0]).or_insert(0);
-            *v += item[1];
+    pub fn largest_local(grid: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        let n = grid.len();
+        let mut res = vec![vec![0; n - 2]; n - 2];
+        for i in 1..(n - 1) {
+            for j in 1..(n - 1) {
+                for row in (i - 1)..=(i + 1) {
+                    for col in (j - 1)..=(j + 1) {
+                        res[i - 1][j - 1] = res[i - 1][j - 1].max(grid[row][col]);
+                    }
+                }
+            }
         }
-        for item in items2 {
-            let v = m.entry(item[0]).or_insert(0);
-            *v += item[1];
-        }
-        let mut res = m
-            .into_iter()
-            .map(|(k, v)| vec![k, v])
-            .collect::<Vec<Vec<i32>>>();
-        res.sort_by_key(|item| item[0]);
         res
     }
 }
