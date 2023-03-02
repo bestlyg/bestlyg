@@ -41,17 +41,17 @@ class Node:
 
 
 class Solution:
-    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
-        n = len(grid)
-        res = [[0] * (n-2) for _ in range(n-2)]
-        for i in range(1, n-1):
-            for j in range(1, n-1):
-                res[i-1][j-1] = max(
-                    grid[row][col]
-                    for row in range(i-1, i+2)
-                    for col in range(i-1, j+2)
-                )
-        return res
+    def printBin(self, num: float) -> str:
+        res = "0."
+        for i in range(1, 32):
+            if num <= 0:
+                break
+            if num >= pow(2, -i):
+                num -= pow(2, -i)
+                res += "1"
+            else:
+                res += "0"
+        return "ERROR" if num else res
 
 
 def main():

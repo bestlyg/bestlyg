@@ -1,0 +1,38 @@
+{
+    "id": "100203",
+    "name": "面试题05.02.二进制数转字符串",
+    "url": "https://leetcode.cn/problems/bianry-number-to-string-lcci",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数学",
+        "字符串"
+    ],
+    "desc": "二进制数转字符串。给定一个介于0和1之间的实数（如0.72），类型为double，打印它的二进制表达式。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    string printBin(double num) {\n        string res = \"0.\";\n        for (int i = 1; i < 32 && num > 0; i++) {\n            if (num >= pow(2, -i)) num -= pow(2, -i), res += \"1\";\n            else res += \"0\";\n        }\n        if (num) return \"ERROR\";\n        return res;\n    }\n};",
+            "date": 1677686400000
+        },
+        {
+            "script": "python3",
+            "time": 28,
+            "memory": 14.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def printBin(self, num: float) -> str:\n        res = \"0.\"\n        for i in range(1, 32):\n            if num <= 0:\n                break\n            if num >= pow(2, -i):\n                num -= pow(2, -i)\n                res += \"1\"\n            else:\n                res += \"0\"\n        return \"ERROR\" if num else res",
+            "date": 1677686400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.4,
+            "desc": "同上。",
+            "code": "impl Solution {\n        pub fn print_bin(num: f64) -> String {\n            let mut num = num;\n            let mut res = String::from(\"0.\");\n            for i in 1..32 {\n                if num == 0.0 {\n                    break;\n                }\n                if num >= 2f64.powf(-i as f64) {\n                    num -= 2f64.powf(-i as f64);\n                    res.push('1');\n                } else {\n                    res.push('0');\n                }\n            }\n            if num > 0.0 {\n                \"ERROR\".to_string()\n            } else {\n                res\n            }\n        }\n    }",
+            "date": 1677686400000
+        }
+    ]
+}

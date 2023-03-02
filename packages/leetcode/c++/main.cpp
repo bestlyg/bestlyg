@@ -73,18 +73,13 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
-        int n = grid.size();
-        vector<vector<int>> res(n - 2, vector<int>(n - 2, 0));
-        for (int i = 1; i < n - 1; i++) {
-            for (int j = 1; j < n - 1; j++) {
-                for (int row = i - 1; row <= i + 1; row++) {
-                    for (int col = j - 1; col <= j + 1; col++) {
-                        res[i - 1][j - 1] = max(res[i - 1][j - 1], grid[row][col]);
-                    }
-                }
-            }
+    string printBin(double num) {
+        string res = "0.";
+        for (int i = 1; i < 32 && num > 0; i++) {
+            if (num >= pow(2, -i)) num -= pow(2, -i), res += "1";
+            else res += "0";
         }
+        if (num) return "ERROR";
         return res;
     }
 };

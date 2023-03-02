@@ -40,18 +40,24 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn largest_local(grid: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let n = grid.len();
-        let mut res = vec![vec![0; n - 2]; n - 2];
-        for i in 1..(n - 1) {
-            for j in 1..(n - 1) {
-                for row in (i - 1)..=(i + 1) {
-                    for col in (j - 1)..=(j + 1) {
-                        res[i - 1][j - 1] = res[i - 1][j - 1].max(grid[row][col]);
-                    }
-                }
+    pub fn print_bin(num: f64) -> String {
+        let mut num = num;
+        let mut res = String::from("0.");
+        for i in 1..32 {
+            if num == 0 {
+                break;
+            }
+            if num >= 2f64.powf(-i as f64) {
+                num -= 2f64.powf(-i as f64);
+                res.push('1');
+            } else {
+                res.push('0');
             }
         }
-        res
+        if num > 0.0 {
+            "ERROR".to_string()
+        } else {
+            res
+        }
     }
 }
