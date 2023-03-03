@@ -2,75 +2,98 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '面试题 05.02. 二进制数转字符串',
-  url: 'https://leetcode.cn/problems/bianry-number-to-string-lcci/',
+  name: '1487. 保证文件名唯一',
+  url: 'https://leetcode.cn/problems/making-file-names-unique/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `二进制数转字符串。给定一个介于0和1之间的实数（如0.72），类型为double，打印它的二进制表达式。`,
+  desc: `返回长度为 n 的字符串数组，其中 ans[i] 是创建第 i 个文件夹时系统分配给该文件夹的实际名称。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6,
+      time: 168,
+      memory: 57.2,
       desc: '遍历',
       code: `class Solution {
 public:
-    string printBin(double num) {
-        string res = "0.";
-        for (int i = 1; i < 32 && num > 0; i++) {
-            if (num >= pow(2, -i)) num -= pow(2, -i), res += "1";
-            else res += "0";
+    vector<string> getFolderNames(vector<string>& names) {
+        unordered_map<string, int> m;
+        for (int i = 0; i < names.size(); i++) {
+            string name = names[i];
+            if (m.count(name)) {
+                for (int j = m[name]; ; j++) {
+                    string next = name + "(" + to_string(j) + ")";
+                    if (!m.count(next)) {
+                        names[i] = next;
+                        m[next] = 1;
+                        m[name] = j + 1;
+                        break;
+                    }
+                }
+            } else {
+                m[name] = 1;
+            }
         }
-        if (num) return "ERROR";
-        return res;
+        return names;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 28,
-      memory: 14.7,
+      time: 140,
+      memory: 28.3,
       desc: '同上',
       code: `class Solution:
-    def printBin(self, num: float) -> str:
-        res = "0."
-        for i in range(1, 32):
-            if num <= 0:
-                break
-            if num >= pow(2, -i):
-                num -= pow(2, -i)
-                res += "1"
+    def getFolderNames(self, names: List[str]) -> List[str]:
+        m = {}
+        for i in range(len(names)):
+            name = names[i]
+            if name in m:
+                j = m[name]
+                while name + "(" + str(j) + ")" in m:
+                    j += 1
+                next_name = name + "(" + str(j) + ")"
+                names[i] = next_name
+                m[next_name] = 1
+                m[name] = j + 1
             else:
-                res += "0"
-        return "ERROR" if num else res`,
+                m[name] = 1
+        return names`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.4,
+      time: 48,
+      memory: 9.3,
       desc: '同上',
       code: `impl Solution {
-        pub fn print_bin(num: f64) -> String {
-            let mut num = num;
-            let mut res = String::from("0.");
-            for i in 1..32 {
-                if num == 0.0 {
-                    break;
+    pub fn get_folder_names(names: Vec<String>) -> Vec<String> {
+        let mut names = names;
+        let mut m = std::collections::HashMap::<String, usize>::new();
+        for i in 0..names.len() {
+            let name = names[i].clone();
+            if m.contains_key(&name) {
+                let mut j = *m.get(&name).unwrap();
+                let next;
+                loop {
+                    let mut item = name.clone();
+                    item.push('(');
+                    item.push_str(&j.to_string());
+                    item.push(')');
+                    if !m.contains_key(&item) {
+                        next = item;
+                        break;
+                    }
+                    j += 1;
                 }
-                if num >= 2f64.powf(-i as f64) {
-                    num -= 2f64.powf(-i as f64);
-                    res.push('1');
-                } else {
-                    res.push('0');
-                }
-            }
-            if num > 0.0 {
-                "ERROR".to_string()
+                m.insert(next.clone(), 1);
+                names[i] = next.clone();
+                *m.get_mut(&name).unwrap() = j + 1;
             } else {
-                res
+                m.insert(name.clone(), 1);
             }
         }
-    }`,
+        names
+    }
+}`,
     },
   ],
 };

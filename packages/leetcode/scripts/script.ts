@@ -96,3 +96,10 @@ function substringXorQueries(s: string, queries: number[][]): number[][] {
       return [i, i + item.length];
     });
 }
+
+class A {
+  readonly a: number;
+  constructor() {
+    this.a = 1;
+  }
+}

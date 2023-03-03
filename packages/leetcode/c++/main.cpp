@@ -73,14 +73,31 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    string printBin(double num) {
-        string res = "0.";
-        for (int i = 1; i < 32 && num > 0; i++) {
-            if (num >= pow(2, -i)) num -= pow(2, -i), res += "1";
-            else res += "0";
+    vector<string> getFolderNames(vector<string>& names) {
+        unordered_map<string, int> m;
+        for (int i = 0; i < names.size(); i++) {
+            string name = names[i];
+            if (m.count(name)) {
+                for (int i = m[name]; i <= 10000; i++) {
+                    string next = name + "(" + to_string(i) + ")";
+                    if (m.count(next)) continue;
+                    names[i] = next;
+                    m[name] = i + 1;
+                }
+            } else {
+                m[name] = 1;
+            }
         }
-        if (num) return "ERROR";
-        return res;
+        return names;
+    }
+    string formatName(string name, int &cnt) {
+        auto left = name.find_last_of('('), right = name.find_last_of(')');
+        if (left == string::npos || right == string::npos || right < left) return name;
+        for (int i = left + 1; i < right; i++) {
+            if (!isdigit(name[i])) return name;
+            cnt = cnt * 10 + name[i] - '0';
+        }
+        return name.substr(0, left);
     }
 };
 

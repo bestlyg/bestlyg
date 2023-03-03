@@ -40,24 +40,32 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn print_bin(num: f64) -> String {
-        let mut num = num;
-        let mut res = String::from("0.");
-        for i in 1..32 {
-            if num == 0 {
-                break;
-            }
-            if num >= 2f64.powf(-i as f64) {
-                num -= 2f64.powf(-i as f64);
-                res.push('1');
+    pub fn get_folder_names(names: Vec<String>) -> Vec<String> {
+        let mut names = names;
+        let mut m = std::collections::HashMap::<String, usize>::new();
+        for i in 0..names.len() {
+            let name = names[i].clone();
+            if m.contains_key(&name) {
+                let mut j = *m.get(&name).unwrap();
+                let next;
+                loop {
+                    let mut item = name.clone();
+                    item.push('(');
+                    item.push_str(&j.to_string());
+                    item.push(')');
+                    if !m.contains_key(&item) {
+                        next = item;
+                        break;
+                    }
+                    j += 1;
+                }
+                m.insert(next.clone(), 1);
+                names[i] = next.clone();
+                *m.get_mut(&name).unwrap() = j + 1;
             } else {
-                res.push('0');
+                m.insert(name.clone(), 1);
             }
         }
-        if num > 0.0 {
-            "ERROR".to_string()
-        } else {
-            res
-        }
+        names
     }
 }

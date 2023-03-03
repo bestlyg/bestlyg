@@ -41,17 +41,21 @@ class Node:
 
 
 class Solution:
-    def printBin(self, num: float) -> str:
-        res = "0."
-        for i in range(1, 32):
-            if num <= 0:
-                break
-            if num >= pow(2, -i):
-                num -= pow(2, -i)
-                res += "1"
+    def getFolderNames(self, names: List[str]) -> List[str]:
+        m = {}
+        for i in range(len(names)):
+            name = names[i]
+            if name in m:
+                j = m[name]
+                while name + "(" + str(j) + ")" in m:
+                    j += 1
+                next_name = name + "(" + j + ")"
+                names[i] = next_name
+                m[next_name] = 1
+                m[name] = j + 1
             else:
-                res += "0"
-        return "ERROR" if num else res
+                m[name] = 1
+        return names
 
 
 def main():
