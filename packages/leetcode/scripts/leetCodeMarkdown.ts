@@ -2,96 +2,78 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1487. 保证文件名唯一',
-  url: 'https://leetcode.cn/problems/making-file-names-unique/',
+  name: '1599. 经营摩天轮的最大利润',
+  url: 'https://leetcode.cn/problems/maximum-profit-of-operating-a-centennial-wheel//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回长度为 n 的字符串数组，其中 ans[i] 是创建第 i 个文件夹时系统分配给该文件夹的实际名称。`,
+  desc: `返回最大化利润所需执行的 最小轮转次数 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 168,
-      memory: 57.2,
-      desc: '遍历',
+      time: 100,
+      memory: 79.5,
+      desc: '模拟',
       code: `class Solution {
 public:
-    vector<string> getFolderNames(vector<string>& names) {
-        unordered_map<string, int> m;
-        for (int i = 0; i < names.size(); i++) {
-            string name = names[i];
-            if (m.count(name)) {
-                for (int j = m[name]; ; j++) {
-                    string next = name + "(" + to_string(j) + ")";
-                    if (!m.count(next)) {
-                        names[i] = next;
-                        m[next] = 1;
-                        m[name] = j + 1;
-                        break;
-                    }
-                }
-            } else {
-                m[name] = 1;
-            }
+    int minOperationsMaxProfit(vector<int>& customers, int boardingCost, int runningCost) {
+        int resMax = 0, resCnt = -1, wait = 0, cur = 0, i = 0;
+        while (wait != 0 || i < customers.size()) {
+            if (i < customers.size()) wait += customers[i];
+            cur += min(wait, 4) * boardingCost - runningCost;
+            wait = max(wait - 4, 0);
+            if (cur > resMax) resMax = cur, resCnt = i + 1;
+            i += 1;
         }
-        return names;
+        return resCnt;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 140,
-      memory: 28.3,
+      time: 1656,
+      memory: 19.1,
       desc: '同上',
-      code: `class Solution:
-    def getFolderNames(self, names: List[str]) -> List[str]:
-        m = {}
-        for i in range(len(names)):
-            name = names[i]
-            if name in m:
-                j = m[name]
-                while name + "(" + str(j) + ")" in m:
-                    j += 1
-                next_name = name + "(" + str(j) + ")"
-                names[i] = next_name
-                m[next_name] = 1
-                m[name] = j + 1
-            else:
-                m[name] = 1
-        return names`,
+      code: `
+    class Solution:
+        def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -> int:
+            resMax, resCnt = 0, -1
+            wait, cur, i = 0, 0, 0
+            while wait != 0 or i < len(customers):
+                if i < len(customers):
+                    wait += customers[i]
+                cur += min(wait, 4) * boardingCost - runningCost
+                wait = max(wait - 4, 0)
+                if cur > resMax:
+                    resMax = cur
+                    resCnt = i + 1
+                i += 1
+            return resCnt`,
     },
     {
       script: Script.RUST,
-      time: 48,
-      memory: 9.3,
+      time: 24,
+      memory: 2.8,
       desc: '同上',
       code: `impl Solution {
-    pub fn get_folder_names(names: Vec<String>) -> Vec<String> {
-        let mut names = names;
-        let mut m = std::collections::HashMap::<String, usize>::new();
-        for i in 0..names.len() {
-            let name = names[i].clone();
-            if m.contains_key(&name) {
-                let mut j = *m.get(&name).unwrap();
-                let next;
-                loop {
-                    let mut item = name.clone();
-                    item.push('(');
-                    item.push_str(&j.to_string());
-                    item.push(')');
-                    if !m.contains_key(&item) {
-                        next = item;
-                        break;
-                    }
-                    j += 1;
-                }
-                m.insert(next.clone(), 1);
-                names[i] = next.clone();
-                *m.get_mut(&name).unwrap() = j + 1;
-            } else {
-                m.insert(name.clone(), 1);
+    pub fn min_operations_max_profit(
+        customers: Vec<i32>,
+        boarding_cost: i32,
+        running_cost: i32,
+    ) -> i32 {
+        let (mut resMax, mut resCnt, mut wait, mut cur, mut i) = (0, -1, 0, 0, 0);
+        while wait != 0 || i < customers.len() {
+            if i < customers.len() {
+                wait += customers[i];
             }
+            cur += wait.min(4) * boarding_cost - running_cost;
+            wait = 0.max(wait - 4);
+            if cur > resMax {
+                resMax = cur;
+                resCnt = i as i32 + 1;
+            }
+            i += 1;
         }
-        names
+        resCnt
     }
 }`,
     },

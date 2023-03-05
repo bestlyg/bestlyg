@@ -40,32 +40,24 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn get_folder_names(names: Vec<String>) -> Vec<String> {
-        let mut names = names;
-        let mut m = std::collections::HashMap::<String, usize>::new();
-        for i in 0..names.len() {
-            let name = names[i].clone();
-            if m.contains_key(&name) {
-                let mut j = *m.get(&name).unwrap();
-                let next;
-                loop {
-                    let mut item = name.clone();
-                    item.push('(');
-                    item.push_str(&j.to_string());
-                    item.push(')');
-                    if !m.contains_key(&item) {
-                        next = item;
-                        break;
-                    }
-                    j += 1;
-                }
-                m.insert(next.clone(), 1);
-                names[i] = next.clone();
-                *m.get_mut(&name).unwrap() = j + 1;
-            } else {
-                m.insert(name.clone(), 1);
+    pub fn min_operations_max_profit(
+        customers: Vec<i32>,
+        boarding_cost: i32,
+        running_cost: i32,
+    ) -> i32 {
+        let (mut resMax, mut resCnt, mut wait, mut cur, mut i) = (0, -1, 0, 0, 0);
+        while wait != 0 || i < customers.len() {
+            if i < customers.len() {
+                wait += customers[i];
             }
+            cur += wait.min(4) * boarding_cost - running_cost;
+            wait = 0.max(wait - 4);
+            if cur > resMax {
+                resMax = cur;
+                resCnt = i as i32 + 1;
+            }
+            i += 1;
         }
-        names
+        resCnt
     }
 }

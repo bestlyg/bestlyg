@@ -41,21 +41,18 @@ class Node:
 
 
 class Solution:
-    def getFolderNames(self, names: List[str]) -> List[str]:
-        m = {}
-        for i in range(len(names)):
-            name = names[i]
-            if name in m:
-                j = m[name]
-                while name + "(" + str(j) + ")" in m:
-                    j += 1
-                next_name = name + "(" + j + ")"
-                names[i] = next_name
-                m[next_name] = 1
-                m[name] = j + 1
-            else:
-                m[name] = 1
-        return names
+    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -> int:
+        resMax, resCnt = 0, -1
+        wait, cnt, i = (0, 0, 0)
+        while wait != 0 or i < len(customers):
+            if i < len(customers):
+                wait += customers[i]
+            cur += min(wait, 4) * boardingCost - runningCost
+            wait = max(wait - 4, 0)
+            if cur > resMax:
+                resMax = cur, resCnt = i + 1
+            i += 1
+        return resCnt
 
 
 def main():
