@@ -40,24 +40,15 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn min_operations_max_profit(
-        customers: Vec<i32>,
-        boarding_cost: i32,
-        running_cost: i32,
-    ) -> i32 {
-        let (mut resMax, mut resCnt, mut wait, mut cur, mut i) = (0, -1, 0, 0, 0);
-        while wait != 0 || i < customers.len() {
-            if i < customers.len() {
-                wait += customers[i];
+    pub fn minimum_deletions(s: String) -> i32 {
+        let (mut dp, mut b) = (0, 0);
+        for c in s.chars() {
+            if c == 'a' {
+                dp = b.min(dp + 1);
+            } else {
+                b += 1;
             }
-            cur += wait.min(4) * boarding_cost - running_cost;
-            wait = 0.max(wait - 4);
-            if cur > resMax {
-                resMax = cur;
-                resCnt = i as i32 + 1;
-            }
-            i += 1;
         }
-        resCnt
+        dp
     }
 }

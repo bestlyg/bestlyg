@@ -73,31 +73,13 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    vector<string> getFolderNames(vector<string>& names) {
-        unordered_map<string, int> m;
-        for (int i = 0; i < names.size(); i++) {
-            string name = names[i];
-            if (m.count(name)) {
-                for (int i = m[name]; i <= 10000; i++) {
-                    string next = name + "(" + to_string(i) + ")";
-                    if (m.count(next)) continue;
-                    names[i] = next;
-                    m[name] = i + 1;
-                }
-            } else {
-                m[name] = 1;
-            }
+    int minimumDeletions(string s) {
+        int dp = 0, b = 0;
+        for (auto &c : s) {
+            if (c == 'a') dp = min(dp + 1, b);
+            else b += 1;
         }
-        return names;
-    }
-    string formatName(string name, int &cnt) {
-        auto left = name.find_last_of('('), right = name.find_last_of(')');
-        if (left == string::npos || right == string::npos || right < left) return name;
-        for (int i = left + 1; i < right; i++) {
-            if (!isdigit(name[i])) return name;
-            cnt = cnt * 10 + name[i] - '0';
-        }
-        return name.substr(0, left);
+        return dp;
     }
 };
 
