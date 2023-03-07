@@ -73,13 +73,40 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    int minimumDeletions(string s) {
-        int dp = 0, b = 0;
-        for (auto &c : s) {
-            if (c == 'a') dp = min(dp + 1, b);
-            else b += 1;
+    vector<string> braceExpansionII(string expression) {
+        if (checkSingal(expression)) expression = expression.substr(1, expression.size() - 2);
+        cout << "braceExpansionII " << expression << ", " << checkSingal(expression) << endl;
+        unordered_set<string> s;
+        vector<string> items = split(expression);
+        cout << "items: ";
+        for (auto item : items) cout << item << ", ";
+        cout << endl;
+        return vector<string>(s.begin(), s.end());
+    }
+    bool checkSingal(string &expression) {
+        if (expression[0] != '{' || expression[expression.size() - 1] != '}') return false;
+        int level = 0, i = 0;
+        for (; i < expression.size(); i++) {
+            if (expression[i] == '{') level++;
+            else if (expression[i] == '}') level--;
+            if (i != expression.size() - 1 && level == 0) return false;
         }
-        return dp;
+        return true;
+    }
+    vector<string> split(string &expression) {
+        // cout << "split " << expression << endl;
+        vector<string> items;
+        int level = 0, prev = 0, i = 0;
+        for (; i < expression.size(); i++) {
+            if (expression[i] == '{') level++;
+            else if (expression[i] == '}') level--;
+            else if (expression[i] == ',' && level == 0) {
+                items.push_back(expression.substr(prev, i - prev));
+                prev = i + 1;
+            }
+        }
+        items.push_back(expression.substr(prev, i - prev));
+        return items;
     }
 };
 
