@@ -42,78 +42,18 @@ class Node:
 
 
 class Solution:
-
-    def checkSingal(self, expression: str):
-        if expression[0] != '{' or expression[-1] != '}':
-            return False
-        level, i = 0, 0
-        while i < len(expression):
-            if expression[i] == '{':
-                level += 1
-            elif expression[i] == '}':
-                level -= 1
-            if i != len(expression) - 1 and level == 0:
-                return False
-            i += 1
-        return True
-
-    def split(self, expression: str):
-        items = []
-        level = prev = i = 0
-        while i < len(expression):
-            if expression[i] == '{':
-                level += 1
-            elif expression[i] == '}':
-                level -= 1
-            elif expression[i] == ',' and level == 0:
-                items.append(expression[prev:i])
-                prev = i + 1
-            i += 1
-        items.append(expression[prev:])
-        return items
-
-    def analysis(self, item: str):
-        res = []
-        i = 0
-        while i < len(item):
-            if item[i] != '{':
-                res.append([str(item[i])])
-            else:
-                prev, level = i, 0
-                while True:
-                    if item[i] == '{':
-                        level += 1
-                    elif item[i] == '}':
-                        level -= 1
-                    if level == 0:
-                        break
-                    else:
-                        i += 1
-                res.append(self.braceExpansionII(item[prev:i+1]))
-            i += 1
-        return res
-
-    def dfs(self, s: SortedSet, res: List[List[str]], start: int, cur: str):
-        if start == len(res):
-            s.add(cur)
-        else:
-            for i in range(len(res[start])):
-                self.dfs(s, res, start+1, cur+res[start][i])
-
-    def braceExpansionII(self, expression: str) -> List[str]:
-        s = SortedSet()
-        if self.checkSingal(expression):
-            expression = expression[1:-1]
-        items = self.split(expression)
-        if len(items) > 1:
-            for item in items:
-                for res in self.braceExpansionII(item):
-                    s.add(res)
-        else:
-            item = items[0]
-            res = self.analysis(item)
-            self.dfs(s, res, 0, '')
-        return list(s)
+    def maxValue(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        dp = [[grid[i][j] for j in range(m)] for i in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if i == 0 and j != 0:
+                    dp[i][j] += dp[i][j - 1]
+                elif i != 0 and j == 0:
+                    dp[i][j] += dp[i - 1][j]
+                elif i != 0 and j != 0:
+                    dp[i][j] += max(dp[i - 1][j], dp[i][j - 1])
+        return dp[n-1][m-1]
 
 
 def main():
