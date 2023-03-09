@@ -40,21 +40,19 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn max_value(grid: Vec<Vec<i32>>) -> i32 {
-        let (n, m) = (grid.len(), grid[0].len());
-        let mut dp = vec![vec![0; m]; n];
+    pub fn minimum_recolors(blocks: String, k: i32) -> i32 {
+        let k = k as usize;
+        let blocks = blocks.chars().collect::<Vec<char>>();
+        let (n, mut ans, mut cur) = (blocks.len(), 0x3f3f3f3f, 0);
         for i in 0..n {
-            for j in 0..m {
-                dp[i][j] = grid[i][j];
-                if i == 0 && j != 0 {
-                    dp[i][j] += dp[i][j - 1];
-                } else if i != 0 && j == 0 {
-                    dp[i][j] += dp[i - 1][j];
-                } else if i != 0 && j != 0 {
-                    dp[i][j] += dp[i - 1][j].max(dp[i][j - 1]);
+            cur += if blocks[i] == 'W' { 1 } else { 0 };
+            if i + 1 >= k {
+                if i + 1 > k {
+                    cur -= if blocks[i - k] == 'W' { 1 } else { 0 };
                 }
+                ans = ans.min(cur);
             }
         }
-        dp[n - 1][m - 1]
+        ans
     }
 }

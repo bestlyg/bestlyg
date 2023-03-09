@@ -70,43 +70,22 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
+// "WBBWWBBWBW"
+// 7
 
 class Solution {
 public:
-    vector<string> braceExpansionII(string expression) {
-        if (checkSingal(expression)) expression = expression.substr(1, expression.size() - 2);
-        cout << "braceExpansionII " << expression << ", " << checkSingal(expression) << endl;
-        unordered_set<string> s;
-        vector<string> items = split(expression);
-        cout << "items: ";
-        for (auto item : items) cout << item << ", ";
-        cout << endl;
-        return vector<string>(s.begin(), s.end());
-    }
-    bool checkSingal(string &expression) {
-        if (expression[0] != '{' || expression[expression.size() - 1] != '}') return false;
-        int level = 0, i = 0;
-        for (; i < expression.size(); i++) {
-            if (expression[i] == '{') level++;
-            else if (expression[i] == '}') level--;
-            if (i != expression.size() - 1 && level == 0) return false;
-        }
-        return true;
-    }
-    vector<string> split(string &expression) {
-        // cout << "split " << expression << endl;
-        vector<string> items;
-        int level = 0, prev = 0, i = 0;
-        for (; i < expression.size(); i++) {
-            if (expression[i] == '{') level++;
-            else if (expression[i] == '}') level--;
-            else if (expression[i] == ',' && level == 0) {
-                items.push_back(expression.substr(prev, i - prev));
-                prev = i + 1;
+    int minimumRecolors(string blocks, int k) {
+        int n = blocks.size(), ans = 0x3f3f3f3f, cur = 0;
+        for (int i = 0; i < n; i++) {
+            if (i < k) {
+                cur += blocks[i] == 'B' ? 1 : 0;
+            } else {
+                cur -= blocks[i - k] == 'B' ? 1 : 0;
+                ans = min(ans, cur);
             }
         }
-        items.push_back(expression.substr(prev, i - prev));
-        return items;
+        return ans;
     }
 };
 

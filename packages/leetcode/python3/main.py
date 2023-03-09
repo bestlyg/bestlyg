@@ -42,18 +42,15 @@ class Node:
 
 
 class Solution:
-    def maxValue(self, grid: List[List[int]]) -> int:
-        n, m = len(grid), len(grid[0])
-        dp = [[grid[i][j] for j in range(m)] for i in range(n)]
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        n, ans, cur = len(blocks), 0x3f3f3f3f, 0
         for i in range(n):
-            for j in range(m):
-                if i == 0 and j != 0:
-                    dp[i][j] += dp[i][j - 1]
-                elif i != 0 and j == 0:
-                    dp[i][j] += dp[i - 1][j]
-                elif i != 0 and j != 0:
-                    dp[i][j] += max(dp[i - 1][j], dp[i][j - 1])
-        return dp[n-1][m-1]
+            cur += 1 if blocks[i] == 'W'else 0
+            if i + 1 >= k:
+                if i + 1 > k:
+                    cur -= 1 if blocks[i - k] == 'W'else 0
+                ans = min(ans, cur)
+        return ans
 
 
 def main():
