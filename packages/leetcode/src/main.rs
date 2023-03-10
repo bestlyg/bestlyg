@@ -40,19 +40,30 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn minimum_recolors(blocks: String, k: i32) -> i32 {
-        let k = k as usize;
-        let blocks = blocks.chars().collect::<Vec<char>>();
-        let (n, mut ans, mut cur) = (blocks.len(), 0x3f3f3f3f, 0);
-        for i in 0..n {
-            cur += if blocks[i] == 'W' { 1 } else { 0 };
-            if i + 1 >= k {
-                if i + 1 > k {
-                    cur -= if blocks[i - k] == 'W' { 1 } else { 0 };
+    pub fn min_subarray(nums: Vec<i32>, p: i32) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        m.insert(0, -1);
+        let (n, mut cur, mut sums) = (nums.len(), 0, 0);
+        let mut res = n as i32;
+        for num in nums.iter() {
+            sums = (sums + num) % p;
+        }
+        if sums == 0 {
+            0
+        } else {
+            for i in 0..n {
+                cur = (cur + nums[i]) % p;
+                let target = (cur - sums + p) % p;
+                if m.contains_key(&target) {
+                    res = res.min(i as i32 - m.get(&target).unwrap());
                 }
-                ans = ans.min(cur);
+                m.insert(cur, i as i32);
+            }
+            if res == n as i32 {
+                -1
+            } else {
+                res
             }
         }
-        ans
     }
 }

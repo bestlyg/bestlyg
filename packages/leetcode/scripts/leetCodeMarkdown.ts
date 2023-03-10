@@ -2,70 +2,86 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2379. 得到 K 个黑块的最少涂色次数',
-  url: 'https://leetcode.cn/problems/minimum-recolors-to-get-k-consecutive-black-blocks/',
+  name: '1590. 使数组和能被 P 整除',
+  url: 'https://leetcode.cn/problems/make-sum-divisible-by-p//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个整数 k ，表示想要 连续 黑色块的数目。每一次操作中，你可以选择一个白色块将它 涂成 黑色块。请你返回至少出现 一次 连续 k 个黑色块的 最少 操作次数。`,
+  desc: `给你一个正整数数组 nums，请你移除 最短 子数组（可以为 空），使得剩余元素的 和 能被 p 整除。 不允许 将整个数组都移除。请你返回你需要移除的最短子数组的长度，如果无法满足题目要求，返回 -1 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory: 6.2,
-      desc: '遍历',
+      time: 152,
+      memory: 65,
+      desc: '前缀和，如果sum%p=x, 那么(f[i+1]-f[j])%p=x才可以求得值',
       code: `class Solution {
 public:
-    int minimumRecolors(string blocks, int k) {
-        int n = blocks.size(), ans = 0x3f3f3f3f, cur = 0;
+    int minSubarray(vector<int>& nums, int p) {
+        unordered_map<int, int> m;
+        m[0] = -1;
+        int n = nums.size(), cur = 0, res = n, sum = 0;
+        for (auto &num : nums) sum = (sum + num) % p;
+        if (sum == 0) return 0;
         for (int i = 0; i < n; i++) {
-            cur += blocks[i] == 'W' ? 1 : 0;
-            if (i + 1 >= k) {
-                if (i + 1 > k) cur -= blocks[i - k] == 'W' ? 1 : 0;
-                ans = min(ans, cur);
-            }
+            cur = (cur + nums[i]) % p;
+            if (m.count((cur - sum + p) % p)) res = min(res, i - m[(cur - sum + p) % p]);
+            m[cur] = i;
         }
-        return ans;
+        return res == n ? -1 : res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 36,
-      memory: 14.9,
+      time: 128,
+      memory: 35.5,
       desc: '同上',
       code: `class Solution:
-    def minimumRecolors(self, blocks: str, k: int) -> int:
-        n, ans, cur = len(blocks), 0x3f3f3f3f, 0
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        m = dict()
+        m[0] = -1
+        n, cur, res, sums = len(nums), 0, 0x3f3f3f3f, sum(nums) % p
+        if sums == 0:
+            return 0
         for i in range(n):
-            cur += 1 if blocks[i] == 'W' else 0
-            if i + 1 >= k:
-                if i + 1 > k:
-                    cur -= 1 if blocks[i - k] == 'W' else 0
-                ans = min(ans, cur)
-        return ans`,
+            cur = (cur + nums[i]) % p
+            if (cur - sums + p) % p in m:
+                res = min(res, i - m[(cur - sums + p) % p])
+            m[cur] = i
+        return res if res != n else -1`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 28,
+      memory: 4.7,
       desc: '同上',
       code: `impl Solution {
-        pub fn minimum_recolors(blocks: String, k: i32) -> i32 {
-            let k = k as usize;
-            let blocks = blocks.chars().collect::<Vec<char>>();
-            let (n, mut ans, mut cur) = (blocks.len(), 0x3f3f3f3f, 0);
-            for i in 0..n {
-                cur += if blocks[i] == 'W' { 1 } else { 0 };
-                if i + 1 >= k {
-                    if i + 1 > k {
-                        cur -= if blocks[i - k] == 'W' { 1 } else { 0 };
-                    }
-                    ans = ans.min(cur);
-                }
-            }
-            ans
+    pub fn min_subarray(nums: Vec<i32>, p: i32) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        m.insert(0, -1);
+        let (n, mut cur, mut sums) = (nums.len(), 0, 0);
+        let mut res = n as i32;
+        for num in nums.iter() {
+            sums = (sums + num) % p;
         }
-    }`,
+        if sums == 0 {
+            0
+        } else {
+            for i in 0..n {
+                cur = (cur + nums[i]) % p;
+                let target = (cur - sums + p) % p;
+                if m.contains_key(&target) {
+                    res = res.min(i as i32 - m.get(&target).unwrap());
+                }
+                m.insert(cur, i as i32);
+            }
+            if res == n as i32 {
+                -1
+            } else {
+                res
+            }
+        }
+    }
+}`,
     },
   ],
 };

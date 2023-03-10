@@ -42,15 +42,18 @@ class Node:
 
 
 class Solution:
-    def minimumRecolors(self, blocks: str, k: int) -> int:
-        n, ans, cur = len(blocks), 0x3f3f3f3f, 0
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        m = dict()
+        m[0] = -1
+        n, cur, res, sums = len(nums), 0, 0x3f3f3f3f, sum(nums) % p
+        if sums == 0:
+            return 0
         for i in range(n):
-            cur += 1 if blocks[i] == 'W'else 0
-            if i + 1 >= k:
-                if i + 1 > k:
-                    cur -= 1 if blocks[i - k] == 'W'else 0
-                ans = min(ans, cur)
-        return ans
+            cur = (cur + nums[i]) % p
+            if (cur - sums + p) % p in m:
+                res = min(res, m[(cur - sums + p) % p])
+            m[cur] = i
+        return res if res != 0x3f3f3f3f else -1
 
 
 def main():
