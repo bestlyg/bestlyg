@@ -42,18 +42,18 @@ class Node:
 
 
 class Solution:
-    def minSubarray(self, nums: List[int], p: int) -> int:
+    def findLongestSubarray(self, array: List[str]) -> List[str]:
+        cur, resMax, redIdx = 0, 0, -1
         m = dict()
         m[0] = -1
-        n, cur, res, sums = len(nums), 0, 0x3f3f3f3f, sum(nums) % p
-        if sums == 0:
-            return 0
-        for i in range(n):
-            cur = (cur + nums[i]) % p
-            if (cur - sums + p) % p in m:
-                res = min(res, m[(cur - sums + p) % p])
-            m[cur] = i
-        return res if res != 0x3f3f3f3f else -1
+        for i in range(len(array)):
+            cur += 1 if array[0].isalpha() else -1
+            if cur in m and i - m[cur] > resMax:
+                resIdx = m[cur] + 1
+                resMax = i - m[cur]
+            if cur not in m:
+                m[cur] = i
+        return array[resIdx:resIdx + resMax]
 
 
 def main():
