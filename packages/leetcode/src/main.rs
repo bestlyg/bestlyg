@@ -40,32 +40,54 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn find_minimum_time(tasks: Vec<Vec<i32>>) -> i32 {
-        let mut tasks = tasks;
-        tasks.sort_by(|a, b| a[1].cmp(&b[1]));
-        let mut res = 0;
-        let mut time = [false; 2005];
-        for mut task in tasks {
-            for i in task[0]..=task[1] {
-                let i = i as usize;
-                if time[i] {
-                    task[2] -= 1;
+    pub fn count_subgraphs_for_each_diameter(n: i32, edges: Vec<Vec<i32>>) -> Vec<i32> {
+        let n = n as usize;
+        let mut nodes: Vec<Vec<usize>> = vec![vec![]; n];
+        for edge in edges {
+            let (n1, n2) = (edge[0] as usize, edge[1] as usize);
+            nodes[n1 - 1].push(n2 - 1);
+            nodes[n2 - 1].push(n1 - 1);
+        }
+        let mut res = vec![0; n - 1];
+        for i in 1..(1 << n) {
+            let i = i as usize;
+            let (mut root, mut mask, mut last) = (0, i, 0);
+            while ((1 << root) & i) == 0 {
+                root += 1;
+            }
+            let mut q = std::collections::VecDeque::<usize>::new();
+            q.push_back(root);
+            mask &= !(1 << root);
+            while !q.is_empty() {
+                let cur = q.pop_front().unwrap();
+                last = cur;
+                for next in nodes[cur].iter() {
+                    if (mask & (1 << next)) != 0 {
+                        mask &= !(1 << next);
+                        q.push_back(*next);
+                    }
                 }
             }
-            if task[2] >= 0 {
-                for i in (task[0]..=task[1]).rev() {
-                    let i = i as usize;
-                    if !time[i] {
-                        time[i] = true;
-                        res += 1;
-                        task[2] -= 1;
-                    }
-                    if task[2] == 0 {
-                        break;
-                    }
+            if mask == 0 {
+                let d = Solution::dfs(&nodes, last, i & !(1 << last));
+                if d >= 1 {
+                    res[d - 1] += 1;
                 }
             }
         }
         res
+    }
+    fn dfs(nodes: &Vec<Vec<usize>>, root: usize, mask: usize) -> usize {
+        if mask == 0 {
+            0
+        } else {
+            let mut res = 0;
+            for next in nodes[root].iter() {
+                if (mask & (1 << next)) != 0 {
+                    res = res.max(Solution::dfs(nodes, *next, mask & !(1 << *next)) + 1)
+                }
+            }
+            res
+        }
     }
 }

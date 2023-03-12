@@ -42,21 +42,41 @@ class Node:
 
 
 class Solution:
-    def findMinimumTime(self, tasks: List[List[int]]) -> int:
-        tasks.sort(key=lambda item: item[1])
-        res = 0
-        time = [False]*2005
-        for task in tasks:
-            for i in range(task[0], task[1]+1):
-                if time[i]:
-                    task[2] -= 1
-            if task[2] <= 0:
-                continue
-            for i in range(task[1], task[0]-1, -1):
-                if not time[i]:
-                    time[i] = True
-                    res += 1
-                    task[2] -= 1
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -> List[int]:
+        nodes = [[] for _ in range(n)]
+        for n1, n2 in edges:
+            nodes[n1-1].append(n2-1)
+            nodes[n2-1].append(n1-1)
+
+        def dfs(root: int, mask: int):
+            if mask == 0:
+                return 0
+            res = 0
+            for nextNode in nodes[root]:
+                if mask & (1 << nextNode):
+                    resd = dfs(nextNode, mask & ~(1 << nextNode))
+                    if resd != -1:
+                        res = max(res, resd+1)
+            return res
+        res = [0] * (n-1)
+        for i in range(1, 1 << n):
+            root, mask, last = 0, i, 0
+            while ((1 << root) & 1) == 0:
+                root += 1
+            q = Queue()
+            q.put(root)
+            mask &= ~(1 << root)
+            while q.qsize():
+                cur = q.get()
+                last = cur
+                for nextNode in nodes[cur]:
+                    if mask & (1 << nextNode):
+                        mask &= ~(1 << nextNode)
+                        q.put(nextNode)
+            if mask == 0:
+                d = dfs(last, i & ~(1 << last))
+                if d >= 1:
+                    res[d-1] += 1
         return res
 
 
