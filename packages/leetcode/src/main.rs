@@ -40,24 +40,32 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn find_longest_subarray(array: Vec<String>) -> Vec<String> {
-        let (mut cur, mut resMax, mut resIdx) = (0, 0, -1);
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        m.insert(0, -1);
-        for i in 0..array.len() {
-            let s = array[i].chars().collect::<Vec<char>>();
-            cur += if s[0].is_alphabetic() { 1 } else { -1 };
-            if m.contains_key(&cur) && i as i32 - *m.get(&cur).unwrap() > resMax {
-                resIdx = *m.get(&cur).unwrap() + 1;
-                resMax = i as i32 - *m.get(&cur).unwrap();
+    pub fn find_minimum_time(tasks: Vec<Vec<i32>>) -> i32 {
+        let mut tasks = tasks;
+        tasks.sort_by(|a, b| a[1].cmp(&b[1]));
+        let mut res = 0;
+        let mut time = [false; 2005];
+        for mut task in tasks {
+            for i in task[0]..=task[1] {
+                let i = i as usize;
+                if time[i] {
+                    task[2] -= 1;
+                }
             }
-            if !m.contains_key(&cur) {
-                m.insert(cur, i as i32);
+            if task[2] >= 0 {
+                for i in (task[0]..=task[1]).rev() {
+                    let i = i as usize;
+                    if !time[i] {
+                        time[i] = true;
+                        res += 1;
+                        task[2] -= 1;
+                    }
+                    if task[2] == 0 {
+                        break;
+                    }
+                }
             }
         }
-        let resMax = resMax as usize;
-        let resIdx = resIdx as usize;
-        println!("{}, {}", resMax, resIdx);
-        array[resIdx..resIdx + resMax].to_vec()
+        res
     }
 }

@@ -1,0 +1,37 @@
+{
+    "name": "6316.重排数组以得到最大前缀分数",
+    "url": "https://leetcode.cn/problems/rearrange-array-to-maximize-prefix-score///",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 。你可以将 nums 中的元素按 任意顺序 重排（包括给定顺序）。返回可以得到的最大分数。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 132,
+            "memory": 81,
+            "desc": "贪心从正到负依次取值。",
+            "code": "class Solution {\npublic:\n    int maxScore(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        long long n = nums.size(), sum = 0, res = 0;\n        if (nums[n - 1] <= 0) return 0;\n        for (int i = n - 1; i >= 0; i--) {\n            sum += nums[i];\n            if (sum <= 0) break;\n            res++;\n        }\n        return res;\n    }\n};",
+            "date": 1678550400000
+        },
+        {
+            "script": "python3",
+            "time": 164,
+            "memory": 28.8,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maxScore(self, nums: List[int]) -> int:\n        nums.sort()\n        n, sums, res = len(nums), 0, 0\n        if nums[n-1] <= 0:\n            return 0\n        for i in range(n-1, -1, -1):\n            sums += nums[i]\n            if sums <= 0:\n                break\n            res += 1\n        return res",
+            "date": 1678550400000
+        },
+        {
+            "script": "rust",
+            "time": 32,
+            "memory": 3.4,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_score(nums: Vec<i32>) -> i32 {\n        let mut nums = nums;\n        nums.sort();\n        let (n, mut sum, mut res) = (nums.len(), 0i64, 0);\n        if *nums.last().unwrap() <= 0 {\n            0\n        } else {\n            for i in (0..n).rev() {\n                sum += nums[i] as i64;\n                if sum <= 0 {\n                    break;\n                }\n                res += 1;\n            }\n            res\n        }\n    }\n}",
+            "date": 1678550400000
+        }
+    ]
+}

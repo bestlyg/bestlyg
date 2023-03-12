@@ -42,18 +42,22 @@ class Node:
 
 
 class Solution:
-    def findLongestSubarray(self, array: List[str]) -> List[str]:
-        cur, resMax, redIdx = 0, 0, -1
-        m = dict()
-        m[0] = -1
-        for i in range(len(array)):
-            cur += 1 if array[0].isalpha() else -1
-            if cur in m and i - m[cur] > resMax:
-                resIdx = m[cur] + 1
-                resMax = i - m[cur]
-            if cur not in m:
-                m[cur] = i
-        return array[resIdx:resIdx + resMax]
+    def findMinimumTime(self, tasks: List[List[int]]) -> int:
+        tasks.sort(key=lambda item: item[1])
+        res = 0
+        time = [False]*2005
+        for task in tasks:
+            for i in range(task[0], task[1]+1):
+                if time[i]:
+                    task[2] -= 1
+            if task[2] <= 0:
+                continue
+            for i in range(task[1], task[0]-1, -1):
+                if not time[i]:
+                    time[i] = True
+                    res += 1
+                    task[2] -= 1
+        return res
 
 
 def main():

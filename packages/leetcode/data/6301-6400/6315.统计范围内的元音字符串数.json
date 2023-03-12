@@ -1,0 +1,37 @@
+{
+    "name": "6315.统计范围内的元音字符串数",
+    "url": "https://leetcode.cn/problems/count-the-number-of-vowel-strings-in-range//",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的字符串数组 words 和两个整数：left 和 right 。如果字符串以元音字母开头并以元音字母结尾，那么该字符串就是一个 元音字符串 ，其中元音字母是 'a'、'e'、'i'、'o'、'u' 。返回 words[i] 是元音字符串的数目，其中 i 在闭区间 [left, right] 内。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 31.1,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int vowelStrings(vector<string>& words, int left, int right) {\n        unordered_set<char> s{ 'a', 'e', 'i', 'o', 'u'};\n        int res = 0;\n        for (int i = left; i <= right; i++) {\n            if (s.count(words[i][0]) && s.count(words[i][words[i].size() - 1])) res++;\n        }\n        return res;\n    }\n};",
+            "date": 1678550400000
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\n        s = {'a', 'e', 'i', 'o', 'u'}\n        res = 0\n        return len(list(filter(\n            lambda w: w[0] in s and w[-1] in s,\n            words[left:right+1]\n        )))",
+            "date": 1678550400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn vowel_strings(words: Vec<String>, left: i32, right: i32) -> i32 {\n        let left = left as usize;\n        let right = right as usize;\n        let mut s = std::collections::HashSet::<char>::new();\n        ['a', 'e', 'i', 'o', 'u'].into_iter().for_each(|c| {\n            s.insert(*c);\n        });\n        let mut res = 0;\n        for word in words[left..=right].into_iter() {\n            let word = word.chars().collect::<Vec<char>>();\n            if s.contains(&word[0]) && s.contains(&word.last().unwrap()) {\n                res += 1;\n            }\n        }\n        res\n    }\n}",
+            "date": 1678550400000
+        }
+    ]
+}
