@@ -1,11 +1,11 @@
 {
+    "id": "2459",
     "name": "2383.赢得比赛需要的最少训练时长",
-    "url": "https://leetcode.cn/problems/minimum-hours-of-training-to-win-a-competition/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/minimum-hours-of-training-to-win-a-competition",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "贪心",
+        "数组"
     ],
     "desc": "返回击败全部 n 个对手需要训练的 最少 小时数目。",
     "solutions": [
