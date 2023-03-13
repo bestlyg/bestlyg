@@ -70,22 +70,66 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
-// "WBBWWBBWBW"
-// 7
 
+struct Node {
+    int time;
+    unordered_set<int> task;
+    Node() {}
+    Node(int time): time(time) {}
+};
 class Solution {
 public:
-    int minimumRecolors(string blocks, int k) {
-        int n = blocks.size(), ans = 0x3f3f3f3f, cur = 0;
-        for (int i = 0; i < n; i++) {
-            if (i < k) {
-                cur += blocks[i] == 'B' ? 1 : 0;
-            } else {
-                cur -= blocks[i - k] == 'B' ? 1 : 0;
-                ans = min(ans, cur);
-            }
+    int findMinimumTime(vector<vector<int>>& tasks) {
+        // cout <<  "findMinimumTime" << endl;
+        Node list[2005];
+        for (int i = 0; i < 2005; i++) list[i] = Node(i);
+        for (int i = 0; i < tasks.size(); i++) {
+            auto &task = tasks[i];
+            for (int j = task[0]; j <= task[1]; j++) list[j].task.insert(i);
         }
-        return ans;
+        int left = 0, right = 2005;
+        sort(list + left, list + right, [&](auto &a, auto &b){
+            return a.task.size() < b.task.size();
+        });
+        while (left < right && list[left].task.size() == 0) left++;
+
+        int res = 0;
+        while (left < right) {
+            // cout << "list.size = " << list.size() << endl;
+            // cout << "Time : ";
+            // for (auto &node : list) {            
+            //     if (node.task.size() == 0) continue;
+            //     cout << "(time: " << node.time << ", task: ";
+            //     for (auto &task : node.task) cout << task << ", ";
+            //     cout << ")" << endl;
+            // }
+            
+            Node cur = list[right - 1];
+            // cout << "Cur = " << cur.time << "- ";
+            // for (auto &task : cur.task) cout << task << ", ";
+            // cout << endl;
+            right--;
+            res++;
+            vector<int> clearTasks;
+            for (auto &task : cur.task) {
+                // cout << "==" << endl;
+                if (--tasks[task][2] == 0) {
+                    clearTasks.push_back(task);
+                }
+            }
+            for (int i = left; i < right; i++) {
+                for (auto &task : clearTasks) {
+                    list[i].task.erase(task);
+                }
+            }
+
+            sort(list + left, list + right, [&](auto &a, auto &b){
+                return a.task.size() < b.task.size();
+            });
+
+            while (left < right && list[left].task.size() == 0) left++;
+        }
+        return res;
     }
 };
 
