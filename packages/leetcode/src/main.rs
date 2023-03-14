@@ -40,24 +40,21 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn min_number_of_hours(
-        mut initial_energy: i32,
-        mut initial_experience: i32,
-        energy: Vec<i32>,
-        experience: Vec<i32>,
-    ) -> i32 {
-        let mut res = 0;
-        for i in 0..energy.len() {
-            if initial_energy <= energy[i] {
-                res += energy[i] - initial_energy + 1;
-                initial_energy += energy[i] - initial_energy + 1;
+    pub fn restore_matrix(mut row_sum: Vec<i32>, mut col_sum: Vec<i32>) -> Vec<Vec<i32>> {
+        let (n, m) = (row_sum.len(), col_sum.len());
+        let mut res = vec![vec![0; m]; n];
+        let (mut i, mut j) = (0, 0);
+        while i < n && j < m {
+            let v = row_sum[i].min(col_sum[j]);
+            res[i][j] = v;
+            row_sum[i] -= v;
+            col_sum[j] -= v;
+            if row_sum[i] == 0 {
+                i += 1;
             }
-            initial_energy -= energy[i];
-            if initial_experience <= experience[i] {
-                res += experience[i] - initial_experience + 1;
-                initial_experience += experience[i] - initial_experience + 1;
+            if col_sum[j] == 0 {
+                j += 1;
             }
-            initial_experience += experience[i];
         }
         res
     }

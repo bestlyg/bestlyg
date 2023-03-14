@@ -42,17 +42,19 @@ class Node:
 
 
 class Solution:
-    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:
-        res = 0
-        for i in range(len(energy)):
-            if initialEnergy <= energy[i]:
-                res += energy[i] - initialEnergy + 1
-                initialEnergy += energy[i] - initialEnergy + 1
-            initialEnergy -= energy[i]
-            if initialExperience <= experience[i]:
-                res += experience[i] - initialExperience + 1
-                initialExperience += experience[i] - initialExperience + 1
-            initialExperience += experience[i]
+    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
+        n, m = len(rowSum), len(colSum)
+        res = [[0] * m for _ in range(n)]
+        i, j = 0, 0
+        while i < n and j < m:
+            v = min(rowSum[i], colSum[j])
+            res[i][j] = v
+            rowSum[i] -= v
+            colSum[j] -= v
+            if not rowSum[i]:
+                i += 1
+            if not colSum[j]:
+                j += 1
         return res
 
 

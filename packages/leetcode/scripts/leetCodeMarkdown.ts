@@ -2,46 +2,29 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2383. 赢得比赛需要的最少训练时长',
-  url: 'https://leetcode.cn/problems/minimum-hours-of-training-to-win-a-competition/',
+  name: '1605. 给定行和列的和求可行矩阵',
+  url: 'https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums//',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回击败全部 n 个对手需要训练的 最少 小时数目。`,
+  desc: `请找到大小为 rowSum.length x colSum.length 的任意 非负整数 矩阵，且该矩阵满足 rowSum 和 colSum 的要求。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 10.9,
+      time: 48,
+      memory: 32.6,
       desc: '遍历',
       code: `class Solution {
 public:
-    int minNumberOfHours(int initialEnergy, int initialExperience, vector<int>& energy, vector<int>& experience) {
-        int res = 0, esum = initialExperience;
-        res += max(accumulate(energy.begin(), energy.end(), 0) - initialEnergy + 1, 0);
-        for (auto &e : experience) {
-            if (e >= esum) res += e - esum + 1, esum += e - esum + 1;
-            esum += e;
-        }
-        return res;
-    }
-};`,
-    },
-    {
-      script: Script.CPP,
-      time: 4,
-      memory: 10.8,
-      desc: '遍历',
-      code: `class Solution {
-public:
-    int minNumberOfHours(int initialEnergy, int initialExperience, vector<int>& energy, vector<int>& experience) {
-        int res = 0;
-        for (int i = 0; i < energy.size(); i++) {
-            if (initialEnergy <= energy[i]) 
-                res += energy[i] - initialEnergy + 1, initialEnergy += energy[i] - initialEnergy + 1;
-            initialEnergy -= energy[i];
-            if (initialExperience <= experience[i]) 
-                res += experience[i] - initialExperience + 1, initialExperience += experience[i] - initialExperience + 1;
-            initialExperience += experience[i];
+    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+        int n = rowSum.size(), m = colSum.size();
+        vector<vector<int>> res(n, vector<int>(m, 0));
+        for (int i = 0, j = 0; i < n && j < m;) {
+            int v = min(rowSum[i], colSum[j]);
+            res[i][j] = v;
+            rowSum[i] -= v;
+            colSum[j] -= v;
+            if (rowSum[i] == 0) i++;
+            if (colSum[j] == 0) j++;
         }
         return res;
     }
@@ -49,47 +32,46 @@ public:
     },
     {
       script: Script.PY3,
-      time: 36,
-      memory: 14.9,
-      desc: '同上',
+      time: 64,
+      memory: 19.5,
+      desc: '遍历',
       code: `class Solution:
-def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:
-    res = 0
-    for i in range(len(energy)):
-        if initialEnergy <= energy[i]:
-            res += energy[i] - initialEnergy + 1
-            initialEnergy += energy[i] - initialEnergy + 1
-        initialEnergy -= energy[i]
-        if initialExperience <= experience[i]:
-            res += experience[i] - initialExperience + 1
-            initialExperience += experience[i] - initialExperience + 1
-        initialExperience += experience[i]
-    return res`,
+    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
+        n, m = len(rowSum), len(colSum)
+        res = [[0] * m for _ in range(n)]
+        i, j = 0, 0
+        while i < n and j < m:
+            v = min(rowSum[i], colSum[j])
+            res[i][j] = v
+            rowSum[i] -= v
+            colSum[j] -= v
+            if not rowSum[i]:
+                i += 1
+            if not colSum[j]:
+                j += 1
+        return res`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.2,
+      time: 60,
+      memory: 3.5,
       desc: '同上',
       code: `impl Solution {
-    pub fn min_number_of_hours(
-        mut initial_energy: i32,
-        mut initial_experience: i32,
-        energy: Vec<i32>,
-        experience: Vec<i32>,
-    ) -> i32 {
-        let mut res = 0;
-        for i in 0..energy.len() {
-            if initial_energy <= energy[i] {
-                res += energy[i] - initial_energy + 1;
-                initial_energy += energy[i] - initial_energy + 1;
+    pub fn restore_matrix(mut row_sum: Vec<i32>, mut col_sum: Vec<i32>) -> Vec<Vec<i32>> {
+        let (n, m) = (row_sum.len(), col_sum.len());
+        let mut res = vec![vec![0; m]; n];
+        let (mut i, mut j) = (0, 0);
+        while i < n && j < m {
+            let v = row_sum[i].min(col_sum[j]);
+            res[i][j] = v;
+            row_sum[i] -= v;
+            col_sum[j] -= v;
+            if row_sum[i] == 0 {
+                i += 1;
             }
-            initial_energy -= energy[i];
-            if initial_experience <= experience[i] {
-                res += experience[i] - initial_experience + 1;
-                initial_experience += experience[i] - initial_experience + 1;
+            if col_sum[j] == 0 {
+                j += 1;
             }
-            initial_experience += experience[i];
         }
         res
     }
