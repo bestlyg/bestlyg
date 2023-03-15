@@ -73,16 +73,20 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
-        int n = rowSum.size(), m = colSum.size();
-        vector<vector<int>> res(n, vector<int>(m, 0));
-        for (int i = 0, j = 0; i < n && j < m;) {
-            int v = min(rowSum[i], colSum[j]);
-            res[i][j] = v;
-            rowSum[i] -= v;
-            colSum[j] -= v;
-            if (rowSum[i] == 0) i++;
-            if (colSum[j] == 0) j++;
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+        vector<unordered_set<int>> list(n);
+        for (auto &road : roads) {
+            list[road[0]].insert(road[1]);
+            list[road[1]].insert(road[0]);
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    int add = list[i].count(j) ? -1 : 0;
+                    res = max(res, list[i].size() + list[j].size() + add);
+                }
+            }
         }
         return res;
     }

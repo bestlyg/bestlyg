@@ -42,19 +42,16 @@ class Node:
 
 
 class Solution:
-    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
-        n, m = len(rowSum), len(colSum)
-        res = [[0] * m for _ in range(n)]
-        i, j = 0, 0
-        while i < n and j < m:
-            v = min(rowSum[i], colSum[j])
-            res[i][j] = v
-            rowSum[i] -= v
-            colSum[j] -= v
-            if not rowSum[i]:
-                i += 1
-            if not colSum[j]:
-                j += 1
+    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
+        l = [set() for _ in range(n)]
+        for [n1, n2] in roads:
+            l[n1].add(n2)
+            l[n2].add(n1)
+        res = 0
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    res = max(res, len(l[i]) + len(l[j]) + (-1 if j in l[i] else 0))
         return res
 
 

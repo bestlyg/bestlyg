@@ -2,29 +2,33 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1605. 给定行和列的和求可行矩阵',
-  url: 'https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums//',
+  name: '1615. 最大网络秩',
+  url: 'https://leetcode.cn/problems/maximal-network-rank///',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请找到大小为 rowSum.length x colSum.length 的任意 非负整数 矩阵，且该矩阵满足 rowSum 和 colSum 的要求。`,
+  desc: `给你整数 n 和数组 roads，返回整个基础设施网络的 最大网络秩 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 48,
-      memory: 32.6,
-      desc: '遍历',
+      time: 96,
+      memory: 38.1,
+      desc: '枚举',
       code: `class Solution {
 public:
-    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
-        int n = rowSum.size(), m = colSum.size();
-        vector<vector<int>> res(n, vector<int>(m, 0));
-        for (int i = 0, j = 0; i < n && j < m;) {
-            int v = min(rowSum[i], colSum[j]);
-            res[i][j] = v;
-            rowSum[i] -= v;
-            colSum[j] -= v;
-            if (rowSum[i] == 0) i++;
-            if (colSum[j] == 0) j++;
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+        vector<unordered_set<int>> list(n);
+        for (auto &road : roads) {
+            list[road[0]].insert(road[1]);
+            list[road[1]].insert(road[0]);
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    int add = list[i].count(j) ? -1 : 0;
+                    res = max(res, add + (int)list[i].size() + (int)list[j].size());
+                }
+            }
         }
         return res;
     }
@@ -32,45 +36,43 @@ public:
     },
     {
       script: Script.PY3,
-      time: 64,
-      memory: 19.5,
-      desc: '遍历',
+      time: 120,
+      memory: 16.7,
+      desc: '同上',
       code: `class Solution:
-    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
-        n, m = len(rowSum), len(colSum)
-        res = [[0] * m for _ in range(n)]
-        i, j = 0, 0
-        while i < n and j < m:
-            v = min(rowSum[i], colSum[j])
-            res[i][j] = v
-            rowSum[i] -= v
-            colSum[j] -= v
-            if not rowSum[i]:
-                i += 1
-            if not colSum[j]:
-                j += 1
+    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
+        l = [set() for _ in range(n)]
+        for [n1, n2] in roads:
+            l[n1].add(n2)
+            l[n2].add(n1)
+        res = 0
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    res = max(res, len(l[i]) + len(l[j]) + (-1 if j in l[i] else 0))
         return res`,
     },
     {
       script: Script.RUST,
-      time: 60,
-      memory: 3.5,
+      time: 24,
+      memory: 2.4,
       desc: '同上',
       code: `impl Solution {
-    pub fn restore_matrix(mut row_sum: Vec<i32>, mut col_sum: Vec<i32>) -> Vec<Vec<i32>> {
-        let (n, m) = (row_sum.len(), col_sum.len());
-        let mut res = vec![vec![0; m]; n];
-        let (mut i, mut j) = (0, 0);
-        while i < n && j < m {
-            let v = row_sum[i].min(col_sum[j]);
-            res[i][j] = v;
-            row_sum[i] -= v;
-            col_sum[j] -= v;
-            if row_sum[i] == 0 {
-                i += 1;
-            }
-            if col_sum[j] == 0 {
-                j += 1;
+    pub fn maximal_network_rank(n: i32, roads: Vec<Vec<i32>>) -> i32 {
+        let n = n as usize;
+        let mut list = vec![std::collections::HashSet::<usize>::new(); n];
+        for road in roads {
+            let (n1, n2) = (road[0] as usize, road[1] as usize);
+            list[n1].insert(n2);
+            list[n2].insert(n1);
+        }
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..n {
+                if i != j {
+                    let add = if list[i].contains(&j) { -1 } else { 0 };
+                    res = res.max(list[i].len() as i32 + list[j].len() as i32 + add);
+                }
             }
         }
         res

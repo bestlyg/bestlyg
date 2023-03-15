@@ -40,20 +40,21 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn restore_matrix(mut row_sum: Vec<i32>, mut col_sum: Vec<i32>) -> Vec<Vec<i32>> {
-        let (n, m) = (row_sum.len(), col_sum.len());
-        let mut res = vec![vec![0; m]; n];
-        let (mut i, mut j) = (0, 0);
-        while i < n && j < m {
-            let v = row_sum[i].min(col_sum[j]);
-            res[i][j] = v;
-            row_sum[i] -= v;
-            col_sum[j] -= v;
-            if row_sum[i] == 0 {
-                i += 1;
-            }
-            if col_sum[j] == 0 {
-                j += 1;
+    pub fn maximal_network_rank(n: i32, roads: Vec<Vec<i32>>) -> i32 {
+        let n = n as usize;
+        let mut list = vec![std::collections::HashSet::<usize>::new(); n];
+        for road in roads {
+            let (n1, n2) = (road[0] as usize, road[1] as usize);
+            list[n1].insert(n2);
+            list[n2].insert(n1);
+        }
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..n {
+                if i != j {
+                    let add = if list[j].contains(&j) { -1 } else { 0 };
+                    res = res.max(list[i].len() as i32 + list[j].len() as i32 + add);
+                }
             }
         }
         res
