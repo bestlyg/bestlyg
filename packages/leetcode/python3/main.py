@@ -42,16 +42,20 @@ class Node:
 
 
 class Solution:
-    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
-        l = [set() for _ in range(n)]
-        for [n1, n2] in roads:
-            l[n1].add(n2)
-            l[n2].add(n1)
-        res = 0
-        for i in range(n):
-            for j in range(n):
-                if i != j:
-                    res = max(res, len(l[i]) + len(l[j]) + (-1 if j in l[i] else 0))
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        m = Counter()
+        res, cur, findK = 0, 0, False
+        for num in nums:
+            if num > k:
+                cur += 1
+            if num < k:
+                cur -= 1
+            if num == k:
+                findK = True
+            if findK:
+                res += m[cur] + m[cur - 1] + (cur == 0 or cur == 1)
+            else:
+                m[cur] += 1
         return res
 
 

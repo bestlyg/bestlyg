@@ -40,21 +40,23 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn maximal_network_rank(n: i32, roads: Vec<Vec<i32>>) -> i32 {
-        let n = n as usize;
-        let mut list = vec![std::collections::HashSet::<usize>::new(); n];
-        for road in roads {
-            let (n1, n2) = (road[0] as usize, road[1] as usize);
-            list[n1].insert(n2);
-            list[n2].insert(n1);
-        }
-        let mut res = 0;
-        for i in 0..n {
-            for j in 0..n {
-                if i != j {
-                    let add = if list[j].contains(&j) { -1 } else { 0 };
-                    res = res.max(list[i].len() as i32 + list[j].len() as i32 + add);
-                }
+    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        let (mut res, mut cur, mut find_k) = (0, 0, false);
+        for num in nums {
+            if num > k {
+                cur += 1;
+            } else if num < k {
+                cur -= 1;
+            } else {
+                find_k = true;
+            }
+            if find_k {
+                res += *m.get(&cur).unwrap_or(&0)
+                    + *m.get(&(cur - 1)).unwrap_or(&0)
+                    + ((cur == 0 || cur == 1) as i32);
+            } else {
+                *m.entry(cur).or_insert(0) += 1;
             }
         }
         res

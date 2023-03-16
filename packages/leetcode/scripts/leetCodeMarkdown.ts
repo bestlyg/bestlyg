@@ -1,8 +1,8 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1615. 最大网络秩',
+  exist: true,
+  name: '2488. 统计中位数为 K 的子数组',
   url: 'https://leetcode.cn/problems/maximal-network-rank///',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
@@ -10,25 +10,21 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 96,
-      memory: 38.1,
-      desc: '枚举',
+      time: 76,
+      memory: 51.4,
+      desc: '遍历，对于每个值判断前面可取值，并存入map',
       code: `class Solution {
 public:
-    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
-        vector<unordered_set<int>> list(n);
-        for (auto &road : roads) {
-            list[road[0]].insert(road[1]);
-            list[road[1]].insert(road[0]);
-        }
-        int res = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    int add = list[i].count(j) ? -1 : 0;
-                    res = max(res, add + (int)list[i].size() + (int)list[j].size());
-                }
-            }
+    int countSubarrays(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        int res = 0, cur = 0;
+        bool findK = false;
+        for (auto &num : nums) {
+            if (num > k) cur += 1;
+            else if (num < k) cur -= 1;
+            if (num == k) findK = true;
+            if (findK) res += m[cur] + m[cur - 1] + (cur == 0 || cur == 1);
+            else m[cur]++;
         }
         return res;
     }
@@ -54,25 +50,27 @@ public:
     },
     {
       script: Script.RUST,
-      time: 24,
-      memory: 2.4,
+      time: 16,
+      memory: 3.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn maximal_network_rank(n: i32, roads: Vec<Vec<i32>>) -> i32 {
-        let n = n as usize;
-        let mut list = vec![std::collections::HashSet::<usize>::new(); n];
-        for road in roads {
-            let (n1, n2) = (road[0] as usize, road[1] as usize);
-            list[n1].insert(n2);
-            list[n2].insert(n1);
-        }
-        let mut res = 0;
-        for i in 0..n {
-            for j in 0..n {
-                if i != j {
-                    let add = if list[i].contains(&j) { -1 } else { 0 };
-                    res = res.max(list[i].len() as i32 + list[j].len() as i32 + add);
-                }
+    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        let (mut res, mut cur, mut find_k) = (0, 0, false);
+        for num in nums {
+            if num > k {
+                cur += 1;
+            } else if num < k {
+                cur -= 1;
+            } else {
+                find_k = true;
+            }
+            if find_k {
+                res += *m.get(&cur).unwrap_or(&0)
+                    + *m.get(&(cur - 1)).unwrap_or(&0)
+                    + ((cur == 0 || cur == 1) as i32);
+            } else {
+                *m.entry(cur).or_insert(0) += 1;
             }
         }
         res
