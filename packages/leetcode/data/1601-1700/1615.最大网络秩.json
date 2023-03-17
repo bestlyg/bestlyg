@@ -1,11 +1,10 @@
 {
+    "id": "1738",
     "name": "1615.最大网络秩",
-    "url": "https://leetcode.cn/problems/maximal-network-rank///",
+    "url": "https://leetcode.cn/problems/maximal-network-rank",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "图"
     ],
     "desc": "给你整数 n 和数组 roads，返回整个基础设施网络的 最大网络秩 。",
     "solutions": [

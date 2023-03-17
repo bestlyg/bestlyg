@@ -40,24 +40,19 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i32 {
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        let (mut res, mut cur, mut find_k) = (0, 0, false);
-        for num in nums {
-            if num > k {
-                cur += 1;
-            } else if num < k {
-                cur -= 1;
-            } else {
-                find_k = true;
+    pub fn answer_queries(mut nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {
+        nums.sort();
+        let (n, m) = (nums.len(), queries.len());
+        let mut idxs = (0..m).collect::<Vec<usize>>();
+        idxs.sort_by(|v1, v2| queries[*v1].cmp(&queries[*v2]));
+        let mut res = (0..m).map(|v| v as i32).collect::<Vec<i32>>();
+        let (mut idx, mut sum) = (0, 0);
+        for i in 0..m {
+            while idx < n && sum + nums[idx] <= queries[idxs[i]] {
+                sum += nums[idx];
+                idx += 1;
             }
-            if find_k {
-                res += *m.get(&cur).unwrap_or(&0)
-                    + *m.get(&(cur - 1)).unwrap_or(&0)
-                    + ((cur == 0 || cur == 1) as i32);
-            } else {
-                *m.entry(cur).or_insert(0) += 1;
-            }
+            res[idxs[i]] = idx as i32;
         }
         res
     }

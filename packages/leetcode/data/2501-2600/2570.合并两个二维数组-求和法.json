@@ -3,7 +3,11 @@
     "name": "2570.合并两个二维数组-求和法",
     "url": "https://leetcode.cn/problems/merge-two-2d-arrays-by-summing-values",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针"
+    ],
     "desc": "合并两个二维数组。",
     "solutions": [
         {

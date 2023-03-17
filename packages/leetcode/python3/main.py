@@ -42,20 +42,18 @@ class Node:
 
 
 class Solution:
-    def countSubarrays(self, nums: List[int], k: int) -> int:
-        m = Counter()
-        res, cur, findK = 0, 0, False
-        for num in nums:
-            if num > k:
-                cur += 1
-            if num < k:
-                cur -= 1
-            if num == k:
-                findK = True
-            if findK:
-                res += m[cur] + m[cur - 1] + (cur == 0 or cur == 1)
-            else:
-                m[cur] += 1
+    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        n, m = len(nums), len(queries)
+        idxs = [i for i in range(m)]
+        idxs.sort(key=lambda v: queries[v])
+        res = [0 for i in range(m)]
+        nums.sort()
+        idx, sums = 0, 0
+        for i in range(m):
+            while idx < n and sums + nums[idx] <= queries[idxs[i]]:
+                sums += nums[idx]
+                idx += 1
+            res[idxs[i]] = idx
         return res
 
 

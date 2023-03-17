@@ -1,0 +1,48 @@
+{
+    "id": "2469",
+    "name": "2389.和有限的最长子序列",
+    "url": "https://leetcode.cn/problems/longest-subsequence-with-limited-sum",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "数组",
+        "二分查找",
+        "前缀和",
+        "排序"
+    ],
+    "desc": "返回一个长度为 m 的数组 answer ，其中 answer[i] 是 nums 中 元素之和小于等于 queries[i] 的 子序列 的 最大 长度  。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 72,
+            "memory": 44.4,
+            "desc": "排序后遍历。",
+            "code": "function answerQueries(nums: number[], queries: number[]): number[] {\n        nums.sort((a, b) => a - b);\n        return queries.map(num => {\n          let i = 0;\n          let cur = 0;\n          while (i < nums.length && cur + nums[i] <= num) cur += nums[i++];\n          return i;\n        });\n      }",
+            "date": 1661616000000
+        },
+        {
+            "script": "cpp",
+            "time": 20,
+            "memory": 13.3,
+            "desc": "排序后遍历。",
+            "code": "class Solution {\npublic:\n    vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {\n        int n = nums.size(), m = queries.size();\n        vector<int> idxs(m), res(m, 0);\n        for (int i = 0; i < m; i++) idxs[i] = i;\n        sort(idxs.begin(), idxs.end(), [&](auto &a, auto &b){\n            return queries[a] < queries[b];\n        });\n        sort(nums.begin(), nums.end());\n        int idx = 0, sum = 0;\n        for (int i = 0; i < m; i++) {\n            while (idx < n && sum + nums[idx] <= queries[idxs[i]]) sum += nums[idx++];\n            res[idxs[i]] = idx;\n        }\n        return res;\n    }\n};",
+            "date": 1678982400000
+        },
+        {
+            "script": "python3",
+            "time": 48,
+            "memory": 15.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:\n        n, m = len(nums), len(queries)\n        idxs = [i for i in range(m)]\n        idxs.sort(key=lambda v: queries[v])\n        res = [0 for i in range(m)]\n        nums.sort()\n        idx, sums = 0, 0\n        for i in range(m):\n            while idx < n and sums + nums[idx] <= queries[idxs[i]]:\n                sums += nums[idx]\n                idx += 1\n            res[idxs[i]] = idx\n        return res",
+            "date": 1678982400000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn answer_queries(mut nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {\n        nums.sort();\n        let (n, m) = (nums.len(), queries.len());\n        let mut idxs = (0..m).collect::<Vec<usize>>();\n        idxs.sort_by(|v1, v2| queries[*v1].cmp(&queries[*v2]));\n        let mut res = (0..m).map(|v| v as i32).collect::<Vec<i32>>();\n        let (mut idx, mut sum) = (0, 0);\n        for i in 0..m {\n            while idx < n && sum + nums[idx] <= queries[idxs[i]] {\n                sum += nums[idx];\n                idx += 1;\n            }\n            res[idxs[i]] = idx as i32;\n        }\n        res\n    }\n}",
+            "date": 1678982400000
+        }
+    ]
+}

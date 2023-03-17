@@ -39,7 +39,7 @@ function transform() {
   md.name = md.name.replace(/ /g, '');
   md.desc = descFormat(md.desc);
   for (const s of md.solutions) {
-    s.date = new Date(dayjs().format('YYYY.MM.DD')).getTime();
+    s.date = new Date(dayjs(s.date).format('YYYY.MM.DD')).getTime();
     s.desc = descFormat(s.desc);
   }
 }

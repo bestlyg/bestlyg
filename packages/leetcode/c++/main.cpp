@@ -73,20 +73,18 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
-        vector<unordered_set<int>> list(n);
-        for (auto &road : roads) {
-            list[road[0]].insert(road[1]);
-            list[road[1]].insert(road[0]);
-        }
-        int res = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    int add = list[i].count(j) ? -1 : 0;
-                    res = max(res, list[i].size() + list[j].size() + add);
-                }
-            }
+    vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
+        int n = nums.size(), m = queries.size();
+        vector<int> idxs(m), res(m, 0);
+        for (int i = 0; i < m; i++) idxs[i] = i;
+        sort(idxs.begin(), idxs.end(), [&](auto &a, auto &b){
+            return queries[a] < queries[b];
+        });
+        sort(nums.begin(), nums.end());
+        int idx = 0, sum = 0;
+        for (int i = 0; i < m; i++) {
+            while (idx < n && sum + nums[idx] < queries[idxs[i]]) sum += nums[idx++];
+            res[idxs[i]] = idx;
         }
         return res;
     }

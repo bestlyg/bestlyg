@@ -1,9 +1,10 @@
 {
+    "id": "1711",
     "name": "1605.给定行和列的和求可行矩阵",
-    "url": "https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums//",
+    "url": "https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
+        "贪心",
         "数组",
         "矩阵"
     ],
