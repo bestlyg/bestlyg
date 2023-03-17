@@ -7,6 +7,9 @@ import * as dayjs from 'dayjs';
 const format = 'YYYY-MM-DD';
 
 const menseHistory: string[] = [
+  // injection
+  '2023-3-14',
+  // memse
   '2023-2-14',
   '2023-1-5',
   '2022-12-7',
