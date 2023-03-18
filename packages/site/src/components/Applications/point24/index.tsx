@@ -15,7 +15,9 @@ export function point24() {
   const [target, setTarget] = useState(24);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    setSolutions(compute24Fns[version](nums, ['+', '-', '*', '/'], target));
+    setSolutions(
+      Array.from(new Set(compute24Fns[version](nums, ['+', '-', '*', '/'], target)).values())
+    );
     for (const [k, fn] of Object.entries(compute24Fns)) {
       console.time(k);
       fn(nums, ['+', '-', '*', '/'], target);
