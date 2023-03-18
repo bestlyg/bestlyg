@@ -38,22 +38,35 @@ impl PartialOrd for Node {
         self.time.partial_cmp(&o.time)
     }
 }
-
 impl Solution {
-    pub fn answer_queries(mut nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {
-        nums.sort();
-        let (n, m) = (nums.len(), queries.len());
-        let mut idxs = (0..m).collect::<Vec<usize>>();
-        idxs.sort_by(|v1, v2| queries[*v1].cmp(&queries[*v2]));
-        let mut res = (0..m).map(|v| v as i32).collect::<Vec<i32>>();
-        let (mut idx, mut sum) = (0, 0);
-        for i in 0..m {
-            while idx < n && sum + nums[idx] <= queries[idxs[i]] {
-                sum += nums[idx];
-                idx += 1;
+    pub fn check_palindrome_formation(a: String, b: String) -> bool {
+        let check = |s: &[char]| {
+            let (mut l, mut r) = (0, s.len() - 1);
+            while l < r {
+                if s[l] != s[r] {
+                    return false;
+                }
+                l += 1;
+                r -= 1;
             }
-            res[idxs[i]] = idx as i32;
+            true
+        };
+        let a = a.chars().collect::<Vec<char>>();
+        let b = b.chars().collect::<Vec<char>>();
+        let (n, mut cnt) = (a.len(), 0);
+        while cnt < n && a[cnt] == b[n - 1 - cnt] {
+            cnt += 1;
         }
-        res
+        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
+            return true;
+        }
+        cnt = 0;
+        while cnt < n && b[cnt] == a[n - 1 - cnt] {
+            cnt += 1;
+        }
+        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
+            return true;
+        }
+        false
     }
 }

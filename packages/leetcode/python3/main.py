@@ -42,19 +42,27 @@ class Node:
 
 
 class Solution:
-    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
-        n, m = len(nums), len(queries)
-        idxs = [i for i in range(m)]
-        idxs.sort(key=lambda v: queries[v])
-        res = [0 for i in range(m)]
-        nums.sort()
-        idx, sums = 0, 0
-        for i in range(m):
-            while idx < n and sums + nums[idx] <= queries[idxs[i]]:
-                sums += nums[idx]
-                idx += 1
-            res[idxs[i]] = idx
-        return res
+    def checkPalindromeFormation(self, a: str, b: str) -> bool:
+        def check(s: str):
+            l, r = 0, len(s)-1
+            while l < r:
+                if s[l] != s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
+
+        n, cnt = len(a), 0
+        while cnt < n and a[cnt] == b[n-1-cnt]:
+            cnt += 1
+        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
+            return True
+        cnt = 0
+        while cnt < n and b[cnt] == a[n-1-cnt]:
+            cnt += 1
+        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
+            return True
+        return False
 
 
 def main():

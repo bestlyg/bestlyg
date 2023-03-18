@@ -2,92 +2,98 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2389. 和有限的最长子序列',
-  url: 'https://leetcode.cn/problems/longest-subsequence-with-limited-sum////',
+  name: '1616. 分割两个字符串得到回文串',
+  url: 'https://leetcode.cn/problems/split-two-strings-to-make-palindrome/////',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回一个长度为 m 的数组 answer ，其中 answer[i] 是 nums 中 元素之和小于等于 queries[i] 的 子序列 的 最大 长度  。`,
+  desc: `请你判断 aprefix + bsuffix 或者 bprefix + asuffix 能否构成回文串。`,
   solutions: [
     {
-      script: Script.TS,
-      time: 72,
-      memory: 44.4,
-      desc: '排序后遍历',
-      code: `function answerQueries(nums: number[], queries: number[]): number[] {
-        nums.sort((a, b) => a - b);
-        return queries.map(num => {
-          let i = 0;
-          let cur = 0;
-          while (i < nums.length && cur + nums[i] <= num) cur += nums[i++];
-          return i;
-        });
-      }`,
-    },
-    {
       script: Script.CPP,
-      time: 20,
-      memory: 13.3,
-      desc: '排序后遍历',
+      time: 52,
+      memory: 28.5,
+      desc: '贪心a前缀和b后缀最大匹配个数，a后缀和b前缀最大匹配个数',
       code: `class Solution {
 public:
-    vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
-        int n = nums.size(), m = queries.size();
-        vector<int> idxs(m), res(m, 0);
-        for (int i = 0; i < m; i++) idxs[i] = i;
-        sort(idxs.begin(), idxs.end(), [&](auto &a, auto &b){
-            return queries[a] < queries[b];
-        });
-        sort(nums.begin(), nums.end());
-        int idx = 0, sum = 0;
-        for (int i = 0; i < m; i++) {
-            while (idx < n && sum + nums[idx] <= queries[idxs[i]]) sum += nums[idx++];
-            res[idxs[i]] = idx;
-        }
-        return res;
+    bool checkPalindromeFormation(string a, string b) {
+        int n = a.size(), cnt = 0;
+        while (cnt < n && a[cnt] == b[n - 1 - cnt]) cnt++;
+        if (cnt >= n / 2 || check(a.substr(cnt, n - cnt * 2)) || check(b.substr(cnt, n - cnt * 2))) return true;
+        cnt = 0;
+        while (cnt < n && b[cnt] == a[n - 1 - cnt]) cnt++;
+        if (cnt >= n / 2 || check(a.substr(cnt, n - cnt * 2)) || check(b.substr(cnt, n - cnt * 2))) return true;
+        return false;
+    }
+    bool check(string s) {
+        for (int l = 0, r = s.size() - 1; l < r; l++, r--)
+            if (s[l] != s[r]) return false;
+        return true;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 48,
-      memory: 15.1,
+      time: 108,
+      memory: 15.6,
       desc: '同上',
       code: `class Solution:
-    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
-        n, m = len(nums), len(queries)
-        idxs = [i for i in range(m)]
-        idxs.sort(key=lambda v: queries[v])
-        res = [0 for i in range(m)]
-        nums.sort()
-        idx, sums = 0, 0
-        for i in range(m):
-            while idx < n and sums + nums[idx] <= queries[idxs[i]]:
-                sums += nums[idx]
-                idx += 1
-            res[idxs[i]] = idx
-        return res`,
+    def checkPalindromeFormation(self, a: str, b: str) -> bool:
+        def check(s: str):
+            l, r = 0, len(s)-1
+            while l < r:
+                if s[l] != s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
+
+        n, cnt = len(a), 0
+        while cnt < n and a[cnt] == b[n-1-cnt]:
+            cnt += 1
+        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
+            return True
+        cnt = 0
+        while cnt < n and b[cnt] == a[n-1-cnt]:
+            cnt += 1
+        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
+            return True
+        return False`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 2.1,
+      time: 12,
+      memory: 3.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn answer_queries(mut nums: Vec<i32>, queries: Vec<i32>) -> Vec<i32> {
-        nums.sort();
-        let (n, m) = (nums.len(), queries.len());
-        let mut idxs = (0..m).collect::<Vec<usize>>();
-        idxs.sort_by(|v1, v2| queries[*v1].cmp(&queries[*v2]));
-        let mut res = (0..m).map(|v| v as i32).collect::<Vec<i32>>();
-        let (mut idx, mut sum) = (0, 0);
-        for i in 0..m {
-            while idx < n && sum + nums[idx] <= queries[idxs[i]] {
-                sum += nums[idx];
-                idx += 1;
+    pub fn check_palindrome_formation(a: String, b: String) -> bool {
+        let check = |s: &[char]| {
+            let (mut l, mut r) = (0, s.len() - 1);
+            while l < r {
+                if s[l] != s[r] {
+                    return false;
+                }
+                l += 1;
+                r -= 1;
             }
-            res[idxs[i]] = idx as i32;
+            true
+        };
+        let a = a.chars().collect::<Vec<char>>();
+        let b = b.chars().collect::<Vec<char>>();
+        let (n, mut cnt) = (a.len(), 0);
+        while cnt < n && a[cnt] == b[n - 1 - cnt] {
+            cnt += 1;
         }
-        res
+        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
+            return true;
+        }
+        cnt = 0;
+        while cnt < n && b[cnt] == a[n - 1 - cnt] {
+            cnt += 1;
+        }
+        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
+            return true;
+        }
+        false
     }
 }`,
     },
