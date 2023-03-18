@@ -31,6 +31,8 @@ class Node {
         return this.left.compute() * this.right.compute();
       case '/':
         return this.left.compute() / this.right.compute();
+      default:
+        throw new Error('an unkown operation');
     }
   }
 }
