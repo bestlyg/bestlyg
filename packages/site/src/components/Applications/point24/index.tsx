@@ -1,29 +1,45 @@
 import React, { useState, useMemo } from 'react';
 import { useCreation } from 'ahooks';
-import { Button, Col, InputNumber, Row, Card, Empty, Space } from 'antd';
-import { random, EPSILON } from './utils';
+import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
+import { random, Compute24 } from './utils';
 import { useEffect } from 'react';
 import { compute24 as compute24_v1 } from './v1';
+import { compute24 as compute24_v2 } from './v2';
 
-const compute24 = compute24_v1;
+const compute24Fns: Record<string, Compute24> = { v1: compute24_v1, v2: compute24_v2 };
 
 const getRandomNum = () => new Array(4).fill(0).map(_ => random(1, 10));
 export function point24() {
+  const [version, setVersion] = useState('v2');
   const [nums, setNums] = useState(getRandomNum());
   const [target, setTarget] = useState(24);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    setSolutions(compute24(nums, ['+', '-', '*', '/'], target));
+    setSolutions(compute24Fns[version](nums, ['+', '-', '*', '/'], target));
+    for (const [k, fn] of Object.entries(compute24Fns)) {
+      console.time(k);
+      fn(nums, ['+', '-', '*', '/'], target);
+      console.timeEnd(k);
+    }
   };
   const random = () => {
     setNums(getRandomNum());
     setSolutions([]);
   };
+  // useEffect(() => {
+  //   console.log('solutions', solutions);
+  // }, [solutions]);
   useEffect(() => {
-    console.log('solutions', solutions);
-  }, [solutions]);
+    random();
+  }, [version]);
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
+      <Radio.Group
+        options={Object.keys(compute24Fns)}
+        onChange={e => setVersion(e.target.value)}
+        value={version}
+        optionType="button"
+      />
       <Row gutter={16} style={{ width: 400 }}>
         {nums.map((v, index) => (
           <Col span={6} key={index}>
@@ -55,7 +71,7 @@ export function point24() {
         {solutions.length ? (
           <Row>
             {solutions.map((v, i) => (
-              <Col key={i} span={4}>
+              <Col key={i} span={6}>
                 {`${v} = ${target}`}
               </Col>
             ))}

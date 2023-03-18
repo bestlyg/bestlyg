@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCreation } from 'ahooks';
 import { Button, Col, InputNumber, Row, Card, Empty, Space } from 'antd';
-import { random, EPSILON } from '../utils';
+import { random, isEqual } from './utils';
 import { useEffect } from 'react';
 
 export function compute24(nums: number[], ops: string[], target: number): string[] {
@@ -32,7 +32,7 @@ export function compute24(nums: number[], ops: string[], target: number): string
                   ops[op3]
                 )) {
                   const num = eval(temp);
-                  if (Math.abs(target - num) <= EPSILON) res.push(temp);
+                  if (isEqual(num, target)) res.push(temp);
                 }
               }
             }
