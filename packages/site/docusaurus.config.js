@@ -70,11 +70,17 @@ const config = {
             position: 'right',
             label: 'Journal',
           },
+          // {
+          //   type: 'doc',
+          //   docId: 'leetcode/index',
+          //   position: 'right',
+          //   label: 'LeetCode',
+          // },
           {
             type: 'doc',
-            docId: 'leetcode/index',
+            docId: '应用/index',
             position: 'right',
-            label: 'LeetCode',
+            label: 'Applications',
           },
           { to: '/blog', label: 'Record', position: 'right' },
           {
@@ -111,6 +117,22 @@ const config = {
       },
     }),
   plugins: ['docusaurus-plugin-sass', bestLygWebpackPlugin],
+  themes: [
+    // ... Your other themes.
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        // ... Your options.
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        // language: ["en", "zh"],
+        // ```
+      }),
+    ],
+  ],
 };
 
 module.exports = config;
