@@ -42,27 +42,33 @@ class Node:
 
 
 class Solution:
-    def checkPalindromeFormation(self, a: str, b: str) -> bool:
-        def check(s: str):
-            l, r = 0, len(s)-1
-            while l < r:
-                if s[l] != s[r]:
-                    return False
-                l += 1
-                r -= 1
-            return True
+    def findLexSmallestString(self, s: str, a: int, b: int) -> str:
+        set = SortedSet()
+        set.add(s)
+        q = Queue()
+        q.put(s)
 
-        n, cnt = len(a), 0
-        while cnt < n and a[cnt] == b[n-1-cnt]:
-            cnt += 1
-        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
-            return True
-        cnt = 0
-        while cnt < n and b[cnt] == a[n-1-cnt]:
-            cnt += 1
-        if cnt >= n//2 or check(a[cnt:n-cnt]) or check(b[cnt:n-cnt]):
-            return True
-        return False
+        def t1(s: str):
+            res = ""
+            for i in range(len(s)):
+                if i % 2:
+                    res += str((ord(s[i]) - ord('0') + a) % 10)
+                else:
+                    res += s[i]
+            return res
+
+        def t2(s: str):
+            return s[len(s)-b:] + s[0:len(s)-b]
+        while q.qsize():
+            cur = q.get()
+            n1, n2 = t1(cur), t2(cur)
+            if not n1 in set:
+                set.add(n1)
+                q.put(n1)
+            if not n2 in set:
+                set.add(n2)
+                q.put(n2)
+        return set.pop(0)
 
 
 def main():

@@ -38,35 +38,42 @@ impl PartialOrd for Node {
         self.time.partial_cmp(&o.time)
     }
 }
+
 impl Solution {
-    pub fn check_palindrome_formation(a: String, b: String) -> bool {
-        let check = |s: &[char]| {
-            let (mut l, mut r) = (0, s.len() - 1);
-            while l < r {
-                if s[l] != s[r] {
-                    return false;
-                }
-                l += 1;
-                r -= 1;
+    pub fn find_lex_smallest_string(s: String, a: i32, b: i32) -> String {
+        let mut set = std::collections::BTreeSet::<String>::new();
+        set.insert(s.clone());
+        let mut q = std::collections::VecDeque::<String>::new();
+        q.push_back(s.clone());
+        let t1 = |s: String| -> String {
+            let mut s = s.chars().map(|v| v as u8).collect::<Vec<u8>>();
+            let mut i = 1;
+            while i < s.len() {
+                s[i] = (s[i] - '0' as u8 + a as u8) % 10 + '0' as u8;
+                i += 2;
             }
-            true
+            String::from_utf8(s).unwrap()
         };
-        let a = a.chars().collect::<Vec<char>>();
-        let b = b.chars().collect::<Vec<char>>();
-        let (n, mut cnt) = (a.len(), 0);
-        while cnt < n && a[cnt] == b[n - 1 - cnt] {
-            cnt += 1;
+        let t2 = |s: String| -> String {
+            let s = s.chars().collect::<Vec<char>>();
+            let s1 = &s[s.len() - b as usize..];
+            let s2 = &s[0..s.len() - b as usize];
+            let s1 = String::from_utf8(s1.iter().map(|v| *v as u8).collect::<Vec<u8>>()).unwrap();
+            let s2 = String::from_utf8(s2.iter().map(|v| *v as u8).collect::<Vec<u8>>()).unwrap();
+            [s1, s2].concat()
+        };
+        while !q.is_empty() {
+            let cur = q.pop_front().unwrap();
+            let (n1, n2) = (t1(cur.clone()), t2(cur.clone()));
+            if !set.contains(&n1) {
+                set.insert(n1.clone());
+                q.push_front(n1.clone());
+            }
+            if !set.contains(&n2) {
+                set.insert(n2.clone());
+                q.push_front(n2.clone());
+            }
         }
-        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
-            return true;
-        }
-        cnt = 0;
-        while cnt < n && b[cnt] == a[n - 1 - cnt] {
-            cnt += 1;
-        }
-        if cnt >= n / 2 || check(&a[cnt..n - cnt]) || check(&b[cnt..n - cnt]) {
-            return true;
-        }
-        false
+        set.into_iter().next().unwrap()
     }
 }
