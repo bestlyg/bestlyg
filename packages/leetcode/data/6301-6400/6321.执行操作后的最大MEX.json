@@ -1,0 +1,37 @@
+{
+    "name": "6321.执行操作后的最大MEX",
+    "url": "https://leetcode.cn/problems/smallest-missing-non-negative-integer-after-operations///",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "返回在执行上述操作 任意次 后，nums 的最大 MEX 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 224,
+            "memory": 117.9,
+            "desc": "先对所有数字进行取模归并，再依次寻找。",
+            "code": "class Solution {\npublic:\n    int findSmallestInteger(vector<int>& nums, int value) {\n        unordered_map<int,int> m;\n        for (auto &num: nums) m[(num % value + value) % value]++;\n        for (int i = 0; ;i++) {\n            if (m[i%value]) m[i%value]--;\n            else return i;\n        }\n        return 0;\n\n    }\n};",
+            "date": 1679155200000
+        },
+        {
+            "script": "python3",
+            "time": 356,
+            "memory": 35.3,
+            "desc": "同上。",
+            "code": "class Solution:\n    def findSmallestInteger(self, nums: List[int], value: int) -> int:\n        m = Counter()\n        for num in nums:\n            m[(num % value + value) % value] += 1\n        i = 0\n        while True:\n            if m[i % value]:\n                m[i % value] -= 1\n            else:\n                return i\n            i += 1",
+            "date": 1679155200000
+        },
+        {
+            "script": "rust",
+            "time": 56,
+            "memory": 6.6,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn find_smallest_integer(nums: Vec<i32>, value: i32) -> i32 {\n        let mut m = std::collections::HashMap::<i32, usize>::new();\n        for num in nums {\n            *m.entry((num % value + value) % value).or_insert(0) += 1;\n        }\n        let mut i = 0;\n        loop {\n            let item = m.get_mut(&(i % value));\n            if let Some(v) = item {\n                if *v == 0 {\n                    return i;\n                } else {\n                    *v -= 1;\n                }\n            } else {\n                return i as i32;\n            }\n            i += 1;\n        }\n    }\n}",
+            "date": 1679155200000
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "name": "6322.检查骑士巡视方案",
+    "url": "https://leetcode.cn/problems/check-knight-tour-configuration/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "如果 grid 表示了骑士的有效巡视方案，返回 true；否则返回 false。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 27,
+            "desc": "从0到末尾，用方向数组遍历所有数。",
+            "code": "int dirs[8][2] = {\n    {-2, -1}, {-1, -2},\n    {-2, 1}, {-1, 2},\n    {1, -2}, {2, -1},\n    {1, 2}, {2, 1},\n};\nclass Solution {\npublic:\n    typedef pair<int, int> pii;\n    bool checkValidGrid(vector<vector<int>>& grid) {\n        int n = grid.size();\n        pii cur = make_pair(0,0);\n        for (int i = 0; i < n * n; i++) {\n            if (grid[cur.first][cur.second] != i) return false;\n            for (int j = 0; j < 8; j++) {\n                int nrow = cur.first + dirs[j][0], ncol = cur.second + dirs[j][1];\n                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= n) continue;\n                if (grid[nrow][ncol] == i + 1) {\n                    cur = make_pair(nrow, ncol);\n                    break;\n                }\n            }\n        }\n        return true;\n    }\n};",
+            "date": 1679155200000
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def checkValidGrid(self, grid: List[List[int]]) -> bool:\n        dirs = [\n            [-2, -1], [-1, -2],\n            [-2, 1], [-1, 2],\n            [1, -2], [2, -1],\n            [1, 2], [2, 1],\n        ]\n        n = len(grid)\n        cur = (0, 0)\n        for i in range(n*n):\n            if grid[cur[0]][cur[1]] != i:\n                return False\n            for j in range(8):\n                nrow, ncol = cur[0] + dirs[j][0], cur[1]+dirs[j][1]\n                if 0 <= nrow < n and 0 <= ncol < n and grid[nrow][ncol] == i + 1:\n                    cur = (nrow, ncol)\n                    break\n        return True",
+            "date": 1679155200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn check_valid_grid(grid: Vec<Vec<i32>>) -> bool {\n        const dirs: [[i32; 2]; 8] = [\n            [-2, -1],\n            [-1, -2],\n            [-2, 1],\n            [-1, 2],\n            [1, -2],\n            [2, -1],\n            [1, 2],\n            [2, 1],\n        ];\n        let n = grid.len();\n        let mut cur = (0, 0);\n        for i in 0..n * n {\n            if grid[cur.0][cur.1] != i as i32 {\n                return false;\n            }\n            for dir in dirs {\n                let (nrow, ncol) = (cur.0 as i32 + dir[0], cur.1 as i32 + dir[1]);\n                if nrow >= 0\n                    && (nrow as usize) < n\n                    && ncol >= 0\n                    && (ncol as usize) < n\n                    && grid[nrow as usize][ncol as usize] == i as i32 + 1\n                {\n                    cur = (nrow as usize, ncol as usize);\n                    break;\n                }\n            }\n        }\n        true\n    }\n}",
+            "date": 1679155200000
+        }
+    ]
+}

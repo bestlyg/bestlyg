@@ -42,33 +42,17 @@ class Node:
 
 
 class Solution:
-    def findLexSmallestString(self, s: str, a: int, b: int) -> str:
-        set = SortedSet()
-        set.add(s)
-        q = Queue()
-        q.put(s)
-
-        def t1(s: str):
-            res = ""
-            for i in range(len(s)):
-                if i % 2:
-                    res += str((ord(s[i]) - ord('0') + a) % 10)
-                else:
-                    res += s[i]
-            return res
-
-        def t2(s: str):
-            return s[len(s)-b:] + s[0:len(s)-b]
-        while q.qsize():
-            cur = q.get()
-            n1, n2 = t1(cur), t2(cur)
-            if not n1 in set:
-                set.add(n1)
-                q.put(n1)
-            if not n2 in set:
-                set.add(n2)
-                q.put(n2)
-        return set.pop(0)
+    def findSmallestInteger(self, nums: List[int], value: int) -> int:
+        m = Counter()
+        for num in nums:
+            m[(num % value + value) % value] += 1
+        i = 0
+        while True:
+            if m[i % value]:
+                m[i % value] -= 1
+            else:
+                return i
+            i += 1
 
 
 def main():

@@ -40,40 +40,25 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn find_lex_smallest_string(s: String, a: i32, b: i32) -> String {
-        let mut set = std::collections::BTreeSet::<String>::new();
-        set.insert(s.clone());
-        let mut q = std::collections::VecDeque::<String>::new();
-        q.push_back(s.clone());
-        let t1 = |s: String| -> String {
-            let mut s = s.chars().map(|v| v as u8).collect::<Vec<u8>>();
-            let mut i = 1;
-            while i < s.len() {
-                s[i] = (s[i] - '0' as u8 + a as u8) % 10 + '0' as u8;
-                i += 2;
-            }
-            String::from_utf8(s).unwrap()
-        };
-        let t2 = |s: String| -> String {
-            let s = s.chars().collect::<Vec<char>>();
-            let s1 = &s[s.len() - b as usize..];
-            let s2 = &s[0..s.len() - b as usize];
-            let s1 = String::from_utf8(s1.iter().map(|v| *v as u8).collect::<Vec<u8>>()).unwrap();
-            let s2 = String::from_utf8(s2.iter().map(|v| *v as u8).collect::<Vec<u8>>()).unwrap();
-            [s1, s2].concat()
-        };
-        while !q.is_empty() {
-            let cur = q.pop_front().unwrap();
-            let (n1, n2) = (t1(cur.clone()), t2(cur.clone()));
-            if !set.contains(&n1) {
-                set.insert(n1.clone());
-                q.push_front(n1.clone());
-            }
-            if !set.contains(&n2) {
-                set.insert(n2.clone());
-                q.push_front(n2.clone());
-            }
+    pub fn find_smallest_integer(nums: Vec<i32>, value: i32) -> i32 {
+        let mut m = std::collections::HashMap::<i32, usize>::new();
+        for num in nums {
+            let v = m.entry((num % value + value) % value).or_insert(0);
+            *v += 1;
         }
-        set.into_iter().next().unwrap()
+        let mut i = 0;
+        loop {
+            let item = m.get_mut(&(i % value));
+            if let Some(v) = item {
+                if *v == 0 {
+                    return i;
+                } else {
+                    *v -= 1;
+                }
+            } else {
+                return i as i32;
+            }
+            i += 1;
+        }
     }
 }
