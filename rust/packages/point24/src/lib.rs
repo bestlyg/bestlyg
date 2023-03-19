@@ -33,7 +33,7 @@ fn permutation<T: Clone>(list: &[T], same: bool) -> Vec<Vec<T>> {
     res
 }
 
-type NumSize = f64;
+pub type NumSize = f64;
 #[derive(Debug, Clone, Copy)]
 enum NodeType {
     Op(char),
@@ -95,7 +95,7 @@ impl Node {
 
 impl Display for Node {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.left.is_some() && self.right.is_some() || self.value.is_num() {
+        if self.value.is_num() {
             write!(f, "{}", self.value)
         } else {
             write!(
@@ -109,14 +109,14 @@ impl Display for Node {
     }
 }
 
-fn toTree(nums: &[NumSize], ops: &[char]) -> Vec<Box<Node>> {
+fn to_tree(nums: &[NumSize], ops: &[char]) -> Vec<Box<Node>> {
     if nums.len() == 1 {
         vec![Box::new(Node::new(NodeType::Num(nums[0])))]
     } else {
         let mut res = vec![];
         for i in 0..ops.len() {
-            let lefts = toTree(&nums[0..i + 1], &ops[0..i]);
-            let rights = toTree(&nums[i + 1..], &ops[i + 1..]);
+            let lefts = to_tree(&nums[0..i + 1], &ops[0..i]);
+            let rights = to_tree(&nums[i + 1..], &ops[i + 1..]);
             for left in &lefts {
                 for right in &rights {
                     let mut root = Box::new(Node::new(NodeType::Op(ops[i])));
@@ -130,19 +130,40 @@ fn toTree(nums: &[NumSize], ops: &[char]) -> Vec<Box<Node>> {
     }
 }
 
-fn compute24(nums: &[NumSize], ops: &[char], isEqual: fn(val: NumSize) -> bool) -> Vec<String> {
+pub fn compute24(
+    nums: &[NumSize],
+    ops: &[char],
+    is_equal: fn(val: NumSize) -> bool,
+) -> Vec<String> {
     let mut res = vec![];
-    let lnums: Vec<&[NumSize]> = vec![];
-    let lops: Vec<&[char]> = vec![];
-    for nums in lnums {
+    let lnums = permutation(nums, false);
+    let lops = permutation(ops, true);
+    for nums in &lnums {
         for ops in &lops {
-            let trees = toTree(nums, ops.clone());
+            let trees = to_tree(nums, ops);
             for tree in trees {
-                if isEqual(tree.compute()) {
+                // println!("tree : {}", tree);
+                if is_equal(tree.compute()) {
                     res.push(format!("{}", tree))
                 }
             }
         }
     }
     res
+}
+
+fn is_equal(val: NumSize) -> bool {
+    const TARGET: NumSize = 24.0;
+    (val - TARGET).abs() <= 1e-6
+}
+#[test]
+fn test_1() {
+    let nums = vec![2, 4, 10, 10]
+        .into_iter()
+        .map(|v| v as NumSize)
+        .collect::<Vec<NumSize>>();
+    let ops = vec!['+', '-', '*', '/'];
+    let res = compute24(&nums, &ops, is_equal);
+    println!("{res:?}");
+    assert!(res.len() > 0);
 }

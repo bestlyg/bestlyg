@@ -5,10 +5,3 @@ version = 3
 [[package]]
 name = "point24"
 version = "0.1.0"
-
-[[package]]
-name = "rust-demo"
-version = "0.1.0"
-dependencies = [
- "point24",
-]
