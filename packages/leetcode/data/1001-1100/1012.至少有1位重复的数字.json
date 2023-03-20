@@ -1,11 +1,11 @@
 {
+    "id": "1057",
     "name": "1012.至少有1位重复的数字",
-    "url": "https://leetcode.cn/problems/numbers-with-repeated-digits/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/numbers-with-repeated-digits",
+    "difficulty": "困难",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "数学",
+        "动态规划"
     ],
     "desc": "给定正整数 n，返回在 [1, n] 范围内具有 至少 1 位 重复数字的正整数的个数。",
     "solutions": [

@@ -1,12 +1,9 @@
 {
-    "name": "6322.检查骑士巡视方案",
-    "url": "https://leetcode.cn/problems/check-knight-tour-configuration/",
+    "id": "2662",
+    "name": "2596.检查骑士巡视方案",
+    "url": "https://leetcode.cn/problems/check-knight-tour-configuration",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "如果 grid 表示了骑士的有效巡视方案，返回 true；否则返回 false。",
     "solutions": [
         {

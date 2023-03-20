@@ -1,12 +1,9 @@
 {
-    "name": "6352.美丽子集的数目",
-    "url": "https://leetcode.cn/problems/the-number-of-beautiful-subsets//",
+    "id": "2696",
+    "name": "2597.美丽子集的数目",
+    "url": "https://leetcode.cn/problems/the-number-of-beautiful-subsets",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "给你一个由正整数组成的数组 nums 和一个 正 整数 k 。如果 nums 的子集中，任意两个整数的绝对差均不等于 k ，则认为该子数组是一个 美丽 子集。返回数组 nums 中 非空 且 美丽 的子集数目。",
     "solutions": [
         {

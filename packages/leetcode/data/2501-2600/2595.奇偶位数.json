@@ -1,12 +1,9 @@
 {
-    "name": "6319.奇偶位数",
-    "url": "https://leetcode.cn/problems/number-of-even-and-odd-bits///////",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "id": "2659",
+    "name": "2595.奇偶位数",
+    "url": "https://leetcode.cn/problems/number-of-even-and-odd-bits",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "给你一个 正 整数 n 。用 even 表示在 n 的二进制形式（下标从 0 开始）中值为 1 的偶数下标的个数。用 odd 表示在 n 的二进制形式（下标从 0 开始）中值为 1 的奇数下标的个数。返回整数数组 answer ，其中 answer = [even, odd] 。",
     "solutions": [
         {
