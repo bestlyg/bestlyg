@@ -15,9 +15,10 @@ export function point24() {
   const [target, setTarget] = useState(24);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    setSolutions(
-      Array.from(new Set(compute24Fns[version](nums, ['+', '-', '*', '/'], target)).values())
-    );
+    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], target);
+    // console.log('===solutions===');
+    // console.log(solutions);
+    setSolutions(Array.from(new Set(solutions).values()));
     for (const [k, fn] of Object.entries(compute24Fns)) {
       console.time(k);
       fn(nums, ['+', '-', '*', '/'], target);
@@ -28,9 +29,9 @@ export function point24() {
     setNums(getRandomNum());
     setSolutions([]);
   };
-  // useEffect(() => {
-  //   console.log('solutions', solutions);
-  // }, [solutions]);
+  useEffect(() => {
+    console.log('solutions', solutions);
+  }, [solutions]);
   useEffect(() => {
     random();
   }, [version]);

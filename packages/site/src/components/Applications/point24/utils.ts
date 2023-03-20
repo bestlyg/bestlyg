@@ -17,14 +17,22 @@ export function isEqual(num: number, target: number) {
 /** 类型定义 */
 export type Compute24 = (nums: number[], ops: string[], target: number) => string[];
 /** 全排列 */
-export function permutation<T>({ list, same }: { list: T[]; same: boolean }): T[][] {
+export function permutation<T>({
+  list,
+  same,
+  pickSize,
+}: {
+  list: T[];
+  same: boolean;
+  pickSize: number;
+}): T[][] {
   const n = list.length;
   const set = new Set<number>();
   const res: T[][] = [];
   dfs();
   return res;
   function dfs(item: T[] = []) {
-    if (item.length === n) {
+    if (item.length === pickSize) {
       res.push(item.slice());
       return;
     }

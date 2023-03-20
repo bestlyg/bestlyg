@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import { useCreation } from 'ahooks';
-import { Button, Col, InputNumber, Row, Card, Empty, Space } from 'antd';
 import { isEqual, permutation } from './utils';
-import { useEffect } from 'react';
 
 enum NodeType {
   Op,
@@ -57,8 +53,8 @@ function toTree(nums: number[], ops: string[]): Node[] {
 
 export function compute24(nums: number[], ops: string[], target: number): string[] {
   const res: string[] = [];
-  const lnums = permutation({ list: nums, same: false });
-  const lops = permutation({ list: ops, same: true });
+  const lnums = permutation({ list: nums, same: false, pickSize: nums.length });
+  const lops = permutation({ list: ops, same: true, pickSize: nums.length - 1 });
   //   console.log('lnums', lnums);
   //   console.log('lops', lops);
   for (const nums of lnums) {
