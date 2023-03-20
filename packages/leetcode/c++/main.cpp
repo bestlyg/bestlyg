@@ -34,8 +34,8 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-// auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
-// priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
+auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
+priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
 void binary(unsigned n, int lastbit = 31) {
     unsigned i;
     for (i = 1 << lastbit; i > 0; i >>= 1)
@@ -73,20 +73,26 @@ vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 
 class Solution {
 public:
-    vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
-        int n = nums.size(), m = queries.size();
-        vector<int> idxs(m), res(m, 0);
-        for (int i = 0; i < m; i++) idxs[i] = i;
-        sort(idxs.begin(), idxs.end(), [&](auto &a, auto &b){
-            return queries[a] < queries[b];
-        });
+    int beautifulSubsets(vector<int>& nums, int k) {
         sort(nums.begin(), nums.end());
-        int idx = 0, sum = 0;
-        for (int i = 0; i < m; i++) {
-            while (idx < n && sum + nums[idx] < queries[idxs[i]]) sum += nums[idx++];
-            res[idxs[i]] = idx;
-        }
+        int res = 0;
+        unordered_set<int> s;
+        dfs(res, nums, k, s, 0);
         return res;
+    }
+    void dfs(int &res, vector<int> &nums, int k, unordered_set<int> &s, int cur = 0) {
+        if (cur == nums.size()) {
+            if (s.size()) res++;
+            return;
+        }
+        dfs(res, nums, k, s, cur + 1);
+        int num = nums[cur];
+        if (!s.count(num - k)) {
+            s.insert(num);
+            dfs(res, nums, k, s, cur + 1);
+            s.erase(num);
+        }
+        
     }
 };
 
@@ -98,3 +104,7 @@ int main() {
     return 0;
 }
 #endif
+/**
+ [590,136,844,976,670,485,794,114,434,82,245,673,738,416,252,1000,518,520,1,622]
+999
+*/

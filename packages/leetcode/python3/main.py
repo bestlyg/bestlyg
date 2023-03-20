@@ -42,17 +42,23 @@ class Node:
 
 
 class Solution:
-    def findSmallestInteger(self, nums: List[int], value: int) -> int:
-        m = Counter()
-        for num in nums:
-            m[(num % value + value) % value] += 1
-        i = 0
-        while True:
-            if m[i % value]:
-                m[i % value] -= 1
-            else:
-                return i
-            i += 1
+    def numDupDigitsAtMostN(self, n: int) -> int:
+        sn = str(n)
+
+        @cache
+        def dfs(idx: int, mask: int, limit: bool, empty: bool):
+            if idx == len(sn):
+                return 0 if empty else 1
+            res = 0
+            if empty:
+                res += dfs(idx+1, mask, False, True)
+            nmax = int(sn[idx]) if limit else 9
+            for j in range(1 if empty else 0, nmax+1):
+                if (mask & (1 << j)) == 0:
+                    res += dfs(idx+1, mask | (1 << j),
+                               limit and j == nmax, False)
+            return res
+        return n - dfs(0, 0, True, True)
 
 
 def main():
