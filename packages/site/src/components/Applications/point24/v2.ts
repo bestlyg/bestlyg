@@ -1,4 +1,4 @@
-import { isEqual, permutation } from './utils';
+import { Compute24, isEqual, permutation } from './utils';
 
 enum NodeType {
   Op,
@@ -51,7 +51,7 @@ function toTree(nums: number[], ops: string[]): Node[] {
   return res;
 }
 
-export function compute24(nums: number[], ops: string[], target: number): string[] {
+export const compute24: Compute24 = (nums, ops, isEqual): string[] => {
   const res: string[] = [];
   const lnums = permutation({ list: nums, same: false, pickSize: nums.length });
   const lops = permutation({ list: ops, same: true, pickSize: nums.length - 1 });
@@ -62,9 +62,9 @@ export function compute24(nums: number[], ops: string[], target: number): string
       const trees = toTree(nums, ops);
       for (const tree of trees) {
         // console.log(`tree = ${tree.toString()}, val = ${tree.compute()}`);
-        if (isEqual(tree.compute(), target)) res.push(tree.toString());
+        if (isEqual(tree.compute())) res.push(tree.toString());
       }
     }
   }
   return res;
-}
+};

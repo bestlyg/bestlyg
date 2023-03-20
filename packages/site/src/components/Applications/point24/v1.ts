@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import { useCreation } from 'ahooks';
-import { Button, Col, InputNumber, Row, Card, Empty, Space } from 'antd';
-import { random, isEqual } from './utils';
-import { useEffect } from 'react';
+import { Compute24 } from './utils';
 
-export function compute24(nums: number[], ops: string[], target: number): string[] {
+export const compute24: Compute24 = (nums, ops, isEqual): string[] => {
   const res: string[] = [];
   const n = nums.length;
   const m = ops.length;
@@ -32,7 +28,7 @@ export function compute24(nums: number[], ops: string[], target: number): string
                   ops[op3]
                 )) {
                   const num = eval(temp);
-                  if (isEqual(num, target)) res.push(temp);
+                  if (isEqual(num)) res.push(temp);
                 }
               }
             }
@@ -45,7 +41,7 @@ export function compute24(nums: number[], ops: string[], target: number): string
     numSet.delete(num1);
   }
   return res;
-}
+};
 
 function getTemplate(
   num1: number,

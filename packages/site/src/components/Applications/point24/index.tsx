@@ -1,7 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { useCreation } from 'ahooks';
+import React, { useState } from 'react';
 import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
-import { random, Compute24 } from './utils';
+import { random, Compute24, isEqual as isEqualBase } from './utils';
 import { useEffect } from 'react';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
@@ -13,15 +12,16 @@ export function point24() {
   const [version, setVersion] = useState('v2');
   const [nums, setNums] = useState(getRandomNum());
   const [target, setTarget] = useState(24);
+  const isEqual = (val: number) => isEqualBase(val, target);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], target);
+    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], isEqual);
     // console.log('===solutions===');
     // console.log(solutions);
     setSolutions(Array.from(new Set(solutions).values()));
     for (const [k, fn] of Object.entries(compute24Fns)) {
       console.time(k);
-      fn(nums, ['+', '-', '*', '/'], target);
+      fn(nums, ['+', '-', '*', '/'], isEqual);
       console.timeEnd(k);
     }
   };
