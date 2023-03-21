@@ -15,7 +15,7 @@ pub fn compute24(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<String>
             let trees = Node::to_tree(nums, ops);
             for tree in trees {
                 // println!("tree : {}", tree);
-                if (target - tree.compute()) <= EPSILON {
+                if (target - tree.compute()).abs() <= EPSILON {
                     res.push(format!("{}", tree))
                 }
             }

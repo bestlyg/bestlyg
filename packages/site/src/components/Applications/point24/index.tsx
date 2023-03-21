@@ -4,24 +4,36 @@ import { random, Compute24, isEqual as isEqualBase } from './utils';
 import { useEffect } from 'react';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
+import { init, compute24_wasm as compute24_v3 } from './v3';
 
-const compute24Fns: Record<string, Compute24> = { v1: compute24_v1, v2: compute24_v2 };
+const compute24Fns: Record<string, Compute24> = {
+  v1: compute24_v1,
+  v2: compute24_v2,
+  v3: (nums, ops, target) =>
+    compute24_v3(
+      nums,
+      ops.map(v => v.codePointAt(0)),
+      target
+    ).split(','),
+};
 
 const getRandomNum = () => new Array(4).fill(0).map(_ => random(1, 10));
 export function point24() {
+  useEffect(() => {
+    init();
+  }, []);
   const [version, setVersion] = useState('v2');
   const [nums, setNums] = useState(getRandomNum());
   const [target, setTarget] = useState(24);
-  const isEqual = (val: number) => isEqualBase(val, target);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], isEqual);
+    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], target);
     // console.log('===solutions===');
     // console.log(solutions);
     setSolutions(Array.from(new Set(solutions).values()));
     for (const [k, fn] of Object.entries(compute24Fns)) {
       console.time(k);
-      fn(nums, ['+', '-', '*', '/'], isEqual);
+      fn(nums, ['+', '-', '*', '/'], target);
       console.timeEnd(k);
     }
   };

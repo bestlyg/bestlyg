@@ -1,0 +1,13 @@
+{
+  "name": "point24",
+  "version": "0.1.0",
+  "files": [
+    "point24_bg.wasm",
+    "point24.js",
+    "point24_bg.js",
+    "point24.d.ts"
+  ],
+  "module": "point24.js",
+  "types": "point24.d.ts",
+  "sideEffects": false
+}

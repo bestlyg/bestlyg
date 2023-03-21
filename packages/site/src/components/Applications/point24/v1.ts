@@ -1,6 +1,6 @@
-import { Compute24 } from './utils';
+import { Compute24, EPSILON } from './utils';
 
-export const compute24: Compute24 = (nums, ops, isEqual): string[] => {
+export const compute24: Compute24 = (nums, ops, target): string[] => {
   const res: string[] = [];
   const n = nums.length;
   const m = ops.length;
@@ -28,7 +28,7 @@ export const compute24: Compute24 = (nums, ops, isEqual): string[] => {
                   ops[op3]
                 )) {
                   const num = eval(temp);
-                  if (isEqual(num)) res.push(temp);
+                  if (Math.abs(target - num) <= EPSILON) res.push(temp);
                 }
               }
             }

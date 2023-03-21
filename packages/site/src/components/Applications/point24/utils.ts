@@ -15,11 +15,7 @@ export function isEqual(num: number, target: number) {
   return Math.abs(target - num) <= EPSILON;
 }
 /** 类型定义 */
-export type Compute24 = (
-  nums: number[],
-  ops: string[],
-  isEqual: (val: number) => boolean
-) => string[];
+export type Compute24 = (nums: number[], ops: string[], target: number) => string[];
 /** 全排列 */
 export function permutation<T>({
   list,
