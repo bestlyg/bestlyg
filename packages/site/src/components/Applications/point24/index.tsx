@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
-import { random as randomNum, Compute24, isEqual as isEqualBase } from './utils';
+import { useUpdate } from 'ahooks';
+import { random as randomNum, Compute24 } from './utils';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
 
 export function point24() {
+  const update = useUpdate();
   const compute24Fns: { current: Record<string, Compute24> } = useRef({
     v1: compute24_v1,
     v2: compute24_v2,
@@ -19,6 +21,7 @@ export function point24() {
             target
           )
           ?.split(',');
+      update();
     });
   }, []);
   const [numCount, setNumCount] = useState(4);
@@ -42,12 +45,12 @@ export function point24() {
     setNums(getRandomNum());
     setSolutions([]);
   };
-  useEffect(() => {
-    console.log('solutions', solutions);
-  }, [solutions]);
+  // useEffect(() => {
+  //   console.log('solutions', solutions);
+  // }, [solutions]);
   useEffect(() => {
     random();
-  }, [version, numCount]);
+  }, [numCount]);
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
       <Space>
@@ -59,7 +62,7 @@ export function point24() {
         />
         <InputNumber value={numCount} onChange={e => setNumCount(e)} />
       </Space>
-      <Space>
+      <Space wrap>
         {nums.map((v, index) => (
           <Col span={6} key={index}>
             <InputNumber

@@ -38,4 +38,6 @@ pm2 start packages/server/dist/main.js --name $server
 # docker stop myapp
 # docker rm myapp
 # docker run --name myapp -p 3000:3000  -d myapp:pm2
-# scp -r ./packages/site/build  ubuntu@101.34.26.179:~/build
+# zip -vr ./packages/site/build/site.zip ./packages/site/build
+# scp -r ./packages/site/build/site.zip ubuntu@101.34.26.179:~/site.zip 
+# unzip -o -d /root/projects/bestlyg /home/ubuntu/site.zip
