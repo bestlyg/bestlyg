@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
-import { random, Compute24, isEqual as isEqualBase } from './utils';
+import { random as randomNum, Compute24, isEqual as isEqualBase } from './utils';
 import { useEffect } from 'react';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
@@ -17,11 +17,12 @@ const compute24Fns: Record<string, Compute24> = {
     ).split(','),
 };
 
-const getRandomNum = () => new Array(4).fill(0).map(_ => random(1, 10));
 export function point24() {
   useEffect(() => {
     init();
   }, []);
+  const [numCount, setNumCount] = useState(4);
+  const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
   const [version, setVersion] = useState('v2');
   const [nums, setNums] = useState(getRandomNum());
   const [target, setTarget] = useState(24);
@@ -46,16 +47,19 @@ export function point24() {
   }, [solutions]);
   useEffect(() => {
     random();
-  }, [version]);
+  }, [version, numCount]);
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Radio.Group
-        options={Object.keys(compute24Fns)}
-        onChange={e => setVersion(e.target.value)}
-        value={version}
-        optionType="button"
-      />
-      <Row gutter={16} style={{ width: 400 }}>
+      <Space>
+        <Radio.Group
+          options={Object.keys(compute24Fns)}
+          onChange={e => setVersion(e.target.value)}
+          value={version}
+          optionType="button"
+        />
+        <InputNumber value={numCount} onChange={e => setNumCount(e)} />
+      </Space>
+      <Space>
         {nums.map((v, index) => (
           <Col span={6} key={index}>
             <InputNumber
@@ -68,7 +72,7 @@ export function point24() {
             />
           </Col>
         ))}
-      </Row>
+      </Space>
       <Row gutter={16} style={{ width: 400 }}>
         <Col span={6}>
           <InputNumber value={target} onChange={e => setTarget(e)} />
