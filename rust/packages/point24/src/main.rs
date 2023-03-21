@@ -1,4 +1,4 @@
-use point24::{compute24, NumSize};
+use point24::{compute24_v2, NumSize};
 
 fn main() {
     let nums = vec![2, 4, 10, 10]
@@ -6,7 +6,7 @@ fn main() {
         .map(|v| v as NumSize)
         .collect::<Vec<NumSize>>();
     let ops = vec!['+', '-', '*', '/'];
-    let res = compute24(&nums, &ops, 24.0);
+    let res = compute24_v2(&nums, &ops, 24.0);
     let set = std::collections::HashSet::<String>::from_iter(res.iter().map(|v| v.clone()));
     println!("{:#?}", set.iter().collect::<Vec<&String>>());
 }

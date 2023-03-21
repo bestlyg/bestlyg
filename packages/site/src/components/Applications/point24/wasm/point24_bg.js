@@ -62,14 +62,41 @@ function getStringFromWasm0(ptr, len) {
 * @param {number} target
 * @returns {string | undefined}
 */
-export function compute24_wasm(nums, ops, target) {
+export function compute24_wasm_v1(nums, ops, target) {
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
         const ptr0 = passArrayF64ToWasm0(nums, wasm.__wbindgen_malloc);
         const len0 = WASM_VECTOR_LEN;
         const ptr1 = passArray8ToWasm0(ops, wasm.__wbindgen_malloc);
         const len1 = WASM_VECTOR_LEN;
-        wasm.compute24_wasm(retptr, ptr0, len0, ptr1, len1, target);
+        wasm.compute24_wasm_v1(retptr, ptr0, len0, ptr1, len1, target);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        let v2;
+        if (r0 !== 0) {
+            v2 = getStringFromWasm0(r0, r1).slice();
+            wasm.__wbindgen_free(r0, r1 * 1);
+        }
+        return v2;
+    } finally {
+        wasm.__wbindgen_add_to_stack_pointer(16);
+    }
+}
+
+/**
+* @param {Float64Array} nums
+* @param {Uint8Array} ops
+* @param {number} target
+* @returns {string | undefined}
+*/
+export function compute24_wasm_v2(nums, ops, target) {
+    try {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        const ptr0 = passArrayF64ToWasm0(nums, wasm.__wbindgen_malloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passArray8ToWasm0(ops, wasm.__wbindgen_malloc);
+        const len1 = WASM_VECTOR_LEN;
+        wasm.compute24_wasm_v2(retptr, ptr0, len0, ptr1, len1, target);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         let v2;

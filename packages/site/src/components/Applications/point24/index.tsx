@@ -1,32 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
+import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio, Checkbox } from 'antd';
 import { useUpdate } from 'ahooks';
 import { random as randomNum, Compute24 } from './utils';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
+import { compute24 as compute24_v3 } from './v3';
 
 export function point24() {
   const update = useUpdate();
   const compute24Fns: { current: Record<string, Compute24> } = useRef({
     v1: compute24_v1,
     v2: compute24_v2,
+    v3: compute24_v3,
   });
   useEffect(() => {
-    import('./v3').then(res => {
-      compute24Fns.current.v3 = (nums, ops, target) =>
-        res
-          .compute24_wasm(
-            nums,
-            ops.map(v => v.codePointAt(0)),
-            target
-          )
-          ?.split(',');
+    import('./wasm').then(res => {
+      compute24Fns.current.wasm_v1 = (nums, ops, target) =>
+        (res.compute24_wasm_v1 as any)(
+          nums,
+          ops.map(v => v.codePointAt(0)),
+          target
+        )?.split(',');
+      compute24Fns.current.wasm_v2 = (nums, ops, target) =>
+        (res.compute24_wasm_v2 as any)(
+          nums,
+          ops.map(v => v.codePointAt(0)),
+          target
+        )?.split(',');
       update();
     });
   }, []);
   const [numCount, setNumCount] = useState(4);
   const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
   const [version, setVersion] = useState('v2');
+  const [disabledVersion, setDisabledVersion] = useState([]);
   const [nums, setNums] = useState(getRandomNum());
   const [target, setTarget] = useState(24);
   const [solutions, setSolutions] = useState<string[]>([]);
@@ -35,7 +42,10 @@ export function point24() {
     // console.log('===solutions===');
     // console.log(solutions);
     setSolutions(Array.from(new Set(solutions).values()));
-    for (const [k, fn] of Object.entries(compute24Fns.current)) {
+    console.log('======TIME COMPARATION======');
+    for (const [k, fn] of Object.entries(compute24Fns.current).filter(
+      ([k]) => !disabledVersion.some(v => v === k)
+    )) {
       console.time(k);
       fn(nums, ['+', '-', '*', '/'], target);
       console.timeEnd(k);
@@ -55,12 +65,25 @@ export function point24() {
     <Space direction="vertical" style={{ width: '100%' }}>
       <Space>
         <Radio.Group
-          options={Object.keys(compute24Fns.current)}
           onChange={e => setVersion(e.target.value)}
           value={version}
           optionType="button"
-        />
+          disabled={disabledVersion}
+        >
+          {Object.keys(compute24Fns.current).map((v, i) => (
+            <Radio.Button value={v} key={i} disabled={disabledVersion.some(dv => dv === v)}>
+              {v}
+            </Radio.Button>
+          ))}
+        </Radio.Group>
         <InputNumber value={numCount} onChange={e => setNumCount(e)} />
+      </Space>
+      <Space>
+        <Checkbox.Group
+          options={Object.keys(compute24Fns.current).map(v => ({ label: v, value: v }))}
+          onChange={e => setDisabledVersion(e)}
+          value={disabledVersion}
+        />
       </Space>
       <Space wrap>
         {nums.map((v, index) => (

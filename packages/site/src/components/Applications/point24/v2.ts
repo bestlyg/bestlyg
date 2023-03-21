@@ -1,4 +1,4 @@
-import { Compute24, EPSILON, isEqual, permutation } from './utils';
+import { Compute24, EPSILON, isEqual, permutation, operation } from './utils';
 
 enum NodeType {
   Op,
@@ -18,18 +18,7 @@ class Node {
   }
   compute() {
     if (this.type === NodeType.Num) return this.value;
-    switch (this.value) {
-      case '+':
-        return this.left.compute() + this.right.compute();
-      case '-':
-        return this.left.compute() - this.right.compute();
-      case '*':
-        return this.left.compute() * this.right.compute();
-      case '/':
-        return this.left.compute() / this.right.compute();
-      default:
-        throw new Error('an unkown operation');
-    }
+    return operation(this.left.compute(), this.right.compute(), this.value as string);
   }
 }
 
@@ -55,8 +44,6 @@ export const compute24: Compute24 = (nums, ops, target): string[] => {
   const res: string[] = [];
   const lnums = permutation({ list: nums, same: false, pickSize: nums.length });
   const lops = permutation({ list: ops, same: true, pickSize: nums.length - 1 });
-  //   console.log('lnums', lnums);
-  //   console.log('lops', lops);
   for (const nums of lnums) {
     for (const ops of lops) {
       const trees = toTree(nums, ops);

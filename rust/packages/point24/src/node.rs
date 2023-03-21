@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use crate::utils::NumSize;
+use crate::{utils::NumSize, operation};
 use std::{cell::RefCell, fmt::Display, rc::Rc};
 
 #[derive(Debug, Clone, Copy)]
@@ -72,13 +72,7 @@ impl Node {
             NodeType::Op(op) => {
                 let left = self.left.as_ref().unwrap();
                 let right = self.right.as_ref().unwrap();
-                match op {
-                    '+' => left.borrow().compute() + right.borrow().compute(),
-                    '-' => left.borrow().compute() - right.borrow().compute(),
-                    '*' => left.borrow().compute() * right.borrow().compute(),
-                    '/' => left.borrow().compute() / right.borrow().compute(),
-                    _ => panic!("a unkown operation"),
-                }
+                operation(left.borrow().compute(), right.borrow().compute(), op)
             }
         }
     }

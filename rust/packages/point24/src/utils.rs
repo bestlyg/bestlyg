@@ -35,3 +35,13 @@ pub fn permutation<T: Clone>(list: &[T], same: bool, pick_size: usize) -> Vec<Ve
 
 /** 精确度 */
 pub const EPSILON: NumSize = 1e-6;
+
+pub fn operation(num1: NumSize, num2: NumSize, op: char) -> NumSize {
+    match op {
+        '+' => return num1 + num2,
+        '-' => return num1 - num2,
+        '*' => return num1 * num2,
+        '/' => return num1 / num2,
+        _ => panic!("an unkown operation"),
+    }
+}

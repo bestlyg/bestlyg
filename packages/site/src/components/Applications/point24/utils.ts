@@ -46,3 +46,18 @@ export function permutation<T>({
     }
   }
 }
+
+export function operation(num1: number, num2: number, op: string): number {
+  switch (op) {
+    case '+':
+      return num1 + num2;
+    case '-':
+      return num1 - num2;
+    case '*':
+      return num1 * num2;
+    case '/':
+      return num1 / num2;
+    default:
+      throw new Error('an unkown operation');
+  }
+}
