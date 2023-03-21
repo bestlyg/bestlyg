@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio } from 'antd';
 import { random as randomNum, Compute24, isEqual as isEqualBase } from './utils';
-import { useEffect } from 'react';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
-import { init, compute24_wasm as compute24_v3 } from './v3';
-
-const compute24Fns: Record<string, Compute24> = {
-  v1: compute24_v1,
-  v2: compute24_v2,
-  v3: (nums, ops, target) =>
-    compute24_v3(
-      nums,
-      ops.map(v => v.codePointAt(0)),
-      target
-    ).split(','),
-};
 
 export function point24() {
+  const compute24Fns: { current: Record<string, Compute24> } = useRef({
+    v1: compute24_v1,
+    v2: compute24_v2,
+  });
   useEffect(() => {
-    init();
+    import('./v3').then(res => {
+      compute24Fns.current.v3 = (nums, ops, target) =>
+        res
+          .compute24_wasm(
+            nums,
+            ops.map(v => v.codePointAt(0)),
+            target
+          )
+          ?.split(',');
+    });
   }, []);
   const [numCount, setNumCount] = useState(4);
   const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
@@ -28,11 +28,11 @@ export function point24() {
   const [target, setTarget] = useState(24);
   const [solutions, setSolutions] = useState<string[]>([]);
   const compute = () => {
-    const solutions = compute24Fns[version](nums, ['+', '-', '*', '/'], target);
+    const solutions = compute24Fns.current[version](nums, ['+', '-', '*', '/'], target);
     // console.log('===solutions===');
     // console.log(solutions);
     setSolutions(Array.from(new Set(solutions).values()));
-    for (const [k, fn] of Object.entries(compute24Fns)) {
+    for (const [k, fn] of Object.entries(compute24Fns.current)) {
       console.time(k);
       fn(nums, ['+', '-', '*', '/'], target);
       console.timeEnd(k);
@@ -52,7 +52,7 @@ export function point24() {
     <Space direction="vertical" style={{ width: '100%' }}>
       <Space>
         <Radio.Group
-          options={Object.keys(compute24Fns)}
+          options={Object.keys(compute24Fns.current)}
           onChange={e => setVersion(e.target.value)}
           value={version}
           optionType="button"
