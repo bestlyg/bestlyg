@@ -38,3 +38,4 @@ pm2 start packages/server/dist/main.js --name $server
 # docker stop myapp
 # docker rm myapp
 # docker run --name myapp -p 3000:3000  -d myapp:pm2
+# scp -r ./packages/site/build  ubuntu@101.34.26.179:~/build
