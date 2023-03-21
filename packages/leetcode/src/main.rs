@@ -40,45 +40,7 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn num_dup_digits_at_most_n(n: i32) -> i32 {
-        let sn = format!("{}", n).chars().collect::<Vec<char>>();
-        let mut m = vec![vec![-1; 1 << 10]; sn.len()];
-        fn dfs(
-            sn: &Vec<char>,
-            m: &mut Vec<Vec<i32>>,
-            idx: usize,
-            mask: usize,
-            limit: bool,
-            empty: bool,
-        ) -> i32 {
-            if idx == sn.len() {
-                if empty {
-                    0
-                } else {
-                    1
-                }
-            } else if !limit && !empty && m[idx][mask] != -1 {
-                m[idx][mask]
-            } else {
-                let mut res = if empty {
-                    dfs(sn, m, idx + 1, mask, false, true)
-                } else {
-                    0
-                };
-                let nmax = if limit {
-                    sn[idx] as usize - '0' as usize
-                } else {
-                    9
-                };
-                for j in (if empty { 1 } else { 0 })..=nmax {
-                    if (mask & (1 << j)) == 0 {
-                        res += dfs(sn, m, idx + 1, mask | (1 << j), limit && j == nmax, false);
-                    }
-                }
-                m[idx][mask] = res;
-                res
-            }
-        }
-        return n - dfs(&sn, &mut m, 0, 0, true, true);
+    pub fn convert_temperature(celsius: f64) -> Vec<f64> {
+        vec![celsius + 273.15, celsius * 1.80 + 32.00]
     }
 }

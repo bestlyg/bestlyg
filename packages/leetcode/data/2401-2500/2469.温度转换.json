@@ -15,6 +15,30 @@
             "script": "cpp",
             "desc": "直接计算。",
             "code": "class Solution {\npublic:\n    vector<double> convertTemperature(double celsius) {\n        vector<double> ans(2);\n        ans[0] = celsius + 273.15;\n        ans[1] = celsius * 1.80 + 32.00;\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 5.9,
+            "desc": "直接计算。",
+            "code": "class Solution {\npublic:\n    vector<double> convertTemperature(double celsius) {\n        return vector<double>{ celsius + 273.15, celsius * 1.80 + 32.00 };\n    }\n};",
+            "date": 1679328000000
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 14.8,
+            "desc": "同上。",
+            "code": "class Solution:\n    def convertTemperature(self, celsius: float) -> List[float]:\n        return [celsius + 273.15, celsius * 1.80 + 32.00]",
+            "date": 1679328000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn convert_temperature(celsius: f64) -> Vec<f64> {\n        vec![celsius + 273.15, celsius * 1.80 + 32.00]\n    }\n}",
+            "date": 1679328000000
         }
     ]
 }
