@@ -1,7 +1,7 @@
 #![allow(unused)]
 
 use crate::utils::NumSize;
-use std::fmt::Display;
+use std::{cell::RefCell, fmt::Display, rc::Rc};
 
 #[derive(Debug, Clone, Copy)]
 pub(crate) enum NodeType {
@@ -30,16 +30,18 @@ impl Display for NodeType {
         }
     }
 }
+
+type RcNode = Rc<RefCell<Node>>;
 #[derive(Debug, Clone)]
 pub(crate) struct Node {
     pub(crate) value: NodeType,
-    pub(crate) left: Option<Box<Node>>,
-    pub(crate) right: Option<Box<Node>>,
+    pub(crate) left: Option<Rc<RefCell<Node>>>,
+    pub(crate) right: Option<Rc<RefCell<Node>>>,
 }
 impl Node {
-    pub(crate) fn to_tree(nums: &[NumSize], ops: &[char]) -> Vec<Box<Node>> {
+    pub(crate) fn to_tree(nums: &[NumSize], ops: &[char]) -> Vec<RcNode> {
         if nums.len() == 1 {
-            vec![Box::new(Node::new(NodeType::Num(nums[0])))]
+            vec![Rc::new(RefCell::new(Node::new(NodeType::Num(nums[0]))))]
         } else {
             let mut res = vec![];
             for i in 0..ops.len() {
@@ -47,10 +49,10 @@ impl Node {
                 let rights = Node::to_tree(&nums[i + 1..], &ops[i + 1..]);
                 for left in &lefts {
                     for right in &rights {
-                        let mut root = Box::new(Node::new(NodeType::Op(ops[i])));
-                        root.as_mut().left = Some(left.clone());
-                        root.as_mut().right = Some(right.clone());
-                        res.push(root);
+                        let mut root = Node::new(NodeType::Op(ops[i]));
+                        root.left = Some(left.clone());
+                        root.right = Some(right.clone());
+                        res.push(Rc::new(RefCell::new(root)));
                     }
                 }
             }
@@ -71,10 +73,10 @@ impl Node {
                 let left = self.left.as_ref().unwrap();
                 let right = self.right.as_ref().unwrap();
                 match op {
-                    '+' => left.compute() + right.compute(),
-                    '-' => left.compute() - right.compute(),
-                    '*' => left.compute() * right.compute(),
-                    '/' => left.compute() / right.compute(),
+                    '+' => left.borrow().compute() + right.borrow().compute(),
+                    '-' => left.borrow().compute() - right.borrow().compute(),
+                    '*' => left.borrow().compute() * right.borrow().compute(),
+                    '/' => left.borrow().compute() / right.borrow().compute(),
                     _ => panic!("a unkown operation"),
                 }
             }
@@ -87,13 +89,9 @@ impl Display for Node {
         if self.value.is_num() {
             write!(f, "{}", self.value)
         } else {
-            write!(
-                f,
-                "({}) {} ({})",
-                self.left.as_ref().unwrap(),
-                self.value,
-                self.right.as_ref().unwrap()
-            )
+            let left = self.left.as_ref().unwrap();
+            let right = self.right.as_ref().unwrap();
+            write!(f, "({}) {} ({})", left.borrow(), self.value, right.borrow())
         }
     }
 }

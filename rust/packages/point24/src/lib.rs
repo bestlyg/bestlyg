@@ -1,6 +1,8 @@
 mod node;
 mod utils;
 
+use std::{borrow::Borrow, cell::Ref};
+
 use node::Node;
 pub use utils::*;
 
@@ -15,8 +17,9 @@ pub fn compute24(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<String>
             let trees = Node::to_tree(nums, ops);
             for tree in trees {
                 // println!("tree : {}", tree);
-                if (target - tree.compute()).abs() <= EPSILON {
-                    res.push(format!("{}", tree))
+                let node = tree.as_ref().borrow();
+                if (target - node.compute()).abs() <= EPSILON {
+                    res.push(format!("{}", node))
                 }
             }
         }
