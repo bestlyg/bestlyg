@@ -8,14 +8,14 @@ git pull
 echo "pnpm i"
 pnpm i
 # pnpm run build
-echo "pnpm --filter leetcode build"
-pnpm --filter leetcode build
-echo "rm -rf ./packages/site/docs/leetcode"
-rm -rf ./packages/site/docs/leetcode
-echo "cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode"
-cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode
-echo "pnpm --filter site build"
-pnpm --filter site build
+# echo "pnpm --filter leetcode build"
+# pnpm --filter leetcode build
+# echo "rm -rf ./packages/site/docs/leetcode"
+# rm -rf ./packages/site/docs/leetcode
+# echo "cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode"
+# cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode
+# echo "pnpm --filter site build"
+# pnpm --filter site build
 echo "pnpm --filter server build"
 pnpm --filter server build
 # 强制重新编译容器
