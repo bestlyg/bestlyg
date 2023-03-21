@@ -25,6 +25,10 @@ pub fn compute24(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<String>
     res
 }
 
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
 #[wasm_bindgen]
 pub fn compute24_wasm(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) -> Option<String> {
     let ops = ops.iter().map(|v| *v as char).collect::<Vec<char>>();
