@@ -32,3 +32,6 @@ pub fn permutation<T: Clone>(list: &[T], same: bool, pick_size: usize) -> Vec<Ve
     dfs::<T>(n, pick_size, list, &mut res, &mut set, same, &mut item);
     res
 }
+
+/** 精确度 */
+pub const EPSILON: NumSize = 1e-6;
