@@ -6,6 +6,7 @@ export const compute24: Compute24 = (nums, ops, target): string[] => {
   const lops = permutation({ list: ops, same: true, pickSize: nums.length - 1 });
   for (const nums of lnums) {
     for (const ops of lops) {
+      // console.log(`nums=${nums},ops=${ops},res=${compute(nums.slice(), ops.slice())}`)
       if (Math.abs(target - compute(nums.slice(), ops.slice())) <= EPSILON)
         res.push(stringify(nums, ops));
     }

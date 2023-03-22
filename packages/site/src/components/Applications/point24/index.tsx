@@ -14,21 +14,25 @@ export function point24() {
     v3: compute24_v3,
   });
   useEffect(() => {
-    import('./wasm').then(res => {
-      compute24Fns.current.wasm_v1 = (nums, ops, target) =>
-        (res.compute24_wasm_v1 as any)(
-          nums,
-          ops.map(v => v.codePointAt(0)),
-          target
-        )?.split(',');
-      compute24Fns.current.wasm_v2 = (nums, ops, target) =>
-        (res.compute24_wasm_v2 as any)(
-          nums,
-          ops.map(v => v.codePointAt(0)),
-          target
-        )?.split(',');
-      update();
-    });
+    import('../../../../../../rust/packages/point24/pkg')
+      .then(res => {
+        const prefix = 'compute24_wasm_v';
+        for (const [k, v] of Object.entries(res)
+          .filter(([k]) => k.startsWith(prefix))
+          .map(([k, v]) => [Number(k.substring(prefix.length)), v] as [number, Function])
+          .sort(([k1], [k2]) => k1 - k2)) {
+          compute24Fns.current[`wasm_v${k}`] = (nums, ops, target) =>
+            (v as any)(
+              nums,
+              ops.map(v => v.codePointAt(0)),
+              target
+            )?.split(',');
+        }
+        update();
+      })
+      .catch(e => {
+        console.log('Import Point24-RS Error', e);
+      });
   }, []);
   const [numCount, setNumCount] = useState(4);
   const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
