@@ -29,7 +29,6 @@ pub fn compute24_v1(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<Stri
     res
 }
 
-#[cfg(feature = "v1")]
 #[wasm_bindgen]
 pub fn compute24_wasm_v1(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) -> Option<String> {
     let ops = ops.iter().map(|v| *v as char).collect::<Vec<char>>();
@@ -42,45 +41,81 @@ pub fn compute24_wasm_v1(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) 
 }
 
 pub fn compute24_v2(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<String> {
-    fn compute(mut nums: Vec<NumSize>, mut ops: Vec<char>) -> NumSize {
-        if nums.len() == 1 {
-            nums[0]
-        } else {
-            let num1 = nums.pop().unwrap();
-            let num2 = nums.pop().unwrap();
-            nums.push(operation(num1, num2, ops.pop().unwrap()));
-            compute(nums, ops)
-        }
-    }
-    fn stringify(nums: &Vec<NumSize>, ops: &Vec<char>) -> String {
-        let mut res = String::new();
-        for num in nums {
-            res.push_str(&num.to_string());
-            res.push(' ');
-        }
-        for op in ops.iter().rev() {
-            res.push_str(&op.to_string());
-            res.push(' ');
-        }
-        res
-    }
-
-    let mut res = vec![];
-    let lnums = permutation(nums, false, nums.len());
-    let lops = permutation(ops, true, nums.len() - 1);
-    for nums in &lnums {
-        for ops in &lops {
-            // println!("nums = {nums:?}, ops = {ops:?}, res = {}", compute(nums.clone(), ops.clone()));
-            if (target - compute(nums.clone(), ops.clone())).abs() <= EPSILON {
-                res.push(stringify(nums, ops));
+    use std::collections::HashMap;
+    let mut cache = HashMap::<String, Vec<Vec<String>>>::new();
+    fn next(
+        cache: &mut HashMap<String, Vec<Vec<String>>>,
+        ops: &[char],
+        target: NumSize,
+        mut nums: Vec<NumSize>,
+    ) -> Vec<Vec<String>> {
+        nums.sort_by(|a, b| (*a).partial_cmp(b).unwrap());
+        let format_str = nums
+            .iter()
+            .map(|v| v.to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        let insert_format_str = format_str.clone();
+        if !cache.contains_key(&format_str) {
+            if nums.len() == 1 {
+                if (target - nums[0]).abs() <= EPSILON {
+                    cache.insert(insert_format_str, vec![vec!["FIN".to_string()]]);
+                } else {
+                    cache.insert(insert_format_str, vec![]);
+                }
+            } else {
+                let n = nums.len();
+                let mut res = vec![];
+                for i in 0..n {
+                    for j in 0..n {
+                        if i != j {
+                            for op in ops {
+                                let num = operation(nums[i], nums[j], *op);
+                                let mut next_nums = vec![num];
+                                for k in 0..n {
+                                    if k != i && k != j {
+                                        next_nums.push(nums[k]);
+                                    }
+                                }
+                                next(cache, ops, target, next_nums)
+                                    .into_iter()
+                                    .filter(|v| !v.is_empty())
+                                    .map(|mut v| {
+                                        v.insert(
+                                            0,
+                                            format!("{} {} {}", nums[i], op, nums[j]).to_string(),
+                                        );
+                                        v
+                                    })
+                                    .for_each(|v| {
+                                        res.push(v);
+                                    });
+                            }
+                        }
+                    }
+                }
+                cache.insert(insert_format_str, res);
             }
         }
+        cache.get(&format_str).unwrap().clone()
     }
-
-    res
+    next(
+        &mut cache,
+        ops,
+        target,
+        nums.iter().map(|v| *v).collect::<Vec<NumSize>>(),
+    )
+    .into_iter()
+    .map(|l| {
+        let mut s = String::new();
+        s.push('[');
+        s.push_str(&l.join(" -> "));
+        s.push(']');
+        s
+    })
+    .collect::<Vec<String>>()
 }
 
-#[cfg(feature = "v2")]
 #[wasm_bindgen]
 pub fn compute24_wasm_v2(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) -> Option<String> {
     let ops = ops.iter().map(|v| *v as char).collect::<Vec<char>>();

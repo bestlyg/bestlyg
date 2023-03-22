@@ -67,7 +67,7 @@ export function point24() {
   }, [numCount]);
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      <Space>
+      <Space >
         <Radio.Group
           onChange={e => setVersion(e.target.value)}
           value={version}
@@ -82,7 +82,7 @@ export function point24() {
         </Radio.Group>
         <InputNumber value={numCount} onChange={e => setNumCount(e)} />
       </Space>
-      <Space>
+      <Space >
         <Checkbox.Group
           options={Object.keys(compute24Fns.current).map(v => ({ label: v, value: v }))}
           onChange={e => setDisabledVersion(e)}
@@ -91,7 +91,7 @@ export function point24() {
       </Space>
       <Space wrap>
         {nums.map((v, index) => (
-          <Col span={6} key={index}>
+          <Col span={12} key={index}>
             <InputNumber
               value={v}
               onChange={e => {

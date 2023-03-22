@@ -1,7 +1,7 @@
 use point24::{compute24_v2, NumSize};
 
 fn main() {
-    let nums = vec![2, 4, 10, 10]
+    let nums = vec![3, 9, 10, 10]
         .into_iter()
         .map(|v| v as NumSize)
         .collect::<Vec<NumSize>>();
