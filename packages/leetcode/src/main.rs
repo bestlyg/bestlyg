@@ -40,7 +40,30 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn convert_temperature(celsius: f64) -> Vec<f64> {
-        vec![celsius + 273.15, celsius * 1.80 + 32.00]
+    pub fn best_team_score(scores: Vec<i32>, ages: Vec<i32>) -> i32 {
+        let (n, mut res) = (scores.len(), 0);
+        let mut idx = (0..n).collect::<Vec<usize>>();
+        idx.sort_by(|a, b| {
+            if ages[*a] != ages[*b] {
+                ages[*a].cmp(&ages[*b])
+            } else {
+                scores[*a].cmp(&scores[*b])
+            }
+        });
+        let mut dp = vec![0; n];
+        for i in 0..n as i32 {
+            for j in ((0i32)..=(i - 1)).rev() {
+                let (i, j) = (i as usize, j as usize);
+                if ages[idx[i]] == ages[idx[j]]
+                    || ages[idx[i]] > ages[idx[j]] && scores[idx[i]] >= scores[idx[j]]
+                {
+                    dp[i] = dp[i].max(dp[j]);
+                }
+            }
+
+            dp[i as usize] += scores[idx[i as usize]];
+            res = res.max(dp[i as usize]);
+        }
+        res
     }
 }

@@ -29,6 +29,7 @@ pub fn compute24_v1(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<Stri
     res
 }
 
+#[cfg(feature = "v1")]
 #[wasm_bindgen]
 pub fn compute24_wasm_v1(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) -> Option<String> {
     let ops = ops.iter().map(|v| *v as char).collect::<Vec<char>>();
@@ -79,6 +80,7 @@ pub fn compute24_v2(nums: &[NumSize], ops: &[char], target: NumSize) -> Vec<Stri
     res
 }
 
+#[cfg(feature = "v2")]
 #[wasm_bindgen]
 pub fn compute24_wasm_v2(nums: Box<[NumSize]>, ops: Box<[u8]>, target: NumSize) -> Option<String> {
     let ops = ops.iter().map(|v| *v as char).collect::<Vec<char>>();

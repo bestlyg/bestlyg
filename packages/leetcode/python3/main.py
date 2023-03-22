@@ -39,10 +39,20 @@ class Node:
 
     def __lt__(self, o: 'Node') -> bool:
         return self.time < o.time
-    
+
+
 class Solution:
-    def convertTemperature(self, celsius: float) -> List[float]:
-        return [celsius + 273.15, celsius * 1.80 + 32.00]
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
+        n, res = len(scores), 0
+        l = sorted(zip(ages, scores))
+        dp = [0] * n
+        for i in range(n):
+            for j in range(i-1, -1, -1):
+                if l[i][0] == l[j][0] or (l[i][0] > l[j][0] and l[i][1] >= l[j][1]):
+                    dp[i] = max(dp[i], dp[j])
+            dp[i] += l[i][1]
+            res = max(res, dp[i])
+        return res
 
 
 def main():
