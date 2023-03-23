@@ -40,30 +40,30 @@ impl PartialOrd for Node {
 }
 
 impl Solution {
-    pub fn best_team_score(scores: Vec<i32>, ages: Vec<i32>) -> i32 {
-        let (n, mut res) = (scores.len(), 0);
-        let mut idx = (0..n).collect::<Vec<usize>>();
-        idx.sort_by(|a, b| {
-            if ages[*a] != ages[*b] {
-                ages[*a].cmp(&ages[*b])
+    pub fn check_arithmetic_subarrays(nums: Vec<i32>, l: Vec<i32>, r: Vec<i32>) -> Vec<bool> {
+        let check = |i| -> bool {
+            let (left, right) = (l[i] as usize, r[i] as usize);
+            let size = right - left;
+            let (nmax, nmin) = (*nums[left..=right].iter().max().unwrap(), *nums[left..=right].iter().min().unwrap());
+            if (nmax - nmin) % (size as i32) != 0 {
+                false
+            } else if nmax == nmin {
+                true
             } else {
-                scores[*a].cmp(&scores[*b])
-            }
-        });
-        let mut dp = vec![0; n];
-        for i in 0..n as i32 {
-            for j in ((0i32)..=(i - 1)).rev() {
-                let (i, j) = (i as usize, j as usize);
-                if ages[idx[i]] == ages[idx[j]]
-                    || ages[idx[i]] > ages[idx[j]] && scores[idx[i]] >= scores[idx[j]]
-                {
-                    dp[i] = dp[i].max(dp[j]);
+                let step = (nmax - nmin) / (size as i32);
+                println!("l = {left}, r = {right}, min = {nmin}, max=  {nmax}, size= {size}, step = {step}");
+                let mut arr = vec![false; (size + 1) as usize];
+                for i in left..=right {
+                    let val = ((nums[i] - nmin) / step) as usize;
+                    println!("i={i},step={step},val={val}");
+                    if (nums[i] - nmin) % step != 0 || arr[val] {
+                        return false;
+                    }
+                    arr[val] = true;
                 }
+                true
             }
-
-            dp[i as usize] += scores[idx[i as usize]];
-            res = res.max(dp[i as usize]);
-        }
-        res
+        };
+        (0..l.len()).map(|i| check(i)).collect::<Vec<bool>>()
     }
 }

@@ -42,17 +42,26 @@ class Node:
 
 
 class Solution:
-    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
-        n, res = len(scores), 0
-        l = sorted(zip(ages, scores))
-        dp = [0] * n
-        for i in range(n):
-            for j in range(i-1, -1, -1):
-                if l[i][0] == l[j][0] or (l[i][0] > l[j][0] and l[i][1] >= l[j][1]):
-                    dp[i] = max(dp[i], dp[j])
-            dp[i] += l[i][1]
-            res = max(res, dp[i])
-        return res
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        def check(i: int):
+            left, right = l[i], r[i]
+            size = right-left
+            nmax, nmin = max(nums[left:right + 1]), min(nums[left:right+1])
+            if (nmax - nmin) % size != 0:
+                return False
+            elif nmin == nmax:
+                return True
+            else:
+                step = (nmax - nmin) // size
+                arr = [False] * (size + 1)
+                for i in range(left, right+1):
+                    val = (nums[i] - nmin) // step
+                    if (nums[i] - nmin) % step != 0 or arr[val]:
+                        return False
+                    else:
+                        arr[val] = True
+                return True
+        return [check(i) for i in range(len(l))]
 
 
 def main():

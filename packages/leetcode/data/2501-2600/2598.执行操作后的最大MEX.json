@@ -3,7 +3,12 @@
     "name": "2598.执行操作后的最大MEX",
     "url": "https://leetcode.cn/problems/smallest-missing-non-negative-integer-after-operations",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "数学"
+    ],
     "desc": "返回在执行上述操作 任意次 后，nums 的最大 MEX 。",
     "solutions": [
         {
