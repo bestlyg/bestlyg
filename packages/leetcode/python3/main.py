@@ -41,27 +41,46 @@ class Node:
         return self.time < o.time
 
 
-class Solution:
-    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
-        def check(i: int):
-            left, right = l[i], r[i]
-            size = right-left
-            nmax, nmin = max(nums[left:right + 1]), min(nums[left:right+1])
-            if (nmax - nmin) % size != 0:
-                return False
-            elif nmin == nmax:
-                return True
+class TrieNode:
+    def __init__(self) -> None:
+        self.end = False
+        self.fail = None
+        self.children: List[TrieNode] = [None] * 26
+
+
+class StreamChecker:
+
+    def __init__(self, words: List[str]):
+        self.root = self.current = TrieNode()
+        for word in words:
+            node = self.root
+            for c in word:
+                idx = ord(c) - ord('a')
+                if not node.children[idx]:
+                    node.children[idx] = TrieNode()
+                node = node.children[idx]
+            node.end = True
+        q = Queue()
+        self.root.fail = self.root
+        for i in range(26):
+            if self.root.children[i]:
+                self.root.children[i].fail = self.root
+                q.put(self.root.children[i])
             else:
-                step = (nmax - nmin) // size
-                arr = [False] * (size + 1)
-                for i in range(left, right+1):
-                    val = (nums[i] - nmin) // step
-                    if (nums[i] - nmin) % step != 0 or arr[val]:
-                        return False
-                    else:
-                        arr[val] = True
-                return True
-        return [check(i) for i in range(len(l))]
+                self.root.children[i] = self.root
+        while q.qsize():
+            node: TrieNode = q.get()
+            node.end = node.end or node.fail.end
+            for i in range(26):
+                if node.children[i]:
+                    node.children[i].fail = node.fail.children[i]
+                    q.put(node.children[i])
+                else:
+                    node.children[i] = node.fail.children[i]
+
+    def query(self, letter: str) -> bool:
+        self.current = self.current.children[ord(letter) - ord('a')]
+        return self.current.end
 
 
 def main():

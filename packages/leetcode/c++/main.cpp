@@ -71,30 +71,58 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-class Solution {
-public:
-    int beautifulSubsets(vector<int>& nums, int k) {
-        sort(nums.begin(), nums.end());
-        int res = 0;
-        unordered_set<int> s;
-        dfs(res, nums, k, s, 0);
-        return res;
-    }
-    void dfs(int &res, vector<int> &nums, int k, unordered_set<int> &s, int cur = 0) {
-        if (cur == nums.size()) {
-            if (s.size()) res++;
-            return;
-        }
-        dfs(res, nums, k, s, cur + 1);
-        int num = nums[cur];
-        if (!s.count(num - k)) {
-            s.insert(num);
-            dfs(res, nums, k, s, cur + 1);
-            s.erase(num);
-        }
-        
+struct TrieNode {
+    char val;
+    bool end;
+    TrieNode *fail, *children[26];
+    TrieNode(char val, bool end): val(val), end(end), fail(nullptr) {
+        memset(children, 0, sizeof(children));
     }
 };
+
+class StreamChecker {
+public:
+    TrieNode *root, *current;
+    StreamChecker(vector<string>& words): root(new TrieNode('\0', false)), cur(root) {
+        for (auto &word : words) {
+            TrieNode *node = root;
+            for (auto &c : word) {
+                int idx = c - 'a';
+                if (!node->children[idx]) node->children[idx] = new TrieNode(c, false);
+                node = node->children[idx];
+            }
+            node->end = true;
+        }
+        queue<TrieNode *> q;
+        for (int i = 0; i < 26; i++) {
+            if (root->children[i]) root->children[i]->fail = root, q.push(root->children[i]);
+            else root->children[i] = root;
+        }
+        while (q.size()) {
+            TrieNode *node = q.front();
+            q.pop();
+            node->end = node->end || node->fail->end;
+            for (int i = 0; i < 26; i++) {
+                if (node->children[i]) q.push(node->children[i]), node->children[i]->fail = node->fail->children[i];
+                else node->children[i] = node->fail;
+            }
+        }
+    }
+
+    bool query(char letter) {
+        current = current->children[letter - 'a'];
+        return current->end;
+    }
+};
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj->query(letter);
+ */
+
+
+
 
 // END
 #ifdef LOCAL

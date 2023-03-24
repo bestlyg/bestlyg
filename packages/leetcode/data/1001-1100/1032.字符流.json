@@ -1,0 +1,40 @@
+{
+    "id": "1097",
+    "name": "1032.字符流",
+    "url": "https://leetcode.cn/problems/stream-of-characters",
+    "difficulty": "困难",
+    "tag": [
+        "设计",
+        "字典树",
+        "数组",
+        "字符串",
+        "数据流"
+    ],
+    "desc": "设计一个算法：接收一个字符流，并检查这些字符的后缀是否是字符串数组 words 中的一个字符串。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 140,
+            "memory": 90.7,
+            "desc": "ac自动机，对每个trie的无效节点赋值下一跳。",
+            "code": "struct TrieNode {\n    bool end;\n    TrieNode *fail, *children[26];\n    TrieNode(): end(false), fail(nullptr) {\n        memset(children, 0, sizeof(children));\n    }\n};\n\nclass StreamChecker {\npublic:\n    TrieNode *root, *current;\n    StreamChecker(vector<string>& words): root(new TrieNode()), current(root) {\n        for (auto &word : words) {\n            TrieNode *node = root;\n            for (auto &c : word) {\n                int idx = c - 'a';\n                if (!node->children[idx]) node->children[idx] = new TrieNode();\n                node = node->children[idx];\n            }\n            node->end = true;\n        }\n        queue<TrieNode *> q;\n        for (int i = 0; i < 26; i++) {\n            if (root->children[i]) root->children[i]->fail = root, q.push(root->children[i]);\n            else root->children[i] = root;\n        }\n        while (q.size()) {\n            TrieNode *node = q.front();\n            q.pop();\n            node->end = node->end || node->fail->end;\n            for (int i = 0; i < 26; i++) {\n                if (node->children[i]) node->children[i]->fail = node->fail->children[i], q.push(node->children[i]);\n                else node->children[i] = node->fail->children[i];\n            }\n        }\n    }\n\n    bool query(char letter) {\n        current = current->children[letter - 'a'];\n        return current->end;\n    }\n};",
+            "date": 1679587200000
+        },
+        {
+            "script": "python3",
+            "time": 544,
+            "memory": 50.4,
+            "desc": "同上。",
+            "code": "from queue import Queue\n\nclass TrieNode:\n    def __init__(self) -> None:\n        self.end = False\n        self.fail = None\n        self.children: List[TrieNode] = [None] * 26\n\n\nclass StreamChecker:\n\n    def __init__(self, words: List[str]):\n        self.root = self.current = TrieNode()\n        for word in words:\n            node = self.root\n            for c in word:\n                idx = ord(c) - ord('a')\n                if not node.children[idx]:\n                    node.children[idx] = TrieNode()\n                node = node.children[idx]\n            node.end = True\n        q = Queue()\n        self.root.fail = self.root\n        for i in range(26):\n            if self.root.children[i]:\n                self.root.children[i].fail = self.root\n                q.put(self.root.children[i])\n            else:\n                self.root.children[i] = self.root\n        while q.qsize():\n            node: TrieNode = q.get()\n            node.end = node.end or node.fail.end\n            for i in range(26):\n                if node.children[i]:\n                    node.children[i].fail = node.fail.children[i]\n                    q.put(node.children[i])\n                else:\n                    node.children[i] = node.fail.children[i]\n\n    def query(self, letter: str) -> bool:\n        self.current = self.current.children[ord(letter) - ord('a')]\n        return self.current.end",
+            "date": 1679587200000
+        },
+        {
+            "script": "rust",
+            "time": 56,
+            "memory": 33.4,
+            "desc": "同上。",
+            "code": "pub use std::{cell::RefCell, rc::Rc};\nstruct TrieNode {\n    end: bool,\n    fail: Option<Rc<RefCell<TrieNode>>>,\n    children: Vec<Option<Rc<RefCell<TrieNode>>>>,\n}\nimpl TrieNode {\n    fn new() -> Rc<RefCell<Self>> {\n        Rc::new(RefCell::new(Self {\n            end: false,\n            fail: None,\n            children: vec![None; 26],\n        }))\n    }\n}\nstruct StreamChecker {\n    root: Rc<RefCell<TrieNode>>,\n    current: Rc<RefCell<TrieNode>>,\n}\nimpl StreamChecker {\n    fn new(words: Vec<String>) -> Self {\n        let root = TrieNode::new();\n        let current = root.clone();\n        for word in words {\n            let mut node = root.clone();\n            for c in word.chars() {\n                let idx = c as usize - 'a' as usize;\n                let node_ref = node.as_ref();\n                {\n                    let mut node = node_ref.borrow_mut();\n                    if node.children[idx].is_none() {\n                        node.children[idx] = Some(TrieNode::new());\n                    }\n                }\n                let next_node = node_ref.borrow().children[idx].clone().unwrap();\n                node = next_node;\n            }\n            node.as_ref().borrow_mut().end = true;\n        }\n        let mut q = std::collections::VecDeque::<Rc<RefCell<TrieNode>>>::new();\n        {\n            let mut root_ref = root.as_ref().borrow_mut();\n            for i in 0..26 {\n                if root_ref.children[i].is_some() {\n                    q.push_back(root_ref.children[i].clone().unwrap());\n                    root_ref.children[i]\n                        .clone()\n                        .unwrap()\n                        .as_ref()\n                        .borrow_mut()\n                        .fail = Some(root.clone());\n                } else {\n                    root_ref.children[i] = Some(root.clone());\n                }\n            }\n        }\n        while !q.is_empty() {\n            let node = q.pop_front().unwrap();\n            {\n                let node = node.as_ref();\n                let end = node.borrow().end;\n                node.borrow_mut().end =\n                    end || node.borrow().fail.as_ref().unwrap().as_ref().borrow().end;\n            }\n            for i in 0..26 {\n                let node = node.as_ref();\n                let fail_node = node\n                    .borrow()\n                    .fail\n                    .as_ref()\n                    .unwrap()\n                    .as_ref()\n                    .borrow()\n                    .children[i]\n                    .clone();\n                if node.borrow().children[i].is_some() {\n                    q.push_back(node.borrow().children[i].clone().unwrap());\n                    let child = node.borrow().children[i].clone().unwrap();\n                    child.as_ref().borrow_mut().fail = fail_node.clone();\n                } else {\n                    node.borrow_mut().children[i] = fail_node.clone();\n                }\n            }\n        }\n        Self { root, current }\n    }\n\n    fn query(&mut self, letter: char) -> bool {\n        let current = self.current.as_ref();\n        let next = current.borrow().children[letter as usize - 'a' as usize]\n            .as_ref()\n            .unwrap()\n            .clone();\n        self.current = next;\n        self.current.as_ref().borrow().end\n    }\n}",
+            "date": 1679587200000
+        }
+    ]
+}
