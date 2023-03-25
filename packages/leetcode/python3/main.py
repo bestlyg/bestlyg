@@ -48,39 +48,22 @@ class TrieNode:
         self.children: List[TrieNode] = [None] * 26
 
 
-class StreamChecker:
-
-    def __init__(self, words: List[str]):
-        self.root = self.current = TrieNode()
-        for word in words:
-            node = self.root
-            for c in word:
-                idx = ord(c) - ord('a')
-                if not node.children[idx]:
-                    node.children[idx] = TrieNode()
-                node = node.children[idx]
-            node.end = True
-        q = Queue()
-        self.root.fail = self.root
-        for i in range(26):
-            if self.root.children[i]:
-                self.root.children[i].fail = self.root
-                q.put(self.root.children[i])
-            else:
-                self.root.children[i] = self.root
-        while q.qsize():
-            node: TrieNode = q.get()
-            node.end = node.end or node.fail.end
-            for i in range(26):
-                if node.children[i]:
-                    node.children[i].fail = node.fail.children[i]
-                    q.put(node.children[i])
-                else:
-                    node.children[i] = node.fail.children[i]
-
-    def query(self, letter: str) -> bool:
-        self.current = self.current.children[ord(letter) - ord('a')]
-        return self.current.end
+class Solution:
+    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+        n = len(arr)
+        r = n-1
+        while r - 1 >= 0 and arr[r-1] <= arr[r]:
+            r -= 1
+        if r == 0:
+            return 0
+        res = r
+        for l in range(n):
+            if l and arr[l] < arr[l-1]:
+                break
+            while r < n and arr[r] < arr[l]:
+                r += 1
+            res = min(res, r-l-1)
+        return res
 
 
 def main():
