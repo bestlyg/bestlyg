@@ -22,7 +22,7 @@
             "time": 72,
             "memory": 29.8,
             "desc": "同上。",
-            "code": "cclass Solution:\n    def findSubarrays(self, nums: List[int]) -> bool:\n        s = set()\n        for i in range(1, len(nums)):\n            num = nums[i] + nums[i - 1]\n            if num in s:\n                return True\n            s.add(num)\n        return False",
+            "code": "class Solution:\n    def findSubarrays(self, nums: List[int]) -> bool:\n        s = set()\n        for i in range(1, len(nums)):\n            num = nums[i] + nums[i - 1]\n            if num in s:\n                return True\n            s.add(num)\n        return False",
             "date": 1679760000000
         },
         {

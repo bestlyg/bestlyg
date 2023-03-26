@@ -2,61 +2,156 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2395. 和相等的子数组',
-  url: 'https://leetcode.cn/problems/find-subarrays-with-equal-sum/',
+  name: '6356. 收集树中金币',
+  url: 'https://leetcode.cn/problems/collect-coins-in-a-tree/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个下标从 0 开始的整数数组 nums ，判断是否存在 两个 长度为 2 的子数组且它们的 和 相等。注意，这两个子数组起始位置的下标必须 不相同 。如果这样的子数组存在，请返回 true，否则返回 false 。`,
+  desc: `你需要收集树中所有的金币，并且回到出发节点，请你返回最少经过的边数。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 7.6,
-      desc: '遍历',
+      time: 632,
+      memory: 206.8,
+      desc: '先删除所有没有金币的叶子节点，再遍历两次，删除有金币的叶子节点，剩下的节点就是所有需要遍历的节点。',
       code: `class Solution {
 public:
-    bool findSubarrays(vector<int>& nums) {
-        unordered_set<int> s;
-        for (int i = 1; i < nums.size(); i++) {
-            int num = nums[i] + nums[i - 1];
-            if (s.count(num)) return true;
-            s.insert(num);
+    int collectTheCoins(vector<int>& coins, vector<vector<int>>& edges) {
+        int n = coins.size();
+        vector<vector<int>> list(n);
+        vector<int> cnts(n, 0);
+        for (auto &edge : edges) {
+            list[edge[0]].push_back(edge[1]);
+            list[edge[1]].push_back(edge[0]);
+            cnts[edge[0]] += 1;
+            cnts[edge[1]] += 1;
         }
-        return false;
+        int cur_edges = n - 1;
+        queue<int> q;
+        // 第一次刪除所有的无金币叶子节点
+        for (int i = 0; i < n; i++) {
+            if (cnts[i] == 1 && coins[i] == 0) q.push(i); 
+        }
+        while (q.size()) {
+            int idx = q.front();
+            q.pop();
+            cur_edges -= 1;
+            for (auto &next : list[idx]) {
+                cnts[next] -= 1;
+                if (cnts[next] == 1 && coins[next] == 0) q.push(next);
+            }
+        }
+        // 第二次寻找所有的叶子金币节点
+        for (int i = 0; i < n; i++) {
+            if (cnts[i] == 1 && coins[i] == 1) q.push(i);
+        }
+        cur_edges -= q.size();
+        while (q.size()) {
+            int idx = q.front();
+            q.pop();
+            for (auto &next : list[idx]) {
+                cnts[next] -= 1;
+                if (cnts[next] == 1) {
+                    cnts[next] -= 1;
+                    cur_edges -= 1;
+                }
+            }
+        }
+        return max(cur_edges * 2, 0);
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 72,
-      memory: 29.8,
+      time: 256,
+      memory: 27.6,
       desc: '同上',
-      code: `cclass Solution:
-    def findSubarrays(self, nums: List[int]) -> bool:
-        s = set()
-        for i in range(1, len(nums)):
-            num = nums[i] + nums[i - 1]
-            if num in s:
-                return True
-            s.add(num)
-        return False`,
+      code: `class Solution:
+    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
+        n = len(coins)
+        l = [[] for _ in range(n)]
+        cnts = [0] * n
+        for edge in edges:
+            l[edge[0]].append(edge[1])
+            l[edge[1]].append(edge[0])
+            cnts[edge[0]] += 1
+            cnts[edge[1]] += 1
+        cur_edges = n - 1
+        q = deque()
+        for i in range(n):
+            if cnts[i] == 1 and coins[i] == 0:
+                q.append(i)
+        while len(q):
+            idx = q.popleft()
+            cur_edges -= 1
+            for ne in l[idx]:
+                cnts[ne] -= 1
+                if cnts[ne] == 1 and coins[ne] == 0:
+                    q.append(ne)
+        for i in range(n):
+            if cnts[i] == 1 and coins[i] == 1:
+                q.append(i)
+        cur_edges -= len(q)
+        while len(q):
+            idx = q.popleft()
+            for ne in l[idx]:
+                cnts[ne] -= 1
+                if cnts[ne] == 1:
+                    cnts[ne] -= 1
+                    cur_edges -= 1
+        return max(cur_edges * 2, 0)`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 52,
+      memory: 5.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn find_subarrays(nums: Vec<i32>) -> bool {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for i in 1..nums.len() {
-            let num = nums[i] + nums[i - 1];
-            if s.contains(&num) {
-                return true;
-            }
-            s.insert(num);
+    pub fn collect_the_coins(coins: Vec<i32>, edges: Vec<Vec<i32>>) -> i32 {
+        let n = coins.len();
+        let mut list = vec![vec![]; n];
+        let mut cnts = vec![0; n];
+        for edge in edges {
+            list[edge[0] as usize].push(edge[1]);
+            list[edge[1] as usize].push(edge[0]);
+            cnts[edge[0] as usize] += 1;
+            cnts[edge[1] as usize] += 1;
         }
-        false
+        let mut cur_edges = n - 1;
+        let mut q = std::collections::VecDeque::<usize>::new();
+        for i in 0..n {
+            if cnts[i] == 1 && coins[i] == 0 {
+                q.push_back(i);
+            }
+        }
+        while !q.is_empty() {
+            let idx = q.pop_front().unwrap();
+            cur_edges -= 1;
+            for next in list[idx].iter() {
+                let next = *next as usize;
+                cnts[next] -= 1;
+                if cnts[next] == 1 && coins[next] == 0 {
+                    q.push_back(next)
+                }
+            }
+        }
+        for i in 0..n {
+            if cnts[i] == 1 && coins[i] == 1 {
+                q.push_back(i);
+            }
+        }
+        cur_edges -= q.len();
+        while !q.is_empty() {
+            let idx = q.pop_front().unwrap();
+            for next in list[idx].iter() {
+                let next = *next as usize;
+                cnts[next] -= 1;
+                if cnts[next] == 1 {
+                    cnts[next] -= 1;
+                    cur_edges -= 1;
+                }
+            }
+        }
+        0.max(2 * cur_edges as i32)
     }
 }`,
     },

@@ -1,0 +1,37 @@
+{
+    "name": "6357.使数组元素全部相等的最少操作次数",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-make-all-array-elements-equal/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个正整数数组 nums 。请你返回一个长度为 m 的数组 answer ，其中 answer[i]是将 nums 中所有元素变成 queries[i] 的 最少 操作次数。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 244,
+            "memory": 82.5,
+            "desc": "排序后求前缀和，小值趋近大，大值趋近小。",
+            "code": "class Solution {\npublic:\n    vector<long long> minOperations(vector<int>& nums, vector<int>& queries) {\n        sort(nums.begin(), nums.end());\n        vector<long long> sums(1, 0);\n        for (auto &num: nums) sums.push_back(sums.back() + num);\n        vector<long long> res;\n        for (auto &qv : queries) {\n            long long q = qv; \n            int l = 0, r = nums.size();\n            while (l < r) {\n                int m = (l + r) / 2;\n                if (nums[m] >= q) r = m;\n                else l = m + 1;\n            }\n            if (l == 0 || r == nums.size()) \n                res.push_back(fabs(sums.back() - q * (long long)nums.size()));\n            else {\n                long long nl = sums[l] - sums[0], nr = sums[nums.size()] - sums[l],\n                          vl = l * q - nl, vr = nr - (nums.size() - l) * q;\n                res.push_back(vl + vr);\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1679760000000
+        },
+        {
+            "script": "python3",
+            "time": 792,
+            "memory": 44.5,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minOperations(self, nums: List[int], queries: List[int]) -> List[int]:\n        nums.sort()\n        sums = [0]\n        for num in nums:\n            sums.append(sums[-1] + num)\n        res = []\n        for q in queries:\n            l, r = 0, len(nums)\n            while l < r:\n                m = (l+r)//2\n                if nums[m] >= q:\n                    r = m\n                else:\n                    l = m+1\n            if l == 0 or r == len(nums):\n                res.append(abs(sums[-1] - q * len(nums)))\n            else:\n                nl, nr = sums[l] - sums[0], sums[nums.size()] - sums[l]\n                vl, vr = l * q - nl, nr - (nums.size() - l) * q\n                res.append(vl+vr)\n        return res",
+            "date": 1679760000000
+        },
+        {
+            "script": "rust",
+            "time": 60,
+            "memory": 5,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn min_operations(mut nums: Vec<i32>, queries: Vec<i32>) -> Vec<i64> {\n        nums.sort();\n        let mut sums: Vec<i64> = vec![0; 1];\n        for num in &nums {\n            sums.push(*sums.last().unwrap() + *num as i64);\n        }\n        let mut res = vec![];\n        for q in queries {\n            let q = q as usize;\n            let (mut l, mut r) = (0, nums.len());\n            while l < r {\n                let m = (l + r) / 2;\n                if nums[m] >= q as i32 {\n                    r = m;\n                } else {\n                    l = m + 1;\n                }\n            }\n            if l == 0 || r == nums.len() {\n                res.push((*sums.last().unwrap() - (q * nums.len()) as i64).abs());\n            } else {\n                let (nl, nr) = (sums[l] - sums[0], sums[nums.len()] - sums[l]);\n                let (l, q) = (l as i64, q as i64);\n                let (vl, vr) = (l * q - nl, nr - (nums.len() as i64 - l) * q);\n                res.push(vl + vr);\n            }\n        }\n        res\n    }\n}",
+            "date": 1679760000000
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "name": "6354.K件物品的最大和",
+    "url": "https://leetcode.cn/problems/k-items-with-the-maximum-sum/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "现计划从这些物品中恰好选出 k 件物品。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 5.7,
+            "desc": "分段计算。",
+            "code": "class Solution {\npublic:\n    int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k) {\n        if (numOnes >= k) return k;\n        if (numOnes + numZeros >= k) return numOnes;\n        return numOnes - (k - numOnes - numZeros);\n    }\n};",
+            "date": 1679760000000
+        },
+        {
+            "script": "python3",
+            "time": 36,
+            "memory": 14.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def kItemsWithMaximumSum(self, numOnes: int, numZeros: int, numNegOnes: int, k: int) -> int:\n        if numOnes >= k:\n            return k\n        elif numOnes + numZeros >= k:\n            return numOnes\n        else:\n            return numOnes - (k - numOnes-numZeros)",
+            "date": 1679760000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn k_items_with_maximum_sum(\n        num_ones: i32,\n        num_zeros: i32,\n        num_neg_ones: i32,\n        k: i32,\n    ) -> i32 {\n        if num_ones >= k {\n            k\n        } else if num_ones + num_zeros >= k {\n            num_ones\n        } else {\n            num_ones - (k - num_ones - num_zeros)\n        }\n    }\n}",
+            "date": 1679760000000
+        }
+    ]
+}

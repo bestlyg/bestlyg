@@ -39,16 +39,74 @@ impl PartialOrd for Node {
     }
 }
 
-impl Solution {
-    pub fn find_subarrays(nums: Vec<i32>) -> bool {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for i in 1..nums.len() {
-            let num = nums[i] + nums[i - 1];
-            if s.contains(&num) {
-                return true;
-            }
-            s.insert(num);
+fn get_primes(max: usize) -> Vec<usize> {
+    let mut primes = vec![0; max];
+    for i in 2..max {
+        if primes[i] == 0 {
+            primes[0] += 1;
+            let idx = primes[0];
+            primes[idx] = i;
         }
-        false
+        for j in 1..=primes[0] {
+            let idx = i * primes[j];
+            if idx >= max {
+                break;
+            }
+            primes[idx] = 1;
+            if i % primes[j] == 0 {
+                break;
+            }
+        }
+    }
+    primes
+}
+
+impl Solution {
+    pub fn collect_the_coins(coins: Vec<i32>, edges: Vec<Vec<i32>>) -> i32 {
+        let n = coins.len();
+        let mut list = vec![vec![]; n];
+        let mut cnts = vec![0; n];
+        for edge in edges {
+            list[edge[0] as usize].push(edge[1]);
+            list[edge[1] as usize].push(edge[0]);
+            cnts[edge[0] as usize] += 1;
+            cnts[edge[1] as usize] += 1;
+        }
+        let mut cur_edges = n - 1;
+        let mut q = std::collections::VecDeque::<usize>::new();
+        for i in 0..n {
+            if cnts[i] == 1 && coins[i] == 0 {
+                q.push_back(i);
+            }
+        }
+        while !q.is_empty() {
+            let idx = q.pop_front().unwrap();
+            cur_edges -= 1;
+            for next in list[idx].iter() {
+                let next = *next as usize;
+                cnts[next] -= 1;
+                if cnts[next] == 1 && coins[next] == 0 {
+                    q.push_back(next)
+                }
+            }
+        }
+        for i in 0..n {
+            if cnts[i] == 1 && coins[i] == 1 {
+                q.push_back(i);
+            }
+        }
+        cur_edges -= q.len();
+        while !q.is_empty() {
+            let idx = q.pop_front().unwrap();
+            for next in list[idx].iter() {
+                let next = *next as usize;
+                cnts[next] -= 1;
+                if cnts[next] == 1 {
+                    cnts[next] -= 1;
+                    cur_edges -= 1;
+                }
+            }
+        }
+        0.max(2 * cur_edges as i32 )
     }
 }

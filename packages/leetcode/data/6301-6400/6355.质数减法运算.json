@@ -1,0 +1,37 @@
+{
+    "name": "6355.质数减法运算",
+    "url": "https://leetcode.cn/problems/prime-subtraction-operation/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums ，数组长度为 n 。如果你能通过上述运算使得 nums 成为严格递增数组，则返回 true ；否则返回 false 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 23,
+            "desc": "线性筛后对每个数尝试尽可能取最小。",
+            "code": "class Solution {\npublic:\n    int primes[1005] = {0};\n    bool primeSubOperation(vector<int>& nums) {\n        getPrimes();\n        nums[0] = formatNum(nums[0], 0);\n        for (int i = 1; i < nums.size(); i++) {\n            nums[i] = formatNum(nums[i], nums[i - 1]);\n            if (nums[i] <= nums[i - 1]) return false;\n        }\n        return true;\n    }\n\n    int formatNum(int num, int prev) {\n        int cur = num;\n        for (int i = 1; i < primes[0] + 1 && primes[i] < num && num - primes[i] > prev; i++) {\n            cur = min(cur, num - primes[i]);\n        }\n        return cur;\n    }\n    \n    void getPrimes() {\n        for (int i = 2; i < 1005; i++) {\n            if (primes[i] == 0) primes[++primes[0]] = i;\n            for (int j = 1; j <= primes[0] && i * primes[j] < 1005; j++) {\n                primes[i * primes[j]] = 1;\n                if (i % primes[j] == 0) break;\n            }\n        }\n    }\n};",
+            "date": 1679760000000
+        },
+        {
+            "script": "python3",
+            "time": 364,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "def getPrimes(nmax: int):\n    primes = [0] * nmax\n    for i in range(2, nmax):\n        if primes[i] == 0:\n            primes[0] += 1\n            primes[primes[0]] = i\n        for j in range(1, nmax):\n            if i * primes[j] >= nmax:\n                break\n            primes[i * primes[j]] = 1\n            if i % primes[j] == 0:\n                break\n    return primes\n\nclass Solution:\n    def primeSubOperation(self, nums: List[int]) -> bool:\n        primes = getPrimes(1005)\n\n        def formatNum(num: int, prev: int):\n            cur = num\n            for i in range(1, primes[0] + 1):\n                if primes[i] >= num or num - primes[i] <= prev:\n                    break\n                cur = min(cur, num - primes[i])\n            return cur\n        nums[0] = formatNum(nums[0], 0)\n        for i in range(1, len(nums)):\n            nums[i] = formatNum(nums[i], nums[i-1])\n            if nums[i] <= nums[i-1]:\n                return False\n        return True",
+            "date": 1679760000000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "fn get_primes(max: usize) -> Vec<usize> {\n    let mut primes = vec![0; max];\n    for i in 2..max {\n        if primes[i] == 0 {\n            primes[0] += 1;\n            let idx = primes[0];\n            primes[idx] = i;\n        }\n        for j in 1..=primes[0] {\n            let idx = i * primes[j];\n            if idx >= max {\n                break;\n            }\n            primes[idx] = 1;\n            if i % primes[j] == 0 {\n                break;\n            }\n        }\n    }\n    primes\n}\n\nimpl Solution {\n    pub fn prime_sub_operation(mut nums: Vec<i32>) -> bool {\n        let primes = get_primes(1005);\n        let format_num = |num: i32, prev: i32| {\n            let mut cur = num;\n            for i in 1..=primes[0] {\n                if primes[i] as i32 >= num || num - primes[i] as i32 <= prev {\n                    break;\n                }\n                cur = cur.min(num - primes[i] as i32);\n            }\n            cur\n        };\n        nums[0] = format_num(nums[0], 0);\n        for i in 1..nums.len() {\n            nums[i] = format_num(nums[i], nums[i - 1]);\n            if nums[i] <= nums[i - 1] {\n                return false;\n            }\n        }\n        return true;\n    }\n}",
+            "date": 1679760000000
+        }
+    ]
+}
