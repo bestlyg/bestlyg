@@ -38,27 +38,17 @@ impl PartialOrd for Node {
         self.time.partial_cmp(&o.time)
     }
 }
+
 impl Solution {
-    pub fn find_length_of_shortest_subarray(arr: Vec<i32>) -> i32 {
-        let n = arr.len();
-        let mut right = n - 1;
-        while right - 1 >= 0 && arr[right - 1] <= arr[right] {
-            right -= 1;
-        }
-        if right == 0 {
-            0
-        } else {
-            let mut res = right;
-            for left in 0..n {
-                if left > 0 && arr[left] < arr[left - 1] {
-                    break;
-                }
-                while right < n && arr[right] < arr[left] {
-                    right += 1
-                }
-                res = res.min(right - left - 1)
+    pub fn find_subarrays(nums: Vec<i32>) -> bool {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for i in 1..nums.len() {
+            let num = nums[i] + nums[i - 1];
+            if s.contains(&num) {
+                return true;
             }
-            res
+            s.insert(num);
         }
+        false
     }
 }

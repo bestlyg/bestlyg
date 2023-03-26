@@ -2,30 +2,27 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1574. 删除最短的子数组使剩余数组有序',
-  url: 'https://leetcode.cn/problems/shortest-subarray-to-be-removed-to-make-array-sorted/',
+  name: '2395. 和相等的子数组',
+  url: 'https://leetcode.cn/problems/find-subarrays-with-equal-sum/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个整数数组 arr ，请你删除一个子数组（可以为空），使得 arr 中剩下的元素是 非递减 的。`,
+  desc: `给你一个下标从 0 开始的整数数组 nums ，判断是否存在 两个 长度为 2 的子数组且它们的 和 相等。注意，这两个子数组起始位置的下标必须 不相同 。如果这样的子数组存在，请返回 true，否则返回 false 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 100,
-      memory: 65.37,
-      desc: '贪心的取左右最长递增',
+      time: 4,
+      memory: 7.6,
+      desc: '遍历',
       code: `class Solution {
 public:
-    int findLengthOfShortestSubarray(vector<int>& arr) {
-        int n = arr.size(), right = n - 1;
-        while (right - 1 >= 0 && arr[right - 1] <= arr[right]) right--;
-        if (right == 0) return 0;
-        int res = right;
-        for (int left = 0; left < n; left++) {
-            if (left && arr[left] < arr[left - 1]) break;
-            while (right < n && arr[right] < arr[left]) right++;
-            res = min(res, right - left - 1);
+    bool findSubarrays(vector<int>& nums) {
+        unordered_set<int> s;
+        for (int i = 1; i < nums.size(); i++) {
+            int num = nums[i] + nums[i - 1];
+            if (s.count(num)) return true;
+            s.insert(num);
         }
-        return res;
+        return false;
     }
 };`,
     },
@@ -34,50 +31,32 @@ public:
       time: 72,
       memory: 29.8,
       desc: '同上',
-      code: `class Solution:
-    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
-        n = len(arr)
-        r = n-1
-        while r - 1 >= 0 and arr[r-1] <= arr[r]:
-            r -= 1
-        if r == 0:
-            return 0
-        res = r
-        for l in range(n):
-            if l and arr[l] < arr[l-1]:
-                break
-            while r < n and arr[r] < arr[l]:
-                r += 1
-            res = min(res, r-l-1)
-        return res`,
+      code: `cclass Solution:
+    def findSubarrays(self, nums: List[int]) -> bool:
+        s = set()
+        for i in range(1, len(nums)):
+            num = nums[i] + nums[i - 1]
+            if num in s:
+                return True
+            s.add(num)
+        return False`,
     },
     {
       script: Script.RUST,
-      time: 12,
-      memory: 3.5,
+      time: 0,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn find_length_of_shortest_subarray(arr: Vec<i32>) -> i32 {
-        let n = arr.len();
-        let mut right = n - 1;
-        while right != 0 && arr[right - 1] <= arr[right] {
-            right -= 1;
-        }
-        if right == 0 {
-            0
-        } else {
-            let mut res = right;
-            for left in 0..n {
-                if left > 0 && arr[left] < arr[left - 1] {
-                    break;
-                }
-                while right < n && arr[right] < arr[left] {
-                    right += 1
-                }
-                res = res.min(right - left - 1)
+    pub fn find_subarrays(nums: Vec<i32>) -> bool {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for i in 1..nums.len() {
+            let num = nums[i] + nums[i - 1];
+            if s.contains(&num) {
+                return true;
             }
-            res as i32
+            s.insert(num);
         }
+        false
     }
 }`,
     },

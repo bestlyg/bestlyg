@@ -49,21 +49,14 @@ class TrieNode:
 
 
 class Solution:
-    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
-        n = len(arr)
-        r = n-1
-        while r - 1 >= 0 and arr[r-1] <= arr[r]:
-            r -= 1
-        if r == 0:
-            return 0
-        res = r
-        for l in range(n):
-            if l and arr[l] < arr[l-1]:
-                break
-            while r < n and arr[r] < arr[l]:
-                r += 1
-            res = min(res, r-l-1)
-        return res
+    def findSubarrays(self, nums: List[int]) -> bool:
+        s = set()
+        for i in range(len(nums)):
+            num = nums[i] + nums[i - 1]
+            if num in s:
+                return True
+            s.add(num)
+        return False
 
 
 def main():
