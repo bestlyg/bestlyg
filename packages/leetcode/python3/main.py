@@ -64,39 +64,20 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
-        n = len(coins)
-        list = [[] for _ in range(n)]
-        cnts = [0] * n
-        for edge in edge:
-            list[edge[0]].append(edge[1])
-            list[edge[1]].append(edge[0])
-            cnts[edge[0]] += 1
-            cnts[edge[1]] += 1
-        cur_edges = n - 1
-        q = deque()
+    def countSubstrings(self, s: str, t: str) -> int:
+        n, m, res = len(s), len(t), 0
         for i in range(n):
-            if cnts[i] == 1 and coins[i] == 0:
-                q.append(i)
-        while len(q):
-            idx = q.popleft
-            cur_edges -= 1
-            for ne in list[idx]:
-                cnts[ne] -= 1
-                if cnts[ne] == 1 and coins[ne] == 0:
-                    q.append(ne)
-        for i in range(n):
-            if cnts[i] == 1 and coins[i] == 1:
-                q.append(i)
-        cur_edges -= len(q)
-        while len(q):
-            idx = q.popleft()
-            for ne in list[idx]:
-                cnts[ne] -= 1
-                if cnts[ne] == 1:
-                    cnts[ne] -= 1
-                    cur_edges -= 1
-        return max(cur_edges * 2, 0)
+            for j in range(m):
+                cnt, k = 0, 0
+                while i+k < n and j+k < m:
+                    if s[i+k] != t[j+k]:
+                        cnt += 1
+                    if cnt == 1:
+                        res += 1
+                    elif cnt > 1:
+                        break
+                    k += 1
+        return res
 
 
 def main():

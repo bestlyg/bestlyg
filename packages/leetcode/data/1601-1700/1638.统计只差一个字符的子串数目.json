@@ -1,0 +1,37 @@
+{
+    "name": "1638.统计只差一个字符的子串数目",
+    "url": "https://leetcode.cn/problems/count-substrings-that-differ-by-one-character/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你两个字符串 s 和 t ，请你找出 s 中的非空子串的数目，这些子串满足替换 一个不同字符 以后，是 t 串的子串。换言之，请你找到 s 和 t 串中 恰好 只有一个字符不同的子字符串对的数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 6.1,
+            "desc": "枚举。",
+            "code": "class Solution {\npublic:\n    int countSubstrings(string s, string t) {\n        int n = s.size(), m = t.size(), res = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int cnt = 0;\n                for (int k = 0; i + k < n && j + k < m; k++) {\n                    if (s[i + k] != t[j + k]) cnt++;\n                    if (cnt == 1) res++;\n                    else if (cnt > 1) break;\n                }\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1679846400000
+        },
+        {
+            "script": "python3",
+            "time": 72,
+            "memory": 14.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def countSubstrings(self, s: str, t: str) -> int:\n        n, m, res = len(s), len(t), 0\n        for i in range(n):\n            for j in range(m):\n                cnt, k = 0, 0\n                while i+k < n and j+k < m:\n                    if s[i+k] != t[j+k]:\n                        cnt += 1\n                    if cnt == 1:\n                        res += 1\n                    elif cnt > 1:\n                        break\n                    k += 1\n        return res",
+            "date": 1679846400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn count_substrings(s: String, t: String) -> i32 {\n        let (s, t) = (\n            s.chars().collect::<Vec<char>>(),\n            t.chars().collect::<Vec<char>>(),\n        );\n        let (n, m, mut res) = (s.len(), t.len(), 0);\n        for i in 0..n {\n            for j in 0..m {\n                let (mut cnt, mut k) = (0, 0);\n                while i + k < n && j + k < m {\n                    if s[i + k] != t[j + k] {\n                        cnt += 1\n                    }\n                    if cnt == 1 {\n                        res += 1\n                    } else if cnt > 1 {\n                        break;\n                    }\n                    k += 1\n                }\n            }\n        }\n        res\n    }\n}",
+            "date": 1679846400000
+        }
+    ]
+}
