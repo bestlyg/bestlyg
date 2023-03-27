@@ -1,3 +1,4 @@
+// #ifdef LOCAL
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -6,6 +7,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <queue>
+// #endif
 
 // bestlyg
 # define X first
@@ -13,7 +15,7 @@
 # define lb(x) ((x) & (-x))
 # define mem(a,b) memset(a,b,sizeof(a))
 # define debug freopen("input","r",stdin)
-// # define pii pair<int,int>
+# define pii pair<int,int>
 
 #ifdef DEBUG
 #define log(frm, args...) {\
@@ -34,8 +36,6 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };
-priority_queue<node, vector<node>, decltype(cmp)> q(cmp);
 void binary(unsigned n, int lastbit = 31) {
     unsigned i;
     for (i = 1 << lastbit; i > 0; i >>= 1)
@@ -71,57 +71,38 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-struct TrieNode {
-    char val;
-    bool end;
-    TrieNode *fail, *children[26];
-    TrieNode(char val, bool end): val(val), end(end), fail(nullptr) {
-        memset(children, 0, sizeof(children));
-    }
-};
-
-class StreamChecker {
+const int MAXN = 1e5 + 5;
+class Solution {
 public:
-    TrieNode *root, *current;
-    StreamChecker(vector<string>& words): root(new TrieNode('\0', false)), cur(root) {
-        for (auto &word : words) {
-            TrieNode *node = root;
-            for (auto &c : word) {
-                int idx = c - 'a';
-                if (!node->children[idx]) node->children[idx] = new TrieNode(c, false);
-                node = node->children[idx];
-            }
-            node->end = true;
+
+    int n;
+    vector<int> G[MAXN];
+    int coins[MAXN];
+    int dp[MAXN][2];
+
+    void dfs(int u, int p) {
+        int sz = G[u].size();
+        for (int i = 0; i < sz; i++) {
+            int v = G[u][i];
+            if (v == p) continue;
+            dfs(v, u);
+            dp[u][1] += dp[v][0];
+            dp[u][0] += max(dp[v][0], dp[v][1]);
         }
-        queue<TrieNode *> q;
-        for (int i = 0; i < 26; i++) {
-            if (root->children[i]) root->children[i]->fail = root, q.push(root->children[i]);
-            else root->children[i] = root;
-        }
-        while (q.size()) {
-            TrieNode *node = q.front();
-            q.pop();
-            node->end = node->end || node->fail->end;
-            for (int i = 0; i < 26; i++) {
-                if (node->children[i]) q.push(node->children[i]), node->children[i]->fail = node->fail->children[i];
-                else node->children[i] = node->fail;
-            }
-        }
+        dp[u][1] += coins[u];
     }
 
-    bool query(char letter) {
-        current = current->children[letter - 'a'];
-        return current->end;
+    int collectTheCoins(vector<int>& coins, vector<vector<int>>& edges) {
+        n = coins.size();
+        for (int i = 0; i < n - 1; i++) {
+            int u = edges[i][0], v = edges[i][1];
+            G[u + 1].push_back(v + 1);
+            G[v + 1].push_back(u + 1);
+        }
+        dfs(1, 0);
+        return max(dp[1][0], dp[1][1]);
     }
 };
-
-/**
- * Your StreamChecker object will be instantiated and called as such:
- * StreamChecker* obj = new StreamChecker(words);
- * bool param_1 = obj->query(letter);
- */
-
-
 
 
 
@@ -129,8 +110,11 @@ public:
 // END
 #ifdef LOCAL
 int main() {
-    Solution s;
-    auto res = s.alphabetBoardPath("leet");
+    auto cmp = [&](pii x, pii y) -> bool { return x.second < y.second; };
+    priority_queue<pii, vector<pii>, decltype(cmp)> q(cmp);
+    // Solution s;
+    // auto res = s.alphabetBoardPath("leet");
+    log("%d\n",1);
     return 0;
 }
 #endif

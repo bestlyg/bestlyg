@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-if [ x$1 != x ];then
-    file=$1
+if [ x$2 != x ];then
+    file=$2
 else
     file=./main.cpp
 fi
 
-if [ "$2" == "d" ];then
+if [ "$1" == "d" ];then
     debug="-DDEBUG"
 else
     debug=

@@ -12,6 +12,7 @@
         "string": "cpp",
         "__functional_03": "cpp",
         "functional": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "iostream": "cpp"
     }
 }
