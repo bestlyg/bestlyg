@@ -1,12 +1,9 @@
 {
-    "name": "6354.K件物品的最大和",
-    "url": "https://leetcode.cn/problems/k-items-with-the-maximum-sum/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "id": "2715",
+    "name": "2600.K件物品的最大和",
+    "url": "https://leetcode.cn/problems/k-items-with-the-maximum-sum",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "现计划从这些物品中恰好选出 k 件物品。",
     "solutions": [
         {

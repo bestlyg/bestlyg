@@ -1,11 +1,14 @@
 {
+    "id": "1679",
     "name": "1574.删除最短的子数组使剩余数组有序",
-    "url": "https://leetcode.cn/problems/shortest-subarray-to-be-removed-to-make-array-sorted/",
+    "url": "https://leetcode.cn/problems/shortest-subarray-to-be-removed-to-make-array-sorted",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
+        "栈",
         "数组",
-        "矩阵"
+        "双指针",
+        "二分查找",
+        "单调栈"
     ],
     "desc": "给你一个整数数组 arr ，请你删除一个子数组（可以为空），使得 arr 中剩下的元素是 非递减 的。",
     "solutions": [

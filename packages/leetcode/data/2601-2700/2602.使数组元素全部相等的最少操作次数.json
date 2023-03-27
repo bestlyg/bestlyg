@@ -1,12 +1,9 @@
 {
-    "name": "6357.使数组元素全部相等的最少操作次数",
-    "url": "https://leetcode.cn/problems/minimum-operations-to-make-all-array-elements-equal/",
+    "id": "2718",
+    "name": "2602.使数组元素全部相等的最少操作次数",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-make-all-array-elements-equal",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "给你一个正整数数组 nums 。请你返回一个长度为 m 的数组 answer ，其中 answer[i]是将 nums 中所有元素变成 queries[i] 的 最少 操作次数。",
     "solutions": [
         {

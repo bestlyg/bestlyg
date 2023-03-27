@@ -1,11 +1,12 @@
 {
+    "id": "1743",
     "name": "1638.统计只差一个字符的子串数目",
-    "url": "https://leetcode.cn/problems/count-substrings-that-differ-by-one-character/",
+    "url": "https://leetcode.cn/problems/count-substrings-that-differ-by-one-character",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "哈希表",
+        "字符串",
+        "动态规划"
     ],
     "desc": "给你两个字符串 s 和 t ，请你找出 s 中的非空子串的数目，这些子串满足替换 一个不同字符 以后，是 t 串的子串。换言之，请你找到 s 和 t 串中 恰好 只有一个字符不同的子字符串对的数目。",
     "solutions": [
