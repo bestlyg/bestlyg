@@ -1,0 +1,5 @@
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O3", "-Os"]
+
+[profile.release]
+opt-level = "s"
