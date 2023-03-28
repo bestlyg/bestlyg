@@ -3,7 +3,13 @@
     "name": "2601.质数减法运算",
     "url": "https://leetcode.cn/problems/prime-subtraction-operation",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数组",
+        "数学",
+        "二分查找",
+        "数论"
+    ],
     "desc": "给你一个下标从 0 开始的整数数组 nums ，数组长度为 n 。如果你能通过上述运算使得 nums 成为严格递增数组，则返回 true ；否则返回 false 。",
     "solutions": [
         {

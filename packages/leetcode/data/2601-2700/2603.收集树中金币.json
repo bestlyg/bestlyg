@@ -3,7 +3,12 @@
     "name": "2603.收集树中金币",
     "url": "https://leetcode.cn/problems/collect-coins-in-a-tree",
     "difficulty": "困难",
-    "tag": [],
+    "tag": [
+        "树",
+        "图",
+        "拓扑排序",
+        "数组"
+    ],
     "desc": "你需要收集树中所有的金币，并且回到出发节点，请你返回最少经过的边数。",
     "solutions": [
         {

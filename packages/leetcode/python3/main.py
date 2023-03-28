@@ -64,19 +64,34 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def countSubstrings(self, s: str, t: str) -> int:
-        n, m, res = len(s), len(t), 0
-        for i in range(n):
-            for j in range(m):
-                cnt, k = 0, 0
-                while i+k < n and j+k < m:
-                    if s[i+k] != t[j+k]:
-                        cnt += 1
-                    if cnt == 1:
-                        res += 1
-                    elif cnt > 1:
-                        break
-                    k += 1
+    def shortestCommonSupersequence(self, str1: str, str2: str) -> str:
+        n1, n2 = len(str1), len(str2)
+        dp = [[[] for _ in range(n2 + 1)] for _ in range(n1 + 1)]
+        for i in range(n1):
+            dp[i][0] = i
+        for j in range(n2):
+            dp[0][j] = j
+        for i in range(1, n1+1):
+            for j in range(1, n2+1):
+                if str1[i - 1] == str2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + 1
+        res = ""
+        i, j = n1, n2
+        while i > 0 and j > 0:
+            if str1[i - 1] == str2[j - 1]:
+                res += str1[i - 1]
+                i -= 1
+                j -= 1
+            else:
+                if dp[i - 1][j] < dp[i][j - 1]:
+                    res += str1[i - 1]
+                    i -= 1
+                else:
+                    res += str2[j - 1]
+                    j -= 1
+        res = res[::-1]
         return res
 
 
