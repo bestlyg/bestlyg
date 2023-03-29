@@ -71,41 +71,21 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 vector<vector<int>> dirs = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 // START
 
-const int MAXN = 1e5 + 5;
 class Solution {
 public:
-
-    int n;
-    vector<int> G[MAXN];
-    int coins[MAXN];
-    int dp[MAXN][2];
-
-    void dfs(int u, int p) {
-        int sz = G[u].size();
-        for (int i = 0; i < sz; i++) {
-            int v = G[u][i];
-            if (v == p) continue;
-            dfs(v, u);
-            dp[u][1] += dp[v][0];
-            dp[u][0] += max(dp[v][0], dp[v][1]);
+    int countVowelStrings(int n) {
+        int dp[50][5] = {0};
+        for (int j = 0; j < 5; j++) dp[1][j] = 1;
+        for (int i = 2; i <= n; i++) {
+            int v = 0;
+            for (int j = 0; j < 5; j++) {
+                v += dp[i - 1][j];
+                dp[i][j] = v;
+            }
         }
-        dp[u][1] += coins[u];
-    }
-
-    int collectTheCoins(vector<int>& coins, vector<vector<int>>& edges) {
-        n = coins.size();
-        for (int i = 0; i < n - 1; i++) {
-            int u = edges[i][0], v = edges[i][1];
-            G[u + 1].push_back(v + 1);
-            G[v + 1].push_back(u + 1);
-        }
-        dfs(1, 0);
-        return max(dp[1][0], dp[1][1]);
+        return accumulate(dp[n], dp[n] + 5, 0);
     }
 };
-
-
-
 
 // END
 #ifdef LOCAL
