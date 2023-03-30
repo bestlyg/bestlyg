@@ -64,16 +64,13 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def countVowelStrings(self, n: int) -> int:
-        dp = [[0] * 5 for _ in range(55)]
-        for j in range(5):
-            dp[1][j] = 1
-        for i in range(2, n+1):
-            v = 0
-            for j in range(5):
-                v += dp[i-1][j]
-                dp[i][j] = v
-        return sum(dp[n])
+    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda p: p[0])
+        res = 0
+        for i in range(1, len(points)):
+            if points[i][0] != points[i - 1][0]:
+                res = max(res, points[i][0] - points[i - 1][0])
+        return res
 
 
 def main():

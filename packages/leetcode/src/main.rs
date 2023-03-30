@@ -60,20 +60,16 @@ fn get_primes(max: usize) -> Vec<usize> {
     }
     primes
 }
+
 impl Solution {
-    pub fn count_vowel_strings(n: i32) -> i32 {
-        let n = n as usize;
-        let mut dp = vec![vec![0; 5]; 55];
-        for j in 0..5 {
-            dp[1][j] = 1;
-        }
-        for i in 2..=n {
-            let mut v = 0;
-            for j in 0..5 {
-                v += dp[i - 1][j];
-                dp[i][j] = v
+    pub fn max_width_of_vertical_area(mut points: Vec<Vec<i32>>) -> i32 {
+        points.sort_by_key(|p| p[0]);
+        let mut res = 0;
+        for i in 1..points.len() {
+            if (points[i][0] != points[i - 1][0]) {
+                res = res.max(points[i][0] - points[i - 1][0]);
             }
         }
-        dp[n].iter().sum()
+        res
     }
 }

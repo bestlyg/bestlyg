@@ -1,11 +1,12 @@
 {
+    "id": "1761",
     "name": "1641.统计字典序元音字符串的数目",
-    "url": "https://leetcode.cn/problems/count-sorted-vowel-strings/",
+    "url": "https://leetcode.cn/problems/count-sorted-vowel-strings",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "数学",
+        "动态规划",
+        "组合数学"
     ],
     "desc": "给你一个整数 n，请返回长度为 n 、仅由元音 (a, e, i, o, u) 组成且按 字典序排列 的字符串数量。",
     "solutions": [

@@ -2,70 +2,79 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1641. 统计字典序元音字符串的数目',
-  url: 'https://leetcode.cn/problems/count-sorted-vowel-strings/',
+  name: '1637. 两点之间不包含任何点的最宽垂直区域',
+  url: 'https://leetcode.cn/problems/widest-vertical-area-between-two-points-containing-no-points/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个整数 n，请返回长度为 n 、仅由元音 (a, e, i, o, u) 组成且按 字典序排列 的字符串数量。`,
+  desc: `给你 n 个二维平面上的点 points ，其中 points[i] = [xi, yi] ，请你返回两点之间内部不包含任何点的 最宽垂直区域 的宽度。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory: 5.9,
-      desc: 'dp[i][j]表示i个字符长度时j字符为首有几种',
+      time: 272,
+      memory: 79.3,
+      desc: 'Tree排序',
       code: `class Solution {
 public:
-    int countVowelStrings(int n) {
-        int dp[55][5] = {0};
-        for (int j = 0; j < 5; j++) dp[1][j] = 1;
-        for (int i = 2; i <= n; i++) {
-            int v = 0;
-            for (int j = 0; j < 5; j++) {
-                v += dp[i - 1][j];
-                dp[i][j] = v;
+    int maxWidthOfVerticalArea(vector<vector<int>>& points) {
+        set<int> s;
+        for (auto &p : points) s.insert(p[0]);
+        auto it = s.begin();
+        int res = 0, prev = *it;
+        while (it != s.end()) res = max(res, *it - prev), prev = *it, it++;
+        return res;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 280,
+      memory: 64.7,
+      desc: '排序',
+      code: `class Solution {
+public:
+    int maxWidthOfVerticalArea(vector<vector<int>>& points) {
+        sort(points.begin(), points.end(), [&](auto &a, auto &b){
+            return a[0] < b[0];
+        });
+        int res = 0;
+        for (int i = 1; i < points.size(); i++) {
+            if (points[i][0] != points[i - 1][0]) {
+                res = max(res, points[i][0] - points[i - 1][0]);
             }
         }
-        return accumulate(dp[n], dp[n] + 5, 0);
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 20,
-      memory: 14.8,
+      time: 240,
+      memory: 45.1,
       desc: '同上',
       code: `class Solution:
-    def countVowelStrings(self, n: int) -> int:
-        dp = [[0] * 5 for _ in range(55)]
-        for j in range(5):
-            dp[1][j] = 1
-        for i in range(2, n+1):
-            v = 0
-            for j in range(5):
-                v += dp[i-1][j]
-                dp[i][j] = v
-        return sum(dp[n])`,
+    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda p: p[0])
+        res = 0
+        for i in range(1, len(points)):
+            if points[i][0] != points[i - 1][0]:
+                res = max(res, points[i][0] - points[i - 1][0])
+        return res`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 36,
+      memory: 9.3,
       desc: '同上',
       code: `impl Solution {
-    pub fn count_vowel_strings(n: i32) -> i32 {
-        let n = n as usize;
-        let mut dp = vec![vec![0; 5]; 55];
-        for j in 0..5 {
-            dp[1][j] = 1;
-        }
-        for i in 2..=n {
-            let mut v = 0;
-            for j in 0..5 {
-                v += dp[i - 1][j];
-                dp[i][j] = v
+    pub fn max_width_of_vertical_area(mut points: Vec<Vec<i32>>) -> i32 {
+        points.sort_by_key(|p| p[0]);
+        let mut res = 0;
+        for i in 1..points.len() {
+            if (points[i][0] != points[i - 1][0]) {
+                res = res.max(points[i][0] - points[i - 1][0]);
             }
         }
-        dp[n].iter().sum()
+        res
     }
 }`,
     },
