@@ -5,8 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .before {
+        color: blue;
+      }
+      .after {
+        color: red;
+      }
+    </style>
   </head>
   <body>
-    1232
+    <script>
+      window.onload = () => {
+        console.log('onload');
+      };
+      window.addEventListener('DOMContentLoaded', () => {
+        console.log('DOMContentLoaded');
+      });
+    </script>
+    <div class="before">before</div>
+    <script src="/scripts.js"></script>
+    <div class="after">after</div>
+    <script src="/scripts2.js"></script>
+    <style>
+      .before {
+        color: red;
+      }
+      .after {
+        color: blue;
+      }
+    </style>
   </body>
 </html>

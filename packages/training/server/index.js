@@ -1,12 +1,26 @@
-const express = require("express");
-const { sendFile } = require("./utils");
+const express = require('express');
+const { sendFile } = require('./utils');
 
 const app = express();
 
 const port = 3000;
 
-app.get("/", (req, res) => {
-  sendFile({ req, res, filepath: "index.html" });
+app.get('/styles.css', (req, res) => {
+  console.log(req.path);
+  sendFile({ req, res, filepath: 'styles.css', delayTime: 300 });
+});
+
+app.get('/scripts.js', (req, res) => {
+  console.log(req.path);
+  sendFile({ req, res, filepath: 'scripts.js', delayTime: 2000 });
+});
+app.get('/scripts2.js', (req, res) => {
+  console.log(req.path);
+  sendFile({ req, res, filepath: 'scripts2.js', delayTime: 2000 });
+});
+app.get('/', (req, res) => {
+  console.log(req.path);
+  sendFile({ req, res, filepath: 'index.html', delayTime: 0 });
 });
 
 // app
@@ -22,5 +36,5 @@ app.get("/", (req, res) => {
 //   });
 
 app.listen(port, () => {
-  console.log("App listening : " + port);
+  console.log('App listening : ' + port);
 });
