@@ -60,15 +60,15 @@ fn get_primes(max: usize) -> Vec<usize> {
     }
     primes
 }
-
 impl Solution {
-    pub fn max_width_of_vertical_area(mut points: Vec<Vec<i32>>) -> i32 {
-        points.sort_by_key(|p| p[0]);
+    pub fn arithmetic_triplets(nums: Vec<i32>, diff: i32) -> i32 {
+        use std::collections::HashMap;
+        let (mut m1, mut m2) = (HashMap::<i32, i32>::new(), HashMap::<i32, i32>::new());
         let mut res = 0;
-        for i in 1..points.len() {
-            if (points[i][0] != points[i - 1][0]) {
-                res = res.max(points[i][0] - points[i - 1][0]);
-            }
+        for num in nums {
+            res += *m2.entry(num - diff).or_insert(0);
+            *m2.entry(num).or_insert(0) += *m1.entry(num - diff).or_insert(0);
+            *m1.entry(num).or_insert(0) += 1;
         }
         res
     }

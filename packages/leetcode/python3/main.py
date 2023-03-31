@@ -64,12 +64,13 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
-        points.sort(key=lambda p: p[0])
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        m1, m2 = Counter(), Counter()
         res = 0
-        for i in range(1, len(points)):
-            if points[i][0] != points[i - 1][0]:
-                res = max(res, points[i][0] - points[i - 1][0])
+        for num in nums:
+            res += m2[num-diff]
+            m2[num] += m1[num-diff]
+            m1[num] += 1
         return res
 
 

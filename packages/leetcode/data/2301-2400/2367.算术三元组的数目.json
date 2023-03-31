@@ -1,0 +1,39 @@
+{
+    "id": "2442",
+    "name": "2367.算术三元组的数目",
+    "url": "https://leetcode.cn/problems/number-of-arithmetic-triplets",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "枚举"
+    ],
+    "desc": "给你一个下标从 0 开始、严格递增 的整数数组 nums 和一个正整数 diff 。返回不同 算术三元组 的数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 9.3,
+            "desc": "哈希表+遍历。",
+            "code": "class Solution {\npublic:\n    int arithmeticTriplets(vector<int>& nums, int diff) {\n        unordered_map<int, int> m1, m2;\n        int res = 0;\n        for (auto &num : nums) {\n            res += m2[num - diff];\n            m2[num] += m1[num - diff];\n            m1[num] += 1;\n        }\n        return res;\n    }\n};",
+            "date": 1680192000000
+        },
+        {
+            "script": "python3",
+            "time": 44,
+            "memory": 14.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:\n        m1, m2 = Counter(), Counter()\n        res = 0\n        for num in nums:\n            res += m2[num-diff]\n            m2[num] += m1[num-diff]\n            m1[num] += 1\n        return res",
+            "date": 1680192000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn arithmetic_triplets(nums: Vec<i32>, diff: i32) -> i32 {\n        use std::collections::HashMap;\n        let (mut m1, mut m2) = (HashMap::<i32, i32>::new(), HashMap::<i32, i32>::new());\n        let mut res = 0;\n        for num in nums {\n            res += *m2.entry(num - diff).or_insert(0);\n            *m2.entry(num).or_insert(0) += *m1.entry(num - diff).or_insert(0);\n            *m1.entry(num).or_insert(0) += 1;\n        }\n        res\n    }\n}",
+            "date": 1680192000000
+        }
+    ]
+}
