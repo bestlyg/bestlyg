@@ -1,0 +1,37 @@
+{
+    "name": "831.隐藏个人信息",
+    "url": "https://leetcode.cn/problems/masking-personal-information/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一条个人信息字符串 s ，可能表示一个 邮箱地址 ，也可能表示一串 电话号码 。返回按如下规则 隐藏 个人信息后的结果。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6,
+            "desc": "模拟。",
+            "code": "class Solution {\npublic:\n    string maskPII(string s) {\n        if (isEmail(s)) return formatEmail(s);\n        return formatPhone(s);\n    }\n    bool isEmail(string &s) {\n        return s.find('@') != string::npos;\n    }\n    string formatEmail(string &s) {\n        string res = \"\";\n        res += tolower(s[0]);\n        res += \"*****\";\n        int i = 0;\n        while (s[i + 1] != '@') i++;\n        while (i < s.size()) res += tolower(s[i++]);\n        return res;\n    }\n    string formatPhone(string &s) {\n        string formats = \"\", res = \"\";\n        for (auto &c : s) \n            if (isdigit(c)) formats += c;\n        switch(formats.size() - 10) {\n            case 1: res += \"+*-\"; break;\n            case 2: res += \"+**-\"; break;\n            case 3: res += \"+***-\"; break;\n        }\n        res += \"***-***-\" + formats.substr(formats.size() - 4, 4);\n        return res;\n    }\n};",
+            "date": 1680278400000
+        },
+        {
+            "script": "python3",
+            "time": 44,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maskPII(self, s: str) -> str:\n        def isEmail(s: str):\n            return s.find('@') != -1\n\n        def formatEmail(s: str):\n            res = \"\"\n            res += s[0].lower() + '*****'\n            i = 0\n            while s[i+1] != '@':\n                i += 1\n            while i < len(s):\n                res += s[i].lower()\n                i += 1\n            return res\n\n        def formatPhone(s: str):\n            formats, res = \"\", \"\"\n            for c in s:\n                if c.isdigit():\n                    formats += c\n            pre = len(formats) - 10\n            if pre == 1:\n                res += \"+*-\"\n            elif pre == 2:\n                res += \"+**-\"\n            elif pre == 3:\n                res += \"+***-\"\n            res += \"***-***-\" + formats[-4:]\n            return res\n\n        return formatEmail(s) if isEmail(s) else formatPhone(s)",
+            "date": 1680278400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.3,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn mask_pii(s: String) -> String {\n        let s = s.chars().collect::<Vec<char>>();\n        fn format_email(s: &Vec<char>) -> String {\n            let mut res = String::new();\n            res.push_str(&s[0].to_lowercase().to_string());\n            res.push_str(\"*****\");\n            let mut i = 0;\n            while s[i + 1] != '@' {\n                i += 1;\n            }\n            while i < s.len() {\n                res.push_str(&s[i].to_lowercase().to_string());\n                i += 1;\n            }\n            res\n        }\n\n        fn format_phone(s: &Vec<char>) -> String {\n            let mut formats = vec![];\n            for c in s {\n                if c.is_numeric() {\n                    formats.push(*c);\n                }\n            }\n            let mut res = String::new();\n            match formats.len() - 10 {\n                1 => res.push_str(\"+*-\"),\n                2 => res.push_str(\"+**-\"),\n                3 => res.push_str(\"+***-\"),\n                _ => {}\n            }\n            res.push_str(\"***-***-\");\n            res.push_str(\n                &String::from_utf8(\n                    formats[formats.len() - 4..]\n                        .iter()\n                        .map(|v| *v as u8)\n                        .collect::<Vec<u8>>(),\n                )\n                .unwrap(),\n            );\n            res\n        }\n        if s.contains(&'@') {\n            format_email(&s)\n        } else {\n            format_phone(&s)\n        }\n    }\n}",
+            "date": 1680278400000
+        }
+    ]
+}

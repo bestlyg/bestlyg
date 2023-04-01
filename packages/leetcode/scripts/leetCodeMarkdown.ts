@@ -2,27 +2,45 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2367. 算术三元组的数目',
-  url: 'https://leetcode.cn/problems/number-of-arithmetic-triplets/',
+  name: '831. 隐藏个人信息',
+  url: 'https://leetcode.cn/problems/masking-personal-information/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个下标从 0 开始、严格递增 的整数数组 nums 和一个正整数 diff 。返回不同 算术三元组 的数目。`,
+  desc: `给你一条个人信息字符串 s ，可能表示一个 邮箱地址 ，也可能表示一串 电话号码 。返回按如下规则 隐藏 个人信息后的结果。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 9.3,
-      desc: '哈希表+遍历',
+      time: 0,
+      memory: 6,
+      desc: '模拟',
       code: `class Solution {
 public:
-    int arithmeticTriplets(vector<int>& nums, int diff) {
-        unordered_map<int, int> m1, m2;
-        int res = 0;
-        for (auto &num : nums) {
-            res += m2[num - diff];
-            m2[num] += m1[num - diff];
-            m1[num] += 1;
+    string maskPII(string s) {
+        if (isEmail(s)) return formatEmail(s);
+        return formatPhone(s);
+    }
+    bool isEmail(string &s) {
+        return s.find('@') != string::npos;
+    }
+    string formatEmail(string &s) {
+        string res = "";
+        res += tolower(s[0]);
+        res += "*****";
+        int i = 0;
+        while (s[i + 1] != '@') i++;
+        while (i < s.size()) res += tolower(s[i++]);
+        return res;
+    }
+    string formatPhone(string &s) {
+        string formats = "", res = "";
+        for (auto &c : s) 
+            if (isdigit(c)) formats += c;
+        switch(formats.size() - 10) {
+            case 1: res += "+*-"; break;
+            case 2: res += "+**-"; break;
+            case 3: res += "+***-"; break;
         }
+        res += "***-***-" + formats.substr(formats.size() - 4, 4);
         return res;
     }
 };`,
@@ -30,34 +48,95 @@ public:
     {
       script: Script.PY3,
       time: 44,
-      memory: 14.9,
+      memory: 15,
       desc: '同上',
       code: `class Solution:
-    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
-        m1, m2 = Counter(), Counter()
-        res = 0
-        for num in nums:
-            res += m2[num-diff]
-            m2[num] += m1[num-diff]
-            m1[num] += 1
-        return res`,
+    def maskPII(self, s: str) -> str:
+        def isEmail(s: str):
+            return s.find('@') != -1
+
+        def formatEmail(s: str):
+            res = ""
+            res += s[0].lower() + '*****'
+            i = 0
+            while s[i+1] != '@':
+                i += 1
+            while i < len(s):
+                res += s[i].lower()
+                i += 1
+            return res
+
+        def formatPhone(s: str):
+            formats, res = "", ""
+            for c in s:
+                if c.isdigit():
+                    formats += c
+            pre = len(formats) - 10
+            if pre == 1:
+                res += "+*-"
+            elif pre == 2:
+                res += "+**-"
+            elif pre == 3:
+                res += "+***-"
+            res += "***-***-" + formats[-4:]
+            return res
+
+        return formatEmail(s) if isEmail(s) else formatPhone(s)`,
     },
     {
       script: Script.RUST,
       time: 0,
-      memory: 2.1,
+      memory: 2.3,
       desc: '同上',
       code: `impl Solution {
-    pub fn arithmetic_triplets(nums: Vec<i32>, diff: i32) -> i32 {
-        use std::collections::HashMap;
-        let (mut m1, mut m2) = (HashMap::<i32, i32>::new(), HashMap::<i32, i32>::new());
-        let mut res = 0;
-        for num in nums {
-            res += *m2.entry(num - diff).or_insert(0);
-            *m2.entry(num).or_insert(0) += *m1.entry(num - diff).or_insert(0);
-            *m1.entry(num).or_insert(0) += 1;
+    pub fn mask_pii(s: String) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        fn format_email(s: &Vec<char>) -> String {
+            let mut res = String::new();
+            res.push_str(&s[0].to_lowercase().to_string());
+            res.push_str("*****");
+            let mut i = 0;
+            while s[i + 1] != '@' {
+                i += 1;
+            }
+            while i < s.len() {
+                res.push_str(&s[i].to_lowercase().to_string());
+                i += 1;
+            }
+            res
         }
-        res
+
+        fn format_phone(s: &Vec<char>) -> String {
+            let mut formats = vec![];
+            for c in s {
+                if c.is_numeric() {
+                    formats.push(*c);
+                }
+            }
+            let mut res = String::new();
+            match formats.len() - 10 {
+                1 => res.push_str("+*-"),
+                2 => res.push_str("+**-"),
+                3 => res.push_str("+***-"),
+                _ => {}
+            }
+            res.push_str("***-***-");
+            res.push_str(
+                &String::from_utf8(
+                    formats[formats.len() - 4..]
+                        .iter()
+                        .map(|v| *v as u8)
+                        .collect::<Vec<u8>>(),
+                )
+                .unwrap(),
+            );
+            res
+        }
+        if s.contains(&'@') {
+            format_email(&s)
+        } else {
+            format_phone(&s)
+        }
     }
 }`,
     },

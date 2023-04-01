@@ -60,16 +60,55 @@ fn get_primes(max: usize) -> Vec<usize> {
     }
     primes
 }
+
 impl Solution {
-    pub fn arithmetic_triplets(nums: Vec<i32>, diff: i32) -> i32 {
-        use std::collections::HashMap;
-        let (mut m1, mut m2) = (HashMap::<i32, i32>::new(), HashMap::<i32, i32>::new());
-        let mut res = 0;
-        for num in nums {
-            res += *m2.entry(num - diff).or_insert(0);
-            *m2.entry(num).or_insert(0) += *m1.entry(num - diff).or_insert(0);
-            *m1.entry(num).or_insert(0) += 1;
+    pub fn mask_pii(s: String) -> String {
+        let s = s.chars().collect::<Vec<char>>();
+        fn format_email(s: &Vec<char>) -> String {
+            let mut res = String::new();
+            res.push_str(&s[0].to_lowercase().to_string());
+            res.push_str("*****");
+            let mut i = 0;
+            while s[i + 1] != '@' {
+                i += 1;
+            }
+            while i < s.len() {
+                res.push_str(&s[i].to_lowercase().to_string());
+                i += 1;
+            }
+            res
         }
-        res
+
+        fn format_phone(s: &Vec<char>) -> String {
+            let mut formats = vec![];
+            for c in s {
+                if c.is_numeric() {
+                    formats.push(*c);
+                }
+            }
+            let mut res = String::new();
+            match formats.len() - 10 {
+                1 => res.push_str("+*-"),
+                2 => res.push_str("+**-"),
+                3 => res.push_str("+***-"),
+                _ => {}
+            }
+            res.push_str("***-***-");
+            res.push_str(
+                &String::from_utf8(
+                    formats[formats.len() - 4..]
+                        .iter()
+                        .map(|v| *v as u8)
+                        .collect::<Vec<u8>>(),
+                )
+                .unwrap(),
+            );
+            res
+        }
+        if s.contains(&'@') {
+            format_email(&s)
+        } else {
+            format_phone(&s)
+        }
     }
 }

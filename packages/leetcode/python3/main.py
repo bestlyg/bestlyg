@@ -64,14 +64,34 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
-        m1, m2 = Counter(), Counter()
-        res = 0
-        for num in nums:
-            res += m2[num-diff]
-            m2[num] += m1[num-diff]
-            m1[num] += 1
-        return res
+    def maskPII(self, s: str) -> str:
+        def isEmail(s: str):
+            return s.find('@') != -1
+
+        def formatEmail(s: str):
+            res = ""
+            res += s[0].lower + '*****'
+            i = 0
+            while s[i+1] != '@':
+                i += 1
+            while i < len(s):
+                res += s[i].lower()
+            return res
+
+        def formatPhone(s: str):
+            formats, res = "", ""
+            for c in s:
+                if c.isdigit():
+                    formats += c
+            pre = len(formats) - 10
+            if pre == 1:
+                res += "+*-"
+            elif pre == 2:
+                res += "+**-"
+            elif pre == 3:
+                res += "+***-"
+            res += "***-***-" + formats[-4:]
+        return formatEmail(s) if isEmail(s) else formatPhone(s)
 
 
 def main():
