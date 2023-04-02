@@ -4,6 +4,7 @@ use std::borrow::Borrow;
 use std::borrow::BorrowMut;
 use std::char::MAX;
 use std::hash::Hash;
+use std::ops::BitAnd;
 
 use preclude::*;
 fn main() {
@@ -61,36 +62,30 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 impl Solution {
-    pub fn min_score_triangulation(values: Vec<i32>) -> i32 {
-        use std::collections::HashMap;
-        let mut m: HashMap<usize, HashMap<usize, i32>> = HashMap::new();
-        let n = values.len();
-        fn dfs(
-            m: &mut HashMap<usize, HashMap<usize, i32>>,
-            values: &Vec<i32>,
-            n: usize,
-            start: usize,
-            end: usize,
-        ) -> i32 {
-            if start + 2 > end {
-                0
-            } else if start + 2 == end {
-                values[start] * values[start + 1] * values[end]
-            } else if m.contains_key(&start) && m.get(&start).unwrap().contains_key(&end) {
-                *m.get(&start).unwrap().get(&end).unwrap()
-            } else {
-                let mut s = i32::MAX;
-                for i in start + 1..end {
-                    s = s.min(
-                        values[start] * values[end] * values[i]
-                            + dfs(m, values, n, start, i)
-                            + dfs(m, values, n, i, end),
-                    )
-                }
-                m.entry(start).or_insert(HashMap::new()).insert(end, s);
-                s
+    pub fn min_reverse_operations(n: i32, p: i32, banned: Vec<i32>, k: i32) -> Vec<i32> {
+        use std::collections::{BTreeSet, HashSet, VecDeque};
+        let n = n as usize;
+        let p = p as usize;
+        let mut res = vec![-1; n];
+        res[p] = 0;
+        let used = HashSet::<usize>::from_iter(banned.into_iter().map(|v| v as usize));
+        let mut ss = [BTreeSet::<usize>::new(), BTreeSet::<usize>::new()];
+        ss[0].insert(n);
+        ss[1].insert(n);
+        for i in 0..n {
+            if i != p && !used.contains(&i) {
+                ss[i % 2].insert(i);
             }
         }
-        dfs(&mut m, &values, n, 0, n - 1)
+        let mut q = VecDeque::<usize>::new();
+        let (mut size, mut cnt) = (1, 1);
+        q.push_back(p);
+        while !q.is_empty() {
+            let p = q.pop_front().unwrap() as i32;
+            let nmin = (p - k + 1).max(k - p - 1) as usize;
+            let nmax = (p + k - 1).min(2 * n as i32 - k - p - 1) as usize;
+            let it = ss[nmin % 2].bitand(rhs)
+        }
+        res
     }
 }

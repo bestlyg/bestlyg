@@ -63,23 +63,6 @@ def getPrimes(nmax: int):
     return primes
 
 
-class Solution:
-    def minScoreTriangulation(self, values: List[int]) -> int:
-        n = len(values)
-
-        @cache
-        def dfs(start: int, end: int):
-            if start + 2 > end:
-                return 0
-            elif start + 2 == end:
-                return values[start] + values[start + 1] + values[end]
-            else:
-                s = 0x7fffffff
-                for i in range(start + 1, end):
-                    s = min(s, values[start] * values[end] * values[i] + dfs(start, i) + dfs(i, end))
-                return s
-        return dfs(0, n-1)
-
 
 def main():
     o = Solution()

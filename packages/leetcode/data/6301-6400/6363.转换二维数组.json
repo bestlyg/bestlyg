@@ -1,0 +1,37 @@
+{
+    "name": "6363.转换二维数组",
+    "url": "https://leetcode.cn/problems/convert-an-array-into-a-2d-array-with-conditions/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个整数数组 nums 。请你创建一个满足以下条件的二维数组。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 12,
+            "memory": 29.2,
+            "desc": "哈希存储。",
+            "code": "class Solution {\n   public:\n    vector<vector<int>> findMatrix(vector<int> &nums) {\n        unordered_map<int, int> m;\n        for (auto &num : nums) m[num]++;\n        vector<vector<int>> res;\n        while (1) {\n            bool f = false;\n            vector<int> items;\n            for (auto &item : m) {\n                if (item.second == 0) continue;                \n                item.second--;\n                items.push_back(item.first);\n                f = true;\n            }\n            if (!f) break;\n            res.push_back(items);\n        }\n        return res;\n    }\n};",
+            "date": 1680364800000
+        },
+        {
+            "script": "python3",
+            "time": 48,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def findMatrix(self, nums: List[int]) -> List[List[int]]:\n        m = Counter()\n        for num in nums:\n            m[num] += 1\n        res = []\n        while True:\n            f = False\n            items = []\n            for k, v in m.items():\n                if v == 0:\n                    continue\n                m[k] -= 1\n                items.append(k)\n                f = True\n            if not f:\n                break\n            res.append(items)\n        return res",
+            "date": 1680364800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn find_matrix(nums: Vec<i32>) -> Vec<Vec<i32>> {\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        for num in nums {\n            *m.entry(num).or_insert(0) += 1;\n        }\n        let mut res = vec![];\n        loop {\n            let mut f = false;\n            let mut items = vec![];\n            for (k, v) in m.iter_mut() {\n                if *v == 0 {\n                    continue;\n                }\n                *v -= 1;\n                items.push(*k);\n                f = true;\n            }\n            if !f {\n                break;\n            }\n            res.push(items);\n        }\n        res\n    }\n}",
+            "date": 1680364800000
+        }
+    ]
+}

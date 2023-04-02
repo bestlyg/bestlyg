@@ -1,0 +1,37 @@
+{
+    "name": "6364.老鼠和奶酪",
+    "url": "https://leetcode.cn/problems/mice-and-cheese/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个整数数组 nums 。请你创建一个满足以下条件的二维数组。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 132,
+            "memory": 107.6,
+            "desc": "贪心找价值比最高的。",
+            "code": "class Solution {\n   public:\n    typedef pair<int, int> pii;\n    int miceAndCheese(vector<int> &reward1, vector<int> &reward2, int k) {\n        int n = reward1.size();\n        vector<pii> list;\n        for (int i = 0; i < n; i++) {\n            list.push_back(make_pair(reward1[i], reward2[i]));\n        }\n        sort(list.begin(), list.end(), [](auto &a, auto &b) {\n            int v1 = a.second - a.first, v2 = b.second - b.first;\n            return v1 < v2;\n        });\n        int res = 0, i = 0;\n        while (k--) res += list[i++].first;\n        while (i < n) res += list[i++].second;\n        return res;\n    }\n};",
+            "date": 1680364800000
+        },
+        {
+            "script": "python3",
+            "time": 184,
+            "memory": 32.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:\n        n = len(reward1)\n        l: List[(int, int)] = []\n        for i in range(n):\n            l.append((reward1[i], reward2[i]))\n        l.sort(key=lambda v: v[1] - v[0])\n        res = i = 0\n        while k:\n            res += l[i][0]\n            i += 1\n            k -= 1\n        while i < n:\n            res += l[i][1]\n            i += 1\n        return res",
+            "date": 1680364800000
+        },
+        {
+            "script": "rust",
+            "time": 28,
+            "memory": 4.3,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn mice_and_cheese(reward1: Vec<i32>, reward2: Vec<i32>, mut k: i32) -> i32 {\n        let n = reward1.len();\n        let mut list: Vec<(i32, i32)> = vec![];\n        for i in 0..n {\n            list.push((reward1[i], reward2[i]));\n        }\n        list.sort_by_key(|v| (*v).1 - (*v).0);\n        let mut res = 0;\n        let mut i = 0;\n        while k != 0 {\n            res += list[i].0;\n            i += 1;\n            k -= 1;\n        }\n        while i < n {\n            res += list[i].1;\n            i += 1;\n        }\n        res\n    }\n}",
+            "date": 1680364800000
+        }
+    ]
+}
