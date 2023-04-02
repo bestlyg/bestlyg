@@ -60,55 +60,37 @@ fn get_primes(max: usize) -> Vec<usize> {
     }
     primes
 }
-
 impl Solution {
-    pub fn mask_pii(s: String) -> String {
-        let s = s.chars().collect::<Vec<char>>();
-        fn format_email(s: &Vec<char>) -> String {
-            let mut res = String::new();
-            res.push_str(&s[0].to_lowercase().to_string());
-            res.push_str("*****");
-            let mut i = 0;
-            while s[i + 1] != '@' {
-                i += 1;
-            }
-            while i < s.len() {
-                res.push_str(&s[i].to_lowercase().to_string());
-                i += 1;
-            }
-            res
-        }
-
-        fn format_phone(s: &Vec<char>) -> String {
-            let mut formats = vec![];
-            for c in s {
-                if c.is_numeric() {
-                    formats.push(*c);
+    pub fn min_score_triangulation(values: Vec<i32>) -> i32 {
+        use std::collections::HashMap;
+        let mut m: HashMap<usize, HashMap<usize, i32>> = HashMap::new();
+        let n = values.len();
+        fn dfs(
+            m: &mut HashMap<usize, HashMap<usize, i32>>,
+            values: &Vec<i32>,
+            n: usize,
+            start: usize,
+            end: usize,
+        ) -> i32 {
+            if start + 2 > end {
+                0
+            } else if start + 2 == end {
+                values[start] * values[start + 1] * values[end]
+            } else if m.contains_key(&start) && m.get(&start).unwrap().contains_key(&end) {
+                *m.get(&start).unwrap().get(&end).unwrap()
+            } else {
+                let mut s = i32::MAX;
+                for i in start + 1..end {
+                    s = s.min(
+                        values[start] * values[end] * values[i]
+                            + dfs(m, values, n, start, i)
+                            + dfs(m, values, n, i, end),
+                    )
                 }
+                m.entry(start).or_insert(HashMap::new()).insert(end, s);
+                s
             }
-            let mut res = String::new();
-            match formats.len() - 10 {
-                1 => res.push_str("+*-"),
-                2 => res.push_str("+**-"),
-                3 => res.push_str("+***-"),
-                _ => {}
-            }
-            res.push_str("***-***-");
-            res.push_str(
-                &String::from_utf8(
-                    formats[formats.len() - 4..]
-                        .iter()
-                        .map(|v| *v as u8)
-                        .collect::<Vec<u8>>(),
-                )
-                .unwrap(),
-            );
-            res
         }
-        if s.contains(&'@') {
-            format_email(&s)
-        } else {
-            format_phone(&s)
-        }
+        dfs(&mut m, &values, n, 0, n - 1)
     }
 }

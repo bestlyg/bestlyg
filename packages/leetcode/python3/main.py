@@ -64,34 +64,21 @@ def getPrimes(nmax: int):
 
 
 class Solution:
-    def maskPII(self, s: str) -> str:
-        def isEmail(s: str):
-            return s.find('@') != -1
+    def minScoreTriangulation(self, values: List[int]) -> int:
+        n = len(values)
 
-        def formatEmail(s: str):
-            res = ""
-            res += s[0].lower + '*****'
-            i = 0
-            while s[i+1] != '@':
-                i += 1
-            while i < len(s):
-                res += s[i].lower()
-            return res
-
-        def formatPhone(s: str):
-            formats, res = "", ""
-            for c in s:
-                if c.isdigit():
-                    formats += c
-            pre = len(formats) - 10
-            if pre == 1:
-                res += "+*-"
-            elif pre == 2:
-                res += "+**-"
-            elif pre == 3:
-                res += "+***-"
-            res += "***-***-" + formats[-4:]
-        return formatEmail(s) if isEmail(s) else formatPhone(s)
+        @cache
+        def dfs(start: int, end: int):
+            if start + 2 > end:
+                return 0
+            elif start + 2 == end:
+                return values[start] + values[start + 1] + values[end]
+            else:
+                s = 0x7fffffff
+                for i in range(start + 1, end):
+                    s = min(s, values[start] * values[end] * values[i] + dfs(start, i) + dfs(i, end))
+                return s
+        return dfs(0, n-1)
 
 
 def main():
