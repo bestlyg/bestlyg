@@ -1,11 +1,11 @@
 {
+    "id": "1111",
     "name": "1039.多边形三角剖分的最低得分",
-    "url": "https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/",
+    "url": "https://leetcode.cn/problems/minimum-score-triangulation-of-polygon",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
         "数组",
-        "矩阵"
+        "动态规划"
     ],
     "desc": "假设将多边形 剖分 为 n - 2 个三角形。对于每个三角形，该三角形的值是顶点标记的乘积，三角剖分的分数是进行三角剖分后所有 n - 2 个三角形的值之和。返回 多边形进行三角剖分后可以得到的最低分 。",
     "solutions": [
