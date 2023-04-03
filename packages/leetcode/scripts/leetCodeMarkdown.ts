@@ -2,51 +2,31 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6365. 最少翻转操作数',
-  url: 'https://leetcode.cn/problems/minimum-reverse-operations/',
+  name: '1053. 交换一次的先前排列',
+  url: 'https://leetcode.cn/problems/previous-permutation-with-one-swap/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回一个数组 ans ，对于 [0, n - 1] 之间的任意下标 i ，ans[i] 是将 1 放到位置 i 处的 最少 翻转操作次数，如果无法放到位置 i 处，此数为 -1 。`,
+  desc: `给你一个正整数数组 arr（可能存在重复的元素），请你返回可在 一次交换（交换两数字 arr[i] 和 arr[j] 的位置）后得到的、按字典序排列小于 arr 的最大排列。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 716,
-      memory: 163.36,
-      desc: 'bfs+利用排序树快速删除和查找',
+      time: 28,
+      memory: 24.1,
+      desc: '找出末尾第一个出现的逆序',
       code: `class Solution {
-   public:
-    vector<int> minReverseOperations(int n, int p, vector<int> &banned, int k) {
-        vector<int> res(n, -1);
-        res[p] = 0;
-        if (k == 0 || k == 1) return res;
-        unordered_set<int> used(banned.begin(), banned.end());
-        set<int> ss[2];
-        ss[0].insert(n);
-        ss[1].insert(n);
-        for (int i = 0; i < n; i++) {
-            if (i != p && !used.count(i)) ss[i % 2].insert(i);
-        }
-        queue<int> q;
-        int size = 1, cnt = 1;
-        q.push(p);
-        while (q.size()) {
-            int p = q.front(), 
-                nmin = max(p - k + 1, k - p - 1), 
-                nmax = min(p + k - 1, 2 * n - k - p - 1);
-            q.pop();
-            auto it = ss[nmin % 2].lower_bound(nmin);
-            while (*it <= nmax) {
-                cout << "it= " << *it << endl;
-                res[*it] = cnt;
-                q.push(*it);
-                ss[nmin % 2].erase(*it++);
+public:
+    vector<int> prevPermOpt1(vector<int>& arr) {
+        map<int, int> m;
+        m[10005] = arr.size();
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            auto it = m.lower_bound(arr[i]);
+            if (m.size() > 1 && it != m.begin()) {
+                swap(arr[i], arr[(*(--it)).second]);
+                break;
             }
-            if (--size == 0) {
-                cnt++;
-                size = q.size();
-            }
+            m[val] = i;
         }
-        return res;
+        return arr;
     }
 };`,
     },

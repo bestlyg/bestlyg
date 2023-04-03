@@ -61,31 +61,56 @@ fn get_primes(max: usize) -> Vec<usize> {
     }
     primes
 }
+
 impl Solution {
     pub fn min_reverse_operations(n: i32, p: i32, banned: Vec<i32>, k: i32) -> Vec<i32> {
-        use std::collections::{BTreeSet, HashSet, VecDeque};
+        use std::collections::VecDeque;
         let n = n as usize;
         let p = p as usize;
+        let k = k as usize;
         let mut res = vec![-1; n];
         res[p] = 0;
-        let used = HashSet::<usize>::from_iter(banned.into_iter().map(|v| v as usize));
-        let mut ss = [BTreeSet::<usize>::new(), BTreeSet::<usize>::new()];
-        ss[0].insert(n);
-        ss[1].insert(n);
-        for i in 0..n {
-            if i != p && !used.contains(&i) {
-                ss[i % 2].insert(i);
+        if k == 0 || k == 1 {
+            res
+        } else {
+            let mut used = vec![false; n];
+            used[p] = true;
+            let mut banlist = vec![false; n];
+            for i in banned {
+                banlist[i as usize] = true
             }
+            let mut q = VecDeque::<usize>::new();
+            q.push_back(p);
+            let mut size = 1;
+            let mut cnt = 1;
+            while !q.is_empty() {
+                let p = q.pop_front().unwrap();
+                let mut i = p;
+                println!("p={p}");
+                while (i as i32) + 1 - (k as i32) <= p && i < n {
+                    if (i as i32) + 1 - (k as i32) < 0 {
+                        i += 1;
+                        continue;
+                    }
+                    let start = i + 1 - k;
+                    let end = i;
+                    let revp = (end - start + 1) - 1 - (p - start) + start;
+                    println!("start = {start}, end = {end}, revp = {revp}");
+                    if banlist[revp] || used[revp] {
+                        continue;
+                    }
+                    used[revp] = true;
+                    q.push_back(revp);
+                    res[revp] = cnt;
+                    i += 1;
+                }
+                size -= 1;
+                if size == 0 {
+                    cnt += 1;
+                    size = q.len();
+                }
+            }
+            res
         }
-        let mut q = VecDeque::<usize>::new();
-        let (mut size, mut cnt) = (1, 1);
-        q.push_back(p);
-        while !q.is_empty() {
-            let p = q.pop_front().unwrap() as i32;
-            let nmin = (p - k + 1).max(k - p - 1) as usize;
-            let nmax = (p + k - 1).min(2 * n as i32 - k - p - 1) as usize;
-            let it = ss[nmin % 2].bitand(rhs)
-        }
-        res
     }
 }

@@ -1,4 +1,3 @@
-from sortedcontainers import SortedSet
 from functools import cache
 from heapq import *
 from collections import defaultdict, deque
@@ -48,20 +47,19 @@ class TrieNode:
         self.children: List[TrieNode] = [None] * 26
 
 
-def getPrimes(nmax: int):
-    primes = [0] * nmax
-    for i in range(2, nmax):
-        if primes[i] == 0:
-            primes[0] += 1
-            primes[primes[0]] = i
-        for j in range(1, nmax):
-            if i * primes[j] >= nmax:
+class Solution:
+    def prevPermOpt1(self, arr: List[int]) -> List[int]:
+        m = SortedDict()
+        m[10005] = len(arr)
+        for i in range(len(arr) - 1, -1, -1):
+            idx = m.bisect_left(arr[i])
+            if m.get(idx) != len(arr) and len(m) > 1:
+                temp = arr[i]
+                arr[i] = arr[m.get(idx - 1)]
+                arr[m.get(idx - 1)] = temp
                 break
-            primes[i * primes[j]] = 1
-            if i % primes[j] == 0:
-                break
-    return primes
-
+            m[arr[i]] = i
+        return arr
 
 
 def main():
