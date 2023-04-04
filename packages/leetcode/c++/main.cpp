@@ -66,39 +66,28 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 // START
+void binary(unsigned n, int lastbit = 31) {
+    unsigned i;
+    for (i = 1 << lastbit; i > 0; i >>= 1) printf("%u", !!(n & i));
+}
 
 class Solution {
-   public:
-    vector<int> minReverseOperations(int n, int p, vector<int> &banned, int k) {
-        vector<int> res(n, -1);
-        res[p] = 0;
-        if (k == 0 || k == 1) return res;
-        vector<bool> used(n, false), banlist(n, false);
-        used[p] = true;
-        for (auto &i : banned) {
-            banlist[i] = true;
-        }
-        queue<int> q;
-        int size = 1, cnt = 1;
-        q.push(p);
-        while (q.size()) {
-            int p = q.front();
-            q.pop();
-            for (int i = p; i + 1 - k <= p && i < n; i++) {
-                if (i + 1 - k < 0) continue;
-                int start = i + 1 - k, end = i,
-                    revp = (end - start + 1) - 1 - (p - start) + start;
-                if (banlist[revp] || used[revp]) continue;
-                used[revp] = true;
-                q.push(revp);
-                res[revp] = cnt;
+public:
+    int mergeStones(vector<int>& stones, int k) {
+        int n = stones.size();
+        function<int(int, int)> dfs = [&](int start, int end) -> int {
+            if (end - start < k) return -1;
+            int sum = 0, res = INT_MAX;
+            for (int i = start; i < end; i++) sum += stones[i];
+            if (end - start == k) return sum;
+            for (int i = start + 1; i < end; i++) {
+                int l = dfs(start, i), r = dfs(i, end);
+                if (l == -1 || r == -1) continue;
+                res = min(res, l + r + sum);
             }
-            if (--size == 0) {
-                cnt++;
-                size = q.size();
-            }
-        }
-        return res;
+            return res;
+        };
+        return dfs(0, n);
     }
 };
 
@@ -107,8 +96,10 @@ class Solution {
 int main() {
     auto cmp = [&](pii x, pii y) -> bool { return x.second < y.second; };
     priority_queue<pii, vector<pii>, decltype(cmp)> q(cmp);
-    // Solution s;
-    // auto res = s.alphabetBoardPath("leet");
+    vector<int> stones = {3,2,4,1};
+    int k = 2;
+    Solution s;
+    auto res = s.mergeStones(stones, k);
     log("%d\n", 1);
     return 0;
 }

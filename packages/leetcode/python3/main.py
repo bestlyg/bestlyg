@@ -48,18 +48,26 @@ class TrieNode:
 
 
 class Solution:
-    def prevPermOpt1(self, arr: List[int]) -> List[int]:
-        m = SortedDict()
-        m[10005] = len(arr)
-        for i in range(len(arr) - 1, -1, -1):
-            idx = m.bisect_left(arr[i])
-            if m.get(idx) != len(arr) and len(m) > 1:
-                temp = arr[i]
-                arr[i] = arr[m.get(idx - 1)]
-                arr[m.get(idx - 1)] = temp
-                break
-            m[arr[i]] = i
-        return arr
+    def mergeStones(self, stones: List[int], k: int) -> int:
+        n = len(stones)
+        if (n - k) % (k - 1) != 0:
+            return -1
+        dp = [[-1] * n for _ in range(n)]
+        sums = [0]
+        for s in stones:
+            sums.append(sums[-1] + s)
+
+        @cache
+        def dfs(start: int, end: int) -> int:
+            if start == end:
+                return 0
+            res = 0x7fffffff
+            for m in range(start, end, k-1):
+                res = min(res, dfs(start, m) + dfs(m + 1, end))
+            if (end - start) % (k - 1) == 0:
+                res += sums[end + 1] - sums[start]
+            return res
+        return dfs(0, n-1)
 
 
 def main():

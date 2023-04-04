@@ -63,54 +63,37 @@ fn get_primes(max: usize) -> Vec<usize> {
 }
 
 impl Solution {
-    pub fn min_reverse_operations(n: i32, p: i32, banned: Vec<i32>, k: i32) -> Vec<i32> {
-        use std::collections::VecDeque;
-        let n = n as usize;
-        let p = p as usize;
+    pub fn merge_stones(stones: Vec<i32>, k: i32) -> i32 {
+        let n = stones.len();
         let k = k as usize;
-        let mut res = vec![-1; n];
-        res[p] = 0;
-        if k == 0 || k == 1 {
-            res
-        } else {
-            let mut used = vec![false; n];
-            used[p] = true;
-            let mut banlist = vec![false; n];
-            for i in banned {
-                banlist[i as usize] = true
-            }
-            let mut q = VecDeque::<usize>::new();
-            q.push_back(p);
-            let mut size = 1;
-            let mut cnt = 1;
-            while !q.is_empty() {
-                let p = q.pop_front().unwrap();
-                let mut i = p;
-                println!("p={p}");
-                while (i as i32) + 1 - (k as i32) <= p && i < n {
-                    if (i as i32) + 1 - (k as i32) < 0 {
-                        i += 1;
-                        continue;
-                    }
-                    let start = i + 1 - k;
-                    let end = i;
-                    let revp = (end - start + 1) - 1 - (p - start) + start;
-                    println!("start = {start}, end = {end}, revp = {revp}");
-                    if banlist[revp] || used[revp] {
-                        continue;
-                    }
-                    used[revp] = true;
-                    q.push_back(revp);
-                    res[revp] = cnt;
-                    i += 1;
-                }
-                size -= 1;
-                if size == 0 {
-                    cnt += 1;
-                    size = q.len();
-                }
-            }
-            res
+        if (n - k) % (k - 1) != 0 {
+            return -1;
         }
+        let mut dp = vec![vec![-1; n]; n];
+        let mut sums = vec![-1];
+        for s in stones {
+            sums.push(*sums.last().unwrap() + s);
+        }
+
+        fn dfs(dp: &mut Vec<Vec<i32>>, sums: &Vec<i32>, k: usize, start: usize, end: usize) -> i32 {
+            if start == end {
+                0
+            } else if dp[start][end] != -1 {
+                dp[start][end]
+            } else {
+                let mut res = i32::MAX;
+                let mut m = start;
+                while m < end {
+                    res = res.min(dfs(dp, sums, k, start, m) + dfs(dp, sums, k, m + 1, end));
+                    m += k - 1;
+                }
+                if (end - start) % (k - 1) == 0 {
+                    res += sums[end + 1] - sums[start];
+                }
+                dp[start][end] = res;
+                res
+            }
+        }
+        return dfs(&mut dp, &sums, k, 0, n - 1);
     }
 }
