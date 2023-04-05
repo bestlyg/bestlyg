@@ -48,26 +48,8 @@ class TrieNode:
 
 
 class Solution:
-    def mergeStones(self, stones: List[int], k: int) -> int:
-        n = len(stones)
-        if (n - k) % (k - 1) != 0:
-            return -1
-        dp = [[-1] * n for _ in range(n)]
-        sums = [0]
-        for s in stones:
-            sums.append(sums[-1] + s)
-
-        @cache
-        def dfs(start: int, end: int) -> int:
-            if start == end:
-                return 0
-            res = 0x7fffffff
-            for m in range(start, end, k-1):
-                res = min(res, dfs(start, m) + dfs(m + 1, end))
-            if (end - start) % (k - 1) == 0:
-                res += sums[end + 1] - sums[start]
-            return res
-        return dfs(0, n-1)
+    def commonFactors(self, a: int, b: int) -> int:
+        return len([i for i in range(1, min(a, b) + 1) if a % i == 0 and b % i == 0])
 
 
 def main():

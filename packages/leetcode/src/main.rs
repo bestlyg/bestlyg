@@ -63,37 +63,11 @@ fn get_primes(max: usize) -> Vec<usize> {
 }
 
 impl Solution {
-    pub fn merge_stones(stones: Vec<i32>, k: i32) -> i32 {
-        let n = stones.len();
-        let k = k as usize;
-        if (n - k) % (k - 1) != 0 {
-            return -1;
-        }
-        let mut dp = vec![vec![-1; n]; n];
-        let mut sums = vec![-1];
-        for s in stones {
-            sums.push(*sums.last().unwrap() + s);
-        }
-
-        fn dfs(dp: &mut Vec<Vec<i32>>, sums: &Vec<i32>, k: usize, start: usize, end: usize) -> i32 {
-            if start == end {
-                0
-            } else if dp[start][end] != -1 {
-                dp[start][end]
-            } else {
-                let mut res = i32::MAX;
-                let mut m = start;
-                while m < end {
-                    res = res.min(dfs(dp, sums, k, start, m) + dfs(dp, sums, k, m + 1, end));
-                    m += k - 1;
-                }
-                if (end - start) % (k - 1) == 0 {
-                    res += sums[end + 1] - sums[start];
-                }
-                dp[start][end] = res;
-                res
-            }
-        }
-        return dfs(&mut dp, &sums, k, 0, n - 1);
+    pub fn common_factors(a: i32, b: i32) -> i32 {
+        (1..=a.min(b))
+            .into_iter()
+            .filter(|v| a % v == 0 && b % v == 0)
+            .collect::<Vec<i32>>()
+            .len() as i32
     }
 }
