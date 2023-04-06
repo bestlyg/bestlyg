@@ -3,7 +3,11 @@
     "name": "2612.最少翻转操作数",
     "url": "https://leetcode.cn/problems/minimum-reverse-operations",
     "difficulty": "困难",
-    "tag": [],
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "有序集合"
+    ],
     "desc": "请你返回一个数组 ans ，对于 [0, n - 1] 之间的任意下标 i ，ans[i] 是将 1 放到位置 i 处的 最少 翻转操作次数，如果无法放到位置 i 处，此数为 -1 。",
     "solutions": [
         {

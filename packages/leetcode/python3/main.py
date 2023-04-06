@@ -48,8 +48,15 @@ class TrieNode:
 
 
 class Solution:
-    def commonFactors(self, a: int, b: int) -> int:
-        return len([i for i in range(1, min(a, b) + 1) if a % i == 0 and b % i == 0])
+    def baseNeg2(self, n: int) -> str:
+        if n == 0:
+            return "0"
+        elif n == 1:
+            return "1"
+        elif n % 2 != 0:
+            return self.baseNeg2((n - 1) / -2) + "1"
+        else:
+            return self.baseNeg2(n / -2) + "0"
 
 
 def main():

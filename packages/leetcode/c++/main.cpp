@@ -66,28 +66,25 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 // START
-void binary(unsigned n, int lastbit = 31) {
-    unsigned i;
-    for (i = 1 << lastbit; i > 0; i >>= 1) printf("%u", !!(n & i));
-}
 
 class Solution {
 public:
-    int mergeStones(vector<int>& stones, int k) {
-        int n = stones.size();
-        function<int(int, int)> dfs = [&](int start, int end) -> int {
-            if (end - start < k) return -1;
-            int sum = 0, res = INT_MAX;
-            for (int i = start; i < end; i++) sum += stones[i];
-            if (end - start == k) return sum;
-            for (int i = start + 1; i < end; i++) {
-                int l = dfs(start, i), r = dfs(i, end);
-                if (l == -1 || r == -1) continue;
-                res = min(res, l + r + sum);
-            }
-            return res;
+    typedef long long ll;
+    string baseNeg2(int n) {
+        if (n == 0) return "0";
+        function<string(int, int, string)> dfs = [&](int prev, int val, string cur) -> string {
+            cout << "===" << endl
+                 << ", prev = " << prev
+                 << ", val = " << val
+                 << ", cur = " << cur
+                 << endl;
+            if (val == n) return cur;
+            prev *= -2;
+            string s1 = dfs(prev, val, "0" + cur),
+                   s2 = dfs(prev, val + prev, "1" + cur);
+            return s1.size() < s2.size() ? s1 : s2;
         };
-        return dfs(0, n);
+        return dfs(1, 0, "");
     }
 };
 

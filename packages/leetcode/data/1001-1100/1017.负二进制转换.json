@@ -1,0 +1,36 @@
+{
+    "id": "1070",
+    "name": "1017.负二进制转换",
+    "url": "https://leetcode.cn/problems/convert-to-base-2",
+    "difficulty": "中等",
+    "tag": [
+        "数学"
+    ],
+    "desc": "给你一个整数 n ，以二进制字符串的形式返回该整数的 负二进制（base -2）表示。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 5.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    string baseNeg2(int n) {\n        return n == 0 ? \"0\" :\n               n == 1 ? \"1\" :\n               n % 2 != 0 ? baseNeg2((n - 1) / -2) + \"1\" :\n               baseNeg2(n / -2) + \"0\";\n    }\n};",
+            "date": 1680710400000
+        },
+        {
+            "script": "python3",
+            "time": 40,
+            "memory": 14.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def baseNeg2(self, n: int) -> str:\n        if n == 0:\n            return \"0\"\n        elif n == 1:\n            return \"1\"\n        elif n % 2 != 0:\n            return self.baseNeg2((n - 1) / -2) + \"1\"\n        else:\n            return self.baseNeg2(n / -2) + \"0\"",
+            "date": 1680710400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn base_neg2(n: i32) -> String {\n        if n == 0 {\n            \"0\".to_string()\n        } else if n == 1 {\n            \"1\".to_string()\n        } else if n % 2 != 0 {\n            Solution::base_neg2((n - 1) / -2) + \"1\"\n        } else {\n            Solution::base_neg2(n / -2) + \"0\"\n        }\n    }\n}",
+            "date": 1680710400000
+        }
+    ]
+}

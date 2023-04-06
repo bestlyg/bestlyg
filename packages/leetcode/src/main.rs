@@ -62,12 +62,17 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 
+
 impl Solution {
-    pub fn common_factors(a: i32, b: i32) -> i32 {
-        (1..=a.min(b))
-            .into_iter()
-            .filter(|v| a % v == 0 && b % v == 0)
-            .collect::<Vec<i32>>()
-            .len() as i32
+    pub fn base_neg2(n: i32) -> String {
+        if n == 0 {
+            "0".to_string()
+        } else if n == 1 {
+            "1".to_string()
+        } else if n % 2 != 0 {
+            Solution::base_neg2((n - 1) / -2) + "1"
+        } else {
+            Solution::base_neg2(n / -2) + "0"
+        }
     }
 }
