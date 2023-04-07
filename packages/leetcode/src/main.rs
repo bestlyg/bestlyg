@@ -3,6 +3,7 @@ mod preclude;
 use std::borrow::Borrow;
 use std::borrow::BorrowMut;
 use std::char::MAX;
+use std::cmp;
 use std::hash::Hash;
 use std::ops::BitAnd;
 
@@ -62,17 +63,49 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 
-
 impl Solution {
-    pub fn base_neg2(n: i32) -> String {
-        if n == 0 {
-            "0".to_string()
-        } else if n == 1 {
-            "1".to_string()
-        } else if n % 2 != 0 {
-            Solution::base_neg2((n - 1) / -2) + "1"
+    pub fn num_moves_stones_ii(mut stones: Vec<i32>) -> Vec<i32> {
+        use std::cmp::{max, min};
+        let n = stones.len();
+        stones.sort();
+        if stones[n - 1] - stones[0] + 1 == n as i32 {
+            vec![0, 0]
         } else {
-            Solution::base_neg2(n / -2) + "0"
+            let (mut nmin, nmax) = (
+                i32::MAX,
+                max(
+                    stones[n - 1] - stones[1] - 1 - (n as i32 - 3),
+                    stones[n - 2] - stones[0] - 1 - (n as i32 - 3),
+                ),
+            );
+            let (mut l, mut r, mut ec) = (0, 0, 0);
+            while r < n {
+                while r + 1 < n && n - (r - l + 1) > ec {
+                    ec += (stones[r + 1] - stones[r] - 1) as usize;
+                    r += 1;
+                }
+                if r + 1 == n && n - (r - l + 1) > ec {
+                    break;
+                }
+                let cnt = n - (r - l + 1);
+                let lc = ec - cnt;
+                if cnt == 0 && lc > 0 {
+                    nmin = min(nmin, lc as i32);
+                }
+                // eg: [1,2,4,8]如果lc没了说明刚好放完
+                else if lc == 0 {
+                    nmin = min(nmin, cnt as i32);
+                }
+                // eg: [1,2,4]如果lc还剩1个，剩下的1个不能直接放入空位，需要借助另一端的一个制造只剩生
+                else if lc == 1 {
+                    nmin = min(nmin, cnt as i32 + 2);
+                } else {
+                    nmin = min(nmin, cnt as i32 + 1);
+                }
+                ec -= (stones[l + 1] - stones[l] - 1) as usize;
+                l += 1;
+            }
+            vec![nmin, nmax]
         }
     }
 }

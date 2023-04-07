@@ -48,15 +48,33 @@ class TrieNode:
 
 
 class Solution:
-    def baseNeg2(self, n: int) -> str:
-        if n == 0:
-            return "0"
-        elif n == 1:
-            return "1"
-        elif n % 2 != 0:
-            return self.baseNeg2((n - 1) / -2) + "1"
-        else:
-            return self.baseNeg2(n / -2) + "0"
+    def numMovesStonesII(self, stones: List[int]) -> List[int]:
+        n = len(stones)
+        stones.sort()
+        if stones[n - 1] - stones[0] + 1 == n:
+            return [0, 0]
+        nmin, nmax = 0x7fffffff, max(
+            stones[n - 1] - stones[1] - 1 - (n - 3), stones[n - 2] - stones[0] - 1 - (n - 3))
+        l = r = ec = 0
+        while r < n:
+            while r + 1 < n and n - (r - l + 1) > ec:
+                ec += stones[r + 1] - stones[r] - 1
+                r += 1
+            if r + 1 == n and n - (r - l + 1) > ec:
+                break
+            cnt = n - (r - l + 1)
+            lc = ec - cnt
+            if cnt == 0 and lc:
+                nmin = min(nmin, lc)
+            elif lc == 0:
+                nmin = min(nmin, cnt)
+            elif lc == 1:
+                nmin = min(nmin, cnt + 2)
+            else:
+                nmin = min(nmin, cnt + 1)
+            ec -= stones[l + 1] - stones[l] - 1
+            l += 1
+        return [nmin, nmax]
 
 
 def main():
