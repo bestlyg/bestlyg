@@ -64,48 +64,34 @@ fn get_primes(max: usize) -> Vec<usize> {
 }
 
 impl Solution {
-    pub fn num_moves_stones_ii(mut stones: Vec<i32>) -> Vec<i32> {
-        use std::cmp::{max, min};
-        let n = stones.len();
-        stones.sort();
-        if stones[n - 1] - stones[0] + 1 == n as i32 {
-            vec![0, 0]
-        } else {
-            let (mut nmin, nmax) = (
-                i32::MAX,
-                max(
-                    stones[n - 1] - stones[1] - 1 - (n as i32 - 3),
-                    stones[n - 2] - stones[0] - 1 - (n as i32 - 3),
-                ),
-            );
-            let (mut l, mut r, mut ec) = (0, 0, 0);
-            while r < n {
-                while r + 1 < n && n - (r - l + 1) > ec {
-                    ec += (stones[r + 1] - stones[r] - 1) as usize;
-                    r += 1;
-                }
-                if r + 1 == n && n - (r - l + 1) > ec {
-                    break;
-                }
-                let cnt = n - (r - l + 1);
-                let lc = ec - cnt;
-                if cnt == 0 && lc > 0 {
-                    nmin = min(nmin, lc as i32);
-                }
-                // eg: [1,2,4,8]如果lc没了说明刚好放完
-                else if lc == 0 {
-                    nmin = min(nmin, cnt as i32);
-                }
-                // eg: [1,2,4]如果lc还剩1个，剩下的1个不能直接放入空位，需要借助另一端的一个制造只剩生
-                else if lc == 1 {
-                    nmin = min(nmin, cnt as i32 + 2);
-                } else {
-                    nmin = min(nmin, cnt as i32 + 1);
-                }
-                ec -= (stones[l + 1] - stones[l] - 1) as usize;
-                l += 1;
-            }
-            vec![nmin, nmax]
+    pub fn smallest_sufficient_team(req_skills: Vec<String>, people: Vec<Vec<String>>) -> Vec<i32> {
+        use std::collections::HashMap;
+        let (n, m) = (req_skills.len(), people.len());
+        let nmask = (1 << n) - 1;
+        let mut keym = HashMap::<String, usize>::new();
+        let mut i = 0;
+        for key in req_skills {
+            keym.insert(key, i);
+            i += 1;
         }
+        let mut dp: Vec<Vec<i32>> = vec![vec![]; 1 << n];
+        for i in 0..m {
+            let mut mask = 0;
+            for key in people[i].iter() {
+                mask |= 1 << keym.get(key).unwrap();
+            }
+            for pmask in 0..=nmask {
+                let merged = mask | pmask;
+                if merged == pmask
+                    || pmask > 0 && dp[pmask].is_empty()
+                    || !dp[merged].is_empty() && dp[merged].len() <= dp[pmask].len() + 1
+                {
+                    continue;
+                }
+                dp[merged] = dp[pmask].clone();
+                dp[merged].push(i as i32);
+            }
+        }
+        dp[nmask].clone()
     }
 }

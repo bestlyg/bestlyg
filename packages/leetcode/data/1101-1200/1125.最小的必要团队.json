@@ -1,0 +1,37 @@
+{
+    "name": "1125.最小的必要团队",
+    "url": "https://leetcode.cn/problems/smallest-sufficient-team/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你返回 任一 规模最小的必要团队，团队成员用人员编号表示。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 52,
+            "memory": 19.1,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {\n        int n = req_skills.size(), m = people.size(), nmask = (1 << n) - 1;\n        unordered_map<string, int> keym;\n        for (int i = 0; i < n; i++) keym[req_skills[i]] = i;\n        vector<vector<int>> dp(1 << n);\n        for (int i = 0; i < m; i++) {\n            int mask = 0;\n            for (auto &key : people[i]) mask |= 1 << keym[key];\n            for (int pmask = 0; pmask <= nmask; pmask++) {\n                int merged = mask | pmask;\n                if (merged == pmask || \n                    pmask && dp[pmask].empty() || \n                    dp[merged].size() && dp[merged].size() <= dp[pmask].size() + 1) continue;\n                dp[merged] = dp[pmask];\n                dp[merged].push_back(i);\n            }\n        }\n        return dp[nmask];\n    }\n};",
+            "date": 1680883200000
+        },
+        {
+            "script": "python3",
+            "time": 652,
+            "memory": 21.4,
+            "desc": "同上。",
+            "code": " class Solution:\n    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:\n        n, m = len(req_skills), len(people)\n        nmask = (1 << n) - 1\n        keym = {}\n        for i in range(n):\n            keym[req_skills[i]] = i\n        dp = [list() for _ in range(1 << n)]\n        for i in range(m):\n            mask = 0\n            for key in people[i]:\n                mask |= 1 << keym[key]\n            for pmask in range(nmask + 1):\n                merged = mask | pmask\n                if merged == pmask or pmask and len(dp[pmask]) == 0 or len(dp[merged]) and len(dp[merged]) <= len(dp[pmask]) + 1:\n                    continue\n                dp[merged] = dp[pmask] + [i]\n        return dp[nmask]",
+            "date": 1680883200000
+        },
+        {
+            "script": "rust",
+            "time": 12,
+            "memory": 5.7,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn smallest_sufficient_team(req_skills: Vec<String>, people: Vec<Vec<String>>) -> Vec<i32> {\n        use std::collections::HashMap;\n        let (n, m) = (req_skills.len(), people.len());\n        let nmask = (1 << n) - 1;\n        let mut keym = HashMap::<String, usize>::new();\n        let mut i = 0;\n        for key in req_skills {\n            keym.insert(key, i);\n            i += 1;\n        }\n        let mut dp: Vec<Vec<i32>> = vec![vec![]; 1 << n];\n        for i in 0..m {\n            let mut mask = 0;\n            for key in people[i].iter() {\n                mask |= 1 << keym.get(key).unwrap();\n            }\n            for pmask in 0..=nmask {\n                let merged = mask | pmask;\n                if merged == pmask\n                    || pmask > 0 && dp[pmask].is_empty()\n                    || !dp[merged].is_empty() && dp[merged].len() <= dp[pmask].len() + 1\n                {\n                    continue;\n                }\n                dp[merged] = dp[pmask].clone();\n                dp[merged].push(i as i32);\n            }\n        }\n        dp[nmask].clone()\n    }\n}",
+            "date": 1680883200000
+        }
+    ]
+}

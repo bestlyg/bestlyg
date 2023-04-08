@@ -48,33 +48,24 @@ class TrieNode:
 
 
 class Solution:
-    def numMovesStonesII(self, stones: List[int]) -> List[int]:
-        n = len(stones)
-        stones.sort()
-        if stones[n - 1] - stones[0] + 1 == n:
-            return [0, 0]
-        nmin, nmax = 0x7fffffff, max(
-            stones[n - 1] - stones[1] - 1 - (n - 3), stones[n - 2] - stones[0] - 1 - (n - 3))
-        l = r = ec = 0
-        while r < n:
-            while r + 1 < n and n - (r - l + 1) > ec:
-                ec += stones[r + 1] - stones[r] - 1
-                r += 1
-            if r + 1 == n and n - (r - l + 1) > ec:
-                break
-            cnt = n - (r - l + 1)
-            lc = ec - cnt
-            if cnt == 0 and lc:
-                nmin = min(nmin, lc)
-            elif lc == 0:
-                nmin = min(nmin, cnt)
-            elif lc == 1:
-                nmin = min(nmin, cnt + 2)
-            else:
-                nmin = min(nmin, cnt + 1)
-            ec -= stones[l + 1] - stones[l] - 1
-            l += 1
-        return [nmin, nmax]
+    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
+        n, m = len(req_skills), len(people)
+        nmask = (1 << n) - 1
+        keym = {}
+        for i in range(n):
+            keym[req_skills[i]] = i
+        dp = [list() for _ in 1 << n]
+        for i in range(m):
+            mask = 0
+            for key in people[i]:
+                mask |= 1 << keym[key]
+            for pmask in range(nmask + 1):
+                merged = mask | pmask
+                if merged == pmask or pmask and len(dp[pmask]) == 0 or len(dp[merged]) and len(dp[merged]) <= len(dp[pmask]) + 1:
+                    continue
+                dp[merged] = dp[pmask]
+                dp[merged].append(i)
+        return dp[nmask]
 
 
 def main():
