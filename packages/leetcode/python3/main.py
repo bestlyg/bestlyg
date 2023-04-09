@@ -48,24 +48,15 @@ class TrieNode:
 
 
 class Solution:
-    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
-        n, m = len(req_skills), len(people)
-        nmask = (1 << n) - 1
-        keym = {}
-        for i in range(n):
-            keym[req_skills[i]] = i
-        dp = [list() for _ in 1 << n]
-        for i in range(m):
-            mask = 0
-            for key in people[i]:
-                mask |= 1 << keym[key]
-            for pmask in range(nmask + 1):
-                merged = mask | pmask
-                if merged == pmask or pmask and len(dp[pmask]) == 0 or len(dp[merged]) and len(dp[merged]) <= len(dp[pmask]) + 1:
-                    continue
-                dp[merged] = dp[pmask]
-                dp[merged].append(i)
-        return dp[nmask]
+    def checkDistances(self, s: str, distance: List[int]) -> bool:
+        l = [-1] * 26
+        for i in range(len(s)):
+            idx = ord(s[i]) - ord('a')
+            if list[idx] == -1:
+                list[idx] = i
+            elif i - list[idx] - 1 != distance[idx]:
+                return False
+        return True
 
 
 def main():

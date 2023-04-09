@@ -2,99 +2,83 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1125. 最小的必要团队',
-  url: 'https://leetcode.cn/problems/smallest-sufficient-team/',
+  name: '2399. 检查相同字母间的距离',
+  url: 'https://leetcode.cn/problems/check-distances-between-same-letters/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回 任一 规模最小的必要团队，团队成员用人员编号表示。`,
+  desc: `如果 s 是一个 匀整 字符串，返回 true ；否则，返回 false 。`,
   solutions: [
     {
+      script: Script.JS,
+      time: 68,
+      memory: 43.4,
+      desc: '遍历',
+      code: `var checkDistances = function (s, distance) {
+        const cache = {};
+        for (let i = 0; i < s.length; i++) {
+          const prev = cache[s[i]];
+          if (prev !== undefined) {
+            const d = distance[s.codePointAt(i) - 'a'.codePointAt(0)];
+            if (d !== i - prev - 1) return false;
+          } else {
+            cache[s[i]] = i;
+          }
+        }
+        return true;
+      };`,
+      date: new Date('2022/09/04').getTime(),
+    },
+    {
       script: Script.CPP,
-      time: 52,
-      memory: 19.1,
+      time: 0,
+      memory: 12.8,
       desc: '遍历',
       code: `class Solution {
 public:
-    vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {
-        int n = req_skills.size(), m = people.size(), nmask = (1 << n) - 1;
-        unordered_map<string, int> keym;
-        for (int i = 0; i < n; i++) keym[req_skills[i]] = i;
-        vector<vector<int>> dp(1 << n);
-        for (int i = 0; i < m; i++) {
-            int mask = 0;
-            for (auto &key : people[i]) mask |= 1 << keym[key];
-            for (int pmask = 0; pmask <= nmask; pmask++) {
-                int merged = mask | pmask;
-                if (merged == pmask || 
-                    pmask && dp[pmask].empty() || 
-                    dp[merged].size() && dp[merged].size() <= dp[pmask].size() + 1) continue;
-                dp[merged] = dp[pmask];
-                dp[merged].push_back(i);
-            }
+    bool checkDistances(string s, vector<int>& distance) {
+        vector<int> list(26, -1);
+        for (int i = 0; i < s.size(); i++) {
+            if (list[s[i] - 'a'] == -1) list[s[i] - 'a'] = i;
+            else if (i - list[s[i] - 'a'] - 1 != distance[s[i] - 'a']) return false;
         }
-        return dp[nmask];
+        return true;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 652,
-      memory: 21.4,
+      time: 68,
+      memory: 14.8,
       desc: '同上',
-      code: ` class Solution:
-    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
-        n, m = len(req_skills), len(people)
-        nmask = (1 << n) - 1
-        keym = {}
-        for i in range(n):
-            keym[req_skills[i]] = i
-        dp = [list() for _ in range(1 << n)]
-        for i in range(m):
-            mask = 0
-            for key in people[i]:
-                mask |= 1 << keym[key]
-            for pmask in range(nmask + 1):
-                merged = mask | pmask
-                if merged == pmask or pmask and len(dp[pmask]) == 0 or len(dp[merged]) and len(dp[merged]) <= len(dp[pmask]) + 1:
-                    continue
-                dp[merged] = dp[pmask] + [i]
-        return dp[nmask]`,
+      code: `class Solution:
+    def checkDistances(self, s: str, distance: List[int]) -> bool:
+        l = [-1] * 26
+        for i in range(len(s)):
+            idx = ord(s[i]) - ord('a')
+            if list[idx] == -1:
+                list[idx] = i
+            elif i - list[idx] - 1 != distance[idx]:
+                return False
+        return True`,
     },
     {
       script: Script.RUST,
-      time: 12,
-      memory: 5.7,
+      time: 0,
+      memory: 2,
       desc: '同上',
       code: `impl Solution {
-    pub fn smallest_sufficient_team(req_skills: Vec<String>, people: Vec<Vec<String>>) -> Vec<i32> {
-        use std::collections::HashMap;
-        let (n, m) = (req_skills.len(), people.len());
-        let nmask = (1 << n) - 1;
-        let mut keym = HashMap::<String, usize>::new();
-        let mut i = 0;
-        for key in req_skills {
-            keym.insert(key, i);
-            i += 1;
-        }
-        let mut dp: Vec<Vec<i32>> = vec![vec![]; 1 << n];
-        for i in 0..m {
-            let mut mask = 0;
-            for key in people[i].iter() {
-                mask |= 1 << keym.get(key).unwrap();
-            }
-            for pmask in 0..=nmask {
-                let merged = mask | pmask;
-                if merged == pmask
-                    || pmask > 0 && dp[pmask].is_empty()
-                    || !dp[merged].is_empty() && dp[merged].len() <= dp[pmask].len() + 1
-                {
-                    continue;
-                }
-                dp[merged] = dp[pmask].clone();
-                dp[merged].push(i as i32);
+    pub fn check_distances(s: String, distance: Vec<i32>) -> bool {
+        let s: Vec<usize> = s.chars().map(|v| v as usize).collect();
+        let mut list = vec![-1i32; 26];
+        for i in 0..s.len() {
+            let idx = s[i] - 'a' as usize;
+            if list[idx] == -1 {
+                list[idx] = i as i32;
+            } else if i as i32 - list[idx] - 1 != distance[idx] {
+                return false;
             }
         }
-        dp[nmask].clone()
+        true
     }
 }`,
     },

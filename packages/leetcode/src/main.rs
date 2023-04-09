@@ -64,34 +64,17 @@ fn get_primes(max: usize) -> Vec<usize> {
 }
 
 impl Solution {
-    pub fn smallest_sufficient_team(req_skills: Vec<String>, people: Vec<Vec<String>>) -> Vec<i32> {
-        use std::collections::HashMap;
-        let (n, m) = (req_skills.len(), people.len());
-        let nmask = (1 << n) - 1;
-        let mut keym = HashMap::<String, usize>::new();
-        let mut i = 0;
-        for key in req_skills {
-            keym.insert(key, i);
-            i += 1;
-        }
-        let mut dp: Vec<Vec<i32>> = vec![vec![]; 1 << n];
-        for i in 0..m {
-            let mut mask = 0;
-            for key in people[i].iter() {
-                mask |= 1 << keym.get(key).unwrap();
-            }
-            for pmask in 0..=nmask {
-                let merged = mask | pmask;
-                if merged == pmask
-                    || pmask > 0 && dp[pmask].is_empty()
-                    || !dp[merged].is_empty() && dp[merged].len() <= dp[pmask].len() + 1
-                {
-                    continue;
-                }
-                dp[merged] = dp[pmask].clone();
-                dp[merged].push(i as i32);
+    pub fn check_distances(s: String, distance: Vec<i32>) -> bool {
+        let s: Vec<usize> = s.chars().map(|v| v as usize).collect();
+        let mut list = vec![-1i32; 26];
+        for i in 0..s.len() {
+            let idx = s[i] - 'a' as usize;
+            if list[idx] == -1 {
+                list[idx] = i as i32;
+            } else if i as i32 - list[idx] - 1 != distance[idx] {
+                return false;
             }
         }
-        dp[nmask].clone()
+        true
     }
 }
