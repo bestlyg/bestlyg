@@ -1,0 +1,37 @@
+{
+    "name": "6359.最小化数对的最大差值",
+    "url": "https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 p 。请你从 nums 中找到 p 个下标对，每个下标对对应数值取差值，你需要使得这 p 个差值的 最大值 最小。同时，你需要确保每个下标在这 p 个下标对中最多出现一次。对于一个下标对 i 和 j ，这一对的差值为 |nums[i] - nums[j]| ，其中 |x| 表示 x 的 绝对值 。请你返回 p 个下标对对应数值 最大差值 的 最小值 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 160,
+            "memory": 79.3,
+            "desc": "最大最小，二分查找。",
+            "code": "class Solution {\npublic:\n    int minimizeMax(vector<int>& nums, int p) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        auto check = [&](int target) -> bool {\n            int cnt = 0;\n            for(int i = 0; i < n && cnt < p; i++){\n                if (i + 1 < n && nums[i + 1] - nums[i] <= target) i++, cnt++;\n            }\n            return cnt >= p;\n        };\n        int l = 0, r = 1e9 + 7;\n        while(l < r){\n            int mid = (l + r) / 2;\n            if(check(mid)) r = mid;\n            else l = mid + 1;\n        }\n        return l;\n    }\n};",
+            "date": 1680969600000
+        },
+        {
+            "script": "python3",
+            "time": 1140,
+            "memory": 29.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minimizeMax(self, nums: List[int], p: int) -> int:\n        nums.sort()\n        n = len(nums)\n  \n        def check(target: int) -> bool:\n            cnt = 0\n            i = 0\n            while i < n and cnt < p:\n                if i + 1 < n and nums[i + 1] - nums[i] <= target:\n                    i += 1\n                    cnt += 1\n                i += 1\n            return cnt >= p\n        l, r = 0, 1000000000+7\n        while l < r:\n            m = (l + r) // 2\n            if check(m):\n                r = m\n            else:\n                l = m+1\n        return l",
+            "date": 1680969600000
+        },
+        {
+            "script": "rust",
+            "time": 24,
+            "memory": 3.3,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn minimize_max(mut nums: Vec<i32>, p: i32) -> i32 {\n        nums.sort();\n        let n = nums.len();\n        let (mut l, mut r) = (0, *nums.iter().max().unwrap());\n        let check = |target: i32| -> bool {\n            let mut cnt = 0;\n            let mut i = 0;\n            while i < n && cnt < p {\n                if i + 1 < n && nums[i + 1] - nums[i] <= target {\n                    i += 1;\n                    cnt += 1;\n                }\n                i += 1;\n            }\n            cnt >= p\n        };\n        while l < r {\n            let m = (l + r) / 2;\n            if check(m) {\n                r = m;\n            } else {\n                l = m + 1;\n            }\n        }\n        l\n    }\n}",
+            "date": 1680969600000
+        }
+    ]
+}

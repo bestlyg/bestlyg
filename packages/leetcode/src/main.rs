@@ -64,17 +64,30 @@ fn get_primes(max: usize) -> Vec<usize> {
 }
 
 impl Solution {
-    pub fn check_distances(s: String, distance: Vec<i32>) -> bool {
-        let s: Vec<usize> = s.chars().map(|v| v as usize).collect();
-        let mut list = vec![-1i32; 26];
-        for i in 0..s.len() {
-            let idx = s[i] - 'a' as usize;
-            if list[idx] == -1 {
-                list[idx] = i as i32;
-            } else if i as i32 - list[idx] - 1 != distance[idx] {
-                return false;
+    pub fn minimize_max(mut nums: Vec<i32>, p: i32) -> i32 {
+        nums.sort();
+        let n = nums.len();
+        let (mut l, mut r) = (0, *nums.iter().max().unwrap());
+        let check = |target: i32| -> bool {
+            let mut cnt = 0;
+            let mut i = 0;
+            while i < n && cnt < p {
+                if i + 1 < n && nums[i + 1] - nums[i] <= target {
+                    i += 1;
+                    cnt += 1;
+                }
+                i += 1;
+            }
+            cnt >= p
+        };
+        while l < r {
+            let m = (l + r) / 2;
+            if check(m) {
+                r = m;
+            } else {
+                l = m + 1;
             }
         }
-        true
+        l
     }
 }

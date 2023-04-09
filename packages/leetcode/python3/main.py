@@ -47,16 +47,39 @@ class TrieNode:
         self.children: List[TrieNode] = [None] * 26
 
 
+def check(num: int):
+    if num == 1:
+        return False
+    i = 2
+    while i * i <= num:
+        if num % i == 0:
+            return False
+        i += 1
+    return True
+
+
 class Solution:
-    def checkDistances(self, s: str, distance: List[int]) -> bool:
-        l = [-1] * 26
-        for i in range(len(s)):
-            idx = ord(s[i]) - ord('a')
-            if list[idx] == -1:
-                list[idx] = i
-            elif i - list[idx] - 1 != distance[idx]:
-                return False
-        return True
+    def minimizeMax(self, nums: List[int], p: int) -> int:
+        nums.sort()
+        n = len(nums)
+
+        def check(target: int) -> bool:
+            cnt = 0
+            i = 0
+            while i < n and cnt < p:
+                if i + 1 < n and nums[i + 1] - nums[i] <= target:
+                    i += 1
+                    cnt += 1
+                i += 1
+            return cnt >= p
+        l, r = 0, 1000000000+7
+        while l < r:
+            m = (l + r) // 2
+            if check(m):
+                r = m
+            else:
+                l = m+1
+        return l
 
 
 def main():
