@@ -1,12 +1,9 @@
 {
-    "name": "6353.网格图中最少访问的格子数",
-    "url": "https://leetcode.cn/problems/minimum-number-of-visited-cells-in-a-grid/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "id": "2697",
+    "name": "2617.网格图中最少访问的格子数",
+    "url": "https://leetcode.cn/problems/minimum-number-of-visited-cells-in-a-grid",
+    "difficulty": "困难",
+    "tag": [],
     "desc": "请你返回到达 右下角 格子 (m - 1, n - 1) 需要经过的最少移动格子数，如果无法到达右下角格子，请你返回 -1 。",
     "solutions": [
         {

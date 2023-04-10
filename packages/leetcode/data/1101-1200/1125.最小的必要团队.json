@@ -1,11 +1,13 @@
 {
+    "id": "1220",
     "name": "1125.最小的必要团队",
-    "url": "https://leetcode.cn/problems/smallest-sufficient-team/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/smallest-sufficient-team",
+    "difficulty": "困难",
     "tag": [
-        "广度优先搜索",
+        "位运算",
         "数组",
-        "矩阵"
+        "动态规划",
+        "状态压缩"
     ],
     "desc": "请你返回 任一 规模最小的必要团队，团队成员用人员编号表示。",
     "solutions": [
