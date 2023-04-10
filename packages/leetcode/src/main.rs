@@ -63,31 +63,39 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 
+// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option<Box<ListNode>>
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -> Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
 impl Solution {
-    pub fn minimize_max(mut nums: Vec<i32>, p: i32) -> i32 {
-        nums.sort();
-        let n = nums.len();
-        let (mut l, mut r) = (0, *nums.iter().max().unwrap());
-        let check = |target: i32| -> bool {
-            let mut cnt = 0;
-            let mut i = 0;
-            while i < n && cnt < p {
-                if i + 1 < n && nums[i + 1] - nums[i] <= target {
-                    i += 1;
-                    cnt += 1;
-                }
-                i += 1;
+    pub fn next_larger_nodes(head: Option<Box<ListNode>>) -> Vec<i32> {
+        let mut tmp = &head;
+        let mut idx = 0;
+        let mut vlist = vec![];
+        let mut res = vec![];
+        let mut s = vec![];
+        while let Some(ref node) = tmp {
+            vlist.push(node.val);
+            res.push(0);
+            while !s.is_empty() && vlist[*s.last().unwrap()] < node.val {
+                res[s.pop().unwrap()] = node.val;
             }
-            cnt >= p
-        };
-        while l < r {
-            let m = (l + r) / 2;
-            if check(m) {
-                r = m;
-            } else {
-                l = m + 1;
-            }
+            s.push(idx);
+            idx += 1;
+            tmp = &node.next;
         }
-        l
+        res
     }
 }

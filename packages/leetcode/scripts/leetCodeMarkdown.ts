@@ -2,58 +2,85 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '6353. 网格图中最少访问的格子数',
-  url: 'https://leetcode.cn/problems/minimum-number-of-visited-cells-in-a-grid/',
+  name: '1019. 链表中的下一个更大节点',
+  url: 'https://leetcode.cn/problems/next-greater-node-in-linked-list/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你返回到达 右下角 格子 (m - 1, n - 1) 需要经过的最少移动格子数，如果无法到达右下角格子，请你返回 -1 。`,
+  desc: `返回一个整数数组 answer ，其中 answer[i] 是第 i 个节点( 从1开始 )的下一个更大的节点的值。如果第 i 个节点没有下一个更大的节点，设置 answer[i] = 0 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 1312,
-      memory: 340.1,
-      desc: '平衡树',
-      code: `#define X first
-#define Y second
-class Solution {
+      time: 72,
+      memory: 43.8,
+      desc: '单调栈',
+      code: `class Solution {
 public:
-    typedef pair<int, int> pii;
-    int minimumVisitedCells(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size();
-        vector<set<int>> rows(n), cols(m);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                rows[i].insert(j);
-                cols[j].insert(i);
+    vector<int> nextLargerNodes(ListNode* head) {
+        int idx = 0;
+        ListNode *tmp = head;
+        vector<int> vlist, res;
+        stack<int> s;
+        while (tmp) {
+            vlist.push_back(tmp->val);
+            res.push_back(0);
+            while (s.size() && vlist[s.top()] < tmp->val) {
+                int top = s.top();
+                s.pop();
+                res[top] = tmp->val;
             }
+            s.push(idx);
+            idx++;
+            tmp = tmp->next;
         }
-        queue<pii> q;
-        q.push(make_pair(0, 0));
-        int size = 1, step = 1;
-        while (q.size()) {
-            auto cur = q.front();
-            q.pop();
-            if (cur.X == n - 1 && cur.Y == m - 1) return step;
-            int nmin = cur.Y + 1, nmax = grid[cur.X][cur.Y] + cur.Y;
-            auto it = rows[cur.X].lower_bound(nmin);
-            while (it != rows[cur.X].end() && *it <= nmax) {
-                q.push(make_pair(cur.X, *it));
-                it = rows[cur.X].erase(it);
-            }
-            nmin = cur.X + 1, nmax = grid[cur.X][cur.Y] + cur.X;
-            it = cols[cur.Y].lower_bound(nmin);
-            while (it != cols[cur.Y].end() && *it <= nmax) {
-                q.push(make_pair(*it, cur.Y));
-                it = cols[cur.Y].erase(it);
-            }
-            if (--size == 0) {
-                size = q.size();
-                step++;
-            }
-        }
-        return -1;
+        return res;
     }
 };`,
+    },
+    {
+      script: Script.PY3,
+      time: 220,
+      memory: 19.8,
+      desc: '同上',
+      code: `class Solution:
+    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        idx = 0
+        tmp = head
+        vlist, res, s = [], [], []
+        while tmp:
+            vlist.append(tmp.val)
+            res.append(0)
+            while len(s) and vlist[s[-1]] < tmp.val:
+                res[s.pop()] = tmp.val
+            s.append(idx)
+            idx += 1
+            tmp = tmp.next
+        return res`,
+    },
+    {
+      script: Script.PY3,
+      time: 24,
+      memory: 2.9,
+      desc: '同上',
+      code: `impl Solution {
+    pub fn next_larger_nodes(head: Option<Box<ListNode>>) -> Vec<i32> {
+        let mut tmp = &head;
+        let mut idx = 0;
+        let mut vlist = vec![];
+        let mut res = vec![];
+        let mut s = vec![];
+        while let Some(ref node) = tmp {
+            vlist.push(node.val);
+            res.push(0);
+            while !s.is_empty() && vlist[*s.last().unwrap()] < node.val {
+                res[s.pop().unwrap()] = node.val;
+            }
+            s.push(idx);
+            idx += 1;
+            tmp = &node.next;
+        }
+        res
+    }
+}`,
     },
   ],
 };

@@ -58,28 +58,25 @@ def check(num: int):
     return True
 
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def minimizeMax(self, nums: List[int], p: int) -> int:
-        nums.sort()
-        n = len(nums)
-
-        def check(target: int) -> bool:
-            cnt = 0
-            i = 0
-            while i < n and cnt < p:
-                if i + 1 < n and nums[i + 1] - nums[i] <= target:
-                    i += 1
-                    cnt += 1
-                i += 1
-            return cnt >= p
-        l, r = 0, 1000000000+7
-        while l < r:
-            m = (l + r) // 2
-            if check(m):
-                r = m
-            else:
-                l = m+1
-        return l
+    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        idx = 0
+        tmp = head
+        vlist, res, s = [], [], []
+        while tmp:
+            vlist.append(tmp.val)
+            res.append(0)
+            while len(s) and vlist[s[0]] < tmp.val:
+                res[s.pop()] = tmp.val
+            s.append(idx)
+            idx += 1
+            tmp = tmp.next
+        return res
 
 
 def main():

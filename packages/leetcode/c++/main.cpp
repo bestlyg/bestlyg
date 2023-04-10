@@ -6,6 +6,7 @@
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <set>
 #include <vector>
 // #endif
 
@@ -66,25 +67,27 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 // START
-
 class Solution {
 public:
-    typedef long long ll;
-    string baseNeg2(int n) {
-        if (n == 0) return "0";
-        function<string(int, int, string)> dfs = [&](int prev, int val, string cur) -> string {
-            cout << "===" << endl
-                 << ", prev = " << prev
-                 << ", val = " << val
-                 << ", cur = " << cur
-                 << endl;
-            if (val == n) return cur;
-            prev *= -2;
-            string s1 = dfs(prev, val, "0" + cur),
-                   s2 = dfs(prev, val + prev, "1" + cur);
-            return s1.size() < s2.size() ? s1 : s2;
+    int minimizeMax(vector<int>& nums, int p) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        auto check = [&](int target) -> bool {
+            int cnt = 0;
+            for(int i = 0, j = 0; i < n; i++){
+                while(j < n && nums[j] - nums[i] <= target) j++;
+                cnt += j - i - 1;
+                if(cnt >= p) return true;
+            }
+            return false;
         };
-        return dfs(1, 0, "");
+        int l = 0, r = 1e9 + 7;
+        while(l < r){
+            int mid = (l + r) / 2;
+            if(check(mid)) r = mid;
+            else l = mid + 1;
+        }
+        return l;
     }
 };
 
@@ -101,12 +104,3 @@ int main() {
     return 0;
 }
 #endif
-/*
-
-["mwobudvo","goczubcwnfze","yspbsez","pf","ey","hkq"]
-[[],["mwobudvo"],["hkq"],["pf"],["pf"],["mwobudvo","pf"],[],["yspbsez"],[],["hkq"],[],[],["goczubcwnfze","pf","hkq"],["goczubcwnfze"],["hkq"],["mwobudvo"],[],["mwobudvo","pf"],["pf","ey"],["mwobudvo"],["hkq"],[],["pf"],["mwobudvo","yspbsez"],["mwobudvo","goczubcwnfze"],["goczubcwnfze","pf"],["goczubcwnfze"],["goczubcwnfze"],["mwobudvo"],["mwobudvo","goczubcwnfze"],[],["goczubcwnfze"],[],["goczubcwnfze"],["mwobudvo"],[],["hkq"],["yspbsez"],["mwobudvo"],["goczubcwnfze","ey"]]
-["gvp","jgpzzicdvgxlfix","kqcrfwerywbwi","jzukdzrfgvdbrunw","k"]
-[[],[],[],[],["jgpzzicdvgxlfix"],["jgpzzicdvgxlfix","k"],["jgpzzicdvgxlfix","kqcrfwerywbwi"],["gvp"],["jzukdzrfgvdbrunw"],["gvp","kqcrfwerywbwi"]]
-["hdbxcuzyzhliwv","uvwlzkmzgis","sdi","bztg","ylopoifzkacuwp","dzsgleocfpl"]
-[["hdbxcuzyzhliwv","dzsgleocfpl"],["hdbxcuzyzhliwv","sdi","ylopoifzkacuwp","dzsgleocfpl"],["bztg","ylopoifzkacuwp"],["bztg","dzsgleocfpl"],["hdbxcuzyzhliwv","bztg"],["dzsgleocfpl"],["uvwlzkmzgis"],["dzsgleocfpl"],["hdbxcuzyzhliwv"],[],["dzsgleocfpl"],["hdbxcuzyzhliwv"],[],["hdbxcuzyzhliwv","ylopoifzkacuwp"],["sdi"],["bztg","dzsgleocfpl"],["hdbxcuzyzhliwv","uvwlzkmzgis","sdi","bztg","ylopoifzkacuwp"],["hdbxcuzyzhliwv","sdi"],["hdbxcuzyzhliwv","ylopoifzkacuwp"],["sdi","bztg","ylopoifzkacuwp","dzsgleocfpl"],["dzsgleocfpl"],["sdi","ylopoifzkacuwp"],["hdbxcuzyzhliwv","uvwlzkmzgis","sdi"],[],[],["ylopoifzkacuwp"],[],["sdi","bztg"],["bztg","dzsgleocfpl"],["sdi","bztg"]]
-**/
