@@ -2,83 +2,84 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1019. 链表中的下一个更大节点',
-  url: 'https://leetcode.cn/problems/next-greater-node-in-linked-list/',
+  name: '1041. 困于环中的机器人',
+  url: 'https://leetcode.cn/problems/robot-bounded-in-circle/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回一个整数数组 answer ，其中 answer[i] 是第 i 个节点( 从1开始 )的下一个更大的节点的值。如果第 i 个节点没有下一个更大的节点，设置 answer[i] = 0 。`,
+  desc: `机器人按顺序执行指令 instructions，并一直重复它们。只有在平面中存在环使得机器人永远无法离开时，返回 true。否则，返回 false。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 72,
-      memory: 43.8,
-      desc: '单调栈',
+      time: 4,
+      memory: 6,
+      desc: '做四次模拟回到原点的一定是循环',
       code: `class Solution {
 public:
-    vector<int> nextLargerNodes(ListNode* head) {
-        int idx = 0;
-        ListNode *tmp = head;
-        vector<int> vlist, res;
-        stack<int> s;
-        while (tmp) {
-            vlist.push_back(tmp->val);
-            res.push_back(0);
-            while (s.size() && vlist[s.top()] < tmp->val) {
-                int top = s.top();
-                s.pop();
-                res[top] = tmp->val;
+    bool isRobotBounded(string instructions) {
+        vector<vector<int>> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        int n = instructions.size(), dir = 0, x = 0, y = 0;
+        for (int cnt = 0; cnt < 4; cnt++) {
+            for (int i = 0; i < n; i++) {
+                switch (instructions[i]) {
+                    case 'L': dir = (dir + 4 - 1) % 4; break;
+                    case 'R': dir = (dir + 1) % 4; break;
+                    case 'G': x = x + dirs[dir][0], y = y + dirs[dir][1]; break;
+                }
             }
-            s.push(idx);
-            idx++;
-            tmp = tmp->next;
         }
-        return res;
+        return x == 0 && y == 0;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 220,
-      memory: 19.8,
+      time: 32,
+      memory: 14.8,
       desc: '同上',
       code: `class Solution:
-    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
-        idx = 0
-        tmp = head
-        vlist, res, s = [], [], []
-        while tmp:
-            vlist.append(tmp.val)
-            res.append(0)
-            while len(s) and vlist[s[-1]] < tmp.val:
-                res[s.pop()] = tmp.val
-            s.append(idx)
-            idx += 1
-            tmp = tmp.next
-        return res`,
+    def isRobotBounded(self, instructions: str) -> bool:
+        dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        x = y = dir = 0
+        for _ in range(4):
+            for i in instructions:
+                match i:
+                    case 'L':
+                        dir = (dir + 4 - 1) % 4
+                    case 'R':
+                        dir = (dir + 1) % 4
+                    case 'G':
+                        x = x + dirs[dir][0]
+                        y = y + dirs[dir][1]
+        return x == 0 and y == 0`,
     },
     {
-      script: Script.PY3,
-      time: 24,
-      memory: 2.9,
+      script: Script.RUST,
+      time: 0,
+      memory: 2.2,
       desc: '同上',
-      code: `impl Solution {
-    pub fn next_larger_nodes(head: Option<Box<ListNode>>) -> Vec<i32> {
-        let mut tmp = &head;
-        let mut idx = 0;
-        let mut vlist = vec![];
-        let mut res = vec![];
-        let mut s = vec![];
-        while let Some(ref node) = tmp {
-            vlist.push(node.val);
-            res.push(0);
-            while !s.is_empty() && vlist[*s.last().unwrap()] < node.val {
-                res[s.pop().unwrap()] = node.val;
+      code: `const dirs: [[i32; 2]; 4] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+impl Solution {
+    pub fn is_robot_bounded(instructions: String) -> bool {
+        let instructions = instructions.chars().collect::<Vec<char>>();
+        let (mut x, mut y, mut dir) = (0, 0, 0i32);
+        for _ in 0..4 {
+            for i in &instructions {
+                match *i {
+                    'L' => {
+                        dir = (dir + 4 - 1) % 4;
+                    }
+                    'R' => {
+                        dir = (dir + 1) % 4;
+                    }
+                    'G' => {
+                        x = x + dirs[dir as usize][0];
+                        y = y + dirs[dir as usize][1];
+                    }
+                    _ => {}
+                }
             }
-            s.push(idx);
-            idx += 1;
-            tmp = &node.next;
         }
-        res
+        x == 0 && y == 0
     }
 }`,
     },

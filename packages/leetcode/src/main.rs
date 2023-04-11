@@ -79,23 +79,29 @@ fn get_primes(max: usize) -> Vec<usize> {
 //     }
 //   }
 // }
+// const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 impl Solution {
-    pub fn next_larger_nodes(head: Option<Box<ListNode>>) -> Vec<i32> {
-        let mut tmp = &head;
-        let mut idx = 0;
-        let mut vlist = vec![];
-        let mut res = vec![];
-        let mut s = vec![];
-        while let Some(ref node) = tmp {
-            vlist.push(node.val);
-            res.push(0);
-            while !s.is_empty() && vlist[*s.last().unwrap()] < node.val {
-                res[s.pop().unwrap()] = node.val;
+    pub fn is_robot_bounded(instructions: String) -> bool {
+        let instructions = instructions.chars().collect::<Vec<char>>();
+        let (mut x, mut y, mut dir) = (0, 0, 0i32);
+        for _ in 0..4 {
+            for i in &instructions {
+                match *i {
+                    'L' => {
+                        dir = (dir + 4 - 1) % 4;
+                    }
+                    'R' => {
+                        dir = (dir + 1) % 4;
+                    }
+                    'G' => {
+                        x = x + dirs[dir as usize][0];
+                        y = y + dirs[dir as usize][1];
+                    }
+                    _ => {}
+                }
+                println!("i={i},x={x},y={y},d={dir}");
             }
-            s.push(idx);
-            idx += 1;
-            tmp = &node.next;
         }
-        res
+        x == 0 && y == 0
     }
 }

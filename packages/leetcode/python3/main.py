@@ -64,19 +64,23 @@ def check(num: int):
 #         self.val = val
 #         self.next = next
 class Solution:
-    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
-        idx = 0
-        tmp = head
-        vlist, res, s = [], [], []
-        while tmp:
-            vlist.append(tmp.val)
-            res.append(0)
-            while len(s) and vlist[s[0]] < tmp.val:
-                res[s.pop()] = tmp.val
-            s.append(idx)
-            idx += 1
-            tmp = tmp.next
-        return res
+    def isRobotBounded(self, instructions: str) -> bool:
+        dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        x = y = dir = 0
+        for _ in range(4):
+            for i in instructions:
+                match i:
+                    case 'L':
+                        dir = (dir + 4 - 1) % 4
+                        break
+                    case 'R':
+                        dir = (dir + 1) % 4
+                        break
+                    case 'G':
+                        x = x + dirs[dir][0]
+                        y = y + dirs[dir][1]
+                        break
+        return x == 0 and y == 0
 
 
 def main():
