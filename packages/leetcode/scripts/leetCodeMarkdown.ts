@@ -1,8 +1,8 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: !true,
-  name: '1041. 困于环中的机器人',
+  exist: true,
+  name: '1147. 段式回文',
   url: 'https://leetcode.cn/problems/robot-bounded-in-circle/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
@@ -12,74 +12,118 @@ const leetCodeMarkdown: Markdown = {
       script: Script.CPP,
       time: 4,
       memory: 6,
-      desc: '做四次模拟回到原点的一定是循环',
+      desc: '遍历',
       code: `class Solution {
 public:
-    bool isRobotBounded(string instructions) {
-        vector<vector<int>> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-        int n = instructions.size(), dir = 0, x = 0, y = 0;
-        for (int cnt = 0; cnt < 4; cnt++) {
-            for (int i = 0; i < n; i++) {
-                switch (instructions[i]) {
-                    case 'L': dir = (dir + 4 - 1) % 4; break;
-                    case 'R': dir = (dir + 1) % 4; break;
-                    case 'G': x = x + dirs[dir][0], y = y + dirs[dir][1]; break;
+    int longestDecomposition(string text) {
+        int n = text.size(), res = 0;
+        auto check = [&](int i1, int i2, int size) -> bool {
+            while (size--) {
+                if (text[i1++] != text[i2++]) return false;
+            }
+            return true;
+        };
+        for (int i = 0; i <= n / 2; i++) {
+            int f = false;
+            for (int cnt = 1; i + cnt <= n - i; cnt++) {
+                if (check(i, n - i - cnt, cnt)) {
+                    f = true;
+                    if (i == n - i - cnt) res += 1; // 是一个字符串
+                    else res += 2; 
+                    i += cnt - 1;
+                    break;
                 }
             }
+            if (!f) {
+                if ((n - 2 * i) / 2 != 0) res += 1; // 只剩空字符串
+                break;
+            }
         }
-        return x == 0 && y == 0;
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 32,
+      time: 44,
       memory: 14.8,
       desc: '同上',
       code: `class Solution:
-    def isRobotBounded(self, instructions: str) -> bool:
-        dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-        x = y = dir = 0
-        for _ in range(4):
-            for i in instructions:
-                match i:
-                    case 'L':
-                        dir = (dir + 4 - 1) % 4
-                    case 'R':
-                        dir = (dir + 1) % 4
-                    case 'G':
-                        x = x + dirs[dir][0]
-                        y = y + dirs[dir][1]
-        return x == 0 and y == 0`,
+    def longestDecomposition(self, text: str) -> int:
+        n = len(text)
+        res = 0
+        def check(i1: int, i2: int, size: int) -> bool:
+            while size:
+                if text[i1] != text[i2]:
+                    return False
+                i1 += 1
+                i2 += 1
+                size -= 1
+            return True
+        i = 0
+        while i <= n // 2:
+            f = False
+            cnt = 1
+            while i + cnt <= n - i:
+                if check(i, n - i - cnt, cnt):
+                    f = True
+                    if i == n - i - cnt:
+                        res += 1
+                    else:
+                        res += 2
+                    i += cnt-1
+                    break
+                cnt += 1
+            if not f:
+                if (n - 2 * i) / 2 != 0:
+                    res += 1
+                break
+            i += 1
+        return res`,
     },
     {
       script: Script.RUST,
       time: 0,
-      memory: 2.2,
+      memory: 2.1,
       desc: '同上',
-      code: `const dirs: [[i32; 2]; 4] = [[1, 0], [0, 1], [-1, 0], [0, -1]];
-impl Solution {
-    pub fn is_robot_bounded(instructions: String) -> bool {
-        let instructions = instructions.chars().collect::<Vec<char>>();
-        let (mut x, mut y, mut dir) = (0, 0, 0i32);
-        for _ in 0..4 {
-            for i in &instructions {
-                match *i {
-                    'L' => {
-                        dir = (dir + 4 - 1) % 4;
-                    }
-                    'R' => {
-                        dir = (dir + 1) % 4;
-                    }
-                    'G' => {
-                        x = x + dirs[dir as usize][0];
-                        y = y + dirs[dir as usize][1];
-                    }
-                    _ => {}
+      code: `impl Solution {
+    pub fn longest_decomposition(text: String) -> i32 {
+        let text = text.chars().collect::<Vec<char>>();
+        let n = text.len();
+        let mut res = 0;
+        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {
+            while size != 0 {
+                if text[i1] != text[i2] {
+                    return false;
                 }
+                i1 += 1;
+                i2 += 1;
+                size -= 1;
             }
+            true
+        };
+        let mut i = 0;
+        while i <= n / 2 {
+            let mut f = false;
+            let mut cnt = 1;
+            while i + cnt <= n - i {
+                if check(i, n - i - cnt, cnt) {
+                    f = true;
+                    res += if i == n - i - cnt { 1 } else { 2 };
+                    i += cnt - 1;
+                    break;
+                }
+                cnt += 1;
+            }
+            if !f {
+                if (n - 2 * i) / 2 != 0 {
+                    res += 1;
+                }
+                break;
+            }
+            i += 1;
         }
-        x == 0 && y == 0
+        res
     }
 }`,
     },

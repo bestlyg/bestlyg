@@ -64,23 +64,38 @@ def check(num: int):
 #         self.val = val
 #         self.next = next
 class Solution:
-    def isRobotBounded(self, instructions: str) -> bool:
-        dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-        x = y = dir = 0
-        for _ in range(4):
-            for i in instructions:
-                match i:
-                    case 'L':
-                        dir = (dir + 4 - 1) % 4
-                        break
-                    case 'R':
-                        dir = (dir + 1) % 4
-                        break
-                    case 'G':
-                        x = x + dirs[dir][0]
-                        y = y + dirs[dir][1]
-                        break
-        return x == 0 and y == 0
+    def longestDecomposition(self, text: str) -> int:
+        n = len(text)
+        res = 0
+
+        def check(i1: int, i2: int, size: int) -> bool:
+            while size:
+                if text[i1] != text[i2]:
+                    return False
+                i1 += 1
+                i2 += 1
+                size -= 1
+            return True
+        i = 0
+        while i <= n // 2:
+            f = False
+            cnt = 1
+            while i + cnt <= n - i:
+                if check(i, n - i - cnt, cnt):
+                    f = True
+                    if i == n - i - cnt:
+                        res += 1
+                    else:
+                        res += 2
+                    i += cnt-1
+                    break
+                cnt += 1
+            if not f:
+                if (n - 2 * i) / 2 != 0:
+                    res += 1
+                break
+            i += 1
+        return res
 
 
 def main():

@@ -80,28 +80,44 @@ fn get_primes(max: usize) -> Vec<usize> {
 //   }
 // }
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+
 impl Solution {
-    pub fn is_robot_bounded(instructions: String) -> bool {
-        let instructions = instructions.chars().collect::<Vec<char>>();
-        let (mut x, mut y, mut dir) = (0, 0, 0i32);
-        for _ in 0..4 {
-            for i in &instructions {
-                match *i {
-                    'L' => {
-                        dir = (dir + 4 - 1) % 4;
-                    }
-                    'R' => {
-                        dir = (dir + 1) % 4;
-                    }
-                    'G' => {
-                        x = x + dirs[dir as usize][0];
-                        y = y + dirs[dir as usize][1];
-                    }
-                    _ => {}
+    pub fn longest_decomposition(text: String) -> i32 {
+        let text = text.chars().collect::<Vec<char>>();
+        let n = text.len();
+        let mut res = 0;
+        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {
+            while size != 0 {
+                if text[i1] != text[i2] {
+                    return false;
                 }
-                println!("i={i},x={x},y={y},d={dir}");
+                i1 += 1;
+                i2 += 1;
+                size -= 1;
             }
+            true
+        };
+        let mut i = 0;
+        while i <= n / 2 {
+            let mut f = false;
+            let mut cnt = 1;
+            while i + cnt <= n - i {
+                if check(i, n - i - cnt, cnt) {
+                    f = true;
+                    res += if i == n - i - cnt { 1 } else { 2 };
+                    i += cnt - 1;
+                    break;
+                }
+                cnt += 1;
+            }
+            if !f {
+                if (n - 2 * i) / 2 != 0 {
+                    res += 1;
+                }
+                break;
+            }
+            i += 1;
         }
-        x == 0 && y == 0
+        res
     }
 }

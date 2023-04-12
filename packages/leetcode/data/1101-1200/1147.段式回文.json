@@ -20,6 +20,30 @@
             "script": "typescript",
             "desc": "dfs 每次读取两头最短相匹配字符数。",
             "code": "function longestDecomposition(text: string): number {\n  const n = text.length;\n  if (n <= 1) return n;\n  let lidx = 1;\n  let lstr = text[0];\n  let ridx = n - 2;\n  let rstr = text[n - 1];\n  while (ridx > lidx && lstr !== rstr) {\n    lstr += text[lidx++];\n    rstr = text[ridx--] + rstr;\n  }\n  if (ridx <= lidx && lstr !== rstr) return 1;\n  return longestDecomposition(text.substring(lidx, ridx + 1)) + 2;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 6,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int longestDecomposition(string text) {\n        int n = text.size(), res = 0;\n        auto check = [&](int i1, int i2, int size) -> bool {\n            while (size--) {\n                if (text[i1++] != text[i2++]) return false;\n            }\n            return true;\n        };\n        for (int i = 0; i <= n / 2; i++) {\n            int f = false;\n            for (int cnt = 1; i + cnt <= n - i; cnt++) {\n                if (check(i, n - i - cnt, cnt)) {\n                    f = true;\n                    if (i == n - i - cnt) res += 1; // 是一个字符串\n                    else res += 2; \n                    i += cnt - 1;\n                    break;\n                }\n            }\n            if (!f) {\n                if ((n - 2 * i) / 2 != 0) res += 1; // 只剩空字符串\n                break;\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1681228800000
+        },
+        {
+            "script": "python3",
+            "time": 44,
+            "memory": 14.8,
+            "desc": "同上。",
+            "code": "class Solution:\n    def longestDecomposition(self, text: str) -> int:\n        n = len(text)\n        res = 0\n        def check(i1: int, i2: int, size: int) -> bool:\n            while size:\n                if text[i1] != text[i2]:\n                    return False\n                i1 += 1\n                i2 += 1\n                size -= 1\n            return True\n        i = 0\n        while i <= n // 2:\n            f = False\n            cnt = 1\n            while i + cnt <= n - i:\n                if check(i, n - i - cnt, cnt):\n                    f = True\n                    if i == n - i - cnt:\n                        res += 1\n                    else:\n                        res += 2\n                    i += cnt-1\n                    break\n                cnt += 1\n            if not f:\n                if (n - 2 * i) / 2 != 0:\n                    res += 1\n                break\n            i += 1\n        return res",
+            "date": 1681228800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn longest_decomposition(text: String) -> i32 {\n        let text = text.chars().collect::<Vec<char>>();\n        let n = text.len();\n        let mut res = 0;\n        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {\n            while size != 0 {\n                if text[i1] != text[i2] {\n                    return false;\n                }\n                i1 += 1;\n                i2 += 1;\n                size -= 1;\n            }\n            true\n        };\n        let mut i = 0;\n        while i <= n / 2 {\n            let mut f = false;\n            let mut cnt = 1;\n            while i + cnt <= n - i {\n                if check(i, n - i - cnt, cnt) {\n                    f = true;\n                    res += if i == n - i - cnt { 1 } else { 2 };\n                    i += cnt - 1;\n                    break;\n                }\n                cnt += 1;\n            }\n            if !f {\n                if (n - 2 * i) / 2 != 0 {\n                    res += 1;\n                }\n                break;\n            }\n            i += 1;\n        }\n        res\n    }\n}",
+            "date": 1681228800000
         }
     ]
 }
