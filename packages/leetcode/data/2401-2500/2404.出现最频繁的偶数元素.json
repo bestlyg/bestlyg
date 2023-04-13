@@ -1,0 +1,37 @@
+{
+    "name": "2404.出现最频繁的偶数元素",
+    "url": "https://leetcode.cn/problems/most-frequent-even-element/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个整数数组 nums ，返回出现最频繁的偶数元素。如果存在多个满足条件的元素，只需要返回 最小 的一个。如果不存在这样的元素，返回 -1 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 56,
+            "memory": 37.1,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int mostFrequentEven(vector<int>& nums) {\n        unordered_map<int, int> m;\n        int res = -1, nmax = -1;\n        for (auto &num : nums) {\n            if (num % 2 == 0) {\n                m[num]++;\n                if (m[num] > nmax || m[num] == nmax && num < res) res = num, nmax = m[num];\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1681315200000
+        },
+        {
+            "script": "python3",
+            "time": 84,
+            "memory": 15.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def mostFrequentEven(self, nums: List[int]) -> int:\n        m = Counter()\n        res = nmax = -1\n        for num in nums:\n            if num % 2 == 0:\n                m[num] += 1\n                if m[num] > nmax or m[num] == nmax and num < res:\n                    res = num\n                    nmax = m[num]\n        return res",
+            "date": 1681315200000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn most_frequent_even(nums: Vec<i32>) -> i32 {\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        let mut res = -1;\n        let mut nmax = -1;\n        for num in nums {\n            if num % 2 == 0 {\n                let item = m.entry(num).or_insert(0);\n                *item += 1;\n                if *item > nmax || *item == nmax && num < res {\n                    res = num;\n                    nmax = *item;\n                }\n            }\n        }\n        res\n    }\n}",
+            "date": 1681315200000
+        }
+    ]
+}

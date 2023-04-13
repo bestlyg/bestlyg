@@ -1,42 +1,27 @@
 import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '1147. 段式回文',
-  url: 'https://leetcode.cn/problems/robot-bounded-in-circle/',
+  exist: !true,
+  name: '2404. 出现最频繁的偶数元素',
+  url: 'https://leetcode.cn/problems/most-frequent-even-element/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `机器人按顺序执行指令 instructions，并一直重复它们。只有在平面中存在环使得机器人永远无法离开时，返回 true。否则，返回 false。`,
+  desc: `给你一个整数数组 nums ，返回出现最频繁的偶数元素。如果存在多个满足条件的元素，只需要返回 最小 的一个。如果不存在这样的元素，返回 -1 。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 6,
+      time: 56,
+      memory: 37.1,
       desc: '遍历',
       code: `class Solution {
 public:
-    int longestDecomposition(string text) {
-        int n = text.size(), res = 0;
-        auto check = [&](int i1, int i2, int size) -> bool {
-            while (size--) {
-                if (text[i1++] != text[i2++]) return false;
-            }
-            return true;
-        };
-        for (int i = 0; i <= n / 2; i++) {
-            int f = false;
-            for (int cnt = 1; i + cnt <= n - i; cnt++) {
-                if (check(i, n - i - cnt, cnt)) {
-                    f = true;
-                    if (i == n - i - cnt) res += 1; // 是一个字符串
-                    else res += 2; 
-                    i += cnt - 1;
-                    break;
-                }
-            }
-            if (!f) {
-                if ((n - 2 * i) / 2 != 0) res += 1; // 只剩空字符串
-                break;
+    int mostFrequentEven(vector<int>& nums) {
+        unordered_map<int, int> m;
+        int res = -1, nmax = -1;
+        for (auto &num : nums) {
+            if (num % 2 == 0) {
+                m[num]++;
+                if (m[num] > nmax || m[num] == nmax && num < res) res = num, nmax = m[num];
             }
         }
         return res;
@@ -45,83 +30,40 @@ public:
     },
     {
       script: Script.PY3,
-      time: 44,
-      memory: 14.8,
+      time: 84,
+      memory: 15.2,
       desc: '同上',
       code: `class Solution:
-    def longestDecomposition(self, text: str) -> int:
-        n = len(text)
-        res = 0
-        def check(i1: int, i2: int, size: int) -> bool:
-            while size:
-                if text[i1] != text[i2]:
-                    return False
-                i1 += 1
-                i2 += 1
-                size -= 1
-            return True
-        i = 0
-        while i <= n // 2:
-            f = False
-            cnt = 1
-            while i + cnt <= n - i:
-                if check(i, n - i - cnt, cnt):
-                    f = True
-                    if i == n - i - cnt:
-                        res += 1
-                    else:
-                        res += 2
-                    i += cnt-1
-                    break
-                cnt += 1
-            if not f:
-                if (n - 2 * i) / 2 != 0:
-                    res += 1
-                break
-            i += 1
+    def mostFrequentEven(self, nums: List[int]) -> int:
+        m = Counter()
+        res = nmax = -1
+        for num in nums:
+            if num % 2 == 0:
+                m[num] += 1
+                if m[num] > nmax or m[num] == nmax and num < res:
+                    res = num
+                    nmax = m[num]
         return res`,
     },
     {
       script: Script.RUST,
-      time: 0,
+      time: 8,
       memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn longest_decomposition(text: String) -> i32 {
-        let text = text.chars().collect::<Vec<char>>();
-        let n = text.len();
-        let mut res = 0;
-        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {
-            while size != 0 {
-                if text[i1] != text[i2] {
-                    return false;
+    pub fn most_frequent_even(nums: Vec<i32>) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        let mut res = -1;
+        let mut nmax = -1;
+        for num in nums {
+            if num % 2 == 0 {
+                let item = m.entry(num).or_insert(0);
+                *item += 1;
+                if *item > nmax || *item == nmax && num < res {
+                    res = num;
+                    nmax = *item;
                 }
-                i1 += 1;
-                i2 += 1;
-                size -= 1;
             }
-            true
-        };
-        let mut i = 0;
-        while i <= n / 2 {
-            let mut f = false;
-            let mut cnt = 1;
-            while i + cnt <= n - i {
-                if check(i, n - i - cnt, cnt) {
-                    f = true;
-                    res += if i == n - i - cnt { 1 } else { 2 };
-                    i += cnt - 1;
-                    break;
-                }
-                cnt += 1;
-            }
-            if !f {
-                if (n - 2 * i) / 2 != 0 {
-                    res += 1;
-                }
-                break;
-            }
-            i += 1;
         }
         res
     }

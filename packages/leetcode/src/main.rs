@@ -82,41 +82,19 @@ fn get_primes(max: usize) -> Vec<usize> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn longest_decomposition(text: String) -> i32 {
-        let text = text.chars().collect::<Vec<char>>();
-        let n = text.len();
-        let mut res = 0;
-        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {
-            while size != 0 {
-                if text[i1] != text[i2] {
-                    return false;
+    pub fn most_frequent_even(nums: Vec<i32>) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        let mut res = -1;
+        let mut nmax = -1;
+        for num in nums {
+            if num % 2 == 0 {
+                let item = m.entry(num).or_insert(0);
+                *item += 1;
+                if *item > nmax || *item == nmax && num < res {
+                    res = num;
+                    nmax = *item;
                 }
-                i1 += 1;
-                i2 += 1;
-                size -= 1;
             }
-            true
-        };
-        let mut i = 0;
-        while i <= n / 2 {
-            let mut f = false;
-            let mut cnt = 1;
-            while i + cnt <= n - i {
-                if check(i, n - i - cnt, cnt) {
-                    f = true;
-                    res += if i == n - i - cnt { 1 } else { 2 };
-                    i += cnt - 1;
-                    break;
-                }
-                cnt += 1;
-            }
-            if !f {
-                if (n - 2 * i) / 2 != 0 {
-                    res += 1;
-                }
-                break;
-            }
-            i += 1;
         }
         res
     }
