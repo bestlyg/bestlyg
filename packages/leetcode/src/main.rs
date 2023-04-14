@@ -6,6 +6,7 @@ use std::char::MAX;
 use std::cmp;
 use std::hash::Hash;
 use std::ops::BitAnd;
+use std::str::pattern;
 
 use preclude::*;
 fn main() {
@@ -82,20 +83,21 @@ fn get_primes(max: usize) -> Vec<usize> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn most_frequent_even(nums: Vec<i32>) -> i32 {
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        let mut res = -1;
-        let mut nmax = -1;
-        for num in nums {
-            if num % 2 == 0 {
-                let item = m.entry(num).or_insert(0);
-                *item += 1;
-                if *item > nmax || *item == nmax && num < res {
-                    res = num;
-                    nmax = *item;
+    pub fn camel_match(queries: Vec<String>, pattern: String) -> Vec<bool> {
+        let pattern = pattern.chars().collect::<Vec<_>>();
+        queries
+            .into_iter()
+            .map(|s| {
+                let mut pidx = 0;
+                for c in s.chars() {
+                    if pidx < pattern.len() && c == pattern[pidx] {
+                        pidx += 1
+                    } else if c.is_uppercase() {
+                        return false;
+                    }
                 }
-            }
-        }
-        res
+                pidx == pattern.len()
+            })
+            .collect::<Vec<_>>()
     }
 }

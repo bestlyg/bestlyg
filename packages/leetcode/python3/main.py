@@ -63,17 +63,18 @@ def check(num: int):
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
 class Solution:
-    def mostFrequentEven(self, nums: List[int]) -> int:
-        m = Counter()
-        res = nmax = -1
-        for num in nums:
-            if num % 2 == 0:
-                m[num] += 1
-                if m[num] > nmax or m[num] == nmax and num < res:
-                    res = num
-                    nmax = m[num]
-        return res
+    def camelMatch(self, queries: List[str], pattern: str) -> List[bool]:
+        def check(s: str):
+            pidx = 0
+            for c in s:
+                if pidx < len(pattern) and c == pattern[pidx]:
+                    pidx += 1
+                elif c.isupper():
+                    return False
+            return pidx == len(pattern)
+        return [check(s) for s in queries]
 
 
 def main():

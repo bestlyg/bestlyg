@@ -1,11 +1,12 @@
 {
+    "id": "1119",
     "name": "1041.困于环中的机器人",
-    "url": "https://leetcode.cn/problems/robot-bounded-in-circle/",
+    "url": "https://leetcode.cn/problems/robot-bounded-in-circle",
     "difficulty": "中等",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "数学",
+        "字符串",
+        "模拟"
     ],
     "desc": "机器人按顺序执行指令 instructions，并一直重复它们。只有在平面中存在环使得机器人永远无法离开时，返回 true。否则，返回 false。",
     "solutions": [

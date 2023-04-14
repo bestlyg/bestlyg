@@ -1,11 +1,12 @@
 {
+    "id": "2486",
     "name": "2404.出现最频繁的偶数元素",
-    "url": "https://leetcode.cn/problems/most-frequent-even-element/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/most-frequent-even-element",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
         "数组",
-        "矩阵"
+        "哈希表",
+        "计数"
     ],
     "desc": "给你一个整数数组 nums ，返回出现最频繁的偶数元素。如果存在多个满足条件的元素，只需要返回 最小 的一个。如果不存在这样的元素，返回 -1 。",
     "solutions": [
