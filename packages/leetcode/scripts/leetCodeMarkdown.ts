@@ -10,8 +10,8 @@ const leetCodeMarkdown: Markdown = {
   solutions: [
     {
       script: Script.CPP,
-      time: 100,
-      memory: 38.8,
+      time: 92,
+      memory: 39,
       desc: '直接找周围还空的位置',
       code: `class Solution {
 public:
@@ -25,8 +25,8 @@ public:
             int cache[5] = {0};
             for (int next : list[i])
                 if (res[next] != 0) cache[res[next]] = 1;
-            for (int j = 0; j < 5; j++)
-                if (cache[j] != 1) res[i] = j;
+            for (int j = 1; j < 5; j++)
+                if (cache[j] != 1) { res[i] = j; break; }
         }
         return res;
     }
@@ -34,105 +34,57 @@ public:
     },
     {
       script: Script.PY3,
-      time: 1140,
-      memory: 29.6,
+      time: 88,
+      memory: 20.1,
       desc: '同上',
       code: `class Solution:
-    def minimizeMax(self, nums: List[int], p: int) -> int:
-        nums.sort()
-        n = len(nums)
-  
-        def check(target: int) -> bool:
-            cnt = 0
-            i = 0
-            while i < n and cnt < p:
-                if i + 1 < n and nums[i + 1] - nums[i] <= target:
-                    i += 1
-                    cnt += 1
-                i += 1
-            return cnt >= p
-        l, r = 0, 1000000000+7
-        while l < r:
-            m = (l + r) // 2
-            if check(m):
-                r = m
-            else:
-                l = m+1
-        return l`,
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
+        list = [[] for _ in range(n)]
+        for [p1, p2] in paths:
+            list[p1-1].append(p2-1)
+            list[p2-1].append(p1-1)
+        res = [0] * n
+        for i in range(n):
+            cache = [False] * 5
+            for next in list[i]:
+                if res[next] != 0:
+                    cache[res[next]] = 1
+            for j in range(1, 5):
+                if cache[j] != 1:
+                    res[i] = j
+                    break
+        return res`,
     },
     {
       script: Script.RUST,
-      time: 24,
-      memory: 3.3,
+      time: 12,
+      memory: 3.6,
       desc: '同上',
       code: `impl Solution {
-    pub fn minimize_max(mut nums: Vec<i32>, p: i32) -> i32 {
-        nums.sort();
-        let n = nums.len();
-        let (mut l, mut r) = (0, *nums.iter().max().unwrap());
-        let check = |target: i32| -> bool {
-            let mut cnt = 0;
-            let mut i = 0;
-            while i < n && cnt < p {
-                if i + 1 < n && nums[i + 1] - nums[i] <= target {
-                    i += 1;
-                    cnt += 1;
+    pub fn garden_no_adj(n: i32, paths: Vec<Vec<i32>>) -> Vec<i32> {
+        let n = n as usize;
+        let mut list = vec![vec![]; n];
+        for p in paths {
+            let (p0, p1) = (p[0] as usize, p[1] as usize);
+            list[p0 - 1].push(p1 - 1);
+            list[p1 - 1].push(p0 - 1);
+        }
+        let mut res = vec![0; n];
+        for i in 0..n {
+            let mut cache = [false; 5];
+            for next in list[i].iter() {
+                if res[*next] != 0 {
+                    cache[res[*next]] = true;
                 }
-                i += 1;
             }
-            cnt >= p
-        };
-        while l < r {
-            let m = (l + r) / 2;
-            if check(m) {
-                r = m;
-            } else {
-                l = m + 1;
+            for j in 1..5 {
+                if !cache[j] {
+                    res[i] = j;
+                    break;
+                }
             }
         }
-        l
-    }
-}`,
-    },
-    {
-      script: Script.PY3,
-      time: 36,
-      memory: 14.8,
-      desc: '同上',
-      code: `class Solution:
-    def camelMatch(self, queries: List[str], pattern: str) -> List[bool]:
-        def check(s: str):
-            pidx = 0
-            for c in s:
-                if pidx < len(pattern) and c == pattern[pidx]:
-                    pidx += 1
-                elif c.isupper():
-                    return False
-            return pidx == len(pattern)
-        return [check(s) for s in queries]`,
-    },
-    {
-      script: Script.RUST,
-      time: 0,
-      memory: 2,
-      desc: '同上',
-      code: `impl Solution {
-    pub fn camel_match(queries: Vec<String>, pattern: String) -> Vec<bool> {
-        let pattern = pattern.chars().collect::<Vec<_>>();
-        queries
-            .into_iter()
-            .map(|s| {
-                let mut pidx = 0;
-                for c in s.chars() {
-                    if pidx < pattern.len() && c == pattern[pidx] {
-                        pidx += 1
-                    } else if c.is_uppercase() {
-                        return false;
-                    }
-                }
-                pidx == pattern.len()
-            })
-            .collect::<Vec<_>>()
+        res.into_iter().map(|v| v as i32).collect()
     }
 }`,
     },

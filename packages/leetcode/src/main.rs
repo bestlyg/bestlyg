@@ -83,21 +83,29 @@ fn get_primes(max: usize) -> Vec<usize> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn camel_match(queries: Vec<String>, pattern: String) -> Vec<bool> {
-        let pattern = pattern.chars().collect::<Vec<_>>();
-        queries
-            .into_iter()
-            .map(|s| {
-                let mut pidx = 0;
-                for c in s.chars() {
-                    if pidx < pattern.len() && c == pattern[pidx] {
-                        pidx += 1
-                    } else if c.is_uppercase() {
-                        return false;
-                    }
+    pub fn garden_no_adj(n: i32, paths: Vec<Vec<i32>>) -> Vec<i32> {
+        let n = n as usize;
+        let mut list = vec![vec![]; 5];
+        for p in paths {
+            let (p0, p1) = (p[0] as usize, p[1] as usize);
+            list[p0 - 1].push(p1 - 1);
+            list[p1 - 1].push(p0 - 1);
+        }
+        let mut res = vec![0; n];
+        for i in 0..n {
+            let mut cache = [false; 5];
+            for next in list[i].iter() {
+                if res[*next] != 0 {
+                    cache[res[*next]] = true;
                 }
-                pidx == pattern.len()
-            })
-            .collect::<Vec<_>>()
+            }
+            for j in 1..5 {
+                if !cache[j] {
+                    res[i] = j;
+                    break;
+                }
+            }
+        }
+        res.into_iter().map(|v| v as i32).collect()
     }
 }
