@@ -75,6 +75,8 @@ class Solution:
                     return False
             return pidx == len(pattern)
         return [check(s) for s in queries]
+class Solution:
+    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
 
 
 def main():
