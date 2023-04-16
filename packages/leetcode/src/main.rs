@@ -83,29 +83,46 @@ fn get_primes(max: usize) -> Vec<usize> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn garden_no_adj(n: i32, paths: Vec<Vec<i32>>) -> Vec<i32> {
-        let n = n as usize;
-        let mut list = vec![vec![]; 5];
-        for p in paths {
-            let (p0, p1) = (p[0] as usize, p[1] as usize);
-            list[p0 - 1].push(p1 - 1);
-            list[p1 - 1].push(p0 - 1);
-        }
-        let mut res = vec![0; n];
-        for i in 0..n {
-            let mut cache = [false; 5];
-            for next in list[i].iter() {
-                if res[*next] != 0 {
-                    cache[res[*next]] = true;
+    pub fn add_minimum(word: String) -> i32 {
+        let n = word.len();
+        let mut res = 0;
+        let mut need = 0;
+        for c in word.as_bytes() {
+            let c = c - b'a';
+            if c == need {
+                need = (need + 1) % 3;
+                continue;
+            }
+            if need == 0 {
+                if c == 1 {
+                    res += 1;
+                } else if c == 2 {
+                    res += 2;
                 }
             }
-            for j in 1..5 {
-                if !cache[j] {
-                    res[i] = j;
-                    break;
+            if need == 1 {
+                if c == 0 {
+                    res += 2;
+                } else if c == 2 {
+                    res += 1;
                 }
             }
+            if need == 2 {
+                if c == 0 {
+                    res += 1;
+                } else if c == 1 {
+                    res += 2;
+                }
+            }
+            need = (c + 1) % 3;
         }
-        res.into_iter().map(|v| v as i32).collect()
+        if need != 0 {
+            if need == 1 {
+                res += 2;
+            } else if need == 2 {
+                res += 1;
+            }
+        }
+        res
     }
 }

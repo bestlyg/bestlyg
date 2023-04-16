@@ -64,22 +64,21 @@ def check(num: int):
 #         self.val = val
 #         self.next = next
 
-class Solution:
-    def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
-        list = [[] for _ in range(n)]
-        for [p1, p2] in paths:
-            list[p1-1].append(p2-1)
-            list[p2-1].append(p1-1)
-        res = [0] * n
-        for i in range(n):
-            cache = [False] * 5
-            for next in list[i]:
-                if res[next] != 0:
-                    cache[res[next]] = 1
-            for j in range(5):
-                if cache[j] != 1:
-                    res[i] = j
-        return res
+class Node:
+    def __init__(self, idx: int, price: int, next: List[int]) -> None:
+        self.idx = idx
+        self.price = price
+        self.next = next
+
+
+class QNode:
+    def __init__(self, idx: int, sum: int, list: List[int]) -> None:
+        self.idx = idx
+        self.sum = sum
+        self.list = list
+
+
+
 
 
 def main():

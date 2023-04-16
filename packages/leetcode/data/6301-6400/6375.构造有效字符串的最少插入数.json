@@ -1,0 +1,37 @@
+{
+    "name": "6375.构造有效字符串的最少插入数",
+    "url": "https://leetcode.cn/problems/minimum-additions-to-make-valid-string/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "给你一个字符串 word ，你可以向其中任何位置插入 \"a\"、\"b\" 或 \"c\" 任意次，返回使 word 有效 需要插入的最少字母数。如果字符串可以由 \"abc\" 串联多次得到，则认为该字符串 有效 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 6,
+            "desc": "枚举状态做转移。",
+            "code": "class Solution {\n    public:\n        int addMinimum(string word) {\n            int n = word.size(), res = 0, need = 0;\n            for (int i = 0; i < n; i++) {\n                int c = word[i] - 'a';\n                if (c == need) {\n                    need = (need + 1) % 3;\n                    continue;\n                }\n                if (need == 0) {\n                    if (c == 1) {\n                        res += 1;\n                    } else if (c == 2) {\n                        res += 2;\n                    }\n                } else if (need == 1) {\n                    if (c == 0) {\n                        res += 2;\n                    } else if (c == 2) {\n                        res += 1;\n                    }\n                } else if (need == 2) {\n                    if (c == 0) {\n                        res += 1;\n                    } else if (c == 1) {\n                        res += 2;\n                    }\n                }\n                need = (c + 1) % 3;\n            }\n            if (need != 0) {\n                if (need == 1) res += 2;\n                else if (need == 2) res += 1;\n            }\n            return res;\n        }\n    };",
+            "date": 1681574400000
+        },
+        {
+            "script": "python3",
+            "time": 48,
+            "memory": 15,
+            "desc": "同上。",
+            "code": "class Solution:\n    def addMinimum(self, word: str) -> int:\n        n = len(word)\n        res = need = 0\n        for i in range(n):\n            c = ord(word[i]) - ord('a')\n            if c == need:\n                need = (need + 1) % 3\n                continue\n            if need == 0:\n                if c == 1:\n                    res += 1\n                if c == 2:\n                    res += 2\n            if need == 1:\n                if c == 0:\n                    res += 2\n                if c == 2:\n                    res += 1\n            if need == 2:\n                if c == 0:\n                    res += 1\n                if c == 1:\n                    res += 2\n            need = (c + 1) % 3\n        if need != 0:\n            if need == 1:\n                res += 2\n            elif need == 2:\n                res += 1\n        return res",
+            "date": 1681574400000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn add_minimum(word: String) -> i32 {\n        let n = word.len();\n        let mut res = 0;\n        let mut need = 0;\n        for c in word.as_bytes() {\n            let c = c - b'a';\n            if c == need {\n                need = (need + 1) % 3;\n                continue;\n            }\n            if need == 0 {\n                if c == 1 {\n                    res += 1;\n                } else if c == 2 {\n                    res += 2;\n                }\n            }\n            if need == 1 {\n                if c == 0 {\n                    res += 2;\n                } else if c == 2 {\n                    res += 1;\n                }\n            }\n            if need == 2 {\n                if c == 0 {\n                    res += 1;\n                } else if c == 1 {\n                    res += 2;\n                }\n            }\n            need = (c + 1) % 3;\n        }\n        if need != 0 {\n            if need == 1 {\n                res += 2;\n            } else if need == 2 {\n                res += 1;\n            }\n        }\n        res\n    }\n}",
+            "date": 1681574400000
+        }
+    ]
+}
