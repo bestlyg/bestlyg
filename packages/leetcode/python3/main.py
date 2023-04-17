@@ -64,21 +64,37 @@ def check(num: int):
 #         self.val = val
 #         self.next = next
 
-class Node:
-    def __init__(self, idx: int, price: int, next: List[int]) -> None:
-        self.idx = idx
-        self.price = price
-        self.next = next
+days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 
-class QNode:
-    def __init__(self, idx: int, sum: int, list: List[int]) -> None:
-        self.idx = idx
-        self.sum = sum
-        self.list = list
+def comp(time: str) -> Tuple[int, int]:
+    return (
+        (ord(time[0]) - ord('0')) * 10 + (ord(time[1]) - ord('0')),
+        (ord(time[3]) - ord('0')) * 10 + (ord(time[4]) - ord('0')),
+    )
 
 
-
+class Solution:
+    def countDaysTogether(self, arriveAlice: str, leaveAlice: str, arriveBob: str, leaveBob: str) -> int:
+        aS, aL, bS, bL = comp(arriveAlice), comp(
+            leaveAlice), comp(arriveBob), comp(leaveBob)
+        if aS[0] > bS[0] or aS[0] == bS[0] and aS[1] > bS[1]:
+            temp = aS
+            aS = bS
+            bS = temp
+            temp = aL
+            aL = bL
+            bL = temp
+        if aL[0] < bS[0] or aL[0] == bS[0] and aL[1] < bS[1]:
+            return 0
+        start = bS
+        end = bL if bL[0] < aL[0] or bL[0] == aL[0] and bL[1] < aL[1] else aL
+        if start[0] == end[0]:
+            return end[1] - start[1] + 1
+        res = days[start[0]] - start[1] + 1 + end[1]
+        for i in range(start[0] + 1, end[0]):
+            res += days[i]
+        return res
 
 
 def main():

@@ -5,8 +5,8 @@ use std::borrow::BorrowMut;
 use std::char::MAX;
 use std::cmp;
 use std::hash::Hash;
+use std::mem::swap;
 use std::ops::BitAnd;
-use std::str::pattern;
 
 use preclude::*;
 fn main() {
@@ -64,6 +64,10 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 
+fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+
 // Definition for singly-linked list.
 // #[derive(PartialEq, Eq, Clone, Debug)]
 // pub struct ListNode {
@@ -83,46 +87,47 @@ fn get_primes(max: usize) -> Vec<usize> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn add_minimum(word: String) -> i32 {
-        let n = word.len();
-        let mut res = 0;
-        let mut need = 0;
-        for c in word.as_bytes() {
-            let c = c - b'a';
-            if c == need {
-                need = (need + 1) % 3;
-                continue;
-            }
-            if need == 0 {
-                if c == 1 {
-                    res += 1;
-                } else if c == 2 {
-                    res += 2;
-                }
-            }
-            if need == 1 {
-                if c == 0 {
-                    res += 2;
-                } else if c == 2 {
-                    res += 1;
-                }
-            }
-            if need == 2 {
-                if c == 0 {
-                    res += 1;
-                } else if c == 1 {
-                    res += 2;
-                }
-            }
-            need = (c + 1) % 3;
+    pub fn count_days_together(
+        arrive_alice: String,
+        leave_alice: String,
+        arrive_bob: String,
+        leave_bob: String,
+    ) -> i32 {
+        let days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let comp = |time: Vec<char>| -> (i32, i32) {
+            (
+                (time[0] as i32 - '0' as i32) * 10 + time[1] as i32 - '0' as i32,
+                (time[3] as i32 - '0' as i32) * 10 + time[4] as i32 - '0' as i32,
+            )
+        };
+        let (mut a_s, mut a_l, mut b_s, mut b_l) = (
+            comp(str_to_vec(&arrive_alice)),
+            comp(str_to_vec(&leave_alice)),
+            comp(str_to_vec(&arrive_bob)),
+            comp(str_to_vec(&leave_bob)),
+        );
+        if a_s.0 > b_s.0 || a_s.0 == b_s.0 && a_s.1 > b_s.1 {
+            swap(&mut a_s, &mut b_s);
+            swap(&mut a_l, &mut b_l);
         }
-        if need != 0 {
-            if need == 1 {
-                res += 2;
-            } else if need == 2 {
-                res += 1;
+        if a_l.0 < b_s.0 || a_l.0 == b_s.0 && a_l.1 < b_s.1 {
+            0
+        } else {
+            let start = b_s;
+            let end = if b_l.0 < a_l.0 || b_l.0 == a_l.0 && b_l.1 < a_l.1 {
+                b_l
+            } else {
+                a_l
+            };
+            if start.0 == end.0 {
+                end.1 - start.1 + 1
+            } else {
+                let mut res = days[start.0 as usize] - start.1 + 1 + end.1;
+                for i in start.0 + 1..end.0 {
+                    res += days[i as usize];
+                }
+                res
             }
         }
-        res
     }
 }
