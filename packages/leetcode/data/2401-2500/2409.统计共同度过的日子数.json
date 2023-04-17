@@ -1,11 +1,11 @@
 {
+    "id": "2496",
     "name": "2409.统计共同度过的日子数",
-    "url": "https://leetcode.cn/problems/count-days-spent-together/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/count-days-spent-together",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "数学",
+        "字符串"
     ],
     "desc": "请你返回 Alice和 Bob 同时在罗马的天数。",
     "solutions": [
