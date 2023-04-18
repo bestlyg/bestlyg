@@ -86,48 +86,42 @@ fn str_to_vec(s: &String) -> Vec<char> {
 // }
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
+// use std::rc::Rc;
+// use std::cell::RefCell;
+
 impl Solution {
-    pub fn count_days_together(
-        arrive_alice: String,
-        leave_alice: String,
-        arrive_bob: String,
-        leave_bob: String,
-    ) -> i32 {
-        let days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let comp = |time: Vec<char>| -> (i32, i32) {
-            (
-                (time[0] as i32 - '0' as i32) * 10 + time[1] as i32 - '0' as i32,
-                (time[3] as i32 - '0' as i32) * 10 + time[4] as i32 - '0' as i32,
-            )
-        };
-        let (mut a_s, mut a_l, mut b_s, mut b_l) = (
-            comp(str_to_vec(&arrive_alice)),
-            comp(str_to_vec(&leave_alice)),
-            comp(str_to_vec(&arrive_bob)),
-            comp(str_to_vec(&leave_bob)),
-        );
-        if a_s.0 > b_s.0 || a_s.0 == b_s.0 && a_s.1 > b_s.1 {
-            swap(&mut a_s, &mut b_s);
-            swap(&mut a_l, &mut b_l);
-        }
-        if a_l.0 < b_s.0 || a_l.0 == b_s.0 && a_l.1 < b_s.1 {
-            0
-        } else {
-            let start = b_s;
-            let end = if b_l.0 < a_l.0 || b_l.0 == a_l.0 && b_l.1 < a_l.1 {
-                b_l
-            } else {
-                a_l
-            };
-            if start.0 == end.0 {
-                end.1 - start.1 + 1
-            } else {
-                let mut res = days[start.0 as usize] - start.1 + 1 + end.1;
-                for i in start.0 + 1..end.0 {
-                    res += days[i as usize];
-                }
-                res
+    pub fn max_ancestor_diff(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        use std::cmp::{max, min};
+        let root = root.unwrap();
+        fn dfs(node: &Rc<RefCell<TreeNode>>) -> Vec<i32> {
+            let node = node.as_ref().borrow();
+            let mut res = vec![node.val, node.val, 0];
+            if node.left.is_some() {
+                let v = dfs(&node.left.as_ref().unwrap());
+                res[0] = min(res[0], v[0]);
+                res[1] = max(res[1], v[1]);
+                res[2] = max(
+                    res[2],
+                    max(
+                        v[2],
+                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
+                    ),
+                );
             }
+            if node.right.is_some() {
+                let v = dfs(&node.right.as_ref().unwrap());
+                res[0] = min(res[0], v[0]);
+                res[1] = max(res[1], v[1]);
+                res[2] = max(
+                    res[2],
+                    max(
+                        v[2],
+                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
+                    ),
+                );
+            }
+            res
         }
+        dfs(&root)[2]
     }
 }

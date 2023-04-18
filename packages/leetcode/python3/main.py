@@ -58,43 +58,24 @@ def check(num: int):
     return True
 
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-
-days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-
-def comp(time: str) -> Tuple[int, int]:
-    return (
-        (ord(time[0]) - ord('0')) * 10 + (ord(time[1]) - ord('0')),
-        (ord(time[3]) - ord('0')) * 10 + (ord(time[4]) - ord('0')),
-    )
-
-
 class Solution:
-    def countDaysTogether(self, arriveAlice: str, leaveAlice: str, arriveBob: str, leaveBob: str) -> int:
-        aS, aL, bS, bL = comp(arriveAlice), comp(
-            leaveAlice), comp(arriveBob), comp(leaveBob)
-        if aS[0] > bS[0] or aS[0] == bS[0] and aS[1] > bS[1]:
-            temp = aS
-            aS = bS
-            bS = temp
-            temp = aL
-            aL = bL
-            bL = temp
-        if aL[0] < bS[0] or aL[0] == bS[0] and aL[1] < bS[1]:
-            return 0
-        start = bS
-        end = bL if bL[0] < aL[0] or bL[0] == aL[0] and bL[1] < aL[1] else aL
-        if start[0] == end[0]:
-            return end[1] - start[1] + 1
-        res = days[start[0]] - start[1] + 1 + end[1]
-        for i in range(start[0] + 1, end[0]):
-            res += days[i]
-        return res
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        def dfs(node: TreeNode) -> List[int]:
+            res = [node.val, node.val, 0]
+            if node.left != None:
+                v = dfs(node.left)
+                res[0] = min(res[0], v[0])
+                res[1] = max(res[1], v[1])
+                res[2] = max(res[2], max(
+                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
+            if node.right != None:
+                v = dfs(node.right)
+                res[0] = min(res[0], v[0])
+                res[1] = max(res[1], v[1])
+                res[2] = max(res[2], max(
+                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
+            return res
+        return dfs(root)[2]
 
 
 def main():
