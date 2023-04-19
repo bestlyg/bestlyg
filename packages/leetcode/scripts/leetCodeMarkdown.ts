@@ -2,105 +2,86 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1026. 节点与其祖先之间的最大差值',
-  url: 'https://leetcode.cn/problems/maximum-difference-between-node-and-ancestor/',
+  name: '1043. 分隔数组以得到最大和',
+  url: 'https://leetcode.cn/problems/partition-array-for-maximum-sum/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给定二叉树的根节点 root，找出存在于 不同 节点 A 和 B 之间的最大值 V，其中 V = |A.val - B.val|，且 A 是 B 的祖先。`,
+  desc: `给你一个整数数组 arr，请你将该数组分隔为长度 最多 为 k 的一些（连续）子数组。分隔完成后，每个子数组的中的所有值都会变为该子数组中的最大值。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 8,
-      memory:14.4,
-      desc: 'dfs',
+      time: 4,
+      memory:8.3,
+      desc: 'dp[i]表示前i个元素能分割成的最大值',
       code: `class Solution {
-public:
-    int maxAncestorDiff(TreeNode* root) {
-        function<vector<int>(TreeNode*)> dfs = [&](TreeNode *node) -> vector<int> {
-            vector<int> res{ node->val, node->val, 0};
-            if (node->left) {
-                auto v = dfs(node->left);
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(res[2], max(v[2], max(abs(res[0] - node->val), abs(res[1] - node->val))));
+    public:
+        int maxSumAfterPartitioning(vector<int>& arr, int k) {
+            int n = arr.size();
+            vector<int> dp(n + 1, 0);
+            int nmax = arr[0];
+            for (int i = 1; i <= k; i++) {
+                nmax = max(nmax, arr[i - 1]);
+                dp[i] = nmax * i;
             }
-            if (node->right) {
-                auto v = dfs(node->right);
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(res[2], max(v[2], max(abs(res[0] - node->val), abs(res[1] - node->val))));
+            for (int i = k + 1; i <= n; i++) {
+                nmax = arr[i - 1];
+                for (int j = i; i - j + 1 <= k; j--) {
+                    nmax = max(nmax, arr[j - 1]);
+                    dp[i] = max(dp[i], dp[j - 1] + nmax * (i - j + 1));
+                }   
             }
-            return res;
-        };
-        return dfs(root)[2];
-    }
-};`,
+            return dp[n];
+        }
+    };`,
     },
     {
       script: Script.PY3,
-      time: 40,
-      memory: 21.8,
+      time: 212,
+      memory: 15.1,
       desc: '同上',
       code: `class Solution:
-    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        def dfs(node: TreeNode) -> List[int]:
-            res = [node.val, node.val, 0]
-            if node.left != None:
-                v = dfs(node.left)
-                res[0] = min(res[0], v[0])
-                res[1] = max(res[1], v[1])
-                res[2] = max(res[2], max(
-                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
-            if node.right != None:
-                v = dfs(node.right)
-                res[0] = min(res[0], v[0])
-                res[1] = max(res[1], v[1])
-                res[2] = max(res[2], max(
-                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
-            return res
-        return dfs(root)[2]`,
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [0] * (n+1)
+        nmax = arr[0]
+        for i in range(1, k+1):
+            nmax = max(nmax, arr[i-1])
+            dp[i] = nmax * i
+        for i in range(k+1, n+1):
+            nmax = arr[i-1]
+            j = i
+            while i-j+1 <= k:
+                nmax = max(nmax, arr[j-1])
+                dp[i] = max(dp[i], dp[j-1]+nmax*(i-j+1))
+                j -= 1
+        return dp[n]`,
     },
     {
       script: Script.RUST,
-      time: 4,
-      memory: 3.2,
+      time: 0,
+      memory: 2,
       desc: '同上',
-      code: `use std::rc::Rc;
-use std::cell::RefCell;
-impl Solution {
-    pub fn max_ancestor_diff(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        use std::cmp::{max, min};
-        let root = root.unwrap();
-        fn dfs(node: &Rc<RefCell<TreeNode>>) -> Vec<i32> {
-            let node = node.as_ref().borrow();
-            let mut res = vec![node.val, node.val, 0];
-            if node.left.is_some() {
-                let v = dfs(&node.left.as_ref().unwrap());
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(
-                    res[2],
-                    max(
-                        v[2],
-                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
-                    ),
-                );
-            }
-            if node.right.is_some() {
-                let v = dfs(&node.right.as_ref().unwrap());
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(
-                    res[2],
-                    max(
-                        v[2],
-                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
-                    ),
-                );
-            }
-            res
+      code: `impl Solution {
+    pub fn max_sum_after_partitioning(arr: Vec<i32>, k: i32) -> i32 {
+        use std::cmp::max;
+        let n = arr.len();
+        let k = k as usize;
+        let mut dp = vec![0; n + 1];
+        let mut nmax = arr[0];
+        for i in 1..=k {
+            nmax = max(nmax, arr[i - 1]);
+            dp[i] = nmax * (i as i32);
         }
-        dfs(&root)[2]
+        for i in k + 1..=n {
+            nmax = arr[i - 1];
+            let mut j = i;
+            while i - j + 1 <= k {
+                nmax = max(nmax, arr[j - 1]);
+                dp[i] = max(dp[i], dp[j - 1] + nmax * (i - j + 1) as i32);
+                j -= 1
+            }
+        }
+        dp[n]
     }
 }`,
     },

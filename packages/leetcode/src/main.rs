@@ -86,42 +86,26 @@ fn str_to_vec(s: &String) -> Vec<char> {
 // }
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
-// use std::rc::Rc;
-// use std::cell::RefCell;
-
 impl Solution {
-    pub fn max_ancestor_diff(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        use std::cmp::{max, min};
-        let root = root.unwrap();
-        fn dfs(node: &Rc<RefCell<TreeNode>>) -> Vec<i32> {
-            let node = node.as_ref().borrow();
-            let mut res = vec![node.val, node.val, 0];
-            if node.left.is_some() {
-                let v = dfs(&node.left.as_ref().unwrap());
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(
-                    res[2],
-                    max(
-                        v[2],
-                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
-                    ),
-                );
-            }
-            if node.right.is_some() {
-                let v = dfs(&node.right.as_ref().unwrap());
-                res[0] = min(res[0], v[0]);
-                res[1] = max(res[1], v[1]);
-                res[2] = max(
-                    res[2],
-                    max(
-                        v[2],
-                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),
-                    ),
-                );
-            }
-            res
+    pub fn max_sum_after_partitioning(arr: Vec<i32>, k: i32) -> i32 {
+        use std::cmp::max;
+        let n = arr.len();
+        let k = k as usize;
+        let mut dp = vec![0; n];
+        let mut nmax = arr[0];
+        for i in 1..=k {
+            nmax = max(nmax, arr[i - 1]);
+            dp[i] = nmax * (i as i32);
         }
-        dfs(&root)[2]
+        for i in k + 1..=n {
+            nmax = arr[i - 1];
+            let mut j = i;
+            while i - j + 1 <= k {
+                nmax = max(nmax, arr[j - 1]);
+                dp[i] = max(dp[i], dp[j - 1] + nmax * (i - j + 1) as i32);
+                j -= 1
+            }
+        }
+        dp[n]
     }
 }

@@ -59,23 +59,21 @@ def check(num: int):
 
 
 class Solution:
-    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        def dfs(node: TreeNode) -> List[int]:
-            res = [node.val, node.val, 0]
-            if node.left != None:
-                v = dfs(node.left)
-                res[0] = min(res[0], v[0])
-                res[1] = max(res[1], v[1])
-                res[2] = max(res[2], max(
-                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
-            if node.right != None:
-                v = dfs(node.right)
-                res[0] = min(res[0], v[0])
-                res[1] = max(res[1], v[1])
-                res[2] = max(res[2], max(
-                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))
-            return res
-        return dfs(root)[2]
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [0] * (n+1)
+        nmax = arr[0]
+        for i in range(1, k+1):
+            nmax = max(nmax, arr[i-1])
+            dp[i] = nmax * i
+        for i in range(k+1, n+1):
+            nmax = arr[i-1]
+            j = i
+            while i-j+1 <= k:
+                nmax = max(nmax, arr[j-1])
+                dp[i] = max(dp[i], dp[j-1]+nmax*(i-j+1))
+                j -= 1
+        return dp[n]
 
 
 def main():
