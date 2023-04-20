@@ -67,135 +67,30 @@ void idx2Pos(int idx, int size, int &x, int &y) {
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 // START
+
 class Solution {
 public:
-    int minimizeMax(vector<int>& nums, int p) {
-        sort(nums.begin(), nums.end());
-        int n = nums.size();
-        auto check = [&](int target) -> bool {
-            int cnt = 0;
-            for(int i = 0, j = 0; i < n; i++){
-                while(j < n && nums[j] - nums[i] <= target) j++;
-                cnt += j - i - 1;
-                if(cnt >= p) return true;
+    int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
+        set<int> s;
+        for (auto &num : arr2) s.insert(num);
+        unordered_map<int, unordered_map<int, int>> m;
+        function<int(int, int)> dfs = [&](int idx, int pre) -> int {
+            if (m[idx].count(pre)) return m[idx][pre];
+            if (idx == - 1) return m[idx][pre] = 0;
+            int res = INT_MAX;
+            if (arr1[idx] < pre) res = dfs(idx - 1, arr1[idx]);
+            auto find = s.lower_bound(pre);
+            if (find != s.begin()) {
+                int next = dfs(idx - 1, *(--find));
+                if (next != INT_MAX) res = min(res, 1 + next);
             }
-            return false;
+            return m[idx][pre] = res;
         };
-        int l = 0, r = 1e9 + 7;
-        while(l < r){
-            int mid = (l + r) / 2;
-            if(check(mid)) r = mid;
-            else l = mid + 1;
-        }
-        return l;
+        int res = dfs(arr1.size() - 1, INT_MAX);
+        return res == INT_MAX ? -1 : res;
     }
 };
-/*
-unordered_map<int, unordered_map<int, int>> m;
-int dfs(string &sn, int idx, int mask, bool limit, bool empty) {
-    if (idx == sn.size()) return empty ? 0 : 1;
-    if (!limit && !empty && m[idx].count(mask)) return m[idx][mask];
-    int res = 0;
-    if (empty) res += dfs(sn, idx + 1, mask, false, true);
-    for (int j = empty ? 1 : 0, nmax = limit ? sn[idx] - '0' : 9; j <= nmax; j++)
-        if ((mask & (1 << j)) == 0) res += dfs(sn, idx + 1, mask | (1 << j), limit && j == nmax, false);
-    return m[idx][mask] = res;
-};
-*/
 
-
-#define pii pair<int, int>
-#define X first
-#define Y second
-struct Node {
-    int idx, price;
-    vector<int> next;
-};
-struct QNode {
-    int i, sum;
-    vector<int> list;
-};
-class Solution {
-public:
-    int minimumTotalPrice(int n, vector<vector<int>>& edges, vector<int>& price, vector<vector<int>>& trips) {
-        // cout << "====" << endl;
-        vector<Node> list(n);
-        for (int i = 0; i < n; i++) {
-            list[i].idx = i;
-            list[i].price = price[i];
-        }
-        for (auto &edge : edges) {
-            list[edge[0]].next.push_back(edge[1]);
-            list[edge[1]].next.push_back(edge[0]);
-        }
-        vector<vector<QNode>> roads(n, vector<QNode>(n));
-        for (int i = 0; i < n; i++) {
-            roads[i][i] = QNode{ i, list[i].price, vector<int>(1, i)};
-            queue<QNode> q;
-            q.push(QNode{ i, list[i].price, vector<int>(1, i)});
-            unordered_set<int> used;
-            used.insert(i);
-            while (q.size()) {
-                auto cur = q.front();
-                q.pop();
-                for (auto &next : list[cur.i].next) {
-                    if (used.count(next)) continue;
-                    used.insert(next);
-                    auto nextNode = cur;
-                    nextNode.i = next;
-                    nextNode.sum += list[next].price;
-                    nextNode.list.push_back(next);
-                    roads[i][next] = nextNode;
-                    q.push(nextNode);
-                }
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                cout << "i = " << i << ", j = " << j << ", sum = " << roads[i][j].sum << ", list = ";
-                for (auto &item : roads[i][j].list) cout << item << ", ";
-                cout << endl;
-            }
-        }
-        
-        int sums = 0, res = 0x7fffffff;
-        vector<int> weights(n, 0);
-        for (auto &trip : trips) {
-            sums += roads[trip[0]][trip[1]].sum;
-            for (auto &item : roads[trip[0]][trip[1]].list) {
-                weights[item]++;
-            }
-            // for (int i = 0; i < n; i++) {
-            // cout << "i = " << i << ", w = " << weights[i] << ", ";
-            // }
-            // cout << endl;
-        }
-        
-
-        unordered_set<int> used;
-        function<pii(int)> discount = [&](int start) -> pii {
-            pii res = make_pair(list[start].price / 2 * weights[start], 0);
-            for (auto &next : list[start].next) {
-                if (used.count(next)) continue;
-                used.insert(next);
-                auto nextRes = discount(next);
-                res.X += nextRes.Y;
-                res.Y += max(nextRes.X, nextRes.Y);
-                used.erase(next);
-            }
-            return res;
-        };
-        // cout << "sum = " << sums << endl;
-        for (int i = 7; i < 8; i++) {
-            used.insert(i);
-            auto disres = discount(i);
-            // cout << "i = " << i << ", X = " << disres.X << ", y = " << disres.Y << endl;
-            res = min(res, sums - max(disres.X, disres.Y));
-            used.erase(i);
-        }
-        return res;
-    }
-};
 // END
 #ifdef LOCAL
 int main() {

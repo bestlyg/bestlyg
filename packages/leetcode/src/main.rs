@@ -4,6 +4,7 @@ use std::borrow::Borrow;
 use std::borrow::BorrowMut;
 use std::char::MAX;
 use std::cmp;
+use std::cmp::Ordering;
 use std::hash::Hash;
 use std::mem::swap;
 use std::ops::BitAnd;
@@ -87,25 +88,38 @@ fn str_to_vec(s: &String) -> Vec<char> {
 // const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 impl Solution {
-    pub fn max_sum_after_partitioning(arr: Vec<i32>, k: i32) -> i32 {
-        use std::cmp::max;
-        let n = arr.len();
-        let k = k as usize;
-        let mut dp = vec![0; n];
-        let mut nmax = arr[0];
-        for i in 1..=k {
-            nmax = max(nmax, arr[i - 1]);
-            dp[i] = nmax * (i as i32);
-        }
-        for i in k + 1..=n {
-            nmax = arr[i - 1];
-            let mut j = i;
-            while i - j + 1 <= k {
-                nmax = max(nmax, arr[j - 1]);
-                dp[i] = max(dp[i], dp[j - 1] + nmax * (i - j + 1) as i32);
-                j -= 1
+    pub fn make_array_increasing(arr1: Vec<i32>, mut arr2: Vec<i32>) -> i32 {
+        use std::collections::HashMap;
+        arr2.sort();
+        let mut m = HashMap::<i32, HashMap<i32, i32>>::new();
+        fn dfs(
+            m: &mut HashMap<i32, HashMap<i32, i32>>,
+            arr1: &Vec<i32>,
+            arr2: &Vec<i32>,
+            idx: i32,
+            pre: i32,
+        ) -> i32 {
+            if idx == -1 {
+                0
+            } else {
+                let item = m.entry(idx).or_insert(HashMap::new());
+                if item.contains_key(&pre) {
+                    *item.get(&pre).unwrap()
+                } else {
+                    let mut res = i32::MAX;
+                    if arr1[idx as usize] < pre {
+                        res = dfs(m, arr1, arr2, idx - 1, arr1[idx as usize]);
+                    }
+                    let find = arr2.binary_search_by(|v| if *v >= pre {Ordering::}).unwrap();
+                    res
+                }
             }
         }
-        dp[n]
+        let res = dfs(&mut m, &arr1, &arr2, arr1.len() as i32 - 1, i32::MAX);
+        if res == i32::MAX {
+            -1
+        } else {
+            res
+        }
     }
 }

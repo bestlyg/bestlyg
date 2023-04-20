@@ -1,3 +1,4 @@
+from bisect import bisect_left
 from functools import cache
 from heapq import *
 from collections import defaultdict, deque
@@ -8,7 +9,7 @@ from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict, SortedSet
 import heapq
-import math
+from math import inf
 
 # global
 # nonlocal
@@ -59,21 +60,22 @@ def check(num: int):
 
 
 class Solution:
-    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
-        n = len(arr)
-        dp = [0] * (n+1)
-        nmax = arr[0]
-        for i in range(1, k+1):
-            nmax = max(nmax, arr[i-1])
-            dp[i] = nmax * i
-        for i in range(k+1, n+1):
-            nmax = arr[i-1]
-            j = i
-            while i-j+1 <= k:
-                nmax = max(nmax, arr[j-1])
-                dp[i] = max(dp[i], dp[j-1]+nmax*(i-j+1))
-                j -= 1
-        return dp[n]
+    def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:
+        arr2.sort()
+
+        @cache
+        def dfs(idx: int, pre: int) -> int:
+            if idx == -1:
+                return 0
+            res = inf
+            if arr1[idx] < pre:
+                res = dfs(idx-1, arr1[idx])
+            find = bisect_left(arr2, pre)
+            if find > 0:
+                res = min(res, dfs(idx-1, arr2[find - 1]) + 1)
+            return res
+        res = dfs(len(arr1) - 1, inf)
+        return res if res != inf else -1
 
 
 def main():
