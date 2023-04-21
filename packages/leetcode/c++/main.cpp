@@ -66,6 +66,11 @@ void idx2Pos(int idx, int size, int &x, int &y) {
     y = idx % size;
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int gcd(int a, int b) {
+    if (a < b) return gcd(b, a);
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
 // START
 
 class Solution {

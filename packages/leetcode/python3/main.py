@@ -48,34 +48,21 @@ class TrieNode:
         self.children: List[TrieNode] = [None] * 26
 
 
-def check(num: int):
-    if num == 1:
-        return False
-    i = 2
-    while i * i <= num:
-        if num % i == 0:
-            return False
-        i += 1
-    return True
+def gcd(a: int, b: int):
+    if a < b:
+        return gcd(b, a)
+    if b == 0:
+        return a
+    return gcd(b, a % b)
 
 
 class Solution:
-    def makeArrayIncreasing(self, arr1: List[int], arr2: List[int]) -> int:
-        arr2.sort()
-
-        @cache
-        def dfs(idx: int, pre: int) -> int:
-            if idx == -1:
-                return 0
-            res = inf
-            if arr1[idx] < pre:
-                res = dfs(idx-1, arr1[idx])
-            find = bisect_left(arr2, pre)
-            if find > 0:
-                res = min(res, dfs(idx-1, arr2[find - 1]) + 1)
-            return res
-        res = dfs(len(arr1) - 1, inf)
-        return res if res != inf else -1
+    def smallestEvenMultiple(self, n: int) -> int:
+        res = gcd(2, n)
+        num = 2*n/res
+        if num % 2 != 0:
+            num *= 2
+        return num
 
 
 def main():

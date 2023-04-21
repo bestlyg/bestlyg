@@ -69,57 +69,23 @@ fn str_to_vec(s: &String) -> Vec<char> {
     s.chars().collect()
 }
 
-// Definition for singly-linked list.
-// #[derive(PartialEq, Eq, Clone, Debug)]
-// pub struct ListNode {
-//   pub val: i32,
-//   pub next: Option<Box<ListNode>>
-// }
-//
-// impl ListNode {
-//   #[inline]
-//   fn new(val: i32) -> Self {
-//     ListNode {
-//       next: None,
-//       val
-//     }
-//   }
-// }
-// const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+fn gcd(a: i32, b: i32) -> i32 {
+    if a < b {
+        gcd(b, a)
+    } else if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
 
 impl Solution {
-    pub fn make_array_increasing(arr1: Vec<i32>, mut arr2: Vec<i32>) -> i32 {
-        use std::collections::HashMap;
-        arr2.sort();
-        let mut m = HashMap::<i32, HashMap<i32, i32>>::new();
-        fn dfs(
-            m: &mut HashMap<i32, HashMap<i32, i32>>,
-            arr1: &Vec<i32>,
-            arr2: &Vec<i32>,
-            idx: i32,
-            pre: i32,
-        ) -> i32 {
-            if idx == -1 {
-                0
-            } else {
-                let item = m.entry(idx).or_insert(HashMap::new());
-                if item.contains_key(&pre) {
-                    *item.get(&pre).unwrap()
-                } else {
-                    let mut res = i32::MAX;
-                    if arr1[idx as usize] < pre {
-                        res = dfs(m, arr1, arr2, idx - 1, arr1[idx as usize]);
-                    }
-                    let find = arr2.binary_search_by(|v| if *v >= pre {Ordering::}).unwrap();
-                    res
-                }
-            }
+    pub fn smallest_even_multiple(n: i32) -> i32 {
+        let res = gcd(2, n);
+        let mut num = 2 * n / res;
+        if num % 2 != 0 {
+            num *= 2;
         }
-        let res = dfs(&mut m, &arr1, &arr2, arr1.len() as i32 - 1, i32::MAX);
-        if res == i32::MAX {
-            -1
-        } else {
-            res
-        }
+        num
     }
 }
