@@ -2,75 +2,68 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2413. 最小偶倍数',
-  url: 'https://leetcode.cn/problems/smallest-even-multiple/',
+  name: '1027. 最长等差数列',
+  url: 'https://leetcode.cn/problems/longest-arithmetic-subsequence/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给你一个正整数 n ，返回 2 和 n 的最小公倍数（正整数）。`,
+  desc: `给你一个整数数组 nums，返回 nums 中最长等差子序列的长度。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 0,
-      memory:5.8,
-      desc: 'gcd',
-      code: `int gcd(int a, int b) {
-    if (a < b) return gcd(b, a);
-    if (b == 0) return a;
-    return gcd(b, a % b);
-}
-class Solution {
-public:
-    int smallestEvenMultiple(int n) {
-        int res = gcd(2, n), num = 2 * n / res;
-        if (num % 2 != 0) num *= 2;
-        return num;
-    }
-};`,
+      time: 268,
+      memory:138.1,
+      desc: 'dp[i][j]表示以i为结尾，公差为j的最大序列长度',
+      code: `class Solution {
+    public:
+        int longestArithSeqLength(vector<int>& nums) {
+            int n = nums.size(), res = 0;
+            vector<vector<int>> dp(n, vector<int>(1005, 0));
+            for (int i = 0; i < n; i++) {
+                for (int j = i - 1; j >= 0; j--) {
+                    int num = nums[i] - nums[j] + 500;
+                    dp[i][num] = max(dp[i][num], dp[j][num] + 1);
+                    res = max(res, dp[i][num]);
+                }
+            }
+            return res + 1;
+        }
+    };`,
     },
     {
       script: Script.PY3,
-      time: 52,
-      memory: 14.7,
+      time: 2916,
+      memory: 22.9,
       desc: '同上',
-      code: `def gcd(a: int, b: int):
-    if a < b:
-        return gcd(b, a)
-    if b == 0:
-        return a
-    return gcd(b, a % b)
-
-
-class Solution:
-    def smallestEvenMultiple(self, n: int) -> int:
-        res = gcd(2, n)
-        num = 2*n/res
-        if num % 2 != 0:
-            num *= 2
-        return int(num) `,
+      code: `class Solution:
+    def longestArithSeqLength(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = 0
+        dp = [[0] * 1005 for _ in range(n)]
+        for i in range(n):
+            for j in range(i-1, -1, -1):
+                num = nums[i] - nums[j] + 500
+                dp[i][num] = max(dp[i][num], dp[j][num] + 1)
+                res = max(dp[i][num], res)
+        return res + 1`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 2.1,
+      time: 40,
+      memory: 5.9,
       desc: '同上',
-      code: `fn gcd(a: i32, b: i32) -> i32 {
-    if a < b {
-        gcd(b, a)
-    } else if b == 0 {
-        a
-    } else {
-        gcd(b, a % b)
-    }
-}
-
-impl Solution {
-    pub fn smallest_even_multiple(n: i32) -> i32 {
-        let res = gcd(2, n);
-        let mut num = 2 * n / res;
-        if num % 2 != 0 {
-            num *= 2;
+      code: `impl Solution {
+    pub fn longest_arith_seq_length(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        let mut res = 0;
+        let mut dp = vec![vec![0; 1005]; n];
+        for i in 0..n {
+            for j in (0..i).rev() {
+                let num = (nums[i] - nums[j] + 500) as usize;
+                dp[i][num] = dp[i][num].max(dp[j][num] + 1);
+                res = res.max(dp[i][num]);
+            }
         }
-        num
+        res + 1
     }
 }`,
     },

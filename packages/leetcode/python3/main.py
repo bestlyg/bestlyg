@@ -57,12 +57,16 @@ def gcd(a: int, b: int):
 
 
 class Solution:
-    def smallestEvenMultiple(self, n: int) -> int:
-        res = gcd(2, n)
-        num = 2*n/res
-        if num % 2 != 0:
-            num *= 2
-        return num
+    def longestArithSeqLength(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = 0
+        dp = [[0] * 1005 for _ in range(n)]
+        for i in range(n):
+            for j in range(i-1, -1, -1):
+                num = nums[i] - nums[j] + 500
+                dp[i][num] = max(dp[i][num], dp[j][num] + 1)
+                res = max(dp[i][num], res)
+        return res
 
 
 def main():

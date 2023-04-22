@@ -1,0 +1,39 @@
+{
+    "id": "1087",
+    "name": "1027.最长等差数列",
+    "url": "https://leetcode.cn/problems/longest-arithmetic-subsequence",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "二分查找",
+        "动态规划"
+    ],
+    "desc": "给你一个整数数组 nums，返回 nums 中最长等差子序列的长度。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 268,
+            "memory": 138.1,
+            "desc": "dp[i][j]表示以i为结尾，公差为j的最大序列长度。",
+            "code": "class Solution {\n    public:\n        int longestArithSeqLength(vector<int>& nums) {\n            int n = nums.size(), res = 0;\n            vector<vector<int>> dp(n, vector<int>(1005, 0));\n            for (int i = 0; i < n; i++) {\n                for (int j = i - 1; j >= 0; j--) {\n                    int num = nums[i] - nums[j] + 500;\n                    dp[i][num] = max(dp[i][num], dp[j][num] + 1);\n                    res = max(res, dp[i][num]);\n                }\n            }\n            return res + 1;\n        }\n    };",
+            "date": 1682092800000
+        },
+        {
+            "script": "python3",
+            "time": 2916,
+            "memory": 22.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def longestArithSeqLength(self, nums: List[int]) -> int:\n        n = len(nums)\n        res = 0\n        dp = [[0] * 1005 for _ in range(n)]\n        for i in range(n):\n            for j in range(i-1, -1, -1):\n                num = nums[i] - nums[j] + 500\n                dp[i][num] = max(dp[i][num], dp[j][num] + 1)\n                res = max(dp[i][num], res)\n        return res + 1",
+            "date": 1682092800000
+        },
+        {
+            "script": "rust",
+            "time": 40,
+            "memory": 5.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn longest_arith_seq_length(nums: Vec<i32>) -> i32 {\n        let n = nums.len();\n        let mut res = 0;\n        let mut dp = vec![vec![0; 1005]; n];\n        for i in 0..n {\n            for j in (0..i).rev() {\n                let num = (nums[i] - nums[j] + 500) as usize;\n                dp[i][num] = dp[i][num].max(dp[j][num] + 1);\n                res = res.max(dp[i][num]);\n            }\n        }\n        res + 1\n    }\n}",
+            "date": 1682092800000
+        }
+    ]
+}

@@ -80,12 +80,17 @@ fn gcd(a: i32, b: i32) -> i32 {
 }
 
 impl Solution {
-    pub fn smallest_even_multiple(n: i32) -> i32 {
-        let res = gcd(2, n);
-        let mut num = 2 * n / res;
-        if num % 2 != 0 {
-            num *= 2;
+    pub fn longest_arith_seq_length(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        let mut res = 0;
+        let dp = vec![vec![0; 1005]; n];
+        for i in 0..n {
+            for j in (0..i).rev() {
+                let num = (nums[i] - nums[j]) as usize;
+                dp[i][num] = dp[i][num].max(dp[j][num] + 1);
+                res = res.max(dp[i][num]);
+            }
         }
-        num
+        res + 1
     }
 }
