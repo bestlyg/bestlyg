@@ -2,35 +2,22 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1105. 填充书架',
-  url: 'https://leetcode.cn/problems/filling-bookcase-shelves/',
+  name: '2618. 检查是否是类的对象实例',
+  url: 'https://leetcode.cn/problems/check-if-object-instance-of-class/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给定一个数组 books ，其中 books[i] = [thicknessi, heighti] 表示第 i 本书的厚度和高度。你也会得到一个整数 shelfWidth 。每一层所摆放的书的最大高度就是这一层书架的层高，书架整体的高度为各层高之和。以这种方式布置书架，返回书架整体可能的最小高度。`,
+  desc: `请你编写一个函数，检查给定的对象是否是给定类或超类的实例。`,
   solutions: [
     {
       script: Script.CPP,
-      time: 4,
-      memory: 7.9,
+      time: 112,
+      memory: 53,
       desc: 'dp[i]表示以i为行末的最大高度',
-      code: `class Solution {
-public:
-    int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
-        int n = books.size();
-        vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;
-        for (int i = 1; i <= n; i++) {
-            int sum = 0, h = 0;
-            for (int j = i - 1; j >= 0; j--) {
-                if (sum + books[j][0] > shelfWidth) break;
-                sum += books[j][0];
-                h = max(h, books[j][1]);
-                dp[i] = min(dp[i], dp[j] + h);
-            }
-        }
-        return dp[n];
-    }
-};`,
+      code: `function checkIfInstanceOf(obj: any, classFunction: any): boolean {
+    if (obj === null || obj === undefined || classFunction == null || classFunction == undefined) return false;
+    while ((obj = obj.__proto__) && obj !== classFunction.prototype);
+    return obj === classFunction.prototype;
+}`,
     },
     {
       script: Script.PY3,
