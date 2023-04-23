@@ -57,16 +57,19 @@ def gcd(a: int, b: int):
 
 
 class Solution:
-    def longestArithSeqLength(self, nums: List[int]) -> int:
-        n = len(nums)
-        res = 0
-        dp = [[0] * 1005 for _ in range(n)]
-        for i in range(n):
+    def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
+        n = len(books)
+        dp = [inf] * (n + 1)
+        dp[0] = 0
+        for i in range(1, n+1):
+            sum = h = 0
             for j in range(i-1, -1, -1):
-                num = nums[i] - nums[j] + 500
-                dp[i][num] = max(dp[i][num], dp[j][num] + 1)
-                res = max(dp[i][num], res)
-        return res
+                if sum + books[j][0] > shelfWidth:
+                    break
+                sum += books[j][0]
+                h = max(h, books[j][1])
+                dp[i] = min(dp[i], dp[j]+h)
+        return dp[n]
 
 
 def main():

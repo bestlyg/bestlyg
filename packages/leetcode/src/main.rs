@@ -80,17 +80,23 @@ fn gcd(a: i32, b: i32) -> i32 {
 }
 
 impl Solution {
-    pub fn longest_arith_seq_length(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut res = 0;
-        let dp = vec![vec![0; 1005]; n];
-        for i in 0..n {
-            for j in (0..i).rev() {
-                let num = (nums[i] - nums[j]) as usize;
-                dp[i][num] = dp[i][num].max(dp[j][num] + 1);
-                res = res.max(dp[i][num]);
+    pub fn min_height_shelves(books: Vec<Vec<i32>>, shelf_width: i32) -> i32 {
+        use std::cmp::{max, min};
+        let n = books.len();
+        let mut dp = vec![i32::MAX; n + 1];
+        dp[0] = 0;
+        for i in 1..=n {
+            let mut sum = 0;
+            let mut h = 0;
+            for j in (0..=i - 1).rev() {
+                if sum + books[j][0] > shelf_width {
+                    break;
+                }
+                sum += books[j][0];
+                h = max(h, books[j][1]);
+                dp[i] = min(dp[i], dp[j] + h);
             }
         }
-        res + 1
+        dp[n]
     }
 }
