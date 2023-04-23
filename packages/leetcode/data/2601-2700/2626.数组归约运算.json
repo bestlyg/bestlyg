@@ -1,0 +1,21 @@
+{
+    "name": "2626.数组归约运算",
+    "url": "https://leetcode.cn/problems/array-reduce-transformation/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你编写一个函数，它的参数为一个整数数组 nums 、一个计算函数 fn 和初始值 init 。返回一个数组 归约后 的值。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 72,
+            "memory": 43.9,
+            "desc": "遍历。",
+            "code": "type Fn = (accum: number, curr: number) => number\n\nfunction reduce(nums: number[], fn: Fn, init: number): number {\n    if (nums.length === 0) return init;\n    for (const num of nums) init = fn(init, num); \n    return init;\n};",
+            "date": 1682179200000
+        }
+    ]
+}

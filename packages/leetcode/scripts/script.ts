@@ -34,11 +34,26 @@
 // const dist = 'abcabba';
 // myers(src, dist);
 
-function checkIfInstanceOf(obj: any, classFunction: any): boolean {
-  if (obj === null || obj === undefined) return false;
-  if (classFunction === null || classFunction === undefined) return false;
-  while ((obj = obj.__proto__)) {
-    if (obj === classFunction.prototype) return true;
-  }
-  return false;
+type Fn = (...params: any) => any;
+
+const EmptyResult = Symbol('EmptyResult');
+
+class Trie {
+  children = new Map<any, Trie>();
+  result: any = EmptyResult;
+  constructor(public val: any) {}
+}
+
+function memoize(fn: Fn): Fn {
+  const root = new Trie(null);
+  return function (...args: any[]) {
+    let node = root;
+    for (const arg of args) {
+      let next = node.children.get(arg);
+      if (!next) node.children.set(arg, (next = new Trie(arg)));
+      node = next;
+    }
+    if (node.result !== EmptyResult) return node.result;
+    return (node.result = fn(...args));
+  };
 }

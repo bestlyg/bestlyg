@@ -1,0 +1,21 @@
+{
+    "name": "2619.数组原型对象的最后一个元素",
+    "url": "https://leetcode.cn/problems/array-prototype-last/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你编写一段代码实现一个数组方法，使任何数组都可以调用 array.last() 方法，这个方法将返回数组最后一个元素。如果数组中没有元素，则返回 -1 。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 64,
+            "memory": 42.3,
+            "desc": "因为prototype上的会绑定this，直接获取即可。",
+            "code": "declare global {\n    interface Array<T> {\n        last(): T | -1;\n    }\n}\n\nArray.prototype.last = function() {\n    return this.length ? this[this.length - 1] : -1;\n};",
+            "date": 1682179200000
+        }
+    ]
+}

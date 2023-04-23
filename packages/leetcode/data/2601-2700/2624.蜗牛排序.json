@@ -1,0 +1,21 @@
+{
+    "name": "2624.蜗牛排序",
+    "url": "https://leetcode.cn/problems/snail-traversal/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "请你编写一段代码为所有数组实现  snail(rowsCount，colsCount) 方法，该方法将 1D 数组转换为以蜗牛排序的模式的 2D 数组。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 212,
+            "memory": 55.8,
+            "desc": "模拟，利用方向数组控制方向。",
+            "code": "declare global {\n  interface Array<T> {\n    snail(rowsCount: number, colsCount: number): number[][];\n  }\n}\n\nArray.prototype.snail = function (rowsCount: number, colsCount: number): number[][] {\n  if (rowsCount * colsCount !== this.length) return [];\n  const res: number[][] = new Array(rowsCount).fill(0).map(_ => new Array(colsCount).fill(0));\n  const dirs = [\n    [0, rowsCount, 1],\n    [rowsCount - 1, -1, -1],\n  ];\n  let idx = 0;\n  for (let j = 0; j < colsCount; j++) {\n    const dir = dirs[j % 2];\n    for (let i = dir[0]; i != dir[1]; i += dir[2]) {\n      res[i][j] = this[idx++];\n    }\n  }\n  return res;\n};",
+            "date": 1682179200000
+        }
+    ]
+}
