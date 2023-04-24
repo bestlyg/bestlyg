@@ -2,99 +2,116 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2630. 记忆函数 II',
-  url: 'https://leetcode.cn/problems/memoize-ii/',
+  name: '1163. 按字典序排在最后的子串',
+  url: 'https://leetcode.cn/problems/last-substring-in-lexicographical-order/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `请你编写一个函数，它接收一个函数参数 fn，并返回该函数的 记忆化 后的结果。`,
+  desc: `给你一个字符串 s ，找出它的所有子串并按字典序排列，返回排在最后的那个子串。`,
   solutions: [
+//     {
+//       script: Script.TS,
+//       time: 372,
+//       memory: 102,
+//       desc: 'trie',
+//       code: `type Fn = (...params: any) => any;
+
+// const EmptyResult = Symbol('EmptyResult');
+
+// class Trie {
+//   children = new Map<any, Trie>();
+//   result: any = EmptyResult;
+//   constructor(public val: any) {}
+// }
+
+// function memoize(fn: Fn): Fn {
+//   const root = new Trie(null);
+//   return function (...args: any[]) {
+//     let node = root;
+//     for (const arg of args) {
+//       let next = node.children.get(arg);
+//       if (!next) node.children.set(arg, (next = new Trie(arg)));
+//       node = next;
+//     }
+//     if (node.result !== EmptyResult) return node.result;
+//     return (node.result = fn(...args));
+//   };
+// }`,
+//     },
     {
-      script: Script.TS,
-      time: 372,
-      memory: 102,
-      desc: 'trie',
-      code: `type Fn = (...params: any) => any;
-
-const EmptyResult = Symbol('EmptyResult');
-
-class Trie {
-  children = new Map<any, Trie>();
-  result: any = EmptyResult;
-  constructor(public val: any) {}
-}
-
-function memoize(fn: Fn): Fn {
-  const root = new Trie(null);
-  return function (...args: any[]) {
-    let node = root;
-    for (const arg of args) {
-      let next = node.children.get(arg);
-      if (!next) node.children.set(arg, (next = new Trie(arg)));
-      node = next;
+      script: Script.CPP,
+      time: 44,
+      memory: 25.8,
+      desc: '先找到最末尾的字符，再对该字符为起点到结尾的字符串进行比较',
+      code: `class Solution {
+public:
+    string lastSubstring(string s) {
+        int n = s.size(), imax = 0;
+        vector<int> idxs;
+        for (int i = 0; i < n; i++) {
+            if (s[imax] < s[i]) imax = i, idxs.clear();
+            if (s[imax] == s[i]) idxs.push_back(i);
+        }
+        imax = 0;
+        for (int i = 1; i < idxs.size(); i++) {
+            int i1 = idxs[imax] + 1, i2 = idxs[i] + 1;
+            while (i2 < n && s[i1] == s[i2]) i1++, i2++;
+            if (i2 == n) break;
+            if (s[i1] < s[i2]) imax = i;
+        }
+        return s.substr(idxs[imax], n - idxs[imax]);
     }
-    if (node.result !== EmptyResult) return node.result;
-    return (node.result = fn(...args));
-  };
+};`,
+    },
+    {
+      script: Script.PY3,
+      time: 6360,
+      memory: 18,
+      desc: '同上',
+      code: `class Solution:
+  def lastSubstring(self, s: str) -> str:
+      return max(s[i:] for i in range(len(s)))`,
+    },
+    {
+      script: Script.RUST,
+      time: 16,
+      memory: 5.9,
+      desc: '同上',
+      code: `fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+impl Solution {
+    pub fn last_substring(s: String) -> String {
+        let s = str_to_vec(&s);
+        let n = s.len();
+        let mut imax = 0;
+        let mut idxs = vec![];
+        for i in 0..n {
+            if (s[imax] as u8) < (s[i] as u8) {
+                imax = i;
+                idxs.clear();
+            }
+            if (s[imax] as u8) == (s[i] as u8) {
+                idxs.push(i);
+            }
+        }
+        imax = 0;
+        for i in 1..idxs.len() {
+            let (mut i1, mut i2) = (idxs[imax] + 1, idxs[i] + 1);
+            while i2 < n && s[i1] == s[i2] {
+                i1 += 1;
+                i2 += 1;
+            }
+            if i2 == n {
+                break;
+            }
+            if s[i1] < s[i2] {
+                imax = i;
+            }
+        }
+        String::from_utf8(s[idxs[imax]..].iter().map(|v| *v as u8).collect()).unwrap()
+    }
 }`,
     },
-//     {
-//       script: Script.CPP,
-//       time: 112,
-//       memory: 53,
-//       desc: 'dp[i]表示以i为行末的最大高度',
-//       code: `function checkIfInstanceOf(obj: any, classFunction: any): boolean {
-//     if (obj === null || obj === undefined || classFunction == null || classFunction == undefined) return false;
-//     while ((obj = obj.__proto__) && obj !== classFunction.prototype);
-//     return obj === classFunction.prototype;
-// }`,
-//     },
-//     {
-//       script: Script.PY3,
-//       time: 40,
-//       memory: 15.3,
-//       desc: '同上',
-//       code: `class Solution:
-//     def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
-//         n = len(books)
-//         dp = [inf] * (n + 1)
-//         dp[0] = 0
-//         for i in range(1, n+1):
-//             sum = h = 0
-//             for j in range(i-1, -1, -1):
-//                 if sum + books[j][0] > shelfWidth:
-//                     break
-//                 sum += books[j][0]
-//                 h = max(h, books[j][1])
-//                 dp[i] = min(dp[i], dp[j]+h)
-//         return dp[n]`,
-//     },
-//     {
-//       script: Script.RUST,
-//       time: 0,
-//       memory: 2.3,
-//       desc: '同上',
-//       code: `impl Solution {
-//     pub fn min_height_shelves(books: Vec<Vec<i32>>, shelf_width: i32) -> i32 {
-//         use std::cmp::{max, min};
-//         let n = books.len();
-//         let mut dp = vec![i32::MAX; n + 1];
-//         dp[0] = 0;
-//         for i in 1..=n {
-//             let mut sum = 0;
-//             let mut h = 0;
-//             for j in (0..=i - 1).rev() {
-//                 if sum + books[j][0] > shelf_width {
-//                     break;
-//                 }
-//                 sum += books[j][0];
-//                 h = max(h, books[j][1]);
-//                 dp[i] = min(dp[i], dp[j] + h);
-//             }
-//         }
-//         dp[n]
-//     }
-// }`,
-//     },
   ],
 };
 

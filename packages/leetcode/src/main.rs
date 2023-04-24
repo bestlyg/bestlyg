@@ -80,23 +80,34 @@ fn gcd(a: i32, b: i32) -> i32 {
 }
 
 impl Solution {
-    pub fn min_height_shelves(books: Vec<Vec<i32>>, shelf_width: i32) -> i32 {
-        use std::cmp::{max, min};
-        let n = books.len();
-        let mut dp = vec![i32::MAX; n + 1];
-        dp[0] = 0;
-        for i in 1..=n {
-            let mut sum = 0;
-            let mut h = 0;
-            for j in (0..=i - 1).rev() {
-                if sum + books[j][0] > shelf_width {
-                    break;
-                }
-                sum += books[j][0];
-                h = max(h, books[j][1]);
-                dp[i] = min(dp[i], dp[j] + h);
+    pub fn last_substring(s: String) -> String {
+        let s = str_to_vec(&s);
+        let n = s.len();
+        let mut imax = 0;
+        let mut idxs = vec![];
+        for i in 0..n {
+            if (s[imax] as u8) < (s[i] as u8) {
+                imax = i;
+                idxs.clear();
+            }
+            if (s[imax] as u8) == (s[i] as u8) {
+                idxs.push(i);
             }
         }
-        dp[n]
+        imax = 0;
+        for i in 1..idxs.len() {
+            let (mut i1, mut i2) = (idxs[imax] + 1, idxs[i] + 1);
+            while i2 < n && s[i1] == s[i2] {
+                i1 += 1;
+                i2 += 1;
+            }
+            if i2 == n {
+                break;
+            }
+            if s[i1] < s[i2] {
+                imax = i;
+            }
+        }
+        String::from_utf8(s[imax..].iter().map(|v| *v as u8).collect()).unwrap()
     }
 }
