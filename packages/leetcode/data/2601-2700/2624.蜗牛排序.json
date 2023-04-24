@@ -1,12 +1,9 @@
 {
+    "id": "2760",
     "name": "2624.蜗牛排序",
-    "url": "https://leetcode.cn/problems/snail-traversal/",
+    "url": "https://leetcode.cn/problems/snail-traversal",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "请你编写一段代码为所有数组实现  snail(rowsCount，colsCount) 方法，该方法将 1D 数组转换为以蜗牛排序的模式的 2D 数组。",
     "solutions": [
         {

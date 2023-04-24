@@ -1,12 +1,9 @@
 {
+    "id": "2735",
     "name": "2628.完全相等的JSON字符串",
-    "url": "https://leetcode.cn/problems/json-deep-equal/",
+    "url": "https://leetcode.cn/problems/json-deep-equal",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "给定两个对象 o1 和 o2 ，请你检查它们是否 完全相等 。",
     "solutions": [
         {

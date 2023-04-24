@@ -1,12 +1,9 @@
 {
+    "id": "2762",
     "name": "2622.有时间限制的缓存",
-    "url": "https://leetcode.cn/problems/cache-with-time-limit/",
+    "url": "https://leetcode.cn/problems/cache-with-time-limit",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": [],
     "desc": "编写一个类，它允许获取和设置键-值对，并且每个键都有一个 过期时间 。",
     "solutions": [
         {

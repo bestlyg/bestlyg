@@ -1,12 +1,9 @@
 {
+    "id": "2741",
     "name": "2629.复合函数",
-    "url": "https://leetcode.cn/problems/function-composition/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "url": "https://leetcode.cn/problems/function-composition",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "请你编写一个函数，它接收一个函数数组 [f1, f2, f3，…]， fn] ，并返回一个新的函数 fn ，它是函数数组的 复合函数 。",
     "solutions": [
         {

@@ -1,12 +1,9 @@
 {
+    "id": "2733",
     "name": "2621.睡眠函数",
-    "url": "https://leetcode.cn/problems/sleep/",
-    "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "url": "https://leetcode.cn/problems/sleep",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "请你编写一个异步函数，它接收一个正整数参数 millis ，并休眠这么多毫秒。要求此函数可以解析任何值。",
     "solutions": [
         {
