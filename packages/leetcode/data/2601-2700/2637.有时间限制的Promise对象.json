@@ -1,0 +1,18 @@
+{
+    "id": "2749",
+    "name": "2637.有时间限制的Promise对象",
+    "url": "https://leetcode.cn/problems/promise-time-limit",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你编写一个函数，它接收一个异步函数 fn 和一个以毫秒为单位的时间 t。它应根据限时函数返回一个有 限时 效果的函数。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 64,
+            "memory": 42.3,
+            "desc": "每次调用时设置定时器定时reject。",
+            "code": "type Fn = (...params: any[]) => Promise<any>;\n\nfunction timeLimit(fn: Fn, t: number): Fn {\n  return async function (...args) {\n    return new Promise((resolve, reject) => {\n      fn(...args).then(resolve, reject);\n      setTimeout(() => reject('Time Limit Exceeded'), t);\n    });\n  };\n}",
+            "date": 1682265600000
+        }
+    ]
+}

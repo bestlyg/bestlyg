@@ -1,0 +1,18 @@
+{
+    "id": "2788",
+    "name": "2650.设计可取消函数",
+    "url": "https://leetcode.cn/problems/design-cancellable-function",
+    "difficulty": "困难",
+    "tag": [],
+    "desc": "有时候你会有一个长时间运行的任务，并且你可能希望在它完成之前取消它。为了实现这个目标，请你编写一个名为 cancellable 的函数，它接收一个生成器对象，并返回一个包含两个值的数组：一个 取消函数 和一个 promise 对象。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 64,
+            "memory": 42.5,
+            "desc": "dfs。",
+            "code": "function cancellable<T>(generator: Generator<Promise<any>, T, unknown>): [() => void, Promise<T>] {\n  let cancel = false;\n  function dfs(node) {\n    if (node.done) return Promise.resolve(node.value);\n    if (node.value instanceof Promise)\n      return node.value.then(\n        res => (cancel ? dfs(generator.throw('Cancelled')) : dfs(generator.next(res))),\n        res => dfs(generator.throw(res))\n      );\n    else return dfs(generator.next(node.value));\n  }\n  return [\n    () => (cancel = true),\n    new Promise<T>((resolve, reject) => dfs(generator.next()).then(resolve, reject)),\n  ];\n}",
+            "date": 1682265600000
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "id": "2750",
+    "name": "2636.Promice对象池",
+    "url": "https://leetcode.cn/problems/promise-pool",
+    "difficulty": "中等",
+    "tag": [],
+    "desc": "请你编写一个异步函数 promisePool ，它接收一个异步函数数组 functions 和 池限制 n。它应该返回一个 promise 对象，当所有输入函数都执行完毕后，promise 对象就执行完毕。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 76,
+            "memory": 42.5,
+            "desc": "递归监听每个函数的then，收集调用过的个数和完成的个数。",
+            "code": "type F = () => Promise<any>;\n\nfunction promisePool(functions: F[], n: number): Promise<any> {\n  return new Promise<void>(r => {\n    const len = functions.length;\n    if (len === 0) r();\n    let cur = 0;\n    let end = 0;\n    const f: any = () => {\n      if (++end === len) r();\n      else if (cur < len) functions[cur++]().then(f);\n    };\n    while (n-- && cur < len) functions[cur++]().then(f);\n  });\n}",
+            "date": 1682265600000
+        }
+    ]
+}

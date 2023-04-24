@@ -1,0 +1,18 @@
+{
+    "id": "2783",
+    "name": "2649.嵌套数组生成器",
+    "url": "https://leetcode.cn/problems/nested-array-generator",
+    "difficulty": "中等",
+    "tag": [],
+    "desc": "现给定一个整数的 多维数组 ，请你返回一个生成器对象，按照 中序遍历 的顺序逐个生成整数。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 144,
+            "memory": 60.8,
+            "desc": "双状态循环，一直找当前栈顶是number才退出。",
+            "code": "type MultidimensionalArray = (MultidimensionalArray | number)[]\n\nfunction* inorderTraversal(arr: MultidimensionalArray): Generator<number, void, unknown> {\n    const stack: [MultidimensionalArray, number][] = [[arr, 0]];\n    const top = () => stack[stack.length - 1];\n    while (stack.length) {\n        // 栈顶不是number就一直循环\n        while (stack.length && typeof top()[0][top()[1]] !== 'number') {\n            // 栈顶是数组就一直入栈\n            while (stack.length && Array.isArray(top()[0][top()[1]])) stack.push([top()[0][top()[1]++] as MultidimensionalArray, 0]);\n            // 栈顶数组已经耗尽就出栈\n            while (stack.length && top()[1] >= top()[0].length) stack.pop();\n        }\n        if (stack.length) yield top()[0][top()[1]++] as number;\n    }\n};",
+            "date": 1682265600000
+        }
+    ]
+}

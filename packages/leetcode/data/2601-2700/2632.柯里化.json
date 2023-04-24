@@ -1,0 +1,18 @@
+{
+    "id": "2740",
+    "name": "2632.柯里化",
+    "url": "https://leetcode.cn/problems/curry",
+    "difficulty": "中等",
+    "tag": [],
+    "desc": "请你编写一个函数，它接收一个其他的函数，并返回该函数的 柯里化 后的形式。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 92,
+            "memory": 42.2,
+            "desc": "闭包存储。",
+            "code": "function curry(fn: Function): Function {\n    const argSize = fn.length;\n    const preArgs: any[] = [];\n    return function curried(...args) {\n        if (argSize === args.length + preArgs.length) return fn(...preArgs, ...args);\n        preArgs.push(...args);\n        return curried;\n    };\n};",
+            "date": 1682265600000
+        }
+    ]
+}
