@@ -55,9 +55,12 @@ def gcd(a: int, b: int):
         return a
     return gcd(b, a % b)
 
+
 class Solution:
-    def lastSubstring(self, s: str) -> str:
-        return max(s[i:] for i in range(len(s)))
+    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
+        l = [i for i in range(len(names))]
+        l.sort(key=lambda i: heights[i], reverse=True)
+        return [names[i] for i in l]
 
 
 def main():

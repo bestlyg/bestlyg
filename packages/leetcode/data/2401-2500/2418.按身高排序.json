@@ -1,0 +1,47 @@
+{
+    "id": "2502",
+    "name": "2418.按身高排序",
+    "url": "https://leetcode.cn/problems/sort-the-people",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "desc": "给你一个字符串数组 names ，和一个由 互不相同 的正整数组成的数组 heights 。两个数组的长度均为 n 。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 76,
+            "memory": 45.9,
+            "desc": "遍历。",
+            "code": "function sortPeople(names: string[], heights: number[]): string[] {\n  return new Array(names.length)\n    .fill(0)\n    .map((_, i) => i)\n    .sort((a, b) => heights[b] - heights[a])\n    .map(i => names[i]);\n}",
+            "date": 1664035200000
+        },
+        {
+            "script": "cpp",
+            "time": 32,
+            "memory": 19.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<string> sortPeople(vector<string>& names, vector<int>& heights) {\n        vector<int> idxs;\n        for (int i = 0; i < names.size(); i++) idxs.push_back(i);\n        sort(idxs.begin(), idxs.end(), [&](auto &i1, auto &i2) { return heights[i1] > heights[i2]; });\n        vector<string> res;\n        for (int i = 0; i < names.size(); i++) res.push_back(names[idxs[i]]);\n        return res;\n    }\n};",
+            "date": 1682352000000
+        },
+        {
+            "script": "python3",
+            "time": 56,
+            "memory": 15.4,
+            "desc": "同上。",
+            "code": "class Solution:\n    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:\n        l = [i for i in range(len(names))]\n        l.sort(key=lambda i: heights[i], reverse=True)\n        return [names[i] for i in l]",
+            "date": 1682352000000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn sort_people(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {\n        let mut l = (0..names.len()).collect::<Vec<usize>>();\n        l.sort_by_key(|i| heights[*i]);        \n        l.into_iter().rev().map(|i| names[i].clone()).collect()\n    }\n}",
+            "date": 1682352000000
+        }
+    ]
+}

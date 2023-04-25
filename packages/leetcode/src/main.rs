@@ -80,34 +80,9 @@ fn gcd(a: i32, b: i32) -> i32 {
 }
 
 impl Solution {
-    pub fn last_substring(s: String) -> String {
-        let s = str_to_vec(&s);
-        let n = s.len();
-        let mut imax = 0;
-        let mut idxs = vec![];
-        for i in 0..n {
-            if (s[imax] as u8) < (s[i] as u8) {
-                imax = i;
-                idxs.clear();
-            }
-            if (s[imax] as u8) == (s[i] as u8) {
-                idxs.push(i);
-            }
-        }
-        imax = 0;
-        for i in 1..idxs.len() {
-            let (mut i1, mut i2) = (idxs[imax] + 1, idxs[i] + 1);
-            while i2 < n && s[i1] == s[i2] {
-                i1 += 1;
-                i2 += 1;
-            }
-            if i2 == n {
-                break;
-            }
-            if s[i1] < s[i2] {
-                imax = i;
-            }
-        }
-        String::from_utf8(s[imax..].iter().map(|v| *v as u8).collect()).unwrap()
+    pub fn sort_people(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {
+        let mut l = (0..names.len()).collect::<Vec<usize>>();
+        l.sort_by_key(|i| heights[*i]);
+        l.into_iter().map(|i| names[i].clone()).collect()
     }
 }
