@@ -71,6 +71,11 @@ int gcd(int a, int b) {
     if (b == 0) return a;
     return gcd(b, a % b);
 }
+vector<int> get_sums(vector<int> &arr) {
+    vector<int> sums(1, 0);
+    for (auto &num : arr) sums.push_back(sums.back() + num);
+    return sums;
+}
 // START
 
 class Solution {

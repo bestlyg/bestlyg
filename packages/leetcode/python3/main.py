@@ -57,10 +57,24 @@ def gcd(a: int, b: int):
 
 
 class Solution:
-    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
-        l = [i for i in range(len(names))]
-        l.sort(key=lambda i: heights[i], reverse=True)
-        return [names[i] for i in l]
+    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:
+        sums = [0]
+        for num in nums:
+            sums.append(sums[-1] + num)
+        n = len(nums)
+        res = i = 0
+        while i + firstLen <= n:
+            num = sums[i+firstLen] - sums[i]
+            j = 0
+            while j + secondLen < i:
+                res = max(res, sums[j + secondLen] - sums[j] + num)
+                j += 1
+            j = i + firstLen
+            while j + secondLen <= n:
+                res = max(res, sums[j + secondLen] - sums[j] + num)
+                j += 1
+            i += 1
+        return res
 
 
 def main():

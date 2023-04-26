@@ -79,10 +79,36 @@ fn gcd(a: i32, b: i32) -> i32 {
     }
 }
 
+fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
+    let mut sums = vec![0];
+    for num in arr {
+        sums.push(sums.last().unwrap() + *num);
+    }
+    sums
+}
+
 impl Solution {
-    pub fn sort_people(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {
-        let mut l = (0..names.len()).collect::<Vec<usize>>();
-        l.sort_by_key(|i| heights[*i]);
-        l.into_iter().map(|i| names[i].clone()).collect()
+    pub fn max_sum_two_no_overlap(nums: Vec<i32>, first_len: i32, second_len: i32) -> i32 {
+        use std::cmp::max;
+        let sums = get_sums(&nums);
+        let (first_len, second_len) = (first_len as usize, second_len as usize);
+        let n = nums.len();
+        let mut res = 0;
+        let mut i = 0;
+        while i + first_len <= n {
+            let num = sums[i + first_len] - sums[i];
+            let mut j = 0;
+            while j + second_len < i {
+                res = max(res, sums[j + second_len] - sums[j] + num);
+                j += 1;
+            }
+            j = i + first_len;
+            while j + second_len <= n {
+                res = max(res, sums[j + second_len] - sums[j] + num);
+                j += 1;
+            }
+            i += 1
+        }
+        res
     }
 }
