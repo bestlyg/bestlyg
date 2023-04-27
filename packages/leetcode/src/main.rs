@@ -87,27 +87,36 @@ fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
     sums
 }
 
+fn cmp(s1: &[u8], s2: &[u8], i1: usize, i2: usize, err: usize) -> bool {
+    if i1 == s1.len() {
+        i2 + err == s2.len()
+    } else if i2 == s2.len() {
+        i1 + err == s1.len()
+    } else if s1[i1] == s2[i2] {
+        cmp(s1, s2, i1 + 1, i2 + 1, err)
+    } else if err == 0 {
+        false
+    } else {
+        cmp(s1, s2, i1 + 1, i2, err - 1) || cmp(s1, s2, i1, i2 + 1, err - 1)
+    }
+}
 impl Solution {
-    pub fn max_sum_two_no_overlap(nums: Vec<i32>, first_len: i32, second_len: i32) -> i32 {
-        use std::cmp::max;
-        let sums = get_sums(&nums);
-        let (first_len, second_len) = (first_len as usize, second_len as usize);
-        let n = nums.len();
-        let mut res = 0;
-        let mut i = 0;
-        while i + first_len <= n {
-            let num = sums[i + first_len] - sums[i];
-            let mut j = 0;
-            while j + second_len < i {
-                res = max(res, sums[j + second_len] - sums[j] + num);
-                j += 1;
+    pub fn longest_str_chain(mut words: Vec<String>) -> i32 {
+        words.sort_by_key(|v| v.len());
+        let n = words.len();
+        let mut res = 1;
+        let mut dp = vec![1, n];
+        for i in 0..n {
+            for j in 0..i {
+                if words[i].len() == words[j].len() {
+                    break;
+                }
+                let s1 = words[i].as_bytes();
+                if cmp(words[i].as_bytes(), words[j].as_bytes(), 0, 0, 1) {
+                    dp[i] = dp[i].max(dp[j] + 1);
+                }
             }
-            j = i + first_len;
-            while j + second_len <= n {
-                res = max(res, sums[j + second_len] - sums[j] + num);
-                j += 1;
-            }
-            i += 1
+            res = res.max(dp[i]);
         }
         res
     }

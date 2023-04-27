@@ -56,24 +56,31 @@ def gcd(a: int, b: int):
     return gcd(b, a % b)
 
 
+def cmp(s1: str, s2: str, i1: int, i2: int, err: int):
+    if i1 == s1.size():
+        return i2 + err == s2.size()
+    if i2 == s2.size():
+        return i1 + err == s1.size()
+    if s1[i1] == s2[i2]:
+        return cmp(s1, s2, i1 + 1, i2 + 1, err)
+    if err == 0:
+        return False
+    return cmp(s1, s2, i1 + 1, i2, err - 1) or cmp(s1, s2, i1, i2 + 1, err - 1)
+
+
 class Solution:
-    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:
-        sums = [0]
-        for num in nums:
-            sums.append(sums[-1] + num)
-        n = len(nums)
-        res = i = 0
-        while i + firstLen <= n:
-            num = sums[i+firstLen] - sums[i]
-            j = 0
-            while j + secondLen < i:
-                res = max(res, sums[j + secondLen] - sums[j] + num)
-                j += 1
-            j = i + firstLen
-            while j + secondLen <= n:
-                res = max(res, sums[j + secondLen] - sums[j] + num)
-                j += 1
-            i += 1
+    def longestStrChain(self, words: List[str]) -> int:
+        words.sort(key=lambda v: len(v))
+        n = len(words)
+        res = 1
+        dp = [1] * n
+        for i in range(n):
+            for j in range(i):
+                if len(words[j]) == len(words[i]):
+                    break
+                if cmp(words[i], words[j]):
+                    dp[i] = max(dp[i], dp[j] + 1)
+            res = max(res, dp[i])
         return res
 
 
