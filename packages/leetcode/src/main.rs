@@ -101,16 +101,40 @@ fn cmp(s1: &[u8], s2: &[u8], i1: usize, i2: usize, err: usize) -> bool {
     }
 }
 
+// use std::cmp::Ordering;
+
+#[derive(PartialEq, PartialOrd)]
+struct RevUnsize(usize);
+impl Eq for RevUnsize {}
+
+impl PartialOrd for MinNonNan {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        other.0.partial_cmp(&self.0).unwrap()
+    }
+}
+impl Ord for RevUnsize {
+    fn cmp(&self, other: &RevUnsize) -> Ordering {
+        other.0.partial_cmp(&self.0).unwrap()
+    }
+}
+
 struct DinnerPlates {
     capacity: usize,
     last: usize,
     ss: Vec<Vec<i32>>,
     used: std::collections::HashSet<usize>,
-    q: std::collections::BinaryHeap<usize>,
+    q: std::collections::BinaryHeap<RevUnsize>,
 }
 
 impl DinnerPlates {
     fn new(capacity: i32) -> Self {
+        let mut q = std::collections::BinaryHeap::<RevUnsize>::new();
+        q.push(RevUnsize(0));
+        q.push(RevUnsize(1));
+        q.push(RevUnsize(2));
+        while !q.is_empty() {
+            println!("{}", q.pop().unwrap());
+        }
         Self {
             capacity: capacity as usize,
             last: 0,
@@ -130,47 +154,58 @@ impl DinnerPlates {
     }
 
     fn push(&mut self, val: i32) {
-        println!("PUSH,{val}");
-        while !self.q.is_empty() && *self.q.peek().unwrap() > self.last {
+        println!("PUSH {:?}", val);
+        while !self.q.is_empty() && (*self.q.peek().unwrap()).0 > self.last {
             self.q.pop();
         }
         if self.q.is_empty() {
             self.format_last();
             self.ss[self.last].push(val);
         } else {
-            let idx = *self.q.peek().unwrap();
+            let idx = (*self.q.peek().unwrap()).0;
+            println!("mini idx = {}", idx);
             self.ss[idx].push(val);
             if self.ss[idx].len() == self.capacity {
                 self.q.pop();
                 self.used.remove(&idx);
             }
         }
+
+        println!("{:?}", self.ss);
     }
 
     fn pop(&mut self) -> i32 {
-        println!("POP");
+        println!("POP,last={}", self.last);
         while self.last > 0 && self.ss[self.last].len() == 0 {
             self.last -= 1;
         }
+
         if self.last == 0 && self.ss[self.last].len() == 0 {
+            println!("{:?}", self.ss);
             -1
         } else {
-            self.ss[self.last].pop().unwrap()
+            let res = self.ss[self.last].pop().unwrap();
+
+            println!("{:?}", self.ss);
+            res
         }
     }
 
     fn pop_at_stack(&mut self, index: i32) -> i32 {
-
-        println!("pop_at_stack");
+        println!("pop_at_stack,{index},last={}", self.last);
         let index = index as usize;
         if index > self.last || self.ss[index].len() == 0 {
+            println!("{:?}", self.ss);
             -1
         } else {
-            let back = self.ss[self.last].pop().unwrap();
+            let back = self.ss[index].pop().unwrap();
             if !self.used.contains(&index) {
-                self.q.push(index);
+                self.q.push(RevUnsize(index));
+                println!("qpush {index}");
                 self.used.insert(index);
             }
+
+            println!("{:?}", self.ss);
             back
         }
     }

@@ -80,30 +80,46 @@ vector<int> get_sums(vector<int> &arr) {
 
 class DinnerPlates {
 public:
-    typedef pair<int, int> pii;
-    int capacity;
+    int capacity, last;
     vector<vector<int>> ss;
-    pii last;
-    priority_queue<int> q;
-    DinnerPlates(int capacity): capacity(capacity) {
-        q.push(2);
-        q.push(1);
-        while (q.size()) {
-            cout << q.top() << endl;
-        }
-        cout << endl;
+    unordered_set<int> used;
+    priority_queue<int, vector<int>, greater<int>> q;
+
+    DinnerPlates(int capacity): capacity(capacity), last(0) {
+        ss.push_back(vector<int>());
+    }
+
+    int get_last() {
+        if (ss[last].size() == capacity) last++;
+        if (last == ss.size()) ss.push_back(vector<int>());
+        return last;
     }
     
     void push(int val) {
-
+        while (q.size() && q.top() > last) q.pop();
+        if (q.empty()) {
+            ss[get_last()].push_back(val);
+        } else {
+            int idx = q.top();
+            ss[idx].push_back(val);
+            if (ss[idx].size() == capacity) q.pop(), used.erase(idx);
+        }
     }
     
     int pop() {
-        return -1;
+        while (last > 0 && ss[last].size() == 0) last--;
+        if (last == 0 && ss[last].size() == 0) return -1;
+        int back = ss[last].back();
+        ss[last].pop_back();
+        return back;
     }
     
     int popAtStack(int index) {
-        return -1;
+        if (index > last || ss[index].size() == 0) return -1;
+        int back = ss[index].back();
+        ss[index].pop_back();
+        if (!used.count(index)) q.push(index), used.insert(index);
+        return back;
     }
 };
 
@@ -120,19 +136,3 @@ int main() {
     return 0;
 }
 #endif
-
-/*
-
-["DinnerPlates","push","push","push","push","push","push","push","push","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","push","push","push","push","push","push","push","push","pop","pop","pop","pop","pop","pop","pop","pop","pop","pop"]
-[[2],[472],[106],[497],[498],[73],[115],[437],[461],[3],[3],[1],[3],[0],[2],[2],[1],[1],[3],[197],[239],[129],[449],[460],[240],[386],[343],[],[],[],[],[],[],[],[],[],[]]
-["DinnerPlates","push","push","push","push","push","push","push","push","popAtStack","popAtStack","popAtStack","popAtStack","push","push","push","push","push","push","push","push","pop","pop","pop","pop"]
-[[2],[471],[177],[1],[29],[333],[154],[130],[333],[1],[0],[2],[0],[165],[383],[267],[367],[53],[373],[388],[249],[],[],[],[]]
-["DinnerPlates","push","push","popAtStack","pop","push","push","pop","pop"]
-[[1],[1],[2],[1],[],[1],[2],[],[]]
-["DinnerPlates","push","push","popAtStack","pop","push","push","pop","pop"]
-[[1],[1],[2],[1],[],[1],[2],[],[]]["DinnerPlates","push","push","push","push","push","popAtStack","push","push","popAtStack","popAtStack","pop","pop","pop","pop","pop"]
-[[2],[1],[2],[3],[4],[7],[8],[20],[21],[0],[2],[],[],[],[],[]]
-["DinnerPlates","push","push","push","push","push","popAtStack","push","push","popAtStack","popAtStack","pop","pop","pop","pop","pop"]
-[[2],[1],[2],[3],[4],[5],[0],[20],[21],[0],[2],[],[],[],[],[]]
-
-*/
