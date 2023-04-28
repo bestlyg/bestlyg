@@ -68,20 +68,52 @@ def cmp(s1: str, s2: str, i1: int, i2: int, err: int):
     return cmp(s1, s2, i1 + 1, i2, err - 1) or cmp(s1, s2, i1, i2 + 1, err - 1)
 
 
-class Solution:
-    def longestStrChain(self, words: List[str]) -> int:
-        words.sort(key=lambda v: len(v))
-        n = len(words)
-        res = 1
-        dp = [1] * n
-        for i in range(n):
-            for j in range(i):
-                if len(words[j]) == len(words[i]):
-                    break
-                if cmp(words[i], words[j]):
-                    dp[i] = max(dp[i], dp[j] + 1)
-            res = max(res, dp[i])
-        return res
+class DinnerPlates:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.last = 0
+        self.ss = [[]]
+        self.used = set()
+        self.q = []
+
+    def get_last(self):
+        if len(self.ss[self.last]) == self.capacity:
+            last += 1
+        if last == len(self.ss):
+            self.ss.append([])
+        return self.last
+
+    def push(self, val: int) -> None:
+        while len(self.q) and self.q[0] > self.last:
+            heappop(self.q)
+        if len(self.q) == 0:
+            self.ss[self.get_last()].append(val)
+        else:
+            idx = self.q[0]
+            self.ss[idx].append(val)
+            if len(self.ss[idx]) == self.capacity:
+                heappop(self.q)
+                self.used.remove(idx)
+
+    def pop(self) -> int:
+        while self.last > 0 and len(self.ss[self.last]) == 0:
+            self.last -= 1
+        if self.last == 0 and len(self.ss[self.last]) == 0:
+            return -1
+        back = self.ss[self.last][-1]
+        self.ss[self.last].pop()
+        return back
+
+    def popAtStack(self, index: int) -> int:
+        if index > self.last or len(self.ss[index]) == 0:
+            return -1
+        back = self.ss[index][-1]
+        self.ss[index].pop()
+        if index not in self.used:
+            heappush(self.q, index)
+            self.used.add(index)
+        return back
 
 
 def main():

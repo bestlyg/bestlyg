@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1048. 最长字符串链',
-  url: 'https://leetcode.cn/problems/longest-string-chain/',
+  name: '1172. 餐盘栈',
+  url: 'https://leetcode.cn/problems/dinner-plate-stacks/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `从给定单词列表 words 中选择单词组成词链，返回 词链的 最长可能长度 。`,
+  desc: `我们把无限数量 ∞ 的栈排成一行，按从左到右的次序从 0 开始编号。每个栈的的最大容量 capacity 都相同。实现一个叫「餐盘」的类 DinnerPlates。`,
   solutions: [
     //     {
     //       script: Script.TS,
@@ -25,64 +25,110 @@ const leetCodeMarkdown: Markdown = {
     //     },
     {
       script: Script.CPP,
-      time: 96,
-      memory: 12.8,
-      desc: '遍历',
-      code: `class Solution {
+      time: 448,
+      memory: 205.7,
+      desc: '模拟栈，用优先队列和哈希表存储从左往右空着的元素，末尾为空时删除末尾的栈',
+      code: `class DinnerPlates {
 public:
-    bool cmp(string &s1, string &s2, int i1 = 0, int i2 = 0, int err = 1) {
-        if (i1 == s1.size()) return i2 + err == s2.size();
-        if (i2 == s2.size()) return i1 + err == s1.size();
-        if (s1[i1] == s2[i2]) return cmp(s1, s2, i1 + 1, i2 + 1, err);
-        if (err == 0) return false;
-        return cmp(s1, s2, i1 + 1, i2, err - 1) || cmp(s1, s2, i1, i2 + 1, err - 1);
+    int capacity;
+    vector<vector<int>> ss;
+    unordered_set<int> used;
+    priority_queue<int, vector<int>, greater<int>> q;
+
+    DinnerPlates(int capacity): capacity(capacity) {}
+
+    int load_stack() {
+        ss.push_back(vector<int>());
+        return ss.size() - 1;
     }
-    int longestStrChain(vector<string>& words) {
-        sort(words.begin(), words.end(), [&](auto &a, auto &b) { return a.size() < b.size(); });
-        int n = words.size(), res = 1;
-        vector<int> dp(n, 1);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (words[j].size() == words[i].size()) break;
-                if (cmp(words[i], words[j])) dp[i] = max(dp[i], dp[j] + 1);
-            }
-            res = max(res, dp[i]);
+
+    void clear_last() {
+        while (ss.size() && ss.back().size() == 0) ss.pop_back();
+    }
+    
+    void push(int val) {
+        while (q.size() && q.top() >= ss.size()) q.pop();
+        if (q.empty()) {
+            int idx = ss.size() - 1;
+            if (ss.empty() || ss[idx].size() == capacity) idx = load_stack();
+            ss[idx].push_back(val);
+        } else {
+            int idx = q.top();
+            ss[idx].push_back(val);
+            if (ss[idx].size() == capacity) q.pop(), used.erase(idx);
         }
-        return res;
+    }
+    
+    int pop() {
+        clear_last();
+        if (ss.empty()) return -1;
+        int back = ss.back().back();
+        ss.back().pop_back();
+        return back;
+    }
+    
+    int popAtStack(int index) {
+        if (index >= ss.size() || ss[index].size() == 0) return -1;
+        int back = ss[index].back();
+        ss[index].pop_back();
+        clear_last();
+        if (index < ss.size() && !used.count(index)) q.push(index), used.insert(index);
+        return back;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 1836,
-      memory: 15.2,
+      time: 632,
+      memory: 100.7,
       desc: '同上',
-      code: `def cmp(s1: str, s2: str, i1: int, i2: int, err: int):
-    if i1 == len(s1):
-        return i2 + err == len(s2)
-    if i2 == len(s2):
-        return i1 + err == len(s1)
-    if s1[i1] == s2[i2]:
-        return cmp(s1, s2, i1 + 1, i2 + 1, err)
-    if err == 0:
-        return False
-    return cmp(s1, s2, i1 + 1, i2, err - 1) or cmp(s1, s2, i1, i2 + 1, err - 1)
+      code: `from heapq import *
+class DinnerPlates:
 
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.last = 0
+        self.ss = [[]]
+        self.used = set()
+        self.q = []
 
-class Solution:
-    def longestStrChain(self, words: List[str]) -> int:
-        words.sort(key=lambda v: len(v))
-        n = len(words)
-        res = 1
-        dp = [1] * n
-        for i in range(n):
-            for j in range(i):
-                if len(words[j]) == len(words[i]):
-                    break
-                if cmp(words[i], words[j], 0, 0, 1):
-                    dp[i] = max(dp[i], dp[j] + 1)
-            res = max(res, dp[i])
-        return res`,
+    def get_last(self):
+        if len(self.ss[self.last]) == self.capacity:
+            self.last += 1
+        if self.last == len(self.ss):
+            self.ss.append([])
+        return self.last
+
+    def push(self, val: int) -> None:
+        while len(self.q) and self.q[0] > self.last:
+            heappop(self.q)
+        if len(self.q) == 0:
+            self.ss[self.get_last()].append(val)
+        else:
+            idx = self.q[0]
+            self.ss[idx].append(val)
+            if len(self.ss[idx]) == self.capacity:
+                heappop(self.q)
+                self.used.remove(idx)
+
+    def pop(self) -> int:
+        while self.last > 0 and len(self.ss[self.last]) == 0:
+            self.last -= 1
+        if self.last == 0 and len(self.ss[self.last]) == 0:
+            return -1
+        back = self.ss[self.last][-1]
+        self.ss[self.last].pop()
+        return back
+
+    def popAtStack(self, index: int) -> int:
+        if index > self.last or len(self.ss[index]) == 0:
+            return -1
+        back = self.ss[index][-1]
+        self.ss[index].pop()
+        if index not in self.used:
+            heappush(self.q, index)
+            self.used.add(index)
+        return back`,
     },
     {
       script: Script.RUST,

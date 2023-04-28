@@ -15,6 +15,9 @@
         "chrono": "cpp",
         "iostream": "cpp",
         "__config": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "__bit_reference": "cpp",
+        "__split_buffer": "cpp",
+        "ostream": "cpp"
     }
 }

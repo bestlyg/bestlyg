@@ -78,26 +78,32 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
-class Solution {
+class DinnerPlates {
 public:
-    int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
-        set<int> s;
-        for (auto &num : arr2) s.insert(num);
-        unordered_map<int, unordered_map<int, int>> m;
-        function<int(int, int)> dfs = [&](int idx, int pre) -> int {
-            if (m[idx].count(pre)) return m[idx][pre];
-            if (idx == - 1) return m[idx][pre] = 0;
-            int res = INT_MAX;
-            if (arr1[idx] < pre) res = dfs(idx - 1, arr1[idx]);
-            auto find = s.lower_bound(pre);
-            if (find != s.begin()) {
-                int next = dfs(idx - 1, *(--find));
-                if (next != INT_MAX) res = min(res, 1 + next);
-            }
-            return m[idx][pre] = res;
-        };
-        int res = dfs(arr1.size() - 1, INT_MAX);
-        return res == INT_MAX ? -1 : res;
+    typedef pair<int, int> pii;
+    int capacity;
+    vector<vector<int>> ss;
+    pii last;
+    priority_queue<int> q;
+    DinnerPlates(int capacity): capacity(capacity) {
+        q.push(2);
+        q.push(1);
+        while (q.size()) {
+            cout << q.top() << endl;
+        }
+        cout << endl;
+    }
+    
+    void push(int val) {
+
+    }
+    
+    int pop() {
+        return -1;
+    }
+    
+    int popAtStack(int index) {
+        return -1;
     }
 };
 
@@ -116,29 +122,17 @@ int main() {
 #endif
 
 /*
-[56,22,79,41,8,39,81,59,74,14,45,49,15,10,28,16,77,22,65,8,36,79,94,44,80,72,8,96,78]
-[39,92,69,55,9,44,26,76,40,77,16,69,40,64,12,48,66,7,59,10,33,72,97,60,79,68,25,63]
-输出：
-72
-预期：
-7
 
-4
-[[0,1],[1,2],[1,3]]
-[2,2,10,6]
-[[0,3],[2,1],[2,3]]
-2
-[[0,1]]
-[2,2]
-[[0,0]]
-
-9
-[[2,5],[3,4],[4,1],[1,7],[6,7],[7,0],[0,5],[5,8]]
-[4,4,6,4,2,4,2,14,8]
-[[1,5],[2,7],[4,3],[1,8],[2,8],[4,3],[1,5],[1,4],[2,1],[6,0],[0,7],[8,6],[4,0],[7,5],[7,5],[6,0],[5,1],[1,1],[7,5],[1,7],[8,7],[2,3],[4,1],[3,5],[2,5],[3,7],[0,1],[5,8],[5,3],[5,2]]
-输出：
-434
-预期：
-429
+["DinnerPlates","push","push","push","push","push","push","push","push","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","popAtStack","push","push","push","push","push","push","push","push","pop","pop","pop","pop","pop","pop","pop","pop","pop","pop"]
+[[2],[472],[106],[497],[498],[73],[115],[437],[461],[3],[3],[1],[3],[0],[2],[2],[1],[1],[3],[197],[239],[129],[449],[460],[240],[386],[343],[],[],[],[],[],[],[],[],[],[]]
+["DinnerPlates","push","push","push","push","push","push","push","push","popAtStack","popAtStack","popAtStack","popAtStack","push","push","push","push","push","push","push","push","pop","pop","pop","pop"]
+[[2],[471],[177],[1],[29],[333],[154],[130],[333],[1],[0],[2],[0],[165],[383],[267],[367],[53],[373],[388],[249],[],[],[],[]]
+["DinnerPlates","push","push","popAtStack","pop","push","push","pop","pop"]
+[[1],[1],[2],[1],[],[1],[2],[],[]]
+["DinnerPlates","push","push","popAtStack","pop","push","push","pop","pop"]
+[[1],[1],[2],[1],[],[1],[2],[],[]]["DinnerPlates","push","push","push","push","push","popAtStack","push","push","popAtStack","popAtStack","pop","pop","pop","pop","pop"]
+[[2],[1],[2],[3],[4],[7],[8],[20],[21],[0],[2],[],[],[],[],[]]
+["DinnerPlates","push","push","push","push","push","popAtStack","push","push","popAtStack","popAtStack","pop","pop","pop","pop","pop"]
+[[2],[1],[2],[3],[4],[5],[0],[20],[21],[0],[2],[],[],[],[],[]]
 
 */

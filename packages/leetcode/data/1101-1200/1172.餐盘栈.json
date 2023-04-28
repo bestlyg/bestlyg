@@ -1,0 +1,39 @@
+{
+    "id": "1270",
+    "name": "1172.餐盘栈",
+    "url": "https://leetcode.cn/problems/dinner-plate-stacks",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "设计",
+        "哈希表",
+        "堆（优先队列）"
+    ],
+    "desc": "我们把无限数量 ∞ 的栈排成一行，按从左到右的次序从 0 开始编号。每个栈的的最大容量 capacity 都相同。实现一个叫「餐盘」的类 DinnerPlates。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 448,
+            "memory": 205.7,
+            "desc": "模拟栈，用优先队列和哈希表存储从左往右空着的元素，末尾为空时删除末尾的栈。",
+            "code": "class DinnerPlates {\npublic:\n    int capacity;\n    vector<vector<int>> ss;\n    unordered_set<int> used;\n    priority_queue<int, vector<int>, greater<int>> q;\n\n    DinnerPlates(int capacity): capacity(capacity) {}\n\n    int load_stack() {\n        ss.push_back(vector<int>());\n        return ss.size() - 1;\n    }\n\n    void clear_last() {\n        while (ss.size() && ss.back().size() == 0) ss.pop_back();\n    }\n    \n    void push(int val) {\n        while (q.size() && q.top() >= ss.size()) q.pop();\n        if (q.empty()) {\n            int idx = ss.size() - 1;\n            if (ss.empty() || ss[idx].size() == capacity) idx = load_stack();\n            ss[idx].push_back(val);\n        } else {\n            int idx = q.top();\n            ss[idx].push_back(val);\n            if (ss[idx].size() == capacity) q.pop(), used.erase(idx);\n        }\n    }\n    \n    int pop() {\n        clear_last();\n        if (ss.empty()) return -1;\n        int back = ss.back().back();\n        ss.back().pop_back();\n        return back;\n    }\n    \n    int popAtStack(int index) {\n        if (index >= ss.size() || ss[index].size() == 0) return -1;\n        int back = ss[index].back();\n        ss[index].pop_back();\n        clear_last();\n        if (index < ss.size() && !used.count(index)) q.push(index), used.insert(index);\n        return back;\n    }\n};",
+            "date": 1682611200000
+        },
+        {
+            "script": "cpp",
+            "time": 384,
+            "memory": 205.6,
+            "desc": "模拟栈，用优先队列和哈希表存储从左往右空着的元素，用last记录末尾元素。",
+            "code": "class DinnerPlates {\npublic:\n    int capacity, last;\n    vector<vector<int>> ss;\n    unordered_set<int> used;\n    priority_queue<int, vector<int>, greater<int>> q;\n\n    DinnerPlates(int capacity): capacity(capacity), last(0) {\n        ss.push_back(vector<int>());\n    }\n\n    int get_last() {\n        if (ss[last].size() == capacity) last++;\n        if (last == ss.size()) ss.push_back(vector<int>());\n        return last;\n    }\n    \n    void push(int val) {\n        while (q.size() && q.top() > last) q.pop();\n        if (q.empty()) {\n            ss[get_last()].push_back(val);\n        } else {\n            int idx = q.top();\n            ss[idx].push_back(val);\n            if (ss[idx].size() == capacity) q.pop(), used.erase(idx);\n        }\n    }\n    \n    int pop() {\n        while (last > 0 && ss[last].size() == 0) last--;\n        if (last == 0 && ss[last].size() == 0) return -1;\n        int back = ss[last].back();\n        ss[last].pop_back();\n        return back;\n    }\n    \n    int popAtStack(int index) {\n        if (index > last || ss[index].size() == 0) return -1;\n        int back = ss[index].back();\n        ss[index].pop_back();\n        if (!used.count(index)) q.push(index), used.insert(index);\n        return back;\n    }\n};",
+            "date": 1682611200000
+        },
+        {
+            "script": "python3",
+            "time": 632,
+            "memory": 100.7,
+            "desc": "同上。",
+            "code": "from heapq import *\nclass DinnerPlates:\n\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.last = 0\n        self.ss = [[]]\n        self.used = set()\n        self.q = []\n\n    def get_last(self):\n        if len(self.ss[self.last]) == self.capacity:\n            self.last += 1\n        if self.last == len(self.ss):\n            self.ss.append([])\n        return self.last\n\n    def push(self, val: int) -> None:\n        while len(self.q) and self.q[0] > self.last:\n            heappop(self.q)\n        if len(self.q) == 0:\n            self.ss[self.get_last()].append(val)\n        else:\n            idx = self.q[0]\n            self.ss[idx].append(val)\n            if len(self.ss[idx]) == self.capacity:\n                heappop(self.q)\n                self.used.remove(idx)\n\n    def pop(self) -> int:\n        while self.last > 0 and len(self.ss[self.last]) == 0:\n            self.last -= 1\n        if self.last == 0 and len(self.ss[self.last]) == 0:\n            return -1\n        back = self.ss[self.last][-1]\n        self.ss[self.last].pop()\n        return back\n\n    def popAtStack(self, index: int) -> int:\n        if index > self.last or len(self.ss[index]) == 0:\n            return -1\n        back = self.ss[index][-1]\n        self.ss[index].pop()\n        if index not in self.used:\n            heappush(self.q, index)\n            self.used.add(index)\n        return back",
+            "date": 1682611200000
+        }
+    ]
+}
