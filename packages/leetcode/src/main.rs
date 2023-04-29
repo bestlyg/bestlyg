@@ -87,29 +87,15 @@ fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
     sums
 }
 
-fn cmp(s1: &[u8], s2: &[u8], i1: usize, i2: usize, err: usize) -> bool {
-    if i1 == s1.len() {
-        i2 + err == s2.len()
-    } else if i2 == s2.len() {
-        i1 + err == s1.len()
-    } else if s1[i1] == s2[i2] {
-        cmp(s1, s2, i1 + 1, i2 + 1, err)
-    } else if err == 0 {
-        false
-    } else {
-        cmp(s1, s2, i1 + 1, i2, err - 1) || cmp(s1, s2, i1, i2 + 1, err - 1)
-    }
-}
-
 // use std::cmp::Ordering;
 
-#[derive(PartialEq, PartialOrd)]
+#[derive(PartialEq)]
 struct RevUnsize(usize);
 impl Eq for RevUnsize {}
 
-impl PartialOrd for MinNonNan {
+impl PartialOrd for RevUnsize {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        other.0.partial_cmp(&self.0).unwrap()
+        other.0.partial_cmp(&self.0)
     }
 }
 impl Ord for RevUnsize {
@@ -118,95 +104,35 @@ impl Ord for RevUnsize {
     }
 }
 
-struct DinnerPlates {
-    capacity: usize,
-    last: usize,
-    ss: Vec<Vec<i32>>,
-    used: std::collections::HashSet<usize>,
-    q: std::collections::BinaryHeap<RevUnsize>,
+fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
+    use std::ptr::swap;
+    unsafe {
+        if a > c {
+            swap(a, c);
+        }
+        if a > b {
+            swap(a, b);
+        }
+        if b > c {
+            swap(b, c);
+        }
+    };
 }
 
-impl DinnerPlates {
-    fn new(capacity: i32) -> Self {
-        let mut q = std::collections::BinaryHeap::<RevUnsize>::new();
-        q.push(RevUnsize(0));
-        q.push(RevUnsize(1));
-        q.push(RevUnsize(2));
-        while !q.is_empty() {
-            println!("{}", q.pop().unwrap());
-        }
-        Self {
-            capacity: capacity as usize,
-            last: 0,
-            ss: vec![vec![]],
-            used: Default::default(),
-            q: Default::default(),
-        }
-    }
-
-    fn format_last(&mut self) {
-        if self.ss[self.last].len() == self.capacity {
-            self.last += 1;
-        }
-        if self.last == self.ss.len() {
-            self.ss.push(vec![]);
-        }
-    }
-
-    fn push(&mut self, val: i32) {
-        println!("PUSH {:?}", val);
-        while !self.q.is_empty() && (*self.q.peek().unwrap()).0 > self.last {
-            self.q.pop();
-        }
-        if self.q.is_empty() {
-            self.format_last();
-            self.ss[self.last].push(val);
+impl Solution {
+    pub fn num_moves_stones(mut a: i32, mut b: i32, mut c: i32) -> Vec<i32> {
+        sort3(&mut a, &mut b, &mut c);
+        if a + 2 == c {
+            vec![0, 0]
         } else {
-            let idx = (*self.q.peek().unwrap()).0;
-            println!("mini idx = {}", idx);
-            self.ss[idx].push(val);
-            if self.ss[idx].len() == self.capacity {
-                self.q.pop();
-                self.used.remove(&idx);
-            }
-        }
-
-        println!("{:?}", self.ss);
-    }
-
-    fn pop(&mut self) -> i32 {
-        println!("POP,last={}", self.last);
-        while self.last > 0 && self.ss[self.last].len() == 0 {
-            self.last -= 1;
-        }
-
-        if self.last == 0 && self.ss[self.last].len() == 0 {
-            println!("{:?}", self.ss);
-            -1
-        } else {
-            let res = self.ss[self.last].pop().unwrap();
-
-            println!("{:?}", self.ss);
-            res
-        }
-    }
-
-    fn pop_at_stack(&mut self, index: i32) -> i32 {
-        println!("pop_at_stack,{index},last={}", self.last);
-        let index = index as usize;
-        if index > self.last || self.ss[index].len() == 0 {
-            println!("{:?}", self.ss);
-            -1
-        } else {
-            let back = self.ss[index].pop().unwrap();
-            if !self.used.contains(&index) {
-                self.q.push(RevUnsize(index));
-                println!("qpush {index}");
-                self.used.insert(index);
-            }
-
-            println!("{:?}", self.ss);
-            back
+            vec![
+                if a + 1 == b || b + 1 == c || a + 2 == b || b + 2 == c {
+                    1
+                } else {
+                    2
+                },
+                c - b - 1 + b - a - 1,
+            ]
         }
     }
 }

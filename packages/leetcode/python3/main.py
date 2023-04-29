@@ -68,14 +68,25 @@ def cmp(s1: str, s2: str, i1: int, i2: int, err: int):
     return cmp(s1, s2, i1 + 1, i2, err - 1) or cmp(s1, s2, i1, i2 + 1, err - 1)
 
 
+def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
+    if a > c:
+        a, c = c, a
+    if a > b:
+        a, b = b, a
+    if b > c:
+        b, c = c, b
+    return (a, b, c)
+
+
 class Solution:
-    def equalFrequency(self, word: str) -> bool:
-        cnt = Counter(word)
-        print(cnt)
-        m = defaultdict(List)
-        for c, m in cnt.items:
-            print(c,m)
-        return True
+    def numMovesStones(self, a: int, b: int, c: int) -> List[int]:
+        a, b, c = sort3(a, b, c)
+        if a + 2 == c:
+            return [0, 0]
+        return [
+            1 if a + 1 == b or b + 1 == c or a + 2 == b or b + 2 == c else 2,
+            c - b - 1 + b - a - 1
+        ]
 
 
 def main():
