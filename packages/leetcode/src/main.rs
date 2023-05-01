@@ -120,19 +120,22 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn num_moves_stones(mut a: i32, mut b: i32, mut c: i32) -> Vec<i32> {
-        sort3(&mut a, &mut b, &mut c);
-        if a + 2 == c {
-            vec![0, 0]
-        } else {
-            vec![
-                if a + 1 == b || b + 1 == c || a + 2 == b || b + 2 == c {
-                    1
-                } else {
-                    2
-                },
-                c - b - 1 + b - a - 1,
-            ]
+    pub fn num_of_minutes(n: i32, head_id: i32, manager: Vec<i32>, inform_time: Vec<i32>) -> i32 {
+        let n = n as usize;
+        let mut list = vec![vec![]; n];
+        for i in 0..n {
+            if manager[i] != -1 {
+                list[manager[i] as usize].push(i);
+            }
         }
+        fn dfs(list: &Vec<Vec<usize>>, inform_time: &Vec<i32>, cur: usize) -> i32 {
+            inform_time[cur]
+                + list[cur]
+                    .iter()
+                    .map(|v| dfs(list, inform_time, *v))
+                    .max()
+                    .unwrap_or(0)
+        }
+        dfs(&list, &inform_time, head_id as usize)
     }
 }

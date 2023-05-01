@@ -79,14 +79,18 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def numMovesStones(self, a: int, b: int, c: int) -> List[int]:
-        a, b, c = sort3(a, b, c)
-        if a + 2 == c:
-            return [0, 0]
-        return [
-            1 if a + 1 == b or b + 1 == c or a + 2 == b or b + 2 == c else 2,
-            c - b - 1 + b - a - 1
-        ]
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        list = [[] for _ in range(n)]
+        for i in range(n):
+            if manager[i] != -1:
+                list[manager[i]].append(i)
+
+        def dfs(cur: int) -> int:
+            sum = 0
+            for next in list[cur]:
+                sum = max(sum, dfs(next))
+            return informTime[cur] + sum
+        return dfs(headID)
 
 
 def main():

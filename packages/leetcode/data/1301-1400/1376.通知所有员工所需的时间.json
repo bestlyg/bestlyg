@@ -1,0 +1,38 @@
+{
+    "id": "1492",
+    "name": "1376.通知所有员工所需的时间",
+    "url": "https://leetcode.cn/problems/time-needed-to-inform-all-employees",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索"
+    ],
+    "desc": "返回通知所有员工这一紧急消息所需要的 分钟数 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 248,
+            "memory": 119.4,
+            "desc": "dfs。",
+            "code": "class Solution {\npublic:\n    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {\n        vector<vector<int>> list(n);\n        for (int i = 0; i < n; i++)\n            if (manager[i] != -1) list[manager[i]].push_back(i);\n        function<int(int)> dfs = [&](int cur) -> int {\n            int sum = 0;\n            for (auto &next : list[cur]) sum = max(sum, dfs(next));\n            return informTime[cur] + sum;\n        };\n        return dfs(headID);\n    }\n};",
+            "date": 1682870400000
+        },
+        {
+            "script": "python3",
+            "time": 392,
+            "memory": 43.5,
+            "desc": "同上。",
+            "code": "class Solution:\n    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:\n        list = [[] for _ in range(n)]\n        for i in range(n):\n            if manager[i] != -1:\n                list[manager[i]].append(i)\n\n        def dfs(cur: int) -> int:\n            sum = 0\n            for next in list[cur]:\n                sum = max(sum, dfs(next))\n            return informTime[cur] + sum\n        return dfs(headID)",
+            "date": 1682870400000
+        },
+        {
+            "script": "rust",
+            "time": 48,
+            "memory": 8.2,
+            "desc": "同上。",
+            "code": "impl Solution {\npub fn num_of_minutes(n: i32, head_id: i32, manager: Vec<i32>, inform_time: Vec<i32>) -> i32 {\n    let n = n as usize;\n    let mut list = vec![vec![]; n];\n    for i in 0..n {\n        if manager[i] != -1 {\n            list[manager[i] as usize].push(i);\n        }\n    }\n    fn dfs(list: &Vec<Vec<usize>>, inform_time: &Vec<i32>, cur: usize) -> i32 {\n        inform_time[cur]\n            + list[cur]\n                .iter()\n                .map(|v| dfs(list, inform_time, *v))\n                .max()\n                .unwrap_or_default()\n    }\n    dfs(&list, &inform_time, head_id as usize)\n}\n}",
+            "date": 1682870400000
+        }
+    ]
+}

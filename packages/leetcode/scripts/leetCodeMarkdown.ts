@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1033. 移动石子直到连续',
-  url: 'https://leetcode.cn/problems/moving-stones-until-consecutive/',
+  name: '1376. 通知所有员工所需的时间',
+  url: 'https://leetcode.cn/problems/time-needed-to-inform-all-employees/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `三枚石子放置在数轴上，位置分别为 a，b，c。使游戏结束，你可以执行的最小和最大移动次数分别是多少？`,
+  desc: `返回通知所有员工这一紧急消息所需要的 分钟数 。`,
   solutions: [
     //     {
     //       script: Script.TS,
@@ -25,87 +25,67 @@ const leetCodeMarkdown: Markdown = {
     //     },
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.1,
-      desc: '贪心，先排序，最大数就是ac一步步往b靠，最小数是如果有两个数紧挨或者两个数中间空一格，那就可以一步到位，否则需要两步',
-      code: `void sort3(int &a, int &b, int &c) {
-    if (a > c) swap(a, c);
-    if (a > b) swap(a, b);
-    if (b > c) swap(b, c);
-}
-class Solution {
+      time: 248,
+      memory: 119.4,
+      desc: 'dfs',
+      code: `class Solution {
 public:
-    vector<int> numMovesStones(int a, int b, int c) {
-        sort3(a, b, c);
-        vector<int> res(2, 0);
-        if (a + 2 == c) return res;
-        res[0] = a + 1 == b || b + 1 == c || a + 2 == b || b + 2 == c ? 1 : 2;
-        res[1] = c - b - 1 + b - a - 1;
-        return res;
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        vector<vector<int>> list(n);
+        for (int i = 0; i < n; i++)
+            if (manager[i] != -1) list[manager[i]].push_back(i);
+        function<int(int)> dfs = [&](int cur) -> int {
+            int sum = 0;
+            for (auto &next : list[cur]) sum = max(sum, dfs(next));
+            return informTime[cur] + sum;
+        };
+        return dfs(headID);
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 36,
-      memory: 16.1,
+      time: 392,
+      memory: 43.5,
       desc: '同上',
-      code: `def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
-    if a > c:
-        a, c = c, a
-    if a > b:
-        a, b = b, a
-    if b > c:
-        b, c = c, b
-    return (a, b, c)
+      code: `class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        list = [[] for _ in range(n)]
+        for i in range(n):
+            if manager[i] != -1:
+                list[manager[i]].append(i)
 
-
-class Solution:
-    def numMovesStones(self, a: int, b: int, c: int) -> List[int]:
-        a, b, c = sort3(a, b, c)
-        if a + 2 == c:
-            return [0, 0]
-        return [
-            1 if a + 1 == b or b + 1 == c or a + 2 == b or b + 2 == c else 2,
-            c - b - 1 + b - a - 1
-        ]`,
+        def dfs(cur: int) -> int:
+            sum = 0
+            for next in list[cur]:
+                sum = max(sum, dfs(next))
+            return informTime[cur] + sum
+        return dfs(headID)`,
     },
     {
       script: Script.RUST,
-      time: 0,
-      memory: 1.9,
+      time: 48,
+      memory: 8.2,
       desc: '同上',
-      code: `fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
-    use std::ptr::swap;
-    unsafe {
-        if a > c {
-            swap(a, c);
-        }
-        if a > b {
-            swap(a, b);
-        }
-        if b > c {
-            swap(b, c);
-        }
-    };
-}
-
-impl Solution {
-    pub fn num_moves_stones(mut a: i32, mut b: i32, mut c: i32) -> Vec<i32> {
-        sort3(&mut a, &mut b, &mut c);
-        if a + 2 == c {
-            vec![0, 0]
-        } else {
-            vec![
-                if a + 1 == b || b + 1 == c || a + 2 == b || b + 2 == c {
-                    1
-                } else {
-                    2
-                },
-                c - b - 1 + b - a - 1,
-            ]
+      code: `impl Solution {
+pub fn num_of_minutes(n: i32, head_id: i32, manager: Vec<i32>, inform_time: Vec<i32>) -> i32 {
+    let n = n as usize;
+    let mut list = vec![vec![]; n];
+    for i in 0..n {
+        if manager[i] != -1 {
+            list[manager[i] as usize].push(i);
         }
     }
+    fn dfs(list: &Vec<Vec<usize>>, inform_time: &Vec<i32>, cur: usize) -> i32 {
+        inform_time[cur]
+            + list[cur]
+                .iter()
+                .map(|v| dfs(list, inform_time, *v))
+                .max()
+                .unwrap_or_default()
+    }
+    dfs(&list, &inform_time, head_id as usize)
+}
 }`,
     },
   ],
