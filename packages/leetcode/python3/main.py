@@ -79,18 +79,27 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
-        list = [[] for _ in range(n)]
-        for i in range(n):
-            if manager[i] != -1:
-                list[manager[i]].append(i)
-
-        def dfs(cur: int) -> int:
-            sum = 0
-            for next in list[cur]:
-                sum = max(sum, dfs(next))
-            return informTime[cur] + sum
-        return dfs(headID)
+    def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
+        list = []
+        res = set()
+        i = 0
+        while pow(x, i) <= bound:
+            list.append(pow(x, i))
+            if x == 1:
+                break
+            i += 1
+        i = 0
+        while pow(y, i) <= bound:
+            ynum = pow(y, i)
+            for xnum in list:
+                if ynum + xnum <= bound:
+                    res.add(ynum + xnum)
+                else:
+                    break
+            if y == 1:
+                break
+            y += 1
+        return [num for num in res]
 
 
 def main():

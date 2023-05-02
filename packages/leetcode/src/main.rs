@@ -120,22 +120,32 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn num_of_minutes(n: i32, head_id: i32, manager: Vec<i32>, inform_time: Vec<i32>) -> i32 {
-        let n = n as usize;
-        let mut list = vec![vec![]; n];
-        for i in 0..n {
-            if manager[i] != -1 {
-                list[manager[i] as usize].push(i);
+    pub fn powerful_integers(x: i32, y: i32, bound: i32) -> Vec<i32> {
+        let mut list = vec![];
+        let mut res = std::collections::HashSet::<i32>::new();
+        let mut i = 0;
+        while x.pow(i) <= bound {
+            list.push(x.pow(i));
+            if x == 1 {
+                break;
             }
+            i += 1;
         }
-        fn dfs(list: &Vec<Vec<usize>>, inform_time: &Vec<i32>, cur: usize) -> i32 {
-            inform_time[cur]
-                + list[cur]
-                    .iter()
-                    .map(|v| dfs(list, inform_time, *v))
-                    .max()
-                    .unwrap_or(0)
+        i = 0;
+        while y.pow(i) <= bound {
+            let ynum = y.pow(i);
+            for xnum in list {
+                if ynum + xnum <= bound {
+                    res.push(ynum + xnum);
+                } else {
+                    break;
+                }
+            }
+            if y == 1 {
+                break;
+            }
+            i += 1;
         }
-        dfs(&list, &inform_time, head_id as usize)
+        res.into_iter().collect()
     }
 }

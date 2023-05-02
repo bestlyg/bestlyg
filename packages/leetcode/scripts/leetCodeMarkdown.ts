@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1376. 通知所有员工所需的时间',
-  url: 'https://leetcode.cn/problems/time-needed-to-inform-all-employees/',
+  name: '970. 强整数',
+  url: 'https://leetcode.cn/problems/powerful-integers/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回通知所有员工这一紧急消息所需要的 分钟数 。`,
+  desc: `给定三个整数 x 、 y 和 bound ，返回 值小于或等于 bound 的所有 强整数 组成的列表 。`,
   solutions: [
     //     {
     //       script: Script.TS,
@@ -25,68 +25,93 @@ const leetCodeMarkdown: Markdown = {
     //     },
     {
       script: Script.CPP,
-      time: 248,
-      memory: 119.4,
+      time: 0,
+      memory: 6.6,
       desc: 'dfs',
       code: `class Solution {
 public:
-    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        vector<vector<int>> list(n);
-        for (int i = 0; i < n; i++)
-            if (manager[i] != -1) list[manager[i]].push_back(i);
-        function<int(int)> dfs = [&](int cur) -> int {
-            int sum = 0;
-            for (auto &next : list[cur]) sum = max(sum, dfs(next));
-            return informTime[cur] + sum;
-        };
-        return dfs(headID);
+    vector<int> powerfulIntegers(int x, int y, int bound) {
+        vector<int> list;
+        unordered_set<int> res;
+        for (int i = 0; pow(x, i) <= bound; i++) {
+            list.push_back(pow(x, i));
+            if (x == 1) break;
+        }
+        for (int i = 0; pow(y, i) <= bound; i++) {
+            int ynum = pow(y, i);
+            for (auto &xnum : list)
+                if (ynum + xnum <= bound) res.insert(ynum + xnum);
+                else break;
+            if (y == 1) break;
+        }
+        return vector<int>(res.begin(), res.end());
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 392,
-      memory: 43.5,
+      time: 48,
+      memory: 16.2,
       desc: '同上',
       code: `class Solution:
-    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
-        list = [[] for _ in range(n)]
-        for i in range(n):
-            if manager[i] != -1:
-                list[manager[i]].append(i)
-
-        def dfs(cur: int) -> int:
-            sum = 0
-            for next in list[cur]:
-                sum = max(sum, dfs(next))
-            return informTime[cur] + sum
-        return dfs(headID)`,
+    def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
+        list = []
+        res = set()
+        i = 0
+        while pow(x, i) <= bound:
+            list.append(pow(x, i))
+            if x == 1:
+                break
+            i += 1
+        i = 0
+        while pow(y, i) <= bound:
+            ynum = pow(y, i)
+            for xnum in list:
+                if ynum + xnum <= bound:
+                    res.add(ynum + xnum)
+                else:
+                    break
+            if y == 1:
+                break
+            i += 1
+        return [num for num in res]`,
     },
     {
       script: Script.RUST,
-      time: 48,
-      memory: 8.2,
+      time: 4,
+      memory: 2.2,
       desc: '同上',
       code: `impl Solution {
-pub fn num_of_minutes(n: i32, head_id: i32, manager: Vec<i32>, inform_time: Vec<i32>) -> i32 {
-    let n = n as usize;
-    let mut list = vec![vec![]; n];
-    for i in 0..n {
-        if manager[i] != -1 {
-            list[manager[i] as usize].push(i);
+    pub fn powerful_integers(x: i32, y: i32, bound: i32) -> Vec<i32> {
+        let mut list = vec![];
+        let mut res = std::collections::HashSet::<i32>::new();
+        let mut i = 0;
+        while x.pow(i) <= bound {
+            list.push(x.pow(i));
+            if x == 1 {
+                break;
+            }
+            i += 1;
         }
+        i = 0;
+        while y.pow(i) <= bound {
+            let ynum = y.pow(i);
+            for xnum in &list {
+                if ynum + *xnum <= bound {
+                    res.insert(ynum + *xnum);
+                } else {
+                    break;
+                }
+            }
+            if y == 1 {
+                break;
+            }
+            i += 1;
+        }
+        res.into_iter().collect()
     }
-    fn dfs(list: &Vec<Vec<usize>>, inform_time: &Vec<i32>, cur: usize) -> i32 {
-        inform_time[cur]
-            + list[cur]
-                .iter()
-                .map(|v| dfs(list, inform_time, *v))
-                .max()
-                .unwrap_or_default()
-    }
-    dfs(&list, &inform_time, head_id as usize)
 }
-}`,
+`,
     },
   ],
 };
