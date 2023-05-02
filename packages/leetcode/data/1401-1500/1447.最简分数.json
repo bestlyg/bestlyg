@@ -22,7 +22,7 @@
             "date": 1644422400000,
             "time": 116,
             "memory": 32.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "判断最大公约数。",
             "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        unordered_set<string> s;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                int num = gcd(i, j);\n                s.insert(to_string(j / num) + \"/\" + to_string(i / num));\n            }\n        }\n        vector<string> ans;\n        for (auto& str : s) ans.push_back(str);\n        return ans;\n    }\n};"
         },
@@ -30,7 +30,7 @@
             "date": 1644422400000,
             "time": 48,
             "memory": 21.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "判断最大公约数。",
             "code": "class Solution {\n   public:\n    vector<string> simplifiedFractions(int n) {\n        vector<string> ans;\n        for (int i = 2; i <= n; i++) {\n            for (int j = 1; j < i; j++) {\n                if (j == 1 || gcd(i, j) == 1)\n                    ans.push_back(to_string(j) + \"/\" + to_string(i));\n            }\n        }\n        return ans;\n    }\n};"
         }

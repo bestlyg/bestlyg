@@ -22,7 +22,7 @@
             "date": 1641571200000,
             "time": 0,
             "memory": 7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "对于每个起点进行双指针遍历。",
             "code": "class Solution {\n   public:\n    int getNext(int i, vector<int>& nums) {\n        int delta = 1000 * nums.size(), n = nums.size();\n        if (nums[i] < 0) delta *= -1;\n        nums[i] += delta;\n        return ((i + nums[i]) % n + n) % n;\n    }\n    bool circularArrayLoop(vector<int>& nums) {\n        for (int i = 0; i < nums.size(); i++) {\n            if (abs(nums[i]) > 1000) continue;\n            int p = i, q = i;\n            do {\n                p = getNext(p, nums);\n                q = getNext(getNext(q, nums), nums);\n            } while (p != q);\n            int a = 0, b = 0, l = 0;\n            do {\n                if (nums[p] > 0)\n                    a++;\n                else\n                    b++;\n                l++;\n                p = getNext(p, nums);\n            } while (p != q);\n            if (l > 1 && (a == 0 || b == 0)) return 1;\n        }\n        return 0;\n    }\n};"
         }

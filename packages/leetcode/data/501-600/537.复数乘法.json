@@ -14,7 +14,7 @@
             "date": 1645718400000,
             "time": 0,
             "memory": 5.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "模拟。",
             "code": "class Solution {\n   public:\n    void analysis(string num, int& snum, int& fnum) {\n        int add = num.find(\"+\");\n        snum = atoi(num.substr(0, add).c_str());\n        fnum = atoi(num.substr(add + 1, num.size() - add - 1).c_str());\n    }\n    string complexNumberMultiply(string num1, string num2) {\n        int snum1, fnum1, snum2, fnum2;\n        analysis(num1, snum1, fnum1);\n        analysis(num2, snum2, fnum2);\n        ostringstream ostr;\n        ostr << snum1 * snum2 + fnum1 * fnum2 * -1 << \"+\"\n             << snum1 * fnum2 + snum2 * fnum1 << \"i\";\n        return ostr.str();\n    }\n};"
         }

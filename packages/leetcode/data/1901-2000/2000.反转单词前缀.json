@@ -13,7 +13,7 @@
             "date": 1643817600000,
             "time": 0,
             "memory": 6.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    string reversePrefix(string word, char ch) {\n        int idx = 0;\n        while (idx < word.size() && word[idx] != ch) idx++;\n        if (idx == word.size()) return word;\n        string ans = word.substr(0, idx + 1);\n        reverse(ans.begin(), ans.end());\n        ans += word.substr(idx + 1, word.size() - idx - 1);\n        return ans;\n    }\n};"
         },
@@ -21,7 +21,7 @@
             "date": 1643817600000,
             "time": 0,
             "memory": 6.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    string reversePrefix(string word, char ch) {\n        int idx = 0;\n        while (idx < word.size() && word[idx] != ch) idx++;\n        if (idx == word.size()) return word;\n        string ans = \"\";\n        for (int i = idx; i >= 0; i--) ans += word[i];\n        for (int i = idx + 1; i < word.size(); i++) ans += word[i];\n        return ans;\n    }\n};"
         }

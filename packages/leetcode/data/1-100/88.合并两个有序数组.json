@@ -38,7 +38,7 @@
             "date": 1640016000000,
             "time": 0,
             "memory": 8.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "从后往前遍历。",
             "code": "class Solution {\n   public:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        int idx = m + n - 1, idx1 = m - 1, idx2 = n - 1;\n        while (idx1 >= 0 || idx2 >= 0) {\n            if (idx1 >= 0 && (idx2 < 0 || nums1[idx1] >= nums2[idx2])) {\n                nums1[idx--] = nums1[idx1--];\n            } else {\n                nums1[idx--] = nums2[idx2--];\n            }\n        }\n    }\n};"
         }

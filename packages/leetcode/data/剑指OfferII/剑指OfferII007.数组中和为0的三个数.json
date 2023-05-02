@@ -14,7 +14,7 @@
             "date": 1645113600000,
             "time": 60,
             "memory": 19.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "循环双指针。",
             "code": "class Solution {\n   public:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        vector<vector<int>> ans;\n        sort(nums.begin(), nums.end());\n        for (int i = 0; i < nums.size() && nums[i] <= 0; i++) {\n            if (i != 0 && nums[i] == nums[i - 1]) continue;\n            int sum, l = i + 1, r = nums.size() - 1;\n            while (l < r) {\n                sum = nums[l] + nums[r] + nums[i];\n                if (sum == 0) {\n                    ans.push_back(vector<int>{nums[i], nums[l], nums[r]});\n                    while (l < r && nums[l] == nums[l + 1]) l++;\n                    l++;\n                } else if (sum > 0)\n                    r--;\n                else\n                    l++;\n            }\n        }\n        return ans;\n    }\n};"
         }

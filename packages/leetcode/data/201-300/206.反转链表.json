@@ -37,7 +37,7 @@
             "date": 1646236800000,
             "time": 8,
             "memory": 8.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n   public:\n    ListNode* reverseList(ListNode* head) {\n        if (!head) return head;\n        ListNode *newHead = nullptr, *tmp;\n        while (head) {\n            tmp = head->next;\n            head->next = newHead;\n            newHead = head;\n            head = tmp;\n        }\n        return newHead;\n    }\n};"
         }

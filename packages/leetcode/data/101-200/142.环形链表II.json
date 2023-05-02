@@ -38,7 +38,7 @@
             "date": 1646236800000,
             "time": 8,
             "memory": 7.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针， 快指针跑了 a+b+c+b 时，慢指针跑了 a+b。",
             "code": "class Solution {\n   public:\n    ListNode *detectCycle(ListNode *head) {\n        if (!head) return NULL;\n        ListNode *fast = head, *slow = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n            if (fast == slow) break;\n        }\n        if (!(fast && fast->next)) return NULL;\n        slow = head;\n        while (slow != fast) {\n            slow = slow->next;\n            fast = fast->next;\n        }\n        return slow;\n    }\n};"
         }

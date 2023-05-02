@@ -36,7 +36,7 @@
             "date": 1639929600000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "倒置。",
             "code": "class Solution {\n   public:\n    int reverse(int x) {\n        int f = 1;\n        if (x == INT_MIN) return 0;\n        if (x < 0) {\n            x = -x;\n            f = -1;\n        }\n        int num = 0;\n        while (x) {\n            if (num > INT_MAX / 10) return 0;\n            num = num * 10 + x % 10;\n            x /= 10;\n        }\n        return num * f;\n    }\n};"
         }

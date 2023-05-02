@@ -14,7 +14,7 @@
             "date": 1644681600000,
             "time": 0,
             "memory": 6.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int maxNumberOfBalloons(string text) {\n        int m[26] = {0};\n        for (auto &ch : text) m[ch - 'a']++;\n        return min(min(min(m[1], m[0]), m['n' - 'a']),\n                   min(m['l' - 'a'], m['o' - 'a']) / 2);\n    }\n};"
         }

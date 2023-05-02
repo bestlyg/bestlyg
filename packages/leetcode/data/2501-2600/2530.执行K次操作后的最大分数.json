@@ -14,7 +14,7 @@
             "date": 1673107200000,
             "time": 160,
             "memory": 70.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "堆。",
             "code": "class Solution {\npublic:\n    long long maxKelements(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        priority_queue<int> q;\n        long long ans = 0;\n        int idx = nums.size() - 1;\n        while (k--) {\n            if (q.size() && (idx < 0 || q.top() >= nums[idx])) {\n                int num = q.top();\n                q.pop();\n                ans += num;\n                q.push(ceil(1.0 * num / 3));\n            } else {\n                int num = nums[idx--];\n                ans += num;\n                q.push(ceil(1.0 * num / 3));\n            }\n        }\n        return ans;\n    }\n};"
         },

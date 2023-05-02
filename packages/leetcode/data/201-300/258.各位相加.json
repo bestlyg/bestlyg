@@ -14,7 +14,7 @@
             "date": 1646236800000,
             "time": 0,
             "memory": 5.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "递归遍历。",
             "code": "class Solution {\n   public:\n    int addDigits(int num) {\n        if (num < 10) return num;\n        int ans = 0;\n        for (; num; num /= 10) ans += num % 10;\n        return addDigits(ans);\n    }\n};"
         }

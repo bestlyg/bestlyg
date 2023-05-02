@@ -38,7 +38,7 @@
             "date": 1640275200000,
             "time": 4,
             "memory": 6.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n          public:\n    int lengthOfLongestSubstring(string s) {\n        int arr[200] = {0}, l = 0, r = 0, ans = 0, n = s.size();\n        while (r < n) {\n            while (r < n && arr[s[r]] < 1) arr[s[r++]]++;\n            ans = max(ans, r - l);\n            char ch = s[r++];\n            arr[ch]++;\n            while (s[l] != ch) arr[s[l++]]--;\n            arr[s[l++]]--;\n        }\n        return ans;\n    }\n};"
         }

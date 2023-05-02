@@ -15,7 +15,7 @@
             "date": 1640880000000,
             "time": 880,
             "memory": 285.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "存入 map 分别统计。",
             "code": "class Solution {\n   public:\n    int get_k(unordered_map<int, int> m, vector<int>& nums, int k,\n              vector<int>& ans) {\n        for (int i = 0; i < nums.size(); i++) {\n            int low = nums[i];\n            if (m.count(low) == 0 || m[low] <= 0) continue;\n            int high = low + 2 * k;\n            if (m.count(high) == 0 || m[high] <= 0) return 0;\n            m[low]--;\n            m[high]--;\n            ans.push_back(low + k);\n        }\n        return k;\n    }\n    vector<int> recoverArray(vector<int>& nums) {\n        unordered_map<int, int> m;\n        for (auto& num : nums) m[num]++;\n        sort(nums.begin(), nums.end());\n        vector<int> ans;\n        int v1 = nums[0], v2, k = 0;\n        for (int i = 1; i < nums.size() && k == 0; i++) {\n            ans.clear();\n            v2 = nums[i];\n            if ((v2 - v1) & 1 || (v2 - v1) <= 1) continue;\n            k = get_k(m, nums, (v2 - v1) / 2, ans);\n        }\n        return ans;\n    }\n};"
         }

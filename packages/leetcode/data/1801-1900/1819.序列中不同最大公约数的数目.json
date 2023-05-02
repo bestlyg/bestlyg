@@ -23,7 +23,7 @@
             "date": 1641484800000,
             "time": 292,
             "memory": 70.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "对于每个可能出现的最大公约数 i 进行统计，所有数中的 i 的倍数和的最大公约数是否为 i，是则存在。",
             "code": "class Solution {\n   public:\n    int gcd(int a, int b) {\n        if (b) return gcd(b, a % b);\n        return a;\n    }\n    int countDifferentSubsequenceGCDs(vector<int>& nums) {\n        int cnts[200005] = {0}, maxn = 0, ans = 0;\n        for (auto& num : nums) {\n            cnts[num] = 1;\n            maxn = max(maxn, num);\n        }\n        for (int i = 1; i <= maxn; i++) {\n            int val = -1;\n            for (int j = i; j <= maxn; j += i) {\n                if (!cnts[j]) continue;\n                if (val == -1)\n                    val = j;\n                else\n                    val = gcd(val, j);\n            }\n            if (val == i) ans++;\n        }\n        return ans;\n    }\n};"
         },

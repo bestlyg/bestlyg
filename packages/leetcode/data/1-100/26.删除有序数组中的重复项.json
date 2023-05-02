@@ -21,7 +21,7 @@
             "date": 1639929600000,
             "time": 12,
             "memory": 18,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n   public:\n    int removeDuplicates(vector<int>& nums) {\n        int n = nums.size(), l = 0, r = 0;\n        if (n == 0) return 0;\n        while (r < n) {\n            while (r < n && nums[r] == nums[l]) r++;\n            if (r < n) nums[++l] = nums[r++];\n        }\n        return l + 1;\n    }\n};"
         }

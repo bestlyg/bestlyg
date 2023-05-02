@@ -16,7 +16,7 @@
             "date": 1642608000000,
             "time": 140,
             "memory": 124.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "把所有数模 3 取值，分别判断当有偶数个 0 和奇数个 0 的情况下必胜条件。",
             "code": "class Solution {\n   public:\n    bool stoneGameIX(vector<int>& stones) {\n        int cnts[3] = {0};\n        for (auto& num : stones) cnts[num % 3]++;\n        return cnts[0] % 2 == 0 ? cnts[1] >= 1 && cnts[2] >= 1\n                                : abs(cnts[2] - cnts[1]) >= 3;\n    }\n};"
         },

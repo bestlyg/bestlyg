@@ -12,7 +12,7 @@
             "date": 1645286400000,
             "time": 4,
             "memory": 9.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历， 判断最后的下标是否等于末尾。",
             "code": "class Solution {\n   public:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int idx = 0;\n        while (idx < bits.size() - 1) {\n            if (bits[idx] == 0)\n                idx += 1;\n            else\n                idx += 2;\n        }\n        return idx == bits.size() - 1;\n    }\n};"
         }

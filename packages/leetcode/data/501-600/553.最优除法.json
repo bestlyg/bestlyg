@@ -14,7 +14,7 @@
             "date": 1645891200000,
             "time": 0,
             "memory": 7.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "使分母最小。",
             "code": "class Solution {\n   public:\n    string optimalDivision(vector<int>& nums) {\n        int n = nums.size();\n        if (n == 1) return to_string(nums[0]);\n        if (n == 2) return to_string(nums[0]) + \"/\" + to_string(nums[1]);\n        string ans = to_string(nums[0]) + \"/(\";\n        for (int i = 1; i < nums.size(); i++) {\n            ans += to_string(nums[i]);\n            if (i != nums.size() - 1) ans += \"/\";\n        }\n        ans += \")\";\n        return ans;\n    }\n};"
         }

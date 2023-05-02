@@ -13,7 +13,7 @@
             "date": 1647187200000,
             "time": 100,
             "memory": 91,
-            "script": "c++",
+            "script": "cpp",
             "desc": "考虑到只能交易一次，每遍历到一个值与前面的最小值进行比较。",
             "code": "class Solution {\n   public:\n    int maxProfit(vector<int> &prices) {\n        int nmin = prices[0], ans = 0;\n        for (int i = 1; i < prices.size(); i++) {\n            ans = max(ans, prices[i] - nmin);\n            nmin = min(nmin, prices[i]);\n        }\n        return ans;\n    }\n};"
         }

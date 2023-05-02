@@ -31,7 +31,7 @@
             "date": 1641484800000,
             "time": 12,
             "memory": 15.4,
-            "script": "c++",
+            "script": "cpp",
             "desc": "最多只可能有两个数，声明两个变量记录数值和次数，遍历时相互抵消。",
             "code": "class Solution {\n   public:\n    vector<int> majorityElement(vector<int> &nums) {\n        int cnt1 = 0, num1, cnt2 = 0, num2;\n        for (auto &num : nums) {\n            if ((cnt1 == 0 || num1 == num) && num2 != num)\n                num1 = num, cnt1++;\n            else if (cnt2 == 0 || num2 == num)\n                num2 = num, cnt2++;\n            else\n                cnt1--, cnt2--;\n        }\n        cnt1 = cnt2 = 0;\n        for (auto &num : nums) {\n            if (num1 == num)\n                cnt1++;\n            else if (num2 == num)\n                cnt2++;\n        }\n        vector<int> ans;\n        if (cnt1 * 3 > nums.size()) ans.push_back(num1);\n        if (cnt2 * 3 > nums.size()) ans.push_back(num2);\n        return ans;\n    }\n};"
         }

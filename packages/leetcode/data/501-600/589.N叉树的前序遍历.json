@@ -22,7 +22,7 @@
             "date": 1646841600000,
             "time": 16,
             "memory": 11.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "dfs。",
             "code": "class Solution {\n   public:\n    vector<int> preorder(Node* root) {\n        vector<int> ans;\n        if (root) dfs(ans, root);\n        return ans;\n    }\n    void dfs(vector<int>& ans, Node* node) {\n        ans.push_back(node->val);\n        for (auto& child : node->children) dfs(ans, child);\n    }\n};"
         },
@@ -30,7 +30,7 @@
             "date": 1646841600000,
             "time": 24,
             "memory": 11.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "迭代。",
             "code": "class Solution {\n    public:\n     vector<int> preorder(Node *root) {\n         vector<int> ans;\n         stack<Node *> s;\n         if (root) s.push(root);\n         while (s.size()) {\n             Node *node = s.top();\n             s.pop();\n             ans.push_back(node->val);\n             for (auto it = node->children.rbegin(); it != node->children.rend();\n                  it++)\n                 s.push(*it);\n         }\n         return ans;\n     }\n };"
         }

@@ -12,7 +12,7 @@
             "date": 1642262400000,
             "time": 16,
             "memory": 16.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "随机数。",
             "code": "class Solution {\n   public:\n    vector<int> arr;\n    Solution(ListNode* head) {\n        srand(time(0));\n        ListNode* p = head;\n        while (p) {\n            arr.push_back(p->val);\n            p = p->next;\n        }\n    }\n\n    int getRandom() { return arr[rand() % arr.size()]; }\n};"
         },
@@ -20,7 +20,7 @@
             "date": 1642262400000,
             "time": 24,
             "memory": 16.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "水塘抽样。",
             "code": "class Solution {\n   public:\n    ListNode *node;\n    Solution(ListNode *head) {\n        srand(time(0));\n        node = head;\n    }\n\n    int getRandom() {\n        int ans, i = 1;\n        for (ListNode *p = node; p; p = p->next, i++) {\n            if (rand() % i == 0) ans = p->val;\n        }\n        return ans;\n    }\n};"
         }

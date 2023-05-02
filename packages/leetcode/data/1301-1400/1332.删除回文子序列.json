@@ -13,7 +13,7 @@
             "date": 1642780800000,
             "time": 0,
             "memory": 6.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "考虑是回文子序列，并非连续，且只有两种字母。",
             "code": "class Solution {\n   public:\n    int removePalindromeSub(string s) {\n        for (int start = 0, end = s.size() - 1; start <= end; start++, end--) {\n            if (s[start] != s[end]) return 2;\n        }\n        return 1;\n    }\n};"
         }

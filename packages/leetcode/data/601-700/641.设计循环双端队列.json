@@ -23,7 +23,7 @@
             "date": 1646236800000,
             "time": 20,
             "memory": 16.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class MyCircularDeque {\n   public:\n    int head, tail, *list, n;\n    MyCircularDeque(int k) : head(0), tail(0), n(k + 1) {\n        list = ((int *)malloc(sizeof(int) * n));\n    }\n    ~MyCircularDeque() { free(list); }\n\n    bool insertLast(int value) {\n        if (isFull()) return 0;\n        list[tail] = value;\n        tail = (tail + 1) % n;\n        return 1;\n    }\n    bool insertFront(int value) {\n        if (isFull()) return 0;\n        head = head == 0 ? n - 1 : head - 1;\n        list[head] = value;\n        return 1;\n    }\n    bool deleteLast() {\n        if (isEmpty()) return 0;\n        tail = tail == 0 ? n - 1 : tail - 1;\n        return 1;\n    }\n    bool deleteFront() {\n        if (isEmpty()) return 0;\n        head = (head + 1) % n;\n        return 1;\n    }\n    int getFront() {\n        if (isEmpty()) return -1;\n        return list[head];\n    }\n    int getRear() {\n        if (isEmpty()) return -1;\n        return list[tail == 0 ? n - 1 : tail - 1];\n    }\n    bool isEmpty() { return head == tail; }\n    bool isFull() { return (tail + 1) % n == head; }\n};"
         },

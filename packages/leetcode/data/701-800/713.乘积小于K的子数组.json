@@ -13,7 +13,7 @@
             "date": 1640275200000,
             "time": 72,
             "memory": 59.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n   public:\n    int numSubarrayProductLessThanK(vector<int>& nums, int k) {\n        if (k == 0) return 0;\n        int n = nums.size(), l = 0, r = 0, num = 1, ans = 0;\n        while (l < n && r <= n) {\n            while (r < n && num < k) num *= nums[r++];\n            ans += r - l - (num >= k ? 1 : 0);\n            num /= nums[l++];\n        }\n        return max(ans, 0);\n    }\n};"
         },
@@ -21,7 +21,7 @@
             "date": 1640275200000,
             "time": 49,
             "memory": 59.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n   public:\n    int numSubarrayProductLessThanK(vector<int>& nums, int k) {\n        if (k == 0) return 0;\n        int ans = 0, num = 1, l = 0;\n        for (int r = 0; r < nums.size(); r++) {\n            num *= nums[r];\n            while (l <= r && num >= k) num /= nums[l++];\n            ans += r - l + 1;\n        }\n        return ans;\n    }\n};"
         },

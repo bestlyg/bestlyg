@@ -37,7 +37,7 @@
             "date": 1639929600000,
             "time": 4,
             "memory": 9,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历每一位。",
             "code": "class Solution {\n   public:\n    string longestCommonPrefix(vector<string>& strs) {\n        int n = strs.size();\n        int maxn = 200;\n        for (int i = 0; i < n; i++) {\n            if (strs[i].size() < maxn) maxn = strs[i].size();\n        }\n        string ans = \"\";\n        if (maxn == 0) return ans;\n        for (int i = 0; i < maxn; i++) {\n            char ch = strs[0][i];\n            for (int j = 1; j < n; j++) {\n                if (strs[j][i] != ch) return ans;\n            }\n            ans += ch;\n        }\n        return ans;\n    }\n};"
         }

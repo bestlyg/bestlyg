@@ -12,7 +12,7 @@
             "date": 1647360000000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历每一位。",
             "code": "class Solution {\n   public:\n    bool hasAlternatingBits(int n) {\n        bool check = (n & 1) == 0;\n        for (n >>= 1; n; n >>= 1, check = !check) {\n            if ((n & 1) == 0) {\n                if (check) return false;\n            } else {\n                if (!check) return false;\n            }\n        }\n        return true;\n    }\n};"
         },

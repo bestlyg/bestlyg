@@ -12,7 +12,7 @@
             "date": 1645804800000,
             "time": 4,
             "memory": 8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历，记录最小值。",
             "code": "class Solution {\n   public:\n    int maximumDifference(vector<int>& nums) {\n        int minnum = nums[0], ans = INT_MIN;\n        for (auto& num : nums) {\n            if (num > minnum) {\n                ans = max(ans, num - minnum);\n            }\n            minnum = min(minnum, num);\n        }\n        return ans == INT_MIN ? -1 : ans;\n    }\n};"
         }

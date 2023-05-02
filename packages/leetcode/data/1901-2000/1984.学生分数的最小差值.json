@@ -14,7 +14,7 @@
             "date": 1644508800000,
             "time": 12,
             "memory": 13.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "排序后遍历。",
             "code": "class Solution {\n   public:\n    int minimumDifference(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int ans = INT_MAX;\n        for (int l = 0, r = k - 1; r < nums.size(); l++, r++)\n            ans = min(ans, nums[r] - nums[l]);\n        return ans;\n    }\n};"
         }

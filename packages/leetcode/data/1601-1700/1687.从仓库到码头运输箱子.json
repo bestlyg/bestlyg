@@ -16,14 +16,6 @@
     "solutions": [
         {
             "date": 1670169600000,
-            "time": null,
-            "memory": null,
-            "script": "cpp",
-            "desc": "动态规划，背包法，超时。",
-            "code": "#include <iostream>\n#include <vector>\n// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {\\\n    printf(frm, ##args); \\\n}\n#else\n#define log(frm, args...)\n#endif\ntypedef long long ll;\nusing namespace std;\n\nclass Solution {\npublic:\n    int boxDelivering(vector<vector<int>>& boxes, int portsCount, int maxBoxes, int maxWeight) {\n        int n = boxes.size(), ans = 0x7fffffff;\n        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0x3f3f3f3f));\n        dp[0][0] = 0;\n        // cnt 第几次从码头拿货\n        // box 总共有几个箱子\n        for (int cnt = 1; cnt <= n; cnt++) {\n            log(\"cnt = %d\\n\", cnt);\n            for (int ibox = n; ibox >= 1; ibox--) {\n                log(\"=====\\nibox = %d\\n\", ibox);\n                int curIdx = ibox - 1, curP = boxes[curIdx][0], curW = boxes[curIdx][1], curCnt = 1, curSum = 2;\n                dp[cnt][ibox] = min(dp[cnt][ibox], dp[cnt - 1][ibox - curCnt] + curSum);\n                while (curIdx - 1 >= 0 && curCnt + 1 <= maxBoxes && curW + boxes[curIdx - 1][1] <= maxWeight) {\n                    log(\"curIdx = %d, curP = %d, curW = %d, curCnt = %d, curSum = %d\n\",\n                        curIdx, curP, curW, curCnt, curSum);\n                    curIdx--;\n                    curW += boxes[curIdx][1];\n                    curCnt++;\n                    if (boxes[curIdx][0] != curP) {\n                        curP = boxes[curIdx][0];\n                        curSum++;\n                    }\n                    dp[cnt][ibox] = min(dp[cnt][ibox], dp[cnt - 1][ibox - curCnt] + curSum);\n                }\n                if (ibox == n && dp[cnt][ibox] != 0x3f3f3f3f) return dp[cnt][ibox];\n            }\n        }\n        return ans;\n\n    }\n};"
-        },
-        {
-            "date": 1670169600000,
             "time": 440,
             "memory": 149.6,
             "script": "cpp",

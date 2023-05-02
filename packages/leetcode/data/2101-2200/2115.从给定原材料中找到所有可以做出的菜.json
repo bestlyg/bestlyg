@@ -16,7 +16,7 @@
             "date": 1640880000000,
             "time": 1380,
             "memory": 91.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "循环遍历，然后判断每个菜能否被做出。",
             "code": "class Solution {\n   public:\n    vector<string> findAllRecipes(vector<string>& recipes,\n                                  vector<vector<string>>& ingredients,\n                                  vector<string>& supplies) {\n        unordered_set<string> supply_set, recipe_set;\n        for (auto& supply : supplies) supply_set.insert(supply);\n        for (int i = 0; i < recipes.size(); i++) {\n            for (int i = 0; i < recipes.size(); i++) {\n                if (recipe_set.count(recipes[i])) continue;\n                int tag = 1;\n                for (auto& ingredient : ingredients[i]) {\n                    if (supply_set.count(ingredient) ||\n                        recipe_set.count(ingredient))\n                        continue;\n                    tag = 0;\n                    break;\n                }\n                if (tag) recipe_set.insert(recipes[i]);\n            }\n        }\n        vector<string> ans;\n        for (auto it = recipe_set.begin(); it != recipe_set.end(); it++)\n            ans.push_back(*it);\n        return ans;\n    }\n};"
         }

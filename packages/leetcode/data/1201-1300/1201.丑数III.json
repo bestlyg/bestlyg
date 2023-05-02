@@ -14,7 +14,7 @@
             "date": 1641484800000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "二分答案，求出在数值 x 之前有几个丑数。",
             "code": "class Solution {\n   public:\n    long long gcd(long long a, long long b) {\n        if (b) return gcd(b, a % b);\n        return a;\n    }\n    long long lcm(long long a, long long b) {\n        return (long long)(a * b / gcd(a, b));\n    }\n    long long a, b, c, ab, ac, bc, abc;\n    long long get(long long cnt) {\n        //printf(\"a = %d, b = %d, c = %d, ab = %d, ac = %d, bc = %d, abc = %d\n\",\n        //       a, b, c, ab, ac, bc, abc);\n        return cnt / a + cnt / b + cnt / c - cnt / ab - cnt / bc - cnt / ac +\n               cnt / abc;\n    }\n    int nthUglyNumber(int n, int a, int b, int c) {\n        this->a = a;\n        this->b = b;\n        this->c = c;\n        ab = lcm(a, b);\n        ac = lcm(a, c);\n        bc = lcm(b, c);\n        abc = lcm(a, lcm(b, c));\n        long long l = 1, r = 2000000000, m;\n        while (l < r) {\n            m = (l + r) / 2;\n            if (get(m) >= n)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n};"
         }

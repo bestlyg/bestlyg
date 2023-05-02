@@ -12,7 +12,7 @@
             "date": 1646409600000,
             "time": 0,
             "memory": 6,
-            "script": "c++",
+            "script": "cpp",
             "desc": "判断两个值是否相等。",
             "code": "class Solution {\n   public:\n    int findLUSlength(string a, string b) {\n        return a == b ? -1 : max(a.size(), b.size());\n    }\n};"
         }

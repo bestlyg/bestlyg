@@ -37,7 +37,7 @@
             "date": 1639929600000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "二分查找。",
             "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        double l = 0, r = x, m;\n        while ((int)l != (int)r) {\n            m = l + (r - l) / 2.0;\n            if (m > x / m)\n                r = m;\n            else\n                l = m;\n        }\n        return (int)l;\n    }\n};"
         },
@@ -45,7 +45,7 @@
             "date": 1639929600000,
             "time": 0,
             "memory": 6,
-            "script": "c++",
+            "script": "cpp",
             "desc": "二分查找。",
             "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        long long l = 0, r = x, m;\n        while (l < r) {\n            m = (l + r + 1) >> 1;\n            if (m * m <= x)\n                l = m;\n            else\n                r = m - 1;\n        }\n        return l;\n    }\n};"
         }

@@ -13,7 +13,7 @@
             "date": 1643558400000,
             "time": 0,
             "memory": 5.9,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int numberOfSteps(int num) {\n        int ans = 0;\n        while (num) {\n            num = num & 1 ? num - 1 : num / 2;\n            ++ans;\n        }\n        return ans;\n    }\n};"
         }

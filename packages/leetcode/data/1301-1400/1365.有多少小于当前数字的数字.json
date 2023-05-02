@@ -17,7 +17,7 @@
             "memory": 40.6,
             "script": "typescript",
             "desc": "对于每一个数进行重复统计。",
-            "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const ans: number[] = [];\n  for (let i = 0, l = nums.length; i < l; i++) {\n    ans[i] = count(i);\n  }\n  return ans;\n  function count(i: number) {\n    const num = nums[i];\n    let c = 0;\n    nums.forEach(v => {\n      if (v < num) c++;\n    });\n    return c;\n  }\n}"
+            "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const ans: number[] = [];\n  for (let i = 0, l = nums.length; i < l; i++) {\n    ans[i] = count(i);\n  }\n  return ans;\n  function count(i: number) {\n    const num = nums[i];\n    let c = 0;\n    nums.forEach(v => {\n      if (v < num) cpp;\n    });\n    return c;\n  }\n}"
         },
         {
             "date": 1603641600000,

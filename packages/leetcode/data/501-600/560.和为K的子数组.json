@@ -22,7 +22,7 @@
             "date": 1640188800000,
             "time": 72,
             "memory": 40.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "前缀和。",
             "code": "class Solution {\n   public:\n    int subarraySum(vector<int>& nums, int k) {\n        unordered_map<int, int> mmap;\n        int sum = 0, ans = 0;\n        mmap[0] = 1;\n        for (auto& num : nums) {\n            sum += num;\n            if (mmap[sum - k]) ans += mmap[sum - k];\n            mmap[sum]++;\n        }\n        return ans;\n    }\n};"
         }

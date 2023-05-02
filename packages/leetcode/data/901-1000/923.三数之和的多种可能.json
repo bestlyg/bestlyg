@@ -16,7 +16,7 @@
             "date": 1646582400000,
             "time": 12,
             "memory": 10.6,
-            "script": "c++",
+            "script": "cpp",
             "desc": "合并重复元素，通过双指针查找第三个数出现的次数。",
             "code": "class Solution {\n   public:\n    static const int mod = 1e9 + 7;\n    // 三个数一样时， 从n个数中排列组合3个\n    int comp1(int num) { return (1 + num) * num / 2; }\n    // 两个数一样时， 从n个数中排列组合2个\n    int comp2(int num) {\n        int ans = 0;\n        for (int i = 1, n = num; i <= n; i++, num--)\n            ans = (ans + num * i) % mod;\n        return ans;\n    }\n    int threeSumMulti(vector<int> &arr, int target) {\n        map<int, int> m;\n        for (auto &num : arr) m[num]++;\n        vector<int> list;\n        for (auto &item : m) list.push_back(item.first);\n        int ans = 0, n = list.size();\n        for (int i = 0; i < n; i++) {\n            int num1 = list[i];\n            for (int j = i; j < n; j++) {\n                int num2 = list[j], num3 = target - num2 - num1, sum;\n                if (num3 < num2) break;\n                if (num1 == num2 && num1 == num3) {\n                    sum = comp2(m[num1] - 2);\n                } else if (num1 == num2 && num1 != num3) {\n                    sum = comp1(m[num1] - 1) * m[num3];\n                } else if (num1 != num2 && num2 == num3) {\n                    sum = m[num1] * comp1(m[num2] - 1);\n                } else {\n                    sum = m[num1] * m[num2] * m[num3];\n                }\n                ans = (ans + sum) % mod;\n            }\n        }\n        return ans;\n    }\n};"
         }

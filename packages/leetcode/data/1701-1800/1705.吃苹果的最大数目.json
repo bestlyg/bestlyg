@@ -14,7 +14,7 @@
             "date": 1640275200000,
             "time": 16,
             "memory": 15.6,
-            "script": "c++",
+            "script": "cpp",
             "desc": "异或得到两个唯一数的值，根据首个不同的位数，分别异或。",
             "code": "class Solution {\n   public:\n    vector<int> singleNumbers(vector<int> &nums) {\n        int val = 0;\n        for (auto &num : nums) val ^= num;\n        vector<int> ans(2, 0);\n        int bit = 0;\n        while ((val & 1 << bit) == 0) bit++;\n        bit = 1 << bit;\n        for (auto &num : nums) {\n            if (num & bit)\n                ans[0] ^= num;\n            else\n                ans[1] ^= num;\n        }\n        return ans;\n    }\n};"
         }

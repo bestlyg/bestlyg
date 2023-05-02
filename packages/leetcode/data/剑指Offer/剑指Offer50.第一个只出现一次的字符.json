@@ -15,7 +15,7 @@
             "date": 1640188800000,
             "time": 20,
             "memory": 10.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "存储次数，遍历两遍。",
             "code": "class Solution {\n   public:\n    char firstUniqChar(string s) {\n        int arr[30] = {0};\n        for (auto &ch : s) arr[ch - 'a']++;\n        for (auto &ch : s) {\n            if (arr[ch - 'a'] == 1) return ch;\n        }\n        return ' ';\n    }\n};"
         }

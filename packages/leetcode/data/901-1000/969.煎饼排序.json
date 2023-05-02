@@ -23,7 +23,7 @@
             "date": 1645200000000,
             "time": 4,
             "memory": 11,
-            "script": "c++",
+            "script": "cpp",
             "desc": "每次翻转把最大值翻转到首位，再翻转到结尾。",
             "code": "class Solution {\n   public:\n    vector<int> pancakeSort(vector<int>& arr) {\n        vector<int> ans;\n        _pancakeSort(ans, arr, 0, arr.size() - 1);\n        return ans;\n    }\n    void _pancakeSort(vector<int>& ans, vector<int>& arr, int start, int end) {\n        if (end == 0) return;\n        int vmax = start;\n        for (int i = start; i <= end; i++) {\n            if (arr[i] > arr[vmax]) vmax = i;\n        }\n        if (vmax != end) {\n            reverse(arr, 0, vmax);\n            ans.push_back(vmax + 1);\n            reverse(arr, 0, end);\n            ans.push_back(end + 1);\n        }\n        _pancakeSort(ans, arr, start, end - 1);\n    }\n    void reverse(vector<int>& arr, int start, int end) {\n        for (int l = start, r = end; l < r; l++, r--) {\n            swap(arr[l], arr[r]);\n        }\n    }\n};"
         }

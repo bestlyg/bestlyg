@@ -16,7 +16,7 @@
             "date": 1647187200000,
             "time": 8,
             "memory": 19,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历时，储存一个数维护这个数当前的数量。",
             "code": "class Solution {\n   public:\n    int majorityElement(vector<int> &nums) {\n        int num = 0, cnt = 0;\n        for (auto &it : nums) {\n            if (cnt == 0) {\n                num = it;\n                cnt = 1;\n            } else if (num == it) {\n                cnt++;\n            } else {\n                cnt--;\n            }\n        }\n        return num;\n    }\n};"
         }

@@ -14,7 +14,7 @@
             "date": 1647273600000,
             "time": 16,
             "memory": 19.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "dfs 统计左右子树的高度。",
             "code": "class Solution {\n   public:\n    int h(TreeNode* node) {\n        if (!node) return 0;\n        return max(h(node->left), h(node->right)) + 1;\n    }\n    int diameterOfBinaryTree(TreeNode* root) {\n        if (!root) return 0;\n        return max(h(root->left) + h(root->right),\n                   max(diameterOfBinaryTree(root->left),\n                       diameterOfBinaryTree(root->right)));\n    }\n};"
         }

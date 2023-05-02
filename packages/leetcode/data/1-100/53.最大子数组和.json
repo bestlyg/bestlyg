@@ -94,7 +94,7 @@
             "date": 1640016000000,
             "time": 164,
             "memory": 66.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "分治，求出左边最大值，右边最大值和中间最大值。",
             "code": "class Solution {\n   public:\n    int maxSubArray(vector<int>& nums) { return dfs(nums, 0, nums.size() - 1); }\n    int dfs(vector<int>& nums, int l, int r) {\n        if (l == r) return nums[l];\n        int m = (l + r) >> 1, lmax = INT_MIN, rmax = INT_MIN, sum = 0;\n        for (int i = m; i >= l; i--) {\n            sum += nums[i];\n            lmax = max(lmax, sum);\n        }\n        sum = 0;\n        for (int i = m + 1; i <= r; i++) {\n            sum += nums[i];\n            rmax = max(rmax, sum);\n        }\n        return max(lmax + rmax, max(dfs(nums, l, m), dfs(nums, m + 1, r)));\n    }\n};"
         },
@@ -102,7 +102,7 @@
             "date": 1640016000000,
             "time": 100,
             "memory": 66,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历，每次求出前面的最大值。",
             "code": "class Solution {\n   public:\n    int maxSubArray(vector<int>& nums) {\n        int sum = nums[0], ans = sum;\n        for (int i = 1; i < nums.size(); i++) {\n            sum = max(0, sum) + nums[i];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
         }

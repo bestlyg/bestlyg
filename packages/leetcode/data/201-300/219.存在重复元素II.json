@@ -22,7 +22,7 @@
             "date": 1642521600000,
             "time": 188,
             "memory": 75.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "哈希存储。",
             "code": "class Solution {\n   public:\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        for (int i = 0; i < nums.size(); i++) {\n            if (m.count(nums[i]) && i - m[nums[i]] <= k) return 1;\n            m[nums[i]] = i;\n        }\n        return 0;\n    }\n};"
         }

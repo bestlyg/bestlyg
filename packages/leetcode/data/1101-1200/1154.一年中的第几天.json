@@ -13,7 +13,7 @@
             "date": 1640016000000,
             "time": 16,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "检测闰年和前面有几个月。",
             "code": "class Solution {\n   public:\n    int monthDay[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};\n    void checkLeapYear(int year) {\n        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {\n            monthDay[2] = 29;\n        }\n    }\n    int dayOfYear(string date) {\n        int year = 0, month = 0, day = 0;\n        for (int i = 0; i < 4; i++) year = year * 10 + date[i] - '0';\n        for (int i = 5; i < 7; i++) month = month * 10 + date[i] - '0';\n        for (int i = 8; i < 10; i++) day = day * 10 + date[i] - '0';\n        checkLeapYear(year);\n        // printf(\"year = %d, month = %d, day = %d\", year, month, day);\n        int ans = day;\n        for (int i = 1; i < month; i++) ans += monthDay[i];\n        return ans;\n    }\n};"
         }

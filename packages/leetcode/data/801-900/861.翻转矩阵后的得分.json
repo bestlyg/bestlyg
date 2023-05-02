@@ -17,7 +17,7 @@
             "memory": 40.2,
             "script": "typescript",
             "desc": "贪心，计算首列为 1 后，后面 1 尽可能多。",
-            "code": "function matrixScore(A: number[][]): number {\n  const reverse = (num: number) => (num ? 0 : 1);\n  const rowLen = A.length;\n  const colLen = A[0].length;\n  for (const row of A) {\n    if (!row[0]) {\n      for (let i = 0, l = colLen; i < l; i++) {\n        row[i] = reverse(row[i]);\n      }\n    }\n  }\n  for (let i = 1, l = colLen; i < l; i++) {\n    let c = 0;\n    for (let j = 0; j < rowLen; j++) {\n      if (A[j][i]) {\n        c++;\n      }\n    }\n    if (c < rowLen / 2) {\n      for (let j = 0; j < rowLen; j++) {\n        A[j][i] = reverse(A[j][i]);\n      }\n    }\n  }\n  return A.reduce((total, cur) => total + parseInt(cur.join(''), 2), 0);\n}"
+            "code": "function matrixScore(A: number[][]): number {\n  const reverse = (num: number) => (num ? 0 : 1);\n  const rowLen = A.length;\n  const colLen = A[0].length;\n  for (const row of A) {\n    if (!row[0]) {\n      for (let i = 0, l = colLen; i < l; i++) {\n        row[i] = reverse(row[i]);\n      }\n    }\n  }\n  for (let i = 1, l = colLen; i < l; i++) {\n    let c = 0;\n    for (let j = 0; j < rowLen; j++) {\n      if (A[j][i]) {\n        cpp;\n      }\n    }\n    if (c < rowLen / 2) {\n      for (let j = 0; j < rowLen; j++) {\n        A[j][i] = reverse(A[j][i]);\n      }\n    }\n  }\n  return A.reduce((total, cur) => total + parseInt(cur.join(''), 2), 0);\n}"
         }
     ]
 }

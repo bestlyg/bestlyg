@@ -27,7 +27,7 @@
             "date": 1640793600000,
             "time": 32,
             "memory": 14.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "记忆化 dfs。",
             "code": "class Solution {\n   public:\n    int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\n    int dfs(int mmap[][200], vector<vector<int>>& matrix, int n, int m, int row,\n            int col) {\n        if (mmap[row][col]) return mmap[row][col];\n        int num = matrix[row][col], ans = 1;\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0];\n            int ncol = col + dirs[i][1];\n            if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m ||\n                matrix[nrow][ncol] <= num)\n                continue;\n            ans = max(ans, dfs(mmap, matrix, n, m, nrow, ncol) + 1);\n        }\n        return mmap[row][col] = ans;\n    }\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size(), ans = 0, mmap[n][200];\n        memset(mmap, 0, sizeof(int) * n * 200);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int tag = 1, num = matrix[i][j];\n                for (int k = 0; k < 4; k++) {\n                    int nrow = i + dirs[k][0];\n                    int ncol = j + dirs[k][1];\n                    if (nrow < 0 || ncol < 0 || nrow >= n || ncol >= m)\n                        continue;\n                    if (matrix[nrow][ncol] < num) {\n                        tag = 0;\n                        break;\n                    }\n                }\n                if (tag) ans = max(ans, dfs(mmap, matrix, n, m, i, j));\n            }\n        }\n        return ans;\n    }\n};"
         }

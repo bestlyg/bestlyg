@@ -12,7 +12,7 @@
             "date": 1647446400000,
             "time": 0,
             "memory": 6.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    vector<int> selfDividingNumbers(int left, int right) {\n        vector<int> ans;\n        ans.reserve(1e4);\n        for (int num = left; num <= right; num++) check(ans, num);\n        return ans;\n    }\n    void check(vector<int> &ans, int num) {\n        int tmp = num;\n        for (; tmp; tmp /= 10) {\n            if (tmp % 10 == 0) return;\n            if (num % (tmp % 10) != 0) return;\n        }\n        ans.push_back(num);\n    }\n};"
         }

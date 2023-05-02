@@ -13,7 +13,7 @@
             "date": 1647446400000,
             "time": 0,
             "memory": 6.4,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int numDifferentIntegers(string word) {\n        unordered_set<string> s;\n        int idx = 0, n = word.size();\n        while (idx < n) {\n            while (idx < n && isalpha(word[idx])) idx++;\n            if (idx == n) break;\n            string num = \"\";\n            for (; isdigit(word[idx]); idx++) {\n                if (num == \"\" && word[idx] == '0') continue;\n                num += word[idx];\n            }\n            s.insert(num);\n        }\n        return s.size();\n    }\n};"
         },

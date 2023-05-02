@@ -14,7 +14,7 @@
             "date": 1647273600000,
             "time": 16,
             "memory": 8.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "dfs。",
             "code": "class Solution {\n   public:\n    int ans = 0, nmax = INT_MIN;\n    void add(int num) {\n        if (num >= nmax) {\n            if (num > nmax) ans = 0;\n            ans++;\n            nmax = num;\n        }\n    }\n    int countMaxOrSubsets(vector<int>& nums) {\n        dfs(nums, 0, 0);\n        return ans;\n    }\n    void dfs(vector<int>& nums, int idx, int num) {\n        add(num);\n        if (idx == nums.size()) return;\n        for (int i = idx; i < nums.size(); i++) {\n            dfs(nums, i + 1, num | nums[i]);\n        }\n    }\n};"
         }

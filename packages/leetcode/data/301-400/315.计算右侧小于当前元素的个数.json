@@ -20,7 +20,7 @@
             "memory": 38.8,
             "script": "typescript",
             "desc": "双重循环。",
-            "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  const res: number[] = [];\n  for (let i = 0; i < len; i++) {\n    let c = 0;\n    const num = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      if (num > nums[j]) c++;\n    }\n    res[i] = c;\n  }\n  return res;\n}"
+            "code": "function countSmaller(nums: number[]): number[] {\n  const len = nums.length;\n  const res: number[] = [];\n  for (let i = 0; i < len; i++) {\n    let c = 0;\n    const num = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      if (num > nums[j]) cpp;\n    }\n    res[i] = c;\n  }\n  return res;\n}"
         },
         {
             "date": 1620921600000,

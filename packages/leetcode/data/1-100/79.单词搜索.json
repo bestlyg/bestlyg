@@ -22,7 +22,7 @@
             "date": 1645113600000,
             "time": 144,
             "memory": 7.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "dfs。",
             "code": "int dirs[4][2] = {\n    {0, 1},\n    {0, -1},\n    {1, 0},\n    {-1, 0},\n};\nclass Solution {\n   public:\n    int n, m, check[10][10] = {0};\n    bool dfs(vector<vector<char>>& board, string& s, int idx, int row,\n             int col) {\n        if (idx == s.size() - 1) return board[row][col] == s[idx];\n        if (s[idx] != board[row][col]) return 0;\n        check[row][col] = 1;\n        int res = 0;\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m ||\n                check[nrow][ncol])\n                continue;\n            if (dfs(board, s, idx + 1, nrow, ncol)) {\n                res = 1;\n                break;\n            }\n        }\n        check[row][col] = 0;\n        return res;\n    }\n    bool exist(vector<vector<char>>& board, string word) {\n        n = board.size();\n        m = board[0].size();\n        for (int row = 0; row < n; row++) {\n            for (int col = 0; col < m; col++) {\n                if (dfs(board, word, 0, row, col)) return 1;\n            }\n        }\n        return 0;\n    }\n};"
         }

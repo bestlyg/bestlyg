@@ -13,7 +13,7 @@
             "date": 1640102400000,
             "time": 72,
             "memory": 39.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "判断最大重复次数是否满足 b。",
             "code": "function repeatedStringMatch(a: string, b: string): number {\n          let cnt = Math.ceil(b.length / a.length);\n          if (a.repeat(cnt).includes(b)) return cnt;\n          if (a.repeat(cnt + 1).includes(b)) return cnt + 1;\n          return -1;\n        }"
         }

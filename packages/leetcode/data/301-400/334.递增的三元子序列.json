@@ -13,7 +13,7 @@
             "date": 1641916800000,
             "time": 48,
             "memory": 60.1,
-            "script": "c++",
+            "script": "cpp",
             "desc": "每遍历一个数值记录前面的值是否匹配。",
             "code": "class Solution {\n   public:\n    bool increasingTriplet(vector<int>& nums) {\n        int pre1 = INT_MAX, pre2 = INT_MAX;\n        for (auto& num : nums) {\n            if (num > pre2) return 1;\n            if (num > pre1) pre2 = min(pre2, num);\n            pre1 = min(pre1, num);\n        }\n        return 0;\n    }\n};"
         }

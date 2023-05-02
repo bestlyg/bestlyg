@@ -20,7 +20,7 @@
             "date": 1646582400000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "短除法。",
             "code": "class Solution {\n   public:\n    string convertToBase7(int num) {\n        int f = 0;\n        if (num < 0) {\n            num = -num;\n            f = 1;\n        }\n        string ans = \"\";\n        while (num >= 7) {\n            ans = to_string(num % 7) + ans;\n            num /= 7;\n        }\n        ans = to_string(num) + ans;\n        if (f) ans = \"-\" + ans;\n        return ans;\n    }\n};"
         }

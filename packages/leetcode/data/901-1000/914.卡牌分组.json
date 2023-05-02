@@ -16,7 +16,7 @@
             "date": 1641484800000,
             "time": 4,
             "memory": 17,
-            "script": "c++",
+            "script": "cpp",
             "desc": "求所有数出现的次数最大公约数是否大于等于 2。",
             "code": "class Solution {\n   public:\n    int gcd(int a, int b) {\n        if (b) return gcd(b, a % b);\n        return a;\n    }\n    bool hasGroupsSizeX(vector<int> &deck) {\n        map<int, int> m;\n        int ans = -1;\n        for (auto &num : deck) m[num]++;\n        for (auto &num : m) {\n            if (ans == -1)\n                ans = num.second;\n            else\n                ans = gcd(ans, num.second);\n            if (ans == 1) break;\n        }\n        return ans >= 2;\n    }\n};"
         }

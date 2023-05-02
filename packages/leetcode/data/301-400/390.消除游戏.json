@@ -13,7 +13,7 @@
             "date": 1641225600000,
             "time": 0,
             "memory": 5.8,
-            "script": "c++",
+            "script": "cpp",
             "desc": "dfs, 每次减少后都为等差数列，记录每次的头值和间隔。",
             "code": "class Solution {\n   public:\n    /*\n    cnt 有多少个\n    step 每个间隔多少\n    start 起始值\n    dir 方向\n    */\n    int dfs(int cnt, int step, int start, int dir) {\n        if (cnt == 1) return start;\n        return dfs(cnt >> 1, step << 1,\n                   start + (dir == 1 || cnt & 1 ? step : 0), dir * -1);\n    }\n    int lastRemaining(int n) { return dfs(n, 1, 1, 1); }\n};"
         }

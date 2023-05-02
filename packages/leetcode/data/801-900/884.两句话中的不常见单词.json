@@ -13,7 +13,7 @@
             "date": 1643472000000,
             "time": 4,
             "memory": 6.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "分割字符串后遍历。",
             "code": "class Solution {\n   public:\n    vector<string> uncommonFromSentences(string s1, string s2) {\n        vector<string> ans;\n        unordered_map<string, int> m;\n        istringstream iss1(s1), iss2(s2);\n        string buffer;\n        while (getline(iss1, buffer, ' ')) m[buffer]++;\n        while (getline(iss2, buffer, ' ')) m[buffer]++;\n        for (auto &data : m)\n            if (data.second == 1) ans.push_back(data.first);\n        return ans;\n    }\n};"
         }

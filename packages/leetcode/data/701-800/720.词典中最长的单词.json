@@ -16,7 +16,7 @@
             "date": 1647360000000,
             "time": 36,
             "memory": 16.7,
-            "script": "c++",
+            "script": "cpp",
             "desc": "排序后遍历。",
             "code": "bool comp(string &a, string &b) {\n    return a.size() == b.size() ? a < b : a.size() > b.size();\n}\nclass Solution {\n   public:\n    string longestWord(vector<string> &words) {\n        unordered_set<string> s;\n        for (auto &w : words) s.insert(w);\n        sort(words.begin(), words.end(), comp);\n        for (auto &w : words) {\n            if (find(s, w)) return w;\n        }\n        return \"\";\n    }\n    bool find(unordered_set<string> &s, string w) {\n        if (w == \"\") return true;\n        if (!s.count(w)) return false;\n        return find(s, w.substr(0, w.size() - 1));\n    }\n};"
         }

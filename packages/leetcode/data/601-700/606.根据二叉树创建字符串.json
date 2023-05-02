@@ -15,7 +15,7 @@
             "date": 1647273600000,
             "time": 32,
             "memory": 64.2,
-            "script": "c++",
+            "script": "cpp",
             "desc": "遍历后组装。",
             "code": "class Solution {\n   public:\n    string tree2str(TreeNode* root) {\n        if (!root) return \"\";\n        string l = \"(\" + tree2str(root->left) + \")\",\n               r = \"(\" + tree2str(root->right) + \")\";\n        return to_string(root->val) + (l == \"()\" && r == \"()\"   ? \"\"\n                                       : l != \"()\" && r == \"()\" ? l\n                                                                : l + r);\n    }\n};"
         }

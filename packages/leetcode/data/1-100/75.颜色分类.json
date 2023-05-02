@@ -32,7 +32,7 @@
             "memory": 39.5,
             "script": "typescript",
             "desc": "遍历后交换 0 置前，2 置后。",
-            "code": "function sortColors(nums: number[]): void {\n  let c = 0;\n  const len = nums.length;\n  const swap = (i1: number, i2: number) =>\n    i1 !== i2 && ([nums[i2], nums[i1]] = [nums[i1], nums[i2]]);\n  // 0\n  for (let i = 0; i < len; i++) {\n    if (nums[i] === 0) {\n      swap(c, i);\n      c++;\n    }\n  }\n  // 2\n  c = 0;\n  for (let i = len - 1; i >= 0; i--) {\n    if (nums[i] === 2) {\n      swap(len - 1 - c, i);\n      c++;\n    }\n  }\n}"
+            "code": "function sortColors(nums: number[]): void {\n  let c = 0;\n  const len = nums.length;\n  const swap = (i1: number, i2: number) =>\n    i1 !== i2 && ([nums[i2], nums[i1]] = [nums[i1], nums[i2]]);\n  // 0\n  for (let i = 0; i < len; i++) {\n    if (nums[i] === 0) {\n      swap(c, i);\n      cpp;\n    }\n  }\n  // 2\n  c = 0;\n  for (let i = len - 1; i >= 0; i--) {\n    if (nums[i] === 2) {\n      swap(len - 1 - c, i);\n      cpp;\n    }\n  }\n}"
         },
         {
             "date": 1602000000000,

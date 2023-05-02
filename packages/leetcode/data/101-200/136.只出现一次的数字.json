@@ -29,7 +29,7 @@
             "date": 1640016000000,
             "time": 16,
             "memory": 16.4,
-            "script": "c++",
+            "script": "cpp",
             "desc": "异或。",
             "code": "class Solution {\n   public:\n    int singleNumber(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 0; i < nums.size(); i++) ans ^= nums[i];\n        return ans;\n    }\n};"
         }

@@ -30,7 +30,7 @@
             "date": 1641571200000,
             "time": 8,
             "memory": 11.5,
-            "script": "c++",
+            "script": "cpp",
             "desc": "每次反向覆盖。",
             "code": "class Solution {\n   public:\n    vector<int> grayCode(int n) {\n        vector<int> ans(2, 0);\n        ans[1] = 1;\n        for (int i = 1; i < n; i++) {\n            for (int j = ans.size() - 1; j >= 0; j--) {\n                ans.push_back(ans[j] | 1 << i);\n            }\n        }\n        return ans;\n    }\n};"
         }

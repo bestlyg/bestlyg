@@ -29,7 +29,7 @@
             "date": 1639929600000,
             "time": 0,
             "memory": 5.9,
-            "script": "c++",
+            "script": "cpp",
             "desc": "二分查找。",
             "code": "class Solution {\n   public:\n    int firstBadVersion(int n) {\n        long long l = 0, r = 0x7fffffff, m;\n        while (l < r) {\n            m = (r + l) / 2;\n            if (isBadVersion(m))\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n};"
         }

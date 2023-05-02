@@ -38,7 +38,7 @@
             "date": 1640275200000,
             "time": 364,
             "memory": 20.4,
-            "script": "c++",
+            "script": "cpp",
             "desc": "用二进制存储每个字符串存在的字符，两个字符串值与运算为 0 说明无重复。",
             "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0;\n        for (auto &ch : str) ans |= 1 << (ch - 'a');\n        return ans;\n    }\n    int maxProduct(vector<string> &words) {\n        unordered_map<string, int> mmap;\n        for (auto &word : words) mmap[word] = s2i(word);\n        int ans = 0;\n        for (int i = 0; i < words.size(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (mmap[words[i]] & mmap[words[j]]) continue;\n                ans = max(ans, (int)(words[i].size() * words[j].size()));\n            }\n        }\n        return ans;\n    }\n};"
         }

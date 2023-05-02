@@ -31,7 +31,7 @@
             "date": 1646236800000,
             "time": 20,
             "memory": 16.3,
-            "script": "c++",
+            "script": "cpp",
             "desc": "双指针。",
             "code": "class MyCircularQueue {\n   public:\n    int head, tail, *list, n;\n    MyCircularQueue(int k) : head(0), tail(0), n(k + 1) {\n        list = ((int *)malloc(sizeof(int) * n));\n    }\n    ~MyCircularQueue() { free(list); }\n    bool enQueue(int value) {\n        if (isFull()) return 0;\n        list[tail] = value;\n        tail = (tail + 1) % n;\n        return 1;\n    }\n    bool deQueue() {\n        if (isEmpty()) return 0;\n        head = (head + 1) % n;\n        return 1;\n    }\n    int Front() {\n        if (isEmpty()) return -1;\n        return list[head];\n    }\n    int Rear() {\n        if (isEmpty()) return -1;\n        return list[tail == 0 ? n - 1 : tail - 1];\n    }\n    bool isEmpty() { return head == tail; }\n    bool isFull() { return (tail + 1) % n == head; }\n};"
         },
