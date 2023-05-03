@@ -21,7 +21,7 @@ pub(crate) async fn run(matches: &clap::ArgMatches) {
         Some(path) => {
             let path = PathBuf::from_str(path).expect("Unknown path.");
             println!("From : FilePath {}", path.to_string_lossy());
-            leetcode::read_from_pathbuf(&path)
+            leetcode::read_from_pathbuf(&path).await
         }
         None => {
             println!("From : Stdin");

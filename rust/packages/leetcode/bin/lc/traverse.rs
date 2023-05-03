@@ -41,7 +41,7 @@ async fn traverse_file(path: PathBuf) {
         println!("Main.json");
         return;
     }
-    let file = leetcode::read_from_pathbuf(&path);
+    let file = leetcode::read_from_pathbuf(&path).await;
     let problem = Problem::from_str(&file).expect("Parse to Problem faile");
     // println!("{value:?}");
 }

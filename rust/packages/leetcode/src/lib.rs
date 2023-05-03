@@ -61,8 +61,8 @@ pub struct Solution {
 }
 
 pub async fn read_from_pathbuf(path: &std::path::PathBuf) -> String {
-    let mut file = tokio::fs::File::open(path).await.expect("Read File Error.");
-    file
+    let file = tokio::fs::File::open(path).await.expect("Read File Error.");
+    let mut file = file.into_std().await;
     let mut s = String::new();
     file.read_to_string(&mut s).expect("Read File Error.");
     s
@@ -188,7 +188,9 @@ pub async fn fetch() {
         }
         "
 }
-"#.to_string().replace(r"{titleSlug}", "123");
+"#
+    .to_string()
+    .replace(r"{titleSlug}", "123");
     let res = client
         .post("https://leetcode.cn/graphql")
         .json(&body)
