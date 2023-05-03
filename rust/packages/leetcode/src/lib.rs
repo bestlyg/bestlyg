@@ -1,6 +1,3 @@
-#[macro_use]
-extern crate maplit;
-
 use std::{io::Read, str::FromStr};
 
 use serde::{Deserialize, Serialize};
@@ -20,8 +17,7 @@ pub struct Problem {
     name: String,
     url: String,
     desc: String,
-    #[serde(rename = "difficulty")]
-    diff: Difficulty,
+    difficulty: Difficulty,
     tag: Vec<String>,
     solutions: Vec<Solution>,
 }
@@ -64,8 +60,9 @@ pub struct Solution {
     code: String,
 }
 
-pub fn read_from_pathbuf(path: &std::path::PathBuf) -> String {
-    let mut file = std::fs::File::open(path).expect("Read File Error.");
+pub async fn read_from_pathbuf(path: &std::path::PathBuf) -> String {
+    let mut file = tokio::fs::File::open(path).await.expect("Read File Error.");
+    file
     let mut s = String::new();
     file.read_to_string(&mut s).expect("Read File Error.");
     s
@@ -108,15 +105,14 @@ pub async fn fetch() {
         "strict-origin-when-cross-origin".parse().unwrap(),
     );
 
-    let body = format!(
-        "
-{{
-    \"operationName\": \"questionData\",
-    \"variables\": {
-        \"titleSlug\": \"{}\"
+    let body = r#"
+{
+    "operationName": "questionData",
+    "variables": {
+        "titleSlug": "{titleSlug}"
     },
-    \"query\": \"query questionData($titleSlug: String!) {{
-        question(titleSlug: $titleSlug) {{
+    "query": "query questionData($titleSlug: String!) {
+        question(titleSlug: $titleSlug) {
             questionId
             questionFrontendId
             categoryTitle
@@ -190,11 +186,9 @@ pub async fn fetch() {
             __typename
         }
         }
-        \"
+        "
 }
-",
-        "1232"
-    );
+"#.to_string().replace(r"{titleSlug}", "123");
     let res = client
         .post("https://leetcode.cn/graphql")
         .json(&body)
