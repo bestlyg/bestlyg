@@ -120,32 +120,14 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn powerful_integers(x: i32, y: i32, bound: i32) -> Vec<i32> {
-        let mut list = vec![];
-        let mut res = std::collections::HashSet::<i32>::new();
-        let mut i = 0;
-        while x.pow(i) <= bound {
-            list.push(x.pow(i));
-            if x == 1 {
-                break;
+    pub fn is_valid(mut s: String) -> bool {
+        while s != "" {
+            let n = s.replace("abc", "");
+            if n == s {
+                return false;
             }
-            i += 1;
+            s = n;
         }
-        i = 0;
-        while y.pow(i) <= bound {
-            let ynum = y.pow(i);
-            for xnum in list {
-                if ynum + xnum <= bound {
-                    res.push(ynum + xnum);
-                } else {
-                    break;
-                }
-            }
-            if y == 1 {
-                break;
-            }
-            i += 1;
-        }
-        res.into_iter().collect()
+        s == ""
     }
 }

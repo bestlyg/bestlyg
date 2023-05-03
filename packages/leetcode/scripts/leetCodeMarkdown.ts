@@ -3,112 +3,72 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '970. 强整数',
-  url: 'https://leetcode.cn/problems/powerful-integers/',
+  name: '1003. 检查替换后的词是否有效',
+  url: 'https://leetcode.cn/problems/check-if-word-is-valid-after-substitutions/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `给定三个整数 x 、 y 和 bound ，返回 值小于或等于 bound 的所有 强整数 组成的列表 。`,
+  desc: `给你一个字符串 s ，请你判断它是否 有效 。`,
   solutions: [
-    //     {
-    //       script: Script.TS,
-    //       time: 76,
-    //       memory: 45.9,
-    //       desc: '遍历',
-    //       code: `function sortPeople(names: string[], heights: number[]): string[] {
-    //   return new Array(names.length)
-    //     .fill(0)
-    //     .map((_, i) => i)
-    //     .sort((a, b) => heights[b] - heights[a])
-    //     .map(i => names[i]);
-    // }`,
-    //       date: new Date('2022/09/25').getTime(),
-    //     },
+    {
+      script: Script.TS,
+      time: 184,
+      memory: 48.3,
+      desc: '遍历',
+      code: `function isValid(s: string): boolean {
+    while (s != "") {
+        const n = s.replace("abc", "");
+        if (n == s) return false;
+        s = n;
+    }
+    return s == "";
+};`,
+    },
     {
       script: Script.CPP,
-      time: 0,
-      memory: 6.6,
-      desc: 'dfs',
+      time: 328,
+      memory: 8.4,
+      desc: '一直找abc子串，替换成空串，直到不能再替换。',
       code: `class Solution {
 public:
-    vector<int> powerfulIntegers(int x, int y, int bound) {
-        vector<int> list;
-        unordered_set<int> res;
-        for (int i = 0; pow(x, i) <= bound; i++) {
-            list.push_back(pow(x, i));
-            if (x == 1) break;
-        }
-        for (int i = 0; pow(y, i) <= bound; i++) {
-            int ynum = pow(y, i);
-            for (auto &xnum : list)
-                if (ynum + xnum <= bound) res.insert(ynum + xnum);
-                else break;
-            if (y == 1) break;
-        }
-        return vector<int>(res.begin(), res.end());
+    bool isValid(string s) {
+        string next;
+        do {
+            int p = s.find("abc", 0);
+            if (p == -1) return false;
+            next = s.replace(p, 3, "");
+        } while (next != "");
+        return true;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 48,
+      time: 56,
       memory: 16.2,
       desc: '同上',
       code: `class Solution:
-    def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
-        list = []
-        res = set()
-        i = 0
-        while pow(x, i) <= bound:
-            list.append(pow(x, i))
-            if x == 1:
-                break
-            i += 1
-        i = 0
-        while pow(y, i) <= bound:
-            ynum = pow(y, i)
-            for xnum in list:
-                if ynum + xnum <= bound:
-                    res.add(ynum + xnum)
-                else:
-                    break
-            if y == 1:
-                break
-            i += 1
-        return [num for num in res]`,
+    def isValid(self, s: str) -> bool:
+        while s != "":
+            n = s.replace("abc", "")
+            if n == s: return False
+            s = n
+        return s == ""`,
     },
     {
       script: Script.RUST,
       time: 4,
-      memory: 2.2,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn powerful_integers(x: i32, y: i32, bound: i32) -> Vec<i32> {
-        let mut list = vec![];
-        let mut res = std::collections::HashSet::<i32>::new();
-        let mut i = 0;
-        while x.pow(i) <= bound {
-            list.push(x.pow(i));
-            if x == 1 {
-                break;
+    pub fn is_valid(mut s: String) -> bool {
+        while s != "" {
+            let n = s.replace("abc", "");
+            if n == s {
+                return false;
             }
-            i += 1;
+            s = n;
         }
-        i = 0;
-        while y.pow(i) <= bound {
-            let ynum = y.pow(i);
-            for xnum in &list {
-                if ynum + *xnum <= bound {
-                    res.insert(ynum + *xnum);
-                } else {
-                    break;
-                }
-            }
-            if y == 1 {
-                break;
-            }
-            i += 1;
-        }
-        res.into_iter().collect()
+        s == ""
     }
 }
 `,

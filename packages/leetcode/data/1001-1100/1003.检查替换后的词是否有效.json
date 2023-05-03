@@ -1,0 +1,45 @@
+{
+    "id": "1045",
+    "name": "1003.检查替换后的词是否有效",
+    "url": "https://leetcode.cn/problems/check-if-word-is-valid-after-substitutions",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "字符串"
+    ],
+    "desc": "给你一个字符串 s ，请你判断它是否 有效 。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 184,
+            "memory": 48.3,
+            "desc": "遍历。",
+            "code": "function isValid(s: string): boolean {\n    while (s != \"\") {\n        const n = s.replace(\"abc\", \"\");\n        if (n == s) return false;\n        s = n;\n    }\n    return s == \"\";\n};",
+            "date": 1683043200000
+        },
+        {
+            "script": "cpp",
+            "time": 328,
+            "memory": 8.4,
+            "desc": "一直找abc子串，替换成空串，直到不能再替换。",
+            "code": "class Solution {\npublic:\n    bool isValid(string s) {\n        string next;\n        do {\n            int p = s.find(\"abc\", 0);\n            if (p == -1) return false;\n            next = s.replace(p, 3, \"\");\n        } while (next != \"\");\n        return true;\n    }\n};",
+            "date": 1683043200000
+        },
+        {
+            "script": "python3",
+            "time": 56,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def isValid(self, s: str) -> bool:\n        while s != \"\":\n            n = s.replace(\"abc\", \"\")\n            if n == s: return False\n            s = n\n        return s == \"\"",
+            "date": 1683043200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn is_valid(mut s: String) -> bool {\n        while s != \"\" {\n            let n = s.replace(\"abc\", \"\");\n            if n == s {\n                return false;\n            }\n            s = n;\n        }\n        s == \"\"\n    }\n}\n",
+            "date": 1683043200000
+        }
+    ]
+}

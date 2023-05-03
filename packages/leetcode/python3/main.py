@@ -79,27 +79,13 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
-        list = []
-        res = set()
-        i = 0
-        while pow(x, i) <= bound:
-            list.append(pow(x, i))
-            if x == 1:
-                break
-            i += 1
-        i = 0
-        while pow(y, i) <= bound:
-            ynum = pow(y, i)
-            for xnum in list:
-                if ynum + xnum <= bound:
-                    res.add(ynum + xnum)
-                else:
-                    break
-            if y == 1:
-                break
-            y += 1
-        return [num for num in res]
+    def isValid(self, s: str) -> bool:
+        while s != "":
+            n = s.replace("abc", "")
+            if n == s:
+                return False
+            s = n
+        return s == ""
 
 
 def main():
