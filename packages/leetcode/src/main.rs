@@ -120,14 +120,62 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn is_valid(mut s: String) -> bool {
-        while s != "" {
-            let n = s.replace("abc", "");
-            if n == s {
-                return false;
+    pub fn max_total_fruits(fruits: Vec<Vec<i32>>, start_pos: i32, k: i32) -> i32 {
+        let mut res = 0;
+        let mut l: Vec<Vec<i32>> = vec![];
+        let mut r: Vec<Vec<i32>> = vec![];
+        r.push(vec![-1, 0]);
+        for mut item in fruits {
+            item[0] -= start_pos;
+            if item[0] < 0 {
+                item[0] = -item[0];
+                l.push(item);
+            } else if item[0] > 0 {
+                r.push(item);
+            } else {
+                res += item[1]
             }
-            s = n;
         }
-        s == ""
+        l.push(vec![-1, 0]);
+        l.reverse();
+        l.push(vec![i32::MAX, 0]);
+        r.push(vec![i32::MAX, 0]);
+        let mut suml = vec![0];
+        let mut sumr = vec![0];
+        for item in &l {
+            suml.push(*suml.last().unwrap() + item[1]);
+        }
+        for item in &r {
+            sumr.push(*sumr.last().unwrap() + item[1]);
+        }
+        res + std::cmp::max(f(&l, &suml, &r, &sumr, k), f(&r, &sumr, &l, &suml, k))
+    }
+}
+
+fn f(left: &Vec<Vec<i32>>, suml: &Vec<i32>, right: &Vec<Vec<i32>>, sumr: &Vec<i32>, k: i32) -> i32 {
+    let mut res = sumr[bs(right, k)];
+    for i in 1..left.len() {
+        if left[i][0] > k {
+            break;
+        }
+        res = res.max(sumL[i + 1] + sumR[bs(right, k - left[i][0] * 2)]);
+    }
+    res
+}
+fn bs(list: &Vec<Vec<i32>>, target: i32) -> usize {
+    if target <= 0 {
+        0
+    } else {
+        let mut l = 0;
+        let mut r = list.len();
+        while l < r {
+            let m = (l + r) / 2;
+            if list[m][0] > target {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        l
     }
 }

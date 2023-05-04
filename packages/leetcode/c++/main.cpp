@@ -78,48 +78,73 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
-class DinnerPlates {
+class Solution {
 public:
-    int capacity, last;
-    vector<vector<int>> ss;
-    unordered_set<int> used;
-    priority_queue<int, vector<int>, greater<int>> q;
-
-    DinnerPlates(int capacity): capacity(capacity), last(0) {
-        ss.push_back(vector<int>());
-    }
-
-    int get_last() {
-        if (ss[last].size() == capacity) last++;
-        if (last == ss.size()) ss.push_back(vector<int>());
-        return last;
-    }
-    
-    void push(int val) {
-        while (q.size() && q.top() > last) q.pop();
-        if (q.empty()) {
-            ss[get_last()].push_back(val);
-        } else {
-            int idx = q.top();
-            ss[idx].push_back(val);
-            if (ss[idx].size() == capacity) q.pop(), used.erase(idx);
+    int maxTotalFruits(vector<vector<int>>& fruits, int startPos, int k) {
+        int res = 0;
+        vector<vector<int>> l, r;
+        r.push_back(vector<int>{ -1, 0});
+        for (auto &item : fruits) {
+            item[0] -= startPos;
+            if (item[0] < 0) {
+                item[0] = -item[0];
+                l.push_back(item);
+            } else if (item[0] > 0) {
+                r.push_back(item);
+            } else {
+                res += item[1];
+            }
         }
+        l.push_back(vector<int>{ -1, 0});
+        reverse(l.begin(), l.end());
+        l.push_back(vector<int>{ INT_MAX, 0});
+        r.push_back(vector<int>{ INT_MAX, 0});
+        vector<int> sumL(1, 0), sumR(1, 0);
+        for (auto &item : l) sumL.push_back(sumL.back() + item[1]);
+        for (auto &item : r) sumR.push_back(sumR.back() + item[1]);
+        cout << "L : ";
+        for (auto &item : l) {
+            cout << "(" << item[0] << ", " << item[1] << "), ";
+        }
+        cout << endl;
+        cout << "SumL: ";
+        for (auto &num : sumL) cout << num << ", ";
+        cout << endl;
+        cout << "R : ";
+        for (auto &item : r) {
+            cout << "(" << item[0] << ", " << item[1] << "), ";
+        }
+        cout << endl;
+        cout << "SumR: ";
+        for (auto &num : sumR) cout << num << ", ";
+        cout << endl;
+
+        cout << endl;
+        int f1 = f(l, sumL, r, sumR, k);
+        cout << "f1 = " << f1 << endl;
+
+        int f2 = f(r, sumR, l, sumL, k);
+        cout << "f2 = " << f2 << endl;
+        return res;
     }
-    
-    int pop() {
-        while (last > 0 && ss[last].size() == 0) last--;
-        if (last == 0 && ss[last].size() == 0) return -1;
-        int back = ss[last].back();
-        ss[last].pop_back();
-        return back;
+    int f(vector<vector<int>> &left, vector<int> &sumL, vector<vector<int>> &right, vector<int> &sumR, int k) {
+        int res = sumR[bs(right, k)] - sumR[0];
+        for (int i = 0; i < left.size() && left[i][0] <= k; i++) {
+            int val = sumL[i + 1] - sumL[0];
+            val += sumR[bs(right, k - left[i][0] * 2)] - sumR[0];
+            res = max(res, val);
+        }
+        return res;
     }
-    
-    int popAtStack(int index) {
-        if (index > last || ss[index].size() == 0) return -1;
-        int back = ss[index].back();
-        ss[index].pop_back();
-        if (!used.count(index)) q.push(index), used.insert(index);
-        return back;
+    int bs(vector<vector<int>> &list, int target) {
+        if (target <= 0) return 0;
+        int l = 0, r = list.size();
+        while (l < r) {
+            int m = (l + r) / 2;
+            if (list[m][0] > target) r = m;
+            else l = m + 1;
+        }
+        return l;
     }
 };
 

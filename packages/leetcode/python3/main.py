@@ -79,13 +79,53 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def isValid(self, s: str) -> bool:
-        while s != "":
-            n = s.replace("abc", "")
-            if n == s:
-                return False
-            s = n
-        return s == ""
+    def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
+        res = 0
+        l, r = [], []
+        r.append([-1, 0])
+        for item in fruits:
+            item[0] -= startPos
+            if item[0] < 0:
+                item[0] = -item[0]
+                l.append(item)
+            elif item[0] > 0:
+                r.append(item)
+            else:
+                res += item[1]
+        l.append([-1, 0])
+        l.reverse()
+        l.append([inf, 0])
+        r.append([inf, 0])
+
+        sumL, sumR = [1], [1]
+        for item in l:
+            sumL.append(sumL[-1] + item[1])
+        for item in r:
+            sumR.append(sumR[-1] + item[1])
+
+        def f(left: List[List[int]], sumL: List[int], right: List[List[int]], sumR: List[int], k: int):
+            res = sumR[bs(right, k)]
+            for i in range(1, len(left)):
+                if left[i][0] > k:
+                    break
+                res = max(res, sumL[i + 1] +
+                          sumR[bs(right, k - left[i][0] * 2)])
+            return res
+
+        def bs(list: List[List[int]], target: int):
+            if target <= 0:
+                return 0
+            l = 0
+            r = len(list)
+            while l < r:
+                m = (l + r) // 2
+                if list[m][0] > target:
+                    r = m
+                else:
+                    l = m + 1
+            return l
+
+        return res + max(f(l, sumL, r, sumR, k), f(r, sumR, l, sumL, k))
 
 
 def main():
