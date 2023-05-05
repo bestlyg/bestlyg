@@ -1,0 +1,37 @@
+{
+    "name": "2432.处理用时最长的那个任务的员工",
+    "url": "https://leetcode.cn/problems/the-employee-that-worked-on-the-longest-task/",
+    "difficulty": "中等",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "desc": "返回处理用时最长的那个任务的员工的 id 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 56,
+            "memory": 34.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int hardestWorker(int n, vector<vector<int>>& logs) {\n        int prev = 0, resVal = 0, res;\n        for (auto &log : logs) {\n            int val = log[1] - prev;\n            if (val > resVal || val == resVal && log[0] < res) resVal = val, res = log[0];\n            prev = log[1];\n        }\n        return res;\n    }\n};",
+            "date": 1683216000000
+        },
+        {
+            "script": "python3",
+            "time": 368,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def hardestWorker(self, n: int, logs: List[List[int]]) -> int:\n        prev = 0\n        resVal = 0\n        res = 0\n        for log in logs:\n            val = log[1] - prev\n            if val > resVal or val == resVal and log[0] < res:\n                resVal = val\n                res = log[0]\n            prev = log[1]\n        return res",
+            "date": 1683216000000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn hardest_worker(n: i32, logs: Vec<Vec<i32>>) -> i32 {\n        let mut prev = 0;\n        let mut resVal = 0;\n        let mut res = 0;\n        for log in logs {\n            let val = log[1] - prev;\n            if val > resVal || val == resVal && log[0] < res {\n                resVal = val;\n                res = log[0];\n            }\n            prev = log[1];\n        }\n        res\n    }\n}",
+            "date": 1683216000000
+        }
+    ]
+}
