@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2432. 处理用时最长的那个任务的员工',
-  url: 'https://leetcode.cn/problems/the-employee-that-worked-on-the-longest-task/',
+  name: '1419. 数青蛙',
+  url: 'https://leetcode.cn/problems/minimum-number-of-frogs-croaking/',
   difficulty: Difficulty.中等,
   tag: [Tag.广度优先搜索, Tag.数组, Tag.矩阵],
-  desc: `返回处理用时最长的那个任务的员工的 id 。`,
+  desc: `请你返回模拟字符串中所有蛙鸣所需不同青蛙的最少数目。`,
   solutions: [
 //     {
 //       script: Script.TS,
@@ -25,61 +25,107 @@ const leetCodeMarkdown: Markdown = {
 //     },
     {
       script: Script.CPP,
-      time: 56,
-      memory: 34.8,
+      time: 24,
+      memory: 9,
       desc: '遍历',
       code: `class Solution {
 public:
-    int hardestWorker(int n, vector<vector<int>>& logs) {
-        int prev = 0, resVal = 0, res;
-        for (auto &log : logs) {
-            int val = log[1] - prev;
-            if (val > resVal || val == resVal && log[0] < res) resVal = val, res = log[0];
-            prev = log[1];
+    int minNumberOfFrogs(string croakOfFrogs) {
+        int n = croakOfFrogs.size(), wait[5] = {0}, res = 0;
+        unordered_map<char, int> m;
+        m['c'] = 0; m['r'] = 1; m['o'] = 2; m['a'] = 3; m['k'] = 4;
+        for (int i = 0; i < n; i++) {
+            int idx = m[croakOfFrogs[i]];
+            if (idx == 0) {
+                if (wait[4] == 0) res++;
+                else wait[4] -= 1;
+                wait[idx]++;
+            } else {
+                if (wait[idx - 1] == 0) return -1;
+                wait[idx - 1]--;
+                wait[idx]++;
+            }
         }
-        return res;
+        return wait[4] == res ? res : -1;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 368,
-      memory: 16.2,
+      time: 172,
+      memory: 16.6,
       desc: '同上',
       code: `class Solution:
-    def hardestWorker(self, n: int, logs: List[List[int]]) -> int:
-        prev = 0
-        resVal = 0
+    def minNumberOfFrogs(self, croakOfFrogs: str) -> int:
+        n = len(croakOfFrogs)
+        wait = [0] * 5
         res = 0
-        for log in logs:
-            val = log[1] - prev
-            if val > resVal or val == resVal and log[0] < res:
-                resVal = val
-                res = log[0]
-            prev = log[1]
-        return res`,
+        m = {}
+        m['c'] = 0
+        m['r'] = 1
+        m['o'] = 2
+        m['a'] = 3
+        m['k'] = 4
+        for i in range(n):
+            idx = m[croakOfFrogs[i]]
+            if idx == 0:
+                if wait[4] == 0:
+                    res += 1
+                else:
+                    wait[4] -= 1
+                wait[idx] += 1
+            else:
+                if wait[idx - 1] == 0:
+                    return -1
+                wait[idx-1] -= 1
+                wait[idx] += 1
+        return res if wait[4] == res else -1`,
     },
     {
       script: Script.RUST,
-      time: 8,
-      memory: 2,
+      time: 4,
+      memory: 2.6,
       desc: '同上',
-      code: `impl Solution {
-    pub fn hardest_worker(n: i32, logs: Vec<Vec<i32>>) -> i32 {
-        let mut prev = 0;
-        let mut resVal = 0;
-        let mut res = 0;
-        for log in logs {
-            let val = log[1] - prev;
-            if val > resVal || val == resVal && log[0] < res {
-                resVal = val;
-                res = log[0];
-            }
-            prev = log[1];
-        }
-        res
+      code: `fn get_idx(c: char) -> usize {
+    match c {
+        'c' => 0,
+        'r' => 1,
+        'o' => 2,
+        'a' => 3,
+        'k' => 4,
+        _ => 0,
     }
-}`,
+}
+fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+impl Solution {
+    pub fn min_number_of_frogs(croak_of_frogs: String) -> i32 {
+        let croak_of_frogs = str_to_vec(&croak_of_frogs);
+        let n = croak_of_frogs.len();
+        let mut wait = vec![0; 5];
+        let mut res = 0;
+        for i in 0..croak_of_frogs.len() {
+            let idx = get_idx(croak_of_frogs[i]);
+            if idx == 0 {
+                if wait[4] == 0 {
+                    res += 1
+                } else {
+                    wait[4] -= 1;
+                }
+                wait[idx] += 1;
+            } else {
+                if wait[idx - 1] == 0 {
+                    return -1;
+                };
+                wait[idx - 1] -= 1;
+                wait[idx] += 1
+            }
+        }
+        return if wait[4] == res { res } else { -1 };
+    }
+}
+`,
     },
   ],
 };

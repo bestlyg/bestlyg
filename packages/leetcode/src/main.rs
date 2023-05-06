@@ -119,19 +119,39 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
     };
 }
 
+fn get_idx(c: char) -> usize {
+    match c {
+        'c' => 0,
+        'r' => 1,
+        'o' => 2,
+        'a' => 3,
+        'k' => 4,
+        _ => 0,
+    }
+}
 impl Solution {
-    pub fn hardest_worker(n: i32, logs: Vec<Vec<i32>>) -> i32 {
-        let mut prev = 0;
-        let mut resVal = 0;
+    pub fn min_number_of_frogs(croak_of_frogs: String) -> i32 {
+        let croak_of_frogs = str_to_vec(&croak_of_frogs);
+        let n = croak_of_frogs.len();
+        let mut wait = vec![0; 5];
         let mut res = 0;
-        for log in logs {
-            let val = log[1] - prev;
-            if val > resVal || val == resVal && log[0] < res {
-                resVal = val;
-                res = log[0];
+        for i in 0..croak_of_frogs.len() {
+            let idx = get_idx(c);
+            if idx == 0 {
+                if wait[4] == 0 {
+                    res += 1
+                } else {
+                    wait[4] -= 1;
+                }
+                waite[idx] += 1;
+            } else {
+                if wait[idx - 1] == 0 {
+                    return -1;
+                };
+                wait[idx - 1] -= 1;
+                wait[idx] += 1
             }
-            prev = log[1];
         }
-        res
+        return if wait[4] == res { res } else { -1 };
     }
 }

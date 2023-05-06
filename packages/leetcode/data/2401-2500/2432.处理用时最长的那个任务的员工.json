@@ -1,11 +1,10 @@
 {
+    "id": "2518",
     "name": "2432.处理用时最长的那个任务的员工",
-    "url": "https://leetcode.cn/problems/the-employee-that-worked-on-the-longest-task/",
-    "difficulty": "中等",
+    "url": "https://leetcode.cn/problems/the-employee-that-worked-on-the-longest-task",
+    "difficulty": "简单",
     "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
+        "数组"
     ],
     "desc": "返回处理用时最长的那个任务的员工的 id 。",
     "solutions": [

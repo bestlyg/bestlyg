@@ -77,18 +77,33 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
         b, c = c, b
     return (a, b, c)
 
+
 class Solution:
-    def hardestWorker(self, n: int, logs: List[List[int]]) -> int:
-        prev = 0
-        resVal = 0
+    def minNumberOfFrogs(self, croakOfFrogs: str) -> int:
+        n = len(croakOfFrogs)
+        wait = [0] * 5
         res = 0
-        for log in logs:
-            val = log[1] - prev
-            if val > resVal or val == resVal and log[0] < res:
-                resVal = val
-                res = log[0]
-            prev = log[1]
-        return res
+        m = {}
+        m['c'] = 0
+        m['r'] = 1
+        m['o'] = 2
+        m['a'] = 3
+        m['k'] = 4
+        for i in range(n):
+            idx = m[croakOfFrogs[i]]
+            if idx == 0:
+                if wait[4] == 0:
+                    res += 1
+                else:
+                    wait[4] -= 1
+                wait[idx] += 1
+            else:
+                if wait[idx - 1] == 0:
+                    return -1
+                wait[idx-1] -= 1
+                wait[idx] += 1
+        return res if wait[4] == res else -1
+
 
 def main():
     o = Solution()

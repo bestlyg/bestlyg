@@ -1,0 +1,37 @@
+{
+    "id": "1534",
+    "name": "1419.数青蛙",
+    "url": "https://leetcode.cn/problems/minimum-number-of-frogs-croaking",
+    "difficulty": "中等",
+    "tag": [
+        "字符串",
+        "计数"
+    ],
+    "desc": "请你返回模拟字符串中所有蛙鸣所需不同青蛙的最少数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 24,
+            "memory": 9,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int minNumberOfFrogs(string croakOfFrogs) {\n        int n = croakOfFrogs.size(), wait[5] = {0}, res = 0;\n        unordered_map<char, int> m;\n        m['c'] = 0; m['r'] = 1; m['o'] = 2; m['a'] = 3; m['k'] = 4;\n        for (int i = 0; i < n; i++) {\n            int idx = m[croakOfFrogs[i]];\n            if (idx == 0) {\n                if (wait[4] == 0) res++;\n                else wait[4] -= 1;\n                wait[idx]++;\n            } else {\n                if (wait[idx - 1] == 0) return -1;\n                wait[idx - 1]--;\n                wait[idx]++;\n            }\n        }\n        return wait[4] == res ? res : -1;\n    }\n};",
+            "date": 1683302400000
+        },
+        {
+            "script": "python3",
+            "time": 172,
+            "memory": 16.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minNumberOfFrogs(self, croakOfFrogs: str) -> int:\n        n = len(croakOfFrogs)\n        wait = [0] * 5\n        res = 0\n        m = {}\n        m['c'] = 0\n        m['r'] = 1\n        m['o'] = 2\n        m['a'] = 3\n        m['k'] = 4\n        for i in range(n):\n            idx = m[croakOfFrogs[i]]\n            if idx == 0:\n                if wait[4] == 0:\n                    res += 1\n                else:\n                    wait[4] -= 1\n                wait[idx] += 1\n            else:\n                if wait[idx - 1] == 0:\n                    return -1\n                wait[idx-1] -= 1\n                wait[idx] += 1\n        return res if wait[4] == res else -1",
+            "date": 1683302400000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.6,
+            "desc": "同上。",
+            "code": "fn get_idx(c: char) -> usize {\n    match c {\n        'c' => 0,\n        'r' => 1,\n        'o' => 2,\n        'a' => 3,\n        'k' => 4,\n        _ => 0,\n    }\n}\nfn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn min_number_of_frogs(croak_of_frogs: String) -> i32 {\n        let croak_of_frogs = str_to_vec(&croak_of_frogs);\n        let n = croak_of_frogs.len();\n        let mut wait = vec![0; 5];\n        let mut res = 0;\n        for i in 0..croak_of_frogs.len() {\n            let idx = get_idx(croak_of_frogs[i]);\n            if idx == 0 {\n                if wait[4] == 0 {\n                    res += 1\n                } else {\n                    wait[4] -= 1;\n                }\n                wait[idx] += 1;\n            } else {\n                if wait[idx - 1] == 0 {\n                    return -1;\n                };\n                wait[idx - 1] -= 1;\n                wait[idx] += 1\n            }\n        }\n        return if wait[4] == res { res } else { -1 };\n    }\n}\n",
+            "date": 1683302400000
+        }
+    ]
+}
