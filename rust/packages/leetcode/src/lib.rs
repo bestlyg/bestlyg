@@ -195,5 +195,7 @@ pub async fn fetch() {
         .post("https://leetcode.cn/graphql")
         .json(&body)
         .send()
-        .await;
+        .await
+        .expect("Request Error");
+    let body = res.json().await.expect("ToJson Fail");
 }
