@@ -22,6 +22,8 @@ pub(crate) async fn run(_: &clap::ArgMatches) {
         handle.await.expect("Problem await error.");
     }
     println!("Find Problems : {}", (*problems.lock().await).len());
+    println!("fetch Test");
+    leetcode::fetch().await;
 }
 fn traverse_dir(
     handles: &mut Vec<tokio::task::JoinHandle<()>>,

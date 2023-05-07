@@ -105,8 +105,7 @@ pub async fn fetch() {
         "strict-origin-when-cross-origin".parse().unwrap(),
     );
 
-    let body = r#"
-{
+    let body = r#"{
     "operationName": "questionData",
     "variables": {
         "titleSlug": "{titleSlug}"
@@ -190,12 +189,15 @@ pub async fn fetch() {
 }
 "#
     .to_string()
-    .replace(r"{titleSlug}", "123");
+    .replace(r"{titleSlug}", "two-sum");
+    println!("==BODY:{:#?}", body);
     let res = client
         .post("https://leetcode.cn/graphql")
-        .json(&body)
+        .json(body.as_bytes())
         .send()
         .await
         .expect("Request Error");
-    let body = res.json().await.expect("ToJson Fail");
+    println!("{:#?}", res);
+    let body = res.json::<serde_json::Value>().await.expect("ToJson Fail");
+    println!("{:?}", body);
 }
