@@ -1,0 +1,33 @@
+{
+    "name": "6416.找出不同元素数目差数组",
+    "url": "https://leetcode.cn/problems/find-the-distinct-difference-array/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回 nums 的 不同元素数目差 数组。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 48,
+            "memory": 90.9,
+            "desc": "从左往右统计，从右往左统计。",
+            "code": "class Solution {\npublic:\n    vector<int> distinctDifferenceArray(vector<int>& nums) {\n        unordered_set<int> s;\n        int n = nums.size();\n        vector<int> list1(n, 0), list2(n, 0), res(n, 0);\n        for (int i = 0; i < n; i++) {\n            s.insert(nums[i]);\n            list1[i] = s.size();\n        }\n        s.clear();\n        for (int i = n - 1; i >= 0; i--) {\n            list2[i] = s.size();\n            s.insert(nums[i]);\n        }\n        for (int i = 0; i < n; i++) {\n            res[i] = list1[i] - list2[i];\n        }\n        return res;\n    }\n};",
+            "date": 1683388800000
+        },
+        {
+            "script": "python3",
+            "time": 72,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def distinctDifferenceArray(self, nums: List[int]) -> List[int]:\n        s = set()\n        n = len(nums)\n        list1 = [0] * n\n        list2 = [0] * n\n        res = [0] * n\n        for i in range(0, n):\n            s.add(nums[i])\n            list1[i] = len(s)\n        s.clear()\n        for i in range(n - 1, -1, -1):\n            list2[i] = len(s)\n            s.add(nums[i])\n        for i in range(0, n):\n            res[i] = list1[i] - list2[i]\n        return res",
+            "date": 1683388800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn distinct_difference_array(nums: Vec<i32>) -> Vec<i32> {\n        let mut s = std::collections::HashSet::<i32>::new();\n        let n = nums.len();\n        let mut list1 = vec![0; n];\n        let mut list2 = vec![0; n];\n        let mut res = vec![0; n];\n        for i in 0..n {\n            s.insert(nums[i]);\n            list1[i] = s.len();\n        }\n        s.clear();\n        for i in (0..n).rev() {\n            list2[i] = s.len();\n            s.insert(nums[i]);\n        }\n        for i in 0..n {\n            res[i] = (list1[i] - list2[i]) as i32\n        }\n        res\n    }\n}\n",
+            "date": 1683388800000
+        }
+    ]
+}

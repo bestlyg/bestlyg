@@ -1,0 +1,33 @@
+{
+    "name": "6417.频率跟踪器",
+    "url": "https://leetcode.cn/problems/frequency-tracker/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你设计并实现一个能够对其中的值进行跟踪的数据结构，并支持对频率相关查询进行应答。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 384,
+            "memory": 196.1,
+            "desc": "维护数量和频率两个哈希表。",
+            "code": "class FrequencyTracker {\npublic:\n    unordered_map<int, int> cm, fm;\n    \n    FrequencyTracker() {}\n    \n    void add(int number) {\n        if (cm[number] != 0) {\n            fm[cm[number]]--;\n        }\n        cm[number]++;\n        fm[cm[number]]++;\n    }\n    \n    void deleteOne(int number) {\n        if (cm[number] == 0) return;\n        fm[cm[number]]--;\n        cm[number]--;\n        fm[cm[number]]++;\n    }\n    \n    bool hasFrequency(int frequency) {\n        return fm[frequency] != 0;\n    }\n};",
+            "date": 1683388800000
+        },
+        {
+            "script": "python3",
+            "time": 476,
+            "memory": 77.7,
+            "desc": "同上。",
+            "code": "class FrequencyTracker:\n\n    def __init__(self):\n        self.cm = Counter()\n        self.fm = Counter()\n\n    def add(self, number: int) -> None:\n        cm = self.cm\n        fm = self.fm\n        if cm[number] != 0:\n            fm[cm[number]] -= 1\n        cm[number] += 1\n        fm[cm[number]] += 1\n\n    def deleteOne(self, number: int) -> None:\n        cm = self.cm\n        fm = self.fm\n        if cm[number] == 0:\n            return\n        fm[cm[number]] -= 1\n        cm[number] -= 1\n        fm[cm[number]] += 1\n\n    def hasFrequency(self, frequency: int) -> bool:\n        return self.fm[frequency] != 0",
+            "date": 1683388800000
+        },
+        {
+            "script": "rust",
+            "time": 92,
+            "memory": 84.2,
+            "desc": "同上。",
+            "code": "use std::collections::HashMap;\nstruct FrequencyTracker {\n    cm: HashMap<i32, i32>,\n    fm: HashMap<i32, i32>,\n}\nimpl FrequencyTracker {\n    fn new() -> Self {\n        Self {\n            cm: Default::default(),\n            fm: Default::default(),\n        }\n    }\n\n    fn add(&mut self, number: i32) {\n        let cmitem = self.cm.entry(number).or_insert(0);\n        if *cmitem != 0 {\n            *self.fm.entry(*cmitem).or_insert(0) -= 1;\n        }\n        *cmitem += 1;\n        *self.fm.entry(*cmitem).or_insert(0) += 1;\n    }\n\n    fn delete_one(&mut self, number: i32) {\n        let cmitem = self.cm.entry(number).or_insert(0);\n        if *cmitem != 0 {\n            *self.fm.entry(*cmitem).or_insert(0) -= 1;\n            *cmitem -= 1;\n            *self.fm.entry(*cmitem).or_insert(0) += 1;\n        }\n    }\n\n    fn has_frequency(&self, frequency: i32) -> bool {\n        *self.fm.get(&frequency).unwrap_or(&0) != 0\n    }\n}\n",
+            "date": 1683388800000
+        }
+    ]
+}

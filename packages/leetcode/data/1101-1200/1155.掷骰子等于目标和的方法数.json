@@ -1,6 +1,6 @@
 {
     "id": "1263",
-    "name": "1155.掷骰子的N种方法",
+    "name": "1155.掷骰子等于目标和的方法数",
     "url": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum",
     "difficulty": "中等",
     "tag": [

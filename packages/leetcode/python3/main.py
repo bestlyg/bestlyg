@@ -9,7 +9,7 @@ from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict, SortedSet
 import heapq
-from math import inf
+from math import inf, log2
 
 # global
 # nonlocal
@@ -79,16 +79,26 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def numPairsDivisibleBy60(self, time: List[int]) -> int:
-        m = Counter()
+    def minIncrements(self, n: int, cost: List[int]) -> int:
+        level = log2(n+1)
         res = 0
-        for t in time:
-            if t % 60 == 0:
-                res += m[0]
-            else:
-                res += m[60-t % 60]
-            m[t % 60] += 1
+
+        def dfs(root: int, l: int) -> int:
+            nonlocal res
+            if l == level : return cost[root]
+            left = dfs(root * 2 + 1, l + 1)
+            right = dfs(root * 2 + 2, l + 1)
+            if left == right :return left + cost[root]
+            res += abs(left -right)
+            return max(left, right ) + cost[root]
+        dfs(0, 1)
         return res
+
+        # Your FrequencyTracker object will be instantiated and called as such:
+        # obj = FrequencyTracker()
+        # obj.add(number)
+        # obj.deleteOne(number)
+        # param_3 = obj.hasFrequency(frequency)
 
 
 def main():

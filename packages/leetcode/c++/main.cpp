@@ -161,3 +161,19 @@ int main() {
     return 0;
 }
 #endif
+
+class Solution {
+public:
+    int minIncrements(int n, vector<int>& cost) {
+        int level = log2(n + 1), res = 0;
+        function<int(int, int)> dfs = [&](int root, int l) -> int {
+            if (l == level) return cost[root];
+            int left = dfs(root * 2 + 1, l + 1), right = dfs(root * 2 + 2, l + 1);
+            if (left == right) return left + cost[root];
+            res += abs(right - left);
+            return max(left, right) + cost[root];
+        };
+        dfs(0, 1);
+        return res;
+    }
+};

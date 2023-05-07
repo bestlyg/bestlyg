@@ -120,17 +120,24 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn num_pairs_divisible_by60(time: Vec<i32>) -> i32 {
-        let mut m = std::collections::HashMap::<i32, i32>::new();
+    pub fn min_increments(n: i32, cost: Vec<i32>) -> i32 {
+        let level = (n as f32).log2() as u32;
         let mut res = 0;
-        for t in time {
-            if t % 60 == 0 {
-                res += m.get(&0).unwrap_or(&0);
+        fn dfs(cost: &Vec<i32>, level: u32, res: &mut i32, root: usize, l: u32) -> i32 {
+            if l == level {
+                cost[root]
             } else {
-                res += m.get(&(60 - t % 60)).unwrap_or(&0);
+                let left = dfs(cost, level, res, root * 2 + 1, l + 1);
+                let right = dfs(cost, level, res, root * 2 + 2, l + 1);
+                if left == right {
+                    left + cost[root]
+                } else {
+                    *res += (right - left).abs();
+                    left.max(right) + cost[root]
+                }
             }
-            *m.entry(t % 60).or_insert(0) += 1;
         }
+        dfs(&cost, level, &mut res, 0, 1);
         res
     }
 }
