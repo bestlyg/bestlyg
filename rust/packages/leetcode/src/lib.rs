@@ -1,4 +1,4 @@
-use std::{io::Read, str::FromStr};
+use std::{io::Read, ptr::replace, str::FromStr};
 
 use serde::{Deserialize, Serialize};
 
@@ -88,13 +88,13 @@ pub async fn fetch() {
             .unwrap(),
     );
     headers.insert("sec-ch-ua-mobile", "?0".parse().unwrap());
-    headers.insert("sec-ch-ua-platform", "\"macOS\"".parse().unwrap());
+    headers.insert("sec-ch-ua-platform", "\"Windows\"".parse().unwrap());
     headers.insert("sec-fetch-dest", "empty".parse().unwrap());
     headers.insert("sec-fetch-mode", "cors".parse().unwrap());
     headers.insert("sec-fetch-site", "same-origin".parse().unwrap());
     headers.insert(
         "x-csrftoken",
-        "02j2dc7gsGYRVLPwNLPsqXBEQyoIfGPofiT5XvrgBexxZ0YIBjTvp3KHWWEut8E7"
+        "HQcoEquxluZ31TgAamGGJ2UNWw7uaDjolma6lhh3MyWW82iDTHBfXhrKMcEYQeiF"
             .parse()
             .unwrap(),
     );
@@ -105,90 +105,9 @@ pub async fn fetch() {
         "strict-origin-when-cross-origin".parse().unwrap(),
     );
 
-    let body = r#"{
-    "operationName": "questionData",
-    "variables": {
-        "titleSlug": "{titleSlug}"
-    },
-    "query": "query questionData($titleSlug: String!) {
-        question(titleSlug: $titleSlug) {
-            questionId
-            questionFrontendId
-            categoryTitle
-            boundTopicId
-            title
-            titleSlug
-            content
-            translatedTitle
-            translatedContent
-            isPaidOnly
-            difficulty
-            likes
-            dislikes
-            isLiked
-            similarQuestions
-            contributors {
-            username
-            profileUrl
-            avatarUrl
-            __typename
-            }
-            langToValidPlayground
-            topicTags {
-            name
-            slug
-            translatedName
-            __typename
-            }
-            companyTagStats
-            codeSnippets {
-            lang
-            langSlug
-            code
-            __typename
-            }
-            stats
-            hints
-            solution {
-            id
-            canSeeDetail
-            __typename
-            }
-            status
-            sampleTestCase
-            metaData
-            judgerAvailable
-            judgeType
-            mysqlSchemas
-            enableRunCode
-            envInfo
-            book {
-            id
-            bookName
-            pressName
-            source
-            shortDescription
-            fullDescription
-            bookImgUrl
-            pressImgUrl
-            productUrl
-            __typename
-            }
-            isSubscribed
-            isDailyQuestion
-            dailyRecordStatus
-            editorType
-            ugcQuestionId
-            style
-            exampleTestcases
-            jsonExampleTestcases
-            __typename
-        }
-        }
-        "
-}
-"#
+    let body = r#"{"operationName":"questionData","variables":{"titleSlug":"{titleSlug}"},"query":"query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    questionId\n    questionFrontendId\n    categoryTitle\n    boundTopicId\n    title\n    titleSlug\n    content\n    translatedTitle\n    translatedContent\n    isPaidOnly\n    difficulty\n    likes\n    dislikes\n    isLiked\n    similarQuestions\n    contributors {\n      username\n      profileUrl\n      avatarUrl\n      __typename\n    }\n    langToValidPlayground\n    topicTags {\n      name\n      slug\n      translatedName\n      __typename\n    }\n    companyTagStats\n    codeSnippets {\n      lang\n      langSlug\n      code\n      __typename\n    }\n    stats\n    hints\n    solution {\n      id\n      canSeeDetail\n      __typename\n    }\n    status\n    sampleTestCase\n    metaData\n    judgerAvailable\n    judgeType\n    mysqlSchemas\n    enableRunCode\n    envInfo\n    book {\n      id\n      bookName\n      pressName\n      source\n      shortDescription\n      fullDescription\n      bookImgUrl\n      pressImgUrl\n      productUrl\n      __typename\n    }\n    isSubscribed\n    isDailyQuestion\n    dailyRecordStatus\n    editorType\n    ugcQuestionId\n    style\n    exampleTestcases\n    jsonExampleTestcases\n    __typename\n  }\n}\n"}"#
     .to_string()
+    .replace("\\n", "\n")
     .replace(r"{titleSlug}", "two-sum");
     println!("==BODY:{:#?}", body);
     let res = client
@@ -197,7 +116,11 @@ pub async fn fetch() {
         .send()
         .await
         .expect("Request Error");
-    println!("{:#?}", res);
-    let body = res.json::<serde_json::Value>().await.expect("ToJson Fail");
-    println!("{:?}", body);
+    let status = res.status().as_u16();
+    if status >= 200 && status < 400 {
+        let body = res.json::<serde_json::Value>().await.expect("ToJson Fail");
+        println!("{:?}", body);
+    } else {
+        panic!("Request Error, {}", res.text().await.unwrap());
+    }
 }
