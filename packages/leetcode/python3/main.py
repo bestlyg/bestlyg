@@ -79,30 +79,16 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def minNumberOfFrogs(self, croakOfFrogs: str) -> int:
-        n = len(croakOfFrogs)
-        wait = [0] * 5
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+        m = Counter()
         res = 0
-        m = {}
-        m['c'] = 0
-        m['r'] = 1
-        m['o'] = 2
-        m['a'] = 3
-        m['k'] = 4
-        for i in range(n):
-            idx = m[croakOfFrogs[i]]
-            if idx == 0:
-                if wait[4] == 0:
-                    res += 1
-                else:
-                    wait[4] -= 1
-                wait[idx] += 1
+        for t in time:
+            if t % 60 == 0:
+                res += m[0]
             else:
-                if wait[idx - 1] == 0:
-                    return -1
-                wait[idx-1] -= 1
-                wait[idx] += 1
-        return res if wait[4] == res else -1
+                res += m[60-t % 60]
+            m[t % 60] += 1
+        return res
 
 
 def main():

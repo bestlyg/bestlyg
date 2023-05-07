@@ -119,39 +119,18 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
     };
 }
 
-fn get_idx(c: char) -> usize {
-    match c {
-        'c' => 0,
-        'r' => 1,
-        'o' => 2,
-        'a' => 3,
-        'k' => 4,
-        _ => 0,
-    }
-}
 impl Solution {
-    pub fn min_number_of_frogs(croak_of_frogs: String) -> i32 {
-        let croak_of_frogs = str_to_vec(&croak_of_frogs);
-        let n = croak_of_frogs.len();
-        let mut wait = vec![0; 5];
+    pub fn num_pairs_divisible_by60(time: Vec<i32>) -> i32 {
+        let mut m = std::collections::HashMap::<i32, i32>::new();
         let mut res = 0;
-        for i in 0..croak_of_frogs.len() {
-            let idx = get_idx(c);
-            if idx == 0 {
-                if wait[4] == 0 {
-                    res += 1
-                } else {
-                    wait[4] -= 1;
-                }
-                waite[idx] += 1;
+        for t in time {
+            if t % 60 == 0 {
+                res += m.get(&0).unwrap_or(&0);
             } else {
-                if wait[idx - 1] == 0 {
-                    return -1;
-                };
-                wait[idx - 1] -= 1;
-                wait[idx] += 1
+                res += m.get(&(60 - t % 60)).unwrap_or(&0);
             }
+            *m.entry(t % 60).or_insert(0) += 1;
         }
-        return if wait[4] == res { res } else { -1 };
+        res
     }
 }
