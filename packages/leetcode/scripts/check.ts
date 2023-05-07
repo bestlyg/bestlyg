@@ -105,7 +105,7 @@ async function main() {
   clear();
   console.log(LOGO);
   console.log(chalk.blue(`正在批处理LeetCode`));
-  const queue = new AsyncQueue(100);
+  const queue = new AsyncQueue(1);
   const map = await allQuestions();
   for (const item of travel()) {
     queue.push(() => walk({ map, filepath: item.filepath }));
