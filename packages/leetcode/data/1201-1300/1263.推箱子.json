@@ -1,0 +1,23 @@
+{
+    "id": "1389",
+    "name": "1263.推箱子",
+    "url": "https://leetcode.cn/problems/minimum-moves-to-move-a-box-to-their-target-location",
+    "difficulty": "困难",
+    "tag": [
+        "广度优先搜索",
+        "数组",
+        "矩阵",
+        "堆（优先队列）"
+    ],
+    "desc": "返回将箱子推到目标位置的最小 推动 次数，如果无法做到，请返回 -1。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 72,
+            "memory": 15.4,
+            "desc": "dfs每次统计左右子树的差值。",
+            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\n\nclass UnionFind {\n    public:\n    int n;\n    vector<int> data, cnt;\n    UnionFind(int n) : n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {\n        iota(data.begin(), data.end(), 0);\n    }\n    int size(int v) { return cnt[find(v)]; }\n    int find(int v) {\n        if (data[v] == v) return v;\n        return data[v] = find(data[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;\n    }\n    bool same(int v1, int v2) { return find(v1) == find(v2); }\n};\nint pos2Idx(int x, int y, int size) { return x * size + y; }\nvoid idx2Pos(int idx, int size, int &x, int &y) {\n    x = idx / size;\n    y = idx % size;\n}\nvector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\n// 记录箱子和人的位置\nstruct Node {\n    pii p, b;\n    Node(pii p, pii b): p(p), b(b) {}\n};\nclass Solution {\npublic:\n    int minPushBox(vector<vector<char>>& grid) {\n        pii t, p, b;\n        int n = grid.size(), m = grid[0].size();\n        // 统计箱子和人的位置放置重复计算\n        unordered_map<int, unordered_map<int, bool>> used;\n        // 判断两个坐标是否相等\n        auto is_same = [&](pii a, pii b) -> bool {\n            return a.X == b.X && a.Y == b.Y;\n        };\n        // 针对当前Node值，计算并查集，计算时要排除箱子位置，用于后面判断人是不是能到这个点\n        auto get_uf = [&](Node cur) -> UnionFind {\n            UnionFind uf(n * m);\n            for (int i = 0; i < n; i++) {\n                for (int j = 0; j < m; j++) {\n                    if (grid[i][j] == '.' && !is_same(cur.b, make_pair(i, j))) {\n                        for (int k = 0; k < 4; k++) {\n                            int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                            if (0 <= ni && ni < n && 0 <= nj && nj < m && grid[ni][nj] == '.' && !is_same(cur.b, make_pair(ni, nj))) {\n                                uf.uni(pos2Idx(i, j, m), pos2Idx(ni, nj, m));\n                            }\n                        }\n                    }\n                }\n            }\n            return uf;\n        };\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 'T') t = make_pair(i, j), grid[i][j] = '.';\n                else if (grid[i][j] == 'B') b = make_pair(i, j), grid[i][j] = '.';\n                else if (grid[i][j] == 'S') p = make_pair(i, j), grid[i][j] = '.';\n            }\n        }\n        queue<Node> q;\n        q.push(Node(p, b));\n        int size = 1, step = 0;\n        while (q.size()) {\n            auto cur = q.front();\n            q.pop();\n            if (is_same(cur.b, t)) return step;\n            auto uf = get_uf(cur);\n            for (int k = 0; k < 4; k++) {\n                int ni = cur.b.X + dirs[k][0], nj = cur.b.Y + dirs[k][1],\n                    bi = cur.b.X - dirs[k][0], bj = cur.b.Y - dirs[k][1];\n                // 如果箱子要推到(ni, nj), 那么人要在(bi, bj)位置上推，所以这两个位置都要空，且这个位置没有被统计过\n                if (0 <= ni && ni < n && 0 <= nj && nj < m && grid[ni][nj] == '.' &&\n                    0 <= bi && bi < n && 0 <= bj && bj < m && grid[bi][bj] == '.' &&\n                    uf.same(pos2Idx(cur.p.X, cur.p.Y, m), pos2Idx(bi, bj, m)) &&\n                    !used[pos2Idx(cur.b.X, cur.b.Y, m)][pos2Idx(ni, nj, m)]) {\n                    q.push(Node(make_pair(cur.b.X, cur.b.Y), make_pair(ni, nj)));\n                    used[pos2Idx(cur.b.X, cur.b.Y, m)][pos2Idx(ni, nj, m)] = true;\n                }\n            }\n            if (--size == 0) {\n                size = q.size();\n                step++;\n            }\n        }\n\n        return -1;\n    }\n};",
+            "date": 1683475200000
+        }
+    ]
+}

@@ -78,73 +78,76 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
+struct Node {
+    pii p, b;
+    Node(pii p, pii b): p(p), b(b) {}
+};
 class Solution {
 public:
-    int maxTotalFruits(vector<vector<int>>& fruits, int startPos, int k) {
-        int res = 0;
-        vector<vector<int>> l, r;
-        r.push_back(vector<int>{ -1, 0});
-        for (auto &item : fruits) {
-            item[0] -= startPos;
-            if (item[0] < 0) {
-                item[0] = -item[0];
-                l.push_back(item);
-            } else if (item[0] > 0) {
-                r.push_back(item);
-            } else {
-                res += item[1];
+    int minPushBox(vector<vector<char>>& grid) {
+        pii t, p, b;
+        int n = grid.size(), m = grid[0].size();
+        cout << "n = " << n << ", m = " << m << endl;
+        unordered_map<int, unordered_map<int, bool>> used;
+        auto is_same = [&](pii a, pii b) -> bool {
+            return a.X == b.X && a.Y == b.Y;
+        };
+        auto get_uf = [&](Node cur) -> UnionFind {
+            UnionFind uf(n * m);
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    pii v = make_pair(i, j);
+                    if (grid[i][j] == '.' && !is_same(cur.b, v)) {
+                        for (int k = 0; k < 4; k++) {
+                            int ni = i + dirs[k][0], nj = j + dirs[k][1];
+                            if (0 <= ni && ni < n && 0 <= nj && nj < n && grid[ni][nj] == '.') {
+                                uf.uni(pos2Idx(i, j, m), pos2Idx(ni, nj, m));
+                                // cout << "uni (" << i << ", " << j << "), (" << ni << ", " << nj << ")" << endl; 
+                            }
+                        }
+                    }
+                }
+            }
+            return uf;
+        };
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 'T') t = make_pair(i, j), grid[i][j] = '.';
+                else if (grid[i][j] == 'B') b = make_pair(i, j), grid[i][j] = '.';
+                else if (grid[i][j] == 'S') p = make_pair(i, j), grid[i][j] = '.';
             }
         }
-        l.push_back(vector<int>{ -1, 0});
-        reverse(l.begin(), l.end());
-        l.push_back(vector<int>{ INT_MAX, 0});
-        r.push_back(vector<int>{ INT_MAX, 0});
-        vector<int> sumL(1, 0), sumR(1, 0);
-        for (auto &item : l) sumL.push_back(sumL.back() + item[1]);
-        for (auto &item : r) sumR.push_back(sumR.back() + item[1]);
-        cout << "L : ";
-        for (auto &item : l) {
-            cout << "(" << item[0] << ", " << item[1] << "), ";
+        queue<Node> q;
+        q.push(Node(p, b));
+        int size = 1, step = 0;
+        while (q.size()) {
+            auto cur = q.front();
+            // cout << "=====" << endl;
+            // cout << "cur = (" << cur.p.X << ", " << cur.p.Y << "), (" << cur.b.X << ", " << cur.b.Y << ")" << endl;
+            q.pop();
+            if (is_same(cur.b, t)) return step;
+            auto uf = get_uf(cur);
+            for (int k = 0; k < 4; k++) {
+                int ni = cur.b.X + dirs[k][0], nj = cur.b.Y + dirs[k][1],
+                    bi = cur.b.X - dirs[k][0], bj = cur.b.Y - dirs[k][1];
+                // cout << "ni = " << ni << ", nj = " << nj << ", v = " << grid[ni][nj] 
+                //      << ", bi = " << bi << ", bj = " << bj << ", v = " << grid[ni][nj] << endl;
+                // cout << "same = " << uf.same(pos2Idx(cur.p.X, cur.p.Y, m), pos2Idx(bi, bj, m)) << endl;
+                if (0 <= ni && ni < n && 0 <= nj && nj < m && grid[ni][nj] == '.' &&
+                    0 <= bi && bi < n && 0 <= bj && bj < m && grid[bi][bj] == '.' &&
+                    uf.same(pos2Idx(cur.p.X, cur.p.Y, m), pos2Idx(bi, bj, m)) &&
+                    !used[pos2Idx(cur.p.X, cur.p.Y, m)][pos2Idx(bi, bj, m)]) {
+                    q.push(Node(make_pair(bi, bj), make_pair(ni, nj)));
+                    used[pos2Idx(cur.p.X, cur.p.Y, m)][pos2Idx(bi, bj, m)] = true;
+                }
+            }
+            if (--size == 0) {
+                size = q.size();
+                step++;
+            }
         }
-        cout << endl;
-        cout << "SumL: ";
-        for (auto &num : sumL) cout << num << ", ";
-        cout << endl;
-        cout << "R : ";
-        for (auto &item : r) {
-            cout << "(" << item[0] << ", " << item[1] << "), ";
-        }
-        cout << endl;
-        cout << "SumR: ";
-        for (auto &num : sumR) cout << num << ", ";
-        cout << endl;
-
-        cout << endl;
-        int f1 = f(l, sumL, r, sumR, k);
-        cout << "f1 = " << f1 << endl;
-
-        int f2 = f(r, sumR, l, sumL, k);
-        cout << "f2 = " << f2 << endl;
-        return res;
-    }
-    int f(vector<vector<int>> &left, vector<int> &sumL, vector<vector<int>> &right, vector<int> &sumR, int k) {
-        int res = sumR[bs(right, k)] - sumR[0];
-        for (int i = 0; i < left.size() && left[i][0] <= k; i++) {
-            int val = sumL[i + 1] - sumL[0];
-            val += sumR[bs(right, k - left[i][0] * 2)] - sumR[0];
-            res = max(res, val);
-        }
-        return res;
-    }
-    int bs(vector<vector<int>> &list, int target) {
-        if (target <= 0) return 0;
-        int l = 0, r = list.size();
-        while (l < r) {
-            int m = (l + r) / 2;
-            if (list[m][0] > target) r = m;
-            else l = m + 1;
-        }
-        return l;
+        return -1;
     }
 };
 
@@ -161,19 +164,3 @@ int main() {
     return 0;
 }
 #endif
-
-class Solution {
-public:
-    int minIncrements(int n, vector<int>& cost) {
-        int level = log2(n + 1), res = 0;
-        function<int(int, int)> dfs = [&](int root, int l) -> int {
-            if (l == level) return cost[root];
-            int left = dfs(root * 2 + 1, l + 1), right = dfs(root * 2 + 2, l + 1);
-            if (left == right) return left + cost[root];
-            res += abs(right - left);
-            return max(left, right) + cost[root];
-        };
-        dfs(0, 1);
-        return res;
-    }
-};

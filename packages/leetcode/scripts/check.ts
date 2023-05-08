@@ -93,10 +93,14 @@ class AsyncQueue {
       this.start = true;
       this.current++;
       const fn = this.queue.shift()!;
-      fn?.().finally(() => {
-        if (--this.current === 0) this.start = false;
-        this.run();
-      });
+      fn?.()
+        .catch(err => {
+          console.log(`ERROR: ${err}`);
+        })
+        .finally(() => {
+          if (--this.current === 0) this.start = false;
+          this.run();
+        });
     }
   }
 }
@@ -105,7 +109,7 @@ async function main() {
   clear();
   console.log(LOGO);
   console.log(chalk.blue(`正在批处理LeetCode`));
-  const queue = new AsyncQueue(1);
+  const queue = new AsyncQueue(100);
   const map = await allQuestions();
   for (const item of travel()) {
     queue.push(() => walk({ map, filepath: item.filepath }));
