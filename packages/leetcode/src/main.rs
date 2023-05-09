@@ -1,14 +1,5 @@
 mod preclude;
 
-use std::borrow::Borrow;
-use std::borrow::BorrowMut;
-use std::char::MAX;
-use std::cmp;
-use std::cmp::Ordering;
-use std::hash::Hash;
-use std::mem::swap;
-use std::ops::BitAnd;
-
 use preclude::*;
 fn main() {
     // let func = Solution::remove_subfolders;
@@ -21,140 +12,115 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::rc::Rc;
-#[derive(Clone, PartialEq, Eq, Ord)]
+type Position = (usize, usize);
+#[derive(Clone, Copy, Debug)]
 struct Node {
-    row: usize,
-    col: usize,
-    time: i32,
+    p: Position,
+    b: Position,
 }
 impl Node {
-    fn new(row: usize, col: usize, time: i32) -> Self {
-        Node { row, col, time }
+    fn new(p: Position, b: Position) -> Self {
+        Self { p, b }
     }
-}
-impl PartialOrd for Node {
-    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
-        self.time.partial_cmp(&o.time)
-    }
-}
-
-fn get_primes(max: usize) -> Vec<usize> {
-    let mut primes = vec![0; max];
-    for i in 2..max {
-        if primes[i] == 0 {
-            primes[0] += 1;
-            let idx = primes[0];
-            primes[idx] = i;
-        }
-        for j in 1..=primes[0] {
-            let idx = i * primes[j];
-            if idx >= max {
-                break;
-            }
-            primes[idx] = 1;
-            if i % primes[j] == 0 {
-                break;
-            }
-        }
-    }
-    primes
-}
-
-fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
-}
-
-fn gcd(a: i32, b: i32) -> i32 {
-    if a < b {
-        gcd(b, a)
-    } else if b == 0 {
-        a
-    } else {
-        gcd(b, a % b)
-    }
-}
-
-fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
-    let mut sums = vec![0];
-    for num in arr {
-        sums.push(sums.last().unwrap() + *num);
-    }
-    sums
-}
-
-// use std::cmp::Ordering;
-
-#[derive(PartialEq)]
-struct RevUnsize(usize);
-impl Eq for RevUnsize {}
-
-impl PartialOrd for RevUnsize {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        other.0.partial_cmp(&self.0)
-    }
-}
-impl Ord for RevUnsize {
-    fn cmp(&self, other: &RevUnsize) -> Ordering {
-        other.0.partial_cmp(&self.0).unwrap()
-    }
-}
-
-fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
-    use std::ptr::swap;
-    unsafe {
-        if a > c {
-            swap(a, c);
-        }
-        if a > b {
-            swap(a, b);
-        }
-        if b > c {
-            swap(b, c);
-        }
-    };
 }
 
 impl Solution {
-    pub fn count_time(time: String) -> i32 {
-        let time = str_to_vec(&time);
-        let mut idxs = vec![];
-        for i in 0..time.len() {
-            if time[i] == '?' {
-                idxs.push(i);
+    pub fn min_push_box(mut grid: Vec<Vec<char>>) -> i32 {
+        let mut p: Position = (0, 0);
+        let mut b: Position = (0, 0);
+        let mut t: Position = (0, 0);
+        let n = grid.len();
+        let m = grid[0].len();
+        let mut used = HashMap::<usize, HashMap<usize, bool>>::new();
+        let is_same = |a: Position, b: Position| a.0 == b.0 && a.1 == b.1;
+        let is_valid = |v: (i32, i32)| 0 <= v.0 && v.0 < n as i32 && 0 <= v.1 && v.1 < m as i32;
+        let get_uf = |grid: &Vec<Vec<char>>, cur: Node| {
+            let mut uf = UnionFind::new(n * m);
+            for i in 0..n {
+                for j in 0..m {
+                    if grid[i][j] == '.' && !is_same(cur.b, (i, j)) {
+                        for k in 0..4 {
+                            let ni = i as i32 + dirs[k][0];
+                            let nj = j as i32 + dirs[k][1];
+                            if is_valid((ni, nj))
+                                && grid[ni as usize][nj as usize] == '.'
+                                && !is_same(cur.b, (ni as usize, nj as usize))
+                            {
+                                uf.uni(pos2Idx(i, j, m), pos2Idx(ni as usize, nj as usize, m));
+                            }
+                        }
+                    }
+                }
+            }
+            uf
+        };
+        for i in 0..n {
+            for j in 0..m {
+                let t1 = grid[i][j] == 'T';
+                let t2 = grid[i][j] == 'B';
+                let t3 = grid[i][j] == 'S';
+                if t1 {
+                    t = (i, j);
+                    grid[i][j] = '.';
+                } else if t2 {
+                    b = (i, j);
+                    grid[i][j] = '.';
+                } else if t3 {
+                    p = (i, j);
+                    grid[i][j] = '.';
+                }
             }
         }
-        if idxs.is_empty() {
-            if Solution::check(&time) {
-                1
-            } else {
-                0
+        let mut q = VecDeque::<Node>::new();
+        q.push_back(Node::new(p, b));
+        let mut size = 1;
+        let mut step = 0;
+        while let Some(cur) = q.pop_front() {
+            println!("{:?}", cur);
+            if is_same(cur.b, t) {
+                return step;
             }
-        } else {
-            let mut res = 0;
-            Solution::dfs(&mut res, &idxs, 0, time);
-            res
+            let mut uf = get_uf(&grid, cur);
+            for k in 0..4 {
+                let ni = cur.b.0 as i32 + dirs[k][0];
+                let nj = cur.b.1 as i32 + dirs[k][1];
+                let bi = cur.b.0 as i32 - dirs[k][0];
+                let bj = cur.b.1 as i32 - dirs[k][1];
+                let pidx = pos2Idx(cur.p.0, cur.p.1, m);
+                let bidx = pos2Idx(cur.b.0, cur.b.1, m);
+                println!(
+                    "ni = {ni}, nj = {nj}, bi = {bi}, bj = {bj}, same = ,{}",
+                    uf.same(pidx, pos2Idx(bi as usize, bj as usize, m))
+                );
+                if is_valid((ni, nj))
+                    && grid[ni as usize][nj as usize] == '.'
+                    && is_valid((bi, bj))
+                    && grid[bi as usize][bj as usize] == '.'
+                    && uf.same(pidx, pos2Idx(bi as usize, bj as usize, m))
+                {
+                    if used.contains_key(&bidx)
+                        && used.get(&bidx).unwrap().contains_key(&pos2Idx(
+                            ni as usize,
+                            nj as usize,
+                            m,
+                        ))
+                    {
+                        continue;
+                    }
+                    let ni = ni as usize;
+                    let nj = nj as usize;
+                    println!("push {},{}", ni, nj);
+                    q.push_back(Node::new(cur.b, (ni, nj)));
+                    let item = used.entry(bidx).or_insert(HashMap::new());
+                    *item.entry(pos2Idx(ni, nj, m)).or_insert(false) = true;
+                }
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                step += 1;
+            }
         }
-    }
-    fn check(time: &Vec<char>) -> bool {
-        let h = (time[0] as u8 - b'0') * 10 + (time[1] as u8 - b'0');
-        let m = (time[3] as u8 - b'0') * 10 + (time[4] as u8 - b'0');
-        h < 24 && m < 60
-    }
-    fn dfs(res: &mut i32, idxs: &Vec<usize>, idx: usize, mut time: Vec<char>) {
-        if idx == idxs.len() {
-            if Solution::check(&time) {
-                *res += 1;
-            }
-        } else {
-            for i in 0..10 {
-                time[idxs[idx]] = (i + b'0') as char;
-                Solution::dfs(res, idxs, idx + 1, time.clone());
-            }
-        }
+        -1
     }
 }
