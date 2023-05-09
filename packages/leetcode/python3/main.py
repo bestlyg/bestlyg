@@ -79,26 +79,30 @@ def sort3(a: int, b: int, c: int) -> Tuple[int, int, int]:
 
 
 class Solution:
-    def minIncrements(self, n: int, cost: List[int]) -> int:
-        level = log2(n+1)
+    def countTime(self, time: str) -> int:
+        time = list(time)
+        def check(time: str) -> bool:
+            h = (ord(time[0]) - ord('0')) * 10 + ord(time[1]) - ord('0')
+            m = (ord(time[3]) - ord('0')) * 10 + ord(time[4]) - ord('0')
+            return h < 24 and m < 60
+        idxs = []
+        for i in range(len(time)):
+            if time[i] == '?':
+                idxs.append(i)
+        if len(idxs) == 0:
+            return 1 if check(time) else 0
         res = 0
 
-        def dfs(root: int, l: int) -> int:
-            nonlocal res
-            if l == level : return cost[root]
-            left = dfs(root * 2 + 1, l + 1)
-            right = dfs(root * 2 + 2, l + 1)
-            if left == right :return left + cost[root]
-            res += abs(left -right)
-            return max(left, right ) + cost[root]
-        dfs(0, 1)
+        def dfs(idx: int, time: str):
+            if idx == len(idxs):
+                if check(time):
+                    res += 1
+            else:
+                for i in range(0, 10):
+                    time[idxs[idx]] = chr(i + ord('0'))
+                    dfs(idx+1, time)
+        dfs(0, time)
         return res
-
-        # Your FrequencyTracker object will be instantiated and called as such:
-        # obj = FrequencyTracker()
-        # obj.add(number)
-        # obj.deleteOne(number)
-        # param_3 = obj.hasFrequency(frequency)
 
 
 def main():

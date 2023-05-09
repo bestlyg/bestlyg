@@ -120,24 +120,41 @@ fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
 }
 
 impl Solution {
-    pub fn min_increments(n: i32, cost: Vec<i32>) -> i32 {
-        let level = (n as f32).log2() as u32;
-        let mut res = 0;
-        fn dfs(cost: &Vec<i32>, level: u32, res: &mut i32, root: usize, l: u32) -> i32 {
-            if l == level {
-                cost[root]
-            } else {
-                let left = dfs(cost, level, res, root * 2 + 1, l + 1);
-                let right = dfs(cost, level, res, root * 2 + 2, l + 1);
-                if left == right {
-                    left + cost[root]
-                } else {
-                    *res += (right - left).abs();
-                    left.max(right) + cost[root]
-                }
+    pub fn count_time(time: String) -> i32 {
+        let time = str_to_vec(&time);
+        let mut idxs = vec![];
+        for i in 0..time.len() {
+            if time[i] == '?' {
+                idxs.push(i);
             }
         }
-        dfs(&cost, level, &mut res, 0, 1);
-        res
+        if idxs.is_empty() {
+            if Solution::check(&time) {
+                1
+            } else {
+                0
+            }
+        } else {
+            let mut res = 0;
+            Solution::dfs(&mut res, &idxs, 0, time);
+            res
+        }
+    }
+    fn check(time: &Vec<char>) -> bool {
+        let h = (time[0] as u8 - b'0') * 10 + (time[1] as u8 - b'0');
+        let m = (time[3] as u8 - b'0') * 10 + (time[4] as u8 - b'0');
+        h < 24 && m < 60
+    }
+    fn dfs(res: &mut i32, idxs: &Vec<usize>, idx: usize, mut time: Vec<char>) {
+        if idx == idxs.len() {
+            if Solution::check(&time) {
+                *res += 1;
+            }
+        } else {
+            for i in 0..10 {
+                time[idxs[idx]] = (i + b'0') as char;
+                Solution::dfs(res, idxs, idx + 1, time.clone());
+            }
+        }
     }
 }
