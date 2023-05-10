@@ -45,37 +45,32 @@ async function walk({
   map: Record<string, AllQuestionsItem>;
   filepath: string;
 }) {
-  try {
-    let obj: Markdown = JSON.parse(fs.readFileSync(filepath).toString());
-    console.log(`=====【${obj.name}】=====`);
-    log(`path`, `${filepath}`);
-    obj.url = obj.url.replace('leetcode-cn.com', 'leetcode.cn');
-    while (obj.url.endsWith('/')) obj.url = obj.url.substring(0, obj.url.length - 1);
-    const titleSlug = getTitleSlug(obj.url);
-    log(`url`, `${obj.url}`);
-    log(`titleSlug`, `${titleSlug}`);
-    const res = (await fetchQuestionData({ titleSlug })).question;
-    const data = map[res.questionId];
-    log(`questionId`, `${res.questionId}`);
-    obj.id = res.questionId;
-    delete obj.id;
-    obj = { id: res.questionId, ...obj };
-    log(`questionFrontendId`, `${res.questionFrontendId}`);
-    log(`translatedTitle`, `${res.translatedTitle}`);
-    obj.name = `${res.questionFrontendId}.${data.translatedTitle}`.replace(/ /g, '');
-    log(`name`, `${obj.name}`);
-    obj.tag.length = 0;
-    for (const tag of res.topicTags) obj.tag.push(tag.translatedName as Tag);
-    obj.difficulty = difficultyMap[res.difficulty];
-    fs.removeSync(filepath);
-    const nextFilepath = resolve(rootPath, analysisFileName(obj.name).dirname, obj.name + '.json');
-    log(`path`, `${nextFilepath}`);
-    fs.ensureDirSync(resolve(nextFilepath, '../'));
-    fs.writeFileSync(nextFilepath, JSON.stringify(obj, null, 4));
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
+  let obj: Markdown = JSON.parse(fs.readFileSync(filepath).toString());
+  console.log(`=====【${obj.name}】=====`);
+  log(`path`, `${filepath}`);
+  obj.url = obj.url.replace('leetcode-cn.com', 'leetcode.cn');
+  while (obj.url.endsWith('/')) obj.url = obj.url.substring(0, obj.url.length - 1);
+  const titleSlug = getTitleSlug(obj.url);
+  log(`url`, `${obj.url}`);
+  log(`titleSlug`, `${titleSlug}`);
+  const res = (await fetchQuestionData({ titleSlug })).question;
+  const data = map[res.questionId];
+  log(`questionId`, `${res.questionId}`);
+  obj.id = res.questionId;
+  delete obj.id;
+  obj = { id: res.questionId, ...obj };
+  log(`questionFrontendId`, `${res.questionFrontendId}`);
+  log(`translatedTitle`, `${res.translatedTitle}`);
+  obj.name = `${res.questionFrontendId}.${data.translatedTitle}`.replace(/ /g, '');
+  log(`name`, `${obj.name}`);
+  obj.tag.length = 0;
+  for (const tag of res.topicTags) obj.tag.push(tag.translatedName as Tag);
+  obj.difficulty = difficultyMap[res.difficulty];
+  fs.removeSync(filepath);
+  const nextFilepath = resolve(rootPath, analysisFileName(obj.name).dirname, obj.name + '.json');
+  log(`path`, `${nextFilepath}`);
+  fs.ensureDirSync(resolve(nextFilepath, '../'));
+  fs.writeFileSync(nextFilepath, JSON.stringify(obj, null, 4));
 }
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
