@@ -1,0 +1,17 @@
+{
+    "name": "2666.只允许一次函数调用",
+    "url": "https://leetcode.cn/problems/allow-one-function-call/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给定一个函数 fn ，它返回一个新的函数，返回的函数与原始函数完全相同，只不过它确保 fn 最多被调用一次。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 56,
+            "memory": 42.5,
+            "desc": "闭包。",
+            "code": "function once<T extends (...args: any[]) => any>(\n  fn: T\n): (...args: Parameters<T>) => ReturnType<T> | undefined {\n  let used = false;\n  return (...args) => (used ? undefined : ((used = true), fn(...args)));\n}",
+            "date": 1683648000000
+        }
+    ]
+}
