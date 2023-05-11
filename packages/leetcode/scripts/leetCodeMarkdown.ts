@@ -3,99 +3,102 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '2667. 创建 Hello World 函数',
-  url: 'https://leetcode.cn/problems/create-hello-world-function/',
+  name: '1016. 子串能表示从 1 到 N 数字的二进制串',
+  url: 'https://leetcode.cn/problems/binary-string-with-substrings-representing-1-to-n/',
   difficulty: Difficulty.简单,
   tag: [],
-  desc: `请你编写一个名为 createHelloWorld 的函数。它应该返回一个新的函数，该函数总是返回 "Hello World" 。`,
+  desc: `给定一个二进制字符串 s 和一个正整数 n，如果对于 [1, n] 范围内的每个整数，其二进制表示都是 s 的 子字符串 ，就返回 true，否则返回 false 。`,
   solutions: [
-    {
-      script: Script.TS,
-      time: 60,
-      memory: 42,
-      desc: '闭包',
-      code: `function createHelloWorld() {
-return () => 'Hello World';
-}`,
-    },
     //     {
-    //       script: Script.CPP,
-    //       time: 0,
-    //       memory: 5.9,
-    //       desc: '欧拉函数',
-    //       code: `typedef long long ll;
-    // ll gcd(ll a, ll b) {
-    //     if (a < b) return gcd(b, a);
-    //     if (b == 0) return a;
-    //     return gcd(b, a % b);
-    // }
-    // ll phi(ll n) {
-    //     ll i = 2, x = n;
-    //     while (i * i <= n) {
-    //         if (x % i == 0) n -= n / i;
-    //         while (x % i == 0) x /= i;
-    //         i += 1;
-    //     }
-    //     if (x != 1) n -= n / x;
-    //     return n;
-    // }
-    // ll quick_mul(ll a, ll b, ll mod) {
-    //     ll ans = 0, temp = a;
-    //     while (b) {
-    //         if (b & 1) ans = (ans + temp) % mod;
-    //         temp = (temp + temp) % mod;
-    //         b >>= 1;
-    //     }
-    //     return ans;
-    // }
-    // ll quick_pow(ll a, ll b, ll mod) {
-    //     ll ans = 1, temp = a;
-    //     while (b) {
-    //         if (b & 1) ans = quick_mul(ans, temp, mod) % mod;
-    //         temp = quick_mul(temp, temp, mod) % mod;
-    //         b >>= 1;
-    //     }
-    //     return ans;
-    // }
-    // set<ll> get_factors(ll num) {
-    //     set<ll> s;
-    //     ll i = 1;
-    //     for (; i * i <= num; i++) {
-    //         if (num % i == 0) {
-    //             s.insert(i);
-    //             s.insert(num / i);
-    //         }
-    //     }
-    //     return s;
-    // }
-    // class Solution {
+    //       script: Script.TS,
+    //       time: 28,
+    //       memory: 11.7,
+    //       desc: '对于s统计所有出现的数字',
+    //       code: `class Solution {
     // public:
-    //     int smallestRepunitDivByK(int k) {
-    //         if (gcd(10, 9 * k) != 1) return -1;
-    //         k *= 9;
-    //         ll n = phi(k);
-    //         auto factors = get_factors(n);
-    //         for (auto &num : factors) {
-    //             if (quick_pow(10, num, k) == 1) return num;
+    //     bool queryString(string s, int n) {
+    //         unordered_set<int> sset;
+    //         int len = s.size();
+    //         for (int i = 0; i < len; i++) {
+    //             int num = 0;
+    //             for (int j = i; j < len && j - i + 1 < 32; j++) {
+    //                 num = (num << 1) | (s[j] - '0');
+    //                 sset.insert(num);
+    //             }
     //         }
-    //         return -1;
+    //         for (int i = 1; i <= n; i++) {
+    //             if (!sset.count(i)) return false;
+    //         }
+    //         return true;
     //     }
     // };`,
     //     },
-    // {
-    //   script: Script.PY3,
-    //   time: 2080,
-    //   memory: 16.5,
-    //   desc: '同上',
-    //   code: ``,
-    // },
-    // {
-    //   script: Script.RUST,
-    //   time: 16,
-    //   memory: 2.2,
-    //   desc: '同上',
-    //   code: ``,
-    // },
+    {
+      script: Script.CPP,
+      time: 4,
+      memory: 6.3,
+      desc: '对于s统计所有出现的数字',
+      code: `class Solution {
+public:
+    bool queryString(string s, int n) {
+        unordered_set<int> sset;
+        int len = s.size();
+        for (int i = 0; i < len; i++) {
+            int num = 0;
+            for (int j = i; j < len && j - i + 1 < 32; j++) {
+                num = (num << 1) | (s[j] - '0');
+                if (num <= n) sset.insert(num);
+                else break;
+            }
+        }
+        sset.erase(0);
+        return sset.size() == n;
+    }
+};`,
+    },
+    {
+      script: Script.CPP,
+      time: 0,
+      memory: 6.1,
+      desc: '对于所有n计算二进制字符串是否存在s里',
+      code: `class Solution {
+public:
+    bool queryString(string s, int n) {
+        for (int num = 1; num <= n; num++) {
+            string bin = bitset<32>(num).to_string(); 
+            bin = bin.substr(bin.find('1'));
+            if (s.find(bin) == string::npos) return false;
+        }
+        return true;
+    }
+};`,
+    },
+    {
+      script: Script.PY3,
+      time: 52,
+      memory: 16.1,
+      desc: '同上',
+      code: `class Solution:
+    def queryString(self, s: str, n: int) -> bool:
+        return all(bin(num)[2:] in s for num in range(1, n + 1))`,
+    },
+    {
+      script: Script.RUST,
+      time: 0,
+      memory: 2.2,
+      desc: '同上',
+      code: `impl Solution {
+    pub fn query_string(s: String, n: i32) -> bool {
+        for num in 1..=n {
+            let snum = format!("{:b}", num);
+            if !s.contains(&snum) {
+                return false;
+            }
+        }
+        true
+    }
+}`,
+    },
   ],
 };
 

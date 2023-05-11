@@ -1,0 +1,44 @@
+{
+    "id": "1065",
+    "name": "1016.子串能表示从1到N数字的二进制串",
+    "url": "https://leetcode.cn/problems/binary-string-with-substrings-representing-1-to-n",
+    "difficulty": "中等",
+    "tag": [
+        "字符串"
+    ],
+    "desc": "给定一个二进制字符串 s 和一个正整数 n，如果对于 [1, n] 范围内的每个整数，其二进制表示都是 s 的 子字符串 ，就返回 true，否则返回 false 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 6.3,
+            "desc": "对于s统计所有出现的数字。",
+            "code": "class Solution {\npublic:\n    bool queryString(string s, int n) {\n        unordered_set<int> sset;\n        int len = s.size();\n        for (int i = 0; i < len; i++) {\n            int num = 0;\n            for (int j = i; j < len && j - i + 1 < 32; j++) {\n                num = (num << 1) | (s[j] - '0');\n                if (num <= n) sset.insert(num);\n                else break;\n            }\n        }\n        sset.erase(0);\n        return sset.size() == n;\n    }\n};",
+            "date": 1683734400000
+        },
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6.1,
+            "desc": "对于所有n计算二进制字符串是否存在s里。",
+            "code": "class Solution {\npublic:\n    bool queryString(string s, int n) {\n        for (int num = 1; num <= n; num++) {\n            string bin = bitset<32>(num).to_string(); \n            bin = bin.substr(bin.find('1'));\n            if (s.find(bin) == string::npos) return false;\n        }\n        return true;\n    }\n};",
+            "date": 1683734400000
+        },
+        {
+            "script": "python3",
+            "time": 52,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def queryString(self, s: str, n: int) -> bool:\n        return all(bin(num)[2:] in s for num in range(1, n + 1))",
+            "date": 1683734400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn query_string(s: String, n: i32) -> bool {\n        for num in 1..=n {\n            let snum = format!(\"{:b}\", num);\n            if !s.contains(&snum) {\n                return false;\n            }\n        }\n        true\n    }\n}",
+            "date": 1683734400000
+        }
+    ]
+}

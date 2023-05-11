@@ -36,10 +36,7 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-void binary(unsigned n, int lastbit = 31) {
-    unsigned i;
-    for (i = 1 << lastbit; i > 0; i >>= 1) printf("%u", !!(n & i));
-}
+// string bin = bitset<10>(n).to_string();
 #endif
 
 class UnionFind {
