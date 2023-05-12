@@ -2,6 +2,7 @@ pub use std::borrow::Borrow;
 pub use std::borrow::BorrowMut;
 pub use std::char::MAX;
 pub use std::cmp::Ordering;
+pub use std::cmp::{max, min};
 pub use std::collections::BTreeMap;
 pub use std::collections::HashMap;
 pub use std::collections::VecDeque;

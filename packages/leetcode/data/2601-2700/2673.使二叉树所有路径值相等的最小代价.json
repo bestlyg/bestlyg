@@ -1,9 +1,15 @@
 {
     "id": "2780",
-    "name": "6419.使二叉树所有路径值相等的最小代价",
+    "name": "2673.使二叉树所有路径值相等的最小代价",
     "url": "https://leetcode.cn/problems/make-costs-of-paths-equal-in-a-binary-tree",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "树",
+        "数组",
+        "动态规划",
+        "二叉树"
+    ],
     "desc": "你的目标是让根到每一个 叶子结点 的路径值相等。请你返回 最少 需要执行增加操作多少次。",
     "solutions": [
         {

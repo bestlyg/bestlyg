@@ -116,17 +116,22 @@ vector<int> get_sums(vector<int> &arr) {
 
 class Solution {
 public:
-    int smallestRepunitDivByK(int k) {
-        if (gcd(10, 9 * k) != 0) return -1;
-        k *= 9;
-        ll n = phi(k);
-        auto factors = get_factors(n);
-        for (auto &num : factors) {
-            if (quick_pow(10, num, k) == 1) return num;
+    int maxValueAfterReverse(vector<int>& nums) {
+        int n = nums.size(), sums = 0, nmax = INT_MIN, nmin = INT_MAX, val = 0;
+        for (int i = 1; i < n; i++) {
+            int num = abs(nums[i] - nums[i - 1]);
+            sums += num;
+            nmax = max(nmax, min(nums[i], nums[i - 1]));
+            nmin = min(nmin, max(nums[i], nums[i - 1]));
+            val = max(val, max(abs(nums[i] - nums[0]), abs(nums[i - 1] - nums[n - 1])) - num);
         }
-        return -1;
+        return sums + max(val, 2 * (nmax - nmin));
     }
 };
+
+            // d = max(d, max(abs(nums[0] - b) - abs(a - b), // i=0
+                        //    abs(nums[n - 1] - a) - abs(a - b))); // j=n-1
+
 
 // END
 #ifdef LOCAL
