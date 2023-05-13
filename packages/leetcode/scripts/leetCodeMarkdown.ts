@@ -3,100 +3,76 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1330. 翻转子数组得到最大的数组值',
-  url: 'https://leetcode.cn/problems/reverse-subarray-to-maximize-array-value/',
+  name: '2441. 与对应负数同时存在的最大正整数',
+  url: 'https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative/',
   difficulty: Difficulty.简单,
   tag: [],
-  desc: `给你一个整数数组 nums 。「数组值」定义为所有满足 0 <= i < nums.length-1 的 |nums[i]-nums[i+1]| 的和。`,
+  desc: `给你一个 不包含 任何零的整数数组 nums ，找出自身与对应的负数都在数组中存在的最大正整数 k 。返回正整数 k ，如果不存在这样的整数，返回 -1 。`,
   solutions: [
-    //     {
-    //       script: Script.TS,
-    //       time: 28,
-    //       memory: 11.7,
-    //       desc: '对于s统计所有出现的数字',
-    //       code: `class Solution {
-    // public:
-    //     bool queryString(string s, int n) {
-    //         unordered_set<int> sset;
-    //         int len = s.size();
-    //         for (int i = 0; i < len; i++) {
-    //             int num = 0;
-    //             for (int j = i; j < len && j - i + 1 < 32; j++) {
-    //                 num = (num << 1) | (s[j] - '0');
-    //                 sset.insert(num);
-    //             }
-    //         }
-    //         for (int i = 1; i <= n; i++) {
-    //             if (!sset.count(i)) return false;
-    //         }
-    //         return true;
-    //     }
-    // };`,
-    //     },
+    {
+      script: Script.TS,
+      time: 76,
+      memory: 45.9,
+      desc: '哈希存储',
+      code: `function findMaxK(nums: number[]): number {
+    const set1 = new Set<number>();
+    const set2 = new Set<number>();
+    for (const num of nums) {
+        if (set1.has(-num)) set2.add(Math.abs(num));
+        set1.add(num);
+    }
+    return [...set2].sort((a, b) => b - a)[0] ?? -1;
+}`,
+      date: new Date('2022/10/16').getTime(),
+    },
     {
       script: Script.CPP,
-      time: 84,
-      memory: 39.3,
-      desc: 'https://leetcode.cn/problems/reverse-subarray-to-maximize-array-value/solution/bu-hui-hua-jian-qing-kan-zhe-pythonjavac-c2s6/',
+      time: 16,
+      memory: 19.2,
+      desc: '数组存储',
       code: `class Solution {
 public:
-    int maxValueAfterReverse(vector<int>& nums) {
-        int n = nums.size(), sums = 0, nmax = INT_MIN, nmin = INT_MAX, val = 0;
-        for (int i = 1; i < n; i++) {
-            int num = abs(nums[i] - nums[i - 1]);
-            sums += num;
-            nmax = max(nmax, min(nums[i], nums[i - 1]));
-            nmin = min(nmin, max(nums[i], nums[i - 1]));
-            val = max(val, max(abs(nums[i] - nums[0]), abs(nums[i - 1] - nums[n - 1])) - num);
+    int findMaxK(vector<int>& nums) {
+        int list[2005] = {0}, res = -1;
+        for (auto &num : nums) {
+            list[num + 1000] += 1;
+            if (list[-num + 1000]) res = max(res, abs(num));
         }
-        return sums + max(val, 2 * (nmax - nmin));
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 328,
-      memory: 19.6,
+      time: 76,
+      memory: 16.2,
       desc: '同上',
       code: `class Solution:
-def maxValueAfterReverse(self, nums: List[int]) -> int:
-    n = len(nums)
-    sums = 0
-    nmax = -inf
-    nmin = inf
-    val = 0
-    for i in range(1, n):
-        num = abs(nums[i] - nums[i - 1])
-        sums += num
-        nmax = max(nmax, min(nums[i], nums[i - 1]))
-        nmin = min(nmin, max(nums[i], nums[i - 1]))
-        val = max(val, max(abs(nums[i] - nums[0]), abs(nums[i - 1] - nums[n - 1])) - num)
-    return sums + max(val, 2 * (nmax - nmin))`,
+    def findMaxK(self, nums: List[int]) -> int:
+        list = [0] * 2005
+        res = -1
+        for num in nums:
+            list[num + 1000] += 1
+            if list[-num + 1000]:
+                res = max(res, abs(num))
+        return res`,
     },
     {
       script: Script.RUST,
-      time: 8,
-      memory: 2.3,
+      time: 4,
+      memory: 2,
       desc: '同上',
       code: `impl Solution {
-    pub fn max_value_after_reverse(nums: Vec<i32>) -> i32 {
-        use std::cmp::{max, min};
-        let n = nums.len();
-        let mut sums = 0;
-        let mut nmax = i32::MIN;
-        let mut nmin = i32::MAX;
-        let mut val = 0;
-        for i in 1..n {
-            let num = (nums[i] - nums[i - 1]).abs();
-            sums += num;
-            nmax = max(nmax, min(nums[i], nums[i - 1]));
-            nmin = min(nmin, max(nums[i], nums[i - 1]));
-            val = max(
-                val,
-                max((nums[i] - nums[0]).abs(), (nums[i - 1] - nums[n - 1]).abs()) - num,
-            );
+    pub fn find_max_k(nums: Vec<i32>) -> i32 {
+        let mut list = [0; 2005];
+        let mut res = -1;
+        for num in nums {
+            list[(num + 1000) as usize] += 1;
+            if list[(-num + 1000) as usize] != 0 {
+                res = res.max(num.abs());
+            }
         }
-        sums + max(val, 2 * (nmax - nmin))
+        res
     }
 }`,
     },

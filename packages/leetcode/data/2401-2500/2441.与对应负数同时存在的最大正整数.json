@@ -1,0 +1,41 @@
+{
+    "name": "2441.与对应负数同时存在的最大正整数",
+    "url": "https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个 不包含 任何零的整数数组 nums ，找出自身与对应的负数都在数组中存在的最大正整数 k 。返回正整数 k ，如果不存在这样的整数，返回 -1 。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 76,
+            "memory": 45.9,
+            "desc": "哈希存储。",
+            "code": "function findMaxK(nums: number[]): number {\n    const set1 = new Set<number>();\n    const set2 = new Set<number>();\n    for (const num of nums) {\n        if (set1.has(-num)) set2.add(Math.abs(num));\n        set1.add(num);\n    }\n    return [...set2].sort((a, b) => b - a)[0] ?? -1;\n}",
+            "date": 1665849600000
+        },
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 19.2,
+            "desc": "数组存储。",
+            "code": "class Solution {\npublic:\n    int findMaxK(vector<int>& nums) {\n        int list[2005] = {0}, res = -1;\n        for (auto &num : nums) {\n            list[num + 1000] += 1;\n            if (list[-num + 1000]) res = max(res, abs(num));\n        }\n        return res;\n    }\n};",
+            "date": 1683907200000
+        },
+        {
+            "script": "python3",
+            "time": 76,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def findMaxK(self, nums: List[int]) -> int:\n        list = [0] * 2005\n        res = -1\n        for num in nums:\n            list[num + 1000] += 1\n            if list[-num + 1000]:\n                res = max(res, abs(num))\n        return res",
+            "date": 1683907200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn find_max_k(nums: Vec<i32>) -> i32 {\n        let mut list = [0; 2005];\n        let mut res = -1;\n        for num in nums {\n            list[(num + 1000) as usize] += 1;\n            if list[(-num + 1000) as usize] != 0 {\n                res = res.max(num.abs());\n            }\n        }\n        res\n    }\n}",
+            "date": 1683907200000
+        }
+    ]
+}
