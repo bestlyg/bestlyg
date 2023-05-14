@@ -1,14 +1,37 @@
 from preclude import *
 
 
+class Node:
+    def __init__(self, k: int, v: int):
+        self.k = k
+        self.v = v
+
+    def __lt__(self, o: 'Node') -> bool:
+        return self.v < o.v
+
+
 class Solution:
-    def findMaxK(self, nums: List[int]) -> int:
-        list = [0] * 2005
-        res = -1
-        for num in nums:
-            list[num + 1000] += 1
-            if list[-num + 1000]:
-                res = max(res, abs(num))
+    def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
+        q = []
+        m = Counter()
+        for num in barcodes:
+            m[num] += 1
+        for k, v in m.items():
+            heappush(q, Node(k, v))
+        res = []
+        while len(q) >= 2:
+            item1 = heappop(q)
+            item2 = heappop(q)
+            item1.v -= 1
+            if item1.v > 0:
+                heappush(q, item1)
+            item2.v -= 1
+            if item2.v > 0:
+                heappush(q, item2)
+            res.append(item1.k)
+            res.append(item2.k)
+        if len(q):
+            res.append(q[0].k)
         return res
 
 
