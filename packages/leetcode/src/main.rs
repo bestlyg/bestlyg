@@ -25,32 +25,18 @@ impl PartialOrd for Node {
     }
 }
 impl Solution {
-    pub fn rearrange_barcodes(barcodes: Vec<i32>) -> Vec<i32> {
-        let mut q = std::collections::BinaryHeap::<Node>::new();
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        for num in barcodes {
-            *m.entry(num).or_insert(0) += 1;
-        }
-        for (k, v) in m {
-            q.push(Node::new(k, v));
-        }
-        let mut res = vec![];
-        while q.len() >= 2 {
-            let mut item1 = q.pop().unwrap();
-            let mut item2 = q.pop().unwrap();
-            res.push(item1.0);
-            res.push(item2.0);
-            item1.1 -= 1;
-            item2.1 -= 1;
-            if item1.1 > 0 {
-                q.push(item1);
+    pub fn max_equal_rows_after_flips(matrix: Vec<Vec<i32>>) -> i32 {
+        let mut m = std::collections::HashMap::<String, i32>::new();
+        for row in matrix {
+            let mut s = String::new();
+            for v in &row {
+                s.push(((*v ^ row[0]) as u8 + b'0') as char);
             }
-            if item2.1 > 0 {
-                q.push(item2);
-            }
+            *m.entry(s).or_insert(0) += 1;
         }
-        if !q.is_empty() {
-            res.push(q.peek().unwrap());
+        let mut res = 0;
+        for (_, v) in m.into_iter() {
+            res = res.max(v);
         }
         res
     }

@@ -116,16 +116,20 @@ vector<int> get_sums(vector<int> &arr) {
 
 class Solution {
 public:
-    int maxValueAfterReverse(vector<int>& nums) {
-        int n = nums.size(), sums = 0, nmax = INT_MIN, nmin = INT_MAX, val = 0;
-        for (int i = 1; i < n; i++) {
-            int num = abs(nums[i] - nums[i - 1]);
-            sums += num;
-            nmax = max(nmax, min(nums[i], nums[i - 1]));
-            nmin = min(nmin, max(nums[i], nums[i - 1]));
-            val = max(val, max(abs(nums[i] - nums[0]), abs(nums[i - 1] - nums[n - 1])) - num);
+    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+        unordered_map<string, int> m;
+        for (auto &row : matrix) {
+            string s = "";
+            for (auto &v : row) {
+                s += to_string(v ^ row[0]);
+            }
+            m[s]++;
         }
-        return sums + max(val, 2 * (nmax - nmin));
+        int res = 0;
+        for (auto &item : m) {
+            res = max(res, item.second);
+        }
+        return res;
     }
 };
 
