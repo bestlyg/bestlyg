@@ -1,8 +1,14 @@
 {
+    "id": "2524",
     "name": "2441.与对应负数同时存在的最大正整数",
-    "url": "https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative/",
+    "url": "https://leetcode.cn/problems/largest-positive-integer-that-exists-with-its-negative",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "排序"
+    ],
     "desc": "给你一个 不包含 任何零的整数数组 nums ，找出自身与对应的负数都在数组中存在的最大正整数 k 。返回正整数 k ，如果不存在这样的整数，返回 -1 。",
     "solutions": [
         {

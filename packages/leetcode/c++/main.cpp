@@ -116,26 +116,35 @@ vector<int> get_sums(vector<int> &arr) {
 
 class Solution {
 public:
-    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
-        unordered_map<string, int> m;
-        for (auto &row : matrix) {
-            string s = "";
-            for (auto &v : row) {
-                s += to_string(v ^ row[0]);
+    int minDifficulty(vector<int>& jobDifficulty, int d) {
+        int n = jobDifficulty.size();
+        if (n < d) return -1;
+        vector<vector<int>> dp(d, vector<int>(n, INT_MAX));
+        int num = 0;
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = num = max(num, jobDifficulty[i]);
+        }
+        cout << "====" << endl; 
+        for (int dd = 1; dd < d; dd++) {
+            cout << "dd = " << dd << endl;
+            for (int i = dd; i < n; i++) {
+                int val = 0;
+                for (int j = i; j >= 0; j--) {
+                    if (j < dd - 1) {
+                        cout << "break" << endl;
+                        break;
+                    }
+                    val = max(val, jobDifficulty[j]);
+                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j] + val);
+                    cout << "i = " << i << ", j = " << j << ", val = " << val << ", dp = " << dp[dd][i] << endl;
+                }
+                cout << "i = " << i << ", dp = " << dp[dd][i] << endl;
             }
-            m[s]++;
         }
-        int res = 0;
-        for (auto &item : m) {
-            res = max(res, item.second);
-        }
-        return res;
+        return dp[d - 1][n - 1];
     }
 };
-
-            // d = max(d, max(abs(nums[0] - b) - abs(a - b), // i=0
-                        //    abs(nums[n - 1] - a) - abs(a - b))); // j=n-1
-
+// [7,1,7,1,7,1]
 
 // END
 #ifdef LOCAL
@@ -150,3 +159,95 @@ int main() {
     return 0;
 }
 #endif
+
+
+/*
+
+====
+dd = 1
+i = 1, j = 1, val = 1, dp = 8
+break
+i = 1, dp = 8
+i = 2, j = 2, val = 7, dp = 14
+i = 2, j = 1, val = 7, dp = 14
+break
+i = 2, dp = 14
+i = 3, j = 3, val = 1, dp = 8
+i = 3, j = 2, val = 7, dp = 8
+i = 3, j = 1, val = 7, dp = 8
+break
+i = 3, dp = 8
+i = 4, j = 4, val = 7, dp = 14
+i = 4, j = 3, val = 7, dp = 14
+i = 4, j = 2, val = 7, dp = 14
+i = 4, j = 1, val = 7, dp = 14
+break
+i = 4, dp = 14
+i = 5, j = 5, val = 1, dp = 8
+i = 5, j = 4, val = 7, dp = 8
+i = 5, j = 3, val = 7, dp = 8
+i = 5, j = 2, val = 7, dp = 8
+i = 5, j = 1, val = 7, dp = 8
+break
+i = 5, dp = 8
+dd = 2
+i = 2, j = 2, val = 7, dp = 21
+break
+i = 2, dp = 21
+i = 3, j = 3, val = 1, dp = 9
+i = 3, j = 2, val = 7, dp = 9
+break
+i = 3, dp = 9
+i = 4, j = 4, val = 7, dp = 21
+i = 4, j = 3, val = 7, dp = 15
+i = 4, j = 2, val = 7, dp = 15
+break
+i = 4, dp = 15
+i = 5, j = 5, val = 1, dp = 9
+i = 5, j = 4, val = 7, dp = 9
+i = 5, j = 3, val = 7, dp = 9
+i = 5, j = 2, val = 7, dp = 9
+break
+i = 5, dp = 9
+====
+dd = 1
+i = 1, j = 1, val = 5, dp = 11
+break
+i = 1, dp = 11
+i = 2, j = 2, val = 4, dp = 10
+i = 2, j = 1, val = 5, dp = 10
+break
+i = 2, dp = 10
+i = 3, j = 3, val = 3, dp = 9
+i = 3, j = 2, val = 4, dp = 9
+i = 3, j = 1, val = 5, dp = 9
+break
+i = 3, dp = 9
+i = 4, j = 4, val = 2, dp = 8
+i = 4, j = 3, val = 3, dp = 8
+i = 4, j = 2, val = 4, dp = 8
+i = 4, j = 1, val = 5, dp = 8
+break
+i = 4, dp = 8
+i = 5, j = 5, val = 1, dp = 7
+i = 5, j = 4, val = 2, dp = 7
+i = 5, j = 3, val = 3, dp = 7
+i = 5, j = 2, val = 4, dp = 7
+i = 5, j = 1, val = 5, dp = 7
+break
+i = 5, dp = 7
+====
+dd = 1
+i = 1, j = 1, val = 1, dp = 2
+break
+i = 1, dp = 2
+i = 2, j = 2, val = 1, dp = 2
+i = 2, j = 1, val = 1, dp = 2
+break
+i = 2, dp = 2
+dd = 2
+i = 2, j = 2, val = 1, dp = 3
+break
+i = 2, dp = 3
+
+*/

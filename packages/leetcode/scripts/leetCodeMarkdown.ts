@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
   exist: !true,
-  name: '1072. 按列翻转得到最大值等行数',
-  url: 'https://leetcode.cn/problems/flip-columns-for-maximum-number-of-equal-rows/',
+  name: '1335. 工作计划的最低难度',
+  url: 'https://leetcode.cn/problems/minimum-difficulty-of-a-job-schedule/',
   difficulty: Difficulty.简单,
   tag: [],
-  desc: `给定 m x n 矩阵 matrix 。你可以从中选出任意数量的列并翻转其上的 每个 单元格。（即翻转后，单元格的值从 0 变成 1，或者从 1 变为 0 。）返回 经过一些翻转后，行与行之间所有值都相等的最大行数 。`,
+  desc: `返回整个工作计划的 最小难度 。如果无法制定工作计划，则返回 -1 。`,
   solutions: [
     //     {
     //       script: Script.TS,
@@ -27,68 +27,83 @@ const leetCodeMarkdown: Markdown = {
     //     },
     {
       script: Script.CPP,
-      time: 352,
-      memory:69,
-      desc: '按照行首的值进行反转',
+      time: 52,
+      memory:7.4,
+      desc: 'dp[i][j]表示只有i天时，只有j个job时的最小难度',
       code: `class Solution {
 public:
-    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
-        unordered_map<string, int> m;
-        for (auto &row : matrix) {
-            string s = "";
-            for (auto &v : row) {
-                s += to_string(v ^ row[0]);
+    int minDifficulty(vector<int>& jobDifficulty, int d) {
+        int n = jobDifficulty.size(), num = 0;
+        if (n < d) return -1;
+        vector<vector<int>> dp(d, vector<int>(n, INT_MAX));
+        for (int i = 0; i < n; i++) dp[0][i] = num = max(num, jobDifficulty[i]);
+        for (int dd = 1; dd < d; dd++) {
+            for (int i = dd; i < n; i++) {
+                num = 0;
+                for (int j = i; j >= dd; j--) {
+                    num = max(num, jobDifficulty[j]);
+                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j - 1] + num);
+                }
             }
-            m[s]++;
         }
-        int res = 0;
-        for (auto &item : m) {
-            res = max(res, item.second);
-        }
-        return res;
+        return dp[d - 1][n - 1];
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 248,
-      memory: 18.6,
+      time: 892,
+      memory: 16.2,
       desc: '同上',
       code: `class Solution:
-    def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
-        m = Counter()
-        for row in matrix:
-            s = ""
-            for v in row:
-                s += str(v ^ row[0])
-            m[s] += 1
-        res = 0
-        for v in m.values():
-            res = max(res, v)
-        return res`,
+    def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:
+        n = len(jobDifficulty)
+        if n < d:
+            return -1
+        num = 0
+        dp = [[inf for _ in range(n)] for _ in range(d)]
+        for i in range(n):
+            dp[0][i] = num = max(num, jobDifficulty[i])
+        for dd in range(1, d):
+            for i in range(dd, n):
+                num = 0
+                for j in range(i, dd - 1, -1):
+                    num = max(num, jobDifficulty[j])
+                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j - 1] + num)
+        return dp[d - 1][n - 1]`,
     },
     {
       script: Script.RUST,
-      time: 28,
-      memory: 3.2,
+      time: 4,
+      memory: 2.1,
       desc: '同上',
       code: `impl Solution {
-    pub fn max_equal_rows_after_flips(matrix: Vec<Vec<i32>>) -> i32 {
-        let mut m = std::collections::HashMap::<String, i32>::new();
-        for row in matrix {
-            let mut s = String::new();
-            for v in &row {
-                s.push(((*v ^ row[0]) as u8 + b'0') as char);
+    pub fn min_difficulty(job_difficulty: Vec<i32>, d: i32) -> i32 {
+        let d = d as usize;
+        let n = job_difficulty.len();
+        if n < d {
+            -1
+        } else {
+            let mut num = 0;
+            let mut dp = vec![vec![i32::MAX; n]; d];
+            for i in 0..n {
+                num = num.max(job_difficulty[i]);
+                dp[0][i] = num;
             }
-            *m.entry(s).or_insert(0) += 1;
+            for dd in 1..d {
+                for i in dd..n {
+                    num = 0;
+                    for j in (dd..=i).rev() {
+                        num = num.max(job_difficulty[j]);
+                        dp[dd][i] = dp[dd][i].min(dp[dd - 1][j - 1] + num);
+                    }
+                }
+            }
+            dp[d - 1][n - 1]
         }
-        let mut res = 0;
-        for (_, v) in m.into_iter() {
-            res = res.max(v);
-        }
-        res
     }
-}`,
+}
+`,
     },
   ],
 };

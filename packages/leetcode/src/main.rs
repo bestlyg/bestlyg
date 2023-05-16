@@ -24,20 +24,30 @@ impl PartialOrd for Node {
         self.1.partial_cmp(&o.1)
     }
 }
+
 impl Solution {
-    pub fn max_equal_rows_after_flips(matrix: Vec<Vec<i32>>) -> i32 {
-        let mut m = std::collections::HashMap::<String, i32>::new();
-        for row in matrix {
-            let mut s = String::new();
-            for v in &row {
-                s.push(((*v ^ row[0]) as u8 + b'0') as char);
+    pub fn min_difficulty(job_difficulty: Vec<i32>, d: i32) -> i32 {
+        let d = d as usize;
+        let n = job_difficulty.len();
+        if n < d {
+            -1
+        } else {
+            let mut num = 0;
+            let mut dp = vec![vec![i32::MAX; n]; d];
+            for i in 0..n {
+                num = num.max(job_difficulty[i]);
+                dp[0][i] = num;
             }
-            *m.entry(s).or_insert(0) += 1;
+            for dd in 1..d {
+                for i in dd..n {
+                    num = 0;
+                    for j in (dd..=i).rev() {
+                        num = num.max(job_difficulty[j]);
+                        dp[dd][i] = dp[dd][i].min(dp[dd - 1][j - 1] + num);
+                    }
+                }
+            }
+            dp[d - 1][n - 1]
         }
-        let mut res = 0;
-        for (_, v) in m.into_iter() {
-            res = res.max(v);
-        }
-        res
     }
 }
