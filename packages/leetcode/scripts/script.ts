@@ -33,6 +33,14 @@
 // const src = 'cbabc';
 // const dist = 'abcabba';
 // myers(src, dist);
-function createHelloWorld() {
-  return () => 'Hello World';
+
+function chunk(arr: any[], size: number): any[][] {
+    const res: any[][] = [];
+    const item: any[] = [];
+    for (let i = 1; i <= arr.length; i++) {
+        item.push(arr[i - 1]);
+        if (i % size === 0) res.push([...item]), (item.length = 0);
+    }
+    if (item.length) res.push([...item]);
+    return res;
 }
