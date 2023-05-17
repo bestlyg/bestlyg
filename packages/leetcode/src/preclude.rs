@@ -119,7 +119,7 @@ impl PartialOrd for Node {
     }
 }
 
-fn get_primes(max: usize) -> Vec<usize> {
+pub fn get_primes(max: usize) -> Vec<usize> {
     let mut primes = vec![0; max];
     for i in 2..max {
         if primes[i] == 0 {
@@ -141,11 +141,11 @@ fn get_primes(max: usize) -> Vec<usize> {
     primes
 }
 
-fn str_to_vec(s: &String) -> Vec<char> {
+pub fn str_to_vec(s: &String) -> Vec<char> {
     s.chars().collect()
 }
 
-fn gcd(a: i32, b: i32) -> i32 {
+pub fn gcd(a: i32, b: i32) -> i32 {
     if a < b {
         gcd(b, a)
     } else if b == 0 {
@@ -155,7 +155,7 @@ fn gcd(a: i32, b: i32) -> i32 {
     }
 }
 
-fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
+pub fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
     let mut sums = vec![0];
     for num in arr {
         sums.push(sums.last().unwrap() + *num);
@@ -163,7 +163,7 @@ fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
     sums
 }
 
-fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
+pub fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
     use std::ptr::swap;
     unsafe {
         if a > c {

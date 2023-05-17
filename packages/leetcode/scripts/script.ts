@@ -34,13 +34,74 @@
 // const dist = 'abcabba';
 // myers(src, dist);
 
-function chunk(arr: any[], size: number): any[][] {
-    const res: any[][] = [];
-    const item: any[] = [];
-    for (let i = 1; i <= arr.length; i++) {
-        item.push(arr[i - 1]);
-        if (i % size === 0) res.push([...item]), (item.length = 0);
-    }
-    if (item.length) res.push([...item]);
-    return res;
-}
+// type ToArray<Num, Arr extends any[] = []> = Num extends Arr['length']
+//   ? Arr
+//   : ToArray<Num, [1, ...Arr]>;
+
+// type Add<Num1, Num2> = [...ToArray<Num1>, ...ToArray<Num2>]['length'];
+
+// type AddTest1 = Add<12, 7>;
+// const addTest1: AddTest1 = 19;
+
+// /* Old */
+// // type Subtract<Num1, Num2> = Num2 extends Num1
+// //   ? 0
+// //   : Add<Num2, 1> extends Num1
+// //   ? 1
+// //   : Add<1, Subtract<Num1, Add<Num2, 1>>>;
+// type Subtract<Num1, Num2> = ToArray<Num1> extends [...nums: ToArray<Num2>, ...rest: infer NextArr]
+//   ? NextArr['length']
+//   : -1;
+
+// type SubtractTest1 = Subtract<99, 13>;
+// const subtractTest1: SubtractTest1 = 86;
+
+// export type NArray<T, N extends number> = N extends N
+//   ? number extends N
+//     ? T[]
+//     : _NArray<T, N, []>
+//   : never;
+// type _NArray<T, N extends number, R extends unknown[]> = R['length'] extends N
+//   ? R
+//   : _NArray<T, N, [T, ...R]>;
+// type NArrayNumber<L extends number> = NArray<number, L>;
+
+// // 加法
+// export type Add<M extends number, N extends number> = [
+//   ...NArrayNumber<M>,
+//   ...NArrayNumber<N>
+// ]['length'];
+
+// // 减法
+// export type Subtract<M extends number, N extends number> = NArrayNumber<M> extends [
+//   ...x: NArrayNumber<N>,
+//   ...rest: infer R
+// ]
+//   ? R['length']
+//   : unknown;
+
+// // 主要用于辅助推导乘除法; 否则会因为 Subtract 返回类型为 number | unknown 报错
+// type _Subtract<M extends number, N extends number> = NArrayNumber<M> extends [
+//   ...x: NArrayNumber<N>,
+//   ...rest: infer R
+// ]
+//   ? R['length']
+//   : -1;
+
+// // 乘法
+// type _Multiply<M extends number, N extends number, res extends unknown[]> = N extends 0
+//   ? res['length']
+//   : _Multiply<M, _Subtract<N, 1>, [...NArray<number, M>, ...res]>;
+// export type Multiply<M extends number, N extends number> = _Multiply<M, N, []>;
+
+// // 除法
+// type _DivideBy<M extends number, N extends number, res extends unknown[]> = M extends 0
+//   ? res['length']
+//   : _Subtract<M, N> extends -1
+//   ? unknown
+//   : _DivideBy<_Subtract<M, N>, N, [unknown, ...res]>;
+// export type DividedBy<M extends number, N extends number> = N extends 0
+//   ? unknown
+//   : _DivideBy<M, N, []>;
+
+// type B = Subtract<200, 13>;
