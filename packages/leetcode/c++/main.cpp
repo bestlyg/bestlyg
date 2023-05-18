@@ -116,35 +116,35 @@ vector<int> get_sums(vector<int> &arr) {
 
 class Solution {
 public:
-    int minDifficulty(vector<int>& jobDifficulty, int d) {
-        int n = jobDifficulty.size();
-        if (n < d) return -1;
-        vector<vector<int>> dp(d, vector<int>(n, INT_MAX));
-        int num = 0;
-        for (int i = 0; i < n; i++) {
-            dp[0][i] = num = max(num, jobDifficulty[i]);
+    vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
+        reverse(arr1.begin(), arr1.end());
+        reverse(arr2.begin(), arr2.end());
+        for (int i = 0; i < max(arr1.size(), arr2.size()); i++) {
+            if (i == arr1.size()) arr1.push_back(0);
+            if (i == arr2.size()) arr2.push_back(0);
+            if (arr1[i] == 0 && arr2[i] == 1) arr1[i] = 1, arr2[i] = 0;
         }
-        cout << "====" << endl; 
-        for (int dd = 1; dd < d; dd++) {
-            cout << "dd = " << dd << endl;
-            for (int i = dd; i < n; i++) {
-                int val = 0;
-                for (int j = i; j >= 0; j--) {
-                    if (j < dd - 1) {
-                        cout << "break" << endl;
-                        break;
-                    }
-                    val = max(val, jobDifficulty[j]);
-                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j] + val);
-                    cout << "i = " << i << ", j = " << j << ", val = " << val << ", dp = " << dp[dd][i] << endl;
-                }
-                cout << "i = " << i << ", dp = " << dp[dd][i] << endl;
+        vector<int> res;
+        for (int i = 0, add = 0; i < arr1.size(); i++) {
+            switch (arr1[i] + arr2[i] + add) {
+                case -1: res.push_back(1); add = 1; break;
+                case 0: res.push_back(0); add = 0; break;
+                case 1: res.push_back(1); add = 0; break;
+                case 2: res.push_back(0); add = -1; break;
+                case 3: res.push_back(1); add = -1; break;
             }
+            if (i == arr1.size() - 1 && add != 0) arr1.push_back(0), arr2.push_back(0);
         }
-        return dp[d - 1][n - 1];
+        while (res.size() > 1 && res.back() == 0) res.pop_back();
+        reverse(res.begin(), res.end());
+        return res;
     }
 };
-// [7,1,7,1,7,1]
+
+/*
+[1,1]
+[1,1]
+*/
 
 // END
 #ifdef LOCAL

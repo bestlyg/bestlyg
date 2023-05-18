@@ -13,21 +13,53 @@ fn main() {
 }
 
 impl Solution {
-    pub fn have_conflict(event1: Vec<String>, event2: Vec<String>) -> bool {
-        let to_time =
-            |s: &String| -> i32 { s[0..2].parse::<i32>().unwrap() * 60 + s[3..].parse::<i32>().unwrap() };
-        let (mut s1, mut e1, mut s2, mut e2) = (
-            to_time(&event1[0]),
-            to_time(&event1[1]),
-            to_time(&event2[0]),
-            to_time(&event2[1]),
-        );
-        if s1 > s2 {
-            unsafe {
-                std::ptr::swap(&mut s1, &mut s2);
-                std::ptr::swap(&mut e1, &mut e2);
+    pub fn add_negabinary(mut arr1: Vec<i32>, mut arr2: Vec<i32>) -> Vec<i32> {
+        arr1.reverse();
+        arr2.reverse();
+        for i in 0..arr1.len().max(arr2.len()) {
+            if i == arr1.len() {
+                arr1.push(0);
+            }
+            if i == arr2.len() {
+                arr2.push(0);
             }
         }
-        e1 >= s2
+        let mut res = vec![];
+        let (mut i, mut add) = (0, 0);
+        while i < arr1.len() {
+            match arr1[i] + arr2[i] + add {
+                -1 => {
+                    res.push(1);
+                    add = 1;
+                }
+                0 => {
+                    res.push(0);
+                    add = 0;
+                }
+                1 => {
+                    res.push(1);
+                    add = 0;
+                }
+                2 => {
+                    res.push(0);
+                    add = -1;
+                }
+                3 => {
+                    res.push(1);
+                    add = -1;
+                }
+                _ => {}
+            }
+            if i == arr1.len() - 1 && add != 0 {
+                arr1.push(0);
+                arr2.push(0);
+            }
+            i += 1;
+        }
+        while res.len() > 1 && *res.last().unwrap() == 0 {
+            res.pop();
+        }
+        res.reverse();
+        res
     }
 }

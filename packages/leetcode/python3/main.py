@@ -2,14 +2,42 @@ from preclude import *
 
 
 class Solution:
-    def haveConflict(self, event1: List[str], event2: List[str]) -> bool:
-        def to_time(t: str):
-            return int(t[:2]) * 60 + int(t[3:])
-        s1, e1 = to_time(event1[0]), to_time(event1[1])
-        s2, e2 = to_time(event2[0]), to_time(event2[1])
-        if s1 > s2:
-            s1, e1, s2, e2 = s2, e2, s1, e1
-        return e1 >= s2
+    def addNegabinary(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        arr1.reverse()
+        arr2.reverse()
+        print(arr1, arr2)
+        for i in range(max(len(arr1), len(arr2))):
+            if i == len(arr1):
+                arr1.append(0)
+            if i == len(arr2):
+                arr2.append(0)
+        res = []
+        i = add = 0
+        while i < len(arr1):
+            match arr1[i] + arr2[i] + add:
+                case -1:
+                    res.append(1)
+                    add = 1
+                case 0:
+                    res.append(0)
+                    add = 0
+                case 1:
+                    res.append(1)
+                    add = 0
+                case 2:
+                    res.append(0)
+                    add = -1
+                case 3:
+                    res.append(1)
+                    add = -1
+            if i == len(arr1) - 1 and add != 0:
+                arr1.append(0)
+                arr2.append(0)
+            i += 1
+        while len(res) > 1 and res[-1] == 0:
+            res.pop()
+        res.reverse()
+        return res
 
 
 def main():

@@ -1,7 +1,8 @@
 {
+    "id": "2771",
     "name": "2676.节流",
-    "url": "https://leetcode.cn/problems/throttle/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/throttle",
+    "difficulty": "中等",
     "tag": [],
     "desc": "现给定一个函数 fn 和一个以毫秒为单位的时间 t ，请你返回该函数的 节流 版本。",
     "solutions": [

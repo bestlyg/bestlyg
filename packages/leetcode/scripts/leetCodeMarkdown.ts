@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-  exist: true,
-  name: '2446. 判断两个事件是否存在冲突',
-  url: 'https://leetcode.cn/problems/chunk-array/',
+  exist: !true,
+  name: '1073. 负二进制数相加',
+  url: 'https://leetcode.cn/problems/adding-two-negabinary-numbers/',
   difficulty: Difficulty.简单,
   tag: [],
-  desc: `给定一个数组 arr 和一个块大小 size ，返回一个 分块 的数组。分块 的数组包含了 arr 中的原始元素，但是每个子数组的长度都是 size 。如果 arr.length 不能被 size 整除，那么最后一个子数组的长度可能小于 size 。`,
+  desc: `给出基数为 -2 的两个数 arr1 和 arr2，返回两数相加的结果。`,
   solutions: [
 //         {
 //           script: Script.TS,
@@ -27,61 +27,135 @@ const leetCodeMarkdown: Markdown = {
 //         },
     {
       script: Script.CPP,
-      time: 0,
-      memory:11.1,
-      desc: '转换成数字后比大小',
+      time: 8,
+      memory: 19.1,
+      desc: '统一两个数组，如果都1，那可以抵消下一位的1，如果该位需要增加1，可以在该位加1，且下一位加1',
       code: `class Solution {
 public:
-    bool haveConflict(vector<string>& event1, vector<string>& event2) {
-        auto to_time = [&](string t) -> int {
-            return ((t[0] - '0') * 10 + t[1] - '0') * 60 + (t[3] - '0') * 10 + t[4] - '0';
-        };
-        int s1 = to_time(event1[0]), e1 = to_time(event1[1]),
-            s2 = to_time(event2[0]), e2 = to_time(event2[1]);
-        if (s1 > s2) swap(s1, s2), swap(e1, e2);
-        return e1 >= s2;
+    vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
+        reverse(arr1.begin(), arr1.end());
+        reverse(arr2.begin(), arr2.end());
+        for (int i = 0; i < max(arr1.size(), arr2.size()); i++) {
+            if (i == arr1.size()) arr1.push_back(0);
+            if (i == arr2.size()) arr2.push_back(0);
+        }
+        vector<int> res;
+        for (int i = 0, add = 0; i < arr1.size(); i++) {
+            switch (arr1[i] + arr2[i] + add) {
+                case -1: res.push_back(1); add = 1; break;
+                case 0: res.push_back(0); add = 0; break;
+                case 1: res.push_back(1); add = 0; break;
+                case 2: res.push_back(0); add = -1; break;
+                case 3: res.push_back(1); add = -1; break;
+            }
+            if (i == arr1.size() - 1 && add != 0) arr1.push_back(0), arr2.push_back(0);
+        }
+        while (res.size() > 1 && res.back() == 0) res.pop_back();
+        reverse(res.begin(), res.end());
+        return res;
     }
 };`,
     },
     {
       script: Script.PY3,
-      time: 36,
-      memory: 16.1,
+      time: 48,
+      memory: 16.3,
       desc: '同上',
       code: `class Solution:
-    def haveConflict(self, event1: List[str], event2: List[str]) -> bool:
-        def to_time(t: str):
-            return int(t[:2]) * 60 + int(t[3:])
-        s1, e1 = to_time(event1[0]), to_time(event1[1])
-        s2, e2 = to_time(event2[0]), to_time(event2[1])
-        if s1 > s2:
-            s1, e1, s2, e2 = s2, e2, s1, e1
-        return e1 >= s2`,
+    def addNegabinary(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        arr1.reverse()
+        arr2.reverse()
+        print(arr1, arr2)
+        for i in range(max(len(arr1), len(arr2))):
+            if i == len(arr1):
+                arr1.append(0)
+            if i == len(arr2):
+                arr2.append(0)
+        res = []
+        i = add = 0
+        while i < len(arr1):
+            match arr1[i] + arr2[i] + add:
+                case -1:
+                    res.append(1)
+                    add = 1
+                case 0:
+                    res.append(0)
+                    add = 0
+                case 1:
+                    res.append(1)
+                    add = 0
+                case 2:
+                    res.append(0)
+                    add = -1
+                case 3:
+                    res.append(1)
+                    add = -1
+            if i == len(arr1) - 1 and add != 0:
+                arr1.append(0)
+                arr2.append(0)
+            i += 1
+        while len(res) > 1 and res[-1] == 0:
+            res.pop()
+        res.reverse()
+        return res`,
     },
     {
       script: Script.RUST,
       time: 0,
-      memory: 2,
+      memory: 2.2,
       desc: '同上',
       code: `impl Solution {
-    pub fn have_conflict(event1: Vec<String>, event2: Vec<String>) -> bool {
-        let to_time =
-            |s: &String| -> i32 { s[0..2].parse::<i32>().unwrap() * 60 + s[3..].parse::<i32>().unwrap() };
-        let (mut s1, mut e1, mut s2, mut e2) = (
-            to_time(&event1[0]),
-            to_time(&event1[1]),
-            to_time(&event2[0]),
-            to_time(&event2[1]),
-        );
-        if s1 > s2 {
-            unsafe {
-                std::ptr::swap(&mut s1, &mut s2);
-                std::ptr::swap(&mut e1, &mut e2);
+    pub fn add_negabinary(mut arr1: Vec<i32>, mut arr2: Vec<i32>) -> Vec<i32> {
+        arr1.reverse();
+        arr2.reverse();
+        for i in 0..arr1.len().max(arr2.len()) {
+            if i == arr1.len() {
+                arr1.push(0);
+            }
+            if i == arr2.len() {
+                arr2.push(0);
             }
         }
-        e1 >= s2
+        let mut res = vec![];
+        let (mut i, mut add) = (0, 0);
+        while i < arr1.len() {
+            match arr1[i] + arr2[i] + add {
+                -1 => {
+                    res.push(1);
+                    add = 1;
+                }
+                0 => {
+                    res.push(0);
+                    add = 0;
+                }
+                1 => {
+                    res.push(1);
+                    add = 0;
+                }
+                2 => {
+                    res.push(0);
+                    add = -1;
+                }
+                3 => {
+                    res.push(1);
+                    add = -1;
+                }
+                _ => {}
+            }
+            if i == arr1.len() - 1 && add != 0 {
+                arr1.push(0);
+                arr2.push(0);
+            }
+            i += 1;
+        }
+        while res.len() > 1 && *res.last().unwrap() == 0 {
+            res.pop();
+        }
+        res.reverse();
+        res
     }
-}`,
+}
+`,
     },
   ],
 };

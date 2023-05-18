@@ -1,7 +1,8 @@
 {
+    "id": "2769",
     "name": "2675.将对象数组转换为矩阵",
-    "url": "https://leetcode.cn/problems/array-of-objects-to-matrix/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/array-of-objects-to-matrix",
+    "difficulty": "中等",
     "tag": [],
     "desc": "编写一个函数，将对象数组 arr 转换为矩阵 m 。",
     "solutions": [
