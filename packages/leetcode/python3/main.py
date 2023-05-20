@@ -1,23 +1,56 @@
 from preclude import *
 
 
-class Solution:
-    def numTilePossibilities(self, tiles: str) -> int:
-        s = set()
-        idxs = set()
+class Node:
+    def __init__(self, l: int, r: int, sum: int):
+        self.l = l
+        self.r = r
+        self.sum = sum
 
-        def dfs(cur: str):
-            s.add(cur)
-            if len(cur) == len(tiles):
-                return
-            for i in range(len(tiles)):
-                if i in idxs:
-                    continue
-                idxs.add(i)
-                dfs(cur + tiles[i])
-                idxs.remove(i)
-        dfs('')
-        return len(s) - 1
+
+class Solution:
+    def maxSumBST(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        no = Node(-inf, -1, -1)
+
+        def dfs(node: Optional[TreeNode]) -> Node:
+            if not node:
+                return no
+            val = node.val
+            lv, rv = dfs(node.left), dfs(node.right)
+            if node.left == None and node.right == None:
+                res = max(res, val)
+                return Node(val, val, val)
+            elif node.left == None:
+                if rv.l == no.l:
+                    return no
+                if val >= rv.l:
+                    return no
+                rv.l = val
+                rv.sum += val
+                res = max(res, rv.sum)
+                return rv
+            elif node.right == None:
+                if lv.l == no.l:
+                    return no
+                if lv.r >= val:
+                    return no
+                lv.r = val
+                lv.sum += val
+                res = max(res, lv.sum)
+                return lv
+            else:
+                if lv.l == no.l or rv.l == no.l:
+                    return no
+                if lv.r >= val:
+                    return no
+                if val >= rv.l:
+                    return no
+                next = Node(lv.l, rv.r, lv.sum + rv.sum + val)
+                res = max(res, next.sum)
+                return next
+        dfs(root)
+        return res
 
 
 def main():
