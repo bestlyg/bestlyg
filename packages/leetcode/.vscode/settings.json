@@ -27,6 +27,7 @@
         "deque": "cpp",
         "initializer_list": "cpp",
         "set": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "__nullptr": "cpp"
     }
 }

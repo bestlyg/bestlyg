@@ -36,6 +36,16 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
 // string bin = bitset<10>(n).to_string();
 #endif
 
@@ -114,30 +124,24 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
+
+
+
 class Solution {
 public:
-    vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
-        reverse(arr1.begin(), arr1.end());
-        reverse(arr2.begin(), arr2.end());
-        for (int i = 0; i < max(arr1.size(), arr2.size()); i++) {
-            if (i == arr1.size()) arr1.push_back(0);
-            if (i == arr2.size()) arr2.push_back(0);
-            if (arr1[i] == 0 && arr2[i] == 1) arr1[i] = 1, arr2[i] = 0;
-        }
-        vector<int> res;
-        for (int i = 0, add = 0; i < arr1.size(); i++) {
-            switch (arr1[i] + arr2[i] + add) {
-                case -1: res.push_back(1); add = 1; break;
-                case 0: res.push_back(0); add = 0; break;
-                case 1: res.push_back(1); add = 0; break;
-                case 2: res.push_back(0); add = -1; break;
-                case 3: res.push_back(1); add = -1; break;
-            }
-            if (i == arr1.size() - 1 && add != 0) arr1.push_back(0), arr2.push_back(0);
-        }
-        while (res.size() > 1 && res.back() == 0) res.pop_back();
-        reverse(res.begin(), res.end());
-        return res;
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+        return dfs(root, limit, 0) ? root : nullptr;
+    }
+    bool dfs(TreeNode *node, int limit, int sum) {
+        if (!node) return true;
+        auto l = dfs(node->left, limit, sum + node->val), r = dfs(node->right, limit, sum + node->val);
+        if (!node->left && !node->right && sum < limit ||
+            !node->left && !r ||
+            !node->right && !l ||
+            !l && !r) return false;
+        if (!l) node->left = nullptr;
+        if (!r) node->right = nullptr;
+        return true;
     }
 };
 

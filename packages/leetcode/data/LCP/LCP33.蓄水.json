@@ -1,8 +1,13 @@
 {
+    "id": "1000221",
     "name": "LCP33.蓄水",
-    "url": "https://leetcode.cn/problems/o8SXZn/",
+    "url": "https://leetcode.cn/problems/o8SXZn",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+    ],
     "desc": "每个水缸对应最低蓄水量记作 vat[i]，返回小扣至少需要多少次操作可以完成所有水缸蓄水要求。",
     "solutions": [
         {

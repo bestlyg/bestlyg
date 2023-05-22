@@ -12,79 +12,43 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-static NoVal: i32 = i32::MIN;
-#[derive(Debug, Clone)]
-struct Node {
-    l: i32,
-    r: i32,
-    sum: i32,
-}
-impl Node {
-    fn new(l: i32, r: i32, sum: i32) -> Node {
-        Node { l, r, sum }
-    }
-    fn no() -> Node {
-        Node {
-            l: NoVal,
-            r: 0,
-            sum: 0,
-        }
-    }
-}
 use std::cell::RefCell;
 use std::rc::Rc;
-impl Solution {
-    pub fn max_sum_bst(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut res = 0;
-        dfs(&mut res, &root);
-        res
-    }
-}
-fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> Node {
+fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, limit: i32, mut sum: i32) -> bool {
     match node {
-        Some(node) => {
-            let nodeRef = node.as_ref().borrow();
-            let val = nodeRef.val;
-            let (mut lv, mut rv) = (dfs(res, &nodeRef.left), dfs(res, &nodeRef.right));
-            if nodeRef.left.is_none() && nodeRef.right.is_none() {
-                *res = (*res).max(val);
-                Node::new(val, val, val)
-            } else if nodeRef.left.is_none() {
-                if rv.l == NoVal {
-                    Node::no()
-                } else if val >= rv.l {
-                    Node::no()
-                } else {
-                    rv.l = val;
-                    rv.sum += val;
-                    *res = (*res).max(rv.sum);
-                    rv
-                }
-            } else if nodeRef.right.is_none() {
-                if lv.l == NoVal {
-                    Node::no()
-                } else if lv.r >= val {
-                    Node::no()
-                } else {
-                    lv.r = val;
-                    lv.sum += val;
-                    *res = (*res).max(lv.sum);
-                    lv
-                }
+        None => true,
+        Some(ref node) => {
+            let mut nodeRef = node.as_ref().borrow_mut();
+            sum += nodeRef.val;
+            let l = dfs(&mut nodeRef.left, limit, sum);
+            let r = dfs(&mut nodeRef.right, limit, sum);
+            if nodeRef.left.is_none() && nodeRef.right.is_none() && sum < limit
+                || nodeRef.left.is_none() && !r
+                || nodeRef.right.is_none() && !l
+                || !l && !r
+            {
+                false
             } else {
-                if lv.l == NoVal || rv.l == NoVal {
-                    Node::no()
-                } else if lv.r >= val {
-                    Node::no()
-                } else if val >= rv.l {
-                    Node::no()
-                } else {
-                    let next = Node::new(lv.l, rv.r, lv.sum + rv.sum + val);
-                    *res = (*res).max(next.sum);
-                    next
+                if !l {
+                    nodeRef.left = None;
                 }
+                if !r {
+                    nodeRef.right = None;
+                }
+                true
             }
         }
-        None => Node::no(),
+    }
+}
+impl Solution {
+    pub fn sufficient_subset(
+        mut root: Option<Rc<RefCell<TreeNode>>>,
+        limit: i32,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        if dfs(&mut root, limit, 0) {
+            root
+        } else {
+            None
+        }
     }
 }
