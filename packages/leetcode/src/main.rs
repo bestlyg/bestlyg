@@ -12,43 +12,33 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
-fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, limit: i32, mut sum: i32) -> bool {
-    match node {
-        None => true,
-        Some(ref node) => {
-            let mut nodeRef = node.as_ref().borrow_mut();
-            sum += nodeRef.val;
-            let l = dfs(&mut nodeRef.left, limit, sum);
-            let r = dfs(&mut nodeRef.right, limit, sum);
-            if nodeRef.left.is_none() && nodeRef.right.is_none() && sum < limit
-                || nodeRef.left.is_none() && !r
-                || nodeRef.right.is_none() && !l
-                || !l && !r
-            {
-                false
-            } else {
-                if !l {
-                    nodeRef.left = None;
-                }
-                if !r {
-                    nodeRef.right = None;
-                }
-                true
+impl Solution {
+    pub fn largest_vals_from_labels(
+        values: Vec<i32>,
+        labels: Vec<i32>,
+        num_wanted: i32,
+        use_limit: i32,
+    ) -> i32 {
+        let n = values.len();
+        let mut list = vec![];
+        for i in 0..n {
+            list.push(i);
+        }
+        list.sort_by_key(|i| values[*i]);
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        let mut res = 0;
+        let mut cnt = 0;
+        for i in (0..n).rev() {
+            if cnt >= num_wanted {
+                break;
+            }
+            let item = m.entry(labels[list[i]]).or_insert(0);
+            if *item < use_limit {
+                *item += 1;
+                res += values[list[i]];
+                cnt += 1;
             }
         }
-    }
-}
-impl Solution {
-    pub fn sufficient_subset(
-        mut root: Option<Rc<RefCell<TreeNode>>>,
-        limit: i32,
-    ) -> Option<Rc<RefCell<TreeNode>>> {
-        if dfs(&mut root, limit, 0) {
-            root
-        } else {
-            None
-        }
+        res
     }
 }

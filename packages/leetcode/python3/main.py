@@ -1,29 +1,23 @@
 from preclude import *
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-def dfs(node: Optional[TreeNode], limit: int, sum: int):
-    if node == None:
-        return True
-    sum += node.val
-    l, r = dfs(node.left, limit, sum), dfs(node.right, limit, sum)
-    if (not node.left and not node.right and sum < limit) or (not node.left and not r) or (not node.right and not l) or (not l and not r):
-        return False
-    if not l:
-        node.left = None
-    if not r:
-        node.right = None
-    return True
-
-
 class Solution:
-    def sufficientSubset(self, root: Optional[TreeNode], limit: int) -> Optional[TreeNode]:
-        return root if dfs(root, limit, 0) else None
+    def largestValsFromLabels(self, values: List[int], labels: List[int], numWanted: int, useLimit: int) -> int:
+        n = len(values)
+        list = [i for i in range(n)]
+        list.sort(key=lambda i: values[i])
+        m = Counter()
+        res = 0
+        cnt = 0
+        for i in range(n-1, -1, -1):
+            if cnt >= numWanted:
+                break
+            if m[labels[list[i]]] == useLimit:
+                continue
+            m[labels[list[i]]] += 1
+            res += values[list[i]]
+            cnt += 1
+        return res
 
 
 def main():
