@@ -12,33 +12,45 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+fn dfs(nodes: &Vec<Vec<usize>>, used: &mut Vec<bool>, target: usize, cur: usize, t: i32) -> f64 {
+    let mut sum: f64 = 0.0;
+    for next in &nodes[cur] {
+        if !used[*next] {
+            sum += 1.0;
+        }
+    }
+    if cur == target || t == 0 {
+        if cur == target && (t == 0 || sum == 0.0) {
+            1.0
+        } else {
+            0.0
+        }
+    } else {
+        for next in &nodes[cur] {
+            if !used[*next] {
+                used[*next] = true;
+                let res = dfs(nodes, used, target, *next, t - 1);
+                used[*next] = false;
+                if res != 0.0 {
+                    return res / sum;
+                }
+            }
+        }
+        0.0
+    }
+}
+
 impl Solution {
-    pub fn largest_vals_from_labels(
-        values: Vec<i32>,
-        labels: Vec<i32>,
-        num_wanted: i32,
-        use_limit: i32,
-    ) -> i32 {
-        let n = values.len();
-        let mut list = vec![];
-        for i in 0..n {
-            list.push(i);
+    pub fn frog_position(n: i32, edges: Vec<Vec<i32>>, t: i32, target: i32) -> f64 {
+        let n = n as usize;
+        let mut nodes: Vec<Vec<usize>> = vec![vec![]; n + 1];
+        for e in edges {
+            let (e0, e1) = (e[0] as usize, e[1] as usize);
+            nodes[e0].push(e1);
+            nodes[e1].push(e0);
         }
-        list.sort_by_key(|i| values[*i]);
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        let mut res = 0;
-        let mut cnt = 0;
-        for i in (0..n).rev() {
-            if cnt >= num_wanted {
-                break;
-            }
-            let item = m.entry(labels[list[i]]).or_insert(0);
-            if *item < use_limit {
-                *item += 1;
-                res += values[list[i]];
-                cnt += 1;
-            }
-        }
-        res
+        let mut used = vec![false; n + 1];
+        used[1] = true;
+        dfs(&nodes, &mut used, target as usize, 1, t)
     }
 }

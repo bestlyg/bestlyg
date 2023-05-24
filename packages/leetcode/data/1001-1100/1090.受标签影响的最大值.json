@@ -1,8 +1,15 @@
 {
+    "id": "1169",
     "name": "1090.受标签影响的最大值",
-    "url": "https://leetcode.cn/problems/largest-values-from-labels/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/largest-values-from-labels",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "计数",
+        "排序"
+    ],
     "desc": "返回子集 s 的最大 分数 。",
     "solutions": [
         {

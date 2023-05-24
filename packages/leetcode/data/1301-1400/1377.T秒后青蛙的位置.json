@@ -1,0 +1,39 @@
+{
+    "id": "1493",
+    "name": "1377.T秒后青蛙的位置",
+    "url": "https://leetcode.cn/problems/frog-position-after-t-seconds",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "图"
+    ],
+    "desc": "返回青蛙在 t 秒后位于目标顶点 target 上的概率。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 24,
+            "memory": 14.5,
+            "desc": "dfs遍历，因为每个点之间都连通，判断当青蛙到目标点后是否还能继续向外跳。",
+            "code": "class Solution {\npublic:\n    double frogPosition(int n, vector<vector<int>>& edges, int t, int target) {\n        vector<vector<int>> nodes(n + 1);\n        for (auto &e : edges) {\n            nodes[e[0]].push_back(e[1]);\n            nodes[e[1]].push_back(e[0]);\n        }\n        vector<bool> used(n + 1, false);\n        used[1] = true;\n        function<double(int, int)> dfs = [&](int cur, int t) {\n            int sum = 0;\n            for (auto &next : nodes[cur]) {\n                if (!used[next]) sum += 1;\n            }\n            if (cur == target || t == 0) {\n                return cur == target && (t == 0 || sum == 0) ? 1.0 : 0.0;\n            }\n            for (auto &next : nodes[cur]) {\n                if (!used[next]) {\n                    used[next] = true;\n                    auto res = dfs(next, t - 1);\n                    used[next] = false;\n                    if (res != 0.0) return res / sum;\n                }\n            }\n            return 0.0;\n        };\n        return dfs(1, t);\n    }\n};",
+            "date": 1684857600000
+        },
+        {
+            "script": "python3",
+            "time": 52,
+            "memory": 16.4,
+            "desc": "同上。",
+            "code": "class Solution:\n    def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -> float:\n        nodes = [[] for _ in range(n + 1)]\n        for e in edges:\n            nodes[e[0]].append(e[1])\n            nodes[e[1]].append(e[0])\n        used = [False for _ in range(n + 1)]\n        used[1] = True\n\n        def dfs(cur: int, t: int) -> float:\n            sum = 0\n            for next in nodes[cur]:\n                if not used[next]:\n                    sum += 1\n            if cur == target or t == 0:\n                return 1 if cur == target and (t == 0 or sum == 0) else 0\n            for next in nodes[cur]:\n                if not used[next]:\n                    used[next] = True\n                    res = dfs(next, t - 1)\n                    used[next] = False\n                    if res != 0:\n                        return res / sum\n            return 0\n        return dfs(1, t)",
+            "date": 1684857600000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "fn dfs(nodes: &Vec<Vec<usize>>, used: &mut Vec<bool>, target: usize, cur: usize, t: i32) -> f64 {\nlet mut sum: f64 = 0.0;\nfor next in &nodes[cur] {\n    if !used[*next] {\n        sum += 1.0;\n    }\n}\nif cur == target || t == 0 {\n    if cur == target && (t == 0 || sum == 0.0) {\n        1.0\n    } else {\n        0.0\n    }\n} else {\n    for next in &nodes[cur] {\n        if !used[*next] {\n            used[*next] = true;\n            let res = dfs(nodes, used, target, *next, t - 1);\n            used[*next] = false;\n            if res != 0.0 {\n                return res / sum;\n            }\n        }\n    }\n    0.0\n}\n}\n\nimpl Solution {\n    pub fn frog_position(n: i32, edges: Vec<Vec<i32>>, t: i32, target: i32) -> f64 {\n        let n = n as usize;\n        let mut nodes: Vec<Vec<usize>> = vec![vec![]; n + 1];\n        for e in edges {\n            let (e0, e1) = (e[0] as usize, e[1] as usize);\n            nodes[e0].push(e1);\n            nodes[e1].push(e0);\n        }\n        let mut used = vec![false; n + 1];\n        used[1] = true;\n        dfs(&nodes, &mut used, target as usize, 1, t)\n    }\n}",
+            "date": 1684857600000
+        }
+    ]
+}
