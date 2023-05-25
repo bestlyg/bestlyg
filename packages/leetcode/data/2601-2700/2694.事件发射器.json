@@ -1,7 +1,8 @@
 {
+    "id": "2797",
     "name": "2694.事件发射器",
-    "url": "https://leetcode.cn/problems/event-emitter/",
-    "difficulty": "简单",
+    "url": "https://leetcode.cn/problems/event-emitter",
+    "difficulty": "中等",
     "tag": [],
     "desc": "设计一个 EventEmitter 类。这个接口与 Node.js 或 DOM 的 Event Target 接口相似，但有一些差异。EventEmitter 应该允许订阅事件和触发事件。",
     "solutions": [

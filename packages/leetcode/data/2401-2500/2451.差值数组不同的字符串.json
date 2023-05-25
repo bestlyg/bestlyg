@@ -1,0 +1,33 @@
+{
+    "name": "2451.差值数组不同的字符串",
+    "url": "https://leetcode.cn/problems/odd-string-difference/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个字符串数组 words ，每一个字符串长度都相同，令所有字符串的长度都为 n 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 7.4,
+            "desc": "哈希存储。",
+            "code": "class Solution {\npublic:\n    string oddString(vector<string>& words) {\n        unordered_map<string, vector<string>> m;\n        for (auto &w : words) {\n            string key = \"\";            \n            for (int i = 0; i < w.size() - 1; i++) key += to_string(w[i + 1] - w[i] + '0');\n            m[key].push_back(w);\n        }\n        for (auto &item : m) {\n            if (item.second.size() == 1) return item.second[0];\n        }\n        return words[0];\n    }\n};",
+            "date": 1684944000000
+        },
+        {
+            "script": "python3",
+            "time": 48,
+            "memory": 15.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def oddString(self, words: List[str]) -> str:\n        m = dict()\n        for w in words:\n            key = \"\"\n            for i in range(len(w) - 1):\n                key += chr(ord(w[i + 1]) - ord(w[i]) + ord('0'))\n            if not key in m: m[key] = []\n            m[key].append(w)\n        for v in m.values():\n            if len(v) == 1:\n                return v[0]\n        return words[0]",
+            "date": 1684944000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "pub fn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn odd_string(words: Vec<String>) -> String {\n        let mut m = std::collections::HashMap::<String, Vec<String>>::new();\n        for w in words {\n            let mut key = String::new();\n            {\n                let w: Vec<char> = str_to_vec(&w);\n                for i in 0..w.len() - 1 {\n                    key.push((w[i + 1] as u8 - w[i] as u8 + b'0') as char);\n                }\n            }\n            m.entry(key).or_insert(vec![]).push(w);\n        }\n        for (_, list) in m.into_iter() {\n            if list.len() == 1 {\n                return list[0].clone();\n            }\n        }\n        String::new()\n    }\n}",
+            "date": 1684944000000
+        }
+    ]
+}

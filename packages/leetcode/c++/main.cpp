@@ -129,19 +129,18 @@ vector<int> get_sums(vector<int> &arr) {
 
 class Solution {
 public:
-    TreeNode* sufficientSubset(TreeNode* root, int limit) {
-        return dfs(root, limit, 0) ? root : nullptr;
-    }
-    bool dfs(TreeNode *node, int limit, int sum) {
-        if (!node) return true;
-        auto l = dfs(node->left, limit, sum + node->val), r = dfs(node->right, limit, sum + node->val);
-        if (!node->left && !node->right && sum < limit ||
-            !node->left && !r ||
-            !node->right && !l ||
-            !l && !r) return false;
-        if (!l) node->left = nullptr;
-        if (!r) node->right = nullptr;
-        return true;
+    string oddString(vector<string>& words) {
+        int n = words[0].size();
+        unordered_map<string, int> m;
+        for (auto &w : words) {
+            string key = "";
+            for (int i = 0; i < n - 1; i++) key += w[i + 1] - w[i];
+            m[key] += 1;
+        }
+        for (auto &item : m) {
+            if (item.second == 1) return item.first;
+        }
+        return words[0];
     }
 };
 

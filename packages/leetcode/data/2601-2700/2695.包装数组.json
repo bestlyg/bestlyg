@@ -1,6 +1,7 @@
 {
+    "id": "2805",
     "name": "2695.包装数组",
-    "url": "https://leetcode.cn/problems/array-wrapper/",
+    "url": "https://leetcode.cn/problems/array-wrapper",
     "difficulty": "简单",
     "tag": [],
     "desc": "创建一个名为 ArrayWrapper 的类，它在其构造函数中接受一个整数数组作为参数。",
