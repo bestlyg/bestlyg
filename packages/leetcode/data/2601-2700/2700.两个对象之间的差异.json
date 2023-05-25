@@ -1,0 +1,18 @@
+{
+    "id": "2774",
+    "name": "2700.两个对象之间的差异",
+    "url": "https://leetcode.cn/problems/differences-between-two-objects",
+    "difficulty": "中等",
+    "tag": [],
+    "desc": "请你编写一个函数，它接收两个深度嵌套的对象或数组 obj1 和 obj2 ，并返回一个新对象表示它们之间差异。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 76,
+            "memory": 45.3,
+            "desc": "dfs。",
+            "code": "// 特殊标识符，在左右相等时返回\nconst same = Symbol('same');\n// 存储所有已经存在的key\nfunction mergeKey(key1: string[], key2: string[]) {\n    const set1 = new Set(key1);\n    const set2 = new Set(key2);\n    const res = new Set<string>();\n    for (const k of set1) {\n        if (set2.has(k)) res.add(k);\n    }\n    return res;\n}\n\nfunction objDiff(obj1: any, obj2: any, topLevel = true): any {\n    const t1 = typeof obj1;\n    const t2 = typeof obj2;\n    // 类型不等，肯定不等\n    if (t1 !== t2) return [obj1, obj2];\n    // 如果不是对象，直接判断是否相等\n    if (t1 !== 'object') return obj1 === obj2 ? same : [obj1, obj2];\n    // 如果是null或undefined，直接判断防止下面出错\n    if (obj1 === null || obj1 === undefined || obj2 === null || obj2 === undefined) return same;\n    // 如果一个是数组一个不是数组，那就不等\n    if (\n        (!Array.isArray(obj1) && Array.isArray(obj2)) ||\n        (Array.isArray(obj1) && !Array.isArray(obj2))\n    )\n        return [obj1, obj2];\n    // 此时肯定是对象或数组\n    // 拿所有共存的key\n    const keys = mergeKey(Object.keys(obj1), Object.keys(obj2));\n    const res = {};\n    // 遍历obj1中所有的kv\n    for (const [k, v] of Object.entries(obj1).filter(([k]) => keys.has(k))) {\n        // 递归比较，利用topLevel记录是不是顶层\n        const diff = objDiff(v, obj2[k], false);\n        // 如果不同就存储\n        if (diff != same) res[k] = diff;\n    }\n    // 如果是空的，但是是顶层的，那就返回相等\n    if (Object.keys(res).length === 0 && !topLevel) return same;\n    // 否则顶层要返回控对象\n    return res;\n}",
+            "date": 1684944000000
+        }
+    ]
+}
