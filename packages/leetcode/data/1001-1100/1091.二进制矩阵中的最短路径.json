@@ -17,6 +17,30 @@
             "script": "typescript",
             "desc": "bfs。",
             "code": "function movingCount(m: number, n: number, k: number): number {\n  const queue: [number, number, number][] = [[0, 0, 1]];\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set(queue.map(([row, col]) => format(row, col)));\n  let ans = 1;\n  const add = (row: number, col: number, count: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    const data: [number, number, number] = [row, col, count];\n    let num = 0;\n    while (row) {\n      num += row % 10;\n      row = ~~(row / 10);\n    }\n    while (col) {\n      num += col % 10;\n      col = ~~(col / 10);\n    }\n    if (num > k) return;\n    queue.push(data);\n    ans++;\n  };\n  while (queue.length) {\n    const [row, col, count] = queue.shift()!;\n    if (row) if (row > 0) add(row - 1, col, count + 1);\n    if (col > 0) add(row, col - 1, count + 1);\n    if (row < n - 1) add(row + 1, col, count + 1);\n    if (col < m - 1) add(row, col + 1, count + 1);\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 68,
+            "memory": 19.2,
+            "desc": "bfs。",
+            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\n\nvector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};\n\nclass Solution {\n    public:\n    int shortestPathBinaryMatrix(vector<vector<int>> &grid) {\n        if (grid[0][0] == 1) return -1;\n        queue<pii> q;\n        q.push(make_pair(0, 0));\n        int n = grid.size(), size = 1, step = 1;\n        vector<vector<bool>> used(n, vector<bool>(n, false));\n        while (q.size()) {\n            auto cur = q.front();\n            q.pop();\n            if (cur.X == n - 1 && cur.Y == n - 1) return step;\n            for (auto &dir : dirs2) {\n                int nx = cur.X + dir[0], ny = cur.Y + dir[1];\n                if (nx >= 0 && nx < n && ny >= 0 && ny < n && grid[nx][ny] == 0 && !used[nx][ny]) {\n                    used[nx][ny] = true;\n                    q.push(make_pair(nx, ny));\n                }\n            }\n            if (--size == 0) {\n                size = q.size();\n                step += 1;\n            }\n        }\n        return -1;\n    }\n};",
+            "date": 1685030400000
+        },
+        {
+            "script": "python3",
+            "time": 256,
+            "memory": 16.6,
+            "desc": "同上。",
+            "code": "dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\n    class Solution:\n        def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:\n            if grid[0][0] == 1:\n                return -1\n            q = deque()\n            q.append((0, 0))\n            n = len(grid)\n            step = size = 1\n            used = [[False for _ in range(n)] for _ in range(n)]\n            while len(q):\n                (x, y) = q.popleft()\n                if x == n - 1 and y == n - 1:\n                    return step\n                for dir in dirs2:\n                    nx = x + dir[0]\n                    ny = y + dir[1]\n                    if nx >= 0 and nx < n and ny >= 0 and ny < n and grid[nx][ny] == 0 and not used[nx][ny]:\n                        used[nx][ny] = True\n                        q.append((nx, ny))\n                size -= 1\n                if size == 0:\n                    size = len(q)\n                    step += 1\n            return -1",
+            "date": 1685030400000
+        },
+        {
+            "script": "rust",
+            "time": 16,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "pub const dirs2: [[i32; 2]; 8] = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];\nimpl Solution {\n    pub fn shortest_path_binary_matrix(grid: Vec<Vec<i32>>) -> i32 {\n        if grid[0][0] == 1 {\n            -1\n        } else {\n            let mut q = std::collections::VecDeque::<(i32, i32)>::new();\n            q.push_back((0, 0));\n            let n = grid.len() as i32;\n            let mut size = 1;\n            let mut step = 1;\n            let mut used = vec![vec![false; n as usize]; n as usize];\n            while let Some((x, y)) = q.pop_front() {\n                if x == n - 1 && y == n - 1 {\n                    return step;\n                }\n                for dir in dirs2 {\n                    let nx = x + dir[0];\n                    let ny = y + dir[1];\n                    if nx >= 0\n                        && nx < n\n                        && ny >= 0\n                        && ny < n\n                        && grid[nx as usize][ny as usize] == 0\n                        && !used[nx as usize][ny as usize]\n                    {\n                        used[nx as usize][ny as usize] = true;\n                        q.push_back((nx, ny));\n                    }\n                }\n                size -= 1;\n                if size == 0 {\n                    size = q.len();\n                    step += 1;\n                }\n            }\n            -1\n        }\n    }\n}",
+            "date": 1685030400000
         }
     ]
 }

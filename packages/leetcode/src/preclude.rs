@@ -194,7 +194,7 @@ impl Ord for RevUnsize {
 }
 
 pub const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-
+pub const dirs2: [[i32; 2]; 8] = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 pub struct UnionFind {
     n: usize,
     data: Vec<usize>,

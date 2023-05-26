@@ -13,26 +13,41 @@ fn main() {
 }
 
 impl Solution {
-    pub fn odd_string(words: Vec<String>) -> String {
-        let mut m = std::collections::HashMap::<String, Vec<String>>::new();
-        for w in words {
-            let mut key = String::new();
-            {
-                let w: Vec<char> = str_to_vec(&w);
-                for i in 0..w.len() - 1 {
-                    // key.push(
-                    // w[]
-                    // )
-                    key.push((w[i + 1] as u8 - w[i] as u8 + b'0') as char);
+    pub fn shortest_path_binary_matrix(grid: Vec<Vec<i32>>) -> i32 {
+        if grid[0][0] == 1 {
+            -1
+        } else {
+            let mut q = std::collections::VecDeque::<(i32, i32)>::new();
+            q.push_back((0, 0));
+            let n = grid.len() as i32;
+            let mut size = 1;
+            let mut step = 1;
+            let mut used = vec![vec![false; n as usize]; n as usize];
+            while let Some((x, y)) = q.pop_front() {
+                if x == n - 1 && y == n - 1 {
+                    return step;
+                }
+                for dir in dirs2 {
+                    let nx = x + dir[0];
+                    let ny = y + dir[1];
+                    if nx >= 0
+                        && nx < n
+                        && ny >= 0
+                        && ny < n
+                        && grid[nx as usize][ny as usize] == 0
+                        && !used[nx as usize][ny as usize]
+                    {
+                        used[nx as usize][ny as usize] = true;
+                        q.push_back((nx, ny));
+                    }
+                }
+                size -= 1;
+                if size == 0 {
+                    size = q.len();
+                    step += 1;
                 }
             }
-            m.entry(key).or_insert(vec![]).push(w);
+            -1
         }
-        for (_, list) in m.into_iter() {
-            if list.len() == 1 {
-                return list[0].clone();
-            }
-        }
-        String::new()
     }
 }

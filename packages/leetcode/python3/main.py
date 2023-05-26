@@ -2,18 +2,29 @@ from preclude import *
 
 
 class Solution:
-    def oddString(self, words: List[str]) -> str:
-        m = dict()
-        for w in words:
-            key = ""
-            for i in range(len(w) - 1):
-                key += chr(ord(w[i + 1]) - ord(w[i]) + ord('0'))
-            if not key in m: m[key] = []
-            m[key].append(w)
-        for v in m.values():
-            if len(v) == 1:
-                return v[0]
-        return words[0]
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        if grid[0][0] == 1:
+            return -1
+        q = deque()
+        q.append((0, 0))
+        n = len(grid)
+        step = size = 1
+        used = [[False for _ in range(n)] for _ in range(n)]
+        while len(q):
+            (x, y) = q.popleft()
+            if x == n - 1 and y == n - 1:
+                return step
+            for dir in dirs2:
+                nx = x + dir[0]
+                ny = y + dir[1]
+                if nx >= 0 and nx < n and ny >= 0 and ny < n and grid[nx][ny] == 0 and not used[nx][ny]:
+                    used[nx][ny] = True
+                    q.append((nx, ny))
+            size -= 1
+            if size == 0:
+                size = len(q)
+                step += 1
+        return -1
 
 
 def main():

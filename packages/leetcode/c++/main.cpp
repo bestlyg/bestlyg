@@ -73,6 +73,7 @@ void idx2Pos(int idx, int size, int &x, int &y) {
     y = idx % size;
 }
 vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+vector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 ll gcd(ll a, ll b) {
     if (a < b) return gcd(b, a);
     if (b == 0) return a;
@@ -125,29 +126,29 @@ vector<int> get_sums(vector<int> &arr) {
 // START
 
 
-
-
 class Solution {
 public:
-    string oddString(vector<string>& words) {
-        int n = words[0].size();
-        unordered_map<string, int> m;
-        for (auto &w : words) {
-            string key = "";
-            for (int i = 0; i < n - 1; i++) key += w[i + 1] - w[i];
-            m[key] += 1;
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        if (grid[0][0] == 1) return -1;
+        queue<pii> q;
+        q.push(make_pair(0, 0));
+        int n = grid.size(), size = 1, step = 0;
+        vector<vector<bool>> used(n, vector<bool>(n, false));
+        while (q.size()) {
+            auto cur = q.front();
+            q.pop();
+            if (cur.X == n - 1 && cur.Y == n - 1) return step;
+            for (auto &dir : dirs2) {
+                int nx = cur.X + dir[0], ny = cur.Y + dir[1];
+                if (nx >= 0 && nx < n && ny >= 0 && ny < n && !used[nx][ny]) {
+                    used[nx][ny] = true;
+                    q.push(make_pair(nx, ny));
+                }
+            }
         }
-        for (auto &item : m) {
-            if (item.second == 1) return item.first;
-        }
-        return words[0];
+        return -1;
     }
 };
-
-/*
-[1,1]
-[1,1]
-*/
 
 // END
 #ifdef LOCAL
