@@ -13,41 +13,45 @@ fn main() {
 }
 
 impl Solution {
-    pub fn shortest_path_binary_matrix(grid: Vec<Vec<i32>>) -> i32 {
-        if grid[0][0] == 1 {
-            -1
-        } else {
-            let mut q = std::collections::VecDeque::<(i32, i32)>::new();
-            q.push_back((0, 0));
-            let n = grid.len() as i32;
-            let mut size = 1;
-            let mut step = 1;
-            let mut used = vec![vec![false; n as usize]; n as usize];
-            while let Some((x, y)) = q.pop_front() {
-                if x == n - 1 && y == n - 1 {
-                    return step;
-                }
-                for dir in dirs2 {
-                    let nx = x + dir[0];
-                    let ny = y + dir[1];
-                    if nx >= 0
-                        && nx < n
-                        && ny >= 0
-                        && ny < n
-                        && grid[nx as usize][ny as usize] == 0
-                        && !used[nx as usize][ny as usize]
-                    {
-                        used[nx as usize][ny as usize] = true;
-                        q.push_back((nx, ny));
-                    }
-                }
-                size -= 1;
-                if size == 0 {
-                    size = q.len();
-                    step += 1;
-                }
+    pub fn sample_stats(count: Vec<i32>) -> Vec<f64> {
+        use std::cmp::{max, min};
+        let (n, mut sum, mut minimum, mut maximum, mut cnt, mut mode, mut mode_cnt) =
+            (count.len(), 0usize, 0usize, 0usize, 0usize, 0usize, 0usize);
+        minimum = n - 1;
+        for i in 0..n {
+            let c = count[i] as usize;
+            sum += c * i;
+            cnt += c;
+            if c != 0 {
+                minimum = min(minimum, i);
+                maximum = max(maximum, i);
             }
-            -1
+            if c > mode_cnt {
+                mode = i;
+                mode_cnt = c;
+            }
         }
+        let mean = (sum as f64) / (cnt as f64);
+        let (mut num1, mut num2) = (-1f64, -1f64);
+        let (mut imid1, mut imid2) = ((cnt as f64) / 2.0, ((cnt - 1) as f64) / 2.0);
+        println!("imid1 = {imid1}, imid2 = {imid2}");
+        for i in 0..n {
+            let c = count[i] as f64;
+            if num1 == -1.0 && imid1 - c < 0.0 {
+                num1 = i as f64;
+            }
+            if num2 == -1.0 && imid2 - c < 0.0 {
+                num2 = i as f64;
+            }
+            imid1 -= c;
+            imid2 -= c;
+        }
+        return vec![
+            minimum as f64,
+            maximum as f64,
+            mean,
+            (num1 + num2) / 2.0,
+            mode as f64,
+        ];
     }
 }
