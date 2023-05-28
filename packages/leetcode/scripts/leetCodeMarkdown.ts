@@ -21,7 +21,7 @@ const leetCodeMarkdown: Markdown = {
             script: Script.CPP,
             time: 156,
             memory: 32.9,
-            desc: '对所有值从小到大排序，记录当前坐标下所能达到的最大值',
+            desc: '每次求和只取前k个数字，后面数字不需要',
             code: `class Solution {
 public:
     int kthSmallest(vector<vector<int>>& mat, int k) {
@@ -38,6 +38,31 @@ public:
             list = next;
         }
         return list.back();
+    }
+};`,
+        },
+        {
+            script: Script.CPP,
+            time: 16,
+            memory: 8.3,
+            desc: '求出最大最小值，二分答案',
+            code: `class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& mat, int k) {
+        int n = mat.size(), m = mat[0].size(), l = 0, r = 0, base = 0;
+        for (int i = 0; i < n; i++) l += mat[i][0], r += mat[i][m - 1], base += mat[i][0];
+        function<bool(int, int, int&)> dfs = [&](int idx, int sum, int &cnt) {
+            if (idx == -1) return --cnt == 0;
+            for (int i = 0; i < mat[idx].size() && sum - (mat[idx][i] - mat[idx][0]) >= 0; i++)
+                if (dfs(idx - 1, sum - (mat[idx][i] - mat[idx][0]), cnt)) return true;
+            return false;
+        };
+        while (l < r) {
+            int m = (l + r) / 2, cnt = k;
+            if (dfs(n - 1, m - base, cnt)) r = m;
+            else l = m + 1;
+        }
+        return l;
     }
 };`,
         },
