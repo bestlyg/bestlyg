@@ -1,0 +1,17 @@
+{
+    "name": "6456.矩阵中严格递增的单元格数",
+    "url": "https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你找出从某个单元开始访问矩阵所能访问的 单元格的最大数量 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 872,
+            "memory": 242.4,
+            "desc": "对所有值从小到大排序，记录当前坐标下所能达到的最大值。",
+            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nclass Solution {\npublic:\n    int maxIncreasingCells(vector<vector<int>>& mat) {\n        map<int, vector<pii>> mmap;\n        int n = mat.size(), m = mat[0].size(), res = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                mmap[mat[i][j]].push_back(make_pair(i, j));\n            }\n        }\n        vector<int> rmax(n, 0), cmax(m, 0);\n        for (auto &mitem : mmap) {\n            auto list = mitem.Y;\n            vector<int> lmax;\n            for (auto &p : list) {\n                int val = max(rmax[p.X], cmax[p.Y]) + 1;\n                lmax.push_back(val);\n                res = max(res, val);\n            }\n            for (int k = 0; k < list.size(); k++) {\n                auto &p = list[k];\n                rmax[p.X] = max(rmax[p.X], lmax[k]);\n                cmax[p.Y] = max(cmax[p.Y], lmax[k]);\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1685203200000
+        }
+    ]
+}
