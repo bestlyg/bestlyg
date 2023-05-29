@@ -1,7 +1,8 @@
 {
-    "name": "6456.矩阵中严格递增的单元格数",
-    "url": "https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix/",
-    "difficulty": "简单",
+    "id": "2818",
+    "name": "2713.矩阵中严格递增的单元格数",
+    "url": "https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix",
+    "difficulty": "困难",
     "tag": [],
     "desc": "请你找出从某个单元开始访问矩阵所能访问的 单元格的最大数量 。",
     "solutions": [

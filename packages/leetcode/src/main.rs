@@ -11,18 +11,20 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-pub fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
-}
+
 impl Solution {
-    pub fn minimum_cost(s: String) -> i64 {
-        let mut res = 0i64;
-        let s = str_to_vec(&s);
-        for i in 1..s.len() {
-            if s[i] != s[i - 1] {
-                res += min(i, s.len() - i) as i64;
+    pub fn average_value(nums: Vec<i32>) -> i32 {
+        let (mut sum, mut cnt) = (0, 0);
+        for num in nums {
+            if num % 6 == 0 {
+                sum += num;
+                cnt += 1;
             }
         }
-        res
+        if cnt == 0 {
+            0
+        } else {
+            sum / cnt
+        }
     }
 }

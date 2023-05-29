@@ -1,0 +1,37 @@
+{
+    "id": "2542",
+    "name": "2455.可被三整除的偶数的平均值",
+    "url": "https://leetcode.cn/problems/average-value-of-even-numbers-that-are-divisible-by-three",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "数学"
+    ],
+    "desc": "给你一个由正整数组成的整数数组 nums ，返回其中可被 3 整除的所有偶数的平均值。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 13.3,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int averageValue(vector<int>& nums) {\n        int sum = 0, cnt = 0;\n        for (auto &num : nums) {\n            if (num % 6 == 0) sum += num, cnt++;\n        }\n        return cnt ? sum / cnt : 0;\n    }\n};",
+            "date": 1685289600000
+        },
+        {
+            "script": "python3",
+            "time": 84,
+            "memory": 15.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def averageValue(self, nums: List[int]) -> int:\n        sum = cnt = 0\n        for num in nums:\n            if num % 6 == 0:\n                sum += num\n                cnt += 1\n        return 0 if not cnt else sum // cnt",
+            "date": 1685289600000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn average_value(nums: Vec<i32>) -> i32 {\n        let (mut sum, mut cnt) = (0, 0);\n        for num in nums {\n            if num % 6 == 0 {\n                sum += num;\n                cnt += 1;\n            }\n        }\n        if cnt == 0 {\n            0\n        } else {\n            sum / cnt\n        }\n    }\n}",
+            "date": 1685289600000
+        }
+    ]
+}
