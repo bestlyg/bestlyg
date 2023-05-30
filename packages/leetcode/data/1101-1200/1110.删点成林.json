@@ -1,0 +1,33 @@
+{
+    "name": "1110.删点成林",
+    "url": "https://leetcode.cn/problems/delete-nodes-and-return-forest/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给出二叉树的根节点 root，树上每个节点都有一个不同的值。如果节点值在 to_delete 中出现，我们就把该节点从树上删去，最后得到一个森林（一些不相交的树构成的集合）。返回森林中的每棵树。你可以按任意顺序组织答案。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 12,
+            "memory": 13.3,
+            "desc": "dfs遍历时，记录父节点是否已经被删除。",
+            "code": "class Solution {\npublic:\n    vector<TreeNode*> res;\n    unordered_set<int> s;\n    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {\n        for (auto &v : to_delete) s.insert(v);\n        dfs(root, true);\n        return res;\n    }\n    TreeNode* dfs(TreeNode *node, bool pd) {\n        if (!node) return node;\n        bool del = s.count(node->val);\n        if (!del && pd) res.push_back(node);\n        node->left = dfs(node->left, del);\n        node->right = dfs(node->right, del);\n        if (pd || del) return nullptr;\n        return node;\n    }\n};",
+            "date": 1685376000000
+        },
+        {
+            "script": "python3",
+            "time": 72,
+            "memory": 16.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:\n        res = []\n        s = set()\n        for v in to_delete:\n            s.add(v)\n\n        def dfs(node: Optional[TreeNode], pd: bool):\n            if node == None:\n                return node\n            d = node.val in s\n            if not d and pd:\n                res.append(node)\n            node.left = dfs(node.left, d)\n            node.right = dfs(node.right, d)\n            return None if pd or d else node\n        dfs(root, True)\n        return res",
+            "date": 1685376000000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "use std::cell::RefCell;\nuse std::collections::HashSet;\nuse std::ops::RangeBounds;\nuse std::rc::Rc;\ntype Res = Vec<Option<Rc<RefCell<TreeNode>>>>;\nfn dfs(\n    res: &mut Res,\n    s: &HashSet<i32>,\n    node: &mut Option<Rc<RefCell<TreeNode>>>,\n    pd: bool,\n) -> Option<Rc<RefCell<TreeNode>>> {\n    match node {\n        None => None,\n        Some(ref node) => {\n            let mut nodeRef = node.as_ref().borrow_mut();\n            let d = s.contains(&nodeRef.val);\n            if !d && pd {\n                res.push(Some(node.clone()));\n            }\n            nodeRef.left = dfs(res, s, &mut nodeRef.left, d);\n            nodeRef.right = dfs(res, s, &mut nodeRef.right, d);\n            if pd || d {\n                None\n            } else {\n                Some(node.clone())\n            }\n        }\n    }\n}\n\nimpl Solution {\n    pub fn del_nodes(mut root: Option<Rc<RefCell<TreeNode>>>, to_delete: Vec<i32>) -> Res {\n        let mut s = std::collections::HashSet::<i32>::new();\n        for v in to_delete {\n            s.insert(v);\n        }\n        let mut res: Res = vec![];\n        dfs(&mut res, &s, &mut root, true);\n        res\n    }\n}",
+            "date": 1685376000000
+        }
+    ]
+}

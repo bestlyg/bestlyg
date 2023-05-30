@@ -12,19 +12,44 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-impl Solution {
-    pub fn average_value(nums: Vec<i32>) -> i32 {
-        let (mut sum, mut cnt) = (0, 0);
-        for num in nums {
-            if num % 6 == 0 {
-                sum += num;
-                cnt += 1;
+use std::cell::RefCell;
+use std::collections::HashSet;
+use std::ops::RangeBounds;
+use std::rc::Rc;
+type Res = Vec<Option<Rc<RefCell<TreeNode>>>>;
+fn dfs(
+    res: &mut Res,
+    s: &HashSet<i32>,
+    node: &mut Option<Rc<RefCell<TreeNode>>>,
+    pd: bool,
+) -> Option<Rc<RefCell<TreeNode>>> {
+    match node {
+        None => None,
+        Some(ref node) => {
+            let mut nodeRef = node.as_ref().borrow_mut();
+            let d = s.contains(&nodeRef.val);
+            if !d && pd {
+                res.push(Some(node.clone()));
+            }
+            nodeRef.left = dfs(res, s, &mut nodeRef.left, d);
+            nodeRef.right = dfs(res, s, &mut nodeRef.right, d);
+            if pd || d {
+                None
+            } else {
+                Some(node.clone())
             }
         }
-        if cnt == 0 {
-            0
-        } else {
-            sum / cnt
+    }
+}
+
+impl Solution {
+    pub fn del_nodes(mut root: Option<Rc<RefCell<TreeNode>>>, to_delete: Vec<i32>) -> Res {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for v in to_delete {
+            s.insert(v);
         }
+        let mut res: Res = vec![];
+        dfs(&mut res, &s, &mut root, true);
+        res
     }
 }

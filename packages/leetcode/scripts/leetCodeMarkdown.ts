@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2455. 可被三整除的偶数的平均值',
-    url: 'https://leetcode.cn/problems/average-value-of-even-numbers-that-are-divisible-by-three/',
+    name: '1110. 删点成林',
+    url: 'https://leetcode.cn/problems/delete-nodes-and-return-forest/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个由正整数组成的整数数组 nums ，返回其中可被 3 整除的所有偶数的平均值。`,
+    desc: `给出二叉树的根节点 root，树上每个节点都有一个不同的值。如果节点值在 to_delete 中出现，我们就把该节点从树上删去，最后得到一个森林（一些不相交的树构成的集合）。返回森林中的每棵树。你可以按任意顺序组织答案。`,
     solutions: [
         //     {
         //       script: Script.TS,
@@ -19,53 +19,97 @@ const leetCodeMarkdown: Markdown = {
         //     },
         {
             script: Script.CPP,
-            time: 8,
+            time:12,
             memory: 13.3,
-            desc: '遍历',
+            desc: 'dfs遍历时，记录父节点是否已经被删除',
             code: `class Solution {
 public:
-    int averageValue(vector<int>& nums) {
-        int sum = 0, cnt = 0;
-        for (auto &num : nums) {
-            if (num % 6 == 0) sum += num, cnt++;
-        }
-        return cnt ? sum / cnt : 0;
+    vector<TreeNode*> res;
+    unordered_set<int> s;
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        for (auto &v : to_delete) s.insert(v);
+        dfs(root, true);
+        return res;
+    }
+    TreeNode* dfs(TreeNode *node, bool pd) {
+        if (!node) return node;
+        bool del = s.count(node->val);
+        if (!del && pd) res.push_back(node);
+        node->left = dfs(node->left, del);
+        node->right = dfs(node->right, del);
+        if (pd || del) return nullptr;
+        return node;
     }
 };`,
         },
         {
             script: Script.PY3,
-            time: 84,
-            memory: 15.9,
+            time: 72,
+            memory: 16.6,
             desc: '同上',
             code: `class Solution:
-    def averageValue(self, nums: List[int]) -> int:
-        sum = cnt = 0
-        for num in nums:
-            if num % 6 == 0:
-                sum += num
-                cnt += 1
-        return 0 if not cnt else sum // cnt`,
+    def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
+        res = []
+        s = set()
+        for v in to_delete:
+            s.add(v)
+
+        def dfs(node: Optional[TreeNode], pd: bool):
+            if node == None:
+                return node
+            d = node.val in s
+            if not d and pd:
+                res.append(node)
+            node.left = dfs(node.left, d)
+            node.right = dfs(node.right, d)
+            return None if pd or d else node
+        dfs(root, True)
+        return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.1,
+            time: 4,
+            memory: 2.2,
             desc: '同上',
-            code: `impl Solution {
-    pub fn average_value(nums: Vec<i32>) -> i32 {
-        let (mut sum, mut cnt) = (0, 0);
-        for num in nums {
-            if num % 6 == 0 {
-                sum += num;
-                cnt += 1;
+            code: `use std::cell::RefCell;
+use std::collections::HashSet;
+use std::ops::RangeBounds;
+use std::rc::Rc;
+type Res = Vec<Option<Rc<RefCell<TreeNode>>>>;
+fn dfs(
+    res: &mut Res,
+    s: &HashSet<i32>,
+    node: &mut Option<Rc<RefCell<TreeNode>>>,
+    pd: bool,
+) -> Option<Rc<RefCell<TreeNode>>> {
+    match node {
+        None => None,
+        Some(ref node) => {
+            let mut nodeRef = node.as_ref().borrow_mut();
+            let d = s.contains(&nodeRef.val);
+            if !d && pd {
+                res.push(Some(node.clone()));
+            }
+            nodeRef.left = dfs(res, s, &mut nodeRef.left, d);
+            nodeRef.right = dfs(res, s, &mut nodeRef.right, d);
+            if pd || d {
+                None
+            } else {
+                Some(node.clone())
             }
         }
-        if cnt == 0 {
-            0
-        } else {
-            sum / cnt
+    }
+}
+
+impl Solution {
+    pub fn del_nodes(mut root: Option<Rc<RefCell<TreeNode>>>, to_delete: Vec<i32>) -> Res {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for v in to_delete {
+            s.insert(v);
         }
+        let mut res: Res = vec![];
+        dfs(&mut res, &s, &mut root, true);
+        res
     }
 }`,
         },
