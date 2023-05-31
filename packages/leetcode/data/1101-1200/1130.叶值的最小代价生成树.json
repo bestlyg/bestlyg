@@ -1,0 +1,33 @@
+{
+    "name": "1130.叶值的最小代价生成树",
+    "url": "https://leetcode.cn/problems/minimum-cost-tree-from-leaf-values/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "在所有这样的二叉树中，返回每个非叶节点的值的最小可能总和。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 48,
+            "memory": 11.6,
+            "desc": "树形dp，对一个区间去获取他的最大值和最小和。",
+            "code": "#define pii pair<int, int>\n#define X first\n#define Y second\nclass Solution {\npublic:\n    unordered_map<int, unordered_map<int, pii>> m;\n    pii dfs(vector<int> &arr, int l, int r) {\n        if (m[l].count(r)) return m[l][r];\n        if (l == r) return m[l][r] = make_pair(arr[l], 0);\n        pii res = make_pair(arr[r], INT_MAX);\n        for (int i = l; i < r; i++) {\n            res.X = max(res.X, arr[i]);\n            auto left = dfs(arr, l, i), right = dfs(arr, i + 1, r);\n            int sum = left.X * right.X + left.Y + right.Y;\n            res.Y = min(res.Y, sum);\n        }\n        return m[l][r] = res;\n    }\n    int mctFromLeafValues(vector<int>& arr) {\n        return dfs(arr, 0, arr.size() - 1).Y;\n    }\n};",
+            "date": 1685462400000
+        },
+        {
+            "script": "python3",
+            "time": 152,
+            "memory": 17.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def mctFromLeafValues(self, arr: List[int]) -> int:\n        @cache\n        def dfs(l: int, r: int) -> List[int]:\n            if l == r: return [arr[l],0]\n            res = [arr[r], inf]\n            for i in range(l,r):\n                res[0] = max(res[0], arr[i])\n                left,right = dfs(l,i),dfs(i+1,r)\n                sum = left[0] * right[0] + left[1] + right[1]\n                res[1] = min(res[1], sum)\n            return res\n        return dfs(0, len(arr) - 1)[1]",
+            "date": 1685462400000
+        },
+        {
+            "script": "rust",
+            "time": 48,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "use std::collections::HashMap;\nfn dfs(\n    m: &mut HashMap<usize, HashMap<usize, (i32, i32)>>,\n    arr: &Vec<i32>,\n    l: usize,\n    r: usize,\n) -> (i32, i32) {\n    if m.entry(l).or_insert(Default::default()).contains_key(&r) {\n        *m.get(&l).unwrap().get(&r).unwrap()\n    } else if l == r {\n        let res = (arr[l], 0);\n        (*m.get_mut(&l).unwrap()).insert(r, res);\n        res\n    } else {\n        let mut res = (arr[r], i32::MAX);\n        for i in l..r {\n            res.0 = res.0.max(arr[i]);\n            let (left, right) = (dfs(m, arr, l, i), dfs(m, arr, i + 1, r));\n            let sum = left.0 * right.0 + left.1 + right.1;\n            res.1 = res.1.min(sum);\n        }\n        (*m.get_mut(&l).unwrap()).insert(r, res);\n        res\n    }\n}\nimpl Solution {\n    pub fn mct_from_leaf_values(arr: Vec<i32>) -> i32 {\n        let mut m = HashMap::<usize, HashMap<usize, (i32, i32)>>::new();\n        dfs(&mut m, &arr, 0, arr.len() - 1).1\n    }\n}",
+            "date": 1685462400000
+        }
+    ]
+}

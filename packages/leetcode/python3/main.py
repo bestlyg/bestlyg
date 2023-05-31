@@ -2,23 +2,19 @@ from preclude import *
 
 
 class Solution:
-    def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
-        res = []
-        s = set()
-        for v in to_delete:
-            s.add(v)
-
-        def dfs(node: Optional[TreeNode], pd: bool):
-            if node == None:
-                return node
-            d = node.val in s
-            if not d and pd:
-                res.append(node)
-            node.left = dfs(node.left, d)
-            node.right = dfs(node.right, d)
-            return None if pd or d else node
-        dfs(root, True)
-        return res
+    def mctFromLeafValues(self, arr: List[int]) -> int:
+        @cache
+        def dfs(l: int, r: int) -> List[int]:
+            if l == r:
+                return [arr[l], 0]
+            res = [arr[r], inf]
+            for i in range(l, r):
+                res[0] = max(res[0], arr[i])
+                left, right = dfs(l, i), dfs(i+1, r)
+                sum = left[0] * right[0] + left[1] + right[1]
+                res[1] = max(res[1], sum)
+            return res
+        return dfs(0, len(arr) - 1)[1]
 
 
 def main():

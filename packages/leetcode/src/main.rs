@@ -12,44 +12,34 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-use std::cell::RefCell;
-use std::collections::HashSet;
-use std::ops::RangeBounds;
-use std::rc::Rc;
-type Res = Vec<Option<Rc<RefCell<TreeNode>>>>;
+use std::collections::HashMap;
 fn dfs(
-    res: &mut Res,
-    s: &HashSet<i32>,
-    node: &mut Option<Rc<RefCell<TreeNode>>>,
-    pd: bool,
-) -> Option<Rc<RefCell<TreeNode>>> {
-    match node {
-        None => None,
-        Some(ref node) => {
-            let mut nodeRef = node.as_ref().borrow_mut();
-            let d = s.contains(&nodeRef.val);
-            if !d && pd {
-                res.push(Some(node.clone()));
-            }
-            nodeRef.left = dfs(res, s, &mut nodeRef.left, d);
-            nodeRef.right = dfs(res, s, &mut nodeRef.right, d);
-            if pd || d {
-                None
-            } else {
-                Some(node.clone())
-            }
+    m: &mut HashMap<usize, HashMap<usize, (i32, i32)>>,
+    arr: &Vec<i32>,
+    l: usize,
+    r: usize,
+) -> (i32, i32) {
+    if m.entry(l).or_insert(Default::default()).contains_key(&r) {
+        *m.get(&l).unwrap().get(&r).unwrap()
+    } else if l == r {
+        let res = (arr[l], 0);
+        (*m.get_mut(&l).unwrap()).insert(r, res);
+        res
+    } else {
+        let mut res = (arr[r], i32::MAX);
+        for i in l..r {
+            res.0 = res.0.max(arr[i]);
+            let (left, right) = (dfs(m, arr, l, i), dfs(m, arr, i + 1, r));
+            let sum = left.0 * right.0 + left.1 + right.1;
+            res.1 = res.1.min(sum);
         }
+        (*m.get_mut(&l).unwrap()).insert(r, res);
+        res
     }
 }
-
 impl Solution {
-    pub fn del_nodes(mut root: Option<Rc<RefCell<TreeNode>>>, to_delete: Vec<i32>) -> Res {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for v in to_delete {
-            s.insert(v);
-        }
-        let mut res: Res = vec![];
-        dfs(&mut res, &s, &mut root, true);
-        res
+    pub fn mct_from_leaf_values(arr: Vec<i32>) -> i32 {
+        let mut m = HashMap::<usize, HashMap<usize, (i32, i32)>>::new();
+        dfs(&mut m, &arr, 0, arr.len() - 1).1
     }
 }

@@ -13,10 +13,10 @@
 // bestlyg
 #define X first
 #define Y second
+#define pii pair<int, int>
 #define lb(x) ((x) & (-x))
 #define mem(a, b) memset(a, b, sizeof(a))
 #define debug freopen("input", "r", stdin)
-#define pii pair<int, int>
 
 #ifdef DEBUG
 #define log(frm, args...) \
@@ -126,29 +126,33 @@ vector<int> get_sums(vector<int> &arr) {
 // START
 
 
+#define pii pair<int, int>
+#define X first
+#define Y second
 class Solution {
 public:
-    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        if (grid[0][0] == 1) return -1;
-        queue<pii> q;
-        q.push(make_pair(0, 0));
-        int n = grid.size(), size = 1, step = 0;
-        vector<vector<bool>> used(n, vector<bool>(n, false));
-        while (q.size()) {
-            auto cur = q.front();
-            q.pop();
-            if (cur.X == n - 1 && cur.Y == n - 1) return step;
-            for (auto &dir : dirs2) {
-                int nx = cur.X + dir[0], ny = cur.Y + dir[1];
-                if (nx >= 0 && nx < n && ny >= 0 && ny < n && !used[nx][ny]) {
-                    used[nx][ny] = true;
-                    q.push(make_pair(nx, ny));
-                }
+    int mctFromLeafValues(vector<int>& arr) {
+        cout << "==========mctFromLeafValues" << endl;
+        return dfs(arr, 0, arr.size() - 1).Y;
+    }
+    pii dfs(vector<int> &arr, int l, int r) {
+        if (l == r) return make_pair(arr[l], 0);
+        if (l + 1 == r) return make_pair(max(arr[l], arr[r]), arr[l] * arr[r]);
+        pii res = make_pair(arr[l], INT_MAX);
+        for (int i = l; i < r; i++) {
+            res.X = max(res.X, arr[i]);
+            auto left = dfs(arr, 0, i), right = dfs(arr, i + 1, r);
+            // cout << "l = " << l << ", r = " << r << ", i = " << i << ", left = (" << 
+            // printf("l = %d, r = %d, i = %d, left = (%d, %d), right = (%d, %d)\n", l, r, i, left.X, left.Y, right.X, right.Y);
+            int sum = left.X * right.X + left.Y + right.Y;
+            if (sum < res.Y) {
+                res.Y = sum;
             }
         }
-        return -1;
+        return res;
     }
 };
+
 
 // END
 #ifdef LOCAL
@@ -167,91 +171,5 @@ int main() {
 
 /*
 
-====
-dd = 1
-i = 1, j = 1, val = 1, dp = 8
-break
-i = 1, dp = 8
-i = 2, j = 2, val = 7, dp = 14
-i = 2, j = 1, val = 7, dp = 14
-break
-i = 2, dp = 14
-i = 3, j = 3, val = 1, dp = 8
-i = 3, j = 2, val = 7, dp = 8
-i = 3, j = 1, val = 7, dp = 8
-break
-i = 3, dp = 8
-i = 4, j = 4, val = 7, dp = 14
-i = 4, j = 3, val = 7, dp = 14
-i = 4, j = 2, val = 7, dp = 14
-i = 4, j = 1, val = 7, dp = 14
-break
-i = 4, dp = 14
-i = 5, j = 5, val = 1, dp = 8
-i = 5, j = 4, val = 7, dp = 8
-i = 5, j = 3, val = 7, dp = 8
-i = 5, j = 2, val = 7, dp = 8
-i = 5, j = 1, val = 7, dp = 8
-break
-i = 5, dp = 8
-dd = 2
-i = 2, j = 2, val = 7, dp = 21
-break
-i = 2, dp = 21
-i = 3, j = 3, val = 1, dp = 9
-i = 3, j = 2, val = 7, dp = 9
-break
-i = 3, dp = 9
-i = 4, j = 4, val = 7, dp = 21
-i = 4, j = 3, val = 7, dp = 15
-i = 4, j = 2, val = 7, dp = 15
-break
-i = 4, dp = 15
-i = 5, j = 5, val = 1, dp = 9
-i = 5, j = 4, val = 7, dp = 9
-i = 5, j = 3, val = 7, dp = 9
-i = 5, j = 2, val = 7, dp = 9
-break
-i = 5, dp = 9
-====
-dd = 1
-i = 1, j = 1, val = 5, dp = 11
-break
-i = 1, dp = 11
-i = 2, j = 2, val = 4, dp = 10
-i = 2, j = 1, val = 5, dp = 10
-break
-i = 2, dp = 10
-i = 3, j = 3, val = 3, dp = 9
-i = 3, j = 2, val = 4, dp = 9
-i = 3, j = 1, val = 5, dp = 9
-break
-i = 3, dp = 9
-i = 4, j = 4, val = 2, dp = 8
-i = 4, j = 3, val = 3, dp = 8
-i = 4, j = 2, val = 4, dp = 8
-i = 4, j = 1, val = 5, dp = 8
-break
-i = 4, dp = 8
-i = 5, j = 5, val = 1, dp = 7
-i = 5, j = 4, val = 2, dp = 7
-i = 5, j = 3, val = 3, dp = 7
-i = 5, j = 2, val = 4, dp = 7
-i = 5, j = 1, val = 5, dp = 7
-break
-i = 5, dp = 7
-====
-dd = 1
-i = 1, j = 1, val = 1, dp = 2
-break
-i = 1, dp = 2
-i = 2, j = 2, val = 1, dp = 2
-i = 2, j = 1, val = 1, dp = 2
-break
-i = 2, dp = 2
-dd = 2
-i = 2, j = 2, val = 1, dp = 3
-break
-i = 2, dp = 3
 
 */
