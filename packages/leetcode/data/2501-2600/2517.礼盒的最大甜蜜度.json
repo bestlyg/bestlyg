@@ -17,6 +17,30 @@
             "script": "cpp",
             "desc": "二分答案。",
             "code": "class Solution {\npublic:\n    int n, k;\n    vector<int> price;\n    int maximumTastiness(vector<int>& price, int k) {\n        sort(price.begin(), price.end());\n        n = price.size();\n        this->k = k;\n        this->price = price;\n        int l = 0, r = price[n - 1] - price[0], m;\n        while (l < r) {\n            m = (l + r + 1) / 2;\n            if (check(m)) l = m;\n            else r = m - 1;\n        }\n        return l;\n    }\n    bool check(int num) {\n        int cnt = 1, cur = price[0];\n        for (int i = 1; i < n; i++) {\n            if (cur + num <= price[i]) {\n                cnt++;\n                cur = price[i];\n            }\n        }\n        return cnt >= k;\n    }\n};"
+        },
+        {
+            "script": "cpp",
+            "time": 212,
+            "memory": 47.3,
+            "desc": "二分答案，尽可能找差超过target的数量。",
+            "code": "class Solution {\npublic:\n    int maximumTastiness(vector<int>& price, int k) {\n        sort(price.begin(), price.end());\n        int n = price.size(), l = 0, r = price[n - 1] - price[0];\n        while (l < r) {\n            int m = (l + r + 1) / 2, cnt = 1, prev = price[0];\n            for (int i = 1; i < n; i++) {\n                if (price[i] - prev >= m) cnt++, prev = price[i];\n            }\n            if (cnt < k) r = m - 1;\n            else l = m;\n        }\n        return l;\n    }\n};",
+            "date": 1685548800000
+        },
+        {
+            "script": "python3",
+            "time": 996,
+            "memory": 27.5,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maximumTastiness(self, price: List[int], k: int) -> int:\n        price.sort()\n        n = len(price)\n        l = 0\n        r = price[n-1]-price[0]\n        while l < r:\n            m = (l+r+1)//2\n            cnt = 1\n            prev = price[0]\n            for i in range(1, n):\n                if price[i] - prev >= m:\n                    cnt += 1\n                    prev = price[i]\n            if cnt < k:\n                r = m-1\n            else:\n                l = m\n        return l",
+            "date": 1685548800000
+        },
+        {
+            "script": "rust",
+            "time": 44,
+            "memory": 3.9,
+            "desc": "同上。",
+            "code": "impl Solution {\npub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {\n    price.sort();\n    let n = price.len();\n    let mut l = 0;\n    let mut r = price[n - 1] - price[0];\n    while l < r {\n        let m = (l + r + 1) / 2;\n        let mut cnt = 1;\n        let mut prev = price[0];\n        for i in 1..n {\n            if price[i] - prev >= m {\n                cnt += 1;\n                prev = price[i];\n            }\n        }\n        if cnt < k {\n            r = m - 1;\n        } else {\n            l = m\n        }\n    }\n    l\n}\n}",
+            "date": 1685548800000
         }
     ]
 }

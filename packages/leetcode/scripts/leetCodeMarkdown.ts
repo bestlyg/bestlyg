@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1130. 叶值的最小代价生成树',
-    url: 'https://leetcode.cn/problems/minimum-cost-tree-from-leaf-values/',
+    exist: true,
+    name: '2517. 礼盒的最大甜蜜度',
+    url: 'https://leetcode.cn/problems/maximum-tastiness-of-candy-basket/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `在所有这样的二叉树中，返回每个非叶节点的值的最小可能总和。`,
+    desc: `给你一个正整数数组 price ，其中 price[i] 表示第 i 类糖果的价格，另给你一个正整数 k 。商店组合 k 类 不同 糖果打包成礼盒出售。礼盒的 甜蜜度 是礼盒中任意两种糖果 价格 绝对差的最小值。返回礼盒的 最大 甜蜜度。`,
     solutions: [
         //     {
         //       script: Script.TS,
@@ -19,86 +19,80 @@ const leetCodeMarkdown: Markdown = {
         //     },
         {
             script: Script.CPP,
-            time:48,
-            memory: 11.6,
-            desc: '树形dp，对一个区间去获取他的最大值和最小和',
-            code: `#define pii pair<int, int>
-#define X first
-#define Y second
-class Solution {
+            time:212,
+            memory: 47.3,
+            desc: '二分答案，尽可能找差超过target的数量',
+            code: `class Solution {
 public:
-    unordered_map<int, unordered_map<int, pii>> m;
-    pii dfs(vector<int> &arr, int l, int r) {
-        if (m[l].count(r)) return m[l][r];
-        if (l == r) return m[l][r] = make_pair(arr[l], 0);
-        pii res = make_pair(arr[r], INT_MAX);
-        for (int i = l; i < r; i++) {
-            res.X = max(res.X, arr[i]);
-            auto left = dfs(arr, l, i), right = dfs(arr, i + 1, r);
-            int sum = left.X * right.X + left.Y + right.Y;
-            res.Y = min(res.Y, sum);
+    int maximumTastiness(vector<int>& price, int k) {
+        sort(price.begin(), price.end());
+        int n = price.size(), l = 0, r = price[n - 1] - price[0];
+        while (l < r) {
+            int m = (l + r + 1) / 2, cnt = 1, prev = price[0];
+            for (int i = 1; i < n; i++) {
+                if (price[i] - prev >= m) cnt++, prev = price[i];
+            }
+            if (cnt < k) r = m - 1;
+            else l = m;
         }
-        return m[l][r] = res;
-    }
-    int mctFromLeafValues(vector<int>& arr) {
-        return dfs(arr, 0, arr.size() - 1).Y;
+        return l;
     }
 };`,
         },
         {
             script: Script.PY3,
-            time: 152,
-            memory: 17.1,
+            time: 996,
+            memory: 27.5,
             desc: '同上',
             code: `class Solution:
-    def mctFromLeafValues(self, arr: List[int]) -> int:
-        @cache
-        def dfs(l: int, r: int) -> List[int]:
-            if l == r: return [arr[l],0]
-            res = [arr[r], inf]
-            for i in range(l,r):
-                res[0] = max(res[0], arr[i])
-                left,right = dfs(l,i),dfs(i+1,r)
-                sum = left[0] * right[0] + left[1] + right[1]
-                res[1] = min(res[1], sum)
-            return res
-        return dfs(0, len(arr) - 1)[1]`,
+    def maximumTastiness(self, price: List[int], k: int) -> int:
+        price.sort()
+        n = len(price)
+        l = 0
+        r = price[n-1]-price[0]
+        while l < r:
+            m = (l+r+1)//2
+            cnt = 1
+            prev = price[0]
+            for i in range(1, n):
+                if price[i] - prev >= m:
+                    cnt += 1
+                    prev = price[i]
+            if cnt < k:
+                r = m-1
+            else:
+                l = m
+        return l`,
         },
         {
             script: Script.RUST,
-            time: 48,
-            memory: 2,
+            time: 44,
+            memory: 3.9,
             desc: '同上',
-            code: `use std::collections::HashMap;
-fn dfs(
-    m: &mut HashMap<usize, HashMap<usize, (i32, i32)>>,
-    arr: &Vec<i32>,
-    l: usize,
-    r: usize,
-) -> (i32, i32) {
-    if m.entry(l).or_insert(Default::default()).contains_key(&r) {
-        *m.get(&l).unwrap().get(&r).unwrap()
-    } else if l == r {
-        let res = (arr[l], 0);
-        (*m.get_mut(&l).unwrap()).insert(r, res);
-        res
-    } else {
-        let mut res = (arr[r], i32::MAX);
-        for i in l..r {
-            res.0 = res.0.max(arr[i]);
-            let (left, right) = (dfs(m, arr, l, i), dfs(m, arr, i + 1, r));
-            let sum = left.0 * right.0 + left.1 + right.1;
-            res.1 = res.1.min(sum);
+            code: `impl Solution {
+pub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {
+    price.sort();
+    let n = price.len();
+    let mut l = 0;
+    let mut r = price[n - 1] - price[0];
+    while l < r {
+        let m = (l + r + 1) / 2;
+        let mut cnt = 1;
+        let mut prev = price[0];
+        for i in 1..n {
+            if price[i] - prev >= m {
+                cnt += 1;
+                prev = price[i];
+            }
         }
-        (*m.get_mut(&l).unwrap()).insert(r, res);
-        res
+        if cnt < k {
+            r = m - 1;
+        } else {
+            l = m
+        }
     }
+    l
 }
-impl Solution {
-    pub fn mct_from_leaf_values(arr: Vec<i32>) -> i32 {
-        let mut m = HashMap::<usize, HashMap<usize, (i32, i32)>>::new();
-        dfs(&mut m, &arr, 0, arr.len() - 1).1
-    }
 }`,
         },
     ],
