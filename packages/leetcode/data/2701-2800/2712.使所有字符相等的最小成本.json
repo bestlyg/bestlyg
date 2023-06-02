@@ -3,7 +3,11 @@
     "name": "2712.使所有字符相等的最小成本",
     "url": "https://leetcode.cn/problems/minimum-cost-to-make-all-characters-equal",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "字符串",
+        "动态规划"
+    ],
     "desc": "返回使字符串内所有字符 相等 需要的 最小成本 。",
     "solutions": [
         {

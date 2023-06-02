@@ -3,7 +3,11 @@
     "name": "2711.对角线上不同值的数量差",
     "url": "hthttps://leetcode.cn/problems/difference-of-number-of-distinct-values-on-diagonals",
     "difficulty": "中等",
-    "tag": [],
+    "tag": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
     "desc": "给你一个下标从 0 开始、大小为 m x n 的二维矩阵 grid ，请你求解大小同样为 m x n 的答案矩阵 answer 。",
     "solutions": [
         {

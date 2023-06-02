@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '2517. 礼盒的最大甜蜜度',
+    name: '2559. 统计范围内的元音字符串数',
     url: 'https://leetcode.cn/problems/maximum-tastiness-of-candy-basket/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,82 +19,77 @@ const leetCodeMarkdown: Markdown = {
         //     },
         {
             script: Script.CPP,
-            time:212,
-            memory: 47.3,
-            desc: '二分答案，尽可能找差超过target的数量',
+            time: 148,
+            memory: 63.1,
+            desc: '前缀和',
             code: `class Solution {
 public:
-    int maximumTastiness(vector<int>& price, int k) {
-        sort(price.begin(), price.end());
-        int n = price.size(), l = 0, r = price[n - 1] - price[0];
-        while (l < r) {
-            int m = (l + r + 1) / 2, cnt = 1, prev = price[0];
-            for (int i = 1; i < n; i++) {
-                if (price[i] - prev >= m) cnt++, prev = price[i];
-            }
-            if (cnt < k) r = m - 1;
-            else l = m;
-        }
-        return l;
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+        unordered_set<char> s{ 'a', 'e', 'i', 'o', 'u'};
+        vector<int> sums(1, 0);
+        for (auto &w : words) sums.push_back(sums.back() + (s.count(w[0]) && s.count(w.back()) ? 1 : 0));
+        vector<int> res;
+        for (auto &q : queries) res.push_back(sums[q[1] + 1] - sums[q[0]]);
+        return res;
     }
 };`,
         },
-        {
-            script: Script.PY3,
-            time: 996,
-            memory: 27.5,
-            desc: '同上',
-            code: `class Solution:
-    def maximumTastiness(self, price: List[int], k: int) -> int:
-        price.sort()
-        n = len(price)
-        l = 0
-        r = price[n-1]-price[0]
-        while l < r:
-            m = (l+r+1)//2
-            cnt = 1
-            prev = price[0]
-            for i in range(1, n):
-                if price[i] - prev >= m:
-                    cnt += 1
-                    prev = price[i]
-            if cnt < k:
-                r = m-1
-            else:
-                l = m
-        return l`,
-        },
-        {
-            script: Script.RUST,
-            time: 44,
-            memory: 3.9,
-            desc: '同上',
-            code: `impl Solution {
-pub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {
-    price.sort();
-    let n = price.len();
-    let mut l = 0;
-    let mut r = price[n - 1] - price[0];
-    while l < r {
-        let m = (l + r + 1) / 2;
-        let mut cnt = 1;
-        let mut prev = price[0];
-        for i in 1..n {
-            if price[i] - prev >= m {
-                cnt += 1;
-                prev = price[i];
-            }
-        }
-        if cnt < k {
-            r = m - 1;
-        } else {
-            l = m
-        }
-    }
-    l
-}
-}`,
-        },
+        //         {
+        //             script: Script.PY3,
+        //             time: 996,
+        //             memory: 27.5,
+        //             desc: '同上',
+        //             code: `class Solution:
+        //     def maximumTastiness(self, price: List[int], k: int) -> int:
+        //         price.sort()
+        //         n = len(price)
+        //         l = 0
+        //         r = price[n-1]-price[0]
+        //         while l < r:
+        //             m = (l+r+1)//2
+        //             cnt = 1
+        //             prev = price[0]
+        //             for i in range(1, n):
+        //                 if price[i] - prev >= m:
+        //                     cnt += 1
+        //                     prev = price[i]
+        //             if cnt < k:
+        //                 r = m-1
+        //             else:
+        //                 l = m
+        //         return l`,
+        //         },
+        //         {
+        //             script: Script.RUST,
+        //             time: 44,
+        //             memory: 3.9,
+        //             desc: '同上',
+        //             code: `impl Solution {
+        // pub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {
+        //     price.sort();
+        //     let n = price.len();
+        //     let mut l = 0;
+        //     let mut r = price[n - 1] - price[0];
+        //     while l < r {
+        //         let m = (l + r + 1) / 2;
+        //         let mut cnt = 1;
+        //         let mut prev = price[0];
+        //         for i in 1..n {
+        //             if price[i] - prev >= m {
+        //                 cnt += 1;
+        //                 prev = price[i];
+        //             }
+        //         }
+        //         if cnt < k {
+        //             r = m - 1;
+        //         } else {
+        //             l = m
+        //         }
+        //     }
+        //     l
+        // }
+        // }`,
+        //         },
     ],
 };
 
