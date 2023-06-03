@@ -13,27 +13,37 @@ fn main() {
 }
 
 impl Solution {
-    pub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {
-        price.sort();
-        let n = price.len();
-        let mut l = 0;
-        let mut r = price[n - 1] - price[0];
-        while l < r {
-            let m = (l + r + 1) / 2;
-            let mut cnt = 1;
-            let mut prev = price[0];
-            for i in 1..n {
-                if price[i] - prev >= m {
-                    cnt += 1;
-                    prev = price[i];
+    pub fn max_rep_opt1(text: String) -> i32 {
+        let text = str_to_vec(&text);
+        let mut m = vec![vec![]; 26];
+        let mut res = 0;
+        let mut n = text.len();
+        {
+            let mut i = 0;
+            while i < n {
+                let start = i;
+                while i + 1 < n && text[i + 1] == text[start] {
+                    i += 1;
                 }
-            }
-            if cnt < k {
-                r = m - 1;
-            } else {
-                l = m
+                m[text[start] as usize - 'a' as usize].push((start, i));
+                res = res.max(i - start + 1);
             }
         }
-        l
+        for list in m {
+            let n = list.len();
+            for i in 0..n {
+                if n != 1 {
+                    res = res.max(list[i].1 - list[i].0 + 2);
+                }
+                if i + 1 < n && list[i].1 + 1 == list[i + 1].0 - 1 {
+                    let mut val = list[i].1 - list[i].0 + 1 + list[i + 1].1 - list[i + 1].0 + 1;
+                    if !(i == 0 && i + 2 == n) {
+                        val += 1;
+                    }
+                    res = res.max(val);
+                }
+            }
+        }
+        res as i32
     }
 }

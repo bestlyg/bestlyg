@@ -53,11 +53,19 @@ async function sum(...data) {
 */
 
 var a = 1;
+debugger;
 console.log(a);
 {
-    console.log(a);
-    a = 13;
+    a = 10;
     function a() {}
-    console.log(a);
 }
 console.log(a);
+// ====
+var a = 1; 
+console.log(a); 
+function b() { 
+    a = 10; 
+    function a() {} 
+} 
+b(); 
+console.log(a); 
