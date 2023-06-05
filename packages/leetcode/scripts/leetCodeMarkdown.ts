@@ -2,33 +2,30 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2460. 对数组执行操作',
-    url: 'https://leetcode.cn/problems/apply-operations-to-an-array/',
+    exist: !true,
+    name: '2705. 精简对象',
+    url: 'https://leetcode.cn/problems/compact-object/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的数组 nums ，数组大小为 n ，且由 非负 整数组成。返回结果数组。`,
+    desc: `现给定一个对象或数组 obj，返回一个 精简对象 。精简对象 与原始对象相同，只是将包含 假 值的键移除。该操作适用于对象及其嵌套对象。数组被视为索引作为键的对象。当 Boolean(value) 返回 false 时，值被视为 假 值。`,
     solutions: [
         {
             script: Script.TS,
-            time: 0,
-            memory: 8.6,
-            desc: '遍历',
-            code: `class Solution {
-public:
-    vector<int> applyOperations(vector<int>& nums) {
-        int n = nums.size(), start = 0;
-        for (int i = 0; i < n - 1; i++) {
-            if (nums[i] == nums[i + 1]) {
-                nums[i] *= 2;
-                nums[i + 1] = 0;
-            }
-            if (nums[i] != 0) nums[start++] = nums[i];
+            time: 156,
+            memory: 69,
+            desc: '对于每个是对象的value，进行dfs',
+            code: `type Obj = Record<any, any>;
+
+function compactObject(obj: Obj): Obj {
+    const res: any = Array.isArray(obj) ? [] : {};
+    for (const [k, v] of Object.entries(obj)) {
+        if (Boolean(v)) {
+            const newv = typeof v === 'object' ? compactObject(v) : v;
+            if (Array.isArray(obj)) res.push(newv);
+            else res[k] = newv;
         }
-        if (nums[n - 1]) nums[start++] = nums[n - 1];
-        while (start < n) nums[start++] = 0;
-        return nums;
     }
+    return res;
 };`,
         },
         // {
