@@ -1,0 +1,17 @@
+{
+    "name": "2465.不同的平均值数目",
+    "url": "https://leetcode.cn/problems/number-of-distinct-averages/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始长度为 偶数 的整数数组 nums 。返回上述过程能得到的 不同 平均值的数目。",
+    "solutions": [
+        {
+            "script": "typescript",
+            "time": 0,
+            "memory": 6.8,
+            "desc": "排序后双指针遍历。",
+            "code": "class Solution {\npublic:\n    int distinctAverages(vector<int>& nums) {\n        unordered_set<double> s;\n        sort(nums.begin(), nums.end());\n        int l = 0, r = nums.size() - 1;\n        while (l < r) s.insert((nums[l++] + nums[r--]) * 1.0 / 2);\n        return s.size();\n    }\n};",
+            "date": 1685894400000
+        }
+    ]
+}
