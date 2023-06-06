@@ -13,37 +13,26 @@ fn main() {
 }
 
 impl Solution {
-    pub fn max_rep_opt1(text: String) -> i32 {
-        let text = str_to_vec(&text);
-        let mut m = vec![vec![]; 26];
+    pub fn equal_pairs(grid: Vec<Vec<i32>>) -> i32 {
+        let mut rows = std::collections::HashMap::<String, i32>::new();
         let mut res = 0;
-        let mut n = text.len();
-        {
-            let mut i = 0;
-            while i < n {
-                let start = i;
-                while i + 1 < n && text[i + 1] == text[start] {
-                    i += 1;
-                }
-                m[text[start] as usize - 'a' as usize].push((start, i));
-                res = res.max(i - start + 1);
+        let n = grid.len();
+        for i in 0..n {
+            let mut key = String::new();
+            for j in 0..n {
+                key.push_str(&format!("{}", grid[i][j]));
+                key.push(',');
             }
+            *rows.entry(key).or_insert(0) += 1;
         }
-        for list in m {
-            let n = list.len();
+        for j in 0..n {
+            let mut key = String::new();
             for i in 0..n {
-                if n != 1 {
-                    res = res.max(list[i].1 - list[i].0 + 2);
-                }
-                if i + 1 < n && list[i].1 + 1 == list[i + 1].0 - 1 {
-                    let mut val = list[i].1 - list[i].0 + 1 + list[i + 1].1 - list[i + 1].0 + 1;
-                    if !(i == 0 && i + 2 == n) {
-                        val += 1;
-                    }
-                    res = res.max(val);
-                }
+                key.push_str(&format!("{}", grid[i][j]));
+                key.push(',');
             }
+            res += *rows.entry(key).or_insert(0);
         }
-        res as i32
+        res
     }
 }
