@@ -34,6 +34,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn mice_and_cheese(reward1: Vec<i32>, reward2: Vec<i32>, mut k: i32) -> i32 {\n        let n = reward1.len();\n        let mut list: Vec<(i32, i32)> = vec![];\n        for i in 0..n {\n            list.push((reward1[i], reward2[i]));\n        }\n        list.sort_by_key(|v| (*v).1 - (*v).0);\n        let mut res = 0;\n        let mut i = 0;\n        while k != 0 {\n            res += list[i].0;\n            i += 1;\n            k -= 1;\n        }\n        while i < n {\n            res += list[i].1;\n            i += 1;\n        }\n        res\n    }\n}",
             "date": 1680364800000
+        },
+        {
+            "script": "cpp",
+            "time": 312,
+            "memory": 103.5,
+            "desc": "哈希存储。",
+            "code": "#define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });\nclass Solution {\npublic:\n    int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {\n        int n = reward1.size(), res = 0;\n        vector<int> idxs;\n        for (int i = 0; i < n; i++) idxs.push_back(i);\n        SORT(idxs, { return reward1[v1] - reward2[v1] < reward1[v2] - reward2[v2]; });\n        for (int i = 0; i < n - k; i++) res += reward2[idxs[i]];\n        for (int i = n - k; i < n; i++) res += reward1[idxs[i]];\n        return res;\n    }\n};",
+            "date": 1686067200000
         }
     ]
 }

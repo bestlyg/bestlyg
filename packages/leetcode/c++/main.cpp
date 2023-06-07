@@ -17,6 +17,7 @@
 #define lb(x) ((x) & (-x))
 #define mem(a, b) memset(a, b, sizeof(a))
 #define debug freopen("input", "r", stdin)
+#define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });
 
 #ifdef DEBUG
 #define log(frm, args...) \
@@ -124,34 +125,6 @@ vector<int> get_sums(vector<int> &arr) {
     return sums;
 }
 // START
-
-
-#define pii pair<int, int>
-#define X first
-#define Y second
-class Solution {
-public:
-    int mctFromLeafValues(vector<int>& arr) {
-        cout << "==========mctFromLeafValues" << endl;
-        return dfs(arr, 0, arr.size() - 1).Y;
-    }
-    pii dfs(vector<int> &arr, int l, int r) {
-        if (l == r) return make_pair(arr[l], 0);
-        if (l + 1 == r) return make_pair(max(arr[l], arr[r]), arr[l] * arr[r]);
-        pii res = make_pair(arr[l], INT_MAX);
-        for (int i = l; i < r; i++) {
-            res.X = max(res.X, arr[i]);
-            auto left = dfs(arr, 0, i), right = dfs(arr, i + 1, r);
-            // cout << "l = " << l << ", r = " << r << ", i = " << i << ", left = (" << 
-            // printf("l = %d, r = %d, i = %d, left = (%d, %d), right = (%d, %d)\n", l, r, i, left.X, left.Y, right.X, right.Y);
-            int sum = left.X * right.X + left.Y + right.Y;
-            if (sum < res.Y) {
-                res.Y = sum;
-            }
-        }
-        return res;
-    }
-};
 
 
 // END

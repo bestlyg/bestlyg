@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2352. 相等行列对',
+    exist: true,
+    name: '2611. 老鼠和奶酪',
     url: 'https://leetcode.cn/problems/equal-row-and-column-pairs/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -30,24 +30,19 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 224,
-            memory: 43,
+            time: 312,
+            memory: 103.5,
             desc: '哈希存储',
-            code: `class Solution {
+            code: `#define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });
+class Solution {
 public:
-    int equalPairs(vector<vector<int>>& grid) {
-        unordered_map<string, int> rows;
-        int res = 0, n = grid.size();
-        for (int i = 0; i < n; i++) {
-            string key = "";
-            for (int j = 0; j < n; j++) key += to_string(grid[i][j]) + ",";
-            rows[key]++;
-        }
-        for (int j = 0; j < n; j++) {
-            string key = "";
-            for (int i = 0; i < n; i++) key += to_string(grid[i][j]) + ",";
-            res += rows[key];
-        }
+    int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {
+        int n = reward1.size(), res = 0;
+        vector<int> idxs;
+        for (int i = 0; i < n; i++) idxs.push_back(i);
+        SORT(idxs, { return reward1[v1] - reward2[v1] < reward1[v2] - reward2[v2]; });
+        for (int i = 0; i < n - k; i++) res += reward2[idxs[i]];
+        for (int i = n - k; i < n; i++) res += reward1[idxs[i]];
         return res;
     }
 };`,
@@ -57,52 +52,14 @@ public:
             time: 212,
             memory: 20.6,
             desc: '同上',
-            code: `class Solution:
-    def equalPairs(self, grid: List[List[int]]) -> int:
-        rows = Counter()
-        res = 0
-        n = len(grid)
-        for i in range(n):
-            key = ""
-            for j in range(n):
-                key += str(grid[i][j]) + ","
-            rows[key] += 1
-        for j in range(n):
-            key = ""
-            for i in range(n):
-                key += str(grid[i][j]) + ","
-            res += rows[key]
-        return res`,
+            code: ``,
         },
         {
             script: Script.RUST,
             time: 44,
             memory: 3,
             desc: '同上',
-            code: `impl Solution {
-pub fn equal_pairs(grid: Vec<Vec<i32>>) -> i32 {
-    let mut rows = std::collections::HashMap::<String, i32>::new();
-    let mut res = 0;
-    let n = grid.len();
-    for i in 0..n {
-        let mut key = String::new();
-        for j in 0..n {
-            key.push_str(&format!("{}", grid[i][j]));
-            key.push(',');
-        }
-        *rows.entry(key).or_insert(0) += 1;
-    }
-    for j in 0..n {
-        let mut key = String::new();
-        for i in 0..n {
-            key.push_str(&format!("{}", grid[i][j]));
-            key.push(',');
-        }
-        res += *rows.entry(key).or_insert(0);
-    }
-    res
-}
-}`,
+            code: ``,
         },
     ],
 };
