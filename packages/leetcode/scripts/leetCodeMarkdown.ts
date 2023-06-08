@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2611. 老鼠和奶酪',
-    url: 'https://leetcode.cn/problems/equal-row-and-column-pairs/',
+    exist: !true,
+    name: '1240. 铺瓷砖',
+    url: 'https://leetcode.cn/problems/tiling-a-rectangle-with-the-fewest-squares/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始、大小为 n x n 的整数矩阵 grid ，返回满足 Ri 行和 Cj 列相等的行列对 (Ri, Cj) 的数目。`,
+    desc: `房子的客厅大小为 n x m，为保持极简的风格，需要使用尽可能少的 正方形 瓷砖来铺盖地面。假设正方形瓷砖的规格不限，边长都是整数。请你帮设计师计算一下，最少需要用到多少块方形瓷砖？`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,37 +30,51 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 312,
-            memory: 103.5,
-            desc: '哈希存储',
-            code: `#define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });
-class Solution {
+            time: 8,
+            memory: 6,
+            desc: 'dfs，储存已经遍历过的点',
+            code: `class Solution {
 public:
-    int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {
-        int n = reward1.size(), res = 0;
-        vector<int> idxs;
-        for (int i = 0; i < n; i++) idxs.push_back(i);
-        SORT(idxs, { return reward1[v1] - reward2[v1] < reward1[v2] - reward2[v2]; });
-        for (int i = 0; i < n - k; i++) res += reward2[idxs[i]];
-        for (int i = n - k; i < n; i++) res += reward1[idxs[i]];
+    int tilingRectangle(int n, int m) {
+        int res = INT_MAX, list[20] = {0};
+        function<void(int, int, int)> dfs = [&](int i, int j, int cnt) {
+            if (i == n) {
+                res = min(res, cnt);
+            } else if (j == m) {
+                dfs(i + 1, 0, cnt);
+            } else if (list[i] & (1 << j)) {
+                dfs(i, j + 1, cnt);
+            } else if (cnt < res) {
+                int ncnt = 0, mcnt = 0;
+                for (int p = i; p < n && !(list[p] & (1 << j)); p++) ncnt++;
+                for (int p = j; p < m && !(list[i] & (1 << p)); p++) mcnt++;
+                int nmcnt = min(ncnt, mcnt);
+                for (int ccnt = nmcnt; ccnt >= 1; ccnt--) {
+                    for (int p = i; p < i + ccnt; p++) list[p] |= (((1 << ccnt) - 1) << j);
+                    dfs(i, j + ccnt, cnt + 1);
+                    for (int p = i; p < i + ccnt; p++) list[p] &= ~(((1 << ccnt) - 1) << j);
+                }
+            }
+        };
+        dfs(0, 0, 0);
         return res;
     }
 };`,
         },
-        {
-            script: Script.PY3,
-            time: 212,
-            memory: 20.6,
-            desc: '同上',
-            code: ``,
-        },
-        {
-            script: Script.RUST,
-            time: 44,
-            memory: 3,
-            desc: '同上',
-            code: ``,
-        },
+        // {
+        //     script: Script.PY3,
+        //     time: 212,
+        //     memory: 20.6,
+        //     desc: '同上',
+        //     code: ``,
+        // },
+        // {
+        //     script: Script.RUST,
+        //     time: 44,
+        //     memory: 3,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 

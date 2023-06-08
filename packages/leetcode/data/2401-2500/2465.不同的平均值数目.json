@@ -1,8 +1,14 @@
 {
+    "id": "2561",
     "name": "2465.不同的平均值数目",
-    "url": "https://leetcode.cn/problems/number-of-distinct-averages/",
+    "url": "https://leetcode.cn/problems/number-of-distinct-averages",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "排序"
+    ],
     "desc": "给你一个下标从 0 开始长度为 偶数 的整数数组 nums 。返回上述过程能得到的 不同 平均值的数目。",
     "solutions": [
         {

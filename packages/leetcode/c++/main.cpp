@@ -126,6 +126,38 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
+class Solution {
+public:
+    int tilingRectangle(int n, int m) {
+        int res = INT_MAX, list[13] = {0};
+        function<void(int, int, int)> dfs = [&](int i, int j, int cnt) {
+            // cout << "==\ni = " << i << ", j = " << j << ", cnt = " << cnt << ", used = " << used.get(i, j) << ", full = " << used.full() << endl;
+            if (i == n) {
+                res = min(res, cnt);
+            } else if (j == m) {
+                dfs(i + 1, 0, cnt);
+            } else if (list[i] & (1 << j)) {
+                dfs(i, j + 1, cnt);
+            } else {
+                int ncnt = 0, mcnt = 0;
+                for (int p = i; p < n && !(list[p] & (1 << j)); p++) ncnt++;
+                for (int p = j; p < m && !(list[i] & (1 << p)); p++) mcnt++;
+                int nmcnt = min(ncnt, mcnt);
+                for (int ccnt = nmcnt; ccnt >= 1; ccnt--) {
+                    for (int p = i; p < i + ccnt; p++) {
+                        list[i] |= (((1 << ccnt) - 1) << j);
+                    }
+                    dfs(i, j + ccnt, cnt + 1);
+                    for (int p = i; p < i + ccnt; p++) {
+                        list[i] &= ~(((1 << ccnt) - 1) << j);
+                    }
+                }
+            }
+        };
+        dfs(0, 0, 0);
+        return res;
+    }
+};
 
 // END
 #ifdef LOCAL
