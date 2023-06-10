@@ -1,0 +1,25 @@
+{
+    "name": "1170.比较字符串最小字母出现频次",
+    "url": "https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "定义一个函数 f(s)，统计 s  中（按字典序比较）最小字母的出现频次 ，其中 s 是一个非空字符串。请你返回一个整数数组 answer 作为答案，其中每个 answer[i] 是第 i 次查询的结果。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 11.4,
+            "desc": "排序后二分查找。",
+            "code": "class Solution {\npublic:\n    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {\n        vector<int> ws;\n        for (auto &w : words) ws.push_back(f(w));\n        sort(ws.begin(), ws.end());\n        vector<int> res;\n        for (auto &q : queries) {\n            int target = f(q), l = 0, r = words.size();\n            while (l < r) {\n                int m = (l + r) / 2;\n                if (target < ws[m]) r = m;\n                else l = m + 1;\n            }\n            res.push_back(words.size() - l);\n        }\n        return res;\n    }\n    int f(string &w) {\n        int cnt = 0;\n        char ch = 'z';\n        for (auto &c : w) {\n            if (c < ch) ch = c, cnt = 1;\n            else if (c == ch) cnt++;\n        }\n        return cnt;\n    }\n};",
+            "date": 1686326400000
+        },
+        {
+            "script": "python3",
+            "time": 56,
+            "memory": 16.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:\n        def f(w: str):\n            cnt = 0\n            ch = ord('z')\n            for c in w:\n                if ord(c) < ch:\n                    ch = ord(c)\n                    cnt = 1\n                elif ord(c) == ch:\n                    cnt += 1\n            return cnt\n        ws = [f(w) for w in words]\n        ws.sort()\n\n        def query(q: str):\n            target = f(q)\n            l = 0\n            r = len(words)\n            while l < r:\n                m = (l + r)//2\n                if target < ws[m]:\n                    r = m\n                else:\n                    l = m + 1\n            return len(words) - l\n\n        return [query(q) for q in queries]",
+            "date": 1686326400000
+        }
+    ]
+}
