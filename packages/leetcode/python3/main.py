@@ -2,35 +2,32 @@ from preclude import *
 
 
 class Solution:
-    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
-        def f(w: str):
-            cnt = 0
-            ch = ord('z')
-            for c in w:
-                if ord(c) < ch:
-                    ch = c
-                    cnt = 1
-                elif ord(c) == ch:
-                    cnt += 1
-            return cnt
-        ws = [f(w) for w in words]
-        ws.sort()
-
-        def query(q: str):
-            target = f(q)
-            l = 0
-            r = len(words)
-            while l < r:
-                m = (l + r)//2
-                if target < ws[m]:
-                    r = m
-                else:
-                    l = m + 1
-            return len(words) - l
-
-        return [
-            query(q) for q in queries
-        ]
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        h = ListNode()
+        h.next = head
+        sums = [1]
+        p = h
+        start = end = -1
+        find = False
+        while p.next and not find:
+            sum = p.next.val + sums[-1]
+            sums.append(sum)
+            for i in range(len(sums) - 1):
+                if sum - sums[i] == 0:
+                    start = i
+                    end = len(sums) - 1
+                    find = True
+                    break
+            p = p.next
+        if start == -1:
+            return h.next
+        p = h
+        for i in range(start):
+            p = p.next
+        while end-start > 0:
+            p.next = p.next.next
+            end -= 1
+        return self.removeZeroSumSublists(h.next)
 
 
 def main():

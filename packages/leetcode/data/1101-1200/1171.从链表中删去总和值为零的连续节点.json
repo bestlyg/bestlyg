@@ -1,0 +1,33 @@
+{
+    "name": "1171.从链表中删去总和值为零的连续节点",
+    "url": "https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个链表的头节点 head，请你编写代码，反复删去链表中由 总和 值为 0 的连续节点组成的序列，直到不存在这样的序列为止。删除完毕后，请你返回最终结果链表的头节点。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 40,
+            "memory": 12.1,
+            "desc": "前缀和存储，每次找最前面可以组合为0的节点，递归删除节点。",
+            "code": "class Solution {\npublic:\n    ListNode *h = new ListNode();\n    ListNode* removeZeroSumSublists(ListNode* head) {\n        h->next = head;\n        vector<int> sums(1, 0);\n        auto p = h;\n        int start = -1, end = -1;\n        bool find = false;\n        while (p->next && !find) {\n            int sum = p->next->val + sums.back();\n            sums.push_back(sum);\n            for (int i = 0; i < sums.size() - 1; i++) {\n                if (sum - sums[i] == 0) {\n                    start = i;\n                    end = sums.size() - 1;\n                    find = true;\n                    break;\n                }\n            }\n            p = p->next;\n        }\n        if (start == -1) return h->next;\n        p = h;\n        for (int i = 0; i < start; i++) p = p->next;\n        while (end - start > 0) p->next = p->next->next, end--;\n        return removeZeroSumSublists(h->next);\n    }\n};",
+            "date": 1686412800000
+        },
+        {
+            "script": "python3",
+            "time": 280,
+            "memory": 16.8,
+            "desc": "同上。",
+            "code": "class Solution:\n    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        h = ListNode()\n        h.next = head\n        sums = [1]\n        p = h\n        start = end = -1\n        find = False\n        while p.next and not find:\n            sum = p.next.val + sums[-1]\n            sums.append(sum)\n            for i in range(len(sums) - 1):\n                if sum - sums[i] == 0:\n                    start = i\n                    end = len(sums) - 1\n                    find = True\n                    break\n            p = p.next\n        if start == -1:\n            return h.next\n        p = h\n        for i in range(start):\n            p = p.next\n        while end-start > 0:\n            p.next = p.next.next\n            end -= 1\n        return self.removeZeroSumSublists(h.next)",
+            "date": 1686412800000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn remove_zero_sum_sublists(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut h = Box::new(ListNode::new(0));\n        h.next = head;\n        let mut sums = vec![1];\n        let mut p = &mut h;\n        let (mut start, mut end) = (usize::MAX, usize::MAX);\n        let mut find = false;\n        while p.next.is_some() && !find {\n            let next = p.next.as_mut().unwrap();\n            let sum = next.val + sums.last().unwrap();\n            sums.push(sum);\n            for i in 0..sums.len() - 1 {\n                if sum - sums[i] == 0 {\n                    start = i;\n                    end = sums.len() - 1;\n                    find = true;\n                    break;\n                }\n            }\n            p = next;\n        }\n        if start == usize::MAX {\n            h.next\n        } else {\n            p = &mut h;\n            for i in 0..start {\n                p = p.next.as_mut().unwrap();\n            }\n            while end - start > 0 {\n                let child = p.next.as_mut().unwrap().next.take();\n                p.next = child;\n                end -= 1;\n            }\n            Solution::remove_zero_sum_sublists(h.next)\n        }\n    }\n}",
+            "date": 1686412800000
+        }
+    ]
+}

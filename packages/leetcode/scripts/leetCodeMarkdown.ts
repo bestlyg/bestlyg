@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1170. 比较字符串最小字母出现频次',
-    url: 'https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/',
+    name: '1171. 从链表中删去总和值为零的连续节点',
+    url: 'https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `定义一个函数 f(s)，统计 s  中（按字典序比较）最小字母的出现频次 ，其中 s 是一个非空字符串。请你返回一个整数数组 answer 作为答案，其中每个 answer[i] 是第 i 次查询的结果。`,
+    desc: `给你一个链表的头节点 head，请你编写代码，反复删去链表中由 总和 值为 0 的连续节点组成的序列，直到不存在这样的序列为止。删除完毕后，请你返回最终结果链表的头节点。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,79 +30,116 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 8,
-            memory: 11.4,
-            desc: '排序后二分查找',
+            time: 40,
+            memory: 12.1,
+            desc: '前缀和存储，每次找最前面可以组合为0的节点，递归删除节点',
             code: `class Solution {
 public:
-    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
-        vector<int> ws;
-        for (auto &w : words) ws.push_back(f(w));
-        sort(ws.begin(), ws.end());
-        vector<int> res;
-        for (auto &q : queries) {
-            int target = f(q), l = 0, r = words.size();
-            while (l < r) {
-                int m = (l + r) / 2;
-                if (target < ws[m]) r = m;
-                else l = m + 1;
+    ListNode *h = new ListNode();
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        h->next = head;
+        vector<int> sums(1, 0);
+        auto p = h;
+        int start = -1, end = -1;
+        bool find = false;
+        while (p->next && !find) {
+            int sum = p->next->val + sums.back();
+            sums.push_back(sum);
+            for (int i = 0; i < sums.size() - 1; i++) {
+                if (sum - sums[i] == 0) {
+                    start = i;
+                    end = sums.size() - 1;
+                    find = true;
+                    break;
+                }
             }
-            res.push_back(words.size() - l);
+            p = p->next;
         }
-        return res;
-    }
-    int f(string &w) {
-        int cnt = 0;
-        char ch = 'z';
-        for (auto &c : w) {
-            if (c < ch) ch = c, cnt = 1;
-            else if (c == ch) cnt++;
-        }
-        return cnt;
+        if (start == -1) return h->next;
+        p = h;
+        for (int i = 0; i < start; i++) p = p->next;
+        while (end - start > 0) p->next = p->next->next, end--;
+        return removeZeroSumSublists(h->next);
     }
 };`,
         },
         {
             script: Script.PY3,
-            time: 56,
-            memory: 16.7,
+            time: 280,
+            memory: 16.8,
             desc: '同上',
             code: `class Solution:
-    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
-        def f(w: str):
-            cnt = 0
-            ch = ord('z')
-            for c in w:
-                if ord(c) < ch:
-                    ch = ord(c)
-                    cnt = 1
-                elif ord(c) == ch:
-                    cnt += 1
-            return cnt
-        ws = [f(w) for w in words]
-        ws.sort()
-
-        def query(q: str):
-            target = f(q)
-            l = 0
-            r = len(words)
-            while l < r:
-                m = (l + r)//2
-                if target < ws[m]:
-                    r = m
-                else:
-                    l = m + 1
-            return len(words) - l
-
-        return [query(q) for q in queries]`,
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        h = ListNode()
+        h.next = head
+        sums = [1]
+        p = h
+        start = end = -1
+        find = False
+        while p.next and not find:
+            sum = p.next.val + sums[-1]
+            sums.append(sum)
+            for i in range(len(sums) - 1):
+                if sum - sums[i] == 0:
+                    start = i
+                    end = len(sums) - 1
+                    find = True
+                    break
+            p = p.next
+        if start == -1:
+            return h.next
+        p = h
+        for i in range(start):
+            p = p.next
+        while end-start > 0:
+            p.next = p.next.next
+            end -= 1
+        return self.removeZeroSumSublists(h.next)`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 44,
-        //     memory: 3,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 8,
+            memory: 2,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn remove_zero_sum_sublists(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut h = Box::new(ListNode::new(0));
+        h.next = head;
+        let mut sums = vec![1];
+        let mut p = &mut h;
+        let (mut start, mut end) = (usize::MAX, usize::MAX);
+        let mut find = false;
+        while p.next.is_some() && !find {
+            let next = p.next.as_mut().unwrap();
+            let sum = next.val + sums.last().unwrap();
+            sums.push(sum);
+            for i in 0..sums.len() - 1 {
+                if sum - sums[i] == 0 {
+                    start = i;
+                    end = sums.len() - 1;
+                    find = true;
+                    break;
+                }
+            }
+            p = next;
+        }
+        if start == usize::MAX {
+            h.next
+        } else {
+            p = &mut h;
+            for i in 0..start {
+                p = p.next.as_mut().unwrap();
+            }
+            while end - start > 0 {
+                let child = p.next.as_mut().unwrap().next.take();
+                p.next = child;
+                end -= 1;
+            }
+            Solution::remove_zero_sum_sublists(h.next)
+        }
+    }
+}`,
+        },
     ],
 };
 
