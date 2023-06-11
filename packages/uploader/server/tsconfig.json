@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "CommonJS",
+        "types": ["node"],
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["./src/**/*.ts"]
+}
