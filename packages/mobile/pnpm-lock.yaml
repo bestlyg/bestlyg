@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@babel/runtime':
@@ -1170,15 +1174,16 @@ packages:
     dependencies:
       '@babel/core': 7.18.13
       '@babel/helper-plugin-utils': 7.18.9
+    dev: true
 
-  /@babel/plugin-syntax-flow@7.18.6(@babel/core@7.22.5):
-    resolution: {integrity: sha512-LUbR+KNTBWCUAqRG9ex5Gnzu2IOkt8jRJbHHXFT9q+L9zm7M/QQbEqXyw1n1pohYvOyWC8CjeyjrSaIwiYjK7A==}
+  /@babel/plugin-syntax-flow@7.22.5(@babel/core@7.18.13):
+    resolution: {integrity: sha512-9RdCl0i+q0QExayk2nOS7853w08yLucnnPML6EN9S8fgMPVtdLDCdx/cOQ/i44Lb9UeQX9A35yaqBBOMMZxPxQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.22.5
-      '@babel/helper-plugin-utils': 7.18.9
+      '@babel/core': 7.18.13
+      '@babel/helper-plugin-utils': 7.22.5
     dev: false
 
   /@babel/plugin-syntax-flow@7.22.5(@babel/core@7.22.5):
@@ -1545,16 +1550,17 @@ packages:
       '@babel/core': 7.18.13
       '@babel/helper-plugin-utils': 7.18.9
       '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.18.13)
+    dev: true
 
-  /@babel/plugin-transform-flow-strip-types@7.18.9(@babel/core@7.22.5):
-    resolution: {integrity: sha512-+G6rp2zRuOAInY5wcggsx4+QVao1qPM0osC9fTUVlAV3zOrzTCnrMAFVnR6+a3T8wz1wFIH7KhYMcMB3u1n80A==}
+  /@babel/plugin-transform-flow-strip-types@7.22.5(@babel/core@7.18.13):
+    resolution: {integrity: sha512-tujNbZdxdG0/54g/oua8ISToaXTFBf8EnSb5PgQSciIXWOWKX3S4+JR7ZE9ol8FZwf9kxitzkGQ+QWeov/mCiA==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/core': 7.22.5
-      '@babel/helper-plugin-utils': 7.18.9
-      '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.22.5)
+      '@babel/core': 7.18.13
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/plugin-syntax-flow': 7.22.5(@babel/core@7.18.13)
     dev: false
 
   /@babel/plugin-transform-flow-strip-types@7.22.5(@babel/core@7.22.5):
@@ -5516,7 +5522,7 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.18.13)
       '@babel/plugin-proposal-object-rest-spread': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.18.13)
-      '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.18.13)
+      '@babel/plugin-syntax-flow': 7.22.5(@babel/core@7.18.13)
       '@babel/plugin-syntax-jsx': 7.18.6(@babel/core@7.18.13)
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.18.13)
       '@babel/plugin-transform-arrow-functions': 7.18.6(@babel/core@7.18.13)
@@ -5525,7 +5531,7 @@ packages:
       '@babel/plugin-transform-classes': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-computed-properties': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-destructuring': 7.18.13(@babel/core@7.18.13)
-      '@babel/plugin-transform-flow-strip-types': 7.18.9(@babel/core@7.18.13)
+      '@babel/plugin-transform-flow-strip-types': 7.22.5(@babel/core@7.18.13)
       '@babel/plugin-transform-for-of': 7.18.8(@babel/core@7.18.13)
       '@babel/plugin-transform-function-name': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-literals': 7.18.9(@babel/core@7.18.13)
@@ -5553,7 +5559,7 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.22.5)
       '@babel/plugin-proposal-object-rest-spread': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.22.5)
-      '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.22.5)
+      '@babel/plugin-syntax-flow': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-syntax-jsx': 7.18.6(@babel/core@7.22.5)
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.22.5)
       '@babel/plugin-transform-arrow-functions': 7.18.6(@babel/core@7.22.5)
@@ -5562,7 +5568,7 @@ packages:
       '@babel/plugin-transform-classes': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-computed-properties': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-destructuring': 7.18.13(@babel/core@7.22.5)
-      '@babel/plugin-transform-flow-strip-types': 7.18.9(@babel/core@7.22.5)
+      '@babel/plugin-transform-flow-strip-types': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-for-of': 7.18.8(@babel/core@7.22.5)
       '@babel/plugin-transform-function-name': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-literals': 7.18.9(@babel/core@7.22.5)
@@ -5746,6 +5752,7 @@ packages:
 
   /bindings@1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
     dependencies:
       file-uri-to-path: 1.0.0
     dev: true
@@ -9110,6 +9117,7 @@ packages:
 
   /file-uri-to-path@1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -11063,7 +11071,7 @@ packages:
     resolution: {integrity: sha512-Kijeg9Dag6CKtIDA7O21zNTACqD5MD/8HfIV8pdD94vFyFuer52SigdC3IQMhab3vACxXMiFk+yMHNdbqtyTGA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@babel/code-frame': 7.18.6
+      '@babel/code-frame': 7.22.5
       '@jest/types': 29.5.0
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
@@ -12187,7 +12195,7 @@ packages:
       '@babel/plugin-proposal-optional-chaining': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.18.13)
       '@babel/plugin-syntax-export-default-from': 7.18.6(@babel/core@7.18.13)
-      '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.18.13)
+      '@babel/plugin-syntax-flow': 7.22.5(@babel/core@7.18.13)
       '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.18.13)
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.18.13)
       '@babel/plugin-transform-arrow-functions': 7.18.6(@babel/core@7.18.13)
@@ -12196,7 +12204,7 @@ packages:
       '@babel/plugin-transform-classes': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-computed-properties': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-destructuring': 7.18.13(@babel/core@7.18.13)
-      '@babel/plugin-transform-flow-strip-types': 7.18.9(@babel/core@7.18.13)
+      '@babel/plugin-transform-flow-strip-types': 7.22.5(@babel/core@7.18.13)
       '@babel/plugin-transform-function-name': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-literals': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-modules-commonjs': 7.18.6(@babel/core@7.18.13)
@@ -12213,7 +12221,7 @@ packages:
       '@babel/plugin-transform-template-literals': 7.18.9(@babel/core@7.18.13)
       '@babel/plugin-transform-typescript': 7.18.12(@babel/core@7.18.13)
       '@babel/plugin-transform-unicode-regex': 7.18.6(@babel/core@7.18.13)
-      '@babel/template': 7.18.10
+      '@babel/template': 7.22.5
       react-refresh: 0.4.3
     transitivePeerDependencies:
       - supports-color
@@ -12234,7 +12242,7 @@ packages:
       '@babel/plugin-proposal-optional-chaining': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.22.5)
       '@babel/plugin-syntax-export-default-from': 7.18.6(@babel/core@7.22.5)
-      '@babel/plugin-syntax-flow': 7.18.6(@babel/core@7.22.5)
+      '@babel/plugin-syntax-flow': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.22.5)
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.22.5)
       '@babel/plugin-transform-arrow-functions': 7.18.6(@babel/core@7.22.5)
@@ -12243,7 +12251,7 @@ packages:
       '@babel/plugin-transform-classes': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-computed-properties': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-destructuring': 7.18.13(@babel/core@7.22.5)
-      '@babel/plugin-transform-flow-strip-types': 7.18.9(@babel/core@7.22.5)
+      '@babel/plugin-transform-flow-strip-types': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-function-name': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-literals': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-modules-commonjs': 7.18.6(@babel/core@7.22.5)
@@ -12260,7 +12268,7 @@ packages:
       '@babel/plugin-transform-template-literals': 7.18.9(@babel/core@7.22.5)
       '@babel/plugin-transform-typescript': 7.18.12(@babel/core@7.22.5)
       '@babel/plugin-transform-unicode-regex': 7.18.6(@babel/core@7.22.5)
-      '@babel/template': 7.18.10
+      '@babel/template': 7.22.5
       react-refresh: 0.4.3
     transitivePeerDependencies:
       - supports-color
@@ -12747,6 +12755,7 @@ packages:
 
   /nan@2.16.0:
     resolution: {integrity: sha512-UdAqHyFngu7TfQKsCBgAA6pWDkT8MAO7d0jyOecVhN5354xbLqdn8mV9Tat9gepAupm0bt2DbeaSC8vS52MuFA==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -14736,7 +14745,7 @@ packages:
   /react-native-codegen@0.71.5(@babel/preset-env@7.18.10):
     resolution: {integrity: sha512-rfsuc0zkuUuMjFnrT55I1mDZ+pBRp2zAiRwxck3m6qeGJBGK5OV5JH66eDQ4aa+3m0of316CqrJDRzVlYufzIg==}
     dependencies:
-      '@babel/parser': 7.18.13
+      '@babel/parser': 7.22.5
       flow-parser: 0.185.2
       jscodeshift: 0.13.1(@babel/preset-env@7.18.10)
       nullthrows: 1.1.1
@@ -14861,7 +14870,7 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 18.2.0
-      react-is: 17.0.2
+      react-is: 18.2.0
     dev: false
 
   /react@18.2.0:
