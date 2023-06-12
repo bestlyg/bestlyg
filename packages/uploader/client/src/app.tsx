@@ -1,5 +1,5 @@
 import React from 'react';
-import FileV1 from './v1';
+import SingleFile from './single-file-uploader';
 
 export default function App() {
     return (
@@ -19,10 +19,10 @@ export default function App() {
                             });
                     }}
                 >
-                    health check1
+                    health check
                 </button>
             </div>
-            <FileV1 />
+            <SingleFile />
         </div>
     );
 }

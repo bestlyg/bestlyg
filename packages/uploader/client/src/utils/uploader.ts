@@ -42,33 +42,42 @@ export abstract class Uploader {
     }
 }
 export class SingleUploader extends Uploader {
-    finishedStores: Store[] = [];
-    workStore: Store | null = new Store();
+    store: Store | null = new Store();
     upload({ url, files, index = 0 }: UploadOptions & { index?: number }): Promise<Response> {
-        if (index === 0) {
-            this.finishedStores.length = 0;
-        }
-        if (index === files.length) {
-            this.workStore = null;
-            return Promise.resolve({});
-        }
-        const store = new Store();
-        store.append('file', files[index]);
-        this.workStore = store;
+        this.store.append('file', files[index]);
         return request({
             url,
             method: 'post',
-            body: store.toFormData(),
+            body: this.store.toFormData(),
             beforeSend: xhr => {
                 xhr.upload.onprogress = e => {
                     const data = { loaded: e.loaded, total: e.total };
                     this.onProgressSet.forEach(fn => fn(data));
                 };
             },
-        }).then(() => {
-            console.log('success,', files[index]);
-            this.finishedStores.push(store);
-            return this.upload({ url, files, index: index + 1 });
+        });
+    }
+}
+
+export abstract class SliceUploader extends Uploader {
+    window = 10;
+    total = 10;
+    sliceSize = 1024 * 1024 * 30;
+}
+export class SingleSliceUploader extends Uploader {
+    store: Store | null = new Store();
+    upload({ url, files, index = 0 }: UploadOptions & { index?: number }): Promise<Response> {
+        this.store.append('file', files[index]);
+        return request({
+            url,
+            method: 'post',
+            body: this.store.toFormData(),
+            beforeSend: xhr => {
+                xhr.upload.onprogress = e => {
+                    const data = { loaded: e.loaded, total: e.total };
+                    this.onProgressSet.forEach(fn => fn(data));
+                };
+            },
         });
     }
 }
