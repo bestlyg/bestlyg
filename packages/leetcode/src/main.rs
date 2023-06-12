@@ -12,41 +12,48 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-impl Solution {
-    pub fn remove_zero_sum_sublists(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let tmp = head.clone();
-        let mut h = Box::new(ListNode::new(0));
-        h.next = head;
-        let mut sums = vec![1];
-        let mut p = &mut h;
-        let (mut start, mut end) = (usize::MAX, usize::MAX);
-        let mut find = false;
-        while p.next.is_some() && !find {
-            let next = p.next.as_mut().unwrap();
-            let sum = next.val + sums.last().unwrap();
-            for i in 0..sums.len() - 1 {
-                if sum - sums[i] == 0 {
-                    start = i;
-                    end = sums.len() - 1;
-                    find = true;
+struct TreeAncestor {
+    list: Vec<Vec<usize>>,
+}
+impl TreeAncestor {
+    fn new(n: i32, parent: Vec<i32>) -> Self {
+        let mut list = vec![vec![]; n as usize];
+        for i in 1..parent.len() {
+            list[i].push(parent[i] as usize);
+            let mut res = 1;
+            for j in 1.. {
+                res = TreeAncestor::_get_kth_ancestor(&list, i as i32, 2i32.pow(j as u32));
+                if res != -1 {
+                    list[i].push(res as usize);
+                } else {
                     break;
                 }
             }
-            p = next;
         }
-        if start == usize::MAX {
-            h.next
+        Self { list }
+    }
+    fn _get_kth_ancestor(list: &Vec<Vec<usize>>, node: i32, k: i32) -> i32 {
+        if k == 0 {
+            node
         } else {
-            p = &mut h;
-            for i in 0..start {
-                p = p.next.as_mut().unwrap();
+            let mut l = -1 as i32;
+            let mut r = (list[node as usize].len() - 1) as i32;
+            while l < r {
+                let m = (l + r + 1) / 2;
+                if k >= 2i32.pow(m as u32) {
+                    l = m;
+                } else {
+                    r = m - 1;
+                }
             }
-            while end - start > 0 {
-                let child = p.next.as_mut().unwrap().next.take();
-                p.next = child;
-                end -= 1;
+            if l == -1 {
+                l
+            } else {
+                TreeAncestor::_get_kth_ancestor(list, list[node as usize][l as usize] as i32, k - (2i32.pow(l as u32)))
             }
-            Solution::remove_zero_sum_sublists(h.next)
         }
+    }
+    fn get_kth_ancestor(&self, node: i32, k: i32) -> i32 {
+        TreeAncestor::_get_kth_ancestor(&self.list, node, k)
     }
 }

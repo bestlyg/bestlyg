@@ -1,33 +1,33 @@
 from preclude import *
 
 
-class Solution:
-    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        h = ListNode()
-        h.next = head
-        sums = [1]
-        p = h
-        start = end = -1
-        find = False
-        while p.next and not find:
-            sum = p.next.val + sums[-1]
-            sums.append(sum)
-            for i in range(len(sums) - 1):
-                if sum - sums[i] == 0:
-                    start = i
-                    end = len(sums) - 1
-                    find = True
-                    break
-            p = p.next
-        if start == -1:
-            return h.next
-        p = h
-        for i in range(start):
-            p = p.next
-        while end-start > 0:
-            p.next = p.next.next
-            end -= 1
-        return self.removeZeroSumSublists(h.next)
+class TreeAncestor:
+
+    def __init__(self, n: int, parent: List[int]):
+        self.list = [[] for _ in range(n)]
+        for i in range(1, len(parent)):
+            self.list[i].append(parent[i])
+            j = res = 1
+            while res != -1:
+                res = self.getKthAncestor(i, pow(2, j))
+                if res != -1:
+                    self.list[i].append(res)
+                j += 1
+
+    def getKthAncestor(self, node: int, k: int) -> int:
+        if k == 0:
+            return node
+        l = -1
+        r = len(self.list[node]) - 1
+        while l < r:
+            m = (l+r+1)//2
+            if k >= pow(2, m):
+                l = m
+            else:
+                r = m-1
+        if l == -1:
+            return l
+        return self.getKthAncestor(self.list[node][l], k-pow(2, l))
 
 
 def main():

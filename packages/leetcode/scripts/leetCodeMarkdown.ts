@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1171. 从链表中删去总和值为零的连续节点',
-    url: 'https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/',
+    name: '1483. 树节点的第 K 个祖先',
+    url: 'https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个链表的头节点 head，请你编写代码，反复删去链表中由 总和 值为 0 的连续节点组成的序列，直到不存在这样的序列为止。删除完毕后，请你返回最终结果链表的头节点。`,
+    desc: `给你一棵树，树上有 n 个节点，按从 0 到 n-1 编号。树以父节点数组的形式给出，其中 parent[i] 是节点 i 的父节点。树的根节点是编号为 0 的节点。树节点的第 k 个祖先节点是从该节点到根节点路径上的第 k 个节点。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,113 +30,118 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 40,
-            memory: 12.1,
-            desc: '前缀和存储，每次找最前面可以组合为0的节点，递归删除节点',
-            code: `class Solution {
+            time: 520,
+            memory: 132.2,
+            desc: '倍增法',
+            code: `class TreeAncestor {
 public:
-    ListNode *h = new ListNode();
-    ListNode* removeZeroSumSublists(ListNode* head) {
-        h->next = head;
-        vector<int> sums(1, 0);
-        auto p = h;
-        int start = -1, end = -1;
-        bool find = false;
-        while (p->next && !find) {
-            int sum = p->next->val + sums.back();
-            sums.push_back(sum);
-            for (int i = 0; i < sums.size() - 1; i++) {
-                if (sum - sums[i] == 0) {
-                    start = i;
-                    end = sums.size() - 1;
-                    find = true;
-                    break;
-                }
+    vector<vector<int>> list;
+
+    TreeAncestor(int n, vector<int>& parent): list(vector<vector<int>>(n)) {
+        for (int i = 1; i < parent.size(); i++) {
+            list[i].push_back(parent[i]);
+            for (int j = 1, res = 1; res != -1; j++) {
+                res = getKthAncestor(i, pow(2, j));
+                if (res != -1) list[i].push_back(res);
             }
-            p = p->next;
         }
-        if (start == -1) return h->next;
-        p = h;
-        for (int i = 0; i < start; i++) p = p->next;
-        while (end - start > 0) p->next = p->next->next, end--;
-        return removeZeroSumSublists(h->next);
+    }
+
+    int getKthAncestor(int node, int k) {
+        if (k == 0) return node;
+        int l = -1, r = list[node].size() - 1;
+        while (l < r) {
+            int m = (l + r + 1) / 2;
+            if (k >= pow(2, m)) l = m;
+            else r = m - 1;
+        }
+        if (l == -1) return l;
+        return getKthAncestor(list[node][l], k - pow(2, l));
     }
 };`,
         },
         {
             script: Script.PY3,
-            time: 280,
-            memory: 16.8,
+            time: 7080,
+            memory: 48.2,
             desc: '同上',
-            code: `class Solution:
-    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        h = ListNode()
-        h.next = head
-        sums = [1]
-        p = h
-        start = end = -1
-        find = False
-        while p.next and not find:
-            sum = p.next.val + sums[-1]
-            sums.append(sum)
-            for i in range(len(sums) - 1):
-                if sum - sums[i] == 0:
-                    start = i
-                    end = len(sums) - 1
-                    find = True
-                    break
-            p = p.next
-        if start == -1:
-            return h.next
-        p = h
-        for i in range(start):
-            p = p.next
-        while end-start > 0:
-            p.next = p.next.next
-            end -= 1
-        return self.removeZeroSumSublists(h.next)`,
+            code: `class TreeAncestor:
+
+    def __init__(self, n: int, parent: List[int]):
+        self.list = [[] for _ in range(n)]
+        for i in range(1, len(parent)):
+            self.list[i].append(parent[i])
+            j = res = 1
+            while res != -1:
+                res = self.getKthAncestor(i, pow(2, j))
+                if res != -1:
+                    self.list[i].append(res)
+                j += 1
+
+    def getKthAncestor(self, node: int, k: int) -> int:
+        if k == 0:
+            return node
+        l = -1
+        r = len(self.list[node]) - 1
+        while l < r:
+            m = (l+r+1)//2
+            if k >= pow(2, m):
+                l = m
+            else:
+                r = m-1
+        if l == -1:
+            return l
+        return self.getKthAncestor(self.list[node][l], k-pow(2, l))
+`,
         },
         {
             script: Script.RUST,
-            time: 8,
-            memory: 2,
+            time: 204,
+            memory: 34.9,
             desc: '同上',
-            code: `impl Solution {
-    pub fn remove_zero_sum_sublists(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut h = Box::new(ListNode::new(0));
-        h.next = head;
-        let mut sums = vec![1];
-        let mut p = &mut h;
-        let (mut start, mut end) = (usize::MAX, usize::MAX);
-        let mut find = false;
-        while p.next.is_some() && !find {
-            let next = p.next.as_mut().unwrap();
-            let sum = next.val + sums.last().unwrap();
-            sums.push(sum);
-            for i in 0..sums.len() - 1 {
-                if sum - sums[i] == 0 {
-                    start = i;
-                    end = sums.len() - 1;
-                    find = true;
+            code: `struct TreeAncestor {
+    list: Vec<Vec<usize>>,
+}
+impl TreeAncestor {
+    fn new(n: i32, parent: Vec<i32>) -> Self {
+        let mut list = vec![vec![]; n as usize];
+        for i in 1..parent.len() {
+            list[i].push(parent[i] as usize);
+            let mut res = 1;
+            for j in 1.. {
+                res = TreeAncestor::_get_kth_ancestor(&list, i as i32, 2i32.pow(j as u32));
+                if res != -1 {
+                    list[i].push(res as usize);
+                } else {
                     break;
                 }
             }
-            p = next;
         }
-        if start == usize::MAX {
-            h.next
+        Self { list }
+    }
+    fn _get_kth_ancestor(list: &Vec<Vec<usize>>, node: i32, k: i32) -> i32 {
+        if k == 0 {
+            node
         } else {
-            p = &mut h;
-            for i in 0..start {
-                p = p.next.as_mut().unwrap();
+            let mut l = -1 as i32;
+            let mut r = (list[node as usize].len() - 1) as i32;
+            while l < r {
+                let m = (l + r + 1) / 2;
+                if k >= 2i32.pow(m as u32) {
+                    l = m;
+                } else {
+                    r = m - 1;
+                }
             }
-            while end - start > 0 {
-                let child = p.next.as_mut().unwrap().next.take();
-                p.next = child;
-                end -= 1;
+            if l == -1 {
+                l
+            } else {
+                TreeAncestor::_get_kth_ancestor(list, list[node as usize][l as usize] as i32, k - (2i32.pow(l as u32)))
             }
-            Solution::remove_zero_sum_sublists(h.next)
         }
+    }
+    fn get_kth_ancestor(&self, node: i32, k: i32) -> i32 {
+        TreeAncestor::_get_kth_ancestor(&self.list, node, k)
     }
 }`,
         },
