@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useRef, useState } from 'react';
 import { SingleUploader, useUpdate } from '@/utils';
@@ -28,9 +27,6 @@ export default function File() {
                 alert(err);
             });
     };
-    const blockStyle: React.CSSProperties = {
-        padding: '10px',
-    };
     return (
         <div>
             <button onClick={() => update()}>render</button>
@@ -53,40 +49,6 @@ export default function File() {
             <div>
                 <input {...config} type="file" onChange={onChange} />
             </div>
-            {uploaderRef.current.workStore
-                ?.entries()
-                .map(([, v]) => v)
-                .map((file, i) => {
-                    return (
-                        <div key={i} style={blockStyle}>
-                            <div>current file: </div>
-                            <div>name: {file.name}</div>
-                            <div>size: {file.size / 1024 / 1024}MB</div>
-                            <div>type: {file.type}</div>
-                            <div>percent: {percent}%</div>
-                        </div>
-                    );
-                })}
-            {uploaderRef.current.finishedStores.length ? (
-                <div>
-                    <div>finished work</div>
-                    {uploaderRef.current.finishedStores.map((store, i) => {
-                        return store
-                            .entries()
-                            .map(([, v]) => v)
-                            .map((file, j) => {
-                                return (
-                                    <div key={`${i}:${j}`} style={blockStyle}>
-                                        <div>file: </div>
-                                        <div>name: {file.name}</div>
-                                        <div>size: {file.size / 1024 / 1024}MB</div>
-                                        <div>type: {file.type}</div>
-                                    </div>
-                                );
-                            });
-                    })}
-                </div>
-            ) : null}
         </div>
     );
 }
