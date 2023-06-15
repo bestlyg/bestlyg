@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1375. 二进制字符串前缀一致的次数',
-    url: 'https://leetcode.cn/problems/number-of-times-binary-string-is-prefix-aligned/',
+    name: '1177. 构建回文串检测',
+    url: 'https://leetcode.cn/problems/can-make-palindrome-from-substring/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回二进制字符串在翻转过程中 前缀一致 的次数。`,
+    desc: `给你一个字符串 s，请你对 s 的子串进行检测。每次检测，待检子串都可以表示为 queries[i] = [left, right, k]。我们可以 重新排列 子串 s[left], ..., s[right]，并从中选择 最多 k 项替换成任何小写英文字母。     如果在上述检测过程中，子串可以变成回文形式的字符串，那么检测结果为 true，否则结果为 false。    返回答案数组 answer[]，其中 answer[i] 是第 i 个待检子串 queries[i] 的检测结果。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,16 +30,21 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 40,
-            memory: 37.6,
-            desc: '遍历，记录当前反转的最大值',
+            time: 284,
+            memory: 92.6,
+            desc: '因为可以重新排列，所以只需要考虑区间内的奇偶即可。',
             code: `class Solution {
 public:
-    int numTimesAllBlue(vector<int>& flips) {
-        int nmax = 0, res = 0;
-        for (int i = 0; i < flips.size(); i++) {
-            nmax = max(nmax, flips[i]);
-            if (nmax == i + 1) res++;
+    vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) {
+        vector<int> list(1, 0);
+        for (auto &c : s) list.push_back(list.back() ^ (1 << (c - 'a')));
+        vector<bool> res;
+        for (auto &q : queries) {
+            int l = q[0], r = q[1], k = q[2], val = list[r + 1] ^ list[l], cnt = 0;
+            for (int i = 0; i < 26; i++) 
+                if (val & (1 << i)) cnt++;
+            if ((r - l + 1) % 2 == 0) res.push_back(2 * k >= cnt);
+            else res.push_back(2 * k >= cnt - 1);
         }
         return res;
     }
@@ -47,32 +52,58 @@ public:
         },
                 {
                     script: Script.PY3,
-                    time: 80,
-                    memory: 21.4,
+                    time: 588,
+                    memory: 56.4,
                     desc: '同上',
                     code: `class Solution:
-    def numTimesAllBlue(self, flips: List[int]) -> int:
-        nmax = res = 0
-        for i in range(len(flips)):
-            nmax = max(nmax, flips[i])
-            if nmax == i + 1: res += 1
-        return res`,
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        list = [1]
+        for c in s:
+            list.append(list[-1] ^ (1 << (ord(c) - ord('a'))))
+
+        def check(q: List[int]):
+            l, r, k = q[0], q[1], q[2]
+            val = list[r+1] ^ list[l]
+            cnt = 0
+            for i in range(26):
+                if val & (1 << i):
+                    cnt += 1
+            if (r-l+1) % 2:
+                return 2 * k >= cnt - 1
+            else:
+                return 2 * k >= cnt
+
+        return [check(q) for q in queries]`,
                 },
                 {
                     script: Script.RUST,
-                    time: 4,
-                    memory: 2.3,
+                    time: 28,
+                    memory: 9.5,
                     desc: '同上',
                     code: `impl Solution {
-    pub fn num_times_all_blue(flips: Vec<i32>) -> i32 {
-        let (mut nmax, mut res) = (0, 0);
-        for i in 0..flips.len() {
-            nmax = nmax.max(flips[i]);
-            if nmax as usize == i + 1 {
-                res += 1
-            }
+    pub fn can_make_pali_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<bool> {
+        let mut list = vec![0];
+        for c in s.as_bytes() {
+            list.push(list.last().unwrap() ^ (1 << (*c - b'a')));
         }
-        res
+        let check = |q: Vec<i32>| -> bool {
+            let l = q[0] as usize;
+            let r = q[1] as usize;
+            let k = q[2];
+            let val = list[r + 1] ^ list[l];
+            let mut cnt = 0;
+            for i in 0..26 {
+                if (val & (1 << i)) != 0 {
+                    cnt += 1;
+                }
+            }
+            if (r - l + 1) % 2 == 0 {
+                2 * k >= cnt
+            } else {
+                2 * k >= cnt - 1
+            }
+        };
+        queries.into_iter().map(|q| check(q)).collect()
     }
 }`,
                 },

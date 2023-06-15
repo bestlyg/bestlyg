@@ -1,33 +1,25 @@
 from preclude import *
 
 
-class TreeAncestor:
+class Solution:
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        list = [1]
+        for c in s:
+            list.append(list[-1] ^ (1 << (ord(c) - ord('a'))))
 
-    def __init__(self, n: int, parent: List[int]):
-        self.list = [[] for _ in range(n)]
-        for i in range(1, len(parent)):
-            self.list[i].append(parent[i])
-            j = res = 1
-            while res != -1:
-                res = self.getKthAncestor(i, pow(2, j))
-                if res != -1:
-                    self.list[i].append(res)
-                j += 1
-
-    def getKthAncestor(self, node: int, k: int) -> int:
-        if k == 0:
-            return node
-        l = -1
-        r = len(self.list[node]) - 1
-        while l < r:
-            m = (l+r+1)//2
-            if k >= pow(2, m):
-                l = m
+        def check(q: List[int]):
+            l, r, k = q[0], q[1], q[2]
+            val = list[r+1] ^ list[l]
+            cnt = 0
+            for i in range(26):
+                if val & (1 << i):
+                    cnt += 1
+            if (r-l+1) % 2:
+                return 2 * k >= cnt - 1
             else:
-                r = m-1
-        if l == -1:
-            return l
-        return self.getKthAncestor(self.list[node][l], k-pow(2, l))
+                return 2 * k >= cnt
+
+        return [check(q) for q in queries]
 
 
 def main():
