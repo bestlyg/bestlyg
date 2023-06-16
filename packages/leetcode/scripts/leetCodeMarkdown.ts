@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1494. 并行课程 II',
-    url: 'https://leetcode.cn/problems/parallel-courses-ii/',
+    name: '2481. 分割圆的最少切割次数',
+    url: 'https://leetcode.cn/problems/minimum-cuts-to-divide-a-circle/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 n 表示某所大学里课程的数目，编号为 1 到 n ，数组 relations 中， relations[i] = [xi, yi]  表示一个先修课的关系，也就是课程 xi 必须在课程 yi 之前上。同时你还有一个整数 k 。在一个学期中，你 最多 可以同时上 k 门课，前提是这些课的先修课在之前的学期里已经上过了。请你返回上完所有课最少需要多少个学期。`,
+    desc: `给你一个整数 n ，请你返回将圆切割成相等的 n 等分的 最少 切割次数。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,78 +30,15 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 680,
-            memory: 168.4,
-            desc: 'dfs遍历，判断同一期每个点上课的情况',
-            code: `#define SIZE 13
-struct Node {
-    int idx, child_cnt;
-    unordered_set<int> parents, children;
-
-};
-class Solution {
+            time: 4,
+            memory: 5.9,
+            desc: '奇数的只能按照中心点分，偶数能按照两端分',
+            code: `class Solution {
 public:
-    int minNumberOfSemesters(int n, vector<vector<int>>& relations, int k) {
-        vector<Node> list(n);
-
-        for (int i = 0; i < n; i++) {
-            list[i].idx = i;
-            list[i].child_cnt = 0;
-        }
-
-        for (auto &item : relations) {
-            list[item[1] - 1].parents.insert(item[0] - 1);
-            list[item[0] - 1].children.insert(item[1] - 1);
-        }
-
-        // for (int i = 0; i < n; i++) {
-        //     cout << "i = " << i
-        //          << ", parent = ";
-        //     for (auto &p : list[i].parents) cout << p << ", ";
-        //     cout << ", children = ";
-        //     for (auto &c : list[i].children) cout << c << ", ";
-        //     cout << endl;
-        // }
-
-        int empty = 0, res = INT_MAX;
-        for (int i = 0; i < n; i++) {
-            if (list[i].parents.size() == 0) empty |= 1 << i;
-        }
-
-        unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>> cache;
-        function<int(int, int, int, int)> dfs = [&](int empty, int used, int cur_res, int cur_k){
-            if (cache[empty][used][cur_res][cur_k]) return cache[empty][used][cur_res][cur_k];
-            // cout << "dfs "
-            //      << ", empty = " << bitset<SIZE>(empty).to_string()
-            //      << ", used = " << bitset<SIZE>(used).to_string()
-            //      << ", cur_res = " << cur_res
-            //      << ", cur_k = " << cur_k
-            //      << endl;
-            if (used == (1 << n) - 1) {
-                if (cur_k) cur_res += 1;
-                return cache[empty][used][cur_res][cur_k] = cur_res;
-            }
-
-            if (cur_k == k || empty == 0) {
-                int next_empty = empty;
-                for (int i = 0; i < n; i++) {
-                    if ((used & (1 << i)) == 0 && list[i].parents.size() == 0) next_empty |= 1 << i;
-                }
-                return cache[empty][used][cur_res][cur_k] = dfs(next_empty, used, cur_res + 1, 0);
-            }
-
-            int res = INT_MAX;
-            for (int i = 0; i < n; i++) {
-                if (empty & (1 << i)) {
-                    for (auto &c : list[i].children) list[c].parents.erase(i);
-                    res = min(res, dfs(empty & ~(1 << i), used | (1 << i), cur_res, cur_k + 1));
-                    for (auto &c : list[i].children) list[c].parents.insert(i);
-                }
-            }
-            return cache[empty][used][cur_res][cur_k] = res;
-        };
-
-        return dfs(empty, 0, 0, 0);
+    int numberOfCuts(int n) {
+        if (n == 1) return 0;
+        if (n % 2 == 0) return n / 2;
+        return n;
     }
 };`,
         },
