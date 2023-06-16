@@ -13,10 +13,22 @@
 </div>
 
 <ul >
-    <li>Phone    : 13958696909</li>
-    <li>Wechat   : bestlyg</li>
-    <li>Email    : bestlyg@foxmail.com</li>
-    <li>Website  : https://www.bestlyg.com</li>
+    <li>
+        <span style="width: 100px;">Phone    :</span>
+        <span>13958696909</span>
+    </li>
+    <li>
+        <span style="width: 100px;">Wechat   :</span>
+        <span>bestlyg</span>
+    </li>
+    <li>
+        <span style="width: 100px;">Email    :</span>
+        <span>bestlyg@foxmail.com</span>
+    </li>
+    <li>
+        <span style="width: 100px;">Website  :</span>
+        <span>https://www.bestlyg.com</span>
+    </li>
 </ul>
 
 [![BestLyg's GitHub stats](https://github-readme-stats.vercel.app/api?username=bestlyg)](https://github.com/bestlyg/bestlyg)
