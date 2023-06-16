@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.bestlyg.com">
-    <img width="200" src="https://www.bestlyg.com/static/img/logo.png">
+    <img width="200" src="https://www.bestlyg.com/static/logo.png">
   </a>
 </p>
 
@@ -10,5 +10,8 @@
 
 李逸港的个人仓库。
 
+</div>
+
 [![BestLyg's GitHub stats](https://github-readme-stats.vercel.app/api?username=bestlyg)](https://github.com/bestlyg/bestlyg)
+
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=bestlyg)](https://github.com/bestlyg/bestlyg)
