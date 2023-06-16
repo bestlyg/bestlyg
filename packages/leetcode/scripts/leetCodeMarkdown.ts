@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1177. 构建回文串检测',
-    url: 'https://leetcode.cn/problems/can-make-palindrome-from-substring/',
+    name: '1494. 并行课程 II',
+    url: 'https://leetcode.cn/problems/parallel-courses-ii/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个字符串 s，请你对 s 的子串进行检测。每次检测，待检子串都可以表示为 queries[i] = [left, right, k]。我们可以 重新排列 子串 s[left], ..., s[right]，并从中选择 最多 k 项替换成任何小写英文字母。     如果在上述检测过程中，子串可以变成回文形式的字符串，那么检测结果为 true，否则结果为 false。    返回答案数组 answer[]，其中 answer[i] 是第 i 个待检子串 queries[i] 的检测结果。`,
+    desc: `给你一个整数 n 表示某所大学里课程的数目，编号为 1 到 n ，数组 relations 中， relations[i] = [xi, yi]  表示一个先修课的关系，也就是课程 xi 必须在课程 yi 之前上。同时你还有一个整数 k 。在一个学期中，你 最多 可以同时上 k 门课，前提是这些课的先修课在之前的学期里已经上过了。请你返回上完所有课最少需要多少个学期。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,83 +30,138 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 284,
-            memory: 92.6,
-            desc: '因为可以重新排列，所以只需要考虑区间内的奇偶即可。',
-            code: `class Solution {
+            time: 680,
+            memory: 168.4,
+            desc: 'dfs遍历，判断同一期每个点上课的情况',
+            code: `#define SIZE 13
+struct Node {
+    int idx, child_cnt;
+    unordered_set<int> parents, children;
+
+};
+class Solution {
 public:
-    vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) {
-        vector<int> list(1, 0);
-        for (auto &c : s) list.push_back(list.back() ^ (1 << (c - 'a')));
-        vector<bool> res;
-        for (auto &q : queries) {
-            int l = q[0], r = q[1], k = q[2], val = list[r + 1] ^ list[l], cnt = 0;
-            for (int i = 0; i < 26; i++) 
-                if (val & (1 << i)) cnt++;
-            if ((r - l + 1) % 2 == 0) res.push_back(2 * k >= cnt);
-            else res.push_back(2 * k >= cnt - 1);
+    int minNumberOfSemesters(int n, vector<vector<int>>& relations, int k) {
+        vector<Node> list(n);
+
+        for (int i = 0; i < n; i++) {
+            list[i].idx = i;
+            list[i].child_cnt = 0;
         }
-        return res;
+
+        for (auto &item : relations) {
+            list[item[1] - 1].parents.insert(item[0] - 1);
+            list[item[0] - 1].children.insert(item[1] - 1);
+        }
+
+        // for (int i = 0; i < n; i++) {
+        //     cout << "i = " << i
+        //          << ", parent = ";
+        //     for (auto &p : list[i].parents) cout << p << ", ";
+        //     cout << ", children = ";
+        //     for (auto &c : list[i].children) cout << c << ", ";
+        //     cout << endl;
+        // }
+
+        int empty = 0, res = INT_MAX;
+        for (int i = 0; i < n; i++) {
+            if (list[i].parents.size() == 0) empty |= 1 << i;
+        }
+
+        unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>> cache;
+        function<int(int, int, int, int)> dfs = [&](int empty, int used, int cur_res, int cur_k){
+            if (cache[empty][used][cur_res][cur_k]) return cache[empty][used][cur_res][cur_k];
+            // cout << "dfs "
+            //      << ", empty = " << bitset<SIZE>(empty).to_string()
+            //      << ", used = " << bitset<SIZE>(used).to_string()
+            //      << ", cur_res = " << cur_res
+            //      << ", cur_k = " << cur_k
+            //      << endl;
+            if (used == (1 << n) - 1) {
+                if (cur_k) cur_res += 1;
+                return cache[empty][used][cur_res][cur_k] = cur_res;
+            }
+
+            if (cur_k == k || empty == 0) {
+                int next_empty = empty;
+                for (int i = 0; i < n; i++) {
+                    if ((used & (1 << i)) == 0 && list[i].parents.size() == 0) next_empty |= 1 << i;
+                }
+                return cache[empty][used][cur_res][cur_k] = dfs(next_empty, used, cur_res + 1, 0);
+            }
+
+            int res = INT_MAX;
+            for (int i = 0; i < n; i++) {
+                if (empty & (1 << i)) {
+                    for (auto &c : list[i].children) list[c].parents.erase(i);
+                    res = min(res, dfs(empty & ~(1 << i), used | (1 << i), cur_res, cur_k + 1));
+                    for (auto &c : list[i].children) list[c].parents.insert(i);
+                }
+            }
+            return cache[empty][used][cur_res][cur_k] = res;
+        };
+
+        return dfs(empty, 0, 0, 0);
     }
 };`,
         },
-                {
-                    script: Script.PY3,
-                    time: 588,
-                    memory: 56.4,
-                    desc: '同上',
-                    code: `class Solution:
-    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
-        list = [1]
-        for c in s:
-            list.append(list[-1] ^ (1 << (ord(c) - ord('a'))))
+//                 {
+//                     script: Script.PY3,
+//                     time: 588,
+//                     memory: 56.4,
+//                     desc: '同上',
+//                     code: `class Solution:
+//     def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+//         list = [1]
+//         for c in s:
+//             list.append(list[-1] ^ (1 << (ord(c) - ord('a'))))
 
-        def check(q: List[int]):
-            l, r, k = q[0], q[1], q[2]
-            val = list[r+1] ^ list[l]
-            cnt = 0
-            for i in range(26):
-                if val & (1 << i):
-                    cnt += 1
-            if (r-l+1) % 2:
-                return 2 * k >= cnt - 1
-            else:
-                return 2 * k >= cnt
+//         def check(q: List[int]):
+//             l, r, k = q[0], q[1], q[2]
+//             val = list[r+1] ^ list[l]
+//             cnt = 0
+//             for i in range(26):
+//                 if val & (1 << i):
+//                     cnt += 1
+//             if (r-l+1) % 2:
+//                 return 2 * k >= cnt - 1
+//             else:
+//                 return 2 * k >= cnt
 
-        return [check(q) for q in queries]`,
-                },
-                {
-                    script: Script.RUST,
-                    time: 28,
-                    memory: 9.5,
-                    desc: '同上',
-                    code: `impl Solution {
-    pub fn can_make_pali_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<bool> {
-        let mut list = vec![0];
-        for c in s.as_bytes() {
-            list.push(list.last().unwrap() ^ (1 << (*c - b'a')));
-        }
-        let check = |q: Vec<i32>| -> bool {
-            let l = q[0] as usize;
-            let r = q[1] as usize;
-            let k = q[2];
-            let val = list[r + 1] ^ list[l];
-            let mut cnt = 0;
-            for i in 0..26 {
-                if (val & (1 << i)) != 0 {
-                    cnt += 1;
-                }
-            }
-            if (r - l + 1) % 2 == 0 {
-                2 * k >= cnt
-            } else {
-                2 * k >= cnt - 1
-            }
-        };
-        queries.into_iter().map(|q| check(q)).collect()
-    }
-}`,
-                },
+//         return [check(q) for q in queries]`,
+//                 },
+//                 {
+//                     script: Script.RUST,
+//                     time: 28,
+//                     memory: 9.5,
+//                     desc: '同上',
+//                     code: `impl Solution {
+//     pub fn can_make_pali_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<bool> {
+//         let mut list = vec![0];
+//         for c in s.as_bytes() {
+//             list.push(list.last().unwrap() ^ (1 << (*c - b'a')));
+//         }
+//         let check = |q: Vec<i32>| -> bool {
+//             let l = q[0] as usize;
+//             let r = q[1] as usize;
+//             let k = q[2];
+//             let val = list[r + 1] ^ list[l];
+//             let mut cnt = 0;
+//             for i in 0..26 {
+//                 if (val & (1 << i)) != 0 {
+//                     cnt += 1;
+//                 }
+//             }
+//             if (r - l + 1) % 2 == 0 {
+//                 2 * k >= cnt
+//             } else {
+//                 2 * k >= cnt - 1
+//             }
+//         };
+//         queries.into_iter().map(|q| check(q)).collect()
+//     }
+// }`,
+//                 },
     ],
 };
 
