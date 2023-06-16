@@ -1,9 +1,14 @@
-[![BestLyg's GitHub stats](https://github-readme-stats.vercel.app/api?username=bestlyg)](https://github.com/bestlyg/bestlyg)
+<p align="center">
+  <a href="https://www.bestlyg.com">
+    <img width="200" src="https://www.bestlyg.com/static/img/logo.png">
+  </a>
+</p>
 
-# BestLyg
-
-> 个人仓库，储存着 coding 的所有经历，以 ts 为主，可以供学习参考
+<h1 align="center">Best Lyg</h1>
 
 <div align="center">
-  <img  src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5391ef2e449b4483b61a907c43e0af62~tplv-k3u1fbpfcp-zoom-1.image" />
-</div>
+
+李逸港的个人仓库。
+
+[![BestLyg's GitHub stats](https://github-readme-stats.vercel.app/api?username=bestlyg)](https://github.com/bestlyg/bestlyg)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=bestlyg)](https://github.com/bestlyg/bestlyg)
