@@ -20,8 +20,15 @@ export default function App() {
             <div>
                 <button onClick={() => onHealthCheck()}>health check</button>
             </div>
-            <SingleFile />
-            <SingleSliceFile />
+            <div>
+                <p>SingleFile</p>
+                <SingleFile />
+            </div>
+
+            <div>
+                <p>SingleSliceFile</p>
+                <SingleSliceFile />
+            </div>
         </div>
     );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRef, useState } from 'react';
-import { SingleUploader, useUpdate } from '@/utils';
+import { SingleSliceUploader, request, useUpdate, getFileData } from '@/utils';
 
 export default function File() {
     const update = useUpdate();
-    const uploaderRef = useRef(new SingleUploader());
+    const uploaderRef = useRef(new SingleSliceUploader());
     const [percent, setPercent] = useState(0);
     const [config, setConfig] = useState({
         multiple: !false,
@@ -18,13 +18,30 @@ export default function File() {
             setPercent((loaded * 100) / total);
             update();
         });
+        const filedata = getFileData(files[0]);
         uploader
             .upload({
-                url: '/api/v1/upload/file',
+                url: '/api/upload/single/slice',
                 files,
+                index: 0,
+            })
+            .then(() =>
+                request({
+                    url: '/api/upload/single/merge',
+                    method: 'post',
+                    headers: {
+                        'x-uploader-dirname': filedata.name,
+                        'x-uploader-filename': filedata.name,
+                        'x-uploader-ext': filedata.ext,
+                    },
+                })
+            )
+            .then(() => {
+                alert('Success');
             })
             .catch(err => {
-                alert(err);
+                alert(err.toString());
+                console.error(err);
             });
     };
     return (
@@ -49,6 +66,7 @@ export default function File() {
             <div>
                 <input {...config} type="file" onChange={onChange} />
             </div>
+            <div>percent: {percent}</div>
         </div>
     );
 }

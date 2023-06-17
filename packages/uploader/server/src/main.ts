@@ -19,8 +19,10 @@ function pipe(readStream: string | fs.ReadStream, writeStream: string | fs.Write
         writeStream = fs.createWriteStream(writeStream);
     }
     return new Promise<void>((resolve, reject) => {
-        const pipe = (readStream as fs.ReadStream).pipe(writeStream as fs.WriteStream);
-        pipe.on('finish', () => {
+        const pipe = (readStream as fs.ReadStream).pipe(writeStream as fs.WriteStream, {
+            end: false,
+        });
+        (readStream as fs.ReadStream).on('end', () => {
             resolve();
         });
         pipe.on('error', e => {
@@ -48,37 +50,30 @@ app.post('/api/upload/single', upload.single('file'), function (req, res, next) 
 });
 
 app.post('/api/upload/single/slice', upload.single('slice'), function (req, res, next) {
+    console.log('====> slice');
     const file = req.file;
     if (!file) {
         res.json({ success: 0, message: 'empty file' });
         return;
     }
-    const name = req.headers['x-uploader-name'] as string;
-    const slice: number = Number(req.headers['x-uploader-slice']);
-    const filepath = resolve(`uploads/${name}`);
-    pipe(resolve(file.path), resolve(`${filepath}/${slice}`))
-        .then(() => fs.readdir(filepath))
-        .then(list => {
+    const hash: number = Number(decodeURI(req.headers['x-uploader-hash'] as string));
+    const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
+    const filename = decodeURI(req.headers['x-uploader-filename'] as string);
+    const ext = decodeURI(req.headers['x-uploader-ext'] as string);
+    const index: number = Number(decodeURI(req.headers['x-uploader-index'] as string));
+    const filepath = resolve(`uploads/${dirname}`);
+    console.log(['======', `name = ${dirname}`, `index = ${index}`, `hash = ${hash}`].join('\n'));
+    const distpath = resolve(`${filepath}/${index}`);
+    if (fs.existsSync(distpath)) {
+        fs.readdir(filepath).then(list => {
             const set = new Set(list.map(v => Number(v)));
             let i = 0;
             while (set.has(i)) i++;
             res.json({ success: 1, data: i });
-        })
-        .catch(e => {
-            res.json({ success: 0, message: e.message });
         });
-});
-
-app.post('/api/upload/single/slice', upload.single('slice'), function (req, res, next) {
-    const file = req.file;
-    if (!file) {
-        res.json({ success: 0, message: 'empty file' });
         return;
     }
-    const name = req.headers['x-uploader-dirname'] as string;
-    const slice: number = Number(req.headers['x-uploader-slice']);
-    const filepath = resolve(`uploads/${name}`);
-    pipe(resolve(file.path), resolve(`${filepath}/${slice}`))
+    pipe(resolve(file.path), distpath)
         .then(() => fs.readdir(filepath))
         .then(list => {
             const set = new Set(list.map(v => Number(v)));
@@ -92,21 +87,29 @@ app.post('/api/upload/single/slice', upload.single('slice'), function (req, res,
 });
 
 app.post('/api/upload/single/merge', function (req, res, next) {
-    const dirname = req.headers['x-uploader-dirname'] as string;
-    const filename = req.headers['x-uploader-filename'] as string;
+    console.log('====> merge');
+    const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
+    const filename = decodeURI(req.headers['x-uploader-filename'] as string);
+    const ext = decodeURI(req.headers['x-uploader-ext'] as string);
     const dirpath = resolve(`uploads/${dirname}`);
-    const filepath = resolve(`uploads/${filename}`);
+    const filepath = resolve(`uploads/${filename}.${ext}`);
+    console.log(`dirpath = ${dirpath}, filepath = ${filepath}`);
     const writeStream = fs.createWriteStream(filepath);
     let filelist: number[] = [];
     const load = (index: number) => {
+        console.log('load ', index);
         if (index === filelist.length) return Promise.resolve();
         return pipe(resolve(dirpath, filelist[index].toString()), writeStream).then(() =>
             load(index + 1)
         );
     };
-    fs.readdir(dirname)
+    fs.readdir(dirpath)
         .then(list => {
-            filelist = list.map(v => Number(v)).sort();
+            filelist = list
+                .map(v => Number(v))
+                .filter(v => !Number.isNaN(v))
+                .sort();
+            console.log('filelist', filelist);
             return load(0);
         })
         .then(

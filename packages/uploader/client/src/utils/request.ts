@@ -17,10 +17,10 @@ export function request({
     beforeSend?: (xhr: XMLHttpRequest) => void;
 }) {
     const xhr = new XMLHttpRequest();
-    for (const [k, v] of Object.entries(headers)) {
-        xhr.setRequestHeader(k, v);
-    }
     xhr.open(method, url);
+    for (const [k, v] of Object.entries(headers)) {
+        xhr.setRequestHeader(k, encodeURI(v));
+    }
     beforeSend(xhr);
     xhr.send(body);
     return new Promise<Response>((resolve, reject) => {
