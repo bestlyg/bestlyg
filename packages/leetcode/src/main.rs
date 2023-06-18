@@ -13,32 +13,30 @@ fn main() {
 }
 
 impl Solution {
-    pub fn can_make_pali_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<bool> {
-        let mut list = vec![0];
-        for c in s.as_bytes() {
-            list.push(list.last().unwrap() + (1 << (*c - b'a')));
-        }
-        for v in &list {
-            println!("{:b}", v);
-        }
-        let check = |q: Vec<i32>| -> bool {
-            let l = q[0] as usize;
-            let r = q[1] as usize;
-            let k = q[2];
-            let val = list[r + 1] ^ list[l];
-            println!("q = {l},{r},{k}, bi = {:b}", val);
-            let mut cnt = 0;
-            for i in 0..26 {
-                if (val & (1 << i)) != 0 {
-                    cnt += 1;
-                }
-            }
-            if (r - l + 1) % 2 == 0 {
-                2 * k >= cnt
+    pub fn special_perm(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        let mut cache = vec![vec![0; n + 1]; 1 << n];
+        fn dfs(nums: &Vec<i32>, cache: &mut Vec<Vec<i32>>, n: usize, used: i32, prev: i32) -> i32 {
+            if (used as usize) == (1 << (n as u64)) - 1 {
+                1
+            } else if cache[used as usize][(prev + 1) as usize] != 0 {
+                cache[used as usize][(prev + 1) as usize]
             } else {
-                2 * k >= cnt - 1
+                for i in 0..n {
+                    if (used & (1 << i)) == 0
+                        && (prev == -1
+                            || nums[i] % nums[prev as usize] == 0
+                            || nums[prev as usize] % nums[i] == 0)
+                    {
+                        cache[used as usize][(prev + 1) as usize] = (cache[used as usize]
+                            [(prev + 1) as usize]
+                            + dfs(nums, cache, n, used | (1 << i), i as i32))
+                            % (1000000000 + 7);
+                    }
+                }
+                cache[used as usize][(prev + 1) as usize]
             }
-        };
-        queries.into_iter().map(|q| check(q)).collect()
+        }
+        return dfs(&nums, &mut cache, n, 0, -1);
     }
 }

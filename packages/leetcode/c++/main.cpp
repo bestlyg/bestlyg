@@ -5,6 +5,7 @@
 #include <numeric>
 #include <queue>
 #include <unordered_map>
+#include <map>
 #include <unordered_set>
 #include <set>
 #include <vector>
@@ -126,45 +127,26 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
-class TreeAncestor {
+class Solution {
 public:
-    vector<vector<int>> list;
-    TreeAncestor(int n, vector<int>& parent): list(vector<vector<int>>(n)) {
-        for (int i = 1; i < parent.size(); i++) {
-            int p = parent[i];
-            list[i].push_back(p);
-            for (int i = 1;; i++) {
-                int k = pow(2, i);
-                int res = bs(i, k);
-                if (res != -1) {
-                    list[i].push_back(res);
+    int paintWalls(vector<int>& cost, vector<int>& time) {
+        int n = cost.size();
+
+        vector<map<int, int>> dp(n + 1);
+        dp[0][0] = 0;
+        for (int i = 1; i <= n; i++) {
+            int cur_cost = cost[i - 1], cur_time = time[i - 1];
+            for (auto &item : dp[i - 1]) {
+                if (item.second > 0) {
+                    dp[i][item.first] = max(dp[i][item.first], item.second - 1);
+                } else {
+                    dp[i][item.first + cur_cost] = min(dp[i][item.first + cur_cost], cur_time);
                 }
             }
         }
-        cout << "===Init===" << endl;
-        for (int i = 0; i < n; i++) {
-            cout << "i = " << i << ", p = ";
-            for (auto &p : list[i]) cout << p << ", ";
-            cout << endl;
-        }
-    }
-
-    int bs(int node, int k) {
-        int l = -1, r = list[node].size() - 1;
-        while (l < r) {
-            int m = (l + r) / 2;
-            if (k > pow(2, m)) r = m;
-            else l = m + 1;
-        }
-        if (l == -1 || k == pow(2, l)) return l;
-        return bs(list[node][l], k - pow(2, l));
-    }
-
-    int getKthAncestor(int node, int k) {
-        return bs(node, k);
+        return dp[n].begin()->first;
     }
 };
-
 
 // END
 #ifdef LOCAL
@@ -183,5 +165,79 @@ int main() {
 
 /*
 
+[8,7,5,15]
+[1,1,2,1]
+输出：
+5
+预期：
+12
 
+[49,35,32,20,30,12,42]
+[1,1,2,2,1,1,2]
+输出：
+64
+预期：
+62
+
+[97,15,44,90,50,48,44,40,46,21]
+[1,1,2,2,2,3,2,3,2,2]
+输出：
+105
+预期：
+103
+
+[8,7,5,15]
+[1,1,2,1]
+[49,35,32,20,30,12,42]
+[1,1,2,2,1,1,2]
+[1,2,3,2]
+[1,2,3,2]
+[2,3,4,2]
+[1,1,1,1]
+[1075,964,1089,226,102,1329,235,579,1059,871,1137,1071,973,558,540,818,1257,663,526,1067,26,598,1160,1122,1222,676,505,767,1199,157,86,342,1277,918,304,1036,697]
+[5,6,3,1,4,3,4,5,2,2,3,2,4,6,6,4,5,5,2,2,1,1,2,4,6,6,2,4,3,3,4,2,3,4,6,1,5]
+[1251,218,566,134,299,1160,1359,899,356,29,313,640,206,617,211,949,1365,796,596,935,475,1034,1105,1026,769,426,236,409,577,216,1350,1229,317,786,419,799,678]
+[3,3,3,5,1,5,1,1,4,5,6,6,5,6,5,6,3,3,5,5,6,5,1,6,5,5,4,1,2,2,3,4,1,6,1,2,1]
+
+class Solution {
+public:
+    int paintWalls(vector<int>& cost, vector<int>& time) {
+        int n = cost.size();
+
+        vector<int> idxs;
+        for (int i = 0; i < n; i++) idxs.push_back(i);
+        sort(idxs.begin(), idxs.end(), [&](auto &i1, auto &i2) {
+            int cost1 = cost[i1], cnt1 = time[i1] + 1;
+            int cost2 = cost[i2], cnt2 = time[i2] + 1;
+            return 1.0 * cost1 / cnt1 < 1.0 * cost2 / cnt2;
+        });
+
+        // for (auto &i : idxs) {
+        //     cout << "i = " << i << ", cost = " << cost[i] 
+        //          << ", t = " << time[i]
+        //          << ", r = " << 1.0 * cost[i] / (time[i] + 1)
+        //          << endl;
+        // }
+        
+        function<int(int, int, int)> dfs = [&](int prev, int cur, int cnt) {
+            // cout << "prev = " << prev << ", cur = " << cur << ", cnt = " << cnt << endl;
+            if (cnt >= n) return cur;
+            int res = INT_MAX;
+            for (int i = prev + 1; i < n; i++) {
+                res = min(res, dfs(i, cur + cost[idxs[i]], cnt + 1 + time[idxs[i]]));
+            }
+            return res;
+        };
+
+        return dfs(-1, 0, 0);
+    }
+};
+
+
+[1075,964,1089,226,102,1329,235,579,1059,871,1137,1071,973,558,540,818,1257,663,526,1067,26,598,1160,1122,1222,676,505,767,1199,157,86,342,1277,918,304,1036,697]
+[5,6,3,1,4,3,4,5,2,2,3,2,4,6,6,4,5,5,2,2,1,1,2,4,6,6,2,4,3,3,4,2,3,4,6,1,5]
+[1251,218,566,134,299,1160,1359,899,356,29,313,640,206,617,211,949,1365,796,596,935,475,1034,1105,1026,769,426,236,409,577,216,1350,1229,317,786,419,799,678]
+[3,3,3,5,1,5,1,1,4,5,6,6,5,6,5,6,3,3,5,5,6,5,1,6,5,5,4,1,2,2,3,4,1,6,1,2,1]
+[607,77,1307,214,948,727,1029,397,298,1196,681,1097,281,1543,264,866,544,582,474,877,1353,604,158,1144,666,816,373,320,755,1478,1453,512,1128,1037,1587,1450,961,509,354,523,1548]
+[1,5,3,4,1,6,6,5,3,1,6,4,5,2,1,6,3,5,5,2,6,5,5,6,1,3,4,6,5,4,6,2,4,6,2,1,4,4,2,2,6]
 */

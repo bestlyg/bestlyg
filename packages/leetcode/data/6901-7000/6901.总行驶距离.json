@@ -1,0 +1,33 @@
+{
+    "name": "6901.总行驶距离",
+    "url": "https://leetcode.cn/problems/total-distance-traveled/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "卡车有两个油箱。给你两个整数，mainTank 表示主油箱中的燃料（以升为单位），additionalTank 表示副油箱中的燃料（以升为单位）。该卡车每耗费 1 升燃料都可以行驶 10 km。每当主油箱使用了 5 升燃料时，如果副油箱至少有 1 升燃料，则会将 1 升燃料从副油箱转移到主油箱。返回卡车可以行驶的最大距离。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 5.9,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int distanceTraveled(int mainTank, int additionalTank) {\n        int used = 0, res = 0;\n        while (mainTank) {\n            used++;\n            mainTank--;\n            res += 10;\n            if (used % 5 == 0 && additionalTank) {\n                mainTank++;\n                additionalTank--;\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1687017600000
+        },
+        {
+            "script": "python3",
+            "time": 104,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def distanceTraveled(self, mainTank: int, additionalTank: int) -> int:\n        used = res = 0\n        while mainTank:\n            used+=1\n            mainTank-=1\n            res+=10\n            if used % 5 == 0 and additionalTank:\n                mainTank+=1\n                additionalTank-=1\n        return res",
+            "date": 1687017600000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn distance_traveled(mut main_tank: i32, mut additional_tank: i32) -> i32 {\n        let mut used = 0;\n        let mut res = 0;\n        while main_tank != 0 {\n            used += 1;\n            main_tank -= 1;\n            res += 10;\n            if used % 5 == 0 && additional_tank != 0 {\n                main_tank += 1;\n                additional_tank -= 1;\n            }\n        }\n        res\n    }\n}",
+            "date": 1687017600000
+        }
+    ]
+}

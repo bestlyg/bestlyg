@@ -1,0 +1,17 @@
+{
+    "name": "6447.给墙壁刷油漆",
+    "url": "https://leetcode.cn/problems/painting-the-walls/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你两个长度为 n 下标从 0 开始的整数数组 cost 和 time ，分别表示给 n 堵不同的墙刷油漆需要的开销和时间。请你返回刷完 n 堵墙最少开销为多少。",
+    "solutions": [
+        {
+            "script": "python3",
+            "time": 2596,
+            "memory": 491,
+            "desc": "dfs，缓存考虑取每个值的可能。",
+            "code": "class Solution:\n    def paintWalls(self, cost: List[int], time: List[int]) -> int:\n        n = len(cost)\n        @cache\n        def dfs(idx: int, cnt: int):\n            if cnt >= n - idx: return 0\n            if idx == n: return inf\n            return min(dfs(idx + 1, cnt + time[idx]) + cost[idx], dfs(idx + 1, cnt - 1))\n        return dfs(0, 0)",
+            "date": 1687017600000
+        }
+    ]
+}

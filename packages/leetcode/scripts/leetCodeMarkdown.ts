@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1254. 统计封闭岛屿的数目',
-    url: 'https://leetcode.cn/problems/number-of-closed-islands/',
+    name: '6447. 给墙壁刷油漆',
+    url: 'https://leetcode.cn/problems/painting-the-walls/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `二维矩阵 grid 由 0 （土地）和 1 （水）组成。岛是由最大的4个方向连通的 0 组成的群，封闭岛是一个 完全 由1包围（左、上、右、下）的岛。请返回 封闭岛屿 的数目。`,
+    desc: `给你两个长度为 n 下标从 0 开始的整数数组 cost 和 time ，分别表示给 n 堵不同的墙刷油漆需要的开销和时间。请你返回刷完 n 堵墙最少开销为多少。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -28,105 +28,82 @@ const leetCodeMarkdown: Markdown = {
         //     return res;
         // };`,
         // },
-        {
-            script: Script.CPP,
-            time: 20,
-            memory: 13,
-            desc: 'bfs',
-            code: `#define X first
-#define Y second
-#define pii pair<int, int>
-vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-
-class Solution {
-public:
-    int closedIsland(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size(), res = 0;
-        bool used[100][100] = {0};
-        auto check = [&](int i, int j) {
-            bool res = true;
-            queue<pii> q;
-            q.push(make_pair(i, j));
-            used[i][j] = true;
-            while (q.size()) {
-                auto cur = q.front();
-                q.pop();
-                for (auto &dir : dirs) {
-                    int ni = cur.X + dir[0], nj = cur.Y + dir[1];
-                    if (ni < 0 || ni >= n || nj < 0 || nj >= m || grid[ni][nj] == 1 || used[ni][nj]) continue;
-                    if (ni == 0 || ni == n - 1 || nj == 0 || nj == m - 1) res = false;
-                    q.push(make_pair(ni, nj));
-                    used[ni][nj] = true;
-                }
-            }
-            return res;
-        };
-        for (int i = 1; i < n - 1; i++) {
-            for (int j = 1; j < m - 1; j++) {
-                if (grid[i][j] == 0 && !used[i][j] && check(i, j)) res += 1;
-            }
-        }
-        return res;
-    }
-};`,
-        },
-//                 {
-//                     script: Script.PY3,
-//                     time: 588,
-//                     memory: 56.4,
-//                     desc: '同上',
-//                     code: `class Solution:
-//     def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
-//         list = [1]
-//         for c in s:
-//             list.append(list[-1] ^ (1 << (ord(c) - ord('a'))))
-
-//         def check(q: List[int]):
-//             l, r, k = q[0], q[1], q[2]
-//             val = list[r+1] ^ list[l]
-//             cnt = 0
-//             for i in range(26):
-//                 if val & (1 << i):
-//                     cnt += 1
-//             if (r-l+1) % 2:
-//                 return 2 * k >= cnt - 1
-//             else:
-//                 return 2 * k >= cnt
-
-//         return [check(q) for q in queries]`,
-//                 },
-//                 {
-//                     script: Script.RUST,
-//                     time: 28,
-//                     memory: 9.5,
-//                     desc: '同上',
-//                     code: `impl Solution {
-//     pub fn can_make_pali_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<bool> {
-//         let mut list = vec![0];
-//         for c in s.as_bytes() {
-//             list.push(list.last().unwrap() ^ (1 << (*c - b'a')));
-//         }
-//         let check = |q: Vec<i32>| -> bool {
-//             let l = q[0] as usize;
-//             let r = q[1] as usize;
-//             let k = q[2];
-//             let val = list[r + 1] ^ list[l];
-//             let mut cnt = 0;
-//             for i in 0..26 {
-//                 if (val & (1 << i)) != 0 {
-//                     cnt += 1;
+//         {
+//             script: Script.CPP,
+//             time: 848,
+//             memory: 18.7,
+//             desc: '同上',
+//             code: `class Solution {
+// public:
+//     int specialPerm(vector<int>& nums) {
+//         int n = nums.size(), MOD = 1e9 + 7;
+//         int cache[1 << n][n + 1];
+//         memset(cache, 0, sizeof(cache));
+//         function<int(int, int)> dfs = [&](int used, int prev) -> int {
+//             if (used == (1 << n) - 1) return 1;
+//             if (cache[used][prev + 1]) return cache[used][prev + 1];
+//             int res = 0;
+//             for (int i = 0; i < n; i++) {
+//                 if (used & (1 << i)) continue;
+//                 if (prev == -1 || nums[i] % nums[prev] == 0 || nums[prev] % nums[i] == 0) {
+//                     res = (dfs(used | (1 << i), i) + res) % MOD;
 //                 }
 //             }
-//             if (r - l + 1) % 2 == 0 {
-//                 2 * k >= cnt
-//             } else {
-//                 2 * k >= cnt - 1
-//             }
+//             return cache[used][prev + 1] = res;
 //         };
-//         queries.into_iter().map(|q| check(q)).collect()
+//         return dfs(0, -1);
+//     }
+// };`,
+//         },
+        {
+            script: Script.PY3,
+            time: 2596,
+            memory: 491,
+            desc: '同上',
+            code: `class Solution:
+    def paintWalls(self, cost: List[int], time: List[int]) -> int:
+        n = len(cost)
+        @cache
+        def dfs(idx: int, cnt: int):
+            if cnt >= n - idx: return 0
+            if idx == n: return inf
+            return min(dfs(idx + 1, cnt + time[idx]) + cost[idx], dfs(idx + 1, cnt - 1))
+        return dfs(0, 0)`,
+        },
+//         {
+//             script: Script.RUST,
+//             time: 296,
+//             memory: 3.6,
+//             desc: '同上',
+//             code: `impl Solution {
+//     pub fn special_perm(nums: Vec<i32>) -> i32 {
+//         let n = nums.len();
+//         let mut cache = vec![vec![0; n + 1]; 1 << n];
+//         fn dfs(nums: &Vec<i32>, cache: &mut Vec<Vec<i32>>, n: usize, used: i32, prev: i32) -> i32 {
+//             if (used as usize) == (1 << (n as u64)) - 1 {
+//                 1
+//             } else if cache[used as usize][(prev + 1) as usize] != 0 {
+//                 cache[used as usize][(prev + 1) as usize]
+//             } else {
+//                 for i in 0..n {
+//                     if (used & (1 << i)) == 0
+//                         && (prev == -1
+//                             || nums[i] % nums[prev as usize] == 0
+//                             || nums[prev as usize] % nums[i] == 0)
+//                     {
+//                         cache[used as usize][(prev + 1) as usize] = (cache[used as usize]
+//                             [(prev + 1) as usize]
+//                             + dfs(nums, cache, n, used | (1 << i), i as i32))
+//                             % (1000000000 + 7);
+//                     }
+//                 }
+//                 cache[used as usize][(prev + 1) as usize]
+//             }
+//         }
+//         return dfs(&nums, &mut cache, n, 0, -1);
 //     }
 // }`,
-//                 },
+//         },
     ],
 };
 
