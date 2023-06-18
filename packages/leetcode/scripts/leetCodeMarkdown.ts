@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2481. 分割圆的最少切割次数',
-    url: 'https://leetcode.cn/problems/minimum-cuts-to-divide-a-circle/',
+    name: '1254. 统计封闭岛屿的数目',
+    url: 'https://leetcode.cn/problems/number-of-closed-islands/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 n ，请你返回将圆切割成相等的 n 等分的 最少 切割次数。`,
+    desc: `二维矩阵 grid 由 0 （土地）和 1 （水）组成。岛是由最大的4个方向连通的 0 组成的群，封闭岛是一个 完全 由1包围（左、上、右、下）的岛。请返回 封闭岛屿 的数目。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,15 +30,43 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 4,
-            memory: 5.9,
-            desc: '奇数的只能按照中心点分，偶数能按照两端分',
-            code: `class Solution {
+            time: 20,
+            memory: 13,
+            desc: 'bfs',
+            code: `#define X first
+#define Y second
+#define pii pair<int, int>
+vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+class Solution {
 public:
-    int numberOfCuts(int n) {
-        if (n == 1) return 0;
-        if (n % 2 == 0) return n / 2;
-        return n;
+    int closedIsland(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size(), res = 0;
+        bool used[100][100] = {0};
+        auto check = [&](int i, int j) {
+            bool res = true;
+            queue<pii> q;
+            q.push(make_pair(i, j));
+            used[i][j] = true;
+            while (q.size()) {
+                auto cur = q.front();
+                q.pop();
+                for (auto &dir : dirs) {
+                    int ni = cur.X + dir[0], nj = cur.Y + dir[1];
+                    if (ni < 0 || ni >= n || nj < 0 || nj >= m || grid[ni][nj] == 1 || used[ni][nj]) continue;
+                    if (ni == 0 || ni == n - 1 || nj == 0 || nj == m - 1) res = false;
+                    q.push(make_pair(ni, nj));
+                    used[ni][nj] = true;
+                }
+            }
+            return res;
+        };
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < m - 1; j++) {
+                if (grid[i][j] == 0 && !used[i][j] && check(i, j)) res += 1;
+            }
+        }
+        return res;
     }
 };`,
         },

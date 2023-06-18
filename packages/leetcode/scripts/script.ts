@@ -104,16 +104,10 @@
 //   ? unknown
 //   : _DivideBy<M, N, []>;
 
-type ToBeOrNotToBe = {
-    toBe: (val: any) => boolean;
-    notToBe: (val: any) => boolean;
-};
-function throwError(msg: string): never {
-    throw new Error(msg);
-}
-function expect(val1: any): ToBeOrNotToBe {
-    return {
-        toBe: val2 => (val1 === val2 ? true : throwError('Not Equal')),
-        notToBe: val2 => (val1 === val2 ? true : throwError('Not Equal')),
-    };
-}
+const list = [
+    [0, 1, 1, 1, 0],
+    [1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0],
+];
