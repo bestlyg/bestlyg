@@ -1,0 +1,33 @@
+{
+    "name": "6893.特别的排列",
+    "url": "https://leetcode.cn/problems/special-permutations/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始的整数数组 nums ，它包含 n 个 互不相同 的正整数。请你返回特别排列的总数目。",
+    "solutions": [
+        {
+            "script": "python3",
+            "time": 3720,
+            "memory": 213.8,
+            "desc": "状态压缩后逐一比较。",
+            "code": "class Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        MOD = 1000000000 + 7\n\n        @cache\n        def dfs(used: int, prev: int) -> int:\n            if used == (1 << n) - 1:\n                return 1\n            res = 0\n            for i in range(n):\n                if used & (1 << i):\n                    continue\n                if prev == 0 or nums[i] % prev == 0 or prev % nums[i] == 0:\n                    res = (dfs(used | (1 << i), nums[i]) + res) % MOD\n            return res\n        return dfs(0, 0)",
+            "date": 1687017600000
+        },
+        {
+            "script": "cpp",
+            "time": 848,
+            "memory": 18.7,
+            "desc": "同上。",
+            "code": "class Solution {\npublic:\n    int specialPerm(vector<int>& nums) {\n        int n = nums.size(), MOD = 1e9 + 7;\n        int cache[1 << n][n + 1];\n        memset(cache, 0, sizeof(cache));\n        function<int(int, int)> dfs = [&](int used, int prev) -> int {\n            if (used == (1 << n) - 1) return 1;\n            if (cache[used][prev + 1]) return cache[used][prev + 1];\n            int res = 0;\n            for (int i = 0; i < n; i++) {\n                if (used & (1 << i)) continue;\n                if (prev == -1 || nums[i] % nums[prev] == 0 || nums[prev] % nums[i] == 0) {\n                    res = (dfs(used | (1 << i), i) + res) % MOD;\n                }\n            }\n            return cache[used][prev + 1] = res;\n        };\n        return dfs(0, -1);\n    }\n};",
+            "date": 1687017600000
+        },
+        {
+            "script": "rust",
+            "time": 296,
+            "memory": 3.6,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn special_perm(nums: Vec<i32>) -> i32 {\n        let n = nums.len();\n        let mut cache = vec![vec![0; n + 1]; 1 << n];\n        fn dfs(nums: &Vec<i32>, cache: &mut Vec<Vec<i32>>, n: usize, used: i32, prev: i32) -> i32 {\n            if (used as usize) == (1 << (n as u64)) - 1 {\n                1\n            } else if cache[used as usize][(prev + 1) as usize] != 0 {\n                cache[used as usize][(prev + 1) as usize]\n            } else {\n                for i in 0..n {\n                    if (used & (1 << i)) == 0\n                        && (prev == -1\n                            || nums[i] % nums[prev as usize] == 0\n                            || nums[prev as usize] % nums[i] == 0)\n                    {\n                        cache[used as usize][(prev + 1) as usize] = (cache[used as usize]\n                            [(prev + 1) as usize]\n                            + dfs(nums, cache, n, used | (1 << i), i as i32))\n                            % (1000000000 + 7);\n                    }\n                }\n                cache[used as usize][(prev + 1) as usize]\n            }\n        }\n        return dfs(&nums, &mut cache, n, 0, -1);\n    }\n}",
+            "date": 1687017600000
+        }
+    ]
+}
