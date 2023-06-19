@@ -83,34 +83,61 @@ export class SingleSliceUploader extends SliceUploader {
         const filedata = getFileData(file);
         const total = file.size;
         let loaded = 0;
-
-        for (let pos = 0; pos < file.size; pos += chunkSize) {
-            this.asyncQueue.push(() => {
-                const slice = file.slice(pos, pos + chunkSize);
-                const store = new Store();
-                store.append('slice', slice);
-                const hashCstr = new SyncHash();
-                return hashCstr.hash(slice).then(hash => {
+        let finishedCount = 0;
+        let sumCount = 0;
+        return new Promise((resolve, reject) => {
+            for (let pos = 0; pos < file.size; pos += chunkSize) {
+                sumCount += 1;
+                const idx = sumCount;
+                this.asyncQueue.push(() => {
+                    const slice = file.slice(pos, pos + chunkSize);
+                    const store = new Store();
+                    store.append('slice', slice);
+                    const hashCstr = new SyncHash();
                     return request({
-                        url,
-                        method: 'post',
+                        url: `/api/upload/single/exist?idx=${idx}`,
+                        method: 'get',
                         headers: {
                             'x-uploader-dirname': filedata.name,
                             'x-uploader-filename': filedata.name,
                             'x-uploader-ext': filedata.ext,
-                            'x-uploader-chunksize': chunkSize + "",
-                            'x-uploader-index': Math.floor(pos / chunkSize) + '',
-                            'x-uploader-hash': hash + '',
+                            'x-uploader-chunksize': chunkSize + '',
+                            'x-uploader-index': idx + '',
                         },
-                        body: store.toFormData(),
-                    }).then(res => {
-                        loaded += slice.size;
-                        const data = { loaded, total };
-                        this.onProgressSet.forEach(fn => fn(data));
-                    });
+                    })
+                        .then(res => {
+                            if (res.data.success === 0) {
+                                return hashCstr.hash(slice).then(hash => {
+                                    return request({
+                                        url,
+                                        method: 'post',
+                                        headers: {
+                                            'x-uploader-dirname': filedata.name,
+                                            'x-uploader-filename': filedata.name,
+                                            'x-uploader-ext': filedata.ext,
+                                            'x-uploader-chunksize': chunkSize + '',
+                                            'x-uploader-index': idx + '',
+                                            'x-uploader-hash': hash + '',
+                                        },
+                                        body: store.toFormData(),
+                                    }) as any;
+                                });
+                            } else {
+                                return Promise.resolve();
+                            }
+                        })
+                        .then(() => {
+                            loaded += slice.size;
+                            const data = { loaded, total };
+                            this.onProgressSet.forEach(fn => fn(data));
+                            finishedCount += 1;
+                            console.log(
+                                `finished ${idx}, sum = ${sumCount}, finishedCount = ${finishedCount}`
+                            );
+                            if (finishedCount === sumCount) resolve();
+                        }, reject);
                 });
-            });
-        }
-        return this.asyncQueue.run();
+            }
+        });
     }
 }

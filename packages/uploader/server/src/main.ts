@@ -5,7 +5,7 @@ import express from 'express';
 
 const resolve = (...p: string[]) => path.resolve(__dirname, '../../', ...p);
 const app = express();
-const uploadPath = resolve('uploads');
+const uploadPath = resolve('uploads_temp');
 const upload = multer({ dest: uploadPath });
 const port = 3000;
 
@@ -86,6 +86,25 @@ app.post('/api/upload/single/slice', upload.single('slice'), function (req, res,
         });
 });
 
+app.get('/api/upload/single/exist', function (req, res, next) {
+    const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
+    const dirpath = resolve(`uploads/${dirname}`);
+    const idx = req.query.idx;
+    fs.exists(dirpath).then(f => {
+        if (f) {
+            fs.readdir(dirpath).then((list: any) => {
+                if (new Set(list).has(idx)) {
+                    res.json({ success: 1 });
+                } else {
+                    res.json({ success: 0 });
+                }
+            });
+        } else {
+            res.json({ success: 0 });
+        }
+    });
+});
+
 app.post('/api/upload/single/merge', function (req, res, next) {
     console.log('====> merge');
     const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
@@ -97,8 +116,10 @@ app.post('/api/upload/single/merge', function (req, res, next) {
     const writeStream = fs.createWriteStream(filepath);
     let filelist: number[] = [];
     const load = (index: number) => {
-        console.log('load ', index);
-        if (index === filelist.length) return Promise.resolve();
+        if (index === filelist.length) {
+            writeStream.close();
+            return Promise.resolve();
+        }
         return pipe(resolve(dirpath, filelist[index].toString()), writeStream).then(() =>
             load(index + 1)
         );
@@ -108,7 +129,7 @@ app.post('/api/upload/single/merge', function (req, res, next) {
             filelist = list
                 .map(v => Number(v))
                 .filter(v => !Number.isNaN(v))
-                .sort();
+                .sort((a, b) => a - b);
             console.log('filelist', filelist);
             return load(0);
         })
