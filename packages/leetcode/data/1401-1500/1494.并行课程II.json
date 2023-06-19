@@ -1,8 +1,14 @@
 {
+    "id": "1587",
     "name": "1494.并行课程II",
-    "url": "https://leetcode.cn/problems/parallel-courses-ii/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/parallel-courses-ii",
+    "difficulty": "困难",
+    "tag": [
+        "位运算",
+        "图",
+        "动态规划",
+        "状态压缩"
+    ],
     "desc": "给你一个整数 n 表示某所大学里课程的数目，编号为 1 到 n ，数组 relations 中， relations[i] = [xi, yi]  表示一个先修课的关系，也就是课程 xi 必须在课程 yi 之前上。同时你还有一个整数 k 。在一个学期中，你 最多 可以同时上 k 门课，前提是这些课的先修课在之前的学期里已经上过了。请你返回上完所有课最少需要多少个学期。",
     "solutions": [
         {
