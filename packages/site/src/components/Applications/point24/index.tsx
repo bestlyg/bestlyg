@@ -120,7 +120,7 @@ export function point24() {
         {solutions.length ? (
           <Row>
             {solutions.map((v, i) => (
-              <Col key={i} span={6}>
+              <Col key={i} span={24}>
                 {`${v} = ${target}`}
               </Col>
             ))}
