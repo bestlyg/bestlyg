@@ -13,30 +13,23 @@ fn main() {
 }
 
 impl Solution {
-    pub fn special_perm(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut cache = vec![vec![0; n + 1]; 1 << n];
-        fn dfs(nums: &Vec<i32>, cache: &mut Vec<Vec<i32>>, n: usize, used: i32, prev: i32) -> i32 {
-            if (used as usize) == (1 << (n as u64)) - 1 {
-                1
-            } else if cache[used as usize][(prev + 1) as usize] != 0 {
-                cache[used as usize][(prev + 1) as usize]
-            } else {
-                for i in 0..n {
-                    if (used & (1 << i)) == 0
-                        && (prev == -1
-                            || nums[i] % nums[prev as usize] == 0
-                            || nums[prev as usize] % nums[i] == 0)
-                    {
-                        cache[used as usize][(prev + 1) as usize] = (cache[used as usize]
-                            [(prev + 1) as usize]
-                            + dfs(nums, cache, n, used | (1 << i), i as i32))
-                            % (1000000000 + 7);
+    pub fn connect_two_groups(cost: Vec<Vec<i32>>) -> i32 {
+        let n = cost.len();
+        let m = cost[0].len();
+        let mut cache = vec![vec![0x3f3f3f3f; 1 << m]; n + 1];
+        cache[0][0] = 0;
+        for i in 1..=n {
+            for mask in 0..(1 << m) {
+                for j in 0..m {
+                    if (mask & (1 << j)) != 0 {
+                        cache[i][mask] = cache[i][mask]
+                            .min(cache[i][mask & !(1 << j)] + cost[i - 1][j])
+                            .min(cache[i - 1][mask] + cost[i - 1][j])
+                            .min(cache[i - 1][mask & !(1 << j)] + cost[i - 1][j]);
                     }
                 }
-                cache[used as usize][(prev + 1) as usize]
             }
         }
-        return dfs(&nums, &mut cache, n, 0, -1);
+        return cache[n][(1 << m) - 1];
     }
 }

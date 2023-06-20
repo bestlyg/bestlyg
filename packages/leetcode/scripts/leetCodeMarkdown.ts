@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1262. 可被三整除的最大和',
-    url: 'https://leetcode.cn/problems/greatest-sum-divisible-by-three/',
+    name: '1595. 连通两组点的最小成本',
+    url: 'https://leetcode.cn/problems/minimum-cost-to-connect-two-groups-of-points/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。`,
+    desc: `给你两组点，其中第一组中有 size1 个点，第二组中有 size2 个点，且 size1 >= size2 。任意两点间的连接成本 cost 由大小为 size1 x size2 矩阵给出，其中 cost[i][j] 是第一组中的点 i 和第二组中的点 j 的连接成本。如果两个组中的每个点都与另一组中的一个或多个点连接，则称这两组点是连通的。换言之，第一组中的每个点必须至少与第二组中的一个点连接，且第二组中的每个点必须至少与第一组中的一个点连接。返回连通两组点所需的最小成本。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,78 +30,80 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 24,
-            memory: 26,
-            desc: '求出总和，模3判断多了的数字',
+            time: 104,
+            memory: 9.8,
+            desc: 'dp[i][j]表示只有i个第一行元素的时候，已经使用了bitcount(j)个第二行元素时的最小开销',
             code: `class Solution {
 public:
-    int maxSumDivThree(vector<int>& nums) {
-        int sum = 0;
-        vector<int> v1, v2;
-        for (auto &num : nums) {
-            sum += num;
-            switch (num % 3) {
-                case 1: v1.push_back(num); break;
-                case 2: v2.push_back(num); break;
+    int connectTwoGroups(vector<vector<int>>& cost) {
+        int n = cost.size(), m = cost[0].size();
+        vector<vector<int>>cache(n + 1, vector<int>(1 << m, 0x3f3f3f3f));
+        cache[0][0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int mask = 0; mask < (1 << m); mask++) {
+                for (int j = 0; j < m; j++) {
+                    if (mask & (1 << j)) {
+                        cache[i][mask] = min(cache[i][mask], cache[i][mask & ~(1 << j)] + cost[i - 1][j]);
+                        cache[i][mask] = min(cache[i][mask], cache[i - 1][mask] + cost[i - 1][j]);
+                        cache[i][mask] = min(cache[i][mask], cache[i - 1][mask & ~(1 << j)] + cost[i - 1][j]);
+                    }
+                }
             }
         }
-        if (sum % 3 == 0) return sum;
-        sort(v1.begin(), v1.end());
-        sort(v2.begin(), v2.end());
-        if (sum % 3 == 2) swap(v1, v2);
-        int res = v1.size() ? sum - v1[0] : 0;
-        if (v2.size() > 1) res = max(res, sum - v2[0] - v2[1]);
-        return res;
+        return cache[n][(1 << m) - 1];
     }
 };`,
         },
         {
-            script: Script.CPP,
-            time: 72,
-            memory: 36,
-            desc: 'dp表示余i个数的时候的最大和',
-            code: `class Solution {
-public:
-    int maxSumDivThree(vector<int>& nums) {
-        vector<int> dp = {0, INT_MIN, INT_MIN};
-        for (auto &num : nums) {
-            auto nextDp = dp;
-            for (int i = 0; i < 3; i++) {
-                int idx = (i + num) % 3;
-                nextDp[idx] = max(nextDp[idx], dp[i] + num);
-            }
-            dp = nextDp;
-        }
-        return dp[0];
-    }
-};`,
+            script: Script.PY3,
+            time: 1308,
+            memory: 16.8,
+            desc: '同上',
+            code: `class Solution:
+    def connectTwoGroups(self, cost: List[List[int]]) -> int:
+        n = len(cost)
+        m = len(cost[0])
+        cache = [[inf for _ in range(1 << m)] for _ in range(n + 1)]
+        cache[0][0] = 0
+        for i in range(1, n+1):
+            for mask in range(1 << m):
+                for j in range(m):
+                    if mask & (1 << j):
+                        cache[i][mask] = min(
+                            cache[i][mask], cache[i][mask & ~(1 << j)] + cost[i - 1][j])
+                        cache[i][mask] = min(
+                            cache[i][mask], cache[i - 1][mask] + cost[i - 1][j])
+                        cache[i][mask] = min(
+                            cache[i][mask], cache[i - 1][mask & ~(1 << j)] + cost[i - 1][j])
+        return cache[n][(1 << m) - 1]`,
         },
-//         {
-//             script: Script.PY3,
-//             time: 132,
-//             memory: 27.8,
-//             desc: '同上',
-//             code: `class Solution:
-//     def findValueOfPartition(self, nums: List[int]) -> int:
-//         nums.sort()
-//         return min(nums[i] - nums[i - 1] for i in range(1, len(nums)))`,
-//         },
-//         {
-//             script: Script.RUST,
-//             time: 24,
-//             memory: 3.5,
-//             desc: '同上',
-//             code: `impl Solution {
-// pub fn find_value_of_partition(mut nums: Vec<i32>) -> i32 {
-//     nums.sort();
-//     (1..nums.len())
-//         .into_iter()
-//         .map(|i| nums[i] - nums[i - 1])
-//         .min()
-//         .unwrap()
-// }
-// }`,
-//         },
+        {
+            script: Script.RUST,
+            time: 16,
+            memory: 2.3,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn connect_two_groups(cost: Vec<Vec<i32>>) -> i32 {
+        let n = cost.len();
+        let m = cost[0].len();
+        let mut cache = vec![vec![0x3f3f3f3f; 1 << m]; n + 1];
+        cache[0][0] = 0;
+        for i in 1..=n {
+            for mask in 0..(1 << m) {
+                for j in 0..m {
+                    if (mask & (1 << j)) != 0 {
+                        cache[i][mask] = cache[i][mask]
+                            .min(cache[i][mask & !(1 << j)] + cost[i - 1][j])
+                            .min(cache[i - 1][mask] + cost[i - 1][j])
+                            .min(cache[i - 1][mask & !(1 << j)] + cost[i - 1][j]);
+                    }
+                }
+            }
+        }
+        return cache[n][(1 << m) - 1];
+    }
+}`,
+        },
     ],
 };
 
