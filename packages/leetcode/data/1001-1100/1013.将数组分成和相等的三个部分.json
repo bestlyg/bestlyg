@@ -10,7 +10,7 @@
     "desc": "给你一个整数数组 arr，只有可以将其划分为三个和相等的 非空 部分时才返回 true，否则返回 false。",
     "solutions": [
         {
-            "script": "python3",
+            "script": "python",
             "time": 248,
             "memory": 26.3,
             "desc": "dfs。",

@@ -20,7 +20,7 @@
             "date": 1683129600000
         },
         {
-            "script": "python3",
+            "script": "python",
             "time": 476,
             "memory": 50.9,
             "desc": "同上。",

@@ -9,7 +9,7 @@
     "desc": "返回所有数字及其对应符号的和。",
     "solutions": [
         {
-            "script": "python3",
+            "script": "python",
             "time": 32,
             "memory": 15,
             "desc": "遍历。",
