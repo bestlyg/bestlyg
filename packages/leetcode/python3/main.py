@@ -2,22 +2,41 @@ from preclude import *
 
 
 class Solution:
-    def connectTwoGroups(self, cost: List[List[int]]) -> int:
-        n = len(cost)
-        m = len(cost[0])
-        cache = [[inf for _ in range(1 << m)] for _ in range(n + 1)]
-        cache[0][0] = 0
-        for i in range(1, n+1):
-            for mask in range(1 << m):
-                for j in range(m):
-                    if mask & (1 << j):
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i][mask & ~(1 << j)] + cost[i - 1][j])
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i - 1][mask] + cost[i - 1][j])
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i - 1][mask & ~(1 << j)] + cost[i - 1][j])
-        return cache[n][(1 << m) - 1]
+    def flipChess(self, chessboard: List[str]) -> int:
+        n = len(chessboard)
+        m = len(chessboard[0])
+        sum = 0
+
+        def dfs(board:List[List[str]],i:int,j:int):
+            list = []
+            res = 0
+            for dir in dirs2:
+                ni = i + dir[0]
+                nj = j + dir[1]
+                tmp = []
+                while 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'O':
+                    tmp.append((ni,nj))
+                    ni += dir[0]
+                    nj += dir[1]
+                if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':
+                    for item in tmp:
+                        list.append(item)
+            sum += len(list)
+
+            for i,j in list: board[i][j] = 'X'
+            for i,j in list: dfs(board,i,j)
+
+            return res
+
+        for i in range(n):
+            for j in range(m):
+                if chessboard[i][j] == '.':
+                    board = [list(chessboard[i]) for i in chessboard]
+                    board[i][j] = 'X'
+                    sum = 0
+                    dfs(board, i, j, sum)
+                    res = max(res, sum)
+        return res
 
 
 def main():

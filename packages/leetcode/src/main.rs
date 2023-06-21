@@ -12,24 +12,62 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+fn dfs(board: &mut Vec<Vec<char>>, sum: &mut i32, i: usize, j: usize) {
+    let mut list = vec![];
+    for dir in dirs2 {
+        let mut ni = i as i32 + dir[0];
+        let mut nj = j as i32 + dir[1];
+        let mut tmp = vec![];
+        while ni >= 0
+            && ni < board.len() as i32
+            && nj >= 0
+            && nj < board[0].len() as i32
+            && board[ni as usize][nj as usize] == 'O'
+        {
+            tmp.push((ni, nj));
+            ni += dir[0];
+            nj += dir[1];
+        }
+        if ni >= 0
+            && ni < board.len() as i32
+            && nj >= 0
+            && nj < board[0].len() as i32
+            && board[ni as usize][nj as usize] == 'X'
+        {
+            for item in tmp {
+                list.push(item);
+            }
+        }
+    }
+    *sum += list.len() as i32;
+    for (i, j) in &list {
+        board[*i as usize][*j as usize] = 'X';
+    }
+    for (i, j) in &list {
+        dfs(board, sum, *i as usize, *j as usize);
+    }
+}
+
 impl Solution {
-    pub fn connect_two_groups(cost: Vec<Vec<i32>>) -> i32 {
-        let n = cost.len();
-        let m = cost[0].len();
-        let mut cache = vec![vec![0x3f3f3f3f; 1 << m]; n + 1];
-        cache[0][0] = 0;
-        for i in 1..=n {
-            for mask in 0..(1 << m) {
-                for j in 0..m {
-                    if (mask & (1 << j)) != 0 {
-                        cache[i][mask] = cache[i][mask]
-                            .min(cache[i][mask & !(1 << j)] + cost[i - 1][j])
-                            .min(cache[i - 1][mask] + cost[i - 1][j])
-                            .min(cache[i - 1][mask & !(1 << j)] + cost[i - 1][j]);
-                    }
+    pub fn flip_chess(chessboard: Vec<String>) -> i32 {
+        let chessboard = chessboard
+            .into_iter()
+            .map(|item| str_to_vec(&item))
+            .collect::<Vec<Vec<char>>>();
+        let n = chessboard.len();
+        let m = chessboard[0].len();
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..m {
+                if chessboard[i][j] == '.' {
+                    let mut board = chessboard.clone();
+                    board[i][j] = 'X';
+                    let mut sum = 0;
+                    dfs(&mut board, &mut sum, i, j);
+                    res = res.max(sum);
                 }
             }
         }
-        return cache[n][(1 << m) - 1];
+        res
     }
 }

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1595. 连通两组点的最小成本',
-    url: 'https://leetcode.cn/problems/minimum-cost-to-connect-two-groups-of-points/',
+    name: 'LCP 41. 黑白翻转棋',
+    url: 'https://leetcode.cn/problems/fHi6rV/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两组点，其中第一组中有 size1 个点，第二组中有 size2 个点，且 size1 >= size2 。任意两点间的连接成本 cost 由大小为 size1 x size2 矩阵给出，其中 cost[i][j] 是第一组中的点 i 和第二组中的点 j 的连接成本。如果两个组中的每个点都与另一组中的一个或多个点连接，则称这两组点是连通的。换言之，第一组中的每个点必须至少与第二组中的一个点连接，且第二组中的每个点必须至少与第一组中的一个点连接。返回连通两组点所需的最小成本。`,
+    desc: `在 n*m 大小的棋盘中，有黑白两种棋子，黑棋记作字母 "X", 白棋记作字母 "O"，空余位置记作 "."。当落下的棋子与其他相同颜色的棋子在行、列或对角线完全包围（中间不存在空白位置）另一种颜色的棋子，则可以翻转这些棋子的颜色。若下一步可放置一枚黑棋，请问选手最多能翻转多少枚白棋。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,77 +30,165 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 104,
-            memory: 9.8,
-            desc: 'dp[i][j]表示只有i个第一行元素的时候，已经使用了bitcount(j)个第二行元素时的最小开销',
-            code: `class Solution {
+            time: 8,
+            memory: 11.4,
+            desc: '暴力枚举',
+            code: `#define X first
+#define Y second
+#define pii pair<int, int>
+
+class Solution {
 public:
-    int connectTwoGroups(vector<vector<int>>& cost) {
-        int n = cost.size(), m = cost[0].size();
-        vector<vector<int>>cache(n + 1, vector<int>(1 << m, 0x3f3f3f3f));
-        cache[0][0] = 0;
-        for (int i = 1; i <= n; i++) {
-            for (int mask = 0; mask < (1 << m); mask++) {
-                for (int j = 0; j < m; j++) {
-                    if (mask & (1 << j)) {
-                        cache[i][mask] = min(cache[i][mask], cache[i][mask & ~(1 << j)] + cost[i - 1][j]);
-                        cache[i][mask] = min(cache[i][mask], cache[i - 1][mask] + cost[i - 1][j]);
-                        cache[i][mask] = min(cache[i][mask], cache[i - 1][mask & ~(1 << j)] + cost[i - 1][j]);
-                    }
+    vector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+    int flipChess(vector<string>& chessboard) {
+        int n = chessboard.size(), m = chessboard[0].size(), res = 0;
+        function<void(vector<string>&, int, int, int&)> dfs = [&](vector<string>& chessboard, int i, int j, int& sum) {
+            vector<pii> list;
+            for (auto &dir : dirs2) {
+                int ni = i + dir[0], nj = j + dir[1];
+                vector<pii> tmp;
+                while (ni >= 0 && ni < n && nj >= 0 && nj < m && chessboard[ni][nj] == 'O') {
+                    tmp.push_back(make_pair(ni, nj));
+                    ni += dir[0];
+                    nj += dir[1];
+                }
+                if (ni >= 0 && ni < n && nj >= 0 && nj < m && chessboard[ni][nj] == 'X') {
+                    for (auto &item : tmp) list.push_back(item);
+                }
+            }
+
+            sum += list.size();
+
+            for (auto &next : list) chessboard[next.X][next.Y] = 'X';
+            for (auto &next : list) dfs(chessboard, next.X, next.Y, sum);
+        };
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (chessboard[i][j] == '.') {
+                    auto board = chessboard;
+                    board[i][j] = 'X';
+                    int sum = 0;
+                    dfs(board, i, j, sum);
+                    res = max(res, sum);
                 }
             }
         }
-        return cache[n][(1 << m) - 1];
+        return res;
     }
 };`,
         },
         {
             script: Script.PY3,
-            time: 1308,
-            memory: 16.8,
+            time: 88,
+            memory: 16,
             desc: '同上',
-            code: `class Solution:
-    def connectTwoGroups(self, cost: List[List[int]]) -> int:
-        n = len(cost)
-        m = len(cost[0])
-        cache = [[inf for _ in range(1 << m)] for _ in range(n + 1)]
-        cache[0][0] = 0
-        for i in range(1, n+1):
-            for mask in range(1 << m):
+            code: `dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+
+    class Solution:
+        def flipChess(self, chessboard: List[str]) -> int:
+            n = len(chessboard)
+            m = len(chessboard[0])
+            sum = res = 0
+    
+            def dfs(board:List[List[str]],i:int,j:int):
+                nonlocal sum
+                list = []
+                for dir in dirs2:
+                    ni = i + dir[0]
+                    nj = j + dir[1]
+                    tmp = []
+                    while 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'O':
+                        tmp.append((ni,nj))
+                        ni += dir[0]
+                        nj += dir[1]
+                    if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':
+                        for item in tmp:
+                            list.append(item)
+                sum += len(list)
+    
+                for i,j in list: board[i][j] = 'X'
+                for i,j in list: dfs(board,i,j)
+    
+            for i in range(n):
                 for j in range(m):
-                    if mask & (1 << j):
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i][mask & ~(1 << j)] + cost[i - 1][j])
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i - 1][mask] + cost[i - 1][j])
-                        cache[i][mask] = min(
-                            cache[i][mask], cache[i - 1][mask & ~(1 << j)] + cost[i - 1][j])
-        return cache[n][(1 << m) - 1]`,
+                    if chessboard[i][j] == '.':
+                        board = []
+                        for item in chessboard:
+                            board.append(list(item))
+                        board[i][j] = 'X'
+                        sum = 0
+                        dfs(board, i, j)
+                        res = max(res, sum)
+            return res`,
         },
         {
             script: Script.RUST,
-            time: 16,
-            memory: 2.3,
+            time: 0,
+            memory: 2.1,
             desc: '同上',
-            code: `impl Solution {
-    pub fn connect_two_groups(cost: Vec<Vec<i32>>) -> i32 {
-        let n = cost.len();
-        let m = cost[0].len();
-        let mut cache = vec![vec![0x3f3f3f3f; 1 << m]; n + 1];
-        cache[0][0] = 0;
-        for i in 1..=n {
-            for mask in 0..(1 << m) {
-                for j in 0..m {
-                    if (mask & (1 << j)) != 0 {
-                        cache[i][mask] = cache[i][mask]
-                            .min(cache[i][mask & !(1 << j)] + cost[i - 1][j])
-                            .min(cache[i - 1][mask] + cost[i - 1][j])
-                            .min(cache[i - 1][mask & !(1 << j)] + cost[i - 1][j]);
-                    }
+            code: `pub fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+pub const dirs2: [[i32; 2]; 8] = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
+
+fn dfs(board: &mut Vec<Vec<char>>, sum: &mut i32, i: usize, j: usize) {
+    let mut list = vec![];
+    for dir in dirs2 {
+        let mut ni = i as i32 + dir[0];
+        let mut nj = j as i32 + dir[1];
+        let mut tmp = vec![];
+        while ni >= 0
+            && ni < board.len() as i32
+            && nj >= 0
+            && nj < board[0].len() as i32
+            && board[ni as usize][nj as usize] == 'O'
+        {
+            tmp.push((ni, nj));
+            ni += dir[0];
+            nj += dir[1];
+        }
+        if ni >= 0
+            && ni < board.len() as i32
+            && nj >= 0
+            && nj < board[0].len() as i32
+            && board[ni as usize][nj as usize] == 'X'
+        {
+            for item in tmp {
+                list.push(item);
+            }
+        }
+    }
+    *sum += list.len() as i32;
+    for (i, j) in &list {
+        board[*i as usize][*j as usize] = 'X';
+    }
+    for (i, j) in &list {
+        dfs(board, sum, *i as usize, *j as usize);
+    }
+}
+
+impl Solution {
+    pub fn flip_chess(chessboard: Vec<String>) -> i32 {
+        let chessboard = chessboard
+            .into_iter()
+            .map(|item| str_to_vec(&item))
+            .collect::<Vec<Vec<char>>>();
+        let n = chessboard.len();
+        let m = chessboard[0].len();
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..m {
+                if chessboard[i][j] == '.' {
+                    let mut board = chessboard.clone();
+                    board[i][j] = 'X';
+                    let mut sum = 0;
+                    dfs(&mut board, &mut sum, i, j);
+                    res = res.max(sum);
                 }
             }
         }
-        return cache[n][(1 << m) - 1];
+        res
     }
 }`,
         },

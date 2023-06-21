@@ -1,6 +1,6 @@
 {
-    "markdownCount": 1304,
-    "solutionCount": 2377,
+    "markdownCount": 1305,
+    "solutionCount": 2380,
     "index": [
         {
             "dir": "1-100",
@@ -1417,7 +1417,8 @@
             "list": [
                 "LCP07.传递信息",
                 "LCP19.秋叶收藏集",
-                "LCP33.蓄水"
+                "LCP33.蓄水",
+                "LCP41.黑白翻转棋"
             ]
         },
         {
@@ -6098,6 +6099,7 @@
                 "面试题17.12.BiNode",
                 "LCP07.传递信息",
                 "LCP33.蓄水",
+                "LCP41.黑白翻转棋",
                 "剑指Offer03.数组中重复的数字",
                 "剑指Offer09.用两个栈实现队列",
                 "剑指Offer10-I.斐波那契数列",
