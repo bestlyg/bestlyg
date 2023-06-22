@@ -1,41 +1,32 @@
 from preclude import *
 
 
+dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+
+
 class Solution:
-    def flipChess(self, chessboard: List[str]) -> int:
-        n = len(chessboard)
-        m = len(chessboard[0])
-        sum = 0
-
-        def dfs(board:List[List[str]],i:int,j:int):
-            list = []
-            res = 0
-            for dir in dirs2:
-                ni = i + dir[0]
-                nj = j + dir[1]
-                tmp = []
-                while 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'O':
-                    tmp.append((ni,nj))
-                    ni += dir[0]
-                    nj += dir[1]
-                if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':
-                    for item in tmp:
-                        list.append(item)
-            sum += len(list)
-
-            for i,j in list: board[i][j] = 'X'
-            for i,j in list: dfs(board,i,j)
-
-            return res
-
+    def pondSizes(self, land: List[List[int]]) -> List[int]:
+        n = len(land)
+        m = len(land[0])
+        used = [[False for _ in range(m)] for _ in range(n)]
+        res = []
         for i in range(n):
             for j in range(m):
-                if chessboard[i][j] == '.':
-                    board = [list(chessboard[i]) for i in chessboard]
-                    board[i][j] = 'X'
-                    sum = 0
-                    dfs(board, i, j, sum)
-                    res = max(res, sum)
+                if not used[i][j] and land[i][j] == 0:
+                    used[i][j] = 1
+                    q = deque()
+                    q.append((i, j))
+                    cnt = 1
+                    while len(q):
+                        cur = q.popleft()
+                        for dir in dirs2:
+                            ni = cur[0] + dir[0]
+                            nj = cur[1] + dir[1]
+                            if 0 <= ni < n and 0 <= nj < m and land[ni][nj] == 0 and not used[ni][nj]:
+                                cnt += 1
+                                used[ni][nj] = 1
+                                q.append((ni, nj))
+        res.sort()
         return res
 
 

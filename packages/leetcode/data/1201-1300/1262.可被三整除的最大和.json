@@ -1,8 +1,14 @@
 {
+    "id": "1388",
     "name": "1262.可被三整除的最大和",
-    "url": "https://leetcode.cn/problems/greatest-sum-divisible-by-three/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/greatest-sum-divisible-by-three",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划",
+        "排序"
+    ],
     "desc": "给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。",
     "solutions": [
         {
