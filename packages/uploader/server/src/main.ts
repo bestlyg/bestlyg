@@ -5,11 +5,27 @@ import express from 'express';
 
 const resolve = (...p: string[]) => path.resolve(__dirname, '../../', ...p);
 const app = express();
-const uploadPath = resolve('uploads_temp');
-const upload = multer({ dest: uploadPath });
-const port = 3000;
+const uploadPath = resolve('uploads');
+const uploadTempPath = resolve('uploads_temp');
+const upload = multer({ dest: uploadTempPath });
+const port = 9001;
 
-function pipe(readStream: string | fs.ReadStream, writeStream: string | fs.WriteStream) {
+// let clearUploadTempTimeout: NodeJS.Timeout = null;
+// function clearUploadTemp() {
+//     if (!clearUploadTempTimeout) clearTimeout(clearUploadTempTimeout);
+//     clearUploadTempTimeout = setTimeout(() => {
+//         if (fs.existsSync(uploadTempPath)) fs.emptyDir(uploadTempPath).catch();
+//         clearUploadTempTimeout = null;
+//     }, 1000 * 60 * 3);
+// }
+
+function pipe(
+    readStream: string | fs.ReadStream,
+    writeStream: string | fs.WriteStream,
+    options?: {
+        end?: boolean;
+    }
+) {
     if (typeof readStream === 'string') {
         fs.ensureDirSync(path.dirname(readStream));
         readStream = fs.createReadStream(readStream);
@@ -19,9 +35,7 @@ function pipe(readStream: string | fs.ReadStream, writeStream: string | fs.Write
         writeStream = fs.createWriteStream(writeStream);
     }
     return new Promise<void>((resolve, reject) => {
-        const pipe = (readStream as fs.ReadStream).pipe(writeStream as fs.WriteStream, {
-            end: false,
-        });
+        const pipe = (readStream as fs.ReadStream).pipe(writeStream as fs.WriteStream, options);
         (readStream as fs.ReadStream).on('end', () => {
             resolve();
         });
@@ -29,6 +43,40 @@ function pipe(readStream: string | fs.ReadStream, writeStream: string | fs.Write
             reject(e);
         });
     });
+}
+
+function mergeFile(from: string[], to: string) {
+    const writeStream = fs.createWriteStream(to);
+    const load = (index: number) => {
+        if (index === from.length) {
+            writeStream.close();
+            return Promise.resolve();
+        }
+        return pipe(from[index], writeStream, { end: false }).then(() => load(index + 1));
+    };
+    return load(0);
+}
+
+function readHeaders(headers: Record<string, string>, ...fields: string[]) {
+    return fields.map(field => decodeURI(headers[field]));
+}
+
+function readFileConfig(headers: Record<string, string>) {
+    const [hash, dirname, filename, ext, index] = readHeaders(
+        headers,
+        'x-uploader-hash',
+        'x-uploader-dirname',
+        'x-uploader-filename',
+        'x-uploader-ext',
+        'x-uploader-index'
+    );
+    return {
+        hash: Number(hash),
+        dirname,
+        filename,
+        ext,
+        index: Number(index),
+    };
 }
 
 app.post('/api/upload/single', upload.single('file'), function (req, res, next) {
@@ -56,14 +104,11 @@ app.post('/api/upload/single/slice', upload.single('slice'), function (req, res,
         res.json({ success: 0, message: 'empty file' });
         return;
     }
-    const hash: number = Number(decodeURI(req.headers['x-uploader-hash'] as string));
-    const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
-    const filename = decodeURI(req.headers['x-uploader-filename'] as string);
-    const ext = decodeURI(req.headers['x-uploader-ext'] as string);
-    const index: number = Number(decodeURI(req.headers['x-uploader-index'] as string));
-    const filepath = resolve(`uploads/${dirname}`);
+    const { hash, dirname, index } = readFileConfig(req.headers as Record<string, string>);
+    const filepath = resolve(`${uploadPath}/${dirname}`);
     console.log(['======', `name = ${dirname}`, `index = ${index}`, `hash = ${hash}`].join('\n'));
     const distpath = resolve(`${filepath}/${index}`);
+    // clearUploadTemp();
     if (fs.existsSync(distpath)) {
         fs.readdir(filepath).then(list => {
             const set = new Set(list.map(v => Number(v)));
@@ -90,6 +135,7 @@ app.get('/api/upload/single/exist', function (req, res, next) {
     const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
     const dirpath = resolve(`uploads/${dirname}`);
     const idx = req.query.idx;
+    // clearUploadTemp();
     fs.exists(dirpath).then(f => {
         if (f) {
             fs.readdir(dirpath).then((list: any) => {
@@ -107,32 +153,21 @@ app.get('/api/upload/single/exist', function (req, res, next) {
 
 app.post('/api/upload/single/merge', function (req, res, next) {
     console.log('====> merge');
-    const dirname = decodeURI(req.headers['x-uploader-dirname'] as string);
-    const filename = decodeURI(req.headers['x-uploader-filename'] as string);
-    const ext = decodeURI(req.headers['x-uploader-ext'] as string);
-    const dirpath = resolve(`uploads/${dirname}`);
-    const filepath = resolve(`uploads/${filename}.${ext}`);
+    const { dirname, filename, ext } = readFileConfig(req.headers as Record<string, string>);
+    const dirpath = resolve(`${uploadPath}/${dirname}`);
+    const filepath = resolve(`${uploadPath}/${filename}.${ext}`);
     console.log(`dirpath = ${dirpath}, filepath = ${filepath}`);
-    const writeStream = fs.createWriteStream(filepath);
-    let filelist: number[] = [];
-    const load = (index: number) => {
-        if (index === filelist.length) {
-            writeStream.close();
-            return Promise.resolve();
-        }
-        return pipe(resolve(dirpath, filelist[index].toString()), writeStream).then(() =>
-            load(index + 1)
-        );
-    };
     fs.readdir(dirpath)
-        .then(list => {
-            filelist = list
-                .map(v => Number(v))
-                .filter(v => !Number.isNaN(v))
-                .sort((a, b) => a - b);
-            console.log('filelist', filelist);
-            return load(0);
-        })
+        .then(list =>
+            mergeFile(
+                list
+                    .map(v => Number(v))
+                    .filter(v => !Number.isNaN(v))
+                    .sort((a, b) => a - b)
+                    .map(value => resolve(uploadPath, dirname, value + '')),
+                filepath
+            )
+        )
         .then(
             () => res.json({ success: 1 }),
             e => res.json({ success: 0, message: e.message })
@@ -141,7 +176,7 @@ app.post('/api/upload/single/merge', function (req, res, next) {
 
 app.get('/api', (req, res) => {
     console.log(req.headers);
-    res.json({ success: Date.now() });
+    res.json({ success: 1, message: Date.now() });
 });
 
 app.listen(port, () => {

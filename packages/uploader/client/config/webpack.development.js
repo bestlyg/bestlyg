@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
             compress: true,
             port: 9000,
             proxy: {
-                '/api': 'http://localhost:3000',
+                '/api': 'http://localhost:9001',
             },
             open: false,
             hot: false,

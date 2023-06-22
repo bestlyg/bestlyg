@@ -1,5 +1,5 @@
 /* eslint-disable strict */
-const { resolve, IS_PROD } = require('./utils');
+const { resolve, IS_PROD, IS_DEV } = require('./utils');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const developmentConfig = require('./webpack.development');
@@ -25,7 +25,13 @@ module.exports = (env, argv) =>
                             loader: 'babel-loader',
                             options: {
                                 presets: [
-                                    '@babel/preset-react',
+                                    [
+                                        '@babel/preset-react',
+                                        {
+                                            runtime: 'automatic',
+                                            development: IS_DEV,
+                                        },
+                                    ],
                                     [
                                         '@babel/preset-typescript',
                                         {
@@ -47,5 +53,15 @@ module.exports = (env, argv) =>
             },
             extensions: ['.js', '.json', '.ts', '.tsx'],
         },
-        plugins: [new HtmlWebpackPlugin()],
+        plugins: [
+            new HtmlWebpackPlugin({
+                title: 'BestLyg Traning',
+                template: resolve('index.html'),
+                inject: true,
+            }),
+        ],
+        externals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+        },
     });

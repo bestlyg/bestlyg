@@ -11,6 +11,7 @@ function Parent1() {
     return (
         <div
             onClick={() => {
+                console.log('update');
                 setv(v + 1);
             }}
         >

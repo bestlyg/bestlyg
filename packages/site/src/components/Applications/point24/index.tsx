@@ -6,7 +6,7 @@ import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
 import { compute24 as compute24_v3 } from './v3';
 
-export function point24() {
+export function Point24() {
     const update = useUpdate();
     const compute24Fns: { current: Record<string, Compute24> } = useRef({
         v1: compute24_v1,

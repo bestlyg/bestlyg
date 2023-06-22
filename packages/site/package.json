@@ -17,6 +17,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@docusaurus/core": "2.4.1",
     "@docusaurus/preset-classic": "2.4.1",
     "@easyops-cn/docusaurus-search-local": "^0.35.0",
