@@ -1,0 +1,33 @@
+{
+    "name": "2496.数组中字符串的最大值",
+    "url": "https://leetcode.cn/problems/maximum-value-of-a-string-in-an-array/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个字符串数组 strs ，每个字符串都只由字母和数字组成，请你返回 strs 中字符串的 最大值 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 7.7,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int maximumValue(vector<string>& strs) {\n        int res = 0;\n        for (auto &s : strs) {\n            int cur = 0;\n            for (auto &c : s) {\n                if (!isdigit(c)) {\n                    cur = s.size();\n                    break;\n                } else {\n                    cur = cur * 10 + c - '0';\n                }\n            }\n            res = max(res, cur);\n        }\n        return res;\n    }\n};",
+            "date": 1687449600000
+        },
+        {
+            "script": "python3",
+            "time": 32,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maximumValue(self, strs: List[str]) -> int:\n        return max(\n            len(s) if not s.isdigit() else int(s)\n            for s in strs\n        )",
+            "date": 1687449600000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn maximum_value(strs: Vec<String>) -> i32 {\n        strs.into_iter()\n            .map(|s| s.parse().unwrap_or(s.len() as i32))\n            .max()\n            .unwrap()\n    }\n}",
+            "date": 1687449600000
+        }
+    ]
+}
