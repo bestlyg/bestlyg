@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "react-debug": "./scripts/react-debug.sh",
     "start:client": "webpack --mode=development  --config ./client/config/webpack.config.js && webpack server --mode=development --config ./client/config/webpack.config.js",
     "start:server": "nodemon --watch ./server/**/*.ts --exec \"ts-node ./server/src/main.ts --project ./server/tsconfig.json\""
   },
