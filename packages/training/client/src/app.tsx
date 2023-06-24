@@ -12,16 +12,20 @@ function Child2() {
 }
 
 function Parent1() {
-    const [v, setv] = useState(1);
+    const [v1, setv1] = useState(1);
+    const [v2, setv2] = useState(1);
     console.log('parent1 render1');
     return (
         <div
-            onClick={() => {
-                console.log('update');
-                setv(v + 1);
+            onClick={async () => {
+                setTimeout(() => {
+                    setv1((c) => c + 1);
+                    setv1((c) => c + 1);
+                }, 0);
+                setv2((c) => c + 1);
             }}
         >
-            parent1-{v}-<Child1 />-<Child2 />
+            parent1-{v1}-{v2}-<Child1 />-<Child2 />
         </div>
     );
 }
