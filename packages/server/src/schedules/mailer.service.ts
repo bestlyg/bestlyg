@@ -38,6 +38,12 @@ export class MailerTaskService {
     await this.mailer.send(['2428047022@qq.com'], `定时提醒-${name}`, content);
   }
 
+  // @Cron('* * * * * *')
+  // async test() {
+  //   console.log('test mail')
+  //   await this.lyg_mailerTask('test', 'test content');
+  // }
+
   @Cron('0 0 8,20 * * *')
   async ownerDaily() {
     const now = dayjs();
