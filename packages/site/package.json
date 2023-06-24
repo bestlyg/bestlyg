@@ -38,6 +38,7 @@
     "@docusaurus/module-type-aliases": "2.4.1",
     "@tsconfig/docusaurus": "^1.0.5",
     "@types/fs-extra": "^9.0.13",
+    "@types/react": "^18.2.14",
     "docusaurus-plugin-sass": "^0.2.3",
     "fs-extra": "^11.1.0",
     "sass": "^1.57.1",
