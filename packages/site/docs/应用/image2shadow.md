@@ -6,7 +6,7 @@
 
 先利用canvas获取到图片每一个点的颜色信息， 利用dom的`box-shadow`可以放置任意个阴影， 计算偏移后放置每一个像素点。
 
-```typescript
+```tsx title="/src/components/Applications/image2shadow/index.tsx"
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Upload, Button, Space, message, InputNumber } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
