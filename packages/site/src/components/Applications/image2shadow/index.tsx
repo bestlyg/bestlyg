@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Upload, Button, Space, message, InputNumber } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { isServer } from '@/src/utils';
 
 function getImageData(image: HTMLImageElement) {
+    if (isServer) return [];
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
@@ -21,7 +23,7 @@ export function Image2Shadow() {
         blurPx: number;
     }>({
         imageData: [],
-        image: new Image(),
+        image: isServer ? null : new Image(),
         blurPx: 0,
     });
     useEffect(() => {
