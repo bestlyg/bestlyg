@@ -1,72 +1,55 @@
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
-const multer = require('multer');
-const { sendFile, resolve } = require('./utils');
-const cors = express('cors');
+const React = require('react');
+const { renderToString } = require('react-dom/server');
+
+const { App } = require('./component.server.js');
+
+const resolve = (...p) => path.resolve(__dirname, ...p);
 
 const app = express();
-app.use(cors);
+const port = 9001;
 
-const upload = multer({ dest: resolve('uploads') });
+console.log(resolve(require.resolve('react'), '../umd', 'react.development.js'));
 
-const port = 3000;
-app.all('*', function (req, res, next) {
-  // res.header('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', req.get('Origin')); // 添加这一行代码，代理配置不成功
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since'
-  );
-  next();
+app.get('/react.js', (_, res) => {
+    res.setHeader('content-type', 'application/javascript; charset=utf-8');
+    fs.createReadStream(resolve(require.resolve('react'), '../umd', 'react.development.js')).pipe(
+        res
+    );
 });
 
-app.post('/upload/file', upload.single('file'), function (req, res, next) {
-  const file = req.file;
-  console.log('file', file);
-  const sava_path = resolve(`uploads/${file.originalname}`);
-  const file_body = fs.readFileSync(resolve(file.path));
-  fs.writeFile(sava_path, file_body, (err, data) => {
-    console.log('err', err);
-    setTimeout(() => {
-      res.json({ code: 0, msg: `${file.originalname} upload success` });
-    }, 5000);
-  });
+app.get('/react-dom.js', (_, res) => {
+    res.setHeader('content-type', 'application/javascript; charset=utf-8');
+    fs.createReadStream(
+        resolve(require.resolve('react-dom'), '../umd', 'react-dom.development.js')
+    ).pipe(res);
 });
 
-app.get('/styles.css', (req, res) => {
-  console.log(req.path);
-  sendFile({ req, res, filepath: 'styles.css', delayTime: 300 });
+app.get('/bundle.js', (_, res) => {
+    res.setHeader('content-type', 'application/javascript; charset=utf-8');
+    fs.createReadStream(resolve('bundle.js')).pipe(res);
 });
 
-app.get('/scripts.js', (req, res) => {
-  console.log(req.path);
-  sendFile({ req, res, filepath: 'scripts.js', delayTime: 2000 });
-});
-
-app.get('/scripts2.js', (req, res) => {
-  console.log(req.path);
-  sendFile({ req, res, filepath: 'scripts2.js', delayTime: 2000 });
+app.get('/component.js', (_, res) => {
+    res.setHeader('content-type', 'application/javascript; charset=utf-8');
+    fs.createReadStream(resolve('component.client.js')).pipe(res);
 });
 
 app.get('/', (req, res) => {
-  console.log(req.path);
-  sendFile({ req, res, filepath: 'index.html', delayTime: 0 });
+    res.setHeader('content-type', 'text/html; charset=utf-8');
+    let fileToString = fs.readFileSync(resolve('index.html')).toString();
+    fileToString = fileToString.replace(
+        '{{body}}',
+        `
+    <div id="root"> ${renderToString(React.createElement(App))}</div>
+    <script src="/bundle.js" defer type="module"></script>
+    `
+    );
+    res.send(fileToString);
 });
 
-// app
-//   .route("/book")
-//   .get((req, res) => {
-//     res.send("Get a random book");
-//   })
-//   .post((req, res) => {
-//     res.send("Add a book");
-//   })
-//   .put((req, res) => {
-//     res.send("Update the book");
-//   });
-
 app.listen(port, () => {
-  console.log('App listening : ' + port);
+    console.log('App listening : ' + port);
 });
