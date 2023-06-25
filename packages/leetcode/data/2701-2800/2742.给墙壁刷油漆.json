@@ -1,8 +1,12 @@
 {
-    "name": "6447.给墙壁刷油漆",
-    "url": "https://leetcode.cn/problems/painting-the-walls/",
-    "difficulty": "简单",
-    "tag": [],
+    "id": "2808",
+    "name": "2742.给墙壁刷油漆",
+    "url": "https://leetcode.cn/problems/painting-the-walls",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
     "desc": "给你两个长度为 n 下标从 0 开始的整数数组 cost 和 time ，分别表示给 n 堵不同的墙刷油漆需要的开销和时间。请你返回刷完 n 堵墙最少开销为多少。",
     "solutions": [
         {

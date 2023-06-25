@@ -13,10 +13,17 @@ fn main() {
 }
 
 impl Solution {
-    pub fn maximum_value(strs: Vec<String>) -> i32 {
-        strs.into_iter()
-            .map(|s| s.parse().unwrap_or(s.len() as i32))
-            .max()
-            .unwrap()
+    pub fn check_overlap(
+        radius: i32,
+        x_center: i32,
+        y_center: i32,
+        x1: i32,
+        y1: i32,
+        x2: i32,
+        y2: i32,
+    ) -> bool {
+        let x = x_center.clamp(x1, x2) - x_center;
+        let y = y_center.clamp(y1, y2) - y_center;
+        x.pow(2) + y.pow(2) <= radius.pow(2)
     }
 }

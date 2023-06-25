@@ -1,8 +1,14 @@
 {
-    "name": "6893.特别的排列",
-    "url": "https://leetcode.cn/problems/special-permutations/",
-    "difficulty": "简单",
-    "tag": [],
+    "id": "2848",
+    "name": "2741.特别的排列",
+    "url": "https://leetcode.cn/problems/special-permutations",
+    "difficulty": "中等",
+    "tag": [
+        "位运算",
+        "数组",
+        "动态规划",
+        "状态压缩"
+    ],
     "desc": "给你一个下标从 0 开始的整数数组 nums ，它包含 n 个 互不相同 的正整数。请你返回特别排列的总数目。",
     "solutions": [
         {

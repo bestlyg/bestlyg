@@ -1,8 +1,12 @@
 {
+    "id": "2589",
     "name": "2496.数组中字符串的最大值",
-    "url": "https://leetcode.cn/problems/maximum-value-of-a-string-in-an-array/",
+    "url": "https://leetcode.cn/problems/maximum-value-of-a-string-in-an-array",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "字符串"
+    ],
     "desc": "给你一个字符串数组 strs ，每个字符串都只由字母和数字组成，请你返回 strs 中字符串的 最大值 。",
     "solutions": [
         {
