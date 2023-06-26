@@ -12,4 +12,4 @@ sortedcontainers = "*"
 python_version = "3.11"
 
 [scripts]
-main = "python3 main.py"
+main = "python main.py"
