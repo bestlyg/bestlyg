@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2485. 找出中枢整数',
-    url: 'https://leetcode.cn/problems/find-the-pivot-integer',
+    name: '1186. 删除一次得到子数组最大和',
+    url: 'https://leetcode.cn/problems/maximum-subarray-sum-with-one-deletion/submissions/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回中枢整数 x 。`,
+    desc: `给你一个整数数组，返回它的某个 非空 子数组（连续元素）在执行一次可选的删除操作后，所能得到的最大元素总和。换句话说，你可以从原数组中选出一个子数组，并可以决定要不要从中删除一个元素（只能删一次哦），（删除后）子数组中至少应当有一个元素，然后该子数组（剩下）的元素总和是所有子数组之中最大的。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,94 +30,52 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 0,
-            memory: 5.8,
-            desc: '遍历',
-            code: `class Solution {
-                public:
-                    int pivotInteger(int n) {
-                        int sum = (1 + n) * n / 2;
-                        int prev_sum = 0;
-                        for (int i = 1; i <=n ; i++) {
-                            int next_sum = sum - prev_sum;
-                            prev_sum += i;
-                            if (prev_sum == next_sum) return i;
-                        }
-                        return -1;
-                    }
-                };
-                `,
-            date: new Date('2022/11/27').getTime(),
-        },
-        {
-            script: Script.CPP,
-            time: 0,
-            memory: 5.9,
-            desc: '遍历',
-            code: `class Solution {
+            time: 32,
+            memory: 22.6,
+            desc: 'dp[i]表示以arr[i]为结尾的删0个和1个时的最大值',
+            code: `#define MIN -0x3f3f3f3f
+class Solution {
 public:
-    int pivotInteger(int n) {
-        int r = (1 + n) * n / 2, l = 0;
-        for (int i = 1; i <= n; i++) {
-            l += i;
-            if (l == r) return i;
-            r -= i;
+    int maximumSum(vector<int>& arr) {
+        int n = arr.size(), dp0 = MIN, dp1 = MIN, res = MIN;
+        for (int i = 0; i < n; i++) {
+            dp1 = max(dp0, dp1 + arr[i]);
+            dp0 = max(dp0, 0) + arr[i];
+            res = max(res, max(dp0, dp1));
         }
-        return -1;
-    }
-};`,
-            date: new Date('2022/11/27').getTime(),
-        },
-        {
-            script: Script.CPP,
-            time: 0,
-            memory: 5.7,
-            desc: '对于圆在矩形的四边和在四个远郊区都进行检测',
-            code: `class Solution {
-public:
-    int pivotInteger(int n) {
-        int r = (1 + n) * n / 2, l = 0;
-        for (int i = 1; i <= n; i++) {
-            l += i;
-            if (l == r) return i;
-            r -= i;
-        }
-        return -1;
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 72,
-            memory: 15.8,
+            time: 104,
+            memory: 24.2,
             desc: '同上',
             code: `class Solution:
-    def pivotInteger(self, n: int) -> int:
-        l = 0
-        r = sum(range(1, n + 1))
-        for i in range(1, n + 1):
-            l += i
-            if l == r: return i
-            r -= i
-        return -1`,
+    def maximumSum(self, arr: List[int]) -> int:
+        dp0 = dp1 = res = -inf
+        for num in arr:
+            dp1 = max(dp0, dp1 + num)
+            dp0 = max(dp0, 0) + num
+            res = max(res, max(dp0, dp1))
+        return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2,
+            time: 8,
+            memory: 3,
             desc: '同上',
             code: `impl Solution {
-    pub fn pivot_integer(n: i32) -> i32 {
-        let mut l = 0;
-        let mut r: i32 = (1..=n).sum();
-        for i in 1..=n {
-            l += i;
-            if l == r {
-                return i
-            }
-            r -= i;
+    pub fn maximum_sum(arr: Vec<i32>) -> i32 {
+        use std::cmp::max;
+        let (mut dp0, mut dp1, mut res) = (-0x3f3f3f3f, -0x3f3f3f3f, -0x3f3f3f3f);
+        for num in arr {
+            dp1 = max(dp0, dp1 + num);
+            dp0 = max(dp0, 0) + num;
+            res = max(res, max(dp0, dp1));
         }
-        -1
+        res
     }
 }`,
         },

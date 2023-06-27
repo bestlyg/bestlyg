@@ -13,17 +13,14 @@ fn main() {
 }
 
 impl Solution {
-    pub fn check_overlap(
-        radius: i32,
-        x_center: i32,
-        y_center: i32,
-        x1: i32,
-        y1: i32,
-        x2: i32,
-        y2: i32,
-    ) -> bool {
-        let x = x_center.clamp(x1, x2) - x_center;
-        let y = y_center.clamp(y1, y2) - y_center;
-        x.pow(2) + y.pow(2) <= radius.pow(2)
+    pub fn maximum_sum(arr: Vec<i32>) -> i32 {
+        use std::cmp::max;
+        let (mut dp0, mut dp1, mut res) = (-0x3f3f3f3f, -0x3f3f3f3f, -0x3f3f3f3f);
+        for num in arr {
+            dp1 = max(dp0, dp1 + num);
+            dp0 = max(dp0, 0) + num;
+            res = max(res, max(dp0, dp1));
+        }
+        res
     }
 }
