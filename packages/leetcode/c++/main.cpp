@@ -127,26 +127,101 @@ vector<int> get_sums(vector<int> &arr) {
 }
 // START
 
+#define MAX 8
 class Solution {
 public:
-    int paintWalls(vector<int>& cost, vector<int>& time) {
-        int n = cost.size();
-
-        vector<map<int, int>> dp(n + 1);
-        dp[0][0] = 0;
-        for (int i = 1; i <= n; i++) {
-            int cur_cost = cost[i - 1], cur_time = time[i - 1];
-            for (auto &item : dp[i - 1]) {
-                if (item.second > 0) {
-                    dp[i][item.first] = max(dp[i][item.first], item.second - 1);
-                } else {
-                    dp[i][item.first + cur_cost] = min(dp[i][item.first + cur_cost], cur_time);
-                }
-            }
+    int minimumIncompatibility(vector<int>& nums, int k) {
+        int n = nums.size();
+        map<int, int> m;
+        for (auto &num : nums) {
+            m[num]++;
+            if (m[num] > k) return -1;
         }
-        return dp[n].begin()->first;
+        if (k == n) return 0;
+        sort(nums.begin(), nums.end());
+
+        // cout << "nums : ";
+        // for (auto &num : nums) cout << num << ", ";
+        // cout << endl;
+
+        // int dp[k + 1][1 << n];
+        // memset(dp, 0, sizeof(dp));
+        // for (int i = 1; i <= k; i++) {
+        //     int res = 0x3f3f3f3f;
+        // }
+
+        // return dp[k][1 << n];
+
+        unordered_map<int, unordered_map<int, int>> cache;
+        function<int(int, int)> dfs = [&](int cur, int used) {
+            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << endl;
+            if (cur == k) return 0;
+            if (cache[cur][used]) return cache[cur][used];
+            // cout << "in" << endl;
+            int res = 0x3f3f3f3f;
+            auto lists = comp(n / k, n, used, nums);
+
+            // cout << "lists = ";
+            // for (auto &list : lists) {
+            //     cout << "[";
+            //     for (auto &num : list) {
+            //         cout << num << ", ";
+            //     }
+            //     cout << "], ";
+            // }
+            // cout << endl;
+
+            for (auto &list : lists) {
+                int next_used = used, nmin = INT_MAX, nmax = INT_MIN;
+                for (auto &i : list) {
+                    nmin = min(nmin, nums[i]);
+                    nmax = max(nmax, nums[i]);
+                    next_used |= 1 << i;
+                }
+                auto next = dfs(cur + 1, next_used);
+                // cout << "nmin = " << nmin << ", nmax = " << nmax << endl;
+                // cout << "res = " << res << ", dfs = " << next << endl;
+                res = min(res,  next + nmax - nmin);
+            }
+
+            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << ", res = " << res << endl;
+
+            return cache[cur][used] = res;
+        };
+        return dfs(0, 0);
+    }
+    vector<vector<int>> comp(int cnt, int total, int used, vector<int>& nums) {
+        // cout << "comp " << cnt << ", " << total << ", " << bitset<MAX>(used).to_string() << endl;
+
+        vector<vector<int>> res;
+        vector<int> list;
+        function<void(int, int)> dfs = [&](int idx, int sum) {
+
+            // cout << "dfs " << idx << ", " << sum << ", list = ";
+            // for (auto &item : list) cout << item << ", ";
+            // cout << endl;
+
+            if (total - idx < sum) {}
+            else if (sum == 0) res.push_back(list);
+            else {
+                if (!(used & (1 << idx))) {
+                    list.push_back(idx);
+
+                    int next_idx = idx + 1;
+                    while (next_idx < total && nums[next_idx] == nums[idx]) next_idx++;
+                    dfs(next_idx, sum - 1);
+
+                    list.pop_back();
+                }
+
+                dfs(idx + 1, sum);
+            }
+        };
+        dfs(0, cnt);
+        return res;
     }
 };
+
 
 // END
 #ifdef LOCAL
