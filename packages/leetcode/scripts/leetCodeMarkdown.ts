@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1681. 最小不兼容性',
-    url: 'https://leetcode.cn/problems/minimum-incompatibility/',
+    name: '1253. 重构 2 行二进制矩阵',
+    url: 'https://leetcode.cn/problems/reconstruct-a-2-row-binary-matrix/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 nums​​​ 和一个整数 k 。你需要将这个数组划分到 k 个相同大小的子集中，使得同一个子集里面没有两个相同的元素。一个子集的 不兼容性 是该子集里面最大值和最小值的差。请你返回将数组分成 k 个子集后，各子集 不兼容性 的 和 的 最小值 ，如果无法分成分成 k 个子集，返回 -1 。`,
+    desc: `给你一个 2 行 n 列的二进制数组。你需要利用 upper，lower 和 colsum 来重构这个矩阵，并以二维整数数组的形式返回它。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,139 +30,111 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 1852,
-            memory:303.8,
-            desc: '状态压缩+记忆化搜索',
-            code: `#define MAX 8
-class Solution {
+            time: 56,
+            memory: 60.9,
+            desc: '贪心，先填充2的列，再依次填充1的列',
+            code: `class Solution {
 public:
-    int minimumIncompatibility(vector<int>& nums, int k) {
-        int n = nums.size(), m[17] = {0};
-        for (auto &num : nums) {
-            m[num]++;
-            if (m[num] > k) return -1;
+    vector<vector<int>> reconstructMatrix(int upper, int lower, vector<int>& colsum) {
+        int n = colsum.size();
+        vector<int> list1(n, 0), list2(n, 0);
+        for (int i = 0; i < n; i++) {
+            if (colsum[i] == 2) {
+                list1[i] = list2[i] = 1;
+                if (upper <= 0 || lower <= 0) return {};
+                upper -= 1;
+                lower -= 1;
+            }
         }
-        if (k == n) return 0;
-        sort(nums.begin(), nums.end());
-
-        // cout << "nums : ";
-        // for (auto &num : nums) cout << num << ", ";
-        // cout << endl;
-
-        // int dp[k + 1][1 << n];
-        // memset(dp, 0, sizeof(dp));
-        // for (int i = 1; i <= k; i++) {
-        //     int res = 0x3f3f3f3f;
-        // }
-
-        // return dp[k][1 << n];
-
-        unordered_map<int, unordered_map<int, int>> cache;
-        function<int(int, int)> dfs = [&](int cur, int used) {
-            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << endl;
-            if (cur == k) return 0;
-            if (cache[cur][used]) return cache[cur][used];
-            // cout << "in" << endl;
-            int res = 0x3f3f3f3f;
-            auto lists = comp(n / k, n, used, nums);
-
-            // cout << "lists = ";
-            // for (auto &list : lists) {
-            //     cout << "[";
-            //     for (auto &num : list) {
-            //         cout << num << ", ";
-            //     }
-            //     cout << "], ";
-            // }
-            // cout << endl;
-
-            for (auto &list : lists) {
-                int next_used = used, nmin = INT_MAX, nmax = INT_MIN;
-                for (auto &i : list) {
-                    nmin = min(nmin, nums[i]);
-                    nmax = max(nmax, nums[i]);
-                    next_used |= 1 << i;
+        for (int i = 0; i < n; i++) {
+            if (colsum[i] == 1) {
+                if (upper > 0) {
+                    list1[i] = 1;
+                    upper--;
+                } else if (lower > 0) {
+                    list2[i] = 1;
+                    lower--;
+                } else {
+                    return {};
                 }
-                auto next = dfs(cur + 1, next_used);
-                // cout << "nmin = " << nmin << ", nmax = " << nmax << endl;
-                // cout << "res = " << res << ", dfs = " << next << endl;
-                res = min(res,  next + nmax - nmin);
             }
-
-            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << ", res = " << res << endl;
-
-            return cache[cur][used] = res;
-        };
-        return dfs(0, 0);
-    }
-    vector<vector<int>> comp(int cnt, int total, int used, vector<int>& nums) {
-        // cout << "comp " << cnt << ", " << total << ", " << bitset<MAX>(used).to_string() << endl;
-
-        vector<vector<int>> res;
-        vector<int> list;
-        function<void(int, int)> dfs = [&](int idx, int sum) {
-
-            // cout << "dfs " << idx << ", " << sum << ", list = ";
-            // for (auto &item : list) cout << item << ", ";
-            // cout << endl;
-
-            if (total - idx < sum) return;
-            else if (sum == 0) res.push_back(list);
-            else {
-                int cur_num = nums[idx];
-                bool is_used = used & (1 << idx);
-                if (!is_used) {
-                    list.push_back(idx);
-
-                    int next_idx = idx + 1;
-                    while (next_idx < total && nums[next_idx] == nums[idx]) next_idx++;
-                    dfs(next_idx, sum - 1);
-
-                    list.pop_back();
-                }
-
-                int next_idx = idx + 1;
-                while (next_idx < total && nums[idx] == nums[next_idx] && !is_used) next_idx++;
-                dfs(next_idx, sum);
-            }
-        };
-        dfs(0, cnt);
-        return res;
+        }
+        if (upper > 0 || lower > 0) return {};
+        return { list1, list2 };
     }
 };`,
         },
-//         {
-//             script: Script.PY,
-//             time: 104,
-//             memory: 24.2,
-//             desc: '同上',
-//             code: `class Solution:
-//     def maximumSum(self, arr: List[int]) -> int:
-//         dp0 = dp1 = res = -inf
-//         for num in arr:
-//             dp1 = max(dp0, dp1 + num)
-//             dp0 = max(dp0, 0) + num
-//             res = max(res, max(dp0, dp1))
-//         return res`,
-//         },
-//         {
-//             script: Script.RUST,
-//             time: 8,
-//             memory: 3,
-//             desc: '同上',
-//             code: `impl Solution {
-//     pub fn maximum_sum(arr: Vec<i32>) -> i32 {
-//         use std::cmp::max;
-//         let (mut dp0, mut dp1, mut res) = (-0x3f3f3f3f, -0x3f3f3f3f, -0x3f3f3f3f);
-//         for num in arr {
-//             dp1 = max(dp0, dp1 + num);
-//             dp0 = max(dp0, 0) + num;
-//             res = max(res, max(dp0, dp1));
-//         }
-//         res
-//     }
-// }`,
-//         },
+        {
+            script: Script.PY,
+            time: 132,
+            memory: 22.5,
+            desc: '同上',
+            code: `class Solution:
+    def reconstructMatrix(self, upper: int, lower: int, colsum: List[int]) -> List[List[int]]:
+        n = len(colsum)
+        list1 = [0 for _ in range(n)]
+        list2 = [0 for _ in range(n)]
+        for i in range(n):
+            if colsum[i] == 2:
+                list1[i] = list2[i] = 1
+                if upper <= 0 or lower <= 0:
+                    return []
+                upper -= 1
+                lower -= 1
+        for i in range(n):
+            if colsum[i] == 1:
+                if upper > 0:
+                    list1[i] = 1
+                    upper -= 1
+                elif lower > 0:
+                    list2[i] = 1
+                    lower -= 1
+                else:
+                    return []
+        return [list1, list2] if upper == 0 and lower == 0 else []`,
+        },
+        {
+            script: Script.RUST,
+            time: 28,
+            memory: 3.6,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn reconstruct_matrix(mut upper: i32, mut lower: i32, colsum: Vec<i32>) -> Vec<Vec<i32>> {
+        let n = colsum.len();
+        let mut list1 = vec![0; n];
+        let mut list2 = vec![0; n];
+        for i in 0..n {
+            if colsum[i] == 2 {
+                list1[i] = 1;
+                list2[i] = 1;
+                if upper <= 0 || lower <= 0 {
+                    return vec![];
+                }
+                upper -= 1;
+                lower -= 1;
+            }
+        }
+        for i in 0..n {
+            if colsum[i] == 1 {
+                if upper > 0 {
+                    list1[i] = 1;
+                    upper -= 1;
+                } else if lower > 0 {
+                    list2[i] = 1;
+                    lower -= 1;
+                } else {
+                    return vec![];
+                }
+            }
+        }
+        if upper > 0 || lower > 0 {
+            vec![]
+        } else {
+            vec![list1, list2]
+        }
+    }
+}`,
+        },
     ],
 };
 

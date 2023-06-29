@@ -3,54 +3,28 @@ from preclude import *
 
 
 class Solution:
-    def minimumIncompatibility(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        m = Counter()
-        for num in nums:
-            m[num] += 1
-            if m[num] > k:
-                return -1
-        if k == n:
-            return 0
-        nums.sort()
-
-        def comp(cnt: int, total: int, used: int) -> List[List[int]]:
-            res = []
-            list = []
-
-            def dfs(idx: int, sum: int):
-                if total - idx < sum:
-                    pass
-                elif sum == 0:
-                    res.append(list.copy())
+    def reconstructMatrix(self, upper: int, lower: int, colsum: List[int]) -> List[List[int]]:
+        n = len(colsum)
+        list1 = [0 for _ in range(n)]
+        list2 = [0 for _ in range(n)]
+        for i in range(n):
+            if colsum[i] == 2:
+                list1[i] = list2[i] = 1
+                if upper <= 0 or lower <= 0:
+                    return []
+                upper -= 1
+                lower -= 1
+        for i in range(n):
+            if colsum[i] == 1:
+                if upper > 0:
+                    list1[i] = 1
+                    upper -= 1
+                elif lower > 0:
+                    list2[i] = 1
+                    lower -= 1
                 else:
-                    if not (used & (1 << idx)):
-                        list.append(idx)
-                        next_idx = idx + 1
-                        while next_idx < total and nums[next_idx] == nums[idx]:
-                            next_idx += 1
-                        dfs(next_idx, sum - 1)
-                        list.pop()
-                    dfs(idx + 1, sum)
-            dfs(0, cnt)
-            return res
-
-        def dfs(cur: int, used: int) -> int:
-            if cur == k:
-                return 0
-            res = inf
-            lists = comp(n//k, n, used)
-            for list in lists:
-                next_used = used
-                nmin = inf
-                nmax = -inf
-                for i in list:
-                    nmin = min(nmin, nums[i])
-                    nmax = max(nmax, nums[i])
-                    next_used |= 1 << i
-                next = dfs(cur + 1, next_used)
-                res = min(res, next + nmax - nmin)
-        return dfs(0, 0)
+                    return []
+        return [list1, list2] if upper == 0 and lower == 0 else []
 
 
 def main():

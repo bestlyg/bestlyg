@@ -13,14 +13,38 @@ fn main() {
 }
 
 impl Solution {
-    pub fn maximum_sum(arr: Vec<i32>) -> i32 {
-        use std::cmp::max;
-        let (mut dp0, mut dp1, mut res) = (-0x3f3f3f3f, -0x3f3f3f3f, -0x3f3f3f3f);
-        for num in arr {
-            dp1 = max(dp0, dp1 + num);
-            dp0 = max(dp0, 0) + num;
-            res = max(res, max(dp0, dp1));
+    pub fn reconstruct_matrix(mut upper: i32, mut lower: i32, colsum: Vec<i32>) -> Vec<Vec<i32>> {
+        let n = colsum.len();
+        let mut list1 = vec![0; n];
+        let mut list2 = vec![0; n];
+        for i in 0..n {
+            if colsum[i] == 2 {
+                list1[i] = 1;
+                list2[i] = 1;
+                if upper <= 0 || lower <= 0 {
+                    return vec![];
+                }
+                upper -= 1;
+                lower -= 1;
+            }
         }
-        res
+        for i in 0..n {
+            if colsum[i] == 1 {
+                if upper > 0 {
+                    list1[i] = 1;
+                    upper -= 1;
+                } else if lower > 0 {
+                    list2[i] = 1;
+                    lower -= 1;
+                } else {
+                    return vec![];
+                }
+            }
+        }
+        if upper > 0 || lower > 0 {
+            vec![]
+        } else {
+            vec![list1, list2]
+        }
     }
 }
