@@ -15,6 +15,30 @@
             "script": "cpp",
             "desc": "分割后判断。",
             "code": "#include <iostream>\n#include <vector>\n// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args); }\n#else\n#define log(frm, args...)\n#endif\ntypedef long long ll;\n\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isCircularSentence(string sentence) {\n        int n = sentence.size();\n        istringstream iss(sentence);\n        string temp, prev = \"\", first = \"\";\n        while (getline(iss, temp, ' ')) {\n            if (prev == \"\") {\n                first = temp;\n            } else {\n                if (prev.back() != temp.front()) return false;\n            }\n            prev = temp;\n        }\n        if (temp.back() != first.front()) return false;\n        return true;\n    }\n};"
+        },
+        {
+            "script": "cpp",
+            "time": 56,
+            "memory": 60.9,
+            "desc": "贪心，先填充2的列，再依次填充1的列。",
+            "code": "class Solution {\npublic:\n    bool isCircularSentence(string sentence) {\n        int n = sentence.size();\n        for (int i = 0; i < n; i++) {\n            while (sentence[i] != ' ' && i < n) i++;\n            if (i < n - 1 && sentence[i - 1] != sentence[i + 1]) return false;\n        }\n        return sentence[n - 1] == sentence[0];\n    }\n};",
+            "date": 1688054400000
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16.1,
+            "desc": "字符串分割。",
+            "code": "class Solution:\n    def isCircularSentence(self, sentence: str) -> bool:\n        l = sentence.split(' ')\n        for i in range(len(l)):\n            if l[i][-1] != l[(i + 1) % len(l)][0]:\n                return False\n        return True",
+            "date": 1688054400000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn is_circular_sentence(sentence: String) -> bool {\n        let l = sentence\n            .split(' ')\n            .into_iter()\n            .map(|v| v.as_bytes())\n            .collect::<Vec<&[u8]>>();\n        for i in 0..l.len() {\n            if *l[i].last().unwrap() != l[(i + 1) % l.len()][0] {\n                return false;\n            }\n        }\n        true\n    }\n}",
+            "date": 1688054400000
         }
     ]
 }

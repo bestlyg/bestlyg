@@ -13,38 +13,17 @@ fn main() {
 }
 
 impl Solution {
-    pub fn reconstruct_matrix(mut upper: i32, mut lower: i32, colsum: Vec<i32>) -> Vec<Vec<i32>> {
-        let n = colsum.len();
-        let mut list1 = vec![0; n];
-        let mut list2 = vec![0; n];
-        for i in 0..n {
-            if colsum[i] == 2 {
-                list1[i] = 1;
-                list2[i] = 1;
-                if upper <= 0 || lower <= 0 {
-                    return vec![];
-                }
-                upper -= 1;
-                lower -= 1;
+    pub fn is_circular_sentence(sentence: String) -> bool {
+        let l = sentence
+            .split(' ')
+            .into_iter()
+            .map(|v| v.as_bytes())
+            .collect::<Vec<&[u8]>>();
+        for i in 0..l.len() {
+            if *l[i].last().unwrap() != l[(i + 1) % l.len()][0] {
+                return false;
             }
         }
-        for i in 0..n {
-            if colsum[i] == 1 {
-                if upper > 0 {
-                    list1[i] = 1;
-                    upper -= 1;
-                } else if lower > 0 {
-                    list2[i] = 1;
-                    lower -= 1;
-                } else {
-                    return vec![];
-                }
-            }
-        }
-        if upper > 0 || lower > 0 {
-            vec![]
-        } else {
-            vec![list1, list2]
-        }
+        true
     }
 }

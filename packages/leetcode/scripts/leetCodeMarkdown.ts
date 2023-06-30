@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1253. 重构 2 行二进制矩阵',
+    exist: true,
+    name: '2490. 回环句',
     url: 'https://leetcode.cn/problems/reconstruct-a-2-row-binary-matrix/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -35,103 +35,47 @@ const leetCodeMarkdown: Markdown = {
             desc: '贪心，先填充2的列，再依次填充1的列',
             code: `class Solution {
 public:
-    vector<vector<int>> reconstructMatrix(int upper, int lower, vector<int>& colsum) {
-        int n = colsum.size();
-        vector<int> list1(n, 0), list2(n, 0);
+    bool isCircularSentence(string sentence) {
+        int n = sentence.size();
         for (int i = 0; i < n; i++) {
-            if (colsum[i] == 2) {
-                list1[i] = list2[i] = 1;
-                if (upper <= 0 || lower <= 0) return {};
-                upper -= 1;
-                lower -= 1;
-            }
+            while (sentence[i] != ' ' && i < n) i++;
+            if (i < n - 1 && sentence[i - 1] != sentence[i + 1]) return false;
         }
-        for (int i = 0; i < n; i++) {
-            if (colsum[i] == 1) {
-                if (upper > 0) {
-                    list1[i] = 1;
-                    upper--;
-                } else if (lower > 0) {
-                    list2[i] = 1;
-                    lower--;
-                } else {
-                    return {};
-                }
-            }
-        }
-        if (upper > 0 || lower > 0) return {};
-        return { list1, list2 };
+        return sentence[n - 1] == sentence[0];
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 132,
-            memory: 22.5,
-            desc: '同上',
+            time: 40,
+            memory:16.1,
+            desc: '字符串分割',
             code: `class Solution:
-    def reconstructMatrix(self, upper: int, lower: int, colsum: List[int]) -> List[List[int]]:
-        n = len(colsum)
-        list1 = [0 for _ in range(n)]
-        list2 = [0 for _ in range(n)]
-        for i in range(n):
-            if colsum[i] == 2:
-                list1[i] = list2[i] = 1
-                if upper <= 0 or lower <= 0:
-                    return []
-                upper -= 1
-                lower -= 1
-        for i in range(n):
-            if colsum[i] == 1:
-                if upper > 0:
-                    list1[i] = 1
-                    upper -= 1
-                elif lower > 0:
-                    list2[i] = 1
-                    lower -= 1
-                else:
-                    return []
-        return [list1, list2] if upper == 0 and lower == 0 else []`,
+    def isCircularSentence(self, sentence: str) -> bool:
+        l = sentence.split(' ')
+        for i in range(len(l)):
+            if l[i][-1] != l[(i + 1) % len(l)][0]:
+                return False
+        return True`,
         },
         {
             script: Script.RUST,
-            time: 28,
-            memory: 3.6,
+            time: 4,
+            memory: 2,
             desc: '同上',
             code: `impl Solution {
-    pub fn reconstruct_matrix(mut upper: i32, mut lower: i32, colsum: Vec<i32>) -> Vec<Vec<i32>> {
-        let n = colsum.len();
-        let mut list1 = vec![0; n];
-        let mut list2 = vec![0; n];
-        for i in 0..n {
-            if colsum[i] == 2 {
-                list1[i] = 1;
-                list2[i] = 1;
-                if upper <= 0 || lower <= 0 {
-                    return vec![];
-                }
-                upper -= 1;
-                lower -= 1;
+    pub fn is_circular_sentence(sentence: String) -> bool {
+        let l = sentence
+            .split(' ')
+            .into_iter()
+            .map(|v| v.as_bytes())
+            .collect::<Vec<&[u8]>>();
+        for i in 0..l.len() {
+            if *l[i].last().unwrap() != l[(i + 1) % l.len()][0] {
+                return false;
             }
         }
-        for i in 0..n {
-            if colsum[i] == 1 {
-                if upper > 0 {
-                    list1[i] = 1;
-                    upper -= 1;
-                } else if lower > 0 {
-                    list2[i] = 1;
-                    lower -= 1;
-                } else {
-                    return vec![];
-                }
-            }
-        }
-        if upper > 0 || lower > 0 {
-            vec![]
-        } else {
-            vec![list1, list2]
-        }
+        true
     }
 }`,
         },
