@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '2490. 回环句',
+    name: '1. 两数之和',
     url: 'https://leetcode.cn/problems/reconstruct-a-2-row-binary-matrix/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,54 +28,53 @@ const leetCodeMarkdown: Markdown = {
         //     return res;
         // };`,
         // },
-        {
-            script: Script.CPP,
-            time: 56,
-            memory: 60.9,
-            desc: '贪心，先填充2的列，再依次填充1的列',
-            code: `class Solution {
-public:
-    bool isCircularSentence(string sentence) {
-        int n = sentence.size();
-        for (int i = 0; i < n; i++) {
-            while (sentence[i] != ' ' && i < n) i++;
-            if (i < n - 1 && sentence[i - 1] != sentence[i + 1]) return false;
-        }
-        return sentence[n - 1] == sentence[0];
-    }
-};`,
-        },
-        {
-            script: Script.PY,
-            time: 40,
-            memory:16.1,
-            desc: '字符串分割',
-            code: `class Solution:
-    def isCircularSentence(self, sentence: str) -> bool:
-        l = sentence.split(' ')
-        for i in range(len(l)):
-            if l[i][-1] != l[(i + 1) % len(l)][0]:
-                return False
-        return True`,
-        },
+//         {
+//             script: Script.CPP,
+//             time: 56,
+//             memory: 60.9,
+//             desc: '贪心，先填充2的列，再依次填充1的列',
+//             code: `class Solution {
+// public:
+//     bool isCircularSentence(string sentence) {
+//         int n = sentence.size();
+//         for (int i = 0; i < n; i++) {
+//             while (sentence[i] != ' ' && i < n) i++;
+//             if (i < n - 1 && sentence[i - 1] != sentence[i + 1]) return false;
+//         }
+//         return sentence[n - 1] == sentence[0];
+//     }
+// };`,
+//         },
+//         {
+//             script: Script.PY,
+//             time: 40,
+//             memory:16.1,
+//             desc: '字符串分割',
+//             code: `class Solution:
+//     def isCircularSentence(self, sentence: str) -> bool:
+//         l = sentence.split(' ')
+//         for i in range(len(l)):
+//             if l[i][-1] != l[(i + 1) % len(l)][0]:
+//                 return False
+//         return True`,
+//         },
         {
             script: Script.RUST,
-            time: 4,
-            memory: 2,
+            time: 0,
+            memory: 2.4,
             desc: '同上',
             code: `impl Solution {
-    pub fn is_circular_sentence(sentence: String) -> bool {
-        let l = sentence
-            .split(' ')
-            .into_iter()
-            .map(|v| v.as_bytes())
-            .collect::<Vec<&[u8]>>();
-        for i in 0..l.len() {
-            if *l[i].last().unwrap() != l[(i + 1) % l.len()][0] {
-                return false;
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut m = std::collections::HashMap::<i32, usize>::new();
+        for i in 0..nums.len() {
+            match m.get_mut(&(target - nums[i])) {
+                Some(prev) => return vec![*prev as i32, i as i32],
+                None => {
+                    m.insert(nums[i], i);
+                }
             }
         }
-        true
+        vec![]
     }
 }`,
         },

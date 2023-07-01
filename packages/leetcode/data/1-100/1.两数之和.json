@@ -64,6 +64,14 @@
             "desc": "哈希。",
             "code": "class Solution:\ndef twoSum(self, nums: List[int], target: int) -> List[int]:\n    m = defaultdict()\n    for i, num in enumerate(nums):\n        if target - num in m:\n            return [m[target- num], i]\n        m[num] = i\n    return []",
             "date": 1674230400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.4,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {\n        let mut m = std::collections::HashMap::<i32, usize>::new();\n        for i in 0..nums.len() {\n            match m.get_mut(&(target - nums[i])) {\n                Some(prev) => return vec![*prev as i32, i as i32],\n                None => {\n                    m.insert(nums[i], i);\n                }\n            }\n        }\n        vec![]\n    }\n}",
+            "date": 1688140800000
         }
     ]
 }

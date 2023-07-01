@@ -13,17 +13,16 @@ fn main() {
 }
 
 impl Solution {
-    pub fn is_circular_sentence(sentence: String) -> bool {
-        let l = sentence
-            .split(' ')
-            .into_iter()
-            .map(|v| v.as_bytes())
-            .collect::<Vec<&[u8]>>();
-        for i in 0..l.len() {
-            if *l[i].last().unwrap() != l[(i + 1) % l.len()][0] {
-                return false;
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut m = std::collections::HashMap::<i32, usize>::new();
+        for i in 0..nums.len() {
+            match m.get_mut(&(target - nums[i])) {
+                Some(prev) => return vec![*prev as i32, i as i32],
+                None => {
+                    m.insert(nums[i], i);
+                }
             }
         }
-        true
+        vec![]
     }
 }
