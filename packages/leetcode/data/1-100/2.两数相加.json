@@ -33,6 +33,30 @@
             "script": "typescript",
             "desc": "遍历所有节点。",
             "code": "function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {\n  const list = new ListNode(0);\n  let temp = list;\n  let add = 0;\n  while (l1 !== null || l2 !== null) {\n    let sum = (l1?.val ?? 0) + (l2?.val ?? 0) + add;\n    add = 0;\n    if (sum >= 10) {\n      sum -= 10;\n      add++;\n    }\n    temp.next = new ListNode(sum);\n    temp = temp.next;\n    l1 = l1 === null ? null : l1.next;\n    l2 = l2 === null ? null : l2.next;\n  }\n  if (add !== 0) temp.next = new ListNode(add);\n  return list.next;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 20,
+            "memory": 69.8,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        ListNode *head = new ListNode(), *p = head;\n        int add = 0;\n        while (l1 || l2) {\n            int val = (l1 ? l1->val : 0) + \n                      (l2 ? l2->val : 0) +\n                      add;\n            if (val >= 10) val -= 10, add = 1;\n            else add = 0;\n            p->next = new ListNode(val);\n            p = p->next;\n            if (l1) l1 = l1->next;\n            if (l2) l2 = l2->next;\n        }\n        if (add) p->next = new ListNode(1);\n        return head->next;\n    }\n};",
+            "date": 1688227200000
+        },
+        {
+            "script": "python",
+            "time": 68,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\n        head = ListNode()\n        p = head\n        add = 0\n        while l1 or l2:\n            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + add\n            if val >= 10:\n                val -= 10\n                add = 1\n            else:\n                add = 0\n            p.next = ListNode(val)\n            p = p.next\n            if l1:\n                l1 = l1.next\n            if l2:\n                l2 = l2.next\n        if add:\n            p.next = ListNode(1)\n        return head.next",
+            "date": 1688227200000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn add_two_numbers(\n        mut l1: Option<Box<ListNode>>,\n        mut l2: Option<Box<ListNode>>,\n    ) -> Option<Box<ListNode>> {\n        let mut head = Box::new(ListNode::new(0));\n        let mut p = &mut head;\n        let mut p1 = &mut l1;\n        let mut p2 = &mut l2;\n        let mut add = 0;\n        while p1.is_some() || p2.is_some() {\n            let mut val = match p1 {\n                Some(ref mut node) => {\n                    p1 = &mut node.next;\n                    node.val\n                }\n                None => 0,\n            } + match p2 {\n                Some(ref mut node) => {\n                    p2 = &mut node.next;\n                    node.val\n                }\n                None => 0,\n            } + add;\n            if val >= 10 {\n                val -= 10;\n                add = 1;\n            } else {\n                add = 0;\n            }\n            p.next = Some(Box::new(ListNode::new(val)));\n            p = p.next.as_mut().unwrap();\n        }\n        if add != 0 {\n            p.next = Some(Box::new(ListNode::new(1)));\n        }\n        head.next\n    }\n}",
+            "date": 1688227200000
         }
     ]
 }
