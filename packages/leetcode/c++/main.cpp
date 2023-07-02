@@ -125,103 +125,91 @@ vector<int> get_sums(vector<int> &arr) {
     for (auto &num : arr) sums.push_back(sums.back() + num);
     return sums;
 }
+vector<int> get_primes(int n) {
+    n += 3;
+    vector<int> primes(n, 0);
+    for (int i = 2; i < n; i++) {
+        if (primes[i] == 0) {
+            primes[++primes[0]] = i;
+        }
+        for (int j = 1; j <= primes[0] && i * primes[j] < n; j++) {
+            primes[i * primes[j]] = 1;
+            if (i % primes[j] == 0) break;
+        }
+    }
+    return primes;
+}
+vector<bool> get_primes2(int n) {
+    n += 3;
+    vector<bool> primes(n, true);
+    primes[0] = primes[1] = false;
+    for (int i = 2; i < n; i++) {
+        if (!primes[i]) continue;
+        for (int j = 2; i * j < n; j++) {
+            primes[i * j] = false;
+        }
+    }
+    return primes;
+}
 // START
 
-#define MAX 8
 class Solution {
 public:
-    int minimumIncompatibility(vector<int>& nums, int k) {
-        int n = nums.size();
-        map<int, int> m;
-        for (auto &num : nums) {
-            m[num]++;
-            if (m[num] > k) return -1;
-        }
-        if (k == n) return 0;
-        sort(nums.begin(), nums.end());
-
-        // cout << "nums : ";
-        // for (auto &num : nums) cout << num << ", ";
-        // cout << endl;
-
-        // int dp[k + 1][1 << n];
-        // memset(dp, 0, sizeof(dp));
-        // for (int i = 1; i <= k; i++) {
-        //     int res = 0x3f3f3f3f;
-        // }
-
-        // return dp[k][1 << n];
-
-        unordered_map<int, unordered_map<int, int>> cache;
-        function<int(int, int)> dfs = [&](int cur, int used) {
-            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << endl;
-            if (cur == k) return 0;
-            if (cache[cur][used]) return cache[cur][used];
-            // cout << "in" << endl;
-            int res = 0x3f3f3f3f;
-            auto lists = comp(n / k, n, used, nums);
-
-            // cout << "lists = ";
-            // for (auto &list : lists) {
-            //     cout << "[";
-            //     for (auto &num : list) {
-            //         cout << num << ", ";
-            //     }
-            //     cout << "], ";
-            // }
-            // cout << endl;
-
-            for (auto &list : lists) {
-                int next_used = used, nmin = INT_MAX, nmax = INT_MIN;
-                for (auto &i : list) {
-                    nmin = min(nmin, nums[i]);
-                    nmax = max(nmax, nums[i]);
-                    next_used |= 1 << i;
-                }
-                auto next = dfs(cur + 1, next_used);
-                // cout << "nmin = " << nmin << ", nmax = " << nmax << endl;
-                // cout << "res = " << res << ", dfs = " << next << endl;
-                res = min(res,  next + nmax - nmin);
+    unordered_set<int> s;
+    vector<int> primes;
+    void getPrimes() {
+        for (int i = 2; i < primes.size(); i++) {
+            if (primes[i] == 0) {
+                primes[++primes[0]] = i;
+                s.insert(i);
             }
-
-            // cout << "==> cur = " << cur << ", used = " << bitset<MAX>(used).to_string() << ", res = " << res << endl;
-
-            return cache[cur][used] = res;
-        };
-        return dfs(0, 0);
+            for (int j = 1; j <= primes[0] && i * primes[j] < primes.size(); j++) {
+                primes[i * primes[j]] = 1;
+                if (i % primes[j] == 0) break;
+            }
+        }
     }
-    vector<vector<int>> comp(int cnt, int total, int used, vector<int>& nums) {
-        // cout << "comp " << cnt << ", " << total << ", " << bitset<MAX>(used).to_string() << endl;
+    vector<vector<int>> findPrimePairs(int n) {
+        primes = vector<int>(n + 5, 0);
+        getPrimes();
 
         vector<vector<int>> res;
-        vector<int> list;
-        function<void(int, int)> dfs = [&](int idx, int sum) {
-
-            // cout << "dfs " << idx << ", " << sum << ", list = ";
-            // for (auto &item : list) cout << item << ", ";
-            // cout << endl;
-
-            if (total - idx < sum) {}
-            else if (sum == 0) res.push_back(list);
-            else {
-                if (!(used & (1 << idx))) {
-                    list.push_back(idx);
-
-                    int next_idx = idx + 1;
-                    while (next_idx < total && nums[next_idx] == nums[idx]) next_idx++;
-                    dfs(next_idx, sum - 1);
-
-                    list.pop_back();
-                }
-
-                dfs(idx + 1, sum);
-            }
-        };
-        dfs(0, cnt);
+        if (s.count(n - 2)) res.push_back({2, n - 2});
+        for (int i = 3; i <= n / 2; i += 2) {
+            if (!s.count(i) || !s.count(n - i)) continue;
+            res.push_back({i,n-i});
+        }
         return res;
     }
 };
 
+
+struct Node {
+    int idx;
+    vector<int> *nums;
+    Node(int idx, vector<int> *nums): idx(idx), nums(nums) {
+    }
+    bool operator<(Node &o) {
+        return nums[idx] < nums[o.idx];
+    }
+};
+class Solution {
+public:
+    long long continuousSubarrays(vector<int>& nums) {
+        int n = nums.size(), prev = 0;
+        long long res = 1;
+        set<Node> s;
+        s.insert(Node(0, &nums));
+        s.insert(Node(1, &nums));
+        for (auto &item : s) {
+            cout << item.idx << endl;
+        }
+        for (int i = 1; i < n; i++) {
+
+        }
+        return res;
+    }
+};
 
 // END
 #ifdef LOCAL

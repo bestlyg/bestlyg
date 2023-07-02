@@ -119,28 +119,6 @@ impl PartialOrd for Node {
     }
 }
 
-pub fn get_primes(max: usize) -> Vec<usize> {
-    let mut primes = vec![0; max];
-    for i in 2..max {
-        if primes[i] == 0 {
-            primes[0] += 1;
-            let idx = primes[0];
-            primes[idx] = i;
-        }
-        for j in 1..=primes[0] {
-            let idx = i * primes[j];
-            if idx >= max {
-                break;
-            }
-            primes[idx] = 1;
-            if i % primes[j] == 0 {
-                break;
-            }
-        }
-    }
-    primes
-}
-
 pub fn str_to_vec(s: &String) -> Vec<char> {
     s.chars().collect()
 }
@@ -194,7 +172,16 @@ impl Ord for RevUnsize {
 }
 
 pub const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-pub const dirs2: [[i32; 2]; 8] = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
+pub const dirs2: [[i32; 2]; 8] = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0],
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+];
 pub struct UnionFind {
     n: usize,
     data: Vec<usize>,
@@ -239,6 +226,43 @@ pub fn pos2Idx(x: usize, y: usize, size: usize) -> usize {
 }
 pub fn idx2Pos(idx: usize, size: usize) -> (usize, usize) {
     (idx / size, idx % size)
+}
+pub fn get_primes(mut n: usize) -> Vec<usize> {
+    n += 3;
+    let mut primes = vec![0; n];
+    for i in 2..n {
+        if primes[i] == 0 {
+            primes[0] += 1;
+            let idx = primes[0];
+            primes[idx] = i;
+        }
+        let mut j = 1;
+        while j <= primes[0] && i * primes[j] < n {
+            let idx = i * primes[j];
+            primes[idx] = 1;
+            if i % primes[j] == 0 {
+                break;
+            }
+            j += 1
+        }
+    }
+    primes
+}
+pub fn get_primes2(mut n: usize) -> Vec<bool> {
+    n += 3;
+    let mut primes = vec![true; n];
+    primes[0] = false;
+    primes[1] = false;
+    for i in 2..n {
+        if primes[i] {
+            let mut j = 2;
+            while i * j < n {
+                primes[i * j] = false;
+                j += 1;
+            }
+        }
+    }
+    primes
 }
 
 pub struct Solution;

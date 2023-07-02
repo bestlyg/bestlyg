@@ -1,0 +1,17 @@
+{
+    "name": "6911.不间断子数组",
+    "url": "https://leetcode.cn/problems/continuous-subarrays/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 。请你返回 不间断 子数组的总数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 1256,
+            "memory": 110.4,
+            "desc": "平衡树。",
+            "code": "struct Node {\n    int idx, num;\n    Node(int idx, int num): idx(idx), num(num) {}\n    bool operator<(const Node &o) const {\n        return num < o.num;\n    }\n};\nclass Solution {\npublic:\n    long long continuousSubarrays(vector<int>& nums) {\n        int n = nums.size(), prev = 0;\n        long long res = 1;\n        multiset<Node> s;\n        s.insert(Node(0, nums[0]));\n        for (int i = 1; i < n; i++) {\n            int num = nums[i];\n            if (s.size()) {\n                auto it = s.begin();\n                while (s.size() && abs(num - it->num) > 2) {\n                    prev = max(prev, it->idx + 1);\n                    s.erase(it++);\n                }\n            }\n            if (s.size()) {\n                auto it = s.end();\n                it--;\n                while (s.size() && abs(num - it->num) > 2) {\n                    prev = max(prev, it->idx + 1);\n                    s.erase(it--);\n                }\n            }\n            s.insert(Node(i, num));\n            res += i - prev + 1;\n        }\n        return res;\n    }\n};",
+            "date": 1688227200000
+        }
+    ]
+}

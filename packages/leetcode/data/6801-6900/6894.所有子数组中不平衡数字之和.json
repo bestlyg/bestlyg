@@ -1,0 +1,17 @@
+{
+    "name": "6894.所有子数组中不平衡数字之和",
+    "url": "https://leetcode.cn/problems/sum-of-imbalance-numbers-of-all-subarrays/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始的整数数组 nums ，请你返回它所有 子数组 的 不平衡数字 之和。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 816,
+            "memory": 137.5,
+            "desc": "平衡树。",
+            "code": "class Solution {\npublic:\n    int sumImbalanceNumbers(vector<int>& nums) {\n        int n = nums.size(), res = 0;\n        for (int i = 1; i < n; i++) {\n            map<int, int> m;\n            int cnt = 0;\n            for (int j = i; j >= 0; j--) {\n                m[nums[j]]++;\n                if (m[nums[j]] > 1) {\n                    res += cnt;\n                    continue;\n                }\n                auto it = m.find(nums[j]);\n                auto prev = it;\n                if (prev != m.begin()) {\n                    prev--;\n                    if (nums[j] - prev->first > 1) cnt++;\n                }\n\n                auto next = it;\n                next++;\n                if (next != m.end()) {\n                    if (next->first - nums[j] > 1) cnt++;\n                }\n                if (it != m.begin() && next != m.end()) cnt--;\n                res += cnt;\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1688227200000
+        }
+    ]
+}

@@ -1,27 +1,29 @@
 from preclude import *
 
 
+def get_primes2(n: int) -> List[bool]:
+    n += 3
+    primes = [True for _ in range(n)]
+    primes[0] = primes[1] = False
+    for i in range(2, n):
+        if primes[i]:
+            j = 2
+            while i * j < n:
+                primes[i*j] = False
+                j += 1
+    return primes
+
+
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        head = ListNode()
-        p = head
-        add = 0
-        while l1 or l2:
-            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + add
-            if val >= 10:
-                val -= 10
-                add = 1
-            else:
-                add = 0
-            p.next = ListNode(val)
-            p = p.next
-            if l1:
-                l1 = l1.next
-            if l2:
-                l2 = l2.next
-        if add:
-            p.next = ListNode(1)
-        return head.next
+    def findPrimePairs(self, n: int) -> List[List[int]]:
+        primes = get_primes2(n)
+        res = []
+        if n >= 2 and primes[n-2]:
+            res.append([2, n-2])
+        for i in range(3, n//2 + 1, 2):
+            if primes[i] and primes[n-i]:
+                res.append([i, n-i])
+        return res
 
 
 def main():

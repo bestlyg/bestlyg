@@ -109,3 +109,32 @@ def pos2Idx(x: int, y: int, size: int):
 
 def idx2pox(idx: int, size: int) -> Tuple[int,  int]:
     return (idx // size, idx % size)
+
+
+def get_primes(n: int) -> List[int]:
+    n += 3
+    primes = [0 for _ in range(n + 3)]
+    for i in range(2, n):
+        if primes[i] == 0:
+            primes[0] += 1
+            primes[primes[0]] = i
+        j = 1
+        while j <= primes[0] and i * primes[j] < n:
+            primes[i * primes[j]] = 1
+            if i % primes[j] == 0:
+                break
+            j += 1
+    return primes
+
+
+def get_primes2(n: int) -> List[bool]:
+    n += 3
+    primes = [True for _ in range(n)]
+    primes[0] = primes[1] = False
+    for i in range(2, n):
+        if primes[i]:
+            j = 2
+            while i * j < n:
+                primes[i*j] = False
+                j += 1
+    return primes

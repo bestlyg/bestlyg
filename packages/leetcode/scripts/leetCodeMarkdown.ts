@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2. 两数相加',
-    url: 'https://leetcode.cn/problems/reconstruct-a-2-row-binary-matrix/',
+    exist: !true,
+    name: '6894. 所有子数组中不平衡数字之和',
+    url: 'https://leetcode.cn/problems/sum-of-imbalance-numbers-of-all-subarrays/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 2 行 n 列的二进制数组。你需要利用 upper，lower 和 colsum 来重构这个矩阵，并以二维整数数组的形式返回它。`,
+    desc: `给你一个下标从 0 开始的整数数组 nums ，请你返回它所有 子数组 的 不平衡数字 之和。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,102 +30,112 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 20,
-            memory:69.8,
-            desc: '遍历',
+            time: 816,
+            memory: 137.5,
+            desc: '平衡树',
             code: `class Solution {
 public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode *head = new ListNode(), *p = head;
-        int add = 0;
-        while (l1 || l2) {
-            int val = (l1 ? l1->val : 0) + 
-                      (l2 ? l2->val : 0) +
-                      add;
-            if (val >= 10) val -= 10, add = 1;
-            else add = 0;
-            p->next = new ListNode(val);
-            p = p->next;
-            if (l1) l1 = l1->next;
-            if (l2) l2 = l2->next;
+    int sumImbalanceNumbers(vector<int>& nums) {
+        int n = nums.size(), res = 0;
+        for (int i = 1; i < n; i++) {
+            map<int, int> m;
+            int cnt = 0;
+            for (int j = i; j >= 0; j--) {
+                m[nums[j]]++;
+                if (m[nums[j]] > 1) {
+                    res += cnt;
+                    continue;
+                }
+                auto it = m.find(nums[j]);
+                auto prev = it;
+                if (prev != m.begin()) {
+                    prev--;
+                    if (nums[j] - prev->first > 1) cnt++;
+                }
+
+                auto next = it;
+                next++;
+                if (next != m.end()) {
+                    if (next->first - nums[j] > 1) cnt++;
+                }
+                if (it != m.begin() && next != m.end()) cnt--;
+                res += cnt;
+            }
         }
-        if (add) p->next = new ListNode(1);
-        return head->next;
+        return res;
     }
 };`,
         },
-        {
-            script: Script.PY,
-            time: 68,
-            memory:16.2,
-            desc: '同上',
-            code: `class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        head = ListNode()
-        p = head
-        add = 0
-        while l1 or l2:
-            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + add
-            if val >= 10:
-                val -= 10
-                add = 1
-            else:
-                add = 0
-            p.next = ListNode(val)
-            p = p.next
-            if l1:
-                l1 = l1.next
-            if l2:
-                l2 = l2.next
-        if add:
-            p.next = ListNode(1)
-        return head.next`,
-        },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn add_two_numbers(
-        mut l1: Option<Box<ListNode>>,
-        mut l2: Option<Box<ListNode>>,
-    ) -> Option<Box<ListNode>> {
-        let mut head = Box::new(ListNode::new(0));
-        let mut p = &mut head;
-        let mut p1 = &mut l1;
-        let mut p2 = &mut l2;
-        let mut add = 0;
-        while p1.is_some() || p2.is_some() {
-            let mut val = match p1 {
-                Some(ref mut node) => {
-                    p1 = &mut node.next;
-                    node.val
-                }
-                None => 0,
-            } + match p2 {
-                Some(ref mut node) => {
-                    p2 = &mut node.next;
-                    node.val
-                }
-                None => 0,
-            } + add;
-            if val >= 10 {
-                val -= 10;
-                add = 1;
-            } else {
-                add = 0;
-            }
-            p.next = Some(Box::new(ListNode::new(val)));
-            p = p.next.as_mut().unwrap();
-        }
-        if add != 0 {
-            p.next = Some(Box::new(ListNode::new(1)));
-        }
-        head.next
-    }
-}`,
-        },
+//         {
+//             script: Script.PY,
+//             time: 744,
+//             memory: 27.6,
+//             desc: '同上',
+//             code: `def get_primes2(n: int) -> List[bool]:
+//         n += 3
+//         primes = [True for _ in range(n)]
+//         primes[0] = primes[1] = False
+//         for i in range(2, n):
+//             if primes[i]:
+//                 j = 2
+//                 while i * j < n:
+//                     primes[i*j] = False
+//                     j += 1
+//         return primes
+    
+//     primes = get_primes2(1000000)
+    
+//     class Solution:
+//         def findPrimePairs(self, n: int) -> List[List[int]]:
+//             res = []
+//             if n >= 2 and primes[n-2]:
+//                 res.append([2, n-2])
+//             for i in range(3, n//2 + 1, 2):
+//                 if primes[i] and primes[n-i]:
+//                     res.append([i, n-i])
+//             return res`,
+//         },
+//         {
+//             script: Script.RUST,
+//             time: 224,
+//             memory: 3.6,
+//             desc: '同上',
+//             code: `pub fn get_primes2(mut n: usize) -> Vec<bool> {
+//     n += 3;
+//     let mut primes = vec![true; n];
+//     primes[0] = false;
+//     primes[1] = false;
+//     for i in 2..n {
+//         if primes[i] {
+//             let mut j = 2;
+//             while i * j < n {
+//                 primes[i * j] = false;
+//                 j += 1;
+//             }
+//         }
+//     }
+//     primes
+// }
+
+// impl Solution {
+//     pub fn find_prime_pairs(n: i32) -> Vec<Vec<i32>> {
+//         let n = n as usize;
+//         let primes = get_primes2(n);
+//         let mut res = vec![];
+//         if n >= 2 && primes[n - 2] {
+//             res.push(vec![2, (n as i32) - 2]);
+//         }
+//         let mut i = 3;
+//         while i <= n / 2 {
+//             if primes[i] && primes[n - i] {
+//                 res.push(vec![i as i32, (n - i) as i32]);
+//             }
+//             i += 2;
+//         }
+//         res
+//     }
+// }`,
+//         },
     ],
 };
 

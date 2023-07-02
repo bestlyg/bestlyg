@@ -1,0 +1,33 @@
+{
+    "name": "6909.最长奇偶子数组",
+    "url": "https://leetcode.cn/problems/longest-even-odd-subarray-with-threshold/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 threshold 。以整数形式返回满足题目要求的最长子数组的长度。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 104,
+            "memory": 88.9,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int longestAlternatingSubarray(vector<int>& nums, int threshold) {\n        int n = nums.size(), res = 0;\n        for (int i = 0; i < n; i++) {\n            if (nums[i] % 2 != 0 || nums[i] > threshold) continue;\n            int cnt = 1;\n            for (int j = i + 1; j < n; j++) {\n                if (nums[j] % 2 == nums[j - 1] % 2 || nums[j] > threshold) break;\n                cnt++;\n            }\n            res = max(res, cnt);\n        }\n        return res;\n    }\n};",
+            "date": 1688227200000
+        },
+        {
+            "script": "python",
+            "time": 296,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def longestAlternatingSubarray(self, nums: List[int], threshold: int) -> int:\n        n = len(nums)\n        res = 0\n        for i in range(n):\n            if nums[i] % 2 != 0 or nums[i] > threshold:\n                continue\n            cnt = 1\n            for j in range(i+1, n):\n                if nums[j] % 2 == nums[j-1] % 2 or nums[j] > threshold:\n                    break\n                cnt += 1\n            res = max(res, cnt)\n        return res",
+            "date": 1688227200000
+        },
+        {
+            "script": "rust",
+            "time": 12,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn longest_alternating_subarray(nums: Vec<i32>, threshold: i32) -> i32 {\n        let n = nums.len();\n        let mut res = 0;\n        for i in 0..n {\n            if nums[i] % 2 != 0 || nums[i] > threshold {\n                continue;\n            }\n            let mut cnt = 1;\n            for j in i + 1..n {\n                if nums[j] % 2 == nums[j - 1] % 2 || nums[j] > threshold {\n                    break;\n                }\n                cnt += 1;\n            }\n            res = res.max(cnt);\n        }\n        res\n    }\n}",
+            "date": 1688227200000
+        }
+    ]
+}

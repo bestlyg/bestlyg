@@ -1,0 +1,41 @@
+{
+    "name": "6916.和等于目标值的质数对",
+    "url": "https://leetcode.cn/problems/prime-pairs-with-target-sum/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个整数 n 。请你以二维有序列表的形式返回符合题目要求的所有 [xi, yi] ，列表需要按 xi 的 非递减顺序 排序。如果不存在符合要求的质数对，则返回一个空数组。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 1256,
+            "memory": 110.4,
+            "desc": "线性筛。",
+            "code": "unordered_set<int> s;\nvector<int> get_primes(int n) {\n    vector<int> primes(n, 0);\n    for (int i = 2; i < n; i++) {\n        if (primes[i] == 0) {\n            primes[++primes[0]] = i;\n            s.insert(i);\n        }\n        for (int j = 1; j <= primes[0] && i * primes[j] < n; j++) {\n            primes[i * primes[j]] = 1;\n            if (i % primes[j] == 0) break;\n        }\n    }\n    return primes;\n}\nvector<int> primes = get_primes(10000000);\n\nclass Solution {\npublic:\n    vector<vector<int>> findPrimePairs(int n) {\n        vector<vector<int>> res;\n        if (s.count(n - 2)) res.push_back({2, n - 2});\n        for (int i = 3; i <= n / 2; i += 2) {\n            if (!s.count(i) || !s.count(n - i)) continue;\n            res.push_back({i,n-i});\n        }\n        return res;\n    }\n};",
+            "date": 1688227200000
+        },
+        {
+            "script": "cpp",
+            "time": 364,
+            "memory": 32.4,
+            "desc": "埃氏筛。",
+            "code": "vector<bool> get_primes2(int n) {\n    vector<bool> primes(n + 3, true);\n    primes[0] = primes[1] = false;\n    for (int i = 2; i < n; i++) {\n        if (!primes[i]) continue;\n        for (int j = 2; i * j < n; j++) {\n            primes[i * j] = false;\n        }\n    }\n    return primes;\n}\nclass Solution {\npublic:\n    vector<vector<int>> findPrimePairs(int n) {\n        auto primes = get_primes2(n);\n        vector<vector<int>> res;\n        if (n >= 2 && primes[n - 2]) res.push_back({ 2, n - 2 });\n        for (int i = 3; i <= n / 2; i += 2) {\n            if (primes[i] && primes[n - i]) {\n                res.push_back({ i, n - i });\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1688227200000
+        },
+        {
+            "script": "python",
+            "time": 744,
+            "memory": 27.6,
+            "desc": "同上。",
+            "code": "def get_primes2(n: int) -> List[bool]:\n        n += 3\n        primes = [True for _ in range(n)]\n        primes[0] = primes[1] = False\n        for i in range(2, n):\n            if primes[i]:\n                j = 2\n                while i * j < n:\n                    primes[i*j] = False\n                    j += 1\n        return primes\n    \n    primes = get_primes2(1000000)\n    \n    class Solution:\n        def findPrimePairs(self, n: int) -> List[List[int]]:\n            res = []\n            if n >= 2 and primes[n-2]:\n                res.append([2, n-2])\n            for i in range(3, n//2 + 1, 2):\n                if primes[i] and primes[n-i]:\n                    res.append([i, n-i])\n            return res",
+            "date": 1688227200000
+        },
+        {
+            "script": "rust",
+            "time": 224,
+            "memory": 3.6,
+            "desc": "同上。",
+            "code": "pub fn get_primes2(mut n: usize) -> Vec<bool> {\n    n += 3;\n    let mut primes = vec![true; n];\n    primes[0] = false;\n    primes[1] = false;\n    for i in 2..n {\n        if primes[i] {\n            let mut j = 2;\n            while i * j < n {\n                primes[i * j] = false;\n                j += 1;\n            }\n        }\n    }\n    primes\n}\n\nimpl Solution {\n    pub fn find_prime_pairs(n: i32) -> Vec<Vec<i32>> {\n        let n = n as usize;\n        let primes = get_primes2(n);\n        let mut res = vec![];\n        if n >= 2 && primes[n - 2] {\n            res.push(vec![2, (n as i32) - 2]);\n        }\n        let mut i = 3;\n        while i <= n / 2 {\n            if primes[i] && primes[n - i] {\n                res.push(vec![i as i32, (n - i) as i32]);\n            }\n            i += 2;\n        }\n        res\n    }\n}",
+            "date": 1688227200000
+        }
+    ]
+}
