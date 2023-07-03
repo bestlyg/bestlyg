@@ -12,38 +12,60 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-pub fn get_primes2(mut n: usize) -> Vec<bool> {
-    n += 3;
-    let mut primes = vec![true; n];
-    primes[0] = false;
-    primes[1] = false;
-    for i in 2..n {
-        if primes[i] {
-            let mut j = 2;
-            while i * j < n {
-                primes[i * j] = false;
-                j += 1;
-            }
-        }
+fn get_len(l: &Option<Box<ListNode>>) -> usize {
+    match l {
+        Some(ref node) => get_len(&node.next),
+        None => 0,
     }
-    primes
+}
+
+fn dfs(
+    mut l1: Option<Box<ListNode>>,
+    mut l2: Option<Box<ListNode>>,
+) -> (i32, Option<Box<ListNode>>) {
+    if l1.is_none() {
+        (0, l2)
+    } else if l2.is_none() {
+        (0, l1)
+    } else {
+        let node1 = l1.as_mut().unwrap();
+        let node2 = l2.as_mut().unwrap();
+        let (mut add, next) = dfs(node1.next.take(), node2.next.take());
+        node1.val += node2.val + add;
+        node1.next = next;
+        add = 0;
+        if node1.val >= 10 {
+            node1.val -= 10;
+            add = 1;
+        }
+        (add, l1)
+    }
 }
 
 impl Solution {
-    pub fn find_prime_pairs(n: i32) -> Vec<Vec<i32>> {
-        let n = n as usize;
-        let primes = get_primes2(n);
-        let mut res = vec![];
-        if n >= 2 && primes[n - 2] {
-            res.push(vec![2, (n as i32) - 2]);
+    pub fn add_two_numbers(
+        mut l1: Option<Box<ListNode>>,
+        mut l2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
+        let (mut len1, mut len2) = (get_len(&l1), get_len(&l2));
+        if len2 > len1 {
+            std::mem::swap(&mut len1, &mut len2);
+            std::mem::swap(&mut l1, &mut l2);
         }
-        let mut i = 3;
-        while i <= n / 2 {
-            if primes[i] && primes[n - i] {
-                res.push(vec![i as i32, (n - i) as i32]);
-            }
-            i += 2;
+        while len1 > len2 {
+            let mut head = Box::new(ListNode::new(0));
+            head.next = l2.take();
+            l2 = Some(head);
+            len2 += 1;
         }
-        res
+
+        let (add, mut node) = dfs(l1, l2);
+        if add != 0 {
+            let mut head = Box::new(ListNode::new(1));
+            let next = node.take();
+            head.next = next;
+            node = Some(head);
+        }
+        node
     }
 }
