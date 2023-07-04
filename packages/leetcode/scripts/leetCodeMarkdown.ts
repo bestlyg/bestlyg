@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '445. 两数相加 II',
-    url: 'https://leetcode.cn/problems/sum-of-imbalance-numbers-of-all-subarrays/',
+    exist: !true,
+    name: '2679. 矩阵中的和',
+    url: 'https://leetcode.cn/problems/sum-in-a-matrix/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的整数数组 nums ，请你返回它所有 子数组 的 不平衡数字 之和。`,
+    desc: `给你一个下标从 0 开始的二维整数数组 nums 。请你返回最后的 分数 。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,151 +30,86 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 24,
-            memory: 68.9,
-            desc: '递归',
+            time: 176,
+            memory: 67.4,
+            desc: '堆',
             code: `class Solution {
 public:
-    int get_len(ListNode *l) {
-        int cnt = 0;
-        for (ListNode *p = l; p; p = p->next) cnt++;
-        return cnt;
+    int matrixSum(vector<vector<int>>& nums) {
+        int n = nums.size(), m = nums[0].size();
+        vector<priority_queue<int>> qs(n);
+        for (int i = 0; i < n; i++) {
+            auto &q = qs[i];
+            for (auto &num : nums[i]) q.push(num);
+        }
+        int res = 0;
+        for (int j = 0; j < m; j++) {
+            priority_queue<int> q;
+            for (int i = 0; i < n; i++) {
+                q.push(qs[i].top());
+                qs[i].pop();
+            }
+            res += q.top();
+        }
+        return res;
     }
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int len1 = get_len(l1), len2 = get_len(l2);
-        if (len2 > len1) {
-            swap(len1, len2);
-            swap(l1, l2);
+};`,
+        },
+        {
+            script: Script.CPP,
+            time: 100,
+            memory: 46.9,
+            desc: '排序',
+            code: `class Solution {
+public:
+    int matrixSum(vector<vector<int>>& nums) {
+        int res = 0;
+        for (auto &row : nums) sort(row.begin(), row.end());
+        for (int j = nums[0].size() - 1; j >= 0; j--) {
+            int val = 0;
+            for (int i = 0; i < nums.size(); i++) val = max(val, nums[i][j]);
+            res += val;
         }
-        while (len1 > len2) {
-            ListNode *head = new ListNode(0, l2);
-            l2 = head;
-            len2++;
-        }
-        auto res = dfs(l1, l2);
-        if (res.first) {
-            ListNode *head = new ListNode(1, l1);
-            l1 = head;
-        }
-        return l1;
-    }
-    pair<int, ListNode*> dfs(ListNode* l1, ListNode* l2) {
-        if (!l1) return make_pair(0, l2);
-        if (!l2) return make_pair(0, l1);
-        auto res = dfs(l1->next, l2->next);
-        l1->next = res.second;
-        l1->val += l2->val + res.first;
-        int add = 0;
-        if (l1->val >= 10) {
-            l1->val -= 10;
-            add = 1;
-        }
-        return make_pair(add, l1);
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 88,
-            memory: 15.9,
+            time: 132,
+            memory: 33.6,
             desc: '同上',
-            code: `def getLen(l: Optional[ListNode]):
-    if not l:
-        return 0
-    cnt = 0
-    while l:
-        cnt += 1
-        l = l.next
-    return cnt
-
-
-def dfs(l1: Optional[ListNode], l2: Optional[ListNode]) -> Tuple[int, ListNode]:
-    if not l1:
-        return (0, l2)
-    if not l2:
-        return (0, l1)
-    add, next = dfs(l1.next, l2.next)
-    l1.next = next
-    l1.val += l2.val + add
-    add = 0
-    if l1.val >= 10:
-        l1.val -= 10
-        add = 1
-    return (add, l1)
-
-class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        len1, len2 = getLen(l1), getLen(l2)
-        if len2 > len1:
-            len1, len2 = len2, len1
-            l1, l2 = l2, l1
-        while len1 > len2:
-            head = ListNode(0, l2)
-            l2 = head
-            len2 += 1
-        add, node = dfs(l1, l2)
-        if add:
-            head = ListNode(1, l1)
-            l1 = head
-        return l1`,
+            code: `class Solution:
+    def matrixSum(self, nums: List[List[int]]) -> int:
+        for l in nums:
+            l.sort()
+        res = 0
+        for j in range(len(nums[0]) - 1, -1, -1):
+            val = 0
+            for i in range(len(nums)):
+                val = max(val, nums[i][j])
+            res += val
+        return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 1.9,
+            time: 20,
+            memory: 3.6,
             desc: '同上',
-            code: `fn get_len(l: &Option<Box<ListNode>>) -> usize {
-    match l {
-        Some(ref node) => get_len(&node.next) + 1,
-        None => 0,
-    }
-}
-fn dfs(
-    mut l1: Option<Box<ListNode>>,
-    mut l2: Option<Box<ListNode>>,
-) -> (i32, Option<Box<ListNode>>) {
-    if l1.is_none() {
-        (0, l2)
-    } else if l2.is_none() {
-        (0, l1)
-    } else {
-        let node1 = l1.as_mut().unwrap();
-        let node2 = l2.as_mut().unwrap();
-        let (mut add, next) = dfs(node1.next.take(), node2.next.take());
-        node1.val += node2.val + add;
-        node1.next = next;
-        add = 0;
-        if node1.val >= 10 {
-            node1.val -= 10;
-            add = 1;
+            code: `impl Solution {
+    pub fn matrix_sum(mut nums: Vec<Vec<i32>>) -> i32 {
+        let mut res = 0;
+        for row in &mut nums {
+            row.sort()
         }
-        (add, l1)
-    }
-}
-impl Solution {
-    pub fn add_two_numbers(
-        mut l1: Option<Box<ListNode>>,
-        mut l2: Option<Box<ListNode>>,
-    ) -> Option<Box<ListNode>> {
-        let (mut len1, mut len2) = (get_len(&l1), get_len(&l2));
-        if len2 > len1 {
-            std::mem::swap(&mut len1, &mut len2);
-            std::mem::swap(&mut l1, &mut l2);
+        for j in (0..nums[0].len()).rev() {
+            let mut val = 0;
+            for i in 0..nums.len() {
+                val = val.max(nums[i][j]);
+            }
+            res += val;
         }
-        while len1 > len2 {
-            let mut head = Box::new(ListNode::new(0));
-            head.next = l2.take();
-            l2 = Some(head);
-            len2 += 1;
-        }
-        let (add, mut node) = dfs(l1, l2);
-        if add != 0 {
-            let mut head = Box::new(ListNode::new(1));
-            let next = node.take();
-            head.next = next;
-            node = Some(head);
-        }
-        node
+        res
     }
 }`,
         },

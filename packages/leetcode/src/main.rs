@@ -43,29 +43,18 @@ fn dfs(
 }
 
 impl Solution {
-    pub fn add_two_numbers(
-        mut l1: Option<Box<ListNode>>,
-        mut l2: Option<Box<ListNode>>,
-    ) -> Option<Box<ListNode>> {
-        let (mut len1, mut len2) = (get_len(&l1), get_len(&l2));
-        if len2 > len1 {
-            std::mem::swap(&mut len1, &mut len2);
-            std::mem::swap(&mut l1, &mut l2);
+    pub fn matrix_sum(mut nums: Vec<Vec<i32>>) -> i32 {
+        let mut res = 0;
+        for row in &mut nums {
+            row.sort()
         }
-        while len1 > len2 {
-            let mut head = Box::new(ListNode::new(0));
-            head.next = l2.take();
-            l2 = Some(head);
-            len2 += 1;
+        for j in (0..=nums[0].len()).rev() {
+            let mut val = 0;
+            for i in 0..nums.len() {
+                val = val.max(nums[i][j]);
+            }
+            res += val;
         }
-
-        let (add, mut node) = dfs(l1, l2);
-        if add != 0 {
-            let mut head = Box::new(ListNode::new(1));
-            let next = node.take();
-            head.next = next;
-            node = Some(head);
-        }
-        node
+        res
     }
 }
