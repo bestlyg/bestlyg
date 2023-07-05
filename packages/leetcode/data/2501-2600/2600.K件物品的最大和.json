@@ -32,6 +32,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn k_items_with_maximum_sum(\n        num_ones: i32,\n        num_zeros: i32,\n        num_neg_ones: i32,\n        k: i32,\n    ) -> i32 {\n        if num_ones >= k {\n            k\n        } else if num_ones + num_zeros >= k {\n            num_ones\n        } else {\n            num_ones - (k - num_ones - num_zeros)\n        }\n    }\n}",
             "date": 1679760000000
+        },
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 5.9,
+            "desc": "贪心。",
+            "code": "class Solution {\npublic:\n    int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k) {\n        int res = 0;\n        if (k && numOnes) {\n            res += min(k, numOnes);\n            k -= min(k, numOnes);\n        }\n        if (k && numZeros) {\n            k -= min(k, numZeros);\n        }\n        if (k && numNegOnes) {\n            res -= min(k, numNegOnes);\n            k -= min(k, numNegOnes);\n        }\n        return res;\n    }\n};",
+            "date": 1688486400000
         }
     ]
 }
