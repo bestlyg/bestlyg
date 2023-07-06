@@ -2,15 +2,14 @@ from preclude import *
 
 
 class Solution:
-    def matrixSum(self, nums: List[List[int]]) -> int:
-        for l in nums:
-            l.sort()
-        res = 0
-        for j in range(len(nums[0]) - 1, -1, -1):
-            val = 0
-            for i in range(len(nums)):
-                val = max(val, nums[i][j])
-            res += val
+    def maximumEvenSplit(self, finalSum: int) -> List[int]:
+        res = []
+        if finalSum % 2 != 0: return res
+        num = 2
+        while num <= finalSum:
+            res.append(num)
+            finalSum -= num
+            num += 2
         return res
 
 

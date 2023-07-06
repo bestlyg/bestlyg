@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2600. K 件物品的最大和',
-    url: 'https://leetcode.cn/problems/sum-in-a-matrix/',
+    exist: !true,
+    name: '2178. 拆分成最多数目的正偶数之和',
+    url: 'https://leetcode.cn/problems/maximum-split-of-positive-even-integers/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的二维整数数组 nums 。请你返回最后的 分数 。`,
+    desc: `给你一个整数 finalSum 。请你将它拆分成若干个 互不相同 的正偶数之和，且拆分出来的正偶数数目 最多 。`,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,67 +30,61 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 8,
-            memory: 5.9,
+            time: 200,
+            memory: 39.5,
             desc: '贪心',
             code: `class Solution {
 public:
-    int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k) {
-        int res = 0;
-        if (k && numOnes) {
-            res += min(k, numOnes);
-            k -= min(k, numOnes);
+    vector<long long> maximumEvenSplit(long long finalSum) {
+        vector<long long> res;
+        if (finalSum % 2 != 0) return res;
+        for (int num = 2; finalSum >= num; num += 2) {
+            res.push_back(num);
+            finalSum -= num;
         }
-        if (k && numZeros) {
-            k -= min(k, numZeros);
-        }
-        if (k && numNegOnes) {
-            res -= min(k, numNegOnes);
-            k -= min(k, numNegOnes);
-        }
+        res[res.size() - 1] += finalSum;
         return res;
     }
 };`,
         },
-//         {
-//             script: Script.PY,
-//             time: 132,
-//             memory: 33.6,
-//             desc: '同上',
-//             code: `class Solution:
-//     def matrixSum(self, nums: List[List[int]]) -> int:
-//         for l in nums:
-//             l.sort()
-//         res = 0
-//         for j in range(len(nums[0]) - 1, -1, -1):
-//             val = 0
-//             for i in range(len(nums)):
-//                 val = max(val, nums[i][j])
-//             res += val
-//         return res`,
-//         },
-//         {
-//             script: Script.RUST,
-//             time: 20,
-//             memory: 3.6,
-//             desc: '同上',
-//             code: `impl Solution {
-//     pub fn matrix_sum(mut nums: Vec<Vec<i32>>) -> i32 {
-//         let mut res = 0;
-//         for row in &mut nums {
-//             row.sort()
-//         }
-//         for j in (0..nums[0].len()).rev() {
-//             let mut val = 0;
-//             for i in 0..nums.len() {
-//                 val = val.max(nums[i][j]);
-//             }
-//             res += val;
-//         }
-//         res
-//     }
-// }`,
-//         },
+        {
+            script: Script.PY,
+            time: 624,
+            memory: 25.6,
+            desc: '同上',
+            code: `class Solution:
+    def maximumEvenSplit(self, finalSum: int) -> List[int]:
+        res = []
+        if finalSum % 2 != 0: return res
+        num = 2
+        while num <= finalSum:
+            res.append(num)
+            finalSum -= num
+            num += 2
+        res[-1] += finalSum
+        return res`,
+        },
+        {
+            script: Script.RUST,
+            time:40,
+            memory: 3.2,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn maximum_even_split(mut final_sum: i64) -> Vec<i64> {
+        let mut res = vec![];
+        if final_sum % 2 == 0 {
+            let mut num = 2;
+            while num <= final_sum {
+                res.push(num);
+                final_sum -= num;
+                num += 2;
+            }
+            *res.last_mut().unwrap() += final_sum;
+        }
+        res
+    }
+}`,
+        },
     ],
 };
 

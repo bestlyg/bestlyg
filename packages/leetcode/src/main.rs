@@ -43,17 +43,16 @@ fn dfs(
 }
 
 impl Solution {
-    pub fn matrix_sum(mut nums: Vec<Vec<i32>>) -> i32 {
-        let mut res = 0;
-        for row in &mut nums {
-            row.sort()
-        }
-        for j in (0..=nums[0].len()).rev() {
-            let mut val = 0;
-            for i in 0..nums.len() {
-                val = val.max(nums[i][j]);
+    pub fn maximum_even_split(mut final_sum: i64) -> Vec<i64> {
+        let mut res = vec![];
+        if final_sum % 2 == 0 {
+            let mut num = 2;
+            while num <= final_sum {
+                res.push(num);
+                final_sum -= num;
+                num += 2;
             }
-            res += val;
+            *res.last_mut().unwrap() += final_sum;
         }
         res
     }
