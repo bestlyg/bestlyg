@@ -43,17 +43,24 @@ fn dfs(
 }
 
 impl Solution {
-    pub fn maximum_even_split(mut final_sum: i64) -> Vec<i64> {
-        let mut res = vec![];
-        if final_sum % 2 == 0 {
-            let mut num = 2;
-            while num <= final_sum {
-                res.push(num);
-                final_sum -= num;
-                num += 2;
+    pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+        let n = numbers.len();
+        for i in 0..n {
+            let mut l = i + 1;
+            let mut r = n;
+            while l < r {
+                let m = (l + r) / 2;
+                let val = numbers[i] + numbers[m];
+                if val < target {
+                    l = m + 1;
+                } else {
+                    r = m;
+                }
             }
-            *res.last_mut().unwrap() += final_sum;
+            if l != n && numbers[i] + numbers[l] == target {
+                return vec![(i as i32) + 1, (l as i32) + 1];
+            }
         }
-        res
+        return vec![];
     }
 }

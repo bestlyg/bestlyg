@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '2532. 过桥的时间',
+    name: '167. 两数之和 II - 输入有序数组',
     url: 'https://leetcode.cn/problems/maximum-split-of-positive-even-integers/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -30,115 +30,76 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 188,
-            memory: 20.5,
-            desc: '模拟',
-            code: `#define X first
-#define Y second
-class Solution {
+            time: 8,
+            memory: 15.2,
+            desc: '二分',
+            code: `class Solution {
 public:
-    typedef pair<int, int> pii;
-    int findCrossingTime(int n, int k, vector<vector<int>>& time) {
-        auto cmp = [&](int i1, int i2) {
-            int v1 = time[i1][0] + time[i1][2], v2 = time[i2][0] + time[i2][2];
-            return v1 < v2 || v1 == v2 && i1 < i2;
-        };
-        priority_queue<int, vector<int>, decltype(cmp)> ql(cmp), qr(cmp);
-        for (int i = 0; i < k; i++) ql.push(i);
-
-        auto cmpp = [&](pii i1, pii i2) {
-            return i2.X < i1.X;
-        };
-        priority_queue<pii, vector<pii>, decltype(cmpp)> qpl(cmpp), qpr(cmpp);
-
-        int res = 0;
-        while (qr.size() || qpr.size() || n > 0) {
-            // cout << "===> Loop: " 
-            //      << "n = " << n
-            //      << ", res = " << res
-            //      << ", qpl = " << (qpl.size() ? (long long)qpl.top().X * 100 + qpl.top().Y : -1)
-            //      << ", ql = " << (ql.size() ? ql.top() : -1)
-            //      << ", qr = " << (qr.size() ? qr.top() : -1)
-            //      << ", qpr = " << (qpr.size() ? (long long)qpr.top().X * 100 + qpr.top().Y : -1)
-            //      << endl;
-
-            if ((ql.empty() && qr.empty()) || qr.empty() && qpr.size() && n == 0) {
-                res = max(
-                    res,
-                    min(
-                        qpl.size() ? qpl.top().X : INT_MAX,
-                        qpr.size() ? qpr.top().X : INT_MAX
-                    )
-                );
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int n = numbers.size();
+        for (int i = 0; i < n; i++) {
+            int l = i + 1, r = n;
+            while (l < r) {
+                int m = (l + r) / 2, val = numbers[m] + numbers[i];
+                if (val < target) l = m + 1;
+                else r = m;
             }
-
-            while (qpl.size() && qpl.top().X <= res) {
-                auto cur = qpl.top();
-                qpl.pop();
-                ql.push(cur.Y);
-            }
-            while (qpr.size() && qpr.top().X <= res) {
-                auto cur = qpr.top();
-                qpr.pop();
-                qr.push(cur.Y);
-            }
-
-            if (qr.size()) {
-                auto cur = qr.top();
-                qr.pop();
-                res += time[cur][2];
-                qpl.push(make_pair(res + time[cur][3], cur));
-            } else if (ql.size() && n > 0) {
-                n -= 1;
-                auto cur = ql.top();
-                ql.pop();
-                res += time[cur][0];
-                qpr.push(make_pair(res + time[cur][1], cur));
-            }
+            if (l != n && numbers[i] + numbers[l] == target) return { i + 1, l + 1};
         }
-
-        return res;
+        return {};
     }
 };`,
         },
-//         {
-//             script: Script.PY,
-//             time: 624,
-//             memory: 25.6,
-//             desc: '同上',
-//             code: `class Solution:
-//     def maximumEvenSplit(self, finalSum: int) -> List[int]:
-//         res = []
-//         if finalSum % 2 != 0: return res
-//         num = 2
-//         while num <= finalSum:
-//             res.append(num)
-//             finalSum -= num
-//             num += 2
-//         res[-1] += finalSum
-//         return res`,
-//         },
-//         {
-//             script: Script.RUST,
-//             time:40,
-//             memory: 3.2,
-//             desc: '同上',
-//             code: `impl Solution {
-//     pub fn maximum_even_split(mut final_sum: i64) -> Vec<i64> {
-//         let mut res = vec![];
-//         if final_sum % 2 == 0 {
-//             let mut num = 2;
-//             while num <= final_sum {
-//                 res.push(num);
-//                 final_sum -= num;
-//                 num += 2;
-//             }
-//             *res.last_mut().unwrap() += final_sum;
-//         }
-//         res
-//     }
-// }`,
-//         },
+        {
+            script: Script.PY,
+            time: 112,
+            memory: 17.1,
+            desc: '同上',
+            code: `class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        n = len(numbers)
+        for i in range(n):
+            l = i + 1
+            r = n
+            while l < r:
+                m = (l + r) // 2
+                val = numbers[i] + numbers[m]
+                if val < target:
+                    l = m + 1
+                else:
+                    r = m
+            if l != n and numbers[i] + numbers[l] == target:
+                return [i+1, l+1]
+        return []`,
+        },
+        {
+            script: Script.RUST,
+            time: 4,
+            memory: 2.1,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+        let n = numbers.len();
+        for i in 0..n {
+            let mut l = i + 1;
+            let mut r = n;
+            while l < r {
+                let m = (l + r) / 2;
+                let val = numbers[i] + numbers[m];
+                if val < target {
+                    l = m + 1;
+                } else {
+                    r = m;
+                }
+            }
+            if l != n && numbers[i] + numbers[l] == target {
+                return vec![(i as i32) + 1, (l as i32) + 1];
+            }
+        }
+        return vec![];
+    }
+}`,
+        },
     ],
 };
 
