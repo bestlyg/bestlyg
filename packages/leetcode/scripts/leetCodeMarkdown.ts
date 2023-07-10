@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '15. 三数之和',
+    name: '16. 最接近的三数之和',
     url: 'https://leetcode.cn/problems/maximum-split-of-positive-even-integers/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -30,76 +30,87 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 336,
-            memory: 23.3,
+            time: 136,
+            memory: 9.9,
             desc: '二分',
             code: `class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        int n = numbers.size();
-        for (int i = 0; i < n; i++) {
-            int l = i + 1, r = n;
-            while (l < r) {
-                int m = (l + r) / 2, val = numbers[m] + numbers[i];
-                if (val < target) l = m + 1;
-                else r = m;
+    int threeSumClosest(vector<int>& nums, int target) {
+        nums.push_back(0x3f3f3f3f);
+        nums.push_back(-0x3f3f3f3f);
+        sort(nums.begin(), nums.end());
+        int n = nums.size(), res = -0x3f3f3f3f;
+        for (int i = 1; i + 2 < n; i++) {
+            for (int j = i + 1; j + 1 < n; j++) {
+                int l = j + 1, r = n, sum = nums[i] + nums[j];
+                while (l < r) {
+                    int m = (l + r) / 2;
+                    if (nums[m] >= target - sum) r = m;
+                    else l = m + 1;
+                }
+                if (sum + nums[l] == target) return target;
+                if (nums[l] != INT_MAX && abs(target - sum - nums[l]) < abs(target - res)) {
+                    res = sum + nums[l];
+                }
+                if (l != j + 1 && nums[l - 1] != INT_MIN && abs(target - sum - nums[l - 1]) < abs(target - res)) {
+                    res = sum + nums[l - 1];
+                }                
             }
-            if (l != n && numbers[i] + numbers[l] == target) return { i + 1, l + 1};
         }
-        return {};
+        return res;
     }
 };`,
         },
-//         {
-//             script: Script.PY,
-//             time: 112,
-//             memory: 17.1,
-//             desc: '同上',
-//             code: `class Solution:
-//     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-//         n = len(numbers)
-//         for i in range(n):
-//             l = i + 1
-//             r = n
-//             while l < r:
-//                 m = (l + r) // 2
-//                 val = numbers[i] + numbers[m]
-//                 if val < target:
-//                     l = m + 1
-//                 else:
-//                     r = m
-//             if l != n and numbers[i] + numbers[l] == target:
-//                 return [i+1, l+1]
-//         return []`,
-//         },
-//         {
-//             script: Script.RUST,
-//             time: 4,
-//             memory: 2.1,
-//             desc: '同上',
-//             code: `impl Solution {
-//     pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-//         let n = numbers.len();
-//         for i in 0..n {
-//             let mut l = i + 1;
-//             let mut r = n;
-//             while l < r {
-//                 let m = (l + r) / 2;
-//                 let val = numbers[i] + numbers[m];
-//                 if val < target {
-//                     l = m + 1;
-//                 } else {
-//                     r = m;
-//                 }
-//             }
-//             if l != n && numbers[i] + numbers[l] == target {
-//                 return vec![(i as i32) + 1, (l as i32) + 1];
-//             }
-//         }
-//         return vec![];
-//     }
-// }`,
-//         },
+        //         {
+        //             script: Script.PY,
+        //             time: 112,
+        //             memory: 17.1,
+        //             desc: '同上',
+        //             code: `class Solution:
+        //     def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        //         n = len(numbers)
+        //         for i in range(n):
+        //             l = i + 1
+        //             r = n
+        //             while l < r:
+        //                 m = (l + r) // 2
+        //                 val = numbers[i] + numbers[m]
+        //                 if val < target:
+        //                     l = m + 1
+        //                 else:
+        //                     r = m
+        //             if l != n and numbers[i] + numbers[l] == target:
+        //                 return [i+1, l+1]
+        //         return []`,
+        //         },
+        //         {
+        //             script: Script.RUST,
+        //             time: 4,
+        //             memory: 2.1,
+        //             desc: '同上',
+        //             code: `impl Solution {
+        //     pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+        //         let n = numbers.len();
+        //         for i in 0..n {
+        //             let mut l = i + 1;
+        //             let mut r = n;
+        //             while l < r {
+        //                 let m = (l + r) / 2;
+        //                 let val = numbers[i] + numbers[m];
+        //                 if val < target {
+        //                     l = m + 1;
+        //                 } else {
+        //                     r = m;
+        //                 }
+        //             }
+        //             if l != n && numbers[i] + numbers[l] == target {
+        //                 return vec![(i as i32) + 1, (l as i32) + 1];
+        //             }
+        //         }
+        //         return vec![];
+        //     }
+        // }`,
+        //         },
     ],
 };
 
