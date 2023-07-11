@@ -155,31 +155,15 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    unordered_set<int> s;
-    vector<int> primes;
-    void getPrimes() {
-        for (int i = 2; i < primes.size(); i++) {
-            if (primes[i] == 0) {
-                primes[++primes[0]] = i;
-                s.insert(i);
-            }
-            for (int j = 1; j <= primes[0] && i * primes[j] < primes.size(); j++) {
-                primes[i * primes[j]] = 1;
-                if (i % primes[j] == 0) break;
-            }
+    typedef long long ll;
+    ll maxAlternatingSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<ll>> dp(n + 1, vector<ll>(2, 0));
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = max(dp[i][0], dp[i - 1][1] + nums[i - 1]);
+            dp[i][1] = max(dp[i][1], dp[i - 1][0] + nums[i - 1]);
         }
-    }
-    vector<vector<int>> findPrimePairs(int n) {
-        primes = vector<int>(n + 5, 0);
-        getPrimes();
-
-        vector<vector<int>> res;
-        if (s.count(n - 2)) res.push_back({2, n - 2});
-        for (int i = 3; i <= n / 2; i += 2) {
-            if (!s.count(i) || !s.count(n - i)) continue;
-            res.push_back({i,n-i});
-        }
-        return res;
+        return max(dp[n][0], dp[n][1]);
     }
 };
 

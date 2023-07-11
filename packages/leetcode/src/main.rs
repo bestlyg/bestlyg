@@ -41,26 +41,14 @@ fn dfs(
         (add, l1)
     }
 }
-
 impl Solution {
-    pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-        let n = numbers.len();
-        for i in 0..n {
-            let mut l = i + 1;
-            let mut r = n;
-            while l < r {
-                let m = (l + r) / 2;
-                let val = numbers[i] + numbers[m];
-                if val < target {
-                    l = m + 1;
-                } else {
-                    r = m;
-                }
-            }
-            if l != n && numbers[i] + numbers[l] == target {
-                return vec![(i as i32) + 1, (l as i32) + 1];
-            }
+    pub fn max_alternating_sum(nums: Vec<i32>) -> i64 {
+        let mut odd = 0;
+        let mut even = nums[0] as i64;
+        for i in 1..nums.len() {
+            even = even.max(odd - nums[i] as i64);
+            odd = odd.max(even + nums[i] as i64);
         }
-        return vec![];
+        even
     }
 }

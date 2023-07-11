@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '16. 最接近的三数之和',
-    url: 'https://leetcode.cn/problems/maximum-split-of-positive-even-integers/',
+    exist: !true,
+    name: '1911. 最大子序列交替和',
+    url: 'https://leetcode.cn/problems/maximum-alternating-subsequence-sum/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 finalSum 。请你将它拆分成若干个 互不相同 的正偶数之和，且拆分出来的正偶数数目 最多 。`,
+    desc: `一个下标从 0 开始的数组的 交替和 定义为 偶数 下标处元素之 和 减去 奇数 下标处元素之 和 。给你一个数组 nums ，请你返回 nums 中任意子序列的 最大交替和 `,
     solutions: [
         //         {
         //             script: Script.TS,
@@ -30,87 +30,54 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 136,
-            memory: 9.9,
-            desc: '二分',
+            time: 328,
+            memory: 149.5,
+            desc: 'dp[i][j]表示以nums[i]结尾的时候，奇数和偶数时的最大结果',
             code: `class Solution {
 public:
-    int threeSumClosest(vector<int>& nums, int target) {
-        nums.push_back(0x3f3f3f3f);
-        nums.push_back(-0x3f3f3f3f);
-        sort(nums.begin(), nums.end());
-        int n = nums.size(), res = -0x3f3f3f3f;
-        for (int i = 1; i + 2 < n; i++) {
-            for (int j = i + 1; j + 1 < n; j++) {
-                int l = j + 1, r = n, sum = nums[i] + nums[j];
-                while (l < r) {
-                    int m = (l + r) / 2;
-                    if (nums[m] >= target - sum) r = m;
-                    else l = m + 1;
-                }
-                if (sum + nums[l] == target) return target;
-                if (nums[l] != INT_MAX && abs(target - sum - nums[l]) < abs(target - res)) {
-                    res = sum + nums[l];
-                }
-                if (l != j + 1 && nums[l - 1] != INT_MIN && abs(target - sum - nums[l - 1]) < abs(target - res)) {
-                    res = sum + nums[l - 1];
-                }                
-            }
+    typedef long long ll;
+    ll maxAlternatingSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<ll>> dp(n, vector<ll>(2, 0));
+        dp[0][0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + nums[i]);
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - nums[i]);
         }
-        return res;
+        return dp[n - 1][0];
     }
 };`,
         },
-        //         {
-        //             script: Script.PY,
-        //             time: 112,
-        //             memory: 17.1,
-        //             desc: '同上',
-        //             code: `class Solution:
-        //     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        //         n = len(numbers)
-        //         for i in range(n):
-        //             l = i + 1
-        //             r = n
-        //             while l < r:
-        //                 m = (l + r) // 2
-        //                 val = numbers[i] + numbers[m]
-        //                 if val < target:
-        //                     l = m + 1
-        //                 else:
-        //                     r = m
-        //             if l != n and numbers[i] + numbers[l] == target:
-        //                 return [i+1, l+1]
-        //         return []`,
-        //         },
-        //         {
-        //             script: Script.RUST,
-        //             time: 4,
-        //             memory: 2.1,
-        //             desc: '同上',
-        //             code: `impl Solution {
-        //     pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-        //         let n = numbers.len();
-        //         for i in 0..n {
-        //             let mut l = i + 1;
-        //             let mut r = n;
-        //             while l < r {
-        //                 let m = (l + r) / 2;
-        //                 let val = numbers[i] + numbers[m];
-        //                 if val < target {
-        //                     l = m + 1;
-        //                 } else {
-        //                     r = m;
-        //                 }
-        //             }
-        //             if l != n && numbers[i] + numbers[l] == target {
-        //                 return vec![(i as i32) + 1, (l as i32) + 1];
-        //             }
-        //         }
-        //         return vec![];
-        //     }
-        // }`,
-        //         },
+        {
+            script: Script.PY,
+            time: 1092,
+            memory: 30.2,
+            desc: '同上',
+            code: `class Solution:
+    def maxAlternatingSum(self, nums: List[int]) -> int:
+        even = nums[0]
+        odd = 0
+        for i in range(1, len(nums)):
+            even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
+        return even`,
+        },
+        {
+            script: Script.RUST,
+            time: 12,
+            memory: 2.8,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn max_alternating_sum(nums: Vec<i32>) -> i64 {
+        let mut odd = 0;
+        let mut even = nums[0] as i64;
+        for i in 1..nums.len() {
+            even = even.max(odd + nums[i] as i64);
+            odd = odd.max(even - nums[i] as i64);
+        }
+        even
+    }
+}`,
+        },
     ],
 };
 
