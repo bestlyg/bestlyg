@@ -2,9 +2,9 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1911. 最大子序列交替和',
-    url: 'https://leetcode.cn/problems/maximum-alternating-subsequence-sum/',
+    exist: true,
+    name: '2544. 交替数字和',
+    url: 'https://leetcode.cn/problems/alternating-digit-sum/',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `一个下标从 0 开始的数组的 交替和 定义为 偶数 下标处元素之 和 减去 奇数 下标处元素之 和 。给你一个数组 nums ，请你返回 nums 中任意子序列的 最大交替和 `,
@@ -30,54 +30,53 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 328,
-            memory: 149.5,
-            desc: 'dp[i][j]表示以nums[i]结尾的时候，奇数和偶数时的最大结果',
+            time: 4,
+            memory: 5.7,
+            desc: '遍历',
             code: `class Solution {
 public:
-    typedef long long ll;
-    ll maxAlternatingSum(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<ll>> dp(n, vector<ll>(2, 0));
-        dp[0][0] = nums[0];
-        for (int i = 1; i < n; i++) {
-            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + nums[i]);
-            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - nums[i]);
+    int alternateDigitSum(int n) {
+        int len = to_string(n).size(), res = 0, cur = 1;
+        if (len % 2 == 0) cur *= -1; 
+        while (n) {
+            res += (n % 10) * cur;
+            cur *= -1;
+            n /= 10;
         }
-        return dp[n - 1][0];
+        return res;
     }
 };`,
         },
-        {
-            script: Script.PY,
-            time: 1092,
-            memory: 30.2,
-            desc: '同上',
-            code: `class Solution:
-    def maxAlternatingSum(self, nums: List[int]) -> int:
-        even = nums[0]
-        odd = 0
-        for i in range(1, len(nums)):
-            even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
-        return even`,
-        },
-        {
-            script: Script.RUST,
-            time: 12,
-            memory: 2.8,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn max_alternating_sum(nums: Vec<i32>) -> i64 {
-        let mut odd = 0;
-        let mut even = nums[0] as i64;
-        for i in 1..nums.len() {
-            even = even.max(odd + nums[i] as i64);
-            odd = odd.max(even - nums[i] as i64);
-        }
-        even
-    }
-}`,
-        },
+//         {
+//             script: Script.PY,
+//             time: 1092,
+//             memory: 30.2,
+//             desc: '同上',
+//             code: `class Solution:
+//     def maxAlternatingSum(self, nums: List[int]) -> int:
+//         even = nums[0]
+//         odd = 0
+//         for i in range(1, len(nums)):
+//             even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
+//         return even`,
+//         },
+//         {
+//             script: Script.RUST,
+//             time: 12,
+//             memory: 2.8,
+//             desc: '同上',
+//             code: `impl Solution {
+//     pub fn max_alternating_sum(nums: Vec<i32>) -> i64 {
+//         let mut odd = 0;
+//         let mut even = nums[0] as i64;
+//         for i in 1..nums.len() {
+//             even = even.max(odd + nums[i] as i64);
+//             odd = odd.max(even - nums[i] as i64);
+//         }
+//         even
+//     }
+// }`,
+//         },
     ],
 };
 
