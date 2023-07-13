@@ -2,19 +2,17 @@ from preclude import *
 
 
 class Solution:
-    def maxAlternatingSum(self, nums: List[int]) -> int:
-        n = len(nums)
-
-        def dfs(cur: int, size: int, even: int, odd: int) -> int:
-            if cur == n:
-                return even - odd
-            res = dfs(cur + 1, size, even, odd)
-            if size % 2 == 0:
-                even += nums[cur]
-            else:
-                odd += nums[cur]
-            return max(res, dfs(cur+1, size+1, even, odd))
-        return dfs(0, 0, 0, 0)
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        n = len(matrix)
+        for i in range(1, n):
+            for j in range(n):
+                val = matrix[i][j] + matrix[i-1][j]
+                if j > 0:
+                    val = min(val, matrix[i][j] + matrix[i-1][j-1])
+                if j < n-1:
+                    val = min(val, matrix[i][j] + matrix[i-1][j+1])
+                matrix[i][j] = val
+        return min(matrix[n-1])
 
 
 def main():
