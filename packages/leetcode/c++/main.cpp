@@ -20,6 +20,8 @@
 #define debug freopen("input", "r", stdin)
 #define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });
 
+#define LOCAL
+
 #ifdef DEBUG
 #define log(frm, args...) \
     { printf(frm, ##args); }
@@ -153,44 +155,21 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
+#define X first
+#define Y second
+#define pii pair<int, int>
 class Solution {
 public:
-    typedef long long ll;
-    ll maxAlternatingSum(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<ll>> dp(n + 1, vector<ll>(2, 0));
-        for (int i = 1; i <= n; i++) {
-            dp[i][0] = max(dp[i][0], dp[i - 1][1] + nums[i - 1]);
-            dp[i][1] = max(dp[i][1], dp[i - 1][0] + nums[i - 1]);
-        }
-        return max(dp[n][0], dp[n][1]);
-    }
-};
-
-
-struct Node {
-    int idx;
-    vector<int> *nums;
-    Node(int idx, vector<int> *nums): idx(idx), nums(nums) {
-    }
-    bool operator<(Node &o) {
-        return nums[idx] < nums[o.idx];
-    }
-};
-class Solution {
-public:
-    long long continuousSubarrays(vector<int>& nums) {
-        int n = nums.size(), prev = 0;
-        long long res = 1;
-        set<Node> s;
-        s.insert(Node(0, &nums));
-        s.insert(Node(1, &nums));
-        for (auto &item : s) {
-            cout << item.idx << endl;
-        }
-        for (int i = 1; i < n; i++) {
-
-        }
+    int distributeCoins(TreeNode* root) {
+        int res = 0;
+        function<pii(TreeNode*)> dfs = [&](TreeNode *node) {
+            if (!node) return make_pair(0, 0);
+            auto l = dfs(node->left), r = dfs(node->right);
+            int nsum = l.X + r.X + 1, csum = l.Y + r.Y + node->val;
+            res += abs(nsum - csum);
+            return make_pair(nsum, csum);
+        };
+        dfs(root);
         return res;
     }
 };
@@ -200,10 +179,6 @@ public:
 int main() {
     auto cmp = [&](pii x, pii y) -> bool { return x.second < y.second; };
     priority_queue<pii, vector<pii>, decltype(cmp)> q(cmp);
-    vector<int> stones = {3,2,4,1};
-    int k = 2;
-    Solution s;
-    auto res = s.mergeStones(stones, k);
     log("%d\n", 1);
     return 0;
 }

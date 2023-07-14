@@ -2,17 +2,21 @@ from preclude import *
 
 
 class Solution:
-    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
-        n = len(matrix)
-        for i in range(1, n):
-            for j in range(n):
-                val = matrix[i][j] + matrix[i-1][j]
-                if j > 0:
-                    val = min(val, matrix[i][j] + matrix[i-1][j-1])
-                if j < n-1:
-                    val = min(val, matrix[i][j] + matrix[i-1][j+1])
-                matrix[i][j] = val
-        return min(matrix[n-1])
+    def distributeCoins(self, root: Optional[TreeNode]) -> int:
+        res = 0
+
+        def dfs(node: Optional[TreeNode]) -> Tuple[int, int]:
+            if not node:
+                return (0, 0)
+            l = dfs(node.left)
+            r = dfs(node.right)
+            nsum = l[0] + r[0] + 1
+            csum = l[1] + r[1] + node.val
+            res += abs(nsum-csum)
+            return (nsum, csum)
+
+        dfs(root)
+        return res
 
 
 def main():

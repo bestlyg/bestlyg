@@ -17,6 +17,30 @@
             "script": "typescript",
             "desc": "分别统计每个子节点进行递归。",
             "code": "function distributeCoins(root: TreeNode | null): number {\n  return get()[0];\n  function get(node = root): [number, number, number] {\n    if (node === null) return [0, 0, 0];\n    let ans = 0;\n    let nodeCount = 1;\n    let coinCount = node.val;\n    let [subAns, subNodeCount, subCoinCount] = get(node.left);\n    ans += subAns + Math.abs(subNodeCount - subCoinCount);\n    nodeCount += subNodeCount;\n    coinCount += subCoinCount;\n    [subAns, subNodeCount, subCoinCount] = get(node.right);\n    ans += subAns + Math.abs(subNodeCount - subCoinCount);\n    nodeCount += subNodeCount;\n    coinCount += subCoinCount;\n    return [ans, nodeCount, coinCount];\n  }\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 13.5,
+            "desc": "dfs。",
+            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nclass Solution {\npublic:\n    int distributeCoins(TreeNode* root) {\n        int res = 0;\n        function<pii(TreeNode*)> dfs = [&](TreeNode *node) {\n            if (!node) return make_pair(0, 0);\n            auto l = dfs(node->left), r = dfs(node->right);\n            int nsum = l.X + r.X + 1, csum = l.Y + r.Y + node->val;\n            res += abs(nsum - csum);\n            return make_pair(nsum, csum);\n        };\n        dfs(root);\n        return res;\n    }\n};",
+            "date": 1689264000000
+        },
+        {
+            "script": "python",
+            "time": 52,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def distributeCoins(self, root: Optional[TreeNode]) -> int:\n        res = 0\n\n        def dfs(node: Optional[TreeNode]) -> Tuple[int, int]:\n            nonlocal res\n            if not node:\n                return (0, 0)\n            l = dfs(node.left)\n            r = dfs(node.right)\n            nsum = l[0] + r[0] + 1\n            csum = l[1] + r[1] + node.val\n            res += abs(nsum-csum)\n            return (nsum, csum)\n\n        dfs(root)\n        return res",
+            "date": 1689264000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "同上。",
+            "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn distribute_coins(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let mut res = 0;\n        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {\n            match node {\n                None => (0, 0),\n                Some(node) => {\n                    let node_ref = node.as_ref().borrow();\n                    let l = dfs(res, &node_ref.left);\n                    let r = dfs(res, &node_ref.right);\n                    let nsum = l.0 + r.0 + 1;\n                    let csum = l.1 + r.1 + node_ref.val;\n                    *res += (nsum - csum).abs();\n                    (nsum, csum)\n                }\n            }\n        }\n        dfs(&mut res, &root);\n        return res;\n    }\n}",
+            "date": 1689264000000
         }
     ]
 }

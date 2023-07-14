@@ -42,21 +42,26 @@ fn dfs(
     }
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn min_falling_path_sum(mut matrix: Vec<Vec<i32>>) -> i32 {
-        let n = matrix.len();
-        for i in 1..n {
-            for j in 0..n {
-                let mut val = matrix[i][j] + matrix[i - 1][j];
-                if j > 0 {
-                    val = val.min(matrix[i][j] + matrix[i - 1][j - 1]);
+    pub fn distribute_coins(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut res = 0;
+        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {
+            match node {
+                None => (0, 0),
+                Some(node) => {
+                    let node_ref = node.as_ref().borrow();
+                    let l = dfs(res, &node_ref.left);
+                    let r = dfs(res, &node_ref.right);
+                    let nsum = l.0 + r.0 + 1;
+                    let csum = l.1 + r.1 + node_ref.val;
+                    *res += (nsum - csum).abs();
+                    (nsum, csum)
                 }
-                if j < n - 1 {
-                    val = val.min(matrix[i][j] + matrix[i - 1][j + 1]);
-                }
-                matrix[i][j] = val;
             }
         }
-        *matrix[n - 1].iter().min().unwrap()
+        dfs(&mut res, &root);
+        return res;
     }
 }

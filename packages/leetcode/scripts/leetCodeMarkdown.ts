@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '931. 下降路径最小和',
+    exist: true,
+    name: '979. 在二叉树中分配硬币',
     url: 'https://leetcode.cn/problems/minimum-falling-path-sum/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -30,65 +30,77 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 12,
-            memory: 9.9,
-            desc: '遍历',
-            code: `class Solution {
+            time: 8,
+            memory: 13.5,
+            desc: 'dfs',
+            code: `#define X first
+#define Y second
+#define pii pair<int, int>
+class Solution {
 public:
-    int minFallingPathSum(vector<vector<int>>& matrix) {
-        int n = matrix.size(), res = INT_MAX;
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int val = matrix[i][j] + matrix[i - 1][j];
-                if (j > 0) val = min(val, matrix[i][j] + matrix[i - 1][j - 1]);
-                if (j < n - 1) val = min(val, matrix[i][j] + matrix[i - 1][j + 1]);
-                matrix[i][j] = val;
-            }
-        }
-        for (int j = 0; j < n; j++) res = min(res, matrix[n - 1][j]);
+    int distributeCoins(TreeNode* root) {
+        int res = 0;
+        function<pii(TreeNode*)> dfs = [&](TreeNode *node) {
+            if (!node) return make_pair(0, 0);
+            auto l = dfs(node->left), r = dfs(node->right);
+            int nsum = l.X + r.X + 1, csum = l.Y + r.Y + node->val;
+            res += abs(nsum - csum);
+            return make_pair(nsum, csum);
+        };
+        dfs(root);
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 80,
-            memory: 17,
+            time: 52,
+            memory: 16.1,
             desc: '同上',
             code: `class Solution:
-    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
-        n = len(matrix)
-        for i in range(1, n):
-            for j in range(n):
-                val = matrix[i][j] + matrix[i-1][j]
-                if j > 0:
-                    val = min(val, matrix[i][j] + matrix[i-1][j-1])
-                if j < n-1:
-                    val = min(val, matrix[i][j] + matrix[i-1][j+1])
-                matrix[i][j] = val
-        return min(matrix[n-1])`,
+    def distributeCoins(self, root: Optional[TreeNode]) -> int:
+        res = 0
+
+        def dfs(node: Optional[TreeNode]) -> Tuple[int, int]:
+            nonlocal res
+            if not node:
+                return (0, 0)
+            l = dfs(node.left)
+            r = dfs(node.right)
+            nsum = l[0] + r[0] + 1
+            csum = l[1] + r[1] + node.val
+            res += abs(nsum-csum)
+            return (nsum, csum)
+
+        dfs(root)
+        return res`,
         },
         {
             script: Script.RUST,
-            time: 4,
+            time: 0,
             memory: 2.1,
             desc: '同上',
-            code: `impl Solution {
-    pub fn min_falling_path_sum(mut matrix: Vec<Vec<i32>>) -> i32 {
-        let n = matrix.len();
-        for i in 1..n {
-            for j in 0..n {
-                let mut val = matrix[i][j] + matrix[i - 1][j];
-                if j > 0 {
-                    val = val.min(matrix[i][j] + matrix[i - 1][j - 1]);
+            code: `use std::cell::RefCell;
+use std::rc::Rc;
+impl Solution {
+    pub fn distribute_coins(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut res = 0;
+        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {
+            match node {
+                None => (0, 0),
+                Some(node) => {
+                    let node_ref = node.as_ref().borrow();
+                    let l = dfs(res, &node_ref.left);
+                    let r = dfs(res, &node_ref.right);
+                    let nsum = l.0 + r.0 + 1;
+                    let csum = l.1 + r.1 + node_ref.val;
+                    *res += (nsum - csum).abs();
+                    (nsum, csum)
                 }
-                if j < n - 1 {
-                    val = val.min(matrix[i][j] + matrix[i - 1][j + 1]);
-                }
-                matrix[i][j] = val;
             }
         }
-        *matrix[n - 1].iter().min().unwrap()
+        dfs(&mut res, &root);
+        return res;
     }
 }`,
         },
