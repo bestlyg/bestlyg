@@ -42,26 +42,49 @@ fn dfs(
     }
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
 impl Solution {
-    pub fn distribute_coins(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut res = 0;
-        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {
-            match node {
-                None => (0, 0),
-                Some(node) => {
-                    let node_ref = node.as_ref().borrow();
-                    let l = dfs(res, &node_ref.left);
-                    let r = dfs(res, &node_ref.right);
-                    let nsum = l.0 + r.0 + 1;
-                    let csum = l.1 + r.1 + node_ref.val;
-                    *res += (nsum - csum).abs();
-                    (nsum, csum)
-                }
+    pub fn four_sum(mut nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+        let n = nums.len();
+        let mut res = vec![];
+        nums.sort();
+        let mut i = 0;
+        while i + 3 < n && (nums[i] <= target || nums[i] < 0) {
+            if i > 0 && nums[i] == nums[i - 1] {
+                i += 1;
+                continue;
             }
+            let mut j = i + 1;
+            while j + 2 < n && (nums[i] + nums[j] <= target || nums[j] < 0) {
+                if j > i + 1 && nums[j] == nums[j - 1] {
+                    j += 1;
+                    continue;
+                }
+                let num = (nums[i] + nums[j]) as i64;
+                let mut l = j + 1;
+                let mut r = n - 1;
+                while l < r {
+                    let num = num + nums[l] as i64 + nums[r] as i64;
+                    let target = target as i64;
+                    if num > target {
+                        r -= 1;
+                    } else if num < target {
+                        l += 1;
+                    } else {
+                        res.push(vec![nums[i], nums[j], nums[l], nums[r]]);
+                        while l + 1 < r && nums[l + 1] == nums[l] {
+                            l += 1;
+                        }
+                        while r - 1 > l && nums[r - 1] == nums[r] {
+                            r -= 1;
+                        }
+                        l += 1;
+                        r -= 1;
+                    }
+                }
+                j += 1;
+            }
+            i += 1;
         }
-        dfs(&mut res, &root);
-        return res;
+        res
     }
 }

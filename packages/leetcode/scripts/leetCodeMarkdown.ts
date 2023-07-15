@@ -2,105 +2,197 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '979. 在二叉树中分配硬币',
-    url: 'https://leetcode.cn/problems/minimum-falling-path-sum/',
+    exist:! true,
+    name: '18. 四数之和',
+    url: 'https://leetcode.cn/problems/4sum/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 n x n 的 方形 整数数组 matrix ，请你找出并返回通过 matrix 的下降路径 的 最小和 。`,
+    desc: `给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] 。`,
     solutions: [
-        //         {
-        //             script: Script.TS,
-        //             time: 156,
-        //             memory: 69,
-        //             desc: '对于每个是对象的value，进行dfs',
-        //             code: `type Obj = Record<any, any>;
-
-        // function compactObject(obj: Obj): Obj {
-        //     const res: any = Array.isArray(obj) ? [] : {};
-        //     for (const [k, v] of Object.entries(obj)) {
-        //         if (Boolean(v)) {
-        //             const newv = typeof v === 'object' ? compactObject(v) : v;
-        //             if (Array.isArray(obj)) res.push(newv);
-        //             else res[k] = newv;
-        //         }
-        //     }
-        //     return res;
-        // };`,
-        // },
+                {
+                    script: Script.JS,
+                    time: 92,
+                    memory: 39.7,
+                    desc: '双指针',
+                    code: `/**
+* @param {number[]} nums
+* @param {number} target
+* @return {number[][]}
+*/
+var fourSum = function(nums, target) {
+    const quadruplets = [];
+    if (nums.length < 4) {
+        return quadruplets;
+    }
+    nums.sort((x, y) => x - y);
+    const length = nums.length;
+    for (let i = 0; i < length - 3; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
+            break;
+        }
+        if (nums[i] + nums[length - 3] + nums[length - 2] + nums[length - 1] < target) {
+            continue;
+        }
+        for (let j = i + 1; j < length - 2; j++) {
+            if (j > i + 1 && nums[j] === nums[j - 1]) {
+                continue;
+            }
+            if (nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) {
+                break;
+            }
+            if (nums[i] + nums[j] + nums[length - 2] + nums[length - 1] < target) {
+                continue;
+            }
+            let left = j + 1, right = length - 1;
+            while (left < right) {
+                const sum = nums[i] + nums[j] + nums[left] + nums[right];
+                if (sum === target) {
+                    quadruplets.push([nums[i], nums[j], nums[left], nums[right]]);
+                    while (left < right && nums[left] === nums[left + 1]) {
+                        left++;
+                    }
+                    left++;
+                    while (left < right && nums[right] === nums[right - 1]) {
+                        right--;
+                    }
+                    right--;
+                } else if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+    }
+    return quadruplets;
+};`,
+        },
         {
             script: Script.CPP,
-            time: 8,
-            memory: 13.5,
-            desc: 'dfs',
-            code: `#define X first
-#define Y second
-#define pii pair<int, int>
-class Solution {
+            time: 44,
+            memory: 12.8,
+            desc: '双指针',
+            code: `class Solution {
 public:
-    int distributeCoins(TreeNode* root) {
-        int res = 0;
-        function<pii(TreeNode*)> dfs = [&](TreeNode *node) {
-            if (!node) return make_pair(0, 0);
-            auto l = dfs(node->left), r = dfs(node->right);
-            int nsum = l.X + r.X + 1, csum = l.Y + r.Y + node->val;
-            res += abs(nsum - csum);
-            return make_pair(nsum, csum);
-        };
-        dfs(root);
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i + 3 < n && (nums[i] <= target || nums[i] < 0); i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            for (int j = i + 1; j + 2 < n && (nums[i] + nums[j] <= target || nums[j] < 0); j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue;
+                long long num = nums[i] + nums[j];
+                int l = j + 1, r = n - 1;
+                while (l < r) {
+                    if (num + nums[l] + nums[r] > target) r--;
+                    else if (num + nums[l] + nums[r] < target)  l++;
+                    else {
+                        res.push_back({ nums[i], nums[j], nums[l], nums[r] });
+                        while (l + 1 < r && nums[l + 1] == nums[l]) l++;
+                        while (r - 1 > l && nums[r - 1] == nums[r]) r--;
+                        l++;
+                        r--;
+                    }
+                }
+            }
+        }
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 52,
+            time: 500,
             memory: 16.1,
             desc: '同上',
             code: `class Solution:
-    def distributeCoins(self, root: Optional[TreeNode]) -> int:
-        res = 0
-
-        def dfs(node: Optional[TreeNode]) -> Tuple[int, int]:
-            nonlocal res
-            if not node:
-                return (0, 0)
-            l = dfs(node.left)
-            r = dfs(node.right)
-            nsum = l[0] + r[0] + 1
-            csum = l[1] + r[1] + node.val
-            res += abs(nsum-csum)
-            return (nsum, csum)
-
-        dfs(root)
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        n = len(nums)
+        res = []
+        nums.sort()
+        i = 0
+        while i + 3 < n and (nums[i] <= target or nums[i] < 0):
+            if i > 0 and nums[i] == nums[i - 1]:
+                i += 1
+                continue
+            j = i + 1
+            while j + 2 < n and (nums[i] + nums[j] <= target or nums[j] < 0):
+                if j > i + 1 and nums[j] == nums[j-1]:
+                    j += 1
+                    continue
+                num = nums[i] + nums[j]
+                l = j + 1
+                r = n-1
+                while l < r:
+                    if num + nums[l] + nums[r] > target:
+                        r -= 1
+                    elif num + nums[l] + nums[r] < target:
+                        l += 1
+                    else:
+                        res.append([nums[i], nums[j], nums[l], nums[r]])
+                        while l + 1 < r and nums[l + 1] == nums[l]:
+                            l += 1
+                        while r - 1 > l and nums[r - 1] == nums[r]:
+                            r -= 1
+                        l += 1
+                        r -= 1
+                j += 1
+            i += 1
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.1,
+            time: 4,
+            memory: 2,
             desc: '同上',
-            code: `use std::cell::RefCell;
-use std::rc::Rc;
-impl Solution {
-    pub fn distribute_coins(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut res = 0;
-        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> (i32, i32) {
-            match node {
-                None => (0, 0),
-                Some(node) => {
-                    let node_ref = node.as_ref().borrow();
-                    let l = dfs(res, &node_ref.left);
-                    let r = dfs(res, &node_ref.right);
-                    let nsum = l.0 + r.0 + 1;
-                    let csum = l.1 + r.1 + node_ref.val;
-                    *res += (nsum - csum).abs();
-                    (nsum, csum)
-                }
+            code: `impl Solution {
+    pub fn four_sum(mut nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+        let n = nums.len();
+        let mut res = vec![];
+        nums.sort();
+        let mut i = 0;
+        while i + 3 < n && (nums[i] <= target || nums[i] < 0) {
+            if i > 0 && nums[i] == nums[i - 1] {
+                i += 1;
+                continue;
             }
+            let mut j = i + 1;
+            while j + 2 < n && (nums[i] + nums[j] <= target || nums[j] < 0) {
+                if j > i + 1 && nums[j] == nums[j - 1] {
+                    j += 1;
+                    continue;
+                }
+                let num = (nums[i] + nums[j]) as i64;
+                let mut l = j + 1;
+                let mut r = n - 1;
+                while l < r {
+                    let num = num + nums[l] as i64 + nums[r] as i64;
+                    let target = target as i64;
+                    if num > target {
+                        r -= 1;
+                    } else if num < target {
+                        l += 1;
+                    } else {
+                        res.push(vec![nums[i], nums[j], nums[l], nums[r]]);
+                        while l + 1 < r && nums[l + 1] == nums[l] {
+                            l += 1;
+                        }
+                        while r - 1 > l && nums[r - 1] == nums[r] {
+                            r -= 1;
+                        }
+                        l += 1;
+                        r -= 1;
+                    }
+                }
+                j += 1;
+            }
+            i += 1;
         }
-        dfs(&mut res, &root);
-        return res;
+        res
     }
 }`,
         },
