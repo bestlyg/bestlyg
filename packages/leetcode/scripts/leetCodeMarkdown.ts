@@ -2,196 +2,208 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist:! true,
-    name: '18. 四数之和',
-    url: 'https://leetcode.cn/problems/4sum/',
+    exist: !true,
+    name: '834. 树中距离之和',
+    url: 'https://leetcode.cn/problems/sum-of-distances-in-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] 。`,
+    desc: `给定一个无向、连通的树。树中有 n 个标记为 0...n-1 的节点以及 n-1 条边 。给定整数 n 和数组 edges ， edges[i] = [ai, bi]表示树中的节点 ai 和 bi 之间有一条边。返回长度为 n 的数组 answer ，其中 answer[i] 是树中第 i 个节点与所有其他节点之间的距离之和。`,
     solutions: [
-                {
-                    script: Script.JS,
-                    time: 92,
-                    memory: 39.7,
-                    desc: '双指针',
-                    code: `/**
-* @param {number[]} nums
-* @param {number} target
-* @return {number[][]}
+        {
+            date: new Date('2020/10/06').getTime(),
+            script: Script.JS,
+            time: 224,
+            memory: 54.2,
+            desc: 'dfs',
+            code: `/**
+* @param {number} N
+* @param {number[][]} edges
+* @return {number[]}
 */
-var fourSum = function(nums, target) {
-    const quadruplets = [];
-    if (nums.length < 4) {
-        return quadruplets;
-    }
-    nums.sort((x, y) => x - y);
-    const length = nums.length;
-    for (let i = 0; i < length - 3; i++) {
-        if (i > 0 && nums[i] === nums[i - 1]) {
+let ans, sz, dp, graph;
+const dfs = (u, f) => {
+    sz[u] = 1;
+    dp[u] = 0;
+    for (const v of graph[u]) {
+        if (v === f) {
             continue;
         }
-        if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
-            break;
-        }
-        if (nums[i] + nums[length - 3] + nums[length - 2] + nums[length - 1] < target) {
+        dfs(v, u);
+        dp[u] += dp[v] + sz[v];
+        sz[u] += sz[v];
+    }
+}
+const dfs2 = (u, f) => {
+    ans[u] = dp[u];
+    for (const v of graph[u]) {
+        if (v === f) {
             continue;
         }
-        for (let j = i + 1; j < length - 2; j++) {
-            if (j > i + 1 && nums[j] === nums[j - 1]) {
-                continue;
-            }
-            if (nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) {
-                break;
-            }
-            if (nums[i] + nums[j] + nums[length - 2] + nums[length - 1] < target) {
-                continue;
-            }
-            let left = j + 1, right = length - 1;
-            while (left < right) {
-                const sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (sum === target) {
-                    quadruplets.push([nums[i], nums[j], nums[left], nums[right]]);
-                    while (left < right && nums[left] === nums[left + 1]) {
-                        left++;
-                    }
-                    left++;
-                    while (left < right && nums[right] === nums[right - 1]) {
-                        right--;
-                    }
-                    right--;
-                } else if (sum < target) {
-                    left++;
-                } else {
-                    right--;
-                }
-            }
-        }
+        const pu = dp[u], pv = dp[v];
+        const su = sz[u], sv = sz[v];
+
+        dp[u] -= dp[v] + sz[v];
+        sz[u] -= sz[v];
+        dp[v] += dp[u] + sz[u];
+        sz[v] += sz[u];
+
+        dfs2(v, u);
+
+        dp[u] = pu, dp[v] = pv;
+        sz[u] = su, sz[v] = sv;
     }
-    return quadruplets;
+}
+var sumOfDistancesInTree = function(N, edges) {
+    ans = new Array(N).fill(0);
+    sz = new Array(N).fill(0);
+    dp = new Array(N).fill(0);
+    graph = new Array(N).fill(0).map(v => []);
+    for (const [u, v] of edges) {
+        graph[u].push(v);
+        graph[v].push(u);
+    }
+    dfs(0, -1);
+    dfs2(0, -1);
+    return ans;
 };`,
         },
         {
             script: Script.CPP,
-            time: 44,
-            memory: 12.8,
-            desc: '双指针',
-            code: `class Solution {
+            time: 232,
+            memory: 106.4,
+            desc: 'dfs',
+            code: `#define X first
+#define Y second
+#define pii pair<int, int>
+class Solution {
 public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        int n = nums.size();
-        vector<vector<int>> res;
-        sort(nums.begin(), nums.end());
-        for (int i = 0; i + 3 < n && (nums[i] <= target || nums[i] < 0); i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            for (int j = i + 1; j + 2 < n && (nums[i] + nums[j] <= target || nums[j] < 0); j++) {
-                if (j > i + 1 && nums[j] == nums[j - 1]) continue;
-                long long num = nums[i] + nums[j];
-                int l = j + 1, r = n - 1;
-                while (l < r) {
-                    if (num + nums[l] + nums[r] > target) r--;
-                    else if (num + nums[l] + nums[r] < target)  l++;
-                    else {
-                        res.push_back({ nums[i], nums[j], nums[l], nums[r] });
-                        while (l + 1 < r && nums[l + 1] == nums[l]) l++;
-                        while (r - 1 > l && nums[r - 1] == nums[r]) r--;
-                        l++;
-                        r--;
-                    }
+    vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
+        vector<int> res(n, 0);
+        vector<vector<int>> nodes(n);
+        for (auto &edge : edges) {
+            nodes[edge[0]].push_back(edge[1]);
+            nodes[edge[1]].push_back(edge[0]);
+        }
+        // X 总共有几个， Y 总路径和
+        vector<pii> cache(n);
+        function<pii(int, int)> find = [&](int cur, int p) -> pii {
+            if (nodes[cur].size() == 1 && nodes[cur][0] == p) return cache[cur] = make_pair(1, 1);
+            pii ans = make_pair(1, 1);
+            for (auto &child : nodes[cur]) {
+                if (child != p) {
+                    auto res = find(child, cur);
+                    ans.X += res.X;
+                    ans.Y += res.X + res.Y;
                 }
             }
-        }
+            cache[cur] = ans;
+            return ans;
+        };
+        find(0, -1);
+        function<void(int, int, int)> dfs = [&](int cur, int p, int sum) {
+            res[cur] = sum + cache[cur].Y - cache[cur].X;
+            for (auto &child : nodes[cur]) {
+                if (child != p) dfs(child, cur, res[cur] - cache[child].Y + n - cache[child].X);
+            }
+        };
+        dfs(0, -1, 0);
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 500,
-            memory: 16.1,
+            time: 404,
+            memory: 69.3,
             desc: '同上',
             code: `class Solution:
-    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        n = len(nums)
-        res = []
-        nums.sort()
-        i = 0
-        while i + 3 < n and (nums[i] <= target or nums[i] < 0):
-            if i > 0 and nums[i] == nums[i - 1]:
-                i += 1
-                continue
-            j = i + 1
-            while j + 2 < n and (nums[i] + nums[j] <= target or nums[j] < 0):
-                if j > i + 1 and nums[j] == nums[j-1]:
-                    j += 1
-                    continue
-                num = nums[i] + nums[j]
-                l = j + 1
-                r = n-1
-                while l < r:
-                    if num + nums[l] + nums[r] > target:
-                        r -= 1
-                    elif num + nums[l] + nums[r] < target:
-                        l += 1
-                    else:
-                        res.append([nums[i], nums[j], nums[l], nums[r]])
-                        while l + 1 < r and nums[l + 1] == nums[l]:
-                            l += 1
-                        while r - 1 > l and nums[r - 1] == nums[r]:
-                            r -= 1
-                        l += 1
-                        r -= 1
-                j += 1
-            i += 1
+    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+        res = [0 for _ in range(n)]
+        nodes = [[] for _ in range(n)]
+        for edge in edges:
+            nodes[edge[0]].append(edge[1])
+            nodes[edge[1]].append(edge[0])
+        cache = [[] for _ in range(n)]
+
+        def find(cur: int, p: int) -> List[int]:
+            ans = [1, 1]
+            if len(nodes[cur]) == 1 and nodes[cur][0] == p:
+                cache[cur] = ans
+            else:
+                for child in nodes[cur]:
+                    if child != p:
+                        res = find(child, cur)
+                        ans[0] += res[0]
+                        ans[1] += res[0] + res[1]
+                cache[cur] = ans
+            return ans
+
+        find(0, -1)
+        
+        def dfs(cur: int, p: int, sum: int):
+            res[cur] = sum + cache[cur][1] - cache[cur][0]
+            for child in nodes[cur]:
+                if child != p:
+                    dfs(child, cur, res[cur] - cache[child]
+                        [1] + n - cache[child][0])
+        dfs(0, -1, 0)
         return res`,
         },
         {
             script: Script.RUST,
-            time: 4,
-            memory: 2,
+            time: 48,
+            memory: 8.8,
             desc: '同上',
-            code: `impl Solution {
-    pub fn four_sum(mut nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
-        let n = nums.len();
-        let mut res = vec![];
-        nums.sort();
-        let mut i = 0;
-        while i + 3 < n && (nums[i] <= target || nums[i] < 0) {
-            if i > 0 && nums[i] == nums[i - 1] {
-                i += 1;
-                continue;
+            code: `fn find(nodes: &Vec<Vec<usize>>, cache: &mut Vec<(i32, i32)>, cur: usize, p: usize) -> (i32, i32) {
+    let mut ans: (i32, i32) = (1, 1);
+    if !(nodes[cur].len() == 1 && nodes[cur][0] == p) {
+        for child in &nodes[cur] {
+            if *child != p {
+                let res = find(nodes, cache, *child, cur);
+                ans.0 += res.0;
+                ans.1 += res.0 + res.1;
             }
-            let mut j = i + 1;
-            while j + 2 < n && (nums[i] + nums[j] <= target || nums[j] < 0) {
-                if j > i + 1 && nums[j] == nums[j - 1] {
-                    j += 1;
-                    continue;
-                }
-                let num = (nums[i] + nums[j]) as i64;
-                let mut l = j + 1;
-                let mut r = n - 1;
-                while l < r {
-                    let num = num + nums[l] as i64 + nums[r] as i64;
-                    let target = target as i64;
-                    if num > target {
-                        r -= 1;
-                    } else if num < target {
-                        l += 1;
-                    } else {
-                        res.push(vec![nums[i], nums[j], nums[l], nums[r]]);
-                        while l + 1 < r && nums[l + 1] == nums[l] {
-                            l += 1;
-                        }
-                        while r - 1 > l && nums[r - 1] == nums[r] {
-                            r -= 1;
-                        }
-                        l += 1;
-                        r -= 1;
-                    }
-                }
-                j += 1;
-            }
-            i += 1;
         }
+    }
+    cache[cur] = ans;
+    ans
+}
+fn dfs(
+    res: &mut Vec<i32>,
+    nodes: &Vec<Vec<usize>>,
+    cache: &Vec<(i32, i32)>,
+    n: usize,
+    cur: usize,
+    p: usize,
+    sum: i32,
+) {
+    res[cur] = sum + cache[cur].1 - cache[cur].0;
+    for child in &nodes[cur] {
+        if *child != p {
+            dfs(
+                res,
+                nodes,
+                cache,
+                n,
+                *child,
+                cur,
+                res[cur] - cache[*child].1 + (n as i32) - cache[*child].0,
+            );
+        }
+    }
+}
+impl Solution {
+    pub fn sum_of_distances_in_tree(n: i32, edges: Vec<Vec<i32>>) -> Vec<i32> {
+        let n = n as usize;
+        let mut res = vec![0; n];
+        let mut nodes = vec![vec![]; n];
+        for edge in edges {
+            nodes[edge[0] as usize].push(edge[1] as usize);
+            nodes[edge[1] as usize].push(edge[0] as usize);
+        }
+        let mut cache = vec![(0, 0); n];
+        find(&nodes, &mut cache, 0, usize::MAX);
+        dfs(&mut res, &nodes, &cache, n, 0, usize::MAX, 0);
         res
     }
 }`,
