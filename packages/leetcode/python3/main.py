@@ -2,35 +2,27 @@ from preclude import *
 
 
 class Solution:
-    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
-        res = [0 for _ in range(n)]
-        nodes = [[] for _ in range(n)]
-        for edge in edges:
-            nodes[edge[0]].append(edge[1])
-            nodes[edge[1]].append(edge[0])
-        cache = [(0, 0) for _ in range(n)]
-
-        def find(cur: int, p: int) -> Tuple[int, int]:
-            ans = (1, 1)
-            if len(nodes[cur]) == 1 and nodes[cur][0] == p:
-                cache[cur] = ans
+    def addStrings(self, s1: str, s2: str) -> str:
+        if len(s1) < len(s2):
+            s1, s2 = s2, s1
+        res = ""
+        num1, num2 = list(s1), list(s2)
+        num1.reverse()
+        num2.reverse()
+        i = add = 0
+        while i < len(num1) or i < len(num2):
+            num = ord(num1[i]) - ord('0') + add
+            if i < len(num2):
+                num += ord(num2[i]) - ord('0')
+            if num >= 10:
+                num -= 10
+                add = 1
             else:
-                for child in nodes[cur]:
-                    if child != p:
-                        res = find(child, cur)
-                        ans[0] += res[0]
-                        ans[1] += res[1]
-                cache[cur] = ans
-            return ans
-        find(0, -1)
-
-        def dfs(cur: int, p: int, sum: int):
-            res[cur] = sum + cache[cur][1] - cache[cur][0]
-            for child in nodes[cur]:
-                if child != p:
-                    dfs(child, cur, res[cur] - cache[child]
-                        [1] + n - cache[child][0])
-        dfs(0, -1, 0)
+                add = 0
+            res = str(num) + res
+            i += 1
+        if add:
+            res = "1" + res
         return res
 
 

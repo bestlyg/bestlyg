@@ -12,56 +12,32 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-fn find(nodes: &Vec<Vec<usize>>, cache: &mut Vec<(i32, i32)>, cur: usize, p: usize) -> (i32, i32) {
-    let mut ans: (i32, i32) = (1, 1);
-    if !(nodes[cur].len() == 1 && nodes[cur][0] == p) {
-        for child in &nodes[cur] {
-            if *child != p {
-                let res = find(nodes, cache, *child, cur);
-                ans.0 += res.0;
-                ans.1 += res.0 + res.1;
-            }
-        }
-    }
-    cache[cur] = ans;
-    ans
-}
-fn dfs(
-    res: &mut Vec<i32>,
-    nodes: &Vec<Vec<usize>>,
-    cache: &Vec<(i32, i32)>,
-    n: usize,
-    cur: usize,
-    p: usize,
-    sum: i32,
-) {
-    res[cur] = sum + cache[cur].1 - cache[cur].0;
-    for child in &nodes[cur] {
-        if *child != p {
-            dfs(
-                res,
-                nodes,
-                cache,
-                n,
-                *child,
-                cur,
-                res[cur] - cache[*child].1 + (n as i32) - cache[*child].0,
-            );
-        }
-    }
-}
 impl Solution {
-    pub fn sum_of_distances_in_tree(n: i32, edges: Vec<Vec<i32>>) -> Vec<i32> {
-        let n = n as usize;
-        let mut res = vec![0; n];
-        let mut nodes = vec![vec![]; n];
-        for edge in edges {
-            nodes[edge[0] as usize].push(edge[1] as usize);
-            nodes[edge[1] as usize].push(edge[0] as usize);
+    pub fn add_strings(num1: String, num2: String) -> String {
+        let mut num1 = str_to_vec(&num1);
+        let mut num2 = str_to_vec(&num2);
+        num1.reverse();
+        num2.reverse();
+        if num1.len() < num2.len() {
+            std::mem::swap(&mut num1, &mut num2);
         }
-        let mut cache = vec![(0, 0); n];
-        find(&nodes, &mut cache, 0, usize::MAX);
-        dfs(&mut res, &nodes, &cache, n, 0, usize::MAX, 0);
-        res
+        let mut res = vec![];
+        let mut i = 0;
+        let mut add = 0;
+        while i < num1.len() || i < num2.len() {
+            let mut num = num1[i].to_digit(10).unwrap() as u8 + add;
+            if i < num2.len() {
+                num += num2[i].to_digit(10).unwrap() as u8;
+            }
+            if num >= 10 {
+                num -= 10;
+                add = 1;
+            } else {
+                add = 0;
+            }
+            res.push(num);
+            i += 1;
+        }
+        String::from_utf8(res).unwrap()
     }
 }
