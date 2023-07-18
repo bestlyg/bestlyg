@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '415. 字符串相加',
-    url: 'https://leetcode.cn/problems/sum-of-distances-in-tree/',
+    exist: !true,
+    name: '1851. 包含每个查询的最小区间',
+    url: 'https://leetcode.cn/problems/minimum-interval-to-include-each-query/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定一个无向、连通的树。树中有 n 个标记为 0...n-1 的节点以及 n-1 条边 。给定整数 n 和数组 edges ， edges[i] = [ai, bi]表示树中的节点 ai 和 bi 之间有一条边。返回长度为 n 的数组 answer ，其中 answer[i] 是树中第 i 个节点与所有其他节点之间的距离之和。`,
+    desc: `给你一个二维整数数组 intervals ，其中 intervals[i] = [lefti, righti] 表示第 i 个区间开始于 lefti 、结束于 righti（包含两侧取值，闭区间）。区间的 长度 定义为区间中包含的整数数目，更正式地表达是 righti - lefti + 1 。再给你一个整数数组 queries 。第 j 个查询的答案是满足 lefti <= queries[j] <= righti 的 长度最小区间 i 的长度 。如果不存在这样的区间，那么答案是 -1 。以数组形式返回对应查询的所有答案。`,
     solutions: [
         // {
         //     date: new Date('2020/10/06').getTime(),
@@ -19,102 +19,129 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 8,
-            memory: 54.4,
-            desc: '遍历',
-            code: `class Solution {
+            time: 440,
+            memory: 106.5,
+            desc: '排序后用堆记录区间最值',
+            code: `#define SORT(list, fn) sort(list.begin(), list.end(), [&](auto &v1, auto &v2){ fn });
+class Solution {
 public:
-    string addStrings(string num1, string num2) {
-        if (num1.size() < num2.size()) swap(num1, num2);
-        string res = "";
-        reverse(num1.begin(), num1.end());
-        reverse(num2.begin(), num2.end());
-        int i = 0, add = 0;
-        while (i < num1.size() || i < num2.size()) {
-            int num = num1[i] - '0' + add;
-            if (i < num2.size()) num += num2[i] - '0';
-            if (num >= 10) {
-                num -= 10;
-                add = 1;
-            } else {
-                add = 0;
+    vector<int> minInterval(vector<vector<int>>& intervals, vector<int>& queries) {
+        vector<int> res(queries.size(), -1);
+        SORT(intervals, {
+            return v1[0] != v2[0] ? v1[0] < v2[0] : v1[1] < v2[1];
+        });
+        vector<int> idxs;
+        for (int i = 0; i < queries.size(); i++) idxs.push_back(i);
+        SORT(idxs, {
+            return queries[v1] < queries[v2];
+        });
+        auto cmp = [&](int i1, int i2) {
+            int n1 = intervals[i1][1] - intervals[i1][0] + 1,
+                n2 = intervals[i2][1] - intervals[i2][0] + 1;
+            return n2 < n1;
+        };
+        priority_queue<int, vector<int>, decltype(cmp)> q(cmp);
+        int iidx = 0;
+        for (auto &idx : idxs) {
+            int cur = queries[idx];
+            while (iidx < intervals.size() && intervals[iidx][0] <= cur) {
+                q.push(iidx++);
             }
-            res = to_string(num) + res;
-            i++;
+            while (q.size() && intervals[q.top()][1] < cur) {
+                q.pop();
+            }
+            if (q.size()) {
+                auto &interval = intervals[q.top()];
+                res[idx] = interval[1] - interval[0] + 1;
+            }
         }
-        if (add) res = "1" + res;
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 56,
-            memory: 15.9,
+            time: 944,
+            memory: 64.9,
             desc: '同上',
             code: `class Solution:
-    def addStrings(self, s1: str, s2: str) -> str:
-        if len(s1) < len(s2):
-            s1, s2 = s2, s1
-        res = ""
-        num1, num2 = list(s1), list(s2)
-        num1.reverse()
-        num2.reverse()
-        i = add = 0
-        while i < len(num1) or i < len(num2):
-            num = ord(num1[i]) - ord('0') + add
-            if i < len(num2):
-                num += ord(num2[i]) - ord('0')
-            if num >= 10:
-                num -= 10
-                add = 1
-            else:
-                add = 0
-            res = str(num) + res
-            i += 1
-        if add:
-            res = "1" + res
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        class CmpNode:
+            def __init__(self, idx: int) -> None:
+                self.idx = idx
+
+            def __lt__(self, o: 'CmpNode') -> bool:
+                n1 = intervals[self.idx][1] - intervals[self.idx][0] + 1
+                n2 = intervals[o.idx][1] - intervals[o.idx][0] + 1
+                return n1 < n2
+        res = [-1 for _ in range(len(queries))]
+        intervals.sort(key=lambda v: v[0])
+        idxs = [i for i in range(len(queries))]
+        idxs.sort(key=lambda v: queries[v])
+        q: List[CmpNode] = []
+        iidx = 0
+        for idx in idxs:
+            cur = queries[idx]
+            while iidx < len(intervals) and intervals[iidx][0] <= cur:
+                heappush(q, CmpNode(iidx))
+                iidx += 1
+            while len(q) and intervals[q[0].idx][1] < cur:
+                heappop(q)
+            if len(q):
+                interval = intervals[q[0].idx]
+                res[idx] = interval[1] - interval[0] + 1
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.1,
+            time: 88,
+            memory: 12.1,
             desc: '同上',
-            code: `pub fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
+            code: `#[derive(Clone, PartialEq, Eq, Ord)]
+struct Node<'a> {
+    idx: usize,
+    intervals: &'a Vec<Vec<i32>>,
 }
+impl<'a> Node<'a> {
+    fn new(idx: usize, intervals: &'a Vec<Vec<i32>>) -> Self {
+        Node { idx, intervals }
+    }
+    fn len(&self) -> i32 {
+        self.intervals[self.idx][1] - self.intervals[self.idx][0] + 1
+    }
+}
+impl PartialOrd for Node<'_> {
+    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
+        o.len().partial_cmp(&self.len())
+    }
+}
+
 impl Solution {
-    pub fn add_strings(num1: String, num2: String) -> String {
-        let mut num1 = str_to_vec(&num1);
-        let mut num2 = str_to_vec(&num2);
-        num1.reverse();
-        num2.reverse();
-        if num1.len() < num2.len() {
-            std::mem::swap(&mut num1, &mut num2);
-        }
-        let mut res = vec![];
-        let mut i = 0;
-        let mut add = 0;
-        while i < num1.len() || i < num2.len() {
-            let mut num = num1[i].to_digit(10).unwrap() as u8 + add;
-            if i < num2.len() {
-                num += num2[i].to_digit(10).unwrap() as u8;
+    pub fn min_interval(mut intervals: Vec<Vec<i32>>, queries: Vec<i32>) -> Vec<i32> {
+        let mut res = vec![-1; queries.len()];
+        intervals.sort_by_key(|v| v[0]);
+        let mut idxs = vec![0; queries.len()]
+            .into_iter()
+            .enumerate()
+            .map(|v| v.0)
+            .collect::<Vec<_>>();
+        idxs.sort_by_key(|i| queries[*i]);
+        let mut q = std::collections::BinaryHeap::<Node>::new();
+        let mut iidx = 0;
+        for idx in idxs {
+            let cur = queries[idx];
+            while iidx < intervals.len() && intervals[iidx][0] <= cur {
+                q.push(Node::new(iidx, &intervals));
+                iidx += 1;
             }
-            if num >= 10 {
-                num -= 10;
-                add = 1;
-            } else {
-                add = 0;
+            while !q.is_empty() && intervals[q.peek().unwrap().idx][1] < cur {
+                q.pop();
             }
-            res.push(num + b'0');
-            i += 1;
+            if !q.is_empty() {
+                res[idx] = q.peek().unwrap().len();
+            }
         }
-        if add != 0 {
-            res.push(b'1');
-        }
-        res.reverse();
-        String::from_utf8(res).unwrap()
+        res
     }
 }`,
         },

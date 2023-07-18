@@ -12,32 +12,50 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+#[derive(Clone, PartialEq, Eq, Ord)]
+struct Node<'a> {
+    idx: usize,
+    intervals: &'a Vec<Vec<i32>>,
+}
+impl<'a> Node<'a> {
+    fn new(idx: usize, intervals: &'a Vec<Vec<i32>>) -> Self {
+        Node { idx, intervals }
+    }
+    fn len(&self) -> i32 {
+        self.intervals[self.idx][1] - self.intervals[self.idx][0] + 1
+    }
+}
+impl PartialOrd for Node<'_> {
+    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {
+        self.len().partial_cmp(&o.len())
+    }
+}
+
 impl Solution {
-    pub fn add_strings(num1: String, num2: String) -> String {
-        let mut num1 = str_to_vec(&num1);
-        let mut num2 = str_to_vec(&num2);
-        num1.reverse();
-        num2.reverse();
-        if num1.len() < num2.len() {
-            std::mem::swap(&mut num1, &mut num2);
-        }
-        let mut res = vec![];
-        let mut i = 0;
-        let mut add = 0;
-        while i < num1.len() || i < num2.len() {
-            let mut num = num1[i].to_digit(10).unwrap() as u8 + add;
-            if i < num2.len() {
-                num += num2[i].to_digit(10).unwrap() as u8;
+    pub fn min_interval(mut intervals: Vec<Vec<i32>>, queries: Vec<i32>) -> Vec<i32> {
+        let mut res = vec![-1; queries.len()];
+        intervals.sort_by_key(|v| v[0]);
+        let mut idxs = vec![0; queries.len()]
+            .into_iter()
+            .enumerate()
+            .map(|v| v.0)
+            .collect::<Vec<_>>();
+        idxs.sort_by_key(|i| queries[*i]);
+        let mut q = std::collections::BinaryHeap::<Node>::new();
+        let mut iidx = 0;
+        for idx in idxs {
+            let cur = queries[idx];
+            while iidx < intervals.len() && intervals[iidx][0] <= cur {
+                q.push(Node::new(iidx, &intervals));
+                iidx += 1;
             }
-            if num >= 10 {
-                num -= 10;
-                add = 1;
-            } else {
-                add = 0;
+            while !q.is_empty() && intervals[q.peek().unwrap().idx][1] < cur {
+                q.pop();
             }
-            res.push(num);
-            i += 1;
+            if !q.is_empty() {
+                res[idx] = q.peek().unwrap().len();
+            }
         }
-        String::from_utf8(res).unwrap()
+        res
     }
 }
