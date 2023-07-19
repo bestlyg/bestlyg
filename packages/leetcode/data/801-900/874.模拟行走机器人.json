@@ -1,0 +1,17 @@
+{
+    "name": "874.模拟行走机器人",
+    "url": "https://leetcode.cn/problems/walking-robot-simulation/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回从原点到机器人所有经过的路径点（坐标为整数）的最大欧式距离的平方。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 100,
+            "memory": 47.7,
+            "desc": "模拟。",
+            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nvector<vector<int>> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};\nclass Solution {\npublic:\n    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {\n        unordered_map<int, unordered_map<int, bool>> m;\n        for (auto &item : obstacles) m[item[0]][item[1]] = true;\n        int d = 0, res = 0;\n        pii cur = make_pair(0, 0);\n        for (auto &cmd : commands) {\n            if (cmd == -1) d = (d + 1) % 4;\n            else if (cmd == -2) d = (d - 1 + 4) % 4;\n            else while (cmd--) {\n                if (m.count(cur.X + dirs[d][0]) && m[cur.X + dirs[d][0]].count(cur.Y + dirs[d][1])) break;\n                cur.X += dirs[d][0];\n                cur.Y += dirs[d][1];\n                res = max(res, (int)(pow(cur.X, 2) + pow(cur.Y, 2)));\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1689696000000
+        }
+    ]
+}
