@@ -2,32 +2,28 @@ from preclude import *
 
 
 class Solution:
-    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
-        class CmpNode:
-            def __init__(self, idx: int) -> None:
-                self.idx = idx
-
-            def __lt__(self, o: 'CmpNode') -> bool:
-                n1 = intervals[self.idx][1] - intervals[self.idx][0] + 1
-                n2 = intervals[o.idx][1] - intervals[o.idx][0] + 1
-                return n2 < n1
-
-        res = [-1 for _ in range(len(queries))]
-        intervals.sort(key=lambda v: v[0])
-        idxs = [i for i in range(len(queries))]
-        idxs.sort(key=lambda v: queries[v])
-        q: List[CmpNode] = []
-        iidx = 0
-        for idx in idxs:
-            cur = queries[idx]
-            while iidx < len(intervals) and intervals[iidx][0] <= cur:
-                heappush(q, iidx)
-                iidx += 1
-            while len(q) and intervals[q[0]][1] < cur:
-                heappop(q)
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        n = len(nums)
+        sums = [1]
+        for num in nums:
+            sums.append(num + sums[-1])
+        for num in nums:
+            sums.append(num + sums[-1])
+        q = deque()
+        for i in range(1, n+1):
+            while len(q) and sums[q[-1]] > sums[i]:
+                q.pop()
+            q.append(i)
+        res = -inf
+        for i in range(n+1, len(sums)):
+            res = max(res, sums[i-n-1])
+            while len(q) and q[0] < i - n:
+                q.popleft()
+            while len(q) and sums[q[-1]] < sums[i]:
+                q.popleft()
             if len(q):
-                interval = intervals[q[0]]
-                res[idx] = interval[1] - interval[0] + 1
+                res = max(res, sums[i] - sums[q[0]])
+            q.append(i)
         return res
 
 
