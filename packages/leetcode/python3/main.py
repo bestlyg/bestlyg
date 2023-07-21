@@ -2,28 +2,17 @@ from preclude import *
 
 
 class Solution:
-    def maxSubarraySumCircular(self, nums: List[int]) -> int:
-        n = len(nums)
-        sums = [1]
-        for num in nums:
-            sums.append(num + sums[-1])
-        for num in nums:
-            sums.append(num + sums[-1])
-        q = deque()
-        for i in range(1, n+1):
-            while len(q) and sums[q[-1]] > sums[i]:
-                q.pop()
-            q.append(i)
+    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -> int:
         res = -inf
-        for i in range(n+1, len(sums)):
-            res = max(res, sums[i-n-1])
-            while len(q) and q[0] < i - n:
-                q.popleft()
-            while len(q) and sums[q[-1]] < sums[i]:
+        q = deque()
+        for cur in points:
+            while len(q) and cur[0] - q[0][0] > k:
                 q.popleft()
             if len(q):
-                res = max(res, sums[i] - sums[q[0]])
-            q.append(i)
+                res = max(res, cur[0]+cur[1]+q[0][0]-q[0][1])
+            while len(q) and points[q[-1]][1] - points[q[-1]][0] < cur[1] - cur[0]:
+                q.pop()
+            q.append(cur)
         return res
 
 

@@ -11,38 +11,29 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-
 impl Solution {
-    pub fn max_subarray_sum_circular(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut sums = vec![0];
-        for num in &nums {
-            sums.push(sums.last().unwrap() + num);
-        }
-
-        for num in &nums {
-            sums.push(sums.last().unwrap() + num);
-        }
-        let mut q = std::collections::VecDeque::<usize>::new();
-        for i in 1..=n {
-            while !q.is_empty() && sums[*q.back().unwrap()] > sums[i] {
-                q.pop_back();
-            }
-            q.push_back(i);
-        }
+    pub fn find_max_value_of_equation(points: Vec<Vec<i32>>, k: i32) -> i32 {
+        let mut q = std::collections::VecDeque::<Vec<i32>>::new();
         let mut res = i32::MIN;
-        for i in (n + 1)..sums.len() {
-            res = res.max(nums[i - n - 1]);
-            while !q.is_empty() && *q.front().unwrap() < i - n {
-                q.pop_front();
+        for cur in points {
+            while let Some(prev) = q.front() {
+                if cur[0] - prev[0] > k {
+                    q.pop_front();
+                } else {
+                    break;
+                }
             }
-            while !q.is_empty() && sums[*q.back().unwrap()] > sums[i] {
-                q.pop_back();
+            if let Some(prev) = q.front() {
+                res = res.max(cur[0] + cur[1] + prev[1] - prev[0]);
             }
-            if !q.is_empty() {
-                res = res.max(sums[i] - sums[*q.front().unwrap()]);
+            while let Some(prev) = q.back() {
+                if prev[1] - prev[0] < cur[1] - cur[0] {
+                    q.pop_back();
+                } else {
+                    break;
+                }
             }
-            q.push_back(i);
+            q.push_back(cur);
         }
         res
     }

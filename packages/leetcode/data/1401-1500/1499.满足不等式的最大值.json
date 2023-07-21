@@ -1,24 +1,33 @@
 {
-    "id": "1622",
     "name": "1499.满足不等式的最大值",
-    "url": "https://leetcode.cn/problems/max-value-of-equation",
-    "difficulty": "困难",
-    "tag": [
-        "队列",
-        "数组",
-        "滑动窗口",
-        "单调队列",
-        "堆（优先队列）"
-    ],
-    "desc": "请你找出 yi + yj + |xi - xj| 的 最大值，其中 |xi - xj| <= k 且 1 <= i < j <= points.length。",
+    "url": "https://leetcode.cn/problems/max-value-of-equation/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "定一个长度为 n 的环形整数数组 nums ，返回 nums 的非空 子数组 的最大可能和 。",
     "solutions": [
         {
-            "date": 1627574400000,
-            "time": 208,
-            "memory": 67.2,
-            "script": "typescript",
-            "desc": "单调队列。",
-            "code": "function findMaxValueOfEquation(points: number[][], k: number): number {\n  const queue: number[] = [];\n  let ans = -Infinity;\n  for (let i = 0; i < points.length; i++) {\n    const p = points[i];\n    while (queue.length && p[0] - points[queue[0]][0] > k) queue.shift();\n    if (queue.length) {\n      ans = Math.max(ans, p[0] + p[1] + points[queue[0]][1] - points[queue[0]][0]);\n    }\n    while (\n      queue.length &&\n      points[queue[queue.length - 1]][1] - points[queue[queue.length - 1]][0] < p[1] - p[0]\n    )\n      queue.pop();\n    queue.push(i);\n  }\n  return ans;\n}"
+            "script": "cpp",
+            "time": 268,
+            "memory": 87.5,
+            "desc": "单调队列统计区间最大值。",
+            "code": "class Solution {\npublic:\n    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {\n        int res = INT_MIN;\n        deque<int> q;\n        for (int i = 0; i < points.size(); i++) {\n            auto &cur = points[i];\n            while (q.size() && cur[0] - points[q.front()][0] > k) q.pop_front();\n            if (q.size()) res = max(res, cur[0] + cur[1] + points[q.front()][1] - points[q.front()][0]);\n            while (q.size() && points[q.back()][1] - points[q.back()][0] < cur[1] - cur[0]) q.pop_back();\n            q.push_back(i);\n        }\n        return res;\n    }\n};",
+            "date": 1689868800000
+        },
+        {
+            "script": "python",
+            "time": 352,
+            "memory": 53.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -> int:\n        res = -inf\n        q = deque()\n        for cur in points:\n            while len(q) and cur[0] - q[0][0] > k:\n                q.popleft()\n            if len(q):\n                res = max(res, cur[0]+cur[1]+q[0][1]-q[0][0])\n            while len(q) and q[-1][1] - q[-1][0] < cur[1] - cur[0]:\n                q.pop()\n            q.append(cur)\n        return res",
+            "date": 1689868800000
+        },
+        {
+            "script": "rust",
+            "time": 28,
+            "memory": 10.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn find_max_value_of_equation(points: Vec<Vec<i32>>, k: i32) -> i32 {\n        let mut q = std::collections::VecDeque::<Vec<i32>>::new();\n        let mut res = i32::MIN;\n        for cur in points {\n            while let Some(prev) = q.front() {\n                if cur[0] - prev[0] > k {\n                    q.pop_front();\n                } else {\n                    break;\n                }\n            }\n            if let Some(prev) = q.front() {\n                res = res.max(cur[0] + cur[1] + prev[1] - prev[0]);\n            }\n            while let Some(prev) = q.back() {\n                if prev[1] - prev[0] < cur[1] - cur[0] {\n                    q.pop_back();\n                } else {\n                    break;\n                }\n            }\n            q.push_back(cur);\n        }\n        res\n    }\n}",
+            "date": 1689868800000
         }
     ]
 }
