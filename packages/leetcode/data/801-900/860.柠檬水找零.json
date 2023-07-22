@@ -16,6 +16,14 @@
             "script": "typescript",
             "desc": "贪心，20 时尽可能返回 10+5。",
             "code": "function lemonadeChange(bills: number[]): boolean {\n  let five = 0;\n  let ten = 0;\n  for (const bill of bills) {\n    if (bill === 5) {\n      five++;\n    } else if (bill === 10) {\n      five--;\n      ten++;\n    } else if (ten > 0) {\n      ten--;\n      five--;\n    } else {\n      five -= 3;\n    }\n    if (five < 0) return false;\n  }\n  return true;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 88,
+            "memory": 81.4,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        int coins[2] = {0};\n        for (auto &bill : bills) {\n            switch (bill) {\n                case 5: \n                    coins[0] += 1; \n                    break;\n                case 10: \n                    if (coins[0] >= 1) {\n                        coins[0]--;\n                    } else {\n                        return false;\n                    }\n                    coins[1] += 1;\n                    break;\n                case 20:\n                    if (coins[0] >= 1 && coins[1] >= 1) {\n                        coins[0] -= 1;\n                        coins[1] -= 1;\n                    } else if (coins[0] >= 3) {\n                        coins[0] -= 3;\n                    } else {\n                        return false;\n                    }\n            }\n        }\n        return true;\n    }\n};",
+            "date": 1689955200000
         }
     ]
 }

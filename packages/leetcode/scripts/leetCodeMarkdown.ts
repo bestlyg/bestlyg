@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1499. 满足不等式的最大值',
+    exist: true,
+    name: '860. 柠檬水找零',
     url: 'https://leetcode.cn/problems/max-value-of-equation/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,77 +19,55 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 268,
-            memory: 87.5,
-            desc: '单调队列统计区间最大值',
+            time: 88,
+            memory: 81.4,
+            desc: '遍历',
             code: `class Solution {
 public:
-    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
-        int res = INT_MIN;
-        deque<int> q;
-        for (int i = 0; i < points.size(); i++) {
-            auto &cur = points[i];
-            while (q.size() && cur[0] - points[q.front()][0] > k) q.pop_front();
-            if (q.size()) res = max(res, cur[0] + cur[1] + points[q.front()][1] - points[q.front()][0]);
-            while (q.size() && points[q.back()][1] - points[q.back()][0] < cur[1] - cur[0]) q.pop_back();
-            q.push_back(i);
+    bool lemonadeChange(vector<int>& bills) {
+        int coins[2] = {0};
+        for (auto &bill : bills) {
+            switch (bill) {
+                case 5: 
+                    coins[0] += 1; 
+                    break;
+                case 10: 
+                    if (coins[0] >= 1) {
+                        coins[0]--;
+                    } else {
+                        return false;
+                    }
+                    coins[1] += 1;
+                    break;
+                case 20:
+                    if (coins[0] >= 1 && coins[1] >= 1) {
+                        coins[0] -= 1;
+                        coins[1] -= 1;
+                    } else if (coins[0] >= 3) {
+                        coins[0] -= 3;
+                    } else {
+                        return false;
+                    }
+            }
         }
-        return res;
+        return true;
     }
 };`,
         },
-        {
-            script: Script.PY,
-            time: 352,
-            memory: 53.2,
-            desc: '同上',
-            code: `class Solution:
-    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -> int:
-        res = -inf
-        q = deque()
-        for cur in points:
-            while len(q) and cur[0] - q[0][0] > k:
-                q.popleft()
-            if len(q):
-                res = max(res, cur[0]+cur[1]+q[0][1]-q[0][0])
-            while len(q) and q[-1][1] - q[-1][0] < cur[1] - cur[0]:
-                q.pop()
-            q.append(cur)
-        return res`,
-        },
-        {
-            script: Script.RUST,
-            time: 28,
-            memory: 10.9,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn find_max_value_of_equation(points: Vec<Vec<i32>>, k: i32) -> i32 {
-        let mut q = std::collections::VecDeque::<Vec<i32>>::new();
-        let mut res = i32::MIN;
-        for cur in points {
-            while let Some(prev) = q.front() {
-                if cur[0] - prev[0] > k {
-                    q.pop_front();
-                } else {
-                    break;
-                }
-            }
-            if let Some(prev) = q.front() {
-                res = res.max(cur[0] + cur[1] + prev[1] - prev[0]);
-            }
-            while let Some(prev) = q.back() {
-                if prev[1] - prev[0] < cur[1] - cur[0] {
-                    q.pop_back();
-                } else {
-                    break;
-                }
-            }
-            q.push_back(cur);
-        }
-        res
-    }
-}`,
-        },
+        // {
+        //     script: Script.PY,
+        //     time: 352,
+        //     memory: 53.2,
+        //     desc: '同上',
+        //     code: ``,
+        // },
+        // {
+        //     script: Script.RUST,
+        //     time: 28,
+        //     memory: 10.9,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
