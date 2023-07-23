@@ -1,33 +1,40 @@
 {
+    "id": "1622",
     "name": "1499.满足不等式的最大值",
-    "url": "https://leetcode.cn/problems/max-value-of-equation/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/max-value-of-equation",
+    "difficulty": "困难",
+    "tag": [
+        "队列",
+        "数组",
+        "滑动窗口",
+        "单调队列",
+        "堆（优先队列）"
+    ],
     "desc": "定一个长度为 n 的环形整数数组 nums ，返回 nums 的非空 子数组 的最大可能和 。",
     "solutions": [
         {
             "script": "cpp",
-            "time": 268,
-            "memory": 87.5,
-            "desc": "单调队列统计区间最大值。",
-            "code": "class Solution {\npublic:\n    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {\n        int res = INT_MIN;\n        deque<int> q;\n        for (int i = 0; i < points.size(); i++) {\n            auto &cur = points[i];\n            while (q.size() && cur[0] - points[q.front()][0] > k) q.pop_front();\n            if (q.size()) res = max(res, cur[0] + cur[1] + points[q.front()][1] - points[q.front()][0]);\n            while (q.size() && points[q.back()][1] - points[q.back()][0] < cur[1] - cur[0]) q.pop_back();\n            q.push_back(i);\n        }\n        return res;\n    }\n};",
-            "date": 1689868800000
+            "time": 16,
+            "memory": 19.6,
+            "desc": "统计左右最大高度。",
+            "code": "class Solution {\npublic:\n    int trap(vector<int>& height) {\n        int sum = 0, n = height.size();\n        vector<int> r(n, 0);\n        for (int i = n - 1, cur = 0; i >= 0; i--) {\n            r[i] = cur;\n            cur = max(cur, height[i]);\n        }\n        for (int i = 0, cur = 0; i < n; i++) {\n            cur = max(cur, height[i]);\n            sum += max(0, min(cur, r[i]) - height[i]);\n        }\n        return sum;\n    }\n};",
+            "date": 1690041600000
         },
         {
             "script": "python",
-            "time": 352,
-            "memory": 53.2,
+            "time": 68,
+            "memory": 17.7,
             "desc": "同上。",
-            "code": "class Solution:\n    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -> int:\n        res = -inf\n        q = deque()\n        for cur in points:\n            while len(q) and cur[0] - q[0][0] > k:\n                q.popleft()\n            if len(q):\n                res = max(res, cur[0]+cur[1]+q[0][1]-q[0][0])\n            while len(q) and q[-1][1] - q[-1][0] < cur[1] - cur[0]:\n                q.pop()\n            q.append(cur)\n        return res",
-            "date": 1689868800000
+            "code": "class Solution:\n    def trap(self, height: List[int]) -> int:\n        sum = 0\n        n = len(height)\n        cur = 0\n        r = [0] * n\n        for i in range(n-1, -1, -1):\n            r[i] = cur\n            cur = max(cur, height[i])\n        cur = 0\n        for i in range(n):\n            cur = max(cur, height[i])\n            sum += max(0, min(cur, r[i])-height[i])\n        return sum",
+            "date": 1690041600000
         },
         {
             "script": "rust",
-            "time": 28,
-            "memory": 10.9,
+            "time": 0,
+            "memory": 2.2,
             "desc": "同上。",
-            "code": "impl Solution {\n    pub fn find_max_value_of_equation(points: Vec<Vec<i32>>, k: i32) -> i32 {\n        let mut q = std::collections::VecDeque::<Vec<i32>>::new();\n        let mut res = i32::MIN;\n        for cur in points {\n            while let Some(prev) = q.front() {\n                if cur[0] - prev[0] > k {\n                    q.pop_front();\n                } else {\n                    break;\n                }\n            }\n            if let Some(prev) = q.front() {\n                res = res.max(cur[0] + cur[1] + prev[1] - prev[0]);\n            }\n            while let Some(prev) = q.back() {\n                if prev[1] - prev[0] < cur[1] - cur[0] {\n                    q.pop_back();\n                } else {\n                    break;\n                }\n            }\n            q.push_back(cur);\n        }\n        res\n    }\n}",
-            "date": 1689868800000
+            "code": "impl Solution {\n    pub fn trap(height: Vec<i32>) -> i32 {\n        let mut sum = 0;\n        let n = height.len();\n        let mut cur = 0;\n        let mut r = vec![0; n];\n        for i in (0..n).rev() {\n            r[i] = cur;\n            cur = cur.max(height[i]);\n        }\n        cur = 0;\n        for i in 0..n {\n            cur = cur.max(height[i]);\n            sum += 0.max(cur.min(r[i]) - height[i]);\n        }\n        sum\n    }\n}",
+            "date": 1690041600000
         }
     ]
 }

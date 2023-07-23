@@ -43,6 +43,30 @@
             "script": "typescript",
             "desc": "合并循环。",
             "code": "function trap(height: number[]): number {\n  const n = height.length;\n  const l = new Array(n).fill(0);\n  const r = new Array(n).fill(0);\n  let maxL = height[0];\n  let maxR = height[n - 1];\n  for (let i = 1; i < n - 1; i++) {\n    l[i] = maxL;\n    maxL = Math.max(maxL, height[i]);\n    r[n - 1 - i] = maxR;\n    maxR = Math.max(maxR, height[n - 1 - i]);\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) ans += Math.max(Math.min(l[i], r[i]) - height[i], 0);\n  return ans;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 19.6,
+            "desc": "统计左右最大高度。",
+            "code": "class Solution {\npublic:\n    int trap(vector<int>& height) {\n        int sum = 0, n = height.size();\n        vector<int> r(n, 0);\n        for (int i = n - 1, cur = 0; i >= 0; i--) {\n            r[i] = cur;\n            cur = max(cur, height[i]);\n        }\n        for (int i = 0, cur = 0; i < n; i++) {\n            cur = max(cur, height[i]);\n            sum += max(0, min(cur, r[i]) - height[i]);\n        }\n        return sum;\n    }\n};",
+            "date": 1690041600000
+        },
+        {
+            "script": "python",
+            "time": 68,
+            "memory": 17.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def trap(self, height: List[int]) -> int:\n        sum = 0\n        n = len(height)\n        cur = 0\n        r = [0] * n\n        for i in range(n-1, -1, -1):\n            r[i] = cur\n            cur = max(cur, height[i])\n        cur = 0\n        for i in range(n):\n            cur = max(cur, height[i])\n            sum += max(0, min(cur, r[i])-height[i])\n        return sum",
+            "date": 1690041600000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn trap(height: Vec<i32>) -> i32 {\n        let mut sum = 0;\n        let n = height.len();\n        let mut cur = 0;\n        let mut r = vec![0; n];\n        for i in (0..n).rev() {\n            r[i] = cur;\n            cur = cur.max(height[i]);\n        }\n        cur = 0;\n        for i in 0..n {\n            cur = cur.max(height[i]);\n            sum += 0.max(cur.min(r[i]) - height[i]);\n        }\n        sum\n    }\n}",
+            "date": 1690041600000
         }
     ]
 }

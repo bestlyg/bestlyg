@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '860. 柠檬水找零',
+    name: '42. 接雨水',
     url: 'https://leetcode.cn/problems/max-value-of-equation/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,55 +19,70 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 88,
-            memory: 81.4,
-            desc: '遍历',
+            time: 16,
+            memory: 19.6,
+            desc: '统计左右最大高度',
             code: `class Solution {
 public:
-    bool lemonadeChange(vector<int>& bills) {
-        int coins[2] = {0};
-        for (auto &bill : bills) {
-            switch (bill) {
-                case 5: 
-                    coins[0] += 1; 
-                    break;
-                case 10: 
-                    if (coins[0] >= 1) {
-                        coins[0]--;
-                    } else {
-                        return false;
-                    }
-                    coins[1] += 1;
-                    break;
-                case 20:
-                    if (coins[0] >= 1 && coins[1] >= 1) {
-                        coins[0] -= 1;
-                        coins[1] -= 1;
-                    } else if (coins[0] >= 3) {
-                        coins[0] -= 3;
-                    } else {
-                        return false;
-                    }
-            }
+    int trap(vector<int>& height) {
+        int sum = 0, n = height.size();
+        vector<int> r(n, 0);
+        for (int i = n - 1, cur = 0; i >= 0; i--) {
+            r[i] = cur;
+            cur = max(cur, height[i]);
         }
-        return true;
+        for (int i = 0, cur = 0; i < n; i++) {
+            cur = max(cur, height[i]);
+            sum += max(0, min(cur, r[i]) - height[i]);
+        }
+        return sum;
     }
 };`,
         },
-        // {
-        //     script: Script.PY,
-        //     time: 352,
-        //     memory: 53.2,
-        //     desc: '同上',
-        //     code: ``,
-        // },
-        // {
-        //     script: Script.RUST,
-        //     time: 28,
-        //     memory: 10.9,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.PY,
+            time: 68,
+            memory: 17.7,
+            desc: '同上',
+            code: `class Solution:
+    def trap(self, height: List[int]) -> int:
+        sum = 0
+        n = len(height)
+        cur = 0
+        r = [0] * n
+        for i in range(n-1, -1, -1):
+            r[i] = cur
+            cur = max(cur, height[i])
+        cur = 0
+        for i in range(n):
+            cur = max(cur, height[i])
+            sum += max(0, min(cur, r[i])-height[i])
+        return sum`,
+        },
+        {
+            script: Script.RUST,
+            time: 0,
+            memory: 2.2,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn trap(height: Vec<i32>) -> i32 {
+        let mut sum = 0;
+        let n = height.len();
+        let mut cur = 0;
+        let mut r = vec![0; n];
+        for i in (0..n).rev() {
+            r[i] = cur;
+            cur = cur.max(height[i]);
+        }
+        cur = 0;
+        for i in 0..n {
+            cur = cur.max(height[i]);
+            sum += 0.max(cur.min(r[i]) - height[i]);
+        }
+        sum
+    }
+}`,
+        },
     ],
 };
 

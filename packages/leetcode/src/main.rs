@@ -11,30 +11,22 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
+
 impl Solution {
-    pub fn find_max_value_of_equation(points: Vec<Vec<i32>>, k: i32) -> i32 {
-        let mut q = std::collections::VecDeque::<Vec<i32>>::new();
-        let mut res = i32::MIN;
-        for cur in points {
-            while let Some(prev) = q.front() {
-                if cur[0] - prev[0] > k {
-                    q.pop_front();
-                } else {
-                    break;
-                }
-            }
-            if let Some(prev) = q.front() {
-                res = res.max(cur[0] + cur[1] + prev[1] - prev[0]);
-            }
-            while let Some(prev) = q.back() {
-                if prev[1] - prev[0] < cur[1] - cur[0] {
-                    q.pop_back();
-                } else {
-                    break;
-                }
-            }
-            q.push_back(cur);
+    pub fn trap(height: Vec<i32>) -> i32 {
+        let mut sum = 0;
+        let n = height.len();
+        let mut cur = 0;
+        let mut r = vec![0; n];
+        for i in (0..n).rev() {
+            r[i] = cur;
+            cur = cur.max(height[i]);
         }
-        res
+        cur = 0;
+        for i in 0..n {
+            cur = cur.max(height[i]);
+            sum += 0.max(cur.min(r[i]) - height[i]);
+        }
+        sum
     }
 }
