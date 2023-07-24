@@ -16,6 +16,30 @@
             "script": "typescript",
             "desc": "利用哈希储存值。",
             "code": "function numJewelsInStones(J: string, S: string): number {\n  const cache: Record<string, number> = {};\n  const setCache = (c: string) => (cache[c] = cache[c] ? cache[c] + 1 : 1);\n  const getCache = (c: string) => (cache[c] ? cache[c] : 0);\n  for (const c of S) setCache(c);\n  let sum = 0;\n  for (const c of J) sum += getCache(c);\n  return sum;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6.1,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int numJewelsInStones(string jewels, string stones) {\n        bool list[200] = {0};\n        for (auto &o : jewels) list[o] = true;\n        int sum = 0;\n        for (auto &c : stones) {\n            if (list[c]) sum++;\n        }\n        return sum;\n    }\n};",
+            "date": 1690128000000
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 16,
+            "desc": "同上。",
+            "code": "class Solution:\n    def numJewelsInStones(self, jewels: str, stones: str) -> int:\n        s = set(jewels)\n        return sum(o in s for o in stones)",
+            "date": 1690128000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn num_jewels_in_stones(jewels: String, stones: String) -> i32 {\n        let mut list = [false; 200];\n        for c in jewels.bytes() {\n            list[c as usize] = true;\n        }\n        stones\n            .bytes()\n            .into_iter()\n            .filter(|c| list[*c as usize])\n            .collect::<Vec<_>>()\n            .len() as i32\n    }\n}",
+            "date": 1690128000000
         }
     ]
 }

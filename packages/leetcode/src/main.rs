@@ -13,20 +13,16 @@ fn main() {
 }
 
 impl Solution {
-    pub fn trap(height: Vec<i32>) -> i32 {
-        let mut sum = 0;
-        let n = height.len();
-        let mut cur = 0;
-        let mut r = vec![0; n];
-        for i in (0..n).rev() {
-            r[i] = cur;
-            cur = cur.max(height[i]);
+    pub fn num_jewels_in_stones(jewels: String, stones: String) -> i32 {
+        let mut list = [false; 200];
+        for c in jewels.bytes() {
+            list[c as usize] = true;
         }
-        cur = 0;
-        for i in 0..n {
-            cur = cur.max(height[i]);
-            sum += 0.max(cur.min(r[i]) - height[i]);
-        }
-        sum
+        stones
+            .bytes()
+            .into_iter()
+            .filter(|c| list[*c as usize])
+            .collect::<Vec<_>>()
+            .len() as i32
     }
 }
