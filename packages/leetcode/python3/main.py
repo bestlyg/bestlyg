@@ -2,19 +2,20 @@ from preclude import *
 
 
 class Solution:
-    def trap(self, height: List[int]) -> int:
-        sum = 0
-        n = len(height)
-        cur = 0
-        r = [0] * n
-        for i in range(n-1, -1, -1):
-            r[i] = cur
-            cur = max(cur, height[i])
-        cur = 0
-        for i in range(n):
-            cur = max(cur, height[i])
-            sum += max(0, min(cur, r[i])-height[i])
-        return sum
+    def halveArray(self, nums: List[int]) -> int:
+        res = 0
+        sum = 0.0
+        q: List[float] = []
+        for num in nums:
+            sum += float(num)
+            heappush(q, float(num))
+        cur = sum
+        while cur > sum / 2:
+            top = heappop(q) / 2
+            heappush(q, top)
+            cur -= top
+            res += 1
+        return res
 
 
 def main():

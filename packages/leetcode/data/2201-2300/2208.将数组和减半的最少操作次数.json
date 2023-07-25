@@ -1,0 +1,33 @@
+{
+    "name": "2208.将数组和减半的最少操作次数",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-halve-array-sum/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个正整数数组 nums 。每一次操作中，你可以从 nums 中选择 任意 一个数并将它减小到 恰好 一半。（注意，在后续操作中你可以对减半过的数继续执行操作）请你返回将 nums 数组和 至少 减少一半的 最少 操作数。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 248,
+            "memory": 87.3,
+            "desc": "堆，每次减当前最大数。",
+            "code": "class Solution {\npublic:\n    int halveArray(vector<int>& nums) {\n        int res = 0;\n        double sum = 0, cur;\n        priority_queue<double> q;\n        for (auto &num : nums) {\n            sum += num;\n            q.push(num);\n        }\n        cur = sum;\n        while (cur > sum / 2) {\n            double top = q.top() / 2;\n            q.pop();\n            cur -= top;\n            q.push(top);\n            res += 1;\n        }\n        return res;\n    }\n};",
+            "date": 1690214400000
+        },
+        {
+            "script": "python",
+            "time": 400,
+            "memory": 30.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def halveArray(self, nums: List[int]) -> int:\n        res = 0\n        sum = 0.0\n        q: List[float] = []\n        for num in nums:\n            sum += float(num)\n            heappush(q, float(-num))\n        cur = sum\n        while cur > sum / 2:\n            top = -heappop(q) / 2\n            heappush(q, -top)\n            cur -= top\n            res += 1\n        return res",
+            "date": 1690214400000
+        },
+        {
+            "script": "rust",
+            "time": 44,
+            "memory": 4.1,
+            "desc": "同上。",
+            "code": "pub use std::cmp::Ordering;\n#[derive(PartialEq)]\nstruct RevNum(f64);\nimpl Eq for RevNum {}\nimpl PartialOrd for RevNum {\n    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {\n        if other.0 > self.0 {\n            Some(Ordering::Less)\n        } else if other.0 < self.0 {\n            Some(Ordering::Greater)\n        } else {\n            Some(Ordering::Equal)\n        }\n    }\n}\nimpl Ord for RevNum {\n    fn cmp(&self, other: &RevNum) -> Ordering {\n        other.0.partial_cmp(&self.0).unwrap()\n    }\n}\n\nimpl Solution {\n    pub fn halve_array(nums: Vec<i32>) -> i32 {\n        let mut res = 0;\n        let mut sum = 0.0;\n        let mut cur = 0.0;\n        let mut q = std::collections::BinaryHeap::new();\n        for num in nums {\n            let num = num as f64;\n            sum += num;\n            q.push(RevNum(num));\n        }\n        cur = sum;\n        while cur > sum / 2.0 {\n            let top = q.pop().unwrap().0 / 2.0;\n            q.push(RevNum(top));\n            cur -= top;\n            res += 1;\n        }\n        res\n    }\n}",
+            "date": 1690214400000
+        }
+    ]
+}
