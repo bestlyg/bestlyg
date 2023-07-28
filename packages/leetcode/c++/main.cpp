@@ -155,21 +155,22 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
-#define X first
-#define Y second
-#define pii pair<int, int>
 class Solution {
 public:
-    int distributeCoins(TreeNode* root) {
-        int res = 0;
-        function<pii(TreeNode*)> dfs = [&](TreeNode *node) {
-            if (!node) return make_pair(0, 0);
-            auto l = dfs(node->left), r = dfs(node->right);
-            int nsum = l.X + r.X + 1, csum = l.Y + r.Y + node->val;
-            res += abs(nsum - csum);
-            return make_pair(nsum, csum);
+    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
+        vector<vector<int>> list(n);
+        for (auto &item : relations) {
+            list[item[1] - 1].push_back(item[0] - 1);
+        }
+        unordered_map<int, int> cache;
+        function<int(int)> dfs = [&](int cur) -> int {
+            if (cache[cur]) return cache[cur];
+            int val = 0;
+            for (auto &p : list[cur]) val = max(val, dfs(p));
+            return cache[cur] = val + time[cur];
         };
-        dfs(root);
+        int res = 0;
+        for (int i = 0; i < n; i++) res = max(res, dfs(i));
         return res;
     }
 };

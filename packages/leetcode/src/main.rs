@@ -13,18 +13,38 @@ fn main() {
 }
 
 impl Solution {
-    pub fn delete_greatest_value(mut grid: Vec<Vec<i32>>) -> i32 {
-        for row in &mut grid {
-            row.sort();
+    pub fn minimum_time(n: i32, relations: Vec<Vec<i32>>, time: Vec<i32>) -> i32 {
+        use std::collections::HashMap;
+        let n = n as usize;
+        let mut list = vec![vec![]; n];
+        for item in relations {
+            let (i0, i1) = (item[0] as usize - 1, item[1] as usize - 1);
+            list[i1].push(i0);
         }
-        let mut res = 0;
-        for j in 0..grid[0].len() {
-            let mut num = i32::MIN;
-            for i in 0..grid.len() {
-                num = num.max(grid[i][j]);
+        let mut cache = HashMap::<usize, i32>::new();
+        fn dfs(
+            cache: &mut HashMap<usize, i32>,
+            list: &Vec<Vec<usize>>,
+            time: &Vec<i32>,
+            cur: usize,
+        ) -> i32 {
+            if cache.contains_key(&cur) {
+                *cache.get(&cur).unwrap()
+            } else {
+                let res = list[cur]
+                    .iter()
+                    .map(|p| dfs(cache, list, time, *p))
+                    .max()
+                    .unwrap()
+                    + time[cur];
+                cache.insert(cur, res);
+                res
             }
-            res += num;
         }
-        res
+        (0..n)
+            .into_iter()
+            .map(|i| dfs(&mut cache, &list, &time, i))
+            .max()
+            .unwrap()
     }
 }

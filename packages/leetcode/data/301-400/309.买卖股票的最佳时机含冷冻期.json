@@ -1,6 +1,6 @@
 {
     "id": "309",
-    "name": "309.最佳买卖股票时机含冷冻期",
+    "name": "309.买卖股票的最佳时机含冷冻期",
     "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown",
     "difficulty": "中等",
     "tag": [
