@@ -12,44 +12,18 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-#[derive(PartialEq)]
-struct RevNum(f64);
-impl Eq for RevNum {}
-
-impl PartialOrd for RevNum {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        if other.0 > self.0 {
-            Some(Ordering::Greater)
-        } else if other.0 < self.0 {
-            Some(Ordering::Less)
-        } else {
-            Some(Ordering::Equal)
-        }
-    }
-}
-impl Ord for RevNum {
-    fn cmp(&self, other: &RevNum) -> Ordering {
-        other.0.partial_cmp(&self.0).unwrap()
-    }
-}
-
 impl Solution {
-    pub fn halve_array(nums: Vec<i32>) -> i32 {
-        let mut res = 0;
-        let mut sum = 0.0;
-        let mut cur = 0.0;
-        let mut q = std::collections::BinaryHeap::new();
-        for num in nums {
-            let num = num as f64;
-            sum += num;
-            q.push(RevNum(num));
+    pub fn delete_greatest_value(mut grid: Vec<Vec<i32>>) -> i32 {
+        for row in &mut grid {
+            row.sort();
         }
-        cur = sum;
-        while cur > sum / 2.0 {
-            let top = q.pop().unwrap().0 / 2.0;
-            q.push(RevNum(top));
-            cur -= top;
-            res += 1;
+        let mut res = 0;
+        for j in 0..grid[0].len() {
+            let mut num = i32::MIN;
+            for i in 0..grid.len() {
+                num = num.max(grid[i][j]);
+            }
+            res += num;
         }
         res
     }

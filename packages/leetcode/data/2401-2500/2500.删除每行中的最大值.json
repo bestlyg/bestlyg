@@ -1,22 +1,33 @@
 {
-    "id": "2585",
     "name": "2500.删除每行中的最大值",
-    "url": "https://leetcode.cn/problems/delete-greatest-value-in-each-row",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-halve-array-sum/",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵",
-        "排序"
-    ],
-    "desc": "给你一个 m x n 大小的矩阵 grid ，由若干正整数组成。执行下述操作，直到 grid 变为空矩阵。返回执行上述操作后的答案。",
+    "tag": [],
+    "desc": "给你一个正整数数组 nums 。每一次操作中，你可以从 nums 中选择 任意 一个数并将它减小到 恰好 一半。（注意，在后续操作中你可以对减半过的数继续执行操作）请你返回将 nums 数组和 至少 减少一半的 最少 操作数。",
     "solutions": [
         {
-            "date": 1670688000000,
-            "time": 8,
-            "memory": 9.2,
             "script": "cpp",
-            "desc": "排序。",
-            "code": "class Solution {\npublic:\n    int deleteGreatestValue(vector<vector<int>>& grid) {\n        for (auto &item : grid) sort(item.begin(), item.end());\n        int ans = 0, n = grid.size(), m = grid[0].size();\n        for (int i = 0; i < m; i++) {\n            int num = 0;\n            for (int j = 0; j < n; j++) {\n                num = max(num, grid[j][i]);\n            }\n            ans += num;\n        }\n        return ans;\n\n    }\n};"
+            "time": 8,
+            "memory": 9.3,
+            "desc": "排序后遍历。",
+            "code": "class Solution {\npublic:\n    int deleteGreatestValue(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size(), res = 0;\n        for (auto &row : grid) sort(row.begin(), row.end());\n        for (int j = m - 1; j >= 0; j--) {\n            int cur = INT_MIN;\n            for (int i = 0; i < n; i++) {\n                cur = max(cur, grid[i][j]);\n            }\n            res += cur;\n        }\n        return res;\n    }\n};",
+            "date": 1690387200000
+        },
+        {
+            "script": "python",
+            "time": 112,
+            "memory": 16.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def deleteGreatestValue(self, grid: List[List[int]]) -> int:\n        for row in grid:\n            row.sort()\n        n = len(grid)\n        m = len(grid[0])\n        res = 0\n        for j in range(m):\n            num = -inf\n            for i in range(n):\n                num = max(num, grid[i][j])\n            res += num\n        return res\n            ",
+            "date": 1690387200000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn delete_greatest_value(mut grid: Vec<Vec<i32>>) -> i32 {\n        for row in &mut grid {\n            row.sort();\n        }\n        let mut res = 0;\n        for j in 0..grid[0].len() {\n            let mut num = i32::MIN;\n            for i in 0..grid.len() {\n                num = num.max(grid[i][j]);\n            }\n            res += num;\n        }\n        res\n    }\n}",
+            "date": 1690387200000
         }
     ]
 }

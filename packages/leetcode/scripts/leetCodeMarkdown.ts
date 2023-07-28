@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist:! true,
-    name: '2208. 将数组和减半的最少操作次数',
+    name: '2500. 删除每行中的最大值',
     url: 'https://leetcode.cn/problems/minimum-operations-to-halve-array-sum/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,26 +19,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 248,
-            memory: 87.3,
-            desc: '堆，每次减当前最大数',
+            time: 8,
+            memory: 9.3,
+            desc: '排序后遍历',
             code: `class Solution {
 public:
-    int halveArray(vector<int>& nums) {
-        int res = 0;
-        double sum = 0, cur;
-        priority_queue<double> q;
-        for (auto &num : nums) {
-            sum += num;
-            q.push(num);
-        }
-        cur = sum;
-        while (cur > sum / 2) {
-            double top = q.top() / 2;
-            q.pop();
-            cur -= top;
-            q.push(top);
-            res += 1;
+    int deleteGreatestValue(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size(), res = 0;
+        for (auto &row : grid) sort(row.begin(), row.end());
+        for (int j = m - 1; j >= 0; j--) {
+            int cur = INT_MIN;
+            for (int i = 0; i < n; i++) {
+                cur = max(cur, grid[i][j]);
+            }
+            res += cur;
         }
         return res;
     }
@@ -46,68 +40,41 @@ public:
         },
         {
             script: Script.PY,
-            time: 400,
-            memory: 30.6,
+            time: 112,
+            memory: 16.2,
             desc: '同上',
             code: `class Solution:
-    def halveArray(self, nums: List[int]) -> int:
+    def deleteGreatestValue(self, grid: List[List[int]]) -> int:
+        for row in grid:
+            row.sort()
+        n = len(grid)
+        m = len(grid[0])
         res = 0
-        sum = 0.0
-        q: List[float] = []
-        for num in nums:
-            sum += float(num)
-            heappush(q, float(-num))
-        cur = sum
-        while cur > sum / 2:
-            top = -heappop(q) / 2
-            heappush(q, -top)
-            cur -= top
-            res += 1
-        return res`,
+        for j in range(m):
+            num = -inf
+            for i in range(n):
+                num = max(num, grid[i][j])
+            res += num
+        return res
+            `,
         },
         {
             script: Script.RUST,
-            time: 44,
-            memory: 4.1,
+            time: 0,
+            memory: 2.2,
             desc: '同上',
-            code: `pub use std::cmp::Ordering;
-#[derive(PartialEq)]
-struct RevNum(f64);
-impl Eq for RevNum {}
-impl PartialOrd for RevNum {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        if other.0 > self.0 {
-            Some(Ordering::Less)
-        } else if other.0 < self.0 {
-            Some(Ordering::Greater)
-        } else {
-            Some(Ordering::Equal)
+            code: `impl Solution {
+    pub fn delete_greatest_value(mut grid: Vec<Vec<i32>>) -> i32 {
+        for row in &mut grid {
+            row.sort();
         }
-    }
-}
-impl Ord for RevNum {
-    fn cmp(&self, other: &RevNum) -> Ordering {
-        other.0.partial_cmp(&self.0).unwrap()
-    }
-}
-
-impl Solution {
-    pub fn halve_array(nums: Vec<i32>) -> i32 {
         let mut res = 0;
-        let mut sum = 0.0;
-        let mut cur = 0.0;
-        let mut q = std::collections::BinaryHeap::new();
-        for num in nums {
-            let num = num as f64;
-            sum += num;
-            q.push(RevNum(num));
-        }
-        cur = sum;
-        while cur > sum / 2.0 {
-            let top = q.pop().unwrap().0 / 2.0;
-            q.push(RevNum(top));
-            cur -= top;
-            res += 1;
+        for j in 0..grid[0].len() {
+            let mut num = i32::MIN;
+            for i in 0..grid.len() {
+                num = num.max(grid[i][j]);
+            }
+            res += num;
         }
         res
     }
