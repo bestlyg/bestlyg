@@ -49,6 +49,22 @@
             "script": "cpp",
             "desc": "双指针。",
             "code": "class Solution {\n   public:\n    bool hasCycle(ListNode *head) {\n        if (!head) return false;\n        ListNode *fast = head->next, *slow = head;\n        while (fast && fast->next && fast != slow) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        return fast && fast->next;\n    }\n};"
+        },
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 8,
+            "desc": "快慢指针。",
+            "code": "class Solution {\npublic:\n    bool hasCycle(ListNode *head) {\n        if (!head) return false;\n        ListNode *slow = head, *fast = head;\n        while (fast && fast->next && fast->next != slow) {\n            fast = fast->next->next;\n            slow = slow->next;\n        }\n        return fast && fast->next == slow;\n    }\n};",
+            "date": 1690560000000
+        },
+        {
+            "script": "python",
+            "time": 64,
+            "memory": 20.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        if not head:\n            return False\n        slow = fast = head\n        while fast and fast.next and fast.next != slow:\n            fast = fast.next.next\n            slow = slow.next\n        return fast and fast.next == slow",
+            "date": 1690560000000
         }
     ]
 }
