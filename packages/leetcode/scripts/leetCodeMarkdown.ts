@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '141. 环形链表',
+    name: '142. 环形链表 II',
     url: 'https://leetcode.cn/problems/parallel-courses-iii/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -17,38 +17,32 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dfs',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 8,
-            memory: 8,
-            desc: '快慢指针',
-            code: `class Solution {
-public:
-    bool hasCycle(ListNode *head) {
-        if (!head) return false;
-        ListNode *slow = head, *fast = head;
-        while (fast && fast->next && fast->next != slow) {
-            fast = fast->next->next;
-            slow = slow->next;
-        }
-        return fast && fast->next == slow;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 8,
+        //     memory: 8,
+        //     desc: '快慢指针',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 64,
-            memory: 20.2,
+            time: 52,
+            memory: 20.1,
             desc: '同上',
             code: `class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        if not head:
-            return False
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = fast = head
         while fast and fast.next and fast.next != slow:
-            fast = fast.next.next
             slow = slow.next
-        return fast and fast.next == slow`,
+            fast = fast.next.next
+        if not fast or not fast.next:
+            return None
+        slow = head
+        fast = fast.next.next
+        while fast != slow:
+            fast = fast.next
+            slow = slow.next
+        return slow`,
         },
         // {
         //     script: Script.RUST,

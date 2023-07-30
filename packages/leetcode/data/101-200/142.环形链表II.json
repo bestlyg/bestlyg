@@ -41,6 +41,14 @@
             "script": "cpp",
             "desc": "双指针， 快指针跑了 a+b+c+b 时，慢指针跑了 a+b。",
             "code": "class Solution {\n   public:\n    ListNode *detectCycle(ListNode *head) {\n        if (!head) return NULL;\n        ListNode *fast = head, *slow = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n            if (fast == slow) break;\n        }\n        if (!(fast && fast->next)) return NULL;\n        slow = head;\n        while (slow != fast) {\n            slow = slow->next;\n            fast = fast->next;\n        }\n        return slow;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 52,
+            "memory": 20.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        slow = fast = head\n        while fast and fast.next and fast.next != slow:\n            slow = slow.next\n            fast = fast.next.next\n        if not fast or not fast.next:\n            return None\n        slow = head\n        fast = fast.next.next\n        while fast != slow:\n            fast = fast.next\n            slow = slow.next\n        return slow",
+            "date": 1690646400000
         }
     ]
 }

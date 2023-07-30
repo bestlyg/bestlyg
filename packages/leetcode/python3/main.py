@@ -2,14 +2,19 @@ from preclude import *
 
 
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        if not head:
-            return False
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = fast = head
         while fast and fast.next and fast.next != slow:
-            fast = fast.next.next
             slow = slow.next
-        return fast and fast.next == slow
+            fast = fast.next.next
+        if not fast or not fast.next:
+            return None
+        slow = head
+        fast = fast.next.next
+        while fast != slow:
+            fast = fast.next
+            slow = slow.next
+        return slow
 
 
 def main():
