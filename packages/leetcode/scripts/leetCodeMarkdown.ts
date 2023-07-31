@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '142. 环形链表 II',
+    name: '143. 重排链表',
     url: 'https://leetcode.cn/problems/parallel-courses-iii/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -17,32 +17,74 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dfs',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 8,
-        //     memory: 8,
-        //     desc: '快慢指针',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 40,
+            memory: 17.2,
+            desc: '找到中点，翻转后半部分，合并',
+            code: `class Solution {
+public:
+    void reorderList(ListNode* head) {
+        // mid
+        ListNode *slow = head, *fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        // reverse
+        ListNode *last = slow->next;
+        if (!last) return;
+        while (last->next) {
+            ListNode *tmp = last->next;
+            last->next = tmp->next;
+            tmp->next = slow->next;
+            slow->next = tmp;
+        }
+        // merge
+        ListNode *l1 = head, *l2 = slow->next;
+        while (l1 && l2) {
+            ListNode *tmp1 = l1->next, *tmp2 = l2->next;
+            l1->next = l2;
+            l2->next = tmp1;
+            l1 = tmp1;
+            l2 = tmp2;
+        }
+        // last node
+        slow->next = nullptr;
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 52,
-            memory: 20.1,
+            time: 76,
+            memory: 24.5,
             desc: '同上',
             code: `class Solution:
-    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         slow = fast = head
-        while fast and fast.next and fast.next != slow:
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        if not fast or not fast.next:
-            return None
-        slow = head
-        fast = fast.next.next
-        while fast != slow:
-            fast = fast.next
-            slow = slow.next
-        return slow`,
+
+        last = slow.next
+        if not last:
+            return
+        while last.next:
+            tmp = last.next
+            last.next = tmp.next
+            tmp.next = slow.next
+            slow.next = tmp
+
+        l1 = head
+        l2 = slow.next
+        while l1 and l2:
+            tmp1 = l1.next
+            tmp2 = l2.next
+            l1.next = l2
+            l2.next = tmp1
+            l1 = tmp1
+            l2 = tmp2
+        slow.next = None`,
         },
         // {
         //     script: Script.RUST,

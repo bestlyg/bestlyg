@@ -2,19 +2,31 @@ from preclude import *
 
 
 class Solution:
-    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         slow = fast = head
-        while fast and fast.next and fast.next != slow:
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        if not fast or not fast.next:
-            return None
-        slow = head
-        fast = fast.next.next
-        while fast != slow:
-            fast = fast.next
-            slow = slow.next
-        return slow
+
+        last = slow.next
+        if not last:
+            return
+        while last.next:
+            tmp = last.next
+            last.next = tmp.next
+            tmp.next = slow.next
+            slow.next = tmp
+
+        l1 = head
+        l2 = slow.next
+        while l1 and l2:
+            tmp1 = l1.next
+            tmp2 = l2.next
+            l1.next = l2
+            l2.next = tmp1
+            l1 = tmp1
+            l2 = tmp2
+        slow.next = None
 
 
 def main():

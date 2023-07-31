@@ -157,21 +157,46 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
-        vector<vector<int>> list(n);
-        for (auto &item : relations) {
-            list[item[1] - 1].push_back(item[0] - 1);
+    void reorderList(ListNode* head) {
+        cout << "======reorderList" << endl;
+        // mid
+        ListNode *slow = head, *fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        unordered_map<int, int> cache;
-        function<int(int)> dfs = [&](int cur) -> int {
-            if (cache[cur]) return cache[cur];
-            int val = 0;
-            for (auto &p : list[cur]) val = max(val, dfs(p));
-            return cache[cur] = val + time[cur];
-        };
-        int res = 0;
-        for (int i = 0; i < n; i++) res = max(res, dfs(i));
-        return res;
+
+        cout << "slow = " << (slow ? slow->val : -1) << endl;
+        cout << "fast = " << (fast ? fast->val : -1) << endl;
+
+        // reverse
+        ListNode *last = slow->next;
+        while (last->next) {
+            ListNode *tmp = last->next;
+            last->next = tmp->next;
+            tmp->next = slow->next;
+            slow->next = tmp;
+        }
+        last->next = nullptr;
+
+        cout << "list :";
+        ListNode *p = slow;
+        while (p) {
+            cout << (p->val) << ", ";
+            p = p->next;
+        }
+        cout << endl;
+        // merge
+        ListNode *l1 = head, *l2 = slow->next;
+        while (l1 && l2) {
+            cout << "l1 = " << l1->val << ", next = " << (l1->next ? l1->next->val : -1) << endl;
+            cout << "l2 = " << l2->val << ", next = " << (l2->next ? l2->next->val : -1) << endl;
+            ListNode *tmp1 = l1->next, *tmp2 = l2->next;
+            l1->next = l2;
+            l2->next = tmp1;
+            l1 = tmp1;
+            l2 = tmp2;
+        }
     }
 };
 
