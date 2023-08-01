@@ -13,8 +13,18 @@ fn main() {
 }
 
 impl Solution {
-    pub fn reorder_list(head: &mut Option<Box<ListNode>>) {
-        let mut slow = head;
-        let mut fast = head;
+    pub fn sum_of_power(nums: Vec<i32>) -> i32 {
+        let mut nums: Vec<i64> = nums.into_iter().map(|v| v as i64).collect();
+        nums.sort();
+        let mut res = 0i64;
+        let mut sum = 0i64;
+        const MOD: i64 = 1000000000 + 7;
+        for i in 0..nums.len() {
+            let num = nums[i];
+            let num2 = num * num % MOD;
+            res += num2 * num % MOD + sum * num2 % MOD;
+            sum = (sum * 2 % MOD + num) % MOD
+        }
+        (res % MOD) as i32
     }
 }

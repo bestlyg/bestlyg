@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '143. 重排链表',
-    url: 'https://leetcode.cn/problems/parallel-courses-iii/',
+    exist: !true,
+    name: '2681. 英雄的力量',
+    url: 'https://leetcode.cn/problems/power-of-heroes/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回完成所有课程所需要的 最少 月份数。`,
+    desc: `请你返回所有可能的 非空 英雄组的 力量 之和。`,
     solutions: [
         // {
         //     date: new Date('2020/10/06').getTime(),
@@ -19,80 +19,68 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 40,
-            memory: 17.2,
-            desc: '找到中点，翻转后半部分，合并',
+            time: 88,
+            memory: 88.63,
+            desc: '排序后遍历统计',
             code: `class Solution {
 public:
-    void reorderList(ListNode* head) {
-        // mid
-        ListNode *slow = head, *fast = head;
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
+    typedef long long ll;
+    int sumOfPower(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        // min (...cnt) max， sum统计min为最小值的情况个数，pow(2, cnt)
+        ll res = 0, MOD = 1e9 + 7, sum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            ll num = nums[i], num2 = num * num % MOD;
+            // 当子序列内只有num时的情况
+            res += num2 * num % MOD;
+            // 前面最小值的和 乘以 最大值的平方
+            res += sum * num2 % MOD;
+            // 重新累加最小值的和
+            sum = ((sum * 2 % MOD) + num) % MOD;
         }
-        // reverse
-        ListNode *last = slow->next;
-        if (!last) return;
-        while (last->next) {
-            ListNode *tmp = last->next;
-            last->next = tmp->next;
-            tmp->next = slow->next;
-            slow->next = tmp;
-        }
-        // merge
-        ListNode *l1 = head, *l2 = slow->next;
-        while (l1 && l2) {
-            ListNode *tmp1 = l1->next, *tmp2 = l2->next;
-            l1->next = l2;
-            l2->next = tmp1;
-            l1 = tmp1;
-            l2 = tmp2;
-        }
-        // last node
-        slow->next = nullptr;
+        return res % MOD;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 76,
-            memory: 24.5,
+            time: 168,
+            memory: 25.5,
             desc: '同上',
             code: `class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-
-        last = slow.next
-        if not last:
-            return
-        while last.next:
-            tmp = last.next
-            last.next = tmp.next
-            tmp.next = slow.next
-            slow.next = tmp
-
-        l1 = head
-        l2 = slow.next
-        while l1 and l2:
-            tmp1 = l1.next
-            tmp2 = l2.next
-            l1.next = l2
-            l2.next = tmp1
-            l1 = tmp1
-            l2 = tmp2
-        slow.next = None`,
+    def sumOfPower(self, nums: List[int]) -> int:
+        nums.sort()
+        res = sum = 0
+        MOD = 1000000000 + 7
+        for i in range(len(nums)):
+            num = nums[i]
+            num2 = num * num % MOD
+            res += num2 * num % MOD + sum * num2 % MOD
+            sum = (sum * 2 % MOD + num) % MOD
+        return int(res % MOD)`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 64,
-        //     memory: 11.9,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 24,
+            memory: 3.37,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn sum_of_power(nums: Vec<i32>) -> i32 {
+        let mut nums: Vec<i64> = nums.into_iter().map(|v| v as i64).collect();
+        nums.sort();
+        let mut res = 0i64;
+        let mut sum = 0i64;
+        const MOD: i64 = 1000000000 + 7;
+        for i in 0..nums.len() {
+            let num = nums[i];
+            let num2 = num * num % MOD;
+            res += num2 * num % MOD + sum * num2 % MOD;
+            sum = (sum * 2 % MOD + num) % MOD
+        }
+        (res % MOD) as i32
+    }
+}`,
+        },
     ],
 };
 

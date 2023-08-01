@@ -2,31 +2,16 @@ from preclude import *
 
 
 class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-
-        last = slow.next
-        if not last:
-            return
-        while last.next:
-            tmp = last.next
-            last.next = tmp.next
-            tmp.next = slow.next
-            slow.next = tmp
-
-        l1 = head
-        l2 = slow.next
-        while l1 and l2:
-            tmp1 = l1.next
-            tmp2 = l2.next
-            l1.next = l2
-            l2.next = tmp1
-            l1 = tmp1
-            l2 = tmp2
-        slow.next = None
+    def sumOfPower(self, nums: List[int]) -> int:
+        nums.sort()
+        res = sum = 0
+        MOD = 1e9 + 7
+        for i in range(len(nums)):
+            num = nums[i]
+            num2 = num * num % MOD
+            res += num2 * num % MOD + sum * num2 % MOD
+            sum = (sum * 2 % MOD + num) % MOD
+        return res % MOD
 
 
 def main():
