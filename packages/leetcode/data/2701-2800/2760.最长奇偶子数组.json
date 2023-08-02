@@ -1,8 +1,12 @@
 {
-    "name": "6909.最长奇偶子数组",
-    "url": "https://leetcode.cn/problems/longest-even-odd-subarray-with-threshold/",
+    "id": "2866",
+    "name": "2760.最长奇偶子数组",
+    "url": "https://leetcode.cn/problems/longest-even-odd-subarray-with-threshold",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "滑动窗口"
+    ],
     "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 threshold 。以整数形式返回满足题目要求的最长子数组的长度。",
     "solutions": [
         {

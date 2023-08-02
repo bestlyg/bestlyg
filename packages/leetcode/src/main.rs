@@ -13,18 +13,22 @@ fn main() {
 }
 
 impl Solution {
-    pub fn sum_of_power(nums: Vec<i32>) -> i32 {
-        let mut nums: Vec<i64> = nums.into_iter().map(|v| v as i64).collect();
-        nums.sort();
-        let mut res = 0i64;
-        let mut sum = 0i64;
-        const MOD: i64 = 1000000000 + 7;
-        for i in 0..nums.len() {
-            let num = nums[i];
-            let num2 = num * num % MOD;
-            res += num2 * num % MOD + sum * num2 % MOD;
-            sum = (sum * 2 % MOD + num) % MOD
+    pub fn flipgame(fronts: Vec<i32>, backs: Vec<i32>) -> i32 {
+        let n = fronts.len();
+        let mut s = std::collections::HashSet::<i32>::new();
+        for i in 0..n {
+            if fronts[i] == backs[i] {
+                s.insert(fronts[i]);
+            }
         }
-        (res % MOD) as i32
+        for i in 0..n {
+            if !s.contains(&fronts[i]) {
+                res = res.min(fronts[i])
+            }
+            if !s.contains(&backs[i]) {
+                res = res.min(backs[i])
+            }
+        }
+        res % 3000
     }
 }

@@ -2,16 +2,19 @@ from preclude import *
 
 
 class Solution:
-    def sumOfPower(self, nums: List[int]) -> int:
-        nums.sort()
-        res = sum = 0
-        MOD = 1e9 + 7
-        for i in range(len(nums)):
-            num = nums[i]
-            num2 = num * num % MOD
-            res += num2 * num % MOD + sum * num2 % MOD
-            sum = (sum * 2 % MOD + num) % MOD
-        return res % MOD
+    def flipgame(self, fronts: List[int], backs: List[int]) -> int:
+        n = len(fronts)
+        res = 3000
+        s = set()
+        for i in range(n):
+            if fronts[i] == backs[i]:
+                s.add(fronts[i])
+        for i in range(n):
+            if not fronts[i] in s:
+                res = min(res, fronts[i])
+            if not backs[i] in s:
+                res = min(res, backs[i])
+        return res % 3000
 
 
 def main():

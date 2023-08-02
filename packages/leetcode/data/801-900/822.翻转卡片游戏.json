@@ -1,0 +1,45 @@
+{
+    "id": "842",
+    "name": "822.翻转卡片游戏",
+    "url": "https://leetcode.cn/problems/card-flipping-game",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "哪个数是这些想要的数字中最小的数（找到这些数中的最小值）呢？如果没有一个数字符合要求的，输出 0。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 40,
+            "memory": 24.54,
+            "desc": "哈希存储。",
+            "code": "class Solution {\npublic:\n    int flipgame(vector<int>& fronts, vector<int>& backs) {\n        int n = fronts.size(), res = INT_MAX;\n        unordered_map<int, vector<int>> mf, mb;\n        for (int i = 0; i < n; i++) {\n            mf[fronts[i]].push_back(i);\n            mb[backs[i]].push_back(i);\n        }\n        auto check = [&](unordered_map<int, vector<int>> &m, vector<int> &l, int val) -> bool {\n            for (auto &idx : m[val]) {\n                if (l[idx] == val) return false;\n            }\n            return true;\n        };\n        for (int i = 0; i < n; i++) {\n            if (!mf.count(fronts[i]) && !mb.count(fronts[i]) || check(mf, backs, fronts[i]) || check(mb, fronts, fronts[i])) {\n                res = min(res, fronts[i]);\n            }\n            if (!mf.count(backs[i]) && !mb.count(backs[i]) || check(mf, backs, backs[i]) || check(mb, fronts, backs[i])) {\n                res = min(res, backs[i]);\n            }\n        }\n        return res == INT_MAX ? 0 : res;\n    }\n};",
+            "date": 1690905600000
+        },
+        {
+            "script": "cpp",
+            "time": 20,
+            "memory": 18.66,
+            "desc": "哈希存储。",
+            "code": "class Solution {\npublic:\n    int flipgame(vector<int>& fronts, vector<int>& backs) {\n        int n = fronts.size(), res = 3000;\n        unordered_set<int> s;\n        for (int i = 0; i < n; i++) {\n            if (fronts[i] == backs[i]) s.insert(fronts[i]);\n        }\n        for (int i = 0; i < n; i++) {\n            if (!s.count(fronts[i])) res = min(res, fronts[i]);\n            if (!s.count(backs[i])) res = min(res, backs[i]);\n        }\n        return res % 3000;\n    }\n};",
+            "date": 1690905600000
+        },
+        {
+            "script": "python",
+            "time": 52,
+            "memory": 15.72,
+            "desc": "同上。",
+            "code": "class Solution:\n    def flipgame(self, fronts: List[int], backs: List[int]) -> int:\n        n = len(fronts)\n        res = 3000\n        s = set()\n        for i in range(n):\n            if fronts[i] == backs[i]:\n                s.add(fronts[i])\n        for i in range(n):\n            if not fronts[i] in s:\n                res = min(res, fronts[i])\n            if not backs[i] in s:\n                res = min(res, backs[i])\n        return res % 3000",
+            "date": 1690905600000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 1.96,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn flipgame(fronts: Vec<i32>, backs: Vec<i32>) -> i32 {\n        let n = fronts.len();\n        let mut s = std::collections::HashSet::<i32>::new();\n        let mut res = 3000;\n        for i in 0..n {\n            if fronts[i] == backs[i] {\n                s.insert(fronts[i]);\n            }\n        }\n        for i in 0..n {\n            if !s.contains(&fronts[i]) {\n                res = res.min(fronts[i]);\n            }\n            if !s.contains(&backs[i]) {\n                res = res.min(backs[i]);\n            }\n        }\n        res % 3000\n    }\n}",
+            "date": 1690905600000
+        }
+    ]
+}
