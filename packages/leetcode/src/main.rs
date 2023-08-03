@@ -13,22 +13,33 @@ fn main() {
 }
 
 impl Solution {
-    pub fn flipgame(fronts: Vec<i32>, backs: Vec<i32>) -> i32 {
-        let n = fronts.len();
-        let mut s = std::collections::HashSet::<i32>::new();
-        for i in 0..n {
-            if fronts[i] == backs[i] {
-                s.insert(fronts[i]);
+    pub fn remove_comments(source: Vec<String>) -> Vec<String> {
+        let mut res = vec![];
+        let mut check = false;
+        let mut s = String::new();
+        for line in source {
+            let line = str_to_vec(&line);
+            let mut i = 0;
+            while i < line.len() {
+                if line[i] == '*' && i + 1 < line.len() && line[i + 1] == '/' && check {
+                    check = false;
+                    i += 1
+                } else if check {
+                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '*' {
+                    check = true;
+                    i += 1;
+                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '/' {
+                    break;
+                } else {
+                    s.push(line[i]);
+                }
+                i += 1;
+            }
+            if !check && !s.is_empty() {
+                res.push(s.clone());
+                s = String::new();
             }
         }
-        for i in 0..n {
-            if !s.contains(&fronts[i]) {
-                res = res.min(fronts[i])
-            }
-            if !s.contains(&backs[i]) {
-                res = res.min(backs[i])
-            }
-        }
-        res % 3000
+        res
     }
 }
