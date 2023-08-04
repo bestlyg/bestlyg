@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '722. 删除注释',
-    url: 'https://leetcode.cn/problems/card-flipping-game/',
+    name: '980. 不同路径 III',
+    url: 'https://leetcode.cn/problems/unique-paths-iii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `从源代码中删除注释后，需要以相同的格式返回源代码。`,
+    desc: `返回在四个方向（上、下、左、右）上行走时，从起始方格到结束方格的不同路径的数目。`,
     solutions: [
         // {
         //     date: new Date('2020/10/06').getTime(),
@@ -19,109 +19,148 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 0,
-            memory: 7.54,
-            desc: '逐行遍历',
-            code: `class Solution {
+            time: 4,
+            memory: 6.77,
+            desc: 'dfs',
+            code: `#define X first
+#define Y second
+#define pii pair<int, int>
+vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+class Solution {
 public:
-    vector<string> removeComments(vector<string>& source) {
-        vector<string> res;
-        int check = false;
-        string s = "";
-        for (auto &line : source) {
-            for (int i = 0; i < line.size(); i++) {
-                if (line[i] == '*' && i + 1 < line.size() && line[i + 1] == '/' && check) {
-                    check = false;
-                    i += 1;
-                } else if (check) {
-                } else if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '*') {
-                    check = true;
-                    i += 1;
-                } else if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '/') {
-                    break;
-                } else {
-                    s += line[i];
-                }
-            }
-            if (!check && s.size()) {
-                res.push_back(s);
-                s = "";
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        int res = 0, n = grid.size(), m = grid[0].size(), sum = n * m;
+        pii start, end;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1) start = make_pair(i, j);
+                else if (grid[i][j] == 2) end = make_pair(i, j);
+                else if (grid[i][j] == -1) sum -= 1;
             }
         }
+        vector<vector<bool>> used(n, vector<bool>(m, false));
+        used[start.X][start.Y] = true;
+        function<void(pii, int)> dfs = [&](pii cur, int cnt) {
+            if (cur.X == end.X && cur.Y == end.Y) {
+                if (cnt == sum) res += 1;
+                return;
+            }
+            for (auto &dir : dirs) {
+                int nx = cur.X + dir[0], ny = cur.Y + dir[1];
+                if (0 <= nx && nx < n && 0 <= ny && ny < m && grid[nx][ny] != -1 && !used[nx][ny]) {
+                    used[nx][ny] = true;
+                    dfs(make_pair(nx, ny), cnt + 1);
+                    used[nx][ny] = false;
+                }
+            }
+        };
+        dfs(start, 1);
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 44,
-            memory: 15.77,
+            time: 68,
+            memory: 15.83,
             desc: '同上',
-            code: `class Solution:
-    def removeComments(self, source: List[str]) -> List[str]:
-        res = []
-        check = False
-        s = ""
-        for line in source:
-            i = 0
-            while i < len(line):
-                if line[i] == '*' and i + 1 < len(line) and line[i + 1] == '/' and check:
-                    check = False
-                    i += 1
-                elif check:
-                    pass
-                elif line[i] == '/' and i + 1 < len(line) and line[i + 1] == '*':
-                    check = True
-                    i += 1
-                elif line[i] == '/' and i + 1 < len(line) and line[i + 1] == '/':
-                    break
-                else:
-                    s += line[i]
-                i += 1
-            if not check and len(s):
-                res.append(s)
-                s = ""
+            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+class Solution:
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        res = 0
+        n = len(grid)
+        m = len(grid[0])
+        sum = n * m
+        start = end = (0, 0)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1:
+                    start = (i, j)
+                elif grid[i][j] == 2:
+                    end = (i, j)
+                elif grid[i][j] == -1:
+                    sum -= 1
+        used = [[False for _ in range(m)] for _ in range(n)]
+        used[start[0]][start[1]] = True
+        def dfs(cur: Tuple[int, int], cnt: int):
+            nonlocal res
+            if cur[0] == end[0] and cur[1] == end[1]:
+                if cnt == sum:
+                    res += 1
+                return
+            for dir in dirs:
+                nx = cur[0] + dir[0]
+                ny = cur[1] + dir[1]
+                if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != -1 and not used[nx][ny]:
+                    used[nx][ny] = True
+                    dfs((nx, ny), cnt + 1)
+                    used[nx][ny] = False
+        dfs(start, 1)
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 1.92,
+            time: 4,
+            memory: 1.86,
             desc: '同上',
-            code: `pub fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
-}
+            code: `pub const DIRS: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 impl Solution {
-    pub fn remove_comments(source: Vec<String>) -> Vec<String> {
-        let mut res = vec![];
-        let mut check = false;
-        let mut s = String::new();
-        for line in source {
-            let line = str_to_vec(&line);
-            let mut i = 0;
-            while i < line.len() {
-                if line[i] == '*' && i + 1 < line.len() && line[i + 1] == '/' && check {
-                    check = false;
-                    i += 1
-                } else if check {
-                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '*' {
-                    check = true;
-                    i += 1;
-                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '/' {
-                    break;
-                } else {
-                    s.push(line[i]);
+    pub fn unique_paths_iii(grid: Vec<Vec<i32>>) -> i32 {
+        let mut res = 0;
+        let n = grid.len();
+        let m = grid[0].len();
+        let mut start = (0, 0);
+        let mut end = (0, 0);
+        let mut sum = n * m;
+        for i in 0..n {
+            for j in 0..m {
+                if grid[i][j] == 1 {
+                    start = (i, j);
+                } else if grid[i][j] == 2 {
+                    end = (i, j);
+                } else if grid[i][j] == -1 {
+                    sum -= 1;
                 }
-                i += 1;
-            }
-            if !check && !s.is_empty() {
-                res.push(s.clone());
-                s = String::new();
             }
         }
+        let mut used: Vec<Vec<bool>> = vec![vec![false; m]; n];
+        used[start.0][start.1] = true;
+        fn dfs(
+            res: &mut i32,
+            sum: usize,
+            grid: &Vec<Vec<i32>>,
+            used: &mut Vec<Vec<bool>>,
+            cur: (usize, usize),
+            end: (usize, usize),
+            cnt: usize,
+        ) {
+            if cur.0 == end.0 && cur.1 == end.1 {
+                if cnt == sum {
+                    *res += 1;
+                }
+            } else {
+                for dir in DIRS {
+                    let nx = (cur.0 as i32 + dir[0]) as usize;
+                    let ny = (cur.1 as i32 + dir[1]) as usize;
+                    if 0 <= nx
+                        && nx < grid.len()
+                        && 0 <= ny
+                        && ny < grid[0].len()
+                        && grid[nx][ny] != -1
+                        && !used[nx][ny]
+                    {
+                        used[nx][ny] = true;
+                        dfs(res, sum, grid, used, (nx, ny), end, cnt + 1);
+                        used[nx][ny] = false;
+                    }
+                }
+            }
+        }
+        dfs(&mut res, sum, &grid, &mut used, start, end, 1);
         res
     }
-}`,
+}
+`,
         },
     ],
 };

@@ -171,8 +171,8 @@ impl Ord for RevUnsize {
     }
 }
 
-pub const dirs: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-pub const dirs2: [[i32; 2]; 8] = [
+pub const DIRS: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+pub const DIRS2: [[i32; 2]; 8] = [
     [0, 1],
     [0, -1],
     [1, 0],

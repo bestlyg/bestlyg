@@ -2,29 +2,36 @@ from preclude import *
 
 
 class Solution:
-    def removeComments(self, source: List[str]) -> List[str]:
-        res = []
-        check = False
-        s = ""
-        for line in source:
-            i = 0
-            while i < len(line):
-                if line[i] == '*' and i + 1 < line.size() and line[i + 1] == '/' and check:
-                    check = False
-                    i += 1
-                elif check:
-                    pass
-                elif line[i] == '/' and i + 1 < line.size() and line[i + 1] == '*':
-                    check = True
-                    i += 1
-                elif line[i] == '/' and i + 1 < line.size() and line[i + 1] == '/':
-                    break
-                else:
-                    s += line[i]
-                i += 1
-            if not check and len(s):
-                res.append(s)
-                s = ""
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        res = 0
+        n = len(grid)
+        m = len(grid[0])
+        sum = n * m
+        start = end = (0, 0)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1:
+                    start = (i, j)
+                elif grid[i][j] == 2:
+                    end = (i, j)
+                elif grid[i][j] == -1:
+                    sum -= 1
+        used = [[False for _ in range(m)] for _ in range(n)]
+        used[start[0]][start[1]] = False
+
+        def dfs(cur: Tuple[int, int], cnt: int):
+            if cur[0] == end[0] and cur[1] == end[1]:
+                if cnt == sum:
+                    res += 1
+                return
+            for dir in dirs:
+                nx = cur[0] + dir[0]
+                ny = cur[1] + dir[1]
+                if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != -1 and not used[nx][ny]:
+                    used[nx][ny] = True
+                    dfs((nx, ny), cnt + 1)
+                    used[nx][ny] = False
+        dfs(start, 1)
         return res
 
 

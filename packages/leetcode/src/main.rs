@@ -11,35 +11,59 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-
 impl Solution {
-    pub fn remove_comments(source: Vec<String>) -> Vec<String> {
-        let mut res = vec![];
-        let mut check = false;
-        let mut s = String::new();
-        for line in source {
-            let line = str_to_vec(&line);
-            let mut i = 0;
-            while i < line.len() {
-                if line[i] == '*' && i + 1 < line.len() && line[i + 1] == '/' && check {
-                    check = false;
-                    i += 1
-                } else if check {
-                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '*' {
-                    check = true;
-                    i += 1;
-                } else if line[i] == '/' && i + 1 < line.len() && line[i + 1] == '/' {
-                    break;
-                } else {
-                    s.push(line[i]);
+    pub fn unique_paths_iii(grid: Vec<Vec<i32>>) -> i32 {
+        let mut res = 0;
+        let n = grid.len();
+        let m = grid[0].len();
+        let mut start = (0, 0);
+        let mut end = (0, 0);
+        let mut sum = n * m;
+        for i in 0..n {
+            for j in 0..m {
+                if grid[i][j] == 1 {
+                    start = (i, j);
+                } else if grid[i][j] == 2 {
+                    end = (i, j);
+                } else if grid[i][j] == -1 {
+                    sum -= 1;
                 }
-                i += 1;
-            }
-            if !check && !s.is_empty() {
-                res.push(s.clone());
-                s = String::new();
             }
         }
+        let mut used: Vec<Vec<bool>> = vec![vec![false; m]; n];
+        used[start.0][start.1] = true;
+        fn dfs(
+            res: &mut i32,
+            sum: usize,
+            grid: &Vec<Vec<i32>>,
+            used: &mut Vec<Vec<bool>>,
+            cur: (usize, usize),
+            end: (usize, usize),
+            cnt: usize,
+        ) {
+            if cur.0 == end.0 && cur.1 == end.1 {
+                if cnt == sum {
+                    *res += 1;
+                }
+            } else {
+                for dir in DIRS {
+                    let nx = (cur.0 as i32 + dir[0]) as usize;
+                    let ny = (cur.1 as i32 + dir[1]) as usize;
+                    if 0 <= nx
+                        && nx < grid.len()
+                        && 0 <= ny
+                        && ny < grid[0].len()
+                        && grid[nx][ny] != -1
+                        && !used[nx][ny]
+                    {
+                        used[nx][ny] = true;
+                        dfs(res, sum, grid, used, (nx, ny), end, cnt + 1);
+                        used[nx][ny] = false;
+                    }
+                }
+            }
+        }
+        dfs(&mut res, sum, &grid, &mut used, start, end, 1);
         res
     }
 }
