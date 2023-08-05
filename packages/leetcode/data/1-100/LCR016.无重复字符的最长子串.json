@@ -1,6 +1,6 @@
 {
     "id": "1000252",
-    "name": "剑指OfferII016.不含重复字符的最长子字符串",
+    "name": "LCR016.无重复字符的最长子串",
     "url": "https://leetcode.cn/problems/wtcaE1",
     "difficulty": "中等",
     "tag": [

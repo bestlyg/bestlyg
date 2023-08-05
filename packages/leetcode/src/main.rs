@@ -11,59 +11,32 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
+
 impl Solution {
-    pub fn unique_paths_iii(grid: Vec<Vec<i32>>) -> i32 {
-        let mut res = 0;
-        let n = grid.len();
-        let m = grid[0].len();
-        let mut start = (0, 0);
-        let mut end = (0, 0);
-        let mut sum = n * m;
-        for i in 0..n {
-            for j in 0..m {
-                if grid[i][j] == 1 {
-                    start = (i, j);
-                } else if grid[i][j] == 2 {
-                    end = (i, j);
-                } else if grid[i][j] == -1 {
-                    sum -= 1;
-                }
-            }
-        }
-        let mut used: Vec<Vec<bool>> = vec![vec![false; m]; n];
-        used[start.0][start.1] = true;
-        fn dfs(
-            res: &mut i32,
-            sum: usize,
-            grid: &Vec<Vec<i32>>,
-            used: &mut Vec<Vec<bool>>,
-            cur: (usize, usize),
-            end: (usize, usize),
-            cnt: usize,
-        ) {
-            if cur.0 == end.0 && cur.1 == end.1 {
-                if cnt == sum {
-                    *res += 1;
-                }
+    pub fn merge_two_lists(
+        mut list1: Option<Box<ListNode>>,
+        mut list2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
+        let mut head = ListNode::new(0);
+        let mut p = &mut head;
+        while list1.is_some() || list2.is_some() {
+            println!("list1 = {}", list1.as_ref().unwrap_or_default().val);
+            println!("list2 = {}", list1.as_ref().unwrap_or_default().val);
+            if list2.is_none()
+                || list1.is_some() && list1.as_ref().unwrap().val <= list2.as_ref().unwrap().val
+            {
+                let mut node = list1.take().unwrap();
+                let next = node.next.take();
+                p.next = list1;
+                list1 = next;
             } else {
-                for dir in DIRS {
-                    let nx = (cur.0 as i32 + dir[0]) as usize;
-                    let ny = (cur.1 as i32 + dir[1]) as usize;
-                    if 0 <= nx
-                        && nx < grid.len()
-                        && 0 <= ny
-                        && ny < grid[0].len()
-                        && grid[nx][ny] != -1
-                        && !used[nx][ny]
-                    {
-                        used[nx][ny] = true;
-                        dfs(res, sum, grid, used, (nx, ny), end, cnt + 1);
-                        used[nx][ny] = false;
-                    }
-                }
+                let mut node = list2.take().unwrap();
+                let next = node.next.take();
+                p.next = list2;
+                list2 = next;
             }
+            p = p.next.as_mut().unwrap();
         }
-        dfs(&mut res, sum, &grid, &mut used, start, end, 1);
-        res
+        head.next
     }
 }

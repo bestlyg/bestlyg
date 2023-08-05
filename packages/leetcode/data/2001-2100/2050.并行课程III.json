@@ -1,8 +1,14 @@
 {
+    "id": "2176",
     "name": "2050.并行课程III",
-    "url": "https://leetcode.cn/problems/parallel-courses-iii/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/parallel-courses-iii",
+    "difficulty": "困难",
+    "tag": [
+        "图",
+        "拓扑排序",
+        "数组",
+        "动态规划"
+    ],
     "desc": "请你返回完成所有课程所需要的 最少 月份数。",
     "solutions": [
         {

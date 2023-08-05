@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '980. 不同路径 III',
+    exist: true,
+    name: '21. 合并两个有序链表',
     url: 'https://leetcode.cn/problems/unique-paths-iii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,148 +19,79 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 4,
-            memory: 6.77,
+            time: 8,
+            memory: 14.5,
             desc: 'dfs',
-            code: `#define X first
-#define Y second
-#define pii pair<int, int>
-vector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-class Solution {
+            code: `class Solution {
 public:
-    int uniquePathsIII(vector<vector<int>>& grid) {
-        int res = 0, n = grid.size(), m = grid[0].size(), sum = n * m;
-        pii start, end;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 1) start = make_pair(i, j);
-                else if (grid[i][j] == 2) end = make_pair(i, j);
-                else if (grid[i][j] == -1) sum -= 1;
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode *head = new ListNode(), *p = head;
+        while (list1 || list2) {
+            if (!list2 || list1 && list1->val <= list2->val) {
+                p->next = list1;
+                list1 = list1->next;
+            } else {
+                p->next = list2;
+                list2 = list2->next;
             }
+            p = p->next;
         }
-        vector<vector<bool>> used(n, vector<bool>(m, false));
-        used[start.X][start.Y] = true;
-        function<void(pii, int)> dfs = [&](pii cur, int cnt) {
-            if (cur.X == end.X && cur.Y == end.Y) {
-                if (cnt == sum) res += 1;
-                return;
-            }
-            for (auto &dir : dirs) {
-                int nx = cur.X + dir[0], ny = cur.Y + dir[1];
-                if (0 <= nx && nx < n && 0 <= ny && ny < m && grid[nx][ny] != -1 && !used[nx][ny]) {
-                    used[nx][ny] = true;
-                    dfs(make_pair(nx, ny), cnt + 1);
-                    used[nx][ny] = false;
-                }
-            }
-        };
-        dfs(start, 1);
-        return res;
+
+        return head->next;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 68,
-            memory: 15.83,
+            time: 52,
+            memory: 15.59,
             desc: '同上',
-            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-class Solution:
-    def uniquePathsIII(self, grid: List[List[int]]) -> int:
-        res = 0
-        n = len(grid)
-        m = len(grid[0])
-        sum = n * m
-        start = end = (0, 0)
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j] == 1:
-                    start = (i, j)
-                elif grid[i][j] == 2:
-                    end = (i, j)
-                elif grid[i][j] == -1:
-                    sum -= 1
-        used = [[False for _ in range(m)] for _ in range(n)]
-        used[start[0]][start[1]] = True
-        def dfs(cur: Tuple[int, int], cnt: int):
-            nonlocal res
-            if cur[0] == end[0] and cur[1] == end[1]:
-                if cnt == sum:
-                    res += 1
-                return
-            for dir in dirs:
-                nx = cur[0] + dir[0]
-                ny = cur[1] + dir[1]
-                if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != -1 and not used[nx][ny]:
-                    used[nx][ny] = True
-                    dfs((nx, ny), cnt + 1)
-                    used[nx][ny] = False
-        dfs(start, 1)
-        return res`,
+            code: `class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        head = ListNode()
+        p = head
+        while list1 or list2:
+            if not list2 or list1 and list1.val <= list2.val:
+                p.next = list1
+                list1 = list1.next
+            else:
+                p.next = list2
+                list2 = list2.next
+            p = p.next
+        return head.next`,
         },
         {
             script: Script.RUST,
-            time: 4,
-            memory: 1.86,
+            time: 0,
+            memory: 2.06,
             desc: '同上',
-            code: `pub const DIRS: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-impl Solution {
-    pub fn unique_paths_iii(grid: Vec<Vec<i32>>) -> i32 {
-        let mut res = 0;
-        let n = grid.len();
-        let m = grid[0].len();
-        let mut start = (0, 0);
-        let mut end = (0, 0);
-        let mut sum = n * m;
-        for i in 0..n {
-            for j in 0..m {
-                if grid[i][j] == 1 {
-                    start = (i, j);
-                } else if grid[i][j] == 2 {
-                    end = (i, j);
-                } else if grid[i][j] == -1 {
-                    sum -= 1;
-                }
-            }
+            code: `impl Solution {
+pub fn merge_two_lists(
+    mut list1: Option<Box<ListNode>>,
+    mut list2: Option<Box<ListNode>>,
+) -> Option<Box<ListNode>> {
+    let mut head = ListNode::new(0);
+    let mut p = &mut head;
+    let tmp = Box::new(ListNode::new(-1));
+    while list1.is_some() || list2.is_some() {
+        if list2.is_none()
+            || list1.is_some() && list1.as_ref().unwrap().val <= list2.as_ref().unwrap().val
+        {
+            let mut node = list1.take().unwrap();
+            let next = node.next.take();
+            p.next = Some(node);
+            list1 = next;
+        } else {
+            let mut node = list2.take().unwrap();
+            let next = node.next.take();
+            p.next = Some(node);
+            list2 = next;
         }
-        let mut used: Vec<Vec<bool>> = vec![vec![false; m]; n];
-        used[start.0][start.1] = true;
-        fn dfs(
-            res: &mut i32,
-            sum: usize,
-            grid: &Vec<Vec<i32>>,
-            used: &mut Vec<Vec<bool>>,
-            cur: (usize, usize),
-            end: (usize, usize),
-            cnt: usize,
-        ) {
-            if cur.0 == end.0 && cur.1 == end.1 {
-                if cnt == sum {
-                    *res += 1;
-                }
-            } else {
-                for dir in DIRS {
-                    let nx = (cur.0 as i32 + dir[0]) as usize;
-                    let ny = (cur.1 as i32 + dir[1]) as usize;
-                    if 0 <= nx
-                        && nx < grid.len()
-                        && 0 <= ny
-                        && ny < grid[0].len()
-                        && grid[nx][ny] != -1
-                        && !used[nx][ny]
-                    {
-                        used[nx][ny] = true;
-                        dfs(res, sum, grid, used, (nx, ny), end, cnt + 1);
-                        used[nx][ny] = false;
-                    }
-                }
-            }
-        }
-        dfs(&mut res, sum, &grid, &mut used, start, end, 1);
-        res
+        p = p.next.as_mut().unwrap();
     }
+    head.next
 }
-`,
+}`,
         },
     ],
 };
