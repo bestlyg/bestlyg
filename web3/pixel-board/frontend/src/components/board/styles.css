@@ -1,0 +1,29 @@
+.board {
+    --size: 28px;
+    --col_size: 10;
+    --row_size: 10;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: grid;
+    grid-template-columns: repeat(var(--col_size), var(--size));
+    grid-template-rows: repeat(var(--row_size), var(--size));
+    width: calc(var(--col_size) * var(--size));
+    height: calc(var(--row_size) * var(--size));
+}
+
+.cell {
+    --r: 255;
+    --g: 255;
+    --b: 255;
+    --a: 1;
+    position: relative;
+    background-color: rgba(var(--r), var(--g), var(--b), var(--a));
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.cell:hover {
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+.cell:active {
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.6);
+}

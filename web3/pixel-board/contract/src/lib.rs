@@ -1,4 +1,5 @@
-use board::BoardInfo;
+use board::{Board, BoardInfo};
+use cell::CellInfo;
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{env, log, near_bindgen, require, AccountId, PanicOnDefault};
@@ -13,17 +14,17 @@ pub mod shared;
 pub struct Contract {
     owner_id: AccountId,
     message: String,
-    board: crate::board::Board,
+    board: Board,
 }
 
 #[near_bindgen]
 impl Contract {
     #[init(ignore_state)]
-    pub fn init(owner_id: AccountId, row_size: usize, col_size: usize) -> Self {
+    pub fn init(owner_id: AccountId, row_size: u32, col_size: u32) -> Self {
         Self {
             owner_id,
             message: Default::default(),
-            board: crate::board::Board::new(row_size, col_size),
+            board: Board::new(row_size, col_size),
         }
     }
     /// debug 打印所有环境信息
@@ -44,7 +45,6 @@ impl Contract {
         log!("prepaid_gas: {:?}", env::prepaid_gas().0);
         log!("block_timestamp: {:?}", env::block_timestamp());
         log!("epoch_height: {:?}", env::epoch_height());
-        log!("block_index: {:?}", env::block_index());
         log!("storage_usage: {:?}", env::storage_usage());
         log!("storage_byte_cost: {:?}", env::storage_byte_cost());
         log!("used_gas: {:?}", env::used_gas().0);
@@ -59,6 +59,16 @@ impl Contract {
     }
     pub fn get_board_metadata(&self) -> BoardInfo {
         (&self.board).into()
+    }
+    pub fn set_board(&mut self, cells: Vec<CellInfo>) {
+        let account_id = env::predecessor_account_id();
+        for info in cells {
+            require!(info.pos.0 <= self.board.size.0, "Out of row boundary.");
+            require!(info.pos.1 <= self.board.size.1, "Out of col boundary.");
+            let cell = &mut self.board.data[info.pos.0][info.pos.1];
+            cell.color = info.color;
+            cell.owner = Some(account_id.clone());
+        }
     }
     // 测试打印信息
     pub fn get_greeting(&self) -> String {

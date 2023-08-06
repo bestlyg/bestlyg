@@ -10,7 +10,7 @@ fi
 echo ">> Deploying contract"
 # https://docs.near.org/tools/near-cli#near-dev-deploy
 near deploy                                                                      \
-  --wasmFile ./target/wasm32-unknown-unknown/release/bestlyg_pixel_board.wasm             \
+  --wasmFile ./target/wasm32-unknown-unknown/release/bestlyg_pixel_board_contract.wasm             \
   --node_url https://near-testnet.infura.io/v3/f7c0b2130fd6470fbbdb7e12c0a17d7f  \
   --accountId bestlyg-demo.testnet                                               \
   --force                                                                        \

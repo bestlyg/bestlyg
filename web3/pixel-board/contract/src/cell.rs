@@ -1,28 +1,28 @@
 use crate::shared::{Color, Position};
 use near_sdk::{
     borsh::{self, BorshDeserialize, BorshSerialize},
-    serde::Serialize,
+    serde::{Deserialize, Serialize},
     AccountId,
 };
 
-#[derive(BorshDeserialize, BorshSerialize, Debug, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Debug, Serialize, Deserialize)]
 pub struct CellInfo {
-    pos: Position,
-    color: Color,
+    pub pos: Position,
+    pub color: Color,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Default, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Debug)]
 pub struct Cell {
-    pos: Position,
-    color: Color,
-    owner: Option<AccountId>,
+    pub pos: Position,
+    pub color: Color,
+    pub owner: Option<AccountId>,
 }
 
 impl Cell {
     pub fn new_with_pos(pos: Position) -> Self {
         Self {
             pos,
-            color: Default::default(),
+            color: (255, 255, 255, 1),
             owner: Default::default(),
         }
     }

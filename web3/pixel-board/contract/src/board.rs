@@ -1,4 +1,7 @@
-use crate::cell::{Cell, CellInfo};
+use crate::{
+    cell::{Cell, CellInfo},
+    shared::Position,
+};
 use near_sdk::{
     borsh::{self, BorshDeserialize, BorshSerialize},
     serde::Serialize,
@@ -7,15 +10,18 @@ use near_sdk::{
 
 #[derive(BorshDeserialize, BorshSerialize, Debug, Serialize)]
 pub struct BoardInfo {
-    size: (usize, usize),
-    data: Vec<CellInfo>,
+    pub size: Position,
+    pub data: Vec<CellInfo>,
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Debug)]
-pub struct Board(Vector<Vector<Cell>>);
+pub struct Board {
+    pub size: Position,
+    pub data: Vector<Vector<Cell>>,
+}
 
 impl Board {
-    pub fn new(row_size: usize, col_size: usize) -> Self {
+    pub fn new(row_size: u32, col_size: u32) -> Self {
         let mut list = Vector::new(b'r');
         for i in 0..row_size {
             let mut row = Vector::new(i as u8);
@@ -24,15 +30,18 @@ impl Board {
             }
             list.push(row);
         }
-        Board(list)
+        Board {
+            size: (row_size, col_size),
+            data: list,
+        }
     }
 }
 
 impl Into<BoardInfo> for &Board {
     fn into(self) -> BoardInfo {
-        let board = &self.0;
+        let board = &self.data;
         let mut info = BoardInfo {
-            size: (board.len() as usize, board[0].len() as usize),
+            size: (board.len(), board[0].len()),
             data: Default::default(),
         };
         for row in board {
