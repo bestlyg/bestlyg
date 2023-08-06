@@ -12,31 +12,24 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-impl Solution {
-    pub fn merge_two_lists(
-        mut list1: Option<Box<ListNode>>,
-        mut list2: Option<Box<ListNode>>,
-    ) -> Option<Box<ListNode>> {
-        let mut head = ListNode::new(0);
-        let mut p = &mut head;
-        while list1.is_some() || list2.is_some() {
-            println!("list1 = {}", list1.as_ref().unwrap_or_default().val);
-            println!("list2 = {}", list1.as_ref().unwrap_or_default().val);
-            if list2.is_none()
-                || list1.is_some() && list1.as_ref().unwrap().val <= list2.as_ref().unwrap().val
-            {
-                let mut node = list1.take().unwrap();
+fn swap(
+    node: Option<Box<ListNode>>,
+    cnt: usize,
+    max_cnt: usize,
+) -> (Option<Box<ListNode>>, Option<Box<ListNode>>) {
+    match node {
+        None => (None, None),
+        Some(mut node) => {
+            if cnt == max_cnt {
                 let next = node.next.take();
-                p.next = list1;
-                list1 = next;
-            } else {
-                let mut node = list2.take().unwrap();
-                let next = node.next.take();
-                p.next = list2;
-                list2 = next;
+                node.next = swap(next, 1, max_cnt).0;
             }
-            p = p.next.as_mut().unwrap();
         }
-        head.next
+    }
+}
+
+impl Solution {
+    pub fn swap_pairs(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        swap(head, 1, 2).0
     }
 }

@@ -48,6 +48,22 @@
             "script": "c",
             "desc": "dfs。",
             "code": "struct ListNode* swapPairs(struct ListNode* head){\n    if (!head) return NULL;\n    if (head->next == NULL) return head;\n    struct ListNode *next_node = head->next;\n    if (next_node->next != NULL) head->next = swapPairs(next_node->next);\n    else head->next = NULL;\n    next_node->next = head;\n    return next_node;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 7.26,
+            "desc": "dfs。",
+            "code": "class Solution {\npublic:\n    typedef pair<ListNode*, ListNode*> pll;\n    ListNode* swapPairs(ListNode* head) {\n        return swap(head, 1, 2).first;\n    }\n    pll swap(ListNode* node, int cnt, int max_cnt) {\n        if (!node) {\n            return make_pair(nullptr, nullptr);\n        } else if (cnt == max_cnt) {\n            node->next = swap(node->next, 1, max_cnt).first;\n            return make_pair(node, node);\n        } else if (!node->next) {\n            return make_pair(node, node);\n        } else {\n            auto res = swap(node->next, cnt + 1, max_cnt);\n            node->next = res.second->next;\n            res.second->next = node;\n            return res;\n        }\n    }\n};",
+            "date": 1691251200000
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 15.62,
+            "desc": "同上。",
+            "code": "def swap(node: Optional[ListNode], cnt: int, max_cnt: int) -> (Optional[ListNode], Optional[ListNode]):\n    if not node:\n        return (None, None)\n    elif cnt == max_cnt:\n        node.next = swap(node.next, 1, max_cnt)[0]\n        return (node, node)\n    elif not node.next:\n        return (node, node)\n    else:\n        res = swap(node.next, cnt + 1, max_cnt)\n        node.next = res[1].next\n        res[1].next = node\n        return res\n\n    class Solution:\n        def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:\n            return swap(head, 1, 2)[0]",
+            "date": 1691251200000
         }
     ]
 }

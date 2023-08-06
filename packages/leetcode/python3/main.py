@@ -1,19 +1,29 @@
 from preclude import *
 
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+def swap(node: Optional[ListNode], cnt: int, max_cnt: int) -> (Optional[ListNode], Optional[ListNode]):
+    if not node:
+        return (None, None)
+    elif cnt == max_cnt:
+        node.next = swap(node.next, 1, max_cnt)[0]
+        return (node, node)
+    elif not node.next:
+        return (node, node)
+    else:
+        res = swap(node.next, cnt + 1, max_cnt)
+        node.next = res[1].next
+        res[1].next = node
+        return res
+
+
 class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        head = ListNode()
-        p = head
-        while list1 or list2:
-            if not list2 or list1 and list1.val <= list2.val:
-                p.next = list1
-                list1 = list1.next
-            else:
-                p.next = list2
-                list2 = list2.next
-            p = p.next
-        return head.next
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        return swap(head, 1, 2)[0]
 
 
 def main():

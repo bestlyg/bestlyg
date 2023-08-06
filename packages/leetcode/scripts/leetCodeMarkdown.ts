@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '21. 合并两个有序链表',
+    name: '24. 两两交换链表中的节点',
     url: 'https://leetcode.cn/problems/unique-paths-iii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -19,80 +19,62 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 8,
-            memory: 14.5,
+            time: 4,
+            memory: 7.26,
             desc: 'dfs',
             code: `class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode *head = new ListNode(), *p = head;
-        while (list1 || list2) {
-            if (!list2 || list1 && list1->val <= list2->val) {
-                p->next = list1;
-                list1 = list1->next;
-            } else {
-                p->next = list2;
-                list2 = list2->next;
-            }
-            p = p->next;
+    typedef pair<ListNode*, ListNode*> pll;
+    ListNode* swapPairs(ListNode* head) {
+        return swap(head, 1, 2).first;
+    }
+    pll swap(ListNode* node, int cnt, int max_cnt) {
+        if (!node) {
+            return make_pair(nullptr, nullptr);
+        } else if (cnt == max_cnt) {
+            node->next = swap(node->next, 1, max_cnt).first;
+            return make_pair(node, node);
+        } else if (!node->next) {
+            return make_pair(node, node);
+        } else {
+            auto res = swap(node->next, cnt + 1, max_cnt);
+            node->next = res.second->next;
+            res.second->next = node;
+            return res;
         }
-
-        return head->next;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 52,
-            memory: 15.59,
+            time: 40,
+            memory: 15.62,
             desc: '同上',
-            code: `class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        head = ListNode()
-        p = head
-        while list1 or list2:
-            if not list2 or list1 and list1.val <= list2.val:
-                p.next = list1
-                list1 = list1.next
-            else:
-                p.next = list2
-                list2 = list2.next
-            p = p.next
-        return head.next`,
+            code: `def swap(node: Optional[ListNode], cnt: int, max_cnt: int) -> (Optional[ListNode], Optional[ListNode]):
+    if not node:
+        return (None, None)
+    elif cnt == max_cnt:
+        node.next = swap(node.next, 1, max_cnt)[0]
+        return (node, node)
+    elif not node.next:
+        return (node, node)
+    else:
+        res = swap(node.next, cnt + 1, max_cnt)
+        node.next = res[1].next
+        res[1].next = node
+        return res
+
+    class Solution:
+        def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+            return swap(head, 1, 2)[0]`,
         },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2.06,
-            desc: '同上',
-            code: `impl Solution {
-pub fn merge_two_lists(
-    mut list1: Option<Box<ListNode>>,
-    mut list2: Option<Box<ListNode>>,
-) -> Option<Box<ListNode>> {
-    let mut head = ListNode::new(0);
-    let mut p = &mut head;
-    let tmp = Box::new(ListNode::new(-1));
-    while list1.is_some() || list2.is_some() {
-        if list2.is_none()
-            || list1.is_some() && list1.as_ref().unwrap().val <= list2.as_ref().unwrap().val
-        {
-            let mut node = list1.take().unwrap();
-            let next = node.next.take();
-            p.next = Some(node);
-            list1 = next;
-        } else {
-            let mut node = list2.take().unwrap();
-            let next = node.next.take();
-            p.next = Some(node);
-            list2 = next;
-        }
-        p = p.next.as_mut().unwrap();
-    }
-    head.next
-}
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 0,
+        //     memory: 2.06,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
