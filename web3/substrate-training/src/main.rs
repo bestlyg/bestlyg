@@ -18,4 +18,3 @@ fn run_web_server() {
         .mount("/", routes![controllers::address::new_address])
         .launch();
 }
-\
