@@ -6,6 +6,7 @@ extern crate rocket_contrib;
 
 mod controllers;
 
+// curl -X POST localhost:8000/address/new
 fn main() {
     run_web_server();
 }
@@ -17,3 +18,4 @@ fn run_web_server() {
         .mount("/", routes![controllers::address::new_address])
         .launch();
 }
+\
