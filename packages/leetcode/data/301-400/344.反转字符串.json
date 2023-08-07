@@ -48,6 +48,30 @@
             "script": "typescript",
             "desc": "双指针替换。",
             "code": "function reverseString(s: string[]): void {\n  for (let l = 0, r = s.length - 1; l < r; l++, r--) {\n    [s[l], s[r]] = [s[r], s[l]];\n  }\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 20,
+            "memory": 22.15,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) swap(s[l++], s[r--]);\n    }\n};",
+            "date": 1691337600000
+        },
+        {
+            "script": "python",
+            "time": 60,
+            "memory": 20.86,
+            "desc": "同上。",
+            "code": "def swap(node: Optional[ListNode], cnt: int, max_cnt: int) -> (Optional[ListNode], Optional[ListNode]):\n    if not node:\n        return (None, None)\n    elif cnt == max_cnt:\n        node.next = swap(node.next, 1, max_cnt)[0]\n        return (node, node)\n    elif not node.next:\n        return (node, node)\n    else:\n        res = swap(node.next, cnt + 1, max_cnt)\n        node.next = res[1].next\n        res[1].next = node\n        return res\n\n    class Solution:\n        def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:\n            return swap(head, 1, 2)[0]",
+            "date": 1691337600000
+        },
+        {
+            "script": "rust",
+            "time": 16,
+            "memory": 5.26,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn reverse_string(s: &mut Vec<char>) {\n        let mut l = 0;\n        let mut r = s.len() - 1;\n        while l < r {\n            let (cl, cr) = (s[l], s[r]);\n            s[l] = cr;\n            s[r] = cl;\n            l += 1;\n            r -= 1;\n        }\n    }\n}",
+            "date": 1691337600000
         }
     ]
 }
