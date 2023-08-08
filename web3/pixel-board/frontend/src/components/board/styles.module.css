@@ -3,7 +3,8 @@
     --col_size: 10;
     --row_size: 10;
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.05);
     display: grid;
     grid-template-columns: repeat(var(--col_size), var(--size));
     grid-template-rows: repeat(var(--row_size), var(--size));
@@ -26,4 +27,14 @@
 }
 .cell:active {
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.current_color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    
 }

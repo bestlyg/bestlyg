@@ -1,15 +1,16 @@
 import iro from '@jaames/iro';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'antd';
 import { useBoolean } from 'ahooks';
 
 export function ColorPicker({
-    color,
-    setColor,
+    defaultColor = [255, 255, 255, 1],
+    onChange,
 }: {
-    color: number[];
-    setColor: (v: number[]) => void;
+    defaultColor?: number[];
+    onChange: (v: number[]) => void;
 }) {
+    const [color, setColor] = useState(defaultColor);
     const [visible, visibleOpt] = useBoolean();
     const colorPickerRef = useRef(null);
     const colorPickerInstanceRef = useRef(null as iro.ColorPicker);
@@ -36,6 +37,7 @@ export function ColorPicker({
                 open={visible}
                 onCancel={visibleOpt.setFalse}
                 onOk={() => {
+                    onChange(color);
                     visibleOpt.setFalse();
                 }}
             >

@@ -7,6 +7,7 @@ use near_sdk::{env, log, near_bindgen, require, AccountId, PanicOnDefault};
 pub mod board;
 pub mod cell;
 pub mod shared;
+mod update;
 
 // Define the contract structure
 #[near_bindgen]
@@ -72,7 +73,7 @@ impl Contract {
     }
     // 测试打印信息
     pub fn get_greeting(&self) -> String {
-        return self.message.clone();
+        return format!("{}: {}", "2023-8-8 22:13", self.message);
     }
     // 测试设置数据
     pub fn set_greeting(&mut self, message: String) {

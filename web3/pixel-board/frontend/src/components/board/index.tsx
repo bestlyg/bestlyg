@@ -5,7 +5,7 @@ import { Spin, Space, Button, message } from 'antd';
 import { useApi } from '@/api';
 import cx from 'classnames';
 import { ChromePicker } from 'react-color';
-import styles from './styles.css';
+import styles from './styles.module.css';
 import { ColorPicker } from '@/components/color-picker';
 import iro from '@jaames/iro';
 
@@ -46,7 +46,7 @@ export function Board() {
             ) : (
                 <>
                     <Space>
-                        <ColorPicker color={color} setColor={setColor} />
+                        <ColorPicker onChange={setColor} />
                         <Button onClick={() => setSelectCell({})}>Clear</Button>
                         <Button onClick={() => refresh()}>Refresh</Button>
                         <Button
@@ -61,6 +61,7 @@ export function Board() {
                                 api.set_board(info)
                                     .then(() => {
                                         message.success('set color successfully');
+                                        setSelectCell({});
                                     })
                                     .catch(err => {
                                         message.success('set color error');
@@ -75,10 +76,8 @@ export function Board() {
                         </Button>
                     </Space>
                     <div
+                        className={styles.current_color}
                         style={{
-                            width: 200,
-                            height: 200,
-                            border: '1px solid black',
                             backgroundColor: `rgba(${color.join(',')})`,
                         }}
                     >
