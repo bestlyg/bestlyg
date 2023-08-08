@@ -2,18 +2,12 @@ from preclude import *
 
 
 class Solution:
-    def reverseString(self, s: List[str]) -> None:
-        l = 0
-        r = len(s) - 1
-        while l < r:
-            (s[l], s[r]) = (s[r], s[l])
-            l += 1
-            r -= 1
-
-
-class Solution:
-    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        return swap(head, 1, 2)[0]
+    def maxAbsoluteSum(self, nums: List[int]) -> int:
+        nmin = nmax = res = 0
+        for num in nums:
+            nmin, nmax = min(num, nmin + num), max(0, nmax + num)
+            res = max(res, max(abs(nmin), abs(nmax)))
+        return res
 
 
 def main():

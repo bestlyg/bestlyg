@@ -13,15 +13,13 @@ fn main() {
 }
 
 impl Solution {
-    pub fn reverse_string(s: &mut Vec<char>) {
-        let mut l = 0;
-        let mut r = s.len() - 1;
-        while l < r {
-            let (cl, cr) = (s[l], s[r]);
-            s[l] = cr;
-            s[r] = cl;
-            l += 1;
-            r -= 1;
+    pub fn max_absolute_sum(nums: Vec<i32>) -> i32 {
+        let (mut nmin, mut nmax, mut res) = (0, 0, 0);
+        for num in nums {
+            nmin = num.min(nmin + num);
+            nmax = 0.max(nmax + num);
+            res = res.max(nmin.abs()).max(nmax.abs())
         }
+        res
     }
 }
