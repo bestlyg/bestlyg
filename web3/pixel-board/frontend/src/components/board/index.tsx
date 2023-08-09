@@ -6,7 +6,7 @@ import { useApi } from '@/api';
 import cx from 'classnames';
 import { ChromePicker } from 'react-color';
 import styles from './styles.module.css';
-import { ColorPicker } from '@/components/color-picker';
+import { useColorPicker } from '@/components/color-picker';
 import iro from '@jaames/iro';
 
 export interface Cell {
@@ -39,14 +39,18 @@ export function Board() {
         }
     }, [data]);
     const [color, setColor] = useState([255, 255, 255, 1]);
+    const { show: showColorPicker, node: ColorPickerNode } = useColorPicker({
+        onChange: v => setColor(v),
+    });
     return (
         <Space direction="vertical" style={{ marginTop: 20 }}>
+            {ColorPickerNode}
             {loading ? (
                 <Spin />
             ) : (
                 <>
                     <Space>
-                        <ColorPicker onChange={setColor} />
+                        <Button onClick={showColorPicker}>Set Color1</Button>
                         <Button onClick={() => setSelectCell({})}>Clear</Button>
                         <Button onClick={() => refresh()}>Refresh</Button>
                         <Button
@@ -76,6 +80,7 @@ export function Board() {
                         </Button>
                     </Space>
                     <div
+                        onClick={showColorPicker}
                         className={styles.current_color}
                         style={{
                             backgroundColor: `rgba(${color.join(',')})`,
