@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1749. 任意子数组和的绝对值的最大值',
-    url: 'https://leetcode.cn/problems/maximum-absolute-sum-of-any-subarray',
+    name: '1281. 整数的各位积和之差',
+    url: 'https://leetcode.cn/problems/subtract-the-product-and-sum-of-digits-of-an-integer',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出 nums 中 和的绝对值 最大的任意子数组（可能为空），并返回该 最大值 。`,
+    desc: `给你一个整数 n，请你帮忙计算并返回该整数「各位数字之积」与「各位数字之和」的差。`,
     solutions: [
         // {
         //     date: new Date('2020/10/06').getTime(),
@@ -19,49 +19,52 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 76,
-            memory: 39.4,
-            desc: '遍历,统计最大值和最小值',
+            time: 0,
+            memory: 5.7,
+            desc: '遍历',
             code: `class Solution {
 public:
-    int maxAbsoluteSum(vector<int>& nums) {
-        int nmin = 0, nmax = 0, res = 0;
-        for (auto &num : nums) {
-            nmin = min(num, nmin + num);
-            nmax = max(0, nmax + num);
-            res = max(res, max(abs(nmin), abs(nmax)));
+    int subtractProductAndSum(int n) {
+        int num1 = 1, num2 = 0;
+        while (n) {
+            num1 *= n % 10;
+            num2 += n % 10;
+            n /= 10;
         }
-        return res;
+        return num1 - num2;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 212,
-            memory: 26.04,
+            time: 44,
+            memory: 16.1,
             desc: '同上',
             code: `class Solution:
-    def maxAbsoluteSum(self, nums: List[int]) -> int:
-        nmin = nmax = res = 0
-        for num in nums:
-            nmin, nmax = min(num, nmin + num), max(0, nmax + num)
-            res = max(res, max(abs(nmin), abs(nmax)))
-        return res`,
+    def subtractProductAndSum(self, n: int) -> int:
+        num1 = 1
+        num2 = 0
+        while n:
+            num1 *= n % 10
+            num2 += n % 10
+            n //= 10
+        return num1 - num2`,
         },
         {
             script: Script.RUST,
-            time: 8,
-            memory: 3.01,
+            time: 0,
+            memory: 2,
             desc: '同上',
             code: `impl Solution {
-    pub fn max_absolute_sum(nums: Vec<i32>) -> i32 {
-        let (mut nmin, mut nmax, mut res) = (0, 0, 0);
-        for num in nums {
-            nmin = num.min(nmin + num);
-            nmax = 0.max(nmax + num);
-            res = res.max(nmin.abs()).max(nmax.abs())
+    pub fn subtract_product_and_sum(mut n: i32) -> i32 {
+        let mut num1 = 1;
+        let mut num2 = 0;
+        while n != 0 {
+            num1 *= n % 10;
+            num2 += n % 10;
+            n /= 10;
         }
-        res
+        num1 - num2
     }
 }`,
         },
