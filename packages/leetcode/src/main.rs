@@ -13,13 +13,29 @@ fn main() {
 }
 
 impl Solution {
-    pub fn max_absolute_sum(nums: Vec<i32>) -> i32 {
-        let (mut nmin, mut nmax, mut res) = (0, 0, 0);
-        for num in nums {
-            nmin = num.min(nmin + num);
-            nmax = 0.max(nmax + num);
-            res = res.max(nmin.abs()).max(nmax.abs())
+    pub fn min_falling_path_sum(mut grid: Vec<Vec<i32>>) -> i32 {
+        let n = grid.len();
+        let mut min1 = 0;
+        let mut min2 = 0;
+        for row in 1..n {
+            min1 = usize::MAX;
+            min2 = usize::MAX;
+            for j in 0..n {
+                if min1 == usize::MAX || grid[row - 1][j] < grid[row - 1][min1] {
+                    min2 = min1;
+                    min1 = j;
+                } else if min2 == usize::MAX || grid[row - 1][j] < grid[row - 1][min2] {
+                    min2 = j;
+                }
+            }
+            for j in 0..n {
+                grid[row][j] += if j == min1 {
+                    grid[row - 1][min2]
+                } else {
+                    grid[row - 1][min1]
+                };
+            }
         }
-        res
+        *grid[n - 1].iter().min().unwrap()
     }
 }

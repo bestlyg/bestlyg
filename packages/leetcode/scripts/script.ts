@@ -103,11 +103,3 @@
 // export type DividedBy<M extends number, N extends number> = N extends 0
 //   ? unknown
 //   : _DivideBy<M, N, []>;
-
-const list = [
-    '....X.', //1
-    '....X.',
-    'XOOO..',
-    '......',
-    '......',
-];
