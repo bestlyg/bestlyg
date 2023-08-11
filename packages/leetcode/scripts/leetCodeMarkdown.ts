@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1289. 下降路径最小和 II',
-    url: 'https://leetcode.cn/problems/minimum-falling-path-sum-ii/',
+    name: '1572. 矩阵对角线元素的和',
+    url: 'https://leetcode.cn/problems/matrix-diagonal-sum/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 n x n 整数矩阵 grid ，请你返回 非零偏移下降路径 数字和的最小值。`,
+    desc: `给你一个正方形矩阵 mat，请你返回矩阵对角线元素的和。`,
     solutions: [
         // {
         //     date: new Date('2020/10/06').getTime(),
@@ -19,94 +19,50 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 40,
-            memory: 13.82,
+            time: 12,
+            memory: 10.8,
             desc: '遍历，只记录最小值和第二小值',
             code: `class Solution {
 public:
-    int minFallingPathSum(vector<vector<int>>& grid) {
-        int n = grid.size(), min1, min2, res;
-        auto refresh = [&](int row) {
-            res = INT_MAX;
-            min1 = INT_MAX;
-            min2 = INT_MAX;
-            for (int j = 0; j < n; j++) {
-                res = min(res, grid[row][j]);
-                if (min1 == INT_MAX || grid[row][j] < grid[row][min1]) min2 = min1, min1 = j;
-                else if (min2 == INT_MAX || grid[row][j] < grid[row][min2]) min2 = j;
-            }
-        };
-        for (int row = 1; row < n; row++) {
-            refresh(row - 1);
-            for (int j = 0; j < n; j++) {
-                grid[row][j] += j == min1 ? grid[row - 1][min2] : grid[row - 1][min1];
-            }
+    int diagonalSum(vector<vector<int>>& mat) {
+        int n = mat.size(), res = 0;
+        for (int i = 0; i < n; i++) {
+            res += mat[i][i] + mat[i][n - i - 1];
+            if (i == n - i - 1) res -= mat[i][i];
         }
-        refresh(n - 1);
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 128,
-            memory: 18.97,
+            time: 44,
+            memory: 15.88,
             desc: '同上',
             code: `class Solution:
-    def minFallingPathSum(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        min1 = min2 = res = 0
-
-        def refresh(row: int):
-            nonlocal res
-            nonlocal min1
-            nonlocal min2
-            res = min1 = min2 = inf
-            for j in range(n):
-                res = min(res, grid[row][j])
-                if min1 == inf or grid[row][j] < grid[row][min1]:
-                    min2 = min1
-                    min1 = j
-                elif min2 == inf or grid[row][j] < grid[row][min2]:
-                    min2 = j
-        for row in range(1, n):
-            refresh(row-1)
-            for j in range(n):
-                grid[row][j] += grid[row -
-                                        1][min2] if j == min1 else grid[row - 1][min1]
-        refresh(n-1)
+    def diagonalSum(self, mat: List[List[int]]) -> int:
+        n = len(mat)
+        res = 0
+        for i in range(n):
+            res += mat[i][i] + mat[i][n - i - 1]
+            if i == n - i - 1:
+                res -= mat[i][i]
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.53,
+            time: 4,
+            memory: 2.13,
             desc: '同上',
             code: `impl Solution {
-    pub fn min_falling_path_sum(mut grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let mut min1 = 0;
-        let mut min2 = 0;
-        for row in 1..n {
-            min1 = usize::MAX;
-            min2 = usize::MAX;
-            for j in 0..n {
-                if min1 == usize::MAX || grid[row - 1][j] < grid[row - 1][min1] {
-                    min2 = min1;
-                    min1 = j;
-                } else if min2 == usize::MAX || grid[row - 1][j] < grid[row - 1][min2] {
-                    min2 = j;
-                }
+    pub fn diagonal_sum(mat: Vec<Vec<i32>>) -> i32 {
+        mat.into_iter().enumerate().fold(0, |mut sum, (i, row)| {
+            sum += row[i] + row[row.len() - 1 - i];
+            if i == row.len() - 1 - i {
+                sum -= row[i];
             }
-            for j in 0..n {
-                grid[row][j] += if j == min1 {
-                    grid[row - 1][min2]
-                } else {
-                    grid[row - 1][min1]
-                };
-            }
-        }
-        *grid[n - 1].iter().min().unwrap()
+            sum
+        })
     }
 }`,
         },

@@ -1,0 +1,33 @@
+{
+    "name": "1572.矩阵对角线元素的和",
+    "url": "https://leetcode.cn/problems/matrix-diagonal-sum/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个正方形矩阵 mat，请你返回矩阵对角线元素的和。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 12,
+            "memory": 10.8,
+            "desc": "遍历，只记录最小值和第二小值。",
+            "code": "class Solution {\npublic:\n    int diagonalSum(vector<vector<int>>& mat) {\n        int n = mat.size(), res = 0;\n        for (int i = 0; i < n; i++) {\n            res += mat[i][i] + mat[i][n - i - 1];\n            if (i == n - i - 1) res -= mat[i][i];\n        }\n        return res;\n    }\n};",
+            "date": 1691683200000
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 15.88,
+            "desc": "同上。",
+            "code": "class Solution:\n    def diagonalSum(self, mat: List[List[int]]) -> int:\n        n = len(mat)\n        res = 0\n        for i in range(n):\n            res += mat[i][i] + mat[i][n - i - 1]\n            if i == n - i - 1:\n                res -= mat[i][i]\n        return res",
+            "date": 1691683200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.13,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn diagonal_sum(mat: Vec<Vec<i32>>) -> i32 {\n        mat.into_iter().enumerate().fold(0, |mut sum, (i, row)| {\n            sum += row[i] + row[row.len() - 1 - i];\n            if i == row.len() - 1 - i {\n                sum -= row[i];\n            }\n            sum\n        })\n    }\n}",
+            "date": 1691683200000
+        }
+    ]
+}

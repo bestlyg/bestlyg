@@ -13,29 +13,13 @@ fn main() {
 }
 
 impl Solution {
-    pub fn min_falling_path_sum(mut grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let mut min1 = 0;
-        let mut min2 = 0;
-        for row in 1..n {
-            min1 = usize::MAX;
-            min2 = usize::MAX;
-            for j in 0..n {
-                if min1 == usize::MAX || grid[row - 1][j] < grid[row - 1][min1] {
-                    min2 = min1;
-                    min1 = j;
-                } else if min2 == usize::MAX || grid[row - 1][j] < grid[row - 1][min2] {
-                    min2 = j;
-                }
+    pub fn diagonal_sum(mat: Vec<Vec<i32>>) -> i32 {
+        mat.into_iter().enumerate().fold(0, |mut sum, (i, row)| {
+            sum += row[i] + row[row.len() - 1 - i];
+            if i == row.len() - 1 - i {
+                sum -= row[i];
             }
-            for j in 0..n {
-                grid[row][j] += if j == min1 {
-                    grid[row - 1][min2]
-                } else {
-                    grid[row - 1][min1]
-                };
-            }
-        }
-        *grid[n - 1].iter().min().unwrap()
+            sum
+        })
     }
 }
