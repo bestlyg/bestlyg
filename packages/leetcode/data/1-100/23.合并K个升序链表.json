@@ -1,0 +1,55 @@
+{
+    "id": "23",
+    "name": "23.合并K个升序链表",
+    "url": "https://leetcode.cn/problems/merge-k-sorted-lists",
+    "difficulty": "困难",
+    "tag": [
+        "链表",
+        "分治",
+        "堆（优先队列）",
+        "归并排序"
+    ],
+    "desc": "给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。",
+    "solutions": [
+        {
+            "date": 1587830400000,
+            "script": "javascript",
+            "time": 384,
+            "memory": 44.78,
+            "desc": "归并排序。",
+            "code": "var mergeKLists = function (lists) {\n    if (lists.length === 0) return null;\n    if (lists.length === 1) return lists[0];\n    let resNode;\n    for (const node of lists) {\n        if (node === null) continue;\n        if (resNode === undefined) resNode = node;\n        else resNode = add(resNode, node);\n    }\n    return resNode===undefined?null:resNode;\n};\nfunction add(node1, node2) {\n    let tempNode1 = node1;\n    let tempNode2 = node2;\n    let resNode;\n    let tempNode3;\n    while (tempNode1 !== null || tempNode2 !== null) {\n        let minNode;\n        if (tempNode1 === null) {\n            minNode = tempNode2;\n            tempNode2 = tempNode2.next;\n        } else if (tempNode2 === null) {\n            minNode = tempNode1;\n            tempNode1 = tempNode1.next;\n        } else if (tempNode1.val < tempNode2.val) {\n            minNode = tempNode1;\n            tempNode1 = tempNode1.next;\n        } else {\n            minNode = tempNode2;\n            tempNode2 = tempNode2.next;\n        }\n        if (resNode === undefined) {\n            tempNode3 = resNode = minNode;\n        } else {\n            tempNode3.next = minNode;\n            tempNode3 = tempNode3.next;\n        }\n    }\n    return resNode;\n}"
+        },
+        {
+            "date": 1620835200000,
+            "script": "typescript",
+            "time": 220,
+            "memory": 48.3,
+            "desc": "归并排序。",
+            "code": "function mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n  lists = lists.filter(list => list !== null);\n  const len = lists.length;\n  if (len === 0) return null;\n  const merge = (start: number, end: number): ListNode | null => {\n    console.log(start, end);\n    if (start > end) return null;\n    if (start === end) return lists[start];\n    const mid = (start + end) >> 1;\n    const list1 = merge(start, mid);\n    const list2 = merge(mid + 1, end);\n    if (list1 === null) return list2;\n    if (list2 === null) return list1;\n    const first = new ListNode(0);\n    let temp = first;\n    let p1: ListNode | null = list1;\n    let p2: ListNode | null = list2;\n    while (p1 && p2) {\n      if (p1.val <= p2.val) {\n        temp.next = p1;\n        temp = temp.next;\n        p1 = p1.next;\n      } else {\n        temp.next = p2;\n        temp = temp.next;\n        p2 = p2.next;\n      }\n    }\n    if (p1) temp.next = p1;\n    if (p2) temp.next = p2;\n    return first.next;\n  };\n  return merge(0, len - 1);\n}}"
+        },
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 12.67,
+            "desc": "堆存储每个头节点。",
+            "code": "class Solution {\npublic:\n    ListNode* mergeKLists(vector<ListNode*>& lists) {\n        ListNode *head = new ListNode(), *p = head;\n        auto cmp = [&](ListNode* n1, ListNode* n2) {\n            return n2->val < n1->val;\n        };\n        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> q(cmp);\n        for (auto &node : lists) {\n            if (node) q.push(node);\n        }\n        while (q.size()) {\n            auto node = q.top();\n            q.pop();\n            p->next = node;\n            p = p->next;\n            if (node->next) q.push(node->next);\n        }\n        return head->next;\n    }\n};",
+            "date": 1691769600000
+        },
+        {
+            "script": "python",
+            "time": 136,
+            "memory": 19.82,
+            "desc": "同上。",
+            "code": "ListNode.__lt__ = lambda a, b: a.val < b.val\n\n    class Solution:\n        def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:\n            head = ListNode()\n            p = head\n            q = []\n            for node in lists:\n                if node:\n                    print(node)\n                    heappush(q, node)\n    \n            while len(q):\n                node = heappop(q)\n                p.next = node\n                p = p.next\n                if node.next:\n                    heappush(q, node.next)\n            return head.next",
+            "date": 1691769600000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 3.25,
+            "desc": "同上。",
+            "code": "use std::cmp::{Ord, Ordering, PartialOrd};\nimpl Ord for ListNode {\n    fn cmp(&self, other: &Self) -> Ordering {\n        other.val.cmp(&self.val)\n    }\n}\nimpl PartialOrd for ListNode {\n    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {\n        other.val.partial_cmp(&self.val)\n    }\n}\n\nimpl Solution {\n    pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {\n        let mut head = Some(Box::new(ListNode::new(0)));\n        let mut p = head.as_mut().unwrap();\n        let mut q = std::collections::BinaryHeap::new();\n        for node in lists {\n            if let Some(node) = node {\n                q.push(node);\n            }\n        }\n        while let Some(mut node) = q.pop() {\n            let next = node.next.take();\n            p.next = Some(node);\n            p = p.next.as_mut().unwrap();\n            if let Some(next) = next {\n                q.push(next);\n            }\n        }\n        head.unwrap().next\n    }\n}",
+            "date": 1691769600000
+        }
+    ]
+}

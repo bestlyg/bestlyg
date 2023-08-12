@@ -11,15 +11,37 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
+use std::cmp::{Ord, Ordering, PartialOrd};
+impl Ord for ListNode {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.val.cmp(&other.val)
+    }
+}
+impl PartialOrd for ListNode {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.val.partial_cmp(&other.val)
+    }
+}
 
 impl Solution {
-    pub fn diagonal_sum(mat: Vec<Vec<i32>>) -> i32 {
-        mat.into_iter().enumerate().fold(0, |mut sum, (i, row)| {
-            sum += row[i] + row[row.len() - 1 - i];
-            if i == row.len() - 1 - i {
-                sum -= row[i];
+    pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
+        let mut head = Some(Box::new(ListNode::new(0)));
+        let mut p = head.as_mut().unwrap();
+        let mut q = std::collections::BinaryHeap::new();
+        for node in lists {
+            if let Some(node) = node {
+                q.push(node);
             }
-            sum
-        })
+        }
+        while let Some(mut node) = q.pop() {
+            println!("{node:#?}");
+            let next = node.next.take();
+            p.next = Some(node);
+            p = p.next.as_mut().unwrap();
+            if let Some(next) = next {
+                q.push(next);
+            }
+        }
+        head.unwrap().next
     }
 }

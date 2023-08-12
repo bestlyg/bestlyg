@@ -1,15 +1,29 @@
 from preclude import *
 
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+ListNode.__lt__ = lambda a, b: a.val < b.val
+
+
 class Solution:
-    def diagonalSum(self, mat: List[List[int]]) -> int:
-        n = len(mat)
-        res = 0
-        for i in range(n):
-            res += mat[i][i] + mat[i][n - i - 1]
-            if i == n - i - 1:
-                res -= mat[i][i]
-        return res
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        head = ListNode()
+        p = head
+        q = []
+        for node in lists:
+            if node:
+                heappush(q, node)
+        while len(q):
+            node = heappop(q)
+            p = p.next = node
+            if node.next:
+                q.push(node.next)
+        return head.next
 
 
 def main():
