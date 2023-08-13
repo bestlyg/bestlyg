@@ -1,29 +1,17 @@
 from preclude import *
 
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-
-ListNode.__lt__ = lambda a, b: a.val < b.val
-
-
 class Solution:
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        head = ListNode()
-        p = head
-        q = []
-        for node in lists:
-            if node:
-                heappush(q, node)
-        while len(q):
-            node = heappop(q)
-            p = p.next = node
-            if node.next:
-                q.push(node.next)
-        return head.next
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        i1 = m-1
+        i2 = n-1
+        for idx in range(len(nums1), -1, -1):
+            if i2 < 0 or i1 >= 0 and nums1[i1] > nums2[i2]:
+                nums1[idx] = nums1[i1]
+                i1 -= 1
+            else:
+                nums1[idx] = nums2[i2]
+                i2 -= 1
 
 
 def main():

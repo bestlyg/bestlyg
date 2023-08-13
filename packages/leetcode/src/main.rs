@@ -11,37 +11,22 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-use std::cmp::{Ord, Ordering, PartialOrd};
-impl Ord for ListNode {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.val.cmp(&other.val)
-    }
-}
-impl PartialOrd for ListNode {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.val.partial_cmp(&other.val)
-    }
-}
 
 impl Solution {
-    pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
-        let mut head = Some(Box::new(ListNode::new(0)));
-        let mut p = head.as_mut().unwrap();
-        let mut q = std::collections::BinaryHeap::new();
-        for node in lists {
-            if let Some(node) = node {
-                q.push(node);
+    pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
+        let m = m as usize;
+        let n = n as usize;
+        let mut i1 = m - 1;
+        let mut i2 = n - 1;
+        for idx in (0..nums1.len()).rev() {
+            println!("i1 = {i1}, i2 = {i2}, idx = {idx}");
+            if i2 < n || i1 < m && nums1[i1] > nums2[i2] {
+                nums1[idx] = nums1[i1];
+                i1 -= 1;
+            } else {
+                nums1[idx] = nums2[i2];
+                i2 -= 1;
             }
         }
-        while let Some(mut node) = q.pop() {
-            println!("{node:#?}");
-            let next = node.next.take();
-            p.next = Some(node);
-            p = p.next.as_mut().unwrap();
-            if let Some(next) = next {
-                q.push(next);
-            }
-        }
-        head.unwrap().next
     }
 }

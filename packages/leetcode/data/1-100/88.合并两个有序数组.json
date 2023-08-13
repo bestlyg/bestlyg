@@ -41,6 +41,30 @@
             "script": "cpp",
             "desc": "从后往前遍历。",
             "code": "class Solution {\n   public:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        int idx = m + n - 1, idx1 = m - 1, idx2 = n - 1;\n        while (idx1 >= 0 || idx2 >= 0) {\n            if (idx1 >= 0 && (idx2 < 0 || nums1[idx1] >= nums2[idx2])) {\n                nums1[idx--] = nums1[idx1--];\n            } else {\n                nums1[idx--] = nums2[idx2--];\n            }\n        }\n    }\n};"
+        },
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 8.77,
+            "desc": "双指针遍历。",
+            "code": "class Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        for (int idx = nums1.size() - 1, i1 = m - 1, i2 = n - 1; idx >= 0; idx--) {\n            if (i2 < 0 || i1 >= 0 && nums1[i1] > nums2[i2]) {\n                nums1[idx] = nums1[i1--];\n            } else {\n                nums1[idx] = nums2[i2--];\n            }\n        }\n    }\n};",
+            "date": 1691856000000
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 15.68,
+            "desc": "同上。",
+            "code": "class Solution:\n    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:\n        i1 = m-1\n        i2 = n-1\n        for idx in range(len(nums1) - 1, -1, -1):\n            if i2 < 0 or i1 >= 0 and nums1[i1] > nums2[i2]:\n                nums1[idx] = nums1[i1]\n                i1 -= 1\n            else:\n                nums1[idx] = nums2[i2]\n                i2 -= 1",
+            "date": 1691856000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.09,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {\n        let m = m as usize;\n        let n = n as usize;\n        let mut i1 = m - 1;\n        let mut i2 = n - 1;\n        for idx in (0..nums1.len()).rev() {\n            if i2 >= n || i1 < m && nums1[i1] > nums2[i2] {\n                nums1[idx] = nums1[i1];\n                i1 -= 1;\n            } else {\n                nums1[idx] = nums2[i2];\n                i2 -= 1;\n            }\n        }\n    }\n}",
+            "date": 1691856000000
         }
     ]
 }
