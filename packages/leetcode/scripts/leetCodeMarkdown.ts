@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '88. 合并两个有序数组',
+    name: '617. 合并二叉树',
     url: 'https://leetcode.cn/problems/merge-k-sorted-lists/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,58 +27,78 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 0,
-            memory: 8.77,
-            desc: '双指针遍历',
+            time: 36,
+            memory: 30.85,
+            desc: '递归合并',
             code: `class Solution {
 public:
-    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        for (int idx = nums1.size() - 1, i1 = m - 1, i2 = n - 1; idx >= 0; idx--) {
-            if (i2 < 0 || i1 >= 0 && nums1[i1] > nums2[i2]) {
-                nums1[idx] = nums1[i1--];
-            } else {
-                nums1[idx] = nums2[i2--];
-            }
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        if (!root1 && !root2) return nullptr;
+        else if (root1 && !root2) return root1;
+        else if (!root1 && root2) return root2;
+        else {
+            root1->val += root2->val;
+            root1->left = mergeTrees(root1->left, root2->left);
+            root1->right = mergeTrees(root1->right, root2->right);
+            return root1;
         }
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 44,
-            memory: 15.68,
+            time: 64,
+            memory: 16.15,
             desc: '同上',
             code: `class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        i1 = m-1
-        i2 = n-1
-        for idx in range(len(nums1) - 1, -1, -1):
-            if i2 < 0 or i1 >= 0 and nums1[i1] > nums2[i2]:
-                nums1[idx] = nums1[i1]
-                i1 -= 1
-            else:
-                nums1[idx] = nums2[i2]
-                i2 -= 1`,
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root1 and not root2:
+            return None
+        elif root1 and not root2:
+            return root1
+        elif not root1 and root2:
+            return root2
+        else:
+            root1.val += root2.val
+            root1.left = self.mergeTrees(root1.left, root2.left)
+            root1.right = self.mergeTrees(root1.right, root2.right)
+            return root1`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.09,
+            time: 4,
+            memory: 2.3,
             desc: '同上',
-            code: `impl Solution {
-    pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
-        let m = m as usize;
-        let n = n as usize;
-        let mut i1 = m - 1;
-        let mut i2 = n - 1;
-        for idx in (0..nums1.len()).rev() {
-            if i2 >= n || i1 < m && nums1[i1] > nums2[i2] {
-                nums1[idx] = nums1[i1];
-                i1 -= 1;
-            } else {
-                nums1[idx] = nums2[i2];
-                i2 -= 1;
-            }
+            code: `use std::cell::RefCell;
+use std::rc::Rc;
+impl Solution {
+    pub fn merge_trees(
+        root1: Option<Rc<RefCell<TreeNode>>>,
+        root2: Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        match root1 {
+            None => root2,
+            Some(mut root1) => match root2 {
+                None => Some(root1),
+                Some(root2) => {
+                    {
+                        let mut root1_ref = root1.as_ref().borrow_mut();
+                        let mut root2_ref = root2.as_ref().borrow_mut();
+                        root1_ref.val += root2_ref.val;
+                        {
+                            let child1 = root1_ref.left.take();
+                            let child2 = root2_ref.left.take();
+                            root1_ref.left = Self::merge_trees(child1, child2);
+                        }
+                        {
+                            let child1 = root1_ref.right.take();
+                            let child2 = root2_ref.right.take();
+                            root1_ref.right = Self::merge_trees(child1, child2);
+                        }
+                    }
+                    Some(root1)
+                }
+            },
         }
     }
 }`,

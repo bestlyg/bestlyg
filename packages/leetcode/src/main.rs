@@ -12,21 +12,36 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
-        let m = m as usize;
-        let n = n as usize;
-        let mut i1 = m - 1;
-        let mut i2 = n - 1;
-        for idx in (0..nums1.len()).rev() {
-            println!("i1 = {i1}, i2 = {i2}, idx = {idx}");
-            if i2 < n || i1 < m && nums1[i1] > nums2[i2] {
-                nums1[idx] = nums1[i1];
-                i1 -= 1;
-            } else {
-                nums1[idx] = nums2[i2];
-                i2 -= 1;
-            }
+    pub fn merge_trees(
+        root1: Option<Rc<RefCell<TreeNode>>>,
+        root2: Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        match root1 {
+            None => root2,
+            Some(mut root1) => match root2 {
+                None => Some(root1),
+                Some(root2) => {
+                    {
+                        let mut root1_ref = root1.as_ref().borrow_mut();
+                        let mut root2_ref = root2.as_ref().borrow_mut();
+                        root1_ref.val += root2_ref.val;
+                        {
+                            let child1 = root1_ref.left.take();
+                            let child2 = root2_ref.left.take();
+                            root1_ref.left = Self::merge_trees(child1, child2);
+                        }
+                        {
+                            let child1 = root1_ref.right.take();
+                            let child2 = root2_ref.right.take();
+                            root1_ref.right = Self::merge_trees(child1, child2);
+                        }
+                    }
+                    Some(root1)
+                }
+            },
         }
     }
 }

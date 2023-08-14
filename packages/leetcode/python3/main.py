@@ -1,17 +1,25 @@
 from preclude import *
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        i1 = m-1
-        i2 = n-1
-        for idx in range(len(nums1), -1, -1):
-            if i2 < 0 or i1 >= 0 and nums1[i1] > nums2[i2]:
-                nums1[idx] = nums1[i1]
-                i1 -= 1
-            else:
-                nums1[idx] = nums2[i2]
-                i2 -= 1
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root1 and not root2:
+            return None
+        elif root1 and not root2:
+            return root1
+        elif not root1 and root2:
+            return root2
+        else:
+            root1.val += root2.val
+            root1.left = self.mergeTrees(root1.left, root2.left)
+            root1.right = self.mergeTrees(root1.right, root2.right)
+            return root1
 
 
 def main():
