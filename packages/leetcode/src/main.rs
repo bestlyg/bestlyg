@@ -12,36 +12,30 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
 impl Solution {
-    pub fn merge_trees(
-        root1: Option<Rc<RefCell<TreeNode>>>,
-        root2: Option<Rc<RefCell<TreeNode>>>,
-    ) -> Option<Rc<RefCell<TreeNode>>> {
-        match root1 {
-            None => root2,
-            Some(mut root1) => match root2 {
-                None => Some(root1),
-                Some(root2) => {
-                    {
-                        let mut root1_ref = root1.as_ref().borrow_mut();
-                        let mut root2_ref = root2.as_ref().borrow_mut();
-                        root1_ref.val += root2_ref.val;
-                        {
-                            let child1 = root1_ref.left.take();
-                            let child2 = root2_ref.left.take();
-                            root1_ref.left = Self::merge_trees(child1, child2);
-                        }
-                        {
-                            let child1 = root1_ref.right.take();
-                            let child2 = root2_ref.right.take();
-                            root1_ref.right = Self::merge_trees(child1, child2);
-                        }
-                    }
-                    Some(root1)
-                }
-            },
+    pub fn find_replace_string(
+        mut s: String,
+        indices: Vec<i32>,
+        sources: Vec<String>,
+        targets: Vec<String>,
+    ) -> String {
+        let indices = indices.into_iter().map(|i| i as usize).collect::<Vec<_>>();
+        let n = indices.len();
+        let mut idxs = (0..n).collect::<Vec<_>>();
+        idxs.sort_by_key(|i| indices[*i]);
+        idxs.reverse();
+        for i in idxs {
+                println!("=\n{i}");
+            if indices[i] + sources[i].len() < s.len() && s[indices[i]..indices[i] + sources[i].len()] == sources[i] {
+                println!("in , {i}");
+                let mut ns = String::new();
+                println!("{}|{}|{}",&s[0..indices[i]], &targets[i], &s[indices[i] + sources[i].len()..]);
+                ns.push_str(&s[0..indices[i]]);
+                ns.push_str(&targets[i]);
+                ns.push_str(&s[indices[i] + sources[i].len()..]);
+                s = ns;
+            }
         }
+        s
     }
 }
