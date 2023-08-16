@@ -2,17 +2,22 @@ from preclude import *
 
 
 class Solution:
-    def findReplaceString(self, s: str, indices: List[int], sources: List[str], targets: List[str]) -> str:
-        n = len(indices)
-        idxs = [i for i in range(n)]
-        idxs.sort(key=lambda i: indices[i], reverse=True)
-        for idx in range(n):
-            i = idxs[idx]
-            if s[indices[i]:indices[i]+len(sources[i])] == sources[i]:
-                print('in')
-                s = s[0:indices[i]] + targets[i] + \
-                    s[indices[i]:indices[i]+len(sources[i])]
-        return s
+    def circularGameLosers(self, n: int, k: int) -> List[int]:
+        list = [0 for _ in range(n)]
+        cur = 0
+        list[cur] += 1
+        i = 1
+        while True:
+            cur = (cur + i * k) % n
+            list[cur] += 1
+            i += 1
+            if list[cur] > 1:
+                break
+        res = []
+        for i in range(n):
+            if list[i] == 0:
+                res.append(i + 1)
+        return res
 
 
 def main():

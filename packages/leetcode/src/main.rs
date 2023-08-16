@@ -13,29 +13,24 @@ fn main() {
 }
 
 impl Solution {
-    pub fn find_replace_string(
-        mut s: String,
-        indices: Vec<i32>,
-        sources: Vec<String>,
-        targets: Vec<String>,
-    ) -> String {
-        let indices = indices.into_iter().map(|i| i as usize).collect::<Vec<_>>();
-        let n = indices.len();
-        let mut idxs = (0..n).collect::<Vec<_>>();
-        idxs.sort_by_key(|i| indices[*i]);
-        idxs.reverse();
-        for i in idxs {
-                println!("=\n{i}");
-            if indices[i] + sources[i].len() < s.len() && s[indices[i]..indices[i] + sources[i].len()] == sources[i] {
-                println!("in , {i}");
-                let mut ns = String::new();
-                println!("{}|{}|{}",&s[0..indices[i]], &targets[i], &s[indices[i] + sources[i].len()..]);
-                ns.push_str(&s[0..indices[i]]);
-                ns.push_str(&targets[i]);
-                ns.push_str(&s[indices[i] + sources[i].len()..]);
-                s = ns;
+    pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {
+        let n = n as usize;
+        let k = k as usize;
+        let mut list = vec![0; n];
+        let mut cur = 0;
+        list[cur] += 1;
+        for i in 0.. {
+            cur = (cur + i * k) % n;
+            list[cur] += 1;
+            if list[cur] > 1 {
+                break;
             }
         }
-        s
+        (0..n)
+            .collect::<Vec<_>>()
+            .into_iter()
+            .filter(|i| list[*i] == 0)
+            .map(|v| v as i32)
+            .collect()
     }
 }

@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem",
     "difficulty": "中等",
     "tag": [
+        "深度优先搜索",
         "字典树",
         "数组",
         "字符串"

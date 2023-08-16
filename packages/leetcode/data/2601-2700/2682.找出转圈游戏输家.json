@@ -1,0 +1,38 @@
+{
+    "id": "2791",
+    "name": "2682.找出转圈游戏输家",
+    "url": "https://leetcode.cn/problems/find-the-losers-of-the-circular-game",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "哈希表",
+        "模拟"
+    ],
+    "desc": "给你参与游戏的朋友数量 n 和一个整数 k ，请按升序排列返回包含所有输家编号的数组 answer 作为答案。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 13.16,
+            "desc": "模拟。",
+            "code": "class Solution {\npublic:\n    vector<int> circularGameLosers(int n, int k) {\n        int list[50] = {0}, cur = 0;\n        list[cur] += 1;\n        for (int i = 1; ; i++) {\n            cur = (cur + i * k) % n;\n            list[cur] += 1;\n            if (list[cur] > 1) break;\n        }\n        vector<int> res;\n        for (int i = 0; i < n; i++) {\n            if (list[i] == 0) res.push_back(i + 1);\n        }\n        return res;\n    }\n};",
+            "date": 1692115200000
+        },
+        {
+            "script": "python",
+            "time": 72,
+            "memory": 15.46,
+            "desc": "同上。",
+            "code": "class Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        list = [0 for _ in range(n)]\n        cur = 0\n        list[cur] += 1\n        i = 1\n        while True:\n            cur = (cur + i * k) % n\n            list[cur] += 1\n            i += 1\n            if list[cur] > 1:\n                break\n        res = []\n        for i in range(n):\n            if list[i] == 0:\n                res.append(i + 1)\n        return res",
+            "date": 1692115200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 1.88,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {\n        let n = n as usize;\n        let k = k as usize;\n        let mut list = vec![0; n];\n        let mut cur = 0;\n        list[cur] += 1;\n        for i in 1.. {\n            cur = (cur + i * k) % n;\n            list[cur] += 1;\n            if list[cur] > 1 {\n                break;\n            }\n        }\n        (0..n)\n            .collect::<Vec<_>>()\n            .into_iter()\n            .filter(|i| list[*i] == 0)\n            .map(|v| (v + 1) as i32)\n            .collect()\n    }\n}",
+            "date": 1692115200000
+        }
+    ]
+}
