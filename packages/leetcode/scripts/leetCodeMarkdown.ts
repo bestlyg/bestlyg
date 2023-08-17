@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2682. 找出转圈游戏输家',
-    url: 'https://leetcode.cn/problems/find-the-losers-of-the-circular-game/',
+    name: '1444. 切披萨的方案数',
+    url: 'https://leetcode.cn/problems/number-of-ways-of-cutting-a-pizza/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你参与游戏的朋友数量 n 和一个整数 k ，请按升序排列返回包含所有输家编号的数组 answer 作为答案。`,
+    desc: `给你一个 rows x cols 大小的矩形披萨和一个整数 k ，矩形包含两种字符： 'A' （表示苹果）和 '.' （表示空白格子）。你需要切披萨 k-1 次，得到 k 块披萨并送给别人。请你返回确保每一块披萨包含 至少 一个苹果的切披萨方案数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,80 +25,62 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 8,
-            memory: 13.16,
-            desc: '模拟',
-            code: `class Solution {
-public:
-    vector<int> circularGameLosers(int n, int k) {
-        int list[50] = {0}, cur = 0;
-        list[cur] += 1;
-        for (int i = 1; ; i++) {
-            cur = (cur + i * k) % n;
-            list[cur] += 1;
-            if (list[cur] > 1) break;
-        }
-        vector<int> res;
-        for (int i = 0; i < n; i++) {
-            if (list[i] == 0) res.push_back(i + 1);
-        }
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 8,
+        //     memory: 13.16,
+        //     desc: '模拟',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 72,
-            memory: 15.46,
-            desc: '同上',
+            time: 220,
+            memory: 19.05,
+            desc: '记忆化dfs',
             code: `class Solution:
-    def circularGameLosers(self, n: int, k: int) -> List[int]:
-        list = [0 for _ in range(n)]
-        cur = 0
-        list[cur] += 1
-        i = 1
-        while True:
-            cur = (cur + i * k) % n
-            list[cur] += 1
-            i += 1
-            if list[cur] > 1:
-                break
-        res = []
-        for i in range(n):
-            if list[i] == 0:
-                res.append(i + 1)
-        return res`,
+    def ways(self, pizza: List[str], k: int) -> int:
+        MOD = 1000000000 + 7
+        n = len(pizza)
+        m = len(pizza[0])
+
+        @cache
+        def has_apple(i1: int, j1: int, i2: int, j2: int) -> int:
+            for i in range(i1, i2 + 1):
+                for j in range(j1, j2 + 1):
+                    if pizza[i][j] == 'A':
+                        return True
+            return False
+
+        @cache
+        def dfs(i1: int, j1: int, i2: int, j2: int, k: int) -> int:
+            if k == 0:
+                return 1 if has_apple(i1, j1, i2, j2) else 0
+            res = 0
+            if j1 != j2:
+                f = False
+                for j in range(j1, j2):
+                    if not f:
+                        f = f or has_apple(i1, j1, i2, j)
+                    if f:
+                        res = (res + dfs(i1, j + 1, i2, j2, k - 1)) % MOD
+            if i1 != i2:
+                f = False
+                for i in range(i1, i2):
+                    if not f:
+                        f = f or has_apple(i1, j1, i, j2)
+                    if f:
+                        res = (res + dfs(i + 1, j1, i2, j2, k - 1)) % MOD
+            return res
+
+        return dfs(0, 0, n - 1, m - 1, k - 1)`,
         },
-        {
-            script: Script.RUST,
-            time: 4,
-            memory: 1.88,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {
-        let n = n as usize;
-        let k = k as usize;
-        let mut list = vec![0; n];
-        let mut cur = 0;
-        list[cur] += 1;
-        for i in 1.. {
-            cur = (cur + i * k) % n;
-            list[cur] += 1;
-            if list[cur] > 1 {
-                break;
-            }
-        }
-        (0..n)
-            .collect::<Vec<_>>()
-            .into_iter()
-            .filter(|i| list[*i] == 0)
-            .map(|v| (v + 1) as i32)
-            .collect()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 4,
+        //     memory: 1.88,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 

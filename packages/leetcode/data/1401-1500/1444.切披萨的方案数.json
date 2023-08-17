@@ -1,0 +1,23 @@
+{
+    "id": "1555",
+    "name": "1444.切披萨的方案数",
+    "url": "https://leetcode.cn/problems/number-of-ways-of-cutting-a-pizza",
+    "difficulty": "困难",
+    "tag": [
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "矩阵"
+    ],
+    "desc": "给你一个 rows x cols 大小的矩形披萨和一个整数 k ，矩形包含两种字符： 'A' （表示苹果）和 '.' （表示空白格子）。你需要切披萨 k-1 次，得到 k 块披萨并送给别人。请你返回确保每一块披萨包含 至少 一个苹果的切披萨方案数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 220,
+            "memory": 19.05,
+            "desc": "记忆化dfs。",
+            "code": "class Solution:\n    def ways(self, pizza: List[str], k: int) -> int:\n        MOD = 1000000000 + 7\n        n = len(pizza)\n        m = len(pizza[0])\n\n        @cache\n        def has_apple(i1: int, j1: int, i2: int, j2: int) -> int:\n            for i in range(i1, i2 + 1):\n                for j in range(j1, j2 + 1):\n                    if pizza[i][j] == 'A':\n                        return True\n            return False\n\n        @cache\n        def dfs(i1: int, j1: int, i2: int, j2: int, k: int) -> int:\n            if k == 0:\n                return 1 if has_apple(i1, j1, i2, j2) else 0\n            res = 0\n            if j1 != j2:\n                f = False\n                for j in range(j1, j2):\n                    if not f:\n                        f = f or has_apple(i1, j1, i2, j)\n                    if f:\n                        res = (res + dfs(i1, j + 1, i2, j2, k - 1)) % MOD\n            if i1 != i2:\n                f = False\n                for i in range(i1, i2):\n                    if not f:\n                        f = f or has_apple(i1, j1, i, j2)\n                    if f:\n                        res = (res + dfs(i + 1, j1, i2, j2, k - 1)) % MOD\n            return res\n\n        return dfs(0, 0, n - 1, m - 1, k - 1)",
+            "date": 1692201600000
+        }
+    ]
+}
