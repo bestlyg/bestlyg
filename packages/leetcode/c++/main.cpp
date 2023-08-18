@@ -155,6 +155,28 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
+class Solution {
+public:
+    int maxSizeSlices(vector<int>& slices) {
+        int m = slices.size() / 3;
+        auto check = [&](vector<int> nums) {
+            int n = nums.size();
+            int res = 0;
+            vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j--) {
+                    dp[i][j] = dp[i - 1][j];
+                    if (i >= 2) dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1]);
+                }
+            }
+            return res;
+        };
+        return max(
+            check(vector<int>(slices.begin() + 1, slices.end())),
+            check(vector<int>(slices.begin() + 1, slices.end() - 1))
+        );
+    }
+};
 
 // END
 #ifdef LOCAL

@@ -13,24 +13,22 @@ fn main() {
 }
 
 impl Solution {
-    pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {
-        let n = n as usize;
-        let k = k as usize;
-        let mut list = vec![0; n];
-        let mut cur = 0;
-        list[cur] += 1;
-        for i in 0.. {
-            cur = (cur + i * k) % n;
-            list[cur] += 1;
-            if list[cur] > 1 {
-                break;
+    pub fn max_size_slices(slices: Vec<i32>) -> i32 {
+        use std::cmp::max;
+        let m = slices.len() / 3;
+        let check = |nums: &[i32]| -> i32 {
+            let n = nums.len();
+            let mut dp = vec![vec![0; m + 1]; n + 1];
+            for i in 1..=n {
+                for j in 1..m {
+                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);
+                    if i >= 2 {
+                        dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1])
+                    }
+                }
             }
-        }
-        (0..n)
-            .collect::<Vec<_>>()
-            .into_iter()
-            .filter(|i| list[*i] == 0)
-            .map(|v| v as i32)
-            .collect()
+            dp[n][m]
+        };
+        max(check(&slices[1..]), check(&slices[0..m - 1]))
     }
 }

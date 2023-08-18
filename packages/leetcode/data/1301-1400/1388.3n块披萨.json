@@ -1,0 +1,33 @@
+{
+    "name": "1388.3n块披萨",
+    "url": "https://leetcode.cn/problems/pizza-with-3n-slices/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回你可以获得的披萨大小总和的最大值。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 28,
+            "memory": 14.1,
+            "desc": "题目转化为3n个块中，选n个不相邻的块的最大和,dp[i][j]表示存在前i个块时，选取j个块的最大值。",
+            "code": "class Solution {\npublic:\n    int maxSizeSlices(vector<int>& slices) {\n        int m = slices.size() / 3;\n        auto check = [&](vector<int> nums) {\n            int n = nums.size();\n            vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n            for (int i = 1; i <= n; i++) {\n                for (int j = 1; j <= m; j++) {\n                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);\n                    if (i >= 2) dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1]);\n                }\n            }\n            return dp[n][m];\n        };\n        return max(\n            check(vector<int>(slices.begin() + 1, slices.end())),\n            check(vector<int>(slices.begin(), slices.end() - 1))\n        );\n    }\n};",
+            "date": 1692288000000
+        },
+        {
+            "script": "python",
+            "time": 444,
+            "memory": 16.19,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maxSizeSlices(self, slices: List[int]) -> int:\n        m = len(slices) // 3\n\n        def check(nums: List[int]) -> int:\n            n = len(nums)\n            dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]\n            for i in range(1, n+1):\n                for j in range(1, m+1):\n                    dp[i][j] = max(dp[i-1][j], nums[i-1])\n                    if i >= 2:\n                        dp[i][j] = max(dp[i][j], dp[i-2][j-1]+nums[i-1])\n            return dp[n][m]\n\n        return max(check(slices[1:]), check(slices[0:-1]))",
+            "date": 1692288000000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.16,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_size_slices(slices: Vec<i32>) -> i32 {\n        use std::cmp::max;\n        let m = slices.len() / 3;\n        let check = |nums: &[i32]| -> i32 {\n            let n = nums.len();\n            let mut dp = vec![vec![0; m + 1]; n + 1];\n            for i in 1..=n {\n                for j in 1..=m {\n                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);\n                    if i >= 2 {\n                        dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1])\n                    }\n                }\n            }\n            dp[n][m]\n        };\n        max(check(&slices[1..]), check(&slices[0..slices.len() - 1]))\n    }\n}",
+            "date": 1692288000000
+        }
+    ]
+}

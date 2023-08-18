@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1444. 切披萨的方案数',
-    url: 'https://leetcode.cn/problems/number-of-ways-of-cutting-a-pizza/',
+    name: '1388. 3n 块披萨',
+    url: 'https://leetcode.cn/problems/pizza-with-3n-slices/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 rows x cols 大小的矩形披萨和一个整数 k ，矩形包含两种字符： 'A' （表示苹果）和 '.' （表示空白格子）。你需要切披萨 k-1 次，得到 k 块披萨并送给别人。请你返回确保每一块披萨包含 至少 一个苹果的切披萨方案数。`,
+    desc: `请你返回你可以获得的披萨大小总和的最大值。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,62 +25,80 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 8,
-        //     memory: 13.16,
-        //     desc: '模拟',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 28,
+            memory: 14.1,
+            desc: '题目转化为3n个块中，选n个不相邻的块的最大和,dp[i][j]表示存在前i个块时，选取j个块的最大值',
+            code: `class Solution {
+public:
+    int maxSizeSlices(vector<int>& slices) {
+        int m = slices.size() / 3;
+        auto check = [&](vector<int> nums) {
+            int n = nums.size();
+            vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j++) {
+                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);
+                    if (i >= 2) dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1]);
+                }
+            }
+            return dp[n][m];
+        };
+        return max(
+            check(vector<int>(slices.begin() + 1, slices.end())),
+            check(vector<int>(slices.begin(), slices.end() - 1))
+        );
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 220,
-            memory: 19.05,
-            desc: '记忆化dfs',
+            time: 444,
+            memory: 16.19,
+            desc: '同上',
             code: `class Solution:
-    def ways(self, pizza: List[str], k: int) -> int:
-        MOD = 1000000000 + 7
-        n = len(pizza)
-        m = len(pizza[0])
+    def maxSizeSlices(self, slices: List[int]) -> int:
+        m = len(slices) // 3
 
-        @cache
-        def has_apple(i1: int, j1: int, i2: int, j2: int) -> int:
-            for i in range(i1, i2 + 1):
-                for j in range(j1, j2 + 1):
-                    if pizza[i][j] == 'A':
-                        return True
-            return False
+        def check(nums: List[int]) -> int:
+            n = len(nums)
+            dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
+            for i in range(1, n+1):
+                for j in range(1, m+1):
+                    dp[i][j] = max(dp[i-1][j], nums[i-1])
+                    if i >= 2:
+                        dp[i][j] = max(dp[i][j], dp[i-2][j-1]+nums[i-1])
+            return dp[n][m]
 
-        @cache
-        def dfs(i1: int, j1: int, i2: int, j2: int, k: int) -> int:
-            if k == 0:
-                return 1 if has_apple(i1, j1, i2, j2) else 0
-            res = 0
-            if j1 != j2:
-                f = False
-                for j in range(j1, j2):
-                    if not f:
-                        f = f or has_apple(i1, j1, i2, j)
-                    if f:
-                        res = (res + dfs(i1, j + 1, i2, j2, k - 1)) % MOD
-            if i1 != i2:
-                f = False
-                for i in range(i1, i2):
-                    if not f:
-                        f = f or has_apple(i1, j1, i, j2)
-                    if f:
-                        res = (res + dfs(i + 1, j1, i2, j2, k - 1)) % MOD
-            return res
-
-        return dfs(0, 0, n - 1, m - 1, k - 1)`,
+        return max(check(slices[1:]), check(slices[0:-1]))`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 4,
-        //     memory: 1.88,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 4,
+            memory: 2.16,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn max_size_slices(slices: Vec<i32>) -> i32 {
+        use std::cmp::max;
+        let m = slices.len() / 3;
+        let check = |nums: &[i32]| -> i32 {
+            let n = nums.len();
+            let mut dp = vec![vec![0; m + 1]; n + 1];
+            for i in 1..=n {
+                for j in 1..=m {
+                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);
+                    if i >= 2 {
+                        dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1])
+                    }
+                }
+            }
+            dp[n][m]
+        };
+        max(check(&slices[1..]), check(&slices[0..slices.len() - 1]))
+    }
+}`,
+        },
     ],
 };
 
