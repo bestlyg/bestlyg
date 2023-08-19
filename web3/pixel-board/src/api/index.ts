@@ -22,12 +22,12 @@ export function useApi(): Api {
     return {
         get_board_metadata: () =>
             wallet?.viewMethod({
-                contractId: 'bestlyg-demo.testnet',
+                contractId: 'bestlyg-pixel-board.testnet',
                 method: 'get_board_metadata',
             }) ?? Promise.resolve(),
         set_board: (cells: any) =>
             wallet?.callMethod({
-                contractId: 'bestlyg-demo.testnet',
+                contractId: 'bestlyg-pixel-board.testnet',
                 method: 'set_board',
                 args: { cells },
             }) ?? Promise.resolve(),
