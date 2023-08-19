@@ -50,7 +50,7 @@ export function Board() {
             ) : (
                 <>
                     <Space>
-                        <Button onClick={showColorPicker}>Set Color1</Button>
+                        <Button onClick={showColorPicker}>Set Color</Button>
                         <Button onClick={() => setSelectCell({})}>Clear</Button>
                         <Button onClick={() => refresh()}>Refresh</Button>
                         <Button

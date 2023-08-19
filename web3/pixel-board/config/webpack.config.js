@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 module.exports = (env, argv) =>
     merge(IS_PROD ? productionConfig(env, argv) : developmentConfig(env, argv), {
-        entry: resolve('src/main.ts'),
+        entry: resolve('src/main.tsx'),
         output: {
             path: resolve('dist'),
             filename: '[name].[contenthash].js',
