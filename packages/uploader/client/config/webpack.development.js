@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
             },
             open: false,
             hot: false,
-            liveReload: false,
+            liveReload: !false,
         },
     };
 };

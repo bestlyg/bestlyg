@@ -1,26 +1,15 @@
 import React from 'react';
-import SingleFile from './single-file-uploader';
-import SingleSliceFile from './single-slice-file-uploader';
+import { Space } from 'antd';
+import { HealthCheck } from './components/health-check';
+import { Uploader } from './uploader';
+// import SingleFile from './single-file-uploader';
+// import SingleSliceFile from './single-slice-file-uploader';
 
 export default function App() {
-    const onHealthCheck = () => {
-        fetch('/api', {
-            method: 'get',
-        })
-            .then(res => res.json())
-            .then(res => {
-                alert(new Date(res.success));
-            })
-            .catch(err => {
-                alert(err);
-            });
-    };
     return (
-        <div>
-            <div>
-                <button onClick={() => onHealthCheck()}>health check</button>
-            </div>
-            <div>
+        <Space direction="vertical" style={{ width: '100%' }}>
+            <HealthCheck />
+            {/* <div>
                 <p>SingleFile</p>
                 <SingleFile />
             </div>
@@ -28,7 +17,8 @@ export default function App() {
             <div>
                 <p>SingleSliceFile</p>
                 <SingleSliceFile />
-            </div>
-        </div>
+            </div> */}
+            <Uploader />
+        </Space>
     );
 }

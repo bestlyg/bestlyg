@@ -64,7 +64,7 @@ export class SingleUploader extends Uploader {
 }
 
 export abstract class SliceUploader extends Uploader {
-    constructor(public window: number = 100) {
+    constructor(public window: number = 10) {
         super();
     }
 }
@@ -131,9 +131,9 @@ export class SingleSliceUploader extends SliceUploader {
                             const data = { loaded, total };
                             this.onProgressSet.forEach(fn => fn(data));
                             finishedCount += 1;
-                            console.log(
-                                `finished ${idx}, sum = ${sumCount}, finishedCount = ${finishedCount}`
-                            );
+                            // console.log(
+                            //     `finished ${idx}, sum = ${sumCount}, finishedCount = ${finishedCount}`
+                            // );
                             if (finishedCount === sumCount) resolve();
                         }, reject);
                 });
