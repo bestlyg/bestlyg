@@ -1,8 +1,15 @@
 // Find all our documentation at https://docs.near.org
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, log, near_bindgen, require, AccountId, PanicOnDefault};
+use near_sdk::{
+    borsh::{self, BorshDeserialize, BorshSerialize},
+    env, log, near_bindgen, require,
+    store::LookupMap,
+    AccountId, PanicOnDefault,
+};
 
-pub mod shared;
+mod account;
+mod poker;
+mod room;
+mod shared;
 mod update;
 
 // Define the contract structure
@@ -11,15 +18,21 @@ mod update;
 pub struct Contract {
     owner_id: AccountId,
     message: String,
+    rooms: LookupMap<AccountId, room::Room>,
+    accounts: LookupMap<AccountId, account::Account>,
 }
 
 #[near_bindgen]
 impl Contract {
     #[init(ignore_state)]
     pub fn init(owner_id: AccountId) -> Self {
+        let mut accounts = LookupMap::new(b'a');
+        accounts.insert(owner_id.clone(), account::Account::new(owner_id.clone(), 0));
         Self {
             owner_id,
             message: Default::default(),
+            rooms: LookupMap::new(b'r'),
+            accounts: LookupMap::new(b'a'),
         }
     }
     /// debug 打印所有环境信息

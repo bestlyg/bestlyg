@@ -18,7 +18,7 @@ echo ">> Updating contract"
 #   --initArgs '{"owner_id":"bestlyg.testnet","row_size":20,"col_size":20}'        \
 #   --initGas 100000000000000
 
-NEW_CONTRACT_BYTES=`cat ./target/wasm32-unknown-unknown/release/bestlyg_pixel_board_contract.wasm | base64`
+NEW_CONTRACT_BYTES=`cat ./target/wasm32-unknown-unknown/release/bestlyg_niuniu_contract.wasm | base64`
 near call bestlyg-niuniu.testnet update_contract "$NEW_CONTRACT_BYTES"               \
     --node_url https://near-testnet.infura.io/v3/f7c0b2130fd6470fbbdb7e12c0a17d7f  \
     --base64                                                                       \
