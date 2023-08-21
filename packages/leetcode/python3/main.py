@@ -2,19 +2,27 @@ from preclude import *
 
 
 class Solution:
-    def maxSizeSlices(self, slices: List[int]) -> int:
-        m = len(slices) // 3
-
-        def check(nums: List[int]) -> int:
-            n = len(nums)
-            dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
-            for i in range(1, n+1):
-                for j in range(1, m+1):
-                    dp[i][j] = max(dp[i-1][j], nums[i-1])
-                    if i >= 2:
-                        dp[i][j] = max(dp[i][j], dp[i-2][j-1]+nums[i-1])
-            return dp[n][m]
-        return max(check(slices[1:m]), check(slices[0:m-1]))
+    def canChange(self, start: str, target: str) -> bool:
+        n = len(start)
+        i1 = i2 = 0
+        while i1 < n and start[i1] == '_':
+            i1 += 1
+        while i2 < n and start[i2] == '_':
+            i2 += 1
+        while i1 < n and i2 < n:
+            if start[i1] != target[i2]:
+                return False
+            if start[i1] == 'L' or i1 < i2:
+                return False
+            if start[i1] == 'R' or i1 > i2:
+                return False
+            i1 += 1
+            i2 += 1
+            while i1 < n and start[i1] == '_':
+                i1 += 1
+            while i2 < n and start[i2] == '_':
+                i2 += 1
+        return i1 == n and i2 == n
 
 
 def main():

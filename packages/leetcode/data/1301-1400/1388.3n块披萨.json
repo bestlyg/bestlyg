@@ -1,8 +1,14 @@
 {
+    "id": "1489",
     "name": "1388.3n块披萨",
-    "url": "https://leetcode.cn/problems/pizza-with-3n-slices/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/pizza-with-3n-slices",
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划",
+        "堆（优先队列）"
+    ],
     "desc": "请你返回你可以获得的披萨大小总和的最大值。",
     "solutions": [
         {

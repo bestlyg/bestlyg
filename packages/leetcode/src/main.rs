@@ -11,24 +11,37 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-
 impl Solution {
-    pub fn max_size_slices(slices: Vec<i32>) -> i32 {
-        use std::cmp::max;
-        let m = slices.len() / 3;
-        let check = |nums: &[i32]| -> i32 {
-            let n = nums.len();
-            let mut dp = vec![vec![0; m + 1]; n + 1];
-            for i in 1..=n {
-                for j in 1..m {
-                    dp[i][j] = max(dp[i - 1][j], nums[i - 1]);
-                    if i >= 2 {
-                        dp[i][j] = max(dp[i][j], dp[i - 2][j - 1] + nums[i - 1])
-                    }
-                }
+    pub fn can_change(start: String, target: String) -> bool {
+        let start = str_to_vec(&start);
+        let target = str_to_vec(&target);
+        let n = start.len();
+        let (mut i1, mut i2) = (0, 0);
+        while i1 < n && start[i1] == '_' {
+            i1 += 1;
+        }
+        while i2 < n && target[i2] == '_' {
+            i2 += 1;
+        }
+        while (i1 < n && i2 < n) {
+            if start[i1] != target[i2] {
+                return false;
             }
-            dp[n][m]
-        };
-        max(check(&slices[1..]), check(&slices[0..m - 1]))
+            if start[i1] == 'L' && i1 < i2 {
+                return false;
+            }
+            if start[i1] == 'R' && i1 > i2 {
+                return false;
+            }
+            i1 += 1;
+            i2 += 1;
+            while i1 < n && start[i1] == '_' {
+                i1 += 1;
+            }
+            while i2 < n && target[i2] == '_' {
+                i2 += 1;
+            }
+        }
+        i1 == n && i2 == n
     }
 }

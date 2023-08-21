@@ -1,0 +1,25 @@
+{
+    "name": "2236.判断根结点是否等于子结点之和",
+    "url": "https://leetcode.cn/problems/root-equals-sum-of-children/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你两个整数 num1 和 num2，返回这两个整数的和。",
+    "solutions": [
+        {
+            "date": 1692547200000,
+            "script": "cpp",
+            "time": 4,
+            "memory": 12.4,
+            "desc": "直接计算。",
+            "code": "class Solution {\npublic:\n    bool checkTree(TreeNode* root) {\n        return root->val == root->left->val + root->right->val;\n    }\n};"
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 1.86,
+            "desc": "同上。",
+            "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn check_tree(root: Option<Rc<RefCell<TreeNode>>>) -> bool {\n        let root = root.unwrap();\n        let root_ref = root.as_ref().borrow();\n        return root_ref.val\n            == root_ref.left.as_ref().unwrap().as_ref().borrow().val\n                + root_ref.right.as_ref().unwrap().as_ref().borrow().val;\n    }\n}",
+            "date": 1692547200000
+        }
+    ]
+}

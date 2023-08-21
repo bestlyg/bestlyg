@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2235. 两整数相加',
-    url: 'https://leetcode.cn/problems/add-two-integers/',
+    name: '2337. 移动片段得到字符串',
+    url: 'https://leetcode.cn/problems/move-pieces-to-obtain-a-string/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两个整数 num1 和 num2，返回这两个整数的和。`,
+    desc: `如果在移动字符串 start 中的片段任意次之后可以得到字符串 target ，返回 true ；否则，返回 false 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,28 +25,98 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 28,
-        //     memory: 14.1,
-        //     desc: '题目转化为3n个块中，选n个不相邻的块的最大和,dp[i][j]表示存在前i个块时，选取j个块的最大值',
-        //     code: ``,
-        // },
-        // {
-        //     script: Script.PY,
-        //     time: 444,
-        //     memory: 16.19,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 56,
+            memory: 18.6,
+            desc: '判断start的L都在target右侧，R都在target左侧。',
+            code: `class Solution {
+public:
+    bool canChange(string start, string target) {
+        int n = start.size(), i1 = 0, i2 = 0;
+        while (i1 < n && start[i1] == '_') i1 += 1;
+        while (i2 < n && target[i2] == '_') i2 += 1;
+        while (i1 < n && i2 < n) {
+            if (start[i1] != target[i2]) return false;
+            if (start[i1] == 'L' && i1 < i2) return false;
+            if (start[i1] == 'R' && i1 > i2) return false;
+            i1 += 1;
+            i2 += 1;
+            while (i1 < n && start[i1] == '_') i1 += 1;
+            while (i2 < n && target[i2] == '_') i2 += 1;
+        }
+        return i1 == n && i2 == n;
+    }
+};`,
+        },
+        {
+            script: Script.PY,
+            time: 240,
+            memory: 16.43,
+            desc: '同上',
+            code: `class Solution:
+    def canChange(self, start: str, target: str) -> bool:
+        n = len(start)
+        i1 = i2 = 0
+        while i1 < n and start[i1] == '_':
+            i1 += 1
+        while i2 < n and target[i2] == '_':
+            i2 += 1
+        while i1 < n and i2 < n:
+            if start[i1] != target[i2]:
+                return False
+            if start[i1] == 'L' and i1 < i2:
+                return False
+            if start[i1] == 'R' and i1 > i2:
+                return False
+            i1 += 1
+            i2 += 1
+            while i1 < n and start[i1] == '_':
+                i1 += 1
+            while i2 < n and target[i2] == '_':
+                i2 += 1
+        return i1 == n and i2 == n`,
+        },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 1.85,
-            desc: '加法',
-            code: `impl Solution {
-    pub fn sum(num1: i32, num2: i32) -> i32 {
-        num1 + num2
+            time: 12,
+            memory: 3.1,
+            desc: '同上',
+            code: `pub fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+impl Solution {
+    pub fn can_change(start: String, target: String) -> bool {
+        let start = str_to_vec(&start);
+        let target = str_to_vec(&target);
+        let n = start.len();
+        let (mut i1, mut i2) = (0, 0);
+        while i1 < n && start[i1] == '_' {
+            i1 += 1;
+        }
+        while i2 < n && target[i2] == '_' {
+            i2 += 1;
+        }
+        while (i1 < n && i2 < n) {
+            if start[i1] != target[i2] {
+                return false;
+            }
+            if start[i1] == 'L' && i1 < i2 {
+                return false;
+            }
+            if start[i1] == 'R' && i1 > i2 {
+                return false;
+            }
+            i1 += 1;
+            i2 += 1;
+            while i1 < n && start[i1] == '_' {
+                i1 += 1;
+            }
+            while i2 < n && target[i2] == '_' {
+                i2 += 1;
+            }
+        }
+        i1 == n && i2 == n
     }
 }`,
         },

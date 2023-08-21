@@ -1,0 +1,33 @@
+{
+    "name": "2337.移动片段得到字符串",
+    "url": "https://leetcode.cn/problems/move-pieces-to-obtain-a-string/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "如果在移动字符串 start 中的片段任意次之后可以得到字符串 target ，返回 true ；否则，返回 false 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 56,
+            "memory": 18.6,
+            "desc": "判断start的L都在target右侧，R都在target左侧。",
+            "code": "class Solution {\npublic:\n    bool canChange(string start, string target) {\n        int n = start.size(), i1 = 0, i2 = 0;\n        while (i1 < n && start[i1] == '_') i1 += 1;\n        while (i2 < n && target[i2] == '_') i2 += 1;\n        while (i1 < n && i2 < n) {\n            if (start[i1] != target[i2]) return false;\n            if (start[i1] == 'L' && i1 < i2) return false;\n            if (start[i1] == 'R' && i1 > i2) return false;\n            i1 += 1;\n            i2 += 1;\n            while (i1 < n && start[i1] == '_') i1 += 1;\n            while (i2 < n && target[i2] == '_') i2 += 1;\n        }\n        return i1 == n && i2 == n;\n    }\n};",
+            "date": 1692547200000
+        },
+        {
+            "script": "python",
+            "time": 240,
+            "memory": 16.43,
+            "desc": "同上。",
+            "code": "class Solution:\n    def canChange(self, start: str, target: str) -> bool:\n        n = len(start)\n        i1 = i2 = 0\n        while i1 < n and start[i1] == '_':\n            i1 += 1\n        while i2 < n and target[i2] == '_':\n            i2 += 1\n        while i1 < n and i2 < n:\n            if start[i1] != target[i2]:\n                return False\n            if start[i1] == 'L' and i1 < i2:\n                return False\n            if start[i1] == 'R' and i1 > i2:\n                return False\n            i1 += 1\n            i2 += 1\n            while i1 < n and start[i1] == '_':\n                i1 += 1\n            while i2 < n and target[i2] == '_':\n                i2 += 1\n        return i1 == n and i2 == n",
+            "date": 1692547200000
+        },
+        {
+            "script": "rust",
+            "time": 12,
+            "memory": 3.1,
+            "desc": "同上。",
+            "code": "pub fn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn can_change(start: String, target: String) -> bool {\n        let start = str_to_vec(&start);\n        let target = str_to_vec(&target);\n        let n = start.len();\n        let (mut i1, mut i2) = (0, 0);\n        while i1 < n && start[i1] == '_' {\n            i1 += 1;\n        }\n        while i2 < n && target[i2] == '_' {\n            i2 += 1;\n        }\n        while (i1 < n && i2 < n) {\n            if start[i1] != target[i2] {\n                return false;\n            }\n            if start[i1] == 'L' && i1 < i2 {\n                return false;\n            }\n            if start[i1] == 'R' && i1 > i2 {\n                return false;\n            }\n            i1 += 1;\n            i2 += 1;\n            while i1 < n && start[i1] == '_' {\n                i1 += 1;\n            }\n            while i2 < n && target[i2] == '_' {\n                i2 += 1;\n            }\n        }\n        i1 == n && i2 == n\n    }\n}",
+            "date": 1692547200000
+        }
+    ]
+}
