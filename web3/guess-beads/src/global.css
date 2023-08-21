@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    background-color: rgb(240, 242, 245);
+}
+
+body {
+    --primary-6: 255, 255, 0;
+}
+
+#near-wallet-selector-modal .nws-modal-wrapper {
+    z-index: 1000;
+}
