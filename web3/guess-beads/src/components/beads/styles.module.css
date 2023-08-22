@@ -1,6 +1,6 @@
 .container {
     --size: 120px;
-    --gap: 10px;
+    --gap: 30px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -43,7 +43,9 @@
 }
 .bead {
     border-radius: 50%;
-    background-color: red;
+    position: relative;
+    /* background-color: red; */
+    /* perspective: 1000px; */
 }
 .bead1 {
     grid-area: bead1;
