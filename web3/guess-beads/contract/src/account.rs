@@ -34,11 +34,15 @@ impl Contract {
         let account_id = env::predecessor_account_id();
         (*self.get_account(&account_id)).clone()
     }
+    pub fn get_account_balance(&mut self) -> String {
+        let account_id = env::predecessor_account_id();
+        self.get_account(&account_id).balance.to_string()
+    }
     #[payable]
-    pub fn deposit_account_balance(&mut self) -> Balance {
+    pub fn deposit_account_balance(&mut self) -> String {
         let account_id = env::predecessor_account_id();
         let balance = env::attached_deposit();
-        self.change_balance(account_id, balance, true)
+        self.change_balance(account_id, balance, true).to_string()
     }
     #[private]
     pub fn _withdraw_account_balance(&mut self, balance: Balance) -> Promise {
@@ -49,10 +53,10 @@ impl Contract {
         );
         Promise::new(account_id.clone())
             .transfer(balance)
-            .then(Self::ext(env::current_account_id()).change_balance(account_id, balance, false))
+            .then(Self::ext(env::current_account_id()).change_balance_string(account_id, balance, false))
     }
     pub fn withdraw_account_balance(&mut self, balance: String) -> Promise {
-        let balance = balance.parse::<Balance>();
+        let balance: Result<u128, std::num::ParseIntError> = balance.parse::<Balance>();
         require!(balance.is_ok(), "Error balance type;");
         let balance: Balance = balance.unwrap();
         self._withdraw_account_balance(balance)
@@ -76,5 +80,14 @@ impl Contract {
             (*account).balance -= balance;
         }
         (*account).balance
+    }
+    #[private]
+    pub fn change_balance_string(
+        &mut self,
+        account_id: AccountId,
+        balance: Balance,
+        add: bool,
+    ) -> String {
+        self.change_balance(account_id, balance, add).to_string()
     }
 }

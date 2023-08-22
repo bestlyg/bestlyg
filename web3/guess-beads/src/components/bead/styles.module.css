@@ -1,0 +1,11 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: radial-gradient(circle at 70% 30%, #c4cb78 10%, #adbf94 60%, #ca815a 100%);
+    border-radius: 50%;
+}

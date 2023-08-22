@@ -2,14 +2,14 @@ import { create } from 'zustand';
 import { Wallet, CONTRACT_ADDRESS } from '@/utils';
 
 export interface Account {
-    account_id: string;
-    balance: string;
+    balance: bigint;
 }
 
 export interface Store {
     isSignedIn: () => boolean;
     wallet?: Wallet;
     account?: Account;
+    setAccount: (account: Account) => void;
     initWallet: () => Promise<void>;
 }
 
@@ -25,6 +25,10 @@ export const useStore = create<Store>((set, get, useApi) => {
             return wallet.startUp().then(() => {
                 set({ wallet });
             });
+        },
+        account: { balance: 0n },
+        setAccount(account: Account) {
+            set({ account });
         },
     };
 });
