@@ -2724,6 +2724,7 @@ version = "0.1.0"
 dependencies = [
  "bip39",
  "passwords",
+ "rand 0.8.5",
  "rocket",
  "rocket_contrib",
  "sp-core",
