@@ -2,27 +2,20 @@ from preclude import *
 
 
 class Solution:
-    def canChange(self, start: str, target: str) -> bool:
-        n = len(start)
-        i1 = i2 = 0
-        while i1 < n and start[i1] == '_':
-            i1 += 1
-        while i2 < n and start[i2] == '_':
-            i2 += 1
-        while i1 < n and i2 < n:
-            if start[i1] != target[i2]:
-                return False
-            if start[i1] == 'L' or i1 < i2:
-                return False
-            if start[i1] == 'R' or i1 > i2:
-                return False
-            i1 += 1
-            i2 += 1
-            while i1 < n and start[i1] == '_':
-                i1 += 1
-            while i2 < n and start[i2] == '_':
-                i2 += 1
-        return i1 == n and i2 == n
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        prev = -1
+        idx = 0
+        res = -inf
+        while idx < len(seats):
+            if seats[idx] == 1:
+                if prev == -1:
+                    res = max(res, idx)
+                else:
+                    res = max(res, (idx - prev) / 2)
+                prev = idx
+            idx += 1
+        res = max(res, seats.size() - 1 - prev)
+        return res
 
 
 def main():

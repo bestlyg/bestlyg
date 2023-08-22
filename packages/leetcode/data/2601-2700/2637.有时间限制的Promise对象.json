@@ -2,7 +2,7 @@
     "id": "2749",
     "name": "2637.有时间限制的Promise对象",
     "url": "https://leetcode.cn/problems/promise-time-limit",
-    "difficulty": "简单",
+    "difficulty": "中等",
     "tag": [],
     "desc": "请你编写一个函数，它接收一个异步函数 fn 和一个以毫秒为单位的时间 t。它应根据限时函数返回一个有 限时 效果的函数。",
     "solutions": [

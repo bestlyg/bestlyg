@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2337. 移动片段得到字符串',
-    url: 'https://leetcode.cn/problems/move-pieces-to-obtain-a-string/',
+    name: '849. 到最近的人的最大距离',
+    url: 'https://leetcode.cn/problems/maximize-distance-to-closest-person/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果在移动字符串 start 中的片段任意次之后可以得到字符串 target ，返回 true ；否则，返回 false 。`,
+    desc: `返回他到离他最近的人的最大距离。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,96 +27,67 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 56,
-            memory: 18.6,
-            desc: '判断start的L都在target右侧，R都在target左侧。',
+            time: 16,
+            memory: 16.14,
+            desc: '遍历时记录前一个1',
             code: `class Solution {
 public:
-    bool canChange(string start, string target) {
-        int n = start.size(), i1 = 0, i2 = 0;
-        while (i1 < n && start[i1] == '_') i1 += 1;
-        while (i2 < n && target[i2] == '_') i2 += 1;
-        while (i1 < n && i2 < n) {
-            if (start[i1] != target[i2]) return false;
-            if (start[i1] == 'L' && i1 < i2) return false;
-            if (start[i1] == 'R' && i1 > i2) return false;
-            i1 += 1;
-            i2 += 1;
-            while (i1 < n && start[i1] == '_') i1 += 1;
-            while (i2 < n && target[i2] == '_') i2 += 1;
+    int maxDistToClosest(vector<int>& seats) {
+        int prev = -1, idx = 0, res = INT_MIN;
+        while (idx < seats.size()) {
+            if (seats[idx] == 1) {
+                if (prev == -1) res = max(res, idx);
+                else res = max(res, (idx - prev) / 2);
+                prev = idx;
+            }
+            idx += 1;
         }
-        return i1 == n && i2 == n;
+        res = max(res, (int)seats.size() - 1 - prev);
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 240,
-            memory: 16.43,
+            time: 52,
+            memory: 16.38,
             desc: '同上',
             code: `class Solution:
-    def canChange(self, start: str, target: str) -> bool:
-        n = len(start)
-        i1 = i2 = 0
-        while i1 < n and start[i1] == '_':
-            i1 += 1
-        while i2 < n and target[i2] == '_':
-            i2 += 1
-        while i1 < n and i2 < n:
-            if start[i1] != target[i2]:
-                return False
-            if start[i1] == 'L' and i1 < i2:
-                return False
-            if start[i1] == 'R' and i1 > i2:
-                return False
-            i1 += 1
-            i2 += 1
-            while i1 < n and start[i1] == '_':
-                i1 += 1
-            while i2 < n and target[i2] == '_':
-                i2 += 1
-        return i1 == n and i2 == n`,
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        prev = -1
+        idx = 0
+        res = -inf
+        while idx < len(seats):
+            if seats[idx] == 1:
+                if prev == -1:
+                    res = max(res, idx)
+                else:
+                    res = max(res, (idx - prev) // 2)
+                prev = idx
+            idx += 1
+        res = max(res, len(seats) - 1 - prev)
+        return res`,
         },
         {
             script: Script.RUST,
-            time: 12,
-            memory: 3.1,
+            time: 0,
+            memory: 2.15,
             desc: '同上',
-            code: `pub fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
-}
-impl Solution {
-    pub fn can_change(start: String, target: String) -> bool {
-        let start = str_to_vec(&start);
-        let target = str_to_vec(&target);
-        let n = start.len();
-        let (mut i1, mut i2) = (0, 0);
-        while i1 < n && start[i1] == '_' {
-            i1 += 1;
+            code: `impl Solution {
+    pub fn max_dist_to_closest(seats: Vec<i32>) -> i32 {
+        let mut prev = -1;
+        let mut idx = 0;
+        let mut res = i32::MIN;
+        while idx < seats.len() {
+            if seats[idx] == 1 {
+                let idx = idx as i32;
+                res = res.max(if prev == -1 { idx } else { (idx - prev) / 2 });
+                prev = idx;
+            }
+            idx += 1;
         }
-        while i2 < n && target[i2] == '_' {
-            i2 += 1;
-        }
-        while (i1 < n && i2 < n) {
-            if start[i1] != target[i2] {
-                return false;
-            }
-            if start[i1] == 'L' && i1 < i2 {
-                return false;
-            }
-            if start[i1] == 'R' && i1 > i2 {
-                return false;
-            }
-            i1 += 1;
-            i2 += 1;
-            while i1 < n && start[i1] == '_' {
-                i1 += 1;
-            }
-            while i2 < n && target[i2] == '_' {
-                i2 += 1;
-            }
-        }
-        i1 == n && i2 == n
+        res = res.max(seats.len() as i32 - 1 - prev);
+        res
     }
 }`,
         },
