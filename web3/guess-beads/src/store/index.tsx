@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Wallet, CONTRACT_ADDRESS } from '@/utils';
 
 export interface Account {
-    balance: bigint;
+    balance: string;
 }
 
 export interface Store {
@@ -26,7 +26,7 @@ export const useStore = create<Store>((set, get, useApi) => {
                 set({ wallet });
             });
         },
-        account: { balance: 0n },
+        account: { balance: '0' },
         setAccount(account: Account) {
             set({ account });
         },

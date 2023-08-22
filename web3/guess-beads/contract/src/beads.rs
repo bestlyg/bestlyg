@@ -46,11 +46,11 @@ impl Beads {
         list.sort();
         let benefits = match list {
             [0, 4, 8] => 100,
-            [1, 3, 8] | [2, 2, 8] => 10,
-            [0, 5, 7] | [0, 6, 6] => 20,
-            [1, 4, 7] | [2, 3, 7] => 5,
-            [1, 5, 6] | [2, 4, 6] | [3, 3, 6] | [2, 5, 5] | [4, 4, 4] => 1,
-            [3, 4, 5] => -2,
+            [1, 3, 8] | [2, 2, 8] => 30,
+            [0, 5, 7] | [0, 6, 6] => 50,
+            [1, 4, 7] | [2, 3, 7] => 20,
+            [1, 5, 6] | [2, 4, 6] | [3, 3, 6] | [2, 5, 5] | [4, 4, 4] => 10,
+            [3, 4, 5] => -1,
             _ => 0,
         };
         (pick_list, benefits)
@@ -67,8 +67,8 @@ impl Beads {
 #[derive(BorshDeserialize, BorshSerialize, Deserialize, Serialize, Clone, PanicOnDefault)]
 pub struct GussBeadsResult {
     pick_list: Vec<crate::beads::BeadType>,
-    benefits: i32,
-    balance: Balance,
+    benefits: String,
+    balance: String,
 }
 
 #[near_bindgen]
@@ -94,8 +94,8 @@ impl Contract {
         }
         GussBeadsResult {
             pick_list,
-            benefits,
-            balance: account.balance,
+            benefits: benefits.to_string(),
+            balance: account.balance.to_string(),
         }
     }
 }

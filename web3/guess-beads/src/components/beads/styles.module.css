@@ -10,14 +10,15 @@
     grid-template-rows: repeat(3, var(--size));
     gap: var(--gap);
     grid-template-areas:
-        'bead1 bead2  bead3'
-        'bead4 center bead5'
-        'bead6 bead7 bead8';
+        'bead1 bead2 . bead3 bead4'
+        'bead5 bead6 center bead7 bead8'
+        'bead9 bead10 . bead11 bead12';
 }
 .guess_btn {
     border: none;
     width: 100%;
     height: 100%;
+    border-radius: 40px;
     color: #03e9f4;
     text-transform: uppercase;
     transition: 0.5s;
@@ -42,47 +43,12 @@
     z-index: 1;
 }
 .bead {
+    --tf-size: calc(var(--gap) + var(--size));
     border-radius: 50%;
-    position: relative;
-    /* background-color: red; */
-    /* perspective: 1000px; */
-}
-.bead1 {
-    grid-area: bead1;
-    transform: translate(calc(var(--gap) + var(--size)), calc(var(--gap) + var(--size)));
-}
-.bead2 {
-    grid-area: bead2;
-    transform: translate(0, calc(var(--gap) + var(--size)));
-}
-.bead3 {
-    grid-area: bead3;
-    transform: translate(calc(0px - var(--gap) - var(--size)), calc(var(--gap) + var(--size)));
-}
-.bead4 {
-    grid-area: bead4;
-    transform: translate(calc(var(--gap) + var(--size)), 0);
-}
-.bead5 {
-    grid-area: bead5;
-    transform: translate(calc(0px - var(--gap) - var(--size)), 0);
-}
-.bead6 {
-    grid-area: bead6;
-    transform: translate(calc(var(--gap) + var(--size)), calc(0px - var(--gap) - var(--size)));
-}
-.bead7 {
-    grid-area: bead7;
-    transform: translate(0, calc(0px - var(--gap) - var(--size)));
-}
-.bead8 {
-    grid-area: bead8;
-    transform: translate(
-        calc(0px - var(--gap) - var(--size)),
-        calc(0px - var(--gap) - var(--size))
-    );
+    opacity: 0;
 }
 
 .bead_visible {
+    opacity: 1;
     transform: none;
 }
