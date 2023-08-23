@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '849. 到最近的人的最大距离',
-    url: 'https://leetcode.cn/problems/maximize-distance-to-closest-person/',
+    name: '1782. 统计点对的数目',
+    url: 'https://leetcode.cn/problems/count-pairs-of-nodes/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回他到离他最近的人的最大距离。`,
+    desc: `请你返回一个数组 answers ，其中 answers.length == queries.length 且 answers[j] 是第 j 个查询的答案。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,70 +27,61 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 16,
-            memory: 16.14,
-            desc: '遍历时记录前一个1',
+            time: 836,
+            memory: 181.42,
+            desc: '两个节点的边总和为 n[a]+n[b]-m[a][b] 要减去共有的边，先统计两个节点边和大于目标值的个数。',
             code: `class Solution {
 public:
-    int maxDistToClosest(vector<int>& seats) {
-        int prev = -1, idx = 0, res = INT_MIN;
-        while (idx < seats.size()) {
-            if (seats[idx] == 1) {
-                if (prev == -1) res = max(res, idx);
-                else res = max(res, (idx - prev) / 2);
-                prev = idx;
-            }
-            idx += 1;
+    vector<int> countPairs(int n, vector<vector<int>>& edges, vector<int>& queries) {
+        vector<int> nodes(n, 0);
+        unordered_map<int, unordered_map<int, int>> m;
+        for (auto &edge : edges) {
+            int x = edge[0] - 1, y = edge[1] - 1;
+            if (x > y) swap(x, y);
+            nodes[x] += 1;
+            nodes[y] += 1;
+            m[x][y] += 1;
         }
-        res = max(res, (int)seats.size() - 1 - prev);
+        vector<int> res, list = nodes;
+        sort(list.begin(), list.end());
+        for (auto &query : queries) {
+            int val = 0;
+            for (int i = 0; i < n; i++) {
+                int target = query - list[i], l = i + 1, r = n;
+                while (l < r) {
+                    int m = (l + r) / 2;
+                    if (list[m] > target) r = m;
+                    else l = m + 1;
+                }
+                val += n - l;
+            }
+            for (auto &item1 : m) {
+                int x = item1.first;
+                for (auto &item2 : item1.second) {
+                    int y = item2.first, cnt = item2.second;
+                    if (nodes[x] + nodes[y] > query && nodes[x] + nodes[y] - cnt <= query) val -= 1;
+                }
+            }
+            res.push_back(val);
+        }
         return res;
     }
 };`,
         },
-        {
-            script: Script.PY,
-            time: 52,
-            memory: 16.38,
-            desc: '同上',
-            code: `class Solution:
-    def maxDistToClosest(self, seats: List[int]) -> int:
-        prev = -1
-        idx = 0
-        res = -inf
-        while idx < len(seats):
-            if seats[idx] == 1:
-                if prev == -1:
-                    res = max(res, idx)
-                else:
-                    res = max(res, (idx - prev) // 2)
-                prev = idx
-            idx += 1
-        res = max(res, len(seats) - 1 - prev)
-        return res`,
-        },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2.15,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn max_dist_to_closest(seats: Vec<i32>) -> i32 {
-        let mut prev = -1;
-        let mut idx = 0;
-        let mut res = i32::MIN;
-        while idx < seats.len() {
-            if seats[idx] == 1 {
-                let idx = idx as i32;
-                res = res.max(if prev == -1 { idx } else { (idx - prev) / 2 });
-                prev = idx;
-            }
-            idx += 1;
-        }
-        res = res.max(seats.len() as i32 - 1 - prev);
-        res
-    }
-}`,
-        },
+        // {
+        //     script: Script.PY,
+        //     time: 52,
+        //     memory: 16.38,
+        //     desc: '同上',
+        //     code: ``,
+        // },
+        // {
+        //     script: Script.RUST,
+        //     time: 0,
+        //     memory: 2.15,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
