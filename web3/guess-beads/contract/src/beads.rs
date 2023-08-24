@@ -44,15 +44,7 @@ impl Beads {
         let pick_list = &self.0[0..PICK_NUM];
         let mut list = Self::collect(&pick_list);
         list.sort();
-        let benefits = match list {
-            [0, 4, 8] => 100,
-            [1, 3, 8] | [2, 2, 8] => 30,
-            [0, 5, 7] | [0, 6, 6] => 50,
-            [1, 4, 7] | [2, 3, 7] => 20,
-            [1, 5, 6] | [2, 4, 6] | [3, 3, 6] | [2, 5, 5] | [4, 4, 4] => 10,
-            [3, 4, 5] => -1,
-            _ => 0,
-        };
+        let benefits = Self::get_benefits(&list);
         (pick_list, benefits)
     }
     pub fn collect(list: &[BeadType]) -> [usize; TYPE_NUM] {
@@ -61,6 +53,17 @@ impl Beads {
             result_list[*ty as usize] += 1;
         }
         result_list
+    }
+    pub fn get_benefits(list: &[usize; 3]) -> i32 {
+        match list {
+            [0, 4, 8] => 100,
+            [1, 3, 8] | [2, 2, 8] => 30,
+            [0, 5, 7] | [0, 6, 6] => 50,
+            [1, 4, 7] | [2, 3, 7] => 20,
+            [1, 5, 6] | [2, 4, 6] | [3, 3, 6] | [2, 5, 5] | [4, 4, 4] => 2,
+            [3, 4, 5] => -1,
+            _ => 0,
+        }
     }
 }
 
@@ -97,5 +100,44 @@ impl Contract {
             benefits: benefits.to_string(),
             balance: account.balance.to_string(),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use near_sdk::{test_utils::VMContextBuilder, testing_env, AccountId};
+    const OWNER: &'static str = "bestlyg.testnet";
+    const TEST1_ACCOUNT: &'static str = "test1.testnet";
+    #[test]
+    fn guess_beads() {
+        let test1_account = TEST1_ACCOUNT.parse::<AccountId>().unwrap();
+        let init_balance = crate::shared::POINT_ONE * 11;
+        set_context(test1_account.clone(), init_balance);
+        let mut contract = Contract::init(OWNER.parse().unwrap());
+        contract.deposit_account_balance();
+        for _ in 0..100 {
+            let GussBeadsResult {
+                pick_list,
+                balance,
+                benefits,
+            } = contract.guess_beads();
+
+            let mut list = Beads::collect(&pick_list);
+            list.sort();
+            assert!(Beads::get_benefits(&list).to_string() == benefits);
+
+            let account = contract.accounts.get(&test1_account);
+            assert!(account.is_some());
+            let account = account.unwrap();
+            assert!(account.balance.to_string() == balance);
+        }
+    }
+
+    fn set_context(predecessor: AccountId, amount: Balance) {
+        let mut builder = VMContextBuilder::new();
+        builder.predecessor_account_id(predecessor);
+        builder.attached_deposit(amount);
+        testing_env!(builder.build());
     }
 }

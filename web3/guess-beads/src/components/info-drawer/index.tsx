@@ -164,7 +164,7 @@ export function InfoDrawer() {
                         <Descriptions.Item label="Reward 50 NEAR">[0, 5, 7],[0, 6, 6]</Descriptions.Item>
                         <Descriptions.Item label="Reward 30 NEAR">[1, 3, 8],[2, 2, 8]</Descriptions.Item>
                         <Descriptions.Item label="Reward 20 NEAR">[1, 4, 7],[2, 3, 7]</Descriptions.Item>
-                        <Descriptions.Item label="Reward 10 NEAR">
+                        <Descriptions.Item label="Reward 2 NEAR">
                             [1, 5, 6],[2, 4, 6],[3, 3, 6],[2, 5, 5],[4, 4, 4]
                         </Descriptions.Item>
                         <Descriptions.Item label="Reward -1 NEAR">[3, 4, 5]</Descriptions.Item>

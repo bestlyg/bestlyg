@@ -15,5 +15,5 @@ near deploy                                                                     
   --accountId bestlyg-guess-beads.testnet                                             \
   --force                                                                        \
   --initFunction init                                                            \
-  --initArgs '{"owner_id":"bestlyg.testnet","row_size":20,"col_size":20}'        \
+  --initArgs '{"owner_id":"bestlyg.testnet"}'        \
   --initGas 100000000000000

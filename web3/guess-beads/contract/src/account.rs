@@ -51,9 +51,9 @@ impl Contract {
             self.get_account(&account_id).balance >= balance,
             "You do not have enough balance to withdraw."
         );
-        Promise::new(account_id.clone())
-            .transfer(balance)
-            .then(Self::ext(env::current_account_id()).change_balance_string(account_id, balance, false))
+        Promise::new(account_id.clone()).transfer(balance).then(
+            Self::ext(env::current_account_id()).change_balance_string(account_id, balance, false),
+        )
     }
     pub fn withdraw_account_balance(&mut self, balance: String) -> Promise {
         let balance: Result<u128, std::num::ParseIntError> = balance.parse::<Balance>();
@@ -89,5 +89,50 @@ impl Contract {
         add: bool,
     ) -> String {
         self.change_balance(account_id, balance, add).to_string()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use near_sdk::{test_utils::VMContextBuilder, testing_env};
+
+    use super::*;
+    const OWNER: &'static str = "bestlyg.testnet";
+    const TEST1_ACCOUNT: &'static str = "test1.testnet";
+
+    #[test]
+    fn get_account() {
+        let test1_account = TEST1_ACCOUNT.parse::<AccountId>().unwrap();
+        let init_balance = crate::shared::POINT_ONE * 10;
+        let mut contract = Contract::init(OWNER.parse().unwrap());
+        contract.accounts.insert(
+            test1_account.clone(),
+            Account::new(test1_account.clone(), init_balance),
+        );
+        let account = contract.accounts.get(&test1_account);
+        assert!(account.is_some());
+        let account = account.unwrap();
+        assert!(account.balance == init_balance);
+    }
+
+    #[test]
+    fn deposit_account_balance() {
+        let test1_account = TEST1_ACCOUNT.parse::<AccountId>().unwrap();
+        let init_balance = crate::shared::POINT_ONE * 11;
+        set_context(test1_account.clone(), init_balance);
+        let mut contract = Contract::init(OWNER.parse().unwrap());
+        contract.deposit_account_balance();
+
+        let account = contract.accounts.get(&test1_account);
+        assert!(account.is_some());
+        let account = account.unwrap();
+        assert!(account.balance == init_balance);
+    }
+
+    fn set_context(predecessor: AccountId, amount: Balance) {
+        let mut builder = VMContextBuilder::new();
+        builder.predecessor_account_id(predecessor);
+        builder.attached_deposit(amount);
+        testing_env!(builder.build());
     }
 }
