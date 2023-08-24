@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "license": "(MIT AND Apache-2.0)",
   "scripts": {
-    "::start": "cd frontend && npm run start",
     "start": "webpack server --mode=development --config ./config/webpack.config.js",
     "deploy": "cd contract && ./deploy.sh",
     "build": "npm run build:contract && npm run build:web",
-    "build:web": "cd frontend && npm run build",
+    "build:web": "NODE_ENV=production webpack --mode=production  --config ./config/webpack.config.js",
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
-    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \"../contract/target/wasm32-unknown-unknown/release/bestlyg_guess_beads_contract.wasm\"",
-    "::postinstall": "cd frontend && npm install && cd .. && echo rs tests && echo rs contract"
+    "test:integration": "npm run build:contract && cd integration-tests && cargo run --example integration-tests \"../contract/target/wasm32-unknown-unknown/release/bestlyg_guess_beads_contract.wasm\""
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
@@ -66,11 +64,9 @@
     "ahooks": "^3.7.8",
     "antd": "^5.8.4",
     "classnames": "^2.3.2",
-    "express": "^4.18.2",
     "http": "0.0.1-security",
     "https": "^1.0.0",
     "near-api-js": "^2.1.4",
-    "react-color": "^2.19.3",
     "zustand": "^4.4.1"
   }
 }

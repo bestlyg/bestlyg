@@ -8,6 +8,7 @@ import { schedules } from './schedules';
 import { database, auth, application } from './modules';
 
 const staticPath = join(__dirname, '../../../static');
+// const publicPath = join(__dirname, '../../../public');
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -18,6 +19,10 @@ const staticPath = join(__dirname, '../../../static');
       rootPath: staticPath,
       serveRoot: '/static',
     }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: publicPath,
+    //   serveRoot: '/public',
+    // }),
     ScheduleModule.forRoot(),
     CacheModule.register(),
     database.DatabaseModule,

@@ -36,7 +36,7 @@ export function deposit_account_balance(params: { deposit: string }): Promise<st
             contractId: 'bestlyg-guess-beads.testnet',
             method: 'deposit_account_balance',
             deposit: params.deposit,
-            callbackUrl: location.origin + '?type=cb&api=deposit_account_balance',
+            callbackUrl: location.href + '?type=cb&api=deposit_account_balance',
         }) ?? Promise.resolve()
     ).then(res => {
         const hash = res?.transaction?.hash;
@@ -81,19 +81,3 @@ export function guess_beads(): Promise<{
             return res;
         });
 }
-
-// balance:1.3e+25
-// benefits:1
-// pick_list:Array(12)
-// 0:"Green"
-// 1:"Blue"
-// 2:"Green"
-// 3:"Blue"
-// 4:"Red"
-// 5:"Red"
-// 6:"Green"
-// 7:"Green"
-// 8:"Blue"
-// 9:"Blue"
-// 10:"Red"
-// 11:"Red"
