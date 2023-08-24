@@ -60,40 +60,16 @@ async fn deposit_account(user: &Account, contract: &Contract) -> anyhow::Result<
     Ok(())
 }
 
-#[derive(serde::Deserialize, serde::Serialize, Debug)]
-struct AccountResult {
-    account_id: AccountId,
-    balance: Balance,
-}
 async fn withdraw_account_balance(user: &Account, contract: &Contract) -> anyhow::Result<()> {
-    let _ = user
-        .call(contract.id(), "deposit_account_balance")
-        .deposit(POINT_ONE * 5)
-        .transact()
-        .await?;
-    let _ = user
-        .call(contract.id(), "deposit_account_balance")
-        .deposit(POINT_ONE * 10)
-        .transact()
-        .await?;
-
     let res = user
-        .call(contract.id(), "get_account_info")
+        .call(contract.id(), "withdraw_account_balance")
+        .args_json(json!({"balance": (POINT_ONE * 7).to_string()}))
         .transact()
         .await?
-        .json::<AccountResult>();
-    println!("res={res:#?}");
-
-    // let res = user
-    //     .call(contract.id(), "withdraw_account_balance")
-    //     .args_json(json!({"balance": (POINT_ONE * 7).to_string()}))
-    //     .transact()
-    //     .await?
-    //     .raw_bytes();
-    // assert!(res.is_ok());
-    // let res = res.unwrap();
-    // let balance = String::from_utf8(res[1..res.len() - 1].to_vec()).unwrap();
-    // println!("bal = {balance}");
-    // assert!(balance == (POINT_ONE * 8).to_string());
+        .raw_bytes();
+    assert!(res.is_ok());
+    let res = res.unwrap();
+    let balance = String::from_utf8(res[1..res.len() - 1].to_vec()).unwrap();
+    assert!(balance == (POINT_ONE * (15 - 7)).to_string());
     Ok(())
 }
