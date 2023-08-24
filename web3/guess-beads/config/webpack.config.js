@@ -16,7 +16,6 @@ module.exports = (env, argv) =>
                 type: 'umd',
             },
             clean: true,
-            publicPath: '/public/guess-beads',
         },
         module: {
             rules: [
