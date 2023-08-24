@@ -2,19 +2,34 @@ from preclude import *
 
 
 class Solution:
-    def maxDistToClosest(self, seats: List[int]) -> int:
-        prev = -1
-        idx = 0
-        res = -inf
-        while idx < len(seats):
-            if seats[idx] == 1:
-                if prev == -1:
-                    res = max(res, idx)
-                else:
-                    res = max(res, (idx - prev) / 2)
-                prev = idx
-            idx += 1
-        res = max(res, seats.size() - 1 - prev)
+    def countServers(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        mmap = [[0 for _ in range(m)] for _ in range(n)]
+        prev = (-1, -1)
+        for i in range(n):
+            prev = (-1, -1)
+            for j in range(m):
+                if grid[i][j] == 1:
+                    if prev[0] == -1:
+                        prev = (i, j)
+                    else:
+                        mmap[prev[0]][prev[1]] = True
+                        mmap[i][j] = True
+        for j in range(m):
+            prev = (-1, -1)
+            for i in range(n):
+                if grid[i][j] == 1:
+                    if prev[0] == -1:
+                        prev = (i, j)
+                    else:
+                        mmap[prev[0]][prev[1]] = True
+                        mmap[i][j] = True
+        res = 0
+        for i in range(n):
+            for j in range(m):
+                if mmap[i][j]:
+                    res += 1
         return res
 
 

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1782. 统计点对的数目',
-    url: 'https://leetcode.cn/problems/count-pairs-of-nodes/',
+    name: '1267. 统计参与通信的服务器',
+    url: 'https://leetcode.cn/problems/count-servers-that-communicate',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个数组 answers ，其中 answers.length == queries.length 且 answers[j] 是第 j 个查询的答案。`,
+    desc: `请你统计并返回能够与至少一台其他服务器进行通信的服务器的数量。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,61 +27,131 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 836,
-            memory: 181.42,
-            desc: '两个节点的边总和为 n[a]+n[b]-m[a][b] 要减去共有的边，先统计两个节点边和大于目标值的个数。',
+            time: 40,
+            memory: 21.36,
+            desc: '两次遍历',
             code: `class Solution {
 public:
-    vector<int> countPairs(int n, vector<vector<int>>& edges, vector<int>& queries) {
-        vector<int> nodes(n, 0);
-        unordered_map<int, unordered_map<int, int>> m;
-        for (auto &edge : edges) {
-            int x = edge[0] - 1, y = edge[1] - 1;
-            if (x > y) swap(x, y);
-            nodes[x] += 1;
-            nodes[y] += 1;
-            m[x][y] += 1;
+    int countServers(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size(), mmap[250][250] = {0};
+        pair<int, int> prev = make_pair(-1, -1);
+        for (int i = 0; i < n; i++) {
+            prev = make_pair(-1, -1);
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1) {
+                    if (prev.first == -1) prev = make_pair(i, j);
+                    else {
+                        mmap[prev.first][prev.second] = true;
+                        mmap[i][j] = true;
+                    }
+                }
+            }
         }
-        vector<int> res, list = nodes;
-        sort(list.begin(), list.end());
-        for (auto &query : queries) {
-            int val = 0;
+        for (int j = 0; j < m; j++) {
+            prev = make_pair(-1, -1);
             for (int i = 0; i < n; i++) {
-                int target = query - list[i], l = i + 1, r = n;
-                while (l < r) {
-                    int m = (l + r) / 2;
-                    if (list[m] > target) r = m;
-                    else l = m + 1;
-                }
-                val += n - l;
-            }
-            for (auto &item1 : m) {
-                int x = item1.first;
-                for (auto &item2 : item1.second) {
-                    int y = item2.first, cnt = item2.second;
-                    if (nodes[x] + nodes[y] > query && nodes[x] + nodes[y] - cnt <= query) val -= 1;
+                if (grid[i][j] == 1) {
+                    if (prev.first == -1) prev = make_pair(i, j);
+                    else {
+                        mmap[prev.first][prev.second] = true;
+                        mmap[i][j] = true;
+                    }
                 }
             }
-            res.push_back(val);
         }
+        int res = 0;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                if (mmap[i][j]) res += 1;
         return res;
     }
 };`,
         },
-        // {
-        //     script: Script.PY,
-        //     time: 52,
-        //     memory: 16.38,
-        //     desc: '同上',
-        //     code: ``,
-        // },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 2.15,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.PY,
+            time: 100,
+            memory: 17.79,
+            desc: '同上',
+            code: `class Solution:
+    def countServers(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        mmap = [[0 for _ in range(m)] for _ in range(n)]
+        prev = (-1, -1)
+        for i in range(n):
+            prev = (-1, -1)
+            for j in range(m):
+                if grid[i][j] == 1:
+                    if prev[0] == -1:
+                        prev = (i, j)
+                    else:
+                        mmap[prev[0]][prev[1]] = True
+                        mmap[i][j] = True
+        for j in range(m):
+            prev = (-1, -1)
+            for i in range(n):
+                if grid[i][j] == 1:
+                    if prev[0] == -1:
+                        prev = (i, j)
+                    else:
+                        mmap[prev[0]][prev[1]] = True
+                        mmap[i][j] = True
+        res = 0
+        for i in range(n):
+            for j in range(m):
+                if mmap[i][j]:
+                    res += 1
+        return res`,
+        },
+        {
+            script: Script.RUST,
+            time: 8,
+            memory: 2.26,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn count_servers(grid: Vec<Vec<i32>>) -> i32 {
+        let n = grid.len();
+        let m = grid[0].len();
+        let mut mmap = vec![vec![false; m]; n];
+        let mut prev = (usize::MAX, usize::MAX);
+        for i in 0..n {
+            prev = (usize::MAX, usize::MAX);
+            for j in 0..m {
+                if grid[i][j] == 1 {
+                    if prev.0 == usize::MAX {
+                        prev = (i, j);
+                    } else {
+                        mmap[prev.0][prev.1] = true;
+                        mmap[i][j] = true;
+                    }
+                }
+            }
+        }
+        for j in 0..m {
+            prev = (usize::MAX, usize::MAX);
+            for i in 0..n {
+                if grid[i][j] == 1 {
+                    if prev.0 == usize::MAX {
+                        prev = (i, j);
+                    } else {
+                        mmap[prev.0][prev.1] = true;
+                        mmap[i][j] = true;
+                    }
+                }
+            }
+        }
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..m {
+                if mmap[i][j] {
+                    res += 1;
+                }
+            }
+        }
+        res
+    }
+}`,
+        },
     ],
 };
 

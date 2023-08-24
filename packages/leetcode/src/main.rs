@@ -13,19 +13,45 @@ fn main() {
 }
 
 impl Solution {
-    pub fn max_dist_to_closest(seats: Vec<i32>) -> i32 {
-        let mut prev = -1;
-        let mut idx = 0;
-        let mut res = i32::MIN;
-        while idx < seats.len() {
-            if seats[idx] == 1 {
-                let idx = idx as i32;
-                res = res.max(if prev == -1 { idx } else { (idx - prev) / 2 });
-                prev = idx;
+    pub fn count_servers(grid: Vec<Vec<i32>>) -> i32 {
+        let n = grid.len();
+        let m = grid[0].len();
+        let mmap = vec![vec![false; m]; n];
+        let mut prev = (usize::MAX, usize::MAX);
+        for i in 0..n {
+            prev = (usize::MAX, usize::MAX);
+            for j in 0..m {
+                if grid[i][j] == 1 {
+                    if prev.0 == usize::MAX {
+                        prev = (i, j);
+                    } else {
+                        mmap[prev.0][prev.1] = true;
+                        mmap[i][j] = true;
+                    }
+                }
             }
-            idx += 1;
         }
-        res = res.max(seats.len() as i32 - 1 - prev);
+        for j in 0..m {
+            prev = (usize::MAX, usize::MAX);
+            for i in 0..n {
+                if grid[i][j] == 1 {
+                    if prev.0 == usize::MAX {
+                        prev = (i, j);
+                    } else {
+                        mmap[prev.0][prev.1] = true;
+                        mmap[i][j] = true;
+                    }
+                }
+            }
+        }
+        let mut res = 0;
+        for i in 0..n {
+            for j in 0..m {
+                if mmap[i][j] {
+                    res += 1;
+                }
+            }
+        }
         res
     }
 }
