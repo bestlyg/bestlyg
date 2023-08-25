@@ -24,8 +24,7 @@ impl Account {
 
 #[near_bindgen]
 impl Contract {
-    #[private]
-    pub fn get_account(&mut self, account_id: &AccountId) -> &mut Account {
+    pub(crate) fn get_account(&mut self, account_id: &AccountId) -> &mut Account {
         self.accounts
             .entry(account_id.clone())
             .or_insert(Account::new(account_id.clone(), 0))
@@ -51,7 +50,7 @@ impl Contract {
             "You do not have enough balance to withdraw."
         );
         Promise::new(account_id.clone()).transfer(balance).then(
-            Self::ext(env::current_account_id()).change_balance_string(account_id, balance, false),
+            Self::ext(env::current_account_id()).change_balance(account_id, balance, false),
         )
     }
     pub fn withdraw_account_balance(&mut self, balance: String) -> Promise {
@@ -65,7 +64,14 @@ impl Contract {
         let balance = self.get_account(&account_id).balance;
         self._withdraw_account_balance(balance)
     }
-    fn change_balance(&mut self, account_id: AccountId, balance: Balance, add: bool) -> Balance {
+    // 只能自己调
+    #[private]
+    pub fn change_balance(
+        &mut self,
+        account_id: AccountId,
+        balance: Balance,
+        add: bool,
+    ) -> Balance {
         let account = self.get_account(&account_id);
         if add {
             (*account).balance += balance;
@@ -74,6 +80,7 @@ impl Contract {
         }
         (*account).balance
     }
+    // 只能自己调
     #[private]
     pub fn change_balance_string(
         &mut self,
