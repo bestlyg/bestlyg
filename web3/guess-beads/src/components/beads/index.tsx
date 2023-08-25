@@ -28,6 +28,7 @@ export function Beads() {
         console.log('On Guess');
         guess_beads()
             .then(res => {
+                if (!res) return;
                 const newAccount = { balance: res.balance };
                 setAccount(newAccount);
                 setPickList(res.pick_list);

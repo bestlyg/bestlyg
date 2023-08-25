@@ -1,5 +1,6 @@
 import { useStore } from '@/store';
 import { Color } from '@/utils';
+import { message } from 'antd';
 
 export function get_account_info(): Promise<{
     accoundId: string;
@@ -81,5 +82,10 @@ export function guess_beads(): Promise<{
         .then(res => {
             console.log('Guess Result: ', res);
             return res;
+        })
+        .catch(err => {
+            const o = JSON.parse(err.toString().substring(7));
+            const msg = o?.kind?.ExecutionError;
+            message.error(msg);
         });
 }
