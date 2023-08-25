@@ -84,7 +84,7 @@ impl Contract {
             account.balance >= MIN_BALANCE * crate::shared::POINT_ONE,
             format!("You need least {} balance in your account.", MIN_BALANCE)
         );
-        account.balance -= 1;
+        account.balance -= crate::shared::POINT_ONE;
         let beads = crate::beads::Beads::get_random_beads();
         log!("Beads : {:?}", beads);
         let (pick_list, benefits) = beads.pick();
