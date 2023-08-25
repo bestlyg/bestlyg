@@ -44,8 +44,7 @@ impl Contract {
         let balance = env::attached_deposit();
         self.change_balance(account_id, balance, true).to_string()
     }
-    #[private]
-    pub fn _withdraw_account_balance(&mut self, balance: Balance) -> Promise {
+    fn _withdraw_account_balance(&mut self, balance: Balance) -> Promise {
         let account_id = env::predecessor_account_id();
         require!(
             self.get_account(&account_id).balance >= balance,
@@ -66,13 +65,7 @@ impl Contract {
         let balance = self.get_account(&account_id).balance;
         self._withdraw_account_balance(balance)
     }
-    #[private]
-    pub fn change_balance(
-        &mut self,
-        account_id: AccountId,
-        balance: Balance,
-        add: bool,
-    ) -> Balance {
+    fn change_balance(&mut self, account_id: AccountId, balance: Balance, add: bool) -> Balance {
         let account = self.get_account(&account_id);
         if add {
             (*account).balance += balance;

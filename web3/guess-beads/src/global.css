@@ -8,5 +8,5 @@ body {
 }
 
 #near-wallet-selector-modal .nws-modal-wrapper {
-    z-index: 1000;
+    z-index: 2000;
 }

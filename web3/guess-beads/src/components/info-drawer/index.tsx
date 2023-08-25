@@ -1,9 +1,20 @@
-import { Descriptions, FloatButton, Drawer, Button, Spin, Modal, InputNumber, message } from 'antd';
+import {
+    Descriptions,
+    FloatButton,
+    Drawer,
+    Button,
+    Spin,
+    Modal,
+    InputNumber,
+    message,
+    Tooltip,
+} from 'antd';
 import { utils } from 'near-api-js';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import { SettingOutlined } from '@ant-design/icons';
 import { useStore } from '@/store';
+import cx from 'classnames';
 import { useBoolean } from 'ahooks';
 import {
     deposit_account_balance,
@@ -87,7 +98,13 @@ export function InfoDrawer() {
     };
     return (
         <>
-            <FloatButton icon={<SettingOutlined />} onClick={visibleOpt.setTrue} />
+            <Tooltip placement="top" title={'Click to signin.'} open={!signed}>
+                <FloatButton
+                    icon={<SettingOutlined />}
+                    className={cx(styles.float_button, !signed && styles.float_button_unsign)}
+                    onClick={visibleOpt.setTrue}
+                />
+            </Tooltip>
             <Drawer title="Info" placement="left" onClose={visibleOpt.setFalse} open={visible}>
                 <Spin spinning={loading}>
                     <Descriptions
@@ -161,9 +178,15 @@ export function InfoDrawer() {
                             </div>
                         </Descriptions.Item>
                         <Descriptions.Item label="Reward 100 NEAR">[0, 4, 8]</Descriptions.Item>
-                        <Descriptions.Item label="Reward 50 NEAR">[0, 5, 7],[0, 6, 6]</Descriptions.Item>
-                        <Descriptions.Item label="Reward 30 NEAR">[1, 3, 8],[2, 2, 8]</Descriptions.Item>
-                        <Descriptions.Item label="Reward 20 NEAR">[1, 4, 7],[2, 3, 7]</Descriptions.Item>
+                        <Descriptions.Item label="Reward 50 NEAR">
+                            [0, 5, 7],[0, 6, 6]
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Reward 30 NEAR">
+                            [1, 3, 8],[2, 2, 8]
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Reward 20 NEAR">
+                            [1, 4, 7],[2, 3, 7]
+                        </Descriptions.Item>
                         <Descriptions.Item label="Reward 2 NEAR">
                             [1, 5, 6],[2, 4, 6],[3, 3, 6],[2, 5, 5],[4, 4, 4]
                         </Descriptions.Item>
