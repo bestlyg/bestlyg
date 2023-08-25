@@ -1,8 +1,11 @@
 {
+    "id": "2383",
     "name": "2235.两整数相加",
-    "url": "https://leetcode.cn/problems/add-two-integers/",
+    "url": "https://leetcode.cn/problems/add-two-integers",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数学"
+    ],
     "desc": "给你两个整数 num1 和 num2，返回这两个整数的和。",
     "solutions": [
         {

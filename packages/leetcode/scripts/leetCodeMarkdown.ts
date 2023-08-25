@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1267. 统计参与通信的服务器',
-    url: 'https://leetcode.cn/problems/count-servers-that-communicate',
+    name: '1448. 统计二叉树中好节点的数目',
+    url: 'https://leetcode.cn/problems/count-good-nodes-in-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你统计并返回能够与至少一台其他服务器进行通信的服务器的数量。`,
+    desc: `给你一棵根为 root 的二叉树，请你返回二叉树中好节点的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,9 +27,9 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 40,
-            memory: 21.36,
-            desc: '两次遍历',
+            time: 112,
+            memory: 84.3,
+            desc: 'dfs',
             code: `class Solution {
 public:
     int countServers(vector<vector<int>>& grid) {
@@ -69,85 +69,45 @@ public:
         },
         {
             script: Script.PY,
-            time: 100,
-            memory: 17.79,
+            time: 204,
+            memory: 34.5,
             desc: '同上',
             code: `class Solution:
-    def countServers(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        m = len(grid[0])
-        mmap = [[0 for _ in range(m)] for _ in range(n)]
-        prev = (-1, -1)
-        for i in range(n):
-            prev = (-1, -1)
-            for j in range(m):
-                if grid[i][j] == 1:
-                    if prev[0] == -1:
-                        prev = (i, j)
-                    else:
-                        mmap[prev[0]][prev[1]] = True
-                        mmap[i][j] = True
-        for j in range(m):
-            prev = (-1, -1)
-            for i in range(n):
-                if grid[i][j] == 1:
-                    if prev[0] == -1:
-                        prev = (i, j)
-                    else:
-                        mmap[prev[0]][prev[1]] = True
-                        mmap[i][j] = True
+    def goodNodes(self, root: TreeNode) -> int:
         res = 0
-        for i in range(n):
-            for j in range(m):
-                if mmap[i][j]:
-                    res += 1
+        def dfs(node: TreeNode, max: int):
+            nonlocal res
+            if not node: return
+            if node.val >= max:
+                max = node.val
+                res += 1
+            dfs(node.left, max)
+            dfs(node.right, max)
+        dfs(root, -inf)
         return res`,
         },
         {
             script: Script.RUST,
-            time: 8,
-            memory: 2.26,
+            time: 20,
+            memory: 6.7,
             desc: '同上',
-            code: `impl Solution {
-    pub fn count_servers(grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let m = grid[0].len();
-        let mut mmap = vec![vec![false; m]; n];
-        let mut prev = (usize::MAX, usize::MAX);
-        for i in 0..n {
-            prev = (usize::MAX, usize::MAX);
-            for j in 0..m {
-                if grid[i][j] == 1 {
-                    if prev.0 == usize::MAX {
-                        prev = (i, j);
-                    } else {
-                        mmap[prev.0][prev.1] = true;
-                        mmap[i][j] = true;
-                    }
-                }
-            }
-        }
-        for j in 0..m {
-            prev = (usize::MAX, usize::MAX);
-            for i in 0..n {
-                if grid[i][j] == 1 {
-                    if prev.0 == usize::MAX {
-                        prev = (i, j);
-                    } else {
-                        mmap[prev.0][prev.1] = true;
-                        mmap[i][j] = true;
-                    }
-                }
-            }
-        }
+            code: `use std::cell::RefCell;
+use std::rc::Rc;
+impl Solution {
+    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         let mut res = 0;
-        for i in 0..n {
-            for j in 0..m {
-                if mmap[i][j] {
-                    res += 1;
+        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>, mut max: i32) {
+            if let Some(ref node) = node {
+                let node_ref = node.as_ref().borrow();
+                if node_ref.val >= max {
+                    max = node_ref.val;
+                    *res += 1;
                 }
+                dfs(res, &node_ref.left, max);
+                dfs(res, &node_ref.right, max);
             }
         }
+        dfs(&mut res, &root, i32::MIN);
         res
     }
 }`,

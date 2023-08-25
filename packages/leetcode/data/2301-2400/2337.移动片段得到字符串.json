@@ -1,8 +1,12 @@
 {
+    "id": "2414",
     "name": "2337.移动片段得到字符串",
-    "url": "https://leetcode.cn/problems/move-pieces-to-obtain-a-string/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/move-pieces-to-obtain-a-string",
+    "difficulty": "中等",
+    "tag": [
+        "双指针",
+        "字符串"
+    ],
     "desc": "如果在移动字符串 start 中的片段任意次之后可以得到字符串 target ，返回 true ；否则，返回 false 。",
     "solutions": [
         {

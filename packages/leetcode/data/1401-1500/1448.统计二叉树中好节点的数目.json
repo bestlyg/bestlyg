@@ -1,0 +1,33 @@
+{
+    "name": "1448.统计二叉树中好节点的数目",
+    "url": "https://leetcode.cn/problems/count-good-nodes-in-binary-tree/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一棵根为 root 的二叉树，请你返回二叉树中好节点的数目。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 112,
+            "memory": 84.3,
+            "desc": "dfs。",
+            "code": "class Solution {\npublic:\n    int countServers(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size(), mmap[250][250] = {0};\n        pair<int, int> prev = make_pair(-1, -1);\n        for (int i = 0; i < n; i++) {\n            prev = make_pair(-1, -1);\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 1) {\n                    if (prev.first == -1) prev = make_pair(i, j);\n                    else {\n                        mmap[prev.first][prev.second] = true;\n                        mmap[i][j] = true;\n                    }\n                }\n            }\n        }\n        for (int j = 0; j < m; j++) {\n            prev = make_pair(-1, -1);\n            for (int i = 0; i < n; i++) {\n                if (grid[i][j] == 1) {\n                    if (prev.first == -1) prev = make_pair(i, j);\n                    else {\n                        mmap[prev.first][prev.second] = true;\n                        mmap[i][j] = true;\n                    }\n                }\n            }\n        }\n        int res = 0;\n        for (int i = 0; i < n; i++)\n            for (int j = 0; j < m; j++)\n                if (mmap[i][j]) res += 1;\n        return res;\n    }\n};",
+            "date": 1692892800000
+        },
+        {
+            "script": "python",
+            "time": 204,
+            "memory": 34.5,
+            "desc": "同上。",
+            "code": "class Solution:\n    def goodNodes(self, root: TreeNode) -> int:\n        res = 0\n        def dfs(node: TreeNode, max: int):\n            nonlocal res\n            if not node: return\n            if node.val >= max:\n                max = node.val\n                res += 1\n            dfs(node.left, max)\n            dfs(node.right, max)\n        dfs(root, -inf)\n        return res",
+            "date": 1692892800000
+        },
+        {
+            "script": "rust",
+            "time": 20,
+            "memory": 6.7,
+            "desc": "同上。",
+            "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let mut res = 0;\n        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>, mut max: i32) {\n            if let Some(ref node) = node {\n                let node_ref = node.as_ref().borrow();\n                if node_ref.val >= max {\n                    max = node_ref.val;\n                    *res += 1;\n                }\n                dfs(res, &node_ref.left, max);\n                dfs(res, &node_ref.right, max);\n            }\n        }\n        dfs(&mut res, &root, i32::MIN);\n        res\n    }\n}",
+            "date": 1692892800000
+        }
+    ]
+}

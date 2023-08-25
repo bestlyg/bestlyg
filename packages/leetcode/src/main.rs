@@ -12,46 +12,23 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn count_servers(grid: Vec<Vec<i32>>) -> i32 {
-        let n = grid.len();
-        let m = grid[0].len();
-        let mmap = vec![vec![false; m]; n];
-        let mut prev = (usize::MAX, usize::MAX);
-        for i in 0..n {
-            prev = (usize::MAX, usize::MAX);
-            for j in 0..m {
-                if grid[i][j] == 1 {
-                    if prev.0 == usize::MAX {
-                        prev = (i, j);
-                    } else {
-                        mmap[prev.0][prev.1] = true;
-                        mmap[i][j] = true;
-                    }
-                }
-            }
-        }
-        for j in 0..m {
-            prev = (usize::MAX, usize::MAX);
-            for i in 0..n {
-                if grid[i][j] == 1 {
-                    if prev.0 == usize::MAX {
-                        prev = (i, j);
-                    } else {
-                        mmap[prev.0][prev.1] = true;
-                        mmap[i][j] = true;
-                    }
-                }
-            }
-        }
+    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         let mut res = 0;
-        for i in 0..n {
-            for j in 0..m {
-                if mmap[i][j] {
-                    res += 1;
+        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>, mut max: i32) {
+            if let Some(ref node) = node {
+                let node_ref = node.as_ref().borrow();
+                if node_ref.val >= max {
+                    max = node_ref.val;
+                    *res += 1;
                 }
+                dfs(res, &node_ref.left, max);
+                dfs(res, &node_ref.right, max);
             }
         }
+        dfs(&mut res, &root, i32::MIN);
         res
     }
 }
