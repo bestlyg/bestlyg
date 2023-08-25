@@ -6,7 +6,7 @@
     "start": "webpack server --mode=development --config ./config/webpack.config.js",
     "deploy": "cd contract && ./deploy.sh",
     "build": "npm run build:contract && npm run build:web",
-    "build:web": "NODE_ENV=production webpack --mode=production  --config ./config/webpack.config.js",
+    "build:web": "NODE_ENV=production webpack --mode=production  --config ./config/webpack.config.js && rm -rf ../../static/guess-beads && cp -rf ./dist ../../static/guess-beads",
     "build:contract": "cd contract && ./build.sh",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && cargo test",
