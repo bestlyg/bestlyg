@@ -31,12 +31,14 @@ export function get_account_balance(): Promise<string> {
 
 export function deposit_account_balance(params: { deposit: string }): Promise<string> {
     const { wallet } = useStore.getState();
+    let href = location.href;
+    if (!href.endsWith('?')) href += '?';
     return (
         wallet?.callMethod({
             contractId: 'bestlyg-guess-beads.testnet',
             method: 'deposit_account_balance',
             deposit: params.deposit,
-            callbackUrl: location.href + '?type=cb&api=deposit_account_balance',
+            callbackUrl: href + 'type=cb&api=deposit_account_balance',
         }) ?? Promise.resolve()
     ).then(res => {
         const hash = res?.transaction?.hash;
