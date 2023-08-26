@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1448. 统计二叉树中好节点的数目',
+    exist: true,
+    name: '228. 汇总区间',
     url: 'https://leetcode.cn/problems/count-good-nodes-in-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,87 +27,108 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 112,
-            memory: 84.3,
-            desc: 'dfs',
+            time: 0,
+            memory: 6.65,
+            desc: '遍历',
             code: `class Solution {
 public:
-    int countServers(vector<vector<int>>& grid) {
-        int n = grid.size(), m = grid[0].size(), mmap[250][250] = {0};
-        pair<int, int> prev = make_pair(-1, -1);
-        for (int i = 0; i < n; i++) {
-            prev = make_pair(-1, -1);
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 1) {
-                    if (prev.first == -1) prev = make_pair(i, j);
-                    else {
-                        mmap[prev.first][prev.second] = true;
-                        mmap[i][j] = true;
-                    }
-                }
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> res;
+        if (nums.size() == 0) return res;
+        bool prev = false;
+        pair<int, int> cur;
+        for (auto &num : nums) {
+            if (!prev) {
+                prev = true;
+                cur = make_pair(num, num);
+            } else if (cur.second + 1 == num) {
+                cur.second = num;
+            } else {
+                string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + "->" + to_string(cur.second);
+                res.push_back(item);
+                cur = make_pair(num, num);
             }
         }
-        for (int j = 0; j < m; j++) {
-            prev = make_pair(-1, -1);
-            for (int i = 0; i < n; i++) {
-                if (grid[i][j] == 1) {
-                    if (prev.first == -1) prev = make_pair(i, j);
-                    else {
-                        mmap[prev.first][prev.second] = true;
-                        mmap[i][j] = true;
-                    }
-                }
-            }
+        if (prev) {
+            string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + "->" + to_string(cur.second);
+            res.push_back(item);
         }
-        int res = 0;
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                if (mmap[i][j]) res += 1;
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 204,
-            memory: 34.5,
+            time: 48,
+            memory: 15.72,
             desc: '同上',
             code: `class Solution:
-    def goodNodes(self, root: TreeNode) -> int:
-        res = 0
-        def dfs(node: TreeNode, max: int):
-            nonlocal res
-            if not node: return
-            if node.val >= max:
-                max = node.val
-                res += 1
-            dfs(node.left, max)
-            dfs(node.right, max)
-        dfs(root, -inf)
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        if not len(nums):
+            return []
+        res = []
+        prev = False
+        cur = (0, 0)
+        for num in nums:
+            if not prev:
+                prev = True
+                cur = (num, num)
+            elif cur[1] + 1 == num:
+                cur = (cur[0], num)
+            else:
+                item = str(cur[0]) if cur[0] == cur[1] else str(cur[0]) + "->" + str(cur[1])
+                res.append(item)
+                cur = (num, num)
+        if prev:
+            item = str(cur[0]) if cur[0] == cur[1] else str(
+                cur[0]) + "->" + str(cur[1])
+            res.append(item)
         return res`,
         },
         {
             script: Script.RUST,
-            time: 20,
-            memory: 6.7,
+            time: 0,
+            memory: 2.13,
             desc: '同上',
-            code: `use std::cell::RefCell;
-use std::rc::Rc;
-impl Solution {
-    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut res = 0;
-        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>, mut max: i32) {
-            if let Some(ref node) = node {
-                let node_ref = node.as_ref().borrow();
-                if node_ref.val >= max {
-                    max = node_ref.val;
-                    *res += 1;
+            code: `impl Solution {
+    pub fn summary_ranges(nums: Vec<i32>) -> Vec<String> {
+        let mut res = vec![];
+        if !nums.is_empty() {
+            let mut prev = false;
+            let mut cur = (0, 0);
+            for num in nums {
+                if !prev {
+                    prev = true;
+                    cur = (num, num);
+                } else if cur.1 + 1 == num {
+                    cur.1 = num;
+                } else {
+                    let item = if cur.0 == cur.1 {
+                        cur.0.to_string()
+                    } else {
+                        let mut s = String::new();
+                        s.push_str(&cur.0.to_string());
+                        s.push_str("->");
+                        s.push_str(&cur.1.to_string());
+                        s
+                    };
+                    res.push(item);
+                    cur = (num, num);
                 }
-                dfs(res, &node_ref.left, max);
-                dfs(res, &node_ref.right, max);
+            }
+            if prev {
+                let item = if cur.0 == cur.1 {
+                        cur.0.to_string()
+                } else {
+                    let mut s = String::new();
+                    s.push_str(&cur.0.to_string());
+                    s.push_str("->");
+                    s.push_str(&cur.1.to_string());
+                    s
+                };
+                res.push(item);
             }
         }
-        dfs(&mut res, &root, i32::MIN);
         res
     }
 }`,

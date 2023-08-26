@@ -12,23 +12,40 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
 impl Solution {
-    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut res = 0;
-        fn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>, mut max: i32) {
-            if let Some(ref node) = node {
-                let node_ref = node.as_ref().borrow();
-                if node_ref.val >= max {
-                    max = node_ref.val;
-                    *res += 1;
+    pub fn summary_ranges(nums: Vec<i32>) -> Vec<String> {
+        let mut res = vec![];
+        if !nums.is_empty() {
+            let mut prev = false;
+            let mut cur = (0, 0);
+            for num in nums {
+                if !prev {
+                    prev = true;
+                    cur = (num, num);
+                } else if cur.1 + 1 == num {
+                    cur.1 = num;
+                } else {
+                    let item = if cur.0 == cur.1 {
+                        cur.0.to_string()
+                    } else {
+                        let mut s = String::new();
+                        s.push_str(&cur.0.to_string());
+                        s.push_str("->");
+                        s.push_str(&cur.1.to_string());
+                        s
+                    };
+                    res.push(item);
+                    cur = (num, num);
                 }
-                dfs(res, &node_ref.left, max);
-                dfs(res, &node_ref.right, max);
+            }
+            if prev {
+                let mut s = String::new();
+                s.push_str(&cur.0.to_string());
+                s.push_str("->");
+                s.push_str(&cur.1.to_string());
+                res.push(s);
             }
         }
-        dfs(&mut res, &root, i32::MIN);
         res
     }
 }
