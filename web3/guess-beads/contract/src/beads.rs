@@ -52,6 +52,7 @@ impl Beads {
         for ty in list {
             result_list[*ty as usize] += 1;
         }
+        result_list.sort();
         result_list
     }
     pub fn get_benefits(list: &[usize; 3]) -> i32 {
@@ -68,7 +69,7 @@ impl Beads {
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Deserialize, Serialize, Clone, PanicOnDefault)]
-pub struct GussBeadsResult {
+pub struct GuessBeadsResult {
     pick_list: Vec<crate::beads::BeadType>,
     benefits: String,
     balance: String,
@@ -76,7 +77,7 @@ pub struct GussBeadsResult {
 
 #[near_bindgen]
 impl Contract {
-    pub fn guess_beads(&mut self) -> GussBeadsResult {
+    pub fn guess_beads(&mut self) -> GuessBeadsResult {
         const MIN_BALANCE: Balance = 11;
         let account_id = env::predecessor_account_id();
         let account = self.get_account(&account_id);
@@ -95,7 +96,7 @@ impl Contract {
             let benefits = -benefits;
             account.balance -= benefits as Balance * crate::shared::POINT_ONE;
         }
-        GussBeadsResult {
+        GuessBeadsResult {
             pick_list,
             benefits: benefits.to_string(),
             balance: account.balance.to_string(),
@@ -117,14 +118,13 @@ mod tests {
         let mut contract = Contract::init(OWNER.parse().unwrap());
         contract.deposit_account_balance();
         for _ in 0..100 {
-            let GussBeadsResult {
+            let GuessBeadsResult {
                 pick_list,
                 balance,
                 benefits,
             } = contract.guess_beads();
 
-            let mut list = Beads::collect(&pick_list);
-            list.sort();
+            let list = Beads::collect(&pick_list);
             assert!(Beads::get_benefits(&list).to_string() == benefits);
 
             let account = contract.accounts.get(&test1_account);

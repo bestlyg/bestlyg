@@ -50,7 +50,7 @@ impl Contract {
             "You do not have enough balance to withdraw."
         );
         Promise::new(account_id.clone()).transfer(balance).then(
-            Self::ext(env::current_account_id()).change_balance(account_id, balance, false),
+            Self::ext(env::current_account_id()).change_balance_string(account_id, balance, false),
         )
     }
     pub fn withdraw_account_balance(&mut self, balance: String) -> Promise {
@@ -97,6 +97,7 @@ mod tests {
     use near_sdk::{test_utils::VMContextBuilder, testing_env};
 
     use super::*;
+    use crate::shared::POINT_ONE;
     const OWNER: &'static str = "bestlyg.testnet";
     const TEST1_ACCOUNT: &'static str = "test1.testnet";
 
@@ -118,7 +119,7 @@ mod tests {
     #[test]
     fn deposit_account_balance() {
         let test1_account = TEST1_ACCOUNT.parse::<AccountId>().unwrap();
-        let init_balance = crate::shared::POINT_ONE * 11;
+        let init_balance = POINT_ONE * 11;
         set_context(test1_account.clone(), init_balance);
         let mut contract = Contract::init(OWNER.parse().unwrap());
         contract.deposit_account_balance();
