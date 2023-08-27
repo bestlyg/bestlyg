@@ -24,6 +24,22 @@
             "script": "cpp",
             "desc": "排序后合并。",
             "code": "class Solution {\n   public:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> ans;\n        for (auto& interval : intervals) {\n            if (ans.size() > 0 && ans[ans.size() - 1][1] >= interval[0]) {\n                ans[ans.size() - 1][1] =\n                    max(interval[1], ans[ans.size() - 1][1]);\n            } else {\n                ans.push_back(interval);\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 56,
+            "memory": 19.6,
+            "desc": "同上。",
+            "code": "class Solution:\n    def merge(self, intervals: List[List[int]]) -> List[List[int]]:\n        intervals.sort(key=lambda o: o[0])\n        res = []\n        for [start, end] in intervals:\n            if not len(res) or res[-1][1] < start:\n                res.append([start, end])\n            else:\n                res[-1][1] = max(res[-1][1], end)\n        return res",
+            "date": 1693065600000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.83,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n        intervals.sort_by_key(|o| o[0]);\n        let mut res: Vec<Vec<i32>> = vec![];\n        for item in intervals {\n            if res.is_empty() || res.last().unwrap()[1] < item[0] {\n                res.push(item);\n            } else {\n                res.last_mut().unwrap()[1] = res.last_mut().unwrap()[1].max(item[1]);\n            }\n        }\n        res\n    }\n}",
+            "date": 1693065600000
         }
     ]
 }

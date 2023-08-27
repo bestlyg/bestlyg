@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '228. 汇总区间',
+    name: '56. 合并区间',
     url: 'https://leetcode.cn/problems/count-good-nodes-in-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,108 +25,43 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 0,
-            memory: 6.65,
-            desc: '遍历',
-            code: `class Solution {
-public:
-    vector<string> summaryRanges(vector<int>& nums) {
-        vector<string> res;
-        if (nums.size() == 0) return res;
-        bool prev = false;
-        pair<int, int> cur;
-        for (auto &num : nums) {
-            if (!prev) {
-                prev = true;
-                cur = make_pair(num, num);
-            } else if (cur.second + 1 == num) {
-                cur.second = num;
-            } else {
-                string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + "->" + to_string(cur.second);
-                res.push_back(item);
-                cur = make_pair(num, num);
-            }
-        }
-        if (prev) {
-            string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + "->" + to_string(cur.second);
-            res.push_back(item);
-        }
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 0,
+        //     memory: 6.65,
+        //     desc: '遍历',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 48,
-            memory: 15.72,
+            time: 56,
+            memory: 19.6,
             desc: '同上',
             code: `class Solution:
-    def summaryRanges(self, nums: List[int]) -> List[str]:
-        if not len(nums):
-            return []
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda o: o[0])
         res = []
-        prev = False
-        cur = (0, 0)
-        for num in nums:
-            if not prev:
-                prev = True
-                cur = (num, num)
-            elif cur[1] + 1 == num:
-                cur = (cur[0], num)
+        for [start, end] in intervals:
+            if not len(res) or res[-1][1] < start:
+                res.append([start, end])
             else:
-                item = str(cur[0]) if cur[0] == cur[1] else str(cur[0]) + "->" + str(cur[1])
-                res.append(item)
-                cur = (num, num)
-        if prev:
-            item = str(cur[0]) if cur[0] == cur[1] else str(
-                cur[0]) + "->" + str(cur[1])
-            res.append(item)
+                res[-1][1] = max(res[-1][1], end)
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.13,
+            time: 8,
+            memory: 2.83,
             desc: '同上',
             code: `impl Solution {
-    pub fn summary_ranges(nums: Vec<i32>) -> Vec<String> {
-        let mut res = vec![];
-        if !nums.is_empty() {
-            let mut prev = false;
-            let mut cur = (0, 0);
-            for num in nums {
-                if !prev {
-                    prev = true;
-                    cur = (num, num);
-                } else if cur.1 + 1 == num {
-                    cur.1 = num;
-                } else {
-                    let item = if cur.0 == cur.1 {
-                        cur.0.to_string()
-                    } else {
-                        let mut s = String::new();
-                        s.push_str(&cur.0.to_string());
-                        s.push_str("->");
-                        s.push_str(&cur.1.to_string());
-                        s
-                    };
-                    res.push(item);
-                    cur = (num, num);
-                }
-            }
-            if prev {
-                let item = if cur.0 == cur.1 {
-                        cur.0.to_string()
-                } else {
-                    let mut s = String::new();
-                    s.push_str(&cur.0.to_string());
-                    s.push_str("->");
-                    s.push_str(&cur.1.to_string());
-                    s
-                };
+    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+        intervals.sort_by_key(|o| o[0]);
+        let mut res: Vec<Vec<i32>> = vec![];
+        for item in intervals {
+            if res.is_empty() || res.last().unwrap()[1] < item[0] {
                 res.push(item);
+            } else {
+                res.last_mut().unwrap()[1] = res.last_mut().unwrap()[1].max(item[1]);
             }
         }
         res

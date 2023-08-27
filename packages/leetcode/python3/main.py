@@ -2,27 +2,14 @@ from preclude import *
 
 
 class Solution:
-    def summaryRanges(self, nums: List[int]) -> List[str]:
-        if not len(nums):
-            return []
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda o: o[0])
         res = []
-        prev = False
-        cur = (0, 0)
-        for num in nums:
-            if not prev:
-                prev = True
-                cur = (num, num)
-            elif cur[1] + 1 == num:
-                cur[1] = num
+        for [start, end] in intervals:
+            if not len(res) or res[-1][1] < start:
+                res.append([start, end])
             else:
-                item = str(cur.first) if cur.first == cur[1] else str(
-                    cur.first) + "->" + str(cur.second)
-                res.append(item)
-                cur = (num, num)
-        if prev:
-            item = str(cur.first) if cur.first == cur[1] else str(
-                cur.first) + "->" + str(cur.second)
-            res.append(item)
+                res[-1][1] = max(res[-1][1], end)
         return res
 
 
