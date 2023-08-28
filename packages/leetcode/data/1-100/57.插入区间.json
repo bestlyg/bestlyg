@@ -15,6 +15,30 @@
             "script": "javascript",
             "desc": "遍历一遍进行合并数组，并校验是否已插入。",
             "code": "function insert(intervals: number[][], newInterval: number[]): number[][] {\n  let [newStart, newEnd] = newInterval;\n  const ans: number[][] = [];\n  let inserted = false;\n  for (const interval of intervals) {\n    const [start, end] = interval;\n    if (inserted) {\n      ans.push(interval);\n    } else if (start > newEnd) {\n      ans.push([newStart, newEnd]);\n      ans.push(interval);\n      inserted = true;\n    } else if (end < newStart) {\n      ans.push(interval);\n    } else if (start <= newStart && end >= newEnd) {\n      ans.push(interval);\n      inserted = true;\n    } else {\n      newStart = Math.min(start, newStart);\n      newEnd = Math.max(end, newEnd);\n    }\n  }\n  inserted || ans.push([newStart, newEnd]);\n  return ans;\n}"
+        },
+        {
+            "script": "cpp",
+            "time": 16,
+            "memory": 16.22,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        vector<vector<int>> res;\n        int n = intervals.size(), i = 0;\n        while (i < n && intervals[i][1] < newInterval[0]) {\n            res.push_back(intervals[i]);\n            i += 1;\n        }\n        if (i == n) {\n            res.push_back(newInterval);\n        } else if (intervals[i][0] > newInterval[1]) {\n            res.push_back(newInterval);\n            while (i < n) {\n                res.push_back(intervals[i]);\n                i += 1;\n            }\n        } else {\n            res.push_back(\n                vector<int>{\n                    min(intervals[i][0], newInterval[0]),\n                    max(intervals[i][1], newInterval[1])\n                }\n            );\n            i += 1;\n            while (i < n) {\n                if (res.back()[1] >= intervals[i][0]) {\n                    res.back()[1] = max(res.back()[1], intervals[i][1]);\n                } else {\n                    res.push_back(intervals[i]);\n                }\n                i += 1;\n            }\n        }\n        return res;\n    }\n};",
+            "date": 1693152000000
+        },
+        {
+            "script": "python",
+            "time": 60,
+            "memory": 17.75,
+            "desc": "同上。",
+            "code": "class Solution:\n    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:\n        res = []\n        n = len(intervals)\n        i = 0\n        while i < n and intervals[i][1] < newInterval[0]:\n            res.append(intervals[i])\n            i += 1\n        if i == n:\n            res.append(newInterval)\n        elif intervals[i][0] > newInterval[1]:\n            res.append(newInterval)\n            while i < n:\n                res.append(intervals[i])\n                i += 1\n        else:\n            res.append(\n                [min(intervals[i][0], newInterval[0]),\n                    max(intervals[i][1], newInterval[1])]\n            )\n            i += 1\n            while i < n:\n                if res[-1][1] >= intervals[i][0]:\n                    res[-1][1] = max(res[-1][1], intervals[i][1])\n                else:\n                    res.append(intervals[i])\n                i += 1\n        return res",
+            "date": 1693152000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.54,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {\n        use std::cmp::{max, min};\n        let mut res = vec![];\n        let n = intervals.len();\n        let mut i = 0;\n        while i < n && intervals[i][1] < new_interval[0] {\n            res.push(intervals[i].clone());\n            i += 1;\n        }\n        if i == n {\n            res.push(new_interval);\n        } else if intervals[i][0] > new_interval[1] {\n            res.push(new_interval);\n            while i < n {\n                res.push(intervals[i].clone());\n                i += 1;\n            }\n        } else {\n            res.push(vec![\n                min(intervals[i][0], new_interval[0]),\n                max(intervals[i][1], new_interval[1]),\n            ]);\n            i += 1;\n            while i < n {\n                if res.last().unwrap()[1] >= intervals[i][0] {\n                    res.last_mut().unwrap()[1] = max(res.last().unwrap()[1], intervals[i][1]);\n                } else {\n                    res.push(intervals[i].clone());\n                }\n                i += 1;\n            }\n        }\n        res\n    }\n}",
+            "date": 1693152000000
         }
     ]
 }

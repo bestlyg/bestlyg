@@ -2,14 +2,32 @@ from preclude import *
 
 
 class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda o: o[0])
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         res = []
-        for [start, end] in intervals:
-            if not len(res) or res[-1][1] < start:
-                res.append([start, end])
-            else:
-                res[-1][1] = max(res[-1][1], end)
+        n = len(intervals)
+        i = 0
+        while i < n and intervals[i][1] < newInterval[0]:
+            res.append(intervals[i])
+            i += 1
+        if i == n:
+            res.push_back(newInterval)
+        elif intervals[i][0] > newInterval[1]:
+            res.push_back(newInterval)
+            while i < n:
+                res.push_back(intervals[i])
+                i += 1
+        else:
+            res.push_back(
+                [min(intervals[i][0], newInterval[0]),
+                 max(intervals[i][1], newInterval[1])]
+            )
+            i += 1
+            while i < n:
+                if res.back()[1] >= intervals[i][0]:
+                    res.back()[1] = max(res.back()[1], intervals[i][1])
+                else:
+                    res.push_back(intervals[i])
+                i += 1
         return res
 
 

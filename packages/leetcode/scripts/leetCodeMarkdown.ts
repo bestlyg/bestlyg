@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '56. 合并区间',
+    name: '57. 插入区间',
     url: 'https://leetcode.cn/problems/count-good-nodes-in-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,43 +25,119 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 0,
-        //     memory: 6.65,
-        //     desc: '遍历',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 16,
+            memory: 16.22,
+            desc: '遍历',
+            code: `class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> res;
+        int n = intervals.size(), i = 0;
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            res.push_back(intervals[i]);
+            i += 1;
+        }
+        if (i == n) {
+            res.push_back(newInterval);
+        } else if (intervals[i][0] > newInterval[1]) {
+            res.push_back(newInterval);
+            while (i < n) {
+                res.push_back(intervals[i]);
+                i += 1;
+            }
+        } else {
+            res.push_back(
+                vector<int>{
+                    min(intervals[i][0], newInterval[0]),
+                    max(intervals[i][1], newInterval[1])
+                }
+            );
+            i += 1;
+            while (i < n) {
+                if (res.back()[1] >= intervals[i][0]) {
+                    res.back()[1] = max(res.back()[1], intervals[i][1]);
+                } else {
+                    res.push_back(intervals[i]);
+                }
+                i += 1;
+            }
+        }
+        return res;
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 56,
-            memory: 19.6,
+            time: 60,
+            memory: 17.75,
             desc: '同上',
             code: `class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda o: o[0])
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         res = []
-        for [start, end] in intervals:
-            if not len(res) or res[-1][1] < start:
-                res.append([start, end])
-            else:
-                res[-1][1] = max(res[-1][1], end)
+        n = len(intervals)
+        i = 0
+        while i < n and intervals[i][1] < newInterval[0]:
+            res.append(intervals[i])
+            i += 1
+        if i == n:
+            res.append(newInterval)
+        elif intervals[i][0] > newInterval[1]:
+            res.append(newInterval)
+            while i < n:
+                res.append(intervals[i])
+                i += 1
+        else:
+            res.append(
+                [min(intervals[i][0], newInterval[0]),
+                    max(intervals[i][1], newInterval[1])]
+            )
+            i += 1
+            while i < n:
+                if res[-1][1] >= intervals[i][0]:
+                    res[-1][1] = max(res[-1][1], intervals[i][1])
+                else:
+                    res.append(intervals[i])
+                i += 1
         return res`,
         },
         {
             script: Script.RUST,
-            time: 8,
-            memory: 2.83,
+            time: 0,
+            memory: 2.54,
             desc: '同上',
             code: `impl Solution {
-    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        intervals.sort_by_key(|o| o[0]);
-        let mut res: Vec<Vec<i32>> = vec![];
-        for item in intervals {
-            if res.is_empty() || res.last().unwrap()[1] < item[0] {
-                res.push(item);
-            } else {
-                res.last_mut().unwrap()[1] = res.last_mut().unwrap()[1].max(item[1]);
+    pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {
+        use std::cmp::{max, min};
+        let mut res = vec![];
+        let n = intervals.len();
+        let mut i = 0;
+        while i < n && intervals[i][1] < new_interval[0] {
+            res.push(intervals[i].clone());
+            i += 1;
+        }
+        if i == n {
+            res.push(new_interval);
+        } else if intervals[i][0] > new_interval[1] {
+            res.push(new_interval);
+            while i < n {
+                res.push(intervals[i].clone());
+                i += 1;
+            }
+        } else {
+            res.push(vec![
+                min(intervals[i][0], new_interval[0]),
+                max(intervals[i][1], new_interval[1]),
+            ]);
+            i += 1;
+            while i < n {
+                if res.last().unwrap()[1] >= intervals[i][0] {
+                    res.last_mut().unwrap()[1] = max(res.last().unwrap()[1], intervals[i][1]);
+                } else {
+                    res.push(intervals[i].clone());
+                }
+                i += 1;
             }
         }
         res

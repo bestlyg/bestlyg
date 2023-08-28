@@ -11,15 +11,38 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
+
 impl Solution {
-    pub fn merge(mut intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        intervals.sort_by_key(|o| o[0]);
-        let mut res: Vec<Vec<i32>> = vec![];
-        for item in intervals {
-            if res.is_empty() || res.last().unwrap()[1] < item[0] {
-                res.push(item);
-            } else {
-                res.last_mut().unwrap()[1] = res.last_mut().unwrap()[1].max(item[1]);
+    pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {
+        use std::cmp::{max, min};
+        let mut res = vec![];
+        let n = intervals.len();
+        let mut i = 0;
+        while i < n && intervals[i][1] < new_interval[0] {
+            res.push(intervals[i].clone());
+            i += 1;
+        }
+        if i == n {
+            res.push(new_interval);
+        } else if intervals[i][0] > new_interval[1] {
+            res.push(new_interval);
+            while i < n {
+                res.push(intervals[i].clone());
+                i += 1;
+            }
+        } else {
+            res.push(vec![
+                min(intervals[i][0], new_interval[0]),
+                max(intervals[i][1], new_interval[1]),
+            ]);
+            i += 1;
+            while i < n {
+                if res.last().unwrap()[1] >= intervals[i][0] {
+                    res.last_mut().unwrap()[1] = max(res.last().unwrap()[1], intervals[i][1]);
+                } else {
+                    res.push(intervals[i].clone());
+                }
+                i += 1;
             }
         }
         res
