@@ -1,0 +1,41 @@
+{
+    "name": "823.带因子的二叉树",
+    "url": "https://leetcode.cn/problems/binary-trees-with-factors/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给出一个含有不重复整数元素的数组 arr ，每个整数 arr[i] 均大于 1。用这些整数来构建二叉树，每个整数可以使用任意次数。其中：每个非叶结点的值应等于它的两个子结点的值的乘积。满足条件的二叉树一共有多少个？。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 312,
+            "memory": 16.79,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def numFactoredBinaryTrees(self, arr: List[int]) -> int:\n        MOD = 1000000007\n        arr.sort()\n        s = set()\n        for num in arr:\n            s.add(num)\n        @cache\n        def dfs(root: int) -> int:\n            res = 1\n            for num in arr:\n                if num >= root: break\n                if root % num != 0: continue\n                if root // num not in s: continue\n                res = (res + dfs(num) * dfs(root // num) % MOD) % MOD\n            return res\n        return sum(dfs(num) for num in arr) % MOD",
+            "date": 1693238400000
+        },
+        {
+            "script": "cpp",
+            "time": 52,
+            "memory": 8.66,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int numFactoredBinaryTrees(vector<int>& arr) {\n        int MOD = 1e9 + 7, n = arr.size(), res = 1;\n        sort(arr.begin(), arr.end());\n        unordered_map<int, int> m;\n        for (int i = 0; i < n; i++) m[arr[i]] = i;\n        vector<long long> list(n, 1);\n        for (int i = 1; i < n; i++) {\n            for (int j = i - 1; j >= 0; j--) {\n                if (arr[i] % arr[j] == 0 && m.count(arr[i] / arr[j])) {\n                    list[i] = (list[i] + list[j] * list[m[arr[i] / arr[j]]] % MOD) % MOD;\n                }\n            }\n            res = (res + list[i]) % MOD;\n        }\n        return res;\n    }\n};",
+            "date": 1693238400000
+        },
+        {
+            "script": "python",
+            "time": 384,
+            "memory": 15.91,
+            "desc": "同上。",
+            "code": "class Solution:\n    def numFactoredBinaryTrees(self, arr: List[int]) -> int:\n        MOD = 1000000007\n        n = len(arr)\n        res = 1\n        arr.sort()\n        m = {}\n        for i in range(n):\n            m[arr[i]] = i\n        list = [1 for _ in range(n)]\n        for i in range(1, n):\n            for j in range(i-1, -1, -1):\n                if arr[i] % arr[j] == 0 and arr[i] // arr[j] in m:\n                    list[i] = (list[i] + list[j] *\n                                list[m[arr[i] / arr[j]]] % MOD) % MOD\n            res = (res + list[i]) % MOD\n        return res",
+            "date": 1693238400000
+        },
+        {
+            "script": "rust",
+            "time": 20,
+            "memory": 2,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn num_factored_binary_trees(mut arr: Vec<i32>) -> i32 {\n        const MOD: i64 = 1000000007;\n        let n = arr.len();\n        let mut res = 1;\n        arr.sort();\n        let mut m = std::collections::HashMap::<i32, usize>::new();\n        for (i, num) in arr.iter().enumerate() {\n            m.insert(*num, i);\n        }\n        let mut list = vec![1i64; n];\n        for i in 1..n {\n            for j in (0..i).rev() {\n                if arr[i] % arr[j] == 0 && m.contains_key(&(arr[i] / arr[j])) {\n                    let idx = m.get(&(arr[i] / arr[j])).unwrap();\n                    list[i] = (list[i] + list[j] * list[*idx] % MOD) % MOD;\n                }\n            }\n            res = (res + list[i]) % MOD;\n        }\n        res as i32\n    }\n}",
+            "date": 1693238400000
+        }
+    ]
+}

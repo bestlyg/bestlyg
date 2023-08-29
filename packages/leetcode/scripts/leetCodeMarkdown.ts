@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '57. 插入区间',
-    url: 'https://leetcode.cn/problems/count-good-nodes-in-binary-tree/',
+    exist: !true,
+    name: '823. 带因子的二叉树',
+    url: 'https://leetcode.cn/problems/binary-trees-with-factors/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一棵根为 root 的二叉树，请你返回二叉树中好节点的数目。`,
+    desc: `给出一个含有不重复整数元素的数组 arr ，每个整数 arr[i] 均大于 1。用这些整数来构建二叉树，每个整数可以使用任意次数。其中：每个非叶结点的值应等于它的两个子结点的值的乘积。满足条件的二叉树一共有多少个？`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -26,43 +26,48 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
         {
+            script: Script.PY,
+            time: 312,
+            memory: 16.79,
+            desc: 'dfs',
+            code: `class Solution:
+    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
+        MOD = 1000000007
+        arr.sort()
+        s = set()
+        for num in arr:
+            s.add(num)
+        @cache
+        def dfs(root: int) -> int:
+            res = 1
+            for num in arr:
+                if num >= root: break
+                if root % num != 0: continue
+                if root // num not in s: continue
+                res = (res + dfs(num) * dfs(root // num) % MOD) % MOD
+            return res
+        return sum(dfs(num) for num in arr) % MOD`,
+        },
+        {
             script: Script.CPP,
-            time: 16,
-            memory: 16.22,
+            time: 52,
+            memory: 8.66,
             desc: '遍历',
             code: `class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        vector<vector<int>> res;
-        int n = intervals.size(), i = 0;
-        while (i < n && intervals[i][1] < newInterval[0]) {
-            res.push_back(intervals[i]);
-            i += 1;
-        }
-        if (i == n) {
-            res.push_back(newInterval);
-        } else if (intervals[i][0] > newInterval[1]) {
-            res.push_back(newInterval);
-            while (i < n) {
-                res.push_back(intervals[i]);
-                i += 1;
-            }
-        } else {
-            res.push_back(
-                vector<int>{
-                    min(intervals[i][0], newInterval[0]),
-                    max(intervals[i][1], newInterval[1])
+    int numFactoredBinaryTrees(vector<int>& arr) {
+        int MOD = 1e9 + 7, n = arr.size(), res = 1;
+        sort(arr.begin(), arr.end());
+        unordered_map<int, int> m;
+        for (int i = 0; i < n; i++) m[arr[i]] = i;
+        vector<long long> list(n, 1);
+        for (int i = 1; i < n; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (arr[i] % arr[j] == 0 && m.count(arr[i] / arr[j])) {
+                    list[i] = (list[i] + list[j] * list[m[arr[i] / arr[j]]] % MOD) % MOD;
                 }
-            );
-            i += 1;
-            while (i < n) {
-                if (res.back()[1] >= intervals[i][0]) {
-                    res.back()[1] = max(res.back()[1], intervals[i][1]);
-                } else {
-                    res.push_back(intervals[i]);
-                }
-                i += 1;
             }
+            res = (res + list[i]) % MOD;
         }
         return res;
     }
@@ -70,77 +75,53 @@ public:
         },
         {
             script: Script.PY,
-            time: 60,
-            memory: 17.75,
+            time: 384,
+            memory: 15.91,
             desc: '同上',
             code: `class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        res = []
-        n = len(intervals)
-        i = 0
-        while i < n and intervals[i][1] < newInterval[0]:
-            res.append(intervals[i])
-            i += 1
-        if i == n:
-            res.append(newInterval)
-        elif intervals[i][0] > newInterval[1]:
-            res.append(newInterval)
-            while i < n:
-                res.append(intervals[i])
-                i += 1
-        else:
-            res.append(
-                [min(intervals[i][0], newInterval[0]),
-                    max(intervals[i][1], newInterval[1])]
-            )
-            i += 1
-            while i < n:
-                if res[-1][1] >= intervals[i][0]:
-                    res[-1][1] = max(res[-1][1], intervals[i][1])
-                else:
-                    res.append(intervals[i])
-                i += 1
+    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
+        MOD = 1000000007
+        n = len(arr)
+        res = 1
+        arr.sort()
+        m = {}
+        for i in range(n):
+            m[arr[i]] = i
+        list = [1 for _ in range(n)]
+        for i in range(1, n):
+            for j in range(i-1, -1, -1):
+                if arr[i] % arr[j] == 0 and arr[i] // arr[j] in m:
+                    list[i] = (list[i] + list[j] *
+                                list[m[arr[i] / arr[j]]] % MOD) % MOD
+            res = (res + list[i]) % MOD
         return res`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.54,
+            time: 20,
+            memory: 2,
             desc: '同上',
             code: `impl Solution {
-    pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {
-        use std::cmp::{max, min};
-        let mut res = vec![];
-        let n = intervals.len();
-        let mut i = 0;
-        while i < n && intervals[i][1] < new_interval[0] {
-            res.push(intervals[i].clone());
-            i += 1;
+    pub fn num_factored_binary_trees(mut arr: Vec<i32>) -> i32 {
+        const MOD: i64 = 1000000007;
+        let n = arr.len();
+        let mut res = 1;
+        arr.sort();
+        let mut m = std::collections::HashMap::<i32, usize>::new();
+        for (i, num) in arr.iter().enumerate() {
+            m.insert(*num, i);
         }
-        if i == n {
-            res.push(new_interval);
-        } else if intervals[i][0] > new_interval[1] {
-            res.push(new_interval);
-            while i < n {
-                res.push(intervals[i].clone());
-                i += 1;
-            }
-        } else {
-            res.push(vec![
-                min(intervals[i][0], new_interval[0]),
-                max(intervals[i][1], new_interval[1]),
-            ]);
-            i += 1;
-            while i < n {
-                if res.last().unwrap()[1] >= intervals[i][0] {
-                    res.last_mut().unwrap()[1] = max(res.last().unwrap()[1], intervals[i][1]);
-                } else {
-                    res.push(intervals[i].clone());
+        let mut list = vec![1i64; n];
+        for i in 1..n {
+            for j in (0..i).rev() {
+                if arr[i] % arr[j] == 0 && m.contains_key(&(arr[i] / arr[j])) {
+                    let idx = m.get(&(arr[i] / arr[j])).unwrap();
+                    list[i] = (list[i] + list[j] * list[*idx] % MOD) % MOD;
                 }
-                i += 1;
             }
+            res = (res + list[i]) % MOD;
         }
-        res
+        res as i32
     }
 }`,
         },
