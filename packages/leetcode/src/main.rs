@@ -13,25 +13,44 @@ fn main() {
 }
 
 impl Solution {
-    pub fn num_factored_binary_trees(mut arr: Vec<i32>) -> i32 {
-        const MOD: i64 = 1000000007;
-        let n = arr.len();
-        let mut res = 1;
-        arr.sort();
-        let mut m = std::collections::HashMap::<i32, usize>::new();
-        for (i, num) in arr.iter().enumerate() {
-            m.insert(*num, i);
+    pub fn minimum_jumps(forbidden: Vec<i32>, a: i32, b: i32, x: i32) -> i32 {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for num in forbidden {
+            s.insert(num);
         }
-        let mut list = vec![1i64; n];
-        for i in 1..n {
-            for j in (0..i).rev() {
-                if arr[i] % arr[j] == 0 && m.contains_key(&(arr[i] / arr[j])) {
-                    let idx = m.get(&(arr[i] / arr[j])).unwrap();
-                    list[i] = (list[i] + list[j] * list[*idx] % MOD) % MOD;
-                }
+        let mut q = std::collections::VecDeque::<(i32, bool)>::new();
+        q.push_back((0, false));
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        m.insert(0, 0b01);
+        let mut size = 1;
+        let mut step = 0;
+        while let Some(cur) = q.pop_front() {
+            if cur.0 == x {
+                return step;
             }
-            res = (res + list[i]) % MOD;
+            if cur.0 < 4000
+                && (*m.get(&(cur.0 + a)).unwrap_or(&0) & 0b01) == 0
+                && !s.contains(&(cur.0 + a))
+            {
+                let item = m.entry(cur.0 + a).or_insert(0);
+                *item |= 0b01;
+                q.push_back((cur.0 + a, false));
+            }
+            if cur.0 - b >= 0
+                && !cur.1
+                && (*m.get(&(cur.0 - b)).unwrap_or(&0) & 0b10) == 0
+                && !s.contains(&(cur.0 - b))
+            {
+                let item = m.entry(cur.0 - b).or_insert(0);
+                *item |= 0b10;
+                q.push_back((cur.0 - b, true));
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                step += 1;
+            }
         }
-        res as i32
+        -1
     }
 }

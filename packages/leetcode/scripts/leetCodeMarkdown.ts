@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '823. 带因子的二叉树',
-    url: 'https://leetcode.cn/problems/binary-trees-with-factors/',
+    name: '1654. 到家的最少跳跃次数',
+    url: 'https://leetcode.cn/problems/minimum-jumps-to-reach-home/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给出一个含有不重复整数元素的数组 arr ，每个整数 arr[i] 均大于 1。用这些整数来构建二叉树，每个整数可以使用任意次数。其中：每个非叶结点的值应等于它的两个子结点的值的乘积。满足条件的二叉树一共有多少个？`,
+    desc: `给你一个整数数组 forbidden ，其中 forbidden[i] 是跳蚤不能跳到的位置，同时给你整数 a， b 和 x ，请你返回跳蚤到家的最少跳跃次数。如果没有恰好到达 x 的可行方案，请你返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -26,102 +26,117 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
         {
-            script: Script.PY,
-            time: 312,
-            memory: 16.79,
-            desc: 'dfs',
-            code: `class Solution:
-    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
-        MOD = 1000000007
-        arr.sort()
-        s = set()
-        for num in arr:
-            s.add(num)
-        @cache
-        def dfs(root: int) -> int:
-            res = 1
-            for num in arr:
-                if num >= root: break
-                if root % num != 0: continue
-                if root // num not in s: continue
-                res = (res + dfs(num) * dfs(root // num) % MOD) % MOD
-            return res
-        return sum(dfs(num) for num in arr) % MOD`,
-        },
-        {
             script: Script.CPP,
-            time: 52,
-            memory: 8.66,
-            desc: '遍历',
+            time: 60,
+            memory: 18.09,
+            desc: 'bfs',
             code: `class Solution {
 public:
-    int numFactoredBinaryTrees(vector<int>& arr) {
-        int MOD = 1e9 + 7, n = arr.size(), res = 1;
-        sort(arr.begin(), arr.end());
+    typedef pair<int, bool> Node;
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        unordered_set<int> s(forbidden.begin(), forbidden.end());
+        queue<Node> q;
+        q.push(make_pair(0, false));
         unordered_map<int, int> m;
-        for (int i = 0; i < n; i++) m[arr[i]] = i;
-        vector<long long> list(n, 1);
-        for (int i = 1; i < n; i++) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (arr[i] % arr[j] == 0 && m.count(arr[i] / arr[j])) {
-                    list[i] = (list[i] + list[j] * list[m[arr[i] / arr[j]]] % MOD) % MOD;
-                }
+        m[0] |= 0b01;
+        int size = 1, step = 0;
+        while (q.size()) {
+            auto cur = q.front();
+            q.pop();
+            if (cur.first == x) return step;
+            if (cur.first < 4000 && (m[cur.first + a] & 0b01) == 0 && !s.count(cur.first + a)) {
+                m[cur.first + a] |= 0b01;
+                q.push(make_pair(cur.first + a, false));
             }
-            res = (res + list[i]) % MOD;
+            if (cur.first - b >= 0 && !cur.second && (m[cur.first - b] & 0b10) == 0 && !s.count(cur.first - b)) {
+                m[cur.first - b] |= 0b10;
+                q.push(make_pair(cur.first - b, true));
+            }
+            size -= 1;
+            if (size == 0) {
+                size = q.size();
+                step += 1;
+            }
         }
-        return res;
+        return -1;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 384,
-            memory: 15.91,
+            time: 120,
+            memory: 16.05,
             desc: '同上',
             code: `class Solution:
-    def numFactoredBinaryTrees(self, arr: List[int]) -> int:
-        MOD = 1000000007
-        n = len(arr)
-        res = 1
-        arr.sort()
-        m = {}
-        for i in range(n):
-            m[arr[i]] = i
-        list = [1 for _ in range(n)]
-        for i in range(1, n):
-            for j in range(i-1, -1, -1):
-                if arr[i] % arr[j] == 0 and arr[i] // arr[j] in m:
-                    list[i] = (list[i] + list[j] *
-                                list[m[arr[i] / arr[j]]] % MOD) % MOD
-            res = (res + list[i]) % MOD
-        return res`,
+    def minimumJumps(self, forbidden: List[int], a: int, b: int, x: int) -> int:
+        s = set(forbidden)
+        q = deque()
+        q.append((0, False))
+        m = Counter()
+        m[0] |= 0b01
+        size = 1
+        step = 0
+        while len(q):
+            cur = q.popleft()
+            if cur[0] == x:
+                return step
+            if cur[0] < 4000 and (m[cur[0] + a] & 0b01) == 0 and not cur[0] + a in s:
+                m[cur[0] + a] |= 0b01
+                q.append((cur[0]+a, False))
+            if cur[0] - b >= 0 and not cur[1] and (m[cur[0] - b] & 0b10) == 0 and not cur[0] - b in s:
+                m[cur[0] - b] |= 0b10
+                q.append((cur[0]-b, True))
+            size -= 1
+            if size == 0:
+                size = len(q)
+                step += 1
+        return -1`,
         },
         {
             script: Script.RUST,
-            time: 20,
-            memory: 2,
+            time: 12,
+            memory: 2.24,
             desc: '同上',
             code: `impl Solution {
-    pub fn num_factored_binary_trees(mut arr: Vec<i32>) -> i32 {
-        const MOD: i64 = 1000000007;
-        let n = arr.len();
-        let mut res = 1;
-        arr.sort();
-        let mut m = std::collections::HashMap::<i32, usize>::new();
-        for (i, num) in arr.iter().enumerate() {
-            m.insert(*num, i);
+    pub fn minimum_jumps(forbidden: Vec<i32>, a: i32, b: i32, x: i32) -> i32 {
+        let mut s = std::collections::HashSet::<i32>::new();
+        for num in forbidden {
+            s.insert(num);
         }
-        let mut list = vec![1i64; n];
-        for i in 1..n {
-            for j in (0..i).rev() {
-                if arr[i] % arr[j] == 0 && m.contains_key(&(arr[i] / arr[j])) {
-                    let idx = m.get(&(arr[i] / arr[j])).unwrap();
-                    list[i] = (list[i] + list[j] * list[*idx] % MOD) % MOD;
-                }
+        let mut q = std::collections::VecDeque::<(i32, bool)>::new();
+        q.push_back((0, false));
+        let mut m = std::collections::HashMap::<i32, i32>::new();
+        m.insert(0, 0b01);
+        let mut size = 1;
+        let mut step = 0;
+        while let Some(cur) = q.pop_front() {
+            if cur.0 == x {
+                return step;
             }
-            res = (res + list[i]) % MOD;
+            if cur.0 < 4000
+                && (*m.get(&(cur.0 + a)).unwrap_or(&0) & 0b01) == 0
+                && !s.contains(&(cur.0 + a))
+            {
+                let item = m.entry(cur.0 + a).or_insert(0);
+                *item |= 0b01;
+                q.push_back((cur.0 + a, false));
+            }
+            if cur.0 - b >= 0
+                && !cur.1
+                && (*m.get(&(cur.0 - b)).unwrap_or(&0) & 0b10) == 0
+                && !s.contains(&(cur.0 - b))
+            {
+                let item = m.entry(cur.0 - b).or_insert(0);
+                *item |= 0b10;
+                q.push_back((cur.0 - b, true));
+            }
+            size -= 1;
+            if size == 0 {
+                size = q.len();
+                step += 1;
+            }
         }
-        res as i32
+        -1
     }
 }`,
         },
