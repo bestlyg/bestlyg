@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1654. 到家的最少跳跃次数',
-    url: 'https://leetcode.cn/problems/minimum-jumps-to-reach-home/',
+    name: '1761. 一个图中连通三元组的最小度数',
+    url: 'https://leetcode.cn/problems/minimum-degree-of-a-connected-trio-in-a-graph/description/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 forbidden ，其中 forbidden[i] 是跳蚤不能跳到的位置，同时给你整数 a， b 和 x ，请你返回跳蚤到家的最少跳跃次数。如果没有恰好到达 x 的可行方案，请你返回 -1 。`,
+    desc: `请你返回所有连通三元组中度数的 最小值 ，如果图中没有连通三元组，那么返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,70 +27,53 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 60,
-            memory: 18.09,
-            desc: 'bfs',
+            time: 1896,
+            memory: 53.2,
+            desc: '枚举',
             code: `class Solution {
 public:
-    typedef pair<int, bool> Node;
-    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
-        unordered_set<int> s(forbidden.begin(), forbidden.end());
-        queue<Node> q;
-        q.push(make_pair(0, false));
-        unordered_map<int, int> m;
-        m[0] |= 0b01;
-        int size = 1, step = 0;
-        while (q.size()) {
-            auto cur = q.front();
-            q.pop();
-            if (cur.first == x) return step;
-            if (cur.first < 4000 && (m[cur.first + a] & 0b01) == 0 && !s.count(cur.first + a)) {
-                m[cur.first + a] |= 0b01;
-                q.push(make_pair(cur.first + a, false));
-            }
-            if (cur.first - b >= 0 && !cur.second && (m[cur.first - b] & 0b10) == 0 && !s.count(cur.first - b)) {
-                m[cur.first - b] |= 0b10;
-                q.push(make_pair(cur.first - b, true));
-            }
-            size -= 1;
-            if (size == 0) {
-                size = q.size();
-                step += 1;
+    int minTrioDegree(int n, vector<vector<int>>& edges) {
+        vector<unordered_set<int>> nodes(n);
+        for (auto &edge : edges) {
+            nodes[edge[0] - 1].insert(edge[1] - 1);
+            nodes[edge[1] - 1].insert(edge[0] - 1);
+        }
+        int res = INT_MAX;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (!nodes[i].count(j)) continue;
+                for (int k = j + 1; k < n; k++) {
+                    if (!nodes[i].count(k) || !nodes[j].count(k)) continue;
+                    res = min(res, (int)nodes[i].size() + (int)nodes[j].size() + (int)nodes[k].size() - 6);
+                }
             }
         }
-        return -1;
+        return res == INT_MAX ? -1 : res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 120,
-            memory: 16.05,
+            time: 4360,
+            memory: 40.23,
             desc: '同上',
             code: `class Solution:
-    def minimumJumps(self, forbidden: List[int], a: int, b: int, x: int) -> int:
-        s = set(forbidden)
-        q = deque()
-        q.append((0, False))
-        m = Counter()
-        m[0] |= 0b01
-        size = 1
-        step = 0
-        while len(q):
-            cur = q.popleft()
-            if cur[0] == x:
-                return step
-            if cur[0] < 4000 and (m[cur[0] + a] & 0b01) == 0 and not cur[0] + a in s:
-                m[cur[0] + a] |= 0b01
-                q.append((cur[0]+a, False))
-            if cur[0] - b >= 0 and not cur[1] and (m[cur[0] - b] & 0b10) == 0 and not cur[0] - b in s:
-                m[cur[0] - b] |= 0b10
-                q.append((cur[0]-b, True))
-            size -= 1
-            if size == 0:
-                size = len(q)
-                step += 1
-        return -1`,
+    def minTrioDegree(self, n: int, edges: List[List[int]]) -> int:
+        nodes = [set() for _ in range(n)]
+        for [n0, n1] in edges:
+            nodes[n0-1].add(n1-1)
+            nodes[n1-1].add(n0-1)
+        res = inf
+        for i in range(n):
+            for j in range(i + 1, n):
+                if not j in nodes[i]:
+                    continue
+                for k in range(j + 1, n):
+                    if not k in nodes[i] or not k in nodes[j]:
+                        continue
+                    res = min(res, len(nodes[i]) +
+                              len(nodes[j]) + len(nodes[k]) - 6)
+        return res if res != inf else -1`,
         },
         {
             script: Script.RUST,
@@ -98,45 +81,32 @@ public:
             memory: 2.24,
             desc: '同上',
             code: `impl Solution {
-    pub fn minimum_jumps(forbidden: Vec<i32>, a: i32, b: i32, x: i32) -> i32 {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for num in forbidden {
-            s.insert(num);
+    pub fn min_trio_degree(n: i32, edges: Vec<Vec<i32>>) -> i32 {
+        let n = n as usize;
+        let mut nodes = vec![std::collections::HashSet::new(); n];
+        for edge in edges {
+            let (n0, n1) = (edge[0] as usize - 1, edge[1] as usize - 1);
+            nodes[n0].insert(n1);
+            nodes[n1].insert(n0);
         }
-        let mut q = std::collections::VecDeque::<(i32, bool)>::new();
-        q.push_back((0, false));
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        m.insert(0, 0b01);
-        let mut size = 1;
-        let mut step = 0;
-        while let Some(cur) = q.pop_front() {
-            if cur.0 == x {
-                return step;
-            }
-            if cur.0 < 4000
-                && (*m.get(&(cur.0 + a)).unwrap_or(&0) & 0b01) == 0
-                && !s.contains(&(cur.0 + a))
-            {
-                let item = m.entry(cur.0 + a).or_insert(0);
-                *item |= 0b01;
-                q.push_back((cur.0 + a, false));
-            }
-            if cur.0 - b >= 0
-                && !cur.1
-                && (*m.get(&(cur.0 - b)).unwrap_or(&0) & 0b10) == 0
-                && !s.contains(&(cur.0 - b))
-            {
-                let item = m.entry(cur.0 - b).or_insert(0);
-                *item |= 0b10;
-                q.push_back((cur.0 - b, true));
-            }
-            size -= 1;
-            if size == 0 {
-                size = q.len();
-                step += 1;
+        let mut res = i32::MAX;
+        for i in 0..n {
+            for j in i + 1..n {
+                if nodes[i].contains(&j) {
+                    for k in j + 1..n {
+                        if nodes[i].contains(&k) && nodes[j].contains(&k) {
+                            res = res
+                                .min((nodes[i].len() + nodes[j].len() + nodes[k].len() - 6) as i32)
+                        }
+                    }
+                }
             }
         }
-        -1
+        if res == i32::MAX {
+            -1
+        } else {
+            res
+        }
     }
 }`,
         },

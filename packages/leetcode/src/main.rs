@@ -13,44 +13,39 @@ fn main() {
 }
 
 impl Solution {
-    pub fn minimum_jumps(forbidden: Vec<i32>, a: i32, b: i32, x: i32) -> i32 {
-        let mut s = std::collections::HashSet::<i32>::new();
-        for num in forbidden {
-            s.insert(num);
+    pub fn min_trio_degree(n: i32, edges: Vec<Vec<i32>>) -> i32 {
+        let n = n as usize;
+        let mut nodes = vec![std::collections::HashSet::new(); n];
+        for edge in edges {
+            let (n0, n1) = (edge[0] as usize - 1, edge[1] as usize - 1);
+            nodes[n0].insert(n1);
+            nodes[n1].insert(n0);
         }
-        let mut q = std::collections::VecDeque::<(i32, bool)>::new();
-        q.push_back((0, false));
-        let mut m = std::collections::HashMap::<i32, i32>::new();
-        m.insert(0, 0b01);
-        let mut size = 1;
-        let mut step = 0;
-        while let Some(cur) = q.pop_front() {
-            if cur.0 == x {
-                return step;
-            }
-            if cur.0 < 4000
-                && (*m.get(&(cur.0 + a)).unwrap_or(&0) & 0b01) == 0
-                && !s.contains(&(cur.0 + a))
-            {
-                let item = m.entry(cur.0 + a).or_insert(0);
-                *item |= 0b01;
-                q.push_back((cur.0 + a, false));
-            }
-            if cur.0 - b >= 0
-                && !cur.1
-                && (*m.get(&(cur.0 - b)).unwrap_or(&0) & 0b10) == 0
-                && !s.contains(&(cur.0 - b))
-            {
-                let item = m.entry(cur.0 - b).or_insert(0);
-                *item |= 0b10;
-                q.push_back((cur.0 - b, true));
-            }
-            size -= 1;
-            if size == 0 {
-                size = q.len();
-                step += 1;
+        let mut res = i32::MAX;
+        unsafe {
+            for i in 0..n {
+                for j in i + 1..n {
+                    if nodes.get_unchecked(i).contains(&j) {
+                        for k in j + 1..n {
+                            if nodes.get_unchecked(i).contains(&k)
+                                && nodes.get_unchecked(j).contains(&k)
+                            {
+                                res = res.min(
+                                    (nodes.get_unchecked(i).len()
+                                        + nodes.get_unchecked(j).len()
+                                        + nodes.get_unchecked(k).len()
+                                        - 6) as i32,
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
-        -1
+        if res == i32::MAX {
+            -1
+        } else {
+            res
+        }
     }
 }
