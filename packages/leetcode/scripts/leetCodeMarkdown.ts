@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1761. 一个图中连通三元组的最小度数',
-    url: 'https://leetcode.cn/problems/minimum-degree-of-a-connected-trio-in-a-graph/description/',
+    name: '2240. 买钢笔和铅笔的方案数',
+    url: 'https://leetcode.cn/problems/number-of-ways-to-buy-pens-and-pencils/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回所有连通三元组中度数的 最小值 ，如果图中没有连通三元组，那么返回 -1 。`,
+    desc: `给你一个整数 total ，表示你拥有的总钱数。同时给你两个整数 cost1 和 cost2 ，分别表示一支钢笔和一支铅笔的价格。你可以花费你部分或者全部的钱，去买任意数目的两种笔。请你返回购买钢笔和铅笔的 不同方案数目 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,86 +27,50 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 1896,
-            memory: 53.2,
+            time: 16,
+            memory: 5.9,
             desc: '枚举',
             code: `class Solution {
 public:
-    int minTrioDegree(int n, vector<vector<int>>& edges) {
-        vector<unordered_set<int>> nodes(n);
-        for (auto &edge : edges) {
-            nodes[edge[0] - 1].insert(edge[1] - 1);
-            nodes[edge[1] - 1].insert(edge[0] - 1);
+    long long waysToBuyPensPencils(int total, int cost1, int cost2) {
+        long long idx1 = 0, res = 0;
+        while (idx1 * cost1 <= total) {
+            res += 1 + (total - idx1 * cost1) / cost2;
+            idx1 += 1;
         }
-        int res = INT_MAX;
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (!nodes[i].count(j)) continue;
-                for (int k = j + 1; k < n; k++) {
-                    if (!nodes[i].count(k) || !nodes[j].count(k)) continue;
-                    res = min(res, (int)nodes[i].size() + (int)nodes[j].size() + (int)nodes[k].size() - 6);
-                }
-            }
-        }
-        return res == INT_MAX ? -1 : res;
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 4360,
-            memory: 40.23,
+            time: 664,
+            memory: 16,
             desc: '同上',
             code: `class Solution:
-    def minTrioDegree(self, n: int, edges: List[List[int]]) -> int:
-        nodes = [set() for _ in range(n)]
-        for [n0, n1] in edges:
-            nodes[n0-1].add(n1-1)
-            nodes[n1-1].add(n0-1)
-        res = inf
-        for i in range(n):
-            for j in range(i + 1, n):
-                if not j in nodes[i]:
-                    continue
-                for k in range(j + 1, n):
-                    if not k in nodes[i] or not k in nodes[j]:
-                        continue
-                    res = min(res, len(nodes[i]) +
-                              len(nodes[j]) + len(nodes[k]) - 6)
-        return res if res != inf else -1`,
+    def waysToBuyPensPencils(self, total: int, cost1: int, cost2: int) -> int:
+        idx1 = res = 0
+        while idx1 * cost1 <= total:
+            res += 1 + (total - idx1 * cost1) // cost2
+            idx1 += 1
+        return res`,
         },
         {
             script: Script.RUST,
             time: 12,
-            memory: 2.24,
+            memory: 2.04,
             desc: '同上',
             code: `impl Solution {
-    pub fn min_trio_degree(n: i32, edges: Vec<Vec<i32>>) -> i32 {
-        let n = n as usize;
-        let mut nodes = vec![std::collections::HashSet::new(); n];
-        for edge in edges {
-            let (n0, n1) = (edge[0] as usize - 1, edge[1] as usize - 1);
-            nodes[n0].insert(n1);
-            nodes[n1].insert(n0);
+    pub fn ways_to_buy_pens_pencils(total: i32, cost1: i32, cost2: i32) -> i64 {
+        let (total, cost1, cost2, mut idx1, mut res) = (
+            total as i64, cost1 as i64, cost2 as i64,
+            0i64, 0i64
+        );
+        while idx1 * cost1 <= total {
+            res += 1 + (total - cost1 * idx1) / cost2;
+            idx1 += 1;
         }
-        let mut res = i32::MAX;
-        for i in 0..n {
-            for j in i + 1..n {
-                if nodes[i].contains(&j) {
-                    for k in j + 1..n {
-                        if nodes[i].contains(&k) && nodes[j].contains(&k) {
-                            res = res
-                                .min((nodes[i].len() + nodes[j].len() + nodes[k].len() - 6) as i32)
-                        }
-                    }
-                }
-            }
-        }
-        if res == i32::MAX {
-            -1
-        } else {
-            res
-        }
+        res
     }
 }`,
         },
