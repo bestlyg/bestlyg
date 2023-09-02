@@ -2,22 +2,20 @@ from preclude import *
 
 
 class Solution:
-    def minTrioDegree(self, n: int, edges: List[List[int]]) -> int:
-        nodes = [set() for _ in range(n)]
-        for [n0, n1] in edges:
-            nodes[n0-1].add(n1-1)
-            nodes[n1-1].add(n0-1)
-        res = inf
-        for i in range(n):
-            for j in range(i + 1, n):
-                if not j in nodes[i]:
-                    continue
-                for k in range(j + 1, n):
-                    if not k in nodes[i] or not k in nodes[j]:
-                        continue
-                    res = min(res, len(nodes[i]) +
-                              len(nodes[j]) + len(nodes[k]) - 6)
-        return res if res != inf else -1
+    def captureForts(self, forts: List[int]) -> int:
+        res = 0
+        p0 = p1 = -1
+        for i in range(len(forts)):
+            fort = forts[i]
+            if fort == 1:
+                if p0 != -1 and p0 > p1:
+                    res = max(res, i - p0 - 1)
+                p1 = i
+            elif fort == -1:
+                if p1 != -1 and p1 > p0:
+                    res = max(res, i - p1 - 1)
+                p0 = i
+        return res
 
 
 def main():
