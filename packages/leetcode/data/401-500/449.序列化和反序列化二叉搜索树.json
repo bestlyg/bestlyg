@@ -29,6 +29,46 @@
             "script": "cpp",
             "desc": "递归。",
             "code": "class Codec {\n   public:\n    string serialize(TreeNode *root) {\n        if (root == nullptr) return \"(-1)\";\n        return \"(\" + to_string(root->val) + \",\" + serialize(root->left) + \",\" +\n               serialize(root->right) + \")\";\n    }\n    TreeNode *deserialize(string data) {\n        if (data == \"(-1)\") return nullptr;\n        string l, r;\n        int val = analysis(data, l, r);\n        TreeNode *ans = new TreeNode(val);\n        ans->left = deserialize(l);\n        ans->right = deserialize(r);\n        return ans;\n    }\n    int analysis(string &data, string &l, string &r) {\n        int level = 0, n = data.size(), val;\n        int i = 0, prev = 1, cnt = 0;\n        for (; i < n; i++) {\n            int ch = data[i];\n            if (ch == '(') {\n                level++;\n            } else if (ch == ')') {\n                level--;\n            } else if (ch == ',' && level == 1) {\n                string substr = data.substr(prev, i - prev);\n                if (cnt == 0)\n                    val = stoi(substr);\n                else if (cnt == 1)\n                    l = substr;\n                cnt++;\n                prev = i + 1;\n            }\n        }\n        r = data.substr(prev, i - prev - 1);\n        return val;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 19.74,
+            "desc": "同上。",
+            "code": "class Codec:\n\n    def serialize(self, node: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if not node:\n            return \"N\"\n        return f\"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})\"\n\n    def deserialize(self, s: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if s == \"N\":\n            return None\n        s1 = s2 = s3 = ''\n        split_idx = -1\n        level = 0\n        for i in range(len(s)):\n            if s[i] == '(':\n                level += 1\n            elif s[i] == ')':\n                level -= 1\n            elif s[i] == ',' and level == 0:\n                if split_idx == -1:\n                    s1 = s[:i]\n                    split_idx = i + 1\n                else:\n                    s2 = s[split_idx + 1:i - 1]\n                    s3 = s[i + 2:-1]\n        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))\n\n",
+            "date": 1693756800000
+        },
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 19.74,
+            "desc": "同上。",
+            "code": "class Codec:\n\n    def serialize(self, node: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if not node:\n            return \"N\"\n        return f\"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})\"\n\n    def deserialize(self, s: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if s == \"N\":\n            return None\n        s1 = s2 = s3 = ''\n        split_idx = -1\n        level = 0\n        for i in range(len(s)):\n            if s[i] == '(':\n                level += 1\n            elif s[i] == ')':\n                level -= 1\n            elif s[i] == ',' and level == 0:\n                if split_idx == -1:\n                    s1 = s[:i]\n                    split_idx = i + 1\n                else:\n                    s2 = s[split_idx + 1:i - 1]\n                    s3 = s[i + 2:-1]\n        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))\n\n",
+            "date": 1693756800000
+        },
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 19.74,
+            "desc": "同上。",
+            "code": "class Codec:\n\n    def serialize(self, node: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if not node:\n            return \"N\"\n        return f\"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})\"\n\n    def deserialize(self, s: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if s == \"N\":\n            return None\n        s1 = s2 = s3 = ''\n        split_idx = -1\n        level = 0\n        for i in range(len(s)):\n            if s[i] == '(':\n                level += 1\n            elif s[i] == ')':\n                level -= 1\n            elif s[i] == ',' and level == 0:\n                if split_idx == -1:\n                    s1 = s[:i]\n                    split_idx = i + 1\n                else:\n                    s2 = s[split_idx + 1:i - 1]\n                    s3 = s[i + 2:-1]\n        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))\n\n",
+            "date": 1693756800000
+        },
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 19.74,
+            "desc": "同上。",
+            "code": "class Codec:\n\n    def serialize(self, node: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if not node:\n            return \"N\"\n        return f\"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})\"\n\n    def deserialize(self, s: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if s == \"N\":\n            return None\n        s1 = s2 = s3 = ''\n        split_idx = -1\n        level = 0\n        for i in range(len(s)):\n            if s[i] == '(':\n                level += 1\n            elif s[i] == ')':\n                level -= 1\n            elif s[i] == ',' and level == 0:\n                if split_idx == -1:\n                    s1 = s[:i]\n                    split_idx = i + 1\n                else:\n                    s2 = s[split_idx + 1:i - 1]\n                    s3 = s[i + 2:-1]\n        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))\n\n",
+            "date": 1693756800000
+        },
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 19.74,
+            "desc": "同上。",
+            "code": "class Codec:\n\n    def serialize(self, node: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if not node:\n            return \"N\"\n        return f\"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})\"\n\n    def deserialize(self, s: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if s == \"N\":\n            return None\n        s1 = s2 = s3 = ''\n        split_idx = -1\n        level = 0\n        for i in range(len(s)):\n            if s[i] == '(':\n                level += 1\n            elif s[i] == ')':\n                level -= 1\n            elif s[i] == ',' and level == 0:\n                if split_idx == -1:\n                    s1 = s[:i]\n                    split_idx = i + 1\n                else:\n                    s2 = s[split_idx + 1:i - 1]\n                    s3 = s[i + 2:-1]\n        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))\n\n",
+            "date": 1693756800000
         }
     ]
 }

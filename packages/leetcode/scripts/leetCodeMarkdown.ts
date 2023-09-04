@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1921. 消灭怪物的最大数量',
+    exist: true,
+    name: '449. 序列化和反序列化二叉搜索树',
     url: 'https://leetcode.cn/problems/eliminate-maximum-number-of-monsters',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,58 +25,58 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 104,
-            memory: 86.8,
-            desc: '排序',
-            code: `class Solution {
-public:
-    int eliminateMaximum(vector<int>& dist, vector<int>& speed) {
-        vector<double> arr;
-        for (int i = 0; i < dist.size(); i++) arr.push_back(1.0 * dist[i] / speed[i]);
-        sort(arr.begin(), arr.end());
-        for (int i = 0; i < dist.size(); i++) {
-            if (i >= arr[i]) return i;
-        }
-        return dist.size();
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 104,
+        //     memory: 86.8,
+        //     desc: '排序',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 168,
-            memory: 30.3,
+            time: 248,
+            memory: 19.74,
             desc: '同上',
-            code: `class Solution:
-    def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:
-        arr = [dist[i] / speed[i] for i in range(len(dist))]
-        arr.sort()
-        for i in range(len(dist)):
-            if i >= arr[i]: return i
-        return len(dist)`,
+            code: `class Codec:
+
+    def serialize(self, node: Optional[TreeNode]) -> str:
+        """Encodes a tree to a single string.
+        """
+        if not node:
+            return "N"
+        return f"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})"
+
+    def deserialize(self, s: str) -> Optional[TreeNode]:
+        """Decodes your encoded data to tree.
+        """
+        if s == "N":
+            return None
+        s1 = s2 = s3 = ''
+        split_idx = -1
+        level = 0
+        for i in range(len(s)):
+            if s[i] == '(':
+                level += 1
+            elif s[i] == ')':
+                level -= 1
+            elif s[i] == ',' and level == 0:
+                if split_idx == -1:
+                    s1 = s[:i]
+                    split_idx = i + 1
+                else:
+                    s2 = s[split_idx + 1:i - 1]
+                    s3 = s[i + 2:-1]
+        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))
+
+`,
         },
-        {
-            script: Script.RUST,
-            time: 32,
-            memory: 4.1,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn eliminate_maximum(dist: Vec<i32>, speed: Vec<i32>) -> i32 {
-        let mut arr = vec![];
-        for i in 0..dist.len() {
-            arr.push(dist[i] as f64 / speed[i] as f64);
-        }
-        arr.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        for i in 0..dist.len() {
-            if i as f64 >= arr[i] {
-                return i as i32;
-            }
-        }
-        dist.len() as i32
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 32,
+        //     memory: 4.1,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
