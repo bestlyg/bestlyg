@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '449. 序列化和反序列化二叉搜索树',
-    url: 'https://leetcode.cn/problems/eliminate-maximum-number-of-monsters',
+    exist:! true,
+    name: '2605. 从两个数字数组里生成最小数字',
+    url: 'https://leetcode.cn/problems/form-smallest-number-from-two-digit-arrays',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回在你输掉游戏前可以消灭的怪物的 最大 数量。`,
+    desc: `给你两个只包含 1 到 9 之间数字的数组 nums1 和 nums2 ，每个数组中的元素 互不相同 ，请你返回 最小 的数字，两个数组都 至少 包含这个数字的某个数位。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,41 +34,17 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 248,
-            memory: 19.74,
+            time: 40,
+            memory: 15.7,
             desc: '同上',
-            code: `class Codec:
-
-    def serialize(self, node: Optional[TreeNode]) -> str:
-        """Encodes a tree to a single string.
-        """
-        if not node:
-            return "N"
-        return f"{node.val},({self.serialize(node.left)}),({self.serialize(node.right)})"
-
-    def deserialize(self, s: str) -> Optional[TreeNode]:
-        """Decodes your encoded data to tree.
-        """
-        if s == "N":
-            return None
-        s1 = s2 = s3 = ''
-        split_idx = -1
-        level = 0
-        for i in range(len(s)):
-            if s[i] == '(':
-                level += 1
-            elif s[i] == ')':
-                level -= 1
-            elif s[i] == ',' and level == 0:
-                if split_idx == -1:
-                    s1 = s[:i]
-                    split_idx = i + 1
-                else:
-                    s2 = s[split_idx + 1:i - 1]
-                    s3 = s[i + 2:-1]
-        return TreeNode(int(s1), self.deserialize(s2), self.deserialize(s3))
-
-`,
+            code: `class Solution:
+    def minNumber(self, nums1: List[int], nums2: List[int]) -> int:
+        nums1.sort()
+        nums2.sort()
+        for num in nums1:
+            if num in nums2:
+                return num
+        return min(nums1[0] * 10 + nums2[0], nums2[0] * 10 + nums1[0])`,
         },
         // {
         //     script: Script.RUST,

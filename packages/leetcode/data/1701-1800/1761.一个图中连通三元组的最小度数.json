@@ -1,8 +1,11 @@
 {
+    "id": "1887",
     "name": "1761.一个图中连通三元组的最小度数",
     "url": "https://leetcode.cn/problems/minimum-degree-of-a-connected-trio-in-a-graph",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "图"
+    ],
     "desc": "请你返回所有连通三元组中度数的 最小值 ，如果图中没有连通三元组，那么返回 -1 。",
     "solutions": [
         {

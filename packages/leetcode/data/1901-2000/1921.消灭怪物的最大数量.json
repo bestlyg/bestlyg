@@ -1,8 +1,13 @@
 {
+    "id": "2049",
     "name": "1921.消灭怪物的最大数量",
     "url": "https://leetcode.cn/problems/eliminate-maximum-number-of-monsters",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
     "desc": "返回在你输掉游戏前可以消灭的怪物的 最大 数量。",
     "solutions": [
         {
