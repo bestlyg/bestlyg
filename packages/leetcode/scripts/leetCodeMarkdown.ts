@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist:! true,
-    name: '865. 具有所有最深节点的最小子树',
-    url: 'https://leetcode.cn/problems/smallest-subtree-with-all-the-deepest-nodes/',
+    name: '2594. 修车的最少时间',
+    url: 'https://leetcode.cn/problems/minimum-time-to-repair-cars/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定一个根为 root 的二叉树，每个节点的深度是 该节点到根的最短距离 。返回包含原始树中所有 最深节点 的 最小子树 。`,
+    desc: `给你一个整数数组 ranks ，表示一些机械工的 能力值 。ranksi 是第 i 位机械工的能力值。能力值为 r 的机械工可以在 r * n2 分钟内修好 n 辆车。同时给你一个整数 cars ，表示总共需要修理的汽车数目。请你返回修理所有汽车 最少 需要多少时间。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,42 +27,74 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 8,
-            memory:13.76,
-            desc: 'dfs',
+            time: 112,
+            memory: 51.34,
+            desc: '二分答案',
             code: `class Solution {
 public:
-    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-        function<pair<int, TreeNode*>(TreeNode*, int)> dfs = [&](TreeNode *node, int level) -> pair<int, TreeNode*> {
-            pair<int, TreeNode*> res = make_pair(level, node);
-            if (node->left) {
-                res = dfs(node->left, level + 1);
-            }
-            if (node->right) {
-                auto rres = dfs(node->right, level + 1);
-                if (rres.first > res.first) res = rres;
-                else if (rres.first == res.first) res.second = node;
+    typedef long long ll;
+    ll repairCars(vector<int>& ranks, int cars) {
+        auto comp = [&](ll t) {
+            ll res = 0;
+            for (auto &rank : ranks) {
+                res += floor(sqrt(1.0 * t / rank));
             }
             return res;
         };
-        return dfs(root, 0).second;
+        ll l = 0, r = LLONG_MAX;
+        while (l < r) {
+            ll m = (r - l) / 2 + l;
+            if (comp(m) >= cars) r = m;
+            else l = m + 1;
+        }
+        return l;
     }
 };`,
         },
-        // {
-        //     script: Script.PY,
-        //     time: 52,
-        //     memory: 16.27,
-        //     desc: '同上',
-        //     code: ``,
-        // },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 2.05,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.PY,
+            time: 1292,
+            memory: 20.16,
+            desc: '同上',
+            code: `class Solution:
+    def repairCars(self, ranks: List[int], cars: int) -> int:
+        l = 0
+        r = 2 ** 63 - 1
+        while l < r:
+            m = (r - l) // 2 + l
+            if sum(floor(sqrt(m / rank)) for rank in ranks) >= cars:
+                r = m
+            else:
+                l = m + 1
+        return l`,
+        },
+        {
+            script: Script.RUST,
+            time: 56,
+            memory: 2.98,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn repair_cars(ranks: Vec<i32>, cars: i32) -> i64 {
+        let cars = cars as i64;
+        let mut l = 0;
+        let mut r = i64::MAX;
+        while l < r {
+            let m = (r - l) / 2 + l;
+            if ranks
+                .iter()
+                .map(|rank| (m as f64 / *rank as f64).sqrt().floor() as i64)
+                .sum::<i64>()
+                >= cars
+            {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        l
+    }
+}`,
+        },
     ],
 };
 

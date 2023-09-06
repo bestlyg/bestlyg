@@ -1,0 +1,33 @@
+{
+    "name": "2594.修车的最少时间",
+    "url": "https://leetcode.cn/problems/minimum-time-to-repair-cars/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个整数数组 ranks ，表示一些机械工的 能力值 。ranksi 是第 i 位机械工的能力值。能力值为 r 的机械工可以在 r * n2 分钟内修好 n 辆车。同时给你一个整数 cars ，表示总共需要修理的汽车数目。请你返回修理所有汽车 最少 需要多少时间。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 112,
+            "memory": 51.34,
+            "desc": "二分答案。",
+            "code": "class Solution {\npublic:\n    typedef long long ll;\n    ll repairCars(vector<int>& ranks, int cars) {\n        auto comp = [&](ll t) {\n            ll res = 0;\n            for (auto &rank : ranks) {\n                res += floor(sqrt(1.0 * t / rank));\n            }\n            return res;\n        };\n        ll l = 0, r = LLONG_MAX;\n        while (l < r) {\n            ll m = (r - l) / 2 + l;\n            if (comp(m) >= cars) r = m;\n            else l = m + 1;\n        }\n        return l;\n    }\n};",
+            "date": 1694016000000
+        },
+        {
+            "script": "python",
+            "time": 1292,
+            "memory": 20.16,
+            "desc": "同上。",
+            "code": "class Solution:\n    def repairCars(self, ranks: List[int], cars: int) -> int:\n        l = 0\n        r = 2 ** 63 - 1\n        while l < r:\n            m = (r - l) // 2 + l\n            if sum(floor(sqrt(m / rank)) for rank in ranks) >= cars:\n                r = m\n            else:\n                l = m + 1\n        return l",
+            "date": 1694016000000
+        },
+        {
+            "script": "rust",
+            "time": 56,
+            "memory": 2.98,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn repair_cars(ranks: Vec<i32>, cars: i32) -> i64 {\n        let cars = cars as i64;\n        let mut l = 0;\n        let mut r = i64::MAX;\n        while l < r {\n            let m = (r - l) / 2 + l;\n            if ranks\n                .iter()\n                .map(|rank| (m as f64 / *rank as f64).sqrt().floor() as i64)\n                .sum::<i64>()\n                >= cars\n            {\n                r = m;\n            } else {\n                l = m + 1;\n            }\n        }\n        l\n    }\n}",
+            "date": 1694016000000
+        }
+    ]
+}

@@ -1,3 +1,4 @@
+from math import floor, sqrt
 from preclude import *
 
 # Definition for a binary tree node.
@@ -9,20 +10,16 @@ from preclude import *
 
 
 class Solution:
-    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        def dfs(node: TreeNode, level: int) -> (int, TreeNode):
-            res = (level, node)
-            if node.left:
-                res = dfs(node.left, node, level + 1)
-            if node.right:
-                right_result = dfs(node.right, node, level + 1)
-                if right_result[0] > res[0]:
-                    res = right_result
-                elif right_result[0] == res[0]:
-                    res = (res[0], node)
-            return res
-
-        return dfs(root, 0)[1]
+    def repairCars(self, ranks: List[int], cars: int) -> int:
+        l = 0
+        r = 2 ** 63 - 1
+        while l < r:
+            m = (r - l) // 2 + l
+            if sum(floor(sqrt(m / rank)) for rank in ranks) >= cars:
+                r = m
+            else:
+                l = m + 1
+        return l
 
 
 def main():
