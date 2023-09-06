@@ -12,24 +12,28 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn capture_forts(forts: Vec<i32>) -> i32 {
-        let mut res = 0i32;
-        let (mut p0, mut p1) = (-1i32, -1i32);
-        for i in 0..forts.len() {
-            let fort = forts[i];
-            if fort == 1 {
-                if p0 != -1 && p0 > p1 {
-                    res = res.max((i as i32) - 1 - p0);
-                }
-                p1 = i as i32;
-            } else if fort == -1 {
-                if p1 != -1 && p1 > p0 {
-                    res = res.max((i as i32) - 1 - p1);
-                }
-                p0 = i as i32;
+    pub fn lca_deepest_leaves(
+        root: Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        fn dfs(node: Rc<RefCell<TreeNode>>, level: usize) -> (usize, Rc<RefCell<TreeNode>>) {
+            let mut res = (level, node.clone());
+            let node_ref = node.as_ref().borrow();
+            if let Some(ref left) = node_ref.left {
+                res = dfs(left.clone(), level + 1);
             }
+            if let Some(ref right) = node_ref.right {
+                let rres = dfs(right.clone(), level + 1);
+                if rres.0 > res.0 {
+                    res = rres;
+                } else if rres.0 == res.0 {
+                    res.1 = node.clone();
+                }
+            }
+            res
         }
-        res as i32
+        Some(dfs(root.unwrap().clone(), 0).1)
     }
 }

@@ -9,7 +9,7 @@
             "script": "python",
             "time": 40,
             "memory": 15.7,
-            "desc": "同上。",
+            "desc": "排序后遍历。",
             "code": "class Solution:\n    def minNumber(self, nums1: List[int], nums2: List[int]) -> int:\n        nums1.sort()\n        nums2.sort()\n        for num in nums1:\n            if num in nums2:\n                return num\n        return min(nums1[0] * 10 + nums2[0], nums2[0] * 10 + nums1[0])",
             "date": 1693843200000
         }

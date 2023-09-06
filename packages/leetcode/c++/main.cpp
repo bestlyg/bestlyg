@@ -157,19 +157,19 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int captureForts(vector<int>& forts) {
-        int res = 0, p0 = -1, p1 = -1;
-        for (int i = 0; i < forts.size(); i++) {
-            int fort = forts[i];
-            if (fort == 1) {
-                if (p0 != -1 && p0 > p1) res = max(res, i - 1 - p0);
-                p1 = i;
-            } else if (fort == -1) {
-                if (p1 != -1 && p1 > p0) res = max(res, i - 1 - p1);
-                p0 = i;
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        function<pair<int, TreeNode*>(TreeNode*, int)> dfs = [&](TreeNode *node, int level) -> pair<int, TreeNode*> {
+            pair<int, TreeNode*> res = make_pair(level, node);
+            if (node->left) {
+                res = dfs(node->left, level + 1);
             }
-        }
-        return res;
+            if (node->right) {
+                auto rres = dfs(node->right, level + 1);
+                if (rres.first > res.first) res = rres;
+                else if (rres.first == res.first) res.second = node;
+            }
+        };
+        return dfs(root, 0).second;
     }
 };
 
