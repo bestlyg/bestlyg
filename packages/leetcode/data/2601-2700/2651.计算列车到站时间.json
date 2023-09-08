@@ -1,0 +1,33 @@
+{
+    "name": "2651.计算列车到站时间",
+    "url": "https://leetcode.cn/problems/calculate-delayed-arrival-time",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个正整数 arrivalTime 表示列车正点到站的时间（单位：小时），另给你一个正整数 delayedTime 表示列车延误的小时数。返回列车实际到站的时间。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 2.1,
+            "desc": "相加后取模。",
+            "code": "class Solution {\npublic:\n    int findDelayedArrivalTime(int arrivalTime, int delayedTime) {\n        return (arrivalTime + delayedTime) % 24;\n    }\n};",
+            "date": 1694102400000
+        },
+        {
+            "script": "python",
+            "time": 48,
+            "memory": 16.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def findDelayedArrivalTime(self, arrivalTime: int, delayedTime: int) -> int:\n        return (arrivalTime + delayedTime) % 24",
+            "date": 1694102400000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.98,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn find_delayed_arrival_time(arrival_time: i32, delayed_time: i32) -> i32 {\n        (arrival_time + delayed_time) % 24\n    }\n}",
+            "date": 1694102400000
+        }
+    ]
+}
