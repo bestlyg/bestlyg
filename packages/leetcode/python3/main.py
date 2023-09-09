@@ -1,25 +1,25 @@
 from math import floor, sqrt
 from preclude import *
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
 
 class Solution:
-    def repairCars(self, ranks: List[int], cars: int) -> int:
-        l = 0
-        r = 2 ** 63 - 1
-        while l < r:
-            m = (r - l) // 2 + l
-            if sum(floor(sqrt(m / rank)) for rank in ranks) >= cars:
-                r = m
-            else:
-                l = m + 1
-        return l
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        used_count = 0
+        arr = [[set(), set()] for _ in range(numCourses)]
+        for [item1, item2] in prerequisites:
+            arr[item2][0].add(item1)
+            arr[item1][1].add(item2)
+        q = [i for i in range(numCourses) if not len(arr[i][0])]
+        if not len(q):
+            return False
+        while len(q):
+            cur = q.pop()
+            used_count += 1
+            for child in arr[cur][1]:
+                arr[child][0].remove(cur)
+                if not len(arr[child][0]):
+                    q.append(child)
+        return used_count == numCourses
 
 
 def main():

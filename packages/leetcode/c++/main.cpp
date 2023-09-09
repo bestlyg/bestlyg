@@ -157,19 +157,26 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        function<pair<int, TreeNode*>(TreeNode*, int)> dfs = [&](TreeNode *node, int level) -> pair<int, TreeNode*> {
-            pair<int, TreeNode*> res = make_pair(level, node);
-            if (node->left) {
-                res = dfs(node->left, level + 1);
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        int used_count = 0;
+        vector<unordered_set<int>> parr(numCourses);
+        vector<unordered_set<int>> carr(numCourses);
+        for (auto &item : prerequisites)
+            carr[item[0]].insert(item[1]),
+            parr[item[1]].insert(item[0]);
+        vector<int> q;
+        for (int i = 0; i < numCourses; i++) {
+            if (parr[i].empty()) q.push_back(i);
+        }
+        while (q.size()) {
+            int cur = q.pop_back();
+            for (auto &child : carr[cur]) {
+                parr[child].erase(cur);
+                if (parr[child].empty()) q.push_back(child);
             }
-            if (node->right) {
-                auto rres = dfs(node->right, level + 1);
-                if (rres.first > res.first) res = rres;
-                else if (rres.first == res.first) res.second = node;
-            }
-        };
-        return dfs(root, 0).second;
+
+        }
+        return used_count == numCourses;
     }
 };
 
