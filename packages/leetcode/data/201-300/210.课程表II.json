@@ -18,6 +18,14 @@
             "script": "javascript",
             "desc": "通过队列出栈无前置课程的课程，依次压栈。",
             "code": "/**\n * @param {number} numCourses\n * @param {number[][]} prerequisites\n * @return {number[]}\n */\nvar findOrder = function (numCourses, prerequisites) {\n  const course = [];\n  for (let i = 0; i < numCourses; i++) course[i] = new Course(i);\n  for (const [next, prev] of prerequisites) {\n    course[next].prev.push(course[prev]);\n    course[prev].next.push(course[next]);\n  }\n  const topo = [];\n  const queue = [];\n  for (let i = 0; i < numCourses; i++) if (!course[i].hasPrev()) queue.push(course[i]);\n  let time = 0;\n  let max = numCourses * (numCourses - 1);\n  while (queue.length !== 0) {\n    if (time++ > max) return [];\n    const course = queue.shift();\n    if (course.hasPrev()) {\n      queue.push(course);\n      continue;\n    }\n    topo.push(course);\n    if (!course.hasNext()) continue;\n    for (const next of course.next) {\n      if (!queue.includes(next)) queue.push(next);\n      next.prev = next.prev.filter(v => v !== course);\n    }\n  }\n  if (topo.length !== numCourses) return [];\n  return topo.map(v => v.val);\n};\nclass Course {\n  prev = [];\n  next = [];\n  constructor(val) {\n    this.val = val;\n  }\n  hasPrev() {\n    return this.prev.length !== 0;\n  }\n  hasNext() {\n    return this.next.length !== 0;\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 48,
+            "memory": 17.51,
+            "desc": "bfs。",
+            "code": "class Solution:\n    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:\n        used_count = 0\n        arr = [[set(),set()] for _ in range(numCourses)]\n        for [item1, item2] in prerequisites:\n            arr[item1][0].add(item2)\n            arr[item2][1].add(item1)\n        q = [i for i in range(numCourses) if not len(arr[i][0])]\n        res = []\n        while len(q):\n            cur = q.pop()\n            res.append(cur)\n            for child in arr[cur][1]:\n                arr[child][0].remove(cur)\n                if not len(arr[child][0]):\n                    q.append(child)\n        return res if numCourses == len(res) else []",
+            "date": 1694275200000
         }
     ]
 }
