@@ -7,7 +7,7 @@ from string import ascii_lowercase
 from typing import List, Optional, Tuple
 from collections import Counter, defaultdict
 from queue import Queue
-from sortedcontainers import SortedDict, SortedSet
+from sortedcontainers import SortedDict, SortedSet, SortedList, SortedKeyList
 from math import inf, log2
 
 # global

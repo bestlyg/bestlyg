@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '210. 课程表 II',
+    name: '630. 课程表 III',
     url: 'https://leetcode.cn/problems/course-schedule/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,43 +25,70 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 24,
-        //     memory: 17.9,
-        //     desc: '拓扑排序',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 256,
+            memory: 53.61,
+            desc: '拓扑排序',
+            code: `class Solution {
+public:
+    int scheduleCourse(vector<vector<int>>& courses) {
+        int sum = 0;
+        priority_queue<int> q;
+        sort(courses.begin(), courses.end(), [&](auto &a, auto &b) {
+            return a[1] < b[1];
+        });
+        for (auto &course : courses) {
+            sum += course[0];
+            q.push(course[0]);
+            if (sum > course[1]) {
+                sum -= q.top();
+                q.pop();
+            }
+        }
+        return q.size();
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 48,
-            memory: 17.51,
-            desc: 'bfs',
+            time: 124,
+            memory: 19.54,
+            desc: '同上',
             code: `class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        used_count = 0
-        arr = [[set(),set()] for _ in range(numCourses)]
-        for [item1, item2] in prerequisites:
-            arr[item1][0].add(item2)
-            arr[item2][1].add(item1)
-        q = [i for i in range(numCourses) if not len(arr[i][0])]
-        res = []
-        while len(q):
-            cur = q.pop()
-            res.append(cur)
-            for child in arr[cur][1]:
-                arr[child][0].remove(cur)
-                if not len(arr[child][0]):
-                    q.append(child)
-        return res if numCourses == len(res) else []`,
+    def scheduleCourse(self, courses: List[List[int]]) -> int:
+        courses.sort(key=lambda o: o[1])
+        q = []
+        sum = 0
+        for [d, e] in courses:
+            sum += d
+            heappush(q, -d)
+            if sum > e:
+                sum -= -heappop(q)
+        return len(q)
+`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 2.7,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 32,
+            memory: 29.7,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn schedule_course(mut courses: Vec<Vec<i32>>) -> i32 {
+        courses.sort_by_key(|o| o[1]);
+        let mut sum = 0;
+        let mut q = std::collections::BinaryHeap::<i32>::new();
+        for course in courses {
+            sum += course[0];
+            q.push(course[0]);
+            if sum > course[1] {
+                sum -= q.pop().unwrap();
+            }
+        }
+        q.len() as i32
+    }
+}`,
+        },
     ],
 };
 
