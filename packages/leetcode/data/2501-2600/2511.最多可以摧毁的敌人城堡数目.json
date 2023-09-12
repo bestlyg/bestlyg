@@ -1,8 +1,12 @@
 {
+    "id": "2602",
     "name": "2511.最多可以摧毁的敌人城堡数目",
     "url": "https://leetcode.cn/problems/maximum-enemy-forts-that-can-be-captured",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "双指针"
+    ],
     "desc": "请你返回 最多 可以摧毁的敌人城堡数目。",
     "solutions": [
         {

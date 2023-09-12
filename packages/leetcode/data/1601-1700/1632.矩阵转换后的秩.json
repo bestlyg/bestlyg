@@ -4,12 +4,12 @@
     "url": "https://leetcode.cn/problems/rank-transform-of-a-matrix",
     "difficulty": "困难",
     "tag": [
-        "贪心",
         "并查集",
         "图",
         "拓扑排序",
         "数组",
-        "矩阵"
+        "矩阵",
+        "排序"
     ],
     "desc": "给你一个 m x n 的矩阵 matrix ，请你返回一个新的矩阵 answer ，其中 answer[row][col] 是 matrix[row][col] 的秩。",
     "solutions": [

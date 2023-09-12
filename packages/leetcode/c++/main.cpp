@@ -157,26 +157,32 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        int used_count = 0;
+    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
         vector<unordered_set<int>> parr(numCourses);
-        vector<unordered_set<int>> carr(numCourses);
-        for (auto &item : prerequisites)
-            carr[item[0]].insert(item[1]),
+        for (auto &item : prerequisites) {
             parr[item[1]].insert(item[0]);
-        vector<int> q;
-        for (int i = 0; i < numCourses; i++) {
-            if (parr[i].empty()) q.push_back(i);
         }
-        while (q.size()) {
-            int cur = q.pop_back();
-            for (auto &child : carr[cur]) {
-                parr[child].erase(cur);
-                if (parr[child].empty()) q.push_back(child);
+        unordered_map<int, unordered_set<int>> m;
+        function<unordered_set<int>(int)> find_parent = [&](int idx) {
+            if (m[idx]) return m[idx];
+            unordered_set<int> res(parr[idx].begin(), parr[idx].end());
+            if (parr[idx].size()) {
+                for (auto &p : parr[idx]) {
+                    for (auto &item : find_parent(p)) {
+                        res.insert(item);
+                    }
+                }
             }
-
+            return m[idx] = res;
+        };
+        for (int idx = 0; idx < numCourses; idx++) {
+            parr[idx] = find_parent(idx);
         }
-        return used_count == numCourses;
+        vector<bool> res;
+        for (auto &query : queries) {
+            res.push_back(parr[query[1]].count(query[0]));
+        }
+        return res;
     }
 };
 
