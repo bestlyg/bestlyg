@@ -5,8 +5,8 @@ echo "pm2 delete $delete"
 pm2 delete $server
 echo "git pull"
 git pull
-echo "pnpm i"
-pnpm i
+echo "pnpm i --frozen-lockfile"
+pnpm i --frozen-lockfile
 # pnpm run build
 # echo "pnpm --filter leetcode build"
 # pnpm --filter leetcode build
