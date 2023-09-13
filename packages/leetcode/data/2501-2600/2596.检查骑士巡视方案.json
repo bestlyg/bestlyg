@@ -35,6 +35,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn check_valid_grid(grid: Vec<Vec<i32>>) -> bool {\n        const dirs: [[i32; 2]; 8] = [\n            [-2, -1],\n            [-1, -2],\n            [-2, 1],\n            [-1, 2],\n            [1, -2],\n            [2, -1],\n            [1, 2],\n            [2, 1],\n        ];\n        let n = grid.len();\n        let mut cur = (0, 0);\n        for i in 0..n * n {\n            if grid[cur.0][cur.1] != i as i32 {\n                return false;\n            }\n            for dir in dirs {\n                let (nrow, ncol) = (cur.0 as i32 + dir[0], cur.1 as i32 + dir[1]);\n                if nrow >= 0\n                    && (nrow as usize) < n\n                    && ncol >= 0\n                    && (ncol as usize) < n\n                    && grid[nrow as usize][ncol as usize] == i as i32 + 1\n                {\n                    cur = (nrow as usize, ncol as usize);\n                    break;\n                }\n            }\n        }\n        true\n    }\n}",
             "date": 1679155200000
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16,
+            "desc": "遍历。",
+            "code": "dirs = [(1, 2), (1, -2), (2, 1), (2, -1), (-1, 2), (-1, -2), (-2, 1), (-2, -1)]\n\nclass Solution:\n    def checkValidGrid(self, grid: List[List[int]]) -> bool:\n        n = len(grid)\n        cur = (0, 0)\n        if grid[0][0] != 0: return False\n        for i in range(n * n - 1):\n            f = False\n            for dir in dirs:\n                x = cur[0] + dir[0]\n                y = cur[1] + dir[1]\n                if 0 <= x < n and 0 <= y < n and grid[x][y] == i + 1:\n                    f = True\n                    cur = (x, y)\n            if not f:\n                return False\n        return True",
+            "date": 1694534400000
         }
     ]
 }

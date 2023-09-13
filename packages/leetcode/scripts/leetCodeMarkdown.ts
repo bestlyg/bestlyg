@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1462. 课程表 IV',
+    exist: true,
+    name: '2596. 检查骑士巡视方案',
     url: 'https://leetcode.cn/problems/course-schedule-iv',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,110 +25,44 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 816,
-            memory: 164.73,
-            desc: '提前预处理',
-            code: `class Solution {
-public:
-    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
-        vector<unordered_set<int>> parr(numCourses);
-        for (auto &item : prerequisites) {
-            parr[item[1]].insert(item[0]);
-        }
-        unordered_map<int, unordered_set<int>> m;
-        function<unordered_set<int>(int)> find_parent = [&](int idx) {
-            if (m.count(idx)) return m[idx];
-            unordered_set<int> res(parr[idx].begin(), parr[idx].end());
-            if (parr[idx].size()) {
-                for (auto &p : parr[idx]) {
-                    for (auto &item : find_parent(p)) {
-                        res.insert(item);
-                    }
-                }
-            }
-            return m[idx] = res;
-        };
-        for (int idx = 0; idx < numCourses; idx++) {
-            parr[idx] = find_parent(idx);
-        }
-        vector<bool> res;
-        for (auto &query : queries) {
-            res.push_back(parr[query[1]].count(query[0]));
-        }
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 816,
+        //     memory: 164.73,
+        //     desc: '提前预处理',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 80,
-            memory: 19.1,
-            desc: '同上',
-            code: `class Solution:
-    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        parr = [set() for _ in range(numCourses)]
-        for [item1, item2] in prerequisites:
-            parr[item2].add(item1)
-        @cache
-        def find_parent(idx: int) -> set:
-            res = set(parr[idx])
-            if len(parr[idx]):
-                for p in parr[idx]:
-                    res |= find_parent(p)
-            return res
-        for idx in range(numCourses):
-            parr[idx] = find_parent(idx)
-        return [query[0] in parr[query[1]] for query in queries]`,
+            time: 40,
+            memory: 16,
+            desc: '遍历',
+            code: `dirs = [(1, 2), (1, -2), (2, 1), (2, -1), (-1, 2), (-1, -2), (-2, 1), (-2, -1)]
+
+class Solution:
+    def checkValidGrid(self, grid: List[List[int]]) -> bool:
+        n = len(grid)
+        cur = (0, 0)
+        if grid[0][0] != 0: return False
+        for i in range(n * n - 1):
+            f = False
+            for dir in dirs:
+                x = cur[0] + dir[0]
+                y = cur[1] + dir[1]
+                if 0 <= x < n and 0 <= y < n and grid[x][y] == i + 1:
+                    f = True
+                    cur = (x, y)
+            if not f:
+                return False
+        return True`,
         },
-        {
-            script: Script.RUST,
-            time: 60,
-            memory: 3.11,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn check_if_prerequisite(
-        num_courses: i32,
-        prerequisites: Vec<Vec<i32>>,
-        queries: Vec<Vec<i32>>,
-    ) -> Vec<bool> {
-        use std::collections::{HashMap, HashSet};
-        let num_courses = num_courses as usize;
-        let mut parr = vec![HashSet::<usize>::new(); num_courses];
-        for item in prerequisites {
-            let (item1, item2) = (item[0] as usize, item[1] as usize);
-            parr[item2].insert(item1);
-        }
-        let mut m = HashMap::new();
-        fn dfs(m: &mut HashMap<usize, HashSet<usize>>, parr: &Vec<HashSet<usize>>, idx: usize) {
-            if m.contains_key(&idx) {
-                return;
-            }
-            let mut item = HashSet::new();
-            for p in &parr[idx] {
-                item.insert(*p);
-                dfs(m, parr, *p);
-                for p in m.get(p).unwrap() {
-                    item.insert(*p);
-                }
-            }
-            m.insert(idx, item);
-        }
-        for idx in 0..num_courses {
-            dfs(&mut m, &parr, idx);
-        }
-        queries
-            .into_iter()
-            .map(|query| {
-                m.get(&(query[1] as usize))
-                    .unwrap()
-                    .contains(&(query[0] as usize))
-            })
-            .collect()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 60,
+        //     memory: 3.11,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
