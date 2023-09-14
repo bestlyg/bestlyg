@@ -13,45 +13,41 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
+
+pub const DIRS2: [[i32; 2]; 8] = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0],
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+];
+
 impl Solution {
-    pub fn check_if_prerequisite(
-        num_courses: i32,
-        prerequisites: Vec<Vec<i32>>,
-        queries: Vec<Vec<i32>>,
-    ) -> Vec<bool> {
-        use std::collections::{HashMap, HashSet};
-        let num_courses = num_courses as usize;
-        let mut parr = vec![HashSet::<usize>::new(); num_courses];
-        for item in prerequisites {
-            let (item1, item2) = (item[0] as usize, item[1] as usize);
-            parr[item2].insert(item1);
+    pub fn queens_attackthe_king(queens: Vec<Vec<i32>>, king: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut board = vec![vec![false; 8]; 8];
+        for queen in queens {
+            board[queen[0] as usize][queen[0] as usize] = true;
         }
-        let mut m = HashMap::new();
-        fn dfs(m: &mut HashMap<usize, HashSet<usize>>, parr: &Vec<HashSet<usize>>, idx: usize) {
-            if m.contains_key(&idx) {
-                return;
-            }
-            let mut item = HashSet::new();
-            for p in &parr[idx] {
-                item.insert(*p);
-                dfs(m, parr, *p);
-                for p in m.get(p).unwrap() {
-                    item.insert(*p);
+        let mut res = vec![];
+        let mut check = |mut pos: Vec<usize>, dir: &[i32]| {
+            for _ in 1..8 {
+                let x = pos[0] as i32 + dir[0];
+                let y = pos[1] as i32 + dir[1];
+                if 0 <= x && x < 8 && 0 <= y && y < 8 {
+                    if board[x as usize][y as usize] {
+                        res.push(vec![x, y]);
+                    }
+                } else {
+                    return;
                 }
             }
-            m.insert(idx, item);
+        };
+        for d in &DIRS2 {
+            check(king.iter().map(|v| *v as usize).collect(), d);
         }
-        for idx in 0..num_courses {
-            dfs(&mut m, &parr, idx);
-        }
-        println!("m = {m:#?}");
-        queries
-            .into_iter()
-            .map(|query| {
-                m.get(&(query[1] as usize))
-                    .unwrap()
-                    .contains(&(query[0] as usize))
-            })
-            .collect()
+        res
     }
 }

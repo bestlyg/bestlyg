@@ -1,23 +1,30 @@
 from math import floor, sqrt
 from preclude import *
 
-dirs = [(1, 2), (1, -2), (2, 1), (2, -1), (-1, 2), (-1, -2), (-2, 1), (-2, -1),]
+dirs = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+
 
 class Solution:
-    def checkValidGrid(self, grid: List[List[int]]) -> bool:
-        n = len(grid)
-        cur = (0, 0)
-        for i in range(n * n):
-            f = False
-            for dir in dirs:
-                x = cur[0] + dir[0]
-                y = cur[1] + dir[1]
-                if 0 <= x < n and 0 <= y < n and grid[x][y] == i + 1:
-                    f = True
-                    cur = (x, y)
-            if not f:
-                return False
-        return True
+    def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:
+        board = [[False for j in range(8)] for i in range(8)]
+        for [x, y] in queens:
+            board[x][y] = True
+        res = []
+
+        def check(pos: List[int], dir: List[int]) -> bool:
+            for _ in range(1, 8):
+                pos[0] += dir[0]
+                pos[1] += dir[1]
+
+                if 0 <= pos[0] < 8 and 0 <= pos[1] < 8:
+                    if board[pos[0]][pos[1]]:
+                        res.append([pos[0], pos[1]])
+                        return
+                else:
+                    return
+        for d in dirs:
+            check(list(king), d)
+        return res
 
 
 def main():

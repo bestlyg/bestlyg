@@ -155,33 +155,27 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
+vector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
 class Solution {
 public:
-    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
-        vector<unordered_set<int>> parr(numCourses);
-        for (auto &item : prerequisites) {
-            parr[item[1]].insert(item[0]);
-        }
-        unordered_map<int, unordered_set<int>> m;
-        function<unordered_set<int>(int)> find_parent = [&](int idx) {
-            if (m[idx]) return m[idx];
-            unordered_set<int> res(parr[idx].begin(), parr[idx].end());
-            if (parr[idx].size()) {
-                for (auto &p : parr[idx]) {
-                    for (auto &item : find_parent(p)) {
-                        res.insert(item);
+    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {
+        vector<vector<bool>> board(8, vector<bool>(8, false));
+        for (auto &q : queens) board[q[0]][q[1]] = true;
+        vector<vector<int>> res;
+        auto check = [&](vector<int> pos, vector<int> &dir) {
+            for (int i = 1; i < 8; i++) {
+                pos[0] += dir[0];
+                pos[1] += dir[1];
+                if (0 <= pos[0] && pos[0] < 8 && 0 <= pos[1] && pos[1] < 8) {
+                    if (board[pos[0]][pos[1]]) {
+                        res.push_back(pos);
+                        return;
                     }
-                }
+                } else return;
             }
-            return m[idx] = res;
         };
-        for (int idx = 0; idx < numCourses; idx++) {
-            parr[idx] = find_parent(idx);
-        }
-        vector<bool> res;
-        for (auto &query : queries) {
-            res.push_back(parr[query[1]].count(query[0]));
-        }
+        for (auto &d : dirs2) check(king, d);
         return res;
     }
 };
