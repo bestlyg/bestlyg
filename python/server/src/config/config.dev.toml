@@ -1,0 +1,7 @@
+DEBUG = true
+
+# flask_mail
+MAIL_SUPPRESS_SEND = true
+# flask_apscheduler
+JSONIFY_PRETTYPRINT_REGULAR = true
+SCHEDULER_API_ENABLED = true

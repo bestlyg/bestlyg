@@ -1,0 +1,14 @@
+# DEBUG = true
+PORT = 8000
+
+# flask_mail
+MAIL_DEFAULT_SENDER = "1057966749@qq.com"
+MAIL_PASSWORD = "ZGV5eHlobmt5dmx3YmZkZQ=="
+MAIL_SERVER = "smtp.qq.com"
+# MAIL_SUPPRESS_SEND = true
+MAIL_USERNAME = "1057966749@qq.com"
+# flask_apscheduler
+# SCHEDULER_API_ENABLED = false
+# JSONIFY_PRETTYPRINT_REGULAR = true
+# SCHEDULER_API_ENABLED = true
+# SCHEDULER_API_PREFIX="/internal/scheduler"
