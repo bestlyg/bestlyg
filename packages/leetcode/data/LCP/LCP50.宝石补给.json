@@ -1,0 +1,33 @@
+{
+    "name": "LCP50.宝石补给",
+    "url": "https://leetcode.cn/problems/WHnhjV",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "在完成所有的赠送后，请找到拥有最多宝石的勇者和拥有最少宝石的勇者，并返回他们二者的宝石数量之差。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 44,
+            "memory": 21.7,
+            "desc": "方向数组遍历。",
+            "code": "class Solution {\npublic:\n    int giveGem(vector<int>& gem, vector<vector<int>>& operations) {\n        for (auto &item : operations) {\n            gem[item[1]] += gem[item[0]] / 2;\n            gem[item[0]] -= gem[item[0]] / 2;\n        }\n        return *max_element(gem.begin(), gem.end()) - *min_element(gem.begin(), gem.end());\n    }\n};",
+            "date": 1694707200000
+        },
+        {
+            "script": "python",
+            "time": 60,
+            "memory": 17.7,
+            "desc": "同上。",
+            "code": "class Solution:\n    def giveGem(self, gem: List[int], operations: List[List[int]]) -> int:\n        for [i1, i2] in operations:\n            gem[i2] += gem[i1] // 2\n            gem[i1] -= gem[i1] // 2\n        return max(gem) - min(gem)",
+            "date": 1694707200000
+        },
+        {
+            "script": "rust",
+            "time": 4,
+            "memory": 2.3,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn give_gem(mut gem: Vec<i32>, operations: Vec<Vec<i32>>) -> i32 {\n        for item in operations {\n            gem[item[1] as usize] += gem[item[0] as usize] / 2;\n            gem[item[0] as usize] -= gem[item[0] as usize] / 2;\n        }\n        *gem.iter().max() - *gem.iter().min()\n    }\n}",
+            "date": 1694707200000
+        }
+    ]
+}
