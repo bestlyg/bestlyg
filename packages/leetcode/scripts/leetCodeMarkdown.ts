@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: 'LCP 50. 宝石补给',
+    exist: true,
+    name: '198. 打家劫舍',
     url: 'https://leetcode.cn/problems/WHnhjV',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,44 +27,61 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 44,
-            memory: 21.7,
-            desc: '方向数组遍历',
+            time: 4,
+            memory: 8.1,
+            desc: 'dp记录当前下标下的最大值',
             code: `class Solution {
 public:
-    int giveGem(vector<int>& gem, vector<vector<int>>& operations) {
-        for (auto &item : operations) {
-            gem[item[1]] += gem[item[0]] / 2;
-            gem[item[0]] -= gem[item[0]] / 2;
+    int rob(vector<int>& nums) {
+        int n = nums.size(), res = 0;
+        if (n == 1) return nums[0];
+        vector<int> dp(n, 0);
+        dp[0] = nums[0];
+        dp[1] = max(nums[0], nums[1]);
+        res = max(dp[0], dp[1]);
+        for (int i = 2; i < n; i++) {
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
+            res = max(res, dp[i]);
         }
-        return *max_element(gem.begin(), gem.end()) - *min_element(gem.begin(), gem.end());
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 60,
-            memory: 17.7,
+            time: 32,
+            memory: 16,
             desc: '同上',
             code: `class Solution:
-    def giveGem(self, gem: List[int], operations: List[List[int]]) -> int:
-        for [i1, i2] in operations:
-            gem[i2] += gem[i1] // 2
-            gem[i1] -= gem[i1] // 2
-        return max(gem) - min(gem)`,
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        dp = [0 for _ in nums]
+        dp[0] = nums[0]
+        dp[1] = max(nums[1], nums[0])
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+        return max(dp)`,
         },
         {
             script: Script.RUST,
-            time: 4,
-            memory: 2.3,
+            time: 0,
+            memory:1.95,
             desc: '同上',
             code: `impl Solution {
-    pub fn give_gem(mut gem: Vec<i32>, operations: Vec<Vec<i32>>) -> i32 {
-        for item in operations {
-            gem[item[1] as usize] += gem[item[0] as usize] / 2;
-            gem[item[0] as usize] -= gem[item[0] as usize] / 2;
+    pub fn rob(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        if n == 1 {
+            nums[0]
+        } else {
+            let mut dp = vec![0; n];
+            dp[0] = nums[0];
+            dp[1] = nums[1].max(nums[0]);
+            for i in 2..n {
+                dp[i] = dp[i - 1].max(dp[i - 2] + nums[i]);
+            }
+            dp.into_iter().max().unwrap()
         }
-        *gem.iter().max() - *gem.iter().min()
     }
 }`,
         },

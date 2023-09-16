@@ -15,11 +15,18 @@ fn main() {
 }
 
 impl Solution {
-    pub fn give_gem(mut gem: Vec<i32>, operations: Vec<Vec<i32>>) -> i32 {
-        for item in operations {
-            gem[item[1] as usize] += gem[item[0] as usize] / 2;
-            gem[item[0] as usize] -= gem[item[0] as usize] / 2;
+    pub fn rob(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        if n == 1 {
+            nums[0]
+        } else {
+            let mut dp = vec![0; n];
+            dp[0] = nums[0];
+            dp[1] = nums[1].max(nums[0]);
+            for i in 2..n {
+                dp[i] = dp[i - 1].max(dp[i - 2] + nums[i]);
+            }
+            dp.into_iter().max()
         }
-        *gem.iter().max() - *gem.iter().min()
     }
 }
