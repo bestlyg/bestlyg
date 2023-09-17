@@ -1,29 +1,18 @@
 from math import floor, sqrt
 from preclude import *
 
-dirs = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
-
 
 class Solution:
-    def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:
-        board = [[False for j in range(8)] for i in range(8)]
-        for [x, y] in queens:
-            board[x][y] = True
-        res = []
-
-        def check(pos: List[int], dir: List[int]) -> bool:
-            for _ in range(1, 8):
-                pos[0] += dir[0]
-                pos[1] += dir[1]
-
-                if 0 <= pos[0] < 8 and 0 <= pos[1] < 8:
-                    if board[pos[0]][pos[1]]:
-                        res.append([pos[0], pos[1]])
-                        return
-                else:
-                    return
-        for d in dirs:
-            check(list(king), d)
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [[0, 0] for _ in range(n + 1)]
+        dp[1][1] = nums[0]
+        res = nums[0]
+        for i in range(2, n + 1):
+            dp[i][0] = max(dp[i - 1][0], dp[i - 2][0] + nums[i - 1])
+            if i != n:
+                dp[i][1] = max(dp[i - 1][1], dp[i - 2][1] + nums[i - 1])
+            res = max(res, dp[i][0], dp[i][1])
         return res
 
 

@@ -155,27 +155,18 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
-vector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
-
 class Solution {
 public:
-    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {
-        vector<vector<bool>> board(8, vector<bool>(8, false));
-        for (auto &q : queens) board[q[0]][q[1]] = true;
-        vector<vector<int>> res;
-        auto check = [&](vector<int> pos, vector<int> &dir) {
-            for (int i = 1; i < 8; i++) {
-                pos[0] += dir[0];
-                pos[1] += dir[1];
-                if (0 <= pos[0] && pos[0] < 8 && 0 <= pos[1] && pos[1] < 8) {
-                    if (board[pos[0]][pos[1]]) {
-                        res.push_back(pos);
-                        return;
-                    }
-                } else return;
-            }
-        };
-        for (auto &d : dirs2) check(king, d);
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n + 1, vector<int>(2, 0));
+        dp[1][1] = nums[0];
+        int res = nums[0];
+        for (int i = 2; i < n + 1; i++) {
+            dp[i][0] = max(dp[i - 1][0], dp[i - 2][0] + nums[i - 1])
+            if (i != n)  dp[i][1] = max(dp[i - 1][1], dp[i - 2][1] + nums[i - 1])
+            res = max(res, max(dp[i][0], dp[i][1]));
+        }
         return res;
     }
 };

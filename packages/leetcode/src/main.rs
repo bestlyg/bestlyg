@@ -17,16 +17,16 @@ fn main() {
 impl Solution {
     pub fn rob(nums: Vec<i32>) -> i32 {
         let n = nums.len();
-        if n == 1 {
-            nums[0]
-        } else {
-            let mut dp = vec![0; n];
-            dp[0] = nums[0];
-            dp[1] = nums[1].max(nums[0]);
-            for i in 2..n {
-                dp[i] = dp[i - 1].max(dp[i - 2] + nums[i]);
+        let mut dp = vec![vec![0; 2]; n];
+        dp[1][1] = nums[0];
+        let mut res = nums[0];
+        for i in 2..n + 1 {
+            dp[i][0] = dp[i - 1][0].max(dp[i - 2][0] + nums[i - 1]);
+            if i != n {
+                dp[i][1] = dp[i - 1][1].max(dp[i - 2][1] + nums[i - 1]);
             }
-            dp.into_iter().max()
+            res = res.max(dp[i][0].max(dp[i][1]))
         }
+        res
     }
 }
