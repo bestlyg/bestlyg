@@ -14,19 +14,22 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
+fn find(node: Option<&Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    let mut res = vec![0, 0];
+    if let Some(node) = node {
+        let node_ref = node.as_ref().borrow();
+        let l = find(node_ref.left.as_ref());
+        let r = find(node_ref.right.as_ref());
+        res[1] = l[0] + r[0] + node_ref.val;
+        res[0] = l.into_iter().max().unwrap() + r.into_iter().max().unwrap();
+    }
+    res
+}
 impl Solution {
-    pub fn rob(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut dp = vec![vec![0; 2]; n];
-        dp[1][1] = nums[0];
-        let mut res = nums[0];
-        for i in 2..n + 1 {
-            dp[i][0] = dp[i - 1][0].max(dp[i - 2][0] + nums[i - 1]);
-            if i != n {
-                dp[i][1] = dp[i - 1][1].max(dp[i - 2][1] + nums[i - 1]);
-            }
-            res = res.max(dp[i][0].max(dp[i][1]))
-        }
-        res
+    pub fn rob(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let node = root.as_ref();
+        find(root.as_ref()).into_iter().max().unwrap()
     }
 }

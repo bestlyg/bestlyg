@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '213. 打家劫舍 II',
+    name: '337. 打家劫舍 III',
     url: 'https://leetcode.cn/problems/WHnhjV',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,63 +27,65 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 0,
-            memory: 8.26,
-            desc: 'dp[0][j]表示首个不选的时候最大值，dp[1][j]表示首个选的时候最大值',
+            time: 28,
+            memory: 30.57,
+            desc: 'dfs时记录偷取当前节点和不偷取时的最大值',
             code: `class Solution {
 public:
-    int rob(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<int>> dp(n + 1, vector<int>(2, 0));
-        dp[1][1] = nums[0];
-        int res = nums[0];
-        for (int i = 2; i < n + 1; i++) {
-            dp[i][0] = max(dp[i - 1][0], dp[i - 2][0] + nums[i - 1]);
-            if (i != n)  dp[i][1] = max(dp[i - 1][1], dp[i - 2][1] + nums[i - 1]);
-            res = max(res, max(dp[i][0], dp[i][1]));
+    vector<int> find(TreeNode *node) {
+        vector<int> res{0, 0};
+        if (node) {
+            auto l = find(node->left), r = find(node->right);
+            res[0] = max(l[0], l[1]) + max(r[0], r[1]);
+            res[1] = l[0] + r[0] + node->val;
         }
         return res;
+    }
+    int rob(TreeNode* root) {
+        auto res = find(root);
+        return max(res[0], res[1]);
     }
 };
 `,
         },
         {
             script: Script.PY,
-            time: 32,
-            memory: 15.9,
+            time: 52,
+            memory: 18.6,
             desc: '同上',
             code: `class Solution:
-    def rob(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [[0, 0] for _ in range(n + 1)]
-        dp[1][1] = nums[0]
-        res = nums[0]
-        for i in range(2, n + 1):
-            dp[i][0] = max(dp[i - 1][0], dp[i - 2][0] + nums[i - 1])
-            if i != n:
-                dp[i][1] = max(dp[i - 1][1], dp[i - 2][1] + nums[i - 1])
-            res = max(res, dp[i][0], dp[i][1])
-        return res`,
+    def rob(self, root: Optional[TreeNode]) -> int:
+        def find(node: Optional[TreeNode]) -> List[int]:
+            res = [0, 0]
+            if node:
+                l, r = find(node.left), find(node.right)
+                res[0] = max(l) + max(r)
+                res[1] = l[0] + r[0] + node.val
+            return res
+        return max(find(root))`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 1.93,
+            time: 4,
+            memory: 2.81,
             desc: '同上',
-            code: `impl Solution {
-    pub fn rob(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut dp = vec![vec![0; 2]; n + 1];
-        dp[1][1] = nums[0];
-        let mut res = nums[0];
-        for i in 2..n + 1 {
-            dp[i][0] = dp[i - 1][0].max(dp[i - 2][0] + nums[i - 1]);
-            if i != n {
-                dp[i][1] = dp[i - 1][1].max(dp[i - 2][1] + nums[i - 1]);
-            }
-            res = res.max(dp[i][0].max(dp[i][1]))
-        }
-        res
+            code: `use std::cell::RefCell;
+use std::rc::Rc;
+fn find(node: Option<&Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    let mut res = vec![0, 0];
+    if let Some(node) = node {
+        let node_ref = node.as_ref().borrow();
+        let l = find(node_ref.left.as_ref());
+        let r = find(node_ref.right.as_ref());
+        res[1] = l[0] + r[0] + node_ref.val;
+        res[0] = l.into_iter().max().unwrap() + r.into_iter().max().unwrap();
+    }
+    res
+}
+impl Solution {
+    pub fn rob(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let node = root.as_ref();
+        find(root.as_ref()).into_iter().max().unwrap()
     }
 }`,
         },
