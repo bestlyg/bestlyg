@@ -157,20 +157,31 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    vector<int> find(TreeNode *node) {
-        vector<int> res{0, 0};
-        if (node) {
-            auto l = find(node->left), r = find(node->right);
-            res[0] = max(l[0], l[1]) + max(r[0], r[1]);
-            res[1] = l[0] + r[0] + node->val;
+    int minCapability(vector<int>& nums, int k) {
+        int n = nums.size(), 
+            l = *max_element(nums.begin(), nums.end()), 
+            r = *min_element(nums.begin(), nums.end());
+
+        auto check = [&](int target) -> bool {
+            int cnt = 0, prev = -1;
+            for (int i = 0; i < n; i++) {
+                if (nums[i] <= target && (prev == -1 || prev + 1 != i)) {
+                    prev = i;
+                    cnt += 1;
+                }
+            }
+            return cnt >= k;
+        };
+
+        while (l < r) {
+            int m = (l + r) / 2;
+            if (check(m)) r = m;
+            else l = m + 1;
         }
-        return res;
-    }
-    int rob(TreeNode* root) {
-        auto res = find(root);
-        return max(res[0], res[1]);
+        return l;
     }
 };
+
 // END
 #ifdef LOCAL
 int main() {

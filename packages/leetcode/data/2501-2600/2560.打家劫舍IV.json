@@ -32,6 +32,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_capability(nums: Vec<i32>, k: i32) -> i32 {\n        let (mut l, mut r) = (1, 1);\n        for num in nums.iter() {\n            r = r.max(*num);\n        }\n        let bs = move |target| {\n            let (mut prev1, mut prev2) = (0, 0);\n            for num in nums.iter() {\n                if *num <= target {\n                    let tmp = prev2;\n                    prev2 = prev2.max(prev1 + 1);\n                    prev1 = tmp;\n                } else {\n                    prev1 = prev2;\n                }\n            }\n            prev2\n        };\n        while l < r {\n            let m = (l + r) / 2;\n            if bs(m) >= k {\n                r = m;\n            } else {\n                l = m + 1\n            }\n        }\n        l\n    }\n}",
             "date": 1675526400000
+        },
+        {
+            "script": "python",
+            "time": 520,
+            "memory": 27.9,
+            "desc": "同上。",
+            "code": "class Solution:\n    def minCapability(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n\n        def check(target: int) -> bool:\n            cnt = 0\n            prev = -1\n            for i in range(n):\n                if nums[i] <= target and (prev == -1 or prev + 1 != i):\n                    prev = i\n                    cnt += 1\n            return cnt >= k\n\n        l, r = min(nums), max(nums)\n        while l < r:\n            m = (l + r) // 2\n            if check(m):\n                r = m\n            else:\n                l = m + 1\n        return l",
+            "date": 1695052800000
         }
     ]
 }

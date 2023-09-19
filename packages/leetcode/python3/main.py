@@ -3,17 +3,26 @@ from preclude import *
 
 
 class Solution:
-    def rob(self, nums: List[int]) -> int:
+    def minCapability(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        dp = [[0, 0] for _ in range(n + 1)]
-        dp[1][1] = nums[0]
-        res = nums[0]
-        for i in range(2, n + 1):
-            dp[i][0] = max(dp[i - 1][0], dp[i - 2][0] + nums[i - 1])
-            if i != n:
-                dp[i][1] = max(dp[i - 1][1], dp[i - 2][1] + nums[i - 1])
-            res = max(res, dp[i][0], dp[i][1])
-        return res
+
+        def check(target: int) -> bool:
+            cnt = 0
+            prev = -1
+            for i in range(n):
+                if nums[i] <= target and (prev == -1 or prev + 1 != i):
+                    prev = i
+                    cnt += 1
+            return cnt >= k
+
+        l, r = min(nums), max(nums)
+        while l < r:
+            m = (l + r) // 2
+            if check(m):
+                r = m
+            else:
+                l = m + 1
+        return l
 
 
 def main():
