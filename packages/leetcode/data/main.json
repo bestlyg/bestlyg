@@ -1,6 +1,6 @@
 {
-    "markdownCount": 1360,
-    "solutionCount": 2623,
+    "markdownCount": 1361,
+    "solutionCount": 2626,
     "index": [
         {
             "dir": "1-100",
@@ -1478,6 +1478,7 @@
         {
             "dir": "LCP",
             "list": [
+                "LCP06.拿硬币",
                 "LCP07.传递信息",
                 "LCP19.秋叶收藏集",
                 "LCP33.蓄水",
@@ -6361,6 +6362,7 @@
                 "面试题16.11.跳水板",
                 "面试题17.10.主要元素",
                 "面试题17.12.BiNode",
+                "LCP06.拿硬币",
                 "LCP07.传递信息",
                 "LCP33.蓄水",
                 "LCP50.宝石补给",

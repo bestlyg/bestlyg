@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2560. 打家劫舍 IV',
-    url: 'https://leetcode.cn/problems/WHnhjV',
+    exist: !true,
+    name: 'LCP 06. 拿硬币',
+    url: 'https://leetcode.cn/problems/na-ying-bi',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `在完成所有的赠送后，请找到拥有最多宝石的勇者和拥有最少宝石的勇者，并返回他们二者的宝石数量之差。`,
+    desc: `桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,81 +25,43 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-//         {
-//             script: Script.CPP,
-//             time: 28,
-//             memory: 30.57,
-//             desc: 'dfs时记录偷取当前节点和不偷取时的最大值',
-//             code: `class Solution {
-// public:
-//     vector<int> find(TreeNode *node) {
-//         vector<int> res{0, 0};
-//         if (node) {
-//             auto l = find(node->left), r = find(node->right);
-//             res[0] = max(l[0], l[1]) + max(r[0], r[1]);
-//             res[1] = l[0] + r[0] + node->val;
-//         }
-//         return res;
-//     }
-//     int rob(TreeNode* root) {
-//         auto res = find(root);
-//         return max(res[0], res[1]);
-//     }
-// };
-// `,
-//         },
+        {
+            script: Script.CPP,
+            time: 4,
+            memory: 8.17,
+            desc: '遍历',
+            code: `class Solution {
+public:
+    int minCount(vector<int>& coins) {
+        int res = 0;
+        for (auto &coin : coins) res += ceil(1.0 * coin / 2);
+        return res;
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 520,
-            memory: 27.9,
+            time: 40,
+            memory: 16,
             desc: '同上',
             code: `class Solution:
-    def minCapability(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-
-        def check(target: int) -> bool:
-            cnt = 0
-            prev = -1
-            for i in range(n):
-                if nums[i] <= target and (prev == -1 or prev + 1 != i):
-                    prev = i
-                    cnt += 1
-            return cnt >= k
-
-        l, r = min(nums), max(nums)
-        while l < r:
-            m = (l + r) // 2
-            if check(m):
-                r = m
-            else:
-                l = m + 1
-        return l`,
+    def minCount(self, coins: List[int]) -> int:
+        return sum(ceil(coin / 2) for coin in coins)`,
         },
-//         {
-//             script: Script.RUST,
-//             time: 4,
-//             memory: 2.81,
-//             desc: '同上',
-//             code: `use std::cell::RefCell;
-// use std::rc::Rc;
-// fn find(node: Option<&Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-//     let mut res = vec![0, 0];
-//     if let Some(node) = node {
-//         let node_ref = node.as_ref().borrow();
-//         let l = find(node_ref.left.as_ref());
-//         let r = find(node_ref.right.as_ref());
-//         res[1] = l[0] + r[0] + node_ref.val;
-//         res[0] = l.into_iter().max().unwrap() + r.into_iter().max().unwrap();
-//     }
-//     res
-// }
-// impl Solution {
-//     pub fn rob(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-//         let node = root.as_ref();
-//         find(root.as_ref()).into_iter().max().unwrap()
-//     }
-// }`,
-//         },
+        {
+            script: Script.RUST,
+            time: 0,
+            memory: 2.3,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn min_count(coins: Vec<i32>) -> i32 {
+        coins
+            .into_iter()
+            .map(|coin| (coin as f64 / 2.0).ceil() as i32)
+            .sum()
+    }
+}`,
+        },
     ],
 };
 
