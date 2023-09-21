@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -10,7 +10,7 @@ dependencies:
     version: 7.18.9
   '@reduxjs/toolkit':
     specifier: ^1.8.0
-    version: 1.8.5(react-redux@7.2.8)(react@18.2.0)
+    version: 1.8.5(react-redux@7.2.8)(react@training+template+public+react)
   '@tarojs/cli':
     specifier: 3.5.4
     version: 3.5.4(@types/react@18.0.18)
@@ -25,7 +25,7 @@ dependencies:
     version: 3.5.4
   '@tarojs/plugin-framework-react':
     specifier: 3.5.4
-    version: 3.5.4(@pmmmwh/react-refresh-webpack-plugin@0.5.7)(@types/react@18.0.18)(react-refresh@0.11.0)(react@18.2.0)
+    version: 3.5.4(@pmmmwh/react-refresh-webpack-plugin@0.5.7)(@types/react@18.0.18)(react-refresh@0.11.0)(react@training+template+public+react)
   '@tarojs/plugin-platform-alipay':
     specifier: 3.5.4
     version: 3.5.4(@types/react@18.0.18)
@@ -46,7 +46,7 @@ dependencies:
     version: 3.5.4(@types/react@18.0.18)
   '@tarojs/react':
     specifier: 3.5.4
-    version: 3.5.4(react@18.2.0)
+    version: 3.5.4(react@training+template+public+react)
   '@tarojs/router':
     specifier: 3.5.4
     version: 3.5.4(@types/react@18.0.18)
@@ -64,7 +64,7 @@ dependencies:
     version: 3.5.4(@types/react@18.0.18)
   ahooks:
     specifier: ^3.1.13
-    version: 3.7.0(react@18.2.0)
+    version: 3.7.0(react@training+template+public+react)
   classnames:
     specifier: ^2.3.1
     version: 2.3.1
@@ -82,19 +82,19 @@ dependencies:
     version: 1.0.0
   react:
     specifier: ^18.0.0
-    version: 18.2.0
+    version: link:../training/template/public/react
   react-dom:
     specifier: ^18.0.0
-    version: 18.2.0(react@18.2.0)
+    version: link:../training/template/public/react-dom
   react-redux:
     specifier: ^7.2.6
-    version: 7.2.8(react-dom@18.2.0)(react-native@0.71.10)(react@18.2.0)
+    version: 7.2.8(react-dom@training+template+public+react-dom)(react-native@0.71.10)(react@training+template+public+react)
   taro-poster-render:
     specifier: ^2.1.1
-    version: 2.2.0(@tarojs/components@3.5.4)(@tarojs/taro@3.5.4)(react-dom@18.2.0)(react@18.2.0)
+    version: 2.2.0(@tarojs/components@3.5.4)(@tarojs/taro@3.5.4)(react-dom@training+template+public+react-dom)(react@training+template+public+react)
   taro-ui:
     specifier: 3.1.0-beta.3
-    version: 3.1.0-beta.3(@tarojs/components@3.5.4)(@tarojs/react@3.5.4)(react-dom@18.2.0)(react-native@0.71.10)(react@18.2.0)
+    version: 3.1.0-beta.3(@tarojs/components@3.5.4)(@tarojs/react@3.5.4)(react-dom@training+template+public+react-dom)(react-native@0.71.10)(react@training+template+public+react)
 
 devDependencies:
   '@babel/core':
@@ -168,7 +168,7 @@ devDependencies:
     version: 7.31.1(eslint@8.23.0)
   eslint-plugin-react-hooks:
     specifier: ^4.2.0
-    version: 4.6.0(eslint@8.23.0)
+    version: link:../training/template/public/eslint-plugin-react-hooks
   fs-extra:
     specifier: ^10.0.1
     version: 10.1.0
@@ -2968,7 +2968,7 @@ packages:
     resolution: {integrity: sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==}
     dev: false
 
-  /@reduxjs/toolkit@1.8.5(react-redux@7.2.8)(react@18.2.0):
+  /@reduxjs/toolkit@1.8.5(react-redux@7.2.8)(react@training+template+public+react):
     resolution: {integrity: sha512-f4D5EXO7A7Xq35T0zRbWq5kJQyXzzscnHKmjnu2+37B3rwHU6mX9PYlbfXdnxcY6P/7zfmjhgan0Z+yuOfeBmA==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
@@ -2980,8 +2980,8 @@ packages:
         optional: true
     dependencies:
       immer: 9.0.15
-      react: 18.2.0
-      react-redux: 7.2.8(react-dom@18.2.0)(react-native@0.71.10)(react@18.2.0)
+      react: link:../training/template/public/react
+      react-redux: 7.2.8(react-dom@training+template+public+react-dom)(react-native@0.71.10)(react@training+template+public+react)
       redux: 4.2.0
       redux-thunk: 2.4.1(redux@4.2.0)
       reselect: 4.1.6
@@ -3020,6 +3020,7 @@ packages:
 
   /@sinonjs/fake-timers@10.2.0:
     resolution: {integrity: sha512-OPwQlEdg40HAj5KNF8WW6q2KG4Z+cBCZb3m4ninfTZKaBmbIJodviQsDBoYMPHkOyJJMHnOJo5j2+LKDOhOACg==}
+    deprecated: Use version 10.1.0. Version 10.2.0 has potential breaking issues
     dependencies:
       '@sinonjs/commons': 3.0.0
     dev: false
@@ -3402,7 +3403,7 @@ packages:
       - webpack-command
     dev: true
 
-  /@tarojs/plugin-framework-react@3.5.4(@pmmmwh/react-refresh-webpack-plugin@0.5.7)(@types/react@18.0.18)(react-refresh@0.11.0)(react@18.2.0):
+  /@tarojs/plugin-framework-react@3.5.4(@pmmmwh/react-refresh-webpack-plugin@0.5.7)(@types/react@18.0.18)(react-refresh@0.11.0)(react@training+template+public+react):
     resolution: {integrity: sha512-Tb66PHNC5qT5EYi2wCEEg8EQ+Mtd2bqXfD/ZtH2raCGxD4oFdDmPxf7h+48L6VUIIwXOTpJ8mdnDMcmKF4yQcQ==}
     peerDependencies:
       '@pmmmwh/react-refresh-webpack-plugin': '*'
@@ -3429,7 +3430,7 @@ packages:
       '@tarojs/shared': 3.5.4
       acorn: 8.8.0
       acorn-walk: 8.2.0
-      react: 18.2.0
+      react: link:../training/template/public/react
       react-refresh: 0.11.0
     transitivePeerDependencies:
       - '@types/react'
@@ -3521,12 +3522,12 @@ packages:
       - supports-color
       - vue
 
-  /@tarojs/react@3.5.4(react@18.2.0):
+  /@tarojs/react@3.5.4(react@training+template+public+react):
     resolution: {integrity: sha512-fEGvV8vHQB00kZc33B07P+ZmO/6uQFty/AxqxMjyH1ZkS9igo12vFl9xDofnlNnpzPeuR/ntqXqHrWqPqyEEOA==}
     dependencies:
       '@tarojs/runtime': 3.5.4
       '@tarojs/shared': 3.5.4
-      react-reconciler: 0.27.0(react@18.2.0)
+      react-reconciler: 0.27.0(react@training+template+public+react)
       scheduler: 0.20.2
     transitivePeerDependencies:
       - react
@@ -4697,7 +4698,7 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks@3.7.0(react@18.2.0):
+  /ahooks@3.7.0(react@training+template+public+react):
     resolution: {integrity: sha512-IOZ6IpVeAd7aWtV2O+dBmCQc0aHt+WPG3B5tPHnVVcPnEq9FDJxx8IIA5hLxN4lRa1m1ZMx6pOE2rrYW7bjU6A==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -4709,7 +4710,7 @@ packages:
       intersection-observer: 0.12.2
       js-cookie: 2.2.1
       lodash: 4.17.21
-      react: 18.2.0
+      react: link:../training/template/public/react
       resize-observer-polyfill: 1.5.1
       screenfull: 5.2.0
     dev: false
@@ -8446,15 +8447,6 @@ packages:
       eslint-config-prettier: 8.5.0(eslint@8.23.0)
       prettier: 2.7.1
       prettier-linter-helpers: 1.0.0
-    dev: true
-
-  /eslint-plugin-react-hooks@4.6.0(eslint@8.23.0):
-    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-    dependencies:
-      eslint: 8.23.0
     dev: true
 
   /eslint-plugin-react@7.10.0(eslint@5.16.0):
@@ -14715,16 +14707,6 @@ packages:
       - utf-8-validate
     dev: false
 
-  /react-dom@18.2.0(react@18.2.0):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.0
-    dev: false
-
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -14758,19 +14740,19 @@ packages:
     resolution: {integrity: sha512-1dVk9NwhoyKHCSxcrM6vY6cxmojeATsBobDicX0ZKr7DgUF2cBQRTKsimQFvzH8XhOVXyH8p4HyDSZNIFI8OlQ==}
     dev: false
 
-  /react-native-modal@13.0.1(react-native@0.71.10)(react@18.2.0):
+  /react-native-modal@13.0.1(react-native@0.71.10)(react@training+template+public+react):
     resolution: {integrity: sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==}
     peerDependencies:
       react: '*'
       react-native: '>=0.65.0'
     dependencies:
       prop-types: 15.8.1
-      react: 18.2.0
-      react-native: 0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@18.2.0)
+      react: link:../training/template/public/react
+      react-native: 0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@training+template+public+react)
       react-native-animatable: 1.3.3
     dev: false
 
-  /react-native@0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@18.2.0):
+  /react-native@0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@training+template+public+react):
     resolution: {integrity: sha512-O+sWH9ln7euxhHdooVL8is2FiVc7CfAp2zsKgIRhbq/8lGbJr5ZyT6QkCQK0M8Sx1zNe9puebr+BE8uBFsartg==}
     engines: {node: '>=14'}
     hasBin: true
@@ -14800,16 +14782,16 @@ packages:
       nullthrows: 1.1.1
       pretty-format: 26.6.2
       promise: 8.3.0
-      react: 18.2.0
+      react: link:../training/template/public/react
       react-devtools-core: 4.27.8
       react-native-codegen: 0.71.5(@babel/preset-env@7.18.10)
       react-native-gradle-plugin: 0.71.19
       react-refresh: 0.4.3
-      react-shallow-renderer: 16.15.0(react@18.2.0)
+      react-shallow-renderer: 16.15.0(react@training+template+public+react)
       regenerator-runtime: 0.13.9
       scheduler: 0.23.0
       stacktrace-parser: 0.1.10
-      use-sync-external-store: 1.2.0(react@18.2.0)
+      use-sync-external-store: 1.2.0(react@training+template+public+react)
       whatwg-fetch: 3.6.2
       ws: 6.2.2
     transitivePeerDependencies:
@@ -14821,18 +14803,18 @@ packages:
       - utf-8-validate
     dev: false
 
-  /react-reconciler@0.27.0(react@18.2.0):
+  /react-reconciler@0.27.0(react@training+template+public+react):
     resolution: {integrity: sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==}
     engines: {node: '>=0.10.0'}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      react: 18.2.0
+      react: link:../training/template/public/react
       scheduler: 0.21.0
     dev: false
 
-  /react-redux@7.2.8(react-dom@18.2.0)(react-native@0.71.10)(react@18.2.0):
+  /react-redux@7.2.8(react-dom@training+template+public+react-dom)(react-native@0.71.10)(react@training+template+public+react):
     resolution: {integrity: sha512-6+uDjhs3PSIclqoCk0kd6iX74gzrGc3W5zcAjbrFgEdIjRSQObdIwfx80unTkVUYvbQ95Y8Av3OvFHq1w5EOUw==}
     peerDependencies:
       react: ^16.8.3 || ^17 || ^18
@@ -14849,10 +14831,10 @@ packages:
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: link:../training/template/public/react
+      react-dom: link:../training/template/public/react-dom
       react-is: 17.0.2
-      react-native: 0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@18.2.0)
+      react-native: 0.71.10(@babel/core@7.18.13)(@babel/preset-env@7.18.10)(react@training+template+public+react)
     dev: false
 
   /react-refresh@0.11.0:
@@ -14863,21 +14845,14 @@ packages:
     resolution: {integrity: sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==}
     engines: {node: '>=0.10.0'}
 
-  /react-shallow-renderer@16.15.0(react@18.2.0):
+  /react-shallow-renderer@16.15.0(react@training+template+public+react):
     resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       object-assign: 4.1.1
-      react: 18.2.0
+      react: link:../training/template/public/react
       react-is: 18.2.0
-    dev: false
-
-  /react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      loose-envify: 1.4.0
     dev: false
 
   /read-cache@1.0.0:
@@ -16750,7 +16725,7 @@ packages:
     resolution: {integrity: sha512-7aAOSWLpkPlJkCM6NPjcZEqoLXdquNy16CEEKIzAAD03OJ742rHhVzbZ0NIdMABMV7xC+gzRFq9eoZ64gm9o2g==}
     dev: true
 
-  /taro-poster-render@2.2.0(@tarojs/components@3.5.4)(@tarojs/taro@3.5.4)(react-dom@18.2.0)(react@18.2.0):
+  /taro-poster-render@2.2.0(@tarojs/components@3.5.4)(@tarojs/taro@3.5.4)(react-dom@training+template+public+react-dom)(react@training+template+public+react):
     resolution: {integrity: sha512-kxslzH4uuhgVTRpJqer8Mmnq1lZaYgtjNXzLdCtOu/55UUeLWzAOZ/XCmnpCTA0He7T/ip16RuxjWLV8qEvIEA==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
@@ -16761,12 +16736,12 @@ packages:
     dependencies:
       '@tarojs/components': 3.5.4(@types/react@18.0.18)
       '@tarojs/taro': 3.5.4(@types/react@18.0.18)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: link:../training/template/public/react
+      react-dom: link:../training/template/public/react-dom
       taro-free-poster: 2.2.0(@tarojs/taro@3.5.4)
     dev: false
 
-  /taro-ui@3.1.0-beta.3(@tarojs/components@3.5.4)(@tarojs/react@3.5.4)(react-dom@18.2.0)(react-native@0.71.10)(react@18.2.0):
+  /taro-ui@3.1.0-beta.3(@tarojs/components@3.5.4)(@tarojs/react@3.5.4)(react-dom@training+template+public+react-dom)(react-native@0.71.10)(react@training+template+public+react):
     resolution: {integrity: sha512-Tn9TdKvGwRNAO0RxOugxj8p7q5twZENkPd/aJeQP3Mx5pjg+HrBsTXD6rsjnR5z/GgoA9WWAoD9Du1H6ZyE71w==}
     peerDependencies:
       '@tarojs/components': '>=3'
@@ -16775,14 +16750,14 @@ packages:
       react-dom: '>=16.13.0'
     dependencies:
       '@tarojs/components': 3.5.4(@types/react@18.0.18)
-      '@tarojs/react': 3.5.4(react@18.2.0)
+      '@tarojs/react': 3.5.4(react@training+template+public+react)
       classnames: 2.3.1
       dayjs: 1.11.5
       lodash: 4.17.21
       prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-native-modal: 13.0.1(react-native@0.71.10)(react@18.2.0)
+      react: link:../training/template/public/react
+      react-dom: link:../training/template/public/react-dom
+      react-native-modal: 13.0.1(react-native@0.71.10)(react@training+template+public+react)
     transitivePeerDependencies:
       - react-native
     dev: false
@@ -17539,12 +17514,12 @@ packages:
       querystring: 0.2.0
     dev: true
 
-  /use-sync-external-store@1.2.0(react@18.2.0):
+  /use-sync-external-store@1.2.0(react@training+template+public+react):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      react: 18.2.0
+      react: link:../training/template/public/react
     dev: false
 
   /use@3.1.1:

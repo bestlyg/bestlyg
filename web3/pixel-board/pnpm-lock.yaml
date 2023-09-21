@@ -19,10 +19,10 @@ dependencies:
     version: 8.5.0(near-api-js@2.1.4)
   ahooks:
     specifier: ^3.7.8
-    version: 3.7.8(react@18.2.0)
+    version: 3.7.8(react@..+packages+training+template+public+react)
   antd:
     specifier: ^5.8.4
-    version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
+    version: 5.8.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -40,7 +40,7 @@ dependencies:
     version: 2.1.4
   react-color:
     specifier: ^2.19.3
-    version: 2.19.3(react@18.2.0)
+    version: 2.19.3(react@..+packages+training+template+public+react)
 
 devDependencies:
   '@babel/core':
@@ -126,13 +126,13 @@ devDependencies:
     version: 0.11.10
   react:
     specifier: ^18.2.0
-    version: 18.2.0
+    version: link:../../packages/training/template/public/react
   react-app-rewired:
     specifier: ^2.2.1
     version: 2.2.1(react-scripts@5.0.1)
   react-dom:
     specifier: ^18.2.0
-    version: 18.2.0(react@18.2.0)
+    version: link:../../packages/training/template/public/react-dom
   stream-browserify:
     specifier: ^3.0.0
     version: 3.0.0
@@ -193,7 +193,7 @@ packages:
       '@ctrl/tinycolor': 3.6.0
     dev: false
 
-  /@ant-design/cssinjs@1.16.2(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/cssinjs@1.16.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-W+LT6Xm5sEYZn7ocMAIP9LvX99woxGg1aYu15o608/uUAaJDR7LrxBu/5cnMLa6AQK1829zdoKmRnRFOxAgzEg==}
     peerDependencies:
       react: '>=16.0.0'
@@ -204,9 +204,9 @@ packages:
       '@emotion/unitless': 0.7.5
       classnames: 2.3.2
       csstype: 3.1.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
       stylis: 4.3.0
     dev: false
 
@@ -214,7 +214,7 @@ packages:
     resolution: {integrity: sha512-WOgvdH/1Wl8Z7VXigRbCa5djO14zxrNTzvrAQzhWiBQtEKT0uTc8K1ltjKZ8U1gPn/wXhMA8/jE39SJl0WNxSg==}
     dev: false
 
-  /@ant-design/icons@5.2.5(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/icons@5.2.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-9Jc59v5fl5dzmxqLWtRev3dJwU7Ya9ZheoI6XmZjZiQ7PRtk77rC+Rbt7GJzAPPg43RQ4YO53RE1u8n+Et97vQ==}
     engines: {node: '>=8'}
     peerDependencies:
@@ -226,12 +226,12 @@ packages:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
       lodash.camelcase: 4.3.0
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /@ant-design/react-slick@1.0.2(react@18.2.0):
+  /@ant-design/react-slick@1.0.2(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-Wj8onxL/T8KQLFFiCA4t8eIRGpRR+UPgOdac2sYzonv+i0n3kXHmvHLLiOYL655DQx2Umii9Y9nNgL7ssu5haQ==}
     peerDependencies:
       react: '>=16.9.0'
@@ -239,7 +239,7 @@ packages:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
       json2mq: 0.2.0
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 5.0.0
     dev: false
@@ -568,6 +568,7 @@ packages:
   /@babel/plugin-proposal-class-properties@7.18.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-cumfXOF0+nzZrrN8Rf0t7M+tF6sZc7vhQwYQck9q1/5w2OExlD+b4v4RpMJFaV1Z7WcDRgO6FqvxqxGlwo+RHQ==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -593,6 +594,7 @@ packages:
   /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-wQxQzxYeJqHcfppzBDnm1yAY0jSRkUXR2z8RePZYrKwMKgMlE8+Z6LUno+bd6LvbGh8Gltvy74+9pIYkr+XkKA==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -604,6 +606,7 @@ packages:
   /@babel/plugin-proposal-numeric-separator@7.18.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-ozlZFogPqoLm8WBr5Z8UckIoE4YQ5KESVcNudyXOR8uqIkliTEgJ3RoketfG6pmzLdeZF0H/wjE9/cCEitBl7Q==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -615,6 +618,7 @@ packages:
   /@babel/plugin-proposal-optional-chaining@7.21.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-p4zeefM72gpmEe2fkUr/OnOXpWEf8nAgk7ZYVqqfFiyIG7oFfVZcCrU64hWn5xp4tQ9LkV4bTIa5rD0KANpKNA==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -627,6 +631,7 @@ packages:
   /@babel/plugin-proposal-private-methods@7.18.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-nutsvktDItsNn4rpGItSNV2sz1XwS+nfU0Rg8aCx3W3NOKVzdMjJRu0O5OkgDp3ZGICSTbgRpxZoWsxoKRvbeA==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -647,6 +652,7 @@ packages:
   /@babel/plugin-proposal-private-property-in-object@7.21.11(@babel/core@7.22.10):
     resolution: {integrity: sha512-0QZ8qP/3RLDVBwBFoWAwCtgcDZJVwA5LUJRZU8x2YFfKNuFq161wK3cuGrALu5yiPu+vzwTAg/sMWVNeWeNyaw==}
     engines: {node: '>=6.9.0'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -1923,12 +1929,12 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@icons/material@0.2.4(react@18.2.0):
+  /@icons/material@0.2.4(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==}
     peerDependencies:
       react: '*'
     dependencies:
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
     dev: false
 
   /@irojs/iro-core@1.2.1:
@@ -2579,7 +2585,7 @@ packages:
       webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.69.0)
     dev: true
 
-  /@rc-component/color-picker@1.4.1(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/color-picker@1.4.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-vh5EWqnsayZa/JwUznqDaPJz39jznx/YDbyBuVJntv735tKXKwEUZZb2jYEldOg+NKWZwtALjGMrNeGBmqFoEw==}
     peerDependencies:
       react: '>=16.9.0'
@@ -2588,21 +2594,21 @@ packages:
       '@babel/runtime': 7.22.10
       '@ctrl/tinycolor': 3.6.0
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /@rc-component/context@1.3.0(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/context@1.3.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-6QdaCJ7Wn5UZLJs15IEfqy4Ru3OaL5ctqpQYWd5rlfV9wwzrzdt6+kgAQZV/qdB0MUPN4nhyBfRembQCIvBf+w==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
   /@rc-component/mini-decimal@1.1.0:
@@ -2612,7 +2618,7 @@ packages:
       '@babel/runtime': 7.22.10
     dev: false
 
-  /@rc-component/mutate-observer@1.1.0(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/mutate-observer@1.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-QjrOsDXQusNwGZPf4/qRQasg7UFEj06XiCJ8iuiq/Io7CrHrgVi6Uuetw60WAMG1799v+aM8kyc+1L/GBbHSlw==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -2621,12 +2627,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /@rc-component/portal@1.1.2(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/portal@1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-6f813C0IsasTZms08kfA8kPAGxbbkYToa8ALaiDIGGECU4i9hj8Plgbx0sNJDrey3EtHO30hmdaxtT0138xZcg==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -2635,12 +2641,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /@rc-component/tour@1.8.1(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/tour@1.8.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-CsrQnfKgNArxx2j1RNHVLZgVA+rLrEj06lIsl4KSynMqADsqz8eKvVkr0F3p9PA10948M6WEEZt5a/FGAbGR2A==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -2648,15 +2654,15 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/portal': 1.1.2(react-dom@18.2.0)(react@18.2.0)
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/portal': 1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /@rc-component/trigger@1.15.5(react-dom@18.2.0)(react@18.2.0):
+  /@rc-component/trigger@1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-HFjeco/gRGAHN3sBl5ZO44o0W6Y3i8sqCQEYcFT1RJJUb91p/uSIWejPDMzHd3DKAdTbRCM3T45jxs7Kwm17kA==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -2664,14 +2670,14 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/portal': 1.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/portal': 1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-align: 4.0.15(react-dom@18.2.0)(react@18.2.0)
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-align: 4.0.15(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
   /@rollup/plugin-babel@5.3.1(@babel/core@7.22.10)(rollup@2.79.1):
@@ -3606,7 +3612,7 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks@3.7.8(react@18.2.0):
+  /ahooks@3.7.8(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-e/NMlQWoCjaUtncNFIZk3FG1ImSkV/JhScQSkTqnftakRwdfZWSw6zzoWSG9OMYqPNs2MguDYBUFFC6THelWXA==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -3619,7 +3625,7 @@ packages:
       intersection-observer: 0.12.2
       js-cookie: 2.2.1
       lodash: 4.17.21
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
       resize-observer-polyfill: 1.5.1
       screenfull: 5.2.0
       tslib: 2.6.2
@@ -3731,60 +3737,60 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /antd@5.8.4(react-dom@18.2.0)(react@18.2.0):
+  /antd@5.8.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-DbQUmRWf9GAllZsc9NxL9gnrup75F7iZ0OlFY+mXh31JdSYQLLP07CAOK7z/sdQLQdYnAHWyuWvkb2mrRKxnYA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@ant-design/colors': 7.0.0
-      '@ant-design/cssinjs': 1.16.2(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/icons': 5.2.5(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/react-slick': 1.0.2(react@18.2.0)
+      '@ant-design/cssinjs': 1.16.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@ant-design/icons': 5.2.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@ant-design/react-slick': 1.0.2(react@..+packages+training+template+public+react)
       '@babel/runtime': 7.22.10
       '@ctrl/tinycolor': 3.6.0
-      '@rc-component/color-picker': 1.4.1(react-dom@18.2.0)(react@18.2.0)
-      '@rc-component/mutate-observer': 1.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@rc-component/tour': 1.8.1(react-dom@18.2.0)(react@18.2.0)
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/color-picker': 1.4.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@rc-component/mutate-observer': 1.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@rc-component/tour': 1.8.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
       copy-to-clipboard: 3.3.3
       dayjs: 1.11.9
-      qrcode.react: 3.1.0(react@18.2.0)
-      rc-cascader: 3.14.1(react-dom@18.2.0)(react@18.2.0)
-      rc-checkbox: 3.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-collapse: 3.7.1(react-dom@18.2.0)(react@18.2.0)
-      rc-dialog: 9.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-drawer: 6.2.0(react-dom@18.2.0)(react@18.2.0)
-      rc-dropdown: 4.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-field-form: 1.36.2(react-dom@18.2.0)(react@18.2.0)
-      rc-image: 7.1.3(react-dom@18.2.0)(react@18.2.0)
-      rc-input: 1.1.1(react-dom@18.2.0)(react@18.2.0)
-      rc-input-number: 8.0.4(react-dom@18.2.0)(react@18.2.0)
-      rc-mentions: 2.5.0(react-dom@18.2.0)(react@18.2.0)
-      rc-menu: 9.10.0(react-dom@18.2.0)(react@18.2.0)
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-notification: 5.0.5(react-dom@18.2.0)(react@18.2.0)
-      rc-pagination: 3.6.1(react-dom@18.2.0)(react@18.2.0)
-      rc-picker: 3.13.0(dayjs@1.11.9)(react-dom@18.2.0)(react@18.2.0)
-      rc-progress: 3.4.2(react-dom@18.2.0)(react@18.2.0)
-      rc-rate: 2.12.0(react-dom@18.2.0)(react@18.2.0)
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-segmented: 2.2.2(react-dom@18.2.0)(react@18.2.0)
-      rc-select: 14.7.4(react-dom@18.2.0)(react@18.2.0)
-      rc-slider: 10.1.1(react-dom@18.2.0)(react@18.2.0)
-      rc-steps: 6.0.1(react-dom@18.2.0)(react@18.2.0)
-      rc-switch: 4.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-table: 7.32.3(react-dom@18.2.0)(react@18.2.0)
-      rc-tabs: 12.9.0(react-dom@18.2.0)(react@18.2.0)
-      rc-textarea: 1.3.4(react-dom@18.2.0)(react@18.2.0)
-      rc-tooltip: 6.0.1(react-dom@18.2.0)(react@18.2.0)
-      rc-tree: 5.7.9(react-dom@18.2.0)(react@18.2.0)
-      rc-tree-select: 5.11.1(react-dom@18.2.0)(react@18.2.0)
-      rc-upload: 4.3.4(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      qrcode.react: 3.1.0(react@..+packages+training+template+public+react)
+      rc-cascader: 3.14.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-checkbox: 3.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-collapse: 3.7.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-dialog: 9.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-drawer: 6.2.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-dropdown: 4.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-field-form: 1.36.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-image: 7.1.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-input: 1.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-input-number: 8.0.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-mentions: 2.5.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-menu: 9.10.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-notification: 5.0.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-pagination: 3.6.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-picker: 3.13.0(dayjs@1.11.9)(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-progress: 3.4.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-rate: 2.12.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-segmented: 2.2.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-select: 14.7.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-slider: 10.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-steps: 6.0.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-switch: 4.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-table: 7.32.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tabs: 12.9.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-textarea: 1.3.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tooltip: 6.0.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tree: 5.7.9(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tree-select: 5.11.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-upload: 4.3.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
       scroll-into-view-if-needed: 3.0.10
       throttle-debounce: 5.0.0
     transitivePeerDependencies:
@@ -10218,12 +10224,12 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: true
 
-  /qrcode.react@3.1.0(react@18.2.0):
+  /qrcode.react@3.1.0(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-oyF+Urr3oAMUG/OiOuONL3HXM+53wvuH3mtIWQrYmsXoAq0DkvZp2RYUWFSMFtbdOpuS++9v+WAkzNVkMlNW6Q==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
     dev: false
 
   /qrcode@1.5.3:
@@ -10290,7 +10296,7 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
-  /rc-align@4.0.15(react-dom@18.2.0)(react@18.2.0):
+  /rc-align@4.0.15(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-wqJtVH60pka/nOX7/IspElA8gjPNQKIx/ZqJ6heATCkXpe1Zg4cPVrMD2vC96wjsFFL8WsmhPbx9tdMo1qqlIA==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10299,13 +10305,13 @@ packages:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
       dom-align: 1.12.4
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
       resize-observer-polyfill: 1.5.1
     dev: false
 
-  /rc-cascader@3.14.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-cascader@3.14.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-fCsgjLIQqYZMhFj9UT+x2ZW4uobx7OP5yivcn6Xto5fuxHaldphsryzCeUVmreQOHEo0RP+032Ip9RDzrKVKJA==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10314,14 +10320,14 @@ packages:
       '@babel/runtime': 7.22.10
       array-tree-filter: 2.1.0
       classnames: 2.3.2
-      rc-select: 14.7.4(react-dom@18.2.0)(react@18.2.0)
-      rc-tree: 5.7.9(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-select: 14.7.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tree: 5.7.9(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-checkbox@3.1.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-checkbox@3.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-PAwpJFnBa3Ei+5pyqMMXdcKYKNBMS+TvSDiLdDnARnMJHC8ESxwPfm4Ao1gJiKtWLdmGfigascnCpwrHFgoOBQ==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10329,12 +10335,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-collapse@3.7.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-collapse@3.7.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-N/7ejyiTf3XElNJBBpxqnZBUuMsQWEOPjB2QkfNvZ/Ca54eAvJXuOD1EGbCWCk2m7v/MSxku7mRpdeaLOCd4Gg==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10342,57 +10348,57 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-dialog@9.1.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-dialog@9.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-5ry+JABAWEbaKyYsmITtrJbZbJys8CtMyzV8Xn4LYuXMeUx5XVHNyJRoqLFE4AzBuXXzOWeaC49cg+XkxK6kHA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/portal': 1.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/portal': 1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-drawer@6.2.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-drawer@6.2.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-spPkZ3WvP0U0vy5dyzSwlUJ/+vLFtjP/cTwSwejhQRoDBaexSZHsBhELoCZcEggI7LQ7typmtG30lAue2HEhvA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/portal': 1.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/portal': 1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-dropdown@4.1.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-dropdown@4.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-VZjMunpBdlVzYpEdJSaV7WM7O0jf8uyDjirxXLZRNZ+tAC+NzD3PXPEtliFwGzVwBBdCmGuSqiS9DWcOLxQ9tw==}
     peerDependencies:
       react: '>=16.11.0'
       react-dom: '>=16.11.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-field-form@1.36.2(react-dom@18.2.0)(react@18.2.0):
+  /rc-field-form@1.36.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-tCF/JjUsnxW80Gk4E4ZH74ONsaQMxVTRtui6XhQB8DJc4FHWLLa5pP8zwhxtPKC5NaO0QZ0Cv79JggDubn6n2g==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10401,28 +10407,28 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       async-validator: 4.2.5
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-image@7.1.3(react-dom@18.2.0)(react@18.2.0):
+  /rc-image@7.1.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-foMl1rcit1F0+vgxE5kf0c8TygQcHhILsOohQUL+JMUbzOo3OBFRcehJudYbqbCTArzCecS8nA1irUU9vvgQbg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/portal': 1.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/portal': 1.1.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-dialog: 9.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-dialog: 9.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-input-number@8.0.4(react-dom@18.2.0)(react@18.2.0):
+  /rc-input-number@8.0.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-TP+G5b7mZtbwXJ/YEZXF/OgbEZ6iqD4+RSuxZJ8VGKGXDcdt0FKIvpFoNQr/knspdFC4OxA0OfsWfFWfN4XSyA==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10431,13 +10437,13 @@ packages:
       '@babel/runtime': 7.22.10
       '@rc-component/mini-decimal': 1.1.0
       classnames: 2.3.2
-      rc-input: 1.1.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-input: 1.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-input@1.1.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-input@1.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-NTR1Z4em681L8/ewb2KR80RykSmN8I2mzqzJDCoUmTrV1BB9Hk5d7ha4TnfgdEPPL148N+603sW2LExSXk1IbA==}
     peerDependencies:
       react: '>=16.0.0'
@@ -10445,45 +10451,45 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-mentions@2.5.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-mentions@2.5.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-rERXsbUTNVrb5T/iDC0ki/SRGWJnOVraDy6O25Us3FSpuUZ3uq2TPZB4fRk0Hss5kyiEPzz2sprhkI4b+F4jUw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-input: 1.1.1(react-dom@18.2.0)(react@18.2.0)
-      rc-menu: 9.10.0(react-dom@18.2.0)(react@18.2.0)
-      rc-textarea: 1.3.4(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-input: 1.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-menu: 9.10.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-textarea: 1.3.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-menu@9.10.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-menu@9.10.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-g27kpXaAoJh/fkPZF65/d4V+w4DhDeqomBdPcGnkFAcJnEM4o21TnVccrBUoDedLKzC7wJRw1Q7VTqEsfEufmw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-overflow: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-overflow: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-motion@2.7.3(react-dom@18.2.0)(react@18.2.0):
+  /rc-motion@2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-2xUvo8yGHdOHeQbdI8BtBsCIrWKchEmFEIskf0nmHtJsou+meLd/JE+vnvSX2JxcBrJtXY2LuBpxAOxrbY/wMQ==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10491,12 +10497,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-notification@5.0.5(react-dom@18.2.0)(react@18.2.0):
+  /rc-notification@5.0.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-uEz2jggourwv/rR0obe7RHEa63UchqX4k+e+Qt2c3LaY7U9Tc+L6ANhzgCKYSA/afm0ebjmNZHoB5Cv47xEOcA==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10505,13 +10511,13 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-overflow@1.3.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-overflow@1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-RY0nVBlfP9CkxrpgaLlGzkSoh9JhjJLu6Icqs9E7CW6Ewh9s0peF9OHIex4OhfoPsR92LR0fN6BlCY9Z4VoUtA==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10519,13 +10525,13 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-pagination@3.6.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-pagination@3.6.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-R/sUnKKXx1Nm4kZfUKS3YKa7yEPF1ZkVB/AynQaHt+nMER7h9wPTfliDJFdYo+RM/nk2JD4Yc5QpUq8fIQHeug==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10533,12 +10539,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-picker@3.13.0(dayjs@1.11.9)(react-dom@18.2.0)(react@18.2.0):
+  /rc-picker@3.13.0(dayjs@1.11.9)(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-hJ+1lGkemnvsW+t+PjH9OAehHlj7wdD0G75T1HZj0IeZTqBE/5mmuf8E8MHYATNBqW409lAfk8GwjYm1WVMopg==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10559,15 +10565,15 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
       dayjs: 1.11.9
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-progress@3.4.2(react-dom@18.2.0)(react@18.2.0):
+  /rc-progress@3.4.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-iAGhwWU+tsayP+Jkl9T4+6rHeQTG9kDz8JAHZk4XtQOcYN5fj9H34NXNEdRdZx94VUDHMqCb1yOIvi8eJRh67w==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10575,12 +10581,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-rate@2.12.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-rate@2.12.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-g092v5iZCdVzbjdn28FzvWebK2IutoVoiTeqoLTj9WM7SjA/gOJIw5/JFZMRyJYYVe1jLAU2UhAfstIpCNRozg==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10589,12 +10595,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-resize-observer@1.3.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-resize-observer@1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-iFUdt3NNhflbY3mwySv5CA1TC06zdJ+pfo0oc27xpf4PIOvfZwZGtD9Kz41wGYqC4SLio93RVAirSSpYlV/uYg==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10602,13 +10608,13 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
       resize-observer-polyfill: 1.5.1
     dev: false
 
-  /rc-segmented@2.2.2(react-dom@18.2.0)(react@18.2.0):
+  /rc-segmented@2.2.2(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-Mq52M96QdHMsNdE/042ibT5vkcGcD5jxKp7HgPC2SRofpia99P5fkfHy1pEaajLMF/kj0+2Lkq1UZRvqzo9mSA==}
     peerDependencies:
       react: '>=16.0.0'
@@ -10616,13 +10622,13 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-select@14.7.4(react-dom@18.2.0)(react@18.2.0):
+  /rc-select@14.7.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-qRUpvMVXFy6rdHe+qzHXAqyQAfhErC/oY8dcRtoRjoz0lz2Nx3J+lLL5AnEbjnwlS+/kQTJUZ/65WyCwWwcLwQ==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10630,17 +10636,17 @@ packages:
       react-dom: '*'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-overflow: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      rc-virtual-list: 3.10.3(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-overflow: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-virtual-list: 3.10.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-slider@10.1.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-slider@10.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-gn8oXazZISEhnmRinI89Z/JD/joAaM35jp+gDtIVSTD/JJMCCBqThqLk1SVJmvtfeiEF/kKaFY0+qt4SDHFUDw==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10649,12 +10655,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-steps@6.0.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-steps@6.0.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-lKHL+Sny0SeHkQKKDJlAjV5oZ8DwCdS2hFhAkIjuQt1/pB81M0cA0ErVFdHq9+jmPmFw1vJB2F5NBzFXLJxV+g==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10663,12 +10669,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-switch@4.1.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-switch@4.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-TI8ufP2Az9oEbvyCeVE4+90PDSljGyuwix3fV58p7HV2o4wBnVToEyomJRVyTaZeqNPAp+vqeo4Wnj5u0ZZQBg==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10676,12 +10682,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-table@7.32.3(react-dom@18.2.0)(react@18.2.0):
+  /rc-table@7.32.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-MqjrI/ibuGg7NEyFsux0dM5GK+3er1gTiZofAkifr2bHf/Sa1nUqXXFmSrYXSOjwpx0xyBnJ3GrHFCIqC/eOzw==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10689,15 +10695,15 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/context': 1.3.0(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/context': 1.3.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-tabs@12.9.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-tabs@12.9.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-2HnVowgMVrq0DfQtyu4mCd9E6pXlWNdM6VaDvOOHMsLYqPmpY+7zBqUC6YrrQ9xYXHciTS0e7TtjOHIvpVCHLQ==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10706,16 +10712,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-dropdown: 4.1.0(react-dom@18.2.0)(react@18.2.0)
-      rc-menu: 9.10.0(react-dom@18.2.0)(react@18.2.0)
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-dropdown: 4.1.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-menu: 9.10.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-textarea@1.3.4(react-dom@18.2.0)(react@18.2.0):
+  /rc-textarea@1.3.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-wn0YjTpvcVolcfXa0HtzL+jgV2QcwtfB29RwNAKj8hMgZOju1V24M3TfEDjABeQEAQbUGbjMbISREOX/YSVKhg==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10723,27 +10729,27 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-input: 1.1.1(react-dom@18.2.0)(react@18.2.0)
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-input: 1.1.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-tooltip@6.0.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-tooltip@6.0.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-MdvPlsD1fDSxKp9+HjXrc/CxLmA/s11QYIh1R7aExxfodKP7CZA++DG1AjrW80F8IUdHYcR43HAm0Y2BYPelHA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      '@rc-component/trigger': 1.15.5(react-dom@18.2.0)(react@18.2.0)
+      '@rc-component/trigger': 1.15.5(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
       classnames: 2.3.2
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-tree-select@5.11.1(react-dom@18.2.0)(react@18.2.0):
+  /rc-tree-select@5.11.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-EDG1rYFu1iD2Y8fg0yEmm0LV3XqWOy+SpgOMvO5396NgAZ67t0zVTNK6FQkIxzdXf5ri742BkB/B8+Ah6+0Kxw==}
     peerDependencies:
       react: '*'
@@ -10751,14 +10757,14 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-select: 14.7.4(react-dom@18.2.0)(react@18.2.0)
-      rc-tree: 5.7.9(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-select: 14.7.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-tree: 5.7.9(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-tree@5.7.9(react-dom@18.2.0)(react@18.2.0):
+  /rc-tree@5.7.9(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-1hKkToz/EVjJlMVwmZnpXeLXt/1iQMsaAq9m+GNkUbK746gkc7QpJXSN/TzjhTI5Hi+LOSlrMaXLMT0bHPqILQ==}
     engines: {node: '>=10.x'}
     peerDependencies:
@@ -10767,14 +10773,14 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-motion: 2.7.3(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      rc-virtual-list: 3.10.3(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-motion: 2.7.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-virtual-list: 3.10.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-upload@4.3.4(react-dom@18.2.0)(react@18.2.0):
+  /rc-upload@4.3.4(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-uVbtHFGNjHG/RyAfm9fluXB6pvArAGyAx8z7XzXXyorEgVIWj6mOlriuDm0XowDHYz4ycNK0nE0oP3cbFnzxiQ==}
     peerDependencies:
       react: '>=16.9.0'
@@ -10782,24 +10788,24 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
-  /rc-util@5.36.0(react-dom@18.2.0)(react@18.2.0):
+  /rc-util@5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-a4uUvT+UNHvYL+awzbN8H8zAjfduwY4KAp2wQy40wOz3NyBdo3Xhx/EAAPyDkHLoGm535jIACaMhIqExGiAjHw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.22.10
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
       react-is: 16.13.1
     dev: false
 
-  /rc-virtual-list@3.10.3(react-dom@18.2.0)(react@18.2.0):
+  /rc-virtual-list@3.10.3(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-BriRTfRKHFjsFaI7fvvlfxh0shpDHjWR9mfOenNk72Nl18zLNJAuctxCnGO5fGx8Z8ZNCfwFaoA/vSl5hqdIqQ==}
     engines: {node: '>=8.x'}
     peerDependencies:
@@ -10808,10 +10814,10 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.10
       classnames: 2.3.2
-      rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
-      rc-util: 5.36.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      rc-resize-observer: 1.3.1(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      rc-util: 5.36.0(react-dom@..+packages+training+template+public+react-dom)(react@..+packages+training+template+public+react)
+      react: link:../../packages/training/template/public/react
+      react-dom: link:../../packages/training/template/public/react-dom
     dev: false
 
   /rc@1.2.8:
@@ -10842,22 +10848,22 @@ packages:
     peerDependencies:
       react-scripts: '>=2.1.3'
     dependencies:
-      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.5)(eslint@8.47.0)(react@18.2.0)(ts-node@10.9.1)(typescript@5.1.6)(webpack-cli@5.1.4)
+      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.5)(eslint@8.47.0)(react@..+packages+training+template+public+react)(ts-node@10.9.1)(typescript@5.1.6)(webpack-cli@5.1.4)
       semver: 5.7.2
     dev: true
 
-  /react-color@2.19.3(react@18.2.0):
+  /react-color@2.19.3(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA==}
     peerDependencies:
       react: '*'
     dependencies:
-      '@icons/material': 0.2.4(react@18.2.0)
+      '@icons/material': 0.2.4(react@..+packages+training+template+public+react)
       lodash: 4.17.21
       lodash-es: 4.17.21
       material-colors: 1.2.6
       prop-types: 15.8.1
-      react: 18.2.0
-      reactcss: 1.2.3(react@18.2.0)
+      react: link:../../packages/training/template/public/react
+      reactcss: 1.2.3(react@..+packages+training+template+public+react)
       tinycolor2: 1.6.0
     dev: false
 
@@ -10911,6 +10917,7 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
 
   /react-error-overlay@6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
@@ -10932,7 +10939,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.5)(eslint@8.47.0)(react@18.2.0)(ts-node@10.9.1)(typescript@5.1.6)(webpack-cli@5.1.4):
+  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.5)(eslint@8.47.0)(react@..+packages+training+template+public+react)(ts-node@10.9.1)(typescript@5.1.6)(webpack-cli@5.1.4):
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -10976,7 +10983,7 @@ packages:
       postcss-normalize: 10.0.1(browserslist@4.21.10)(postcss@8.4.28)
       postcss-preset-env: 7.8.3(postcss@8.4.28)
       prompts: 2.4.2
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
       react-app-polyfill: 3.0.0
       react-dev-utils: 12.0.1(eslint@8.47.0)(typescript@5.1.6)(webpack@5.69.0)
       react-refresh: 0.11.0
@@ -11034,14 +11041,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
-  /reactcss@1.2.3(react@18.2.0):
+  /reactcss@1.2.3(react@..+packages+training+template+public+react):
     resolution: {integrity: sha512-KiwVUcFu1RErkI97ywr8nvx8dNOpT03rbnma0SSalTYjkrPYaEajR4a/MRt6DZ46K6arDRbWMNHF+xH7G7n/8A==}
     peerDependencies:
       react: '*'
     dependencies:
       lodash: 4.17.21
-      react: 18.2.0
+      react: link:../../packages/training/template/public/react
     dev: false
 
   /read-cache@1.0.0:
@@ -11414,6 +11422,7 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /schema-utils@2.7.0:
     resolution: {integrity: sha512-0ilKFI6QQF5nxDZLFn2dMjvc4hjg/Wkg7rHd3jK6/A4a1Hl9VFdQWvgB1UMGoU94pad1P/8N7fMcEnLnSiju8A==}

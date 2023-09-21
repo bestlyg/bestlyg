@@ -7,7 +7,7 @@ const productionConfig = require('./webpack.production');
 
 module.exports = (env, argv) =>
     merge(IS_PROD ? productionConfig(env, argv) : developmentConfig(env, argv), {
-        entry: resolve('client/src/main.ts'),
+        entry: resolve('client/src/main.tsx'),
         output: {
             path: resolve('client/dist'),
             filename: '[name].[contenthash].js',
@@ -45,6 +45,46 @@ module.exports = (env, argv) =>
                     ],
                     exclude: /node_modules/,
                 },
+                {
+                    test: /\.module.css$/i,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                importLoaders: 1,
+                                modules: {
+                                    // auto: (resourcePath) => resourcePath.endsWith('.less'),  // 匹配.less文件来进行css模块化。
+                                    localIdentName: '[local]_[hash:base64:10]',
+                                },
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.css$/i,
+                    exclude: /\.module.css$/i,
+                    use: ['style-loader', 'css-loader'],
+                },
+                {
+                    test: /\.module.less$/i,
+                    use: ['style-loader', 'css-loader', 'less-loader'],
+                },
+                {
+                    test: /\.less$/i,
+                    exclude: /\.module.less$/i,
+                    use: ['style-loader', 'css-loader', 'less-loader'],
+                },
+                {
+                    test: /\.module.s[ac]ss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                },
+                {
+                    test: /\.s[ac]ss$/i,
+                    exclude: /\.module.s[ac]ss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                },
             ],
         },
         resolve: {
@@ -60,8 +100,4 @@ module.exports = (env, argv) =>
                 inject: true,
             }),
         ],
-        externals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-        },
     });

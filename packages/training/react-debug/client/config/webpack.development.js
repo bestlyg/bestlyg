@@ -5,9 +5,9 @@ module.exports = (env, argv) => {
         devtool: 'source-map',
         devServer: {
             compress: true,
-            port: 9000,
+            port: 3000,
             proxy: {
-                '/api': 'http://localhost:3000',
+                '/api': 'http://localhost:3001',
             },
             open: false,
             hot: !false,

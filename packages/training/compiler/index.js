@@ -6,7 +6,22 @@ const resolve = (...p) => path.resolve(__dirname, ...p);
 
 function run(content, filepath) {
     const ast = babel.parseSync(content, {
-        plugins: ['@babel/plugin-transform-typescript'],
+        presets: [
+            [
+                '@babel/preset-react',
+                {
+                    runtime: 'automatic',
+                    development: true,
+                },
+            ],
+            [
+                '@babel/preset-typescript',
+                {
+                    isTSX: true,
+                    allExtensions: true,
+                },
+            ],
+        ],
     });
     console.log(ast);
     traverse.default(ast, {
@@ -23,7 +38,7 @@ function run(content, filepath) {
 
 function main() {
     const filepath = resolve(
-        '/Users/bytedance/projects/demo/node-demo/node_modules/@arco-design/web-react/es/Input/input-element.js'
+        '/Users/bytedance/projects/arco-design/components/Input/input-element.tsx'
     );
     const content = fs.readFileSync(filepath).toString();
     run(content, filepath);
