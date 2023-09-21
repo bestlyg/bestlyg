@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: 'LCP 06. 拿硬币',
+    exist: true,
+    name: '2603. 收集树中金币',
     url: 'https://leetcode.cn/problems/na-ying-bi',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,43 +25,54 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 4,
-            memory: 8.17,
-            desc: '遍历',
-            code: `class Solution {
-public:
-    int minCount(vector<int>& coins) {
-        int res = 0;
-        for (auto &coin : coins) res += ceil(1.0 * coin / 2);
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 4,
+        //     memory: 8.17,
+        //     desc: '遍历',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 40,
-            memory: 16,
+            time: 3812,
+            memory: 28.9,
             desc: '同上',
             code: `class Solution:
-    def minCount(self, coins: List[int]) -> int:
-        return sum(ceil(coin / 2) for coin in coins)`,
+    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
+        n = len(edges) + 1
+        nodes: List[List[int]] = [[] for _ in range(n)]
+        for [n1, n2] in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        egde_sum = n - 1
+        # 把叶子没金币的删掉
+        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 0)
+        while q:
+            cur = q.pop()
+            for idx in nodes[cur]:
+                egde_sum -= 1
+                nodes[idx].remove(cur)
+                if len(nodes[idx]) == 1 and coins[idx] == 0:
+                    q.append(idx)
+        # 遍历所有叶子有金币的
+        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 1)
+        while q:
+            cur = q.pop()
+            egde_sum -= 1
+            for idx in nodes[cur]:
+                nodes[idx].remove(cur)
+                # 如果他只剩一条边，那就也可以不遍历他
+                if len(nodes[idx]) == 1:
+                    egde_sum -= 1
+        return max(egde_sum * 2, 0)`,
         },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2.3,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn min_count(coins: Vec<i32>) -> i32 {
-        coins
-            .into_iter()
-            .map(|coin| (coin as f64 / 2.0).ceil() as i32)
-            .sum()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 0,
+        //     memory: 2.3,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 

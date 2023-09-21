@@ -3,26 +3,26 @@ from preclude import *
 
 
 class Solution:
-    def minCapability(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-
-        def check(target: int) -> bool:
-            cnt = 0
-            prev = -1
-            for i in range(n):
-                if nums[i] <= target and (prev == -1 or prev + 1 != i):
-                    prev = i
-                    cnt += 1
-            return cnt >= k
-
-        l, r = min(nums), max(nums)
-        while l < r:
-            m = (l + r) // 2
-            if check(m):
-                r = m
-            else:
-                l = m + 1
-        return l
+    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
+        n = len(edges) + 1
+        nodes: List[List[int]] = [[] for _ in range(n)]
+        for [n1, n2] in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        egde_sum = n - 1
+        q: deque[int] = deque()
+        for i in range(n):
+            if len(nodes[i]) == 1 and coins[i] == 0:
+                q.append(i)
+        while q:
+            cur = q.pop()
+            for idx in nodes[cur]:
+                egde_sum -= 1
+                nodes[idx].remove(cur)
+                if len(nodes[idx]) == 1 and coins[idx] == 0:
+                    q.append(i)
+        print(egde_sum)
+        return 0
 
 
 def main():
