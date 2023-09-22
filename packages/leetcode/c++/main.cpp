@@ -157,28 +157,14 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int minCapability(vector<int>& nums, int k) {
-        int n = nums.size(), 
-            l = *max_element(nums.begin(), nums.end()), 
-            r = *min_element(nums.begin(), nums.end());
-
-        auto check = [&](int target) -> bool {
-            int cnt = 0, prev = -1;
-            for (int i = 0; i < n; i++) {
-                if (nums[i] <= target && (prev == -1 || prev + 1 != i)) {
-                    prev = i;
-                    cnt += 1;
-                }
-            }
-            return cnt >= k;
-        };
-
-        while (l < r) {
-            int m = (l + r) / 2;
-            if (check(m)) r = m;
-            else l = m + 1;
-        }
-        return l;
+    int distMoney(int money, int children) {
+        if (money < children) return -1;
+        int cnt = money / 8, surplus_money = money % 8, surplus_children = children - cnt;
+        if (cnt == children) return surplus_money == 0 ? children : children - 1;
+        if (cnt > children) return children - 1;
+        if (surplus_money == surplus_children) return cnt;
+        if (surplus_money > surplus_children) return surplus_children == 1 and surplus_money == 4 ? cnt - 1 : cnt;
+        return cnt - ceil(1.0 * (surplus_children - surplus_money) / 7.0);
     }
 };
 

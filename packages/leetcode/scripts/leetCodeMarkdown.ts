@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2603. 收集树中金币',
-    url: 'https://leetcode.cn/problems/na-ying-bi',
+    exist: !true,
+    name: '2591. 将钱分给最多的儿童',
+    url: 'https://leetcode.cn/problems/distribute-money-to-maximum-children',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。`,
+    desc: `请你按照上述规则分配金钱，并返回 最多 有多少个儿童获得 恰好 8 美元。如果没有任何分配方案，返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,54 +25,87 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 4,
-        //     memory: 8.17,
-        //     desc: '遍历',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 4,
+            memory: 6.05,
+            desc: '贪心计算',
+            code: `class Solution {
+public:
+    int distMoney(int money, int children) {
+        if (money < children) return -1;
+        int cnt = money / 8, surplus_money = money % 8, surplus_children = children - cnt;
+        if (cnt == children) return surplus_money == 0 ? children : children - 1;
+        if (cnt > children) return children - 1;
+        if (surplus_money == surplus_children) return cnt;
+        if (surplus_money > surplus_children) return surplus_children == 1 and surplus_money == 4 ? cnt - 1 : cnt;
+        return cnt - ceil(1.0 * (surplus_children - surplus_money) / 7.0);
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 3812,
-            memory: 28.9,
+            time: 52,
+            memory: 15.61,
             desc: '同上',
             code: `class Solution:
-    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:
-        n = len(edges) + 1
-        nodes: List[List[int]] = [[] for _ in range(n)]
-        for [n1, n2] in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
-        egde_sum = n - 1
-        # 把叶子没金币的删掉
-        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 0)
-        while q:
-            cur = q.pop()
-            for idx in nodes[cur]:
-                egde_sum -= 1
-                nodes[idx].remove(cur)
-                if len(nodes[idx]) == 1 and coins[idx] == 0:
-                    q.append(idx)
-        # 遍历所有叶子有金币的
-        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 1)
-        while q:
-            cur = q.pop()
-            egde_sum -= 1
-            for idx in nodes[cur]:
-                nodes[idx].remove(cur)
-                # 如果他只剩一条边，那就也可以不遍历他
-                if len(nodes[idx]) == 1:
-                    egde_sum -= 1
-        return max(egde_sum * 2, 0)`,
+    def distMoney(self, money: int, children: int) -> int:
+        if money < children:
+            return -1
+        cnt = money // 8
+        surplus_money = money % 8
+        surplus_children = children - cnt
+        if cnt == children:
+            if surplus_money == 0:
+                return children
+            return children - 1
+        if cnt > children:
+            return children - 1
+        if surplus_money == surplus_children:
+            return cnt
+        if surplus_money > surplus_children:
+            if surplus_children == 1 and surplus_money == 4:
+                return cnt - 1
+            return cnt
+        return cnt - ceil((surplus_children - surplus_money) / 7)
+`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 2.3,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 0,
+            memory: 2.58,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn dist_money(money: i32, children: i32) -> i32 {
+        if money < children {
+            -1
+        } else {
+            let (cnt, surplus_money) = (money / 8, money % 8);
+            let surplus_children = children - cnt;
+            if cnt == children {
+                if surplus_money == 0 {
+                    children
+                } else {
+                    children - 1
+                }
+            } else if cnt > children {
+                children - 1
+            } else if surplus_money == surplus_children {
+                cnt
+            } else if surplus_money > surplus_children {
+                if surplus_children == 1 && surplus_money == 4 {
+                    cnt - 1
+                } else {
+                    cnt
+                }
+            } else {
+                cnt - ((surplus_children - surplus_money) as f64 / 7.0).ceil() as i32
+            }
+        }
+    }
+}
+`,
+        },
     ],
 };
 
