@@ -1,6 +1,6 @@
 {
     "id": "100305",
-    "name": "剑指Offer36.二叉搜索树与双向链表",
+    "name": "LCR155.将二叉搜索树转化为排序的双向链表",
     "url": "https://leetcode.cn/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof",
     "difficulty": "中等",
     "tag": [

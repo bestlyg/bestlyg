@@ -1,8 +1,12 @@
 {
+    "id": "1000056",
     "name": "LCP06.拿硬币",
     "url": "https://leetcode.cn/problems/na-ying-bi",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "数学"
+    ],
     "desc": "桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。",
     "solutions": [
         {

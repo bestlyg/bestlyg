@@ -3,60 +3,51 @@ from preclude import *
 
 
 class Node:
-    def __init__(self, val: int):
+    def __init__(self, key=0, val: int = 0, prev=None, next=None):
+        self.key = key
         self.val = val
-        self.parent = None
-        self.children = []
-        self.lock_state = 0
+        self.prev = prev
+        self.next = next
 
-    def lock(self, user: int) -> bool:
-        if self.lock_state:
-            return False
-        self.lock_state = user
-        return True
+    def append(self, prev):
+        next = prev.next
+        prev.next, next.prev, self.prev, self.next = self, self, prev, next
 
-    def unlock(self, user: int) -> bool:
-        if self.lock_state != user:
-            return False
-        self.lock_state = 0
-        return True
-
-    def unlock_children(self) -> bool:
-        for node in self.children:
-            node.lock_state = 0
-            node.unlock_children()
-
-    def is_lock(self) -> bool:
-        return self.lock_state != 0
-
-    def is_parent_unlock(self) -> bool:
-        return not self.parent or not self.parent.is_lock() and self.parent.is_parent_unlock()
-
-    def exist_children_lock(self) -> bool:
-        return any(child.is_lock() or child.exist_children_lock() for child in self.children)
+    def remove(self):
+        if self.prev:
+            self.prev.next, self.next.prev = self.next, self.prev
 
 
-class LockingTree:
-    def __init__(self, parent: List[int]):
-        self.nodes = [Node(i) for i in range(len(parent))]
-        self.root = self.nodes[0]
-        for i in range(1, len(parent)):
-            self.nodes[i].parent = self.nodes[parent[i]]
-            self.nodes[parent[i]].children.append(self.nodes[i])
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.capacity = capacity
+        self.size = 0
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
-    def lock(self, num: int, user: int) -> bool:
-        return self.nodes[num].lock(user)
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        node = self.cache[key]
+        node.remove()
+        node.append(self.head)
+        return node.val
 
-    def unlock(self, num: int, user: int) -> bool:
-        return self.nodes[num].unlock(user)
-
-    def upgrade(self, num: int, user: int) -> bool:
-        node = self.nodes[num]
-        if not node.is_lock() and node.is_parent_unlock() and node.exist_children_lock():
-            node.lock(user)
-            node.unlock_children()
-            return True
-        return False
+    def put(self, key: int, value: int) -> None:
+        if key not in self.cache:
+            self.cache[key] = Node(key, value)
+            self.size += 1
+            if self.size > self.capacity:
+                self.size -= 1
+                del self.cache[self.tail.prev.key]
+                self.tail.prev.remove()
+        node = self.cache[key]
+        node.val = value
+        node.remove()
+        node.append(self.head)
 
 
 def main():
