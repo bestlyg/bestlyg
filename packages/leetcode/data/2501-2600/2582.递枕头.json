@@ -1,0 +1,33 @@
+{
+    "name": "2582.递枕头",
+    "url": "https://leetcode.cn/problems/pass-the-pillow",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你两个正整数 n 和 time ，返回 time 秒后拿着枕头的人的编号。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6.1,
+            "desc": "遍历。",
+            "code": "class Solution {\npublic:\n    int passThePillow(int n, int time) {\n        int cur = 1, d = 1;\n        while (time--) {\n            cur += d;\n            if (cur == n || cur == 1) d *= -1;\n        }\n        return cur;\n    }\n};",
+            "date": 1695657600000
+        },
+        {
+            "script": "python",
+            "time": 720,
+            "memory": 77.2,
+            "desc": "同上。",
+            "code": "class Solution:\n    def passThePillow(self, n: int, time: int) -> int:\n        cur = 1\n        d = 1\n        while time:\n            cur += d\n            if cur == n or cur == 1: d *= -1\n            time -= 1\n        return cur",
+            "date": 1695657600000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 1.93,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn pass_the_pillow(n: i32, mut time: i32) -> i32 {\n        let mut cur = 1;\n        let mut d = 1;\n        while time > 0 {\n            cur += d;\n            if cur == n || cur == 1 {\n                d *= -1;\n            }\n            time -= 1;\n        }\n        cur\n    }\n}",
+            "date": 1695657600000
+        }
+    ]
+}

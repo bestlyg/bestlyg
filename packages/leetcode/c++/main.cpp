@@ -157,14 +157,14 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int distMoney(int money, int children) {
-        if (money < children) return -1;
-        int cnt = money / 8, surplus_money = money % 8, surplus_children = children - cnt;
-        if (cnt == children) return surplus_money == 0 ? children : children - 1;
-        if (cnt > children) return children - 1;
-        if (surplus_money == surplus_children) return cnt;
-        if (surplus_money > surplus_children) return surplus_children == 1 and surplus_money == 4 ? cnt - 1 : cnt;
-        return cnt - ceil(1.0 * (surplus_children - surplus_money) / 7.0);
+    int passThePillow(int n, int time) {
+        int cur = 1, d = 1;
+        while (time--) {
+            cur += d;
+            if (cur == n || cur == 1) d *= 1;
+            time -= 1;
+        }
+        return cur;
     }
 };
 
