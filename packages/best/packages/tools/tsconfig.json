@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "ESNext",
+        "useDefineForClassFields": false,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "module": "commonjs",
+        "paths": {
+            "@/*": ["src/*"],
+            "@best/*": ["components/*", "packages/*"]
+        },
+        "types": ["node"]
+    },
+    "include": ["src/**/*.ts"]
+}

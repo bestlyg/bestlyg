@@ -2,9 +2,11 @@
     "name": "@best/button",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "lib/index.js",
+    "module": "es/index.js",
+    "typings": "es/index.d.ts",
+    "unpkg": "dist/button.min.js",
     "scripts": {
-        "clean": "antd-tools run clean && rm -rf es lib coverage dist report.html",
         "build": "pnpm clean && antd-tools run complie"
     },
     "keywords": [],
