@@ -157,14 +157,20 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int passThePillow(int n, int time) {
-        int cur = 1, d = 1;
-        while (time--) {
-            cur += d;
-            if (cur == n || cur == 1) d *= 1;
-            time -= 1;
+    vector<int> filterRestaurants(vector<vector<int>>& restaurants, int veganFriendly, int maxPrice, int maxDistance) {
+        vector<pair<int, int>> list;
+        for (auto &item : restaurants) {
+            if (item[3] <= maxPrice && item[4] <= maxDistance and (!veganFriendly || item[2])) {
+                list.push_back(make_pair(item[0], item[1]));
+            }
         }
-        return cur;
+        sort(list.begin(), list.end(), [&](auto &a, auto &b) {
+            return a[1] != b[1] ? a[1] < b[1] : a[0] < b[0];
+        });
+        reverse(list.begin(), list.end());
+        vector<int> res;
+        for (auto &item : list) res.push_back(item[0]);
+        return res;
     }
 };
 

@@ -15,16 +15,27 @@ fn main() {
 }
 
 impl Solution {
-    pub fn pass_the_pillow(n: i32, mut time: i32) -> i32 {
-        let mut cur = 1;
-        let mut d = 1;
-        while time > 0 {
-            cur += d;
-            if cur == n || cur == 1 {
-                d *= -1;
+    pub fn filter_restaurants(
+        restaurants: Vec<Vec<i32>>,
+        vegan_friendly: i32,
+        max_price: i32,
+        max_distance: i32,
+    ) -> Vec<i32> {
+        let mut restaurants: Vec<Vec<i32>> = restaurants
+            .into_iter()
+            .filter(|item| {
+                item[3] <= max_price
+                    && item[4] <= max_distance
+                    && (vegan_friendly == 0 || item[2] == 1)
+            })
+            .collect();
+        restaurants.sort_by(|item1, item2| {
+            if item1[1] != item2[1] {
+                item2[1].cmp(&item1[1])
+            } else {
+                item2[0].cmp(&item1[0])
             }
-            time -= 1;
-        }
-        cur
+        });
+        restaurants.into_iter().map(|item| item[0]).collect()
     }
 }
