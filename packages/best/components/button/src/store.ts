@@ -1,4 +1,4 @@
-import * as core from '@best/core/src';
+import * as core from '@best/core';
 
 export interface StoreProps {
     value: number;

@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "check": "ts-node scripts/check.ts",
-        "start": "pnpm --filter @best/site start"
+        "start": "pnpm --filter @best/site start",
+        "setup": ""
     },
     "keywords": [
         "React",
