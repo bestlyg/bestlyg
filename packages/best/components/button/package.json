@@ -1,0 +1,19 @@
+{
+    "name": "@best/button",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@best/core": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.23",
+        "@types/react-dom": "^18.2.7",
+        "react": "workspace:^",
+        "react-dom": "workspace:^"
+    }
+}
