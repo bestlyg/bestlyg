@@ -3,7 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+        "clean": "antd-tools run clean && rm -rf es lib coverage dist report.html",
+        "build": "pnpm clean && antd-tools run complie"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -11,9 +14,10 @@
         "@best/core": "workspace:*"
     },
     "devDependencies": {
+        "@best/tools": "workspace:*",
         "@types/react": "^18.2.23",
         "@types/react-dom": "^18.2.7",
-        "react": "workspace:^",
-        "react-dom": "workspace:^"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     }
 }

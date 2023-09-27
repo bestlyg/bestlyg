@@ -12,9 +12,10 @@
         "zustand": "^4.4.1"
     },
     "devDependencies": {
+        "@best/tools": "workspace:*",
         "@types/react": "^18.2.23",
         "@types/react-dom": "^18.2.7",
-        "react": "workspace:^",
-        "react-dom": "workspace:^"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     }
 }

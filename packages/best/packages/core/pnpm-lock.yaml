@@ -10,9 +10,12 @@ dependencies:
     version: 1.11.10
   zustand:
     specifier: ^4.4.1
-    version: 4.4.1(@types/react@18.2.23)(react@..+..+training+template+public+react)
+    version: 4.4.1(@types/react@18.2.23)(react@18.2.0)
 
 devDependencies:
+  '@best/tools':
+    specifier: workspace:*
+    version: link:../tools
   '@types/react':
     specifier: ^18.2.23
     version: 18.2.23
@@ -20,11 +23,11 @@ devDependencies:
     specifier: ^18.2.7
     version: 18.2.7
   react:
-    specifier: workspace:^
-    version: link:../../../training/template/public/react
+    specifier: ^18.2.0
+    version: 18.2.0
   react-dom:
-    specifier: workspace:^
-    version: link:../../../training/template/public/react-dom
+    specifier: ^18.2.0
+    version: 18.2.0(react@18.2.0)
 
 packages:
 
@@ -54,15 +57,46 @@ packages:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
     dev: false
 
-  /use-sync-external-store@1.2.0(react@..+..+training+template+public+react):
+  /js-tokens@4.0.0:
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+
+  /loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+    dependencies:
+      js-tokens: 4.0.0
+
+  /react-dom@18.2.0(react@18.2.0):
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.2.0
+      scheduler: 0.23.0
+    dev: true
+
+  /react@18.2.0:
+    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+
+  /scheduler@0.23.0:
+    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
+    dependencies:
+      loose-envify: 1.4.0
+    dev: true
+
+  /use-sync-external-store@1.2.0(react@18.2.0):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      react: link:../../../training/template/public/react
+      react: 18.2.0
     dev: false
 
-  /zustand@4.4.1(@types/react@18.2.23)(react@..+..+training+template+public+react):
+  /zustand@4.4.1(@types/react@18.2.23)(react@18.2.0):
     resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -78,6 +112,6 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.2.23
-      react: link:../../../training/template/public/react
-      use-sync-external-store: 1.2.0(react@..+..+training+template+public+react)
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false

@@ -15,5 +15,5 @@
         },
         "types": ["node"]
     },
-    "include": ["scripts/**/*.ts", "src/**/*.ts"]
+    "include": ["scripts/**/*.ts"]
 }

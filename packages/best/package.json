@@ -16,6 +16,7 @@
     "author": "bestlyg@foxmail.com",
     "license": "ISC",
     "devDependencies": {
+        "@best/tools": "workspace:*",
         "@types/node": "^20.7.0",
         "@types/react": "^18.2.23",
         "@types/react-dom": "^18.2.7",
@@ -23,8 +24,8 @@
         "chalk": "^5.3.0",
         "dayjs": "^1.11.10",
         "fs-extra": "^11.1.1",
-        "react": "workspace:^",
-        "react-dom": "workspace:^",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "4.0.0",
         "tslib": "^2.6.2",
