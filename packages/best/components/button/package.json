@@ -11,6 +11,7 @@
         "@best/core": "workspace:*"
     },
     "devDependencies": {
+        "@best/button": "workspace:*",
         "@types/react": "^18.2.23",
         "@types/react-dom": "^18.2.7",
         "react": "workspace:^",

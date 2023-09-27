@@ -5,7 +5,7 @@ export interface StoreProps {
     setValue: (value: number) => void;
 }
 
-export const useStore = core.zustand.create<StoreProps>((set, get) => {
+export const useStore = core.deps.zustand.create<StoreProps>((set, get) => {
     return {
         value: 0,
         setValue: value => set({ value }),

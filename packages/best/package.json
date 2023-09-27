@@ -4,7 +4,8 @@
     "description": "React UI Library.",
     "main": "index.js",
     "scripts": {
-        "check": "ts-node scripts/check.ts"
+        "check": "ts-node scripts/check.ts",
+        "start": "pnpm --filter @best/site start"
     },
     "keywords": [
         "React",
@@ -15,10 +16,14 @@
     "license": "ISC",
     "devDependencies": {
         "@types/node": "^20.7.0",
+        "@types/react": "^18.2.23",
+        "@types/react-dom": "^18.2.7",
         "axios": "^0.27.2",
         "chalk": "^5.3.0",
         "dayjs": "^1.11.10",
         "fs-extra": "^11.1.1",
+        "react": "workspace:^",
+        "react-dom": "workspace:^",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "4.0.0",
         "tslib": "^2.6.2",

@@ -1,1 +1,2 @@
-export * from './deps';
+export * as deps from './deps';
+export * as types from './types';
