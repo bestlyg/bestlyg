@@ -7,7 +7,7 @@
     "typings": "es/index.d.ts",
     "unpkg": "dist/button.min.js",
     "scripts": {
-        "build": "pnpm clean && antd-tools run complie"
+        "build:cjs": "best-tools build --type cjs"
     },
     "keywords": [],
     "author": "",

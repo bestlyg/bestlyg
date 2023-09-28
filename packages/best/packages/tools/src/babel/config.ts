@@ -1,11 +1,6 @@
-type BaseBabelConfig = {
-    filename: string;
-    presets: Array<any>;
-    plugins: Array<string | Function>;
-};
+import { BabelConfig } from './interface';
 
-export const config: BaseBabelConfig = {
-    // TODO Solve babel error when there is no [filename]
+export const config: BabelConfig = {
     filename: '',
     presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
     plugins: [
@@ -15,4 +10,5 @@ export const config: BaseBabelConfig = {
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-transform-react-jsx-source',
     ],
+    configFile: false,
 };
