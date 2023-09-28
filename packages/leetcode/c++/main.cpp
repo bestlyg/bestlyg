@@ -157,19 +157,29 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    vector<int> filterRestaurants(vector<vector<int>>& restaurants, int veganFriendly, int maxPrice, int maxDistance) {
-        vector<pair<int, int>> list;
-        for (auto &item : restaurants) {
-            if (item[3] <= maxPrice && item[4] <= maxDistance and (!veganFriendly || item[2])) {
-                list.push_back(make_pair(item[0], item[1]));
-            }
+    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+        vector<pair<int, int>> flist;
+        for (auto &item : flowers) {
+            flist.push_back(make_pair(item[0], 1));
+            flist.push_back(make_pair(item[1] + 1, -1));
         }
-        sort(list.begin(), list.end(), [&](auto &a, auto &b) {
-            return a[1] != b[1] ? a[1] < b[1] : a[0] < b[0];
+        sort(flist.begin(), flist.end(), [&](auto &a, auto &b) {
+            return a.first < b.first;
         });
-        reverse(list.begin(), list.end());
-        vector<int> res;
-        for (auto &item : list) res.push_back(item[0]);
+        vector<int> plist;
+        for (int i = 0; i < people.size(); i++) plist.push_back(i);
+        sort(plist.begin(), plist.end(), [&](auto &a, auto &b) {
+            return people[a] < people[b];
+        });
+        int pidx = 0, cur = 0;
+        vector<int> res(people.size(), 0);
+        for (auto &item : flist) {
+            while (pidx < plist.size() && people[plist[pidx]] < item.first) {
+                res[plist[pidx]] = cur;
+                pidx += 1;
+            }
+            cur += item.second;
+        }
         return res;
     }
 };

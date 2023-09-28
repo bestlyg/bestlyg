@@ -1,0 +1,33 @@
+{
+    "name": "2251.花期内花的数目",
+    "url": "https://leetcode.cn/problems/number-of-flowers-in-full-bloom",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个大小为 n 的整数数组 answer ，其中 answer[i]是第 i 个人到达时在花期内花的 数目 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 240,
+            "memory": 82.55,
+            "desc": "排序后遍历，差分数组记录当前值。",
+            "code": "class Solution {\npublic:\n    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {\n        vector<pair<int, int>> flist;\n        for (auto &item : flowers) {\n            flist.push_back(make_pair(item[0], 1));\n            flist.push_back(make_pair(item[1] + 1, -1));\n        }\n        sort(flist.begin(), flist.end(), [&](auto &a, auto &b) {\n            return a.first < b.first;\n        });\n        vector<int> plist;\n        for (int i = 0; i < people.size(); i++) plist.push_back(i);\n        sort(plist.begin(), plist.end(), [&](auto &a, auto &b) {\n            return people[a] < people[b];\n        });\n        int pidx = 0, cur = 0;\n        vector<int> res(people.size(), 0);\n        for (auto &item : flist) {\n            while (pidx < plist.size() && people[plist[pidx]] < item.first) {\n                res[plist[pidx]] = cur;\n                pidx += 1;\n            }\n            cur += item.second;\n        }\n        return res;\n    }\n};",
+            "date": 1695830400000
+        },
+        {
+            "script": "python",
+            "time": 228,
+            "memory": 40.3,
+            "desc": "同上。",
+            "code": "class Solution:\n    def fullBloomFlowers(self, flowers: List[List[int]], people: List[int]) -> List[int]:\n        flist = []\n        for [start, end] in flowers:\n            flist.append((start, 1))\n            flist.append((end + 1, -1))\n        flist.sort()\n        plist = [i for i in range(len(people))]\n        plist.sort(key = lambda i: people[i])\n        pidx = 0\n        res = [0 for _ in range(len(people))]\n        cur = 0\n        for (idx, d) in flist:\n            while pidx < len(plist) and people[plist[pidx]] < idx:\n                res[plist[pidx]] = cur\n                pidx += 1\n            cur += d\n        return res\n",
+            "date": 1695830400000
+        },
+        {
+            "script": "rust",
+            "time": 48,
+            "memory": 6.7,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn full_bloom_flowers(flowers: Vec<Vec<i32>>, people: Vec<i32>) -> Vec<i32> {\n        let mut flist = vec![];\n        for item in flowers {\n            flist.push((item[0], 1));\n            flist.push((item[1] + 1, -1));\n        }\n        flist.sort_by_cached_key(|o| o.0);\n        let mut plist = (0..people.len()).collect::<Vec<usize>>();\n        plist.sort_by_cached_key(|i| people[*i]);\n        let mut res = vec![0; people.len()];\n        let mut pidx = 0;\n        let mut cur = 0;\n        for (idx, d) in flist {\n            while pidx < plist.len() && people[plist[pidx]] < idx {\n                res[plist[pidx]] = cur;\n                pidx += 1;\n            }\n            cur += d;\n        }\n        res\n    }\n}",
+            "date": 1695830400000
+        }
+    ]
+}

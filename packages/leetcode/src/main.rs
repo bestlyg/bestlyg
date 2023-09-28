@@ -15,27 +15,25 @@ fn main() {
 }
 
 impl Solution {
-    pub fn filter_restaurants(
-        restaurants: Vec<Vec<i32>>,
-        vegan_friendly: i32,
-        max_price: i32,
-        max_distance: i32,
-    ) -> Vec<i32> {
-        let mut restaurants: Vec<Vec<i32>> = restaurants
-            .into_iter()
-            .filter(|item| {
-                item[3] <= max_price
-                    && item[4] <= max_distance
-                    && (vegan_friendly == 0 || item[2] == 1)
-            })
-            .collect();
-        restaurants.sort_by(|item1, item2| {
-            if item1[1] != item2[1] {
-                item2[1].cmp(&item1[1])
-            } else {
-                item2[0].cmp(&item1[0])
+    pub fn full_bloom_flowers(flowers: Vec<Vec<i32>>, people: Vec<i32>) -> Vec<i32> {
+        let mut flist = vec![];
+        for item in flowers {
+            flist.push((item[0], 1));
+            flist.push((item[1] + 1, -1));
+        }
+        flist.sort_by_cached_key(|o| o.0);
+        let mut plist = (0..people.len()).collect::<Vec<usize>>();
+        plist.sort_by_cached_key(|i| people[*i]);
+        let mut res = vec![0; people.len()];
+        let mut pidx = 0;
+        let mut cur = 0;
+        for (idx, d) in flist {
+            while pidx < plist.len() && people[plist[pidx]] < idx {
+                res[plist[pidx]] = cur;
+                pidx += 1;
             }
-        });
-        restaurants.into_iter().map(|item| item[0]).collect()
+            cur += d;
+        }
+        res
     }
 }
