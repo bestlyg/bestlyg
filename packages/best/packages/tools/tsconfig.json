@@ -10,8 +10,7 @@
         "skipLibCheck": true,
         "module": "commonjs",
         "paths": {
-            "@/*": ["src/*"],
-            "@best/*": ["components/*", "packages/*"]
+            "@/*": ["src/*"]
         },
         "types": ["node"]
     },
