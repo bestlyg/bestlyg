@@ -16,6 +16,14 @@
             "script": "typescript",
             "desc": "计算每朵花之间的空格进行累加,与 n 比较。",
             "code": "function canPlaceFlowers(flowerbed: number[], n: number): boolean {\n  const computeCount = (num: number) => (num < 1 ? 0 : ~~((num + 1) / 2));\n  let max = 0;\n  const len = flowerbed.length;\n  if (flowerbed.every(v => v === 0)) return computeCount(len) >= n;\n  const list: number[] = [];\n  flowerbed.forEach((v, i) => v && list.push(i));\n  for (let i = 0, l = list.length; i < l; i++) {\n    const index = list[i];\n    if (i === 0 && index > 1) max += computeCount(index - 1);\n    if (i === l - 1) max += computeCount(len - index - 2);\n    else max += computeCount(list[i + 1] - index - 3);\n  }\n  return max >= n;\n}"
+        },
+        {
+            "date": 1695916800000,
+            "script": "python",
+            "time": 60,
+            "memory": 16.3,
+            "desc": "同上。",
+            "code": "class Solution:\n    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:\n        prev = -1\n        for i in range(len(flowerbed)):\n            if flowerbed[i] == 0:\n                if prev + 1 == i and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):\n                    n -= 1\n                else:\n                    prev = i\n        return n <= 0\n"
         }
     ]
 }

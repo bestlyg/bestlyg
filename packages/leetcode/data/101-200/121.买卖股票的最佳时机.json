@@ -16,6 +16,14 @@
             "script": "cpp",
             "desc": "考虑到只能交易一次，每遍历到一个值与前面的最小值进行比较。",
             "code": "class Solution {\n   public:\n    int maxProfit(vector<int> &prices) {\n        int nmin = prices[0], ans = 0;\n        for (int i = 1; i < prices.size(); i++) {\n            ans = max(ans, prices[i] - nmin);\n            nmin = min(nmin, prices[i]);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 224,
+            "memory": 25.9,
+            "desc": "同上。",
+            "code": "class Solution:\n            def maxProfit(self, prices: List[int]) -> int:\n                prev = prices[0]\n                res = 0\n                for i in range(1, len(prices)):\n                    res = max(res, prices[i] - prev)\n                    prev = min(prev, prices[i])\n                return res\n",
+            "date": 1696089600000
         }
     ]
 }
