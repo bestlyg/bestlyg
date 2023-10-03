@@ -32,6 +32,14 @@
             "script": "typescript",
             "desc": "优化题解 1。",
             "code": "function maxProfit(prices: number[]): number {\n  const len = prices.length;\n  if (len < 2) return 0;\n  // 0 手上没，1 手上有\n  // 0 完成0次交易 1 完成1次交易 2 完成两次交易\n  const dp: number[][][] = new Array(len)\n    .fill(0)\n    .map(_ => new Array(2).fill(0).map(_ => new Array(3).fill(-Infinity)));\n  [dp[0][0][0], dp[0][1][0]] = [0, -prices[0]];\n  let [dp01, dp02, dp10, dp11] = [-Infinity, -Infinity, -prices[0], -Infinity];\n  for (let i = 1; i < len; i++) {\n    const price = prices[i];\n    [dp01, dp02, dp10, dp11] = [\n      Math.max(price + dp10, dp01),\n      i >= 3 ? Math.max(price + dp11, dp02) : 0,\n      Math.max(dp10, -price),\n      Math.max(dp11, dp01 - price),\n    ];\n  }\n  return Math.max(dp01, dp02);\n}\n// 6\nconsole.log(maxProfit([3, 3, 5, 0, 0, 3, 1, 4]));\n// 4\nconsole.log(maxProfit([1, 2, 3, 4, 5]));\n// 0\nconsole.log(maxProfit([2, 1, 4]));"
+        },
+        {
+            "script": "python",
+            "time": 1924,
+            "memory": 80.1,
+            "desc": "dp[i][j][k]表示i天j笔手上有无。",
+            "code": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        n = len(prices)\n        # [i][j][k] i天j笔手上有无\n        dp = [[[-inf for _ in range(2)] for _ in range(3)] for _ in range(n)]\n        num0 = dp[0][0][0] = 0\n        num1 = dp[0][0][1] = -prices[0]\n        res = 0\n        num2 = num3 = -inf\n        for i in range(1, n):\n            dp[i][0][0] = dp[i - 1][0][0]\n            dp[i][0][1] = num0 - prices[i]\n            dp[i][1][0] = num1 + prices[i]\n            dp[i][1][1] = num2 - prices[i]\n            dp[i][2][0] = num3 + prices[i]\n            num0 = max(num0, dp[i][0][0])\n            num1 = max(num1, dp[i][0][1])\n            num2 = max(num2, dp[i][1][0])\n            num3 = max(num3, dp[i][1][1])\n            res = max(res, dp[i][1][0], dp[i][2][0])\n        return res\n",
+            "date": 1696262400000
         }
     ]
 }

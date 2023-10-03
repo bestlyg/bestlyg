@@ -2,7 +2,7 @@
     "id": "164",
     "name": "164.最大间距",
     "url": "https://leetcode.cn/problems/maximum-gap",
-    "difficulty": "困难",
+    "difficulty": "中等",
     "tag": [
         "数组",
         "桶排序",

@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '605. 种花问题',
+    name: '123. 买卖股票的最佳时机 III',
     url: 'https://leetcode.cn/problems/earliest-possible-day-of-full-bloom',
     difficulty: Difficulty.简单,
     tag: [],
@@ -33,21 +33,31 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
         {
-            date: new Date('2023.09.29').getTime(),
             script: Script.PY,
-            time: 60,
-            memory: 16.3,
-            desc: '同上',
+            time: 1924,
+            memory: 80.1,
+            desc: 'dp[i][j][k]表示i天j笔手上有无',
             code: `class Solution:
-    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        prev = -1
-        for i in range(len(flowerbed)):
-            if flowerbed[i] == 0:
-                if prev + 1 == i and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):
-                    n -= 1
-                else:
-                    prev = i
-        return n <= 0
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        # [i][j][k] i天j笔手上有无
+        dp = [[[-inf for _ in range(2)] for _ in range(3)] for _ in range(n)]
+        num0 = dp[0][0][0] = 0
+        num1 = dp[0][0][1] = -prices[0]
+        res = 0
+        num2 = num3 = -inf
+        for i in range(1, n):
+            dp[i][0][0] = dp[i - 1][0][0]
+            dp[i][0][1] = num0 - prices[i]
+            dp[i][1][0] = num1 + prices[i]
+            dp[i][1][1] = num2 - prices[i]
+            dp[i][2][0] = num3 + prices[i]
+            num0 = max(num0, dp[i][0][0])
+            num1 = max(num1, dp[i][0][1])
+            num2 = max(num2, dp[i][1][0])
+            num3 = max(num3, dp[i][1][1])
+            res = max(res, dp[i][1][0], dp[i][2][0])
+        return res
 `,
         },
         // {
