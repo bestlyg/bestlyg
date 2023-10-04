@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '123. 买卖股票的最佳时机 III',
-    url: 'https://leetcode.cn/problems/earliest-possible-day-of-full-bloom',
+    exist: !true,
+    name: '188. 买卖股票的最佳时机 IV',
+    url: 'https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 flowerbed 表示花坛，由若干 0 和 1 组成，其中 0 表示没种植花，1 表示种植了花。另有一个数 n ，能否在不打破种植规则的情况下种入 n 朵花？能则返回 true ，不能则返回 false 。`,
+    desc: `设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。也就是说，你最多可以买 k 次，卖 k 次。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -17,14 +17,33 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        // {
-        //     date: new Date('2020.08.05').getTime(),
-        //     script: Script.TS,
-        //     time: 96,
-        //     memory: 40.3,
-        //     desc: '归并排序',
-        //     code: ``,
-        // },
+        {
+            date: new Date('2020.12.28').getTime(),
+            script: Script.TS,
+            time: 120,
+            memory: 44.6,
+            desc: 'dp',
+            code: `function maxProfit(k: number, prices: number[]): number {
+    const len = prices.length;
+    if (len === 0) return 0;
+    k = Math.min(~~(len / 2), k);
+    const buy = new Array(len).fill(0).map(() => new Array(k + 1).fill(0));
+    const sell = new Array(len).fill(0).map(() => new Array(k + 1).fill(0));
+    [buy[0][0], sell[0][0]] = [-prices[0], 0];
+    for (let i = 1; i <= k; ++i) buy[0][i] = sell[0][i] = -Number.MAX_VALUE;
+    for (let i = 1; i < len; ++i) {
+      const price = prices[i];
+      const prevBuy = buy[i - 1];
+      const prevSell = sell[i - 1];
+      buy[i][0] = Math.max(prevBuy[0], prevSell[0] - price);
+      for (let j = 1; j <= k; ++j) {
+        buy[i][j] = Math.max(prevBuy[j], prevSell[j] - price);
+        sell[i][j] = Math.max(prevSell[j], prevBuy[j - 1] + price);
+      }
+    }
+    return Math.max(...sell[len - 1]);
+}`,
+        },
         // {
         //     script: Script.CPP,
         //     time: 240,
@@ -34,29 +53,26 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 1924,
-            memory: 80.1,
+            time: 256,
+            memory: 31.78,
             desc: 'dp[i][j][k]表示i天j笔手上有无',
             code: `class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
         n = len(prices)
         # [i][j][k] i天j笔手上有无
-        dp = [[[-inf for _ in range(2)] for _ in range(3)] for _ in range(n)]
-        num0 = dp[0][0][0] = 0
-        num1 = dp[0][0][1] = -prices[0]
-        res = 0
-        num2 = num3 = -inf
-        for i in range(1, n):
-            dp[i][0][0] = dp[i - 1][0][0]
-            dp[i][0][1] = num0 - prices[i]
-            dp[i][1][0] = num1 + prices[i]
-            dp[i][1][1] = num2 - prices[i]
-            dp[i][2][0] = num3 + prices[i]
-            num0 = max(num0, dp[i][0][0])
-            num1 = max(num1, dp[i][0][1])
-            num2 = max(num2, dp[i][1][0])
-            num3 = max(num3, dp[i][1][1])
-            res = max(res, dp[i][1][0], dp[i][2][0])
+        dp = [[[-inf for _ in range(2)] for _ in range(k + 1)] for _ in range(n + 1)]
+        nums = [[-inf for _ in range(2)] for _ in range(k + 1)]
+        res = dp[0][0][0] = dp[0][0][1] = nums[0][0] = 0
+        for i in range(0, n):
+            dp[i][0][0] = 0
+            dp[i][0][1] = -prices[i]
+            for j in range(1, k + 1):
+                dp[i][j][0] = nums[j - 1][1] + prices[i]
+                dp[i][j][1] = nums[j][0] - prices[i]
+                res = max(res, dp[i][j][0])
+            for j in range(0, k + 1):
+                nums[j][0] = max(nums[j][0], dp[i][j][0])
+                nums[j][1] = max(nums[j][1], dp[i][j][1])
         return res
 `,
         },
