@@ -16,6 +16,14 @@
             "script": "typescript",
             "desc": "我们目前持有一支股票，对应的「累计最大收益」记为 f[i][0]f[i][0]；我们目前不持有任何股票，并且处于冷冻期中，对应的「累计最大收益」记为 f[i][1]f[i][1]；我们目前不持有任何股票，并且不处于冷冻期中，对应的「累计最大收益」记为 f[i][2]f[i][2]。",
             "code": "function maxProfit(prices: number[]): number {\n  const len = prices.length;\n  if (len === 0) return 0;\n  const dp = new Array(len).fill(0).map(_ => new Array(3).fill(0));\n  dp[0][0] = -prices[0];\n  for (let i = 1; i < len; i++) {\n    dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][2] - prices[i]);\n    dp[i][1] = dp[i - 1][0] + prices[i];\n    dp[i][2] = Math.max(dp[i - 1][1], dp[i - 1][2]);\n  }\n  return Math.max(dp[len - 1][1], dp[len - 1][2]);\n}"
+        },
+        {
+            "script": "python",
+            "time": 3408,
+            "memory": 560.76,
+            "desc": "记忆化递归。",
+            "code": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        n = len(prices)\n        @cache\n        def dfs(idx: int, cooldown: bool, cur: int):\n            if idx == n: return 0\n            res = dfs(idx + 1, False, cur)\n            if not cooldown:\n                if cur != -inf: res = max(res, dfs(idx + 1, True, -inf) + prices[idx] - cur)\n                else: res = max(res, dfs(idx + 1, False, prices[idx]))\n            return res\n        return dfs(0, False, -inf)\n        \n",
+            "date": 1696435200000
         }
     ]
 }
