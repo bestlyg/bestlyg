@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '309. 买卖股票的最佳时机含冷冻期',
+    name: '714. 买卖股票的最佳时机含手续费',
     url: 'https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,21 +34,27 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 3408,
-            memory: 560.76,
-            desc: '记忆化递归',
+            time: 516,
+            memory: 28.4,
+            desc: '同122题',
             code: `class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
         n = len(prices)
-        @cache
-        def dfs(idx: int, cooldown: bool, cur: int):
-            if idx == n: return 0
-            res = dfs(idx + 1, False, cur)
-            if not cooldown:
-                if cur != -inf: res = max(res, dfs(idx + 1, True, -inf) + prices[idx] - cur)
-                else: res = max(res, dfs(idx + 1, False, prices[idx]))
-            return res
-        return dfs(0, False, -inf)
+        # [i][0] i天买， [i][1] i天卖
+        dp = [[-inf for _ in range(2)] for _ in range(n)]
+        dp[0][0] = -prices[0]
+        dp[0][1] = 0
+        res = 0
+        num1 = 0
+        num2 = -prices[0]
+        for i in range(1, n):
+            dp[i][0] = max(dp[i][0], num1 - prices[i])
+            dp[i][1] = max(dp[i][1], num2 + prices[i] - fee)
+            res = max(res, dp[i][0], dp[i][1])
+            num1 = max(num1, dp[i][1])
+            num2 = max(num2, dp[i][0])
+        return res
+        
         
 `,
         },
