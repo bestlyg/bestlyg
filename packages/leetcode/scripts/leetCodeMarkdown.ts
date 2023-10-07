@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '714. 买卖股票的最佳时机含手续费',
-    url: 'https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/',
+    name: '901. 股票价格跨度',
+    url: 'https://leetcode.cn/problems/online-stock-span/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。也就是说，你最多可以买 k 次，卖 k 次。`,
+    desc: `设计一个算法收集某些股票的每日报价，并返回该股票当日价格的 跨度 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,46 +25,79 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 240,
-        //     memory: 82.55,
-        //     desc: '排序后遍历，差分数组记录当前值',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 240,
+            memory: 80.53,
+            desc: '单调栈',
+            code: `class StockSpanner {
+public:
+    int idx;
+    vector<pair<int, int>> arr;
+    StockSpanner(): idx(0), arr(vector<pair<int, int>>()) {}
+    int next(int price) {
+        while (arr.size() && arr.back().second <= price) arr.pop_back();
+        idx += 1;
+        int res = idx - (arr.size() ? arr.back().first : 0);
+        arr.push_back(make_pair(idx, price));
+        return res;
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 516,
-            memory: 28.4,
-            desc: '同122题',
-            code: `class Solution:
-    def maxProfit(self, prices: List[int], fee: int) -> int:
-        n = len(prices)
-        # [i][0] i天买， [i][1] i天卖
-        dp = [[-inf for _ in range(2)] for _ in range(n)]
-        dp[0][0] = -prices[0]
-        dp[0][1] = 0
-        res = 0
-        num1 = 0
-        num2 = -prices[0]
-        for i in range(1, n):
-            dp[i][0] = max(dp[i][0], num1 - prices[i])
-            dp[i][1] = max(dp[i][1], num2 + prices[i] - fee)
-            res = max(res, dp[i][0], dp[i][1])
-            num1 = max(num1, dp[i][1])
-            num2 = max(num2, dp[i][0])
+            time: 356,
+            memory: 20.68,
+            desc: '同上',
+            code: `class StockSpanner:
+
+    def __init__(self):
+        self.idx = 0
+        self.arr = []
+
+    def next(self, price: int) -> int:
+        while self.arr and self.arr[-1][1] <= price:
+            self.arr.pop()
+        self.idx += 1
+        res = self.idx - (self.arr[-1][0] if self.arr else 0)
+        self.arr.append((self.idx, price))
         return res
-        
-        
 `,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 48,
-        //     memory: 6.7,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 28,
+            memory: 6.27,
+            desc: '同上',
+            code: `struct StockSpanner {
+    idx: usize,
+    arr: Vec<(usize, i32)>,
+}
+
+impl StockSpanner {
+    fn new() -> Self {
+        Self {
+            idx: 0,
+            arr: vec![],
+        }
+    }
+
+    fn next(&mut self, price: i32) -> i32 {
+        while !self.arr.is_empty() && self.arr.last().unwrap().1 <= price {
+            self.arr.pop();
+        }
+        self.idx += 1;
+        let res = self.idx
+            - (if self.arr.is_empty() {
+                0
+            } else {
+                self.arr.last().unwrap().0
+            });
+        self.arr.push((self.idx, price));
+        res as i32
+    }
+}`,
+        },
     ],
 };
 

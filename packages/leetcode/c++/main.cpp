@@ -155,34 +155,25 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
-class Solution {
+class StockSpanner {
 public:
-    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
-        vector<pair<int, int>> flist;
-        for (auto &item : flowers) {
-            flist.push_back(make_pair(item[0], 1));
-            flist.push_back(make_pair(item[1] + 1, -1));
-        }
-        sort(flist.begin(), flist.end(), [&](auto &a, auto &b) {
-            return a.first < b.first;
-        });
-        vector<int> plist;
-        for (int i = 0; i < people.size(); i++) plist.push_back(i);
-        sort(plist.begin(), plist.end(), [&](auto &a, auto &b) {
-            return people[a] < people[b];
-        });
-        int pidx = 0, cur = 0;
-        vector<int> res(people.size(), 0);
-        for (auto &item : flist) {
-            while (pidx < plist.size() && people[plist[pidx]] < item.first) {
-                res[plist[pidx]] = cur;
-                pidx += 1;
-            }
-            cur += item.second;
-        }
-        return res;
+    int idx;
+    vector<pair<int, int>> arr;
+    StockSpanner(): idx(0), arr(vector<pair<int, int>>()) {}
+    int next(int price) {
+        while (arr.size() && arr.back().second <= price) arr.pop_back();
+        idx += 1;
+        res = idx - (arr.size() ? arr.back().first : 0);
+        arr.push_back(make_pair(idx, price));
+        return res
     }
 };
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner* obj = new StockSpanner();
+ * int param_1 = obj->next(price);
+ */
 
 // END
 #ifdef LOCAL

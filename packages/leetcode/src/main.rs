@@ -14,26 +14,31 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-impl Solution {
-    pub fn full_bloom_flowers(flowers: Vec<Vec<i32>>, people: Vec<i32>) -> Vec<i32> {
-        let mut flist = vec![];
-        for item in flowers {
-            flist.push((item[0], 1));
-            flist.push((item[1] + 1, -1));
+struct StockSpanner {
+    idx: usize,
+    arr: Vec<(usize, i32)>,
+}
+
+impl StockSpanner {
+    fn new() -> Self {
+        Self {
+            idx: 0,
+            arr: vec![],
         }
-        flist.sort_by_cached_key(|o| o.0);
-        let mut plist = (0..people.len()).collect::<Vec<usize>>();
-        plist.sort_by_cached_key(|i| people[*i]);
-        let mut res = vec![0; people.len()];
-        let mut pidx = 0;
-        let mut cur = 0;
-        for (idx, d) in flist {
-            while pidx < plist.len() && people[plist[pidx]] < idx {
-                res[plist[pidx]] = cur;
-                pidx += 1;
-            }
-            cur += d;
+    }
+
+    fn next(&mut self, price: i32) -> i32 {
+        while !self.arr.is_empty() && self.arr.last().unwrap().1 <= price {
+            self.arr.pop();
         }
-        res
+        self.idx += 1;
+        let res = self.idx
+            - (if self.arr.is_empty() {
+                0
+            } else {
+                self.arr.last().unwrap().0
+            });
+        self.arr.push((self.idx, price));
+        res as i32
     }
 }
