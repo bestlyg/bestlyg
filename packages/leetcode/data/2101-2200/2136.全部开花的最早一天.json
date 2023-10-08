@@ -1,8 +1,13 @@
 {
+    "id": "2257",
     "name": "2136.全部开花的最早一天",
     "url": "https://leetcode.cn/problems/earliest-possible-day-of-full-bloom",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
     "desc": "从第 0 开始，你可以按 任意 顺序播种种子。返回所有种子都开花的 最早 一天是第几天。",
     "solutions": [
         {

@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '901. 股票价格跨度',
+    name: '2034. 股票价格波动',
     url: 'https://leetcode.cn/problems/online-stock-span/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -25,79 +25,62 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 240,
-            memory: 80.53,
-            desc: '单调栈',
-            code: `class StockSpanner {
-public:
-    int idx;
-    vector<pair<int, int>> arr;
-    StockSpanner(): idx(0), arr(vector<pair<int, int>>()) {}
-    int next(int price) {
-        while (arr.size() && arr.back().second <= price) arr.pop_back();
-        idx += 1;
-        int res = idx - (arr.size() ? arr.back().first : 0);
-        arr.push_back(make_pair(idx, price));
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 240,
+        //     memory: 80.53,
+        //     desc: '单调栈',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 356,
-            memory: 20.68,
-            desc: '同上',
-            code: `class StockSpanner:
+            time: 1140,
+            memory: 57.04,
+            desc: '有序集合',
+            code: `from sortedcontainers import SortedDict
+class StockPrice:
 
     def __init__(self):
-        self.idx = 0
-        self.arr = []
+        self.cur_time = -1
+        self.cur_price = 0
+        self.time_map = SortedDict()
+        self.max_map = SortedDict()
+        self.min_map = SortedDict()
 
-    def next(self, price: int) -> int:
-        while self.arr and self.arr[-1][1] <= price:
-            self.arr.pop()
-        self.idx += 1
-        res = self.idx - (self.arr[-1][0] if self.arr else 0)
-        self.arr.append((self.idx, price))
-        return res
+    def update_map(self, map, key, d):
+        if key not in map: map[key] = 0
+        map[key] += d
+        if map[key] == 0: del map[key]
+
+    def update(self, timestamp: int, price: int) -> None:
+        if timestamp in self.time_map: 
+            cur_price = self.time_map[timestamp]
+            self.update_map(self.max_map, cur_price, -1)
+            self.update_map(self.min_map, cur_price, -1)
+        self.update_map(self.max_map, price, 1)
+        self.update_map(self.min_map, price, 1)
+        self.time_map[timestamp] = price
+        if self.cur_time <= timestamp:
+            self.cur_time = timestamp
+            self.cur_price = price
+
+    def current(self) -> int:
+        return self.cur_price
+
+    def maximum(self) -> int:
+        return self.max_map.keys()[-1]
+
+    def minimum(self) -> int:
+        return self.min_map.keys()[0]
 `,
         },
-        {
-            script: Script.RUST,
-            time: 28,
-            memory: 6.27,
-            desc: '同上',
-            code: `struct StockSpanner {
-    idx: usize,
-    arr: Vec<(usize, i32)>,
-}
-
-impl StockSpanner {
-    fn new() -> Self {
-        Self {
-            idx: 0,
-            arr: vec![],
-        }
-    }
-
-    fn next(&mut self, price: i32) -> i32 {
-        while !self.arr.is_empty() && self.arr.last().unwrap().1 <= price {
-            self.arr.pop();
-        }
-        self.idx += 1;
-        let res = self.idx
-            - (if self.arr.is_empty() {
-                0
-            } else {
-                self.arr.last().unwrap().0
-            });
-        self.arr.push((self.idx, price));
-        res as i32
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 28,
+        //     memory: 6.27,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
