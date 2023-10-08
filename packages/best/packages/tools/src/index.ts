@@ -6,10 +6,13 @@ import {
     DIR_NAME_SOURCE,
     DIR_NAME_ESM,
     DIR_NAME_CJS,
+    error,
+    transformConfig,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
 import { buildCJS } from './build';
+import { BabelConfig } from './babel';
 
 const program = new Command();
 program.name(packageInfo.name).description(packageInfo.description).version(packageInfo.version);
@@ -41,14 +44,15 @@ program
     )
     .action(o => {
         const { entry, type, babelConfig, globPattern, output } = o;
-        print.info(JSON.stringify(o));
+        print.info(`Entry: ${o.entry}`);
+        print.info(`Type: ${o.type}`);
         switch (type) {
             case 'esm':
                 console.log('esm');
                 break;
             case 'cjs':
                 buildCJS({
-                    babelConfig,
+                    configs: transformConfig<BabelConfig>(babelConfig),
                     entry,
                     globPattern,
                     output: output ?? resolve(CWD, DIR_NAME_CJS),
@@ -58,8 +62,7 @@ program
                 console.log('umd');
                 break;
             default:
-                print.error(`Unkown type ${o.type}`);
-                process.exit(1);
+                error(`Unkown type ${o.type}`);
         }
     });
 

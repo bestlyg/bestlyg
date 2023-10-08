@@ -1,17 +1,18 @@
 import { BabelConfig, transformAsync as babelTransform } from '../babel';
 import fs from 'fs-extra';
-import { print, resolve } from '../utils';
+import { Config, error, print, resolve } from '../utils';
+import { merge } from 'lodash';
 import { glob } from 'glob';
 import path from 'node:path';
 
 export async function buildCJS({
-    babelConfig,
+    configs,
     entry,
     globPattern,
     output,
 }: {
     entry: string;
-    babelConfig: BabelConfig[];
+    configs: Config<BabelConfig>[];
     globPattern: string[];
     output: string;
 }) {
@@ -36,7 +37,6 @@ export async function buildCJS({
                     data =>
                         babelTransform({
                             content: data.toString(),
-                            babelConfig,
                             transformConfig: config => {
                                 config.filename = file;
                                 config.presets = config.presets.map(preset => {
@@ -44,16 +44,23 @@ export async function buildCJS({
                                     const presetEnvOptions = { modules: 'cjs' };
                                     if (preset === presetEnv) {
                                         return [presetEnv, presetEnvOptions];
+                                    } else if (Array.isArray(preset)) {
+                                        preset[1] = { ...preset[1], ...presetEnvOptions };
                                     }
                                     return preset;
                                 });
+                                for (const cfg of configs) {
+                                    if (typeof cfg === 'function') {
+                                        config = cfg(config);
+                                    } else {
+                                        config = merge(config, cfg)
+                                    }
+                                }
                                 return config;
                             },
                         }),
                     err => {
-                        print.error(`Fs readFile error from ${file}.`);
-                        print.error(err);
-                        process.exit(1);
+                        error(`Fs readFile error from ${file}.`, err);
                     }
                 )
                 .then(
@@ -61,23 +68,17 @@ export async function buildCJS({
                         fs.ensureDir(path.dirname(outputPath)).then(
                             () => fs.writeFile(outputPath, code),
                             err => {
-                                print.error(`Fs ensureDir error from ${file}.`);
-                                print.error(err);
-                                process.exit(1);
+                                error(`Fs ensureDir error from ${file}.`, err);
                             }
                         ),
                     err => {
-                        print.error(`Babel transform error from ${file}.`);
-                        print.error(err);
-                        process.exit(1);
+                        error(`Babel transform error from ${file}.`, err);
                     }
                 )
                 .then(
                     () => {},
                     err => {
-                        print.error(`Fs writeFile error from ${file}.`);
-                        print.error(err);
-                        process.exit(1);
+                        error(`Fs writeFile error from ${file}.`, err);
                     }
                 );
         })

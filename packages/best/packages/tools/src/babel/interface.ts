@@ -3,4 +3,5 @@ export interface BabelConfig {
     presets: Array<any>;
     plugins: Array<string | Function>;
     configFile: boolean;
+    cwd: string;
 }

@@ -1,3 +1,4 @@
+import { resolve } from '../utils';
 import { BabelConfig } from './interface';
 
 export const config: BabelConfig = {
@@ -11,4 +12,5 @@ export const config: BabelConfig = {
         '@babel/plugin-transform-react-jsx-source',
     ],
     configFile: false,
+    cwd: resolve(),
 };
