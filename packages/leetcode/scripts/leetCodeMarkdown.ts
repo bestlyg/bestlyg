@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2034. 股票价格波动',
-    url: 'https://leetcode.cn/problems/online-stock-span/',
+    exist: !true,
+    name: '2578. 最小和分割',
+    url: 'https://leetcode.cn/problems/split-with-minimum-sum/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `设计一个算法收集某些股票的每日报价，并返回该股票当日价格的 跨度 。`,
+    desc: `请你返回 num1 和 num2 可以得到的和的 最小 值。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,62 +25,73 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 240,
-        //     memory: 80.53,
-        //     desc: '单调栈',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 0,
+            memory: 6.16,
+            desc: '贪心',
+            code: `class Solution {
+public:
+    int splitNum(int num) {
+        vector<int> nums(10, 0);
+        vector<int> res(2, 0);
+        int cur = 0;
+        for (; num; num /= 10) nums[num % 10]++;
+        for (int i = 0; i < 10; i++) {
+            for (; nums[i]; nums[i]--, cur ^= 1) {
+                res[cur] = res[cur] * 10 + i;
+            }
+        }
+        return res[0] + res[1];
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 1140,
-            memory: 57.04,
-            desc: '有序集合',
-            code: `from sortedcontainers import SortedDict
-class StockPrice:
-
-    def __init__(self):
-        self.cur_time = -1
-        self.cur_price = 0
-        self.time_map = SortedDict()
-        self.max_map = SortedDict()
-        self.min_map = SortedDict()
-
-    def update_map(self, map, key, d):
-        if key not in map: map[key] = 0
-        map[key] += d
-        if map[key] == 0: del map[key]
-
-    def update(self, timestamp: int, price: int) -> None:
-        if timestamp in self.time_map: 
-            cur_price = self.time_map[timestamp]
-            self.update_map(self.max_map, cur_price, -1)
-            self.update_map(self.min_map, cur_price, -1)
-        self.update_map(self.max_map, price, 1)
-        self.update_map(self.min_map, price, 1)
-        self.time_map[timestamp] = price
-        if self.cur_time <= timestamp:
-            self.cur_time = timestamp
-            self.cur_price = price
-
-    def current(self) -> int:
-        return self.cur_price
-
-    def maximum(self) -> int:
-        return self.max_map.keys()[-1]
-
-    def minimum(self) -> int:
-        return self.min_map.keys()[0]
-`,
+            time: 24,
+            memory: 15.56,
+            desc: '同上',
+            code: `class Solution:
+    def splitNum(self, num: int) -> int:
+        nums = [0] * 10
+        res = [0] * 2
+        cur = 0
+        while num:
+            nums[num % 10] += 1
+            num //= 10
+        for i in range(10):
+            while nums[i]:
+                res[cur] = res[cur] * 10 + i
+                nums[i] -= 1
+                cur ^= 1
+        return sum(res)`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 28,
-        //     memory: 6.27,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 0,
+            memory: 2.03,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn split_num(num: i32) -> i32 {
+        let mut num = num as usize;
+        let mut nums = vec![0; 10];
+        let mut res = vec![0; 2];
+        let mut cur = 0;
+        while num != 0 {
+            nums[num % 10] += 1;
+            num /= 10;
+        }
+        for i in 0..10 {
+            while nums[i] != 0 {
+                res[cur] = res[cur] * 10 + i;
+                cur ^= 1;
+                nums[i] -= 1;
+            }
+        }
+        res.into_iter().sum::<usize>() as i32
+    }
+}`,
+        },
     ],
 };
 

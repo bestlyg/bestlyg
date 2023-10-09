@@ -155,17 +155,19 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
-class StockSpanner {
+class Solution {
 public:
-    int idx;
-    vector<pair<int, int>> arr;
-    StockSpanner(): idx(0), arr(vector<pair<int, int>>()) {}
-    int next(int price) {
-        while (arr.size() && arr.back().second <= price) arr.pop_back();
-        idx += 1;
-        res = idx - (arr.size() ? arr.back().first : 0);
-        arr.push_back(make_pair(idx, price));
-        return res
+    int splitNum(int num) {
+        vector<int> nums(10, 0);
+        vector<int> res(2, 0);
+        int cur = 0;
+        for (; num; num /= 10) nums[num % 10]++;
+        for (int i = 0; i < 10; i++) {
+            for (; nums[i]; nums[i]--, cur ^= 1) {
+                res[cur] = res[cur] * 10 + i;
+            }
+        }
+        return res[0] + res[1];
     }
 };
 

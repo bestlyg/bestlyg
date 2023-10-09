@@ -14,31 +14,23 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-struct StockSpanner {
-    idx: usize,
-    arr: Vec<(usize, i32)>,
-}
-
-impl StockSpanner {
-    fn new() -> Self {
-        Self {
-            idx: 0,
-            arr: vec![],
+impl Solution {
+    pub fn split_num(num: i32) -> i32 {
+        let mut num = num as usize;
+        let mut nums = vec![0; 10];
+        let mut res = vec![0; 2];
+        let mut cur = 0;
+        while num != 0 {
+            nums[num % 10] += 1;
+            num /= 10;
         }
-    }
-
-    fn next(&mut self, price: i32) -> i32 {
-        while !self.arr.is_empty() && self.arr.last().unwrap().1 <= price {
-            self.arr.pop();
+        for i in 0..10 {
+            while nums[i] != 0 {
+                res[cur] = res[cur] * 10 + i;
+                cur ^= 1;
+                nums[i] -= 1;
+            }
         }
-        self.idx += 1;
-        let res = self.idx
-            - (if self.arr.is_empty() {
-                0
-            } else {
-                self.arr.last().unwrap().0
-            });
-        self.arr.push((self.idx, price));
-        res as i32
+        res.into_iter().sum::<usize>() as i32
     }
 }

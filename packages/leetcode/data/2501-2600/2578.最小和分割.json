@@ -1,0 +1,33 @@
+{
+    "name": "2578.最小和分割",
+    "url": "https://leetcode.cn/problems/split-with-minimum-sum/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回 num1 和 num2 可以得到的和的 最小 值。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 0,
+            "memory": 6.16,
+            "desc": "贪心。",
+            "code": "class Solution {\npublic:\n    int splitNum(int num) {\n        vector<int> nums(10, 0);\n        vector<int> res(2, 0);\n        int cur = 0;\n        for (; num; num /= 10) nums[num % 10]++;\n        for (int i = 0; i < 10; i++) {\n            for (; nums[i]; nums[i]--, cur ^= 1) {\n                res[cur] = res[cur] * 10 + i;\n            }\n        }\n        return res[0] + res[1];\n    }\n};",
+            "date": 1696780800000
+        },
+        {
+            "script": "python",
+            "time": 24,
+            "memory": 15.56,
+            "desc": "同上。",
+            "code": "class Solution:\n    def splitNum(self, num: int) -> int:\n        nums = [0] * 10\n        res = [0] * 2\n        cur = 0\n        while num:\n            nums[num % 10] += 1\n            num //= 10\n        for i in range(10):\n            while nums[i]:\n                res[cur] = res[cur] * 10 + i\n                nums[i] -= 1\n                cur ^= 1\n        return sum(res)",
+            "date": 1696780800000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.03,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn split_num(num: i32) -> i32 {\n        let mut num = num as usize;\n        let mut nums = vec![0; 10];\n        let mut res = vec![0; 2];\n        let mut cur = 0;\n        while num != 0 {\n            nums[num % 10] += 1;\n            num /= 10;\n        }\n        for i in 0..10 {\n            while nums[i] != 0 {\n                res[cur] = res[cur] * 10 + i;\n                cur ^= 1;\n                nums[i] -= 1;\n            }\n        }\n        res.into_iter().sum::<usize>() as i32\n    }\n}",
+            "date": 1696780800000
+        }
+    ]
+}
