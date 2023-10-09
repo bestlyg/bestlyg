@@ -11,7 +11,7 @@ import {
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS } from './build';
+import { buildCJS, buildESM } from './build';
 import { BabelConfig } from './babel';
 
 const program = new Command();
@@ -50,6 +50,9 @@ program
         switch (type) {
             case 'esm':
                 console.log('esm');
+                buildESM({
+                    configs: transformConfig<BabelConfig>(babelConfig),
+                });
                 break;
             case 'cjs':
                 buildCJS({
