@@ -1,16 +1,23 @@
-import { resolve } from '../utils';
 import { BabelConfig } from './interface';
+import presetEnv from '@babel/preset-env';
+import presetTs from '@babel/preset-typescript';
+import presetReact from '@babel/preset-react';
+import pluginExportDefault from '@babel/plugin-proposal-export-default-from';
+import pluginTransformRuntime from '@babel/plugin-transform-runtime';
+import pluginDynamicImport from '@babel/plugin-syntax-dynamic-import';
+import pluginClass from '@babel/plugin-proposal-class-properties';
+import pluginJsx from '@babel/plugin-transform-react-jsx-source';
 
 export const config: BabelConfig = {
     filename: '',
-    presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+    presets: [presetEnv, presetTs, presetReact],
     plugins: [
-        '@babel/plugin-proposal-export-default-from',
-        '@babel/plugin-transform-runtime',
-        '@babel/plugin-syntax-dynamic-import',
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-transform-react-jsx-source',
+        pluginExportDefault,
+        pluginTransformRuntime,
+        pluginDynamicImport,
+        pluginClass,
+        pluginJsx,
     ],
     configFile: false,
-    cwd: resolve(),
+    // cwd: resolve(),
 };

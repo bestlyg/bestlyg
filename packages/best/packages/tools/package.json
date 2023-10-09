@@ -7,7 +7,9 @@
         "best-tools": "./bin/best-tools.js"
     },
     "scripts": {
-        "start": "ts-node src/index.ts"
+        "tools": "ts-node src/index.ts",
+        "build:cjs": "tsc ./src/index.ts --module commonjs --outDir ./lib --esModuleInterop --target ESNext --moduleResolution node",
+        "build:esm": "tsc ./src/index.ts --module es6 --outDir ./es --esModuleInterop --target ESNext --moduleResolution node --declaration"
     },
     "keywords": [],
     "author": "",

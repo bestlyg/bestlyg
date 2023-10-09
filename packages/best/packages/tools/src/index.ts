@@ -39,11 +39,12 @@ program
     .option('--output <output>', 'Output directory.')
     .option('--glob-pattern <glob>', 'Glob pattern.', (v, cur) => cur.concat([v]), [])
     .option('--babel-config <path>', 'A list of babel-config.', (v, cur) => cur.concat([v]), [])
+    .option('--ts-config <path>', 'A list of ts-config.', (v, cur) => cur.concat([v]), [])
     .addOption(
         new Option('--type <type>', 'Build type.').choices(['esm', 'cjs', 'umd']).default('esm')
     )
     .action(o => {
-        const { entry, type, babelConfig, globPattern, output } = o;
+        const { entry, type, babelConfig, globPattern, output, tsConfig, ...args } = o;
         print.info(`Entry: ${o.entry}`);
         print.info(`Type: ${o.type}`);
         switch (type) {
