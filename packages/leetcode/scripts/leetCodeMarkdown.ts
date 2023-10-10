@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2578. 最小和分割',
-    url: 'https://leetcode.cn/problems/split-with-minimum-sum/',
+    name: '2731. 移动机器人',
+    url: 'https://leetcode.cn/problems/movement-of-robots/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 num1 和 num2 可以得到的和的 最小 值。`,
+    desc: `请你返回指令重复执行 d 秒后，所有机器人之间两两距离之和。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,68 +27,63 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 0,
-            memory: 6.16,
-            desc: '贪心',
+            time: 108,
+            memory: 97.32,
+            desc: '贪心，忽略碰撞',
             code: `class Solution {
 public:
-    int splitNum(int num) {
-        vector<int> nums(10, 0);
-        vector<int> res(2, 0);
-        int cur = 0;
-        for (; num; num /= 10) nums[num % 10]++;
-        for (int i = 0; i < 10; i++) {
-            for (; nums[i]; nums[i]--, cur ^= 1) {
-                res[cur] = res[cur] * 10 + i;
-            }
+    int sumDistance(vector<int>& nums, string s, int d) {
+        long long n = nums.size(), res = 0, MOD = 1e9 + 7;
+        vector<long long> arr;
+        for (int i = 0; i < n; i++) {
+            arr.push_back(s[i] == 'L' ? nums[i] - d : nums[i] + d);
         }
-        return res[0] + res[1];
+        sort(arr.begin(), arr.end());
+        for (int i = 1; i < n; i++) {
+            long long v = (arr[i] - arr[i - 1]) % MOD * (n - i) * i % MOD;
+            res = (res + v) % MOD;
+        }
+        return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 24,
-            memory: 15.56,
+            time: 136,
+            memory: 26.55,
             desc: '同上',
             code: `class Solution:
-    def splitNum(self, num: int) -> int:
-        nums = [0] * 10
-        res = [0] * 2
-        cur = 0
-        while num:
-            nums[num % 10] += 1
-            num //= 10
-        for i in range(10):
-            while nums[i]:
-                res[cur] = res[cur] * 10 + i
-                nums[i] -= 1
-                cur ^= 1
-        return sum(res)`,
+    def sumDistance(self, nums: List[int], s: str, d: int) -> int:
+        n = len(nums)
+        arr = [nums[i] - d if s[i] == 'L' else nums[i] + d for i in range(n)]
+        arr.sort()
+        return sum((arr[i] - arr[i - 1]) * (n - i) * i for i in range(1, n)) % 1000000007`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.03,
+            time: 24,
+            memory: 4.51,
             desc: '同上',
             code: `impl Solution {
-    pub fn split_num(num: i32) -> i32 {
-        let mut num = num as usize;
-        let mut nums = vec![0; 10];
-        let mut res = vec![0; 2];
-        let mut cur = 0;
-        while num != 0 {
-            nums[num % 10] += 1;
-            num /= 10;
+    pub fn sum_distance(nums: Vec<i32>, s: String, d: i32) -> i32 {
+        let s = s.chars().into_iter().collect::<Vec<_>>();
+        let n = nums.len();
+        let mut res = 0;
+        const MOD: i64 = 1000000007;
+        let mut arr = vec![];
+        for i in 0..n {
+            arr.push(if s[i] == 'L' {
+                (nums[i] - d) as i64
+            } else {
+                (nums[i] + d) as i64
+            })
         }
-        for i in 0..10 {
-            while nums[i] != 0 {
-                res[cur] = res[cur] * 10 + i;
-                cur ^= 1;
-                nums[i] -= 1;
-            }
+        arr.sort();
+        for i in 1..n {
+            let v = (arr[i] - arr[i - 1]) % MOD * ((n as i64) - i as i64) * (i as i64);
+            res = (res + v) % MOD;
         }
-        res.into_iter().sum::<usize>() as i32
+        res as i32
     }
 }`,
         },
