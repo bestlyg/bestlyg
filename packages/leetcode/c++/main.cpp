@@ -157,17 +157,17 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int sumDistance(vector<int>& nums, string s, int d) {
-        int n = nums.size(), res = 0;
+    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
+        unordered_set<string> pset(positive_feedback.begin(), positive_feedback.end()), nset(negative_feedback.begin(), negative_feedback.end());
+        int n = report.size();
         vector<int> arr;
         for (int i = 0; i < n; i++) {
-            arr.push_back(s[i] == 'L' ? nums[i] - d : nums[i] + d);
+            istringstream iss(report[i]);
+            string tmp;
+            while (getline(iss, tmp, ' ')) {
+                if (pset.count())
+            }
         }
-        sort(arr.begin(), arr.end());
-        for (int i = 1; i < n; i++) {
-            res = (res + (arr[i] - arr[i - 1]) * (n - i) * i) % (1e9 + 7);
-        }
-        return res;
     }
 };
 

@@ -1,3 +1,4 @@
+from curses.ascii import isspace
 from math import *
 from preclude import *
 

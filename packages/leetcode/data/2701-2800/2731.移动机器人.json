@@ -1,8 +1,14 @@
 {
+    "id": "2787",
     "name": "2731.移动机器人",
-    "url": "https://leetcode.cn/problems/movement-of-robots/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/movement-of-robots",
+    "difficulty": "中等",
+    "tag": [
+        "脑筋急转弯",
+        "数组",
+        "前缀和",
+        "排序"
+    ],
     "desc": "请你返回指令重复执行 d 秒后，所有机器人之间两两距离之和。",
     "solutions": [
         {

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2731. 移动机器人',
-    url: 'https://leetcode.cn/problems/movement-of-robots/',
+    name: '2512. 奖励最顶尖的 K 名学生',
+    url: 'https://leetcode.cn/problems/reward-top-k-students',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回指令重复执行 d 秒后，所有机器人之间两两距离之和。`,
+    desc: `给你一个整数 k ，请你返回按照得分 从高到低 最顶尖的 k 名学生。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,63 +27,100 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.CPP,
-            time: 108,
-            memory: 97.32,
-            desc: '贪心，忽略碰撞',
+            time: 264,
+            memory: 54.2,
+            desc: '哈希后排序',
             code: `class Solution {
 public:
-    int sumDistance(vector<int>& nums, string s, int d) {
-        long long n = nums.size(), res = 0, MOD = 1e9 + 7;
-        vector<long long> arr;
+    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
+        unordered_set<string> pset(positive_feedback.begin(), positive_feedback.end()), nset(negative_feedback.begin(), negative_feedback.end());
+        int n = report.size();
+        vector<int> arr;
         for (int i = 0; i < n; i++) {
-            arr.push_back(s[i] == 'L' ? nums[i] - d : nums[i] + d);
+            istringstream iss(report[i]);
+            string tmp;
+            int res = 0;
+            while (getline(iss, tmp, ' ')) {
+                if (pset.count(tmp)) res += 3;
+                else if (nset.count(tmp)) res -= 1;
+            }
+            arr.push_back(res);
         }
-        sort(arr.begin(), arr.end());
-        for (int i = 1; i < n; i++) {
-            long long v = (arr[i] - arr[i - 1]) % MOD * (n - i) * i % MOD;
-            res = (res + v) % MOD;
-        }
+        vector<int> idxs;
+        for (int i = 0; i < n; i++) idxs.push_back(i);
+        sort(idxs.begin(), idxs.end(), [&](auto &a, auto &b) {
+            if (arr[a] != arr[b]) return arr[b] < arr[a];
+            return student_id[a] < student_id[b];
+        });
+        vector<int> res;
+        for (int i = 0; i < k; i++) res.push_back(student_id[idxs[i]]);
         return res;
     }
 };`,
         },
         {
             script: Script.PY,
-            time: 136,
-            memory: 26.55,
+            time: 172,
+            memory: 23.4,
             desc: '同上',
             code: `class Solution:
-    def sumDistance(self, nums: List[int], s: str, d: int) -> int:
-        n = len(nums)
-        arr = [nums[i] - d if s[i] == 'L' else nums[i] + d for i in range(n)]
-        arr.sort()
-        return sum((arr[i] - arr[i - 1]) * (n - i) * i for i in range(1, n)) % 1000000007`,
+    def topStudents(self, positive_feedback: List[str], negative_feedback: List[str], report: List[str], student_id: List[int], k: int) -> List[int]:
+        pset = set(positive_feedback)
+        nset = set(negative_feedback)
+        n = len(report)
+        arr = [sum(3 if s in pset else -1 for s in filter(lambda o: o in pset or o in nset, report[i].split(' '))) for i in range(n)]
+        idxs = [i for i in range(n)]
+        idxs.sort(key = lambda i: (arr[i], -student_id[i]), reverse = True)
+        return [student_id[i] for i in idxs[:k]]`,
         },
         {
             script: Script.RUST,
-            time: 24,
-            memory: 4.51,
+            time: 48,
+            memory: 5.72,
             desc: '同上',
             code: `impl Solution {
-    pub fn sum_distance(nums: Vec<i32>, s: String, d: i32) -> i32 {
-        let s = s.chars().into_iter().collect::<Vec<_>>();
-        let n = nums.len();
-        let mut res = 0;
-        const MOD: i64 = 1000000007;
-        let mut arr = vec![];
-        for i in 0..n {
-            arr.push(if s[i] == 'L' {
-                (nums[i] - d) as i64
-            } else {
-                (nums[i] + d) as i64
+    pub fn top_students(
+        positive_feedback: Vec<String>,
+        negative_feedback: Vec<String>,
+        report: Vec<String>,
+        student_id: Vec<i32>,
+        k: i32,
+    ) -> Vec<i32> {
+        use std::collections::HashSet;
+        use std::cmp::Ordering;
+        let pset = positive_feedback.into_iter().collect::<HashSet<_>>();
+        let nset = negative_feedback.into_iter().collect::<HashSet<_>>();
+        let n = report.len();
+        let arr = (0..n)
+            .map(|i| {
+                report[i]
+                    .split(' ')
+                    .map(|s| {
+                        if pset.contains(s) {
+                            3
+                        } else if nset.contains(s) {
+                            -1
+                        } else {
+                            0
+                        }
+                    })
+                    .sum()
             })
-        }
-        arr.sort();
-        for i in 1..n {
-            let v = (arr[i] - arr[i - 1]) % MOD * ((n as i64) - i as i64) * (i as i64);
-            res = (res + v) % MOD;
-        }
-        res as i32
+            .collect::<Vec<i32>>();
+        let mut idxs = (0..n).collect::<Vec<usize>>();
+        idxs.sort_by(|i1, i2| {
+            let res = arr[*i2].cmp(&arr[*i1]);
+            if res == Ordering::Equal {
+                student_id[*i1].cmp(&student_id[*i2])
+            } else {
+                res
+            }
+        });
+        idxs.into_iter()
+            .enumerate()
+            .filter(|(i, _)| *i < k as usize)
+            .map(|(_, i)| student_id[i])
+            .collect()
     }
 }`,
         },
