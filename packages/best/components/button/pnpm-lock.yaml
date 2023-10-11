@@ -14,10 +14,10 @@ devDependencies:
     specifier: workspace:*
     version: link:../../packages/tools
   '@types/react':
-    specifier: ^18.2.23
+    specifier: ^18.2.0
     version: 18.2.23
   '@types/react-dom':
-    specifier: ^18.2.7
+    specifier: ^18.2.0
     version: 18.2.7
   react:
     specifier: ^18.2.0

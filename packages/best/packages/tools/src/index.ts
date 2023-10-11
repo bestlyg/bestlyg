@@ -13,6 +13,7 @@ import { Command, Option } from 'commander';
 import fs from 'fs-extra';
 import { buildCJS, buildESM } from './build';
 import { BabelConfig } from './babel';
+import { TsConfig } from './typescript';
 
 const program = new Command();
 program.name(packageInfo.name).description(packageInfo.description).version(packageInfo.version);
@@ -23,7 +24,7 @@ program
     .option('-d --directory <dir>', 'Work directory.', CWD)
     .action(o => {
         console.log(o);
-        const dirs = ['es', 'dist', 'lib'];
+        const dirs = [DIR_NAME_SOURCE, DIR_NAME_ESM, DIR_NAME_CJS];
         for (const dir of dirs) {
             const p = resolve(o.d, dir);
             if (fs.existsSync(p)) {
@@ -44,14 +45,17 @@ program
         new Option('--type <type>', 'Build type.').choices(['esm', 'cjs', 'umd']).default('esm')
     )
     .action(o => {
-        const { entry, type, babelConfig, globPattern, output, tsConfig, ...args } = o;
+        const { entry, type, babelConfig, globPattern, output, tsConfig } = o;
         print.info(`Entry: ${o.entry}`);
         print.info(`Type: ${o.type}`);
         switch (type) {
             case 'esm':
                 console.log('esm');
                 buildESM({
-                    configs: transformConfig<BabelConfig>(babelConfig),
+                    configs: transformConfig<TsConfig>(tsConfig),
+                    entry: resolve(entry, 'index.ts'),
+                    globPattern,
+                    output: output ?? resolve(CWD, DIR_NAME_ESM),
                 });
                 break;
             case 'cjs':

@@ -11,9 +11,6 @@
         "build:cjs": "tsc ./src/index.ts --module commonjs --outDir ./lib --esModuleInterop --target ESNext --moduleResolution node",
         "build:esm": "tsc ./src/index.ts --module es6 --outDir ./es --esModuleInterop --target ESNext --moduleResolution node --declaration"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "@babel/core": "^7.23.0",
         "@babel/plugin-proposal-class-properties": "^7.18.6",

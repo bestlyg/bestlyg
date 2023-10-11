@@ -16,7 +16,7 @@ export async function buildCJS({
     globPattern: string[];
     output: string;
 }) {
-    print.info('Build CJS');
+    print.info('===> Build CJS');
     const files = await glob([
         resolve(entry, './**/*.ts'),
         resolve(entry, './**/*.tsx'),
