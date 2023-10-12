@@ -157,25 +157,17 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
-        unordered_set<string> pset(positive_feedback.begin(), positive_feedback.end()), nset(negative_feedback.begin(), negative_feedback.end());
-        int n = report.size();
-        vector<int> arr;
-        for (int i = 0; i < n; i++) {
-            istringstream iss(report[i]);
-            string tmp;
-            while (getline(iss, tmp, ' ')) {
-                if (pset.count())
-            }
+    long long findTheArrayConcVal(vector<int>& nums) {
+        long long i1 = 0, i2 = nums.size() - 1, res = 0;
+        while (i1 < i2) {
+            res += nums[i1] * pow(10, to_string(nums[i2]).size()) + nums[i2];
+            i1 += 1;
+            i2 -= 1;
         }
+        if (i1 == i2) res += nums[i1];
+        return res;
     }
 };
-
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner* obj = new StockSpanner();
- * int param_1 = obj->next(price);
- */
 
 // END
 #ifdef LOCAL

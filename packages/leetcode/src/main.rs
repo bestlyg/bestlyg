@@ -15,46 +15,19 @@ fn main() {
 }
 
 impl Solution {
-    pub fn top_students(
-        positive_feedback: Vec<String>,
-        negative_feedback: Vec<String>,
-        report: Vec<String>,
-        student_id: Vec<i32>,
-        k: i32,
-    ) -> Vec<i32> {
-        use std::collections::HashSet;
-        let pset = positive_feedback.into_iter().collect::<HashSet<_>>();
-        let nset = negative_feedback.into_iter().collect::<HashSet<_>>();
-        let n = report.len();
-        let arr = (0..n)
-            .map(|i| {
-                report[i]
-                    .split(' ')
-                    .map(|s| {
-                        if pset.contains(s) {
-                            3
-                        } else if nset.contains(s) {
-                            -1
-                        } else {
-                            0
-                        }
-                    })
-                    .sum()
-            })
-            .collect::<Vec<i32>>();
-        let mut idxs = (0..n).collect::<Vec<usize>>();
-        idxs.sort_by(|i1, i2| {
-            let res = arr[*i2].cmp(&arr[*i1]);
-            if res == Ordering::Equal {
-                student_id[*i1].cmp(&student_id[*i2])
-            } else {
-                res
-            }
-        });
-        idxs.into_iter()
-            .enumerate()
-            .filter(|(i, _)| *i < k as usize)
-            .map(|(_, i)| student_id[i])
-            .collect()
+    pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
+        let mut i1 = 0;
+        let mut i2 = nums.len() - 1;
+        let mut res = 0i64;
+        while i1 < i2 {
+            res += (nums[i1] as i64) * 10i64.pow(nums[i2].to_string().len() as u32)
+                + (nums[i2] as i64);
+            i1 += 1;
+            i2 -= 1;
+        }
+        if i1 == i2 {
+            res += nums[i1] as i64;
+        }
+        res
     }
 }
