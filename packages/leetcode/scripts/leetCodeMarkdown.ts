@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2512. 奖励最顶尖的 K 名学生',
-    url: 'https://leetcode.cn/problems/reward-top-k-students',
+    name: '1488. 避免洪水泛滥',
+    url: 'https://leetcode.cn/problems/avoid-flood-in-the-city',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 k ，请你返回按照得分 从高到低 最顶尖的 k 名学生。`,
+    desc: `如果有多种可行解，请返回它们中的 任意一个 。如果没办法阻止洪水，请返回一个 空的数组 。请注意，如果你选择抽干一个装满水的湖泊，它会变成一个空的湖泊。但如果你选择抽干一个空的湖泊，那么将无事发生。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,65 +25,46 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 4,
-            memory: 9.2,
-            desc: '双指针',
-            code: `class Solution {
-public:
-    long long findTheArrayConcVal(vector<int>& nums) {
-        long long i1 = 0, i2 = nums.size() - 1, res = 0;
-        while (i1 < i2) {
-            res += nums[i1] * pow(10, to_string(nums[i2]).size()) + nums[i2];
-            i1 += 1;
-            i2 -= 1;
-        }
-        if (i1 == i2) res += nums[i1];
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 4,
+        //     memory: 9.2,
+        //     desc: '双指针',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 56,
-            memory: 15.47,
-            desc: '同上',
+            time: 3896,
+            memory: 31.44,
+            desc: '记录前一次蓄满水后，最近的放空时间',
             code: `class Solution:
-    def findTheArrayConcVal(self, nums: List[int]) -> int:
-        i1 = 0
-        i2 = len(nums) - 1
-        res = 0
-        while i1 < i2:
-            res += nums[i1] * 10 ** len(str(nums[i2])) + nums[i2]
-            i1 += 1
-            i2 -= 1
-        if i1 == i2: res += nums[i1]
+    def avoidFlood(self, rains: List[int]) -> List[int]:
+        full = dict()
+        empty = []
+        res = [-1] * len(rains)
+        for i, rain in enumerate(rains):
+            if rain == 0:
+                empty.append(i)
+            elif rain not in full:
+                full[rain] = i
+            else:
+                l = bisect_left(empty, full[rain])
+                if l == len(empty):
+                    return []
+                res[empty[l]] = rain
+                full[rain] = i
+                empty.pop(l)
+        for o in empty:
+            res[o] = 1
         return res`,
         },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2.12,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
-        let mut i1 = 0;
-        let mut i2 = nums.len() - 1;
-        let mut res = 0i64;
-        while i1 < i2 {
-            res += (nums[i1] as i64) * 10i64.pow(nums[i2].to_string().len() as u32)
-                + (nums[i2] as i64);
-            i1 += 1;
-            i2 -= 1;
-        }
-        if i1 == i2 {
-            res += nums[i1] as i64;
-        }
-        res
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 0,
+        //     memory: 2.12,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 

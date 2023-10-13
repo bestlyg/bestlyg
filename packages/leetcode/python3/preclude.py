@@ -1,4 +1,4 @@
-from bisect import bisect_left
+from bisect import bisect_left, bisect_right
 from functools import cache
 from heapq import *
 from collections import defaultdict, deque
@@ -8,7 +8,8 @@ from typing import List, Optional, Tuple
 from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict, SortedSet, SortedList, SortedKeyList
-from math import inf, log2
+from math import *
+
 
 # global
 # nonlocal

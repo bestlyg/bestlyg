@@ -1,20 +1,25 @@
-from curses.ascii import isspace
-from math import *
 from preclude import *
 
 
-class StockSpanner:
-
-    def __init__(self):
-        self.idx = 0
-        self.arr = []
-
-    def next(self, price: int) -> int:
-        while self.arr and self.arr[-1][1] > price:
-            self.arr.pop()
-        self.idx += 1
-        res = self.idx - (self.arr[-1][0] if self.arr else 0)
-        self.arr.append((self.idx, price))
+class Solution:
+    def avoidFlood(self, rains: List[int]) -> List[int]:
+        full = dict()
+        empty = []
+        res = [-1] * len(rains)
+        for i, rain in enumerate(rains):
+            if rain == 0:
+                empty.append(i)
+            elif rain not in full:
+                full[rain] = i
+            else:
+                l = bisect_left(empty, full[rain])
+                if l == len(empty):
+                    return []
+                res[empty[l]] = rain
+                full[rain] = i
+                empty.pop(l)
+        for o in empty:
+            res[o] = 1
         return res
 
 
