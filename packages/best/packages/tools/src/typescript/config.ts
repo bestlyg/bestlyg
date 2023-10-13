@@ -8,4 +8,5 @@ export const config: TsConfig | Record<string, any> = {
     declaration: true,
     moduleResolution: 'node',
     outDir: './es',
+    jsx: 'react-jsx',
 };

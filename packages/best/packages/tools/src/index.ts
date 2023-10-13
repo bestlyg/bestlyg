@@ -60,8 +60,8 @@ program
     )
     .action(o => {
         const { entryDir, entryFile, type, babelConfig, globPattern, output, tsConfig } = o;
-        print.info(`Entry: ${o.entry}`);
-        print.info(`Type: ${o.type}`);
+        // print.info(`Entry: ${o.entryDir}`);
+        // print.info(`Type: ${o.type}`);
         const build = {
             esm: () =>
                 buildESM({
@@ -78,7 +78,17 @@ program
                 }),
             umd: () => Promise.resolve(),
         };
-        if (type === 'all') return Promise.allSettled(Object.values(build).map(f => f()));
+        if (type === 'all') {
+            const list = Object.values(build);
+            const run = (idx: number) => {
+                if (idx === list.length) {
+                    return Promise.resolve();
+                } else {
+                    return list[idx]().then(() => run(idx + 1));
+                }
+            };
+            return run(0);
+        }
         if (!build[type]) error(`Unkown type ${o.type}`);
         return build[type]();
     });

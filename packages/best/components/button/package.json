@@ -40,7 +40,9 @@
         "src"
     ],
     "scripts": {
-        "build:cjs": "best-tools build --type cjs"
+        "build:cjs": "best-tools build --type cjs",
+        "build:esm": "best-tools build --type esm",
+        "build": "best-tools build"
     },
     "dependencies": {
         "@best/core": "workspace:*"

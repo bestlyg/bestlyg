@@ -20,8 +20,8 @@ export async function buildCJS({
     const files = await glob([
         resolve(entry, './**/*.ts'),
         resolve(entry, './**/*.tsx'),
-        `!${resolve(entry, '**/__demo__{,/**}')}`,
-        `!${resolve(entry, '**/__test__{,/**}')}`,
+        `!${resolve(entry, '**/__demo__/**')}`,
+        `!${resolve(entry, '**/__test__/**')}`,
         `!${resolve(entry, '**/*.md')}`,
         `!${resolve(entry, '**/*.mdx')}`,
         ...globPattern.map(p => resolve(entry, p)),

@@ -26,6 +26,7 @@
         "@babel/types": "^7.23.0",
         "chalk": "^4",
         "commander": "^11.0.0",
+        "core-js": "3",
         "glob": "^10.3.10",
         "lodash": "^4.17.21",
         "ts-node": "^10.9.1",
