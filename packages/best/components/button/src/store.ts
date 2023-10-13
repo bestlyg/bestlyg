@@ -5,7 +5,7 @@ export interface StoreProps {
     setValue: (value: number) => void;
 }
 
-export const useStore = zustand.create<StoreProps>((set, get, api) => {
+export const useStore = zustand.create<StoreProps>((set, _, _1) => {
     return {
         value: 0,
         setValue: value => set({ value }),

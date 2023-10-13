@@ -40,6 +40,8 @@
         "src"
     ],
     "scripts": {
+        "clean": "best-tools clean",
+        "build:umd": "best-tools build --type umd",
         "build:cjs": "best-tools build --type cjs",
         "build:esm": "best-tools build --type esm",
         "build": "best-tools build"

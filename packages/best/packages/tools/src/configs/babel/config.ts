@@ -10,7 +10,21 @@ import pluginClass from '@babel/plugin-proposal-class-properties';
 
 export const config: BabelConfig = {
     filename: '',
-    presets: [[presetEnv, { useBuiltIns: 'entry', corejs: '3' }], presetTs, presetReact],
+    presets: [
+        [presetEnv, { useBuiltIns: 'entry', corejs: '3' }],
+        presetTs,
+        [
+            presetReact,
+            {
+                runtime: 'automatic',
+                // pragma: 'dom', // default pragma is React.createElement (only in classic runtime)
+                // pragmaFrag: 'DomFrag', // default is React.Fragment (only in classic runtime)
+                // throwIfNamespace: false, // defaults to true
+                // runtime: 'classic', // defaults to classic
+                // "importSource": "custom-jsx-library" // defaults to react (only in automatic runtime)
+            },
+        ],
+    ],
     plugins: [
         pluginExportDefault,
         // pluginTransformRuntime,

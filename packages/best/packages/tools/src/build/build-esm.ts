@@ -1,5 +1,5 @@
 import { Config, print, error } from '../utils';
-import { TsConfig, transformAsync as tsTransform } from '../typescript';
+import { TsConfig, transform } from '../configs/typescript';
 import { merge } from 'lodash';
 
 export async function buildESM({
@@ -12,7 +12,7 @@ export async function buildESM({
     output: string;
 }) {
     print.info('===> Build ESM');
-    return tsTransform({
+    return transform({
         entry,
         transformConfig: config => {
             for (const cfg of configs) {

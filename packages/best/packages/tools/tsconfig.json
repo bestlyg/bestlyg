@@ -14,5 +14,5 @@
         },
         "types": ["node"]
     },
-    "include": ["src/**/*.ts", "src/typescript/config.ts"]
+    "include": ["src/**/*.ts", "src/configs/typescript/config.ts"]
 }

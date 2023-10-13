@@ -13,9 +13,10 @@ import {
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS, buildESM } from './build';
-import { BabelConfig } from './babel';
-import { TsConfig } from './typescript';
+import { buildCJS, buildESM, buildUMD } from './build';
+import { BabelConfig } from './configs/babel';
+import { TsConfig } from './configs/typescript';
+import { WebpackConfig } from './configs/webpack';
 
 const contact = (v, cur) => cur.concat([v]);
 
@@ -53,13 +54,23 @@ program
     .option('--glob-pattern <glob>', 'Glob pattern.', contact, [])
     .option('--babel-config <path>', 'A list of babel-config.', contact, [])
     .option('--ts-config <path>', 'A list of ts-config.', contact, [])
+    .option('--webpack-config <path>', 'A list of webpack-config.', contact, [])
     .addOption(
         new Option('--type <type>', 'Build type.')
             .choices(['all', 'esm', 'cjs', 'umd'])
             .default('all')
     )
     .action(o => {
-        const { entryDir, entryFile, type, babelConfig, globPattern, output, tsConfig } = o;
+        const {
+            entryDir,
+            entryFile,
+            type,
+            babelConfig,
+            globPattern,
+            output,
+            tsConfig,
+            webpackConfig,
+        } = o;
         // print.info(`Entry: ${o.entryDir}`);
         // print.info(`Type: ${o.type}`);
         const build = {
@@ -76,7 +87,12 @@ program
                     globPattern,
                     output: output ?? resolve(CWD, DIR_NAME_CJS),
                 }),
-            umd: () => Promise.resolve(),
+            umd: () =>
+                buildUMD({
+                    babelConfigs: transformConfig<BabelConfig>(babelConfig),
+                    tsConfigs: transformConfig<TsConfig>(tsConfig),
+                    webpackConfigs: transformConfig<WebpackConfig>(webpackConfig),
+                }),
         };
         if (type === 'all') {
             const list = Object.values(build);

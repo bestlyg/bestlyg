@@ -1,9 +1,9 @@
-import { BabelConfig, transformAsync as babelTransform } from '../babel';
+import { BabelConfig, transform } from '../configs/babel';
 import fs from 'fs-extra';
 import { Config, error, print, resolve } from '../utils';
 import { merge } from 'lodash';
 import { glob } from 'glob';
-import path from 'node:path';
+import path from 'path';
 
 export async function buildCJS({
     configs,
@@ -35,7 +35,7 @@ export async function buildCJS({
                 .readFile(file)
                 .then(
                     data =>
-                        babelTransform({
+                        transform({
                             content: data.toString(),
                             transformConfig: config => {
                                 config.filename = file;
@@ -53,7 +53,7 @@ export async function buildCJS({
                                     if (typeof cfg === 'function') {
                                         config = cfg(config);
                                     } else {
-                                        config = merge(config, cfg)
+                                        config = merge(config, cfg);
                                     }
                                 }
                                 return config;

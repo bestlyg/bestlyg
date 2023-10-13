@@ -1,6 +1,7 @@
-import * as core from '@best/core';
+// import * as core from '@best/core';
 
-const Demos: core.types.demo.Component = {
+const Demos: // core.types.demo.Component
+any = {
     title: 'Button',
     subtitle: 'A Button Component.',
     demos: [],

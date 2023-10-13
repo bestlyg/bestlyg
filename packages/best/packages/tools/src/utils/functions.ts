@@ -1,12 +1,13 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { print } from '../utils';
+import { merge } from 'lodash';
 
 export const resolve = (...p: string[]) => path.resolve(__dirname, '../..', ...p);
 
 export function error(msg: string, err?: any) {
     print.error(msg);
-    if (err) print.error(err);
+    console.error(err);
     process.exit(1);
 }
 
@@ -36,4 +37,14 @@ export function transformConfig<T>(paths: string[]): Config<T>[] {
         }
     }
     return res;
+}
+export function mergeConfig<T>(config: T, configs: Config<T>[]) {
+    for (const cfg of configs) {
+        if (typeof cfg === 'function') {
+            config = (cfg as Function)(config);
+        } else {
+            config = merge(config, cfg);
+        }
+    }
+    return config;
 }
