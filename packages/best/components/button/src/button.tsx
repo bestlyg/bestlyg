@@ -1,4 +1,3 @@
-import React from 'react';
 import { ButtonProps } from './interface';
 
 export default function Button(props: React.PropsWithChildren<ButtonProps>) {

@@ -12,8 +12,8 @@
         "declaration": true,
         "jsx": "react-jsx",
         "module": "es6",
-        "target": "es5",
-        "lib": ["es5", "dom"],
+        "target": "es6",
+        "lib": ["ESNext", "dom"],
         "types": ["node"],
         "paths": {
             "@best/*": ["components/*/src", "packages/*/src"]
