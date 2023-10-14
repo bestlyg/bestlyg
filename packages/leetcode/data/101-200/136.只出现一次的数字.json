@@ -32,6 +32,14 @@
             "script": "cpp",
             "desc": "异或。",
             "code": "class Solution {\n   public:\n    int singleNumber(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 0; i < nums.size(); i++) ans ^= nums[i];\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 17.67,
+            "desc": "异或排除重复数字。",
+            "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        return reduce(lambda a, b: a ^ b, nums, 0)",
+            "date": 1697212800000
         }
     ]
 }

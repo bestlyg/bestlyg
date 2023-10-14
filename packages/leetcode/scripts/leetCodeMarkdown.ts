@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1488. 避免洪水泛滥',
+    exist: true,
+    name: '136. 只出现一次的数字',
     url: 'https://leetcode.cn/problems/avoid-flood-in-the-city',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,29 +34,12 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 3896,
-            memory: 31.44,
-            desc: '记录前一次蓄满水后，最近的放空时间',
+            time: 36,
+            memory: 17.67,
+            desc: '异或排除重复数字',
             code: `class Solution:
-    def avoidFlood(self, rains: List[int]) -> List[int]:
-        full = dict()
-        empty = []
-        res = [-1] * len(rains)
-        for i, rain in enumerate(rains):
-            if rain == 0:
-                empty.append(i)
-            elif rain not in full:
-                full[rain] = i
-            else:
-                l = bisect_left(empty, full[rain])
-                if l == len(empty):
-                    return []
-                res[empty[l]] = rain
-                full[rain] = i
-                empty.pop(l)
-        for o in empty:
-            res[o] = 1
-        return res`,
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(lambda a, b: a ^ b, nums, 0)`,
         },
         // {
         //     script: Script.RUST,
