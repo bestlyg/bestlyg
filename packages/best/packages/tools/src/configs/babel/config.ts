@@ -11,7 +11,7 @@ import pluginClass from '@babel/plugin-proposal-class-properties';
 export const config: BabelConfig = {
     filename: '',
     presets: [
-        [presetEnv, { useBuiltIns: 'entry', corejs: '3' }],
+        [presetEnv, { useBuiltIns: 'entry', corejs: '3', modules: 'cjs' }],
         presetTs,
         [
             presetReact,

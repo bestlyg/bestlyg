@@ -1,5 +1,5 @@
-import ts from 'typescript';
 import { TsConfig } from './interface';
+import { CWD, DIR_NAME_ESM, resolve } from '../../utils';
 
 export const config: TsConfig | Record<string, any> = {
     target: 'esnext',
@@ -7,6 +7,6 @@ export const config: TsConfig | Record<string, any> = {
     module: 'es6',
     declaration: true,
     moduleResolution: 'node',
-    outDir: './es',
+    outDir: resolve(CWD, DIR_NAME_ESM),
     jsx: 'react-jsx',
 };

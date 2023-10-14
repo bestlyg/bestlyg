@@ -1,7 +1,7 @@
 import { BabelConfig, transform } from '../configs/babel';
 import fs from 'fs-extra';
 import { Config, error, print, resolve } from '../utils';
-import { merge } from 'lodash';
+import { mergeConfig } from '../utils';
 import { glob } from 'glob';
 import path from 'path';
 
@@ -20,10 +20,6 @@ export async function buildCJS({
     const files = await glob([
         resolve(entry, './**/*.ts'),
         resolve(entry, './**/*.tsx'),
-        `!${resolve(entry, '**/__demo__/**')}`,
-        `!${resolve(entry, '**/__test__/**')}`,
-        `!${resolve(entry, '**/*.md')}`,
-        `!${resolve(entry, '**/*.mdx')}`,
         ...globPattern.map(p => resolve(entry, p)),
     ]);
     return Promise.allSettled(
@@ -39,24 +35,7 @@ export async function buildCJS({
                             content: data.toString(),
                             transformConfig: config => {
                                 config.filename = file;
-                                config.presets = config.presets.map(preset => {
-                                    const presetEnv = '@babel/preset-env';
-                                    const presetEnvOptions = { modules: 'cjs' };
-                                    if (preset === presetEnv) {
-                                        return [presetEnv, presetEnvOptions];
-                                    } else if (Array.isArray(preset)) {
-                                        preset[1] = { ...preset[1], ...presetEnvOptions };
-                                    }
-                                    return preset;
-                                });
-                                for (const cfg of configs) {
-                                    if (typeof cfg === 'function') {
-                                        config = cfg(config);
-                                    } else {
-                                        config = merge(config, cfg);
-                                    }
-                                }
-                                return config;
+                                return mergeConfig(config, configs);
                             },
                         }),
                     err => {

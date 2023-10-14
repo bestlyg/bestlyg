@@ -89,9 +89,7 @@ program
                 }),
             umd: () =>
                 buildUMD({
-                    babelConfigs: transformConfig<BabelConfig>(babelConfig),
-                    tsConfigs: transformConfig<TsConfig>(tsConfig),
-                    webpackConfigs: transformConfig<WebpackConfig>(webpackConfig),
+                    configs: transformConfig<WebpackConfig>(webpackConfig),
                 }),
         };
         if (type === 'all') {

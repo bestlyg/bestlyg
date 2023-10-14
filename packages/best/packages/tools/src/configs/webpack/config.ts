@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 import webpack from 'webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import { config as babelConfig } from '../babel';
+import { config as tsConfig } from '../typescript';
 import { CWD, DIR_NAME_UMD, DIR_NAME_SOURCE, FILE_NAME_ENTRY } from '../../utils';
 import { WebpackConfig } from './interface';
 
@@ -55,11 +57,11 @@ export const config: WebpackConfig = {
                 use: [
                     {
                         loader: require.resolve('babel-loader'),
-                        options: {},
+                        options: babelConfig,
                     },
                     {
                         loader: require.resolve('ts-loader'),
-                        options: {},
+                        options: { compilerOptions: tsConfig },
                     },
                 ],
             },
@@ -125,7 +127,7 @@ export const config: WebpackConfig = {
             format: `[best-tools]: [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
         }),
         new webpack.BannerPlugin({
-            banner: `${packageNameWithoutScope} v${version}\n\nCopyright 1997-present, Bytedance, Inc.\nAll rights reserved.\n`,
+            banner: `${packageNameWithoutScope} v${version}\n\nCopyright 1997-present, BestLyg, Inc.\nAll rights reserved.\n`,
         }),
     ],
 };

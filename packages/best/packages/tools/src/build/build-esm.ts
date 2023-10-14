@@ -1,11 +1,9 @@
-import { Config, print, error } from '../utils';
+import { Config, print, error, mergeConfig } from '../utils';
 import { TsConfig, transform } from '../configs/typescript';
-import { merge } from 'lodash';
 
 export async function buildESM({
     configs,
     entry,
-    output,
 }: {
     entry: string;
     configs: Config<TsConfig>[];
@@ -14,17 +12,7 @@ export async function buildESM({
     print.info('===> Build ESM');
     return transform({
         entry,
-        transformConfig: config => {
-            for (const cfg of configs) {
-                if (typeof cfg === 'function') {
-                    config = cfg(config);
-                } else {
-                    config = merge(config, cfg);
-                }
-            }
-            config.outDir = output;
-            return config;
-        },
+        transformConfig: config => mergeConfig(config, configs),
     }).then(
         () => {
             print.success('Build ESM sucessfully.');

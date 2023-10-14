@@ -1,26 +1,10 @@
 import { Config, print, error, mergeConfig } from '../utils';
-import { TsConfig, config as tsConfig } from '../configs/typescript';
-import { WebpackConfig, config as webpackConfig, transform } from '../configs/webpack';
-import { BabelConfig, config as babelConfig } from '../configs/babel';
-import { merge } from 'lodash';
+import { WebpackConfig, transform } from '../configs/webpack';
 
-export async function buildUMD({
-    tsConfigs,
-    babelConfigs,
-    webpackConfigs,
-}: {
-    tsConfigs: Config<TsConfig>[];
-    babelConfigs: Config<BabelConfig>[];
-    webpackConfigs: Config<WebpackConfig>[];
-}) {
+export async function buildUMD({ configs }: { configs: Config<WebpackConfig>[] }) {
     print.info('===> Build UMD');
     return transform({
-        transformConfig: config => {
-            const tsRule = config.module.rules[0] as any;
-            tsRule.use[0].options = mergeConfig(babelConfig, babelConfigs);
-            tsRule.use[1].options = { compilerOptions: mergeConfig(tsConfig, tsConfigs) };
-            return mergeConfig(webpackConfig, webpackConfigs);
-        },
+        transformConfig: config => mergeConfig(config, configs),
     }).then(
         () => {
             print.success('Build UMD sucessfully.');
