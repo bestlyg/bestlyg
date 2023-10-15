@@ -9,11 +9,11 @@ function aliasBestLib() {
     const o: Record<string, string> = {};
     for (const dir of fs.readdirSync(componentsPath)) {
         const p = resolve(componentsPath, dir);
-        o[require(resolve(p, 'package.json')).name] = resolve(p, 'src');
+        o[require(resolve(p, 'package.json')).name] = p;
     }
     for (const dir of fs.readdirSync(packagesPath)) {
         const p = resolve(packagesPath, dir);
-        o[require(resolve(p, 'package.json')).name] = resolve(p, 'src');
+        o[require(resolve(p, 'package.json')).name] = p;
     }
     return o;
 }

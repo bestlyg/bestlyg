@@ -1,4 +1,9 @@
 {
+    "extends": {
+        "parents": [
+            "../../package.json"
+        ]
+    },
     "name": "@best/button",
     "version": "1.0.0",
     "description": "A best react ui components for button.",

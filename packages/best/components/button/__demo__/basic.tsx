@@ -1,5 +1,5 @@
-import Button from '@best/button';
+import { Button } from '@best/button';
 
 export function Demo() {
-    return <Button>123</Button>
+    return <Button>123</Button>;
 }
