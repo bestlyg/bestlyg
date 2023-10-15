@@ -2,25 +2,16 @@ from preclude import *
 
 
 class Solution:
-    def avoidFlood(self, rains: List[int]) -> List[int]:
-        full = dict()
-        empty = []
-        res = [-1] * len(rains)
-        for i, rain in enumerate(rains):
-            if rain == 0:
-                empty.append(i)
-            elif rain not in full:
-                full[rain] = i
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        v = reduce(lambda a, b: a ^ b, nums)
+        v &= -v
+        num1 = num2 = 0
+        for num in nums:
+            if v & num:
+                num1 ^= num
             else:
-                l = bisect_left(empty, full[rain])
-                if l == len(empty):
-                    return []
-                res[empty[l]] = rain
-                full[rain] = i
-                empty.pop(l)
-        for o in empty:
-            res[o] = 1
-        return res
+                num2 ^= num
+        return [num1, num2]
 
 
 # Your StockSpanner object will be instantiated and called as such:

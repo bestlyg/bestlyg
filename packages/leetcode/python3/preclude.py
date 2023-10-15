@@ -1,5 +1,5 @@
 from bisect import bisect_left, bisect_right
-from functools import cache
+from functools import cache, reduce
 from heapq import *
 from collections import defaultdict, deque
 from itertools import accumulate

@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '137. 只出现一次的数字 II',
+    name: '260. 只出现一次的数字 III',
     url: 'https://leetcode.cn/problems/avoid-flood-in-the-city',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,18 +34,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 92,
-            memory: 17.8,
-            desc: '统计每一个位置上1的个数',
-            code: `import ctypes
-
-    class Solution:
-        def singleNumber(self, nums: List[int]) -> int:
-            return ctypes.c_int32(reduce(
-                lambda res, i: res | (1 if sum((num >> i) & 1 for num in nums) % 3 != 0 else 0) << i, 
-                [i for i in range(0, 32)],
-                0
-            )).value`,
+            time: 44,
+            memory: 17.14,
+            desc: '所有数异或后a^b, 找两数不同的1',
+            code: `class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        v = reduce(lambda a, b: a ^ b, nums)
+        v &= -v
+        num1 = num2 = 0
+        for num in nums:
+            if v & num:
+                num1 ^= num
+            else:
+                num2 ^= num
+        return [num1, num2]`,
         },
         // {
         //     script: Script.RUST,

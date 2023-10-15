@@ -24,6 +24,14 @@
             "script": "typescript",
             "desc": "位运算。",
             "code": "function singleNumber(nums: number[]): number[] {\n  const xorNum = nums.reduce((ans, num) => ans ^ num, 0);\n  let i = 0;\n  while ((xorNum & (1 << i)) === 0) i++;\n  let num1 = 0;\n  let num2 = 0;\n  for (const num of nums) {\n    if (num & (1 << i)) num1 ^= num;\n    else num2 ^= num;\n  }\n  return [num1, num2];\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 17.14,
+            "desc": "所有数异或后a^b, 找两数不同的1。",
+            "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -> List[int]:\n        v = reduce(lambda a, b: a ^ b, nums)\n        v &= -v\n        num1 = num2 = 0\n        for num in nums:\n            if v & num:\n                num1 ^= num\n            else:\n                num2 ^= num\n        return [num1, num2]",
+            "date": 1697385600000
         }
     ]
 }
