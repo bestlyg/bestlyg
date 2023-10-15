@@ -9,11 +9,12 @@
         "moduleResolution": "node",
         "skipLibCheck": true,
         "module": "commonjs",
+        "jsx": "react-jsx",
         "paths": {
             "@/*": ["src/*"],
             "@best/*": ["components/*", "packages/*"]
         },
         "types": ["node"]
     },
-    "include": ["scripts/**/*.ts"]
+    "include": ["scripts/**/*.ts", "scripts/**/*.tsx", "stories/**/*.ts", "stories/**/*.tsx"]
 }

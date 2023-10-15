@@ -9,4 +9,5 @@ export const config: TsConfig | Record<string, any> = {
     moduleResolution: 'node',
     outDir: resolve(CWD, DIR_NAME_ESM),
     jsx: 'react-jsx',
+    excludeDirectories: resolve(CWD, '__demo__'),
 };

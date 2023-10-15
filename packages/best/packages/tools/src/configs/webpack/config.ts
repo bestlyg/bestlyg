@@ -61,7 +61,12 @@ export const config: WebpackConfig = {
                     },
                     {
                         loader: require.resolve('ts-loader'),
-                        options: { compilerOptions: tsConfig },
+                        options: {
+                            compilerOptions: {
+                                ...tsConfig,
+                                declaration: false,
+                            },
+                        },
                     },
                 ],
             },
