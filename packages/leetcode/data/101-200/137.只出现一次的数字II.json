@@ -24,6 +24,14 @@
             "script": "typescript",
             "desc": "利用 map 储存。",
             "code": "function singleNumber(nums: number[]): number {\n  return [\n    ...nums\n      .reduce((map, v) => {\n        map.set(v, (map.get(v) ?? 0) + 1);\n        return map;\n      }, new Map<number, number>())\n      .entries(),\n  ].filter(([, v]) => v === 1)[0][0];\n}"
+        },
+        {
+            "script": "python",
+            "time": 92,
+            "memory": 17.8,
+            "desc": "统计每一个位置上1的个数。",
+            "code": "import ctypes\n\n    class Solution:\n        def singleNumber(self, nums: List[int]) -> int:\n            return ctypes.c_int32(reduce(\n                lambda res, i: res | (1 if sum((num >> i) & 1 for num in nums) % 3 != 0 else 0) << i, \n                [i for i in range(0, 32)],\n                0\n            )).value",
+            "date": 1697299200000
         }
     ]
 }
