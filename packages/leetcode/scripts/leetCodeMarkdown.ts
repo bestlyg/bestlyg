@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '260. 只出现一次的数字 III',
-    url: 'https://leetcode.cn/problems/avoid-flood-in-the-city',
+    exist: !true,
+    name: '2652. 倍数求和',
+    url: 'https://leetcode.cn/problems/sum-multiples',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果有多种可行解，请返回它们中的 任意一个 。如果没办法阻止洪水，请返回一个 空的数组 。请注意，如果你选择抽干一个装满水的湖泊，它会变成一个空的湖泊。但如果你选择抽干一个空的湖泊，那么将无事发生。`,
+    desc: `给你一个正整数 n ，请你计算在 [1，n] 范围内能被 3、5、7 整除的所有整数之和。返回一个整数，用于表示给定范围内所有满足约束条件的数字之和。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,20 +34,19 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 44,
-            memory: 17.14,
-            desc: '所有数异或后a^b, 找两数不同的1',
+            time: 92,
+            memory: 16,
+            desc: '遍历',
             code: `class Solution:
-    def singleNumber(self, nums: List[int]) -> List[int]:
-        v = reduce(lambda a, b: a ^ b, nums)
-        v &= -v
-        num1 = num2 = 0
-        for num in nums:
-            if v & num:
-                num1 ^= num
-            else:
-                num2 ^= num
-        return [num1, num2]`,
+    def sumOfMultiples(self, n: int) -> int:
+        return sum(
+            list(
+                filter(
+                    lambda num: num % 3 == 0 or num % 5 == 0 or num % 7 == 0, 
+                    [num for num in range(1, n + 1)]
+                )
+            )
+        )`,
         },
         // {
         //     script: Script.RUST,
