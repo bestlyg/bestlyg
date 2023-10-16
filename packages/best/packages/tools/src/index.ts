@@ -10,10 +10,11 @@ import {
     error,
     transformConfig,
     FILE_NAME_ENTRY,
+    FILE_NAME_PACKAGE_JSON,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS, buildESM, buildUMD } from './build';
+import { buildCJS, buildESM, buildUMD, updatePackageJson } from './build';
 import { BabelConfig } from './configs/babel';
 import { TsConfig } from './configs/typescript';
 import { WebpackConfig } from './configs/webpack';
@@ -106,5 +107,11 @@ program
         if (!build[type]) error(`Unkown type ${o.type}`);
         return build[type]();
     });
+
+program
+    .command('update-package-json')
+    .description('Update package json from the filed of best-tools.')
+    .option('--path <path>', 'The path of package json.', resolve(CWD, FILE_NAME_PACKAGE_JSON))
+    .action(o => updatePackageJson(o.path));
 
 program.parse();

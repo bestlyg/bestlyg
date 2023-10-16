@@ -1,67 +1,10 @@
 {
     "best-tools": {
         "extends": [
-            "../../package.json"
+            "@best/tools/package.json"
         ],
-        "meta": {}
-    },
-    "name": "@best/button",
-    "version": "1.0.0",
-    "description": "A best react ui components for button.",
-    "keywords": [
-        "best",
-        "bestlyg",
-        "component",
-        "components",
-        "design",
-        "framework",
-        "frontend",
-        "react",
-        "react-component",
-        "ui"
-    ],
-    "contributors": [
-        "bestlyg"
-    ],
-    "main": "lib/index.js",
-    "module": "es/index.js",
-    "typings": "es/index.d.ts",
-    "unpkg": "dist/button.min.js",
-    "homepage": "https://bestlyg.com",
-    "bugs": {
-        "url": "https://github.com/bestlyg/bestlyg/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/bestlyg/bestlyg/packages/best"
-    },
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
-    },
-    "license": "MIT",
-    "files": [
-        "dist",
-        "es",
-        "lib",
-        "src"
-    ],
-    "scripts": {
-        "clean": "best-tools clean",
-        "build:umd": "best-tools build --type umd",
-        "build:cjs": "best-tools build --type cjs",
-        "build:esm": "best-tools build --type esm",
-        "build": "best-tools build"
-    },
-    "dependencies": {
-        "@best/core": "workspace:*"
-    },
-    "peerDependencies": {
-        "react": ">=16.9.0",
-        "react-dom": ">=16.9.0"
-    },
-    "devDependencies": {
-        "@best/tools": "workspace:*",
-        "@types/react": "^18.2.0",
-        "@types/react-dom": "^18.2.0"
+        "vars": {
+            "name": "button"
+        }
     }
 }

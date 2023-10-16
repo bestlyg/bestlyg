@@ -3,10 +3,16 @@ import webpack from 'webpack';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import { config as babelConfig } from '../babel';
 import { config as tsConfig } from '../typescript';
-import { CWD, DIR_NAME_UMD, DIR_NAME_SOURCE, FILE_NAME_ENTRY } from '../../utils';
+import {
+    CWD,
+    DIR_NAME_UMD,
+    DIR_NAME_SOURCE,
+    FILE_NAME_ENTRY,
+    FILE_NAME_PACKAGE_JSON,
+} from '../../utils';
 import { WebpackConfig } from './interface';
 
-const { name: packageName, version } = require(`${CWD}/package.json`);
+const { name: packageName, version } = require(`${CWD}/${FILE_NAME_PACKAGE_JSON}`);
 const packageNameWithoutScope = packageName.replace(/^@[^\/]+\//, '');
 
 const lessRegex = /\.less$/;
