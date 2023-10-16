@@ -1,8 +1,9 @@
 {
-    "extends": {
-        "parents": [
+    "best-tools": {
+        "extends": [
             "../../package.json"
-        ]
+        ],
+        "meta": {}
     },
     "name": "@best/button",
     "version": "1.0.0",

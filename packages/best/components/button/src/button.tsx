@@ -6,7 +6,6 @@ export interface ButtonProps {
     containerProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
     /**
      * The children of components.
-     * @default null
      */
     children?: React.ReactNode;
 }

@@ -16,7 +16,7 @@
         "lib": ["ESNext", "dom"],
         "types": ["node"],
         "paths": {
-            "@best/*": ["components/*/src", "packages/*/src"]
+            "@best/*": ["components/*", "packages/*"]
         }
     },
     "include": [

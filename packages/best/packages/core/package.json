@@ -3,7 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+        "clean": "best-tools clean",
+        "build": "best-tools build"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",

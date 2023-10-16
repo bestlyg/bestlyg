@@ -24,4 +24,8 @@ export const Primary: Story = {
         containerProps: { className: 'container' },
         children: 'child',
     },
+    render(...args) {
+        console.log(args);
+        return <Button>c</Button>;
+    },
 };

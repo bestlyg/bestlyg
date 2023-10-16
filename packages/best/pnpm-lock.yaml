@@ -40,9 +40,6 @@ devDependencies:
   '@babel/preset-typescript':
     specifier: ^7.22.5
     version: 7.23.2(@babel/core@7.23.2)
-  '@best/button':
-    specifier: workspace:*
-    version: link:components/button
   '@best/tools':
     specifier: workspace:*
     version: link:packages/tools
