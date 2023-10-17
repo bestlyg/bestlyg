@@ -1,43 +1,43 @@
-import { error } from '../utils';
-import fs from 'fs-extra';
-import { merge } from 'lodash';
+import { error, FIELD_NAME_PACKAGE_JSON } from '../utils';
 
-const TAG = 'best-tools';
 interface BestToolsPackageJson {
-    extends?: string | string[];
-    vars?: any;
+    extends?: string[];
+    vars?: Record<string, any>;
     template?: Record<string, Record<string, any>>;
 }
 
-function loadExtends(fn: (p: string) => void, info: BestToolsPackageJson['extends']) {
-    if (typeof info === 'string') {
-        return [fn(info)];
-    } else if (Array.isArray(info)) {
-        return info.map(p => fn(p));
+function loadFile(map: Record<string, Record<string, any>>, path: string) {
+    if (map[path]) return;
+    const json = require(path);
+    map[path] = json;
+    for (const p of (json?.[FIELD_NAME_PACKAGE_JSON] as BestToolsPackageJson)?.extends ?? []) {
+        loadFile(map, p);
     }
 }
 
-function loadFile(map: Record<string, Record<string, any>>, path: string) {
-    if (!map[path]) return;
-    const json = require(path);
-    map[path] = json;
-    const fn = loadFile.bind(null, map);
-    loadExtends(fn, json?.[TAG]?.['extends'] ?? []);
-}
-
 function loadVars(map: Record<string, Record<string, any>>, path: string) {
-    const res: BestToolsPackageJson = map[path][TAG] ?? {};
-    const vars: Record<string, any> = {};
-    // const vars = map[path][TAG]?.vars;
-    const fn = loadVars.bind(null, map);
+    const json: BestToolsPackageJson = map[path]?.[FIELD_NAME_PACKAGE_JSON] ?? {};
+    const vars = json.vars ?? {};
+    if (!json.extends) return json.vars ?? {};
+    const res = (json.extends ?? []).reduce(
+        (o, path) => ({
+            ...o,
+            ...loadVars(map, path),
+        }),
+        {} as BestToolsPackageJson['vars']
+    );
+    return {
+        ...res,
+        ...vars,
+    };
 }
 
 export function updatePackageJson(path: string) {
-    const pathSet = new Set<string>([path]);
     const map: Record<string, Record<string, any>> = {};
     try {
         loadFile(map, path);
-        const vars: Record<string, any> = {};
+        const vars: Record<string, any> = loadVars(map, path);
+        console.log('vars', vars);
     } catch (err) {
         error('Update package json error.', err);
     }

@@ -1,5 +1,8 @@
 {
     "best-tools": {
+        "vars": {
+            "name": "tools"
+        },
         "template": {
             "name": "@best/{name}",
             "version": "1.0.0",

@@ -8,6 +8,8 @@ export const DIR_NAME_SOURCE = process.env.BEST_TOOLS_DIR_NAME_SOURCE ?? 'src';
 export const FILE_NAME_ENTRY = process.env.BEST_TOOLS_FILE_NAME_ENTRY ?? 'index.ts';
 export const FILE_NAME_PACKAGE_JSON =
     process.env.BEST_TOOLS_FILE_NAME_PACKAGE_JSON ?? 'package.json';
+export const FIELD_NAME_PACKAGE_JSON =
+    process.env.BEST_TOOLS_FIELD_NAME_PACKAGE_JSON ?? 'best-tools';
 export const CWD = process.cwd();
 
 export const packageInfo: {
