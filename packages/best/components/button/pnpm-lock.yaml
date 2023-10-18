@@ -3,3 +3,109 @@ lockfileVersion: '6.0'
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
+
+dependencies:
+  '@best/core':
+    specifier: workspace:*
+    version: link:../../packages/core
+  react:
+    specifier: '>=16.9.0'
+    version: 16.9.0
+  react-dom:
+    specifier: '>=16.9.0'
+    version: 16.9.0(react@16.9.0)
+
+devDependencies:
+  '@best/tools':
+    specifier: workspace:*
+    version: link:../../packages/tools
+  '@types/react':
+    specifier: ^18.2.0
+    version: 18.2.0
+  '@types/react-dom':
+    specifier: ^18.2.0
+    version: 18.2.0
+
+packages:
+
+  /@types/prop-types@15.7.9:
+    resolution: {integrity: sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g==}
+    dev: true
+
+  /@types/react-dom@18.2.0:
+    resolution: {integrity: sha512-8yQrvS6sMpSwIovhPOwfyNf2Wz6v/B62LFSVYQ85+Rq3tLsBIG7rP5geMxaijTUxSkrO6RzN/IRuIAADYQsleA==}
+    dependencies:
+      '@types/react': 18.2.0
+    dev: true
+
+  /@types/react@18.2.0:
+    resolution: {integrity: sha512-0FLj93y5USLHdnhIhABk83rm8XEGA7kH3cr+YUlvxoUGp1xNt/DINUMvqPxLyOQMzLmZe8i4RTHbvb8MC7NmrA==}
+    dependencies:
+      '@types/prop-types': 15.7.9
+      '@types/scheduler': 0.16.4
+      csstype: 3.1.2
+    dev: true
+
+  /@types/scheduler@0.16.4:
+    resolution: {integrity: sha512-2L9ifAGl7wmXwP4v3pN4p2FLhD0O1qsJpvKmNin5VA8+UvNVb447UDaAEV6UdrkA+m/Xs58U1RFps44x6TFsVQ==}
+    dev: true
+
+  /csstype@3.1.2:
+    resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+    dev: true
+
+  /js-tokens@4.0.0:
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    dev: false
+
+  /loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+    dependencies:
+      js-tokens: 4.0.0
+    dev: false
+
+  /object-assign@4.1.1:
+    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
+  /react-dom@16.9.0(react@16.9.0):
+    resolution: {integrity: sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==}
+    peerDependencies:
+      react: ^16.0.0
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+      react: 16.9.0
+      scheduler: 0.15.0
+    dev: false
+
+  /react-is@16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react@16.9.0:
+    resolution: {integrity: sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+    dev: false
+
+  /scheduler@0.15.0:
+    resolution: {integrity: sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false

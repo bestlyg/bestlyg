@@ -4,9 +4,9 @@
             "name": "tools"
         },
         "meta": {
-            "name": "@best/{name}",
+            "name": "@best/<%= vars.name %>",
             "version": "1.0.0",
-            "description": "A best react ui components for {name}.",
+            "description": "A best react ui components for <%= vars.name %>.",
             "keywords": [
                 "best",
                 "bestlyg",
@@ -18,7 +18,7 @@
                 "react",
                 "react-component",
                 "ui",
-                "{name}"
+                "<%= vars.name %>"
             ],
             "contributors": [
                 "bestlyg@foxmail.com"
@@ -26,7 +26,7 @@
             "main": "lib/index.js",
             "module": "es/index.js",
             "typings": "es/index.d.ts",
-            "unpkg": "dist/{name}.min.js",
+            "unpkg": "dist/<%= vars.name %>.min.js",
             "homepage": "https://bestlyg.com",
             "bugs": {
                 "url": "https://github.com/bestlyg/bestlyg/issues"
@@ -50,7 +50,8 @@
                 "build:umd": "best-tools build --type umd",
                 "build:cjs": "best-tools build --type cjs",
                 "build:esm": "best-tools build --type esm",
-                "build": "best-tools build"
+                "build": "best-tools build",
+                "update-package-json": "best-tools update-package-json"
             },
             "dependencies": {
                 "@best/core": "workspace:*"

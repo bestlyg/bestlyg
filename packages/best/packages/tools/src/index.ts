@@ -11,10 +11,11 @@ import {
     transformConfig,
     FILE_NAME_ENTRY,
     FILE_NAME_PACKAGE_JSON,
+    requireJson,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS, buildESM, buildUMD, updatePackageJson } from './build';
+import { buildCJS, buildESM, buildUMD } from './commands';
 import { BabelConfig } from './configs/babel';
 import { TsConfig } from './configs/typescript';
 import { WebpackConfig } from './configs/webpack';
@@ -112,6 +113,13 @@ program
     .command('update-package-json')
     .description('Update package json from the filed of best-tools.')
     .option('--path <path>', 'The path of package json.', resolve(CWD, FILE_NAME_PACKAGE_JSON))
-    .action(o => updatePackageJson(o.path));
+    .action(o => {
+        return new Promise(resolve => {
+            fs.writeFile(o.path, JSON.stringify(requireJson(o.path), null, 4), err => {
+                if (err) error('Update package json error.', err);
+                resolve();
+            });
+        });
+    });
 
 program.parse();
