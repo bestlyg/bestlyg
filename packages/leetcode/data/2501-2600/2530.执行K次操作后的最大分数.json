@@ -25,6 +25,22 @@
             "script": "rust",
             "desc": "同上。",
             "code": "use std::collections::BinaryHeap;\nimpl Solution {\n    pub fn max_kelements(nums: Vec<i32>, k: i32) -> i64 {\n        let mut k = k;\n        let mut heap = BinaryHeap::new();\n        for num in nums {\n            heap.push(num);\n        }\n        let mut ans: i64 = 0;\n        while k != 0 {\n            let num = heap.pop().unwrap() as i64;\n            ans += num;\n            let num = (num as f64 / 3.0).ceil() as i32;\n            heap.push(num);\n            k -= 1;\n        }\n        ans\n    }\n}"
+        },
+        {
+            "script": "python",
+            "time": 1604,
+            "memory": 44.59,
+            "desc": "堆存储。",
+            "code": "class Node:\n        def __init__(self, val):\n            self.val = val\n        def __lt__(self, o):\n            return o.val < self.val\n    \n    class Solution:\n        def maxKelements(self, nums: List[int], k: int) -> int:\n            q = [Node(num) for num in nums]\n            heapify(q)\n            res = 0\n            while k:\n                res += q[0].val\n                heappush(q, Node(ceil(heappop(q).val / 3)))\n                k -= 1\n            return res\n    ",
+            "date": 1697558400000
+        },
+        {
+            "script": "python",
+            "time": 344,
+            "memory": 29.59,
+            "desc": "堆存储。",
+            "code": "class Solution:\n    def maxKelements(self, nums: List[int], k: int) -> int:\n        for i in range(len(nums)): nums[i] *= -1\n        heapify(nums)\n        res = 0\n        for _ in range(k):\n            res += -nums[0]\n            heappush(nums, -ceil(heappop(nums) / -3))\n        return res\n",
+            "date": 1697558400000
         }
     ]
 }
