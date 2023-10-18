@@ -1,7 +1,7 @@
 {
     "best-tools": {
         "extends": [
-            "@best/tools/package.json"
+            "@best/tools/src/configs/package/package.json"
         ],
         "vars": {
             "name": "button"

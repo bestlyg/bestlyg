@@ -3,7 +3,7 @@
         "vars": {
             "name": "tools"
         },
-        "template": {
+        "meta": {
             "name": "@best/{name}",
             "version": "1.0.0",
             "description": "A best react ui components for {name}.",
