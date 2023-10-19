@@ -1,0 +1,21 @@
+{
+    "id": "1364",
+    "name": "1726.同积元组",
+    "url": "https://leetcode.cn/problems/tuple-with-same-product",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "给你一个由 不同 正整数组成的数组 nums ，请你返回满足 a * b = c * d 的元组 (a, b, c, d) 的数量。其中 a、b、c 和 d 都是 nums 中的元素，且 a != b != c != d 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 716,
+            "memory": 43.15,
+            "desc": "遍历后计数。",
+            "code": "class Solution:\n    def tupleSameProduct(self, nums: List[int]) -> int:\n        n = len(nums)\n        map = Counter()\n        for i in range(n):\n            for j in range(i + 1, n):\n                map[nums[i] * nums[j]] += 1\n        return sum(v * (v - 1) * 4 for v in map.values())\n",
+            "date": 1697644800000
+        }
+    ]
+}

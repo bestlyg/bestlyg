@@ -2,16 +2,13 @@ from preclude import *
 
 
 class Solution:
-    def singleNumber(self, nums: List[int]) -> List[int]:
-        v = reduce(lambda a, b: a ^ b, nums)
-        v &= -v
-        num1 = num2 = 0
-        for num in nums:
-            if v & num:
-                num1 ^= num
-            else:
-                num2 ^= num
-        return [num1, num2]
+    def tupleSameProduct(self, nums: List[int]) -> int:
+        n = len(nums)
+        map = Counter()
+        for i in range(n):
+            for j in range(i + 1, n):
+                map[nums[i] * nums[j]] += 1
+        return sum(v * (v - 1) * 4 for v in map.values())
 
 
 # Your StockSpanner object will be instantiated and called as such:
