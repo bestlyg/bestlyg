@@ -1,24 +1,76 @@
 {
+    "best-tools": {
+        "extends": [
+            "../../package.base.json"
+        ],
+        "vars": {
+            "name": "core"
+        }
+    },
     "name": "@best/core",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "A best react ui components for core.",
+    "main": "lib/index.js",
     "scripts": {
         "clean": "best-tools clean",
-        "build": "best-tools build"
+        "build": "best-tools build",
+        "update-package-json": "best-tools update-package-json",
+        "build:umd": "best-tools build --type umd",
+        "build:cjs": "best-tools build --type cjs",
+        "build:esm": "best-tools build --type esm"
     },
-    "keywords": [],
+    "keywords": [
+        "best",
+        "bestlyg",
+        "component",
+        "components",
+        "design",
+        "framework",
+        "frontend",
+        "react",
+        "react-component",
+        "ui",
+        "core"
+    ],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "dayjs": "^1.11.10",
-        "zustand": "^4.4.1"
+        "zustand": "^4.4.1",
+        "@best/core": "workspace:*"
     },
     "devDependencies": {
         "@best/tools": "workspace:*",
-        "@types/react": "^18.2.23",
-        "@types/react-dom": "^18.2.7",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
+    },
+    "contributors": [
+        "bestlyg@foxmail.com"
+    ],
+    "module": "es/index.js",
+    "typings": "es/index.d.ts",
+    "unpkg": "dist/core.min.js",
+    "homepage": "https://bestlyg.com",
+    "bugs": {
+        "url": "https://github.com/bestlyg/bestlyg/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bestlyg/bestlyg/packages/best"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "files": [
+        "dist",
+        "es",
+        "lib",
+        "src"
+    ],
+    "peerDependencies": {
+        "react": ">=16.9.0",
+        "react-dom": ">=16.9.0"
     }
 }

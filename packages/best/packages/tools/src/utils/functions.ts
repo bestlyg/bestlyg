@@ -64,19 +64,8 @@ export function requireJson(path: string) {
         // console.log('map', map);
         // console.log('vars', vars);
         // console.log('metas', metas);
-        const mergedObj = _.mergeWith(
-            {},
-            map[path],
-            metas,
-            (oldValue, srcValue, key, object, source, stack) => {
-                // console.log('deep', oldValue, srcValue, key, stack);
-                if (key === FIELD_NAME_PACKAGE_JSON) {
-                    return oldValue;
-                }
-                return srcValue;
-            }
-        );
-        
+        const mergedObj = _.merge({}, map[path], metas);
+        mergedObj[FIELD_NAME_PACKAGE_JSON] = map[path][FIELD_NAME_PACKAGE_JSON];
         return _.cloneDeepWith(mergedObj, (value, key, obj) => {
             if (_.isString(value)) {
                 return _.template(value, { imports: { _, vars } })();
