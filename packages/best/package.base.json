@@ -1,7 +1,8 @@
 {
     "best-tools": {
         "vars": {
-            "name": "tools"
+            "name": "tools",
+            "tmp": "tools-tmp-var"
         },
         "meta": {
             "name": "@best/<%= vars.name %>",
@@ -20,9 +21,7 @@
                 "ui",
                 "<%= vars.name %>"
             ],
-            "contributors": [
-                "bestlyg@foxmail.com"
-            ],
+            "contributors": ["bestlyg@foxmail.com"],
             "main": "lib/index.js",
             "module": "es/index.js",
             "typings": "es/index.d.ts",
@@ -39,12 +38,7 @@
                 "registry": "https://registry.npmjs.org/"
             },
             "license": "MIT",
-            "files": [
-                "dist",
-                "es",
-                "lib",
-                "src"
-            ],
+            "files": ["dist", "es", "lib", "src"],
             "scripts": {
                 "clean": "best-tools clean",
                 "build:umd": "best-tools build --type umd",

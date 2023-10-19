@@ -59,17 +59,28 @@ export function requireJson(path: string) {
     const map: Record<string, Record<string, any>> = {};
     try {
         loadFile(path);
-        const vars: Record<string, any> = loadVars(path);
-        const metas: Record<string, any> = loadMetas(path);
+        const vars: Record<string, any> = load(path, 'vars');
+        const metas: Record<string, any> = load(path, 'meta');
         // console.log('map', map);
         // console.log('vars', vars);
         // console.log('metas', metas);
-        return _.mergeWith({}, map[path], metas, (_1, srcValue) => {
-            if (typeof srcValue === 'string') {
-                // console.log('OlD', srcValue, _.template(srcValue, { imports: { _, vars } })());
-                return _.template(srcValue, { imports: { _, vars } })();
+        const mergedObj = _.mergeWith(
+            {},
+            map[path],
+            metas,
+            (oldValue, srcValue, key, object, source, stack) => {
+                // console.log('deep', oldValue, srcValue, key, stack);
+                if (key === FIELD_NAME_PACKAGE_JSON) {
+                    return oldValue;
+                }
+                return srcValue;
             }
-            return srcValue;
+        );
+        
+        return _.cloneDeepWith(mergedObj, (value, key, obj) => {
+            if (_.isString(value)) {
+                return _.template(value, { imports: { _, vars } })();
+            }
         });
     } catch (err) {
         error('Update package json error.', err);
@@ -87,21 +98,12 @@ export function requireJson(path: string) {
         pathSet.delete(path);
     }
 
-    function loadVars(path: string) {
+    function load<K extends keyof BestToolsPackageJson>(path: string, key: K) {
         const json: BestToolsPackageJson = map[path]?.[FIELD_NAME_PACKAGE_JSON] ?? {};
         return _.merge(
             {},
-            ...(json.extends ?? []).map(p => loadVars(resolve(dirname(path), p))),
-            json.vars ?? {}
-        );
-    }
-
-    function loadMetas(path: string) {
-        const json: BestToolsPackageJson = map[path]?.[FIELD_NAME_PACKAGE_JSON] ?? {};
-        return _.merge(
-            {},
-            ...(json.extends ?? []).map(p => loadMetas(resolve(dirname(path), p))),
-            json.meta ?? {}
+            ...(json.extends ?? []).map(p => load(resolve(dirname(path), p), key)),
+            json[key] ?? {}
         );
     }
 }

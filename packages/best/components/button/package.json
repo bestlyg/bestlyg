@@ -21,7 +21,7 @@
         "react",
         "react-component",
         "ui",
-        "<%= vars.name %>"
+        "button"
     ],
     "contributors": [
         "bestlyg@foxmail.com"
