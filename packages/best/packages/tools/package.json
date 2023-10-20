@@ -8,7 +8,7 @@
     },
     "scripts": {
         "tools": "ts-node src/index.ts",
-        "build": "pnpm tools build --type cjs"
+        "build": "pnpm tools build --type CJS"
     },
     "dependencies": {
         "@babel/core": "^7.23.0",

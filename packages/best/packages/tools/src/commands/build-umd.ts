@@ -2,7 +2,7 @@ import { Config, print, error, mergeConfig } from '../utils';
 import { WebpackConfig, transform } from '../configs/webpack';
 
 export async function buildUMD({ configs }: { configs: Config<WebpackConfig>[] }) {
-    print.info('===> Build UMD');
+    print.info('Start to build UMD');
     return transform({
         transformConfig: config => mergeConfig(config, configs),
     }).then(

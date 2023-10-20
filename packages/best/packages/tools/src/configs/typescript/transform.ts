@@ -1,4 +1,4 @@
-import { resolve as pathResolve } from '../../utils';
+import { resolve as pathResolve, error } from '../../utils';
 import { TsConfig } from './interface';
 import { config } from './config';
 import { exec } from 'child_process';
@@ -25,9 +25,9 @@ const tsc = pathResolve('node_modules/.bin/tsc');
 export function transform({ entry, transformConfig }: TransformProps) {
     const cmd = `${tsc} ${entry} ${config2Option(transformConfig?.(config) ?? config)}`;
     return new Promise((resolve, reject) => {
-        exec(cmd, (error, stdout) => {
-            if (error) {
-                reject(error);
+        exec(cmd, (err, stdout) => {
+            if (err) {
+                error('Ts transform error.', err);
             } else {
                 resolve(stdout);
             }

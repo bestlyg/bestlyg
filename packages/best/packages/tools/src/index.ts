@@ -9,16 +9,18 @@ import {
     DIR_NAME_UMD,
     error,
     transformConfig,
-    FILE_NAME_ENTRY,
+    FILE_NAME_ENTRY_SCRIPT,
     FILE_NAME_PACKAGE_JSON,
+    FILE_NAME_ENTRY_STYLE,
     requireJson,
     DIR_NAME_STYLE,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS, buildESM, buildUMD, buildCSS } from './commands';
+import { buildCJS, buildESM, buildUMD, buildStyle as _buildStyle } from './commands';
 import { BabelConfig } from './configs/babel';
 import { TsConfig } from './configs/typescript';
+import { LessConfig } from './configs/less';
 import { WebpackConfig } from './configs/webpack';
 
 const contact = (v, cur) => cur.concat([v]);
@@ -51,17 +53,19 @@ program
 program
     .command('build')
     .description('Build a libray.')
-    .option('--entry-dir <entry-dir>', 'Entry directory.', resolve(CWD, DIR_NAME_SOURCE))
-    .option('--entry-file <entry-file>', 'Entry file.', FILE_NAME_ENTRY)
-    .option('--output <output>', 'Output directory.')
+    .option('--with-style', 'Build with style.')
+    .option('--entry-dir <entry-dir>', 'Entry directory.', CWD)
+    .option('--entry-file <entry-file>', 'Entry file.', FILE_NAME_ENTRY_SCRIPT)
+    .option('--output-dir <output>', 'Output directory.')
     .option('--glob-pattern <glob>', 'Glob pattern.', contact, [])
     .option('--babel-config <path>', 'A list of babel-config.', contact, [])
     .option('--ts-config <path>', 'A list of ts-config.', contact, [])
+    .option('--less-config <path>', 'A list of less-config.', contact, [])
     .option('--webpack-config <path>', 'A list of webpack-config.', contact, [])
     .addOption(
         new Option('--type <type>', 'Build type.')
-            .choices(['all', 'esm', 'cjs', 'umd'])
-            .default('all')
+            .choices(['ALL', 'ESM', 'CJS', 'UMD'])
+            .default('ALL')
     )
     .action(o => {
         const {
@@ -70,60 +74,56 @@ program
             type,
             babelConfig,
             globPattern,
-            output,
+            outputDir,
             tsConfig,
             webpackConfig,
+            lessConfig,
+            withStyle,
         } = o;
-        // print.info(`Entry: ${o.entryDir}`);
-        // print.info(`Type: ${o.type}`);
+
+        const buildStyle = (output: string) => {
+            return _buildStyle({
+                entry: resolve(entryDir, DIR_NAME_SOURCE, DIR_NAME_STYLE, FILE_NAME_ENTRY_STYLE),
+                configs: transformConfig<LessConfig>(lessConfig),
+                output,
+            });
+        };
         const build = {
-            esm: () =>
-                buildESM({
+            ESM: () => {
+                const output = outputDir ?? resolve(CWD, DIR_NAME_ESM);
+                return buildESM({
                     configs: transformConfig<TsConfig>(tsConfig),
-                    entry: resolve(entryDir, entryFile),
-                    output: output ?? resolve(CWD, DIR_NAME_ESM),
-                }),
-            cjs: () =>
-                buildCJS({
+                    entry: resolve(entryDir, DIR_NAME_SOURCE, entryFile),
+                    output,
+                }).then(() => withStyle && buildStyle(resolve(output, DIR_NAME_STYLE)));
+            },
+            CJS: () => {
+                const output = outputDir ?? resolve(CWD, DIR_NAME_CJS);
+                return buildCJS({
                     configs: transformConfig<BabelConfig>(babelConfig),
-                    entry: entryDir,
+                    entry: resolve(entryDir, DIR_NAME_SOURCE),
                     globPattern,
-                    output: output ?? resolve(CWD, DIR_NAME_CJS),
-                }),
-            umd: () =>
+                    output: outputDir ?? resolve(CWD, DIR_NAME_CJS),
+                }).then(() => withStyle && buildStyle(resolve(output, DIR_NAME_STYLE)));
+            },
+            UMD: () =>
                 buildUMD({
                     configs: transformConfig<WebpackConfig>(webpackConfig),
                 }),
         };
-        if (type === 'all') {
-            const list = Object.values(build);
+        if (type === 'ALL') {
+            const list = Object.keys(build);
             const run = (idx: number) => {
                 if (idx === list.length) {
                     return Promise.resolve();
                 } else {
-                    return list[idx]().then(() => run(idx + 1));
+                    return build[list[idx]]().then(() => run(idx + 1));
                 }
             };
             return run(0);
         }
         if (!build[type]) error(`Unkown type ${o.type}`);
         return build[type]();
-    });
-
-program
-    .command('build:css')
-    .description('Build CSS.')
-    .option(
-        '--entry-dir <entry-dir>',
-        'Entry directory.',
-        resolve(CWD, DIR_NAME_SOURCE, DIR_NAME_STYLE)
-    )
-    .option('--glob-pattern <glob>', 'Glob pattern.', contact, [])
-    .action(o => {
-        return buildCSS({
-            globPattern: o.globPattern,
-            entry: o.entryDir,
-        });
     });
 
 program

@@ -7,7 +7,7 @@ import {
     CWD,
     DIR_NAME_UMD,
     DIR_NAME_SOURCE,
-    FILE_NAME_ENTRY,
+    FILE_NAME_ENTRY_SCRIPT,
     FILE_NAME_PACKAGE_JSON,
 } from '../../utils';
 import { WebpackConfig } from './interface';
@@ -46,7 +46,7 @@ function getUse(cssModule: boolean) {
 export const config: WebpackConfig = {
     mode: 'production',
     entry: {
-        [packageNameWithoutScope]: `${CWD}/${DIR_NAME_SOURCE}/${FILE_NAME_ENTRY}`,
+        [packageNameWithoutScope]: `${CWD}/${DIR_NAME_SOURCE}/${FILE_NAME_ENTRY_SCRIPT}`,
     },
     output: {
         path: `${CWD}/${DIR_NAME_UMD}`,

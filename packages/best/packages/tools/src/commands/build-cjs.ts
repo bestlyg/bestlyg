@@ -16,7 +16,7 @@ export async function buildCJS({
     globPattern: string[];
     output: string;
 }) {
-    print.info('===> Build CJS');
+    print.info('Start to build CJS');
     const files = await glob([
         resolve(entry, './**/*.ts'),
         resolve(entry, './**/*.tsx'),
@@ -26,7 +26,7 @@ export async function buildCJS({
         files.map(file => {
             let outputPath = resolve(output, path.relative(entry, file));
             outputPath = outputPath.replace(path.extname(outputPath), '.js');
-            print.info(`Build ${path.basename(file)}`);
+            print.info(`Build ${file}`);
             return fs
                 .readFile(file)
                 .then(

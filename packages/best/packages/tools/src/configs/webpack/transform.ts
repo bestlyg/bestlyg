@@ -8,11 +8,10 @@ export interface TransformProps {
 }
 
 export function transform({ transformConfig }: TransformProps): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>(resolve => {
         webpack(transformConfig?.(config) ?? config, (err, stats) => {
             if (err) {
                 error('Webpack compiler erorr.', err.stack || err);
-                return;
             }
 
             print.info(
@@ -33,10 +32,9 @@ export function transform({ transformConfig }: TransformProps): Promise<void> {
             );
 
             if (stats.hasErrors()) {
-                reject();
-            } else {
-                resolve();
+                error('Webpack compiler erorr.', stats);
             }
+            resolve();
         });
     });
 }

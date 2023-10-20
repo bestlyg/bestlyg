@@ -6,9 +6,9 @@ import _ from 'lodash';
 
 export const resolve = (...p: string[]) => path.resolve(__dirname, '../..', ...p);
 
-export function error(msg: string, err?: any) {
+export function error(msg: string, ...errs: any[]): never {
     print.error(msg);
-    console.error(err);
+    errs.forEach(err => console.error(err));
     process.exit(1);
 }
 

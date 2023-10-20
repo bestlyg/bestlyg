@@ -9,7 +9,7 @@ export async function buildESM({
     configs: Config<TsConfig>[];
     output: string;
 }) {
-    print.info('===> Build ESM');
+    print.info('Start to build ESM');
     return transform({
         entry,
         transformConfig: config => mergeConfig(config, configs),
