@@ -1,7 +1,8 @@
 import { config } from './config';
 import * as babel from '@babel/core';
 import { BabelConfig } from './interface';
-import { print, error } from '../../utils';
+import { error } from '../../utils';
+import _ from 'lodash';
 
 export interface TransformProps {
     content: string;
@@ -19,7 +20,7 @@ export interface TransformProps {
 // }
 
 export function transform({ content, transformConfig = v => v }: TransformProps): Promise<string> {
-    return babel.transformAsync(content, transformConfig(config)).then(
+    return babel.transformAsync(content, transformConfig(_.cloneDeep(config))).then(
         res => res.code,
         err => error('Babel transform error.', err)
     );

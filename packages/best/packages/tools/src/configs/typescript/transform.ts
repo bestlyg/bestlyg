@@ -2,6 +2,7 @@ import { resolve as pathResolve, error } from '../../utils';
 import { TsConfig } from './interface';
 import { config } from './config';
 import { exec } from 'child_process';
+import _ from 'lodash';
 
 export interface TransformProps {
     entry: string;
@@ -22,8 +23,8 @@ function config2Option(config: TsConfig) {
 
 const tsc = pathResolve('node_modules/.bin/tsc');
 
-export function transform({ entry, transformConfig }: TransformProps) {
-    const cmd = `${tsc} ${entry} ${config2Option(transformConfig?.(config) ?? config)}`;
+export function transform({ entry, transformConfig = v => v }: TransformProps) {
+    const cmd = `${tsc} ${entry} ${config2Option(transformConfig(_.cloneDeep(config)))}`;
     return new Promise((resolve, reject) => {
         exec(cmd, (err, stdout) => {
             if (err) {

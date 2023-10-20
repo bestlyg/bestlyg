@@ -7,9 +7,9 @@ export interface TransformProps {
     transformConfig?: (config: WebpackConfig) => WebpackConfig;
 }
 
-export function transform({ transformConfig }: TransformProps): Promise<void> {
+export function transform({ transformConfig = v => v }: TransformProps): Promise<void> {
     return new Promise<void>(resolve => {
-        webpack(transformConfig?.(config) ?? config, (err, stats) => {
+        webpack(transformConfig(config), (err, stats) => {
             if (err) {
                 error('Webpack compiler erorr.', err.stack || err);
             }

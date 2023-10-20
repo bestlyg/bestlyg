@@ -1,17 +1,5 @@
 import fs from 'fs-extra';
-import {
-    Config,
-    error,
-    print,
-    resolve,
-    DIR_NAME_ESM,
-    DIR_NAME_CJS,
-    CWD,
-    DIR_NAME_STYLE,
-    mergeConfig,
-} from '../utils';
-import { glob } from 'glob';
-import _ from 'lodash';
+import { Config, error, print, resolve, mergeConfig, replaceFileExt } from '../utils';
 import path from 'path';
 import { transform, LessConfig } from '../configs/less';
 
@@ -25,15 +13,19 @@ export async function buildStyle({
     configs: Config<LessConfig>[];
 }): Promise<any> {
     print.info(`Start to build style.`);
-    const run = (file: string) => {
+    const build = (file: string) => {
         const dir = path.dirname(file);
         const outputPath = resolve(output, path.relative(dir, file));
         return fs.ensureDir(path.dirname(outputPath)).then(() =>
             Promise.all([
                 fs.copyFile(file, outputPath),
                 fs.writeFile(
-                    outputPath.replace(path.extname(outputPath), '.js'),
-                    `require('./${path.basename(outputPath)}')`
+                    replaceFileExt(outputPath, '.js'),
+                    `import './${path.basename(outputPath)}';`
+                ),
+                fs.writeFile(
+                    replaceFileExt(outputPath, '.d.ts'),
+                    `import './${path.basename(outputPath)}';`
                 ),
                 fs
                     .readFile(file)
@@ -41,7 +33,6 @@ export async function buildStyle({
                         transform({
                             content: data.toString(),
                             transformConfig: config => {
-                                config = _.cloneDeep(config);
                                 config.paths.push(path.dirname(file));
                                 return mergeConfig(config, configs);
                             },
@@ -49,13 +40,10 @@ export async function buildStyle({
                     )
                     .then(
                         res => {
-                            console.log('===output', res);
-                            return fs.writeFile(
-                                outputPath.replace(path.extname(outputPath), '.css'),
-                                res.css
-                            );
+                            return fs
+                                .writeFile(replaceFileExt(outputPath, '.css'), res.css)
+                                .then(() => res.imports.map(p => build(p)));
                         },
-                        // fs.writeFile(outputPath.replace(path.extname(outputPath), '.css'), output.css),
                         err => {
                             error('Less compile error.', err);
                         }
@@ -68,7 +56,7 @@ export async function buildStyle({
     //                         config.paths.push(path.dirname(file));
     //                         return mergeConfig(config, configs);
     //                     },));
-    return run(entry).then(
+    return build(entry).then(
         () => {
             print.success('Build style sucessfully.');
         },

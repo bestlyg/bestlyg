@@ -1,7 +1,6 @@
 import { BabelConfig, transform } from '../configs/babel';
 import fs from 'fs-extra';
-import { Config, error, print, resolve } from '../utils';
-import { mergeConfig } from '../utils';
+import { Config, error, print, resolve, replaceFileExt, mergeConfig } from '../utils';
 import { glob } from 'glob';
 import path from 'path';
 
@@ -24,8 +23,7 @@ export async function buildCJS({
     ]);
     return Promise.allSettled(
         files.map(file => {
-            let outputPath = resolve(output, path.relative(entry, file));
-            outputPath = outputPath.replace(path.extname(outputPath), '.js');
+            const outputPath = replaceFileExt(resolve(output, path.relative(entry, file)), '.js');
             print.info(`Build ${file}`);
             return fs
                 .readFile(file)

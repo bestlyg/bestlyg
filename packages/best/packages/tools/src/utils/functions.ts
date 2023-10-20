@@ -6,6 +6,8 @@ import _ from 'lodash';
 
 export const resolve = (...p: string[]) => path.resolve(__dirname, '../..', ...p);
 
+export const replaceFileExt = (p: string, ext: string) => p.replace(path.extname(p), ext);
+
 export function error(msg: string, ...errs: any[]): never {
     print.error(msg);
     errs.forEach(err => console.error(err));
@@ -39,6 +41,7 @@ export function transformConfig<T>(paths: string[]): Config<T>[] {
     }
     return res;
 }
+
 export function mergeConfig<T>(config: T, configs: Config<T>[]) {
     for (const cfg of configs) {
         if (typeof cfg === 'function') {
