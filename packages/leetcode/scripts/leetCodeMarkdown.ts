@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1726. 同积元组',
-    url: 'https://leetcode.cn/problems/tuple-with-same-product',
+    name: '2525. 根据规则将箱子分类',
+    url: 'https://leetcode.cn/problems/categorize-box-according-to-criteria',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个由 不同 正整数组成的数组 nums ，请你返回满足 a * b = c * d 的元组 (a, b, c, d) 的数量。其中 a、b、c 和 d 都是 nums 中的元素，且 a != b != c != d 。`,
+    desc: `给你四个整数 length ，width ，height 和 mass ，分别表示一个箱子的三个维度和质量，请你返回一个表示箱子 类别 的字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,17 +34,21 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 716,
-            memory: 43.15,
-            desc: '遍历后计数',
+            time: 40,
+            memory: 15.66,
+            desc: '逻辑判断',
             code: `class Solution:
-    def tupleSameProduct(self, nums: List[int]) -> int:
-        n = len(nums)
-        map = Counter()
-        for i in range(n):
-            for j in range(i + 1, n):
-                map[nums[i] * nums[j]] += 1
-        return sum(v * (v - 1) * 4 for v in map.values())
+    def categorizeBox(self, length: int, width: int, height: int, mass: int) -> str:
+        v = length * width * height
+        bulky = length >= 10 ** 4 or width >= 10 ** 4 or height >= 10 ** 4 or v >= 10 ** 9
+        heavy = mass >= 100
+        if bulky and heavy:
+            return "Both"
+        elif bulky:
+            return "Bulky"
+        elif heavy:
+            return "Heavy"
+        return "Neither"
 `,
         },
         // {
