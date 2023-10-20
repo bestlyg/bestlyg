@@ -28,6 +28,8 @@
         "commander": "^11.0.0",
         "core-js": "3",
         "glob": "^10.3.10",
+        "less-plugin-autoprefix": "^2.0.0",
+        "less-plugin-npm-import": "^2.1.0",
         "lodash": "^4.17.21",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
@@ -36,6 +38,7 @@
     },
     "devDependencies": {
         "@types/babel-core": "^6.25.8",
+        "@types/less": "^3.0.5",
         "@types/lodash": "^4.14.199",
         "@types/node": "^20.7.1"
     }

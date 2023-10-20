@@ -12,10 +12,11 @@ import {
     FILE_NAME_ENTRY,
     FILE_NAME_PACKAGE_JSON,
     requireJson,
+    DIR_NAME_STYLE,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
-import { buildCJS, buildESM, buildUMD } from './commands';
+import { buildCJS, buildESM, buildUMD, buildCSS } from './commands';
 import { BabelConfig } from './configs/babel';
 import { TsConfig } from './configs/typescript';
 import { WebpackConfig } from './configs/webpack';
@@ -107,6 +108,22 @@ program
         }
         if (!build[type]) error(`Unkown type ${o.type}`);
         return build[type]();
+    });
+
+program
+    .command('build:css')
+    .description('Build CSS.')
+    .option(
+        '--entry-dir <entry-dir>',
+        'Entry directory.',
+        resolve(CWD, DIR_NAME_SOURCE, DIR_NAME_STYLE)
+    )
+    .option('--glob-pattern <glob>', 'Glob pattern.', contact, [])
+    .action(o => {
+        return buildCSS({
+            globPattern: o.globPattern,
+            entry: o.entryDir,
+        });
     });
 
 program
