@@ -11,6 +11,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  normalize.css:
+    specifier: ^8.0.1
+    version: 8.0.1
   zustand:
     specifier: ^4.4.1
     version: 4.4.1(@types/react@18.2.23)(react@18.2.0)
@@ -68,6 +71,10 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+
+  /normalize.css@8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
+    dev: false
 
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
