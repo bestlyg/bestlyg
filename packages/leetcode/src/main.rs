@@ -15,19 +15,21 @@ fn main() {
 }
 
 impl Solution {
-    pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {
-        let mut i1 = 0;
-        let mut i2 = nums.len() - 1;
-        let mut res = 0i64;
-        while i1 < i2 {
-            res += (nums[i1] as i64) * 10i64.pow(nums[i2].to_string().len() as u32)
-                + (nums[i2] as i64);
-            i1 += 1;
-            i2 -= 1;
+    pub fn count_pairs(n: i32, edges: Vec<Vec<i32>>) -> i64 {
+        let n = n as usize;
+        let mut uf = UnionFind::new(n);
+        for edge in edges {
+            uf.uni(edge[0] as usize, edge[1] as usize);
         }
-        if i1 == i2 {
-            res += nums[i1] as i64;
-        }
-        res
+        (0..n)
+            .map(|i| {
+                if uf.data[i] != i {
+                    0
+                } else {
+                    uf.cnt[i] * (n - uf.cnt[i])
+                }
+            })
+            .sum()
+            / 2
     }
 }

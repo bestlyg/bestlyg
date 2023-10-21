@@ -183,9 +183,9 @@ pub const DIRS2: [[i32; 2]; 8] = [
     [-1, -1],
 ];
 pub struct UnionFind {
-    n: usize,
-    data: Vec<usize>,
-    cnt: Vec<usize>,
+    pub n: usize,
+    pub data: Vec<usize>,
+    pub cnt: Vec<usize>,
 }
 impl UnionFind {
     pub fn new(n: usize) -> Self {
@@ -221,10 +221,10 @@ impl UnionFind {
         self.find(v1) == self.find(v2)
     }
 }
-pub fn pos2Idx(x: usize, y: usize, size: usize) -> usize {
+pub fn pos_idx(x: usize, y: usize, size: usize) -> usize {
     x * size + y
 }
-pub fn idx2Pos(idx: usize, size: usize) -> (usize, usize) {
+pub fn idx_pos(idx: usize, size: usize) -> (usize, usize) {
     (idx / size, idx % size)
 }
 pub fn get_primes(mut n: usize) -> Vec<usize> {
