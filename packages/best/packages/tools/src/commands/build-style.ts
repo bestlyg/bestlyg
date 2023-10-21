@@ -1,6 +1,13 @@
 import fs from 'fs-extra';
-import { Config, error, print, resolve, mergeConfig, replaceFileExt } from '../utils';
-import path from 'path';
+import {
+    Config,
+    error,
+    print,
+    resolve,
+    mergeConfig,
+    replaceFileExt,
+    FILE_NAME_ENTRY_STYLE,
+} from '../utils';
 import { transform, LessConfig } from '../configs/less';
 
 export async function buildStyle({
@@ -13,55 +20,47 @@ export async function buildStyle({
     configs: Config<LessConfig>[];
 }): Promise<any> {
     print.info(`Start to build style.`);
-    const build = (file: string) => {
-        const dir = path.dirname(file);
-        const outputPath = resolve(output, path.relative(dir, file));
-        return fs.ensureDir(path.dirname(outputPath)).then(() =>
-            Promise.all([
-                fs.copyFile(file, outputPath),
+    const filepath = resolve(entry, FILE_NAME_ENTRY_STYLE);
+    const outputFilePath = resolve(output, FILE_NAME_ENTRY_STYLE);
+    return fs
+        .ensureDir(output)
+        .then(() =>
+            Promise.allSettled([
                 fs.writeFile(
-                    replaceFileExt(outputPath, '.js'),
-                    `import './${path.basename(outputPath)}';`
+                    replaceFileExt(outputFilePath, '.js'),
+                    `import './${FILE_NAME_ENTRY_STYLE}';`
                 ),
+
                 fs.writeFile(
-                    replaceFileExt(outputPath, '.d.ts'),
-                    `import './${path.basename(outputPath)}';`
+                    replaceFileExt(outputFilePath, '.d.ts'),
+                    `import './${FILE_NAME_ENTRY_STYLE}';`
                 ),
+                fs.copySync(entry, output),
                 fs
-                    .readFile(file)
+                    .readFile(filepath)
                     .then(data =>
                         transform({
                             content: data.toString(),
                             transformConfig: config => {
-                                config.paths.push(path.dirname(file));
+                                config.paths.push(entry);
                                 return mergeConfig(config, configs);
                             },
                         })
                     )
                     .then(
-                        res => {
-                            return fs
-                                .writeFile(replaceFileExt(outputPath, '.css'), res.css)
-                                .then(() => res.imports.map(p => build(p)));
-                        },
+                        res => fs.writeFile(replaceFileExt(outputFilePath, '.css'), res.css),
                         err => {
                             error('Less compile error.', err);
                         }
                     ),
             ])
+        )
+        .then(
+            () => {
+                print.success('Build style sucessfully.');
+            },
+            err => {
+                error(`Style transform error.`, err);
+            }
         );
-    };
-    // return fs.readFile(entry).then(data => transform( content: data.toString(),
-    //                     transformConfig: config => {
-    //                         config.paths.push(path.dirname(file));
-    //                         return mergeConfig(config, configs);
-    //                     },));
-    return build(entry).then(
-        () => {
-            print.success('Build style sucessfully.');
-        },
-        err => {
-            error(`Style transform error.`, err);
-        }
-    );
 }

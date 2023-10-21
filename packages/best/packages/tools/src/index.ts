@@ -22,6 +22,7 @@ import { BabelConfig } from './configs/babel';
 import { TsConfig } from './configs/typescript';
 import { LessConfig } from './configs/less';
 import { WebpackConfig } from './configs/webpack';
+import { CleanCSSConfig } from './configs/clean-css';
 
 const contact = (v, cur) => cur.concat([v]);
 
@@ -57,10 +58,11 @@ program
     .option('--entry-dir <entry-dir>', 'Entry directory.', CWD)
     .option('--entry-file <entry-file>', 'Entry file.', FILE_NAME_ENTRY_SCRIPT)
     .option('--output-dir <output>', 'Output directory.')
-    .option('--glob-pattern <glob>', 'Glob pattern.', contact, [])
+    .option('--script-glob-pattern <glob>', 'Glob pattern.', contact, [])
     .option('--babel-config <path>', 'A list of babel-config.', contact, [])
     .option('--ts-config <path>', 'A list of ts-config.', contact, [])
     .option('--less-config <path>', 'A list of less-config.', contact, [])
+    .option('--clean-css-config <path>', 'A list of clean-css-config.', contact, [])
     .option('--webpack-config <path>', 'A list of webpack-config.', contact, [])
     .addOption(
         new Option('--type <type>', 'Build type.')
@@ -73,20 +75,21 @@ program
             entryFile,
             type,
             babelConfig,
-            globPattern,
+            scriptGlobPattern,
             outputDir,
             tsConfig,
             webpackConfig,
             lessConfig,
             withStyle,
+            cleanCssConfig,
         } = o;
 
-        const buildStyle = (output: string) => {
+        const buildStyle = (config: Partial<Parameters<typeof _buildStyle>[0]>) => {
             return _buildStyle({
-                entry: resolve(entryDir, DIR_NAME_SOURCE, DIR_NAME_STYLE, FILE_NAME_ENTRY_STYLE),
+                entry: resolve(entryDir, DIR_NAME_SOURCE, DIR_NAME_STYLE),
                 configs: transformConfig<LessConfig>(lessConfig),
-                output,
-            });
+                ...config,
+            } as any);
         };
         const build = {
             ESM: () => {
@@ -95,21 +98,37 @@ program
                     configs: transformConfig<TsConfig>(tsConfig),
                     entry: resolve(entryDir, DIR_NAME_SOURCE, entryFile),
                     output,
-                }).then(() => withStyle && buildStyle(resolve(output, DIR_NAME_STYLE)));
+                }).then(
+                    () =>
+                        withStyle &&
+                        buildStyle({
+                            output: resolve(output, DIR_NAME_STYLE),
+                        })
+                );
             },
             CJS: () => {
                 const output = outputDir ?? resolve(CWD, DIR_NAME_CJS);
                 return buildCJS({
                     configs: transformConfig<BabelConfig>(babelConfig),
                     entry: resolve(entryDir, DIR_NAME_SOURCE),
-                    globPattern,
+                    globPattern: scriptGlobPattern,
                     output: outputDir ?? resolve(CWD, DIR_NAME_CJS),
-                }).then(() => withStyle && buildStyle(resolve(output, DIR_NAME_STYLE)));
+                }).then(
+                    () =>
+                        withStyle &&
+                        buildStyle({
+                            output: resolve(output, DIR_NAME_STYLE),
+                        })
+                );
             },
-            UMD: () =>
-                buildUMD({
+            UMD: () => {
+                return buildUMD({
                     configs: transformConfig<WebpackConfig>(webpackConfig),
-                }),
+                    cleanCssConfigs: transformConfig<CleanCSSConfig>(cleanCssConfig),
+                    lessConfigs: transformConfig<LessConfig>(lessConfig),
+                    withStyle
+                });
+            },
         };
         if (type === 'ALL') {
             const list = Object.keys(build);

@@ -13,9 +13,8 @@ export function transform({ transformConfig = v => v }: TransformProps): Promise
             if (err) {
                 error('Webpack compiler erorr.', err.stack || err);
             }
-
-            print.info(
-                stats.toString({
+            stats
+                .toString({
                     assets: true,
                     colors: true,
                     warnings: true,
@@ -29,7 +28,8 @@ export function transform({ transformConfig = v => v }: TransformProps): Promise
                     chunkModules: false,
                     children: false,
                 })
-            );
+                .split('\n')
+                .forEach(s => print.info(s));
 
             if (stats.hasErrors()) {
                 error('Webpack compiler erorr.', stats);

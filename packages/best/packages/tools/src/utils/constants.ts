@@ -19,3 +19,6 @@ export const packageInfo: {
     version: string;
     description: string;
 } = require(resolve(FILE_NAME_PACKAGE_JSON));
+
+export const workPackageInfo = require(`${CWD}/${FILE_NAME_PACKAGE_JSON}`);
+export const packageNameWithoutScope = workPackageInfo.name.replace(/^@[^\/]+\//, '');

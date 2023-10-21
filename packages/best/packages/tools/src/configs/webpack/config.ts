@@ -9,11 +9,11 @@ import {
     DIR_NAME_SOURCE,
     FILE_NAME_ENTRY_SCRIPT,
     FILE_NAME_PACKAGE_JSON,
+    packageNameWithoutScope,
+    workPackageInfo,
+    resolve,
 } from '../../utils';
 import { WebpackConfig } from './interface';
-
-const { name: packageName, version } = require(`${CWD}/${FILE_NAME_PACKAGE_JSON}`);
-const packageNameWithoutScope = packageName.replace(/^@[^\/]+\//, '');
 
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
@@ -46,11 +46,11 @@ function getUse(cssModule: boolean) {
 export const config: WebpackConfig = {
     mode: 'production',
     entry: {
-        [packageNameWithoutScope]: `${CWD}/${DIR_NAME_SOURCE}/${FILE_NAME_ENTRY_SCRIPT}`,
+        [packageNameWithoutScope]: resolve(CWD, DIR_NAME_SOURCE, FILE_NAME_ENTRY_SCRIPT),
     },
     output: {
         path: `${CWD}/${DIR_NAME_UMD}`,
-        publicPath: `https://unpkg.com/${packageName}@latest/${DIR_NAME_UMD}/`,
+        publicPath: `https://unpkg.com/${workPackageInfo.name}@latest/${DIR_NAME_UMD}/`,
         filename: '[name].min.js',
         library: '[name]',
         libraryTarget: 'umd',
@@ -134,11 +134,11 @@ export const config: WebpackConfig = {
         // modules: ['node_modules/arco-scripts/node_modules', 'node_modules'],
     },
     plugins: [
-        new ProgressBarPlugin({
-            format: `[best-tools]: [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
-        }),
+        // new ProgressBarPlugin({
+        //     format: `[best-tools]: [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+        // }),
         new webpack.BannerPlugin({
-            banner: `${packageNameWithoutScope} v${version}\n\nCopyright 1997-present, BestLyg, Inc.\nAll rights reserved.\n`,
+            banner: `${packageNameWithoutScope} v${workPackageInfo.version}\n\nCopyright 1997-present, BestLyg, Inc.\nAll rights reserved.\n`,
         }),
     ],
 };
