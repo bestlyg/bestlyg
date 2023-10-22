@@ -157,14 +157,20 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    long long findTheArrayConcVal(vector<int>& nums) {
-        long long i1 = 0, i2 = nums.size() - 1, res = 0;
-        while (i1 < i2) {
-            res += nums[i1] * pow(10, to_string(nums[i2]).size()) + nums[i2];
-            i1 += 1;
-            i2 -= 1;
+    int maxSatisfaction(vector<int>& satisfaction) {
+        sort(satisfaction.begin(), satisfaction.end());
+        int n = satisfaction.size(), nsum = 0, vsum = 0, res = 0;
+        for (int i = 0; i < n; i++) {
+            nsum += (i + 1) * satisfaction[i];
+            vsum += satisfaction[i];
         }
-        if (i1 == i2) res += nums[i1];
+        res = max(res, nsum);
+        for (int i = 1; i < n; i++) {
+            if (satisfaction[i] >= 0) break;
+            nsum -= vsum;
+            vsum -= satisfaction[i - 1];
+            res = max(res, nsum);
+        }
         return res;
     }
 };

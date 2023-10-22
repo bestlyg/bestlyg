@@ -1,0 +1,33 @@
+{
+    "name": "1402.做菜顺序",
+    "url": "https://leetcode.cn/problems/reducing-dishes",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回厨师在准备了一定数量的菜肴后可以获得的最大 like-time 系数 总和。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 4,
+            "memory": 7.93,
+            "desc": "排序后贪心判断。",
+            "code": "class Solution {\npublic:\n    int maxSatisfaction(vector<int>& satisfaction) {\n        sort(satisfaction.begin(), satisfaction.end());\n        int n = satisfaction.size(), nsum = 0, vsum = 0, res = 0;\n        for (int i = 0; i < n; i++) {\n            nsum += (i + 1) * satisfaction[i];\n            vsum += satisfaction[i];\n        }\n        res = max(res, nsum);\n        for (int i = 1; i < n; i++) {\n            if (satisfaction[i] >= 0) break;\n            nsum -= vsum;\n            vsum -= satisfaction[i - 1];\n            res = max(res, nsum);\n        }\n        return res;\n    }\n};",
+            "date": 1697904000000
+        },
+        {
+            "script": "python",
+            "time": 24,
+            "memory": 15.69,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maxSatisfaction(self, satisfaction: List[int]) -> int:\n        satisfaction.sort()\n        n = len(satisfaction)\n        res = nsum = sum((i + 1) * satisfaction[i] for i in range(n))\n        sumv = sum(satisfaction)\n        for i in range(1, n):\n            if satisfaction[i] >= 0: break\n            nsum -= sumv\n            sumv -= satisfaction[i - 1]\n            res = max(res, nsum)\n\n        return max(0, res)",
+            "date": 1697904000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 1.98,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_satisfaction(mut satisfaction: Vec<i32>) -> i32 {\n        satisfaction.sort();\n        let n = satisfaction.len();\n        let mut res = 0;\n        let mut nsum = 0;\n        let mut vsum = 0;\n        for i in 0..n {\n            nsum += (i as i32 + 1) * satisfaction[i];\n            vsum += satisfaction[i]\n        }\n        res = res.max(nsum);\n        for i in 1..n {\n            if satisfaction[i] >= 0 {\n                break;\n            }\n            nsum -= vsum;\n            vsum -= satisfaction[i - 1];\n            res = res.max(nsum);\n        }\n        res\n    }\n}\n",
+            "date": 1697904000000
+        }
+    ]
+}

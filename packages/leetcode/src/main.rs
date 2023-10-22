@@ -13,23 +13,26 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-
 impl Solution {
-    pub fn count_pairs(n: i32, edges: Vec<Vec<i32>>) -> i64 {
-        let n = n as usize;
-        let mut uf = UnionFind::new(n);
-        for edge in edges {
-            uf.uni(edge[0] as usize, edge[1] as usize);
+    pub fn max_satisfaction(mut satisfaction: Vec<i32>) -> i32 {
+        satisfaction.sort();
+        let m = satisfaction.len();
+        let mut res = 0;
+        let mut nsum = 0;
+        let mut vsum = 0;
+        for i in 0..n {
+            nsum += (i as i32 + 1) * satisfaction[i];
+            vsum += satisfaction[i]
         }
-        (0..n)
-            .map(|i| {
-                if uf.data[i] != i {
-                    0
-                } else {
-                    uf.cnt[i] * (n - uf.cnt[i])
-                }
-            })
-            .sum()
-            / 2
+        res = res.max(nsum);
+        for i in 1..n {
+            if satisfaction[i] >= 0 {
+                break;
+            }
+            nsum -= vsum;
+            vsum -= satisfaction[i - 1];
+            res = res.max(nsum);
+        }
+        res
     }
 }
