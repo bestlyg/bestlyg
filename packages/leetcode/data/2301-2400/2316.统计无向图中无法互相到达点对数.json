@@ -1,8 +1,14 @@
 {
+    "id": "2403",
     "name": "2316.统计无向图中无法互相到达点对数",
     "url": "https://leetcode.cn/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
     "desc": "给你一个整数 n ，表示一张 无向图 中有 n 个节点，编号为 0 到 n - 1 。同时给你一个二维整数数组 edges ，其中 edges[i] = [ai, bi] 表示节点 ai 和 bi 之间有一条 无向 边。请你返回 无法互相到达 的不同 点对数目 。",
     "solutions": [
         {

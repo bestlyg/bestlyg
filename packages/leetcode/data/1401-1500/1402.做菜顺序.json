@@ -1,8 +1,14 @@
 {
+    "id": "1503",
     "name": "1402.做菜顺序",
     "url": "https://leetcode.cn/problems/reducing-dishes",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "贪心",
+        "数组",
+        "动态规划",
+        "排序"
+    ],
     "desc": "返回厨师在准备了一定数量的菜肴后可以获得的最大 like-time 系数 总和。",
     "solutions": [
         {
