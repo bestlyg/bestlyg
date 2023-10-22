@@ -5,11 +5,16 @@
 // @import './icon.less';
 // @import './animation.less';
 
-@import './normalize.less';
-@import './vars.less';
-@import './global.less';
-@import './mixin.less';
+// @import './normalize.less';
+@import './vars/index.less';
+// @import './global.less';
+// @import './mixin.less';
 
-body {
+@{best-theme-tag} {
+    .load-css-vars(@vars-color);
+    .load-css-vars(@vars-global);
+
     // font-size: @font-size-body;
+
+    // color: rgb(v(red-10));
 }

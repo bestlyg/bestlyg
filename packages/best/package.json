@@ -4,6 +4,7 @@
     "description": "React UI Library.",
     "main": "index.js",
     "scripts": {
+        "setup": "pnpm -r exec rm -rf node_modules && pnpm i",
         "check": "ts-node scripts/check.ts",
         "start": "pnpm --filter @best/site start",
         "storybook": "storybook dev -p 6006",
@@ -45,6 +46,7 @@
         "typescript": "^5.2.2"
     },
     "dependencies": {
+        "@storybook/addon-styling-webpack": "^0.0.5",
         "@svgr/webpack": "^8.1.0",
         "css-loader": "^6.8.1",
         "file-loader": "^6.2.0",

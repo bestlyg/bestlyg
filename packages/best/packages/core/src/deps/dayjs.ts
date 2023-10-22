@@ -1,2 +1,2 @@
-import _dayjs from 'dayjs';
-export const dayjs = _dayjs;
+// import _dayjs from 'dayjs';
+// export const dayjs = _dayjs;

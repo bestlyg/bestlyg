@@ -38,6 +38,7 @@ const config: StorybookConfig = {
         getAbsolutePath('@storybook/addon-essentials'),
         getAbsolutePath('@storybook/addon-onboarding'),
         getAbsolutePath('@storybook/addon-interactions'),
+        getAbsolutePath('@storybook/addon-styling-webpack'),
     ],
     framework: {
         name: getAbsolutePath('@storybook/react-webpack5'),
@@ -50,6 +51,10 @@ const config: StorybookConfig = {
         for (const [k, v] of Object.entries(aliasBestLib())) {
             config.resolve!.alias![k] = v;
         }
+        console.log(config.resolve!.modules);
+        // config.resolve!.modules = false;
+        // config.resolve!.symlinks = false;
+        // config.resolve!.modules!.push('../node_modules/.pnpm');
         (config as any).module.rules[2].use[0].options.presets.push('@babel/preset-typescript');
         return config;
     },
