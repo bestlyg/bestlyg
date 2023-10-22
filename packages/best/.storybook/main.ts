@@ -1,6 +1,13 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
 import fs from 'fs-extra';
+import LessAutoprefix from 'less-plugin-autoprefix';
+import NpmImportPlugin from 'less-plugin-npm-import';
+import LessPluginFunctions from 'less-plugin-functions';
+
+// const npmImport = new NpmImportPlugin({ prefix: '~' });
+// const autoprefix = new LessAutoprefix();
+const lessPluginFunctions = new LessPluginFunctions();
 
 const resolve = (...p: string[]) => path.resolve(__dirname, '../', ...p);
 const componentsPath = resolve('components');
@@ -17,6 +24,37 @@ function aliasBestLib() {
     }
     return o;
 }
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
+function getUse(cssModule: boolean) {
+    const options = cssModule
+        ? {
+              modules: {
+                  localIdentName: '[local]-[hash:10]',
+              },
+          }
+        : {};
+    return [
+        {
+            loader: require.resolve('style-loader'),
+        },
+        {
+            loader: require.resolve('css-loader'),
+            options,
+        },
+        {
+            loader: require.resolve('less-loader'),
+            options: {
+                lessOptions: {
+                    javascriptEnabled: true,
+                    plugins: [lessPluginFunctions],
+                },
+            },
+        },
+    ];
+}
+
 /**
  * This function is used to resolve the absolute path of a package.
  * It is needed in projects that use Yarn PnP or are set up within a monorepo.
@@ -51,7 +89,17 @@ const config: StorybookConfig = {
         for (const [k, v] of Object.entries(aliasBestLib())) {
             config.resolve!.alias![k] = v;
         }
-        console.log(config.resolve!.modules);
+        (config as any).module.rules.push(
+            {
+                test: lessRegex,
+                exclude: lessModuleRegex,
+                use: getUse(false),
+            },
+            {
+                test: lessModuleRegex,
+                use: getUse(true),
+            }
+        );
         // config.resolve!.modules = false;
         // config.resolve!.symlinks = false;
         // config.resolve!.modules!.push('../node_modules/.pnpm');

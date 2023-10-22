@@ -37,7 +37,7 @@ function getUse(cssModule: boolean) {
         {
             loader: require.resolve('less-loader'),
             options: {
-                javascriptEnabled: true,
+                lessOptions: { javascriptEnabled: true },
             },
         },
     ];
@@ -77,11 +77,6 @@ export const config: WebpackConfig = {
                 ],
             },
             {
-                test: lessRegex,
-                exclude: lessModuleRegex,
-                use: getUse(false),
-            },
-            {
                 test: /\.css$/,
                 sideEffects: true,
                 use: [
@@ -103,6 +98,11 @@ export const config: WebpackConfig = {
             {
                 test: /\.svg$/,
                 use: [require.resolve('@svgr/webpack')],
+            },
+            {
+                test: lessRegex,
+                exclude: lessModuleRegex,
+                use: getUse(false),
             },
             {
                 test: lessModuleRegex,

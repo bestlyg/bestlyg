@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '@best/button/src/button';
-import './a.less';
-
 // function Button() {
 //     return <div>123</div>
 // }
