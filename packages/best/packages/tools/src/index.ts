@@ -126,7 +126,7 @@ program
                     configs: transformConfig<WebpackConfig>(webpackConfig),
                     cleanCssConfigs: transformConfig<CleanCSSConfig>(cleanCssConfig),
                     lessConfigs: transformConfig<LessConfig>(lessConfig),
-                    withStyle
+                    withStyle,
                 });
             },
         };
@@ -157,5 +157,10 @@ program
             });
         });
     });
+
+program
+    .command('update-version')
+    .description('Update version file to components.')
+    .option('--path <path>', 'The path of package json.', CWD);
 
 program.parse();
