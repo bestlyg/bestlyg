@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2678. 老人的数目',
-    url: 'https://leetcode.cn/problems/number-of-senior-citizens',
+    name: '72. 编辑距离',
+    url: 'https://leetcode.cn/problems/edit-distance',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回乘客中年龄 严格大于 60 岁 的人数。`,
+    desc: `给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数  。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,12 +34,23 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 36,
-            memory: 15.65,
-            desc: '切片后统计',
+            time: 84,
+            memory: 18.8,
+            desc: 'dp判断每种情况下的最小操作数',
             code: `class Solution:
-    def countSeniors(self, details: List[str]) -> int:
-        return sum(int(v[11:13]) > 60 for v in details)`,
+    def minDistance(self, word1: str, word2: str) -> int:
+        n1, n2 = len(word1), len(word2)
+        @cache
+        def dfs(i1: int, i2: int) -> int:
+            if i1 == n1: return n2 - i2
+            if i2 == n2: return n1 - i1
+            if word1[i1] == word2[i2]: return dfs(i1 + 1, i2 + 1)
+            return min(
+                dfs(i1 + 1, i2) + 1,    # i1 删除一个字符
+                dfs(i1, i2 + 1) + 1,    # i1 插入一个字符
+                dfs(i1 + 1, i2 + 1) + 1 # i1 替换一个字符
+            )
+        return dfs(0, 0) `,
         },
         // {
         //     script: Script.RUST,
