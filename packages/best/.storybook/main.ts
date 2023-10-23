@@ -48,7 +48,7 @@ function getUse(cssModule: boolean) {
             options: {
                 lessOptions: {
                     javascriptEnabled: true,
-                    plugins: [lessPluginFunctions],
+                    plugins: [],
                 },
             },
         },
