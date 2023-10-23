@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
-import './global.less';
 import '@best/core/src/style/index.less';
+import './global.less';
 
 const preview: Preview = {
     parameters: {
