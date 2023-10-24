@@ -1,25 +1,5 @@
 @plugin (-a) '~less-plugin-functions';
-// @import './theme/default.less';
-// @import './theme/css-variables.less';
-// @import './normalize.less';
-// @import './mixin.less';
-// @import './icon.less';
-// @import './animation.less';
+@import './normalize.less';
+@import './vars.less';
+@import './global.less';
 
-// @import './normalize.less';
-@import './vars/index.less';
-// @import './global.less';
-// @import './mixin.less';
-
-@{best-theme-tag} {
-    .load-css-vars(@vars-color);
-    .load-css-vars(@vars-global);
-
-    // font-size: @font-size-body;
-
-    // color: rgb(v(red-10));
-}
-
-body {
-    font-size: v(font-size-body-3);
-}

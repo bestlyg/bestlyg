@@ -1,0 +1,402 @@
+@best-theme-tag: ~':root'; // css 变量定义的选择器
+@best-less-prefix: best; // less变量前缀
+@best-css-prefix: best; // css 变量的前缀
+@best-cssvars-prefix: if(@best-css-prefix = ~'', ~'-', ~'--@{best-css-prefix}');
+
+.function {
+    .v(@key){
+        return: var(~'@{best-cssvars-prefix}-@{key}');
+    }
+}
+
+.load-css-vars(@map) {
+    each(@map, .(@v, @k, @i) {
+        --@{best-css-prefix}-@{k}: @v;
+    });
+}
+
+@best-vars: {
+    /******** color *******/
+
+    white: 255, 255, 255;
+    black: 0, 0, 0;
+    red-1: 255, 236, 232;
+    red-2: 253, 205, 197;
+    red-3: 251, 172, 163;
+    red-4: 249, 137, 129;
+    red-5: 247, 101, 96;
+    red-6: 245, 63, 63;
+    red-7: 203, 39, 45;
+    red-8: 161, 21, 30;
+    red-9: 119, 8, 19;
+    red-10: 77, 0, 10;
+    orangered-1: 255, 243, 232;
+    orangered-2: 253, 221, 195;
+    orangered-3: 252, 197, 159;
+    orangered-4: 250, 172, 123;
+    orangered-5: 249, 144, 87;
+    orangered-6: 247, 114, 52;
+    orangered-7: 204, 81, 32;
+    orangered-8: 162, 53, 17;
+    orangered-9: 119, 31, 6;
+    orangered-10: 77, 14, 0;
+    orange-1: 255, 247, 232;
+    orange-2: 255, 228, 186;
+    orange-3: 255, 207, 139;
+    orange-4: 255, 182, 93;
+    orange-5: 255, 154, 46;
+    orange-6: 255, 125, 0;
+    orange-7: 210, 95, 0;
+    orange-8: 166, 69, 0;
+    orange-9: 121, 46, 0;
+    orange-10: 77, 27, 0;
+    gold-1: 255, 252, 232;
+    gold-2: 253, 244, 191;
+    gold-3: 252, 233, 150;
+    gold-4: 250, 220, 109;
+    gold-5: 249, 204, 69;
+    gold-6: 247, 186, 30;
+    gold-7: 204, 146, 19;
+    gold-8: 162, 109, 10;
+    gold-9: 119, 75, 4;
+    gold-10: 77, 45, 0;
+    yellow-1: 254, 255, 232;
+    yellow-2: 254, 254, 190;
+    yellow-3: 253, 250, 148;
+    yellow-4: 252, 242, 107;
+    yellow-5: 251, 232, 66;
+    yellow-6: 250, 220, 25;
+    yellow-7: 207, 175, 15;
+    yellow-8: 163, 132, 8;
+    yellow-9: 120, 93, 3;
+    yellow-10: 77, 56, 0;
+    lime-1: 252, 255, 232;
+    lime-2: 237, 248, 187;
+    lime-3: 220, 241, 144;
+    lime-4: 201, 233, 104;
+    lime-5: 181, 226, 65;
+    lime-6: 159, 219, 29;
+    lime-7: 126, 183, 18;
+    lime-8: 95, 148, 10;
+    lime-9: 67, 112, 4;
+    lime-10: 42, 77, 0;
+    green-1: 232, 255, 234;
+    green-2: 175, 240, 181;
+    green-3: 123, 225, 136;
+    green-4: 76, 210, 99;
+    green-5: 35, 195, 67;
+    green-6: 0, 180, 42;
+    green-7: 0, 154, 41;
+    green-8: 0, 128, 38;
+    green-9: 0, 102, 34;
+    green-10: 0, 77, 28;
+    cyan-1: 232, 255, 251;
+    cyan-2: 183, 244, 236;
+    cyan-3: 137, 233, 224;
+    cyan-4: 94, 223, 214;
+    cyan-5: 55, 212, 207;
+    cyan-6: 20, 201, 201;
+    cyan-7: 13, 165, 170;
+    cyan-8: 7, 130, 139;
+    cyan-9: 3, 97, 108;
+    cyan-10: 0, 66, 77;
+    blue-1: 232, 247, 255;
+    blue-2: 195, 231, 254;
+    blue-3: 159, 212, 253;
+    blue-4: 123, 192, 252;
+    blue-5: 87, 169, 251;
+    blue-6: 52, 145, 250;
+    blue-7: 32, 108, 207;
+    blue-8: 17, 75, 163;
+    blue-9: 6, 48, 120;
+    blue-10: 0, 26, 77;
+    purple-1: 245, 232, 255;
+    purple-2: 221, 190, 246;
+    purple-3: 195, 150, 237;
+    purple-4: 168, 113, 227;
+    purple-5: 141, 78, 218;
+    purple-6: 114, 46, 209;
+    purple-7: 85, 29, 176;
+    purple-8: 60, 16, 143;
+    purple-9: 39, 6, 110;
+    purple-10: 22, 0, 77;
+    pinkpurple-1: 255, 232, 251;
+    pinkpurple-2: 247, 186, 239;
+    pinkpurple-3: 240, 142, 230;
+    pinkpurple-4: 232, 101, 223;
+    pinkpurple-5: 225, 62, 219;
+    pinkpurple-6: 217, 26, 217;
+    pinkpurple-7: 176, 16, 182;
+    pinkpurple-8: 138, 9, 147;
+    pinkpurple-9: 101, 3, 112;
+    pinkpurple-10: 66, 0, 77;
+    magenta-1: 255, 232, 241;
+    magenta-2: 253, 194, 219;
+    magenta-3: 251, 157, 199;
+    magenta-4: 249, 121, 183;
+    magenta-5: 247, 84, 168;
+    magenta-6: 245, 49, 157;
+    magenta-7: 203, 30, 131;
+    magenta-8: 161, 16, 105;
+    magenta-9: 119, 6, 79;
+    magenta-10: 77, 0, 52;
+    gray-1: 247, 248, 250;
+    gray-2: 242, 243, 245;
+    gray-3: 229, 230, 235;
+    gray-4: 201, 205, 212;
+    gray-5: 169, 174, 184;
+    gray-6: 134, 144, 156;
+    gray-7: 107, 119, 133;
+    gray-8: 78, 89, 105;
+    gray-9: 39, 46, 59;
+    gray-10: 29, 33, 41;
+
+    primary-1: 232, 243, 255;
+    primary-2: 190, 218, 255;
+    primary-3: 148, 191, 255;
+    primary-4: 106, 161, 255;
+    primary-5: 64, 128, 255;
+    primary-6: 22, 93, 255;
+    primary-7: 14, 66, 210;
+    primary-8: 7, 44, 166;
+    primary-9: 3, 26, 121;
+    primary-10: 0, 13, 77;
+
+    /******** success *******/
+    success-1: rgb(v(green-1));
+    success-2: rgb(v(green-2));
+    success-3: rgb(v(green-3));
+    success-4: rgb(v(green-4));
+    success-5: rgb(v(green-5));
+    success-6: rgb(v(green-6));
+    success-7: rgb(v(green-7));
+    success-8: rgb(v(green-8));
+    success-9: rgb(v(green-9));
+    success-10: rgb(v(green-10));
+
+    /******** warning *******/
+
+    warning-1: rgb(v(orange-1));
+    warning-2: rgb(v(orange-2));
+    warning-3: rgb(v(orange-3));
+    warning-4: rgb(v(orange-4));
+    warning-5: rgb(v(orange-5));
+    warning-6: rgb(v(orange-6));
+    warning-7: rgb(v(orange-7));
+    warning-8: rgb(v(orange-8));
+    warning-9: rgb(v(orange-9));
+    warning-10: rgb(v(orange-10));
+
+    /******** danger *******/
+
+    danger-1: rgb(v(red-1));
+    danger-2: rgb(v(red-2));
+    danger-3: rgb(v(red-3));
+    danger-4: rgb(v(red-4));
+    danger-5: rgb(v(red-5));
+    danger-6: rgb(v(red-6));
+    danger-7: rgb(v(red-7));
+    danger-8: rgb(v(red-8));
+    danger-9: rgb(v(red-9));
+    danger-10: rgb(v(red-10));
+
+    /******** link *******/
+
+    link-1: rgb(v(primary-1));
+    link-2: rgb(v(primary-2));
+    link-3: rgb(v(primary-3));
+    link-4: rgb(v(primary-4));
+    link-5: rgb(v(primary-5));
+    link-6: rgb(v(primary-6));
+    link-7: rgb(v(primary-7));
+    link-8: rgb(v(primary-8));
+    link-9: rgb(v(primary-9));
+    link-10: rgb(v(primary-10));
+
+    /******** borderSize *******/
+    border-none: 0;
+    border-1: 1px;
+    border-2: 2px;
+    border-3: 3px;
+    border-4: 4px;
+    border-5: 5px;
+
+    /******** borderStyle *******/
+
+    border-solid: solid;
+    border-dashed: dashed;
+    border-dotted: dotted;
+
+    /******** radius *******/
+
+    border-radius-none: 0;
+    border-radius-small: 2px;
+    border-radius-medium: 4px;
+    border-radius-large: 8px;
+    border-radius-circle: 50%;
+
+    /******** shadow distance *******/
+
+    shadow-distance-none: 0;
+    shadow-distance-1: 1px;
+    shadow-distance-2: 2px;
+    shadow-distance-3: 3px;
+    shadow-distance-4: 4px;
+
+    /******** size *******/
+
+    size-none: 0;
+    size-1: 4px;
+    size-2: 8px;
+    size-3: 12px;
+    size-4: 16px;
+    size-5: 20px;
+    size-6: 24px;
+    size-7: 28px;
+    size-8: 32px;
+    size-9: 36px;
+    size-10: 40px;
+    size-11: 44px;
+    size-12: 48px;
+    size-13: 52px;
+    size-14: 56px;
+    size-15: 60px;
+    size-16: 64px;
+    size-17: 68px;
+    size-18: 72px;
+    size-19: 76px;
+    size-20: 80px;
+    size-21: 84px;
+    size-22: 88px;
+    size-23: 92px;
+    size-24: 96px;
+    size-25: 100px;
+    size-26: 104px;
+    size-27: 108px;
+    size-28: 112px;
+    size-29: 116px;
+    size-30: 120px;
+    size-31: 124px;
+    size-32: 128px;
+    size-33: 132px;
+    size-34: 136px;
+    size-35: 140px;
+    size-36: 144px;
+    size-37: 148px;
+    size-38: 152px;
+    size-39: 156px;
+    size-40: 160px;
+    size-41: 164px;
+    size-42: 168px;
+    size-43: 172px;
+    size-44: 176px;
+    size-45: 180px;
+    size-46: 184px;
+    size-47: 188px;
+    size-48: 192px;
+    size-49: 196px;
+    size-50: 200px;
+
+    size-mini: v(size-6);
+    size-small: v(size-7);
+    size-default: v(size-8);
+    size-large: v(size-9);
+
+    /******** spacing *******/
+
+    spacing-none: 0;
+    spacing-1: 2px;
+    spacing-2: 4px;
+    spacing-3: 6px;
+    spacing-4: 8px;
+    spacing-5: 10px;
+    spacing-6: 12px;
+    spacing-7: 16px;
+    spacing-8: 20px;
+    spacing-9: 24px;
+    spacing-10: 32px;
+    spacing-11: 36px;
+    spacing-12: 40px;
+    spacing-13: 48px;
+    spacing-14: 56px;
+    spacing-15: 60px;
+    spacing-16: 64px;
+    spacing-17: 72px;
+    spacing-18: 80px;
+    spacing-19: 84px;
+    spacing-20: 96px;
+    spacing-21: 100px;
+    spacing-22: 120px;
+
+    color-transparent: transparent;
+
+    /******** shadow *******/
+
+    shadow-none: none;
+    shadow-special: 0 0 1px rgba(0, 0, 0, 0.3);
+    shadow1-center: 0 0 5px rgba(0, 0, 0, 0.1);
+    shadow1-up: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    shadow1-down: 0 2px 5px rgba(0, 0, 0, 0.1);
+    shadow1-left: -2px 0 5px rgba(0, 0, 0, 0.1);
+    shadow1-right: 2px 0 5px rgba(0, 0, 0, 0.1);
+    shadow1-left-up: -2px -2px 5px rgba(0, 0, 0, 0.1);
+    shadow1-left-down: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    shadow1-right-up: 2px -2px 5px rgba(0, 0, 0, 0.1);
+    shadow1-right-down: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    shadow2-center: 0 0 10px rgba(0, 0, 0, 0.1);
+    shadow2-up: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    shadow2-down: 0 4px 10px rgba(0, 0, 0, 0.1);
+    shadow2-left: -4px 0 10px rgba(0, 0, 0, 0.1);
+    shadow2-right: 4px 0 10px rgba(0, 0, 0, 0.1);
+    shadow2-left-up: -4px -4px 10px rgba(0, 0, 0, 0.1);
+    shadow2-left-down: -4px 4px 10px rgba(0, 0, 0, 0.1);
+    shadow2-right-up: 4px -4px 10px rgba(0, 0, 0, 0.1);
+    shadow2-right-down: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    shadow3-center: 0 0 20px rgba(0, 0, 0, 0.1);
+    shadow3-up: 0 -8px 20px rgba(0, 0, 0, 0.1);
+    shadow3-down: 0 8px 20px rgba(0, 0, 0, 0.1);
+    shadow3-left: -8px 0 20px rgba(0, 0, 0, 0.1);
+    shadow3-right: 8px 0 20px rgba(0, 0, 0, 0.1);
+    shadow3-left-up: -8px -8px 20px rgba(0, 0, 0, 0.1);
+    shadow3-left-down: -8px 8px 20px rgba(0, 0, 0, 0.1);
+    shadow3-right-up: 8px -8px 20px rgba(0, 0, 0, 0.1);
+    shadow3-right-down: 8px 8px 20px rgba(0, 0, 0, 0.1);
+
+    /******** opacity *******/
+
+    opacity-none: 0;
+    opacity-1: 10%;
+    opacity-2: 20%;
+    opacity-3: 30%;
+    opacity-4: 40%;
+    opacity-5: 50%;
+    opacity-6: 60%;
+    opacity-7: 70%;
+    opacity-8: 80%;
+    opacity-9: 90%;
+    opacity-10: 100%;
+
+    /******** fontSize *******/
+
+    font-size-display-1: 36px;
+    font-size-display-2: 48px;
+    font-size-display-3: 56px;
+    font-size-title-1: 16px;
+    font-size-title-2: 20px;
+    font-size-title-3: 24px;
+    font-size-body-1: 12px;
+    font-size-body-2: 13px;
+    font-size-body-3: 14px;
+    font-size-caption: 12px;
+
+    /******** fontWeight ********/
+    font-weight-100: 100;
+    font-weight-200: 200;
+    font-weight-300: 300;
+    font-weight-400: 400;
+    font-weight-500: 500;
+    font-weight-600: 600;
+    font-weight-700: 700;
+    font-weight-800: 800;
+    font-weight-900: 900;
+}
