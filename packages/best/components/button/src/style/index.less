@@ -1,4 +1,8 @@
 @import '~@best/core/es/style/vars/index.less';
+@import './version.less';
 
 @button-prefix: ~'@{best-less-prefix}-button';
 
+.@{button-prefix}[data-version=~'"@{version}"'] {
+    display: block;
+}

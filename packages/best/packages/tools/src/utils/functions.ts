@@ -69,13 +69,28 @@ export function requireJson(path: string) {
         // console.log('metas', metas);
         const mergedObj = _.merge({}, map[path], metas);
         mergedObj[FIELD_NAME_PACKAGE_JSON] = map[path][FIELD_NAME_PACKAGE_JSON];
-        return _.cloneDeepWith(mergedObj, (value, key, obj) => {
-            if (_.isString(value)) {
-                return _.template(value, { imports: { _, vars } })();
-            }
-        });
+        return removeNullKeys(
+            _.cloneDeepWith(mergedObj, value => {
+                if (_.isString(value)) {
+                    return _.template(value, { imports: { _, vars } })();
+                }
+            })
+        );
     } catch (err) {
         error('Update package json error.', err);
+    }
+
+    function removeNullKeys(obj) {
+        if (_.isArray(obj)) {
+            return obj.filter(v => !_.isNull(v));
+        } else if (_.isObject(obj)) {
+            return _.omitBy(
+                _.mapValues(obj, value => removeNullKeys(value)),
+                _.isNull
+            );
+        } else {
+            return obj;
+        }
     }
 
     function loadFile(path: string, pathSet = new Set<string>()) {

@@ -14,6 +14,9 @@ import {
     FILE_NAME_ENTRY_STYLE,
     requireJson,
     DIR_NAME_STYLE,
+    FILE_NAME_VERSION_STYLE,
+    FILE_NAME_VERSION_SCRIPT,
+    workPackageInfo,
 } from './utils';
 import { Command, Option } from 'commander';
 import fs from 'fs-extra';
@@ -150,17 +153,38 @@ program
     .description('Update package json from the filed of best-tools.')
     .option('--path <path>', 'The path of package json.', resolve(CWD, FILE_NAME_PACKAGE_JSON))
     .action(o => {
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
             fs.writeFile(o.path, JSON.stringify(requireJson(o.path), null, 4), err => {
                 if (err) error('Update package json error.', err);
                 resolve();
             });
-        });
+        }).then(
+            () => print.success(`Update package json sucessfully.`),
+            err => error(`Update package json erorr.`, err)
+        );
     });
 
 program
     .command('update-version')
     .description('Update version file to components.')
-    .option('--path <path>', 'The path of package json.', CWD);
+    .option('--path <path>', 'The path of work directory.', CWD)
+    .option('--script-file-name <path>', 'The name of script.', FILE_NAME_VERSION_SCRIPT)
+    .option('--style-file-name <path>', 'The name of style.', FILE_NAME_VERSION_STYLE)
+    .action(o => {
+        const { scriptFileName, styleFileName, path } = o;
+        return Promise.allSettled([
+            fs.writeFile(
+                resolve(o.path, DIR_NAME_SOURCE, scriptFileName),
+                `export const version = "${workPackageInfo.version}";`
+            ),
+            fs.writeFile(
+                resolve(o.path, DIR_NAME_SOURCE, DIR_NAME_STYLE, styleFileName),
+                `@version: ~'${workPackageInfo.version}';`
+            ),
+        ]).then(
+            () => print.success(`Update version sucessfully.`),
+            err => error(`Update version erorr.`, err)
+        );
+    });
 
 program.parse();

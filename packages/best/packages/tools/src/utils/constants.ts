@@ -8,6 +8,8 @@ export const DIR_NAME_SOURCE = process.env.BEST_TOOLS_DIR_NAME_SOURCE ?? 'src';
 export const DIR_NAME_STYLE = process.env.BEST_TOOLS_DIR_NAME_STYLE ?? 'style';
 export const FILE_NAME_ENTRY_SCRIPT = process.env.BEST_TOOLS_FILE_NAME_ENTRY_SCRIPT ?? 'index.ts';
 export const FILE_NAME_ENTRY_STYLE = process.env.BEST_TOOLS_FILE_NAME_ENTRY_STYLE ?? 'index.less';
+export const FILE_NAME_VERSION_SCRIPT = process.env.BEST_TOOLS_FILE_NAME_VERSION_SCRIPT ?? 'version.ts';
+export const FILE_NAME_VERSION_STYLE = process.env.BEST_TOOLS_FILE_NAME_VERSION_STYLE ?? 'version.less';
 export const FILE_NAME_PACKAGE_JSON =
     process.env.BEST_TOOLS_FILE_NAME_PACKAGE_JSON ?? 'package.json';
 export const FIELD_NAME_PACKAGE_JSON =

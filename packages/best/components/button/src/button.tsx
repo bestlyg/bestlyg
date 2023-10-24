@@ -1,3 +1,4 @@
+import { version } from './version';
 export interface ButtonProps {
     /**
      * The props of container.
@@ -12,6 +13,16 @@ export interface ButtonProps {
 
 export function Button(props: ButtonProps) {
     console.log('button render', props);
+    const prefix = `best-button`;
+    console.log('prefix', prefix);
     const { containerProps = {} } = props;
-    return <div {...containerProps}>button-{props.children}</div>;
+    return (
+        <div
+            data-version={version}
+            {...containerProps}
+            className={`${prefix} ${containerProps.className}`}
+        >
+            button-{props.children}
+        </div>
+    );
 }

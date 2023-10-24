@@ -49,6 +49,7 @@
     ],
     "scripts": {
         "clean": "best-tools clean",
+        "update-version": "best-tools update-version",
         "build:umd": "best-tools build --type umd",
         "build:cjs": "best-tools build --type cjs",
         "build:esm": "best-tools build --type esm",
