@@ -1,2 +1,2 @@
-// export * from 'zustand';
-// export * from 'zustand/shallow';
+export * from 'zustand';
+export * from 'zustand/shallow';
