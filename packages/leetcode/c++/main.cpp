@@ -157,21 +157,19 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int maxSatisfaction(vector<int>& satisfaction) {
-        sort(satisfaction.begin(), satisfaction.end());
-        int n = satisfaction.size(), nsum = 0, vsum = 0, res = 0;
-        for (int i = 0; i < n; i++) {
-            nsum += (i + 1) * satisfaction[i];
-            vsum += satisfaction[i];
-        }
-        res = max(res, nsum);
-        for (int i = 1; i < n; i++) {
-            if (satisfaction[i] >= 0) break;
-            nsum -= vsum;
-            vsum -= satisfaction[i - 1];
-            res = max(res, nsum);
-        }
-        return res;
+    int numRollsToTarget(int n, int k, int target) {
+        int MOD = 1e9 + 7;
+        unordered_map<int, unordered_map<int, int>> cache;
+        function<int(int, int)> dfs = [&](int idx, int target) -> int {
+            if (idx == n) return target == 0;
+            if (cache[idx][target]) return cache[idx][target];
+            int res = 0;
+            for (int i = 1; i <= min(k, target); i++) {
+                res = (res + dfs(idx + 1, target - i)) % MOD;
+            }
+            return cache[idx][target] = res;
+        };
+        return dfs(0, target);
     }
 };
 

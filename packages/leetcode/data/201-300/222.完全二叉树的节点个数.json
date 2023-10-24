@@ -2,10 +2,10 @@
     "id": "222",
     "name": "222.完全二叉树的节点个数",
     "url": "https://leetcode.cn/problems/count-complete-tree-nodes",
-    "difficulty": "中等",
+    "difficulty": "简单",
     "tag": [
+        "位运算",
         "树",
-        "深度优先搜索",
         "二分查找",
         "二叉树"
     ],

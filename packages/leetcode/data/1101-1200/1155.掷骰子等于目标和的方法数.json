@@ -6,15 +6,15 @@
     "tag": [
         "动态规划"
     ],
-    "desc": "如果需要掷出的总点数为 target，请你计算出有多少种不同的组合情况（所有的组合情况总共有 f^d 种）。",
+    "desc": "给定三个整数 n ,  k 和 target ，返回可能的方式(从总共 kn 种方式中)滚动骰子的数量，使正面朝上的数字之和等于 target 。",
     "solutions": [
         {
-            "date": 1639238400000,
-            "time": 112,
-            "memory": 42.1,
-            "script": "typescript",
-            "desc": "每次多一个骰子能掷出的点数,就等于前一数量的筛子掷出总数减当前数的值。",
-            "code": "function numRollsToTarget(d: number, f: number, target: number): number {\n  const mod = 1e9 + 7;\n  const dp = new Array(d + 1).fill(0).map(_ => new Array(target + 1).fill(0));\n  dp[0][0] = 1;\n  for (let i = 1; i <= d; i++) {\n    for (let j = i; j <= target; j++) {\n      for (let k = 1; k <= f && j >= k; k++) {\n        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;\n      }\n    }\n  }\n  return dp[d][target];\n}"
+            "script": "python",
+            "time": 84,
+            "memory": 18.8,
+            "desc": "记忆化递归，记录当前序号和剩余目标。",
+            "code": "class Solution:\n    def numRollsToTarget(self, n: int, k: int, target: int) -> int:\n        @cache\n        def dfs(idx: int, target: int) -> int:\n            if idx == n: return target == 0\n            return sum(dfs(idx + 1, target - i) for i in range(1, min(k, target) + 1)) % (10 ** 9 + 7)\n        return dfs(0, target)",
+            "date": 1698076800000
         }
     ]
 }

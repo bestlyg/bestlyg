@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '72. 编辑距离',
-    url: 'https://leetcode.cn/problems/edit-distance',
+    name: '1155. 掷骰子等于目标和的方法数',
+    url: 'https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数  。`,
+    desc: `给定三个整数 n ,  k 和 target ，返回可能的方式(从总共 kn 种方式中)滚动骰子的数量，使正面朝上的数字之和等于 target 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -36,21 +36,14 @@ const leetCodeMarkdown: Markdown = {
             script: Script.PY,
             time: 84,
             memory: 18.8,
-            desc: 'dp判断每种情况下的最小操作数',
+            desc: '记忆化递归，记录当前序号和剩余目标',
             code: `class Solution:
-    def minDistance(self, word1: str, word2: str) -> int:
-        n1, n2 = len(word1), len(word2)
+    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
         @cache
-        def dfs(i1: int, i2: int) -> int:
-            if i1 == n1: return n2 - i2
-            if i2 == n2: return n1 - i1
-            if word1[i1] == word2[i2]: return dfs(i1 + 1, i2 + 1)
-            return min(
-                dfs(i1 + 1, i2) + 1,    # i1 删除一个字符
-                dfs(i1, i2 + 1) + 1,    # i1 插入一个字符
-                dfs(i1 + 1, i2 + 1) + 1 # i1 替换一个字符
-            )
-        return dfs(0, 0) `,
+        def dfs(idx: int, target: int) -> int:
+            if idx == n: return target == 0
+            return sum(dfs(idx + 1, target - i) for i in range(1, min(k, target) + 1)) % (10 ** 9 + 7)
+        return dfs(0, target)`,
         },
         // {
         //     script: Script.RUST,
