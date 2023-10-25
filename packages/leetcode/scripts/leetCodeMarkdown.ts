@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2698. 求一个整数的惩罚数',
-    url: 'https://leetcode.cn/problems/find-the-punishment-number-of-an-integer',
+    name: '面试题 08.13. 堆箱子',
+    url: 'https://leetcode.cn/problems/pile-box-lcci/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个正整数 n ，请你返回 n 的 惩罚数 。`,
+    desc: `堆箱子。给你一堆n个箱子，箱子宽 wi、深 di、高 hi。箱子不能翻转，将箱子堆起来时，下面箱子的宽度、高度和深度必须大于上面的箱子。实现一种方法，搭出最高的一堆箱子。箱堆的高度为每个箱子高度的总和。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,82 +25,37 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        {
-            script: Script.CPP,
-            time: 316,
-            memory: 5.92,
-            desc: 'dfs计算当前值是否可行',
-            code: `class Solution {
-public:
-    bool check(int num) {
-        string s = to_string(num * num);
-        function<bool(int, int)> dfs = [&](int idx, int target) -> bool {
-            if (idx == s.size()) return target == 0;
-            for (int cnt = 1; cnt <= s.size() - idx; cnt++) {
-                if (dfs(idx + cnt, target - stoi(s.substr(idx, cnt)))) return true;
-            }
-            return false;
-        };
-        return dfs(0, num);
-    }
-    int punishmentNumber(int n) {
-        int res = 0;
-        for (int i = 1; i <= n; i++) res += check(i) ? i * i : 0;
-        return res;
-    }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 316,
+        //     memory: 5.92,
+        //     desc: 'dfs计算当前值是否可行',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 1416,
-            memory: 15.71,
-            desc: '同上',
-            code: `def check(num: int) -> bool:
-        s = str(num * num)
-        def dfs(idx: int, target: int) -> bool:
-            if idx == len(s): return target == 0
-            for cnt in range(1, len(s) - idx + 1):
-                if dfs(idx + cnt, target - int(s[idx: idx + cnt])): return True
-            return False
-
-        return dfs(0, num)
-
-    class Solution:
-        def punishmentNumber(self, n: int) -> int:
-            return sum(i * i if check(i) else 0 for i in range(1, n + 1))`,
+            time: 1056,
+            memory: 16.35,
+            desc: 'dp[i]表示当前为顶时的最大值',
+            code: `class Solution:
+    def pileBox(self, box: List[List[int]]) -> int:
+        n = len(box)
+        box.sort(key=lambda o: o[0] * o[1] * o[2], reverse=True)
+        dp = [0] * n
+        for i in range(n):
+            dp[i] = box[i][2]
+            for j in range(i - 1, -1, -1):
+                if box[i][0] < box[j][0] and box[i][1] < box[j][1] and box[i][2] < box[j][2]:
+                    dp[i] = max(dp[i], dp[j] + box[i][2])
+        return max(dp)`,
         },
-        {
-            script: Script.RUST,
-            time: 124,
-            memory: 1.9,
-            desc: '同上',
-            code: `fn check(num: i32) -> bool {
-    let s = num.pow(2).to_string().chars().collect::<Vec<_>>();
-    fn dfs(s: &Vec<char>, idx: usize, target: i32) -> bool {
-        if idx == s.len() {
-            target == 0
-        } else {
-            for cnt in 1..=(s.len() - idx) {
-                if dfs(
-                    s,
-                    idx + cnt,
-                    target - &s[idx..idx + cnt].iter().collect::<String>().parse::<i32>().unwrap(),
-                ) {
-                    return true;
-                }
-            }
-            false
-        }
-    }
-    dfs(&s, 0, num)
-}
-
-impl Solution {
-    pub fn punishment_number(n: i32) -> i32 {
-        (1..=n).map(|i| if check(i) { i * i } else { 0 }).sum()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 124,
+        //     memory: 1.9,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
