@@ -1,0 +1,33 @@
+{
+    "name": "2698.求一个整数的惩罚数",
+    "url": "https://leetcode.cn/problems/find-the-punishment-number-of-an-integer",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个正整数 n ，请你返回 n 的 惩罚数 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 316,
+            "memory": 5.92,
+            "desc": "dfs计算当前值是否可行。",
+            "code": "class Solution {\npublic:\n    bool check(int num) {\n        string s = to_string(num * num);\n        function<bool(int, int)> dfs = [&](int idx, int target) -> bool {\n            if (idx == s.size()) return target == 0;\n            for (int cnt = 1; cnt <= s.size() - idx; cnt++) {\n                if (dfs(idx + cnt, target - stoi(s.substr(idx, cnt)))) return true;\n            }\n            return false;\n        };\n        return dfs(0, num);\n    }\n    int punishmentNumber(int n) {\n        int res = 0;\n        for (int i = 1; i <= n; i++) res += check(i) ? i * i : 0;\n        return res;\n    }\n};",
+            "date": 1698163200000
+        },
+        {
+            "script": "python",
+            "time": 1416,
+            "memory": 15.71,
+            "desc": "同上。",
+            "code": "def check(num: int) -> bool:\n        s = str(num * num)\n        def dfs(idx: int, target: int) -> bool:\n            if idx == len(s): return target == 0\n            for cnt in range(1, len(s) - idx + 1):\n                if dfs(idx + cnt, target - int(s[idx: idx + cnt])): return True\n            return False\n\n        return dfs(0, num)\n\n    class Solution:\n        def punishmentNumber(self, n: int) -> int:\n            return sum(i * i if check(i) else 0 for i in range(1, n + 1))",
+            "date": 1698163200000
+        },
+        {
+            "script": "rust",
+            "time": 124,
+            "memory": 1.9,
+            "desc": "同上。",
+            "code": "fn check(num: i32) -> bool {\n    let s = num.pow(2).to_string().chars().collect::<Vec<_>>();\n    fn dfs(s: &Vec<char>, idx: usize, target: i32) -> bool {\n        if idx == s.len() {\n            target == 0\n        } else {\n            for cnt in 1..=(s.len() - idx) {\n                if dfs(\n                    s,\n                    idx + cnt,\n                    target - &s[idx..idx + cnt].iter().collect::<String>().parse::<i32>().unwrap(),\n                ) {\n                    return true;\n                }\n            }\n            false\n        }\n    }\n    dfs(&s, 0, num)\n}\n\nimpl Solution {\n    pub fn punishment_number(n: i32) -> i32 {\n        (1..=n).map(|i| if check(i) { i * i } else { 0 }).sum()\n    }\n}",
+            "date": 1698163200000
+        }
+    ]
+}

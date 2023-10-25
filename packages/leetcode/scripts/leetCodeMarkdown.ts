@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1155. 掷骰子等于目标和的方法数',
-    url: 'https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum',
+    name: '2698. 求一个整数的惩罚数',
+    url: 'https://leetcode.cn/problems/find-the-punishment-number-of-an-integer',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定三个整数 n ,  k 和 target ，返回可能的方式(从总共 kn 种方式中)滚动骰子的数量，使正面朝上的数字之和等于 target 。`,
+    desc: `给你一个正整数 n ，请你返回 n 的 惩罚数 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,33 +25,82 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        // {
-        //     script: Script.CPP,
-        //     time: 4,
-        //     memory: 7.93,
-        //     desc: '排序后贪心判断',
-        //     code: ``,
-        // },
+        {
+            script: Script.CPP,
+            time: 316,
+            memory: 5.92,
+            desc: 'dfs计算当前值是否可行',
+            code: `class Solution {
+public:
+    bool check(int num) {
+        string s = to_string(num * num);
+        function<bool(int, int)> dfs = [&](int idx, int target) -> bool {
+            if (idx == s.size()) return target == 0;
+            for (int cnt = 1; cnt <= s.size() - idx; cnt++) {
+                if (dfs(idx + cnt, target - stoi(s.substr(idx, cnt)))) return true;
+            }
+            return false;
+        };
+        return dfs(0, num);
+    }
+    int punishmentNumber(int n) {
+        int res = 0;
+        for (int i = 1; i <= n; i++) res += check(i) ? i * i : 0;
+        return res;
+    }
+};`,
+        },
         {
             script: Script.PY,
-            time: 84,
-            memory: 18.8,
-            desc: '记忆化递归，记录当前序号和剩余目标',
-            code: `class Solution:
-    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
-        @cache
-        def dfs(idx: int, target: int) -> int:
-            if idx == n: return target == 0
-            return sum(dfs(idx + 1, target - i) for i in range(1, min(k, target) + 1)) % (10 ** 9 + 7)
-        return dfs(0, target)`,
+            time: 1416,
+            memory: 15.71,
+            desc: '同上',
+            code: `def check(num: int) -> bool:
+        s = str(num * num)
+        def dfs(idx: int, target: int) -> bool:
+            if idx == len(s): return target == 0
+            for cnt in range(1, len(s) - idx + 1):
+                if dfs(idx + cnt, target - int(s[idx: idx + cnt])): return True
+            return False
+
+        return dfs(0, num)
+
+    class Solution:
+        def punishmentNumber(self, n: int) -> int:
+            return sum(i * i if check(i) else 0 for i in range(1, n + 1))`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 1.98,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 124,
+            memory: 1.9,
+            desc: '同上',
+            code: `fn check(num: i32) -> bool {
+    let s = num.pow(2).to_string().chars().collect::<Vec<_>>();
+    fn dfs(s: &Vec<char>, idx: usize, target: i32) -> bool {
+        if idx == s.len() {
+            target == 0
+        } else {
+            for cnt in 1..=(s.len() - idx) {
+                if dfs(
+                    s,
+                    idx + cnt,
+                    target - &s[idx..idx + cnt].iter().collect::<String>().parse::<i32>().unwrap(),
+                ) {
+                    return true;
+                }
+            }
+            false
+        }
+    }
+    dfs(&s, 0, num)
+}
+
+impl Solution {
+    pub fn punishment_number(n: i32) -> i32 {
+        (1..=n).map(|i| if check(i) { i * i } else { 0 }).sum()
+    }
+}`,
+        },
     ],
 };
 

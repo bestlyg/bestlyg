@@ -13,26 +13,31 @@ fn main() {
     // );
     // println!("res = {res:#?}");
 }
-impl Solution {
-    pub fn max_satisfaction(mut satisfaction: Vec<i32>) -> i32 {
-        satisfaction.sort();
-        let m = satisfaction.len();
-        let mut res = 0;
-        let mut nsum = 0;
-        let mut vsum = 0;
-        for i in 0..n {
-            nsum += (i as i32 + 1) * satisfaction[i];
-            vsum += satisfaction[i]
-        }
-        res = res.max(nsum);
-        for i in 1..n {
-            if satisfaction[i] >= 0 {
-                break;
+
+fn check(num: i32) -> bool {
+    let s = num.to_string().chars().collect::<Vec<_>>();
+    fn dfs(s: &Vec<char>, idx: usize, target: i32) -> bool {
+        if idx == s.len() {
+            target == 0
+        } else {
+            for cnt in 1..=(s.len() - idx) {
+                let a = &s[idx..idx + cnt];
+                if dfs(
+                    s,
+                    idx + cnt,
+                    target - a.iter().collect::<String>().parse::<i32>().unwrap(),
+                ) {
+                    return true;
+                }
             }
-            nsum -= vsum;
-            vsum -= satisfaction[i - 1];
-            res = res.max(nsum);
+            false
         }
-        res
+    }
+    dfs(&s, 0, num)
+}
+
+impl Solution {
+    pub fn punishment_number(n: i32) -> i32 {
+        (1..=n).map(|i| if check(i) { i * i } else { 0 }).sum()
     }
 }

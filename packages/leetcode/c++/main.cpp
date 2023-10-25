@@ -157,19 +157,21 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int numRollsToTarget(int n, int k, int target) {
-        int MOD = 1e9 + 7;
-        unordered_map<int, unordered_map<int, int>> cache;
-        function<int(int, int)> dfs = [&](int idx, int target) -> int {
-            if (idx == n) return target == 0;
-            if (cache[idx][target]) return cache[idx][target];
-            int res = 0;
-            for (int i = 1; i <= min(k, target); i++) {
-                res = (res + dfs(idx + 1, target - i)) % MOD;
+    bool check(int num) {
+        string s = to_string(num);
+        function<bool(int, int)> dfs(int idx, int target) -> bool {
+            if (idx == s.size()) return target == 0;
+            for (int cnt = 1; cnt <= s.size() - idx; cnt++) {
+                if (dfs(idx + cnt, target - stoi(s.substr(idx, cnt)))) return true;
             }
-            return cache[idx][target] = res;
+            return false;
         };
-        return dfs(0, target);
+        return dfs(0, num);
+    }
+    int punishmentNumber(int n) {
+        int res = 0;
+        for (int i = 1; i <= n; i++) res += check(i) ? i * i : 0;
+        return res;
     }
 };
 
