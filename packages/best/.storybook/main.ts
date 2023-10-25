@@ -1,13 +1,13 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
 import fs from 'fs-extra';
-import LessAutoprefix from 'less-plugin-autoprefix';
-import NpmImportPlugin from 'less-plugin-npm-import';
-import LessPluginFunctions from 'less-plugin-functions';
+// import LessAutoprefix from 'less-plugin-autoprefix';
+// import NpmImportPlugin from 'less-plugin-npm-import';
+// import LessPluginFunctions from 'less-plugin-functions';
 
 // const npmImport = new NpmImportPlugin({ prefix: '~' });
 // const autoprefix = new LessAutoprefix();
-const lessPluginFunctions = new LessPluginFunctions();
+// const lessPluginFunctions = new LessPluginFunctions();
 
 const resolve = (...p: string[]) => path.resolve(__dirname, '../', ...p);
 const componentsPath = resolve('components');
@@ -100,6 +100,7 @@ const config: StorybookConfig = {
                 use: getUse(true),
             }
         );
+        config.cache = false;
         // config.resolve!.modules = false;
         // config.resolve!.symlinks = false;
         // config.resolve!.modules!.push('../node_modules/.pnpm');

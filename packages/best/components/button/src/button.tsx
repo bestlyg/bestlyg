@@ -1,10 +1,15 @@
+import clsx from '@best/core/es/deps/clsx';
+import { useConfigContext } from '@best/core/es/config-provider';
 import { version } from './version';
+
+type ElementProps<T> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
+
 export interface ButtonProps {
     /**
      * The props of container.
      * @default {}
      */
-    containerProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+    containerProps?: ElementProps<HTMLButtonElement>;
     /**
      * The children of components.
      */
@@ -12,17 +17,17 @@ export interface ButtonProps {
 }
 
 export function Button(props: ButtonProps) {
+    const { prefix } = useConfigContext();
+    const prefixCls = `${prefix}-button`;
     console.log('button render', props);
-    const prefix = `best-button`;
-    console.log('prefix', prefix);
     const { containerProps = {} } = props;
     return (
-        <div
+        <button
             data-version={version}
             {...containerProps}
-            className={`${prefix} ${containerProps.className}`}
+            className={clsx(prefixCls, containerProps.className)}
         >
             button-{props.children}
-        </div>
+        </button>
     );
 }
