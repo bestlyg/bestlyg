@@ -105,9 +105,6 @@ const config: StorybookConfig = {
                 use: getUse(true),
             }
         );
-        // config.resolve!.modules = false;
-        // config.resolve!.symlinks = false;
-        // config.resolve!.modules!.push('../node_modules/.pnpm');
         (config as any).module.rules[2].use[0].options.presets.push('@babel/preset-typescript');
         return config;
     },

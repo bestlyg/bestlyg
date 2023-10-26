@@ -7,8 +7,9 @@
     }
 }
 
-.load-css-vars(@map) {
+.load-css-vars(@map, @prefix: ~'') {
+    @best-prefix: if(@prefix = ~'', ~'', ~'-@{prefix}');
     each(@map, .(@v, @k, @i) {
-        --@{best-css-prefix}-@{k}: @v;
+        --@{best-css-prefix}@{prefix}-@{k}: @v;
     });
 }

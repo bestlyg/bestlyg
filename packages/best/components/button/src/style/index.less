@@ -1,8 +1,15 @@
 @import '~@best/core/es/style/preclude.less';
 @import './version.less';
 
-@button-prefix: ~'@{best-less-prefix}-button';
+@name: button;
+@button-prefix: ~'@{best-less-prefix}-@{name}';
+@vars: {
+    height: v(size-7);
+};
 
 .@{button-prefix}[data-version=~'"@{version}"'] {
+    .load-css-vars(@vars, @name);
+
     display: block;
+    height: @vars[height];
 }
