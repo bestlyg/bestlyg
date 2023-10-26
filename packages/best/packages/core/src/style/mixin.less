@@ -1,0 +1,14 @@
+@plugin (-a) '~less-plugin-functions';
+@import './base.less';
+
+.function {
+    .v(@key) {
+        return: var(~'@{best-cssvars-prefix}-@{key}');
+    }
+}
+
+.load-css-vars(@map) {
+    each(@map, .(@v, @k, @i) {
+        --@{best-css-prefix}-@{k}: @v;
+    });
+}

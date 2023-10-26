@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/react';
-import '@best/core/src/style/index.less';
 import './global.less';
 
 const preview: Preview = {

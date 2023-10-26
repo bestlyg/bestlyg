@@ -1,13 +1,13 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
 import fs from 'fs-extra';
-// import LessAutoprefix from 'less-plugin-autoprefix';
-// import NpmImportPlugin from 'less-plugin-npm-import';
-// import LessPluginFunctions from 'less-plugin-functions';
+import LessAutoprefix from 'less-plugin-autoprefix';
+import NpmImportPlugin from 'less-plugin-npm-import';
+import LessPluginFunctions from 'less-plugin-functions';
 
-// const npmImport = new NpmImportPlugin({ prefix: '~' });
-// const autoprefix = new LessAutoprefix();
-// const lessPluginFunctions = new LessPluginFunctions();
+const npmImport = new NpmImportPlugin({ prefix: '~' });
+const autoprefix = new LessAutoprefix();
+const lessPluginFunctions = new LessPluginFunctions();
 
 const resolve = (...p: string[]) => path.resolve(__dirname, '../', ...p);
 const componentsPath = resolve('components');
@@ -48,7 +48,9 @@ function getUse(cssModule: boolean) {
             options: {
                 lessOptions: {
                     javascriptEnabled: true,
-                    plugins: [],
+                    plugins: [
+                        // npmImport, autoprefix, lessPluginFunctions
+                    ],
                 },
             },
         },
@@ -89,6 +91,9 @@ const config: StorybookConfig = {
         for (const [k, v] of Object.entries(aliasBestLib())) {
             config.resolve!.alias![k] = v;
         }
+        config.resolve!.alias!['react'] = getAbsolutePath('react');
+        config.resolve!.alias!['react-dom'] = getAbsolutePath('react-dom');
+        console.log(config.resolve!.alias);
         (config as any).module.rules.push(
             {
                 test: lessRegex,
@@ -100,7 +105,6 @@ const config: StorybookConfig = {
                 use: getUse(true),
             }
         );
-        config.cache = false;
         // config.resolve!.modules = false;
         // config.resolve!.symlinks = false;
         // config.resolve!.modules!.push('../node_modules/.pnpm');

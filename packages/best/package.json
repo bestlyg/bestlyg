@@ -21,6 +21,7 @@
         "@babel/preset-env": "^7.23.2",
         "@babel/preset-react": "^7.22.5",
         "@babel/preset-typescript": "^7.22.5",
+        "@best/core": "workspace:*",
         "@storybook/addon-essentials": "^7.4.6",
         "@storybook/addon-interactions": "^7.4.6",
         "@storybook/addon-links": "^7.4.6",
@@ -55,5 +56,8 @@
         "tslib": "^2.6.2",
         "typescript": "^5.2.2",
         "webpack": "5.69.0"
+    },
+    "dependencies": {
+        "@storybook/preview-api": "^7.5.1"
     }
 }

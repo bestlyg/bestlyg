@@ -1,21 +1,4 @@
-@best-theme-tag: ~':root'; // css 变量定义的选择器
-@best-less-prefix: best; // less变量前缀
-@best-css-prefix: best; // css 变量的前缀
-@best-cssvars-prefix: if(@best-css-prefix = ~'', ~'-', ~'--@{best-css-prefix}');
-
-.function {
-    .v(@key){
-        return: var(~'@{best-cssvars-prefix}-@{key}');
-    }
-}
-
-.load-css-vars(@map) {
-    each(@map, .(@v, @k, @i) {
-        --@{best-css-prefix}-@{k}: @v;
-    });
-}
-
-
+@import './mixin.less';
 
 @best-vars: {
     /******** color *******/
@@ -401,4 +384,4 @@
     font-weight-700: 700;
     font-weight-800: 800;
     font-weight-900: 900;
-}
+};

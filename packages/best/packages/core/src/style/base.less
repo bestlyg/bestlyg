@@ -1,0 +1,4 @@
+@best-theme-tag: ~':root'; // css 变量定义的选择器
+@best-less-prefix: best; // less变量前缀
+@best-css-prefix: best; // css 变量的前缀
+@best-cssvars-prefix: if(@best-css-prefix = ~'', ~'-', ~'--@{best-css-prefix}');

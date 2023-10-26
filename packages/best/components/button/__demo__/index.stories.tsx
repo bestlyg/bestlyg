@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useArgs } from '@storybook/preview-api';
 import { Button } from '@best/button/src/button';
 import '@best/button/src/style/index.less';
 // function Button() {
@@ -28,8 +29,13 @@ export const Primary: Story = {
         containerProps: { className: 'container' },
         children: 'child',
     },
-    render(...args) {
-        console.log(args);
-        return <Button>c</Button>;
+    // render(...args) {
+    //     console.log(args);
+    //     return <Button>c</Button>;
+    // },
+    render: function Render(args) {
+        const [{ containerProps, children }, updateArgs] = useArgs();
+        console.log('render111', args);
+        return <Button containerProps={containerProps} children={children} />;
     },
 };
