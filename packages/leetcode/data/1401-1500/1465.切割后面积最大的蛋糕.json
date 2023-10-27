@@ -1,0 +1,33 @@
+{
+    "name": "1465.切割后面积最大的蛋糕",
+    "url": "https://leetcode.cn/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你按数组 horizontalCuts 和 verticalCuts 中提供的水平和竖直位置切割后，请你找出 面积最大 的那份蛋糕，并返回其 面积 。",
+    "solutions": [
+        {
+            "script": "cpp",
+            "time": 64,
+            "memory": 31.09,
+            "desc": "排序后计算间隔。",
+            "code": "class Solution {\npublic:\n    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {\n        long long resH = 0, resW = 0;\n        sort(horizontalCuts.begin(), horizontalCuts.end());\n        horizontalCuts.insert(horizontalCuts.begin(), 0);\n        horizontalCuts.push_back(h);\n        for (int i = 1; i < horizontalCuts.size(); i++) resH = max(resH, (long long)horizontalCuts[i] - horizontalCuts[i - 1]);\n        sort(verticalCuts.begin(), verticalCuts.end());\n        verticalCuts.insert(verticalCuts.begin(), 0);\n        verticalCuts.push_back(w);\n        for (int i = 1; i < verticalCuts.size(); i++) resW = max(resW, (long long)verticalCuts[i] - verticalCuts[i - 1]);\n        return resH * resW % ((long long)1e9 + 7);\n    }\n};",
+            "date": 1698336000000
+        },
+        {
+            "script": "python",
+            "time": 108,
+            "memory": 27.1,
+            "desc": "同上。",
+            "code": "class Solution:\n    def maxArea(self, h: int, w: int, horizontalCuts: List[int], verticalCuts: List[int]) -> int:\n        res = [0, 0]\n        horizontalCuts.sort()\n        horizontalCuts = [0] + horizontalCuts + [h]\n        for i in range(1, len(horizontalCuts)):\n            res[0] = max(res[0], horizontalCuts[i] - horizontalCuts[i - 1])\n        \n        verticalCuts.sort()\n        verticalCuts = [0] + verticalCuts + [w]\n        for i in range(1, len(verticalCuts)):\n            res[1] = max(res[1], verticalCuts[i] - verticalCuts[i - 1])\n        return res[0] * res[1] % (10 ** 9 + 7)",
+            "date": 1698336000000
+        },
+        {
+            "script": "rust",
+            "time": 16,
+            "memory": 4.29,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn max_area(h: i32, w: i32, horizontal_cuts: Vec<i32>, vertical_cuts: Vec<i32>) -> i32 {\n        let mut horizontal_cuts = horizontal_cuts\n            .into_iter()\n            .map(|v| v as i64)\n            .collect::<Vec<_>>();\n        horizontal_cuts.sort();\n        horizontal_cuts.insert(0, 0);\n        horizontal_cuts.push(h as i64);\n        let mut h = 0;\n        for i in 1..horizontal_cuts.len() {\n            h = h.max(horizontal_cuts[i] - horizontal_cuts[i - 1]);\n        }\n        let mut vertical_cuts = vertical_cuts\n            .into_iter()\n            .map(|v| v as i64)\n            .collect::<Vec<_>>();\n        vertical_cuts.sort();\n        vertical_cuts.insert(0, 0);\n        vertical_cuts.push(w as i64);\n        let mut w = 0;\n        for i in 1..vertical_cuts.len() {\n            w = w.max(vertical_cuts[i] - vertical_cuts[i - 1]);\n        }\n        (h * w % (10i64.pow(9) + 7)) as i32\n    }\n}",
+            "date": 1698336000000
+        }
+    ]
+}

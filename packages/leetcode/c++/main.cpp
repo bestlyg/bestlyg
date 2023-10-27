@@ -157,21 +157,17 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    bool check(int num) {
-        string s = to_string(num);
-        function<bool(int, int)> dfs(int idx, int target) -> bool {
-            if (idx == s.size()) return target == 0;
-            for (int cnt = 1; cnt <= s.size() - idx; cnt++) {
-                if (dfs(idx + cnt, target - stoi(s.substr(idx, cnt)))) return true;
-            }
-            return false;
-        };
-        return dfs(0, num);
-    }
-    int punishmentNumber(int n) {
-        int res = 0;
-        for (int i = 1; i <= n; i++) res += check(i) ? i * i : 0;
-        return res;
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        int resH = 0, resW = 0;
+        sort(horizontalCuts.begin(), horizontalCuts.end());
+        horizontalCuts.insert(horizontalCuts.begin(), 0);
+        horizontalCuts.push_back(h);
+        for (int i = 1; i < horizontalCuts.size(); i++) resH = max(resH, horizontalCuts[i] - horizontalCuts[i - 1]);
+        sort(verticalCuts.begin(), verticalCuts.end());
+        verticalCuts.insert(verticalCuts.begin(), 0);
+        verticalCuts.push_back(w);
+        for (int i = 1; i < verticalCuts.size(); i++) resW = max(resW, verticalCuts[i] - horizontalCuts[i - 1]);
+        return resH * resW % (1e9 + 7);
     }
 };
 
