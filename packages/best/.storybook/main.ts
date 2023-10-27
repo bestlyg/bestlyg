@@ -105,6 +105,7 @@ const config: StorybookConfig = {
                 use: getUse(true),
             }
         );
+        config.cache = false;
         (config as any).module.rules[2].use[0].options.presets.push('@babel/preset-typescript');
         return config;
     },

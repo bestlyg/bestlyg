@@ -7,9 +7,11 @@
     }
 }
 
-.load-css-vars(@map, @prefix: ~'') {
-    @best-prefix: if(@prefix = ~'', ~'', ~'-@{prefix}');
+.load-css-vars(@map, @prefix: ~'-') {
+    @spec-prefix: if((@prefix = button), ~'-@{prefix}-b-', ~'-@{prefix}-a-');
     each(@map, .(@v, @k, @i) {
-        --@{best-css-prefix}@{prefix}-@{k}: @v;
+        // @{best-cssvars-prefix}@{spec-prefix}@{k}: @v;
+        @{best-cssvars-prefix}-@{k}: @v;
+        @{spec-prefix}-@{k}: @v;
     });
 }
