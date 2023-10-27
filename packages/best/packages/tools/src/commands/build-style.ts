@@ -42,6 +42,7 @@ export async function buildStyle({
                         transform({
                             content: data.toString(),
                             transformConfig: config => {
+                                if (!config.paths) config.paths = [];
                                 config.paths.push(entry);
                                 return mergeConfig(config, configs);
                             },
