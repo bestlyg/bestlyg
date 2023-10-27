@@ -71,9 +71,6 @@ dependencies:
   less-plugin-autoprefix:
     specifier: ^2.0.0
     version: 2.0.0
-  less-plugin-functions:
-    specifier: ^1.0.0
-    version: 1.0.0
   less-plugin-npm-import:
     specifier: ^2.1.0
     version: 2.1.0
@@ -2330,11 +2327,6 @@ packages:
     dependencies:
       autoprefixer: 8.6.5
       postcss: 6.0.23
-    dev: false
-
-  /less-plugin-functions@1.0.0:
-    resolution: {integrity: sha512-b4uburxseatVvycnRjzPOB4AvCmrwhwWh48MUHlE+itWinNm+Ipd2ADVHB3FyS0L4W+/mzofLNwr9lhvofuRIg==}
-    engines: {node: '>=0.10.0'}
     dev: false
 
   /less-plugin-npm-import@2.1.0:

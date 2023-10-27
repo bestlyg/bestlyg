@@ -1,17 +1,9 @@
-@plugin (-a) '~less-plugin-functions';
+@plugin './mixin.js';
 @import './base.less';
 
-.function {
-    .v(@key) {
-        return: var(~'@{best-cssvars-prefix}-@{key}');
-    }
-}
-
-.load-css-vars(@map, @prefix: ~'-') {
-    @spec-prefix: if((@prefix = button), ~'-@{prefix}-b-', ~'-@{prefix}-a-');
+.load-css-vars(@map, @prefix: ~'') {
+    @spec-prefix: if(@prefix = ~'', ~'', ~'-@{prefix}');
     each(@map, .(@v, @k, @i) {
-        // @{best-cssvars-prefix}@{spec-prefix}@{k}: @v;
-        @{best-cssvars-prefix}-@{k}: @v;
-        @{spec-prefix}-@{k}: @v;
+        @{best-cssvars-prefix}@{spec-prefix}-@{k}: @v;
     });
 }

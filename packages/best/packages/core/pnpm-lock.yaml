@@ -11,9 +11,6 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
-  less-plugin-functions:
-    specifier: ^1.0.0
-    version: 1.0.0
   normalize.css:
     specifier: ^8.0.1
     version: 8.0.1
@@ -73,11 +70,6 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-
-  /less-plugin-functions@1.0.0:
-    resolution: {integrity: sha512-b4uburxseatVvycnRjzPOB4AvCmrwhwWh48MUHlE+itWinNm+Ipd2ADVHB3FyS0L4W+/mzofLNwr9lhvofuRIg==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}

@@ -41,7 +41,6 @@
     "dependencies": {
         "clsx": "^1.2.1",
         "dayjs": "^1.11.10",
-        "less-plugin-functions": "^1.0.0",
         "normalize.css": "^8.0.1",
         "zustand": "^4.4.1"
     },
