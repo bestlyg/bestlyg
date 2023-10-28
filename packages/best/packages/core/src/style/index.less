@@ -2,3 +2,9 @@
 @import './normalize.less';
 @import './global.less';
 @import './version.less';
+
+div {
+    @button: btn;
+    define_var(~'@{button}-a', 1px);
+    width: @btn-a;
+}

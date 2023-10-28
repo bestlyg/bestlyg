@@ -7,11 +7,3 @@
 body {
     font-size: v(font-size-body-3);
 }
-
-@name: button;
-@b: get_prefix(@name);
-@a: var(~'--@{b}');
-div {
-    --button: 1px;
-    width: @a;
-}

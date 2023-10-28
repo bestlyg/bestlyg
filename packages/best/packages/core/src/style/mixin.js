@@ -4,8 +4,7 @@ module.exports = class LessPluginBestMixin {
             return new less.tree.Call('var', [
                 new less.tree.Expression(
                     [
-                        new less.tree.Keyword('--'),
-                        new less.tree.Variable('@best-css-prefix'),
+                        new less.tree.Variable('@best-cssvars-prefix'),
                         new less.tree.Keyword('-'),
                         key,
                     ],
@@ -14,11 +13,25 @@ module.exports = class LessPluginBestMixin {
             ]);
         });
         functions.add('get_prefix', key => {
-            console.log('Key', key);
             return new less.tree.Expression(
-                [new less.tree.Variable('@best-css-prefix'), key],
+                [
+                    // new less.tree.Variable('@best-js-prefix'),
+                    new less.tree.Keyword('-'),
+                    key,
+                ],
                 true
             );
         });
+
+        functions.add('define_var', (key, value) => {
+            console.log(new less.tree.Declaration(`@${key.value}`, value));
+            return new less.tree.Declaration(`@${key.value}`, value);
+        });
+        // functions.add('load-less-vars', function (key) {
+        //     console.log(this)
+        //     console.log(key);
+        //     this.variables().add('@a', new less.tree.Value('1px'));
+        //     return new less.tree.Anonymous('');
+        // });
     }
 };
