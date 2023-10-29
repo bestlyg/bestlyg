@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2558. 从数量最多的堆取走礼物',
-    url: 'https://leetcode.cn/problems/take-gifts-from-the-richest-pile',
+    exist: true,
+    name: '274. H 指数',
+    url: 'https://leetcode.cn/problems/h-index',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回在 k 秒后剩下的礼物数量。`,
+    desc: `给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数。计算并返回该研究者的 h 指数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,16 +34,17 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 52,
-            memory: 15.66,
-            desc: '堆',
+            time: 36,
+            memory: 16.2,
+            desc: '遍历',
             code: `class Solution:
-    def pickGifts(self, gifts: List[int], k: int) -> int:
-        gifts = [-v for v in gifts]
-        heapify(gifts)
-        for _ in range(k):
-            heappush(gifts, -int((-heappop(gifts)) ** 0.5))
-        return -sum(gifts)`,
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        citations.sort()
+        res = 0
+        for i in range(n):
+            if n - i <= citations[i]: res = max(res, n - i)
+        return res`,
         },
         // {
         //     script: Script.RUST,

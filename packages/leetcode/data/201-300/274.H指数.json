@@ -17,6 +17,14 @@
             "script": "typescript",
             "desc": "计数排序，储存每个数出现的次数。",
             "code": "function hIndex(citations: number[]): number {\n  if (citations.every(v => v === 0)) return 0;\n  const max = Math.max(...citations);\n  const arr = new Array(max + 1).fill(0);\n  citations.forEach(num => arr[num]++);\n  let sum = 0;\n  let ans = 0;\n  for (let num = max; num >= 0; num--) {\n    const count = arr[num];\n    if (count === 0) continue;\n    ans = Math.max(ans, Math.min((sum += count), num));\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 16.2,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        n = len(citations)\n        citations.sort()\n        res = 0\n        for i in range(n):\n            if n - i <= citations[i]: res = max(res, n - i)\n        return res",
+            "date": 1698508800000
         }
     ]
 }
