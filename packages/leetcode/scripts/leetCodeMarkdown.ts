@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '274. H 指数',
-    url: 'https://leetcode.cn/problems/h-index',
+    name: '275. H 指数 II',
+    url: 'https://leetcode.cn/problems/h-index-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数。计算并返回该研究者的 h 指数。`,
+    desc: `给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数，citations 已经按照 升序排列 。计算并返回该研究者的 h 指数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,17 +34,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 36,
-            memory: 16.2,
-            desc: '遍历',
+            time: 40,
+            memory: 21.5,
+            desc: '二分搜索',
             code: `class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        n = len(citations)
-        citations.sort()
-        res = 0
-        for i in range(n):
-            if n - i <= citations[i]: res = max(res, n - i)
-        return res`,
+        l = 0
+        r = len(citations)
+        while l < r:
+            m = (l + r) // 2
+            if citations[m] >= len(citations) - m:
+                r = m
+            else:
+                l = m + 1
+        return len(citations) - l`,
         },
         // {
         //     script: Script.RUST,

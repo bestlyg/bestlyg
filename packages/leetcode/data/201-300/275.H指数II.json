@@ -24,6 +24,14 @@
             "script": "typescript",
             "desc": "二分查找。",
             "code": "function hIndex(citations: number[]): number {\n  const len = citations.length;\n  let left = 0;\n  let right = len - 1;\n  while (left <= right) {\n    const mid = (left + right) >> 1;\n    if (citations[mid] >= len - mid) right = mid - 1;\n    else left = mid + 1;\n  }\n  return len - left;\n}"
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 21.5,
+            "desc": "二分搜索。",
+            "code": "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        l = 0\n        r = len(citations)\n        while l < r:\n            m = (l + r) // 2\n            if citations[m] >= len(citations) - m:\n                r = m\n            else:\n                l = m + 1\n        return len(citations) - l",
+            "date": 1698595200000
         }
     ]
 }
