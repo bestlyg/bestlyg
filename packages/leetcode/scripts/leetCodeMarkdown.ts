@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2003. 每棵子树内缺失的最小基因值',
-    url: 'https://leetcode.cn/problems/smallest-missing-genetic-value-in-each-subtree',
+    name: '2127. 参加会议的最多员工数',
+    url: 'https://leetcode.cn/problems/maximum-employees-to-be-invited-to-a-meeting',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个数组 ans ，长度为 n ，其中 ans[i] 是以节点 i 为根的子树内 缺失 的 最小 基因值。`,
+    desc: `给你一个下标从 0 开始的整数数组 favorite ，其中 favorite[i] 表示第 i 位员工喜欢的员工。请你返回参加会议的 最多员工数目 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -34,59 +34,40 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 812,
-            memory: 172.67,
-            desc: 'dfs时用set存储所有值',
+            time: 552,
+            memory: 137.49,
+            desc: '判断环的数量，如果环内超过2个，找最大数量的环，如果只有2个，找两个点的最大延伸链',
             code: `class Solution:
-    def smallestMissingValueSubtree(self, parents: List[int], nums: List[int]) -> List[int]:
-        n = len(parents)
-        nodes = [[] for i in range(n)]
-        for i in range(1, n): nodes[parents[i]].append(i)
-        ans = [1 for _ in range(n)]
-        def dfs(idx: int) -> (int, Set[int]):
-            last = 1
-            s = set([nums[idx]])
-            for child in nodes[idx]:
-                resLast, resSet = dfs(child)
-                last = max(last, resLast)
-                if len(resSet) > len(s):
-                    resSet |= s
-                    s = resSet
-                else:
-                    s |= resSet
-            while last in s: last += 1
-            ans[idx] = last
-            return last, s
-        dfs(0)
-        return ans`,
-        },
-        {
-            script: Script.PY,
-            time: 452,
-            memory: 66.3,
-            desc: '自底向上，只遍历存在1的树',
-            code: `class Solution:
-    def smallestMissingValueSubtree(self, parents: List[int], nums: List[int]) -> List[int]:
-        n = len(parents)
-        nodes = [[] for i in range(n)]
-        for i in range(1, n): nodes[parents[i]].append(i)
-        ans = [1 for _ in range(n)]
-        used = [False for _ in range(n)]
-        s = set()
-        def dfs(idx: int):
-            if used[idx]: return
-            used[idx] = True
-            s.add(nums[idx])
-            for child in nodes[idx]: dfs(child)
-        
-        cur = nums.index(1) if 1 in nums else -1
-        last = 1
-        while cur != -1:
-            dfs(cur)
-            while last in s: last += 1
-            ans[cur] = last
-            cur = parents[cur]
-        return ans`,
+    def maximumInvitations(self, favorite: List[int]) -> int:
+        n = len(favorite)
+        deg = [0 for _ in range(n)]
+        for i in range(n): deg[favorite[i]] += 1
+        q = deque(i for i in range(n) if deg[i] == 0)
+        nexts = [[] for _ in range(n)]
+        while q:
+            i = q.popleft()
+            nexts[favorite[i]].append(i)
+            deg[favorite[i]] -= 1
+            if deg[favorite[i]] == 0: q.append(favorite[i])
+        def dfs(idx: int) -> int:
+            res = 1
+            for next_i in nexts[idx]:
+                res = max(res, dfs(next_i) + 1)
+            return res
+
+        max_ring = sum_chain = 0
+        for i in range(n):
+            if deg[i] == 0: continue
+            deg[i] = 0
+            ring = 1
+            next_i = favorite[i]
+            while next_i != i:
+                deg[next_i] = 0
+                ring += 1
+                next_i = favorite[next_i]
+            if ring == 2: sum_chain += dfs(i) + dfs(favorite[i])
+            else: max_ring = max(max_ring, ring)
+        return max(sum_chain, max_ring)`,
         },
         // {
         //     script: Script.RUST,

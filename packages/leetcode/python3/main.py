@@ -3,6 +3,8 @@ from preclude import *
 
 class Solution:
     def pileBox(self, box: List[List[int]]) -> int:
+        a = set()
+
         n = len(box)
         box.sort(key=lambda o: o[0] * o[1] * o[2], reverse=True)
         dp = [0] * n
