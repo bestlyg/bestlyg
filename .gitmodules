@@ -1,0 +1,3 @@
+[submodule "submodules/package-json-extension"]
+	path = submodules/package-json-extension
+	url = https://github.com/bestlyg/package-json-extension.git
