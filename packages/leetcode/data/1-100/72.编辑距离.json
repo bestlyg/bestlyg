@@ -2,7 +2,7 @@
     "id": "72",
     "name": "72.编辑距离",
     "url": "https://leetcode.cn/problems/edit-distance",
-    "difficulty": "困难",
+    "difficulty": "中等",
     "tag": [
         "字符串",
         "动态规划"
