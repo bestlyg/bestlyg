@@ -12,13 +12,14 @@ import {
     FILE_NAME_ENTRY_SCRIPT,
     FILE_NAME_PACKAGE_JSON,
     FILE_NAME_ENTRY_STYLE,
-    requireJson,
     DIR_NAME_STYLE,
     FILE_NAME_VERSION_STYLE,
     FILE_NAME_VERSION_SCRIPT,
     workPackageInfo,
+    FIELD_NAME_PACKAGE_JSON,
 } from './utils';
 import { Command, Option } from 'commander';
+import { requireJson } from 'package-json-extension';
 import fs from 'fs-extra';
 import { buildCJS, buildESM, buildUMD, buildStyle as _buildStyle } from './commands';
 import { BabelConfig } from './configs/babel';
@@ -154,10 +155,18 @@ program
     .option('--path <path>', 'The path of package json.', resolve(CWD, FILE_NAME_PACKAGE_JSON))
     .action(o => {
         return new Promise<void>(resolve => {
-            fs.writeFile(o.path, JSON.stringify(requireJson(o.path), null, 4), err => {
-                if (err) error('Update package json error.', err);
-                resolve();
-            });
+            fs.writeFile(
+                o.path,
+                JSON.stringify(
+                    requireJson(o.path, { fieldName: FIELD_NAME_PACKAGE_JSON }),
+                    null,
+                    4
+                ),
+                err => {
+                    if (err) error('Update package json error.', err);
+                    resolve();
+                }
+            );
         }).then(
             () => print.success(`Update package json sucessfully.`),
             err => error(`Update package json erorr.`, err)

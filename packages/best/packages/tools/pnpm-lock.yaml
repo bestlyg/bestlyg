@@ -77,6 +77,9 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  package-json-extension:
+    specifier: ^0.0.4
+    version: link:../../../../submodules/package-json-extension
   ts-loader:
     specifier: ^9.2.3
     version: 9.5.0(typescript@5.2.2)(webpack@5.88.2)

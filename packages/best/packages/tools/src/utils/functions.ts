@@ -1,6 +1,6 @@
-import path, { dirname } from 'path';
+import path from 'path';
 import fs from 'fs-extra';
-import { FIELD_NAME_PACKAGE_JSON, print } from '../utils';
+import { print } from '../utils';
 import { merge } from 'lodash';
 import _ from 'lodash';
 
@@ -51,66 +51,4 @@ export function mergeConfig<T>(config: T, configs: Config<T>[]) {
         }
     }
     return config;
-}
-
-export interface BestToolsPackageJson {
-    extends?: string[];
-    vars?: Record<string, any>;
-    meta?: Record<string, any>;
-}
-export function requireJson(path: string) {
-    const map: Record<string, Record<string, any>> = {};
-    try {
-        loadFile(path);
-        const vars: Record<string, any> = load(path, 'vars');
-        const metas: Record<string, any> = load(path, 'meta');
-        // console.log('map', map);
-        // console.log('vars', vars);
-        // console.log('metas', metas);
-        const mergedObj = _.merge({}, map[path], metas);
-        mergedObj[FIELD_NAME_PACKAGE_JSON] = map[path][FIELD_NAME_PACKAGE_JSON];
-        return removeNullKeys(
-            _.cloneDeepWith(mergedObj, value => {
-                if (_.isString(value)) {
-                    return _.template(value, { imports: { _, vars } })();
-                }
-            })
-        );
-    } catch (err) {
-        error('Update package json error.', err);
-    }
-
-    function removeNullKeys(obj) {
-        if (_.isArray(obj)) {
-            return obj.filter(v => !_.isNull(v));
-        } else if (_.isObject(obj)) {
-            return _.omitBy(
-                _.mapValues(obj, value => removeNullKeys(value)),
-                _.isNull
-            );
-        } else {
-            return obj;
-        }
-    }
-
-    function loadFile(path: string, pathSet = new Set<string>()) {
-        if (pathSet.has(path)) throw new Error('Cyclic Path.');
-        if (map[path]) return;
-        const json = require(path);
-        map[path] = json;
-        pathSet.add(path);
-        for (const p of (json?.[FIELD_NAME_PACKAGE_JSON] as BestToolsPackageJson)?.extends ?? []) {
-            loadFile(resolve(dirname(path), p), pathSet);
-        }
-        pathSet.delete(path);
-    }
-
-    function load<K extends keyof BestToolsPackageJson>(path: string, key: K) {
-        const json: BestToolsPackageJson = map[path]?.[FIELD_NAME_PACKAGE_JSON] ?? {};
-        return _.merge(
-            {},
-            ...(json.extends ?? []).map(p => load(resolve(dirname(path), p), key)),
-            json[key] ?? {}
-        );
-    }
 }
