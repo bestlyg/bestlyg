@@ -27,6 +27,30 @@
             "script": "typescript",
             "desc": "层序遍历。",
             "code": "function connect(root: Node | null): Node | null {\n  if (root === null) return null;\n  const q: Node[] = [root];\n  let size = 1;\n  while (q.length) {\n    const node = q.shift()!;\n    node.left && q.push(node.left);\n    node.right && q.push(node.right);\n    if (--size === 0) {\n      size = q.length;\n      for (let i = 0; i < size; i++) {\n        q[i].next = i === size - 1 ? null : q[i + 1];\n      }\n    }\n  }\n  return root;\n}"
+        },
+        {
+            "script": "python",
+            "time": 56,
+            "memory": 17.01,
+            "desc": "层序遍历。",
+            "code": "class Solution:\n    def connect(self, root: 'Node') -> 'Node':\n        if not root: return root\n        q = deque([root])\n        size = 1\n        while q:\n            cur = q.popleft()\n            size -= 1\n            if cur.left: \n                if size != len(q): q[-1].next = cur.left\n                q.append(cur.left)\n            if cur.right: \n                if size != len(q): q[-1].next = cur.right\n                q.append(cur.right)\n            if size == 0: size = len(q)\n        return root",
+            "date": 1698940800000
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 15.66,
+            "desc": "层序遍历中同时记录next。",
+            "code": "class Solution:\n    def connect(self, root: 'Node') -> 'Node':\n        if not root: return root\n        head = root\n        p = head\n        next_head = None\n        while p:\n            if p.left:\n                if not next_head:\n                    next_head = p.left\n                    head = p.left\n                else:\n                    next_head.next = p.left\n                    next_head = next_head.next\n            if p.right:\n                if not next_head:\n                    next_head = p.right\n                    head = p.right\n                else:\n                    next_head.next = p.right\n                    next_head = next_head.next\n            p = p.next\n            if not p:\n                p = head\n                head = None\n                next_head = None\n        return root",
+            "date": 1698940800000
+        },
+        {
+            "script": "cpp",
+            "time": 8,
+            "memory": 16.93,
+            "desc": "层序遍历中同时记录next。",
+            "code": "class Solution {\npublic:\n    Node* connect(Node* root) {\n        if (!root) return root;\n        Node *head = root, *p = head, *next_head = nullptr;\n        while (p) {\n            if (p->left) {\n                if (!next_head) head = next_head = p->left;\n                else next_head = next_head->next = p->left;\n            }\n            if (p->right) {\n                if (!next_head) head = next_head = p->right;\n                else next_head = next_head->next = p->right;\n            }\n            p = p->next;\n            if (!p) p = head, head = next_head = nullptr;\n        }\n        return root;\n    }\n};",
+            "date": 1698940800000
         }
     ]
 }

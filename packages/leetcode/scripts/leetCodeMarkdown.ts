@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2103. 环和杆',
-    url: 'https://leetcode.cn/problems/rings-and-rods',
+    exist: true,
+    name: '117. 填充每个节点的下一个右侧节点指针 II',
+    url: 'https://leetcode.cn/problems/populating-next-right-pointers-in-each-node-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `找出所有集齐 全部三种颜色 环的杆，并返回这种杆的数量。`,
+    desc: `填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,26 +25,39 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
+        {
+            script: Script.CPP,
+            time: 8,
+            memory: 16.93,
+            desc: '层序遍历中同时记录next',
+            code: `class Solution {
+public:
+    Node* connect(Node* root) {
+        if (!root) return root;
+        Node *head = root, *p = head, *next_head = nullptr;
+        while (p) {
+            if (p->left) {
+                if (!next_head) head = next_head = p->left;
+                else next_head = next_head->next = p->left;
+            }
+            if (p->right) {
+                if (!next_head) head = next_head = p->right;
+                else next_head = next_head->next = p->right;
+            }
+            p = p->next;
+            if (!p) p = head, head = next_head = nullptr;
+        }
+        return root;
+    }
+};`,
+        },
         // {
-        //     script: Script.CPP,
-        //     time: 64,
-        //     memory: 31.09,
-        //     desc: '排序后计算间隔',
+        //     script: Script.PY,
+        //     time: 40,
+        //     memory: 15.66,
+        //     desc: '层序遍历中同时记录next',
         //     code: ``,
         // },
-        {
-            script: Script.PY,
-            time: 40,
-            memory: 15.66,
-            desc: '遍历',
-            code: `class Solution:
-    def countPoints(self, rings: str) -> int:
-        map = { 'R': 0, 'G': 1, 'B': 2}
-        arr = [0] * 10
-        for i in range(0, len(rings), 2):
-            arr[int(rings[i + 1])] |= 1 << map[rings[i]]
-        return sum(v == 0b111 for v in arr)`,
-        },
         // {
         //     script: Script.RUST,
         //     time: 16,

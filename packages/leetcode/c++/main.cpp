@@ -157,17 +157,22 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
-        int resH = 0, resW = 0;
-        sort(horizontalCuts.begin(), horizontalCuts.end());
-        horizontalCuts.insert(horizontalCuts.begin(), 0);
-        horizontalCuts.push_back(h);
-        for (int i = 1; i < horizontalCuts.size(); i++) resH = max(resH, horizontalCuts[i] - horizontalCuts[i - 1]);
-        sort(verticalCuts.begin(), verticalCuts.end());
-        verticalCuts.insert(verticalCuts.begin(), 0);
-        verticalCuts.push_back(w);
-        for (int i = 1; i < verticalCuts.size(); i++) resW = max(resW, verticalCuts[i] - horizontalCuts[i - 1]);
-        return resH * resW % (1e9 + 7);
+    Node* connect(Node* root) {
+        if (!root) return root;
+        Node *head = root, *p = head, *next_head = nullptr;
+        while (p) {
+            if (p->left) {
+                if (!next_head) head = next_head = p->left;
+                else next_head = next_head->next = p->left;
+            }
+            if (p->right) {
+                if (!next_head) head = next_head = p->right;
+                else next_head = next_head->next = p->right;
+            }
+            p = p->next;
+            if (!p) p = head, head = next_head = nullptr;
+        }
+        return root;
     }
 };
 

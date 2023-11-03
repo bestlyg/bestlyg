@@ -2,7 +2,7 @@
     "id": "2740",
     "name": "2632.柯里化",
     "url": "https://leetcode.cn/problems/curry",
-    "difficulty": "困难",
+    "difficulty": "中等",
     "tag": [],
     "desc": "请你编写一个函数，它接收一个其他的函数，并返回该函数的 柯里化 后的形式。",
     "solutions": [
