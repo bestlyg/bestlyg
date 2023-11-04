@@ -155,24 +155,55 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
+struct TrieNode {
+    TrieNode* left = nullptr;
+    TrieNode* right = nullptr;
+};
+
+void add(TrieNode* node, int num) {
+    int pos = 30;
+    while (pos >= 0) {
+        int v = (num >> pos) & 1;
+        if (v) {
+            if (!node->left) node->left = new TrieNode();
+            node = node->left;
+        } else {
+            if (!node->right) node->right = new TrieNode();
+            node = node->right;
+        }
+        pos -= 1;
+    }
+}
+
+int find(TrieNode* node, int num) {
+    int pos = 30, ans = 0;
+    while (pos >= 0 && node) {
+        int v = (num >> pos) & 1;
+        if (v) {
+            if (node->right) {
+                ans |= 1 << pos;
+                node = node->right;
+            } else node = node->left;
+        } else {
+            if (node->left) {
+                ans |= 1 << pos;
+                node = node->left;
+            } else node = node->right;
+        }
+        pos -= 1;
+    }
+}
+
 class Solution {
 public:
-    Node* connect(Node* root) {
-        if (!root) return root;
-        Node *head = root, *p = head, *next_head = nullptr;
-        while (p) {
-            if (p->left) {
-                if (!next_head) head = next_head = p->left;
-                else next_head = next_head->next = p->left;
-            }
-            if (p->right) {
-                if (!next_head) head = next_head = p->right;
-                else next_head = next_head->next = p->right;
-            }
-            p = p->next;
-            if (!p) p = head, head = next_head = nullptr;
+    int findMaximumXOR(vector<int>& nums) {
+        TrieNode *root = new TrieNode();
+        int ans = 0;
+        for (auto &num : nums) {
+            add(root, num);
+            ans = max(ans, find(root, num));
         }
-        return root;
+        return ans;
     }
 };
 
