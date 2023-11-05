@@ -2,13 +2,13 @@
 @import './version.less';
 
 @name: button;
-@button-prefix: ~'@{best-js-prefix}-@{name}';
-@best-button-vars: {
+@prefix: ~'@{best-jsvars-prefix}-@{name}';
+@vars: {
     height: v(size-7);
 };
 
+
 .@{button-prefix}[data-version=~'"@{version}"'] {
-    .load-css-vars(@best-button-vars, @name);
+    .load-css-vars(@vars, @name);
     display: block;
-    width: @a;
 }

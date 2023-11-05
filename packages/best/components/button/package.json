@@ -20,7 +20,8 @@
         "frontend",
         "react",
         "react-component",
-        "ui"
+        "ui",
+        "button"
     ],
     "contributors": [
         "bestlyg@foxmail.com"
@@ -54,10 +55,10 @@
         "build:cjs": "best-tools build --type cjs",
         "build:esm": "best-tools build --type esm",
         "build": "best-tools build",
-        "update-package-json": "best-tools update-package-json"
+        "extend-package-json": "best-tools extend-package-json"
     },
     "dependencies": {
-        "@best/core": "workspace:*"
+        "@best/core": "workspace:^"
     },
     "peerDependencies": {
         "react": ">=16.9.0",

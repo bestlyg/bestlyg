@@ -150,7 +150,7 @@ program
     });
 
 program
-    .command('update-package-json')
+    .command('extend-package-json')
     .description('Update package json from the filed of best-tools.')
     .option('--path <path>', 'The path of package json.', resolve(CWD, FILE_NAME_PACKAGE_JSON))
     .action(o => {

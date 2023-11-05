@@ -12,21 +12,16 @@ module.exports = class LessPluginBestMixin {
                 ),
             ]);
         });
-        functions.add('get_prefix', key => {
-            return new less.tree.Expression(
-                [
-                    // new less.tree.Variable('@best-js-prefix'),
-                    new less.tree.Keyword('-'),
-                    key,
-                ],
-                true
-            );
-        });
 
-        functions.add('define_var', (key, value) => {
-            console.log(new less.tree.Declaration(`@${key.value}`, value));
-            return new less.tree.Declaration(`@${key.value}`, value);
-        });
+        // functions.add('get_prefix', key => {
+        //     const quote = `@{best-jsvars-prefix}-${key.value}`;
+        //     return new less.tree.Quoted(`'`, quote);
+        // });
+
+        // functions.add('define_var', (key, value) => {
+        //     console.log(new less.tree.Declaration(`@${key.value}`, value));
+        //     return new less.tree.Declaration(`@${key.value}`, value);
+        // });
         // functions.add('load-less-vars', function (key) {
         //     console.log(this)
         //     console.log(key);

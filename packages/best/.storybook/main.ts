@@ -16,11 +16,17 @@ function aliasBestLib() {
     const o: Record<string, string> = {};
     for (const dir of fs.readdirSync(componentsPath)) {
         const p = resolve(componentsPath, dir);
-        o[require(resolve(p, 'package.json')).name] = p;
+        const lib = require(resolve(p, 'package.json')).name;
+        o[lib] = p;
+        o[`${lib}/es`] = p;
+        o[`${lib}/src`] = p;
     }
     for (const dir of fs.readdirSync(packagesPath)) {
         const p = resolve(packagesPath, dir);
-        o[require(resolve(p, 'package.json')).name] = p;
+        const lib = require(resolve(p, 'package.json')).name;
+        o[lib] = p;
+        o[`${lib}/es`] = p;
+        o[`${lib}/src`] = p;
     }
     return o;
 }

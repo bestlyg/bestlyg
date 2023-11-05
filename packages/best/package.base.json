@@ -45,7 +45,7 @@
                 "build:cjs": "best-tools build --type cjs",
                 "build:esm": "best-tools build --type esm",
                 "build": "best-tools build",
-                "update-package-json": "best-tools update-package-json",
+                "extend-package-json": "best-tools extend-package-json",
                 "update-version": "best-tools update-version"
             },
             "dependencies": {
