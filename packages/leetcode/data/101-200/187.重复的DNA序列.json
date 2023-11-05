@@ -36,6 +36,14 @@
             "script": "typescript",
             "desc": "滑动窗口。",
             "code": "function findRepeatedDnaSequences(s: string): string[] {\n  const set = new Set<string>();\n  let str = s.substr(0, 10);\n  set.add(str);\n  const ans = new Set<string>();\n  for (let i = 10, l = s.length; i < l; i++) {\n    str = str.substring(1) + s[i];\n    if (set.has(str)) ans.add(str);\n    set.add(str);\n  }\n  return [...ans];\n}"
+        },
+        {
+            "script": "python",
+            "time": 80,
+            "memory": 28.48,
+            "desc": "哈希存储。",
+            "code": "class Solution:\n    def findRepeatedDnaSequences(self, s: str) -> List[str]:\n        res = []\n        m = Counter()\n        for i in range(len(s) - 9):\n            subs = s[i: i + 10]\n            m[subs] += 1\n            if m[subs] == 2: res.append(subs)\n        return res",
+            "date": 1699113600000
         }
     ]
 }
