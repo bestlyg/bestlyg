@@ -41,6 +41,14 @@
             "script": "cpp",
             "desc": "用二进制存储每个字符串存在的字符，两个字符串值与运算为 0 说明无重复。",
             "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0;\n        for (auto &ch : str) ans |= 1 << (ch - 'a');\n        return ans;\n    }\n    int maxProduct(vector<string> &words) {\n        unordered_map<string, int> mmap;\n        for (auto &word : words) mmap[word] = s2i(word);\n        int ans = 0;\n        for (int i = 0; i < words.size(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (mmap[words[i]] & mmap[words[j]]) continue;\n                ans = max(ans, (int)(words[i].size() * words[j].size()));\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 844,
+            "memory": 18.57,
+            "desc": "哈希存储。",
+            "code": "class Solution:\n    def maxProduct(self, words: List[str]) -> int:\n        m = { word: reduce(lambda n, c: n | 1 << ord(c), word, 0) for word in words}\n        return max(len(word1) * len(word2) if m[word1] & m[word2] == 0 else 0 for word1 in words for word2 in words)",
+            "date": 1699200000000
         }
     ]
 }

@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '187. 重复的DNA序列',
+    name: '318. 最大单词长度乘积',
     url: 'https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,18 +34,13 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 80,
-            memory: 28.48,
+            time: 844,
+            memory: 18.57,
             desc: '哈希存储',
             code: `class Solution:
-    def findRepeatedDnaSequences(self, s: str) -> List[str]:
-        res = []
-        m = Counter()
-        for i in range(len(s) - 9):
-            subs = s[i: i + 10]
-            m[subs] += 1
-            if m[subs] == 2: res.append(subs)
-        return res`,
+    def maxProduct(self, words: List[str]) -> int:
+        m = { word: reduce(lambda n, c: n | 1 << ord(c), word, 0) for word in words}
+        return max(len(word1) * len(word2) if m[word1] & m[word2] == 0 else 0 for word1 in words for word2 in words)`,
         },
         // {
         //     script: Script.RUST,
