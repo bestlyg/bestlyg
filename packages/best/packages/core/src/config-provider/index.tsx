@@ -4,12 +4,15 @@ export interface ConfigConsumerProps {
     prefix?: string;
     components?: Record<string, any>;
     defaultConfig?: {
-        size: string;
+        size: 'medium' | 'mini' | 'small' | 'large';
     };
     // locale: Locale
 }
 export const ConfigContext = createContext<ConfigConsumerProps>({
     prefix: 'best',
+    defaultConfig: {
+        size: 'medium',
+    },
 });
 export interface ConfigProviderProps {
     consumerProps?: ConfigConsumerProps;

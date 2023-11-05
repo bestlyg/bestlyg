@@ -34,8 +34,8 @@ export const Primary: Story = {
     //     return <Button>c</Button>;
     // },
     render: function Render(args) {
-        const [{ containerProps, children }, updateArgs] = useArgs();
-        console.log('render111', args);
-        return <Button containerProps={containerProps} children={children} />;
+        const [props, updateArgs] = useArgs();
+        console.log('storyBook render, ', args, useArgs());
+        return <Button {...props} />;
     },
 };
