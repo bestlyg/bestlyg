@@ -12,11 +12,11 @@ export interface TransformProps {
 function config2Option(config: TsConfig) {
     return Object.entries(config)
         .map(([k, v]) => {
-            let s = `--${k} `;
-            if (v === true) return s;
+            const key = k.length === 1 ? `-${k}` : `--${k}`;
+            if (v === true) return `${key}`;
             else if (v === false) return '';
-            else s += v;
-            return s;
+            else if (Array.isArray(v)) return v.map(item => `${key} ${item}`).join(' ');
+            else return `${key} ${v}`;
         })
         .join(' ');
 }
@@ -26,7 +26,7 @@ const tsc = pathResolve('node_modules/.bin/tsc');
 export function transform({ entry, transformConfig = v => v }: TransformProps) {
     const cmd = `${tsc} ${entry} ${config2Option(transformConfig(_.cloneDeep(config)))}`;
     return new Promise((resolve, reject) => {
-        exec(cmd, (err, stdout) => {
+        exec(cmd, {}, (err, stdout) => {
             if (err) {
                 error('Ts transform error.', err);
             } else {
@@ -35,3 +35,4 @@ export function transform({ entry, transformConfig = v => v }: TransformProps) {
         });
     });
 }
+

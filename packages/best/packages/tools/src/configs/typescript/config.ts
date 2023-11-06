@@ -9,5 +9,6 @@ export const config: TsConfig | Record<string, any> = {
     moduleResolution: 'node',
     outDir: resolve(CWD, DIR_NAME_ESM),
     jsx: 'react-jsx',
-    excludeDirectories: resolve(CWD, 'src/style'),
+    excludeDirectories: [resolve(CWD, 'src/style')],
+    p: resolve(CWD, 'tsconfig.json'),
 };
