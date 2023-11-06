@@ -1,17 +1,21 @@
+function v(ctx, key) {
+    return new less.tree.Call('var', [
+        new less.tree.Expression(
+            [new less.tree.Variable('@best-cssvars-prefix'), new less.tree.Keyword('-'), key],
+            true
+        ),
+    ]).eval(ctx);
+}
+v.evalArgs = false;
+
+const functionRegisters = {
+    v,
+};
 module.exports = class LessPluginBestMixin {
     install(less, pluginManager, functions) {
-        functions.add('v', key => {
-            return new less.tree.Call('var', [
-                new less.tree.Expression(
-                    [
-                        new less.tree.Variable('@best-cssvars-prefix'),
-                        new less.tree.Keyword('-'),
-                        key,
-                    ],
-                    true
-                ),
-            ]);
-        });
+        for (const [k, fn] of Object.entries(functionRegisters)) {
+            functions.add(k, fn);
+        }
 
         // functions.add('get_prefix', key => {
         //     const quote = `@{best-jsvars-prefix}-${key.value}`;
