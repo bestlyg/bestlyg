@@ -32,6 +32,22 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn vowel_strings(words: Vec<String>, left: i32, right: i32) -> i32 {\n        let left = left as usize;\n        let right = right as usize;\n        let mut s = std::collections::HashSet::<char>::new();\n        ['a', 'e', 'i', 'o', 'u'].into_iter().for_each(|c| {\n            s.insert(*c);\n        });\n        let mut res = 0;\n        for word in words[left..=right].into_iter() {\n            let word = word.chars().collect::<Vec<char>>();\n            if s.contains(&word[0]) && s.contains(&word.last().unwrap()) {\n                res += 1;\n            }\n        }\n        res\n    }\n}",
             "date": 1678550400000
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 15.77,
+            "desc": "合计。",
+            "code": "class Solution:\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\n        return sum(word[0] in 'aeiou' and word[-1] in 'aeiou' for word in words[left:right + 1])",
+            "date": 1699286400000
+        },
+        {
+            "script": "typescript",
+            "time": 72,
+            "memory": 43.89,
+            "desc": "合计。",
+            "code": "function vowelStrings(words: string[], left: number, right: number): number {\n    return words.slice(left, right + 1).filter(s => 'aeiou'.includes(s[0]) && 'aeiou'.includes(s[s.length - 1])).length\n};",
+            "date": 1699286400000
         }
     ]
 }

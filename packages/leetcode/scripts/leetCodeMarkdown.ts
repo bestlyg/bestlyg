@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '318. 最大单词长度乘积',
+    name: '2586. 统计范围内的元音字符串数',
     url: 'https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,13 +34,21 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 844,
-            memory: 18.57,
-            desc: '哈希存储',
+            time: 36,
+            memory: 15.77,
+            desc: '合计',
             code: `class Solution:
-    def maxProduct(self, words: List[str]) -> int:
-        m = { word: reduce(lambda n, c: n | 1 << ord(c), word, 0) for word in words}
-        return max(len(word1) * len(word2) if m[word1] & m[word2] == 0 else 0 for word1 in words for word2 in words)`,
+    def vowelStrings(self, words: List[str], left: int, right: int) -> int:
+        return sum(word[0] in 'aeiou' and word[-1] in 'aeiou' for word in words[left:right + 1])`,
+        },
+        {
+            script: Script.TS,
+            time: 72,
+            memory: 43.89,
+            desc: '合计',
+            code: `function vowelStrings(words: string[], left: number, right: number): number {
+    return words.slice(left, right + 1).filter(s => 'aeiou'.includes(s[0]) && 'aeiou'.includes(s[s.length - 1])).length
+};`,
         },
         // {
         //     script: Script.RUST,
