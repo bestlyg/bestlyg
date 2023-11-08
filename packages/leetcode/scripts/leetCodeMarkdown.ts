@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '2586. 统计范围内的元音字符串数',
+    name: '2609. 最长平衡子字符串',
     url: 'https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,21 +34,22 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 36,
-            memory: 15.77,
-            desc: '合计',
+            time: 44,
+            memory: 15.48,
+            desc: '一次遍历',
             code: `class Solution:
-    def vowelStrings(self, words: List[str], left: int, right: int) -> int:
-        return sum(word[0] in 'aeiou' and word[-1] in 'aeiou' for word in words[left:right + 1])`,
-        },
-        {
-            script: Script.TS,
-            time: 72,
-            memory: 43.89,
-            desc: '合计',
-            code: `function vowelStrings(words: string[], left: number, right: number): number {
-    return words.slice(left, right + 1).filter(s => 'aeiou'.includes(s[0]) && 'aeiou'.includes(s[s.length - 1])).length
-};`,
+    def findTheLongestBalancedSubstring(self, s: str) -> int:
+        n = len(s)
+        i = ans = 0
+        while i < n and s[i] == '1': i += 1
+        while i < n:
+            cur = i
+            while i < n and s[i] == '0': i += 1
+            cnt0 = i - cur
+            while i < n and s[i] == '1': i += 1
+            cnt1 = i - cur - cnt0
+            ans = max(ans, min(cnt0, cnt1) * 2)
+        return ans`,
         },
         // {
         //     script: Script.RUST,

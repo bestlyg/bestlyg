@@ -31,6 +31,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_the_longest_balanced_substring(s: String) -> i32 {\n        let s = s.chars().collect::<Vec<char>>();\n        let (mut cnt0, mut cnt1, mut res) = (0, 0, 0);\n        for i in 0..s.len() {\n            if s[i] == '0' {\n                cnt0 += 1\n            } else {\n                cnt1 += 1;\n                if cnt0 >= cnt1 {\n                    res = res.max(cnt1 * 2)\n                }\n                if i + 1 == s.len() || s[i + 1] == '0' {\n                    cnt0 = 0;\n                    cnt1 = 0;\n                }\n            }\n        }\n        res\n    }\n}",
             "date": 1680364800000
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 15.48,
+            "desc": "一次遍历。",
+            "code": "class Solution:\n    def findTheLongestBalancedSubstring(self, s: str) -> int:\n        n = len(s)\n        i = ans = 0\n        while i < n and s[i] == '1': i += 1\n        while i < n:\n            cur = i\n            while i < n and s[i] == '0': i += 1\n            cnt0 = i - cur\n            while i < n and s[i] == '1': i += 1\n            cnt1 = i - cur - cnt0\n            ans = max(ans, min(cnt0, cnt1) * 2)\n        return ans",
+            "date": 1699372800000
         }
     ]
 }
