@@ -6,6 +6,7 @@
         "packages/*"
     ],
     "scripts": {
+        "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "pnpm -r exec rimraf node_modules && pnpm i --force",
         "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
