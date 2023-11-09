@@ -4,3 +4,6 @@
 [submodule "submodules/less-plugins"]
 	path = submodules/less-plugins
 	url = https://github.com/bestlyg/less-plugins.git
+[submodule "submodules/best-design"]
+	path = submodules/best-design
+	url = https://github.com/bestlyg/best-design.git
