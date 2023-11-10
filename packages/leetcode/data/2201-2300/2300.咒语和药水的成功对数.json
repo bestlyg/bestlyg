@@ -1,0 +1,17 @@
+{
+    "name": "2300.咒语和药水的成功对数",
+    "url": "https://leetcode.cn/problems/successful-pairs-of-spells-and-potions",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个长度为 n 的整数数组 pairs，其中 pairs[i] 是能跟第 i 个咒语成功组合的 药水 数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 264,
+            "memory": 35.04,
+            "desc": "bfs记录火蔓延的时间点，通过二分获取最大可能值。",
+            "code": "class Solution:\n    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:\n        potions.sort()\n        return [len(potions) - bisect_left(potions, success / spell) for spell in spells]",
+            "date": 1699545600000
+        }
+    ]
+}
