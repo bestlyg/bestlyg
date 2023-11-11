@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2300. 咒语和药水的成功对数',
+    exist: true,
+    name: '765. 情侣牵手',
     url: 'https://leetcode.cn/problems/successful-pairs-of-spells-and-potions',
     difficulty: Difficulty.简单,
     tag: [],
@@ -34,13 +34,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 264,
-            memory: 35.04,
-            desc: 'bfs记录火蔓延的时间点，通过二分获取最大可能值',
+            time: 48,
+            memory: 15.68,
+            desc: '贪心的每次没有匹配上去重置',
             code: `class Solution:
-    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        potions.sort()
-        return [len(potions) - bisect_left(potions, success / spell) for spell in spells]`,
+    def minSwapsCouples(self, row: List[int]) -> int:
+        n = len(row)
+        map = {row[i]: i for i in range(n)}
+        ans = 0
+        for i in range(0, n, 2):
+            if row[i] ^ 1 != row[i + 1]:
+                map[row[i + 1]] = map[row[i] ^ 1]
+                row[map[row[i] ^ 1]], row[i + 1] = row[i + 1], row[map[row[i] ^ 1]]
+                ans += 1
+        return ans`,
         },
         // {
         //     script: Script.RUST,
