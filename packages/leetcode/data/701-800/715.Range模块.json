@@ -1,0 +1,25 @@
+{
+    "name": "715.Range模块",
+    "url": "https://leetcode.cn/problems/range-module",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "Range模块是跟踪数字范围的模块。设计一个数据结构来跟踪表示为 半开区间 的范围并查询它们。",
+    "solutions": [
+        {
+            "date": 1655654400000,
+            "script": "cpp",
+            "time": 200,
+            "memory": 66.95,
+            "desc": "有序集合。",
+            "code": "class RangeModule {\npublic:\n    RangeModule() {}\n    \n    void addRange(int left, int right) {\n        auto it = intervals.upper_bound(left);\n        if (it != intervals.begin()) {\n            auto start = prev(it);\n            if (start->second >= right) {\n                return;\n            }\n            if (start->second >= left) {\n                left = start->first;\n                intervals.erase(start);\n            }\n        }\n        while (it != intervals.end() && it->first <= right) {\n            right = max(right, it->second);\n            it = intervals.erase(it);\n        }\n        intervals[left] = right;\n    }\n    \n    bool queryRange(int left, int right) {\n        auto it = intervals.upper_bound(left);\n        if (it == intervals.begin()) {\n            return false;\n        }\n        it = prev(it);\n        return right <= it->second;\n    }\n    \n    void removeRange(int left, int right) {\n        auto it = intervals.upper_bound(left);\n        if (it != intervals.begin()) {\n            auto start = prev(it);\n            if (start->second >= right) {\n                int ri = start->second;\n                if (start->first == left) {\n                    intervals.erase(start);\n                }\n                else {\n                    start->second = left;\n                }\n                if (right != ri) {\n                    intervals[right] = ri;\n                }\n                return;\n            }\n            else if (start->second > left) {\n                start->second = left;\n            }\n        }\n        while (it != intervals.end() && it->first < right) {\n            if (it->second <= right) {\n                it = intervals.erase(it);\n            }\n            else {\n                intervals[right] = it->second;\n                intervals.erase(it);\n                break;\n            }\n        }\n    }\n\nprivate:\n    map<int, int> intervals;\n};"
+        },
+        {
+            "script": "python",
+            "time": 480,
+            "memory": 20.4,
+            "desc": "有序数组，每次合并数组。",
+            "code": "from sortedcontainers import SortedList\nclass RangeModule:\n    def __init__(self):\n        self.arr = SortedList([(-1, -1), (inf, inf)])\n\n    def addRange(self, left: int, right: int) -> None:\n        arr = self.arr\n        item = (left, right)\n        idx = arr.bisect_left(item)\n        if arr[idx - 1][1] >= left:\n            item = (arr[idx - 1][0], max(arr[idx - 1][1], item[1]))\n            arr.pop(idx - 1)\n            idx -= 1\n        while arr[idx][0] <= item[1]:\n            item = (item[0], max(arr[idx][1], item[1]))\n            arr.pop(idx)\n        arr.add(item)\n\n    def queryRange(self, left: int, right: int) -> bool:\n        arr = self.arr\n        idx = arr.bisect_right((left, inf))\n        return arr[idx - 1][0] <= left and arr[idx - 1][1] >= right\n\n    def removeRange(self, left: int, right: int) -> None:\n        arr = self.arr\n        idx = arr.bisect_left((left, right))\n        if arr[idx - 1][1] > left:\n            if arr[idx - 1][1] > right:\n                arr.add((right, arr[idx - 1][1]))\n            item = (arr[idx - 1][0], left)\n            arr.pop(idx - 1)\n            arr.add(item)\n        while arr[idx][1] <= right:\n            arr.pop(idx)\n        if arr[idx][0] <= right:\n            item = (right, arr[idx][1])\n            arr.pop(idx)\n            if item[0] != item[1]:\n                arr.add(item)",
+            "date": 1699718400000
+        }
+    ]
+}
