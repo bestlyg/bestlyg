@@ -26,6 +26,14 @@
             "script": "cpp",
             "desc": "树状数组。",
             "code": "class FenwickTree {\n   public:\n    int n;\n    vector<int> arr;\n    FenwickTree(int n) : n(n + 1), arr(vector<int>(n + 1, 0)) {}\n    int lowbit(int num) { return num & -num; }\n    void add(int idx, int num) {\n        idx += 1;\n        while (idx < n) {\n            arr[idx] += num;\n            idx += lowbit(idx);\n        }\n    }\n    int at(int idx) { return query(idx) - query(idx - 1); }\n    int query(int idx) {\n        idx += 1;\n        int num = 0;\n        while (idx) {\n            num += arr[idx];\n            idx -= lowbit(idx);\n        }\n        return num;\n    }\n};\nclass NumArray {\n   public:\n    FenwickTree tree;\n    NumArray(vector<int>& nums) : tree(nums.size()) {\n        for (int i = 0; i < nums.size(); i++) {\n            tree.add(i, nums[i]);\n        }\n    }\n    void update(int index, int val) { tree.add(index, val - tree.at(index)); }\n    int sumRange(int left, int right) {\n        return tree.query(right) - tree.query(left - 1);\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 1216,
+            "memory": 33.27,
+            "desc": "树状数组。",
+            "code": "class FenwickTree:\n    def __init__(self, n: int):\n        self.n = n\n        self.arr = [0] * (n + 1)\n\n    def add(self, idx: int, num: int):\n        while idx <= self.n:\n            self.arr[idx] += num\n            idx += self.lowbit(idx)\n    \n    def query(self, idx: int) -> int:\n        sum = 0\n        while idx > 0:\n            sum += self.arr[idx]\n            idx -= self.lowbit(idx)\n        return sum\n    \n    def at(self, idx: int) -> int:\n        return self.query(idx) - self.query(idx - 1)\n\n    def range(self, left: int, right: int) -> int:\n        return self.query(right) - self.query(left - 1)\n\n    def lowbit(self, num: int) -> int:\n        return num & -num\n\nclass NumArray:\n\n    def __init__(self, nums: List[int]):\n        self.tree = FenwickTree(len(nums))\n        self.nums = nums\n        for i, num in enumerate(nums): self.tree.add(i + 1, num)\n\n    def update(self, index: int, val: int) -> None:\n        self.tree.add(index + 1, val - self.nums[index])\n        self.nums[index] = val\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.tree.range(left + 1, right + 1)",
+            "date": 1699804800000
         }
     ]
 }

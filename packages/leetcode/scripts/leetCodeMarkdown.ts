@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '715. Range 模块',
-    url: 'https://leetcode.cn/problems/range-module',
+    exist: true,
+    name: '307. 区域和检索 - 数组可修改',
+    url: 'https://leetcode.cn/problems/range-sum-query-mutable',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `Range模块是跟踪数字范围的模块。设计一个数据结构来跟踪表示为 半开区间 的范围并查询它们。`,
+    desc: `给你一个数组 nums ，请你完成两类查询。其中一类查询要求 更新 数组 nums 下标对应的值，另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left <= right。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,125 +25,58 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        {
-            date: new Date('2022.06.20').getTime(),
-            script: Script.CPP,
-            time: 200,
-            memory: 66.95,
-            desc: '有序集合',
-            code: `class RangeModule {
-public:
-    RangeModule() {}
-    
-    void addRange(int left, int right) {
-        auto it = intervals.upper_bound(left);
-        if (it != intervals.begin()) {
-            auto start = prev(it);
-            if (start->second >= right) {
-                return;
-            }
-            if (start->second >= left) {
-                left = start->first;
-                intervals.erase(start);
-            }
-        }
-        while (it != intervals.end() && it->first <= right) {
-            right = max(right, it->second);
-            it = intervals.erase(it);
-        }
-        intervals[left] = right;
-    }
-    
-    bool queryRange(int left, int right) {
-        auto it = intervals.upper_bound(left);
-        if (it == intervals.begin()) {
-            return false;
-        }
-        it = prev(it);
-        return right <= it->second;
-    }
-    
-    void removeRange(int left, int right) {
-        auto it = intervals.upper_bound(left);
-        if (it != intervals.begin()) {
-            auto start = prev(it);
-            if (start->second >= right) {
-                int ri = start->second;
-                if (start->first == left) {
-                    intervals.erase(start);
-                }
-                else {
-                    start->second = left;
-                }
-                if (right != ri) {
-                    intervals[right] = ri;
-                }
-                return;
-            }
-            else if (start->second > left) {
-                start->second = left;
-            }
-        }
-        while (it != intervals.end() && it->first < right) {
-            if (it->second <= right) {
-                it = intervals.erase(it);
-            }
-            else {
-                intervals[right] = it->second;
-                intervals.erase(it);
-                break;
-            }
-        }
-    }
-
-private:
-    map<int, int> intervals;
-};`,
-        },
+        // {
+        //     date: new Date('2022.06.20').getTime(),
+        //     script: Script.CPP,
+        //     time: 200,
+        //     memory: 66.95,
+        //     desc: '有序集合',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 480,
-            memory: 20.4,
-            desc: '有序数组，每次合并数组',
-            code: `from sortedcontainers import SortedList
-class RangeModule:
-    def __init__(self):
-        self.arr = SortedList([(-1, -1), (inf, inf)])
+            time: 1216,
+            memory: 33.27,
+            desc: '树状数组',
+            code: `class FenwickTree:
+    def __init__(self, n: int):
+        self.n = n
+        self.arr = [0] * (n + 1)
 
-    def addRange(self, left: int, right: int) -> None:
-        arr = self.arr
-        item = (left, right)
-        idx = arr.bisect_left(item)
-        if arr[idx - 1][1] >= left:
-            item = (arr[idx - 1][0], max(arr[idx - 1][1], item[1]))
-            arr.pop(idx - 1)
-            idx -= 1
-        while arr[idx][0] <= item[1]:
-            item = (item[0], max(arr[idx][1], item[1]))
-            arr.pop(idx)
-        arr.add(item)
+    def add(self, idx: int, num: int):
+        while idx <= self.n:
+            self.arr[idx] += num
+            idx += self.lowbit(idx)
+    
+    def query(self, idx: int) -> int:
+        sum = 0
+        while idx > 0:
+            sum += self.arr[idx]
+            idx -= self.lowbit(idx)
+        return sum
+    
+    def at(self, idx: int) -> int:
+        return self.query(idx) - self.query(idx - 1)
 
-    def queryRange(self, left: int, right: int) -> bool:
-        arr = self.arr
-        idx = arr.bisect_right((left, inf))
-        return arr[idx - 1][0] <= left and arr[idx - 1][1] >= right
+    def range(self, left: int, right: int) -> int:
+        return self.query(right) - self.query(left - 1)
 
-    def removeRange(self, left: int, right: int) -> None:
-        arr = self.arr
-        idx = arr.bisect_left((left, right))
-        if arr[idx - 1][1] > left:
-            if arr[idx - 1][1] > right:
-                arr.add((right, arr[idx - 1][1]))
-            item = (arr[idx - 1][0], left)
-            arr.pop(idx - 1)
-            arr.add(item)
-        while arr[idx][1] <= right:
-            arr.pop(idx)
-        if arr[idx][0] <= right:
-            item = (right, arr[idx][1])
-            arr.pop(idx)
-            if item[0] != item[1]:
-                arr.add(item)`,
+    def lowbit(self, num: int) -> int:
+        return num & -num
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.tree = FenwickTree(len(nums))
+        self.nums = nums
+        for i, num in enumerate(nums): self.tree.add(i + 1, num)
+
+    def update(self, index: int, val: int) -> None:
+        self.tree.add(index + 1, val - self.nums[index])
+        self.nums[index] = val
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.tree.range(left + 1, right + 1)`,
         },
         // {
         //     script: Script.RUST,

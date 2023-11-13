@@ -1,8 +1,13 @@
 {
+    "id": "715",
     "name": "715.Range模块",
     "url": "https://leetcode.cn/problems/range-module",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "设计",
+        "线段树",
+        "有序集合"
+    ],
     "desc": "Range模块是跟踪数字范围的模块。设计一个数据结构来跟踪表示为 半开区间 的范围并查询它们。",
     "solutions": [
         {
