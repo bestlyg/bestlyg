@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '307. 区域和检索 - 数组可修改',
-    url: 'https://leetcode.cn/problems/range-sum-query-mutable',
+    exist: !true,
+    name: '1334. 阈值距离内邻居最少的城市',
+    url: 'https://leetcode.cn/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个数组 nums ，请你完成两类查询。其中一类查询要求 更新 数组 nums 下标对应的值，另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left <= right。`,
+    desc: `有 n 个城市，按从 0 到 n-1 编号。给你一个边数组 edges，其中 edges[i] = [fromi, toi, weighti] 代表 fromi 和 toi 两个城市之间的双向加权边，距离阈值是一个整数 distanceThreshold。返回能通过某些路径到达其他城市数目最少、且路径距离 最大 为 distanceThreshold 的城市。如果有多个这样的城市，则返回编号最大的城市。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,48 +35,29 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 1216,
-            memory: 33.27,
-            desc: '树状数组',
-            code: `class FenwickTree:
-    def __init__(self, n: int):
-        self.n = n
-        self.arr = [0] * (n + 1)
+            time: 560,
+            memory: 16.87,
+            desc: '佛洛依德短路算法',
+            code: `class Solution:
+    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+        d = [[inf] * n for _ in range(n)]
+        for i in range(n): d[i][i] = 0
+        for edge in edges:
+            d[edge[0]][edge[1]] = edge[2]
+            d[edge[1]][edge[0]] = edge[2]
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    d[i][j] = min(d[i][j], d[i][k] + d[k][j])
 
-    def add(self, idx: int, num: int):
-        while idx <= self.n:
-            self.arr[idx] += num
-            idx += self.lowbit(idx)
-    
-    def query(self, idx: int) -> int:
-        sum = 0
-        while idx > 0:
-            sum += self.arr[idx]
-            idx -= self.lowbit(idx)
-        return sum
-    
-    def at(self, idx: int) -> int:
-        return self.query(idx) - self.query(idx - 1)
-
-    def range(self, left: int, right: int) -> int:
-        return self.query(right) - self.query(left - 1)
-
-    def lowbit(self, num: int) -> int:
-        return num & -num
-
-class NumArray:
-
-    def __init__(self, nums: List[int]):
-        self.tree = FenwickTree(len(nums))
-        self.nums = nums
-        for i, num in enumerate(nums): self.tree.add(i + 1, num)
-
-    def update(self, index: int, val: int) -> None:
-        self.tree.add(index + 1, val - self.nums[index])
-        self.nums[index] = val
-
-    def sumRange(self, left: int, right: int) -> int:
-        return self.tree.range(left + 1, right + 1)`,
+        ans = 0
+        cnt = inf
+        for i in range(n):
+            cur = len(list(filter(lambda o: o <= distanceThreshold, d[i]))) - 1
+            if cur <= cnt:
+                ans = i
+                cnt = cur
+        return ans`,
         },
         // {
         //     script: Script.RUST,
