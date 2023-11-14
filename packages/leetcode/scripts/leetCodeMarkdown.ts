@@ -2,7 +2,7 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
+    exist: true,
     name: '1334. 阈值距离内邻居最少的城市',
     url: 'https://leetcode.cn/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance',
     difficulty: Difficulty.简单,
@@ -35,28 +35,32 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 560,
-            memory: 16.87,
-            desc: '佛洛依德短路算法',
+            time: 268,
+            memory: 17,
+            desc: '迪杰特斯拉短路算法',
             code: `class Solution:
     def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
-        d = [[inf] * n for _ in range(n)]
-        for i in range(n): d[i][i] = 0
+        nodes = [[] for _ in range(n)]
         for edge in edges:
-            d[edge[0]][edge[1]] = edge[2]
-            d[edge[1]][edge[0]] = edge[2]
-        for k in range(n):
-            for i in range(n):
-                for j in range(n):
-                    d[i][j] = min(d[i][j], d[i][k] + d[k][j])
-
+            nodes[edge[0]].append((edge[1], edge[2]))
+            nodes[edge[1]].append((edge[0], edge[2]))
         ans = 0
         cnt = inf
         for i in range(n):
-            cur = len(list(filter(lambda o: o <= distanceThreshold, d[i]))) - 1
+            q = [(0, i)]
+            used = [False] * n
+            cur = -1
+            while q:
+                d, node = heappop(q)
+                if used[node]: continue
+                used[node] = True
+                cur += 1
+                for next_node, next_d in nodes[node]:
+                    if not used[next_node] and d + next_d <= distanceThreshold:
+                        heappush(q, (d + next_d, next_node))
             if cur <= cnt:
-                ans = i
                 cnt = cur
+                ans = i
         return ans`,
         },
         // {

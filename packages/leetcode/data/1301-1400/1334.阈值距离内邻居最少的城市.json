@@ -17,6 +17,14 @@
             "desc": "佛洛依德短路算法。",
             "code": "class Solution:\n    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:\n        d = [[inf] * n for _ in range(n)]\n        for i in range(n): d[i][i] = 0\n        for edge in edges:\n            d[edge[0]][edge[1]] = edge[2]\n            d[edge[1]][edge[0]] = edge[2]\n        for k in range(n):\n            for i in range(n):\n                for j in range(n):\n                    d[i][j] = min(d[i][j], d[i][k] + d[k][j])\n\n        ans = 0\n        cnt = inf\n        for i in range(n):\n            cur = len(list(filter(lambda o: o <= distanceThreshold, d[i]))) - 1\n            if cur <= cnt:\n                ans = i\n                cnt = cur\n        return ans",
             "date": 1699891200000
+        },
+        {
+            "script": "python",
+            "time": 268,
+            "memory": 17,
+            "desc": "迪杰特斯拉短路算法。",
+            "code": "class Solution:\n    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:\n        nodes = [[] for _ in range(n)]\n        for edge in edges:\n            nodes[edge[0]].append((edge[1], edge[2]))\n            nodes[edge[1]].append((edge[0], edge[2]))\n        ans = 0\n        cnt = inf\n        for i in range(n):\n            q = [(0, i)]\n            used = [False] * n\n            cur = -1\n            while q:\n                d, node = heappop(q)\n                if used[node]: continue\n                used[node] = True\n                cur += 1\n                for next_node, next_d in nodes[node]:\n                    if not used[next_node] and d + next_d <= distanceThreshold:\n                        heappush(q, (d + next_d, next_node))\n            if cur <= cnt:\n                cnt = cur\n                ans = i\n        return ans",
+            "date": 1699891200000
         }
     ]
 }
