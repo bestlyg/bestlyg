@@ -1,0 +1,21 @@
+{
+    "id": "2767",
+    "name": "2656.K个元素的最大和",
+    "url": "https://leetcode.cn/problems/maximum-sum-with-exactly-k-elements",
+    "difficulty": "简单",
+    "tag": [
+        "贪心",
+        "数组"
+    ],
+    "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。请你返回执行以上操作恰好 k 次后的最大得分。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 52,
+            "memory": 15.9,
+            "desc": "等差数列。",
+            "code": "class Solution:\n    def maximizeSum(self, nums: List[int], k: int) -> int:\n        return max(nums) * k + (k - 1) * k // 2",
+            "date": 1699977600000
+        }
+    ]
+}
