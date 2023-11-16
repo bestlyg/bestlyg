@@ -32,6 +32,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn longest_alternating_subarray(nums: Vec<i32>, threshold: i32) -> i32 {\n        let n = nums.len();\n        let mut res = 0;\n        for i in 0..n {\n            if nums[i] % 2 != 0 || nums[i] > threshold {\n                continue;\n            }\n            let mut cnt = 1;\n            for j in i + 1..n {\n                if nums[j] % 2 == nums[j - 1] % 2 || nums[j] > threshold {\n                    break;\n                }\n                cnt += 1;\n            }\n            res = res.max(cnt);\n        }\n        res\n    }\n}",
             "date": 1688227200000
+        },
+        {
+            "script": "python",
+            "time": 96,
+            "memory": 15.67,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def longestAlternatingSubarray(self, nums: List[int], threshold: int) -> int:\n        n = len(nums)\n        i = 0\n        ans = 0\n        while i < n:\n            if nums[i] <= threshold and nums[i] % 2 == 0:\n                start = i\n                while i + 1 < n and nums[i + 1] % 2 != nums[i] % 2 and nums[i + 1] <= threshold:\n                    i += 1\n                ans = max(ans, i - start + 1)\n            i += 1\n        return ans",
+            "date": 1700064000000
         }
     ]
 }

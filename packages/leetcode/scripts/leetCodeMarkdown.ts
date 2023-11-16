@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist:! true,
-    name: '2656. K 个元素的最大和',
+    exist: true,
+    name: '2760. 最长奇偶子数组',
     url: 'https://leetcode.cn/problems/maximum-sum-with-exactly-k-elements',
     difficulty: Difficulty.简单,
     tag: [],
@@ -35,12 +35,22 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 52,
-            memory: 15.9,
-            desc: '等差数列',
+            time: 96,
+            memory: 15.67,
+            desc: '遍历',
             code: `class Solution:
-    def maximizeSum(self, nums: List[int], k: int) -> int:
-        return max(nums) * k + (k - 1) * k // 2`,
+    def longestAlternatingSubarray(self, nums: List[int], threshold: int) -> int:
+        n = len(nums)
+        i = 0
+        ans = 0
+        while i < n:
+            if nums[i] <= threshold and nums[i] % 2 == 0:
+                start = i
+                while i + 1 < n and nums[i + 1] % 2 != nums[i] % 2 and nums[i + 1] <= threshold:
+                    i += 1
+                ans = max(ans, i - start + 1)
+            i += 1
+        return ans`,
         },
         // {
         //     script: Script.RUST,
