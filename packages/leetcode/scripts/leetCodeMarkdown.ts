@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2760. 最长奇偶子数组',
-    url: 'https://leetcode.cn/problems/maximum-sum-with-exactly-k-elements',
+    exist: !true,
+    name: '2736. 最大和查询',
+    url: 'https://leetcode.cn/problems/maximum-sum-queries',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。请你返回执行以上操作恰好 k 次后的最大得分。`,
+    desc: `给你两个长度为 n 、下标从 0 开始的整数数组 nums1 和 nums2 ，另给你一个下标从 1 开始的二维数组 queries ，其中 queries[i] = [xi, yi] 。对于第 i 个查询，在所有满足 nums1[j] >= xi 且 nums2[j] >= yi 的下标 j (0 <= j < n) 中，找出 nums1[j] + nums2[j] 的 最大值 ，如果不存在满足条件的 j 则返回 -1 。返回数组 answer ，其中 answer[i] 是第 i 个查询的答案。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,21 +35,33 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 96,
-            memory: 15.67,
-            desc: '遍历',
+            time: 340,
+            memory: 56.66,
+            desc: '单调栈',
             code: `class Solution:
-    def longestAlternatingSubarray(self, nums: List[int], threshold: int) -> int:
-        n = len(nums)
-        i = 0
-        ans = 0
-        while i < n:
-            if nums[i] <= threshold and nums[i] % 2 == 0:
-                start = i
-                while i + 1 < n and nums[i + 1] % 2 != nums[i] % 2 and nums[i + 1] <= threshold:
-                    i += 1
-                ans = max(ans, i - start + 1)
-            i += 1
+    def maximumSumQueries(self, nums1: List[int], nums2: List[int], queries: List[List[int]]) -> List[int]:
+        n = len(nums1)
+        nums = [(nums1[i], nums2[i]) for i in range(n)]
+        nums.sort()
+
+        qn = len(queries)
+        qlist = [i for i in range(qn)]
+        qlist.sort(key = lambda i: queries[i])
+        
+        stack = []
+        ans = [0] * qn
+
+        while qlist:
+            qidx = qlist.pop()
+            x, y = queries[qidx]
+            while nums and x <= nums[-1][0]:
+                xnum, ynum = nums.pop()
+                while stack and stack[-1][1] <= xnum + ynum:
+                    stack.pop()
+                if not stack or stack[-1][0] < ynum:
+                    stack.append((ynum, xnum + ynum))
+            idx = bisect_left(stack, (y, 0))
+            ans[qidx] = stack[idx][1] if idx < len(stack) else -1
         return ans`,
         },
         // {

@@ -1,0 +1,17 @@
+{
+    "name": "2736.最大和查询",
+    "url": "https://leetcode.cn/problems/maximum-sum-queries",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你两个长度为 n 、下标从 0 开始的整数数组 nums1 和 nums2 ，另给你一个下标从 1 开始的二维数组 queries ，其中 queries[i] = [xi, yi] 。对于第 i 个查询，在所有满足 nums1[j] >= xi 且 nums2[j] >= yi 的下标 j (0 <= j < n) 中，找出 nums1[j] + nums2[j] 的 最大值 ，如果不存在满足条件的 j 则返回 -1 。返回数组 answer ，其中 answer[i] 是第 i 个查询的答案。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 340,
+            "memory": 56.66,
+            "desc": "单调栈。",
+            "code": "class Solution:\n    def maximumSumQueries(self, nums1: List[int], nums2: List[int], queries: List[List[int]]) -> List[int]:\n        n = len(nums1)\n        nums = [(nums1[i], nums2[i]) for i in range(n)]\n        nums.sort()\n\n        qn = len(queries)\n        qlist = [i for i in range(qn)]\n        qlist.sort(key = lambda i: queries[i])\n        \n        stack = []\n        ans = [0] * qn\n\n        while qlist:\n            qidx = qlist.pop()\n            x, y = queries[qidx]\n            while nums and x <= nums[-1][0]:\n                xnum, ynum = nums.pop()\n                while stack and stack[-1][1] <= xnum + ynum:\n                    stack.pop()\n                if not stack or stack[-1][0] < ynum:\n                    stack.append((ynum, xnum + ynum))\n            idx = bisect_left(stack, (y, 0))\n            ans[qidx] = stack[idx][1] if idx < len(stack) else -1\n        return ans",
+            "date": 1700150400000
+        }
+    ]
+}
