@@ -1,0 +1,17 @@
+{
+    "name": "2342.数位和相等数对的最大和",
+    "url": "https://leetcode.cn/problems/max-sum-of-a-pair-with-equal-sum-of-digits",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个下标从 0 开始的数组 nums ，数组中的元素都是 正 整数。请你选出两个下标 i 和 j（i != j），且 nums[i] 的数位和 与  nums[j] 的数位和相等。请你找出所有满足条件的下标 i 和 j ，找出并返回 nums[i] + nums[j] 可以得到的 最大值 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 792,
+            "memory": 31.2,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def maximumSum(self, nums: List[int]) -> int:\n        m = defaultdict(int)\n        ans = -1\n        for num in nums:\n            v = sum(int(c) for c in str(num))\n            if v in m: ans = max(ans, m[v] + num)\n            m[v] = max(m[v], num)\n        return ans",
+            "date": 1700236800000
+        }
+    ]
+}

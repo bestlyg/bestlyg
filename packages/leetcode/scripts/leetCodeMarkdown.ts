@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2736. 最大和查询',
-    url: 'https://leetcode.cn/problems/maximum-sum-queries',
+    name: '2342. 数位和相等数对的最大和',
+    url: 'https://leetcode.cn/problems/max-sum-of-a-pair-with-equal-sum-of-digits',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两个长度为 n 、下标从 0 开始的整数数组 nums1 和 nums2 ，另给你一个下标从 1 开始的二维数组 queries ，其中 queries[i] = [xi, yi] 。对于第 i 个查询，在所有满足 nums1[j] >= xi 且 nums2[j] >= yi 的下标 j (0 <= j < n) 中，找出 nums1[j] + nums2[j] 的 最大值 ，如果不存在满足条件的 j 则返回 -1 。返回数组 answer ，其中 answer[i] 是第 i 个查询的答案。`,
+    desc: `给你一个下标从 0 开始的数组 nums ，数组中的元素都是 正 整数。请你选出两个下标 i 和 j（i != j），且 nums[i] 的数位和 与  nums[j] 的数位和相等。请你找出所有满足条件的下标 i 和 j ，找出并返回 nums[i] + nums[j] 可以得到的 最大值 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,33 +35,17 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 340,
-            memory: 56.66,
-            desc: '单调栈',
+            time: 792,
+            memory: 31.2,
+            desc: '遍历',
             code: `class Solution:
-    def maximumSumQueries(self, nums1: List[int], nums2: List[int], queries: List[List[int]]) -> List[int]:
-        n = len(nums1)
-        nums = [(nums1[i], nums2[i]) for i in range(n)]
-        nums.sort()
-
-        qn = len(queries)
-        qlist = [i for i in range(qn)]
-        qlist.sort(key = lambda i: queries[i])
-        
-        stack = []
-        ans = [0] * qn
-
-        while qlist:
-            qidx = qlist.pop()
-            x, y = queries[qidx]
-            while nums and x <= nums[-1][0]:
-                xnum, ynum = nums.pop()
-                while stack and stack[-1][1] <= xnum + ynum:
-                    stack.pop()
-                if not stack or stack[-1][0] < ynum:
-                    stack.append((ynum, xnum + ynum))
-            idx = bisect_left(stack, (y, 0))
-            ans[qidx] = stack[idx][1] if idx < len(stack) else -1
+    def maximumSum(self, nums: List[int]) -> int:
+        m = defaultdict(int)
+        ans = -1
+        for num in nums:
+            v = sum(int(c) for c in str(num))
+            if v in m: ans = max(ans, m[v] + num)
+            m[v] = max(m[v], num)
         return ans`,
         },
         // {
