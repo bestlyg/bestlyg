@@ -16,6 +16,14 @@
             "script": "typescript",
             "desc": "滑动窗口，记录每次的最大值比较。",
             "code": "function maxSumOfThreeSubarrays(nums: number[], k: number): number[] {\n  const n = nums.length;\n  let sum1 = 0,\n    max1 = 0,\n    idx1 = 0;\n  let sum2 = 0,\n    max2 = 0,\n    idx2 = 0,\n    idx2_1 = 0,\n    idx2_2 = 0;\n  let sum3 = 0,\n    max3 = 0,\n    idx3 = 0;\n  let idx = 0;\n  idx1 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max1 = sum1 += nums[i];\n  idx2_2 = idx2 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max2 = max1 + (sum2 += nums[i]);\n  idx3 = idx;\n  for (let i = idx, end = idx + k; i < end; i++, idx++) max3 = max2 + (sum3 += nums[i]);\n  const ans = [idx1, idx2, idx3];\n  for (; idx < n; idx++) {\n    sum1 = sum1 + nums[idx - 2 * k] - nums[idx - 3 * k];\n    sum2 = sum2 + nums[idx - 1 * k] - nums[idx - 2 * k];\n    sum3 = sum3 + nums[idx - 0 * k] - nums[idx - 1 * k];\n    if (max1 < sum1) {\n      max1 = sum1;\n      idx1 = idx - 3 * k + 1;\n    }\n    if (max2 < max1 + sum2) {\n      max2 = max1 + sum2;\n      idx2 = idx - 2 * k + 1;\n      idx2_1 = idx1;\n      idx2_2 = idx2;\n    }\n    if (max3 < max2 + sum3) {\n      max3 = max2 + sum3;\n      idx3 = idx - 1 * k + 1;\n      ans[0] = idx2_1;\n      ans[1] = idx2_2;\n      ans[2] = idx3;\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 100,
+            "memory": 24.2,
+            "desc": "dp[i]表示以当前为最后一个数组时的最大值。",
+            "code": "class Solution:\n    def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:\n        n = len(nums)\n\n        sums = [0]\n        for num in nums: sums.append(num + sums[-1])\n\n        dp1 = [(0, 0)] * (n + 1)\n        for i in range(0, n - k + 1):\n            if dp1[i][0] < sums[i + k] - sums[i]:\n                dp1[i + 1] = (sums[i + k] - sums[i], i)\n            else:\n                dp1[i + 1] = dp1[i]\n\n        dp2 = [(0, 0, 0)] * (n + 1)\n        for i in range(k, n - k + 1):\n            if dp2[i][0] < sums[i + k] - sums[i] + dp1[i - k + 1][0]:\n                dp2[i + 1] = (sums[i + k] - sums[i] + dp1[i - k + 1][0], dp1[i - k + 1][1], i)\n            else:\n                dp2[i + 1] = dp2[i]\n\n        dp3 = [(0, 0, 0, 0)] * (n + 1)\n        for i in range(k * 2, n - k + 1):\n            if dp3[i][0] < sums[i + k] - sums[i] + dp2[i - k + 1][0]:\n                dp3[i + 1] = (sums[i + k] - sums[i] + dp2[i - k + 1][0], dp2[i - k + 1][1], dp2[i - k + 1][2], i)\n            else:\n                dp3[i + 1] = dp3[i]\n\n        return dp3[n - k + 1][1:]",
+            "date": 1700323200000
         }
     ]
 }
