@@ -105,6 +105,14 @@
             "script": "cpp",
             "desc": "遍历，每次求出前面的最大值。",
             "code": "class Solution {\n   public:\n    int maxSubArray(vector<int>& nums) {\n        int sum = nums[0], ans = sum;\n        for (int i = 1; i < nums.size(); i++) {\n            sum = max(0, sum) + nums[i];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 168,
+            "memory": 30.34,
+            "desc": "遍历后记录前面的最小前缀和。",
+            "code": "class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        ans = -inf\n        prev = 0\n        sums = 0\n        for num in nums:\n            sums += num\n            ans = max(ans, sums - prev)\n            prev = min(prev, sums)\n        return ans",
+            "date": 1700409600000
         }
     ]
 }
