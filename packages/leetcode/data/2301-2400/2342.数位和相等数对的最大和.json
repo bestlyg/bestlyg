@@ -1,8 +1,14 @@
 {
+    "id": "2473",
     "name": "2342.数位和相等数对的最大和",
     "url": "https://leetcode.cn/problems/max-sum-of-a-pair-with-equal-sum-of-digits",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "排序",
+        "堆（优先队列）"
+    ],
     "desc": "给你一个下标从 0 开始的数组 nums ，数组中的元素都是 正 整数。请你选出两个下标 i 和 j（i != j），且 nums[i] 的数位和 与  nums[j] 的数位和相等。请你找出所有满足条件的下标 i 和 j ，找出并返回 nums[i] + nums[j] 可以得到的 最大值 。",
     "solutions": [
         {

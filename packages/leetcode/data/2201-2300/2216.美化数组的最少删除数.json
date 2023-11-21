@@ -1,0 +1,22 @@
+{
+    "id": "1355",
+    "name": "2216.美化数组的最少删除数",
+    "url": "https://leetcode.cn/problems/minimum-deletions-to-make-array-beautiful",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "贪心",
+        "数组"
+    ],
+    "desc": "返回使 nums 变为美丽数组所需删除的 最少 元素数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 216,
+            "memory": 26.28,
+            "desc": "一次遍历。",
+            "code": "class Solution:\n    def minDeletion(self, nums: List[int]) -> int:\n        ans = 0\n        for i in range(0, len(nums) - 1):\n            if (i - ans) % 2 == 0 and nums[i] == nums[i + 1]: ans += 1\n        return ans + (len(nums) - ans) % 2",
+            "date": 1700496000000
+        }
+    ]
+}
