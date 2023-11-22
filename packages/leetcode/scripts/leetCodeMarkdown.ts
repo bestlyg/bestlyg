@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2216. 美化数组的最少删除数',
-    url: 'https://leetcode.cn/problems/minimum-deletions-to-make-array-beautiful',
+    name: '2304. 网格中的最小路径代价',
+    url: 'https://leetcode.cn/problems/minimum-path-cost-in-a-grid',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回使 nums 变为美丽数组所需删除的 最少 元素数目。`,
+    desc: `从 第一行 任意单元格出发，返回到达 最后一行 任意单元格的最小路径代价。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,15 +35,19 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 216,
-            memory: 26.28,
-            desc: '一次遍历',
+            time: 296,
+            memory: 21.95,
+            desc: 'dp[i][j]表示到ij时的最小开销。',
             code: `class Solution:
-    def minDeletion(self, nums: List[int]) -> int:
-        ans = 0
-        for i in range(0, len(nums) - 1):
-            if (i - ans) % 2 == 0 and nums[i] == nums[i + 1]: ans += 1
-        return ans + (len(nums) - ans) % 2`,
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        dp = [[inf] * m for _ in range(n)]
+        for j in range(m): dp[0][j] = grid[0][j]
+        for i in range(1, n):
+            for j in range(m):
+                dp[i][j] = grid[i][j] + min(moveCost[grid[i - 1][k]][j] + dp[i - 1][k] for k in range(m))
+        return min(dp[n - 1])`,
         },
         // {
         //     script: Script.RUST,
