@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2304. 网格中的最小路径代价',
-    url: 'https://leetcode.cn/problems/minimum-path-cost-in-a-grid',
+    name: '1410. HTML 实体解析器',
+    url: 'https://leetcode.cn/problems/html-entity-parser',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `从 第一行 任意单元格出发，返回到达 最后一行 任意单元格的最小路径代价。`,
+    desc: `给你输入字符串 text ，请你实现一个 HTML 实体解析器，返回解析器解析后的结果。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,19 +35,12 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 296,
-            memory: 21.95,
-            desc: 'dp[i][j]表示到ij时的最小开销。',
+            time: 68,
+            memory: 16.32,
+            desc: '字符串替换',
             code: `class Solution:
-    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
-        n = len(grid)
-        m = len(grid[0])
-        dp = [[inf] * m for _ in range(n)]
-        for j in range(m): dp[0][j] = grid[0][j]
-        for i in range(1, n):
-            for j in range(m):
-                dp[i][j] = grid[i][j] + min(moveCost[grid[i - 1][k]][j] + dp[i - 1][k] for k in range(m))
-        return min(dp[n - 1])`,
+            def entityParser(self, text: str) -> str:
+    return text.replace('&quot;', '\\"').replace('&apos;', '\\'').replace('&gt;', '>').replace('&lt;', '<').replace('&frasl;', '/').replace('&amp;', '&')`,
         },
         // {
         //     script: Script.RUST,
