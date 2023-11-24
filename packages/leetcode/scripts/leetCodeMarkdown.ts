@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1410. HTML 实体解析器',
-    url: 'https://leetcode.cn/problems/html-entity-parser',
+    name: '2824. 统计和小于目标的下标对数目',
+    url: 'https://leetcode.cn/problems/count-pairs-whose-sum-is-less-than-target',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你输入字符串 text ，请你实现一个 HTML 实体解析器，返回解析器解析后的结果。`,
+    desc: `给你一个下标从 0 开始长度为 n 的整数数组 nums 和一个整数 target ，请你返回满足 0 <= i < j < n 且 nums[i] + nums[j] < target 的下标对 (i, j) 的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,12 +35,12 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 68,
-            memory: 16.32,
-            desc: '字符串替换',
+            time: 52,
+            memory: 16.1,
+            desc: '枚举',
             code: `class Solution:
-            def entityParser(self, text: str) -> str:
-    return text.replace('&quot;', '\\"').replace('&apos;', '\\'').replace('&gt;', '>').replace('&lt;', '<').replace('&frasl;', '/').replace('&amp;', '&')`,
+    def countPairs(self, nums: List[int], target: int) -> int:
+        return sum(nums[i] + nums[j] < target for i in range(len(nums)) for j in range(i))`,
         },
         // {
         //     script: Script.RUST,
