@@ -1,0 +1,17 @@
+{
+    "name": "1457.二叉树中的伪回文路径",
+    "url": "https://leetcode.cn/problems/pseudo-palindromic-paths-in-a-binary-tree",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 656,
+            "memory": 90.31,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:\n        def dfs(node: Optional[TreeNode], val: int) -> int:\n            if not node: return 0\n            val ^= (1 << node.val)\n            if not node.left and not node.right: return int(val == 0 or (val & (-val)) == val)\n            return dfs(node.left, val) + dfs(node.right, val)\n        return dfs(root, 0)",
+            "date": 1700841600000
+        }
+    ]
+}

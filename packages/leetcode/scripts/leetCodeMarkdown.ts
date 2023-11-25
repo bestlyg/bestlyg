@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2824. 统计和小于目标的下标对数目',
-    url: 'https://leetcode.cn/problems/count-pairs-whose-sum-is-less-than-target',
+    name: '1457. 二叉树中的伪回文路径',
+    url: 'https://leetcode.cn/problems/pseudo-palindromic-paths-in-a-binary-tree',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始长度为 n 的整数数组 nums 和一个整数 target ，请你返回满足 0 <= i < j < n 且 nums[i] + nums[j] < target 的下标对 (i, j) 的数目。`,
+    desc: `给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,12 +35,17 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 52,
-            memory: 16.1,
-            desc: '枚举',
+            time: 656,
+            memory: 90.31,
+            desc: 'dfs',
             code: `class Solution:
-    def countPairs(self, nums: List[int], target: int) -> int:
-        return sum(nums[i] + nums[j] < target for i in range(len(nums)) for j in range(i))`,
+    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
+        def dfs(node: Optional[TreeNode], val: int) -> int:
+            if not node: return 0
+            val ^= (1 << node.val)
+            if not node.left and not node.right: return int(val == 0 or (val & (-val)) == val)
+            return dfs(node.left, val) + dfs(node.right, val)
+        return dfs(root, 0)`,
         },
         // {
         //     script: Script.RUST,
