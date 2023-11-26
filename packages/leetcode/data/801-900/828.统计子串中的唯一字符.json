@@ -17,6 +17,14 @@
             "script": "cpp",
             "desc": "记录每个字符出现的下标，统计每个字符只出现一次的子串。",
             "code": "class Solution {\npublic:\n    int uniqueLetterString(string s) {\n        unordered_map<char, vector<int>> m;\n        for (int i = 0; i < s.size(); i++) m[s[i]].push_back(i);\n        int ans = 0;\n        for (auto &item : m) {\n            vector<int> list = item.second;\n            list.insert(list.begin(), -1);\n            list.push_back(s.size());\n            for (int i = 1; i < list.size() - 1; i++) ans += (list[i] - list[i - 1]) * (list[i + 1] - list[i]);\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 272,
+            "memory": 20.83,
+            "desc": "按字符归类所有下标，记录当前字符下标仅出现一次的频率。",
+            "code": "class Solution:\n    def uniqueLetterString(self, s: str) -> int:\n        n = len(s)\n        ans = 0\n        clist = [[-1] for _ in range(26)]\n        for i in range(n): clist[ord(s[i]) - ord('A')].append(i)\n        for arr in clist:\n            arr.append(n)\n            for j in range(1, len(arr) - 1):\n                ans += (arr[j] - arr[j - 1]) * (arr[j + 1] - arr[j])\n        return ans",
+            "date": 1700928000000
         }
     ]
 }

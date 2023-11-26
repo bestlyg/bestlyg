@@ -2,9 +2,9 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1457. 二叉树中的伪回文路径',
-    url: 'https://leetcode.cn/problems/pseudo-palindromic-paths-in-a-binary-tree',
+    exist: true,
+    name: '828. 统计子串中的唯一字符',
+    url: 'https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。`,
@@ -35,17 +35,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 656,
-            memory: 90.31,
-            desc: 'dfs',
+            time: 272,
+            memory: 20.83,
+            desc: '按字符归类所有下标，记录当前字符下标仅出现一次的频率',
             code: `class Solution:
-    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
-        def dfs(node: Optional[TreeNode], val: int) -> int:
-            if not node: return 0
-            val ^= (1 << node.val)
-            if not node.left and not node.right: return int(val == 0 or (val & (-val)) == val)
-            return dfs(node.left, val) + dfs(node.right, val)
-        return dfs(root, 0)`,
+    def uniqueLetterString(self, s: str) -> int:
+        n = len(s)
+        ans = 0
+        clist = [[-1] for _ in range(26)]
+        for i in range(n): clist[ord(s[i]) - ord('A')].append(i)
+        for arr in clist:
+            arr.append(n)
+            for j in range(1, len(arr) - 1):
+                ans += (arr[j] - arr[j - 1]) * (arr[j + 1] - arr[j])
+        return ans`,
         },
         // {
         //     script: Script.RUST,
