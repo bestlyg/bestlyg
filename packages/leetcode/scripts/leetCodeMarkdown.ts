@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '828. 统计子串中的唯一字符',
+    name: '907. 子数组的最小值之和',
     url: 'https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -35,20 +35,23 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 272,
-            memory: 20.83,
-            desc: '按字符归类所有下标，记录当前字符下标仅出现一次的频率',
+            time: 140,
+            memory: 20.25,
+            desc: '单调栈，找出当前点为最小值时的区间',
             code: `class Solution:
-    def uniqueLetterString(self, s: str) -> int:
-        n = len(s)
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        n = len(arr)
+        prev = [-1] * n
+        next = [n] * n
+        s = []
         ans = 0
-        clist = [[-1] for _ in range(26)]
-        for i in range(n): clist[ord(s[i]) - ord('A')].append(i)
-        for arr in clist:
-            arr.append(n)
-            for j in range(1, len(arr) - 1):
-                ans += (arr[j] - arr[j - 1]) * (arr[j + 1] - arr[j])
-        return ans`,
+        for i in range(n):
+            while s and arr[s[-1]] >= arr[i]:
+                next[s[-1]] = i
+                s.pop()
+            if s: prev[i] = s[-1]
+            s.append(i)
+        return sum((next[i] - i) * (i - prev[i]) * arr[i] for i in range(n)) % (10** 9 + 7)`,
         },
         // {
         //     script: Script.RUST,
