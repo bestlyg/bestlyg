@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '907. 子数组的最小值之和',
+    name: '1670. 设计前中后队列',
     url: 'https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -35,23 +35,42 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 140,
-            memory: 20.25,
-            desc: '单调栈，找出当前点为最小值时的区间',
-            code: `class Solution:
-    def sumSubarrayMins(self, arr: List[int]) -> int:
-        n = len(arr)
-        prev = [-1] * n
-        next = [n] * n
-        s = []
-        ans = 0
-        for i in range(n):
-            while s and arr[s[-1]] >= arr[i]:
-                next[s[-1]] = i
-                s.pop()
-            if s: prev[i] = s[-1]
-            s.append(i)
-        return sum((next[i] - i) * (i - prev[i]) * arr[i] for i in range(n)) % (10** 9 + 7)`,
+            time: 68,
+            memory: 16.81,
+            desc: '两个双端队列1670. 设计前中后队列',
+            code: `class FrontMiddleBackQueue:
+    def __init__(self):
+        self.len = 0
+        self.q1 = deque()
+        self.q2 = deque()
+    def pushFront(self, val: int) -> None:
+        self.q1.appendleft(val)
+        self.after(1)
+    def pushMiddle(self, val: int) -> None:
+        self.q2.appendleft(val)
+        self.after(1)
+    def pushBack(self, val: int) -> None:
+        self.q2.append(val)
+        self.after(1)
+    def after(self, offset: int) -> None:
+        self.len += offset
+        if len(self.q1) + 2 == len(self.q2): self.q1.append(self.q2.popleft())
+        elif len(self.q1) == len(self.q2) + 1: self.q2.appendleft(self.q1.pop()) 
+    def popFront(self) -> int:
+        if self.len == 0: return -1
+        val = self.q2.pop() if self.len == 1 else self.q1.popleft()
+        self.after(-1)
+        return val
+    def popMiddle(self) -> int:
+        if self.len == 0: return -1
+        val = self.q1.pop() if self.len % 2 == 0 else self.q2.popleft()
+        self.after(-1)
+        return val
+    def popBack(self) -> int:
+        if self.len == 0: return -1
+        val = self.q2.pop()
+        self.after(-1)
+        return val`,
         },
         // {
         //     script: Script.RUST,
