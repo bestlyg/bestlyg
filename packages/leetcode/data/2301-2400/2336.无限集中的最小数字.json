@@ -1,0 +1,22 @@
+{
+    "id": "2413",
+    "name": "2336.无限集中的最小数字",
+    "url": "https://leetcode.cn/problems/smallest-number-in-infinite-set",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "哈希表",
+        "堆（优先队列）"
+    ],
+    "desc": "现有一个包含所有正整数的集合 [1, 2, 3, 4, 5, ...] 。实现 SmallestInfiniteSet 类。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 92,
+            "memory": 16.58,
+            "desc": "堆。",
+            "code": "class SmallestInfiniteSet:\n    def __init__(self):\n        self.nmin = 1\n        self.q = []\n        self.used = set()\n    def popSmallest(self) -> int:\n        if not self.q:\n            self.nmin += 1\n            return self.nmin - 1\n        num = heappop(self.q)\n        self.used.remove(num)\n        return num\n    def addBack(self, num: int) -> None:\n        if self.nmin > num and num not in self.used:\n            heappush(self.q, num)\n            self.used.add(num)",
+            "date": 1701187200000
+        }
+    ]
+}

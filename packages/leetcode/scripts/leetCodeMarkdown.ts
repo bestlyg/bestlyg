@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '1670. 设计前中后队列',
-    url: 'https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/',
+    exist: !true,
+    name: '2336. 无限集中的最小数字',
+    url: 'https://leetcode.cn/problems/smallest-number-in-infinite-set',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。`,
+    desc: `现有一个包含所有正整数的集合 [1, 2, 3, 4, 5, ...] 。实现 SmallestInfiniteSet 类。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,42 +35,25 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 68,
-            memory: 16.81,
-            desc: '两个双端队列1670. 设计前中后队列',
-            code: `class FrontMiddleBackQueue:
+            time: 92,
+            memory: 16.58,
+            desc: '堆',
+            code: `class SmallestInfiniteSet:
     def __init__(self):
-        self.len = 0
-        self.q1 = deque()
-        self.q2 = deque()
-    def pushFront(self, val: int) -> None:
-        self.q1.appendleft(val)
-        self.after(1)
-    def pushMiddle(self, val: int) -> None:
-        self.q2.appendleft(val)
-        self.after(1)
-    def pushBack(self, val: int) -> None:
-        self.q2.append(val)
-        self.after(1)
-    def after(self, offset: int) -> None:
-        self.len += offset
-        if len(self.q1) + 2 == len(self.q2): self.q1.append(self.q2.popleft())
-        elif len(self.q1) == len(self.q2) + 1: self.q2.appendleft(self.q1.pop()) 
-    def popFront(self) -> int:
-        if self.len == 0: return -1
-        val = self.q2.pop() if self.len == 1 else self.q1.popleft()
-        self.after(-1)
-        return val
-    def popMiddle(self) -> int:
-        if self.len == 0: return -1
-        val = self.q1.pop() if self.len % 2 == 0 else self.q2.popleft()
-        self.after(-1)
-        return val
-    def popBack(self) -> int:
-        if self.len == 0: return -1
-        val = self.q2.pop()
-        self.after(-1)
-        return val`,
+        self.nmin = 1
+        self.q = []
+        self.used = set()
+    def popSmallest(self) -> int:
+        if not self.q:
+            self.nmin += 1
+            return self.nmin - 1
+        num = heappop(self.q)
+        self.used.remove(num)
+        return num
+    def addBack(self, num: int) -> None:
+        if self.nmin > num and num not in self.used:
+            heappush(self.q, num)
+            self.used.add(num)`,
         },
         // {
         //     script: Script.RUST,
