@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2336. 无限集中的最小数字',
-    url: 'https://leetcode.cn/problems/smallest-number-in-infinite-set',
+    name: '1657. 确定两个字符串是否接近',
+    url: 'https://leetcode.cn/problems/determine-if-two-strings-are-close',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `现有一个包含所有正整数的集合 [1, 2, 3, 4, 5, ...] 。实现 SmallestInfiniteSet 类。`,
+    desc: `给你两个字符串，word1 和 word2 。如果 word1 和 word2 接近 ，就返回 true ；否则，返回 false 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,25 +35,14 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 92,
-            memory: 16.58,
-            desc: '堆',
-            code: `class SmallestInfiniteSet:
-    def __init__(self):
-        self.nmin = 1
-        self.q = []
-        self.used = set()
-    def popSmallest(self) -> int:
-        if not self.q:
-            self.nmin += 1
-            return self.nmin - 1
-        num = heappop(self.q)
-        self.used.remove(num)
-        return num
-    def addBack(self, num: int) -> None:
-        if self.nmin > num and num not in self.used:
-            heappush(self.q, num)
-            self.used.add(num)`,
+            time: 128,
+            memory: 16.86,
+            desc: '排序',
+            code: `class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        c1 = Counter(word1)
+        c2 = Counter(word2)
+        return sorted(c1.keys()) == sorted(c2.keys()) and sorted(c1.values()) == sorted(c2.values())`,
         },
         // {
         //     script: Script.RUST,
