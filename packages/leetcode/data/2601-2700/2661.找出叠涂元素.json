@@ -1,0 +1,30 @@
+{
+    "id": "2685",
+    "name": "2661.找出叠涂元素",
+    "url": "https://leetcode.cn/problems/first-completely-painted-row-or-column",
+    "difficulty": "中等",
+    "tag": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "desc": "请你找出 arr 中在 mat 的某一行或某一列上都被涂色且下标最小的元素，并返回其下标 i 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 192,
+            "memory": 49.78,
+            "desc": "哈希计数。",
+            "code": "class Solution:\n    def firstCompleteIndex(self, arr: List[int], mat: List[List[int]]) -> int:\n        n = len(mat)\n        m = len(mat[0])\n        map = {mat[i][j]: (i, j) for i in range(n) for j in range(m)}\n        rows = [0] * n\n        cols = [0] * m\n        for idx, num in enumerate(arr):\n            i, j = map[num]\n            rows[i] += 1\n            cols[j] += 1\n            if rows[i] == m or cols[j] == n: return idx",
+            "date": 1701360000000
+        },
+        {
+            "script": "rust",
+            "time": 40,
+            "memory": 11.39,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn first_complete_index(arr: Vec<i32>, mat: Vec<Vec<i32>>) -> i32 {\n        let n = mat.len();\n        let m = mat[0].len();\n        let mut map = std::collections::HashMap::<i32, (usize, usize)>::new();\n        for i in 0..n {\n            for j in 0..m {\n                map.insert(mat[i][j], (i, j));\n            }\n        }\n        let mut rows = vec![0; n];\n        let mut cols = vec![0; m];\n        for (idx, num) in arr.into_iter().enumerate() {\n            let (i, j) = map.get(&num).unwrap();\n            rows[*i] += 1;\n            cols[*j] += 1;\n            if rows[*i] == m || cols[*j] == n {\n                return idx as i32;\n            }\n        }\n        0\n    }\n}",
+            "date": 1701360000000
+        }
+    ]
+}
