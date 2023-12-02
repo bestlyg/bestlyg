@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2661. 找出叠涂元素',
-    url: 'https://leetcode.cn/problems/first-completely-painted-row-or-column',
+    name: '1094. 拼车',
+    url: 'https://leetcode.cn/problems/car-pooling',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出 arr 中在 mat 的某一行或某一列上都被涂色且下标最小的元素，并返回其下标 i 。`,
+    desc: `当且仅当你可以在所有给定的行程中接送所有乘客时，返回 true，否则请返回 false。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -35,48 +35,43 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 192,
-            memory: 49.78,
-            desc: '哈希计数',
+            time: 40,
+            memory: 16.64,
+            desc: '排序后优先队列计数',
             code: `class Solution:
-    def firstCompleteIndex(self, arr: List[int], mat: List[List[int]]) -> int:
-        n = len(mat)
-        m = len(mat[0])
-        map = {mat[i][j]: (i, j) for i in range(n) for j in range(m)}
-        rows = [0] * n
-        cols = [0] * m
-        for idx, num in enumerate(arr):
-            i, j = map[num]
-            rows[i] += 1
-            cols[j] += 1
-            if rows[i] == m or cols[j] == n: return idx`,
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        trips.sort(key = lambda o: (o[1], o[2]))
+        size = 0
+        q = []
+        for [num, f, t] in trips:
+            while q and q[0][0] <= f: size -= heappop(q)[1]
+            if size + num > capacity: return False
+            heappush(q, (t, num))
+            size += num
+        return True`,
         },
         {
             script: Script.RUST,
-            time: 40,
-            memory: 11.39,
+            time: 0,
+            memory: 2.07,
             desc: '同上',
             code: `impl Solution {
-    pub fn first_complete_index(arr: Vec<i32>, mat: Vec<Vec<i32>>) -> i32 {
-        let n = mat.len();
-        let m = mat[0].len();
-        let mut map = std::collections::HashMap::<i32, (usize, usize)>::new();
-        for i in 0..n {
-            for j in 0..m {
-                map.insert(mat[i][j], (i, j));
+    pub fn car_pooling(mut trips: Vec<Vec<i32>>, capacity: i32) -> bool {
+        trips.sort_by_key(|o| o[1]);
+        let mut size = 0;
+        let mut q = std::collections::BinaryHeap::<(i32, i32)>::new();
+        for item in trips {
+            let (num, f, t) = (item[0], item[1], item[2]);
+            while q.len() > 0 && -(*q.peek().unwrap()).0 <= f {
+                size -= q.pop().unwrap().1;
             }
-        }
-        let mut rows = vec![0; n];
-        let mut cols = vec![0; m];
-        for (idx, num) in arr.into_iter().enumerate() {
-            let (i, j) = map.get(&num).unwrap();
-            rows[*i] += 1;
-            cols[*j] += 1;
-            if rows[*i] == m || cols[*j] == n {
-                return idx as i32;
+            if size + num > capacity {
+                return false;
             }
+            q.push((-t, num));
+            size += num;
         }
-        0
+        true
     }
 }`,
         },

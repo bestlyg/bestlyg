@@ -15,25 +15,26 @@ fn main() {
 }
 
 impl Solution {
-    pub fn first_complete_index(arr: Vec<i32>, mat: Vec<Vec<i32>>) -> i32 {
-        let n = mat.len();
-        let m = mat[0].len();
-        let mut map = std::collections::HashMap::<i32, (usize, usize)>::new();
-        for i in 0..n {
-            for j in 0..m {
-                map.insert(mat[i][j], (i, j));
+    pub fn car_pooling(mut trips: Vec<Vec<i32>>, capacity: i32) -> bool {
+        trips.sort_by_key(|o| o[1]);
+        let mut size = 0;
+        let mut q = std::collections::BinaryHeap::<(i32, i32)>::new();
+        for item in trips {
+            let (num, f, t) = (item[0], item[1], item[2]);
+            while q.len() > 0 && -(*q.peek().unwrap()).0 <= f {
+                size -= q.pop().unwrap().1;
             }
-        }
-        let mut rows = vec![0; n];
-        let mut cols = vec![0; m];
-        for (idx, num) in arr.into_iter().enumerate() {
-            let (i, j) = map.get(&num).unwrap();
-            rows[*i] += 1;
-            cols[*j] += 1;
-            if rows[*i] == m || cols[*j] == n {
-                return idx as i32;
+            while let Some(top) = q.peek() {
+                if -top.0 <= f  {
+                    
+                }
             }
+            if size + num > capacity {
+                return false;
+            }
+            q.push((-t, num));
+            size += num;
         }
-        0
+        true
     }
 }
