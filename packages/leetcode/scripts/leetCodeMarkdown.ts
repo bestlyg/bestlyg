@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1094. 拼车',
+    exist: true,
+    name: '1423. 可获得的最大点数',
     url: 'https://leetcode.cn/problems/car-pooling',
     difficulty: Difficulty.简单,
     tag: [],
@@ -35,43 +35,39 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 40,
-            memory: 16.64,
-            desc: '排序后优先队列计数',
+            time: 92,
+            memory: 26.23,
+            desc: '滑动窗口记录左右两侧',
             code: `class Solution:
-    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
-        trips.sort(key = lambda o: (o[1], o[2]))
-        size = 0
-        q = []
-        for [num, f, t] in trips:
-            while q and q[0][0] <= f: size -= heappop(q)[1]
-            if size + num > capacity: return False
-            heappush(q, (t, num))
-            size += num
-        return True`,
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        n = len(cardPoints)
+        l = sum(cardPoints[0:k])
+        r = 0
+        ans = l
+        for i in range(k):
+            r += cardPoints[n - 1 - i]
+            l -= cardPoints[k - 1 - i]
+            ans = max(ans, l + r)
+        return ans`,
         },
         {
             script: Script.RUST,
-            time: 0,
-            memory: 2.07,
+            time: 8,
+            memory: 3.19,
             desc: '同上',
             code: `impl Solution {
-    pub fn car_pooling(mut trips: Vec<Vec<i32>>, capacity: i32) -> bool {
-        trips.sort_by_key(|o| o[1]);
-        let mut size = 0;
-        let mut q = std::collections::BinaryHeap::<(i32, i32)>::new();
-        for item in trips {
-            let (num, f, t) = (item[0], item[1], item[2]);
-            while q.len() > 0 && -(*q.peek().unwrap()).0 <= f {
-                size -= q.pop().unwrap().1;
-            }
-            if size + num > capacity {
-                return false;
-            }
-            q.push((-t, num));
-            size += num;
+    pub fn max_score(card_points: Vec<i32>, k: i32) -> i32 {
+        let k = k as usize;
+        let n = card_points.len();
+        let mut l = card_points[0..k].iter().sum::<i32>();
+        let mut r = 0;
+        let mut ans = l;
+        for i in 0..k {
+            r += card_points[n - 1 - i];
+            l -= card_points[k - 1 - i];
+            ans = ans.max(l + r);
         }
-        true
+        ans
     }
 }`,
         },

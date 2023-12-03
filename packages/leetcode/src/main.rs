@@ -15,26 +15,17 @@ fn main() {
 }
 
 impl Solution {
-    pub fn car_pooling(mut trips: Vec<Vec<i32>>, capacity: i32) -> bool {
-        trips.sort_by_key(|o| o[1]);
-        let mut size = 0;
-        let mut q = std::collections::BinaryHeap::<(i32, i32)>::new();
-        for item in trips {
-            let (num, f, t) = (item[0], item[1], item[2]);
-            while q.len() > 0 && -(*q.peek().unwrap()).0 <= f {
-                size -= q.pop().unwrap().1;
-            }
-            while let Some(top) = q.peek() {
-                if -top.0 <= f  {
-                    
-                }
-            }
-            if size + num > capacity {
-                return false;
-            }
-            q.push((-t, num));
-            size += num;
+    pub fn max_score(card_points: Vec<i32>, k: i32) -> i32 {
+        let k = k as usize;
+        let n = card_points.len();
+        let mut l = card_points[0..k].iter().sum::<i32>();
+        let mut r = 0;
+        let mut ans = l;
+        for i in 0..k {
+            r += card_points[n - 1 - i];
+            l -= card_points[k - 1 - i];
+            ans = ans.max(l + r);
         }
-        true
+        ans
     }
 }
