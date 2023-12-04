@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '1423. 可获得的最大点数',
-    url: 'https://leetcode.cn/problems/car-pooling',
+    exist: !true,
+    name: '1038. 从二叉搜索树到更大和树',
+    url: 'https://leetcode.cn/problems/binary-search-tree-to-greater-sum-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `当且仅当你可以在所有给定的行程中接送所有乘客时，返回 true，否则请返回 false。`,
+    desc: `给定一个二叉搜索树 root (BST)，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -25,49 +25,66 @@ const leetCodeMarkdown: Markdown = {
         //     desc: 'dp',
         //     code: ``,
         // },
-        // {
-        //     date: new Date('2022.06.20').getTime(),
-        //     script: Script.CPP,
-        //     time: 200,
-        //     memory: 66.95,
-        //     desc: '有序集合',
-        //     code: ``,
-        // },
         {
             script: Script.PY,
-            time: 92,
-            memory: 26.23,
-            desc: '滑动窗口记录左右两侧',
+            time: 32,
+            memory: 16.11,
+            desc: '利用bst的特性，dfs。',
             code: `class Solution:
-    def maxScore(self, cardPoints: List[int], k: int) -> int:
-        n = len(cardPoints)
-        l = sum(cardPoints[0:k])
-        r = 0
-        ans = l
-        for i in range(k):
-            r += cardPoints[n - 1 - i]
-            l -= cardPoints[k - 1 - i]
-            ans = max(ans, l + r)
-        return ans`,
+    def bstToGst(self, root: TreeNode) -> TreeNode:
+        sums = 0
+        def dfs(node: Optional[TreeNode]):
+            nonlocal sums
+            if not node: return
+            dfs(node.right)
+            sums += node.val
+            node.val = sums
+            dfs(node.left)
+        dfs(roo)
+        return root`,
+        },
+        {
+            script: Script.CPP,
+            time: 0,
+            memory: 8.3,
+            desc: '同上',
+            code: `class Solution {
+public:
+    TreeNode* bstToGst(TreeNode* root) {
+        int sums = 0;
+        function<void(TreeNode*)> dfs = [&](TreeNode *node) {
+            if (!node) return;
+            dfs(node->right);
+            sums += node->val;
+            node->val = sums;
+            dfs(node->left);
+        };
+        dfs(root);
+        return root;
+    }
+};`,
         },
         {
             script: Script.RUST,
-            time: 8,
-            memory: 3.19,
+            time: 0,
+            memory: 2.17,
             desc: '同上',
-            code: `impl Solution {
-    pub fn max_score(card_points: Vec<i32>, k: i32) -> i32 {
-        let k = k as usize;
-        let n = card_points.len();
-        let mut l = card_points[0..k].iter().sum::<i32>();
-        let mut r = 0;
-        let mut ans = l;
-        for i in 0..k {
-            r += card_points[n - 1 - i];
-            l -= card_points[k - 1 - i];
-            ans = ans.max(l + r);
+            code: `use std::cell::RefCell;
+use std::rc::Rc;
+impl Solution {
+    pub fn bst_to_gst(mut root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
+        let mut sums = 0;
+        fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, sums: &mut i32) {
+            if let Some(node) = node {
+                let mut node_ref = node.as_ref().borrow_mut();
+                dfs(&mut node_ref.right, sums);
+                *sums += node_ref.val;
+                node_ref.val = *sums;
+                dfs(&mut node_ref.left, sums);
+            }
         }
-        ans
+        dfs(&mut root, &mut sums);
+        root
     }
 }`,
         },

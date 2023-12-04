@@ -14,18 +14,21 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+use std::cell::RefCell;
+use std::rc::Rc;
 impl Solution {
-    pub fn max_score(card_points: Vec<i32>, k: i32) -> i32 {
-        let k = k as usize;
-        let n = card_points.len();
-        let mut l = card_points[0..k].iter().sum::<i32>();
-        let mut r = 0;
-        let mut ans = l;
-        for i in 0..k {
-            r += card_points[n - 1 - i];
-            l -= card_points[k - 1 - i];
-            ans = ans.max(l + r);
+    pub fn bst_to_gst(mut root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
+        let mut sums = 0;
+        fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, sums: &mut i32) {
+            if let Some(node) = node {
+                let mut node_ref = node.as_ref().borrow_mut();
+                dfs(&mut node_ref.right, sums);
+                *sums += node_ref.val;
+                node_ref.val = *sums;
+                dfs(&mut node_ref.left, sums);
+            }
         }
-        ans
+        dfs(&mut root, &mut sums);
+        root
     }
 }

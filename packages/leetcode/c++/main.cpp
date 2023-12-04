@@ -155,55 +155,19 @@ vector<bool> get_primes2(int n) {
 }
 // START
 
-struct TrieNode {
-    TrieNode* left = nullptr;
-    TrieNode* right = nullptr;
-};
-
-void add(TrieNode* node, int num) {
-    int pos = 30;
-    while (pos >= 0) {
-        int v = (num >> pos) & 1;
-        if (v) {
-            if (!node->left) node->left = new TrieNode();
-            node = node->left;
-        } else {
-            if (!node->right) node->right = new TrieNode();
-            node = node->right;
-        }
-        pos -= 1;
-    }
-}
-
-int find(TrieNode* node, int num) {
-    int pos = 30, ans = 0;
-    while (pos >= 0 && node) {
-        int v = (num >> pos) & 1;
-        if (v) {
-            if (node->right) {
-                ans |= 1 << pos;
-                node = node->right;
-            } else node = node->left;
-        } else {
-            if (node->left) {
-                ans |= 1 << pos;
-                node = node->left;
-            } else node = node->right;
-        }
-        pos -= 1;
-    }
-}
-
 class Solution {
 public:
-    int findMaximumXOR(vector<int>& nums) {
-        TrieNode *root = new TrieNode();
-        int ans = 0;
-        for (auto &num : nums) {
-            add(root, num);
-            ans = max(ans, find(root, num));
-        }
-        return ans;
+    TreeNode* bstToGst(TreeNode* root) {
+        int sums = 0;
+        function<void(TreeNode*)> dfs = [&](TreeNode *node) {
+            if (!node) return;
+            dfs(node->right);
+            sums += node->val;
+            node->val = sums;
+            dfs(node->left);
+        };
+        dfs(root);
+        return root;
     }
 };
 
