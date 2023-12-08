@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2646. 最小化旅行的价格总和',
-    url: 'https://leetcode.cn/problems/minimize-the-total-price-of-the-trips',
+    exist: !true,
+    name: '1466. 重新规划路线',
+    url: 'https://leetcode.cn/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回执行所有旅行的最小价格总和。`,
+    desc: `请你帮助重新规划路线方向，使每个城市都可以访问城市 0 。返回需要变更方向的最小路线数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -26,43 +26,29 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
         {
+            date: new Date('2023-12-7').getTime(),
             script: Script.PY,
-            time: 888,
-            memory: 257.3,
-            desc: '提前统计每个点会被经过的次数，然后dp判断每个点打折和不打折的情况',
+            time: 272,
+            memory: 36.8,
+            desc: '从0点开始向外bfs',
             code: `class Solution:
-        def minimumTotalPrice(self, n: int, edges: List[List[int]], price: List[int], trips: List[List[int]]) -> int:
-            nodes = [[] for _ in range(n)]
-            for n1, n2 in edges:
-                nodes[n1].append(n2)
-                nodes[n2].append(n1)
-            cnts = [0] * n
-            def dfs(start: int, end: int, used: int) -> bool:
-                if start == end:
-                    cnts[end] += 1
-                    return True
-                check = False
-                for next in nodes[start]:
-                    if (used & (1 << next)) == 0 and dfs(next, end, used | (1 << next)):
-                        cnts[start] += 1
-                        check = True
-                return check
-            for start, end in trips: dfs(start, end, 1 << start)
-            sums = sum(c * price[i] for i, c in enumerate(cnts))
-            @cache
-            def try_trip(idx: int, used: int, can: bool) -> int:
-                res1 = 0
-                if can: 
-                    res1 += int(cnts[idx] * price[idx] / 2)
-                    for next in nodes[idx]:
-                        if (used & (1 << next)) == 0:
-                            res1 += try_trip(next, used | (1 << next), not can)
-                res2 = 0
-                for next in nodes[idx]:
-                    if (used & (1 << next)) == 0:
-                        res2 += try_trip(next, used | (1 << next), True)
-                return max(res1, res2)
-            return min(sums - try_trip(i, 1 << i, True) for i in range(n))`,
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        froms = [[] for _ in range(n)]
+        tos = [[] for _ in range(n)]
+        for a, b in connections:
+            froms[a].append(b)
+            tos[b].append(a)
+        q = deque()
+        q.append((0, 0, -1))
+        ans = 0
+        while q:
+            cur, f, p = q.popleft()
+            ans += len(froms[cur]) - f
+            for next in froms[cur]:
+                if next != p: q.append((next, 0, cur))
+            for next in tos[cur]:
+                if next != p: q.append((next, 1, cur))
+        return ans`,
         },
         //         {
         //             script: Script.CPP,

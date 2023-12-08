@@ -1,0 +1,22 @@
+{
+    "id": "1576",
+    "name": "1466.重新规划路线",
+    "url": "https://leetcode.cn/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+    "difficulty": "中等",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图"
+    ],
+    "desc": "请你帮助重新规划路线方向，使每个城市都可以访问城市 0 。返回需要变更方向的最小路线数。",
+    "solutions": [
+        {
+            "date": 1701878400000,
+            "script": "python",
+            "time": 272,
+            "memory": 36.8,
+            "desc": "从0点开始向外bfs。",
+            "code": "class Solution:\n    def minReorder(self, n: int, connections: List[List[int]]) -> int:\n        froms = [[] for _ in range(n)]\n        tos = [[] for _ in range(n)]\n        for a, b in connections:\n            froms[a].append(b)\n            tos[b].append(a)\n        q = deque()\n        q.append((0, 0, -1))\n        ans = 0\n        while q:\n            cur, f, p = q.popleft()\n            ans += len(froms[cur]) - f\n            for next in froms[cur]:\n                if next != p: q.append((next, 0, cur))\n            for next in tos[cur]:\n                if next != p: q.append((next, 1, cur))\n        return ans"
+        }
+    ]
+}
