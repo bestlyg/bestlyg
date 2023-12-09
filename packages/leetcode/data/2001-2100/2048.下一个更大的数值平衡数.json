@@ -1,0 +1,30 @@
+{
+    "id": "2174",
+    "name": "2048.下一个更大的数值平衡数",
+    "url": "https://leetcode.cn/problems/next-greater-numerically-balanced-number",
+    "difficulty": "中等",
+    "tag": [
+        "数学",
+        "回溯",
+        "枚举"
+    ],
+    "desc": "给你一个整数 n ，请你返回 严格大于 n 的 最小数值平衡数 。",
+    "solutions": [
+        {
+            "date": 1651766400000,
+            "script": "cpp",
+            "time": 4,
+            "memory": 7.03,
+            "desc": "打表。",
+            "code": "class Solution {\n    public:\n        void getNumber(int d, int ind, vector<int>& buff, vector<int>& arr) {\n            if (d == 0) {\n                vector<int> temp;\n                for (auto x : buff) {\n                    for (int i = 0; i < x; i++) {\n                        temp.push_back(x);\n                    }\n                }\n                do {\n                    int num = 0;\n                    for (auto x : temp) num = num * 10 + x;\n                    arr.push_back(num);\n                } while (next_permutation(temp.begin(), temp.end()));\n                return;\n            }\n            for (int i = ind; i <= d; i++) {\n                if (d - i > i || i == d) {\n                    buff.push_back(i);\n                    getNumber(d - i, i + 1, buff, arr);\n                    buff.pop_back();\n                }\n            }\n        }\n        void getAllNumber(int d, vector<int>& arr) {\n            vector<int> buff;\n            getNumber(d, 1, buff, arr);\n        }\n        int nextBeautifulNumber(int n) {\n            if (n == 0) return 1;\n            int d = floor(log10(n)) + 1;\n            vector<int> arr;\n            getAllNumber(d, arr);\n            getAllNumber(d + 1, arr);\n            int ans = INT_MAX;\n            for (auto x : arr) {\n                if (x > n) ans = min(ans, x);\n            }\n            return ans;\n        }\n};"
+        },
+        {
+            "script": "python",
+            "time": 3380,
+            "memory": 15.98,
+            "desc": "枚举。",
+            "code": "class Solution:\n    def nextBeautifulNumber(self, n: int) -> int:\n        while True:\n            n = n + 1\n            arr = [0] * 10\n            for c in str(n):\n                arr[int(c)] += 1\n            f = True\n            for i in range(10):\n                if arr[i] != 0 and arr[i] != i:\n                    f = False\n                    break\n            if f:\n                return n",
+            "date": 1702051200000
+        }
+    ]
+}
