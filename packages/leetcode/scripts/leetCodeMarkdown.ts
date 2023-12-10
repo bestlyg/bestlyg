@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist:!true,
-    name: '2048. 下一个更大的数值平衡数',
+    exist:true,
+    name: '70. 爬楼梯',
     url: 'https://leetcode.cn/problems/next-greater-numerically-balanced-number',
     difficulty: Difficulty.简单,
     tag: [],
@@ -26,74 +26,28 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
 
-        {
-            date:new Date('2022.05.06').getTime(),
-            script: Script.CPP,
-            time: 4,
-            memory: 7.03,
-            desc: '打表',
-            code: `class Solution {
-    public:
-        void getNumber(int d, int ind, vector<int>& buff, vector<int>& arr) {
-            if (d == 0) {
-                vector<int> temp;
-                for (auto x : buff) {
-                    for (int i = 0; i < x; i++) {
-                        temp.push_back(x);
-                    }
-                }
-                do {
-                    int num = 0;
-                    for (auto x : temp) num = num * 10 + x;
-                    arr.push_back(num);
-                } while (next_permutation(temp.begin(), temp.end()));
-                return;
-            }
-            for (int i = ind; i <= d; i++) {
-                if (d - i > i || i == d) {
-                    buff.push_back(i);
-                    getNumber(d - i, i + 1, buff, arr);
-                    buff.pop_back();
-                }
-            }
-        }
-        void getAllNumber(int d, vector<int>& arr) {
-            vector<int> buff;
-            getNumber(d, 1, buff, arr);
-        }
-        int nextBeautifulNumber(int n) {
-            if (n == 0) return 1;
-            int d = floor(log10(n)) + 1;
-            vector<int> arr;
-            getAllNumber(d, arr);
-            getAllNumber(d + 1, arr);
-            int ans = INT_MAX;
-            for (auto x : arr) {
-                if (x > n) ans = min(ans, x);
-            }
-            return ans;
-        }
-};`,
-        },
+        // {
+        //     script: Script.CPP,
+        //     time: 4,
+        //     memory: 7.03,
+        //     desc: '打表',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 3380,
-            memory: 15.98,
-            desc: '枚举',
+            time: 36,
+            memory: 16.67,
+            desc: 'dp',
             code: `class Solution:
-    def nextBeautifulNumber(self, n: int) -> int:
-        while True:
-            n = n + 1
-            arr = [0] * 10
-            for c in str(n):
-                arr[int(c)] += 1
-            f = True
-            for i in range(10):
-                if arr[i] != 0 and arr[i] != i:
-                    f = False
-                    break
-            if f:
-                return n`,
+    def climbStairs(self, n: int) -> int:
+        if n == 1: return 1
+        dp = [0] * (n + 1)
+        dp[1] = 1
+        dp[2] = 2
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        print(dp)
+        return dp[n]`,
         },
         //         {
         //             script: Script.RUST,
