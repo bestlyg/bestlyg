@@ -17,106 +17,77 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            date: new Date('2021.01.29').getTime(),
-            script: Script.TS,
-            time: 352,
-            memory: 46.7,
-            desc: '二分',
-            code: `var minimumEffortPath = function(heights) {
-const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-
-const m = heights.length, n = heights[0].length;
-let left = 0, right = 999999, ans = 0;
-while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    const queue = [[0, 0]];
-    const seen = new Array(m * n).fill(0);
-    seen[0] = 1;
-    while (queue.length) {
-        const [x, y] = queue.shift();
-        for (let i = 0; i < 4; i++) {
-            const nx = x + dirs[i][0];
-            const ny = y + dirs[i][1];
-            if (nx >= 0 && nx < m && ny >= 0 && ny < n && !seen[nx * n + ny] && Math.abs(heights[x][y] - heights[nx][ny]) <= mid) {
-                queue.push([nx, ny]);
-                seen[nx * n + ny] = 1;
-            }
-        }
-    }
-    if (seen[m * n - 1]) {
-        ans = mid;
-        right = mid - 1;
-    } else {
-        left = mid + 1;
-    }
-}
-return ans;
-};`,
-        },
-
         // {
-        //     script: Script.CPP,
-        //     time: 4,
-        //     memory: 7.03,
-        //     desc: '打表',
+        //     date: new Date('2021.01.29').getTime(),
+        //     script: Script.TS,
+        //     time: 352,
+        //     memory: 46.7,
+        //     desc: '二分',
         //     code: ``,
         // },
+
         {
             script: Script.PY,
-            time: 36,
-            memory: 16.67,
-            desc: '二分',
-            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-class Solution:
-    def minimumEffortPath(self, heights: List[List[int]]) -> int:
-        n, m = len(heights), len(heights[0])
-        def check(val: int) -> bool:
-            q = deque([(0, 0)])
-            used = [[False] * m for _ in range(n)]
-            used[0][0] = True
-            while q:
-                i, j = q.popleft()
-                if i == n - 1 and j == m - 1: return True
-                for dir in dirs:
-                    ni = i + dir[0]
-                    nj = j + dir[1]
-                    if 0 <= ni < n and 0 <= nj < m and not used[ni][nj] and abs(heights[ni][nj] - heights[i][j]) <= val:
-                        q.append((ni, nj))
-                        used[ni][nj] = True
-            return False
-
-        l, r = 0, 10 ** 6
-        while l < r:
-            mid = (l + r) // 2
-            if check(mid): r = mid
-            else: l = mid + 1
-        return l`,
+            time: 260,
+            memory: 29.27,
+            desc: '两个单调栈',
+            code: `class Solution:
+    def secondGreaterElement(self, nums: List[int]) -> List[int]:
+        s1, s2, s3 = [], [], []
+        res = [-1] * len(nums)
+        for i in range(len(nums)):
+            while s2 and nums[s2[-1]] < nums[i]: res[s2.pop()] = nums[i]
+            while s1 and nums[s1[-1]] < nums[i]: s3.append(s1.pop())
+            while s3: s2.append(s3.pop())
+            s1.append(i)
+        return res`,
         },
-        //         {
-        //             script: Script.RUST,
-        //             time: 0,
-        //             memory: 2.17,
-        //             desc: '同上',
-        //             code: `use std::cell::RefCell;
-        // use std::rc::Rc;
-        // impl Solution {
-        //     pub fn bst_to_gst(mut root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        //         let mut sums = 0;
-        //         fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, sums: &mut i32) {
-        //             if let Some(node) = node {
-        //                 let mut node_ref = node.as_ref().borrow_mut();
-        //                 dfs(&mut node_ref.right, sums);
-        //                 *sums += node_ref.val;
-        //                 node_ref.val = *sums;
-        //                 dfs(&mut node_ref.left, sums);
-        //             }
-        //         }
-        //         dfs(&mut root, &mut sums);
-        //         root
-        //     }
-        // }`,
-        //         },
+        {
+            script: Script.CPP,
+            time: 120,
+            memory: 89.23,
+            desc: '同上',
+            code: `class Solution {
+public:
+    vector<int> secondGreaterElement(vector<int>& nums) {
+        vector<int> s1, s2, s3, res(nums.size(), -1);
+        for (int i = 0; i < nums.size(); i++) {
+            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.back()] = nums[i], s2.pop_back();
+            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.back()), s1.pop_back();
+            while (s3.size()) s2.push_back(s3.back()), s3.pop_back();
+            s1.push_back(i);
+        }
+        return res;
+    }
+};`,
+        },
+        {
+            script: Script.RUST,
+            time: 44,
+            memory: 4.16,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn second_greater_element(nums: Vec<i32>) -> Vec<i32> {
+        let mut s1 = vec![];
+        let mut s2 = vec![];
+        let mut s3 = vec![];
+        let mut res = vec![-1; nums.len()];
+        for i in 0..nums.len() {
+            while !s2.is_empty() && nums[*s2.last().unwrap()] < nums[i] {
+                res[s2.pop().unwrap()] = nums[i];
+            }
+            while !s1.is_empty() && nums[*s1.last().unwrap()] < nums[i] {
+                s3.push(s1.pop().unwrap());
+            }
+            while !s3.is_empty() {
+                s2.push(s3.pop().unwrap());
+            }
+            s1.push(i);
+        }
+        res
+    }
+}`,
+        },
     ],
 };
 

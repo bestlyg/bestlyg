@@ -15,20 +15,28 @@
     "desc": "一条路径耗费的 体力值 是路径上相邻格子之间 高度差绝对值 的 最大值 决定的。请你返回从左上角走到右下角的最小 体力消耗值 。",
     "solutions": [
         {
-            "date": 1611849600000,
-            "script": "typescript",
-            "time": 352,
-            "memory": 46.7,
-            "desc": "二分。",
-            "code": "var minimumEffortPath = function(heights) {\nconst dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];\n\nconst m = heights.length, n = heights[0].length;\nlet left = 0, right = 999999, ans = 0;\nwhile (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    const queue = [[0, 0]];\n    const seen = new Array(m * n).fill(0);\n    seen[0] = 1;\n    while (queue.length) {\n        const [x, y] = queue.shift();\n        for (let i = 0; i < 4; i++) {\n            const nx = x + dirs[i][0];\n            const ny = y + dirs[i][1];\n            if (nx >= 0 && nx < m && ny >= 0 && ny < n && !seen[nx * n + ny] && Math.abs(heights[x][y] - heights[nx][ny]) <= mid) {\n                queue.push([nx, ny]);\n                seen[nx * n + ny] = 1;\n            }\n        }\n    }\n    if (seen[m * n - 1]) {\n        ans = mid;\n        right = mid - 1;\n    } else {\n        left = mid + 1;\n    }\n}\nreturn ans;\n};"
+            "script": "python",
+            "time": 260,
+            "memory": 29.27,
+            "desc": "两个单调栈。",
+            "code": "class Solution:\n    def secondGreaterElement(self, nums: List[int]) -> List[int]:\n        s1, s2, s3 = [], [], []\n        res = [-1] * len(nums)\n        for i in range(len(nums)):\n            while s2 and nums[s2[-1]] < nums[i]: res[s2.pop()] = nums[i]\n            while s1 and nums[s1[-1]] < nums[i]: s3.append(s1.pop())\n            while s3: s2.append(s3.pop())\n            s1.append(i)\n        return res",
+            "date": 1702310400000
         },
         {
-            "script": "python",
-            "time": 36,
-            "memory": 16.67,
-            "desc": "二分。",
-            "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\nclass Solution:\n    def minimumEffortPath(self, heights: List[List[int]]) -> int:\n        n, m = len(heights), len(heights[0])\n        def check(val: int) -> bool:\n            q = deque([(0, 0)])\n            used = [[False] * m for _ in range(n)]\n            used[0][0] = True\n            while q:\n                i, j = q.popleft()\n                if i == n - 1 and j == m - 1: return True\n                for dir in dirs:\n                    ni = i + dir[0]\n                    nj = j + dir[1]\n                    if 0 <= ni < n and 0 <= nj < m and not used[ni][nj] and abs(heights[ni][nj] - heights[i][j]) <= val:\n                        q.append((ni, nj))\n                        used[ni][nj] = True\n            return False\n\n        l, r = 0, 10 ** 6\n        while l < r:\n            mid = (l + r) // 2\n            if check(mid): r = mid\n            else: l = mid + 1\n        return l",
-            "date": 1702224000000
+            "script": "cpp",
+            "time": 120,
+            "memory": 89.23,
+            "desc": "同上。",
+            "code": "class Solution {\npublic:\n    vector<int> secondGreaterElement(vector<int>& nums) {\n        vector<int> s1, s2, s3, res(nums.size(), -1);\n        for (int i = 0; i < nums.size(); i++) {\n            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.back()] = nums[i], s2.pop_back();\n            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.back()), s1.pop_back();\n            while (s3.size()) s2.push_back(s3.back()), s3.pop_back();\n            s1.push_back(i);\n        }\n        return res;\n    }\n};",
+            "date": 1702310400000
+        },
+        {
+            "script": "rust",
+            "time": 44,
+            "memory": 4.16,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn second_greater_element(nums: Vec<i32>) -> Vec<i32> {\n        let mut s1 = vec![];\n        let mut s2 = vec![];\n        let mut s3 = vec![];\n        let mut res = vec![-1; nums.len()];\n        for i in 0..nums.len() {\n            while !s2.is_empty() && nums[*s2.last().unwrap()] < nums[i] {\n                res[s2.pop().unwrap()] = nums[i];\n            }\n            while !s1.is_empty() && nums[*s1.last().unwrap()] < nums[i] {\n                s3.push(s1.pop().unwrap());\n            }\n            while !s3.is_empty() {\n                s2.push(s3.pop().unwrap());\n            }\n            s1.push(i);\n        }\n        res\n    }\n}",
+            "date": 1702310400000
         }
     ]
 }

@@ -157,17 +157,15 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    TreeNode* bstToGst(TreeNode* root) {
-        int sums = 0;
-        function<void(TreeNode*)> dfs = [&](TreeNode *node) {
-            if (!node) return;
-            dfs(node->right);
-            sums += node->val;
-            node->val = sums;
-            dfs(node->left);
-        };
-        dfs(root);
-        return root;
+    vector<int> secondGreaterElement(vector<int>& nums) {
+        vector<int> s1, s2, s3, res(nums.size(), -1);
+        for (int i = 0; i < nums.size(); i++) {
+            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.pop_back()] = nums[i];
+            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.pop_back());
+            while (s3.size()) s2.push_back(s3.pop_back());
+            s1.push_back(i);
+        }
+        return res;
     }
 };
 

@@ -14,21 +14,24 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-use std::cell::RefCell;
-use std::rc::Rc;
 impl Solution {
-    pub fn bst_to_gst(mut root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        let mut sums = 0;
-        fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, sums: &mut i32) {
-            if let Some(node) = node {
-                let mut node_ref = node.as_ref().borrow_mut();
-                dfs(&mut node_ref.right, sums);
-                *sums += node_ref.val;
-                node_ref.val = *sums;
-                dfs(&mut node_ref.left, sums);
+    pub fn second_greater_element(nums: Vec<i32>) -> Vec<i32> {
+        let mut s1 = vec![];
+        let mut s2 = vec![];
+        let mut s3 = vec![];
+        let mut res = vec![-1; nums.len()];
+        for i in 0..nums.len() {
+            while !s2.is_empty() && nums[*s2.last().unwrap()] < nums[i] {
+                res[s2.pop().unwrap()] = nums[i];
             }
+            while !s1.is_empty() && nums[*s1.last().unwrap()] < nums[i] {
+                s3.push(s1.pop().unwrap());
+            }
+            while !s3.is_empty() {
+                s2.push(s3.pop().unwrap());
+            }
+            s1.push(i);
         }
-        dfs(&mut root, &mut sums);
-        root
+        res
     }
 }
