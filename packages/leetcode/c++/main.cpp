@@ -157,15 +157,11 @@ vector<bool> get_primes2(int n) {
 
 class Solution {
 public:
-    vector<int> secondGreaterElement(vector<int>& nums) {
-        vector<int> s1, s2, s3, res(nums.size(), -1);
-        for (int i = 0; i < nums.size(); i++) {
-            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.pop_back()] = nums[i];
-            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.pop_back());
-            while (s3.size()) s2.push_back(s3.pop_back());
-            s1.push_back(i);
+    string makeSmallestPalindrome(string s) {
+        for (int i = 0; i < s.size() / 2; i++) {
+            s[i] = s[s.size() - 1 - i] = min(s[i], s[s.size() - 1 - i])
         }
-        return res;
+        return s;
     }
 };
 

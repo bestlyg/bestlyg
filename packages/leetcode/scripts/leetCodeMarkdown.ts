@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1631. 最小体力消耗路径',
-    url: 'https://leetcode.cn/problems/path-with-minimum-effort/',
+    name: '2697. 字典序最小回文串',
+    url: 'https://leetcode.cn/problems/lexicographically-smallest-palindrome',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `一条路径耗费的 体力值 是路径上相邻格子之间 高度差绝对值 的 最大值 决定的。请你返回从左上角走到右下角的最小 体力消耗值 。`,
+    desc: `返回最终的回文字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,63 +28,45 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 260,
-            memory: 29.27,
-            desc: '两个单调栈',
+            time: 148,
+            memory: 16.23,
+            desc: '遍历',
             code: `class Solution:
-    def secondGreaterElement(self, nums: List[int]) -> List[int]:
-        s1, s2, s3 = [], [], []
-        res = [-1] * len(nums)
-        for i in range(len(nums)):
-            while s2 and nums[s2[-1]] < nums[i]: res[s2.pop()] = nums[i]
-            while s1 and nums[s1[-1]] < nums[i]: s3.append(s1.pop())
-            while s3: s2.append(s3.pop())
-            s1.append(i)
-        return res`,
+    def makeSmallestPalindrome(self, s: str) -> str:
+        arr = list(s)
+        for i in range(len(arr) // 2):
+            arr[i] = arr[len(arr) - 1 - i]= min(arr[i], arr[len(arr) - 1 - i])
+        return ''.join(arr)`,
         },
         {
             script: Script.CPP,
-            time: 120,
-            memory: 89.23,
+            time: 32,
+            memory: 15.03,
             desc: '同上',
             code: `class Solution {
 public:
-    vector<int> secondGreaterElement(vector<int>& nums) {
-        vector<int> s1, s2, s3, res(nums.size(), -1);
-        for (int i = 0; i < nums.size(); i++) {
-            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.back()] = nums[i], s2.pop_back();
-            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.back()), s1.pop_back();
-            while (s3.size()) s2.push_back(s3.back()), s3.pop_back();
-            s1.push_back(i);
+    string makeSmallestPalindrome(string s) {
+        for (int i = 0; i < s.size() / 2; i++) {
+            s[i] = s[s.size() - 1 - i] = min(s[i], s[s.size() - 1 - i]);
         }
-        return res;
+        return s;
     }
 };`,
         },
         {
             script: Script.RUST,
-            time: 44,
-            memory: 4.16,
+            time: 8,
+            memory: 2.35,
             desc: '同上',
             code: `impl Solution {
-    pub fn second_greater_element(nums: Vec<i32>) -> Vec<i32> {
-        let mut s1 = vec![];
-        let mut s2 = vec![];
-        let mut s3 = vec![];
-        let mut res = vec![-1; nums.len()];
-        for i in 0..nums.len() {
-            while !s2.is_empty() && nums[*s2.last().unwrap()] < nums[i] {
-                res[s2.pop().unwrap()] = nums[i];
-            }
-            while !s1.is_empty() && nums[*s1.last().unwrap()] < nums[i] {
-                s3.push(s1.pop().unwrap());
-            }
-            while !s3.is_empty() {
-                s2.push(s3.pop().unwrap());
-            }
-            s1.push(i);
+    pub fn make_smallest_palindrome(s: String) -> String {
+        let mut arr = s.chars().map(|c| c as u8).collect::<Vec<u8>>();
+        let n = arr.len();
+        for i in 0..n / 2 {
+            arr[i] = arr[i].min(arr[n - 1 - i]);
+            arr[n - 1 - i] = arr[i];
         }
-        res
+        String::from_utf8(arr).unwrap()
     }
 }`,
         },
