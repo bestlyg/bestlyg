@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2132. 用邮票贴满网格图',
-    url: 'https://leetcode.cn/problems/stamping-the-grid/',
+    name: '2415. 反转二叉树的奇数层',
+    url: 'https://leetcode.cn/problems/reverse-odd-levels-of-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果在满足上述要求的前提下，可以放入邮票，请返回 true ，否则返回 false 。`,
+    desc: `给你一棵 完美 二叉树的根节点 root ，请你反转这棵树中每个 奇数 层的节点值。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,35 +28,27 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 1440,
-            memory: 57.3,
-            desc: '前缀和统计区间内有无禁区，差分统计空白区是否都存在邮票',
+            time: 1776,
+            memory: 22.2,
+            desc: 'bfs',
             code: `class Solution:
-    def possibleToStamp(self, grid: List[List[int]], stampHeight: int, stampWidth: int) -> bool:
-        n, m = len(grid), len(grid[0])
-        sums = [[0] * (m + 2) for _ in range(n + 2)]
-        arr  = [[0] * (m + 2) for _ in range(n + 2)]
-        for i in range(n):
-            for j in range(m):
-                sums[i + 1][j + 1] = sums[i][j + 1] + sums[i + 1][j] - sums[i][j] + grid[i][j]
-
-        for i in range(n):
-            for j in range(m):
-                endi = i + stampHeight - 1
-                endj = j + stampWidth  - 1
-                if grid[i][j] == 0 and endi < n and endj < m and sums[endi + 1][endj + 1] - sums[endi + 1][j] - sums[i][endj + 1] + sums[i][j] == 0:
-                    arr[i + 1][j + 1]        += 1
-                    arr[i + 1][endj + 2]     -= 1
-                    arr[endi + 2][j + 1]     -= 1
-                    arr[endi + 2][endj + 2]  += 1
-        
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                arr[i][j] += arr[i][j - 1] + arr[i - 1][j] - arr[i - 1][j - 1]
-                if grid[i - 1][j - 1] == 0 and arr[i][j] == 0:
-                    return False
-
-        return True`,
+    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root: return None
+        q = [root]
+        size = 1
+        level = 0
+        while q:
+            node = q.pop(0)
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+            size -= 1
+            if size == 0:
+                size = len(q)
+                level += 1
+                if level % 2 != 0:
+                    for i in range(len(q) // 2):
+                        q[i].val, q[len(q) - 1 - i].val = q[len(q) - 1 - i].val, q[i].val
+        return root`,
         },
 //         {
 //             script: Script.CPP,
