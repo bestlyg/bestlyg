@@ -24,6 +24,14 @@
             "script": "typescript",
             "desc": "动态规划。",
             "code": "function minCostClimbingStairs(cost: number[]): number {\n  const n = cost.length;\n  const dp = new Array(n + 1);\n  dp[0] = cost[0];\n  dp[1] = cost[1];\n  for (let i = 2; i <= n; i++) dp[i] = (cost[i] ?? 0) + Math.min(dp[i - 1], dp[i - 2]);\n  return dp[n];\n}"
+        },
+        {
+            "script": "python",
+            "time": 48,
+            "memory": 16.2,
+            "desc": "dp。",
+            "code": "class Solution:\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\n        cost.append(0)\n        n = len(cost)\n        dp = [0] * n\n        dp[0] = cost[0]\n        dp[1] = cost[1]\n        for i in range(2, n):\n            dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i]\n        return dp[n - 1]",
+            "date": 1702742400000
         }
     ]
 }

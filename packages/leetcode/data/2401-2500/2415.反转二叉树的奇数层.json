@@ -1,8 +1,14 @@
 {
+    "id": "2493",
     "name": "2415.反转二叉树的奇数层",
-    "url": "https://leetcode.cn/problems/reverse-odd-levels-of-binary-tree/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/reverse-odd-levels-of-binary-tree",
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+    ],
     "desc": "给你一棵 完美 二叉树的根节点 root ，请你反转这棵树中每个 奇数 层的节点值。",
     "solutions": [
         {
