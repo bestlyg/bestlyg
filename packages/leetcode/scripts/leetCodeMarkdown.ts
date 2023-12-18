@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '746. 使用最小花费爬楼梯',
-    url: 'https://leetcode.cn/problems/min-cost-climbing-stairs',
+    name: '162. 寻找峰值',
+    url: 'https://leetcode.cn/problems/find-peak-element',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。一旦你支付此费用，即可选择向上爬一个或者两个台阶。你可以选择从下标为 0 或下标为 1 的台阶开始爬楼梯。请你计算并返回达到楼梯顶部的最低花费。`,
+    desc: `给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,19 +28,30 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 16.2,
-            desc: 'dp',
+            time: 44,
+            memory: 16.06,
+            desc: '遍历',
             code: `class Solution:
-    def minCostClimbingStairs(self, cost: List[int]) -> int:
-        cost.append(0)
-        n = len(cost)
-        dp = [0] * n
-        dp[0] = cost[0]
-        dp[1] = cost[1]
-        for i in range(2, n):
-            dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i]
-        return dp[n - 1]`,
+    def findPeakElement(self, nums: List[int]) -> int:
+        n = len(nums)
+        for i in range(1, n - 1):
+            if nums[i - 1] < nums[i] > nums[i + 1]:
+                return i
+        return max((nums[i], i) for i in range(n))[1]`,
+        },
+        {
+            script: Script.PY,
+            time: 40,
+            memory: 16.1,
+            desc: '二分',
+            code: `class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[m + 1]: r = m
+            else: l = m + 1
+        return l`,
         },
         // {
         //     script: Script.CPP,

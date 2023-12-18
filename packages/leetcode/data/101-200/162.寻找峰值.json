@@ -24,6 +24,22 @@
             "script": "javascript",
             "desc": "二分查找。",
             "code": "function findPeakElement(nums: number[]): number {\n  let l = 0;\n  let r = nums.length - 1;\n  while (l < r) {\n    const mid = (l + r) >> 1;\n    if (nums[mid] > nums[mid + 1]) r = mid;\n    else l = mid + 1;\n  }\n  return l;\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 16.06,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def findPeakElement(self, nums: List[int]) -> int:\n        n = len(nums)\n        for i in range(1, n - 1):\n            if nums[i - 1] < nums[i] > nums[i + 1]:\n                return i\n        return max((nums[i], i) for i in range(n))[1]",
+            "date": 1702828800000
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16.1,
+            "desc": "二分。",
+            "code": "class Solution:\n    def findPeakElement(self, nums: List[int]) -> int:\n        l, r = 0, len(nums) - 1\n        while l < r:\n            m = (l + r) // 2\n            if nums[m] > nums[m + 1]: r = m\n            else: l = m + 1\n        return l",
+            "date": 1702828800000
         }
     ]
 }
