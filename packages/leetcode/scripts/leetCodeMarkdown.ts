@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '162. 寻找峰值',
-    url: 'https://leetcode.cn/problems/find-peak-element',
+    exist: !true,
+    name: '1901. 寻找峰值 II',
+    url: 'https://leetcode.cn/problems/find-a-peak-element-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。`,
+    desc: `给你一个 从 0 开始编号 的 m x n 矩阵 mat ，其中任意两个相邻格子的值都 不相同 。找出 任意一个 峰值 mat[i][j] 并 返回其位置 [i,j] 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,30 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 44,
-            memory: 16.06,
-            desc: '遍历',
+            time: 48,
+            memory: 43.8,
+            desc: '二分row，对每层进行找最大值',
             code: `class Solution:
-    def findPeakElement(self, nums: List[int]) -> int:
-        n = len(nums)
-        for i in range(1, n - 1):
-            if nums[i - 1] < nums[i] > nums[i + 1]:
-                return i
-        return max((nums[i], i) for i in range(n))[1]`,
-        },
-        {
-            script: Script.PY,
-            time: 40,
-            memory: 16.1,
-            desc: '二分',
-            code: `class Solution:
-    def findPeakElement(self, nums: List[int]) -> int:
-        l, r = 0, len(nums) - 1
-        while l < r:
-            m = (l + r) // 2
-            if nums[m] > nums[m + 1]: r = m
-            else: l = m + 1
-        return l`,
+    def findPeakGrid(self, mat: List[List[int]]) -> List[int]:
+        n = len(mat)
+        l, r = 0, n - 1
+        while l <= r:
+            i = (l + r) // 2
+            j = mat[i].index(max(mat[i]))
+            if i - 1 >= 0 and mat[i][j] < mat[i - 1][j]: r = i - 1
+            elif i + 1 < n and mat[i][j] < mat[i + 1][j]: l = i + 1
+            else: return [i, j]`,
         },
         // {
         //     script: Script.CPP,
