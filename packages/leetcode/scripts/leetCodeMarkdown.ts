@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1901. 寻找峰值 II',
-    url: 'https://leetcode.cn/problems/find-a-peak-element-ii',
+    name: '2828. 判别首字母缩略词',
+    url: 'https://leetcode.cn/problems/check-if-a-string-is-an-acronym-of-words',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 从 0 开始编号 的 m x n 矩阵 mat ，其中任意两个相邻格子的值都 不相同 。找出 任意一个 峰值 mat[i][j] 并 返回其位置 [i,j] 。`,
+    desc: `给你一个字符串数组 words 和一个字符串 s ，请你判断 s 是不是 words 的 首字母缩略词 。如果可以按顺序串联 words 中每个字符串的第一个字符形成字符串 s ，则认为 s 是 words 的首字母缩略词。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,19 +28,12 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 43.8,
-            desc: '二分row，对每层进行找最大值',
+            time: 56,
+            memory: 17.75,
+            desc: '字符串拼接',
             code: `class Solution:
-    def findPeakGrid(self, mat: List[List[int]]) -> List[int]:
-        n = len(mat)
-        l, r = 0, n - 1
-        while l <= r:
-            i = (l + r) // 2
-            j = mat[i].index(max(mat[i]))
-            if i - 1 >= 0 and mat[i][j] < mat[i - 1][j]: r = i - 1
-            elif i + 1 < n and mat[i][j] < mat[i + 1][j]: l = i + 1
-            else: return [i, j]`,
+    def isAcronym(self, words: List[str], s: str) -> bool:
+        return ''.join(w[0] for w in words) == s`,
         },
         // {
         //     script: Script.CPP,

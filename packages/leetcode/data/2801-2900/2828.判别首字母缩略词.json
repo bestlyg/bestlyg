@@ -1,0 +1,21 @@
+{
+    "id": "2977",
+    "name": "2828.判别首字母缩略词",
+    "url": "https://leetcode.cn/problems/check-if-a-string-is-an-acronym-of-words",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "字符串"
+    ],
+    "desc": "给你一个字符串数组 words 和一个字符串 s ，请你判断 s 是不是 words 的 首字母缩略词 。如果可以按顺序串联 words 中每个字符串的第一个字符形成字符串 s ，则认为 s 是 words 的首字母缩略词。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 56,
+            "memory": 17.75,
+            "desc": "字符串拼接。",
+            "code": "class Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        return ''.join(w[0] for w in words) == s",
+            "date": 1703001600000
+        }
+    ]
+}
