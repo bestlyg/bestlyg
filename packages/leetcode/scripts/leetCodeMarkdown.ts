@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2828. 判别首字母缩略词',
-    url: 'https://leetcode.cn/problems/check-if-a-string-is-an-acronym-of-words',
+    name: '2866. 美丽塔 II',
+    url: 'https://leetcode.cn/problems/beautiful-towers-ii/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个字符串数组 words 和一个字符串 s ，请你判断 s 是不是 words 的 首字母缩略词 。如果可以按顺序串联 words 中每个字符串的第一个字符形成字符串 s ，则认为 s 是 words 的首字母缩略词。`,
+    desc: `请你返回满足 美丽塔 要求的方案中，高度和的最大值 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,12 +28,32 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 56,
-            memory: 17.75,
+            time: 316,
+            memory: 42.55,
             desc: '字符串拼接',
             code: `class Solution:
-    def isAcronym(self, words: List[str], s: str) -> bool:
-        return ''.join(w[0] for w in words) == s`,
+    def maximumSumOfHeights(self, maxHeights: List[int]) -> int:
+        n = len(maxHeights)
+        prev = [-1] * n
+        next = [n] * n
+        s = []
+        for i in range(n):
+            while s and maxHeights[s[-1]] >= maxHeights[i]: s.pop()
+            if s: prev[i] = s[-1]
+            s.append(i)
+        s.clear()
+        for i in range(n):
+            while s and maxHeights[s[-1]] > maxHeights[i]: next[s.pop()] = i
+            s.append(i)
+        lsums = [0] * n
+        rsums = [0] * n
+        for i in range(n):
+            lsums[i] += (i - prev[i]) * maxHeights[i]
+            if prev[i] != -1: lsums[i] += lsums[prev[i]]
+        for i in range(n - 1, -1, -1):
+            rsums[i] += (next[i] - i) * maxHeights[i]
+            if next[i] != n: rsums[i] += rsums[next[i]]
+        return max(lsums[i] + rsums[i] - maxHeights[i] for i in range(n))`,
         },
         // {
         //     script: Script.CPP,
