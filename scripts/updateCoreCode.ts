@@ -8,6 +8,8 @@ function main() {
   findMarkdown(resolve('packages'));
   console.log(chalk.green('更新成功'));
 }
+
+
 main();
 function findMarkdown(dir: string): void {
   const dirs = fs.readdirSync(dir);
