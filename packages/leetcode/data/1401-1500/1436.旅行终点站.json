@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/destination-city",
     "difficulty": "简单",
     "tag": [
+        "数组",
         "哈希表",
         "字符串"
     ],

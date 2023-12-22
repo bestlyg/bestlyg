@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2866. 美丽塔 II',
-    url: 'https://leetcode.cn/problems/beautiful-towers-ii/',
+    name: '1671. 得到山形数组的最少删除次数',
+    url: 'https://leetcode.cn/problems/minimum-number-of-removals-to-make-mountain-array',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回满足 美丽塔 要求的方案中，高度和的最大值 。`,
+    desc: `给你整数数组 nums​ ，请你返回将 nums 变成 山形状数组 的​ 最少 删除次数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,32 +28,24 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 316,
-            memory: 42.55,
-            desc: '字符串拼接',
-            code: `class Solution:
-    def maximumSumOfHeights(self, maxHeights: List[int]) -> int:
-        n = len(maxHeights)
-        prev = [-1] * n
-        next = [n] * n
-        s = []
+            time: 2260,
+            memory: 17.11,
+            desc: '对两边求最长子序列',
+            code: `def getList(nums: List[int]) -> List[int]:
+        n = len(nums)
+        dp = [1] * n
         for i in range(n):
-            while s and maxHeights[s[-1]] >= maxHeights[i]: s.pop()
-            if s: prev[i] = s[-1]
-            s.append(i)
-        s.clear()
-        for i in range(n):
-            while s and maxHeights[s[-1]] > maxHeights[i]: next[s.pop()] = i
-            s.append(i)
-        lsums = [0] * n
-        rsums = [0] * n
-        for i in range(n):
-            lsums[i] += (i - prev[i]) * maxHeights[i]
-            if prev[i] != -1: lsums[i] += lsums[prev[i]]
-        for i in range(n - 1, -1, -1):
-            rsums[i] += (next[i] - i) * maxHeights[i]
-            if next[i] != n: rsums[i] += rsums[next[i]]
-        return max(lsums[i] + rsums[i] - maxHeights[i] for i in range(n))`,
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        return dp
+    
+    class Solution:
+        def minimumMountainRemovals(self, nums: List[int]) -> int:
+            n = len(nums)
+            prev = getList(nums)
+            next = getList(nums[::-1])[::-1]
+            return n - max(prev[i] + next[i] - 1 if prev[i] > 1 and next[i] > 1 else 0 for i in range(n))`,
         },
         // {
         //     script: Script.CPP,

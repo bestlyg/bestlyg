@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/flipping-an-image",
     "difficulty": "简单",
     "tag": [
+        "位运算",
         "数组",
         "双指针",
         "矩阵",

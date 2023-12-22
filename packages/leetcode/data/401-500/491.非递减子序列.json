@@ -1,6 +1,6 @@
 {
     "id": "491",
-    "name": "491.递增子序列",
+    "name": "491.非递减子序列",
     "url": "https://leetcode.cn/problems/non-decreasing-subsequences",
     "difficulty": "中等",
     "tag": [

@@ -1,8 +1,13 @@
 {
+    "id": "3113",
     "name": "2866.美丽塔II",
-    "url": "https://leetcode.cn/problems/beautiful-towers-ii/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/beautiful-towers-ii",
+    "difficulty": "中等",
+    "tag": [
+        "栈",
+        "数组",
+        "单调栈"
+    ],
     "desc": "请你返回满足 美丽塔 要求的方案中，高度和的最大值 。",
     "solutions": [
         {
