@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1671. 得到山形数组的最少删除次数',
-    url: 'https://leetcode.cn/problems/minimum-number-of-removals-to-make-mountain-array',
+    name: '1962. 移除石子使总数最小',
+    url: 'https://leetcode.cn/problems/remove-stones-to-minimize-the-total/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你整数数组 nums​ ，请你返回将 nums 变成 山形状数组 的​ 最少 删除次数。`,
+    desc: `返回执行 k 次操作后，剩下石子的 最小 总数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,24 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 2260,
-            memory: 17.11,
-            desc: '对两边求最长子序列',
-            code: `def getList(nums: List[int]) -> List[int]:
-        n = len(nums)
-        dp = [1] * n
-        for i in range(n):
-            for j in range(i):
-                if nums[i] > nums[j]:
-                    dp[i] = max(dp[i], dp[j] + 1)
-        return dp
-    
-    class Solution:
-        def minimumMountainRemovals(self, nums: List[int]) -> int:
-            n = len(nums)
-            prev = getList(nums)
-            next = getList(nums[::-1])[::-1]
-            return n - max(prev[i] + next[i] - 1 if prev[i] > 1 and next[i] > 1 else 0 for i in range(n))`,
+            time: 708,
+            memory: 28.59,
+            desc: 'heap',
+            code: `class Solution:
+    def minStoneSum(self, piles: List[int], k: int) -> int:
+        q = list(-v for v in piles)
+        heapify(q)
+        res = sum(piles)
+        for _ in range(k):
+            v = -heappop(q)
+            res -= floor(v / 2)
+            heappush(q, -(v - floor(v / 2)))
+        return res`,
         },
         // {
         //     script: Script.CPP,
