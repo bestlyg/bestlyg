@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1954. 收集足够苹果的最小花园周长',
-    url: 'https://leetcode.cn/problems/minimum-garden-perimeter-to-collect-enough-apples',
+    name: '1276. 不浪费原料的汉堡制作方案',
+    url: 'https://leetcode.cn/problems/number-of-burgers-with-no-waste-of-ingredients/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 neededApples ，请你返回土地的 最小周长 ，使得 至少 有 neededApples 个苹果在土地 里面或者边缘上。`,
+    desc: `请你以 [total_jumbo, total_small]（[巨无霸汉堡总数，小皇堡总数]）的格式返回恰当的制作方案，使得剩下的番茄片 tomatoSlices 和奶酪片 cheeseSlices 的数量都是 0。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,16 +28,18 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 740,
-            memory: 16.88,
-            desc: '枚举每条边',
+            time: 40,
+            memory: 16.8,
+            desc: '二元一次方程',
             code: `class Solution:
-    def minimumPerimeter(self, neededApples: int) -> int:
-        cur = sum = 0
-        while sum < neededApples:
-            cur += 1
-            sum += 4 * (cur + 2 * cur) * cur
-        return 8 * cur`,
+    def numOfBurgers(self, tomatoSlices: int, cheeseSlices: int) -> List[int]:
+        # 4x + 2y = num1
+        # x  + y  = num2
+        # x = (num1 - 2num2) / 2
+        # y = num2 - x
+        x = (tomatoSlices - 2 * cheeseSlices) // 2
+        y = cheeseSlices - x
+        return [x, y] if x >= 0 and y >= 0 and 4 * x + 2 * y == tomatoSlices and x + y == cheeseSlices else []`,
         },
         // {
         //     script: Script.CPP,
