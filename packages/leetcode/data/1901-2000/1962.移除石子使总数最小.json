@@ -1,8 +1,13 @@
 {
+    "id": "2094",
     "name": "1962.移除石子使总数最小",
-    "url": "https://leetcode.cn/problems/remove-stones-to-minimize-the-total/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/remove-stones-to-minimize-the-total",
+    "difficulty": "中等",
+    "tag": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+    ],
     "desc": "返回执行 k 次操作后，剩下石子的 最小 总数。",
     "solutions": [
         {
