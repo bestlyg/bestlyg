@@ -2,7 +2,7 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
+    exist: true,
     name: '2660. 保龄球游戏的获胜者',
     url: 'https://leetcode.cn/problems/determine-the-winner-of-a-bowling-game',
     difficulty: Difficulty.简单,
@@ -26,51 +26,71 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
 
+//         {
+//             script: Script.PY,
+//             time: 72,
+//             memory: 16.9,
+//             desc: '模拟',
+//             code: `class Solution:
+//     def isWinner(self, player1: List[int], player2: List[int]) -> int:
+//         def getScore(player: List[int]) -> int:
+//             cur = 0
+//             sum = 0
+//             for v in player:
+//                 sum += v + v * ((cur & 0b11) != 0)
+//                 cur = cur << 1 | (v == 10)
+//             return sum
+//         s1, s2 = getScore(player1), getScore(player2)
+//         return 1 if s1 > s2 else 2 if s2 > s1 else 0`,
+//         },
+//         {
+//             script: Script.CPP,
+//             time: 44,
+//             memory: 70.5,
+//             desc: '同上',
+//             code: `class Solution {
+// public:
+//     int getScore(vector<int>& player) {
+//         int cur = 0, sum = 0;
+//         for (auto &v: player) {
+//             sum += v + v * ((cur & 0b11) != 0);
+//             cur = cur << 1 | (v == 10);
+//         }
+//         return sum;
+//     }
+//     int isWinner(vector<int>& player1, vector<int>& player2) {
+//         int s1 = getScore(player1), s2 = getScore(player2);
+//         return s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
+//     }
+// };`,
+//         },
         {
-            script: Script.PY,
-            time: 72,
-            memory: 16.9,
-            desc: '模拟',
-            code: `class Solution:
-    def isWinner(self, player1: List[int], player2: List[int]) -> int:
-        def getScore(player: List[int]) -> int:
-            cur = 0
-            sum = 0
-            for v in player:
-                sum += v + v * ((cur & 0b11) != 0)
-                cur = cur << 1 | (v == 10)
-            return sum
-        s1, s2 = getScore(player1), getScore(player2)
-        return 1 if s1 > s2 else 2 if s2 > s1 else 0`,
-        },
-        {
-            script: Script.CPP,
-            time: 44,
-            memory: 70.5,
+            script: Script.RUST,
+            time: 12,
+            memory: 2.12,
             desc: '同上',
-            code: `class Solution {
-public:
-    int getScore(vector<int>& player) {
-        int cur = 0, sum = 0;
-        for (auto &v: player) {
-            sum += v + v * ((cur & 0b11) != 0);
-            cur = cur << 1 | (v == 10);
+            code: `impl Solution {
+    pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {
+        fn getScore(player: &Vec<i32>) -> i32 {
+            let mut cur = 0;
+            let mut sum = 0;
+            for v in player {
+                sum += *v + *v * ((cur & 0b11) != 0) as i32;
+                cur = cur << 1 | (*v == 10) as i32;
+            }
+            sum
         }
-        return sum;
+        let (s1, s2) = (getScore(&player1), getScore(&player2));
+        if s1 > s2 {
+            1
+        } else if s2 > s1 {
+            2
+        } else {
+            0
+        }
     }
-    int isWinner(vector<int>& player1, vector<int>& player2) {
-        int s1 = getScore(player1), s2 = getScore(player2);
-        return s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
-    }
-};`,
+}`,
         },
-        // {
-        //     script: Script.RUST,
-        //     time: 4,
-        //     memory: 2.05,
-        //     desc: '状态压缩，动态规划每一层的所有状态',
-        //     code: ``,
-        // },
     ],
 };
 

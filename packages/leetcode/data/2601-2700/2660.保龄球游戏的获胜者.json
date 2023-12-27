@@ -24,6 +24,14 @@
             "desc": "同上。",
             "code": "class Solution {\npublic:\n    int getScore(vector<int>& player) {\n        int cur = 0, sum = 0;\n        for (auto &v: player) {\n            sum += v + v * ((cur & 0b11) != 0);\n            cur = cur << 1 | (v == 10);\n        }\n        return sum;\n    }\n    int isWinner(vector<int>& player1, vector<int>& player2) {\n        int s1 = getScore(player1), s2 = getScore(player2);\n        return s1 > s2 ? 1 : s2 > s1 ? 2 : 0;\n    }\n};",
             "date": 1703606400000
+        },
+        {
+            "script": "rust",
+            "time": 12,
+            "memory": 2.12,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {\n        fn getScore(player: &Vec<i32>) -> i32 {\n            let mut cur = 0;\n            let mut sum = 0;\n            for v in player {\n                sum += *v + *v * ((cur & 0b11) != 0) as i32;\n                cur = cur << 1 | (*v == 10) as i32;\n            }\n            sum\n        }\n        let (s1, s2) = (getScore(&player1), getScore(&player2));\n        if s1 > s2 {\n            1\n        } else if s2 > s1 {\n            2\n        } else {\n            0\n        }\n    }\n}",
+            "date": 1703606400000
         }
     ]
 }
