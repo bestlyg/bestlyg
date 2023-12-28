@@ -17,13 +17,16 @@ fn main() {
 impl Solution {
     pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {
         fn getScore(player: &Vec<i32>) -> i32 {
-            let mut cur = 0;
-            let mut sum = 0;
-            for v in player {
-                sum += *v + *v * ((cur & 0b11) != 0) as i32;
-                cur = cur << 1 | (*v == 10) as i32;
-            }
-            sum
+            player
+                .iter()
+                .reduce(f)
+                
+                .fold((0, 0), |(mut cur, mut sum), v| {
+                    sum += *v + *v * ((cur & 0b11) != 0) as i32;
+                    cur = cur << 1 | (*v == 10) as i32;
+                    (cur, sum)
+                })
+                .1
         }
         let (s1, s2) = (getScore(&player1), getScore(&player2));
         if s1 > s2 {
