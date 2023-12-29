@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2735. 收集巧克力',
-    url: 'https://leetcode.cn/problems/collecting-chocolates/',
+    name: '2706. 购买两块巧克力',
+    url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `假设你可以执行任意次操作，请返回收集所有类型巧克力所需的最小成本。`,
+    desc: `请你返回在购买两块巧克力后，最多能剩下多少钱。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,20 +28,14 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 2948,
-            memory: 24.91,
-            desc: '对每一个偏移求出最小值',
+            time: 48,
+            memory: 16.98,
+            desc: '排序后计算',
             code: `class Solution:
-    def minCost(self, nums: List[int], x: int) -> int:
-        n = len(nums)
-        dp = [[inf] * n for _ in range(n + 1)]
-        for i in range(n): dp[0][i] = nums[i]
-        res = sum(nums)
-        for offset in range(1, n):
-            for i in range(n):
-                dp[offset][i] = min(dp[offset - 1][i], nums[(i + offset) % n])
-            res = min(res, sum(dp[offset]) + x * offset)
-        return res`,
+    def buyChoco(self, prices: List[int], money: int) -> int:
+        prices.sort()
+        res = money - prices[0] - prices[1]
+        return res if res >= 0 else money`,
         },
         //         {
         //             script: Script.CPP,
