@@ -15,6 +15,14 @@
             "script": "cpp",
             "desc": "遍历求出距离第一天的天数并取模。",
             "code": "string names[] = {\"Friday\",  \"Saturday\",  \"Sunday\",  \"Monday\",\n                  \"Tuesday\", \"Wednesday\", \"Thursday\"};\nint isLeapYear(int year) {\n    return year % 400 == 0 || year % 100 != 0 && year % 4 == 0;\n}\nclass Solution {\n   public:\n    string dayOfTheWeek(int day, int month, int year) {\n        int months[] = {\n            0,  31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31,\n            30, 31};\n        while (month) day += months[--month];\n        while (year > 1971) day += isLeapYear(--year) ? 366 : 365;\n        return names[(day - 1) % 7];\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 17.09,
+            "desc": "计算天数后取模。",
+            "code": "def isLeapYear(year: int) -> bool:\n        return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0\n    weeks = [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"]\n    \n    class Solution:\n        def dayOfTheWeek(self, day: int, month: int, year: int) -> str:\n            months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]\n            if isLeapYear(year): months[1] = 29\n            day += sum(365 + isLeapYear(y) for y in range(1971, year)) + sum(months[:month - 1])\n            return weeks[(day + 3) % 7]",
+            "date": 1703865600000
         }
     ]
 }

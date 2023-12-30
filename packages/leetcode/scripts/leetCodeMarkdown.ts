@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2706. 购买两块巧克力',
+    exist: true,
+    name: '1185. 一周中的第几天',
     url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,14 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 16.98,
-            desc: '排序后计算',
-            code: `class Solution:
-    def buyChoco(self, prices: List[int], money: int) -> int:
-        prices.sort()
-        res = money - prices[0] - prices[1]
-        return res if res >= 0 else money`,
+            time: 36,
+            memory: 17.09,
+            desc: '计算天数后取模',
+            code: `def isLeapYear(year: int) -> bool:
+        return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
+    weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    class Solution:
+        def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
+            months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
+            if isLeapYear(year): months[1] = 29
+            day += sum(365 + isLeapYear(y) for y in range(1971, year)) + sum(months[:month - 1])
+            return weeks[(day + 3) % 7]`,
         },
         //         {
         //             script: Script.CPP,
