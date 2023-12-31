@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1185. 一周中的第几天',
+    name: '1154. 一年中的第几天',
     url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,19 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 36,
-            memory: 17.09,
-            desc: '计算天数后取模',
+            time: 48,
+            memory: 17.11,
+            desc: '直接计算',
             code: `def isLeapYear(year: int) -> bool:
-        return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
-    weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    
-    class Solution:
-        def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
-            months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
-            if isLeapYear(year): months[1] = 29
-            day += sum(365 + isLeapYear(y) for y in range(1971, year)) + sum(months[:month - 1])
-            return weeks[(day + 3) % 7]`,
+            return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
+        weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        
+        class Solution:
+            def dayOfYear(self, date: str) -> int:
+                year, month, day = int(date[:4]), int(date[5:7]), int(date[8:])
+                months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
+                if isLeapYear(year): months[1] = 29
+                return sum(months[:month - 1]) + day`,
         },
         //         {
         //             script: Script.CPP,
