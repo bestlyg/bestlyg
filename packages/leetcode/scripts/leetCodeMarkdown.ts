@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1154. 一年中的第几天',
+    name: '1599. 经营摩天轮的最大利润',
     url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,19 +28,32 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 17.11,
-            desc: '直接计算',
-            code: `def isLeapYear(year: int) -> bool:
-            return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
-        weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            time: 1200,
+            memory: 20.89,
+            desc: '模拟',
+            code: `class Solution:
+    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -> int:
+        costCnt = costSum = resSum =0
+        resCnt = -1
+        mask = 0b0000
+        wait = 0
         
-        class Solution:
-            def dayOfYear(self, date: str) -> int:
-                year, month, day = int(date[:4]), int(date[5:7]), int(date[8:])
-                months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
-                if isLeapYear(year): months[1] = 29
-                return sum(months[:month - 1]) + day`,
+        def walk():
+            nonlocal costCnt, costSum, resSum, resCnt, mask, wait
+            cnt = min(wait, 4)
+            costSum += cnt * boardingCost - runningCost
+            wait -= cnt
+            costCnt += 1
+            mask = ((mask << 1) | 0b0001) & 0b1111
+            if costSum > resSum:
+                resCnt, resSum = costCnt, costSum
+
+        for v in customers:
+            wait += v
+            walk()
+
+        while wait: walk()
+        return resCnt`,
         },
         //         {
         //             script: Script.CPP,

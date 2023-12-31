@@ -32,6 +32,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_operations_max_profit(\n        customers: Vec<i32>,\n        boarding_cost: i32,\n        running_cost: i32,\n    ) -> i32 {\n        let (mut resMax, mut resCnt, mut wait, mut cur, mut i) = (0, -1, 0, 0, 0);\n        while wait != 0 || i < customers.len() {\n            if i < customers.len() {\n                wait += customers[i];\n            }\n            cur += wait.min(4) * boarding_cost - running_cost;\n            wait = 0.max(wait - 4);\n            if cur > resMax {\n                resMax = cur;\n                resCnt = i as i32 + 1;\n            }\n            i += 1;\n        }\n        resCnt\n    }\n}",
             "date": 1677945600000
+        },
+        {
+            "script": "python",
+            "time": 1200,
+            "memory": 20.89,
+            "desc": "模拟。",
+            "code": "class Solution:\n    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -> int:\n        costCnt = costSum = resSum =0\n        resCnt = -1\n        mask = 0b0000\n        wait = 0\n        \n        def walk():\n            nonlocal costCnt, costSum, resSum, resCnt, mask, wait\n            cnt = min(wait, 4)\n            costSum += cnt * boardingCost - runningCost\n            wait -= cnt\n            costCnt += 1\n            mask = ((mask << 1) | 0b0001) & 0b1111\n            if costSum > resSum:\n                resCnt, resSum = costCnt, costSum\n\n        for v in customers:\n            wait += v\n            walk()\n\n        while wait: walk()\n        return resCnt",
+            "date": 1704038400000
         }
     ]
 }
