@@ -16,6 +16,14 @@
             "script": "javascript",
             "desc": "循环判断字符串长度，如果匹配 index+1。",
             "code": "/**\n * @param {string} s1\n * @param {number} n1\n * @param {string} s2\n * @param {number} n2\n * @return {number}\n */\nvar getMaxRepetitions = function (s1, n1, s2, n2) {\n  const len1 = s1.length;\n  const len2 = s2.length;\n  let index2 = 0,\n    count = 0;\n  for (let i = 0; i < n1; i++) {\n    for (let j = 0; j < len1; j++) {\n      if (s1[j] === s2[index2]) index2++;\n      if (index2 === len2) {\n        index2 = 0;\n        count++;\n      }\n    }\n  }\n  return parseInt(count / n2);\n};"
+        },
+        {
+            "script": "rust",
+            "time": 260,
+            "memory": 10.65,
+            "desc": "同上。",
+            "code": "fn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn get_max_repetitions(s1: String, n1: i32, s2: String, n2: i32) -> i32 {\n        let (n1, n2) = (n1 as usize, n2 as usize);\n        let s1 = str_to_vec(&s1);\n        let s2 = str_to_vec(&s2);\n        let (len1, len2) = (s1.len(), s2.len());\n        let (mut k, mut idx, mut cnt) = (0, 0, 0);\n        let mut arr = vec![0];\n        while k < n1 {\n            for i in 0..len1 {\n                if s2[idx] == s1[i] {\n                    idx = (idx + 1) % len2;\n                    if idx == 0 {\n                        cnt += 1;\n                    }\n                }\n            }\n            k += 1;\n            arr.push(cnt);\n            if idx == 0 {\n                break;\n            }\n        }\n        ((cnt * (n1 / k) + arr[n1 % k]) / n2) as i32\n    }\n}",
+            "date": 1704124800000
         }
     ]
 }

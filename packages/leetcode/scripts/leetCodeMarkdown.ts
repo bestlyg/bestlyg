@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1599. 经营摩天轮的最大利润',
+    name: '466. 统计重复个数',
     url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
@@ -26,35 +26,13 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
 
-        {
-            script: Script.PY,
-            time: 1200,
-            memory: 20.89,
-            desc: '模拟',
-            code: `class Solution:
-    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -> int:
-        costCnt = costSum = resSum =0
-        resCnt = -1
-        mask = 0b0000
-        wait = 0
-        
-        def walk():
-            nonlocal costCnt, costSum, resSum, resCnt, mask, wait
-            cnt = min(wait, 4)
-            costSum += cnt * boardingCost - runningCost
-            wait -= cnt
-            costCnt += 1
-            mask = ((mask << 1) | 0b0001) & 0b1111
-            if costSum > resSum:
-                resCnt, resSum = costCnt, costSum
-
-        for v in customers:
-            wait += v
-            walk()
-
-        while wait: walk()
-        return resCnt`,
-        },
+        // {
+        //     script: Script.PY,
+        //     time: 1200,
+        //     memory: 20.89,
+        //     desc: '模拟',
+        //     code: ``,
+        // },
         //         {
         //             script: Script.CPP,
         //             time: 44,
@@ -76,13 +54,41 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        // {
-        //     script: Script.RUST,
-        //     time: 12,
-        //     memory: 2.12,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 260,
+            memory: 10.65,
+            desc: '同上',
+            code: `fn str_to_vec(s: &String) -> Vec<char> {
+    s.chars().collect()
+}
+impl Solution {
+    pub fn get_max_repetitions(s1: String, n1: i32, s2: String, n2: i32) -> i32 {
+        let (n1, n2) = (n1 as usize, n2 as usize);
+        let s1 = str_to_vec(&s1);
+        let s2 = str_to_vec(&s2);
+        let (len1, len2) = (s1.len(), s2.len());
+        let (mut k, mut idx, mut cnt) = (0, 0, 0);
+        let mut arr = vec![0];
+        while k < n1 {
+            for i in 0..len1 {
+                if s2[idx] == s1[i] {
+                    idx = (idx + 1) % len2;
+                    if idx == 0 {
+                        cnt += 1;
+                    }
+                }
+            }
+            k += 1;
+            arr.push(cnt);
+            if idx == 0 {
+                break;
+            }
+        }
+        ((cnt * (n1 / k) + arr[n1 % k]) / n2) as i32
+    }
+}`,
+        },
     ],
 };
 

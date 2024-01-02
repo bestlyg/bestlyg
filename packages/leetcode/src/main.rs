@@ -14,27 +14,44 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+// class Solution:
+//     def getMaxRepetitions(self, s1: str, n1: int, s2: str, n2: int) -> int:
+//         len1, len2 = len(s1), len(s2)
+//         k = idx = cnt = 0
+//         arr = [0]
+//         while k < n1:
+//             for i in range(len1):
+//                 if s2[idx] == s1[i]:
+//                     idx = (idx + 1) % len2
+//                     cnt += idx == 0
+//             k += 1
+//             arr.append(cnt)
+//             if idx == 0: break
+//         return (cnt * (n1 // k) + arr[n1 % k]) // n2
+
 impl Solution {
-    pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {
-        fn getScore(player: &Vec<i32>) -> i32 {
-            player
-                .iter()
-                .reduce(f)
-                
-                .fold((0, 0), |(mut cur, mut sum), v| {
-                    sum += *v + *v * ((cur & 0b11) != 0) as i32;
-                    cur = cur << 1 | (*v == 10) as i32;
-                    (cur, sum)
-                })
-                .1
+    pub fn get_max_repetitions(s1: String, n1: i32, s2: String, n2: i32) -> i32 {
+        let (n1, n2) = (n1 as usize, n2 as usize);
+        let s1 = str_to_vec(&s1);
+        let s2 = str_to_vec(&s2);
+        let (len1, len2) = (s1.len(), s2.len());
+        let (mut k, mut idx, mut cnt) = (0, 0, 0);
+        let mut arr = vec![0];
+        while k < n1 {
+            for i in 0..len1 {
+                if s2[idx] == s1[i] {
+                    idx = (idx + 1) % len2;
+                    if idx == 0 {
+                        cnt += 1;
+                    }
+                }
+            }
+            k += 1;
+            arr.push(cnt);
+            if idx == 0 {
+                break;
+            }
         }
-        let (s1, s2) = (getScore(&player1), getScore(&player2));
-        if s1 > s2 {
-            1
-        } else if s2 > s1 {
-            2
-        } else {
-            0
-        }
+        ((cnt * (n1 / k) + arr[n1 % k]) / n2) as i32
     }
 }
