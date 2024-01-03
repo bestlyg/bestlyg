@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '466. 统计重复个数',
+    name: '2487. 从链表中移除节点',
     url: 'https://leetcode.cn/problems/buy-two-chocolates',
     difficulty: Difficulty.简单,
     tag: [],
@@ -26,13 +26,43 @@ const leetCodeMarkdown: Markdown = {
         //     code: ``,
         // },
 
-        // {
-        //     script: Script.PY,
-        //     time: 1200,
-        //     memory: 20.89,
-        //     desc: '模拟',
-        //     code: ``,
-        // },
+        {
+            script: Script.PY,
+            time: 644,
+            memory: 55.98,
+            desc: '单调栈记录最大序列，遍历时记录父节点',
+            code: `class Solution:
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        p = tempHead = ListNode(0, head)
+        s = []
+        map = {}
+        while p.next:
+            map[p.next] = p 
+            while s and s[-1].val < p.next.val:
+                node = s.pop()
+                parent = map[node]
+                parent.next = node.next
+                map[node.next] = parent
+            s.append(p.next)
+            p = p.next
+        return tempHead.next`,
+        },
+        {
+            script: Script.PY,
+            time: 360,
+            memory: 59.6,
+            desc: 'dfs',
+            code: `class Solution:
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        self.max = 0
+        def dfs(node: Optional[ListNode]) -> Optional[ListNode]:
+            if not node: return node
+            node.next = dfs(node.next)
+            if self.max > node.val: return node.next
+            self.max = node.val
+            return node
+        return dfs(head)`,
+        },
         //         {
         //             script: Script.CPP,
         //             time: 44,
@@ -56,36 +86,27 @@ const leetCodeMarkdown: Markdown = {
         //         },
         {
             script: Script.RUST,
-            time: 260,
-            memory: 10.65,
+            time: 72,
+            memory: 11.33,
             desc: '同上',
-            code: `fn str_to_vec(s: &String) -> Vec<char> {
-    s.chars().collect()
-}
-impl Solution {
-    pub fn get_max_repetitions(s1: String, n1: i32, s2: String, n2: i32) -> i32 {
-        let (n1, n2) = (n1 as usize, n2 as usize);
-        let s1 = str_to_vec(&s1);
-        let s2 = str_to_vec(&s2);
-        let (len1, len2) = (s1.len(), s2.len());
-        let (mut k, mut idx, mut cnt) = (0, 0, 0);
-        let mut arr = vec![0];
-        while k < n1 {
-            for i in 0..len1 {
-                if s2[idx] == s1[i] {
-                    idx = (idx + 1) % len2;
-                    if idx == 0 {
-                        cnt += 1;
+            code: `impl Solution {
+    pub fn remove_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut max = 0;
+        fn dfs(node: Option<Box<ListNode>>, max: &mut i32) -> Option<Box<ListNode>> {
+            match node {
+                None => None,
+                Some(mut node) => {
+                    node.next = dfs(node.next.take(), max);
+                    if *max > node.val {
+                        node.next.take()
+                    } else {
+                        *max = node.val;
+                        Some(node)
                     }
                 }
             }
-            k += 1;
-            arr.push(cnt);
-            if idx == 0 {
-                break;
-            }
         }
-        ((cnt * (n1 / k) + arr[n1 % k]) / n2) as i32
+        dfs(head, &mut max)
     }
 }`,
         },

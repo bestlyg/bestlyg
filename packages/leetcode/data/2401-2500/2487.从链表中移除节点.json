@@ -18,6 +18,30 @@
             "script": "cpp",
             "desc": "递归，记录后面的最大值。",
             "code": "# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    ListNode* removeNodes(ListNode* head) {\n      int maxnum = 0;\n      return _removeNodes(head, maxnum);\n    }\n    ListNode* _removeNodes(ListNode *head, int &maxnum) {\n      if (head == nullptr) return nullptr;\n      ListNode *next = _removeNodes(head->next, maxnum);\n      if (head->val >= maxnum) {\n        head->next = next;\n        next = head;\n      }\n      maxnum = max(maxnum, head->val);\n      return next;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 644,
+            "memory": 55.98,
+            "desc": "单调栈记录最大序列，遍历时记录父节点。",
+            "code": "class Solution:\n    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        p = tempHead = ListNode(0, head)\n        s = []\n        map = {}\n        while p.next:\n            map[p.next] = p \n            while s and s[-1].val < p.next.val:\n                node = s.pop()\n                parent = map[node]\n                parent.next = node.next\n                map[node.next] = parent\n            s.append(p.next)\n            p = p.next\n        return tempHead.next",
+            "date": 1704211200000
+        },
+        {
+            "script": "python",
+            "time": 360,
+            "memory": 59.6,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        self.max = 0\n        def dfs(node: Optional[ListNode]) -> Optional[ListNode]:\n            if not node: return node\n            node.next = dfs(node.next)\n            if self.max > node.val: return node.next\n            self.max = node.val\n            return node\n        return dfs(head)",
+            "date": 1704211200000
+        },
+        {
+            "script": "rust",
+            "time": 72,
+            "memory": 11.33,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn remove_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut max = 0;\n        fn dfs(node: Option<Box<ListNode>>, max: &mut i32) -> Option<Box<ListNode>> {\n            match node {\n                None => None,\n                Some(mut node) => {\n                    node.next = dfs(node.next.take(), max);\n                    if *max > node.val {\n                        node.next.take()\n                    } else {\n                        *max = node.val;\n                        Some(node)\n                    }\n                }\n            }\n        }\n        dfs(head, &mut max)\n    }\n}",
+            "date": 1704211200000
         }
     ]
 }
