@@ -5,7 +5,8 @@
     "difficulty": "中等",
     "tag": [
         "哈希表",
-        "数学"
+        "数学",
+        "枚举"
     ],
     "desc": "给定三个整数 x 、 y 和 bound ，返回 值小于或等于 bound 的所有 强整数 组成的列表 。",
     "solutions": [

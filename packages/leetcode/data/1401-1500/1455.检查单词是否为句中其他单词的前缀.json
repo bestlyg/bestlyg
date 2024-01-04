@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence",
     "difficulty": "简单",
     "tag": [
+        "双指针",
         "字符串",
         "字符串匹配"
     ],

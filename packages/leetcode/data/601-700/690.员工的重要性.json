@@ -4,8 +4,10 @@
     "url": "https://leetcode.cn/problems/employee-importance",
     "difficulty": "中等",
     "tag": [
+        "树",
         "深度优先搜索",
         "广度优先搜索",
+        "数组",
         "哈希表"
     ],
     "desc": "现在输入一个公司的所有员工信息，以及单个员工 id ，返回这个员工和他所有下属的重要度之和。",

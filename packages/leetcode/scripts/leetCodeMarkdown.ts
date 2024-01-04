@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2487. 从链表中移除节点',
-    url: 'https://leetcode.cn/problems/buy-two-chocolates',
+    exist: !true,
+    name: '2397. 被列覆盖的最多行数',
+    url: 'https://leetcode.cn/problems/maximum-rows-covered-by-columns',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回在购买两块巧克力后，最多能剩下多少钱。`,
+    desc: `返回一个整数，表示可以由 numSelect 列构成的集合 覆盖 的 最大行数 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,41 +28,27 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 644,
-            memory: 55.98,
-            desc: '单调栈记录最大序列，遍历时记录父节点',
+            time: 48,
+            memory: 16.85,
+            desc: '遍历所有列覆盖的情况',
             code: `class Solution:
-    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        p = tempHead = ListNode(0, head)
-        s = []
-        map = {}
-        while p.next:
-            map[p.next] = p 
-            while s and s[-1].val < p.next.val:
-                node = s.pop()
-                parent = map[node]
-                parent.next = node.next
-                map[node.next] = parent
-            s.append(p.next)
-            p = p.next
-        return tempHead.next`,
+    def maximumRows(self, matrix: List[List[int]], numSelect: int) -> int:
+        n = len(matrix)
+        m = len(matrix[0])
+        rows = []
+        for i in range(n):
+            used = 0
+            for j in range(m):
+                if matrix[i][j] == 1: used |= 1 << j
+            rows.append(used)
+        ans = 0
+        for used in range(1 << m):
+            if bin(used).count('1') != numSelect: continue
+            count = sum((rows[i] & used) == rows[i] for i in range(n))
+            ans = max(ans, count)
+        return ans`,
         },
-        {
-            script: Script.PY,
-            time: 360,
-            memory: 59.6,
-            desc: 'dfs',
-            code: `class Solution:
-    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        self.max = 0
-        def dfs(node: Optional[ListNode]) -> Optional[ListNode]:
-            if not node: return node
-            node.next = dfs(node.next)
-            if self.max > node.val: return node.next
-            self.max = node.val
-            return node
-        return dfs(head)`,
-        },
+
         //         {
         //             script: Script.CPP,
         //             time: 44,
@@ -84,32 +70,13 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        {
-            script: Script.RUST,
-            time: 72,
-            memory: 11.33,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn remove_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut max = 0;
-        fn dfs(node: Option<Box<ListNode>>, max: &mut i32) -> Option<Box<ListNode>> {
-            match node {
-                None => None,
-                Some(mut node) => {
-                    node.next = dfs(node.next.take(), max);
-                    if *max > node.val {
-                        node.next.take()
-                    } else {
-                        *max = node.val;
-                        Some(node)
-                    }
-                }
-            }
-        }
-        dfs(head, &mut max)
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 72,
+        //     memory: 11.33,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 

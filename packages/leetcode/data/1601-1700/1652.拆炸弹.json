@@ -4,7 +4,8 @@
     "url": "https://leetcode.cn/problems/defuse-the-bomb",
     "difficulty": "简单",
     "tag": [
-        "数组"
+        "数组",
+        "滑动窗口"
     ],
     "desc": "给你 循环 数组 code 和整数密钥 k ，请你返回解密后的结果来拆除炸弹！。",
     "solutions": [
