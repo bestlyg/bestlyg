@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2397. 被列覆盖的最多行数',
-    url: 'https://leetcode.cn/problems/maximum-rows-covered-by-columns',
+    name: '1944. 队列中可以看到的人数',
+    url: 'https://leetcode.cn/problems/number-of-visible-people-in-a-queue/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回一个整数，表示可以由 numSelect 列构成的集合 覆盖 的 最大行数 。`,
+    desc: `请你返回一个长度为 n 的数组 answer ，其中 answer[i] 是第 i 个人在他右侧队列中能 看到 的 人数 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,24 +28,18 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 16.85,
-            desc: '遍历所有列覆盖的情况',
+            time: 140,
+            memory: 30.22,
+            desc: '单调栈',
             code: `class Solution:
-    def maximumRows(self, matrix: List[List[int]], numSelect: int) -> int:
-        n = len(matrix)
-        m = len(matrix[0])
-        rows = []
+    def canSeePersonsCount(self, heights: List[int]) -> List[int]:
+        n = len(heights)
+        ans = [0] * n
+        s = []
         for i in range(n):
-            used = 0
-            for j in range(m):
-                if matrix[i][j] == 1: used |= 1 << j
-            rows.append(used)
-        ans = 0
-        for used in range(1 << m):
-            if bin(used).count('1') != numSelect: continue
-            count = sum((rows[i] & used) == rows[i] for i in range(n))
-            ans = max(ans, count)
+            while s and heights[s[-1]] < heights[i]: ans[s.pop()] += 1
+            if s: ans[s[-1]] += 1
+            s.append(i)
         return ans`,
         },
 

@@ -2,7 +2,7 @@
     "id": "1742",
     "name": "1637.两点之间不包含任何点的最宽垂直区域",
     "url": "https://leetcode.cn/problems/widest-vertical-area-between-two-points-containing-no-points",
-    "difficulty": "中等",
+    "difficulty": "简单",
     "tag": [
         "数组",
         "排序"
