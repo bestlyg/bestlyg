@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1944. 队列中可以看到的人数',
-    url: 'https://leetcode.cn/problems/number-of-visible-people-in-a-queue/',
+    name: '2807. 在链表中插入最大公约数',
+    url: 'https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个长度为 n 的数组 answer ，其中 answer[i] 是第 i 个人在他右侧队列中能 看到 的 人数 。`,
+    desc: `请你返回插入之后的链表。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,19 +28,18 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 140,
-            memory: 30.22,
-            desc: '单调栈',
-            code: `class Solution:
-    def canSeePersonsCount(self, heights: List[int]) -> List[int]:
-        n = len(heights)
-        ans = [0] * n
-        s = []
-        for i in range(n):
-            while s and heights[s[-1]] < heights[i]: ans[s.pop()] += 1
-            if s: ans[s[-1]] += 1
-            s.append(i)
-        return ans`,
+            time: 72,
+            memory: 19.92,
+            desc: '遍历',
+            code: `def gcd(a: int, b: int) -> int:
+        return gcd(b, a % b) if b != 0 else a
+    class Solution:
+        def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+            p = head
+            while p.next:
+                p.next = ListNode(gcd(p.val, p.next.val), p.next)
+                p = p.next.next
+            return head`,
         },
 
         //         {
@@ -64,13 +63,34 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        // {
-        //     script: Script.RUST,
-        //     time: 72,
-        //     memory: 11.33,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 8,
+            memory: 2.83,
+            desc: '同上',
+            code: `fn gcd(a: i32, b: i32) -> i32 {
+    if a < b {
+        gcd(b, a)
+    } else if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
+impl Solution {
+    pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut head = head.unwrap();
+        let mut p = &mut head;
+        while let Some(mut next) = p.next.take() {
+            let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));
+            new_next.next = Some(next);
+            p.next = Some(new_next);
+            p = p.next.as_mut().unwrap().next.as_mut().unwrap();
+        }
+        Some(head)
+    }
+}`,
+        },
     ],
 };
 

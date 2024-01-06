@@ -1,7 +1,4 @@
 mod preclude;
-
-use core::num;
-
 use preclude::*;
 fn main() {
     // let func = Solution::remove_subfolders;
@@ -14,23 +11,27 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
+fn gcd(a: i32, b: i32) -> i32 {
+    if a < b {
+        gcd(b, a)
+    } else if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
 impl Solution {
-    pub fn remove_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut max = 0;
-        fn dfs(node: Option<Box<ListNode>>, max: &mut i32) -> Option<Box<ListNode>> {
-            match node {
-                None => None,
-                Some(mut node) => {
-                    node.next = dfs(node.next.take(), max);
-                    if *max > node.val {
-                        node.next.take()
-                    } else {
-                        *max = node.val;
-                        Some(node)
-                    }
-                }
-            }
+    pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut head = head.unwrap();
+        let mut p = &mut head;
+        while let Some(mut next) = p.next.take() {
+            let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));
+            new_next.next = Some(next);
+            p.next = Some(new_next);
+            
+            let next = p.next.as_mut().unwrap().next.as_mut().unwrap();
+            p = next;
         }
-        dfs(head, &mut max)
+        Some(head)
     }
 }

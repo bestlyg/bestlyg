@@ -1,0 +1,25 @@
+{
+    "name": "2807.在链表中插入最大公约数",
+    "url": "https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回插入之后的链表。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 72,
+            "memory": 19.92,
+            "desc": "遍历。",
+            "code": "def gcd(a: int, b: int) -> int:\n        return gcd(b, a % b) if b != 0 else a\n    class Solution:\n        def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:\n            p = head\n            while p.next:\n                p.next = ListNode(gcd(p.val, p.next.val), p.next)\n                p = p.next.next\n            return head",
+            "date": 1704470400000
+        },
+        {
+            "script": "rust",
+            "time": 8,
+            "memory": 2.83,
+            "desc": "同上。",
+            "code": "fn gcd(a: i32, b: i32) -> i32 {\n    if a < b {\n        gcd(b, a)\n    } else if b == 0 {\n        a\n    } else {\n        gcd(b, a % b)\n    }\n}\nimpl Solution {\n    pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut head = head.unwrap();\n        let mut p = &mut head;\n        while let Some(mut next) = p.next.take() {\n            let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));\n            new_next.next = Some(next);\n            p.next = Some(new_next);\n            p = p.next.as_mut().unwrap().next.as_mut().unwrap();\n        }\n        Some(head)\n    }\n}",
+            "date": 1704470400000
+        }
+    ]
+}
