@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2807. 在链表中插入最大公约数',
+    exist: true,
+    name: '383. 赎金信',
     url: 'https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,18 +28,16 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 72,
-            memory: 19.92,
+            time: 48,
+            memory: 17.06,
             desc: '遍历',
-            code: `def gcd(a: int, b: int) -> int:
-        return gcd(b, a % b) if b != 0 else a
-    class Solution:
-        def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
-            p = head
-            while p.next:
-                p.next = ListNode(gcd(p.val, p.next.val), p.next)
-                p = p.next.next
-            return head`,
+            code: `class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        map = Counter(magazine)
+        for c in ransomNote:
+            map[c] -= 1
+            if map[c] < 0: return False
+        return True`,
         },
 
         //         {
