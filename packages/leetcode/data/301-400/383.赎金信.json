@@ -3,11 +3,7 @@
     "name": "383.赎金信",
     "url": "https://leetcode.cn/problems/ransom-note",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个赎金信 (ransomNote) 字符串和一个杂志(magazine)字符串，判断 ransomNote 能不能由 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false 。",
     "solutions": [
         {
@@ -32,14 +28,6 @@
             "memory": 17.06,
             "desc": "遍历。",
             "code": "class Solution:\n    def canConstruct(self, ransomNote: str, magazine: str) -> bool:\n        map = Counter(magazine)\n        for c in ransomNote:\n            map[c] -= 1\n            if map[c] < 0: return False\n        return True",
-            "date": 1704556800000
-        },
-        {
-            "script": "rust",
-            "time": 8,
-            "memory": 2.83,
-            "desc": "同上。",
-            "code": "fn gcd(a: i32, b: i32) -> i32 {\n    if a < b {\n        gcd(b, a)\n    } else if b == 0 {\n        a\n    } else {\n        gcd(b, a % b)\n    }\n}\nimpl Solution {\n    pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut head = head.unwrap();\n        let mut p = &mut head;\n        while let Some(mut next) = p.next.take() {\n            let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));\n            new_next.next = Some(next);\n            p.next = Some(new_next);\n            p = p.next.as_mut().unwrap().next.as_mut().unwrap();\n        }\n        Some(head)\n    }\n}",
             "date": 1704556800000
         }
     ]
