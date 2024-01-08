@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '383. 赎金信',
+    name: '447. 回旋镖的数量',
     url: 'https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,16 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
+            time: 788,
             memory: 17.06,
-            desc: '遍历',
+            desc: '以一个点为中点，遍历所有其他点判断次数',
             code: `class Solution:
-    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        map = Counter(magazine)
-        for c in ransomNote:
-            map[c] -= 1
-            if map[c] < 0: return False
-        return True`,
+    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
+        ans = 0
+        for p1 in points:
+            map = Counter()n
+            for p2 in points:
+                d = (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
+                ans += map[d] * 2
+                map[d] += 1
+        return ans`,
         },
 
         //         {
