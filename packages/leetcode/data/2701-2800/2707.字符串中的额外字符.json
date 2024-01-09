@@ -1,0 +1,24 @@
+{
+    "id": "2755",
+    "name": "2707.字符串中的额外字符",
+    "url": "https://leetcode.cn/problems/extra-characters-in-a-string",
+    "difficulty": "中等",
+    "tag": [
+        "字典树",
+        "数组",
+        "哈希表",
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给你一个下标从 0 开始的字符串 s 和一个单词字典 dictionary 。你需要将 s 分割成若干个 互不重叠 的子字符串，每个子字符串都在 dictionary 中出现过。s 中可能会有一些 额外的字符 不在任何子字符串中。请你采取最优策略分割 s ，使剩下的字符 最少 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 156,
+            "memory": 16.97,
+            "desc": "dp[i]表示以i为结尾的字符串省略的最多字符。",
+            "code": "class Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        cache = set(dictionary)\n        n = len(s)\n        dp = [inf] * (n + 1)\n        dp[0] = 0\n        for i in range(1, n + 1):\n            dp[i] = dp[i - 1] + 1\n            for j in range(i):\n                if s[j: i] in cache:\n                    dp[i] = min(dp[i], dp[j])\n        return dp[n]",
+            "date": 1704729600000
+        }
+    ]
+}

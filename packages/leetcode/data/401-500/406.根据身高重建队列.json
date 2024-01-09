@@ -4,7 +4,6 @@
     "url": "https://leetcode.cn/problems/queue-reconstruction-by-height",
     "difficulty": "中等",
     "tag": [
-        "贪心",
         "树状数组",
         "线段树",
         "数组",

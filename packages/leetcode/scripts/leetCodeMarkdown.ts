@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '447. 回旋镖的数量',
-    url: 'https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list',
+    exist: !true,
+    name: '2707. 字符串中的额外字符',
+    url: 'https://leetcode.cn/problems/extra-characters-in-a-string',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回插入之后的链表。`,
+    desc: `给你一个下标从 0 开始的字符串 s 和一个单词字典 dictionary 。你需要将 s 分割成若干个 互不重叠 的子字符串，每个子字符串都在 dictionary 中出现过。s 中可能会有一些 额外的字符 不在任何子字符串中。请你采取最优策略分割 s ，使剩下的字符 最少 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,19 +28,21 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 788,
-            memory: 17.06,
-            desc: '以一个点为中点，遍历所有其他点判断次数',
+            time: 156,
+            memory: 16.97,
+            desc: 'dp[i]表示以i为结尾的字符串省略的最多字符',
             code: `class Solution:
-    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
-        ans = 0
-        for p1 in points:
-            map = Counter()n
-            for p2 in points:
-                d = (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
-                ans += map[d] * 2
-                map[d] += 1
-        return ans`,
+    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
+        cache = set(dictionary)
+        n = len(s)
+        dp = [inf] * (n + 1)
+        dp[0] = 0
+        for i in range(1, n + 1):
+            dp[i] = dp[i - 1] + 1
+            for j in range(i):
+                if s[j: i] in cache:
+                    dp[i] = min(dp[i], dp[j])
+        return dp[n]`,
         },
 
         //         {
