@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2707. 字符串中的额外字符',
-    url: 'https://leetcode.cn/problems/extra-characters-in-a-string',
+    name: '2696. 删除子串后的字符串最小长度',
+    url: 'https://leetcode.cn/problems/minimum-string-length-after-removing-substrings/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的字符串 s 和一个单词字典 dictionary 。你需要将 s 分割成若干个 互不重叠 的子字符串，每个子字符串都在 dictionary 中出现过。s 中可能会有一些 额外的字符 不在任何子字符串中。请你采取最优策略分割 s ，使剩下的字符 最少 。`,
+    desc: `返回可获得的最终字符串的 最小 可能长度。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,21 +28,16 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 156,
-            memory: 16.97,
-            desc: 'dp[i]表示以i为结尾的字符串省略的最多字符',
+            time: 48,
+            memory: 17.09,
+            desc: '用栈储存遍历过的元素',
             code: `class Solution:
-    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
-        cache = set(dictionary)
-        n = len(s)
-        dp = [inf] * (n + 1)
-        dp[0] = 0
-        for i in range(1, n + 1):
-            dp[i] = dp[i - 1] + 1
-            for j in range(i):
-                if s[j: i] in cache:
-                    dp[i] = min(dp[i], dp[j])
-        return dp[n]`,
+    def minLength(self, s: str) -> int:
+        stack = []
+        for c in s:
+            if stack and stack[-1] == 'A' and c == 'B' or stack and stack[-1] == 'C' and c == 'D': stack.pop()
+            else: stack.append(c)
+        return len(stack)`,
         },
 
         //         {
