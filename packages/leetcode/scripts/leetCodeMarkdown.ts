@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2696. 删除子串后的字符串最小长度',
-    url: 'https://leetcode.cn/problems/minimum-string-length-after-removing-substrings/',
+    name: '2645. 构造有效字符串的最少插入数',
+    url: 'https://leetcode.cn/problems/minimum-additions-to-make-valid-string',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回可获得的最终字符串的 最小 可能长度。`,
+    desc: `给你一个字符串 word ，你可以向其中任何位置插入 "a"、"b" 或 "c" 任意次，返回使 word 有效 需要插入的最少字母数。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,16 +28,19 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 48,
-            memory: 17.09,
-            desc: '用栈储存遍历过的元素',
+            time: 32,
+            memory: 16.93,
+            desc: '遍历',
             code: `class Solution:
-    def minLength(self, s: str) -> int:
-        stack = []
-        for c in s:
-            if stack and stack[-1] == 'A' and c == 'B' or stack and stack[-1] == 'C' and c == 'D': stack.pop()
-            else: stack.append(c)
-        return len(stack)`,
+    def addMinimum(self, word: str) -> int:
+        s = 'abc'
+        ans = i = 0
+        for c in word:
+            while s[i] != c:
+                i = (i + 1) % 3
+                ans += 1
+            i = (i + 1) % 3
+        return ans + (3 - i) % 3`,
         },
 
         //         {
