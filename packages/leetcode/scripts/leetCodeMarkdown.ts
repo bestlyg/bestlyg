@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2645. 构造有效字符串的最少插入数',
-    url: 'https://leetcode.cn/problems/minimum-additions-to-make-valid-string',
+    name: '2085. 统计出现过一次的公共字符串',
+    url: 'https://leetcode.cn/problems/count-common-words-with-one-occurrence/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个字符串 word ，你可以向其中任何位置插入 "a"、"b" 或 "c" 任意次，返回使 word 有效 需要插入的最少字母数。`,
+    desc: `给你两个字符串数组 words1 和 words2 ，请你返回在两个字符串数组中 都恰好出现一次 的字符串的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,19 +28,14 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 32,
-            memory: 16.93,
-            desc: '遍历',
+            time: 52,
+            memory: 17.23,
+            desc: '计数',
             code: `class Solution:
-    def addMinimum(self, word: str) -> int:
-        s = 'abc'
-        ans = i = 0
-        for c in word:
-            while s[i] != c:
-                i = (i + 1) % 3
-                ans += 1
-            i = (i + 1) % 3
-        return ans + (3 - i) % 3`,
+    def countWords(self, words1: List[str], words2: List[str]) -> int:
+        c1 = Counter(words1)
+        c2 = Counter(words2)
+        return sum(v == 1 and c2[k] == 1 for k, v in c1.items())`,
         },
 
         //         {
