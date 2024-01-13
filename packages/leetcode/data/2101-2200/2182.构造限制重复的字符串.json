@@ -1,0 +1,17 @@
+{
+    "name": "2182.构造限制重复的字符串",
+    "url": "https://leetcode.cn/problems/construct-string-with-repeat-limit/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个字符串 s 和一个整数 repeatLimit ，用 s 中的字符构造一个新字符串 repeatLimitedString ，使任何字母 连续 出现的次数都不超过 repeatLimit 次。你不必使用 s 中的全部字符。返回 字典序最大的 repeatLimitedString 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 212,
+            "memory": 18.19,
+            "desc": "计数，贪心。",
+            "code": "class Solution:\n    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:\n        counter = Counter(s)\n        arr = list(counter.items())\n        arr.sort()\n        ans = ''\n        while arr:\n            ch, cnt = arr.pop()\n            while cnt:\n                cur_cnt = min(cnt, repeatLimit)\n                cnt -= cur_cnt\n                ans += ch * cur_cnt\n                if cnt:\n                    if arr:\n                        ans += arr[-1][0]\n                        arr[-1] = (arr[-1][0], arr[-1][1] - 1)\n                        if arr[-1][1] == 0:\n                            arr.pop()\n                    else:\n                        break\n        return ans",
+            "date": 1705075200000
+        }
+    ]
+}

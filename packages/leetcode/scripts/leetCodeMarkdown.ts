@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2085. 统计出现过一次的公共字符串',
-    url: 'https://leetcode.cn/problems/count-common-words-with-one-occurrence/',
+    name: '2182. 构造限制重复的字符串',
+    url: 'https://leetcode.cn/problems/construct-string-with-repeat-limit/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两个字符串数组 words1 和 words2 ，请你返回在两个字符串数组中 都恰好出现一次 的字符串的数目。`,
+    desc: `给你一个字符串 s 和一个整数 repeatLimit ，用 s 中的字符构造一个新字符串 repeatLimitedString ，使任何字母 连续 出现的次数都不超过 repeatLimit 次。你不必使用 s 中的全部字符。返回 字典序最大的 repeatLimitedString 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -28,14 +28,30 @@ const leetCodeMarkdown: Markdown = {
 
         {
             script: Script.PY,
-            time: 52,
-            memory: 17.23,
-            desc: '计数',
+            time: 212,
+            memory: 18.19,
+            desc: '计数，贪心',
             code: `class Solution:
-    def countWords(self, words1: List[str], words2: List[str]) -> int:
-        c1 = Counter(words1)
-        c2 = Counter(words2)
-        return sum(v == 1 and c2[k] == 1 for k, v in c1.items())`,
+    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
+        counter = Counter(s)
+        arr = list(counter.items())
+        arr.sort()
+        ans = ''
+        while arr:
+            ch, cnt = arr.pop()
+            while cnt:
+                cur_cnt = min(cnt, repeatLimit)
+                cnt -= cur_cnt
+                ans += ch * cur_cnt
+                if cnt:
+                    if arr:
+                        ans += arr[-1][0]
+                        arr[-1] = (arr[-1][0], arr[-1][1] - 1)
+                        if arr[-1][1] == 0:
+                            arr.pop()
+                    else:
+                        break
+        return ans`,
         },
 
         //         {
