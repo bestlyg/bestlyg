@@ -11,27 +11,25 @@ fn main() {
     // println!("res = {res:#?}");
 }
 
-fn gcd(a: i32, b: i32) -> i32 {
-    if a < b {
-        gcd(b, a)
-    } else if b == 0 {
-        a
-    } else {
-        gcd(b, a % b)
-    }
-}
 impl Solution {
-    pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut head = head.unwrap();
-        let mut p = &mut head;
-        while let Some(mut next) = p.next.take() {
-            let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));
-            new_next.next = Some(next);
-            p.next = Some(new_next);
-            
-            let next = p.next.as_mut().unwrap().next.as_mut().unwrap();
+    pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut tmp_head = Box::new(ListNode::new(0));
+        tmp_head.next = head;
+        let mut p = &tmp_head;
+        let mut map = [0; 300];
+        while let Some(ref next) = p.next {
+            map[(next.val + 100) as usize] += 1;
             p = next;
         }
-        Some(head)
+        let mut p = &mut tmp_head;
+        while let Some(next) = p.next.take() {
+            if map[(next.val + 100) as usize] > 1 {
+                p.next = next.next;
+            } else {
+                p.next = Some(next);
+                p = p.next.as_mut().unwrap();
+            }
+        }
+        tmp_head.next.take()
     }
 }

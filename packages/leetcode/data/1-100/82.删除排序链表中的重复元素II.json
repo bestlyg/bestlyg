@@ -32,6 +32,22 @@
             "script": "typescript",
             "desc": "创建虚拟头节点依次比较值。",
             "code": "function deleteDuplicates(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const dummyHead = new ListNode(0, head);\n  let p: ListNode | null = dummyHead;\n  while (p !== null) {\n    let q: ListNode | null = p.next;\n    if (q === null || q.next === null) break;\n    else if (q.val !== q.next.val) {\n      p.next = q;\n      p = q;\n    } else {\n      const val = q.val;\n      while (q !== null && q.val === val) q = q.next;\n      p.next = q;\n    }\n  }\n  return dummyHead.next;\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 16.9,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        p = tmp_head = ListNode(0, head)\n        while p.next:\n            next = p.next\n            val = next.val\n            while next and next.val == val: next = next.next\n            if p.next.next == next: p = p.next\n            else: p.next = next\n        return tmp_head.next",
+            "date": 1705248000000
+        },
+        {
+            "script": "rust",
+            "time": 0,
+            "memory": 2.11,
+            "desc": "同上。",
+            "code": "impl Solution {\n    pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut tmp_head = Box::new(ListNode::new(0));\n        tmp_head.next = head;\n        let mut p = &tmp_head;\n        let mut map = [0; 300];\n        while let Some(ref next) = p.next {\n            map[(next.val + 100) as usize] += 1;\n            p = next;\n        }\n        let mut p = &mut tmp_head;\n        while let Some(next) = p.next.take() {\n            if map[(next.val + 100) as usize] > 1 {\n                p.next = next.next;\n            } else {\n                p.next = Some(next);\n                p = p.next.as_mut().unwrap();\n            }\n        }\n        tmp_head.next.take()\n    }\n}",
+            "date": 1705248000000
         }
     ]
 }

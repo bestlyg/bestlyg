@@ -2,9 +2,9 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2182. 构造限制重复的字符串',
-    url: 'https://leetcode.cn/problems/construct-string-with-repeat-limit/',
+    exist: true,
+    name: '82. 删除排序链表中的重复元素 II',
+    url: 'https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `给你一个字符串 s 和一个整数 repeatLimit ，用 s 中的字符构造一个新字符串 repeatLimitedString ，使任何字母 连续 出现的次数都不超过 repeatLimit 次。你不必使用 s 中的全部字符。返回 字典序最大的 repeatLimitedString 。`,
@@ -25,33 +25,21 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '二分',
         //     code: ``,
         // },
-
         {
             script: Script.PY,
-            time: 212,
-            memory: 18.19,
-            desc: '计数，贪心',
+            time: 44,
+            memory: 16.9,
+            desc: '遍历',
             code: `class Solution:
-    def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
-        counter = Counter(s)
-        arr = list(counter.items())
-        arr.sort()
-        ans = ''
-        while arr:
-            ch, cnt = arr.pop()
-            while cnt:
-                cur_cnt = min(cnt, repeatLimit)
-                cnt -= cur_cnt
-                ans += ch * cur_cnt
-                if cnt:
-                    if arr:
-                        ans += arr[-1][0]
-                        arr[-1] = (arr[-1][0], arr[-1][1] - 1)
-                        if arr[-1][1] == 0:
-                            arr.pop()
-                    else:
-                        break
-        return ans`,
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        p = tmp_head = ListNode(0, head)
+        while p.next:
+            next = p.next
+            val = next.val
+            while next and next.val == val: next = next.next
+            if p.next.next == next: p = p.next
+            else: p.next = next
+        return tmp_head.next`,
         },
 
         //         {
@@ -75,34 +63,34 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-//         {
-//             script: Script.RUST,
-//             time: 8,
-//             memory: 2.83,
-//             desc: '同上',
-//             code: `fn gcd(a: i32, b: i32) -> i32 {
-//     if a < b {
-//         gcd(b, a)
-//     } else if b == 0 {
-//         a
-//     } else {
-//         gcd(b, a % b)
-//     }
-// }
-// impl Solution {
-//     pub fn insert_greatest_common_divisors(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-//         let mut head = head.unwrap();
-//         let mut p = &mut head;
-//         while let Some(mut next) = p.next.take() {
-//             let mut new_next = Box::new(ListNode::new(gcd(p.val, next.val)));
-//             new_next.next = Some(next);
-//             p.next = Some(new_next);
-//             p = p.next.as_mut().unwrap().next.as_mut().unwrap();
-//         }
-//         Some(head)
-//     }
-// }`,
-//         },
+        {
+            script: Script.RUST,
+            time: 0,
+            memory: 2.11,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut tmp_head = Box::new(ListNode::new(0));
+        tmp_head.next = head;
+        let mut p = &tmp_head;
+        let mut map = [0; 300];
+        while let Some(ref next) = p.next {
+            map[(next.val + 100) as usize] += 1;
+            p = next;
+        }
+        let mut p = &mut tmp_head;
+        while let Some(next) = p.next.take() {
+            if map[(next.val + 100) as usize] > 1 {
+                p.next = next.next;
+            } else {
+                p.next = Some(next);
+                p = p.next.as_mut().unwrap();
+            }
+        }
+        tmp_head.next.take()
+    }
+}`,
+        },
     ],
 };
 
