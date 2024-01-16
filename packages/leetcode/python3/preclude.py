@@ -139,3 +139,16 @@ def get_primes2(n: int) -> List[bool]:
                 primes[i*j] = False
                 j += 1
     return primes
+
+def digit_dp(n: int, min_num: str, max_num: str, min_sum: int, max_sum: int):
+    @cache
+    def dfs(i: int, val: int, limit_low: bool, limit_high: bool) -> int:
+        if val > max_sum: return 0
+        if i == n: return val >= min_sum
+        lo = int(min_num[i]) if limit_low else 0
+        hi = int(max_num[i]) if limit_high else 9
+        return sum(
+            dfs(i + 1, val + d, limit_low and lo == d, limit_high and hi == d)
+            for d in range(lo, hi + 1)
+        )
+    return  dfs

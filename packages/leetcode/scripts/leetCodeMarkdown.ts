@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '82. 删除排序链表中的重复元素 II',
-    url: 'https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii',
+    exist: !true,
+    name: '2719. 统计整数数目',
+    url: 'https://leetcode.cn/problems/count-of-integers/description/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个字符串 s 和一个整数 repeatLimit ，用 s 中的字符构造一个新字符串 repeatLimitedString ，使任何字母 连续 出现的次数都不超过 repeatLimit 次。你不必使用 s 中的全部字符。返回 字典序最大的 repeatLimitedString 。`,
+    desc: `请你返回好整数的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,19 +27,26 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 44,
-            memory: 16.9,
-            desc: '遍历',
-            code: `class Solution:
-    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        p = tmp_head = ListNode(0, head)
-        while p.next:
-            next = p.next
-            val = next.val
-            while next and next.val == val: next = next.next
-            if p.next.next == next: p = p.next
-            else: p.next = next
-        return tmp_head.next`,
+            time: 232,
+            memory: 18.31,
+            desc: '数位dp',
+            code: `def digit_dp(n: int, min_num: str, max_num: str, min_sum: int, max_sum: int):
+    @cache
+    def dfs(i: int, val: int, limit_low: bool, limit_high: bool) -> int:
+        if val > max_sum: return 0
+        if i == n: return val >= min_sum
+        lo = int(min_num[i]) if limit_low else 0
+        hi = int(max_num[i]) if limit_high else 9
+        return sum(
+            dfs(i + 1, val + d, limit_low and lo == d, limit_high and hi == d)
+            for d in range(lo, hi + 1)
+        )
+    return  dfs
+    
+class Solution:
+    def count(self, num1: str, num2: str, min_sum: int, max_sum: int) -> int:
+        dfs = digit_dp(len(num2), num1.zfill(len(num2)), num2, min_sum, max_sum)
+        return dfs(0, 0, True, True) % (10 ** 9 + 7)`,
         },
 
         //         {
@@ -63,34 +70,13 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        {
-            script: Script.RUST,
-            time: 0,
-            memory: 2.11,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut tmp_head = Box::new(ListNode::new(0));
-        tmp_head.next = head;
-        let mut p = &tmp_head;
-        let mut map = [0; 300];
-        while let Some(ref next) = p.next {
-            map[(next.val + 100) as usize] += 1;
-            p = next;
-        }
-        let mut p = &mut tmp_head;
-        while let Some(next) = p.next.take() {
-            if map[(next.val + 100) as usize] > 1 {
-                p.next = next.next;
-            } else {
-                p.next = Some(next);
-                p = p.next.as_mut().unwrap();
-            }
-        }
-        tmp_head.next.take()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 0,
+        //     memory: 2.11,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
