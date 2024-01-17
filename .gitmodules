@@ -7,3 +7,6 @@
 [submodule "submodules/best-design"]
 	path = submodules/best-design
 	url = https://github.com/bestlyg/best-design.git
+[submodule "submodules/best-style"]
+	path = submodules/best-style
+	url = https://github.com/bestlyg/best-style.git
