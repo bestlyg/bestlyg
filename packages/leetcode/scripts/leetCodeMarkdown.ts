@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2744. 最大字符串配对数目',
-    url: 'https://leetcode.cn/problems/find-maximum-number-of-string-pairs',
+    name: '2171. 拿出最少数目的魔法豆',
+    url: 'https://leetcode.cn/problems/removing-minimum-number-of-magic-beans',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回数组 words 中的 最大 匹配数目。`,
+    desc: `给定一个 正整数 数组 beans ，其中每个整数表示一个袋子里装的魔法豆的数目。请你从每个袋子中 拿出 一些豆子（也可以 不拿出），使得剩下的 非空 袋子中（即 至少还有一颗 魔法豆的袋子）魔法豆的数目 相等。一旦把魔法豆从袋子中取出，你不能再将它放到任何袋子中。请返回你需要拿出魔法豆的 最少数目。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,12 +27,23 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 44,
-            memory: 16.88,
+            time: 372,
+            memory: 39.59,
             desc: '遍历',
             code: `class Solution:
-    def maximumNumberOfStringPairs(self, words: List[str]) -> int:
-        return sum(words[i1][::-1] == words[i2] for i1 in range(len(words)) for i2 in range(0, i1))`,
+    def minimumRemoval(self, beans: List[int]) -> int:
+        counter = list(Counter(beans).items())
+        counter.sort(reverse = True)
+        ans = nsum = sum(beans)
+        ncnt = 0
+        prev_num = -1
+        for num, cnt in counter:
+            if prev_num != -1: nsum += ncnt * (prev_num - num)
+            nsum -= num * cnt
+            prev_num = num
+            ncnt += cnt
+            ans = min(ans, nsum)
+        return ans`,
         },
 
         //         {
