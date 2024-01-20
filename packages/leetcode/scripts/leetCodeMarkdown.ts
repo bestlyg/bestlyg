@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2171. 拿出最少数目的魔法豆',
-    url: 'https://leetcode.cn/problems/removing-minimum-number-of-magic-beans',
+    name: '2788. 按分隔符拆分字符串',
+    url: 'https://leetcode.cn/problems/split-strings-by-separator',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定一个 正整数 数组 beans ，其中每个整数表示一个袋子里装的魔法豆的数目。请你从每个袋子中 拿出 一些豆子（也可以 不拿出），使得剩下的 非空 袋子中（即 至少还有一颗 魔法豆的袋子）魔法豆的数目 相等。一旦把魔法豆从袋子中取出，你不能再将它放到任何袋子中。请返回你需要拿出魔法豆的 最少数目。`,
+    desc: `返回一个由拆分后的新字符串组成的字符串数组，不包括空字符串 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -17,34 +17,27 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
+        {
+            // date: new Date('2021.01.29').getTime(),
+            script: Script.TS,
+            time: 111,
+            memory: 59.37,
+            desc: '分割后平铺',
+            code: `function splitWordsBySeparator(words: string[], separator: string): string[] {
+    const sarr = separator.split('')
+    return words
+            .map(word => sarr.map(s => word.split(s)))
+            .flat(3)
+            .filter(Boolean)
+};`,
+        },
         // {
-        //     date: new Date('2021.01.29').getTime(),
-        //     script: Script.TS,
-        //     time: 352,
-        //     memory: 46.7,
-        //     desc: '二分',
+        //     script: Script.PY,
+        //     time: 372,
+        //     memory: 39.59,
+        //     desc: '遍历',
         //     code: ``,
         // },
-        {
-            script: Script.PY,
-            time: 372,
-            memory: 39.59,
-            desc: '遍历',
-            code: `class Solution:
-    def minimumRemoval(self, beans: List[int]) -> int:
-        counter = list(Counter(beans).items())
-        counter.sort(reverse = True)
-        ans = nsum = sum(beans)
-        ncnt = 0
-        prev_num = -1
-        for num, cnt in counter:
-            if prev_num != -1: nsum += ncnt * (prev_num - num)
-            nsum -= num * cnt
-            prev_num = num
-            ncnt += cnt
-            ans = min(ans, nsum)
-        return ans`,
-        },
 
         //         {
         //             script: Script.CPP,
