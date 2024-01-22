@@ -1,8 +1,12 @@
 {
+    "id": "2881",
     "name": "2788.按分隔符拆分字符串",
     "url": "https://leetcode.cn/problems/split-strings-by-separator",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "字符串"
+    ],
     "desc": "返回一个由拆分后的新字符串组成的字符串数组，不包括空字符串 。",
     "solutions": [
         {

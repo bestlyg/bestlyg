@@ -16,6 +16,14 @@
             "script": "cpp",
             "desc": "寻找是否存在比当前值大的低位数。",
             "code": "class Solution {\npublic:\n    int maximumSwap(int num) {\n        int list[10] = {0}, list_len = 0;\n        for (; num; num /= 10) list[list_len++] = num % 10;\n        for (int i = list_len - 1; i > 0; i--) {\n            int max_idx = i - 1;\n            for (int j = i - 1; j >= 0; j--) max_idx = list[max_idx] > list[j] ? max_idx : j;\n            if (list[max_idx] > list[i]) {\n                swap(list[max_idx], list[i]);\n                break;\n            }\n        }\n        int ans = 0;\n        for (int i = list_len - 1; i >= 0; i--) ans = ans * 10 + list[i];\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 42,
+            "memory": 16.49,
+            "desc": "贪心。",
+            "code": "class Solution:\n    def maximumSwap(self, num: int) -> int:\n        arr = [[] for _ in range(10)]\n        lnum = list(int(c) for c in str(num))\n        for i in range(len(lnum)): arr[lnum[i]].append(i)\n        swap = False\n        for i in range(len(lnum)):\n            for num in range(9, -1, -1):\n                if lnum[i] >= num: break\n                while arr[num] and arr[num][-1] < i: arr[num].pop()\n                if arr[num]:\n                    lnum[i], lnum[arr[num][-1]] = lnum[arr[num][-1]], lnum[i]\n                    swap = True\n            if swap: break\n        return reduce(lambda sum, num: sum * 10 + num, lnum, 0)",
+            "date": 1705852800000
         }
     ]
 }

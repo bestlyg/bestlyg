@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '410. 分割数组的最大值',
+    exist: true,
+    name: '670. 最大交换',
     url: 'https://leetcode.cn/problems/split-array-largest-sum',
     difficulty: Difficulty.简单,
     tag: [],
@@ -17,48 +17,34 @@ const leetCodeMarkdown: Markdown = {
         //     desc: '归并排序',
         //     code: ``,
         // },
-        {
-            date: new Date('2020.07.25').getTime(),
-            script: Script.TS,
-            time: 188,
-            memory: 39.68,
-            desc: 'dp[i][j] = 分成i份时，只有前j个元素时的最小值',
-            code: `function splitArray(nums: number[], m: number): number {
-    const n = nums.length;
-    const dp = new Array(n + 1)
-        .fill(0)
-        .map((_) => new Array(m + 1).fill(Infinity));
-    dp[0][0] = 0;
-    const sub = new Array(n + 1).fill(0);
-    for (let i = 0; i < n; i++) sub[i + 1] = sub[i] + nums[i];
-    for (let i = 1; i <= n; i++) {
-        for (let j = 1; j <= Math.min(i, m); j++) {
-        for (let k = 0; k < i; k++) {
-            dp[i][j] = Math.min(dp[i][j], Math.max(dp[k][j - 1], sub[i] - sub[k]));
-        }
-        }
-    }
-    return dp[n][m];
-}`,
-        },
+        // {
+        //     date: new Date('2020.07.25').getTime(),
+        //     script: Script.TS,
+        //     time: 188,
+        //     memory: 39.68,
+        //     desc: 'dp[i][j] = 分成i份时，只有前j个元素时的最小值',
+        //     code: ``,
+        // },
         {
             script: Script.PY,
-            time: 7699,
-            memory: 16.83,
-            desc: 'dp[i][j] = 分成i份时，只有前j个元素时的最小值',
+            time: 42,
+            memory: 16.49,
+            desc: '贪心',
             code: `class Solution:
-    def splitArray(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        dp = [[inf] * (n + 1) for _ in range(k + 1)]
-        dp[1][0] = 0
-        for i in range(1, n + 1): dp[1][i] = dp[1][i - 1] + nums[i - 1]
-        for k in range(2, k + 1):
-            for i in range(k, n + 1):
-                num = 0
-                for j in range(i, k - 1, -1):
-                    num += nums[j - 1]
-                    dp[k][i] = min(dp[k][i], max(dp[k - 1][j - 1], num))
-        return dp[k][n]`,
+    def maximumSwap(self, num: int) -> int:
+        arr = [[] for _ in range(10)]
+        lnum = list(int(c) for c in str(num))
+        for i in range(len(lnum)): arr[lnum[i]].append(i)
+        swap = False
+        for i in range(len(lnum)):
+            for num in range(9, -1, -1):
+                if lnum[i] >= num: break
+                while arr[num] and arr[num][-1] < i: arr[num].pop()
+                if arr[num]:
+                    lnum[i], lnum[arr[num][-1]] = lnum[arr[num][-1]], lnum[i]
+                    swap = True
+            if swap: break
+        return reduce(lambda sum, num: sum * 10 + num, lnum, 0)`,
         },
 
         //         {
