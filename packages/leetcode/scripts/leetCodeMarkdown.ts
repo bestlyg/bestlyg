@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '670. 最大交换',
-    url: 'https://leetcode.cn/problems/split-array-largest-sum',
+    exist: !true,
+    name: '2765. 最长交替子数组',
+    url: 'https://leetcode.cn/problems/longest-alternating-subarray',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定一个非负整数数组 nums 和一个整数 k ，你需要将这个数组分成 k 个非空的连续子数组。设计一个算法使得这 k 个子数组各自和的最大值最小。`,
+    desc: `请你返回 nums 中所有 交替 子数组中，最长的长度，如果不存在交替子数组，请你返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,24 +27,22 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 42,
-            memory: 16.49,
-            desc: '贪心',
+            time: 57,
+            memory: 16.51,
+            desc: '一次遍历，记录当前下标为结尾的最大值',
             code: `class Solution:
-    def maximumSwap(self, num: int) -> int:
-        arr = [[] for _ in range(10)]
-        lnum = list(int(c) for c in str(num))
-        for i in range(len(lnum)): arr[lnum[i]].append(i)
-        swap = False
-        for i in range(len(lnum)):
-            for num in range(9, -1, -1):
-                if lnum[i] >= num: break
-                while arr[num] and arr[num][-1] < i: arr[num].pop()
-                if arr[num]:
-                    lnum[i], lnum[arr[num][-1]] = lnum[arr[num][-1]], lnum[i]
-                    swap = True
-            if swap: break
-        return reduce(lambda sum, num: sum * 10 + num, lnum, 0)`,
+    def alternatingSubarray(self, nums: List[int]) -> int:
+        n = len(nums)
+        ans = res = 2 if nums[1] - nums[0] == 1 else 0
+        for i in range(2, n):
+            if res and nums[i] == nums[i - 2]:
+                res += 1
+            elif nums[i] - nums[i - 1] == 1:
+                res = 2
+            else:
+                res = 0
+            ans = max(ans, res)
+        return ans if ans else -1`,
         },
 
         //         {

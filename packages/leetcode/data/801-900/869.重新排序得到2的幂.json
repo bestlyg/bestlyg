@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/reordered-power-of-2",
     "difficulty": "中等",
     "tag": [
+        "哈希表",
         "数学",
         "计数",
         "枚举",

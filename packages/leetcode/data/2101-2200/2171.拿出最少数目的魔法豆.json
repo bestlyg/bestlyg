@@ -4,7 +4,9 @@
     "url": "https://leetcode.cn/problems/removing-minimum-number-of-magic-beans",
     "difficulty": "中等",
     "tag": [
+        "贪心",
         "数组",
+        "枚举",
         "前缀和",
         "排序"
     ],

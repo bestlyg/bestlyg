@@ -1,0 +1,21 @@
+{
+    "id": "2870",
+    "name": "2765.最长交替子数组",
+    "url": "https://leetcode.cn/problems/longest-alternating-subarray",
+    "difficulty": "简单",
+    "tag": [
+        "数组",
+        "枚举"
+    ],
+    "desc": "请你返回 nums 中所有 交替 子数组中，最长的长度，如果不存在交替子数组，请你返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 57,
+            "memory": 16.51,
+            "desc": "一次遍历，记录当前下标为结尾的最大值。",
+            "code": "class Solution:\n    def alternatingSubarray(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = res = 2 if nums[1] - nums[0] == 1 else 0\n        for i in range(2, n):\n            if res and nums[i] == nums[i - 2]:\n                res += 1\n            elif nums[i] - nums[i - 1] == 1:\n                res = 2\n            else:\n                res = 0\n            ans = max(ans, res)\n        return ans if ans else -1",
+            "date": 1705939200000
+        }
+    ]
+}
