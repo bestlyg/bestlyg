@@ -1,0 +1,21 @@
+{
+    "id": "3093",
+    "name": "2859.计算K置位下标对应元素的和",
+    "url": "https://leetcode.cn/problems/sum-of-values-at-indices-with-k-set-bits",
+    "difficulty": "简单",
+    "tag": [
+        "位运算",
+        "数组"
+    ],
+    "desc": "请你用整数形式返回 nums 中的特定元素之 和 ，这些特定元素满足：其对应下标的二进制表示中恰存在 k 个置位。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 42,
+            "memory": 16.55,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def sumIndicesWithKSetBits(self, nums: List[int], k: int) -> int:\n        return sum(nums[i] if bin(i).count('1') == k else 0 for i in range(len(nums)))",
+            "date": 1706112000000
+        }
+    ]
+}
