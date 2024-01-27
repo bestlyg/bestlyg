@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2859. 计算 K 置位下标对应元素的和',
-    url: 'https://leetcode.cn/problems/sum-of-values-at-indices-with-k-set-bits',
+    name: '2861. 最大合金数',
+    url: 'https://leetcode.cn/problems/maximum-number-of-alloys',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你用整数形式返回 nums 中的特定元素之 和 ，这些特定元素满足：其对应下标的二进制表示中恰存在 k 个置位。`,
+    desc: `给你整数 n、k、budget，下标从 1 开始的二维数组 composition，两个下标从 1 开始的数组 stock 和 cost，请你在预算不超过 budget 金钱的前提下，最大化 公司制造合金的数量。`,
     solutions: [
         // {
         //     date: new Date('2020.04.26').getTime(),
@@ -27,12 +27,22 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 42,
-            memory: 16.55,
-            desc: '遍历',
+            time: 695,
+            memory: 16.87,
+            desc: '二分',
             code: `class Solution:
-    def sumIndicesWithKSetBits(self, nums: List[int], k: int) -> int:
-        return sum(nums[i] if bin(i).count('1') == k else 0 for i in range(len(nums)))`,
+    def maxNumberOfAlloys(self, n: int, k: int, budget: int, composition: List[List[int]], stock: List[int], cost: List[int]) -> int:
+        def check(count: int, comp: List[int]) -> bool:
+            return sum(cost[i] * max(count * comp[i] - stock[i], 0) for i in range(n)) <= budget
+
+        l, r = 0, 10 ** 10
+        while l < r:
+            m = (l + r + 1) // 2
+            if any(check(m, comp) for comp in composition):
+                l = m
+            else:
+                r = m - 1
+        return l`,
         },
 
         //         {
