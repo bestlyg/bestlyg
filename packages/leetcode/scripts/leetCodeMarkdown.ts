@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2861. 最大合金数',
+    exist: true,
+    name: '365. 水壶问题',
     url: 'https://leetcode.cn/problems/maximum-number-of-alloys',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,22 +27,32 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 695,
-            memory: 16.87,
-            desc: '二分',
+            time: 2181,
+            memory: 67.66,
+            desc: 'bfs',
             code: `class Solution:
-    def maxNumberOfAlloys(self, n: int, k: int, budget: int, composition: List[List[int]], stock: List[int], cost: List[int]) -> int:
-        def check(count: int, comp: List[int]) -> bool:
-            return sum(cost[i] * max(count * comp[i] - stock[i], 0) for i in range(n)) <= budget
-
-        l, r = 0, 10 ** 10
-        while l < r:
-            m = (l + r + 1) // 2
-            if any(check(m, comp) for comp in composition):
-                l = m
-            else:
-                r = m - 1
-        return l`,
+    def canMeasureWater(self, jug1Capacity: int, jug2Capacity: int, targetCapacity: int) -> bool:
+        used = defaultdict(defaultdict)
+        q = deque()
+        q.append((0, 0))
+        used[0][0] = True
+        while q:
+            jug1, jug2 = q.popleft()
+            if jug1 == targetCapacity or jug2 == targetCapacity or jug1 + jug2 == targetCapacity:
+                return True
+            arr =[
+                [jug1Capacity, jug2],
+                [0, jug2],
+                [min(jug1Capacity, jug1 + jug2), jug2 - (min(jug1Capacity, jug1 + jug2) - jug1)],
+                [jug1, jug2Capacity],
+                [jug1, 0],
+                [jug1 - (min(jug2Capacity, jug1 + jug2) - jug2), min(jug2Capacity, jug1 + jug2)]
+            ]
+            for jug1, jug2 in arr:
+                if jug2 not in used[jug1]:
+                    q.append((jug1, jug2))
+                    used[jug1][jug2] = True
+        return False`,
         },
 
         //         {
@@ -66,13 +76,50 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        // {
-        //     script: Script.RUST,
-        //     time: 0,
-        //     memory: 2.11,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 441,
+            memory: 21.37,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn can_measure_water(jug1_capacity: i32, jug2_capacity: i32, target_capacity: i32) -> bool {
+        use std::cmp::min;
+        use std::collections::{HashMap, VecDeque};
+        let mut used: HashMap<i32, HashMap<i32, bool>> = Default::default();
+        let mut q: VecDeque<(i32, i32)> = Default::default();
+        q.push_back((0, 0));
+        used.entry(0).or_default().entry(0).or_insert(true);
+        while let Some((jug1, jug2)) = q.pop_front() {
+            if jug1 == target_capacity || jug2 == target_capacity || jug1 + jug2 == target_capacity
+            {
+                return true;
+            }
+            let next = [
+                [jug1_capacity, jug2],
+                [0, jug2],
+                [
+                    min(jug1_capacity, jug1 + jug2),
+                    jug2 - (min(jug1_capacity, jug1 + jug2) - jug1),
+                ],
+                [jug1, jug2_capacity],
+                [jug1, 0],
+                [
+                    jug1 - (min(jug2_capacity, jug1 + jug2) - jug2),
+                    min(jug2_capacity, jug1 + jug2),
+                ],
+            ];
+            for [jug1, jug2] in next {
+                let item = used.entry(jug1).or_default().entry(jug2).or_default();
+                if !*item {
+                    q.push_back((jug1, jug2));
+                    *item = true;
+                }
+            }
+        }
+        false
+    }
+}`,
+        },
     ],
 };
 
