@@ -2,7 +2,7 @@
     "id": "606",
     "name": "606.根据二叉树创建字符串",
     "url": "https://leetcode.cn/problems/construct-string-from-binary-tree",
-    "difficulty": "简单",
+    "difficulty": "中等",
     "tag": [
         "树",
         "深度优先搜索",

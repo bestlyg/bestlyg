@@ -1,0 +1,31 @@
+{
+    "id": "514",
+    "name": "514.自由之路",
+    "url": "https://leetcode.cn/problems/freedom-trail",
+    "difficulty": "困难",
+    "tag": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "字符串",
+        "动态规划"
+    ],
+    "desc": "给定一个字符串 ring ，表示刻在外环上的编码；给定另一个字符串 key ，表示需要拼写的关键词。您需要算出能够拼写关键词中所有字符的最少步数。",
+    "solutions": [
+        {
+            "date": 1605024000000,
+            "script": "javascript",
+            "time": 140,
+            "memory": 45.82,
+            "desc": "dp。",
+            "code": "const getIdx = (str, v) => str.codePointAt(v) - 'a'.codePointAt(0);\nvar findRotateSteps = function(ring, key) {\n    const n = ring.length, m = key.length;\n    const pos = new Array(26).fill(0).map(v => []);\n    for (let i = 0; i < n; ++i) {\n        pos[getIdx(ring, i)].push(i);\n    }\n    const dp = new Array(m).fill(0).map(v => new Array(n).fill(Number.MAX_SAFE_INTEGER));\n    for (const i of pos[getIdx(key, 0)]) {\n        dp[0][i] = Math.min(i, n - i) + 1;\n    }\n    for (let i = 1; i < m; ++i) {\n        for (const j of pos[getIdx(key, i)]) {\n            for (const k of pos[getIdx(key, i - 1)]) {\n                dp[i][j] = Math.min(dp[i][j], dp[i - 1][k] + Math.min(Math.abs(j - k), n - Math.abs(j - k)) + 1);\n            }\n        }\n    }\n    return dp[m - 1].reduce((pre, cur) => Math.min(pre, cur), Number.MAX_SAFE_INTEGER);\n};"
+        },
+        {
+            "script": "python",
+            "time": 108,
+            "memory": 17.4,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def findRotateSteps(self, ring: str, key: str) -> int:\n        arr = defaultdict(list)\n        for i in range(len(ring)):\n            arr[ring[i]].append(i)\n        @cache\n        def dfs(i1: int, i2: int) -> int:\n            if i2 == len(key): return 0\n            if ring[i1] == key[i2]: return dfs(i1, i2 + 1) + 1\n            return min(\n                dfs(next_i, i2 + 1) + min(abs(i1 - next_i), len(ring) - abs(i1 - next_i)) + 1\n                for next_i in arr[key[i2]]\n            )\n        return dfs(0, 0)",
+            "date": 1706457600000
+        }
+    ]
+}
