@@ -3,39 +3,20 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '514. 自由之路',
-    url: 'https://leetcode.cn/problems/freedom-trail',
+    name: '2808. 使循环数组所有元素相等的最少秒数',
+    url: 'https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定一个字符串 ring ，表示刻在外环上的编码；给定另一个字符串 key ，表示需要拼写的关键词。您需要算出能够拼写关键词中所有字符的最少步数。`,
+    desc: `请你返回将数组 nums 中所有元素变成相等元素所需要的 最少 秒数。`,
     solutions: [
-        {
-            date: new Date('2020.11.11').getTime(),
-            script: Script.JS,
-            time: 140,
-            memory: 45.82,
-            desc: 'dp',
-            code: `const getIdx = (str, v) => str.codePointAt(v) - 'a'.codePointAt(0);
-var findRotateSteps = function(ring, key) {
-    const n = ring.length, m = key.length;
-    const pos = new Array(26).fill(0).map(v => []);
-    for (let i = 0; i < n; ++i) {
-        pos[getIdx(ring, i)].push(i);
-    }
-    const dp = new Array(m).fill(0).map(v => new Array(n).fill(Number.MAX_SAFE_INTEGER));
-    for (const i of pos[getIdx(key, 0)]) {
-        dp[0][i] = Math.min(i, n - i) + 1;
-    }
-    for (let i = 1; i < m; ++i) {
-        for (const j of pos[getIdx(key, i)]) {
-            for (const k of pos[getIdx(key, i - 1)]) {
-                dp[i][j] = Math.min(dp[i][j], dp[i - 1][k] + Math.min(Math.abs(j - k), n - Math.abs(j - k)) + 1);
-            }
-        }
-    }
-    return dp[m - 1].reduce((pre, cur) => Math.min(pre, cur), Number.MAX_SAFE_INTEGER);
-};`,
-        },
+        // {
+        //     date: new Date('2020.11.11').getTime(),
+        //     script: Script.JS,
+        //     time: 140,
+        //     memory: 45.82,
+        //     desc: 'dp',
+        //     code: ``,
+        // },
         // {
         //     date: new Date('2020.07.25').getTime(),
         //     script: Script.TS,
@@ -46,23 +27,22 @@ var findRotateSteps = function(ring, key) {
         // },
         {
             script: Script.PY,
-            time: 108,
-            memory: 17.4,
-            desc: 'dfs',
+            time: 300,
+            memory: 48.3,
+            desc: '记录下标，判断下标之间的最大距离',
             code: `class Solution:
-    def findRotateSteps(self, ring: str, key: str) -> int:
-        arr = defaultdict(list)
-        for i in range(len(ring)):
-            arr[ring[i]].append(i)
-        @cache
-        def dfs(i1: int, i2: int) -> int:
-            if i2 == len(key): return 0
-            if ring[i1] == key[i2]: return dfs(i1, i2 + 1) + 1
-            return min(
-                dfs(next_i, i2 + 1) + min(abs(i1 - next_i), len(ring) - abs(i1 - next_i)) + 1
-                for next_i in arr[key[i2]]
-            )
-        return dfs(0, 0)`,
+    def minimumSeconds(self, nums: List[int]) -> int:
+        n = len(nums)
+        map = defaultdict(list)
+        for i in range(n):
+            map[nums[i]].append(i)
+        ans = inf
+        for arr in map.values():
+            cur = ceil((arr[0] + n - 1 - arr[-1]) / 2)
+            for i in range(1, len(arr)):
+                cur = max(cur, ceil((arr[i] - arr[i - 1] - 1) / 2))
+            ans = min(ans, cur)
+        return ans`,
         },
 
         //         {
@@ -86,13 +66,31 @@ var findRotateSteps = function(ring, key) {
         //     }
         // };`,
         //         },
-        // {
-        //     script: Script.RUST,
-        //     time: 441,
-        //     memory: 21.37,
-        //     desc: '同上',
-        //     code: ``,
-        // },
+        {
+            script: Script.RUST,
+            time: 53,
+            memory: 13.54,
+            desc: '同上',
+            code: `impl Solution {
+    pub fn minimum_seconds(nums: Vec<i32>) -> i32 {
+        let n = nums.len();
+        let mut map: std::collections::HashMap<i32, Vec<usize>> = Default::default();
+        for i in 0..n {
+            map.entry(nums[i]).or_default().push(i);
+        }
+        map.into_iter()
+            .map(|(_, arr)| {
+                let mut cur = ((arr[0] + n - 1 - arr.last().unwrap()) as f64 / 2.0).ceil() as i32;
+                for i in 1..arr.len() {
+                    cur = cur.max((((arr[i] - arr[i - 1] - 1) as f64) / 2.0).ceil() as i32);
+                }
+                cur
+            })
+            .min()
+            .unwrap()
+    }
+}`,
+        },
     ],
 };
 
