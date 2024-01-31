@@ -8,6 +8,7 @@ pub use std::collections::HashMap;
 pub use std::collections::VecDeque;
 pub use std::hash::Hash;
 pub use std::mem::swap;
+pub use std::ptr::swap;
 pub use std::{cell::RefCell, rc::Rc};
 
 #[derive(PartialEq, Eq, Clone, Debug)]
@@ -142,7 +143,6 @@ pub fn get_sums(arr: &Vec<i32>) -> Vec<i32> {
 }
 
 pub fn sort3(a: &mut i32, b: &mut i32, c: &mut i32) {
-    use std::ptr::swap;
     unsafe {
         if a > c {
             swap(a, c);

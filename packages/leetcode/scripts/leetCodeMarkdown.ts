@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2808. 使循环数组所有元素相等的最少秒数',
+    exist: true,
+    name: '2670. 找出不同元素数目差数组',
     url: 'https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array',
     difficulty: Difficulty.简单,
     tag: [],
@@ -31,18 +31,19 @@ const leetCodeMarkdown: Markdown = {
             memory: 48.3,
             desc: '记录下标，判断下标之间的最大距离',
             code: `class Solution:
-    def minimumSeconds(self, nums: List[int]) -> int:
-        n = len(nums)
-        map = defaultdict(list)
-        for i in range(n):
-            map[nums[i]].append(i)
-        ans = inf
-        for arr in map.values():
-            cur = ceil((arr[0] + n - 1 - arr[-1]) / 2)
-            for i in range(1, len(arr)):
-                cur = max(cur, ceil((arr[i] - arr[i - 1] - 1) / 2))
-            ans = min(ans, cur)
-        return ans`,
+    def distinctDifferenceArray(self, nums: List[int]) -> List[int]:
+        rdict = defaultdict(int)
+        for num in nums: rdict[num] += 1
+        cur = len(rdict)
+        res = []
+        ldict = defaultdict(int)
+        for num in nums:
+            rdict[num] -= 1
+            if rdict[num] == 0: cur -= 1
+            ldict[num] += 1
+            if ldict[num] == 1: cur -= 1
+            res.append(-cur)
+        return res`,
         },
 
         //         {
@@ -66,31 +67,13 @@ const leetCodeMarkdown: Markdown = {
         //     }
         // };`,
         //         },
-        {
-            script: Script.RUST,
-            time: 53,
-            memory: 13.54,
-            desc: '同上',
-            code: `impl Solution {
-    pub fn minimum_seconds(nums: Vec<i32>) -> i32 {
-        let n = nums.len();
-        let mut map: std::collections::HashMap<i32, Vec<usize>> = Default::default();
-        for i in 0..n {
-            map.entry(nums[i]).or_default().push(i);
-        }
-        map.into_iter()
-            .map(|(_, arr)| {
-                let mut cur = ((arr[0] + n - 1 - arr.last().unwrap()) as f64 / 2.0).ceil() as i32;
-                for i in 1..arr.len() {
-                    cur = cur.max((((arr[i] - arr[i - 1] - 1) as f64) / 2.0).ceil() as i32);
-                }
-                cur
-            })
-            .min()
-            .unwrap()
-    }
-}`,
-        },
+        // {
+        //     script: Script.RUST,
+        //     time: 53,
+        //     memory: 13.54,
+        //     desc: '同上',
+        //     code: ``,
+        // },
     ],
 };
 
