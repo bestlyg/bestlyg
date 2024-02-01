@@ -1,0 +1,22 @@
+{
+    "id": "1000131",
+    "name": "LCP24.数字游戏",
+    "url": "https://leetcode.cn/problems/5TxKeK",
+    "difficulty": "困难",
+    "tag": [
+        "数组",
+        "数学",
+        "堆（优先队列）"
+    ],
+    "desc": "主办方请小扣回答出一个长度为 N 的数组，第 i 个元素(0 <= i < N)表示将 0~i 号计数器 初始 所示数字操作成满足所有条件 nums[a]+1 == nums[a+1],(0 <= a < i) 的最小操作数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 248,
+            "memory": 34.91,
+            "desc": "依次递增转换为使每个数都保持一致的最小步数。",
+            "code": "class Solution:\n    def numsGame(self, nums: List[int]) -> List[int]:\n        lq = []\n        rq = []\n        res = []\n        rsum = lsum = 0\n        mod = 10 ** 9 + 7\n        for i in range(len(nums)):\n            num = nums[i] - i\n            if lq and -lq[0] >= num:\n                lsum += num\n                heappush(lq, -num)\n            else:\n                rsum += num\n                heappush(rq, num)\n            # print(f'lq = {lq}, lsum = {lsum}')\n            # print(f'rq = {rq}, rsum = {rsum}')\n            if len(lq) > len(rq):\n                num = -heappop(lq)\n                lsum -= num\n                rsum += num\n                heappush(rq, num)            \n            elif len(lq) < len(rq) - 1:\n                num = heappop(rq)\n                lsum += num\n                rsum -= num\n                heappush(lq, -num)\n            # print(f'lq = {lq}, lsum = {lsum}')\n            # print(f'rq = {rq}, rsum = {rsum}')\n            if (i + 1) % 2 == 0:\n                res.append((rsum - lsum) % mod)\n            else:\n                res.append((rsum - lsum - rq[0]) % mod)\n        return res",
+            "date": 1706716800000
+        }
+    ]
+}

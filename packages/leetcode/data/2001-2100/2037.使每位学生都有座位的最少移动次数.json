@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone",
     "difficulty": "简单",
     "tag": [
+        "贪心",
         "数组",
         "排序"
     ],
