@@ -25,6 +25,14 @@
             "script": "javascript",
             "desc": "统计。",
             "code": "function canWinNim(n: number): boolean {\n  return n % 4 !== 0;\n}"
+        },
+        {
+            "script": "python",
+            "time": 29,
+            "memory": 16.47,
+            "desc": "看谁能抢4。",
+            "code": "class Solution:\n    def canWinNim(self, n: int) -> bool:\n        return not not n % 4",
+            "date": 1706976000000
         }
     ]
 }

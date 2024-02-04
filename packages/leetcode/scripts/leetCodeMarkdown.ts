@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1686. 石子游戏 VI',
-    url: 'https://leetcode.cn/problems/stone-game-vi',
+    exist: true,
+    name: '292. Nim 游戏',
+    url: 'https://leetcode.cn/problems/stone-game-vii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `所有石子都被取完后，得分较高的人为胜者。如果两个玩家得分相同，那么为平局。两位玩家都会采用 最优策略 进行游戏。`,
+    desc: `给你一个整数数组 stones ，其中 stones[i] 表示 从左边开始 的第 i 个石头的值，如果爱丽丝和鲍勃都 发挥出最佳水平 ，请返回他们 得分的差值 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -27,17 +27,12 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 241,
-            memory: 27.69,
-            desc: '优先拿分数总和最大的',
+            time: 29,
+            memory: 16.47,
+            desc: '看谁能抢4',
             code: `class Solution:
-    def stoneGameVI(self, aliceValues: List[int], bobValues: List[int]) -> int:
-        values = sorted((av + bv, av, bv) for av, bv in zip(aliceValues, bobValues))
-        asum = sum(item[1] for item in values[-1::-2])
-        bsum = sum(item[2] for item in values[-2::-2])
-        if asum > bsum: return 1
-        if asum < bsum: return -1
-        return 0`,
+    def canWinNim(self, n: int) -> bool:
+        return not not n % 4`,
         },
 
         //         {

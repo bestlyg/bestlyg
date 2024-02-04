@@ -1,0 +1,17 @@
+{
+    "name": "1690.石子游戏VII",
+    "url": "https://leetcode.cn/problems/stone-game-vii",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个整数数组 stones ，其中 stones[i] 表示 从左边开始 的第 i 个石头的值，如果爱丽丝和鲍勃都 发挥出最佳水平 ，请返回他们 得分的差值 。",
+    "solutions": [
+        {
+            "date": 1706889600000,
+            "script": "python",
+            "time": 4980,
+            "memory": 349.04,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def stoneGameVII(self, stones: List[int]) -> int:\n        n = len(stones)\n        dp = [[0] * n for _ in range(n)]\n        sums = [0]\n        for stone in stones: sums.append(sums[-1] + stone)\n        @cache\n        def dfs(l: int, r: int, f: int) -> int:\n            if l == r: return 0\n            v1 = sums[r + 1] - sums[l + 1]\n            v2 = sums[r] - sums[l]\n            res1 = -dfs(l + 1, r, -f) \n            res2 = -dfs(l, r - 1, -f) \n            # print(f'l = {l}, r = {r}, f = {f}, v1 = {v1}, v2 = {v2} res1 = {res1}, res2 = {res2}, res = {f * max(res1 + v1, res2 + v2)}')\n            return max(res1 + v1, res2 + v2)\n        return dfs(0, n - 1, 1)"
+        }
+    ]
+}
