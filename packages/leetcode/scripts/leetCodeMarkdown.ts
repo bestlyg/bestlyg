@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '292. Nim 游戏',
-    url: 'https://leetcode.cn/problems/stone-game-vii',
+    exist: !true,
+    name: '1696. 跳跃游戏 VI',
+    url: 'https://leetcode.cn/problems/jump-game-vi',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 stones ，其中 stones[i] 表示 从左边开始 的第 i 个石头的值，如果爱丽丝和鲍勃都 发挥出最佳水平 ，请返回他们 得分的差值 。`,
+    desc: `你的目标是到达数组最后一个位置（下标为 n - 1 ），你的 得分 为经过的所有数字之和。请你返回你能得到的 最大得分 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -27,12 +27,22 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 29,
-            memory: 16.47,
-            desc: '看谁能抢4',
+            time: 192,
+            memory: 28.7,
+            desc: '单调队列',
             code: `class Solution:
-    def canWinNim(self, n: int) -> bool:
-        return not not n % 4`,
+    def maxResult(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        dp = [0] * n
+        q = deque()
+        for i in range(n):
+            dp[i] += nums[i]
+            while q and q[0] < i - k: q.popleft()
+            if q: dp[i] += dp[q[0]]
+            while q and dp[q[-1]] <= dp[i]: q.pop()
+            q.append(i)
+            # print(f'i = {i}, q = {q}, dp = {dp}')
+        return dp[-1]`,
         },
 
         //         {

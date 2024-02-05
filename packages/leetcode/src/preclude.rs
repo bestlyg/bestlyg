@@ -8,7 +8,6 @@ pub use std::collections::HashMap;
 pub use std::collections::VecDeque;
 pub use std::hash::Hash;
 pub use std::mem::swap;
-pub use std::ptr::swap;
 pub use std::{cell::RefCell, rc::Rc};
 
 #[derive(PartialEq, Eq, Clone, Debug)]

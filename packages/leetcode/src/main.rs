@@ -12,21 +12,30 @@ fn main() {
 }
 
 impl Solution {
-    pub fn minimum_seconds(nums: Vec<i32>) -> i32 {
+    pub fn max_result(mut nums: Vec<i32>, k: i32) -> i32 {
+        let k = k as usize;
         let n = nums.len();
-        let mut map: std::collections::HashMap<i32, Vec<usize>> = Default::default();
+        let mut q = std::collections::VecDeque::<usize>::new();
         for i in 0..n {
-            map.entry(nums[i]).or_default().push(i);
-        }
-        map.into_iter()
-            .map(|(_, arr)| {
-                let mut cur = ((arr[0] + n - 1 - arr.last().unwrap()) as f64 / 2.0).ceil() as i32;
-                for i in 1..arr.len() {
-                    cur = cur.max((((arr[i] - arr[i - 1] - 1) as f64) / 2.0) as i32);
+            while let Some(front) = q.front() {
+                if *front < i - k {
+                    q.pop_front();
+                } else {
+                    break;
                 }
-                cur
-            })
-            .min()
-            .unwrap()
+            }
+            if let Some(front) = q.front() {
+                nums[i] += nums[*front];
+            }
+            while let Some(back) = q.back() {
+                if nums[*back] <= nums[i] {
+                    q.pop_back();
+                } else {
+                    break;
+                }
+            }
+            q.push_back(i);
+        }
+        *nums.last().unwrap()
     }
 }
