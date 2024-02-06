@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1696. 跳跃游戏 VI',
-    url: 'https://leetcode.cn/problems/jump-game-vi',
+    name: 'LCP 30. 魔塔游戏',
+    url: 'https://leetcode.cn/problems/p0NxJO/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `你的目标是到达数组最后一个位置（下标为 n - 1 ），你的 得分 为经过的所有数字之和。请你返回你能得到的 最大得分 。`,
+    desc: `小扣初始血量为 1，且无上限。假定小扣原计划按房间编号升序访问所有房间补血/打怪，为保证血量始终为正值，小扣需对房间访问顺序进行调整，每次仅能将一个怪物房间（负数的房间）调整至访问顺序末尾。请返回小扣最少需要调整几次，才能顺利访问所有房间。若调整顺序也无法访问完全部房间，请返回 -1。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -27,22 +27,24 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 192,
-            memory: 28.7,
-            desc: '单调队列',
+            time: 109,
+            memory: 30.9,
+            desc: '对遍历过的负数进行记录，如果打不过，就拿出前面最大的负数放到后面',
             code: `class Solution:
-    def maxResult(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        dp = [0] * n
-        q = deque()
-        for i in range(n):
-            dp[i] += nums[i]
-            while q and q[0] < i - k: q.popleft()
-            if q: dp[i] += dp[q[0]]
-            while q and dp[q[-1]] <= dp[i]: q.pop()
-            q.append(i)
-            # print(f'i = {i}, q = {q}, dp = {dp}')
-        return dp[-1]`,
+    def magicTower(self, nums: List[int]) -> int:
+        q = []
+        cur = 1
+        ans = sum = 0
+        for num in nums:
+            if num < 0: heappush(q, num)
+            while q and cur <= -num:
+                ans += 1
+                top = heappop(q)
+                cur -= top
+                sum += top
+            if cur <= -num: return -1
+            cur += num
+        return ans if cur > -sum else -1`,
         },
 
         //         {
