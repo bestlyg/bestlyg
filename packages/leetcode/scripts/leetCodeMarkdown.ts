@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: 'LCP 30. 魔塔游戏',
-    url: 'https://leetcode.cn/problems/p0NxJO/',
+    name: '2641. 二叉树的堂兄弟节点 II',
+    url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `小扣初始血量为 1，且无上限。假定小扣原计划按房间编号升序访问所有房间补血/打怪，为保证血量始终为正值，小扣需对房间访问顺序进行调整，每次仅能将一个怪物房间（负数的房间）调整至访问顺序末尾。请返回小扣最少需要调整几次，才能顺利访问所有房间。若调整顺序也无法访问完全部房间，请返回 -1。`,
+    desc: `给你一棵二叉树的根 root ，请你将每个节点的值替换成该节点的所有 堂兄弟节点值的和 。如果两个节点在树中有相同的深度且它们的父节点不同，那么它们互为 堂兄弟 。请你返回修改值之后，树的根 root 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -27,24 +27,41 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            time: 109,
-            memory: 30.9,
-            desc: '对遍历过的负数进行记录，如果打不过，就拿出前面最大的负数放到后面',
+            date: new Date('2024.02.07').getTime(),
+            time: 41,
+            memory: 16.5,
+            desc: 'bfs时当记录完一层的节点后进行遍历处理',
             code: `class Solution:
-    def magicTower(self, nums: List[int]) -> int:
-        q = []
-        cur = 1
-        ans = sum = 0
-        for num in nums:
-            if num < 0: heappush(q, num)
-            while q and cur <= -num:
-                ans += 1
-                top = heappop(q)
-                cur -= top
-                sum += top
-            if cur <= -num: return -1
-            cur += num
-        return ans if cur > -sum else -1`,
+    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        root.val = 0
+        map = {}
+        q = deque()
+        q.append(root)
+        size = 1
+        sum = 0
+        while q:
+            node = q.popleft()
+            if node.left:
+                map[node.left] = node
+                q.append(node.left)
+                sum += node.left.val
+            if node.right: 
+                map[node.right] = node
+                q.append(node.right)
+                sum += node.right.val
+            size -= 1
+            if size == 0:
+                nums = []
+                for child in q:
+                    csum = 0
+                    if map[child].left: csum += map[child].left.val
+                    if map[child].right: csum += map[child].right.val
+                    nums.append(sum - csum)
+                for i in range(len(q)):
+                    q[i].val = nums[i]
+                sum = 0
+                size = len(q)
+        return root`,
         },
 
         //         {

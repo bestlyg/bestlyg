@@ -26,6 +26,14 @@
             "script": "typescript",
             "desc": "dfs。",
             "code": "function isCousins(root: TreeNode | null, x: number, y: number): boolean {\n  const map = new Map<number, { parent: TreeNode | null; level: number }>();\n  dfs();\n  const xNode = map.get(x)!;\n  const yNode = map.get(y)!;\n  return xNode.level === yNode.level && xNode.parent !== yNode.parent;\n  function dfs(node: TreeNode | null = root, level = 0, parent: TreeNode | null = null) {\n    if (node === null) return;\n    map.set(node.val, {\n      parent,\n      level,\n    });\n    dfs(node.left, level + 1, node);\n    dfs(node.right, level + 1, node);\n  }\n}"
+        },
+        {
+            "script": "python",
+            "date": 1707321600000,
+            "time": 41,
+            "memory": 16.5,
+            "desc": "遍历记录父亲和level。",
+            "code": "class Solution:\n    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:\n        map = {}\n        xlevel = ylevel = 0\n        xnode, ynode = None, None\n        def dfs(node: Optional[TreeNode], level = 0):\n            nonlocal xnode, ynode, xlevel, ylevel\n            if not node: return\n            if node.val == x:\n                xnode = node\n                xlevel = level\n            if node.val == y:\n                ynode = node\n                ylevel = level\n            if node.left:\n                map[node.left] = node\n                dfs(node.left, level + 1)\n            if node.right:\n                map[node.right] = node\n                dfs(node.right, level + 1)\n        dfs(root)\n        if xlevel != ylevel: return False\n        if map[xnode] == map[ynode]: return False\n        return True"
         }
     ]
 }
