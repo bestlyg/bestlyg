@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2641. 二叉树的堂兄弟节点 II',
+    exist: true,
+    name: '94. 二叉树的中序遍历',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -27,41 +27,20 @@ const leetCodeMarkdown: Markdown = {
         // },
         {
             script: Script.PY,
-            date: new Date('2024.02.07').getTime(),
-            time: 41,
-            memory: 16.5,
-            desc: 'bfs时当记录完一层的节点后进行遍历处理',
+            // date: new Date('2024.02.07').getTime(),
+            time: 38,
+            memory: 16.41,
+            desc: 'dfs',
             code: `class Solution:
-    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        root.val = 0
-        map = {}
-        q = deque()
-        q.append(root)
-        size = 1
-        sum = 0
-        while q:
-            node = q.popleft()
-            if node.left:
-                map[node.left] = node
-                q.append(node.left)
-                sum += node.left.val
-            if node.right: 
-                map[node.right] = node
-                q.append(node.right)
-                sum += node.right.val
-            size -= 1
-            if size == 0:
-                nums = []
-                for child in q:
-                    csum = 0
-                    if map[child].left: csum += map[child].left.val
-                    if map[child].right: csum += map[child].right.val
-                    nums.append(sum - csum)
-                for i in range(len(q)):
-                    q[i].val = nums[i]
-                sum = 0
-                size = len(q)
-        return root`,
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        arr = []
+        def dfs(node: Optional[TreeNode]):
+            if not node: return
+            dfs(node.left)
+            arr.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return arr`,
         },
 
         //         {
