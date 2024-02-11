@@ -1,0 +1,45 @@
+{
+    "extension": {
+        "meta": {
+            "name": "@best-style/<%= vars.name %>",
+            "main": "lib/index.js",
+            "module": "es/index.js",
+            "typings": "es/index.d.ts",
+            "unpkg": "dist/<%= vars.name %>.min.js",
+            "scripts": {
+                "build": "father build",
+                "extend-package-json": "extend-package-json"
+            },
+            "description": "A <%= vars.name %> of best style.",
+            "keywords": [
+                "best",
+                "bestlyg",
+                "component",
+                "components",
+                "style",
+                "framework",
+                "frontend",
+                "react",
+                "react-component",
+                "ui",
+                "<%= vars.name %>"
+            ],
+            "contributors": ["bestlyg@foxmail.com"],
+            "homepage": "https://bestlyg.com",
+            "bugs": {
+                "url": "https://github.com/bestlyg/best-style/issues"
+            },
+            "repository": {
+                "type": "git",
+                "url": "https://github.com/bestlyg/best-style"
+            },
+            "license": "MIT",
+            "sideEffects": ["**/*.css", "**/*.less", "**/*.sass", "**/*.scss"],
+            "publishConfig": {
+                "access": "public",
+                "registry": "https://registry.npmjs.org/"
+            },
+            "files": ["dist", "es", "lib", "src", "package.json", "README.md"]
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "less-plugins",
+  "private": true,
+  "homepage": "https://github.com/bestlyg/less-plugins",
+  "author": "BestLyg",
+  "scripts": {
+    "clean": "rimraf ./node_modules",
+    "extend-package-json": "pnpm -r run extend-package-json",
+    "setup": "pnpm -r run clean && pnpm clean && pnpm install --force"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "@types/node": "^20.8.9"
+  }
+}

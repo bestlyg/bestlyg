@@ -1,0 +1,60 @@
+{
+    "extension": {
+        "meta": {
+            "name": "@best-design/<%= vars.name %>",
+            "main": "lib/index.js",
+            "module": "es/index.js",
+            "typings": "es/index.d.ts",
+            "unpkg": "dist/<%= vars.name %>.min.js",
+            "scripts": {
+                "build": "father build",
+                "storybook": "BEST_DESIGN_DEMO_COMPONENT=<%= vars.type %>/<%= vars.name %> pnpm -w storybook",
+                "extend-package-json": "extend-package-json"
+            },
+            "description": "A best react ui components for <%= vars.name %>.",
+            "keywords": [
+                "best",
+                "bestlyg",
+                "component",
+                "components",
+                "design",
+                "framework",
+                "frontend",
+                "react",
+                "react-component",
+                "ui",
+                "<%= vars.name %>"
+            ],
+            "contributors": ["bestlyg@foxmail.com"],
+            "homepage": "https://bestlyg.com",
+            "bugs": {
+                "url": "https://github.com/bestlyg/best-design/issues"
+            },
+            "repository": {
+                "type": "git",
+                "url": "https://github.com/bestlyg/best-design"
+            },
+            "license": "MIT",
+            "devDependencies": {
+                "@best-design/tools": "workspace:^",
+                "@emotion/hash": "^0.9.1",
+                "@types/react": "^18.2.22",
+                "@types/react-dom": "^18.2.7",
+                "eslint-plugin-prettier": "^4.2.1",
+                "less-plugin-get-package": "^0.0.1",
+                "package-json-extension": "^0.0.5",
+                "father": "^4.3.7",
+                "react": "^18.2.0",
+                "react-dom": "^18.2.0",
+                "rimraf": "^3.0.2",
+                "typescript": "^5.0.4"
+            },
+            "sideEffects": ["**/*.css", "**/*.less", "**/*.sass", "**/*.scss"],
+            "publishConfig": {
+                "access": "public",
+                "registry": "https://registry.npmjs.org/"
+            },
+            "files": ["dist", "es", "lib", "src", "package.json", "README.md"]
+        }
+    }
+}

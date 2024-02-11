@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "allowJs": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "noImplicitAny": false,
+    "declaration": true,
+    "target": "es5",
+    "types": ["node"]
+  },
+  "exclude": ["node_modules", "lib/**/*"]
+}

@@ -1,0 +1,50 @@
+{
+    "name": "package-json-extension",
+    "version": "0.0.5",
+    "description": "Extend your package json.",
+    "homepage": "https://github.com/bestlyg/package-json-extension",
+    "author": "BestLyg",
+    "bin": {
+        "extend-package-json": "./bin/extend-package-json.js"
+    },
+    "main": "lib/index.js",
+    "scripts": {
+        "clean": "rimraf ./lib ./node_modules",
+        "build": "tsc -p tsconfig.json",
+        "dev": "tsc -p tsconfig.json --watch",
+        "test": "node ./tests",
+        "extend": "extend-package-json",
+        "prepublishOnly": "pnpm build"
+    },
+    "keywords": [
+        "package",
+        "package-json",
+        "extend",
+        "extends",
+        "extension"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/bestlyg/package-json-extension.git"
+    },
+    "devDependencies": {
+        "@types/node": "^20.8.9",
+        "package-json-extension": "^0.0.3",
+        "rimraf": "^5.0.5",
+        "tslib": "^2.6.2",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "chalk": "4",
+        "commander": "^11.1.0",
+        "fs-extra": "^11.1.1",
+        "lodash": "^4.17.21"
+    },
+    "files": [
+        "bin",
+        "lib",
+        "package.json",
+        "README.md"
+    ]
+}

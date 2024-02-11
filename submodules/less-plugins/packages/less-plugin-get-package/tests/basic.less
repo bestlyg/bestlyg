@@ -1,0 +1,7 @@
+@plugin "../lib/index.js";
+
+@version: getPackage('', 'version', 'require("@emotion/hash").default');
+
+body[data-v=~'"@{version}"'] {
+    width: 300px;
+}

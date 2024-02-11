@@ -1,0 +1,90 @@
+{
+    "extension": {
+        "extends": [
+            "../../package.base.json"
+        ],
+        "vars": {
+            "name": "core",
+            "type": "packages"
+        }
+    },
+    "name": "@best-style/core",
+    "version": "1.0.0",
+    "main": "lib/index.js",
+    "scripts": {
+        "clean": "rm -rf node_modules dist es lib",
+        "build": "father build",
+        "extend-package-json": "extend-package-json",
+        "storybook": "BEST_STYLE_DEMO_COMPONENT=packages/core pnpm -w storybook"
+    },
+    "keywords": [
+        "best",
+        "bestlyg",
+        "component",
+        "components",
+        "style",
+        "framework",
+        "frontend",
+        "react",
+        "react-component",
+        "ui",
+        "core"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@emotion/hash": "^0.9.1",
+        "@types/node": "^20.10.5",
+        "@types/react": "^18.2.22",
+        "@types/react-dom": "^18.2.7",
+        "eslint-plugin-prettier": "^4.2.1",
+        "father": "^4.3.8",
+        "less-plugin-get-package": "^0.0.1",
+        "package-json-extension": "^0.0.5",
+        "prettier": "^2.8.8",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "rimraf": "^3.0.2",
+        "typescript": "^5.3.3"
+    },
+    "contributors": [
+        "bestlyg@foxmail.com"
+    ],
+    "module": "es/index.js",
+    "typings": "es/index.d.ts",
+    "unpkg": "dist/core.min.js",
+    "homepage": "https://bestlyg.com",
+    "bugs": {
+        "url": "https://github.com/bestlyg/best-style/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bestlyg/best-style"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
+    "files": [
+        "dist",
+        "es",
+        "lib",
+        "src",
+        "package.json",
+        "README.md"
+    ],
+    "peerDependencies": {
+        "react": ">=16.9.0",
+        "react-dom": ">=16.9.0"
+    },
+    "sideEffects": [
+        "**/*.css",
+        "**/*.less",
+        "**/*.sass",
+        "**/*.scss"
+    ],
+    "description": "A core of best style.",
+    "dependencies": {
+        "@emotion/unitless": "^0.8.1"
+    }
+}

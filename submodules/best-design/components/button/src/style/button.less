@@ -1,0 +1,22 @@
+@import '~@best-design/core/es/style/preclude.less';
+@plugin '~less-plugin-get-package';
+
+@VERSION_BEST_DESIGN_BUTTON: getPackage('', 'version', 'require("@emotion/hash").default');
+@button-name: button;
+@button-prefix: get_prefix(@button-name);
+
+.@{button-prefix}[data-v=~'"@{VERSION_BEST_DESIGN_BUTTON}"'] {
+    // .load-css-vars(@button-vars, button);
+    height: v(size-7);
+    display: inline-block;
+    position: relative;
+    outline: none;
+    font-weight: v(font-weight-400);
+    appearance: none;
+    user-select: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all v(transition-duration-1) v(transition-timing-function-linear);
+    box-sizing: border-box;
+    line-height: v(line-height-base);
+}
