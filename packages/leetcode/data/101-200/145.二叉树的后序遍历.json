@@ -58,6 +58,14 @@
             "script": "c",
             "desc": "递归。",
             "code": "// 先递归左，再递归右，再计算当前节点\nvoid order(struct TreeNode *root, int *arr, int *idx){\n    if (!root) return ;\n    order(root->left, arr, idx);\n    order(root->right, arr, idx);\n    arr[(*idx)++] = root->val;\n}\nint* postorderTraversal(struct TreeNode* root, int* returnSize){\n    int *arr = (int *)malloc(sizeof(int) * 100);\n    *returnSize = 0;\n    order(root, arr, returnSize);\n    return arr;\n}"
+        },
+        {
+            "script": "python",
+            "time": 42,
+            "memory": 16.4,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:\n        if not root: return []\n        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]",
+            "date": 1707667200000
         }
     ]
 }
