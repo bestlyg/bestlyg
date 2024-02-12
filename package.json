@@ -2,9 +2,11 @@
     "name": "bestlyg",
     "version": "1.0.0",
     "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
+    },
     "scripts": {
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
@@ -28,6 +30,9 @@
         "ho": "pnpm run haizei:oj"
     },
     "devDependencies": {
+        "@changesets/cli": "2.24.1",
+        "@commitlint/cli": "^17.8.1",
+        "@commitlint/config-conventional": "^17.8.1",
         "@types/axios": "^0.14.0",
         "@types/cheerio": "^0.22.31",
         "@types/fs-extra": "^9.0.13",
