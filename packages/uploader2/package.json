@@ -1,0 +1,39 @@
+{
+    "name": "uploader2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "father build"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.11.17",
+        "father": "^4.4.0"
+    },
+    "contributors": [
+        "bestlyg@foxmail.com"
+    ],
+    "module": "es/index.js",
+    "typings": "es/index.d.ts",
+    "unpkg": "dist/core.min.js",
+    "homepage": "https://bestlyg.com",
+    "bugs": {
+        "url": "https://github.com/bestlyg/bestlyg/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bestlyg/bestlyg"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
+    "files": [
+        "dist",
+        "es",
+        "lib",
+        "package.json",
+        "README.md"
+    ]
+}

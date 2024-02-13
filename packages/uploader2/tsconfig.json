@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "noUnusedLocals": true,
+        "downlevelIteration": true,
+        "noUnusedParameters": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "declaration": true,
+        "jsx": "react-jsx",
+        "module": "ESNext",
+        "target": "ESNext",
+        "lib": ["ESNext", "dom"],
+        "isolatedModules": true,
+        "types": ["node"],
+        "strictNullChecks": true
+    },
+    "include": [
+        "src/**/*.ts",
+    ],
+    "exclude": ["node_modules"]
+}
