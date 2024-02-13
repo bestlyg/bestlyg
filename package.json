@@ -33,6 +33,11 @@
         "@changesets/cli": "2.24.1",
         "@commitlint/cli": "^17.8.1",
         "@commitlint/config-conventional": "^17.8.1",
+        "@nx/eslint": "18.0.4",
+        "@nx/jest": "18.0.4",
+        "@nx/storybook": "18.0.4",
+        "@nx/web": "18.0.4",
+        "@nx/webpack": "18.0.4",
         "@types/axios": "^0.14.0",
         "@types/cheerio": "^0.22.31",
         "@types/fs-extra": "^9.0.13",
@@ -41,12 +46,18 @@
         "chalk": "4",
         "cheerio": "1.0.0-rc.12",
         "dayjs": "^1.11.3",
+        "eslint": "~8.48.0",
         "fs-extra": "^10.1.0",
         "git-cz": "^4.9.0",
+        "jest": "^29.4.1",
         "lodash": "^4.17.21",
         "minimist": "^1.2.6",
+        "nx": "18.0.4",
         "rimraf": "^3.0.2",
         "shelljs": "^0.8.5",
-        "ts-node": "^10.8.2"
-    }
+        "storybook": "^7.5.3",
+        "ts-node": "^10.8.2",
+        "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {}
 }

@@ -13,3 +13,7 @@ target
 *.o
 # databases
 databases
+
+.nx/cache
+
+storybook-static

@@ -15,8 +15,8 @@
         "format": "pretty-quick --staged",
         "commit": "cz",
         "commit:auto": "git add -A && pnpm commit",
-        "storybook": "storybook dev -p 6006 --no-open",
-        "build-storybook": "storybook build",
+        "storybook": "nx storybook -p 6006 --no-open",
+        "build-storybook": "nx build-storybook",
         "test": "jest",
         "test:coverage": "pnpm build && jest --coverage",
         "check": "ts-node scripts/check.ts",
@@ -95,5 +95,8 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
+    },
+    "nx": {
+        "includedScripts": []
     }
 }
