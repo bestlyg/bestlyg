@@ -27,6 +27,14 @@
             "script": "typescript",
             "desc": "哈希存储。",
             "code": "function verticalTraversal(root: TreeNode | null): number[][] {\n  if (root === null) return [];\n  const map = new Map<number, [number, number][]>();\n  dfs(root);\n  return Array.from(map.entries())\n    .sort(([a], [b]) => a - b)\n    .map(([, arr]) =>\n      arr\n        .sort(([num1, row1], [num2, row2]) => (row1 === row2 ? num1 - num2 : row1 - row2))\n        .map(([num]) => num)\n    );\n  function dfs(node: TreeNode | null, row = 0, col = 0) {\n    if (node === null) return;\n    let arr = map.get(col);\n    if (!arr) map.set(col, (arr = []));\n    arr.push([node.val, row]);\n    dfs(node.left, row + 1, col - 1);\n    dfs(node.right, row + 1, col + 1);\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 49,
+            "memory": 16.71,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:\n        map = defaultdict(defaultdict)\n        def dfs(node: Optional[TreeNode], row: int, col: int):\n            if not node: return\n            if row not in map[col]: map[col][row] = []\n            map[col][row].append(node.val)\n            if node.left: dfs(node.left, row + 1, col - 1)\n            if node.right: dfs(node.right, row + 1, col + 1)\n        dfs(root, 0, 0)\n        arr = []\n        for _, cols in sorted(map.items()):\n            item = []\n            for _, values in sorted(cols.items()):\n                item += sorted(values)\n            arr.append(item)\n        return arr",
+            "date": 1707753600000
         }
     ]
 }

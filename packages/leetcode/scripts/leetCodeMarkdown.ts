@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '145. 二叉树的后序遍历',
+    name: '987. 二叉树的垂序遍历',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,13 +28,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 42,
-            memory: 16.4,
+            time: 49,
+            memory: 16.71,
             desc: 'dfs',
             code: `class Solution:
-    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if not root: return []
-        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]`,
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        map = defaultdict(defaultdict)
+        def dfs(node: Optional[TreeNode], row: int, col: int):
+            if not node: return
+            if row not in map[col]: map[col][row] = []
+            map[col][row].append(node.val)
+            if node.left: dfs(node.left, row + 1, col - 1)
+            if node.right: dfs(node.right, row + 1, col + 1)
+        dfs(root, 0, 0)
+        arr = []
+        for _, cols in sorted(map.items()):
+            item = []
+            for _, values in sorted(cols.items()):
+                item += sorted(values)
+            arr.append(item)
+        return arr`,
         },
 
         //         {
