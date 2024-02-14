@@ -41,6 +41,14 @@
             "script": "c",
             "desc": "递归。",
             "code": "#define MAX 2000\nint** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){\n    int **arr = (int **)malloc(sizeof(int) * MAX);\n    *returnSize = 0;\n    *returnColumnSizes = (int *)malloc(sizeof(int) * MAX);\n    if (!root) return arr;\n    // 维护队列储存节点信息\n    struct TreeNode *q[2000];\n    q[0] = root;\n    // 维护队列头尾指针\n    int head = 0, tail = 1;\n    // 维护当前层的元素数量，当前遍历的层级\n    int size = 1, height = 1;\n    arr[0] = (int *)malloc(sizeof(int));\n    arr[0][0] = root->val;\n    (*returnColumnSizes)[0] = 1;\n    while (head != tail) {\n        // 每次出队一个节点\n        struct TreeNode *node = q[head++];\n        // 若左节点不为空则入队\n        if (node->left) q[tail++] = node->left;\n        // 若右节点不为空则入队\n        if (node->right) q[tail++] = node->right;\n        // 若当前层无元素，说明队列里都是下一层的元素\n        if (--size == 0) {\n            size = tail - head;\n            *returnSize += 1;\n            (*returnColumnSizes)[height] = size;\n            arr[height] = (int *)malloc(sizeof(int) * size);\n            for(int i = head; i < tail; i++) arr[height][i - head] = q[i]->val;\n            height++;\n        }\n    }\n    return arr;\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 17.13,
+            "desc": "bfs。",
+            "code": "class Solution:\n    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:\n        if not root: return []\n        q = deque() \n        q.append(root)\n        size = 1\n        ans = [[root.val]]\n        while q:\n            node = q.popleft()\n            if node.left: q.append(node.left)\n            if node.right: q.append(node.right)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if q: ans.append([node.val for node in q])\n        return ans",
+            "date": 1707840000000
         }
     ]
 }

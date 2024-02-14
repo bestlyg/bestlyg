@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '987. 二叉树的垂序遍历',
+    name: '102. 二叉树的层序遍历',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,26 +28,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 49,
-            memory: 16.71,
-            desc: 'dfs',
+            time: 44,
+            memory: 17.13,
+            desc: 'bfs',
             code: `class Solution:
-    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
-        map = defaultdict(defaultdict)
-        def dfs(node: Optional[TreeNode], row: int, col: int):
-            if not node: return
-            if row not in map[col]: map[col][row] = []
-            map[col][row].append(node.val)
-            if node.left: dfs(node.left, row + 1, col - 1)
-            if node.right: dfs(node.right, row + 1, col + 1)
-        dfs(root, 0, 0)
-        arr = []
-        for _, cols in sorted(map.items()):
-            item = []
-            for _, values in sorted(cols.items()):
-                item += sorted(values)
-            arr.append(item)
-        return arr`,
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root: return []
+        q = deque() 
+        q.append(root)
+        size = 1
+        ans = [[root.val]]
+        while q:
+            node = q.popleft()
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+            size -= 1
+            if size == 0:
+                size = len(q)
+                if q: ans.append([node.val for node in q])
+        return ans`,
         },
 
         //         {
