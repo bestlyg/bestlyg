@@ -16,6 +16,14 @@
             "script": "cpp",
             "desc": "层序遍历。",
             "code": "class Solution {\n   public:\n    vector<vector<int>> levelOrder(Node *root) {\n        vector<vector<int>> ans;\n        if (!root) return ans;\n        queue<Node *> q;\n        q.push(root);\n        int size = 1;\n        vector<int> cur;\n        while (q.size()) {\n            Node *node = q.front();\n            q.pop();\n            cur.push_back(node->val);\n            for (auto child : node->children) q.push(child);\n            if (--size == 0) {\n                size = q.size();\n                ans.push_back(cur);\n                cur.clear();\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 54,
+            "memory": 18.05,
+            "desc": "bfs。",
+            "code": "class Solution:\n    def levelOrder(self, root: 'Node') -> List[List[int]]:\n        if not root: return []\n        q = deque() \n        q.append(root)\n        size = 1\n        ans = [[root.val]]\n        while q:\n            node = q.popleft()\n            for child in node.children: q.append(child)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if q: ans.append([node.val for node in q])\n        return ans",
+            "date": 1708099200000
         }
     ]
 }

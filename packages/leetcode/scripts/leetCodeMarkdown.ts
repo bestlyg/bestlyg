@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '103. 二叉树的锯齿形层序遍历',
+    name: '429. N 叉树的层序遍历',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,11 +28,11 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.66,
+            time: 54,
+            memory: 18.05,
             desc: 'bfs',
             code: `class Solution:
-    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
         if not root: return []
         q = deque() 
         q.append(root)
@@ -40,14 +40,11 @@ const leetCodeMarkdown: Markdown = {
         ans = [[root.val]]
         while q:
             node = q.popleft()
-            if node.left: q.append(node.left)
-            if node.right: q.append(node.right)
+            for child in node.children: q.append(child)
             size -= 1
             if size == 0:
                 size = len(q)
                 if q: ans.append([node.val for node in q])
-        for i in range(1, len(ans), 2):
-            ans[i] = ans[i][::-1]
         return ans`,
         },
 
