@@ -35,5 +35,10 @@
         "lib",
         "package.json",
         "README.md"
-    ]
+    ],
+    "dependencies": {
+        "events": "^3.3.0",
+        "p-limit": "^5.0.0",
+        "p-queue": "^8.0.1"
+    }
 }
