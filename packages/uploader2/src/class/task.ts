@@ -1,13 +1,12 @@
 import EventEmitter from 'events';
 import pLimit from 'p-limit';
 
-export interface TaskConfig {}
-export const defaultTaskConfig: TaskConfig = {};
-export interface TaskLike {
-    execFn: () => void | null;
+export interface TaskConfig {
+    execFn: () => void;
 }
-export class Task extends EventEmitter implements TaskLike {
-    constructor(config?: TaskConfig) {
+export const defaultTaskConfig: Partial<TaskConfig> = {};
+export class Task extends EventEmitter {
+    constructor(config: TaskConfig) {
         super();
         config = Object.assign({}, defaultTaskConfig, config);
     }
@@ -20,12 +19,12 @@ export const defaultTaskPoolConfig: TaskPoolConfig = {
     poolParams: [5],
 };
 export interface TaskPoolLike {
-    addTask: (task: TaskLike) => void;
-    removeTask: (task: TaskLike) => void;
+    addTask: (task: Task) => void;
+    removeTask: (task: Task) => void;
 }
 export class TaskPool extends EventEmitter implements TaskPoolLike {
     pLimit: ReturnType<typeof pLimit>;
-    list: Function[] = [];
+    tasks = new Set<Task>();
     constructor(config?: TaskPoolConfig) {
         super();
         config = Object.assign({}, defaultTaskPoolConfig, config);
@@ -33,11 +32,10 @@ export class TaskPool extends EventEmitter implements TaskPoolLike {
             ...((config.poolParams ?? []) as NonNullable<TaskPoolConfig['poolParams']>)
         );
     }
-    addTask(task: TaskLike) {
-        const execFn = () => {
-            console.log('run task', task);
-        };
-        this.list.push(execFn);
-        this.pLimit(execFn);
+    addTask(task: Task) {
+        this.tasks.add(task);
+    }
+    removeTask(task: Task) {
+        this.tasks.delete(task);
     }
 }
