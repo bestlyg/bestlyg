@@ -33,6 +33,14 @@
             "script": "cpp",
             "desc": "迭代。",
             "code": "class Solution {\n   public:\n    vector<int> postorder(Node *root) {\n        vector<int> ans;\n        stack<Node *> s;\n        unordered_set<Node *> sset;\n        if (root) s.push(root);\n        while (s.size()) {\n            Node *node = s.top();\n            s.pop();\n            if (sset.count(node)) {\n                ans.push_back(node->val);\n                continue;\n            }\n            sset.insert(node);\n            s.push(node);\n            for (auto it = node->children.rbegin(); it != node->children.rend();\n                 it++) {\n                s.push(*it);\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 53,
+            "memory": 18.12,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def postorder(self, root: 'Node') -> List[int]:\n        if not root: return []\n        return reduce(lambda arr, cur: arr + cur, [self.postorder(child) for child in root.children], []) + [root.val] ",
+            "date": 1708272000000
         }
     ]
 }

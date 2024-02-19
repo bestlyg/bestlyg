@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '589. N 叉树的前序遍历',
+    name: '590. N 叉树的后序遍历',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,13 +28,13 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 62,
-            memory: 18.18,
+            time: 53,
+            memory: 18.12,
             desc: 'dfs',
             code: `class Solution:
-    def preorder(self, root: 'Node') -> List[int]:
+    def postorder(self, root: 'Node') -> List[int]:
         if not root: return []
-        return [root.val] + reduce(lambda arr, cur: arr + cur, [self.preorder(child) for child in root.children], [])`,
+        return reduce(lambda arr, cur: arr + cur, [self.postorder(child) for child in root.children], []) + [root.val] `,
         },
 
         //         {
