@@ -27,6 +27,14 @@
             "script": "typescript",
             "desc": "递归。",
             "code": "function buildTree(inorder: number[], postorder: number[]): TreeNode | null {\n  if (inorder.length === 0 && postorder.length === 0) return null;\n  const val = postorder[postorder.length - 1];\n  const inorderIndex = inorder.indexOf(val);\n  const lInorder = inorder.slice(0, inorderIndex);\n  const rInorder = inorder.slice(inorderIndex + 1);\n  const lPostorder = postorder.slice(0, lInorder.length);\n  const rPostorder = postorder.slice(lInorder.length, postorder.length - 1);\n  return new TreeNode(val, buildTree(lInorder, lPostorder), buildTree(rInorder, rPostorder));\n}"
+        },
+        {
+            "script": "python",
+            "time": 136,
+            "memory": 86.83,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:\n        if not postorder: return None\n        index = inorder.index(postorder[-1])\n        return TreeNode(\n            postorder[-1],\n            self.buildTree(inorder[:index], postorder[:index]),\n            self.buildTree(inorder[index + 1:], postorder[index:-1])\n        )",
+            "date": 1708444800000
         }
     ]
 }

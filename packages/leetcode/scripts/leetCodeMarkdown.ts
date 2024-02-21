@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '105. 从前序与中序遍历序列构造二叉树',
+    name: '106. 从中序与后序遍历序列构造二叉树',
     url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,17 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 137,
-            memory: 86.3,
+            time: 136,
+            memory: 86.83,
             desc: 'dfs',
             code: `class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if not preorder: return None
-        index = inorder.index(preorder[0])
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        if not postorder: return None
+        index = inorder.index(postorder[-1])
         return TreeNode(
-            preorder[0], 
-            self.buildTree(preorder[1:index + 1], inorder[:index]),
-            self.buildTree(preorder[index + 1:], inorder[index + 1:])
+            postorder[-1],
+            self.buildTree(inorder[:index], postorder[:index]),
+            self.buildTree(inorder[index + 1:], postorder[index:-1])
         )`,
         },
 
