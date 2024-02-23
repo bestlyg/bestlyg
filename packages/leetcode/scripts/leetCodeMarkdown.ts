@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '106. 从中序与后序遍历序列构造二叉树',
-    url: 'https://leetcode.cn/problems/cousins-in-binary-tree-ii',
+    exist: !true,
+    name: '2583. 二叉树中的第 K 大层和',
+    url: 'https://leetcode.cn/problems/kth-largest-sum-in-a-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一棵二叉树的根 root ，请你将每个节点的值替换成该节点的所有 堂兄弟节点值的和 。如果两个节点在树中有相同的深度且它们的父节点不同，那么它们互为 堂兄弟 。请你返回修改值之后，树的根 root 。`,
+    desc: `给你一棵二叉树的根节点 root 和一个正整数 k 。树中的 层和 是指 同一层 上节点值的总和。返回树中第 k 大的层和（不一定不同）。如果树少于 k 层，则返回 -1 。。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 136,
-            memory: 86.83,
-            desc: 'dfs',
+            time: 267,
+            memory: 51.8,
+            desc: 'bfs',
             code: `class Solution:
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-        if not postorder: return None
-        index = inorder.index(postorder[-1])
-        return TreeNode(
-            postorder[-1],
-            self.buildTree(inorder[:index], postorder[:index]),
-            self.buildTree(inorder[index + 1:], postorder[index:-1])
-        )`,
+    def kthLargestLevelSum(self, root: Optional[TreeNode], k: int) -> int:
+        if not root: return []
+        q = deque() 
+        q.append(root)
+        size = 1
+        sums = [root.val]
+        while q:
+            node = q.popleft()
+            if node.left: q.append(node.left)
+            if node.right: q.append(node.right)
+            size -= 1
+            if size == 0:
+                size = len(q)
+                if q: sums.append(sum(node.val for node in q))
+        if len(sums) < k: return -1
+        return sorted(sums)[-k]`,
         },
 
         //         {

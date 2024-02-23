@@ -1,0 +1,17 @@
+{
+    "name": "2583.二叉树中的第K大层和",
+    "url": "https://leetcode.cn/problems/kth-largest-sum-in-a-binary-tree/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一棵二叉树的根节点 root 和一个正整数 k 。树中的 层和 是指 同一层 上节点值的总和。返回树中第 k 大的层和（不一定不同）。如果树少于 k 层，则返回 -1 。。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 267,
+            "memory": 51.8,
+            "desc": "bfs。",
+            "code": "class Solution:\n    def kthLargestLevelSum(self, root: Optional[TreeNode], k: int) -> int:\n        if not root: return []\n        q = deque() \n        q.append(root)\n        size = 1\n        sums = [root.val]\n        while q:\n            node = q.popleft()\n            if node.left: q.append(node.left)\n            if node.right: q.append(node.right)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if q: sums.append(sum(node.val for node in q))\n        if len(sums) < k: return -1\n        return sorted(sums)[-k]",
+            "date": 1708617600000
+        }
+    ]
+}
