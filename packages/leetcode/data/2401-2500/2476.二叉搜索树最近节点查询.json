@@ -20,6 +20,14 @@
             "script": "cpp",
             "desc": "bs。",
             "code": "// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args);}\n#else\n#define log(frm, args...)\n#endif\n\ntypedef long long ll;\n\nusing namespace std;\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<int> list;\n    vector<vector<int>> ans;\n    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {\n        dfs(root);\n        for (auto &q : queries) {\n            vector<int> item(2);\n            item[0] = find1(q);\n            item[1] = find2(q);\n            ans.push_back(item);\n        }\n        return ans;\n    }\n    void dfs(TreeNode *node) {\n        if (!node) return;\n        dfs(node->left);\n        list.push_back(node->val);\n        dfs(node->right);\n    }\n    int find1(int q) {\n        int l = -1, r = list.size() - 1, m;\n        while (l < r) {\n            m = (l + r + 1) / 2;\n            if (list[m] > q) r = m - 1;\n            else l = m;\n        }\n        if (l == -1) return l;\n        return list[l];\n    }\n\n    int find2(int q) {\n        int l = 0, r = list.size(), m;\n        while (l < r) {\n            m = (l + r) / 2;\n            if (list[m] >= q) r = m;\n            else l = m + 1;\n        }\n        if (l == list.size()) return -1;\n        return list[l];\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 582,
+            "memory": 74.37,
+            "desc": "dfs后排序处理queries。",
+            "code": "class Solution:\n    def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:\n        arr = []\n        def inorder(node: Optional[TreeNode]):\n            if not node: return\n            inorder(node.left)\n            arr.append(node.val)\n            inorder(node.right)\n        inorder(root)\n        idx = 0\n        ans = [[] for _ in range(len(queries))]\n        queries = sorted((q, i) for i, q in enumerate(queries))\n        for q, i in queries:\n            while idx < len(arr) and arr[idx] < q:\n                idx += 1\n            ans[i] = [-1, -1]\n            if idx < len(arr) and arr[idx] == q:\n                ans[i] = [q, q]\n            else:\n                if idx > 0: ans[i][0] = arr[idx - 1]\n                if idx < len(arr): ans[i][1] = arr[idx]\n        return ans",
+            "date": 1708704000000
         }
     ]
 }
