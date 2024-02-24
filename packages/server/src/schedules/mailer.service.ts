@@ -4,31 +4,23 @@ import { MailerService } from '@/services';
 import * as MarkdownIt from 'markdown-it';
 import * as dayjs from 'dayjs';
 
-const format = 'YYYY-MM-DD';
-
-const menseHistory: string[] = [
-  // injection
-  '2023-3-14',
-  // memse
-  '2023-2-14',
-  '2023-1-5',
-  '2022-12-7',
-  '2022-11-5',
-  '2022-10-5',
-  '2022-8-29',
-  '2022-7-26',
-  '2022-6-25',
-  '2022-5-21',
-  '2022-4-21',
-  '2022-3-21',
-  '2022-2-19',
-  '2022-1-19',
-];
+const weights = {
+  '2024/2/24': 66.05,
+  '2024/2/23': 66.25,
+  '2024/2/22': 66.6,
+  '2024/2/21': 67,
+  '2024/2/20': 67.15,
+  '2024/2/19': 67.45,
+  '2024/2/18': 67.15,
+  '2024/2/05': 65.4,
+  '2024/1/31': 65.75,
+  '2024/1/30': 65.95,
+  '2024/1/29': 66.35,
+};
 
 @Injectable()
 export class MailerTaskService {
   private md = new MarkdownIt();
-  private menses = dayjs(menseHistory[0]);
   constructor(private readonly mailer: MailerService) {}
 
   async lyg_mailerTask(name: string, content: string) {
@@ -41,7 +33,6 @@ export class MailerTaskService {
   async ownerDaily() {
     const now = dayjs();
     const subject = `${dayjs().format('YYYY-MM-DD')}日报`;
-    const mensesCnt = now.diff(this.menses, 'day');
     await this.lyg_mailerTask(
       subject,
       this.md.render(
@@ -52,9 +43,6 @@ export class MailerTaskService {
           `> 记录每日应该要记得的事  `,
           ``,
           `1. 距离2018年1月1日已有${now.diff('2018-1-1', 'day')}天。`,
-          `1. 距离上一次大姨妈(${this.menses.format(
-            format,
-          )})已有${mensesCnt}天。`,
           `1. 建行生活签到。`,
           `1. 腾信视频签到。`,
           `1. 拼多多每周5元无门槛领取。`,
