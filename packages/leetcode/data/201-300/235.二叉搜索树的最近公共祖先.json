@@ -26,6 +26,14 @@
             "script": "javascript",
             "desc": "根据二叉搜索树的特性进行递归。",
             "code": "/**\n * @param {TreeNode} root\n * @param {TreeNode} p\n * @param {TreeNode} q\n * @return {TreeNode}\n */\nvar lowestCommonAncestor = function (root, p, q) {\n  const val = root.val;\n  const pVal = p.val;\n  const qVal = q.val;\n  if ((val < pVal && val > qVal) || (val > pVal && val < qVal) || val === pVal || val === qVal)\n    return root;\n  if (val < pVal && val < qVal) return lowestCommonAncestor(root.right, p, q);\n  if (val > pVal && val > qVal) return lowestCommonAncestor(root.left, p, q);\n};"
+        },
+        {
+            "script": "python",
+            "time": 53,
+            "memory": 19.96,
+            "desc": "通过bst特性进行左右区分。",
+            "code": "class Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        while root.val < q.val and root.val < p.val or root.val > q.val and root.val > p.val:\n            if root == q or root == p: break\n            root = root.left if root.val > q.val else root.right\n        return root",
+            "date": 1708790400000
         }
     ]
 }

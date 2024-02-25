@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '2476. 二叉搜索树最近节点查询',
+    name: '235. 二叉搜索树的最近公共祖先',
     url: 'https://leetcode.cn/problems/kth-largest-sum-in-a-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,31 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 582,
-            memory: 74.37,
-            desc: 'dfs后排序处理queries',
+            time: 53,
+            memory: 19.96,
+            desc: '通过bst特性进行左右区分',
             code: `class Solution:
-    def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:
-        arr = []
-        def inorder(node: Optional[TreeNode]):
-            if not node: return
-            inorder(node.left)
-            arr.append(node.val)
-            inorder(node.right)
-        inorder(root)
-        idx = 0
-        ans = [[] for _ in range(len(queries))]
-        queries = sorted((q, i) for i, q in enumerate(queries))
-        for q, i in queries:
-            while idx < len(arr) and arr[idx] < q:
-                idx += 1
-            ans[i] = [-1, -1]
-            if idx < len(arr) and arr[idx] == q:
-                ans[i] = [q, q]
-            else:
-                if idx > 0: ans[i][0] = arr[idx - 1]
-                if idx < len(arr): ans[i][1] = arr[idx]
-        return ans`,
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        while root.val < q.val and root.val < p.val or root.val > q.val and root.val > p.val:
+            if root == q or root == p: break
+            root = root.left if root.val > q.val else root.right
+        return root`,
         },
 
         //         {
