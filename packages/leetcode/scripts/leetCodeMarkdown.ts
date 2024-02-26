@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '235. 二叉搜索树的最近公共祖先',
+    name: '938. 二叉搜索树的范围和',
     url: 'https://leetcode.cn/problems/kth-largest-sum-in-a-binary-tree/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,15 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 53,
-            memory: 19.96,
-            desc: '通过bst特性进行左右区分',
+            time: 98,
+            memory: 24.04,
+            desc: 'dfs',
             code: `class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        while root.val < q.val and root.val < p.val or root.val > q.val and root.val > p.val:
-            if root == q or root == p: break
-            root = root.left if root.val > q.val else root.right
-        return root`,
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        if not root: return 0
+        if root.val < low: return self.rangeSumBST(root.right, low, high)
+        if root.val > high: return self.rangeSumBST(root.left, low, high)
+        return root.val + self.rangeSumBST(root.right, low, high) + self.rangeSumBST(root.left, low, high)`,
         },
 
         //         {

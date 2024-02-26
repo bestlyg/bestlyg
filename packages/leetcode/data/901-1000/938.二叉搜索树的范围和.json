@@ -26,6 +26,14 @@
             "script": "typescript",
             "desc": "递归判断。",
             "code": "function rangeSumBST(root: TreeNode | null, low: number, high: number): number {\n        let sum = 0;\n        const sumNode = (node: TreeNode | null): void => {\n          if (node === null) return;\n          const val = node.val;\n          if (val < low) sumNode(node.right);\n          else if (val > high) sumNode(node.left);\n          else {\n            sum += val;\n            sumNode(node.right);\n            sumNode(node.left);\n          }\n        };\n        sumNode(root);\n        return sum;\n      }}"
+        },
+        {
+            "script": "python",
+            "time": 98,
+            "memory": 24.04,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:\n        if not root: return 0\n        if root.val < low: return self.rangeSumBST(root.right, low, high)\n        if root.val > high: return self.rangeSumBST(root.left, low, high)\n        return root.val + self.rangeSumBST(root.right, low, high) + self.rangeSumBST(root.left, low, high)",
+            "date": 1708876800000
         }
     ]
 }
