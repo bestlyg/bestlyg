@@ -129,7 +129,7 @@ def get_primes(n: int) -> List[int]:
 
 
 def get_primes2(n: int) -> List[bool]:
-    n += 3
+    n += 1
     primes = [True for _ in range(n)]
     primes[0] = primes[1] = False
     for i in range(2, n):
