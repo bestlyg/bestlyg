@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2673. 使二叉树所有路径值相等的最小代价',
-    url: 'https://leetcode.cn/problems/count-valid-paths-in-a-tree/',
+    exist: !true,
+    name: '2581. 统计可能的树根数目',
+    url: 'https://leetcode.cn/problems/count-number-of-possible-root-nodes/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回树中的 合法路径数目 。`,
+    desc: `给你二维整数数组 edges ，Bob 的所有猜测和整数 k ，请你返回可能成为树根的 节点数目 。如果没有这样的树，则返回 0。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,21 +28,30 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 233,
-            memory: 45.47,
-            desc: 'dfs时记录左右的节点的值，进行遍历和平衡',
+            time: 425,
+            memory: 97.89,
+            desc: '先统计以0为根的猜对个数， 再对每个节点为根进行dfs',
             code: `class Solution:
-    def minIncrements(self, n: int, cost: List[int]) -> int:
-        ans = 0
-        def dfs(node: int) -> int:
-            nonlocal ans
-            if node * 2 > n: return cost[node - 1]
-            l, r = dfs(node * 2), dfs(node * 2 + 1)
-            maxn = max(l, r)
-            ans += 2 * maxn - l - r
-            return maxn + cost[node - 1]
-        dfs(1)
-        return ans`,
+    def rootCount(self, edges: List[List[int]], guesses: List[List[int]], k: int) -> int:
+        nodes = [[] for _ in range(len(edges) + 1)]
+        for n1, n2 in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        s = {(n1, n2) for n1, n2 in guesses}
+        def dfs(node: int, parent: int) -> int:
+            ans = 0
+            for child in nodes[node]:
+                if child != parent:
+                    ans += (node, child) in s
+                    ans += dfs(child, node)
+            return ans
+        def reroot(node: int, parent: int, cnt: int) -> int:
+            ans = cnt >= k
+            for child in nodes[node]:
+                if child != parent:
+                    ans += reroot(child, node, cnt + ((child, node) in s) - ((node, child) in s))
+            return ans
+        return reroot(0, -1, dfs(0, -1))`,
         },
 
         //         {
