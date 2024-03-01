@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2581. 统计可能的树根数目',
-    url: 'https://leetcode.cn/problems/count-number-of-possible-root-nodes/',
+    name: '2369. 检查数组是否存在有效划分',
+    url: 'https://leetcode.cn/problems/check-if-there-is-a-valid-partition-for-the-array',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你二维整数数组 edges ，Bob 的所有猜测和整数 k ，请你返回可能成为树根的 节点数目 。如果没有这样的树，则返回 0。`,
+    desc: `给你一个下标从 0 开始的整数数组 nums ，你必须将数组划分为一个或多个 连续 子数组。如果数组 至少 存在一种有效划分，返回 true ，否则，返回 false 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,30 +28,23 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 425,
-            memory: 97.89,
-            desc: '先统计以0为根的猜对个数， 再对每个节点为根进行dfs',
+            time: 125,
+            memory: 30.87,
+            desc: 'dp[i]表示以i为节点时是否能够满足要求',
             code: `class Solution:
-    def rootCount(self, edges: List[List[int]], guesses: List[List[int]], k: int) -> int:
-        nodes = [[] for _ in range(len(edges) + 1)]
-        for n1, n2 in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
-        s = {(n1, n2) for n1, n2 in guesses}
-        def dfs(node: int, parent: int) -> int:
-            ans = 0
-            for child in nodes[node]:
-                if child != parent:
-                    ans += (node, child) in s
-                    ans += dfs(child, node)
-            return ans
-        def reroot(node: int, parent: int, cnt: int) -> int:
-            ans = cnt >= k
-            for child in nodes[node]:
-                if child != parent:
-                    ans += reroot(child, node, cnt + ((child, node) in s) - ((node, child) in s))
-            return ans
-        return reroot(0, -1, dfs(0, -1))`,
+    def validPartition(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [False] * n
+        dp[0] = False
+        dp[1] = nums[0] == nums[1]
+        if n == 2: return dp[1]
+        dp[2] = nums[0] == nums[1] - 1 == nums[2] - 2 or \\
+                nums[0] == nums[1] == nums[2]
+        for i in range(3, n):
+            dp[i] = dp[i - 2] and nums[i] == nums[i - 1] or \\
+                    dp[i - 3] and nums[i] == nums[i - 1] == nums[i - 2] or \\
+                    dp[i - 3] and nums[i] == nums[i - 1] + 1 == nums[i - 2] + 2
+        return dp[n - 1]`,
         },
 
         //         {
