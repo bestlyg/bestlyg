@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2369. 检查数组是否存在有效划分',
-    url: 'https://leetcode.cn/problems/check-if-there-is-a-valid-partition-for-the-array',
+    name: '2368. 受限条件下可到达节点的数目',
+    url: 'https://leetcode.cn/problems/reachable-nodes-with-restrictions/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的整数数组 nums ，你必须将数组划分为一个或多个 连续 子数组。如果数组 至少 存在一种有效划分，返回 true ，否则，返回 false 。`,
+    desc: `在不访问受限节点的前提下，返回你可以从节点 0 到达的 最多 节点数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,23 +28,23 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 125,
-            memory: 30.87,
-            desc: 'dp[i]表示以i为节点时是否能够满足要求',
+            time: 392,
+            memory: 65.75,
+            desc: 'dfs',
             code: `class Solution:
-    def validPartition(self, nums: List[int]) -> bool:
-        n = len(nums)
-        dp = [False] * n
-        dp[0] = False
-        dp[1] = nums[0] == nums[1]
-        if n == 2: return dp[1]
-        dp[2] = nums[0] == nums[1] - 1 == nums[2] - 2 or \\
-                nums[0] == nums[1] == nums[2]
-        for i in range(3, n):
-            dp[i] = dp[i - 2] and nums[i] == nums[i - 1] or \\
-                    dp[i - 3] and nums[i] == nums[i - 1] == nums[i - 2] or \\
-                    dp[i - 3] and nums[i] == nums[i - 1] + 1 == nums[i - 2] + 2
-        return dp[n - 1]`,
+    def reachableNodes(self, n: int, edges: List[List[int]], restricted: List[int]) -> int:
+        restricted = set(restricted)
+        nodes = [[] for _ in range(n)]
+        for n1, n2 in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        def dfs(node: int, parent: int) -> int:
+            ans = 1
+            for child in nodes[node]:
+                if child != parent and child not in restricted:
+                    ans += dfs(child, node)
+            return ans
+        return dfs(0, -1)`,
         },
 
         //         {
