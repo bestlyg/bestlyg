@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2368. 受限条件下可到达节点的数目',
+    exist: true,
+    name: '225. 用队列实现栈',
     url: 'https://leetcode.cn/problems/reachable-nodes-with-restrictions/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,23 +28,22 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 392,
-            memory: 65.75,
-            desc: 'dfs',
-            code: `class Solution:
-    def reachableNodes(self, n: int, edges: List[List[int]], restricted: List[int]) -> int:
-        restricted = set(restricted)
-        nodes = [[] for _ in range(n)]
-        for n1, n2 in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
-        def dfs(node: int, parent: int) -> int:
-            ans = 1
-            for child in nodes[node]:
-                if child != parent and child not in restricted:
-                    ans += dfs(child, node)
-            return ans
-        return dfs(0, -1)`,
+            time: 36,
+            memory: 16.42,
+            desc: '每次循环n-1次使队尾在头部',
+            code: `class MyStack:
+    def __init__(self):
+        self.q = deque()
+    def push(self, x: int) -> None:
+        self.q.append(x)
+        for _ in range(len(self.q) - 1):
+            self.q.append(self.q.popleft())
+    def pop(self) -> int:
+        return self.q.popleft()
+    def top(self) -> int:
+        return self.q[0]
+    def empty(self) -> bool:
+        return not self.q`,
         },
 
         //         {
