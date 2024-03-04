@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '225. 用队列实现栈',
+    name: '232. 用栈实现队列',
     url: 'https://leetcode.cn/problems/reachable-nodes-with-restrictions/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,22 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 36,
-            memory: 16.42,
-            desc: '每次循环n-1次使队尾在头部',
-            code: `class MyStack:
+            time: 40,
+            memory: 16.55,
+            desc: '用两个栈模拟',
+            code: `class MyQueue:
     def __init__(self):
-        self.q = deque()
+        self.s1 = []
+        self.s2 = []
     def push(self, x: int) -> None:
-        self.q.append(x)
-        for _ in range(len(self.q) - 1):
-            self.q.append(self.q.popleft())
+        self.s1.append(x)
     def pop(self) -> int:
-        return self.q.popleft()
-    def top(self) -> int:
-        return self.q[0]
+        self.check()
+        return self.s2.pop()
+    def peek(self) -> int:
+        self.check()
+        return self.s2[-1]
     def empty(self) -> bool:
-        return not self.q`,
+        return not self.s1 and not self.s2
+    def check(self) -> bool:
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())`,
         },
 
         //         {

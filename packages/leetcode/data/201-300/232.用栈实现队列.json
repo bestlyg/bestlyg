@@ -33,6 +33,14 @@
             "script": "typescript",
             "desc": "stack。",
             "code": "typedef struct Stack\n{\n    int size;\n    int len;\n    int *data;\n} Stack;\nStack *createStack(int len)\n{\n    Stack *s = (Stack *)malloc(sizeof(Stack));\n    s->size = 0;\n    s->len = len;\n    s->data = (int *)malloc(sizeof(int) * len);\n    return s;\n}\nvoid push(Stack *s, int val)\n{\n    if (s->size == s->len)\n        return;\n    s->data[s->size++] = val;\n}\nvoid pop(Stack *s)\n{\n    if (s->size == 0)\n        return;\n    s->size--;\n}\nint isEmpty(Stack *s) {\n    return s->size == 0;\n}\nint top(Stack *s)\n{\n    if (s->size == 0) return -1;\n    return s->data[s->size - 1];\n}\nvoid freeStack(Stack *s)\n{\n    free(s->data);\n    free(s);\n}\ntypedef struct {\n    Stack *s1, *s2;\n} MyQueue;\n\n\nMyQueue* myQueueCreate() {\n    MyQueue *q = (MyQueue *)malloc(sizeof(MyQueue));\n    q->s1 = createStack(100);\n    q->s2 = createStack(100);\n    return q;\n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    push(obj->s1, x);\n}\nvoid check(MyQueue *obj){\n    if (!obj->s2->size) {\n        while(obj->s1->size) {\n            push(obj->s2, top(obj->s1));\n            pop(obj->s1);\n        }\n    }\n}\nint myQueuePop(MyQueue* obj) {\n    check(obj);\n    int val = top(obj->s2);\n    pop(obj->s2);\n    return val;\n}\n\nint myQueuePeek(MyQueue* obj) {\n    check(obj);\n    return top(obj->s2);\n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    return obj->s1->size + obj->s2->size == 0;\n}\n\nvoid myQueueFree(MyQueue* obj) {\n    freeStack(obj->s1);\n    freeStack(obj->s2);\n    free(obj);\n}"
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16.55,
+            "desc": "用两个栈模拟。",
+            "code": "class MyQueue:\n    def __init__(self):\n        self.s1 = []\n        self.s2 = []\n    def push(self, x: int) -> None:\n        self.s1.append(x)\n    def pop(self) -> int:\n        self.check()\n        return self.s2.pop()\n    def peek(self) -> int:\n        self.check()\n        return self.s2[-1]\n    def empty(self) -> bool:\n        return not self.s1 and not self.s2\n    def check(self) -> bool:\n        if not self.s2:\n            while self.s1:\n                self.s2.append(self.s1.pop())",
+            "date": 1709481600000
         }
     ]
 }
