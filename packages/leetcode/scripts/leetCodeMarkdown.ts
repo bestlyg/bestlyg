@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '232. 用栈实现队列',
-    url: 'https://leetcode.cn/problems/reachable-nodes-with-restrictions/',
+    exist: !true,
+    name: '1976. 到达目的地的方案数',
+    url: 'https://leetcode.cn/problems/number-of-ways-to-arrive-at-destination/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `在不访问受限节点的前提下，返回你可以从节点 0 到达的 最多 节点数目。`,
+    desc: `请返回花费 最少时间 到达目的地的 路径数目 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,27 +28,32 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.55,
-            desc: '用两个栈模拟',
-            code: `class MyQueue:
-    def __init__(self):
-        self.s1 = []
-        self.s2 = []
-    def push(self, x: int) -> None:
-        self.s1.append(x)
-    def pop(self) -> int:
-        self.check()
-        return self.s2.pop()
-    def peek(self) -> int:
-        self.check()
-        return self.s2[-1]
-    def empty(self) -> bool:
-        return not self.s1 and not self.s2
-    def check(self) -> bool:
-        if not self.s2:
-            while self.s1:
-                self.s2.append(self.s1.pop())`,
+            time: 59,
+            memory: 23.55,
+            desc: '最短路遍历时同时记录当前的最大cnt',
+            code: `class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        nodes = [[] for _ in range(n)]
+        for n1, n2, time in roads:
+            nodes[n1].append((n2, time))
+            nodes[n2].append((n1, time))
+        time_map = [inf] * n
+        time_map[0] = 0
+        cnt_map = [0] * n
+        cnt_map[0] = 1
+        heap = [(0, 0)]
+        while heap:
+            time, node = heappop(heap)
+            if time > time_map[node]: continue
+            for child, time2 in nodes[node]:
+                next_time = time + time2
+                if next_time == time_map[child]:
+                    cnt_map[child] = (cnt_map[node] + cnt_map[child]) % (10 ** 9 + 7)
+                elif next_time < time_map[child]:
+                    time_map[child] = next_time
+                    cnt_map[child] = cnt_map[node]
+                    heappush(heap, (next_time, child))
+        return cnt_map[n - 1]`,
         },
 
         //         {
