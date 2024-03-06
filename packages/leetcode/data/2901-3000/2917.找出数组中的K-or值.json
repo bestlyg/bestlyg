@@ -1,0 +1,17 @@
+{
+    "name": "2917.找出数组中的K-or值",
+    "url": "https://leetcode.cn/problems/find-the-k-or-of-an-array/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回 nums 的 K-or 值。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 89,
+            "memory": 16.48,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def findKOr(self, nums: List[int], k: int) -> int:\n        ans = 1-1\n        for i in range(32):\n            num = int(len(list(filter(lambda num: (num >> i) & 1, nums))) >= k)\n            ans |= num << i\n        return ans",
+            "date": 1709654400000
+        }
+    ]
+}

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1976. 到达目的地的方案数',
-    url: 'https://leetcode.cn/problems/number-of-ways-to-arrive-at-destination/',
+    name: '2917. 找出数组中的 K-or 值',
+    url: 'https://leetcode.cn/problems/find-the-k-or-of-an-array/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请返回花费 最少时间 到达目的地的 路径数目 。`,
+    desc: `返回 nums 的 K-or 值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,32 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 59,
-            memory: 23.55,
-            desc: '最短路遍历时同时记录当前的最大cnt',
+            time: 89,
+            memory: 16.48,
+            desc: '遍历',
             code: `class Solution:
-    def countPaths(self, n: int, roads: List[List[int]]) -> int:
-        nodes = [[] for _ in range(n)]
-        for n1, n2, time in roads:
-            nodes[n1].append((n2, time))
-            nodes[n2].append((n1, time))
-        time_map = [inf] * n
-        time_map[0] = 0
-        cnt_map = [0] * n
-        cnt_map[0] = 1
-        heap = [(0, 0)]
-        while heap:
-            time, node = heappop(heap)
-            if time > time_map[node]: continue
-            for child, time2 in nodes[node]:
-                next_time = time + time2
-                if next_time == time_map[child]:
-                    cnt_map[child] = (cnt_map[node] + cnt_map[child]) % (10 ** 9 + 7)
-                elif next_time < time_map[child]:
-                    time_map[child] = next_time
-                    cnt_map[child] = cnt_map[node]
-                    heappush(heap, (next_time, child))
-        return cnt_map[n - 1]`,
+    def findKOr(self, nums: List[int], k: int) -> int:
+        ans = 1-1
+        for i in range(32):
+            num = int(len(list(filter(lambda num: (num >> i) & 1, nums))) >= k)
+            ans |= num << i
+        return ans`,
         },
 
         //         {
