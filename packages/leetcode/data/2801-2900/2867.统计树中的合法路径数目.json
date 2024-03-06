@@ -1,8 +1,15 @@
 {
+    "id": "3112",
     "name": "2867.统计树中的合法路径数目",
-    "url": "https://leetcode.cn/problems/count-valid-paths-in-a-tree/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/count-valid-paths-in-a-tree",
+    "difficulty": "困难",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "数学",
+        "动态规划",
+        "数论"
+    ],
     "desc": "请你返回树中的 合法路径数目 。",
     "solutions": [
         {

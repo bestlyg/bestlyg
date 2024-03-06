@@ -1,6 +1,6 @@
 {
     "id": "802",
-    "name": "786.第K个最小的素数分数",
+    "name": "786.第K个最小的质数分数",
     "url": "https://leetcode.cn/problems/k-th-smallest-prime-fraction",
     "difficulty": "中等",
     "tag": [

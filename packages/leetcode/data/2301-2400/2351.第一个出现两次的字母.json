@@ -4,6 +4,7 @@
     "url": "https://leetcode.cn/problems/first-letter-to-appear-twice",
     "difficulty": "简单",
     "tag": [
+        "位运算",
         "哈希表",
         "字符串",
         "计数"
