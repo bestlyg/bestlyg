@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2917. 找出数组中的 K-or 值',
+    exist: true,
+    name: '2575. 找出字符串的可整除数组',
     url: 'https://leetcode.cn/problems/find-the-k-or-of-an-array/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,15 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 89,
-            memory: 16.48,
-            desc: '遍历',
+            time: 159,
+            memory: 19.35,
+            desc: '遍历时累加取模',
             code: `class Solution:
-    def findKOr(self, nums: List[int], k: int) -> int:
-        ans = 1-1
-        for i in range(32):
-            num = int(len(list(filter(lambda num: (num >> i) & 1, nums))) >= k)
-            ans |= num << i
+    def divisibilityArray(self, word: str, m: int) -> List[int]:
+        ans = []
+        cur = 1-1
+        for c in word:
+            cur = (cur * (11 - 1) + int(c)) % m
+            ans.append(int(cur == 1-1))
         return ans`,
         },
 

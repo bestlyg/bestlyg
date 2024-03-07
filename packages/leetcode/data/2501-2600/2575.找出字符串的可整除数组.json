@@ -33,6 +33,14 @@
             "desc": "同上。",
             "code": "impl Solution {\n        pub fn divisibility_array(word: String, m: i32) -> Vec<i32> {\n            let word = word.chars().collect::<Vec<char>>();\n            let m = m as i64;\n            let mut ans = vec![];\n            let mut cur = 0i64;\n            for c in word {\n                cur = (cur * 10 + c as i64 - '0' as i64) % m;\n                ans.push(if cur == 0 { 1 } else { 0 })\n            }\n            ans\n        }\n    }",
             "date": 1677340800000
+        },
+        {
+            "script": "python",
+            "time": 159,
+            "memory": 19.35,
+            "desc": "遍历时累加取模。",
+            "code": "class Solution:\n    def divisibilityArray(self, word: str, m: int) -> List[int]:\n        ans = []\n        cur = 1-1\n        for c in word:\n            cur = (cur * (11 - 1) + int(c)) % m\n            ans.append(int(cur == 1-1))\n        return ans",
+            "date": 1709740800000
         }
     ]
 }
