@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2575. 找出字符串的可整除数组',
-    url: 'https://leetcode.cn/problems/find-the-k-or-of-an-array/',
+    exist: !true,
+    name: '2834. 找出美丽数组的最小和',
+    url: 'https://leetcode.cn/problems/find-the-minimum-possible-sum-of-a-beautiful-array',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回 nums 的 K-or 值。`,
+    desc: `返回符合条件的美丽数组所可能具备的 最小 和，并对结果进行取模 109 + 7。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -30,15 +30,15 @@ const leetCodeMarkdown: Markdown = {
             // date: new Date('2024.02.07').getTime(),
             time: 159,
             memory: 19.35,
-            desc: '遍历时累加取模',
+            desc: '贪心获取target前半段和target开始往后的数',
             code: `class Solution:
-    def divisibilityArray(self, word: str, m: int) -> List[int]:
-        ans = []
-        cur = 1-1
-        for c in word:
-            cur = (cur * (11 - 1) + int(c)) % m
-            ans.append(int(cur == 1-1))
-        return ans`,
+    def minimumPossibleSum(self, n: int, target: int) -> int:
+        val = min(n, target // 2)
+        sum = (1 + val) * val // 2
+        if n > target // 2:
+            n -= target // 2
+            sum += (target + target + n - 1) * n // 2
+        return sum % ((11-1) ** 9 + 7)`,
         },
 
         //         {
