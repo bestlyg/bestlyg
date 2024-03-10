@@ -17,6 +17,14 @@
             "script": "typescript",
             "desc": "遍历。",
             "code": "function getHint(secret: string, guess: string): string {\n  const n = secret.length;\n  let a = 0;\n  let b = 0;\n  const map: Record<string, number> = {};\n  const set = new Set<number>();\n  for (let i = 0; i < n; i++) {\n    const ch1 = secret[i];\n    const ch2 = guess[i];\n    if (ch1 === ch2) {\n      a++;\n      set.add(i);\n    } else map[ch1] = (map[ch1] ?? 0) + 1;\n  }\n  for (let i = 0; i < n; i++) {\n    if (set.has(i)) continue;\n    const ch2 = guess[i];\n    if (map[ch2]) {\n      b++;\n      map[ch2]--;\n    }\n  }\n  return `${a}A${b}B`;\n}"
+        },
+        {
+            "script": "python",
+            "time": 68,
+            "memory": 16.65,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def getHint(self, secret: str, guess: str) -> str:\n        s1 = []\n        s2 = []\n        n = len(secret)\n        x = y = 0\n        for i in range(n):\n            if secret[i] == guess[i]:\n                x += 1\n            else:\n                s1.append(secret[i])\n                s2.append(guess[i])\n        for num in s1:\n            if num in s2:\n                y += 1\n                s2.remove(num)\n        return f'{x}A{y}B'",
+            "date": 1710000000000
         }
     ]
 }

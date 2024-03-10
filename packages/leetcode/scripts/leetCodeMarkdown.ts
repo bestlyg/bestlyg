@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2834. 找出美丽数组的最小和',
+    exist: true,
+    name: '299. 猜数字游戏',
     url: 'https://leetcode.cn/problems/find-the-minimum-possible-sum-of-a-beautiful-array',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,17 +28,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 159,
-            memory: 19.35,
-            desc: '贪心获取target前半段和target开始往后的数',
+            time: 68,
+            memory: 16.65,
+            desc: '遍历',
             code: `class Solution:
-    def minimumPossibleSum(self, n: int, target: int) -> int:
-        val = min(n, target // 2)
-        sum = (1 + val) * val // 2
-        if n > target // 2:
-            n -= target // 2
-            sum += (target + target + n - 1) * n // 2
-        return sum % ((11-1) ** 9 + 7)`,
+    def getHint(self, secret: str, guess: str) -> str:
+        s1 = []
+        s2 = []
+        n = len(secret)
+        x = y = 0
+        for i in range(n):
+            if secret[i] == guess[i]:
+                x += 1
+            else:
+                s1.append(secret[i])
+                s2.append(guess[i])
+        for num in s1:
+            if num in s2:
+                y += 1
+                s2.remove(num)
+        return f'{x}A{y}B'`,
         },
 
         //         {
