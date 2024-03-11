@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '299. 猜数字游戏',
-    url: 'https://leetcode.cn/problems/find-the-minimum-possible-sum-of-a-beautiful-array',
+    exist: !true,
+    name: '2129. 将标题首字母大写',
+    url: 'https://leetcode.cn/problems/capitalize-the-title/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回符合条件的美丽数组所可能具备的 最小 和，并对结果进行取模 109 + 7。`,
+    desc: `请你返回 大写后 的 title 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,26 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 68,
-            memory: 16.65,
+            time: 40,
+            memory: 16.35,
             desc: '遍历',
             code: `class Solution:
-    def getHint(self, secret: str, guess: str) -> str:
-        s1 = []
-        s2 = []
-        n = len(secret)
-        x = y = 0
-        for i in range(n):
-            if secret[i] == guess[i]:
-                x += 1
-            else:
-                s1.append(secret[i])
-                s2.append(guess[i])
-        for num in s1:
-            if num in s2:
-                y += 1
-                s2.remove(num)
-        return f'{x}A{y}B'`,
+    def capitalizeTitle(self, title: str) -> str:
+        return ' '.join(
+            map(
+                lambda s: s[0].upper() + s[1:].lower() if len(s) > 2 else s.lower(),
+                title.split(' ')
+            )
+        )`,
         },
 
         //         {
