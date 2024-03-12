@@ -1,0 +1,17 @@
+{
+    "name": "1261.在受污染的二叉树中查找元素",
+    "url": "https://leetcode.cn/problems/find-elements-in-a-contaminated-binary-tree",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你先还原二叉树，然后实现 FindElements 类。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 66,
+            "memory": 20.3,
+            "desc": "dfs。",
+            "code": "class FindElements:\n    def __init__(self, root: Optional[TreeNode]):\n        self.set = set()\n        def dfs(node: Optional[TreeNode], cur: int):\n            if not node: return\n            self.set.add(cur)\n            dfs(node.left, cur * 2 + 1)\n            dfs(node.right, cur * 2 + 2)\n        dfs(root, 0)\n    def find(self, target: int) -> bool:\n        return target in self.set",
+            "date": 1710172800000
+        }
+    ]
+}

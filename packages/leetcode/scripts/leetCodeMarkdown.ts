@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2129. 将标题首字母大写',
-    url: 'https://leetcode.cn/problems/capitalize-the-title/',
+    name: '1261. 在受污染的二叉树中查找元素',
+    url: 'https://leetcode.cn/problems/find-elements-in-a-contaminated-binary-tree',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 大写后 的 title 。`,
+    desc: `请你先还原二叉树，然后实现 FindElements 类。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,17 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.35,
-            desc: '遍历',
-            code: `class Solution:
-    def capitalizeTitle(self, title: str) -> str:
-        return ' '.join(
-            map(
-                lambda s: s[0].upper() + s[1:].lower() if len(s) > 2 else s.lower(),
-                title.split(' ')
-            )
-        )`,
+            time: 66,
+            memory: 20.3,
+            desc: 'dfs',
+            code: `class FindElements:
+    def __init__(self, root: Optional[TreeNode]):
+        self.set = set()
+        def dfs(node: Optional[TreeNode], cur: int):
+            if not node: return
+            self.set.add(cur)
+            dfs(node.left, cur * 2 + 1)
+            dfs(node.right, cur * 2 + 2)
+        dfs(root, 0)
+    def find(self, target: int) -> bool:
+        return target in self.set`,
         },
 
         //         {
