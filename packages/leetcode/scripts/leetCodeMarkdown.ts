@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1261. 在受污染的二叉树中查找元素',
-    url: 'https://leetcode.cn/problems/find-elements-in-a-contaminated-binary-tree',
+    name: '2864. 最大二进制奇数',
+    url: 'https://leetcode.cn/problems/maximum-odd-binary-number',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你先还原二叉树，然后实现 FindElements 类。`,
+    desc: `以字符串形式，表示并返回可以由给定组合生成的最大二进制奇数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,20 +28,13 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 66,
-            memory: 20.3,
-            desc: 'dfs',
-            code: `class FindElements:
-    def __init__(self, root: Optional[TreeNode]):
-        self.set = set()
-        def dfs(node: Optional[TreeNode], cur: int):
-            if not node: return
-            self.set.add(cur)
-            dfs(node.left, cur * 2 + 1)
-            dfs(node.right, cur * 2 + 2)
-        dfs(root, 0)
-    def find(self, target: int) -> bool:
-        return target in self.set`,
+            time: 39,
+            memory: 16.34,
+            desc: '计数',
+            code: `class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        cnt1 = s.count('1')
+        return (cnt1 - 1) * '1' + (len(s) - cnt1) * '0' + '1'`,
         },
 
         //         {
