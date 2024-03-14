@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2864. 最大二进制奇数',
-    url: 'https://leetcode.cn/problems/maximum-odd-binary-number',
+    name: '2789. 合并后数组中的最大元素',
+    url: 'https://leetcode.cn/problems/largest-element-in-an-array-after-merge-operations/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `以字符串形式，表示并返回可以由给定组合生成的最大二进制奇数。`,
+    desc: `返回你可以从最终数组中获得的 最大 元素的值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,13 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 39,
-            memory: 16.34,
-            desc: '计数',
+            time: 123,
+            memory: 32.3,
+            desc: '从后往前遍历',
             code: `class Solution:
-    def maximumOddBinaryNumber(self, s: str) -> str:
-        cnt1 = s.count('1')
-        return (cnt1 - 1) * '1' + (len(s) - cnt1) * '0' + '1'`,
+    def maxArrayValue(self, nums: List[int]) -> int:
+        for i in range(len(nums) - 2, -1, -1):
+            if nums[i] <= nums[i + 1]:
+                nums[i] += nums[i + 1]
+        return max(nums)`,
         },
 
         //         {
