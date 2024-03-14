@@ -1,0 +1,17 @@
+{
+    "name": "2789.合并后数组中的最大元素",
+    "url": "https://leetcode.cn/problems/largest-element-in-an-array-after-merge-operations/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回你可以从最终数组中获得的 最大 元素的值。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 123,
+            "memory": 32.3,
+            "desc": "从后往前遍历。",
+            "code": "class Solution:\n    def maxArrayValue(self, nums: List[int]) -> int:\n        for i in range(len(nums) - 2, -1, -1):\n            if nums[i] <= nums[i + 1]:\n                nums[i] += nums[i + 1]\n        return max(nums)",
+            "date": 1710345600000
+        }
+    ]
+}
