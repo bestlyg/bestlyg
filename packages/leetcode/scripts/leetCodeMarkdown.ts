@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2789. 合并后数组中的最大元素',
-    url: 'https://leetcode.cn/problems/largest-element-in-an-array-after-merge-operations/',
+    name: '2312. 卖木头块',
+    url: 'https://leetcode.cn/problems/selling-pieces-of-wood',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回你可以从最终数组中获得的 最大 元素的值。`,
+    desc: `请你返回切割一块大小为 m x n 的木块后，能得到的 最多 钱数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,15 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 123,
-            memory: 32.3,
-            desc: '从后往前遍历',
+            time: 6046,
+            memory: 38.27,
+            desc: 'dfs',
             code: `class Solution:
-    def maxArrayValue(self, nums: List[int]) -> int:
-        for i in range(len(nums) - 2, -1, -1):
-            if nums[i] <= nums[i + 1]:
-                nums[i] += nums[i + 1]
-        return max(nums)`,
+    def sellingWood(self, m: int, n: int, prices: List[List[int]]) -> int:
+        price_map = {}
+        for k1, k2, price in prices:
+            if k1 not in price_map: price_map[k1] = {}
+            item_map = price_map[k1]
+            if k2 not in item_map: item_map[k2] = price
+        @cache
+        def dfs(m: int, n: int) -> int:
+            ans = 0
+            if m in price_map and n in price_map[m]:
+                ans += price_map[m][n]
+            for i in range(1, m):
+                ans = max(ans, dfs(i, n) + dfs(m - i, n))
+            for i in range(1, n):
+                ans = max(ans, dfs(m, i) + dfs(m, n - i))
+            return ans
+        return dfs(m, n)`,
         },
 
         //         {
