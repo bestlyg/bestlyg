@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2684. 矩阵中移动的最大次数',
-    url: 'https://leetcode.cn/problems/maximum-number-of-moves-in-a-grid',
+    exist: true,
+    name: '310. 最小高度树',
+    url: 'https://leetcode.cn/problems/minimum-height-trees',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回你在矩阵中能够 移动 的 最大 次数。`,
+    desc: `请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,23 +28,30 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 226,
-            memory: 41.75,
+            time: 295,
+            memory: 67.80,
             desc: 'dfs',
-            code: `dirs = [(1, 1), (0, 1), (-1, 1)]
-
-    class Solution:
-        def maxMoves(self, grid: List[List[int]]) -> int:
-            n, m = len(grid), len(grid[0])
-            @cache
-            def dfs(row: int, col: int) -> int:
-                ans = 0
-                for x, y in dirs:
-                    nrow, ncol = row + x, col + y
-                    if 0 <= nrow < n and 0 <= ncol < m and grid[row][col] < grid[nrow][ncol]:
-                        ans = max(ans, 1 + dfs(nrow, ncol))
-                return ans
-            return max(dfs(row, 0) for row in range(n))`,
+            code: `class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1: return [0]
+        if n == 2: return [0, 1]
+        nodes = [[] for _ in range(n)]
+        for n1, n2 in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        @cache
+        def dfs(node: int, parent: int) -> int:
+            return 1 + max(dfs(child, node) if child != parent else 0 for child in nodes[node])
+        ans_val = inf
+        ans_arr = []
+        for node in range(n):
+            if len(nodes[node]) == 1: continue
+            res = dfs(node, -1)
+            if res <= ans_val:
+                if res < ans_val: ans_arr.clear()
+                ans_val = res
+                ans_arr.append(node)
+        return ans_arr`,
         },
 
         //         {

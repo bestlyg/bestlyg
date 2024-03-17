@@ -26,6 +26,14 @@
             "script": "cpp",
             "desc": "从外向内遍历。",
             "code": "class Solution {\n   public:\n    struct node {\n        int val, cnt;\n        unordered_set<int> children;\n    };\n    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {\n        if (n == 1) return {0};\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].val = i;\n            list[i].cnt = 0;\n        }\n        for (auto& edge : edges) {\n            int n0 = edge[0], n1 = edge[1];\n            list[n0].children.insert(n1);\n            list[n1].children.insert(n0);\n            list[n0].cnt++;\n            list[n1].cnt++;\n        }\n        queue<int> q;\n        for (auto& node : list) {\n            if (node.cnt == 1) q.push(node.val);\n        }\n        vector<int> ans;\n        int size = q.size();\n        while (q.size()) {\n            int idx = q.front();\n            ans.push_back(idx);\n            q.pop();\n            list[idx].cnt--;\n            for (auto& child : list[idx].children) {\n                if (--list[child].cnt != 1) continue;\n                q.push(child);\n            }\n            if (--size == 0) {\n                size = q.size();\n                if (size) ans.clear();\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 295,
+            "memory": 67.8,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:\n        if n == 1: return [0]\n        if n == 2: return [0, 1]\n        nodes = [[] for _ in range(n)]\n        for n1, n2 in edges:\n            nodes[n1].append(n2)\n            nodes[n2].append(n1)\n        @cache\n        def dfs(node: int, parent: int) -> int:\n            return 1 + max(dfs(child, node) if child != parent else 0 for child in nodes[node])\n        ans_val = inf\n        ans_arr = []\n        for node in range(n):\n            if len(nodes[node]) == 1: continue\n            res = dfs(node, -1)\n            if res <= ans_val:\n                if res < ans_val: ans_arr.clear()\n                ans_val = res\n                ans_arr.append(node)\n        return ans_arr",
+            "date": 1710604800000
         }
     ]
 }
