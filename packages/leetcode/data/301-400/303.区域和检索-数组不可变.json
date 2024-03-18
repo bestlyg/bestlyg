@@ -25,6 +25,14 @@
             "script": "typescript",
             "desc": "利用前缀和进行快速计算。",
             "code": "class NumArray {\n  private sums: number[] = [];\n  constructor(private nums: number[]) {\n    let sum = 0;\n    for (let i = 0, l = nums.length; i < l; i++) {\n      this.sums[i] = sum += nums[i];\n    }\n  }\n  sumRange(i: number, j: number): number {\n    return this.sums[j] - this.sums[i] + this.nums[i];\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 50,
+            "memory": 20.48,
+            "desc": "前缀和。",
+            "code": "class NumArray:\n    def __init__(self, nums: List[int]):\n        self.sums = [0]\n        for num in nums:\n            self.sums.append(self.sums[-1] + num)\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.sums[right + 1] - self.sums[left]",
+            "date": 1710691200000
         }
     ]
 }

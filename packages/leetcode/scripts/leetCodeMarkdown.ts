@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '310. 最小高度树',
+    name: '303. 区域和检索 - 数组不可变',
     url: 'https://leetcode.cn/problems/minimum-height-trees',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,30 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 295,
-            memory: 67.80,
-            desc: 'dfs',
-            code: `class Solution:
-    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        if n == 1: return [0]
-        if n == 2: return [0, 1]
-        nodes = [[] for _ in range(n)]
-        for n1, n2 in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
-        @cache
-        def dfs(node: int, parent: int) -> int:
-            return 1 + max(dfs(child, node) if child != parent else 0 for child in nodes[node])
-        ans_val = inf
-        ans_arr = []
-        for node in range(n):
-            if len(nodes[node]) == 1: continue
-            res = dfs(node, -1)
-            if res <= ans_val:
-                if res < ans_val: ans_arr.clear()
-                ans_val = res
-                ans_arr.append(node)
-        return ans_arr`,
+            time: 50,
+            memory: 20.48,
+            desc: '前缀和',
+            code: `class NumArray:
+    def __init__(self, nums: List[int]):
+        self.sums = [0]
+        for num in nums:
+            self.sums.append(self.sums[-1] + num)
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.sums[right + 1] - self.sums[left]`,
         },
 
         //         {
