@@ -20,6 +20,7 @@
         "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push -u origin master && git push -u github master",
         "update:coreCode": "cd scripts && ts-node updateCoreCode.ts",
         "haizei:oj": "node haizeix/scripts/oj.js",
+        "start": "zx scripts/start-script.mjs",
         "<!-- 快捷方式 -->": "下面是快捷方式用的",
         "rj": "pnpm run run:js",
         "rt": "pnpm run run:ts",
@@ -57,7 +58,7 @@
         "shelljs": "^0.8.5",
         "storybook": "^7.5.3",
         "ts-node": "^10.8.2",
-        "webpack-cli": "^5.1.4"
-    },
-    "dependencies": {}
+        "webpack-cli": "^5.1.4",
+        "zx": "^7.2.3"
+    }
 }
