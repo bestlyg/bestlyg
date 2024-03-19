@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '303. 区域和检索 - 数组不可变',
-    url: 'https://leetcode.cn/problems/minimum-height-trees',
+    exist: !true,
+    name: '1793. 好子数组的最大分数',
+    url: 'https://leetcode.cn/problems/maximum-score-of-a-good-subarray/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。`,
+    desc: `请你返回 好 子数组的最大可能 分数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,17 +28,29 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 50,
-            memory: 20.48,
-            desc: '前缀和',
-            code: `class NumArray:
-    def __init__(self, nums: List[int]):
-        self.sums = [0]
-        for num in nums:
-            self.sums.append(self.sums[-1] + num)
-
-    def sumRange(self, left: int, right: int) -> int:
-        return self.sums[right + 1] - self.sums[left]`,
+            time: 266,
+            memory: 27.5,
+            desc: '先求出每个下标当最小值的范围，再对范围判断是否存在k',
+            code: `class Solution:
+    def maximumScore(self, nums: List[int], k: int) -> int:
+        k += 1
+        nums = [inf] + nums + [inf]
+        s = []
+        n = len(nums)
+        arr1 = [0] * n
+        arr2 = [n - 1] * n
+        for i in range(1, n - 1):
+            while s and nums[s[-1]] > nums[i]:
+                arr2[s.pop()] = i
+            if s: arr1[i] = s[-1]
+            s.append(i)
+        ans = 0
+        for i in range(1, n - 1):
+            left = arr1[i]
+            right = arr2[i]
+            if left < k < right:
+                ans = max(ans, (right - left - 1) * nums[i])
+        return ans`,
         },
 
         //         {
