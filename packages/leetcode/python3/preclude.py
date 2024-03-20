@@ -152,3 +152,21 @@ def digit_dp(n: int, min_num: str, max_num: str, min_sum: int, max_sum: int):
             for d in range(lo, hi + 1)
         )
     return  dfs
+
+def quick_mul(a: int, b: int, mod: int) -> int:
+    ans = 0
+    temp = a
+    while b:
+        if b & 1: ans = (ans + temp) % mod
+        temp = (temp + temp) % mod
+        b >>= 1
+    return ans
+
+def quick_pow(a: int, b: int, mod: int) -> int:
+    ans = 1
+    temp = a
+    while b:
+        if b & 1: ans = quick_mul(ans, temp, mod)
+        temp = quick_mul(temp, temp, mod)
+        b >>= 1
+    return ans

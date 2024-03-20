@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1793. 好子数组的最大分数',
-    url: 'https://leetcode.cn/problems/maximum-score-of-a-good-subarray/',
+    name: '1969. 数组元素的最小非零乘积',
+    url: 'https://leetcode.cn/problems/minimum-non-zero-product-of-the-array-elements/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 好 子数组的最大可能 分数 。`,
+    desc: `请你算出进行以上操作 任意次 以后，nums 能得到的 最小非零 乘积。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,29 +28,32 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 266,
-            memory: 27.5,
-            desc: '先求出每个下标当最小值的范围，再对范围判断是否存在k',
-            code: `class Solution:
-    def maximumScore(self, nums: List[int], k: int) -> int:
-        k += 1
-        nums = [inf] + nums + [inf]
-        s = []
-        n = len(nums)
-        arr1 = [0] * n
-        arr2 = [n - 1] * n
-        for i in range(1, n - 1):
-            while s and nums[s[-1]] > nums[i]:
-                arr2[s.pop()] = i
-            if s: arr1[i] = s[-1]
-            s.append(i)
+            time: 51,
+            memory: 16.3,
+            desc: '除去最大值，其他值都能两两匹配成最大值减1和1，快速计算',
+            code: `def quick_mul(a: int, b: int, mod: int) -> int:
         ans = 0
-        for i in range(1, n - 1):
-            left = arr1[i]
-            right = arr2[i]
-            if left < k < right:
-                ans = max(ans, (right - left - 1) * nums[i])
-        return ans`,
+        temp = a
+        while b:
+            if b & 1: ans = (ans + temp) % mod
+            temp = (temp + temp) % mod
+            b >>= 1
+        return ans
+    
+    def quick_pow(a: int, b: int, mod: int) -> int:
+        ans = 1
+        temp = a
+        while b:
+            if b & 1: ans = quick_mul(ans, temp, mod)
+            temp = quick_mul(temp, temp, mod)
+            b >>= 1
+        return ans
+    
+    class Solution:
+        def minNonZeroProduct(self, p: int) -> int:
+            num = 2 ** p - 1
+            mod = 10 ** 9 + 7
+            return quick_pow(num - 1, num // 2, mod) * num % mod`,
         },
 
         //         {
