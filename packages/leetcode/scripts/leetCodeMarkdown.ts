@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1969. 数组元素的最小非零乘积',
-    url: 'https://leetcode.cn/problems/minimum-non-zero-product-of-the-array-elements/',
+    name: '2671. 频率跟踪器',
+    url: 'https://leetcode.cn/problems/frequency-tracker/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你算出进行以上操作 任意次 以后，nums 能得到的 最小非零 乘积。`,
+    desc: `请你设计并实现一个能够对其中的值进行跟踪的数据结构，并支持对频率相关查询进行应答。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,32 +28,38 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 51,
-            memory: 16.3,
-            desc: '除去最大值，其他值都能两两匹配成最大值减1和1，快速计算',
-            code: `def quick_mul(a: int, b: int, mod: int) -> int:
-        ans = 0
-        temp = a
-        while b:
-            if b & 1: ans = (ans + temp) % mod
-            temp = (temp + temp) % mod
-            b >>= 1
-        return ans
+            time: 374,
+            memory: 81.89,
+            desc: '利用两个dict记录数量和频率',
+            code: `class FrequencyTracker:
+    def __init__(self):
+        self.freq_map = {}
+        self.cnt_map = {}
     
-    def quick_pow(a: int, b: int, mod: int) -> int:
-        ans = 1
-        temp = a
-        while b:
-            if b & 1: ans = quick_mul(ans, temp, mod)
-            temp = quick_mul(temp, temp, mod)
-            b >>= 1
-        return ans
-    
-    class Solution:
-        def minNonZeroProduct(self, p: int) -> int:
-            num = 2 ** p - 1
-            mod = 10 ** 9 + 7
-            return quick_pow(num - 1, num // 2, mod) * num % mod`,
+    def del_freq(self, freq: int, number: int):
+        if freq in self.freq_map and number in self.freq_map[freq]:
+            self.freq_map[freq].remove(number)
+            if not len(self.freq_map[freq]): del self.freq_map[freq]
+
+    def add_freq(self, freq: int, number: int):
+        if freq not in self.freq_map: self.freq_map[freq] = set()
+        if number not in self.freq_map[freq]: self.freq_map[freq].add(number)
+
+    def add(self, number: int) -> None:
+        if number not in self.cnt_map: self.cnt_map[number] = 0
+        self.del_freq(self.cnt_map[number], number)
+        self.cnt_map[number] += 1
+        self.add_freq(self.cnt_map[number], number)
+
+    def deleteOne(self, number: int) -> None:
+        if number not in self.cnt_map: self.cnt_map[number] = 0
+        self.del_freq(self.cnt_map[number], number)
+        if self.cnt_map[number] > 0:
+            self.cnt_map[number] -= 1
+            self.add_freq(self.cnt_map[number], number)
+
+    def hasFrequency(self, frequency: int) -> bool:
+        return frequency in self.freq_map`,
         },
 
         //         {

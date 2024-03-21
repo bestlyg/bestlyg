@@ -1,37 +1,17 @@
 {
-    "id": "2778",
     "name": "2671.频率跟踪器",
-    "url": "https://leetcode.cn/problems/frequency-tracker",
-    "difficulty": "中等",
-    "tag": [
-        "设计",
-        "哈希表"
-    ],
+    "url": "https://leetcode.cn/problems/frequency-tracker/",
+    "difficulty": "简单",
+    "tag": [],
     "desc": "请你设计并实现一个能够对其中的值进行跟踪的数据结构，并支持对频率相关查询进行应答。",
     "solutions": [
         {
-            "script": "cpp",
-            "time": 384,
-            "memory": 196.1,
-            "desc": "维护数量和频率两个哈希表。",
-            "code": "class FrequencyTracker {\npublic:\n    unordered_map<int, int> cm, fm;\n    \n    FrequencyTracker() {}\n    \n    void add(int number) {\n        if (cm[number] != 0) {\n            fm[cm[number]]--;\n        }\n        cm[number]++;\n        fm[cm[number]]++;\n    }\n    \n    void deleteOne(int number) {\n        if (cm[number] == 0) return;\n        fm[cm[number]]--;\n        cm[number]--;\n        fm[cm[number]]++;\n    }\n    \n    bool hasFrequency(int frequency) {\n        return fm[frequency] != 0;\n    }\n};",
-            "date": 1683388800000
-        },
-        {
             "script": "python",
-            "time": 476,
-            "memory": 77.7,
-            "desc": "同上。",
-            "code": "class FrequencyTracker:\n\n    def __init__(self):\n        self.cm = Counter()\n        self.fm = Counter()\n\n    def add(self, number: int) -> None:\n        cm = self.cm\n        fm = self.fm\n        if cm[number] != 0:\n            fm[cm[number]] -= 1\n        cm[number] += 1\n        fm[cm[number]] += 1\n\n    def deleteOne(self, number: int) -> None:\n        cm = self.cm\n        fm = self.fm\n        if cm[number] == 0:\n            return\n        fm[cm[number]] -= 1\n        cm[number] -= 1\n        fm[cm[number]] += 1\n\n    def hasFrequency(self, frequency: int) -> bool:\n        return self.fm[frequency] != 0",
-            "date": 1683388800000
-        },
-        {
-            "script": "rust",
-            "time": 92,
-            "memory": 84.2,
-            "desc": "同上。",
-            "code": "use std::collections::HashMap;\nstruct FrequencyTracker {\n    cm: HashMap<i32, i32>,\n    fm: HashMap<i32, i32>,\n}\nimpl FrequencyTracker {\n    fn new() -> Self {\n        Self {\n            cm: Default::default(),\n            fm: Default::default(),\n        }\n    }\n\n    fn add(&mut self, number: i32) {\n        let cmitem = self.cm.entry(number).or_insert(0);\n        if *cmitem != 0 {\n            *self.fm.entry(*cmitem).or_insert(0) -= 1;\n        }\n        *cmitem += 1;\n        *self.fm.entry(*cmitem).or_insert(0) += 1;\n    }\n\n    fn delete_one(&mut self, number: i32) {\n        let cmitem = self.cm.entry(number).or_insert(0);\n        if *cmitem != 0 {\n            *self.fm.entry(*cmitem).or_insert(0) -= 1;\n            *cmitem -= 1;\n            *self.fm.entry(*cmitem).or_insert(0) += 1;\n        }\n    }\n\n    fn has_frequency(&self, frequency: i32) -> bool {\n        *self.fm.get(&frequency).unwrap_or(&0) != 0\n    }\n}\n",
-            "date": 1683388800000
+            "time": 374,
+            "memory": 81.89,
+            "desc": "利用两个dict记录数量和频率。",
+            "code": "class FrequencyTracker:\n    def __init__(self):\n        self.freq_map = {}\n        self.cnt_map = {}\n    \n    def del_freq(self, freq: int, number: int):\n        if freq in self.freq_map and number in self.freq_map[freq]:\n            self.freq_map[freq].remove(number)\n            if not len(self.freq_map[freq]): del self.freq_map[freq]\n\n    def add_freq(self, freq: int, number: int):\n        if freq not in self.freq_map: self.freq_map[freq] = set()\n        if number not in self.freq_map[freq]: self.freq_map[freq].add(number)\n\n    def add(self, number: int) -> None:\n        if number not in self.cnt_map: self.cnt_map[number] = 0\n        self.del_freq(self.cnt_map[number], number)\n        self.cnt_map[number] += 1\n        self.add_freq(self.cnt_map[number], number)\n\n    def deleteOne(self, number: int) -> None:\n        if number not in self.cnt_map: self.cnt_map[number] = 0\n        self.del_freq(self.cnt_map[number], number)\n        if self.cnt_map[number] > 0:\n            self.cnt_map[number] -= 1\n            self.add_freq(self.cnt_map[number], number)\n\n    def hasFrequency(self, frequency: int) -> bool:\n        return frequency in self.freq_map",
+            "date": 1710950400000
         }
     ]
 }
