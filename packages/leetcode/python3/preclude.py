@@ -4,7 +4,7 @@ from heapq import *
 from collections import defaultdict, deque
 from itertools import accumulate
 from string import ascii_lowercase
-from typing import List, Optional, Tuple
+from typing import Callable, List, Optional, Tuple
 from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict, SortedSet, SortedList, SortedKeyList
@@ -153,20 +153,18 @@ def digit_dp(n: int, min_num: str, max_num: str, min_sum: int, max_sum: int):
         )
     return  dfs
 
-def quick_mul(a: int, b: int, mod: int) -> int:
-    ans = 0
-    temp = a
+def quick_base(a: int, b: int, mod: int, init: int, combine: Callable[[int, int], int], transform: Callable[[int, int], int]) -> int:
+    ans = init
     while b:
-        if b & 1: ans = (ans + temp) % mod
-        temp = (temp + temp) % mod
+        if b & 1: ans = combine(ans, temp) % mod
+        temp = transform(temp, temp) % mod
         b >>= 1
     return ans
 
+def quick_mul(a: int, b: int, mod: int) -> int:
+    fn = lambda a, b: a + b
+    return quick_base(a, b, mod, 0, fn, fn)
+
 def quick_pow(a: int, b: int, mod: int) -> int:
-    ans = 1
-    temp = a
-    while b:
-        if b & 1: ans = quick_mul(ans, temp, mod)
-        temp = quick_mul(temp, temp, mod)
-        b >>= 1
-    return ans
+    fn = lambda a, b: a * b
+    return quick_base(a, b, mod, 1, fn, fn)
