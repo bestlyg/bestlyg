@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2671. 频率跟踪器',
-    url: 'https://leetcode.cn/problems/frequency-tracker/',
+    name: '2549. 统计桌面上的不同数字',
+    url: 'https://leetcode.cn/problems/count-distinct-numbers-on-board',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你设计并实现一个能够对其中的值进行跟踪的数据结构，并支持对频率相关查询进行应答。`,
+    desc: `返回在 109 天之后，出现在桌面上的 不同 整数的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,38 +28,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 374,
-            memory: 81.89,
-            desc: '利用两个dict记录数量和频率',
-            code: `class FrequencyTracker:
-    def __init__(self):
-        self.freq_map = {}
-        self.cnt_map = {}
-    
-    def del_freq(self, freq: int, number: int):
-        if freq in self.freq_map and number in self.freq_map[freq]:
-            self.freq_map[freq].remove(number)
-            if not len(self.freq_map[freq]): del self.freq_map[freq]
-
-    def add_freq(self, freq: int, number: int):
-        if freq not in self.freq_map: self.freq_map[freq] = set()
-        if number not in self.freq_map[freq]: self.freq_map[freq].add(number)
-
-    def add(self, number: int) -> None:
-        if number not in self.cnt_map: self.cnt_map[number] = 0
-        self.del_freq(self.cnt_map[number], number)
-        self.cnt_map[number] += 1
-        self.add_freq(self.cnt_map[number], number)
-
-    def deleteOne(self, number: int) -> None:
-        if number not in self.cnt_map: self.cnt_map[number] = 0
-        self.del_freq(self.cnt_map[number], number)
-        if self.cnt_map[number] > 0:
-            self.cnt_map[number] -= 1
-            self.add_freq(self.cnt_map[number], number)
-
-    def hasFrequency(self, frequency: int) -> bool:
-        return frequency in self.freq_map`,
+            time: 40,
+            memory: 16.48,
+            desc: '最后会获取所有的数',
+            code: `class Solution:
+    def distinctIntegers(self, n: int) -> int:
+        return n - 1 if n > 1 else n`,
         },
 
         //         {

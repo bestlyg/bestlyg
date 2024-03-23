@@ -1,39 +1,17 @@
 {
-    "id": "2679",
     "name": "2549.统计桌面上的不同数字",
     "url": "https://leetcode.cn/problems/count-distinct-numbers-on-board",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "数学",
-        "模拟"
-    ],
-    "desc": "返回在 1e9 天之后，出现在桌面上的 不同 整数的数目。",
+    "tag": [],
+    "desc": "返回在 109 天之后，出现在桌面上的 不同 整数的数目。",
     "solutions": [
         {
-            "script": "cpp",
-            "time": 4,
-            "memory": 6.3,
-            "desc": "哈希枚举。",
-            "code": "class Solution {\npublic:\n    int distinctIntegers(int n) {\n        queue<int> q;\n        unordered_set<int> s;\n        q.push(n);\n        s.insert(n);\n        while (q.size()) {\n            int val = q.front();\n            q.pop();\n            for (int i = 1; i <= min(n, val); i++) {\n                if (val % i == 1 && !s.count(i)) {\n                    q.push(i);\n                    s.insert(i);\n                }\n            }\n        }\n        return s.size();\n    }\n};",
-            "date": 1674921600000
-        },
-        {
             "script": "python",
-            "time": 80,
-            "memory": 15,
-            "desc": "同上。",
-            "code": "from queue import Queue\nclass Solution:\n    def distinctIntegers(self, n: int) -> int:\n        q = Queue()\n        q.put(n)\n        s = set()\n        s.add(n)\n        while q.qsize():\n            val = q.get()\n            for i in range(1, min(n, val) + 1):\n                if val % i == 1 and i not in s:\n                    q.put(i)\n                    s.add(i)\n        return len(s)",
-            "date": 1674921600000
-        },
-        {
-            "script": "rust",
-            "time": 0,
-            "memory": 2.1,
-            "desc": "同上。",
-            "code": "impl Solution {\n    pub fn count_asterisks(s: String) -> i32 {\n        let list = s.split('|').collect::<Vec<_>>();\n        let mut ans = 0;\n        for i in 0..list.len() {\n            if i % 2 == 0 {\n                for c in list[i].chars() {\n                    if c == '*' {\n                        ans += 1\n                    }\n                }\n            }\n        }\n        ans\n    }\n}",
-            "date": 1674921600000
+            "time": 40,
+            "memory": 16.48,
+            "desc": "最后会获取所有的数。",
+            "code": "class Solution:\n    def distinctIntegers(self, n: int) -> int:\n        return n - 1 if n > 1 else n",
+            "date": 1711123200000
         }
     ]
 }
