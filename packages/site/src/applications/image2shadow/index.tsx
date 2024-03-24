@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Upload, Button, Space, message, InputNumber } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { isServer } from '@/src/utils';
+import { isServer } from '@site/src/utils';
 
 function getImageData(image: HTMLImageElement) {
     if (isServer) return [];

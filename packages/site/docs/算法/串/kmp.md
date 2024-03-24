@@ -1,3 +1,7 @@
+import CodeSource1 from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/kmp.ts';
+import CodeSource2 from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/kmp2.ts';
+import CodeBlock from '@theme/CodeBlock';
+
 # KMP(KMP)
 
 - KMP 是 Knuth–Morris–Pratt 的简称（取名自 3 位发明人的名字），于 1977 年发布。
@@ -9,88 +13,8 @@
 1. 遍历文本串依次进行匹配
 1. 当前字符无法匹配时，进行回溯快速前进
 
-## 核心代码
-
-```ts
-/**
- * 利用模式串生成状态机
- *
- * pHead********pEnd
- * pHead === pEnd
- *
- * @param pattern 模式串
- * @returns 传入当前配对的最后一位，返回模式串头部能匹配的最后一位
- */
-function getNext(pattern: string): number[] {
-  const next = [-1];
-  /**
-   * i 已匹配成功的最后一位
-   * j 在最后一位为i的前提下，匹配最多能匹配到前j位
-   */
-  for (let i = 1, j = -1; pattern[i]; i++) {
-    while (j !== -1 && pattern[i] !== pattern[j + 1]) j = next[j];
-    if (pattern[i] === pattern[j + 1]) j++;
-    next[i] = j;
-  }
-  return next;
-}
-export function kmp(text: string, pattern: string): number {
-  const next = getNext(pattern);
-  /**
-   * i 当前匹配到字符下标
-   * j 当前成功匹配的模式串最后一个字符的下标
-   */
-  for (let i = 0, j = -1; text[i]; i++) {
-    const c = text[i];
-    while (j !== -1 && c !== pattern[j + 1]) j = next[j];
-    if (c === pattern[j + 1]) j++;
-    if (!pattern[j + 1]) return i - j;
-  }
-  return -1;
-}
-```
 
 ## 核心代码
 
-```ts
-function getNext(pattern: string): number[] {
-  const n = pattern.length;
-  const ans: number[] = new Array(n).fill(-1);
-  for (let i = 1, j = -1; i < n; i++) {
-    while (j !== -1 && pattern[j + 1] !== pattern[i]) j = ans[j];
-    if (pattern[j + 1] === pattern[i]) j++;
-    ans[i] = j;
-  }
-  return ans;
-}
-const COUNT = 26;
-const codeA = 'a'.codePointAt(0)!;
-/**
- *
- * @param pattern
- * @param next
- * @returns 返回跳跃数组，表示当j的值为i时，且j的下一个的值为j时，进行跳跃
- */
-function getJump(pattern: string, next: number[]): number[][] {
-  const n = pattern.length;
-  const ans: number[][] = new Array(n).fill(0).map(_ => new Array(COUNT).fill(-1));
-  ans[-1] = new Array(COUNT).fill(-1);
-  ans[-1][pattern.codePointAt(0)! - codeA] = 0;
-  for (let i = 0; i < n; i++) {
-    const nextI = next[i];
-    ans[i] = [...ans[nextI]];
-    ans[i][pattern.codePointAt(i + 1)! - codeA] = i + 1;
-  }
-  return ans;
-}
-export function kmp2(text: string, pattern: string): number {
-  const next = getNext(pattern);
-  const jump = getJump(pattern, next);
-  const n = text.length;
-  for (let i = 0, j = -1; i < n; i++) {
-    j = jump[j][text.codePointAt(i)! - codeA];
-    if (j === pattern.length - 1) return i - pattern.length + 1;
-  }
-  return -1;
-}
-```
+<CodeBlock language="tsx">{CodeSource1}</CodeBlock>
+<CodeBlock language="tsx">{CodeSource2}</CodeBlock>

@@ -1,9 +1,11 @@
+import {Point24} from '@site/src/applications/point24';
+import CodeSource from '!!raw-loader!@site/src/applications/point24';
+import CodeBlock from '@theme/CodeBlock';
+
 # 24 点
 
-<applications name="Point24" />
+<Point24 />
 
 ## Code
 
-```jsx title="/src/components/Applications/point24/index.tsx"
-
-```
+<CodeBlock language="tsx">{CodeSource}</CodeBlock>

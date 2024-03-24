@@ -8,7 +8,7 @@ ES6 增加的异步编程方式，避免了回调地狱，一个 promise 有三�
 
 ## 核心代码
 
-```ts
+```typescript
 import { DEFAULT_OP, catchError, throwValue } from '@/shared';
 import { resolvePromise } from './resolvePromise';
 import {

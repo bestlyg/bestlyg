@@ -8,13 +8,13 @@
 
 ## 特点
 
-- 每个节点的平衡因子只可能是-1、0、1(绝对值<=1，如果超过 1，称之为失衡)
+- 每个节点的平衡因子只可能是-1、0、1(绝对值小于等于1，如果超过 1，称之为失衡)
 - 每个结点的左右子树高度差不超过 1
 - 搜索、添加、删除的时间复杂度是 O(logN)
 
 ## 核心代码
 
-```ts
+```typescript
 import { BlanceBinarySearchTree } from './blanceBinarySearchTree';
 import { BinaryTreeNode } from './binaryTree';
 export class AVLTreeNode<T> extends BinaryTreeNode<T> {

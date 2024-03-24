@@ -47,7 +47,7 @@ group:
 
 ### 通用对象
 
-```ts
+```typescript
 /**
  * 统一继承对象接口
  */
@@ -85,7 +85,7 @@ export abstract class AbstractObject implements IObject {
 
 ### 通用结构
 
-```ts
+```typescript
 import { IObject, AbstractObject } from './objectType';
 /**
  * 数据结构构造器
@@ -178,7 +178,7 @@ export abstract class AbstractStruct extends AbstractObject implements IStruct {
 
 ### 比较接口
 
-```ts
+```typescript
 /**
  * 可比较对象接口
  */
@@ -196,7 +196,7 @@ export interface Comparable<T> {
 
 ### 比较类型
 
-```ts
+```typescript
 /**
  * 比较器
  */

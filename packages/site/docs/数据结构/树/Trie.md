@@ -12,7 +12,7 @@ Trie 也叫做字典树、前缀树（Prefix Tree）、单词查找树，Trie �
 
 ## 核心代码
 
-```ts
+```typescript
 export interface ITrie {
   size: number;
   empty: boolean;
