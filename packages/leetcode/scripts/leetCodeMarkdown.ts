@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2549. 统计桌面上的不同数字',
+    exist: true,
+    name: '322. 零钱兑换',
     url: 'https://leetcode.cn/problems/count-distinct-numbers-on-board',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回在 109 天之后，出现在桌面上的 不同 整数的数目。`,
+    desc: `计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,12 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.48,
-            desc: '最后会获取所有的数',
+            time: 803,
+            memory: 16.73,
+            desc: 'dp记录当前金额下的最小硬币数',
             code: `class Solution:
-    def distinctIntegers(self, n: int) -> int:
-        return n - 1 if n > 1 else n`,
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()
+        dp = [inf] * (amount + 1)
+        dp[0] = 0
+        for cur in range(amount + 1):
+            for coin in coins:
+                if coin > cur: break
+                dp[cur] = min(dp[cur], dp[cur - coin] + 1)
+        return dp[amount] if dp[amount] != inf else -1`,
         },
 
         //         {

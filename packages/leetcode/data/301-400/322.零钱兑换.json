@@ -33,6 +33,14 @@
             "script": "javascript",
             "desc": "动态规划。",
             "code": "function coinChange(coins: number[], amount: number): number {\n  coins.sort((a, b) => a - b);\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n  for (let i = 1; i <= amount; i++) {\n    for (const coin of coins) {\n      if (coin > i) break;\n      dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n    }\n  }\n  return dp[amount] === Infinity ? -1 : dp[amount];\n}"
+        },
+        {
+            "script": "python",
+            "time": 803,
+            "memory": 16.73,
+            "desc": "dp记录当前金额下的最小硬币数。",
+            "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        coins.sort()\n        dp = [inf] * (amount + 1)\n        dp[0] = 0\n        for cur in range(amount + 1):\n            for coin in coins:\n                if coin > cur: break\n                dp[cur] = min(dp[cur], dp[cur - coin] + 1)\n        return dp[amount] if dp[amount] != inf else -1",
+            "date": 1711209600000
         }
     ]
 }
