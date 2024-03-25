@@ -6,9 +6,9 @@ authors: [lyg]
 
 快速计算向量位置，下文矩阵全是列主序四阶矩阵
 
-- 定义向量$\overrightarrow{vec} = (x,y,z,w)$
-- 定义矩阵
-  $
+-   定义向量$\overrightarrow{vec} = (x,y,z,w)$
+-   定义矩阵
+    $
   mat4 =
   \begin{bmatrix}
   m_{11} & m_{12} & m_{13} & m_{14} \\
@@ -66,54 +66,54 @@ m_{b41} & m_{b42} & m_{b43} & m_{b44} \\
 \end{bmatrix}
 $$
 
-- $$
-  m_{c11} = m_{a11} \times m_{b11} + m_{a21} \times m_{b12} + m_{a31} \times m_{b13} + m_{a41} \times m_{b14}
-  $$
-- $$
-  m_{c12} = m_{a11} \times m_{b21} + m_{a21} \times m_{b22} + m_{a31} \times m_{b23} + m_{a41} \times m_{b24}
-  $$
-- $$
-  m_{c13} = m_{a11} \times m_{b31} + m_{a21} \times m_{b32} + m_{a31} \times m_{b33} + m_{a41} \times m_{b34}
-  $$
-- $$
-  m_{c14} = m_{a12} \times m_{b41} + m_{a22} \times m_{b42} + m_{a32} \times m_{b43} + m_{a42} \times m_{b44}
-  $$
-- $$
-  m_{c21} = m_{a12} \times m_{b11} + m_{a22} \times m_{b12} + m_{a32} \times m_{b13} + m_{a42} \times m_{b14}
-  $$
-- $$
-  m_{c22} = m_{a12} \times m_{b21} + m_{a22} \times m_{b22} + m_{a32} \times m_{b23} + m_{a42} \times m_{b24}
-  $$
-- $$
-  m_{c23} = m_{a12} \times m_{b31} + m_{a22} \times m_{b32} + m_{a32} \times m_{b33} + m_{a42} \times m_{b34}
-  $$
-- $$
-  m_{c24} = m_{a12} \times m_{b41} + m_{a22} \times m_{b42} + m_{a32} \times m_{b43} + m_{a42} \times m_{b44}
-  $$
-- $$
-  m_{c31} = m_{a13} \times m_{b11} + m_{a23} \times m_{b12} + m_{a33} \times m_{b13} + m_{a43} \times m_{b14}
-  $$
-- $$
-  m_{c32} = m_{a13} \times m_{b21} + m_{a23} \times m_{b22} + m_{a33} \times m_{b23} + m_{a43} \times m_{b24}
-  $$
-- $$
-  m_{c33} = m_{a13} \times m_{b31} + m_{a23} \times m_{b32} + m_{a33} \times m_{b33} + m_{a43} \times m_{b34}
-  $$
-- $$
-  m_{c34} = m_{a13} \times m_{b41} + m_{a23} \times m_{b42} + m_{a33} \times m_{b43} + m_{a43} \times m_{b44}
-  $$
-- $$
-  m_{c41} = m_{a14} \times m_{b11} + m_{a24} \times m_{b12} + m_{a34} \times m_{b13} + m_{a44} \times m_{b14}
-  $$
-- $$
-  m_{c42} = m_{a14} \times m_{b21} + m_{a24} \times m_{b22} + m_{a34} \times m_{b23} + m_{a44} \times m_{b24}
-  $$
-- $$
-  m_{c43} = m_{a14} \times m_{b31} + m_{a24} \times m_{b32} + m_{a34} \times m_{b33} + m_{a44} \times m_{b34}
-  $$
-- $$
-  m_{c44} = m_{a14} \times m_{b41} + m_{a24} \times m_{b42} + m_{a34} \times m_{b43} + m_{a44} \times m_{b44}
-  $$
+-   $$
+    m_{c11} = m_{a11} \times m_{b11} + m_{a21} \times m_{b12} + m_{a31} \times m_{b13} + m_{a41} \times m_{b14}
+    $$
+-   $$
+    m_{c12} = m_{a11} \times m_{b21} + m_{a21} \times m_{b22} + m_{a31} \times m_{b23} + m_{a41} \times m_{b24}
+    $$
+-   $$
+    m_{c13} = m_{a11} \times m_{b31} + m_{a21} \times m_{b32} + m_{a31} \times m_{b33} + m_{a41} \times m_{b34}
+    $$
+-   $$
+    m_{c14} = m_{a12} \times m_{b41} + m_{a22} \times m_{b42} + m_{a32} \times m_{b43} + m_{a42} \times m_{b44}
+    $$
+-   $$
+    m_{c21} = m_{a12} \times m_{b11} + m_{a22} \times m_{b12} + m_{a32} \times m_{b13} + m_{a42} \times m_{b14}
+    $$
+-   $$
+    m_{c22} = m_{a12} \times m_{b21} + m_{a22} \times m_{b22} + m_{a32} \times m_{b23} + m_{a42} \times m_{b24}
+    $$
+-   $$
+    m_{c23} = m_{a12} \times m_{b31} + m_{a22} \times m_{b32} + m_{a32} \times m_{b33} + m_{a42} \times m_{b34}
+    $$
+-   $$
+    m_{c24} = m_{a12} \times m_{b41} + m_{a22} \times m_{b42} + m_{a32} \times m_{b43} + m_{a42} \times m_{b44}
+    $$
+-   $$
+    m_{c31} = m_{a13} \times m_{b11} + m_{a23} \times m_{b12} + m_{a33} \times m_{b13} + m_{a43} \times m_{b14}
+    $$
+-   $$
+    m_{c32} = m_{a13} \times m_{b21} + m_{a23} \times m_{b22} + m_{a33} \times m_{b23} + m_{a43} \times m_{b24}
+    $$
+-   $$
+    m_{c33} = m_{a13} \times m_{b31} + m_{a23} \times m_{b32} + m_{a33} \times m_{b33} + m_{a43} \times m_{b34}
+    $$
+-   $$
+    m_{c34} = m_{a13} \times m_{b41} + m_{a23} \times m_{b42} + m_{a33} \times m_{b43} + m_{a43} \times m_{b44}
+    $$
+-   $$
+    m_{c41} = m_{a14} \times m_{b11} + m_{a24} \times m_{b12} + m_{a34} \times m_{b13} + m_{a44} \times m_{b14}
+    $$
+-   $$
+    m_{c42} = m_{a14} \times m_{b21} + m_{a24} \times m_{b22} + m_{a34} \times m_{b23} + m_{a44} \times m_{b24}
+    $$
+-   $$
+    m_{c43} = m_{a14} \times m_{b31} + m_{a24} \times m_{b32} + m_{a34} \times m_{b33} + m_{a44} \times m_{b34}
+    $$
+-   $$
+    m_{c44} = m_{a14} \times m_{b41} + m_{a24} \times m_{b42} + m_{a34} \times m_{b43} + m_{a44} \times m_{b44}
+    $$
 
 ## 模型矩阵
 
@@ -157,15 +157,15 @@ $$
 
 ### 旋转
 
-[旋转](./旋转.md)
+[旋转](./旋转.mdx)
 
 ## 视图矩阵
 
 通过目标点，视点，上方向，三个点计算视图矩阵。x,y 方向不变，z 方向相反。
 
-- 目标点:$\overrightarrow{target} = (tx,ty,tz,tw)$
-- 视点:$\overrightarrow{eye} = (ex,ey,ez,ew)$
-- 上方向:$\overrightarrow{up} = (ux,uy,uz,uw)$
+-   目标点:$\overrightarrow{target} = (tx,ty,tz,tw)$
+-   视点:$\overrightarrow{eye} = (ex,ey,ez,ew)$
+-   上方向:$\overrightarrow{up} = (ux,uy,uz,uw)$
 
 1. 以目标点为起点，视点为终点计算$\overrightarrow{d} = \overrightarrow{eye} - \overrightarrow{target} = (dx,dy,dz,dw)$
 1. 将$\overrightarrow{d}$归一化$\overrightarrow{d} *= 1 / |\overrightarrow{d}|$
@@ -179,83 +179,83 @@ $$
 
 在裁剪空间内，物体大小不会因为距离远近而改变，通过上下边界，左右边界，近平面，远平面计算正交投影矩阵。
 
-- 上边界:top
-- 下边界:bottom
-- 左边界:left
-- 右边界:right
-- 近平面:near
-- 远平面:far
+-   上边界:top
+-   下边界:bottom
+-   左边界:left
+-   右边界:right
+-   近平面:near
+-   远平面:far
 
 1. 计算裁剪空间的三轴方向长度与相机世界的三轴方向上的 1 个单位比例关系。
-   - 裁剪空间(用 1 表示) / 相机世界(用 2 表示，默认为 1)
-   - $ w_1 = \frac{w_1}{w_2} = \frac{2}{right - left}$
-   - $ h_1 = \frac{h_1}{h_2} = \frac{2}{top - bottom}$
-   - $ p_1 = \frac{p_1}{p_2} = \frac{2}{far - near}$
+    - 裁剪空间(用 1 表示) / 相机世界(用 2 表示，默认为 1)
+    - $ w_1 = \frac{w_1}{w_2} = \frac{2}{right - left}$
+    - $ h_1 = \frac{h_1}{h_2} = \frac{2}{top - bottom}$
+    - $ p_1 = \frac{p_1}{p_2} = \frac{2}{far - near}$
 1. 通过比例关系求出矩阵与裁剪空间的位移量
-   - $ x = \frac{right + left}{2} \times \frac{2}{right - left} = \frac{right + left}{right - left} $
-   - $ y = \frac{top + bottom}{2} \times \frac{2}{top - bottom} = \frac{top + bottom}{top - bottom} $
-   - $ z = \frac{far + near}{2} \times \frac{2}{far - near} = \frac{far + near}{far - near} $
+    - $ x = \frac{right + left}{2} \times \frac{2}{right - left} = \frac{right + left}{right - left} $
+    - $ y = \frac{top + bottom}{2} \times \frac{2}{top - bottom} = \frac{top + bottom}{top - bottom} $
+    - $ z = \frac{far + near}{2} \times \frac{2}{far - near} = \frac{far + near}{far - near} $
 
-- $$
-    orthographicProjection =
-    \begin{bmatrix}
-    \frac{2}{right - left}            & 0                                 & 0                             & 0 \\
-    0                                 & \frac{2}{top - bottom}            & 0                             & 0 \\
-    0                                 & 0                                 & \frac{2}{far - near}          & 0 \\
-    \frac{right + left}{right - left} & \frac{top + bottom}{top - bottom} & \frac{far + near}{far - near} & 1 \\
-    \end{bmatrix}
-    =
-  $$
+-   $$
+      orthographicProjection =
+      \begin{bmatrix}
+      \frac{2}{right - left}            & 0                                 & 0                             & 0 \\
+      0                                 & \frac{2}{top - bottom}            & 0                             & 0 \\
+      0                                 & 0                                 & \frac{2}{far - near}          & 0 \\
+      \frac{right + left}{right - left} & \frac{top + bottom}{top - bottom} & \frac{far + near}{far - near} & 1 \\
+      \end{bmatrix}
+      =
+    $$
 
 ## 透视投影矩阵
 
 在裁剪空间内，物体大小会因为距离远近而改变，通过上下边界，左右边界，近平面，远平面计算正交投影矩阵。
 
-- fov:摄像机视锥体垂直视野角度
-- aspect:摄像机视锥体宽高比
-- near:摄像机近裁剪面到视点的距离
-- far:摄像机远裁剪面到视点的距离
+-   fov:摄像机视锥体垂直视野角度
+-   aspect:摄像机视锥体宽高比
+-   near:摄像机近裁剪面到视点的距离
+-   far:摄像机远裁剪面到视点的距离
 
 1. 相机可视区域为四棱台形状，转化为长方体形状的投影盒子
-   1. $ \frac{top}{n} = \tan(\frac{fov}{2}) $
-   1. $ top = \tan(\frac{fov}{2}) \times n $
-   1. $ bottom = -top $
-   1. $ \frac{right}{top} = aspect $
-   1. $ right = top \times aspece $
-   1. $ left = -right $
-   1. 设$ p_1 = ( x_1 , y_1 , z_1 , w_1)$,则$p_1$在投影盒子里的投影(x 与 y 发生偏移，z 位置不变)为：
-   1. $ \frac{x_2}{x_1} = \frac{-n}{z_1} $
-   1. $ x_2 = \frac{-n}{z_1} \times x_1 $
-   1. 同理可得 $ y_2 =\frac{-n}{z_1} \times y_1 $
-   1. $ p_2 = ( \frac{-n}{z_1} \times x_1 , \frac{-n}{z_1} \times y_1 , z_1 , w_1)$
+    1. $ \frac{top}{n} = \tan(\frac{fov}{2}) $
+    1. $ top = \tan(\frac{fov}{2}) \times n $
+    1. $ bottom = -top $
+    1. $ \frac{right}{top} = aspect $
+    1. $ right = top \times aspece $
+    1. $ left = -right $
+    1. 设$ p_1 = ( x_1 , y_1 , z_1 , w_1)$,则$p_1$在投影盒子里的投影(x 与 y 发生偏移，z 位置不变)为：
+    1. $ \frac{x_2}{x_1} = \frac{-n}{z_1} $
+    1. $ x_2 = \frac{-n}{z_1} \times x_1 $
+    1. 同理可得 $ y_2 =\frac{-n}{z_1} \times y_1 $
+    1. $ p_2 = ( \frac{-n}{z_1} \times x_1 , \frac{-n}{z_1} \times y_1 , z_1 , w_1)$
 1. 将投影盒子与裁剪空间进行映射
-   1. 设裁剪空间中$ p_3 = ( x_3 , y_3 , z_3 , w_3 ) $与投影盒子中的$ p_2 $对应
-   1. 设$ p_4 = p_3 \times -z_1 $
-   1. $ w_3 = w_1 $
-   1. $ \frac{ x_3 - (-1) }{ 1 - (-1) } = \frac{ \frac{-n}{z_1} \times x_1 - left }{ right - left } $
-   1. $ x_4 = -z_1 \times x_3 = \frac{ 2 \times n}{ right - left } \times x_1 + \frac{ right + left }{ right - left } \times z_1$
-   1. 同理可得$ x_4 = -z_1 \times x_3 = \frac{ 2 \times n}{ top - bottom } \times y_1 + \frac{ top + bottom }{ top - bottom } \times z_1$
-   1. 为了方便矩阵运算，逆向求$ z_4 $的结果
-      $$
-        projectionMatrix =
-        \begin{bmatrix}
-        \frac{ 2 \times n}{ right - left }    & 0                                     & 0 & 0  \\
-        0                                     & \frac{ 2 \times n}{ top - bottom }    & 0 & 0  \\
-        0                                     & 0                                     & k & -1 \\
-        \frac{ right + left }{ right - left } & \frac{ top + bottom }{ top - bottom } & b & 1  \\
-        \end{bmatrix}
-      $$
-   1. $ z_4 = -z_1 \times z_3 = k \times z_1 + b $
-      - 当$z_1 = -n$时,$z_3 = -1$
-      - 当$z_1 = -f$时,$z_3 = 1$
-      - 求出$ z_4 = -\frac{far + near}{far-near} \times z_1 - \frac{2 \times near \times far}{far - near}$
+    1. 设裁剪空间中$ p_3 = ( x_3 , y_3 , z_3 , w_3 ) $与投影盒子中的$ p_2 $对应
+    1. 设$ p_4 = p_3 \times -z_1 $
+    1. $ w_3 = w_1 $
+    1. $ \frac{ x_3 - (-1) }{ 1 - (-1) } = \frac{ \frac{-n}{z_1} \times x_1 - left }{ right - left } $
+    1. $ x_4 = -z_1 \times x_3 = \frac{ 2 \times n}{ right - left } \times x_1 + \frac{ right + left }{ right - left } \times z_1$
+    1. 同理可得$ x_4 = -z_1 \times x_3 = \frac{ 2 \times n}{ top - bottom } \times y_1 + \frac{ top + bottom }{ top - bottom } \times z_1$
+    1. 为了方便矩阵运算，逆向求$ z_4 $的结果
+        $$
+          projectionMatrix =
+          \begin{bmatrix}
+          \frac{ 2 \times n}{ right - left }    & 0                                     & 0 & 0  \\
+          0                                     & \frac{ 2 \times n}{ top - bottom }    & 0 & 0  \\
+          0                                     & 0                                     & k & -1 \\
+          \frac{ right + left }{ right - left } & \frac{ top + bottom }{ top - bottom } & b & 1  \\
+          \end{bmatrix}
+        $$
+    1. $ z_4 = -z_1 \times z_3 = k \times z_1 + b $
+        - 当$z_1 = -n$时,$z_3 = -1$
+        - 当$z_1 = -f$时,$z_3 = 1$
+        - 求出$ z_4 = -\frac{far + near}{far-near} \times z_1 - \frac{2 \times near \times far}{far - near}$
 1. 最后求出
-   $$
-     projectionMatrix =
-     \begin{bmatrix}
-     \frac{ 2 \times n}{ right - left }    & 0                                     & 0                                                 & 0  \\
-     0                                     & \frac{ 2 \times n}{ top - bottom }    & 0                                                 & 0  \\
-     0                                     & 0                                     & - \frac{ far + near }{ far-near }                 & -1 \\
-     \frac{ right + left }{ right - left } & \frac{ top + bottom }{ top - bottom } & - \frac{ 2 \times near \times far }{ far - near } & 1  \\
-     \end{bmatrix}
-   $$
+    $$
+      projectionMatrix =
+      \begin{bmatrix}
+      \frac{ 2 \times n}{ right - left }    & 0                                     & 0                                                 & 0  \\
+      0                                     & \frac{ 2 \times n}{ top - bottom }    & 0                                                 & 0  \\
+      0                                     & 0                                     & - \frac{ far + near }{ far-near }                 & -1 \\
+      \frac{ right + left }{ right - left } & \frac{ top + bottom }{ top - bottom } & - \frac{ 2 \times near \times far }{ far - near } & 1  \\
+      \end{bmatrix}
+    $$
