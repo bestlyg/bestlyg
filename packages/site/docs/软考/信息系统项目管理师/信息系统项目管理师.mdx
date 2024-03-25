@@ -1,21 +1,27 @@
 import _ from 'lodash';
 import React from 'react';
-import {Space,Button,Typography,FloatButton} from 'antd';
+import { Space, Button, Typography, FloatButton } from 'antd';
 export function RandomItem() {
     const [cur, setCur] = React.useState(null);
     return (
         <Space direction="vertical">
             <Typography.Title level={1}>{cur?.innerText}</Typography.Title>
-            <Button type="primary" onClick={()=>{
-                const list = Array.from(document.querySelectorAll('h3'));
-                console.log(list);
-                setCur(list[_.random(0, list.length-1)])
-            }}>
+            <Button
+                type="primary"
+                onClick={() => {
+                    const list = Array.from(document.querySelectorAll('h3'));
+                    console.log(list);
+                    setCur(list[_.random(0, list.length - 1)]);
+                }}
+            >
                 Random
             </Button>
-            <Button type="primary" onClick={()=>{
-                cur?.scrollIntoView?.({ behavior: "smooth" });
-            }}>
+            <Button
+                type="primary"
+                onClick={() => {
+                    cur?.scrollIntoView?.({ behavior: 'smooth' });
+                }}
+            >
                 Go
             </Button>
             <FloatButton.BackTop />
@@ -25,28 +31,28 @@ export function RandomItem() {
 
 # 信息系统项目管理师
 
-<RandomItem/>
+<RandomItem />
 
 ## 特殊点
 
 ### 仅开展一次
 
-制定项目章程
-结束项目或阶段
-收集需求
-创建 WBS
-规划进度管理
-规划成本管理
-规划资源管理
-规划采购管理
+-   制定项目章程
+-   结束项目或阶段
+-   收集需求
+-   创建 WBS
+-   规划进度管理
+-   规划成本管理
+-   规划资源管理
+-   规划采购管理
 
 ### 是正式或非正式的
 
-项目管理计划
-范围管理计划
-进度管理计划
-质量管理计划
-采购管理计划
+-   项目管理计划
+-   范围管理计划
+-   进度管理计划
+-   质量管理计划
+-   采购管理计划
 
 ## ITTO
 
