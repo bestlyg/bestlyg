@@ -124,8 +124,9 @@ const config: Config = {
     } satisfies Preset.ThemeConfig,
     stylesheets: [
         {
-            href: '/katex/katex.min.css',
+            href: 'https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.24/katex.min.css',
             type: 'text/css',
+            crossorigin: 'anonymous',
         },
     ],
 };
