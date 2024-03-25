@@ -1,4 +1,4 @@
-import CodeSource from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/bruteForce.ts';
+import CodeSource from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/bruteForce.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # 暴力匹配(BruteForce)

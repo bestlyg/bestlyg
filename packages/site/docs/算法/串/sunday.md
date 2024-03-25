@@ -1,4 +1,4 @@
-import CodeSource from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/sunday.ts';
+import CodeSource from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/sunday.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # Sunday(Sunday)

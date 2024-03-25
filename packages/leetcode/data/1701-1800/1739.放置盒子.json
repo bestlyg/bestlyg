@@ -1,7 +1,7 @@
 {
     "id": "1861",
     "name": "1739.放置盒子",
-    "url": "desc: `https://leetcode.cn/problems/building-boxes",
+    "url": "https://leetcode.cn/problems/building-boxes",
     "difficulty": "困难",
     "tag": [
         "贪心",

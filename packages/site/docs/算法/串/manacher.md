@@ -1,4 +1,4 @@
-import CodeSource from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/manacher.ts';
+import CodeSource from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/manacher.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # Manacher(Manacher)

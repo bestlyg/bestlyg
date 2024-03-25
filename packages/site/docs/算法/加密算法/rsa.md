@@ -1,4 +1,4 @@
-import CodeSource from '!!raw-loader!@best-lyg/code/src/algorithms/encryption/rsa.ts';
+import CodeSource from '!!raw-loader!@bestlyg/code/src/algorithms/encryption/rsa.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # RSA(RSA)

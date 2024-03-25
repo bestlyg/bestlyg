@@ -4,7 +4,7 @@
     "url": "https://leetcode.cn/problems/to-be-or-not-to-be",
     "difficulty": "简单",
     "tag": [],
-    "desc": "请你编写一个名为 expect 的函数，用于帮助开发人员测试他们的代码。它应该接受任何值 val 并返回一个包含以下两个函数的对象。\n\n    。",
+    "desc": "请你编写一个名为 expect 的函数，用于帮助开发人员测试他们的代码。它应该接受任何值 val 并返回一个包含以下两个函数的对象。",
     "solutions": [
         {
             "script": "typescript",

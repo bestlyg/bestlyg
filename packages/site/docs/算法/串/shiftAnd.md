@@ -1,4 +1,4 @@
-import CodeSource from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/shiftAnd.ts';
+import CodeSource from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/shiftAnd.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # ShiftAnd(ShiftAnd)

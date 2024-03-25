@@ -1,5 +1,5 @@
-import CodeSource1 from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/kmp.ts';
-import CodeSource2 from '!!raw-loader!@best-lyg/code/src/algorithms/sequence/kmp2.ts';
+import CodeSource1 from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/kmp.ts';
+import CodeSource2 from '!!raw-loader!@bestlyg/code/src/algorithms/sequence/kmp2.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # KMP(KMP)
