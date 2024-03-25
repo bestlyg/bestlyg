@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "docusaurus": "docusaurus",
-        "start": "pnpm fork-leetcode && docusaurus start",
+        "start": "zx scripts/prestart.mjs && docusaurus start",
         "build": "pnpm fork-leetcode && docusaurus build",
         "swizzle": "docusaurus swizzle",
         "deploy": "docusaurus deploy",
