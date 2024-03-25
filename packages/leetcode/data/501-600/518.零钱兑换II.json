@@ -24,6 +24,14 @@
             "script": "javascript",
             "desc": "动态规划。",
             "code": "function change(amount: number, coins: number[]): number {\n  coins.sort((a, b) => a - b);\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const coin of coins) {\n    for (let i = 1; i <= amount; i++) {\n      if (i >= coin) dp[i] += dp[i - coin];\n    }\n  }\n  return dp[amount];\n}"
+        },
+        {
+            "script": "python",
+            "time": 81,
+            "memory": 16.5,
+            "desc": "dp记录当前金额下的能兑换的方式数。",
+            "code": "class Solution:\n    def change(self, amount: int, coins: List[int]) -> int:\n        dp = [0] * (amount + 1)\n        dp[0] = 1\n        for coin in coins:\n            for cur in range(coin, amount + 1):\n                dp[cur] += dp[cur - coin]\n        return dp[amount]",
+            "date": 1711296000000
         }
     ]
 }

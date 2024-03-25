@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '322. 零钱兑换',
+    name: '518. 零钱兑换 II',
     url: 'https://leetcode.cn/problems/count-distinct-numbers-on-board',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,19 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 803,
-            memory: 16.73,
-            desc: 'dp记录当前金额下的最小硬币数',
+            time: 81,
+            memory: 16.5,
+            desc: 'dp记录当前金额下的能兑换的方式数',
             code: `class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:
-        coins.sort()
-        dp = [inf] * (amount + 1)
-        dp[0] = 0
-        for cur in range(amount + 1):
-            for coin in coins:
-                if coin > cur: break
-                dp[cur] = min(dp[cur], dp[cur - coin] + 1)
-        return dp[amount] if dp[amount] != inf else -1`,
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        for coin in coins:
+            for cur in range(coin, amount + 1):
+                dp[cur] += dp[cur - coin]
+        return dp[amount]`,
         },
 
         //         {
