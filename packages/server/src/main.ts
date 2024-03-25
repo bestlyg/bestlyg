@@ -2,9 +2,8 @@ import { RequestMethod } from '@nestjs/common/enums';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters';
-import chokidar from 'chokidar';
+import * as chokidar from 'chokidar';
 import { execSync } from 'node:child_process';
-import fs from 'fs-extra';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,8 +21,20 @@ async function bootstrap() {
 bootstrap();
 
 const sitePath = '/home/ubuntu/site.zip';
-chokidar.watch(sitePath).on('*', async (event, path) => {
-  console.log('watch', event, path);
-  // execSync(`sudo unzip -o -d /root/bestlyg ${sitePath}`);
-  // await fs.remove(sitePath);
+let timeout: NodeJS.Timeout = null;
+function deploySite() {
+  execSync(`unzip -o -d /root/bestlyg ${sitePath}`);
+}
+chokidar.watch(sitePath, { persistent: true }).on('all', async (event) => {
+  switch (event) {
+    case 'add':
+    case 'change':
+      if (timeout) clearTimeout(timeout);
+      setTimeout(() => {
+        deploySite();
+        timeout = null;
+      }, 1000);
+    default:
+      return;
+  }
 });
