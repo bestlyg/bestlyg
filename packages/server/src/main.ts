@@ -20,9 +20,9 @@ async function bootstrap() {
 }
 bootstrap();
 
-const sitePath = '/home/ubuntu/site.zip';
-chokidar.watch(sitePath).on('add', async (event, path) => {
-  console.log('ADD', event, path);
-  await $`sudo unzip -o -d /root/bestlyg /home/ubuntu/site.zip`;
-  await fs.remove(sitePath);
-});
+// const sitePath = '/home/ubuntu/site.zip';
+// chokidar.watch(sitePath).on('add', async (event, path) => {
+//   console.log('ADD', event, path);
+//   await $`sudo unzip -o -d /root/bestlyg /home/ubuntu/site.zip`;
+//   await fs.remove(sitePath);
+// });
