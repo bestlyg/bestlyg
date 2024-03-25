@@ -14,10 +14,12 @@ const staticPath = join(__dirname, '../../../static');
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../site/build'),
       serveRoot: '/site',
+      serveStaticOptions: { immutable: true },
     }),
     ServeStaticModule.forRoot({
       rootPath: staticPath,
       serveRoot: '/static',
+      serveStaticOptions: { immutable: true },
     }),
     // ServeStaticModule.forRoot({
     //   rootPath: publicPath,
