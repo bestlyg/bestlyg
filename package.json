@@ -20,7 +20,7 @@
         "commit:auto": "git pull origin master && git add -A && pnpm run commit && git push -u origin master && git push -u github master",
         "update:coreCode": "cd scripts && ts-node updateCoreCode.ts",
         "haizei:oj": "node haizeix/scripts/oj.js",
-        "start": "zx scripts/start-script.mjs",
+        "script": "zx scripts/main.mjs",
         "<!-- 快捷方式 -->": "下面是快捷方式用的",
         "rj": "pnpm run run:js",
         "rt": "pnpm run run:ts",
