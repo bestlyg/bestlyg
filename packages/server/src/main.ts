@@ -3,7 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters';
 import chokidar from 'chokidar';
-import { $, fs } from 'zx';
+import { execSync } from 'node:child_process';
+import fs from 'fs-extra';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,9 +21,9 @@ async function bootstrap() {
 }
 bootstrap();
 
-// const sitePath = '/home/ubuntu/site.zip';
-// chokidar.watch(sitePath).on('add', async (event, path) => {
-//   console.log('ADD', event, path);
-//   await $`sudo unzip -o -d /root/bestlyg /home/ubuntu/site.zip`;
-//   await fs.remove(sitePath);
-// });
+const sitePath = '/home/ubuntu/site.zip';
+chokidar.watch(sitePath).on('*', async (event, path) => {
+  console.log('watch', event, path);
+  // execSync(`sudo unzip -o -d /root/bestlyg ${sitePath}`);
+  // await fs.remove(sitePath);
+});
