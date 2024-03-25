@@ -32,6 +32,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.1.0
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   prism-react-renderer:
     specifier: ^2.3.0
     version: 2.3.1(react@18.2.0)
