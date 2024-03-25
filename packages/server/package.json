@@ -30,6 +30,7 @@
     "@nestjs/schedule": "^2.1.0",
     "@nestjs/serve-static": "^2.2.2",
     "cache-manager": "^4.1.0",
+    "chokidar": "^3.6.0",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.3",
     "express": "^4.18.1",
@@ -45,7 +46,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "undici": "^5.10.0"
+    "undici": "^5.10.0",
+    "zx": "^7.2.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
