@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters';
 import * as chokidar from 'chokidar';
 import { execSync } from 'node:child_process';
-import _ from 'lodash';
+import { debounce } from 'lodash';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,7 +22,7 @@ async function bootstrap() {
 bootstrap();
 
 const sitePath = '/home/ubuntu/site.zip';
-const deploySite = _.debounce(
+const deploySite = debounce(
   () => execSync(`unzip -o -d /root/bestlyg ${sitePath}`),
   1000,
 );
