@@ -4,7 +4,11 @@ const serverName = `bestlyg-server`;
 // echo Deploy Project
 // docker-compose up -d --force-recreate --build
 echo(`pm2 delete ${serverName}`);
-await $`pm2 delete ${serverName}`;
+try {
+    await $`pm2 delete ${serverName}`;
+} catch (e) {
+    echo(e);
+}
 echo(`git pull`);
 await $`git pull`;
 echo(`pnpm i --frozen-lockfile`);
