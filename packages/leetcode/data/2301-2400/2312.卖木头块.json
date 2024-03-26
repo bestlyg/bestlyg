@@ -1,8 +1,13 @@
 {
+    "id": "1376",
     "name": "2312.卖木头块",
     "url": "https://leetcode.cn/problems/selling-pieces-of-wood",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "记忆化搜索",
+        "数组",
+        "动态规划"
+    ],
     "desc": "请你返回切割一块大小为 m x n 的木块后，能得到的 最多 钱数。",
     "solutions": [
         {

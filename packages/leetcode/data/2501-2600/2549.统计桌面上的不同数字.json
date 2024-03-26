@@ -1,8 +1,14 @@
 {
+    "id": "2679",
     "name": "2549.统计桌面上的不同数字",
     "url": "https://leetcode.cn/problems/count-distinct-numbers-on-board",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "数组",
+        "哈希表",
+        "数学",
+        "模拟"
+    ],
     "desc": "返回在 109 天之后，出现在桌面上的 不同 整数的数目。",
     "solutions": [
         {

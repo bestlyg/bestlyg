@@ -1,8 +1,16 @@
 {
+    "id": "1387",
     "name": "1261.在受污染的二叉树中查找元素",
     "url": "https://leetcode.cn/problems/find-elements-in-a-contaminated-binary-tree",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "设计",
+        "哈希表",
+        "二叉树"
+    ],
     "desc": "请你先还原二叉树，然后实现 FindElements 类。",
     "solutions": [
         {

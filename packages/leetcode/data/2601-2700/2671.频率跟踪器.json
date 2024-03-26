@@ -1,8 +1,12 @@
 {
+    "id": "2778",
     "name": "2671.频率跟踪器",
-    "url": "https://leetcode.cn/problems/frequency-tracker/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/frequency-tracker",
+    "difficulty": "中等",
+    "tag": [
+        "设计",
+        "哈希表"
+    ],
     "desc": "请你设计并实现一个能够对其中的值进行跟踪的数据结构，并支持对频率相关查询进行应答。",
     "solutions": [
         {

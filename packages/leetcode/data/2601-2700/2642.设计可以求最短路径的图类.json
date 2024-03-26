@@ -1,8 +1,14 @@
 {
+    "id": "2678",
     "name": "2642.设计可以求最短路径的图类",
     "url": "https://leetcode.cn/problems/design-graph-with-shortest-path-calculator",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": [
+        "图",
+        "设计",
+        "最短路",
+        "堆（优先队列）"
+    ],
     "desc": "请你实现一个 Graph 类。",
     "solutions": [
         {

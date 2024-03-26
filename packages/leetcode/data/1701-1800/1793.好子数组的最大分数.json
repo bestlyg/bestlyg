@@ -1,8 +1,15 @@
 {
+    "id": "1918",
     "name": "1793.好子数组的最大分数",
-    "url": "https://leetcode.cn/problems/maximum-score-of-a-good-subarray/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/maximum-score-of-a-good-subarray",
+    "difficulty": "困难",
+    "tag": [
+        "栈",
+        "数组",
+        "双指针",
+        "二分查找",
+        "单调栈"
+    ],
     "desc": "请你返回 好 子数组的最大可能 分数 。",
     "solutions": [
         {

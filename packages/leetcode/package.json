@@ -8,7 +8,7 @@
     "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
     "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",
     "check": "ts-node -r tsconfig-paths/register scripts/check.ts",
-    "auto": "pnpm markdown && pnpm check && pnpm readme && pnpm -w ca",
+    "auto": "pnpm markdown && pnpm readme && pnpm -w ca",
     "js": "node scripts/script.js",
     "ts": "ts-node -r tsconfig-paths/register scripts/script.ts"
   },

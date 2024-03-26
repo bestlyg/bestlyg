@@ -1,8 +1,13 @@
 {
+    "id": "3055",
     "name": "2864.最大二进制奇数",
     "url": "https://leetcode.cn/problems/maximum-odd-binary-number",
     "difficulty": "简单",
-    "tag": [],
+    "tag": [
+        "贪心",
+        "数学",
+        "字符串"
+    ],
     "desc": "以字符串形式，表示并返回可以由给定组合生成的最大二进制奇数。",
     "solutions": [
         {
