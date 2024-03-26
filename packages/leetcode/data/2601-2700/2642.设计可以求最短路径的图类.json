@@ -1,0 +1,17 @@
+{
+    "name": "2642.设计可以求最短路径的图类",
+    "url": "https://leetcode.cn/problems/design-graph-with-shortest-path-calculator",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你实现一个 Graph 类。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 349,
+            "memory": 20.49,
+            "desc": "图的最短路。",
+            "code": "class Node:\n    def __init__(self):\n        self.f = []\n        self.t = []\n\nclass Graph:\n    def __init__(self, n: int, edges: List[List[int]]):\n        self.n = n\n        self.nodes = [Node() for _ in range(n)]\n        for [f, t, cost] in edges:\n            self.nodes[f].t.append((t, cost))\n            self.nodes[t].f.append((f, cost))\n\n    def addEdge(self, edge: List[int]) -> None:\n        self.nodes[edge[0]].t.append((edge[1], edge[2]))\n\n    def shortestPath(self, node1: int, node2: int) -> int:\n        q = [(0, node1)]\n        used = {}\n        while q: \n            cost, node = heappop(q)\n            if node == node2: return cost\n            for next_node, next_cost in self.nodes[node].t:\n                cost2 = next_cost + cost\n                if next_node not in used or used[next_node] > cost2:\n                    heappush(q, (cost2, next_node))\n                    used[next_node] = cost2\n        return -1",
+            "date": 1711382400000
+        }
+    ]
+}

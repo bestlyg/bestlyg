@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '518. 零钱兑换 II',
-    url: 'https://leetcode.cn/problems/count-distinct-numbers-on-board',
+    exist: !true,
+    name: '2642. 设计可以求最短路径的图类',
+    url: 'https://leetcode.cn/problems/design-graph-with-shortest-path-calculator',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。`,
+    desc: `请你实现一个 Graph 类。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,17 +28,37 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 81,
-            memory: 16.5,
-            desc: 'dp记录当前金额下的能兑换的方式数',
-            code: `class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
-        dp = [0] * (amount + 1)
-        dp[0] = 1
-        for coin in coins:
-            for cur in range(coin, amount + 1):
-                dp[cur] += dp[cur - coin]
-        return dp[amount]`,
+            time: 349,
+            memory: 20.49,
+            desc: '图的最短路',
+            code: `class Node:
+    def __init__(self):
+        self.f = []
+        self.t = []
+
+class Graph:
+    def __init__(self, n: int, edges: List[List[int]]):
+        self.n = n
+        self.nodes = [Node() for _ in range(n)]
+        for [f, t, cost] in edges:
+            self.nodes[f].t.append((t, cost))
+            self.nodes[t].f.append((f, cost))
+
+    def addEdge(self, edge: List[int]) -> None:
+        self.nodes[edge[0]].t.append((edge[1], edge[2]))
+
+    def shortestPath(self, node1: int, node2: int) -> int:
+        q = [(0, node1)]
+        used = {}
+        while q: 
+            cost, node = heappop(q)
+            if node == node2: return cost
+            for next_node, next_cost in self.nodes[node].t:
+                cost2 = next_cost + cost
+                if next_node not in used or used[next_node] > cost2:
+                    heappush(q, (cost2, next_node))
+                    used[next_node] = cost2
+        return -1`,
         },
 
         //         {
