@@ -3,10 +3,7 @@
     "name": "944.删列造序",
     "url": "https://leetcode.cn/problems/delete-columns-to-make-sorted",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "给你由 n 个小写字母字符串组成的数组 strs，其中每个字符串长度相等。返回你需要删除的列数。",
     "solutions": [
         {

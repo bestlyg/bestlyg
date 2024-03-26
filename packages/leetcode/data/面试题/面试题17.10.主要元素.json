@@ -3,10 +3,7 @@
     "name": "面试题17.10.主要元素",
     "url": "https://leetcode.cn/problems/find-majority-element-lcci",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "计数"
-    ],
+    "tag": ["数组", "计数"],
     "desc": "数组中占比超过一半的元素称之为主要元素。给你一个 整数 数组，找出其中的主要元素。若没有，返回 -1 。请设计时间复杂度为 O(N) 、空间复杂度为 O(1) 的解决方案。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2287.重排字符形成目标字符串",
     "url": "https://leetcode.cn/problems/rearrange-characters-to-make-target-string",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["哈希表", "字符串", "计数"],
     "desc": "从 s 中取出字符并重新排列，返回可以形成 target 的 最大 副本数。",
     "solutions": [
         {

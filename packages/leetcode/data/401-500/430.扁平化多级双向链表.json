@@ -3,11 +3,7 @@
     "name": "430.扁平化多级双向链表",
     "url": "https://leetcode.cn/problems/flatten-a-multilevel-doubly-linked-list",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "链表",
-        "双向链表"
-    ],
+    "tag": ["深度优先搜索", "链表", "双向链表"],
     "desc": "多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表，请你扁平化列表，使所有结点出现在单级双链表中。",
     "solutions": [
         {

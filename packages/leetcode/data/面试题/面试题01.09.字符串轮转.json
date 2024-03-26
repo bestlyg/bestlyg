@@ -3,10 +3,7 @@
     "name": "面试题01.09.字符串轮转",
     "url": "https://leetcode.cn/problems/string-rotation-lcci",
     "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "字符串匹配"
-    ],
+    "tag": ["字符串", "字符串匹配"],
     "desc": "字符串轮转。给定两个字符串 s1 和 s2，请编写代码检查 s2 是否为 s1 旋转而成。",
     "solutions": [
         {

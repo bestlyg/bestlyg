@@ -3,10 +3,7 @@
     "name": "2293.极大极小游戏",
     "url": "https://leetcode.cn/problems/min-max-game",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "模拟"
-    ],
+    "tag": ["数组", "模拟"],
     "desc": "执行算法后，返回 nums 中剩下的那个数字。",
     "solutions": [
         {

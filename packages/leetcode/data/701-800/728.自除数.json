@@ -3,9 +3,7 @@
     "name": "728.自除数",
     "url": "https://leetcode.cn/problems/self-dividing-numbers",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给定两个整数 left 和 right ，返回一个列表，列表的元素是范围 [left, right] 内所有的 自除数 。",
     "solutions": [
         {

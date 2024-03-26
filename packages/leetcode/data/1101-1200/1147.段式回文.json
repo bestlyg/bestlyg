@@ -3,14 +3,7 @@
     "name": "1147.段式回文",
     "url": "https://leetcode.cn/problems/longest-chunked-palindrome-decomposition",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "双指针",
-        "字符串",
-        "动态规划",
-        "哈希函数",
-        "滚动哈希"
-    ],
+    "tag": ["贪心", "双指针", "字符串", "动态规划", "哈希函数", "滚动哈希"],
     "desc": "给你一个字符串 text，在确保它满足段式回文的前提下，请你返回 段 的 最大数量 k。",
     "solutions": [
         {

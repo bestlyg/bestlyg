@@ -3,9 +3,7 @@
     "name": "504.七进制数",
     "url": "https://leetcode.cn/problems/base-7",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给定一个整数 num，将其转化为 7 进制，并以字符串形式输出。",
     "solutions": [
         {

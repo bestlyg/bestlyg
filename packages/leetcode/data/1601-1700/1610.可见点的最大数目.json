@@ -3,13 +3,7 @@
     "name": "1610.可见点的最大数目",
     "url": "https://leetcode.cn/problems/maximum-number-of-visible-points",
     "difficulty": "困难",
-    "tag": [
-        "几何",
-        "数组",
-        "数学",
-        "排序",
-        "滑动窗口"
-    ],
+    "tag": ["几何", "数组", "数学", "排序", "滑动窗口"],
     "desc": "返回你能看到的点的最大数目。",
     "solutions": [
         {

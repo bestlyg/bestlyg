@@ -3,11 +3,7 @@
     "name": "807.保持城市天际线",
     "url": "https://leetcode.cn/problems/max-increase-to-keep-city-skyline",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["贪心", "数组", "矩阵"],
     "desc": "在二维数组 grid 中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。建筑物高度可以增加的最大总和是多少？。",
     "solutions": [
         {

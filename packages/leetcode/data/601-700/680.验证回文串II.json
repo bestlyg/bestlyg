@@ -3,11 +3,7 @@
     "name": "680.验证回文串II",
     "url": "https://leetcode.cn/problems/valid-palindrome-ii",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["贪心", "双指针", "字符串"],
     "desc": "给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。",
     "solutions": [
         {

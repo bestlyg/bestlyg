@@ -3,12 +3,7 @@
     "name": "969.煎饼排序",
     "url": "https://leetcode.cn/problems/pancake-sorting",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "双指针", "排序"],
     "desc": "给你一个整数数组 arr ，请使用 煎饼翻转 完成对数组的排序。",
     "solutions": [
         {

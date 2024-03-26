@@ -3,12 +3,7 @@
     "name": "2761.和等于目标值的质数对",
     "url": "https://leetcode.cn/problems/prime-pairs-with-target-sum",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "枚举",
-        "数论"
-    ],
+    "tag": ["数组", "数学", "枚举", "数论"],
     "desc": "给你一个整数 n 。请你以二维有序列表的形式返回符合题目要求的所有 [xi, yi] ，列表需要按 xi 的 非递减顺序 排序。如果不存在符合要求的质数对，则返回一个空数组。",
     "solutions": [
         {

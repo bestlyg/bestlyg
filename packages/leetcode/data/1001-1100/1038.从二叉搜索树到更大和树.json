@@ -3,12 +3,7 @@
     "name": "1038.从二叉搜索树到更大和树",
     "url": "https://leetcode.cn/problems/binary-search-tree-to-greater-sum-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个二叉搜索树 root (BST)，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。",
     "solutions": [
         {

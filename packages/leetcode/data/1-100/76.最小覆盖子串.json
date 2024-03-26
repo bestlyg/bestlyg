@@ -3,11 +3,7 @@
     "name": "76.最小覆盖子串",
     "url": "https://leetcode.cn/problems/minimum-window-substring",
     "difficulty": "困难",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tag": ["哈希表", "字符串", "滑动窗口"],
     "desc": "给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字符的最小子串。",
     "solutions": [
         {

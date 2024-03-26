@@ -3,11 +3,7 @@
     "name": "817.链表组件",
     "url": "https://leetcode.cn/problems/linked-list-components",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "链表"
-    ],
+    "tag": ["数组", "哈希表", "链表"],
     "desc": "返回列表 nums 中组件的个数。",
     "solutions": [
         {

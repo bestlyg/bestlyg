@@ -3,10 +3,7 @@
     "name": "1954.收集足够苹果的最小花园周长",
     "url": "https://leetcode.cn/problems/minimum-garden-perimeter-to-collect-enough-apples",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "二分查找"
-    ],
+    "tag": ["数学", "二分查找"],
     "desc": "给你一个整数 neededApples ，请你返回土地的 最小周长 ，使得 至少 有 neededApples 个苹果在土地 里面或者边缘上。",
     "solutions": [
         {

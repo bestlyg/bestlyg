@@ -3,12 +3,7 @@
     "name": "2587.重排数组以得到最大前缀分数",
     "url": "https://leetcode.cn/problems/rearrange-array-to-maximize-prefix-score",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "前缀和",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "前缀和", "排序"],
     "desc": "给你一个下标从 0 开始的整数数组 nums 。你可以将 nums 中的元素按 任意顺序 重排（包括给定顺序）。返回可以得到的最大分数。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "757.设置交集大小至少为2",
     "url": "https://leetcode.cn/problems/set-intersection-size-at-least-two",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "输出这个最小集合 S 的大小。",
     "solutions": [
         {

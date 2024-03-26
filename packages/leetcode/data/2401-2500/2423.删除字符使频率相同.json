@@ -3,11 +3,7 @@
     "name": "2423.删除字符使频率相同",
     "url": "https://leetcode.cn/problems/remove-letter-to-equalize-frequency",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个下标从 0 开始的字符串 word ，字符串只包含小写英文字母。你需要选择 一个 下标并 删除 下标处的字符，使得 word 中剩余每个字母出现 频率 相同。如果删除一个字母后，word 中剩余所有字母的出现频率都相同，那么返回 true ，否则返回 false 。",
     "solutions": [
         {

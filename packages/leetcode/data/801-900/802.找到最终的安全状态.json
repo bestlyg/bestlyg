@@ -3,12 +3,7 @@
     "name": "802.找到最终的安全状态",
     "url": "https://leetcode.cn/problems/find-eventual-safe-states",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "拓扑排序"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "返回一个由图中所有安全的起始节点组成的数组作为答案。答案数组中的元素应当按 升序 排列。",
     "solutions": [
         {

@@ -3,15 +3,7 @@
     "name": "327.区间和的个数",
     "url": "https://leetcode.cn/problems/count-of-range-sum",
     "difficulty": "困难",
-    "tag": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "二分查找",
-        "分治",
-        "有序集合",
-        "归并排序"
-    ],
+    "tag": ["树状数组", "线段树", "数组", "二分查找", "分治", "有序集合", "归并排序"],
     "desc": "给定一个整数数组 nums，返回区间和在 [lower, upper] 之间的个数，包含 lower 和 upper。",
     "solutions": [
         {

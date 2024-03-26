@@ -3,9 +3,7 @@
     "name": "693.交替位二进制数",
     "url": "https://leetcode.cn/problems/binary-number-with-alternating-bits",
     "difficulty": "简单",
-    "tag": [
-        "位运算"
-    ],
+    "tag": ["位运算"],
     "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
     "solutions": [
         {

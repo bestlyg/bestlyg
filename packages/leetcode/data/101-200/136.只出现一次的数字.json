@@ -3,10 +3,7 @@
     "name": "136.只出现一次的数字",
     "url": "https://leetcode.cn/problems/single-number",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数组"
-    ],
+    "tag": ["位运算", "数组"],
     "desc": "给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。",
     "solutions": [
         {

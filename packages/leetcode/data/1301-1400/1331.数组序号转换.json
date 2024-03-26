@@ -3,11 +3,7 @@
     "name": "1331.数组序号转换",
     "url": "https://leetcode.cn/problems/rank-transform-of-an-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "排序"],
     "desc": "给你一个整数数组 arr ，请你将数组中的每个元素替换为它们排序后的序号。",
     "solutions": [
         {

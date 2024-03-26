@@ -3,10 +3,7 @@
     "name": "707.设计链表",
     "url": "https://leetcode.cn/problems/design-linked-list",
     "difficulty": "中等",
-    "tag": [
-        "设计",
-        "链表"
-    ],
+    "tag": ["设计", "链表"],
     "desc": "设计链表的实现。",
     "solutions": [
         {

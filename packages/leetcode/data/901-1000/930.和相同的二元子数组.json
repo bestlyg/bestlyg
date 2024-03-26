@@ -3,12 +3,7 @@
     "name": "930.和相同的二元子数组",
     "url": "https://leetcode.cn/problems/binary-subarrays-with-sum",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "哈希表", "前缀和", "滑动窗口"],
     "desc": "给你一个二元数组 nums ，和一个整数 goal ，请你统计并返回有多少个和为 goal 的 非空 子数组。",
     "solutions": [
         {

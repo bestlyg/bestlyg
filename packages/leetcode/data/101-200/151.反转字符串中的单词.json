@@ -3,10 +3,7 @@
     "name": "151.反转字符串中的单词",
     "url": "https://leetcode.cn/problems/reverse-words-in-a-string",
     "difficulty": "中等",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "给定一个字符串，逐个翻转字符串中的每个单词。",
     "solutions": [
         {

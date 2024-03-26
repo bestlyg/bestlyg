@@ -3,12 +3,7 @@
     "name": "513.找树左下角的值",
     "url": "https://leetcode.cn/problems/find-bottom-left-tree-value",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。",
     "solutions": [
         {

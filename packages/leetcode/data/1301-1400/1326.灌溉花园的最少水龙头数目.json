@@ -3,11 +3,7 @@
     "name": "1326.灌溉花园的最少水龙头数目",
     "url": "https://leetcode.cn/problems/minimum-number-of-taps-to-open-to-water-a-garden",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["贪心", "数组", "动态规划"],
     "desc": "请你返回可以灌溉整个花园的 最少水龙头数目 。",
     "solutions": [
         {

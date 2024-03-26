@@ -3,10 +3,7 @@
     "name": "1206.设计跳表",
     "url": "https://leetcode.cn/problems/design-skiplist",
     "difficulty": "困难",
-    "tag": [
-        "设计",
-        "链表"
-    ],
+    "tag": ["设计", "链表"],
     "desc": "不使用任何库函数，设计一个跳表 。",
     "solutions": [
         {

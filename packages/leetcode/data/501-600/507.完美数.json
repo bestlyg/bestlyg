@@ -3,9 +3,7 @@
     "name": "507.完美数",
     "url": "https://leetcode.cn/problems/perfect-number",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "对于一个 正整数，如果它和除了它自身以外的所有 正因子 之和相等，我们称它为 「完美数」。",
     "solutions": [
         {

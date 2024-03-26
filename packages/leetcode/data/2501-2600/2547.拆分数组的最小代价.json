@@ -3,12 +3,7 @@
     "name": "2547.拆分数组的最小代价",
     "url": "https://leetcode.cn/problems/minimum-cost-to-split-an-array",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "哈希表",
-        "动态规划",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "动态规划", "计数"],
     "desc": "找出并返回拆分 nums 的所有可行方案中的最小代价。",
     "solutions": [
         {

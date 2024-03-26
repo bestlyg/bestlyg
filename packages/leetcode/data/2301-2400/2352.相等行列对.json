@@ -3,12 +3,7 @@
     "name": "2352.相等行列对",
     "url": "https://leetcode.cn/problems/equal-row-and-column-pairs",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "矩阵",
-        "模拟"
-    ],
+    "tag": ["数组", "哈希表", "矩阵", "模拟"],
     "desc": "给你一个下标从 0 开始、大小为 n x n 的整数矩阵 grid ，返回满足 Ri 行和 Cj 列相等的行列对 (Ri, Cj) 的数目。",
     "solutions": [
         {

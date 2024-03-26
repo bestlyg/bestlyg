@@ -3,10 +3,7 @@
     "name": "1616.分割两个字符串得到回文串",
     "url": "https://leetcode.cn/problems/split-two-strings-to-make-palindrome",
     "difficulty": "中等",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "请你判断 aprefix + bsuffix 或者 bprefix + asuffix 能否构成回文串。",
     "solutions": [
         {

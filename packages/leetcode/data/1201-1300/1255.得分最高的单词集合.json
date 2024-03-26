@@ -3,14 +3,7 @@
     "name": "1255.得分最高的单词集合",
     "url": "https://leetcode.cn/problems/maximum-score-words-formed-by-letters",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "字符串",
-        "动态规划",
-        "回溯",
-        "状态压缩"
-    ],
+    "tag": ["位运算", "数组", "字符串", "动态规划", "回溯", "状态压缩"],
     "desc": "请你帮忙计算玩家在单词拼写游戏中所能获得的「最高得分」：能够由 letters 里的字母拼写出的 任意 属于 words 单词子集中，分数最高的单词集合的得分。",
     "solutions": [
         {

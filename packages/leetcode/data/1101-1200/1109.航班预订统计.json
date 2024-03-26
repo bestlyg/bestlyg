@@ -3,10 +3,7 @@
     "name": "1109.航班预订统计",
     "url": "https://leetcode.cn/problems/corporate-flight-bookings",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "请你返回一个长度为 n 的数组 answer，其中 answer[i] 是航班 i 上预订的座位总数。",
     "solutions": [
         {

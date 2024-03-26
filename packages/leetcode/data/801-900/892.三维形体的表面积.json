@@ -3,12 +3,7 @@
     "name": "892.三维形体的表面积",
     "url": "https://leetcode.cn/problems/surface-area-of-3d-shapes",
     "difficulty": "简单",
-    "tag": [
-        "几何",
-        "数组",
-        "数学",
-        "矩阵"
-    ],
+    "tag": ["几何", "数组", "数学", "矩阵"],
     "desc": "请你返回最终这些形体的总表面积。",
     "solutions": [
         {

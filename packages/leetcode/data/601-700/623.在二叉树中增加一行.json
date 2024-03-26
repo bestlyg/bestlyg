@@ -3,12 +3,7 @@
     "name": "623.在二叉树中增加一行",
     "url": "https://leetcode.cn/problems/add-one-row-to-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树的根 root 和两个整数 val 和 depth ，在给定的深度 depth 处添加一个值为 val 的节点行。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "997.找到小镇的法官",
     "url": "https://leetcode.cn/problems/find-the-town-judge",
     "difficulty": "简单",
-    "tag": [
-        "图",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["图", "数组", "哈希表"],
     "desc": "如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。",
     "solutions": [
         {

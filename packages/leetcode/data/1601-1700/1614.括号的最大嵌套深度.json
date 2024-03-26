@@ -3,10 +3,7 @@
     "name": "1614.括号的最大嵌套深度",
     "url": "https://leetcode.cn/problems/maximum-nesting-depth-of-the-parentheses",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
+    "tag": ["栈", "字符串"],
     "desc": "给你一个 有效括号字符串 s，返回该字符串的 s 嵌套深度 。",
     "solutions": [
         {

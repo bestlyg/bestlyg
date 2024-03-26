@@ -3,11 +3,7 @@
     "name": "2763.所有子数组中不平衡数字之和",
     "url": "https://leetcode.cn/problems/sum-of-imbalance-numbers-of-all-subarrays",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "哈希表",
-        "有序集合"
-    ],
+    "tag": ["数组", "哈希表", "有序集合"],
     "desc": "给你一个下标从 0 开始的整数数组 nums ，请你返回它所有 子数组 的 不平衡数字 之和。",
     "solutions": [
         {

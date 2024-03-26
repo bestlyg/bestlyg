@@ -3,13 +3,7 @@
     "name": "2115.从给定原材料中找到所有可以做出的菜",
     "url": "https://leetcode.cn/problems/find-all-possible-recipes-from-given-supplies",
     "difficulty": "中等",
-    "tag": [
-        "图",
-        "拓扑排序",
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["图", "拓扑排序", "数组", "哈希表", "字符串"],
     "desc": "你有 n 道不同菜的信息。请你返回你可以做出的所有菜。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "905.按奇偶排序数组",
     "url": "https://leetcode.cn/problems/sort-array-by-parity",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "排序"],
     "desc": "给定一个非负整数数组 A，返回一个数组，在该数组中， A 的所有偶数元素之后跟着所有奇数元素。",
     "solutions": [
         {

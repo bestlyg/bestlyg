@@ -3,10 +3,7 @@
     "name": "1482.制作m束花所需的最少天数",
     "url": "https://leetcode.cn/problems/minimum-number-of-days-to-make-m-bouquets",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "请你返回从花园中摘 m 束花需要等待的最少的天数。如果不能摘到 m 束花则返回 -1 。",
     "solutions": [
         {

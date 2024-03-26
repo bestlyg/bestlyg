@@ -3,10 +3,7 @@
     "name": "481.神奇字符串",
     "url": "https://leetcode.cn/problems/magical-string",
     "difficulty": "中等",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "给你一个整数 n ，返回在神奇字符串 s 的前 n 个数字中 1 的数目。",
     "solutions": [
         {

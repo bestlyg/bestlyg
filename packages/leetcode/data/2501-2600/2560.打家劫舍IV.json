@@ -3,10 +3,7 @@
     "name": "2560.打家劫舍IV",
     "url": "https://leetcode.cn/problems/house-robber-iv",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。",
     "solutions": [
         {

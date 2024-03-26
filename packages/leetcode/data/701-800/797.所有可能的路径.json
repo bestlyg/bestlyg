@@ -3,12 +3,7 @@
     "name": "797.所有可能的路径",
     "url": "https://leetcode.cn/problems/all-paths-from-source-to-target",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "回溯"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "回溯"],
     "desc": "给你一个有 n 个节点的 有向无环图（DAG），请你找出所有从节点 0 到节点 n-1 的路径并输出。",
     "solutions": [
         {

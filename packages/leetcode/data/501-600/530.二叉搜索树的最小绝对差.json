@@ -3,13 +3,7 @@
     "name": "530.二叉搜索树的最小绝对差",
     "url": "https://leetcode.cn/problems/minimum-absolute-difference-in-bst",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个所有节点为非负值的二叉搜索树，求树中任意两节点的差的绝对值的最小值。",
     "solutions": [
         {

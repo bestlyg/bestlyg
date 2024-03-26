@@ -3,13 +3,7 @@
     "name": "1823.找出游戏的获胜者",
     "url": "https://leetcode.cn/problems/find-the-winner-of-the-circular-game",
     "difficulty": "中等",
-    "tag": [
-        "递归",
-        "队列",
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tag": ["递归", "队列", "数组", "数学", "模拟"],
     "desc": "给你参与游戏的小伙伴总数 n ，和一个整数 k ，返回游戏的获胜者。",
     "solutions": [
         {

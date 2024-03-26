@@ -3,10 +3,7 @@
     "name": "2591.将钱分给最多的儿童",
     "url": "https://leetcode.cn/problems/distribute-money-to-maximum-children",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数学"
-    ],
+    "tag": ["贪心", "数学"],
     "desc": "请你按照上述规则分配金钱，并返回 最多 有多少个儿童获得 恰好 8 美元。如果没有任何分配方案，返回 -1 。",
     "solutions": [
         {

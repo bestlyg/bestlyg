@@ -3,10 +3,7 @@
     "name": "1410.HTML实体解析器",
     "url": "https://leetcode.cn/problems/html-entity-parser",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["哈希表", "字符串"],
     "desc": "给你输入字符串 text ，请你实现一个 HTML 实体解析器，返回解析器解析后的结果。",
     "solutions": [
         {

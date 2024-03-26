@@ -3,11 +3,7 @@
     "name": "1222.可以攻击国王的皇后",
     "url": "https://leetcode.cn/problems/queens-that-can-attack-the-king",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tag": ["数组", "矩阵", "模拟"],
     "desc": "在一个 8x8 的棋盘上，放置着若干「黑皇后」和一个「白国王」。给定一个由整数坐标组成的数组 queens ，表示黑皇后的位置；以及一对坐标 king ，表示白国王的位置，返回所有可以攻击国王的皇后的坐标(任意顺序)。",
     "solutions": [
         {

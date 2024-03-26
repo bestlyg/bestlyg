@@ -3,10 +3,7 @@
     "name": "2917.找出数组中的K-or值",
     "url": "https://leetcode.cn/problems/find-the-k-or-of-an-array",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数组"
-    ],
+    "tag": ["位运算", "数组"],
     "desc": "返回 nums 的 K-or 值。",
     "solutions": [
         {

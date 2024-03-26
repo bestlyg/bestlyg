@@ -3,11 +3,7 @@
     "name": "812.最大三角形面积",
     "url": "https://leetcode.cn/problems/largest-triangle-area",
     "difficulty": "简单",
-    "tag": [
-        "几何",
-        "数组",
-        "数学"
-    ],
+    "tag": ["几何", "数组", "数学"],
     "desc": "给定包含多个点的集合，从其中取三个点组成三角形，返回能组成的最大三角形的面积。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2536.子矩阵元素加1",
     "url": "https://leetcode.cn/problems/increment-submatrices-by-one",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "矩阵",
-        "前缀和"
-    ],
+    "tag": ["数组", "矩阵", "前缀和"],
     "desc": "返回执行完所有操作后得到的矩阵 mat 。",
     "solutions": [
         {

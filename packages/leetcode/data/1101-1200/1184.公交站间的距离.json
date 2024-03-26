@@ -3,9 +3,7 @@
     "name": "1184.公交站间的距离",
     "url": "https://leetcode.cn/problems/distance-between-bus-stops",
     "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "返回乘客从出发点 start 到目的地 destination 之间的最短距离。",
     "solutions": [
         {

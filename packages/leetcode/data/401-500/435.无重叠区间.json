@@ -3,12 +3,7 @@
     "name": "435.无重叠区间",
     "url": "https://leetcode.cn/problems/non-overlapping-intervals",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "动态规划",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "动态规划", "排序"],
     "desc": "给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。",
     "solutions": [
         {

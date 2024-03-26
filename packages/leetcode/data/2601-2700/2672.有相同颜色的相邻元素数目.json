@@ -3,9 +3,7 @@
     "name": "2672.有相同颜色的相邻元素数目",
     "url": "https://leetcode.cn/problems/number-of-adjacent-elements-with-the-same-color",
     "difficulty": "中等",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "给你一个下标从 0 开始、长度为 n 的数组 nums 。请你返回一个长度与 queries 相等的数组 answer ，其中 answer[i]是前 i 个操作 之后 ，相邻元素颜色相同的数目。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2461.长度为K子数组中的最大和",
     "url": "https://leetcode.cn/problems/maximum-sum-of-distinct-subarrays-with-length-k",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "哈希表", "滑动窗口"],
     "desc": "返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。",
     "solutions": [
         {

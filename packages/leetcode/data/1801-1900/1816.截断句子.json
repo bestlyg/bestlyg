@@ -3,10 +3,7 @@
     "name": "1816.截断句子",
     "url": "https://leetcode.cn/problems/truncate-sentence",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "给你一个句子 s​​​​​​ 和一个整数 k​​​​​​ ，请你将 s​​ 截断 ​，​​​ 使截断后的句子仅含 前 k​​​​​​ 个单词。返回 截断 s​​​​​​ 后得到的句子。",
     "solutions": [
         {

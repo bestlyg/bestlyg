@@ -3,11 +3,7 @@
     "name": "2341.数组能形成多少数对",
     "url": "https://leetcode.cn/problems/maximum-number-of-pairs-in-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "计数"],
     "desc": "返回一个下标从 0 开始、长度为 2 的整数数组 answer 作为答案，其中 answer[0] 是形成的数对数目，answer[1] 是对 nums 尽可能执行上述操作后剩下的整数数目。",
     "solutions": [
         {

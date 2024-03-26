@@ -3,12 +3,7 @@
     "name": "1161.最大层内元素和",
     "url": "https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "请返回层内元素之和 最大 的那几层（可能只有一层）的层号，并返回其中 最小 的那个。",
     "solutions": [
         {

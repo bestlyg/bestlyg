@@ -3,14 +3,7 @@
     "name": "341.扁平化嵌套列表迭代器",
     "url": "https://leetcode.cn/problems/flatten-nested-list-iterator",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "设计",
-        "队列",
-        "迭代器"
-    ],
+    "tag": ["栈", "树", "深度优先搜索", "设计", "队列", "迭代器"],
     "desc": "给你一个嵌套的整型列表。请你设计一个迭代器，使其能够遍历这个整型列表中的所有整数。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1991.找到数组的中间位置",
     "url": "https://leetcode.cn/problems/find-the-middle-index-in-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "请你返回满足上述条件 最左边 的 middleIndex ，如果不存在这样的中间位置，请你返回 -1 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "375.猜数字大小II",
     "url": "https://leetcode.cn/problems/guess-number-higher-or-lower-ii",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tag": ["数学", "动态规划", "博弈"],
     "desc": "给你一个特定的数字 n ，返回能够 确保你获胜 的最小现金数，不管我选择那个数字 。",
     "solutions": [
         {

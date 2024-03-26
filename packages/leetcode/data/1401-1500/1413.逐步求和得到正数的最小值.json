@@ -3,10 +3,7 @@
     "name": "1413.逐步求和得到正数的最小值",
     "url": "https://leetcode.cn/problems/minimum-value-to-get-positive-step-by-step-sum",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "请你在确保累加和始终大于等于 1 的前提下，选出一个最小的 正数 作为 startValue 。",
     "solutions": [
         {

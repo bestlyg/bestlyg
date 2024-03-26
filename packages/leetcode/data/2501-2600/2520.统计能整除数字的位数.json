@@ -3,9 +3,7 @@
     "name": "2520.统计能整除数字的位数",
     "url": "https://leetcode.cn/problems/count-the-digits-that-divide-a-number",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给你一个整数 num ，返回 num 中能整除 num 的数位的数目。如果满足 nums % val == 0 ，则认为整数 val 可以整除 nums 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2545.根据第K场考试的分数排序",
     "url": "https://leetcode.cn/problems/sort-the-students-by-their-kth-score",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "矩阵",
-        "排序"
-    ],
+    "tag": ["数组", "矩阵", "排序"],
     "desc": "返回排序后的矩阵。",
     "solutions": [
         {

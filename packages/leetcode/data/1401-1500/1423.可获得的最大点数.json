@@ -3,11 +3,7 @@
     "name": "1423.可获得的最大点数",
     "url": "https://leetcode.cn/problems/maximum-points-you-can-obtain-from-cards",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "前缀和", "滑动窗口"],
     "desc": "给你一个整数数组 cardPoints 和整数 k，请你返回可以获得的最大点数。",
     "solutions": [
         {

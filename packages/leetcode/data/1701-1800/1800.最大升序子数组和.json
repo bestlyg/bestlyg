@@ -3,9 +3,7 @@
     "name": "1800.最大升序子数组和",
     "url": "https://leetcode.cn/problems/maximum-ascending-subarray-sum",
     "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "给你一个正整数组成的数组 nums ，返回 nums 中一个 升序 子数组的最大可能元素和。",
     "solutions": [
         {

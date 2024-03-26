@@ -3,10 +3,7 @@
     "name": "446.等差数列划分II-子序列",
     "url": "https://leetcode.cn/problems/arithmetic-slices-ii-subsequence",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "给你一个整数数组 nums ，返回 nums 中所有 等差子序列 的数目。",
     "solutions": [
         {

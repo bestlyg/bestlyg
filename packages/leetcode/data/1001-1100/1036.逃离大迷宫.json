@@ -3,12 +3,7 @@
     "name": "1036.逃离大迷宫",
     "url": "https://leetcode.cn/problems/escape-a-large-maze",
     "difficulty": "困难",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "数组", "哈希表"],
     "desc": "只有在可以通过一系列的移动从源方格 source 到达目标方格 target 时才返回 true。否则，返回 false。",
     "solutions": [
         {

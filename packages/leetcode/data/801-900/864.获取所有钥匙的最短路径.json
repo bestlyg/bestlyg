@@ -3,12 +3,7 @@
     "name": "864.获取所有钥匙的最短路径",
     "url": "https://leetcode.cn/problems/shortest-path-to-get-all-keys",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["位运算", "广度优先搜索", "数组", "矩阵"],
     "desc": "返回获取所有钥匙所需要的移动的最少次数。如果无法获取所有钥匙，返回 -1 。",
     "solutions": [
         {

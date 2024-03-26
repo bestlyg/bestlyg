@@ -3,12 +3,7 @@
     "name": "729.我的日程安排表I",
     "url": "https://leetcode.cn/problems/my-calendar-i",
     "difficulty": "中等",
-    "tag": [
-        "设计",
-        "线段树",
-        "二分查找",
-        "有序集合"
-    ],
+    "tag": ["设计", "线段树", "二分查找", "有序集合"],
     "desc": "实现一个 MyCalendar 类来存放你的日程安排。如果要添加的日程安排不会造成 重复预订 ，则可以存储这个新的日程安排。",
     "solutions": [
         {

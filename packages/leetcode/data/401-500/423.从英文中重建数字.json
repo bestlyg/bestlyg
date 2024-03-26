@@ -3,11 +3,7 @@
     "name": "423.从英文中重建数字",
     "url": "https://leetcode.cn/problems/reconstruct-original-digits-from-english",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "数学",
-        "字符串"
-    ],
+    "tag": ["哈希表", "数学", "字符串"],
     "desc": "给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。",
     "solutions": [
         {

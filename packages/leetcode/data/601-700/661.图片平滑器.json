@@ -3,10 +3,7 @@
     "name": "661.图片平滑器",
     "url": "https://leetcode.cn/problems/image-smoother",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["数组", "矩阵"],
     "desc": "给你一个表示图像灰度的 m x n 整数矩阵 img ，返回对图像的每个单元格平滑处理后的图像 。",
     "solutions": [
         {

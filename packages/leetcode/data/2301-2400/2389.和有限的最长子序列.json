@@ -3,13 +3,7 @@
     "name": "2389.和有限的最长子序列",
     "url": "https://leetcode.cn/problems/longest-subsequence-with-limited-sum",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "二分查找", "前缀和", "排序"],
     "desc": "返回一个长度为 m 的数组 answer ，其中 answer[i] 是 nums 中 元素之和小于等于 queries[i] 的 子序列 的 最大 长度  。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "941.有效的山脉数组",
     "url": "https://leetcode.cn/problems/valid-mountain-array",
     "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "给定一个整数数组 A，如果它是有效的山脉数组就返回 true，否则返回 false。",
     "solutions": [
         {

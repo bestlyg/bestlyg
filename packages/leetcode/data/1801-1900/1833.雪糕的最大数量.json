@@ -3,11 +3,7 @@
     "name": "1833.雪糕的最大数量",
     "url": "https://leetcode.cn/problems/maximum-ice-cream-bars",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "给你价格数组 costs 和现金量 coins ，请你计算并返回 Tony 用 coins 现金能够买到的雪糕的 最大数量 。",
     "solutions": [
         {

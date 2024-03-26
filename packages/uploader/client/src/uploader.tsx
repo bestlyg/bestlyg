@@ -22,7 +22,7 @@ export function Uploader() {
     const uploaderRef = useRef(new SingleSliceUploader());
     const onUpload = useMemoizedFn((idx: number) => {
         if (idx === files.length) return;
-        const uploader = uploaderRef.current = new SingleSliceUploader();
+        const uploader = (uploaderRef.current = new SingleSliceUploader());
 
         const newFiles = [...files];
         newFiles[idx].status = FileStatus.Uploading;

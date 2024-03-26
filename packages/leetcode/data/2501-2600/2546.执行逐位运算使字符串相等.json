@@ -3,10 +3,7 @@
     "name": "2546.执行逐位运算使字符串相等",
     "url": "https://leetcode.cn/problems/apply-bitwise-operations-to-make-strings-equal",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "字符串"
-    ],
+    "tag": ["位运算", "字符串"],
     "desc": "如果可以使 s 等于 target ，返回 true ，否则，返回 false 。",
     "solutions": [
         {

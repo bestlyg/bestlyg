@@ -3,9 +3,7 @@
     "name": "2544.交替数字和",
     "url": "https://leetcode.cn/problems/alternating-digit-sum",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "返回所有数字及其对应符号的和。",
     "solutions": [
         {

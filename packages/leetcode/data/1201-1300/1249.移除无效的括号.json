@@ -3,10 +3,7 @@
     "name": "1249.移除无效的括号",
     "url": "https://leetcode.cn/problems/minimum-remove-to-make-valid-parentheses",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
+    "tag": ["栈", "字符串"],
     "desc": "给你一个由 '('、')' 和小写字母组成的字符串 s。你需要从字符串中删除最少数目的 '(' 或者 ')' （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。请返回任意一个合法字符串。",
     "solutions": [
         {

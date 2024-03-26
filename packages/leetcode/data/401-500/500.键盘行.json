@@ -3,11 +3,7 @@
     "name": "500.键盘行",
     "url": "https://leetcode.cn/problems/keyboard-row",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串数组 words ，只返回可以使用在 美式键盘 同一行的字母打印出来的单词。",
     "solutions": [
         {

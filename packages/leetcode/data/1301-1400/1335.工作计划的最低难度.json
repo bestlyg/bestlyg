@@ -3,10 +3,7 @@
     "name": "1335.工作计划的最低难度",
     "url": "https://leetcode.cn/problems/minimum-difficulty-of-a-job-schedule",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "返回整个工作计划的 最小难度 。如果无法制定工作计划，则返回 -1 。",
     "solutions": [
         {

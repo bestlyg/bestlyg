@@ -3,11 +3,7 @@
     "name": "1807.替换字符串中的括号内容",
     "url": "https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串 s ，它包含一些括号对，每个括号中包含一个 非空 的键。请你返回替换 所有 括号对后的结果字符串。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "84.柱状图中最大的矩形",
     "url": "https://leetcode.cn/problems/largest-rectangle-in-histogram",
     "difficulty": "困难",
-    "tag": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tag": ["栈", "数组", "单调栈"],
     "desc": "给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。",
     "solutions": [
         {

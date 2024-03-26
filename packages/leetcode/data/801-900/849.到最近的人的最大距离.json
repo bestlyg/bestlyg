@@ -3,9 +3,7 @@
     "name": "849.到最近的人的最大距离",
     "url": "https://leetcode.cn/problems/maximize-distance-to-closest-person",
     "difficulty": "中等",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "返回他到离他最近的人的最大距离。",
     "solutions": [
         {

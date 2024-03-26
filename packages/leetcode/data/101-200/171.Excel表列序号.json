@@ -3,10 +3,7 @@
     "name": "171.Excel表列序号",
     "url": "https://leetcode.cn/problems/excel-sheet-column-number",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
+    "tag": ["数学", "字符串"],
     "desc": "给你一个字符串 columnTitle ，表示 Excel 表格中的列名称。返回该列名称对应的列序号。",
     "solutions": [
         {

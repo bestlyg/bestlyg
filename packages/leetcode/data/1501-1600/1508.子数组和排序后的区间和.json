@@ -3,12 +3,7 @@
     "name": "1508.子数组和排序后的区间和",
     "url": "https://leetcode.cn/problems/range-sum-of-sorted-subarray-sums",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "请你返回在新数组中下标为  left  到  right （下标从 1 开始）的所有数字和（包括左右端点）。由于答案可能很大，请你将它对 10^9 + 7 取模后返回。",
     "solutions": [
         {

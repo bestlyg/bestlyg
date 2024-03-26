@@ -3,10 +3,7 @@
     "name": "414.第三大的数",
     "url": "https://leetcode.cn/problems/third-maximum-number",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序"
-    ],
+    "tag": ["数组", "排序"],
     "desc": "给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。",
     "solutions": [
         {

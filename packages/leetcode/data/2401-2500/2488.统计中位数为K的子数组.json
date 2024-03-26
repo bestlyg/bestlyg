@@ -3,11 +3,7 @@
     "name": "2488.统计中位数为K的子数组",
     "url": "https://leetcode.cn/problems/count-subarrays-with-median-k",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tag": ["数组", "哈希表", "前缀和"],
     "desc": "给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。",
     "solutions": [
         {

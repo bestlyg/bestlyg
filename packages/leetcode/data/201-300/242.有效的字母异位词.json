@@ -3,11 +3,7 @@
     "name": "242.有效的字母异位词",
     "url": "https://leetcode.cn/problems/valid-anagram",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["哈希表", "字符串", "排序"],
     "desc": "给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。",
     "solutions": [
         {

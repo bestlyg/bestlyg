@@ -3,12 +3,7 @@
     "name": "678.有效的括号字符串",
     "url": "https://leetcode.cn/problems/valid-parenthesis-string",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "贪心",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["栈", "贪心", "字符串", "动态规划"],
     "desc": "给定一个只包含三种字符的字符串：（ ，） 和 \\*，写一个函数来检验这个字符串是否为有效字符串。",
     "solutions": [
         {

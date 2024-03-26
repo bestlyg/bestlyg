@@ -3,11 +3,7 @@
     "name": "2682.找出转圈游戏输家",
     "url": "https://leetcode.cn/problems/find-the-losers-of-the-circular-game",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "模拟"
-    ],
+    "tag": ["数组", "哈希表", "模拟"],
     "desc": "给你参与游戏的朋友数量 n 和一个整数 k ，请按升序排列返回包含所有输家编号的数组 answer 作为答案。",
     "solutions": [
         {

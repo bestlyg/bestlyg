@@ -3,13 +3,7 @@
     "name": "1617.统计子树中城市之间最大距离",
     "url": "https://leetcode.cn/problems/count-subtrees-with-max-distance-between-cities",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "树",
-        "动态规划",
-        "状态压缩",
-        "枚举"
-    ],
+    "tag": ["位运算", "树", "动态规划", "状态压缩", "枚举"],
     "desc": "请你返回一个大小为 n-1 的数组，其中第 d 个元素（下标从 1 开始）是城市间 最大距离 恰好等于 d 的子树数目。",
     "solutions": [
         {

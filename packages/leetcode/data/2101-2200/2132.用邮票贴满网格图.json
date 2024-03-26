@@ -3,12 +3,7 @@
     "name": "2132.用邮票贴满网格图",
     "url": "https://leetcode.cn/problems/stamping-the-grid",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组",
-        "矩阵",
-        "前缀和"
-    ],
+    "tag": ["贪心", "数组", "矩阵", "前缀和"],
     "desc": "如果在满足上述要求的前提下，可以放入邮票，请返回 true ，否则返回 false 。",
     "solutions": [
         {

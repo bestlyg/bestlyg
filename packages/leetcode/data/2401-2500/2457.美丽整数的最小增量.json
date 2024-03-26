@@ -3,10 +3,7 @@
     "name": "2457.美丽整数的最小增量",
     "url": "https://leetcode.cn/problems/minimum-addition-to-make-integer-beautiful",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数学"
-    ],
+    "tag": ["贪心", "数学"],
     "desc": "返回一个二维字符串数组 answer ，其中 answer[i] = [creatori, idi] 表示 creatori 的流行度 最高 且其最流行的视频 id 是 idi ，可以按任何顺序返回该结果。",
     "solutions": [
         {

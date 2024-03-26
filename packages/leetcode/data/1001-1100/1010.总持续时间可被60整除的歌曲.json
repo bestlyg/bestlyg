@@ -3,11 +3,7 @@
     "name": "1010.总持续时间可被60整除的歌曲",
     "url": "https://leetcode.cn/problems/pairs-of-songs-with-total-durations-divisible-by-60",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "计数"],
     "desc": "返回其总持续时间（以秒为单位）可被 60 整除的歌曲对的数量。",
     "solutions": [
         {

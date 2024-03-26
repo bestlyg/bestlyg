@@ -3,10 +3,7 @@
     "name": "1817.查找用户活跃分钟数",
     "url": "https://leetcode.cn/problems/finding-the-users-active-minutes",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "请你统计用户活跃分钟数的分布情况，统计结果是一个长度为 k 且 下标从 1 开始计数 的数组 answer ，对于每个 j（1 <= j <= k），answer[j] 表示 用户活跃分钟数 等于 j 的用户数。",
     "solutions": [
         {

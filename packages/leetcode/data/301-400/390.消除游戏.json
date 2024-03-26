@@ -3,10 +3,7 @@
     "name": "390.消除游戏",
     "url": "https://leetcode.cn/problems/elimination-game",
     "difficulty": "中等",
-    "tag": [
-        "递归",
-        "数学"
-    ],
+    "tag": ["递归", "数学"],
     "desc": "给你整数 n ，返回 arr 最后剩下的数字。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "357.统计各位数字都不同的数字个数",
     "url": "https://leetcode.cn/problems/count-numbers-with-unique-digits",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "动态规划",
-        "回溯"
-    ],
+    "tag": ["数学", "动态规划", "回溯"],
     "desc": "给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x < 10n 。",
     "solutions": [
         {

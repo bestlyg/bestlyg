@@ -3,11 +3,7 @@
     "name": "1031.两个非重叠子数组的最大和",
     "url": "https://leetcode.cn/problems/maximum-sum-of-two-non-overlapping-subarrays",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "动态规划", "滑动窗口"],
     "desc": "给你一个整数数组 nums 和两个整数 firstLen 和 secondLen，请你找出并返回两个非重叠 子数组 中元素的最大和，长度分别为 firstLen 和 secondLen 。",
     "solutions": [
         {

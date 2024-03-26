@@ -3,10 +3,7 @@
     "name": "1003.检查替换后的词是否有效",
     "url": "https://leetcode.cn/problems/check-if-word-is-valid-after-substitutions",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
+    "tag": ["栈", "字符串"],
     "desc": "给你一个字符串 s ，请你判断它是否 有效 。",
     "solutions": [
         {

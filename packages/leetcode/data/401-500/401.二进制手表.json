@@ -3,10 +3,7 @@
     "name": "401.二进制手表",
     "url": "https://leetcode.cn/problems/binary-watch",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "回溯"
-    ],
+    "tag": ["位运算", "回溯"],
     "desc": "二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。每个 LED 代表一个 0 或 1，最低位在右侧。给你一个整数 turnedOn ，表示当前亮着的 LED 的数量，返回二进制手表可以表示的所有可能时间。你可以 按任意顺序 返回答案。",
     "solutions": [
         {

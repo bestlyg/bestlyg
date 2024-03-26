@@ -3,10 +3,7 @@
     "name": "1822.数组元素积的符号",
     "url": "https://leetcode.cn/problems/sign-of-the-product-of-an-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "数学"
-    ],
+    "tag": ["数组", "数学"],
     "desc": "给你一个整数数组 nums 。令 product 为数组 nums 中所有元素值的乘积。",
     "solutions": [
         {

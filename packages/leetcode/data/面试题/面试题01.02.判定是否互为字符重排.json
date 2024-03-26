@@ -3,11 +3,7 @@
     "name": "面试题01.02.判定是否互为字符重排",
     "url": "https://leetcode.cn/problems/check-permutation-lcci",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["哈希表", "字符串", "排序"],
     "desc": "给定两个字符串 s1 和 s2，请编写一个程序，确定其中一个字符串的字符重新排列后，能否变成另一个字符串。",
     "solutions": [
         {

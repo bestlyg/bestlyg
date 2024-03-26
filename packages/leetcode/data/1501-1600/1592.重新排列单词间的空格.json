@@ -3,9 +3,7 @@
     "name": "1592.重新排列单词间的空格",
     "url": "https://leetcode.cn/problems/rearrange-spaces-between-words",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "返回 重新排列空格后的字符串 。",
     "solutions": [
         {

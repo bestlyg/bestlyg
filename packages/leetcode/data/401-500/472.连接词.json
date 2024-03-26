@@ -3,13 +3,7 @@
     "name": "472.连接词",
     "url": "https://leetcode.cn/problems/concatenated-words",
     "difficulty": "困难",
-    "tag": [
-        "深度优先搜索",
-        "字典树",
-        "数组",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["深度优先搜索", "字典树", "数组", "字符串", "动态规划"],
     "desc": "给你一个 不含重复 单词的字符串数组 words ，请你找出并返回 words 中的所有 连接词 。",
     "solutions": [
         {

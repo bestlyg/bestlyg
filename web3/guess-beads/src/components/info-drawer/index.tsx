@@ -98,11 +98,7 @@ export function InfoDrawer() {
     };
     return (
         <>
-            <Tooltip
-                placement="top"
-                title={signed ? 'Show info.' : 'Click to signin.'}
-                open
-            >
+            <Tooltip placement="top" title={signed ? 'Show info.' : 'Click to signin.'} open>
                 <FloatButton
                     icon={<SettingOutlined />}
                     className={cx(styles.float_button, !signed && styles.float_button_unsign)}

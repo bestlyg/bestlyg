@@ -3,14 +3,7 @@
     "name": "2357.使数组中所有元素都等于零",
     "url": "https://leetcode.cn/problems/make-array-zero-by-subtracting-equal-amounts",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "哈希表",
-        "排序",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["贪心", "数组", "哈希表", "排序", "模拟", "堆（优先队列）"],
     "desc": "返回使 nums 中所有元素都等于 0 需要的 最少 操作数。",
     "solutions": [
         {

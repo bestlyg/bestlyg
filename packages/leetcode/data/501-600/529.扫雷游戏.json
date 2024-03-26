@@ -3,12 +3,7 @@
     "name": "529.扫雷游戏",
     "url": "https://leetcode.cn/problems/minesweeper",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "数组", "矩阵"],
     "desc": "让我们一起来玩扫雷游戏！",
     "solutions": [
         {

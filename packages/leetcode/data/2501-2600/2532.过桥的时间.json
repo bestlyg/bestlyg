@@ -3,11 +3,7 @@
     "name": "2532.过桥的时间",
     "url": "https://leetcode.cn/problems/time-to-cross-a-bridge",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "模拟", "堆（优先队列）"],
     "desc": "所有 n 个盒子都需要放入新仓库，请你返回最后一个搬运箱子的工人 到达河左岸 的时间。",
     "solutions": [
         {

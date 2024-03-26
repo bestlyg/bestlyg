@@ -3,11 +3,7 @@
     "name": "1944.队列中可以看到的人数",
     "url": "https://leetcode.cn/problems/number-of-visible-people-in-a-queue",
     "difficulty": "困难",
-    "tag": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tag": ["栈", "数组", "单调栈"],
     "desc": "请你返回一个长度为 n 的数组 answer ，其中 answer[i] 是第 i 个人在他右侧队列中能 看到 的 人数 。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1223.掷骰子模拟",
     "url": "https://leetcode.cn/problems/dice-roll-simulation",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。",
     "solutions": [
         {

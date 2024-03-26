@@ -3,11 +3,7 @@
     "name": "1466.重新规划路线",
     "url": "https://leetcode.cn/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "图"],
     "desc": "请你帮助重新规划路线方向，使每个城市都可以访问城市 0 。返回需要变更方向的最小路线数。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "1300.转变数组后最接近目标值的数组和",
     "url": "https://leetcode.cn/problems/sum-of-mutated-array-closest-to-target",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "二分查找", "排序"],
     "desc": "排序后进行判断，四舍五入",
     "solutions": [
         {

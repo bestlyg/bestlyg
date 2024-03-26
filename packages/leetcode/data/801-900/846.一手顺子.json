@@ -3,12 +3,7 @@
     "name": "846.一手顺子",
     "url": "https://leetcode.cn/problems/hand-of-straights",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "哈希表", "排序"],
     "desc": "给你一个整数数组 hand 其中 hand[i] 是写在第 i 张牌，和一个整数 groupSize 。如果她可能重新排列这些牌，返回 true ；否则，返回 false 。",
     "solutions": [
         {

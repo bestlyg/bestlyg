@@ -3,12 +3,7 @@
     "name": "1025.除数博弈",
     "url": "https://leetcode.cn/problems/divisor-game",
     "difficulty": "简单",
-    "tag": [
-        "脑筋急转弯",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tag": ["脑筋急转弯", "数学", "动态规划", "博弈"],
     "desc": "爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。",
     "solutions": [
         {

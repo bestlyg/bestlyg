@@ -3,11 +3,7 @@
     "name": "55.跳跃游戏",
     "url": "https://leetcode.cn/problems/jump-game",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["贪心", "数组", "动态规划"],
     "desc": "给定一个非负整数数组，你最初位于数组的第一个位置。",
     "solutions": [
         {

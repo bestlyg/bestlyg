@@ -3,11 +3,7 @@
     "name": "2011.执行操作后的变量值",
     "url": "https://leetcode.cn/problems/final-value-of-variable-after-performing-operations",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["数组", "字符串", "模拟"],
     "desc": "给你一个字符串数组 operations ，这是由操作组成的一个列表，返回执行所有操作后， X 的 最终值 。",
     "solutions": [
         {

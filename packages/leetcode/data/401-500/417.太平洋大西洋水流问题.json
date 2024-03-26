@@ -3,12 +3,7 @@
     "name": "417.太平洋大西洋水流问题",
     "url": "https://leetcode.cn/problems/pacific-atlantic-water-flow",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "数组", "矩阵"],
     "desc": "返回 网格坐标 result 的 2D 列表 ，其中 result[i] = [ri, ci] 表示雨水可以从单元格 (ri, ci) 流向 太平洋和大西洋 。",
     "solutions": [
         {

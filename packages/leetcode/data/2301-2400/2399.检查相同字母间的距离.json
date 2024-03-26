@@ -3,11 +3,7 @@
     "name": "2399.检查相同字母间的距离",
     "url": "https://leetcode.cn/problems/check-distances-between-same-letters",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "如果 s 是一个 匀整 字符串，返回 true ；否则，返回 false 。",
     "solutions": [
         {

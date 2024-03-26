@@ -10,6 +10,6 @@
         "stories/**/*.tsx",
         ".storybook/**/*.ts",
         ".storybook/**/*.tsx",
-        "./*.ts",
+        "./*.ts"
     ]
 }

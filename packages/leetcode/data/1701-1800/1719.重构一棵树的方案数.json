@@ -3,10 +3,7 @@
     "name": "1719.重构一棵树的方案数",
     "url": "https://leetcode.cn/problems/number-of-ways-to-reconstruct-a-tree",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "图"
-    ],
+    "tag": ["树", "图"],
     "desc": "请你返回 ways。",
     "solutions": [
         {

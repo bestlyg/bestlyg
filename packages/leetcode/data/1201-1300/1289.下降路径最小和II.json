@@ -3,11 +3,7 @@
     "name": "1289.下降路径最小和II",
     "url": "https://leetcode.cn/problems/minimum-falling-path-sum-ii",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "给你一个 n x n 整数矩阵 grid ，请你返回 非零偏移下降路径 数字和的最小值。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1688.比赛中的配对次数",
     "url": "https://leetcode.cn/problems/count-of-matches-in-tournament",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "模拟"
-    ],
+    "tag": ["数学", "模拟"],
     "desc": "返回在比赛中进行的配对次数，直到决出获胜队伍为止。",
     "solutions": [
         {

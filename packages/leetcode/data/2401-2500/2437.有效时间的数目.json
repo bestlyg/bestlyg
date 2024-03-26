@@ -3,10 +3,7 @@
     "name": "2437.有效时间的数目",
     "url": "https://leetcode.cn/problems/number-of-valid-clock-times",
     "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "枚举"
-    ],
+    "tag": ["字符串", "枚举"],
     "desc": "请你返回一个整数 answer ，将每一个 ? 都用 0 到 9 中一个数字替换后，可以得到的有效时间的数目。",
     "solutions": [
         {

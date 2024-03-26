@@ -3,10 +3,7 @@
     "name": "1480.一维数组的动态和",
     "url": "https://leetcode.cn/problems/running-sum-of-1d-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "请返回 nums 的动态和。",
     "solutions": [
         {

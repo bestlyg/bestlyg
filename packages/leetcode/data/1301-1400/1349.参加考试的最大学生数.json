@@ -3,13 +3,7 @@
     "name": "1349.参加考试的最大学生数",
     "url": "https://leetcode.cn/problems/maximum-students-taking-exam",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "动态规划",
-        "状态压缩",
-        "矩阵"
-    ],
+    "tag": ["位运算", "数组", "动态规划", "状态压缩", "矩阵"],
     "desc": "请你计算并返回该考场可以容纳的同时参加考试且无法作弊的 最大 学生人数。",
     "solutions": [
         {

@@ -3,13 +3,7 @@
     "name": "2397.被列覆盖的最多行数",
     "url": "https://leetcode.cn/problems/maximum-rows-covered-by-columns",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "回溯",
-        "枚举",
-        "矩阵"
-    ],
+    "tag": ["位运算", "数组", "回溯", "枚举", "矩阵"],
     "desc": "返回一个整数，表示可以由 numSelect 列构成的集合 覆盖 的 最大行数 。",
     "solutions": [
         {

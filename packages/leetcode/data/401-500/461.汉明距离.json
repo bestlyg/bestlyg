@@ -3,9 +3,7 @@
     "name": "461.汉明距离",
     "url": "https://leetcode.cn/problems/hamming-distance",
     "difficulty": "简单",
-    "tag": [
-        "位运算"
-    ],
+    "tag": ["位运算"],
     "desc": "两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。",
     "solutions": [
         {

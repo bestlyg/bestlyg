@@ -3,9 +3,7 @@
     "name": "1694.重新格式化电话号码",
     "url": "https://leetcode.cn/problems/reformat-phone-number",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "返回格式化后的电话号码。",
     "solutions": [
         {

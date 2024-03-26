@@ -3,11 +3,7 @@
     "name": "129.求根节点到叶节点数字之和",
     "url": "https://leetcode.cn/problems/sum-root-to-leaf-numbers",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "计算从根到叶子节点生成的所有数字之和。",
     "solutions": [
         {

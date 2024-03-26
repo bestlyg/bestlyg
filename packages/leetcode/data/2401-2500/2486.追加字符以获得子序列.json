@@ -3,11 +3,7 @@
     "name": "2486.追加字符以获得子序列",
     "url": "https://leetcode.cn/problems/append-characters-to-string-to-make-subsequence",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["贪心", "双指针", "字符串"],
     "desc": "给你两个仅由小写英文字母组成的字符串 s 和 t 。现在需要通过向 s 末尾追加字符的方式使 t 变成 s 的一个 子序列 ，返回需要追加的最少字符数。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "452.用最少数量的箭引爆气球",
     "url": "https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "给你一个数组 points ，其中 points [i] = [xstart,xend] ，返回引爆所有气球所必须射出的最小弓箭数。",
     "solutions": [
         {

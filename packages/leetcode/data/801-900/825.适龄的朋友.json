@@ -3,12 +3,7 @@
     "name": "825.适龄的朋友",
     "url": "https://leetcode.cn/problems/friends-of-appropriate-ages",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "在社交媒体网站上有 n 个用户。返回在该社交媒体网站上产生的好友请求总数。",
     "solutions": [
         {

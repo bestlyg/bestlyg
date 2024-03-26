@@ -3,9 +3,7 @@
     "name": "824.山羊拉丁文",
     "url": "https://leetcode.cn/problems/goat-latin",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "返回将 S 转换为山羊拉丁文后的句子。",
     "solutions": [
         {

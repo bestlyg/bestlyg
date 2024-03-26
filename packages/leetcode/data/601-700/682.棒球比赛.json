@@ -3,11 +3,7 @@
     "name": "682.棒球比赛",
     "url": "https://leetcode.cn/problems/baseball-game",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "数组",
-        "模拟"
-    ],
+    "tag": ["栈", "数组", "模拟"],
     "desc": "请你返回记录中所有得分的总和。",
     "solutions": [
         {

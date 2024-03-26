@@ -3,9 +3,7 @@
     "name": "1269.停在原地的方案数",
     "url": "https://leetcode.cn/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps",
     "difficulty": "困难",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。",
     "solutions": [
         {

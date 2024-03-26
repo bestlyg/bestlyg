@@ -3,12 +3,7 @@
     "name": "752.打开转盘锁",
     "url": "https://leetcode.cn/problems/open-the-lock",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["广度优先搜索", "数组", "哈希表", "字符串"],
     "desc": "字符串 target 代表可以解锁的数字，你需要给出解锁需要的最小旋转次数，如果无论如何不能解锁，返回 -1 。",
     "solutions": [
         {

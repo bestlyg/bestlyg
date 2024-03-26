@@ -3,10 +3,7 @@
     "name": "2861.最大合金数",
     "url": "https://leetcode.cn/problems/maximum-number-of-alloys",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "给你整数 n、k、budget，下标从 1 开始的二维数组 composition，两个下标从 1 开始的数组 stock 和 cost，请你在预算不超过 budget 金钱的前提下，最大化 公司制造合金的数量。",
     "solutions": [
         {

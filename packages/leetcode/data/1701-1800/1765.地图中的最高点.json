@@ -3,11 +3,7 @@
     "name": "1765.地图中的最高点",
     "url": "https://leetcode.cn/problems/map-of-highest-peak",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "请你返回一个大小为 m x n 的整数矩阵 height ，其中 height[i][j] 是格子 (i, j) 的高度。如果有多种解法，请返回 任意一个 。",
     "solutions": [
         {

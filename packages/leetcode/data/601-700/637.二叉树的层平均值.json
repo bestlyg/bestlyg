@@ -3,12 +3,7 @@
     "name": "637.二叉树的层平均值",
     "url": "https://leetcode.cn/problems/average-of-levels-in-binary-tree",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。",
     "solutions": [
         {

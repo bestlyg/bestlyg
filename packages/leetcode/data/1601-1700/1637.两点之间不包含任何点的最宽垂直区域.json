@@ -3,10 +3,7 @@
     "name": "1637.两点之间不包含任何点的最宽垂直区域",
     "url": "https://leetcode.cn/problems/widest-vertical-area-between-two-points-containing-no-points",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序"
-    ],
+    "tag": ["数组", "排序"],
     "desc": "给你 n 个二维平面上的点 points ，其中 points[i] = [xi, yi] ，请你返回两点之间内部不包含任何点的 最宽垂直区域 的宽度。",
     "solutions": [
         {

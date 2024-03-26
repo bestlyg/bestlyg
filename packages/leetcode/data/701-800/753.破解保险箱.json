@@ -3,11 +3,7 @@
     "name": "753.破解保险箱",
     "url": "https://leetcode.cn/problems/cracking-the-safe",
     "difficulty": "困难",
-    "tag": [
-        "深度优先搜索",
-        "图",
-        "欧拉回路"
-    ],
+    "tag": ["深度优先搜索", "图", "欧拉回路"],
     "desc": "请返回一个能打开保险箱的最短字符串。",
     "solutions": [
         {

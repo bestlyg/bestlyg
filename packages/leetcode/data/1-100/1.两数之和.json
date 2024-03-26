@@ -3,10 +3,7 @@
     "name": "1.两数之和",
     "url": "https://leetcode.cn/problems/two-sum",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "给定一个整数数组 nums  和一个目标值 target，请你在该数组中找出和为目标值的那   两个   整数，并返回他们的数组下标。",
     "solutions": [
         {

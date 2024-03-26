@@ -3,13 +3,7 @@
     "name": "1994.好子集的数目",
     "url": "https://leetcode.cn/problems/the-number-of-good-subsets",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "数学",
-        "动态规划",
-        "状态压缩"
-    ],
+    "tag": ["位运算", "数组", "数学", "动态规划", "状态压缩"],
     "desc": "请你返回 nums 中不同的 好 子集的数目对 109 + 7 取余 的结果。",
     "solutions": [
         {

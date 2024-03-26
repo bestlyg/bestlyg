@@ -3,10 +3,7 @@
     "name": "203.移除链表元素",
     "url": "https://leetcode.cn/problems/remove-linked-list-elements",
     "difficulty": "简单",
-    "tag": [
-        "递归",
-        "链表"
-    ],
+    "tag": ["递归", "链表"],
     "desc": "删除链表中等于给定值 val 的所有节点。",
     "solutions": [
         {

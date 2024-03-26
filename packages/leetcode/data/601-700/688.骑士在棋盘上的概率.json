@@ -3,9 +3,7 @@
     "name": "688.骑士在棋盘上的概率",
     "url": "https://leetcode.cn/problems/knight-probability-in-chessboard",
     "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "返回 骑士在棋盘停止移动后仍留在棋盘上的概率 。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "432.全O(1)的数据结构",
     "url": "https://leetcode.cn/problems/all-oone-data-structure",
     "difficulty": "困难",
-    "tag": [
-        "设计",
-        "哈希表",
-        "链表",
-        "双向链表"
-    ],
+    "tag": ["设计", "哈希表", "链表", "双向链表"],
     "desc": "请你设计一个用于存储字符串计数的数据结构，并能够返回计数最小和最大的字符串。",
     "solutions": [
         {

@@ -3,15 +3,7 @@
     "name": "1687.从仓库到码头运输箱子",
     "url": "https://leetcode.cn/problems/delivering-boxes-from-storage-to-ports",
     "difficulty": "困难",
-    "tag": [
-        "线段树",
-        "队列",
-        "数组",
-        "动态规划",
-        "前缀和",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tag": ["线段树", "队列", "数组", "动态规划", "前缀和", "单调队列", "堆（优先队列）"],
     "desc": "请你返回将所有箱子送到相应码头的 最少行程 次数。",
     "solutions": [
         {

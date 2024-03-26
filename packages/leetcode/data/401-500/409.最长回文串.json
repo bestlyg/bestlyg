@@ -3,11 +3,7 @@
     "name": "409.最长回文串",
     "url": "https://leetcode.cn/problems/longest-palindrome",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["贪心", "哈希表", "字符串"],
     "desc": "给定一个包含大写字母和小写字母的字符串 s ，返回 通过这些字母构造成的 最长的回文串 。",
     "solutions": [
         {

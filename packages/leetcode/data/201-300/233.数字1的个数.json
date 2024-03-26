@@ -3,11 +3,7 @@
     "name": "233.数字1的个数",
     "url": "https://leetcode.cn/problems/number-of-digit-one",
     "difficulty": "困难",
-    "tag": [
-        "递归",
-        "数学",
-        "动态规划"
-    ],
+    "tag": ["递归", "数学", "动态规划"],
     "desc": "给定一个整数 n，计算所有小于等于 n 的非负整数中数字 1 出现的个数。",
     "solutions": [
         {

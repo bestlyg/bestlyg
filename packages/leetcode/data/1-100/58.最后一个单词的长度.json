@@ -3,9 +3,7 @@
     "name": "58.最后一个单词的长度",
     "url": "https://leetcode.cn/problems/length-of-last-word",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。",
     "solutions": [
         {

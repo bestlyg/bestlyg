@@ -3,10 +3,7 @@
     "name": "LCR012.寻找数组的中心下标",
     "url": "https://leetcode.cn/problems/tvdfij",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "给你一个整数数组 nums ，请计算数组的 中心下标 。",
     "solutions": [
         {

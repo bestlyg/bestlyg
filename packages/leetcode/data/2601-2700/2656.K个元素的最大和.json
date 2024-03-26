@@ -3,10 +3,7 @@
     "name": "2656.K个元素的最大和",
     "url": "https://leetcode.cn/problems/maximum-sum-with-exactly-k-elements",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组"
-    ],
+    "tag": ["贪心", "数组"],
     "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。请你返回执行以上操作恰好 k 次后的最大得分。",
     "solutions": [
         {

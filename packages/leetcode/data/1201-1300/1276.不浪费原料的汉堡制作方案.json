@@ -3,9 +3,7 @@
     "name": "1276.不浪费原料的汉堡制作方案",
     "url": "https://leetcode.cn/problems/number-of-burgers-with-no-waste-of-ingredients",
     "difficulty": "中等",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "请你以 [total_jumbo, total_small]（[巨无霸汉堡总数，小皇堡总数]）的格式返回恰当的制作方案，使得剩下的番茄片 tomatoSlices 和奶酪片 cheeseSlices 的数量都是 0。",
     "solutions": [
         {

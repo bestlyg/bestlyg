@@ -3,11 +3,7 @@
     "name": "447.回旋镖的数量",
     "url": "https://leetcode.cn/problems/number-of-boomerangs",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "数学"
-    ],
+    "tag": ["数组", "哈希表", "数学"],
     "desc": "返回平面上所有回旋镖的数量。",
     "solutions": [
         {

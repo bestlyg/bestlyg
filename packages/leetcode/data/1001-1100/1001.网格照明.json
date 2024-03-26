@@ -3,10 +3,7 @@
     "name": "1001.网格照明",
     "url": "https://leetcode.cn/problems/grid-illumination",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "在大小为 n x n 的网格 grid 上，每个单元格都有一盏灯，最初灯都处于 关闭 状态。返回一个整数数组 ans 作为答案， ans[j] 应等于第 j 次查询 queries[j] 的结果，1 表示照亮，0 表示未照亮。",
     "solutions": [
         {

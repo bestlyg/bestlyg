@@ -3,12 +3,7 @@
     "name": "877.石子游戏",
     "url": "https://leetcode.cn/problems/stone-game",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tag": ["数组", "数学", "动态规划", "博弈"],
     "desc": "亚历克斯和李用几堆石子在做游戏。假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。",
     "solutions": [
         {

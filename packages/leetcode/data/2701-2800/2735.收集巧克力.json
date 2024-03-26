@@ -3,10 +3,7 @@
     "name": "2735.收集巧克力",
     "url": "https://leetcode.cn/problems/collecting-chocolates",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "枚举"
-    ],
+    "tag": ["数组", "枚举"],
     "desc": "假设你可以执行任意次操作，请返回收集所有类型巧克力所需的最小成本。",
     "solutions": [
         {

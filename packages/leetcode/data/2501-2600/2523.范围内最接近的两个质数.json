@@ -3,10 +3,7 @@
     "name": "2523.范围内最接近的两个质数",
     "url": "https://leetcode.cn/problems/closest-prime-numbers-in-range",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "数论"
-    ],
+    "tag": ["数学", "数论"],
     "desc": "请你返回正整数数组 ans = [nums1, nums2] 。",
     "solutions": [
         {

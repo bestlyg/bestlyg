@@ -3,11 +3,7 @@
     "name": "1210.穿过迷宫的最少移动次数",
     "url": "https://leetcode.cn/problems/minimum-moves-to-reach-target-with-rotations",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "返回蛇抵达目的地所需的最少移动次数。",
     "solutions": [
         {

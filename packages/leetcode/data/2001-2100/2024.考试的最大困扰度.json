@@ -3,12 +3,7 @@
     "name": "2024.考试的最大困扰度",
     "url": "https://leetcode.cn/problems/maximize-the-confusion-of-an-exam",
     "difficulty": "中等",
-    "tag": [
-        "字符串",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tag": ["字符串", "二分查找", "前缀和", "滑动窗口"],
     "desc": "请你返回在不超过 k 次操作的情况下，最大 连续 'T' 或者 'F' 的数目。",
     "solutions": [
         {

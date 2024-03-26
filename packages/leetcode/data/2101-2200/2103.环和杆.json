@@ -3,10 +3,7 @@
     "name": "2103.环和杆",
     "url": "https://leetcode.cn/problems/rings-and-rods",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["哈希表", "字符串"],
     "desc": "找出所有集齐 全部三种颜色 环的杆，并返回这种杆的数量。",
     "solutions": [
         {

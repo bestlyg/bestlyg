@@ -3,11 +3,7 @@
     "name": "2530.执行K次操作后的最大分数",
     "url": "https://leetcode.cn/problems/maximal-score-after-applying-k-operations",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "堆（优先队列）"
-    ],
+    "tag": ["贪心", "数组", "堆（优先队列）"],
     "desc": "给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。你的 起始分数 为 0 。返回在 恰好 执行 k 次操作后，你可能获得的最大分数。",
     "solutions": [
         {

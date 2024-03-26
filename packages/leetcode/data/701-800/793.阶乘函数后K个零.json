@@ -3,10 +3,7 @@
     "name": "793.阶乘函数后K个零",
     "url": "https://leetcode.cn/problems/preimage-size-of-factorial-zeroes-function",
     "difficulty": "困难",
-    "tag": [
-        "数学",
-        "二分查找"
-    ],
+    "tag": ["数学", "二分查找"],
     "desc": "给定 k，找出返回能满足 f(x) = k 的非负整数 x 的数量。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "147.对链表进行插入排序",
     "url": "https://leetcode.cn/problems/insertion-sort-list",
     "difficulty": "中等",
-    "tag": [
-        "链表",
-        "排序"
-    ],
+    "tag": ["链表", "排序"],
     "desc": "对链表进行插入排序。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "593.有效的正方形",
     "url": "https://leetcode.cn/problems/valid-square",
     "difficulty": "中等",
-    "tag": [
-        "几何",
-        "数学"
-    ],
+    "tag": ["几何", "数学"],
     "desc": "给定 2D 空间中四个点的坐标 p1, p2, p3 和 p4，如果这四个点构成一个正方形，则返回 true 。",
     "solutions": [
         {

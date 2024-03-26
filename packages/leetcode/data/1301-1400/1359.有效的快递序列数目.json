@@ -3,11 +3,7 @@
     "name": "1359.有效的快递序列数目",
     "url": "https://leetcode.cn/problems/count-all-valid-pickup-and-delivery-options",
     "difficulty": "困难",
-    "tag": [
-        "数学",
-        "动态规划",
-        "组合数学"
-    ],
+    "tag": ["数学", "动态规划", "组合数学"],
     "desc": "请你统计所有有效的 收件/配送 序列的数目，确保第 i 个物品的配送服务 delivery(i) 总是在其收件服务 pickup(i) 之后。",
     "solutions": [
         {

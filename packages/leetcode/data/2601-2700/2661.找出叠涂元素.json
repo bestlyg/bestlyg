@@ -3,11 +3,7 @@
     "name": "2661.找出叠涂元素",
     "url": "https://leetcode.cn/problems/first-completely-painted-row-or-column",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "矩阵"
-    ],
+    "tag": ["数组", "哈希表", "矩阵"],
     "desc": "请你找出 arr 中在 mat 的某一行或某一列上都被涂色且下标最小的元素，并返回其下标 i 。",
     "solutions": [
         {

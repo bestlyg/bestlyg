@@ -3,12 +3,7 @@
     "name": "1894.找到需要补充粉笔的学生编号",
     "url": "https://leetcode.cn/problems/find-the-student-that-will-replace-the-chalk",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "前缀和",
-        "模拟"
-    ],
+    "tag": ["数组", "二分查找", "前缀和", "模拟"],
     "desc": "请你返回需要 补充 粉笔的学生 编号 。",
     "solutions": [
         {

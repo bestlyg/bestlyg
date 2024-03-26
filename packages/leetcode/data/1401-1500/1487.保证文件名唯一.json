@@ -3,11 +3,7 @@
     "name": "1487.保证文件名唯一",
     "url": "https://leetcode.cn/problems/making-file-names-unique",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "返回长度为 n 的字符串数组，其中 ans[i] 是创建第 i 个文件夹时系统分配给该文件夹的实际名称。",
     "solutions": [
         {

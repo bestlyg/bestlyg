@@ -3,11 +3,7 @@
     "name": "2451.差值数组不同的字符串",
     "url": "https://leetcode.cn/problems/odd-string-difference",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串数组 words ，每一个字符串长度都相同，令所有字符串的长度都为 n 。",
     "solutions": [
         {

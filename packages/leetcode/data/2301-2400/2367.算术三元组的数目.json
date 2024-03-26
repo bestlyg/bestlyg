@@ -3,12 +3,7 @@
     "name": "2367.算术三元组的数目",
     "url": "https://leetcode.cn/problems/number-of-arithmetic-triplets",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "枚举"
-    ],
+    "tag": ["数组", "哈希表", "双指针", "枚举"],
     "desc": "给你一个下标从 0 开始、严格递增 的整数数组 nums 和一个正整数 diff 。返回不同 算术三元组 的数目。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1629.按键持续时间最长的键",
     "url": "https://leetcode.cn/problems/slowest-key",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "请返回按键 持续时间最长 的键，如果有多个这样的键，则返回 按字母顺序排列最大 的那个键。",
     "solutions": [
         {

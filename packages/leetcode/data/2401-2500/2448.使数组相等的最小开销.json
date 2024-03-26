@@ -3,13 +3,7 @@
     "name": "2448.使数组相等的最小开销",
     "url": "https://leetcode.cn/problems/minimum-cost-to-make-array-equal",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "二分查找", "前缀和", "排序"],
     "desc": "请你返回使 nums 中所有元素 相等 的 最少 总开销。",
     "solutions": [
         {

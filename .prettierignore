@@ -6,4 +6,6 @@ training
 echarts.js
 target
 temp
-packages/leetcode/data
+.docusaurus
+build
+.nx

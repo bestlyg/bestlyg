@@ -3,13 +3,7 @@
     "name": "1658.将x减到0的最小操作数",
     "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "哈希表", "二分查找", "前缀和", "滑动窗口"],
     "desc": "给你一个整数数组 nums 和一个整数 x 。如果可以将 x 恰好 减到 0 ，返回 最小操作数 。",
     "solutions": [
         {

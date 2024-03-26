@@ -3,11 +3,7 @@
     "name": "773.滑动谜题",
     "url": "https://leetcode.cn/problems/sliding-puzzle",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "给出一个谜板的初始状态，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回 -1 。",
     "solutions": [
         {

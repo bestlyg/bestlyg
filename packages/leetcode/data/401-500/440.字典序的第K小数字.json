@@ -3,9 +3,7 @@
     "name": "440.字典序的第K小数字",
     "url": "https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order",
     "difficulty": "困难",
-    "tag": [
-        "字典树"
-    ],
+    "tag": ["字典树"],
     "desc": "给定整数 n 和 k，找到 1 到 n 中字典序第 k 小的数字。",
     "solutions": [
         {

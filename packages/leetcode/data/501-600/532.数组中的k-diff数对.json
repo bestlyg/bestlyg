@@ -3,13 +3,7 @@
     "name": "532.数组中的k-diff数对",
     "url": "https://leetcode.cn/problems/k-diff-pairs-in-an-array",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "双指针", "二分查找", "排序"],
     "desc": "给你一个整数数组 nums 和一个整数 k，请你在数组中找出 不同的 k-diff 数对，并返回不同的 k-diff 数对 的数目。",
     "solutions": [
         {

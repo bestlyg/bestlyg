@@ -3,10 +3,7 @@
     "name": "2582.递枕头",
     "url": "https://leetcode.cn/problems/pass-the-pillow",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "模拟"
-    ],
+    "tag": ["数学", "模拟"],
     "desc": "过滤后返回餐馆的 id，按照 rating 从高到低排序。如果 rating 相同，那么按 id 从高到低排序。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "917.仅仅反转字母",
     "url": "https://leetcode.cn/problems/reverse-only-letters",
     "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "返回反转后的 s 。",
     "solutions": [
         {

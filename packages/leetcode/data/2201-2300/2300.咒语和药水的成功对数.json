@@ -3,12 +3,7 @@
     "name": "2300.咒语和药水的成功对数",
     "url": "https://leetcode.cn/problems/successful-pairs-of-spells-and-potions",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "请你返回一个长度为 n 的整数数组 pairs，其中 pairs[i] 是能跟第 i 个咒语成功组合的 药水 数目。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "335.路径交叉",
     "url": "https://leetcode.cn/problems/self-crossing",
     "difficulty": "困难",
-    "tag": [
-        "几何",
-        "数组",
-        "数学"
-    ],
+    "tag": ["几何", "数组", "数学"],
     "desc": "给你一个整数数组 distance 。判断你所经过的路径是否相交。如果相交，返回 true ；否则，返回 false 。",
     "solutions": [
         {

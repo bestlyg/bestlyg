@@ -3,11 +3,7 @@
     "name": "1726.同积元组",
     "url": "https://leetcode.cn/problems/tuple-with-same-product",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "计数"],
     "desc": "给你一个由 不同 正整数组成的数组 nums ，请你返回满足 a * b = c * d 的元组 (a, b, c, d) 的数量。其中 a、b、c 和 d 都是 nums 中的元素，且 a != b != c != d 。",
     "solutions": [
         {

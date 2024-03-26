@@ -3,10 +3,7 @@
     "name": "1572.矩阵对角线元素的和",
     "url": "https://leetcode.cn/problems/matrix-diagonal-sum",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["数组", "矩阵"],
     "desc": "给你一个正方形矩阵 mat，请你返回矩阵对角线元素的和。",
     "solutions": [
         {

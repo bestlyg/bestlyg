@@ -3,11 +3,7 @@
     "name": "436.寻找右区间",
     "url": "https://leetcode.cn/problems/find-right-interval",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "二分查找", "排序"],
     "desc": "返回一个由每个区间 i 的 右侧区间 的最小起始位置组成的数组。如果某个区间 i 不存在对应的 右侧区间 ，则下标 i 处的值设为 -1 。",
     "solutions": [
         {

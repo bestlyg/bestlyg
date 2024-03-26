@@ -3,12 +3,7 @@
     "name": "397.整数替换",
     "url": "https://leetcode.cn/problems/integer-replacement",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "位运算",
-        "记忆化搜索",
-        "动态规划"
-    ],
+    "tag": ["贪心", "位运算", "记忆化搜索", "动态规划"],
     "desc": "给定一个正整数 n ，n 变为 1 所需的最小替换次数是多少？。",
     "solutions": [
         {

@@ -3,13 +3,7 @@
     "name": "108.将有序数组转换为二叉搜索树",
     "url": "https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "二叉搜索树",
-        "数组",
-        "分治",
-        "二叉树"
-    ],
+    "tag": ["树", "二叉搜索树", "数组", "分治", "二叉树"],
     "desc": "将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。",
     "solutions": [
         {

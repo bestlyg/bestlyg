@@ -3,13 +3,7 @@
     "name": "594.最长和谐子序列",
     "url": "https://leetcode.cn/problems/longest-harmonious-subsequence",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "计数",
-        "排序",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "哈希表", "计数", "排序", "滑动窗口"],
     "desc": "现在，给你一个整数数组 nums ，请你在所有可能的子序列中找到最长的和谐子序列的长度。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "92.反转链表II",
     "url": "https://leetcode.cn/problems/reverse-linked-list-ii",
     "difficulty": "中等",
-    "tag": [
-        "链表"
-    ],
+    "tag": ["链表"],
     "desc": "反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。",
     "solutions": [
         {

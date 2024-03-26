@@ -3,12 +3,7 @@
     "name": "2106.摘水果",
     "url": "https://leetcode.cn/problems/maximum-fruits-harvested-after-at-most-k-steps",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "二分查找", "前缀和", "滑动窗口"],
     "desc": "返回你可以摘到水果的 最大总数 。",
     "solutions": [
         {

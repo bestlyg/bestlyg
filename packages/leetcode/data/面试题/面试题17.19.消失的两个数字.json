@@ -3,11 +3,7 @@
     "name": "面试题17.19.消失的两个数字",
     "url": "https://leetcode.cn/problems/missing-two-lcci",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["位运算", "数组", "哈希表"],
     "desc": "给定一个数组，包含从 1 到 N 所有的整数，但其中缺了两个数字。你能在 O(N) 时间内只用 O(1) 的空间找到它们吗？。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "467.环绕字符串中唯一的子字符串",
     "url": "https://leetcode.cn/problems/unique-substrings-in-wraparound-string",
     "difficulty": "中等",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["字符串", "动态规划"],
     "desc": "现在给定另一个字符串 p 。返回 s 中 唯一 的 p 的 非空子串 的数量 。 。",
     "solutions": [
         {

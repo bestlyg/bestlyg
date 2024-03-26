@@ -3,11 +3,7 @@
     "name": "2100.适合野炊的日子",
     "url": "https://leetcode.cn/problems/find-good-days-to-rob-the-bank",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划",
-        "前缀和"
-    ],
+    "tag": ["数组", "动态规划", "前缀和"],
     "desc": "请你返回一个数组，包含 所有 适合打劫银行的日子（下标从 0 开始）。返回的日子可以 任意 顺序排列。",
     "solutions": [
         {

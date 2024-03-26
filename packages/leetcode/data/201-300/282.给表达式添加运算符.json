@@ -3,11 +3,7 @@
     "name": "282.给表达式添加运算符",
     "url": "https://leetcode.cn/problems/expression-add-operators",
     "difficulty": "困难",
-    "tag": [
-        "数学",
-        "字符串",
-        "回溯"
-    ],
+    "tag": ["数学", "字符串", "回溯"],
     "desc": "给定一个仅包含数字  0-9  的字符串 num 和一个目标值整数 target ，在 num 的数字之间添加 二元 运算符（不是一元）+、-  或  \\* ，返回所有能够得到目标值的表达式。",
     "solutions": [
         {

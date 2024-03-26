@@ -3,10 +3,7 @@
     "name": "2481.分割圆的最少切割次数",
     "url": "https://leetcode.cn/problems/minimum-cuts-to-divide-a-circle",
     "difficulty": "简单",
-    "tag": [
-        "几何",
-        "数学"
-    ],
+    "tag": ["几何", "数学"],
     "desc": "给你一个整数 n ，请你返回将圆切割成相等的 n 等分的 最少 切割次数。",
     "solutions": [
         {

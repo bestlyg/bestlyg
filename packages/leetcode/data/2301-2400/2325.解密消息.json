@@ -3,10 +3,7 @@
     "name": "2325.解密消息",
     "url": "https://leetcode.cn/problems/decode-the-message",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["哈希表", "字符串"],
     "desc": "返回解密后的消息。",
     "solutions": [
         {

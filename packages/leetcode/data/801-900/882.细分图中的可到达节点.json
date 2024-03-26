@@ -3,11 +3,7 @@
     "name": "882.细分图中的可到达节点",
     "url": "https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph",
     "difficulty": "困难",
-    "tag": [
-        "图",
-        "最短路",
-        "堆（优先队列）"
-    ],
+    "tag": ["图", "最短路", "堆（优先队列）"],
     "desc": "返回中枢整数 x 。如果不存在中枢整数，则返回 -1 。题目保证对于给定的输入，至多存在一个中枢整数。",
     "solutions": [
         {

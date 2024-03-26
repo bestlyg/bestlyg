@@ -3,9 +3,7 @@
     "name": "1240.铺瓷砖",
     "url": "https://leetcode.cn/problems/tiling-a-rectangle-with-the-fewest-squares",
     "difficulty": "困难",
-    "tag": [
-        "回溯"
-    ],
+    "tag": ["回溯"],
     "desc": "房子的客厅大小为 n x m，为保持极简的风格，需要使用尽可能少的 正方形 瓷砖来铺盖地面。假设正方形瓷砖的规格不限，边长都是整数。请你帮设计师计算一下，最少需要用到多少块方形瓷砖？。",
     "solutions": [
         {

@@ -24,10 +24,10 @@ console.log(json);
 ```
 
 ### 类型定义
+
 ```ts
 interface RequireJsonOptions {
     fieldName: string;
 }
-function requireJson<R = any>(path: string, options: RequireJsonOptions): R
+function requireJson<R = any>(path: string, options: RequireJsonOptions): R;
 ```
-

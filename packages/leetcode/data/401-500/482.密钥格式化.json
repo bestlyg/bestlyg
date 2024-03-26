@@ -3,9 +3,7 @@
     "name": "482.密钥格式化",
     "url": "https://leetcode.cn/problems/license-key-formatting",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "给定非空字符串 S 和数字 K，按照上面描述的规则进行格式化。",
     "solutions": [
         {

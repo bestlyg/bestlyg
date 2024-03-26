@@ -3,10 +3,7 @@
     "name": "822.翻转卡片游戏",
     "url": "https://leetcode.cn/problems/card-flipping-game",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "哪个数是这些想要的数字中最小的数（找到这些数中的最小值）呢？如果没有一个数字符合要求的，输出 0。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "958.二叉树的完全性检验",
     "url": "https://leetcode.cn/problems/check-completeness-of-a-binary-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树，确定它是否是一个完全二叉树。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "704.二分查找",
     "url": "https://leetcode.cn/problems/binary-search",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "返回可以通过分割得到的平衡字符串的 最大数量 。",
     "solutions": [
         {

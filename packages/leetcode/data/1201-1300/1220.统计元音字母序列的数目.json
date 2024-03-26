@@ -3,9 +3,7 @@
     "name": "1220.统计元音字母序列的数目",
     "url": "https://leetcode.cn/problems/count-vowels-permutation",
     "difficulty": "困难",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "给你一个整数 n，请你帮忙统计一下我们可以按下述规则形成多少个长度为 n 的字符串。",
     "solutions": [
         {

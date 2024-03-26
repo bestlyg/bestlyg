@@ -3,11 +3,7 @@
     "name": "166.分数到小数",
     "url": "https://leetcode.cn/problems/fraction-to-recurring-decimal",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "数学",
-        "字符串"
-    ],
+    "tag": ["哈希表", "数学", "字符串"],
     "desc": "给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。",
     "solutions": [
         {

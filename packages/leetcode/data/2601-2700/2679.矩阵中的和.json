@@ -3,13 +3,7 @@
     "name": "2679.矩阵中的和",
     "url": "https://leetcode.cn/problems/sum-in-a-matrix",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "矩阵",
-        "排序",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "矩阵", "排序", "模拟", "堆（优先队列）"],
     "desc": "给你一个下标从 0 开始的二维整数数组 nums 。请你返回最后的 分数 。",
     "solutions": [
         {

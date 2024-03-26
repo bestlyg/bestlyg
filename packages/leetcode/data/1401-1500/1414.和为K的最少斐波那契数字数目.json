@@ -3,10 +3,7 @@
     "name": "1414.和为K的最少斐波那契数字数目",
     "url": "https://leetcode.cn/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数学"
-    ],
+    "tag": ["贪心", "数学"],
     "desc": "给你数字 k ，请你返回和为 k 的斐波那契数字的最少数目，其中，每个斐波那契数字都可以被使用多次。",
     "solutions": [
         {

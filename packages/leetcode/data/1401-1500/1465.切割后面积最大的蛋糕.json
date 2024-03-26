@@ -3,11 +3,7 @@
     "name": "1465.切割后面积最大的蛋糕",
     "url": "https://leetcode.cn/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "请你按数组 horizontalCuts 和 verticalCuts 中提供的水平和竖直位置切割后，请你找出 面积最大 的那份蛋糕，并返回其 面积 。",
     "solutions": [
         {

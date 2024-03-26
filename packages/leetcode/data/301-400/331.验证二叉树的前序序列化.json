@@ -3,12 +3,7 @@
     "name": "331.验证二叉树的前序序列化",
     "url": "https://leetcode.cn/problems/verify-preorder-serialization-of-a-binary-tree",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "树",
-        "字符串",
-        "二叉树"
-    ],
+    "tag": ["栈", "树", "字符串", "二叉树"],
     "desc": "验证二叉树的前序序列化。",
     "solutions": [
         {

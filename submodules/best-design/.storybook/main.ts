@@ -3,7 +3,14 @@ import webpack from 'webpack';
 import LessAutoprefix from 'less-plugin-autoprefix';
 import NpmImportPlugin from 'less-plugin-npm-import';
 import LessPluginFunctions from 'less-plugin-functions';
-import { getAbsolutePath, getLibs, componentsPath, packagesPath, resolve, baseDefines } from '../scripts/utils';
+import {
+    getAbsolutePath,
+    getLibs,
+    componentsPath,
+    packagesPath,
+    resolve,
+    baseDefines
+} from '../scripts/utils';
 
 const npmImport = new NpmImportPlugin({ prefix: '~' });
 const autoprefix = new LessAutoprefix();

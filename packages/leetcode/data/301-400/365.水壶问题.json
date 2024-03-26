@@ -3,11 +3,7 @@
     "name": "365.水壶问题",
     "url": "https://leetcode.cn/problems/water-and-jug-problem",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数学"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "数学"],
     "desc": "有两个容量分别为 x 升 和 y 升 的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z 升 的水？。",
     "solutions": [
         {

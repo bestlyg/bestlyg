@@ -3,12 +3,7 @@
     "name": "2462.雇佣K位工人的总代价",
     "url": "https://leetcode.cn/problems/total-cost-to-hire-k-workers",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "双指针", "模拟", "堆（优先队列）"],
     "desc": "返回雇佣恰好 k 位工人的总代价。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "748.最短补全词",
     "url": "https://leetcode.cn/problems/shortest-completing-word",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串 licensePlate 和一个字符串数组 words ，请你找出并返回 words 中的 最短补全词 。",
     "solutions": [
         {

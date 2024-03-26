@@ -3,11 +3,7 @@
     "name": "874.模拟行走机器人",
     "url": "https://leetcode.cn/problems/walking-robot-simulation",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "模拟"
-    ],
+    "tag": ["数组", "哈希表", "模拟"],
     "desc": "返回从原点到机器人所有经过的路径点（坐标为整数）的最大欧式距离的平方。",
     "solutions": [
         {

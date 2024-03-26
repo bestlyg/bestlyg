@@ -3,10 +3,7 @@
     "name": "71.简化路径",
     "url": "https://leetcode.cn/problems/simplify-path",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "字符串"
-    ],
+    "tag": ["栈", "字符串"],
     "desc": "返回简化后得到的 规范路径 。",
     "solutions": [
         {

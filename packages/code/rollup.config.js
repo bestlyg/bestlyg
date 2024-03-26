@@ -69,34 +69,34 @@ const fs = require('fs-extra');
 //   })
 //   .flat();
 const packageConfigs = [
-  {
-    input: resolve('src/index.ts'),
-    output: {
-      file: resolve('dist/index.js'),
-      format: 'umd',
-      name: `BestLyg`,
-      globals: { lodash: 'lodash' },
-    },
-    external: ['lodash'],
-    plugins: [
-      __PROD__ ? terser() : {},
-      json(),
-      typescript({
-        tsconfig: resolve('tsconfig.build.json'),
-        tsconfigOverride: {
-          compilerOptions: {
-            sourceMap: true,
-            declaration: true,
-            declarationMap: true,
-          },
+    {
+        input: resolve('src/index.ts'),
+        output: {
+            file: resolve('dist/index.js'),
+            format: 'umd',
+            name: `BestLyg`,
+            globals: { lodash: 'lodash' },
         },
-      }),
-    ],
-  },
-  // {
-  //   input: resolve('src/index.ts'),
-  //   output: [{ file: resolve('types/index.d.ts'), format: 'umd' }],
-  //   plugins: [dts()],
-  // },
+        external: ['lodash'],
+        plugins: [
+            __PROD__ ? terser() : {},
+            json(),
+            typescript({
+                tsconfig: resolve('tsconfig.build.json'),
+                tsconfigOverride: {
+                    compilerOptions: {
+                        sourceMap: true,
+                        declaration: true,
+                        declarationMap: true,
+                    },
+                },
+            }),
+        ],
+    },
+    // {
+    //   input: resolve('src/index.ts'),
+    //   output: [{ file: resolve('types/index.d.ts'), format: 'umd' }],
+    //   plugins: [dts()],
+    // },
 ];
 export default packageConfigs;

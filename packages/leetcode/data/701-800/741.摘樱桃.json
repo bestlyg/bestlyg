@@ -3,11 +3,7 @@
     "name": "741.摘樱桃",
     "url": "https://leetcode.cn/problems/cherry-pickup",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "你的任务是在遵守下列规则的情况下，尽可能的摘到最多樱桃。",
     "solutions": [
         {

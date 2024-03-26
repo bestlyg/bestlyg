@@ -3,9 +3,7 @@
     "name": "38.外观数列",
     "url": "https://leetcode.cn/problems/count-and-say",
     "difficulty": "中等",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "给定一个正整数 n ，输出外观数列的第 n 项。",
     "solutions": [
         {

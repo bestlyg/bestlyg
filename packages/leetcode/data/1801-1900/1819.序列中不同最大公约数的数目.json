@@ -3,12 +3,7 @@
     "name": "1819.序列中不同最大公约数的数目",
     "url": "https://leetcode.cn/problems/number-of-different-subsequences-gcds",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "数学",
-        "计数",
-        "数论"
-    ],
+    "tag": ["数组", "数学", "计数", "数论"],
     "desc": "计算并返回 nums 的所有 非空 子序列中 不同 最大公约数的 数目 。",
     "solutions": [
         {

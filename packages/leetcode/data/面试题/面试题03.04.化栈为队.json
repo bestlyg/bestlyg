@@ -3,11 +3,7 @@
     "name": "面试题03.04.化栈为队",
     "url": "https://leetcode.cn/problems/implement-queue-using-stacks-lcci",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "设计",
-        "队列"
-    ],
+    "tag": ["栈", "设计", "队列"],
     "desc": "实现一个 MyQueue 类，该类用两个栈来实现一个队列。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "LCR166.珠宝的最高价值",
     "url": "https://leetcode.cn/problems/li-wu-de-zui-da-jie-zhi-lcof",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "2319.判断矩阵是否是一个X矩阵",
     "url": "https://leetcode.cn/problems/check-if-matrix-is-x-matrix",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["数组", "矩阵"],
     "desc": "给你一个大小为 n x n 的二维整数数组 grid ，表示一个正方形矩阵。如果 grid 是一个 X 矩阵 ，返回 true ；否则，返回 false 。",
     "solutions": [
         {

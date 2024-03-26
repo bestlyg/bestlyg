@@ -3,9 +3,7 @@
     "name": "1078.Bigram分词",
     "url": "https://leetcode.cn/problems/occurrences-after-bigram",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "对于每种这样的情况，将第三个词 \"third\" 添加到答案中，并返回答案。",
     "solutions": [
         {

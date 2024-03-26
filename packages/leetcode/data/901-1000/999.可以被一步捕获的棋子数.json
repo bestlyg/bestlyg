@@ -3,11 +3,7 @@
     "name": "999.可以被一步捕获的棋子数",
     "url": "https://leetcode.cn/problems/available-captures-for-rook",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tag": ["数组", "矩阵", "模拟"],
     "desc": "给出一棵二叉树，其上每个结点的值都是 0 或 1 。每一条从根到叶的路径都代表一个从最高有效位开始的二进制数。返回这些数字之和。",
     "solutions": [
         {

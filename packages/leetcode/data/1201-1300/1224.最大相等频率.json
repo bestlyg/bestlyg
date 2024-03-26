@@ -3,10 +3,7 @@
     "name": "1224.最大相等频率",
     "url": "https://leetcode.cn/problems/maximum-equal-frequency",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "给你一个正整数数组 nums，请你帮忙从该数组中找出能满足下面要求的 最长 前缀，并返回该前缀的长度。",
     "solutions": [
         {

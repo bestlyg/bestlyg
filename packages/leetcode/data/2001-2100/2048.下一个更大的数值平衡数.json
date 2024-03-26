@@ -3,11 +3,7 @@
     "name": "2048.下一个更大的数值平衡数",
     "url": "https://leetcode.cn/problems/next-greater-numerically-balanced-number",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "回溯",
-        "枚举"
-    ],
+    "tag": ["数学", "回溯", "枚举"],
     "desc": "给你一个整数 n ，请你返回 严格大于 n 的 最小数值平衡数 。",
     "solutions": [
         {

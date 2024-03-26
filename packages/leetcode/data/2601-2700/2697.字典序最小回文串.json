@@ -3,11 +3,7 @@
     "name": "2697.字典序最小回文串",
     "url": "https://leetcode.cn/problems/lexicographically-smallest-palindrome",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["贪心", "双指针", "字符串"],
     "desc": "返回最终的回文字符串。",
     "solutions": [
         {

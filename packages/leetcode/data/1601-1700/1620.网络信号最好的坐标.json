@@ -3,10 +3,7 @@
     "name": "1620.网络信号最好的坐标",
     "url": "https://leetcode.cn/problems/coordinate-with-maximum-network-quality",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "枚举"
-    ],
+    "tag": ["数组", "枚举"],
     "desc": "请你返回数组 [cx, cy] ，表示 信号强度 最大的 整数 坐标点 (cx, cy) 。如果有多个坐标网络信号一样大，请你返回字典序最小的 非负 坐标。",
     "solutions": [
         {

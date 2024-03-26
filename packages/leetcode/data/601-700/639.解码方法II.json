@@ -3,10 +3,7 @@
     "name": "639.解码方法II",
     "url": "https://leetcode.cn/problems/decode-ways-ii",
     "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["字符串", "动态规划"],
     "desc": "给你一个字符串 s ，由数字和 '\\*' 字符组成，返回 解码 该字符串的方法 数目 。",
     "solutions": [
         {

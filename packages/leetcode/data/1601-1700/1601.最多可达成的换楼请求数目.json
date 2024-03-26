@@ -3,12 +3,7 @@
     "name": "1601.最多可达成的换楼请求数目",
     "url": "https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "回溯",
-        "枚举"
-    ],
+    "tag": ["位运算", "数组", "回溯", "枚举"],
     "desc": "请你从原请求列表中选出若干个请求，使得它们是一个可行的请求列表，并返回所有可行列表中最大请求数目。",
     "solutions": [
         {

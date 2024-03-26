@@ -3,13 +3,7 @@
     "name": "1305.两棵二叉搜索树中的所有元素",
     "url": "https://leetcode.cn/problems/all-elements-in-two-binary-search-trees",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树",
-        "排序"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树", "排序"],
     "desc": "请你返回一个列表，其中包含 两棵树 中的所有整数并按 升序 排序。",
     "solutions": [
         {

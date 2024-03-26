@@ -3,11 +3,7 @@
     "name": "2178.拆分成最多数目的正偶数之和",
     "url": "https://leetcode.cn/problems/maximum-split-of-positive-even-integers",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数学",
-        "回溯"
-    ],
+    "tag": ["贪心", "数学", "回溯"],
     "desc": "给你一个整数 finalSum 。请你将它拆分成若干个 互不相同 的正偶数之和，且拆分出来的正偶数数目 最多 。",
     "solutions": [
         {

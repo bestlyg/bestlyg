@@ -3,12 +3,7 @@
     "name": "980.不同路径III",
     "url": "https://leetcode.cn/problems/unique-paths-iii",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "数组",
-        "回溯",
-        "矩阵"
-    ],
+    "tag": ["位运算", "数组", "回溯", "矩阵"],
     "desc": "返回在四个方向（上、下、左、右）上行走时，从起始方格到结束方格的不同路径的数目。",
     "solutions": [
         {

@@ -3,13 +3,7 @@
     "name": "2552.统计上升四元组",
     "url": "https://leetcode.cn/problems/count-increasing-quadruplets",
     "difficulty": "困难",
-    "tag": [
-        "树状数组",
-        "数组",
-        "动态规划",
-        "枚举",
-        "前缀和"
-    ],
+    "tag": ["树状数组", "数组", "动态规划", "枚举", "前缀和"],
     "desc": "给你一个长度为 n 下标从 0 开始的整数数组 nums ，它包含 1 到 n 的所有数字，请你返回上升四元组的数目。",
     "solutions": [
         {

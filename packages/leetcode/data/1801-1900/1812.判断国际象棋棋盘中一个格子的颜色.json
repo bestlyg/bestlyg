@@ -3,10 +3,7 @@
     "name": "1812.判断国际象棋棋盘中一个格子的颜色",
     "url": "https://leetcode.cn/problems/determine-color-of-a-chessboard-square",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
+    "tag": ["数学", "字符串"],
     "desc": "如果所给格子的颜色是白色，请你返回 true，如果是黑色，请返回 false 。",
     "solutions": [
         {

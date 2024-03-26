@@ -3,11 +3,7 @@
     "name": "1598.文件夹操作日志搜集器",
     "url": "https://leetcode.cn/problems/crawler-log-folder",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "数组",
-        "字符串"
-    ],
+    "tag": ["栈", "数组", "字符串"],
     "desc": "执行完所有变更文件夹操作后，请你找出 返回主文件夹所需的最小步数 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "1475.商品折扣后的最终价格",
     "url": "https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tag": ["栈", "数组", "单调栈"],
     "desc": "请你返回一个数组，数组中第 i 个元素是折扣后你购买商品 i 最终需要支付的价格。",
     "solutions": [
         {

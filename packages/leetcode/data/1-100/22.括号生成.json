@@ -3,11 +3,7 @@
     "name": "22.括号生成",
     "url": "https://leetcode.cn/problems/generate-parentheses",
     "difficulty": "中等",
-    "tag": [
-        "字符串",
-        "动态规划",
-        "回溯"
-    ],
+    "tag": ["字符串", "动态规划", "回溯"],
     "desc": "数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "851.喧闹和富有",
     "url": "https://leetcode.cn/problems/loud-and-rich",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "图",
-        "拓扑排序",
-        "数组"
-    ],
+    "tag": ["深度优先搜索", "图", "拓扑排序", "数组"],
     "desc": "现在，返回一个整数数组 answer 作为答案，其中  answer[x] = y  的前提是，在所有拥有的钱肯定不少于  person x  的人中，person y  是最安静的人（也就是安静值  quiet[y]  最小的人）。",
     "solutions": [
         {

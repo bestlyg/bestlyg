@@ -3,10 +3,7 @@
     "name": "801.使序列递增的最小交换次数",
     "url": "https://leetcode.cn/problems/minimum-swaps-to-make-sequences-increasing",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "返回 使 nums1 和 nums2 严格递增 所需操作的最小次数 。",
     "solutions": [
         {

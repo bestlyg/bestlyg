@@ -3,9 +3,7 @@
     "name": "1281.整数的各位积和之差",
     "url": "https://leetcode.cn/problems/subtract-the-product-and-sum-of-digits-of-an-integer",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给你一个整数 n，请你帮忙计算并返回该整数「各位数字之积」与「各位数字之和」的差。",
     "solutions": [
         {

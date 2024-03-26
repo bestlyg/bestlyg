@@ -3,12 +3,7 @@
     "name": "199.二叉树的右视图",
     "url": "https://leetcode.cn/problems/binary-tree-right-side-view",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。",
     "solutions": [
         {

@@ -3,14 +3,7 @@
     "name": "1008.前序遍历构造二叉搜索树",
     "url": "https://leetcode.cn/problems/construct-binary-search-tree-from-preorder-traversal",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "树",
-        "二叉搜索树",
-        "数组",
-        "二叉树",
-        "单调栈"
-    ],
+    "tag": ["栈", "树", "二叉搜索树", "数组", "二叉树", "单调栈"],
     "desc": "返回与给定前序遍历 preorder 相匹配的二叉搜索树（binary search tree）的根结点。",
     "solutions": [
         {

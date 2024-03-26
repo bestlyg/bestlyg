@@ -3,9 +3,7 @@
     "name": "492.构造矩形",
     "url": "https://leetcode.cn/problems/construct-the-rectangle",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "你需要按顺序输出你设计的页面的长度 L 和宽度 W。",
     "solutions": [
         {

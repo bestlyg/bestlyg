@@ -3,12 +3,7 @@
     "name": "2418.按身高排序",
     "url": "https://leetcode.cn/problems/sort-the-people",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "字符串", "排序"],
     "desc": "给你一个字符串数组 names ，和一个由 互不相同 的正整数组成的数组 heights 。两个数组的长度均为 n 。",
     "solutions": [
         {

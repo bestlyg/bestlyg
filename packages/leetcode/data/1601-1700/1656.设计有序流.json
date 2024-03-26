@@ -3,12 +3,7 @@
     "name": "1656.设计有序流",
     "url": "https://leetcode.cn/problems/design-an-ordered-stream",
     "difficulty": "简单",
-    "tag": [
-        "设计",
-        "数组",
-        "哈希表",
-        "数据流"
-    ],
+    "tag": ["设计", "数组", "哈希表", "数据流"],
     "desc": "设计一个流，以 任意 顺序获取 n 个 (id, value) 对，并在多次调用时 按 id 递增的顺序 返回一些值。",
     "solutions": [
         {

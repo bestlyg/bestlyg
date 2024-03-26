@@ -3,12 +3,7 @@
     "name": "870.优势洗牌",
     "url": "https://leetcode.cn/problems/advantage-shuffle",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "双指针", "排序"],
     "desc": "返回 nums1 的任意排列，使其相对于 nums2 的优势最大化。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "2525.根据规则将箱子分类",
     "url": "https://leetcode.cn/problems/categorize-box-according-to-criteria",
     "difficulty": "简单",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给你四个整数 length ，width ，height 和 mass ，分别表示一个箱子的三个维度和质量，请你返回一个表示箱子 类别 的字符串。",
     "solutions": [
         {

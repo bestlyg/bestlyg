@@ -3,12 +3,7 @@
     "name": "1976.到达目的地的方案数",
     "url": "https://leetcode.cn/problems/number-of-ways-to-arrive-at-destination",
     "difficulty": "中等",
-    "tag": [
-        "图",
-        "拓扑排序",
-        "动态规划",
-        "最短路"
-    ],
+    "tag": ["图", "拓扑排序", "动态规划", "最短路"],
     "desc": "请返回花费 最少时间 到达目的地的 路径数目 。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "434.字符串中的单词数",
     "url": "https://leetcode.cn/problems/number-of-segments-in-a-string",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。",
     "solutions": [
         {

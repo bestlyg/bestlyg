@@ -3,11 +3,7 @@
     "name": "929.独特的电子邮件地址",
     "url": "https://leetcode.cn/problems/unique-email-addresses",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串数组 emails，我们会向每个 emails[i] 发送一封电子邮件。返回实际收到邮件的不同地址数目。",
     "solutions": [
         {

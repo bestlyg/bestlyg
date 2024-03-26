@@ -3,9 +3,7 @@
     "name": "2315.统计星号",
     "url": "https://leetcode.cn/problems/count-asterisks",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "请你返回 不在 竖线对之间，s 中 '*' 的数目。",
     "solutions": [
         {

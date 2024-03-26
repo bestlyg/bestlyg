@@ -3,11 +3,7 @@
     "name": "1813.句子相似性III",
     "url": "https://leetcode.cn/problems/sentence-similarity-iii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["数组", "双指针", "字符串"],
     "desc": "给你两个句子 sentence1 和 sentence2 ，如果 sentence1 和 sentence2 是相似的，请你返回 true ，否则返回 false 。",
     "solutions": [
         {

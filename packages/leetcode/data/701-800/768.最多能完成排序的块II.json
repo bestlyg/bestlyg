@@ -3,13 +3,7 @@
     "name": "768.最多能完成排序的块II",
     "url": "https://leetcode.cn/problems/max-chunks-to-make-sorted-ii",
     "difficulty": "困难",
-    "tag": [
-        "栈",
-        "贪心",
-        "数组",
-        "排序",
-        "单调栈"
-    ],
+    "tag": ["栈", "贪心", "数组", "排序", "单调栈"],
     "desc": "我们最多能将数组分成多少块？。",
     "solutions": [
         {

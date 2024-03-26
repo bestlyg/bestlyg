@@ -3,14 +3,7 @@
     "name": "1838.最高频元素的频数",
     "url": "https://leetcode.cn/problems/frequency-of-the-most-frequent-element",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "排序",
-        "滑动窗口"
-    ],
+    "tag": ["贪心", "数组", "二分查找", "前缀和", "排序", "滑动窗口"],
     "desc": "排序后，从后往前逐个比较。",
     "solutions": [
         {

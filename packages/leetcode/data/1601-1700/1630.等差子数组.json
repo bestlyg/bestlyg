@@ -3,11 +3,7 @@
     "name": "1630.等差子数组",
     "url": "https://leetcode.cn/problems/arithmetic-subarrays",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "排序"],
     "desc": "返回 boolean 元素构成的答案列表 answer 。如果子数组 nums[l[i]], nums[l[i]+1], ... , nums[r[i]] 可以 重新排列 形成 等差数列 ，answer[i] 的值就是 true；否则answer[i] 的值就是 false 。",
     "solutions": [
         {

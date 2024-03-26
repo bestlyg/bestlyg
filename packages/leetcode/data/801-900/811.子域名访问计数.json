@@ -3,12 +3,7 @@
     "name": "811.子域名访问计数",
     "url": "https://leetcode.cn/problems/subdomain-visit-count",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "字符串", "计数"],
     "desc": "给你一个 计数配对域名 组成的数组 cpdomains ，解析得到输入中每个子域名对应的 计数配对域名 ，并以数组形式返回。",
     "solutions": [
         {

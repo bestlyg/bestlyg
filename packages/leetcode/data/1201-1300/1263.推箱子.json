@@ -3,12 +3,7 @@
     "name": "1263.推箱子",
     "url": "https://leetcode.cn/problems/minimum-moves-to-move-a-box-to-their-target-location",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵",
-        "堆（优先队列）"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵", "堆（优先队列）"],
     "desc": "返回将箱子推到目标位置的最小 推动 次数，如果无法做到，请返回 -1。",
     "solutions": [
         {

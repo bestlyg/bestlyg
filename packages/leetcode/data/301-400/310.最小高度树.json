@@ -3,12 +3,7 @@
     "name": "310.最小高度树",
     "url": "https://leetcode.cn/problems/minimum-height-trees",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "拓扑排序"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。",
     "solutions": [
         {

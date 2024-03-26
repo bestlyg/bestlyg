@@ -3,9 +3,7 @@
     "name": "172.阶乘后的零",
     "url": "https://leetcode.cn/problems/factorial-trailing-zeroes",
     "difficulty": "中等",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给定一个整数 n，返回 n! 结果尾数中零的数量。",
     "solutions": [
         {

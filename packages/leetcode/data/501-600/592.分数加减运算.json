@@ -3,11 +3,7 @@
     "name": "592.分数加减运算",
     "url": "https://leetcode.cn/problems/fraction-addition-and-subtraction",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["数学", "字符串", "模拟"],
     "desc": "给定一个表示分数加减运算的字符串 expression ，你需要返回一个字符串形式的计算结果。 。",
     "solutions": [
         {

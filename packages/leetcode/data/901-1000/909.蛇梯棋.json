@@ -3,11 +3,7 @@
     "name": "909.蛇梯棋",
     "url": "https://leetcode.cn/problems/snakes-and-ladders",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "N x N 的棋盘 board 上，按从 1 到 N*N 的数字给方格编号，编号 从左下角开始，每一行交替方向。返回达到方格 N*N 所需的最少移动次数，如果不可能，则返回 -1。",
     "solutions": [
         {

@@ -3,13 +3,7 @@
     "name": "2029.石子游戏IX",
     "url": "https://leetcode.cn/problems/stone-game-ix",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "数学",
-        "计数",
-        "博弈"
-    ],
+    "tag": ["贪心", "数组", "数学", "计数", "博弈"],
     "desc": "Alice 和 Bob 再次设计了一款新的石子游戏。假设两位玩家均采用 最佳 决策。如果 Alice 获胜，返回 true ；如果 Bob 获胜，返回 false 。",
     "solutions": [
         {

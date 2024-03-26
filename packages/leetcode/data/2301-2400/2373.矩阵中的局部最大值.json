@@ -3,10 +3,7 @@
     "name": "2373.矩阵中的局部最大值",
     "url": "https://leetcode.cn/problems/largest-local-values-in-a-matrix",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["数组", "矩阵"],
     "desc": "找出 grid 中每个 3 x 3 矩阵中的最大值。",
     "solutions": [
         {

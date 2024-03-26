@@ -3,12 +3,7 @@
     "name": "669.修剪二叉搜索树",
     "url": "https://leetcode.cn/problems/trim-a-binary-search-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "通过修剪二叉搜索树，使得所有节点的值在[low, high]中。",
     "solutions": [
         {

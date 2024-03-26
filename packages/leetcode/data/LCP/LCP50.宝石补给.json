@@ -3,10 +3,7 @@
     "name": "LCP50.宝石补给",
     "url": "https://leetcode.cn/problems/WHnhjV",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "模拟"
-    ],
+    "tag": ["数组", "模拟"],
     "desc": "在完成所有的赠送后，请找到拥有最多宝石的勇者和拥有最少宝石的勇者，并返回他们二者的宝石数量之差。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "674.最长连续递增序列",
     "url": "https://leetcode.cn/problems/longest-continuous-increasing-subsequence",
     "difficulty": "简单",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。",
     "solutions": [
         {

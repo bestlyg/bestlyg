@@ -3,12 +3,7 @@
     "name": "1377.T秒后青蛙的位置",
     "url": "https://leetcode.cn/problems/frog-position-after-t-seconds",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "图"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "图"],
     "desc": "返回青蛙在 t 秒后位于目标顶点 target 上的概率。",
     "solutions": [
         {

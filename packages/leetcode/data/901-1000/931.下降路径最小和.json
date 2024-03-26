@@ -3,11 +3,7 @@
     "name": "931.下降路径最小和",
     "url": "https://leetcode.cn/problems/minimum-falling-path-sum",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "给你一个 n x n 的 方形 整数数组 matrix ，请你找出并返回通过 matrix 的下降路径 的 最小和 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "814.二叉树剪枝",
     "url": "https://leetcode.cn/problems/binary-tree-pruning",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "返回移除了所有不包含 1 的子树的原二叉树。",
     "solutions": [
         {

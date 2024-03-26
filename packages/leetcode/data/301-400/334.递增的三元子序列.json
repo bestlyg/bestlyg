@@ -3,10 +3,7 @@
     "name": "334.递增的三元子序列",
     "url": "https://leetcode.cn/problems/increasing-triplet-subsequence",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组"
-    ],
+    "tag": ["贪心", "数组"],
     "desc": "给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。",
     "solutions": [
         {

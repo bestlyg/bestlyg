@@ -3,11 +3,7 @@
     "name": "189.轮转数组",
     "url": "https://leetcode.cn/problems/rotate-array",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "双指针"
-    ],
+    "tag": ["数组", "数学", "双指针"],
     "desc": "给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。",
     "solutions": [
         {

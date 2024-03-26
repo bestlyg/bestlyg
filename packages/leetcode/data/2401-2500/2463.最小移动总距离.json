@@ -3,11 +3,7 @@
     "name": "2463.最小移动总距离",
     "url": "https://leetcode.cn/problems/minimum-total-distance-traveled",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划",
-        "排序"
-    ],
+    "tag": ["数组", "动态规划", "排序"],
     "desc": "请你返回所有机器人移动的最小总距离。测试数据保证所有机器人都可以被维修。",
     "solutions": [
         {

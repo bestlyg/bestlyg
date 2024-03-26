@@ -3,10 +3,7 @@
     "name": "345.反转字符串中的元音字母",
     "url": "https://leetcode.cn/problems/reverse-vowels-of-a-string",
     "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "编写一个函数，以字符串作为输入，反转该字符串中的元音字母。",
     "solutions": [
         {

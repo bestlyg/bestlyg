@@ -3,12 +3,7 @@
     "name": "1462.课程表IV",
     "url": "https://leetcode.cn/problems/course-schedule-iv",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "拓扑排序"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "你也得到一个数组 queries ，其中 queries[j] = [uj, vj]。对于第 j 个查询，您应该回答课程 uj 是否是课程 vj 的先决条件。返回一个布尔数组 answer ，其中 answer[j] 是第 j 个查询的答案。",
     "solutions": [
         {

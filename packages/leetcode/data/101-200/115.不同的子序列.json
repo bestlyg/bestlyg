@@ -3,10 +3,7 @@
     "name": "115.不同的子序列",
     "url": "https://leetcode.cn/problems/distinct-subsequences",
     "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["字符串", "动态规划"],
     "desc": "给定一个字符串 s 和一个字符串 t ，计算在 s 的子序列中 t 出现的个数。",
     "solutions": [
         {

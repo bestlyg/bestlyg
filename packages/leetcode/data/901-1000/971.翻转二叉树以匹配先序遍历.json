@@ -3,11 +3,7 @@
     "name": "971.翻转二叉树以匹配先序遍历",
     "url": "https://leetcode.cn/problems/flip-binary-tree-to-match-preorder-traversal",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "请翻转 最少 的树中节点，使二叉树的 先序遍历 与预期的遍历行程 voyage 相匹配 。 。",
     "solutions": [
         {

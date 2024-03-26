@@ -3,12 +3,7 @@
     "name": "1818.绝对差值和",
     "url": "https://leetcode.cn/problems/minimum-absolute-sum-difference",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "有序集合",
-        "排序"
-    ],
+    "tag": ["数组", "二分查找", "有序集合", "排序"],
     "desc": "给你两个正整数数组 nums1 和 nums2 ，数组的长度都是 n 。在替换数组 nums1 中最多一个元素 之后 ，返回最小绝对差值和。",
     "solutions": [
         {

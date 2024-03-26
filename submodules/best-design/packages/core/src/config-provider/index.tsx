@@ -11,8 +11,8 @@ export interface ConfigConsumerProps {
 export const ConfigContext = createContext<ConfigConsumerProps>({
     prefix: 'best',
     defaultConfig: {
-        size: 'medium',
-    },
+        size: 'medium'
+    }
 });
 export interface ConfigProviderProps {
     consumerProps?: ConfigConsumerProps;
@@ -23,7 +23,7 @@ export function ConfigProvider(props: React.PropsWithChildren<ConfigProviderProp
     const { children, consumerProps, extendConfig } = props;
     const mergedProps: ConfigConsumerProps = {
         ...(extendConfig ? baseConsumerProps : {}),
-        ...consumerProps,
+        ...consumerProps
     };
     return <ConfigContext.Provider value={mergedProps}>{children}</ConfigContext.Provider>;
 }

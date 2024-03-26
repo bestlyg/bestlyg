@@ -3,11 +3,7 @@
     "name": "1005.K次取反后最大化的数组和",
     "url": "https://leetcode.cn/problems/maximize-sum-of-array-after-k-negations",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "返回数组 可能的最大和。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "面试题16.03.交点",
     "url": "https://leetcode.cn/problems/intersection-lcci",
     "difficulty": "困难",
-    "tag": [
-        "几何",
-        "数学"
-    ],
+    "tag": ["几何", "数学"],
     "desc": "给定两条线段（表示为起点 start = {X1, Y1}和终点 end = {X2, Y2}），如果它们有交点，请计算其交点，没有交点则返回空值。",
     "solutions": [
         {

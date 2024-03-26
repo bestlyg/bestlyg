@@ -3,10 +3,7 @@
     "name": "1422.分割字符串的最大得分",
     "url": "https://leetcode.cn/problems/maximum-score-after-splitting-a-string",
     "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "前缀和"
-    ],
+    "tag": ["字符串", "前缀和"],
     "desc": "给你一个由若干 0 和 1 组成的字符串 s ，请你计算并返回将该字符串分割成两个 非空 子字符串（即 左 子字符串和 右 子字符串）所能获得的最大得分。",
     "solutions": [
         {

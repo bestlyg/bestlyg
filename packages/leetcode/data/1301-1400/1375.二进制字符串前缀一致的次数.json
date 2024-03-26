@@ -3,9 +3,7 @@
     "name": "1375.二进制字符串前缀一致的次数",
     "url": "https://leetcode.cn/problems/number-of-times-binary-string-is-prefix-aligned",
     "difficulty": "中等",
-    "tag": [
-        "数组"
-    ],
+    "tag": ["数组"],
     "desc": "返回二进制字符串在翻转过程中 前缀一致 的次数。",
     "solutions": [
         {

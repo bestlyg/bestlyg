@@ -3,10 +3,7 @@
     "name": "1805.字符串中不同整数的数目",
     "url": "https://leetcode.cn/problems/number-of-different-integers-in-a-string",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["哈希表", "字符串"],
     "desc": "给你一个字符串 word ，该字符串由数字和小写英文字母组成。返回对 word 完成替换后形成的 不同 整数的数目。",
     "solutions": [
         {

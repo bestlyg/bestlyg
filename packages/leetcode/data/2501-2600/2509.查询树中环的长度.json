@@ -3,10 +3,7 @@
     "name": "2509.查询树中环的长度",
     "url": "https://leetcode.cn/problems/cycle-length-queries-in-a-tree",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "二叉树"
-    ],
+    "tag": ["树", "二叉树"],
     "desc": "请你返回一个长度为 m 的数组 answer ，其中 answer[i] 是第 i 个查询的结果。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "1201.丑数III",
     "url": "https://leetcode.cn/problems/ugly-number-iii",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "二分查找",
-        "数论"
-    ],
+    "tag": ["数学", "二分查找", "数论"],
     "desc": "给你四个整数：n 、a 、b 、c ，请你设计一个算法来找出第 n 个丑数。",
     "solutions": [
         {

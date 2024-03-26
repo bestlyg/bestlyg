@@ -3,14 +3,7 @@
     "name": "2573.找出对应LCP矩阵的字符串",
     "url": "https://leetcode.cn/problems/find-the-string-with-lcp",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "并查集",
-        "数组",
-        "字符串",
-        "动态规划",
-        "矩阵"
-    ],
+    "tag": ["贪心", "并查集", "数组", "字符串", "动态规划", "矩阵"],
     "desc": "给你一个 n x n 的矩阵 lcp 。返回与 lcp 对应的、按字典序最小的字符串 word 。如果不存在这样的字符串，则返回空字符串。",
     "solutions": [
         {

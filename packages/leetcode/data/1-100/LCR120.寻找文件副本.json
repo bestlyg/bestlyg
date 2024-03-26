@@ -3,11 +3,7 @@
     "name": "LCR120.寻找文件副本",
     "url": "https://leetcode.cn/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "排序"],
     "desc": "找出数组中重复的数字。",
     "solutions": [
         {

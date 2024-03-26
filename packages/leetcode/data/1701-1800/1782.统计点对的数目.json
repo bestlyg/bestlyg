@@ -3,13 +3,7 @@
     "name": "1782.统计点对的数目",
     "url": "https://leetcode.cn/problems/count-pairs-of-nodes",
     "difficulty": "困难",
-    "tag": [
-        "图",
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["图", "数组", "双指针", "二分查找", "排序"],
     "desc": "请你返回一个数组 answers ，其中 answers.length == queries.length 且 answers[j] 是第 j 个查询的答案。",
     "solutions": [
         {

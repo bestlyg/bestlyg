@@ -3,12 +3,7 @@
     "name": "164.最大间距",
     "url": "https://leetcode.cn/problems/maximum-gap",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "桶排序",
-        "基数排序",
-        "排序"
-    ],
+    "tag": ["数组", "桶排序", "基数排序", "排序"],
     "desc": "给定一个无序的数组，找出数组在排序之后，相邻元素之间最大的差值。",
     "solutions": [
         {

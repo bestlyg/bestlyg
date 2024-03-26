@@ -3,10 +3,7 @@
     "name": "518.零钱兑换II",
     "url": "https://leetcode.cn/problems/coin-change-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。",
     "solutions": [
         {

@@ -3,14 +3,7 @@
     "name": "2476.二叉搜索树最近节点查询",
     "url": "https://leetcode.cn/problems/closest-nodes-queries-in-a-binary-search-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "数组",
-        "二分查找",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉搜索树", "数组", "二分查找", "二叉树"],
     "desc": "给你一个 二叉搜索树 的根节点 root ，和一个由正整数组成、长度为 n 的数组 queries 。",
     "solutions": [
         {

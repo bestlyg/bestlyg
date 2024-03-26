@@ -3,9 +3,7 @@
     "name": "201.数字范围按位与",
     "url": "https://leetcode.cn/problems/bitwise-and-of-numbers-range",
     "difficulty": "中等",
-    "tag": [
-        "位运算"
-    ],
+    "tag": ["位运算"],
     "desc": "给定范围 [m, n]，其中 0 <= m <= n <= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。",
     "solutions": [
         {

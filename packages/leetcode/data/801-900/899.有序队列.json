@@ -3,11 +3,7 @@
     "name": "899.有序队列",
     "url": "https://leetcode.cn/problems/orderly-queue",
     "difficulty": "困难",
-    "tag": [
-        "数学",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["数学", "字符串", "排序"],
     "desc": "给定一个字符串 s 和一个整数 k 。你可以从 s 的前 k 个字母中选择一个，并把它加到字符串的末尾。 。",
     "solutions": [
         {

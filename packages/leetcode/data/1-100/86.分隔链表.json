@@ -3,10 +3,7 @@
     "name": "86.分隔链表",
     "url": "https://leetcode.cn/problems/partition-list",
     "difficulty": "中等",
-    "tag": [
-        "链表",
-        "双指针"
-    ],
+    "tag": ["链表", "双指针"],
     "desc": "给你一个链表和一个特定值 x ，请你对链表进行分隔，使得所有小于 x 的节点都出现在大于或等于 x 的节点之前。",
     "solutions": [
         {

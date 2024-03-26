@@ -3,10 +3,7 @@
     "name": "47.全排列II",
     "url": "https://leetcode.cn/problems/permutations-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "回溯"
-    ],
+    "tag": ["数组", "回溯"],
     "desc": "给定一个可包含重复数字的序列，返回所有不重复的全排列。",
     "solutions": [
         {

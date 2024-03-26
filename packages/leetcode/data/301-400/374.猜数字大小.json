@@ -3,10 +3,7 @@
     "name": "374.猜数字大小",
     "url": "https://leetcode.cn/problems/guess-number-higher-or-lower",
     "difficulty": "简单",
-    "tag": [
-        "二分查找",
-        "交互"
-    ],
+    "tag": ["二分查找", "交互"],
     "desc": "返回我选出的数字。",
     "solutions": [
         {

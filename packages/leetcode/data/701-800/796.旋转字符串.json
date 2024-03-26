@@ -3,10 +3,7 @@
     "name": "796.旋转字符串",
     "url": "https://leetcode.cn/problems/rotate-string",
     "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "字符串匹配"
-    ],
+    "tag": ["字符串", "字符串匹配"],
     "desc": "给定两个字符串, s 和 goal。如果在若干次旋转操作之后，s 能变成 goal ，那么返回 true 。",
     "solutions": [
         {

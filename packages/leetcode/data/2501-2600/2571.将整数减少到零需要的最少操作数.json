@@ -3,11 +3,7 @@
     "name": "2571.将整数减少到零需要的最少操作数",
     "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-an-integer-to-0",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "位运算",
-        "动态规划"
-    ],
+    "tag": ["贪心", "位运算", "动态规划"],
     "desc": "返回使 n 等于 0 需要执行的 最少 操作数。",
     "solutions": [
         {

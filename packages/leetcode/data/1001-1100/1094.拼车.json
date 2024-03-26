@@ -3,13 +3,7 @@
     "name": "1094.拼车",
     "url": "https://leetcode.cn/problems/car-pooling",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "前缀和",
-        "排序",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "前缀和", "排序", "模拟", "堆（优先队列）"],
     "desc": "当且仅当你可以在所有给定的行程中接送所有乘客时，返回 true，否则请返回 false。",
     "solutions": [
         {

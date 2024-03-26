@@ -5,20 +5,20 @@
         "defaultBase": "master"
     },
     "namedInputs": {
-      "default": ["{projectRoot}/**/*"]
+        "default": ["{projectRoot}/**/*"]
     },
     "targetDefaults": {
-      "build": {
-        "inputs": ["default", "^default"],
-        "dependsOn": ["^build"],
-        "cache": true,
-        "outputs": [
-          "{projectRoot}/dist",
-          "{projectRoot}/build",
-          "{projectRoot}/es",
-          "{projectRoot}/lib"
-        ]
-      }
+        "build": {
+            "inputs": ["default", "^default"],
+            "dependsOn": ["^build"],
+            "cache": true,
+            "outputs": [
+                "{projectRoot}/dist",
+                "{projectRoot}/build",
+                "{projectRoot}/es",
+                "{projectRoot}/lib"
+            ]
+        }
     },
     "plugins": [
         {

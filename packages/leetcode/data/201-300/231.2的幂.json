@@ -3,11 +3,7 @@
     "name": "231.2的幂",
     "url": "https://leetcode.cn/problems/power-of-two",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "递归",
-        "数学"
-    ],
+    "tag": ["位运算", "递归", "数学"],
     "desc": "给定一个整数，编写一个函数来判断它是否是 2 的幂次方。",
     "solutions": [
         {

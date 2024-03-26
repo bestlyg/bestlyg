@@ -3,12 +3,7 @@
     "name": "2477.到达首都的最少油耗",
     "url": "https://leetcode.cn/problems/minimum-fuel-cost-to-report-to-the-capital",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "图"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "图"],
     "desc": "请你返回到达首都最少需要多少升汽油。",
     "solutions": [
         {

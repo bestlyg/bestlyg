@@ -1,8 +1,8 @@
 {
-  "a": "a",
-  "extension": {
-    "extends": [
-      "./package.parent.json"
-    ]
-  }
+    "a": "a",
+    "extension": {
+        "extends": [
+            "./package.parent.json"
+        ]
+    }
 }

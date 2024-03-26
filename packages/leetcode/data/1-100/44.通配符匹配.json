@@ -3,12 +3,7 @@
     "name": "44.通配符匹配",
     "url": "https://leetcode.cn/problems/wildcard-matching",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "递归",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["贪心", "递归", "字符串", "动态规划"],
     "desc": "给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '\\*' 的通配符匹配。",
     "solutions": [
         {

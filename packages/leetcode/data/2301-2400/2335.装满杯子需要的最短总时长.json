@@ -3,12 +3,7 @@
     "name": "2335.装满杯子需要的最短总时长",
     "url": "https://leetcode.cn/problems/minimum-amount-of-time-to-fill-cups",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tag": ["贪心", "数组", "排序", "堆（优先队列）"],
     "desc": "给你一个下标从 0 开始、长度为 3 的整数数组 amount ，其中 amount[0]、amount[1] 和 amount[2] 分别表示需要装满冷水、温水和热水的杯子数量。返回装满所有杯子所需的 最少 秒数。",
     "solutions": [
         {

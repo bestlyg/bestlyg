@@ -3,12 +3,7 @@
     "name": "404.左叶子之和",
     "url": "https://leetcode.cn/problems/sum-of-left-leaves",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "计算给定二叉树的所有左叶子之和。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "1392.最长快乐前缀",
     "url": "https://leetcode.cn/problems/longest-happy-prefix",
     "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "字符串匹配",
-        "哈希函数",
-        "滚动哈希"
-    ],
+    "tag": ["字符串", "字符串匹配", "哈希函数", "滚动哈希"],
     "desc": "给你一个字符串 s，请你返回它的 最长快乐前缀。",
     "solutions": [
         {

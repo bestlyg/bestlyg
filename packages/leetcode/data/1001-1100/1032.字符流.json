@@ -3,13 +3,7 @@
     "name": "1032.字符流",
     "url": "https://leetcode.cn/problems/stream-of-characters",
     "difficulty": "困难",
-    "tag": [
-        "设计",
-        "字典树",
-        "数组",
-        "字符串",
-        "数据流"
-    ],
+    "tag": ["设计", "字典树", "数组", "字符串", "数据流"],
     "desc": "设计一个算法：接收一个字符流，并检查这些字符的后缀是否是字符串数组 words 中的一个字符串。",
     "solutions": [
         {

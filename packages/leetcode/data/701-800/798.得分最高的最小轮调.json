@@ -3,10 +3,7 @@
     "name": "798.得分最高的最小轮调",
     "url": "https://leetcode.cn/problems/smallest-rotation-with-highest-score",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "在所有可能的轮调中，返回我们所能得到的最高分数对应的轮调下标 k 。如果有多个答案，返回满足条件的最小的下标 k 。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "213.打家劫舍II",
     "url": "https://leetcode.cn/problems/house-robber-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，能够偷窃到的最高金额。",
     "solutions": [
         {

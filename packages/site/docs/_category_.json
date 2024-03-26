@@ -1,10 +1,10 @@
 {
-  "position": 1,
-  "label": "日志",
-  "collapsible": true,
-  "collapsed": false,
-  "link": {
-    "type": "generated-index",
-    "title": "教程总览"
-  }
+    "position": 1,
+    "label": "日志",
+    "collapsible": true,
+    "collapsed": false,
+    "link": {
+        "type": "generated-index",
+        "title": "教程总览"
+    }
 }

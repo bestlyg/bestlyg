@@ -3,10 +3,7 @@
     "name": "761.特殊的二进制序列",
     "url": "https://leetcode.cn/problems/special-binary-string",
     "difficulty": "困难",
-    "tag": [
-        "递归",
-        "字符串"
-    ],
+    "tag": ["递归", "字符串"],
     "desc": "在任意次数的操作之后，交换后的字符串按照字典序排列的最大的结果是什么。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "69.x的平方根",
     "url": "https://leetcode.cn/problems/sqrtx",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "二分查找"
-    ],
+    "tag": ["数学", "二分查找"],
     "desc": "实现 int sqrt(int x) 函数。",
     "solutions": [
         {

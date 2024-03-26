@@ -3,10 +3,7 @@
     "name": "1720.解码异或后的数组",
     "url": "https://leetcode.cn/problems/decode-xored-array",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数组"
-    ],
+    "tag": ["位运算", "数组"],
     "desc": "请解码返回原数组 arr 。可以证明答案存在并且是唯一的。",
     "solutions": [
         {

@@ -3,13 +3,7 @@
     "name": "1815.得到新鲜甜甜圈的最多组数",
     "url": "https://leetcode.cn/problems/maximum-number-of-groups-getting-fresh-donuts",
     "difficulty": "困难",
-    "tag": [
-        "位运算",
-        "记忆化搜索",
-        "数组",
-        "动态规划",
-        "状态压缩"
-    ],
+    "tag": ["位运算", "记忆化搜索", "数组", "动态规划", "状态压缩"],
     "desc": "你可以随意安排每批顾客到来的顺序。请你返回在此前提下，最多 有多少组人会感到开心。",
     "solutions": [
         {

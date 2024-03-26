@@ -3,10 +3,7 @@
     "name": "2670.找出不同元素数目差数组",
     "url": "https://leetcode.cn/problems/find-the-distinct-difference-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["数组", "哈希表"],
     "desc": "返回 nums 的 不同元素数目差 数组。",
     "solutions": [
         {

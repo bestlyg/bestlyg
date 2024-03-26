@@ -3,12 +3,7 @@
     "name": "2538.最大价值和与最小价值和的差值",
     "url": "https://leetcode.cn/problems/difference-between-maximum-and-minimum-price-sum",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["树", "深度优先搜索", "数组", "动态规划"],
     "desc": "请你返回所有节点作为根节点的选择中，最大 的 开销 为多少。",
     "solutions": [
         {

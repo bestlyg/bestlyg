@@ -52,5 +52,4 @@ async function sum(...data) {
 }
 */
 
-
-let a = "";
+let a = '';

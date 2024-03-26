@@ -3,11 +3,7 @@
     "name": "462.最小操作次数使数组元素相等II",
     "url": "https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "排序"
-    ],
+    "tag": ["数组", "数学", "排序"],
     "desc": "给定一个非空整数数组，找到使所有数组元素相等所需的最小移动数，其中每次移动可将选定的一个元素加 1 或减 1。 您可以假设数组的长度最多为 10000。",
     "solutions": [
         {

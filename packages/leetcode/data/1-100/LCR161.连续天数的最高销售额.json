@@ -3,11 +3,7 @@
     "name": "LCR161.连续天数的最高销售额",
     "url": "https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "分治",
-        "动态规划"
-    ],
+    "tag": ["数组", "分治", "动态规划"],
     "desc": "输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。",
     "solutions": [
         {

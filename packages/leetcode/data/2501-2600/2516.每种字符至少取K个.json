@@ -3,11 +3,7 @@
     "name": "2516.每种字符至少取K个",
     "url": "https://leetcode.cn/problems/take-k-of-each-character-from-left-and-right",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tag": ["哈希表", "字符串", "滑动窗口"],
     "desc": "你必须取走每种字符 至少 k 个，返回需要的 最少 分钟数；如果无法取到，则返回 -1 。",
     "solutions": [
         {

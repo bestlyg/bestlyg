@@ -3,10 +3,7 @@
     "name": "81.搜索旋转排序数组II",
     "url": "https://leetcode.cn/problems/search-in-rotated-sorted-array-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。",
     "solutions": [
         {

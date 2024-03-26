@@ -3,11 +3,7 @@
     "name": "141.环形链表",
     "url": "https://leetcode.cn/problems/linked-list-cycle",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "链表",
-        "双指针"
-    ],
+    "tag": ["哈希表", "链表", "双指针"],
     "desc": "给定一个链表，判断链表中是否有环。",
     "solutions": [
         {

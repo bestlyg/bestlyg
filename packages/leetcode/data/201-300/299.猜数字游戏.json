@@ -3,11 +3,7 @@
     "name": "299.猜数字游戏",
     "url": "https://leetcode.cn/problems/bulls-and-cows",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个秘密数字 secret 和朋友猜测的数字 guess ，请你返回对朋友这次猜测的提示。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "878.第N个神奇数字",
     "url": "https://leetcode.cn/problems/nth-magical-number",
     "difficulty": "困难",
-    "tag": [
-        "数学",
-        "二分查找"
-    ],
+    "tag": ["数学", "二分查找"],
     "desc": "如果正整数可以被 A 或 B 整除，那么它是神奇的。",
     "solutions": [
         {

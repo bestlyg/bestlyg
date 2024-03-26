@@ -3,11 +3,7 @@
     "name": "2006.差的绝对值为K的数对数目",
     "url": "https://leetcode.cn/problems/count-number-of-pairs-with-absolute-difference-k",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "计数"],
     "desc": "给你一个整数数组 nums 和一个整数 k ，请你返回数对 (i, j) 的数目，满足 i < j 且 |nums[i] - nums[j]| == k 。",
     "solutions": [
         {

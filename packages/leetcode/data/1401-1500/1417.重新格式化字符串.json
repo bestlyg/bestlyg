@@ -3,9 +3,7 @@
     "name": "1417.重新格式化字符串",
     "url": "https://leetcode.cn/problems/reformat-the-string",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "请你返回 重新格式化后 的字符串；如果无法按要求重新格式化，则返回一个 空字符串 。",
     "solutions": [
         {

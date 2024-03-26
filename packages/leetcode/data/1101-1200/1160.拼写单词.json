@@ -3,11 +3,7 @@
     "name": "1160.拼写单词",
     "url": "https://leetcode.cn/problems/find-words-that-can-be-formed-by-characters",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "返回词汇表 words 中你掌握的所有单词的 长度之和。",
     "solutions": [
         {

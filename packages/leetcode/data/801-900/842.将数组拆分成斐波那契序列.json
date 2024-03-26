@@ -3,10 +3,7 @@
     "name": "842.将数组拆分成斐波那契序列",
     "url": "https://leetcode.cn/problems/split-array-into-fibonacci-sequence",
     "difficulty": "中等",
-    "tag": [
-        "字符串",
-        "回溯"
-    ],
+    "tag": ["字符串", "回溯"],
     "desc": "给定一个数字字符串 S，比如 S = \"123456579\"，我们可以将它分成斐波那契式的序列 [123, 456, 579]。",
     "solutions": [
         {

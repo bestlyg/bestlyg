@@ -3,11 +3,7 @@
     "name": "1403.非递增顺序的最小子序列",
     "url": "https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tag": ["贪心", "数组", "排序"],
     "desc": "和 严格 大于未包含在该子序列中的各元素之和。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "2744.最大字符串配对数目",
     "url": "https://leetcode.cn/problems/find-maximum-number-of-string-pairs",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["数组", "哈希表", "字符串", "模拟"],
     "desc": "请你返回数组 words 中的 最大 匹配数目。",
     "solutions": [
         {

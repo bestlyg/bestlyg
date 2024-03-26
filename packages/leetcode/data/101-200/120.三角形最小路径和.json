@@ -3,10 +3,7 @@
     "name": "120.三角形最小路径和",
     "url": "https://leetcode.cn/problems/triangle",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "给定一个三角形，找出自顶向下的最小路径和。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "460.LFU缓存",
     "url": "https://leetcode.cn/problems/lfu-cache",
     "difficulty": "困难",
-    "tag": [
-        "设计",
-        "哈希表",
-        "链表",
-        "双向链表"
-    ],
+    "tag": ["设计", "哈希表", "链表", "双向链表"],
     "desc": "请你为 最不经常使用（LFU）缓存算法设计并实现数据结构。它应该支持以下操作：get 和 put。",
     "solutions": [
         {

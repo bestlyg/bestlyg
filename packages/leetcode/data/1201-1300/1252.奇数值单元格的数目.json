@@ -3,11 +3,7 @@
     "name": "1252.奇数值单元格的数目",
     "url": "https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tag": ["数组", "数学", "模拟"],
     "desc": "给你 m、n 和 indices 。请你在执行完所有 indices 指定的增量操作后，返回矩阵中 奇数值单元格 的数目。",
     "solutions": [
         {

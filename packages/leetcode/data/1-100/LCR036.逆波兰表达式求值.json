@@ -3,11 +3,7 @@
     "name": "LCR036.逆波兰表达式求值",
     "url": "https://leetcode.cn/problems/8Zf90G",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "数组",
-        "数学"
-    ],
+    "tag": ["栈", "数组", "数学"],
     "desc": "根据 逆波兰表示法，求该后缀表达式的计算结果。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "713.乘积小于K的子数组",
     "url": "https://leetcode.cn/problems/subarray-product-less-than-k",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "滑动窗口"],
     "desc": "请找出该数组内乘积小于 k 的连续的子数组的个数。",
     "solutions": [
         {

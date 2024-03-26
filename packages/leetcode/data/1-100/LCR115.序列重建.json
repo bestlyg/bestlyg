@@ -3,11 +3,7 @@
     "name": "LCR115.序列重建",
     "url": "https://leetcode.cn/problems/ur2n8P",
     "difficulty": "中等",
-    "tag": [
-        "图",
-        "拓扑排序",
-        "数组"
-    ],
+    "tag": ["图", "拓扑排序", "数组"],
     "desc": "检查 nums 是否是唯一的最短 超序列 。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "19.删除链表的倒数第N个结点",
     "url": "https://leetcode.cn/problems/remove-nth-node-from-end-of-list",
     "difficulty": "中等",
-    "tag": [
-        "链表",
-        "双指针"
-    ],
+    "tag": ["链表", "双指针"],
     "desc": "给定一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。",
     "solutions": [
         {

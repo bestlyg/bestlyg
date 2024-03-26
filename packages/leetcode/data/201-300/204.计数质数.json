@@ -3,12 +3,7 @@
     "name": "204.计数质数",
     "url": "https://leetcode.cn/problems/count-primes",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "枚举",
-        "数论"
-    ],
+    "tag": ["数组", "数学", "枚举", "数论"],
     "desc": "统计所有小于非负整数 n 的质数的数量。",
     "solutions": [
         {

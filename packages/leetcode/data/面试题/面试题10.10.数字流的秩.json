@@ -3,12 +3,7 @@
     "name": "面试题10.10.数字流的秩",
     "url": "https://leetcode.cn/problems/rank-from-stream-lcci",
     "difficulty": "中等",
-    "tag": [
-        "设计",
-        "树状数组",
-        "二分查找",
-        "数据流"
-    ],
+    "tag": ["设计", "树状数组", "二分查找", "数据流"],
     "desc": "实现一个 MapSum 类。",
     "solutions": [
         {

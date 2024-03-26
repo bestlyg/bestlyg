@@ -3,12 +3,7 @@
     "name": "2614.对角线上的质数",
     "url": "https://leetcode.cn/problems/prime-in-diagonal",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "数学",
-        "矩阵",
-        "数论"
-    ],
+    "tag": ["数组", "数学", "矩阵", "数论"],
     "desc": "给你一个下标从 0 开始的二维整数数组 nums 。返回位于 nums 至少一条 对角线 上的最大 质数 。如果任一对角线上均不存在质数，返回 0 。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "403.青蛙过河",
     "url": "https://leetcode.cn/problems/frog-jump",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "一只青蛙想要过河。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "815.公交路线",
     "url": "https://leetcode.cn/problems/bus-routes",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["广度优先搜索", "数组", "哈希表"],
     "desc": "求出 最少乘坐的公交车数量 。如果不可能到达终点车站，返回 -1 。",
     "solutions": [
         {

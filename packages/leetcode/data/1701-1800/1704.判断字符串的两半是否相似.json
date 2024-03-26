@@ -3,10 +3,7 @@
     "name": "1704.判断字符串的两半是否相似",
     "url": "https://leetcode.cn/problems/determine-if-string-halves-are-alike",
     "difficulty": "简单",
-    "tag": [
-        "字符串",
-        "计数"
-    ],
+    "tag": ["字符串", "计数"],
     "desc": "如果 a 和 b 相似，返回 true ；否则，返回 false 。",
     "solutions": [
         {

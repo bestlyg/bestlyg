@@ -3,11 +3,7 @@
     "name": "838.推多米诺",
     "url": "https://leetcode.cn/problems/push-dominoes",
     "difficulty": "中等",
-    "tag": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["双指针", "字符串", "动态规划"],
     "desc": "返回表示最终状态的字符串。",
     "solutions": [
         {

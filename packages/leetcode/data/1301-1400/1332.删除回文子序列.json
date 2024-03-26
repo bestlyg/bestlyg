@@ -3,10 +3,7 @@
     "name": "1332.删除回文子序列",
     "url": "https://leetcode.cn/problems/remove-palindromic-subsequences",
     "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串"
-    ],
+    "tag": ["双指针", "字符串"],
     "desc": "返回删除给定字符串中所有字符（字符串为空）的最小删除次数。",
     "solutions": [
         {

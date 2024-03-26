@@ -3,12 +3,7 @@
     "name": "648.单词替换",
     "url": "https://leetcode.cn/problems/replace-words",
     "difficulty": "中等",
-    "tag": [
-        "字典树",
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["字典树", "数组", "哈希表", "字符串"],
     "desc": "现在，给定一个由许多词根组成的词典 dictionary 和一个用空格分隔单词形成的句子 sentence。你需要将句子中的所有继承词用词根替换掉。如果继承词有许多可以形成它的词根，则用最短的词根替换它。",
     "solutions": [
         {

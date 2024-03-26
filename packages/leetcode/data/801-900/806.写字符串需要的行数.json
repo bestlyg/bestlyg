@@ -3,10 +3,7 @@
     "name": "806.写字符串需要的行数",
     "url": "https://leetcode.cn/problems/number-of-lines-to-write-string",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "至少多少行能放下 S，以及最后一行使用的宽度是多少个单位？。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "2765.最长交替子数组",
     "url": "https://leetcode.cn/problems/longest-alternating-subarray",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "枚举"
-    ],
+    "tag": ["数组", "枚举"],
     "desc": "请你返回 nums 中所有 交替 子数组中，最长的长度，如果不存在交替子数组，请你返回 -1 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "1080.根到叶路径上的不足节点",
     "url": "https://leetcode.cn/problems/insufficient-nodes-in-root-to-leaf-paths",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给你二叉树的根节点 root 和一个整数 limit ，请你同时删除树中所有 不足节点 ，并返回最终二叉树的根节点。",
     "solutions": [
         {

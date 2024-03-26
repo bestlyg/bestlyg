@@ -1,46 +1,46 @@
 {
-  "extension": {
-    "meta": {
-      "name": "less-plugin-<%= vars.name %>",
-      "description": "<%= vars.desc %>",
-      "homepage": "https://github.com/bestlyg/less-plugins/packages/less-plugin-<%= vars.name %>",
-      "author": "BestLyg",
-      "main": "lib/index.js",
-      "scripts": {
-        "clean": "rimraf ./lib ./node_modules",
-        "build": "tsc -p tsconfig.json",
-        "dev": "tsc -p tsconfig.json --watch",
-        "prepublishOnly": "pnpm build",
-        "render": "pnpm exec lessc",
-        "extend-package-json": "extend-package-json"
-      },
-      "keywords": [
-        "css",
-        "less",
-        "less.js",
-        "less css",
-        "less plugin",
-        "less functions",
-        "<%= vars.name %>"
-      ],
-      "license": "MIT",
-      "repository": {
-        "type": "git",
-        "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-<%= vars.name %>.git"
-      },
-      "dependencies": {
-        "less": "^4.2.0",
-        "yargs": "^17.7.2"
-      },
-      "devDependencies": {
-        "@types/less": "^3.0.5",
-        "@types/node": "^20.8.9",
-        "@types/yargs": "^17.0.29",
-        "package-json-extension": "^0.0.5",
-        "rimraf": "^5.0.5",
-        "typescript": "^5.2.2"
-      },
-      "files": ["lib", "src", "package.json", "README.md"]
+    "extension": {
+        "meta": {
+            "name": "less-plugin-<%= vars.name %>",
+            "description": "<%= vars.desc %>",
+            "homepage": "https://github.com/bestlyg/less-plugins/packages/less-plugin-<%= vars.name %>",
+            "author": "BestLyg",
+            "main": "lib/index.js",
+            "scripts": {
+                "clean": "rimraf ./lib ./node_modules",
+                "build": "tsc -p tsconfig.json",
+                "dev": "tsc -p tsconfig.json --watch",
+                "prepublishOnly": "pnpm build",
+                "render": "pnpm exec lessc",
+                "extend-package-json": "extend-package-json"
+            },
+            "keywords": [
+                "css",
+                "less",
+                "less.js",
+                "less css",
+                "less plugin",
+                "less functions",
+                "<%= vars.name %>"
+            ],
+            "license": "MIT",
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-<%= vars.name %>.git"
+            },
+            "dependencies": {
+                "less": "^4.2.0",
+                "yargs": "^17.7.2"
+            },
+            "devDependencies": {
+                "@types/less": "^3.0.5",
+                "@types/node": "^20.8.9",
+                "@types/yargs": "^17.0.29",
+                "package-json-extension": "^0.0.5",
+                "rimraf": "^5.0.5",
+                "typescript": "^5.2.2"
+            },
+            "files": ["lib", "src", "package.json", "README.md"]
+        }
     }
-  }
 }

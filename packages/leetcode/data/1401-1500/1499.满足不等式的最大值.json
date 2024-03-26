@@ -3,13 +3,7 @@
     "name": "1499.满足不等式的最大值",
     "url": "https://leetcode.cn/problems/max-value-of-equation",
     "difficulty": "困难",
-    "tag": [
-        "队列",
-        "数组",
-        "滑动窗口",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tag": ["队列", "数组", "滑动窗口", "单调队列", "堆（优先队列）"],
     "desc": "定一个长度为 n 的环形整数数组 nums ，返回 nums 的非空 子数组 的最大可能和 。",
     "solutions": [
         {

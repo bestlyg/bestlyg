@@ -3,10 +3,7 @@
     "name": "119.杨辉三角II",
     "url": "https://leetcode.cn/problems/pascals-triangle-ii",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。",
     "solutions": [
         {

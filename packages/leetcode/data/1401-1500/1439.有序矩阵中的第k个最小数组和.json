@@ -3,12 +3,7 @@
     "name": "1439.有序矩阵中的第k个最小数组和",
     "url": "https://leetcode.cn/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "二分查找",
-        "矩阵",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "二分查找", "矩阵", "堆（优先队列）"],
     "desc": "给你一个 m * n 的矩阵 mat，以及一个整数 k ，矩阵中的每一行都以非递减的顺序排列。",
     "solutions": [
         {

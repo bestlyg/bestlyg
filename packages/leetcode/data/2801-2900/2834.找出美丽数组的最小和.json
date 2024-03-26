@@ -3,10 +3,7 @@
     "name": "2834.找出美丽数组的最小和",
     "url": "https://leetcode.cn/problems/find-the-minimum-possible-sum-of-a-beautiful-array",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数学"
-    ],
+    "tag": ["贪心", "数学"],
     "desc": "返回符合条件的美丽数组所可能具备的 最小 和，并对结果进行取模 109 + 7。",
     "solutions": [
         {

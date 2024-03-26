@@ -3,11 +3,7 @@
     "name": "273.整数转换英文表示",
     "url": "https://leetcode.cn/problems/integer-to-english-words",
     "difficulty": "困难",
-    "tag": [
-        "递归",
-        "数学",
-        "字符串"
-    ],
+    "tag": ["递归", "数学", "字符串"],
     "desc": "将非负整数 num 转换为其对应的英文表示。",
     "solutions": [
         {

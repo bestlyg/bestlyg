@@ -3,11 +3,7 @@
     "name": "873.最长的斐波那契子序列的长度",
     "url": "https://leetcode.cn/problems/length-of-longest-fibonacci-subsequence",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "动态规划"
-    ],
+    "tag": ["数组", "哈希表", "动态规划"],
     "desc": "给定一个严格递增的正整数数组形成序列 arr ，找到 arr 中最长的斐波那契式的子序列的长度。如果一个不存在，返回 0 。",
     "solutions": [
         {

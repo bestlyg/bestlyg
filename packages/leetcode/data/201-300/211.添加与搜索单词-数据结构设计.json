@@ -3,12 +3,7 @@
     "name": "211.添加与搜索单词-数据结构设计",
     "url": "https://leetcode.cn/problems/design-add-and-search-words-data-structure",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "设计",
-        "字典树",
-        "字符串"
-    ],
+    "tag": ["深度优先搜索", "设计", "字典树", "字符串"],
     "desc": "请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。",
     "solutions": [
         {

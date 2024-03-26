@@ -3,11 +3,7 @@
     "name": "978.最长湍流子数组",
     "url": "https://leetcode.cn/problems/longest-turbulent-subarray",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "动态规划",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "动态规划", "滑动窗口"],
     "desc": "返回 A 的最大湍流子数组的长度。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "476.数字的补数",
     "url": "https://leetcode.cn/problems/number-complement",
     "difficulty": "简单",
-    "tag": [
-        "位运算"
-    ],
+    "tag": ["位运算"],
     "desc": "给你一个 正 整数 num ，输出它的补数。补数是对该数的二进制表示取反。",
     "solutions": [
         {

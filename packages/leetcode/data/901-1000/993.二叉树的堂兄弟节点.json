@@ -3,12 +3,7 @@
     "name": "993.二叉树的堂兄弟节点",
     "url": "https://leetcode.cn/problems/cousins-in-binary-tree",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点。",
     "solutions": [
         {

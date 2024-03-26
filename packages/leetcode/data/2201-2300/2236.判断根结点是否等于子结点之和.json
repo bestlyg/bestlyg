@@ -3,10 +3,7 @@
     "name": "2236.判断根结点是否等于子结点之和",
     "url": "https://leetcode.cn/problems/root-equals-sum-of-children",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "二叉树"
-    ],
+    "tag": ["树", "二叉树"],
     "desc": "给你两个整数 num1 和 num2，返回这两个整数的和。",
     "solutions": [
         {

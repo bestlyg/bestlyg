@@ -3,10 +3,7 @@
     "name": "2507.使用质因数之和替换后可以取到的最小值",
     "url": "https://leetcode.cn/problems/smallest-value-after-replacing-with-sum-of-prime-factors",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "数论"
-    ],
+    "tag": ["数学", "数论"],
     "desc": "给你一个正整数 n 。返回 n 可以取到的最小值。",
     "solutions": [
         {

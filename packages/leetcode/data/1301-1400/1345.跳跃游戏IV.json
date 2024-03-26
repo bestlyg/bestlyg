@@ -3,11 +3,7 @@
     "name": "1345.跳跃游戏IV",
     "url": "https://leetcode.cn/problems/jump-game-iv",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["广度优先搜索", "数组", "哈希表"],
     "desc": "请你返回到达数组最后一个元素的下标处所需的 最少操作次数 。",
     "solutions": [
         {

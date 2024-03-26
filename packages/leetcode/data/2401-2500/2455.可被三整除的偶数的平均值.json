@@ -3,10 +3,7 @@
     "name": "2455.可被三整除的偶数的平均值",
     "url": "https://leetcode.cn/problems/average-value-of-even-numbers-that-are-divisible-by-three",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "数学"
-    ],
+    "tag": ["数组", "数学"],
     "desc": "给你一个由正整数组成的整数数组 nums ，返回其中可被 3 整除的所有偶数的平均值。",
     "solutions": [
         {

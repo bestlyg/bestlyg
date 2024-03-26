@@ -3,12 +3,7 @@
     "name": "655.输出二叉树",
     "url": "https://leetcode.cn/problems/print-binary-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "返回构造得到的矩阵 res 。",
     "solutions": [
         {

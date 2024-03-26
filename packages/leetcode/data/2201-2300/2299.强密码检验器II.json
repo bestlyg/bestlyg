@@ -3,9 +3,7 @@
     "name": "2299.强密码检验器II",
     "url": "https://leetcode.cn/problems/strong-password-checker-ii",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "给你一个字符串 password ，如果它是一个 强 密码，返回 true，否则返回 false 。",
     "solutions": [
         {

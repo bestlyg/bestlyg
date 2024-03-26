@@ -3,10 +3,7 @@
     "name": "326.3的幂",
     "url": "https://leetcode.cn/problems/power-of-three",
     "difficulty": "简单",
-    "tag": [
-        "递归",
-        "数学"
-    ],
+    "tag": ["递归", "数学"],
     "desc": "给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。",
     "solutions": [
         {

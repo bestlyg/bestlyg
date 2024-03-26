@@ -3,11 +3,7 @@
     "name": "383.赎金信",
     "url": "https://leetcode.cn/problems/ransom-note",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个赎金信 (ransomNote) 字符串和一个杂志(magazine)字符串，判断 ransomNote 能不能由 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false 。",
     "solutions": [
         {

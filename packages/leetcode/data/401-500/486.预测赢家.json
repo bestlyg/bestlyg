@@ -3,13 +3,7 @@
     "name": "486.预测赢家",
     "url": "https://leetcode.cn/problems/predict-the-winner",
     "difficulty": "中等",
-    "tag": [
-        "递归",
-        "数组",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tag": ["递归", "数组", "数学", "动态规划", "博弈"],
     "desc": "请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。",
     "solutions": [
         {

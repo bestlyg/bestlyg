@@ -3,10 +3,7 @@
     "name": "429.N叉树的层序遍历",
     "url": "https://leetcode.cn/problems/n-ary-tree-level-order-traversal",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "广度优先搜索"
-    ],
+    "tag": ["树", "广度优先搜索"],
     "desc": "给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1672.最富有客户的资产总量",
     "url": "https://leetcode.cn/problems/richest-customer-wealth",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["数组", "矩阵"],
     "desc": "客户的 资产总量 就是他们在各家银行托管的资产数量之和。最富有客户就是 资产总量 最大的客户。",
     "solutions": [
         {

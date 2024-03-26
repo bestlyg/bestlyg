@@ -3,11 +3,7 @@
     "name": "392.判断子序列",
     "url": "https://leetcode.cn/problems/is-subsequence",
     "difficulty": "简单",
-    "tag": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["双指针", "字符串", "动态规划"],
     "desc": "给定字符串 s 和 t ，判断 s 是否为 t 的子序列。",
     "solutions": [
         {

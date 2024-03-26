@@ -3,9 +3,7 @@
     "name": "1155.掷骰子等于目标和的方法数",
     "url": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum",
     "difficulty": "中等",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "给定三个整数 n ,  k 和 target ，返回可能的方式(从总共 kn 种方式中)滚动骰子的数量，使正面朝上的数字之和等于 target 。",
     "solutions": [
         {

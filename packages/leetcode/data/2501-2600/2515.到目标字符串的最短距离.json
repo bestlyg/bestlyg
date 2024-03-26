@@ -3,10 +3,7 @@
     "name": "2515.到目标字符串的最短距离",
     "url": "https://leetcode.cn/problems/shortest-distance-to-target-string-in-a-circular-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "返回到达目标字符串 target 所需的最短距离。如果 words 中不存在字符串 target ，返回 -1 。",
     "solutions": [
         {

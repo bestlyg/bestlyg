@@ -3,11 +3,7 @@
     "name": "1901.寻找峰值II",
     "url": "https://leetcode.cn/problems/find-a-peak-element-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找",
-        "矩阵"
-    ],
+    "tag": ["数组", "二分查找", "矩阵"],
     "desc": "给你一个 从 0 开始编号 的 m x n 矩阵 mat ，其中任意两个相邻格子的值都 不相同 。找出 任意一个 峰值 mat[i][j] 并 返回其位置 [i,j] 。",
     "solutions": [
         {

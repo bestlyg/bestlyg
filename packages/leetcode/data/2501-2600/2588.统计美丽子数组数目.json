@@ -3,12 +3,7 @@
     "name": "2588.统计美丽子数组数目",
     "url": "https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tag": ["位运算", "数组", "哈希表", "前缀和"],
     "desc": "请你返回数组 nums 中 美丽子数组 的数目。",
     "solutions": [
         {

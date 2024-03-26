@@ -3,10 +3,7 @@
     "name": "940.不同的子序列II",
     "url": "https://leetcode.cn/problems/distinct-subsequences-ii",
     "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["字符串", "动态规划"],
     "desc": "给定一个字符串 s，计算 s 的 不同非空子序列 的个数。因为结果可能很大，所以返回答案需要对 10^9 + 7 取余 。",
     "solutions": [
         {

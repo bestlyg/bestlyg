@@ -3,9 +3,7 @@
     "name": "7.整数反转",
     "url": "https://leetcode.cn/problems/reverse-integer",
     "difficulty": "中等",
-    "tag": [
-        "数学"
-    ],
+    "tag": ["数学"],
     "desc": "给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。",
     "solutions": [
         {

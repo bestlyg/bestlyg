@@ -3,13 +3,7 @@
     "name": "706.设计哈希映射",
     "url": "https://leetcode.cn/problems/design-hashmap",
     "difficulty": "简单",
-    "tag": [
-        "设计",
-        "数组",
-        "哈希表",
-        "链表",
-        "哈希函数"
-    ],
+    "tag": ["设计", "数组", "哈希表", "链表", "哈希函数"],
     "desc": "不使用任何内建的哈希表库设计一个哈希映射（HashMap）。",
     "solutions": [
         {

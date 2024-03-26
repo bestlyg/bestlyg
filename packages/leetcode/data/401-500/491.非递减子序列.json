@@ -3,12 +3,7 @@
     "name": "491.非递减子序列",
     "url": "https://leetcode.cn/problems/non-decreasing-subsequences",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "回溯"
-    ],
+    "tag": ["位运算", "数组", "哈希表", "回溯"],
     "desc": "给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是 2。",
     "solutions": [
         {

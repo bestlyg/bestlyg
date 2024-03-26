@@ -3,10 +3,7 @@
     "name": "2550.猴子碰撞的方法数",
     "url": "https://leetcode.cn/problems/count-collisions-of-monkeys-on-a-polygon",
     "difficulty": "中等",
-    "tag": [
-        "递归",
-        "数学"
-    ],
+    "tag": ["递归", "数学"],
     "desc": "返回猴子至少发生 一次碰撞 的移动方法数。由于答案可能非常大，请返回对 109+7 取余后的结果。",
     "solutions": [
         {

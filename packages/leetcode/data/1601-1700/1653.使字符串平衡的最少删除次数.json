@@ -3,11 +3,7 @@
     "name": "1653.使字符串平衡的最少删除次数",
     "url": "https://leetcode.cn/problems/minimum-deletions-to-make-string-balanced",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["栈", "字符串", "动态规划"],
     "desc": "请你返回使 s 平衡 的 最少 删除次数。",
     "solutions": [
         {

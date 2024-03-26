@@ -3,10 +3,7 @@
     "name": "1071.字符串的最大公因子",
     "url": "https://leetcode.cn/problems/greatest-common-divisor-of-strings",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
+    "tag": ["数学", "字符串"],
     "desc": "返回最长字符串 X，要求满足 X 能除尽 str1 且 X 能除尽 str2。",
     "solutions": [
         {

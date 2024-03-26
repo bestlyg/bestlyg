@@ -3,10 +3,7 @@
     "name": "762.二进制表示中质数个计算置位",
     "url": "https://leetcode.cn/problems/prime-number-of-set-bits-in-binary-representation",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数学"
-    ],
+    "tag": ["位运算", "数学"],
     "desc": "给定两个整数 L 和 R ，找到闭区间 [L, R] 范围内，计算置位位数为质数的整数个数。",
     "solutions": [
         {

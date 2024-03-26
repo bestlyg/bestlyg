@@ -3,11 +3,7 @@
     "name": "89.格雷编码",
     "url": "https://leetcode.cn/problems/gray-code",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数学",
-        "回溯"
-    ],
+    "tag": ["位运算", "数学", "回溯"],
     "desc": "给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。",
     "solutions": [
         {

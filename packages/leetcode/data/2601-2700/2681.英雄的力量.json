@@ -3,12 +3,7 @@
     "name": "2681.英雄的力量",
     "url": "https://leetcode.cn/problems/power-of-heroes",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "数学",
-        "前缀和",
-        "排序"
-    ],
+    "tag": ["数组", "数学", "前缀和", "排序"],
     "desc": "请你返回所有可能的 非空 英雄组的 力量 之和。",
     "solutions": [
         {

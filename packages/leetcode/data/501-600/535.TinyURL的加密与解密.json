@@ -3,12 +3,7 @@
     "name": "535.TinyURL的加密与解密",
     "url": "https://leetcode.cn/problems/encode-and-decode-tinyurl",
     "difficulty": "中等",
-    "tag": [
-        "设计",
-        "哈希表",
-        "字符串",
-        "哈希函数"
-    ],
+    "tag": ["设计", "哈希表", "字符串", "哈希函数"],
     "desc": "TinyURL 是一种 URL 简化服务， 比如：当你输入一个 URL https://leetcode.com/problems/design-tinyurl  时，它将返回一个简化的 URL http://tinyurl.com/4e9iAk。",
     "solutions": [
         {

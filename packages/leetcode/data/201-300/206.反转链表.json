@@ -3,10 +3,7 @@
     "name": "206.反转链表",
     "url": "https://leetcode.cn/problems/reverse-linked-list",
     "difficulty": "简单",
-    "tag": [
-        "递归",
-        "链表"
-    ],
+    "tag": ["递归", "链表"],
     "desc": "反转一个单链表。",
     "solutions": [
         {

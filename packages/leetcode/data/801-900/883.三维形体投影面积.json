@@ -3,12 +3,7 @@
     "name": "883.三维形体投影面积",
     "url": "https://leetcode.cn/problems/projection-area-of-3d-shapes",
     "difficulty": "简单",
-    "tag": [
-        "几何",
-        "数组",
-        "数学",
-        "矩阵"
-    ],
+    "tag": ["几何", "数组", "数学", "矩阵"],
     "desc": "返回 所有三个投影的总面积 。",
     "solutions": [
         {

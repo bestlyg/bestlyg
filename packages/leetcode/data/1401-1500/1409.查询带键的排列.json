@@ -3,11 +3,7 @@
     "name": "1409.查询带键的排列",
     "url": "https://leetcode.cn/problems/queries-on-a-permutation-with-key",
     "difficulty": "中等",
-    "tag": [
-        "树状数组",
-        "数组",
-        "模拟"
-    ],
+    "tag": ["树状数组", "数组", "模拟"],
     "desc": "给你一个待查数组 queries ，数组中的元素为 1 到 m 之间的正整数。 请你以数组形式返回待查数组 queries 的查询结果。",
     "solutions": [
         {

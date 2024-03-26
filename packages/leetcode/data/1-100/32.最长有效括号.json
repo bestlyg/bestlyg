@@ -3,11 +3,7 @@
     "name": "32.最长有效括号",
     "url": "https://leetcode.cn/problems/longest-valid-parentheses",
     "difficulty": "困难",
-    "tag": [
-        "栈",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["栈", "字符串", "动态规划"],
     "desc": "给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "13.罗马数字转整数",
     "url": "https://leetcode.cn/problems/roman-to-integer",
     "difficulty": "简单",
-    "tag": [
-        "哈希表",
-        "数学",
-        "字符串"
-    ],
+    "tag": ["哈希表", "数学", "字符串"],
     "desc": "给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。",
     "solutions": [
         {

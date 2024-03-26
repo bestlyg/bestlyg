@@ -3,10 +3,7 @@
     "name": "789.逃脱阻碍者",
     "url": "https://leetcode.cn/problems/escape-the-ghosts",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学"
-    ],
+    "tag": ["数组", "数学"],
     "desc": "你在进行一个简化版的吃豆人游戏。 只有在你有可能成功逃脱时，输出 true ；否则，输出 false 。",
     "solutions": [
         {

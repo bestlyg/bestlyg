@@ -3,11 +3,7 @@
     "name": "1739.放置盒子",
     "url": "https://leetcode.cn/problems/building-boxes",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数学",
-        "二分查找"
-    ],
+    "tag": ["贪心", "数学", "二分查找"],
     "desc": "给你一个整数 n ，返回接触地面的盒子的 最少 可能数量。",
     "solutions": [
         {

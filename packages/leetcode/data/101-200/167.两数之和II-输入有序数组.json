@@ -3,11 +3,7 @@
     "name": "167.两数之和II-输入有序数组",
     "url": "https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找"
-    ],
+    "tag": ["数组", "双指针", "二分查找"],
     "desc": "给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。",
     "solutions": [
         {

@@ -3,10 +3,7 @@
     "name": "1663.具有给定数值的最小字符串",
     "url": "https://leetcode.cn/problems/smallest-string-with-a-given-numeric-value",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "字符串"
-    ],
+    "tag": ["贪心", "字符串"],
     "desc": "给你两个整数 n 和 k 。返回 长度 等于 n 且 数值 等于 k 的 字典序最小 的字符串。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "LCR011.连续数组",
     "url": "https://leetcode.cn/problems/A1NYOS",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tag": ["数组", "哈希表", "前缀和"],
     "desc": "给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。",
     "solutions": [
         {

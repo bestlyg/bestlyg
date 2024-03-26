@@ -3,10 +3,7 @@
     "name": "1664.生成平衡数组的方案数",
     "url": "https://leetcode.cn/problems/ways-to-make-a-fair-array",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "如果一个数组满足奇数下标元素的和与偶数下标元素的和相等，该数组就是一个 平衡数组 。请你返回删除操作后，剩下的数组 nums 是 平衡数组 的 方案数 。",
     "solutions": [
         {

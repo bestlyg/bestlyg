@@ -3,10 +3,7 @@
     "name": "138.随机链表的复制",
     "url": "https://leetcode.cn/problems/copy-list-with-random-pointer",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "链表"
-    ],
+    "tag": ["哈希表", "链表"],
     "desc": "给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。返回复制链表的头节点。",
     "solutions": [
         {

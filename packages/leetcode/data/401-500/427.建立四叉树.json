@@ -3,12 +3,7 @@
     "name": "427.建立四叉树",
     "url": "https://leetcode.cn/problems/construct-quad-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "数组",
-        "分治",
-        "矩阵"
-    ],
+    "tag": ["树", "数组", "分治", "矩阵"],
     "desc": "你需要返回能表示矩阵的 四叉树 的根结点。",
     "solutions": [
         {

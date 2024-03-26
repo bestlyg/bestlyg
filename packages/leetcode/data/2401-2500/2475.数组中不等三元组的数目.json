@@ -3,11 +3,7 @@
     "name": "2475.数组中不等三元组的数目",
     "url": "https://leetcode.cn/problems/number-of-unequal-triplets-in-array",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "排序"],
     "desc": "返回满足上述条件三元组的数目。",
     "solutions": [
         {

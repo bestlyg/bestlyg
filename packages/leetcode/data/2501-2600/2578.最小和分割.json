@@ -3,11 +3,7 @@
     "name": "2578.最小和分割",
     "url": "https://leetcode.cn/problems/split-with-minimum-sum",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数学",
-        "排序"
-    ],
+    "tag": ["贪心", "数学", "排序"],
     "desc": "请你返回 num1 和 num2 可以得到的和的 最小 值。",
     "solutions": [
         {

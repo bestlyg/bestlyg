@@ -3,10 +3,7 @@
     "name": "1200.最小绝对差",
     "url": "https://leetcode.cn/problems/minimum-absolute-difference",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "排序"
-    ],
+    "tag": ["数组", "排序"],
     "desc": "请你找到所有具有最小绝对差的元素对，并且按升序的顺序返回。",
     "solutions": [
         {

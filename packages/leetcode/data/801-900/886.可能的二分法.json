@@ -3,12 +3,7 @@
     "name": "886.可能的二分法",
     "url": "https://leetcode.cn/problems/possible-bipartition",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "图"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "desc": "给定整数 n  和数组 dislikes ，其中  dislikes[i] = [ai, bi] ，表示不允许将编号为 ai  和   bi 的人归入同一组。当可以用这种方法将所有人分进两组时，返回 true；否则返回 false。",
     "solutions": [
         {

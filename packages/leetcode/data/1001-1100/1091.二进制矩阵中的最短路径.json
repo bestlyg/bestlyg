@@ -3,11 +3,7 @@
     "name": "1091.二进制矩阵中的最短路径",
     "url": "https://leetcode.cn/problems/shortest-path-in-binary-matrix",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "给你一个 n x n 的二进制矩阵 grid 中，返回矩阵中最短 畅通路径 的长度。如果不存在这样的路径，返回 -1 。",
     "solutions": [
         {

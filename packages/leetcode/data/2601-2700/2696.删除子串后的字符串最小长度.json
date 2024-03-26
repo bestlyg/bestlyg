@@ -3,11 +3,7 @@
     "name": "2696.删除子串后的字符串最小长度",
     "url": "https://leetcode.cn/problems/minimum-string-length-after-removing-substrings",
     "difficulty": "简单",
-    "tag": [
-        "栈",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["栈", "字符串", "模拟"],
     "desc": "返回可获得的最终字符串的 最小 可能长度。",
     "solutions": [
         {

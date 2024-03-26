@@ -3,12 +3,7 @@
     "name": "143.重排链表",
     "url": "https://leetcode.cn/problems/reorder-list",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "递归",
-        "链表",
-        "双指针"
-    ],
+    "tag": ["栈", "递归", "链表", "双指针"],
     "desc": "给定一个单链表 L：L0→L1→…→Ln-1→Ln ，将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…。",
     "solutions": [
         {

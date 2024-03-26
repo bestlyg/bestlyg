@@ -3,12 +3,7 @@
     "name": "1237.找出给定方程的正整数解",
     "url": "https://leetcode.cn/problems/find-positive-integer-solution-for-a-given-equation",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "双指针",
-        "二分查找",
-        "交互"
-    ],
+    "tag": ["数学", "双指针", "二分查找", "交互"],
     "desc": "给你一个函数  f(x, y) 和一个目标结果 z，函数公式未知，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。",
     "solutions": [
         {

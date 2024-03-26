@@ -3,12 +3,7 @@
     "name": "LCR067.数组中两个数的最大异或值",
     "url": "https://leetcode.cn/problems/ms70jA",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "字典树",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["位运算", "字典树", "数组", "哈希表"],
     "desc": "给定一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j < n 。",
     "solutions": [
         {

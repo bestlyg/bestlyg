@@ -1,3 +1,3 @@
 # Rust Training
 
-Lyg的Rust练习。
+Lyg 的 Rust 练习。

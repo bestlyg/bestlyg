@@ -3,10 +3,7 @@
     "name": "391.完美矩形",
     "url": "https://leetcode.cn/problems/perfect-rectangle",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "扫描线"
-    ],
+    "tag": ["数组", "扫描线"],
     "desc": "如果所有矩形一起精确覆盖了某个矩形区域，则返回 true ；否则，返回 false 。",
     "solutions": [
         {

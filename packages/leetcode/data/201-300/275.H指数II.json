@@ -3,10 +3,7 @@
     "name": "275.H指数II",
     "url": "https://leetcode.cn/problems/h-index-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "给定一位研究者论文被引用次数的数组（被引用次数是非负整数），数组已经按照 升序排列 。编写一个方法，计算出研究者的 h 指数。",
     "solutions": [
         {

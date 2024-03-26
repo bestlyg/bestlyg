@@ -3,11 +3,7 @@
     "name": "301.删除无效的括号",
     "url": "https://leetcode.cn/problems/remove-invalid-parentheses",
     "difficulty": "困难",
-    "tag": [
-        "广度优先搜索",
-        "字符串",
-        "回溯"
-    ],
+    "tag": ["广度优先搜索", "字符串", "回溯"],
     "desc": "给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。",
     "solutions": [
         {

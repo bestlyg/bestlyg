@@ -3,9 +3,7 @@
     "name": "8.字符串转换整数(atoi)",
     "url": "https://leetcode.cn/problems/string-to-integer-atoi",
     "difficulty": "中等",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "请你来实现一个 atoi 函数，使其能将字符串转换成整数。",
     "solutions": [
         {

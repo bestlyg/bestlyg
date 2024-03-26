@@ -3,10 +3,7 @@
     "name": "724.寻找数组的中心下标",
     "url": "https://leetcode.cn/problems/find-pivot-index",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "前缀和"
-    ],
+    "tag": ["数组", "前缀和"],
     "desc": "给定一个整数类型的数组 nums，请编写一个能够返回数组 “中心索引” 的方法。",
     "solutions": [
         {

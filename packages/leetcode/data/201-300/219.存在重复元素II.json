@@ -3,11 +3,7 @@
     "name": "219.存在重复元素II",
     "url": "https://leetcode.cn/problems/contains-duplicate-ii",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "滑动窗口"
-    ],
+    "tag": ["数组", "哈希表", "滑动窗口"],
     "desc": "给定一个整数数组和一个整数  k，判断数组中是否存在两个不同的索引  i  和  j，使得  nums [i] = nums [j]，并且 i 和 j  的差的 绝对值 至多为 k。",
     "solutions": [
         {

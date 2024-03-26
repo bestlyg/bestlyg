@@ -3,10 +3,7 @@
     "name": "1154.一年中的第几天",
     "url": "https://leetcode.cn/problems/day-of-the-year",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串"
-    ],
+    "tag": ["数学", "字符串"],
     "desc": "给你一个字符串 date ，按 YYYY-MM-DD 格式表示一个 现行公元纪年法 日期。请你计算并返回该日期是当年的第几天。",
     "solutions": [
         {

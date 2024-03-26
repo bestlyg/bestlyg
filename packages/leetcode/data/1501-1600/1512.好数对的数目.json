@@ -3,12 +3,7 @@
     "name": "1512.好数对的数目",
     "url": "https://leetcode.cn/problems/number-of-good-pairs",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "数学",
-        "计数"
-    ],
+    "tag": ["数组", "哈希表", "数学", "计数"],
     "desc": "返回好数对的数目。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2028.找出缺失的观测数据",
     "url": "https://leetcode.cn/problems/find-missing-observations",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tag": ["数组", "数学", "模拟"],
     "desc": "返回一个长度为 n 的数组，包含所有缺失的观测数据，且满足这 n + m 次投掷的 平均值 是 mean 。如果存在多组符合要求的答案，只需要返回其中任意一组即可。如果不存在答案，返回一个空数组。",
     "solutions": [
         {

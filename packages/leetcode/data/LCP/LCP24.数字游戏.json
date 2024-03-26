@@ -3,11 +3,7 @@
     "name": "LCP24.数字游戏",
     "url": "https://leetcode.cn/problems/5TxKeK",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "数学",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "数学", "堆（优先队列）"],
     "desc": "主办方请小扣回答出一个长度为 N 的数组，第 i 个元素(0 <= i < N)表示将 0~i 号计数器 初始 所示数字操作成满足所有条件 nums[a]+1 == nums[a+1],(0 <= a < i) 的最小操作数。",
     "solutions": [
         {

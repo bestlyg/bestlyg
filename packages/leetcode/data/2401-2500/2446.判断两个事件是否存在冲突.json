@@ -3,10 +3,7 @@
     "name": "2446.判断两个事件是否存在冲突",
     "url": "https://leetcode.cn/problems/determine-if-two-events-have-conflict",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "字符串"
-    ],
+    "tag": ["数组", "字符串"],
     "desc": "如果两个事件之间存在冲突，返回 true ；否则，返回 false 。",
     "solutions": [
         {

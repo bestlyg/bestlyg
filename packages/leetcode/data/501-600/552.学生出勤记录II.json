@@ -3,9 +3,7 @@
     "name": "552.学生出勤记录II",
     "url": "https://leetcode.cn/problems/student-attendance-record-ii",
     "difficulty": "困难",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "给你一个整数 n ，表示出勤记录的长度（次数）。请你返回记录长度为 n 时，可能获得出勤奖励的记录情况 数量 。",
     "solutions": [
         {

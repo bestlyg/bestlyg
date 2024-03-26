@@ -3,11 +3,7 @@
     "name": "面试题05.02.二进制数转字符串",
     "url": "https://leetcode.cn/problems/bianry-number-to-string-lcci",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数学",
-        "字符串"
-    ],
+    "tag": ["位运算", "数学", "字符串"],
     "desc": "二进制数转字符串。给定一个介于0和1之间的实数（如0.72），类型为double，打印它的二进制表达式。",
     "solutions": [
         {

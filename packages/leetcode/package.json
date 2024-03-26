@@ -1,29 +1,29 @@
 {
-  "name": "@bestlyg/leetcode",
-  "version": "1.0.0",
-  "type": "commonjs",
-  "scripts": {
-    "build": "ts-node -r tsconfig-paths/register scripts/build.ts",
-    "batch": "ts-node -r tsconfig-paths/register scripts/batchLeetCode.ts",
-    "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
-    "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",
-    "check": "ts-node -r tsconfig-paths/register scripts/check.ts",
-    "auto": "pnpm markdown && pnpm readme && pnpm -w ca",
-    "js": "node scripts/script.js",
-    "ts": "ts-node -r tsconfig-paths/register scripts/script.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "axios": "^0.27.2",
-    "chalk": "4",
-    "dayjs": "^1.11.7",
-    "fs-extra": "^11.1.0",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "4.0.0",
-    "tslib": "^2.4.1",
-    "typescript": "^4.9.4"
-  }
+    "name": "@bestlyg/leetcode",
+    "version": "1.0.0",
+    "type": "commonjs",
+    "scripts": {
+        "build": "ts-node -r tsconfig-paths/register scripts/build.ts",
+        "batch": "ts-node -r tsconfig-paths/register scripts/batchLeetCode.ts",
+        "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
+        "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",
+        "check": "ts-node -r tsconfig-paths/register scripts/check.ts",
+        "auto": "pnpm markdown && pnpm readme && pnpm -w ca",
+        "js": "node scripts/script.js",
+        "ts": "ts-node -r tsconfig-paths/register scripts/script.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^18.11.18",
+        "axios": "^0.27.2",
+        "chalk": "4",
+        "dayjs": "^1.11.7",
+        "fs-extra": "^11.1.0",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths": "4.0.0",
+        "tslib": "^2.4.1",
+        "typescript": "^4.9.4"
+    }
 }

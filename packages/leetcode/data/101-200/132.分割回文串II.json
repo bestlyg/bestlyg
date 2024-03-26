@@ -3,10 +3,7 @@
     "name": "132.分割回文串II",
     "url": "https://leetcode.cn/problems/palindrome-partitioning-ii",
     "difficulty": "困难",
-    "tag": [
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["字符串", "动态规划"],
     "desc": "给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。返回符合要求的 最少分割次数 。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "2032.至少在两个数组中出现的值",
     "url": "https://leetcode.cn/problems/two-out-of-three",
     "difficulty": "简单",
-    "tag": [
-        "位运算",
-        "数组",
-        "哈希表"
-    ],
+    "tag": ["位运算", "数组", "哈希表"],
     "desc": "给你三个整数数组 nums1、nums2 和 nums3 ，请你构造并返回一个 元素各不相同的 数组，且由 至少 在 两个 数组中出现的所有值组成。",
     "solutions": [
         {

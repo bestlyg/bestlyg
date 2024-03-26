@@ -3,12 +3,7 @@
     "name": "475.供暖器",
     "url": "https://leetcode.cn/problems/heaters",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "现在，给出位于一条水平线上的房屋 houses 和供暖器 heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。",
     "solutions": [
         {

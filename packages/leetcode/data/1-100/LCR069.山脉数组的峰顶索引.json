@@ -3,10 +3,7 @@
     "name": "LCR069.山脉数组的峰顶索引",
     "url": "https://leetcode.cn/problems/B1IidL",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "二分查找"
-    ],
+    "tag": ["数组", "二分查找"],
     "desc": "给定由整数组成的山峰数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i ，即山峰顶部。",
     "solutions": [
         {

@@ -3,11 +3,7 @@
     "name": "979.在二叉树中分配硬币",
     "url": "https://leetcode.cn/problems/distribute-coins-in-binary-tree",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给定一个有 N 个结点的二叉树的根结点 root，树中的每个结点上都对应有 node.val 枚硬币，并且总共有 N 枚硬币。返回使每个结点上只有一枚硬币所需的移动次数。",
     "solutions": [
         {

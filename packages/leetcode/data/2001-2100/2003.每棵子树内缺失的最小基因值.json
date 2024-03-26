@@ -3,12 +3,7 @@
     "name": "2003.每棵子树内缺失的最小基因值",
     "url": "https://leetcode.cn/problems/smallest-missing-genetic-value-in-each-subtree",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "并查集",
-        "动态规划"
-    ],
+    "tag": ["树", "深度优先搜索", "并查集", "动态规划"],
     "desc": "请你返回一个数组 ans ，长度为 n ，其中 ans[i] 是以节点 i 为根的子树内 缺失 的 最小 基因值。",
     "solutions": [
         {

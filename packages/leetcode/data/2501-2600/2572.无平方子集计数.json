@@ -3,13 +3,7 @@
     "name": "2572.无平方子集计数",
     "url": "https://leetcode.cn/problems/count-the-number-of-square-free-subsets",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "数组",
-        "数学",
-        "动态规划",
-        "状态压缩"
-    ],
+    "tag": ["位运算", "数组", "数学", "动态规划", "状态压缩"],
     "desc": "返回数组 nums 中 无平方 且 非空 的子集数目。",
     "solutions": [
         {

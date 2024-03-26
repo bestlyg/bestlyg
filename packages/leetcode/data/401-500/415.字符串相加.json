@@ -3,11 +3,7 @@
     "name": "415.字符串相加",
     "url": "https://leetcode.cn/problems/add-strings",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["数学", "字符串", "模拟"],
     "desc": "给定两个字符串形式的非负整数 num1 和 num2 ，计算它们的和。",
     "solutions": [
         {

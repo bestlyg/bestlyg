@@ -3,11 +3,7 @@
     "name": "388.文件的最长绝对路径",
     "url": "https://leetcode.cn/problems/longest-absolute-file-path",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "深度优先搜索",
-        "字符串"
-    ],
+    "tag": ["栈", "深度优先搜索", "字符串"],
     "desc": "给定一个以上述格式表示文件系统的字符串 input ，返回文件系统中 指向 文件 的 最长绝对路径 的长度 。 如果系统中没有文件，返回 0。",
     "solutions": [
         {

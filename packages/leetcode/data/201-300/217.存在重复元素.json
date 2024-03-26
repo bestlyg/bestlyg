@@ -3,11 +3,7 @@
     "name": "217.存在重复元素",
     "url": "https://leetcode.cn/problems/contains-duplicate",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "排序"],
     "desc": "给定一个整数数组，判断是否存在重复元素。",
     "solutions": [
         {

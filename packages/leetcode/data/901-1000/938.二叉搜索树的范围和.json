@@ -3,12 +3,7 @@
     "name": "938.二叉搜索树的范围和",
     "url": "https://leetcode.cn/problems/range-sum-of-bst",
     "difficulty": "简单",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定二叉搜索树的根结点 root，返回 L 和 R（含）之间的所有结点的值的和。",
     "solutions": [
         {

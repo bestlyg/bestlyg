@@ -3,11 +3,7 @@
     "name": "474.一和零",
     "url": "https://leetcode.cn/problems/ones-and-zeroes",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "字符串",
-        "动态规划"
-    ],
+    "tag": ["数组", "字符串", "动态规划"],
     "desc": "请你找出并返回 strs 的最大子集的大小，该子集中 最多 有 m 个 0 和 n 个 1 。",
     "solutions": [
         {

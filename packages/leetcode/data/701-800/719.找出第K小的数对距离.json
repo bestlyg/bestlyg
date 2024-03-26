@@ -3,12 +3,7 @@
     "name": "719.找出第K小的数对距离",
     "url": "https://leetcode.cn/problems/find-k-th-smallest-pair-distance",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "返回 所有数对距离中 第 k 小的数对距离。",
     "solutions": [
         {

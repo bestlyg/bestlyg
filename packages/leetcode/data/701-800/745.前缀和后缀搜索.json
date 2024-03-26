@@ -3,12 +3,7 @@
     "name": "745.前缀和后缀搜索",
     "url": "https://leetcode.cn/problems/prefix-and-suffix-search",
     "difficulty": "困难",
-    "tag": [
-        "设计",
-        "字典树",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["设计", "字典树", "哈希表", "字符串"],
     "desc": "设计一个包含一些单词的特殊词典，并能够通过前缀和后缀来检索单词。",
     "solutions": [
         {

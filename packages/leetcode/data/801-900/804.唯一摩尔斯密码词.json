@@ -3,11 +3,7 @@
     "name": "804.唯一摩尔斯密码词",
     "url": "https://leetcode.cn/problems/unique-morse-code-words",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["数组", "哈希表", "字符串"],
     "desc": "对 words 中所有单词进行单词翻译，返回不同 单词翻译 的数量。",
     "solutions": [
         {

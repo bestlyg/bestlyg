@@ -3,12 +3,7 @@
     "name": "630.课程表III",
     "url": "https://leetcode.cn/problems/course-schedule-iii",
     "difficulty": "困难",
-    "tag": [
-        "贪心",
-        "数组",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tag": ["贪心", "数组", "排序", "堆（优先队列）"],
     "desc": "返回你最多可以修读的课程数目。",
     "solutions": [
         {

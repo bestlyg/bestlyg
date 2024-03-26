@@ -1,4 +1,3 @@
 module.exports = (env, argv) => {
-    return {
-    };
+    return {};
 };

@@ -3,12 +3,7 @@
     "name": "2363.合并相似的物品",
     "url": "https://leetcode.cn/problems/merge-similar-items",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "哈希表",
-        "有序集合",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "有序集合", "排序"],
     "desc": "请你返回一个二维数组 ret，其中 ret[i] = [valuei, weighti]， weighti 是所有价值为 valuei 物品的 重量之和 。",
     "solutions": [
         {

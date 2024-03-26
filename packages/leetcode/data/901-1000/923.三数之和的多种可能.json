@@ -3,13 +3,7 @@
     "name": "923.三数之和的多种可能",
     "url": "https://leetcode.cn/problems/3sum-with-multiplicity",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "计数",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "双指针", "计数", "排序"],
     "desc": "给定一个整数数组  arr ，以及一个整数  target  作为目标值，返回满足 i < j < k 且  arr[i] + arr[j] + arr[k] == target  的元组  i, j, k  的数量。",
     "solutions": [
         {

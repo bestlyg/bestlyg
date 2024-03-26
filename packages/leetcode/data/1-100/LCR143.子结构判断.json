@@ -3,11 +3,7 @@
     "name": "LCR143.子结构判断",
     "url": "https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof",
     "difficulty": "中等",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "输入两棵二叉树 A 和 B，判断 B 是不是 A 的子结构。",
     "solutions": [
         {

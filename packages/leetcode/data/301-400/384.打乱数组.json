@@ -3,11 +3,7 @@
     "name": "384.打乱数组",
     "url": "https://leetcode.cn/problems/shuffle-an-array",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "数学",
-        "随机化"
-    ],
+    "tag": ["数组", "数学", "随机化"],
     "desc": "给你一个整数数组 nums ，设计算法来打乱一个没有重复元素的数组。",
     "solutions": [
         {

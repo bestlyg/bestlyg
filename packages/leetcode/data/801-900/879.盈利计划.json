@@ -3,10 +3,7 @@
     "name": "879.盈利计划",
     "url": "https://leetcode.cn/problems/profitable-schemes",
     "difficulty": "困难",
-    "tag": [
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["数组", "动态规划"],
     "desc": "集团里有 n 名员工，他们可以完成各种各样的工作创造利润。有多少种计划可以选择？因为答案很大，所以 返回结果模 10^9 + 7 的值。",
     "solutions": [
         {

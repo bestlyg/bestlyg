@@ -3,10 +3,7 @@
     "name": "1015.可被K整除的最小整数",
     "url": "https://leetcode.cn/problems/smallest-integer-divisible-by-k",
     "difficulty": "中等",
-    "tag": [
-        "哈希表",
-        "数学"
-    ],
+    "tag": ["哈希表", "数学"],
     "desc": "给定正整数 k ，你需要找出可以被 k 整除的、仅包含数字 1 的最 小 正整数 n 的长度。",
     "solutions": [
         {

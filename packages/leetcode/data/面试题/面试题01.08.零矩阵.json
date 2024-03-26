@@ -3,11 +3,7 @@
     "name": "面试题01.08.零矩阵",
     "url": "https://leetcode.cn/problems/zero-matrix-lcci",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "矩阵"
-    ],
+    "tag": ["数组", "哈希表", "矩阵"],
     "desc": "编写一种算法，若 M × N 矩阵中某个元素为 0，则将其所在的行与列清零。",
     "solutions": [
         {

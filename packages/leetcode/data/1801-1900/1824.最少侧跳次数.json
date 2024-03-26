@@ -3,11 +3,7 @@
     "name": "1824.最少侧跳次数",
     "url": "https://leetcode.cn/problems/minimum-sideway-jumps",
     "difficulty": "中等",
-    "tag": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tag": ["贪心", "数组", "动态规划"],
     "desc": "这只青蛙从点 0 处跑道 2 出发，并想到达点 n 处的 任一跑道 ，请你返回 最少侧跳次数 。",
     "solutions": [
         {

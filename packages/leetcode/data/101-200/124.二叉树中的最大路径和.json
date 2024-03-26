@@ -3,12 +3,7 @@
     "name": "124.二叉树中的最大路径和",
     "url": "https://leetcode.cn/problems/binary-tree-maximum-path-sum",
     "difficulty": "困难",
-    "tag": [
-        "树",
-        "深度优先搜索",
-        "动态规划",
-        "二叉树"
-    ],
+    "tag": ["树", "深度优先搜索", "动态规划", "二叉树"],
     "desc": "给定一个非空二叉树，返回其最大路径和。",
     "solutions": [
         {

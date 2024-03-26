@@ -3,11 +3,7 @@
     "name": "640.求解方程",
     "url": "https://leetcode.cn/problems/solve-the-equation",
     "difficulty": "中等",
-    "tag": [
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tag": ["数学", "字符串", "模拟"],
     "desc": "求解一个给定的方程，将 x 以字符串 \"x=#value\" 的形式返回。该方程仅包含 '+' ， '-' 操作，变量 x 和其对应系数。",
     "solutions": [
         {

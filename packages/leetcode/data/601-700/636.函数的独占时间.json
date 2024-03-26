@@ -3,10 +3,7 @@
     "name": "636.函数的独占时间",
     "url": "https://leetcode.cn/problems/exclusive-time-of-functions",
     "difficulty": "中等",
-    "tag": [
-        "栈",
-        "数组"
-    ],
+    "tag": ["栈", "数组"],
     "desc": "给出一个非抢占单线程 CPU 的 n 个函数运行日志，找到函数的独占时间。",
     "solutions": [
         {

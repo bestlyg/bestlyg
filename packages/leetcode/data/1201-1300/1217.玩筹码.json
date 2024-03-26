@@ -3,11 +3,7 @@
     "name": "1217.玩筹码",
     "url": "https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position",
     "difficulty": "简单",
-    "tag": [
-        "贪心",
-        "数组",
-        "数学"
-    ],
+    "tag": ["贪心", "数组", "数学"],
     "desc": "返回将所有筹码移动到同一位置上所需要的 最小代价 。",
     "solutions": [
         {

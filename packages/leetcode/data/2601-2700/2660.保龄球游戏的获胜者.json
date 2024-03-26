@@ -3,10 +3,7 @@
     "name": "2660.保龄球游戏的获胜者",
     "url": "https://leetcode.cn/problems/determine-the-winner-of-a-bowling-game",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "模拟"
-    ],
+    "tag": ["数组", "模拟"],
     "desc": "返回如果玩家 1 的得分高于玩家 2 的得分，则为 1 ；如果玩家 2 的得分高于玩家 1 的得分，则为 2 ；如果平局，则为 0 。",
     "solutions": [
         {

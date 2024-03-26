@@ -3,11 +3,7 @@
     "name": "2562.找出数组的串联值",
     "url": "https://leetcode.cn/problems/find-the-array-concatenation-value",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "双指针",
-        "模拟"
-    ],
+    "tag": ["数组", "双指针", "模拟"],
     "desc": "返回执行完所有操作后 nums 的串联值。",
     "solutions": [
         {

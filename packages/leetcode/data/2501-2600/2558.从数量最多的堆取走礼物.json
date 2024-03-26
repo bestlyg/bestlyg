@@ -3,11 +3,7 @@
     "name": "2558.从数量最多的堆取走礼物",
     "url": "https://leetcode.cn/problems/take-gifts-from-the-richest-pile",
     "difficulty": "简单",
-    "tag": [
-        "数组",
-        "模拟",
-        "堆（优先队列）"
-    ],
+    "tag": ["数组", "模拟", "堆（优先队列）"],
     "desc": "返回在 k 秒后剩下的礼物数量。",
     "solutions": [
         {

@@ -3,12 +3,7 @@
     "name": "49.字母异位词分组",
     "url": "https://leetcode.cn/problems/group-anagrams",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "字符串", "排序"],
     "desc": "给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。",
     "solutions": [
         {

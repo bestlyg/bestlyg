@@ -3,10 +3,7 @@
     "name": "1518.换水问题",
     "url": "https://leetcode.cn/problems/water-bottles",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "模拟"
-    ],
+    "tag": ["数学", "模拟"],
     "desc": "请你计算 最多 能喝到多少瓶酒。",
     "solutions": [
         {

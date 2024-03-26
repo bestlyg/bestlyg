@@ -5,7 +5,7 @@ function v(ctx, key) {
         new less.tree.Expression(
             [new less.tree.Variable('@best-cssvars-prefix'), new less.tree.Keyword('-'), key],
             true
-        ),
+        )
     ]).eval(ctx);
 }
 v.evalArgs = false;
@@ -22,7 +22,7 @@ function get_version(p) {
     try {
         p = [
             p && path.resolve(p._fileInfo.currentDirectory, p.value),
-            path.resolve(process.cwd(), 'package.json'),
+            path.resolve(process.cwd(), 'package.json')
         ].find(p => fs.existsSync(p));
         return require(p).version;
     } catch (e) {
@@ -33,7 +33,7 @@ function get_version(p) {
 const functionRegisters = {
     v,
     get_prefix,
-    get_version,
+    get_version
 };
 module.exports = class LessPluginBestMixin {
     install(less, pluginManager, functions) {

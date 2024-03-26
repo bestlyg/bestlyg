@@ -3,10 +3,7 @@
     "name": "2413.最小偶倍数",
     "url": "https://leetcode.cn/problems/smallest-even-multiple",
     "difficulty": "简单",
-    "tag": [
-        "数学",
-        "数论"
-    ],
+    "tag": ["数学", "数论"],
     "desc": "给你一个正整数 n ，返回 2 和 n 的最小公倍数（正整数）。",
     "solutions": [
         {

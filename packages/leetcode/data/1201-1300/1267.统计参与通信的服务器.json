@@ -3,14 +3,7 @@
     "name": "1267.统计参与通信的服务器",
     "url": "https://leetcode.cn/problems/count-servers-that-communicate",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "数组",
-        "计数",
-        "矩阵"
-    ],
+    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "计数", "矩阵"],
     "desc": "请你统计并返回能够与至少一台其他服务器进行通信的服务器的数量。",
     "solutions": [
         {

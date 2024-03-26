@@ -3,11 +3,7 @@
     "name": "LCR189.设计机械累加器",
     "url": "https://leetcode.cn/problems/qiu-12n-lcof",
     "difficulty": "中等",
-    "tag": [
-        "位运算",
-        "递归",
-        "脑筋急转弯"
-    ],
+    "tag": ["位运算", "递归", "脑筋急转弯"],
     "desc": "求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、case 等关键字及条件判断语句（A?B:C）。",
     "solutions": [
         {

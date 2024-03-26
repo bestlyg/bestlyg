@@ -3,11 +3,7 @@
     "name": "433.最小基因变化",
     "url": "https://leetcode.cn/problems/minimum-genetic-mutation",
     "difficulty": "中等",
-    "tag": [
-        "广度优先搜索",
-        "哈希表",
-        "字符串"
-    ],
+    "tag": ["广度优先搜索", "哈希表", "字符串"],
     "desc": "给你两个基因序列 start 和 end ，以及一个基因库 bank ，请你找出并返回能够使  start 变化为 end 所需的最少变化次数。如果无法完成此基因变化，返回 -1 。",
     "solutions": [
         {
