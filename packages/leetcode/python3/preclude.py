@@ -83,23 +83,21 @@ class UnionFind:
     def __init__(self, n) -> None:
         self.n = n
         self.data = [i for i in range(0, n)]
-        self.cnt = [1] * n
-
+        self.sizes = [1] * n
+        self.cnt = n
     def size(self, v: int) -> int:
-        return self.cnt[self.find(v)]
-
+        return self.sizes[self.find(v)]
     def find(self, v: int) -> int:
         if self.data[v] != v:
             self.data[v] = self.find(self.data[v])
         return self.data[v]
-
     def uni(self, v1: int, v2: int):
         p1 = self.find(v1)
         p2 = self.find(v2)
         if p1 != p2:
-            self.cnt[p1] += self.cnt[p2]
+            self.sizes[p1] += self.sizes[p2]
+            self.cnt -= self.sizes[p2]
             self.data[p2] = p1
-
     def same(self, v1: int, v2: int):
         return self.find(v1) == self.find(v2)
 

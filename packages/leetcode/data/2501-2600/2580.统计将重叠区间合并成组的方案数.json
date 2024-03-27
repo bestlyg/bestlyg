@@ -1,0 +1,25 @@
+{
+    "name": "2580.统计将重叠区间合并成组的方案数",
+    "url": "https://leetcode.cn/problems/count-ways-to-group-overlapping-ranges",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回将 ranges 划分成两个组的 总方案数 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 120,
+            "memory": 45.1,
+            "desc": "并查集合并区间。",
+            "code": "class UnionFind:\n        def __init__(self, n) -> None:\n            self.n = n\n            self.data = [i for i in range(0, n)]\n            self.sizes = [1] * n\n            self.cnt = n\n        def size(self, v: int) -> int:\n            return self.sizes[self.find(v)]\n        def find(self, v: int) -> int:\n            if self.data[v] != v:\n                self.data[v] = self.find(self.data[v])\n            return self.data[v]\n        def uni(self, v1: int, v2: int):\n            p1 = self.find(v1)\n            p2 = self.find(v2)\n            if p1 != p2:\n                self.sizes[p1] += self.sizes[p2]\n                self.cnt -= self.sizes[p2]\n                self.data[p2] = p1\n        def same(self, v1: int, v2: int):\n            return self.find(v1) == self.find(v2)\n    class Solution:\n        def countWays(self, ranges: List[List[int]]) -> int:\n            n = len(ranges)\n            ranges.sort()\n            uf = UnionFind(n)\n            idx = 0\n            while idx < n:\n                start, end = ranges[idx]\n                while idx + 1 < n and ranges[idx + 1][0] <= end:\n                    end = max(end, ranges[idx + 1][1])\n                    uf.uni(idx, idx + 1)\n                    idx += 1\n                idx += 1\n            return (2 ** uf.cnt) % (10 ** 9 + 7)",
+            "date": 1711468800000
+        },
+        {
+            "script": "python",
+            "time": 94,
+            "memory": 45.06,
+            "desc": "排序后合并区间。",
+            "code": "class Solution:\n    def countWays(self, ranges: List[List[int]]) -> int:\n        n = len(ranges)\n        ranges.sort()\n        idx = 0\n        cnt = 0\n        while idx < n:\n            start, end = ranges[idx]\n            cnt += 1\n            while idx + 1 < n and ranges[idx + 1][0] <= end:\n                end = max(end, ranges[idx + 1][1])\n                idx += 1\n            idx += 1\n        return pow(2, cnt, 10 ** 9 + 7)",
+            "date": 1711468800000
+        }
+    ]
+}

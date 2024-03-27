@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2642. 设计可以求最短路径的图类',
-    url: 'https://leetcode.cn/problems/design-graph-with-shortest-path-calculator',
+    name: '2580. 统计将重叠区间合并成组的方案数',
+    url: 'https://leetcode.cn/problems/count-ways-to-group-overlapping-ranges',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你实现一个 Graph 类。`,
+    desc: `请你返回将 ranges 划分成两个组的 总方案数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,37 +28,65 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 349,
-            memory: 20.49,
-            desc: '图的最短路',
-            code: `class Node:
-    def __init__(self):
-        self.f = []
-        self.t = []
-
-class Graph:
-    def __init__(self, n: int, edges: List[List[int]]):
-        self.n = n
-        self.nodes = [Node() for _ in range(n)]
-        for [f, t, cost] in edges:
-            self.nodes[f].t.append((t, cost))
-            self.nodes[t].f.append((f, cost))
-
-    def addEdge(self, edge: List[int]) -> None:
-        self.nodes[edge[0]].t.append((edge[1], edge[2]))
-
-    def shortestPath(self, node1: int, node2: int) -> int:
-        q = [(0, node1)]
-        used = {}
-        while q: 
-            cost, node = heappop(q)
-            if node == node2: return cost
-            for next_node, next_cost in self.nodes[node].t:
-                cost2 = next_cost + cost
-                if next_node not in used or used[next_node] > cost2:
-                    heappush(q, (cost2, next_node))
-                    used[next_node] = cost2
-        return -1`,
+            time: 120,
+            memory: 45.1,
+            desc: '并查集合并区间',
+            code: `class UnionFind:
+        def __init__(self, n) -> None:
+            self.n = n
+            self.data = [i for i in range(0, n)]
+            self.sizes = [1] * n
+            self.cnt = n
+        def size(self, v: int) -> int:
+            return self.sizes[self.find(v)]
+        def find(self, v: int) -> int:
+            if self.data[v] != v:
+                self.data[v] = self.find(self.data[v])
+            return self.data[v]
+        def uni(self, v1: int, v2: int):
+            p1 = self.find(v1)
+            p2 = self.find(v2)
+            if p1 != p2:
+                self.sizes[p1] += self.sizes[p2]
+                self.cnt -= self.sizes[p2]
+                self.data[p2] = p1
+        def same(self, v1: int, v2: int):
+            return self.find(v1) == self.find(v2)
+    class Solution:
+        def countWays(self, ranges: List[List[int]]) -> int:
+            n = len(ranges)
+            ranges.sort()
+            uf = UnionFind(n)
+            idx = 0
+            while idx < n:
+                start, end = ranges[idx]
+                while idx + 1 < n and ranges[idx + 1][0] <= end:
+                    end = max(end, ranges[idx + 1][1])
+                    uf.uni(idx, idx + 1)
+                    idx += 1
+                idx += 1
+            return (2 ** uf.cnt) % (10 ** 9 + 7)`,
+        },
+        {
+            script: Script.PY,
+            // date: new Date('2024.02.07').getTime(),
+            time: 94,
+            memory: 45.06,
+            desc: '排序后合并区间',
+            code: `class Solution:
+    def countWays(self, ranges: List[List[int]]) -> int:
+        n = len(ranges)
+        ranges.sort()
+        idx = 0
+        cnt = 0
+        while idx < n:
+            start, end = ranges[idx]
+            cnt += 1
+            while idx + 1 < n and ranges[idx + 1][0] <= end:
+                end = max(end, ranges[idx + 1][1])
+                idx += 1
+            idx += 1
+        return pow(2, cnt, 10 ** 9 + 7)`,
         },
 
         //         {
