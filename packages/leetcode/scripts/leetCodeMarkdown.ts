@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2580. 统计将重叠区间合并成组的方案数',
-    url: 'https://leetcode.cn/problems/count-ways-to-group-overlapping-ranges',
+    name: '1997. 访问完所有房间的第一天',
+    url: 'https://leetcode.cn/problems/first-day-where-you-have-been-in-all-the-rooms/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回将 ranges 划分成两个组的 总方案数 。`,
+    desc: `请返回你访问完所有房间的第一天的日期编号。题目数据保证总是存在这样的一天。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,65 +28,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 120,
-            memory: 45.1,
-            desc: '并查集合并区间',
-            code: `class UnionFind:
-        def __init__(self, n) -> None:
-            self.n = n
-            self.data = [i for i in range(0, n)]
-            self.sizes = [1] * n
-            self.cnt = n
-        def size(self, v: int) -> int:
-            return self.sizes[self.find(v)]
-        def find(self, v: int) -> int:
-            if self.data[v] != v:
-                self.data[v] = self.find(self.data[v])
-            return self.data[v]
-        def uni(self, v1: int, v2: int):
-            p1 = self.find(v1)
-            p2 = self.find(v2)
-            if p1 != p2:
-                self.sizes[p1] += self.sizes[p2]
-                self.cnt -= self.sizes[p2]
-                self.data[p2] = p1
-        def same(self, v1: int, v2: int):
-            return self.find(v1) == self.find(v2)
-    class Solution:
-        def countWays(self, ranges: List[List[int]]) -> int:
-            n = len(ranges)
-            ranges.sort()
-            uf = UnionFind(n)
-            idx = 0
-            while idx < n:
-                start, end = ranges[idx]
-                while idx + 1 < n and ranges[idx + 1][0] <= end:
-                    end = max(end, ranges[idx + 1][1])
-                    uf.uni(idx, idx + 1)
-                    idx += 1
-                idx += 1
-            return (2 ** uf.cnt) % (10 ** 9 + 7)`,
-        },
-        {
-            script: Script.PY,
-            // date: new Date('2024.02.07').getTime(),
-            time: 94,
-            memory: 45.06,
-            desc: '排序后合并区间',
+            time: 289,
+            memory: 39.05,
+            desc: 'dp[i][0]表示第i个数,第一次奇数访问的天数，dp[i][1]表示第i个数,第一次偶数访问的天数',
             code: `class Solution:
-    def countWays(self, ranges: List[List[int]]) -> int:
-        n = len(ranges)
-        ranges.sort()
-        idx = 0
-        cnt = 0
-        while idx < n:
-            start, end = ranges[idx]
-            cnt += 1
-            while idx + 1 < n and ranges[idx + 1][0] <= end:
-                end = max(end, ranges[idx + 1][1])
-                idx += 1
-            idx += 1
-        return pow(2, cnt, 10 ** 9 + 7)`,
+    def firstDayBeenInAllRooms(self, nextVisit: List[int]) -> int:
+        n = len(nextVisit)
+        dp = [[0, 1] for _ in range(n)]
+        mod = 10 ** 9 + 7
+        for i in range(1, n):
+            dp[i][0] = (dp[i - 1][1] + 1) % mod
+            dp[i][1] = (dp[i][0] * 2 + 1 - dp[nextVisit[i]][0]) % mod
+        return dp[n - 1][0]`,
         },
 
         //         {

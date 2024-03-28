@@ -1,0 +1,17 @@
+{
+    "name": "1997.访问完所有房间的第一天",
+    "url": "https://leetcode.cn/problems/first-day-where-you-have-been-in-all-the-rooms/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请返回你访问完所有房间的第一天的日期编号。题目数据保证总是存在这样的一天。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 289,
+            "memory": 39.05,
+            "desc": "dp[i][0]表示第i个数,第一次奇数访问的天数，dp[i][1]表示第i个数,第一次偶数访问的天数。",
+            "code": "class Solution:\n    def firstDayBeenInAllRooms(self, nextVisit: List[int]) -> int:\n        n = len(nextVisit)\n        dp = [[0, 1] for _ in range(n)]\n        mod = 10 ** 9 + 7\n        for i in range(1, n):\n            dp[i][0] = (dp[i - 1][1] + 1) % mod\n            dp[i][1] = (dp[i][0] * 2 + 1 - dp[nextVisit[i]][0]) % mod\n        return dp[n - 1][0]",
+            "date": 1711555200000
+        }
+    ]
+}
