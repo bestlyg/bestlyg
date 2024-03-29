@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1997. 访问完所有房间的第一天',
-    url: 'https://leetcode.cn/problems/first-day-where-you-have-been-in-all-the-rooms/',
+    name: '2908. 元素和最小的山形三元组 I',
+    url: 'https://leetcode.cn/problems/minimum-sum-of-mountain-triplets-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请返回你访问完所有房间的第一天的日期编号。题目数据保证总是存在这样的一天。`,
+    desc: `请你找出 nums 中 元素和最小 的山形三元组，并返回其 元素和 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 289,
-            memory: 39.05,
-            desc: 'dp[i][0]表示第i个数,第一次奇数访问的天数，dp[i][1]表示第i个数,第一次偶数访问的天数',
+            time: 58,
+            memory: 16.45,
+            desc: '遍历',
             code: `class Solution:
-    def firstDayBeenInAllRooms(self, nextVisit: List[int]) -> int:
-        n = len(nextVisit)
-        dp = [[0, 1] for _ in range(n)]
-        mod = 10 ** 9 + 7
-        for i in range(1, n):
-            dp[i][0] = (dp[i - 1][1] + 1) % mod
-            dp[i][1] = (dp[i][0] * 2 + 1 - dp[nextVisit[i]][0]) % mod
-        return dp[n - 1][0]`,
+    def minimumSum(self, nums: List[int]) -> int:
+        ans = inf
+        for k in range(len(nums)):
+            for j in range(k):
+                for i in range(j):
+                    if nums[i] < nums[j] > nums[k]:
+                        ans = min(ans, nums[i] + nums[j] + nums[k])
+        return ans if ans != inf else -1`,
         },
 
         //         {
