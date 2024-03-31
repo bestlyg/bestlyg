@@ -3,7 +3,12 @@
     "name": "331.验证二叉树的前序序列化",
     "url": "https://leetcode.cn/problems/verify-preorder-serialization-of-a-binary-tree",
     "difficulty": "中等",
-    "tag": ["栈", "树", "字符串", "二叉树"],
+    "tag": [
+        "栈",
+        "树",
+        "字符串",
+        "二叉树"
+    ],
     "desc": "验证二叉树的前序序列化。",
     "solutions": [
         {
@@ -21,6 +26,14 @@
             "script": "typescript",
             "desc": "逐级替换叶子节点。",
             "code": "function isValidSerialization(preorder: string): boolean {\n  const leafReg = /d+,#,#/g;\n  while (leafReg.test(preorder)) preorder = preorder.replace(leafReg, '#');\n  return preorder === '#';\n}"
+        },
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16.61,
+            "desc": "dfs，对每一个节点遍历左右子节点看是否匹配。",
+            "code": "class Solution:\n    def isValidSerialization(self, preorder: str) -> bool:\n        preorder = preorder.split(',')\n        def dfs(idx: int) -> int:\n            if idx == -1: return idx\n            if idx >= len(preorder): return -1\n            if preorder[idx] == '#': return idx + 1\n            return dfs(dfs(idx + 1))\n        return dfs(0) >= len(preorder)",
+            "date": 1711814400000
         }
     ]
 }
