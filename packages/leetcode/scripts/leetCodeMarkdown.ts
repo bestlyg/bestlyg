@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '331. 验证二叉树的前序序列化',
-    url: 'https://leetcode.cn/problems/minimum-number-of-coins-to-be-added',
+    exist: !true,
+    name: '2810. 故障键盘',
+    url: 'https://leetcode.cn/problems/faulty-keyboard',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出 nums 中 元素和最小 的山形三元组，并返回其 元素和 。`,
+    desc: `你的笔记本键盘存在故障，每当你在上面输入字符 'i' 时，它会反转你所写的字符串。而输入其他字符则可以正常工作。给你一个下标从 0 开始的字符串 s ，请你用故障键盘依次输入每个字符。返回最终笔记本屏幕上输出的字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.61,
-            desc: 'dfs，对每一个节点遍历左右子节点看是否匹配',
+            time: 43,
+            memory: 16.4,
+            desc: '遍历',
             code: `class Solution:
-    def isValidSerialization(self, preorder: str) -> bool:
-        preorder = preorder.split(',')
-        def dfs(idx: int) -> int:
-            if idx == -1: return idx
-            if idx >= len(preorder): return -1
-            if preorder[idx] == '#': return idx + 1
-            return dfs(dfs(idx + 1))
-        return dfs(0) >= len(preorder)`,
+    def finalString(self, s: str) -> str:
+        ans = ''
+        for c in s:
+            if c == 'i': ans = ans[::-1]
+            else: ans += c
+        return ans`,
         },
 
         //         {
