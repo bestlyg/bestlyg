@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2810. 故障键盘',
-    url: 'https://leetcode.cn/problems/faulty-keyboard',
+    name: '894. 所有可能的真二叉树',
+    url: 'https://leetcode.cn/problems/all-possible-full-binary-trees',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `你的笔记本键盘存在故障，每当你在上面输入字符 'i' 时，它会反转你所写的字符串。而输入其他字符则可以正常工作。给你一个下标从 0 开始的字符串 s ，请你用故障键盘依次输入每个字符。返回最终笔记本屏幕上输出的字符串。`,
+    desc: `给你一个整数 n ，请你找出所有可能含 n 个节点的 真二叉树 ，并以列表形式返回。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,16 +28,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 43,
-            memory: 16.4,
-            desc: '遍历',
+            time: 63,
+            memory: 20.82,
+            desc: 'dfs',
             code: `class Solution:
-    def finalString(self, s: str) -> str:
-        ans = ''
-        for c in s:
-            if c == 'i': ans = ans[::-1]
-            else: ans += c
-        return ans`,
+    @cache
+    def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
+        return [
+            TreeNode(0, lnode, rnode) 
+            for cnt in range(1, n - 1)
+            for lnode in self.allPossibleFBT(cnt) 
+            for rnode in self.allPossibleFBT(n - 1 - cnt)
+        ] if n != 1 else [TreeNode(0)]`,
         },
 
         //         {
