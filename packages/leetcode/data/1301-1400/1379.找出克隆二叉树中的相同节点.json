@@ -1,0 +1,17 @@
+{
+    "name": "1379.找出克隆二叉树中的相同节点",
+    "url": "https://leetcode.cn/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请找出在树 cloned 中，与 target 相同 的节点，并返回对该节点的引用（在 C/C++ 等有指针的语言中返回 节点指针，其他语言返回节点本身）。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 311,
+            "memory": 24.11,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:\n        if not original: return None\n        if original == target: return cloned\n        res = self.getTargetCopy(original.left, cloned.left, target)\n        return res if res else self.getTargetCopy(original.right, cloned.right, target)",
+            "date": 1712073600000
+        }
+    ]
+}

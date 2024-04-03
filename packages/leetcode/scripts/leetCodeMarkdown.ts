@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '894. 所有可能的真二叉树',
-    url: 'https://leetcode.cn/problems/all-possible-full-binary-trees',
+    name: '1379. 找出克隆二叉树中的相同节点',
+    url: 'https://leetcode.cn/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数 n ，请你找出所有可能含 n 个节点的 真二叉树 ，并以列表形式返回。`,
+    desc: `请找出在树 cloned 中，与 target 相同 的节点，并返回对该节点的引用（在 C/C++ 等有指针的语言中返回 节点指针，其他语言返回节点本身）。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 63,
-            memory: 20.82,
+            time: 311,
+            memory: 24.11,
             desc: 'dfs',
             code: `class Solution:
-    @cache
-    def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
-        return [
-            TreeNode(0, lnode, rnode) 
-            for cnt in range(1, n - 1)
-            for lnode in self.allPossibleFBT(cnt) 
-            for rnode in self.allPossibleFBT(n - 1 - cnt)
-        ] if n != 1 else [TreeNode(0)]`,
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        if not original: return None
+        if original == target: return cloned
+        res = self.getTargetCopy(original.left, cloned.left, target)
+        return res if res else self.getTargetCopy(original.right, cloned.right, target)`,
         },
 
         //         {
