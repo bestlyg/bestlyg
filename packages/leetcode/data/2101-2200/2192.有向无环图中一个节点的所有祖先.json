@@ -1,0 +1,17 @@
+{
+    "name": "2192.有向无环图中一个节点的所有祖先",
+    "url": "https://leetcode.cn/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个数组 answer，其中 answer[i]是第 i 个节点的所有 祖先 ，这些祖先节点 升序 排序。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 112,
+            "memory": 35.63,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:\n        nodes=[[] for _ in range(n)]\n        for f, t in edges:\n            nodes[t].append(f)\n        @cache\n        def dfs(node):\n            ans = []\n            for f in nodes[node]:\n                ans += [f] + dfs(f)\n            return sorted(set(ans))\n        return [dfs(i) for i in range(n)]",
+            "date": 1712160000000
+        }
+    ]
+}

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1379. 找出克隆二叉树中的相同节点',
-    url: 'https://leetcode.cn/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/',
+    name: '2192. 有向无环图中一个节点的所有祖先',
+    url: 'https://leetcode.cn/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请找出在树 cloned 中，与 target 相同 的节点，并返回对该节点的引用（在 C/C++ 等有指针的语言中返回 节点指针，其他语言返回节点本身）。`,
+    desc: `请你返回一个数组 answer，其中 answer[i]是第 i 个节点的所有 祖先 ，这些祖先节点 升序 排序。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,15 +28,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 311,
-            memory: 24.11,
+            time: 112,
+            memory: 35.63,
             desc: 'dfs',
             code: `class Solution:
-    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
-        if not original: return None
-        if original == target: return cloned
-        res = self.getTargetCopy(original.left, cloned.left, target)
-        return res if res else self.getTargetCopy(original.right, cloned.right, target)`,
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        nodes=[[] for _ in range(n)]
+        for f, t in edges:
+            nodes[t].append(f)
+        @cache
+        def dfs(node):
+            ans = []
+            for f in nodes[node]:
+                ans += [f] + dfs(f)
+            return sorted(set(ans))
+        return [dfs(i) for i in range(n)]`,
         },
 
         //         {
