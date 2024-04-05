@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2192. 有向无环图中一个节点的所有祖先',
-    url: 'https://leetcode.cn/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph',
+    exist: true,
+    name: '1026. 节点与其祖先之间的最大差值',
+    url: 'https://leetcode.cn/problems/maximum-difference-between-node-and-ancestor',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个数组 answer，其中 answer[i]是第 i 个节点的所有 祖先 ，这些祖先节点 升序 排序。`,
+    desc: `给定二叉树的根节点 root，找出存在于 不同 节点 A 和 B 之间的最大值 V，其中 V = |A.val - B.val|，且 A 是 B 的祖先。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,21 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 112,
-            memory: 35.63,
+            time: 46,
+            memory: 18.54,
             desc: 'dfs',
             code: `class Solution:
-    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
-        nodes=[[] for _ in range(n)]
-        for f, t in edges:
-            nodes[t].append(f)
-        @cache
-        def dfs(node):
-            ans = []
-            for f in nodes[node]:
-                ans += [f] + dfs(f)
-            return sorted(set(ans))
-        return [dfs(i) for i in range(n)]`,
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        ans = 0
+        def dfs(node: TreeNode) -> Tuple[int, int]:
+            nonlocal ans
+            nmin = nmax = node.val
+            if node.left:
+                lmin, lmax = dfs(node.left)
+                nmin = min(nmin, lmin)
+                nmax = max(nmax, lmax)
+            if node.right:
+                rmin, rmax = dfs(node.right)
+                nmin = min(nmin, rmin)
+                nmax = max(nmax, rmax)
+            ans = max(ans, abs(node.val - nmin), abs(node.val - nmax))
+            return [nmin, nmax]
+        dfs(root)
+        return ans`,
         },
 
         //         {
