@@ -3,7 +3,14 @@
     "name": "1483.树节点的第K个祖先",
     "url": "https://leetcode.cn/problems/kth-ancestor-of-a-tree-node",
     "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "设计", "二分查找", "动态规划"],
+    "tag": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "设计",
+        "二分查找",
+        "动态规划"
+    ],
     "desc": "给你一棵树，树上有 n 个节点，按从 0 到 n-1 编号。树以父节点数组的形式给出，其中 parent[i] 是节点 i 的父节点。树的根节点是编号为 0 的节点。树节点的第 k 个祖先节点是从该节点到根节点路径上的第 k 个节点。",
     "solutions": [
         {
@@ -37,6 +44,14 @@
             "desc": "当前节点的第n项等于第n-1个父节点的第n-1项。",
             "code": "class TreeAncestor {\npublic:\n    vector<vector<int>> list;\n\n    TreeAncestor(int n, vector<int>& parent): list(vector<vector<int>>(n)) {\n        for (int i = 1; i < parent.size(); i++) {\n            list[i].push_back(parent[i]);\n            for (int j = 1; ; j++) {\n                if (list[list[i].back()].size() > j - 1) list[i].push_back(list[list[i].back()][j - 1]);\n                else break;\n            }\n        }\n    }\n\n    int getKthAncestor(int node, int k) {\n        if (k == 0) return node;\n        int l = -1, r = list[node].size() - 1;\n        while (l < r) {\n            int m = (l + r + 1) / 2;\n            if (k >= pow(2, m)) l = m;\n            else r = m - 1;\n        }\n        if (l == -1) return l;\n        return getKthAncestor(list[node][l], k - pow(2, l));\n    }\n};",
             "date": 1686499200000
+        },
+        {
+            "script": "python",
+            "time": 901,
+            "memory": 55.49,
+            "desc": "倍增法。",
+            "code": "class TreeAncestor:\n    def __init__(self, n: int, parents: List[int]):\n        self.parents = [[] for _ in range(n + 1)]\n        children = [[] for _ in range(n + 1)]\n        for i in range(n):\n            self.parents[i].append(parents[i])\n            children[parents[i]].append(i)\n        q = deque([0])\n        while q:\n            node = q.popleft()\n            for child in children[node]:\n                q.append(child)\n            arr = self.parents[node]\n            i = 1\n            while node and len(self.parents[arr[i - 1]]) > i - 1:\n                arr.append(self.parents[arr[i - 1]][i - 1])\n                i += 1\n\n    def getKthAncestor(self, node: int, k: int) -> int:\n        idx = 0\n        while pow(2, idx + 1) <= k: idx += 1\n        if len(self.parents[node]) <= idx: return -1\n        if pow(2, idx) == k: return self.parents[node][idx]\n        return self.getKthAncestor(self.parents[node][idx], k - pow(2, idx))",
+            "date": 1712332800000
         }
     ]
 }

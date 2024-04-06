@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1026. 节点与其祖先之间的最大差值',
-    url: 'https://leetcode.cn/problems/maximum-difference-between-node-and-ancestor',
+    name: '1483. 树节点的第 K 个祖先',
+    url: 'https://leetcode.cn/problems/kth-ancestor-of-a-tree-node',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给定二叉树的根节点 root，找出存在于 不同 节点 A 和 B 之间的最大值 V，其中 V = |A.val - B.val|，且 A 是 B 的祖先。`,
+    desc: `树节点的第 k 个祖先节点是从该节点到根节点路径上的第 k 个节点。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,27 +28,33 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 46,
-            memory: 18.54,
-            desc: 'dfs',
-            code: `class Solution:
-    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        ans = 0
-        def dfs(node: TreeNode) -> Tuple[int, int]:
-            nonlocal ans
-            nmin = nmax = node.val
-            if node.left:
-                lmin, lmax = dfs(node.left)
-                nmin = min(nmin, lmin)
-                nmax = max(nmax, lmax)
-            if node.right:
-                rmin, rmax = dfs(node.right)
-                nmin = min(nmin, rmin)
-                nmax = max(nmax, rmax)
-            ans = max(ans, abs(node.val - nmin), abs(node.val - nmax))
-            return [nmin, nmax]
-        dfs(root)
-        return ans`,
+            time: 901,
+            memory: 55.49,
+            desc: '倍增法',
+            code: `class TreeAncestor:
+    def __init__(self, n: int, parents: List[int]):
+        self.parents = [[] for _ in range(n + 1)]
+        children = [[] for _ in range(n + 1)]
+        for i in range(n):
+            self.parents[i].append(parents[i])
+            children[parents[i]].append(i)
+        q = deque([0])
+        while q:
+            node = q.popleft()
+            for child in children[node]:
+                q.append(child)
+            arr = self.parents[node]
+            i = 1
+            while node and len(self.parents[arr[i - 1]]) > i - 1:
+                arr.append(self.parents[arr[i - 1]][i - 1])
+                i += 1
+
+    def getKthAncestor(self, node: int, k: int) -> int:
+        idx = 0
+        while pow(2, idx + 1) <= k: idx += 1
+        if len(self.parents[node]) <= idx: return -1
+        if pow(2, idx) == k: return self.parents[node][idx]
+        return self.getKthAncestor(self.parents[node][idx], k - pow(2, idx))`,
         },
 
         //         {
