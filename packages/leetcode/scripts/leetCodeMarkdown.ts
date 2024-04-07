@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1483. 树节点的第 K 个祖先',
+    name: '1600. 王位继承顺序',
     url: 'https://leetcode.cn/problems/kth-ancestor-of-a-tree-node',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,33 +28,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 901,
-            memory: 55.49,
-            desc: '倍增法',
-            code: `class TreeAncestor:
-    def __init__(self, n: int, parents: List[int]):
-        self.parents = [[] for _ in range(n + 1)]
-        children = [[] for _ in range(n + 1)]
-        for i in range(n):
-            self.parents[i].append(parents[i])
-            children[parents[i]].append(i)
-        q = deque([0])
-        while q:
-            node = q.popleft()
-            for child in children[node]:
-                q.append(child)
-            arr = self.parents[node]
-            i = 1
-            while node and len(self.parents[arr[i - 1]]) > i - 1:
-                arr.append(self.parents[arr[i - 1]][i - 1])
-                i += 1
-
-    def getKthAncestor(self, node: int, k: int) -> int:
-        idx = 0
-        while pow(2, idx + 1) <= k: idx += 1
-        if len(self.parents[node]) <= idx: return -1
-        if pow(2, idx) == k: return self.parents[node][idx]
-        return self.getKthAncestor(self.parents[node][idx], k - pow(2, idx))`,
+            time: 333,
+            memory: 68.36,
+            desc: '前序遍历',
+            code: `class ThroneInheritance:
+    def __init__(self, kingName: str):
+        self.kingName = kingName
+        self.children = defaultdict(list)
+        self.dead = set()
+    def birth(self, parentName: str, childName: str) -> None:
+        self.children[parentName].append(childName)
+    def death(self, name: str) -> None:
+        self.dead.add(name)
+    def successor(self, x: str, curOrder: List[str]) -> List[str]:
+        if x not in self.dead: curOrder.append(x)
+        for child in self.children[x]:
+            self.successor(child, curOrder)
+        return curOrder
+    def getInheritanceOrder(self) -> List[str]:
+        return self.successor(self.kingName, [])`,
         },
 
         //         {
