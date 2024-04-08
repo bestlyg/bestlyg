@@ -1,0 +1,17 @@
+{
+    "name": "2009.使数组连续的最少操作数",
+    "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个整数数组 nums 。每一次操作中，你可以将 nums 中 任意 一个元素替换成 任意 整数。请你返回使 nums 连续 的 最少 操作次数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 736,
+            "memory": 34.4,
+            "desc": "排序后，对一个点当作左侧点进行。",
+            "code": "class Solution:\n    def minOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        arr = sorted(set(nums))\n        ans = inf\n        for i in range(len(arr)):\n            l = i\n            r = len(arr)\n            while l < r:\n                m = (l + r) // 2\n                if arr[m] > arr[i] + n - 1: r = m\n                else: l = m + 1\n            ans = min(ans, n - len(arr) + len(arr) - (l - i))\n        return ans",
+            "date": 1712505600000
+        }
+    ]
+}
