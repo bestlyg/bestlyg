@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2009. 使数组连续的最少操作数',
-    url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous',
+    name: '2529. 正整数和负整数的最大计数',
+    url: 'https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 nums 。每一次操作中，你可以将 nums 中 任意 一个元素替换成 任意 整数。请你返回使 nums 连续 的 最少 操作次数。`,
+    desc: `给你一个按 非递减顺序 排列的数组 nums ，返回正整数数目和负整数数目中的最大值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,23 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 736,
-            memory: 34.4,
-            desc: '排序后，对一个点当作左侧点进行',
+            time: 51,
+            memory: 16.64,
+            desc: '遍历',
             code: `class Solution:
-    def minOperations(self, nums: List[int]) -> int:
-        n = len(nums)
-        arr = sorted(set(nums))
-        ans = inf
-        for i in range(len(arr)):
-            l = i
-            r = len(arr)
-            while l < r:
-                m = (l + r) // 2
-                if arr[m] > arr[i] + n - 1: r = m
-                else: l = m + 1
-            ans = min(ans, n - len(arr) + len(arr) - (l - i))
-        return ans`,
+    def maximumCount(self, nums: List[int]) -> int:
+        return max(
+            len(list(filter(lambda v: v > 0, nums))),
+            len(list(filter(lambda v: v < 0, nums)))
+        )`,
         },
 
         //         {

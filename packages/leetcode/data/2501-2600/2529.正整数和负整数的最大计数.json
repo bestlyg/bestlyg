@@ -1,26 +1,17 @@
 {
-    "id": "2614",
     "name": "2529.正整数和负整数的最大计数",
-    "url": "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer",
+    "url": "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/",
     "difficulty": "简单",
-    "tag": ["数组", "二分查找", "计数"],
+    "tag": [],
     "desc": "给你一个按 非递减顺序 排列的数组 nums ，返回正整数数目和负整数数目中的最大值。",
     "solutions": [
         {
-            "date": 1673107200000,
-            "time": 56,
-            "memory": 44.9,
-            "script": "typescript",
+            "script": "python",
+            "time": 51,
+            "memory": 16.64,
             "desc": "遍历。",
-            "code": "function maximumCount(nums: number[]): number {\n  return Math.max(nums.filter(v => v > 0).length, nums.filter(v => v < 0).length);\n}"
-        },
-        {
-            "date": 1673107200000,
-            "time": 0,
-            "memory": 2.1,
-            "script": "rust",
-            "desc": "同上。",
-            "code": "impl Solution {\n    pub fn maximum_count(nums: Vec<i32>) -> i32 {\n        nums.iter()\n            .filter(|x| **x > 0)\n            .count()\n            .max(nums.iter().filter(|x| **x < 0).count()) as i32\n    }\n}"
+            "code": "class Solution:\n    def maximumCount(self, nums: List[int]) -> int:\n        return max(\n            len(list(filter(lambda v: v > 0, nums))),\n            len(list(filter(lambda v: v < 0, nums)))\n        )",
+            "date": 1712592000000
         }
     ]
 }
