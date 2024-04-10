@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2529. 正整数和负整数的最大计数',
-    url: 'https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/',
+    name: '1702. 修改后的最大二进制字符串',
+    url: 'https://leetcode.cn/problems/maximum-binary-string-after-change/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个按 非递减顺序 排列的数组 nums ，返回正整数数目和负整数数目中的最大值。`,
+    desc: `请你返回执行上述操作任意次以后能得到的 最大二进制字符串 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,15 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 51,
-            memory: 16.64,
+            time: 61,
+            memory: 17.39,
             desc: '遍历',
             code: `class Solution:
-    def maximumCount(self, nums: List[int]) -> int:
-        return max(
-            len(list(filter(lambda v: v > 0, nums))),
-            len(list(filter(lambda v: v < 0, nums)))
-        )`,
+    def maximumBinaryString(self, binary: str) -> str:
+        count = binary.count('0')
+        if not count: return binary
+        first_idx = binary.index('0')
+        pren = first_idx + count - 1
+        return '1' * pren + '0' + '1' * (len(binary) - pren - 1)`,
         },
 
         //         {
