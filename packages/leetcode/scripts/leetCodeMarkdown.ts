@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1702. 修改后的最大二进制字符串',
-    url: 'https://leetcode.cn/problems/maximum-binary-string-after-change/',
+    name: '1766. 互质树',
+    url: 'https://leetcode.cn/problems/tree-of-coprimes',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回执行上述操作任意次以后能得到的 最大二进制字符串 。`,
+    desc: `请你返回一个大小为 n 的数组 ans ，其中 ans[i]是离节点 i 最近的祖先节点且满足 nums[i] 和 nums[ans[i]] 是 互质的 ，如果不存在这样的祖先节点，ans[i] 为 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,16 +28,39 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 61,
-            memory: 17.39,
-            desc: '遍历',
-            code: `class Solution:
-    def maximumBinaryString(self, binary: str) -> str:
-        count = binary.count('0')
-        if not count: return binary
-        first_idx = binary.index('0')
-        pren = first_idx + count - 1
-        return '1' * pren + '0' + '1' * (len(binary) - pren - 1)`,
+            time: 1017,
+            memory: 66.86,
+            desc: '预处理后dfs',
+            code: `primes = [0 for _ in range(51)]
+    for num1 in range(1, 51):
+        for num2 in range(1, 51):
+            if gcd(num1, num2) == 1:
+                primes[num1] |= 1 << num2
+                primes[num2] |= 1 << num1
+    
+    class Solution:
+        def getCoprimes(self, nums: List[int], edges: List[List[int]]) -> List[int]:
+            n = len(nums)
+            nodes = [[] for _ in range(n)]
+            for n1, n2 in edges:
+                nodes[n1].append(n2)
+                nodes[n2].append(n1)
+            ans = [-1 for _ in range(n)]
+            def dfs(node: int, arr: List[Tuple[int, int]], parent: int, level: int):
+                num1 = nums[node]
+                cur = (-1, -1)
+                for num2 in range(1, 51):
+                    if arr[num2][0] != -1 and primes[num1] & (1 << num2) and (cur[1] == -1 or arr[num2][1] > cur[1]):
+                        cur = arr[num2]
+                ans[node] = cur[0]
+                oldv = arr[num1]
+                arr[num1] = (node, level)
+                for child in nodes[node]:
+                    if child != parent:
+                        dfs(child, arr, node, level + 1)
+                arr[num1] = oldv
+            dfs(0, [(-1, -1) for _ in range(51)], -1, 0)
+            return ans`,
         },
 
         //         {
