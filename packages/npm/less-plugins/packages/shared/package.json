@@ -1,0 +1,36 @@
+{
+    "name": "@less-plugins/shared",
+    "version": "0.0.1",
+    "description": "less plugin shared",
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
+    "author": "BestLyg",
+    "main": "lib/index.js",
+    "scripts": {
+        "clean": "rimraf ./lib",
+        "build": "pnpm clean && tsc -p tsconfig.json",
+        "dev": "tsc -p tsconfig.json --watch",
+        "prepublishOnly": "pnpm build"
+    },
+    "keywords": [
+        "css",
+        "less",
+        "less.js",
+        "plugin",
+        "less css",
+        "less plugin",
+        "less functions",
+        "package.json"
+    ],
+    "license": "MIT",
+    "files": [
+        "lib",
+        "package.json",
+        "README.md"
+    ],
+    "dependencies": {
+        "typescript": "^5.4.5"
+    },
+    "devDependencies": {
+        "rimraf": "^5.0.5"
+    }
+}

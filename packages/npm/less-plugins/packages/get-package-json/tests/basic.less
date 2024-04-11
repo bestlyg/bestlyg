@@ -1,0 +1,7 @@
+@plugin "../lib/index.js";
+
+@version: getPackageJson('', 'version');
+
+body[data-v=~'"@{version}"'] {
+    width: 300px;
+}
