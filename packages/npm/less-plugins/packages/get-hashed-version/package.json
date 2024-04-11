@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/get-hashed-version",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "get a hashed version from closest package.json",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -29,9 +29,17 @@
         "package.json",
         "README.md"
     ],
+    "peerDependencies": {
+        "@emotion/hash": "*"
+    },
+    "peerDependenciesMeta": {
+        "@emotion/hash": {
+            "optional": true
+        }
+    },
     "dependencies": {
-        "@emotion/hash": "^0.9.1",
-        "@less-plugins/get-package-json": "workspace:^"
+        "@less-plugins/get-package-json": "workspace:^",
+        "@emotion/hash": "0.9.1"
     },
     "devDependencies": {
         "@types/less": "^3.0.5",
