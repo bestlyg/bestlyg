@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/shared",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "less plugin shared",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -27,10 +27,8 @@
         "package.json",
         "README.md"
     ],
-    "dependencies": {
-        "typescript": "^5.4.5"
-    },
     "devDependencies": {
-        "rimraf": "^5.0.5"
+        "rimraf": "^5.0.5",
+        "typescript": "^5.4.5"
     }
 }
