@@ -1,4 +1,4 @@
-const path = require('node:path');
+const path = require('path');
 const { findClosestFile } = require('@less-plugins/shared');
 const packageName = 'package.json';
 const get = require('lodash.get');

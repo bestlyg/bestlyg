@@ -31,7 +31,7 @@
         "react-dom": "^18.2.0",
         "rehype-katex": "^7.0.0",
         "remark-math": "^6.0.0",
-        "zx": "^8.0.1"
+        "zx": "^7.2.3"
     },
     "devDependencies": {
         "@docusaurus/module-type-aliases": "3.2.0",

@@ -1,6 +1,5 @@
-const path = require('node:path');
+const path = require('path');
 const { getPackageJson } = require('@less-plugins/get-package-json');
-const packageName = 'package.json';
 const hash = require('@emotion/hash').default;
 
 module.exports = class LessPluginsGetHashedVersion {
