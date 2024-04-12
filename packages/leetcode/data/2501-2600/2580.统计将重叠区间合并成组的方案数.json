@@ -1,8 +1,9 @@
 {
+    "id": "2651",
     "name": "2580.统计将重叠区间合并成组的方案数",
     "url": "https://leetcode.cn/problems/count-ways-to-group-overlapping-ranges",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "排序"],
     "desc": "请你返回将 ranges 划分成两个组的 总方案数 。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "1431",
     "name": "2192.有向无环图中一个节点的所有祖先",
     "url": "https://leetcode.cn/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "请你返回一个数组 answer，其中 answer[i]是第 i 个节点的所有 祖先 ，这些祖先节点 升序 排序。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "1498",
     "name": "1379.找出克隆二叉树中的相同节点",
-    "url": "https://leetcode.cn/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/",
+    "url": "https://leetcode.cn/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "请找出在树 cloned 中，与 target 相同 的节点，并返回对该节点的引用（在 C/C++ 等有指针的语言中返回 节点指针，其他语言返回节点本身）。",
     "solutions": [
         {

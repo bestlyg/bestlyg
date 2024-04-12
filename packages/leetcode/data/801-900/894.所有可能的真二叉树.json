@@ -1,8 +1,9 @@
 {
+    "id": "930",
     "name": "894.所有可能的真二叉树",
     "url": "https://leetcode.cn/problems/all-possible-full-binary-trees",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["树", "递归", "记忆化搜索", "动态规划", "二叉树"],
     "desc": "给你一个整数 n ，请你找出所有可能含 n 个节点的 真二叉树 ，并以列表形式返回。",
     "solutions": [
         {

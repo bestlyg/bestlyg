@@ -1,8 +1,9 @@
 {
+    "id": "3188",
     "name": "2923.找到冠军I",
     "url": "https://leetcode.cn/problems/find-champion-i",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "矩阵"],
     "desc": "返回这场比赛中将会成为冠军的队伍。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "2119",
     "name": "2009.使数组连续的最少操作数",
     "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-make-array-continuous",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["数组", "哈希表", "二分查找", "滑动窗口"],
     "desc": "给你一个整数数组 nums 。每一次操作中，你可以将 nums 中 任意 一个元素替换成 任意 整数。请你返回使 nums 连续 的 最少 操作次数。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "2614",
     "name": "2529.正整数和负整数的最大计数",
-    "url": "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer/",
+    "url": "https://leetcode.cn/problems/maximum-count-of-positive-integer-and-negative-integer",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "二分查找", "计数"],
     "desc": "给你一个按 非递减顺序 排列的数组 nums ，返回正整数数目和负整数数目中的最大值。",
     "solutions": [
         {

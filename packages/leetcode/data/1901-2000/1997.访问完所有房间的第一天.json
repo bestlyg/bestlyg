@@ -1,8 +1,9 @@
 {
+    "id": "2124",
     "name": "1997.访问完所有房间的第一天",
-    "url": "https://leetcode.cn/problems/first-day-where-you-have-been-in-all-the-rooms/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/first-day-where-you-have-been-in-all-the-rooms",
+    "difficulty": "中等",
+    "tag": ["数组", "动态规划"],
     "desc": "请返回你访问完所有房间的第一天的日期编号。题目数据保证总是存在这样的一天。",
     "solutions": [
         {

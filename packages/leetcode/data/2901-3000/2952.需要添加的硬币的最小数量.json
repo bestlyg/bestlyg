@@ -1,8 +1,9 @@
 {
+    "id": "3231",
     "name": "2952.需要添加的硬币的最小数量",
     "url": "https://leetcode.cn/problems/minimum-number-of-coins-to-be-added",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["贪心", "数组", "排序"],
     "desc": "请你找出 nums 中 元素和最小 的山形三元组，并返回其 元素和 。",
     "solutions": [
         {
