@@ -1,3 +1,7 @@
+## 0.0.4
+
+- remove the prefix of 'node:' in require function
+
 ## 0.0.3
 
 -   Update dependencies @less-plugins/get-package-json@0.0.2
