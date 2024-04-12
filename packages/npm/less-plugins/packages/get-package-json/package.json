@@ -33,7 +33,7 @@
         "lodash.get": "^4.4.2"
     },
     "devDependencies": {
-        "@types/less": "^3.0.5",
+        "@types/less": "^3.0.6",
         "@types/lodash.get": "^4.4.9",
         "less": "^4.2.0",
         "rimraf": "^5.0.5",

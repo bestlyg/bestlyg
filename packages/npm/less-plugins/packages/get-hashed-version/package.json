@@ -38,11 +38,11 @@
         }
     },
     "dependencies": {
-        "@less-plugins/get-package-json": "workspace:^",
-        "@emotion/hash": "0.9.1"
+        "@emotion/hash": "0.9.1",
+        "@less-plugins/get-package-json": "workspace:^"
     },
     "devDependencies": {
-        "@types/less": "^3.0.5",
+        "@types/less": "^3.0.6",
         "less": "^4.2.0",
         "rimraf": "^5.0.5",
         "typescript": "^5.4.5"

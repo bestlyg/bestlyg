@@ -41,12 +41,12 @@
         "yargs": "^17.7.2"
     },
     "devDependencies": {
-        "@types/less": "^3.0.5",
-        "@types/node": "^20.8.9",
-        "@types/yargs": "^17.0.29",
+        "@types/less": "^3.0.6",
+        "@types/node": "^20.12.7",
+        "@types/yargs": "^17.0.32",
         "package-json-extension": "^0.0.5",
         "rimraf": "^5.0.5",
-        "typescript": "^5.2.2"
+        "typescript": "^5.4.5"
     },
     "files": [
         "lib",
