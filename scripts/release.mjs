@@ -42,7 +42,11 @@ for (let i = 0; i < plane.releases.length; i++) {
     changelogList.push(``);
     const oldChangeLogData = (await fs.readFile(changelogPath)).toString();
     await fs.writeFile(changelogPath, changelogList.join('\n\n') + oldChangeLogData);
+}
 
+for (let i = 0; i < plane.releases.length; i++) {
+    const { name } = plane.releases[i];
+    const pkgInfo = packages.find(item => item.packageJson.name === name);
     await within(async () => {
         cd(pkgInfo.dir);
         await $`pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks`;
