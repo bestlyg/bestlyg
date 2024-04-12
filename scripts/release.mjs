@@ -21,14 +21,10 @@ for (let i = 0; i < plane.releases.length; i++) {
     const { name, newVersion, changesets } = plane.releases[i];
     const pkgInfo = packages.find(item => item.packageJson.name === name);
     const changelogPath = path.join(pkgInfo.dir, CHANGELOG_NAME);
-    const appendChangelog = data => fs.appendFile(changelogPath, data);
-    const existChangelog = await fs.exists(changelogPath);
-    if (!existChangelog) await appendChangelog(`# CHANGELOG\n\n`);
-    await appendChangelog(`## ${newVersion}\n\n`);
+    const changelogList = [];
+    changelogList.push(`## ${newVersion}`);
     for (const changsetId of changesets) {
-        await appendChangelog(
-            `- ${plane.changesets.find(item => item.id === changsetId).summary}\n\n`
-        );
+        changelogList.push(`- ${plane.changesets.find(item => item.id === changsetId).summary}`);
     }
     pkgInfo.packageJson.version = newVersion;
     await fs.writeFile(
@@ -39,11 +35,13 @@ for (let i = 0; i < plane.releases.length; i++) {
         const { name: depName, newVersion } = plane.releases[j];
         for (const depType of ['dependencies', 'devDependencies', 'peerDependencies']) {
             if (pkgInfo.packageJson?.[depType]?.[depName]) {
-                await appendChangelog(`- Update ${depType} ${depName}@${newVersion}\n\n`);
+                changelogList.push(`- Update ${depType} ${depName}@${newVersion}`);
             }
         }
     }
-    await appendChangelog(`\n\n`);
+    changelogList.push(``);
+    const oldChangeLogData = (await fs.readFile(changelogPath)).toString();
+    await fs.writeFile(changelogPath, changelogList.join('\n\n') + oldChangeLogData);
 
     await within(async () => {
         cd(pkgInfo.dir);
