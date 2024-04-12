@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1766. 互质树',
-    url: 'https://leetcode.cn/problems/tree-of-coprimes',
+    name: '2923. 找到冠军 I',
+    url: 'https://leetcode.cn/problems/find-champion-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个大小为 n 的数组 ans ，其中 ans[i]是离节点 i 最近的祖先节点且满足 nums[i] 和 nums[ans[i]] 是 互质的 ，如果不存在这样的祖先节点，ans[i] 为 -1 。`,
+    desc: `返回这场比赛中将会成为冠军的队伍。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,39 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 1017,
-            memory: 66.86,
-            desc: '预处理后dfs',
-            code: `primes = [0 for _ in range(51)]
-    for num1 in range(1, 51):
-        for num2 in range(1, 51):
-            if gcd(num1, num2) == 1:
-                primes[num1] |= 1 << num2
-                primes[num2] |= 1 << num1
-    
-    class Solution:
-        def getCoprimes(self, nums: List[int], edges: List[List[int]]) -> List[int]:
-            n = len(nums)
-            nodes = [[] for _ in range(n)]
-            for n1, n2 in edges:
-                nodes[n1].append(n2)
-                nodes[n2].append(n1)
-            ans = [-1 for _ in range(n)]
-            def dfs(node: int, arr: List[Tuple[int, int]], parent: int, level: int):
-                num1 = nums[node]
-                cur = (-1, -1)
-                for num2 in range(1, 51):
-                    if arr[num2][0] != -1 and primes[num1] & (1 << num2) and (cur[1] == -1 or arr[num2][1] > cur[1]):
-                        cur = arr[num2]
-                ans[node] = cur[0]
-                oldv = arr[num1]
-                arr[num1] = (node, level)
-                for child in nodes[node]:
-                    if child != parent:
-                        dfs(child, arr, node, level + 1)
-                arr[num1] = oldv
-            dfs(0, [(-1, -1) for _ in range(51)], -1, 0)
-            return ans`,
+            time: 48,
+            memory: 17.82,
+            desc: '每次找比当前大的第一个值进行递归遍历',
+            code: `class Solution:
+    def findChampion(self, grid: List[List[int]]) -> int:
+        def find(i :int) -> int:
+            for j in range(len(grid)):
+                if i != j and grid[i][j] == 0: return find(j)
+            return i
+        return find(0)`,
         },
 
         //         {
