@@ -1,5 +1,7 @@
 import 'zx/globals';
 
+$`zx ${path.join(__dirname, 'logo.mjs')}`;
+
 const scriptPath = path.join(__dirname, ...argv._) + '.*';
 
 echo(`ScriptPath = ${scriptPath}`);

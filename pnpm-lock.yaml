@@ -65,6 +65,9 @@ devDependencies:
   eslint:
     specifier: ~8.48.0
     version: 8.48.0
+  figlet:
+    specifier: ^1.7.0
+    version: 1.7.0
   fs-extra:
     specifier: ^10.1.0
     version: 10.1.0
@@ -6381,6 +6384,12 @@ packages:
 
   /fetch-retry@5.0.6:
     resolution: {integrity: sha512-3yurQZ2hD9VISAhJJP9bpYFNQrHHBXE2JxxjY5aLEcDi46RmAzJE2OC9FAde0yis5ElW0jTTzs0zfg/Cca4XqQ==}
+    dev: true
+
+  /figlet@1.7.0:
+    resolution: {integrity: sha512-gO8l3wvqo0V7wEFLXPbkX83b7MVjRrk1oRLfYlZXol8nEpb/ON9pcKLI4qpBv5YtOTfrINtqb7b40iYY2FTWFg==}
+    engines: {node: '>= 0.4.0'}
+    hasBin: true
     dev: true
 
   /figures@3.2.0:
