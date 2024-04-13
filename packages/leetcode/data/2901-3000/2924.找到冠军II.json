@@ -1,0 +1,17 @@
+{
+    "name": "2924.找到冠军II",
+    "url": "https://leetcode.cn/problems/find-champion-ii",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "如果这场比赛存在 唯一 一个冠军，则返回将会成为冠军的队伍。否则，返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 78,
+            "memory": 17.43,
+            "desc": "对所有队伍进行遍历，如果有比他强的就从队伍中删除，最后判断是否只剩下一个队伍。",
+            "code": "class Solution:\n    def findChampion(self, n: int, edges: List[List[int]]) -> int:\n        nodes = [i for i in range(n)]\n        for n1, n2 in edges:\n            if n2 in nodes:\n                nodes.remove(n2)\n        return nodes[0] if len(nodes) == 1 else -1",
+            "date": 1712937600000
+        }
+    ]
+}

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2923. 找到冠军 I',
-    url: 'https://leetcode.cn/problems/find-champion-i',
+    name: '2924. 找到冠军 II',
+    url: 'https://leetcode.cn/problems/find-champion-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回这场比赛中将会成为冠军的队伍。`,
+    desc: `如果这场比赛存在 唯一 一个冠军，则返回将会成为冠军的队伍。否则，返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,16 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 48,
-            memory: 17.82,
-            desc: '每次找比当前大的第一个值进行递归遍历',
+            time: 78,
+            memory: 17.43,
+            desc: '对所有队伍进行遍历，如果有比他强的就从队伍中删除，最后判断是否只剩下一个队伍',
             code: `class Solution:
-    def findChampion(self, grid: List[List[int]]) -> int:
-        def find(i :int) -> int:
-            for j in range(len(grid)):
-                if i != j and grid[i][j] == 0: return find(j)
-            return i
-        return find(0)`,
+    def findChampion(self, n: int, edges: List[List[int]]) -> int:
+        nodes = [i for i in range(n)]
+        for n1, n2 in edges:
+            if n2 in nodes:
+                nodes.remove(n2)
+        return nodes[0] if len(nodes) == 1 else -1`,
         },
 
         //         {
