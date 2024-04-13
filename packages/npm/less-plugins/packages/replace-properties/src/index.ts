@@ -24,7 +24,8 @@ class ReplacePropertiesVisitor {
         public less: any,
         public pluginMenager: any,
         public functions: any,
-        public replaceMap: Map<string, ReplaceData>
+        public replaceMap: Map<string, ReplaceData>,
+        public isSkip: (v: any) => boolean = () => false
     ) {
         this.visitor = new less.visitors.Visitor(this);
     }
@@ -34,18 +35,19 @@ class ReplacePropertiesVisitor {
     }
 
     visitDeclaration(node) {
+        if (this.isSkip(node)) return node;
         // console.log('===>', node, getLessTreeNodeConstructor(this.less, node.value));
         for (const { key, replaceKey, value, replaceValue } of this.replaceMap.values()) {
             // console.log('repalce', key, replaceKey, value, replaceValue);
             if (key) {
                 const regKey = toReg(key);
-                console.log(
-                    `name = ${
-                        node.name
-                    }, key = ${key}, repkey = ${replaceKey}, reg = ${regKey}， test = ${regKey.test(
-                        node.name
-                    )}, replace = ${node.name.replace(regKey, replaceKey)}`
-                );
+                // console.log(
+                //     `name = ${
+                //         node.name
+                //     }, key = ${key}, repkey = ${replaceKey}, reg = ${regKey}， test = ${regKey.test(
+                //         node.name
+                //     )}, replace = ${node.name.replace(regKey, replaceKey)}`
+                // );
                 if (!regKey.test(node.name)) continue;
                 if (!value) {
                     node.name = node.name.replace(regKey, replaceKey);

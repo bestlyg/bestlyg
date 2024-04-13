@@ -30,6 +30,7 @@ function addFunctions(functions, functionList: (Function | Record<string, Functi
 
 function getLessTreeNodeConstructor(less, node) {
     const tree = less.tree as Record<string, any>;
+    console.log(tree);
     for (const Constructor of Object.values(tree)) {
         if (Constructor !== tree.Node && node instanceof Constructor) {
             return Constructor;
