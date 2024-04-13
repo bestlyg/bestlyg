@@ -9,6 +9,7 @@
         "declaration": true,
         "skipLibCheck": true,
         "moduleResolution": "node",
+        "downlevelIteration": true,
         "target": "es5",
         "types": ["node"]
     },

@@ -1,5 +1,5 @@
 const path = require('path');
-const { findClosestFile } = require('@less-plugins/shared');
+const { findClosestFile, addFunctions } = require('@less-plugins/shared');
 const packageName = 'package.json';
 const get = require('lodash.get');
 
@@ -35,8 +35,8 @@ module.exports = class LessPluginsGetPackageJson {
     }
     install(less, pluginMenager, functions) {
         // console.log("less install");
-        const functionRegisters = {
-            getPackageJson: function (rootPath, key, transform) {
+        addFunctions(functions, [
+            function getPackageJson(rootPath, key, transform) {
                 return getPackageJson.call(this, {
                     less,
                     rootPath: rootPath.value,
@@ -44,9 +44,6 @@ module.exports = class LessPluginsGetPackageJson {
                     transform: transform.value,
                 });
             },
-        };
-        for (const [k, fn] of Object.entries(functionRegisters)) {
-            functions.add(k, fn);
-        }
+        ]);
     }
 };

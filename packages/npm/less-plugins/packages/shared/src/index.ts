@@ -16,4 +16,26 @@ function findClosestFile(config: { dirPath: string; fileName: string }): string 
     return path.resolve(dirPath, fileName);
 }
 
-module.exports = { findClosestFile };
+function addFunctions(functions, functionList: (Function | Record<string, Function>)[]) {
+    for (const fn of functionList) {
+        if (typeof fn === 'function') {
+            functions.add(fn.name, fn);
+        } else if (fn && typeof fn === 'object') {
+            for (const [k, v] of Object.entries(fn)) {
+                functions.add(k, v);
+            }
+        }
+    }
+}
+
+function getLessTreeNodeConstructor(less, node) {
+    const tree = less.tree as Record<string, any>;
+    for (const Constructor of Object.values(tree)) {
+        if (Constructor !== tree.Node && node instanceof Constructor) {
+            return Constructor;
+        }
+    }
+    return tree.Node;
+}
+
+module.exports = { findClosestFile, addFunctions, getLessTreeNodeConstructor };

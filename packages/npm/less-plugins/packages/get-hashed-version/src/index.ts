@@ -1,4 +1,5 @@
 const path = require('path');
+const { addFunctions } = require('@less-plugins/shared');
 const { getPackageJson } = require('@less-plugins/get-package-json');
 const hash = require('@emotion/hash').default;
 
@@ -7,7 +8,7 @@ module.exports = class LessPluginsGetHashedVersion {
     setOptions(args) {}
     printUsage() {}
     install(less, pluginMenager, functions) {
-        const fnList = [
+        addFunctions(functions, [
             function getHashedVersion() {
                 return getPackageJson.call(this, {
                     less,
@@ -16,9 +17,6 @@ module.exports = class LessPluginsGetHashedVersion {
                     transform: hash,
                 });
             },
-        ];
-        for (const fn of fnList) {
-            functions.add(fn.name, fn);
-        }
+        ]);
     }
 };

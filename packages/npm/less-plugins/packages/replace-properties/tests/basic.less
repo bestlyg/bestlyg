@@ -1,0 +1,15 @@
+@plugin "../lib/index.js";
+@import './a.less';
+
+addReplacePreperties('margin-left', 'margin-right');
+addReplacePreperties('margin-left', 'margin-right');
+addReplacePreperties('(float)', '$1', 'left', 'start');
+addReplacePrepertiesValue('10px', '20px');
+
+@align: left;
+
+body {
+    margin-left: 10px;
+    padding-left: 1px calc(10px + 2px) 2px   3px;
+    float: left;
+}
