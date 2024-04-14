@@ -1,9 +1,8 @@
-const path = require('path');
-const { addFunctions } = require('@less-plugins/shared');
-const { getPackageJson } = require('@less-plugins/get-package-json');
-const hash = require('@emotion/hash').default;
+import { addFunctions } from '@less-plugins/shared';
+import { getPackageJson } from '@less-plugins/get-package-json';
+import hash from '@emotion/hash';
 
-module.exports = class LessPluginsGetHashedVersion {
+export default class LessPluginsGetHashedVersion {
     constructor() {}
     setOptions(args) {}
     printUsage() {}
@@ -19,4 +18,4 @@ module.exports = class LessPluginsGetHashedVersion {
             },
         ]);
     }
-};
+}

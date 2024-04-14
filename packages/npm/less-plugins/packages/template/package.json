@@ -7,7 +7,7 @@
     "main": "lib/index.js",
     "scripts": {
         "clean": "rimraf ./lib",
-        "build": "pnpm clean && tsc -p tsconfig.json",
+        "build": "tsc -p tsconfig.json",
         "dev": "tsc -p tsconfig.json --watch",
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
@@ -29,8 +29,7 @@
         "README.md"
     ],
     "dependencies": {
-        "@less-plugins/shared": "workspace:^",
-        "@less-plugins/replace-properties": "workspace:^"
+        "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {
         "less": "^4.2.0",

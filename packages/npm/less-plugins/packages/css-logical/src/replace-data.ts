@@ -1,11 +1,6 @@
-interface ReplaceData {
-    key?: string;
-    value?: string;
-    replaceKey?: string;
-    replaceValue?: string;
-}
+import { ReplaceData } from '@less-plugins/replace-properties';
 
-module.exports.replaceDataList = [
+export const replaceDataList: ReplaceData[] = [
     { key: '(caption-side)', replaceKey: '$1', value: 'left', replaceValue: 'inline-start' },
     { key: '(caption-side)', replaceKey: '$1', value: 'right', replaceValue: 'inline-end' },
     { key: '(float)', replaceKey: '$1', value: 'left', replaceValue: 'inline-start' },
@@ -40,4 +35,4 @@ module.exports.replaceDataList = [
         key: '(margin|padding|border|scroll-padding|scroll-margin)-right(.*)',
         replaceKey: '$1-inline-end$2',
     },
-] as ReplaceData[];
+];

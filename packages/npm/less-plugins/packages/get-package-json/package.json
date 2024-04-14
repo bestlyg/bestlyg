@@ -4,10 +4,10 @@
     "description": "get a closest package.json",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
-    "main": "lib/index.js",
+    "main": "./lib/index.js",
     "scripts": {
         "clean": "rimraf ./lib",
-        "build": "pnpm clean && tsc -p tsconfig.json",
+        "build": "tsc -p tsconfig.json",
         "dev": "tsc -p tsconfig.json --watch",
         "prepublishOnly": "pnpm build",
         "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""

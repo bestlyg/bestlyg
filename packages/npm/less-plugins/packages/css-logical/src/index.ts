@@ -1,18 +1,15 @@
-const {
-    addFunctions,
-    getLessTreeNodeConstructor,
-    cloneLessTreeNode,
-} = require('@less-plugins/shared');
-const {
+import { cloneLessTreeNode } from '@less-plugins/shared';
+import {
     ReplacePropertiesVisitor,
     addReplacePreperties,
-    removeReplacePreperties,
-} = require('@less-plugins/replace-properties');
-const path = require('path');
-const { replaceDataList } = require('./replace-data');
+    ReplaceData,
+} from '@less-plugins/replace-properties';
+import { replaceDataList } from './replace-data';
+export { replaceDataList } from './replace-data';
 
 const skipNodeSet = new Set();
 const REG_Node = new RegExp('^(inset|margin|padding)$');
+
 function pickShorthandsValue(node) {
     const value = node.value?.value;
     if (Array.isArray(value) && value.length === 4) {
@@ -108,12 +105,12 @@ class CssLogicalVisitor extends ReplacePropertiesVisitor {
     }
 }
 
-module.exports = class LessPluginsCssLogical {
+export default class LessPluginsCssLogical {
     constructor() {}
     setOptions(args) {}
     printUsage() {}
     install(less, pluginMenager, functions) {
-        const replaceMap = new Map();
+        const replaceMap = new Map<string, ReplaceData>();
         for (const replaceData of replaceDataList) {
             addReplacePreperties({
                 ...replaceData,
@@ -124,4 +121,4 @@ module.exports = class LessPluginsCssLogical {
         pluginMenager.addVisitor(new CssLogicalPreVisitor(less, pluginMenager, functions));
         pluginMenager.addVisitor(new CssLogicalVisitor(less, pluginMenager, functions, replaceMap));
     }
-};
+}

@@ -1,12 +1,11 @@
-const path = require('path');
-const fs = require('fs');
-
+import * as path from 'path';
+import * as fs from 'fs';
 /**
  * 获取最近祖先的文件
  * @param config
  * @returns 文件路径或者无路径
  */
-function findClosestFile(config: { dirPath: string; fileName: string }): string | null {
+export function findClosestFile(config: { dirPath: string; fileName: string }): string | null {
     let { dirPath, fileName } = config;
     while (!fs.existsSync(path.resolve(dirPath, fileName))) {
         const parentPath = path.dirname(dirPath);
@@ -16,7 +15,7 @@ function findClosestFile(config: { dirPath: string; fileName: string }): string 
     return path.resolve(dirPath, fileName);
 }
 
-function addFunctions(functions, functionList: (Function | Record<string, Function>)[]) {
+export function addFunctions(functions, functionList: (Function | Record<string, Function>)[]) {
     for (const fn of functionList) {
         if (typeof fn === 'function') {
             functions.add(fn.name, fn);
@@ -28,7 +27,7 @@ function addFunctions(functions, functionList: (Function | Record<string, Functi
     }
 }
 
-function getLessTreeNodeConstructor(less, node) {
+export function getLessTreeNodeConstructor(less, node) {
     const tree = less.tree as Record<string, any>;
     for (const Constructor of Object.values(tree)) {
         if (Constructor !== tree.Node && node instanceof Constructor) {
@@ -38,7 +37,7 @@ function getLessTreeNodeConstructor(less, node) {
     return tree.Node;
 }
 
-function getFunctionArgs(func) {
+export function getFunctionArgs(func) {
     const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
     return args
         .split(',')
@@ -46,12 +45,10 @@ function getFunctionArgs(func) {
         .filter(Boolean);
 }
 
-function cloneLessTreeNode(less, node) {
+export function cloneLessTreeNode(less, node) {
     const Conostructor = getLessTreeNodeConstructor(less, node);
     const args = getFunctionArgs(Conostructor).map(key => node[key]);
     const newNode = new Conostructor(...args);
     Object.assign(newNode, node);
     return newNode;
 }
-
-module.exports = { findClosestFile, addFunctions, getLessTreeNodeConstructor, cloneLessTreeNode };

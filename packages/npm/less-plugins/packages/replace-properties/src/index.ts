@@ -1,5 +1,4 @@
-const { addFunctions, getLessTreeNodeConstructor } = require('@less-plugins/shared');
-const path = require('path');
+import { addFunctions } from '@less-plugins/shared';
 
 function getMapkey(key: string, value: string) {
     return `${key}|${value}`;
@@ -11,14 +10,14 @@ function toReg(key: string) {
 
 const REG_ANY = '[\\S\\s]*';
 
-interface ReplaceData {
+export interface ReplaceData {
     key?: string;
     value?: string;
     replaceKey?: string;
     replaceValue?: string;
 }
 
-class ReplacePropertiesVisitor {
+export class ReplacePropertiesVisitor {
     visitor;
     constructor(
         public less: any,
@@ -67,19 +66,26 @@ class ReplacePropertiesVisitor {
     }
 }
 
-function addReplacePreperties({ replaceMap, key, replaceKey, value, replaceValue }) {
+export function addReplacePreperties({
+    replaceMap,
+    key,
+    replaceKey,
+    value,
+    replaceValue,
+}: { replaceMap: Map<string, ReplaceData> } & ReplaceData) {
     replaceMap.set(getMapkey(key, value), { key, value, replaceKey, replaceValue });
     return '';
 }
-function removeReplacePreperties({ replaceMap, key, value }) {
+export function removeReplacePreperties({
+    replaceMap,
+    key,
+    value,
+}: { replaceMap: Map<string, ReplaceData> } & ReplaceData) {
     replaceMap.delete(getMapkey(key, value));
     return '';
 }
 
-module.exports = class LessPluginsReplaceProperties {
-    static ReplacePropertiesVisitor = ReplacePropertiesVisitor;
-    static addReplacePreperties = addReplacePreperties;
-    static removeReplacePreperties = removeReplacePreperties;
+export default class LessPluginsReplaceProperties {
     constructor() {}
     setOptions(args) {}
     printUsage() {}
@@ -91,7 +97,7 @@ module.exports = class LessPluginsReplaceProperties {
         addFunctions(functions, [
             {
                 addReplacePreperties: function (key, replaceKey, value, replaceValue) {
-                    console.log('addReplacePreperties', key, replaceKey, value, replaceValue);
+                    // console.log('addReplacePreperties', key, replaceKey, value, replaceValue);
                     return addReplacePreperties.call(this, {
                         replaceMap,
                         key: key?.value,
@@ -136,4 +142,4 @@ module.exports = class LessPluginsReplaceProperties {
             },
         ]);
     }
-};
+}

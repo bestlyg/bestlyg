@@ -5,10 +5,10 @@
         "rootDir": "./src",
         "allowJs": true,
         "noImplicitAny": false,
-        "verbatimModuleSyntax": true,
+        "verbatimModuleSyntax": false,
         "declaration": true,
         "skipLibCheck": true,
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "downlevelIteration": true,
         "target": "es5",
         "types": ["node"]
