@@ -52,3 +52,17 @@ export function cloneLessTreeNode(less, node) {
     Object.assign(newNode, node);
     return newNode;
 }
+
+export function loadPlugin(module, require, registerPlugin, functions, tree, less, fileInfo) {
+    if (!global.lessPluginVars) global.lessPluginVars = {};
+    Object.assign(global.lessPluginVars, {
+        module,
+        require,
+        registerPlugin,
+        functions,
+        tree,
+        less,
+        fileInfo,
+    });
+    return require(path.join(fileInfo.currentDirectory));
+}
