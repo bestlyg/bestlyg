@@ -3,7 +3,13 @@
     "name": "705.设计哈希集合",
     "url": "https://leetcode.cn/problems/design-hashset",
     "difficulty": "简单",
-    "tag": ["设计", "数组", "哈希表", "链表", "哈希函数"],
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表",
+        "链表",
+        "哈希函数"
+    ],
     "desc": "设计和构建一个“最近最少使用”缓存，该缓存会删除最近最少使用的项目。缓存应该从键映射到值(允许你插入和检索特定键对应的值)，并在初始化时指定最大容量。当缓存被填满时，它应该删除最近最少使用的项目。",
     "solutions": [
         {
@@ -13,6 +19,14 @@
             "script": "typescript",
             "desc": "哈希链表。",
             "code": "class LNode {\n  constructor(\n    public key: number,\n    public value: number,\n    public prev: LNode | null = null,\n    public next: LNode | null = null\n  ) {}\n  remove() {\n    if (this.prev) this.prev.next = this.next;\n    if (this.next) this.next.prev = this.prev;\n  }\n}\nclass HashLinkedList {\n  private head = new LNode(0, 0);\n  private last: LNode = this.head;\n  private map = new Map<number, LNode>();\n  private count = 0;\n  constructor(private capacity: number) {}\n  get(key: number): number {\n    const node = this.map.get(key);\n    if (!node) return -1;\n    this.moveLast(node);\n    return node.value;\n  }\n  put(key: number, value: number): void {\n    let node = this.map.get(key);\n    if (!node) {\n      this.map.set(key, (node = new LNode(key, value, this.last)));\n      this.last.next = node;\n      this.last = node;\n      if (++this.count > this.capacity) {\n        const first = this.head.next!;\n        this.map.delete(first.key);\n        this.head.next = first.next!;\n        first.next!.prev = this.head;\n      }\n    } else {\n      node.value = value;\n      this.moveLast(node);\n    }\n  }\n  private moveLast(node: LNode) {\n    if (this.last === node) return;\n    node.remove();\n    node.prev = this.last;\n    this.last.next = node;\n    node.next = null;\n    this.last = node;\n  }\n}\nclass LRUCache {\n  private list: HashLinkedList;\n  constructor(capacity: number) {\n    this.list = new HashLinkedList(capacity);\n  }\n  get(key: number): number {\n    return this.list.get(key);\n  }\n  put(key: number, value: number): void {\n    this.list.put(key, value);\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 94,
+            "memory": 22.09,
+            "desc": "哈希存储。",
+            "code": "class MyHashSet:\n    def __init__(self):\n        self.set = set()\n    def add(self, key: int) -> None:\n        self.set.add(key)\n    def remove(self, key: int) -> None:\n        if self.contains(key):\n            self.set.remove(key)\n    def contains(self, key: int) -> bool:\n        return key in self.set",
+            "date": 1713024000000
         }
     ]
 }

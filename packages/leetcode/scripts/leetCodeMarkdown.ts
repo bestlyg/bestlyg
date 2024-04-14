@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2924. 找到冠军 II',
+    exist: true,
+    name: '705. 设计哈希集合',
     url: 'https://leetcode.cn/problems/find-champion-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,16 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 78,
-            memory: 17.43,
-            desc: '对所有队伍进行遍历，如果有比他强的就从队伍中删除，最后判断是否只剩下一个队伍',
-            code: `class Solution:
-    def findChampion(self, n: int, edges: List[List[int]]) -> int:
-        nodes = [i for i in range(n)]
-        for n1, n2 in edges:
-            if n2 in nodes:
-                nodes.remove(n2)
-        return nodes[0] if len(nodes) == 1 else -1`,
+            time: 94,
+            memory: 22.09,
+            desc: '哈希存储',
+            code: `class MyHashSet:
+    def __init__(self):
+        self.set = set()
+    def add(self, key: int) -> None:
+        self.set.add(key)
+    def remove(self, key: int) -> None:
+        if self.contains(key):
+            self.set.remove(key)
+    def contains(self, key: int) -> bool:
+        return key in self.set`,
         },
 
         //         {
