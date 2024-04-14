@@ -166,3 +166,21 @@ def quick_mul(a: int, b: int, mod: int) -> int:
 def quick_pow(a: int, b: int, mod: int) -> int:
     fn = lambda a, b: a * b
     return quick_base(a, b, mod, 1, fn, fn)
+
+class BitMap:
+    def __init__(self, n: int):
+        self.size = 64
+        self.buckets = [0] * n
+    def add(self, key: int):
+        self.set(key // self.size, key % self.size, True)
+    def remove(self, key: int):
+        self.set(key // self.size, key % self.size, False)
+    def contains(self, key: int):
+        return self.get(key // self.size, key % self.size)
+    def set(self, bucket: int, loc: int, val: bool):
+        if val:
+            self.buckets[bucket] |= 1 << loc
+        else:
+            self.buckets[bucket] = self.buckets[bucket] & ~(1 << loc)
+    def get(self, bucket: int, loc: int):
+        return bool((self.buckets[bucket] >> loc) & 1)

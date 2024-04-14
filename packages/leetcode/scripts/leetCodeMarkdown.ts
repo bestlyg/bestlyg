@@ -28,19 +28,36 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 94,
-            memory: 22.09,
-            desc: '哈希存储',
-            code: `class MyHashSet:
+            time: 217,
+            memory: 43.05,
+            desc: '利用bitmap存储',
+            code: `class BitMap:
+    def __init__(self, n: int):
+        self.size = 64
+        self.buckets = [0] * n
+    def add(self, key: int):
+        self.set(key // self.size, key % self.size, True)
+    def remove(self, key: int):
+        self.set(key // self.size, key % self.size, False)
+    def contains(self, key: int):
+        return self.get(key // self.size, key % self.size)
+    def set(self, bucket: int, loc: int, val: bool):
+        if val:
+            self.buckets[bucket] |= 1 << loc
+        else:
+            self.buckets[bucket] = self.buckets[bucket] & ~(1 << loc)
+    def get(self, bucket: int, loc: int):
+        return bool((self.buckets[bucket] >> loc) & 1)
+    
+class MyHashSet:
     def __init__(self):
-        self.set = set()
+        self.bm = BitMap(10 ** 6 + 1)
     def add(self, key: int) -> None:
-        self.set.add(key)
+        self.bm.add(key)
     def remove(self, key: int) -> None:
-        if self.contains(key):
-            self.set.remove(key)
+        self.bm.remove(key)
     def contains(self, key: int) -> bool:
-        return key in self.set`,
+        return self.bm.contains(key)`,
         },
 
         //         {

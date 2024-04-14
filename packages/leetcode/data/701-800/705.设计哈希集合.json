@@ -27,6 +27,14 @@
             "desc": "哈希存储。",
             "code": "class MyHashSet:\n    def __init__(self):\n        self.set = set()\n    def add(self, key: int) -> None:\n        self.set.add(key)\n    def remove(self, key: int) -> None:\n        if self.contains(key):\n            self.set.remove(key)\n    def contains(self, key: int) -> bool:\n        return key in self.set",
             "date": 1713024000000
+        },
+        {
+            "script": "python",
+            "time": 217,
+            "memory": 43.05,
+            "desc": "利用bitmap存储。",
+            "code": "class BitMap:\n    def __init__(self, n: int):\n        self.size = 64\n        self.buckets = [0] * n\n    def add(self, key: int):\n        self.set(key // self.size, key % self.size, True)\n    def remove(self, key: int):\n        self.set(key // self.size, key % self.size, False)\n    def contains(self, key: int):\n        return self.get(key // self.size, key % self.size)\n    def set(self, bucket: int, loc: int, val: bool):\n        if val:\n            self.buckets[bucket] |= 1 << loc\n        else:\n            self.buckets[bucket] = self.buckets[bucket] & ~(1 << loc)\n    def get(self, bucket: int, loc: int):\n        return bool((self.buckets[bucket] >> loc) & 1)\n    \nclass MyHashSet:\n    def __init__(self):\n        self.bm = BitMap(10 ** 6 + 1)\n    def add(self, key: int) -> None:\n        self.bm.add(key)\n    def remove(self, key: int) -> None:\n        self.bm.remove(key)\n    def contains(self, key: int) -> bool:\n        return self.bm.contains(key)",
+            "date": 1713024000000
         }
     ]
 }
