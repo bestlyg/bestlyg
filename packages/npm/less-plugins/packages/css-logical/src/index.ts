@@ -7,7 +7,7 @@ import {
 import { replaceDataList } from './replace-data';
 export { replaceDataList } from './replace-data';
 
-const skipNodeSet = new Set();
+export const skipNodeSet = new Set();
 const REG_Node = new RegExp('^(inset|margin|padding)$');
 
 function pickShorthandsValue(node) {
@@ -21,7 +21,7 @@ function pickShorthandsValue(node) {
     return null;
 }
 
-class CssLogicalPreVisitor {
+export class CssLogicalPreVisitor {
     isPreVisitor = true;
     isReplacing = true;
     visitedNodeSet = new Set();
@@ -94,7 +94,7 @@ class CssLogicalPreVisitor {
     // }
 }
 
-class CssLogicalVisitor extends ReplacePropertiesVisitor {
+export class CssLogicalVisitor extends ReplacePropertiesVisitor {
     constructor(less, pluginMenager, functions, replaceMap) {
         super(less, pluginMenager, functions, replaceMap);
     }

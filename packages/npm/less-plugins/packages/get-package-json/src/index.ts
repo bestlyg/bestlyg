@@ -1,7 +1,8 @@
-import * as path from 'path';
+import path from 'path';
 import { findClosestFile, addFunctions } from '@less-plugins/shared';
+import get from 'lodash.get';
+
 const packageName = 'package.json';
-const get = require('lodash.get');
 
 export function getPackageJson(config: {
     less: any;

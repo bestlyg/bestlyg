@@ -1,21 +1,7 @@
 import { addFunctions } from '@less-plugins/shared';
+import { ReplaceData, toReg, getMapkey } from './utils';
 
-function getMapkey(key: string, value: string) {
-    return `${key}|${value}`;
-}
-
-function toReg(key: string) {
-    return new RegExp(`^${key}$`, 'i');
-}
-
-const REG_ANY = '[\\S\\s]*';
-
-export interface ReplaceData {
-    key?: string;
-    value?: string;
-    replaceKey?: string;
-    replaceValue?: string;
-}
+export * from './utils';
 
 export class ReplacePropertiesVisitor {
     visitor;

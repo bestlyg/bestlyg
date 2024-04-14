@@ -1,5 +1,5 @@
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 /**
  * 获取最近祖先的文件
  * @param config
@@ -53,9 +53,24 @@ export function cloneLessTreeNode(less, node) {
     return newNode;
 }
 
+export interface LessPlugins {
+    module: any;
+    require: any;
+    registerPlugin: any;
+    functions: any;
+    tree: any;
+    less: any;
+    fileInfo: any;
+}
+
+declare global {
+    var LESS_PLUGINS: LessPlugins;
+}
+
+export const LESS_PLUGINS = (global.LESS_PLUGINS = {} as LessPlugins);
+
 export function loadPlugin(module, require, registerPlugin, functions, tree, less, fileInfo) {
-    if (!global.lessPluginVars) global.lessPluginVars = {};
-    Object.assign(global.lessPluginVars, {
+    Object.assign(LESS_PLUGINS, {
         module,
         require,
         registerPlugin,
@@ -64,5 +79,5 @@ export function loadPlugin(module, require, registerPlugin, functions, tree, les
         less,
         fileInfo,
     });
-    return require(path.join(fileInfo.currentDirectory));
+    return require(fileInfo.currentDirectory);
 }
