@@ -24,8 +24,20 @@ module.exports.replaceDataList = [
     { key: 'bottom', replaceKey: 'inset-block-end' },
     { key: 'left', replaceKey: 'inset-inline-start' },
     { key: 'right', replaceKey: 'inset-inline-end' },
-    { key: '(margin|padding|border)-top(.*)', replaceKey: '$1-block-start$2' },
-    { key: '(margin|padding|border)-bottom(.*)', replaceKey: '$1-block-end$2' },
-    { key: '(margin|padding|border)-left(.*)', replaceKey: '$1-inline-start$2' },
-    { key: '(margin|padding|border)-right(.*)', replaceKey: '$1-inline-end$2' },
+    {
+        key: '(margin|padding|border|scroll-padding|scroll-margin)-top(.*)',
+        replaceKey: '$1-block-start$2',
+    },
+    {
+        key: '(margin|padding|border|scroll-padding|scroll-margin)-bottom(.*)',
+        replaceKey: '$1-block-end$2',
+    },
+    {
+        key: '(margin|padding|border|scroll-padding|scroll-margin)-left(.*)',
+        replaceKey: '$1-inline-start$2',
+    },
+    {
+        key: '(margin|padding|border|scroll-padding|scroll-margin)-right(.*)',
+        replaceKey: '$1-inline-end$2',
+    },
 ] as ReplaceData[];

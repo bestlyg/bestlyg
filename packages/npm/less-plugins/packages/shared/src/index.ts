@@ -30,7 +30,6 @@ function addFunctions(functions, functionList: (Function | Record<string, Functi
 
 function getLessTreeNodeConstructor(less, node) {
     const tree = less.tree as Record<string, any>;
-    console.log(tree);
     for (const Constructor of Object.values(tree)) {
         if (Constructor !== tree.Node && node instanceof Constructor) {
             return Constructor;
@@ -39,4 +38,20 @@ function getLessTreeNodeConstructor(less, node) {
     return tree.Node;
 }
 
-module.exports = { findClosestFile, addFunctions, getLessTreeNodeConstructor };
+function getFunctionArgs(func) {
+    const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
+    return args
+        .split(',')
+        .map(arg => arg.replace(/\/\*.*\*\//, '').trim())
+        .filter(Boolean);
+}
+
+function cloneLessTreeNode(less, node) {
+    const Conostructor = getLessTreeNodeConstructor(less, node);
+    const args = getFunctionArgs(Conostructor).map(key => node[key]);
+    const newNode = new Conostructor(...args);
+    Object.assign(newNode, node);
+    return newNode;
+}
+
+module.exports = { findClosestFile, addFunctions, getLessTreeNodeConstructor, cloneLessTreeNode };

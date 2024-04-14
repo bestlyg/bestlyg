@@ -1,4 +1,8 @@
-const { addFunctions, getLessTreeNodeConstructor } = require('@less-plugins/shared');
+const {
+    addFunctions,
+    getLessTreeNodeConstructor,
+    cloneLessTreeNode,
+} = require('@less-plugins/shared');
 const {
     ReplacePropertiesVisitor,
     addReplacePreperties,
@@ -7,44 +11,90 @@ const {
 const path = require('path');
 const { replaceDataList } = require('./replace-data');
 
+const skipNodeSet = new Set();
+const REG_Node = new RegExp('^(inset|margin|padding)$');
+function pickShorthandsValue(node) {
+    const value = node.value?.value;
+    if (Array.isArray(value) && value.length === 4) {
+        return value;
+    } else if (typeof value === 'string') {
+        const splitValue = value.split(' ').filter(Boolean);
+        if (splitValue.length === 4) return splitValue;
+    }
+    return null;
+}
+
 class CssLogicalPreVisitor {
-    static isPreVisitor = true;
+    isPreVisitor = true;
+    isReplacing = true;
+    visitedNodeSet = new Set();
     visitor;
     constructor(public less: any, public pluginMenager: any, public functions: any) {
         this.visitor = new less.visitors.Visitor(this);
     }
 
     run(root) {
+        skipNodeSet.clear();
         return this.visitor.visit(root);
     }
-
-    visitDeclaration(node) {
-        // console.log('===>pre', node, getLessTreeNodeConstructor(this.less, node.value));
-        if (
-            node.name === 'margin' &&
-            Array.isArray(node.value?.value) &&
-            node.value.value.length === 4
-        ) {
-            // console.log('inin', getLessTreeNodeConstructor(node));
-            const LeftConsuctor = getLessTreeNodeConstructor(node.value.value[1]);
-            const RightConsuctor = getLessTreeNodeConstructor(node.value.value[3]);
-            return new this.less.tree.Ruleset(
-                [new this.less.tree.Selector([new this.less.tree.Element('', '&')])],
-                [
-                    node,
-                    new this.less.tree.Declaration(
-                        'margin-left',
-                        Object.assign(new LeftConsuctor(), node.value.value[1])
-                    ),
-                    new this.less.tree.Declaration(
-                        'margin-right',
-                        Object.assign(new RightConsuctor(), node.value.value[3])
-                    ),
-                ]
-            );
+    visitRuleset(node) {
+        for (let index = 0; index < node.rules.length; index++) {
+            const rule = node.rules[index];
+            const shorthandsValue = pickShorthandsValue(rule);
+            if (REG_Node.test(rule.name) && shorthandsValue) {
+                const newLeftNode = new this.less.tree.Declaration(
+                    rule.name + '-right',
+                    typeof shorthandsValue[1] === 'string'
+                        ? shorthandsValue[1]
+                        : cloneLessTreeNode(this.less, shorthandsValue[1])
+                );
+                const newRightNode = new this.less.tree.Declaration(
+                    rule.name + '-left',
+                    typeof shorthandsValue[3] === 'string'
+                        ? shorthandsValue[3]
+                        : cloneLessTreeNode(this.less, shorthandsValue[3])
+                );
+                skipNodeSet.add(newLeftNode);
+                skipNodeSet.add(newRightNode);
+                node.rules.splice(index + 1, 0, newLeftNode, newRightNode);
+                index += 2;
+            }
         }
         return node;
     }
+    // visitDeclaration(node) {
+    //     const shorthandsValue = pickShorthandsValue(node);
+    //     // console.log('===>pre', node, shorthandsValue);
+    //     if (!this.visitedNodeSet.has(node) && REG_Node.test(node.name) && shorthandsValue) {
+    //         this.visitedNodeSet.add(node);
+    //         const newLeftNode = new this.less.tree.Declaration(
+    //             node.name + '-right',
+    //             typeof shorthandsValue[1] === 'string'
+    //                 ? shorthandsValue[1]
+    //                 : cloneLessTreeNode(this.less, shorthandsValue[1])
+    //         );
+    //         const newRightNode = new this.less.tree.Declaration(
+    //             node.name + '-left',
+    //             typeof shorthandsValue[3] === 'string'
+    //                 ? shorthandsValue[3]
+    //                 : cloneLessTreeNode(this.less, shorthandsValue[3])
+    //         );
+    //         skipNodeSet.add(newLeftNode);
+    //         skipNodeSet.add(newRightNode);
+    //         // return new this.less.tree.mixin.Definition('', [], [node, newLeftNode, newRightNode]);
+    //         const ruleset = new this.less.tree.Ruleset(
+    //             [
+    //                 new this.less.tree.Selector([
+    //                     // new this.less.tree.Element('', '&')
+    //                     new this.less.tree.Element('', ''),
+    //                 ]),
+    //             ],
+    //             [node, newLeftNode, newRightNode]
+    //         );
+    //         return ruleset;
+    //     }
+    //     return node;
+    // }
 }
 
 class CssLogicalVisitor extends ReplacePropertiesVisitor {
@@ -53,7 +103,7 @@ class CssLogicalVisitor extends ReplacePropertiesVisitor {
     }
 
     visitDeclaration(node) {
-        console.log('===>post', node, getLessTreeNodeConstructor(this.less, node.value));
+        if (skipNodeSet.has(node)) return node;
         return super.visitDeclaration(node);
     }
 }

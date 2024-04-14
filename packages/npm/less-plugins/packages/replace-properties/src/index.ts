@@ -24,8 +24,7 @@ class ReplacePropertiesVisitor {
         public less: any,
         public pluginMenager: any,
         public functions: any,
-        public replaceMap: Map<string, ReplaceData>,
-        public isSkip: (v: any) => boolean = () => false
+        public replaceMap: Map<string, ReplaceData>
     ) {
         this.visitor = new less.visitors.Visitor(this);
     }
@@ -35,7 +34,6 @@ class ReplacePropertiesVisitor {
     }
 
     visitDeclaration(node) {
-        if (this.isSkip(node)) return node;
         // console.log('===>', node, getLessTreeNodeConstructor(this.less, node.value));
         for (const { key, replaceKey, value, replaceValue } of this.replaceMap.values()) {
             // console.log('repalce', key, replaceKey, value, replaceValue);
