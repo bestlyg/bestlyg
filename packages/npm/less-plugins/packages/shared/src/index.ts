@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import less from 'less';
 /**
  * 获取最近祖先的文件
  * @param config
@@ -37,7 +38,7 @@ export function getLessTreeNodeConstructor(less, node) {
     return tree.Node;
 }
 
-export function getFunctionArgs(func) {
+export function getFunctionArgs(func: Function): string[] {
     const args = func.toString().match(/function\s.*?\(([^)]*)\)/)[1];
     return args
         .split(',')
@@ -80,4 +81,10 @@ export function loadPlugin(module, require, registerPlugin, functions, tree, les
         fileInfo,
     });
     return require(fileInfo.currentDirectory);
+}
+
+export type Less = typeof less;
+
+export abstract class LessPlugin {
+    abstract install(less: any, pluginMenager: any, functions: any);
 }

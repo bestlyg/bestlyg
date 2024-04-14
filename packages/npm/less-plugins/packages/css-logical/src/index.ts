@@ -5,6 +5,7 @@ import {
     ReplaceData,
 } from '@less-plugins/replace-properties';
 import { replaceDataList } from './replace-data';
+
 export { replaceDataList } from './replace-data';
 
 export const skipNodeSet = new Set();
@@ -23,8 +24,7 @@ function pickShorthandsValue(node) {
 
 export class CssLogicalPreVisitor {
     isPreVisitor = true;
-    isReplacing = true;
-    visitedNodeSet = new Set();
+    isReplacing = false;
     visitor;
     constructor(public less: any, public pluginMenager: any, public functions: any) {
         this.visitor = new less.visitors.Visitor(this);

@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@less-plugins/replace-properties':
-    specifier: workspace:^
-    version: link:../replace-properties
   '@less-plugins/shared':
     specifier: workspace:^
     version: link:../shared

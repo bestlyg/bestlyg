@@ -4,7 +4,8 @@
     "description": "replace css properties",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
-    "main": "./lib/index.js",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
     "scripts": {
         "clean": "rimraf ./lib",
         "build": "tsc -p tsconfig.json",
