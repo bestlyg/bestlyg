@@ -1,3 +1,7 @@
+## 0.0.4
+
+- normalize less plugins
+
 ## 0.0.3
 
 - remove the prefix of 'node:' in require function
