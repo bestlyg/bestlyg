@@ -1,16 +1,17 @@
 {
-    "name": "@less-plugins/shared",
-    "version": "0.0.4",
-    "description": "less plugin shared",
+    "name": "@less-plugins/rtl",
+    "version": "0.0.1",
+    "description": "rtl",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
-    "typings": "lib/index.d.ts",
     "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
     "scripts": {
         "clean": "rimraf ./lib",
         "build": "tsc -p tsconfig.json",
         "dev": "tsc -p tsconfig.json --watch",
-        "prepublishOnly": "pnpm build"
+        "prepublishOnly": "pnpm build",
+        "test": "pnpm build && pnpm exec lessc \"./tests/basic.less\""
     },
     "keywords": [
         "css",
@@ -20,7 +21,7 @@
         "less css",
         "less plugin",
         "less functions",
-        "package.json"
+        "rtl"
     ],
     "license": "MIT",
     "files": [
@@ -28,12 +29,13 @@
         "package.json",
         "README.md"
     ],
+    "dependencies": {
+        "@less-plugins/replace-properties": "workspace:^",
+        "@less-plugins/shared": "workspace:^"
+    },
     "devDependencies": {
-        "@types/yargs": "^17.0.32",
+        "less": "^4.2.0",
         "rimraf": "^5.0.5",
         "typescript": "^5.4.5"
-    },
-    "dependencies": {
-        "yargs": "^17.7.2"
     }
 }

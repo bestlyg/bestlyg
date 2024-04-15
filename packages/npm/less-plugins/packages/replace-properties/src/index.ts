@@ -3,7 +3,10 @@ import { ReplaceData, toReg, getMapkey } from './utils';
 
 export * from './utils';
 
+export const SKIP_KEY = '__skipReplacePropertiesVisitor';
+
 export class ReplacePropertiesVisitor {
+    isPreVisitor = true;
     visitor;
     constructor(public replaceMap: Map<string, ReplaceData>) {
         this.visitor = new LESS_PLUGINS.less.visitors.Visitor(this);
@@ -14,7 +17,7 @@ export class ReplacePropertiesVisitor {
     }
 
     visitDeclaration(node) {
-        if (node.skipVisitDeclaration) return node;
+        if (node[SKIP_KEY]) return node;
         // console.log('===>', node, getLessTreeNodeConstructor(this.less, node.value));
         for (const { key, replaceKey, value, replaceValue } of this.replaceMap.values()) {
             // console.log('repalce', key, replaceKey, value, replaceValue);

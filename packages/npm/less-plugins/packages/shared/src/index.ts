@@ -1,6 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import less from 'less';
+import yargs from 'yargs';
+
+export function parseOptions(options: string) {
+    return yargs(options).parse();
+}
+
 /**
  * 获取最近祖先的文件
  * @param config
