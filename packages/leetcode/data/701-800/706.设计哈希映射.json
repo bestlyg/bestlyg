@@ -3,7 +3,13 @@
     "name": "706.设计哈希映射",
     "url": "https://leetcode.cn/problems/design-hashmap",
     "difficulty": "简单",
-    "tag": ["设计", "数组", "哈希表", "链表", "哈希函数"],
+    "tag": [
+        "设计",
+        "数组",
+        "哈希表",
+        "链表",
+        "哈希函数"
+    ],
     "desc": "不使用任何内建的哈希表库设计一个哈希映射（HashMap）。",
     "solutions": [
         {
@@ -13,6 +19,22 @@
             "script": "typescript",
             "desc": "利用链表解决哈希冲突。",
             "code": "class LinkedListNode {\n  constructor(\n    public val: [number, number],\n    public prev: LinkedListNode | null = null,\n    public next: LinkedListNode | null = null\n  ) {}\n}\nclass LinkedList {\n  private head = new LinkedListNode([0, 0]);\n  private last: LinkedListNode | null = null;\n  private getNode(key: number): LinkedListNode | null {\n    let p: LinkedListNode = this.head;\n    while (p.next) {\n      if (p.next.val[0] === key) return p;\n      p = p.next;\n    }\n    return null;\n  }\n  contains(key: number): boolean {\n    return this.getNode(key) !== null;\n  }\n  put(key: number, value: number): void {\n    let node = this.getNode(key);\n    if (node !== null) {\n      node.next!.val[1] = value;\n      return;\n    }\n    node = new LinkedListNode([key, value]);\n    if (this.last === null) this.head.next = node;\n    else this.last.next = node;\n    this.last = node;\n  }\n  get(key: number): number {\n    const node = this.getNode(key);\n    if (node === null) return -1;\n    return node.next!.val[1];\n  }\n  remove(key: number): void {\n    const node = this.getNode(key);\n    if (node === null) return;\n    if (this.last === node.next) this.last = node;\n    node.next = node.next!.next;\n  }\n}\nconst SIZE = 1000;\nclass MyHashMap {\n  private list = new Array(SIZE).fill(0).map(_ => new LinkedList());\n  private hash(key: number) {\n    return key % SIZE;\n  }\n  put(key: number, value: number): void {\n    this.list[this.hash(key)].put(key, value);\n  }\n  get(key: number): number {\n    return this.list[this.hash(key)].get(key);\n  }\n  remove(key: number): void {\n    return this.list[this.hash(key)].remove(key);\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 112,
+            "memory": 19.11,
+            "desc": "map。",
+            "code": "class MyHashMap:\n    def __init__(self):\n        self.map = {}\n    def put(self, key: int, value: int) -> None:\n        self.map[key] = value\n    def get(self, key: int) -> int:\n        return self.map[key] if key in self.map else -1\n    def remove(self, key: int) -> None:\n        if key in self.map:\n            del self.map[key]\n",
+            "date": 1713110400000
+        },
+        {
+            "script": "python",
+            "time": 422,
+            "memory": 64.12,
+            "desc": "利用双数组存键值对。",
+            "code": "class MyHashMap:\n    def __init__(self):\n        self.iarr = [False] * (10 ** 6 + 1)\n        self.varr = [-1] * (10 ** 6 + 1)\n    def put(self, key: int, value: int) -> None:\n        self.iarr[key] = True\n        self.varr[key] = value\n    def get(self, key: int) -> int:\n        return self.varr[key] if self.iarr[key] else -1\n    def remove(self, key: int) -> None:\n        self.iarr[key] = False",
+            "date": 1713110400000
         }
     ]
 }

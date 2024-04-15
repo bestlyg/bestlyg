@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '705. 设计哈希集合',
+    name: '706. 设计哈希映射',
     url: 'https://leetcode.cn/problems/find-champion-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,36 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 217,
-            memory: 43.05,
-            desc: '利用bitmap存储',
-            code: `class BitMap:
-    def __init__(self, n: int):
-        self.size = 64
-        self.buckets = [0] * n
-    def add(self, key: int):
-        self.set(key // self.size, key % self.size, True)
-    def remove(self, key: int):
-        self.set(key // self.size, key % self.size, False)
-    def contains(self, key: int):
-        return self.get(key // self.size, key % self.size)
-    def set(self, bucket: int, loc: int, val: bool):
-        if val:
-            self.buckets[bucket] |= 1 << loc
-        else:
-            self.buckets[bucket] = self.buckets[bucket] & ~(1 << loc)
-    def get(self, bucket: int, loc: int):
-        return bool((self.buckets[bucket] >> loc) & 1)
-    
-class MyHashSet:
+            time: 422,
+            memory: 64.12,
+            desc: '利用双数组存键值对',
+            code: `class MyHashMap:
     def __init__(self):
-        self.bm = BitMap(10 ** 6 + 1)
-    def add(self, key: int) -> None:
-        self.bm.add(key)
+        self.iarr = [False] * (10 ** 6 + 1)
+        self.varr = [-1] * (10 ** 6 + 1)
+    def put(self, key: int, value: int) -> None:
+        self.iarr[key] = True
+        self.varr[key] = value
+    def get(self, key: int) -> int:
+        return self.varr[key] if self.iarr[key] else -1
     def remove(self, key: int) -> None:
-        self.bm.remove(key)
-    def contains(self, key: int) -> bool:
-        return self.bm.contains(key)`,
+        self.iarr[key] = False`,
         },
 
         //         {
