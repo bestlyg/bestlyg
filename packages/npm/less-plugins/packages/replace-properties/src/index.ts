@@ -1,17 +1,12 @@
-import { addFunctions } from '@less-plugins/shared';
+import { addFunctions, LESS_PLUGINS } from '@less-plugins/shared';
 import { ReplaceData, toReg, getMapkey } from './utils';
 
 export * from './utils';
 
 export class ReplacePropertiesVisitor {
     visitor;
-    constructor(
-        public less: any,
-        public pluginMenager: any,
-        public functions: any,
-        public replaceMap: Map<string, ReplaceData>
-    ) {
-        this.visitor = new less.visitors.Visitor(this);
+    constructor(public replaceMap: Map<string, ReplaceData>) {
+        this.visitor = new LESS_PLUGINS.less.visitors.Visitor(this);
     }
 
     run(root) {
@@ -19,6 +14,7 @@ export class ReplacePropertiesVisitor {
     }
 
     visitDeclaration(node) {
+        if (node.skipVisitDeclaration) return node;
         // console.log('===>', node, getLessTreeNodeConstructor(this.less, node.value));
         for (const { key, replaceKey, value, replaceValue } of this.replaceMap.values()) {
             // console.log('repalce', key, replaceKey, value, replaceValue);
@@ -77,9 +73,7 @@ export default class LessPluginsReplaceProperties {
     printUsage() {}
     install(less, pluginMenager, functions) {
         const replaceMap = new Map<string, ReplaceData>();
-        pluginMenager.addVisitor(
-            new ReplacePropertiesVisitor(less, pluginMenager, functions, replaceMap)
-        );
+        pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
         addFunctions(functions, [
             {
                 addReplacePreperties: function (key, replaceKey, value, replaceValue) {
