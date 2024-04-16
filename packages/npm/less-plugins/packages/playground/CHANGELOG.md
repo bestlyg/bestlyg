@@ -1,3 +1,9 @@
+## 0.0.6
+
+- Update dependencies @less-plugins/css-logical@0.0.6
+
+- Update dependencies @less-plugins/replace-properties@0.0.4
+
 ## 0.0.5
 
 - Update dependencies @less-plugins/css-logical@0.0.5

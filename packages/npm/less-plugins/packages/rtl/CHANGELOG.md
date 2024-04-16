@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Update dependencies @less-plugins/replace-properties@0.0.4
+
 ## 0.0.3
 
 - update upload files

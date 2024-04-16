@@ -1,3 +1,7 @@
+## 0.0.6
+
+- update replace reg
+
 ## 0.0.5
 
 - fix an issue about replace width
