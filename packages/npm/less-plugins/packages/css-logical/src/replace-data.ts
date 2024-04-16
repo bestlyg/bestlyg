@@ -10,7 +10,7 @@ export const replaceDataList: ReplaceData[] = [
     { key: '(text-align)', replaceKey: '$1', value: 'left', replaceValue: 'start' },
     { key: '(text-align)', replaceKey: '$1', value: 'right', replaceValue: 'end' },
     { key: '(min-|max-)?height', replaceKey: '$1block-size' },
-    { key: '(min-|max-)?width', replaceKey: '$inline-size' },
+    { key: '(min-|max-)?width', replaceKey: '$1inline-size' },
     { key: 'border-top-left-radius', replaceKey: 'border-start-start-radius' },
     { key: 'border-top-right-radius', replaceKey: 'border-start-end-radius' },
     { key: 'border-bottom-left-radius', replaceKey: 'border-end-start-radius' },

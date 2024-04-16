@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/css-logical",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "replace css properties to logical properties",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",

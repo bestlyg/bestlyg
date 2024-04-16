@@ -1,3 +1,7 @@
+## 0.0.5
+
+- fix an issue about replace width
+
 ## 0.0.4
 
 - fix an issue about replace width
