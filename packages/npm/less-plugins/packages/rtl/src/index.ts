@@ -31,36 +31,53 @@ export class RtlPreVisitor {
         return this.visitor.visit(root);
     }
     visitRuleset(node) {
-        const appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
-            [
-                new LESS_PLUGINS.less.tree.Selector(
-                    this.lessPlugin.options.selector ?? 'html[data-rtl] &'
-                ),
-            ],
-            []
-        );
+        let appendRuleset = null;
         for (let index = 0; index < node.rules.length; index++) {
             const rule = node.rules[index];
             const shorthandsValue = pickShorthandsValue(rule);
+            const cloneNode = (suffix: string, index: number) =>
+                new LESS_PLUGINS.less.tree.Declaration(
+                    rule.name + '-' + suffix,
+                    typeof shorthandsValue[index] === 'string'
+                        ? shorthandsValue[index]
+                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index])
+                );
             if (REG_Node.test(rule.name) && shorthandsValue) {
-                const newLeftNode = new LESS_PLUGINS.less.tree.Declaration(
-                    rule.name + '-left',
-                    typeof shorthandsValue[1] === 'string'
-                        ? shorthandsValue[1]
-                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[1])
-                );
-                const newRightNode = new LESS_PLUGINS.less.tree.Declaration(
-                    rule.name + '-right',
-                    typeof shorthandsValue[3] === 'string'
-                        ? shorthandsValue[3]
-                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[3])
-                );
-                newLeftNode[SKIP_KEY] = true;
-                newRightNode[SKIP_KEY] = true;
-                appendRuleset.rules.push(newLeftNode, newRightNode);
+                if (this.lessPlugin.options.selector || this.lessPlugin.options.enableSelector) {
+                    if (!appendRuleset) {
+                        appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
+                            [
+                                new LESS_PLUGINS.less.tree.Selector(
+                                    this.lessPlugin.options.selector ?? 'html[data-rtl] &'
+                                ),
+                            ],
+                            []
+                        );
+                        node.rules.splice(index + 1, 0, appendRuleset);
+                        index += 1;
+                    }
+                    const newLeftNode = cloneNode('left', 1);
+                    const newRightNode = cloneNode('right', 3);
+                    newLeftNode[SKIP_KEY] = true;
+                    newRightNode[SKIP_KEY] = true;
+                    appendRuleset.rules.push(newLeftNode, newRightNode);
+                } else {
+                    const newTopNode = cloneNode('top', 0);
+                    const newRightNode = cloneNode('right', 1);
+                    const newBottomNode = cloneNode('bottom', 2);
+                    const newLeftNode = cloneNode('left', 3);
+                    node.rules.splice(
+                        index,
+                        1,
+                        newTopNode,
+                        newRightNode,
+                        newBottomNode,
+                        newLeftNode
+                    );
+                    index += 3;
+                }
             }
         }
-        if (appendRuleset.rules.length) node.rules.push(appendRuleset);
         return node;
     }
 }
@@ -68,8 +85,9 @@ export class RtlPreVisitor {
 export default class LessPluginsRtl {
     options: Record<string, any>;
     constructor() {}
-    setOptions(options) {
+    setOptions(options = '') {
         this.options = parseOptions(options);
+        // console.log('===>', this.options);
     }
     printUsage() {}
     install(less, pluginMenager, functions) {
