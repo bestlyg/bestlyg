@@ -1,0 +1,17 @@
+{
+    "name": "924.尽量减少恶意软件的传播",
+    "url": "https://leetcode.cn/problems/minimize-malware-spread",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "如果从 initial 中移除某一节点能够最小化 M(initial)， 返回该节点。如果有多个节点满足条件，就返回索引最小的节点。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 163,
+            "memory": 19.87,
+            "desc": "并查集。",
+            "code": "class UnionFind:\n    def __init__(self, n) -> None:\n        self.n = n\n        self.data = [i for i in range(0, n)]\n        self.sizes = [1] * n\n        self.cnt = n\n    def size(self, v: int) -> int:\n        return self.sizes[self.find(v)]\n    def find(self, v: int) -> int:\n        if self.data[v] != v:\n            self.data[v] = self.find(self.data[v])\n        return self.data[v]\n    def uni(self, v1: int, v2: int):\n        p1 = self.find(v1)\n        p2 = self.find(v2)\n        if p1 != p2:\n            self.sizes[p1] += self.sizes[p2]\n            self.cnt -= self.sizes[p2]\n            self.data[p2] = p1\n    def same(self, v1: int, v2: int):\n        return self.find(v1) == self.find(v2)\nclass Solution:\n    def minMalwareSpread(self, graph: List[List[int]], initial: List[int]) -> int:\n        n = len(graph)\n        uf = UnionFind(n)\n        resIndex = -1\n        resVal = inf\n        for i in range(n):\n            for j in range(n):\n                if graph[i][j]:\n                    uf.uni(i, j)\n        for i in initial:\n            sum = 0\n            used = set()\n            for j in initial:\n                if i != j:\n                    parent = uf.find(j)\n                    if parent not in used:\n                        used.add(parent)\n                        sum += uf.size(parent)\n            if sum < resVal or (sum == resVal and i < resIndex):\n                resVal = sum\n                resIndex = i\n        return resIndex",
+            "date": 1713196800000
+        }
+    ]
+}
