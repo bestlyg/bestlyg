@@ -1,3 +1,13 @@
+## 0.0.3
+
+- update upload files
+
+- Update dependencies @less-plugins/css-logical@0.0.3
+
+- Update dependencies @less-plugins/get-hashed-version@0.0.6
+
+- Update dependencies @less-plugins/get-package-json@0.0.5
+
 ## 0.0.2
 
 - Update dependencies @less-plugins/css-logical@0.0.2

@@ -1,3 +1,7 @@
+## 0.0.5
+
+- update upload files
+
 ## 0.0.4
 
 - normalize less plugins

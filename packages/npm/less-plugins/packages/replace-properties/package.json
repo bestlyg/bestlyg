@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/replace-properties",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "replace css properties",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -26,6 +26,7 @@
     ],
     "license": "MIT",
     "files": [
+        "index.js",
         "lib",
         "package.json",
         "README.md"
