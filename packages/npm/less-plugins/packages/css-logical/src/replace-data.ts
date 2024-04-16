@@ -1,6 +1,6 @@
 import { ReplaceData } from '@less-plugins/replace-properties';
 
-export const replaceDataList: ReplaceData[] = [
+export const cssLogicalMap: ReplaceData[] = [
     { key: '^(caption-side)$', replaceKey: '$1', value: 'left', replaceValue: 'inline-start' },
     { key: '^(caption-side)$', replaceKey: '$1', value: 'right', replaceValue: 'inline-end' },
     { key: '^(float)$', replaceKey: '$1', value: 'left', replaceValue: 'inline-start' },

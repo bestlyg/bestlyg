@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/rtl",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "rtl",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -32,6 +32,7 @@
     ],
     "dependencies": {
         "@less-plugins/replace-properties": "workspace:^",
+        "@less-plugins/css-logical": "workspace:^",
         "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {

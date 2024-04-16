@@ -1,3 +1,9 @@
+## 0.0.7
+
+- Update dependencies @less-plugins/css-logical@0.0.7
+
+- Update dependencies @less-plugins/rtl@0.0.5
+
 ## 0.0.6
 
 - Update dependencies @less-plugins/css-logical@0.0.6

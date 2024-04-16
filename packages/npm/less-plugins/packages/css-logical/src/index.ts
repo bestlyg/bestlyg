@@ -3,9 +3,9 @@ import {
     addReplacePreperties,
     ReplaceData,
 } from '@less-plugins/replace-properties';
-import { replaceDataList } from './replace-data';
+import { cssLogicalMap } from './replace-data';
 
-export { replaceDataList } from './replace-data';
+export { cssLogicalMap } from './replace-data';
 
 export default class LessPluginsCssLogical {
     constructor() {}
@@ -13,7 +13,7 @@ export default class LessPluginsCssLogical {
     printUsage() {}
     install(less, pluginMenager, functions) {
         const replaceMap = new Map<string, ReplaceData>();
-        for (const replaceData of replaceDataList) {
+        for (const replaceData of cssLogicalMap) {
             addReplacePreperties({
                 ...replaceData,
                 replaceMap,

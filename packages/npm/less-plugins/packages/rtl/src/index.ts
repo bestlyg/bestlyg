@@ -1,5 +1,11 @@
 import { cloneLessTreeNode, LESS_PLUGINS, parseOptions } from '@less-plugins/shared';
 import { SKIP_KEY } from '@less-plugins/replace-properties';
+import { cssLogicalMap } from '@less-plugins/css-logical';
+import {
+    ReplacePropertiesVisitor,
+    addReplacePreperties,
+    ReplaceData,
+} from '@less-plugins/replace-properties';
 
 const REG_Node = new RegExp('^(inset|margin|padding)$');
 
@@ -26,7 +32,11 @@ export class RtlPreVisitor {
     }
     visitRuleset(node) {
         const appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
-            [new LESS_PLUGINS.less.tree.Selector(this.lessPlugin.options.selector ?? "html[data-rtl] &")],
+            [
+                new LESS_PLUGINS.less.tree.Selector(
+                    this.lessPlugin.options.selector ?? 'html[data-rtl] &'
+                ),
+            ],
             []
         );
         for (let index = 0; index < node.rules.length; index++) {
@@ -63,6 +73,21 @@ export default class LessPluginsRtl {
     }
     printUsage() {}
     install(less, pluginMenager, functions) {
+        const replaceMap = new Map<string, ReplaceData>();
+        for (const replaceData of cssLogicalMap.filter(
+            ({ key, value }) =>
+                key?.includes('left') ||
+                key?.includes('right') ||
+                value?.includes('left') ||
+                value?.includes('right')
+        )) {
+            addReplacePreperties({
+                ...replaceData,
+                replaceMap,
+            });
+        }
+        pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
+
         pluginMenager.addVisitor(new RtlPreVisitor(this));
     }
 }

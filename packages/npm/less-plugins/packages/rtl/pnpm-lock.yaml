@@ -5,15 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@less-plugins/css-logical':
+    specifier: workspace:^
+    version: link:../css-logical
   '@less-plugins/replace-properties':
     specifier: workspace:^
     version: link:../replace-properties
   '@less-plugins/shared':
     specifier: workspace:^
     version: link:../shared
-  minimist:
-    specifier: ^1.2.6
-    version: 1.2.8
 
 devDependencies:
   less:
@@ -238,10 +238,6 @@ packages:
     dependencies:
       brace-expansion: 2.0.1
     dev: true
-
-  /minimist@1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: false
 
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
