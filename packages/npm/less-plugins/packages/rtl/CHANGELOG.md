@@ -1,3 +1,7 @@
+## 0.0.6
+
+- update rtl mode
+
 ## 0.0.5
 
 - update rtl to fix left and right
