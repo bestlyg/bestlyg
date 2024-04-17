@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '924. 尽量减少恶意软件的传播',
-    url: 'https://leetcode.cn/problems/minimize-malware-spread',
+    name: '928. 尽量减少恶意软件的传播 II',
+    url: 'https://leetcode.cn/problems/minimize-malware-spread-ii/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果从 initial 中移除某一节点能够最小化 M(initial)， 返回该节点。如果有多个节点满足条件，就返回索引最小的节点。`,
+    desc: `我们可以从 initial 中删除一个节点，并完全移除该节点以及从该节点到任何其他节点的任何连接。请返回移除后能够使 M(initial) 最小化的节点。如果有多个节点满足条件，返回索引 最小的节点 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,8 +28,8 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 163,
-            memory: 19.87,
+            time: 601,
+            memory: 19.4,
             desc: '并查集',
             code: `class UnionFind:
     def __init__(self, n) -> None:
@@ -55,26 +55,22 @@ const leetCodeMarkdown: Markdown = {
 class Solution:
     def minMalwareSpread(self, graph: List[List[int]], initial: List[int]) -> int:
         n = len(graph)
-        uf = UnionFind(n)
-        resIndex = -1
-        resVal = inf
-        for i in range(n):
-            for j in range(n):
-                if graph[i][j]:
-                    uf.uni(i, j)
-        for i in initial:
-            sum = 0
+        def get(ignore_index: int) -> int:
+            uf = UnionFind(n)
+            res = 0
+            for i in range(n):
+                for j in range(n):
+                    if i == ignore_index or j == ignore_index: continue
+                    if graph[i][j]: uf.uni(i, j)
             used = set()
-            for j in initial:
-                if i != j:
-                    parent = uf.find(j)
+            for i in initial:
+                if i != ignore_index:
+                    parent = uf.find(i)
                     if parent not in used:
                         used.add(parent)
-                        sum += uf.size(parent)
-            if sum < resVal or (sum == resVal and i < resIndex):
-                resVal = sum
-                resIndex = i
-        return resIndex`,
+                        res += uf.size(parent)
+            return (res, ignore_index)
+        return min(get(i) for i in initial)[1]`,
         },
 
         //         {
