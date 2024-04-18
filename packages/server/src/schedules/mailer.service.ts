@@ -5,6 +5,7 @@ import * as MarkdownIt from 'markdown-it';
 import * as dayjs from 'dayjs';
 
 const weights = {
+  '2024/4/18': 64.65,
   '2024/4/17': 65,
   '2024/4/16': 65.05,
   '2024/4/15': 64.55,
