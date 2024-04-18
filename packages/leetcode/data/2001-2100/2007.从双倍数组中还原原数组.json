@@ -1,0 +1,17 @@
+{
+    "name": "2007.从双倍数组中还原原数组",
+    "url": "https://leetcode.cn/problems/find-original-array-from-doubled-array/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个数组 changed ，如果 change 是 双倍 数组，那么请你返回 original数组，否则请返回空数组。original 的元素可以以 任意 顺序返回。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 194,
+            "memory": 32.71,
+            "desc": "哈希存储后遍历。",
+            "code": "class Solution:\n    def findOriginalArray(self, changed: List[int]) -> List[int]:\n        map = Counter(changed)\n        arr = sorted(map.keys())\n        res = []\n        for num in arr:\n            if map[num] == 0: continue\n            if num == 0:\n                if map[num] % 2 != 0: return []\n                res += [0] * (map[num] // 2)\n                continue\n            if map[num] > map[num * 2]: return []\n            map[num * 2] -= map[num]\n            res += [num] * map[num]\n        return res",
+            "date": 1713369600000
+        }
+    ]
+}
