@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2007. 从双倍数组中还原原数组',
+    exist: true,
+    name: '39. 组合总和',
     url: 'https://leetcode.cn/problems/find-original-array-from-doubled-array/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,23 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 194,
-            memory: 32.71,
-            desc: '哈希存储后遍历',
+            time: 42,
+            memory: 16.42,
+            desc: 'dfs',
             code: `class Solution:
-    def findOriginalArray(self, changed: List[int]) -> List[int]:
-        map = Counter(changed)
-        arr = sorted(map.keys())
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        for num in arr:
-            if map[num] == 0: continue
-            if num == 0:
-                if map[num] % 2 != 0: return []
-                res += [0] * (map[num] // 2)
-                continue
-            if map[num] > map[num * 2]: return []
-            map[num * 2] -= map[num]
-            res += [num] * map[num]
+        n = len(candidates)
+        def dfs(index: int, cur: int, arr: List[int]):
+            if index == n:
+                if cur == target:
+                    res.append(arr[:])
+            elif cur > target:
+                return
+            else:
+                dfs(index + 1, cur, arr)
+                cnt = 1
+                while cur + cnt * candidates[index] <=  target:
+                    dfs(index + 1, cur + cnt * candidates[index], arr + [candidates[index]] * cnt)
+                    cnt += 1
+
+        dfs(0, 0, [])
         return res`,
         },
 
