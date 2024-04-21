@@ -3,7 +3,10 @@
     "name": "216.组合总和III",
     "url": "https://leetcode.cn/problems/combination-sum-iii",
     "difficulty": "中等",
-    "tag": ["数组", "回溯"],
+    "tag": [
+        "数组",
+        "回溯"
+    ],
     "desc": "找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。",
     "solutions": [
         {
@@ -13,6 +16,14 @@
             "script": "typescript",
             "desc": "回溯递归。",
             "code": "function combinationSum3(k: number, n: number): number[][] {\n  const ans: number[][] = [];\n  const used: number[] = [];\n  dfs(k, n);\n  return ans;\n  function dfs(count: number, sum: number): void {\n    if (count === 1) {\n      if (sum >= 1 && sum <= 9 && sum > used[used.length - 1]) ans.push([...used, sum]);\n      return;\n    }\n    const max = used[used.length - 1] || 0;\n    for (let i = max + 1; i <= 9; i++) {\n      if (used.includes(i)) continue;\n      used.push(i);\n      dfs(count - 1, sum - i);\n      used.pop();\n    }\n  }\n}"
+        },
+        {
+            "script": "python",
+            "time": 42,
+            "memory": 16.42,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def combinationSum3(self, k: int, n: int) -> List[List[int]]:\n        res = []\n        def dfs(num: int, k: int, n: int, arr: List[int]):\n            if k == 0:\n                if arr and n == 0:\n                    res.append(arr[:])\n            elif n < 0: return\n            elif num == 10: return\n            else:\n                arr.append(num)\n                dfs(num + 1, k - 1, n - num, arr)\n                arr.pop()\n                dfs(num + 1, k, n, arr)\n        dfs(1, k, n, [])\n        return res",
+            "date": 1713628800000
         }
     ]
 }
