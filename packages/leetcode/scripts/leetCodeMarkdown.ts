@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '216. 组合总和 III',
+    name: '377. 组合总和 Ⅳ',
     url: 'https://leetcode.cn/problems/find-original-array-from-doubled-array/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,25 +28,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 42,
-            memory: 16.42,
+            time: 44,
+            memory: 16.5,
             desc: 'dfs',
             code: `class Solution:
-    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
-        res = []
-        def dfs(num: int, k: int, n: int, arr: List[int]):
-            if k == 0:
-                if arr and n == 0:
-                    res.append(arr[:])
-            elif n < 0: return
-            elif num == 10: return
-            else:
-                arr.append(num)
-                dfs(num + 1, k - 1, n - num, arr)
-                arr.pop()
-                dfs(num + 1, k, n, arr)
-        dfs(1, k, n, [])
-        return res`,
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        @cache
+        def dfs(target: int) -> int:
+            if target == 0: return 1
+            res = 0
+            for num in nums:
+                if num > target: break
+                res += dfs(target - num)
+            return res
+        return dfs(target)`,
         },
 
         //         {
