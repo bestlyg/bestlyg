@@ -32,6 +32,14 @@
             "desc": "dfs。",
             "code": "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        @cache\n        def dfs(target: int) -> int:\n            if target == 0: return 1\n            res = 0\n            for num in nums:\n                if num > target: break\n                res += dfs(target - num)\n            return res\n        return dfs(target)",
             "date": 1713715200000
+        },
+        {
+            "script": "python",
+            "time": 37,
+            "memory": 16.5,
+            "desc": "dp[i]表示i为target时的最大次数。",
+            "code": "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        dp = [0 for _ in range(target + 1)]\n        dp[0] = 1\n        for cur_target in range(1, target + 1):\n            for num in nums:\n                if num > cur_target: break\n                dp[cur_target] += dp[cur_target - num]\n        return dp[target]",
+            "date": 1713801600000
         }
     ]
 }

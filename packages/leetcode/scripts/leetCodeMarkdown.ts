@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1052. 爱生气的书店老板',
+    name: '377. 组合总和 Ⅳ',
     url: 'https://leetcode.cn/problems/find-original-array-from-doubled-array/',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,18 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 58,
-            memory: 18.13,
-            desc: '滑动窗口',
+            time: 37,
+            memory: 16.5,
+            desc: 'dp[i]表示i为target时的最大次数',
             code: `class Solution:
-    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
-        n = len(customers)
-        res = cur = sum(customers[i] for i in range(n) if not grumpy[i] or i < minutes)
-        for i in range(minutes, n):
-            if grumpy[i - minutes]: cur -= customers[i - minutes]
-            if grumpy[i]: cur += customers[i]
-            res = max(res, cur)
-        return res`,
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        dp = [0 for _ in range(target + 1)]
+        dp[0] = 1
+        for cur_target in range(1, target + 1):
+            for num in nums:
+                if num > cur_target: break
+                dp[cur_target] += dp[cur_target - num]
+        return dp[target]`,
         },
 
         //         {
