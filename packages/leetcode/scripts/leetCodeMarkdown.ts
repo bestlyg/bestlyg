@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '377. 组合总和 Ⅳ',
-    url: 'https://leetcode.cn/problems/find-original-array-from-doubled-array/',
+    exist: !true,
+    name: '2385. 感染二叉树需要的总时间',
+    url: 'https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个数组 changed ，如果 change 是 双倍 数组，那么请你返回 original数组，否则请返回空数组。original 的元素可以以 任意 顺序返回。`,
+    desc: `返回感染整棵树需要的分钟数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,19 +28,30 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 37,
-            memory: 16.5,
-            desc: 'dp[i]表示i为target时的最大次数',
+            time: 331,
+            memory: 59.43,
+            desc: 'dfs',
             code: `class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        nums.sort()
-        dp = [0 for _ in range(target + 1)]
-        dp[0] = 1
-        for cur_target in range(1, target + 1):
-            for num in nums:
-                if num > cur_target: break
-                dp[cur_target] += dp[cur_target - num]
-        return dp[target]`,
+    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
+        parent = {root:None}
+        start_node = None
+        q = deque([root])
+        while q:
+            node = q.popleft()
+            if node.val == start: start_node = node
+            if node.left: parent[node.left] = node; q.append(node.left)
+            if node.right: parent[node.right] = node; q.append(node.right)
+        def dfs(node: Optional[TreeNode], pre_node: Optional[TreeNode]):
+            if not node: return 0
+            res = 0
+            if parent[node] and parent[node] != pre_node:
+                res = max(res, dfs(parent[node], node))
+            if node.left and node.left != pre_node:
+                res = max(res, dfs(node.left, node))
+            if node.right and node.right != pre_node:
+                res=  max(res, dfs(node.right, node))
+            return res + 1
+        return dfs(start_node, None) - 1`,
         },
 
         //         {
