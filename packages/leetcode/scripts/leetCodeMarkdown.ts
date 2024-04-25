@@ -2,9 +2,9 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2385. 感染二叉树需要的总时间',
-    url: 'https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/',
+    exist: true,
+    name: '2739. 总行驶距离',
+    url: 'https://leetcode.cn/problems/total-distance-traveled',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `返回感染整棵树需要的分钟数。`,
@@ -28,30 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 331,
-            memory: 59.43,
-            desc: 'dfs',
+            time: 58,
+            memory: 16.45,
+            desc: '遍历',
             code: `class Solution:
-    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
-        parent = {root:None}
-        start_node = None
-        q = deque([root])
-        while q:
-            node = q.popleft()
-            if node.val == start: start_node = node
-            if node.left: parent[node.left] = node; q.append(node.left)
-            if node.right: parent[node.right] = node; q.append(node.right)
-        def dfs(node: Optional[TreeNode], pre_node: Optional[TreeNode]):
-            if not node: return 0
-            res = 0
-            if parent[node] and parent[node] != pre_node:
-                res = max(res, dfs(parent[node], node))
-            if node.left and node.left != pre_node:
-                res = max(res, dfs(node.left, node))
-            if node.right and node.right != pre_node:
-                res=  max(res, dfs(node.right, node))
-            return res + 1
-        return dfs(start_node, None) - 1`,
+    def distanceTraveled(self, mainTank: int, additionalTank: int) -> int:
+        res = 0
+        while mainTank >= 5:
+            res += 5 * 10
+            mainTank -= 5
+            if additionalTank:
+                mainTank += 1
+                additionalTank -= 1
+        return res + mainTank * 10`,
         },
 
         //         {
