@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2739. 总行驶距离',
-    url: 'https://leetcode.cn/problems/total-distance-traveled',
+    exist: !true,
+    name: '1146. 快照数组',
+    url: 'https://leetcode.cn/problems/snapshot-array',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回感染整棵树需要的分钟数。`,
+    desc: `实现支持下列接口的「快照数组」- SnapshotArray`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,19 +28,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 58,
-            memory: 16.45,
-            desc: '遍历',
-            code: `class Solution:
-    def distanceTraveled(self, mainTank: int, additionalTank: int) -> int:
-        res = 0
-        while mainTank >= 5:
-            res += 5 * 10
-            mainTank -= 5
-            if additionalTank:
-                mainTank += 1
-                additionalTank -= 1
-        return res + mainTank * 10`,
+            time: 424,
+            memory: 42.39,
+            desc: '仅存储变更',
+            code: `class SnapshotArray:
+    def __init__(self, length: int):
+        self.next_snap = 0
+        self.list = [[(-1, 0)] for _ in range(length)]
+    def set(self, index: int, val: int) -> None:
+        if self.list[index][-1][0] == self.next_snap:
+            self.list[index][-1] = (self.next_snap, val)
+        else:
+            self.list[index].append((self.next_snap, val))
+    def snap(self) -> int:
+        snap = self.next_snap
+        self.next_snap += 1
+        return snap
+    def get(self, index: int, snap_id: int) -> int:
+        res = bisect_right(self.list[index], (snap_id, 1e10))
+        return self.list[index][res - 1][1]`,
         },
 
         //         {
