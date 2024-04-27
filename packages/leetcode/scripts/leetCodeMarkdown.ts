@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1146. 快照数组',
-    url: 'https://leetcode.cn/problems/snapshot-array',
+    name: '2639. 查询网格图中每一列的宽度',
+    url: 'https://leetcode.cn/problems/find-the-width-of-columns-of-a-grid',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `实现支持下列接口的「快照数组」- SnapshotArray`,
+    desc: `给你一个下标从 0 开始的 m x n 整数矩阵 grid 。矩阵中某一列的宽度是这一列数字的最大 字符串长度 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,25 +28,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 424,
-            memory: 42.39,
-            desc: '仅存储变更',
-            code: `class SnapshotArray:
-    def __init__(self, length: int):
-        self.next_snap = 0
-        self.list = [[(-1, 0)] for _ in range(length)]
-    def set(self, index: int, val: int) -> None:
-        if self.list[index][-1][0] == self.next_snap:
-            self.list[index][-1] = (self.next_snap, val)
-        else:
-            self.list[index].append((self.next_snap, val))
-    def snap(self) -> int:
-        snap = self.next_snap
-        self.next_snap += 1
-        return snap
-    def get(self, index: int, snap_id: int) -> int:
-        res = bisect_right(self.list[index], (snap_id, 1e10))
-        return self.list[index][res - 1][1]`,
+            time: 44,
+            memory: 17.66,
+            desc: '遍历',
+            code: `class Solution:
+    def findColumnWidth(self, grid: List[List[int]]) -> List[int]:
+        return [
+            max(len(str(grid[i][j])) for i in range(len(grid)))
+            for j in range(len(grid[0]))
+        ]`,
         },
 
         //         {
