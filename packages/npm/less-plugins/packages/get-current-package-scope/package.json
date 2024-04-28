@@ -1,7 +1,7 @@
 {
-    "name": "@less-plugins/template",
+    "name": "@less-plugins/get-current-package-scope",
     "version": "0.0.3",
-    "description": "template",
+    "description": "get-current-package-scope",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
     "main": "lib/index.js",
@@ -21,7 +21,7 @@
         "less css",
         "less plugin",
         "less functions",
-        "template"
+        "get-current-package-scope"
     ],
     "license": "MIT",
     "files": [

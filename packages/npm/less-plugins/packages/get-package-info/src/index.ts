@@ -5,7 +5,8 @@ import {
     getCurrentPackageScope,
 } from '@less-plugins/shared';
 
-export default class LessPluginsGetLibraryInfo {
+
+export default class LessPluginsGetPackageInfo {
     constructor() {}
     setOptions(args) {}
     printUsage() {}

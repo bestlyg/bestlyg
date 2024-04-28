@@ -1,0 +1,7 @@
+@plugin "../index.js";
+
+@version: getPackageJsonField('', 'version');
+
+body[data-v=~'"@{version}"'] {
+    width: 300px;
+}
