@@ -1,3 +1,7 @@
+## 0.0.8
+
+- Update dependencies @less-plugins/shared@0.0.6
+
 ## 0.0.7
 
 - update export name

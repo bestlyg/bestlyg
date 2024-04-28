@@ -11,9 +11,9 @@ dependencies:
   '@less-plugins/get-hashed-version':
     specifier: workspace:^
     version: link:../get-hashed-version
-  '@less-plugins/get-package-json':
+  '@less-plugins/get-package-info':
     specifier: workspace:^
-    version: link:../get-package-json
+    version: link:../get-package-info
   '@less-plugins/replace-properties':
     specifier: workspace:^
     version: link:../replace-properties

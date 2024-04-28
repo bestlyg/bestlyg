@@ -1,0 +1,17 @@
+@plugin "../index.js";
+
+@name: getCurrentPackageName();
+@scope: getCurrentPackageScope();
+
+.@{name} {
+    padding-left: 10px;
+}
+.@{scope} {
+    padding-left: 10px;
+}
+
+@version: getPackageJsonField('', 'version');
+
+body[data-v=~'"@{version}"'] {
+    width: 300px;
+}

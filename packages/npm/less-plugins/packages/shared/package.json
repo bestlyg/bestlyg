@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/shared",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "less plugin shared",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -30,10 +30,13 @@
     ],
     "devDependencies": {
         "@types/yargs": "^17.0.32",
+        "@types/lodash.get": "^4.4.9",
         "rimraf": "^5.0.5",
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "yargs": "^17.7.2"
+        "lodash.get": "^4.4.2",
+        "yargs": "^17.7.2",
+        "zx": "^7.2.3"
     }
 }

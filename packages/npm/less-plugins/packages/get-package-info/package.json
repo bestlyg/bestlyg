@@ -1,7 +1,7 @@
 {
-    "name": "@less-plugins/get-package-json",
-    "version": "0.0.5",
-    "description": "get a closest package.json",
+    "name": "@less-plugins/get-package-info",
+    "version": "0.0.2",
+    "description": "get-package-info",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
     "main": "lib/index.js",
@@ -21,11 +21,10 @@
         "less css",
         "less plugin",
         "less functions",
-        "package.json"
+        "library info"
     ],
     "license": "MIT",
     "files": [
-        "index.js",
         "lib",
         "package.json",
         "README.md"
@@ -35,10 +34,9 @@
         "lodash.get": "^4.4.2"
     },
     "devDependencies": {
-        "@types/less": "^3.0.6",
-        "@types/lodash.get": "^4.4.9",
         "less": "^4.2.0",
         "rimraf": "^5.0.5",
-        "typescript": "^5.4.5"
+        "typescript": "^5.4.5",
+        "@types/less": "^3.0.6"
     }
 }

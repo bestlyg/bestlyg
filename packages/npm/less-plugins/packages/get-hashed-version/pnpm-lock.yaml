@@ -8,9 +8,6 @@ dependencies:
   '@emotion/hash':
     specifier: 0.9.1
     version: 0.9.1
-  '@less-plugins/get-package-json':
-    specifier: workspace:^
-    version: link:../get-package-json
   '@less-plugins/shared':
     specifier: workspace:^
     version: link:../shared

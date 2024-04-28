@@ -1,3 +1,7 @@
+## 0.0.6
+
+- 更多的函数内置进 shared
+
 ## 0.0.5
 
 - normalize less plugins

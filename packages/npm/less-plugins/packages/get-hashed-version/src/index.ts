@@ -1,5 +1,4 @@
-import { addFunctions } from '@less-plugins/shared';
-import { getPackageJson } from '@less-plugins/get-package-json';
+import { addFunctions, getPackageJsonField } from '@less-plugins/shared';
 import hash from '@emotion/hash';
 
 export default class LessPluginsGetHashedVersion {
@@ -8,13 +7,12 @@ export default class LessPluginsGetHashedVersion {
     printUsage() {}
     install(less, pluginMenager, functions) {
         addFunctions(functions, [
-            function getHashedVersion() {
-                return getPackageJson.call(this, {
-                    less,
-                    rootPath: '',
-                    key: 'version',
-                    transform: hash,
-                });
+            function getHashedVersion(rootPath) {
+                return getPackageJsonField(
+                    rootPath?.value ?? this.currentFileInfo.currentDirectory,
+                    'version',
+                    hash
+                );
             },
         ]);
     }

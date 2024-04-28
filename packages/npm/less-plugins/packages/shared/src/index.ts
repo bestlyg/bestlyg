@@ -1,26 +1,8 @@
-import path from 'path';
-import fs from 'fs';
-import less from 'less';
-import yargs from 'yargs';
-
-export function parseOptions(options: string) {
-    return yargs(options).parse();
-}
-
-/**
- * 获取最近祖先的文件
- * @param config
- * @returns 文件路径或者无路径
- */
-export function findClosestFile(config: { dirPath: string; fileName: string }): string | null {
-    let { dirPath, fileName } = config;
-    while (!fs.existsSync(path.resolve(dirPath, fileName))) {
-        const parentPath = path.dirname(dirPath);
-        if (parentPath === dirPath) return null;
-        dirPath = parentPath;
-    }
-    return path.resolve(dirPath, fileName);
-}
+export * from './constants';
+export * from './parse-options';
+export * from './find-closest-file';
+export * from './load';
+export * from './get-package-info';
 
 export function addFunctions(functions, functionList: (Function | Record<string, Function>)[]) {
     for (const fn of functionList) {
@@ -58,39 +40,4 @@ export function cloneLessTreeNode(less, node) {
     const newNode = new Conostructor(...args);
     Object.assign(newNode, node);
     return newNode;
-}
-
-export interface LessPlugins {
-    module: any;
-    require: any;
-    registerPlugin: any;
-    functions: any;
-    tree: any;
-    less: any;
-    fileInfo: any;
-}
-
-declare global {
-    var LESS_PLUGINS: LessPlugins;
-}
-
-export const LESS_PLUGINS = (global.LESS_PLUGINS = {} as LessPlugins);
-
-export function loadPlugin(module, require, registerPlugin, functions, tree, less, fileInfo) {
-    Object.assign(LESS_PLUGINS, {
-        module,
-        require,
-        registerPlugin,
-        functions,
-        tree,
-        less,
-        fileInfo,
-    });
-    return require(fileInfo.currentDirectory);
-}
-
-export type Less = typeof less;
-
-export abstract class LessPlugin {
-    abstract install(less: any, pluginMenager: any, functions: any);
 }
