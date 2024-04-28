@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/get-current-package-name",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "get-current-package-name",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -27,7 +27,8 @@
     "files": [
         "lib",
         "package.json",
-        "README.md"
+        "README.md",
+        "index.js"
     ],
     "dependencies": {
         "@less-plugins/shared": "workspace:^"
