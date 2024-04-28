@@ -40,7 +40,10 @@ for (let i = 0; i < plane.releases.length; i++) {
         }
     }
     changelogList.push(``);
-    const oldChangeLogData = (await fs.readFile(changelogPath)).toString();
+    const oldChangeLogData = await fs.readFile(changelogPath).then(
+        res => res.toString(),
+        () => ''
+    );
     await fs.writeFile(changelogPath, changelogList.join('\n\n') + oldChangeLogData);
 }
 
