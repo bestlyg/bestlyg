@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Update dependencies @less-plugins/shared@0.0.7
+
 ## 0.0.5
 
 - Update dependencies @less-plugins/shared@0.0.6
