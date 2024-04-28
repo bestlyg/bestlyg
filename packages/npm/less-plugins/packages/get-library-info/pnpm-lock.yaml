@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@less-plugins/get-package-json':
+    specifier: workspace:^
+    version: link:../get-package-json
   '@less-plugins/shared':
     specifier: workspace:^
     version: link:../shared
