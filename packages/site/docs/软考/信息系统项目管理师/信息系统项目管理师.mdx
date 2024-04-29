@@ -10,9 +10,28 @@ export function RandomItem() {
                 <Button
                     type="primary"
                     onClick={() => {
-                        const titleDom = _.sample(Array.from(document.querySelectorAll('h2')));
-                        const subtitleDom = _.sample(Array.from(titleDom.querySelectorAll('h3')));
-                        setCur([titleDom, subtitleDom]);
+                        const doc = document.querySelector('.markdown');
+                        if (!doc) return;
+                        let currentKey = null;
+                        let currentList = [];
+                        const map = new Map();
+                        Array.from(doc.children)
+                            .filter(dom => {
+                                const tagName = dom.tagName.toLowerCase();
+                                return tagName === 'h2' || tagName === 'h3'
+                            })
+                            .forEach(dom => {
+                                const tagName = dom.tagName.toLowerCase();
+                                if (tagName === 'h2') {
+                                    currentKey = dom;
+                                    currentList = [];
+                                    map.set(dom, currentList);
+                                } else if (tagName === 'h3') {
+                                    currentList.push(dom);
+                                }
+                            });
+                        const picked = _.sample(Array.from(map.entries()));
+                        setCur([picked[0], _.sample(picked[1])]);
                     }}
                 >
                     Random
