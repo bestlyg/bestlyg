@@ -1,0 +1,17 @@
+{
+    "name": "1329.将矩阵按对角线排序",
+    "url": "https://leetcode.cn/problems/sort-the-matrix-diagonally/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个 m * n 的整数矩阵 mat ，请你将同一条 矩阵对角线 上的元素按升序排序后，返回排好序的矩阵。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 50,
+            "memory": 16.85,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:\n        n, m = len(mat), len(mat[0])\n        def next(x: int, y: int) -> Tuple[int, int]:\n            return (x + 1, y + 1) if x + 1 < n and y + 1 < m else (-1, -1)\n        def sort(x: int, y : int):\n            arr = []\n            i, j = x, y\n            while i != -1:\n                arr.append(mat[i][j])\n                i, j = next(i, j)\n            arr.sort()\n            i, j = x, y\n            while i != -1:\n                mat[i][j] = arr[i - x]\n                i, j = next(i, j)\n        for j in range(m): sort(0, j)\n        for i in range(1, n): sort(i, 0)\n        return mat",
+            "date": 1714320000000
+        }
+    ]
+}

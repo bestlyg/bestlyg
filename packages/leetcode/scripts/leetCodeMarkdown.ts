@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2639. 查询网格图中每一列的宽度',
-    url: 'https://leetcode.cn/problems/find-the-width-of-columns-of-a-grid',
+    name: '1329. 将矩阵按对角线排序',
+    url: 'https://leetcode.cn/problems/sort-the-matrix-diagonally/',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的 m x n 整数矩阵 grid 。矩阵中某一列的宽度是这一列数字的最大 字符串长度 。`,
+    desc: `给你一个 m * n 的整数矩阵 mat ，请你将同一条 矩阵对角线 上的元素按升序排序后，返回排好序的矩阵。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,15 +28,28 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 44,
-            memory: 17.66,
+            time: 50,
+            memory: 16.85,
             desc: '遍历',
             code: `class Solution:
-    def findColumnWidth(self, grid: List[List[int]]) -> List[int]:
-        return [
-            max(len(str(grid[i][j])) for i in range(len(grid)))
-            for j in range(len(grid[0]))
-        ]`,
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        n, m = len(mat), len(mat[0])
+        def next(x: int, y: int) -> Tuple[int, int]:
+            return (x + 1, y + 1) if x + 1 < n and y + 1 < m else (-1, -1)
+        def sort(x: int, y : int):
+            arr = []
+            i, j = x, y
+            while i != -1:
+                arr.append(mat[i][j])
+                i, j = next(i, j)
+            arr.sort()
+            i, j = x, y
+            while i != -1:
+                mat[i][j] = arr[i - x]
+                i, j = next(i, j)
+        for j in range(m): sort(0, j)
+        for i in range(1, n): sort(i, 0)
+        return mat`,
         },
 
         //         {
