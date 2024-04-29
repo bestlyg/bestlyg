@@ -5,14 +5,14 @@ export function RandomItem() {
     const [cur, setCur] = React.useState(null);
     return (
         <Space direction="vertical">
-            <Typography.Title level={1}>{cur?.innerText}</Typography.Title>
+            <Typography.Title level={1}>{cur?.[0]?.innerText} - {cur?.[1]?.innerText}</Typography.Title>
             <Space>
                 <Button
                     type="primary"
                     onClick={() => {
-                        const list = Array.from(document.querySelectorAll('h3'));
-                        console.log(list);
-                        setCur(list[_.random(0, list.length - 1)]);
+                        const titleDom = _.sample(Array.from(document.querySelectorAll('h2')));
+                        const subtitleDom = _.sample(Array.from(titleDom.querySelectorAll('h3')));
+                        setCur([titleDom, subtitleDom]);
                     }}
                 >
                     Random
@@ -20,7 +20,7 @@ export function RandomItem() {
                 <Button
                     type="primary"
                     onClick={() => {
-                        cur?.scrollIntoView?.({ behavior: 'smooth' });
+                        cur?.[1]?.scrollIntoView?.({ behavior: 'smooth' });
                     }}
                 >
                     Go
