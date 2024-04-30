@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1329. 将矩阵按对角线排序',
-    url: 'https://leetcode.cn/problems/sort-the-matrix-diagonally/',
+    name: '2798. 满足目标工作时长的员工数目',
+    url: 'https://leetcode.cn/problems/number-of-employees-who-met-the-target',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个 m * n 的整数矩阵 mat ，请你将同一条 矩阵对角线 上的元素按升序排序后，返回排好序的矩阵。`,
+    desc: `请你用整数表示并返回工作至少 target 小时的员工数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,28 +28,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 50,
-            memory: 16.85,
+            time: 40,
+            memory: 16.41,
             desc: '遍历',
             code: `class Solution:
-    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
-        n, m = len(mat), len(mat[0])
-        def next(x: int, y: int) -> Tuple[int, int]:
-            return (x + 1, y + 1) if x + 1 < n and y + 1 < m else (-1, -1)
-        def sort(x: int, y : int):
-            arr = []
-            i, j = x, y
-            while i != -1:
-                arr.append(mat[i][j])
-                i, j = next(i, j)
-            arr.sort()
-            i, j = x, y
-            while i != -1:
-                mat[i][j] = arr[i - x]
-                i, j = next(i, j)
-        for j in range(m): sort(0, j)
-        for i in range(1, n): sort(i, 0)
-        return mat`,
+    def numberOfEmployeesWhoMetTarget(self, hours: List[int], target: int) -> int:
+        return len(list(filter(lambda v: v >= target, hours)))`,
         },
 
         //         {
