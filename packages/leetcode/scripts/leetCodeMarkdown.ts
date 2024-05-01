@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2798. 满足目标工作时长的员工数目',
+    exist: true,
+    name: '2462. 雇佣 K 位工人的总代价',
     url: 'https://leetcode.cn/problems/number-of-employees-who-met-the-target',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,12 +28,32 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.41,
+            time: 305,
+            memory: 32.84,
             desc: '遍历',
             code: `class Solution:
-    def numberOfEmployeesWhoMetTarget(self, hours: List[int], target: int) -> int:
-        return len(list(filter(lambda v: v >= target, hours)))`,
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs)
+        q = []
+        for i in range(candidates): 
+            heappush(q, (costs[i], i))
+            if n - 1 - i >= candidates:
+                heappush(q, (costs[n - 1 - i], n - 1 - i))
+        l = candidates
+        r = n - 1 - candidates
+        res = 0
+        while k:
+            picked, picked_index = heappop(q)
+            res += picked
+            if l <= r:
+                if picked_index < l:
+                    heappush(q, (costs[l], l))
+                    l += 1
+                else:
+                    heappush(q, (costs[r], r))
+                    r -= 1
+            k -= 1
+        return res`,
         },
 
         //         {
