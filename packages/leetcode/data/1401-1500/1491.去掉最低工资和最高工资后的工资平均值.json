@@ -1,0 +1,17 @@
+{
+    "name": "1491.去掉最低工资和最高工资后的工资平均值",
+    "url": "https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回去掉最低工资和最高工资以后，剩下员工工资的平均值。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 41,
+            "memory": 60.37,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def average(self, salary: List[int]) -> float:\n        nmin, nmax = min(salary), max(salary)\n        return (sum(salary) - nmin - nmax) / (len(salary) - 2)",
+            "date": 1714665600000
+        }
+    ]
+}

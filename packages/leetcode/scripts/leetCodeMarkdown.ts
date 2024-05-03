@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2462. 雇佣 K 位工人的总代价',
-    url: 'https://leetcode.cn/problems/number-of-employees-who-met-the-target',
+    exist: !true,
+    name: '1491. 去掉最低工资和最高工资后的工资平均值',
+    url: 'https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你用整数表示并返回工作至少 target 小时的员工数。`,
+    desc: `请你返回去掉最低工资和最高工资以后，剩下员工工资的平均值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,32 +28,13 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 305,
-            memory: 32.84,
+            time: 41,
+            memory:60.37,
             desc: '遍历',
             code: `class Solution:
-    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
-        n = len(costs)
-        q = []
-        for i in range(candidates): 
-            heappush(q, (costs[i], i))
-            if n - 1 - i >= candidates:
-                heappush(q, (costs[n - 1 - i], n - 1 - i))
-        l = candidates
-        r = n - 1 - candidates
-        res = 0
-        while k:
-            picked, picked_index = heappop(q)
-            res += picked
-            if l <= r:
-                if picked_index < l:
-                    heappush(q, (costs[l], l))
-                    l += 1
-                else:
-                    heappush(q, (costs[r], r))
-                    r -= 1
-            k -= 1
-        return res`,
+    def average(self, salary: List[int]) -> float:
+        nmin, nmax = min(salary), max(salary)
+        return (sum(salary) - nmin - nmax) / (len(salary) - 2)`,
         },
 
         //         {
