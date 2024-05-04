@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1491. 去掉最低工资和最高工资后的工资平均值',
+    exist: true,
+    name: '1235. 规划兼职工作',
     url: 'https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,13 +28,24 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 41,
-            memory:60.37,
-            desc: '遍历',
+            time: 195,
+            memory: 34.35,
+            desc: '记录当前开始时间以前结束的收益最高的任务',
             code: `class Solution:
-    def average(self, salary: List[int]) -> float:
-        nmin, nmax = min(salary), max(salary)
-        return (sum(salary) - nmin - nmax) / (len(salary) - 2)`,
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+        n = len(startTime)
+        arr = sorted([i for i in range(n)], key = lambda i: startTime[i])
+        q = []
+        wait_q = []
+        dp = [profit[arr[i]] for i in range(n)]
+        for i in range(0, n):
+            idx = arr[i]
+            while wait_q and wait_q[0][0] <= startTime[idx]:
+                wait_idx = heappop(wait_q)[1]
+                heappush(q, (-dp[wait_idx], wait_idx))
+            if q: dp[i] += -q[0][0]
+            heappush(wait_q, (endTime[idx], i))
+        return max(dp)`,
         },
 
         //         {

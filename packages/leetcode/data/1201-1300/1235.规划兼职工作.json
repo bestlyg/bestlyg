@@ -3,7 +3,12 @@
     "name": "1235.规划兼职工作",
     "url": "https://leetcode.cn/problems/maximum-profit-in-job-scheduling",
     "difficulty": "困难",
-    "tag": ["数组", "二分查找", "动态规划", "排序"],
+    "tag": [
+        "数组",
+        "二分查找",
+        "动态规划",
+        "排序"
+    ],
     "desc": "给你一份兼职工作表，包含开始时间 startTime，结束时间 endTime 和预计报酬 profit 三个数组，请你计算并返回可以获得的最大报酬。",
     "solutions": [
         {
@@ -13,6 +18,14 @@
             "script": "cpp",
             "desc": "dp 存储当前点选中和不选中两种情况，利用 map 快速查找当前节点启动前结束的最大值。",
             "code": "struct Node { int l, r, profit; };\nclass Solution {\npublic:\n    map<int, int> m;\n    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {\n        int n = startTime.size();\n        vector<Node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].l = startTime[i];\n            list[i].r = endTime[i];\n            list[i].profit = profit[i];\n        }\n        sort(list.begin(), list.end(), [](Node &a, Node &b){ return a.r < b.r; });\n        vector<vector<int>> dp(n, vector<int>(2, 0));\n        dp[0][1] = list[0].profit;\n        m[list[0].r] = list[0].profit;\n        for (int i = 1; i < n; i++) {\n            dp[i][1] += list[i].profit;\n            dp[i][0] = max(dp[i][0], dp[i - 1][0]);\n            dp[i][0] = max(dp[i][0], dp[i - 1][1]);\n            auto upper = m.upper_bound(list[i].l);\n            upper--;\n            if (upper->first <= list[i].l) dp[i][1] = upper->second + list[i].profit;\n            m[list[i].r] = max(m[list[i].r], max(dp[i][0], dp[i][1]));\n        }\n        return max(dp[n - 1][0], dp[n - 1][1]);\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 195,
+            "memory": 34.35,
+            "desc": "记录当前开始时间以前结束的收益最高的任务。",
+            "code": "class Solution:\n    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:\n        n = len(startTime)\n        arr = sorted([i for i in range(n)], key = lambda i: startTime[i])\n        q = []\n        wait_q = []\n        dp = [profit[arr[i]] for i in range(n)]\n        for i in range(0, n):\n            idx = arr[i]\n            while wait_q and wait_q[0][0] <= startTime[idx]:\n                wait_idx = heappop(wait_q)[1]\n                heappush(q, (-dp[wait_idx], wait_idx))\n            if q: dp[i] += -q[0][0]\n            heappush(wait_q, (endTime[idx], i))\n        return max(dp)",
+            "date": 1714752000000
         }
     ]
 }
