@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1235. 规划兼职工作',
+    name: '1652. 拆炸弹',
     url: 'https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,24 +28,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 195,
-            memory: 34.35,
-            desc: '记录当前开始时间以前结束的收益最高的任务',
+            time: 53,
+            memory: 16.42,
+            desc: '遍历',
             code: `class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
-        n = len(startTime)
-        arr = sorted([i for i in range(n)], key = lambda i: startTime[i])
-        q = []
-        wait_q = []
-        dp = [profit[arr[i]] for i in range(n)]
-        for i in range(0, n):
-            idx = arr[i]
-            while wait_q and wait_q[0][0] <= startTime[idx]:
-                wait_idx = heappop(wait_q)[1]
-                heappush(q, (-dp[wait_idx], wait_idx))
-            if q: dp[i] += -q[0][0]
-            heappush(wait_q, (endTime[idx], i))
-        return max(dp)`,
+    def decrypt(self, code: List[int], k: int) -> List[int]:
+        n = len(code)
+        if k == 0: return [0] * n
+        def get(idx: int) -> int:
+            res = 0
+            next = idx
+            for _ in range(abs(k)):
+                next = ((1 if k > 0 else -1) + next + n) % n
+                res += code[next]
+            return res
+        return [get(i) for i in range(n)]`,
         },
 
         //         {
