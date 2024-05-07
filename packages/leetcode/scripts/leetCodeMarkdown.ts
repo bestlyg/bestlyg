@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '1652. 拆炸弹',
-    url: 'https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary',
+    exist: !true,
+    name: '1463. 摘樱桃 II',
+    url: 'https://leetcode.cn/problems/cherry-pickup-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回去掉最低工资和最高工资以后，剩下员工工资的平均值。`,
+    desc: `你有两个机器人帮你收集樱桃，机器人 1 从左上角格子 (0,0) 出发，机器人 2 从右上角格子 (0, cols-1) 出发。请你按照如下规则，返回两个机器人能收集的最多樱桃数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,21 +28,28 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 53,
-            memory: 16.42,
-            desc: '遍历',
+            time: 871,
+            memory: 57.70,
+            desc: 'dfs记录当前x坐标下，第一个人在y1，第二个人在y2时的最大樱桃数',
             code: `class Solution:
-    def decrypt(self, code: List[int], k: int) -> List[int]:
-        n = len(code)
-        if k == 0: return [0] * n
-        def get(idx: int) -> int:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        dirs = [1, 0, -1]
+        @cache
+        def dfs(x: int, y1: int, y2: int) -> int:
+            if x == n: return 0
             res = 0
-            next = idx
-            for _ in range(abs(k)):
-                next = ((1 if k > 0 else -1) + next + n) % n
-                res += code[next]
+            for dir in dirs:
+                ny1 = y1 + dir
+                if 0 <= ny1 < m:
+                    for dir in dirs:
+                        ny2 = y2 + dir
+                        if 0 <= ny2 < m:
+                            res = max(res, dfs(x + 1, ny1, ny2))
+            res += grid[x][y1]
+            if y1 != y2: res += grid[x][y2]
             return res
-        return [get(i) for i in range(n)]`,
+        return dfs(0, 0, m - 1)`,
         },
 
         //         {
