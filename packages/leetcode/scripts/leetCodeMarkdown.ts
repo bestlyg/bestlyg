@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1463. 摘樱桃 II',
-    url: 'https://leetcode.cn/problems/cherry-pickup-ii',
+    name: '2079. 给植物浇水',
+    url: 'https://leetcode.cn/problems/watering-plants',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `你有两个机器人帮你收集樱桃，机器人 1 从左上角格子 (0,0) 出发，机器人 2 从右上角格子 (0, cols-1) 出发。请你按照如下规则，返回两个机器人能收集的最多樱桃数目。`,
+    desc: `给你一个下标从 0 开始的整数数组 plants ，数组由 n 个整数组成。其中，plants[i] 为第 i 株植物需要的水量。另有一个整数 capacity 表示水罐的容量，返回浇灌所有植物需要的 步数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,28 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 871,
-            memory: 57.70,
-            desc: 'dfs记录当前x坐标下，第一个人在y1，第二个人在y2时的最大樱桃数',
+            time: 40,
+            memory: 16.53,
+            desc: '模拟',
             code: `class Solution:
-    def cherryPickup(self, grid: List[List[int]]) -> int:
-        n, m = len(grid), len(grid[0])
-        dirs = [1, 0, -1]
-        @cache
-        def dfs(x: int, y1: int, y2: int) -> int:
-            if x == n: return 0
-            res = 0
-            for dir in dirs:
-                ny1 = y1 + dir
-                if 0 <= ny1 < m:
-                    for dir in dirs:
-                        ny2 = y2 + dir
-                        if 0 <= ny2 < m:
-                            res = max(res, dfs(x + 1, ny1, ny2))
-            res += grid[x][y1]
-            if y1 != y2: res += grid[x][y2]
-            return res
-        return dfs(0, 0, m - 1)`,
+    def wateringPlants(self, plants: List[int], capacity: int) -> int:
+        water = capacity
+        res = 0
+        for i in range(len(plants)):
+            if water < plants[i]:
+                water = capacity
+                res += i * 2
+            water -= plants[i]
+            res += 1
+        return res`,
         },
 
         //         {
