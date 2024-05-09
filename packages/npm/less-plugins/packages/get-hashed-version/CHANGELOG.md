@@ -1,3 +1,7 @@
+## 0.0.10
+
+- 修复无法正确获取文件路径的问题
+
 ## 0.0.9
 
 - Update dependencies @less-plugins/shared@0.0.8

@@ -1,3 +1,7 @@
+## 0.0.13
+
+- Update dependencies @less-plugins/get-hashed-version@0.0.10
+
 ## 0.0.12
 
 - Update dependencies @less-plugins/get-package-json-field@0.0.7
