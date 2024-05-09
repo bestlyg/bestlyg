@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2079. 给植物浇水',
-    url: 'https://leetcode.cn/problems/watering-plants',
+    name: '2105. 给植物浇水 II',
+    url: 'https://leetcode.cn/problems/watering-plants-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的整数数组 plants ，数组由 n 个整数组成。其中，plants[i] 为第 i 株植物需要的水量。另有一个整数 capacity 表示水罐的容量，返回浇灌所有植物需要的 步数 。`,
+    desc: `给你一个下标从 0 开始的整数数组 plants ，数组由 n 个整数组成。其中，plants[i] 为第 i 株植物需要的水量。另有两个整数 capacityA 和 capacityB 分别表示 Alice 和 Bob 水罐的容量。返回两人浇灌所有植物过程中重新灌满水罐的 次数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,29 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.53,
+            time: 86,
+            memory: 31.19,
             desc: '模拟',
             code: `class Solution:
-    def wateringPlants(self, plants: List[int], capacity: int) -> int:
-        water = capacity
+    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
         res = 0
-        for i in range(len(plants)):
-            if water < plants[i]:
-                water = capacity
-                res += i * 2
-            water -= plants[i]
+        n = len(plants)
+        a = 0
+        wa = capacityA
+        b = n - 1
+        wb = capacityB
+        while a < b:
+            if wa < plants[a]:
+                wa = capacityA
+                res += 1
+            wa -= plants[a]
+            if wb < plants[b]:
+                wb = capacityB
+                res += 1
+            wb -= plants[b]
+            a += 1
+            b -= 1
+        if a == b and max(wa, wb) < plants[a]:
             res += 1
         return res`,
         },
