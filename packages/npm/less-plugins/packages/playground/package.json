@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/playground",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "playground",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",
@@ -33,8 +33,12 @@
     "dependencies": {
         "@less-plugins/shared": "workspace:^",
         "@less-plugins/css-logical": "workspace:^",
+        "@less-plugins/get-current-package-name": "workspace:^",
+        "@less-plugins/get-current-package-scope": "workspace:^",
+        "@less-plugins/get-env": "workspace:^",
         "@less-plugins/get-hashed-version": "workspace:^",
         "@less-plugins/get-package-info": "workspace:^",
+        "@less-plugins/get-package-json-field": "workspace:^",
         "@less-plugins/replace-properties": "workspace:^",
         "@less-plugins/rtl": "workspace:^"
     },

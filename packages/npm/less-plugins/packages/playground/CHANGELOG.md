@@ -1,3 +1,21 @@
+## 0.0.11
+
+- Update dependencies @less-plugins/shared@0.0.8
+
+- Update dependencies @less-plugins/css-logical@0.0.10
+
+- Update dependencies @less-plugins/get-current-package-name@0.0.9
+
+- Update dependencies @less-plugins/get-current-package-scope@0.0.6
+
+- Update dependencies @less-plugins/get-env@0.0.3
+
+- Update dependencies @less-plugins/get-hashed-version@0.0.9
+
+- Update dependencies @less-plugins/get-package-info@0.0.4
+
+- Update dependencies @less-plugins/get-package-json-field@0.0.6
+
 ## 0.0.10
 
 - Update dependencies @less-plugins/get-hashed-version@0.0.8

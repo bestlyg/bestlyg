@@ -1,6 +1,6 @@
 {
     "name": "@less-plugins/get-current-package-scope",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "get-current-package-scope",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/less-plugins",
     "author": "BestLyg",

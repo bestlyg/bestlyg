@@ -1,6 +1,6 @@
 import 'zx/globals';
 
-// pnpm zx scripts/g.mjs --package_name get-current-package-scope 
+// pnpm zx scripts/g.mjs --package_name get-current-package-scope
 
 const packagePath = path.resolve(__dirname, '..', '..');
 
@@ -15,7 +15,7 @@ if (!packageName) {
 
 const files = await glob('**/*.*', {
     cwd: templatePath,
-    ignore: ['lib', 'node_modules'],
+    ignore: ['lib', 'node_modules', 'CHANGELOG.md'],
 });
 
 await Promise.all(

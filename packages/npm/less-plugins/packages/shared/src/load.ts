@@ -1,4 +1,5 @@
 import less from 'less';
+import { loadConfig, LessPluginsConfig } from './config';
 
 export interface LessPlugins {
     module: any;
@@ -7,7 +8,10 @@ export interface LessPlugins {
     functions: any;
     tree: any;
     less: any;
-    fileInfo: any;
+    fileInfo: {
+        currentDirectory: string;
+    };
+    config: LessPluginsConfig;
 }
 
 declare global {
@@ -16,7 +20,16 @@ declare global {
 
 export const LESS_PLUGINS = (global.LESS_PLUGINS = {} as LessPlugins);
 
-export function loadPlugin(module, require, registerPlugin, functions, tree, less, fileInfo) {
+export function loadPlugin(
+    module: LessPlugins['module'],
+    require: LessPlugins['require'],
+    registerPlugin: LessPlugins['registerPlugin'],
+    functions: LessPlugins['functions'],
+    tree: LessPlugins['tree'],
+    less: LessPlugins['less'],
+    fileInfo: LessPlugins['fileInfo']
+) {
+    const dirPath = fileInfo.currentDirectory;
     Object.assign(LESS_PLUGINS, {
         module,
         require,
@@ -25,8 +38,9 @@ export function loadPlugin(module, require, registerPlugin, functions, tree, les
         tree,
         less,
         fileInfo,
+        config: loadConfig(dirPath),
     });
-    return require(fileInfo.currentDirectory);
+    return require(dirPath);
 }
 
 export type Less = typeof less;

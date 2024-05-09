@@ -11,12 +11,24 @@ importers:
       '@less-plugins/css-logical':
         specifier: workspace:^
         version: link:../css-logical
+      '@less-plugins/get-current-package-name':
+        specifier: workspace:^
+        version: link:../get-current-package-name
+      '@less-plugins/get-current-package-scope':
+        specifier: workspace:^
+        version: link:../get-current-package-scope
+      '@less-plugins/get-env':
+        specifier: workspace:^
+        version: link:../get-env
       '@less-plugins/get-hashed-version':
         specifier: workspace:^
         version: link:../get-hashed-version
       '@less-plugins/get-package-info':
         specifier: workspace:^
         version: link:../get-package-info
+      '@less-plugins/get-package-json-field':
+        specifier: workspace:^
+        version: link:../get-package-json-field
       '@less-plugins/replace-properties':
         specifier: workspace:^
         version: link:../replace-properties
