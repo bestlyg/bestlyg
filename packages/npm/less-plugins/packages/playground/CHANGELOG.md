@@ -1,3 +1,7 @@
+## 0.0.12
+
+- Update dependencies @less-plugins/get-package-json-field@0.0.7
+
 ## 0.0.11
 
 - Update dependencies @less-plugins/shared@0.0.8
