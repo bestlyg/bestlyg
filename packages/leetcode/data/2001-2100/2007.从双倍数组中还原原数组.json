@@ -1,8 +1,9 @@
 {
+    "id": "2117",
     "name": "2007.从双倍数组中还原原数组",
-    "url": "https://leetcode.cn/problems/find-original-array-from-doubled-array/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/find-original-array-from-doubled-array",
+    "difficulty": "中等",
+    "tag": ["贪心", "数组", "哈希表", "排序"],
     "desc": "给你一个数组 changed ，如果 change 是 双倍 数组，那么请你返回 original数组，否则请返回空数组。original 的元素可以以 任意 顺序返回。",
     "solutions": [
         {

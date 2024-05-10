@@ -3,7 +3,7 @@
     "name": "1766.互质树",
     "url": "https://leetcode.cn/problems/tree-of-coprimes",
     "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "数组", "数学", "数论"],
+    "tag": ["树", "深度优先搜索", "数组", "数学", "数论"],
     "desc": "请你返回一个大小为 n 的数组 ans ，其中 ans[i]是离节点 i 最近的祖先节点且满足 nums[i] 和 nums[ans[i]] 是 互质的 ，如果不存在这样的祖先节点，ans[i] 为 -1 。",
     "solutions": [
         {

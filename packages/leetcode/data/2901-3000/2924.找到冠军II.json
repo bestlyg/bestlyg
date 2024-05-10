@@ -1,8 +1,9 @@
 {
+    "id": "3189",
     "name": "2924.找到冠军II",
     "url": "https://leetcode.cn/problems/find-champion-ii",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["图"],
     "desc": "如果这场比赛存在 唯一 一个冠军，则返回将会成为冠军的队伍。否则，返回 -1 。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "3220",
     "name": "2960.统计已测试设备",
     "url": "https://leetcode.cn/problems/count-tested-devices-after-test-operations",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "模拟"],
     "desc": "返回一个整数，表示按顺序执行测试操作后 已测试设备 的数量。",
     "solutions": [
         {

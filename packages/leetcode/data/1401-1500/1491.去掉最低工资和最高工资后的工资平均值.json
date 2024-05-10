@@ -1,8 +1,9 @@
 {
+    "id": "1584",
     "name": "1491.去掉最低工资和最高工资后的工资平均值",
     "url": "https://leetcode.cn/problems/average-salary-excluding-the-minimum-and-maximum-salary",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "排序"],
     "desc": "请你返回去掉最低工资和最高工资以后，剩下员工工资的平均值。",
     "solutions": [
         {

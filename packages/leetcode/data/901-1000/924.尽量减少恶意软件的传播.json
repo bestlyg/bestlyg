@@ -1,8 +1,9 @@
 {
+    "id": "960",
     "name": "924.尽量减少恶意软件的传播",
     "url": "https://leetcode.cn/problems/minimize-malware-spread",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图", "数组", "哈希表"],
     "desc": "如果从 initial 中移除某一节点能够最小化 M(initial)， 返回该节点。如果有多个节点满足条件，就返回索引最小的节点。",
     "solutions": [
         {

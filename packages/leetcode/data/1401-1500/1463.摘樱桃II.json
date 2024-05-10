@@ -1,8 +1,9 @@
 {
+    "id": "1559",
     "name": "1463.摘樱桃II",
     "url": "https://leetcode.cn/problems/cherry-pickup-ii",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "你有两个机器人帮你收集樱桃，机器人 1 从左上角格子 (0,0) 出发，机器人 2 从右上角格子 (0, cols-1) 出发。请你按照如下规则，返回两个机器人能收集的最多樱桃数目。",
     "solutions": [
         {

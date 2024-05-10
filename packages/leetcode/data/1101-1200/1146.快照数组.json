@@ -1,8 +1,9 @@
 {
+    "id": "1249",
     "name": "1146.快照数组",
     "url": "https://leetcode.cn/problems/snapshot-array",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["设计", "数组", "哈希表", "二分查找"],
     "desc": "实现支持下列接口的「快照数组」- SnapshotArray。",
     "solutions": [
         {

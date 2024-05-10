@@ -3,10 +3,7 @@
     "name": "39.组合总和",
     "url": "https://leetcode.cn/problems/combination-sum",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "回溯"
-    ],
+    "tag": ["数组", "回溯"],
     "desc": "给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。",
     "solutions": [
         {

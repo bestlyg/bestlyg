@@ -3,7 +3,7 @@
     "name": "2517.礼盒的最大甜蜜度",
     "url": "https://leetcode.cn/problems/maximum-tastiness-of-candy-basket",
     "difficulty": "中等",
-    "tag": ["数组", "二分查找", "排序"],
+    "tag": ["贪心", "数组", "二分查找", "排序"],
     "desc": "返回礼盒的 最大 甜蜜度。",
     "solutions": [
         {

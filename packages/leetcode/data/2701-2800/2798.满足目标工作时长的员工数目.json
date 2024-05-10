@@ -1,8 +1,9 @@
 {
+    "id": "2876",
     "name": "2798.满足目标工作时长的员工数目",
     "url": "https://leetcode.cn/problems/number-of-employees-who-met-the-target",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组"],
     "desc": "请你用整数表示并返回工作至少 target 小时的员工数。",
     "solutions": [
         {

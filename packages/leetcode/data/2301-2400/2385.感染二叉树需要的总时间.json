@@ -1,8 +1,9 @@
 {
+    "id": "2461",
     "name": "2385.感染二叉树需要的总时间",
-    "url": "https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected",
+    "difficulty": "中等",
+    "tag": ["树", "深度优先搜索", "广度优先搜索", "哈希表", "二叉树"],
     "desc": "返回感染整棵树需要的分钟数。",
     "solutions": [
         {

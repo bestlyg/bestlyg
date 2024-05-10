@@ -1,8 +1,9 @@
 {
+    "id": "2675",
     "name": "2639.查询网格图中每一列的宽度",
     "url": "https://leetcode.cn/problems/find-the-width-of-columns-of-a-grid",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "矩阵"],
     "desc": "给你一个下标从 0 开始的 m x n 整数矩阵 grid 。矩阵中某一列的宽度是这一列数字的最大 字符串长度 。",
     "solutions": [
         {

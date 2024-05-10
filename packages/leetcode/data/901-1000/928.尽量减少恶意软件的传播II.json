@@ -1,8 +1,9 @@
 {
+    "id": "964",
     "name": "928.尽量减少恶意软件的传播II",
-    "url": "https://leetcode.cn/problems/minimize-malware-spread-ii/",
-    "difficulty": "简单",
-    "tag": [],
+    "url": "https://leetcode.cn/problems/minimize-malware-spread-ii",
+    "difficulty": "困难",
+    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图", "数组", "哈希表"],
     "desc": "我们可以从 initial 中删除一个节点，并完全移除该节点以及从该节点到任何其他节点的任何连接。请返回移除后能够使 M(initial) 最小化的节点。如果有多个节点满足条件，返回索引 最小的节点 。",
     "solutions": [
         {

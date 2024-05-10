@@ -3,7 +3,7 @@
     "name": "1995.统计特殊四元组",
     "url": "https://leetcode.cn/problems/count-special-quadruplets",
     "difficulty": "简单",
-    "tag": ["数组", "枚举"],
+    "tag": ["数组", "哈希表", "枚举"],
     "desc": "给你一个 下标从 0 开始 的整数数组 nums ，返回满足下述条件的 不同 四元组 (a, b, c, d) 的 数目。",
     "solutions": [
         {

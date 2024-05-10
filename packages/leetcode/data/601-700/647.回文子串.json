@@ -3,7 +3,7 @@
     "name": "647.回文子串",
     "url": "https://leetcode.cn/problems/palindromic-substrings",
     "difficulty": "中等",
-    "tag": ["字符串", "动态规划"],
+    "tag": ["双指针", "字符串", "动态规划"],
     "desc": "给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。",
     "solutions": [
         {

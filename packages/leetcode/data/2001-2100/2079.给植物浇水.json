@@ -1,8 +1,9 @@
 {
+    "id": "1310",
     "name": "2079.给植物浇水",
     "url": "https://leetcode.cn/problems/watering-plants",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "模拟"],
     "desc": "给你一个下标从 0 开始的整数数组 plants ，数组由 n 个整数组成。其中，plants[i] 为第 i 株植物需要的水量。另有一个整数 capacity 表示水罐的容量，返回浇灌所有植物需要的 步数 。",
     "solutions": [
         {

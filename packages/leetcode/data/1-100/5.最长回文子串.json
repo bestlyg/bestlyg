@@ -3,7 +3,7 @@
     "name": "5.最长回文子串",
     "url": "https://leetcode.cn/problems/longest-palindromic-substring",
     "difficulty": "中等",
-    "tag": ["字符串", "动态规划"],
+    "tag": ["双指针", "字符串", "动态规划"],
     "desc": "给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。",
     "solutions": [
         {
