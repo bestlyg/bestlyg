@@ -1,6 +1,5 @@
 import { addFunctions, getCurrentPackageName } from '@less-plugins/shared';
 
-
 export default class LessPluginsGetCurrentPackageName {
     constructor() {}
     setOptions(args) {}

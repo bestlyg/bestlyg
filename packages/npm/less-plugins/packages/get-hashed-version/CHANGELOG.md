@@ -1,30 +1,30 @@
 ## 0.0.10
 
-- 修复无法正确获取文件路径的问题
+-   修复无法正确获取文件路径的问题
 
 ## 0.0.9
 
-- Update dependencies @less-plugins/shared@0.0.8
+-   Update dependencies @less-plugins/shared@0.0.8
 
 ## 0.0.8
 
-- 更多的函数内置进 shared
+-   更多的函数内置进 shared
 
 ## 0.0.7
 
-- 更多的函数内置进 shared
+-   更多的函数内置进 shared
 
 ## 0.0.6
 
-- update upload files
+-   update upload files
 
 ## 0.0.5
 
-- normalize less plugins
+-   normalize less plugins
 
 ## 0.0.4
 
-- remove the prefix of 'node:' in require function
+-   remove the prefix of 'node:' in require function
 
 ## 0.0.3
 
