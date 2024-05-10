@@ -1,0 +1,17 @@
+{
+    "name": "2960.统计已测试设备",
+    "url": "https://leetcode.cn/problems/count-tested-devices-after-test-operations",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回一个整数，表示按顺序执行测试操作后 已测试设备 的数量。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 54,
+            "memory": 16.46,
+            "desc": "模拟。",
+            "code": "class Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        res = 0\n        for i in range(len(batteryPercentages)):\n            if batteryPercentages[i] > 0:\n                for j in range(i + 1, len(batteryPercentages)):\n                    batteryPercentages[j] -= 1\n                res += 1\n        return res",
+            "date": 1715270400000
+        }
+    ]
+}

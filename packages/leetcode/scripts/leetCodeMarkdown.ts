@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2105. 给植物浇水 II',
-    url: 'https://leetcode.cn/problems/watering-plants-ii',
+    name: '2960. 统计已测试设备',
+    url: 'https://leetcode.cn/problems/count-tested-devices-after-test-operations',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始的整数数组 plants ，数组由 n 个整数组成。其中，plants[i] 为第 i 株植物需要的水量。另有两个整数 capacityA 和 capacityB 分别表示 Alice 和 Bob 水罐的容量。返回两人浇灌所有植物过程中重新灌满水罐的 次数 。`,
+    desc: `返回一个整数，表示按顺序执行测试操作后 已测试设备 的数量。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,30 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 86,
-            memory: 31.19,
+            time: 54,
+            memory: 16.46,
             desc: '模拟',
             code: `class Solution:
-    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
+    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
         res = 0
-        n = len(plants)
-        a = 0
-        wa = capacityA
-        b = n - 1
-        wb = capacityB
-        while a < b:
-            if wa < plants[a]:
-                wa = capacityA
+        for i in range(len(batteryPercentages)):
+            if batteryPercentages[i] > 0:
+                for j in range(i + 1, len(batteryPercentages)):
+                    batteryPercentages[j] -= 1
                 res += 1
-            wa -= plants[a]
-            if wb < plants[b]:
-                wb = capacityB
-                res += 1
-            wb -= plants[b]
-            a += 1
-            b -= 1
-        if a == b and max(wa, wb) < plants[a]:
-            res += 1
         return res`,
         },
 
