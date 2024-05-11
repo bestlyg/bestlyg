@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2960. 统计已测试设备',
-    url: 'https://leetcode.cn/problems/count-tested-devices-after-test-operations',
+    name: '2391. 收集垃圾的最少总时间',
+    url: 'https://leetcode.cn/problems/minimum-amount-of-time-to-collect-garbage',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回一个整数，表示按顺序执行测试操作后 已测试设备 的数量。`,
+    desc: `请你返回收拾完所有垃圾需要花费的 最少 总分钟数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -32,14 +32,18 @@ const leetCodeMarkdown: Markdown = {
             memory: 16.46,
             desc: '模拟',
             code: `class Solution:
-    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
-        res = 0
-        for i in range(len(batteryPercentages)):
-            if batteryPercentages[i] > 0:
-                for j in range(i + 1, len(batteryPercentages)):
-                    batteryPercentages[j] -= 1
-                res += 1
-        return res`,
+    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
+        n = len(garbage)
+        def run(c: str) -> int:
+            res = 0
+            prev = 0
+            for i in range(n):
+                cnt = garbage[i].count(c)
+                if cnt:
+                    res += sum(travel[prev:i]) + cnt
+                    prev = i
+            return res
+        return sum(map(run, 'MPG'))`,
         },
 
         //         {
