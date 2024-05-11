@@ -37,8 +37,6 @@ export function Weights() {
                     type: 'slider',
                     show: true,
                     xAxisIndex: [0],
-                    start: 1,
-                    end: 35,
                 },
                 {
                     type: 'slider',
