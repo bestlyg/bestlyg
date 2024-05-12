@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2391. 收集垃圾的最少总时间',
-    url: 'https://leetcode.cn/problems/minimum-amount-of-time-to-collect-garbage',
+    name: '1553. 吃掉 N 个橘子的最少天数',
+    url: 'https://leetcode.cn/problems/minimum-number-of-days-to-eat-n-oranges',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回收拾完所有垃圾需要花费的 最少 总分钟数。`,
+    desc: `请你返回吃掉所有 n 个橘子的最少天数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,22 +28,14 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 54,
-            memory: 16.46,
-            desc: '模拟',
+            time: 50,
+            memory: 18.6,
+            desc: '尽可能用除法',
             code: `class Solution:
-    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
-        n = len(garbage)
-        def run(c: str) -> int:
-            res = 0
-            prev = 0
-            for i in range(n):
-                cnt = garbage[i].count(c)
-                if cnt:
-                    res += sum(travel[prev:i]) + cnt
-                    prev = i
-            return res
-        return sum(map(run, 'MPG'))`,
+    @cache
+    def minDays(self, n: int) -> int:
+        if n <= 1: return n
+        return min(self.minDays(n // 2) + n % 2, self.minDays(n // 3) + n % 3) + 1`,
         },
 
         //         {
