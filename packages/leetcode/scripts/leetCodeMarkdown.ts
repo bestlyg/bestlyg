@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1553. 吃掉 N 个橘子的最少天数',
-    url: 'https://leetcode.cn/problems/minimum-number-of-days-to-eat-n-oranges',
+    name: '994. 腐烂的橘子',
+    url: 'https://leetcode.cn/problems/rotting-oranges',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回吃掉所有 n 个橘子的最少天数。`,
+    desc: `返回 直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,14 +28,31 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 50,
-            memory: 18.6,
-            desc: '尽可能用除法',
-            code: `class Solution:
-    @cache
-    def minDays(self, n: int) -> int:
-        if n <= 1: return n
-        return min(self.minDays(n // 2) + n % 2, self.minDays(n // 3) + n % 3) + 1`,
+            time: 37,
+            memory: 16.37,
+            desc: 'bfs',
+            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    class Solution:
+        def orangesRotting(self, grid: List[List[int]]) -> int:
+            n, m = len(grid), len(grid[0])
+            count = sum([grid[i][j] == 1 for i in range(n) for j in range(m)])
+            if count == 0: return 0
+            q = deque([(i, j) for i in range(n) for j in range(m) if grid[i][j] == 2])
+            step = 0
+            size = len(q)
+            while q:
+                i, j = q.popleft()
+                for dir in dirs:
+                    ni, nj = i + dir[0], j + dir[1]
+                    if 0 <= ni < n and 0 <= nj < m and grid[ni][nj] == 1:
+                        count -= 1
+                        grid[ni][nj] = 2
+                        q.append((ni, nj))
+                size -= 1
+                if size == 0:
+                    step += 1
+                    size = len(q)
+            return step - 1 if count == 0 else -1`,
         },
 
         //         {
