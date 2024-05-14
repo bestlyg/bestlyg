@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '994. 腐烂的橘子',
-    url: 'https://leetcode.cn/problems/rotting-oranges',
+    name: '2244. 完成所有任务需要的最少轮数',
+    url: 'https://leetcode.cn/problems/minimum-rounds-to-complete-all-tasks',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回 直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1 。`,
+    desc: `返回完成所有任务需要的 最少 轮数，如果无法完成所有任务，返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,31 +28,42 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 37,
-            memory: 16.37,
-            desc: 'bfs',
-            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+            time: 147,
+            memory: 70.3,
+            desc: '遍历',
+            code: `@cache
+    def check(num: int) -> int:
+        if num == 0: return 0
+        if num == 1: return inf
+        if num == 2 or num == 3: return 1
+        res = min(check(num - 2), check(num - 3))
+        if res == inf: return inf
+        return res + 1
     class Solution:
-        def orangesRotting(self, grid: List[List[int]]) -> int:
-            n, m = len(grid), len(grid[0])
-            count = sum([grid[i][j] == 1 for i in range(n) for j in range(m)])
-            if count == 0: return 0
-            q = deque([(i, j) for i in range(n) for j in range(m) if grid[i][j] == 2])
-            step = 0
-            size = len(q)
-            while q:
-                i, j = q.popleft()
-                for dir in dirs:
-                    ni, nj = i + dir[0], j + dir[1]
-                    if 0 <= ni < n and 0 <= nj < m and grid[ni][nj] == 1:
-                        count -= 1
-                        grid[ni][nj] = 2
-                        q.append((ni, nj))
-                size -= 1
-                if size == 0:
-                    step += 1
-                    size = len(q)
-            return step - 1 if count == 0 else -1`,
+        def minimumRounds(self, tasks: List[int]) -> int:
+            counter = Counter(tasks)
+            res = 0
+            for cnt in counter.values():
+                check_res = check(cnt)
+                if check_res == inf: return -1
+                res += check_res 
+            return res`,
+        },
+        {
+            script: Script.PY,
+            // date: new Date('2024.02.07').getTime(),
+            time: 99,
+            memory: 31.63,
+            desc: '贪心',
+            code: `class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+        counter = Counter(tasks)
+        res = 0
+        for cnt in counter.values():
+            if cnt == 1: return -1
+            res += cnt // 3
+            if cnt % 3 != 0: res += 1 
+        return res`,
         },
 
         //         {
