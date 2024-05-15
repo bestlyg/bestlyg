@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2244. 完成所有任务需要的最少轮数',
+    exist: true,
+    name: '2589. 完成所有任务的最少时间',
     url: 'https://leetcode.cn/problems/minimum-rounds-to-complete-all-tasks',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,41 +28,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 147,
-            memory: 70.3,
-            desc: '遍历',
-            code: `@cache
-    def check(num: int) -> int:
-        if num == 0: return 0
-        if num == 1: return inf
-        if num == 2 or num == 3: return 1
-        res = min(check(num - 2), check(num - 3))
-        if res == inf: return inf
-        return res + 1
-    class Solution:
-        def minimumRounds(self, tasks: List[int]) -> int:
-            counter = Counter(tasks)
-            res = 0
-            for cnt in counter.values():
-                check_res = check(cnt)
-                if check_res == inf: return -1
-                res += check_res 
-            return res`,
-        },
-        {
-            script: Script.PY,
-            // date: new Date('2024.02.07').getTime(),
-            time: 99,
-            memory: 31.63,
-            desc: '贪心',
+            time: 529,
+            memory: 17.4,
+            desc: '贪心，对于每个任务先查看当前已经占用的时间点，剩下的从后往前开始占用',
             code: `class Solution:
-    def minimumRounds(self, tasks: List[int]) -> int:
-        counter = Counter(tasks)
+    def findMinimumTime(self, tasks: List[List[int]]) -> int:
+        tasks.sort(key = lambda v: v[1])
+        arr = [False] * 2001
         res = 0
-        for cnt in counter.values():
-            if cnt == 1: return -1
-            res += cnt // 3
-            if cnt % 3 != 0: res += 1 
+        for s, e, d in tasks:
+            for t in range(s, e + 1):
+                if arr[t]:
+                    d -= 1
+            if d <= 0: continue
+            for t in range(e, s - 1, -1):
+                if d <= 0: break
+                if not arr[t]:
+                    arr[t] = True
+                    d -= 1
+                    res += 1
         return res`,
         },
 
