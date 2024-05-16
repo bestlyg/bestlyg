@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2589. 完成所有任务的最少时间',
-    url: 'https://leetcode.cn/problems/minimum-rounds-to-complete-all-tasks',
+    exist: !true,
+    name: '1953. 你可以工作的最大周数',
+    url: 'https://leetcode.cn/problems/maximum-number-of-weeks-for-which-you-can-work',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回完成所有任务需要的 最少 轮数，如果无法完成所有任务，返回 -1 。`,
+    desc: `返回在不违反上面规则的情况下你 最多 能工作多少周。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -30,24 +30,12 @@ const leetCodeMarkdown: Markdown = {
             // date: new Date('2024.02.07').getTime(),
             time: 529,
             memory: 17.4,
-            desc: '贪心，对于每个任务先查看当前已经占用的时间点，剩下的从后往前开始占用',
+            desc: '贪心，如果最大任务可以完成，那么所有任务都可以完成，否则只能完成剩下任务和部分最大任务',
             code: `class Solution:
-    def findMinimumTime(self, tasks: List[List[int]]) -> int:
-        tasks.sort(key = lambda v: v[1])
-        arr = [False] * 2001
-        res = 0
-        for s, e, d in tasks:
-            for t in range(s, e + 1):
-                if arr[t]:
-                    d -= 1
-            if d <= 0: continue
-            for t in range(e, s - 1, -1):
-                if d <= 0: break
-                if not arr[t]:
-                    arr[t] = True
-                    d -= 1
-                    res += 1
-        return res`,
+    def numberOfWeeks(self, milestones: List[int]) -> int:
+        nmax = max(milestones)
+        nsum = sum(milestones) - nmax
+        return nmax + nsum if nmax <= nsum + 1 else nsum * 2 + 1`,
         },
 
         //         {
