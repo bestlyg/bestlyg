@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1953. 你可以工作的最大周数',
-    url: 'https://leetcode.cn/problems/maximum-number-of-weeks-for-which-you-can-work',
+    name: '826. 安排工作以达到最大收益',
+    url: 'https://leetcode.cn/problems/most-profit-assigning-work',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回在不违反上面规则的情况下你 最多 能工作多少周。`,
+    desc: `返回 在把工人分配到工作岗位后，我们所能获得的最大利润 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,14 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 529,
-            memory: 17.4,
-            desc: '贪心，如果最大任务可以完成，那么所有任务都可以完成，否则只能完成剩下任务和部分最大任务',
+            time: 75,
+            memory: 18.77,
+            desc: '排序后获取当前难度下最大的收益',
             code: `class Solution:
-    def numberOfWeeks(self, milestones: List[int]) -> int:
-        nmax = max(milestones)
-        nsum = sum(milestones) - nmax
-        return nmax + nsum if nmax <= nsum + 1 else nsum * 2 + 1`,
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        diff_list = sorted([i for i in range(len(difficulty))], key = lambda i: -difficulty[i])
+        res = 0
+        cur_profit = 0
+        for i in sorted([i for i in range(len(worker))], key = lambda i: worker[i]):
+            while diff_list and difficulty[diff_list[-1]] <= worker[i]:
+                cur_profit = max(cur_profit, profit[diff_list.pop()])
+            res += cur_profit
+        return res`,
         },
 
         //         {

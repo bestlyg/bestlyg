@@ -1,0 +1,17 @@
+{
+    "name": "826.安排工作以达到最大收益",
+    "url": "https://leetcode.cn/problems/most-profit-assigning-work",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回 在把工人分配到工作岗位后，我们所能获得的最大利润 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 75,
+            "memory": 18.77,
+            "desc": "排序后获取当前难度下最大的收益。",
+            "code": "class Solution:\n    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:\n        diff_list = sorted([i for i in range(len(difficulty))], key = lambda i: -difficulty[i])\n        res = 0\n        cur_profit = 0\n        for i in sorted([i for i in range(len(worker))], key = lambda i: worker[i]):\n            while diff_list and difficulty[diff_list[-1]] <= worker[i]:\n                cur_profit = max(cur_profit, profit[diff_list.pop()])\n            res += cur_profit\n        return res",
+            "date": 1715875200000
+        }
+    ]
+}
