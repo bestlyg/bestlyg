@@ -2,9 +2,9 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '826. 安排工作以达到最大收益',
-    url: 'https://leetcode.cn/problems/most-profit-assigning-work',
+    exist: true,
+    name: '2644. 找出可整除性得分最大的整数',
+    url: 'https://leetcode.cn/problems/find-the-maximum-divisibility-score',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `返回 在把工人分配到工作岗位后，我们所能获得的最大利润 。`,
@@ -28,19 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 75,
-            memory: 18.77,
-            desc: '排序后获取当前难度下最大的收益',
+            time: 4015,
+            memory: 16.7,
+            desc: '遍历',
             code: `class Solution:
-    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
-        diff_list = sorted([i for i in range(len(difficulty))], key = lambda i: -difficulty[i])
+    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:
         res = 0
-        cur_profit = 0
-        for i in sorted([i for i in range(len(worker))], key = lambda i: worker[i]):
-            while diff_list and difficulty[diff_list[-1]] <= worker[i]:
-                cur_profit = max(cur_profit, profit[diff_list.pop()])
-            res += cur_profit
-        return res`,
+        res_num = divisors[0]
+        arr = [sum(num % divisor == 0 for num in nums) for divisor in divisors]
+        for i in range(len(divisors)):
+            if arr[i] >= res:
+                if arr[i] > res or arr[i] == res and divisors[i] < res_num:
+                    res_num = divisors[i]
+                res = arr[i]
+        return res_num`,
         },
 
         //         {
