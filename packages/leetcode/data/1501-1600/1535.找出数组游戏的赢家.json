@@ -1,0 +1,17 @@
+{
+    "name": "1535.找出数组游戏的赢家",
+    "url": "https://leetcode.cn/problems/find-the-winner-of-an-array-game",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回赢得比赛的整数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 80,
+            "memory": 27.17,
+            "desc": "遍历时记录当前最大值和最大次数。",
+            "code": "class Solution:\n    def getWinner(self, arr: List[int], k: int) -> int:\n        n = len(arr)\n        nmax = max(arr)\n        if k >= n: return nmax\n        curIndex = 0\n        curCount = 0\n        while curCount < k:\n            # print(f'===> curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')\n            if arr[curIndex] == nmax: return nmax\n            nextIndex = (curIndex + 1) % n\n            if arr[curIndex] > arr[nextIndex]:\n                arr[curIndex], arr[nextIndex] = arr[nextIndex], arr[curIndex]\n            else:\n                curCount = 0\n            curCount += 1\n            curIndex = nextIndex\n            # print(f'curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')\n        return arr[curIndex]",
+            "date": 1716048000000
+        }
+    ]
+}

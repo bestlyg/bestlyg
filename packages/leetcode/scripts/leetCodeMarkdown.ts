@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2644. 找出可整除性得分最大的整数',
-    url: 'https://leetcode.cn/problems/find-the-maximum-divisibility-score',
+    exist: !true,
+    name: '1535. 找出数组游戏的赢家',
+    url: 'https://leetcode.cn/problems/find-the-winner-of-an-array-game',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回 在把工人分配到工作岗位后，我们所能获得的最大利润 。`,
+    desc: `返回赢得比赛的整数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,20 +28,28 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 4015,
-            memory: 16.7,
-            desc: '遍历',
+            time: 80,
+            memory: 27.17,
+            desc: '遍历时记录当前最大值和最大次数',
             code: `class Solution:
-    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:
-        res = 0
-        res_num = divisors[0]
-        arr = [sum(num % divisor == 0 for num in nums) for divisor in divisors]
-        for i in range(len(divisors)):
-            if arr[i] >= res:
-                if arr[i] > res or arr[i] == res and divisors[i] < res_num:
-                    res_num = divisors[i]
-                res = arr[i]
-        return res_num`,
+    def getWinner(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        nmax = max(arr)
+        if k >= n: return nmax
+        curIndex = 0
+        curCount = 0
+        while curCount < k:
+            # print(f'===> curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')
+            if arr[curIndex] == nmax: return nmax
+            nextIndex = (curIndex + 1) % n
+            if arr[curIndex] > arr[nextIndex]:
+                arr[curIndex], arr[nextIndex] = arr[nextIndex], arr[curIndex]
+            else:
+                curCount = 0
+            curCount += 1
+            curIndex = nextIndex
+            # print(f'curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')
+        return arr[curIndex]`,
         },
 
         //         {
