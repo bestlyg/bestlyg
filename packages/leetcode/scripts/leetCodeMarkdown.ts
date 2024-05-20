@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1535. 找出数组游戏的赢家',
-    url: 'https://leetcode.cn/problems/find-the-winner-of-an-array-game',
+    name: '1542. 找出最长的超赞子字符串',
+    url: 'https://leetcode.cn/problems/find-longest-awesome-substring',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回赢得比赛的整数。`,
+    desc: `给你一个字符串 s 。请返回 s 中最长的 超赞子字符串 的长度。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,28 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 80,
-            memory: 27.17,
-            desc: '遍历时记录当前最大值和最大次数',
+            time: 858,
+            memory: 16.84,
+            desc: '利用二进制存储便利过的奇偶',
             code: `class Solution:
-    def getWinner(self, arr: List[int], k: int) -> int:
-        n = len(arr)
-        nmax = max(arr)
-        if k >= n: return nmax
-        curIndex = 0
-        curCount = 0
-        while curCount < k:
-            # print(f'===> curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')
-            if arr[curIndex] == nmax: return nmax
-            nextIndex = (curIndex + 1) % n
-            if arr[curIndex] > arr[nextIndex]:
-                arr[curIndex], arr[nextIndex] = arr[nextIndex], arr[curIndex]
+    def longestAwesome(self, s: str) -> int:
+        n = len(s)
+        res = 0
+        cur = 0
+        map = { 0: -1 }
+        for i in range(n):
+            num = ord(s[i]) - ord('0')
+            cur ^= 1 << num
+            for offset in range(10):
+                v = cur ^ (1 << offset)
+                if v in map:
+                    res = max(res, i - map[v])
+            if cur in map:
+                res = max(res, i - map[cur])
             else:
-                curCount = 0
-            curCount += 1
-            curIndex = nextIndex
-            # print(f'curIndex = {curIndex}, curCount = {curCount}, arr = {arr}')
-        return arr[curIndex]`,
+                map[cur] = i
+        return res`,
         },
 
         //         {
