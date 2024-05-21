@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1542. 找出最长的超赞子字符串',
-    url: 'https://leetcode.cn/problems/find-longest-awesome-substring',
+    name: '2769. 找出最大的可达成数字',
+    url: 'https://leetcode.cn/problems/find-the-maximum-achievable-number',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个字符串 s 。请返回 s 中最长的 超赞子字符串 的长度。`,
+    desc: `返回所有可达成数字中的最大值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,27 +28,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 858,
-            memory: 16.84,
-            desc: '利用二进制存储便利过的奇偶',
+            time: 31,
+            memory: 16.53,
+            desc: '贪心直接计算最大可能',
             code: `class Solution:
-    def longestAwesome(self, s: str) -> int:
-        n = len(s)
-        res = 0
-        cur = 0
-        map = { 0: -1 }
-        for i in range(n):
-            num = ord(s[i]) - ord('0')
-            cur ^= 1 << num
-            for offset in range(10):
-                v = cur ^ (1 << offset)
-                if v in map:
-                    res = max(res, i - map[v])
-            if cur in map:
-                res = max(res, i - map[cur])
-            else:
-                map[cur] = i
-        return res`,
+    def theMaximumAchievableX(self, num: int, t: int) -> int:
+        return num + 2 * t`,
         },
 
         //         {
