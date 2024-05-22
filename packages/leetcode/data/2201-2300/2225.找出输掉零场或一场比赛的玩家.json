@@ -1,0 +1,25 @@
+{
+    "name": "2225.找出输掉零场或一场比赛的玩家",
+    "url": "https://leetcode.cn/problems/find-players-with-zero-or-one-losses",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个整数数组 matches 其中 matches[i] = [winneri, loseri] 表示在一场比赛中 winneri 击败了 loseri 。返回一个长度为 2 的列表 answer。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 378,
+            "memory": 59.18,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:\n        counter = Counter()\n        for w, l in matches:\n            if not counter[w]: counter[w] = 0\n            counter[l] += 1\n        res = [[], []] \n        for k, v in sorted(counter.items()):\n            if v < 2:\n                res[v].append(k)\n        return res",
+            "date": 1716307200000
+        },
+        {
+            "script": "python",
+            "time": 209,
+            "memory": 56.78,
+            "desc": "遍历。",
+            "code": "class Solution:\n            def findWinners(self, matches: List[List[int]]) -> List[List[int]]:\n                sets = [set() for _ in range(3)]\n                for w, l in matches:\n                    if w not in sets[0] and w not in sets[1] and w not in sets[2]:\n                        sets[0].add(w)\n                    if l not in sets[0] and l not in sets[1] and l not in sets[2]:\n                        sets[1].add(l)\n                    else:\n                        idx = 0\n                        while idx < 2:\n                            if l in sets[idx]:\n                                sets[idx].remove(l)\n                                sets[idx + 1].add(l)\n                                break\n                            idx += 1\n                return [sorted(v) for v in sets[:2]]",
+            "date": 1716307200000
+        }
+    ]
+}
