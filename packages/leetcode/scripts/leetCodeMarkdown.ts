@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2225. 找出输掉零场或一场比赛的玩家',
-    url: 'https://leetcode.cn/problems/find-players-with-zero-or-one-losses',
+    name: '2831. 找出最长等值子数组',
+    url: 'https://leetcode.cn/problems/find-the-longest-equal-subarray',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 matches 其中 matches[i] = [winneri, loseri] 表示在一场比赛中 winneri 击败了 loseri 。返回一个长度为 2 的列表 answer。`,
+    desc: `从 nums 中删除最多 k 个元素后，返回可能的最长等值子数组的长度。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,44 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 378,
-            memory: 59.18,
-            desc: '遍历',
+            time: 623,
+            memory: 74.98,
+            desc: '遍历,哈希存储相同数字的下标',
             code: `class Solution:
-    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
-        counter = Counter()
-        for w, l in matches:
-            if not counter[w]: counter[w] = 0
-            counter[l] += 1
-        res = [[], []] 
-        for k, v in sorted(counter.items()):
-            if v < 2:
-                res[v].append(k)
+    def longestEqualSubarray(self, nums: List[int], k: int) -> int:
+        map = defaultdict(deque)
+        res = 0
+        for i in range(len(nums)):
+            q = map[nums[i]]
+            q.append(i)
+            while q[-1] - q[0] - len(q) + 1 > k: q.popleft()
+            res = max(res, len(q))
         return res`,
-        },
-        {
-            script: Script.PY,
-            // date: new Date('2024.02.07').getTime(),
-            time: 209,
-            memory: 56.78,
-            desc: '遍历',
-            code: `class Solution:
-            def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
-                sets = [set() for _ in range(3)]
-                for w, l in matches:
-                    if w not in sets[0] and w not in sets[1] and w not in sets[2]:
-                        sets[0].add(w)
-                    if l not in sets[0] and l not in sets[1] and l not in sets[2]:
-                        sets[1].add(l)
-                    else:
-                        idx = 0
-                        while idx < 2:
-                            if l in sets[idx]:
-                                sets[idx].remove(l)
-                                sets[idx + 1].add(l)
-                                break
-                            idx += 1
-                return [sorted(v) for v in sets[:2]]`,
         },
 
         //         {

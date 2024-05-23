@@ -1,0 +1,17 @@
+{
+    "name": "2831.找出最长等值子数组",
+    "url": "https://leetcode.cn/problems/find-the-longest-equal-subarray",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "从 nums 中删除最多 k 个元素后，返回可能的最长等值子数组的长度。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 623,
+            "memory": 74.98,
+            "desc": "遍历,哈希存储相同数字的下标。",
+            "code": "class Solution:\n    def longestEqualSubarray(self, nums: List[int], k: int) -> int:\n        map = defaultdict(deque)\n        res = 0\n        for i in range(len(nums)):\n            q = map[nums[i]]\n            q.append(i)\n            while q[-1] - q[0] - len(q) + 1 > k: q.popleft()\n            res = max(res, len(q))\n        return res",
+            "date": 1716393600000
+        }
+    ]
+}
