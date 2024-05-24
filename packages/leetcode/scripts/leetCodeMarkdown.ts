@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '1673. 找出最具竞争力的子序列',
-    url: 'https://leetcode.cn/problems/find-the-most-competitive-subsequence',
+    name: '2903. 找出满足差值条件的下标 I',
+    url: 'https://leetcode.cn/problems/find-indices-with-index-and-value-difference-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个整数数组 nums 和一个正整数 k ，返回长度为 k 且最具 竞争力 的 nums 子序列。`,
+    desc: `给你一个下标从 0 开始、长度为 n 的整数数组 nums ，以及整数 indexDifference 和整数 valueDifference 。返回整数数组 answer。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,17 +28,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 149,
-            memory: 28.95,
-            desc: '单调栈',
+            time: 38,
+            memory: 16.46,
+            desc: '遍历',
             code: `class Solution:
-    def mostCompetitive(self, nums: List[int], k: int) -> List[int]:
-        res = []
+    def findIndices(self, nums: List[int], indexDifference: int, valueDifference: int) -> List[int]:
         for i in range(len(nums)):
-            while res and res[-1] > nums[i] and len(nums) - i > k - len(res):
-                res.pop()
-            res.append(nums[i])
-        return res[:k]`,
+            for j in range(i - indexDifference + 1):
+                if abs(nums[i] - nums[j]) >= valueDifference:
+                    return [i, j]
+        return [-1, -1]`,
         },
 
         //         {
