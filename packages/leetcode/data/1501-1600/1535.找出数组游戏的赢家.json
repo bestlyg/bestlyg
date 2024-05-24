@@ -1,8 +1,9 @@
 {
+    "id": "1657",
     "name": "1535.找出数组游戏的赢家",
     "url": "https://leetcode.cn/problems/find-the-winner-of-an-array-game",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "模拟"],
     "desc": "返回赢得比赛的整数。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "2362",
     "name": "2244.完成所有任务需要的最少轮数",
     "url": "https://leetcode.cn/problems/minimum-rounds-to-complete-all-tasks",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["贪心", "数组", "哈希表", "计数"],
     "desc": "返回完成所有任务需要的 最少 轮数，如果无法完成所有任务，返回 -1 。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "2832",
     "name": "2831.找出最长等值子数组",
     "url": "https://leetcode.cn/problems/find-the-longest-equal-subarray",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "哈希表", "二分查找", "滑动窗口"],
     "desc": "从 nums 中删除最多 k 个元素后，返回可能的最长等值子数组的长度。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "1668",
     "name": "1542.找出最长的超赞子字符串",
     "url": "https://leetcode.cn/problems/find-longest-awesome-substring",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["位运算", "哈希表", "字符串"],
     "desc": "给你一个字符串 s 。请返回 s 中最长的 超赞子字符串 的长度。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "2812",
     "name": "2769.找出最大的可达成数字",
     "url": "https://leetcode.cn/problems/find-the-maximum-achievable-number",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数学"],
     "desc": "返回所有可达成数字中的最大值。",
     "solutions": [
         {
