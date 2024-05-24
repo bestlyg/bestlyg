@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2831. 找出最长等值子数组',
-    url: 'https://leetcode.cn/problems/find-the-longest-equal-subarray',
+    name: '1673. 找出最具竞争力的子序列',
+    url: 'https://leetcode.cn/problems/find-the-most-competitive-subsequence',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `从 nums 中删除最多 k 个元素后，返回可能的最长等值子数组的长度。`,
+    desc: `给你一个整数数组 nums 和一个正整数 k ，返回长度为 k 且最具 竞争力 的 nums 子序列。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,19 +28,17 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 623,
-            memory: 74.98,
-            desc: '遍历,哈希存储相同数字的下标',
+            time: 149,
+            memory: 28.95,
+            desc: '单调栈',
             code: `class Solution:
-    def longestEqualSubarray(self, nums: List[int], k: int) -> int:
-        map = defaultdict(deque)
-        res = 0
+    def mostCompetitive(self, nums: List[int], k: int) -> List[int]:
+        res = []
         for i in range(len(nums)):
-            q = map[nums[i]]
-            q.append(i)
-            while q[-1] - q[0] - len(q) + 1 > k: q.popleft()
-            res = max(res, len(q))
-        return res`,
+            while res and res[-1] > nums[i] and len(nums) - i > k - len(res):
+                res.pop()
+            res.append(nums[i])
+        return res[:k]`,
         },
 
         //         {
