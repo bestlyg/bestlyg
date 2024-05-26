@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '1738. 找出第 K 大的异或坐标值',
+    name: '2028. 找出缺失的观测数据',
     url: 'https://leetcode.cn/problems/find-kth-largest-xor-coordinate-value',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,20 +28,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 770,
-            memory: 61.8,
-            desc: '前缀和存储异或值后，利用堆排序',
+            time: 89,
+            memory: 20.9,
+            desc: '模拟构造',
             code: `class Solution:
-    def kthLargestValue(self, matrix: List[List[int]], k: int) -> int:
-        n, m = len(matrix), len(matrix[0])
-        sums = [[0] * (m + 1) for _ in range(n + 1)]
-        q = []
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                sums[i][j] = sums[i - 1][j] ^ sums[i][j - 1] ^ sums[i - 1][j - 1] ^ matrix[i - 1][j - 1]
-                heappush(q, -sums[i][j])
-        for _ in range(k - 1): heappop(q)
-        return -q[0]`,
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        m = len(rolls)
+        nsum = (m + n) * mean
+        ssum = nsum - sum(rolls)
+        if ssum / n > 6 or ssum < n: return []
+        res = [ssum // n] * n
+        for i in range(ssum % n): res[i] += 1
+        return res`,
         },
 
         //         {
