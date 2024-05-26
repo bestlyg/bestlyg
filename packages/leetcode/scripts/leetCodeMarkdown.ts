@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2903. 找出满足差值条件的下标 I',
-    url: 'https://leetcode.cn/problems/find-indices-with-index-and-value-difference-i',
+    exist: true,
+    name: '1738. 找出第 K 大的异或坐标值',
+    url: 'https://leetcode.cn/problems/find-kth-largest-xor-coordinate-value',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你一个下标从 0 开始、长度为 n 的整数数组 nums ，以及整数 indexDifference 和整数 valueDifference 。返回整数数组 answer。`,
+    desc: `请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,16 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 38,
-            memory: 16.46,
-            desc: '遍历',
+            time: 770,
+            memory: 61.8,
+            desc: '前缀和存储异或值后，利用堆排序',
             code: `class Solution:
-    def findIndices(self, nums: List[int], indexDifference: int, valueDifference: int) -> List[int]:
-        for i in range(len(nums)):
-            for j in range(i - indexDifference + 1):
-                if abs(nums[i] - nums[j]) >= valueDifference:
-                    return [i, j]
-        return [-1, -1]`,
+    def kthLargestValue(self, matrix: List[List[int]], k: int) -> int:
+        n, m = len(matrix), len(matrix[0])
+        sums = [[0] * (m + 1) for _ in range(n + 1)]
+        q = []
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                sums[i][j] = sums[i - 1][j] ^ sums[i][j - 1] ^ sums[i - 1][j - 1] ^ matrix[i - 1][j - 1]
+                heappush(q, -sums[i][j])
+        for _ in range(k - 1): heappop(q)
+        return -q[0]`,
         },
 
         //         {
