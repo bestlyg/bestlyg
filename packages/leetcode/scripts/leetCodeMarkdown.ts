@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '2028. 找出缺失的观测数据',
-    url: 'https://leetcode.cn/problems/find-kth-largest-xor-coordinate-value',
+    exist: !true,
+    name: '2951. 找出峰值',
+    url: 'https://leetcode.cn/problems/find-the-peaks',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。`,
+    desc: `以数组形式返回给定数组中 峰值 的下标，顺序不限 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,18 +28,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 89,
-            memory: 20.9,
-            desc: '模拟构造',
+            time: 34,
+            memory: 16.45,
+            desc: '遍历',
             code: `class Solution:
-    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
-        m = len(rolls)
-        nsum = (m + n) * mean
-        ssum = nsum - sum(rolls)
-        if ssum / n > 6 or ssum < n: return []
-        res = [ssum // n] * n
-        for i in range(ssum % n): res[i] += 1
-        return res`,
+    def findPeaks(self, mountain: List[int]) -> List[int]:
+        return [i for i in range(1, len(mountain) - 1) if mountain[i - 1] < mountain[i] > mountain[i + 1]]`,
         },
 
         //         {
