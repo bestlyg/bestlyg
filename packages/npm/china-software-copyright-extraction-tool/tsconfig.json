@@ -2,7 +2,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "CommonJS",
+    "allowJs": true,
     "baseUrl": ".",
     "skipLibCheck": true,
     "lib": ["ESNext"],

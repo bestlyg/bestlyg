@@ -8,22 +8,37 @@ importers:
 
   .:
     dependencies:
-      '@modern-js/module-tools':
-        specifier: ^2.50.0
-        version: 2.50.0(typescript@5.4.5)
+      commander:
+        specifier: ^11.1.0
+        version: 11.1.0
       docxtemplater:
         specifier: ^3.47.4
         version: 3.47.4
       pizzip:
         specifier: ^3.1.7
         version: 3.1.7
+      ramda:
+        specifier: ^0.30.0
+        version: 0.30.0
+      xml:
+        specifier: ^1.0.1
+        version: 1.0.1
       zx:
-        specifier: ^8.1.2
-        version: 8.1.2
+        specifier: 8.1.1
+        version: 8.1.1
     devDependencies:
+      '@modern-js/module-tools':
+        specifier: ^2.50.0
+        version: 2.50.0(typescript@5.4.5)
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
+      '@types/ramda':
+        specifier: ^0.30.0
+        version: 0.30.0
+      '@types/xml':
+        specifier: ^1.0.11
+        version: 1.0.11
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -670,8 +685,14 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
+  '@types/ramda@0.30.0':
+    resolution: {integrity: sha512-DQtfqUbSB18iM9NHbQ++kVUDuBWHMr6T2FpW1XTiksYRGjq4WnNPZLt712OEHEBJs7aMyJ68Mf2kGMOP1srVVw==}
+
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
+
+  '@types/xml@1.0.11':
+    resolution: {integrity: sha512-9gktTjxBWoz4+X8ZOS+QRFM2/liMQgBv8Z36wuNnomK5jtXFq4IJa7Az4Hzoy+rYux343NkH9Dq+nzIdejVrjw==}
 
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
@@ -816,6 +837,10 @@ packages:
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
+
+  commander@11.1.0:
+    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
+    engines: {node: '>=16'}
 
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -1568,6 +1593,9 @@ packages:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
 
+  ramda@0.30.0:
+    resolution: {integrity: sha512-13Y0iMhIQuAm/wNGBL/9HEqIfRGmNmjKnTPlKWfA9f7dnDkr8d45wQ+S7+ZLh/Pq9PdcGxkqKUEA7ySu1QSd9Q==}
+
   read-pkg-up@7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
     engines: {node: '>=8'}
@@ -1815,6 +1843,9 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  ts-toolbelt@9.6.0:
+    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
+
   tsconfig-paths-webpack-plugin@4.1.0:
     resolution: {integrity: sha512-xWFISjviPydmtmgeUAuXp4N1fky+VCtfhOkDUFIv5ea7p4wuTomI4QTrXvFBX2S4jZsmyTSrStQl+E+4w+RzxA==}
     engines: {node: '>=10.13.0'}
@@ -1858,6 +1889,9 @@ packages:
   typed-array-length@1.0.6:
     resolution: {integrity: sha512-/OxDN6OtAk5KBpGb28T+HZc2M+ADtvRxXrKKbUwtsLgdoxgX13hyy7ek6bFRl5+aBs2yZzB0c4CnQfAtVypW/g==}
     engines: {node: '>= 0.4'}
+
+  types-ramda@0.30.0:
+    resolution: {integrity: sha512-oVPw/KHB5M0Du0txTEKKM8xZOG9cZBRdCVXvwHYuNJUVkAiJ9oWyqkA+9Bj2gjMsHgkkhsYevobQBWs8I2/Xvw==}
 
   typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
@@ -1923,6 +1957,9 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+  xml@1.0.1:
+    resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
+
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
 
@@ -1956,8 +1993,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zx@8.1.2:
-    resolution: {integrity: sha512-zkCiXKh8D/eo6r58OmJvO5mc2NthcSRvysb3fuS6VQlHPbEPBcxduRwM3m6ZfHj+7cLHcrahCnuO2TDAbW+6xw==}
+  zx@8.1.1:
+    resolution: {integrity: sha512-JYAyM06wK+KLy07MkipBTghtd3zsYBxTH44Fh3p932ntDKdT5jxziEK51siPG+rqT+MWV1yK9mCM1/CB92PV7Q==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -2659,7 +2696,15 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
+  '@types/ramda@0.30.0':
+    dependencies:
+      types-ramda: 0.30.0
+
   '@types/semver@7.5.8': {}
+
+  '@types/xml@1.0.11':
+    dependencies:
+      '@types/node': 20.12.12
 
   '@xmldom/xmldom@0.8.10': {}
 
@@ -2814,6 +2859,8 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
+
+  commander@11.1.0: {}
 
   commander@2.20.3: {}
 
@@ -3607,6 +3654,8 @@ snapshots:
 
   quick-lru@4.0.1: {}
 
+  ramda@0.30.0: {}
+
   read-pkg-up@7.0.1:
     dependencies:
       find-up: 4.1.0
@@ -3863,6 +3912,8 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  ts-toolbelt@9.6.0: {}
+
   tsconfig-paths-webpack-plugin@4.1.0:
     dependencies:
       chalk: 4.1.2
@@ -3924,6 +3975,10 @@ snapshots:
       has-proto: 1.0.3
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
+
+  types-ramda@0.30.0:
+    dependencies:
+      ts-toolbelt: 9.6.0
 
   typescript@5.4.5: {}
 
@@ -4000,6 +4055,8 @@ snapshots:
 
   wrappy@1.0.2: {}
 
+  xml@1.0.1: {}
+
   y18n@4.0.3: {}
 
   y18n@5.0.8: {}
@@ -4041,7 +4098,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zx@8.1.2:
+  zx@8.1.1:
     optionalDependencies:
       '@types/fs-extra': 11.0.4
       '@types/node': 20.12.12
