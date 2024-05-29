@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 export function replaceWindowsCRLFToUnix(code: string) {
-    return code.replace(/\r\n/g, '');
+    return code.replace(/\r/g, '');
 }
 /** 删除文件尾部换行 */
 export function removeEndLine(code: string) {
@@ -21,7 +21,7 @@ export function removeEmptyLine(code: string) {
 }
 
 export const formatJSCode = R.pipe(
-    // replaceWindowsCRLFToUnix,
+    replaceWindowsCRLFToUnix,
     removeEndLine,
     removeSingleLineComments,
     removeMultiLineComments,
@@ -29,7 +29,7 @@ export const formatJSCode = R.pipe(
 );
 
 export const formatCSCode = R.pipe(
-    // replaceWindowsCRLFToUnix,
+    replaceWindowsCRLFToUnix,
     removeEndLine,
     removeSingleLineComments,
     removeMultiLineComments,

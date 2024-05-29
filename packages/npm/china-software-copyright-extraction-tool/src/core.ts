@@ -1,6 +1,7 @@
 import docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import xml from 'xml';
+import R from 'ramda';
 import { path, fs, glob } from 'zx';
 import { CWD } from './utils/constants';
 import { resolve } from './utils/functions';
@@ -18,11 +19,16 @@ async function findFiles({ globPath, ignorePath }: ToolOption) {
             const content = await fs.readFile(filePath, 'utf-8');
             return {
                 filePath,
-                content: formatCode(content, path.extname(filePath)),
+                content,
             };
         })
     );
 }
+const transformToTemplate = R.pipe(
+    R.map(({ content, filePath }) => formatCode(content, path.extname(filePath)).split('\n')),
+    R.flatten,
+    R.map(content => ({ content }))
+);
 export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     const { outputPath = CWD, globPath = [], ignorePath = [] } = option;
     const content = await fs.readFile(resolve('template.docx'), 'binary');
@@ -30,14 +36,17 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     const doc = new docxtemplater(new PizZip(content));
     const files = await findFiles(option);
     // 对文档模板中的占位符进行替换
-    const code = files
-        .slice(0, 1)
-        .map(({ content }) => content)
-        .join('\n');
-    console.log('code');
-    console.log(JSON.stringify(code));
-    console.log(code);
-    doc.setData({ code });
+    // const code = files
+    //     .slice(0, 2)
+    //     .map(({ content }) => content)
+    //     .join('\n');
+    // console.log('code');
+    // console.log(JSON.stringify(code));
+    // console.log(code);
+    const list = transformToTemplate(files);
+    doc.setData({
+        list,
+    });
     // 生成新的文档
     doc.render();
     // 将文档输出为新的docx文件
