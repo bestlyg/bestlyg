@@ -1,0 +1,17 @@
+{
+    "name": "2982.找出出现至少三次的最长特殊子字符串II",
+    "url": "https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-ii",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 461,
+            "memory": 18.88,
+            "desc": "哈希存储所有相同字符的串的长度，判断同类串的最大长度。",
+            "code": "def get_longest(arr: Counter) -> int:\n        max_key = max(arr.keys())\n        if arr[max_key] >= 3:\n            return max_key\n        elif arr[max_key] * 2 + arr[max_key - 1] >= 3:\n            return max_key - 1\n        return max_key - 2\n    class Solution:\n        def maximumLength(self, s: str) -> int:\n            n = len(s)\n            map = defaultdict(Counter)\n            i = 0\n            while i < n:\n                j = i\n                while i < n and s[j] == s[i]: i += 1\n                map[s[j]][i - j] += 1\n            vmax = max([get_longest(arr) for arr in map.values()])\n            return vmax if vmax else -1",
+            "date": 1716998400000
+        }
+    ]
+}

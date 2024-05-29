@@ -3,8 +3,8 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2981. 找出出现至少三次的最长特殊子字符串 I',
-    url: 'https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-i',
+    name: '2982. 找出出现至少三次的最长特殊子字符串 II',
+    url: 'https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-ii',
     difficulty: Difficulty.简单,
     tag: [],
     desc: `返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。`,
@@ -28,20 +28,27 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 57,
-            memory: 16.49,
-            desc: '遍历',
-            code: `class Solution:
-    def maximumLength(self, s: str) -> int:
-        n = len(s)
-        i = 0
-        counter = Counter()
-        while i < n:
-            j = i
-            while i < n and s[j] == s[i]: i += 1
-            for cnt in range(1, i - j + 1):
-                counter[s[j] * cnt] += i - j - cnt + 1
-        return max([len(item[0]) for item in counter.items() if item[1] >= 3], default = -1)`,
+            time: 461,
+            memory: 18.88,
+            desc: '哈希存储所有相同字符的串的长度，判断同类串的最大长度',
+            code: `def get_longest(arr: Counter) -> int:
+        max_key = max(arr.keys())
+        if arr[max_key] >= 3:
+            return max_key
+        elif arr[max_key] * 2 + arr[max_key - 1] >= 3:
+            return max_key - 1
+        return max_key - 2
+    class Solution:
+        def maximumLength(self, s: str) -> int:
+            n = len(s)
+            map = defaultdict(Counter)
+            i = 0
+            while i < n:
+                j = i
+                while i < n and s[j] == s[i]: i += 1
+                map[s[j]][i - j] += 1
+            vmax = max([get_longest(arr) for arr in map.values()])
+            return vmax if vmax else -1`,
         },
 
         //         {
