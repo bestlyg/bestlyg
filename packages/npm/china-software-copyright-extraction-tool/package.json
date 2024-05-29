@@ -1,35 +1,35 @@
 {
-  "name": "china-software-copyright-extraction-tool",
-  "version": "1.0.0",
-  "description": "china software copyright extraction tool",
-  "type": "module",
-  "author": "bestlyg",
-  "exports": {
-    "import": "./dist/esm/index.mjs",
-    "require": "./dist/lib/index.cjs"
-  },
-  "bin": {
-    "china-software-copyright-extraction-tool": "./bin/china-software-copyright-extraction-tool.js"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "commander": "^11.1.0",
-    "docxtemplater": "^3.47.4",
-    "pizzip": "^3.1.7",
-    "ramda": "^0.30.0",
-    "xml": "^1.0.1",
-    "zx": "8.1.1"
-  },
-  "scripts": {
-    "start": "node bin/china-software-copyright-extraction-tool.js",
-    "build": "modern build",
-    "dev": "modern build --watch"
-  },
-  "devDependencies": {
-    "@modern-js/module-tools": "^2.50.0",
-    "@types/node": "^20.12.12",
-    "@types/ramda": "^0.30.0",
-    "@types/xml": "^1.0.11",
-    "typescript": "^5.4.5"
-  }
+    "name": "china-software-copyright-extraction-tool",
+    "version": "1.0.0",
+    "description": "china software copyright extraction tool",
+    "type": "module",
+    "author": "bestlyg",
+    "exports": {
+        "import": "./dist/esm/index.mjs",
+        "require": "./dist/lib/index.cjs"
+    },
+    "bin": {
+        "china-software-copyright-extraction-tool": "./bin/china-software-copyright-extraction-tool.js"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "commander": "^11.1.0",
+        "docxtemplater": "^3.47.4",
+        "pizzip": "^3.1.7",
+        "ramda": "^0.30.0",
+        "xml": "^1.0.1",
+        "zx": "8.1.1"
+    },
+    "scripts": {
+        "start": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
+        "build": "modern build",
+        "dev": "modern build --watch"
+    },
+    "devDependencies": {
+        "@modern-js/module-tools": "^2.50.0",
+        "@types/node": "^20.12.12",
+        "@types/ramda": "^0.30.0",
+        "@types/xml": "^1.0.11",
+        "typescript": "^5.4.5"
+    }
 }

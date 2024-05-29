@@ -12,6 +12,7 @@ export interface ToolOption {
 }
 async function findFiles({ globPath, ignorePath }: ToolOption) {
     const files = await glob(globPath, { ignore: ignorePath, cwd: CWD });
+    console.log(files);
     return Promise.all(
         files.map(async filePath => {
             const content = await fs.readFile(filePath, 'utf-8');
@@ -30,7 +31,7 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     const files = await findFiles(option);
     // 对文档模板中的占位符进行替换
     const code = files
-        // .slice(0, 1)
+        .slice(0, 1)
         .map(({ content }) => content)
         .join('\n');
     console.log('code');

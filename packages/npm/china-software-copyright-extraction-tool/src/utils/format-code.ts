@@ -1,5 +1,8 @@
 import * as R from 'ramda';
 
+export function replaceWindowsCRLFToUnix(code: string) {
+    return code.replace(/\r\n/g, '');
+}
 /** 删除文件尾部换行 */
 export function removeEndLine(code: string) {
     return code.replace(/\n$/, '');
@@ -12,13 +15,21 @@ export function removeSingleLineComments(code: string) {
 export function removeMultiLineComments(code: string) {
     return code.replace(/\/\*{2}[\s\S]*?\*\//g, '');
 }
-
 /** 删除空白行 */
 export function removeEmptyLine(code: string) {
     return code.replace(/^\s*(?=\r?$)\n/gms, '');
 }
 
 export const formatJSCode = R.pipe(
+    // replaceWindowsCRLFToUnix,
+    removeEndLine,
+    removeSingleLineComments,
+    removeMultiLineComments,
+    removeEmptyLine
+);
+
+export const formatCSCode = R.pipe(
+    // replaceWindowsCRLFToUnix,
     removeEndLine,
     removeSingleLineComments,
     removeMultiLineComments,
@@ -33,12 +44,9 @@ export function formatCode(code: string, fileExt: string) {
         case '.ts':
         case '.cts':
         case '.mts':
-            const result = formatJSCode(code);
-            // print.info('Source Code: ');
-            // print.info(code);
-            // print.info('Formatted Code: ');
-            // print.info(result);
-            return result;
+            return formatJSCode(code);
+        case '.cs':
+            return formatCSCode(code);
         default:
             return code;
     }
