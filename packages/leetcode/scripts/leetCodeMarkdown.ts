@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2951. 找出峰值',
-    url: 'https://leetcode.cn/problems/find-the-peaks',
+    name: '2981. 找出出现至少三次的最长特殊子字符串 I',
+    url: 'https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `以数组形式返回给定数组中 峰值 的下标，顺序不限 。`,
+    desc: `返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,12 +28,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 34,
-            memory: 16.45,
+            time: 57,
+            memory: 16.49,
             desc: '遍历',
             code: `class Solution:
-    def findPeaks(self, mountain: List[int]) -> List[int]:
-        return [i for i in range(1, len(mountain) - 1) if mountain[i - 1] < mountain[i] > mountain[i + 1]]`,
+    def maximumLength(self, s: str) -> int:
+        n = len(s)
+        i = 0
+        counter = Counter()
+        while i < n:
+            j = i
+            while i < n and s[j] == s[i]: i += 1
+            for cnt in range(1, i - j + 1):
+                counter[s[j] * cnt] += i - j - cnt + 1
+        return max([len(item[0]) for item in counter.items() if item[1] >= 3], default = -1)`,
         },
 
         //         {
