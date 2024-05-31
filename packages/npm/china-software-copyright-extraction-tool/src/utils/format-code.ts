@@ -1,6 +1,10 @@
 import * as R from 'ramda';
+import { SPACE_PER_TAB } from './constants';
 
 export function replaceWindowsCRLFToUnix(code: string) {
+    return code.replace(/\t/g, ' '.repeat(SPACE_PER_TAB));
+}
+export function replaceTabsToSpace(code: string) {
     return code.replace(/\r\n/g, '\n');
 }
 /** 删除文件尾部换行 */

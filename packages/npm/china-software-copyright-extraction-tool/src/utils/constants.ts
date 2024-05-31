@@ -7,6 +7,9 @@ export const MAX_HALF_PAGE = 30;
 export const MAX_HALF_LINES = LINES_PER_PAGE * MAX_HALF_PAGE;
 export const CHARS_PER_LINE = 95;
 export const PREFIX = getEnv('COPY-RIGHT') ?? 'COPY-RIGHT';
+export const SPACE_PER_TAB = Number.isNaN(Number(getEnv('SPACE-PER-TAB')))
+    ? 4
+    : Number(getEnv('SPACE-PER-TAB'));
 export const CWD = getEnv('CWD') ?? process.cwd();
 export const DEV = !!getEnv('DEV') ?? false;
 export const IS_TTP = process.env.BUILD_REGION !== 'cn';
