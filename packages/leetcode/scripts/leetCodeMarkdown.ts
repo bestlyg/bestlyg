@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2982. 找出出现至少三次的最长特殊子字符串 II',
-    url: 'https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-ii',
+    name: '2965. 找出缺失和重复的数字',
+    url: 'https://leetcode.cn/problems/find-missing-and-repeated-values',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。`,
+    desc: `任务是找出重复的数字a 和缺失的数字 b 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,27 +28,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 461,
-            memory: 18.88,
-            desc: '哈希存储所有相同字符的串的长度，判断同类串的最大长度',
-            code: `def get_longest(arr: Counter) -> int:
-        max_key = max(arr.keys())
-        if arr[max_key] >= 3:
-            return max_key
-        elif arr[max_key] * 2 + arr[max_key - 1] >= 3:
-            return max_key - 1
-        return max_key - 2
-    class Solution:
-        def maximumLength(self, s: str) -> int:
-            n = len(s)
-            map = defaultdict(Counter)
-            i = 0
-            while i < n:
-                j = i
-                while i < n and s[j] == s[i]: i += 1
-                map[s[j]][i - j] += 1
-            vmax = max([get_longest(arr) for arr in map.values()])
-            return vmax if vmax else -1`,
+            time: 54,
+            memory: 16.86,
+            desc: '排序后遍历',
+            code: `class Solution:
+    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
+        arr = sorted(cell for row in grid for cell in row)
+        res = [0, 0]
+        for i in range(1, len(arr)):
+            if arr[i] == arr[i - 1]: res[0] = arr[i]
+            if arr[i] == arr[i - 1] + 2: res[1] = arr[i] - 1
+        if arr[i] != len(arr): res[1] = len(arr)
+        if arr[0] != 1: res[1] = 1
+        return res`,
         },
 
         //         {
