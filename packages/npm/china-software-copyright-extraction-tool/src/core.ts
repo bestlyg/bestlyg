@@ -3,7 +3,14 @@ import PizZip from 'pizzip';
 import xml from 'xml';
 import R from 'ramda';
 import { path, fs, glob } from 'zx';
-import { CWD } from './utils/constants';
+import {
+    CHARS_PER_LINE,
+    CWD,
+    DEV,
+    LINES_PER_PAGE,
+    MAX_HALF_LINES,
+    MAX_HALF_PAGE,
+} from './utils/constants';
 import { resolve } from './utils/functions';
 import { formatCode } from './utils/format-code';
 export interface ToolOption {
@@ -11,30 +18,85 @@ export interface ToolOption {
     globPath: string[];
     ignorePath: string[];
 }
-async function findFiles({ globPath, ignorePath }: ToolOption) {
+async function findFilePaths({ globPath, ignorePath }: ToolOption) {
     const files = await glob(globPath, { ignore: ignorePath, cwd: CWD });
-    console.log(files);
-    return Promise.all(
-        files.map(async filePath => {
-            const content = await fs.readFile(filePath, 'utf-8');
-            return {
-                filePath,
-                content,
-            };
-        })
-    );
+    return files.map(filePath => resolve(CWD, filePath));
 }
-const transformToTemplate = R.pipe(
-    R.map(({ content, filePath }) => formatCode(content, path.extname(filePath)).split('\n')),
-    R.flatten,
-    R.map(content => ({ content }))
-);
+
+function formatCodeList(codeList: string[], reverse = false): string[] {
+    const res: string[] = [];
+    const op = reverse ? 'unshift' : 'push';
+    const [start, end, step] = reverse ? [codeList.length - 1, -1, -1] : [0, codeList.length, 1];
+    for (let i = start, sum = 0; i != end; i += step) {
+        const line = Math.ceil(codeList[i].length / LINES_PER_PAGE);
+        if (sum + line > MAX_HALF_LINES) {
+            res[op](
+                reverse
+                    ? codeList[i].substring(
+                          codeList[i].length - (MAX_HALF_LINES - sum) * CHARS_PER_LINE
+                      )
+                    : codeList[i].substring(0, (MAX_HALF_LINES - sum) * CHARS_PER_LINE)
+            );
+            break;
+        } else {
+            res[op](codeList[i]);
+            sum += line;
+        }
+    }
+    return res;
+}
+
+async function getFormatedCodeList(filePaths: string[]) {
+    const codeList: string[] = [];
+    let curFileIdx = 0;
+    // 前30页
+    while (curFileIdx < filePaths.length && codeList.length <= MAX_HALF_LINES) {
+        const filePath = filePaths[curFileIdx++];
+        const code = await fs.readFile(filePath, 'utf-8');
+        const formatedFileData = formatCode(code, path.extname(filePath));
+        // console.log(`======> filePath = ${filePath}`);
+        // console.log(`code`);
+        // console.log(code);
+        // console.log(`stringify code`);
+        // console.log(JSON.stringify(formatedFileData));
+        // console.log('formatedFileData');
+        // console.log(formatedFileData);
+        // DEV && codeList.push(`===> FilePath = ${filePath}`);
+        console.log(formatedFileData.split('\n'));
+        codeList.push(...formatedFileData.split('\n'));
+        // return codeList.map(content => ({ content }));
+    }
+    // 后30页
+    const lastCodeList: string[] = [];
+    for (
+        let lastCurFileIdx = filePaths.length - 1;
+        lastCurFileIdx > curFileIdx && lastCodeList.length <= MAX_HALF_LINES;
+        lastCurFileIdx--
+    ) {
+        const filePath = filePaths[lastCurFileIdx];
+        const code = await fs.readFile(filePath, 'utf-8');
+        const formatedFileData = formatCode(code, path.extname(filePath));
+        lastCodeList.unshift(...formatedFileData.split('\n'));
+        DEV && lastCodeList.unshift(`===> FilePath = ${filePath}`);
+    }
+    if (lastCodeList.length > MAX_HALF_LINES) {
+        lastCodeList.splice(0, lastCodeList.length - MAX_HALF_LINES);
+        codeList.length = MAX_HALF_LINES;
+    }
+    DEV && codeList.push(`====== HALF DIVIDER ======`);
+    return []
+        .concat(formatCodeList(codeList))
+        .concat(formatCodeList(lastCodeList))
+        .map(content => ({ content }));
+}
+
 export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
-    const { outputPath = CWD, globPath = [], ignorePath = [] } = option;
+    const { outputPath = CWD } = option;
     const content = await fs.readFile(resolve('template.docx'), 'binary');
     // 创建一个docxtemplater实例
     const doc = new docxtemplater(new PizZip(content));
-    const files = await findFiles(option);
+    const filePaths = await findFilePaths(option);
+    console.log(filePaths);
     // 对文档模板中的占位符进行替换
     // const code = files
     //     .slice(0, 2)
@@ -43,7 +105,12 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     // console.log('code');
     // console.log(JSON.stringify(code));
     // console.log(code);
-    const list = transformToTemplate(files);
+    // const list = transformToTemplate(files);
+    const list = await getFormatedCodeList(
+        filePaths
+        // .slice(0, 2)
+    );
+    // console.log(list);
     doc.setData({
         list,
     });

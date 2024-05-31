@@ -21,7 +21,8 @@
         "zx": "8.1.1"
     },
     "scripts": {
-        "start": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
+        "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
+        "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "build": "modern build",
         "dev": "modern build --watch"
     },
@@ -30,6 +31,7 @@
         "@types/node": "^20.12.12",
         "@types/ramda": "^0.30.0",
         "@types/xml": "^1.0.11",
+        "cross-env": "^7.0.3",
         "typescript": "^5.4.5"
     }
 }

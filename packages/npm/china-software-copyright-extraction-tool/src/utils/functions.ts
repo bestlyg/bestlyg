@@ -1,7 +1,7 @@
 import { path } from 'zx';
 
 export function getEnv(s: string) {
-    return process.env[s];
+    return process.env[`CSCET_${s}`];
 }
 
 export function resolve(...p: string[]) {

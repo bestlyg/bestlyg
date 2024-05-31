@@ -1,5 +1,11 @@
 import { fs } from 'zx';
 import { getEnv, resolve } from './functions';
+/** 单页行数 */
+export const LINES_PER_PAGE = 62;
+/** 最大页数的一半 */
+export const MAX_HALF_PAGE = 30;
+export const MAX_HALF_LINES = LINES_PER_PAGE * MAX_HALF_PAGE;
+export const CHARS_PER_LINE = 95;
 export const PREFIX = getEnv('COPY-RIGHT') ?? 'COPY-RIGHT';
 export const CWD = getEnv('CWD') ?? process.cwd();
 export const DEV = !!getEnv('DEV') ?? false;

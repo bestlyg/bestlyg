@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 export function replaceWindowsCRLFToUnix(code: string) {
-    return code.replace(/\r/g, '');
+    return code.replace(/\r\n/g, '\n');
 }
 /** 删除文件尾部换行 */
 export function removeEndLine(code: string) {
