@@ -1,5 +1,10 @@
 import { path } from 'zx';
 
+export function tryToNumber(s: string, defaultValue: number): number {
+    const num = Number(s);
+    return Number.isNaN(num) ? defaultValue : num;
+}
+
 export function getEnv(s: string) {
     return process.env[`CSCET_${s}`];
 }

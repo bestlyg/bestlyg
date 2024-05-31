@@ -1,9 +1,11 @@
 import chalk from 'chalk';
 import { PREFIX } from './constants';
 import { mount } from './functions';
+
 function log(...args: any[]) {
     console.log(...args);
 }
+
 function _print(color, ...args) {
     if (args.length > 1) {
         log(
@@ -14,6 +16,7 @@ function _print(color, ...args) {
         log(chalk[color](...args));
     }
 }
+
 function list(info: Record<string, any>) {
     const entries = Object.entries(info).filter(([, v]) => v !== undefined);
     const padEndLength = Math.max(...entries.map(([k]) => k.length)) + 1;
@@ -48,6 +51,5 @@ export const print = mount(_print, {
     chalk,
     divider,
     list,
-    /**12 */
     errorWithStack,
-});//12
+});

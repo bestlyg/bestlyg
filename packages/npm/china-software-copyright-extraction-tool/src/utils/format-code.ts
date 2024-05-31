@@ -1,10 +1,10 @@
 import * as R from 'ramda';
 import { SPACE_PER_TAB } from './constants';
 
-export function replaceWindowsCRLFToUnix(code: string) {
+export function replaceTabsToSpace(code: string) {
     return code.replace(/\t/g, ' '.repeat(SPACE_PER_TAB));
 }
-export function replaceTabsToSpace(code: string) {
+export function replaceWindowsCRLFToUnix(code: string) {
     return code.replace(/\r\n/g, '\n');
 }
 /** 删除文件尾部换行 */
@@ -25,6 +25,7 @@ export function removeEmptyLine(code: string) {
 }
 
 export const formatJSCode = R.pipe(
+    replaceTabsToSpace,
     replaceWindowsCRLFToUnix,
     removeEndLine,
     removeSingleLineComments,
@@ -33,6 +34,7 @@ export const formatJSCode = R.pipe(
 );
 
 export const formatCSCode = R.pipe(
+    replaceTabsToSpace,
     replaceWindowsCRLFToUnix,
     removeEndLine,
     removeSingleLineComments,

@@ -13,6 +13,7 @@ import {
 } from './utils/constants';
 import { resolve } from './utils/functions';
 import { formatCode } from './utils/format-code';
+import { print } from './utils/print';
 export interface ToolOption {
     outputPath: string;
     globPath: string[];
@@ -62,7 +63,7 @@ async function getFormatedCodeList(filePaths: string[]) {
         // console.log('formatedFileData');
         // console.log(formatedFileData);
         // DEV && codeList.push(`===> FilePath = ${filePath}`);
-        console.log(formatedFileData.split('\n'));
+        // console.log(formatedFileData.split('\n'));
         codeList.push(...formatedFileData.split('\n'));
         // return codeList.map(content => ({ content }));
     }
@@ -79,24 +80,42 @@ async function getFormatedCodeList(filePaths: string[]) {
         lastCodeList.unshift(...formatedFileData.split('\n'));
         DEV && lastCodeList.unshift(`===> FilePath = ${filePath}`);
     }
+    console.log(`before codeList = ${codeList.length}, lastCodeList = ${lastCodeList.length} `);
     if (lastCodeList.length > MAX_HALF_LINES) {
         lastCodeList.splice(0, lastCodeList.length - MAX_HALF_LINES);
         codeList.length = MAX_HALF_LINES;
     }
+    console.log(`after codeList = ${codeList.length}, lastCodeList = ${lastCodeList.length} `);
     DEV && codeList.push(`====== HALF DIVIDER ======`);
     return []
-        .concat(formatCodeList(codeList))
-        .concat(formatCodeList(lastCodeList))
+        .concat(codeList)
+        .concat(lastCodeList)
         .map(content => ({ content }));
 }
 
 export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
-    const { outputPath = CWD } = option;
+    const { outputPath } = option;
+    print.divider();
+    print.info(`OutputPath: ${option.outputPath}`);
+    if (option.globPath.length) {
+        print.info(`GlobPath  :`);
+        option.globPath.forEach(p => print.info(' '.repeat(12) + p));
+    }
+    if (option.ignorePath.length) {
+        print.info(`IgnorePath:`);
+        option.ignorePath.forEach(p => print.info(' '.repeat(12) + p));
+    }
+    print.divider();
     const content = await fs.readFile(resolve('template.docx'), 'binary');
     // 创建一个docxtemplater实例
     const doc = new docxtemplater(new PizZip(content));
     const filePaths = await findFilePaths(option);
-    console.log(filePaths);
+    print.info(`Find ${filePaths.length} files.`);
+    filePaths.forEach((filePath, idx) =>
+        print.info(
+            `${(idx + 1).toString().padStart(filePaths.length.toString().length, '0')}: ${filePath}`
+        )
+    );
     // 对文档模板中的占位符进行替换
     // const code = files
     //     .slice(0, 2)

@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { CWD, packageInfo } from './utils/constants';
 import { print } from './utils/print';
 import { ToolOption, chinaSoftwareCopyrightExtractionTool } from './core';
+import { resolve } from './utils/functions';
 
 const contact = (v, cur) => cur.concat([v]);
 
@@ -11,13 +12,10 @@ async function main() {
     program.description(packageInfo.description);
     program.version(packageInfo.version);
     program
-        .option('--output-path <output_path>', 'The output path..', CWD)
+        .option('--output-path <output_path>', 'The output path..', resolve(CWD, 'output.docx'))
         .option('--glob-path <glob_path>', 'The source code path.', contact, [])
         .option('--ignore-path <ignore_path>', 'The ignore path.', contact, [])
-        .action(async (o: ToolOption) => {
-            console.log(o);
-            await chinaSoftwareCopyrightExtractionTool(o);
-        });
+        .action((o: ToolOption) => chinaSoftwareCopyrightExtractionTool(o));
     program.parse();
 }
 
