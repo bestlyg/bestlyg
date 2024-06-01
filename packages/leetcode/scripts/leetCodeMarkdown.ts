@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2965. 找出缺失和重复的数字',
-    url: 'https://leetcode.cn/problems/find-missing-and-repeated-values',
+    name: '2928. 给小朋友们分糖果 I',
+    url: 'https://leetcode.cn/problems/distribute-candies-among-children-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `任务是找出重复的数字a 和缺失的数字 b 。`,
+    desc: `给你两个正整数 n 和 limit 。请你将 n 颗糖果分给 3 位小朋友，确保没有任何小朋友得到超过 limit 颗糖果，请你返回满足此条件下的 总方案数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -28,19 +28,14 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 54,
-            memory: 16.86,
+            time: 280,
+            memory: 31.78,
             desc: '排序后遍历',
             code: `class Solution:
-    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
-        arr = sorted(cell for row in grid for cell in row)
-        res = [0, 0]
-        for i in range(1, len(arr)):
-            if arr[i] == arr[i - 1]: res[0] = arr[i]
-            if arr[i] == arr[i - 1] + 2: res[1] = arr[i] - 1
-        if arr[i] != len(arr): res[1] = len(arr)
-        if arr[0] != 1: res[1] = 1
-        return res`,
+    @cache
+    def distributeCandies(self, n: int, limit: int, cnt: int = 3) -> int:
+        if cnt == 0: return int(n == 0)
+        return sum(self.distributeCandies(n - i, limit, cnt - 1) for i in range(limit + 1))`,
         },
 
         //         {
