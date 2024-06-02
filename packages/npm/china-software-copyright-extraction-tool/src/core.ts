@@ -93,6 +93,32 @@ async function getFormatedCodeList(filePaths: string[]) {
         .map(content => ({ content }));
 }
 
+export class Doc {
+    inited = false;
+    doc: docxtemplater<PizZip>;
+    constructor() {}
+    setData(data: any) {
+        this.doc.setData(data);
+    }
+    async init() {
+        const content = await fs.readFile(resolve('template.docx'), 'binary');
+        // 创建一个docxtemplater实例
+        const doc = new docxtemplater(new PizZip(content));
+        this.doc = doc;
+        this.inited = true;
+    }
+    async output(outputPath) {
+        // 生成新的文档
+        this.doc.render();
+        // 将文档输出为新的docx文件
+        const buf = this.doc.getZip().generate({
+            type: 'nodebuffer',
+            compression: 'DEFLATE',
+        });
+        await fs.writeFile(path.resolve(CWD, outputPath), buf);
+    }
+}
+
 export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     const { outputPath } = option;
     print.divider();
@@ -106,9 +132,8 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
         option.ignorePath.forEach(p => print.info(' '.repeat(12) + p));
     }
     print.divider();
-    const content = await fs.readFile(resolve('template.docx'), 'binary');
-    // 创建一个docxtemplater实例
-    const doc = new docxtemplater(new PizZip(content));
+    const doc = new Doc();
+    await doc.init();
     const filePaths = await findFilePaths(option);
     print.info(`Find ${filePaths.length} files.`);
     filePaths.forEach((filePath, idx) =>
@@ -130,16 +155,7 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
         // .slice(0, 2)
     );
     // console.log(list);
-    doc.setData({
-        list,
-    });
-    // 生成新的文档
-    doc.render();
-    // 将文档输出为新的docx文件
-    const buf = doc.getZip().generate({
-        type: 'nodebuffer',
-        compression: 'DEFLATE',
-    });
-    await fs.writeFile(path.resolve(CWD, outputPath), buf);
-    console.log('create success');
+    doc.setData({ list });
+    await doc.output(outputPath);
+    print.success('Extraction success');
 }

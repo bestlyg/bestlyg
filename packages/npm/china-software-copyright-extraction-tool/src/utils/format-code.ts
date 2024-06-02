@@ -1,9 +1,11 @@
 import * as R from 'ramda';
 import { SPACE_PER_TAB } from './constants';
 
+/** 转换Tab到空格 */
 export function replaceTabsToSpace(code: string) {
     return code.replace(/\t/g, ' '.repeat(SPACE_PER_TAB));
 }
+/** 转换window的换行到unix */
 export function replaceWindowsCRLFToUnix(code: string) {
     return code.replace(/\r\n/g, '\n');
 }
@@ -24,16 +26,7 @@ export function removeEmptyLine(code: string) {
     return code.replace(/^\s*(?=\r?$)\n/gms, '');
 }
 
-export const formatJSCode = R.pipe(
-    replaceTabsToSpace,
-    replaceWindowsCRLFToUnix,
-    removeEndLine,
-    removeSingleLineComments,
-    removeMultiLineComments,
-    removeEmptyLine
-);
-
-export const formatCSCode = R.pipe(
+export const formatCCode = R.pipe(
     replaceTabsToSpace,
     replaceWindowsCRLFToUnix,
     removeEndLine,
@@ -50,9 +43,12 @@ export function formatCode(code: string, fileExt: string) {
         case '.ts':
         case '.cts':
         case '.mts':
-            return formatJSCode(code);
         case '.cs':
-            return formatCSCode(code);
+        case '.c':
+        case '.cpp':
+        case '.cc':
+        case '.java':
+            return formatCCode(code);
         default:
             return code;
     }

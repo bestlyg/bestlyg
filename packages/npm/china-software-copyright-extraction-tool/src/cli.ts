@@ -15,7 +15,11 @@ async function main() {
         .option('--output-path <output_path>', 'The output path..', resolve(CWD, 'output.docx'))
         .option('--glob-path <glob_path>', 'The source code path.', contact, [])
         .option('--ignore-path <ignore_path>', 'The ignore path.', contact, [])
-        .action((o: ToolOption) => chinaSoftwareCopyrightExtractionTool(o));
+        .action((o: ToolOption) =>
+            chinaSoftwareCopyrightExtractionTool(o).catch(err => {
+                print.errorWithStack('Extraction error', err);
+            })
+        );
     program.parse();
 }
 
