@@ -30,7 +30,7 @@ function list(info: Record<string, any>) {
  */
 function divider(level = 'info') {
     const logger = print[level] ?? print.info;
-    logger('-'.repeat(process.stdout.columns));
+    logger('-'.repeat(process.stdout.columns - PREFIX.length - 3));
 }
 function errorWithStack(msg: string, ...errors: any[]) {
     print.error(msg);

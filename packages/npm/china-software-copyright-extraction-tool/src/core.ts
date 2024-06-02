@@ -81,7 +81,7 @@ async function getFormatedCodeList(filePaths: string[]) {
         DEV && lastCodeList.unshift(`===> FilePath = ${filePath}`);
     }
     console.log(`before codeList = ${codeList.length}, lastCodeList = ${lastCodeList.length} `);
-    if (lastCodeList.length > MAX_HALF_LINES) {
+    if (lastCodeList.length + codeList.length > MAX_HALF_LINES * 2) {
         lastCodeList.splice(0, lastCodeList.length - MAX_HALF_LINES);
         codeList.length = MAX_HALF_LINES;
     }
