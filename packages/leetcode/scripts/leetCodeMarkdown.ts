@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '2928. 给小朋友们分糖果 I',
+    exist: true,
+    name: '575. 分糖果',
     url: 'https://leetcode.cn/problems/distribute-candies-among-children-i',
     difficulty: Difficulty.简单,
     tag: [],
@@ -28,14 +28,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 280,
-            memory: 31.78,
-            desc: '排序后遍历',
+            time: 98,
+            memory: 18.08,
+            desc: '判断最大糖果数量和最大糖果类型的最小值',
             code: `class Solution:
-    @cache
-    def distributeCandies(self, n: int, limit: int, cnt: int = 3) -> int:
-        if cnt == 0: return int(n == 0)
-        return sum(self.distributeCandies(n - i, limit, cnt - 1) for i in range(limit + 1))`,
+    def distributeCandies(self, candyType: List[int]) -> int:
+        return min(len(Counter(candyType).keys()),  len(candyType) // 2)`,
         },
 
         //         {
