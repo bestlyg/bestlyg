@@ -1,6 +1,6 @@
 {
     "name": "cscet",
-    "version": "0.0.1",
+    "version": "0.0.6",
     "description": "china software copyright extraction tool",
     "type": "module",
     "author": "bestlyg",
@@ -9,10 +9,11 @@
         "require": "./dist/lib/index.cjs"
     },
     "bin": {
-        "china-software-copyright-extraction-tool": "./bin/china-software-copyright-extraction-tool.js"
+        "cecet": "./bin/china-software-copyright-extraction-tool.js"
     },
     "license": "ISC",
     "dependencies": {
+        "chalk": "4",
         "commander": "^11.1.0",
         "docxtemplater": "^3.47.4",
         "pizzip": "^3.1.7",
@@ -34,5 +35,12 @@
         "@types/xml": "^1.0.11",
         "cross-env": "^7.0.3",
         "typescript": "^5.4.5"
-    }
+    },
+    "files": [
+        "bin",
+        "dist",
+        "package.json",
+        "README.md",
+        "template.docx"
+    ]
 }
