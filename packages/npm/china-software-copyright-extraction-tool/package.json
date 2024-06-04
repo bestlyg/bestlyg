@@ -1,6 +1,6 @@
 {
     "name": "cscet",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "china software copyright extraction tool",
     "type": "module",
     "author": "bestlyg",
@@ -9,7 +9,7 @@
         "require": "./dist/lib/index.cjs"
     },
     "bin": {
-        "cecet": "./bin/china-software-copyright-extraction-tool.js"
+        "cscet": "./bin/china-software-copyright-extraction-tool.js"
     },
     "license": "ISC",
     "dependencies": {
@@ -19,9 +19,11 @@
         "pizzip": "^3.1.7",
         "ramda": "^0.30.0",
         "xml": "^1.0.1",
-        "zx": "8.1.1"
+        "zx": "^8.1.1"
     },
     "scripts": {
+        "run:publish": "pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks",
+        "run:test": "pnpm dlx cscet@0.0.5 china-software-copyright-extraction-tool --glob-path \"/Users/bytedance/projects/bestlyg/packages/npm/china-software-copyright-extraction-tool/src\" --registry https://registry.npmjs.org",
         "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "build": "modern build",

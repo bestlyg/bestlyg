@@ -27,7 +27,7 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       zx:
-        specifier: 8.1.1
+        specifier: ^8.1.1
         version: 8.1.1
     devDependencies:
       '@modern-js/module-tools':
