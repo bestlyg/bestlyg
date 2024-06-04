@@ -1,0 +1,17 @@
+{
+    "name": "3067.在带权树网络中统计可连接服务器对数目",
+    "url": "https://leetcode.cn/problems/count-pairs-of-connectable-servers-in-a-weighted-tree-network",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个长度为 n 的整数数组 count ，其中 count[i] 表示通过服务器 i 可连接 的服务器对的 数目 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 797,
+            "memory": 18.23,
+            "desc": "模拟。",
+            "code": "class Solution:\n    def countPairsOfConnectableServers(self, edges: List[List[int]], signalSpeed: int) -> List[int]:\n        nodes = [[] for _ in range(len(edges) + 1)]\n        for n1, n2, w in edges:\n            nodes[n1].append((n2, w))\n            nodes[n2].append((n1, w))\n        def dfs(cur: int, prev: int, sum: int) -> int:\n            res = 0\n            if sum % signalSpeed == 0: res += 1\n            for next, w in nodes[cur]:\n                if next != prev:\n                    res += dfs(next, cur, sum + w)\n            return res\n        def get_cnt(cur: int) -> int:\n            if len(nodes[cur]) == 1: return 0\n            arr = [dfs(next, cur, w) for next, w in nodes[cur]]\n            vsum = sum(arr)\n            res = 0\n            for v in arr:\n                vsum -= v\n                res += v * vsum\n            return res\n        return [get_cnt(i) for i in range(len(nodes))]",
+            "date": 1717430400000
+        }
+    ]
+}
