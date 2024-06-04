@@ -119,6 +119,17 @@ export class Doc {
     }
 }
 
+export async function getLinesOfCode(filePaths: string[]) {
+    const arr = await Promise.all(
+        filePaths.map(async filePath => {
+            const code = await fs.readFile(filePath, 'utf-8');
+            const formatedFileData = formatCode(code, path.extname(filePath));
+            return formatedFileData.split('\n').length;
+        })
+    );
+    return R.sum(arr);
+}
+
 export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     const { outputPath } = option;
     print.divider();
@@ -136,6 +147,7 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     await doc.init();
     const filePaths = await findFilePaths(option);
     print.info(`Find ${filePaths.length} files.`);
+    print.info(`Total number of lines of code: ${await getLinesOfCode(filePaths)} lines.`);
     filePaths.forEach((filePath, idx) =>
         print.info(
             `${(idx + 1).toString().padStart(filePaths.length.toString().length, '0')}: ${filePath}`

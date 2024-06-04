@@ -23,7 +23,7 @@
     },
     "scripts": {
         "run:publish": "pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks",
-        "run:test": "pnpm dlx cscet@0.0.5 china-software-copyright-extraction-tool --glob-path \"/Users/bytedance/projects/bestlyg/packages/npm/china-software-copyright-extraction-tool/src\" --registry https://registry.npmjs.org",
+        "run:test": "pnpm run:prod --output-path \"C:/bestlyg/信韵.docx\"  --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/**/*.(cs)\" --ignore-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/obj/Debug\" --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/Admin/inRhyme/**/*.js\"",
         "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "build": "modern build",
