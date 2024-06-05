@@ -1,0 +1,17 @@
+{
+    "name": "3072.将元素分配到两个数组中II",
+    "url": "https://leetcode.cn/problems/distribute-elements-into-two-arrays-ii",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回整数数组 result 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 6345,
+            "memory": 33.59,
+            "desc": "有序数组存储后模拟。",
+            "code": "from sortedcontainers import SortedList\n    class Solution:\n        def resultArray(self, nums: List[int]) -> List[int]:\n            res1 = [nums[0]]\n            sorted1 = SortedList(res1)\n            res2 = [nums[1]]\n            sorted2 = SortedList(res2)\n            for num in nums[2:]:\n                cnt1 = len(res1) - bisect_right(sorted1, num)\n                cnt2 = len(res2) - bisect_right(sorted2, num)\n                if cnt1 > cnt2 or (cnt1 == cnt2 and len(res1) <= len(res2)):\n                    res1.append(num)\n                    sorted1.add(num)\n                else:\n                    res2.append(num)\n                    sorted2.add(num)\n            return res1 + res2",
+            "date": 1717516800000
+        }
+    ]
+}

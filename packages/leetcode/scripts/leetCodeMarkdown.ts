@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3067. 在带权树网络中统计可连接服务器对数目',
-    url: 'https://leetcode.cn/problems/count-pairs-of-connectable-servers-in-a-weighted-tree-network',
+    name: '3072. 将元素分配到两个数组中 II',
+    url: 'https://leetcode.cn/problems/distribute-elements-into-two-arrays-ii',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个长度为 n 的整数数组 count ，其中 count[i] 表示通过服务器 i 可连接 的服务器对的 数目 。`,
+    desc: `返回整数数组 result 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,32 +37,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 797,
-            memory: 18.23,
-            desc: '模拟',
-            code: `class Solution:
-    def countPairsOfConnectableServers(self, edges: List[List[int]], signalSpeed: int) -> List[int]:
-        nodes = [[] for _ in range(len(edges) + 1)]
-        for n1, n2, w in edges:
-            nodes[n1].append((n2, w))
-            nodes[n2].append((n1, w))
-        def dfs(cur: int, prev: int, sum: int) -> int:
-            res = 0
-            if sum % signalSpeed == 0: res += 1
-            for next, w in nodes[cur]:
-                if next != prev:
-                    res += dfs(next, cur, sum + w)
-            return res
-        def get_cnt(cur: int) -> int:
-            if len(nodes[cur]) == 1: return 0
-            arr = [dfs(next, cur, w) for next, w in nodes[cur]]
-            vsum = sum(arr)
-            res = 0
-            for v in arr:
-                vsum -= v
-                res += v * vsum
-            return res
-        return [get_cnt(i) for i in range(len(nodes))]`,
+            time: 6345,
+            memory: 33.59,
+            desc: '有序数组存储后模拟',
+            code: `from sortedcontainers import SortedList
+    class Solution:
+        def resultArray(self, nums: List[int]) -> List[int]:
+            res1 = [nums[0]]
+            sorted1 = SortedList(res1)
+            res2 = [nums[1]]
+            sorted2 = SortedList(res2)
+            for num in nums[2:]:
+                cnt1 = len(res1) - bisect_right(sorted1, num)
+                cnt2 = len(res2) - bisect_right(sorted2, num)
+                if cnt1 > cnt2 or (cnt1 == cnt2 and len(res1) <= len(res2)):
+                    res1.append(num)
+                    sorted1.add(num)
+                else:
+                    res2.append(num)
+                    sorted2.add(num)
+            return res1 + res2`,
         },
         // {
         //     script: Script.RUST,
