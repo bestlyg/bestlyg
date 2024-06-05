@@ -19,7 +19,7 @@ export function removeSingleLineComments(code: string) {
 }
 /** 删除多行注释 */
 export function removeMultiLineComments(code: string) {
-    return code.replace(/\/\*{2}[\s\S]*?\*\//g, '');
+    return code.replace(/\/\*[\s\S]*?\*\//g, '');
 }
 /** 删除空白行 */
 export function removeEmptyLine(code: string) {
