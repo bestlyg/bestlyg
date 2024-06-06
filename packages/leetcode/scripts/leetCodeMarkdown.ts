@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3072. 将元素分配到两个数组中 II',
-    url: 'https://leetcode.cn/problems/distribute-elements-into-two-arrays-ii',
+    name: '2938. 区分黑球与白球',
+    url: 'https://leetcode.cn/problems/separate-black-and-white-balls',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回整数数组 result 。`,
+    desc: `返回「将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数」。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,26 +37,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 6345,
-            memory: 33.59,
-            desc: '有序数组存储后模拟',
-            code: `from sortedcontainers import SortedList
-    class Solution:
-        def resultArray(self, nums: List[int]) -> List[int]:
-            res1 = [nums[0]]
-            sorted1 = SortedList(res1)
-            res2 = [nums[1]]
-            sorted2 = SortedList(res2)
-            for num in nums[2:]:
-                cnt1 = len(res1) - bisect_right(sorted1, num)
-                cnt2 = len(res2) - bisect_right(sorted2, num)
-                if cnt1 > cnt2 or (cnt1 == cnt2 and len(res1) <= len(res2)):
-                    res1.append(num)
-                    sorted1.add(num)
-                else:
-                    res2.append(num)
-                    sorted2.add(num)
-            return res1 + res2`,
+            time: 104,
+            memory: 43.7,
+            desc: '贪心把所有0都放左边',
+            code: `class Solution:
+    def minimumSteps(self, s: str) -> int:
+        cnt0 = 0
+        res = 0
+        for i in range(len(s)):
+            if s[i] == '0':
+                res += i - cnt0
+                cnt0 += 1
+        return res`,
         },
         // {
         //     script: Script.RUST,
