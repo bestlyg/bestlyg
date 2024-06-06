@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { PREFIX } from './constants';
+import { PREFIX } from './base';
 import { mount } from './functions';
 
 function log(...args: any[]) {

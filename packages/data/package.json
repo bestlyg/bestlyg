@@ -2,8 +2,22 @@
     "name": "@bestlyg/data",
     "version": "0.0.1",
     "description": "",
-    "main": "index.js",
-    "scripts": {},
-    "author": "",
-    "license": "ISC"
+    "main": "./dist/lib/index.cjs",
+    "author": "bestlyg",
+    "types": "./dist/types",
+    "exports": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/lib/index.cjs"
+    },
+    "scripts": {
+        "build": "modern build -c ./node_modules/@bestlyg/cli/modern.config.ts"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "@modern-js/module-tools": "^2.50.0",
+        "@bestlyg/cli": "workspace:^",
+        "@types/node": "^20.14.2",
+        "typescript": "^5.4.5"
+    },
+    "dependencies": {}
 }

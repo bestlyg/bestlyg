@@ -9,7 +9,8 @@
         "lib": ["ESNext"],
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "types": ["node"]
+        "types": ["node"],
+        "paths": { "@/*": ["src/*"] }
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules", "dist"]

@@ -1,8 +1,8 @@
 {
     "name": "@bestlyg/cli",
     "version": "0.0.0",
-    "main": "index.js",
     "type": "module",
+    "main": "./dist/lib/index.cjs",
     "author": "bestlyg",
     "types": "./dist/types",
     "exports": {
@@ -21,7 +21,6 @@
         "best": "./bin/best.js"
     },
     "devDependencies": {
-        "@modern-js/module-tools": "^2.50.0",
         "@types/figlet": "^1.5.8",
         "@types/node": "^20.12.12",
         "@types/ramda": "^0.30.0",
@@ -32,6 +31,7 @@
     "keywords": [],
     "license": "ISC",
     "dependencies": {
+        "@modern-js/module-tools": "^2.50.0",
         "chalk": "4",
         "commander": "^11.1.0",
         "figlet": "^1.7.0",

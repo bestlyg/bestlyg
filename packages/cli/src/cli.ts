@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { LOGO, packageInfo, print } from './utils/index';
+import { build } from './commands/index';
 
 export class Cli {
     private _program = new Command();
@@ -16,6 +17,7 @@ export class Cli {
         this.program.name(packageInfo.name);
         this.program.description(packageInfo.description);
         this.program.version(packageInfo.version);
+        this.apply(build);
         this.program.action(o => {
             print.success('Cli started.');
         });
