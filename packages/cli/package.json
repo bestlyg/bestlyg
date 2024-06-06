@@ -1,0 +1,38 @@
+{
+    "name": "@bestlyg/cli",
+    "version": "0.0.0",
+    "main": "index.js",
+    "type": "module",
+    "author": "bestlyg",
+    "exports": {
+        "import": "./dist/esm/index.mjs",
+        "require": "./dist/lib/index.cjs"
+    },
+    "scripts": {
+        "run:dev": "cross-env BEST_DEV=1 node --max-old-space-size=4096 bin/best.js",
+        "run:prod": "node --max-old-space-size=4096 bin/best.js",
+        "build": "modern build",
+        "prepublishOnly": "pnpm build",
+        "dev": "modern build --watch"
+    },
+    "bin": {
+        "@bestlyg/cli": "./bin/best.js",
+        "best": "./bin/best.js"
+    },
+    "devDependencies": {
+        "@modern-js/module-tools": "^2.50.0",
+        "@types/node": "^20.12.12",
+        "@types/ramda": "^0.30.0",
+        "@types/xml": "^1.0.11",
+        "cross-env": "^7.0.3",
+        "typescript": "^5.4.5"
+    },
+    "keywords": [],
+    "license": "ISC",
+    "dependencies": {
+        "chalk": "4",
+        "commander": "^11.1.0",
+        "ramda": "^0.30.0",
+        "zx": "^8.1.2"
+    }
+}

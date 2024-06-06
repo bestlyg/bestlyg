@@ -1,0 +1,38 @@
+import { Command } from 'commander';
+import { packageInfo } from './utils/constants';
+import { print } from './utils/print';
+
+export class Cli {
+    private _program = new Command();
+    get program() {
+        return this._program;
+    }
+    private _helpers = {
+        contact: (v, cur) => cur.concat([v]),
+    };
+    get helpers() {
+        return this._helpers;
+    }
+    constructor() {
+        this.program.name(packageInfo.name);
+        this.program.description(packageInfo.description);
+        this.program.version(packageInfo.version);
+        this.program.action(o => {
+            print.success('Cli started.');
+        });
+    }
+    apply(fn: (program: Command) => void) {
+        fn(this.program);
+        return this;
+    }
+    async run() {
+        try {
+            this.program.parse();
+        } catch (err) {
+            print.errorWithStack('Run cli error.', err);
+            process.exit(1);
+        }
+    }
+}
+
+export default Cli;
