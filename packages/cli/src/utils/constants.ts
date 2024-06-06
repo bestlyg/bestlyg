@@ -1,7 +1,11 @@
 import { fs } from 'zx';
 import { getEnv, resolve } from './functions';
+import figlet from 'figlet';
 
-export { PREFIX } from './functions';
+export const LOGO = figlet.textSync('bestlyg'.toUpperCase(), {
+    font: 'Doh',
+    whitespaceBreak: true,
+});
 
 export const CWD = getEnv('CWD') ?? process.cwd();
 export const DEV = !!getEnv('DEV');

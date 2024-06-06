@@ -12,10 +12,10 @@ export default defineConfig({
             format: 'esm',
             autoExtension: true,
             outDir: './dist/esm',
-            esbuildOptions: options => {
-                options.outExtension = { '.js': '.js' };
-                return options;
-            },
+            // esbuildOptions: options => {
+            //     options.outExtension = { '.js': '.js' };
+            //     return options;
+            // },
         },
         {
             sourceMap: true,
@@ -26,10 +26,10 @@ export default defineConfig({
             format: 'cjs',
             autoExtension: true,
             outDir: './dist/lib',
-            esbuildOptions: options => {
-                options.outExtension = { '.js': '.cjs' };
-                return options;
-            },
+            // esbuildOptions: options => {
+            //     options.outExtension = { '.js': '.cjs' };
+            //     return options;
+            // },
         },
         {
             buildType: 'bundleless',

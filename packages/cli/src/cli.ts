@@ -1,6 +1,5 @@
 import { Command } from 'commander';
-import { packageInfo } from './utils/constants';
-import { print } from './utils/print';
+import { LOGO, packageInfo, print } from './utils/index';
 
 export class Cli {
     private _program = new Command();
@@ -27,6 +26,7 @@ export class Cli {
     }
     async run() {
         try {
+            console.log(LOGO);
             this.program.parse();
         } catch (err) {
             print.errorWithStack('Run cli error.', err);

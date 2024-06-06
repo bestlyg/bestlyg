@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@bestlyg/cli':
+        specifier: workspace:^
+        version: link:../cli
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.11

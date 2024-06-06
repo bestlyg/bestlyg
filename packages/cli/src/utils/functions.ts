@@ -1,6 +1,5 @@
 import { path } from 'zx';
-
-export const PREFIX = 'BEST';
+import { PREFIX } from './base';
 
 export function tryToNumber(s: string, defaultValue: number): number {
     const num = Number(s);
