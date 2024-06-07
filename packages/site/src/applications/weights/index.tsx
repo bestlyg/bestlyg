@@ -1,18 +1,16 @@
 import * as echarts from 'echarts';
-import dayjs from 'dayjs';
-import data from '@bestlyg/data/src/weights.json';
+import { weights } from '@bestlyg/data';
 import { useRef, useEffect } from 'react';
 
 export function Weights() {
     const containerRef = useRef<HTMLDivElement>();
     useEffect(() => {
-        console.log('===> weights', data);
         const chart = echarts.init(containerRef.current);
         const option = {
             tooltip: {},
             xAxis: {
                 type: 'category',
-                data: Object.keys(data).reverse(),
+                data: Object.keys(weights).reverse(),
                 name: '日期',
                 min: 'dataMin',
                 max: 'dataMax',
@@ -54,7 +52,7 @@ export function Weights() {
             ],
             series: [
                 {
-                    data: Object.values(data).reverse(),
+                    data: Object.values(weights).reverse(),
                     type: 'line',
                     smooth: true,
                 },

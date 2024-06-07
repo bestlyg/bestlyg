@@ -2,15 +2,34 @@
     "name": "@bestlyg/data",
     "version": "0.0.1",
     "description": "",
-    "main": "./dist/lib/index.cjs",
     "author": "bestlyg",
-    "types": "./dist/types",
+    "type": "module",
+    "main": "./dist/lib/index.cjs",
+    "types": "./dist/types/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types/index.d.ts"
+            ]
+        }
+    },
     "exports": {
-        "import": "./dist/esm/index.js",
-        "require": "./dist/lib/index.cjs"
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        },
+        "./package.json": "./package.json"
     },
     "scripts": {
-        "build": "modern build -c ./node_modules/@bestlyg/cli/modern.config.ts"
+        "build": "modern build",
+        "dev": "modern build --watch"
     },
     "license": "ISC",
     "devDependencies": {

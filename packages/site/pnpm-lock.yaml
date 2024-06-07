@@ -12,13 +12,13 @@ importers:
         specifier: ^5.3.6
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@bestlyg/code':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../code
       '@bestlyg/data':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../data
       '@bestlyg/leetcode':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../leetcode
       '@docusaurus/core':
         specifier: 3.2.0

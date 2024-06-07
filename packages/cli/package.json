@@ -1,13 +1,30 @@
 {
     "name": "@bestlyg/cli",
     "version": "0.0.0",
+    "author": "bestlyg",
     "type": "module",
     "main": "./dist/lib/index.cjs",
-    "author": "bestlyg",
-    "types": "./dist/types",
+    "types": "./dist/types/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types/index.d.ts"
+            ]
+        }
+    },
     "exports": {
-        "import": "./dist/esm/index.js",
-        "require": "./dist/lib/index.cjs"
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        },
+        "./package.json": "./package.json"
     },
     "scripts": {
         "run:dev": "cross-env BEST_DEV=1 node --max-old-space-size=4096 bin/best.js",

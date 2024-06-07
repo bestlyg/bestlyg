@@ -12,6 +12,7 @@ export default defineConfig({
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,
+            platform: 'browser',
             input: [resolve(CWD, 'src', '**', '*.ts'), resolve(CWD, 'src', '**', '*.tsx')],
             target: 'esnext',
             format: 'esm',
@@ -26,6 +27,7 @@ export default defineConfig({
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,
+            platform: 'browser',
             input: [resolve(CWD, 'src', '**', '*.ts'), resolve(CWD, 'src', '**', '*.tsx')],
             target: 'esnext',
             format: 'cjs',
@@ -38,6 +40,7 @@ export default defineConfig({
         },
         {
             buildType: 'bundleless',
+            platform: 'browser',
             dts: {
                 only: true,
             },
