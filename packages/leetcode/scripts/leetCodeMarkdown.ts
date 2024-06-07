@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2938. 区分黑球与白球',
-    url: 'https://leetcode.cn/problems/separate-black-and-white-balls',
+    name: '3038. 相同分数的最大操作数目 I',
+    url: 'https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回「将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数」。`,
+    desc: `在确保 所有操作分数相同 的前提下，请你求出 最多 能进行多少次操作。请你返回按照上述要求 最多 可以进行的操作次数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,17 +37,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 104,
-            memory: 43.7,
-            desc: '贪心把所有0都放左边',
+            time: 33,
+            memory: 16.42,
+            desc: '遍历',
             code: `class Solution:
-    def minimumSteps(self, s: str) -> int:
-        cnt0 = 0
-        res = 0
-        for i in range(len(s)):
-            if s[i] == '0':
-                res += i - cnt0
-                cnt0 += 1
+    def maxOperations(self, nums: List[int]) -> int:
+        prev = nums[0] + nums[1]
+        res = 1
+        for i in range(3, len(nums), 2):
+            if nums[i] + nums[i - 1] == prev:
+                res += 1
+            else:
+                break
         return res`,
         },
         // {
