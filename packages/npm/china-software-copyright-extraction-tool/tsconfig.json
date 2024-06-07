@@ -1,16 +1,16 @@
 {
-  "compilerOptions": {
-    "rootDir": ".",
-    "target": "ESNext",
-    "module": "CommonJS",
-    "allowJs": true,
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "lib": ["ESNext"],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "types": ["node"]
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+    "compilerOptions": {
+        "rootDir": ".",
+        "target": "ESNext",
+        "module": "CommonJS",
+        "allowJs": true,
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "lib": ["ESNext"],
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "types": ["node"]
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
 }

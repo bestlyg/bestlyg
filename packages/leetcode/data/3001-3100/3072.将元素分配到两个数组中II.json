@@ -1,8 +1,9 @@
 {
+    "id": "3350",
     "name": "3072.将元素分配到两个数组中II",
     "url": "https://leetcode.cn/problems/distribute-elements-into-two-arrays-ii",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["树状数组", "线段树", "数组", "模拟"],
     "desc": "返回整数数组 result 。",
     "solutions": [
         {

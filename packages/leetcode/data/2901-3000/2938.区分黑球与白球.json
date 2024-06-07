@@ -1,8 +1,9 @@
 {
+    "id": "3195",
     "name": "2938.区分黑球与白球",
     "url": "https://leetcode.cn/problems/separate-black-and-white-balls",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["贪心", "双指针", "字符串"],
     "desc": "返回「将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数」。",
     "solutions": [
         {

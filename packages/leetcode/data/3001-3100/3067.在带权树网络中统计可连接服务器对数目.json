@@ -1,8 +1,9 @@
 {
+    "id": "3326",
     "name": "3067.在带权树网络中统计可连接服务器对数目",
     "url": "https://leetcode.cn/problems/count-pairs-of-connectable-servers-in-a-weighted-tree-network",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["树", "深度优先搜索", "数组"],
     "desc": "请你返回一个长度为 n 的整数数组 count ，其中 count[i] 表示通过服务器 i 可连接 的服务器对的 数目 。",
     "solutions": [
         {

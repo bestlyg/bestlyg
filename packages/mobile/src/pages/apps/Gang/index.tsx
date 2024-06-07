@@ -13,46 +13,46 @@ import styles from './styles.module.scss';
 import './global.scss';
 
 definePageConfig({
-  navigationBarTitleText: '小李小叶港',
+    navigationBarTitleText: '小李小叶港',
 });
 export default function Main() {
-  const { state } = useStore(state => state.global.login);
-  Taro.useDidShow(() => {
-    if (!state) {
-      Taro.switchTab({ url: getPageUrl(Page.Tabbar_WorkBench) });
-    }
-  });
-  const [tab, setTab] = React.useState(0);
-  const { data: accounts, run: refreshAccount } = useRequest(getAccount, { manual: true });
-  const { data: bills, run: refreshBill } = useRequest(getBill, { manual: true });
-  const { data: types, run: refreshType } = useRequest(getType, { manual: true });
-  React.useEffect(() => {
-    console.log('account', accounts);
-    console.log('bills', bills);
-    console.log('types', types);
-  }, [accounts, bills, types]);
-  const tabList = [
-    { title: '账单', component: <Bill bills={bills ?? []} types={types ?? []} /> },
-    { title: '统计', component: <Statistics /> },
-    { title: '账户', component: <Account accounts={accounts ?? []} types={types ?? []} /> },
-  ];
-  Taro.useDidShow(() => {
-    refreshAccount();
-    refreshBill();
-    refreshType();
-  });
-  return (
-    <View>
-      <AtTabs current={tab} tabList={tabList} onClick={setTab}>
-        {tabList.map((item, i) => (
-          <AtTabsPane current={tab} index={i} key={i}>
-            <ScrollView scrollY scrollWithAnimation className={styles.subtab}>
-              {item.component}
-              <SafeBottomBlock height={40} />
-            </ScrollView>
-          </AtTabsPane>
-        ))}
-      </AtTabs>
-    </View>
-  );
+    const { state } = useStore(state => state.global.login);
+    Taro.useDidShow(() => {
+        if (!state) {
+            Taro.switchTab({ url: getPageUrl(Page.Tabbar_WorkBench) });
+        }
+    });
+    const [tab, setTab] = React.useState(0);
+    const { data: accounts, run: refreshAccount } = useRequest(getAccount, { manual: true });
+    const { data: bills, run: refreshBill } = useRequest(getBill, { manual: true });
+    const { data: types, run: refreshType } = useRequest(getType, { manual: true });
+    React.useEffect(() => {
+        console.log('account', accounts);
+        console.log('bills', bills);
+        console.log('types', types);
+    }, [accounts, bills, types]);
+    const tabList = [
+        { title: '账单', component: <Bill bills={bills ?? []} types={types ?? []} /> },
+        { title: '统计', component: <Statistics /> },
+        { title: '账户', component: <Account accounts={accounts ?? []} types={types ?? []} /> },
+    ];
+    Taro.useDidShow(() => {
+        refreshAccount();
+        refreshBill();
+        refreshType();
+    });
+    return (
+        <View>
+            <AtTabs current={tab} tabList={tabList} onClick={setTab}>
+                {tabList.map((item, i) => (
+                    <AtTabsPane current={tab} index={i} key={i}>
+                        <ScrollView scrollY scrollWithAnimation className={styles.subtab}>
+                            {item.component}
+                            <SafeBottomBlock height={40} />
+                        </ScrollView>
+                    </AtTabsPane>
+                ))}
+            </AtTabs>
+        </View>
+    );
 }

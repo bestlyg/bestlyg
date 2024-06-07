@@ -1,8 +1,9 @@
 {
+    "id": "3266",
     "name": "2982.找出出现至少三次的最长特殊子字符串II",
     "url": "https://leetcode.cn/problems/find-longest-special-substring-that-occurs-thrice-ii",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["哈希表", "字符串", "二分查找", "计数", "滑动窗口"],
     "desc": "返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。",
     "solutions": [
         {

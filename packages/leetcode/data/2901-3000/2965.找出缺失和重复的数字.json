@@ -1,8 +1,9 @@
 {
+    "id": "3227",
     "name": "2965.找出缺失和重复的数字",
     "url": "https://leetcode.cn/problems/find-missing-and-repeated-values",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "哈希表", "数学", "矩阵"],
     "desc": "任务是找出重复的数字a 和缺失的数字 b 。",
     "solutions": [
         {
