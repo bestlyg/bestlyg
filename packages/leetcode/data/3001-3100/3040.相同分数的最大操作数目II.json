@@ -1,0 +1,17 @@
+{
+    "name": "3040.相同分数的最大操作数目II",
+    "url": "https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "在确保 所有操作分数相同 的前提下，请你求出 最多 能进行多少次操作。请你返回按照上述要求 最多 可以进行的操作次数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 2313,
+            "memory": 377.62,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        @cache\n        def dfs(l: int, r: int, score: int) -> int:\n            if r - l + 1 < 2: return 0\n            res = 0\n            if nums[l] + nums[l + 1] == score:\n                res = max(res, 1 + dfs(l + 2, r, score))\n            if nums[r] + nums[r - 1] == score:\n                res = max(res, 1 + dfs(l, r - 2, score))\n            if nums[l] + nums[r] == score:\n                res = max(res, 1 + dfs(l + 1, r - 1, score))\n            return res\n        return 1 + max(\n            dfs(2, n - 1, nums[0] + nums[1]),\n            dfs(0, n - 1 - 2, nums[n - 1] + nums[n - 2]),\n            dfs(1, n - 1 - 1, nums[0] + nums[n - 1])\n        )",
+            "date": 1717776000000
+        }
+    ]
+}
