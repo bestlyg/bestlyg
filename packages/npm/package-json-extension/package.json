@@ -54,7 +54,7 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "^2.50.0",
-        "@types/node": "^20.12.7",
+        "@types/node": "^20.14.2",
         "rimraf": "^5.0.5",
         "tslib": "^2.6.2",
         "typescript": "^5.4.5"

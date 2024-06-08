@@ -31,7 +31,7 @@ importers:
         specifier: ^1.5.8
         version: 1.5.8
       '@types/node':
-        specifier: ^20.12.12
+        specifier: ^20.14.2
         version: 20.14.2
       '@types/ramda':
         specifier: ^0.30.0

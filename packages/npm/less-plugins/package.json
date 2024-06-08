@@ -5,7 +5,7 @@
     "author": "BestLyg",
     "devDependencies": {
         "@types/less": "^3.0.6",
-        "@types/node": "^20.12.7",
+        "@types/node": "^20.14.2",
         "typescript": "^5.4.5"
     },
     "scripts": {

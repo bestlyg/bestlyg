@@ -39,7 +39,7 @@
     },
     "devDependencies": {
         "@types/figlet": "^1.5.8",
-        "@types/node": "^20.12.12",
+        "@types/node": "^20.14.2",
         "@types/ramda": "^0.30.0",
         "@types/xml": "^1.0.11",
         "cross-env": "^7.0.3",

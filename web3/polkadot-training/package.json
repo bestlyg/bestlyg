@@ -14,7 +14,7 @@
         "@polkadot/api-augment": "^10.9.1",
         "@polkadot/keyring": "^12.4.2",
         "@polkadot/types": "^10.9.1",
-        "@types/node": "^20.12.7",
+        "@types/node": "^20.14.2",
         "nodemon": "^3.0.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5",
