@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
-            sourceMap: true,
+            sourceMap: !true,
             buildType: 'bundleless',
             shims: true,
             platform: 'browser',
@@ -24,7 +24,7 @@ export default defineConfig({
             },
         },
         {
-            sourceMap: true,
+            sourceMap: !true,
             buildType: 'bundleless',
             shims: true,
             platform: 'browser',

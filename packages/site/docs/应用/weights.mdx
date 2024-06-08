@@ -1,6 +1,5 @@
 import {Weights} from '@site/src/applications/weights';
-import WeightCodeSource from '!!raw-loader!@bestlyg/data/src/weights.ts';
-import DanceTimesCodeSource from '!!raw-loader!@bestlyg/data/src/dance-times.ts';
+import CodeSource from '!!raw-loader!@bestlyg/data/src/xuan.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # 体重变化
@@ -9,5 +8,4 @@ import CodeBlock from '@theme/CodeBlock';
 
 ## Code
 
-<CodeBlock language="json">{WeightCodeSource}</CodeBlock>
-<CodeBlock language="json">{DanceTimesCodeSource}</CodeBlock>
+<CodeBlock language="ts">{CodeSource}</CodeBlock>

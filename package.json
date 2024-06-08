@@ -11,7 +11,7 @@
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "rm -rf node_modules && rm -rf ./**/node_modules && pnpm i --force",
-        "format": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+        "format": "prettier --write \"**/*.{js,jsx,tsx,ts,md,json}\"",
         "build:server": "pnpm --filter server run build",
         "build:blog": "cd scripts && ts-node build-blog.ts",
         "build:site": "./scripts/site.sh",

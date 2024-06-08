@@ -1,5 +1,5 @@
 import * as echarts from 'echarts';
-import { weights } from '@bestlyg/data';
+import { xuanDataList } from '@bestlyg/data';
 import { useRef, useEffect } from 'react';
 
 export function Weights() {
@@ -10,7 +10,10 @@ export function Weights() {
             tooltip: {},
             xAxis: {
                 type: 'category',
-                data: Object.keys(weights).reverse(),
+                data: xuanDataList
+                    .filter(v => v.weight)
+                    .map(v => v.date)
+                    .reverse(),
                 name: '日期',
                 min: 'dataMin',
                 max: 'dataMax',
@@ -52,7 +55,10 @@ export function Weights() {
             ],
             series: [
                 {
-                    data: Object.values(weights).reverse(),
+                    data: xuanDataList
+                        .filter(v => v.weight)
+                        .map(v => v.weight)
+                        .reverse(),
                     type: 'line',
                     smooth: true,
                 },

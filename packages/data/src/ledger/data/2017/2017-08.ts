@@ -1,0 +1,950 @@
+import { LedgerRecordItemType, LedgerMonthRecord } from '../../types';
+const ledgerMonthRecord: LedgerMonthRecord = {
+    date: '2017-08',
+    record: [
+        {
+            date: '2017-08-31',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 300,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 250,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-29',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.dailyNecessities,
+                    money: 3510,
+                    comment: '洗衣液',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 700,
+                    comment: '饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 4000,
+                    comment: '剪头发',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 500,
+                    comment: '摩拜月卡',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 800,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 3000,
+                    comment: '快递',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 250,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-28',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.taobao,
+                    money: 3500,
+                    comment: '草席',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1200,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 900,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 250,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-25',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 98000,
+                    comment: '尹老师销售信培训',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 8000,
+                    comment: '动车去绍兴北',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 11100,
+                    comment: '动真格培训',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 2000,
+                    comment: '电玩城玩',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 800,
+                    comment: '滴滴去温岭银泰',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 12100,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 1102,
+                    comment: '滴滴去第二医院',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 370,
+                    comment: '昨天饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 8000,
+                    comment: '动车去温岭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-24',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1250,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 200,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 910,
+                    comment: '雪碧雪碧尖叫',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.taobao,
+                    money: 3900,
+                    comment: '手机三脚架',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 250,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-22',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 260,
+                    comment: '饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1400,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 200,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-21',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drug,
+                    money: 600,
+                    comment: '创口贴',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 400,
+                    comment: '饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 1802,
+                    comment: '滴滴去星源国际',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 250,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-20',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 400,
+                    comment: '芬达',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 2014.9999999999998,
+                    comment: '永辉喝的',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.redEnvelope,
+                    money: 1000,
+                    comment: '王佳闻',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 650,
+                    comment: '饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 2800,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 9000,
+                    comment: '乌龟',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 1000,
+                    comment: '滴滴春天百货',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 400,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-19',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 400,
+                    comment: '两瓶水',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 23280,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.clothesShoesBags,
+                    money: 30500,
+                    comment: '两件衣服',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 700,
+                    comment: '滴滴去银泰',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.snack,
+                    money: 70,
+                    comment: '天猫零食',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 10100,
+                    comment: '上次吃饭，黄酒，电影票',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 350,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-18',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 900,
+                    comment: '饮料和冰淇淋',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 950,
+                    comment: '滴滴去银泰',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.phoneBill,
+                    money: 10000,
+                    comment: LedgerRecordItemType.phoneBill,
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 900,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 350,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-17',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.dailyNecessities,
+                    money: 3490,
+                    comment: '发胶',
+                },
+            ],
+        },
+        {
+            date: '2017-08-16',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 270,
+                    comment: '雪碧',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 9200,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1650,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 500,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 459.99999999999994,
+                    comment: '昨天饮料',
+                },
+            ],
+        },
+        {
+            date: '2017-08-15',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1500,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 800,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-14',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.phoneBill,
+                    money: 3000,
+                    comment: '13958696909',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 1500,
+                    comment: '魔方',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 1864,
+                    comment: '去银泰回来',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1450,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 520,
+                    comment: '昨天芒果饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 270,
+                    comment: '昨天雪碧',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 200,
+                    comment: '昨天水',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 990,
+                    comment: '昨天滴滴春天百货',
+                },
+            ],
+        },
+        {
+            date: '2017-08-12',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 200,
+                    comment: '历史纪录片',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 260,
+                    comment: '茉莉蜜茶',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1800,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 950,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1000,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 5000,
+                    comment: '马拉松',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-10',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 932,
+                    comment: '昨天滴滴回校',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 13888,
+                    comment: '昨天肉蟹煲',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 700,
+                    comment: '昨天滴滴银泰',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1050,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 500,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-08',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1450,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.clothesShoesBags,
+                    money: 1989.9999999999998,
+                    comment: '短袜',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 500,
+                    comment: '早饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 430,
+                    comment: 'c100饮料',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 10,
+                    comment: '微博打赏',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '昨天午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 500,
+                    comment: '昨天早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-06',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 2150,
+                    comment: '喝的很多',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 2000,
+                    comment: '半只烤鸭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 260,
+                    comment: '茉莉蜜茶',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 5000,
+                    comment: '饺子与菜',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.dailyNecessities,
+                    money: 1167,
+                    comment: '发胶一起用',
+                },
+            ],
+        },
+        {
+            date: '2017-08-05',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 350,
+                    comment: '雪碧',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 4000,
+                    comment: '理发',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.dailyNecessities,
+                    money: 1650,
+                    comment: '永辉超市',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 300,
+                    comment: '秀斗城邦雪碧',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1200,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 650,
+                    comment: '早饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-04',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 210,
+                    comment: '可乐',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1250,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.salary,
+                    money: -250000,
+                    comment: '',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 650,
+                    comment: '荷包蛋，绿豆沙冰，寿司，饺子',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 200,
+                    comment: '昨天买水',
+                },
+            ],
+        },
+        {
+            date: '2017-08-03',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 900,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1250,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 500,
+                    comment: '李子园，蛋炒饭',
+                },
+            ],
+        },
+        {
+            date: '2017-08-02',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1100,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.phoneBill,
+                    money: 2000,
+                    comment: '邢宇君话费',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1950,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '绿豆汤，蛋炒饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.phoneBill,
+                    money: 3000,
+                    comment: '18258003152',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.phoneBill,
+                    money: 2000,
+                    comment: '摩拜',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.redEnvelope,
+                    money: 520,
+                    comment: '昨天的红包',
+                },
+            ],
+        },
+        {
+            date: '2017-08-01',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 1800,
+                    comment: '6瓶农夫山泉，5包卫龙，1个冰淇淋',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1300,
+                    comment: '四云贡茶，原味奶茶',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 10000,
+                    comment: '游戏厅充钱',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 700,
+                    comment: '滴滴去银泰',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 1250,
+                    comment: '晚饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.generally,
+                    money: 100,
+                    comment: '库库芭比店主申请测试',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.taobao,
+                    money: 7790.000000000001,
+                    comment: '画画工具',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 300,
+                    comment: '午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.taobao,
+                    money: 2800,
+                    comment: '素描书',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 450,
+                    comment: '早饭，绿豆沙冰，蛋炒饭',
+                },
+            ],
+        },
+    ],
+};
+export default ledgerMonthRecord;
