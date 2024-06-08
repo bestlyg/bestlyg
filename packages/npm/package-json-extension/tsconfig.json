@@ -1,17 +1,8 @@
 {
+    "extends": "./node_modules/@bestlyg/cli/tsconfig.json",
     "compilerOptions": {
-        "module": "CommonJS",
-        "outDir": "./lib",
-        "rootDir": "./src",
-        "allowJs": true,
-        "sourceMap": true,
-        "inlineSources": true,
-        "importHelpers": true,
-        "noImplicitAny": false,
-        "declaration": true,
-        "esModuleInterop": true,
-        "target": "es5"
+        "baseUrl": ".",
+        "rootDir": "src"
     },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "lib"]
+    "include": ["src/**/*.ts"]
 }
