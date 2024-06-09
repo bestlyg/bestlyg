@@ -4,6 +4,7 @@ export interface Xuan {
     danceTimes?: number;
 }
 export const xuanDataList: Xuan[] = [
+    { date: '2024/6/9', weight: 66.9 },
     { date: '2024/6/8', weight: 66.9 },
     { date: '2024/6/7', weight: 66.8, danceTimes: 2 },
     { date: '2024/6/6', weight: 66.95, danceTimes: 1 },
