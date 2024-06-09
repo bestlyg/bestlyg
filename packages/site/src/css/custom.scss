@@ -28,3 +28,54 @@
     --ifm-color-primary-lightest: #4fddbf;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+[class^='ant'] {
+    ul,
+    ol {
+        margin: inherit;
+        padding-left: inherit;
+    }
+    table {
+        border-collapse: inherit;
+        display: table;
+        margin-bottom: inherit;
+        overflow: inherit;
+    }
+
+    table thead tr {
+        border-bottom: inherit;
+    }
+
+    table thead {
+        background-color: inherit;
+    }
+
+    table tr {
+        background-color: inherit;
+        border-top: inherit;
+    }
+
+    table tr:nth-child(2n) {
+        background-color: inherit;
+    }
+
+    table th,
+    table td {
+        border: inherit;
+        padding: inherit;
+    }
+
+    table th {
+        background-color: inherit;
+        color: inherit;
+        font-weight: inherit;
+    }
+
+    table td {
+        color: inherit;
+    }
+}
+
+body {
+    position: relative;
+}
