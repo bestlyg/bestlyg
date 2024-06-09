@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '312. 戳气球',
+    name: '881. 救生艇',
     url: 'https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,16 +37,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 3651,
-            memory: 33,
-            desc: 'dfs, 从下往上，刚开始没有气球，逐渐增加气球',
+            time: 84,
+            memory: 22.12,
+            desc: '贪心使每条船上尽可能多',
             code: `class Solution:
-    def maxCoins(self, nums: List[int]) -> int:
-        nums = [1] + nums + [1]
-        @cache
-        def dfs(l: int, r: int) -> int:
-            return max((nums[m] * nums[l] * nums[r] + dfs(l, m) + dfs(m, r) for m in range(l + 1, r)), default = 0)
-        return dfs(0, len(nums) - 1)`,
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        people.sort()
+        l = 0
+        r = len(people) - 1
+        res = 0
+        while l <= r:
+            if people[l] + people[r] <= limit: l += 1
+            res += 1
+            r -= 1
+        return res`,
         },
         // {
         //     script: Script.RUST,
