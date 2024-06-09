@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { chalk } from 'zx';
 import { PREFIX } from './base';
 import { mount } from './functions';
 

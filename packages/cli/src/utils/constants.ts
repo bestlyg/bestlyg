@@ -4,7 +4,7 @@ import figlet from 'figlet';
 
 export const LOGO = figlet.textSync('bestlyg'.toUpperCase(), {
     font: 'Doh',
-    whitespaceBreak: true,
+    whitespaceBreak: false,
 });
 
 export const CWD = getEnv('CWD') ?? process.cwd();

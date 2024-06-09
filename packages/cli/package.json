@@ -19,6 +19,12 @@
             "require": "./dist/lib/index.cjs",
             "default": "./dist/esm/index.js"
         },
+        "./globals": {
+            "types": "./dist/types/globals.d.ts",
+            "import": "./dist/esm/globals.js",
+            "require": "./dist/lib/globals.cjs",
+            "default": "./dist/esm/globals.js"
+        },
         "./*": {
             "import": "./*",
             "require": "./*",
@@ -38,21 +44,36 @@
         "best": "./bin/best.js"
     },
     "devDependencies": {
+        "@bestlyg/cli": "workspace:^",
         "@types/figlet": "^1.5.8",
+        "@types/inquirer": "^9.0.7",
+        "@types/lodash": "^4.17.0",
+        "@types/minimist": "^1.2.5",
         "@types/node": "^20.14.2",
         "@types/ramda": "^0.30.0",
-        "@types/xml": "^1.0.11",
+        "@types/rimraf": "^4.0.5",
+        "@types/semver": "^7.5.8",
+        "@types/yargs": "^17.0.32",
         "cross-env": "^7.0.3",
         "typescript": "^5.4.5"
     },
     "keywords": [],
     "license": "ISC",
     "dependencies": {
+        "@manypkg/get-packages": "^2.2.1",
         "@modern-js/module-tools": "^2.50.0",
-        "chalk": "4",
         "commander": "^11.1.0",
+        "dotenv": "^16.4.5",
         "figlet": "^1.7.0",
+        "inquirer": "^9.2.23",
+        "lodash": "^4.17.21",
+        "minimist": "^1.2.6",
+        "ora": "^8.0.1",
         "ramda": "^0.30.0",
+        "rimraf": "^5.0.5",
+        "semver": "^7.6.0",
+        "yargs": "^17.7.2",
+        "zod": "^3.23.8",
         "zx": "^8.1.2"
     }
 }
