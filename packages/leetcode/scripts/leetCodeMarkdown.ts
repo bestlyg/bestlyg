@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '3040. 相同分数的最大操作数目 II',
+    exist: true,
+    name: '312. 戳气球',
     url: 'https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,28 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 2313,
-            memory: 377.62,
-            desc: 'dfs',
+            time: 3651,
+            memory: 33,
+            desc: 'dfs, 从下往上，刚开始没有气球，逐渐增加气球',
             code: `class Solution:
-    def maxOperations(self, nums: List[int]) -> int:
-        n = len(nums)
+    def maxCoins(self, nums: List[int]) -> int:
+        nums = [1] + nums + [1]
         @cache
-        def dfs(l: int, r: int, score: int) -> int:
-            if r - l + 1 < 2: return 0
-            res = 0
-            if nums[l] + nums[l + 1] == score:
-                res = max(res, 1 + dfs(l + 2, r, score))
-            if nums[r] + nums[r - 1] == score:
-                res = max(res, 1 + dfs(l, r - 2, score))
-            if nums[l] + nums[r] == score:
-                res = max(res, 1 + dfs(l + 1, r - 1, score))
-            return res
-        return 1 + max(
-            dfs(2, n - 1, nums[0] + nums[1]),
-            dfs(0, n - 1 - 2, nums[n - 1] + nums[n - 2]),
-            dfs(1, n - 1 - 1, nums[0] + nums[n - 1])
-        )`,
+        def dfs(l: int, r: int) -> int:
+            return max((nums[m] * nums[l] * nums[r] + dfs(l, m) + dfs(m, r) for m in range(l + 1, r)), default = 0)
+        return dfs(0, len(nums) - 1)`,
         },
         // {
         //     script: Script.RUST,

@@ -3,7 +3,10 @@
     "name": "312.戳气球",
     "url": "https://leetcode.cn/problems/burst-balloons",
     "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
+    "tag": [
+        "数组",
+        "动态规划"
+    ],
     "desc": "有 n 个气球，编号为 0 到 n-1，每个气球上都标有一个数字，这些数字存在数组  nums  中。现在要求你戳破所有的气球。如果你戳破气球 i ，就可以获得  nums[left] _ nums[i] _ nums[right]  个硬币。  这里的  left  和  right  代表和  i  相邻的两个气球的序号。注意当你戳破了气球 i 后，气球  left  和气球  right  就变成了相邻的气球。,求所能获得硬币的最大数量。",
     "solutions": [
         {
@@ -21,6 +24,14 @@
             "script": "typescript",
             "desc": "根据题解 1 改为动态规划。",
             "code": "function maxCoins(nums: number[]): number {\n  const len = nums.length;\n  const val = [1, ...nums, 1];\n  const dp = new Array(len + 2).fill(0).map(_ => new Array(len + 2).fill(0));\n  for (let i = len - 1; i >= 0; i--) {\n    for (let j = i + 2; j <= len + 1; j++) {\n      for (let k = i + 1; k < j; k++) {\n        const sum = val[i] * val[k] * val[j] + dp[i][k] + dp[k][j];\n        dp[i][j] = Math.max(dp[i][j], sum);\n      }\n    }\n  }\n  return dp[0][len + 1];\n}"
+        },
+        {
+            "script": "python",
+            "time": 3651,
+            "memory": 33,
+            "desc": "dfs, 从下往上，刚开始没有气球，逐渐增加气球。",
+            "code": "class Solution:\n    def maxCoins(self, nums: List[int]) -> int:\n        nums = [1] + nums + [1]\n        @cache\n        def dfs(l: int, r: int) -> int:\n            return max((nums[m] * nums[l] * nums[r] + dfs(l, m) + dfs(m, r) for m in range(l + 1, r)), default = 0)\n        return dfs(0, len(nums) - 1)",
+            "date": 1717862400000
         }
     ]
 }
