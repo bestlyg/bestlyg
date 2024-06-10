@@ -28,6 +28,8 @@
         "./package.json": "./package.json"
     },
     "scripts": {
+        "encode": "node ./scripts/encode.mjs",
+        "decode": "node ./scripts/decode.mjs",
         "build": "modern build",
         "dev": "modern build --watch"
     },
