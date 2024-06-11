@@ -3,7 +3,11 @@
     "name": "419.甲板上的战舰",
     "url": "https://leetcode.cn/problems/battleships-in-a-board",
     "difficulty": "中等",
-    "tag": ["深度优先搜索", "数组", "矩阵"],
+    "tag": [
+        "深度优先搜索",
+        "数组",
+        "矩阵"
+    ],
     "desc": "给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。",
     "solutions": [
         {
@@ -29,6 +33,14 @@
             "script": "typescript",
             "desc": "每次遍历只统计每个战舰左上角的 X。",
             "code": "function countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (\n        board[row][col] === '.' ||\n        (row > 0 && board[row - 1][col] === 'X') ||\n        (col > 0 && board[row][col - 1] === 'X')\n      )\n        continue;\n      ans++;\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 37,
+            "memory": 18.76,
+            "desc": "dfs。",
+            "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n\nclass Solution:\n    def countBattleships(self, board: List[List[str]]) -> int:\n        n = len(board)\n        m = len(board[0])\n        res = 0\n        def check(i: int, j: int) -> int:\n            board[i][j] = '.'\n            for dir in dirs:\n                ni = i + dir[0]\n                nj = j + dir[1]\n                if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':\n                    check(ni, nj)\n        for i in range(n):\n            for j in range(m):\n                if board[i][j] == 'X':\n                    res += 1\n                    check(i, j)\n        return res",
+            "date": 1718035200000
         }
     ]
 }

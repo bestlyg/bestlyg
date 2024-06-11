@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '881. 救生艇',
+    name: '419. 甲板上的战舰',
     url: 'https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,19 +37,28 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 84,
-            memory: 22.12,
-            desc: '贪心使每条船上尽可能多',
-            code: `class Solution:
-    def numRescueBoats(self, people: List[int], limit: int) -> int:
-        people.sort()
-        l = 0
-        r = len(people) - 1
+            time: 37,
+            memory: 18.76,
+            desc: 'dfs',
+            code: `dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        n = len(board)
+        m = len(board[0])
         res = 0
-        while l <= r:
-            if people[l] + people[r] <= limit: l += 1
-            res += 1
-            r -= 1
+        def check(i: int, j: int) -> int:
+            board[i][j] = '.'
+            for dir in dirs:
+                ni = i + dir[0]
+                nj = j + dir[1]
+                if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':
+                    check(ni, nj)
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == 'X':
+                    res += 1
+                    check(i, j)
         return res`,
         },
         // {
