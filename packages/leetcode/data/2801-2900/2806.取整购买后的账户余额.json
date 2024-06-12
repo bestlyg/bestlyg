@@ -1,0 +1,17 @@
+{
+    "name": "2806.取整购买后的账户余额",
+    "url": "https://leetcode.cn/problems/account-balance-after-rounded-purchase",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个整数，表示你在愿意支出金额为 purchaseAmount 块钱的前提下，购买之后剩下的余额。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 24,
+            "memory": 16.45,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        cnt = 0\n        while (cnt + 1) * 10 < purchaseAmount: cnt += 1\n        if abs(cnt * 10 - purchaseAmount) < abs((cnt + 1) * 10 - purchaseAmount):\n            return 100 - 10 * cnt\n        else:\n            return 100 - 10 * (cnt + 1)",
+            "date": 1718121600000
+        }
+    ]
+}
