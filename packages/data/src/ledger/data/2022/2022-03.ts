@@ -71,7 +71,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 486.00000000000006,
+                    money: 486,
                     comment: '午饭，外卖，美团',
                 },
                 {
@@ -105,7 +105,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '拼多多，压缩袋',
                 },
                 {
@@ -163,7 +163,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 484.99999999999994,
+                    money: 484 + 1,
                     comment: '晚饭，外卖，美团',
                 },
             ],
@@ -191,7 +191,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 484.99999999999994,
+                    money: 484 + 1,
                     comment: '晚饭，外卖，美团',
                 },
                 {
@@ -330,7 +330,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 465.00000000000006,
+                    money: 465,
                     comment: '晚饭，外卖，美团',
                 },
             ],
@@ -421,7 +421,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 409.99999999999994,
+                    money: 409 + 1,
                     comment: '晚饭，外卖，美团',
                 },
                 {
@@ -461,7 +461,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 469.00000000000006,
+                    money: 469,
                     comment: '晚饭，外卖，饿了么',
                 },
                 {

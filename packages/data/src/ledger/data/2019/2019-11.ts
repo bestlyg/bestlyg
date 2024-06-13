@@ -25,13 +25,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '冰峰暴',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '一生有你',
                 },
                 {
@@ -55,7 +55,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -176,7 +176,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -199,7 +199,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -240,7 +240,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -263,7 +263,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -309,13 +309,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '午饭，外卖，永香源',
                 },
             ],
@@ -395,7 +395,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '第二天午饭，外卖，永香源',
                 },
                 {
@@ -407,7 +407,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '长安道',
                 },
                 {
@@ -472,7 +472,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '晚饭，外卖，永香源',
                 },
                 {
@@ -581,7 +581,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '我的拳王男友',
                 },
                 {

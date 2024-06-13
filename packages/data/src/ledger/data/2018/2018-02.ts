@@ -61,7 +61,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 3579.9999999999995,
+                    money: 3579 + 1,
                     comment: '唐人街探案2',
                 },
                 {
@@ -273,7 +273,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.redEnvelope,
-                    money: 6659.999999999999,
+                    money: 6659 + 1,
                     comment: '',
                 },
                 {

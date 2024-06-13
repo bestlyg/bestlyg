@@ -71,7 +71,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 869.9999999999999,
+                    money: 869 + 1,
                     comment: '晚饭，外卖，饿了么',
                 },
                 {
@@ -152,7 +152,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 1689.9999999999998,
+                    money: 1689 + 1,
                     comment: '拼多多，鼻毛修剪器',
                 },
                 {
@@ -199,7 +199,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1601.0000000000002,
+                    money: 1601,
                     comment: '晚饭，外卖，美团',
                 },
                 {
@@ -429,7 +429,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 894.9999999999999,
+                    money: 894 + 1,
                     comment: '午饭，外卖，美团',
                 },
                 {
@@ -464,13 +464,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 56.00000000000001,
+                    money: 56,
                     comment: '午饭，外卖，饿了么',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 110.00000000000001,
+                    money: 110,
                     comment: '晚饭，外卖，饿了么',
                 },
             ],
@@ -544,13 +544,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '拼多多，牙线',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '理发',
                 },
                 {

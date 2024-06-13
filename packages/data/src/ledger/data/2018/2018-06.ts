@@ -319,7 +319,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.dailyNecessities,
-                    money: 3429.9999999999995,
+                    money: 3429 + 1,
                     comment: '衣架',
                 },
                 {
@@ -378,7 +378,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 245.00000000000003,
+                    money: 245,
                     comment: '早饭',
                 },
             ],
@@ -488,13 +488,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 3684.0000000000005,
+                    money: 3684,
                     comment: '蒙牛纯牛奶',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 26095.999999999996,
+                    money: 26095 + 1,
                     comment: '牙刷usmeil',
                 },
                 {
@@ -815,13 +815,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 878.9999999999999,
+                    money: 878 + 1,
                     comment: '午饭',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 448.00000000000006,
+                    money: 448,
                     comment: '早饭',
                 },
             ],
@@ -844,7 +844,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 878.9999999999999,
+                    money: 878 + 1,
                     comment: '午饭',
                 },
                 {

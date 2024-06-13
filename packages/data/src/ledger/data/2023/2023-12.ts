@@ -205,7 +205,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 1689.9999999999998,
+                    money: 1689 + 1,
                     comment: '淘宝，公牛插线板',
                 },
                 {

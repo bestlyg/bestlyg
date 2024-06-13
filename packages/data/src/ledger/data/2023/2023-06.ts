@@ -8,7 +8,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.drinks,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '瑞幸咖啡',
                 },
                 {
@@ -163,7 +163,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.drinks,
-                    money: 476.99999999999994,
+                    money: 476 + 1,
                     comment: '三瓶纯牛奶，两瓶三得利乌龙茶',
                 },
             ],

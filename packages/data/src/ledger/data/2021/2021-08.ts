@@ -156,7 +156,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 52683.00000000001,
+                    money: 52683,
                     comment: '合租消费出账，7.21\\-8.22',
                 },
             ],
@@ -303,7 +303,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 880.0000000000001,
+                    money: 880,
                     comment: '晚饭，外卖，美团',
                 },
                 {
@@ -373,7 +373,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 980.0000000000001,
+                    money: 980,
                     comment: '午饭，外卖，美团',
                 },
             ],

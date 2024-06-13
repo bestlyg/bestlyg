@@ -406,7 +406,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.drinks,
-                    money: 459.99999999999994,
+                    money: 459 + 1,
                     comment: '可乐一瓶，巧克力奶一瓶',
                 },
                 {

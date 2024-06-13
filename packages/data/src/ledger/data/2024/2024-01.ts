@@ -108,7 +108,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 3379.9999999999995,
+                    money: 3379 + 1,
                     comment: '理发',
                 },
                 {
@@ -310,7 +310,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '永旺机厅',
                 },
                 {

@@ -283,7 +283,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.drinks,
-                    money: 2014.9999999999998,
+                    money: 2014 + 1,
                     comment: '永辉喝的',
                 },
                 {
@@ -471,7 +471,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.drinks,
-                    money: 459.99999999999994,
+                    money: 459 + 1,
                     comment: '昨天饮料',
                 },
             ],
@@ -658,7 +658,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.clothesShoesBags,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '短袜',
                 },
                 {
@@ -922,7 +922,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 7790.000000000001,
+                    money: 7790,
                     comment: '画画工具',
                 },
                 {

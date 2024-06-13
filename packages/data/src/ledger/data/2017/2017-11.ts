@@ -231,7 +231,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 2039.9999999999998,
+                    money: 2039 + 1,
                     comment: '超市',
                 },
                 {
@@ -415,7 +415,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.transportation,
-                    money: 927.9999999999999,
+                    money: 927 + 1,
                     comment: '滴滴去非同时尚酒店',
                 },
             ],
@@ -426,7 +426,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.transportation,
-                    money: 1707.9999999999998,
+                    money: 1707 + 1,
                     comment: '滴滴去皇后',
                 },
                 {
@@ -491,7 +491,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 980.0000000000001,
+                    money: 980,
                     comment: '14号晚饭',
                 },
                 {
@@ -514,7 +514,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 830.0000000000001,
+                    money: 830,
                     comment: '午饭',
                 },
                 {
@@ -661,7 +661,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.snack,
-                    money: 1839.9999999999998,
+                    money: 1839 + 1,
                     comment: '奶油小攀等仓桥直街小吃',
                 },
                 {

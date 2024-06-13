@@ -65,7 +65,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.transportation,
-                    money: 3279.9999999999995,
+                    money: 3279 + 1,
                     comment: '快递，勾庄佳苑到人民西路',
                 },
             ],

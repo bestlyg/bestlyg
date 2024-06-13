@@ -255,13 +255,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 59267.99999999999,
+                    money: 59267 + 1,
                     comment: '海贼，一年超级会员',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 59267.99999999999,
+                    money: 59267 + 1,
                     comment: '海贼，一年超级会员',
                 },
                 {

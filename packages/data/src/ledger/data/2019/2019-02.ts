@@ -249,7 +249,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 1960.0000000000002,
+                    money: 1960,
                     comment: '盛大点券',
                 },
                 {

@@ -189,7 +189,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 880.0000000000001,
+                    money: 880,
                     comment: '拼多多，洗鞋剂',
                 },
                 {
@@ -264,7 +264,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.dailyNecessities,
-                    money: 509.99999999999994,
+                    money: 509 + 1,
                     comment: '罗森，保鲜袋',
                 },
                 {
@@ -414,7 +414,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1751.0000000000002,
+                    money: 1751,
                     comment: '下午茶，外卖，饿了么',
                 },
                 {
@@ -586,7 +586,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 852.9999999999999,
+                    money: 852 + 1,
                     comment: '拼多多，头盔锁',
                 },
             ],

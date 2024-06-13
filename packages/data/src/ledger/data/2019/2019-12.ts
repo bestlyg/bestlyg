@@ -388,7 +388,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 3234.0000000000005,
+                    money: 3234,
                     comment: '铁三角sr5bt耳罩',
                 },
             ],
@@ -435,7 +435,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 465.00000000000006,
+                    money: 465,
                     comment: '卢成强',
                 },
             ],
@@ -463,7 +463,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '被光抓走的人',
                 },
                 {
@@ -590,7 +590,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '猫眼，误杀',
                 },
                 {
@@ -677,7 +677,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '勇敢者游戏2',
                 },
                 {

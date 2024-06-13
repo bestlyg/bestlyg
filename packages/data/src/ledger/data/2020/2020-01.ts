@@ -47,7 +47,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.phoneBill,
-                    money: 869.9999999999999,
+                    money: 869 + 1,
                     comment: '13958696909',
                 },
             ],
@@ -352,7 +352,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '为家而战',
                 },
                 {
@@ -404,7 +404,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 4079.9999999999995,
+                    money: 4079 + 1,
                     comment: '',
                 },
             ],
@@ -444,7 +444,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 409.99999999999994,
+                    money: 409 + 1,
                     comment: '午饭，吉祥中西美食',
                 },
             ],

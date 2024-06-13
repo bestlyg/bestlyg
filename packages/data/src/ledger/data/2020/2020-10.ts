@@ -89,7 +89,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 486.00000000000006,
+                    money: 486,
                     comment: '相互宝',
                 },
                 {
@@ -106,7 +106,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '超市购物',
                 },
                 {
@@ -169,7 +169,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 114.99999999999999,
+                    money: 114 + 1,
                     comment: '电动车充电',
                 },
                 {
@@ -363,13 +363,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.dailyNecessities,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '拼多多，餐具盒',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 423.00000000000006,
+                    money: 423,
                     comment: '相互宝',
                 },
                 {

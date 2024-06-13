@@ -295,7 +295,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.rent,
-                    money: 7090.000000000001,
+                    money: 7090,
                     comment: '水10顿，电50度',
                 },
                 {
@@ -536,7 +536,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.generally,
-                    money: 110.00000000000001,
+                    money: 110,
                     comment: '电动车充电',
                 },
             ],

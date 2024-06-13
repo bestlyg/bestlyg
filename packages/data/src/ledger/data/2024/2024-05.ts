@@ -3,6 +3,172 @@ const ledgerMonthRecord: LedgerMonthRecord = {
     date: '2024-05',
     record: [
         {
+            date: '2024-05-31',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.taobao,
+                    money: 3000,
+                    comment: '淘宝，系统规划与管理师课本',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 9500,
+                    comment: '美团，黄油与面包',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 800,
+                    comment: '城北万象城，停车费',
+                },
+            ],
+        },
+        {
+            date: '2024-05-30',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 990,
+                    comment: '瑞幸咖啡，生椰丝绒拿铁',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 540,
+                    comment: '屈臣氏苏打水5瓶',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+            ],
+        },
+        {
+            date: '2024-05-29',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.fruit,
+                    money: 2980,
+                    comment: '盒马生鲜，果切买一送一',
+                },
+            ],
+        },
+        {
+            date: '2024-05-28',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 990,
+                    comment: '瑞幸咖啡，生椰丝绒拿铁',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 432,
+                    comment: '屈臣氏苏打水4瓶',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+            ],
+        },
+        {
+            date: '2024-05-27',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 100,
+                    comment: '电动车充电',
+                },
+            ],
+        },
+        {
+            date: '2024-05-26',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 2060,
+                    comment: '浙江科技大学，午饭',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 990,
+                    comment: '瑞幸咖啡，奥瑞白',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 3590,
+                    comment: '高德，勾庄佳苑到浙江科技大学',
+                },
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.drinks,
+                    money: 2100,
+                    comment: '浙江科技大学，古茗',
+                },
+            ],
+        },
+        {
+            date: '2024-05-25',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.food,
+                    money: 28400,
+                    comment: '午饭，西溪家宴',
+                },
+            ],
+        },
+        {
+            date: '2024-05-24',
+            record: [
+                {
+                    io: -1,
+                    type: LedgerRecordItemType.transportation,
+                    money: 6000,
+                    comment: '快递。勾庄佳苑到温岭人民西路',
+                },
+            ],
+        },
+        {
             date: '2024-05-23',
             record: [
                 {
@@ -99,7 +265,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 6990.000000000001,
+                    money: 6990,
                     comment: '肯德基，六一套餐',
                 },
                 {

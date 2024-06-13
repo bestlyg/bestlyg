@@ -65,7 +65,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 1989.9999999999998,
+                    money: 1989 + 1,
                     comment: '盛夏未来',
                 },
                 {
@@ -289,13 +289,13 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 880.0000000000001,
+                    money: 880,
                     comment: '午饭，美团，外卖',
                 },
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 3479.9999999999995,
+                    money: 3479 + 1,
                     comment: '瑄，淘宝',
                 },
             ],
@@ -306,7 +306,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 980.0000000000001,
+                    money: 980,
                     comment: '午饭，外卖，美团',
                 },
                 {
@@ -352,7 +352,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 880.0000000000001,
+                    money: 880,
                     comment: '第二天午饭，外卖，美团',
                 },
                 {
@@ -478,7 +478,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 880.0000000000001,
+                    money: 880,
                     comment: '午饭，外卖，美团',
                 },
                 {
@@ -546,7 +546,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.taobao,
-                    money: 1889.9999999999998,
+                    money: 1889 + 1,
                     comment: '拼多多，洗发水两瓶',
                 },
                 {

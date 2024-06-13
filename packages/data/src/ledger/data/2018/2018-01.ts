@@ -124,7 +124,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.transportation,
-                    money: 3995.0000000000005,
+                    money: 3995,
                     comment: '滴滴永泰望湖回学校',
                 },
                 {
@@ -669,7 +669,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.movie,
-                    money: 3879.9999999999995,
+                    money: 3879 + 1,
                     comment: '电影无问西东',
                 },
                 {

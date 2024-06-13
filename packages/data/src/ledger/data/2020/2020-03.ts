@@ -14,7 +14,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1839.9999999999998,
+                    money: 1839 + 1,
                     comment: '午饭，外卖，牛肉面',
                 },
                 {
@@ -60,7 +60,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1757.9999999999998,
+                    money: 1757 + 1,
                     comment: '晚饭，外卖，丼岛の日式烧肉饭',
                 },
                 {
@@ -118,7 +118,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1739.9999999999998,
+                    money: 1739 + 1,
                     comment: '午饭，外卖，牛肉面',
                 },
                 {
@@ -153,7 +153,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 1639.9999999999998,
+                    money: 1639 + 1,
                     comment: '午饭，外卖，老妈烫饭',
                 },
                 {
@@ -182,7 +182,7 @@ const ledgerMonthRecord: LedgerMonthRecord = {
                 {
                     io: -1,
                     type: LedgerRecordItemType.food,
-                    money: 490.00000000000006,
+                    money: 490,
                     comment: '早饭，鸡蛋饼',
                 },
             ],
