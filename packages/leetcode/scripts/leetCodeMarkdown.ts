@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2806. 取整购买后的账户余额',
-    url: 'https://leetcode.cn/problems/account-balance-after-rounded-purchase',
+    name: '2813. 子序列最大优雅度',
+    url: 'https://leetcode.cn/problems/maximum-elegance-of-a-k-length-subsequence',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个整数，表示你在愿意支出金额为 purchaseAmount 块钱的前提下，购买之后剩下的余额。`,
+    desc: `你的任务是从 items 所有长度为 k 的子序列中，找出 最大优雅度 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,17 +37,31 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 24,
-            memory: 16.45,
-            desc: '遍历',
+            time: 237,
+            memory: 42.13,
+            desc: '从大到小收益排序后，遍历时记录当前类目存在的次数',
             code: `class Solution:
-    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:
-        cnt = 0
-        while (cnt + 1) * 10 < purchaseAmount: cnt += 1
-        if abs(cnt * 10 - purchaseAmount) < abs((cnt + 1) * 10 - purchaseAmount):
-            return 100 - 10 * cnt
-        else:
-            return 100 - 10 * (cnt + 1)`,
+    def findMaximumElegance(self, items: List[List[int]], k: int) -> int:
+        items.sort(key = lambda item: -item[0])
+        print(items)
+        set1 = set()
+        stack2 = []
+        cur = 0
+        for i in range(k):
+            item = items[i]
+            cur += item[0]
+            if item[1] in set1:
+                stack2.append(item[0])
+            else:
+                set1.add(item[1])
+        res = cur + len(set1) ** 2
+        for i in range(k, len(items)):
+            item = items[i]
+            if item[1] not in set1 and len(stack2):
+                cur += item[0] - stack2.pop()
+                set1.add(item[1])
+            res = max(res, cur + len(set1) ** 2)
+        return res`,
         },
         // {
         //     script: Script.RUST,
