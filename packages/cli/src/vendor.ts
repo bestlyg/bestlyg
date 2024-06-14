@@ -1,6 +1,6 @@
 export { default as doctrine } from 'doctrine';
 export { default as AdmZip } from 'adm-zip';
-export { default as cheerio } from 'cheerio';
+export * as cheerio from 'cheerio';
 export { default as _ } from 'lodash';
 export { default as figlet } from 'figlet';
 export { z } from 'zod';
