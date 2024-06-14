@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2813. 子序列最大优雅度',
-    url: 'https://leetcode.cn/problems/maximum-elegance-of-a-k-length-subsequence',
+    name: '2786. 访问数组中的位置使分数最大',
+    url: 'https://leetcode.cn/problems/visit-array-positions-to-maximize-score',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `你的任务是从 items 所有长度为 k 的子序列中，找出 最大优雅度 。`,
+    desc: `请你返回你能得到的 最大 得分之和。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,31 +37,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 237,
-            memory: 42.13,
-            desc: '从大到小收益排序后，遍历时记录当前类目存在的次数',
+            time: 264,
+            memory: 31.34,
+            desc: '遍历时存储前面最大的奇偶值',
             code: `class Solution:
-    def findMaximumElegance(self, items: List[List[int]], k: int) -> int:
-        items.sort(key = lambda item: -item[0])
-        print(items)
-        set1 = set()
-        stack2 = []
-        cur = 0
-        for i in range(k):
-            item = items[i]
-            cur += item[0]
-            if item[1] in set1:
-                stack2.append(item[0])
-            else:
-                set1.add(item[1])
-        res = cur + len(set1) ** 2
-        for i in range(k, len(items)):
-            item = items[i]
-            if item[1] not in set1 and len(stack2):
-                cur += item[0] - stack2.pop()
-                set1.add(item[1])
-            res = max(res, cur + len(set1) ** 2)
-        return res`,
+    def maxScore(self, nums: List[int], x: int) -> int:
+        prev = [0, 0]
+        prev[nums[0] & 1] = nums[0]
+        prev[nums[0] & 1 ^ 1] = nums[0] - x
+        for num in nums[1:]:
+            v = max(prev[num & 1] + num, prev[num & 1 ^ 1] + num - x)
+            prev[num & 1] = max(prev[num & 1], v)
+        return max(prev)`,
         },
         // {
         //     script: Script.RUST,
