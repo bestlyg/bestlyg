@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2786. 访问数组中的位置使分数最大',
-    url: 'https://leetcode.cn/problems/visit-array-positions-to-maximize-score',
+    name: '2779. 数组的最大美丽值',
+    url: 'https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回你能得到的 最大 得分之和。`,
+    desc: `对数组 nums 执行上述操作任意次后，返回数组可能取得的 最大 美丽值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,18 +37,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 264,
-            memory: 31.34,
-            desc: '遍历时存储前面最大的奇偶值',
+            time: 259,
+            memory: 36.05,
+            desc: '差分数组',
             code: `class Solution:
-    def maxScore(self, nums: List[int], x: int) -> int:
-        prev = [0, 0]
-        prev[nums[0] & 1] = nums[0]
-        prev[nums[0] & 1 ^ 1] = nums[0] - x
-        for num in nums[1:]:
-            v = max(prev[num & 1] + num, prev[num & 1 ^ 1] + num - x)
-            prev[num & 1] = max(prev[num & 1], v)
-        return max(prev)`,
+    def maximumBeauty(self, nums: List[int], k: int) -> int:
+        base = min(nums) - k
+        arr = [0] * (max(nums) + k + 2 - base)
+        for num in nums:
+            arr[num - k - base] += 1
+            arr[num + k + 1 - base] -= 1
+        for i in range(1, len(arr)): arr[i] += arr[i - 1]
+        return max(arr)`,
         },
         // {
         //     script: Script.RUST,
