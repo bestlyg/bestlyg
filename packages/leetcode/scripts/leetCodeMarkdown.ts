@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2779. 数组的最大美丽值',
+    name: '521. 最长特殊序列 Ⅰ',
     url: 'https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,18 +37,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 259,
-            memory: 36.05,
-            desc: '差分数组',
+            time: 29,
+            memory: 16.29,
+            desc: '直接判断两个字符串是否相等',
             code: `class Solution:
-    def maximumBeauty(self, nums: List[int], k: int) -> int:
-        base = min(nums) - k
-        arr = [0] * (max(nums) + k + 2 - base)
-        for num in nums:
-            arr[num - k - base] += 1
-            arr[num + k + 1 - base] -= 1
-        for i in range(1, len(arr)): arr[i] += arr[i - 1]
-        return max(arr)`,
+    def findLUSlength(self, a: str, b: str) -> int:
+        return max(len(a), len(b)) if a != b else -1`,
         },
         // {
         //     script: Script.RUST,
