@@ -1,18 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
-    "types": ["react"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "rootDir": ".",
-    "baseUrl": ".",
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true
-  },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["DOM", "ESNext"],
+        "types": ["react"],
+        "jsx": "preserve",
+        "jsxImportSource": "react",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "rootDir": ".",
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["src", "modern.config.ts"],
+    "exclude": ["**/node_modules"]
 }
