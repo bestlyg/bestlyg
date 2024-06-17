@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '521. 最长特殊序列 Ⅰ',
+    exist: true,
+    name: '522. 最长特殊序列 II',
     url: 'https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,12 +37,30 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 29,
-            memory: 16.29,
-            desc: '直接判断两个字符串是否相等',
+            time: 38,
+            memory: 16.28,
+            desc: '枚举',
             code: `class Solution:
-    def findLUSlength(self, a: str, b: str) -> int:
-        return max(len(a), len(b)) if a != b else -1`,
+    def findLUSlength(self, strs: List[str]) -> int:
+        map = Counter(strs)
+        strs.sort(key = lambda s: -len(s))
+        for i in range(len(strs)):
+            s = strs[i]
+            if map[s] > 1: continue
+            need_continue = False
+            for j in range(i):
+                i1 = 0
+                for c in strs[j]:
+                    if s[i1] == c:
+                        i1 += 1
+                    if i1 == len(s):
+                        break
+                if i1 == len(s):
+                    need_continue = True
+                    break
+            if need_continue: continue
+            return len(s)
+        return -1`,
         },
         // {
         //     script: Script.RUST,
