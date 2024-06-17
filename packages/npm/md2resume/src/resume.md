@@ -1,4 +1,3 @@
-
 :::div{.resume-block .resume-block-header}
 
 # 李逸港 - WEB 前端工程师
@@ -11,13 +10,11 @@
 
 [:icon[MailOutlined]{title="email!"} 1057966749@qq.com](mailto:1057966749@qq.com)
 
-:icon[WechatOutlined]{title="wechat!"}  bestlyg
+:icon[WechatOutlined]{title="wechat!"} bestlyg
 
-:icon[PhoneOutlined]{title="phone!"}  139586969091
+:icon[PhoneOutlined]{title="phone!"} 139586969091
 
 :::
-
-:::div{.resume-block .resume-block-item}
 
 ## 介绍
 
@@ -28,11 +25,6 @@
 本人能够熟练运用 react，掌握运行原理，能够在紧张的项目工作中保持高质量高效率的工作状，曾在大型前端项目中开发过需求，能够很好的适应高强度的编码工作，对于业务中遇到的 bug 也能够从源码角度分析，深入框架源码进行 debug 了解出错原因，模拟制作 demo 并整理成文档作为过程资产。
 
 有过硬的前端技术能力并受同事的认可，兴趣导向性写代码，追求高质量代码，坚持每天刷 leetcode 每日一题，连续一千一百多天打卡每日一题，竞赛分 2000+knight，工作之外也喜欢多去体验不同的计算机语言，周末会花精力去学习非前端相关计算机知识来辅助学习前端，也自学过 rust 去尝试辅助前端开发。
-
-
-:::
-
-:::div{.resume-block .resume-block-item}
 
 ## 工作
 
@@ -92,10 +84,6 @@
     -   使用 Blob 分片对文件进行分片上传并与后端对齐校验头。
     -   使用 AsyncPool 技术动态保证同时上传的文件数。
 
-:::
-
-:::div{.resume-block .resume-block-item}
-
 ## 教育经历
 
 ### 浙江大学宁波理工学院 （2018.9-2020.9）
@@ -105,5 +93,3 @@
 ### 绍兴职业技术学院 （2015.9-2018.6）
 
 `软件技术` `专科`
-
-:::

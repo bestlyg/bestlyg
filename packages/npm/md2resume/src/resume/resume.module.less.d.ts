@@ -3,7 +3,13 @@
 interface CssExports {
   resume: string;
   'resume-container': string;
+  'resume-page-item': string;
+  'resume-toolkits': string;
+  'resume-toolkits—inner': string;
   resumeContainer: string;
+  resumePageItem: string;
+  resumeToolkits: string;
+  'resumeToolkits—inner': string;
 }
 declare const cssExports: CssExports;
 export default cssExports;

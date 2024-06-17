@@ -5,7 +5,15 @@
 @font-size-h2: 16px;
 @font-size-h3: 16px;
 @font-size-text: 14px;
+
 .resume-template1 {
+    > * {
+        padding: 0 @padding-lr;
+        &:last-child {
+            margin-block-end: 20px;
+        }
+    }
+
     :global {
         font-size: @font-size-text;
         line-height: @line-height;
@@ -52,7 +60,7 @@
 
         h3 {
             margin: 0;
-            padding: 4px 0;
+            padding-block: 4px;
             font-size: @font-size-h3;
             font-weight: 600;
         }
@@ -91,11 +99,10 @@
 
         ul {
             margin: 0;
-            padding: 0;
-            padding-left: 1.3em;
+            padding-inline-start: calc(1.3em + @padding-lr);
 
             li {
-                padding-left: 1px;
+                padding-inline-start: 1px;
                 line-height: @line-height;
                 list-style-type: circle;
                 list-style-position: outside;
