@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 export enum ResumePageType {
     SinglePage = '单页',
     MultiPage = '分页',
@@ -8,22 +9,22 @@ export const resumePageTypeOptions = [
     { label: ResumePageType.MultiPage, value: ResumePageType.MultiPage },
 ];
 
-export function createPageItemContainer() {
-    const dom = document.createElement('div');
-    dom.className = 'resume-page-item';
-    return dom;
-}
-
 export function renderToSignlePage({ container, html }: { container?: HTMLElement; html: string }) {
     if (!container) return;
-    container.innerHTML = html;
+    container.innerHTML = '';
+    const dom = document.createElement('div');
+    dom.className = clsx('resume-page-full');
+    dom.innerHTML = html;
+    container.appendChild(dom);
 }
 
 export function renderToMultiPage({
     pageHeight,
+    pageWidth,
     container,
 }: {
     pageHeight: number;
+    pageWidth: number;
     container?: HTMLElement;
 }) {
     if (!container) return;
@@ -45,4 +46,9 @@ export function renderToMultiPage({
     pageItemArr.forEach(dom => {
         container.appendChild(dom);
     });
+    function createPageItemContainer() {
+        const dom = document.createElement('div');
+        dom.className = clsx('resume-page-item');
+        return dom;
+    }
 }

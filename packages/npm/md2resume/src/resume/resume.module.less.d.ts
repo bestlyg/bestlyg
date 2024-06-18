@@ -3,10 +3,12 @@
 interface CssExports {
   resume: string;
   'resume-container': string;
+  'resume-page-full': string;
   'resume-page-item': string;
   'resume-toolkits': string;
   'resume-toolkits—inner': string;
   resumeContainer: string;
+  resumePageFull: string;
   resumePageItem: string;
   resumeToolkits: string;
   'resumeToolkits—inner': string;

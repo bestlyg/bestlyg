@@ -32,7 +32,6 @@ export function Resume(props: ResumeProps) {
             await resumeGenerator.loadTemplate('resume-template1');
             const html = await resumeGenerator.renderToHTML(resumeSource);
             setHTML(html);
-            if (resumeRef.current) resumeRef.current.innerHTML = html;
         }
         run();
     }, []);
@@ -48,9 +47,10 @@ export function Resume(props: ResumeProps) {
             renderToMultiPage({
                 container: resumeRef.current,
                 pageHeight: 1123,
+                pageWidth: 794,
             });
         }
-    }, [resumePageType]);
+    }, [resumePageType, html]);
     return (
         <div className={clsx(resumeStyles['resume-container'])}>
             <div className={clsx(resumeStyles['resume-toolkits'])}>
