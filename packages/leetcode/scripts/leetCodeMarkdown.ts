@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '522. 最长特殊序列 II',
-    url: 'https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation',
+    exist: !true,
+    name: '2288. 价格减免',
+    url: 'https://leetcode.cn/problems/apply-discount-to-prices',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `对数组 nums 执行上述操作任意次后，返回数组可能取得的 最大 美丽值。`,
+    desc: `返回表示修改后句子的字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,30 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 38,
-            memory: 16.28,
-            desc: '枚举',
+            time: 98,
+            memory: 18.2,
+            desc: '遍历',
             code: `class Solution:
-    def findLUSlength(self, strs: List[str]) -> int:
-        map = Counter(strs)
-        strs.sort(key = lambda s: -len(s))
-        for i in range(len(strs)):
-            s = strs[i]
-            if map[s] > 1: continue
-            need_continue = False
-            for j in range(i):
-                i1 = 0
-                for c in strs[j]:
-                    if s[i1] == c:
-                        i1 += 1
-                    if i1 == len(s):
-                        break
-                if i1 == len(s):
-                    need_continue = True
-                    break
-            if need_continue: continue
-            return len(s)
-        return -1`,
+    def discountPrices(self, sentence: str, discount: int) -> str:
+        arr = sentence.split(' ')
+        for i in range(len(arr)):
+            if arr[i][0] == '$' and arr[i][1:].isdigit():
+                arr[i] = '$' + str(format(int(arr[i][1:]) * ((100 - discount) / 100), '.2f'))
+        return ' '.join(arr)`,
         },
         // {
         //     script: Script.RUST,
