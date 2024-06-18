@@ -34,7 +34,7 @@ export function renderToMultiPage({
     container?: HTMLElement;
 }) {
     if (!container) return;
-    const children = Array.from(container.children[0].childNodes);
+    const children = container.children[0].childNodes;
     container.innerHTML = '';
     const parentArray: Element[] = [createMultiPageContainer()];
     container.appendChild(parentArray[0]);
@@ -58,24 +58,33 @@ export function renderToMultiPage({
     // pageItemArr.forEach(dom => {
     //     container.appendChild(dom);
     // });
-    function tryInsertNodes(nodes: ChildNode[]) {
-        nodes.forEach(el => tryInsertNode(el));
+    function tryInsertNodes(nodes: NodeListOf<ChildNode>) {
+        console.log('tryInsertNodes', nodes);
+        nodes.forEach(node => tryInsertNode(node));
     }
     function tryInsertNode(node: ChildNode) {
-        console.log('try', node, parentArray);
-        parentArray[parentArray.length - 1].appendChild(node);
+        console.log('tryInsertNode', parentArray, node, (node as any)?.data);
+        if (node.nodeType === Node.TEXT_NODE) {
+            console.log((node as Text).data);
+            parentArray[parentArray.length - 1].appendChild(node);
+            return;
+        }
+        const clonedNode = node.cloneNode();
+        console.log('try', node, clonedNode, parentArray);
+        parentArray[parentArray.length - 1].appendChild(clonedNode);
         if (parentArray[0].scrollHeight > pageHeight) {
-            parentArray[parentArray.length - 1].removeChild(node);
+            console.log('PageHeight');
+            parentArray[parentArray.length - 1].removeChild(clonedNode);
             container!.appendChild((parentArray[0] = createMultiPageContainer()));
             for (let i = 1; i < parentArray.length; i++) {
                 parentArray[i] = parentArray[i].cloneNode() as Element;
                 parentArray[i - 1].appendChild(parentArray[i]);
             }
-            parentArray[parentArray.length - 1].appendChild(node);
+            parentArray[parentArray.length - 1].appendChild(clonedNode);
         }
-        if (node instanceof Element && node.children.length) {
+        if (node instanceof Element && node.childNodes.length) {
             parentArray.push(node);
-            tryInsertNodes(Array.from(node.childNodes));
+            tryInsertNodes(node.childNodes);
             parentArray.pop();
         }
     }
