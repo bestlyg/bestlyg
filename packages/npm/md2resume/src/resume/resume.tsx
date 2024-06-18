@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import {
     ResumePageType,
     renderToMultiPage,
-    renderToSignlePage,
+    renderToSinglePage,
     resumePageTypeOptions,
 } from './utils';
 
@@ -39,7 +39,7 @@ export function Resume(props: ResumeProps) {
         if (!resumeRef.current) return;
         if (resumePageType === ResumePageType.SinglePage) {
             resumeRef.current.innerHTML = html;
-            renderToSignlePage({
+            renderToSinglePage({
                 container: resumeRef.current,
                 html,
             });

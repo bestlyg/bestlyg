@@ -1,20 +1,22 @@
 @width-a4: var(--resume-page-width, 794px);
 @height-a4: var(--resume-page-height, 1123px);
 .resume {
+    @width: ~'min(@{width-a4}, 100% - 100px)';
+    --resume-width: @width;
     margin: 0 auto;
     margin-block: 40px;
     display: flex;
     flex-direction: column;
-    width: @width-a4;
+    gap: 50px;
+    min-width: 300px;
+    width: var(--resume-width);
     height: fit-content;
     box-sizing: border-box;
-    background-color: #fff;
 
     &-container {
         position: relative;
         width: 100%;
         height: 100vh;
-        // @max-lr-padding: ~'max(50px, calc(calc(100% - @{width-a4}) / 2))';
         background-color: #606060;
         overflow-y: scroll;
         box-sizing: border-box;

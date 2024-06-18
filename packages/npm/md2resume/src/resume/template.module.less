@@ -13,11 +13,22 @@
         text-align: justify;
         text-align-last: start;
 
-        :is(.resume-page-item, .resume-page-full) > * {
-            padding: 0 @padding-lr;
+        :where(.resume-page-multi, .resume-page-single) > * {
+            padding-inline: @padding-lr;
             &:last-child {
                 margin-block-end: 20px;
             }
+        }
+
+        .resume-page-multi,
+        .resume-page-single {
+            background-color: #fff;
+            box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.35);
+        }
+
+        .resume-page-multi {
+            width: var(--resume-page-width);
+            height: var(--resume-page-height);
         }
 
         h1 {
@@ -47,7 +58,7 @@
                 position: absolute;
                 top: 50%;
                 height: 1px;
-                width: calc(calc(@width-a4 - @h2-width - 2 * @margin-line - 2 * @padding-lr) / 2);
+                width: calc((@width-a4 - @h2-width - 2 * @margin-line - 2 * @padding-lr) / 2);
                 background-color: #eee;
             }
             &::before {
@@ -60,6 +71,7 @@
 
         h3 {
             margin: 0;
+            margin-top: 10px;
             padding-block: 4px;
             font-size: @font-size-h3;
             font-weight: 600;
