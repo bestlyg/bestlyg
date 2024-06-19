@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2288. 价格减免',
-    url: 'https://leetcode.cn/problems/apply-discount-to-prices',
+    name: '2713. 矩阵中严格递增的单元格数',
+    url: 'https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回表示修改后句子的字符串。`,
+    desc: `请你找出从某个单元开始访问矩阵所能访问的 单元格的最大数量 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,16 +37,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 98,
-            memory: 18.2,
-            desc: '遍历',
+            time: 1089,
+            memory: 71.42,
+            desc: '根据数值进行统计后dp',
             code: `class Solution:
-    def discountPrices(self, sentence: str, discount: int) -> str:
-        arr = sentence.split(' ')
-        for i in range(len(arr)):
-            if arr[i][0] == '$' and arr[i][1:].isdigit():
-                arr[i] = '$' + str(format(int(arr[i][1:]) * ((100 - discount) / 100), '.2f'))
-        return ' '.join(arr)`,
+    def maxIncreasingCells(self, mat: List[List[int]]) -> int:
+        n = len(mat)
+        m = len(mat[0])
+        rows = [0] * n
+        cols = [0] * m
+        map = defaultdict(list)
+        for i in range(n):
+            for j in range(m):
+                map[mat[i][j]].append((i, j))
+        for _, arr in sorted(map.items(), key = lambda item: item[0]):
+            varr = [max(rows[i], cols[j]) + 1 for i, j in arr]
+            for (i, j), v in zip(arr, varr):
+                rows[i] = max(rows[i], v)
+                cols[j] = max(cols[j], v)
+        return max(rows)`,
         },
         // {
         //     script: Script.RUST,

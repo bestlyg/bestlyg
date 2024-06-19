@@ -1,18 +1,17 @@
 {
-    "id": "2818",
     "name": "2713.矩阵中严格递增的单元格数",
     "url": "https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix",
-    "difficulty": "困难",
-    "tag": ["记忆化搜索", "数组", "二分查找", "动态规划", "矩阵", "排序"],
+    "difficulty": "简单",
+    "tag": [],
     "desc": "请你找出从某个单元开始访问矩阵所能访问的 单元格的最大数量 。",
     "solutions": [
         {
-            "script": "cpp",
-            "time": 872,
-            "memory": 242.4,
-            "desc": "对所有值从小到大排序，记录当前坐标下所能达到的最大值。",
-            "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nclass Solution {\npublic:\n    int maxIncreasingCells(vector<vector<int>>& mat) {\n        map<int, vector<pii>> mmap;\n        int n = mat.size(), m = mat[0].size(), res = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                mmap[mat[i][j]].push_back(make_pair(i, j));\n            }\n        }\n        vector<int> rmax(n, 0), cmax(m, 0);\n        for (auto &mitem : mmap) {\n            auto list = mitem.Y;\n            vector<int> lmax;\n            for (auto &p : list) {\n                int val = max(rmax[p.X], cmax[p.Y]) + 1;\n                lmax.push_back(val);\n                res = max(res, val);\n            }\n            for (int k = 0; k < list.size(); k++) {\n                auto &p = list[k];\n                rmax[p.X] = max(rmax[p.X], lmax[k]);\n                cmax[p.Y] = max(cmax[p.Y], lmax[k]);\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1685203200000
+            "script": "python",
+            "time": 1089,
+            "memory": 71.42,
+            "desc": "根据数值进行统计后dp。",
+            "code": "class Solution:\n    def maxIncreasingCells(self, mat: List[List[int]]) -> int:\n        n = len(mat)\n        m = len(mat[0])\n        rows = [0] * n\n        cols = [0] * m\n        map = defaultdict(list)\n        for i in range(n):\n            for j in range(m):\n                map[mat[i][j]].append((i, j))\n        for _, arr in sorted(map.items(), key = lambda item: item[0]):\n            varr = [max(rows[i], cols[j]) + 1 for i, j in arr]\n            for (i, j), v in zip(arr, varr):\n                rows[i] = max(rows[i], v)\n                cols[j] = max(cols[j], v)\n        return max(rows)",
+            "date": 1718726400000
         }
     ]
 }
