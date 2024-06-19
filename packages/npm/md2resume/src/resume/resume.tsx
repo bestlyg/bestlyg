@@ -6,9 +6,12 @@ import resumeStyles from './resume.module.less';
 import clsx from 'clsx';
 import {
     ResumePageType,
+    heightA4,
     renderToMultiPage,
     renderToSinglePage,
     resumePageTypeOptions,
+    widthA4,
+    paddingA4,
 } from './utils';
 
 export interface ResumeProps {
@@ -16,7 +19,7 @@ export interface ResumeProps {
 }
 
 export function Resume(props: ResumeProps) {
-    const [resumePageType, setResumePageType] = useState(ResumePageType.SinglePage);
+    const [resumePageType, setResumePageType] = useState(ResumePageType.MultiPage);
     const { resumeSource } = props;
     const resumeGeneratorRef = useRef<ResumeGenerator>();
     const [templateStyle, setTemplateStyle] = useState('');
@@ -31,6 +34,7 @@ export function Resume(props: ResumeProps) {
             });
             await resumeGenerator.loadTemplate('resume-template1');
             const html = await resumeGenerator.renderToHTML(resumeSource);
+            // setHTML(`<li>aaa<code>bbb</code></li>`);
             setHTML(html);
         }
         run();
@@ -46,13 +50,23 @@ export function Resume(props: ResumeProps) {
         } else if (resumePageType === ResumePageType.MultiPage) {
             renderToMultiPage({
                 container: resumeRef.current,
-                pageHeight: 1123,
-                pageWidth: 794,
+                html,
+                getPageHeight: count =>
+                    count === 1 ? heightA4 - paddingA4 : heightA4 - 2 * paddingA4,
             });
         }
     }, [resumePageType, html]);
     return (
-        <div className={clsx(resumeStyles['resume-container'])}>
+        <div
+            className={clsx(resumeStyles['resume-container'])}
+            style={{
+                ...({
+                    '--resume-page-width': widthA4 + 'px',
+                    '--resume-page-height': heightA4 + 'px',
+                    '--resume-page-padding': paddingA4 + 'px',
+                } as any),
+            }}
+        >
             <div className={clsx(resumeStyles['resume-toolkits'])}>
                 <div className={clsx(resumeStyles['resume-toolkits—inner'])}>
                     <Radio.Group

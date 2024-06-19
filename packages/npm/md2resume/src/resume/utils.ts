@@ -1,4 +1,11 @@
 import clsx from 'clsx';
+
+export const widthA4 = 794;
+export const heightA4 = 1123;
+export const paddingA4 = 50;
+
+export const domParser = new DOMParser();
+
 export enum ResumePageType {
     SinglePage = '单页',
     MultiPage = '分页',
@@ -14,76 +21,60 @@ export function renderToSinglePage({ container, html }: { container?: HTMLElemen
     container.innerHTML = '';
     const dom = document.createElement('div');
     dom.className = clsx('resume-page-single');
-    dom.innerHTML = html;
+    const inner = document.createElement('div');
+    inner.className = clsx('resume-page-single-inner');
+    dom.appendChild(inner);
+    inner.innerHTML = html;
     container.appendChild(dom);
 }
 
 export function createMultiPageContainer() {
     const dom = document.createElement('div');
     dom.className = clsx('resume-page-multi');
-    return dom;
+    const inner = document.createElement('div');
+    inner.className = clsx('resume-page-multi-inner');
+    dom.appendChild(inner);
+    return [dom, inner];
 }
 
 export function renderToMultiPage({
-    pageHeight,
-    pageWidth,
     container,
+    html,
+    getPageHeight,
 }: {
-    pageHeight: number;
-    pageWidth: number;
     container?: HTMLElement;
+    html: string;
+    getPageHeight: (pageCount: number) => number;
 }) {
     if (!container) return;
-    const children = container.children[0].childNodes;
     container.innerHTML = '';
-    const parentArray: Element[] = [createMultiPageContainer()];
+    const root = domParser.parseFromString(html, 'text/html');
+    const parentArray: Element[] = createMultiPageContainer();
     container.appendChild(parentArray[0]);
-    tryInsertNodes(children);
-    // const pageItemArr: HTMLDivElement[] = [createMultiPageContainer()];
-    // let currentPageItem = pageItemArr[pageItemArr.length - 1];
-    // let currentHeight = 0;
-    // const children = Array.from(container.children).flatMap(node =>
-    //     node.className.includes('resume-page-single') ? Array.from(node.children) : node
-    // );
-    // for (const node of children) {
-    //     const style = window.getComputedStyle(node);
-    //     if (currentHeight + parseFloat(style.height) > pageHeight) {
-    //         pageItemArr.push((currentPageItem = createMultiPageContainer()));
-    //         currentHeight = 0;
-    //     }
-    //     currentPageItem.appendChild(node.cloneNode(true));
-    //     currentHeight += parseFloat(style.height);
-    // }
-    // container.innerHTML = '';
-    // pageItemArr.forEach(dom => {
-    //     container.appendChild(dom);
-    // });
+    let pageCount = 1;
+    tryInsertNodes(root.body.childNodes);
     function tryInsertNodes(nodes: NodeListOf<ChildNode>) {
-        console.log('tryInsertNodes', nodes);
         nodes.forEach(node => tryInsertNode(node));
     }
     function tryInsertNode(node: ChildNode) {
-        console.log('tryInsertNode', parentArray, node, (node as any)?.data);
-        if (node.nodeType === Node.TEXT_NODE) {
-            console.log((node as Text).data);
-            parentArray[parentArray.length - 1].appendChild(node);
-            return;
-        }
         const clonedNode = node.cloneNode();
-        console.log('try', node, clonedNode, parentArray);
         parentArray[parentArray.length - 1].appendChild(clonedNode);
-        if (parentArray[0].scrollHeight > pageHeight) {
-            console.log('PageHeight');
+        if (
+            parentArray[1] instanceof HTMLElement &&
+            parentArray[1].scrollHeight > getPageHeight(pageCount)
+        ) {
             parentArray[parentArray.length - 1].removeChild(clonedNode);
-            container!.appendChild((parentArray[0] = createMultiPageContainer()));
+            [parentArray[0], parentArray[1]] = createMultiPageContainer();
+            container!.appendChild(parentArray[0]);
             for (let i = 1; i < parentArray.length; i++) {
                 parentArray[i] = parentArray[i].cloneNode() as Element;
                 parentArray[i - 1].appendChild(parentArray[i]);
             }
             parentArray[parentArray.length - 1].appendChild(clonedNode);
+            pageCount += 1;
         }
-        if (node instanceof Element && node.childNodes.length) {
-            parentArray.push(node);
+        if (clonedNode instanceof Element && node.childNodes.length) {
+            parentArray.push(clonedNode);
             tryInsertNodes(node.childNodes);
             parentArray.pop();
         }
