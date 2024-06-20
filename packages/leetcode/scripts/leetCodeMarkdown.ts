@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2713. 矩阵中严格递增的单元格数',
-    url: 'https://leetcode.cn/problems/maximum-strictly-increasing-cells-in-a-matrix',
+    name: '2748. 美丽下标对的数目',
+    url: 'https://leetcode.cn/problems/number-of-beautiful-pairs',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出从某个单元开始访问矩阵所能访问的 单元格的最大数量 。`,
+    desc: `返回 nums 中 美丽下标对 的总数目`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,25 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 1089,
-            memory: 71.42,
-            desc: '根据数值进行统计后dp',
+            time: 385,
+            memory: 16.5,
+            desc: '遍历',
             code: `class Solution:
-    def maxIncreasingCells(self, mat: List[List[int]]) -> int:
-        n = len(mat)
-        m = len(mat[0])
-        rows = [0] * n
-        cols = [0] * m
-        map = defaultdict(list)
-        for i in range(n):
-            for j in range(m):
-                map[mat[i][j]].append((i, j))
-        for _, arr in sorted(map.items(), key = lambda item: item[0]):
-            varr = [max(rows[i], cols[j]) + 1 for i, j in arr]
-            for (i, j), v in zip(arr, varr):
-                rows[i] = max(rows[i], v)
-                cols[j] = max(cols[j], v)
-        return max(rows)`,
+    def countBeautifulPairs(self, nums: List[int]) -> int:
+        return sum(
+            gcd(int(str(nums[i])[-1]), int(str(nums[j])[0])) == 1
+            for i in range(len(nums))
+            for j in range(i)
+        )`,
         },
         // {
         //     script: Script.RUST,

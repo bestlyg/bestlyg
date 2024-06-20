@@ -1,0 +1,17 @@
+{
+    "name": "2748.美丽下标对的数目",
+    "url": "https://leetcode.cn/problems/number-of-beautiful-pairs",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回 nums 中 美丽下标对 的总数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 385,
+            "memory": 16.5,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def countBeautifulPairs(self, nums: List[int]) -> int:\n        return sum(\n            gcd(int(str(nums[i])[-1]), int(str(nums[j])[0])) == 1\n            for i in range(len(nums))\n            for j in range(i)\n        )",
+            "date": 1718812800000
+        }
+    ]
+}
