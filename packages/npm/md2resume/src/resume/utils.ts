@@ -1,8 +1,13 @@
 import clsx from 'clsx';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
+export const RESUME_NAME_PDF = 'resume.pdf';
 export const widthA4 = 794;
 export const heightA4 = 1123;
 export const paddingA4 = 50;
+export const CLASS_NAME_SINGLE = 'resume-page-single';
+export const CLASS_NAME_MULTI = 'resume-page-multi';
 
 export const domParser = new DOMParser();
 
@@ -20,9 +25,9 @@ export function renderToSinglePage({ container, html }: { container?: HTMLElemen
     if (!container) return;
     container.innerHTML = '';
     const dom = document.createElement('div');
-    dom.className = clsx('resume-page-single');
+    dom.className = clsx(CLASS_NAME_SINGLE);
     const inner = document.createElement('div');
-    inner.className = clsx('resume-page-single-inner');
+    inner.className = clsx(`${CLASS_NAME_SINGLE}-inner`);
     dom.appendChild(inner);
     inner.innerHTML = html;
     container.appendChild(dom);
@@ -30,11 +35,16 @@ export function renderToSinglePage({ container, html }: { container?: HTMLElemen
 
 export function createMultiPageContainer() {
     const dom = document.createElement('div');
-    dom.className = clsx('resume-page-multi');
+    dom.className = clsx(`${CLASS_NAME_MULTI}`);
     const inner = document.createElement('div');
-    inner.className = clsx('resume-page-multi-inner');
+    inner.className = clsx(`${CLASS_NAME_MULTI}-inner`);
     dom.appendChild(inner);
     return [dom, inner];
+}
+
+export function pixels_to_millimeters(pixels: number, dpi: number) {
+    const millimeters = (pixels / dpi) * 25.4;
+    return millimeters;
 }
 
 export function renderToMultiPage({
@@ -79,4 +89,32 @@ export function renderToMultiPage({
             parentArray.pop();
         }
     }
+}
+
+export async function downloadPDFSinglePage(container?: HTMLElement) {
+    const dom = container?.querySelector('.resume-page-single') as HTMLElement;
+    if (!dom) return;
+    const doc = new jsPDF('p', 'px');
+    doc.internal.pageSize.width = dom.offsetWidth;
+    doc.internal.pageSize.height = dom.offsetHeight;
+    const canvas = await html2canvas(dom);
+    const imgData = canvas.toDataURL('image/png');
+    doc.addImage(imgData, 'PNG', 0, 0, dom.offsetWidth, dom.offsetHeight);
+    doc.save(RESUME_NAME_PDF);
+}
+
+export async function downloadPDFMultiPage(container?: HTMLElement) {
+    const doms = container?.querySelectorAll('.resume-page-multi') as NodeListOf<HTMLElement>;
+    if (!doms) return;
+    const doc = new jsPDF('p', 'px');
+    for (let i = 0; i < doms.length; i++) {
+        if (i) doc.addPage();
+        const dom = doms[i];
+        doc.internal.pageSize.width = doms[i].offsetWidth;
+        doc.internal.pageSize.height = doms[i].offsetHeight;
+        const canvas = await html2canvas(dom);
+        const imgData = canvas.toDataURL('image/png');
+        doc.addImage(imgData, 'PNG', 0, 0, dom.offsetWidth, dom.offsetHeight);
+    }
+    doc.save(RESUME_NAME_PDF);
 }

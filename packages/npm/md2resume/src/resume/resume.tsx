@@ -1,5 +1,5 @@
 import { ResumeGenerator } from '../core/resume-generator';
-import { Radio } from 'antd';
+import { Button, Radio } from 'antd';
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import templateStyles from './template.module.less';
 import resumeStyles from './resume.module.less';
@@ -12,6 +12,8 @@ import {
     resumePageTypeOptions,
     widthA4,
     paddingA4,
+    downloadPDFSinglePage,
+    downloadPDFMultiPage,
 } from './utils';
 
 export interface ResumeProps {
@@ -78,6 +80,17 @@ export function Resume(props: ResumeProps) {
                         optionType="button"
                         value={resumePageType}
                     />
+                    <Button
+                        onClick={() => {
+                            if (resumePageType === ResumePageType.SinglePage) {
+                                downloadPDFSinglePage(resumeRef.current);
+                            } else {
+                                downloadPDFMultiPage(resumeRef.current);
+                            }
+                        }}
+                    >
+                        下载PDF
+                    </Button>
                 </div>
             </div>
             <div
