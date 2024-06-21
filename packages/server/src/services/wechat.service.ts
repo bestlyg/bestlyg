@@ -21,10 +21,10 @@ export class WechatService {
     const res = await request(
       `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${miniprogram.appid}&secret=${miniprogram.secret}`,
     );
-    const data: WechatResponse<{
+    const data = (await res.json()) as WechatResponse<{
       access_token: string; //获取到的凭证
       expires_in: number; //凭证有效时间，单位：秒。目前是7200秒之内的值。
-    }> = await res.json();
+    }>;
     this.checkError(data);
     await this.cacheManager.set(
       WechatService.AccessTokenKey,
@@ -37,11 +37,11 @@ export class WechatService {
     const res = await request(
       `https://api.weixin.qq.com/sns/jscode2session?appid=${miniprogram.appid}&secret=${miniprogram.secret}&js_code=${code}&grant_type=authorization_code`,
     );
-    const data: WechatResponse<{
+    const data = (await res.json()) as WechatResponse<{
       openid: string; //	用户唯一标识
       session_key: string; //	会话密钥
       unionid?: string; //	用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台帐号下会返回，详见 UnionID 机制说明。
-    }> = await res.json();
+    }>;
     this.checkError(data);
     return data;
   }

@@ -7,7 +7,7 @@ export class BaseDatabaseService<T extends Schema<any>> extends BaseService {
     super();
   }
   async create(dto: CreateDto): Promise<HydratedDocument<T, {}, {}>> {
-    return new this.model(dto).save();
+    return new this.model(dto).save() as any;
   }
   async remove(dto: RemoveDto): Promise<boolean> {
     return this.model.remove(dto).exec();
