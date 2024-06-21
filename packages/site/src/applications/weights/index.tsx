@@ -60,7 +60,6 @@ export function Weights() {
                         .map(v => v.weight)
                         .reverse(),
                     type: 'line',
-                    smooth: true,
                 },
             ],
         };
