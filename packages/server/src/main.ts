@@ -5,9 +5,24 @@ import { HttpExceptionFilter } from './filters';
 import * as chokidar from 'chokidar';
 import { execSync } from 'node:child_process';
 import { debounce } from 'lodash';
+import fs from 'fs';
+
+function getHttpsOptions() {
+  try {
+    const httpsOptions = {
+      key: fs.readFileSync('./secrets/private-key.pem'),
+      cert: fs.readFileSync('./secrets/public-certificate.pem'),
+    };
+    return httpsOptions;
+  } catch (_) {
+    return null;
+  }
+}
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions: getHttpsOptions(),
+  });
   app.setGlobalPrefix('/api', {
     exclude: [
       {
@@ -17,7 +32,7 @@ async function bootstrap() {
     ],
   });
   app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(50000);
+  await app.listen(80);
 }
 bootstrap();
 
