@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2748. 美丽下标对的数目',
-    url: 'https://leetcode.cn/problems/number-of-beautiful-pairs',
+    name: 'LCP 61. 气温变化趋势',
+    url: 'https://leetcode.cn/problems/6CE719',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回 nums 中 美丽下标对 的总数目`,
+    desc: `已知 temperatureA[i] 和 temperatureB[i] 分别表示第 i 天两地区的气温。 组委会希望找到一段天数尽可能多，且两地气温变化趋势相同的时间举办嘉年华活动。请分析并返回两地气温变化趋势相同的最大连续天数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,16 +37,22 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 385,
-            memory: 16.5,
+            time: 51,
+            memory: 16.46,
             desc: '遍历',
-            code: `class Solution:
-    def countBeautifulPairs(self, nums: List[int]) -> int:
-        return sum(
-            gcd(int(str(nums[i])[-1]), int(str(nums[j])[0])) == 1
-            for i in range(len(nums))
-            for j in range(i)
-        )`,
+            code: `clamp = lambda v, nmin, nmax: min(max(v, nmin), nmax)
+class Solution:
+    def temperatureTrend(self, temperatureA: List[int], temperatureB: List[int]) -> int:
+        res = cur = 0
+        arrA = [clamp(temperatureA[i + 1] - temperatureA[i], -1, 1) for i in range(len(temperatureA) - 1)]
+        arrB = [clamp(temperatureB[i + 1] - temperatureB[i], -1, 1) for i in range(len(temperatureB) - 1)]
+        for i in range(len(arrA)):
+            if arrA[i] == arrB[i]:
+                cur += 1
+                res = max(res, cur)
+            else:
+                cur = 0
+        return res`,
         },
         // {
         //     script: Script.RUST,
