@@ -24,8 +24,8 @@ await $`pnpm i --frozen-lockfile`;
 // cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode
 // echo(`pnpm --filter site build`)
 // pnpm --filter site build
-echo(`pnpm --filter server build`);
-await $`pnpm --filter server build`;
+echo(`pnpm --filter @bestlyg/server build`);
+await $`pnpm --filter @bestlyg/server build`;
 // 强制重新编译容器
 // docker-compose down
 // docker rmi bestlyg-api
