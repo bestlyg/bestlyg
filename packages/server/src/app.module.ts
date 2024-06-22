@@ -1,35 +1,24 @@
-import { CacheModule, Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
+import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
-import { MailerService } from './services';
+import { resolve } from './utils';
+import { MailerService } from './services/mailer.service';
 import { schedules } from './schedules';
-import { database, auth, application } from './modules';
 
-const staticPath = join(__dirname, '../../../static');
-// const publicPath = join(__dirname, '../../../public');
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../site/build'),
+      rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
       serveRoot: '/site',
       serveStaticOptions: { immutable: true },
     }),
     ServeStaticModule.forRoot({
-      rootPath: staticPath,
+      rootPath: resolve('..', '..', 'static'),
       serveRoot: '/static',
       serveStaticOptions: { immutable: true },
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath: publicPath,
-    //   serveRoot: '/public',
-    // }),
     ScheduleModule.forRoot(),
-    CacheModule.register(),
-    // database.DatabaseModule,
-    // auth.AuthModule,
-    // application.ApplicationModule,
   ],
   controllers: [AppController],
   providers: [MailerService, ...schedules],

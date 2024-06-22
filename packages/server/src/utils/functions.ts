@@ -8,9 +8,12 @@ export function resolve(...p: string[]) {
 export function getHttpsOptions() {
   try {
     const httpsOptions = {
-      key: fs.readFileSync(resolve('secrets', 'bestlyg.com.key'), 'utf8'),
+      key: fs.readFileSync(
+        resolve('src', 'secrets', 'bestlyg.com.key'),
+        'utf8',
+      ),
       cert: fs.readFileSync(
-        resolve('secrets', 'bestlyg.com_bundle.crt'),
+        resolve('src', 'secrets', 'bestlyg.com_bundle.crt'),
         'utf8',
       ),
     };

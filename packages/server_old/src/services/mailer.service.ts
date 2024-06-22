@@ -1,11 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as nodeMailer from 'nodemailer';
-
-const mailer = {
-  host: 'smtp.qq.com',
-  user: '1057966749@qq.com',
-  pass: btoa('uì±Ê\x19äÊùpm÷^'),
-};
+import { mailer } from '@/config';
 
 @Injectable()
 export class MailerService {

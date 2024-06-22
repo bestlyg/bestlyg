@@ -1,9 +1,11 @@
 import { Controller, Get, Redirect } from '@nestjs/common';
-import { MailerService } from './services/mailer.service';
+import { BaseController } from './base';
+import { MailerService } from './services';
 
 @Controller()
-export class AppController {
+export class AppController extends BaseController {
   constructor(private readonly mailer: MailerService) {
+    super();
     this.mailer.send(
       ['1057966749@qq.com'],
       `服务启动通知`,
@@ -19,6 +21,6 @@ ${Object.entries(process.env)
   @Get()
   @Redirect('/site')
   async index() {
-    return Promise.resolve();
+    return this.result();
   }
 }

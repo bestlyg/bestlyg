@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { MailerService } from '@/services/mailer.service';
+import { MailerService } from '@/services';
 import * as MarkdownIt from 'markdown-it';
 import * as dayjs from 'dayjs';
 
