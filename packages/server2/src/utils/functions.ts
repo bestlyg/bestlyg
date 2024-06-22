@@ -1,5 +1,5 @@
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export function resolve(...p: string[]) {
   return path.resolve(__dirname, ...new Array(2).fill('..'), ...p);
@@ -8,8 +8,11 @@ export function resolve(...p: string[]) {
 export function getHttpsOptions() {
   try {
     const httpsOptions = {
-      key: fs.readFileSync(resolve('secrets', 'private-key.pem')),
-      cert: fs.readFileSync(resolve('secrets', 'public-certificate.pem')),
+      key: fs.readFileSync(resolve('secrets', 'bestlyg.com.key'), 'utf8'),
+      cert: fs.readFileSync(
+        resolve('secrets', 'bestlyg.com_bundle.crt'),
+        'utf8',
+      ),
     };
     return httpsOptions;
   } catch (_) {
