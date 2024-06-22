@@ -9,6 +9,8 @@ try {
 } catch (e) {
     echo(e);
 }
+echo(`git reset --hard`)
+await $`git reset --hard`
 echo(`git pull`);
 await $`git pull`;
 echo(`pnpm i --frozen-lockfile`);
