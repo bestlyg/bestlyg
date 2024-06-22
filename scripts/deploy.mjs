@@ -11,6 +11,8 @@ try {
 }
 echo(`git reset --hard`)
 await $`git reset --hard`
+echo(`git clean -fd`)
+await $`git clean -fd`
 echo(`git pull`);
 await $`git pull`;
 echo(`pnpm i --frozen-lockfile`);
