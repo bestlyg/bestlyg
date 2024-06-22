@@ -3,7 +3,9 @@
     "name": "520.检测大写字母",
     "url": "https://leetcode.cn/problems/detect-capital",
     "difficulty": "简单",
-    "tag": ["字符串"],
+    "tag": [
+        "字符串"
+    ],
     "desc": "给定一个单词，你需要判断单词的大写使用是否正确。",
     "solutions": [
         {
@@ -21,6 +23,14 @@
             "script": "typescript",
             "desc": "正则。",
             "code": "function detectCapitalUse(word: string): boolean {\n  return /(^[A-Z]*$)|(^[a-z]*$)|(^[A-Z]{1}[a-z]*$)/g.test(word);\n}"
+        },
+        {
+            "script": "python",
+            "time": 31,
+            "memory": 16.41,
+            "desc": "直接判断。",
+            "code": "class Solution:\n    def detectCapitalUse(self, word: str) -> bool:\n        return word.isupper() or word.islower() or len(word) > 1 and word[0].isupper() and word[1:].islower()",
+            "date": 1719072000000
         }
     ]
 }
