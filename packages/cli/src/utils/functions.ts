@@ -1,4 +1,5 @@
 import { path } from 'zx';
+import { fileURLToPath } from 'url';
 import { PREFIX } from './base';
 
 export function tryToNumber(s: string, defaultValue: number): number {
@@ -12,6 +13,17 @@ export function getEnv(s: string) {
 
 export function resolve(...p: string[]) {
     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
+}
+
+export function getResolveFunction(importMeta: any, upTimes: number) {
+    const fn = new Function(
+        'path',
+        'fileURLToPath',
+        'importMeta',
+        'pathArr',
+        `return path.resolve(path.dirname(fileURLToPath(importMeta.url)), ...new Array(${upTimes}).fill('..'), ...pathArr)`
+    );
+    return (...p) => fn(path, fileURLToPath, importMeta, p) as (...p: string[]) => string;
 }
 
 export function mount<O, T>(base: O, mountRecord: T) {

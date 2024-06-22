@@ -6,6 +6,7 @@ best.dotenv.config({ path: path.resolve(best.utils.CWD, '.env') });
 Object.assign(globalThis, best);
 
 declare global {
+    var utils: typeof best.utils;
     var z: typeof best.z;
     var doctrine: typeof best.doctrine;
     var AdmZip: typeof best.AdmZip;
