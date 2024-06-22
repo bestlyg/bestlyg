@@ -7,7 +7,7 @@ import { execSync } from 'child_process';
 export function startWatchSiteZip() {
   const siteZipPath = '/home/ubuntu/site.zip';
   const deploySite = debounce(
-    () => execSync(`node ../../scripts/site/unzip.mjs`, { cwd: resolve() }),
+    () => execSync(`pnpm -w script site/unzip`, { cwd: resolve() }),
     1000,
   );
 
