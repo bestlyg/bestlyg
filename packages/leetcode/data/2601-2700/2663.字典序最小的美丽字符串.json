@@ -1,0 +1,17 @@
+{
+    "name": "2663.字典序最小的美丽字符串",
+    "url": "https://leetcode.cn/problems/lexicographically-smallest-beautiful-string",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你找出并返回一个长度为 n 的美丽字符串，该字符串还满足：在字典序大于 s 的所有美丽字符串中字典序最小。如果不存在这样的字符串，则返回一个空字符串。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 205,
+            "memory": 18.18,
+            "desc": "贪心遍历。",
+            "code": "class Solution:\n    def smallestBeautifulString(self, s: str, k: int) -> str:\n        arr = list(s)\n        ord0 = ord('a')\n        def get_next(c: str) -> str:\n            ordc = ord(c)\n            if ordc - ord0 + 1 == k:\n                return None\n            return chr(ordc + 1)\n        for i in range(len(arr) - 1, -1, -1):\n            next_ord = get_next(arr[i])\n            while next_ord and (i > 0 and next_ord == arr[i - 1] or i > 1 and next_ord == arr[i - 2]):\n                next_ord = get_next(next_ord)\n            if next_ord:\n                arr[i] = next_ord\n                starti = i + 1\n                if 0 < i < len(arr) - 1 and arr[i - 1] == 'a':\n                    arr[starti] = 'b'\n                    starti += 1\n                for j in range(starti, len(arr)):\n                    cur = 0\n                    ch = chr(cur + ord0)\n                    while ch and (j > 0 and ch == arr[j - 1] or j > 1 and ch == arr[j - 2]):\n                        cur = (cur + 1) % k\n                        ch = chr(cur + ord0)\n                    arr[j] = ch\n                break\n        res = ''.join(arr)\n        return res if res > s else ''",
+            "date": 1718985600000
+        }
+    ]
+}

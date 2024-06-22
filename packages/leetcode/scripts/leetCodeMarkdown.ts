@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: 'LCP 61. 气温变化趋势',
-    url: 'https://leetcode.cn/problems/6CE719',
+    name: '2663. 字典序最小的美丽字符串',
+    url: 'https://leetcode.cn/problems/lexicographically-smallest-beautiful-string',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `已知 temperatureA[i] 和 temperatureB[i] 分别表示第 i 天两地区的气温。 组委会希望找到一段天数尽可能多，且两地气温变化趋势相同的时间举办嘉年华活动。请分析并返回两地气温变化趋势相同的最大连续天数。`,
+    desc: `请你找出并返回一个长度为 n 的美丽字符串，该字符串还满足：在字典序大于 s 的所有美丽字符串中字典序最小。如果不存在这样的字符串，则返回一个空字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,22 +37,38 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 51,
-            memory: 16.46,
-            desc: '遍历',
-            code: `clamp = lambda v, nmin, nmax: min(max(v, nmin), nmax)
-class Solution:
-    def temperatureTrend(self, temperatureA: List[int], temperatureB: List[int]) -> int:
-        res = cur = 0
-        arrA = [clamp(temperatureA[i + 1] - temperatureA[i], -1, 1) for i in range(len(temperatureA) - 1)]
-        arrB = [clamp(temperatureB[i + 1] - temperatureB[i], -1, 1) for i in range(len(temperatureB) - 1)]
-        for i in range(len(arrA)):
-            if arrA[i] == arrB[i]:
-                cur += 1
-                res = max(res, cur)
-            else:
-                cur = 0
-        return res`,
+            time: 205,
+            memory: 18.18,
+            desc: '贪心遍历',
+            code: `class Solution:
+    def smallestBeautifulString(self, s: str, k: int) -> str:
+        arr = list(s)
+        ord0 = ord('a')
+        def get_next(c: str) -> str:
+            ordc = ord(c)
+            if ordc - ord0 + 1 == k:
+                return None
+            return chr(ordc + 1)
+        for i in range(len(arr) - 1, -1, -1):
+            next_ord = get_next(arr[i])
+            while next_ord and (i > 0 and next_ord == arr[i - 1] or i > 1 and next_ord == arr[i - 2]):
+                next_ord = get_next(next_ord)
+            if next_ord:
+                arr[i] = next_ord
+                starti = i + 1
+                if 0 < i < len(arr) - 1 and arr[i - 1] == 'a':
+                    arr[starti] = 'b'
+                    starti += 1
+                for j in range(starti, len(arr)):
+                    cur = 0
+                    ch = chr(cur + ord0)
+                    while ch and (j > 0 and ch == arr[j - 1] or j > 1 and ch == arr[j - 2]):
+                        cur = (cur + 1) % k
+                        ch = chr(cur + ord0)
+                    arr[j] = ch
+                break
+        res = ''.join(arr)
+        return res if res > s else ''`,
         },
         // {
         //     script: Script.RUST,
