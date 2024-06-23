@@ -14,14 +14,22 @@ export default defineConfig({
         alias: {
             '@': './src',
         },
+        mainEntryName: 'index',
     },
     output: {
         enableCssModuleTSDeclaration: true,
+        assetPrefix: '/resume',
+        distPath: { html: '../dist' },
     },
     html: {
+        disableHtmlFolder: true,
         title: '李逸港 - WEB 前端工程师',
         meta: {
             description: 'a tool for markdown to resume.',
         },
     },
+    dev: {
+        assetPrefix: '/resume',
+    },
+    server: { baseUrl: '/resume' },
 });

@@ -14,6 +14,7 @@ import {
     paddingA4,
     downloadPDFSinglePage,
     downloadPDFMultiPage,
+    a4SizeInPixels,
 } from './utils';
 
 export interface ResumeProps {
@@ -27,6 +28,10 @@ export function Resume(props: ResumeProps) {
     const [templateStyle, setTemplateStyle] = useState('');
     const resumeRef = useRef<HTMLDivElement>({} as HTMLDivElement);
     const [html, setHTML] = useState('');
+    const [size, setSize] = useState<ReturnType<typeof a4SizeInPixels>>({
+        width: widthA4,
+        height: heightA4,
+    });
     useEffect(() => {
         async function run() {
             const resumeGenerator = (resumeGeneratorRef.current = new ResumeGenerator());
@@ -40,6 +45,7 @@ export function Resume(props: ResumeProps) {
             setHTML(html);
         }
         run();
+        setSize(a4SizeInPixels());
     }, []);
     useLayoutEffect(() => {
         if (!resumeRef.current) return;
@@ -54,17 +60,18 @@ export function Resume(props: ResumeProps) {
                 container: resumeRef.current,
                 html,
                 getPageHeight: count =>
-                    count === 1 ? heightA4 - paddingA4 : heightA4 - 2 * paddingA4,
+                    count === 1 ? size.height - paddingA4 : size.height - 2 * paddingA4,
             });
         }
     }, [resumePageType, html]);
+    const [downloadPDF, setDownloadPDF] = useState(false);
     return (
         <div
             className={clsx(resumeStyles['resume-container'])}
             style={{
                 ...({
-                    '--resume-page-width': widthA4 + 'px',
-                    '--resume-page-height': heightA4 + 'px',
+                    '--resume-page-width': size.width + 'px',
+                    '--resume-page-height': size.height + 'px',
                     '--resume-page-padding': paddingA4 + 'px',
                 } as any),
             }}
@@ -82,12 +89,18 @@ export function Resume(props: ResumeProps) {
                             value={resumePageType}
                         />
                         <Button
+                            loading={downloadPDF}
                             onClick={() => {
-                                if (resumePageType === ResumePageType.SinglePage) {
-                                    downloadPDFSinglePage(resumeRef.current);
-                                } else {
-                                    downloadPDFMultiPage(resumeRef.current);
-                                }
+                                setDownloadPDF(true);
+                                Promise.resolve()
+                                    .then(() =>
+                                        resumePageType === ResumePageType.SinglePage
+                                            ? downloadPDFSinglePage(resumeRef.current)
+                                            : downloadPDFMultiPage(resumeRef.current)
+                                    )
+                                    .finally(() => {
+                                        setDownloadPDF(false);
+                                    });
                             }}
                         >
                             下载PDF

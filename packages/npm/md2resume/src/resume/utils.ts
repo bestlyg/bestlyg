@@ -3,6 +3,8 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
 export const RESUME_NAME_PDF = 'resume.pdf';
+export const widthA4MM = 210;
+export const heightA4MM = 297;
 export const widthA4 = 794;
 export const heightA4 = 1123;
 export const paddingA4 = 50;
@@ -92,29 +94,58 @@ export function renderToMultiPage({
 }
 
 export async function downloadPDFSinglePage(container?: HTMLElement) {
-    const dom = container?.querySelector('.resume-page-single') as HTMLElement;
+    const dom = container?.querySelector(`.${CLASS_NAME_SINGLE}`) as HTMLElement;
     if (!dom) return;
-    const doc = new jsPDF('p', 'px');
-    doc.internal.pageSize.width = dom.offsetWidth;
-    doc.internal.pageSize.height = dom.offsetHeight;
+    const doc = new jsPDF('p', 'mm');
+    doc.internal.pageSize.width = widthA4MM;
+    doc.internal.pageSize.height = heightA4MM;
     const canvas = await html2canvas(dom);
     const imgData = canvas.toDataURL('image/png');
-    doc.addImage(imgData, 'PNG', 0, 0, dom.offsetWidth, dom.offsetHeight);
+    doc.addImage(imgData, 'PNG', 0, 0, widthA4MM, heightA4MM);
     doc.save(RESUME_NAME_PDF);
 }
 
 export async function downloadPDFMultiPage(container?: HTMLElement) {
-    const doms = container?.querySelectorAll('.resume-page-multi') as NodeListOf<HTMLElement>;
+    const doms = container?.querySelectorAll(`.${CLASS_NAME_MULTI}`) as NodeListOf<HTMLElement>;
     if (!doms) return;
-    const doc = new jsPDF('p', 'px');
+    const doc = new jsPDF('p', 'mm');
     for (let i = 0; i < doms.length; i++) {
         if (i) doc.addPage();
         const dom = doms[i];
-        doc.internal.pageSize.width = doms[i].offsetWidth;
-        doc.internal.pageSize.height = doms[i].offsetHeight;
-        const canvas = await html2canvas(dom);
+        const [width, height] = [doms[i].offsetWidth, doms[i].offsetHeight];
+        doc.internal.pageSize.width = widthA4MM;
+        doc.internal.pageSize.height = heightA4MM;
+        const canvas = await html2canvas(dom, {
+            scale: window.devicePixelRatio * 4,
+            width,
+            height,
+        });
         const imgData = canvas.toDataURL('image/png');
-        doc.addImage(imgData, 'PNG', 0, 0, dom.offsetWidth, dom.offsetHeight);
+        doc.addImage(imgData, 'PNG', 0, 0, widthA4MM, heightA4MM);
     }
     doc.save(RESUME_NAME_PDF);
+}
+
+export function getDPI() {
+    const tempDiv = document.createElement('div');
+    tempDiv.style.width = '1in';
+    tempDiv.style.visibility = 'hidden';
+    document.body.appendChild(tempDiv);
+    const dpi = tempDiv.offsetWidth;
+    document.body.removeChild(tempDiv);
+    return dpi;
+}
+
+export function mmToPixel(mm: number, dpi: number) {
+    // 1 inch = 25.4 mm
+    const inches = mm / 25.4;
+    const pixels = inches * dpi;
+    return Math.round(pixels);
+}
+
+export function a4SizeInPixels() {
+    const dpi = getDPI();
+    const width_px = mmToPixel(widthA4MM, dpi);
+    const height_px = mmToPixel(heightA4MM, dpi);
+    return { width: width_px, height: height_px };
 }

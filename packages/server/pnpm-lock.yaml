@@ -38,6 +38,9 @@ importers:
       markdown-it:
         specifier: ^13.0.1
         version: 13.0.2
+      md2resume:
+        specifier: workspace:^
+        version: link:../npm/md2resume
       nodemailer:
         specifier: ^6.7.6
         version: 6.9.14

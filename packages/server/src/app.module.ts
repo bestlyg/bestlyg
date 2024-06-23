@@ -14,6 +14,11 @@ import { schedules } from './schedules';
       serveStaticOptions: { immutable: true },
     }),
     ServeStaticModule.forRoot({
+      rootPath: resolve('node_modules', 'md2resume', 'dist'),
+      serveRoot: '/resume',
+      serveStaticOptions: { immutable: true },
+    }),
+    ServeStaticModule.forRoot({
       rootPath: resolve('..', '..', 'static'),
       serveRoot: '/static',
       serveStaticOptions: { immutable: true },
