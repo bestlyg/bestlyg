@@ -1,5 +1,5 @@
 import { ResumeGenerator } from '../core/resume-generator';
-import { Button, Radio } from 'antd';
+import { Button, Radio, Space } from 'antd';
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import templateStyles from './template.module.less';
 import resumeStyles from './resume.module.less';
@@ -71,26 +71,28 @@ export function Resume(props: ResumeProps) {
         >
             <div className={clsx(resumeStyles['resume-toolkits'])}>
                 <div className={clsx(resumeStyles['resume-toolkits—inner'])}>
-                    <Radio.Group
-                        options={resumePageTypeOptions}
-                        onChange={e => {
-                            const type = e.target.value as ResumePageType;
-                            setResumePageType(type);
-                        }}
-                        optionType="button"
-                        value={resumePageType}
-                    />
-                    <Button
-                        onClick={() => {
-                            if (resumePageType === ResumePageType.SinglePage) {
-                                downloadPDFSinglePage(resumeRef.current);
-                            } else {
-                                downloadPDFMultiPage(resumeRef.current);
-                            }
-                        }}
-                    >
-                        下载PDF
-                    </Button>
+                    <Space>
+                        <Radio.Group
+                            options={resumePageTypeOptions}
+                            onChange={e => {
+                                const type = e.target.value as ResumePageType;
+                                setResumePageType(type);
+                            }}
+                            optionType="button"
+                            value={resumePageType}
+                        />
+                        <Button
+                            onClick={() => {
+                                if (resumePageType === ResumePageType.SinglePage) {
+                                    downloadPDFSinglePage(resumeRef.current);
+                                } else {
+                                    downloadPDFMultiPage(resumeRef.current);
+                                }
+                            }}
+                        >
+                            下载PDF
+                        </Button>
+                    </Space>
                 </div>
             </div>
             <div

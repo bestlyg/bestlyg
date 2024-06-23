@@ -18,4 +18,10 @@ export default defineConfig({
     output: {
         enableCssModuleTSDeclaration: true,
     },
+    html: {
+        title: '李逸港 - WEB 前端工程师',
+        meta: {
+            description: 'a tool for markdown to resume.',
+        },
+    },
 });

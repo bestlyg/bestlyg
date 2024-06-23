@@ -145,14 +145,12 @@
             font-size: @font-size-text;
         }
 
-        ul {
+        :is(ul, ol) {
             margin: 0;
-            padding-inline-start: calc(1.3em + @padding-a4);
 
             li {
                 padding-inline-start: 1px;
                 line-height: @line-height;
-                list-style-type: circle;
                 list-style-position: outside;
             }
         }
@@ -177,6 +175,10 @@
                     margin-bottom: 50px;
                 }
             }
+        }
+
+        .resume-page-multi-inner > :is(ul, ol) {
+            padding-inline-start: calc(1.3em + @padding-a4);
         }
     }
 }
