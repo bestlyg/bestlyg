@@ -15,15 +15,14 @@ export function resolve(...p: string[]) {
     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
 }
 
-export function getResolveFunction(importMeta: any, upTimes: number) {
-    const fn = new Function(
-        'path',
-        'fileURLToPath',
-        'importMeta',
-        'pathArr',
-        `return path.resolve(path.dirname(fileURLToPath(importMeta.url)), ...new Array(${upTimes}).fill('..'), ...pathArr)`
-    );
-    return (...p) => fn(path, fileURLToPath, importMeta, p) as (...p: string[]) => string;
+export function getResolveFunction(importMeta: ImportMeta, upTimes: number) {
+    return function resolve(...p: string[]) {
+        return path.resolve(
+            path.dirname(fileURLToPath(importMeta.url)),
+            ...new Array(upTimes).fill('..'),
+            ...p
+        );
+    };
 }
 
 export function mount<O, T>(base: O, mountRecord: T) {
