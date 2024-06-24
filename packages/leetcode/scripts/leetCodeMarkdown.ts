@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '520. 检测大写字母',
+    name: '503. 下一个更大元素 II',
     url: 'https://leetcode.cn/problems/detect-capital',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,12 +37,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 31,
-            memory: 16.41,
-            desc: '直接判断',
+            time: 57,
+            memory: 18.21,
+            desc: '单调栈',
             code: `class Solution:
-    def detectCapitalUse(self, word: str) -> bool:
-        return word.isupper() or word.islower() or len(word) > 1 and word[0].isupper() and word[1:].islower()`,
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        arr = [-1] * n
+        s = []
+        def run(need_append):
+            for i in range(n):
+                while s and nums[s[-1]] < nums[i]: arr[s.pop()] = nums[i]
+                if need_append: s.append(i)
+        run(True)
+        run(False)
+        return arr`,
         },
         // {
         //     script: Script.RUST,

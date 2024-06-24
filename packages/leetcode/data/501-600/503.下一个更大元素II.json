@@ -3,7 +3,11 @@
     "name": "503.下一个更大元素II",
     "url": "https://leetcode.cn/problems/next-greater-element-ii",
     "difficulty": "中等",
-    "tag": ["栈", "数组", "单调栈"],
+    "tag": [
+        "栈",
+        "数组",
+        "单调栈"
+    ],
     "desc": "给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字 x 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 -1。",
     "solutions": [
         {
@@ -21,6 +25,14 @@
             "script": "typescript",
             "desc": "利用栈储存下标。",
             "code": "function nextGreaterElements(nums: number[]): number[] {\n  const len = nums.length;\n  const ans = new Array(len).fill(-1);\n  const stack: number[] = [];\n  for (let i = 0, l = len * 2 - 1; i < l; i++) {\n    const num = nums[i % len];\n    while (stack.length && nums[stack[stack.length - 1]] < num) {\n      ans[stack[stack.length - 1]] = num;\n      stack.pop();\n    }\n    stack.push(i % len);\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 57,
+            "memory": 18.21,
+            "desc": "单调栈。",
+            "code": "class Solution:\n    def nextGreaterElements(self, nums: List[int]) -> List[int]:\n        n = len(nums)\n        arr = [-1] * n\n        s = []\n        def run(need_append):\n            for i in range(n):\n                while s and nums[s[-1]] < nums[i]: arr[s.pop()] = nums[i]\n                if need_append: s.append(i)\n        run(True)\n        run(False)\n        return arr",
+            "date": 1719158400000
         }
     ]
 }
