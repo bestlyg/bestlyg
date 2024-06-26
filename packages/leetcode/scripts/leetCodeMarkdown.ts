@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '503. 下一个更大元素 II',
-    url: 'https://leetcode.cn/problems/detect-capital',
+    exist: !true,
+    name: '2741. 特别的排列',
+    url: 'https://leetcode.cn/problems/special-permutations',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你找出并返回一个长度为 n 的美丽字符串，该字符串还满足：在字典序大于 s 的所有美丽字符串中字典序最小。如果不存在这样的字符串，则返回一个空字符串。`,
+    desc: `请你返回特别排列的总数目，由于答案可能很大，请将它对 109 + 7 取余 后返回。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,21 +37,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 57,
-            memory: 18.21,
-            desc: '单调栈',
+            time: 3193,
+            memory: 128.91,
+            desc: 'dfs',
             code: `class Solution:
-    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+    def specialPerm(self, nums: List[int]) -> int:
         n = len(nums)
-        arr = [-1] * n
-        s = []
-        def run(need_append):
-            for i in range(n):
-                while s and nums[s[-1]] < nums[i]: arr[s.pop()] = nums[i]
-                if need_append: s.append(i)
-        run(True)
-        run(False)
-        return arr`,
+        @cache
+        def dfs(last: int, mask: int) -> int:
+            if mask == (1 << n) - 1: return 1
+            return sum(
+                dfs(nums[i], mask | (1 << i))
+                for i in range(n)
+                if mask & (1 << i) == 0 and (last % nums[i] == 0 or nums[i] % last == 0)
+            )
+        return sum(dfs(nums[i], 1 << i) for i in range(n)) % (10 ** 9 + 7)`,
         },
         // {
         //     script: Script.RUST,
