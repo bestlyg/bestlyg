@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2741. 特别的排列',
-    url: 'https://leetcode.cn/problems/special-permutations',
+    name: '2734. 执行子串操作后的字典序最小字符串',
+    url: 'https://leetcode.cn/problems/lexicographically-smallest-string-after-substring-operation',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回特别排列的总数目，由于答案可能很大，请将它对 109 + 7 取余 后返回。`,
+    desc: `返回执行上述操作 恰好一次 后可以获得的 字典序最小 的字符串。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,21 +37,23 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 3193,
-            memory: 128.91,
-            desc: 'dfs',
+            time: 162,
+            memory: 22.7,
+            desc: '贪心，找第一个a前面的子串进行更新',
             code: `class Solution:
-    def specialPerm(self, nums: List[int]) -> int:
-        n = len(nums)
-        @cache
-        def dfs(last: int, mask: int) -> int:
-            if mask == (1 << n) - 1: return 1
-            return sum(
-                dfs(nums[i], mask | (1 << i))
-                for i in range(n)
-                if mask & (1 << i) == 0 and (last % nums[i] == 0 or nums[i] % last == 0)
-            )
-        return sum(dfs(nums[i], 1 << i) for i in range(n)) % (10 ** 9 + 7)`,
+    def smallestString(self, s: str) -> str:
+        arr = list(s)
+        starti = 0
+        while starti < len(arr) and arr[starti] == 'a':
+            starti += 1
+        if starti == len(arr):
+            arr[-1] = 'z'
+        else:
+            endi = starti + 1
+            while endi < len(arr) and arr[endi] != 'a': endi += 1
+            for i in range(starti, endi):
+                arr[i] = chr(ord(arr[i]) - 1)
+        return ''.join(arr)`,
         },
         // {
         //     script: Script.RUST,
