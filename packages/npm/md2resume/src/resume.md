@@ -2,7 +2,7 @@
 
 # 李逸港 - WEB 前端工程师
 
-26 岁 | 本科 | 男 | 4 年工作经验
+26 岁 | 本科 | 男 | 4 年工作经验 | 高级信息系统项目管理师
 
 [:icon[HomeOutlined]{title="website!"} https://bestlyg.com](https://bestlyg.com)
 
@@ -33,7 +33,7 @@
 7. 熟悉 LessJS 作为 CSS 预处理器，并深入源码了解过原理，提供过 PR 修复问题。
 8. 了解 Webpack 基本运行原理，编写过 loader 和 plugin。
 9. 为这些开源项目贡献过 PR：
-    - `ArcoDesign` `LessJS` `Parcel` `AntDesign` `Father` `Next.JS` `ModernJS` `Laf`
+    - `ArcoDesign` `LessJS` `Parcel` `AntDesign` `Father` `Next.JS` `ModernJS` `Laf` `zx`
 
 ## 工作经历
 
