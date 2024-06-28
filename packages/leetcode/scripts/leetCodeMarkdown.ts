@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2734. 执行子串操作后的字典序最小字符串',
-    url: 'https://leetcode.cn/problems/lexicographically-smallest-string-after-substring-operation',
+    name: '2742. 给墙壁刷油漆',
+    url: 'https://leetcode.cn/problems/painting-the-walls',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回执行上述操作 恰好一次 后可以获得的 字典序最小 的字符串。`,
+    desc: `请你返回刷完 n 堵墙最少开销为多少。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,23 +37,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 162,
-            memory: 22.7,
-            desc: '贪心，找第一个a前面的子串进行更新',
+            time: 2073,
+            memory: 492.22,
+            desc: 'dfs，判断各个工作都使用付费工人时的最低开销',
             code: `class Solution:
-    def smallestString(self, s: str) -> str:
-        arr = list(s)
-        starti = 0
-        while starti < len(arr) and arr[starti] == 'a':
-            starti += 1
-        if starti == len(arr):
-            arr[-1] = 'z'
-        else:
-            endi = starti + 1
-            while endi < len(arr) and arr[endi] != 'a': endi += 1
-            for i in range(starti, endi):
-                arr[i] = chr(ord(arr[i]) - 1)
-        return ''.join(arr)`,
+    def paintWalls(self, cost: List[int], time: List[int]) -> int:
+        n = len(cost)
+        @cache
+        def dfs(idx: int, cur_time: int) -> int:
+            if cur_time >= n - idx: return 0
+            if idx == n: return inf
+            return min(
+                dfs(idx + 1, cur_time + time[idx]) + cost[idx],
+                dfs(idx + 1, cur_time - 1)
+            )
+        return dfs(0, 0)`,
         },
         // {
         //     script: Script.RUST,
