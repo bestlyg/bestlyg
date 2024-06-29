@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@bestlyg/data':
+        specifier: workspace:^
+        version: link:../data
       '@bestlyg/site':
         specifier: workspace:^
         version: link:../site
