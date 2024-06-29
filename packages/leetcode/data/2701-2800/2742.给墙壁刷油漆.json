@@ -7,11 +7,11 @@
     "solutions": [
         {
             "script": "python",
-            "time": 2073,
-            "memory": 492.22,
-            "desc": "dfs，判断各个工作都使用付费工人时的最低开销。",
+            "time": 2024,
+            "memory": 492.34,
+            "desc": "dfs。",
             "code": "class Solution:\n    def paintWalls(self, cost: List[int], time: List[int]) -> int:\n        n = len(cost)\n        @cache\n        def dfs(idx: int, cur_time: int) -> int:\n            if cur_time >= n - idx: return 0\n            if idx == n: return inf\n            return min(\n                dfs(idx + 1, cur_time + time[idx]) + cost[idx],\n                dfs(idx + 1, cur_time - 1)\n            )\n        return dfs(0, 0)",
-            "date": 1719504000000
+            "date": 1719590400000
         }
     ]
 }
