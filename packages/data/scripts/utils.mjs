@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 
 dotenv.config({
-    path: resolve(...new Array(2).fill('..'), '.env.local'),
+    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
 
 const key = crypto

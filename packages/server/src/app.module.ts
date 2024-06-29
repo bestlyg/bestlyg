@@ -9,13 +9,8 @@ import { schedules } from './schedules';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
-      serveRoot: '/site',
-      serveStaticOptions: { immutable: true },
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: resolve('node_modules', 'md2resume', 'dist'),
-      serveRoot: '/resume',
+      rootPath: process.env.BESTLYG_WEB_PATH ?? resolve('web'),
+      serveRoot: '/web',
       serveStaticOptions: { immutable: true },
     }),
     ServeStaticModule.forRoot({

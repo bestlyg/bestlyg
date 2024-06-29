@@ -6,9 +6,13 @@ import * as express from 'express';
 import * as http from 'http';
 import * as https from 'https';
 import { RequestMethod } from '@nestjs/common';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
   console.log('bootstrap', resolve());
+  dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+  });
   const httpsOptions = getHttpsOptions();
   const server = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));

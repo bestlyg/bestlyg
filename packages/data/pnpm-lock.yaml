@@ -11,6 +11,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
+      '@bestlyg/config':
+        specifier: workspace:^
+        version: link:../config
       '@modern-js/module-tools':
         specifier: ^2.50.0
         version: 2.52.0(typescript@5.4.5)
