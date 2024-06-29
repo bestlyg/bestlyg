@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@bestlyg/site": "workspace:^",
+    "@bestlyg/data": "workspace:^",
     "md2resume": "workspace:^",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
