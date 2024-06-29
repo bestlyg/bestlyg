@@ -30,6 +30,7 @@
     "scripts": {
         "encrypt": "node ./scripts/encrypt-data.mjs",
         "decrypt": "node ./scripts/decrypt-data.mjs",
+        "create:ledger": "node ./scripts/create-ledger.mjs",
         "build": "modern build",
         "dev": "modern build --watch"
     },
