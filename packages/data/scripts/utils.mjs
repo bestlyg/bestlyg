@@ -3,12 +3,12 @@ import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 
 dotenv.config({
-    path: resolve('.env.local'),
+    path: resolve(...new Array(2).fill('..'), '.env.local'),
 });
 
 const key = crypto
     .createHash('sha256')
-    .update(String(process.env.BESTLYG_DATA_SECRET))
+    .update(String(process.env.BESTLYG_SECRET))
     .digest('base64')
     .substring(0, 32);
 

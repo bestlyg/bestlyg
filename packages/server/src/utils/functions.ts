@@ -27,16 +27,11 @@ export function resolve(...p: string[]) {
 }
 
 export function getHttpsOptions() {
+  const dirPath = resolve('node_modules', '@bestlyg', 'data', 'src', 'secrets');
   try {
     const httpsOptions = {
-      key: fs.readFileSync(
-        resolve('src', 'secrets', 'bestlyg.com.key'),
-        'utf8',
-      ),
-      cert: fs.readFileSync(
-        resolve('src', 'secrets', 'bestlyg.com_bundle.crt'),
-        'utf8',
-      ),
+      key: fs.readFileSync(resolve(dirPath, 'bestlyg.com.key'), 'utf8'),
+      cert: fs.readFileSync(resolve(dirPath, 'bestlyg.com_bundle.crt'), 'utf8'),
     };
     return httpsOptions;
   } catch (_) {
