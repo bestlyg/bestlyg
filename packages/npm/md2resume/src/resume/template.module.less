@@ -6,6 +6,9 @@
 @font-size-h3: 16px;
 @font-size-text: 14px;
 
+@h2-width: 180px;
+@h2-margin-line: 40px;
+
 .resume-template1 {
     :global {
         font-size: @font-size-text;
@@ -75,8 +78,6 @@
             font-weight: 900;
         }
         h2 {
-            @h2-width: 180px;
-            @margin-line: 40px;
             position: relative;
             margin: 10px auto;
             padding: 4px 40px;
@@ -88,21 +89,6 @@
             font-size: @font-size-h2;
             background-color: #eee;
             box-sizing: border-box;
-            &::before,
-            &::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                height: 1px;
-                width: calc((@width-a4 - @h2-width - 2 * @margin-line - 2 * @padding-a4) / 2);
-                background-color: #eee;
-            }
-            &::before {
-                right: @h2-width + @margin-line;
-            }
-            &::after {
-                left: @h2-width + @margin-line;
-            }
         }
 
         h3 {
@@ -147,6 +133,7 @@
 
         :is(ul, ol) {
             margin: 0;
+            padding-inline-start: 1em;
 
             li {
                 padding-inline-start: 1px;
@@ -179,6 +166,32 @@
 
         .resume-page-multi-inner > :is(ul, ol) {
             padding-inline-start: calc(1.3em + @padding-a4);
+        }
+    }
+}
+
+// @media-selector: ~'@media screen and (min-width: calc(@{width-a4} + 2 * @{padding-a4}))';
+@media screen and (min-width: 894px) {
+// @media screen and (min-width: calc(var(--resume-page-width ) + 2 * var(--resume-page-padding))) {
+    .resume-template1 {
+        :global {
+            h2 {
+                &::before,
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    height: 1px;
+                    width: calc((@width-a4 - @h2-width - 2 * @h2-margin-line - 2 * @padding-a4) / 2);
+                    background-color: #eee;
+                }
+                &::before {
+                    right: @h2-width + @h2-margin-line;
+                }
+                &::after {
+                    left: @h2-width + @h2-margin-line;
+                }
+            }
         }
     }
 }

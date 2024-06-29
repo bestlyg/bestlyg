@@ -97,6 +97,7 @@ export async function downloadPDFSinglePage(container?: HTMLElement) {
     const dom = container?.querySelector(`.${CLASS_NAME_SINGLE}`) as HTMLElement;
     if (!dom) return;
     const doc = new jsPDF('p', 'mm');
+    (doc as any).__private__.setPdfVersion('1.4');
     doc.internal.pageSize.width = widthA4MM;
     doc.internal.pageSize.height = heightA4MM;
     const canvas = await html2canvas(dom);
@@ -109,6 +110,7 @@ export async function downloadPDFMultiPage(container?: HTMLElement) {
     const doms = container?.querySelectorAll(`.${CLASS_NAME_MULTI}`) as NodeListOf<HTMLElement>;
     if (!doms) return;
     const doc = new jsPDF('p', 'mm');
+    (doc as any).__private__.setPdfVersion('1.4');
     for (let i = 0; i < doms.length; i++) {
         if (i) doc.addPage();
         const dom = doms[i];
@@ -120,7 +122,7 @@ export async function downloadPDFMultiPage(container?: HTMLElement) {
             width,
             height,
         });
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/png', 1);
         doc.addImage(imgData, 'PNG', 0, 0, widthA4MM, heightA4MM);
     }
     doc.save(RESUME_NAME_PDF);

@@ -1,5 +1,7 @@
 import { ResumeGenerator } from '../core/resume-generator';
+import { debounce } from 'lodash';
 import { Button, Radio, Space } from 'antd';
+import ResizeObserver from 'rc-resize-observer';
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import templateStyles from './template.module.less';
 import resumeStyles from './resume.module.less';
@@ -47,7 +49,7 @@ export function Resume(props: ResumeProps) {
         run();
         setSize(a4SizeInPixels());
     }, []);
-    useLayoutEffect(() => {
+    const renderToPage = debounce(() => {
         if (!resumeRef.current) return;
         if (resumePageType === ResumePageType.SinglePage) {
             resumeRef.current.innerHTML = html;
@@ -63,55 +65,64 @@ export function Resume(props: ResumeProps) {
                     count === 1 ? size.height - paddingA4 : size.height - 2 * paddingA4,
             });
         }
+    }, 300);
+    useLayoutEffect(() => {
+        renderToPage();
     }, [resumePageType, html]);
     const [downloadPDF, setDownloadPDF] = useState(false);
     return (
-        <div
-            className={clsx(resumeStyles['resume-container'])}
-            style={{
-                ...({
-                    '--resume-page-width': size.width + 'px',
-                    '--resume-page-height': size.height + 'px',
-                    '--resume-page-padding': paddingA4 + 'px',
-                } as any),
+        <ResizeObserver
+            onResize={() => {
+                renderToPage();
             }}
         >
-            <div className={clsx(resumeStyles['resume-toolkits'])}>
-                <div className={clsx(resumeStyles['resume-toolkits—inner'])}>
-                    <Space>
-                        <Radio.Group
-                            options={resumePageTypeOptions}
-                            onChange={e => {
-                                const type = e.target.value as ResumePageType;
-                                setResumePageType(type);
-                            }}
-                            optionType="button"
-                            value={resumePageType}
-                        />
-                        <Button
-                            loading={downloadPDF}
-                            onClick={() => {
-                                setDownloadPDF(true);
-                                Promise.resolve()
-                                    .then(() =>
-                                        resumePageType === ResumePageType.SinglePage
-                                            ? downloadPDFSinglePage(resumeRef.current)
-                                            : downloadPDFMultiPage(resumeRef.current)
-                                    )
-                                    .finally(() => {
-                                        setDownloadPDF(false);
-                                    });
-                            }}
-                        >
-                            下载PDF
-                        </Button>
-                    </Space>
-                </div>
-            </div>
             <div
-                className={clsx(resumeStyles['resume'], templateStyles[templateStyle])}
-                ref={resumeRef}
-            />
-        </div>
+                className={clsx(resumeStyles['resume-container'])}
+                style={{
+                    ...({
+                        '--resume-page-width': size.width + 'px',
+                        '--resume-page-height': size.height + 'px',
+                        '--resume-page-padding': paddingA4 + 'px',
+                    } as any),
+                }}
+            >
+                <div className={clsx(resumeStyles['resume-toolkits'])}>
+                    <div className={clsx(resumeStyles['resume-toolkits—inner'])}>
+                        <Space>
+                            <Radio.Group
+                                options={resumePageTypeOptions}
+                                onChange={e => {
+                                    const type = e.target.value as ResumePageType;
+                                    setResumePageType(type);
+                                }}
+                                optionType="button"
+                                value={resumePageType}
+                            />
+                            <Button
+                                loading={downloadPDF}
+                                onClick={() => {
+                                    setDownloadPDF(true);
+                                    Promise.resolve()
+                                        .then(() =>
+                                            resumePageType === ResumePageType.SinglePage
+                                                ? downloadPDFSinglePage(resumeRef.current)
+                                                : downloadPDFMultiPage(resumeRef.current)
+                                        )
+                                        .finally(() => {
+                                            setDownloadPDF(false);
+                                        });
+                                }}
+                            >
+                                下载PDF
+                            </Button>
+                        </Space>
+                    </div>
+                </div>
+                <div
+                    className={clsx(resumeStyles['resume'], templateStyles[templateStyle])}
+                    ref={resumeRef}
+                />
+            </div>
+        </ResizeObserver>
     );
 }
