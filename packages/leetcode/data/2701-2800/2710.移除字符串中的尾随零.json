@@ -1,34 +1,17 @@
 {
-    "id": "2819",
     "name": "2710.移除字符串中的尾随零",
     "url": "https://leetcode.cn/problems/remove-trailing-zeros-from-a-string",
     "difficulty": "简单",
-    "tag": ["字符串"],
+    "tag": [],
     "desc": "给你一个用字符串表示的正整数 num ，请你以字符串形式返回不含尾随零的整数 num 。",
     "solutions": [
         {
-            "script": "cpp",
-            "time": 40,
-            "memory": 52.5,
-            "desc": "遍历时字符串拼接。",
-            "code": "class Solution {\npublic:\n    string removeTrailingZeros(string num) {\n        string res = \"\";\n        bool init = true;\n        for (int i = num.size() - 1; i >= 0; i--) {\n            if (init) {\n                if (num[i] == '0') continue;\n                init = false;\n                res = num[i] + res;\n            } else {\n                res = num[i] + res;\n            }\n        }\n        if (res == \"\") return \"0\";\n        return res;\n    }\n};",
-            "date": 1685203200000
-        },
-        {
             "script": "python",
-            "time": 56,
-            "memory": 16.2,
-            "desc": "同上。",
-            "code": "class Solution:\n    def removeTrailingZeros(self, num: str) -> str:\n        res = \"\"\n        init = True\n        i = len(num) - 1\n        while i >= 0:\n            if init:\n                if num[i] == '0':\n                    i -= 1\n                    continue\n                init = False\n                res = num[i] + res\n            else:\n                res = num[i] + res\n            i -= 1\n        if res == \"\":\n            return \"0\"\n        return res\n",
-            "date": 1685203200000
-        },
-        {
-            "script": "rust",
-            "time": 0,
-            "memory": 2.2,
-            "desc": "同上。",
-            "code": "pub fn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn remove_trailing_zeros(num: String) -> String {\n        let num = str_to_vec(&num);\n        let mut init = true;\n        let mut res: Vec<char> = vec![];\n        let mut i = num.len() - 1;\n        loop {\n            if init {\n                if num[i] == '0' {\n                    i -= 1;\n                    continue;\n                }\n                init = false;\n                res.push(num[i]);\n            } else {\n                res.push(num[i]);\n            }\n            i -= 1;\n            if i > num.len() {\n                break;\n            }\n        }\n        if res.len() == 0 {\n            \"0\".to_string()\n        } else {\n            res.reverse();\n            String::from_utf8(res.into_iter().map(|v| v as u8).collect()).unwrap()\n        }\n    }\n}",
-            "date": 1685203200000
+            "time": 47,
+            "memory": 16.7,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def removeTrailingZeros(self, num: str) -> str:\n        arr = list(num)\n        while arr[-1] == '0': arr.pop()\n        return ''.join(arr)",
+            "date": 1719590400000
         }
     ]
 }
