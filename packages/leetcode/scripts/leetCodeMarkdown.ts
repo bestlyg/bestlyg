@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2742. 给墙壁刷油漆',
-    url: 'https://leetcode.cn/problems/painting-the-walls',
+    name: '494. 目标和',
+    url: 'https://leetcode.cn/problems/target-sum',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回刷完 n 堵墙最少开销为多少。`,
+    desc: `返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,21 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 2024,
-            memory: 492.34,
+            time: 200,
+            memory: 43.27,
             desc: 'dfs',
             code: `class Solution:
-    def paintWalls(self, cost: List[int], time: List[int]) -> int:
-        n = len(cost)
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
         @cache
-        def dfs(idx: int, cur_time: int) -> int:
-            if cur_time >= n - idx: return 0
-            if idx == n: return inf
-            return min(
-                dfs(idx + 1, cur_time + time[idx]) + cost[idx],
-                dfs(idx + 1, cur_time - 1)
-            )
-        return dfs(0, 0)`,
+        def dfs(idx: int, target: int) -> int:
+            if idx == len(nums): return int(0 == target) 
+            return dfs(idx + 1, target + nums[idx]) + dfs(idx + 1, target - nums[idx])
+        return dfs(0, target)`,
         },
         // {
         //     script: Script.RUST,
