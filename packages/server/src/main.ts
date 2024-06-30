@@ -30,4 +30,7 @@ async function bootstrap() {
     https.createServer(httpsOptions, server).listen(443);
   }
 }
-bootstrap();
+bootstrap().catch((err) => {
+  console.log('Find Error');
+  console.error(err);
+});
