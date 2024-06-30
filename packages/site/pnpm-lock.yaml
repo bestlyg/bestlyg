@@ -69,6 +69,12 @@ importers:
         specifier: ^7.2.3
         version: 7.2.3
     devDependencies:
+      '@bestlyg/cli':
+        specifier: workspace:^
+        version: link:../cli
+      '@bestlyg/config':
+        specifier: workspace:^
+        version: link:../config
       '@docusaurus/module-type-aliases':
         specifier: 3.2.0
         version: 3.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
