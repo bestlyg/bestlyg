@@ -18,7 +18,7 @@ export default defineConfig({
     },
     output: {
         enableCssModuleTSDeclaration: true,
-        assetPrefix: '/web/resume',
+        assetPrefix: '/resume',
         distPath: { html: '../dist' },
     },
     html: {
@@ -29,7 +29,7 @@ export default defineConfig({
         },
     },
     dev: {
-        assetPrefix: '/web/resume',
+        assetPrefix: '/resume',
     },
-    server: { baseUrl: '/web/resume' },
+    server: { baseUrl: '/resume' },
 });
