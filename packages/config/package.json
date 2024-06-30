@@ -1,10 +1,46 @@
 {
     "name": "@bestlyg/config",
-    "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
-    "scripts": {},
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    "version": "0.0.0",
+    "author": "bestlyg",
+    "type": "module",
+    "main": "./dist/lib/index.cjs",
+    "types": "./dist/types/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types/index.d.ts"
+            ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./globals": {
+            "types": "./dist/types/globals.d.ts",
+            "import": "./dist/esm/globals.js",
+            "require": "./dist/lib/globals.cjs",
+            "default": "./dist/esm/globals.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        },
+        "./package.json": "./package.json"
+    },
+    "scripts": {
+        "run:dev": "cross-env BEST_DEV=1 node --max-old-space-size=4096 bin/best.js",
+        "run:prod": "node --max-old-space-size=4096 bin/best.js",
+        "build": "modern build",
+        "prepublishOnly": "pnpm build",
+        "dev": "modern build --watch"
+    },
+    "dependencies": {
+        "@modern-js/module-tools": "^2.50.0",
+        "typescript": "^5.5.2"
+    }
 }
