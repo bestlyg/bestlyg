@@ -60,6 +60,15 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
     devDependencies:
+      '@bestlyg/cli':
+        specifier: workspace:^
+        version: link:../../cli
+      '@bestlyg/config':
+        specifier: workspace:^
+        version: link:../../config
+      '@bestlyg/data':
+        specifier: workspace:^
+        version: link:../../data
       '@modern-js-app/eslint-config':
         specifier: 2.53.0
         version: 2.53.0(@swc/helpers@0.5.3)(typescript@5.4.5)

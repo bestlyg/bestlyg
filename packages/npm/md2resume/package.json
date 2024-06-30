@@ -9,7 +9,8 @@
         "serve": "modern serve",
         "new": "modern new",
         "lint": "modern lint",
-        "upgrade": "modern upgrade"
+        "upgrade": "modern upgrade",
+        "deploy": "node scripts/deploy.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^5.3.7",
@@ -31,6 +32,9 @@
         "tapable": "^2.2.1"
     },
     "devDependencies": {
+        "@bestlyg/cli": "workspace:^",
+        "@bestlyg/config": "workspace:^",
+        "@bestlyg/data": "workspace:^",
         "@modern-js-app/eslint-config": "2.53.0",
         "@modern-js/app-tools": "2.53.0",
         "@modern-js/eslint-config": "2.53.0",
