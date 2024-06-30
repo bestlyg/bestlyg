@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { resolve } from './utils';
 import { MailerService } from './services/mailer.service';
 import { schedules } from './schedules';
+import { server } from '@bestlyg/config';
 
 @Module({
   imports: [
@@ -14,12 +15,14 @@ import { schedules } from './schedules';
     //   serveStaticOptions: { immutable: true },
     // }),
     ServeStaticModule.forRoot({
-      rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
+      // rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
+      rootPath: resolve(server.webPath, 'site'),
       serveRoot: '/site',
       serveStaticOptions: { immutable: true },
     }),
     ServeStaticModule.forRoot({
-      rootPath: resolve('node_modules', 'md2resume', 'dist'),
+      // rootPath: resolve('node_modules', 'md2resume', 'dist'),
+      rootPath: resolve(server.webPath, 'resume'),
       serveRoot: '/resume',
       serveStaticOptions: { immutable: true },
     }),
