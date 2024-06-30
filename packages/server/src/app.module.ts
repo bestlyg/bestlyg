@@ -9,23 +9,23 @@ import { server } from '@bestlyg/config';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: resolve(server.webPath),
+      serveRoot: '/web',
+      serveStaticOptions: { immutable: true },
+    }),
     // ServeStaticModule.forRoot({
-    //   rootPath: resolve(server.webPath),
-    //   serveRoot: '/web',
+    //   // rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
+    //   rootPath: resolve(server.webPath, 'site'),
+    //   serveRoot: '/site',
     //   serveStaticOptions: { immutable: true },
     // }),
-    ServeStaticModule.forRoot({
-      // rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
-      rootPath: resolve(server.webPath, 'site'),
-      serveRoot: '/site',
-      serveStaticOptions: { immutable: true },
-    }),
-    ServeStaticModule.forRoot({
-      // rootPath: resolve('node_modules', 'md2resume', 'dist'),
-      rootPath: resolve(server.webPath, 'resume'),
-      serveRoot: '/resume',
-      serveStaticOptions: { immutable: true },
-    }),
+    // ServeStaticModule.forRoot({
+    //   // rootPath: resolve('node_modules', 'md2resume', 'dist'),
+    //   rootPath: resolve(server.webPath, 'resume'),
+    //   serveRoot: '/resume',
+    //   serveStaticOptions: { immutable: true },
+    // }),
     ServeStaticModule.forRoot({
       rootPath: resolve('..', '..', 'static'),
       serveRoot: '/static',
