@@ -9,7 +9,7 @@ const config: Config = {
     title: '信韵的小奥特',
     tagline: 'welcomme to the world of lucky ultraman.',
     url: 'https:/bestlyg.com',
-    baseUrl: '/site',
+    baseUrl: '/web/site',
     onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/logo.ico',
