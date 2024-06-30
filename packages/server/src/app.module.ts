@@ -9,11 +9,11 @@ import { server } from '@bestlyg/config';
 
 @Module({
   imports: [
-    // ServeStaticModule.forRoot({
-    //   rootPath: config.server.webPath,
-    //   serveRoot: '/web',
-    //   serveStaticOptions: { immutable: true },
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: resolve(server.webPath),
+      serveRoot: '/web',
+      serveStaticOptions: { immutable: true },
+    }),
     ServeStaticModule.forRoot({
       // rootPath: resolve('node_modules', '@bestlyg', 'site', 'build'),
       rootPath: resolve(server.webPath, 'site'),
