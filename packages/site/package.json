@@ -5,7 +5,7 @@
     "scripts": {
         "docusaurus": "docusaurus",
         "start": "zx scripts/prestart.mjs && docusaurus start",
-        "build": "pnpm fork-leetcode && docusaurus build",
+        "build": "pnpm fork-leetcode && docusaurus build --out-dir dist",
         "swizzle": "docusaurus swizzle",
         "deploy": "docusaurus deploy",
         "clear": "docusaurus clear",
