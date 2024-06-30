@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
-import { getHttpsOptions, resolve, startWatchSiteZip } from '@/utils';
+import { getHttpsOptions, resolve } from '@/utils';
 import * as express from 'express';
 import * as http from 'http';
 import * as https from 'https';
@@ -30,5 +30,4 @@ async function bootstrap() {
     https.createServer(httpsOptions, server).listen(443);
   }
 }
-startWatchSiteZip();
 bootstrap();
