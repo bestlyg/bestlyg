@@ -35,8 +35,8 @@ await $`pnpm --filter @bestlyg/server build`;
 // rm -rf /etc/nginx/conf.d
 // cp -r nginx/server /etc/nginx/conf.d
 // nginx -s reload
-echo(`pm2 start packages/server/dist/main.js --name ${serverName}`);
-await $`pm2 start packages/server/dist/main.js --name ${serverName}`;
+echo(`sudo pm2 start packages/server/dist/main.js --name ${serverName}`);
+await $`sudo pm2 start packages/server/dist/main.js --name ${serverName}`;
 
 // docker-compose up -d --force-recreate --build
 
