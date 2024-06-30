@@ -17,7 +17,7 @@ ${Object.entries(process.env)
     );
   }
   @Get()
-  @Redirect('/web/site')
+  @Redirect('/site')
   async index() {
     return Promise.resolve();
   }
