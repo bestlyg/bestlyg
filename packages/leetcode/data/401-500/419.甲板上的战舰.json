@@ -3,11 +3,7 @@
     "name": "419.甲板上的战舰",
     "url": "https://leetcode.cn/problems/battleships-in-a-board",
     "difficulty": "中等",
-    "tag": [
-        "深度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tag": ["深度优先搜索", "数组", "矩阵"],
     "desc": "给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "520.检测大写字母",
     "url": "https://leetcode.cn/problems/detect-capital",
     "difficulty": "简单",
-    "tag": [
-        "字符串"
-    ],
+    "tag": ["字符串"],
     "desc": "给定一个单词，你需要判断单词的大写使用是否正确。",
     "solutions": [
         {

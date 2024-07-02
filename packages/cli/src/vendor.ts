@@ -12,7 +12,7 @@ export { default as dotenv } from 'dotenv';
 export { default as dayjs } from 'dayjs';
 export { default as axios } from 'axios';
 export * as manypkg from '@manypkg/get-packages';
-export * as changeCase  from 'change-case';
+export * as changeCase from 'change-case';
 export * as R from 'ramda';
 export * as rimraf from 'rimraf';
 export * as commander from 'commander';

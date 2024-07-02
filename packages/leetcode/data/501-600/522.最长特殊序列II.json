@@ -3,13 +3,7 @@
     "name": "522.最长特殊序列II",
     "url": "https://leetcode.cn/problems/longest-uncommon-subsequence-ii",
     "difficulty": "中等",
-    "tag": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "字符串",
-        "排序"
-    ],
+    "tag": ["数组", "哈希表", "双指针", "字符串", "排序"],
     "desc": "给定字符串列表 strs ，返回其中 最长的特殊序列 。如果最长特殊序列不存在，返回 -1 。",
     "solutions": [
         {
