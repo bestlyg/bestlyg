@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '494. 目标和',
-    url: 'https://leetcode.cn/problems/target-sum',
+    name: '3115. 质数的最大距离',
+    url: 'https://leetcode.cn/problems/maximum-prime-difference',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。`,
+    desc: `返回两个（不一定不同的）质数在 nums 中 下标 的 最大距离。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,16 +37,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 200,
-            memory: 43.27,
-            desc: 'dfs',
-            code: `class Solution:
-    def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        @cache
-        def dfs(idx: int, target: int) -> int:
-            if idx == len(nums): return int(0 == target) 
-            return dfs(idx + 1, target + nums[idx]) + dfs(idx + 1, target - nums[idx])
-        return dfs(0, target)`,
+            time: 403,
+            memory: 28.54,
+            desc: '遍历',
+            code: `def is_prime(num: int) -> bool:
+    if num < 2: return False
+    for v in range(2, num):
+        if num % v == 0: return False
+    return True
+arr = [is_prime(num) for num in range(103)]
+
+class Solution:
+    def maximumPrimeDifference(self, nums: List[int]) -> int:
+        v1 = v2 = -1
+        for i in range(len(nums)):
+            if is_prime(nums[i]):
+                if v1 == -1: v1 = i
+                v2 = i
+        return v2 - v1
+                    `,
         },
         // {
         //     script: Script.RUST,
