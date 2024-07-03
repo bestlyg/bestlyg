@@ -12,6 +12,14 @@
             "desc": "遍历。",
             "code": "def is_prime(num: int) -> bool:\n    if num < 2: return False\n    for v in range(2, num):\n        if num % v == 0: return False\n    return True\narr = [is_prime(num) for num in range(103)]\n\nclass Solution:\n    def maximumPrimeDifference(self, nums: List[int]) -> int:\n        v1 = v2 = -1\n        for i in range(len(nums)):\n            if is_prime(nums[i]):\n                if v1 == -1: v1 = i\n                v2 = i\n        return v2 - v1\n                    ",
             "date": 1719849600000
+        },
+        {
+            "script": "python",
+            "time": 84,
+            "memory": 28.54,
+            "desc": "遍历。",
+            "code": "def is_prime(num: int) -> bool:\n    if num < 2: return False\n    for v in range(2, num):\n        if num % v == 0: return False\n    return True\narr = [is_prime(num) for num in range(103)]\n\nclass Solution:\n    def maximumPrimeDifference(self, nums: List[int]) -> int:\n        v1 = v2 = -1\n        for i in range(len(nums)):\n            if arr[nums[i]]:\n                if v1 == -1: v1 = i\n                v2 = i\n        return v2 - v1",
+            "date": 1719936000000
         }
     ]
 }

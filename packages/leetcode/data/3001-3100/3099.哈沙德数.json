@@ -1,0 +1,17 @@
+{
+    "name": "3099.哈沙德数",
+    "url": "https://leetcode.cn/problems/harshad-number",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "如果一个整数能够被其各个数位上的数字之和整除，则称之为 哈沙德数（Harshad number）。给你一个整数 x 。如果 x 是 哈沙德数 ，则返回 x 各个数位上的数字之和，否则，返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 40,
+            "memory": 16.41,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def sumOfTheDigitsOfHarshadNumber(self, x: int) -> int:\n        num = sum(int(c) for c in str(x))\n        return num if x % num == 0 else -1",
+            "date": 1719936000000
+        }
+    ]
+}
