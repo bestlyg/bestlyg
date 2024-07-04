@@ -37,5 +37,6 @@ export const decryptPath = resolve('src');
 export const encryptPath = resolve('encrypt-src');
 
 export async function getFiles(cwd) {
+    // return glob(glob.convertPathToPattern(path.join('**', '*.*')), { cwd });
     return glob(path.join('**', '*.*'), { cwd });
 }
