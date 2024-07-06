@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3099. 哈沙德数',
-    url: 'https://leetcode.cn/problems/harshad-number',
+    name: '3101. 交替子数组计数',
+    url: 'https://leetcode.cn/problems/count-alternating-subarrays',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果一个整数能够被其各个数位上的数字之和整除，则称之为 哈沙德数（Harshad number）。给你一个整数 x 。如果 x 是 哈沙德数 ，则返回 x 各个数位上的数字之和，否则，返回 -1 。`,
+    desc: `返回数组 nums 中交替子数组的数量。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,13 +37,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 40,
-            memory: 16.41,
-            desc: '遍历',
+            time: 102,
+            memory: 20.2,
+            desc: '遍历时获取最长交替子数组用等差数列求和',
             code: `class Solution:
-    def sumOfTheDigitsOfHarshadNumber(self, x: int) -> int:
-        num = sum(int(c) for c in str(x))
-        return num if x % num == 0 else -1`,
+    def countAlternatingSubarrays(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = cur = 0
+        while cur < n:
+            start = cur
+            while cur + 1 < n and nums[cur] != nums[cur + 1]: cur += 1
+            res += (1 + (cur - start + 1)) * (cur - start + 1) // 2
+            cur += 1
+        return res`,
         },
         // {
         //     script: Script.RUST,
