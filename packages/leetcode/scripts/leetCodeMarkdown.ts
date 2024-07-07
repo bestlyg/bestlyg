@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3101. 交替子数组计数',
-    url: 'https://leetcode.cn/problems/count-alternating-subarrays',
+    name: '1958. 检查操作是否合法',
+    url: 'https://leetcode.cn/problems/check-if-move-is-legal',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回数组 nums 中交替子数组的数量。`,
+    desc: `给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,19 +37,29 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 102,
-            memory: 20.2,
-            desc: '遍历时获取最长交替子数组用等差数列求和',
-            code: `class Solution:
-    def countAlternatingSubarrays(self, nums: List[int]) -> int:
-        n = len(nums)
-        res = cur = 0
-        while cur < n:
-            start = cur
-            while cur + 1 < n and nums[cur] != nums[cur + 1]: cur += 1
-            res += (1 + (cur - start + 1)) * (cur - start + 1) // 2
-            cur += 1
-        return res`,
+            time: 45,
+            memory: 16.27,
+            desc: '遍历所有方向',
+            code: `n = 8
+dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+
+class Solution:
+    def checkMove(self, board: List[List[str]], rMove: int, cMove: int, color: str) -> bool:
+        recolor = 'W' if color == 'B' else 'B'
+        for dir in dirs2:
+            nx, ny = rMove + dir[0], cMove + dir[1]
+            cnt = 0
+            while 0 <= nx < n and 0 <= ny < n:
+                if board[nx][ny] == recolor:
+                    cnt += 1
+                elif board[nx][ny] == color:
+                    if cnt >= 1: return True
+                    break
+                elif board[nx][ny] == '.':
+                    break
+                nx += dir[0]
+                ny += dir[1]
+        return False`,
         },
         // {
         //     script: Script.RUST,
