@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { Button } from "antd";
+import { useAtom, useAtomValue } from 'jotai';
+import { activeRouteAtom, isConnectedAtom } from './store';
+import { routeMap } from './routes';
+import { useLayoutEffect, useMemo } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
-  return (
-    <>
-      <Button>123</Button>
-      <div className="mt-10px">1234</div>
-    </>
-  );
+    const isConnected = useAtomValue(isConnectedAtom);
+    const [activeRoute, setActiveRoute] = useAtom(activeRouteAtom);
+    useMemo(() => {
+        if (!isConnected) {
+            setActiveRoute(routeMap['connect']);
+        }
+    }, [isConnected]);
+    return <activeRoute.Component />;
 }
 
 export default App;
