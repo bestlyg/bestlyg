@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '1958. 检查操作是否合法',
+    exist: true,
+    name: '724. 寻找数组的中心下标',
     url: 'https://leetcode.cn/problems/check-if-move-is-legal',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,29 +37,18 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 45,
-            memory: 16.27,
-            desc: '遍历所有方向',
-            code: `n = 8
-dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
-
-class Solution:
-    def checkMove(self, board: List[List[str]], rMove: int, cMove: int, color: str) -> bool:
-        recolor = 'W' if color == 'B' else 'B'
-        for dir in dirs2:
-            nx, ny = rMove + dir[0], cMove + dir[1]
-            cnt = 0
-            while 0 <= nx < n and 0 <= ny < n:
-                if board[nx][ny] == recolor:
-                    cnt += 1
-                elif board[nx][ny] == color:
-                    if cnt >= 1: return True
-                    break
-                elif board[nx][ny] == '.':
-                    break
-                nx += dir[0]
-                ny += dir[1]
-        return False`,
+            time: 54,
+            memory: 17.25,
+            desc: '遍历',
+            code: `class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        l = 0
+        r = sum(nums)
+        for i in range(len(nums)):
+            r -= nums[i]
+            if l == r: return i
+            l += nums[i]
+        return -1`,
         },
         // {
         //     script: Script.RUST,
