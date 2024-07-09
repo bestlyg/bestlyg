@@ -1,0 +1,499 @@
+# 组件库样式隔离方案
+
+## 背景
+
+现阶段有同学反馈在一个子应用中，同时使用多个版本的相同M4B组件时，会产生样式冲突问题，导致样式错乱，多数情况存在于当前子应用安装了A@2.0.0和B@1.0.0，但是B@1.0.0又强依赖A@1.0.0，需要尽早解决此问题。
+
+## 方案汇总
+
+### 方案1 —— 基于hash版本号
+
+依赖package.json中的唯一性，通过在样式中增加一个hashed-version
+
+#### 老代码
+
+```css
+.m4b-button {
+    ...
+}
+```
+
+#### 新代码
+
+##### 注入方式1
+
+受限于arco的构建工具无法对静态变量替换，只能使用方案2中的token注入脚本进行批量刷新
+
+```css
+// old
+.m4b-button {
+    height: 20px;
+}
+```
+
+```js
+// new
+@import './token.less';
+.m4b-button[data-v=~'@{hashed-version}'] {
+    ...
+}
+import { HashedVersion } from './token.ts';
+function Button() {
+    return <button class="m4b-button" data-v={HashedVersion} />
+}
+```
+
+##### 注入方式2
+
+后期更换构建脚本后可以通过自动读取的方式注入变量，不需要增加文件。
+```less
+// less可以打通node世界，可以使用@less-plugins/get-hashed-version
+// 增加getHashedVersion函数自动获取当前less文件最近的package.json文件中的hashed-version
+@m4b-button-version: getHashedVersion();
+.m4b-button[data-v=~'@{hashed-version}'] {
+    ...
+}
+```
+
+```js
+function Button() {
+    // 利用全局静态值替换，打包完后自动注入
+    return <button class="m4b-button" data-v={process.env.M4B_BUTTON_HASHED_VERSION} />
+}
+```
+
+#### 优点
+
+1. 在不同版本之间能够保证完全隔离，一个版本的样式，只会影响一个版本。
+1. 非常适用于新组件
+
+#### 缺点
+
+1. 现阶段M4B样式中存在部分样式不规范的问题，需要改造，改造成本关联样式规范程度，一次性改造完后后续不需要再次改造。
+1. 对于现有样式，如果业务仓库中存在样式覆盖，可能会受到因为权重导致的不生效问题。
+1. 老的样式覆盖依旧存在
+1. 用户感知组件开发者也感知
+1. tailwind的样式因为权重问题可能无法生效
+1. 老版本arco不支持属性透传，无法支持data-v
+1. 一旦包含data-v，就意味着tailwind的权重不会生效
+  1. 解决方案：@layer css
+1. 组件一定要支持data-v传参
+  1. @arco-design/web-react从2.38.1开始才支持。
+
+#### 方案1.1
+
+样式全部重构成带hash前缀的。
+
+- 优点
+  - 一旦业务中所有依赖的该组件版本号都是重构后的版本，是后续所有样式不会干扰。
+- 缺点
+  - 是对原有样式需要改造，原有权重可能会提升，影响现存业务仓库中的样式。
+  - 由于原来的样式编写比较混乱，可能需要一定的改造成本，但是每个组件仅需一次改造。
+  - 如果业务中存在改造后的版本A和，改造前的版本B，那么B中的样式依然会适用于A。
+
+#### 方案1.2
+
+原有样式依旧保存，后续新增样式采用hash的方式。
+
+- 优点
+  - 兼容老版本，原有样式依旧存在，后续新增的样式保证了隔离。
+- 缺点
+  - 老样式依旧会存在样式覆盖。
+
+#### 方案1.3  ✅
+
+基于方案1.1，利用:where零权重的特点进行基于hash生成样式。
+``` less
+@m4b-button-version: getHashedVersion();
+.m4b-button:where([data-v=~'@{hashed-version}']) {
+    ...
+}
+```
+
+- 优点
+  - 不会对原有权重造成任何影响，原有的样式覆盖依旧生效。
+- 缺点
+  - :where需要chrome88版本及以上才可以生效。
+
+### 方案2 —— 基于hash中缀
+
+依赖package.json中的唯一性，通过在样式中增加一个hashed-version
+
+#### 老代码
+```css
+.m4b-button {
+    ...
+}
+```
+
+#### 新代码
+```less
+@import '~@m4b-design/utils/es/styles/index.less';
+@import './token.less';
+
+// 注入样式变量和依赖的组件样式变量
+.load-m4b-alert-token();
+
+.load-m4b-alert-style(@m4b-alert-prefix-cls) {
+    // 与原有样式保持一致
+    .@{m4b-alert-prefix-cls} {
+    
+    }
+}
+
+// 生成普通版本样式 .m4b-alert
+.load-m4b-alert-style(@m4b-alert-prefix-cls);
+// 生成带hash版本样式 .m4b-xxx-alert
+.load-m4b-alert-style(@m4b-alert-prefix-cls-with-hashed-version);
+```
+
+##### 需要对ts注入token.ts
+```ts
+// 由脚本读取package.json生成
+export const M4B_ALERT_VERSION = '1.3.21-alpha.1';
+// 由脚本读取package.json后利用统一的hash算法生成
+export const M4B_ALERT_HASHED_VERSION = '7azdi9';
+// 导出当前组件所依赖的组件的token，方便样式覆盖
+export * from '@m4b-design/button/es/token';
+```
+
+##### 需要对less注入token.less
+```less
+@import (multiple) '~@m4b-design/utils/es/styles/index.less';
+@import '~@m4b-design/button/es/style/token.less';
+
+// 生成mixin方便样式变量注入
+.load-m4b-alert-token() {
+  .load-m4b-button-token();
+  @m4b-alert-version: ~'1.3.21-alpha.1';
+  @m4b-alert-hashed-version: ~'7azdi9';
+  @m4b-alert-prefix-cls: ~'@{m4b-prefix-cls}-alert';
+  @m4b-alert-prefix-cls-with-hashed-version: ~'@{m4b-prefix-cls}-@{m4b-alert-hashed-version}-alert';
+}
+
+```
+
+##### 需要对代码进行修改(alert.tsx)
+```ts
+export function usePrefix(suffix: string, styleIsolationTag: string) {
+  // 在ConfigProvider中增加styleIsolation变量方便读取当前是否需要样式隔离
+  const { prefixCls: globalPrefixCls, styleIsolation } = useConfigContext();
+  // 根据是否隔离生成.m4b-alert还是.m4b-xxx-alert
+  const prefixCls = [globalPrefixCls, styleIsolation && styleIsolationTag, suffix]
+    .filter(Boolean)
+    .join('-');
+  return prefixCls;
+}
+const prefixCls = usePrefix('alert', M4B_ALERT_HASHED_VERSION);
+```
+
+##### 新增批量脚本工具注入token
+```ts
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+import 'zx/globals';
+import hash from '@emotion/hash';
+import changeCase from 'change-case';
+
+const rootPath = path.resolve(__dirname, '..');
+const packagePath = path.resolve(rootPath, 'packages');
+const ignoreDir = [
+  'config-provider',
+  'component-template',
+  'components',
+  'iconfordemo',
+  'icon',
+  'utils',
+  'locale',
+  'variant-numeric',
+  'shared',
+];
+const components = (await fs.readdir(packagePath)).filter((dir) => !ignoreDir.includes(dir));
+
+echo`${components.join(',')}`;
+
+await Promise.allSettled(components.map(genToken));
+
+async function init(componentName) {
+  const componentPath = path.resolve(packagePath, componentName);
+  const styleFiles = await glob(path.resolve(componentPath, 'src', 'style', '**/*.less'));
+  for (const styleFile of styleFiles) {
+    console.log(styleFile);
+  }
+  // await fs.appendFile(path.resolve(componentPath, 'src', 'index.tsx'), `\nexport * as TOKEN from './token';`);
+}
+
+function pickM4bComponent(pkgJson) {
+  const res = [];
+  for (const key of Object.keys(pkgJson.dependencies ?? {})) {
+    if (key.startsWith('@m4b-design/')) {
+      const name = key.replace('@m4b-design/', '');
+      if (name !== 'utils' && name !== 'shared' && name !== 'config-provider') {
+        res.push(name);
+      }
+    }
+  }
+  return res;
+}
+
+async function genToken(componentName) {
+  console.log('genToken', componentName);
+  const componentPath = path.resolve(packagePath, componentName);
+  const constantName = changeCase.constantCase(componentName);
+  const paramName = changeCase.paramCase(componentName);
+  const pkgJson = await fs.readJSON(path.resolve(componentPath, 'package.json'));
+  const version = pkgJson.version;
+  const hashedVersion = hash(version);
+  const depComponents = pickM4bComponent(pkgJson);
+  await fs.writeFile(
+    path.resolve(componentPath, 'src', 'token.ts'),
+    [
+      `export const M4B_${constantName}_VERSION = '${version}';`,
+      `export const M4B_${constantName}_HASHED_VERSION = '${hashedVersion}';`,
+      ...depComponents.map((name) => `export * from '@m4b-design/${name}/es/token';`),
+    ].join('\n')
+  );
+  // console.log('===', path.resolve(componentPath, 'src', 'style', 'token.less'));
+  await fs.writeFile(
+    path.resolve(componentPath, 'src', 'style', 'token.less'),
+    [
+      `@import (multiple) '~@m4b-design/utils/es/styles/index.less';`,
+      ...depComponents.map((name) => `@import '~@m4b-design/${name}/es/style/token.less';`),
+      ``,
+      `.load-m4b-${paramName}-token() {`,
+      ...depComponents.map((name) => `  .load-m4b-${name}-token();`),
+      `  @m4b-${paramName}-version: ~'${version}';`,
+      `  @m4b-${paramName}-hashed-version: ~'${hashedVersion}';`,
+      `  @m4b-${paramName}-prefix-cls: ~'@{m4b-prefix-cls}-${paramName}';`,
+      `  @m4b-${paramName}-prefix-cls-with-hashed-version: ~'@{m4b-prefix-cls}-@{m4b-${paramName}-hashed-version}-${paramName}';`,
+      `}`,
+    ].join('\n')
+  );
+}
+```
+
+#### 优点
+
+1. 完全的隔离
+1. 权重不增加
+
+#### 缺点
+1. 样式覆盖无法像往常一样利用className进行覆盖，要加hash
+  1. Export Hash (JS / Less)
+  2. 手写覆盖 -> 升级后
+  3. 解决方案：
+
+```less
+// 一个特殊的scope（页面，组件）外层
+.lyg {
+position: relative;
+& {
+    // 在单独的scope中注入button变量
+    @import (multiple) '~@m4b-design/button@1.1.24-alpha.7/es/style/token.less';
+    .load-m4b-button-token();
+    .@{m4b-button-prefix-cls-with-hashed-version} {
+    height: 10px;
+    }
+}
+& {
+    // 在单独的scope中注入button变量
+    @import (multiple) '~@m4b-design/alert@1.3.22-alpha.4/es/style/token.less';
+    .load-m4b-alert-token();
+
+    .@{m4b-button-prefix-cls-with-hashed-version} {
+    height: 20px;
+    }
+}
+}
+```
+   4. 用户不感知但组件开发者需要感知
+   5. 插槽类型的组件的样式覆盖还有问题
+```less
+.m4b-xxx-form {
+    // input-number并非form的依赖，所以无法拿到当前input-number的正确classname
+    .m4b-input-number {
+    }
+}
+```
+   6. 解决方案
+```less
+// 对于所有的className，都注入一个空的className，比如.m4b-x-alert
+// 该className仅用作通用类名处理
+const prefixClsX = usePrefix('x-alert');
+.m4b-xxx-form {
+    .m4b-x-input-number {
+    }
+}
+```
+   7. 对于不同的样式工具，需要注入不同的文件
+        1. token.ts
+        2. token.less
+        3. token.scss
+   8. tailwind的样式因为权重问题可能无法生效
+
+### 方案3（临时） —— 手动更新前缀的特供版
+
+新老代码一致，修改packages/utils/src/styles/variable.less中的变量，对所有的包都增加tag，发布时带tag发布，业务强制锁死版本为该版本。
+
+#### 改造过程
+
+##### utils中的m4b前缀
+```less
+// 这里修改成新的前缀
+@m4b-prefix-cls: component-inner-m4b;
+@arco-prefix-cls: arco;
+
+@import './token/index.less';
+```
+
+##### 发布的包版本示例
+```
+@m4b-design/utils@1.4.1-dedicated2component
+@m4b-design/compatibility-tips@2.2.3-dedicated2component
+@m4b-design/message-editor@1.2.26-dedicated2component
+@m4b-design/auto-complete@0.0.3-dedicated2component
+@m4b-design/overflow-text@1.0.3-dedicated2component
+@m4b-design/descriptions@0.0.1-dedicated2component
+@m4b-design/tooltip-error@0.2.13-dedicated2component
+@m4b-design/image-upload@1.7.17-dedicated2component
+@m4b-design/notification-card@1.0.22-dedicated2component
+@m4b-design/quick-action@1.2.6-dedicated2component
+@m4b-design/date-picker@2.0.42-dedicated2component
+@m4b-design/page-header@1.0.14-dedicated2component
+@m4b-design/input-number@2.0.10-dedicated2component
+@m4b-design/time-picker@2.1.8-dedicated2component
+```
+
+##### 发布命令
+`pnpm publish --tag dedicated2component`
+
+##### 批量发布脚本
+```js
+/* eslint-disable no-await-in-loop */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+import 'zx/globals';
+
+const used = new Set();
+const components = [];
+const cmd =
+  await $`curl -L https://sf-unpkg-src.bytedance.net/@m4b-design/ttp-sync@latest/scripts/auto-sync.sh`;
+
+const syncTTP = async (name, version) => {
+  const promise = $`bash -s -- --package_name ${name} --versions ${version}`;
+  promise.stdin.write(cmd.stdout);
+  promise.stdin.end();
+  await promise;
+};
+
+const rootPath = path.resolve(__dirname, '..');
+const packagePath = path.resolve(rootPath, 'packages');
+const ignoreDir = [
+  'component-template',
+  'components',
+  'iconfordemo',
+  'icon',
+  'locale',
+  'variant-numeric',
+  'site',
+  'variantnumericfordemo',
+  'illustrationfordemo',
+  'tokensfordemo',
+];
+ignoreDir.push(...ignoreDir.map((item) => `@m4b-design/${item}`));
+const depGraphName = 'dep-graph.json';
+
+await $`pnpm nx dep-graph --file=${depGraphName} --output=json`;
+
+const depGraph = await fs.readJSON(path.resolve(__dirname, '..', depGraphName));
+
+const nodes = {};
+for (const [name, deps] of Object.entries(depGraph.graph.dependencies)) {
+  if (!nodes[name]) nodes[name] = {};
+  const data = nodes[name];
+  if (!data.dependencies) data.dependencies = [];
+  for (const { target } of deps) {
+    data.dependencies.push(target);
+    if (!nodes[target]) nodes[target] = {};
+    const depData = nodes[target];
+    if (!depData.dependents) depData.dependents = [];
+    depData.dependents.push(name);
+  }
+}
+const tag = 'dedicated2component';
+async function updateLibVerion(name) {
+  if (ignoreDir.includes(name)) return;
+  if (used.has(name)) return;
+  used.add(name);
+  const jsonPath = path.resolve(packagePath, name.replace('@m4b-design/', ''), 'package.json');
+  const json = await fs.readJSON(jsonPath);
+  if (!json.version.endsWith(`-${tag}`)) json.version += `-${tag}`;
+  components.push(`${json.name}@${json.version}`);
+  await fs.writeFile(jsonPath, JSON.stringify(json, null, 4));
+  await Promise.all((nodes[name].dependents ?? []).map((dep) => updateLibVerion(dep)));
+}
+
+async function publishLib(name) {
+  if (used.has(name)) return;
+  if (ignoreDir.includes(name)) return;
+  used.add(name);
+  const jsonPath = path.resolve(packagePath, name.replace('@m4b-design/', ''), 'package.json');
+  const json = await fs.readJSON(jsonPath);
+  await within(async () => {
+    cd(path.dirname(jsonPath));
+    await $`pnpm publish --tag ${tag}`.nothrow();
+    await syncTTP(json.name, json.version).nothrow();
+  });
+  for (const dep of nodes[name].dependents ?? []) {
+    await publishLib(dep);
+  }
+}
+
+const startComponent = '@m4b-design/menu';
+used.clear();
+await updateLibVerion(startComponent);
+await $`pnpm -w build`;
+used.clear();
+await publishLib(startComponent);
+echo`pnpm add ${components.join(' ')}`;
+```
+
+#### 优点
+
+1. 改造方便，仅需改动m4b变量和tag，批量发布即可
+1. 能够自定义前缀，进行完全隔离
+1. 不影响代码原有权重
+
+#### 缺点
+
+1. 依赖的仓库需要安装该依赖版本且锁死
+1. 如果在less2css时配置了变量的强制覆盖可能失效
+1. 依旧存在方案2缺点3的问题。
+1. 需要在使用的组件外部包裹ConfigProvider设置组件中的类名前缀为xxx。
+1. 类似于缺点4，如果一个组件存在透传ReactNode，那么需要重置组件的ConfigProvider回m4b。
+1. 组件中会依赖两套包(button, button-tag)可能会导致代码量增加
+1. tailwind的样式因为权重问题可能无法生效
+
+### 方案4 —— 保持相同权重，兼容tailwind
+
+虽然样式选择可能的确需要多个类名状态组合，但是基于:where的零权重特殊性，我们可以把所有的样式覆盖都变成一个单位的权重与tailwind保持一致，这样就能够保证taildwind方式的传参能够覆盖原有样式。
+
+#### 代码
+```less
+.m4b-button :where(.m4b-icon) :where(svg) {
+}
+.m4b-button:where(:hover) {
+}
+```
+
+#### 优点
+
+1. 所有代码权重保持一致，相同属性是否生效只看先后顺序。
+1. 多个选择器组合后，taildwind的原子方式也能生效。
+
+#### 缺点
+
+1. 开发样式中大量存在:where，会增加开发人员负担
+1. 和方案1.3一样，需要考虑:where兼容性
