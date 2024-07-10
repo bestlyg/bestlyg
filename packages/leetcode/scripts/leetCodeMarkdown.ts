@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '724. 寻找数组的中心下标',
-    url: 'https://leetcode.cn/problems/check-if-move-is-legal',
+    exist: !true,
+    name: '2970. 统计移除递增子数组的数目 I',
+    url: 'https://leetcode.cn/problems/count-the-number-of-incremovable-subarrays-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。`,
+    desc: `给你一个下标从 0 开始的 正 整数数组 nums 。如果 nums 的一个子数组满足：移除这个子数组后剩余元素 严格递增 ，那么我们称这个子数组为 移除递增 子数组。比方说，[5, 3, 4, 6, 7] 中的 [3, 4] 是一个移除递增子数组，因为移除该子数组后，[5, 3, 4, 6, 7] 变为 [5, 6, 7] ，是严格递增的。请你返回 nums 中 移除递增 子数组的总数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,18 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 54,
-            memory: 17.25,
+            time: 261,
+            memory: 16.5,
             desc: '遍历',
             code: `class Solution:
-    def pivotIndex(self, nums: List[int]) -> int:
-        l = 0
-        r = sum(nums)
-        for i in range(len(nums)):
-            r -= nums[i]
-            if l == r: return i
-            l += nums[i]
-        return -1`,
+    def incremovableSubarrayCount(self, nums: List[int]) -> int:
+        def check(nums: List[int]) -> int:
+            for i in range(1, len(nums)):
+                if nums[i - 1] >= nums[i]: return 0
+            return 1
+        return sum(check(nums[0:j] + nums[i:]) for i in range(len(nums) + 1) for j in range(i))`,
         },
         // {
         //     script: Script.RUST,
