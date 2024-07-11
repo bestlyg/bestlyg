@@ -30,6 +30,7 @@ export default defineConfig({
             {
                 matches: ['<all_urls>'],
                 js: ['content-scripts/content.js'],
+                run_at: 'document_start',
             },
         ],
     },
