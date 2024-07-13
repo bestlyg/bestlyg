@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2974. 最小数字游戏',
-    url: 'https://leetcode.cn/problems/minimum-number-game',
+    name: '3011. 判断一个数组是否可以变为有序',
+    url: 'https://leetcode.cn/problems/find-if-array-can-be-sorted',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回结果数组 arr 。`,
+    desc: `如果你可以使数组变有序，请你返回 true ，否则返回 false 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,19 +37,23 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 49,
-            memory: 16.31,
+            time: 50,
+            memory: 16.34,
             desc: '遍历',
             code: `class Solution:
-    def numberGame(self, nums: List[int]) -> List[int]:
+    def canSortArray(self, nums: List[int]) -> bool:
+        get = lambda num: bin(num).count('1')
+        res = []
+        cnt1 = -1
         arr = []
-        nums.sort()
-        i = 0
-        while i < len(nums):
-            arr.append(nums[i + 1])
-            arr.append(nums[i])
-            i += 2
-        return arr`,
+        for num in nums:
+            if cnt1 != get(num):
+                cnt1 = get(num)
+                res += sorted(arr)
+                arr.clear()
+            arr.append(num)
+        res += sorted(arr)
+        return all(res[i] <= res[i + 1] for i in range(len(res) - 1))`,
         },
         // {
         //     script: Script.RUST,

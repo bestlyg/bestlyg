@@ -1,0 +1,17 @@
+{
+    "name": "3011.判断一个数组是否可以变为有序",
+    "url": "https://leetcode.cn/problems/find-if-array-can-be-sorted",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "如果你可以使数组变有序，请你返回 true ，否则返回 false 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 50,
+            "memory": 16.34,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        get = lambda num: bin(num).count('1')\n        res = []\n        cnt1 = -1\n        arr = []\n        for num in nums:\n            if cnt1 != get(num):\n                cnt1 = get(num)\n                res += sorted(arr)\n                arr.clear()\n            arr.append(num)\n        res += sorted(arr)\n        return all(res[i] <= res[i + 1] for i in range(len(res) - 1))",
+            "date": 1720800000000
+        }
+    ]
+}
