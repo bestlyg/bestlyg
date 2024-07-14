@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '3011. 判断一个数组是否可以变为有序',
-    url: 'https://leetcode.cn/problems/find-if-array-can-be-sorted',
+    exist: true,
+    name: '807. 保持城市天际线',
+    url: 'https://leetcode.cn/problems/max-increase-to-keep-city-skyline',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `如果你可以使数组变有序，请你返回 true ，否则返回 false 。`,
+    desc: `在 不改变 从任何主要方向观测到的城市 天际线 的前提下，返回建筑物可以增加的 最大高度增量总和 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,23 +37,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 50,
-            memory: 16.34,
+            time: 54,
+            memory: 16.57,
             desc: '遍历',
             code: `class Solution:
-    def canSortArray(self, nums: List[int]) -> bool:
-        get = lambda num: bin(num).count('1')
-        res = []
-        cnt1 = -1
-        arr = []
-        for num in nums:
-            if cnt1 != get(num):
-                cnt1 = get(num)
-                res += sorted(arr)
-                arr.clear()
-            arr.append(num)
-        res += sorted(arr)
-        return all(res[i] <= res[i + 1] for i in range(len(res) - 1))`,
+    def maxIncreaseKeepingSkyline(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        rows = [0] * n
+        cols = [0] * n
+        for i in range(n):
+            for j in range(n):
+                rows[i] = max(rows[i], grid[i][j])
+                cols[j] = max(cols[j], grid[i][j])
+        return sum(min(rows[i], cols[j]) - grid[i][j] for i in range(n) for j in range(n))`,
         },
         // {
         //     script: Script.RUST,
