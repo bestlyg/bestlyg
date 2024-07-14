@@ -11,7 +11,6 @@ export default defineConfig({
     alias: { '@': resolve('entrypoints') },
     async vite(env) {
         return Promise.resolve({
-            plugins: [UnoCSS()],
             build: {
                 sourcemap: false,
             },
@@ -20,9 +19,28 @@ export default defineConfig({
             // },
             define: {
                 'process.env': {
-                    EXTENSION_PREFIX: 'BEST-WALLET',
+                    EXTENSION_PREFIX: 'POLKADOT-WALLET',
                 },
             },
+            plugins: [
+                UnoCSS(),
+                {
+                    name: 'replace-path-auto-plugin', // 插件名称
+                    enforce: 'pre',
+                    transform(code, id) {
+                        if (id.endsWith('.js') || id.endsWith('.ts')) {
+                            const pathAutoRegex = `path: (import.meta && import.meta.url) ? new URL(import.meta.url).pathname.substring(0, new URL(import.meta.url).pathname.lastIndexOf('/') + 1) : 'auto'`;
+                            const replacement = `path: 'auto'`;
+                            const transformedCode = code.replaceAll(pathAutoRegex, replacement);
+                            return {
+                                code: transformedCode,
+                                map: null, // 如果不需要 source map 可以设置为 null
+                            };
+                        }
+                        return null;
+                    },
+                },
+            ],
         });
     },
     manifest: {
@@ -39,5 +57,10 @@ export default defineConfig({
                 matches: ['*://*/*'],
             },
         ],
+    },
+    runner: {
+        startUrls: ['https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer'],
+        openDevtools: true,
+        openConsole: true,
     },
 });

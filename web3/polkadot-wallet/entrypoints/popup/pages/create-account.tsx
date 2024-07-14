@@ -1,17 +1,17 @@
-import { Keyring } from '@polkadot/keyring';
 import { mnemonicGenerate } from '@polkadot/util-crypto';
 import { Button, Space, Input } from 'antd';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useState } from 'react';
-import { userListAtom, activeRouteAtom } from '../store';
+import { accountsAtom, activeRouteAtom } from '../store';
 import { routeMap } from '../routes';
+import { sendMessage } from '../utils';
 
 async function handleCopy(text: string) {
     await navigator.clipboard.writeText(text);
 }
 export function CreateAccount() {
     const [mnemonic, setMnemonic] = useState<null | string>(null);
-    const [userList, setUserList] = useAtom(userListAtom);
+    const setAccounts = useSetAtom(accountsAtom);
     const setActiveRoute = useSetAtom(activeRouteAtom);
     const [userName, setUserName] = useState('username');
     return (
@@ -49,12 +49,15 @@ export function CreateAccount() {
                     </Button>
                     <Button
                         type="primary"
-                        onClick={() => {
-                            const keyring = new Keyring();
-                            const newPair = keyring.addFromUri(mnemonic);
-                            setUserList([...userList, { keyringPair: newPair, userName }]);
-                            console.log('Create account success.');
+                        onClick={async () => {
+                            const accounts = await sendMessage('create-account', {
+                                userName,
+                                mnemonic,
+                            });
+                            console.log('create-accounts', accounts);
+                            setAccounts(accounts);
                             setActiveRoute(routeMap['home']);
+                            console.log('Create account success.');
                         }}
                     >
                         Create account from the mnemonic

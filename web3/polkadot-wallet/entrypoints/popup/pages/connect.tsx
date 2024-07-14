@@ -3,24 +3,20 @@ import { apiAtom, isConnectedAtom, connectingAtom, activeRouteAtom } from '../st
 import { useSetAtom, useAtom } from 'jotai';
 import { WsProvider, ApiPromise } from '@polkadot/api';
 import { routeMap } from '../routes';
+import { sendMessage } from '../utils';
 
 export function Connect() {
     const [url, setUrl] = useState('ws://127.0.0.1:9944');
     const setIsConnected = useSetAtom(isConnectedAtom);
-    const setApi = useSetAtom(apiAtom);
     const [connecting, setConnecting] = useAtom(connectingAtom);
     const setActiveRoute = useSetAtom(activeRouteAtom);
     async function handleConnect() {
-        const wsProvider = new WsProvider(url);
-        const api = await ApiPromise.create({
-            provider: wsProvider,
-            types: {},
-        });
-        await api.isReady;
-        setApi(api);
-        setIsConnected(true);
-        setActiveRoute(routeMap.home);
-        console.log(`${url} is connected.`);
+        const res = await sendMessage('connect', url);
+        if (res) {
+            setActiveRoute(routeMap.home);
+            setIsConnected(true);
+            console.log(`${url} is connected.`);
+        }
     }
     return (
         <Space direction="vertical">

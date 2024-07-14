@@ -1,17 +1,17 @@
 import { useSetAtom, useAtomValue } from 'jotai';
-import { activeRouteAtom, userListAtom } from '../store';
+import { activeRouteAtom, accountsAtom } from '../store';
 import { routeMap } from '../routes';
 import { Button, List, Space } from 'antd';
 
 export function Home() {
     const setActiveRoute = useSetAtom(activeRouteAtom);
-    const userList = useAtomValue(userListAtom);
+    const accounts = useAtomValue(accountsAtom);
     return (
         <Space direction="vertical" className="max-h-200px w-[200px]">
-            {userList.length ? (
+            {accounts.length ? (
                 <List
                     itemLayout="horizontal"
-                    dataSource={userList}
+                    dataSource={accounts}
                     renderItem={(item, index) => (
                         <List.Item>
                             <List.Item.Meta
