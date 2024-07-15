@@ -13,13 +13,13 @@ export function CreateAccount() {
     const [mnemonic, setMnemonic] = useState<null | string>(null);
     const setAccounts = useSetAtom(accountsAtom);
     const setActiveRoute = useSetAtom(activeRouteAtom);
-    const [userName, setUserName] = useState('username');
+    const [name, setName] = useState('username');
     return (
         <Space direction="vertical">
             <Input
-                value={userName}
+                value={name}
                 onChange={e => {
-                    setUserName(e.target.value);
+                    setName(e.target.value);
                 }}
             />
             {mnemonic && <div className="">{mnemonic}</div>}
@@ -51,7 +51,7 @@ export function CreateAccount() {
                         type="primary"
                         onClick={async () => {
                             const accounts = await sendMessage('create-account', {
-                                userName,
+                                name,
                                 mnemonic,
                             });
                             console.log('create-accounts', accounts);

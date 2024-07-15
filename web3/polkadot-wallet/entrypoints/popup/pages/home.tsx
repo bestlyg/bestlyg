@@ -15,9 +15,14 @@ export function Home() {
                     renderItem={(item, index) => (
                         <List.Item>
                             <List.Item.Meta
-                                title={item.userName}
+                                title={item.keyringPair.meta.name ?? 'unknown'}
                                 description={
-                                    <div className="truncate">{item.keyringPair.address}</div>
+                                    <>
+                                        <div className="truncate">
+                                            {item.balance}
+                                        </div>
+                                        <div className="truncate">{item.keyringPair.address}</div>
+                                    </>
                                 }
                             />
                         </List.Item>

@@ -9,6 +9,6 @@ export const isConnectedAtom = atom(false);
 
 export const apiAtom = atom<ApiPromise | null>(null);
 
-export const accountsAtom = atom<{ userName: string; keyringPair: KeyringPair }[]>([]);
+export const accountsAtom = atom<{ keyringPair: KeyringPair; balance?: string }[]>([]);
 
 export const activeRouteAtom = atom<Route>(routeMap['home']);

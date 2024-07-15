@@ -59,7 +59,7 @@ export default defineConfig({
         ],
     },
     runner: {
-        startUrls: ['https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer'],
+        startUrls: ['https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/accounts'],
         openDevtools: true,
         openConsole: true,
     },

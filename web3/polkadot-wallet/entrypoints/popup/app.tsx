@@ -18,6 +18,7 @@ function App() {
             setActiveRoute(routeMap['connect']);
         } else {
             sendMessage('get.accounts').then(accounts => {
+                console.log('===> getaccounts', accounts);
                 setAccounts(accounts);
                 setActiveRoute(routeMap['home']);
             });
