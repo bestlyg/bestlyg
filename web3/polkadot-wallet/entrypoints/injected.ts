@@ -1,6 +1,8 @@
 import { injectExtension } from '@polkadot/extension-inject';
 import { Injected } from '@polkadot/extension-inject/types';
 import { getId } from '@polkadot/extension-base/utils/getId';
+import type { Signer as SignerInterface, SignerResult } from '@polkadot/api/types';
+import type { SignerPayloadJSON, SignerPayloadRaw } from '@polkadot/types/types';
 import { KeyringPair } from '@polkadot/keyring/types';
 
 export default defineUnlistedScript(() => {
@@ -54,6 +56,8 @@ export default defineUnlistedScript(() => {
         });
     }
 
+    let nextId = 0;
+
     function enableFn(origin: string): Promise<Injected> {
         return new Promise<Injected>(r => {
             setTimeout(() => {
@@ -84,7 +88,16 @@ export default defineUnlistedScript(() => {
                             return () => {};
                         },
                     },
-                    signer: {},
+                    signer: {
+                        async signPayload(payload: SignerPayloadJSON): Promise<SignerResult> {
+                            const id = ++nextId;
+                            const result = await sendMessage('extrinsic.sign', payload);
+                            return {
+                                ...result,
+                                id,
+                            };
+                        },
+                    },
                 });
             }, 1000);
         }).then(res => {

@@ -1,11 +1,14 @@
 import { WsProvider, ApiPromise, Keyring } from '@polkadot/api';
+import { keyring } from '@polkadot/ui-keyring';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { UnsubscribePromise } from '@polkadot/api/types';
+import { SignerPayloadJSON } from '@polkadot/types/types';
 class Extension {
     isConnected = false;
     accounts = new Map<string, { keyringPair: KeyringPair; balance?: string }>();
     api: ApiPromise | null = null;
     unSubscribePromises: UnsubscribePromise[] = [];
+    url: string | null = null;
 
     async connect(url: string) {
         const wsProvider = new WsProvider(url);
@@ -14,6 +17,7 @@ class Extension {
             types: {},
         });
         await api.isReady;
+        this.url = url;
         this.api = api;
         return (this.isConnected = true);
     }
@@ -33,6 +37,16 @@ class Extension {
 
     async destory() {
         return Promise.allSettled(this.unSubscribePromises);
+    }
+
+    private getSigningPair(address: string): KeyringPair {
+        const pair = keyring.getPair(address);
+        return pair;
+    }
+
+    async sign(request: SignerPayloadJSON) {
+        const address = request.address;
+        const pair = this.getSigningPair(address);
     }
 }
 
@@ -66,6 +80,9 @@ export default defineBackground(() => {
                     break;
                 case 'create-account':
                     extension.createAccount(request).then(postMessage);
+                    break;
+                case 'extrinsic.sign':
+                    extension.sign(request).then(postMessage);
                     break;
                 default:
                     postMessage('unknown message');

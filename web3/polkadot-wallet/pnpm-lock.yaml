@@ -32,6 +32,9 @@ importers:
       '@polkadot/typegen':
         specifier: ^12.0.2
         version: 12.1.1
+      '@polkadot/types':
+        specifier: ^10.9.1
+        version: 10.13.1
       '@polkadot/ui-keyring':
         specifier: ^3.6.6
         version: 3.6.6(@polkadot/keyring@12.6.2(@polkadot/util-crypto@12.6.2(@polkadot/util@12.6.2))(@polkadot/util@12.6.2))(@polkadot/ui-settings@3.6.6(@polkadot/networks@12.6.2)(@polkadot/util@12.6.2))(@polkadot/util@12.6.2)
@@ -775,12 +778,24 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  '@polkadot/types-augment@10.13.1':
+    resolution: {integrity: sha512-TcrLhf95FNFin61qmVgOgayzQB/RqVsSg9thAso1Fh6pX4HSbvI35aGPBAn3SkA6R+9/TmtECirpSNLtIGFn0g==}
+    engines: {node: '>=18'}
+
   '@polkadot/types-augment@12.1.1':
     resolution: {integrity: sha512-HdzjaXapcmNAdT6TWJOuv124PTKbAf5+5JldQ7oPZFaCEhaOTazZYiZ27nqLaj0l4rG7wWzFMiGqjbHwAvtmlg==}
     engines: {node: '>=18'}
 
+  '@polkadot/types-codec@10.13.1':
+    resolution: {integrity: sha512-AiQ2Vv2lbZVxEdRCN8XSERiWlOWa2cTDLnpAId78EnCtx4HLKYQSd+Jk9Y4BgO35R79mchK4iG+w6gZ+ukG2bg==}
+    engines: {node: '>=18'}
+
   '@polkadot/types-codec@12.1.1':
     resolution: {integrity: sha512-Ob3nFptHT4dDvGc/3l4dBXmvsI3wDWS2oCOxACA+hYWufnlTIQ4M4sHI4kSBQvDoEmaFt8P2Be4SmtyT0VSd1w==}
+    engines: {node: '>=18'}
+
+  '@polkadot/types-create@10.13.1':
+    resolution: {integrity: sha512-Usn1jqrz35SXgCDAqSXy7mnD6j4RvB4wyzTAZipFA6DGmhwyxxIgOzlWQWDb+1PtPKo9vtMzen5IJ+7w5chIeA==}
     engines: {node: '>=18'}
 
   '@polkadot/types-create@12.1.1':
@@ -793,6 +808,10 @@ packages:
 
   '@polkadot/types-support@12.1.1':
     resolution: {integrity: sha512-mLXrbj0maKFWqV1+4QRzaNnZyV/rAQW0XSrIzfIZn//zSRSIUaXaVAZ62uzgdmzXXFH2qD3hpNlmvmjcEMm2Qg==}
+    engines: {node: '>=18'}
+
+  '@polkadot/types@10.13.1':
+    resolution: {integrity: sha512-Hfvg1ZgJlYyzGSAVrDIpp3vullgxrjOlh/CSThd/PI4TTN1qHoPSFm2hs77k3mKkOzg+LrWsLE0P/LP2XddYcw==}
     engines: {node: '>=18'}
 
   '@polkadot/types@12.1.1':
@@ -4284,6 +4303,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  '@polkadot/types-augment@10.13.1':
+    dependencies:
+      '@polkadot/types': 10.13.1
+      '@polkadot/types-codec': 10.13.1
+      '@polkadot/util': 12.6.2
+      tslib: 2.6.3
+
   '@polkadot/types-augment@12.1.1':
     dependencies:
       '@polkadot/types': 12.1.1
@@ -4291,10 +4317,22 @@ snapshots:
       '@polkadot/util': 12.6.2
       tslib: 2.6.3
 
+  '@polkadot/types-codec@10.13.1':
+    dependencies:
+      '@polkadot/util': 12.6.2
+      '@polkadot/x-bigint': 12.6.2
+      tslib: 2.6.3
+
   '@polkadot/types-codec@12.1.1':
     dependencies:
       '@polkadot/util': 12.6.2
       '@polkadot/x-bigint': 12.6.2
+      tslib: 2.6.3
+
+  '@polkadot/types-create@10.13.1':
+    dependencies:
+      '@polkadot/types-codec': 10.13.1
+      '@polkadot/util': 12.6.2
       tslib: 2.6.3
 
   '@polkadot/types-create@12.1.1':
@@ -4315,6 +4353,17 @@ snapshots:
   '@polkadot/types-support@12.1.1':
     dependencies:
       '@polkadot/util': 12.6.2
+      tslib: 2.6.3
+
+  '@polkadot/types@10.13.1':
+    dependencies:
+      '@polkadot/keyring': 12.6.2(@polkadot/util-crypto@12.6.2(@polkadot/util@12.6.2))(@polkadot/util@12.6.2)
+      '@polkadot/types-augment': 10.13.1
+      '@polkadot/types-codec': 10.13.1
+      '@polkadot/types-create': 10.13.1
+      '@polkadot/util': 12.6.2
+      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
+      rxjs: 7.8.1
       tslib: 2.6.3
 
   '@polkadot/types@12.1.1':
