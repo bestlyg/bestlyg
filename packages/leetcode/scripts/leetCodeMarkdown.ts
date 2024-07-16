@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '721. 账户合并',
-    url: 'https://leetcode.cn/problems/max-increase-to-keep-city-skyline',
+    exist: !true,
+    name: '2956. 找到两个数组中的公共元素',
+    url: 'https://leetcode.cn/problems/find-common-elements-between-two-arrays',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `在 不改变 从任何主要方向观测到的城市 天际线 的前提下，返回建筑物可以增加的 最大高度增量总和 。`,
+    desc: `请你返回一个长度为 2 的整数数组 answer ，按顺序 分别为以上两个数值。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,55 +37,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 1584,
-            memory: 19.45,
-            desc: '并查集合并数据',
-            code: `class UnionFind:
-    def __init__(self, n) -> None:
-        self.n = n
-        self.data = [i for i in range(0, n)]
-        self.sizes = [1] * n
-        self.cnt = n
-    def size(self, v: int) -> int:
-        return self.sizes[self.find(v)]
-    def find(self, v: int) -> int:
-        if self.data[v] != v:
-            self.data[v] = self.find(self.data[v])
-        return self.data[v]
-    def uni(self, v1: int, v2: int):
-        p1 = self.find(v1)
-        p2 = self.find(v2)
-        if p1 != p2:
-            self.sizes[p1] += self.sizes[p2]
-            self.cnt -= self.sizes[p2]
-            self.data[p2] = p1
-    def same(self, v1: int, v2: int):
-        return self.find(v1) == self.find(v2)
-    def get_items(self) -> List[List[int]]:
-        map = defaultdict(list)
-        for i in range(self.n): map[self.find(i)].append(i)
-        return map.values()
-class Solution:
-    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        n = len(accounts)
-        uf = UnionFind(n)
-        for i in range(n):
-            name1 = accounts[i][0]
-            emails1 = set(accounts[i][1:])
-            for j in range(i):
-                name2 = accounts[j][0]
-                emails2 = set(accounts[j][1:])
-                if name1 == name2 and not emails1.isdisjoint(emails2):
-                    uf.uni(i, j)
-        res = []
-        for arr in uf.get_items():
-            item = []
-            res.append(item)
-            item.append(accounts[arr[0]][0])
-            emails = []
-            for idx in arr: emails += accounts[idx][1:]
-            item += sorted(set(emails))
-        return res`,
+            time: 63,
+            memory: 16.57,
+            desc: '遍历',
+            code: `class Solution:
+    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return [
+            sum(num in nums2 for num in nums1),
+            sum(num in nums1 for num in nums2),
+        ]`,
         },
         // {
         //     script: Script.RUST,

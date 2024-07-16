@@ -1,0 +1,17 @@
+{
+    "name": "2956.找到两个数组中的公共元素",
+    "url": "https://leetcode.cn/problems/find-common-elements-between-two-arrays",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回一个长度为 2 的整数数组 answer ，按顺序 分别为以上两个数值。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 63,
+            "memory": 16.57,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        return [\n            sum(num in nums2 for num in nums1),\n            sum(num in nums1 for num in nums2),\n        ]",
+            "date": 1721059200000
+        }
+    ]
+}
