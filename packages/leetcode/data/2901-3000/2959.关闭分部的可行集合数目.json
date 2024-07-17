@@ -1,0 +1,17 @@
+{
+    "name": "2959.关闭分部的可行集合数目",
+    "url": "https://leetcode.cn/problems/number-of-possible-sets-of-closing-branches",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回关闭分部的可行方案数目，满足每个方案里剩余分部之间的最远距离不超过 maxDistance。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 1863,
+            "memory": 16.52,
+            "desc": "枚举所有可能，用短路算法求出两地之间的最短路径。",
+            "code": "class Solution:\n    def numberOfSets(self, n: int, maxDistance: int, roads: List[List[int]]) -> int:\n        def check(mask: int) -> int:\n            d = [[inf for _ in range(n)] for _ in range(n)]\n            for n1, n2, w in roads: d[n1][n2] = d[n2][n1] = min(d[n1][n2], d[n2][n1], w)\n            for k in range(n):\n                if mask & (1 << k):\n                    for i in range(n):\n                        if mask & (1 << k):\n                            for j in range(n):\n                                if mask & (1 << j):\n                                    d[i][j] = d[j][i] = min(d[i][j], d[i][k] + d[k][j])\n            for i in range(n):\n                if mask & (1 << i):\n                    for j in range(i):\n                        if mask & (1 << j):\n                            if d[i][j] > maxDistance:\n                                return False\n            return True\n        return sum(check(i) for i in range(2 ** n))",
+            "date": 1721145600000
+        }
+    ]
+}

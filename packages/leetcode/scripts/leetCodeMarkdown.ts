@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2956. 找到两个数组中的公共元素',
-    url: 'https://leetcode.cn/problems/find-common-elements-between-two-arrays',
+    name: '2959. 关闭分部的可行集合数目',
+    url: 'https://leetcode.cn/problems/number-of-possible-sets-of-closing-branches',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回一个长度为 2 的整数数组 answer ，按顺序 分别为以上两个数值。`,
+    desc: `请你返回关闭分部的可行方案数目，满足每个方案里剩余分部之间的最远距离不超过 maxDistance。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,15 +37,29 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 63,
-            memory: 16.57,
-            desc: '遍历',
+            time: 1863,
+            memory: 16.52,
+            desc: '枚举所有可能，用短路算法求出两地之间的最短路径',
             code: `class Solution:
-    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        return [
-            sum(num in nums2 for num in nums1),
-            sum(num in nums1 for num in nums2),
-        ]`,
+    def numberOfSets(self, n: int, maxDistance: int, roads: List[List[int]]) -> int:
+        def check(mask: int) -> int:
+            d = [[inf for _ in range(n)] for _ in range(n)]
+            for n1, n2, w in roads: d[n1][n2] = d[n2][n1] = min(d[n1][n2], d[n2][n1], w)
+            for k in range(n):
+                if mask & (1 << k):
+                    for i in range(n):
+                        if mask & (1 << k):
+                            for j in range(n):
+                                if mask & (1 << j):
+                                    d[i][j] = d[j][i] = min(d[i][j], d[i][k] + d[k][j])
+            for i in range(n):
+                if mask & (1 << i):
+                    for j in range(i):
+                        if mask & (1 << j):
+                            if d[i][j] > maxDistance:
+                                return False
+            return True
+        return sum(check(i) for i in range(2 ** n))`,
         },
         // {
         //     script: Script.RUST,
