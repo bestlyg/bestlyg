@@ -1,6 +1,6 @@
 {
     "name": "cscet",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "china software copyright extraction tool",
     "type": "module",
     "author": "bestlyg",
@@ -10,7 +10,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/china-software-copyright-extraction-tool"
+        "url": "https://github.com/bestlyg/bestlyg.git",
+        "directory": "packages/npm/china-software-copyright-extraction-tool"
     },
     "bin": {
         "cscet": "./bin/china-software-copyright-extraction-tool.js"
@@ -22,6 +23,7 @@
         "docxtemplater": "^3.47.4",
         "pizzip": "^3.1.7",
         "ramda": "^0.30.0",
+        "xml": "^1.0.1",
         "zx": "^8.1.1"
     },
     "scripts": {

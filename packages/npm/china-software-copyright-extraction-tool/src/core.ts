@@ -1,6 +1,5 @@
 import docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
-import xml from 'xml';
 import R from 'ramda';
 import { path, fs, glob } from 'zx';
 import {
