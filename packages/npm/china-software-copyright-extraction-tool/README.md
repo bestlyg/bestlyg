@@ -2,7 +2,7 @@
 
 ## 使用
 
-`npx cecet`
+`npx cscet@latest --glob-path "./src/**/*.ts"`
 
 ## 配置项
 
