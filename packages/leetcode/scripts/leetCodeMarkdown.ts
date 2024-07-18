@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2959. 关闭分部的可行集合数目',
-    url: 'https://leetcode.cn/problems/number-of-possible-sets-of-closing-branches',
+    name: '3112. 访问消失节点的最少时间',
+    url: 'https://leetcode.cn/problems/minimum-time-to-visit-disappearing-nodes',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回关闭分部的可行方案数目，满足每个方案里剩余分部之间的最远距离不超过 maxDistance。`,
+    desc: `请你返回数组 answer ，answer[i] 表示从节点 0 到节点 i 需要的 最少 单位时间。如果从节点 0 出发 无法 到达节点 i ，那么 answer[i] 为 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,29 +37,29 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 1863,
-            memory: 16.52,
-            desc: '枚举所有可能，用短路算法求出两地之间的最短路径',
+            time: 921,
+            memory: 72.21,
+            desc: '图短路求出当前点到其他点的最短时间',
             code: `class Solution:
-    def numberOfSets(self, n: int, maxDistance: int, roads: List[List[int]]) -> int:
-        def check(mask: int) -> int:
-            d = [[inf for _ in range(n)] for _ in range(n)]
-            for n1, n2, w in roads: d[n1][n2] = d[n2][n1] = min(d[n1][n2], d[n2][n1], w)
-            for k in range(n):
-                if mask & (1 << k):
-                    for i in range(n):
-                        if mask & (1 << k):
-                            for j in range(n):
-                                if mask & (1 << j):
-                                    d[i][j] = d[j][i] = min(d[i][j], d[i][k] + d[k][j])
-            for i in range(n):
-                if mask & (1 << i):
-                    for j in range(i):
-                        if mask & (1 << j):
-                            if d[i][j] > maxDistance:
-                                return False
-            return True
-        return sum(check(i) for i in range(2 ** n))`,
+    def minimumTime(self, n: int, edges: List[List[int]], disappear: List[int]) -> List[int]:
+        nodes = [defaultdict(lambda :inf) for _ in range(n)]
+        for n1, n2, v in edges:
+            if n1 != n2:
+                nodes[n1][n2] = nodes[n2][n1] = min(nodes[n1][n2], v)
+        q = [(0, 0)]
+        res = [-1] * n
+        res[0] = 0
+        used = [False] * n
+        while q:
+            t, node = heappop(q)
+            if used[node]: continue
+            used[node] = True
+            res[node] = t
+            for child in nodes[node].keys():
+                next_t = t + nodes[node][child]
+                if not used[child] and next_t < disappear[child]:
+                    heappush(q, (next_t, child))
+        return res`,
         },
         // {
         //     script: Script.RUST,

@@ -1,0 +1,17 @@
+{
+    "name": "3112.访问消失节点的最少时间",
+    "url": "https://leetcode.cn/problems/minimum-time-to-visit-disappearing-nodes",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回数组 answer ，answer[i] 表示从节点 0 到节点 i 需要的 最少 单位时间。如果从节点 0 出发 无法 到达节点 i ，那么 answer[i] 为 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 921,
+            "memory": 72.21,
+            "desc": "图短路求出当前点到其他点的最短时间。",
+            "code": "class Solution:\n    def minimumTime(self, n: int, edges: List[List[int]], disappear: List[int]) -> List[int]:\n        nodes = [defaultdict(lambda :inf) for _ in range(n)]\n        for n1, n2, v in edges:\n            if n1 != n2:\n                nodes[n1][n2] = nodes[n2][n1] = min(nodes[n1][n2], v)\n        q = [(0, 0)]\n        res = [-1] * n\n        res[0] = 0\n        used = [False] * n\n        while q:\n            t, node = heappop(q)\n            if used[node]: continue\n            used[node] = True\n            res[node] = t\n            for child in nodes[node].keys():\n                next_t = t + nodes[node][child]\n                if not used[child] and next_t < disappear[child]:\n                    heappush(q, (next_t, child))\n        return res",
+            "date": 1721232000000
+        }
+    ]
+}
