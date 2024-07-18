@@ -7,10 +7,16 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@modern-js/module-tools':
         specifier: ^2.50.0
-        version: 2.55.0
+        version: 2.55.0(typescript@5.5.3)
+      '@types/node':
+        specifier: ^20.14.11
+        version: 20.14.11
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
 
 packages:
 
@@ -638,6 +644,9 @@ packages:
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
+
+  '@types/node@20.14.11':
+    resolution: {integrity: sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==}
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -1354,6 +1363,14 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
@@ -1937,7 +1954,7 @@ snapshots:
       '@modern-js/utils': 2.55.0
       '@swc/helpers': 0.5.3
 
-  '@modern-js/module-tools@2.55.0':
+  '@modern-js/module-tools@2.55.0(typescript@5.5.3)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@ast-grep/napi': 0.16.0
@@ -1966,6 +1983,8 @@ snapshots:
       tapable: 2.2.1
       terser: 5.19.2
       tsconfig-paths-webpack-plugin: 4.1.0
+    optionalDependencies:
+      typescript: 5.5.3
     transitivePeerDependencies:
       - debug
       - eslint
@@ -2078,6 +2097,10 @@ snapshots:
       tslib: 2.6.3
 
   '@types/node@12.20.55': {}
+
+  '@types/node@20.14.11':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/semver@7.5.8': {}
 
@@ -2749,6 +2772,10 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@2.6.3: {}
+
+  typescript@5.5.3: {}
+
+  undici-types@5.26.5: {}
 
   universalify@0.1.2: {}
 
