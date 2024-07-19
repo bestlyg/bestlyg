@@ -39,7 +39,7 @@ const CRC_TABLE = [
  * @param   previous 上次计算出来的值
  * @return
  */
-function crc32(buf: ArrayBuffer, previous: number): number {
+export function crc32(buf: ArrayBuffer, previous: number): number {
     let crcTable: number[] | Int32Array = CRC_TABLE;
     if (typeof Int32Array !== 'undefined') {
         crcTable = new Int32Array(CRC_TABLE);
@@ -52,24 +52,3 @@ function crc32(buf: ArrayBuffer, previous: number): number {
     }
     return (crc ^ -1) >>> 0;
 }
-
-/*
-@Des:如果小于8位则补齐前面位置
-*/
-function toEight(hex: string) {
-    return hex.padStart(8, '0');
-}
-
-/*
-@Des: 十进制转化为16进制
-*/
-function dec2hex(num) {
-    if (typeof num !== 'undefined') {
-        return toEight(Number(num).toString(16));
-    }
-}
-
-export default {
-    crc32,
-    dec2hex,
-};

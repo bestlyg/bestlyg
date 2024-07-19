@@ -53,6 +53,12 @@
     "devDependencies": {
         "@modern-js/module-tools": "^2.50.0",
         "@types/node": "^20.14.11",
+        "@types/ramda": "^0.30.0",
         "typescript": "^5.5.3"
+    },
+    "dependencies": {
+        "p-queue": "^8.0.1",
+        "ramda": "^0.30.0",
+        "tapable": "^2.2.1"
     }
 }

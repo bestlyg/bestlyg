@@ -1,0 +1,72 @@
+import tapable from 'tapable';
+import R from 'ramda';
+import { Task } from './task';
+import PQueue from 'p-queue';
+
+export interface UploaderPlugin {
+    apply: (uploader: Uploader) => void;
+}
+
+export interface UploaderOptions {
+    plugins?: UploaderPlugin[];
+    queueOptions?: ConstructorParameters<typeof PQueue>;
+}
+
+export type AddTaskOption = Parameters<PQueue['add']>[1];
+
+export class Uploader {
+    hooks = {
+        beforeAddTask: new tapable.AsyncSeriesWaterfallHook<[Task, AddTaskOption]>([
+            'task',
+            'options',
+        ]),
+        afterAddTask: new tapable.AsyncParallelHook<[Task, AddTaskOption]>(['task', 'options']),
+        beforeRunTask: new tapable.AsyncSeriesWaterfallHook<[boolean]>(['canStart']),
+        afterRunTask: new tapable.AsyncParallelHook<[boolean]>(['canStart']),
+        beforePauseTask: new tapable.AsyncSeriesWaterfallHook<[boolean]>(['canPause']),
+        afterPauseTask: new tapable.AsyncParallelHook<[boolean]>(['canPause']),
+        beforeClearTask: new tapable.AsyncSeriesWaterfallHook<[boolean]>(['canClear']),
+        afterClearTask: new tapable.AsyncParallelHook<[boolean]>(['canClear']),
+    };
+    tasks: PQueue;
+    options: UploaderOptions;
+    constructor(options: UploaderOptions) {
+        this.options = options;
+        options.plugins?.forEach(plugin => {
+            plugin.apply(this);
+        });
+        this.tasks = new PQueue(...options.queueOptions);
+    }
+    use(plugin: UploaderPlugin) {
+        plugin.apply(this);
+        return this;
+    }
+    setOptions(options: UploaderOptions) {
+        this.options = options;
+        return this;
+    }
+    mergeOptions(options: UploaderOptions) {
+        this.options = R.mergeDeepRight(this.options, options) as UploaderOptions;
+        return this;
+    }
+    async addTask(task: Task, options?: AddTaskOption) {
+        task = await this.hooks.beforeAddTask.promise(task, options);
+        this.tasks.add(task.run.bind(task), options);
+        await this.hooks.afterAddTask.promise(task, options);
+    }
+    async runTask() {
+        const canStart = await this.hooks.beforeRunTask.promise(true);
+        if (canStart) this.tasks.start();
+        await this.hooks.afterRunTask.promise(canStart);
+    }
+    async pauseTask() {
+        const canPause = await this.hooks.beforePauseTask.promise(true);
+        if (canPause) this.tasks.pause();
+        await this.hooks.afterPauseTask.promise(canPause);
+    }
+    async clearTask() {
+        const canClear = await this.hooks.beforeClearTask.promise(true);
+        if (canClear) this.tasks.clear();
+        await this.hooks.afterClearTask.promise(canClear);
+    }
+}
