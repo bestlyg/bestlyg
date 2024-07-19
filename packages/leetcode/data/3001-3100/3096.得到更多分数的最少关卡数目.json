@@ -1,0 +1,17 @@
+{
+    "name": "3096.得到更多分数的最少关卡数目",
+    "url": "https://leetcode.cn/problems/minimum-levels-to-gain-more-points",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你返回 Alice 获得比 Bob 更多的分数所需要完成的 最少 关卡数目，如果 无法 达成，那么返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 189,
+            "memory": 20.4,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def minimumLevels(self, possible: List[int]) -> int:\n        bob = sum(v if v else -1 for v in possible)\n        alice = 0\n        for i in range(len(possible) - 1):\n            v = possible[i] if possible[i] else -1\n            alice += v\n            bob -= v\n            if alice > bob: return i + 1\n        return -1",
+            "date": 1721318400000
+        }
+    ]
+}

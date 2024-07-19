@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3112. 访问消失节点的最少时间',
-    url: 'https://leetcode.cn/problems/minimum-time-to-visit-disappearing-nodes',
+    name: '3096. 得到更多分数的最少关卡数目',
+    url: 'https://leetcode.cn/problems/minimum-levels-to-gain-more-points',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回数组 answer ，answer[i] 表示从节点 0 到节点 i 需要的 最少 单位时间。如果从节点 0 出发 无法 到达节点 i ，那么 answer[i] 为 -1 。`,
+    desc: `请你返回 Alice 获得比 Bob 更多的分数所需要完成的 最少 关卡数目，如果 无法 达成，那么返回 -1 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,29 +37,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 921,
-            memory: 72.21,
-            desc: '图短路求出当前点到其他点的最短时间',
+            time: 189,
+            memory: 20.4,
+            desc: '遍历',
             code: `class Solution:
-    def minimumTime(self, n: int, edges: List[List[int]], disappear: List[int]) -> List[int]:
-        nodes = [defaultdict(lambda :inf) for _ in range(n)]
-        for n1, n2, v in edges:
-            if n1 != n2:
-                nodes[n1][n2] = nodes[n2][n1] = min(nodes[n1][n2], v)
-        q = [(0, 0)]
-        res = [-1] * n
-        res[0] = 0
-        used = [False] * n
-        while q:
-            t, node = heappop(q)
-            if used[node]: continue
-            used[node] = True
-            res[node] = t
-            for child in nodes[node].keys():
-                next_t = t + nodes[node][child]
-                if not used[child] and next_t < disappear[child]:
-                    heappush(q, (next_t, child))
-        return res`,
+    def minimumLevels(self, possible: List[int]) -> int:
+        bob = sum(v if v else -1 for v in possible)
+        alice = 0
+        for i in range(len(possible) - 1):
+            v = possible[i] if possible[i] else -1
+            alice += v
+            bob -= v
+            if alice > bob: return i + 1
+        return -1`,
         },
         // {
         //     script: Script.RUST,
