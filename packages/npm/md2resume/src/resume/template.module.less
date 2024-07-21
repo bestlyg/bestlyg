@@ -105,6 +105,7 @@
             line-height: @line-height;
             margin-block-start: 4px;
         }
+
         a {
             display: flex;
             align-items: center;
@@ -113,11 +114,6 @@
             cursor: pointer;
             text-decoration: none;
             background-color: transparent;
-
-            svg {
-                margin-block-start: -2px;
-                margin-inline-end: 6px;
-            }
         }
 
         code {
@@ -150,6 +146,16 @@
                 padding-block-end: 10px;
                 color: rgb(255, 255, 255);
                 background-color: rgb(57, 57, 58);
+
+                p:has(svg) {
+                    display: flex;
+                    align-items: center;
+                    
+                    svg {
+                        display: block;
+                        margin-inline-end: 4px;
+                    }
+                }
             }
 
             &-item {
