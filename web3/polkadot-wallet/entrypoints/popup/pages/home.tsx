@@ -18,9 +18,7 @@ export function Home() {
                                 title={item.keyringPair.meta.name ?? 'unknown'}
                                 description={
                                     <>
-                                        <div className="truncate">
-                                            {item.balance}
-                                        </div>
+                                        <div className="truncate">{item.balance}</div>
                                         <div className="truncate">{item.keyringPair.address}</div>
                                     </>
                                 }
