@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3096. 得到更多分数的最少关卡数目',
-    url: 'https://leetcode.cn/problems/minimum-levels-to-gain-more-points',
+    name: '2850. 将石头分散到网格图的最少移动次数',
+    url: 'https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 Alice 获得比 Bob 更多的分数所需要完成的 最少 关卡数目，如果 无法 达成，那么返回 -1 。`,
+    desc: `请你返回每个格子恰好有一个石头的 最少移动次数 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,19 +37,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 189,
-            memory: 20.4,
-            desc: '遍历',
+            time: 56,
+            memory: 16.36,
+            desc: '暴力枚举',
             code: `class Solution:
-    def minimumLevels(self, possible: List[int]) -> int:
-        bob = sum(v if v else -1 for v in possible)
-        alice = 0
-        for i in range(len(possible) - 1):
-            v = possible[i] if possible[i] else -1
-            alice += v
-            bob -= v
-            if alice > bob: return i + 1
-        return -1`,
+    def minimumMoves(self, grid: List[List[int]]) -> int:
+        arr1 = [(i, j, grid[i][j]) for i in range(3) for j in range(3) if grid[i][j] > 1]
+        arr0 = [(i, j) for i in range(3) for j in range(3) if grid[i][j] == 0]
+        self.res = inf
+        def dfs(i0: int, cur: int = 0) -> int:
+            if i0 == len(arr0): self.res = min(self.res, cur)
+            else:
+                for i1 in range(len(arr1)):
+                    old_item = arr1[i1]
+                    if old_item[2] > 1:
+                        arr1[i1] = (old_item[0], old_item[1], old_item[2] - 1)
+                        dfs(i0 + 1, cur + abs(old_item[0] - arr0[i0][0]) + abs(old_item[1] - arr0[i0][1]))
+                        arr1[i1] = old_item
+        dfs(0)
+        return self.res`,
         },
         // {
         //     script: Script.RUST,
