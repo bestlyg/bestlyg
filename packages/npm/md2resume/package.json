@@ -10,7 +10,7 @@
         "new": "modern new",
         "lint": "modern lint",
         "upgrade": "modern upgrade",
-        "deploy-to-cloud": "node scripts/deploy.mjs"
+        "deploy": "node scripts/deploy.mjs"
     },
     "dependencies": {
         "@ant-design/icons": "^5.3.7",
