@@ -1,3 +1,0 @@
-{
-    "rust-analyzer.extraArgs": ["--workspace=../contract", "--workspace=../integration-tests"]
-}

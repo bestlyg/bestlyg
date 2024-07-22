@@ -1,0 +1,20 @@
+[package]
+edition.workspace = true
+version.workspace = true
+name = "pebbles-game"
+
+[dependencies]
+gstd.workspace = true
+gmeta.workspace = true
+parity-scale-codec.workspace = true
+scale-info.workspace = true
+pebbles-game-io.workspace = true
+
+[build-dependencies]
+gear-wasm-builder.workspace = true
+pebbles-game-io.workspace = true
+
+[dev-dependencies]
+gtest.workspace = true
+gclient.workspace = true
+tokio.workspace = true
