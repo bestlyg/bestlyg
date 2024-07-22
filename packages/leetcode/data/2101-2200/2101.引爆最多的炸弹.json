@@ -1,0 +1,17 @@
+{
+    "name": "2101.引爆最多的炸弹",
+    "url": "https://leetcode.cn/problems/detonate-the-maximum-bombs",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你数组 bombs ，请你返回在引爆 一个 炸弹的前提下，最多 能引爆的炸弹数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 510,
+            "memory": 17.08,
+            "desc": "遍历存储所有爆炸链接后dfs。",
+            "code": "class Solution:\n    def maximumDetonation(self, bombs: List[List[int]]) -> int:\n        n = len(bombs)\n        nexts = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    if (bombs[i][0] - bombs[j][0]) ** 2 + (bombs[i][1] - bombs[j][1]) ** 2 <= bombs[i][2] ** 2:\n                        nexts[i].append(j)\n        def dfs(cur: int, used: List[bool]) -> int:\n            used[cur] = True\n            return sum(\n                dfs(next, used)\n                for next in nexts[cur]\n                if not used[next]\n            ) + 1\n        return max(dfs(i, [False] * n) for i in range(n))",
+            "date": 1721577600000
+        }
+    ]
+}

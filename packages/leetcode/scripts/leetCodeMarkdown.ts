@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2850. 将石头分散到网格图的最少移动次数',
-    url: 'https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid',
+    name: '2101. 引爆最多的炸弹',
+    url: 'https://leetcode.cn/problems/detonate-the-maximum-bombs',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回每个格子恰好有一个石头的 最少移动次数 。`,
+    desc: `给你数组 bombs ，请你返回在引爆 一个 炸弹的前提下，最多 能引爆的炸弹数目。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,25 +37,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 56,
-            memory: 16.36,
-            desc: '暴力枚举',
+            time: 510,
+            memory: 17.08,
+            desc: '遍历存储所有爆炸链接后dfs',
             code: `class Solution:
-    def minimumMoves(self, grid: List[List[int]]) -> int:
-        arr1 = [(i, j, grid[i][j]) for i in range(3) for j in range(3) if grid[i][j] > 1]
-        arr0 = [(i, j) for i in range(3) for j in range(3) if grid[i][j] == 0]
-        self.res = inf
-        def dfs(i0: int, cur: int = 0) -> int:
-            if i0 == len(arr0): self.res = min(self.res, cur)
-            else:
-                for i1 in range(len(arr1)):
-                    old_item = arr1[i1]
-                    if old_item[2] > 1:
-                        arr1[i1] = (old_item[0], old_item[1], old_item[2] - 1)
-                        dfs(i0 + 1, cur + abs(old_item[0] - arr0[i0][0]) + abs(old_item[1] - arr0[i0][1]))
-                        arr1[i1] = old_item
-        dfs(0)
-        return self.res`,
+    def maximumDetonation(self, bombs: List[List[int]]) -> int:
+        n = len(bombs)
+        nexts = [[] for _ in range(n)]
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    if (bombs[i][0] - bombs[j][0]) ** 2 + (bombs[i][1] - bombs[j][1]) ** 2 <= bombs[i][2] ** 2:
+                        nexts[i].append(j)
+        def dfs(cur: int, used: List[bool]) -> int:
+            used[cur] = True
+            return sum(
+                dfs(next, used)
+                for next in nexts[cur]
+                if not used[next]
+            ) + 1
+        return max(dfs(i, [False] * n) for i in range(n))`,
         },
         // {
         //     script: Script.RUST,
