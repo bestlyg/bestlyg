@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2101. 引爆最多的炸弹',
-    url: 'https://leetcode.cn/problems/detonate-the-maximum-bombs',
+    name: '3098. 求出所有子序列的能量和',
+    url: 'https://leetcode.cn/problems/find-the-sum-of-subsequence-powers',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `给你数组 bombs ，请你返回在引爆 一个 炸弹的前提下，最多 能引爆的炸弹数目。`,
+    desc: `请你返回 nums 中长度 等于 k 的 所有 子序列的 能量和 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,26 +37,20 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 510,
-            memory: 17.08,
-            desc: '遍历存储所有爆炸链接后dfs',
+            time: 3583,
+            memory: 759.11,
+            desc: 'dfs',
             code: `class Solution:
-    def maximumDetonation(self, bombs: List[List[int]]) -> int:
-        n = len(bombs)
-        nexts = [[] for _ in range(n)]
-        for i in range(n):
-            for j in range(n):
-                if i != j:
-                    if (bombs[i][0] - bombs[j][0]) ** 2 + (bombs[i][1] - bombs[j][1]) ** 2 <= bombs[i][2] ** 2:
-                        nexts[i].append(j)
-        def dfs(cur: int, used: List[bool]) -> int:
-            used[cur] = True
-            return sum(
-                dfs(next, used)
-                for next in nexts[cur]
-                if not used[next]
-            ) + 1
-        return max(dfs(i, [False] * n) for i in range(n))`,
+    def sumOfPowers(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        nums.sort()
+        @cache
+        def dfs(idx: int, k: int, prev_idx: int, cur_min: int) -> int:
+            if k == 0: return cur_min
+            if idx == n: return 0
+            next_min = cur_min if prev_idx == -1 else min(cur_min, nums[idx] - nums[prev_idx])
+            return dfs(idx + 1, k, prev_idx, cur_min) + dfs(idx + 1, k - 1, idx, next_min)
+        return dfs(0, k, -1, inf) % (10 ** 9 + 7)`,
         },
         // {
         //     script: Script.RUST,
