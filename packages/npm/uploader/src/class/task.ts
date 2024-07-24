@@ -1,3 +1,6 @@
 export class Task {
-    run() {}
+    constructor(public blob: Blob) {}
+    run(): Promise<void> {
+        return Promise.resolve();
+    }
 }

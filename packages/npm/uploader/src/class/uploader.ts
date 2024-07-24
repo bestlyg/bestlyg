@@ -32,10 +32,10 @@ export class Uploader {
     options: UploaderOptions;
     constructor(options: UploaderOptions) {
         this.options = options;
+        this.tasks = new PQueue(...options.queueOptions);
         options.plugins?.forEach(plugin => {
             plugin.apply(this);
         });
-        this.tasks = new PQueue(...options.queueOptions);
     }
     use(plugin: UploaderPlugin) {
         plugin.apply(this);
@@ -51,7 +51,7 @@ export class Uploader {
     }
     async addTask(task: Task, options?: AddTaskOption) {
         task = await this.hooks.beforeAddTask.promise(task, options);
-        this.tasks.add(task.run.bind(task), options);
+        this.tasks.add(() => task.run(), options);
         await this.hooks.afterAddTask.promise(task, options);
     }
     async runTask() {
@@ -68,5 +68,18 @@ export class Uploader {
         const canClear = await this.hooks.beforeClearTask.promise(true);
         if (canClear) this.tasks.clear();
         await this.hooks.afterClearTask.promise(canClear);
+    }
+    async createTask(blob: Blob): Promise<Task> {
+        return Promise.resolve(new Task(blob));
+    }
+    async getBlobSlice(blob: Blob): Promise<Blob[]> {
+        return Promise.resolve([blob]);
+    }
+    async addBlob(blob: Blob) {
+        const blobs = await this.getBlobSlice(blob);
+        const tasks = await Promise.all(blobs.map(blob => this.createTask(blob)));
+        for (const task of tasks) {
+            await this.addTask(task);
+        }
     }
 }
