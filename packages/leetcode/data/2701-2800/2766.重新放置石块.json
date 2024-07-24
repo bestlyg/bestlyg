@@ -1,0 +1,17 @@
+{
+    "name": "2766.重新放置石块",
+    "url": "https://leetcode.cn/problems/relocate-marbles",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "完成这些操作后，请你按升序返回所有 有 石块的位置。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 102,
+            "memory": 35.38,
+            "desc": "set存储。",
+            "code": "class Solution:\n    def relocateMarbles(self, nums: List[int], moveFrom: List[int], moveTo: List[int]) -> List[int]:\n        s = set(nums)\n        for i in range(len(moveFrom)):\n            s.remove(moveFrom[i])\n            s.add(moveTo[i])\n        return sorted(s)",
+            "date": 1721750400000
+        }
+    ]
+}

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3098. 求出所有子序列的能量和',
-    url: 'https://leetcode.cn/problems/find-the-sum-of-subsequence-powers',
+    name: '2766. 重新放置石块',
+    url: 'https://leetcode.cn/problems/relocate-marbles',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 nums 中长度 等于 k 的 所有 子序列的 能量和 。`,
+    desc: `完成这些操作后，请你按升序返回所有 有 石块的位置。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,20 +37,16 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 3583,
-            memory: 759.11,
-            desc: 'dfs',
+            time: 102,
+            memory: 35.38,
+            desc: 'set存储',
             code: `class Solution:
-    def sumOfPowers(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        nums.sort()
-        @cache
-        def dfs(idx: int, k: int, prev_idx: int, cur_min: int) -> int:
-            if k == 0: return cur_min
-            if idx == n: return 0
-            next_min = cur_min if prev_idx == -1 else min(cur_min, nums[idx] - nums[prev_idx])
-            return dfs(idx + 1, k, prev_idx, cur_min) + dfs(idx + 1, k - 1, idx, next_min)
-        return dfs(0, k, -1, inf) % (10 ** 9 + 7)`,
+    def relocateMarbles(self, nums: List[int], moveFrom: List[int], moveTo: List[int]) -> List[int]:
+        s = set(nums)
+        for i in range(len(moveFrom)):
+            s.remove(moveFrom[i])
+            s.add(moveTo[i])
+        return sorted(s)`,
         },
         // {
         //     script: Script.RUST,
