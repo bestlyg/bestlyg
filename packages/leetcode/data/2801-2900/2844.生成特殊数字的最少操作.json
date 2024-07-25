@@ -1,0 +1,17 @@
+{
+    "name": "2844.生成特殊数字的最少操作",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-make-a-special-number",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回最少需要多少次操作可以使 num 变成特殊数字。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 48,
+            "memory": 16.51,
+            "desc": "判断结尾两位是否为特定字符串即可。",
+            "code": "class Solution:\n    def minimumOperations(self, num: str) -> int:\n        arr = [\"00\", \"25\", \"50\", \"75\"]\n        def run(end_num: str) -> int:\n            i = len(num) - 1\n            j = len(end_num) - 1\n            while i >= 0 and j >= 0:\n                if num[i] == end_num[j]: j -= 1\n                i -= 1\n            if j != -1: return len(num)\n            return len(num) - i - 1 - 2\n        return min(min(run(end_num) for end_num in arr), len(num) - num.count('0'))",
+            "date": 1721836800000
+        }
+    ]
+}

@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2766. 重新放置石块',
-    url: 'https://leetcode.cn/problems/relocate-marbles',
+    name: '2844. 生成特殊数字的最少操作',
+    url: 'https://leetcode.cn/problems/minimum-operations-to-make-a-special-number',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `完成这些操作后，请你按升序返回所有 有 石块的位置。`,
+    desc: `返回最少需要多少次操作可以使 num 变成特殊数字。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,16 +37,21 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 102,
-            memory: 35.38,
-            desc: 'set存储',
+            time: 48,
+            memory: 16.51,
+            desc: '判断结尾两位是否为特定字符串即可',
             code: `class Solution:
-    def relocateMarbles(self, nums: List[int], moveFrom: List[int], moveTo: List[int]) -> List[int]:
-        s = set(nums)
-        for i in range(len(moveFrom)):
-            s.remove(moveFrom[i])
-            s.add(moveTo[i])
-        return sorted(s)`,
+    def minimumOperations(self, num: str) -> int:
+        arr = ["00", "25", "50", "75"]
+        def run(end_num: str) -> int:
+            i = len(num) - 1
+            j = len(end_num) - 1
+            while i >= 0 and j >= 0:
+                if num[i] == end_num[j]: j -= 1
+                i -= 1
+            if j != -1: return len(num)
+            return len(num) - i - 1 - 2
+        return min(min(run(end_num) for end_num in arr), len(num) - num.count('0'))`,
         },
         // {
         //     script: Script.RUST,
