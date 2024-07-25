@@ -1,6 +1,6 @@
 {
     "id": "419",
-    "name": "419.甲板上的战舰",
+    "name": "419.棋盘上的战舰",
     "url": "https://leetcode.cn/problems/battleships-in-a-board",
     "difficulty": "中等",
     "tag": ["深度优先搜索", "数组", "矩阵"],

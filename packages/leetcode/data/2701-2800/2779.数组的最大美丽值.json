@@ -1,17 +1,18 @@
 {
+    "id": "2891",
     "name": "2779.数组的最大美丽值",
     "url": "https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "二分查找", "排序", "滑动窗口"],
     "desc": "对数组 nums 执行上述操作任意次后，返回数组可能取得的 最大 美丽值。",
     "solutions": [
         {
             "script": "python",
-            "time": 259,
-            "memory": 36.05,
-            "desc": "差分数组。",
-            "code": "class Solution:\n    def maximumBeauty(self, nums: List[int], k: int) -> int:\n        base = min(nums) - k\n        arr = [0] * (max(nums) + k + 2 - base)\n        for num in nums:\n            arr[num - k - base] += 1\n            arr[num + k + 1 - base] -= 1\n        for i in range(1, len(arr)): arr[i] += arr[i - 1]\n        return max(arr)",
-            "date": 1718380800000
+            "time": 29,
+            "memory": 16.29,
+            "desc": "直接判断两个字符串是否相等。",
+            "code": "class Solution:\n    def findLUSlength(self, a: str, b: str) -> int:\n        return max(len(a), len(b)) if a != b else -1",
+            "date": 1718467200000
         }
     ]
 }

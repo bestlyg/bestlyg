@@ -1,8 +1,9 @@
 {
+    "id": "2206",
     "name": "2101.引爆最多的炸弹",
     "url": "https://leetcode.cn/problems/detonate-the-maximum-bombs",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["深度优先搜索", "广度优先搜索", "图", "几何", "数组", "数学"],
     "desc": "给你数组 bombs ，请你返回在引爆 一个 炸弹的前提下，最多 能引爆的炸弹数目。",
     "solutions": [
         {
