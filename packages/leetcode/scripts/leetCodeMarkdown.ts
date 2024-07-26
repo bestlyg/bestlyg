@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2844. 生成特殊数字的最少操作',
-    url: 'https://leetcode.cn/problems/minimum-operations-to-make-a-special-number',
+    name: '2740. 找出分区值',
+    url: 'https://leetcode.cn/problems/find-the-value-of-the-partition',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回最少需要多少次操作可以使 num 变成特殊数字。`,
+    desc: `返回表示分区值的整数。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,21 +37,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 48,
-            memory: 16.51,
-            desc: '判断结尾两位是否为特定字符串即可',
+            time: 118,
+            memory: 27.98,
+            desc: '遍历',
             code: `class Solution:
-    def minimumOperations(self, num: str) -> int:
-        arr = ["00", "25", "50", "75"]
-        def run(end_num: str) -> int:
-            i = len(num) - 1
-            j = len(end_num) - 1
-            while i >= 0 and j >= 0:
-                if num[i] == end_num[j]: j -= 1
-                i -= 1
-            if j != -1: return len(num)
-            return len(num) - i - 1 - 2
-        return min(min(run(end_num) for end_num in arr), len(num) - num.count('0'))`,
+    def findValueOfPartition(self, nums: List[int]) -> int:
+        return min(n2 - n1 for n1, n2 in pairwise(sorted(nums)))`,
         },
         // {
         //     script: Script.RUST,

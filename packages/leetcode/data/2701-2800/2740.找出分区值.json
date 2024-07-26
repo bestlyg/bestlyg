@@ -1,34 +1,17 @@
 {
-    "id": "2845",
     "name": "2740.找出分区值",
     "url": "https://leetcode.cn/problems/find-the-value-of-the-partition",
-    "difficulty": "中等",
-    "tag": ["数组", "排序"],
-    "desc": "给你一个 正 整数数组 nums 。返回表示分区值的整数。",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "返回表示分区值的整数。",
     "solutions": [
         {
-            "script": "cpp",
-            "time": 104,
-            "memory": 57.8,
-            "desc": "排序后左差比较。",
-            "code": "class Solution {\npublic:\n    int findValueOfPartition(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int res = INT_MAX;\n        for (int i = 1; i < nums.size(); i++) {\n            res = min(res, nums[i] - nums[i - 1]);\n        }\n        return res;\n    }\n};",
-            "date": 1687017600000
-        },
-        {
             "script": "python",
-            "time": 132,
-            "memory": 27.8,
-            "desc": "同上。",
-            "code": "class Solution:\n    def findValueOfPartition(self, nums: List[int]) -> int:\n        nums.sort()\n        return min(nums[i] - nums[i - 1] for i in range(1, len(nums)))",
-            "date": 1687017600000
-        },
-        {
-            "script": "rust",
-            "time": 24,
-            "memory": 3.5,
-            "desc": "同上。",
-            "code": "impl Solution {\npub fn find_value_of_partition(mut nums: Vec<i32>) -> i32 {\n    nums.sort();\n    (1..nums.len())\n        .into_iter()\n        .map(|i| nums[i] - nums[i - 1])\n        .min()\n        .unwrap()\n}\n}",
-            "date": 1687017600000
+            "time": 118,
+            "memory": 27.98,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def findValueOfPartition(self, nums: List[int]) -> int:\n        return min(n2 - n1 for n1, n2 in pairwise(sorted(nums)))",
+            "date": 1721923200000
         }
     ]
 }
