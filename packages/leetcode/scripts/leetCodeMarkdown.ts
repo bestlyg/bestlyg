@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2740. 找出分区值',
-    url: 'https://leetcode.cn/problems/find-the-value-of-the-partition',
+    name: '3106. 满足距离约束且字典序最小的字符串',
+    url: 'https://leetcode.cn/problems/lexicographically-smallest-string-after-operations-with-constraint',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回表示分区值的整数。`,
+    desc: `你可以对字符串 s 执行 任意次 操作。在每次操作中，可以将 s 中的一个字母 改变 为 任意 其他小写英文字母。返回一个字符串，表示在执行一些操作后你可以得到的 字典序最小 的字符串 t ，且满足 distance(s, t) <= k 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,12 +37,24 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 118,
-            memory: 27.98,
-            desc: '遍历',
+            time: 48,
+            memory: 16.46,
+            desc: '贪心遍历',
             code: `class Solution:
-    def findValueOfPartition(self, nums: List[int]) -> int:
-        return min(n2 - n1 for n1, n2 in pairwise(sorted(nums)))`,
+    def getSmallestString(self, s: str, k: int) -> str:
+        arr = list(s)
+        orda = ord('a')
+        for i in range(len(arr)):
+            ordc = ord(arr[i])
+            min_to_a = min(ordc - orda, orda + 26 - ordc)
+            if min_to_a <= k:
+                arr[i] = 'a'
+                k -= min_to_a
+            else:
+                ordc -= orda
+                arr[i] = chr(orda + min(ordc - k, (ordc + k) % 26))
+                break
+        return ''.join(arr)`,
         },
         // {
         //     script: Script.RUST,
