@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '3106. 满足距离约束且字典序最小的字符串',
-    url: 'https://leetcode.cn/problems/lexicographically-smallest-string-after-operations-with-constraint',
+    name: '699. 掉落的方块',
+    url: 'https://leetcode.cn/problems/falling-squares',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `你可以对字符串 s 执行 任意次 操作。在每次操作中，可以将 s 中的一个字母 改变 为 任意 其他小写英文字母。返回一个字符串，表示在执行一些操作后你可以得到的 字典序最小 的字符串 t ，且满足 distance(s, t) <= k 。`,
+    desc: `在每个方块掉落后，你必须记录目前所有已经落稳的 方块堆叠的最高高度 。返回一个整数数组 ans ，其中 ans[i] 表示在第 i 块方块掉落后堆叠的最高高度。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,24 +37,25 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 48,
-            memory: 16.46,
-            desc: '贪心遍历',
+            time: 407,
+            memory: 16.72,
+            desc: '枚举每一个块与另一个块是否位置产生交集',
             code: `class Solution:
-    def getSmallestString(self, s: str, k: int) -> str:
-        arr = list(s)
-        orda = ord('a')
-        for i in range(len(arr)):
-            ordc = ord(arr[i])
-            min_to_a = min(ordc - orda, orda + 26 - ordc)
-            if min_to_a <= k:
-                arr[i] = 'a'
-                k -= min_to_a
-            else:
-                ordc -= orda
-                arr[i] = chr(orda + min(ordc - k, (ordc + k) % 26))
-                break
-        return ''.join(arr)`,
+    def fallingSquares(self, positions: List[List[int]]) -> List[int]:
+        n = len(positions)
+        harr = [0] * n
+        maxh = 0
+        res = []
+        for i in range(n):
+            l1, h1 = positions[i]
+            harr[i] = h1
+            for j in range(i):
+                l2, h2 = positions[j]
+                if l1 + h1 - 1 >= l2 and l2 + h2 - 1 >= l1:
+                    harr[i] = max(harr[i], harr[j] + h1)
+            maxh = max(maxh, harr[i])
+            res.append(maxh)
+        return res`,
         },
         // {
         //     script: Script.RUST,
