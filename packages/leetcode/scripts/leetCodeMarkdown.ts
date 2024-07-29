@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '699. 掉落的方块',
-    url: 'https://leetcode.cn/problems/falling-squares',
+    exist: true,
+    name: '682. 棒球比赛',
+    url: 'https://leetcode.cn/problems/baseball-game',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `在每个方块掉落后，你必须记录目前所有已经落稳的 方块堆叠的最高高度 。返回一个整数数组 ans ，其中 ans[i] 表示在第 i 块方块掉落后堆叠的最高高度。`,
+    desc: `请你返回记录中所有得分的总和。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,25 +37,22 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 407,
-            memory: 16.72,
+            time: 32,
+            memory: 16.43,
             desc: '枚举每一个块与另一个块是否位置产生交集',
             code: `class Solution:
-    def fallingSquares(self, positions: List[List[int]]) -> List[int]:
-        n = len(positions)
-        harr = [0] * n
-        maxh = 0
-        res = []
-        for i in range(n):
-            l1, h1 = positions[i]
-            harr[i] = h1
-            for j in range(i):
-                l2, h2 = positions[j]
-                if l1 + h1 - 1 >= l2 and l2 + h2 - 1 >= l1:
-                    harr[i] = max(harr[i], harr[j] + h1)
-            maxh = max(maxh, harr[i])
-            res.append(maxh)
-        return res`,
+    def calPoints(self, operations: List[str]) -> int:
+        s = []
+        for op in operations:
+            if op == '+':
+                s.append(s[-1] + s[-2])
+            elif op == 'D':
+                s.append(s[-1] * 2)
+            elif op == 'C':
+                s.pop()
+            else:
+                s.append(int(op))
+        return sum(s)`,
         },
         // {
         //     script: Script.RUST,

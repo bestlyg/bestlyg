@@ -3,7 +3,11 @@
     "name": "682.棒球比赛",
     "url": "https://leetcode.cn/problems/baseball-game",
     "difficulty": "简单",
-    "tag": ["栈", "数组", "模拟"],
+    "tag": [
+        "栈",
+        "数组",
+        "模拟"
+    ],
     "desc": "请你返回记录中所有得分的总和。",
     "solutions": [
         {
@@ -21,6 +25,14 @@
             "script": "cpp",
             "desc": "dfs。",
             "code": "class Solution {\n   public:\n    int calPoints(vector<string> &ops) {\n        vector<int> list;\n        for (auto &op : ops) {\n            int n = list.size();\n            if (op == \"+\") {\n                list.push_back(list[n - 1] + list[n - 2]);\n            } else if (op == \"D\") {\n                list.push_back(list[n - 1] * 2);\n            } else if (op == \"C\") {\n                list.pop_back();\n            } else {\n                list.push_back(stoi(op));\n            }\n        }\n        int ans = 0;\n        for (auto &num : list) ans += num;\n        return ans;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 32,
+            "memory": 16.43,
+            "desc": "枚举每一个块与另一个块是否位置产生交集。",
+            "code": "class Solution:\n    def calPoints(self, operations: List[str]) -> int:\n        s = []\n        for op in operations:\n            if op == '+':\n                s.append(s[-1] + s[-2])\n            elif op == 'D':\n                s.append(s[-1] * 2)\n            elif op == 'C':\n                s.pop()\n            else:\n                s.append(int(op))\n        return sum(s)",
+            "date": 1722182400000
         }
     ]
 }
