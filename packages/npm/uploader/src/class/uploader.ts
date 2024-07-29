@@ -2,19 +2,21 @@ import tapable from 'tapable';
 import R from 'ramda';
 import { Task } from './task';
 import PQueue from 'p-queue';
+import { Transporter, TransporterManager } from './transporter';
 
 export interface UploaderPlugin {
-    apply: (uploader: Uploader) => void;
+    apply: (uploader: BaseUploader) => void;
 }
 
 export interface UploaderOptions {
+    transporterManager?: TransporterManager;
     plugins?: UploaderPlugin[];
     queueOptions?: ConstructorParameters<typeof PQueue>;
 }
 
 export type AddTaskOption = Parameters<PQueue['add']>[1];
 
-export class Uploader {
+export class BaseUploader {
     hooks = {
         beforeAddTask: new tapable.AsyncSeriesWaterfallHook<[Task, AddTaskOption]>([
             'task',
@@ -28,11 +30,13 @@ export class Uploader {
         beforeClearTask: new tapable.AsyncSeriesWaterfallHook<[boolean]>(['canClear']),
         afterClearTask: new tapable.AsyncParallelHook<[boolean]>(['canClear']),
     };
+    transporterManager: TransporterManager;
     tasks: PQueue;
     options: UploaderOptions;
     constructor(options: UploaderOptions) {
         this.options = options;
         this.tasks = new PQueue(...options.queueOptions);
+        this.transporterManager = options.transporterManager ?? new TransporterManager(Transporter);
         options.plugins?.forEach(plugin => {
             plugin.apply(this);
         });
