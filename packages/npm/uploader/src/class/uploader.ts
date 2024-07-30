@@ -73,14 +73,13 @@ export class BaseUploader {
         if (canClear) this.tasks.clear();
         await this.hooks.afterClearTask.promise(canClear);
     }
-    async createTask(blob: Blob): Promise<Task> {
+    async createTask(blob: Blob) {
         return Promise.resolve(new Task(blob));
     }
-    async getBlobSlice(blob: Blob): Promise<Blob[]> {
-        return Promise.resolve([blob]);
+    async createTasks(blob: Blob[]){
+        return Promise.all(blob.map(blob => this.createTask(blob)));
     }
-    async addBlob(blob: Blob) {
-        const blobs = await this.getBlobSlice(blob);
+    async addBlob(...blobs: Blob[]) {
         const tasks = await Promise.all(blobs.map(blob => this.createTask(blob)));
         for (const task of tasks) {
             await this.addTask(task);
