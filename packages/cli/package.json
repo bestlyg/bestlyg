@@ -49,13 +49,13 @@
         "@types/figlet": "^1.5.8",
         "@types/inquirer": "^9.0.7",
         "@types/lodash": "^4.17.7",
+        "@types/minimist": "^1.2.5",
         "@types/node": "^20.14.13",
         "@types/ramda": "^0.30.1",
         "@types/rimraf": "^4.0.5",
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
-        "cross-env": "^7.0.3",
-        "typescript": "^5.5.4"
+        "cross-env": "^7.0.3"
     },
     "keywords": [],
     "license": "ISC",
@@ -75,12 +75,14 @@
         "inquirer": "^9.2.23",
         "jsdom": "^24.1.0",
         "lodash": "^4.17.21",
+        "minimist": "^1.2.8",
         "ora": "^8.0.1",
         "ramda": "^0.30.0",
         "rimraf": "^5.0.9",
         "semver": "^7.6.0",
         "yargs": "^17.7.2",
         "zod": "^3.23.8",
-        "zx": "^8.1.4"
+        "zx": "^8.1.4",
+        "typescript": "^5.5.4"
     }
 }

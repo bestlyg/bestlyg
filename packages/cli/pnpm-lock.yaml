@@ -53,6 +53,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      minimist:
+        specifier: ^1.2.8
+        version: 1.2.8
       ora:
         specifier: ^8.0.1
         version: 8.0.1
@@ -65,6 +68,9 @@ importers:
       semver:
         specifier: ^7.6.0
         version: 7.6.2
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
@@ -90,6 +96,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.7
         version: 4.17.7
+      '@types/minimist':
+        specifier: ^1.2.5
+        version: 1.2.5
       '@types/node':
         specifier: ^20.14.13
         version: 20.14.13
@@ -108,9 +117,6 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
-      typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
 
 packages:
 
@@ -784,6 +790,9 @@ packages:
 
   '@types/lodash@4.17.7':
     resolution: {integrity: sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==}
+
+  '@types/minimist@1.2.5':
+    resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
@@ -2849,6 +2858,8 @@ snapshots:
     optional: true
 
   '@types/lodash@4.17.7': {}
+
+  '@types/minimist@1.2.5': {}
 
   '@types/node@12.20.55': {}
 

@@ -11,8 +11,10 @@ declare global {
     var doctrine: typeof best.doctrine;
     var AdmZip: typeof best.AdmZip;
     var cheerio: typeof best.cheerio;
-    var _: typeof best._;
-    var figlet: typeof best.figlet;
+    var ts: typeof best.ts;
+    var lodash: typeof best.lodash;
+    var ramda: typeof best.ramda;
+    var figletx: typeof best.figletx;
     var yargs: typeof best.yargs;
     var semver: typeof best.semver;
     var inquirer: typeof best.inquirer;
@@ -22,7 +24,6 @@ declare global {
     var axios: typeof best.axios;
     var manypkg: typeof best.manypkg;
     var changeCase: typeof best.changeCase;
-    var R: typeof best.R;
     var rimraf: typeof best.rimraf;
     var commander: typeof best.commander;
     var jsdom: typeof best.jsdom;

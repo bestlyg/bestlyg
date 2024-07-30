@@ -19,7 +19,7 @@
         "@bestlyg/cli": "workspace:^",
         "@types/node": "^20.14.13",
         "axios": "^1.6.8",
-        "chalk": "^5.3.0",
+        "chalk": "~4",
         "dayjs": "^1.11.12",
         "fs-extra": "^11.1.0",
         "ts-node": "^10.9.2",
