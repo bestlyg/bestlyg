@@ -5,8 +5,8 @@
     "author": "BestLyg",
     "devDependencies": {
         "@types/less": "^3.0.6",
-        "@types/node": "^20.14.2",
-        "typescript": "^5.4.5"
+        "@types/node": "^20.14.13",
+        "typescript": "^5.5.4"
     },
     "scripts": {
         "build": "pnpm nx run-many -t build -p \"@less-plugins/*\""

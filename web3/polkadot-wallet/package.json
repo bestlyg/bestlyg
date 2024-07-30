@@ -28,7 +28,7 @@
         "@polkadot/util-crypto": "^12.6.2",
         "@unocss/reset": "^0.61.0",
         "ahooks": "^3.8.0",
-        "antd": "^5.19.0",
+        "antd": "^5.19.4",
         "chrome": "^0.1.0",
         "jotai": "^2.8.4",
         "react": "^18.3.1",
@@ -40,7 +40,7 @@
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
         "@wxt-dev/module-react": "^1.0.0",
-        "typescript": "^5.5.2",
+        "typescript": "^5.5.4",
         "wxt": "^0.18.10"
     }
 }

@@ -32,12 +32,12 @@
         "README.md"
     ],
     "dependencies": {
-        "@less-plugins/shared": "workspace:^",
-        "@less-plugins/replace-properties": "workspace:^"
+        "@less-plugins/replace-properties": "workspace:^",
+        "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {
         "less": "^4.2.0",
-        "rimraf": "^5.0.5",
-        "typescript": "^5.4.5"
+        "rimraf": "^5.0.9",
+        "typescript": "^5.5.4"
     }
 }

@@ -51,10 +51,10 @@
         "dev": "modern build --watch"
     },
     "devDependencies": {
-        "@modern-js/module-tools": "^2.50.0",
-        "@types/node": "^20.14.11",
-        "@types/ramda": "^0.30.0",
-        "typescript": "^5.5.3"
+        "@modern-js/module-tools": "^2.56.2",
+        "@types/node": "^20.14.13",
+        "@types/ramda": "^0.30.1",
+        "typescript": "^5.5.4"
     },
     "dependencies": {
         "p-queue": "^8.0.1",

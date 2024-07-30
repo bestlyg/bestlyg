@@ -65,9 +65,9 @@
         "@tarojs/cli": "3.6.30",
         "@tarojs/taro-loader": "3.6.30",
         "@tarojs/webpack5-runner": "3.6.30",
-        "@types/node": "^18.19.34",
-        "@types/react": "^18.0.0",
-        "@types/webpack-env": "^1.13.6",
+        "@types/node": "^18.19.42",
+        "@types/react": "^18.3.3",
+        "@types/webpack-env": "^1.18.5",
         "@typescript-eslint/eslint-plugin": "^5.20.0",
         "@typescript-eslint/parser": "^5.20.0",
         "babel-preset-taro": "3.6.30",
@@ -80,7 +80,7 @@
         "react-refresh": "^0.11.0",
         "stylelint": "9.3.0",
         "ts-node": "^10.9.1",
-        "typescript": "^4.1.0",
+        "typescript": "^4.9.5",
         "webpack": "^5.78.0",
         "webpack-bundle-analyzer": "^4.10.2"
     }
