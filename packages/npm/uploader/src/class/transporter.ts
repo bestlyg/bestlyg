@@ -1,5 +1,20 @@
 import tapable from 'tapable';
 
+export interface TransporterSendConfig {
+    url: string;
+    method?:
+        | 'get'
+        | 'post'
+        | 'patch'
+        | 'put'
+        | 'delete'
+        | 'GET'
+        | 'POST'
+        | 'PATCH'
+        | 'PUT'
+        | 'DELETE';
+    headers: Record<string, any>;
+}
 export class Transporter {
     hooks = {
         onProgress: new tapable.AsyncParallelHook<[XMLHttpRequest, ProgressEvent<EventTarget>]>([
@@ -38,9 +53,15 @@ export class Transporter {
             }
         };
     }
-    ajax(...params: Parameters<typeof this.xhr.send>) {
-        this.xhr.send(...params);
+    send(config: TransporterSendConfig) {
+        this.xhr.open(config.method ?? 'post', config.url);
+        Object.entries(config.headers ?? {}).forEach(([k, v]) => {
+            this.xhr.setRequestHeader(k, `${v}`);
+        });
     }
+    // send(...params: Parameters<typeof this.xhr.send>) {
+    //     this.xhr.send(...params);
+    // }
 }
 
 export class TransporterManager {
