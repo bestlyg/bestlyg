@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '682. 棒球比赛',
-    url: 'https://leetcode.cn/problems/baseball-game',
+    exist: !true,
+    name: '2961. 双模幂运算',
+    url: 'https://leetcode.cn/problems/double-modular-exponentiation',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回记录中所有得分的总和。`,
+    desc: `返回一个由 好下标 组成的数组，顺序不限 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,22 +37,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 32,
-            memory: 16.43,
+            time: 44,
+            memory: 16.5,
             desc: '枚举每一个块与另一个块是否位置产生交集',
             code: `class Solution:
-    def calPoints(self, operations: List[str]) -> int:
-        s = []
-        for op in operations:
-            if op == '+':
-                s.append(s[-1] + s[-2])
-            elif op == 'D':
-                s.append(s[-1] * 2)
-            elif op == 'C':
-                s.pop()
-            else:
-                s.append(int(op))
-        return sum(s)`,
+    def getGoodIndices(self, variables: List[List[int]], target: int) -> List[int]:
+        def f(i: int) -> int:
+            a, b, c, m = variables[i]
+            return pow(pow(a, b, 10), c, m)
+        return [i for i in range(len(variables)) if f(i) == target]`,
         },
         // {
         //     script: Script.RUST,
