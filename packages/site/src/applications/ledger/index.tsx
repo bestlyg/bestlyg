@@ -3,7 +3,6 @@ import { ledger, LEDGER_FORMAT_DAY, LEDGER_FORMAT_MONTH } from '@bestlyg/data';
 import type { BadgeProps, CalendarProps } from 'antd';
 import { Badge, Calendar } from 'antd';
 import type { Dayjs } from 'dayjs';
-import { useRef, useEffect } from 'react';
 import _ from 'lodash';
 
 const yearRecordList = _.keyBy(ledger, 'date');
@@ -37,13 +36,11 @@ const dateCellRender = (value: Dayjs) => {
     if (!data) return null;
     return (
         <ul>
+            <li>
+                {`总${(_.sumBy(data.record, item => item.money * item.io) / 100).toFixed(2)}元`}
+            </li>
             {data.record.map((item, i) => (
-                <li key={i}>
-                    <Badge
-                        status="success"
-                        text={`${((item.money * item.io) / 100).toFixed(2)} ${item.comment}`}
-                    />
-                </li>
+                <li key={i}>{`${((item.money * item.io) / 100).toFixed(2)}元 ${item.comment}`}</li>
             ))}
         </ul>
     );
@@ -54,71 +51,5 @@ const cellRender: CalendarProps<Dayjs>['cellRender'] = (current, info) => {
     return info.originNode;
 };
 export function Ledger() {
-    const containerRef = useRef<HTMLDivElement>();
-    useEffect(() => {
-        console.log(yearRecordList, monthRecordList, dayRecordList);
-        /*
-        const chart = echarts.init(containerRef.current);
-        const option = {
-            tooltip: {},
-            xAxis: {
-                type: 'category',
-                data: xuanDataList
-                    .filter(v => v.weight)
-                    .map(v => v.date)
-                    .reverse(), 
-                name: '日期',
-                min: 'dataMin',
-                max: 'dataMax',
-                splitLine: {
-                    show: true,
-                },
-            },
-            yAxis: {
-                type: 'value',
-                name: '体重',
-                axisLabel: {
-                    formatter: '{value} KG',
-                },
-                min: 'dataMin',
-                max: 'dataMax',
-                splitLine: {
-                    show: true,
-                },
-            },
-            dataZoom: [
-                {
-                    type: 'slider',
-                    show: true,
-                    xAxisIndex: [0],
-                },
-                {
-                    type: 'slider',
-                    show: true,
-                    yAxisIndex: [0],
-                },
-                {
-                    type: 'inside',
-                    xAxisIndex: [0],
-                },
-                {
-                    type: 'inside',
-                    yAxisIndex: [0],
-                },
-            ],
-            series: [
-                {
-                    data: xuanDataList
-                        .filter(v => v.weight)
-                        .map(v => v.weight)
-                        .reverse(),
-                    type: 'line',
-                    smooth: true,
-                },
-            ],
-        };
-        chart.setOption(option);
-        */
-    }, []);
     return <Calendar onPanelChange={onPanelChange} cellRender={cellRender} />;
 }
