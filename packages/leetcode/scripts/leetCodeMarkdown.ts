@@ -3,11 +3,11 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: !true,
-    name: '2961. 双模幂运算',
-    url: 'https://leetcode.cn/problems/double-modular-exponentiation',
+    name: '3111. 覆盖所有点的最少矩形数目',
+    url: 'https://leetcode.cn/problems/minimum-rectangles-to-cover-points',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `返回一个由 好下标 组成的数组，顺序不限 。`,
+    desc: `请你在确保每个点都 至少 被一个矩形覆盖的前提下，最少 需要多少个矩形。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,15 +37,19 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 44,
-            memory: 16.5,
-            desc: '枚举每一个块与另一个块是否位置产生交集',
+            time: 128,
+            memory: 47.47,
+            desc: '排序后贪心放置矩形',
             code: `class Solution:
-    def getGoodIndices(self, variables: List[List[int]], target: int) -> List[int]:
-        def f(i: int) -> int:
-            a, b, c, m = variables[i]
-            return pow(pow(a, b, 10), c, m)
-        return [i for i in range(len(variables)) if f(i) == target]`,
+    def minRectanglesToCoverPoints(self, points: List[List[int]], w: int) -> int:
+        points.sort(key = lambda p: p[0])
+        res = 0
+        last = -1
+        for point in points:
+            if point[0] <= last: continue
+            res += 1
+            last = point[0] + w
+        return res`,
         },
         // {
         //     script: Script.RUST,

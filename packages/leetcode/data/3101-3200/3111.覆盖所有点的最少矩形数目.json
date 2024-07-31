@@ -1,0 +1,17 @@
+{
+    "name": "3111.覆盖所有点的最少矩形数目",
+    "url": "https://leetcode.cn/problems/minimum-rectangles-to-cover-points",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "请你在确保每个点都 至少 被一个矩形覆盖的前提下，最少 需要多少个矩形。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 128,
+            "memory": 47.47,
+            "desc": "排序后贪心放置矩形。",
+            "code": "class Solution:\n    def minRectanglesToCoverPoints(self, points: List[List[int]], w: int) -> int:\n        points.sort(key = lambda p: p[0])\n        res = 0\n        last = -1\n        for point in points:\n            if point[0] <= last: continue\n            res += 1\n            last = point[0] + w\n        return res",
+            "date": 1722355200000
+        }
+    ]
+}
