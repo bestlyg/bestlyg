@@ -4,7 +4,7 @@ import { getFiles, decryptData, encryptPath, resolve, decryptPath } from './util
 
 const files = await getFiles(encryptPath);
 
-await Promise.allSettled(
+await Promise.all(
     files.map(async file => {
         const fileData = await fs.readFile(resolve(encryptPath, file), 'utf8');
         await fs.ensureDir(path.dirname(resolve(decryptPath, file)));
