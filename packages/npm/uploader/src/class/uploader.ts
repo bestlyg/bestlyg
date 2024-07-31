@@ -76,7 +76,7 @@ export class BaseUploader {
     async createTask(blob: Blob) {
         return Promise.resolve(new Task(blob));
     }
-    async createTasks(blob: Blob[]){
+    async createTasks(blob: Blob[]) {
         return Promise.all(blob.map(blob => this.createTask(blob)));
     }
     async addBlob(...blobs: Blob[]) {
