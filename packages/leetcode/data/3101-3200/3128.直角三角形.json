@@ -1,0 +1,17 @@
+{
+    "name": "3128.直角三角形",
+    "url": "https://leetcode.cn/problems/right-triangles",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你一个二维 boolean 矩阵 grid 。请你返回使用 grid 中的 3 个元素可以构建的 直角三角形 数目，且满足 3 个元素值 都 为 1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 476,
+            "memory": 44.82,
+            "desc": "遍历每一个1，查找垂直和水平方向上的所有的其他1的个数。",
+            "code": "class Solution:\n    def numberOfRightTriangles(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        m = len(grid[0])\n        rows = [sum(grid[i][j] for j in range(m)) for i in range(n)]\n        cols = [sum(grid[i][j] for i in range(n)) for j in range(m)]\n        return sum(\n            (rows[i] - 1) * (cols[j] - 1)\n            for i in range(n)\n            for j in range(m)\n            if grid[i][j]\n        )",
+            "date": 1722528000000
+        }
+    ]
+}
