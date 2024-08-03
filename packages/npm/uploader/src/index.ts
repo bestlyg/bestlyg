@@ -1,8 +1,7 @@
 import { UploaderOptions } from './class/index';
-import { StoreUploaderPlugin } from './plugins/index';
 
 export const defaultUploaderOptions: UploaderOptions = {
-    plugins: [new StoreUploaderPlugin()],
+    plugins: [],
     queueOptions: [{ concurrency: 1, autoStart: false }],
 };
 

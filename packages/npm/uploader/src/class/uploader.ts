@@ -5,7 +5,7 @@ import PQueue from 'p-queue';
 import { Transporter, TransporterManager } from './transporter';
 
 export interface UploaderPlugin {
-    apply: (uploader: BaseUploader) => void;
+    apply: (uploader: Uploader) => void;
 }
 
 export interface UploaderOptions {
@@ -16,7 +16,7 @@ export interface UploaderOptions {
 
 export type AddTaskOption = Parameters<PQueue['add']>[1];
 
-export class BaseUploader {
+export class Uploader {
     hooks = {
         beforeAddTask: new tapable.AsyncSeriesWaterfallHook<[Task, AddTaskOption]>([
             'task',

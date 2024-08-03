@@ -1,3 +1,4 @@
+import { noop } from '@/utils';
 import tapable from 'tapable';
 
 export interface TransporterSendConfig {
@@ -14,54 +15,76 @@ export interface TransporterSendConfig {
         | 'PUT'
         | 'DELETE';
     headers: Record<string, any>;
+    data?: any;
+    timeout?: number;
 }
 export class Transporter {
     hooks = {
-        onProgress: new tapable.AsyncParallelHook<[XMLHttpRequest, ProgressEvent<EventTarget>]>([
-            'xhr',
-            'event',
-        ]),
-        onReadyStateChange: new tapable.AsyncParallelHook<[XMLHttpRequest, Event]>([
-            'xhr',
-            'event',
-        ]),
-        onError: new tapable.AsyncParallelHook<[XMLHttpRequest, ProgressEvent<EventTarget>]>([
-            'xhr',
-            'event',
-        ]),
-        onTimeout: new tapable.AsyncParallelHook<[XMLHttpRequest, ProgressEvent<EventTarget>]>([
-            'xhr',
-            'event',
-        ]),
-        onAbort: new tapable.AsyncParallelHook<[XMLHttpRequest, ProgressEvent<EventTarget>]>([
-            'xhr',
-            'event',
-        ]),
+        onProgress: new tapable.AsyncParallelHook<[ProgressEvent<EventTarget>]>(['event']),
+        onReadyStateChange: new tapable.AsyncParallelHook<[Event]>(['event']),
+        onError: new tapable.AsyncParallelHook<[ProgressEvent<EventTarget>]>(['event']),
+        onTimeout: new tapable.AsyncParallelHook<[ProgressEvent<EventTarget>]>(['event']),
+        onAbort: new tapable.AsyncParallelHook<[ProgressEvent<EventTarget>]>(['event']),
+        onFulfilled: new tapable.AsyncParallelHook<[]>([]),
+        onRejected: new tapable.AsyncParallelHook<[]>([]),
+        beforeSend: new tapable.AsyncSeriesWaterfallHook<[TransporterSendConfig]>(['config']),
+        afterSend: new tapable.AsyncParallelHook<[TransporterSendConfig]>(['config']),
+        beforeAbort: new tapable.AsyncSeriesWaterfallHook<[Boolean]>(['canAbort']),
+        afterAbort: new tapable.AsyncParallelHook<[Boolean]>(['canAbort']),
     };
     xhr = new XMLHttpRequest();
     data = null;
+    promise = Promise.withResolvers<XMLHttpRequest>();
     constructor() {
         const xhr = this.xhr;
-        xhr.upload.onprogress = async e => this.hooks.onProgress.promise(xhr, e);
-        xhr.onerror = async e => this.hooks.onError.promise(xhr, e);
-        xhr.ontimeout = async e => this.hooks.onTimeout.promise(xhr, e);
-        xhr.onabort = async e => this.hooks.onAbort.promise(xhr, e);
+        xhr.upload.onprogress = async e => this.hooks.onProgress.promise(e);
+        xhr.onerror = async e => this.hooks.onError.promise(e);
+        xhr.ontimeout = async e => this.hooks.onTimeout.promise(e);
+        xhr.onabort = async e => this.hooks.onAbort.promise(e);
         xhr.onreadystatechange = async e => {
-            await this.hooks.onReadyStateChange.promise(xhr, e);
-            if (xhr.readyState !== 4) {
-                return;
+            await this.hooks.onReadyStateChange.promise(e);
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    await this.hooks.onFulfilled.promise();
+                    this.promise.resolve(xhr);
+                } else if (xhr.status >= 400) {
+                    await this.hooks.onRejected.promise();
+                    this.promise.reject(xhr);
+                }
             }
         };
     }
-    send(config: TransporterSendConfig) {
-        this.xhr.open(config.method ?? 'post', config.url);
-        Object.entries(config.headers ?? {}).forEach(([k, v]) => {
-            this.xhr.setRequestHeader(k, `${v}`);
-        });
+    async send(config: TransporterSendConfig) {
+        config = await this.hooks.beforeSend.promise(config)[1];
+        this.xhr.timeout = config.timeout ?? 0;
+        this.xhr.open(config.method ?? 'post', config.url, true);
+        Object.entries(config.headers ?? {})
+            .filter(([_, v]) => v !== null && v !== undefined)
+            .forEach(([k, v]) => {
+                this.xhr.setRequestHeader(k, `${v}`);
+            });
+        this.data = config.data;
+        this.xhr.send(config.data);
+        await this.hooks.afterSend.promise(config);
+        return this.promise.promise;
     }
-    // send(...params: Parameters<typeof this.xhr.send>) {
-    //     this.xhr.send(...params);
-    // }
+    async abort() {
+        const canAbort = await this.hooks.beforeAbort.promise(true);
+        if (canAbort) {
+            this.xhr.onreadystatechange = noop;
+            this.xhr.abort();
+        }
+        await this.hooks.afterAbort.promise(canAbort);
+    }
+    getResponse() {
+        return this.xhr.response;
+    }
+    getText() {
+        return this.xhr.responseText;
+    }
+    getJson<T>(): T {
+        return JSON.parse(this.xhr.responseText);
+    }
 }
 
 export class TransporterManager {
@@ -80,154 +103,3 @@ export class TransporterManager {
     }
     constructor(public TransporterClass: new (...args: any[]) => Transporter) {}
 }
-// import EventEmitter from 'events';
-
-// const util = { noop: () => {} };
-
-// export default class Transport extends EventEmitter {
-//     constructor() {
-//         super();
-//         this.xhr = new XMLHttpRequest();
-//         this._data = null;
-//     }
-
-//     _ajax(form) {
-//         const { xhr } = this;
-//         xhr.upload.onprogress = e => {
-//             this.emit('progress', e);
-//         };
-//         xhr.onreadystatechange = () => {
-//             if (xhr.readyState !== 4) {
-//                 return;
-//             }
-//             xhr.upload.onprogress = util.noop;
-//             xhr.onreadystatechange = util.noop;
-
-//             // 仅在日志上报时会使用到，上报params、url字段
-//             xhr.params = form;
-//             if (this._data && this._data.url) {
-//                 xhr.currentUrl = this._data.url;
-//             }
-
-//             if (xhr.status >= 200 && xhr.status < 300) {
-//                 this.emit('complete', xhr);
-//             } else if (xhr.status >= 400) {
-//                 this.emit('error', xhr);
-//             }
-//         };
-
-//         xhr.onerror = () => {
-//             xhr.errText = 'unknow net error';
-//             this.emit('error', xhr);
-//         };
-//         xhr.ontimeout = () => {
-//             xhr.errText = 'timeout';
-//             this.emit('error', xhr);
-//         };
-//         xhr.onabort = () => {
-//             xhr.errText = 'abort';
-//             this.emit('error', xhr);
-//         };
-//         xhr.send(form);
-//     }
-
-//     /**
-//      * @param: {object} data 发送选项
-//      *     headers {object} 请求头
-//      *     binary {boolean} 使用二进制开发
-//      *     formData {array|function} 发送的formData（非FormData实例）
-//      *     field 文件表单名字
-//      *     name 文件名 如果为空使用file.name
-//      *     file 文件
-//      */
-//     send(data) {
-//         this._data = data;
-//         // 默认为post请求async必须为true
-//         this.xhr.open(data.method || 'POST', data.url || '', true);
-//         if (data.headers) {
-//             Object.keys(data.headers).forEach(header => {
-//                 this.xhr.setRequestHeader(header, data.headers[header]);
-//             });
-//         }
-//         // 设置超时（如果有的话）
-//         this.xhr.timeout = data.timeout || 0;
-//         if (data.ontimeout) {
-//             this.xhr.ontimeout = data.ontimeout;
-//         }
-//         if (data.binary) {
-//             return this.sendAsBinary(data);
-//         } else if (data.custom) {
-//             if (typeof data.custom === 'object') {
-//                 return this.sendAsCustom(JSON.stringify(data.custom));
-//             }
-//             if (data.custom === 'none') {
-//                 delete data.custom;
-//                 return this.sendAsCustom();
-//             }
-//             return this.sendAsCustom(data.custom);
-//         }
-//         return this.sendAsFormData(data);
-//     }
-
-//     /**
-//      * 使用二进制流发送
-//      * 不会自动处理formData 如果需传递参数请通过url
-//      */
-//     sendAsBinary(data) {
-//         // 接收头为octet－stream
-//         this.xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-//         this.xhr.setRequestHeader(
-//             'Content-Disposition',
-//             `attachment; filename="${encodeURI(data.filename)}"`
-//         );
-//         return this._ajax(data.file);
-//     }
-
-//     /**
-//      * 使用formdata发送 如果有formdata则会处理formData里面的数据
-//      */
-//     sendAsFormData(data) {
-//         let forms;
-//         if (data.formData) {
-//             if (typeof data.formData === 'function') {
-//                 forms = data.formData();
-//             } else {
-//                 forms = data.formData;
-//             }
-//         }
-//         if (!forms) {
-//             forms = [];
-//         }
-//         const formData = new FormData();
-//         for (let i = 0, l = forms.length; i < l; i++) {
-//             const form = formData[i];
-//             formData.append(form.name, form.value);
-//         }
-//         if (data.file) {
-//             formData.append(data.field, data.file, data.name);
-//         }
-//         return this._ajax(formData);
-//     }
-
-//     /*
-//     @Des: 发送自定义的内容
-//     */
-//     sendAsCustom(data) {
-//         return this._ajax(data);
-//     }
-
-//     abort() {
-//         this.xhr.onreadystatechange = util.noop;
-//         this.xhr.abort();
-//         // this.emit('abort', this.xhr);
-//     }
-//     getResponse() {
-//         return this.xhr.response;
-//     }
-//     getText() {
-//         return this.xhr.responseText;
-//     }
-//     getJson() {
-//         return JSON.parse(this.xhr.responseText);
-//     }
-// }
