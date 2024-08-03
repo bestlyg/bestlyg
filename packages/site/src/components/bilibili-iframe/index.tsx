@@ -41,7 +41,7 @@ const defaultProps: BiliBiliIFrameProps = {
  * @doc https://player.bilibili.com/
  */
 export function BiliBiliIFrame(props: BiliBiliIFrameProps) {
-    const { iframeProps, ...restProps } = props;
+    const { iframeProps = {}, ...restProps } = props;
     const query = { ...defaultProps, ...restProps };
     const qs = Object.entries(query)
         .filter(([, v]) => v !== undefined)
@@ -54,11 +54,14 @@ export function BiliBiliIFrame(props: BiliBiliIFrameProps) {
     const src = `//player.bilibili.com/player.html?${qs}`;
     return (
         <iframe
-            width="600"
-            height="400"
             src={src}
             allow="fullscreen"
             {...iframeProps}
+            style={{
+                width: '100%',
+                aspectRatio: '16 / 9',
+                ...iframeProps.style,
+            }}
         />
     );
 }
