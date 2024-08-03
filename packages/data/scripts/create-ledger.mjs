@@ -38,11 +38,11 @@ async function insertYearToLedger() {
     const varName = toYearVarName(date);
     let fileData = (await fs.readFile(ledgerPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, varName + ',');
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
-        `import ${varName} from './${date.format(LEDGER_FORMAT_YEAR)}/index';`
+        `import ${varName} from './${date.format(LEDGER_FORMAT_YEAR)}/index';\n`
     );
     await fs.writeFile(ledgerPath, fileData);
 }
@@ -67,11 +67,11 @@ async function insertMonthToYear() {
     const varName = toMonthVarName(date);
     let fileData = (await fs.readFile(yearPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, varName + ',');
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
-        `import ${varName} from './${date.format(LEDGER_FORMAT_MONTH)}/index';`
+        `import ${varName} from './${date.format(LEDGER_FORMAT_MONTH)}/index';\n`
     );
     await fs.writeFile(yearPath, fileData);
 }
@@ -97,11 +97,11 @@ async function insertDayToMonth() {
     const varName = toDayVarName(date);
     let fileData = (await fs.readFile(monthPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, varName + ',');
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
-        `import ${varName} from './${date.format(LEDGER_FORMAT_DAY)}';`
+        `import ${varName} from './${date.format(LEDGER_FORMAT_DAY)}';\n`
     );
     await fs.writeFile(monthPath, fileData);
 }
