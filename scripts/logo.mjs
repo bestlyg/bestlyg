@@ -1,7 +1,6 @@
-import 'zx/globals';
-import figlet from 'figlet';
+import '@bestlyg/cli/globals';
 
-const logo = await figlet('bestlyg'.toUpperCase(), {
+const logo = await figletx('bestlyg'.toUpperCase(), {
     font: 'Doh',
     whitespaceBreak: true,
 });
