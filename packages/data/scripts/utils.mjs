@@ -2,7 +2,7 @@ import '@bestlyg/cli/globals';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 
-dotenv.config({
+best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
 
