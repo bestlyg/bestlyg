@@ -1,4 +1,5 @@
 import { appTools, defineConfig } from '@modern-js/app-tools';
+import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 
 export default defineConfig({
     runtime: {
@@ -8,6 +9,7 @@ export default defineConfig({
         appTools({
             bundler: 'webpack',
         }),
+        tailwindcssPlugin(),
     ],
     source: {
         preEntry: ['normalize.css', './src/styles/global.less'],
@@ -32,4 +34,9 @@ export default defineConfig({
         assetPrefix: '/web/resume',
     },
     server: { baseUrl: '/web/resume' },
+    tools: {
+        tailwindcss: {
+            content: ['./src/**/*.{js,jsx,ts,tsx}'],
+        },
+    },
 });
