@@ -62,18 +62,19 @@ const config: Config = {
                     position: 'right',
                     label: 'Journal',
                 },
-                {
-                    type: 'doc',
-                    docId: '应用/index',
-                    position: 'right',
-                    label: 'Applications',
-                },
+                // {
+                //     type: 'doc',
+                //     docId: '应用/index',
+                //     position: 'right',
+                //     label: 'Applications',
+                // },
                 { to: '/blog', label: 'Record', position: 'right' },
                 {
                     type: 'dropdown',
                     label: 'Link',
                     position: 'right',
                     items: [
+                        { label: 'About Me', href: '//www.bestlyg.com/web/resume' },
                         { label: 'GitHub', href: 'https://github.com/bestlyg' },
                         { label: 'Gitee', href: 'https://gitee.com/bestlyg' },
                         { label: 'WeChat : bestlyg', href: 'https://wx.qq.com/' },
