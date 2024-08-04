@@ -1,10 +1,10 @@
 import '@bestlyg/cli/globals';
 import { ssh, server } from '@bestlyg/config';
 
-const resolve = utils.getResolveFunction(import.meta, 1);
+const resolve = best.utils.getResolveFunction(import.meta, 1);
 
 const dirPath = resolve('dist');
-const zip = new AdmZip();
+const zip = new best.AdmZip();
 zip.addLocalFolder(dirPath);
 await zip.writeZipPromise(resolve(dirPath, 'site.zip'));
 

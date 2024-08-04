@@ -98,7 +98,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `<a href="https://beian.miit.gov.cn/#/Integrated/index">浙ICP备19044645号-1</a>Copyright © ${new Date().getFullYear()} BestLyg.`,
+            copyright: `<a href="https://beian.miit.gov.cn/#/Integrated/index">浙ICP备19044645号-1</a> Copyright © ${new Date().getFullYear()} BestLyg.`,
         },
         prism: {
             theme: prismThemes.github,
