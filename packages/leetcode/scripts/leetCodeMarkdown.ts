@@ -2,8 +2,8 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: !true,
-    name: '3143. 正方形中的最多点数',
+    exist: true,
+    name: '572. 另一棵树的子树',
     url: 'https://leetcode.cn/problems/maximum-points-inside-the-square',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,28 +37,15 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 154,
-            memory: 47.63,
-            desc: '排序后遍历',
+            time: 58,
+            memory: 16.51,
+            desc: '序列化',
             code: `class Solution:
-    def maxPointsInsideSquare(self, points: List[List[int]], s: str) -> int:
-        get_edge = lambda i: max(abs(points[i][0]), abs(points[i][1]))
-        idxs = sorted([i for i in range(len(points))], key = get_edge)
-        used = set()
-        res = i = 0
-        while i < len(idxs):
-            edge = get_edge(idxs[i])
-            cnt = 1
-            if s[idxs[i]] in used: break
-            used.add(s[idxs[i]])
-            while i + 1 < len(idxs) and get_edge(idxs[i + 1]) == edge:
-                i += 1
-                if s[idxs[i]] in used: return res
-                used.add(s[idxs[i]])
-                cnt += 1
-            res += cnt
-            i += 1
-        return res`,
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        def stringify(node: Optional[TreeNode]) -> str:
+            if not node: return ''
+            return f'[{node.val}, {stringify(node.left)}, {stringify(node.right)}]'
+        return stringify(subRoot) in stringify(root)`,
         },
         // {
         //     script: Script.RUST,
