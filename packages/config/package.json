@@ -40,7 +40,10 @@
         "dev": "modern build --watch"
     },
     "dependencies": {
-        "@modern-js/module-tools": "^2.56.2",
+        "@modern-js/module-tools": "^2.56.2"
+    },
+    "devDependencies": {
+        "@types/node": "^22.1.0",
         "typescript": "^5.5.4"
     }
 }

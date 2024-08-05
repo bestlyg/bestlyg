@@ -5,6 +5,7 @@ const CWD = process.cwd();
 function resolve(...p: string[]) {
     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
 }
+
 export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [

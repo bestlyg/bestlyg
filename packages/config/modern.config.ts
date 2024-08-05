@@ -1,10 +1,21 @@
 import path from 'path';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
+import best from '@bestlyg/cli';
 
 const CWD = process.cwd();
 function resolve(...p: string[]) {
     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
 }
+
+best.dotenv.config({
+    path: resolve('.env.local'),
+});
+
+const customDefines = Object.fromEntries(
+    Object.entries(process.env)
+        .filter(([k]) => k.startsWith('BESTLYG'))
+        .map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
+);
 
 export default defineConfig({
     plugins: [moduleTools()],
@@ -22,6 +33,7 @@ export default defineConfig({
                 options.outExtension = { '.js': '.js' };
                 return options;
             },
+            define: { ...customDefines },
         },
         {
             sourceMap: true,
@@ -36,6 +48,7 @@ export default defineConfig({
                 options.outExtension = { '.js': '.cjs' };
                 return options;
             },
+            define: { ...customDefines },
         },
         {
             buildType: 'bundleless',

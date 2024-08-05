@@ -7,6 +7,7 @@
         "baseUrl": ".",
         "skipLibCheck": true,
         "lib": ["ESNext"],
+        "types": ["node"],
         "moduleResolution": "node",
         "esModuleInterop": true,
         "paths": { "@/*": ["src/*"] }

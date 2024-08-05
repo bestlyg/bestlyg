@@ -1,5 +1,10 @@
 import path from 'node:path';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
+// import best from '@bestlyg/cli'
+
+// best.dotenv.config({
+//     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+// });
 
 const CWD = process.cwd();
 function resolve(...p: string[]) {
