@@ -11,19 +11,29 @@ export function getEnv(s: string) {
     return process.env[`${PREFIX}_${s}`];
 }
 
-export function resolve(...p: string[]) {
-    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
-}
-
-export function getResolveFunction(importMeta: ImportMeta, upTimes: number) {
+export function getResolveFunction(dirname: string, upTimes?: number): (...p: string[]) => string;
+export function getResolveFunction(
+    importMeta: ImportMeta,
+    upTimes?: number
+): (...p: string[]) => string;
+export function getResolveFunction(
+    meta: ImportMeta | string,
+    upTimes = 0
+): (...p: string[]) => string {
+    let dirname: string;
+    if (typeof meta === 'string') {
+        dirname = meta;
+    } else if (meta.dirname) {
+        dirname = meta.dirname;
+    } else {
+        dirname = path.dirname(fileURLToPath(meta.url));
+    }
     return function resolve(...p: string[]) {
-        return path.resolve(
-            path.dirname(fileURLToPath(importMeta.url)),
-            ...new Array(upTimes).fill('..'),
-            ...p
-        );
+        return path.resolve(dirname, ...new Array(upTimes).fill('..'), ...p);
     };
 }
+
+export const resolve = getResolveFunction(__dirname, 3);
 
 export function mount<O, T>(base: O, mountRecord: T) {
     const result = base as O & T;

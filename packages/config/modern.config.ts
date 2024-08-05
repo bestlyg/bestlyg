@@ -1,11 +1,8 @@
-import path from 'path';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
 import best from '@bestlyg/cli';
 
-const CWD = process.cwd();
-function resolve(...p: string[]) {
-    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
-}
+const CWD = best.utils.CWD;
+const resolve = best.utils.getResolveFunction(__dirname);
 
 best.dotenv.config({
     path: resolve('.env.local'),
@@ -21,6 +18,7 @@ export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
+            dts: false,
             sourceMap: true,
             buildType: 'bundleless',
             shims: false,
@@ -36,6 +34,7 @@ export default defineConfig({
             define: { ...customDefines },
         },
         {
+            dts: false,
             sourceMap: true,
             buildType: 'bundleless',
             shims: false,

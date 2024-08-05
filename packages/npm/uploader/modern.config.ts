@@ -1,10 +1,9 @@
-import path from 'node:path';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
+import best from '@bestlyg/cli';
 
-const CWD = process.cwd();
-function resolve(...p: string[]) {
-    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
-}
+const CWD = best.utils.CWD;
+const resolve = best.utils.getResolveFunction(__dirname);
+
 export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [

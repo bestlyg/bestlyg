@@ -51,6 +51,7 @@
         "dev": "modern build --watch"
     },
     "devDependencies": {
+        "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "^2.56.2",
         "@types/node": "^20.14.13",
         "@types/ramda": "^0.30.1",
