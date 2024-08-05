@@ -7,3 +7,4 @@
 export * as ssh from './ssh';
 export * as server from './server';
 export * as secret from './secret';
+export * as git from './git';

@@ -19,7 +19,6 @@ const config: Config = {
         defaultLocale: 'zh-CN',
         locales: ['zh-CN'],
     },
-
     presets: [
         [
             'classic',
