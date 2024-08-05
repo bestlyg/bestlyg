@@ -1,17 +1,18 @@
-import path from 'node:path';
+import path from 'path';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
 
 const CWD = process.cwd();
 function resolve(...p: string[]) {
     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
 }
+
 export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
             sourceMap: true,
             buildType: 'bundleless',
-            shims: true,
+            shims: false,
             input: [resolve(CWD, 'src', '**', '*.ts'), resolve(CWD, 'src', '**', '*.tsx')],
             target: 'esnext',
             format: 'esm',
@@ -25,7 +26,7 @@ export default defineConfig({
         {
             sourceMap: true,
             buildType: 'bundleless',
-            shims: true,
+            shims: false,
             input: [resolve(CWD, 'src', '**', '*.ts'), resolve(CWD, 'src', '**', '*.tsx')],
             target: 'esnext',
             format: 'cjs',

@@ -1,8 +1,9 @@
 {
+    "id": "2819",
     "name": "2710.移除字符串中的尾随零",
     "url": "https://leetcode.cn/problems/remove-trailing-zeros-from-a-string",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["字符串"],
     "desc": "给你一个用字符串表示的正整数 num ，请你以字符串形式返回不含尾随零的整数 num 。",
     "solutions": [
         {

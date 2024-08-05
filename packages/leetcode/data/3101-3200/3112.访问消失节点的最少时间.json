@@ -1,8 +1,9 @@
 {
+    "id": "3389",
     "name": "3112.访问消失节点的最少时间",
     "url": "https://leetcode.cn/problems/minimum-time-to-visit-disappearing-nodes",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["图", "数组", "最短路", "堆（优先队列）"],
     "desc": "请你返回数组 answer ，answer[i] 表示从节点 0 到节点 i 需要的 最少 单位时间。如果从节点 0 出发 无法 到达节点 i ，那么 answer[i] 为 -1 。",
     "solutions": [
         {

@@ -3,9 +3,7 @@
     "name": "600.不含连续1的非负整数",
     "url": "https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones",
     "difficulty": "困难",
-    "tag": [
-        "动态规划"
-    ],
+    "tag": ["动态规划"],
     "desc": "给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的 1 的个数。",
     "solutions": [
         {

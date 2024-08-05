@@ -8,7 +8,7 @@ export const heightA4MM = 297;
 export const widthA4 = 794;
 export const heightA4 = 1123;
 export const paddingA4 = 50;
-export const CLASS_NAME_PREFIX = 'resume-page'
+export const CLASS_NAME_PREFIX = 'resume-page';
 export const CLASS_NAME_SINGLE = `${CLASS_NAME_PREFIX}-single`;
 export const CLASS_NAME_MULTI = `${CLASS_NAME_PREFIX}-multi`;
 
@@ -81,7 +81,7 @@ export function renderToMultiPage({
             container!.appendChild(parentArray[0]);
             for (let i = 1; i < parentArray.length; i++) {
                 parentArray[i] = parentArray[i].cloneNode() as Element;
-                parentArray[i].classList.add(`${CLASS_NAME_PREFIX}-truncate`)
+                parentArray[i].classList.add(`${CLASS_NAME_PREFIX}-truncate`);
                 parentArray[i - 1].appendChild(parentArray[i]);
             }
             parentArray[parentArray.length - 1].appendChild(clonedNode);

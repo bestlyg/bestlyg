@@ -19,10 +19,12 @@
     "dependencies": {
         "@ant-design/icons": "^5.4.0",
         "@bestlyg/code": "workspace:^",
+        "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
         "@docusaurus/core": "3.4.0",
         "@docusaurus/preset-classic": "3.4.0",
+        "@docusaurus/theme-common": "^3.4.0",
         "@mdx-js/react": "^3.0.1",
         "ahooks": "^3.7.11",
         "antd": "^5.19.4",

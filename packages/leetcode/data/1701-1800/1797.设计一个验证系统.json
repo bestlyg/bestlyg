@@ -3,7 +3,7 @@
     "name": "1797.设计一个验证系统",
     "url": "https://leetcode.cn/problems/design-authentication-manager",
     "difficulty": "中等",
-    "tag": ["设计", "哈希表"],
+    "tag": ["设计", "哈希表", "链表", "双向链表"],
     "desc": "你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。",
     "solutions": [
         {

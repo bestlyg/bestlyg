@@ -1,8 +1,9 @@
 {
+    "id": "3217",
     "name": "2959.关闭分部的可行集合数目",
     "url": "https://leetcode.cn/problems/number-of-possible-sets-of-closing-branches",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["位运算", "图", "枚举", "最短路", "堆（优先队列）"],
     "desc": "请你返回关闭分部的可行方案数目，满足每个方案里剩余分部之间的最远距离不超过 maxDistance。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "3346",
     "name": "3106.满足距离约束且字典序最小的字符串",
     "url": "https://leetcode.cn/problems/lexicographically-smallest-string-after-operations-with-constraint",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["贪心", "字符串"],
     "desc": "你可以对字符串 s 执行 任意次 操作。在每次操作中，可以将 s 中的一个字母 改变 为 任意 其他小写英文字母。返回一个字符串，表示在执行一些操作后你可以得到的 字典序最小 的字符串 t ，且满足 distance(s, t) <= k 。",
     "solutions": [
         {

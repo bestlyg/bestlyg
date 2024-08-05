@@ -1,8 +1,9 @@
 {
+    "id": "2831",
     "name": "2748.美丽下标对的数目",
     "url": "https://leetcode.cn/problems/number-of-beautiful-pairs",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "哈希表", "数学", "计数", "数论"],
     "desc": "返回 nums 中 美丽下标对 的总数目。",
     "solutions": [
         {

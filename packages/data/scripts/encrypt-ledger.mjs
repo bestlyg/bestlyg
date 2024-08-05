@@ -12,4 +12,4 @@ await Promise.all(
     })
 );
 
-utils.print.success('Encrypt data success.');
+best.utils.print.success('Encrypt data success.');

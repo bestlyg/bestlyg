@@ -1,8 +1,9 @@
 {
+    "id": "2808",
     "name": "2742.给墙壁刷油漆",
     "url": "https://leetcode.cn/problems/painting-the-walls",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["数组", "动态规划"],
     "desc": "请你返回刷完 n 堵墙最少开销为多少。",
     "solutions": [
         {

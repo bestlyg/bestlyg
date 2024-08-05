@@ -1,8 +1,9 @@
 {
+    "id": "3234",
     "name": "2961.双模幂运算",
     "url": "https://leetcode.cn/problems/double-modular-exponentiation",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "数学", "模拟"],
     "desc": "返回一个由 好下标 组成的数组，顺序不限 。",
     "solutions": [
         {

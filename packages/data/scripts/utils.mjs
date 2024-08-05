@@ -28,6 +28,9 @@ export function decryptData(content) {
     return (decipher.update(content, 'hex', 'utf8') + decipher.final('utf8')).toString('utf8');
 }
 
+/**
+ * @param  {...string} p 
+ */
 export function resolve(...p) {
     return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', ...p);
 }

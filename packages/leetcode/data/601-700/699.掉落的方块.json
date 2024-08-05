@@ -1,8 +1,9 @@
 {
+    "id": "699",
     "name": "699.掉落的方块",
     "url": "https://leetcode.cn/problems/falling-squares",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["线段树", "数组", "有序集合"],
     "desc": "在每个方块掉落后，你必须记录目前所有已经落稳的 方块堆叠的最高高度 。返回一个整数数组 ans ，其中 ans[i] 表示在第 i 块方块掉落后堆叠的最高高度。",
     "solutions": [
         {

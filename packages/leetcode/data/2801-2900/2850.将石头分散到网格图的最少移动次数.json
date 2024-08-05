@@ -1,8 +1,9 @@
 {
+    "id": "3092",
     "name": "2850.将石头分散到网格图的最少移动次数",
     "url": "https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["广度优先搜索", "数组", "动态规划", "矩阵"],
     "desc": "请你返回每个格子恰好有一个石头的 最少移动次数 。",
     "solutions": [
         {

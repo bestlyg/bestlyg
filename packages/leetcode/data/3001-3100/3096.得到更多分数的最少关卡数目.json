@@ -1,8 +1,9 @@
 {
+    "id": "3355",
     "name": "3096.得到更多分数的最少关卡数目",
     "url": "https://leetcode.cn/problems/minimum-levels-to-gain-more-points",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "前缀和"],
     "desc": "请你返回 Alice 获得比 Bob 更多的分数所需要完成的 最少 关卡数目，如果 无法 达成，那么返回 -1 。",
     "solutions": [
         {

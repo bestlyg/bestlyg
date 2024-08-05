@@ -1,8 +1,9 @@
 {
+    "id": "3291",
     "name": "3011.判断一个数组是否可以变为有序",
     "url": "https://leetcode.cn/problems/find-if-array-can-be-sorted",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["位运算", "数组", "排序"],
     "desc": "如果你可以使数组变有序，请你返回 true ，否则返回 false 。",
     "solutions": [
         {

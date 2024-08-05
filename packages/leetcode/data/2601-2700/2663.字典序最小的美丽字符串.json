@@ -1,8 +1,9 @@
 {
+    "id": "2687",
     "name": "2663.字典序最小的美丽字符串",
     "url": "https://leetcode.cn/problems/lexicographically-smallest-beautiful-string",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["贪心", "字符串"],
     "desc": "请你找出并返回一个长度为 n 的美丽字符串，该字符串还满足：在字典序大于 s 的所有美丽字符串中字典序最小。如果不存在这样的字符串，则返回一个空字符串。",
     "solutions": [
         {

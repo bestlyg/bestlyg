@@ -1,8 +1,9 @@
 {
+    "id": "2845",
     "name": "2740.找出分区值",
     "url": "https://leetcode.cn/problems/find-the-value-of-the-partition",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "排序"],
     "desc": "返回表示分区值的整数。",
     "solutions": [
         {

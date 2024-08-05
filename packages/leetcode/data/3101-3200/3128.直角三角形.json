@@ -1,8 +1,9 @@
 {
+    "id": "3388",
     "name": "3128.直角三角形",
     "url": "https://leetcode.cn/problems/right-triangles",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "哈希表", "数学", "组合数学", "计数"],
     "desc": "给你一个二维 boolean 矩阵 grid 。请你返回使用 grid 中的 3 个元素可以构建的 直角三角形 数目，且满足 3 个元素值 都 为 1 。",
     "solutions": [
         {

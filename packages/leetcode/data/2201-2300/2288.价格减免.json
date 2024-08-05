@@ -1,8 +1,9 @@
 {
+    "id": "2373",
     "name": "2288.价格减免",
     "url": "https://leetcode.cn/problems/apply-discount-to-prices",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["字符串"],
     "desc": "返回表示修改后句子的字符串。",
     "solutions": [
         {

@@ -1,8 +1,9 @@
 {
+    "id": "1000476",
     "name": "LCP61.气温变化趋势",
     "url": "https://leetcode.cn/problems/6CE719",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组"],
     "desc": "已知 temperatureA[i] 和 temperatureB[i] 分别表示第 i 天两地区的气温。 组委会希望找到一段天数尽可能多，且两地气温变化趋势相同的时间举办嘉年华活动。请分析并返回两地气温变化趋势相同的最大连续天数。",
     "solutions": [
         {

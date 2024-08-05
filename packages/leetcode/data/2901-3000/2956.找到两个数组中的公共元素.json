@@ -1,8 +1,9 @@
 {
+    "id": "3206",
     "name": "2956.找到两个数组中的公共元素",
     "url": "https://leetcode.cn/problems/find-common-elements-between-two-arrays",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "哈希表"],
     "desc": "请你返回一个长度为 2 的整数数组 answer ，按顺序 分别为以上两个数值。",
     "solutions": [
         {

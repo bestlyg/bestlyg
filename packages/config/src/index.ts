@@ -6,3 +6,4 @@
 // export default config;
 export * as ssh from './ssh';
 export * as server from './server';
+export * as secret from './secret';

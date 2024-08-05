@@ -1,8 +1,9 @@
 {
+    "id": "2894",
     "name": "2813.子序列最大优雅度",
     "url": "https://leetcode.cn/problems/maximum-elegance-of-a-k-length-subsequence",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["栈", "贪心", "数组", "哈希表", "排序", "堆（优先队列）"],
     "desc": "你的任务是从 items 所有长度为 k 的子序列中，找出 最大优雅度 。",
     "solutions": [
         {

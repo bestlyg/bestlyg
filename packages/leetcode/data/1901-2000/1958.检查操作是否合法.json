@@ -1,8 +1,9 @@
 {
+    "id": "2080",
     "name": "1958.检查操作是否合法",
     "url": "https://leetcode.cn/problems/check-if-move-is-legal",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "枚举", "矩阵"],
     "desc": "给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。",
     "solutions": [
         {

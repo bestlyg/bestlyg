@@ -12,7 +12,7 @@ import {
 
 const dataPath = resolve(decryptPath, 'ledger', 'data');
 
-const date = dayjs(argv._);
+const date = best.dayjs(argv._);
 
 if (!date.isValid()) {
     echo`Invalid Date ${JSON.stringify(argv)}`;

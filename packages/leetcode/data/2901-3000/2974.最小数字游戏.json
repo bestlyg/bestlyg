@@ -1,8 +1,9 @@
 {
+    "id": "3226",
     "name": "2974.最小数字游戏",
     "url": "https://leetcode.cn/problems/minimum-number-game",
     "difficulty": "简单",
-    "tag": [],
+    "tag": ["数组", "排序", "模拟", "堆（优先队列）"],
     "desc": "返回结果数组 arr 。",
     "solutions": [
         {

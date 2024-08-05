@@ -1,8 +1,9 @@
 {
+    "id": "3316",
     "name": "3098.求出所有子序列的能量和",
     "url": "https://leetcode.cn/problems/find-the-sum-of-subsequence-powers",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "困难",
+    "tag": ["数组", "动态规划", "排序"],
     "desc": "请你返回 nums 中长度 等于 k 的 所有 子序列的 能量和 。",
     "solutions": [
         {

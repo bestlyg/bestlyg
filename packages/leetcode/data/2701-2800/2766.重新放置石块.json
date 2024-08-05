@@ -1,8 +1,9 @@
 {
+    "id": "2834",
     "name": "2766.重新放置石块",
     "url": "https://leetcode.cn/problems/relocate-marbles",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "哈希表", "排序", "模拟"],
     "desc": "完成这些操作后，请你按升序返回所有 有 石块的位置。",
     "solutions": [
         {

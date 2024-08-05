@@ -1,8 +1,9 @@
 {
+    "id": "3373",
     "name": "3115.质数的最大距离",
     "url": "https://leetcode.cn/problems/maximum-prime-difference",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["数组", "数学", "数论"],
     "desc": "返回两个（不一定不同的）质数在 nums 中 下标 的 最大距离。",
     "solutions": [
         {

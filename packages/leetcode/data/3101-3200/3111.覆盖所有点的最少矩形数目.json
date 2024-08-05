@@ -1,8 +1,9 @@
 {
+    "id": "3390",
     "name": "3111.覆盖所有点的最少矩形数目",
     "url": "https://leetcode.cn/problems/minimum-rectangles-to-cover-points",
-    "difficulty": "简单",
-    "tag": [],
+    "difficulty": "中等",
+    "tag": ["贪心", "数组", "排序"],
     "desc": "请你在确保每个点都 至少 被一个矩形覆盖的前提下，最少 需要多少个矩形。",
     "solutions": [
         {

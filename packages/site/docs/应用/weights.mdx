@@ -1,11 +1,16 @@
-import {Weights} from '@site/src/applications/weights';
+import { Secret } from '@site/src/components/secret';
+import { Weights } from '@site/src/applications/weights';
 import CodeSource from '!!raw-loader!@bestlyg/data/src/xuan.ts';
 import CodeBlock from '@theme/CodeBlock';
 
 # 体重变化
+
+<Secret >
 
 <Weights />
 
 ## Code
 
 <CodeBlock language="ts">{CodeSource}</CodeBlock>
+
+</Secret >
