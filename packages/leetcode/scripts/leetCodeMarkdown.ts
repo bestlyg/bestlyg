@@ -3,7 +3,7 @@ import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
     exist: true,
-    name: '572. 另一棵树的子树',
+    name: '600. 不含连续1的非负整数',
     url: 'https://leetcode.cn/problems/maximum-points-inside-the-square',
     difficulty: Difficulty.简单,
     tag: [],
@@ -37,15 +37,26 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 58,
-            memory: 16.51,
-            desc: '序列化',
-            code: `class Solution:
-    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        def stringify(node: Optional[TreeNode]) -> str:
-            if not node: return ''
-            return f'[{node.val}, {stringify(node.left)}, {stringify(node.right)}]'
-        return stringify(subRoot) in stringify(root)`,
+            time: 55,
+            memory: 16.46,
+            desc: '数位dp',
+            code: `N = len(bin(10 ** 9)) - 2
+arr = [0] * (N + 1)
+arr[0] = arr[1] = 1
+tmp_sum = 1
+for i in range(2, N + 1):
+    arr[i] = tmp_sum
+    tmp_sum += arr[i - 1]
+
+class Solution:
+    def findIntegers(self, num: int) -> int:
+        if num == 0: return 1
+        n = len(bin(num)) - 2
+        res = sum(arr[:n])
+        next_num = num
+        if bin(next_num)[2:4] == '11':
+            next_num = (1 << (n - 1)) + (1 << (n - 2)) - 1
+        return sum(arr[:n]) + self.findIntegers(next_num - (1 << (n - 1)))`,
         },
         // {
         //     script: Script.RUST,
