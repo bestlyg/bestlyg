@@ -18,4 +18,4 @@ export * as R from 'ramda';
 export * as rimraf from 'rimraf';
 export * as commander from 'commander';
 export * as jsdom from 'jsdom';
-export * from 'zx';
+export * as zx from 'zx';
