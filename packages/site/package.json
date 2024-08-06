@@ -6,6 +6,7 @@
         "docusaurus": "docusaurus",
         "start": "zx scripts/prestart.mjs && docusaurus start",
         "build": "pnpm fork-leetcode && docusaurus build --out-dir dist",
+        "build:github": "pnpm fork-leetcode && cross-env BESTLYG_BASEURL=/ docusaurus build --out-dir dist",
         "swizzle": "docusaurus swizzle",
         "deploy:docusaurus": "docusaurus deploy",
         "clear": "docusaurus clear",
@@ -54,6 +55,7 @@
         "@types/lodash": "^4.17.7",
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
+        "cross-env": "^7.0.3",
         "raw-loader": "^4.0.2",
         "typescript": "~5.4.5"
     },

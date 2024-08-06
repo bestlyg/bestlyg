@@ -5,11 +5,12 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { bestlygWebpackDocusaurusPlugin } from './src/plugins/webpack';
 
+
 const config: Config = {
     title: '信韵的小奥特',
     tagline: 'welcomme to the world of lucky ultraman.',
     url: 'https:/bestlyg.com',
-    baseUrl: '/web/site',
+    baseUrl: process.env.BESTLYG_BASEURL ?? '/web/site',
     onBrokenLinks: 'warn',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/logo.ico',
