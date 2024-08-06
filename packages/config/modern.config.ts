@@ -11,7 +11,7 @@ best.dotenv.config({
 const customDefines = Object.fromEntries(
     Object.entries(process.env)
         .filter(([k]) => k.startsWith('BESTLYG'))
-        .map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
+        .map(([k, v]) => [`process.env.${k}`, `${v}`])
 );
 
 export default defineConfig({
