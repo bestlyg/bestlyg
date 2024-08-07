@@ -38,7 +38,7 @@ async function insertYearToLedger() {
     const varName = toYearVarName(date);
     let fileData = (await fs.readFile(ledgerPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `\n${varName},`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
@@ -67,7 +67,7 @@ async function insertMonthToYear() {
     const varName = toMonthVarName(date);
     let fileData = (await fs.readFile(yearPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `\n${varName},`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
@@ -97,7 +97,7 @@ async function insertDayToMonth() {
     const varName = toDayVarName(date);
     let fileData = (await fs.readFile(monthPath)).toString();
     if (fileData.includes(varName)) return;
-    fileData = insertString(fileData, fileData.indexOf('[') + 1, `${varName},\n`);
+    fileData = insertString(fileData, fileData.indexOf('[') + 1, `\n${varName},`);
     fileData = insertString(
         fileData,
         fileData.indexOf('\n') + 1,
