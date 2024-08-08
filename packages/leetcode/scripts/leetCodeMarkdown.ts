@@ -2,12 +2,12 @@ import { Markdown, Difficulty, Tag, Script } from '@/base';
 import { backquote } from '@/utils';
 
 const leetCodeMarkdown: Markdown = {
-    exist: true,
-    name: '600. 不含连续1的非负整数',
-    url: 'https://leetcode.cn/problems/maximum-points-inside-the-square',
+    exist: !true,
+    name: '3131. 找出与数组相加的整数 I',
+    url: 'https://leetcode.cn/problems/find-the-integer-added-to-array-i',
     difficulty: Difficulty.简单,
     tag: [],
-    desc: `请你返回 合法 正方形中可以包含的 最多 点数。`,
+    desc: `给你两个长度相等的数组 nums1 和 nums2。数组 nums1 中的每个元素都与变量 x 所表示的整数相加。如果 x 为负数，则表现为元素值的减少。在与 x 相加后，nums1 和 nums2 相等 。当两个数组中包含相同的整数，并且这些整数出现的频次相同时，两个数组 相等 。返回整数 x 。`,
     solutions: [
         // {
         //     date: new Date('2020.11.11').getTime(),
@@ -37,26 +37,12 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 55,
-            memory: 16.46,
-            desc: '数位dp',
-            code: `N = len(bin(10 ** 9)) - 2
-arr = [0] * (N + 1)
-arr[0] = arr[1] = 1
-tmp_sum = 1
-for i in range(2, N + 1):
-    arr[i] = tmp_sum
-    tmp_sum += arr[i - 1]
-
-class Solution:
-    def findIntegers(self, num: int) -> int:
-        if num == 0: return 1
-        n = len(bin(num)) - 2
-        res = sum(arr[:n])
-        next_num = num
-        if bin(next_num)[2:4] == '11':
-            next_num = (1 << (n - 1)) + (1 << (n - 2)) - 1
-        return sum(arr[:n]) + self.findIntegers(next_num - (1 << (n - 1)))`,
+            time: 33,
+            memory: 16.32,
+            desc: '一定存在x使其相等，则直接找对应位置的数字进行求差值',
+            code: `class Solution:
+    def addedInteger(self, nums1: List[int], nums2: List[int]) -> int:
+        return max(nums2) - max(nums1)`,
         },
         // {
         //     script: Script.RUST,
