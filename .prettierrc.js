@@ -19,15 +19,6 @@ module.exports = {
     // true: { foo: bar }
     // false: {foo: bar}
     bracketSpacing: true,
-    // JSX标签闭合位置 默认false
-    // false: <div
-    //          className=""
-    //          style={{}}
-    //       >
-    // true: <div
-    //          className=""
-    //          style={{}} >
-    jsxBracketSameLine: false,
     // 箭头函数参数括号 默认avoid 可选 avoid| always
     // avoid 能省略括号的时候就省略 例如x => x
     // always 总是有括号
@@ -36,5 +27,5 @@ module.exports = {
     printWidth: 100,
     // 行位换行符
     // lf|crlf|cr|auto
-    endOfLine: 'auto',
+    endOfLine: 'lf',
 };

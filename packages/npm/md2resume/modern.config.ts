@@ -39,4 +39,7 @@ export default defineConfig({
             content: ['./src/**/*.{js,jsx,ts,tsx}'],
         },
     },
+    performance: {
+        transformLodash: false,
+    },
 });

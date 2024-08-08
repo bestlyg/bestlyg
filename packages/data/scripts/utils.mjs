@@ -1,6 +1,7 @@
 import '@bestlyg/cli/globals';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
+import os from 'node:os';
 
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
@@ -29,7 +30,7 @@ export function decryptData(content) {
 }
 
 /**
- * @param  {...string} p 
+ * @param  {...string} p
  */
 export function resolve(...p) {
     return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', ...p);
@@ -40,6 +41,7 @@ export const decryptPath = resolve('src');
 export const encryptPath = resolve('encrypt-src');
 
 export async function getFiles(cwd) {
-    // return glob(glob.convertPathToPattern(path.join('**', '*.*')), { cwd });
-    return glob(path.join('**', '*.*'), { cwd });
+    let filePath = path.join('**', '*.*');
+    if (os.platform() === 'win32') filePath = glob.convertPathToPattern(filePath);
+    return glob(filePath, { cwd });
 }
