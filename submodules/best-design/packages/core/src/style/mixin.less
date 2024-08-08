@@ -1,9 +1,0 @@
-@plugin './mixin.js';
-@import './base.less';
-
-.load-css-vars(@map, @prefix: ~'') {
-    @spec-prefix: if(@prefix = ~'', ~'', ~'-@{prefix}');
-    each(@map, .(@v, @k, @i) {
-        @{best-cssvars-prefix}@{spec-prefix}-@{k}: @v;
-    });
-}

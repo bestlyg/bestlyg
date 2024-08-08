@@ -17,7 +17,9 @@ target
 databases
 
 .nx/cache
+.nx/workspace-data
 
 storybook-static
 .env
 .env.*
+.nx

@@ -1,9 +1,6 @@
 {
     "extends": "nx/presets/npm.json",
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
-    "affected": {
-        "defaultBase": "master"
-    },
     "namedInputs": {
         "default": ["{projectRoot}/**/*"]
     },
@@ -51,5 +48,6 @@
             }
         }
     ],
-    "nxCloudAccessToken": "YjlhMTk3MzItOWFjMy00ZTFmLTg1ZDEtMjU4MDAxZWMyMzJmfHJlYWQtd3JpdGU="
+    "nxCloudAccessToken": "YjlhMTk3MzItOWFjMy00ZTFmLTg1ZDEtMjU4MDAxZWMyMzJmfHJlYWQtd3JpdGU=",
+    "defaultBase": "master"
 }

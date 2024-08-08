@@ -10,3 +10,4 @@ temp
 build
 .nx
 encrypt-src
+/.nx/workspace-data
