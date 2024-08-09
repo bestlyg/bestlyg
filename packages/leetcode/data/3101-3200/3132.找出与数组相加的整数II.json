@@ -1,0 +1,17 @@
+{
+    "name": "3132.找出与数组相加的整数II",
+    "url": "https://leetcode.cn/problems/find-the-integer-added-to-array-ii/",
+    "difficulty": "简单",
+    "tag": [],
+    "desc": "给你两个整数数组 nums1 和 nums2。从 nums1 中移除两个元素，并且所有其他元素都与变量 x 所表示的整数相加。如果 x 为负数，则表现为元素值的减少。执行上述操作后，nums1 和 nums2 相等 。当两个数组中包含相同的整数，并且这些整数出现的频次相同时，两个数组 相等 。返回能够实现数组相等的 最小 整数 x 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 562,
+            "memory": 16.57,
+            "desc": "排序后暴力枚举。",
+            "code": "class Solution:\n    def minimumAddedInteger(self, nums1: List[int], nums2: List[int]) -> int:\n        nums1.sort()\n        nums2.sort()\n        n = len(nums1)\n        res = inf\n        for i in range(n):\n            for j in range(i):\n                i1 = 0\n                while i1 < n and (i1 == i or i1 == j): i1 += 1\n                i2 = 0\n                diff = nums2[i2] - nums1[i1]\n                need_skip = False\n                while i1 < n:\n                    if nums2[i2] - nums1[i1] != diff:\n                        need_skip = True\n                        break\n                    i1 += 1\n                    while i1 < n and (i1 == i or i1 == j): i1 += 1\n                    i2 += 1\n                if not need_skip:\n                    res = min(res, diff)\n        return res",
+            "date": 1723132800000
+        }
+    ]
+}
