@@ -2,7 +2,7 @@ export type LeetCodeDataList = LeetCodeData[];
 export interface LeetCodeData {
     dirName: string;
     dirPath: string;
-    problems: LeetCodeProblem;
+    problems: LeetCodeProblem[];
 }
 export interface LeetCodeSolution {
     script: string;
@@ -24,7 +24,7 @@ export interface LeetCodeProblem {
 }
 export interface LeetCodeReadmeDataItem {
     dirName: string;
-    solutionName: string[];
+    problems: string[];
 }
 export enum LeetCodeDifficulty {
     Easy = 'Easy',
