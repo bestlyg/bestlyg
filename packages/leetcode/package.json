@@ -29,5 +29,8 @@
         "tsconfig-paths": "4.0.0",
         "tslib": "^2.6.2",
         "typescript": "^5.5.4"
+    },
+    "dependencies": {
+        "leetcode-query": "^1.2.3"
     }
 }
