@@ -2,17 +2,20 @@
     "id": "40",
     "name": "40.组合总和II",
     "url": "https://leetcode.cn/problems/combination-sum-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "回溯"],
     "desc": "给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。",
     "solutions": [
         {
-            "date": 1599667200000,
+            "date": "2020-09-10",
             "time": 88,
             "memory": 39.7,
             "script": "typescript",
             "desc": "遍历数组递归。",
             "code": "function combinationSum2(candidates: number[], target: number): number[][] {\n  candidates.sort((a, b) => a - b);\n  const len = candidates.length;\n  const res: number[][] = [];\n  dfs();\n  return res;\n  function dfs(start = 0, temp: number[] = [], sum = 0) {\n    if (sum === target) res.push(temp.slice());\n    else if (sum > target) {\n    } else {\n      for (let i = start; i < len; i++) {\n        const num = candidates[i];\n        if (candidates[i - 1] === num && i - 1 >= start) continue;\n        temp.push(num);\n        dfs(i + 1, temp, sum + num);\n        temp.pop();\n      }\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "回溯"
+    ],
+    "level": "Medium"
 }

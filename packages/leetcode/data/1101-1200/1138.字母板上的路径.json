@@ -2,8 +2,6 @@
     "id": "1238",
     "name": "1138.字母板上的路径",
     "url": "https://leetcode.cn/problems/alphabet-board-path",
-    "difficulty": "中等",
-    "tag": ["哈希表", "字符串"],
     "desc": "给你一个下标从 0 开始、长度为 3 的整数数组 amount ，其中 amount[0]、amount[1] 和 amount[2] 分别表示需要装满冷水、温水和热水的杯子数量。返回装满所有杯子所需的 最少 秒数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 11.5,
             "desc": "bfs。",
             "code": "typedef pair<int, int> pii;\nint dirs[4][2] = {\n    {-1, 0}, {1, 0},\n    {0, -1}, {0, 1}, \n};\nstring dir_str = \"UDLR\";\nstruct Node {\n    pii dir;\n    string s; \n    Node(pii dir, string s): dir(dir), s(s) {}\n};\nclass Solution {\npublic:\n    string alphabetBoardPath(string target) {\n        vector<string> list = { \"abcde\", \"fghij\", \"klmno\", \"pqrst\", \"uvwxy\", \"z\" };\n        vector<pii> idxs(26);\n        for (int i = 0; i < list.size(); i++) for (int j = 0; j < list[i].size(); j++) idxs[list[i][j] - 'a'] = make_pair(i, j);\n        vector<vector<string>> cache(26, vector<string>(26, \"\"));\n        for (int i = 0; i < 26; i++) prebuild(cache, idxs, list, i);\n        string res = \"\";\n        char prev = 'a';\n        for (int i = 0; i < target.size(); i++) {\n            res += cache[prev - 'a'][target[i] - 'a'] + \"!\";\n            prev = target[i];\n        }\n        return res;    \n    }\n\n    void prebuild(vector<vector<string>> &cache, vector<pii> &idxs, vector<string> &list, int idx) {\n        queue<Node> q; \n        q.push(Node(idxs[idx], \"\"));\n        while (q.size()) {\n            Node cur = q.front();\n            q.pop();\n            for (int i = 0; i < 4; i++) {\n                int nrow = cur.dir.first + dirs[i][0], ncol = cur.dir.second + dirs[i][1];\n                if (nrow < 0 || nrow >= list.size() || ncol < 0 || ncol >= list[nrow].size()) continue;\n                if (list[nrow][ncol] - 'a' == idx || cache[idx][list[nrow][ncol] - 'a'] != \"\") continue;\n                string s = cur.s + dir_str[i];\n                q.push(Node(make_pair(nrow, ncol), s));\n                cache[idx][list[nrow][ncol] - 'a'] = s;\n            }\n        }\n    }\n};",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.1,
             "desc": "同上。",
             "code": "from queue import Queue\nclass Solution:\n  def alphabetBoardPath(self, target: str) -> str:\n      dirs = [\n          (-1, 0), (1, 0),\n          (0, -1), (0, 1)\n      ]\n      dir_str = \"UDLR\"\n      l = [\"abcde\", \"fghij\", \"klmno\", \"pqrst\", \"uvwxy\", \"z\"]\n      idxs = [()] * 26\n      for i in range(len(l)):\n          for j in range(len(l[i])):\n              idxs[ord(l[i][j]) - ord('a')] = (i, j)\n      cache = [[\"\"] * 26 for _ in range(26)]\n      def prebuild(idx):\n          q = Queue()\n          q.put((idxs[idx][0], idxs[idx][1], \"\"))\n          while q.qsize():\n              (row,col,s) = q.get()\n              for i in range(4):\n                  nrow = row + dirs[i][0]\n                  ncol = col + dirs[i][1]\n                  if nrow < 0 or nrow >= len(l) or ncol < 0 or ncol >= len(l[nrow]):\n                      continue\n                  if ord(l[nrow][ncol]) - ord('a') == idx or cache[idx][ord(l[nrow][ncol]) - ord('a')] != \"\":\n                      continue\n                  next_s = s + dir_str[i]\n                  q.put((nrow, ncol, next_s))\n                  cache[idx][ord(l[nrow][ncol]) - ord('a')] = next_s\n      for i in range(26):\n          prebuild(i)\n      res = ''\n      prev = 'a'\n      for cur in target:\n          res += cache[ord(prev) - ord('a')][ord(cur) - ord('a')] + \"!\"\n          prev = cur\n      return res",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.3,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn alphabet_board_path(target: String) -> String {\n        let dirs: [[i32; 2]; 4] = [[-1, 0], [1, 0], [0, -1], [0, 1]];\n        let dir_str = \"UDLR\".chars().collect::<Vec<char>>();\n        let l = vec![\"abcde\", \"fghij\", \"klmno\", \"pqrst\", \"uvwxy\", \"z\"]\n            .into_iter()\n            .map(|s| s.chars().collect::<Vec<char>>())\n            .collect::<Vec<Vec<char>>>();\n        let mut cache = vec![vec![String::new(); 26]; 26];\n        let mut idxs = vec![(0, 0); 26];\n        for i in 0..l.len() {\n            for j in 0..l[i].len() {\n                idxs[l[i][j] as usize - 'a' as usize] = (i, j)\n            }\n        }\n        let mut prebuild = |idx: usize| {\n            use std::collections::VecDeque;\n            let mut q = VecDeque::<(usize, usize, String)>::new();\n            q.push_back((idxs[idx].0, idxs[idx].1, String::new()));\n            while !q.is_empty() {\n                let (row, col, s) = q.pop_front().unwrap();\n                for i in 0..4 {\n                    let nrow = row as i32 + dirs[i][0];\n                    let ncol = col as i32 + dirs[i][1];\n                    if nrow < 0\n                        || nrow as usize >= l.len()\n                        || ncol < 0\n                        || ncol as usize >= l[nrow as usize].len()\n                    {\n                        continue;\n                    }\n                    let nrow = nrow as usize;\n                    let ncol = ncol as usize;\n                    if l[nrow][ncol] as usize - 'a' as usize == idx\n                        || cache[idx][l[nrow][ncol] as usize - 'a' as usize] != \"\"\n                    {\n                        continue;\n                    }\n                    let mut next_s = s.clone();\n                    next_s.push(dir_str[i]);\n                    q.push_back((nrow, ncol, next_s.clone()));\n                    cache[idx][l[nrow][ncol] as usize - 'a' as usize] = next_s;\n                }\n            }\n        };\n        for i in 0..26 {\n            prebuild(i)\n        }\n\n        let mut res = String::new();\n        let mut prev = 'a';\n        for cur in target.chars() {\n            res.push_str(&cache[prev as usize - 'a' as usize][cur as usize - 'a' as usize]);\n            res.push('!');\n            prev = cur\n        }\n        res\n    }\n}",
-            "date": 1676131200000
+            "date": "2023-02-12"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Medium"
 }

@@ -2,17 +2,21 @@
     "id": "1020",
     "name": "978.最长湍流子数组",
     "url": "https://leetcode.cn/problems/longest-turbulent-subarray",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划", "滑动窗口"],
     "desc": "返回 A 的最大湍流子数组的长度。",
     "solutions": [
         {
-            "date": 1612713600000,
+            "date": "2021-02-08",
             "time": 104,
             "memory": 43.8,
             "script": "typescript",
             "desc": "利用双指针进行最大区间的判断。",
             "code": "function maxTurbulenceSize(arr: number[]): number {\n  let len = arr.length;\n  while (len > 1 && arr[0] === arr[1]) {\n    arr.shift();\n    len--;\n  }\n  if (len === 1) return 1;\n  let max = 2;\n  let l = 0;\n  let r = 1;\n  let f = arr[0] < arr[1];\n  while (r < len - 1) {\n    if (f ? arr[r] > arr[r + 1] : arr[r] < arr[r + 1]) {\n      f = !f;\n    } else {\n      max = Math.max(max, r - l + 1);\n      l = arr[r] === arr[r + 1] ? r + 1 : r;\n    }\n    r++;\n  }\n  return Math.max(max, r - l + 1);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划",
+        "滑动窗口"
+    ],
+    "level": "Medium"
 }

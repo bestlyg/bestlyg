@@ -2,8 +2,6 @@
     "id": "1491",
     "name": "1375.二进制字符串前缀一致的次数",
     "url": "https://leetcode.cn/problems/number-of-times-binary-string-is-prefix-aligned",
-    "difficulty": "中等",
-    "tag": ["数组"],
     "desc": "返回二进制字符串在翻转过程中 前缀一致 的次数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 37.6,
             "desc": "遍历，记录当前反转的最大值。",
             "code": "class Solution {\npublic:\n    int numTimesAllBlue(vector<int>& flips) {\n        int nmax = 0, res = 0;\n        for (int i = 0; i < flips.size(); i++) {\n            nmax = max(nmax, flips[i]);\n            if (nmax == i + 1) res++;\n        }\n        return res;\n    }\n};",
-            "date": 1686672000000
+            "date": "2023-06-14"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 21.4,
             "desc": "同上。",
             "code": "class Solution:\n    def numTimesAllBlue(self, flips: List[int]) -> int:\n        nmax = res = 0\n        for i in range(len(flips)):\n            nmax = max(nmax, flips[i])\n            if nmax == i + 1: res += 1\n        return res",
-            "date": 1686672000000
+            "date": "2023-06-14"
         },
         {
             "script": "rust",
@@ -28,7 +26,11 @@
             "memory": 2.3,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn num_times_all_blue(flips: Vec<i32>) -> i32 {\n        let (mut nmax, mut res) = (0, 0);\n        for i in 0..flips.len() {\n            nmax = nmax.max(flips[i]);\n            if nmax as usize == i + 1 {\n                res += 1\n            }\n        }\n        res\n    }\n}",
-            "date": 1686672000000
+            "date": "2023-06-14"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Medium"
 }

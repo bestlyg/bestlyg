@@ -2,8 +2,6 @@
     "id": "2780",
     "name": "2673.使二叉树所有路径值相等的最小代价",
     "url": "https://leetcode.cn/problems/make-costs-of-paths-equal-in-a-binary-tree",
-    "difficulty": "中等",
-    "tag": ["贪心", "树", "数组", "动态规划", "二叉树"],
     "desc": "你的目标是让根到每一个 叶子结点 的路径值相等。请你返回 最少 需要执行增加操作多少次。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 132,
             "desc": "dfs每次统计左右子树的差值。",
             "code": "class Solution {\npublic:\n    int minIncrements(int n, vector<int>& cost) {\n        int level = log2(n + 1), res = 0;\n        function<int(int, int)> dfs = [&](int root, int l) -> int {\n            if (l == level) return cost[root];\n            int left = dfs(root * 2 + 1, l + 1), right = dfs(root * 2 + 2, l + 1);\n            if (left == right) return left + cost[root];\n            res += abs(right - left);\n            return max(left, right) + cost[root];\n        };\n        dfs(0, 1);\n        return res;\n    }\n};",
-            "date": 1683388800000
+            "date": "2023-05-07"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 48.6,
             "desc": "同上。",
             "code": "class Solution:\n    def minIncrements(self, n: int, cost: List[int]) -> int:\n        level = log2(n+1)\n        res = 0\n\n        def dfs(root: int, l: int) -> int:\n            nonlocal res\n            if l == level : return cost[root]\n            left = dfs(root * 2 + 1, l + 1)\n            right = dfs(root * 2 + 2, l + 1)\n            if left == right :return left + cost[root]\n            res += abs(left -right)\n            return max(left, right ) + cost[root]\n        dfs(0, 1)\n        return res",
-            "date": 1683388800000
+            "date": "2023-05-07"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 3.4,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_increments(n: i32, cost: Vec<i32>) -> i32 {        \n        let level = ((n + 1) as f64).log2() as u32;\n        let mut res = 0;\n        fn dfs(cost: &Vec<i32>, level: u32, res: &mut i32, root: usize, l: u32) -> i32 {\n            if l == level {\n                cost[root]\n            } else {\n                let left = dfs(cost, level, res, root * 2 + 1, l + 1);\n                let right = dfs(cost, level, res, root * 2 + 2, l + 1);\n                if left == right {\n                    left + cost[root]\n                } else {\n                    *res += (right - left).abs();\n                    left.max(right) + cost[root]\n                }\n            }\n        }\n        dfs(&cost, level, &mut res, 0, 1);\n        res\n    }\n}",
-            "date": 1683388800000
+            "date": "2023-05-07"
         },
         {
             "script": "python",
@@ -36,7 +34,15 @@
             "memory": 45.47,
             "desc": "dfs时记录左右的节点的值，进行遍历和平衡。",
             "code": "class Solution:\n    def minIncrements(self, n: int, cost: List[int]) -> int:\n        ans = 0\n        def dfs(node: int) -> int:\n            nonlocal ans\n            if node * 2 > n: return cost[node - 1]\n            l, r = dfs(node * 2), dfs(node * 2 + 1)\n            maxn = max(l, r)\n            ans += 2 * maxn - l - r\n            return maxn + cost[node - 1]\n        dfs(1)\n        return ans",
-            "date": 1709049600000
+            "date": "2024-02-28"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "树",
+        "数组",
+        "动态规划",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

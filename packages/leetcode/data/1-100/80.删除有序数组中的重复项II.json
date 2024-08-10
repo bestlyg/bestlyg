@@ -2,12 +2,10 @@
     "id": "80",
     "name": "80.删除有序数组中的重复项II",
     "url": "https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "双指针"],
     "desc": "给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 最多出现两次 ，返回删除后数组的新长度。",
     "solutions": [
         {
-            "date": 1617638400000,
+            "date": "2021-04-06",
             "time": 104,
             "memory": 40.1,
             "script": "typescript",
@@ -15,12 +13,17 @@
             "code": "function removeDuplicates(nums: number[]): number {\n  const len = nums.length;\n  const remove = (index: number) => {\n    const num = nums[index];\n    nums.splice(index, 1);\n    nums.push(num);\n  };\n  let lastIndex = len;\n  for (let i = 0; i < lastIndex - 1; i++) {\n    const num = nums[i];\n    if (nums[i] !== nums[i + 1]) continue;\n    while (i + 2 < lastIndex && nums[i + 2] === num) {\n      remove(i);\n      lastIndex--;\n    }\n  }\n  return lastIndex;\n}"
         },
         {
-            "date": 1617638400000,
+            "date": "2021-04-06",
             "time": 92,
             "memory": 39.7,
             "script": "typescript",
             "desc": "利用快慢指针，慢指针赋值，快指针读取最新值。",
             "code": "function removeDuplicates(nums: number[]): number {\n  const len = nums.length;\n  if (len <= 2) return len;\n  let slow = 2;\n  for (let fast = 2; fast < len; fast++) {\n    const num = nums[fast];\n    if (nums[slow - 2] !== num) {\n      nums[slow++] = num;\n    }\n  }\n  return slow;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针"
+    ],
+    "level": "Medium"
 }

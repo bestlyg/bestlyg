@@ -2,8 +2,6 @@
     "id": "2848",
     "name": "2741.特别的排列",
     "url": "https://leetcode.cn/problems/special-permutations",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "动态规划", "状态压缩"],
     "desc": "请你返回特别排列的总数目，由于答案可能很大，请将它对 109 + 7 取余 后返回。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 128.91,
             "desc": "dfs。",
             "code": "class Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        @cache\n        def dfs(last: int, mask: int) -> int:\n            if mask == (1 << n) - 1: return 1\n            return sum(\n                dfs(nums[i], mask | (1 << i))\n                for i in range(n)\n                if mask & (1 << i) == 0 and (last % nums[i] == 0 or nums[i] % last == 0)\n            )\n        return sum(dfs(nums[i], 1 << i) for i in range(n)) % (10 ** 9 + 7)",
-            "date": 1719331200000
+            "date": "2024-06-26"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "动态规划",
+        "状态压缩"
+    ],
+    "level": "Medium"
 }

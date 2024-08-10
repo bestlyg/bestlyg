@@ -2,8 +2,6 @@
     "id": "2176",
     "name": "2050.并行课程III",
     "url": "https://leetcode.cn/problems/parallel-courses-iii",
-    "difficulty": "困难",
-    "tag": ["图", "拓扑排序", "数组", "动态规划"],
     "desc": "请你返回完成所有课程所需要的 最少 月份数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 222.5,
             "desc": "拓扑排序+堆。",
             "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nstruct Node {\n    unordered_set<int> p, c;\n};\nclass Solution {\npublic:\n    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {\n        unordered_set<int> start;\n        for (int i = 0; i < n; i++) start.insert(i);\n\n        vector<Node> list(n);\n        for (auto &item : relations) {\n            list[item[0] - 1].c.insert(item[1] - 1);\n            list[item[1] - 1].p.insert(item[0] - 1);\n            start.erase(item[1] - 1);\n        }\n\n        int res = 0;\n        auto cmp = [&](pii a, pii b) -> bool {\n            return b.Y < a.Y;\n        };\n        priority_queue<pii, vector<pii>, decltype(cmp)> q(cmp);\n        for (auto &v : start) {\n            q.push(make_pair(v, time[v]));\n        }\n        while (q.size()) {\n            auto cur = q.top();\n            res = max(res, cur.Y);\n            q.pop();\n            for (auto &c : list[cur.X].c) {\n                list[c].p.erase(cur.X);\n                if (list[c].p.empty()) {\n                    q.push(make_pair(c, cur.Y + time[c]));\n                }\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1690473600000
+            "date": "2023-07-28"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 161.2,
             "desc": "dfs。",
             "code": "class Solution {\npublic:\n    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {\n        vector<vector<int>> list(n);\n        for (auto &item : relations) {\n            list[item[1] - 1].push_back(item[0] - 1);\n        }\n        unordered_map<int, int> cache;\n        function<int(int)> dfs = [&](int cur) -> int {\n            if (cache[cur]) return cache[cur];\n            int val = 0;\n            for (auto &p : list[cur]) val = max(val, dfs(p));\n            return cache[cur] = val + time[cur];\n        };\n        int res = 0;\n        for (int i = 0; i < n; i++) res = max(res, dfs(i));\n        return res;\n    }\n};",
-            "date": 1690473600000
+            "date": "2023-07-28"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 141.8,
             "desc": "同上。",
             "code": "class Solution:\n    def minimumTime(self, n: int, relations: List[List[int]], time: List[int]) -> int:\n        list = [[] for _ in range(n)]\n        for item in relations:\n            list[item[1]-1].append(item[0]-1)\n\n        @cache\n        def dfs(cur: int) -> int:\n            if len(list[cur]) == 0: return time[cur]\n            return max(dfs(i) for i in list[cur]) + time[cur]\n        return max(dfs(i) for i in range(n))",
-            "date": 1690473600000
+            "date": "2023-07-28"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 11.9,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn minimum_time(n: i32, relations: Vec<Vec<i32>>, time: Vec<i32>) -> i32 {\n        use std::collections::HashMap;\n        let n = n as usize;\n        let mut list = vec![vec![]; n];\n        for item in relations {\n            let (i0, i1) = (item[0] as usize - 1, item[1] as usize - 1);\n            list[i1].push(i0);\n        }\n        let mut cache = HashMap::<usize, i32>::new();\n        fn dfs(\n            cache: &mut HashMap<usize, i32>,\n            list: &Vec<Vec<usize>>,\n            time: &Vec<i32>,\n            cur: usize,\n        ) -> i32 {\n            if cache.contains_key(&cur) {\n                *cache.get(&cur).unwrap()\n            } else {\n                let res = list[cur]\n                    .iter()\n                    .map(|p| dfs(cache, list, time, *p))\n                    .max()\n                    .unwrap_or(0)\n                    + time[cur];\n                cache.insert(cur, res);\n                res\n            }\n        }\n        (0..n)\n            .into_iter()\n            .map(|i| dfs(&mut cache, &list, &time, i))\n            .max()\n            .unwrap()\n    }\n}",
-            "date": 1690473600000
+            "date": "2023-07-28"
         }
-    ]
+    ],
+    "tagList": [
+        "图",
+        "拓扑排序",
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

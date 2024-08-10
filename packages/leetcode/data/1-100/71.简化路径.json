@@ -2,17 +2,20 @@
     "id": "71",
     "name": "71.简化路径",
     "url": "https://leetcode.cn/problems/simplify-path",
-    "difficulty": "中等",
-    "tag": ["栈", "字符串"],
     "desc": "返回简化后得到的 规范路径 。",
     "solutions": [
         {
-            "date": 1641398400000,
+            "date": "2022-01-06",
             "time": 8,
             "memory": 10.8,
             "script": "cpp",
             "desc": "栈。",
             "code": "class Solution {\n   public:\n    string simplifyPath(string path) {\n        // 简化最后有点没斜线的状态\n        path += \"/\";\n        stack<string> s;\n        int n = path.size();\n        for (int i = 0; i < n; i++) {\n            char ch = path[i];\n            if (ch == '/') {\n                // 如果前面有点\n                if (s.size() && s.top() == \".\") {\n                    int cnt = 0;\n                    while (s.size() && s.top() == \".\") {\n                        s.pop();\n                        cnt++;\n                    }\n                    // 如果有一个点 不做操作\n                    // 如果有两个点 弹出前面的\n                    // 如果有三个以上，不做操作，重新压栈点\n                    if (cnt == 2 && s.size() > 1) {\n                        s.pop();\n                        s.pop();\n                    } else if (cnt > 2) {\n                        while (cnt--) s.push(\".\");\n                        s.push(\"/\");\n                    }\n                } else {\n                    // 如果前面没点 ， 直接弹出前面所有斜线\n                    while (s.size() && s.top() == \"/\") s.pop();\n                    s.push(\"/\");\n                }\n            } else if (ch == '.') {  // 如果是点直接压栈\n                s.push(\".\");\n            } else {\n                // 否则拼接文件或目录名\n                int next = i + 1;\n                while (next < n && path[next] != '/') next++;\n                string str = path.substr(i, next - i);\n                // 如果此时前面有点，说明这点是文件或目录名中的点\n                while (s.size() && s.top() == \".\") {\n                    str = s.top() + str;\n                    s.pop();\n                }\n                s.push(str);\n                i = next - 1;\n            }\n        }\n        string ans = \"\";\n        while (s.size()) {\n            ans = s.top() + ans;\n            s.pop();\n        }\n        // 如果最后一个是斜线直接删除\n        if (ans.size() > 1 && ans[ans.size() - 1] == '/')\n            ans = ans.substr(0, ans.size() - 1);\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "字符串"
+    ],
+    "level": "Medium"
 }

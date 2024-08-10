@@ -2,8 +2,6 @@
     "id": "2476",
     "name": "2399.检查相同字母间的距离",
     "url": "https://leetcode.cn/problems/check-distances-between-same-letters",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "字符串"],
     "desc": "如果 s 是一个 匀整 字符串，返回 true ；否则，返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 43.4,
             "desc": "遍历。",
             "code": "var checkDistances = function (s, distance) {\n        const cache = {};\n        for (let i = 0; i < s.length; i++) {\n          const prev = cache[s[i]];\n          if (prev !== undefined) {\n            const d = distance[s.codePointAt(i) - 'a'.codePointAt(0)];\n            if (d !== i - prev - 1) return false;\n          } else {\n            cache[s[i]] = i;\n          }\n        }\n        return true;\n      };",
-            "date": 1662220800000
+            "date": "2022-09-04"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 12.8,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    bool checkDistances(string s, vector<int>& distance) {\n        vector<int> list(26, -1);\n        for (int i = 0; i < s.size(); i++) {\n            if (list[s[i] - 'a'] == -1) list[s[i] - 'a'] = i;\n            else if (i - list[s[i] - 'a'] - 1 != distance[s[i] - 'a']) return false;\n        }\n        return true;\n    }\n};",
-            "date": 1680969600000
+            "date": "2023-04-09"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 14.8,
             "desc": "同上。",
             "code": "class Solution:\n    def checkDistances(self, s: str, distance: List[int]) -> bool:\n        l = [-1] * 26\n        for i in range(len(s)):\n            idx = ord(s[i]) - ord('a')\n            if list[idx] == -1:\n                list[idx] = i\n            elif i - list[idx] - 1 != distance[idx]:\n                return False\n        return True",
-            "date": 1680969600000
+            "date": "2023-04-09"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn check_distances(s: String, distance: Vec<i32>) -> bool {\n        let s: Vec<usize> = s.chars().map(|v| v as usize).collect();\n        let mut list = vec![-1i32; 26];\n        for i in 0..s.len() {\n            let idx = s[i] - 'a' as usize;\n            if list[idx] == -1 {\n                list[idx] = i as i32;\n            } else if i as i32 - list[idx] - 1 != distance[idx] {\n                return false;\n            }\n        }\n        true\n    }\n}",
-            "date": 1680969600000
+            "date": "2023-04-09"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

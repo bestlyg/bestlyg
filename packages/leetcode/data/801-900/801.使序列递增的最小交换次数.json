@@ -2,17 +2,20 @@
     "id": "819",
     "name": "801.使序列递增的最小交换次数",
     "url": "https://leetcode.cn/problems/minimum-swaps-to-make-sequences-increasing",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "返回 使 nums1 和 nums2 严格递增 所需操作的最小次数 。",
     "solutions": [
         {
-            "date": 1665331200000,
+            "date": "2022-10-10",
             "time": 236,
             "memory": 117.2,
             "script": "cpp",
             "desc": "dp[i][0|1]表示 i 为结尾下标时，交换和不交换的最小交换次数。",
             "code": "class Solution {\npublic:\n    int minSwap(vector<int>& nums1, vector<int>& nums2) {\n        int n = nums1.size();\n        vector<vector<int>> dp(n, vector<int>(2, n));\n        dp[0][0] = 0;\n        dp[0][1] = 1;\n        for (int i = 1; i < n; i++) {\n            if (nums1[i - 1] < nums1[i] && nums2[i - 1] < nums2[i]) {\n                dp[i][0] = min(dp[i][0], dp[i - 1][0]);\n                dp[i][1] = min(dp[i][1], dp[i - 1][1] + 1);\n            }\n            if (nums1[i - 1] < nums2[i] && nums2[i - 1] < nums1[i]) {\n                dp[i][0] = min(dp[i][0], dp[i - 1][1]);\n                dp[i][1] = min(dp[i][1], dp[i - 1][0] + 1);\n            }\n        }\n        return min(dp[n - 1][0], dp[n - 1][1]);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

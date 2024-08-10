@@ -2,8 +2,6 @@
     "id": "2759",
     "name": "2625.扁平化嵌套数组",
     "url": "https://leetcode.cn/problems/flatten-deeply-nested-array",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "请你编写一个函数，它接收一个 多维数组 arr 和它的深度 n ，并返回该数组的 扁平化 后的结果。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 73,
             "desc": "dfs。",
             "code": "type MultiDimensionalArray = (number | MultiDimensionalArray)[];\n\nvar flat = function (arr: MultiDimensionalArray, n: number): MultiDimensionalArray {\n  if (n === 0) return arr;\n  const res: MultiDimensionalArray = [];\n  for (const num of arr) {\n    if (Array.isArray(num)) res.push(...flat(num, n - 1));\n    else res.push(num);\n  }\n  return res;\n};",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

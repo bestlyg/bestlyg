@@ -2,17 +2,20 @@
     "id": "1791",
     "name": "1672.最富有客户的资产总量",
     "url": "https://leetcode.cn/problems/richest-customer-wealth",
-    "difficulty": "简单",
-    "tag": ["数组", "矩阵"],
     "desc": "客户的 资产总量 就是他们在各家银行托管的资产数量之和。最富有客户就是 资产总量 最大的客户。",
     "solutions": [
         {
-            "date": 1649865600000,
+            "date": "2022-04-14",
             "time": 4,
             "memory": 7.5,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int maximumWealth(vector<vector<int>> &accounts) {\n        int ans = -1;\n        ;\n        for (auto &account : accounts) {\n            int sum = 0;\n            for (auto &data : account) sum += data;\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "矩阵"
+    ],
+    "level": "Easy"
 }

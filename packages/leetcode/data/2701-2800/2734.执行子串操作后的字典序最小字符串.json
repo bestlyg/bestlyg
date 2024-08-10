@@ -2,8 +2,6 @@
     "id": "2828",
     "name": "2734.执行子串操作后的字典序最小字符串",
     "url": "https://leetcode.cn/problems/lexicographically-smallest-string-after-substring-operation",
-    "difficulty": "中等",
-    "tag": ["贪心", "字符串"],
     "desc": "返回执行上述操作 恰好一次 后可以获得的 字典序最小 的字符串。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 22.7,
             "desc": "贪心，找第一个a前面的子串进行更新。",
             "code": "class Solution:\n    def smallestString(self, s: str) -> str:\n        arr = list(s)\n        starti = 0\n        while starti < len(arr) and arr[starti] == 'a':\n            starti += 1\n        if starti == len(arr):\n            arr[-1] = 'z'\n        else:\n            endi = starti + 1\n            while endi < len(arr) and arr[endi] != 'a': endi += 1\n            for i in range(starti, endi):\n                arr[i] = chr(ord(arr[i]) - 1)\n        return ''.join(arr)",
-            "date": 1719417600000
+            "date": "2024-06-27"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "字符串"
+    ],
+    "level": "Medium"
 }

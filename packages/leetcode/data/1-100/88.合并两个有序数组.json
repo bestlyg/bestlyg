@@ -2,12 +2,10 @@
     "id": "88",
     "name": "88.合并两个有序数组",
     "url": "https://leetcode.cn/problems/merge-sorted-array",
-    "difficulty": "简单",
-    "tag": ["数组", "双指针", "排序"],
     "desc": "给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。",
     "solutions": [
         {
-            "date": 1617552000000,
+            "date": "2021-04-05",
             "time": 72,
             "memory": 39.4,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function merge(nums1: number[], m: number, nums2: number[], n: number): void {\n  if (m === 0) {\n    nums1.length = 0;\n    nums1.push(...nums2);\n  } else if (n === 0) {\n  } else {\n    let lPos = m - 1;\n    let rPos = n - 1;\n    let curPos = m + n - 1;\n    while (curPos >= 0) {\n      const num1 = nums1[lPos];\n      const num2 = nums2[rPos];\n      let curNum = num1;\n      if (lPos < 0) {\n        rPos--;\n        curNum = num2;\n      } else if (rPos < 0) {\n        lPos--;\n      } else if (num1 >= num2) {\n        lPos--;\n      } else {\n        rPos--;\n        curNum = num2;\n      }\n      nums1[curPos--] = curNum;\n    }\n  }\n}"
         },
         {
-            "date": 1638201600000,
+            "date": "2021-11-30",
             "time": 4,
             "memory": 5.9,
             "script": "c",
@@ -23,7 +21,7 @@
             "code": "void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){\n    int i = m + n - 1, i1 = m - 1, i2 = n - 1;\n    while (i >= 0 && i1 >= 0 && i2 >= 0) {\n        if (nums1[i1] >= nums2[i2]) nums1[i--] = nums1[i1--];\n        else nums1[i--] = nums2[i2--];\n    }\n    if (i1 < 0 && i2 >= 0) while(i >= 0) nums1[i--] = nums2[i2--];\n}"
         },
         {
-            "date": 1638201600000,
+            "date": "2021-11-30",
             "time": 20,
             "memory": 8.7,
             "script": "c",
@@ -31,7 +29,7 @@
             "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nbool containsDuplicate(int* nums, int numsSize){\n    qsort(nums, numsSize, sizeof(int), comp);\n    int f = 0;\n    for (int i = 1; i < numsSize; i++) {\n        if (nums[i - 1] == nums[i]) {\n            f = 1;\n            break;\n        }\n    }\n    return f;\n}"
         },
         {
-            "date": 1640016000000,
+            "date": "2021-12-21",
             "time": 0,
             "memory": 8.7,
             "script": "cpp",
@@ -44,7 +42,7 @@
             "memory": 8.77,
             "desc": "双指针遍历。",
             "code": "class Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        for (int idx = nums1.size() - 1, i1 = m - 1, i2 = n - 1; idx >= 0; idx--) {\n            if (i2 < 0 || i1 >= 0 && nums1[i1] > nums2[i2]) {\n                nums1[idx] = nums1[i1--];\n            } else {\n                nums1[idx] = nums2[i2--];\n            }\n        }\n    }\n};",
-            "date": 1691856000000
+            "date": "2023-08-13"
         },
         {
             "script": "python",
@@ -52,7 +50,7 @@
             "memory": 15.68,
             "desc": "同上。",
             "code": "class Solution:\n    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:\n        i1 = m-1\n        i2 = n-1\n        for idx in range(len(nums1) - 1, -1, -1):\n            if i2 < 0 or i1 >= 0 and nums1[i1] > nums2[i2]:\n                nums1[idx] = nums1[i1]\n                i1 -= 1\n            else:\n                nums1[idx] = nums2[i2]\n                i2 -= 1",
-            "date": 1691856000000
+            "date": "2023-08-13"
         },
         {
             "script": "rust",
@@ -60,7 +58,13 @@
             "memory": 2.09,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {\n        let m = m as usize;\n        let n = n as usize;\n        let mut i1 = m - 1;\n        let mut i2 = n - 1;\n        for idx in (0..nums1.len()).rev() {\n            if i2 >= n || i1 < m && nums1[i1] > nums2[i2] {\n                nums1[idx] = nums1[i1];\n                i1 -= 1;\n            } else {\n                nums1[idx] = nums2[i2];\n                i2 -= 1;\n            }\n        }\n    }\n}",
-            "date": 1691856000000
+            "date": "2023-08-13"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "level": "Easy"
 }

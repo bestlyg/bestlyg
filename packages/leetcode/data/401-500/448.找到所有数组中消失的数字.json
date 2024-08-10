@@ -2,12 +2,10 @@
     "id": "448",
     "name": "448.找到所有数组中消失的数字",
     "url": "https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表"],
     "desc": "给定一个范围在   1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。找到所有在 [1, n] 范围之间没有出现在数组中的数字。",
     "solutions": [
         {
-            "date": 1613145600000,
+            "date": "2021-02-13",
             "time": 152,
             "memory": 50.7,
             "script": "typescript",
@@ -15,12 +13,17 @@
             "code": "function findDisappearedNumbers(nums: number[]): number[] {\n  const set = new Set(nums);\n  const ans: number[] = [];\n  for (let i = 1, l = nums.length; i <= l; i++) {\n    if (!set.has(i)) ans.push(i);\n  }\n  return ans;\n}"
         },
         {
-            "date": 1613145600000,
+            "date": "2021-02-13",
             "time": 116,
             "memory": 46.4,
             "script": "typescript",
             "desc": "[参考链接](https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/)。",
             "code": "function findDisappearedNumbers(nums: number[]): number[] {\n  const n = nums.length;\n  nums.forEach(v => (nums[(v - 1) % n] += n));\n  const ret: number[] = [];\n  nums.forEach((v, i) => v <= n && ret.push(i + 1));\n  return ret;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "146",
     "name": "146.LRU缓存",
     "url": "https://leetcode.cn/problems/lru-cache",
-    "difficulty": "中等",
-    "tag": ["设计", "哈希表", "链表", "双向链表"],
     "desc": "根据逆波兰表示法，求表达式的值。有效的运算符包括 +, -, \\*, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。",
     "solutions": [
         {
-            "date": 1590336000000,
+            "date": "2020-05-25",
             "time": 228,
             "memory": 47.8,
             "script": "typescript",
@@ -20,7 +18,14 @@
             "memory": 73.81,
             "desc": "链表。",
             "code": "class Node:\n        def __init__(self, key=0, val: int = 0, prev=None, next=None):\n            self.key = key\n            self.val = val\n            self.prev = prev\n            self.next = next\n    \n        def append(self, prev):\n            next = prev.next\n            prev.next, next.prev, self.prev, self.next = self, self, prev, next\n    \n        def remove(self):\n            if self.prev:\n                self.prev.next, self.next.prev = self.next, self.prev\n    \n    \n    class LRUCache:\n        def __init__(self, capacity: int):\n            self.cache = {}\n            self.capacity = capacity\n            self.size = 0\n            self.head = Node()\n            self.tail = Node()\n            self.head.next = self.tail\n            self.tail.prev = self.head\n    \n        def get(self, key: int) -> int:\n            if key not in self.cache:\n                return -1\n            node = self.cache[key]\n            node.remove()\n            node.append(self.head)\n            return node.val\n    \n        def put(self, key: int, value: int) -> None:\n            if key not in self.cache:\n                self.cache[key] = Node(key, value)\n                self.size += 1\n                if self.size > self.capacity:\n                    self.size -= 1\n                    del self.cache[self.tail.prev.key]\n                    self.tail.prev.remove()\n            node = self.cache[key]\n            node.val = value\n            node.remove()\n            node.append(self.head)",
-            "date": 1695484800000
+            "date": "2023-09-24"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "哈希表",
+        "链表",
+        "双向链表"
+    ],
+    "level": "Medium"
 }

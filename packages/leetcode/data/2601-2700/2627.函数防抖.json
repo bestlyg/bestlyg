@@ -2,8 +2,6 @@
     "id": "2743",
     "name": "2627.函数防抖",
     "url": "https://leetcode.cn/problems/debounce",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "请你编写一个函数，接收参数为另一个函数和一个以毫秒为单位的时间 t ，并返回该函数的 函数防抖 后的结果。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 50.1,
             "desc": "闭包。",
             "code": "function stringCompare(str1: string, str2: string) {\n  const [n1, n2] = [str1.length, str2.length];\n  let i = 0;\n  while (i < n1 && i < n2)\n    if (str1[i] == str2[i]) i++;\n    else return str1.codePointAt(i)! - str2.codePointAt(i)!;\n  if (i == n1 && i == n2) return 0;\n  if (i == n1) return -1;\n  else return 1;\n}\nconst sort = (o: object) => Object.entries(o).sort(([k1], [k2]) => stringCompare(k1, k2));\nfunction areDeeplyEqual(o1: any, o2: any): boolean {\n  const [t1, t2] = [typeof o1, typeof o2];\n  // 类型不等就错了\n  if (t1 !== t2) return false;\n  // 如果不是对象，直接判断\n  if (t1 !== 'object') return o1 === o2;\n  // 如果是null或undefined，直接判断\n  if (o1 === null || o1 === undefined || o2 === null || o2 === undefined) return o1 === o2;\n  // 如果是数组，先判断是否都是数组或者都不是数组\n  const [isArr1, isArr2] = [Array.isArray(o1), Array.isArray(o2)];\n  if ((!isArr1 && isArr2) || (isArr1 && !isArr2)) return false;\n  // 键值对排序\n  const [item1, item2] = [sort(o1), sort(o2)];\n  // 如果长度不想等，就错了\n  if (item1.length !== item2.length) return false;\n  // 如果键不等，或者值不等，就错了\n  for (let i = 0; i < item1.length; i++)\n    if (item1[i][0] !== item2[i][0] || !areDeeplyEqual(item1[i][1], item2[i][1])) return false;\n  return true;\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

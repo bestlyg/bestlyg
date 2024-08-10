@@ -2,17 +2,22 @@
     "id": "1000040",
     "name": "面试题10.02.变位词组",
     "url": "https://leetcode.cn/problems/group-anagrams-lcci",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串", "排序"],
     "desc": "编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。",
     "solutions": [
         {
-            "date": 1626624000000,
+            "date": "2021-07-19",
             "time": 240,
             "memory": 50.6,
             "script": "typescript",
             "desc": "哈希储存。",
             "code": "function groupAnagrams(strs: string[]): string[][] {\n  const map: Record<string, string[]> = {};\n  const getKey = (str: string) => {\n    const cache: Record<string, number> = {};\n    for (const c of str) cache[c] = (cache[c] ?? 0) + 1;\n    return Object.entries(cache)\n      .sort(([k1], [k2]) => k1.codePointAt(0)! - k2.codePointAt(0)!)\n      .map(([k, v]) => k + v)\n      .join(':');\n  };\n  for (const str of strs) {\n    const key = getKey(str);\n    let arr = map[key];\n    if (!arr) map[key] = arr = [];\n    arr.push(str);\n  }\n  return Object.values(map);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "level": "Medium"
 }

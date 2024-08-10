@@ -2,12 +2,10 @@
     "id": "1251",
     "name": "1147.段式回文",
     "url": "https://leetcode.cn/problems/longest-chunked-palindrome-decomposition",
-    "difficulty": "困难",
-    "tag": ["贪心", "双指针", "字符串", "动态规划", "哈希函数", "滚动哈希"],
     "desc": "给你一个字符串 text，在确保它满足段式回文的前提下，请你返回 段 的 最大数量 k。",
     "solutions": [
         {
-            "date": 1639238400000,
+            "date": "2021-12-12",
             "time": 80,
             "memory": 40.5,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 6,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int longestDecomposition(string text) {\n        int n = text.size(), res = 0;\n        auto check = [&](int i1, int i2, int size) -> bool {\n            while (size--) {\n                if (text[i1++] != text[i2++]) return false;\n            }\n            return true;\n        };\n        for (int i = 0; i <= n / 2; i++) {\n            int f = false;\n            for (int cnt = 1; i + cnt <= n - i; cnt++) {\n                if (check(i, n - i - cnt, cnt)) {\n                    f = true;\n                    if (i == n - i - cnt) res += 1; // 是一个字符串\n                    else res += 2; \n                    i += cnt - 1;\n                    break;\n                }\n            }\n            if (!f) {\n                if ((n - 2 * i) / 2 != 0) res += 1; // 只剩空字符串\n                break;\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1681228800000
+            "date": "2023-04-12"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 14.8,
             "desc": "同上。",
             "code": "class Solution:\n    def longestDecomposition(self, text: str) -> int:\n        n = len(text)\n        res = 0\n        def check(i1: int, i2: int, size: int) -> bool:\n            while size:\n                if text[i1] != text[i2]:\n                    return False\n                i1 += 1\n                i2 += 1\n                size -= 1\n            return True\n        i = 0\n        while i <= n // 2:\n            f = False\n            cnt = 1\n            while i + cnt <= n - i:\n                if check(i, n - i - cnt, cnt):\n                    f = True\n                    if i == n - i - cnt:\n                        res += 1\n                    else:\n                        res += 2\n                    i += cnt-1\n                    break\n                cnt += 1\n            if not f:\n                if (n - 2 * i) / 2 != 0:\n                    res += 1\n                break\n            i += 1\n        return res",
-            "date": 1681228800000
+            "date": "2023-04-12"
         },
         {
             "script": "rust",
@@ -36,7 +34,16 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn longest_decomposition(text: String) -> i32 {\n        let text = text.chars().collect::<Vec<char>>();\n        let n = text.len();\n        let mut res = 0;\n        let check = |mut i1: usize, mut i2: usize, mut size: usize| -> bool {\n            while size != 0 {\n                if text[i1] != text[i2] {\n                    return false;\n                }\n                i1 += 1;\n                i2 += 1;\n                size -= 1;\n            }\n            true\n        };\n        let mut i = 0;\n        while i <= n / 2 {\n            let mut f = false;\n            let mut cnt = 1;\n            while i + cnt <= n - i {\n                if check(i, n - i - cnt, cnt) {\n                    f = true;\n                    res += if i == n - i - cnt { 1 } else { 2 };\n                    i += cnt - 1;\n                    break;\n                }\n                cnt += 1;\n            }\n            if !f {\n                if (n - 2 * i) / 2 != 0 {\n                    res += 1;\n                }\n                break;\n            }\n            i += 1;\n        }\n        res\n    }\n}",
-            "date": 1681228800000
+            "date": "2023-04-12"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "双指针",
+        "字符串",
+        "动态规划",
+        "哈希函数",
+        "滚动哈希"
+    ],
+    "level": "Hard"
 }

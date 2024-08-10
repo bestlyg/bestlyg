@@ -2,8 +2,6 @@
     "id": "2790",
     "name": "2693.使用自定义上下文调用函数",
     "url": "https://leetcode.cn/problems/call-function-with-custom-context",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "增强所有函数，使其具有 callPolyfill 方法。该方法接受一个对象 obj 作为第一个参数，以及任意数量的附加参数。obj 成为函数的 this 上下文。附加参数将传递给该函数（即 callPolyfill 方法所属的函数）。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 43.9,
             "desc": "利用原型链挂载this。",
             "code": "declare global {\n    interface Function {\n        callPolyfill(context: Record<any, any>, ...args: any[]): any;\n    }\n}\nFunction.prototype.callPolyfill = function (context: any, ...args): any {\n    const temp = Symbol();\n    context.__proto__[temp] = this;\n    const res =  context[temp](...args);\n    delete context.__proto__[temp];\n    return res;\n};",
-            "date": 1684771200000
+            "date": "2023-05-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

@@ -2,17 +2,21 @@
     "id": "10",
     "name": "10.正则表达式匹配",
     "url": "https://leetcode.cn/problems/regular-expression-matching",
-    "difficulty": "困难",
-    "tag": ["递归", "字符串", "动态规划"],
     "desc": "给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '\\*' 的正则表达式匹配。",
     "solutions": [
         {
-            "date": 1586620800000,
+            "date": "2020-04-12",
             "time": 92,
             "memory": 34.5,
             "script": "javascript",
             "desc": "直接偷懒用新建正则判断。",
             "code": "/**\n * @param {string} s\n * @param {string} p\n * @return {boolean}\n */\nvar isMatch = (s, p) => new RegExp(`^${p}$`).test(s);"
         }
-    ]
+    ],
+    "tagList": [
+        "递归",
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

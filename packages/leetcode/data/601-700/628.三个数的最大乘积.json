@@ -2,12 +2,10 @@
     "id": "628",
     "name": "628.三个数的最大乘积",
     "url": "https://leetcode.cn/problems/maximum-product-of-three-numbers",
-    "difficulty": "简单",
-    "tag": ["数组", "数学", "排序"],
     "desc": "给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。",
     "solutions": [
         {
-            "date": 1611072000000,
+            "date": "2021-01-20",
             "time": 148,
             "memory": 43,
             "script": "typescript",
@@ -15,12 +13,18 @@
             "code": "function maximumProduct(nums: number[]): number {\n  nums.sort((a, b) => a - b);\n  const len = nums.length;\n  const compute = (arr: number[]) => arr.reduce((total, cur) => total * cur, 1);\n  const maxNum = compute(nums.slice(-3));\n  return nums[0] < 0 && nums[1] < 0 && nums[len - 1] > 0\n    ? Math.max(compute([nums[0], nums[1], nums[len - 1]]), maxNum)\n    : maxNum;\n}"
         },
         {
-            "date": 1611072000000,
+            "date": "2021-01-20",
             "time": 152,
             "memory": 43.2,
             "script": "typescript",
             "desc": "优化题解 1。",
             "code": "function maximumProduct(nums: number[]): number {\n  nums.sort((a, b) => a - b);\n  const len = nums.length;\n  return Math.max(nums[0] * nums[1] * nums[len - 1], nums[len - 1] * nums[len - 2] * nums[len - 3]);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "排序"
+    ],
+    "level": "Easy"
 }

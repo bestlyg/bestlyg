@@ -2,12 +2,10 @@
     "id": "815",
     "name": "799.香槟塔",
     "url": "https://leetcode.cn/problems/champagne-tower",
-    "difficulty": "中等",
-    "tag": ["动态规划"],
     "desc": "现在当倾倒了非负整数杯香槟后，返回第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从 0 开始）。",
     "solutions": [
         {
-            "date": 1668873600000,
+            "date": "2022-11-20",
             "time": 12,
             "memory": 13.7,
             "script": "cpp",
@@ -15,12 +13,16 @@
             "code": "class Solution {\npublic:\n    double champagneTower(int poured, int query_row, int query_glass) {\n        vector<vector<double>> dp(query_row + 1, vector<double>(query_row + 1, 0.0));\n        dp[0][0] = (double)poured;\n        for (int i = 1; i <= query_row; i++) {\n            if (dp[i - 1][0] > 1.0) dp[i][0] = dp[i][i] = (dp[i - 1][0] - 1) / 2;\n            for (int j = 1; j < i; j++) {\n                if (dp[i - 1][j - 1] > 1.0) dp[i][j] += (dp[i - 1][j - 1] - 1) / 2;\n                if (dp[i - 1][j] > 1.0) dp[i][j] += (dp[i - 1][j] - 1) / 2;\n            }\n        }\n        return min(1.0, dp[query_row][query_glass]);\n    }\n};"
         },
         {
-            "date": 1668873600000,
+            "date": "2022-11-20",
             "time": 16,
             "memory": 13.7,
             "script": "cpp",
             "desc": "模拟。",
             "code": "class Solution {\npublic:\n    double champagneTower(int poured, int query_row, int query_glass) {\n        vector<vector<double>> dp(query_row + 1, vector<double>(query_row + 1, 0.0));\n        dp[0][0] = (double)poured;\n        for (int i = 0; i < query_row; i++) {\n            for (int j = 0; j <= i; j++) {\n                if (dp[i][j] <= 1.0) continue;\n                double val = (dp[i][j] - 1) / 2;\n                dp[i + 1][j] += val;\n                dp[i + 1][j + 1] += val;\n            }\n        }\n        return min(1.0, dp[query_row][query_glass]);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "动态规划"
+    ],
+    "level": "Medium"
 }

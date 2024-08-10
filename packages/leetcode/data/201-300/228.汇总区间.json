@@ -2,12 +2,10 @@
     "id": "228",
     "name": "228.汇总区间",
     "url": "https://leetcode.cn/problems/summary-ranges",
-    "difficulty": "简单",
-    "tag": ["数组"],
     "desc": "给定一个无重复元素的有序整数数组 nums 。返回 恰好覆盖数组中所有数字 的 最小有序 区间范围列表。也就是说，nums 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 nums 的数字 x 。",
     "solutions": [
         {
-            "date": 1610208000000,
+            "date": "2021-01-10",
             "time": 104,
             "memory": 40.2,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 6.65,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    vector<string> summaryRanges(vector<int>& nums) {\n        vector<string> res;\n        if (nums.size() == 0) return res;\n        bool prev = false;\n        pair<int, int> cur;\n        for (auto &num : nums) {\n            if (!prev) {\n                prev = true;\n                cur = make_pair(num, num);\n            } else if (cur.second + 1 == num) {\n                cur.second = num;\n            } else {\n                string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + \"->\" + to_string(cur.second);\n                res.push_back(item);\n                cur = make_pair(num, num);\n            }\n        }\n        if (prev) {\n            string item = cur.first == cur.second ? to_string(cur.first) : to_string(cur.first) + \"->\" + to_string(cur.second);\n            res.push_back(item);\n        }\n        return res;\n    }\n};",
-            "date": 1692979200000
+            "date": "2023-08-26"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15.72,
             "desc": "同上。",
             "code": "class Solution:\n    def summaryRanges(self, nums: List[int]) -> List[str]:\n        if not len(nums):\n            return []\n        res = []\n        prev = False\n        cur = (0, 0)\n        for num in nums:\n            if not prev:\n                prev = True\n                cur = (num, num)\n            elif cur[1] + 1 == num:\n                cur = (cur[0], num)\n            else:\n                item = str(cur[0]) if cur[0] == cur[1] else str(cur[0]) + \"->\" + str(cur[1])\n                res.append(item)\n                cur = (num, num)\n        if prev:\n            item = str(cur[0]) if cur[0] == cur[1] else str(\n                cur[0]) + \"->\" + str(cur[1])\n            res.append(item)\n        return res",
-            "date": 1692979200000
+            "date": "2023-08-26"
         },
         {
             "script": "rust",
@@ -36,7 +34,11 @@
             "memory": 2.13,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn summary_ranges(nums: Vec<i32>) -> Vec<String> {\n        let mut res = vec![];\n        if !nums.is_empty() {\n            let mut prev = false;\n            let mut cur = (0, 0);\n            for num in nums {\n                if !prev {\n                    prev = true;\n                    cur = (num, num);\n                } else if cur.1 + 1 == num {\n                    cur.1 = num;\n                } else {\n                    let item = if cur.0 == cur.1 {\n                        cur.0.to_string()\n                    } else {\n                        let mut s = String::new();\n                        s.push_str(&cur.0.to_string());\n                        s.push_str(\"->\");\n                        s.push_str(&cur.1.to_string());\n                        s\n                    };\n                    res.push(item);\n                    cur = (num, num);\n                }\n            }\n            if prev {\n                let item = if cur.0 == cur.1 {\n                        cur.0.to_string()\n                } else {\n                    let mut s = String::new();\n                    s.push_str(&cur.0.to_string());\n                    s.push_str(\"->\");\n                    s.push_str(&cur.1.to_string());\n                    s\n                };\n                res.push(item);\n            }\n        }\n        res\n    }\n}",
-            "date": 1692979200000
+            "date": "2023-08-26"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Easy"
 }

@@ -2,17 +2,21 @@
     "id": "1297",
     "name": "1189.“气球”的最大数量",
     "url": "https://leetcode.cn/problems/maximum-number-of-balloons",
-    "difficulty": "简单",
-    "tag": ["哈希表", "字符串", "计数"],
     "desc": "字符串 text 中的每个字母最多只能被使用一次。请你返回最多可以拼凑出多少个单词 \"balloon\"。",
     "solutions": [
         {
-            "date": 1644681600000,
+            "date": "2022-02-13",
             "time": 0,
             "memory": 6.5,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int maxNumberOfBalloons(string text) {\n        int m[26] = {0};\n        for (auto &ch : text) m[ch - 'a']++;\n        return min(min(min(m[1], m[0]), m['n' - 'a']),\n                   min(m['l' - 'a'], m['o' - 'a']) / 2);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "level": "Easy"
 }

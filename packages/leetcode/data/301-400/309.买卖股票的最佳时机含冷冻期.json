@@ -2,12 +2,10 @@
     "id": "309",
     "name": "309.买卖股票的最佳时机含冷冻期",
     "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划"],
     "desc": "给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格，设计一个算法计算出最大利润。",
     "solutions": [
         {
-            "date": 1594396800000,
+            "date": "2020-07-11",
             "time": 84,
             "memory": 36.5,
             "script": "typescript",
@@ -20,7 +18,12 @@
             "memory": 560.76,
             "desc": "记忆化递归。",
             "code": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        n = len(prices)\n        @cache\n        def dfs(idx: int, cooldown: bool, cur: int):\n            if idx == n: return 0\n            res = dfs(idx + 1, False, cur)\n            if not cooldown:\n                if cur != -inf: res = max(res, dfs(idx + 1, True, -inf) + prices[idx] - cur)\n                else: res = max(res, dfs(idx + 1, False, prices[idx]))\n            return res\n        return dfs(0, False, -inf)\n        \n",
-            "date": 1696435200000
+            "date": "2023-10-05"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

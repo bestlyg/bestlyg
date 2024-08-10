@@ -2,12 +2,10 @@
     "id": "16",
     "name": "16.最接近的三数之和",
     "url": "https://leetcode.cn/problems/3sum-closest",
-    "difficulty": "中等",
-    "tag": ["数组", "双指针", "排序"],
     "desc": "给定一个包括  n 个整数的数组  nums  和 一个目标值  target。找出  nums  中的三个整数，使得它们的和与  target  最接近。返回这三个数的和。假定每组输入只存在唯一答案。",
     "solutions": [
         {
-            "date": 1591718400000,
+            "date": "2020-06-10",
             "time": 80,
             "memory": 35.9,
             "script": "typescript",
@@ -20,7 +18,13 @@
             "memory": 9.9,
             "desc": "二分。",
             "code": "class Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        nums.push_back(0x3f3f3f3f);\n        nums.push_back(-0x3f3f3f3f);\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), res = -0x3f3f3f3f;\n        for (int i = 1; i + 2 < n; i++) {\n            for (int j = i + 1; j + 1 < n; j++) {\n                int l = j + 1, r = n, sum = nums[i] + nums[j];\n                while (l < r) {\n                    int m = (l + r) / 2;\n                    if (nums[m] >= target - sum) r = m;\n                    else l = m + 1;\n                }\n                if (sum + nums[l] == target) return target;\n                if (nums[l] != INT_MAX && abs(target - sum - nums[l]) < abs(target - res)) {\n                    res = sum + nums[l];\n                }\n                if (l != j + 1 && nums[l - 1] != INT_MIN && abs(target - sum - nums[l - 1]) < abs(target - res)) {\n                    res = sum + nums[l - 1];\n                }                \n            }\n        }\n        return res;\n    }\n};",
-            "date": 1688918400000
+            "date": "2023-07-10"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "level": "Medium"
 }

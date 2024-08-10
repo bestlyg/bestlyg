@@ -2,8 +2,6 @@
     "id": "1905",
     "name": "1797.设计一个验证系统",
     "url": "https://leetcode.cn/problems/design-authentication-manager",
-    "difficulty": "中等",
-    "tag": ["设计", "哈希表", "链表", "双向链表"],
     "desc": "你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 29.4,
             "desc": "哈希存储。",
             "code": "class AuthenticationManager {\npublic:\n    int timeToLive;\n    unordered_map<string, int> m;\n    AuthenticationManager(int timeToLive): timeToLive(timeToLive) {}\n    \n    void generate(string tokenId, int currentTime) {\n        m[tokenId] = currentTime;\n    }\n    \n    void renew(string tokenId, int currentTime) {\n        if (!m.count(tokenId)) return;\n        if (currentTime - m[tokenId] >= timeToLive) m.erase(tokenId);\n        else m[tokenId] = currentTime;\n    }\n    \n    int countUnexpiredTokens(int currentTime) {\n        int ans = 0;\n        for (auto &item : m) {\n            if (currentTime - item.second < timeToLive) ans++;\n        }\n        return ans;\n    }\n};",
-            "date": 1675872000000
+            "date": "2023-02-09"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.5,
             "desc": "同上。",
             "code": "class AuthenticationManager:\n    def __init__(self, timeToLive: int):\n        self.timeToLive = timeToLive\n        self.m = defaultdict()\n\n    def generate(self, tokenId: str, currentTime: int) -> None:\n        self.m[tokenId] = currentTime\n\n    def renew(self, tokenId: str, currentTime: int) -> None:\n        if not tokenId in self.m:\n            return\n        if currentTime - self.m[tokenId] >= self.timeToLive:\n            self.m.pop(tokenId)\n        else:\n            self.m[tokenId] = currentTime\n\n    def countUnexpiredTokens(self, currentTime: int) -> int:\n        ans = 0\n        for v in self.m.values():\n            if currentTime - v < self.timeToLive:\n                ans += 1\n        return ans",
-            "date": 1675872000000
+            "date": "2023-02-09"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 3.6,
             "desc": "同上。",
             "code": "use std::collections::HashMap;\nstruct AuthenticationManager {\n    timeToLive: i32,\n    m: HashMap<String, i32>,\n}\n\nimpl AuthenticationManager {\n    fn new(timeToLive: i32) -> Self {\n        Self {\n            timeToLive,\n            m: HashMap::new(),\n        }\n    }\n    fn generate(&mut self, token_id: String, current_time: i32) {\n        if !self.m.contains_key(&token_id) {\n            self.m.insert(token_id, current_time);\n        } else {\n            *self.m.get_mut(&token_id).unwrap() = current_time;\n        }\n    }\n\n    fn renew(&mut self, token_id: String, current_time: i32) {\n        if self.m.contains_key(&token_id) {\n            let item = self.m.get_mut(&token_id).unwrap();\n            if current_time - *item >= self.timeToLive {\n                self.m.remove(&token_id);\n            } else {\n                *item = current_time;\n            }\n        }\n    }\n\n    fn count_unexpired_tokens(&self, current_time: i32) -> i32 {\n        let mut ans = 0;\n        self.m\n            .iter()\n            .map(|(_, v)| v)\n            .filter(|v| current_time - *v < self.timeToLive)\n            .collect::<Vec<&i32>>()\n            .len() as i32\n    }\n}",
-            "date": 1675872000000
+            "date": "2023-02-09"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "哈希表",
+        "链表",
+        "双向链表"
+    ],
+    "level": "Medium"
 }

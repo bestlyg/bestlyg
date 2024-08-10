@@ -2,12 +2,10 @@
     "id": "337",
     "name": "337.打家劫舍III",
     "url": "https://leetcode.cn/problems/house-robber-iii",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "动态规划", "二叉树"],
     "desc": "计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。",
     "solutions": [
         {
-            "date": 1596556800000,
+            "date": "2020-08-05",
             "time": 108,
             "memory": 44,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 30.57,
             "desc": "dfs时记录偷取当前节点和不偷取时的最大值。",
             "code": "class Solution {\npublic:\n    vector<int> find(TreeNode *node) {\n        vector<int> res{0, 0};\n        if (node) {\n            auto l = find(node->left), r = find(node->right);\n            res[0] = max(l[0], l[1]) + max(r[0], r[1]);\n            res[1] = l[0] + r[0] + node->val;\n        }\n        return res;\n    }\n    int rob(TreeNode* root) {\n        auto res = find(root);\n        return max(res[0], res[1]);\n    }\n};\n",
-            "date": 1694966400000
+            "date": "2023-09-18"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 18.6,
             "desc": "同上。",
             "code": "class Solution:\n    def rob(self, root: Optional[TreeNode]) -> int:\n        def find(node: Optional[TreeNode]) -> List[int]:\n            res = [0, 0]\n            if node:\n                l, r = find(node.left), find(node.right)\n                res[0] = max(l) + max(r)\n                res[1] = l[0] + r[0] + node.val\n            return res\n        return max(find(root))",
-            "date": 1694966400000
+            "date": "2023-09-18"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 2.81,
             "desc": "同上。",
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nfn find(node: Option<&Rc<RefCell<TreeNode>>>) -> Vec<i32> {\n    let mut res = vec![0, 0];\n    if let Some(node) = node {\n        let node_ref = node.as_ref().borrow();\n        let l = find(node_ref.left.as_ref());\n        let r = find(node_ref.right.as_ref());\n        res[1] = l[0] + r[0] + node_ref.val;\n        res[0] = l.into_iter().max().unwrap() + r.into_iter().max().unwrap();\n    }\n    res\n}\nimpl Solution {\n    pub fn rob(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let node = root.as_ref();\n        find(root.as_ref()).into_iter().max().unwrap()\n    }\n}",
-            "date": 1694966400000
+            "date": "2023-09-18"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "动态规划",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

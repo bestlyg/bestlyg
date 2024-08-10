@@ -2,8 +2,6 @@
     "id": "1169",
     "name": "1090.受标签影响的最大值",
     "url": "https://leetcode.cn/problems/largest-values-from-labels",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "哈希表", "计数", "排序"],
     "desc": "返回子集 s 的最大 分数 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 22.2,
             "desc": "利用堆找出最大的值贪心塞入。",
             "code": "class Solution {\npublic:\n    int largestValsFromLabels(vector<int>& values, vector<int>& labels, int numWanted, int useLimit) {\n        unordered_map<int, vector<int>> m;\n        unordered_map<int, int> mcnt;\n        int n = values.size();\n        for (int i = 0; i < n; i++) m[labels[i]].push_back(values[i]);\n        for (auto &item : m) sort(item.second.begin(), item.second.end());\n        auto cmp = [&](int x, int y) -> bool { return m[x].back() < m[y].back(); };\n        priority_queue<int, vector<int>, decltype(cmp)> q(cmp);\n        for (auto &item : m) q.push(item.first);\n        int res = 0;\n        for (int i = 0; i < numWanted && q.size(); i++) {\n            int idx = q.top();\n            q.pop();\n            res += m[idx].back();\n            m[idx].pop_back();\n            if (++mcnt[idx] < useLimit && m[idx].size()) q.push(idx);\n        }\n        return res;\n    }\n};",
-            "date": 1684771200000
+            "date": "2023-05-23"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 19.3,
             "desc": "排序后从后往前遍历。",
             "code": "class Solution {\npublic:\n    int largestValsFromLabels(vector<int>& values, vector<int>& labels, int numWanted, int useLimit) {\n        int n = values.size();\n        vector<int> list;\n        for (int i = 0; i < n; i++) list.push_back(i);\n        sort(list.begin(), list.end(), [&](auto &i1, auto &i2) {\n            return values[i1] < values[i2];\n        });\n        unordered_map<int, int> m;\n        int res = 0;\n        for (int i = n - 1, cnt = 0; i >= 0 && cnt < numWanted; i--) {\n            if (m[labels[list[i]]] == useLimit) continue;\n            m[labels[list[i]]] += 1;\n            res += values[list[i]];\n            cnt += 1;\n        }\n        return res;\n    }\n};",
-            "date": 1684771200000
+            "date": "2023-05-23"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 19.8,
             "desc": "同上。",
             "code": "class Solution:\n    def largestValsFromLabels(self, values: List[int], labels: List[int], numWanted: int, useLimit: int) -> int:\n        n = len(values)\n        list = [i for i in range(n)]\n        list.sort(key=lambda i: values[i])\n        m = Counter()\n        res = 0\n        cnt = 0\n        for i in range(n-1, -1, -1):\n            if cnt >= numWanted:\n                break\n            if m[labels[list[i]]] == useLimit:\n                continue\n            m[labels[list[i]]] += 1\n            res += values[list[i]]\n            cnt += 1\n        return res",
-            "date": 1684771200000
+            "date": "2023-05-23"
         },
         {
             "script": "rust",
@@ -36,7 +34,15 @@
             "memory": 2.6,
             "desc": "同上。",
             "code": "impl Solution {\npub fn largest_vals_from_labels(\n    values: Vec<i32>,\n    labels: Vec<i32>,\n    num_wanted: i32,\n    use_limit: i32,\n) -> i32 {\n    let n = values.len();\n    let mut list = vec![];\n    for i in 0..n {\n        list.push(i);\n    }\n    list.sort_by_key(|i| values[*i]);\n    let mut m = std::collections::HashMap::<i32, i32>::new();\n    let mut res = 0;\n    let mut cnt = 0;\n    for i in (0..n).rev() {\n        if cnt >= num_wanted {\n            break;\n        }\n        let item = m.entry(labels[list[i]]).or_insert(0);\n        if *item < use_limit {\n            *item += 1;\n            res += values[list[i]];\n            cnt += 1;\n        }\n    }\n    res\n}\n}",
-            "date": 1684771200000
+            "date": "2023-05-23"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "计数",
+        "排序"
+    ],
+    "level": "Medium"
 }

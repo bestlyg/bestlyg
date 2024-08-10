@@ -2,8 +2,6 @@
     "id": "2694",
     "name": "2644.找出可整除性得分最大的整数",
     "url": "https://leetcode.cn/problems/find-the-maximum-divisibility-score",
-    "difficulty": "简单",
-    "tag": ["数组"],
     "desc": "给你两个下标从 0 开始的整数数组 nums 和 divisors 。divisors[i] 的 可整除性得分 等于满足 nums[j] 能被 divisors[i] 整除的下标 j 的数量。返回 可整除性得分 最大的整数 divisors[i] 。如果有多个整数具有最大得分，则返回数值最小的一个。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 28.6,
             "desc": "遍历。",
             "code": "class Solution {\n    public:\n        int maxDivScore(vector<int>& nums, vector<int>& divisors) {\n            int res = 0x7fffffff, resCnt = 0;\n            for (auto &v : divisors) {\n                int cnt = 0;\n                for (auto &num : nums) {\n                    if (num % v == 0) cnt++;\n                }\n                if (resCnt < cnt || resCnt == cnt && res > v) {\n                    res = v;\n                    resCnt = cnt;\n                }\n            }\n            return res;\n        }\n    };",
-            "date": 1681574400000
+            "date": "2023-04-16"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.2,
             "desc": "同上。",
             "code": "class Solution:\n    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:\n        res = 0x7fffffff\n        resCnt = 0\n        for v in divisors:\n            cnt = 0\n            for num in nums:\n                if num % v == 0:\n                    cnt += 1\n            if resCnt < cnt or resCnt == cnt and res > v:\n                res = v\n                resCnt = cnt\n        return res",
-            "date": 1681574400000
+            "date": "2023-04-16"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn max_div_score(nums: Vec<i32>, divisors: Vec<i32>) -> i32 {\n        let mut res = i32::MAX;\n        let mut resCnt = 0;\n        for v in divisors {\n            let mut cnt = 0;\n            for num in nums.iter() {\n                if *num % v == 0 {\n                    cnt += 1;\n                }\n            }\n            if resCnt < cnt || resCnt == cnt && res > v {\n                res = v;\n                resCnt = cnt;\n            }\n        }\n        res\n    }\n}",
-            "date": 1681574400000
+            "date": "2023-04-16"
         },
         {
             "script": "python",
@@ -36,7 +34,11 @@
             "memory": 16.7,
             "desc": "遍历。",
             "code": "class Solution:\n    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:\n        res = 0\n        res_num = divisors[0]\n        arr = [sum(num % divisor == 0 for num in nums) for divisor in divisors]\n        for i in range(len(divisors)):\n            if arr[i] >= res:\n                if arr[i] > res or arr[i] == res and divisors[i] < res_num:\n                    res_num = divisors[i]\n                res = arr[i]\n        return res_num",
-            "date": 1715961600000
+            "date": "2024-05-18"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Easy"
 }

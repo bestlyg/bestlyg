@@ -2,17 +2,23 @@
     "id": "938",
     "name": "902.最大为N的数字组合",
     "url": "https://leetcode.cn/problems/numbers-at-most-n-given-digit-set",
-    "difficulty": "困难",
-    "tag": ["数组", "数学", "字符串", "二分查找", "动态规划"],
     "desc": "返回 可以生成的小于或等于给定整数 n 的正整数的个数 。",
     "solutions": [
         {
-            "date": 1666022400000,
+            "date": "2022-10-18",
             "time": 0,
             "memory": 8,
             "script": "cpp",
             "desc": "先统计少一位数的情况，再对于位数相同的情况进行遍历。",
             "code": "class Solution {\npublic:\n    int getCnt(int n, int &first, int &firstNum) {\n        int ans = 0;\n        for (; n; n /= 10) {\n            ans++;\n            if (n < 10) first *= n, firstNum = n;\n            else first *= 10;\n        }\n        return ans;\n    }\n    int atMostNGivenDigitSet(vector<string>& digits, int n, bool empty = true) {\n        if (n == 0) return 0;\n        if (n < 10) {\n            int idx = digits.size() - 1;\n            while (idx >= 0 && digits[idx][0] - '0' > n) idx--;\n            return idx + 1;\n        }\n        int firstNum, first = 1, cnt = getCnt(n, first, firstNum), sum = 0, ans = 0;\n        for (int i = 1; i < cnt; i++) sum += pow(digits.size(), i);\n        int idx = digits.size() - 1;\n        string s = to_string(n);\n        while (idx >= 0 && digits[idx][0] - '0' > firstNum) idx--;\n        if (idx < 0) return empty ? sum : 0;\n        if (digits[idx][0] - '0' == firstNum) {\n            int _first = 0, _firstNum = 0;\n            if (getCnt(n - first, _first, _firstNum) == cnt - 1) ans += atMostNGivenDigitSet(digits, n - first, false);\n            idx--;\n        }\n        ans += (idx + 1) * pow(digits.size(), cnt - 1);\n        return empty ? ans + sum : ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "字符串",
+        "二分查找",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

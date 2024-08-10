@@ -2,8 +2,6 @@
     "id": "2920",
     "name": "2808.使循环数组所有元素相等的最少秒数",
     "url": "https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表"],
     "desc": "请你返回将数组 nums 中所有元素变成相等元素所需要的 最少 秒数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 48.3,
             "desc": "记录下标，判断下标之间的最大距离。",
             "code": "class Solution:\n    def minimumSeconds(self, nums: List[int]) -> int:\n        n = len(nums)\n        map = defaultdict(list)\n        for i in range(n):\n            map[nums[i]].append(i)\n        ans = inf\n        for arr in map.values():\n            cur = ceil((arr[0] + n - 1 - arr[-1]) / 2)\n            for i in range(1, len(arr)):\n                cur = max(cur, ceil((arr[i] - arr[i - 1] - 1) / 2))\n            ans = min(ans, cur)\n        return ans",
-            "date": 1706544000000
+            "date": "2024-01-30"
         },
         {
             "script": "rust",
@@ -20,7 +18,12 @@
             "memory": 13.54,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn minimum_seconds(nums: Vec<i32>) -> i32 {\n        let n = nums.len();\n        let mut map: std::collections::HashMap<i32, Vec<usize>> = Default::default();\n        for i in 0..n {\n            map.entry(nums[i]).or_default().push(i);\n        }\n        map.into_iter()\n            .map(|(_, arr)| {\n                let mut cur = ((arr[0] + n - 1 - arr.last().unwrap()) as f64 / 2.0).ceil() as i32;\n                for i in 1..arr.len() {\n                    cur = cur.max((((arr[i] - arr[i - 1] - 1) as f64) / 2.0).ceil() as i32);\n                }\n                cur\n            })\n            .min()\n            .unwrap()\n    }\n}",
-            "date": 1706544000000
+            "date": "2024-01-30"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Medium"
 }

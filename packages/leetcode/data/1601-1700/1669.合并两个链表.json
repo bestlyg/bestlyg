@@ -2,8 +2,6 @@
     "id": "1765",
     "name": "1669.合并两个链表",
     "url": "https://leetcode.cn/problems/merge-in-between-linked-lists",
-    "difficulty": "中等",
-    "tag": ["链表"],
     "desc": "给你两个链表 list1 和 list2 ，它们包含的元素分别为 n 个和 m 个。请你将 list1 中下标从 a 到 b 的全部节点都删除，并将list2 接在被删除节点的位置。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 92.2,
             "desc": "双指针。",
             "code": "class Solution {\npublic:\n    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {\n        ListNode *p1 = list1, *p2 = list2, *tmp;\n        for (int i = 0; i < a - 1; i++) p1 = p1->next;\n        tmp = p1->next;\n        p1->next = list2;\n        p1 = tmp;\n        while (p2->next) p2 = p2->next;\n        for (int i = 0; i < b - a; i++) p1 = p1->next;\n        p2->next = p1->next;\n        return list1;\n    }\n};",
-            "date": 1675008000000
+            "date": "2023-01-30"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 21.8,
             "desc": "同上。",
             "code": "class Solution:\n    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:\n        p1, p2 = list1, list2\n        for _ in range(a - 1):\n            p1 = p1.next\n        tmp = p1.next\n        p1.next = list2\n        p1 = tmp\n        while p2.next:\n            p2 = p2.next\n        for _ in range(b - a):\n            p1 = p1.next\n        p2.next = p1.next\n        return list1",
-            "date": 1675008000000
+            "date": "2023-01-30"
         },
         {
             "script": "rust",
@@ -28,7 +26,11 @@
             "memory": 3.6,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn merge_in_between(\n        list1: Option<Box<ListNode>>,\n        a: i32,\n        b: i32,\n        list2: Option<Box<ListNode>>,\n    ) -> Option<Box<ListNode>> {\n        let mut list = Vec::<i32>::new();\n        let mut p1 = &list1;\n        let mut p2 = &list2;\n        for _ in 0..a {\n            list.push(p1.as_ref().unwrap().val);\n            p1 = &p1.as_ref().unwrap().next;\n        }\n        while let Some(ref node) = p2 {\n            list.push(node.val);\n            p2 = &node.next;\n        }\n        for _ in a..=b {\n            p1 = &p1.as_ref().unwrap().next;\n        }\n        while let Some(ref node) = p1 {\n            list.push(node.val);\n            p1 = &node.next;\n        }\n        let mut ans = Box::new(ListNode::new(0));\n        let mut p = &mut ans;\n        for num in list {\n            let mut node = p.as_mut();\n            node.next = Some(Box::new(ListNode::new(num)));\n            p = node.next.as_mut().unwrap();\n        }\n        ans.next\n    }\n}",
-            "date": 1675008000000
+            "date": "2023-01-30"
         }
-    ]
+    ],
+    "tagList": [
+        "链表"
+    ],
+    "level": "Medium"
 }

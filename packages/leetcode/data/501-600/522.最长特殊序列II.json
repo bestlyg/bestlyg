@@ -2,12 +2,10 @@
     "id": "522",
     "name": "522.最长特殊序列II",
     "url": "https://leetcode.cn/problems/longest-uncommon-subsequence-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "双指针", "字符串", "排序"],
     "desc": "给定字符串列表 strs ，返回其中 最长的特殊序列 。如果最长特殊序列不存在，返回 -1 。",
     "solutions": [
         {
-            "date": 1656259200000,
+            "date": "2022-06-27",
             "time": 4,
             "memory": 8,
             "script": "cpp",
@@ -20,7 +18,15 @@
             "memory": 16.28,
             "desc": "枚举。",
             "code": "class Solution:\n    def findLUSlength(self, strs: List[str]) -> int:\n        map = Counter(strs)\n        strs.sort(key = lambda s: -len(s))\n        for i in range(len(strs)):\n            s = strs[i]\n            if map[s] > 1: continue\n            need_continue = False\n            for j in range(i):\n                i1 = 0\n                for c in strs[j]:\n                    if s[i1] == c:\n                        i1 += 1\n                    if i1 == len(s):\n                        break\n                if i1 == len(s):\n                    need_continue = True\n                    break\n            if need_continue: continue\n            return len(s)\n        return -1",
-            "date": 1718553600000
+            "date": "2024-06-17"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "字符串",
+        "排序"
+    ],
+    "level": "Medium"
 }

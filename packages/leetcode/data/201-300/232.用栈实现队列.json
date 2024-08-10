@@ -2,12 +2,10 @@
     "id": "232",
     "name": "232.用栈实现队列",
     "url": "https://leetcode.cn/problems/implement-queue-using-stacks",
-    "difficulty": "简单",
-    "tag": ["栈", "设计", "队列"],
     "desc": "使用栈实现队列的下列操作：push(x) -- 将一个元素放入队列的尾部。pop() -- 从队列首部移除元素。peek() -- 返回队列首部的元素。empty() -- 返回队列是否为空。",
     "solutions": [
         {
-            "date": 1581782400000,
+            "date": "2020-02-16",
             "time": 0,
             "memory": 34.2,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class MyQueue {\n\tprivate Stack<Integer> inStack;\n\tprivate Stack<Integer> outStack;\n    public MyQueue() {\n        inStack = new Stack<Integer>();\n\t\toutStack = new Stack<Integer>();\n    }\n\tpublic void push(int x) {\n\t\tinStack.push(x);\n\t}\n\tpublic int pop() {\n\t\tcheckOutStack();\n\t\treturn outStack.pop();\n\t}\n\tpublic int peek() {\n\t\tcheckOutStack();\n\t\treturn outStack.peek();\n\t}\n\tpublic boolean empty() {\n\t\treturn inStack.isEmpty() && outStack.isEmpty();\n\t}\n\tprivate void checkOutStack() {\n\t\tif (outStack.isEmpty()) {\n\t\t\twhile (!inStack.isEmpty()) {\n\t\t\t\toutStack.push(inStack.pop());\n\t\t\t}\n\t\t}\n\t}\n}"
         },
         {
-            "date": 1614873600000,
+            "date": "2021-03-05",
             "time": 84,
             "memory": 39.1,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "class MyQueue {\n  private inStack: number[] = [];\n  private outStack: number[] = [];\n  push(x: number): void {\n    this.inStack.push(x);\n  }\n  pop(): number {\n    if (this.empty()) return -Infinity;\n    if (this.outStack.length > 0) {\n      return this.outStack.pop()!;\n    } else {\n      this.inStackToOutStack();\n      return this.pop();\n    }\n  }\n  peek(): number {\n    if (this.empty()) return -Infinity;\n    if (this.outStack.length === 0) this.inStackToOutStack();\n    return this.outStack[this.outStack.length - 1];\n  }\n  empty(): boolean {\n    return this.outStack.length === 0 && this.inStack.length === 0;\n  }\n  inStackToOutStack(): void {\n    while (this.inStack.length > 0) this.outStack.push(this.inStack.pop()!);\n  }\n}"
         },
         {
-            "date": 1637683200000,
+            "date": "2021-11-24",
             "time": 0,
             "memory": 5.7,
             "script": "typescript",
@@ -36,7 +34,13 @@
             "memory": 16.55,
             "desc": "用两个栈模拟。",
             "code": "class MyQueue:\n    def __init__(self):\n        self.s1 = []\n        self.s2 = []\n    def push(self, x: int) -> None:\n        self.s1.append(x)\n    def pop(self) -> int:\n        self.check()\n        return self.s2.pop()\n    def peek(self) -> int:\n        self.check()\n        return self.s2[-1]\n    def empty(self) -> bool:\n        return not self.s1 and not self.s2\n    def check(self) -> bool:\n        if not self.s2:\n            while self.s1:\n                self.s2.append(self.s1.pop())",
-            "date": 1709481600000
+            "date": "2024-03-04"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "设计",
+        "队列"
+    ],
+    "level": "Easy"
 }

@@ -2,8 +2,6 @@
     "id": "2876",
     "name": "2798.满足目标工作时长的员工数目",
     "url": "https://leetcode.cn/problems/number-of-employees-who-met-the-target",
-    "difficulty": "简单",
-    "tag": ["数组"],
     "desc": "请你用整数表示并返回工作至少 target 小时的员工数。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 16.41,
             "desc": "遍历。",
             "code": "class Solution:\n    def numberOfEmployeesWhoMetTarget(self, hours: List[int], target: int) -> int:\n        return len(list(filter(lambda v: v >= target, hours)))",
-            "date": 1714406400000
+            "date": "2024-04-30"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Easy"
 }

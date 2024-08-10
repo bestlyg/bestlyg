@@ -2,12 +2,10 @@
     "id": "307",
     "name": "307.区域和检索-数组可修改",
     "url": "https://leetcode.cn/problems/range-sum-query-mutable",
-    "difficulty": "中等",
-    "tag": ["设计", "树状数组", "线段树", "数组"],
     "desc": "给你一个数组 nums ，请你完成两类查询，其中一类查询要求更新数组下标对应的值，另一类查询要求返回数组中某个范围内元素的总和。",
     "solutions": [
         {
-            "date": 1636819200000,
+            "date": "2021-11-14",
             "time": 532,
             "memory": 70.5,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "class FenwickTree {\n  private arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nclass NumArray {\n  private tree: FenwickTree;\n  constructor(nums: number[]) {\n    this.tree = new FenwickTree(nums.length);\n    for (let i = 0; i < nums.length; i++) {\n      this.tree.add(i + 1, nums[i]);\n    }\n  }\n  update(index: number, val: number): void {\n    this.tree.add(index + 1, val - this.tree.at(index + 1));\n  }\n  sumRange(left: number, right: number): number {\n    return this.tree.query(right + 1) - this.tree.query(left);\n  }\n}"
         },
         {
-            "date": 1649001600000,
+            "date": "2022-04-04",
             "time": 372,
             "memory": 146.4,
             "script": "cpp",
@@ -28,7 +26,14 @@
             "memory": 33.27,
             "desc": "树状数组。",
             "code": "class FenwickTree:\n    def __init__(self, n: int):\n        self.n = n\n        self.arr = [0] * (n + 1)\n\n    def add(self, idx: int, num: int):\n        while idx <= self.n:\n            self.arr[idx] += num\n            idx += self.lowbit(idx)\n    \n    def query(self, idx: int) -> int:\n        sum = 0\n        while idx > 0:\n            sum += self.arr[idx]\n            idx -= self.lowbit(idx)\n        return sum\n    \n    def at(self, idx: int) -> int:\n        return self.query(idx) - self.query(idx - 1)\n\n    def range(self, left: int, right: int) -> int:\n        return self.query(right) - self.query(left - 1)\n\n    def lowbit(self, num: int) -> int:\n        return num & -num\n\nclass NumArray:\n\n    def __init__(self, nums: List[int]):\n        self.tree = FenwickTree(len(nums))\n        self.nums = nums\n        for i, num in enumerate(nums): self.tree.add(i + 1, num)\n\n    def update(self, index: int, val: int) -> None:\n        self.tree.add(index + 1, val - self.nums[index])\n        self.nums[index] = val\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.tree.range(left + 1, right + 1)",
-            "date": 1699804800000
+            "date": "2023-11-13"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "树状数组",
+        "线段树",
+        "数组"
+    ],
+    "level": "Medium"
 }

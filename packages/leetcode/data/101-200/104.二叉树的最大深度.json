@@ -2,12 +2,10 @@
     "id": "104",
     "name": "104.二叉树的最大深度",
     "url": "https://leetcode.cn/problems/maximum-depth-of-binary-tree",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树，找出其最大深度。二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。",
     "solutions": [
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 0,
             "memory": 38.8,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n\tpublic int maxDepth(TreeNode root) {\n\t\treturn height(root);\n\t}\n\tpublic int height(TreeNode node) {\n\t\tif (node == null)\n\t\t\treturn 0;\n\t\treturn 1 + Math.max(height(node.left), height(node.right));\n\t}\n}"
         },
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 0,
             "memory": 39.4,
             "script": "java",
@@ -23,7 +21,7 @@
             "code": "class Solution {\n\tpublic int maxDepth(TreeNode root) {\n\t\tif (root == null)\n\t\t\treturn 0;\n\t\tQueue<TreeNode> queue = new LinkedList<TreeNode>();\n\t\tint height = 0;\n\t\tint size = 1;\n\t\tqueue.offer(root);\n\t\twhile (!queue.isEmpty()) {\n\t\t\tTreeNode node = queue.poll();\n\t\t\tif (node.left != null)\n\t\t\t\tqueue.offer(node.left);\n\t\t\tif (node.right != null)\n\t\t\t\tqueue.offer(node.right);\n\t\t\tif (--size == 0) {\n\t\t\t\tsize = queue.size();\n\t\t\t\theight++;\n\t\t\t}\n\t\t}\n\t\treturn height;\n\t}\n}"
         },
         {
-            "date": 1595865600000,
+            "date": "2020-07-28",
             "time": 88,
             "memory": 40.6,
             "script": "typescript",
@@ -31,12 +29,19 @@
             "code": "function maxDepth(root: TreeNode | null): number {\n  const _h = (node: TreeNode | null): number =>\n    node === null ? 0 : Math.max(_h(node.left), _h(node.right)) + 1;\n  return _h(root);\n}"
         },
         {
-            "date": 1638028800000,
+            "date": "2021-11-28",
             "time": 4,
             "memory": 7.7,
             "script": "c",
             "desc": "递归遍历每层左右子树加一。",
             "code": "int maxDepth(struct TreeNode* root){\n    // 如果为NULL就是0\n    if (!root) return 0;\n    // 否则判断左右子树的最大深度 + 1\n    return fmax(maxDepth (root->left), maxDepth(root->right)) + 1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

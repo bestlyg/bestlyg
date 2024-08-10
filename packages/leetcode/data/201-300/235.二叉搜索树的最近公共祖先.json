@@ -2,12 +2,10 @@
     "id": "235",
     "name": "235.二叉搜索树的最近公共祖先",
     "url": "https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 6,
             "memory": 41.9,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        int val = root.val;\n        if(p.val==val||q.val==val)return root;\n        if(p.val<val&&q.val>val)return root;\n        if(p.val<val&&q.val<val)return lowestCommonAncestor(root.left,p,q);\n        if(p.val>val&&q.val>val)return lowestCommonAncestor(root.right,p,q);\n        return root;\n    }\n}"
         },
         {
-            "date": 1601136000000,
+            "date": "2020-09-27",
             "time": 112,
             "memory": 47.2,
             "script": "javascript",
@@ -28,7 +26,14 @@
             "memory": 19.96,
             "desc": "通过bst特性进行左右区分。",
             "code": "class Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        while root.val < q.val and root.val < p.val or root.val > q.val and root.val > p.val:\n            if root == q or root == p: break\n            root = root.left if root.val > q.val else root.right\n        return root",
-            "date": 1708790400000
+            "date": "2024-02-25"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

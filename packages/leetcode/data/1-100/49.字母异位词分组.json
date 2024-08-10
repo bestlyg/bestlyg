@@ -2,12 +2,10 @@
     "id": "49",
     "name": "49.字母异位词分组",
     "url": "https://leetcode.cn/problems/group-anagrams",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串", "排序"],
     "desc": "给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。",
     "solutions": [
         {
-            "date": 1607875200000,
+            "date": "2020-12-14",
             "time": 176,
             "memory": 50.8,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function groupAnagrams(strs: string[]): string[][] {\n  const cache: Record<string, string[]> = {};\n  const toKey = (str: string) =>\n    str\n      .split('')\n      .sort((a, b) => a.codePointAt(0)! - b.codePointAt(0)!)\n      .join('');\n  for (const str of strs) {\n    const key = toKey(str);\n    let arr = cache[key];\n    if (!arr) {\n      cache[key] = arr = [];\n    }\n    arr.push(str);\n  }\n  return Object.values(cache);\n}"
         },
         {
-            "date": 1640188800000,
+            "date": "2021-12-23",
             "time": 24,
             "memory": 19,
             "script": "cpp",
             "desc": "对字符串进行排序后归并。",
             "code": "class Solution {\n   public:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        unordered_map<string, vector<string>> m;\n        for (int i = 0; i < strs.size(); i++) {\n            string str = strs[i];\n            string head = str;\n            sort(head.begin(), head.end());\n            m[head].push_back(str);\n        }\n        vector<vector<string>> ans;\n        for (auto it = m.begin(); it != m.end(); it++) {\n            ans.push_back(it->second);\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "level": "Medium"
 }

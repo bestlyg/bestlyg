@@ -2,17 +2,20 @@
     "id": "1894",
     "name": "1768.交替合并字符串",
     "url": "https://leetcode.cn/problems/merge-strings-alternately",
-    "difficulty": "简单",
-    "tag": ["双指针", "字符串"],
     "desc": "返回 合并后的字符串 。",
     "solutions": [
         {
-            "date": 1666454400000,
+            "date": "2022-10-23",
             "time": 0,
             "memory": 6.1,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    string mergeAlternately(string word1, string word2) {\n        string ans = \"\";\n        for (int i1 = 0, i2 = 0; i1 < word1.size() || i2 < word2.size(); i1++, i2++) {\n            if (i1 < word1.size()) ans += word1[i1];\n            if (i2 < word2.size()) ans += word2[i2];\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "双指针",
+        "字符串"
+    ],
+    "level": "Easy"
 }

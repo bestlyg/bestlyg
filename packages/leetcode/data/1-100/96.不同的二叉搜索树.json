@@ -2,12 +2,10 @@
     "id": "96",
     "name": "96.不同的二叉搜索树",
     "url": "https://leetcode.cn/problems/unique-binary-search-trees",
-    "difficulty": "中等",
-    "tag": ["树", "二叉搜索树", "数学", "动态规划", "二叉树"],
     "desc": "给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？",
     "solutions": [
         {
-            "date": 1594742400000,
+            "date": "2020-07-15",
             "time": 68,
             "memory": 32.3,
             "script": "typescript",
@@ -15,12 +13,20 @@
             "code": "function numTrees(n: number): number {\n  const cache: Record<number, number> = { 0: 0, 1: 1, 2: 2 };\n  function get(num: number): number {\n    if (cache[num]) return cache[num];\n    let sum = 0;\n    for (let i = 1; i < num - 1; i++) sum += get(i) * get(num - 1 - i);\n    sum += get(num - 1) * 2;\n    cache[num] = sum;\n    return sum;\n  }\n  return get(n);\n}"
         },
         {
-            "date": 1594742400000,
+            "date": "2020-07-15",
             "time": 84,
             "memory": 32.4,
             "script": "typescript",
             "desc": "dp[i]=i 个数会有多少种方式。",
             "code": "function numTrees(n: number): number {\n  const dp = [0, 1, 2];\n  for (let i = 3; i <= n; i++) {\n    let sum = 0;\n    for (let j = 1; j < i - 1; j++) {\n      sum += dp[j] * dp[i - 1 - j];\n    }\n    sum += dp[i - 1] * 2;\n    dp[i] = sum;\n  }\n  return dp[n];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "二叉搜索树",
+        "数学",
+        "动态规划",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

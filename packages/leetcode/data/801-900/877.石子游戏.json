@@ -2,12 +2,10 @@
     "id": "909",
     "name": "877.石子游戏",
     "url": "https://leetcode.cn/problems/stone-game",
-    "difficulty": "中等",
-    "tag": ["数组", "数学", "动态规划", "博弈"],
     "desc": "亚历克斯和李用几堆石子在做游戏。假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。",
     "solutions": [
         {
-            "date": 1623772800000,
+            "date": "2021-06-16",
             "time": 104,
             "memory": 44.8,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function stoneGame(piles: number[]): boolean {\n  const len = piles.length;\n  const dp = new Array(len).fill(0).map(_ => new Array(len));\n  for (let i = 0; i < len; i++) dp[i][i] = piles[i];\n  for (let i = len - 2; i >= 0; i--) {\n    for (let j = i + 1; j < len; j++) {\n      dp[i][j] = Math.max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);\n    }\n  }\n  return dp[0][len - 1] > 0;\n}"
         },
         {
-            "date": 1623772800000,
+            "date": "2021-06-16",
             "time": 84,
             "memory": 39.2,
             "script": "typescript",
             "desc": "[参考链接](https://leetcode-cn.com/problems/stone-game/solution/shi-zi-you-xi-by-leetcode-solution/)。",
             "code": "function stoneGame(piles: number[]): boolean {\n  return true;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "动态规划",
+        "博弈"
+    ],
+    "level": "Medium"
 }

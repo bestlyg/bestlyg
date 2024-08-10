@@ -2,8 +2,6 @@
     "id": "1157",
     "name": "1080.根到叶路径上的不足节点",
     "url": "https://leetcode.cn/problems/insufficient-nodes-in-root-to-leaf-paths",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给你二叉树的根节点 root 和一个整数 limit ，请你同时删除树中所有 不足节点 ，并返回最终二叉树的根节点。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 32.7,
             "desc": "dfs判断下一层节点是否满足。",
             "code": "class Solution {\npublic:\n    TreeNode* sufficientSubset(TreeNode* root, int limit) {\n        return dfs(root, limit, 0) ? root : nullptr;\n    }\n    bool dfs(TreeNode *node, int limit, int sum) {\n        if (!node) return true;\n        sum += node->val;\n        auto l = dfs(node->left, limit, sum), r = dfs(node->right, limit, sum);\n        if (!node->left && !node->right && sum < limit ||\n            !node->left && !r ||\n            !node->right && !l ||\n            !l && !r) return false;\n        if (!l) node->left = nullptr;\n        if (!r) node->right = nullptr;\n        return true;\n    }\n};",
-            "date": 1684684800000
+            "date": "2023-05-22"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 17.9,
             "desc": "同上。",
             "code": "def dfs(node: Optional[TreeNode], limit: int, sum: int):\n    if node == None:\n        return True\n    sum += node.val\n    l, r = dfs(node.left, limit, sum), dfs(node.right, limit, sum)\n    if (not node.left and not node.right and sum < limit) or (not node.left and not r) or (not node.right and not l) or (not l and not r):\n        return False\n    if not l:\n        node.left = None\n    if not r:\n        node.right = None\n    return True\n\n\nclass Solution:\n    def sufficientSubset(self, root: Optional[TreeNode], limit: int) -> Optional[TreeNode]:\n        return root if dfs(root, limit, 0) else None",
-            "date": 1684684800000
+            "date": "2023-05-22"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2.5,
             "desc": "同上。",
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nfn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, limit: i32, mut sum: i32) -> bool {\n    match node {\n        None => true,\n        Some(ref node) => {\n            let mut nodeRef = node.as_ref().borrow_mut();\n            sum += nodeRef.val;\n            let l = dfs(&mut nodeRef.left, limit, sum);\n            let r = dfs(&mut nodeRef.right, limit, sum);\n            if nodeRef.left.is_none() && nodeRef.right.is_none() && sum < limit\n                || nodeRef.left.is_none() && !r\n                || nodeRef.right.is_none() && !l\n                || !l && !r\n            {\n                false\n            } else {\n                if !l {\n                    nodeRef.left = None;\n                }\n                if !r {\n                    nodeRef.right = None;\n                }\n                true\n            }\n        }\n    }\n}\nimpl Solution {\n    pub fn sufficient_subset(\n        mut root: Option<Rc<RefCell<TreeNode>>>,\n        limit: i32,\n    ) -> Option<Rc<RefCell<TreeNode>>> {\n        if dfs(&mut root, limit, 0) {\n            root\n        } else {\n            None\n        }\n    }\n}",
-            "date": 1684684800000
+            "date": "2023-05-22"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

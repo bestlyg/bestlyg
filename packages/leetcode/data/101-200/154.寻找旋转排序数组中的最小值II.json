@@ -2,12 +2,10 @@
     "id": "154",
     "name": "154.寻找旋转排序数组中的最小值II",
     "url": "https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array-ii",
-    "difficulty": "困难",
-    "tag": ["数组", "二分查找"],
     "desc": "假设按照升序排序的数组在预先未知的某个点上进行了旋转。( 例如，数组  [0,1,2,4,5,6,7] 可能变为  [4,5,6,7,0,1,2] )。请找出其中最小的元素。",
     "solutions": [
         {
-            "date": 1595347200000,
+            "date": "2020-07-22",
             "time": 84,
             "memory": 38,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function findMin(numbers: number[]): number {\n  let last = numbers.length - 1;\n  const firstNum = numbers[0];\n  while (firstNum === numbers[last] && last !== 0) {\n    numbers.pop();\n    last--;\n  }\n  if (firstNum < numbers[last]) return firstNum;\n  else if (last === 0) return firstNum;\n  else return _find(0, last);\n  function _find(l: number, r: number): number {\n    // console.log(`[find],l=${l},r=${r}`);\n    if (l === r) return numbers[l];\n    const mid = (l + r) >> 1;\n    const num = numbers[mid];\n    return num >= firstNum ? _find(mid + 1, r) : _find(l, mid);\n  }\n}"
         },
         {
-            "date": 1617897600000,
+            "date": "2021-04-09",
             "time": 92,
             "memory": 39.4,
             "script": "typescript",
@@ -23,12 +21,17 @@
             "code": "function findMin(nums: number[]): number {\n  return Math.min.apply({}, nums);\n}"
         },
         {
-            "date": 1617897600000,
+            "date": "2021-04-09",
             "time": 96,
             "memory": 39.4,
             "script": "typescript",
             "desc": "如果相等时排除右侧端点。",
             "code": "function findMin(nums: number[]): number {\n  let left = 0;\n  let right = nums.length - 1;\n  while (left < right) {\n    const mid = ~~((left + right) / 2);\n    if (nums[mid] < nums[right]) {\n      right = mid;\n    } else if (nums[mid] > nums[right]) {\n      left = mid + 1;\n    } else {\n      right--;\n    }\n  }\n  return nums[left];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "level": "Hard"
 }

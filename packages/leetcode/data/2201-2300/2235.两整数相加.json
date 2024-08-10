@@ -2,8 +2,6 @@
     "id": "2383",
     "name": "2235.两整数相加",
     "url": "https://leetcode.cn/problems/add-two-integers",
-    "difficulty": "简单",
-    "tag": ["数学"],
     "desc": "给你两个整数 num1 和 num2，返回这两个整数的和。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 1.85,
             "desc": "加法。",
             "code": "impl Solution {\n    pub fn sum(num1: i32, num2: i32) -> i32 {\n        num1 + num2\n    }\n}",
-            "date": 1692374400000
+            "date": "2023-08-19"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Easy"
 }

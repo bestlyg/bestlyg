@@ -2,12 +2,10 @@
     "id": "1920",
     "name": "1812.判断国际象棋棋盘中一个格子的颜色",
     "url": "https://leetcode.cn/problems/determine-color-of-a-chessboard-square",
-    "difficulty": "简单",
-    "tag": ["数学", "字符串"],
     "desc": "如果所给格子的颜色是白色，请你返回 true，如果是黑色，请返回 false 。",
     "solutions": [
         {
-            "date": 1670428800000,
+            "date": "2022-12-08",
             "time": 0,
             "memory": 5.8,
             "script": "cpp",
@@ -15,12 +13,17 @@
             "code": "class Solution {\npublic:\n    bool squareIsWhite(string coordinates) {\n        return (coordinates[1] - '0' - 1 ^ ((coordinates[0] - 'a') & 1)) & 1;\n    }\n};"
         },
         {
-            "date": 1670428800000,
+            "date": "2022-12-08",
             "time": 0,
             "memory": 5.8,
             "script": "cpp",
             "desc": "判断行列。",
             "code": "class Solution {\npublic:\n    bool squareIsWhite(string coordinates) {\n        return ((coordinates[0] - 'a') & 1) == ((coordinates[1] - '0') & 1);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "字符串"
+    ],
+    "level": "Easy"
 }

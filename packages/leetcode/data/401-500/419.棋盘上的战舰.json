@@ -2,12 +2,10 @@
     "id": "419",
     "name": "419.棋盘上的战舰",
     "url": "https://leetcode.cn/problems/battleships-in-a-board",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "数组", "矩阵"],
     "desc": "给你一个大小为 m x n 的矩阵 board 表示甲板，其中，每个单元格可以是一艘战舰 'X' 或者是一个空位 '.' ，返回在甲板 board 上放置的 战舰 的数量。",
     "solutions": [
         {
-            "date": 1639756800000,
+            "date": "2021-12-18",
             "time": 80,
             "memory": 41.1,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nconst dirs = [\n  [1, 0],\n  [0, 1],\n  [-1, 0],\n  [0, -1],\n];\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  const uf = new UnionFind(n * m);\n  const getIdx = (row: number, col: number) => row * m + col;\n  let cnt = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] !== 'X') {\n        cnt++;\n      } else {\n        for (let i = 0; i < 4; i++) {\n          const next_row = row + dirs[i][0];\n          const next_col = col + dirs[i][1];\n          if (\n            next_row < 0 ||\n            next_row >= n ||\n            next_col < 0 ||\n            next_col >= m ||\n            board[next_row][next_col] === '.'\n          )\n            continue;\n          uf.union(getIdx(row, col), getIdx(next_row, next_col));\n        }\n      }\n    }\n  }\n  return uf.size - cnt;\n}"
         },
         {
-            "date": 1639756800000,
+            "date": "2021-12-18",
             "time": 80,
             "memory": 39.7,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function setDot(board: string[][], n: number, m: number, row: number, col: number): void {\n  if (row < 0 || row >= n || col < 0 || col >= m || board[row][col] === '.') return;\n  board[row][col] = '.';\n  setDot(board, n, m, row + 1, col);\n  setDot(board, n, m, row - 1, col);\n  setDot(board, n, m, row, col + 1);\n  setDot(board, n, m, row, col - 1);\n}\nfunction countBattleships(board: string[][]): number {\n  const n = board.length;\n  const m = board[0].length;\n  let ans = 0;\n  for (let row = 0; row < n; row++) {\n    for (let col = 0; col < m; col++) {\n      if (board[row][col] === '.') continue;\n      ans++;\n      setDot(board, n, m, row, col);\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1639756800000,
+            "date": "2021-12-18",
             "time": 72,
             "memory": 39.7,
             "script": "typescript",
@@ -36,7 +34,13 @@
             "memory": 18.76,
             "desc": "dfs。",
             "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n\nclass Solution:\n    def countBattleships(self, board: List[List[str]]) -> int:\n        n = len(board)\n        m = len(board[0])\n        res = 0\n        def check(i: int, j: int) -> int:\n            board[i][j] = '.'\n            for dir in dirs:\n                ni = i + dir[0]\n                nj = j + dir[1]\n                if 0 <= ni < n and 0 <= nj < m and board[ni][nj] == 'X':\n                    check(ni, nj)\n        for i in range(n):\n            for j in range(m):\n                if board[i][j] == 'X':\n                    res += 1\n                    check(i, j)\n        return res",
-            "date": 1718035200000
+            "date": "2024-06-11"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

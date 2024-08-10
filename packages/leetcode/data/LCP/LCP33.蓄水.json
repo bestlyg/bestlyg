@@ -2,8 +2,6 @@
     "id": "1000221",
     "name": "LCP33.蓄水",
     "url": "https://leetcode.cn/problems/o8SXZn",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组", "堆（优先队列）"],
     "desc": "每个水缸对应最低蓄水量记作 vat[i]，返回小扣至少需要多少次操作可以完成所有水缸蓄水要求。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 8,
             "desc": "利用堆获取需要次数最多的桶。",
             "code": "class Solution {\npublic:\n    int storeWater(vector<int>& bucket, vector<int>& vat) {\n        auto get_cnt = [&](int idx) {\n            if (bucket[idx] == 0) {\n                if (vat[idx] == 0) return 0;\n                return 0x3f3f3f3f;\n            }\n            return (int)ceil(1.0 * vat[idx] / bucket[idx]);\n        };\n        auto cmp = [&](int x, int y) -> bool { \n            return get_cnt(x) < get_cnt(y);\n        };\n        priority_queue<int, vector<int>, decltype(cmp)> q(cmp);\n        for (int i = 0; i < bucket.size(); i++) q.push(i);\n        int res = get_cnt(q.top()), add = 0;\n        while (get_cnt(q.top()) > 1) {\n            int cur_cnt = get_cnt(q.top());\n            while (get_cnt(q.top()) == cur_cnt) {\n                int idx = q.top();\n                q.pop();\n                do {\n                    bucket[idx] += 1;\n                    add += 1;\n                } while(get_cnt(idx) == cur_cnt);\n                q.push(idx);\n            }\n            res = min(res, get_cnt(q.top()) + add);\n        }\n        return res;\n    }\n};",
-            "date": 1684598400000
+            "date": "2023-05-21"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+    ],
+    "level": "Easy"
 }

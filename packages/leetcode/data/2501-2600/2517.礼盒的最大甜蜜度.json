@@ -2,12 +2,10 @@
     "id": "2600",
     "name": "2517.礼盒的最大甜蜜度",
     "url": "https://leetcode.cn/problems/maximum-tastiness-of-candy-basket",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "二分查找", "排序"],
     "desc": "返回礼盒的 最大 甜蜜度。",
     "solutions": [
         {
-            "date": 1671897600000,
+            "date": "2022-12-25",
             "time": 172,
             "memory": 49.4,
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 47.3,
             "desc": "二分答案，尽可能找差超过target的数量。",
             "code": "class Solution {\npublic:\n    int maximumTastiness(vector<int>& price, int k) {\n        sort(price.begin(), price.end());\n        int n = price.size(), l = 0, r = price[n - 1] - price[0];\n        while (l < r) {\n            int m = (l + r + 1) / 2, cnt = 1, prev = price[0];\n            for (int i = 1; i < n; i++) {\n                if (price[i] - prev >= m) cnt++, prev = price[i];\n            }\n            if (cnt < k) r = m - 1;\n            else l = m;\n        }\n        return l;\n    }\n};",
-            "date": 1685548800000
+            "date": "2023-06-01"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 27.5,
             "desc": "同上。",
             "code": "class Solution:\n    def maximumTastiness(self, price: List[int], k: int) -> int:\n        price.sort()\n        n = len(price)\n        l = 0\n        r = price[n-1]-price[0]\n        while l < r:\n            m = (l+r+1)//2\n            cnt = 1\n            prev = price[0]\n            for i in range(1, n):\n                if price[i] - prev >= m:\n                    cnt += 1\n                    prev = price[i]\n            if cnt < k:\n                r = m-1\n            else:\n                l = m\n        return l",
-            "date": 1685548800000
+            "date": "2023-06-01"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 3.9,
             "desc": "同上。",
             "code": "impl Solution {\npub fn maximum_tastiness(mut price: Vec<i32>, k: i32) -> i32 {\n    price.sort();\n    let n = price.len();\n    let mut l = 0;\n    let mut r = price[n - 1] - price[0];\n    while l < r {\n        let m = (l + r + 1) / 2;\n        let mut cnt = 1;\n        let mut prev = price[0];\n        for i in 1..n {\n            if price[i] - prev >= m {\n                cnt += 1;\n                prev = price[i];\n            }\n        }\n        if cnt < k {\n            r = m - 1;\n        } else {\n            l = m\n        }\n    }\n    l\n}\n}",
-            "date": 1685548800000
+            "date": "2023-06-01"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Medium"
 }

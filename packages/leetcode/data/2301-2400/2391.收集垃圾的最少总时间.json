@@ -2,8 +2,6 @@
     "id": "2471",
     "name": "2391.收集垃圾的最少总时间",
     "url": "https://leetcode.cn/problems/minimum-amount-of-time-to-collect-garbage",
-    "difficulty": "中等",
-    "tag": ["数组", "字符串", "前缀和"],
     "desc": "请你返回收拾完所有垃圾需要花费的 最少 总分钟数。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.46,
             "desc": "模拟。",
             "code": "class Solution:\n    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:\n        n = len(garbage)\n        def run(c: str) -> int:\n            res = 0\n            prev = 0\n            for i in range(n):\n                cnt = garbage[i].count(c)\n                if cnt:\n                    res += sum(travel[prev:i]) + cnt\n                    prev = i\n            return res\n        return sum(map(run, 'MPG'))",
-            "date": 1715356800000
+            "date": "2024-05-11"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "字符串",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

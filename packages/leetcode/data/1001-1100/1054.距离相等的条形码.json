@@ -2,8 +2,6 @@
     "id": "1140",
     "name": "1054.距离相等的条形码",
     "url": "https://leetcode.cn/problems/distant-barcodes",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "哈希表", "计数", "排序", "堆（优先队列）"],
     "desc": "在一个仓库里，有一排条形码，其中第 i 个条形码为 barcodes[i]。请你重新排列这些条形码，使其中任意两个相邻的条形码不能相等。 你可以返回任何满足该要求的答案，此题保证存在答案。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 42.9,
             "desc": "堆存储所有的值，每次拿出剩余次数最多的两个值塞入。",
             "code": "#define X first\n#define Y second\nclass Solution {\npublic:\n    typedef pair<int, int> pii;\n    vector<int> rearrangeBarcodes(vector<int>& barcodes) {\n        unordered_map<int, int> m;\n        for (auto &num : barcodes) m[num]++;\n        auto cmp = [&](pii x, pii y) -> bool { return x.second < y.second; };\n        priority_queue<pii, vector<pii>, decltype(cmp)> q(cmp);\n        for (auto &item : m) q.push(item);\n        vector<int> res;\n        while (q.size() >= 2) {\n            auto item1 = q.top(); q.pop();\n            auto item2 = q.top(); q.pop();\n            if (--item1.second > 0) q.push(item1);\n            if (--item2.second > 0) q.push(item2);\n            res.push_back(item1.first);\n            res.push_back(item2.first);\n        }\n        if (q.size()) res.push_back(q.top().first);\n        return res;\n    }\n};",
-            "date": 1683993600000
+            "date": "2023-05-14"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 18.9,
             "desc": "同上。",
             "code": "class Node:\n    def __init__(self, k: int, v: int):\n        self.k = k\n        self.v = v\n\n    def __lt__(self, o: 'Node') -> bool:\n        return self.v > o.v\n\n\nclass Solution:\n    def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:\n        q = []\n        m = Counter()\n        for num in barcodes:\n            m[num] += 1\n        for k, v in m.items():\n            heappush(q, Node(k, v))\n        res = []\n        while len(q) >= 2:\n            item1 = heappop(q)\n            item2 = heappop(q)\n            item1.v -= 1\n            if item1.v > 0:\n                heappush(q, item1)\n            item2.v -= 1\n            if item2.v > 0:\n                heappush(q, item2)\n            res.append(item1.k)\n            res.append(item2.k)\n        if len(q):\n            res.append(q[0].k)\n        return res",
-            "date": 1683993600000
+            "date": "2023-05-14"
         },
         {
             "script": "rust",
@@ -28,7 +26,16 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "#[derive(Clone, PartialEq, Eq, Ord)]\nstruct Node(i32, i32);\nimpl Node {\n    fn new(k: i32, v: i32) -> Self {\n        Node(k, v)\n    }\n}\nimpl PartialOrd for Node {\n    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {\n        self.1.partial_cmp(&o.1)\n    }\n}\nimpl Solution {\n    pub fn rearrange_barcodes(barcodes: Vec<i32>) -> Vec<i32> {\n        let mut q = std::collections::BinaryHeap::<Node>::new();\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        for num in barcodes {\n            *m.entry(num).or_insert(0) += 1;\n        }\n        for (k, v) in m {\n            q.push(Node::new(k, v));\n        }\n        let mut res = vec![];\n        while q.len() >= 2 {\n            let mut item1 = q.pop().unwrap();\n            let mut item2 = q.pop().unwrap();\n            res.push(item1.0);\n            res.push(item2.0);\n            item1.1 -= 1;\n            item2.1 -= 1;\n            if item1.1 > 0 {\n                q.push(item1);\n            }\n            if item2.1 > 0 {\n                q.push(item2);\n            }\n        }\n        if !q.is_empty() {\n            res.push(q.peek().unwrap().0);\n        }\n        res\n    }\n}",
-            "date": 1683993600000
+            "date": "2023-05-14"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "计数",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

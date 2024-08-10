@@ -2,8 +2,6 @@
     "id": "2847",
     "name": "2744.最大字符串配对数目",
     "url": "https://leetcode.cn/problems/find-maximum-number-of-string-pairs",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "字符串", "模拟"],
     "desc": "请你返回数组 words 中的 最大 匹配数目。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 16.88,
             "desc": "遍历。",
             "code": "class Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        return sum(words[i1][::-1] == words[i2] for i1 in range(len(words)) for i2 in range(0, i1))",
-            "date": 1705420800000
+            "date": "2024-01-17"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "模拟"
+    ],
+    "level": "Easy"
 }

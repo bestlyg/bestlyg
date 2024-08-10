@@ -2,8 +2,6 @@
     "id": "2684",
     "name": "2660.保龄球游戏的获胜者",
     "url": "https://leetcode.cn/problems/determine-the-winner-of-a-bowling-game",
-    "difficulty": "简单",
-    "tag": ["数组", "模拟"],
     "desc": "返回如果玩家 1 的得分高于玩家 2 的得分，则为 1 ；如果玩家 2 的得分高于玩家 1 的得分，则为 2 ；如果平局，则为 0 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 16.9,
             "desc": "模拟。",
             "code": "class Solution:\n    def isWinner(self, player1: List[int], player2: List[int]) -> int:\n        def getScore(player: List[int]) -> int:\n            cur = 0\n            sum = 0\n            for v in player:\n                sum += v + v * ((cur & 0b11) != 0)\n                cur = cur << 1 | (v == 10)\n            return sum\n        s1, s2 = getScore(player1), getScore(player2)\n        return 1 if s1 > s2 else 2 if s2 > s1 else 0",
-            "date": 1703606400000
+            "date": "2023-12-27"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 70.5,
             "desc": "同上。",
             "code": "class Solution {\npublic:\n    int getScore(vector<int>& player) {\n        int cur = 0, sum = 0;\n        for (auto &v: player) {\n            sum += v + v * ((cur & 0b11) != 0);\n            cur = cur << 1 | (v == 10);\n        }\n        return sum;\n    }\n    int isWinner(vector<int>& player1, vector<int>& player2) {\n        int s1 = getScore(player1), s2 = getScore(player2);\n        return s1 > s2 ? 1 : s2 > s1 ? 2 : 0;\n    }\n};",
-            "date": 1703606400000
+            "date": "2023-12-27"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.12,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn is_winner(player1: Vec<i32>, player2: Vec<i32>) -> i32 {\n        fn getScore(player: &Vec<i32>) -> i32 {\n            let mut cur = 0;\n            let mut sum = 0;\n            for v in player {\n                sum += *v + *v * ((cur & 0b11) != 0) as i32;\n                cur = cur << 1 | (*v == 10) as i32;\n            }\n            sum\n        }\n        let (s1, s2) = (getScore(&player1), getScore(&player2));\n        if s1 > s2 {\n            1\n        } else if s2 > s1 {\n            2\n        } else {\n            0\n        }\n    }\n}",
-            "date": 1703606400000
+            "date": "2023-12-27"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "模拟"
+    ],
+    "level": "Easy"
 }

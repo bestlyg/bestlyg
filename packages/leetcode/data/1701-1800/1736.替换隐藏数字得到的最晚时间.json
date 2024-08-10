@@ -2,17 +2,20 @@
     "id": "1858",
     "name": "1736.替换隐藏数字得到的最晚时间",
     "url": "https://leetcode.cn/problems/latest-time-by-replacing-hidden-digits",
-    "difficulty": "简单",
-    "tag": ["贪心", "字符串"],
     "desc": "给你一个字符串 time ，返回你可以得到的最晚有效时间。",
     "solutions": [
         {
-            "date": 1627056000000,
+            "date": "2021-07-24",
             "time": 64,
             "memory": 39.3,
             "script": "typescript",
             "desc": "判断每一位的最大值。",
             "code": "function maximumTime(time: string): string {\n  let [h1, h2, , m1, m2] = time;\n  if (h1 === '?') {\n    if (h2 === '?') {\n      h1 = '2';\n      h2 = '3';\n    } else {\n      const num = +h2;\n      if (num <= 3) h1 = '2';\n      else h1 = '1';\n    }\n  }\n  if (h2 === '?') {\n    if (h1 === '2') h2 = '3';\n    else h2 = '9';\n  }\n  if (m1 === '?') m1 = '5';\n  if (m2 === '?') m2 = '9';\n  return `${h1}${h2}:${m1}${m2}`;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "字符串"
+    ],
+    "level": "Easy"
 }

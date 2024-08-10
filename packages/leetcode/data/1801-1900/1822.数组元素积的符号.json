@@ -2,17 +2,20 @@
     "id": "1950",
     "name": "1822.数组元素积的符号",
     "url": "https://leetcode.cn/problems/sign-of-the-product-of-an-array",
-    "difficulty": "简单",
-    "tag": ["数组", "数学"],
     "desc": "给你一个整数数组 nums 。令 product 为数组 nums 中所有元素值的乘积。",
     "solutions": [
         {
-            "date": 1666800000000,
+            "date": "2022-10-27",
             "time": 4,
             "memory": 9.9,
             "script": "cpp",
             "desc": "遍历检查有几个负数。",
             "code": "class Solution {\npublic:\n    int arraySign(vector<int>& nums) {\n        int cnt = 0;\n        for (auto &num : nums) {\n            if (num == 0) return 0;\n            else if (num < 0) cnt ^= 1;\n        }\n        return cnt ? -1 : 1;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学"
+    ],
+    "level": "Easy"
 }

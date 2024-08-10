@@ -2,17 +2,20 @@
     "id": "1904",
     "name": "1796.字符串中第二大的数字",
     "url": "https://leetcode.cn/problems/second-largest-digit-in-a-string",
-    "difficulty": "简单",
-    "tag": ["哈希表", "字符串"],
     "desc": "给你一个混合字符串 s ，请你返回 s 中 第二大 的数字，如果不存在第二大的数字，请你返回 -1 。",
     "solutions": [
         {
-            "date": 1669996800000,
+            "date": "2022-12-03",
             "time": 0,
             "memory": 6.5,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int secondHighest(string s) {\n        int n1 = -1, n2 = -1;\n        for (auto &c : s) {\n            if (!isdigit(c)) continue;\n            int num = c - '0';\n            if (n1 == -1) n1 = num;\n            else if (num > n1) n2 = n1, n1 = num;\n            else if (num == n1) continue;\n            else if (n2 == -1) n2 = num;\n            else if (num > n2) n2 = num;\n        }\n        return n2;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

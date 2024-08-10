@@ -2,12 +2,10 @@
     "id": "344",
     "name": "344.反转字符串",
     "url": "https://leetcode.cn/problems/reverse-string",
-    "difficulty": "简单",
-    "tag": ["双指针", "字符串"],
     "desc": "编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。",
     "solutions": [
         {
-            "date": 1586188800000,
+            "date": "2020-04-07",
             "time": 136,
             "memory": 46.7,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nvar reverseString = function (s) {\n  s.reverse();\n};"
         },
         {
-            "date": 1602086400000,
+            "date": "2020-10-08",
             "time": 128,
             "memory": 45.6,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function reverseString(s: string[]): void {\n  s.reverse();\n}"
         },
         {
-            "date": 1602086400000,
+            "date": "2020-10-08",
             "time": 140,
             "memory": 46.1,
             "script": "typescript",
@@ -31,7 +29,7 @@
             "code": "function reverseString(s: string[]): void {\n  for (let l = 0, r = s.length - 1; l < r; l++, r--) {\n    [s[l], s[r]] = [s[r], s[l]];\n  }\n}"
         },
         {
-            "date": 1602086400000,
+            "date": "2020-10-08",
             "time": 128,
             "memory": 45.6,
             "script": "typescript",
@@ -39,7 +37,7 @@
             "code": "function reverseString(s: string[]): void {\n  s.reverse();\n}"
         },
         {
-            "date": 1602086400000,
+            "date": "2020-10-08",
             "time": 140,
             "memory": 46.1,
             "script": "typescript",
@@ -52,7 +50,7 @@
             "memory": 22.15,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) swap(s[l++], s[r--]);\n    }\n};",
-            "date": 1691337600000
+            "date": "2023-08-07"
         },
         {
             "script": "python",
@@ -60,7 +58,7 @@
             "memory": 20.86,
             "desc": "同上。",
             "code": "def swap(node: Optional[ListNode], cnt: int, max_cnt: int) -> (Optional[ListNode], Optional[ListNode]):\n    if not node:\n        return (None, None)\n    elif cnt == max_cnt:\n        node.next = swap(node.next, 1, max_cnt)[0]\n        return (node, node)\n    elif not node.next:\n        return (node, node)\n    else:\n        res = swap(node.next, cnt + 1, max_cnt)\n        node.next = res[1].next\n        res[1].next = node\n        return res\n\n    class Solution:\n        def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:\n            return swap(head, 1, 2)[0]",
-            "date": 1691337600000
+            "date": "2023-08-07"
         },
         {
             "script": "rust",
@@ -68,7 +66,12 @@
             "memory": 5.26,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn reverse_string(s: &mut Vec<char>) {\n        let mut l = 0;\n        let mut r = s.len() - 1;\n        while l < r {\n            let (cl, cr) = (s[l], s[r]);\n            s[l] = cr;\n            s[r] = cl;\n            l += 1;\n            r -= 1;\n        }\n    }\n}",
-            "date": 1691337600000
+            "date": "2023-08-07"
         }
-    ]
+    ],
+    "tagList": [
+        "双指针",
+        "字符串"
+    ],
+    "level": "Easy"
 }

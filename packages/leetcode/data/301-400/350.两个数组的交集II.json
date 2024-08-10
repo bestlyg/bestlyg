@@ -2,12 +2,10 @@
     "id": "350",
     "name": "350.两个数组的交集II",
     "url": "https://leetcode.cn/problems/intersection-of-two-arrays-ii",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "双指针", "二分查找", "排序"],
     "desc": "给定两个数组，编写一个函数来计算它们的交集。",
     "solutions": [
         {
-            "date": 1594569600000,
+            "date": "2020-07-13",
             "time": 76,
             "memory": 37.1,
             "script": "typescript",
@@ -15,12 +13,20 @@
             "code": "function intersect(nums1: number[], nums2: number[]): number[] {\n  const map = new Map();\n  const ans: number[] = [];\n  for (const num of nums1) {\n    const c = map.get(num);\n    map.set(num, 1 + (c ? c : 0));\n  }\n  for (const num of nums2) {\n    const c = map.get(num);\n    if (c) {\n      ans.push(num);\n      map.set(num, c - 1);\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1638201600000,
+            "date": "2021-11-30",
             "time": 8,
             "memory": 6.2,
             "script": "c",
             "desc": "二分查找。",
             "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint* intersect(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){\n    qsort(nums2, nums2Size, sizeof(int), comp);\n    qsort(nums1, nums1Size, sizeof(int), comp);\n    int i1 = 0, i2 = 0, *ans = (int *)malloc(sizeof(int) * nums1Size);\n    *returnSize = 0;\n    while (i1 < nums1Size && i2 < nums2Size) {\n        if (nums1[i1] == nums2[i2]) {\n            ans[(*returnSize)++] = nums1[i1];\n            i1++;\n            i2++;\n            continue ;\n        } else if (nums1[i1] > nums2[i2]) {\n            i2++;\n        } else {\n            i1++;\n        }\n    }\n    return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Easy"
 }

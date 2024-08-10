@@ -2,8 +2,6 @@
     "id": "1923",
     "name": "1813.句子相似性III",
     "url": "https://leetcode.cn/problems/sentence-similarity-iii",
-    "difficulty": "中等",
-    "tag": ["数组", "双指针", "字符串"],
     "desc": "给你两个句子 sentence1 和 sentence2 ，如果 sentence1 和 sentence2 是相似的，请你返回 true ，否则返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 6.4,
             "desc": "双指针递归。",
             "code": "class Solution {\npublic:\n    bool areSentencesSimilar(string sentence1, string sentence2) {\n        vector<string> l1 = split(sentence1), l2 = split(sentence2);\n        return compare(l1, l2, 0, 0, false);\n    }\n    bool compare(vector<string> &l1, vector<string> &l2, int i1, int i2, bool inserted) {\n        if (i1 == l1.size() && i2 == l2.size()) return true;\n        if (i2 == l2.size() || i1 == l1.size()) return !inserted;\n        if (l1[i1] == l2[i2]) return compare(l1, l2, i1 + 1, i2 + 1, inserted);\n        if (inserted) return false;\n        int next = i1;\n        while ((next = indexof(l1, next + 1, l2[i2])) != -1)\n            if (compare(l1, l2, next, i2, true)) return true;\n        next = i2;\n        while ((next = indexof(l2, next + 1, l1[i1])) != -1)\n            if (compare(l1, l2, i1, next, true)) return true;\n        return false;\n    }\n    int indexof(vector<string> &l, int start, string &s) {\n        for (int i = start; i < l.size(); i++)\n            if (l[i] == s) return i;\n        return -1;\n    }\n    vector<string> split(string &s) {\n        vector<string> ans;\n        for (int i = 0; i < s.size(); i++) {\n            if (s[i] == ' ') continue;\n            string cur = \"\";\n            while (i < s.size() && s[i] != ' ') cur += s[i++];\n            ans.push_back(cur);\n        }\n        return ans;\n    }\n};",
-            "date": 1673798400000
+            "date": "2023-01-16"
         },
         {
             "script": "rust",
@@ -20,7 +18,13 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn are_sentences_similar(sentence1: String, sentence2: String) -> bool {\n        let l1 = sentence1.split(\" \").collect::<Vec<&str>>();\n        let l2 = sentence2.split(\" \").collect::<Vec<&str>>();\n        Solution::compare(&l1, &l2, 0, 0, false)\n    }\n    fn compare(l1: &Vec<&str>, l2: &Vec<&str>, i1: usize, i2: usize, inserted: bool) -> bool {\n        if i1 == l1.len() && i2 == l2.len() {\n            true\n        } else if i1 == l1.len() || i2 == l2.len() {\n            !inserted\n        } else if l1[i1].cmp(l2[i2]).is_eq() {\n            Solution::compare(l1, l2, i1 + 1, i2 + 1, inserted)\n        } else if inserted {\n            false\n        } else {\n            let mut next = i1;\n            loop {\n                let res = Solution::indexof(l1, next + 1, l2[i2]);\n                if res == -1 {\n                    break;\n                }\n                let res = res as usize;\n                if Solution::compare(l1, l2, res, i2, true) {\n                    return true;\n                }\n                next = res;\n            }\n            let mut next = i2;\n            loop {\n                let res = Solution::indexof(l2, next + 1, l1[i1]);\n                if res == -1 {\n                    break;\n                }\n                let res = res as usize;\n                if Solution::compare(l1, l2, i1, res, true) {\n                    return true;\n                }\n                next = res;\n            }\n            false\n        }\n    }\n    fn indexof(l: &Vec<&str>, start: usize, s: &str) -> i32 {\n        let mut i = start;\n        while i < l.len() {\n            if l[i].cmp(s).is_eq() {\n                return i as i32;\n            }\n            i += 1;\n        }\n        return -1;\n    }\n}",
-            "date": 1673798400000
+            "date": "2023-01-16"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "字符串"
+    ],
+    "level": "Medium"
 }

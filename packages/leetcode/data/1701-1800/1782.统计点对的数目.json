@@ -2,8 +2,6 @@
     "id": "1891",
     "name": "1782.统计点对的数目",
     "url": "https://leetcode.cn/problems/count-pairs-of-nodes",
-    "difficulty": "困难",
-    "tag": ["图", "数组", "双指针", "二分查找", "排序"],
     "desc": "请你返回一个数组 answers ，其中 answers.length == queries.length 且 answers[j] 是第 j 个查询的答案。",
     "solutions": [
         {
@@ -12,7 +10,15 @@
             "memory": 181.42,
             "desc": "两个节点的边总和为 n[a]+n[b]-m[a][b] 要减去共有的边，先统计两个节点边和大于目标值的个数。",
             "code": "class Solution {\npublic:\n    vector<int> countPairs(int n, vector<vector<int>>& edges, vector<int>& queries) {\n        vector<int> nodes(n, 0);\n        unordered_map<int, unordered_map<int, int>> m;\n        for (auto &edge : edges) {\n            int x = edge[0] - 1, y = edge[1] - 1;\n            if (x > y) swap(x, y);\n            nodes[x] += 1;\n            nodes[y] += 1;\n            m[x][y] += 1;\n        }\n        vector<int> res, list = nodes;\n        sort(list.begin(), list.end());\n        for (auto &query : queries) {\n            int val = 0;\n            for (int i = 0; i < n; i++) {\n                int target = query - list[i], l = i + 1, r = n;\n                while (l < r) {\n                    int m = (l + r) / 2;\n                    if (list[m] > target) r = m;\n                    else l = m + 1;\n                }\n                val += n - l;\n            }\n            for (auto &item1 : m) {\n                int x = item1.first;\n                for (auto &item2 : item1.second) {\n                    int y = item2.first, cnt = item2.second;\n                    if (nodes[x] + nodes[y] > query && nodes[x] + nodes[y] - cnt <= query) val -= 1;\n                }\n            }\n            res.push_back(val);\n        }\n        return res;\n    }\n};",
-            "date": 1692720000000
+            "date": "2023-08-23"
         }
-    ]
+    ],
+    "tagList": [
+        "图",
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Hard"
 }

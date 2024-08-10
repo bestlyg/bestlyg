@@ -2,12 +2,10 @@
     "id": "567",
     "name": "567.字符串的排列",
     "url": "https://leetcode.cn/problems/permutation-in-string",
-    "difficulty": "中等",
-    "tag": ["哈希表", "双指针", "字符串", "滑动窗口"],
     "desc": "给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。",
     "solutions": [
         {
-            "date": 1612886400000,
+            "date": "2021-02-10",
             "time": 340,
             "memory": 46.3,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function checkInclusion(s1: string, s2: string): boolean {\n  const len1 = s1.length;\n  const getMap = (arr: string[]) =>\n    arr.reduce((total, cur) => {\n      total[cur] = (total[cur] ?? 0) + 1;\n      return total;\n    }, {} as Record<string, number>);\n  const charMap1 = getMap(s1.split(''));\n  const charMap2 = getMap(s2.substr(0, len1).split(''));\n  const check = () => Object.entries(charMap1).every(([k, v]) => charMap2[k] === v);\n  if (check()) return true;\n  for (let i = len1, len2 = s2.length; i < len2; i++) {\n    charMap2[s2[i - len1]]--;\n    charMap2[s2[i]] = (charMap2[s2[i]] ?? 0) + 1;\n    if (check()) return true;\n  }\n  return false;\n}"
         },
         {
-            "date": 1612886400000,
+            "date": "2021-02-10",
             "time": 304,
             "memory": 46.3,
             "script": "typescript",
             "desc": "增加 set 优化题解 1。",
             "code": "function checkInclusion(s1: string, s2: string): boolean {\n  const len1 = s1.length;\n  const getMap = (arr: string[]) =>\n    arr.reduce((total, cur) => {\n      total[cur] = (total[cur] ?? 0) + 1;\n      return total;\n    }, {} as Record<string, number>);\n  const arr1 = s1.split('');\n  const map1 = getMap(arr1);\n  const set1 = new Set(arr1);\n  const map2 = getMap(s2.substr(0, len1).split(''));\n  const check = () => Object.entries(map1).every(([k, v]) => map2[k] === v);\n  if (check()) return true;\n  for (let i = len1, len2 = s2.length; i < len2; i++) {\n    const char = s2[i];\n    map2[s2[i - len1]]--;\n    map2[char] = (map2[char] ?? 0) + 1;\n    if (!set1.has(char)) continue;\n    if (check()) return true;\n  }\n  return false;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "双指针",
+        "字符串",
+        "滑动窗口"
+    ],
+    "level": "Medium"
 }

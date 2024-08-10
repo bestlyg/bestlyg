@@ -2,8 +2,6 @@
     "id": "1096",
     "name": "1031.两个非重叠子数组的最大和",
     "url": "https://leetcode.cn/problems/maximum-sum-of-two-non-overlapping-subarrays",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划", "滑动窗口"],
     "desc": "给你一个整数数组 nums 和两个整数 firstLen 和 secondLen，请你找出并返回两个非重叠 子数组 中元素的最大和，长度分别为 firstLen 和 secondLen 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 8.1,
             "desc": "分别计算左右。",
             "code": "class Solution {\npublic:\n    int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {\n        int n = nums.size(), lmax[n + 1], mmax[n + 1];\n        memset(lmax, 0, sizeof(lmax));\n        memset(mmax, 0, sizeof(mmax));\n        for (int i = n - 1, lsum = 0, msum = 0; i >= 0; i--) {\n            lsum += nums[i];\n            msum += nums[i];\n            if (i + firstLen < n) lsum -= nums[i + firstLen];\n            if (i + secondLen < n) msum -= nums[i + secondLen];\n            if (i + firstLen <= n) lmax[i] = max(lmax[i + 1], lsum); \n            if (i + secondLen <= n) mmax[i] = max(mmax[i + 1], msum); \n        }\n        int ans = 0;\n        for (int i = 0, lsum = 0, msum = 0; i < n; i++) {\n            lsum += nums[i];\n            msum += nums[i];\n            if (i >= firstLen) lsum -= nums[i - firstLen];\n            if (i >= secondLen) msum -= nums[i - secondLen];\n            ans = max(ans, lsum + mmax[i + 1]);\n            ans = max(ans, msum + lmax[i + 1]);\n        }\n        return ans;\n    }\n};",
-            "date": 1642089600000
+            "date": "2022-01-14"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 8.4,
             "desc": "遍历。",
             "code": "vector<int> get_sums(vector<int> &arr) {\n    vector<int> sums(1, 0);\n    for (auto &num : arr) sums.push_back(sums.back() + num);\n    return sums;\n}\nclass Solution {\npublic:\n    int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {\n        int n = nums.size(), res = 0;\n        auto sums = get_sums(nums);\n        for (int i = 0; i + firstLen <= n; i++) {\n            int num = sums[i + firstLen] - sums[i];\n            for (int j = 0; j + secondLen < i; j++) res = max(res, sums[j + secondLen] - sums[j] + num);\n            for (int j = i + firstLen; j + secondLen <= n; j++) res = max(res, sums[j + secondLen] - sums[j] + num);\n        }\n        return res;\n    }\n};",
-            "date": 1682438400000
+            "date": "2023-04-26"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15,
             "desc": "同上。",
             "code": "class Solution:\n    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:\n        sums = [0]\n        for num in nums:\n            sums.append(sums[-1] + num)\n        n = len(nums)\n        res = i = 0\n        while i + firstLen <= n:\n            num = sums[i+firstLen] - sums[i]\n            j = 0\n            while j + secondLen < i:\n                res = max(res, sums[j + secondLen] - sums[j] + num)\n                j += 1\n            j = i + firstLen\n            while j + secondLen <= n:\n                res = max(res, sums[j + secondLen] - sums[j] + num)\n                j += 1\n            i += 1\n        return res",
-            "date": 1682438400000
+            "date": "2023-04-26"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "fn get_sums(arr: &Vec<i32>) -> Vec<i32> {\n    let mut sums = vec![0];\n    for num in arr {\n        sums.push(sums.last().unwrap() + *num);\n    }\n    sums\n}\n\nimpl Solution {\n    pub fn max_sum_two_no_overlap(nums: Vec<i32>, first_len: i32, second_len: i32) -> i32 {\n        use std::cmp::max;\n        let sums = get_sums(&nums);\n        let (first_len, second_len) = (first_len as usize, second_len as usize);\n        let n = nums.len();\n        let mut res = 0;\n        let mut i = 0;\n        while i + first_len <= n {\n            let num = sums[i + first_len] - sums[i];\n            let mut j = 0;\n            while j + second_len < i {\n                res = max(res, sums[j + second_len] - sums[j] + num);\n                j += 1;\n            }\n            j = i + first_len;\n            while j + second_len <= n {\n                res = max(res, sums[j + second_len] - sums[j] + num);\n                j += 1;\n            }\n            i += 1\n        }\n        res\n    }\n}",
-            "date": 1682438400000
+            "date": "2023-04-26"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划",
+        "滑动窗口"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "2784",
     "name": "2681.英雄的力量",
     "url": "https://leetcode.cn/problems/power-of-heroes",
-    "difficulty": "困难",
-    "tag": ["数组", "数学", "动态规划", "前缀和", "排序"],
     "desc": "请你返回所有可能的 非空 英雄组的 力量 之和。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 88.63,
             "desc": "排序后遍历统计。",
             "code": "class Solution {\npublic:\n    typedef long long ll;\n    int sumOfPower(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        // min (...cnt) max， sum统计min为最小值的情况个数，pow(2, cnt)\n        ll res = 0, MOD = 1e9 + 7, sum = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            ll num = nums[i], num2 = num * num % MOD;\n            // 当子序列内只有num时的情况\n            res += num2 * num % MOD;\n            // 前面最小值的和 乘以 最大值的平方\n            res += sum * num2 % MOD;\n            // 重新累加最小值的和\n            sum = ((sum * 2 % MOD) + num) % MOD;\n        }\n        return res % MOD;\n    }\n};",
-            "date": 1690819200000
+            "date": "2023-08-01"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 25.5,
             "desc": "同上。",
             "code": "class Solution:\n    def sumOfPower(self, nums: List[int]) -> int:\n        nums.sort()\n        res = sum = 0\n        MOD = 1000000000 + 7\n        for i in range(len(nums)):\n            num = nums[i]\n            num2 = num * num % MOD\n            res += num2 * num % MOD + sum * num2 % MOD\n            sum = (sum * 2 % MOD + num) % MOD\n        return int(res % MOD)",
-            "date": 1690819200000
+            "date": "2023-08-01"
         },
         {
             "script": "rust",
@@ -28,7 +26,15 @@
             "memory": 3.37,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn sum_of_power(nums: Vec<i32>) -> i32 {\n        let mut nums: Vec<i64> = nums.into_iter().map(|v| v as i64).collect();\n        nums.sort();\n        let mut res = 0i64;\n        let mut sum = 0i64;\n        const MOD: i64 = 1000000000 + 7;\n        for i in 0..nums.len() {\n            let num = nums[i];\n            let num2 = num * num % MOD;\n            res += num2 * num % MOD + sum * num2 % MOD;\n            sum = (sum * 2 % MOD + num) % MOD\n        }\n        (res % MOD) as i32\n    }\n}",
-            "date": 1690819200000
+            "date": "2023-08-01"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "动态规划",
+        "前缀和",
+        "排序"
+    ],
+    "level": "Hard"
 }

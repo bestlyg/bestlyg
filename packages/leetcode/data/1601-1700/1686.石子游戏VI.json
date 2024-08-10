@@ -2,8 +2,6 @@
     "id": "1788",
     "name": "1686.石子游戏VI",
     "url": "https://leetcode.cn/problems/stone-game-vi",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "数学", "博弈", "排序", "堆（优先队列）"],
     "desc": "所有石子都被取完后，得分较高的人为胜者。如果两个玩家得分相同，那么为平局。两位玩家都会采用 最优策略 进行游戏。",
     "solutions": [
         {
@@ -12,7 +10,16 @@
             "memory": 27.69,
             "desc": "优先拿分数总和最大的。",
             "code": "class Solution:\n    def stoneGameVI(self, aliceValues: List[int], bobValues: List[int]) -> int:\n        values = sorted((av + bv, av, bv) for av, bv in zip(aliceValues, bobValues))\n        asum = sum(item[1] for item in values[-1::-2])\n        bsum = sum(item[2] for item in values[-2::-2])\n        if asum > bsum: return 1\n        if asum < bsum: return -1\n        return 0",
-            "date": 1706803200000
+            "date": "2024-02-02"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "数学",
+        "博弈",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

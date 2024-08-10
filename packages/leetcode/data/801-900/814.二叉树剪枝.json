@@ -2,12 +2,10 @@
     "id": "832",
     "name": "814.二叉树剪枝",
     "url": "https://leetcode.cn/problems/binary-tree-pruning",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "返回移除了所有不包含 1 的子树的原二叉树。",
     "solutions": [
         {
-            "date": 1658332800000,
+            "date": "2022-07-21",
             "time": 4,
             "memory": 8.4,
             "script": "cpp",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n   public:\n    TreeNode *pruneTree(TreeNode *root) {\n        bool check = false;\n        return _pruneTree(root, &check);\n    }\n    TreeNode *_pruneTree(TreeNode *root, bool *check) {\n        if (root == nullptr) {\n            *check = false;\n            return root;\n        }\n        bool checkl = false, checkr = false;\n        root->left = _pruneTree(root->left, &checkl);\n        root->right = _pruneTree(root->right, &checkr);\n        if (root->val || checkl || checkr) {\n            *check = true;\n            return root;\n        } else {\n            *check = false;\n            return nullptr;\n        }\n    }\n};"
         },
         {
-            "date": 1658332800000,
+            "date": "2022-07-21",
             "time": 0,
             "memory": 2,
             "script": "rust",
@@ -23,7 +21,7 @@
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn prune_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {\n        let mut check = false;\n        let mut root = root;\n        Solution::_prune_tree(&mut root, &mut check);\n        root\n    }\n    fn _prune_tree(root: &mut Option<Rc<RefCell<TreeNode>>>, check: &mut bool) {\n        if root.is_none() {\n            *check = false;\n            return;\n        }\n        let mut check_l = false;\n        let mut check_r = false;\n        Solution::_prune_tree(&mut root.as_ref().unwrap().borrow_mut().left, &mut check_l);\n        Solution::_prune_tree(&mut root.as_ref().unwrap().borrow_mut().right, &mut check_r);\n        if root.as_ref().unwrap().borrow().val == 1 || check_l || check_r {\n            *check = true;\n        } else {\n            *root = None;\n        }\n    }\n}"
         },
         {
-            "date": 1658332800000,
+            "date": "2022-07-21",
             "time": 60,
             "memory": 42.7,
             "script": "javascript",
@@ -31,12 +29,18 @@
             "code": "var pruneTree = function (root) {\n  return _pruneTree(root)[0];\n};\nfunction _pruneTree(root) {\n  if (!root) return [null, false];\n  const [left, checkl] = _pruneTree(root.left);\n  const [right, checkr] = _pruneTree(root.right);\n  root.left = left;\n  root.right = right;\n  if (checkl || checkr || root.val === 1) {\n    return [root, true];\n  } else {\n    return [null, false];\n  }\n}"
         },
         {
-            "date": 1658332800000,
+            "date": "2022-07-21",
             "time": 68,
             "memory": 43.9,
             "script": "javascript",
             "desc": "dfs。",
             "code": "function pruneTree(root: TreeNode | null): TreeNode | null {\n  return _pruneTree(root)[0];\n}\nfunction _pruneTree(root: TreeNode | null): [TreeNode | null, boolean] {\n  if (!root) return [null, false];\n  const [left, checkl] = _pruneTree(root.left);\n  const [right, checkr] = _pruneTree(root.right);\n  root.left = left;\n  root.right = right;\n  if (checkl || checkr || root.val === 1) {\n    return [root, true];\n  } else {\n    return [null, false];\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

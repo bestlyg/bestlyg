@@ -2,8 +2,6 @@
     "id": "1475",
     "name": "1373.二叉搜索子树的最大键值和",
     "url": "https://leetcode.cn/problems/maximum-sum-bst-in-binary-tree",
-    "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "动态规划", "二叉树"],
     "desc": "给你一棵以 root 为根的 二叉树 ，请你返回 任意 二叉搜索子树的最大键值和。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 110.6,
             "desc": "遍历左右子树的同时记录最大值，最小值和总和。",
             "code": "struct Node {\n    int l, r, sum;\n    Node(int l, int r, int sum): l(l), r(r), sum(sum) {}\n};\n\nclass Solution {\npublic:\n    int maxSumBST(TreeNode* root) {\n        int res = 0;\n        Node no(INT_MIN, -1, -1);\n        function<Node(TreeNode*)> dfs = [&](TreeNode *node) -> Node {\n            if (!node) return no;\n            int val = node->val;\n            auto lv = dfs(node->left), rv = dfs(node->right);\n            if (node->left == nullptr && node->right == nullptr) {\n                res = max(res, val);\n                return Node(val, val, val);\n            } else if (node->left == nullptr) {\n                if (rv.l == no.l) return no;\n                if (val >= rv.l) return no;\n                rv.l = val;\n                rv.sum += val;\n                res = max(res, rv.sum);\n                return rv;\n            } else if (node->right == nullptr) {\n                if (lv.l == no.l) return no;\n                if (lv.r >= val) return no;\n                lv.r = val;\n                lv.sum += val;\n                res = max(res, lv.sum);\n                return lv;\n            } else {\n                if (lv.l == no.l || rv.l == no.l) return no;\n                if (lv.r >= val) return no;\n                if (val >= rv.l) return no;\n                Node next(lv.l, rv.r, lv.sum + rv.sum + val);\n                res = max(res, next.sum);\n                return next;\n            }\n        };\n        dfs(root);\n        return res;\n    }\n};",
-            "date": 1684512000000
+            "date": "2023-05-20"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 65.5,
             "desc": "同上。",
             "code": "class Node:\n    def __init__(self, l: int, r: int, sum: int):\n        self.l = l\n        self.r = r\n        self.sum = sum\n\n\nclass Solution:\n    def maxSumBST(self, root: Optional[TreeNode]) -> int:\n        res = 0\n        no = Node(-inf, -1, -1)\n\n        def dfs(node: Optional[TreeNode]) -> Node:\n            nonlocal res\n            if not node:\n                return no\n            val = node.val\n            lv, rv = dfs(node.left), dfs(node.right)\n            if node.left == None and node.right == None:\n                res = max(res, val)\n                return Node(val, val, val)\n            elif node.left == None:\n                if rv.l == no.l:\n                    return no\n                if val >= rv.l:\n                    return no\n                rv.l = val\n                rv.sum += val\n                res = max(res, rv.sum)\n                return rv\n            elif node.right == None:\n                if lv.l == no.l:\n                    return no\n                if lv.r >= val:\n                    return no\n                lv.r = val\n                lv.sum += val\n                res = max(res, lv.sum)\n                return lv\n            else:\n                if lv.l == no.l or rv.l == no.l:\n                    return no\n                if lv.r >= val:\n                    return no\n                if val >= rv.l:\n                    return no\n                next = Node(lv.l, rv.r, lv.sum + rv.sum + val)\n                res = max(res, next.sum)\n                return next\n        dfs(root)\n        return res",
-            "date": 1684512000000
+            "date": "2023-05-20"
         },
         {
             "script": "rust",
@@ -28,7 +26,15 @@
             "memory": 9.8,
             "desc": "同上。",
             "code": "static NoVal: i32 = i32::MIN;\n#[derive(Debug, Clone)]\nstruct Node {\n    l: i32,\n    r: i32,\n    sum: i32,\n}\nimpl Node {\n    fn new(l: i32, r: i32, sum: i32) -> Node {\n        Node { l, r, sum }\n    }\n    fn no() -> Node {\n        Node {\n            l: NoVal,\n            r: 0,\n            sum: 0,\n        }\n    }\n}\nuse std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn max_sum_bst(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let mut res = 0;\n        dfs(&mut res, &root);\n        res\n    }\n}\nfn dfs(res: &mut i32, node: &Option<Rc<RefCell<TreeNode>>>) -> Node {\n    match node {\n        Some(node) => {\n            let nodeRef = node.as_ref().borrow();\n            let val = nodeRef.val;\n            let (mut lv, mut rv) = (dfs(res, &nodeRef.left), dfs(res, &nodeRef.right));\n            if nodeRef.left.is_none() && nodeRef.right.is_none() {\n                *res = (*res).max(val);\n                Node::new(val, val, val)\n            } else if nodeRef.left.is_none() {\n                if rv.l == NoVal {\n                    Node::no()\n                } else if val >= rv.l {\n                    Node::no()\n                } else {\n                    rv.l = val;\n                    rv.sum += val;\n                    *res = (*res).max(rv.sum);\n                    rv\n                }\n            } else if nodeRef.right.is_none() {\n                if lv.l == NoVal {\n                    Node::no()\n                } else if lv.r >= val {\n                    Node::no()\n                } else {\n                    lv.r = val;\n                    lv.sum += val;\n                    *res = (*res).max(lv.sum);\n                    lv\n                }\n            } else {\n                if lv.l == NoVal || rv.l == NoVal {\n                    Node::no()\n                } else if lv.r >= val {\n                    Node::no()\n                } else if val >= rv.l {\n                    Node::no()\n                } else {\n                    let next = Node::new(lv.l, rv.r, lv.sum + rv.sum + val);\n                    *res = (*res).max(next.sum);\n                    next\n                }\n            }\n        }\n        None => Node::no(),\n    }\n}",
-            "date": 1684512000000
+            "date": "2023-05-20"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "动态规划",
+        "二叉树"
+    ],
+    "level": "Hard"
 }

@@ -2,12 +2,10 @@
     "id": "975",
     "name": "938.二叉搜索树的范围和",
     "url": "https://leetcode.cn/problems/range-sum-of-bst",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定二叉搜索树的根结点 root，返回 L 和 R（含）之间的所有结点的值的和。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 10,
             "memory": 47.5,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n    ArrayList<Integer> list = new ArrayList<Integer>(10000);\n\n\tpublic int rangeSumBST(TreeNode root, int L, int R) {\n\t\tinorder(root);\n\t\tint sum = 0;\n\t\tfor (int i = 0, len = list.size(); i < len; i++) {\n\t\t\tif (list.get(i) < L)\n\t\t\t\tcontinue;\n\t\t\telse if (list.get(i) >= L && list.get(i) <= R)\n\t\t\t\tsum += list.get(i);\n\t\t\telse\n\t\t\t\tbreak;\n\t\t}\n\t\treturn sum;\n\t}\n\n\tpublic void inorder(TreeNode node) {\n\t\tif (node.left != null)\n\t\t\tinorder(node.left);\n\t\tlist.add(node.val);\n\t\tif (node.right != null)\n\t\t\tinorder(node.right);\n\t}\n}"
         },
         {
-            "date": 1619452800000,
+            "date": "2021-04-27",
             "time": 288,
             "memory": 65.9,
             "script": "typescript",
@@ -28,7 +26,14 @@
             "memory": 24.04,
             "desc": "dfs。",
             "code": "class Solution:\n    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:\n        if not root: return 0\n        if root.val < low: return self.rangeSumBST(root.right, low, high)\n        if root.val > high: return self.rangeSumBST(root.left, low, high)\n        return root.val + self.rangeSumBST(root.right, low, high) + self.rangeSumBST(root.left, low, high)",
-            "date": 1708876800000
+            "date": "2024-02-26"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

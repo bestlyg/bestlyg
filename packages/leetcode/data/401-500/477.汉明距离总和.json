@@ -2,17 +2,21 @@
     "id": "477",
     "name": "477.汉明距离总和",
     "url": "https://leetcode.cn/problems/total-hamming-distance",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "数学"],
     "desc": "两个整数的 汉明距离 指的是这两个数字的二进制数对应位不同的数量。",
     "solutions": [
         {
-            "date": 1622131200000,
+            "date": "2021-05-28",
             "time": 156,
             "memory": 41.7,
             "script": "typescript",
             "desc": "逐位统计个数。",
             "code": "function totalHammingDistance(nums: number[]): number {\n  const len = nums.length;\n  let ans = 0;\n  for (let i = 0; i <= 31; i++) {\n    let count = 0;\n    nums.forEach(num => (count += (num >> i) & 1));\n    ans += count * (len - count);\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "数学"
+    ],
+    "level": "Medium"
 }

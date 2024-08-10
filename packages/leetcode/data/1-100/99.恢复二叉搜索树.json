@@ -2,12 +2,10 @@
     "id": "99",
     "name": "99.恢复二叉搜索树",
     "url": "https://leetcode.cn/problems/recover-binary-search-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "二叉搜索树中的两个节点被错误地交换。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 4,
             "memory": 40.9,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n    ArrayList<TreeNode> list = new ArrayList<TreeNode>();\n\tpublic void recoverTree(TreeNode root) {\n\t\tif(root==null)return;\n\t\tinorder(root);\n\t\tTreeNode node1=null,node2=null;\n\t\tfor(int i=0,len=list.size()-1;i<len;i++) {\n\t\t\tif(list.get(i+1).val<list.get(i).val) {\n\t\t\t\tif(node1==null) {\n\t\t\t\t    node1=list.get(i);\n\t\t\t\t\tnode2=list.get(i+1);\n\t\t\t\t}else{\n\t\t\t\t\tnode2=list.get(i+1);\n                }\n\t\t\t}\n\t\t}\n\t\tint temp=node1.val;\n\t\tnode1.val=node2.val;\n\t\tnode2.val=temp;\n    }\n\tpublic void inorder(TreeNode node) {\n\t\tif (node.left != null)\n\t\t\tinorder(node.left);\n\t\tlist.add(node);\n\t\tif (node.right != null)\n\t\t\tinorder(node.right);\n\t}\n}"
         },
         {
-            "date": 1596816000000,
+            "date": "2020-08-08",
             "time": 192,
             "memory": 48,
             "script": "typescript",
@@ -23,12 +21,19 @@
             "code": "function recoverTree(root: TreeNode | null): void {\n  if (root === null) return;\n  const list: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0, len = list.length; i < len - 1; i++) {\n    for (let j = 0; j < len - 1 - i; j++) {\n      if (list[j].val > list[j + 1].val) swap(list[j], list[j + 1]);\n    }\n  }\n  function swap(n1: TreeNode, n2: TreeNode) {\n    const num = n1.val;\n    n1.val = n2.val;\n    n2.val = num;\n  }\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    list.push(node);\n    inorder(node.right);\n  }\n}"
         },
         {
-            "date": 1629388800000,
+            "date": "2021-08-20",
             "time": 144,
             "memory": 47.5,
             "script": "typescript",
             "desc": "中序排序后比较。",
             "code": "function recoverTree(root: TreeNode | null): void {\n  if (root === null) return;\n  const q: TreeNode[] = [];\n  inorder(root);\n  let n1!: TreeNode;\n  let n2!: TreeNode;\n  for (let i = 1; i < q.length; i++) {\n    if (q[i].val < q[i - 1].val) {\n      if (n1) {\n        n2 = q[i];\n      } else {\n        n1 = q[i - 1];\n        n2 = q[i];\n      }\n    }\n  }\n  [n1.val, n2.val] = [n2.val, n1.val];\n  function inorder(node: TreeNode | null) {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node);\n    inorder(node.right);\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "1622",
     "name": "1499.满足不等式的最大值",
     "url": "https://leetcode.cn/problems/max-value-of-equation",
-    "difficulty": "困难",
-    "tag": ["队列", "数组", "滑动窗口", "单调队列", "堆（优先队列）"],
     "desc": "定一个长度为 n 的环形整数数组 nums ，返回 nums 的非空 子数组 的最大可能和 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 19.6,
             "desc": "统计左右最大高度。",
             "code": "class Solution {\npublic:\n    int trap(vector<int>& height) {\n        int sum = 0, n = height.size();\n        vector<int> r(n, 0);\n        for (int i = n - 1, cur = 0; i >= 0; i--) {\n            r[i] = cur;\n            cur = max(cur, height[i]);\n        }\n        for (int i = 0, cur = 0; i < n; i++) {\n            cur = max(cur, height[i]);\n            sum += max(0, min(cur, r[i]) - height[i]);\n        }\n        return sum;\n    }\n};",
-            "date": 1690041600000
+            "date": "2023-07-23"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 17.7,
             "desc": "同上。",
             "code": "class Solution:\n    def trap(self, height: List[int]) -> int:\n        sum = 0\n        n = len(height)\n        cur = 0\n        r = [0] * n\n        for i in range(n-1, -1, -1):\n            r[i] = cur\n            cur = max(cur, height[i])\n        cur = 0\n        for i in range(n):\n            cur = max(cur, height[i])\n            sum += max(0, min(cur, r[i])-height[i])\n        return sum",
-            "date": 1690041600000
+            "date": "2023-07-23"
         },
         {
             "script": "rust",
@@ -28,7 +26,15 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn trap(height: Vec<i32>) -> i32 {\n        let mut sum = 0;\n        let n = height.len();\n        let mut cur = 0;\n        let mut r = vec![0; n];\n        for i in (0..n).rev() {\n            r[i] = cur;\n            cur = cur.max(height[i]);\n        }\n        cur = 0;\n        for i in 0..n {\n            cur = cur.max(height[i]);\n            sum += 0.max(cur.min(r[i]) - height[i]);\n        }\n        sum\n    }\n}",
-            "date": 1690041600000
+            "date": "2023-07-23"
         }
-    ]
+    ],
+    "tagList": [
+        "队列",
+        "数组",
+        "滑动窗口",
+        "单调队列",
+        "堆（优先队列）"
+    ],
+    "level": "Hard"
 }

@@ -2,17 +2,20 @@
     "id": "134",
     "name": "134.加油站",
     "url": "https://leetcode.cn/problems/gas-station",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组"],
     "desc": "在一条环路上有  N  个加油站，其中第  i  个加油站有汽油  gas[i]  升。你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1  个加油站需要消耗汽油  cost[i]  升。你从其中的一个加油站出发，开始时油箱为空。如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。",
     "solutions": [
         {
-            "date": 1605628800000,
+            "date": "2020-11-18",
             "time": 272,
             "memory": 40.9,
             "script": "typescript",
             "desc": "选取首点进行遍历计算。",
             "code": "function canCompleteCircuit(gas: number[], cost: number[]): number {\n  const len = gas.length;\n  const starts: number[] = [];\n  for (let i = 0; i < len; i++) {\n    gas[i] >= cost[i] && starts.push(i);\n  }\n  for (const start of starts) {\n    let arg = gas[start] - cost[start];\n    let i = (start + 1) % len;\n    while (i !== start) {\n      arg += gas[i] - cost[i];\n      if (arg < 0) break;\n      i = (i + 1) % len;\n    }\n    if (i === start) return i;\n  }\n  return -1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
+    "level": "Medium"
 }

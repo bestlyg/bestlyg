@@ -2,8 +2,6 @@
     "id": "862",
     "name": "833.字符串中的查找与替换",
     "url": "https://leetcode.cn/problems/find-and-replace-in-string",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串", "排序"],
     "desc": "在对 s 执行所有替换操作后返回 结果字符串 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 13.16,
             "desc": "从后往前遍历。",
             "code": "class Solution {\npublic:\n    string findReplaceString(string s, vector<int>& indices, vector<string>& sources, vector<string>& targets) {\n        int n = indices.size();\n        vector<int> idxs;\n        for (int i = 0; i < n; i++) idxs.push_back(i);\n        sort(idxs.begin(), idxs.end(), [&](auto &i1, auto &i2) {\n            return indices[i2] < indices[i1];\n        });\n        auto check = [&](int &start, string &source) {\n            for (int i = 0; i < source.size(); i++) {\n                if (start + i >= s.size() || source[i] != s[start + i]) return false;\n            }\n            return true;\n        };\n        for (int idx = 0; idx < n; idx++) {\n            int i = idxs[idx];\n            if (check(indices[i], sources[i])) {\n                s = s.substr(0, indices[i]) + targets[i] + s.substr(indices[i] + sources[i].size());\n            }\n        }\n        return s;\n    }\n};",
-            "date": 1692028800000
+            "date": "2023-08-15"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.1,
             "desc": "同上。",
             "code": "class Solution:\n    def findReplaceString(self, s: str, indices: List[int], sources: List[str], targets: List[str]) -> str:\n        n = len(indices)\n        idxs = [i for i in range(n)]\n        idxs.sort(key=lambda i: indices[i], reverse=True)\n        for idx in range(n):\n            i = idxs[idx]\n            if s[indices[i]:indices[i]+len(sources[i])] == sources[i]:\n                s = s[0:indices[i]] + targets[i] +                     s[indices[i]+len(sources[i]):]\n                print(s)\n        return s",
-            "date": 1692028800000
+            "date": "2023-08-15"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_replace_string(\n        mut s: String,\n        indices: Vec<i32>,\n        sources: Vec<String>,\n        targets: Vec<String>,\n    ) -> String {\n        let indices = indices.into_iter().map(|i| i as usize).collect::<Vec<_>>();\n        let n = indices.len();\n        let mut idxs = (0..n).collect::<Vec<_>>();\n        idxs.sort_by_key(|i| indices[*i]);\n        idxs.reverse();\n        for i in idxs {\n            if indices[i] + sources[i].len() <= s.len() && s[indices[i]..indices[i] + sources[i].len()] == sources[i] {\n                let mut ns = String::new();\n                ns.push_str(&s[0..indices[i]]);\n                ns.push_str(&targets[i]);\n                ns.push_str(&s[indices[i] + sources[i].len()..]);\n                s = ns;\n            }\n        }\n        s\n    }\n}",
-            "date": 1692028800000
+            "date": "2023-08-15"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "level": "Medium"
 }

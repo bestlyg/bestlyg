@@ -2,12 +2,10 @@
     "id": "230",
     "name": "230.二叉搜索树中第K小的元素",
     "url": "https://leetcode.cn/problems/kth-smallest-element-in-a-bst",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 1,
             "memory": 41.3,
             "script": "java",
@@ -15,12 +13,19 @@
             "code": "class Solution {\n    ArrayList<Integer> list = new ArrayList<Integer>();\n    public int kthSmallest(TreeNode root, int k) {\n    \tinorder(root);\n    \treturn list.get(k-1);\n    }\n\tpublic void inorder(TreeNode node) {\n\t\tif (node.left != null)\n\t\t\tinorder(node.left);\n\t\tlist.add(node.val);\n\t\tif (node.right != null)\n\t\t\tinorder(node.right);\n\t}\n}"
         },
         {
-            "date": 1634400000000,
+            "date": "2021-10-17",
             "time": 100,
             "memory": 44.7,
             "script": "typescript",
             "desc": "中序遍历。",
             "code": "function kthSmallest(root: TreeNode | null, k: number): number {\n  let ans!: number;\n  dfs(root);\n  return ans;\n  function dfs(node: TreeNode | null): void {\n    if (node === null) return;\n    dfs(node.left);\n    if (--k === 0) {\n      ans = node.val;\n      return;\n    }\n    dfs(node.right);\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "105",
     "name": "105.从前序与中序遍历序列构造二叉树",
     "url": "https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal",
-    "difficulty": "中等",
-    "tag": ["树", "数组", "哈希表", "分治", "二叉树"],
     "desc": "根据一棵树的前序遍历与中序遍历构造二叉树。",
     "solutions": [
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 26,
             "memory": 76.4,
             "script": "java",
@@ -20,7 +18,15 @@
             "memory": 86.3,
             "desc": "dfs。",
             "code": "class Solution:\n    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:\n        if not preorder: return None\n        index = inorder.index(preorder[0])\n        return TreeNode(\n            preorder[0], \n            self.buildTree(preorder[1:index + 1], inorder[:index]),\n            self.buildTree(preorder[index + 1:], inorder[index + 1:])\n        )",
-            "date": 1708358400000
+            "date": "2024-02-20"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "数组",
+        "哈希表",
+        "分治",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

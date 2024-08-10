@@ -2,12 +2,10 @@
     "id": "377",
     "name": "377.组合总和Ⅳ",
     "url": "https://leetcode.cn/problems/combination-sum-iv",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划"],
     "desc": "给你一个由 不同 整数组成的数组 nums ，和一个目标整数 target 。请你从 nums 中找出并返回总和为 target 的元素组合的个数。",
     "solutions": [
         {
-            "date": 1619193600000,
+            "date": "2021-04-24",
             "time": 104,
             "memory": 40,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function combinationSum4(nums: number[], target: number): number {\n  const dp = new Array(target + 1).fill(0);\n  dp[0] = 1;\n  for (let i = 1; i <= target; i++) {\n    for (const num of nums) {\n      if (i >= num) {\n        dp[i] += dp[i - num];\n      }\n    }\n  }\n  return dp[target];\n}"
         },
         {
-            "date": 1631548800000,
+            "date": "2021-09-14",
             "time": 84,
             "memory": 40,
             "script": "javascript",
@@ -28,7 +26,7 @@
             "memory": 16.5,
             "desc": "dfs。",
             "code": "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        @cache\n        def dfs(target: int) -> int:\n            if target == 0: return 1\n            res = 0\n            for num in nums:\n                if num > target: break\n                res += dfs(target - num)\n            return res\n        return dfs(target)",
-            "date": 1713715200000
+            "date": "2024-04-22"
         },
         {
             "script": "python",
@@ -36,7 +34,12 @@
             "memory": 16.5,
             "desc": "dp[i]表示i为target时的最大次数。",
             "code": "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        dp = [0 for _ in range(target + 1)]\n        dp[0] = 1\n        for cur_target in range(1, target + 1):\n            for num in nums:\n                if num > cur_target: break\n                dp[cur_target] += dp[cur_target - num]\n        return dp[target]",
-            "date": 1713801600000
+            "date": "2024-04-23"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

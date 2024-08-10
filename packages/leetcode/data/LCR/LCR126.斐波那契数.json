@@ -2,17 +2,21 @@
     "id": "100274",
     "name": "LCR126.斐波那契数",
     "url": "https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof",
-    "difficulty": "简单",
-    "tag": ["记忆化搜索", "数学", "动态规划"],
     "desc": "写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。",
     "solutions": [
         {
-            "date": 1630684800000,
+            "date": "2021-09-04",
             "time": 68,
             "memory": 39.2,
             "script": "typescript",
             "desc": "动态规划。",
             "code": "function fib(n: number): number {\n  const MOD = 1e9 + 7;\n  let [num0, num1] = [0, 1];\n  if (n === 0) return num0;\n  while (--n) [num0, num1] = [num1, (num1 + num0) % MOD];\n  return num1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "记忆化搜索",
+        "数学",
+        "动态规划"
+    ],
+    "level": "Easy"
 }

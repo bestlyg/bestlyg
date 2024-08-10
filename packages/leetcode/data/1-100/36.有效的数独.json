@@ -2,17 +2,21 @@
     "id": "36",
     "name": "36.有效的数独",
     "url": "https://leetcode.cn/problems/valid-sudoku",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "矩阵"],
     "desc": "请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 。",
     "solutions": [
         {
-            "date": 1631808000000,
+            "date": "2021-09-17",
             "time": 96,
             "memory": 43.8,
             "script": "javascript",
             "desc": "逐行遍历，set 储存。",
             "code": "function isValidSudoku(board: string[][]): boolean {\n        const rows: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());\n        const cols: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());\n        const blocks: Set<string>[] = new Array(9).fill(0).map(_ => new Set<string>());\n        const getBolck = (row: number, col: number) => ~~(row / 3) * 3 + ~~(col / 3);\n        for (let row = 0; row < 9; row++) {\n          for (let col = 0; col < 9; col++) {\n            const val = board[row][col];\n            const block = getBolck(row, col);\n            if (val === '.') continue;\n            const rowSet = rows[row];\n            const colSet = cols[col];\n            const blockSet = blocks[block];\n            if (rowSet.has(val) || colSet.has(val) || blockSet.has(val)) return false;\n            rowSet.add(val);\n            colSet.add(val);\n            blockSet.add(val);\n          }\n        }\n        return true;\n      }"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

@@ -2,17 +2,21 @@
     "id": "233",
     "name": "233.数字1的个数",
     "url": "https://leetcode.cn/problems/number-of-digit-one",
-    "difficulty": "困难",
-    "tag": ["递归", "数学", "动态规划"],
     "desc": "给定一个整数 n，计算所有小于等于 n 的非负整数中数字 1 出现的个数。",
     "solutions": [
         {
-            "date": 1628784000000,
+            "date": "2021-08-13",
             "time": 72,
             "memory": 39.2,
             "script": "typescript",
             "desc": "[参考链接](https://leetcode-cn.com/problems/number-of-digit-one/solution/shu-zi-1-de-ge-shu-by-leetcode-solution-zopq/)。",
             "code": "function countDigitOne(n: number): number {\n  let num = 1;\n  let ans = 0;\n  while (n >= num) {\n    ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);\n    num *= 10;\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "递归",
+        "数学",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

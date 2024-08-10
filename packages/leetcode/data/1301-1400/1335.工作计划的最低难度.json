@@ -2,8 +2,6 @@
     "id": "1457",
     "name": "1335.工作计划的最低难度",
     "url": "https://leetcode.cn/problems/minimum-difficulty-of-a-job-schedule",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "返回整个工作计划的 最小难度 。如果无法制定工作计划，则返回 -1 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 7.4,
             "desc": "dp[i][j]表示只有i天时，只有j个job时的最小难度。",
             "code": "class Solution {\npublic:\n    int minDifficulty(vector<int>& jobDifficulty, int d) {\n        int n = jobDifficulty.size(), num = 0;\n        if (n < d) return -1;\n        vector<vector<int>> dp(d, vector<int>(n, INT_MAX));\n        for (int i = 0; i < n; i++) dp[0][i] = num = max(num, jobDifficulty[i]);\n        for (int dd = 1; dd < d; dd++) {\n            for (int i = dd; i < n; i++) {\n                num = 0;\n                for (int j = i; j >= dd; j--) {\n                    num = max(num, jobDifficulty[j]);\n                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j - 1] + num);\n                }\n            }\n        }\n        return dp[d - 1][n - 1];\n    }\n};",
-            "date": 1684166400000
+            "date": "2023-05-16"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.2,
             "desc": "同上。",
             "code": "class Solution:\n    def minDifficulty(self, jobDifficulty: List[int], d: int) -> int:\n        n = len(jobDifficulty)\n        if n < d:\n            return -1\n        num = 0\n        dp = [[inf for _ in range(n)] for _ in range(d)]\n        for i in range(n):\n            dp[0][i] = num = max(num, jobDifficulty[i])\n        for dd in range(1, d):\n            for i in range(dd, n):\n                num = 0\n                for j in range(i, dd - 1, -1):\n                    num = max(num, jobDifficulty[j])\n                    dp[dd][i] = min(dp[dd][i], dp[dd - 1][j - 1] + num)\n        return dp[d - 1][n - 1]",
-            "date": 1684166400000
+            "date": "2023-05-16"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_difficulty(job_difficulty: Vec<i32>, d: i32) -> i32 {\n        let d = d as usize;\n        let n = job_difficulty.len();\n        if n < d {\n            -1\n        } else {\n            let mut num = 0;\n            let mut dp = vec![vec![i32::MAX; n]; d];\n            for i in 0..n {\n                num = num.max(job_difficulty[i]);\n                dp[0][i] = num;\n            }\n            for dd in 1..d {\n                for i in dd..n {\n                    num = 0;\n                    for j in (dd..=i).rev() {\n                        num = num.max(job_difficulty[j]);\n                        dp[dd][i] = dp[dd][i].min(dp[dd - 1][j - 1] + num);\n                    }\n                }\n            }\n            dp[d - 1][n - 1]\n        }\n    }\n}\n",
-            "date": 1684166400000
+            "date": "2023-05-16"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

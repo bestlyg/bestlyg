@@ -2,17 +2,21 @@
     "id": "1693",
     "name": "1588.所有奇数长度子数组的和",
     "url": "https://leetcode.cn/problems/sum-of-all-odd-length-subarrays",
-    "difficulty": "简单",
-    "tag": ["数组", "数学", "前缀和"],
     "desc": "请你返回 arr 中 所有奇数长度子数组的和 。",
     "solutions": [
         {
-            "date": 1630166400000,
+            "date": "2021-08-29",
             "time": 84,
             "memory": 39.7,
             "script": "typescript",
             "desc": "前缀和。",
             "code": "function sumOddLengthSubarrays(arr: number[]): number {\n  const n = arr.length;\n  const sums = [0];\n  arr.forEach(v => sums.push(v + sums[sums.length - 1]));\n  let ans = 0;\n  for (let l = 0; l <= n; l++) {\n    for (let r = l + 1; r <= n; r += 2) {\n      ans += sums[r] - sums[l];\n    }\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "前缀和"
+    ],
+    "level": "Easy"
 }

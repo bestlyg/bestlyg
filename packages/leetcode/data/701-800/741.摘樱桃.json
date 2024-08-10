@@ -2,12 +2,10 @@
     "id": "741",
     "name": "741.摘樱桃",
     "url": "https://leetcode.cn/problems/cherry-pickup",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "你的任务是在遵守下列规则的情况下，尽可能的摘到最多樱桃。",
     "solutions": [
         {
-            "date": 1657468800000,
+            "date": "2022-07-11",
             "time": 84,
             "memory": 34.2,
             "script": "cpp",
@@ -20,7 +18,13 @@
             "memory": 26.72,
             "desc": "dp[step][x1][x2]表示共走了step步后，第一个人往垂直方向走x1步，第二个人在垂直方向走x2步，此时能获得的最大樱桃数。",
             "code": "class Solution:\n    def cherryPickup(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        MAX_STEP = (n - 1) * 2 + 1\n        dp = [[[-inf for _ in range(n + 1)] for _ in range(n + 1)] for _ in range(MAX_STEP)]\n        dp[0][0][0] = grid[0][0]\n        for step in range(1, MAX_STEP):\n            MAX_X = min(step, n - 1) + 1\n            for x1 in range(MAX_X):\n                y1 = step - x1\n                if y1 < n:\n                    for x2 in range(MAX_X):\n                        y2 = step - x2\n                        if y2 < n:\n                            if grid[x1][y1] != -1 and grid[x2][y2] != -1:\n                                dp[step][x1][x2] = max(\n                                    dp[step - 1][x1][x2],\n                                    dp[step - 1][x1 - 1][x2],\n                                    dp[step - 1][x1][x2 - 1],\n                                    dp[step - 1][x1 - 1][x2 - 1],\n                                )\n                                dp[step][x1][x2] += grid[x1][y1]\n                                if x1 != x2 or y1 != y2: dp[step][x1][x2] += grid[x2][y2]\n        res = 0\n        for item in dp[MAX_STEP - 1]:\n            res = max(res, max(item))\n        return res",
-            "date": 1715011200000
+            "date": "2024-05-07"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划",
+        "矩阵"
+    ],
+    "level": "Hard"
 }

@@ -2,8 +2,6 @@
     "id": "2632",
     "name": "2546.执行逐位运算使字符串相等",
     "url": "https://leetcode.cn/problems/apply-bitwise-operations-to-make-strings-equal",
-    "difficulty": "中等",
-    "tag": ["位运算", "字符串"],
     "desc": "如果可以使 s 等于 target ，返回 true ，否则，返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 12.8,
             "desc": "判断是否存在11，10和01的情况。",
             "code": "class Solution {\npublic:\n    bool makeStringsEqual(string s, string target) {\n        if (s == target) return true;\n        int n = s.size();\n        int s_has1 = 0, t_has1 = 0, has11 = 0, has01 = 0, has10 = 0;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '1' && target[i] == '1') return true;\n            if (s[i] == '0' && target[i] == '1') {\n                 has01++;\n                 if (has10) return true;\n            }\n            if (s[i] == '1' && target[i] == '0') {\n                has10++;\n                if (has01) return true;\n            }\n        }\n        return false;\n    }\n};",
-            "date": 1674316800000
+            "date": "2023-01-22"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 12.8,
             "desc": "判断两个字符串中是否都存在1。",
             "code": "class Solution {\npublic:\n    bool makeStringsEqual(string s, string target) {\n        int n = s.size();\n        bool s1 = false, t1 = false;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '1') s1 = true;\n            if (target[i] == '1') t1 = true;\n            if (s1 && t1) return true;\n        }\n        return s == target;\n    }\n};",
-            "date": 1674316800000
+            "date": "2023-01-22"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15.7,
             "desc": "同上。",
             "code": "class Solution:\n    def makeStringsEqual(self, s: str, target: str) -> bool:\n        return ('1' in s) and ('1' in target) or s == target",
-            "date": 1674316800000
+            "date": "2023-01-22"
         },
         {
             "script": "rust",
@@ -36,7 +34,12 @@
             "memory": 2.6,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn make_strings_equal(s: String, target: String) -> bool {\n        s.contains('1') && target.contains('1') || s == target\n    }\n}",
-            "date": 1674316800000
+            "date": "2023-01-22"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "字符串"
+    ],
+    "level": "Medium"
 }

@@ -2,17 +2,21 @@
     "id": "282",
     "name": "282.给表达式添加运算符",
     "url": "https://leetcode.cn/problems/expression-add-operators",
-    "difficulty": "困难",
-    "tag": ["数学", "字符串", "回溯"],
     "desc": "给定一个仅包含数字  0-9  的字符串 num 和一个目标值整数 target ，在 num 的数字之间添加 二元 运算符（不是一元）+、-  或  \\* ，返回所有能够得到目标值的表达式。",
     "solutions": [
         {
-            "date": 1634313600000,
+            "date": "2021-10-16",
             "time": 7944,
             "memory": 103.7,
             "script": "typescript",
             "desc": "dfs。",
             "code": "function addOperators(num: string, target: number): string[] {\n  const n = num.length;\n  if (n === 1) {\n    return +num === target ? [num] : [];\n  }\n  const ops = ['+', '-', '*', ''];\n  const ans = new Set<string>();\n  dfs();\n  return Array.from(ans);\n  function dfs(idx = 0, template = '') {\n    if (idx === n) {\n      if (eval(template) === target) ans.add(template);\n      return;\n    }\n    const current = num[idx];\n    template += current;\n    if (idx === n - 1) {\n      dfs(idx + 1, template);\n      return;\n    }\n    for (const op of ops) {\n      if (num[idx] === '0' && op === '') continue;\n      dfs(idx + 1, template + op);\n    }\n    while (idx < n - 1 && current !== '0' && num[idx + 1] === '0') {\n      template += '0';\n      dfs(idx + 2, template);\n      idx += 1;\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "字符串",
+        "回溯"
+    ],
+    "level": "Hard"
 }

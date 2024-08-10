@@ -2,12 +2,10 @@
     "id": "770",
     "name": "765.情侣牵手",
     "url": "https://leetcode.cn/problems/couples-holding-hands",
-    "difficulty": "困难",
-    "tag": ["贪心", "深度优先搜索", "广度优先搜索", "并查集", "图"],
     "desc": "N 对情侣坐在连续排列的 2N 个座位上，想要牵到对方的手。 计算最少交换座位的次数，以便每对情侣可以并肩坐在一起。 一次交换可选择任意两人，让他们站起来交换座位。",
     "solutions": [
         {
-            "date": 1613232000000,
+            "date": "2021-02-14",
             "time": 84,
             "memory": 40.2,
             "script": "typescript",
@@ -20,7 +18,15 @@
             "memory": 15.68,
             "desc": "贪心的每次没有匹配上去重置。",
             "code": "class Solution:\n    def minSwapsCouples(self, row: List[int]) -> int:\n        n = len(row)\n        map = {row[i]: i for i in range(n)}\n        ans = 0\n        for i in range(0, n, 2):\n            if row[i] ^ 1 != row[i + 1]:\n                map[row[i + 1]] = map[row[i] ^ 1]\n                row[map[row[i] ^ 1]], row[i + 1] = row[i + 1], row[map[row[i] ^ 1]]\n                ans += 1\n        return ans",
-            "date": 1699632000000
+            "date": "2023-11-11"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "level": "Hard"
 }

@@ -2,17 +2,21 @@
     "id": "822",
     "name": "804.唯一摩尔斯密码词",
     "url": "https://leetcode.cn/problems/unique-morse-code-words",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "字符串"],
     "desc": "对 words 中所有单词进行单词翻译，返回不同 单词翻译 的数量。",
     "solutions": [
         {
-            "date": 1647619200000,
+            "date": "2022-03-19",
             "time": 0,
             "memory": 8.2,
             "script": "cpp",
             "desc": "哈希去重。",
             "code": "const string l[26] = {\".-\",   \"-...\", \"-.-.\", \"-..\",  \".\",    \"..-.\", \"--.\",\n                      \"....\", \"..\",   \".---\", \"-.-\",  \".-..\", \"--\",   \"-.\",\n                      \"---\",  \".--.\", \"--.-\", \".-.\",  \"...\",  \"-\",    \"..-\",\n                      \"...-\", \".--\",  \"-..-\", \"-.--\", \"--..\"};\nclass Solution {\n   public:\n    string translate(const string &word) {\n        string ans = \"\";\n        for (auto &ch : word) ans += l[ch - 'a'];\n        return ans;\n    }\n    int uniqueMorseRepresentations(vector<string> &words) {\n        unordered_set<string> s;\n        for (auto &word : words) s.insert(translate(word));\n        return s.size();\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

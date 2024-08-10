@@ -2,8 +2,6 @@
     "id": "1382",
     "name": "2303.计算应缴税款总额",
     "url": "https://leetcode.cn/problems/calculate-amount-paid-in-taxes",
-    "difficulty": "简单",
-    "tag": ["数组", "模拟"],
     "desc": "给你一个整数 income 表示你的总收入。返回你需要缴纳的税款总额。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 13,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    double calculateTax(vector<vector<int>>& brackets, int income) {\n        double ans = 0.0;\n        for (int i = 0, prev = 0; i < brackets.size() && prev <= income; prev = brackets[i++][0])\n            ans += 1.0 * (min(income, brackets[i][0]) - prev) * brackets[i][1] / 100;\n        return ans;\n    }\n};",
-            "date": 1674403200000
+            "date": "2023-01-23"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15,
             "desc": "同上。",
             "code": "class Solution:\n    def calculateTax(self, brackets: List[List[int]], income: int) -> float:\n        ans = 0.0\n        prev = 0\n        for [k, v] in brackets:\n            if prev > income:\n                break\n            ans += (min(income, k) - prev) * v / 100\n            prev = k\n        return ans",
-            "date": 1674403200000
+            "date": "2023-01-23"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn calculate_tax(brackets: Vec<Vec<i32>>, income: i32) -> f64 {\n        let mut ans = 0f64;\n        let mut prev = 0;\n        for item in brackets {\n            if prev > income {\n                break;\n            } else {\n                ans += ((income.min(item[0]) - prev) * item[1]) as f64 / 100f64;\n            }\n            prev = item[0]\n        }\n        ans\n    }\n}",
-            "date": 1674403200000
+            "date": "2023-01-23"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "模拟"
+    ],
+    "level": "Easy"
 }

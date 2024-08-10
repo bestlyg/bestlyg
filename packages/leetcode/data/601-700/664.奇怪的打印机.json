@@ -2,17 +2,20 @@
     "id": "664",
     "name": "664.奇怪的打印机",
     "url": "https://leetcode.cn/problems/strange-printer",
-    "difficulty": "困难",
-    "tag": ["字符串", "动态规划"],
     "desc": "给你一个字符串 s ，你的任务是计算这个打印机打印它需要的最少打印次数。",
     "solutions": [
         {
-            "date": 1621785600000,
+            "date": "2021-05-24",
             "time": 124,
             "memory": 122.9,
             "script": "typescript",
             "desc": "动态规划。",
             "code": "function strangePrinter(s: string): number {\n  const len = s.length;\n  const dp: number[][] = new Array(len).fill(0).map(_ => new Array(len).fill(0));\n  for (let i = len - 1; i >= 0; i--) {\n    dp[i][i] = 1;\n    for (let j = i + 1; j < len; j++) {\n      if (s[i] === s[j]) dp[i][j] = dp[i][j - 1];\n      else {\n        let min = Infinity;\n        for (let k = i; k < j; k++) min = Math.min(dp[i][k] + dp[k + 1][j], min);\n        dp[i][j] = min;\n      }\n    }\n  }\n  return dp[0][len - 1];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

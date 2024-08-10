@@ -2,8 +2,6 @@
     "id": "2679",
     "name": "2549.统计桌面上的不同数字",
     "url": "https://leetcode.cn/problems/count-distinct-numbers-on-board",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "数学", "模拟"],
     "desc": "返回在 109 天之后，出现在桌面上的 不同 整数的数目。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 16.48,
             "desc": "最后会获取所有的数。",
             "code": "class Solution:\n    def distinctIntegers(self, n: int) -> int:\n        return n - 1 if n > 1 else n",
-            "date": 1711123200000
+            "date": "2024-03-23"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "数学",
+        "模拟"
+    ],
+    "level": "Easy"
 }

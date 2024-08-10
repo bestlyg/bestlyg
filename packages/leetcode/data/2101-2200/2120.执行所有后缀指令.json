@@ -2,17 +2,20 @@
     "id": "2239",
     "name": "2120.执行所有后缀指令",
     "url": "https://leetcode.cn/problems/execution-of-all-suffix-instructions-staying-in-a-grid",
-    "difficulty": "中等",
-    "tag": ["字符串", "模拟"],
     "desc": "返回一个长度为 m 的数组 answer ，其中 answer[i] 是机器人从第 i 条指令 开始 ，可以执行的 指令数目 。",
     "solutions": [
         {
-            "date": 1640880000000,
+            "date": "2021-12-31",
             "time": 36,
             "memory": 10.2,
             "script": "cpp",
             "desc": "模拟。",
             "code": "class Solution {\n   public:\n    int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\n    int getDirIdx(char ch) {\n        if (ch == 'D') return 0;\n        if (ch == 'U') return 1;\n        if (ch == 'R') return 2;\n        if (ch == 'L') return 3;\n        return -1;\n    }\n    vector<int> executeInstructions(int n, vector<int>& startPos, string s) {\n        vector<int> ans;\n        int n_str = s.size();\n        for (int i = 0; i < n_str; i++) {\n            int cnt = 0, row = startPos[0], col = startPos[1];\n            for (int j = i; j < n_str; j++, cnt++) {\n                int diridx = getDirIdx(s[j]);\n                row += dirs[diridx][0];\n                col += dirs[diridx][1];\n                if (row < 0 || row >= n || col < 0 || col >= n) break;\n            }\n            ans.push_back(cnt);\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "模拟"
+    ],
+    "level": "Medium"
 }

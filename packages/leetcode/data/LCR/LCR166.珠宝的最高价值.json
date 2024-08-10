@@ -2,8 +2,6 @@
     "id": "100327",
     "name": "LCR166.珠宝的最高价值",
     "url": "https://leetcode.cn/problems/li-wu-de-zui-da-jie-zhi-lcof",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划", "矩阵"],
     "desc": "给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 9,
             "desc": "dp[i][j]表示i行j列时最多能拿多少礼物。",
             "code": "class Solution {\npublic:\n    int maxValue(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size(), dp[205][205] = {0};\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                dp[i][j] = grid[i][j];\n                if (i == 0 && j != 0) dp[i][j] += dp[i][j - 1];\n                else if (i != 0 && j == 0) dp[i][j] += dp[i - 1][j];\n                else if (i != 0 && j != 0)dp[i][j] += max(dp[i - 1][j], dp[i][j - 1]);\n            }\n        }\n        return dp[n - 1][m - 1];\n    }\n};",
-            "date": 1678204800000
+            "date": "2023-03-08"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 17.6,
             "desc": "同上。",
             "code": "class Solution:\n    def maxValue(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        dp = [[grid[i][j] for j in range(m)] for i in range(n)]\n        for i in range(n):\n            for j in range(m):\n                if i == 0 and j != 0:\n                    dp[i][j] += dp[i][j - 1]\n                elif i != 0 and j == 0:\n                    dp[i][j] += dp[i - 1][j]\n                elif i != 0 and j != 0:\n                    dp[i][j] += max(dp[i - 1][j], dp[i][j - 1])\n        return dp[n-1][m-1]",
-            "date": 1678204800000
+            "date": "2023-03-08"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2.5,
             "desc": "同上。",
             "code": "impl Solution {\n        pub fn max_value(grid: Vec<Vec<i32>>) -> i32 {\n            let (n, m) = (grid.len(), grid[0].len());\n            let mut dp = vec![vec![0; m]; n];\n            for i in 0..n {\n                for j in 0..m {\n                    dp[i][j] = grid[i][j];\n                    if i == 0 && j != 0 {\n                        dp[i][j] += dp[i][j - 1];\n                    } else if i != 0 && j == 0 {\n                        dp[i][j] += dp[i - 1][j];\n                    } else if i != 0 && j != 0 {\n                        dp[i][j] += dp[i - 1][j].max(dp[i][j - 1]);\n                    }\n                }\n            }\n            dp[n - 1][m - 1]\n        }\n    }",
-            "date": 1678204800000
+            "date": "2023-03-08"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

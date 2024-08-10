@@ -2,12 +2,10 @@
     "id": "747",
     "name": "746.使用最小花费爬楼梯",
     "url": "https://leetcode.cn/problems/min-cost-climbing-stairs",
-    "difficulty": "简单",
-    "tag": ["数组", "动态规划"],
     "desc": "给你数组的每个索引作为一个阶梯，第  i 个阶梯对应着一个非负数的体力花费值  cost[i](索引从0开始)。每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。您需要找到达到楼层顶部的最低花费。",
     "solutions": [
         {
-            "date": 1608566400000,
+            "date": "2020-12-22",
             "time": 88,
             "memory": 40.7,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function zigzagLevelOrder(root: TreeNode | null): number[][] {\n  if (root === null) return [];\n  const ans: number[][] = [[root.val]];\n  let queue = [root];\n  let height = 0;\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0) {\n      size = queue.length;\n      queue.length !== 0 &&\n        ans.push((++height & 1 ? queue.slice().reverse() : queue).map(node => node.val));\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1630598400000,
+            "date": "2021-09-03",
             "time": 80,
             "memory": 39.9,
             "script": "typescript",
@@ -28,7 +26,12 @@
             "memory": 16.2,
             "desc": "dp。",
             "code": "class Solution:\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\n        cost.append(0)\n        n = len(cost)\n        dp = [0] * n\n        dp[0] = cost[0]\n        dp[1] = cost[1]\n        for i in range(2, n):\n            dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i]\n        return dp[n - 1]",
-            "date": 1702742400000
+            "date": "2023-12-17"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Easy"
 }

@@ -2,8 +2,6 @@
     "id": "2717",
     "name": "2603.收集树中金币",
     "url": "https://leetcode.cn/problems/collect-coins-in-a-tree",
-    "difficulty": "困难",
-    "tag": ["树", "图", "拓扑排序", "数组"],
     "desc": "你需要收集树中所有的金币，并且回到出发节点，请你返回最少经过的边数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 206.8,
             "desc": "先删除所有没有金币的叶子节点，再遍历两次，删除有金币的叶子节点，剩下的节点就是所有需要遍历的节点。",
             "code": "class Solution {\npublic:\n    int collectTheCoins(vector<int>& coins, vector<vector<int>>& edges) {\n        int n = coins.size();\n        vector<vector<int>> list(n);\n        vector<int> cnts(n, 0);\n        for (auto &edge : edges) {\n            list[edge[0]].push_back(edge[1]);\n            list[edge[1]].push_back(edge[0]);\n            cnts[edge[0]] += 1;\n            cnts[edge[1]] += 1;\n        }\n        int cur_edges = n - 1;\n        queue<int> q;\n        // 第一次刪除所有的无金币叶子节点\n        for (int i = 0; i < n; i++) {\n            if (cnts[i] == 1 && coins[i] == 0) q.push(i); \n        }\n        while (q.size()) {\n            int idx = q.front();\n            q.pop();\n            cur_edges -= 1;\n            for (auto &next : list[idx]) {\n                cnts[next] -= 1;\n                if (cnts[next] == 1 && coins[next] == 0) q.push(next);\n            }\n        }\n        // 第二次寻找所有的叶子金币节点\n        for (int i = 0; i < n; i++) {\n            if (cnts[i] == 1 && coins[i] == 1) q.push(i);\n        }\n        cur_edges -= q.size();\n        while (q.size()) {\n            int idx = q.front();\n            q.pop();\n            for (auto &next : list[idx]) {\n                cnts[next] -= 1;\n                if (cnts[next] == 1) {\n                    cnts[next] -= 1;\n                    cur_edges -= 1;\n                }\n            }\n        }\n        return max(cur_edges * 2, 0);\n    }\n};",
-            "date": 1679760000000
+            "date": "2023-03-26"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 27.6,
             "desc": "同上。",
             "code": "class Solution:\n    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:\n        n = len(coins)\n        l = [[] for _ in range(n)]\n        cnts = [0] * n\n        for edge in edges:\n            l[edge[0]].append(edge[1])\n            l[edge[1]].append(edge[0])\n            cnts[edge[0]] += 1\n            cnts[edge[1]] += 1\n        cur_edges = n - 1\n        q = deque()\n        for i in range(n):\n            if cnts[i] == 1 and coins[i] == 0:\n                q.append(i)\n        while len(q):\n            idx = q.popleft()\n            cur_edges -= 1\n            for ne in l[idx]:\n                cnts[ne] -= 1\n                if cnts[ne] == 1 and coins[ne] == 0:\n                    q.append(ne)\n        for i in range(n):\n            if cnts[i] == 1 and coins[i] == 1:\n                q.append(i)\n        cur_edges -= len(q)\n        while len(q):\n            idx = q.popleft()\n            for ne in l[idx]:\n                cnts[ne] -= 1\n                if cnts[ne] == 1:\n                    cnts[ne] -= 1\n                    cur_edges -= 1\n        return max(cur_edges * 2, 0)",
-            "date": 1679760000000
+            "date": "2023-03-26"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 5.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn collect_the_coins(coins: Vec<i32>, edges: Vec<Vec<i32>>) -> i32 {\n        let n = coins.len();\n        let mut list = vec![vec![]; n];\n        let mut cnts = vec![0; n];\n        for edge in edges {\n            list[edge[0] as usize].push(edge[1]);\n            list[edge[1] as usize].push(edge[0]);\n            cnts[edge[0] as usize] += 1;\n            cnts[edge[1] as usize] += 1;\n        }\n        let mut cur_edges = n - 1;\n        let mut q = std::collections::VecDeque::<usize>::new();\n        for i in 0..n {\n            if cnts[i] == 1 && coins[i] == 0 {\n                q.push_back(i);\n            }\n        }\n        while !q.is_empty() {\n            let idx = q.pop_front().unwrap();\n            cur_edges -= 1;\n            for next in list[idx].iter() {\n                let next = *next as usize;\n                cnts[next] -= 1;\n                if cnts[next] == 1 && coins[next] == 0 {\n                    q.push_back(next)\n                }\n            }\n        }\n        for i in 0..n {\n            if cnts[i] == 1 && coins[i] == 1 {\n                q.push_back(i);\n            }\n        }\n        cur_edges -= q.len();\n        while !q.is_empty() {\n            let idx = q.pop_front().unwrap();\n            for next in list[idx].iter() {\n                let next = *next as usize;\n                cnts[next] -= 1;\n                if cnts[next] == 1 {\n                    cnts[next] -= 1;\n                    cur_edges -= 1;\n                }\n            }\n        }\n        0.max(2 * cur_edges as i32)\n    }\n}",
-            "date": 1679760000000
+            "date": "2023-03-26"
         },
         {
             "script": "python",
@@ -36,7 +34,14 @@
             "memory": 28.9,
             "desc": "同上。",
             "code": "class Solution:\n    def collectTheCoins(self, coins: List[int], edges: List[List[int]]) -> int:\n        n = len(edges) + 1\n        nodes: List[List[int]] = [[] for _ in range(n)]\n        for [n1, n2] in edges:\n            nodes[n1].append(n2)\n            nodes[n2].append(n1)\n        egde_sum = n - 1\n        # 把叶子没金币的删掉\n        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 0)\n        while q:\n            cur = q.pop()\n            for idx in nodes[cur]:\n                egde_sum -= 1\n                nodes[idx].remove(cur)\n                if len(nodes[idx]) == 1 and coins[idx] == 0:\n                    q.append(idx)\n        # 遍历所有叶子有金币的\n        q = deque(i for i in range(n) if len(nodes[i]) == 1 and coins[i] == 1)\n        while q:\n            cur = q.pop()\n            egde_sum -= 1\n            for idx in nodes[cur]:\n                nodes[idx].remove(cur)\n                # 如果他只剩一条边，那就也可以不遍历他\n                if len(nodes[idx]) == 1:\n                    egde_sum -= 1\n        return max(egde_sum * 2, 0)",
-            "date": 1695225600000
+            "date": "2023-09-21"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "图",
+        "拓扑排序",
+        "数组"
+    ],
+    "level": "Hard"
 }

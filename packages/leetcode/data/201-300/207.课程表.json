@@ -2,12 +2,10 @@
     "id": "207",
     "name": "207.课程表",
     "url": "https://leetcode.cn/problems/course-schedule",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。",
     "solutions": [
         {
-            "date": 1596556800000,
+            "date": "2020-08-05",
             "script": "typescript",
             "time": 96,
             "memory": 40.3,
@@ -20,7 +18,7 @@
             "memory": 17.9,
             "desc": "拓扑排序。",
             "code": "class Solution {\npublic:\n    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\n        int used_count = 0;\n        vector<unordered_set<int>> parr(numCourses);\n        vector<unordered_set<int>> carr(numCourses);\n        for (auto &item : prerequisites)\n            carr[item[0]].insert(item[1]),\n            parr[item[1]].insert(item[0]);\n        vector<int> q;\n        for (int i = 0; i < numCourses; i++) {\n            if (parr[i].empty()) q.push_back(i);\n        }\n        while (q.size()) {\n            int cur = q.back();\n            used_count++;\n            q.pop_back();\n            for (auto &child : carr[cur]) {\n                parr[child].erase(cur);\n                if (parr[child].empty()) q.push_back(child);\n            }\n        }\n        return used_count == numCourses;\n    }\n};",
-            "date": 1694188800000
+            "date": "2023-09-09"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 16.1,
             "desc": "同上。",
             "code": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        used_count = 0\n        arr = [[set(),set()] for _ in range(numCourses)]\n        for [item1, item2] in prerequisites:\n            arr[item2][0].add(item1)\n            arr[item1][1].add(item2)\n        q = [i for i in range(numCourses) if not len(arr[i][0])]\n        while len(q):\n            cur = q.pop()\n            used_count += 1\n            for child in arr[cur][1]:\n                arr[child][0].remove(cur)\n                if not len(arr[child][0]):\n                    q.append(child)\n        return used_count == numCourses",
-            "date": 1694188800000
+            "date": "2023-09-09"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 2.7,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn can_finish(num_courses: i32, prerequisites: Vec<Vec<i32>>) -> bool {\n        use std::collections::HashSet;\n        let num_courses = num_courses as usize;\n        let mut used_count = 0;\n        let mut parr: Vec<HashSet<usize>> = vec![Default::default(); num_courses];\n        let mut carr: Vec<HashSet<usize>> = vec![Default::default(); num_courses];\n        for item in prerequisites {\n            let item0 = item[0] as usize;\n            let item1 = item[1] as usize;\n            carr[item0].insert(item1);\n            parr[item1].insert(item0);\n        }\n        let mut q: Vec<usize> = vec![];\n        for i in 0..num_courses {\n            if parr[i].is_empty() {\n                q.push(i);\n            }\n        }\n        while let Some(cur) = q.pop() {\n            used_count += 1;\n            for child in &carr[cur] {\n                parr[*child].remove(&cur);\n                if parr[*child].is_empty() {\n                    q.push(*child);\n                }\n            }\n        }\n        used_count == num_courses\n    }\n}",
-            "date": 1694188800000
+            "date": "2023-09-09"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+    ],
+    "level": "Medium"
 }

@@ -2,17 +2,20 @@
     "id": "454",
     "name": "454.四数相加II",
     "url": "https://leetcode.cn/problems/4sum-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表"],
     "desc": "给定四个包含整数的数组列表  A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得  A[i] + B[j] + C[k] + D[l] = 0。",
     "solutions": [
         {
-            "date": 1606406400000,
+            "date": "2020-11-27",
             "time": 532,
             "memory": 71.1,
             "script": "typescript",
             "desc": "分组储存。",
             "code": "function fourSumCount(A: number[], B: number[], C: number[], D: number[]): number {\n  let ans = 0;\n  const cache: Record<number, number> = {};\n  const setCache = (c: number) => {\n    cache[c] = 1 + (cache[c] ? cache[c] : 0);\n  };\n  for (const n1 of A)\n    for (const n2 of B) {\n      setCache(n1 + n2);\n    }\n  for (const n1 of C)\n    for (const n2 of D) {\n      ans += cache[-n1 - n2] ?? 0;\n    }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Medium"
 }

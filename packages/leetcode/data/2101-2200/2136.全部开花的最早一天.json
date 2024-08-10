@@ -2,8 +2,6 @@
     "id": "2257",
     "name": "2136.全部开花的最早一天",
     "url": "https://leetcode.cn/problems/earliest-possible-day-of-full-bloom",
-    "difficulty": "困难",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "从第 0 开始，你可以按 任意 顺序播种种子。返回所有种子都开花的 最早 一天是第几天。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 32,
             "desc": "同上。",
             "code": "class Solution:\n    def earliestFullBloom(self, plantTime: List[int], growTime: List[int]) -> int:\n        l = [i for i in range(len(plantTime))]\n        l.sort(key=lambda i: growTime[i], reverse=True)\n        cur = 0\n        res = 0\n        for i in l:\n            res = max(res, cur + growTime[i] + plantTime[i])\n            cur += plantTime[i]\n        return res\n",
-            "date": 1696003200000
+            "date": "2023-09-30"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Hard"
 }

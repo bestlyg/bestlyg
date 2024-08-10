@@ -2,12 +2,10 @@
     "id": "299",
     "name": "299.猜数字游戏",
     "url": "https://leetcode.cn/problems/bulls-and-cows",
-    "difficulty": "中等",
-    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个秘密数字 secret 和朋友猜测的数字 guess ，请你返回对朋友这次猜测的提示。",
     "solutions": [
         {
-            "date": 1636300800000,
+            "date": "2021-11-08",
             "time": 100,
             "memory": 40.2,
             "script": "typescript",
@@ -20,7 +18,13 @@
             "memory": 16.65,
             "desc": "遍历。",
             "code": "class Solution:\n    def getHint(self, secret: str, guess: str) -> str:\n        s1 = []\n        s2 = []\n        n = len(secret)\n        x = y = 0\n        for i in range(n):\n            if secret[i] == guess[i]:\n                x += 1\n            else:\n                s1.append(secret[i])\n                s2.append(guess[i])\n        for num in s1:\n            if num in s2:\n                y += 1\n                s2.remove(num)\n        return f'{x}A{y}B'",
-            "date": 1710000000000
+            "date": "2024-03-10"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "level": "Medium"
 }

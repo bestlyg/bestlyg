@@ -2,17 +2,25 @@
     "id": "1906",
     "name": "1799.N次操作后的最大分数和",
     "url": "https://leetcode.cn/problems/maximize-score-after-n-operations",
-    "difficulty": "困难",
-    "tag": ["位运算", "数组", "数学", "动态规划", "回溯", "状态压缩", "数论"],
     "desc": "请你返回 n 次操作后你能获得的分数和最大为多少。",
     "solutions": [
         {
-            "date": 1671638400000,
+            "date": "2022-12-22",
             "time": 52,
             "memory": 7.6,
             "script": "cpp",
             "desc": "不能贪心，利用二进制状态压缩考虑每一种情况进行动态规划。",
             "code": "class Solution {\npublic:\n    int gcd(int a, int b) {\n        if (b == 0) return a;\n        return gcd(b, a % b);\n    }\n    int cnt1(int num) {\n        int cnt = 0;\n        for (; num; num >>= 1) if (num & 1) cnt++;\n        return cnt;\n    }\n    int mgcd[20][20], dp[20000] = {0};\n    int maxScore(vector<int>& nums) {\n        int n = nums.size(), allused = (1 << n) - 1;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                mgcd[i][j] = mgcd[j][i] = gcd(nums[i], nums[j]);\n            }\n        }\n        for (int used = 1; used <= allused; used++) {\n            int cnt = cnt1(used);\n            if (cnt & 1) continue;\n            for (int i = 0; i < n; i++) {\n                if ((used & (1 << i)) == 0) continue;\n                for (int j = i + 1; j < n; j++) {\n                    if ((used & (1 << j)) == 0) continue;\n                    dp[used] = max(dp[used], dp[used ^ (1 << i) ^ (1 << j)] + cnt / 2 * mgcd[i][j]);\n                }\n            }\n        }\n        return dp[allused];\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "数学",
+        "动态规划",
+        "回溯",
+        "状态压缩",
+        "数论"
+    ],
+    "level": "Hard"
 }

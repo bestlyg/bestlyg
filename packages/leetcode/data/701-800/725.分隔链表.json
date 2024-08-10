@@ -2,12 +2,10 @@
     "id": "725",
     "name": "725.分隔链表",
     "url": "https://leetcode.cn/problems/split-linked-list-in-parts",
-    "difficulty": "中等",
-    "tag": ["链表"],
     "desc": "给你一个头结点为 head 的单链表和一个整数 k ，请你设计一个算法将链表分隔为 k 个连续的部分。",
     "solutions": [
         {
-            "date": 1632240000000,
+            "date": "2021-09-22",
             "time": 88,
             "memory": 40.6,
             "script": "javascript",
@@ -15,12 +13,16 @@
             "code": "function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {\n  const list: ListNode[] = [];\n  let p: ListNode | null = head;\n  while (p) {\n    const next = p.next;\n    list.push(p);\n    p.next = null;\n    p = next;\n  }\n  const len = list.length;\n  const ans: Array<ListNode | null> = new Array(k).fill(null);\n  if (len <= k) {\n    for (let i = 0; i < len; i++) ans[i] = list[i];\n    return ans;\n  }\n  const cnt = ~~(len / k);\n  const last = (len % k) - 1;\n  let nodeIdx = 0;\n  for (let i = 0; i < k; i++) {\n    const node = (ans[i] = list[nodeIdx]);\n    const lastIdx = nodeIdx + cnt + (i <= last ? 1 : 0);\n    let p = node;\n    while (++nodeIdx < lastIdx) p = p.next = list[nodeIdx];\n  }\n  return ans;\n}"
         },
         {
-            "date": 1632240000000,
+            "date": "2021-09-22",
             "time": 76,
             "memory": 40.2,
             "script": "javascript",
             "desc": "循环两次。",
             "code": "function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {\n  let len = 0;\n  let p = head;\n  for (; p; p = p.next) len++;\n  const cnt = ~~(len / k);\n  const last = (len % k) - 1;\n  const ans: Array<ListNode | null> = [];\n  p = head;\n  let max = cnt + (ans.length <= last ? 1 : 0);\n  let idx = 0;\n  while (p) {\n    if (idx === 0) ans.push(p);\n    if (idx === max - 1) {\n      max = cnt + (ans.length <= last ? 1 : 0);\n      const next = p.next;\n      p.next = null;\n      p = next;\n      idx = 0;\n    } else {\n      p = p.next;\n      idx++;\n    }\n  }\n  while (ans.length < k) ans.push(null);\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "链表"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "2810",
     "name": "2735.收集巧克力",
     "url": "https://leetcode.cn/problems/collecting-chocolates",
-    "difficulty": "中等",
-    "tag": ["数组", "枚举"],
     "desc": "假设你可以执行任意次操作，请返回收集所有类型巧克力所需的最小成本。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 24.91,
             "desc": "对每一个偏移求出最小值。",
             "code": "class Solution:\n    def minCost(self, nums: List[int], x: int) -> int:\n        n = len(nums)\n        dp = [[inf] * n for _ in range(n + 1)]\n        for i in range(n): dp[0][i] = nums[i]\n        res = sum(nums)\n        for offset in range(1, n):\n            for i in range(n):\n                dp[offset][i] = min(dp[offset - 1][i], nums[(i + offset) % n])\n            res = min(res, sum(dp[offset]) + x * offset)\n        return res",
-            "date": 1703692800000
+            "date": "2023-12-28"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "枚举"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "2427",
     "name": "2351.第一个出现两次的字母",
     "url": "https://leetcode.cn/problems/first-letter-to-appear-twice",
-    "difficulty": "简单",
-    "tag": ["位运算", "哈希表", "字符串", "计数"],
     "desc": "给你一个由小写英文字母组成的字符串 s ，请你找出并返回第一个出现 两次 的字母。",
     "solutions": [
         {
-            "date": 1672502400000,
+            "date": "2023-01-01",
             "time": 0,
             "memory": 6,
             "script": "cpp",
@@ -15,12 +13,19 @@
             "code": "class Solution {\npublic:\n    char repeatedCharacter(string s) {\n        int list[26] = {0};\n        for (auto &c : s) {\n            if (list[c - 'a']++ == 1) return c;\n        }\n        return ' ';\n    }\n};"
         },
         {
-            "date": 1672502400000,
+            "date": "2023-01-01",
             "time": 0,
             "memory": 2.3,
             "script": "rust",
             "desc": "遍历。",
             "code": "impl Solution {\n    pub fn repeated_character(s: String) -> char {\n        let s = s.as_bytes();\n        let mut list = [0; 26];\n        for c in s {\n            let i = *c as usize - 'a' as usize;\n            if list[i] == 1 {\n                return *c as char;\n            }\n            list[i] += 1;\n        }\n        ' '\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "level": "Easy"
 }

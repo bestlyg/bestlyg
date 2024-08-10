@@ -2,17 +2,20 @@
     "id": "100329",
     "name": "LCR172.统计目标成绩的出现次数",
     "url": "https://leetcode.cn/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof",
-    "difficulty": "简单",
-    "tag": ["数组", "二分查找"],
     "desc": "统计一个数字在排序数组中出现的次数。",
     "solutions": [
         {
-            "date": 1626364800000,
+            "date": "2021-07-16",
             "time": 84,
             "memory": 40.8,
             "script": "typescript",
             "desc": "哈希储存。",
             "code": "function search(nums: number[], target: number): number {\n  return (\n    nums.reduce<Record<number, number>>((record, cur) => {\n      record[cur] = (record[cur] ?? 0) + 1;\n      return record;\n    }, {})[target] ?? 0\n  );\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "level": "Easy"
 }

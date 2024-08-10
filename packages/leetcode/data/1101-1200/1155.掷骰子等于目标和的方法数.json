@@ -2,8 +2,6 @@
     "id": "1263",
     "name": "1155.掷骰子等于目标和的方法数",
     "url": "https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum",
-    "difficulty": "中等",
-    "tag": ["动态规划"],
     "desc": "给定三个整数 n ,  k 和 target ，返回可能的方式(从总共 kn 种方式中)滚动骰子的数量，使正面朝上的数字之和等于 target 。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 18.8,
             "desc": "记忆化递归，记录当前序号和剩余目标。",
             "code": "class Solution:\n    def numRollsToTarget(self, n: int, k: int, target: int) -> int:\n        @cache\n        def dfs(idx: int, target: int) -> int:\n            if idx == n: return target == 0\n            return sum(dfs(idx + 1, target - i) for i in range(1, min(k, target) + 1)) % (10 ** 9 + 7)\n        return dfs(0, target)",
-            "date": 1698076800000
+            "date": "2023-10-24"
         }
-    ]
+    ],
+    "tagList": [
+        "动态规划"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "1668",
     "name": "1542.找出最长的超赞子字符串",
     "url": "https://leetcode.cn/problems/find-longest-awesome-substring",
-    "difficulty": "困难",
-    "tag": ["位运算", "哈希表", "字符串"],
     "desc": "给你一个字符串 s 。请返回 s 中最长的 超赞子字符串 的长度。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.84,
             "desc": "利用二进制存储便利过的奇偶。",
             "code": "class Solution:\n    def longestAwesome(self, s: str) -> int:\n        n = len(s)\n        res = 0\n        cur = 0\n        map = { 0: -1 }\n        for i in range(n):\n            num = ord(s[i]) - ord('0')\n            cur ^= 1 << num\n            for offset in range(10):\n                v = cur ^ (1 << offset)\n                if v in map:\n                    res = max(res, i - map[v])\n            if cur in map:\n                res = max(res, i - map[cur])\n            else:\n                map[cur] = i\n        return res",
-            "date": 1716134400000
+            "date": "2024-05-20"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Hard"
 }

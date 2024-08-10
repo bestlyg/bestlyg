@@ -2,17 +2,19 @@
     "id": "1888",
     "name": "1779.找到最近的有相同X或Y坐标的点",
     "url": "https://leetcode.cn/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate",
-    "difficulty": "简单",
-    "tag": ["数组"],
     "desc": "请返回距离你当前位置 曼哈顿距离 最近的 有效 点的下标（下标从 0 开始）。",
     "solutions": [
         {
-            "date": 1669824000000,
+            "date": "2022-12-01",
             "time": 132,
             "memory": 57.8,
             "script": "cpp",
             "desc": "枚举所有点。",
             "code": "class Solution {\npublic:\n    int nearestValidPoint(int x, int y, vector<vector<int>>& points) {\n        int ans = -1, dans = 0x3f3f3f3f;\n        for (int i = 0; i < points.size(); i++) {\n            int ix = points[i][0], iy = points[i][1], d = abs(ix - x) + abs(iy - y);\n            if (ix != x && iy != y) continue;\n            if (dans > d) ans = i, dans = d;\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Easy"
 }

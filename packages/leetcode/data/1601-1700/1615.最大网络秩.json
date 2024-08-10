@@ -2,8 +2,6 @@
     "id": "1738",
     "name": "1615.最大网络秩",
     "url": "https://leetcode.cn/problems/maximal-network-rank",
-    "difficulty": "中等",
-    "tag": ["图"],
     "desc": "给你整数 n 和数组 roads，返回整个基础设施网络的 最大网络秩 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 38.1,
             "desc": "枚举。",
             "code": "class Solution {\npublic:\n    int maximalNetworkRank(int n, vector<vector<int>>& roads) {\n        vector<unordered_set<int>> list(n);\n        for (auto &road : roads) {\n            list[road[0]].insert(road[1]);\n            list[road[1]].insert(road[0]);\n        }\n        int res = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                if (i != j) {\n                    int add = list[i].count(j) ? -1 : 0;\n                    res = max(res, add + (int)list[i].size() + (int)list[j].size());\n                }\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1678809600000
+            "date": "2023-03-15"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.7,
             "desc": "同上。",
             "code": "class Solution:\n    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:\n        l = [set() for _ in range(n)]\n        for [n1, n2] in roads:\n            l[n1].add(n2)\n            l[n2].add(n1)\n        res = 0\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    res = max(res, len(l[i]) + len(l[j]) + (-1 if j in l[i] else 0))\n        return res",
-            "date": 1678809600000
+            "date": "2023-03-15"
         },
         {
             "script": "rust",
@@ -28,7 +26,11 @@
             "memory": 2.4,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn maximal_network_rank(n: i32, roads: Vec<Vec<i32>>) -> i32 {\n        let n = n as usize;\n        let mut list = vec![std::collections::HashSet::<usize>::new(); n];\n        for road in roads {\n            let (n1, n2) = (road[0] as usize, road[1] as usize);\n            list[n1].insert(n2);\n            list[n2].insert(n1);\n        }\n        let mut res = 0;\n        for i in 0..n {\n            for j in 0..n {\n                if i != j {\n                    let add = if list[i].contains(&j) { -1 } else { 0 };\n                    res = res.max(list[i].len() as i32 + list[j].len() as i32 + add);\n                }\n            }\n        }\n        res\n    }\n}",
-            "date": 1678809600000
+            "date": "2023-03-15"
         }
-    ]
+    ],
+    "tagList": [
+        "图"
+    ],
+    "level": "Medium"
 }

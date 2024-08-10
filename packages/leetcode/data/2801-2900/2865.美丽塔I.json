@@ -2,8 +2,6 @@
     "id": "3114",
     "name": "2865.美丽塔I",
     "url": "https://leetcode.cn/problems/beautiful-towers-i",
-    "difficulty": "中等",
-    "tag": ["栈", "数组", "单调栈"],
     "desc": "请你返回满足 美丽塔 要求的方案中，高度和的最大值 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.82,
             "desc": "单调栈。",
             "code": "class Solution:\n    def maximumSumOfHeights(self, maxHeights: List[int]) -> int:\n        n = len(maxHeights)\n        s = []\n        larr = [-1] * n\n        rarr = [n] * n\n        for i in range(n):\n            while s and maxHeights[s[-1]] >= maxHeights[i]: rarr[s.pop()] = i\n            if s: larr[i] = s[-1]\n            s.append(i)\n        lh = [0] * (n + 2)\n        rh = [0] * (n + 2)\n        for i in range(n):\n            lh[i + 1] = maxHeights[i] * (i - larr[i]) + lh[larr[i] + 1]\n        for i in range(n - 1, -1, -1):\n            rh[i + 1] = maxHeights[i] * (rarr[i] - i) + rh[rarr[i] + 1]\n        return max(lh[i + 1] + rh[i + 1] - maxHeights[i] for i in range(n))",
-            "date": 1706025600000
+            "date": "2024-01-24"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "数组",
+        "单调栈"
+    ],
+    "level": "Medium"
 }

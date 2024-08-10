@@ -2,8 +2,6 @@
     "id": "1945",
     "name": "1817.查找用户活跃分钟数",
     "url": "https://leetcode.cn/problems/finding-the-users-active-minutes",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表"],
     "desc": "请你统计用户活跃分钟数的分布情况，统计结果是一个长度为 k 且 下标从 1 开始计数 的数组 answer ，对于每个 j（1 <= j <= k），answer[j] 表示 用户活跃分钟数 等于 j 的用户数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 83.4,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {\n        vector<int> list(k, 0);\n        unordered_map<int, unordered_set<int>> m;\n        for (auto &log : logs) m[log[0]].insert(log[1]);\n        for (auto &user : m) list[user.second.size() - 1]++;\n        return list;\n    }\n};",
-            "date": 1674144000000
+            "date": "2023-01-20"
         },
         {
             "script": "rust",
@@ -20,7 +18,7 @@
             "memory": 4.9,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn finding_users_active_minutes(logs: Vec<Vec<i32>>, k: i32) -> Vec<i32> {\n        use std::collections::{HashMap, HashSet};\n        let mut ans = vec![0; k as usize];\n        let mut m = HashMap::<i32, HashSet<i32>>::new();\n        for log in logs {\n            let s = m.entry(log[0]).or_insert(HashSet::new());\n            s.insert(log[1]);\n        }\n        for (_, v) in m {\n            ans[v.len() - 1] += 1;\n        }\n        ans\n    }\n}",
-            "date": 1674144000000
+            "date": "2023-01-20"
         },
         {
             "script": "python",
@@ -28,7 +26,12 @@
             "memory": 20.5,
             "desc": "同上。",
             "code": "class Solution:\ndef findingUsersActiveMinutes(self, logs: List[List[int]], k: int) -> List[int]:\n    ans = [0 for _ in range(k)]\n    m = {}\n    for log in logs:\n        s = m.setdefault(log[0], set())\n        s.add(log[1])\n    for (_, v) in m.items():\n        ans[len(v) - 1] += 1\n    return ans",
-            "date": 1674144000000
+            "date": "2023-01-20"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Medium"
 }

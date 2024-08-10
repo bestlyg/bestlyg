@@ -2,17 +2,22 @@
     "id": "1901",
     "name": "1775.通过最少操作次数使数组的和相等",
     "url": "https://leetcode.cn/problems/equal-sum-arrays-with-minimum-number-of-operations",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "哈希表", "计数"],
     "desc": "请你返回使 nums1 中所有数的和与 nums2 中所有数的和相等的最少操作次数。",
     "solutions": [
         {
-            "date": 1670342400000,
+            "date": "2022-12-07",
             "time": 116,
             "memory": 111.3,
             "script": "cpp",
             "desc": "统计每个数的个数后遍历。",
             "code": "class Solution {\npublic:\n    int minOperations(vector<int>& nums1, vector<int>& nums2) {\n        int n1 = nums1.size(), sum1 = accumulate(nums1.begin(), nums1.end(), 0), l1[7] = {0},\n            n2 = nums2.size(), sum2 = accumulate(nums2.begin(), nums2.end(), 0), l2[7] = {0};\n        for (auto &num : nums1) l1[num]++;\n        for (auto &num : nums2) l2[num]++;\n        if (sum1 > sum2) swap(n1, n2), swap(sum1, sum2), swap(l1, l2);\n        if (sum1 == sum2) return 0;\n        if (!(n2 >= n1 && n2 <= n1 * 6 || n1 >= n2 && n1 <= n2 * 6)) return -1;\n        int ans = 0;\n        for (int i = 1; i <= 6; i++) ans += comp(l1, l2, i, sum1, sum2);\n        return ans;\n    }\n    int comp(int *l1, int *l2, int num, int &sum1, int &sum2) {\n        int ans = 0;\n        for (int i = 6; i > num; i--) {\n            while (l1[num] && i - num + sum1 <= sum2) ans++, l1[num]--, sum1 += i - num;\n            while (l2[7 - num] && i - num + sum1 <= sum2) ans++, l2[7 - num]--, sum2 -= i - num;\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "level": "Medium"
 }

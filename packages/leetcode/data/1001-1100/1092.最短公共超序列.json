@@ -2,8 +2,6 @@
     "id": "1170",
     "name": "1092.最短公共超序列",
     "url": "https://leetcode.cn/problems/shortest-common-supersequence",
-    "difficulty": "困难",
-    "tag": ["字符串", "动态规划"],
     "desc": "给出两个字符串 str1 和 str2，返回同时以 str1 和 str2 作为子序列的最短字符串。如果答案不止一个，则可以返回满足条件的任意一个答案。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 12.7,
             "desc": "dp[i][j]=str1前i个字符匹配str2前j个字符的最短长度，再从后往前遍历求出路径字符串。",
             "code": "class Solution {\npublic:\n    string shortestCommonSupersequence(string str1, string str2) {\n        int n1 = str1.size(), n2 = str2.size();\n        vector<vector<int>> dp(n1 + 1, vector<int>(n2 + 1));\n        for (int i = 0; i < n1; i++) dp[i][0] = i;\n        for (int j = 0; j < n2; j++) dp[0][j] = j;\n        for (int i = 1; i <= n1; i++) {\n            for (int j = 1; j <= n2; j++) {\n                if (str1[i - 1] == str2[j - 1]) {\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                } else {\n                    dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + 1;\n                }\n            }\n        }\n        string res = \"\";\n        int i = n1, j = n2;\n        while (i > 0 && j > 0) {\n            if (str1[i - 1] == str2[j - 1]) {\n                res += str1[i - 1];\n                i -= 1;\n                j -= 1;\n            } else {\n                if (dp[i - 1][j] < dp[i][j - 1]) {\n                    res += str1[i - 1];\n                    i -= 1;\n                } else {\n                    res += str2[j - 1];\n                    j -= 1;\n                }\n            }\n        }\n        reverse(res.begin(), res.end());\n        return str1.substr(0, i) + str2.substr(0, j) + res;\n    }\n};",
-            "date": 1679932800000
+            "date": "2023-03-28"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 59.1,
             "desc": "同上。",
             "code": "class Solution:\n    def shortestCommonSupersequence(self, str1: str, str2: str) -> str:\n        n1, n2 = len(str1), len(str2)\n        dp = [[0] * (n2 + 1) for _ in range(n1 + 1)]\n        for i in range(n1):\n            dp[i][0] = i\n        for j in range(n2):\n            dp[0][j] = j\n        for i in range(1, n1+1):\n            for j in range(1, n2+1):\n                if str1[i - 1] == str2[j - 1]:\n                    dp[i][j] = dp[i - 1][j - 1] + 1\n                else:\n                    dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + 1\n        res = \"\"\n        i, j = n1, n2\n        while i > 0 and j > 0:\n            if str1[i - 1] == str2[j - 1]:\n                res += str1[i - 1]\n                i -= 1\n                j -= 1\n            else:\n                if dp[i - 1][j] < dp[i][j - 1]:\n                    res += str1[i - 1]\n                    i -= 1\n                else:\n                    res += str2[j - 1]\n                    j -= 1\n        res = res[::-1]\n        return str1[0:i] + str2[0:j] + res",
-            "date": 1679932800000
+            "date": "2023-03-28"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 9.5,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn shortest_common_supersequence(str1: String, str2: String) -> String {\n        let (str1, str2) = (\n            str1.chars().collect::<Vec<char>>(),\n            str2.chars().collect::<Vec<char>>(),\n        );\n        let (n1, n2) = (str1.len(), str2.len());\n        let mut dp = vec![vec![0; n2 + 1]; n1 + 1];\n        for i in 0..n1 {\n            dp[i][0] = i;\n        }\n        for j in 0..n2 {\n            dp[0][j] = j;\n        }\n        for i in 1..=n1 {\n            for j in 1..=n2 {\n                if str1[i - 1] == str2[j - 1] {\n                    dp[i][j] = dp[i - 1][j - 1] + 1;\n                } else {\n                    dp[i][j] = dp[i - 1][j].min(dp[i][j - 1]) + 1;\n                }\n            }\n        }\n        let mut s = vec![];\n        let (mut i, mut j) = (n1, n2);\n        while i > 0 && j > 0 {\n            if str1[i - 1] == str2[j - 1] {\n                s.push(*&str1[i - 1]);\n                i -= 1;\n                j -= 1;\n            } else {\n                if dp[i - 1][j] < dp[i][j - 1] {\n                    s.push(*&str1[i - 1]);\n                    i -= 1;\n                } else {\n                    s.push(*&str2[j - 1]);\n                    j -= 1;\n                }\n            }\n        }\n        s = s.into_iter().rev().collect();\n        String::from_utf8(\n            [&str1[0..i], &str2[0..j], &s[..]]\n                .concat()\n                .into_iter()\n                .map(|v| v as u8)\n                .collect::<Vec<u8>>(),\n        )\n        .unwrap()\n    }\n}",
-            "date": 1679932800000
+            "date": "2023-03-28"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

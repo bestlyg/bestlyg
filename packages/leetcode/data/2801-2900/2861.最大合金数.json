@@ -2,8 +2,6 @@
     "id": "3095",
     "name": "2861.最大合金数",
     "url": "https://leetcode.cn/problems/maximum-number-of-alloys",
-    "difficulty": "中等",
-    "tag": ["数组", "二分查找"],
     "desc": "给你整数 n、k、budget，下标从 1 开始的二维数组 composition，两个下标从 1 开始的数组 stock 和 cost，请你在预算不超过 budget 金钱的前提下，最大化 公司制造合金的数量。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 16.87,
             "desc": "二分。",
             "code": "class Solution:\n    def maxNumberOfAlloys(self, n: int, k: int, budget: int, composition: List[List[int]], stock: List[int], cost: List[int]) -> int:\n        def check(count: int, comp: List[int]) -> bool:\n            return sum(cost[i] * max(count * comp[i] - stock[i], 0) for i in range(n)) <= budget\n\n        l, r = 0, 10 ** 10\n        while l < r:\n            m = (l + r + 1) // 2\n            if any(check(m, comp) for comp in composition):\n                l = m\n            else:\n                r = m - 1\n        return l",
-            "date": 1706284800000
+            "date": "2024-01-27"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "level": "Medium"
 }

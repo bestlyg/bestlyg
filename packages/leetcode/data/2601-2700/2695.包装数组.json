@@ -2,8 +2,6 @@
     "id": "2805",
     "name": "2695.包装数组",
     "url": "https://leetcode.cn/problems/array-wrapper",
-    "difficulty": "简单",
-    "tag": [],
     "desc": "创建一个名为 ArrayWrapper 的类，它在其构造函数中接受一个整数数组作为参数。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 44.2,
             "desc": "存储nums后，valueOf中累加，toString中返回字符串。",
             "code": "class ArrayWrapper {\n    constructor(public nums: number[]) {}\n    valueOf() {\n        return this.nums.reduce((sum, num) => sum + num, 0);\n    }\n    toString() {\n        return `[${this.nums.join(',')}]`;\n    }\n};",
-            "date": 1684771200000
+            "date": "2023-05-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Easy"
 }

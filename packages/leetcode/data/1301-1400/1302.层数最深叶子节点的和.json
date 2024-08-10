@@ -2,12 +2,10 @@
     "id": "1254",
     "name": "1302.层数最深叶子节点的和",
     "url": "https://leetcode.cn/problems/deepest-leaves-sum",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给你一棵二叉树的根节点 root ，请你返回 层数最深的叶子节点的和 。",
     "solutions": [
         {
-            "date": 1620835200000,
+            "date": "2021-05-13",
             "time": 124,
             "memory": 48.3,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function deepestLeavesSum(root: TreeNode | null): number {\n  if (root === null) return 0;\n  const queue: TreeNode[] = [root];\n  let size = 1;\n  let ans = root.val;\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0) {\n      if (queue.length !== 0) ans = queue.reduce((total, node) => total + node.val, 0);\n      size = queue.length;\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1620835200000,
+            "date": "2021-05-13",
             "time": 116,
             "memory": 48.3,
             "script": "typescript",
@@ -23,12 +21,19 @@
             "code": "function deepestLeavesSum(root: TreeNode | null): number {\n  if (root === null) return 0;\n  let maxDep = 1;\n  let ans = root.val;\n  const inorder = (node: TreeNode, dep = 1): void => {\n    if (dep > maxDep) {\n      ans = 0;\n      maxDep = dep;\n    }\n    node.left && inorder(node.left, dep + 1);\n    node.right && inorder(node.right, dep + 1);\n    if (!node.left && !node.right && dep === maxDep) ans += node.val;\n  };\n  inorder(root);\n  return ans;\n}"
         },
         {
-            "date": 1660665600000,
+            "date": "2022-08-17",
             "time": 12,
             "memory": 3,
             "script": "rust",
             "desc": "层序遍历。",
             "code": "use std::cell::RefCell;\nuse std::collections::VecDeque;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn deepest_leaves_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let root = root.unwrap();\n        let mut q = VecDeque::<Rc<RefCell<TreeNode>>>::new();\n        q.push_back(root.clone());\n        let mut ans = root.as_ref().borrow().val;\n        let mut cur = 0;\n        let mut size = 1;\n        while !q.is_empty() {\n            let node = q.pop_front().unwrap();\n            let node = node.as_ref().borrow();\n            if node.left.is_some() {\n                cur += node.left.as_ref().unwrap().as_ref().borrow().val;\n                q.push_back(node.left.as_ref().unwrap().clone());\n            }\n            if node.right.is_some() {\n                cur += node.right.as_ref().unwrap().as_ref().borrow().val;\n                q.push_back(node.right.as_ref().unwrap().clone());\n            }\n            size -= 1;\n            if size == 0 {\n                size = q.len();\n                if size != 0 {\n                    ans = cur;\n                }\n                cur = 0;\n            }\n        }\n        ans\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

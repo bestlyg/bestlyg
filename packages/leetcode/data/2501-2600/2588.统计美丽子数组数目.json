@@ -2,8 +2,6 @@
     "id": "2656",
     "name": "2588.统计美丽子数组数目",
     "url": "https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "哈希表", "前缀和"],
     "desc": "请你返回数组 nums 中 美丽子数组 的数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 117.5,
             "desc": "前缀和遍历，统计前面相同的掩码数。",
             "code": "class Solution {\npublic:\n    long long beautifulSubarrays(vector<int>& nums) {\n        unordered_map<int, int> m;\n        m[0]++;\n        long long res = 0;\n        int mask = 0;\n        for (auto &num : nums) {\n            mask |= num;\n            res += m[mask];\n            m[mask]++;\n        }\n        return res;\n    }\n};",
-            "date": 1678550400000
+            "date": "2023-03-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 36.9,
             "desc": "同上。",
             "code": "class Solution:\n    def beautifulSubarrays(self, nums: List[int]) -> int:\n        m = Counter()\n        m[0] += 1\n        res, mask = 0, 0\n        for num in nums:\n            mask ^= num\n            res += m[mask]\n            m[mask] += 1\n        return res",
-            "date": 1678550400000
+            "date": "2023-03-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 4.6,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn beautiful_subarrays(nums: Vec<i32>) -> i64 {\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        m.insert(0, 1);\n        let (mut res, mut mask) = (0i64, 0);\n        for num in nums {\n            mask ^= num;\n            let item = m.entry(mask).or_insert(0);\n            res += *item as i64;\n            *item += 1;\n        }\n        res\n    }\n}",
-            "date": 1678550400000
+            "date": "2023-03-12"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

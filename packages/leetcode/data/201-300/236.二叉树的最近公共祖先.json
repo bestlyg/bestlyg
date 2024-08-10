@@ -2,12 +2,10 @@
     "id": "236",
     "name": "236.二叉树的最近公共祖先",
     "url": "https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。",
     "solutions": [
         {
-            "date": 1589040000000,
+            "date": "2020-05-10",
             "time": 84,
             "memory": 42.5,
             "script": "javascript",
@@ -20,7 +18,13 @@
             "memory": 21.32,
             "desc": "遍历记录父亲和level。",
             "code": "class Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        map = {}\n        plevel = qlevel = 0\n        def dfs(node: Optional[TreeNode], level = 0):\n            nonlocal plevel, qlevel\n            if not node: return\n            if node == p: plevel = level\n            if node == q: qlevel = level\n            if node.left:\n                map[node.left] = node\n                dfs(node.left, level + 1)\n            if node.right:\n                map[node.right] = node\n                dfs(node.right, level + 1)\n        dfs(root)\n        if plevel > qlevel:\n            plevel, qlevel = qlevel, plevel\n            p, q = q, p\n        while qlevel > plevel:\n            print(q, qlevel)\n            qlevel -= 1\n            q = map[q]\n        while p != q:\n            p, q = map[p], map[q]\n        return p",
-            "date": 1707408000000
+            "date": "2024-02-09"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

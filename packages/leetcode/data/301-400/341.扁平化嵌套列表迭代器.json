@@ -2,17 +2,24 @@
     "id": "341",
     "name": "341.扁平化嵌套列表迭代器",
     "url": "https://leetcode.cn/problems/flatten-nested-list-iterator",
-    "difficulty": "中等",
-    "tag": ["栈", "树", "深度优先搜索", "设计", "队列", "迭代器"],
     "desc": "给你一个嵌套的整型列表。请你设计一个迭代器，使其能够遍历这个整型列表中的所有整数。",
     "solutions": [
         {
-            "date": 1616428800000,
+            "date": "2021-03-23",
             "time": 128,
             "memory": 49.2,
             "script": "typescript",
             "desc": "递归重新载入。",
             "code": "class NestedIterator {\n  private arr: number[] = [];\n  constructor(nestedList: NestedInteger[]) {\n    this.loadArray(nestedList);\n  }\n  hasNext(): boolean {\n    return this.arr.length > 0;\n  }\n  next(): number {\n    return this.arr.shift()!;\n  }\n  loadArray(nestedList: NestedInteger[]): void {\n    for (const nestedInteger of nestedList) {\n      if (nestedInteger.isInteger()) {\n        this.arr.push(nestedInteger.getInteger()!);\n      } else {\n        this.loadArray(nestedInteger.getList());\n      }\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "树",
+        "深度优先搜索",
+        "设计",
+        "队列",
+        "迭代器"
+    ],
+    "level": "Medium"
 }

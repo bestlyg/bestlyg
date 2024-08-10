@@ -2,8 +2,6 @@
     "id": "1042",
     "name": "1000.合并石头的最低成本",
     "url": "https://leetcode.cn/problems/minimum-cost-to-merge-stones",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划", "前缀和"],
     "desc": "有 N 堆石头排成一排，第 i 堆中有 stones[i] 块石头。每次移动（move）需要将连续的 K 堆石头合并为一堆，而这个移动的成本为这 K 堆石头的总数。找出把所有石头合并成一堆的最低成本。如果不可能，返回 -1 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 24.1,
             "desc": "区间dp。",
             "code": "class Solution {\npublic:\n    int mergeStones(vector<int>& stones, int k) {\n        int n = stones.size(), dp[n][n][k + 1];\n        if ((n - k) % (k - 1) != 0) return -1;\n        memset(dp, -1, sizeof(dp));\n        vector<int> sums(1, 0);\n        for (auto &s : stones) sums.push_back(sums.back() + s);\n        function<int(int, int, int)> dfs = [&](int start, int end, int p) -> int {\n            if (start == end) return 0;\n            if (dp[start][end][p] != -1) return dp[start][end][p];\n            if (p == 1) return dp[start][end][p] = start == end ? 0 : sums[end + 1] - sums[start] + dfs(start, end, k);\n            int res = INT_MAX;\n            for (int m = start; m < end; m += k - 1) {\n                res = min(res, dfs(start, m, 1) + dfs(m + 1, end, p - 1));\n            }\n            return dp[start][end][p] = res == INT_MAX ? -1 : res;\n        };\n        return dfs(0, n - 1, 1);\n    }\n};",
-            "date": 1680537600000
+            "date": "2023-04-04"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 7.7,
             "desc": "区间dp。",
             "code": "class Solution {\npublic:\n    int mergeStones(vector<int>& stones, int k) {\n        int n = stones.size(), dp[n][n];\n        if ((n - k) % (k - 1) != 0) return -1;\n        memset(dp, -1, sizeof(dp));\n        vector<int> sums(1, 0);\n        for (auto &s : stones) sums.push_back(sums.back() + s);\n        function<int(int, int)> dfs = [&](int start, int end) -> int {\n            if (start == end) return 0;\n            if (dp[start][end] != -1) return dp[start][end];\n            int res = INT_MAX;\n            for (int m = start; m < end; m += k - 1) {\n                res = min(res, dfs(start, m) + dfs(m + 1, end));\n            }\n            if ((end - start) % (k - 1) == 0) res += sums[end + 1] - sums[start];\n            return dp[start][end] = res;\n        };\n        return dfs(0, n - 1);\n    }\n};",
-            "date": 1680537600000
+            "date": "2023-04-04"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15.5,
             "desc": "同上。",
             "code": "class Solution:\n    def mergeStones(self, stones: List[int], k: int) -> int:\n        n = len(stones)\n        if (n - k) % (k - 1) != 0:\n            return -1\n        dp = [[-1] * n for _ in range(n)]\n        sums = [0]\n        for s in stones:\n            sums.append(sums[-1] + s)\n\n        @cache\n        def dfs(start: int, end: int) -> int:\n            if start == end:\n                return 0\n            res = 0x7fffffff\n            for m in range(start, end, k-1):\n                res = min(res, dfs(start, m) + dfs(m + 1, end))\n            if (end - start) % (k - 1) == 0:\n                res += sums[end + 1] - sums[start]\n            return res\n        return dfs(0, n-1)",
-            "date": 1680537600000
+            "date": "2023-04-04"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn merge_stones(stones: Vec<i32>, k: i32) -> i32 {\n        let n = stones.len();\n        let k = k as usize;\n        if (n - k) % (k - 1) != 0 {\n            return -1;\n        }\n        let mut dp = vec![vec![-1; n]; n];\n        let mut sums = vec![-1];\n        for s in stones {\n            sums.push(*sums.last().unwrap() + s);\n        }\n\n        fn dfs(dp: &mut Vec<Vec<i32>>, sums: &Vec<i32>, k: usize, start: usize, end: usize) -> i32 {\n            if start == end {\n                0\n            } else if dp[start][end] != -1 {\n                dp[start][end]\n            } else {\n                let mut res = i32::MAX;\n                let mut m = start;\n                while m < end {\n                    res = res.min(dfs(dp, sums, k, start, m) + dfs(dp, sums, k, m + 1, end));\n                    m += k - 1;\n                }\n                if (end - start) % (k - 1) == 0 {\n                    res += sums[end + 1] - sums[start];\n                }\n                dp[start][end] = res;\n                res\n            }\n        }\n        return dfs(&mut dp, &sums, k, 0, n - 1);\n    }\n}",
-            "date": 1680537600000
+            "date": "2023-04-04"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划",
+        "前缀和"
+    ],
+    "level": "Hard"
 }

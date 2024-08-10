@@ -2,12 +2,10 @@
     "id": "965",
     "name": "929.独特的电子邮件地址",
     "url": "https://leetcode.cn/problems/unique-email-addresses",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "字符串"],
     "desc": "给你一个字符串数组 emails，我们会向每个 emails[i] 发送一封电子邮件。返回实际收到邮件的不同地址数目。",
     "solutions": [
         {
-            "date": 1647964800000,
+            "date": "2022-03-23",
             "time": 32,
             "memory": 13.2,
             "script": "cpp",
@@ -15,12 +13,18 @@
             "code": "class Solution {\n   public:\n    int numUniqueEmails(vector<string> &emails) {\n        unordered_set<string> s;\n        for (auto &email : emails) {\n            s.insert(format(email));\n        }\n        for (auto &email : s) cout << email << endl;\n        return s.size();\n    }\n    string format(string &email) {\n        string ans = \"\";\n        int domain = false, ignore = false;\n        for (auto &ch : email) {\n            if (ch == '@') {\n                domain = true;\n                ignore = false;\n            }\n            if (!domain && ch != '+' && ch != '.' && !ignore || domain)\n                ans += ch;\n            if (ch == '+') ignore = true;\n        }\n        return ans;\n    }\n};"
         },
         {
-            "date": 1654272000000,
+            "date": "2022-06-04",
             "time": 16,
             "memory": 14,
             "script": "typescript",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    int numUniqueEmails(vector<string> &emails) {\n        unordered_set<string> s;\n        for (auto &o : emails) s.insert(format(o));\n        return s.size();\n    }\n    string format(string email) {\n        string ans = \"\";\n        bool suffix = false, ignore = false;\n        for (auto &ch : email) {\n            if (ch == '+') {\n                ignore = true;\n            } else if (ch == '@') {\n                suffix = true;\n                ans += ch;\n            } else if (ch == '.' && !suffix) {\n                continue;\n            } else if (suffix || !ignore) {\n                ans += ch;\n            }\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "231",
     "name": "231.2的幂",
     "url": "https://leetcode.cn/problems/power-of-two",
-    "difficulty": "简单",
-    "tag": ["位运算", "递归", "数学"],
     "desc": "给定一个整数，编写一个函数来判断它是否是 2 的幂次方。",
     "solutions": [
         {
-            "date": 1618243200000,
+            "date": "2021-04-13",
             "time": 100,
             "memory": 39.2,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function isPowerOfTwo(n: number): boolean {\n  return Number.isInteger(Math.log2(n));\n}"
         },
         {
-            "date": 1618243200000,
+            "date": "2021-04-13",
             "time": 108,
             "memory": 39.4,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function isPowerOfTwo(n: number): boolean {\n  return n <= 0\n    ? false\n    : n\n        .toString(2)\n        .split('')\n        .filter(v => v === '1').length === 1;\n}"
         },
         {
-            "date": 1622390400000,
+            "date": "2021-05-31",
             "time": 96,
             "memory": 39.7,
             "script": "typescript",
@@ -31,12 +29,18 @@
             "code": "function isPowerOfTwo(n: number): boolean {\n  const num = Math.log2(n);\n  return num === ~~num;\n}"
         },
         {
-            "date": 1622390400000,
+            "date": "2021-05-31",
             "time": 100,
             "memory": 39.6,
             "script": "typescript",
             "desc": "判断二进制上只有一个 1。",
             "code": "function isPowerOfTwo(n: number): boolean {\n  if (n < 0) return false;\n  let ans = 0;\n  while (n) {\n    if (n & 1) ans++;\n    n >>= 1;\n  }\n  return ans === 1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "递归",
+        "数学"
+    ],
+    "level": "Easy"
 }

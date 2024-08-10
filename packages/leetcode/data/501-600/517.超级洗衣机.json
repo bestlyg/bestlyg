@@ -2,17 +2,20 @@
     "id": "517",
     "name": "517.超级洗衣机",
     "url": "https://leetcode.cn/problems/super-washing-machines",
-    "difficulty": "困难",
-    "tag": ["贪心", "数组"],
     "desc": "给定一个整数数组  machines 代表从左至右每台洗衣机中的衣物数量，请给出能让所有洗衣机中剩下的衣物的数量相等的 最少的操作步数 。如果不能使每台洗衣机中衣物的数量相等，则返回 -1 。",
     "solutions": [
         {
-            "date": 1632844800000,
+            "date": "2021-09-29",
             "time": 76,
             "memory": 40.1,
             "script": "typescript",
             "desc": "贪心，统计每个洗衣机里衣服数与平均衣服数的差。",
             "code": "function findMinMoves(machines: number[]): number {\n  const sum = machines.reduce((total, cur) => total + cur, 0);\n  const n = machines.length;\n  if (sum % n !== 0) return -1;\n  const avg = ~~(sum / n);\n  let ans = 0;\n  let num = 0;\n  for (let i = 0; i < n; i++) {\n    num += machines[i] - avg;\n    ans = Math.max(ans, Math.max(machines[i] - avg, Math.abs(num)));\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
+    "level": "Hard"
 }

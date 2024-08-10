@@ -2,17 +2,21 @@
     "id": "73",
     "name": "73.矩阵置零",
     "url": "https://leetcode.cn/problems/set-matrix-zeroes",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "矩阵"],
     "desc": "给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。",
     "solutions": [
         {
-            "date": 1616256000000,
+            "date": "2021-03-21",
             "time": 116,
             "memory": 41.2,
             "script": "typescript",
             "desc": "记录 col 要置零的下标。",
             "code": "function setZeroes(matrix: number[][]): void {\n  const rowLen = matrix.length;\n  const colLen = matrix[0].length;\n  const colIndexSet = new Set<number>();\n  for (let i = 0; i < rowLen; i++) {\n    const row = matrix[i];\n    let f = false;\n    for (let j = 0; j < colLen; j++) {\n      if (row[j] === 0) {\n        f = true;\n        colIndexSet.add(j);\n      }\n    }\n    f && row.fill(0);\n  }\n  for (let i = 0; i < rowLen; i++) {\n    for (const j of colIndexSet) {\n      matrix[i][j] = 0;\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

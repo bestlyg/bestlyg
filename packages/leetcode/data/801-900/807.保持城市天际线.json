@@ -2,12 +2,10 @@
     "id": "825",
     "name": "807.保持城市天际线",
     "url": "https://leetcode.cn/problems/max-increase-to-keep-city-skyline",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "矩阵"],
     "desc": "在二维数组 grid 中，grid[i][j]代表位于某处的建筑物的高度。 我们被允许增加任何数量（不同建筑物的数量可能不同）的建筑物的高度。 高度 0 也被认为是建筑物。建筑物高度可以增加的最大总和是多少？。",
     "solutions": [
         {
-            "date": 1639324800000,
+            "date": "2021-12-13",
             "time": 88,
             "memory": 40.1,
             "script": "typescript",
@@ -20,7 +18,13 @@
             "memory": 16.57,
             "desc": "遍历。",
             "code": "class Solution:\n    def maxIncreaseKeepingSkyline(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        rows = [0] * n\n        cols = [0] * n\n        for i in range(n):\n            for j in range(n):\n                rows[i] = max(rows[i], grid[i][j])\n                cols[j] = max(cols[j], grid[i][j])\n        return sum(min(rows[i], cols[j]) - grid[i][j] for i in range(n) for j in range(n))",
-            "date": 1720886400000
+            "date": "2024-07-14"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "144",
     "name": "144.二叉树的前序遍历",
     "url": "https://leetcode.cn/problems/binary-tree-preorder-traversal",
-    "difficulty": "简单",
-    "tag": ["栈", "树", "深度优先搜索", "二叉树"],
     "desc": "给定一个二叉树，返回它的前序遍历。",
     "solutions": [
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 0,
             "memory": 37.8,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tpreorder(root, list);\n\t\treturn list;\n\t}\n\n\tpublic void preorder(TreeNode node, List<Integer> list) {\n\t\tlist.add(node.val);\n\t\tif (node.left != null)\n\t\t\tpreorder(node.left,list);\n\t\tif (node.right != null)\n\t\t\tpreorder(node.right,list);\n\t}\n}"
         },
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 1,
             "memory": 38.2,
             "script": "java",
@@ -23,7 +21,7 @@
             "code": "class Solution {\n\tpublic List<Integer> preorderTraversal(TreeNode root) {\n\t\tList<Integer> list = new LinkedList<Integer>();\n\t\tif (root == null)\n\t\t\treturn list;\n\t\tStack<TreeNode> stack = new Stack<TreeNode>();\n\t\tstack.push(root);\n\t\twhile (!stack.isEmpty()) {\n\t\t\tTreeNode node = stack.pop();\n\t\t\tlist.add(node.val);\n\t\t\tif(node.right!=null)stack.push(node.right);\n\t\t\tif(node.left!=null)stack.push(node.left);\n\t\t}\n\t\treturn list;\n\t}\n}"
         },
         {
-            "date": 1603728000000,
+            "date": "2020-10-27",
             "time": 84,
             "memory": 40.2,
             "script": "typescript",
@@ -31,7 +29,7 @@
             "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  preorder(root);\n  return ans;\n  function preorder(root: TreeNode | null) {\n    if (root === null) return;\n    ans.push(root.val);\n    preorder(root.left);\n    preorder(root.right);\n  }\n}"
         },
         {
-            "date": 1603728000000,
+            "date": "2020-10-27",
             "time": 80,
             "memory": 40.3,
             "script": "typescript",
@@ -39,7 +37,7 @@
             "code": "function preorderTraversal(root: TreeNode | null): number[] {\n  const ans: number[] = [];\n  if (root === null) return ans;\n  const stack: TreeNode[] = [root];\n  while (stack.length !== 0) {\n    const node = stack.pop()!;\n    ans.push(node.val);\n    node.right && stack.push(node.right);\n    node.left && stack.push(node.left);\n  }\n  return ans;\n}"
         },
         {
-            "date": 1637942400000,
+            "date": "2021-11-27",
             "time": 0,
             "memory": 5.7,
             "script": "c",
@@ -52,7 +50,14 @@
             "memory": 16.38,
             "desc": "dfs。",
             "code": "class Solution:\n    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:\n        if not root: return []\n        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)",
-            "date": 1707580800000
+            "date": "2024-02-11"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

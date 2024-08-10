@@ -2,12 +2,10 @@
     "id": "1086",
     "name": "1025.除数博弈",
     "url": "https://leetcode.cn/problems/divisor-game",
-    "difficulty": "简单",
-    "tag": ["脑筋急转弯", "数学", "动态规划", "博弈"],
     "desc": "爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。",
     "solutions": [
         {
-            "date": 1595520000000,
+            "date": "2020-07-24",
             "time": 88,
             "memory": 40,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function divisorGame(N: number): boolean {\n  const dp = new Array(N).fill(false);\n  for (let i = 2; i <= N; i++) dp[i - 1] = getMods(i).some(num => !dp[i - num - 1]);\n  return dp[N - 1];\n  function getMods(num: number) {\n    const arr = [1];\n    for (let i = 2; i < num; i++) {\n      if (num % i === 0) arr.push(i);\n    }\n    return arr;\n  }\n}"
         },
         {
-            "date": 1595520000000,
+            "date": "2020-07-24",
             "time": 76,
             "memory": 37.4,
             "script": "typescript",
             "desc": "枚举后推断是否能取余 2。",
             "code": "function divisorGame(N: number): boolean {\n  return !(N & 1);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "脑筋急转弯",
+        "数学",
+        "动态规划",
+        "博弈"
+    ],
+    "level": "Easy"
 }

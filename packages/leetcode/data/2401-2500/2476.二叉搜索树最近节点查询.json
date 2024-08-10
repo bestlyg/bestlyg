@@ -2,12 +2,10 @@
     "id": "2567",
     "name": "2476.二叉搜索树最近节点查询",
     "url": "https://leetcode.cn/problems/closest-nodes-queries-in-a-binary-search-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "数组", "二分查找", "二叉树"],
     "desc": "给你一个 二叉搜索树 的根节点 root ，和一个由正整数组成、长度为 n 的数组 queries 。",
     "solutions": [
         {
-            "date": 1668873600000,
+            "date": "2022-11-20",
             "time": 308,
             "memory": 150.5,
             "script": "cpp",
@@ -20,7 +18,16 @@
             "memory": 74.37,
             "desc": "dfs后排序处理queries。",
             "code": "class Solution:\n    def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:\n        arr = []\n        def inorder(node: Optional[TreeNode]):\n            if not node: return\n            inorder(node.left)\n            arr.append(node.val)\n            inorder(node.right)\n        inorder(root)\n        idx = 0\n        ans = [[] for _ in range(len(queries))]\n        queries = sorted((q, i) for i, q in enumerate(queries))\n        for q, i in queries:\n            while idx < len(arr) and arr[idx] < q:\n                idx += 1\n            ans[i] = [-1, -1]\n            if idx < len(arr) and arr[idx] == q:\n                ans[i] = [q, q]\n            else:\n                if idx > 0: ans[i][0] = arr[idx - 1]\n                if idx < len(arr): ans[i][1] = arr[idx]\n        return ans",
-            "date": 1708704000000
+            "date": "2024-02-24"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "数组",
+        "二分查找",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

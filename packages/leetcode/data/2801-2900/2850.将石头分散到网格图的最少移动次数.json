@@ -2,8 +2,6 @@
     "id": "3092",
     "name": "2850.将石头分散到网格图的最少移动次数",
     "url": "https://leetcode.cn/problems/minimum-moves-to-spread-stones-over-grid",
-    "difficulty": "中等",
-    "tag": ["广度优先搜索", "数组", "动态规划", "矩阵"],
     "desc": "请你返回每个格子恰好有一个石头的 最少移动次数 。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 16.36,
             "desc": "暴力枚举。",
             "code": "class Solution:\n    def minimumMoves(self, grid: List[List[int]]) -> int:\n        arr1 = [(i, j, grid[i][j]) for i in range(3) for j in range(3) if grid[i][j] > 1]\n        arr0 = [(i, j) for i in range(3) for j in range(3) if grid[i][j] == 0]\n        self.res = inf\n        def dfs(i0: int, cur: int = 0) -> int:\n            if i0 == len(arr0): self.res = min(self.res, cur)\n            else:\n                for i1 in range(len(arr1)):\n                    old_item = arr1[i1]\n                    if old_item[2] > 1:\n                        arr1[i1] = (old_item[0], old_item[1], old_item[2] - 1)\n                        dfs(i0 + 1, cur + abs(old_item[0] - arr0[i0][0]) + abs(old_item[1] - arr0[i0][1]))\n                        arr1[i1] = old_item\n        dfs(0)\n        return self.res",
-            "date": 1721491200000
+            "date": "2024-07-21"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "动态规划",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "2575",
     "name": "2481.分割圆的最少切割次数",
     "url": "https://leetcode.cn/problems/minimum-cuts-to-divide-a-circle",
-    "difficulty": "简单",
-    "tag": ["几何", "数学"],
     "desc": "给你一个整数 n ，请你返回将圆切割成相等的 n 等分的 最少 切割次数。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 5.9,
             "desc": "奇数的只能按照中心点分，偶数能按照两端分。",
             "code": "class Solution {\npublic:\n    int numberOfCuts(int n) {\n        if (n == 1) return 0;\n        if (n % 2 == 0) return n / 2;\n        return n;\n    }\n};",
-            "date": 1686931200000
+            "date": "2023-06-17"
         }
-    ]
+    ],
+    "tagList": [
+        "几何",
+        "数学"
+    ],
+    "level": "Easy"
 }

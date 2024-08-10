@@ -2,17 +2,20 @@
     "id": "1833",
     "name": "1732.找到最高海拔",
     "url": "https://leetcode.cn/problems/find-the-highest-altitude",
-    "difficulty": "简单",
-    "tag": ["数组", "前缀和"],
     "desc": "给你一个长度为 n  的整数数组  gain ，其中 gain[i]  是点 i  和点 i + 1  的 净海拔高度差（0 <= i < n）。请你返回 最高点的海拔 。",
     "solutions": [
         {
-            "date": 1668787200000,
+            "date": "2022-11-19",
             "time": 4,
             "memory": 7.8,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int largestAltitude(vector<int>& gain) {\n        int cur = 0, ans = 0;\n        for (int i = 0; i < gain.size(); i++) {\n            cur += gain[i];\n            ans = max(ans, cur);\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "前缀和"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "131",
     "name": "131.分割回文串",
     "url": "https://leetcode.cn/problems/palindrome-partitioning",
-    "difficulty": "中等",
-    "tag": ["字符串", "动态规划", "回溯"],
     "desc": "给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。",
     "solutions": [
         {
-            "date": 1615046400000,
+            "date": "2021-03-07",
             "time": 372,
             "memory": 67.8,
             "script": "typescript",
@@ -15,12 +13,18 @@
             "code": "const map: Record<string, boolean> = {};\nfunction isPalindrome(s: string) {\n  if (map[s]) return map[s];\n  const len = s.length;\n  if (len === 1) return (map[s] = true);\n  for (let i = 0; i < len / 2; i++) {\n    if (s[i] !== s[len - i - 1]) {\n      return (map[s] = false);\n    }\n  }\n  return (map[s] = true);\n}\nfunction partition(s: string): string[][] {\n  const ans: string[][] = [];\n  const len = s.length;\n  if (len === 1) return [[s]];\n  for (let i = 0; i < len; i++) {\n    const str = s.substring(0, i + 1);\n    if (isPalindrome(str)) {\n      i === len - 1\n        ? ans.push([s])\n        : ans.push(...partition(s.substring(i + 1)).map(arr => [str, ...arr]));\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1615132800000,
+            "date": "2021-03-08",
             "time": 288,
             "memory": 60.4,
             "script": "typescript",
             "desc": "利用动态规划计算所有值，再利用回溯收集。",
             "code": "function partition(s: string): string[][] {\n  const len = s.length;\n  const f = new Array(len).fill(0).map(() => new Array(len).fill(true));\n  for (let i = len - 1; i >= 0; --i) {\n    for (let j = i + 1; j < len; ++j) {\n      f[i][j] = s[i] === s[j] && f[i + 1][j - 1];\n    }\n  }\n  const ans: string[][] = [];\n  const arr: string[] = [];\n  const dfs = (startIndex: number) => {\n    if (startIndex === len) {\n      ans.push([...arr]);\n    } else {\n      for (let i = startIndex; i < len; i++) {\n        if (f[startIndex][i]) {\n          const str = s.substring(startIndex, i + 1);\n          arr.push(str);\n          dfs(i + 1);\n          arr.pop();\n        }\n      }\n    }\n  };\n  dfs(0);\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "动态规划",
+        "回溯"
+    ],
+    "level": "Medium"
 }

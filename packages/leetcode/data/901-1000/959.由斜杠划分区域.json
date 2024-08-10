@@ -2,17 +2,24 @@
     "id": "999",
     "name": "959.由斜杠划分区域",
     "url": "https://leetcode.cn/problems/regions-cut-by-slashes",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "哈希表", "矩阵"],
     "desc": "在由 1 x 1 方格组成的 N x N 网格 grid 中，每个 1 x 1 方块由 /、\\ 或空格构成。这些字符会将方块划分为一些共边的区域。",
     "solutions": [
         {
-            "date": 1638547200000,
+            "date": "2021-12-04",
             "time": 4,
             "memory": 6.6,
             "script": "c",
             "desc": "并查集。",
             "code": "typedef struct unionfind\n{\n    int *father, len, size;\n} UnionFind;\nUnionFind *unionfind_create(int len)\n{\n    UnionFind *uf = (UnionFind *)malloc(sizeof(UnionFind));\n    uf->size = uf->len = len;\n    uf->father = (int *)malloc(sizeof(int) * len);\n    for (int i = 0; i < len; i++)\n        uf->father[i] = i;\n    return uf;\n}\nvoid unionfind_free(UnionFind *uf)\n{\n    free(uf->father);\n    free(uf);\n}\nint unionfind_find(UnionFind *uf, int data)\n{\n    return uf->father[data] = uf->father[data] == data ? data : unionfind_find(uf, uf->father[data]);\n}\nvoid unionfind_union(UnionFind *uf, int data1, int data2)\n{\n    int p1 = unionfind_find(uf, data1), p2 = unionfind_find(uf, data2);\n    if (p1 == p2) return ;\n    uf->size--;\n    uf->father[p1] = p2;\n}\n#define BLOCK 4\nint get_idx(int row, int col, int n) {\n    return row * n * BLOCK + col * BLOCK;\n}\nint regionsBySlashes(char ** grid, int gridSize){\n    UnionFind *uf = unionfind_create(gridSize * gridSize * BLOCK);\n    for (int row = 0; row < gridSize; row++) {\n        for (int col = 0; col < gridSize; col++) {\n            char ch = grid[row][col];\n            int idx1 = get_idx(row, col, gridSize), idx2 = idx1 + 1, idx3 = idx1 + 2, idx4 = idx1 + 3;\n            if (ch == ' ') {\n                unionfind_union(uf, idx1, idx2);\n                unionfind_union(uf, idx1, idx3);\n                unionfind_union(uf, idx1, idx4);\n            } else if (ch == '/') {\n                unionfind_union(uf, idx1, idx2);\n                unionfind_union(uf, idx3, idx4);\n            } else {\n                unionfind_union(uf, idx1, idx4);\n                unionfind_union(uf, idx2, idx3);\n            }\n            //if (row > 0) unionfind_union(uf, idx1, get_idx(row - 1, col, gridSize) + 2);\n            //if (col > 0) unionfind_union(uf, idx2, get_idx(row, col - 1, gridSize) + 3);\n            if (col < gridSize - 1) unionfind_union(uf, idx4, get_idx(row, col + 1, gridSize) + 1);\n            if (row < gridSize - 1) unionfind_union(uf, idx3, get_idx(row + 1, col, gridSize));\n        }\n    }\n    return uf->size;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

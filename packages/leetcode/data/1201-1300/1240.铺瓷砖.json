@@ -2,8 +2,6 @@
     "id": "1361",
     "name": "1240.铺瓷砖",
     "url": "https://leetcode.cn/problems/tiling-a-rectangle-with-the-fewest-squares",
-    "difficulty": "困难",
-    "tag": ["回溯"],
     "desc": "房子的客厅大小为 n x m，为保持极简的风格，需要使用尽可能少的 正方形 瓷砖来铺盖地面。假设正方形瓷砖的规格不限，边长都是整数。请你帮设计师计算一下，最少需要用到多少块方形瓷砖？。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 6,
             "desc": "dfs，储存已经遍历过的点。",
             "code": "class Solution {\npublic:\n    int tilingRectangle(int n, int m) {\n        int res = INT_MAX, list[20] = {0};\n        function<void(int, int, int)> dfs = [&](int i, int j, int cnt) {\n            if (i == n) {\n                res = min(res, cnt);\n            } else if (j == m) {\n                dfs(i + 1, 0, cnt);\n            } else if (list[i] & (1 << j)) {\n                dfs(i, j + 1, cnt);\n            } else if (cnt < res) {\n                int ncnt = 0, mcnt = 0;\n                for (int p = i; p < n && !(list[p] & (1 << j)); p++) ncnt++;\n                for (int p = j; p < m && !(list[i] & (1 << p)); p++) mcnt++;\n                int nmcnt = min(ncnt, mcnt);\n                for (int ccnt = nmcnt; ccnt >= 1; ccnt--) {\n                    for (int p = i; p < i + ccnt; p++) list[p] |= (((1 << ccnt) - 1) << j);\n                    dfs(i, j + ccnt, cnt + 1);\n                    for (int p = i; p < i + ccnt; p++) list[p] &= ~(((1 << ccnt) - 1) << j);\n                }\n            }\n        };\n        dfs(0, 0, 0);\n        return res;\n    }\n};",
-            "date": 1686153600000
+            "date": "2023-06-08"
         }
-    ]
+    ],
+    "tagList": [
+        "回溯"
+    ],
+    "level": "Hard"
 }

@@ -2,8 +2,6 @@
     "id": "2812",
     "name": "2769.找出最大的可达成数字",
     "url": "https://leetcode.cn/problems/find-the-maximum-achievable-number",
-    "difficulty": "简单",
-    "tag": ["数学"],
     "desc": "返回所有可达成数字中的最大值。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 16.53,
             "desc": "贪心直接计算最大可能。",
             "code": "class Solution:\n    def theMaximumAchievableX(self, num: int, t: int) -> int:\n        return num + 2 * t",
-            "date": 1716220800000
+            "date": "2024-05-21"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Easy"
 }

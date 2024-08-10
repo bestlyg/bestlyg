@@ -2,17 +2,20 @@
     "id": "171",
     "name": "171.Excel表列序号",
     "url": "https://leetcode.cn/problems/excel-sheet-column-number",
-    "difficulty": "简单",
-    "tag": ["数学", "字符串"],
     "desc": "给你一个字符串 columnTitle ，表示 Excel 表格中的列名称。返回该列名称对应的列序号。",
     "solutions": [
         {
-            "date": 1627574400000,
+            "date": "2021-07-30",
             "time": 112,
             "memory": 39.4,
             "script": "typescript",
             "desc": "按照二十六进制计算。",
             "code": "function titleToNumber(columnTitle: string): number {\n  let ans = 0;\n  for (let i = columnTitle.length - 1, bit = 0; i >= 0; i--, bit++) {\n    const num = columnTitle.codePointAt(i)! - 'A'.codePointAt(0)! + 1;\n    ans += num * 26 ** bit;\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "字符串"
+    ],
+    "level": "Easy"
 }

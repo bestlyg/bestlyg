@@ -2,12 +2,10 @@
     "id": "978",
     "name": "941.有效的山脉数组",
     "url": "https://leetcode.cn/problems/valid-mountain-array",
-    "difficulty": "简单",
-    "tag": ["数组"],
     "desc": "给定一个整数数组 A，如果它是有效的山脉数组就返回 true，否则返回 false。",
     "solutions": [
         {
-            "date": 1604332800000,
+            "date": "2020-11-03",
             "time": 116,
             "memory": 40.3,
             "script": "javascript",
@@ -15,12 +13,16 @@
             "code": "/**\n * @param {number[]} A\n * @return {boolean}\n */\nvar validMountainArray = function (A) {\n  const l = A.length;\n  if (l < 3) return false;\n  let top;\n  for (let i = 1; i < l - 1; i++) {\n    if (A[i] > A[i - 1] && A[i] > A[i + 1]) {\n      if (top !== undefined) return false;\n      top = i;\n    }\n  }\n  if (top === undefined) return false;\n  for (let i = top; i >= 0; i--) {\n    if (A[i] <= A[i - 1]) return false;\n  }\n  for (let i = top; i < l; i++) {\n    if (A[i] <= A[i + 1]) return false;\n  }\n  return true;\n};"
         },
         {
-            "date": 1639238400000,
+            "date": "2021-12-12",
             "time": 76,
             "memory": 40.9,
             "script": "typescript",
             "desc": "双指针从两头开始遍历。",
             "code": "function validMountainArray(arr: number[]): boolean {\n  const n = arr.length;\n  let l = 0;\n  let r = n - 1;\n  while (l < r && arr[l] < arr[l + 1]) l++;\n  while (l < r && arr[r] < arr[r - 1]) r--;\n  return l === r && l !== 0 && l !== n - 1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "345",
     "name": "345.反转字符串中的元音字母",
     "url": "https://leetcode.cn/problems/reverse-vowels-of-a-string",
-    "difficulty": "简单",
-    "tag": ["双指针", "字符串"],
     "desc": "编写一个函数，以字符串作为输入，反转该字符串中的元音字母。",
     "solutions": [
         {
-            "date": 1586188800000,
+            "date": "2020-04-07",
             "time": 120,
             "memory": 44.6,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * @param {string} s\n * @return {string}\n */\nvar reverseVowels = function (s) {\n  const vowels = new Set(['a', 'e', 'i', 'o', 'u']);\n  let result = [...s];\n  let tempNum = [];\n  let tempStr = [];\n  for (let i = 0, len = s.length; i < len; i++) {\n    if (vowels.has(s[i].toLowerCase())) {\n      tempNum.push(i);\n      tempStr.push(s[i]);\n    }\n  }\n  tempNum = tempNum.reverse();\n  for (const [index, num] of tempNum.entries()) {\n    result.splice(num, 1, tempStr[index]);\n  }\n  return result.join('');\n};"
         },
         {
-            "date": 1629302400000,
+            "date": "2021-08-19",
             "time": 88,
             "memory": 46.3,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function reverseVowels(s: string): string {\n  const idxList: number[] = [];\n  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);\n  for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);\n  const idxSet = new Set(idxList);\n  let ans = '';\n  for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {\n    if (idxSet.has(i)) ans += s[idxList[pos--]];\n    else ans += s[i];\n  }\n  return ans;\n}"
         },
         {
-            "date": 1629302400000,
+            "date": "2021-08-19",
             "time": 96,
             "memory": 45.4,
             "script": "typescript",
@@ -31,12 +29,17 @@
             "code": "function reverseVowels(s: string): string {\n  const idxList: number[] = [];\n  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);\n  for (let i = 0; i < s.length; i++) if (set.has(s[i])) idxList.push(i);\n  let ans = '';\n  for (let i = 0, pos = idxList.length - 1; i < s.length; i++) {\n    if (set.has(s[i])) ans += s[idxList[pos--]];\n    else ans += s[i];\n  }\n  return ans;\n}"
         },
         {
-            "date": 1629302400000,
+            "date": "2021-08-19",
             "time": 180,
             "memory": 45.2,
             "script": "typescript",
             "desc": "优化内存。",
             "code": "function reverseVowels(s: string): string {\n  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);\n  let l = 0;\n  let r = s.length - 1;\n  while (l < r) {\n    if (set.has(s[r]) && set.has(s[l])) {\n      s = s.substring(0, l) + s[r] + s.substring(l + 1, r) + s[l] + s.substring(r + 1);\n      l++;\n      r--;\n    }\n    if (!set.has(s[l])) l++;\n    if (!set.has(s[r])) r--;\n  }\n  return s;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "双指针",
+        "字符串"
+    ],
+    "level": "Easy"
 }

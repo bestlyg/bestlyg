@@ -2,12 +2,10 @@
     "id": "2574",
     "name": "2488.统计中位数为K的子数组",
     "url": "https://leetcode.cn/problems/count-subarrays-with-median-k",
-    "difficulty": "困难",
-    "tag": ["数组", "哈希表", "前缀和"],
     "desc": "给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。",
     "solutions": [
         {
-            "date": 1669478400000,
+            "date": "2022-11-27",
             "time": 76,
             "memory": 51.4,
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 51.4,
             "desc": "遍历，对于每个值判断前面可取值，并存入map。",
             "code": "class Solution {\npublic:\n    int countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        int res = 0, cur = 0;\n        bool findK = false;\n        for (auto &num : nums) {\n            if (num > k) cur += 1;\n            else if (num < k) cur -= 1;\n            if (num == k) findK = true;\n            if (findK) res += m[cur] + m[cur - 1] + (cur == 0 || cur == 1);\n            else m[cur]++;\n        }\n        return res;\n    }\n};",
-            "date": 1678896000000
+            "date": "2023-03-16"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 16.7,
             "desc": "同上。",
             "code": "class Solution:\n    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:\n        l = [set() for _ in range(n)]\n        for [n1, n2] in roads:\n            l[n1].add(n2)\n            l[n2].add(n1)\n        res = 0\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    res = max(res, len(l[i]) + len(l[j]) + (-1 if j in l[i] else 0))\n        return res",
-            "date": 1678896000000
+            "date": "2023-03-16"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 3.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i32 {\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        let (mut res, mut cur, mut find_k) = (0, 0, false);\n        for num in nums {\n            if num > k {\n                cur += 1;\n            } else if num < k {\n                cur -= 1;\n            } else {\n                find_k = true;\n            }\n            if find_k {\n                res += *m.get(&cur).unwrap_or(&0)\n                    + *m.get(&(cur - 1)).unwrap_or(&0)\n                    + ((cur == 0 || cur == 1) as i32);\n            } else {\n                *m.entry(cur).or_insert(0) += 1;\n            }\n        }\n        res\n    }\n}",
-            "date": 1678896000000
+            "date": "2023-03-16"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "level": "Hard"
 }

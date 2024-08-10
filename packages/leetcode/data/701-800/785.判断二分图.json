@@ -2,17 +2,22 @@
     "id": "801",
     "name": "785.判断二分图",
     "url": "https://leetcode.cn/problems/is-graph-bipartite",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "desc": "给定一个无向图 graph，当这个图为二分图时返回 true。",
     "solutions": [
         {
-            "date": 1594828800000,
+            "date": "2020-07-16",
             "time": 84,
             "memory": 38,
             "script": "typescript",
             "desc": "遍历后采取红绿刷色。",
             "code": "function isBipartite(graph: number[][]): boolean {\n  enum Color {\n    red,\n    green,\n    none,\n  }\n  const len = graph.length;\n  let valid = true;\n  const colors = new Array<Color>(len).fill(Color.none);\n  for (let i = 0; i < len && valid; i++) {\n    colors[i] === Color.none && dfs(i, Color.red);\n  }\n  return valid;\n  function dfs(node: number, color: Color): void {\n    colors[node] = color;\n    const newColor = color === Color.red ? Color.green : Color.red;\n    for (const neighbor of graph[node]) {\n      if (colors[neighbor] === Color.none) {\n        dfs(neighbor, newColor);\n        if (!valid) return;\n      } else if (colors[neighbor] !== newColor) {\n        valid = false;\n        return;\n      }\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "level": "Medium"
 }

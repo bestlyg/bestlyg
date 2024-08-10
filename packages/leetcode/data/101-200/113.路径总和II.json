@@ -2,17 +2,22 @@
     "id": "113",
     "name": "113.路径总和II",
     "url": "https://leetcode.cn/problems/path-sum-ii",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "回溯", "二叉树"],
     "desc": "给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。",
     "solutions": [
         {
-            "date": 1601049600000,
+            "date": "2020-09-26",
             "time": 124,
             "memory": 47.1,
             "script": "typescript",
             "desc": "递归调用。",
             "code": "function pathSum(root: TreeNode | null, sum: number): number[][] {\n  if (root === null) return [];\n  const val = root.val;\n  if (val === sum && root.left === null && root.right === null) return [[val]];\n  const nextSum = sum - val;\n  const ans: number[][] = [];\n  ans.push(...pathSum(root.left, nextSum).map(v => [val, ...v]));\n  ans.push(...pathSum(root.right, nextSum).map(v => [val, ...v]));\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "回溯",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

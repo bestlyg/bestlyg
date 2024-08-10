@@ -2,8 +2,6 @@
     "id": "3195",
     "name": "2938.区分黑球与白球",
     "url": "https://leetcode.cn/problems/separate-black-and-white-balls",
-    "difficulty": "中等",
-    "tag": ["贪心", "双指针", "字符串"],
     "desc": "返回「将所有黑色球都移到右侧，所有白色球都移到左侧所需的 最小步数」。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 43.7,
             "desc": "贪心把所有0都放左边。",
             "code": "class Solution:\n    def minimumSteps(self, s: str) -> int:\n        cnt0 = 0\n        res = 0\n        for i in range(len(s)):\n            if s[i] == '0':\n                res += i - cnt0\n                cnt0 += 1\n        return res",
-            "date": 1717603200000
+            "date": "2024-06-06"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "双指针",
+        "字符串"
+    ],
+    "level": "Medium"
 }

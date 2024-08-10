@@ -2,12 +2,10 @@
     "id": "969",
     "name": "933.最近的请求次数",
     "url": "https://leetcode.cn/problems/number-of-recent-calls",
-    "difficulty": "简单",
-    "tag": ["设计", "队列", "数据流"],
     "desc": "写一个 RecentCounter 类来计算特定时间范围内最近的请求。",
     "solutions": [
         {
-            "date": 1615651200000,
+            "date": "2021-03-14",
             "time": 264,
             "memory": 47.9,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "class RecentCounter {\n  private queue: number[] = [];\n  ping(t: number): number {\n    this.queue.push(t);\n    while (this.queue[0] < t - 3000) {\n      this.queue.shift();\n    }\n    return this.queue.length;\n  }\n}"
         },
         {
-            "date": 1651766400000,
+            "date": "2022-05-06",
             "time": 132,
             "memory": 56,
             "script": "cpp",
@@ -23,12 +21,18 @@
             "code": "class RecentCounter {\n   public:\n    queue<int> q;\n    RecentCounter() {}\n    int ping(int t) {\n        q.push(t);\n        while (t - q.front() > 3000) q.pop();\n        return q.size();\n    }\n};"
         },
         {
-            "date": 1651766400000,
+            "date": "2022-05-06",
             "time": 136,
             "memory": 8.1,
             "script": "go",
             "desc": "queue。",
             "code": "type RecentCounter struct {\n    queue []int\n}\n\nfunc Constructor() RecentCounter {\n    res := RecentCounter{}\n    return res\n}\nfunc (this *RecentCounter) Ping(t int) int {\n    this.queue = append(this.queue, t)\n    for t-this.queue[0] > 3000 {\n        this.queue = this.queue[1:]\n    }\n    return len(this.queue)\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "队列",
+        "数据流"
+    ],
+    "level": "Easy"
 }

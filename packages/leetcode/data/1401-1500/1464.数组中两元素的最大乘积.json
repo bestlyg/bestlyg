@@ -2,17 +2,21 @@
     "id": "1574",
     "name": "1464.数组中两元素的最大乘积",
     "url": "https://leetcode.cn/problems/maximum-product-of-two-elements-in-an-array",
-    "difficulty": "简单",
-    "tag": ["数组", "排序", "堆（优先队列）"],
     "desc": "给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)\\*(nums[j]-1) 取得最大值。",
     "solutions": [
         {
-            "date": 1661529600000,
+            "date": "2022-08-27",
             "time": 0,
             "memory": 2.5,
             "script": "rust",
             "desc": "层序遍历。",
             "code": "use std::cell::RefCell;\nuse std::collections::VecDeque;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn width_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let root = root.unwrap();\n        let mut q = VecDeque::<(i32, Rc<RefCell<TreeNode>>)>::new();\n        q.push_back((0, root.clone()));\n        let mut ans = 1_i32;\n        let mut size = 1;\n        while !q.is_empty() {\n            let (idx, node) = q.pop_front().unwrap();\n            if node.as_ref().borrow().left.is_some() {\n                q.push_back((\n                    idx * 2 + 1,\n                    node.as_ref().borrow().left.as_ref().unwrap().clone(),\n                ));\n            }\n            if node.as_ref().borrow().right.is_some() {\n                q.push_back((\n                    idx * 2 + 2,\n                    node.as_ref().borrow().right.as_ref().unwrap().clone(),\n                ));\n            }\n            size -= 1;\n            if size == 0 {\n                size = q.len();\n                if !q.is_empty() {\n                    ans = ans.max(q.back().unwrap().0 - q.front().unwrap().0 + 1);\n                }\n            }\n        }\n        ans\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Easy"
 }

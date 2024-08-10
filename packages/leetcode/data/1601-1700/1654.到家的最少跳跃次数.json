@@ -2,8 +2,6 @@
     "id": "1757",
     "name": "1654.到家的最少跳跃次数",
     "url": "https://leetcode.cn/problems/minimum-jumps-to-reach-home",
-    "difficulty": "中等",
-    "tag": ["广度优先搜索", "数组", "动态规划"],
     "desc": "给你一个整数数组 forbidden ，其中 forbidden[i] 是跳蚤不能跳到的位置，同时给你整数 a， b 和 x ，请你返回跳蚤到家的最少跳跃次数。如果没有恰好到达 x 的可行方案，请你返回 -1 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 18.09,
             "desc": "bfs。",
             "code": "class Solution {\npublic:\n    typedef pair<int, bool> Node;\n    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {\n        unordered_set<int> s(forbidden.begin(), forbidden.end());\n        queue<Node> q;\n        q.push(make_pair(0, false));\n        unordered_map<int, int> m;\n        m[0] |= 0b01;\n        int size = 1, step = 0;\n        while (q.size()) {\n            auto cur = q.front();\n            q.pop();\n            if (cur.first == x) return step;\n            if (cur.first < 4000 && (m[cur.first + a] & 0b01) == 0 && !s.count(cur.first + a)) {\n                m[cur.first + a] |= 0b01;\n                q.push(make_pair(cur.first + a, false));\n            }\n            if (cur.first - b >= 0 && !cur.second && (m[cur.first - b] & 0b10) == 0 && !s.count(cur.first - b)) {\n                m[cur.first - b] |= 0b10;\n                q.push(make_pair(cur.first - b, true));\n            }\n            size -= 1;\n            if (size == 0) {\n                size = q.size();\n                step += 1;\n            }\n        }\n        return -1;\n    }\n};",
-            "date": 1693324800000
+            "date": "2023-08-30"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.05,
             "desc": "同上。",
             "code": "class Solution:\n    def minimumJumps(self, forbidden: List[int], a: int, b: int, x: int) -> int:\n        s = set(forbidden)\n        q = deque()\n        q.append((0, False))\n        m = Counter()\n        m[0] |= 0b01\n        size = 1\n        step = 0\n        while len(q):\n            cur = q.popleft()\n            if cur[0] == x:\n                return step\n            if cur[0] < 4000 and (m[cur[0] + a] & 0b01) == 0 and not cur[0] + a in s:\n                m[cur[0] + a] |= 0b01\n                q.append((cur[0]+a, False))\n            if cur[0] - b >= 0 and not cur[1] and (m[cur[0] - b] & 0b10) == 0 and not cur[0] - b in s:\n                m[cur[0] - b] |= 0b10\n                q.append((cur[0]-b, True))\n            size -= 1\n            if size == 0:\n                size = len(q)\n                step += 1\n        return -1",
-            "date": 1693324800000
+            "date": "2023-08-30"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2.24,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn minimum_jumps(forbidden: Vec<i32>, a: i32, b: i32, x: i32) -> i32 {\n        let mut s = std::collections::HashSet::<i32>::new();\n        for num in forbidden {\n            s.insert(num);\n        }\n        let mut q = std::collections::VecDeque::<(i32, bool)>::new();\n        q.push_back((0, false));\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        m.insert(0, 0b01);\n        let mut size = 1;\n        let mut step = 0;\n        while let Some(cur) = q.pop_front() {\n            if cur.0 == x {\n                return step;\n            }\n            if cur.0 < 4000\n                && (*m.get(&(cur.0 + a)).unwrap_or(&0) & 0b01) == 0\n                && !s.contains(&(cur.0 + a))\n            {\n                let item = m.entry(cur.0 + a).or_insert(0);\n                *item |= 0b01;\n                q.push_back((cur.0 + a, false));\n            }\n            if cur.0 - b >= 0\n                && !cur.1\n                && (*m.get(&(cur.0 - b)).unwrap_or(&0) & 0b10) == 0\n                && !s.contains(&(cur.0 - b))\n            {\n                let item = m.entry(cur.0 - b).or_insert(0);\n                *item |= 0b10;\n                q.push_back((cur.0 - b, true));\n            }\n            size -= 1;\n            if size == 0 {\n                size = q.len();\n                step += 1;\n            }\n        }\n        -1\n    }\n}",
-            "date": 1693324800000
+            "date": "2023-08-30"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

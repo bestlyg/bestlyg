@@ -2,8 +2,6 @@
     "id": "2845",
     "name": "2740.找出分区值",
     "url": "https://leetcode.cn/problems/find-the-value-of-the-partition",
-    "difficulty": "中等",
-    "tag": ["数组", "排序"],
     "desc": "返回表示分区值的整数。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 27.98,
             "desc": "遍历。",
             "code": "class Solution:\n    def findValueOfPartition(self, nums: List[int]) -> int:\n        return min(n2 - n1 for n1, n2 in pairwise(sorted(nums)))",
-            "date": 1721923200000
+            "date": "2024-07-26"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "排序"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "2710",
     "name": "2571.将整数减少到零需要的最少操作数",
     "url": "https://leetcode.cn/problems/minimum-operations-to-reduce-an-integer-to-0",
-    "difficulty": "中等",
-    "tag": ["贪心", "位运算", "动态规划"],
     "desc": "返回使 n 等于 0 需要执行的 最少 操作数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 66.2,
             "desc": "bfs，考虑所有可能加上减去的数字。",
             "code": "# define lb(x) ((x) & (-x))\nclass Solution {\npublic:\n    int minOperations(int n) {\n        unordered_set<int> s;\n        queue<int> q;\n        q.push(n);\n        s.insert(n);\n        int size = 1, step = 1;\n        while (q.size()) {\n            int num = q.front();\n            // cout << \"num = \" << num << \", step = \" << step << \", size = \" << size << endl;\n            if (lb(num) == num) return step;\n            q.pop();\n            for (int i = 0; i <= 20; i++) {\n                int next1 = num + pow(2, i);\n                if (next1 <= pow(2, 17) && !s.count(next1)) {\n                    s.insert(next1);\n                    q.push(next1);\n                }\n                int next2 = num - pow(2, i);\n                if (next2 > 0 && !s.count(next2)) {\n                    s.insert(next2);\n                    q.push(next2);\n                }\n            }\n            if (--size == 0) {\n                size = q.size();\n                step++;\n            }\n        }\n        return 1;\n    }\n};",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 5.9,
             "desc": "bfs，考虑所有可能加上减去的lowbit。",
             "code": "# define lb(x) ((x) & (-x))\nclass Solution {\npublic:\n    int minOperations(int n) {\n        unordered_set<int> s;\n        queue<int> q;\n        q.push(n);\n        s.insert(n);\n        int size = 1, step = 1;\n        while (q.size()) {\n            int num = q.front(), lbnum = lb(num);\n            if (lbnum == num) return step;\n            q.pop();\n            int next1 = num + lbnum;\n            if (!s.count(next1)) {\n                s.insert(next1);\n                q.push(next1);\n            }\n            int next2 = num - lbnum;\n            if (!s.count(next2)) {\n                s.insert(next2);\n                q.push(next2);\n            }\n            if (--size == 0) {\n                size = q.size();\n                step++;\n            }\n        }\n        return 1;\n    }\n};",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "cpp",
@@ -28,7 +26,7 @@
             "memory": 6.3,
             "desc": "dfs，加上减去lowbit。",
             "code": "# define lb(x) ((x) & (-x))\nclass Solution {\npublic:\n    unordered_map<int, int> m;\n    int dfs(int num) {\n        if (m.count(num)) return m[num];\n        int lbnum = lb(num);\n        if (lbnum == num) return m[num] = 1;\n        return m[num] = min(dfs(num + lbnum), dfs(num - lbnum)) + 1;\n    }\n    int minOperations(int n) {\n        return dfs(n);\n    }\n};",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "python",
@@ -36,7 +34,7 @@
             "memory": 15.1,
             "desc": "同上。",
             "code": "class Solution:\n    def minOperations(self, n: int) -> int:\n        def lb(num): return num & (-num)\n  \n        @cache\n        def dfs(num: int) -> int:\n            lbnum = lb(num)\n            if lbnum == num:\n                return 1\n            return min(dfs(num - lbnum), dfs(num + lbnum)) + 1\n        return dfs(n)",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "rust",
@@ -44,7 +42,13 @@
             "memory": 2,
             "desc": "同上。",
             "code": "use std::collections::HashMap;\nimpl Solution {\n    pub fn min_operations(n: i32) -> i32 {\n        let mut map = HashMap::<i32, i32>::new();\n        Solution::dfs(n, &mut map)\n    }\n    pub fn dfs(num: i32, map: &mut HashMap<i32, i32>) -> i32 {\n        if (map.contains_key(&num)) {\n            *map.get(&num).unwrap()\n        } else {\n            let lb = num & -num;\n            if lb == num {\n                1\n            } else {\n                let res = Solution::dfs(num - lb, map).min(Solution::dfs(num + lb, map)) + 1;\n                map.insert(num, res);\n                res\n            }\n        }\n    }\n}",
-            "date": 1676736000000
+            "date": "2023-02-19"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "位运算",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

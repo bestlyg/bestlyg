@@ -2,17 +2,22 @@
     "id": "515",
     "name": "515.在每个树行中找最大值",
     "url": "https://leetcode.cn/problems/find-largest-value-in-each-tree-row",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。",
     "solutions": [
         {
-            "date": 1656000000000,
+            "date": "2022-06-24",
             "time": 8,
             "memory": 21.6,
             "script": "cpp",
             "desc": "层序遍历。",
             "code": "class Solution {\n   public:\n    vector<int> largestValues(TreeNode* root) {\n        vector<int> ans;\n        if (root == nullptr) return ans;\n        queue<TreeNode*> q;\n        q.push(root);\n        ans.push_back(root->val);\n        int size = 1, nmax = INT_MIN;\n        while (q.size()) {\n            TreeNode* node = q.front();\n            q.pop();\n            if (node->left) {\n                q.push(node->left);\n                nmax = max(nmax, node->left->val);\n            }\n            if (node->right) {\n                q.push(node->right);\n                nmax = max(nmax, node->right->val);\n            }\n            if (--size == 0) {\n                if (q.size()) ans.push_back(nmax);\n                nmax = INT_MIN;\n                size = q.size();\n            }\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "1000268",
     "name": "LCR091.粉刷房子",
     "url": "https://leetcode.cn/problems/JEj789",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划"],
     "desc": "请计算出粉刷完所有房子最少的花费成本。",
     "solutions": [
         {
-            "date": 1630598400000,
+            "date": "2021-09-03",
             "time": 108,
             "memory": 40.5,
             "script": "typescript",
@@ -15,12 +13,17 @@
             "code": "function minCost(costs: number[][]): number {\n  const n = costs.length;\n  const dp: number[][] = new Array(2).fill(0).map(_ => new Array(3).fill(Infinity));\n  for (let i = 0; i < 3; i++) dp[0][i] = costs[0][i];\n  for (let i = 1; i < n; i++) {\n    const idx = i % 2;\n    const prevIdx = idx ^ 1;\n    dp[idx][0] = Math.min(dp[prevIdx][1], dp[prevIdx][2]) + costs[i][0];\n    dp[idx][1] = Math.min(dp[prevIdx][0], dp[prevIdx][2]) + costs[i][1];\n    dp[idx][2] = Math.min(dp[prevIdx][1], dp[prevIdx][0]) + costs[i][2];\n  }\n  return Math.min(...dp[(n - 1) % 2]);\n}"
         },
         {
-            "date": 1656086400000,
+            "date": "2022-06-25",
             "time": 8,
             "memory": 9.6,
             "script": "cpp",
             "desc": "dp。",
             "code": "class Solution {\n   public:\n    int minCost(vector<vector<int>>& costs) {\n        int n = costs.size(), ans = INT_MAX;\n        vector<vector<int>> dp(3, vector<int>(n, 0));\n        for (int i = 0; i < 3; i++) dp[i][0] = costs[0][i];\n        for (int j = 1; j < n; j++) {\n            dp[0][j] = min(dp[1][j - 1], dp[2][j - 1]) + costs[j][0];\n            dp[1][j] = min(dp[0][j - 1], dp[2][j - 1]) + costs[j][1];\n            dp[2][j] = min(dp[0][j - 1], dp[1][j - 1]) + costs[j][2];\n        }\n        for (int i = 0; i < 3; i++) ans = min(ans, dp[i][n - 1]);\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

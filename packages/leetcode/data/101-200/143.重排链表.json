@@ -2,12 +2,10 @@
     "id": "143",
     "name": "143.重排链表",
     "url": "https://leetcode.cn/problems/reorder-list",
-    "difficulty": "中等",
-    "tag": ["栈", "递归", "链表", "双指针"],
     "desc": "给定一个单链表 L：L0→L1→…→Ln-1→Ln ，将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…。",
     "solutions": [
         {
-            "date": 1603123200000,
+            "date": "2020-10-20",
             "time": 208,
             "memory": 47,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 17.2,
             "desc": "找到中点，翻转后半部分，合并。",
             "code": "class Solution {\npublic:\n    void reorderList(ListNode* head) {\n        // mid\n        ListNode *slow = head, *fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        // reverse\n        ListNode *last = slow->next;\n        if (!last) return;\n        while (last->next) {\n            ListNode *tmp = last->next;\n            last->next = tmp->next;\n            tmp->next = slow->next;\n            slow->next = tmp;\n        }\n        // merge\n        ListNode *l1 = head, *l2 = slow->next;\n        while (l1 && l2) {\n            ListNode *tmp1 = l1->next, *tmp2 = l2->next;\n            l1->next = l2;\n            l2->next = tmp1;\n            l1 = tmp1;\n            l2 = tmp2;\n        }\n        // last node\n        slow->next = nullptr;\n    }\n};",
-            "date": 1690732800000
+            "date": "2023-07-31"
         },
         {
             "script": "python",
@@ -28,7 +26,14 @@
             "memory": 24.5,
             "desc": "同上。",
             "code": "class Solution:\n    def reorderList(self, head: Optional[ListNode]) -> None:\n        slow = fast = head\n        while fast and fast.next:\n            slow = slow.next\n            fast = fast.next.next\n\n        last = slow.next\n        if not last:\n            return\n        while last.next:\n            tmp = last.next\n            last.next = tmp.next\n            tmp.next = slow.next\n            slow.next = tmp\n\n        l1 = head\n        l2 = slow.next\n        while l1 and l2:\n            tmp1 = l1.next\n            tmp2 = l2.next\n            l1.next = l2\n            l2.next = tmp1\n            l1 = tmp1\n            l2 = tmp2\n        slow.next = None",
-            "date": 1690732800000
+            "date": "2023-07-31"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "递归",
+        "链表",
+        "双指针"
+    ],
+    "level": "Medium"
 }

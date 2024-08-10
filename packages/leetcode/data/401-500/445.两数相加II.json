@@ -2,12 +2,10 @@
     "id": "445",
     "name": "445.两数相加II",
     "url": "https://leetcode.cn/problems/add-two-numbers-ii",
-    "difficulty": "中等",
-    "tag": ["栈", "链表", "数学"],
     "desc": "给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。",
     "solutions": [
         {
-            "date": 1586793600000,
+            "date": "2020-04-14",
             "time": 140,
             "memory": 38.6,
             "script": "javascript",
@@ -20,7 +18,7 @@
             "memory": 68.9,
             "desc": "递归。",
             "code": "class Solution {\npublic:\n    int get_len(ListNode *l) {\n        int cnt = 0;\n        for (ListNode *p = l; p; p = p->next) cnt++;\n        return cnt;\n    }\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        int len1 = get_len(l1), len2 = get_len(l2);\n        if (len2 > len1) {\n            swap(len1, len2);\n            swap(l1, l2);\n        }\n        while (len1 > len2) {\n            ListNode *head = new ListNode(0, l2);\n            l2 = head;\n            len2++;\n        }\n        auto res = dfs(l1, l2);\n        if (res.first) {\n            ListNode *head = new ListNode(1, l1);\n            l1 = head;\n        }\n        return l1;\n    }\n    pair<int, ListNode*> dfs(ListNode* l1, ListNode* l2) {\n        if (!l1) return make_pair(0, l2);\n        if (!l2) return make_pair(0, l1);\n        auto res = dfs(l1->next, l2->next);\n        l1->next = res.second;\n        l1->val += l2->val + res.first;\n        int add = 0;\n        if (l1->val >= 10) {\n            l1->val -= 10;\n            add = 1;\n        }\n        return make_pair(add, l1);\n    }\n};",
-            "date": 1688313600000
+            "date": "2023-07-03"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15.9,
             "desc": "同上。",
             "code": "def getLen(l: Optional[ListNode]):\n    if not l:\n        return 0\n    cnt = 0\n    while l:\n        cnt += 1\n        l = l.next\n    return cnt\n\n\ndef dfs(l1: Optional[ListNode], l2: Optional[ListNode]) -> Tuple[int, ListNode]:\n    if not l1:\n        return (0, l2)\n    if not l2:\n        return (0, l1)\n    add, next = dfs(l1.next, l2.next)\n    l1.next = next\n    l1.val += l2.val + add\n    add = 0\n    if l1.val >= 10:\n        l1.val -= 10\n        add = 1\n    return (add, l1)\n\nclass Solution:\n    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\n        len1, len2 = getLen(l1), getLen(l2)\n        if len2 > len1:\n            len1, len2 = len2, len1\n            l1, l2 = l2, l1\n        while len1 > len2:\n            head = ListNode(0, l2)\n            l2 = head\n            len2 += 1\n        add, node = dfs(l1, l2)\n        if add:\n            head = ListNode(1, l1)\n            l1 = head\n        return l1",
-            "date": 1688313600000
+            "date": "2023-07-03"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 1.9,
             "desc": "同上。",
             "code": "fn get_len(l: &Option<Box<ListNode>>) -> usize {\n    match l {\n        Some(ref node) => get_len(&node.next) + 1,\n        None => 0,\n    }\n}\nfn dfs(\n    mut l1: Option<Box<ListNode>>,\n    mut l2: Option<Box<ListNode>>,\n) -> (i32, Option<Box<ListNode>>) {\n    if l1.is_none() {\n        (0, l2)\n    } else if l2.is_none() {\n        (0, l1)\n    } else {\n        let node1 = l1.as_mut().unwrap();\n        let node2 = l2.as_mut().unwrap();\n        let (mut add, next) = dfs(node1.next.take(), node2.next.take());\n        node1.val += node2.val + add;\n        node1.next = next;\n        add = 0;\n        if node1.val >= 10 {\n            node1.val -= 10;\n            add = 1;\n        }\n        (add, l1)\n    }\n}\nimpl Solution {\n    pub fn add_two_numbers(\n        mut l1: Option<Box<ListNode>>,\n        mut l2: Option<Box<ListNode>>,\n    ) -> Option<Box<ListNode>> {\n        let (mut len1, mut len2) = (get_len(&l1), get_len(&l2));\n        if len2 > len1 {\n            std::mem::swap(&mut len1, &mut len2);\n            std::mem::swap(&mut l1, &mut l2);\n        }\n        while len1 > len2 {\n            let mut head = Box::new(ListNode::new(0));\n            head.next = l2.take();\n            l2 = Some(head);\n            len2 += 1;\n        }\n        let (add, mut node) = dfs(l1, l2);\n        if add != 0 {\n            let mut head = Box::new(ListNode::new(1));\n            let next = node.take();\n            head.next = next;\n            node = Some(head);\n        }\n        node\n    }\n}",
-            "date": 1688313600000
+            "date": "2023-07-03"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "链表",
+        "数学"
+    ],
+    "level": "Medium"
 }

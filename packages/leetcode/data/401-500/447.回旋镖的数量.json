@@ -2,12 +2,10 @@
     "id": "447",
     "name": "447.回旋镖的数量",
     "url": "https://leetcode.cn/problems/number-of-boomerangs",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "数学"],
     "desc": "返回平面上所有回旋镖的数量。",
     "solutions": [
         {
-            "date": 1631462400000,
+            "date": "2021-09-13",
             "time": 252,
             "memory": 60.9,
             "script": "typescript",
@@ -20,7 +18,13 @@
             "memory": 17.06,
             "desc": "以一个点为中点，遍历所有其他点判断次数。",
             "code": "class Solution:\n    def numberOfBoomerangs(self, points: List[List[int]]) -> int:\n        ans = 0\n        for p1 in points:\n            map = Counter()n\n            for p2 in points:\n                d = (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2\n                ans += map[d] * 2\n                map[d] += 1\n        return ans",
-            "date": 1704643200000
+            "date": "2024-01-08"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "数学"
+    ],
+    "level": "Medium"
 }

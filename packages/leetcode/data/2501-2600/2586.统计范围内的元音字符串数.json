@@ -2,8 +2,6 @@
     "id": "2654",
     "name": "2586.统计范围内的元音字符串数",
     "url": "https://leetcode.cn/problems/count-the-number-of-vowel-strings-in-range",
-    "difficulty": "简单",
-    "tag": ["数组", "字符串"],
     "desc": "给你一个下标从 0 开始的字符串数组 words 和两个整数：left 和 right 。如果字符串以元音字母开头并以元音字母结尾，那么该字符串就是一个 元音字符串 ，其中元音字母是 'a'、'e'、'i'、'o'、'u' 。返回 words[i] 是元音字符串的数目，其中 i 在闭区间 [left, right] 内。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 31.1,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int vowelStrings(vector<string>& words, int left, int right) {\n        unordered_set<char> s{ 'a', 'e', 'i', 'o', 'u'};\n        int res = 0;\n        for (int i = left; i <= right; i++) {\n            if (s.count(words[i][0]) && s.count(words[i][words[i].size() - 1])) res++;\n        }\n        return res;\n    }\n};",
-            "date": 1678550400000
+            "date": "2023-03-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15,
             "desc": "同上。",
             "code": "class Solution:\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\n        s = {'a', 'e', 'i', 'o', 'u'}\n        res = 0\n        return len(list(filter(\n            lambda w: w[0] in s and w[-1] in s,\n            words[left:right+1]\n        )))",
-            "date": 1678550400000
+            "date": "2023-03-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn vowel_strings(words: Vec<String>, left: i32, right: i32) -> i32 {\n        let left = left as usize;\n        let right = right as usize;\n        let mut s = std::collections::HashSet::<char>::new();\n        ['a', 'e', 'i', 'o', 'u'].into_iter().for_each(|c| {\n            s.insert(*c);\n        });\n        let mut res = 0;\n        for word in words[left..=right].into_iter() {\n            let word = word.chars().collect::<Vec<char>>();\n            if s.contains(&word[0]) && s.contains(&word.last().unwrap()) {\n                res += 1;\n            }\n        }\n        res\n    }\n}",
-            "date": 1678550400000
+            "date": "2023-03-12"
         },
         {
             "script": "python",
@@ -36,7 +34,7 @@
             "memory": 15.77,
             "desc": "合计。",
             "code": "class Solution:\n    def vowelStrings(self, words: List[str], left: int, right: int) -> int:\n        return sum(word[0] in 'aeiou' and word[-1] in 'aeiou' for word in words[left:right + 1])",
-            "date": 1699286400000
+            "date": "2023-11-07"
         },
         {
             "script": "typescript",
@@ -44,7 +42,12 @@
             "memory": 43.89,
             "desc": "合计。",
             "code": "function vowelStrings(words: string[], left: number, right: number): number {\n    return words.slice(left, right + 1).filter(s => 'aeiou'.includes(s[0]) && 'aeiou'.includes(s[s.length - 1])).length\n};",
-            "date": 1699286400000
+            "date": "2023-11-07"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "字符串"
+    ],
+    "level": "Easy"
 }

@@ -2,8 +2,6 @@
     "id": "1406",
     "name": "1281.整数的各位积和之差",
     "url": "https://leetcode.cn/problems/subtract-the-product-and-sum-of-digits-of-an-integer",
-    "difficulty": "简单",
-    "tag": ["数学"],
     "desc": "给你一个整数 n，请你帮忙计算并返回该整数「各位数字之积」与「各位数字之和」的差。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 5.7,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int subtractProductAndSum(int n) {\n        int num1 = 1, num2 = 0;\n        while (n) {\n            num1 *= n % 10;\n            num2 += n % 10;\n            n /= 10;\n        }\n        return num1 - num2;\n    }\n};",
-            "date": 1691510400000
+            "date": "2023-08-09"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.1,
             "desc": "同上。",
             "code": "class Solution:\n    def subtractProductAndSum(self, n: int) -> int:\n        num1 = 1\n        num2 = 0\n        while n:\n            num1 *= n % 10\n            num2 += n % 10\n            n //= 10\n        return num1 - num2",
-            "date": 1691510400000
+            "date": "2023-08-09"
         },
         {
             "script": "rust",
@@ -28,7 +26,11 @@
             "memory": 2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn subtract_product_and_sum(mut n: i32) -> i32 {\n        let mut num1 = 1;\n        let mut num2 = 0;\n        while n != 0 {\n            num1 *= n % 10;\n            num2 += n % 10;\n            n /= 10;\n        }\n        num1 - num2\n    }\n}",
-            "date": 1691510400000
+            "date": "2023-08-09"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "303",
     "name": "303.区域和检索-数组不可变",
     "url": "https://leetcode.cn/problems/range-sum-query-immutable",
-    "difficulty": "简单",
-    "tag": ["设计", "数组", "前缀和"],
     "desc": "给定一个整数数组 nums，求出数组从索引 i 到 j（i ≤ j）范围内元素的总和，包含 i、j 两点。",
     "solutions": [
         {
-            "date": 1614528000000,
+            "date": "2021-03-01",
             "time": 224,
             "memory": 44.7,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "class NumArray {\n  constructor(private nums: number[]) {}\n  sumRange(i: number, j: number): number {\n    let sum = 0;\n    for (let index = i; index <= j; index++) sum += this.nums[index];\n    return sum;\n  }\n}"
         },
         {
-            "date": 1614528000000,
+            "date": "2021-03-01",
             "time": 120,
             "memory": 45.6,
             "script": "typescript",
@@ -28,7 +26,13 @@
             "memory": 20.48,
             "desc": "前缀和。",
             "code": "class NumArray:\n    def __init__(self, nums: List[int]):\n        self.sums = [0]\n        for num in nums:\n            self.sums.append(self.sums[-1] + num)\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.sums[right + 1] - self.sums[left]",
-            "date": 1710691200000
+            "date": "2024-03-18"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "数组",
+        "前缀和"
+    ],
+    "level": "Easy"
 }

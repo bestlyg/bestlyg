@@ -2,17 +2,22 @@
     "id": "304",
     "name": "304.二维区域和检索-矩阵不可变",
     "url": "https://leetcode.cn/problems/range-sum-query-2d-immutable",
-    "difficulty": "中等",
-    "tag": ["设计", "数组", "矩阵", "前缀和"],
     "desc": "给定一个二维矩阵，计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2) 。",
     "solutions": [
         {
-            "date": 1614614400000,
+            "date": "2021-03-02",
             "time": 120,
             "memory": 42.9,
             "script": "typescript",
             "desc": "利用前缀和进行快速计算。",
             "code": "class NumMatrix {\n  private sumMatrix: number[][] = [];\n  constructor(matrix: number[][]) {\n    const rowLen = matrix.length;\n    if (rowLen === 0) return;\n    const colLen = matrix[0].length;\n    for (let row = 0; row < rowLen; row++) {\n      const arr: number[] = [];\n      for (let col = 0; col < colLen; col++) {\n        const num = matrix[row][col];\n        if (col === 0 && row === 0) {\n          arr.push(num);\n        } else if (col === 0) {\n          arr.push(this.sumMatrix[row - 1][col] + num);\n        } else if (row === 0) {\n          arr.push(arr[col - 1] + num);\n        } else {\n          arr.push(\n            this.sumMatrix[row - 1][col] + arr[col - 1] + num - this.sumMatrix[row - 1][col - 1]\n          );\n        }\n      }\n      this.sumMatrix.push(arr);\n    }\n  }\n  sumRegion(row1: number, col1: number, row2: number, col2: number): number {\n    return (\n      this.sumMatrix[row2][col2] -\n      (col1 > 0 ? this.sumMatrix[row2][col1 - 1] : 0) -\n      (row1 > 0 ? this.sumMatrix[row1 - 1][col2] : 0) +\n      (row1 > 0 && col1 > 0 ? this.sumMatrix[row1 - 1][col1 - 1] : 0)\n    );\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "数组",
+        "矩阵",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

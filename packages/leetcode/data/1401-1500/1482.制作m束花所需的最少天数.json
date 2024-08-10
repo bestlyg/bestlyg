@@ -2,17 +2,20 @@
     "id": "1605",
     "name": "1482.制作m束花所需的最少天数",
     "url": "https://leetcode.cn/problems/minimum-number-of-days-to-make-m-bouquets",
-    "difficulty": "中等",
-    "tag": ["数组", "二分查找"],
     "desc": "请你返回从花园中摘 m 束花需要等待的最少的天数。如果不能摘到 m 束花则返回 -1 。",
     "solutions": [
         {
-            "date": 1620489600000,
+            "date": "2021-05-09",
             "time": 136,
             "memory": 50.3,
             "script": "typescript",
             "desc": "二分法，通过最大日和最小日进行快速筛选。",
             "code": "function minDays(bloomDay: number[], m: number, k: number): number {\n  const n = bloomDay.length;\n  const minCount = m * k;\n  if (n < minCount) return -1;\n  if (k === 1) return bloomDay.sort((a, b) => a - b)[m - 1];\n  const check = (day: number): boolean => {\n    let count = 0;\n    let flower = 0;\n    for (let i = 0; i < n && count < m; i++) {\n      if (bloomDay[i] <= day) {\n        if (++flower === k) {\n          flower = 0;\n          count++;\n        }\n      } else {\n        flower = 0;\n      }\n    }\n    return count >= m;\n  };\n  let low = 0;\n  let high = Math.max(...bloomDay);\n  while (low < high) {\n    const midDay = (low + high) >> 1;\n    if (check(midDay)) high = midDay;\n    else low = midDay + 1;\n  }\n  return low;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "level": "Medium"
 }

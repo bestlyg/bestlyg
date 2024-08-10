@@ -2,8 +2,6 @@
     "id": "3419",
     "name": "3143.正方形中的最多点数",
     "url": "https://leetcode.cn/problems/maximum-points-inside-the-square",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串", "二分查找", "排序"],
     "desc": "请你返回 合法 正方形中可以包含的 最多 点数。",
     "solutions": [
         {
@@ -12,7 +10,15 @@
             "memory": 47.63,
             "desc": "排序后遍历。",
             "code": "class Solution:\n    def maxPointsInsideSquare(self, points: List[List[int]], s: str) -> int:\n        get_edge = lambda i: max(abs(points[i][0]), abs(points[i][1]))\n        idxs = sorted([i for i in range(len(points))], key = get_edge)\n        used = set()\n        res = i = 0\n        while i < len(idxs):\n            edge = get_edge(idxs[i])\n            cnt = 1\n            if s[idxs[i]] in used: break\n            used.add(s[idxs[i]])\n            while i + 1 < len(idxs) and get_edge(idxs[i + 1]) == edge:\n                i += 1\n                if s[idxs[i]] in used: return res\n                used.add(s[idxs[i]])\n                cnt += 1\n            res += cnt\n            i += 1\n        return res",
-            "date": 1722614400000
+            "date": "2024-08-03"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Medium"
 }

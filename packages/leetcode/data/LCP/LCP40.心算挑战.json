@@ -2,8 +2,6 @@
     "id": "1000368",
     "name": "LCP40.心算挑战",
     "url": "https://leetcode.cn/problems/uOAnQW",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "「力扣挑战赛」心算项目的挑战比赛中，要求选手从 N 张卡牌中选出 cnt 张卡牌，若这 cnt 张卡牌数字总和为偶数，则选手成绩「有效」且得分为 cnt 张卡牌数字总和。 给定数组 cards 和 cnt，其中 cards[i] 表示第 i 张卡牌上的数字。 请帮参赛选手计算最大的有效得分。若不存在获取有效得分的卡牌方案，则返回 0。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 25.76,
             "desc": "从大到小排序后依次取值，如果最后为偶数则就是最大值，如果最后为奇数，比较删除一个奇数，增加一个偶数，和删除一个偶数，增加一个奇数两种方案的最大值。",
             "code": "class Solution:\n    def maxmiumScore(self, cards: List[int], cnt: int) -> int:\n        res = i = f = 0\n        arr = sorted(Counter(cards).items(), reverse = True)\n        while i < len(arr) and cnt > 0:\n            k, v = arr[i]\n            c = min(cnt, v)\n            cnt -= c\n            arr[i] = (k, v - c)\n            res += k * c\n            f ^= (k * c) & 1\n            i += 1\n        if f == 0: return res\n        else:\n            # v1\n            idx = i - 1\n            while idx > 0:\n                if arr[idx][0] % 2 != 0: break\n                idx -= 1\n            if idx == -1: v1 = 0\n            else:\n                v1 = res - arr[idx][0]\n                idx = i\n                if idx > 0 and arr[idx - 1][1] > 0: idx -= 1\n                while idx < len(arr):\n                    if arr[idx][0] % 2 == 0: break\n                    idx += 1\n                if idx == len(arr): v1 = 0\n                else: v1 += arr[idx][0]\n            # v2\n            idx = i - 1\n            while idx >= 0:\n                if arr[idx][0] % 2 == 0: break\n                idx -= 1\n            if idx == -1: v2 = 0\n            else:\n                v2 = res - arr[idx][0]\n                idx = i\n                if idx > 0 and arr[idx - 1][1] > 0: idx -= 1\n                while idx < len(arr):\n                    if arr[idx][0] % 2 != 0: break\n                    idx += 1\n                if idx == len(arr): v2 = 0\n                else: v2 += arr[idx][0]\n            return max(v1, v2)",
-            "date": 1722441600000
+            "date": "2024-08-01"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Easy"
 }

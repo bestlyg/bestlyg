@@ -2,12 +2,10 @@
     "id": "107",
     "name": "107.二叉树的层序遍历II",
     "url": "https://leetcode.cn/problems/binary-tree-level-order-traversal-ii",
-    "difficulty": "中等",
-    "tag": ["树", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）。",
     "solutions": [
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 2,
             "memory": 39.1,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n\tLinkedList<List<Integer>> list = new LinkedList<List<Integer>>();\n    public List<List<Integer>> levelOrderBottom(TreeNode root) {\n        if(root==null)return list;\n        levelOrder(root, 0);\n        return list;\n    }\n    public void levelOrder(TreeNode node,int level) {\n    \tif(list.size()==level)list.addFirst(new ArrayList<Integer>());\n    \tlist.get(list.size()-level-1).add(node.val);\n    \tif(node.left!=null)levelOrder(node.left,1+ level);\n    \tif(node.right!=null)levelOrder(node.right,1+ level);\n    }\n}"
         },
         {
-            "date": 1599321600000,
+            "date": "2020-09-06",
             "time": 76,
             "memory": 39.8,
             "script": "typescript",
@@ -28,7 +26,13 @@
             "memory": 16.62,
             "desc": "bfs。",
             "code": "class Solution:\n    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:\n        if not root: return []\n        q = deque() \n        q.append(root)\n        size = 1\n        ans = [[root.val]]\n        while q:\n            node = q.popleft()\n            if node.left: q.append(node.left)\n            if node.right: q.append(node.right)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if q: ans.append([node.val for node in q])\n        return ans[::-1]",
-            "date": 1707926400000
+            "date": "2024-02-15"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

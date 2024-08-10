@@ -2,8 +2,6 @@
     "id": "2733",
     "name": "2621.睡眠函数",
     "url": "https://leetcode.cn/problems/sleep",
-    "difficulty": "简单",
-    "tag": [],
     "desc": "请你编写一个异步函数，它接收一个正整数参数 millis ，并休眠这么多毫秒。要求此函数可以解析任何值。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 42.1,
             "desc": "利用promise可以延迟返回的原理，在内部设置timeout。",
             "code": "async function sleep(millis: number): Promise<void> {\n    return new Promise(r => {\n        setTimeout(r, millis)\n    })\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Easy"
 }

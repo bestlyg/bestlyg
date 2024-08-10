@@ -1,8 +1,6 @@
 {
     "name": "2940.找到Alice和Bob可以相遇的建筑",
     "url": "https://leetcode.cn/problems/find-building-where-alice-and-bob-can-meet",
-    "difficulty": "简单",
-    "tag": [],
     "desc": "请你能返回一个数组 ans ，其中 ans[i] 是第 i 个查询中，Alice 和 Bob 可以相遇的 最左边的建筑 。如果对于查询 i ，Alice 和 Bob 不能相遇，令 ans[i] 为 -1 。",
     "solutions": [
         {
@@ -11,7 +9,9 @@
             "memory": 39.23,
             "desc": "离线处理queries，过滤能立即得出答案的，剩余的一定是h[i] > h[j]，此时从左往右遍历h，维护当前下标之前的所有需求最小堆。",
             "code": "class Solution:\n    def leftmostBuildingQueries(self, heights: List[int], queries: List[List[int]]) -> List[int]:\n        res = [-1 for _ in range(len(queries))]\n        arr = [[] for _ in range(len(heights))]\n        for idx, (i, j) in enumerate(queries):\n            if i > j: i, j = j, i\n            if i == j or heights[i] < heights[j]: res[idx] = j\n            else: arr[j].append((heights[i], idx))\n\n        q = []\n        for cur_idx, h in enumerate(heights):\n            while q and q[0][0] < h:\n                idx = heappop(q)[1]\n                res[idx] = cur_idx\n            for v in arr[cur_idx]:\n                heappush(q, v)\n        return res",
-            "date": 1723219200000
+            "date": "2024-08-10"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Easy"
 }

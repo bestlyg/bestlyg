@@ -2,12 +2,10 @@
     "id": "518",
     "name": "518.零钱兑换II",
     "url": "https://leetcode.cn/problems/coin-change-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划"],
     "desc": "给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。",
     "solutions": [
         {
-            "date": 1623254400000,
+            "date": "2021-06-10",
             "time": 92,
             "memory": 39.8,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function change(amount: number, coins: number[]): number {\n  const dp = new Array(amount + 1).fill(0);\n  dp[0] = 1;\n  for (const coin of coins) {\n    for (let i = 1; i <= amount; i++) {\n      if (i >= coin) {\n        dp[i] += dp[i - coin];\n      }\n    }\n  }\n  return dp[amount];\n}"
         },
         {
-            "date": 1631462400000,
+            "date": "2021-09-13",
             "time": 100,
             "memory": 39.9,
             "script": "javascript",
@@ -28,7 +26,12 @@
             "memory": 16.5,
             "desc": "dp记录当前金额下的能兑换的方式数。",
             "code": "class Solution:\n    def change(self, amount: int, coins: List[int]) -> int:\n        dp = [0] * (amount + 1)\n        dp[0] = 1\n        for coin in coins:\n            for cur in range(coin, amount + 1):\n                dp[cur] += dp[cur - coin]\n        return dp[amount]",
-            "date": 1711296000000
+            "date": "2024-03-25"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

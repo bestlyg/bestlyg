@@ -2,12 +2,10 @@
     "id": "1860",
     "name": "1738.找出第K大的异或坐标值",
     "url": "https://leetcode.cn/problems/find-kth-largest-xor-coordinate-value",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "分治", "矩阵", "前缀和", "快速选择", "排序", "堆（优先队列）"],
     "desc": "请你找出 matrix 的所有坐标中第 k 大的值（k 的值从 1 开始计数）。",
     "solutions": [
         {
-            "date": 1621353600000,
+            "date": "2021-05-19",
             "time": 736,
             "memory": 105.1,
             "script": "typescript",
@@ -20,7 +18,18 @@
             "memory": 61.8,
             "desc": "前缀和存储异或值后，利用堆排序。",
             "code": "class Solution:\n    def kthLargestValue(self, matrix: List[List[int]], k: int) -> int:\n        n, m = len(matrix), len(matrix[0])\n        sums = [[0] * (m + 1) for _ in range(n + 1)]\n        q = []\n        for i in range(1, n + 1):\n            for j in range(1, m + 1):\n                sums[i][j] = sums[i - 1][j] ^ sums[i][j - 1] ^ sums[i - 1][j - 1] ^ matrix[i - 1][j - 1]\n                heappush(q, -sums[i][j])\n        for _ in range(k - 1): heappop(q)\n        return -q[0]",
-            "date": 1716652800000
+            "date": "2024-05-26"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "分治",
+        "矩阵",
+        "前缀和",
+        "快速选择",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

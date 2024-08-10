@@ -2,17 +2,25 @@
     "id": "1308",
     "name": "1202.交换字符串中的元素",
     "url": "https://leetcode.cn/problems/smallest-string-with-swaps",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "哈希表", "字符串", "排序"],
     "desc": "给你一个字符串 s,返回在经过若干次交换后，s 可以变成的按字典序最小的字符串。",
     "solutions": [
         {
-            "date": 1619798400000,
+            "date": "2021-05-01",
             "time": 236,
             "memory": 67.1,
             "script": "typescript",
             "desc": "并查集。",
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction smallestStringWithSwaps(s: string, pairs: number[][]): string {\n  const len = s.length;\n  const uf = new UnionFind(len);\n  pairs.forEach(([i1, i2]) => uf.union(i1, i2));\n  const map: Record<number, number[]> = {};\n  for (let i = 0; i < len; i++) {\n    const index = uf.find(i);\n    let list = map[index];\n    if (!list) list = map[index] = [];\n    list.push(i);\n  }\n  const lists = Object.values(map);\n  const cache = s.split('');\n  let ans = s.split('');\n  for (const list of lists) {\n    const sorted = list.slice().sort((i1, i2) => s[i1].codePointAt(0)! - s[i2].codePointAt(0)!);\n    for (let i = 0, l = list.length; i < l; i++) {\n      ans[list[i]] = cache[sorted[i]];\n    }\n  }\n  return ans.join('');\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序"
+    ],
+    "level": "Medium"
 }

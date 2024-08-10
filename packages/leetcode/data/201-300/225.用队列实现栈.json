@@ -2,12 +2,10 @@
     "id": "225",
     "name": "225.用队列实现栈",
     "url": "https://leetcode.cn/problems/implement-stack-using-queues",
-    "difficulty": "简单",
-    "tag": ["栈", "设计", "队列"],
     "desc": "使用队列实现栈的下列操作：push(x) -- 元素 x 入栈，pop() -- 移除栈顶元素，top() -- 获取栈顶元素，empty() -- 返回栈是否为空。",
     "solutions": [
         {
-            "date": 1581782400000,
+            "date": "2020-02-16",
             "time": 0,
             "memory": 40.8,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class MyStack {\n    private Deque<Integer> deue;\n    public MyStack() {\n        deue=new LinkedList<Integer>();\n    }\n    public void push(int x) {\n        deue.offerLast(x);\n    }\n    public int pop() {\n    \treturn deue.pollLast();\n    }\n    public int top() {\n        return deue.getLast();\n    }\n    public boolean empty() {\n        return deue.isEmpty();\n    }\n}"
         },
         {
-            "date": 1637683200000,
+            "date": "2021-11-24",
             "time": 0,
             "memory": 5.7,
             "script": "typescript",
@@ -28,7 +26,13 @@
             "memory": 16.42,
             "desc": "每次循环n-1次使队尾在头部。",
             "code": "class MyStack:\n    def __init__(self):\n        self.q = deque()\n    def push(self, x: int) -> None:\n        self.q.append(x)\n        for _ in range(len(self.q) - 1):\n            self.q.append(self.q.popleft())\n    def pop(self) -> int:\n        return self.q.popleft()\n    def top(self) -> int:\n        return self.q[0]\n    def empty(self) -> bool:\n        return not self.q",
-            "date": 1709395200000
+            "date": "2024-03-03"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "设计",
+        "队列"
+    ],
+    "level": "Easy"
 }

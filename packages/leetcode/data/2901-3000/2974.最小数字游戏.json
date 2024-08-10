@@ -2,8 +2,6 @@
     "id": "3226",
     "name": "2974.最小数字游戏",
     "url": "https://leetcode.cn/problems/minimum-number-game",
-    "difficulty": "简单",
-    "tag": ["数组", "排序", "模拟", "堆（优先队列）"],
     "desc": "返回结果数组 arr 。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 16.31,
             "desc": "遍历。",
             "code": "class Solution:\n    def numberGame(self, nums: List[int]) -> List[int]:\n        arr = []\n        nums.sort()\n        i = 0\n        while i < len(nums):\n            arr.append(nums[i + 1])\n            arr.append(nums[i])\n            i += 2\n        return arr",
-            "date": 1720713600000
+            "date": "2024-07-12"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "排序",
+        "模拟",
+        "堆（优先队列）"
+    ],
+    "level": "Easy"
 }

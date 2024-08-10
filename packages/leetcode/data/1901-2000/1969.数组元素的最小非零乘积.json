@@ -2,8 +2,6 @@
     "id": "2100",
     "name": "1969.数组元素的最小非零乘积",
     "url": "https://leetcode.cn/problems/minimum-non-zero-product-of-the-array-elements",
-    "difficulty": "中等",
-    "tag": ["贪心", "递归", "数学"],
     "desc": "请你算出进行以上操作 任意次 以后，nums 能得到的 最小非零 乘积。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.3,
             "desc": "除去最大值，其他值都能两两匹配成最大值减1和1，快速计算。",
             "code": "def quick_mul(a: int, b: int, mod: int) -> int:\n        ans = 0\n        temp = a\n        while b:\n            if b & 1: ans = (ans + temp) % mod\n            temp = (temp + temp) % mod\n            b >>= 1\n        return ans\n    \n    def quick_pow(a: int, b: int, mod: int) -> int:\n        ans = 1\n        temp = a\n        while b:\n            if b & 1: ans = quick_mul(ans, temp, mod)\n            temp = quick_mul(temp, temp, mod)\n            b >>= 1\n        return ans\n    \n    class Solution:\n        def minNonZeroProduct(self, p: int) -> int:\n            num = 2 ** p - 1\n            mod = 10 ** 9 + 7\n            return quick_pow(num - 1, num // 2, mod) * num % mod",
-            "date": 1710864000000
+            "date": "2024-03-20"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "递归",
+        "数学"
+    ],
+    "level": "Medium"
 }

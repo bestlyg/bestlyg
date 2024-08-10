@@ -2,12 +2,10 @@
     "id": "2556",
     "name": "2469.温度转换",
     "url": "https://leetcode.cn/problems/convert-the-temperature",
-    "difficulty": "简单",
-    "tag": ["数学"],
     "desc": "返回数组 ans 。与实际答案误差不超过 10-5 的会视为正确答案。",
     "solutions": [
         {
-            "date": 1668268800000,
+            "date": "2022-11-13",
             "time": 0,
             "memory": 5.9,
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 5.9,
             "desc": "直接计算。",
             "code": "class Solution {\npublic:\n    vector<double> convertTemperature(double celsius) {\n        return vector<double>{ celsius + 273.15, celsius * 1.80 + 32.00 };\n    }\n};",
-            "date": 1679328000000
+            "date": "2023-03-21"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 14.8,
             "desc": "同上。",
             "code": "class Solution:\n    def convertTemperature(self, celsius: float) -> List[float]:\n        return [celsius + 273.15, celsius * 1.80 + 32.00]",
-            "date": 1679328000000
+            "date": "2023-03-21"
         },
         {
             "script": "rust",
@@ -36,7 +34,11 @@
             "memory": 1.9,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn convert_temperature(celsius: f64) -> Vec<f64> {\n        vec![celsius + 273.15, celsius * 1.80 + 32.00]\n    }\n}",
-            "date": 1679328000000
+            "date": "2023-03-21"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Easy"
 }

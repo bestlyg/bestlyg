@@ -2,12 +2,10 @@
     "id": "322",
     "name": "322.零钱兑换",
     "url": "https://leetcode.cn/problems/coin-change",
-    "difficulty": "中等",
-    "tag": ["广度优先搜索", "数组", "动态规划"],
     "desc": "给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回  -1。",
     "solutions": [
         {
-            "date": 1588953600000,
+            "date": "2020-05-09",
             "time": 80,
             "memory": 41,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @return {number}\n */\nvar coinChange = function (coins, amount) {\n  if (coins.length === 0) return -1;\n  const minCoins = [];\n  minCoins[0] = 0;\n  let num, min;\n  for (let i = 1; i <= amount; i++) {\n    min = Infinity;\n    for (const coin of coins) {\n      if (i >= coin && min > (num = minCoins[i - coin])) {\n        min = num;\n      }\n    }\n    minCoins[i] = min + 1;\n  }\n  return minCoins[amount] === Infinity ? -1 : minCoins[amount];\n};"
         },
         {
-            "date": 1631462400000,
+            "date": "2021-09-13",
             "time": 1256,
             "memory": 43.6,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function coinChange(coins: number[], amount: number): number {\n  if (amount === 0) return 0;\n  coins = coins.sort((a, b) => a - b).filter(v => v <= amount);\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n  coins.forEach(coin => (dp[coin] = 1));\n  for (let i = 1; i <= amount; i++) {\n    if (dp[i] !== Infinity) continue;\n    for (const coin of coins) {\n      if (i < coin) continue;\n      const maxCount = ~~(i / coin);\n      for (let c = maxCount; c >= 0; c--) {\n        dp[i] = Math.min(dp[i], dp[i - coin * c] + c);\n      }\n    }\n  }\n  return dp[amount] === Infinity ? -1 : dp[amount];\n}"
         },
         {
-            "date": 1631462400000,
+            "date": "2021-09-13",
             "time": 104,
             "memory": 43.5,
             "script": "javascript",
@@ -36,7 +34,13 @@
             "memory": 16.73,
             "desc": "dp记录当前金额下的最小硬币数。",
             "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        coins.sort()\n        dp = [inf] * (amount + 1)\n        dp[0] = 0\n        for cur in range(amount + 1):\n            for coin in coins:\n                if coin > cur: break\n                dp[cur] = min(dp[cur], dp[cur - coin] + 1)\n        return dp[amount] if dp[amount] != inf else -1",
-            "date": 1711209600000
+            "date": "2024-03-24"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

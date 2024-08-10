@@ -2,17 +2,20 @@
     "id": "479",
     "name": "479.最大回文数乘积",
     "url": "https://leetcode.cn/problems/largest-palindrome-product",
-    "difficulty": "困难",
-    "tag": ["数学", "枚举"],
     "desc": "给定一个整数 n ，返回 可表示为两个 n 位整数乘积的 最大回文整数 。因为答案可能非常大，所以返回它对 1337 取余 。 。",
     "solutions": [
         {
-            "date": 1650038400000,
+            "date": "2022-04-16",
             "time": 0,
             "memory": 5.7,
             "script": "cpp",
             "desc": "枚举。",
             "code": "long long arr[8] = {9,          9009,         906609,         99000099,\n                    9966006699, 999000000999, 99956644665999, 9999000000009999};\nclass Solution {\n    public:\n     int largestPalindrome(int n) { return arr[n - 1] % 1337; }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "枚举"
+    ],
+    "level": "Hard"
 }

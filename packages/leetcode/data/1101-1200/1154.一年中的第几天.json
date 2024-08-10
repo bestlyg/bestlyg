@@ -2,12 +2,10 @@
     "id": "1260",
     "name": "1154.一年中的第几天",
     "url": "https://leetcode.cn/problems/day-of-the-year",
-    "difficulty": "简单",
-    "tag": ["数学", "字符串"],
     "desc": "给你一个字符串 date ，按 YYYY-MM-DD 格式表示一个 现行公元纪年法 日期。请你计算并返回该日期是当年的第几天。",
     "solutions": [
         {
-            "date": 1640016000000,
+            "date": "2021-12-21",
             "time": 16,
             "memory": 5.8,
             "script": "cpp",
@@ -20,7 +18,12 @@
             "memory": 17.11,
             "desc": "直接计算。",
             "code": "def isLeapYear(year: int) -> bool:\n            return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0\n        weeks = [\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"]\n        \n        class Solution:\n            def dayOfYear(self, date: str) -> int:\n                year, month, day = int(date[:4]), int(date[5:7]), int(date[8:])\n                months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]\n                if isLeapYear(year): months[1] = 29\n                return sum(months[:month - 1]) + day",
-            "date": 1703952000000
+            "date": "2023-12-31"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "字符串"
+    ],
+    "level": "Easy"
 }

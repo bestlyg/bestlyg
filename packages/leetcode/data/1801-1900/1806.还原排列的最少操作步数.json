@@ -2,12 +2,10 @@
     "id": "1935",
     "name": "1806.还原排列的最少操作步数",
     "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-reinitialize-a-permutation",
-    "difficulty": "中等",
-    "tag": ["数组", "数学", "模拟"],
     "desc": "给你一个偶数 n​​​​​​ ，已知存在一个长度为 n 的排列 perm ，其中 perm[i] == i​（下标 从 0 开始 计数）。",
     "solutions": [
         {
-            "date": 1673193600000,
+            "date": "2023-01-09",
             "time": 32,
             "memory": 6.4,
             "script": "cpp",
@@ -15,12 +13,18 @@
             "code": "class Solution {\npublic:\n    int reinitializePermutation(int n) {\n        vector<int> list1(n), list2(n);\n        for (int i = 0; i < n; i++) list1[i] = i;\n        int ans = 1;\n        for (; ; ans += 1, list1 = list2) {\n            int f = true;\n            for (int i = 0; i < n; i++) {\n                if (i % 2 == 0) list2[i] = list1[i / 2];\n                else list2[i] = list1[n / 2 + (i - 1) / 2];\n                if (list2[i] != i) f = false;\n            }\n            if (f) break;\n        }\n        return ans;\n    }\n};"
         },
         {
-            "date": 1673193600000,
+            "date": "2023-01-09",
             "time": 8,
             "memory": 2.3,
             "script": "rust",
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn reinitialize_permutation(n: i32) -> i32 {\n        let n = n as usize;\n        let (mut l1, mut l2) = ((0..n).collect::<Vec<_>>(),vec![0;n] );\n        let mut ans = 1;\n        loop {\n            let mut f = true;\n            for i in 0..n {\n                if i % 2 == 0 {\n                    l2[i] = l1[i / 2];\n                } else {\n                    l2[i] = l1[n / 2 + (i - 1) / 2];\n                }\n                if l2[i] != i {\n                    f = false;\n                }\n            }\n            if f {\n                break;\n            }\n            ans += 1;\n            l1 = l2.clone();\n        }\n        ans\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "模拟"
+    ],
+    "level": "Medium"
 }

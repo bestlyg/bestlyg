@@ -2,12 +2,10 @@
     "id": "141",
     "name": "141.环形链表",
     "url": "https://leetcode.cn/problems/linked-list-cycle",
-    "difficulty": "简单",
-    "tag": ["哈希表", "链表", "双指针"],
     "desc": "给定一个链表，判断链表中是否有环。",
     "solutions": [
         {
-            "date": 1581523200000,
+            "date": "2020-02-13",
             "time": 0,
             "memory": 47,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "public class Solution {\n    public boolean hasCycle(ListNode head) {\n        if (head == null || head.next == null)\n\t\t\treturn false;\n\t\tListNode slow = head;\n\t\tListNode fast = head.next;\n\t\twhile (fast != null && fast.next != null) {\n\t\t\tif (slow == fast)\n\t\t\t\treturn true;\n\t\t\tslow = slow.next;\n\t\t\tfast = fast.next.next;\n\t\t}\n\t\treturn false;\n    }\n}"
         },
         {
-            "date": 1602172800000,
+            "date": "2020-10-09",
             "time": 96,
             "memory": 40,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "/**\n * @param {ListNode} head\n * @return {boolean}\n */\nvar hasCycle = function (head) {\n  let p1 = head;\n  let p2 = head;\n  while (p2?.next) {\n    p1 = p1.next;\n    p2 = p2.next.next;\n    if (p1 === p2) return true;\n  }\n  return false;\n};"
         },
         {
-            "date": 1614960000000,
+            "date": "2021-03-06",
             "time": 92,
             "memory": 40.4,
             "script": "typescript",
@@ -31,7 +29,7 @@
             "code": "function hasCycle(head: ListNode | null): boolean {\n  if (head === null || head.next === null) return false;\n  let fast: ListNode | null = head.next;\n  let slow: ListNode | null = head;\n  while (fast !== slow && fast !== null && fast.next !== null) {\n    fast = fast.next.next;\n    slow = slow!.next;\n  }\n  return fast === slow;\n}"
         },
         {
-            "date": 1637251200000,
+            "date": "2021-11-19",
             "time": 12,
             "memory": 7.7,
             "script": "c",
@@ -39,7 +37,7 @@
             "code": "bool hasCycle(struct ListNode *head) {\n    if(!head) return 0;\n    struct ListNode *slow = head;\n    struct ListNode *fast = head->next;\n    while (fast && fast->next && fast != slow) fast = fast->next->next, slow = slow->next;\n    return fast == slow;\n}"
         },
         {
-            "date": 1646236800000,
+            "date": "2022-03-03",
             "time": 8,
             "memory": 8,
             "script": "cpp",
@@ -52,7 +50,7 @@
             "memory": 8,
             "desc": "快慢指针。",
             "code": "class Solution {\npublic:\n    bool hasCycle(ListNode *head) {\n        if (!head) return false;\n        ListNode *slow = head, *fast = head;\n        while (fast && fast->next && fast->next != slow) {\n            fast = fast->next->next;\n            slow = slow->next;\n        }\n        return fast && fast->next == slow;\n    }\n};",
-            "date": 1690560000000
+            "date": "2023-07-29"
         },
         {
             "script": "python",
@@ -60,7 +58,13 @@
             "memory": 20.2,
             "desc": "同上。",
             "code": "class Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        if not head:\n            return False\n        slow = fast = head\n        while fast and fast.next and fast.next != slow:\n            fast = fast.next.next\n            slow = slow.next\n        return fast and fast.next == slow",
-            "date": 1690560000000
+            "date": "2023-07-29"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "链表",
+        "双指针"
+    ],
+    "level": "Easy"
 }

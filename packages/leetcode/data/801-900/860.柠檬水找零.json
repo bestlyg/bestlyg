@@ -2,12 +2,10 @@
     "id": "890",
     "name": "860.柠檬水找零",
     "url": "https://leetcode.cn/problems/lemonade-change",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组"],
     "desc": "在柠檬水摊上，每一杯柠檬水的售价为 5 美元。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。",
     "solutions": [
         {
-            "date": 1607529600000,
+            "date": "2020-12-10",
             "time": 96,
             "memory": 40.8,
             "script": "typescript",
@@ -20,7 +18,12 @@
             "memory": 81.4,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        int coins[2] = {0};\n        for (auto &bill : bills) {\n            switch (bill) {\n                case 5: \n                    coins[0] += 1; \n                    break;\n                case 10: \n                    if (coins[0] >= 1) {\n                        coins[0]--;\n                    } else {\n                        return false;\n                    }\n                    coins[1] += 1;\n                    break;\n                case 20:\n                    if (coins[0] >= 1 && coins[1] >= 1) {\n                        coins[0] -= 1;\n                        coins[1] -= 1;\n                    } else if (coins[0] >= 3) {\n                        coins[0] -= 3;\n                    } else {\n                        return false;\n                    }\n            }\n        }\n        return true;\n    }\n};",
-            "date": 1689955200000
+            "date": "2023-07-22"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
+    "level": "Easy"
 }

@@ -2,8 +2,6 @@
     "id": "1676",
     "name": "1553.吃掉N个橘子的最少天数",
     "url": "https://leetcode.cn/problems/minimum-number-of-days-to-eat-n-oranges",
-    "difficulty": "困难",
-    "tag": ["记忆化搜索", "动态规划"],
     "desc": "请你返回吃掉所有 n 个橘子的最少天数。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 18.6,
             "desc": "尽可能用除法。",
             "code": "class Solution:\n    @cache\n    def minDays(self, n: int) -> int:\n        if n <= 1: return n\n        return min(self.minDays(n // 2) + n % 2, self.minDays(n // 3) + n % 3) + 1",
-            "date": 1715443200000
+            "date": "2024-05-12"
         }
-    ]
+    ],
+    "tagList": [
+        "记忆化搜索",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

@@ -2,8 +2,6 @@
     "id": "1925",
     "name": "1814.统计一个数组中好对子的数目",
     "url": "https://leetcode.cn/problems/count-nice-pairs-in-an-array",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "数学", "计数"],
     "desc": "请你返回好下标对的数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 55.5,
             "desc": "双指针递归。",
             "code": "const int mod = 1e9 + 7;\nclass Solution {\npublic:\n    int countNicePairs(vector<int>& nums) {\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (auto &num : nums) ans = (ans + m[num - rev(num)]++) % mod;\n        return ans;\n    }\n    int rev(int num) {\n        int ans = 0;\n        for (; num; num /= 10) ans = ans * 10 + num % 10;\n        return ans;\n    }\n};",
-            "date": 1673884800000
+            "date": "2023-01-17"
         },
         {
             "script": "rust",
@@ -20,7 +18,7 @@
             "memory": 3.7,
             "desc": "同上。",
             "code": "use std::collections::HashMap;\nconst MOD: i32 = 1000000007;\nimpl Solution {\n    pub fn count_nice_pairs(nums: Vec<i32>) -> i32 {\n        let mut m = HashMap::<i32, i32>::new();\n        let mut ans = 0;\n        for num in nums {\n            let k = num - Solution::rev(num);\n            let v = if m.contains_key(&k) {\n                m.get_mut(&k).unwrap()\n            } else {\n                m.insert(k, 0);\n                m.get_mut(&k).unwrap()\n            };\n            ans = (ans + *v) % MOD;\n            *v += 1;\n        }\n        ans\n    }\n    fn rev(num: i32) -> i32 {\n        let mut num = num;\n        let mut ans = 0;\n        while num != 0 {\n            ans = ans * 10 + num % 10;\n            num /= 10;\n        }\n        ans\n    }\n}",
-            "date": 1673884800000
+            "date": "2023-01-17"
         },
         {
             "script": "python",
@@ -28,7 +26,14 @@
             "memory": 23.1,
             "desc": "双指针递归。",
             "code": "class Solution:\ndef countNicePairs(self, nums: List[int]) -> int:\n    m = Counter()\n    ans = 0\n    for num in nums:\n        k = num - int(str(num)[::-1])\n        ans += m[k]\n        m[k] += 1\n    return int(ans % (1e9 + 7))",
-            "date": 1673884800000
+            "date": "2023-01-17"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "数学",
+        "计数"
+    ],
+    "level": "Medium"
 }

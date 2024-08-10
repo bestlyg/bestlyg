@@ -2,12 +2,10 @@
     "id": "670",
     "name": "670.最大交换",
     "url": "https://leetcode.cn/problems/maximum-swap",
-    "difficulty": "中等",
-    "tag": ["贪心", "数学"],
     "desc": "给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。",
     "solutions": [
         {
-            "date": 1662998400000,
+            "date": "2022-09-13",
             "time": 0,
             "memory": 5.7,
             "script": "cpp",
@@ -20,7 +18,12 @@
             "memory": 16.49,
             "desc": "贪心。",
             "code": "class Solution:\n    def maximumSwap(self, num: int) -> int:\n        arr = [[] for _ in range(10)]\n        lnum = list(int(c) for c in str(num))\n        for i in range(len(lnum)): arr[lnum[i]].append(i)\n        swap = False\n        for i in range(len(lnum)):\n            for num in range(9, -1, -1):\n                if lnum[i] >= num: break\n                while arr[num] and arr[num][-1] < i: arr[num].pop()\n                if arr[num]:\n                    lnum[i], lnum[arr[num][-1]] = lnum[arr[num][-1]], lnum[i]\n                    swap = True\n            if swap: break\n        return reduce(lambda sum, num: sum * 10 + num, lnum, 0)",
-            "date": 1705852800000
+            "date": "2024-01-22"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数学"
+    ],
+    "level": "Medium"
 }

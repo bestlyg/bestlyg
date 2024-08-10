@@ -2,17 +2,20 @@
     "id": "1835",
     "name": "1734.解码异或后的排列",
     "url": "https://leetcode.cn/problems/decode-xored-permutation",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组"],
     "desc": "给你 encoded 数组，请你返回原始数组 perm 。题目保证答案存在且唯一。",
     "solutions": [
         {
-            "date": 1620662400000,
+            "date": "2021-05-11",
             "time": 392,
             "memory": 71.4,
             "script": "typescript",
             "desc": "已知 1~n 的所有值异或结果进行求首值。",
             "code": "function decode(encoded: number[]): number[] {\n  const n = encoded.length + 1;\n  let xorNum = 1;\n  for (let i = 2; i <= n; i++) xorNum ^= i;\n  for (let i = 1; i < n - 1; i += 2) xorNum ^= encoded[i];\n  return [xorNum, ...encoded.map(v => (xorNum ^= v))];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组"
+    ],
+    "level": "Medium"
 }

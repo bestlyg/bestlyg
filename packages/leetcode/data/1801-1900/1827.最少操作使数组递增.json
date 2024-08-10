@@ -2,17 +2,20 @@
     "id": "1938",
     "name": "1827.最少操作使数组递增",
     "url": "https://leetcode.cn/problems/minimum-operations-to-make-the-array-increasing",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组"],
     "desc": "请你返回使 nums 严格递增 的 最少 操作次数。",
     "solutions": [
         {
-            "date": 1670688000000,
+            "date": "2022-12-11",
             "time": 16,
             "memory": 15.3,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 1; i < nums.size(); i++) {\n            if (nums[i] <= nums[i - 1]) {\n                ans += nums[i - 1] - nums[i] + 1;\n                nums[i] = nums[i - 1] + 1;\n            }\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
+    "level": "Easy"
 }

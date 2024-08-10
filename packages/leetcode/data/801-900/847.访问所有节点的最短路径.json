@@ -2,17 +2,23 @@
     "id": "877",
     "name": "847.访问所有节点的最短路径",
     "url": "https://leetcode.cn/problems/shortest-path-visiting-all-nodes",
-    "difficulty": "困难",
-    "tag": ["位运算", "广度优先搜索", "图", "动态规划", "状态压缩"],
     "desc": "返回能够访问所有节点的最短路径的长度。",
     "solutions": [
         {
-            "date": 1628179200000,
+            "date": "2021-08-06",
             "time": 120,
             "memory": 45,
             "script": "typescript",
             "desc": "bfs,利用 set 做重复值过滤。",
             "code": "function shortestPathLength(graph: number[][]): number {\n  const n = graph.length;\n  const queue: [number, number, number][] = [];\n  const seen = new Array(n).fill(0).map(_ => new Set<number>());\n  for (let i = 0; i < n; i++) {\n    queue.push([i, 1 << i, 0]);\n    seen[i].add(1 << i);\n  }\n  let ans = Infinity;\n  while (queue.length) {\n    const data = queue.shift()!;\n    const [idx, mask, step] = data;\n    if (mask === (1 << n) - 1) {\n      ans = step;\n      break;\n    }\n    for (const next of graph[idx]) {\n      const newMask = mask | (1 << next);\n      if (seen[next].has(newMask)) continue;\n      queue.push([next, newMask, step + 1]);\n      seen[next].add(newMask);\n    }\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "广度优先搜索",
+        "图",
+        "动态规划",
+        "状态压缩"
+    ],
+    "level": "Hard"
 }

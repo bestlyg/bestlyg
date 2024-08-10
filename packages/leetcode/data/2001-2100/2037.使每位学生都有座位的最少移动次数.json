@@ -2,12 +2,10 @@
     "id": "2148",
     "name": "2037.使每位学生都有座位的最少移动次数",
     "url": "https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "请你返回使所有学生都有座位坐的 最少移动次数 ，并确保没有两位学生的座位相同。",
     "solutions": [
         {
-            "date": 1672416000000,
+            "date": "2022-12-31",
             "time": 8,
             "memory": 17.5,
             "script": "cpp",
@@ -15,12 +13,18 @@
             "code": "class Solution {\npublic:\n    int minMovesToSeat(vector<int>& seats, vector<int>& students) {\n        sort(seats.begin(), seats.end());\n        sort(students.begin(), students.end());\n        int ans = 0;\n        for (int i = 0; i < seats.size(); i++) ans += abs(seats[i] - students[i]);\n        return ans;\n    }\n};"
         },
         {
-            "date": 1672416000000,
+            "date": "2022-12-31",
             "time": 0,
             "memory": 2,
             "script": "rust",
             "desc": "遍历。",
             "code": "impl Solution {\n    pub fn min_moves_to_seat(seats: Vec<i32>, students: Vec<i32>) -> i32 {\n        let mut seats = seats;\n        let mut students = students;\n        seats.sort();\n        students.sort();\n        let mut ans = 0;\n        for i in 0..seats.len() {\n            ans += (seats[i] - students[i]).abs();\n        }\n        ans\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Easy"
 }

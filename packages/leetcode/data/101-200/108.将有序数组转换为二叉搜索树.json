@@ -2,12 +2,10 @@
     "id": "108",
     "name": "108.将有序数组转换为二叉搜索树",
     "url": "https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree",
-    "difficulty": "简单",
-    "tag": ["树", "二叉搜索树", "数组", "分治", "二叉树"],
     "desc": "将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 1,
             "memory": 41.3,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n\tpublic TreeNode sortedArrayToBST(int[] nums) {\n\t\tint len = nums.length;\n\t\tif (len == 0)\n\t\t\treturn null;\n\t\telse if (len == 1)\n\t\t\treturn new TreeNode(nums[0]);\n\t\tint mid = len / 2;\n\t\tTreeNode node = new TreeNode(nums[mid]);\n\t\tnode.left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, mid));\n\t\tnode.right = sortedArrayToBST(Arrays.copyOfRange(nums,mid+1,len));\n\t\treturn node;\n\t}\n}"
         },
         {
-            "date": 1593705600000,
+            "date": "2020-07-03",
             "time": 116,
             "memory": 39.6,
             "script": "typescript",
@@ -23,12 +21,20 @@
             "code": "function sortedArrayToBST(nums: number[]): TreeNode | null {\n  function getNode(l: number, r: number): TreeNode | null {\n    if (l > r) return null;\n    else if (l === r) return new TreeNode(nums[l]);\n    else {\n      const mid = (r + l) >> 1;\n      const node = new TreeNode(nums[mid]);\n      node.left = getNode(l, mid - 1);\n      node.right = getNode(mid + 1, r);\n      return node;\n    }\n  }\n  return getNode(0, nums.length - 1);\n}"
         },
         {
-            "date": 1628265600000,
+            "date": "2021-08-07",
             "time": 96,
             "memory": 41.5,
             "script": "typescript",
             "desc": "依次取中值插入。",
             "code": "function sortedArrayToBST(nums: number[]): TreeNode | null {\n  return build(nums);\n  function build(list: number[]): TreeNode | null {\n    if (list.length === 0) return null;\n    const mid = (0 + list.length - 1) >> 1;\n    const node = new TreeNode(list[mid]);\n    node.left = build(list.slice(0, mid));\n    node.right = build(list.slice(mid + 1));\n    return node;\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "二叉搜索树",
+        "数组",
+        "分治",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

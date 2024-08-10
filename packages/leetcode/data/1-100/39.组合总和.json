@@ -2,12 +2,10 @@
     "id": "39",
     "name": "39.组合总和",
     "url": "https://leetcode.cn/problems/combination-sum",
-    "difficulty": "中等",
-    "tag": ["数组", "回溯"],
     "desc": "给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。",
     "solutions": [
         {
-            "date": 1599580800000,
+            "date": "2020-09-09",
             "time": 104,
             "memory": 44.9,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function combinationSum(candidates: number[], target: number): number[][] {\n  const len = candidates.length;\n  if (len === 0) return [];\n  else if (len === 1) {\n    const num = candidates[0];\n    return target % num === 0 ? [new Array(target / num).fill(num)] : [];\n  }\n  const ans: number[][] = [];\n  for (let i = 0; i < len; i++) {\n    const num = candidates[i];\n    let sum = 0;\n    let arr = combinationSum([num], target);\n    let count = 0;\n    if (arr.length !== 0) ans.push(...arr);\n    while ((sum += num) < target) {\n      count++;\n      arr = combinationSum(candidates.slice(i + 1), target - sum);\n      arr.length !== 0 && ans.push(...arr.map(v => new Array(count).fill(num).concat(v)));\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1627142400000,
+            "date": "2021-07-25",
             "time": 92,
             "memory": 40.7,
             "script": "typescript",
@@ -28,7 +26,12 @@
             "memory": 16.42,
             "desc": "dfs。",
             "code": "class Solution:\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\n        res = []\n        n = len(candidates)\n        def dfs(index: int, cur: int, arr: List[int]):\n            if index == n:\n                if cur == target:\n                    res.append(arr[:])\n            elif cur > target:\n                return\n            else:\n                dfs(index + 1, cur, arr)\n                cnt = 1\n                while cur + cnt * candidates[index] <=  target:\n                    dfs(index + 1, cur + cnt * candidates[index], arr + [candidates[index]] * cnt)\n                    cnt += 1\n\n        dfs(0, 0, [])\n        return res",
-            "date": 1713542400000
+            "date": "2024-04-20"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "回溯"
+    ],
+    "level": "Medium"
 }

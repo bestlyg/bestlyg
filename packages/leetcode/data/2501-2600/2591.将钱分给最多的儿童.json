@@ -2,8 +2,6 @@
     "id": "2663",
     "name": "2591.将钱分给最多的儿童",
     "url": "https://leetcode.cn/problems/distribute-money-to-maximum-children",
-    "difficulty": "简单",
-    "tag": ["贪心", "数学"],
     "desc": "请你按照上述规则分配金钱，并返回 最多 有多少个儿童获得 恰好 8 美元。如果没有任何分配方案，返回 -1 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 6.05,
             "desc": "贪心计算。",
             "code": "class Solution {\npublic:\n    int distMoney(int money, int children) {\n        if (money < children) return -1;\n        int cnt = money / 8, surplus_money = money % 8, surplus_children = children - cnt;\n        if (cnt == children) return surplus_money == 0 ? children : children - 1;\n        if (cnt > children) return children - 1;\n        if (surplus_money == surplus_children) return cnt;\n        if (surplus_money > surplus_children) return surplus_children == 1 and surplus_money == 4 ? cnt - 1 : cnt;\n        return cnt - ceil(1.0 * (surplus_children - surplus_money) / 7.0);\n    }\n};",
-            "date": 1695312000000
+            "date": "2023-09-22"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.61,
             "desc": "同上。",
             "code": "class Solution:\n    def distMoney(self, money: int, children: int) -> int:\n        if money < children:\n            return -1\n        cnt = money // 8\n        surplus_money = money % 8\n        surplus_children = children - cnt\n        if cnt == children:\n            if surplus_money == 0:\n                return children\n            return children - 1\n        if cnt > children:\n            return children - 1\n        if surplus_money == surplus_children:\n            return cnt\n        if surplus_money > surplus_children:\n            if surplus_children == 1 and surplus_money == 4:\n                return cnt - 1\n            return cnt\n        return cnt - ceil((surplus_children - surplus_money) / 7)\n",
-            "date": 1695312000000
+            "date": "2023-09-22"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.58,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn dist_money(money: i32, children: i32) -> i32 {\n        if money < children {\n            -1\n        } else {\n            let (cnt, surplus_money) = (money / 8, money % 8);\n            let surplus_children = children - cnt;\n            if cnt == children {\n                if surplus_money == 0 {\n                    children\n                } else {\n                    children - 1\n                }\n            } else if cnt > children {\n                children - 1\n            } else if surplus_money == surplus_children {\n                cnt\n            } else if surplus_money > surplus_children {\n                if surplus_children == 1 && surplus_money == 4 {\n                    cnt - 1\n                } else {\n                    cnt\n                }\n            } else {\n                cnt - ((surplus_children - surplus_money) as f64 / 7.0).ceil() as i32\n            }\n        }\n    }\n}\n",
-            "date": 1695312000000
+            "date": "2023-09-22"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数学"
+    ],
+    "level": "Easy"
 }

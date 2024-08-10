@@ -2,8 +2,6 @@
     "id": "1711",
     "name": "1605.给定行和列的和求可行矩阵",
     "url": "https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "矩阵"],
     "desc": "请找到大小为 rowSum.length x colSum.length 的任意 非负整数 矩阵，且该矩阵满足 rowSum 和 colSum 的要求。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 32.6,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {\n        int n = rowSum.size(), m = colSum.size();\n        vector<vector<int>> res(n, vector<int>(m, 0));\n        for (int i = 0, j = 0; i < n && j < m;) {\n            int v = min(rowSum[i], colSum[j]);\n            res[i][j] = v;\n            rowSum[i] -= v;\n            colSum[j] -= v;\n            if (rowSum[i] == 0) i++;\n            if (colSum[j] == 0) j++;\n        }\n        return res;\n    }\n};",
-            "date": 1678723200000
+            "date": "2023-03-14"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 19.5,
             "desc": "遍历。",
             "code": "class Solution:\n    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:\n        n, m = len(rowSum), len(colSum)\n        res = [[0] * m for _ in range(n)]\n        i, j = 0, 0\n        while i < n and j < m:\n            v = min(rowSum[i], colSum[j])\n            res[i][j] = v\n            rowSum[i] -= v\n            colSum[j] -= v\n            if not rowSum[i]:\n                i += 1\n            if not colSum[j]:\n                j += 1\n        return res",
-            "date": 1678723200000
+            "date": "2023-03-14"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 3.5,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn restore_matrix(mut row_sum: Vec<i32>, mut col_sum: Vec<i32>) -> Vec<Vec<i32>> {\n        let (n, m) = (row_sum.len(), col_sum.len());\n        let mut res = vec![vec![0; m]; n];\n        let (mut i, mut j) = (0, 0);\n        while i < n && j < m {\n            let v = row_sum[i].min(col_sum[j]);\n            res[i][j] = v;\n            row_sum[i] -= v;\n            col_sum[j] -= v;\n            if row_sum[i] == 0 {\n                i += 1;\n            }\n            if col_sum[j] == 0 {\n                j += 1;\n            }\n        }\n        res\n    }\n}",
-            "date": 1678723200000
+            "date": "2023-03-14"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

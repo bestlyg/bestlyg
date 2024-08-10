@@ -2,8 +2,6 @@
     "id": "1388",
     "name": "1262.可被三整除的最大和",
     "url": "https://leetcode.cn/problems/greatest-sum-divisible-by-three",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "动态规划", "排序"],
     "desc": "给你一个整数数组 nums，请你找出并返回能被三整除的元素最大和。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 26,
             "desc": "求出总和，模3判断多了的数字。",
             "code": "class Solution {\npublic:\n    int maxSumDivThree(vector<int>& nums) {\n        int sum = 0;\n        vector<int> v1, v2;\n        for (auto &num : nums) {\n            sum += num;\n            switch (num % 3) {\n                case 1: v1.push_back(num); break;\n                case 2: v2.push_back(num); break;\n            }\n        }\n        if (sum % 3 == 0) return sum;\n        sort(v1.begin(), v1.end());\n        sort(v2.begin(), v2.end());\n        if (sum % 3 == 2) swap(v1, v2);\n        int res = v1.size() ? sum - v1[0] : 0;\n        if (v2.size() > 1) res = max(res, sum - v2[0] - v2[1]);\n        return res;\n    }\n};",
-            "date": 1687104000000
+            "date": "2023-06-19"
         },
         {
             "script": "cpp",
@@ -20,7 +18,14 @@
             "memory": 36,
             "desc": "dp表示余i个数的时候的最大和。",
             "code": "class Solution {\npublic:\n    int maxSumDivThree(vector<int>& nums) {\n        vector<int> dp = {0, INT_MIN, INT_MIN};\n        for (auto &num : nums) {\n            auto nextDp = dp;\n            for (int i = 0; i < 3; i++) {\n                int idx = (i + num) % 3;\n                nextDp[idx] = max(nextDp[idx], dp[i] + num);\n            }\n            dp = nextDp;\n        }\n        return dp[0];\n    }\n};",
-            "date": 1687104000000
+            "date": "2023-06-19"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "动态规划",
+        "排序"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "526",
     "name": "526.优美的排列",
     "url": "https://leetcode.cn/problems/beautiful-arrangement",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "动态规划", "回溯", "状态压缩"],
     "desc": "现在给定一个整数 N，请问可以构造多少个优美的排列？。",
     "solutions": [
         {
-            "date": 1629043200000,
+            "date": "2021-08-16",
             "time": 396,
             "memory": 43.6,
             "script": "typescript",
@@ -15,12 +13,20 @@
             "code": "function countArrangement(n: number): number {\n  let ans = 0;\n  dfs();\n  return ans;\n  function dfs(list: number[] = [], set = new Set<number>()) {\n    if (list.length === n) {\n      ans++;\n      return;\n    }\n    for (let i = 1; i <= n; i++) {\n      if (!set.has(i) && (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)) {\n        set.add(i);\n        list.push(i);\n        dfs(list, set);\n        list.pop();\n        set.delete(i);\n      }\n    }\n  }\n}"
         },
         {
-            "date": 1629043200000,
+            "date": "2021-08-16",
             "time": 148,
             "memory": 39.3,
             "script": "typescript",
             "desc": "深度遍历每个位置,利用二进制去重。",
             "code": "function countArrangement(n: number): number {\n  let ans = 0;\n  dfs();\n  return ans;\n  function dfs(list: number[] = [], mask = 0) {\n    if (list.length === n) {\n      ans++;\n      return;\n    }\n    for (let i = 1; i <= n; i++) {\n      if (\n        (mask & (1 << (i - 1))) === 0 &&\n        (i % (list.length + 1) === 0 || (list.length + 1) % i === 0)\n      ) {\n        mask |= 1 << (i - 1);\n        list.push(i);\n        dfs(list, mask);\n        list.pop();\n        mask &= ~(1 << (i - 1));\n      }\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "动态规划",
+        "回溯",
+        "状态压缩"
+    ],
+    "level": "Medium"
 }

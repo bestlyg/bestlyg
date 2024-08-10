@@ -2,8 +2,6 @@
     "id": "1092",
     "name": "1026.节点与其祖先之间的最大差值",
     "url": "https://leetcode.cn/problems/maximum-difference-between-node-and-ancestor",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给定二叉树的根节点 root，找出存在于 不同 节点 A 和 B 之间的最大值 V，其中 V = |A.val - B.val|，且 A 是 B 的祖先。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 14.4,
             "desc": "dfs。",
             "code": "class Solution {\npublic:\n    int maxAncestorDiff(TreeNode* root) {\n        function<vector<int>(TreeNode*)> dfs = [&](TreeNode *node) -> vector<int> {\n            vector<int> res{ node->val, node->val, 0};\n            if (node->left) {\n                auto v = dfs(node->left);\n                res[0] = min(res[0], v[0]);\n                res[1] = max(res[1], v[1]);\n                res[2] = max(res[2], max(v[2], max(abs(res[0] - node->val), abs(res[1] - node->val))));\n            }\n            if (node->right) {\n                auto v = dfs(node->right);\n                res[0] = min(res[0], v[0]);\n                res[1] = max(res[1], v[1]);\n                res[2] = max(res[2], max(v[2], max(abs(res[0] - node->val), abs(res[1] - node->val))));\n            }\n            return res;\n        };\n        return dfs(root)[2];\n    }\n};",
-            "date": 1681747200000
+            "date": "2023-04-18"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 21.8,
             "desc": "同上。",
             "code": "class Solution:\n    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:\n        def dfs(node: TreeNode) -> List[int]:\n            res = [node.val, node.val, 0]\n            if node.left != None:\n                v = dfs(node.left)\n                res[0] = min(res[0], v[0])\n                res[1] = max(res[1], v[1])\n                res[2] = max(res[2], max(\n                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))\n            if node.right != None:\n                v = dfs(node.right)\n                res[0] = min(res[0], v[0])\n                res[1] = max(res[1], v[1])\n                res[2] = max(res[2], max(\n                    v[2], max(abs(res[0] - node.val), abs(res[1] - node.val))))\n            return res\n        return dfs(root)[2]",
-            "date": 1681747200000
+            "date": "2023-04-18"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 3.2,
             "desc": "同上。",
             "code": "use std::rc::Rc;\nuse std::cell::RefCell;\nimpl Solution {\n    pub fn max_ancestor_diff(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        use std::cmp::{max, min};\n        let root = root.unwrap();\n        fn dfs(node: &Rc<RefCell<TreeNode>>) -> Vec<i32> {\n            let node = node.as_ref().borrow();\n            let mut res = vec![node.val, node.val, 0];\n            if node.left.is_some() {\n                let v = dfs(&node.left.as_ref().unwrap());\n                res[0] = min(res[0], v[0]);\n                res[1] = max(res[1], v[1]);\n                res[2] = max(\n                    res[2],\n                    max(\n                        v[2],\n                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),\n                    ),\n                );\n            }\n            if node.right.is_some() {\n                let v = dfs(&node.right.as_ref().unwrap());\n                res[0] = min(res[0], v[0]);\n                res[1] = max(res[1], v[1]);\n                res[2] = max(\n                    res[2],\n                    max(\n                        v[2],\n                        max(i32::abs(res[0] - node.val), i32::abs(res[1] - node.val)),\n                    ),\n                );\n            }\n            res\n        }\n        dfs(&root)[2]\n    }\n}",
-            "date": 1681747200000
+            "date": "2023-04-18"
         },
         {
             "script": "python",
@@ -36,7 +34,13 @@
             "memory": 18.54,
             "desc": "dfs。",
             "code": "class Solution:\n    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:\n        ans = 0\n        def dfs(node: TreeNode) -> Tuple[int, int]:\n            nonlocal ans\n            nmin = nmax = node.val\n            if node.left:\n                lmin, lmax = dfs(node.left)\n                nmin = min(nmin, lmin)\n                nmax = max(nmax, lmax)\n            if node.right:\n                rmin, rmax = dfs(node.right)\n                nmin = min(nmin, rmin)\n                nmax = max(nmax, rmax)\n            ans = max(ans, abs(node.val - nmin), abs(node.val - nmax))\n            return [nmin, nmax]\n        dfs(root)\n        return ans",
-            "date": 1712246400000
+            "date": "2024-04-05"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

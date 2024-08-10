@@ -2,8 +2,6 @@
     "id": "2726",
     "name": "2612.最少翻转操作数",
     "url": "https://leetcode.cn/problems/minimum-reverse-operations",
-    "difficulty": "困难",
-    "tag": ["广度优先搜索", "数组", "有序集合"],
     "desc": "请你返回一个数组 ans ，对于 [0, n - 1] 之间的任意下标 i ，ans[i] 是将 1 放到位置 i 处的 最少 翻转操作次数，如果无法放到位置 i 处，此数为 -1 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 163.36,
             "desc": "bfs+利用排序树快速删除和查找。",
             "code": "class Solution {\n   public:\n    vector<int> minReverseOperations(int n, int p, vector<int> &banned, int k) {\n        vector<int> res(n, -1);\n        res[p] = 0;\n        if (k == 0 || k == 1) return res;\n        unordered_set<int> used(banned.begin(), banned.end());\n        set<int> ss[2];\n        ss[0].insert(n);\n        ss[1].insert(n);\n        for (int i = 0; i < n; i++) {\n            if (i != p && !used.count(i)) ss[i % 2].insert(i);\n        }\n        queue<int> q;\n        int size = 1, cnt = 1;\n        q.push(p);\n        while (q.size()) {\n            int p = q.front(), \n                nmin = max(p - k + 1, k - p - 1), \n                nmax = min(p + k - 1, 2 * n - k - p - 1);\n            q.pop();\n            auto it = ss[nmin % 2].lower_bound(nmin);\n            while (*it <= nmax) {\n                cout << \"it= \" << *it << endl;\n                res[*it] = cnt;\n                q.push(*it);\n                ss[nmin % 2].erase(*it++);\n            }\n            if (--size == 0) {\n                cnt++;\n                size = q.size();\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1680364800000
+            "date": "2023-04-02"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "有序集合"
+    ],
+    "level": "Hard"
 }

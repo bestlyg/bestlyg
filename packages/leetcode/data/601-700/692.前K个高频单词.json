@@ -2,12 +2,10 @@
     "id": "692",
     "name": "692.前K个高频单词",
     "url": "https://leetcode.cn/problems/top-k-frequent-words",
-    "difficulty": "中等",
-    "tag": ["字典树", "哈希表", "字符串", "桶排序", "计数", "排序", "堆（优先队列）"],
     "desc": "给一非空的单词列表，返回前 k 个出现次数最多的单词。",
     "solutions": [
         {
-            "date": 1617897600000,
+            "date": "2021-04-09",
             "time": 144,
             "memory": 44.6,
             "script": "typescript",
@@ -15,12 +13,22 @@
             "code": "class Heap<T> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (num1: T, num2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\nfunction topKFrequent(words: string[], k: number): string[] {\n  const map: Record<string, number> = {};\n  for (const word of words) map[word] = (map[word] ?? 0) + 1;\n  const strCheck = (str1: string, str2: string) => {\n    let i = 0;\n    while (str1[i] && str1[i] === str2[i]) i++;\n    if (str1[i] && !str2[i]) return -1;\n    else if (!str1[i] && str2[i]) return 1;\n    else return str2.codePointAt(i)! - str1.codePointAt(i)!;\n  };\n  const heap = new Heap<[string, number]>(([str1, v1], [str2, v2]) =>\n    v1 === v2 ? strCheck(str1, str2) : v1 - v2\n  );\n  Object.entries(map).forEach(v => heap.add(v));\n  const ans: string[] = [];\n  while (heap.size && k--) {\n    ans.push(heap.remove()[0]);\n  }\n  return ans;\n}"
         },
         {
-            "date": 1621440000000,
+            "date": "2021-05-20",
             "time": 132,
             "memory": 44.3,
             "script": "typescript",
             "desc": "利用堆去获取。",
             "code": "class Heap<T = number> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n  *[Symbol.iterator](): IterableIterator<T> {\n    for (const t of this.arr) {\n      yield t;\n    }\n  }\n}\nfunction topKFrequent(words: string[], k: number): string[] {\n  const map: Record<string, number> = {};\n  for (const word of words) map[word] = (map[word] ?? 0) + 1;\n  const chartToNumber = (char: string) => char.codePointAt(0)! - 'a'.codePointAt(0)!;\n  const heap = new Heap<[string, number]>(([k1, v1], [k2, v2]) => {\n    if (v1 !== v2) return v1 - v2;\n    let i1 = 0;\n    const end1 = k1.length;\n    let i2 = 0;\n    const end2 = k2.length;\n    for (; i1 < end1 && i2 < end2; i1++, i2++)\n      if (k1[i1] !== k2[i2]) return chartToNumber(k2[i2]) - chartToNumber(k1[i1]);\n    if (i1 === end1) return 1;\n    else if (i2 === end2) return -1;\n    else return 0;\n  });\n  for (const data of Object.entries(map)) heap.add(data);\n  const ans: string[] = [];\n  while (heap.size !== 0 && k--) ans.push(heap.remove()[0]);\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "字典树",
+        "哈希表",
+        "字符串",
+        "桶排序",
+        "计数",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

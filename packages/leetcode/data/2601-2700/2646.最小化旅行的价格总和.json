@@ -2,8 +2,6 @@
     "id": "2739",
     "name": "2646.最小化旅行的价格总和",
     "url": "https://leetcode.cn/problems/minimize-the-total-price-of-the-trips",
-    "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "图", "数组", "动态规划"],
     "desc": "现有一棵无向、无根的树，树中有 n 个节点，按从 0 到 n - 1 编号。给你一个整数 n 和一个长度为 n - 1 的二维整数数组 edges ，其中 edges[i] = [ai, bi] 表示树中节点 ai 和 bi 之间存在一条边。每个节点都关联一个价格。给你一个整数数组 price ，其中 price[i] 是第 i 个节点的价格。给定路径的 价格总和 是该路径上所有节点的价格之和。另给你一个二维整数数组 trips ，其中 trips[i] = [starti, endi] 表示您从节点 starti 开始第 i 次旅行，并通过任何你喜欢的路径前往节点 endi 。在执行第一次旅行之前，你可以选择一些 非相邻节点 并将价格减半。返回执行所有旅行的最小价格总和。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 241.1,
             "desc": "树dp，记录选当前点和不选时的打折价格。",
             "code": "#define pii pair<int, int>\n    #define X first\n    #define Y second\n    struct Node {\n        int idx, price;\n        vector<int> next;\n    };\n    struct QNode {\n        int i, sum;\n        vector<int> list;\n    };\n    class Solution {\n    public:\n        int minimumTotalPrice(int n, vector<vector<int>>& edges, vector<int>& price, vector<vector<int>>& trips) {\n            vector<Node> list(n);\n            for (int i = 0; i < n; i++) {\n                list[i].idx = i;\n                list[i].price = price[i];\n            }\n            for (auto &edge : edges) {\n                list[edge[0]].next.push_back(edge[1]);\n                list[edge[1]].next.push_back(edge[0]);\n            }\n            // 记录所有路径\n            vector<vector<QNode>> roads(n, vector<QNode>(n));\n            for (int i = 0; i < n; i++) {\n                roads[i][i] = QNode{ i, list[i].price, vector<int>(1, i)};\n                queue<QNode> q;\n                q.push(QNode{ i, list[i].price, vector<int>(1, i)});\n                unordered_set<int> used;\n                used.insert(i);\n                while (q.size()) {\n                    auto cur = q.front();\n                    q.pop();\n                    for (auto &next : list[cur.i].next) {\n                        if (used.count(next)) continue;\n                        used.insert(next);\n                        auto nextNode = cur;\n                        nextNode.i = next;\n                        nextNode.sum += list[next].price;\n                        nextNode.list.push_back(next);\n                        roads[i][next] = nextNode;\n                        q.push(nextNode);\n                    }\n                }\n            }\n            // 记录不打折时总价，和每个点会被遍历几次\n            int sums = 0, res = 0x7fffffff;\n            vector<int> weights(n, 0);\n            for (auto &trip : trips) {\n                sums += roads[trip[0]][trip[1]].sum;\n                for (auto &item : roads[trip[0]][trip[1]].list) {\n                    weights[item]++;\n                }\n            }\n            // X 记录这个点选的时候最多能打多少\n            // Y 记录这个点不选的时候最多能打多少\n            unordered_set<int> used;\n            function<pii(int)> discount = [&](int start) -> pii {\n                pii res = make_pair(list[start].price / 2 * weights[start], 0);\n                for (auto &next : list[start].next) {\n                    if (used.count(next)) continue;\n                    used.insert(next);\n                    auto nextRes = discount(next);\n                    res.X += nextRes.Y;                \n                    res.Y += max(nextRes.X, nextRes.Y);\n                    used.erase(next);\n                }\n                return res;\n            };\n            used.insert(0);\n            auto disres = discount(0);\n            res = min(res, sums - max(disres.X, disres.Y));\n            used.erase(0);\n            return res;\n        }\n    };",
-            "date": 1681574400000
+            "date": "2023-04-16"
         },
         {
             "script": "python",
@@ -20,7 +18,15 @@
             "memory": 257.3,
             "desc": "提前统计每个点会被经过的次数，然后dp判断每个点打折和不打折的情况。",
             "code": "class Solution:\n        def minimumTotalPrice(self, n: int, edges: List[List[int]], price: List[int], trips: List[List[int]]) -> int:\n            nodes = [[] for _ in range(n)]\n            for n1, n2 in edges:\n                nodes[n1].append(n2)\n                nodes[n2].append(n1)\n            cnts = [0] * n\n            def dfs(start: int, end: int, used: int) -> bool:\n                if start == end:\n                    cnts[end] += 1\n                    return True\n                check = False\n                for next in nodes[start]:\n                    if (used & (1 << next)) == 0 and dfs(next, end, used | (1 << next)):\n                        cnts[start] += 1\n                        check = True\n                return check\n            for start, end in trips: dfs(start, end, 1 << start)\n            sums = sum(c * price[i] for i, c in enumerate(cnts))\n            @cache\n            def try_trip(idx: int, used: int, can: bool) -> int:\n                res1 = 0\n                if can: \n                    res1 += int(cnts[idx] * price[idx] / 2)\n                    for next in nodes[idx]:\n                        if (used & (1 << next)) == 0:\n                            res1 += try_trip(next, used | (1 << next), not can)\n                res2 = 0\n                for next in nodes[idx]:\n                    if (used & (1 << next)) == 0:\n                        res2 += try_trip(next, used | (1 << next), True)\n                return max(res1, res2)\n            return min(sums - try_trip(i, 1 << i, True) for i in range(n))",
-            "date": 1701792000000
+            "date": "2023-12-06"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "图",
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

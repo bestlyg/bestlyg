@@ -2,12 +2,10 @@
     "id": "715",
     "name": "715.Range模块",
     "url": "https://leetcode.cn/problems/range-module",
-    "difficulty": "困难",
-    "tag": ["设计", "线段树", "有序集合"],
     "desc": "Range模块是跟踪数字范围的模块。设计一个数据结构来跟踪表示为 半开区间 的范围并查询它们。",
     "solutions": [
         {
-            "date": 1655654400000,
+            "date": "2022-06-20",
             "script": "cpp",
             "time": 200,
             "memory": 66.95,
@@ -20,7 +18,13 @@
             "memory": 20.4,
             "desc": "有序数组，每次合并数组。",
             "code": "from sortedcontainers import SortedList\nclass RangeModule:\n    def __init__(self):\n        self.arr = SortedList([(-1, -1), (inf, inf)])\n\n    def addRange(self, left: int, right: int) -> None:\n        arr = self.arr\n        item = (left, right)\n        idx = arr.bisect_left(item)\n        if arr[idx - 1][1] >= left:\n            item = (arr[idx - 1][0], max(arr[idx - 1][1], item[1]))\n            arr.pop(idx - 1)\n            idx -= 1\n        while arr[idx][0] <= item[1]:\n            item = (item[0], max(arr[idx][1], item[1]))\n            arr.pop(idx)\n        arr.add(item)\n\n    def queryRange(self, left: int, right: int) -> bool:\n        arr = self.arr\n        idx = arr.bisect_right((left, inf))\n        return arr[idx - 1][0] <= left and arr[idx - 1][1] >= right\n\n    def removeRange(self, left: int, right: int) -> None:\n        arr = self.arr\n        idx = arr.bisect_left((left, right))\n        if arr[idx - 1][1] > left:\n            if arr[idx - 1][1] > right:\n                arr.add((right, arr[idx - 1][1]))\n            item = (arr[idx - 1][0], left)\n            arr.pop(idx - 1)\n            arr.add(item)\n        while arr[idx][1] <= right:\n            arr.pop(idx)\n        if arr[idx][0] <= right:\n            item = (right, arr[idx][1])\n            arr.pop(idx)\n            if item[0] != item[1]:\n                arr.add(item)",
-            "date": 1699718400000
+            "date": "2023-11-12"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "线段树",
+        "有序集合"
+    ],
+    "level": "Hard"
 }

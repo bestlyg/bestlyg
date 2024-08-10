@@ -2,12 +2,10 @@
     "id": "775",
     "name": "589.N叉树的前序遍历",
     "url": "https://leetcode.cn/problems/n-ary-tree-preorder-traversal",
-    "difficulty": "简单",
-    "tag": ["栈", "树", "深度优先搜索"],
     "desc": "给定一个 N 叉树，返回其节点值的前序遍历。",
     "solutions": [
         {
-            "date": 1582214400000,
+            "date": "2020-02-21",
             "time": 1,
             "memory": 41.2,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public List<Node> children;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, List<Node> _children) {\n        val = _val;\n        children = _children;\n    }\n};\n*/\nclass Solution {\n\tLinkedList<Integer> list = new LinkedList<Integer>();\n    public List<Integer> preorder(Node root) {\n    \tif(root==null)return list;\n    \tinPreorder(root);\n\t\treturn list;\n    }\n    void inPreorder(Node node) {\n    \tlist.add(node.val);\n    \tfor(int i=0,len=node.children.size();i<len;i++) {\n    \t\tinPreorder(node.children.get(i));\n    \t}\n    }\n}"
         },
         {
-            "date": 1646841600000,
+            "date": "2022-03-10",
             "time": 16,
             "memory": 11.3,
             "script": "cpp",
@@ -23,7 +21,7 @@
             "code": "class Solution {\n   public:\n    vector<int> preorder(Node* root) {\n        vector<int> ans;\n        if (root) dfs(ans, root);\n        return ans;\n    }\n    void dfs(vector<int>& ans, Node* node) {\n        ans.push_back(node->val);\n        for (auto& child : node->children) dfs(ans, child);\n    }\n};"
         },
         {
-            "date": 1646841600000,
+            "date": "2022-03-10",
             "time": 24,
             "memory": 11.2,
             "script": "cpp",
@@ -36,7 +34,13 @@
             "memory": 18.18,
             "desc": "dfs。",
             "code": "class Solution:\n    def preorder(self, root: 'Node') -> List[int]:\n        if not root: return []\n        return [root.val] + reduce(lambda arr, cur: arr + cur, [self.preorder(child) for child in root.children], [])",
-            "date": 1708185600000
+            "date": "2024-02-18"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "树",
+        "深度优先搜索"
+    ],
+    "level": "Easy"
 }

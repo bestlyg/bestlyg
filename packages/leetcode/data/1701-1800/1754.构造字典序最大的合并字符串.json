@@ -2,17 +2,21 @@
     "id": "1880",
     "name": "1754.构造字典序最大的合并字符串",
     "url": "https://leetcode.cn/problems/largest-merge-of-two-strings",
-    "difficulty": "中等",
-    "tag": ["贪心", "双指针", "字符串"],
     "desc": "返回你可以构造的字典序 最大 的合并字符串 merge 。",
     "solutions": [
         {
-            "date": 1671811200000,
+            "date": "2022-12-24",
             "time": 8,
             "memory": 9.3,
             "script": "cpp",
             "desc": "后缀比较。",
             "code": "class Solution {\npublic:\n    string largestMerge(string word1, string word2) {\n        string ans = \"\";\n        int i1 = 0, i2 = 0, n1 = word1.size(), n2 = word2.size();\n        function<bool(int, int)> check = [&](int i1, int i2) -> bool {\n            while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2]) i1++, i2++;\n            if (i2 == n2 && i1 == n1) return true;\n            if (i2 == n2 && i1 != n1) return true;\n            if (i2 != n2 && i1 == n1) return false;\n            return word1[i1] > word2[i2];\n        };\n        while (i1 < n1 || i2 < n2) {\n            if (i2 == n2 || word1[i1] > word2[i2]) ans += word1[i1++];\n            else if (i1 == n1 || word1[i1] < word2[i2]) ans += word2[i2++];\n            else {\n                bool f = check(i1, i2);\n                while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2])\n                    if (f) ans += word1[i1++];\n                    else ans += word2[i2++];\n            }\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "双指针",
+        "字符串"
+    ],
+    "level": "Medium"
 }

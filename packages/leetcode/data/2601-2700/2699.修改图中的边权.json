@@ -2,8 +2,6 @@
     "id": "2803",
     "name": "2699.修改图中的边权",
     "url": "https://leetcode.cn/problems/modify-graph-edge-weights",
-    "difficulty": "困难",
-    "tag": ["图", "最短路", "堆（优先队列）"],
     "desc": "给你一个 n 个节点的 无向带权连通 图，节点编号为 0 到 n - 1 ，再给你一个整数数组 edges ，其中 edges[i] = [ai, bi, wi] 表示节点 ai 和 bi 之间有一条边权为 wi 的边。部分边的边权为 -1（wi = -1），其他边的边权都为 正 数（wi > 0）。你需要将所有边权为 -1 的边都修改为范围 [1, 2 * 109] 中的 正整数 ，使得从节点 source 到节点 destination 的 最短距离 为整数 target 。如果有 多种 修改方案可以使 source 和 destination 之间的最短距离等于 target ，你可以返回任意一种方案。如果存在使 source 到 destination 最短距离为 target 的方案，请你按任意顺序返回包含所有边的数组（包括未修改边权的边）。如果不存在这样的方案，请你返回一个 空数组 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 255.6,
             "desc": "dijkstra对于所有正数边求解，如果d小于target则无解，否则每次增加一条负数边判断是否有解。",
             "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nstruct QNode {\n    int cur, sum;\n    QNode(int cur, int sum = 0): cur(cur), sum(sum) {}\n};\nclass Solution {\npublic:\n    vector<vector<int>> modifiedGraphEdges(int n, vector<vector<int>>& edges, int source, int destination, int target) {\n        vector<vector<int>> nodes(n, vector<int>(n, 0));\n        for (auto &e : edges) {\n            nodes[e[0]][e[1]] = e[2];\n            nodes[e[1]][e[0]] = e[2];\n        }\n        int d = dijkstra(n, nodes, source, destination);\n        vector<vector<int>> res;\n        if (d < target) return res;\n        bool success = d == target;\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (nodes[i][j] > 0) res.push_back(vector<int>{ i, j, nodes[i][j] });\n                else if (nodes[i][j] == 0) continue;\n                else if (success) res.push_back(vector<int>{ i, j, (int)2e9 });\n                else {\n                    nodes[i][j] = 1;\n                    nodes[j][i] = 1;\n                    int d = dijkstra(n, nodes, source, destination);\n                    if (d > target) {\n                        res.push_back(vector<int>{ i, j, 1 });\n                    } else {\n                        res.push_back(vector<int>{ i, j, target - d + 1 });\n                        success = true;\n                    }\n                }\n            }\n        }\n        return success ? res : vector<vector<int>>{};\n    }\n    int dijkstra(int n, vector<vector<int>>& nodes, int from, int to) {\n        int res = 0;\n        auto cmp = [&](QNode &v1, QNode &v2) { return v2.sum < v1.sum; };\n        priority_queue<QNode, vector<QNode>, decltype(cmp)> q(cmp);\n        q.push(QNode(from, 0));\n        vector<vector<bool>> used(n, vector<bool>(n, false));\n        while (q.size()) {\n            auto node = q.top();\n            if (node.cur == to) return node.sum;\n            q.pop();\n            for (int i = 0; i < n; i++) {\n                if (nodes[node.cur][i] > 0 && !used[node.cur][i]) {\n                    QNode next = node;\n                    next.cur = i;\n                    next.sum = node.sum + nodes[node.cur][i];\n                    used[node.cur][i] = true;\n                    q.push(move(next));\n                }\n            }\n        }\n        return INT_MAX;\n    }\n};",
-            "date": 1686240000000
+            "date": "2023-06-09"
         }
-    ]
+    ],
+    "tagList": [
+        "图",
+        "最短路",
+        "堆（优先队列）"
+    ],
+    "level": "Hard"
 }

@@ -2,8 +2,6 @@
     "id": "879",
     "name": "849.到最近的人的最大距离",
     "url": "https://leetcode.cn/problems/maximize-distance-to-closest-person",
-    "difficulty": "中等",
-    "tag": ["数组"],
     "desc": "返回他到离他最近的人的最大距离。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 16.14,
             "desc": "遍历时记录前一个1。",
             "code": "class Solution {\npublic:\n    int maxDistToClosest(vector<int>& seats) {\n        int prev = -1, idx = 0, res = INT_MIN;\n        while (idx < seats.size()) {\n            if (seats[idx] == 1) {\n                if (prev == -1) res = max(res, idx);\n                else res = max(res, (idx - prev) / 2);\n                prev = idx;\n            }\n            idx += 1;\n        }\n        res = max(res, (int)seats.size() - 1 - prev);\n        return res;\n    }\n};",
-            "date": 1692633600000
+            "date": "2023-08-22"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.38,
             "desc": "同上。",
             "code": "class Solution:\n    def maxDistToClosest(self, seats: List[int]) -> int:\n        prev = -1\n        idx = 0\n        res = -inf\n        while idx < len(seats):\n            if seats[idx] == 1:\n                if prev == -1:\n                    res = max(res, idx)\n                else:\n                    res = max(res, (idx - prev) // 2)\n                prev = idx\n            idx += 1\n        res = max(res, len(seats) - 1 - prev)\n        return res",
-            "date": 1692633600000
+            "date": "2023-08-22"
         },
         {
             "script": "rust",
@@ -28,7 +26,11 @@
             "memory": 2.15,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn max_dist_to_closest(seats: Vec<i32>) -> i32 {\n        let mut prev = -1;\n        let mut idx = 0;\n        let mut res = i32::MIN;\n        while idx < seats.len() {\n            if seats[idx] == 1 {\n                let idx = idx as i32;\n                res = res.max(if prev == -1 { idx } else { (idx - prev) / 2 });\n                prev = idx;\n            }\n            idx += 1;\n        }\n        res = res.max(seats.len() as i32 - 1 - prev);\n        res\n    }\n}",
-            "date": 1692633600000
+            "date": "2023-08-22"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Medium"
 }

@@ -2,17 +2,21 @@
     "id": "1236",
     "name": "1137.第N个泰波那契数",
     "url": "https://leetcode.cn/problems/n-th-tribonacci-number",
-    "difficulty": "简单",
-    "tag": ["记忆化搜索", "数学", "动态规划"],
     "desc": "给你整数 n，请返回第 n 个泰波那契数 Tn 的值。",
     "solutions": [
         {
-            "date": 1628438400000,
+            "date": "2021-08-09",
             "time": 148,
             "memory": 46.4,
             "script": "typescript",
             "desc": "遍历数组进行相乘。",
             "code": "function nthSuperUglyNumber(n: number, primes: number[]): number {\n  const len = primes.length;\n  const pos = new Array(len).fill(0);\n  const list: number[] = [1];\n  let val = 1;\n  for (let i = 1; i < n; i++) {\n    val = Math.min(...pos.map((v, i) => list[v] * primes[i]));\n    for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;\n    list.push(val);\n  }\n  return val;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "记忆化搜索",
+        "数学",
+        "动态规划"
+    ],
+    "level": "Easy"
 }

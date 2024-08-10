@@ -2,12 +2,10 @@
     "id": "1767",
     "name": "1670.设计前中后队列",
     "url": "https://leetcode.cn/problems/design-front-middle-back-queue",
-    "difficulty": "中等",
-    "tag": ["设计", "队列", "数组", "链表", "数据流"],
     "desc": "请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。",
     "solutions": [
         {
-            "date": 1615651200000,
+            "date": "2021-03-14",
             "time": 144,
             "memory": 45.1,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "class FrontMiddleBackQueue {\n  get frontLen() {\n    return this.front.length;\n  }\n  get backLen() {\n    return this.back.length;\n  }\n  get len() {\n    return this.frontLen + this.backLen;\n  }\n  private front: number[] = [];\n  private back: number[] = [];\n  pushFront(val: number): void {\n    this.front.unshift(val);\n    this.check();\n  }\n  pushMiddle(val: number): void {\n    this.front.push(val);\n    this.check();\n  }\n  pushBack(val: number): void {\n    this.back.push(val);\n    this.check();\n  }\n  popFront(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 ? this.back.shift()! : this.front.shift()!;\n    this.check();\n    return num;\n  }\n  popMiddle(): number {\n    if (this.len === 0) return -1;\n    const num = this.frontLen === 0 || this.len & 1 ? this.back.shift()! : this.front.pop()!;\n    this.check();\n    return num;\n  }\n  popBack(): number {\n    if (this.len === 0) return -1;\n    const num = this.backLen === 0 ? this.front.pop()! : this.back.pop()!;\n    this.check();\n    return num;\n  }\n  private check() {\n    if (this.frontLen > this.backLen) {\n      this.back.unshift(this.front.pop()!);\n    }\n    if (this.backLen > this.frontLen + 1) {\n      this.front.push(this.back.shift()!);\n    }\n  }\n}"
         },
         {
-            "date": 1646236800000,
+            "date": "2022-03-03",
             "time": 28,
             "memory": 20.4,
             "script": "cpp",
@@ -28,7 +26,15 @@
             "memory": 16.81,
             "desc": "两个双端队列1670. 设计前中后队列。",
             "code": "class FrontMiddleBackQueue:\n    def __init__(self):\n        self.len = 0\n        self.q1 = deque()\n        self.q2 = deque()\n    def pushFront(self, val: int) -> None:\n        self.q1.appendleft(val)\n        self.after(1)\n    def pushMiddle(self, val: int) -> None:\n        self.q2.appendleft(val)\n        self.after(1)\n    def pushBack(self, val: int) -> None:\n        self.q2.append(val)\n        self.after(1)\n    def after(self, offset: int) -> None:\n        self.len += offset\n        if len(self.q1) + 2 == len(self.q2): self.q1.append(self.q2.popleft())\n        elif len(self.q1) == len(self.q2) + 1: self.q2.appendleft(self.q1.pop()) \n    def popFront(self) -> int:\n        if self.len == 0: return -1\n        val = self.q2.pop() if self.len == 1 else self.q1.popleft()\n        self.after(-1)\n        return val\n    def popMiddle(self) -> int:\n        if self.len == 0: return -1\n        val = self.q1.pop() if self.len % 2 == 0 else self.q2.popleft()\n        self.after(-1)\n        return val\n    def popBack(self) -> int:\n        if self.len == 0: return -1\n        val = self.q2.pop()\n        self.after(-1)\n        return val",
-            "date": 1701100800000
+            "date": "2023-11-28"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "队列",
+        "数组",
+        "链表",
+        "数据流"
+    ],
+    "level": "Medium"
 }

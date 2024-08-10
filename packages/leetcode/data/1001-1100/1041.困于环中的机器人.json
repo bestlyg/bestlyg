@@ -2,8 +2,6 @@
     "id": "1119",
     "name": "1041.困于环中的机器人",
     "url": "https://leetcode.cn/problems/robot-bounded-in-circle",
-    "difficulty": "中等",
-    "tag": ["数学", "字符串", "模拟"],
     "desc": "机器人按顺序执行指令 instructions，并一直重复它们。只有在平面中存在环使得机器人永远无法离开时，返回 true。否则，返回 false。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 6,
             "desc": "做四次模拟回到原点的一定是循环。",
             "code": "class Solution {\npublic:\n    bool isRobotBounded(string instructions) {\n        vector<vector<int>> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};\n        int n = instructions.size(), dir = 0, x = 0, y = 0;\n        for (int cnt = 0; cnt < 4; cnt++) {\n            for (int i = 0; i < n; i++) {\n                switch (instructions[i]) {\n                    case 'L': dir = (dir + 4 - 1) % 4; break;\n                    case 'R': dir = (dir + 1) % 4; break;\n                    case 'G': x = x + dirs[dir][0], y = y + dirs[dir][1]; break;\n                }\n            }\n        }\n        return x == 0 && y == 0;\n    }\n};",
-            "date": 1681142400000
+            "date": "2023-04-11"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 14.8,
             "desc": "同上。",
             "code": "class Solution:\n    def isRobotBounded(self, instructions: str) -> bool:\n        dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]\n        x = y = dir = 0\n        for _ in range(4):\n            for i in instructions:\n                match i:\n                    case 'L':\n                        dir = (dir + 4 - 1) % 4\n                    case 'R':\n                        dir = (dir + 1) % 4\n                    case 'G':\n                        x = x + dirs[dir][0]\n                        y = y + dirs[dir][1]\n        return x == 0 and y == 0",
-            "date": 1681142400000
+            "date": "2023-04-11"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "const dirs: [[i32; 2]; 4] = [[1, 0], [0, 1], [-1, 0], [0, -1]];\nimpl Solution {\n    pub fn is_robot_bounded(instructions: String) -> bool {\n        let instructions = instructions.chars().collect::<Vec<char>>();\n        let (mut x, mut y, mut dir) = (0, 0, 0i32);\n        for _ in 0..4 {\n            for i in &instructions {\n                match *i {\n                    'L' => {\n                        dir = (dir + 4 - 1) % 4;\n                    }\n                    'R' => {\n                        dir = (dir + 1) % 4;\n                    }\n                    'G' => {\n                        x = x + dirs[dir as usize][0];\n                        y = y + dirs[dir as usize][1];\n                    }\n                    _ => {}\n                }\n            }\n        }\n        x == 0 && y == 0\n    }\n}",
-            "date": 1681142400000
+            "date": "2023-04-11"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "字符串",
+        "模拟"
+    ],
+    "level": "Medium"
 }

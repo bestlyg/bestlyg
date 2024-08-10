@@ -2,8 +2,6 @@
     "id": "2727",
     "name": "2678.老人的数目",
     "url": "https://leetcode.cn/problems/number-of-senior-citizens",
-    "difficulty": "简单",
-    "tag": ["数组", "字符串"],
     "desc": "请你返回乘客中年龄 严格大于 60 岁 的人数。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 15.65,
             "desc": "切片后统计。",
             "code": "class Solution:\n    def countSeniors(self, details: List[str]) -> int:\n        return sum(int(v[11:13]) > 60 for v in details)",
-            "date": 1697990400000
+            "date": "2023-10-23"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "字符串"
+    ],
+    "level": "Easy"
 }

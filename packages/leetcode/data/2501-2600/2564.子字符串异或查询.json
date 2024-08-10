@@ -2,8 +2,6 @@
     "id": "2700",
     "name": "2564.子字符串异或查询",
     "url": "https://leetcode.cn/problems/substring-xor-queries",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "哈希表", "字符串"],
     "desc": "请你返回一个数组 ans ，其中 ans[i] = [lefti, righti] 是第 i 个查询的答案。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 87.9,
             "desc": "暴力。",
             "code": "function substringXorQueries(s: string, queries: number[][]): number[][] {\n  return queries\n    .map(([v1, v2]) => (v1 ^ v2).toString(2))\n    .map(item => {\n      const i = s.indexOf(item);\n      if (i == -1) return [-1, -1];\n      return [i, i + item.length - 1];\n    });\n}",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 116.2,
             "desc": "预处理。",
             "code": "class Solution {\npublic:\n    typedef pair<int, int> pii;\n    vector<vector<int>> substringXorQueries(string s, vector<vector<int>>& queries) {\n        unordered_map<int, pii> m;\n        for (int i = 0; i < s.size(); i++) {\n            int cur = 0;\n            for (int j = i; j < min((int)s.size(), i + 30); j++) {\n                cur = (cur << 1) | (s[j] - '0');\n                if (!m.count(cur) || m[cur].second - m[cur].first + 1 > j - i + 1) m[cur] = make_pair(i, j); \n            }\n        }\n        vector<vector<int>> ans;\n        for (auto &q : queries) {\n            int target = q[0] ^ q[1];\n            vector<int> item(2, -1);\n            if (m.count(target)) item[0] = m[target].first, item[1] = m[target].second;\n            ans.push_back(item);\n        }\n        return ans;\n    }\n};",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 56.9,
             "desc": "同上。",
             "code": "class Solution:\n    def substringXorQueries(self, s: str, queries: List[List[int]]) -> List[List[int]]:\n        m = defaultdict()\n        for i in range(len(s)):\n            cur = 0\n            for j in range(i, min(len(s), i + 30)):\n                cur = (cur << 1) | (ord(s[j]) - ord('0'))\n                if cur in m:\n                    print(m[cur][1] - m[cur][0])\n                if cur not in m or m[cur][1] - m[cur][0] >= j - i + 1:\n                    m[cur] = (i, j)\n        return [\n            m.get(n1 ^ n2, (-1, -1))\n            for n1, n2 in queries\n        ]",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 13.9,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn substring_xor_queries(s: String, queries: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n        use std::collections::HashMap;\n        let mut m = HashMap::<i32, (usize, usize)>::new();\n        let s = s.chars().collect::<Vec<char>>();\n        for i in 0..s.len() {\n            let mut cur = 0;\n            for j in i..s.len().min(i + 30) {\n                cur = ((cur << 1) | (s[j] as usize - '0' as usize) as i32);\n                if !m.contains_key(&cur) {\n                    m.insert(cur, (i, j));\n                } else {\n                    let item = m.get_mut(&cur).unwrap();\n                    if item.1 - item.0 + 1 > j - i + 1 {\n                        item.0 = i;\n                        item.1 = j\n                    };\n                }\n            }\n        }\n        let mut ans: Vec<Vec<i32>> = vec![];\n        for q in queries {\n            let target = q[0] ^ q[1];\n            let mut item = vec![-1i32; 2];\n            if let Some((l, r)) = m.get(&target) {\n                item[0] = *l as i32;\n                item[1] = *r as i32;\n            }\n            ans.push(item);\n        }\n        ans\n    }\n}",
-            "date": 1676131200000
+            "date": "2023-02-12"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Medium"
 }

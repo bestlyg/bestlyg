@@ -2,8 +2,6 @@
     "id": "2731",
     "name": "2623.记忆函数",
     "url": "https://leetcode.cn/problems/memoize",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "请你编写一个函数，它接收另一个函数作为输入，并返回该函数的 记忆化 后的结果。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 81.2,
             "desc": "哈希存储。",
             "code": "type Fn = (...params: any) => any\n\nfunction memoize(fn: Fn): Fn {\n    const cache : Record<string, number> = {};\n    return function(...args) {\n        const key = args.join(\":\");\n        if (cache[key] !== undefined) return cache[key];\n        return cache[key] = fn(...args);\n    }\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

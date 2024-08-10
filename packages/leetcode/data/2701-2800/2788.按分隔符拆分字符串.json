@@ -2,8 +2,6 @@
     "id": "2881",
     "name": "2788.按分隔符拆分字符串",
     "url": "https://leetcode.cn/problems/split-strings-by-separator",
-    "difficulty": "简单",
-    "tag": ["数组", "字符串"],
     "desc": "返回一个由拆分后的新字符串组成的字符串数组，不包括空字符串 。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 59.37,
             "desc": "分割后平铺。",
             "code": "function splitWordsBySeparator(words: string[], separator: string): string[] {\n    const sarr = separator.split('')\n    return words\n            .map(word => sarr.map(s => word.split(s)))\n            .flat(3)\n            .filter(Boolean)\n};",
-            "date": 1705680000000
+            "date": "2024-01-20"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "字符串"
+    ],
+    "level": "Easy"
 }

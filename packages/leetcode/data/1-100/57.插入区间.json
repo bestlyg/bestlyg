@@ -2,12 +2,10 @@
     "id": "57",
     "name": "57.插入区间",
     "url": "https://leetcode.cn/problems/insert-interval",
-    "difficulty": "中等",
-    "tag": ["数组"],
     "desc": "给出一个无重叠的 ，按照区间起始端点排序的区间列表。在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。",
     "solutions": [
         {
-            "date": 1604419200000,
+            "date": "2020-11-04",
             "time": 96,
             "memory": 42.7,
             "script": "javascript",
@@ -20,7 +18,7 @@
             "memory": 16.22,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        vector<vector<int>> res;\n        int n = intervals.size(), i = 0;\n        while (i < n && intervals[i][1] < newInterval[0]) {\n            res.push_back(intervals[i]);\n            i += 1;\n        }\n        if (i == n) {\n            res.push_back(newInterval);\n        } else if (intervals[i][0] > newInterval[1]) {\n            res.push_back(newInterval);\n            while (i < n) {\n                res.push_back(intervals[i]);\n                i += 1;\n            }\n        } else {\n            res.push_back(\n                vector<int>{\n                    min(intervals[i][0], newInterval[0]),\n                    max(intervals[i][1], newInterval[1])\n                }\n            );\n            i += 1;\n            while (i < n) {\n                if (res.back()[1] >= intervals[i][0]) {\n                    res.back()[1] = max(res.back()[1], intervals[i][1]);\n                } else {\n                    res.push_back(intervals[i]);\n                }\n                i += 1;\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1693152000000
+            "date": "2023-08-28"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 17.75,
             "desc": "同上。",
             "code": "class Solution:\n    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:\n        res = []\n        n = len(intervals)\n        i = 0\n        while i < n and intervals[i][1] < newInterval[0]:\n            res.append(intervals[i])\n            i += 1\n        if i == n:\n            res.append(newInterval)\n        elif intervals[i][0] > newInterval[1]:\n            res.append(newInterval)\n            while i < n:\n                res.append(intervals[i])\n                i += 1\n        else:\n            res.append(\n                [min(intervals[i][0], newInterval[0]),\n                    max(intervals[i][1], newInterval[1])]\n            )\n            i += 1\n            while i < n:\n                if res[-1][1] >= intervals[i][0]:\n                    res[-1][1] = max(res[-1][1], intervals[i][1])\n                else:\n                    res.append(intervals[i])\n                i += 1\n        return res",
-            "date": 1693152000000
+            "date": "2023-08-28"
         },
         {
             "script": "rust",
@@ -36,7 +34,11 @@
             "memory": 2.54,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {\n        use std::cmp::{max, min};\n        let mut res = vec![];\n        let n = intervals.len();\n        let mut i = 0;\n        while i < n && intervals[i][1] < new_interval[0] {\n            res.push(intervals[i].clone());\n            i += 1;\n        }\n        if i == n {\n            res.push(new_interval);\n        } else if intervals[i][0] > new_interval[1] {\n            res.push(new_interval);\n            while i < n {\n                res.push(intervals[i].clone());\n                i += 1;\n            }\n        } else {\n            res.push(vec![\n                min(intervals[i][0], new_interval[0]),\n                max(intervals[i][1], new_interval[1]),\n            ]);\n            i += 1;\n            while i < n {\n                if res.last().unwrap()[1] >= intervals[i][0] {\n                    res.last_mut().unwrap()[1] = max(res.last().unwrap()[1], intervals[i][1]);\n                } else {\n                    res.push(intervals[i].clone());\n                }\n                i += 1;\n            }\n        }\n        res\n    }\n}",
-            "date": 1693152000000
+            "date": "2023-08-28"
         }
-    ]
+    ],
+    "tagList": [
+        "数组"
+    ],
+    "level": "Medium"
 }

@@ -2,8 +2,6 @@
     "id": "2461",
     "name": "2385.感染二叉树需要的总时间",
     "url": "https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "哈希表", "二叉树"],
     "desc": "返回感染整棵树需要的分钟数。",
     "solutions": [
         {
@@ -12,7 +10,15 @@
             "memory": 59.43,
             "desc": "dfs。",
             "code": "class Solution:\n    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:\n        parent = {root:None}\n        start_node = None\n        q = deque([root])\n        while q:\n            node = q.popleft()\n            if node.val == start: start_node = node\n            if node.left: parent[node.left] = node; q.append(node.left)\n            if node.right: parent[node.right] = node; q.append(node.right)\n        def dfs(node: Optional[TreeNode], pre_node: Optional[TreeNode]):\n            if not node: return 0\n            res = 0\n            if parent[node] and parent[node] != pre_node:\n                res = max(res, dfs(parent[node], node))\n            if node.left and node.left != pre_node:\n                res = max(res, dfs(node.left, node))\n            if node.right and node.right != pre_node:\n                res=  max(res, dfs(node.right, node))\n            return res + 1\n        return dfs(start_node, None) - 1",
-            "date": 1713888000000
+            "date": "2024-04-24"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "哈希表",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

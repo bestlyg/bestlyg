@@ -2,8 +2,6 @@
     "id": "2131",
     "name": "2003.每棵子树内缺失的最小基因值",
     "url": "https://leetcode.cn/problems/smallest-missing-genetic-value-in-each-subtree",
-    "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "并查集", "动态规划"],
     "desc": "请你返回一个数组 ans ，长度为 n ，其中 ans[i] 是以节点 i 为根的子树内 缺失 的 最小 基因值。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 172.67,
             "desc": "dfs时用set存储所有值。",
             "code": "class Solution:\n    def smallestMissingValueSubtree(self, parents: List[int], nums: List[int]) -> List[int]:\n        n = len(parents)\n        nodes = [[] for i in range(n)]\n        for i in range(1, n): nodes[parents[i]].append(i)\n        ans = [1 for _ in range(n)]\n        def dfs(idx: int) -> (int, Set[int]):\n            last = 1\n            s = set([nums[idx]])\n            for child in nodes[idx]:\n                resLast, resSet = dfs(child)\n                last = max(last, resLast)\n                if len(resSet) > len(s):\n                    resSet |= s\n                    s = resSet\n                else:\n                    s |= resSet\n            while last in s: last += 1\n            ans[idx] = last\n            return last, s\n        dfs(0)\n        return ans",
-            "date": 1698681600000
+            "date": "2023-10-31"
         },
         {
             "script": "python",
@@ -20,7 +18,14 @@
             "memory": 66.3,
             "desc": "自底向上，只遍历存在1的树。",
             "code": "class Solution:\n    def smallestMissingValueSubtree(self, parents: List[int], nums: List[int]) -> List[int]:\n        n = len(parents)\n        nodes = [[] for i in range(n)]\n        for i in range(1, n): nodes[parents[i]].append(i)\n        ans = [1 for _ in range(n)]\n        used = [False for _ in range(n)]\n        s = set()\n        def dfs(idx: int):\n            if used[idx]: return\n            used[idx] = True\n            s.add(nums[idx])\n            for child in nodes[idx]: dfs(child)\n        \n        cur = nums.index(1) if 1 in nums else -1\n        last = 1\n        while cur != -1:\n            dfs(cur)\n            while last in s: last += 1\n            ans[cur] = last\n            cur = parents[cur]\n        return ans",
-            "date": 1698681600000
+            "date": "2023-10-31"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "并查集",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

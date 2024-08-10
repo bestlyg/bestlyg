@@ -2,12 +2,10 @@
     "id": "1442",
     "name": "1319.连通网络的操作次数",
     "url": "https://leetcode.cn/problems/number-of-operations-to-make-network-connected",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "desc": "用以太网线缆将  n  台计算机连接成一个网络，计算机的编号从  0  到  n-1。线缆用  connections  表示，其中  connections[i] = [a, b]  连接了计算机  a  和  b。网络中的任何一台计算机都可以通过网络直接或者间接访问同一个网络中其他任意一台计算机。给你这个计算机网络的初始布线  connections，你可以拔开任意两台直连计算机之间的线缆，并用它连接一对未直连的计算机。请你计算并返回使所有计算机都连通所需的最少操作次数。如果不可能，则返回  -1 。",
     "solutions": [
         {
-            "date": 1611331200000,
+            "date": "2021-01-23",
             "time": 212,
             "memory": 54.6,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction makeConnected(n: number, connections: number[][]): number {\n  const uf = new UnionFind(n);\n  let count = 0;\n  for (const [c1, c2] of connections) {\n    if (uf.same(c1, c2)) {\n      count++;\n    } else {\n      uf.union(c1, c2);\n    }\n  }\n  return uf.size - 1 <= count ? uf.size - 1 : -1;\n}"
         },
         {
-            "date": 1619712000000,
+            "date": "2021-04-30",
             "time": 192,
             "memory": 53.8,
             "script": "typescript",
             "desc": "并查集。",
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction makeConnected(n: number, connections: number[][]): number {\n  let c = 0;\n  const uf = new UnionFind(n);\n  for (const [comp1, comp2] of connections) {\n    if (uf.same(comp1, comp2)) cpp;\n    else uf.union(comp1, comp2);\n  }\n  return c >= uf.size - 1 ? uf.size - 1 : -1;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
+    "level": "Medium"
 }

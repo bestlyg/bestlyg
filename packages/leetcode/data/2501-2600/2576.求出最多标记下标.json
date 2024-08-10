@@ -2,8 +2,6 @@
     "id": "2712",
     "name": "2576.求出最多标记下标",
     "url": "https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "双指针", "二分查找", "排序"],
     "desc": "返回 nums 中最多可以标记的下标数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 58.6,
             "desc": "折半后用后半部分尽可能尝试匹配前半部分。",
             "code": "class Solution {\npublic:\n    int maxNumOfMarkedIndices(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int ans = 0, n = nums.size(), i = 0;\n        for (int j = (n + 1) / 2; j < n; j++) {\n            if (nums[i] * 2 <= nums[j]) i += 1, ans += 2;\n        }\n        return ans;\n    }\n};",
-            "date": 1677340800000
+            "date": "2023-02-26"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 28.7,
             "desc": "同上。",
             "code": "class Solution:\n    def maxNumOfMarkedIndices(self, nums: List[int]) -> int:\n        nums.sort()\n        ans = 0\n        n = len(nums)\n        i = 0\n        for j in range((n + 1) // 2, n):\n            if nums[i] * 2 <= nums[j]:\n                i += 1\n                ans += 2\n        return ans",
-            "date": 1677340800000
+            "date": "2023-02-26"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 3.7,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn max_num_of_marked_indices(nums: Vec<i32>) -> i32 {\n        let mut nums = nums;\n        nums.sort();\n        let mut ans = 0;\n        let n = nums.len();\n        let mut i = 0;\n        for j in ((n + 1) / 2)..n {\n            if nums[i] * 2 <= nums[j] {\n                i += 1;\n                ans += 2;\n            }\n        }\n        ans\n    }\n}",
-            "date": 1677340800000
+            "date": "2023-02-26"
         },
         {
             "script": "cpp",
@@ -36,7 +34,7 @@
             "memory": 58.5,
             "desc": "二分答案，如果存在k个，则头部k个一定匹配尾部k个。",
             "code": "class Solution {\npublic:\n    int maxNumOfMarkedIndices(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size();\n        auto check = [&](int k) -> bool {\n            for (int i = 0; i < k; i++) {\n                if (nums[i] * 2 > nums[n - k + i]) return false;\n            }\n            return true;\n        };\n        int l = 0, r = n / 2;\n        while (l < r) {\n            int m = (l + r + 1) / 2;\n            if (check(m)) l = m;\n            else r = m - 1;\n        }\n        return l * 2;\n    }\n};",
-            "date": 1677340800000
+            "date": "2023-02-26"
         },
         {
             "script": "python",
@@ -44,7 +42,7 @@
             "memory": 29.5,
             "desc": "同上。",
             "code": "class Solution:\n    def maxNumOfMarkedIndices(self, nums: List[int]) -> int:\n        nums.sort()\n        n = len(nums)\n        l, r = 0, n//2\n        while l < r:\n            m = (l + r + 1) // 2\n            if all(nums[i] * 2  <= nums[n - m + i] for i in range(m)) :\n                l = m\n            else : r = m - 1\n        return l *  2",
-            "date": 1677340800000
+            "date": "2023-02-26"
         },
         {
             "script": "rust",
@@ -52,7 +50,15 @@
             "memory": 3.8,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn max_num_of_marked_indices(nums: Vec<i32>) -> i32 {\n        let mut nums = nums;\n        nums.sort();\n        let n = nums.len();\n        let (mut l, mut r) = (0, n / 2);\n        while l < r {\n            let m = (l + r + 1) / 2;\n            if (0..m).all(|i| nums[i] * 2 <= nums[n - m + i]) {\n                l = m;\n            } else {\n                r = m - 1;\n            }\n        }\n        l as i32 * 2\n    }\n}",
-            "date": 1677340800000
+            "date": "2023-02-26"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Medium"
 }

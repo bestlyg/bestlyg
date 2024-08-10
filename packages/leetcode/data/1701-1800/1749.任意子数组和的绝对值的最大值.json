@@ -2,8 +2,6 @@
     "id": "1849",
     "name": "1749.任意子数组和的绝对值的最大值",
     "url": "https://leetcode.cn/problems/maximum-absolute-sum-of-any-subarray",
-    "difficulty": "中等",
-    "tag": ["数组", "动态规划"],
     "desc": "请你找出 nums 中 和的绝对值 最大的任意子数组（可能为空），并返回该 最大值 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 39.4,
             "desc": "遍历,统计最大值和最小值。",
             "code": "class Solution {\npublic:\n    int maxAbsoluteSum(vector<int>& nums) {\n        int nmin = 0, nmax = 0, res = 0;\n        for (auto &num : nums) {\n            nmin = min(num, nmin + num);\n            nmax = max(0, nmax + num);\n            res = max(res, max(abs(nmin), abs(nmax)));\n        }\n        return res;\n    }\n};",
-            "date": 1691424000000
+            "date": "2023-08-08"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 26.04,
             "desc": "同上。",
             "code": "class Solution:\n    def maxAbsoluteSum(self, nums: List[int]) -> int:\n        nmin = nmax = res = 0\n        for num in nums:\n            nmin, nmax = min(num, nmin + num), max(0, nmax + num)\n            res = max(res, max(abs(nmin), abs(nmax)))\n        return res",
-            "date": 1691424000000
+            "date": "2023-08-08"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 3.01,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn max_absolute_sum(nums: Vec<i32>) -> i32 {\n        let (mut nmin, mut nmax, mut res) = (0, 0, 0);\n        for num in nums {\n            nmin = num.min(nmin + num);\n            nmax = 0.max(nmax + num);\n            res = res.max(nmin.abs()).max(nmax.abs())\n        }\n        res\n    }\n}",
-            "date": 1691424000000
+            "date": "2023-08-08"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

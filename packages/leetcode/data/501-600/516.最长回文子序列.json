@@ -2,17 +2,20 @@
     "id": "516",
     "name": "516.最长回文子序列",
     "url": "https://leetcode.cn/problems/longest-palindromic-subsequence",
-    "difficulty": "中等",
-    "tag": ["字符串", "动态规划"],
     "desc": "给你一个字符串 s ，找出其中最长的回文子序列，并返回该序列的长度。",
     "solutions": [
         {
-            "date": 1628697600000,
+            "date": "2021-08-12",
             "time": 212,
             "memory": 86,
             "script": "typescript",
             "desc": "动态规划,dp[i][j]=以 i 结尾 j 开头的子序列的最大值。",
             "code": "function longestPalindromeSubseq(s: string): number {\n  const n = s.length;\n  if (n === 1) return 1;\n  const dp = new Array(n).fill(0).map(_ => new Array(n).fill(0));\n  for (let i = n - 2; i >= 0; i--) {\n    dp[i][i] = 1;\n    const cl = s[i];\n    for (let j = i + 1; j < n; j++) {\n      const cr = s[j];\n      if (cl === cr) {\n        dp[i][j] = dp[i + 1][j - 1] + 2;\n      } else {\n        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);\n      }\n    }\n  }\n  return dp[0][n - 1];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Medium"
 }

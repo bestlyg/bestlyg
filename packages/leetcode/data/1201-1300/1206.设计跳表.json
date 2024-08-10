@@ -2,17 +2,20 @@
     "id": "1337",
     "name": "1206.设计跳表",
     "url": "https://leetcode.cn/problems/design-skiplist",
-    "difficulty": "困难",
-    "tag": ["设计", "链表"],
     "desc": "不使用任何库函数，设计一个跳表 。",
     "solutions": [
         {
-            "date": 1658764800000,
+            "date": "2022-07-26",
             "time": 516,
             "memory": 28.1,
             "script": "cpp",
             "desc": "构造跳表。",
             "code": "class Node {\n   public:\n    int key, cnt;\n    Node *next, *skip_next;\n    Node(int _key) {\n        key = _key;\n        cnt = 1;\n        next = skip_next = nullptr;\n    }\n};\n\nclass Skiplist {\n   public:\n    Node *head;\n    Skiplist() { head = new Node(0); }\n    bool search(int target) {\n        Node *node = head->next;\n        while (node && node->key < target) {\n            if (node->skip_next && node->skip_next->key < target)\n                node = node->skip_next;\n            else\n                node = node->next;\n        }\n        return node && node->key == target;\n    }\n    void add(int num) {\n        Node *node = head->next, *prev = head;\n        while (node && node->key < num) {\n            prev = node;\n            if (node->skip_next && node->skip_next->key < num)\n                node = node->skip_next;\n            else\n                node = node->next;\n        }\n        if (node && node->key == num)\n            node->cnt++;\n        else {\n            Node *next = new Node(num);\n            next->next = node;\n            prev->next = next;\n            maintain_skip();\n        }\n    }\n    bool erase(int num) {\n        Node *node = head->next, *prev = head;\n        while (node && node->key < num) {\n            prev = node;\n            if (node->skip_next && node->skip_next->key < num)\n                node = node->skip_next;\n            else\n                node = node->next;\n        }\n        if (!node || node->key != num) return false;\n        if (node->cnt > 1)\n            node->cnt--;\n        else {\n            prev->next = node->next;\n            maintain_skip();\n            delete node;\n        }\n        return true;\n    }\n    void maintain_skip() {\n        bool check = true;\n        Node *node = head->next;\n        while (node) {\n            if (check && node->next && node->next->next) {\n                node->skip_next = node->next->next;\n            } else {\n                node->skip_next = nullptr;\n            }\n            node = node->next;\n        }\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "链表"
+    ],
+    "level": "Hard"
 }

@@ -2,12 +2,10 @@
     "id": "103",
     "name": "103.二叉树的锯齿形层序遍历",
     "url": "https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal",
-    "difficulty": "中等",
-    "tag": ["树", "广度优先搜索", "二叉树"],
     "desc": "给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。",
     "solutions": [
         {
-            "date": 1587830400000,
+            "date": "2020-04-26",
             "time": 76,
             "memory": 34.1,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val) {\n *     this.val = val;\n *     this.left = this.right = null;\n * }\n */\n/**\n * @param {TreeNode} root\n * @return {number[][]}\n */\nvar zigzagLevelOrder = function (root) {\n  if (root === null) return [];\n  const res = [];\n  const queue = [root];\n  let height = 1;\n  const pushNode = () => {\n    let valArr = [];\n    for (const node of queue) valArr.push(node.val);\n    if (height % 2 === 0) res.push(valArr.reverse());\n    else res.push(valArr);\n  };\n  pushNode();\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift();\n    if (node.left !== null) queue.push(node.left);\n    if (node.right !== null) queue.push(node.right);\n    if (--size === 0) {\n      height++;\n      size = queue.length;\n      if (queue.length !== 0) pushNode();\n    }\n  }\n  return res;\n};"
         },
         {
-            "date": 1638028800000,
+            "date": "2021-11-28",
             "time": 0,
             "memory": 7.1,
             "script": "c",
@@ -28,7 +26,13 @@
             "memory": 16.66,
             "desc": "bfs。",
             "code": "class Solution:\n    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:\n        if not root: return []\n        q = deque() \n        q.append(root)\n        size = 1\n        ans = [[root.val]]\n        while q:\n            node = q.popleft()\n            if node.left: q.append(node.left)\n            if node.right: q.append(node.right)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if q: ans.append([node.val for node in q])\n        for i in range(1, len(ans), 2):\n            ans[i] = ans[i][::-1]\n        return ans",
-            "date": 1708012800000
+            "date": "2024-02-16"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

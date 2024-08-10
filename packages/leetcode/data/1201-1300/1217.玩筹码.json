@@ -2,17 +2,21 @@
     "id": "1329",
     "name": "1217.玩筹码",
     "url": "https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组", "数学"],
     "desc": "返回将所有筹码移动到同一位置上所需要的 最小代价 。",
     "solutions": [
         {
-            "date": 1657209600000,
+            "date": "2022-07-08",
             "time": 0,
             "memory": 7,
             "script": "cpp",
             "desc": "因为跳一格 1 消费，跳两格 0 消费，相当于只有在相邻格才会消费。",
             "code": "class Solution {\n   public:\n    int minCostToMoveChips(vector<int>& position) {\n        int ans1 = 0, ans2 = 0;\n        for (auto& num : position) {\n            if (num & 1)\n                ans1++;\n            else\n                ans2++;\n        }\n        return min(ans1, ans2);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "数学"
+    ],
+    "level": "Easy"
 }

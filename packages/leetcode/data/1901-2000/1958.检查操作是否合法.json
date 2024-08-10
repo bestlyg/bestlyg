@@ -2,8 +2,6 @@
     "id": "2080",
     "name": "1958.检查操作是否合法",
     "url": "https://leetcode.cn/problems/check-if-move-is-legal",
-    "difficulty": "中等",
-    "tag": ["数组", "枚举", "矩阵"],
     "desc": "给你两个整数 rMove 和 cMove 以及一个字符 color ，表示你正在执行操作的颜色（白或者黑），如果将格子 (rMove, cMove) 变成颜色 color 后，是一个 合法 操作，那么返回 true ，如果不是合法操作返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.27,
             "desc": "遍历所有方向。",
             "code": "n = 8\ndirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\n\nclass Solution:\n    def checkMove(self, board: List[List[str]], rMove: int, cMove: int, color: str) -> bool:\n        recolor = 'W' if color == 'B' else 'B'\n        for dir in dirs2:\n            nx, ny = rMove + dir[0], cMove + dir[1]\n            cnt = 0\n            while 0 <= nx < n and 0 <= ny < n:\n                if board[nx][ny] == recolor:\n                    cnt += 1\n                elif board[nx][ny] == color:\n                    if cnt >= 1: return True\n                    break\n                elif board[nx][ny] == '.':\n                    break\n                nx += dir[0]\n                ny += dir[1]\n        return False",
-            "date": 1720281600000
+            "date": "2024-07-07"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "枚举",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

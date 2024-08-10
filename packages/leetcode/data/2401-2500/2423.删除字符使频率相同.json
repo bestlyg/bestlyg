@@ -2,8 +2,6 @@
     "id": "2532",
     "name": "2423.删除字符使频率相同",
     "url": "https://leetcode.cn/problems/remove-letter-to-equalize-frequency",
-    "difficulty": "简单",
-    "tag": ["哈希表", "字符串", "计数"],
     "desc": "给你一个下标从 0 开始的字符串 word ，字符串只包含小写英文字母。你需要选择 一个 下标并 删除 下标处的字符，使得 word 中剩余每个字母出现 频率 相同。如果删除一个字母后，word 中剩余所有字母的出现频率都相同，那么返回 true ，否则返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 6,
             "desc": "模拟。",
             "code": "class Solution {\npublic:\n    bool equalFrequency(string word) {\n        int cnt[26] = {0};\n        for (auto &c : word) cnt[c - 'a']++;\n        map<int, vector<int>> m;\n        for (int i = 0; i < 26; i++) \n            if (cnt[i]) m[cnt[i]].push_back(i);\n        // 如果都是一个频率，只有在频率都是1或者数量为1的时候才可以\n        if (m.size() == 1) return m.begin()->first == 1 || m.begin()->second.size() == 1;\n        // 超过两个频率就报错\n        if (m.size() != 2) return false;\n        int pi = -1;\n        vector<int> pl;\n        for (auto &item : m) {\n            int ci = item.first;\n            vector<int> cl = item.second;\n            if (pi == -1) pi = ci, pl = cl;\n            // 如果有一个频率是1且数量是1， 可以直接删\n            else if (pi == 1 && pl.size() == 1 || ci == 1 && cl.size() == 1) return true;\n            // 如果两个频率不差1， 就报错\n            else if (pi + 1 != ci) return false;\n            // 如果高频率不是只有1个，就报错\n            else if (cl.size() != 1) return false;\n        }\n        return true;\n    }\n};",
-            "date": 1682697600000
+            "date": "2023-04-29"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串",
+        "计数"
+    ],
+    "level": "Easy"
 }

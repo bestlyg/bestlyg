@@ -2,8 +2,6 @@
     "id": "2800",
     "name": "2696.删除子串后的字符串最小长度",
     "url": "https://leetcode.cn/problems/minimum-string-length-after-removing-substrings",
-    "difficulty": "简单",
-    "tag": ["栈", "字符串", "模拟"],
     "desc": "返回可获得的最终字符串的 最小 可能长度。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 17.09,
             "desc": "用栈储存遍历过的元素。",
             "code": "class Solution:\n    def minLength(self, s: str) -> int:\n        stack = []\n        for c in s:\n            if stack and stack[-1] == 'A' and c == 'B' or stack and stack[-1] == 'C' and c == 'D': stack.pop()\n            else: stack.append(c)\n        return len(stack)",
-            "date": 1704816000000
+            "date": "2024-01-10"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "字符串",
+        "模拟"
+    ],
+    "level": "Easy"
 }

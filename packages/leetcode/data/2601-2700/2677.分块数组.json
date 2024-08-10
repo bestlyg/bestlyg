@@ -2,8 +2,6 @@
     "id": "2798",
     "name": "2677.分块数组",
     "url": "https://leetcode.cn/problems/chunk-array",
-    "difficulty": "简单",
-    "tag": [],
     "desc": "给定一个数组 arr 和一个块大小 size ，返回一个 分块 的数组。分块 的数组包含了 arr 中的原始元素，但是每个子数组的长度都是 size 。如果 arr.length 不能被 size 整除，那么最后一个子数组的长度可能小于 size 。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 45.5,
             "desc": "利用余数为0判断是否产生分割。",
             "code": "function chunk(arr: any[], size: number): any[][] {\n    const res: any[][] = [];\n    const item: any[] = [];\n    for (let i = 1; i <= arr.length; i++) {\n        item.push(arr[i - 1]);\n        if (i % size === 0) res.push([...item]), (item.length = 0);\n    }\n    if (item.length) res.push([...item]);\n    return res;\n}",
-            "date": 1684166400000
+            "date": "2023-05-16"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Easy"
 }

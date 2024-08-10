@@ -2,8 +2,6 @@
     "id": "1000056",
     "name": "LCP06.拿硬币",
     "url": "https://leetcode.cn/problems/na-ying-bi",
-    "difficulty": "简单",
-    "tag": ["数组", "数学"],
     "desc": "桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 8.17,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int minCount(vector<int>& coins) {\n        int res = 0;\n        for (auto &coin : coins) res += ceil(1.0 * coin / 2);\n        return res;\n    }\n};",
-            "date": 1695139200000
+            "date": "2023-09-20"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16,
             "desc": "同上。",
             "code": "class Solution:\n    def minCount(self, coins: List[int]) -> int:\n        return sum(ceil(coin / 2) for coin in coins)",
-            "date": 1695139200000
+            "date": "2023-09-20"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.3,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_count(coins: Vec<i32>) -> i32 {\n        coins\n            .into_iter()\n            .map(|coin| (coin as f64 / 2.0).ceil() as i32)\n            .sum()\n    }\n}",
-            "date": 1695139200000
+            "date": "2023-09-20"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学"
+    ],
+    "level": "Easy"
 }

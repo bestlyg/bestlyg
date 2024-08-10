@@ -2,8 +2,6 @@
     "id": "2344",
     "name": "2258.逃离火灾",
     "url": "https://leetcode.cn/problems/escape-the-spreading-fire",
-    "difficulty": "困难",
-    "tag": ["广度优先搜索", "数组", "二分查找", "矩阵"],
     "desc": "请你返回你在初始位置可以停留的 最多 分钟数，且停留完这段时间后你还能安全到达安全屋。如果无法实现，请你返回 -1 。如果不管你在初始位置停留多久，你 总是 能到达安全屋，请你返回 109 。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 17.25,
             "desc": "bfs记录火蔓延的时间点，通过二分获取最大可能值。",
             "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n\nclass Solution:\n    def maximumMinutes(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        m = len(grid[0])\n        times = [[inf] * m for _ in range(n)]\n        checks = [[False] * m for _ in range(n)]\n        q = deque()\n        for i in range(n):\n            for j in range(m):\n                if grid[i][j] == 1:\n                    q.append((i, j))\n                    times[i][j] = 0\n        \n        size = len(q)\n        time = 1\n        while q:\n            i, j = q.popleft()\n            for dir in dirs:\n                nexti = i + dir[0]\n                nextj = j + dir[1]\n                if 0 <= nexti < n and 0 <= nextj < m and grid[nexti][nextj] != 2 and times[nexti][nextj] == inf:\n                    q.append((nexti, nextj))\n                    times[nexti][nextj] = time\n            size -= 1\n            if size == 0:\n                size = len(q)\n                time += 1\n\n        def check(time: int) -> bool:\n            for i in range(n):\n                for j in range(m):\n                    checks[i][j] = False\n            q.clear()\n            time += 1\n            q.append((0, 0))\n            size = 1\n            while q:\n                i, j = q.popleft()\n                for dir in dirs:\n                    nexti = i + dir[0]\n                    nextj = j + dir[1]\n                    if 0 <= nexti < n and 0 <= nextj < m and grid[nexti][nextj] == 0:\n                        if nexti == n - 1 and nextj == m - 1 and times[nexti][nextj] >= time:\n                            return True\n                        if times[nexti][nextj] > time and (not checks[nexti][nextj]):\n                            checks[nexti][nextj] = True\n                            q.append((nexti, nextj))\n                size -= 1\n                if size == 0:\n                    size = len(q)\n                    time += 1\n            return False\n\n        l = -1\n        r = 10 ** 9\n        while l < r:\n            mid = (l + r + 1) // 2\n            if check(mid): l = mid\n            else: r = mid - 1\n\n        return l",
-            "date": 1699459200000
+            "date": "2023-11-09"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "二分查找",
+        "矩阵"
+    ],
+    "level": "Hard"
 }

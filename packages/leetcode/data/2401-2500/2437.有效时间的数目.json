@@ -2,8 +2,6 @@
     "id": "2528",
     "name": "2437.有效时间的数目",
     "url": "https://leetcode.cn/problems/number-of-valid-clock-times",
-    "difficulty": "简单",
-    "tag": ["字符串", "枚举"],
     "desc": "请你返回一个整数 answer ，将每一个 ? 都用 0 到 9 中一个数字替换后，可以得到的有效时间的数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 5.9,
             "desc": "枚举。",
             "code": "class Solution {\npublic:\n    int countTime(string time) {\n        vector<int> idxs;\n        for (int i = 0; i < time.size(); i++) {\n            if (time[i] == '?') idxs.push_back(i);\n        }\n        int res = 0;\n        if (idxs.empty()) {\n            return check(time) ? 1 : 0;\n        }\n        function<void(int, string)> dfs = [&](int idx, string time) {\n            if (idx == idxs.size()) {\n                if (check(time)) res++;\n                return;\n            }\n            for (int i = 0; i <= 9; i++) {\n                time[idxs[idx]] = i + '0';\n                dfs(idx + 1, time);\n            }\n        };\n        dfs(0, time);\n        return res;\n    }\n    bool check(string &time) {\n        int h = (time[0] - '0') * 10 + (time[1] - '0'), \n            m = (time[3] - '0') * 10 + (time[4] - '0'); \n        if (h >= 24 || m >= 60) return false;\n        return true;\n    }\n};",
-            "date": 1683561600000
+            "date": "2023-05-09"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.9,
             "desc": "同上。",
             "code": "class Solution:\n    def countTime(self, time: str) -> int:\n        time = list(time)\n        def check(time: str) -> bool:\n            h = (ord(time[0]) - ord('0')) * 10 + ord(time[1]) - ord('0')\n            m = (ord(time[3]) - ord('0')) * 10 + ord(time[4]) - ord('0')\n            return h < 24 and m < 60\n        idxs = []\n        for i in range(len(time)):\n            if time[i] == '?':\n                idxs.append(i)\n        if len(idxs) == 0:\n            return 1 if check(time) else 0\n        res = 0\n\n        def dfs(idx: int, time: List[str]):\n            nonlocal res\n            if idx == len(idxs):\n                if check(time):\n                    res += 1\n            else:\n                for i in range(0, 10):\n                    time[idxs[idx]] = chr(i + ord('0'))\n                    dfs(idx+1, time)\n        dfs(0, time)\n        return res",
-            "date": 1683561600000
+            "date": "2023-05-09"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 1.9,
             "desc": "同上。",
             "code": "fn str_to_vec(s: &String) -> Vec<char> {\n    s.chars().collect()\n}\nimpl Solution {\n    pub fn count_time(time: String) -> i32 {\n        let time = str_to_vec(&time);\n        let mut idxs = vec![];\n        for i in 0..time.len() {\n            if time[i] == '?' {\n                idxs.push(i);\n            }\n        }\n        if idxs.is_empty() {\n            if Solution::check(&time) {\n                1\n            } else {\n                0\n            }\n        } else {\n            let mut res = 0;\n            Solution::dfs(&mut res, &idxs, 0, time);\n            res\n        }\n    }\n    fn check(time: &Vec<char>) -> bool {\n        let h = (time[0] as u8 - b'0') * 10 + (time[1] as u8 - b'0');\n        let m = (time[3] as u8 - b'0') * 10 + (time[4] as u8 - b'0');\n        h < 24 && m < 60\n    }\n    fn dfs(res: &mut i32, idxs: &Vec<usize>, idx: usize, mut time: Vec<char>) {\n        if idx == idxs.len() {\n            if Solution::check(&time) {\n                *res += 1;\n            }\n        } else {\n            for i in 0..10 {\n                time[idxs[idx]] = (i + b'0') as char;\n                Solution::dfs(res, idxs, idx + 1, time.clone());\n            }\n        }\n    }\n}",
-            "date": 1683561600000
+            "date": "2023-05-09"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "枚举"
+    ],
+    "level": "Easy"
 }

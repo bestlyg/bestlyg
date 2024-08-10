@@ -2,17 +2,20 @@
     "id": "686",
     "name": "686.重复叠加字符串匹配",
     "url": "https://leetcode.cn/problems/repeated-string-match",
-    "difficulty": "中等",
-    "tag": ["字符串", "字符串匹配"],
     "desc": "给定两个字符串 a 和 b，寻找重复叠加字符串 a 的最小次数，使得字符串 b 成为叠加后的字符串 a 的子串，如果不存在则返回 -1。",
     "solutions": [
         {
-            "date": 1640102400000,
+            "date": "2021-12-22",
             "time": 72,
             "memory": 39.5,
             "script": "cpp",
             "desc": "判断最大重复次数是否满足 b。",
             "code": "function repeatedStringMatch(a: string, b: string): number {\n          let cnt = Math.ceil(b.length / a.length);\n          if (a.repeat(cnt).includes(b)) return cnt;\n          if (a.repeat(cnt + 1).includes(b)) return cnt + 1;\n          return -1;\n        }"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "字符串匹配"
+    ],
+    "level": "Medium"
 }

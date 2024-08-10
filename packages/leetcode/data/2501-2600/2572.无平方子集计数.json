@@ -2,8 +2,6 @@
     "id": "2709",
     "name": "2572.无平方子集计数",
     "url": "https://leetcode.cn/problems/count-the-number-of-square-free-subsets",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "数学", "动态规划", "状态压缩"],
     "desc": "返回数组 nums 中 无平方 且 非空 的子集数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 90.5,
             "desc": "状态压缩+dp，对于每个数字找前面所有可能不重合的数字。",
             "code": "class Solution {\n    typedef long long ll;\n    const int mod = 1e9 + 7;\n    const int MAXK = 10;\n    int prime[10] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};\n    bool check(int num) {\n        for (int i = 0; i < MAXK; i++) {\n            if (num % (int)pow(prime[i], 2) == 0) return true;\n        }\n        return false;\n    }\npublic:\n    int squareFreeSubsets(vector<int>& nums) {\n        nums = filter(nums);\n        int n = nums.size(), ans = 0;\n        vector<vector<ll>> dp(n + 1, vector<ll>(1 << MAXK, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            int num = nums[i - 1], mask = 0;\n            for (int j = 0; j < (1 << MAXK); j++) dp[i][j] = dp[i - 1][j];\n            for (int i = 0; i < MAXK; i++)\n                if (num % prime[i] == 0) mask |= (1 << i);\n            for (int j = 0; j < (1 << MAXK); j++)\n                if ((mask & j) == 0) dp[i][mask | j] = (dp[i][mask | j] + dp[i - 1][j]) % mod;\n        }\n        for (int j = 0; j < (1 << MAXK); j++) ans = (ans + dp[n][j]) % mod;\n        ans = (ans - 1 + mod) % mod;\n        return ans;\n    }\n    vector<int> filter(vector<int> &nums) {\n        vector<int> res;\n        for (auto &num : nums) {\n            if (!check(num)) res.push_back(num);\n        }\n        return res;\n    }\n};",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 28.6,
             "desc": "同上。",
             "code": "class Solution:\n    def squareFreeSubsets(self, nums: List[int]) -> int:\n        mod = 1e9 + 7\n        MAXK = 10\n        prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]\n\n        def check(num: int) -> bool:\n            for i in range(MAXK):\n                if num % pow(prime[i], 2) == 0:\n                    return True\n            return False\n\n        def filter(nums: List[int]) -> List[int]:\n            res = []\n            for num in nums:\n                if not check(num):\n                    res.append(num)\n            return res\n\n        nums = filter(nums)\n        n = len(nums)\n        ans = 0\n        dp = [[0] * (1 << MAXK) for _ in range(n+1)]\n        dp[0][0] = 1\n        for i in range(1, n+1):\n            num = nums[i-1]\n            mask = 0\n            for j in range(1 << MAXK):\n                dp[i][j] = dp[i-1][j]\n            for k in range(MAXK):\n                if num % prime[k] == 0:\n                    mask |= (1 << k)\n            for j in range(1 << MAXK):\n                if (mask & j) == 0:\n                    dp[i][mask | j] = (dp[i][mask | j] + dp[i-1][j]) % mod\n        for j in range(1 << MAXK):\n            ans = (ans + dp[n][j]) % mod\n        ans = (ans - 1 + mod) % mod\n        return int(ans)",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "rust",
@@ -28,7 +26,15 @@
             "memory": 4.4,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn square_free_subsets(nums: Vec<i32>) -> i32 {\n        let MOD = 1000000000 + 7;\n        let MAXK = 10;\n        let prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];\n        let check = |num: i32| -> bool {\n            for v in prime.iter() {\n                if num % (*v as i32).pow(2) == 0 {\n                    return true;\n                }\n            }\n            false\n        };\n        let mut nums = nums\n            .into_iter()\n            .filter(|num| !check(*num))\n            .collect::<Vec<i32>>();\n        let n = nums.len();\n        let mut dp = vec![vec![0; 1 << MAXK]; n + 1];\n        dp[0][0] = 1;\n        for i in 1..=n {\n            let num = nums[i - 1];\n            let mut mask = 0;\n            for j in 0..(1 << MAXK) {\n                dp[i][j] = dp[i - 1][j];\n            }\n            for i in 0..MAXK {\n                if num % prime[i] == 0 {\n                    mask |= 1 << i;\n                }\n            }\n            for j in 0..(1 << MAXK) {\n                if (mask & j) == 0 {\n                    dp[i][mask | j] = (dp[i][mask | j] + dp[i - 1][j]) % MOD;\n                }\n            }\n        }\n        let mut ans = 0;\n        for j in 0..(1 << MAXK) {\n            ans = (ans + dp[n][j]) % MOD;\n        }\n        ans = (ans - 1 + MOD) % MOD;\n        ans\n    }\n}",
-            "date": 1676736000000
+            "date": "2023-02-19"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "数学",
+        "动态规划",
+        "状态压缩"
+    ],
+    "level": "Medium"
 }

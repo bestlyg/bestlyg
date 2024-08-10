@@ -2,12 +2,10 @@
     "id": "274",
     "name": "274.H指数",
     "url": "https://leetcode.cn/problems/h-index",
-    "difficulty": "中等",
-    "tag": ["数组", "计数排序", "排序"],
     "desc": "给定一位研究者论文被引用次数的数组（被引用次数是非负整数）。编写一个方法，计算出研究者的 h 指数。",
     "solutions": [
         {
-            "date": 1625932800000,
+            "date": "2021-07-11",
             "time": 64,
             "memory": 40.5,
             "script": "typescript",
@@ -20,7 +18,13 @@
             "memory": 16.2,
             "desc": "遍历。",
             "code": "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        n = len(citations)\n        citations.sort()\n        res = 0\n        for i in range(n):\n            if n - i <= citations[i]: res = max(res, n - i)\n        return res",
-            "date": 1698508800000
+            "date": "2023-10-29"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "计数排序",
+        "排序"
+    ],
+    "level": "Medium"
 }

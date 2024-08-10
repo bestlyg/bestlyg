@@ -2,8 +2,6 @@
     "id": "1753",
     "name": "1631.最小体力消耗路径",
     "url": "https://leetcode.cn/problems/path-with-minimum-effort",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "二分查找", "矩阵", "堆（优先队列）"],
     "desc": "一条路径耗费的 体力值 是路径上相邻格子之间 高度差绝对值 的 最大值 决定的。请你返回从左上角走到右下角的最小 体力消耗值 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 29.27,
             "desc": "两个单调栈。",
             "code": "class Solution:\n    def secondGreaterElement(self, nums: List[int]) -> List[int]:\n        s1, s2, s3 = [], [], []\n        res = [-1] * len(nums)\n        for i in range(len(nums)):\n            while s2 and nums[s2[-1]] < nums[i]: res[s2.pop()] = nums[i]\n            while s1 and nums[s1[-1]] < nums[i]: s3.append(s1.pop())\n            while s3: s2.append(s3.pop())\n            s1.append(i)\n        return res",
-            "date": 1702310400000
+            "date": "2023-12-12"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 89.23,
             "desc": "同上。",
             "code": "class Solution {\npublic:\n    vector<int> secondGreaterElement(vector<int>& nums) {\n        vector<int> s1, s2, s3, res(nums.size(), -1);\n        for (int i = 0; i < nums.size(); i++) {\n            while (s2.size() && nums[s2.back()] < nums[i]) res[s2.back()] = nums[i], s2.pop_back();\n            while (s1.size() && nums[s1.back()] < nums[i]) s3.push_back(s1.back()), s1.pop_back();\n            while (s3.size()) s2.push_back(s3.back()), s3.pop_back();\n            s1.push_back(i);\n        }\n        return res;\n    }\n};",
-            "date": 1702310400000
+            "date": "2023-12-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,17 @@
             "memory": 4.16,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn second_greater_element(nums: Vec<i32>) -> Vec<i32> {\n        let mut s1 = vec![];\n        let mut s2 = vec![];\n        let mut s3 = vec![];\n        let mut res = vec![-1; nums.len()];\n        for i in 0..nums.len() {\n            while !s2.is_empty() && nums[*s2.last().unwrap()] < nums[i] {\n                res[s2.pop().unwrap()] = nums[i];\n            }\n            while !s1.is_empty() && nums[*s1.last().unwrap()] < nums[i] {\n                s3.push(s1.pop().unwrap());\n            }\n            while !s3.is_empty() {\n                s2.push(s3.pop().unwrap());\n            }\n            s1.push(i);\n        }\n        res\n    }\n}",
-            "date": 1702310400000
+            "date": "2023-12-12"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "二分查找",
+        "矩阵",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

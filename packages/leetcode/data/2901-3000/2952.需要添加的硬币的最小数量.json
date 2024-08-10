@@ -2,8 +2,6 @@
     "id": "3231",
     "name": "2952.需要添加的硬币的最小数量",
     "url": "https://leetcode.cn/problems/minimum-number-of-coins-to-be-added",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "请你找出 nums 中 元素和最小 的山形三元组，并返回其 元素和 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 27.09,
             "desc": "记录当前所能表示的区间内，再依次增加数据。",
             "code": "class Solution:\n    def minimumAddedCoins(self, coins: List[int], target: int) -> int:\n        coins.sort()\n        ans = 0\n        idx = 0\n        end = 1 # [0, end - 1]\n        while end - 1 < target:\n            if idx < len(coins) and coins[idx] <= end:\n                end += coins[idx]\n                idx += 1\n            else:\n                end += end\n                ans += 1\n        return ans",
-            "date": 1711814400000
+            "date": "2024-03-31"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Medium"
 }

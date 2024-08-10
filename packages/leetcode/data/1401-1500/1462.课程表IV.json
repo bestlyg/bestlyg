@@ -2,8 +2,6 @@
     "id": "1558",
     "name": "1462.课程表IV",
     "url": "https://leetcode.cn/problems/course-schedule-iv",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "你也得到一个数组 queries ，其中 queries[j] = [uj, vj]。对于第 j 个查询，您应该回答课程 uj 是否是课程 vj 的先决条件。返回一个布尔数组 answer ，其中 answer[j] 是第 j 个查询的答案。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 164.73,
             "desc": "提前预处理。",
             "code": "class Solution {\npublic:\n    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {\n        vector<unordered_set<int>> parr(numCourses);\n        for (auto &item : prerequisites) {\n            parr[item[1]].insert(item[0]);\n        }\n        unordered_map<int, unordered_set<int>> m;\n        function<unordered_set<int>(int)> find_parent = [&](int idx) {\n            if (m.count(idx)) return m[idx];\n            unordered_set<int> res(parr[idx].begin(), parr[idx].end());\n            if (parr[idx].size()) {\n                for (auto &p : parr[idx]) {\n                    for (auto &item : find_parent(p)) {\n                        res.insert(item);\n                    }\n                }\n            }\n            return m[idx] = res;\n        };\n        for (int idx = 0; idx < numCourses; idx++) {\n            parr[idx] = find_parent(idx);\n        }\n        vector<bool> res;\n        for (auto &query : queries) {\n            res.push_back(parr[query[1]].count(query[0]));\n        }\n        return res;\n    }\n};",
-            "date": 1694448000000
+            "date": "2023-09-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 19.1,
             "desc": "同上。",
             "code": "class Solution:\n    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:\n        parr = [set() for _ in range(numCourses)]\n        for [item1, item2] in prerequisites:\n            parr[item2].add(item1)\n        @cache\n        def find_parent(idx: int) -> set:\n            res = set(parr[idx])\n            if len(parr[idx]):\n                for p in parr[idx]:\n                    res |= find_parent(p)\n            return res\n        for idx in range(numCourses):\n            parr[idx] = find_parent(idx)\n        return [query[0] in parr[query[1]] for query in queries]",
-            "date": 1694448000000
+            "date": "2023-09-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 3.11,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn check_if_prerequisite(\n        num_courses: i32,\n        prerequisites: Vec<Vec<i32>>,\n        queries: Vec<Vec<i32>>,\n    ) -> Vec<bool> {\n        use std::collections::{HashMap, HashSet};\n        let num_courses = num_courses as usize;\n        let mut parr = vec![HashSet::<usize>::new(); num_courses];\n        for item in prerequisites {\n            let (item1, item2) = (item[0] as usize, item[1] as usize);\n            parr[item2].insert(item1);\n        }\n        let mut m = HashMap::new();\n        fn dfs(m: &mut HashMap<usize, HashSet<usize>>, parr: &Vec<HashSet<usize>>, idx: usize) {\n            if m.contains_key(&idx) {\n                return;\n            }\n            let mut item = HashSet::new();\n            for p in &parr[idx] {\n                item.insert(*p);\n                dfs(m, parr, *p);\n                for p in m.get(p).unwrap() {\n                    item.insert(*p);\n                }\n            }\n            m.insert(idx, item);\n        }\n        for idx in 0..num_courses {\n            dfs(&mut m, &parr, idx);\n        }\n        queries\n            .into_iter()\n            .map(|query| {\n                m.get(&(query[1] as usize))\n                    .unwrap()\n                    .contains(&(query[0] as usize))\n            })\n            .collect()\n    }\n}",
-            "date": 1694448000000
+            "date": "2023-09-12"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+    ],
+    "level": "Medium"
 }

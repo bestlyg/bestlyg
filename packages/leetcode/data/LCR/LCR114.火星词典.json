@@ -2,17 +2,24 @@
     "id": "1000312",
     "name": "LCR114.火星词典",
     "url": "https://leetcode.cn/problems/Jf1JuT",
-    "difficulty": "困难",
-    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序", "数组", "字符串"],
     "desc": "请你根据该词典还原出此语言中已知的字母顺序，并 按字母递增顺序 排列。若不存在合法字母顺序，返回 \"\" 。若存在多种可能的合法字母顺序，返回其中 任意一种 顺序即可。",
     "solutions": [
         {
-            "date": 1653926400000,
+            "date": "2022-05-31",
             "time": 84,
             "memory": 45.8,
             "script": "typescript",
             "desc": "拓扑排序+bfs。",
             "code": "class MyNode {\n  next = new Set<MyNode>();\n  parent = new Set<MyNode>();\n  constructor(public val: string) {}\n}\nfunction alienOrder(words: string[]): string {\n  const map = new Map<string, MyNode>();\n  const n = words.length;\n  let error = false;\n  for (let i = 0; i < n; i++) {\n    for (const ch of words[i]) {\n      if (!map.has(ch)) map.set(ch, new MyNode(ch));\n    }\n    if (i >= 1) comp(i - 1, i);\n    if (error) return '';\n  }\n  const q: MyNode[] = [];\n  for (const node of map.values()) {\n    if (node.parent.size === 0) q.push(node);\n  }\n  const set = new Set<MyNode>();\n  let ans = '';\n  while (q.length) {\n    const node = q.shift()!;\n    if (set.has(node)) continue;\n    set.add(node);\n    ans += node.val;\n    for (const child of node.next) {\n      child.parent.delete(node);\n      if (child.parent.size === 0) {\n        q.push(child);\n      }\n    }\n  }\n  if (ans.length !== map.size) return '';\n  return ans;\n  function comp(idx1: number, idx2: number) {\n    const word1 = words[idx1];\n    const word2 = words[idx2];\n    const n = Math.min(word1.length, word2.length);\n    for (let i = 0; i < n; i++) {\n      if (word1[i] !== word2[i]) {\n        const n1 = map.get(word1[i])!;\n        const n2 = map.get(word2[i])!;\n        n1.next.add(n2);\n        n2.parent.add(n1);\n        return;\n      }\n    }\n    if (word1.length > word2.length) error = true;\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序",
+        "数组",
+        "字符串"
+    ],
+    "level": "Hard"
 }

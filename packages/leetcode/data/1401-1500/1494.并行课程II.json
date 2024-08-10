@@ -2,8 +2,6 @@
     "id": "1587",
     "name": "1494.并行课程II",
     "url": "https://leetcode.cn/problems/parallel-courses-ii",
-    "difficulty": "困难",
-    "tag": ["位运算", "图", "动态规划", "状态压缩"],
     "desc": "给你一个整数 n 表示某所大学里课程的数目，编号为 1 到 n ，数组 relations 中， relations[i] = [xi, yi]  表示一个先修课的关系，也就是课程 xi 必须在课程 yi 之前上。同时你还有一个整数 k 。在一个学期中，你 最多 可以同时上 k 门课，前提是这些课的先修课在之前的学期里已经上过了。请你返回上完所有课最少需要多少个学期。",
     "solutions": [
         {
@@ -12,7 +10,14 @@
             "memory": 168.4,
             "desc": "dfs遍历，判断同一期每个点上课的情况。",
             "code": "#define SIZE 13\nstruct Node {\n    int idx, child_cnt;\n    unordered_set<int> parents, children;\n\n};\nclass Solution {\npublic:\n    int minNumberOfSemesters(int n, vector<vector<int>>& relations, int k) {\n        vector<Node> list(n);\n\n        for (int i = 0; i < n; i++) {\n            list[i].idx = i;\n            list[i].child_cnt = 0;\n        }\n\n        for (auto &item : relations) {\n            list[item[1] - 1].parents.insert(item[0] - 1);\n            list[item[0] - 1].children.insert(item[1] - 1);\n        }\n\n        // for (int i = 0; i < n; i++) {\n        //     cout << \"i = \" << i\n        //          << \", parent = \";\n        //     for (auto &p : list[i].parents) cout << p << \", \";\n        //     cout << \", children = \";\n        //     for (auto &c : list[i].children) cout << c << \", \";\n        //     cout << endl;\n        // }\n\n        int empty = 0, res = INT_MAX;\n        for (int i = 0; i < n; i++) {\n            if (list[i].parents.size() == 0) empty |= 1 << i;\n        }\n\n        unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>> cache;\n        function<int(int, int, int, int)> dfs = [&](int empty, int used, int cur_res, int cur_k){\n            if (cache[empty][used][cur_res][cur_k]) return cache[empty][used][cur_res][cur_k];\n            // cout << \"dfs \"\n            //      << \", empty = \" << bitset<SIZE>(empty).to_string()\n            //      << \", used = \" << bitset<SIZE>(used).to_string()\n            //      << \", cur_res = \" << cur_res\n            //      << \", cur_k = \" << cur_k\n            //      << endl;\n            if (used == (1 << n) - 1) {\n                if (cur_k) cur_res += 1;\n                return cache[empty][used][cur_res][cur_k] = cur_res;\n            }\n\n            if (cur_k == k || empty == 0) {\n                int next_empty = empty;\n                for (int i = 0; i < n; i++) {\n                    if ((used & (1 << i)) == 0 && list[i].parents.size() == 0) next_empty |= 1 << i;\n                }\n                return cache[empty][used][cur_res][cur_k] = dfs(next_empty, used, cur_res + 1, 0);\n            }\n\n            int res = INT_MAX;\n            for (int i = 0; i < n; i++) {\n                if (empty & (1 << i)) {\n                    for (auto &c : list[i].children) list[c].parents.erase(i);\n                    res = min(res, dfs(empty & ~(1 << i), used | (1 << i), cur_res, cur_k + 1));\n                    for (auto &c : list[i].children) list[c].parents.insert(i);\n                }\n            }\n            return cache[empty][used][cur_res][cur_k] = res;\n        };\n\n        return dfs(empty, 0, 0, 0);\n    }\n};",
-            "date": 1686844800000
+            "date": "2023-06-16"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "图",
+        "动态规划",
+        "状态压缩"
+    ],
+    "level": "Hard"
 }

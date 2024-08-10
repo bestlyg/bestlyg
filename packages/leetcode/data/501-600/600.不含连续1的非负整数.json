@@ -2,12 +2,10 @@
     "id": "600",
     "name": "600.不含连续1的非负整数",
     "url": "https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones",
-    "difficulty": "困难",
-    "tag": ["动态规划"],
     "desc": "给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 连续的 1 的个数。",
     "solutions": [
         {
-            "date": 1631289600000,
+            "date": "2021-09-11",
             "time": 84,
             "memory": 39.8,
             "script": "typescript",
@@ -20,7 +18,11 @@
             "memory": 16.46,
             "desc": "数位dp。",
             "code": "N = len(bin(10 ** 9)) - 2\narr = [0] * (N + 1)\narr[0] = arr[1] = 1\ntmp_sum = 1\nfor i in range(2, N + 1):\n    arr[i] = tmp_sum\n    tmp_sum += arr[i - 1]\n\nclass Solution:\n    def findIntegers(self, num: int) -> int:\n        if num == 0: return 1\n        n = len(bin(num)) - 2\n        res = sum(arr[:n])\n        next_num = num\n        if bin(next_num)[2:4] == '11':\n            next_num = (1 << (n - 1)) + (1 << (n - 2)) - 1\n        return sum(arr[:n]) + self.findIntegers(next_num - (1 << (n - 1)))",
-            "date": 1722787200000
+            "date": "2024-08-05"
         }
-    ]
+    ],
+    "tagList": [
+        "动态规划"
+    ],
+    "level": "Hard"
 }

@@ -2,17 +2,21 @@
     "id": "1227",
     "name": "1128.等价多米诺骨牌对的数量",
     "url": "https://leetcode.cn/problems/number-of-equivalent-domino-pairs",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "计数"],
     "desc": "给你一个由一些多米诺骨牌组成的列表 dominoes。在  0 <= i < j < dominoes.length  的前提下，找出满足  dominoes[i] 和  dominoes[j]  等价的骨牌对 (i, j) 的数量。",
     "solutions": [
         {
-            "date": 1611590400000,
+            "date": "2021-01-26",
             "time": 128,
             "memory": 48.9,
             "script": "typescript",
             "desc": "用哈希表储存结果后进行筛选。",
             "code": "function numEquivDominoPairs(dominoes: number[][]): number {\n  const map: Record<string, number> = {};\n  const format = (n1: number, n2: number) => `${n1}-${n2}`;\n  for (let [n1, n2] of dominoes) {\n    if (n1 > n2) [n1, n2] = [n2, n1];\n    const str = format(n1, n2);\n    map[str] = 1 + (map[str] ?? 0);\n  }\n  return Object.entries(map)\n    .filter(([, v]) => v > 1)\n    .reduce((total, [, count]) => total + (count * (count - 1)) / 2, 0);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "level": "Easy"
 }

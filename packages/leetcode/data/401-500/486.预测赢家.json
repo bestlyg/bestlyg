@@ -2,17 +2,23 @@
     "id": "486",
     "name": "486.预测赢家",
     "url": "https://leetcode.cn/problems/predict-the-winner",
-    "difficulty": "中等",
-    "tag": ["递归", "数组", "数学", "动态规划", "博弈"],
     "desc": "请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。",
     "solutions": [
         {
-            "date": 1598976000000,
+            "date": "2020-09-02",
             "time": 120,
             "memory": 40.2,
             "script": "typescript",
             "desc": "直接利用正则判断。",
             "code": "function isNumber(s: string): boolean {\n  return /^[+-]?(\\d+(\\.\\d*)?|(\\.\\d+))(e[+-]?\\d+)?$/i.test(s.trim());\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "递归",
+        "数组",
+        "数学",
+        "动态规划",
+        "博弈"
+    ],
+    "level": "Medium"
 }

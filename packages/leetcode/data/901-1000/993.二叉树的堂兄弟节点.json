@@ -2,12 +2,10 @@
     "id": "1035",
     "name": "993.二叉树的堂兄弟节点",
     "url": "https://leetcode.cn/problems/cousins-in-binary-tree",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "desc": "如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点。",
     "solutions": [
         {
-            "date": 1621180800000,
+            "date": "2021-05-17",
             "time": 116,
             "memory": 39.3,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function isCousins(root: TreeNode | null, x: number, y: number): boolean {\n  if (root === null) return false;\n  const findGrandParent = (\n    val: number,\n    queue: TreeNode[],\n    node: TreeNode | null = root\n  ): boolean => {\n    if (node === null) return false;\n    queue.unshift(node);\n    if (node.val === val) return true;\n    if (findGrandParent(val, queue, node.left)) return true;\n    if (findGrandParent(val, queue, node.right)) return true;\n    queue.shift();\n    return false;\n  };\n  const queueX: TreeNode[] = [];\n  findGrandParent(x, queueX);\n  const queueY: TreeNode[] = [];\n  findGrandParent(y, queueY);\n  if (queueX.length < 3 || queueY.length < 3) return false;\n  return queueX[1] !== queueY[1] && queueX.length === queueY.length;\n}"
         },
         {
-            "date": 1627142400000,
+            "date": "2021-07-25",
             "time": 72,
             "memory": 39.6,
             "script": "typescript",
@@ -24,11 +22,18 @@
         },
         {
             "script": "python",
-            "date": 1707321600000,
+            "date": "2024-02-08",
             "time": 41,
             "memory": 16.5,
             "desc": "遍历记录父亲和level。",
             "code": "class Solution:\n    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:\n        map = {}\n        xlevel = ylevel = 0\n        xnode, ynode = None, None\n        def dfs(node: Optional[TreeNode], level = 0):\n            nonlocal xnode, ynode, xlevel, ylevel\n            if not node: return\n            if node.val == x:\n                xnode = node\n                xlevel = level\n            if node.val == y:\n                ynode = node\n                ylevel = level\n            if node.left:\n                map[node.left] = node\n                dfs(node.left, level + 1)\n            if node.right:\n                map[node.right] = node\n                dfs(node.right, level + 1)\n        dfs(root)\n        if xlevel != ylevel: return False\n        if map[xnode] == map[ynode]: return False\n        return True"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

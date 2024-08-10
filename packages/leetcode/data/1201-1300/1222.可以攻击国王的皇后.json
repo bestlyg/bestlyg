@@ -2,8 +2,6 @@
     "id": "1342",
     "name": "1222.可以攻击国王的皇后",
     "url": "https://leetcode.cn/problems/queens-that-can-attack-the-king",
-    "difficulty": "中等",
-    "tag": ["数组", "矩阵", "模拟"],
     "desc": "在一个 8x8 的棋盘上，放置着若干「黑皇后」和一个「白国王」。给定一个由整数坐标组成的数组 queens ，表示黑皇后的位置；以及一对坐标 king ，表示白国王的位置，返回所有可以攻击国王的皇后的坐标(任意顺序)。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 10.97,
             "desc": "方向数组遍历。",
             "code": "vector<vector<int>> dirs2 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};\n\nclass Solution {\npublic:\n    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {\n        vector<vector<bool>> board(8, vector<bool>(8, false));\n        for (auto &q : queens) board[q[0]][q[1]] = true;\n        vector<vector<int>> res;\n        auto check = [&](vector<int> pos, vector<int> &dir) {\n            for (int i = 1; i < 8; i++) {\n                pos[0] += dir[0];\n                pos[1] += dir[1];\n                if (0 <= pos[0] && pos[0] < 8 && 0 <= pos[1] && pos[1] < 8) {\n                    if (board[pos[0]][pos[1]]) {\n                        res.push_back(pos);\n                        return;\n                    }\n                } else return;\n            }\n        };\n        for (auto &d : dirs2) check(king, d);\n        return res;\n    }\n};",
-            "date": 1694620800000
+            "date": "2023-09-14"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16,
             "desc": "同上。",
             "code": "class Solution:\n    def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:\n        dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0),\n                    (1, 1), (1, -1), (-1, 1), (-1, -1)]\n        board = [[False for j in range(8)] for i in range(8)]\n        for [x, y] in queens:\n            board[x][y] = True\n        res = []\n        for i in range(1, 8):\n            if not dirs2: break\n            for j in range(len(dirs2) - 1, -1, -1):\n                x = king[0] + dirs2[j][0] * i\n                y = king[1] + dirs2[j][1] * i\n                if 0 <= x < 8 and 0 <= y < 8:\n                    if board[x][y]:\n                        res.append([x, y])\n                        dirs2.remove(dirs2[j])\n                else:\n                    dirs2.remove(dirs2[j])\n        return res",
-            "date": 1694620800000
+            "date": "2023-09-14"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 15.65,
             "desc": "同上。",
             "code": "dirs = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\n\n    class Solution:\n        def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:\n            board = [[False for j in range(8)] for i in range(8)]\n            for [x, y] in queens:\n                board[x][y] = True\n            res = []\n            def check(pos: List[int], dir: List[int]) -> bool:\n                for _ in range(1, 8):\n                    pos[0] += dir[0]\n                    pos[1] += dir[1]\n    \n                    if 0 <= pos[0] < 8 and 0 <= pos[1] < 8:\n                        if board[pos[0]][pos[1]]:\n                            res.append([pos[0], pos[1]])\n                            return \n                    else:\n                        return\n            for d in dirs:\n                check(list(king), d)\n            return res",
-            "date": 1694620800000
+            "date": "2023-09-14"
         },
         {
             "script": "rust",
@@ -36,7 +34,13 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "pub const DIRS2: [[i32; 2]; 8] = [\n    [0, 1],\n    [0, -1],\n    [1, 0],\n    [-1, 0],\n    [1, 1],\n    [1, -1],\n    [-1, 1],\n    [-1, -1],\n];\n\nimpl Solution {\n    pub fn queens_attackthe_king(queens: Vec<Vec<i32>>, king: Vec<i32>) -> Vec<Vec<i32>> {\n        let mut board = vec![vec![false; 8]; 8];\n        for queen in queens {\n            board[queen[0] as usize][queen[1] as usize] = true;\n        }\n        let mut res = vec![];\n        let mut check = |mut pos: Vec<usize>, dir: &[i32]| {\n            for i in 1..8 {\n                let x = pos[0] as i32 + dir[0] * i;\n                let y = pos[1] as i32 + dir[1] * i;\n                if 0 <= x && x < 8 && 0 <= y && y < 8 {\n                    if board[x as usize][y as usize] {\n                        res.push(vec![x, y]);\n                        return;\n                    }\n                } else {\n                    return;\n                }\n            }\n        };\n        for d in &DIRS2 {\n            check(king.iter().map(|v| *v as usize).collect(), d);\n        }\n        res\n    }\n}",
-            "date": 1694620800000
+            "date": "2023-09-14"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "矩阵",
+        "模拟"
+    ],
+    "level": "Medium"
 }

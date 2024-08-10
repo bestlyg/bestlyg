@@ -2,8 +2,6 @@
     "id": "2480",
     "name": "2395.和相等的子数组",
     "url": "https://leetcode.cn/problems/find-subarrays-with-equal-sum",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表"],
     "desc": "给你一个下标从 0 开始的整数数组 nums ，判断是否存在 两个 长度为 2 的子数组且它们的 和 相等。注意，这两个子数组起始位置的下标必须 不相同 。如果这样的子数组存在，请返回 true，否则返回 false 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 7.6,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    bool findSubarrays(vector<int>& nums) {\n        unordered_set<int> s;\n        for (int i = 1; i < nums.size(); i++) {\n            int num = nums[i] + nums[i - 1];\n            if (s.count(num)) return true;\n            s.insert(num);\n        }\n        return false;\n    }\n};",
-            "date": 1679760000000
+            "date": "2023-03-26"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 29.8,
             "desc": "同上。",
             "code": "class Solution:\n    def findSubarrays(self, nums: List[int]) -> bool:\n        s = set()\n        for i in range(1, len(nums)):\n            num = nums[i] + nums[i - 1]\n            if num in s:\n                return True\n            s.add(num)\n        return False",
-            "date": 1679760000000
+            "date": "2023-03-26"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_subarrays(nums: Vec<i32>) -> bool {\n        let mut s = std::collections::HashSet::<i32>::new();\n        for i in 1..nums.len() {\n            let num = nums[i] + nums[i - 1];\n            if s.contains(&num) {\n                return true;\n            }\n            s.insert(num);\n        }\n        false\n    }\n}",
-            "date": 1679760000000
+            "date": "2023-03-26"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Easy"
 }

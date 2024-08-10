@@ -2,17 +2,21 @@
     "id": "926",
     "name": "890.查找和替换模式",
     "url": "https://leetcode.cn/problems/find-and-replace-pattern",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串"],
     "desc": "返回 words 中与给定模式匹配的单词列表。",
     "solutions": [
         {
-            "date": 1654963200000,
+            "date": "2022-06-12",
             "time": 4,
             "memory": 7.6,
             "script": "cpp",
             "desc": "遍历比较。",
             "code": "class Solution {\n   public:\n    int n;\n    vector<string> findAndReplacePattern(vector<string> &words,\n                                         string pattern) {\n        vector<string> ans;\n        n = pattern.size();\n        for (auto &word : words) {\n            if (check(pattern, word)) ans.push_back(word);\n        }\n        return ans;\n    }\n    bool check(string &pattern, string &word) {\n        char list[26] = {0};\n        bool check[26] = {0};\n        for (int i = 0; i < n; i++) {\n            char wc = word[i], pc = pattern[i];\n            if (list[pc - 'a'] && list[pc - 'a'] != wc) return false;\n            if (list[pc - 'a'] == '\\0' && check[wc - 'a']) return false;\n            check[wc - 'a'] = true;\n            list[pc - 'a'] = wc;\n        }\n        return true;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Medium"
 }

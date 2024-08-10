@@ -2,12 +2,10 @@
     "id": "82",
     "name": "82.删除排序链表中的重复元素II",
     "url": "https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii",
-    "difficulty": "中等",
-    "tag": ["链表", "双指针"],
     "desc": "给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。",
     "solutions": [
         {
-            "date": 1581523200000,
+            "date": "2020-02-13",
             "time": 5,
             "memory": 44.3,
             "script": "java",
@@ -15,7 +13,7 @@
             "code": "class Solution {\n    public ListNode deleteDuplicates(ListNode head) {\n        if (head == null) {\n\t\t\treturn null;\n\t\t}\n\t\tHashMap<Integer, Integer> map = new HashMap<Integer, Integer>();\n\t\tListNode newHead = new ListNode(0);\n\t\tnewHead.next = head;\n\t\twhile (head != null) {\n\t\t\tint tem = head.val;\n\t\t\tif (map.containsKey(tem)) {\n\t\t\t\tint num = map.get(tem) + 1;\n\t\t\t\tmap.put(tem, num);\n\t\t\t} else {\n\t\t\t\tmap.put(tem, 1);\n\t\t\t}\n\t\t\thead = head.next;\n\t\t}\n\t\thead = newHead;\n\t\twhile (head.next != null) {\n\t\t\tint val = head.next.val;\n\t\t\tif (map.get(val) > 1) {\n\t\t\t\thead.next = head.next.next;\n\t\t\t} else {\n\t\t\t\thead = head.next;\n\t\t\t}\n\t\t}\n\t\treturn newHead.next;\n    }\n}"
         },
         {
-            "date": 1614960000000,
+            "date": "2021-03-06",
             "time": 80,
             "memory": 39.9,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function deleteDuplicates(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const dummyHead = new ListNode(0, head);\n  let p = dummyHead;\n  let q: ListNode | null = dummyHead;\n  while (p.next !== null) {\n    if (p.next.next && p.next.val === p.next.next.val) {\n      q = p.next.next;\n      while (q && q.val === p.next.val) q = q.next;\n      p.next = q;\n    } else {\n      p = p.next;\n    }\n  }\n  return dummyHead.next;\n}"
         },
         {
-            "date": 1616601600000,
+            "date": "2021-03-25",
             "time": 96,
             "memory": 39.8,
             "script": "typescript",
@@ -36,7 +34,7 @@
             "memory": 16.9,
             "desc": "遍历。",
             "code": "class Solution:\n    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        p = tmp_head = ListNode(0, head)\n        while p.next:\n            next = p.next\n            val = next.val\n            while next and next.val == val: next = next.next\n            if p.next.next == next: p = p.next\n            else: p.next = next\n        return tmp_head.next",
-            "date": 1705248000000
+            "date": "2024-01-15"
         },
         {
             "script": "rust",
@@ -44,7 +42,12 @@
             "memory": 2.11,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        let mut tmp_head = Box::new(ListNode::new(0));\n        tmp_head.next = head;\n        let mut p = &tmp_head;\n        let mut map = [0; 300];\n        while let Some(ref next) = p.next {\n            map[(next.val + 100) as usize] += 1;\n            p = next;\n        }\n        let mut p = &mut tmp_head;\n        while let Some(next) = p.next.take() {\n            if map[(next.val + 100) as usize] > 1 {\n                p.next = next.next;\n            } else {\n                p.next = Some(next);\n                p = p.next.as_mut().unwrap();\n            }\n        }\n        tmp_head.next.take()\n    }\n}",
-            "date": 1705248000000
+            "date": "2024-01-15"
         }
-    ]
+    ],
+    "tagList": [
+        "链表",
+        "双指针"
+    ],
+    "level": "Medium"
 }

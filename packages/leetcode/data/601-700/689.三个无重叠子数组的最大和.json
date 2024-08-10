@@ -2,12 +2,10 @@
     "id": "689",
     "name": "689.三个无重叠子数组的最大和",
     "url": "https://leetcode.cn/problems/maximum-sum-of-3-non-overlapping-subarrays",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "给你一个整数数组 nums 和一个整数 k ，找出三个长度为 k 、互不重叠、且 3 \\* k 项的和最大的子数组，并返回这三个子数组。",
     "solutions": [
         {
-            "date": 1638892800000,
+            "date": "2021-12-08",
             "time": 80,
             "memory": 42,
             "script": "typescript",
@@ -20,7 +18,12 @@
             "memory": 24.2,
             "desc": "dp[i]表示以当前为最后一个数组时的最大值。",
             "code": "class Solution:\n    def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:\n        n = len(nums)\n\n        sums = [0]\n        for num in nums: sums.append(num + sums[-1])\n\n        dp1 = [(0, 0)] * (n + 1)\n        for i in range(0, n - k + 1):\n            if dp1[i][0] < sums[i + k] - sums[i]:\n                dp1[i + 1] = (sums[i + k] - sums[i], i)\n            else:\n                dp1[i + 1] = dp1[i]\n\n        dp2 = [(0, 0, 0)] * (n + 1)\n        for i in range(k, n - k + 1):\n            if dp2[i][0] < sums[i + k] - sums[i] + dp1[i - k + 1][0]:\n                dp2[i + 1] = (sums[i + k] - sums[i] + dp1[i - k + 1][0], dp1[i - k + 1][1], i)\n            else:\n                dp2[i + 1] = dp2[i]\n\n        dp3 = [(0, 0, 0, 0)] * (n + 1)\n        for i in range(k * 2, n - k + 1):\n            if dp3[i][0] < sums[i + k] - sums[i] + dp2[i - k + 1][0]:\n                dp3[i + 1] = (sums[i + k] - sums[i] + dp2[i - k + 1][0], dp2[i - k + 1][1], dp2[i - k + 1][2], i)\n            else:\n                dp3[i + 1] = dp3[i]\n\n        return dp3[n - k + 1][1:]",
-            "date": 1700323200000
+            "date": "2023-11-19"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

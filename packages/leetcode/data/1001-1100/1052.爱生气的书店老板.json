@@ -2,12 +2,10 @@
     "id": "1138",
     "name": "1052.爱生气的书店老板",
     "url": "https://leetcode.cn/problems/grumpy-bookstore-owner",
-    "difficulty": "中等",
-    "tag": ["数组", "滑动窗口"],
     "desc": "今天，书店老板有一家店打算试营业  customers.length  分钟。每分钟都有一些顾客（customers[i]）会进入书店，所有这些顾客都会在那一分钟结束后离开。请你返回这一天营业下来，最多有多少客户能够感到满意的数量。",
     "solutions": [
         {
-            "date": 1614009600000,
+            "date": "2021-02-23",
             "time": 104,
             "memory": 44.3,
             "script": "typescript",
@@ -20,7 +18,12 @@
             "memory": 18.13,
             "desc": "滑动窗口。",
             "code": "class Solution:\n    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:\n        n = len(customers)\n        res = cur = sum(customers[i] for i in range(n) if not grumpy[i] or i < minutes)\n        for i in range(minutes, n):\n            if grumpy[i - minutes]: cur -= customers[i - minutes]\n            if grumpy[i]: cur += customers[i]\n            res = max(res, cur)\n        return res",
-            "date": 1713801600000
+            "date": "2024-04-23"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "滑动窗口"
+    ],
+    "level": "Medium"
 }

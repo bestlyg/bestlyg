@@ -2,17 +2,22 @@
     "id": "652",
     "name": "652.寻找重复的子树",
     "url": "https://leetcode.cn/problems/find-duplicate-subtrees",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "哈希表", "二叉树"],
     "desc": "给定一棵二叉树 root，返回所有重复的子树。",
     "solutions": [
         {
-            "date": 1662307200000,
+            "date": "2022-09-05",
             "time": 52,
             "memory": 53.7,
             "script": "cpp",
             "desc": "map 存储相同节点·。",
             "code": "class Solution {\npublic:\n    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {\n        unordered_map<string, vector<TreeNode*>> m;\n        dfs(m, root);\n        vector<TreeNode *> ans;\n        for (auto &item : m) {\n            if (item.second.size() > 1) {\n                ans.push_back(item.second[0]);\n            }\n        }\n        return ans;\n    }\n    string dfs(unordered_map<string, vector<TreeNode*>> &m, TreeNode *root) {\n        if (!root) return \"\";\n        string s = \"(\" + to_string(root->val) + \",[\" + dfs(m, root->left) + \"],[\" + dfs(m, root->right) + \"])\";\n        m[s].push_back(root);\n        return s;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "哈希表",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

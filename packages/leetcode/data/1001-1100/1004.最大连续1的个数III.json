@@ -2,12 +2,10 @@
     "id": "1046",
     "name": "1004.最大连续1的个数III",
     "url": "https://leetcode.cn/problems/max-consecutive-ones-iii",
-    "difficulty": "中等",
-    "tag": ["数组", "二分查找", "前缀和", "滑动窗口"],
     "desc": "给定一个由若干 0 和 1 组成的数组 A，我们最多可以将 K 个值从 0 变成 1 。返回仅包含 1 的最长（连续）子数组的长度。",
     "solutions": [
         {
-            "date": 1613664000000,
+            "date": "2021-02-19",
             "time": 112,
             "memory": 44.1,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function longestOnes(A: number[], K: number): number {\n  if (A.every(v => !(v & 1))) return K;\n  let l = 0;\n  let r = 0;\n  let sum0 = A[0] & 1 ? 0 : 1;\n  let ans = sum0;\n  const len = A.length;\n  while (r < len) {\n    if (sum0 <= K) {\n      !(A[++r] & 1) && sum0++;\n      ans = Math.max(ans, r - l);\n    } else {\n      while (sum0 > K) {\n        !(A[l++] & 1) && sum0--;\n      }\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1641484800000,
+            "date": "2022-01-07",
             "time": 52,
             "memory": 54.2,
             "script": "cpp",
             "desc": "滑动窗口维护窗口内 0 数。",
             "code": "class Solution {\n   public:\n    int longestOnes(vector<int>& nums, int k) {\n        int ans = 0, l = 0, r = -1, cnt0 = 0;\n        while (1) {\n            if (cnt0 <= k) {\n                r++;\n                if (r == nums.size()) break;\n                if (nums[r] == 0) cnt0++;\n            } else {\n                if (nums[l] == 0) cnt0--;\n                l++;\n            }\n            if (cnt0 <= k) ans = max(ans, r - l + 1);\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找",
+        "前缀和",
+        "滑动窗口"
+    ],
+    "level": "Medium"
 }

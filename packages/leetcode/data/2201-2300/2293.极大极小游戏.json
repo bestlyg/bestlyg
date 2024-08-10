@@ -2,8 +2,6 @@
     "id": "2386",
     "name": "2293.极大极小游戏",
     "url": "https://leetcode.cn/problems/min-max-game",
-    "difficulty": "简单",
-    "tag": ["数组", "模拟"],
     "desc": "执行算法后，返回 nums 中剩下的那个数字。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 9.8,
             "desc": "递归。",
             "code": "class Solution {\npublic:\n    int minMaxGame(vector<int>& nums) {\n        int n = nums.size();\n        if (n == 1) return nums[0];\n        vector<int> next(n / 2, 0);\n        for (int i = 0, f = 1; i < n; i += 2, f ^= 1) {\n            if (f) next[i / 2] = min(nums[i], nums[i + 1]);\n            else next[i / 2] = max(nums[i], nums[i + 1]);\n        }\n        return minMaxGame(next);\n    }\n};",
-            "date": 1673712000000
+            "date": "2023-01-15"
         },
         {
             "script": "rust",
@@ -20,7 +18,12 @@
             "memory": 2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn min_max_game(nums: Vec<i32>) -> i32 {\n        let n = nums.len();\n        if n == 1 {\n            nums[0]\n        } else {\n            let mut next = vec![0; n / 2];\n            let mut i = 0;\n            let mut f = true;\n            while i < n {\n                next[i / 2] = if f {\n                    nums[i].min(nums[i + 1])\n                } else {\n                    nums[i].max(nums[i + 1])\n                };\n                i += 2;\n                f = !f;\n            }\n            Solution::min_max_game(next)\n        }\n    }\n}",
-            "date": 1673712000000
+            "date": "2023-01-15"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "模拟"
+    ],
+    "level": "Easy"
 }

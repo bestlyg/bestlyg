@@ -2,8 +2,6 @@
     "id": "2758",
     "name": "2618.检查是否是类的对象实例",
     "url": "https://leetcode.cn/problems/check-if-object-instance-of-class",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "请你编写一个函数，检查给定的对象是否是给定类或超类的实例。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 53,
             "desc": "dp[i]表示以i为行末的最大高度。",
             "code": "function checkIfInstanceOf(obj: any, classFunction: any): boolean {\n    if (obj === null || obj === undefined || classFunction == null || classFunction == undefined) return false;\n    while ((obj = obj.__proto__) && obj !== classFunction.prototype);\n    return obj === classFunction.prototype;\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

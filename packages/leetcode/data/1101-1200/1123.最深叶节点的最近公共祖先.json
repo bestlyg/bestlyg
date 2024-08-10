@@ -2,8 +2,6 @@
     "id": "1218",
     "name": "1123.最深叶节点的最近公共祖先",
     "url": "https://leetcode.cn/problems/lowest-common-ancestor-of-deepest-leaves",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "哈希表", "二叉树"],
     "desc": "给你一个有根节点 root 的二叉树，返回它 最深的叶节点的最近公共祖先 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 16.27,
             "desc": "bfs。",
             "code": "class Solution:\n    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        prevq = []\n        q: deque[TreeNode] = deque()\n        q.append(root)\n        size = 1\n        m: dict[TreeNode, TreeNode] = {}\n        while len(q):\n            cur = q.popleft()\n            prevq.append(cur)\n            if cur.left:\n                m[cur.left] = cur\n                q.append(cur.left)\n            if cur.right:\n                m[cur.right] = cur\n                q.append(cur.right)\n            size -= 1\n            if size == 0:\n                size = len(q)\n                if size:\n                    prevq.clear()\n        while len(set(prevq)) > 1:\n            prevq = [m[item] for item in prevq]\n        return list(set(prevq))[0]",
-            "date": 1693929600000
+            "date": "2023-09-06"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 20.18,
             "desc": "dfs。",
             "code": "class Solution {\npublic:\n    TreeNode* lcaDeepestLeaves(TreeNode* root) {\n        function<pair<int, TreeNode*>(TreeNode*, int)> dfs = [&](TreeNode *node, int level) -> pair<int, TreeNode*> {\n            pair<int, TreeNode*> res = make_pair(level, node);\n            if (node->left) {\n                res = dfs(node->left, level + 1);\n            }\n            if (node->right) {\n                auto rres = dfs(node->right, level + 1);\n                if (rres.first > res.first) res = rres;\n                else if (rres.first == res.first) res.second = node;\n            }\n            return res;\n        };\n        return dfs(root, 0).second;\n    }\n};",
-            "date": 1693929600000
+            "date": "2023-09-06"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 16.27,
             "desc": "同上。",
             "code": "class Solution:\n    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        def dfs(node: TreeNode, level: int) -> (int, TreeNode):\n            res = (level, node)\n            if node.left:\n                res = dfs(node.left, level + 1)\n            if node.right:\n                right_result = dfs(node.right, level + 1)\n                if right_result[0] > res[0]:\n                    res = right_result\n                elif right_result[0] == res[0]:\n                    res = (res[0], node)\n            return res\n\n        return dfs(root, 0)[1]",
-            "date": 1693929600000
+            "date": "2023-09-06"
         },
         {
             "script": "rust",
@@ -36,7 +34,15 @@
             "memory": 2.05,
             "desc": "同上。",
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn lca_deepest_leaves(\n        root: Option<Rc<RefCell<TreeNode>>>,\n    ) -> Option<Rc<RefCell<TreeNode>>> {\n        fn dfs(node: Rc<RefCell<TreeNode>>, level: usize) -> (usize, Rc<RefCell<TreeNode>>) {\n            let mut res = (level, node.clone());\n            let node_ref = node.as_ref().borrow();\n            if let Some(ref left) = node_ref.left {\n                res = dfs(left.clone(), level + 1);\n            }\n            if let Some(ref right) = node_ref.right {\n                let rres = dfs(right.clone(), level + 1);\n                if rres.0 > res.0 {\n                    res = rres;\n                } else if rres.0 == res.0 {\n                    res.1 = node.clone();\n                }\n            }\n            res\n        }\n        Some(dfs(root.unwrap().clone(), 0).1)\n    }\n}",
-            "date": 1693929600000
+            "date": "2023-09-06"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "哈希表",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

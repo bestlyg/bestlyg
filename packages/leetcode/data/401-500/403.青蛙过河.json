@@ -2,17 +2,20 @@
     "id": "403",
     "name": "403.青蛙过河",
     "url": "https://leetcode.cn/problems/frog-jump",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "一只青蛙想要过河。",
     "solutions": [
         {
-            "date": 1619625600000,
+            "date": "2021-04-29",
             "time": 948,
             "memory": 44.5,
             "script": "typescript",
             "desc": "动态规划，记录每个石头可跳的步数。",
             "code": "function canCross(stones: number[]): boolean {\n  const len = stones.length;\n  const dp: Set<number>[] = new Array(len).fill(0).map(_ => new Set<number>());\n  dp[0].add(0);\n  for (let i = 1; i < len; i++) {\n    const stone = stones[i];\n    for (let j = 0; j < i; j++) {\n      const minus = stone - stones[j];\n      const set = dp[j];\n      if (set.size === 0) continue;\n      if (set.has(minus) || set.has(minus - 1) || set.has(minus + 1)) {\n        dp[i].add(minus);\n      }\n    }\n  }\n  return dp[len - 1].size !== 0;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

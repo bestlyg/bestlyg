@@ -2,8 +2,6 @@
     "id": "2602",
     "name": "2511.最多可以摧毁的敌人城堡数目",
     "url": "https://leetcode.cn/problems/maximum-enemy-forts-that-can-be-captured",
-    "difficulty": "简单",
-    "tag": ["数组", "双指针"],
     "desc": "请你返回 最多 可以摧毁的敌人城堡数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 7.41,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int captureForts(vector<int>& forts) {\n        int res = 0, p0 = -1, p1 = -1;\n        for (int i = 0; i < forts.size(); i++) {\n            int fort = forts[i];\n            if (fort == 1) {\n                if (p0 != -1 && p0 > p1) res = max(res, i - 1 - p0);\n                p1 = i;\n            } else if (fort == -1) {\n                if (p1 != -1 && p1 > p0) res = max(res, i - 1 - p1);\n                p0 = i;\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1693584000000
+            "date": "2023-09-02"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.82,
             "desc": "同上。",
             "code": "class Solution:\n    def captureForts(self, forts: List[int]) -> int:\n        res = 0\n        p0 = p1 = -1\n        for i in range(len(forts)):\n            fort = forts[i]\n            if fort == 1:\n                if p0 != -1 and p0 > p1:\n                    res = max(res, i - p0 - 1)\n                p1 = i\n            elif fort == -1:\n                if p1 != -1 and p1 > p0:\n                    res = max(res, i - p1 - 1)\n                p0 = i\n        return res",
-            "date": 1693584000000
+            "date": "2023-09-02"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 1.93,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn capture_forts(forts: Vec<i32>) -> i32 {\n        let mut res = 0i32;\n        let (mut p0, mut p1) = (-1i32, -1i32);\n        for i in 0..forts.len() {\n            let fort = forts[i];\n            if fort == 1 {\n                if p0 != -1 && p0 > p1 {\n                    res = res.max((i as i32) - 1 - p0);\n                }\n                p1 = i as i32;\n            } else if fort == -1 {\n                if p1 != -1 && p1 > p0 {\n                    res = res.max((i as i32) - 1 - p1);\n                }\n                p0 = i as i32;\n            }\n        }\n        res as i32\n    }\n}",
-            "date": 1693584000000
+            "date": "2023-09-02"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针"
+    ],
+    "level": "Easy"
 }

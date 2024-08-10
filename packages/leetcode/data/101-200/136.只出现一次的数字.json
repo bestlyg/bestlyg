@@ -2,12 +2,10 @@
     "id": "136",
     "name": "136.只出现一次的数字",
     "url": "https://leetcode.cn/problems/single-number",
-    "difficulty": "简单",
-    "tag": ["位运算", "数组"],
     "desc": "给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。",
     "solutions": [
         {
-            "date": 1589385600000,
+            "date": "2020-05-14",
             "time": 72,
             "memory": 36.7,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNumber = function (nums) {\n  if (nums.length === 0) return 0;\n  let res = nums.shift();\n  for (const num of nums) res ^= num;\n  return res;\n};"
         },
         {
-            "date": 1589385600000,
+            "date": "2020-05-14",
             "time": 60,
             "memory": 35.1,
             "script": "javascript",
@@ -23,7 +21,7 @@
             "code": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar singleNumber = nums => nums.reduce((total, curV) => total ^ curV, 0);"
         },
         {
-            "date": 1640016000000,
+            "date": "2021-12-21",
             "time": 16,
             "memory": 16.4,
             "script": "cpp",
@@ -36,7 +34,12 @@
             "memory": 17.67,
             "desc": "异或排除重复数字。",
             "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        return reduce(lambda a, b: a ^ b, nums, 0)",
-            "date": 1697212800000
+            "date": "2023-10-14"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组"
+    ],
+    "level": "Easy"
 }

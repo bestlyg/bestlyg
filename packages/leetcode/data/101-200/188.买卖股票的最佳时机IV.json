@@ -2,12 +2,10 @@
     "id": "188",
     "name": "188.买卖股票的最佳时机IV",
     "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。也就是说，你最多可以买 k 次，卖 k 次。",
     "solutions": [
         {
-            "date": 1609084800000,
+            "date": "2020-12-28",
             "script": "typescript",
             "time": 120,
             "memory": 44.6,
@@ -20,7 +18,12 @@
             "memory": 31.78,
             "desc": "dp[i][j][k]表示i天j笔手上有无。",
             "code": "class Solution:\n    def maxProfit(self, k: int, prices: List[int]) -> int:\n        n = len(prices)\n        # [i][j][k] i天j笔手上有无\n        dp = [[[-inf for _ in range(2)] for _ in range(k + 1)] for _ in range(n + 1)]\n        nums = [[-inf for _ in range(2)] for _ in range(k + 1)]\n        res = dp[0][0][0] = dp[0][0][1] = nums[0][0] = 0\n        for i in range(0, n):\n            dp[i][0][0] = 0\n            dp[i][0][1] = -prices[i]\n            for j in range(1, k + 1):\n                dp[i][j][0] = nums[j - 1][1] + prices[i]\n                dp[i][j][1] = nums[j][0] - prices[i]\n                res = max(res, dp[i][j][0])\n            for j in range(0, k + 1):\n                nums[j][0] = max(nums[j][0], dp[i][j][0])\n                nums[j][1] = max(nums[j][1], dp[i][j][1])\n        return res\n",
-            "date": 1696348800000
+            "date": "2023-10-04"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

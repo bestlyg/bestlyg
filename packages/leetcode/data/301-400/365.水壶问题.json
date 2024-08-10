@@ -2,12 +2,10 @@
     "id": "365",
     "name": "365.水壶问题",
     "url": "https://leetcode.cn/problems/water-and-jug-problem",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "数学"],
     "desc": "有两个容量分别为 x 升 和 y 升 的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z 升 的水？。",
     "solutions": [
         {
-            "date": 1626796800000,
+            "date": "2021-07-21",
             "time": 2516,
             "memory": 81.7,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 67.66,
             "desc": "bfs。",
             "code": "class Solution:\n    def canMeasureWater(self, jug1Capacity: int, jug2Capacity: int, targetCapacity: int) -> bool:\n        used = defaultdict(defaultdict)\n        q = deque()\n        q.append((0, 0))\n        used[0][0] = True\n        while q:\n            jug1, jug2 = q.popleft()\n            if jug1 == targetCapacity or jug2 == targetCapacity or jug1 + jug2 == targetCapacity:\n                return True\n            arr =[\n                [jug1Capacity, jug2],\n                [0, jug2],\n                [min(jug1Capacity, jug1 + jug2), jug2 - (min(jug1Capacity, jug1 + jug2) - jug1)],\n                [jug1, jug2Capacity],\n                [jug1, 0],\n                [jug1 - (min(jug2Capacity, jug1 + jug2) - jug2), min(jug2Capacity, jug1 + jug2)]\n            ]\n            for jug1, jug2 in arr:\n                if jug2 not in used[jug1]:\n                    q.append((jug1, jug2))\n                    used[jug1][jug2] = True\n        return False",
-            "date": 1706371200000
+            "date": "2024-01-28"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 21.37,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn can_measure_water(jug1_capacity: i32, jug2_capacity: i32, target_capacity: i32) -> bool {\n        use std::cmp::min;\n        use std::collections::{HashMap, VecDeque};\n        let mut used: HashMap<i32, HashMap<i32, bool>> = Default::default();\n        let mut q: VecDeque<(i32, i32)> = Default::default();\n        q.push_back((0, 0));\n        used.entry(0).or_default().entry(0).or_insert(true);\n        while let Some((jug1, jug2)) = q.pop_front() {\n            if jug1 == target_capacity || jug2 == target_capacity || jug1 + jug2 == target_capacity\n            {\n                return true;\n            }\n            let next = [\n                [jug1_capacity, jug2],\n                [0, jug2],\n                [\n                    min(jug1_capacity, jug1 + jug2),\n                    jug2 - (min(jug1_capacity, jug1 + jug2) - jug1),\n                ],\n                [jug1, jug2_capacity],\n                [jug1, 0],\n                [\n                    jug1 - (min(jug2_capacity, jug1 + jug2) - jug2),\n                    min(jug2_capacity, jug1 + jug2),\n                ],\n            ];\n            for [jug1, jug2] in next {\n                let item = used.entry(jug1).or_default().entry(jug2).or_default();\n                if !*item {\n                    q.push_back((jug1, jug2));\n                    *item = true;\n                }\n            }\n        }\n        false\n    }\n}",
-            "date": 1706371200000
+            "date": "2024-01-28"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "数学"
+    ],
+    "level": "Medium"
 }

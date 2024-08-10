@@ -2,8 +2,6 @@
     "id": "2603",
     "name": "2512.奖励最顶尖的K名学生",
     "url": "https://leetcode.cn/problems/reward-top-k-students",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "字符串", "排序", "堆（优先队列）"],
     "desc": "给你一个整数 k ，请你返回按照得分 从高到低 最顶尖的 k 名学生。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 9.2,
             "desc": "双指针。",
             "code": "class Solution {\npublic:\n    long long findTheArrayConcVal(vector<int>& nums) {\n        long long i1 = 0, i2 = nums.size() - 1, res = 0;\n        while (i1 < i2) {\n            res += nums[i1] * pow(10, to_string(nums[i2]).size()) + nums[i2];\n            i1 += 1;\n            i2 -= 1;\n        }\n        if (i1 == i2) res += nums[i1];\n        return res;\n    }\n};",
-            "date": 1697040000000
+            "date": "2023-10-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.47,
             "desc": "同上。",
             "code": "class Solution:\n    def findTheArrayConcVal(self, nums: List[int]) -> int:\n        i1 = 0\n        i2 = len(nums) - 1\n        res = 0\n        while i1 < i2:\n            res += nums[i1] * 10 ** len(str(nums[i2])) + nums[i2]\n            i1 += 1\n            i2 -= 1\n        if i1 == i2: res += nums[i1]\n        return res",
-            "date": 1697040000000
+            "date": "2023-10-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,15 @@
             "memory": 2.12,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {\n        let mut i1 = 0;\n        let mut i2 = nums.len() - 1;\n        let mut res = 0i64;\n        while i1 < i2 {\n            res += (nums[i1] as i64) * 10i64.pow(nums[i2].to_string().len() as u32)\n                + (nums[i2] as i64);\n            i1 += 1;\n            i2 -= 1;\n        }\n        if i1 == i2 {\n            res += nums[i1] as i64;\n        }\n        res\n    }\n}",
-            "date": 1697040000000
+            "date": "2023-10-12"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "字符串",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

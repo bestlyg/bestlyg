@@ -2,17 +2,19 @@
     "id": "461",
     "name": "461.汉明距离",
     "url": "https://leetcode.cn/problems/hamming-distance",
-    "difficulty": "简单",
-    "tag": ["位运算"],
     "desc": "两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。",
     "solutions": [
         {
-            "date": 1622044800000,
+            "date": "2021-05-27",
             "time": 92,
             "memory": 40.2,
             "script": "typescript",
             "desc": "利用异或计算不同位置的 1 和 0。",
             "code": "function hammingDistance(x: number, y: number): number {\n  const newVal = x ^ y;\n  let ans = 0;\n  for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "917",
     "name": "881.救生艇",
     "url": "https://leetcode.cn/problems/boats-to-save-people",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "双指针", "排序"],
     "desc": "返回载到每一个人所需的最小船数。",
     "solutions": [
         {
-            "date": 1629907200000,
+            "date": "2021-08-26",
             "time": 176,
             "memory": 45.6,
             "script": "typescript",
@@ -20,7 +18,14 @@
             "memory": 22.12,
             "desc": "贪心使每条船上尽可能多。",
             "code": "class Solution:\n    def numRescueBoats(self, people: List[int], limit: int) -> int:\n        people.sort()\n        l = 0\n        r = len(people) - 1\n        res = 0\n        while l <= r:\n            if people[l] + people[r] <= limit: l += 1\n            res += 1\n            r -= 1\n        return res",
-            "date": 1717948800000
+            "date": "2024-06-10"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "level": "Medium"
 }

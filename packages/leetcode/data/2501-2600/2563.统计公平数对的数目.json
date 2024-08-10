@@ -2,8 +2,6 @@
     "id": "2699",
     "name": "2563.统计公平数对的数目",
     "url": "https://leetcode.cn/problems/count-the-number-of-fair-pairs",
-    "difficulty": "中等",
-    "tag": ["数组", "双指针", "二分查找", "排序"],
     "desc": "给你一个下标从 0 开始、长度为 n 的整数数组 nums ，和两个整数 lower 和 upper ，返回 公平数对的数目 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 52.2,
             "desc": "双指针。",
             "code": "\nclass Solution {\npublic:\n    long long countFairPairs(vector<int>& nums, int lower, int upper) {\n        sort(nums.begin(), nums.end());\n        long long res = 0;\n        int l = 0, r = 0, n = nums.size();\n        for (int i = 1; i < n; i++) {\n            while (r + 1 < i && nums[r + 1] + nums[i] <= upper) r++;\n            while (r - 1 >= 0 && nums[r] + nums[i] > upper) r--;            \n            while (l + 1 < i && nums[l] + nums[i] < lower) l++;\n            while (l - 1 >= 0 && nums[l - 1] + nums[i] >= lower) l--;\n            if (r > l) res += r - l + 1;\n            else if (r == l && nums[l] + nums[i] >= lower && nums[l] + nums[i] <= upper) res += 1;  \n        }\n        return res;\n    }\n};",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 26.7,
             "desc": "同上。",
             "code": "class Solution:\n  def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:\n      nums.sort()\n      res = 0\n      l, r, n = 0, 0, len(nums)\n      for i in range(1, n):\n          while r + 1 < i and nums[r + 1] + nums[i] <= upper:\n              r += 1\n          while r - 1 >= 0 and nums[r] + nums[i] > upper:\n              r -= 1\n          while l + 1 < i and nums[l] + nums[i] < lower:\n              l += 1\n          while l - 1 >= 0 and nums[l - 1] + nums[i] >= lower:\n              l -= 1\n          if r > l:\n              res += r - l + 1\n          elif r == l and nums[l] + nums[i] >= lower and nums[l] + nums[i] <= upper:\n              res += 1\n      return res",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 2.2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn count_fair_pairs(nums: Vec<i32>, lower: i32, upper: i32) -> i64 {\n        let mut nums = nums;\n        nums.sort();\n        let mut res: i64 = 0;\n        let (mut l, mut r, n): (i64, i64, usize) = (0, 0, nums.len());\n        for i in 1..n {\n            while r + 1 < i as i64 && nums[r as usize + 1] + nums[i] <= upper {\n                r += 1\n            }\n            while r - 1 >= 0 && nums[r as usize] + nums[i] > upper {\n                r -= 1\n            }\n            while l + 1 < i as i64 && nums[l as usize] + nums[i] < lower {\n                l += 1\n            }\n            while l - 1 >= 0 && nums[l as usize - 1] + nums[i] >= lower {\n                l -= 1\n            }\n            if r > l {\n                res += (r - l + 1) as i64;\n            } else if r == l && nums[l as usize] + nums[i] >= lower && nums[l as usize] + nums[i] <= upper {\n                res += 1\n            }\n        }\n        res\n    }\n}",
-            "date": 1676131200000
+            "date": "2023-02-12"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "210",
     "name": "210.课程表II",
     "url": "https://leetcode.cn/problems/course-schedule-ii",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "图", "拓扑排序"],
     "desc": "现在你总共有 n 门课需要选，记为  0  到  n-1。在选修某些课程之前需要一些先修课程。  例如，想要学习课程 0 ，你需要先完成课程  1 ，我们用一个匹配来表示他们: [0,1]给定课程总量以及它们的先决条件，返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回一种就可以了。如果不可能完成所有课程，返回一个空数组。",
     "solutions": [
         {
-            "date": 1589644800000,
+            "date": "2020-05-17",
             "time": 644,
             "memory": 43.5,
             "script": "javascript",
@@ -20,7 +18,14 @@
             "memory": 17.51,
             "desc": "bfs。",
             "code": "class Solution:\n    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:\n        used_count = 0\n        arr = [[set(),set()] for _ in range(numCourses)]\n        for [item1, item2] in prerequisites:\n            arr[item1][0].add(item2)\n            arr[item2][1].add(item1)\n        q = [i for i in range(numCourses) if not len(arr[i][0])]\n        res = []\n        while len(q):\n            cur = q.pop()\n            res.append(cur)\n            for child in arr[cur][1]:\n                arr[child][0].remove(cur)\n                if not len(arr[child][0]):\n                    q.append(child)\n        return res if numCourses == len(res) else []",
-            "date": 1694275200000
+            "date": "2023-09-10"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "拓扑排序"
+    ],
+    "level": "Medium"
 }

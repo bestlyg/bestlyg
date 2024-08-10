@@ -2,17 +2,21 @@
     "id": "735",
     "name": "735.小行星碰撞",
     "url": "https://leetcode.cn/problems/asteroid-collision",
-    "difficulty": "中等",
-    "tag": ["栈", "数组", "模拟"],
     "desc": "找出碰撞后剩下的所有行星。",
     "solutions": [
         {
-            "date": 1657641600000,
+            "date": "2022-07-13",
             "time": 16,
             "memory": 17.3,
             "script": "cpp",
             "desc": "栈。",
             "code": "class Solution {\n   public:\n    vector<int> asteroidCollision(vector<int>& asteroids) {\n        int n = asteroids.size();\n        stack<int> s;\n        for (int i = 0; i < n; i++) {\n            int aster = asteroids[i];\n            bool hasAster = true;\n            while (s.size() && asteroids[s.top()] > 0 && aster < 0) {\n                int top = asteroids[s.top()];\n                if (abs(top) == abs(aster)) s.pop();\n                if (abs(top) >= abs(aster)) {\n                    hasAster = false;\n                    break;\n                } else\n                    s.pop();\n            }\n            if (hasAster) s.push(i);\n        }\n        vector<int> ans(s.size());\n        for (int i = s.size() - 1; i >= 0; i--)\n            ans[i] = asteroids[s.top()], s.pop();\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "数组",
+        "模拟"
+    ],
+    "level": "Medium"
 }

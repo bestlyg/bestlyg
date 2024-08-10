@@ -2,8 +2,6 @@
     "id": "1372",
     "name": "1250.检查「好数组」",
     "url": "https://leetcode.cn/problems/check-if-it-is-a-good-array",
-    "difficulty": "困难",
-    "tag": ["数组", "数学", "数论"],
     "desc": "给你一个正整数数组 nums，你需要从中任选一些子集，然后将子集中每一个数乘以一个 任意整数，并求出他们的和。假如该和结果为 1，那么原数组就是一个「好数组」，则返回 True；否则请返回 False。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 28.5,
             "desc": "裴蜀定理。",
             "code": "class Solution {\npublic:\n    int gcd(int a, int b) {\n        if (!b) return a;\n        if (a < b) return gcd(b, a);\n        return gcd(b, a % b);\n    }\n    bool isGoodArray(vector<int>& nums) {\n        int res = nums[0];\n        for (auto &num : nums) {\n            res = gcd(res, num);\n            if (res == 1) break;\n        }\n        return res == 1;\n    }\n};",
-            "date": 1676390400000
+            "date": "2023-02-15"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 22.7,
             "desc": "同上。",
             "code": "class Solution:\n    def isGoodArray(self, nums: List[int]) -> bool:\n        def gcd(a, b):\n            if not b:\n                return a\n            if a < b:\n                return gcd(b, a)\n            return gcd(b, a % b)\n        res = nums[0]\n        for num in nums:\n            res = gcd(res, num)\n            if res == 1:\n                break\n        return res == 1",
-            "date": 1676390400000
+            "date": "2023-02-15"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 3.4,
             "desc": "同上。",
             "code": "fn gcd(a: i32, b: i32) -> i32 {\n    if b == 0 {\n        a\n    } else if a < b {\n        gcd(b, a)\n    } else {\n        gcd(b, a % b)\n    }\n}\n\nimpl Solution {\n    pub fn is_good_array(nums: Vec<i32>) -> bool {\n        let mut res = nums[0];\n        for num in nums {\n            res = gcd(res, num);\n            if res == 1 {\n                break;\n            }\n        }\n        res == 1\n    }\n}",
-            "date": 1676390400000
+            "date": "2023-02-15"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "数论"
+    ],
+    "level": "Hard"
 }

@@ -2,12 +2,10 @@
     "id": "863",
     "name": "834.树中距离之和",
     "url": "https://leetcode.cn/problems/sum-of-distances-in-tree",
-    "difficulty": "困难",
-    "tag": ["树", "深度优先搜索", "图", "动态规划"],
     "desc": "给定一个无向、连通的树。树中有 n 个标记为 0...n-1 的节点以及 n-1 条边 。给定整数 n 和数组 edges ， edges[i] = [ai, bi]表示树中的节点 ai 和 bi 之间有一条边。返回长度为 n 的数组 answer ，其中 answer[i] 是树中第 i 个节点与所有其他节点之间的距离之和。",
     "solutions": [
         {
-            "date": 1601913600000,
+            "date": "2020-10-06",
             "script": "javascript",
             "time": 224,
             "memory": 54.2,
@@ -20,7 +18,7 @@
             "memory": 106.4,
             "desc": "dfs。",
             "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nclass Solution {\npublic:\n    vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {\n        vector<int> res(n, 0);\n        vector<vector<int>> nodes(n);\n        for (auto &edge : edges) {\n            nodes[edge[0]].push_back(edge[1]);\n            nodes[edge[1]].push_back(edge[0]);\n        }\n        // X 总共有几个， Y 总路径和\n        vector<pii> cache(n);\n        function<pii(int, int)> find = [&](int cur, int p) -> pii {\n            if (nodes[cur].size() == 1 && nodes[cur][0] == p) return cache[cur] = make_pair(1, 1);\n            pii ans = make_pair(1, 1);\n            for (auto &child : nodes[cur]) {\n                if (child != p) {\n                    auto res = find(child, cur);\n                    ans.X += res.X;\n                    ans.Y += res.X + res.Y;\n                }\n            }\n            cache[cur] = ans;\n            return ans;\n        };\n        find(0, -1);\n        function<void(int, int, int)> dfs = [&](int cur, int p, int sum) {\n            res[cur] = sum + cache[cur].Y - cache[cur].X;\n            for (auto &child : nodes[cur]) {\n                if (child != p) dfs(child, cur, res[cur] - cache[child].Y + n - cache[child].X);\n            }\n        };\n        dfs(0, -1, 0);\n        return res;\n    }\n};",
-            "date": 1689436800000
+            "date": "2023-07-16"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 69.3,
             "desc": "同上。",
             "code": "class Solution:\n    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:\n        res = [0 for _ in range(n)]\n        nodes = [[] for _ in range(n)]\n        for edge in edges:\n            nodes[edge[0]].append(edge[1])\n            nodes[edge[1]].append(edge[0])\n        cache = [[] for _ in range(n)]\n\n        def find(cur: int, p: int) -> List[int]:\n            ans = [1, 1]\n            if len(nodes[cur]) == 1 and nodes[cur][0] == p:\n                cache[cur] = ans\n            else:\n                for child in nodes[cur]:\n                    if child != p:\n                        res = find(child, cur)\n                        ans[0] += res[0]\n                        ans[1] += res[0] + res[1]\n                cache[cur] = ans\n            return ans\n\n        find(0, -1)\n        \n        def dfs(cur: int, p: int, sum: int):\n            res[cur] = sum + cache[cur][1] - cache[cur][0]\n            for child in nodes[cur]:\n                if child != p:\n                    dfs(child, cur, res[cur] - cache[child]\n                        [1] + n - cache[child][0])\n        dfs(0, -1, 0)\n        return res",
-            "date": 1689436800000
+            "date": "2023-07-16"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 8.8,
             "desc": "同上。",
             "code": "fn find(nodes: &Vec<Vec<usize>>, cache: &mut Vec<(i32, i32)>, cur: usize, p: usize) -> (i32, i32) {\n    let mut ans: (i32, i32) = (1, 1);\n    if !(nodes[cur].len() == 1 && nodes[cur][0] == p) {\n        for child in &nodes[cur] {\n            if *child != p {\n                let res = find(nodes, cache, *child, cur);\n                ans.0 += res.0;\n                ans.1 += res.0 + res.1;\n            }\n        }\n    }\n    cache[cur] = ans;\n    ans\n}\nfn dfs(\n    res: &mut Vec<i32>,\n    nodes: &Vec<Vec<usize>>,\n    cache: &Vec<(i32, i32)>,\n    n: usize,\n    cur: usize,\n    p: usize,\n    sum: i32,\n) {\n    res[cur] = sum + cache[cur].1 - cache[cur].0;\n    for child in &nodes[cur] {\n        if *child != p {\n            dfs(\n                res,\n                nodes,\n                cache,\n                n,\n                *child,\n                cur,\n                res[cur] - cache[*child].1 + (n as i32) - cache[*child].0,\n            );\n        }\n    }\n}\nimpl Solution {\n    pub fn sum_of_distances_in_tree(n: i32, edges: Vec<Vec<i32>>) -> Vec<i32> {\n        let n = n as usize;\n        let mut res = vec![0; n];\n        let mut nodes = vec![vec![]; n];\n        for edge in edges {\n            nodes[edge[0] as usize].push(edge[1] as usize);\n            nodes[edge[1] as usize].push(edge[0] as usize);\n        }\n        let mut cache = vec![(0, 0); n];\n        find(&nodes, &mut cache, 0, usize::MAX);\n        dfs(&mut res, &nodes, &cache, n, 0, usize::MAX, 0);\n        res\n    }\n}",
-            "date": 1689436800000
+            "date": "2023-07-16"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "图",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

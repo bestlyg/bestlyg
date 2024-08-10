@@ -2,12 +2,10 @@
     "id": "1435",
     "name": "1310.子数组异或查询",
     "url": "https://leetcode.cn/problems/xor-queries-of-a-subarray",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组", "前缀和"],
     "desc": "有一个正整数数组 arr，现给你一个对应的查询数组 queries，其中 queries[i] = [Li, Ri]，返回一个包含给定查询 queries 所有结果的数组。",
     "solutions": [
         {
-            "date": 1620748800000,
+            "date": "2021-05-12",
             "time": 1492,
             "memory": 52.9,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function xorQueries(arr: number[], queries: number[][]): number[] {\n  return queries.map(([start, end]) => {\n    let ans!: number;\n    for (let i = start; i <= end; i++) {\n      if (ans) ans ^= arr[i];\n      else ans = arr[i];\n    }\n    return ans;\n  });\n}"
         },
         {
-            "date": 1620748800000,
+            "date": "2021-05-12",
             "time": 132,
             "memory": 53.2,
             "script": "typescript",
@@ -23,12 +21,18 @@
             "code": "function xorQueries(arr: number[], queries: number[][]): number[] {\n  let num = arr[0];\n  const prefixSumList: number[] = arr.map((v, i) => (i === 0 ? num : (num ^= v)));\n  return queries.map(([start, end]) => prefixSumList[start - 1] ^ prefixSumList[end]);\n}"
         },
         {
-            "date": 1636819200000,
+            "date": "2021-11-14",
             "time": 124,
             "memory": 52.7,
             "script": "typescript",
             "desc": "树状数组。",
             "code": "class FenwickTree {\n  private arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nclass StreamRank {\n  tree = new FenwickTree(50001);\n  track(x: number): void {\n    this.tree.add(x + 1, 1);\n  }\n  getRankOfNumber(x: number): number {\n    return this.tree.query(x + 1);\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

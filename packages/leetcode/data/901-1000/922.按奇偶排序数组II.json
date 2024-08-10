@@ -2,12 +2,10 @@
     "id": "958",
     "name": "922.按奇偶排序数组II",
     "url": "https://leetcode.cn/problems/sort-array-by-parity-ii",
-    "difficulty": "简单",
-    "tag": ["数组", "双指针", "排序"],
     "desc": "给定一个非负整数数组  A， A 中一半整数是奇数，一半整数是偶数。对数组进行排序，以便当  A[i] 为奇数时，i  也是奇数；当  A[i]  为偶数时， i 也是偶数。",
     "solutions": [
         {
-            "date": 1605110400000,
+            "date": "2020-11-12",
             "time": 120,
             "memory": 44.1,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function sortArrayByParityII(A: number[]): number[] {\n  const len = A.length;\n  for (let i = 0; i < len; i++) {\n    if (i & 1) {\n      if ((A[i] & 1) === 0) {\n        let j = i + 1;\n        while (j < len) {\n          if (A[j] & 1) break;\n          j++;\n        }\n        swap(i, j);\n      }\n    } else {\n      if (A[i] & 1) {\n        let j = i + 1;\n        while (j < len) {\n          if ((A[j] & 1) === 0) break;\n          j++;\n        }\n        swap(i, j);\n      }\n    }\n  }\n  function swap(i1: number, i2: number) {\n    const t = A[i1];\n    A[i1] = A[i2];\n    A[i2] = t;\n  }\n  return A;\n}"
         },
         {
-            "date": 1605110400000,
+            "date": "2020-11-12",
             "time": 364,
             "memory": 47.1,
             "script": "typescript",
@@ -23,12 +21,18 @@
             "code": "function sortArrayByParityII(A: number[]): number[] {\n  const ans: number[] = [];\n  while (A.length !== 0) {\n    if (A.length === 1) {\n      ans.push(A.pop()!);\n    } else {\n      const nowLen = ans.length;\n      let i = 0;\n      if (nowLen & 1) {\n        for (; i < A.length; i++) {\n          if (A[i] & 1) break;\n        }\n      } else {\n        for (; i < A.length; i++) {\n          if ((A[i] & 1) === 0) break;\n        }\n      }\n      ans.push(A.splice(i, 1)[0]);\n    }\n  }\n  return ans;\n}"
         },
         {
-            "date": 1605110400000,
+            "date": "2020-11-12",
             "time": 140,
             "memory": 47.2,
             "script": "typescript",
             "desc": "遍历一次储存奇偶。",
             "code": "function sortArrayByParityII(A: number[]): number[] {\n  const cache: Record<number, number[]> = { 1: [], 0: [] };\n  const ans: number[] = [];\n  const len = A.length;\n  A.forEach(num => cache[num & 1].push(num));\n  let i = 0;\n  while (i !== len) {\n    ans.push(cache[i++ & 1].pop()!);\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "排序"
+    ],
+    "level": "Easy"
 }

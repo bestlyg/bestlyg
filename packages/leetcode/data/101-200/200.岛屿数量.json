@@ -2,12 +2,10 @@
     "id": "200",
     "name": "200.岛屿数量",
     "url": "https://leetcode.cn/problems/number-of-islands",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "矩阵"],
     "desc": "给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量。",
     "solutions": [
         {
-            "date": 1587312000000,
+            "date": "2020-04-20",
             "time": 296,
             "memory": 45.2,
             "script": "javascript",
@@ -15,12 +13,20 @@
             "code": "const toSringIsland = (i, j) => `${i}-${j}`;\nclass Island {\n  set = new Set();\n  setIsland(i, j) {\n    this.set.add(toSringIsland(i, j));\n  }\n  hasIsland(i, j) {\n    return this.set.has(toSringIsland(i, j));\n  }\n}\n/**\n * @param {character[][]} grid\n * @return {number}\n */\nvar numIslands = function (grid) {\n  const col = grid.length;\n  const islands = [];\n  function dfs(i, j) {\n    //   console.log(\"==============\");\n    //   console.log(i, j);\n    //   console.log(grid[i][j]);\n    if (grid[i][j] === '0') return;\n    for (const item of islands) {\n      if (item.hasIsland(i, j)) return;\n    }\n    const island = new Island();\n    islands.push(island);\n    const queue = [[i, j]];\n    while (queue.length !== 0) {\n      // console.log(queue);\n      const [i, j] = queue.pop();\n      // console.log(\"while i j\", i, j);\n      // console.log(queue);\n      if (grid[i][j] === '0') continue;\n      if (island.hasIsland(i, j)) continue;\n      else island.setIsland(i, j);\n      if (i < col - 1) queue.push([i + 1, j]);\n      if (j < grid[i].length - 1) queue.push([i, j + 1]);\n      if (i > 0) queue.push([i - 1, j]);\n      if (j > 0) queue.push([i, j - 1]);\n    }\n    // console.log(islands);\n  }\n  for (let i = 0; i < col; i++) {\n    const row = grid[i].length;\n    for (let j = 0; j < row; j++) {\n      dfs(i, j);\n    }\n  }\n  return islands.length;\n};"
         },
         {
-            "date": 1619712000000,
+            "date": "2021-04-30",
             "time": 124,
             "memory": 43,
             "script": "typescript",
             "desc": "并查集。",
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction numIslands(grid: string[][]): number {\n  let count = 0;\n  const newGrid: number[][] = grid.map(row => row.map(col => (col === '0' ? -1 : count++)));\n  const rowLen = grid.length;\n  const colLen = grid[0].length;\n  const uf = new UnionFind(count);\n  for (let row = 0; row < rowLen; row++) {\n    for (let col = 0; col < colLen; col++) {\n      const num = newGrid[row][col];\n      if (num === -1) continue;\n      if (row > 0 && newGrid[row - 1][col] !== -1) uf.union(num, newGrid[row - 1][col]);\n      if (col > 0 && newGrid[row][col - 1] !== -1) uf.union(num, newGrid[row][col - 1]);\n      if (row < rowLen - 1 && newGrid[row + 1][col] !== -1) uf.union(num, newGrid[row + 1][col]);\n      if (col < colLen - 1 && newGrid[row][col + 1] !== -1) uf.union(num, newGrid[row][col + 1]);\n    }\n  }\n  return uf.size;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "数组",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

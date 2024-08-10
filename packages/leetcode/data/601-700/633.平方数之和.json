@@ -2,17 +2,21 @@
     "id": "633",
     "name": "633.平方数之和",
     "url": "https://leetcode.cn/problems/sum-of-square-numbers",
-    "difficulty": "中等",
-    "tag": ["数学", "双指针", "二分查找"],
     "desc": "给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c 。",
     "solutions": [
         {
-            "date": 1619539200000,
+            "date": "2021-04-28",
             "time": 92,
             "memory": 39.5,
             "script": "typescript",
             "desc": "确定边界值进行逐个比较。",
             "code": "function judgeSquareSum(c: number): boolean {\n  let num1 = 0;\n  let num2 = ~~Math.sqrt(c) + 1;\n  while (num1 <= num2) {\n    const sum = num1 ** 2 + num2 ** 2;\n    if (sum > c) num2--;\n    else if (sum < c) num1++;\n    else return true;\n  }\n  return false;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "双指针",
+        "二分查找"
+    ],
+    "level": "Medium"
 }

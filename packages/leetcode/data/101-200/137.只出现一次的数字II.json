@@ -2,12 +2,10 @@
     "id": "137",
     "name": "137.只出现一次的数字II",
     "url": "https://leetcode.cn/problems/single-number-ii",
-    "difficulty": "中等",
-    "tag": ["位运算", "数组"],
     "desc": "给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。",
     "solutions": [
         {
-            "date": 1619712000000,
+            "date": "2021-04-30",
             "time": 96,
             "memory": 40.1,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function singleNumber(nums: number[]): number {\n  const len = nums.length;\n  nums.sort((a, b) => a - b);\n  let i = 0;\n  while (i < len - 1) {\n    if (nums[i] === nums[i + 1]) i += 3;\n    else break;\n  }\n  return nums[i];\n}"
         },
         {
-            "date": 1619712000000,
+            "date": "2021-04-30",
             "time": 76,
             "memory": 40.4,
             "script": "typescript",
@@ -28,7 +26,12 @@
             "memory": 17.8,
             "desc": "统计每一个位置上1的个数。",
             "code": "import ctypes\n\n    class Solution:\n        def singleNumber(self, nums: List[int]) -> int:\n            return ctypes.c_int32(reduce(\n                lambda res, i: res | (1 if sum((num >> i) & 1 for num in nums) % 3 != 0 else 0) << i, \n                [i for i in range(0, 32)],\n                0\n            )).value",
-            "date": 1697299200000
+            "date": "2023-10-15"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组"
+    ],
+    "level": "Medium"
 }

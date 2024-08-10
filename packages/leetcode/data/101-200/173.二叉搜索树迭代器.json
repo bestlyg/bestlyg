@@ -2,12 +2,10 @@
     "id": "173",
     "name": "173.二叉搜索树迭代器",
     "url": "https://leetcode.cn/problems/binary-search-tree-iterator",
-    "difficulty": "中等",
-    "tag": ["栈", "树", "设计", "二叉搜索树", "二叉树", "迭代器"],
     "desc": "实现一个二叉搜索树迭代器。你将使用二叉搜索树的根节点初始化迭代器。",
     "solutions": [
         {
-            "date": 1582473600000,
+            "date": "2020-02-24",
             "time": 30,
             "memory": 44.8,
             "script": "java",
@@ -15,12 +13,21 @@
             "code": "class BSTIterator {\n    Queue<Integer> queue = new LinkedList<Integer>();\n    public BSTIterator(TreeNode root) {\n        if(root!=null)\n        inorder(root);\n    }\n    public int next() {\n        return queue.poll();\n    }\n    public boolean hasNext() {\n        return !queue.isEmpty();\n    }\n    public void inorder(TreeNode node) {\n        if (node.left != null)\n            inorder(node.left);\n            queue.add(node.val);\n        if (node.right != null)\n            inorder(node.right);\n    }\n}"
         },
         {
-            "date": 1616860800000,
+            "date": "2021-03-28",
             "time": 144,
             "memory": 49.6,
             "script": "typescript",
             "desc": "中序遍历存入数组。",
             "code": "class BSTIterator {\n  private arr: number[] = [];\n  constructor(root: TreeNode | null) {\n    this.inorder(root);\n  }\n  next(): number {\n    return this.arr.shift()!;\n  }\n  hasNext(): boolean {\n    return this.arr.length > 0;\n  }\n  private inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    this.inorder(node.left);\n    this.arr.push(node.val);\n    this.inorder(node.right);\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "树",
+        "设计",
+        "二叉搜索树",
+        "二叉树",
+        "迭代器"
+    ],
+    "level": "Medium"
 }

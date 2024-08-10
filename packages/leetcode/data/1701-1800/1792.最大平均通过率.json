@@ -2,8 +2,6 @@
     "id": "1917",
     "name": "1792.最大平均通过率",
     "url": "https://leetcode.cn/problems/maximum-average-pass-ratio",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "堆（优先队列）"],
     "desc": "请你返回在安排这 extraStudents 个学生去对应班级后的 最大 平均通过率。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 85.8,
             "desc": "堆，按增长幅度排序。",
             "code": "class Solution {\n    public:\n        typedef pair<int, int> node;\n        double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {\n            double ans = 0.0;\n            auto cmp = [&](node x, node y) -> bool {\n                double v1 = 1.0 * (x.first + 1) / (x.second + 1) - 1.0 * x.first / x.second,\n                       v2 = 1.0 * (y.first + 1) / (y.second + 1) - 1.0 * y.first / y.second;\n                return v1 < v2;\n            };\n            priority_queue<node, vector<node>, decltype(cmp)> q(cmp);\n            for (auto &item : classes) q.push(make_pair(item[0], item[1]));\n            while (extraStudents--) {\n                node item = q.top(); q.pop();\n                item.first += 1;\n                item.second += 1;\n                q.push(item);\n            }\n            while (q.size()) {\n                node item = q.top(); q.pop();\n                ans += 1.0 * item.first / item.second;\n            }\n            return ans / classes.size();\n        }\n    };",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 48.4,
             "desc": "同上。",
             "code": "class Node:\n    def __init__(self, x: int, y: int):\n        self.x = x\n        self.y = y\n\n    def __lt__(self, o: 'Node') -> bool:\n        v1 = (self.x + 1) / (self.y + 1) - self.x / self.y\n        v2 = (o.x + 1) / (o.y + 1) - o.x / o.y\n        return v1 > v2\n\nclass Solution:\n    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:\n        heap = [Node(item[0], item[1]) for item in classes]\n        heapify(heap)\n        for _ in range(extraStudents):\n            heapreplace(heap, Node(heap[0].x + 1, heap[0].y + 1))\n        return sum(item.x / item.y for item in heap) / len(classes)",
-            "date": 1676736000000
+            "date": "2023-02-19"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 10,
             "desc": "同上。",
             "code": "#[derive(Clone, PartialEq, Eq, Ord)]\nstruct Node {\n    x: i32,\n    y: i32,\n}\nimpl Node {\n    fn new(x: i32, y: i32) -> Self {\n        Node { x, y }\n    }\n    fn inc_val(&self) -> f64 {\n        ((self.x + 1) as f64) / ((self.y + 1) as f64) - (self.x as f64) / (self.y as f64)\n    }\n    fn val(&self) -> f64 {\n        (self.x as f64) / (self.y as f64)\n    }\n}\nimpl PartialOrd for Node {\n    fn partial_cmp(&self, o: &Self) -> Option<std::cmp::Ordering> {\n        self.inc_val().partial_cmp(&o.inc_val())\n    }\n}\nimpl Solution {\n    pub fn max_average_ratio(classes: Vec<Vec<i32>>, extra_students: i32) -> f64 {\n        use std::collections::BinaryHeap;\n        let mut heap = BinaryHeap::<Node>::new();\n        for item in classes.iter() {\n            heap.push(Node::new(item[0], item[1]));\n        }\n        for _ in 0..extra_students {\n            let mut node = heap.pop().unwrap();\n            node.x += 1;\n            node.y += 1;\n            heap.push(node);\n        }\n        let mut res: f64 = 0.0;\n        while let Some(node) = heap.pop() {\n            res += node.val();\n        }\n        res / classes.len() as f64\n    }\n}",
-            "date": 1676736000000
+            "date": "2023-02-19"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "堆（优先队列）"
+    ],
+    "level": "Medium"
 }

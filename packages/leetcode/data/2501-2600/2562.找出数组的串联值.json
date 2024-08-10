@@ -2,8 +2,6 @@
     "id": "2698",
     "name": "2562.找出数组的串联值",
     "url": "https://leetcode.cn/problems/find-the-array-concatenation-value",
-    "difficulty": "简单",
-    "tag": ["数组", "双指针", "模拟"],
     "desc": "返回执行完所有操作后 nums 的串联值。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 9,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    long long findTheArrayConcVal(vector<int>& nums) {\n        long long res = 0;\n        while (nums.size() >= 2) {\n            long long num1 = nums[0], num2 = nums[nums.size() - 1];\n            res += merge(num1, num2);\n            nums.erase(nums.begin());\n            nums.pop_back();\n        }\n        if (nums.size() == 1) res += nums[0];\n        return res;\n    }\n    long long merge(long long num1, long long num2) {\n        return num1 * pow(10, cnt(num2)) + num2; \n    }\n    int cnt(long long num) {\n        int res = 0;\n        while (num) {\n            res += 1;\n            num /= 10;\n        }\n        return res;\n    }\n};",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 14.9,
             "desc": "同上。",
             "code": "class Solution:\n    def findTheArrayConcVal(self, nums: List[int]) -> int:\n        res = 0\n        while len(nums) >= 2:\n            num1, num2 = nums[0], nums[-1]\n            res += int(str(num1) + str(num2))\n            nums = nums[1:-1]\n        if len(nums) == 1:\n            res += nums[0]\n        return res",
-            "date": 1676131200000
+            "date": "2023-02-12"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_the_array_conc_val(nums: Vec<i32>) -> i64 {\n        let mut nums = &nums[..];\n        let mut res = 0;\n        while nums.len() >= 2 {\n            let (num1, num2) = (nums.first().unwrap(), nums.last().unwrap());\n            res += [(*num1).to_string(), (*num2).to_string()]\n                .concat()\n                .parse::<i64>()\n                .unwrap();\n            nums = &nums[1..nums.len() - 1];\n        }\n        if nums.len() == 1 {\n            res += nums[0] as i64;\n        }\n        res\n    }\n}",
-            "date": 1676131200000
+            "date": "2023-02-12"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "双指针",
+        "模拟"
+    ],
+    "level": "Easy"
 }

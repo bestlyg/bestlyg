@@ -2,17 +2,22 @@
     "id": "606",
     "name": "606.根据二叉树创建字符串",
     "url": "https://leetcode.cn/problems/construct-string-from-binary-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "字符串", "二叉树"],
     "desc": "给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。",
     "solutions": [
         {
-            "date": 1647273600000,
+            "date": "2022-03-15",
             "time": 32,
             "memory": 64.2,
             "script": "cpp",
             "desc": "遍历后组装。",
             "code": "class Solution {\n   public:\n    string tree2str(TreeNode* root) {\n        if (!root) return \"\";\n        string l = \"(\" + tree2str(root->left) + \")\",\n               r = \"(\" + tree2str(root->right) + \")\";\n        return to_string(root->val) + (l == \"()\" && r == \"()\"   ? \"\"\n                                       : l != \"()\" && r == \"()\" ? l\n                                                                : l + r);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "字符串",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

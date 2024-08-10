@@ -2,12 +2,10 @@
     "id": "782",
     "name": "771.宝石与石头",
     "url": "https://leetcode.cn/problems/jewels-and-stones",
-    "difficulty": "简单",
-    "tag": ["哈希表", "字符串"],
     "desc": "给定字符串 J 代表石头中宝石的类型，和字符串 S 代表你拥有的石头。 S 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。",
     "solutions": [
         {
-            "date": 1601568000000,
+            "date": "2020-10-02",
             "time": 92,
             "memory": 39.9,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 6.1,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    int numJewelsInStones(string jewels, string stones) {\n        bool list[200] = {0};\n        for (auto &o : jewels) list[o] = true;\n        int sum = 0;\n        for (auto &c : stones) {\n            if (list[c]) sum++;\n        }\n        return sum;\n    }\n};",
-            "date": 1690128000000
+            "date": "2023-07-24"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 16,
             "desc": "同上。",
             "code": "class Solution:\n    def numJewelsInStones(self, jewels: str, stones: str) -> int:\n        s = set(jewels)\n        return sum(o in s for o in stones)",
-            "date": 1690128000000
+            "date": "2023-07-24"
         },
         {
             "script": "rust",
@@ -36,7 +34,12 @@
             "memory": 1.9,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn num_jewels_in_stones(jewels: String, stones: String) -> i32 {\n        let mut list = [false; 200];\n        for c in jewels.bytes() {\n            list[c as usize] = true;\n        }\n        stones\n            .bytes()\n            .into_iter()\n            .filter(|c| list[*c as usize])\n            .collect::<Vec<_>>()\n            .len() as i32\n    }\n}",
-            "date": 1690128000000
+            "date": "2023-07-24"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

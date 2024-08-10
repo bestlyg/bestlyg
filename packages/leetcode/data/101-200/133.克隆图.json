@@ -2,12 +2,10 @@
     "id": "133",
     "name": "133.克隆图",
     "url": "https://leetcode.cn/problems/clone-graph",
-    "difficulty": "中等",
-    "tag": ["深度优先搜索", "广度优先搜索", "图", "哈希表"],
     "desc": "给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。",
     "solutions": [
         {
-            "date": 1597161600000,
+            "date": "2020-08-12",
             "time": 104,
             "memory": 40.1,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "/**\n * // Definition for a Node.\n * function Node(val, neighbors) {\n *    this.val = val === undefined ? 0 : val;\n *    this.neighbors = neighbors === undefined ? [] : neighbors;\n * };\n */\n/**\n * @param {Node} node\n * @return {Node}\n */\nvar cloneGraph = function (node) {\n  if (node === null) return null;\n  const cloned = new Map();\n  return clone(node);\n  function clone(node) {\n    const val = node.val;\n    if (cloned.has(val)) return cloned.get(val);\n    const newNode = new Node(val);\n    cloned.set(val, newNode);\n    newNode.neighbors = node.neighbors.map(v => clone(v));\n    return newNode;\n  }\n};"
         },
         {
-            "date": 1635091200000,
+            "date": "2021-10-25",
             "time": 80,
             "memory": 39.9,
             "script": "typescript",
             "desc": "dfs。",
             "code": "function cloneGraph(node: Node | null): Node | null {\n  if (node === null) return null;\n  const map = new Map<number, Node>();\n  dfs(node);\n  return map.get(node.val)!;\n  function dfs(node: Node | null): void {\n    if (node === null || map.has(node.val)) return;\n    const cloneNode = new Node(node.val);\n    map.set(node.val, cloneNode);\n    node.neighbors.forEach(neighbor => {\n      dfs(neighbor);\n      cloneNode.neighbors.push(map.get(neighbor.val)!);\n    });\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "图",
+        "哈希表"
+    ],
+    "level": "Medium"
 }

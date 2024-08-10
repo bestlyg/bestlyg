@@ -2,17 +2,23 @@
     "id": "100301",
     "name": "LCR159.库存管理III",
     "url": "https://leetcode.cn/problems/zui-xiao-de-kge-shu-lcof",
-    "difficulty": "简单",
-    "tag": ["数组", "分治", "快速选择", "排序", "堆（优先队列）"],
     "desc": "输入整数数组 arr ，找出其中最小的 k 个数。",
     "solutions": [
         {
-            "date": 1617897600000,
+            "date": "2021-04-09",
             "time": 228,
             "memory": 45.5,
             "script": "typescript",
             "desc": "构建堆。",
             "code": "class Heap {\n  private arr: number[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  constructor(private compare: (num1: number, num2: number) => number) {}\n  add(num: number): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): number {\n    const num = this.arr.shift();\n    this.arr.unshift(this.arr.pop()!);\n    this.shiftDown(0);\n    return num;\n  }\n  private shiftUp(index: number): void {\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n}\n\nfunction getLeastNumbers(arr: number[], k: number): number[] {\n  const ans: number[] = [];\n  const heap = new Heap((num1, num2) => num2 - num1);\n  arr.forEach(v => heap.add(v));\n  while (k--) ans.push(heap.remove());\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "分治",
+        "快速选择",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Easy"
 }

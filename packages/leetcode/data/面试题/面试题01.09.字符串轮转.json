@@ -2,12 +2,10 @@
     "id": "100162",
     "name": "面试题01.09.字符串轮转",
     "url": "https://leetcode.cn/problems/string-rotation-lcci",
-    "difficulty": "简单",
-    "tag": ["字符串", "字符串匹配"],
     "desc": "字符串轮转。给定两个字符串 s1 和 s2，请编写代码检查 s2 是否为 s1 旋转而成。",
     "solutions": [
         {
-            "date": 1664380800000,
+            "date": "2022-09-29",
             "time": 4,
             "memory": 7.5,
             "script": "cpp",
@@ -15,12 +13,17 @@
             "code": "class Solution {\npublic:\n    int n;\n    bool isFlipedString(string s1, string s2) {\n        if (s1.size() != s2.size()) return false;\n        n = s1.size();\n        if (n == 0) return true;\n        vector<int> list;\n        char start = s2[0];\n        for (int i = 0; i < n; i++) if (s1[i] == start) list.push_back(i);\n        for (auto &start : list) if (comp(s1, start, s2, 0)) return true;\n        return false;\n    }\n    bool comp(string &s1, int i1, string &s2, int i2) {\n        while (i2 < n) {\n            if (s1[i1] != s2[i2]) return false;\n            i1 = (i1 + 1) % n;\n            i2++;\n        }\n        return true;\n    }\n};"
         },
         {
-            "date": 1664380800000,
+            "date": "2022-09-29",
             "time": 4,
             "memory": 7.7,
             "script": "cpp",
             "desc": "拼接两个 s1，如果是旋转，s2 一定是子串。",
             "code": "class Solution {\npublic:\n    bool isFlipedString(string s1, string s2) {\n        return s1.size() == s2.size() && (s1 + s1).find(s2) != string::npos;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串",
+        "字符串匹配"
+    ],
+    "level": "Easy"
 }

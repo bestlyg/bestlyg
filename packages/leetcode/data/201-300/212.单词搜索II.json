@@ -2,17 +2,23 @@
     "id": "212",
     "name": "212.单词搜索II",
     "url": "https://leetcode.cn/problems/word-search-ii",
-    "difficulty": "困难",
-    "tag": ["字典树", "数组", "字符串", "回溯", "矩阵"],
     "desc": "给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words，找出所有同时在二维网格和字典中出现的单词。",
     "solutions": [
         {
-            "date": 1631721600000,
+            "date": "2021-09-16",
             "time": 4092,
             "memory": 45.2,
             "script": "javascript",
             "desc": "字典树。",
             "code": "interface ITrie {\n        size: number;\n        empty: boolean;\n        add: (str: string) => void;\n        remove: (str: string) => void;\n        clear: () => void;\n        contains: (str: string) => boolean;\n        starsWith: (str: string) => boolean;\n      }\n      class TrieNode {\n        end = false;\n        children: Map<string, TrieNode> = new Map();\n        constructor(public val: string) {}\n      }\n      class Trie implements ITrie {\n        private _size = 0;\n        get size() {\n          return this._size;\n        }\n        get empty() {\n          return this._size === 0;\n        }\n        private root = new TrieNode('');\n        clear() {\n          this.root = new TrieNode('');\n          this._size = 0;\n        }\n        add(str: string) {\n          return this._add(str);\n        }\n        private _add(str: string, node = this.root) {\n          if (str.length === 0) {\n            this.root.end = true;\n            this._size++;\n            return;\n          }\n          if (str.length === 1) {\n            let endNode = node.children.get(str);\n            if (!endNode) node.children.set(str, (endNode = new TrieNode(str)));\n            if (!endNode.end) {\n              endNode.end = true;\n              this._size++;\n            }\n            return;\n          }\n          const first = str[0];\n          let nextNode = node.children.get(first);\n          if (!nextNode) node.children.set(first, (nextNode = new TrieNode(first)));\n          const nextStr = str.substr(1);\n          this._add(nextStr, nextNode);\n        }\n        contains(str: string) {\n          const endNode = this.findEndNode(str);\n          return endNode ? endNode.end : false;\n        }\n        remove(str: string) {\n          const endNode = this.findEndNode(str);\n          if (endNode && endNode.end) {\n            endNode.end = false;\n            this._size--;\n          }\n        }\n        starsWith(str: string) {\n          return this.findEndNode(str) !== null;\n        }\n        private findEndNode(str: string, node = this.root): TrieNode | null {\n          if (str.length === 0) return this.root;\n          if (str.length === 1) return node.children.get(str) ?? null;\n          const first = str[0];\n          let nextNode = node.children.get(first);\n          if (!nextNode) return null;\n          const nextStr = str.substr(1);\n          return this.findEndNode(nextStr, nextNode);\n        }\n      }\n      function findWords(board: string[][], words: string[]): string[] {\n        const trie = new Trie();\n        let maxWordLen = 0;\n        words.forEach(word => {\n          trie.add(word);\n          maxWordLen = Math.max(maxWordLen, word.length);\n        });\n        const rowLen = board.length;\n        const colLen = board[0].length;\n        const ans = new Set<string>();\n        const format = (row: number, col: number) => `${row}::${col}`;\n        const set = new Set<string>();\n        const starts: [number, number][] = [];\n        for (let row = 0; row < rowLen; row++) {\n          for (let col = 0; col < colLen; col++) {\n            if (trie.starsWith(board[row][col])) starts.push([row, col]);\n          }\n        }\n        starts.forEach(v => find(...v));\n        return Array.from(ans);\n        function find(row: number, col: number, str: string = ''): void {\n          const formatStr = format(row, col);\n          if (\n            set.has(formatStr) ||\n            str.length > maxWordLen ||\n            ans.size === words.length ||\n            row === -1 ||\n            row === rowLen ||\n            col === -1 ||\n            col === colLen\n          )\n            return;\n          str += board[row][col];\n          if (trie.contains(str)) ans.add(str);\n          set.add(formatStr);\n          find(row, col - 1, str);\n          find(row, col + 1, str);\n          find(row - 1, col, str);\n          find(row + 1, col, str);\n          set.delete(formatStr);\n        }\n      }"
         }
-    ]
+    ],
+    "tagList": [
+        "字典树",
+        "数组",
+        "字符串",
+        "回溯",
+        "矩阵"
+    ],
+    "level": "Hard"
 }

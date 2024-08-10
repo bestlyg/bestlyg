@@ -2,17 +2,24 @@
     "id": "638",
     "name": "638.大礼包",
     "url": "https://leetcode.cn/problems/shopping-offers",
-    "difficulty": "中等",
-    "tag": ["位运算", "记忆化搜索", "数组", "动态规划", "回溯", "状态压缩"],
     "desc": "返回 确切 满足购物清单所需花费的最低价格，你可以充分利用大礼包的优惠活动。你不能购买超出购物清单指定数量的物品，即使那样会降低整体价格。任意大礼包可无限次购买。",
     "solutions": [
         {
-            "date": 1635004800000,
+            "date": "2021-10-24",
             "time": 76,
             "memory": 39.8,
             "script": "typescript",
             "desc": "dfs。",
             "code": "function shoppingOffers(price: number[], special: number[][], needs: number[]): number {\n  const n = price.length;\n  special = special\n    .filter(item => {\n      let sum = 0;\n      for (let i = 0; i < n; i++) sum += item[i] * price[i];\n      return sum > item[n];\n    })\n    .sort((a, b) => a[n] - b[n]);\n  let ans = Infinity;\n  dfs(needs);\n  return ans;\n  function dfs(needs: number[], cost = 0) {\n    if (needs.every(v => v === 0)) {\n      ans = Math.min(cost, ans);\n      return;\n    }\n    const list = special.filter((item: number[]) =>\n      item.every((v, i) => (i === n ? true : v <= needs[i]))\n    );\n    if (list.length === 0) {\n      dfs(\n        [0],\n        needs.reduce((total, v, i) => price[i] * v + total, cost)\n      );\n    } else {\n      list.forEach(item => {\n        dfs(\n          needs.map((v, i) => v - item[i]),\n          item[n] + cost\n        );\n      });\n    }\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "回溯",
+        "状态压缩"
+    ],
+    "level": "Medium"
 }

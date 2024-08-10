@@ -2,12 +2,10 @@
     "id": "2155",
     "name": "2028.找出缺失的观测数据",
     "url": "https://leetcode.cn/problems/find-missing-observations",
-    "difficulty": "中等",
-    "tag": ["数组", "数学", "模拟"],
     "desc": "返回一个长度为 n 的数组，包含所有缺失的观测数据，且满足这 n + m 次投掷的 平均值 是 mean 。如果存在多组符合要求的答案，只需要返回其中任意一组即可。如果不存在答案，返回一个空数组。",
     "solutions": [
         {
-            "date": 1648310400000,
+            "date": "2022-03-27",
             "time": 112,
             "memory": 120.7,
             "script": "cpp",
@@ -20,7 +18,13 @@
             "memory": 20.9,
             "desc": "模拟构造。",
             "code": "class Solution:\n    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:\n        m = len(rolls)\n        nsum = (m + n) * mean\n        ssum = nsum - sum(rolls)\n        if ssum / n > 6 or ssum < n: return []\n        res = [ssum // n] * n\n        for i in range(ssum % n): res[i] += 1\n        return res",
-            "date": 1716739200000
+            "date": "2024-05-27"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "数学",
+        "模拟"
+    ],
+    "level": "Medium"
 }

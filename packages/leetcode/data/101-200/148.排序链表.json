@@ -2,12 +2,10 @@
     "id": "148",
     "name": "148.排序链表",
     "url": "https://leetcode.cn/problems/sort-list",
-    "difficulty": "中等",
-    "tag": ["链表", "双指针", "分治", "排序", "归并排序"],
     "desc": "给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。",
     "solutions": [
         {
-            "date": 1605888000000,
+            "date": "2020-11-21",
             "time": 156,
             "memory": 53.5,
             "script": "typescript",
@@ -15,12 +13,20 @@
             "code": "function sortList(head: ListNode | null): ListNode | null {\n  if (head == null) return null;\n  const arr: ListNode[] = [];\n  let temp: ListNode | null = head;\n  while (temp !== null) {\n    arr.push(temp);\n    temp = temp.next;\n  }\n  const len = arr.length;\n  arr\n    .sort(({ val: val1 }, { val: val2 }) => val1 - val2)\n    .forEach((node, i, arr) => {\n      node.next = arr[i + 1] ?? null;\n    });\n  return arr[0];\n}"
         },
         {
-            "date": 1620835200000,
+            "date": "2021-05-13",
             "time": 164,
             "memory": 56.7,
             "script": "typescript",
             "desc": "归并思想排序。",
             "code": "function sortList(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const list: ListNode[] = [];\n  let p: ListNode | null = head;\n  while (p !== null) {\n    list.push(p);\n    p = p.next;\n  }\n  const len = list.length;\n  const sort = (start: number, end: number) => {\n    if (end - start < 2) return;\n    const mid = (start + end) >> 1;\n    sort(start, mid);\n    sort(mid, end);\n    merge(start, mid, end);\n  };\n  const merge = (start: number, mid: number, end: number) => {\n    const tempList = list.slice(start, mid);\n    let p1 = 0;\n    let p2 = mid;\n    let i = start;\n    while (p1 < mid - start) {\n      if (p2 >= end || tempList[p1].val <= list[p2].val) {\n        list[i++] = tempList[p1++];\n      } else {\n        list[i++] = list[p2++];\n      }\n    }\n  };\n  sort(0, len);\n  let i = 0;\n  for (; i < len - 1; i++) list[i].next = list[i + 1];\n  list[i].next = null;\n  return list[0];\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "链表",
+        "双指针",
+        "分治",
+        "排序",
+        "归并排序"
+    ],
+    "level": "Medium"
 }

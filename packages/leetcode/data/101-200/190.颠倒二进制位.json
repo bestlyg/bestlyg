@@ -2,12 +2,10 @@
     "id": "190",
     "name": "190.颠倒二进制位",
     "url": "https://leetcode.cn/problems/reverse-bits",
-    "difficulty": "简单",
-    "tag": ["位运算", "分治"],
     "desc": "颠倒给定的 32 位无符号整数的二进制位。",
     "solutions": [
         {
-            "date": 1616947200000,
+            "date": "2021-03-29",
             "time": 156,
             "memory": 39.5,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function reverseBits(n: number): number {\n  const bits = n.toString(2).split('');\n  while (bits.length < 32) bits.unshift('0');\n  return parseInt(bits.reverse().join(''), 2);\n}"
         },
         {
-            "date": 1616947200000,
+            "date": "2021-03-29",
             "time": 96,
             "memory": 36.5,
             "script": "typescript",
@@ -23,12 +21,17 @@
             "code": "function reverseBits(n: number): number {\n  let ans = 0;\n  for (let i = 0; i < 32 && n !== 0; i++) {\n    ans |= (n & 1) << (31 - i);\n    n >>= 1;\n  }\n  return ans >>> 0;\n}"
         },
         {
-            "date": 1627574400000,
+            "date": "2021-07-30",
             "time": 88,
             "memory": 39.6,
             "script": "typescript",
             "desc": "二进制逐位倒序赋值。",
             "code": "function reverseBits(n: number): number {\n  let ans = 0;\n  for (let i = 0; i < 32 && n > 0; i++) {\n    ans |= (n & 1) << (31 - i);\n    n >>>= 1;\n  }\n  return ans >>> 0;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "分治"
+    ],
+    "level": "Easy"
 }

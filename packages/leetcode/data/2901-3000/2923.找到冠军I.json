@@ -2,8 +2,6 @@
     "id": "3188",
     "name": "2923.找到冠军I",
     "url": "https://leetcode.cn/problems/find-champion-i",
-    "difficulty": "简单",
-    "tag": ["数组", "矩阵"],
     "desc": "返回这场比赛中将会成为冠军的队伍。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 17.82,
             "desc": "每次找比当前大的第一个值进行递归遍历。",
             "code": "class Solution:\n    def findChampion(self, grid: List[List[int]]) -> int:\n        def find(i :int) -> int:\n            for j in range(len(grid)):\n                if i != j and grid[i][j] == 0: return find(j)\n            return i\n        return find(0)",
-            "date": 1712851200000
+            "date": "2024-04-12"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "矩阵"
+    ],
+    "level": "Easy"
 }

@@ -2,12 +2,10 @@
     "id": "275",
     "name": "275.H指数II",
     "url": "https://leetcode.cn/problems/h-index-ii",
-    "difficulty": "中等",
-    "tag": ["数组", "二分查找"],
     "desc": "给定一位研究者论文被引用次数的数组（被引用次数是非负整数），数组已经按照 升序排列 。编写一个方法，计算出研究者的 h 指数。",
     "solutions": [
         {
-            "date": 1626019200000,
+            "date": "2021-07-12",
             "time": 68,
             "memory": 42.7,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function hIndex(citations: number[]): number {\n  if (citations.every(v => v === 0)) return 0;\n  const len = citations.length;\n  const max = citations[len - 1];\n  const arr = new Array(max + 1).fill(0);\n  citations.forEach(num => arr[num]++);\n  let sum = 0;\n  let ans = 0;\n  for (let num = max; num >= 0; num--) {\n    const count = arr[num];\n    if (count === 0) continue;\n    ans = Math.max(ans, Math.min((sum += count), num));\n  }\n  return ans;\n}"
         },
         {
-            "date": 1626019200000,
+            "date": "2021-07-12",
             "time": 80,
             "memory": 42.7,
             "script": "typescript",
@@ -28,7 +26,12 @@
             "memory": 21.5,
             "desc": "二分搜索。",
             "code": "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        l = 0\n        r = len(citations)\n        while l < r:\n            m = (l + r) // 2\n            if citations[m] >= len(citations) - m:\n                r = m\n            else:\n                l = m + 1\n        return len(citations) - l",
-            "date": 1698595200000
+            "date": "2023-10-30"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "level": "Medium"
 }

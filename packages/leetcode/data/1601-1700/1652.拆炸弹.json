@@ -2,12 +2,10 @@
     "id": "1755",
     "name": "1652.拆炸弹",
     "url": "https://leetcode.cn/problems/defuse-the-bomb",
-    "difficulty": "简单",
-    "tag": ["数组", "滑动窗口"],
     "desc": "给你 循环 数组 code 和整数密钥 k ，请你返回解密后的结果来拆除炸弹！。",
     "solutions": [
         {
-            "date": 1663948800000,
+            "date": "2022-09-24",
             "time": 0,
             "memory": 8.2,
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 16.42,
             "desc": "遍历。",
             "code": "class Solution:\n    def decrypt(self, code: List[int], k: int) -> List[int]:\n        n = len(code)\n        if k == 0: return [0] * n\n        def get(idx: int) -> int:\n            res = 0\n            next = idx\n            for _ in range(abs(k)):\n                next = ((1 if k > 0 else -1) + next + n) % n\n                res += code[next]\n            return res\n        return [get(i) for i in range(n)]",
-            "date": 1714838400000
+            "date": "2024-05-05"
         },
         {
             "script": "python",
@@ -28,7 +26,12 @@
             "memory": 16.42,
             "desc": "遍历。",
             "code": "class Solution:\n    def decrypt(self, code: List[int], k: int) -> List[int]:\n        n = len(code)\n        if k == 0: return [0] * n\n        def get(idx: int) -> int:\n            res = 0\n            next = idx\n            for _ in range(abs(k)):\n                next = ((1 if k > 0 else -1) + next + n) % n\n                res += code[next]\n            return res\n        return [get(i) for i in range(n)]",
-            "date": 1714838400000
+            "date": "2024-05-05"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "滑动窗口"
+    ],
+    "level": "Easy"
 }

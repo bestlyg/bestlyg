@@ -2,12 +2,10 @@
     "id": "759",
     "name": "757.设置交集大小至少为2",
     "url": "https://leetcode.cn/problems/set-intersection-size-at-least-two",
-    "difficulty": "困难",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "输出这个最小集合 S 的大小。",
     "solutions": [
         {
-            "date": 1658419200000,
+            "date": "2022-07-22",
             "time": 212,
             "memory": 55,
             "script": "cpp",
@@ -15,12 +13,18 @@
             "code": "class Solution {\n   public:\n    int intersectionSizeTwo(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end(),\n             [&](vector<int> a, vector<int> b) -> bool {\n                 return a[0] == b[0] ? a[1] > b[1] : a[0] < b[0];\n             });\n        int n = intervals.size(), l = intervals[n - 1][0], r = l + 1, ans = 2;\n        for (int i = n - 2; i >= 0; i--) {\n            if (intervals[i][1] >= r)\n                continue;\n            else if (intervals[i][1] < l) {\n                ans += 2;\n                l = intervals[i][0];\n                r = l + 1;\n            } else {\n                r = l;\n                l = intervals[i][0];\n                ans++;\n            }\n        }\n        return ans;\n    }\n};"
         },
         {
-            "date": 1658419200000,
+            "date": "2022-07-22",
             "time": 4,
             "memory": 2.3,
             "script": "rust",
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn intersection_size_two(intervals: Vec<Vec<i32>>) -> i32 {\n        let mut intervals = intervals;\n        intervals.sort_by(|v1, v2| {\n            if v1[0] == v2[0] {\n                v2.cmp(v1)\n            } else {\n                v1.cmp(v2)\n            }\n        });\n        let n = intervals.len() as i32;\n        let mut l = intervals[(n - 1) as usize][0];\n        let mut r = l + 1;\n        let mut ans = 2;\n        let mut i = n - 2;\n        while i >= 0 {\n            if intervals[i as usize][1] >= r {\n                i -= 1;\n                continue;\n            } else if intervals[i as usize][1] < l {\n                l = intervals[i as usize][0];\n                r = l + 1;\n                ans += 2;\n            } else {\n                r = l;\n                l = intervals[i as usize][0];\n                ans += 1;\n            }\n            i -= 1;\n        }\n        ans\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Hard"
 }

@@ -2,12 +2,10 @@
     "id": "268",
     "name": "268.丢失的数字",
     "url": "https://leetcode.cn/problems/missing-number",
-    "difficulty": "简单",
-    "tag": ["位运算", "数组", "哈希表", "数学", "二分查找", "排序"],
     "desc": "给定一个包含 [0, n] 中 n 个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。",
     "solutions": [
         {
-            "date": 1636128000000,
+            "date": "2021-11-06",
             "time": 80,
             "memory": 45,
             "script": "typescript",
@@ -15,12 +13,21 @@
             "code": "function missingNumber(nums: number[]): number {\n  const n = nums.length;\n  const set = new Set(nums);\n  for (let num = 0; num <= n; num++) {\n    if (!set.has(num)) return num;\n  }\n  return 0;\n}"
         },
         {
-            "date": 1636128000000,
+            "date": "2021-11-06",
             "time": 80,
             "memory": 40.4,
             "script": "typescript",
             "desc": "xor 去重。",
             "code": "function missingNumber(nums: number[]): number {\n  const n = nums.length;\n  let num = 0;\n  for (let i = 0; i <= n; i++) num ^= i;\n  for (let i = 0; i < n; i++) num ^= nums[i];\n  return num;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "哈希表",
+        "数学",
+        "二分查找",
+        "排序"
+    ],
+    "level": "Easy"
 }

@@ -2,17 +2,20 @@
     "id": "401",
     "name": "401.二进制手表",
     "url": "https://leetcode.cn/problems/binary-watch",
-    "difficulty": "简单",
-    "tag": ["位运算", "回溯"],
     "desc": "二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。每个 LED 代表一个 0 或 1，最低位在右侧。给你一个整数 turnedOn ，表示当前亮着的 LED 的数量，返回二进制手表可以表示的所有可能时间。你可以 按任意顺序 返回答案。",
     "solutions": [
         {
-            "date": 1624204800000,
+            "date": "2021-06-21",
             "time": 96,
             "memory": 42.2,
             "script": "typescript",
             "desc": "全排列。",
             "code": "const getTime = (hour: number, minute: number): string =>\n  `${hour}:${minute < 10 ? '0' + minute : minute}`;\nconst getList = (count: number, data: number[], maxNumber) => {\n  const ans: Set<number> = new Set();\n  if (count >= data.length) return ans;\n  if (count === 0) {\n    ans.add(0);\n    return ans;\n  }\n  for (let i = 0, len = data.length; i < len; i++) {\n    const num = 1 << data[i];\n    const list = getList(count - 1, [...data.slice(0, i), ...data.slice(i + 1)], maxNumber);\n    if (list.size === 0) ans.add(num);\n    else {\n      list.forEach(v => {\n        const item = v | num;\n        item <= maxNumber && ans.add(item);\n      });\n    }\n  }\n  return ans;\n};\nconst getHourList = (count: number) =>\n  getList(\n    count,\n    new Array(4).fill(0).map((_, i) => i),\n    11\n  );\nconst getMinuteList = (count: number) =>\n  getList(\n    count,\n    new Array(6).fill(0).map((_, i) => i),\n    59\n  );\nfunction readBinaryWatch(turnedOn: number): string[] {\n  if (turnedOn >= 9) return [];\n  if (turnedOn === 0) return ['0:00'];\n  return new Array(Math.min(4, turnedOn) + 1)\n    .fill(0)\n    .map((_, i) => {\n      return [i, turnedOn - i];\n    })\n    .map(([hour, minute]) => {\n      const ans: string[] = [];\n      const hourList = getHourList(hour);\n      const minuteList = getMinuteList(minute);\n      if (hourList.size === 0 || minuteList.size === 0) return ans;\n      for (const hour of hourList) {\n        for (const minute of minuteList) {\n          ans.push(getTime(hour, minute));\n        }\n      }\n      return ans;\n    })\n    .flat();\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "回溯"
+    ],
+    "level": "Easy"
 }

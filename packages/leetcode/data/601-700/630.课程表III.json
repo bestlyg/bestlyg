@@ -2,12 +2,10 @@
     "id": "630",
     "name": "630.课程表III",
     "url": "https://leetcode.cn/problems/course-schedule-iii",
-    "difficulty": "困难",
-    "tag": ["贪心", "数组", "排序", "堆（优先队列）"],
     "desc": "返回你最多可以修读的课程数目。",
     "solutions": [
         {
-            "date": 1639411200000,
+            "date": "2021-12-14",
             "time": 180,
             "memory": 47.4,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 53.61,
             "desc": "拓扑排序。",
             "code": "class Solution {\npublic:\n    int scheduleCourse(vector<vector<int>>& courses) {\n        int sum = 0;\n        priority_queue<int> q;\n        sort(courses.begin(), courses.end(), [&](auto &a, auto &b) {\n            return a[1] < b[1];\n        });\n        for (auto &course : courses) {\n            sum += course[0];\n            q.push(course[0]);\n            if (sum > course[1]) {\n                sum -= q.top();\n                q.pop();\n            }\n        }\n        return q.size();\n    }\n};",
-            "date": 1694361600000
+            "date": "2023-09-11"
         },
         {
             "script": "python",
@@ -28,7 +26,7 @@
             "memory": 19.54,
             "desc": "同上。",
             "code": "class Solution:\n    def scheduleCourse(self, courses: List[List[int]]) -> int:\n        courses.sort(key=lambda o: o[1])\n        q = []\n        sum = 0\n        for [d, e] in courses:\n            sum += d\n            heappush(q, -d)\n            if sum > e:\n                sum -= -heappop(q)\n        return len(q)\n",
-            "date": 1694361600000
+            "date": "2023-09-11"
         },
         {
             "script": "rust",
@@ -36,7 +34,14 @@
             "memory": 29.7,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn schedule_course(mut courses: Vec<Vec<i32>>) -> i32 {\n        courses.sort_by_key(|o| o[1]);\n        let mut sum = 0;\n        let mut q = std::collections::BinaryHeap::<i32>::new();\n        for course in courses {\n            sum += course[0];\n            q.push(course[0]);\n            if sum > course[1] {\n                sum -= q.pop().unwrap();\n            }\n        }\n        q.len() as i32\n    }\n}",
-            "date": 1694361600000
+            "date": "2023-09-11"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Hard"
 }

@@ -2,12 +2,10 @@
     "id": "572",
     "name": "572.另一棵树的子树",
     "url": "https://leetcode.cn/problems/subtree-of-another-tree",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "二叉树", "字符串匹配", "哈希函数"],
     "desc": "给定两个非空二叉树 s 和 t，检验  s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。s 也可以看做它自身的一棵子树。",
     "solutions": [
         {
-            "date": 1588780800000,
+            "date": "2020-05-07",
             "time": 84,
             "memory": 41.5,
             "script": "javascript",
@@ -20,7 +18,15 @@
             "memory": 16.51,
             "desc": "序列化。",
             "code": "class Solution:\n    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:\n        def stringify(node: Optional[TreeNode]) -> str:\n            if not node: return ''\n            return f'[{node.val}, {stringify(node.left)}, {stringify(node.right)}]'\n        return stringify(subRoot) in stringify(root)",
-            "date": 1722700800000
+            "date": "2024-08-04"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树",
+        "字符串匹配",
+        "哈希函数"
+    ],
+    "level": "Easy"
 }

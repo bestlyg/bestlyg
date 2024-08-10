@@ -2,17 +2,19 @@
     "id": "728",
     "name": "728.自除数",
     "url": "https://leetcode.cn/problems/self-dividing-numbers",
-    "difficulty": "简单",
-    "tag": ["数学"],
     "desc": "给定两个整数 left 和 right ，返回一个列表，列表的元素是范围 [left, right] 内所有的 自除数 。",
     "solutions": [
         {
-            "date": 1647446400000,
+            "date": "2022-03-17",
             "time": 0,
             "memory": 6.8,
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    vector<int> selfDividingNumbers(int left, int right) {\n        vector<int> ans;\n        ans.reserve(1e4);\n        for (int num = left; num <= right; num++) check(ans, num);\n        return ans;\n    }\n    void check(vector<int> &ans, int num) {\n        int tmp = num;\n        for (; tmp; tmp /= 10) {\n            if (tmp % 10 == 0) return;\n            if (num % (tmp % 10) != 0) return;\n        }\n        ans.push_back(num);\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Easy"
 }

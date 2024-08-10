@@ -2,12 +2,10 @@
     "id": "1482",
     "name": "1365.有多少小于当前数字的数字",
     "url": "https://leetcode.cn/problems/how-many-numbers-are-smaller-than-the-current-number",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表", "计数", "排序"],
     "desc": "给你一个数组 nums，对于其中每个元素 nums[i]，请你统计数组中比它小的所有数字的数目。",
     "solutions": [
         {
-            "date": 1603641600000,
+            "date": "2020-10-26",
             "time": 120,
             "memory": 40.6,
             "script": "typescript",
@@ -15,12 +13,19 @@
             "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const ans: number[] = [];\n  for (let i = 0, l = nums.length; i < l; i++) {\n    ans[i] = count(i);\n  }\n  return ans;\n  function count(i: number) {\n    const num = nums[i];\n    let c = 0;\n    nums.forEach(v => {\n      if (v < num) cpp;\n    });\n    return c;\n  }\n}"
         },
         {
-            "date": 1603641600000,
+            "date": "2020-10-26",
             "time": 100,
             "memory": 41,
             "script": "typescript",
             "desc": "对于每个出现的数进行计数后累加。",
             "code": "function smallerNumbersThanCurrent(nums: number[]): number[] {\n  const arr = new Array(101).fill(0);\n  const len = nums.length;\n  for (let i = 0; i < len; i++) arr[nums[i]] += 1;\n  for (let i = 1; i < 100; i++) arr[i] += arr[i - 1];\n  const ans: number[] = [];\n  for (let i = 0; i < len; i++) ans.push(nums[i] ? arr[nums[i] - 1] : 0);\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "计数",
+        "排序"
+    ],
+    "level": "Easy"
 }

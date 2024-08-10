@@ -2,12 +2,10 @@
     "id": "817",
     "name": "706.设计哈希映射",
     "url": "https://leetcode.cn/problems/design-hashmap",
-    "difficulty": "简单",
-    "tag": ["设计", "数组", "哈希表", "链表", "哈希函数"],
     "desc": "不使用任何内建的哈希表库设计一个哈希映射（HashMap）。",
     "solutions": [
         {
-            "date": 1627056000000,
+            "date": "2021-07-24",
             "time": 204,
             "memory": 48.8,
             "script": "typescript",
@@ -20,7 +18,7 @@
             "memory": 19.11,
             "desc": "map。",
             "code": "class MyHashMap:\n    def __init__(self):\n        self.map = {}\n    def put(self, key: int, value: int) -> None:\n        self.map[key] = value\n    def get(self, key: int) -> int:\n        return self.map[key] if key in self.map else -1\n    def remove(self, key: int) -> None:\n        if key in self.map:\n            del self.map[key]\n",
-            "date": 1713110400000
+            "date": "2024-04-15"
         },
         {
             "script": "python",
@@ -28,7 +26,15 @@
             "memory": 64.12,
             "desc": "利用双数组存键值对。",
             "code": "class MyHashMap:\n    def __init__(self):\n        self.iarr = [False] * (10 ** 6 + 1)\n        self.varr = [-1] * (10 ** 6 + 1)\n    def put(self, key: int, value: int) -> None:\n        self.iarr[key] = True\n        self.varr[key] = value\n    def get(self, key: int) -> int:\n        return self.varr[key] if self.iarr[key] else -1\n    def remove(self, key: int) -> None:\n        self.iarr[key] = False",
-            "date": 1713110400000
+            "date": "2024-04-15"
         }
-    ]
+    ],
+    "tagList": [
+        "设计",
+        "数组",
+        "哈希表",
+        "链表",
+        "哈希函数"
+    ],
+    "level": "Easy"
 }

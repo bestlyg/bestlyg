@@ -2,8 +2,6 @@
     "id": "2819",
     "name": "2710.移除字符串中的尾随零",
     "url": "https://leetcode.cn/problems/remove-trailing-zeros-from-a-string",
-    "difficulty": "简单",
-    "tag": ["字符串"],
     "desc": "给你一个用字符串表示的正整数 num ，请你以字符串形式返回不含尾随零的整数 num 。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 16.7,
             "desc": "遍历。",
             "code": "class Solution:\n    def removeTrailingZeros(self, num: str) -> str:\n        arr = list(num)\n        while arr[-1] == '0': arr.pop()\n        return ''.join(arr)",
-            "date": 1719590400000
+            "date": "2024-06-29"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Easy"
 }

@@ -2,8 +2,6 @@
     "id": "1401",
     "name": "1276.不浪费原料的汉堡制作方案",
     "url": "https://leetcode.cn/problems/number-of-burgers-with-no-waste-of-ingredients",
-    "difficulty": "中等",
-    "tag": ["数学"],
     "desc": "请你以 [total_jumbo, total_small]（[巨无霸汉堡总数，小皇堡总数]）的格式返回恰当的制作方案，使得剩下的番茄片 tomatoSlices 和奶酪片 cheeseSlices 的数量都是 0。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 16.8,
             "desc": "二元一次方程。",
             "code": "class Solution:\n    def numOfBurgers(self, tomatoSlices: int, cheeseSlices: int) -> List[int]:\n        # 4x + 2y = num1\n        # x  + y  = num2\n        # x = (num1 - 2num2) / 2\n        # y = num2 - x\n        x = (tomatoSlices - 2 * cheeseSlices) // 2\n        y = cheeseSlices - x\n        return [x, y] if x >= 0 and y >= 0 and 4 * x + 2 * y == tomatoSlices and x + y == cheeseSlices else []",
-            "date": 1703433600000
+            "date": "2023-12-25"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Medium"
 }

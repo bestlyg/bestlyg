@@ -2,17 +2,20 @@
     "id": "1043",
     "name": "1001.网格照明",
     "url": "https://leetcode.cn/problems/grid-illumination",
-    "difficulty": "困难",
-    "tag": ["数组", "哈希表"],
     "desc": "在大小为 n x n 的网格 grid 上，每个单元格都有一盏灯，最初灯都处于 关闭 状态。返回一个整数数组 ans 作为答案， ans[j] 应等于第 j 次查询 queries[j] 的结果，1 表示照亮，0 表示未照亮。",
     "solutions": [
         {
-            "date": 1644249600000,
+            "date": "2022-02-08",
             "time": 644,
             "memory": 178.3,
             "script": "cpp",
             "desc": "哈希存储每个点的行列斜线。",
             "code": "int dirs[9][2] = {{0, 1},  {0, -1},  {1, 0},  {-1, 0}, {1, 1},\n                  {1, -1}, {-1, -1}, {-1, 1}, {0, 0}};\nclass Solution {\n   public:\n    int get_b(int x, int y, int k) { return y - x * k; }\n    vector<int> gridIllumination(int n, vector<vector<int>>& lamps,\n                                 vector<vector<int>>& queries) {\n        unordered_map<int, unordered_set<int>> m;\n        unordered_map<int, int> m_x, m_y, m_k1, m_k2;\n        for (auto& item : lamps) {\n            int x = item[0], y = item[1];\n            if (m[x].count(y)) continue;\n            m[x].insert(y);\n            m_x[x]++;\n            m_y[y]++;\n            m_k1[get_b(x, n - y - 1, 1)]++;\n            m_k2[get_b(x, n - y - 1, -1)]++;\n        }\n        vector<int> ans;\n        for (auto& item : queries) {\n            int x = item[0], y = item[1], state = 0;\n            if (m_x[x] || m_y[y] || m_k1[get_b(x, n - y - 1, 1)] ||\n                m_k2[get_b(x, n - y - 1, -1)])\n                state = 1;\n            ans.push_back(state);\n            for (int i = 0; i < 9; i++) {\n                int nx = x + dirs[i][0], ny = y + dirs[i][1];\n                if (nx < 0 || ny < 0 || nx >= n || ny >= n || !m[nx].count(ny))\n                    continue;\n                m_x[nx]--;\n                m_y[ny]--;\n                m_k1[get_b(nx, n - ny - 1, 1)]--;\n                m_k2[get_b(nx, n - ny - 1, -1)]--;\n                m[nx].erase(ny);\n            }\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Hard"
 }

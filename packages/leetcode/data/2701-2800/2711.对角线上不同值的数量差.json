@@ -2,8 +2,6 @@
     "id": "2801",
     "name": "2711.对角线上不同值的数量差",
     "url": "hthttps://leetcode.cn/problems/difference-of-number-of-distinct-values-on-diagonals",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "矩阵"],
     "desc": "给你一个下标从 0 开始、大小为 m x n 的二维矩阵 grid ，请你求解大小同样为 m x n 的答案矩阵 answer 。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 32.2,
             "desc": "以每个顶点开始向右下遍历。",
             "code": "class Solution {\npublic:\n    vector<vector<int>> differenceOfDistinctValues(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        vector<vector<int>> res(n, vector<int>(m, 0));\n        auto comp = [&](int row, int col) {\n            unordered_map<int, int> l, r;\n            int nrow = row + 1, ncol = col + 1;\n            while (nrow < n && ncol < m) {\n                r[grid[nrow][ncol]]++;\n                nrow++;\n                ncol++;\n            }\n            res[row][col] = abs((int)l.size() - (int)r.size());\n            while (row + 1 < n && col + 1 < m) {\n                l[grid[row][col]]++;\n                row++;\n                col++;\n                r[grid[row][col]]--;\n                if (r[grid[row][col]] == 0) r.erase(grid[row][col]);\n                res[row][col] = abs((int)l.size() - (int)r.size());\n            }\n        };\n        for (int j = 0; j < m; j++)  comp(0, j);\n        for (int i = 1; i < n; i++)  comp(i, 0);\n        return res;\n    }\n};;",
-            "date": 1685203200000
+            "date": "2023-05-28"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 16.2,
             "desc": "同上。",
             "code": "class Solution:\n    def differenceOfDistinctValues(self, grid: List[List[int]]) -> List[List[int]]:\n        n = len(grid)\n        m = len(grid[0])\n        res = [[0 for _ in range(m)] for _ in range(n)]\n\n        def comp(row: int, col: int):\n            l = Counter()\n            r = Counter()\n            nrow = row + 1\n            ncol = col + 1\n            while nrow < n and ncol < m:\n                r[grid[nrow][ncol]] += 1\n                nrow += 1\n                ncol += 1\n            res[row][col] = abs(len(l) - len(r))\n            while row + 1 < n and col + 1 < m:\n                l[grid[row][col]] += 1\n                row += 1\n                col += 1\n                r[grid[row][col]] -= 1\n                if r[grid[row][col]] == 0:\n                    r.pop(grid[row][col])\n                res[row][col] = abs(len(l) - len(r))\n        for j in range(m):\n            comp(0, j)\n        for i in range(1, n):\n            comp(i, 0)\n        return res\n",
-            "date": 1685203200000
+            "date": "2023-05-28"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 2.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn difference_of_distinct_values(grid: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n        use std::collections::HashMap;\n        let n = grid.len();\n        let m = grid[0].len();\n        let mut res = vec![vec![0; m]; n];\n        let mut comp = |mut row: usize, mut col: usize| {\n            let mut l = HashMap::<i32, i32>::new();\n            let mut r = HashMap::<i32, i32>::new();\n            let mut nrow = row + 1;\n            let mut ncol = col + 1;\n            while nrow < n && ncol < m {\n                *r.entry(grid[nrow][ncol]).or_insert(0) += 1;\n                nrow += 1;\n                ncol += 1;\n            }\n            res[row][col] = (l.len() as i32 - r.len() as i32).abs();\n            while row + 1 < n && col + 1 < m {\n                *l.entry(grid[row][col]).or_insert(0) += 1;\n                row += 1;\n                col += 1;\n                let item = r.get_mut(&grid[row][col]).unwrap();\n                *item -= 1;\n                if *item == 0 {\n                    r.remove(&grid[row][col]);\n                }\n                res[row][col] = (l.len() as i32 - r.len() as i32).abs();\n            }\n        };\n        for j in 0..m {\n            comp(0, j);\n        }\n        for i in 1..n {\n            comp(i, 0);\n        }\n        res\n    }\n}",
-            "date": 1685203200000
+            "date": "2023-05-28"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

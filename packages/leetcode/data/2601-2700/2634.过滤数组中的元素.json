@@ -2,8 +2,6 @@
     "id": "2746",
     "name": "2634.过滤数组中的元素",
     "url": "https://leetcode.cn/problems/filter-elements-from-array",
-    "difficulty": "简单",
-    "tag": [],
     "desc": "请你编写一个函数，该函数接受一个整数数组参数 arr 和一个过滤函数 fn，并返回一个过滤后元素数量较少或元素数量相等的新数组。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 42.3,
             "desc": "遍历。",
             "code": "function filter(arr: number[], fn: (n: number, i: number) => any): number[] {\n  const res: number[] = [];\n  for (let i = 0; i < arr.length; i++) {\n    if (fn(arr[i], i)) res.push(arr[i]);\n  }\n  return res;\n}",
-            "date": 1682265600000
+            "date": "2023-04-24"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Easy"
 }

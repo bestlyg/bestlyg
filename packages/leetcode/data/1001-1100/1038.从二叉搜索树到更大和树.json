@@ -2,8 +2,6 @@
     "id": "1114",
     "name": "1038.从二叉搜索树到更大和树",
     "url": "https://leetcode.cn/problems/binary-search-tree-to-greater-sum-tree",
-    "difficulty": "中等",
-    "tag": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个二叉搜索树 root (BST)，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 16.11,
             "desc": "利用bst的特性，dfs。",
             "code": "class Solution:\n    def bstToGst(self, root: TreeNode) -> TreeNode:\n        sums = 0\n        def dfs(node: Optional[TreeNode]):\n            nonlocal sums\n            if not node: return\n            dfs(node.right)\n            sums += node.val\n            node.val = sums\n            dfs(node.left)\n        dfs(roo)\n        return root",
-            "date": 1701619200000
+            "date": "2023-12-04"
         },
         {
             "script": "cpp",
@@ -20,7 +18,7 @@
             "memory": 8.3,
             "desc": "同上。",
             "code": "class Solution {\npublic:\n    TreeNode* bstToGst(TreeNode* root) {\n        int sums = 0;\n        function<void(TreeNode*)> dfs = [&](TreeNode *node) {\n            if (!node) return;\n            dfs(node->right);\n            sums += node->val;\n            node->val = sums;\n            dfs(node->left);\n        };\n        dfs(root);\n        return root;\n    }\n};",
-            "date": 1701619200000
+            "date": "2023-12-04"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 2.17,
             "desc": "同上。",
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn bst_to_gst(mut root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {\n        let mut sums = 0;\n        fn dfs(node: &mut Option<Rc<RefCell<TreeNode>>>, sums: &mut i32) {\n            if let Some(node) = node {\n                let mut node_ref = node.as_ref().borrow_mut();\n                dfs(&mut node_ref.right, sums);\n                *sums += node_ref.val;\n                node_ref.val = *sums;\n                dfs(&mut node_ref.left, sums);\n            }\n        }\n        dfs(&mut root, &mut sums);\n        root\n    }\n}",
-            "date": 1701619200000
+            "date": "2023-12-04"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Medium"
 }

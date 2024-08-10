@@ -2,12 +2,10 @@
     "id": "224",
     "name": "224.基本计算器",
     "url": "https://leetcode.cn/problems/basic-calculator",
-    "difficulty": "困难",
-    "tag": ["栈", "递归", "数学", "字符串"],
     "desc": "实现一个基本的计算器来计算一个简单的字符串表达式的值字符串表达式可以包含左括号 ( ，右括号 )，加号 + ，减号 -，非负整数和空。",
     "solutions": [
         {
-            "date": 1581782400000,
+            "date": "2020-02-16",
             "time": 145,
             "memory": 76.4,
             "script": "java",
@@ -15,12 +13,19 @@
             "code": "class Solution {\n    public int calculate(String s) {\n\t\tStack<String> stack1 = new Stack<String>();\n\t\tStack<String> stack2 = new Stack<String>();\n\t\tint len = s.length();\n\t\tString tem = \"\";\n\t\tfor (int i = 0; i < len; i++) {\n//\t\t\tSystem.out.println(\"tem:\" + tem);\n//\t\t\tSystem.out.println(\"stack1:\" + stack1);\n//\t\t\tSystem.out.println(\"stack2:\" + stack2);\n\t\t\tString ch = s.charAt(i) + \"\";\n\t\t\tif (ch.compareTo(\" \") == 0)\n\t\t\t\tcontinue;\n\t\t\tif (ch.compareTo(\"+\") == 0 || ch.compareTo(\"-\") == 0 || ch.compareTo(\"(\") == 0) {\n\t\t\t\tstack1.push(ch);\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tif (ch.compareTo(\")\") == 0) {\n\t\t\t\tstack1.pop();\n\t\t\t\tif (!stack1.isEmpty())\n\t\t\t\t\tstack2.push(stack1.pop());\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tif (i != len - 1 && s.charAt(i + 1) >= 48 && s.charAt(i) <= 57) {\n//\t\t\t\tSystem.out.println(1);\n\t\t\t\ttem += ch;\n\t\t\t\tcontinue;\n\t\t\t} else {\n//\t\t\t\tSystem.out.println(2);\n\t\t\t\tif(tem.compareTo(\"\")!=0) {\n\t\t\t\t\tch = tem+ch;\n\t\t\t\t\ttem = \"\";\n\t\t\t\t}\n\t\t\t}\n\t\t\tstack2.push(ch);\n\t\t\tif (stack1.isEmpty())\n\t\t\t\tcontinue;\n\t\t\tif (stack1.peek().compareTo(\"+\") == 0 || stack1.peek().compareTo(\"-\") == 0) {\n\t\t\t\tstack2.push(stack1.pop());\n\t\t\t}\n\t\t}\n\n//\t\tSystem.out.println(stack2);\n\t\tDeque<String> tokens = new LinkedList<String>();\n\t\twhile (!stack2.isEmpty()) {\n\t\t\ttokens.offerFirst(stack2.pop() + \"\");\n\t\t}\n//\t\tSystem.out.println(tokens);\n\t\treturn evalRPN(tokens);\n//\t\treturn evalRPN(\"\");\n\t}\n\n\tpublic int evalRPN(Deque<String> tokens) {\n\t\tStack<String> stack = new Stack<String>();\n\t\tint a, b;\n\t\tfor (String s : tokens) {\n\t\t\tswitch (s) {\n\t\t\tcase \"+\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a + b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"-\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b - a) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"*\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((a * b) + \"\");\n\t\t\t\tbreak;\n\t\t\tcase \"/\":\n\t\t\t\ta = Integer.parseInt(stack.pop());\n\t\t\t\tb = Integer.parseInt(stack.pop());\n\t\t\t\tstack.push((b / a) + \"\");\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tstack.push(s);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\treturn Integer.parseInt(stack.pop());\n\t}\n\n}"
         },
         {
-            "date": 1615305600000,
+            "date": "2021-03-10",
             "time": 148,
             "memory": 44.9,
             "script": "typescript",
             "desc": "利用栈依次计算，并转换减法为加法。",
             "code": "const numReg = /\\-?\\d+/;\nconst opReg = /\\+|\\-/;\nconst squareReg = /\\(|\\)/;\nconst opMap: Record<string, (num1: number, num2: number) => number> = {\n  '+': (num1, num2) => num1 + num2,\n  '-': (num1, num2) => num1 - num2,\n  '*': (num1, num2) => num1 * num2,\n  '/': (num1, num2) => num1 / num2,\n};\nconst emptyReg = / /g;\nfunction calculate(s: string): number {\n  s = s.replace(emptyReg, '');\n  const stack: string[] = [];\n  const peek = () => stack[stack.length - 1];\n  if (s[0] === '-') s = '0' + s;\n  const len = s.length;\n  for (let i = 0; i < len; i++) {\n    let c = s[i];\n    if (opReg.test(c) || c === '(') {\n      stack.push(c);\n    } else if (c === ')') {\n      let c = 0;\n      let str = '';\n      while (peek() !== '(') {\n        str = stack.pop()! + str;\n        cpp;\n      }\n      stack.pop();\n      str = (c === 1 ? str : calculate(str)) + '';\n      if (peek() === '-') {\n        stack[stack.length - 1] = '+';\n        str = str.startsWith('-') ? str.substring(1) : '-' + str;\n      }\n      stack.push(str);\n    } else {\n      while (i < len - 1 && numReg.test(s[i + 1])) {\n        c += s[++i];\n      }\n      if (peek() === '-') {\n        c = stack.pop()! + c;\n        if (numReg.test(peek())) stack.push('+');\n      }\n      const top = peek();\n      if (opReg.test(top)) {\n        const op = stack.pop()!;\n        const num1 = stack.pop()!;\n        stack.push(opMap[op](Number(num1), Number(c)) + '');\n      } else {\n        stack.push(c);\n      }\n    }\n  }\n  return stack.length === 1 ? Number(stack[0]) : calculate(stack.join(''));\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "递归",
+        "数学",
+        "字符串"
+    ],
+    "level": "Hard"
 }

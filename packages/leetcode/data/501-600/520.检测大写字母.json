@@ -2,12 +2,10 @@
     "id": "520",
     "name": "520.检测大写字母",
     "url": "https://leetcode.cn/problems/detect-capital",
-    "difficulty": "简单",
-    "tag": ["字符串"],
     "desc": "给定一个单词，你需要判断单词的大写使用是否正确。",
     "solutions": [
         {
-            "date": 1586188800000,
+            "date": "2020-04-07",
             "time": 64,
             "memory": 34.1,
             "script": "javascript",
@@ -15,7 +13,7 @@
             "code": "/**\n * @param {string} word\n * @return {boolean}\n */\nvar detectCapitalUse = function (word) {\n  if (word.toLowerCase() === word) return true;\n  if (word.toUpperCase() === word) return true;\n  if (\n    word[0].toUpperCase() === word[0] &&\n    word.substring(1, word.length).toLowerCase() === word.substring(1, word.length)\n  )\n    return true;\n  return false;\n};"
         },
         {
-            "date": 1636819200000,
+            "date": "2021-11-14",
             "time": 80,
             "memory": 39.6,
             "script": "typescript",
@@ -28,7 +26,11 @@
             "memory": 16.41,
             "desc": "直接判断。",
             "code": "class Solution:\n    def detectCapitalUse(self, word: str) -> bool:\n        return word.isupper() or word.islower() or len(word) > 1 and word[0].isupper() and word[1:].islower()",
-            "date": 1719072000000
+            "date": "2024-06-23"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Easy"
 }

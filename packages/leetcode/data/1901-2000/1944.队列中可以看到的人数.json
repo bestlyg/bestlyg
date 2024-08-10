@@ -2,8 +2,6 @@
     "id": "1305",
     "name": "1944.队列中可以看到的人数",
     "url": "https://leetcode.cn/problems/number-of-visible-people-in-a-queue",
-    "difficulty": "困难",
-    "tag": ["栈", "数组", "单调栈"],
     "desc": "请你返回一个长度为 n 的数组 answer ，其中 answer[i] 是第 i 个人在他右侧队列中能 看到 的 人数 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 30.22,
             "desc": "单调栈。",
             "code": "class Solution:\n    def canSeePersonsCount(self, heights: List[int]) -> List[int]:\n        n = len(heights)\n        ans = [0] * n\n        s = []\n        for i in range(n):\n            while s and heights[s[-1]] < heights[i]: ans[s.pop()] += 1\n            if s: ans[s[-1]] += 1\n            s.append(i)\n        return ans",
-            "date": 1704384000000
+            "date": "2024-01-05"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "数组",
+        "单调栈"
+    ],
+    "level": "Hard"
 }

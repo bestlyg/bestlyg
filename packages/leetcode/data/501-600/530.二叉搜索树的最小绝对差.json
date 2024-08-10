@@ -2,12 +2,10 @@
     "id": "530",
     "name": "530.二叉搜索树的最小绝对差",
     "url": "https://leetcode.cn/problems/minimum-absolute-difference-in-bst",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "二叉树"],
     "desc": "给定一个所有节点为非负值的二叉搜索树，求树中任意两节点的差的绝对值的最小值。",
     "solutions": [
         {
-            "date": 1582387200000,
+            "date": "2020-02-23",
             "time": 2,
             "memory": 40.5,
             "script": "java",
@@ -15,12 +13,20 @@
             "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n\tArrayList<Integer> list = new ArrayList<Integer>();\n\n    public int getMinimumDifference(TreeNode root) {\n\t\tinorder(root);\n\t\tint min = list.get(1)-list.get(0);\n\t\tfor(int i =0,len=list.size()-1;i<len;i++)\n\t\t\tmin=Math.min(list.get(i+1)-list.get(i), min);\n\t\treturn min;\n\t}\n\n\tpublic void inorder(TreeNode node) {\n\t\tif (node.left != null) {\n\t\t\tinorder(node.left);\n\t\t}\n\t\tlist.add(node.val);\n\t\tif (node.right != null) {\n\t\t\tinorder(node.right);\n\t\t}\n\t}\n}"
         },
         {
-            "date": 1602432000000,
+            "date": "2020-10-12",
             "time": 108,
             "memory": 44.6,
             "script": "typescript",
             "desc": "中序遍历排序后进行判断。",
             "code": "function getMinimumDifference(root: TreeNode | null): number {\n  if (root === null) return 2147483647;\n  const queue: number[] = [];\n  inorder(root);\n  return queue.reduce(\n    (total, cur, i, arr) => (i === 0 ? total : Math.min(total, Math.abs(cur - arr[i - 1]))),\n    Infinity\n  );\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    queue.push(node.val);\n    inorder(node.right);\n  }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "二叉搜索树",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

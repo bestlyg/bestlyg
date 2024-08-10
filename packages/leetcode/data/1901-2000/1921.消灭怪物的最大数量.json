@@ -2,8 +2,6 @@
     "id": "2049",
     "name": "1921.消灭怪物的最大数量",
     "url": "https://leetcode.cn/problems/eliminate-maximum-number-of-monsters",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组", "排序"],
     "desc": "返回在你输掉游戏前可以消灭的怪物的 最大 数量。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 86.8,
             "desc": "排序。",
             "code": "class Solution {\npublic:\n    int eliminateMaximum(vector<int>& dist, vector<int>& speed) {\n        vector<double> arr;\n        for (int i = 0; i < dist.size(); i++) arr.push_back(1.0 * dist[i] / speed[i]);\n        sort(arr.begin(), arr.end());\n        for (int i = 0; i < dist.size(); i++) {\n            if (i >= arr[i]) return i;\n        }\n        return dist.size();\n    }\n};",
-            "date": 1693670400000
+            "date": "2023-09-03"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 30.3,
             "desc": "同上。",
             "code": "class Solution:\n    def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:\n        arr = [dist[i] / speed[i] for i in range(len(dist))]\n        arr.sort()\n        for i in range(len(dist)):\n            if i >= arr[i]: return i\n        return len(dist)",
-            "date": 1693670400000
+            "date": "2023-09-03"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 4.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn eliminate_maximum(dist: Vec<i32>, speed: Vec<i32>) -> i32 {\n        let mut arr = vec![];\n        for i in 0..dist.len() {\n            arr.push(dist[i] as f64 / speed[i] as f64);\n        }\n        arr.sort_by(|a, b| a.partial_cmp(b).unwrap());\n        for i in 0..dist.len() {\n            if i as f64 >= arr[i] {\n                return i as i32;\n            }\n        }\n        dist.len() as i32\n    }\n}",
-            "date": 1693670400000
+            "date": "2023-09-03"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序"
+    ],
+    "level": "Medium"
 }

@@ -2,12 +2,10 @@
     "id": "2168",
     "name": "2042.检查句子中的数字是否递增",
     "url": "https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence",
-    "difficulty": "简单",
-    "tag": ["字符串"],
     "desc": "给你一个表示句子的字符串 s ，你需要检查 s 中的 全部 数字是否从左到右严格递增（即，除了最后一个数字，s 中的 每个 数字都严格小于它 右侧 的数字）。",
     "solutions": [
         {
-            "date": 1672675200000,
+            "date": "2023-01-03",
             "time": 0,
             "memory": 6.1,
             "script": "cpp",
@@ -15,12 +13,16 @@
             "code": "class Solution {\npublic:\n    bool areNumbersAscending(string s) {\n        int prev = 0;\n        for (int i = 0; i < s.size(); i++) {\n            if (!isdigit(s[i])) continue;\n            int num = 0;\n            while (i < s.size() && isdigit(s[i])) num = num * 10 + s[i++] - '0';\n            if (prev >= num) return false;\n            prev = num;\n        }\n        return true;\n    }\n};"
         },
         {
-            "date": 1672675200000,
+            "date": "2023-01-03",
             "time": 0,
             "memory": 2.2,
             "script": "rust",
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn are_numbers_ascending(s: String) -> bool {\n        let s: Vec<char> = s.chars().collect();\n        let mut i = 0;\n        let mut prev = 0;\n        while i < s.len() {\n            if s[i].is_digit(10) {\n                let mut num = 0;\n                while i < s.len() && s[i].is_digit(10) {\n                    num = num * 10 + (s[i] as i32 - '0' as i32);\n                    i += 1;\n                }\n                if prev >= num {\n                    return false;\n                }\n                prev = num\n            }\n            i += 1;\n        }\n        true\n    }\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Easy"
 }

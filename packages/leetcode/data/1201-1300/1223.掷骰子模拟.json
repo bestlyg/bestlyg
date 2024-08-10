@@ -2,8 +2,6 @@
     "id": "1343",
     "name": "1223.掷骰子模拟",
     "url": "https://leetcode.cn/problems/dice-roll-simulation",
-    "difficulty": "困难",
-    "tag": ["数组", "动态规划"],
     "desc": "你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 29.7,
             "desc": "dp[i][j][k]表示第i次投掷时投了j点，且连续投了k次j点的次数。",
             "code": "class Solution {\npublic:\n    int dieSimulator(int n, vector<int>& rollMax) {\n        int mod = 1e9 + 7;\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(6, vector<int>(16, 0)));\n        for (int j = 0; j < 6; j++) dp[1][j][1] = 1;\n        // 第i次投骰子\n        for (int i = 1; i <= n; i++) {\n            // 骰子点数是j\n            for (int j = 0; j < 6; j++) {\n                // 对于每个点数已经消耗了k次连续投掷次数\n                for (int k = 1; k <= rollMax[j]; k++) {\n                    // 当前次投了p点\n                    for (int p = 0; p < 6; p++) {\n                        if (p != j) dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod;\n                        else if (k + 1 <= rollMax[j]) dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % mod;\n                    }\n                }\n            }\n        }\n        int res = 0;\n        for (int i = 0; i < 6; i++) {\n            for (int j = 1; j <= rollMax[i]; j++) {\n                res = (res + dp[n][i][j]) % mod;\n            }\n        }\n        return res;\n    }\n};",
-            "date": 1675958400000
+            "date": "2023-02-10"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 30.7,
             "desc": "同上。",
             "code": "class Solution:\n  def dieSimulator(self, n: int, rollMax: List[int]) -> int:\n      mod = 10 ** 9 + 7\n      dp = [[([0] * 16) for _ in range(6)] for _ in range(n + 1)]\n      for j in range(6):\n          dp[1][j][1] = 1\n      for i in range(1, n + 1):\n          for j in range(6):\n              for k in range(1, rollMax[j] + 1):\n                  for p in range(6):\n                      if p != j:\n                          dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % mod\n                      elif k + 1 <= rollMax[j]:\n                          dp[i][p][k + 1] = (dp[i][p]\n                                             [k + 1] + dp[i-1][j][k]) % mod\n      res = 0\n      for i in range(6):\n          for j in range(1, rollMax[i] + 1):\n              res = (res + dp[n][i][j]) % mod\n      return res",
-            "date": 1675958400000
+            "date": "2023-02-10"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 5,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn die_simulator(n: i32, roll_max: Vec<i32>) -> i32 {\n        let n = n as usize;\n        let MOD = 10i32.pow(9) + 7;\n        let mut dp = vec![vec![vec![0; 16]; 6]; n + 1];\n        for j in 0..6 {\n            dp[1][j][1] = 1;\n        }\n        for i in 1..=n {\n            for j in 0..6 {\n                for k in 1..=roll_max[j] as usize {\n                    for p in 0..6 {\n                        if p != j {\n                            dp[i][p][1] = (dp[i][p][1] + dp[i - 1][j][k]) % MOD;\n                        } else if k + 1 <= roll_max[j] as usize {\n                            dp[i][p][k + 1] = (dp[i][p][k + 1] + dp[i - 1][j][k]) % MOD;\n                        }\n                    }\n                }\n            }\n        }\n        let mut res = 0;\n        for i in 0..6 {\n            for j in 1..=roll_max[i] as usize {\n                res = (res + dp[n][i][j]) % MOD;\n            }\n        }\n        res\n    }\n}",
-            "date": 1675958400000
+            "date": "2023-02-10"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

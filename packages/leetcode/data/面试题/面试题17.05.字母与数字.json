@@ -2,8 +2,6 @@
     "id": "1000033",
     "name": "面试题17.05.字母与数字",
     "url": "https://leetcode.cn/problems/find-longest-subarray-lcci",
-    "difficulty": "中等",
-    "tag": ["数组", "哈希表", "前缀和"],
     "desc": "给定一个放有字母和数字的数组，找到最长的子数组，且包含的字母和数字的个数相同。返回该子数组，若存在多个最长子数组，返回左端点下标值最小的子数组。若不存在这样的数组，返回一个空数组。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 92.1,
             "desc": "前缀和。",
             "code": "class Solution {\npublic:\n    vector<string> findLongestSubarray(vector<string>& array) {\n        int cur = 0, resMax = 0, resIdx = -1;\n        unordered_map<int, int> m;\n        m[0] = -1;\n        for (int i = 0; i < array.size(); i++) {\n            cur += isalpha(array[i][0]) ? 1 : -1;\n            if (m.count(cur) && i - m[cur] > resMax) resIdx = m[cur] + 1, resMax = i - m[cur];\n            if (!m.count(cur)) m[cur] = i;\n        }\n        vector<string> res;\n        for (int i = resIdx; i < resIdx + resMax; i++) res.push_back(array[i]);\n        return res;\n    }\n};",
-            "date": 1678464000000
+            "date": "2023-03-11"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 32.6,
             "desc": "同上。",
             "code": "class Solution:\n    def findLongestSubarray(self, array: List[str]) -> List[str]:\n        cur, resMax, resIdx = 0, 0, -1\n        m = dict()\n        m[0] = -1\n        for i in range(len(array)):\n            cur += 1 if array[i].isalpha() else -1\n            if cur in m and i - m[cur] > resMax:\n                resIdx = m[cur] + 1\n                resMax = i - m[cur]\n            if cur not in m:\n                m[cur] = i\n        return array[resIdx:resIdx + resMax]",
-            "date": 1678464000000
+            "date": "2023-03-11"
         },
         {
             "script": "rust",
@@ -28,7 +26,13 @@
             "memory": 11.4,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn find_longest_subarray(array: Vec<String>) -> Vec<String> {\n        let (mut cur, mut resMax, mut resIdx) = (0, 0, 0);\n        let mut m = std::collections::HashMap::<i32, i32>::new();\n        m.insert(0, -1);\n        for i in 0..array.len() {\n            let s = array[i].chars().collect::<Vec<char>>();\n            cur += if s[0].is_alphabetic() { 1 } else { -1 };\n            if m.contains_key(&cur) && i as i32 - *m.get(&cur).unwrap() > resMax {\n                resIdx = *m.get(&cur).unwrap() + 1;\n                resMax = i as i32 - *m.get(&cur).unwrap();\n            }\n            if !m.contains_key(&cur) {\n                m.insert(cur, i as i32);\n            }\n        }\n        let resMax = resMax as usize;\n        let resIdx = resIdx as usize;\n        array[resIdx..resIdx + resMax].to_vec()\n    }\n}",
-            "date": 1678464000000
+            "date": "2023-03-11"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

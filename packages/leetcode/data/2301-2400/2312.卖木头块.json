@@ -2,8 +2,6 @@
     "id": "1376",
     "name": "2312.卖木头块",
     "url": "https://leetcode.cn/problems/selling-pieces-of-wood",
-    "difficulty": "困难",
-    "tag": ["记忆化搜索", "数组", "动态规划"],
     "desc": "请你返回切割一块大小为 m x n 的木块后，能得到的 最多 钱数。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 38.27,
             "desc": "dfs。",
             "code": "class Solution:\n    def sellingWood(self, m: int, n: int, prices: List[List[int]]) -> int:\n        price_map = {}\n        for k1, k2, price in prices:\n            if k1 not in price_map: price_map[k1] = {}\n            item_map = price_map[k1]\n            if k2 not in item_map: item_map[k2] = price\n        @cache\n        def dfs(m: int, n: int) -> int:\n            ans = 0\n            if m in price_map and n in price_map[m]:\n                ans += price_map[m][n]\n            for i in range(1, m):\n                ans = max(ans, dfs(i, n) + dfs(m - i, n))\n            for i in range(1, n):\n                ans = max(ans, dfs(m, i) + dfs(m, n - i))\n            return ans\n        return dfs(m, n)",
-            "date": 1710432000000
+            "date": "2024-03-15"
         }
-    ]
+    ],
+    "tagList": [
+        "记忆化搜索",
+        "数组",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

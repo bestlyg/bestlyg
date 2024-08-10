@@ -2,17 +2,19 @@
     "id": "1205",
     "name": "1108.IP地址无效化",
     "url": "https://leetcode.cn/problems/defanging-an-ip-address",
-    "difficulty": "简单",
-    "tag": ["字符串"],
     "desc": "给你一个有效的 IPv4 地址 address，返回这个 IP 地址的无效化版本。",
     "solutions": [
         {
-            "date": 1648396800000,
+            "date": "2022-03-28",
             "time": 0,
             "memory": 5.8,
             "script": "typescript",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    string defangIPaddr(string address) {\n        string ans = \"\";\n        for (auto &ch : address) {\n            if (ch == '.')\n                ans += \"[.]\";\n            else\n                ans += ch;\n        }\n        return ans;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Easy"
 }

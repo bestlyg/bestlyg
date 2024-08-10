@@ -2,8 +2,6 @@
     "id": "699",
     "name": "699.掉落的方块",
     "url": "https://leetcode.cn/problems/falling-squares",
-    "difficulty": "困难",
-    "tag": ["线段树", "数组", "有序集合"],
     "desc": "在每个方块掉落后，你必须记录目前所有已经落稳的 方块堆叠的最高高度 。返回一个整数数组 ans ，其中 ans[i] 表示在第 i 块方块掉落后堆叠的最高高度。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.72,
             "desc": "枚举每一个块与另一个块是否位置产生交集。",
             "code": "class Solution:\n    def fallingSquares(self, positions: List[List[int]]) -> List[int]:\n        n = len(positions)\n        harr = [0] * n\n        maxh = 0\n        res = []\n        for i in range(n):\n            l1, h1 = positions[i]\n            harr[i] = h1\n            for j in range(i):\n                l2, h2 = positions[j]\n                if l1 + h1 - 1 >= l2 and l2 + h2 - 1 >= l1:\n                    harr[i] = max(harr[i], harr[j] + h1)\n            maxh = max(maxh, harr[i])\n            res.append(maxh)\n        return res",
-            "date": 1722096000000
+            "date": "2024-07-28"
         }
-    ]
+    ],
+    "tagList": [
+        "线段树",
+        "数组",
+        "有序集合"
+    ],
+    "level": "Hard"
 }

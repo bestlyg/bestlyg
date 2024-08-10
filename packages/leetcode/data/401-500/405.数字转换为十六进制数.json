@@ -2,17 +2,20 @@
     "id": "405",
     "name": "405.数字转换为十六进制数",
     "url": "https://leetcode.cn/problems/convert-a-number-to-hexadecimal",
-    "difficulty": "简单",
-    "tag": ["位运算", "数学"],
     "desc": "给定一个整数，编写一个算法将这个数转换为十六进制数。对于负整数，我们通常使用 补码运算 方法。",
     "solutions": [
         {
-            "date": 1633104000000,
+            "date": "2021-10-02",
             "time": 80,
             "memory": 39.4,
             "script": "typescript",
             "desc": "哈希。",
             "code": "function toHex(num: number): string {\n  if (num === 0) return '0';\n  const map = '0123456789abcdef';\n  if (num < 0) num = 2 ** 32 + num;\n  let ans = '';\n  while (num) {\n    ans = map[num % 16] + ans;\n    num = ~~(num / 16);\n  }\n  return ans;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数学"
+    ],
+    "level": "Easy"
 }

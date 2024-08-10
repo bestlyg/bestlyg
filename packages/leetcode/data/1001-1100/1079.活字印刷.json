@@ -2,8 +2,6 @@
     "id": "1160",
     "name": "1079.活字印刷",
     "url": "https://leetcode.cn/problems/letter-tile-possibilities",
-    "difficulty": "中等",
-    "tag": ["哈希表", "字符串", "回溯", "计数"],
     "desc": "你有一套活字字模 tiles，其中每个字模上都刻有一个字母 tiles[i]。返回你可以印出的非空字母序列的数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 22.7,
             "desc": "全排列。",
             "code": "class Solution {\npublic:\n    int numTilePossibilities(string tiles) {\n        unordered_set<string> s;\n        unordered_set<int> idxs;\n        function<void(string)> dfs = [&](string cur) {\n            s.insert(cur);\n            if (cur.size() == tiles.size()) return;\n            for (int i = 0; i < tiles.size(); i++) {\n                if (idxs.count(i)) continue;\n                idxs.insert(i);\n                dfs(cur + tiles[i]);\n                idxs.erase(i);\n            }\n        };\n        dfs(\"\");\n        return s.size() - 1;\n    }\n};",
-            "date": 1684425600000
+            "date": "2023-05-19"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 24.8,
             "desc": "同上。",
             "code": "class Solution:\n    def numTilePossibilities(self, tiles: str) -> int:\n        s = set()\n        idxs = set()\n\n        def dfs(cur: str):\n            s.add(cur)\n            if len(cur) == len(tiles):\n                return\n            for i in range(len(tiles)):\n                if i in idxs:\n                    continue\n                idxs.add(i)\n                dfs(cur + tiles[i])\n                idxs.remove(i)\n        dfs('')\n        return len(s) - 1",
-            "date": 1684425600000
+            "date": "2023-05-19"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 3,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn num_tile_possibilities(tiles: String) -> i32 {\n        use std::collections::HashSet;\n        let tiles = tiles.as_bytes().iter().map(|v| *v).collect::<Vec<u8>>();\n        let mut s = HashSet::<String>::new();\n        let mut idxs = HashSet::<usize>::new();\n        fn dfs(\n            s: &mut HashSet<String>,\n            idxs: &mut HashSet<usize>,\n            tiles: &Vec<u8>,\n            cur: &mut Vec<u8>,\n        ) {\n            s.insert(String::from_utf8(cur.clone()).unwrap());\n            if cur.len() != tiles.len() {\n                for i in 0..tiles.len() {\n                    if !idxs.contains(&i) {\n                        idxs.insert(i);\n                        cur.push(tiles[i]);\n                        dfs(s, idxs, tiles, cur);\n                        cur.pop();\n                        idxs.remove(&i);\n                    }\n                }\n            }\n        }\n        let mut cur: Vec<u8> = vec![];\n        dfs(&mut s, &mut idxs, &tiles, &mut cur);\n        (s.len() - 1) as i32\n    }\n}",
-            "date": 1684425600000
+            "date": "2023-05-19"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串",
+        "回溯",
+        "计数"
+    ],
+    "level": "Medium"
 }

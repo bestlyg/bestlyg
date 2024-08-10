@@ -2,8 +2,6 @@
     "id": "2691",
     "name": "2559.统计范围内的元音字符串数",
     "url": "https://leetcode.cn/problems/count-vowel-strings-in-ranges",
-    "difficulty": "中等",
-    "tag": ["数组", "字符串", "前缀和"],
     "desc": "给你一个下标从 0 开始的字符串数组 words 以及一个二维整数数组 queries 。返回一个整数数组，其中数组的第 i 个元素对应第 i 个查询的答案。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 63.1,
             "desc": "前缀和。",
             "code": "class Solution {\npublic:\n    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {\n        int n = words.size();\n        vector<int> sums(1, 0), ans;\n        unordered_set<char> s;\n        s.insert('a');\n        s.insert('e');\n        s.insert('i');\n        s.insert('o');\n        s.insert('u');\n        for (auto &w : words) {\n            bool f = s.count(w[0]) && s.count(w[w.size() - 1]);\n            sums.push_back(sums.back() + f);\n        }\n        for (auto &q : queries) {\n            ans.push_back(sums[q[1] + 1] - sums[q[0]]);\n        }\n        return ans;\n    }\n};",
-            "date": 1675526400000
+            "date": "2023-02-05"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 46.7,
             "desc": "同上。",
             "code": "class Solution:\n  def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:\n      s = {'a', 'e', 'i', 'o', 'u'}\n      sums = list(accumulate(\n          (w[0] in s and w[-1] in s for w in words), initial=0))\n      return [sums[r + 1] - sums[l] for l, r in queries]",
-            "date": 1675526400000
+            "date": "2023-02-05"
         },
         {
             "script": "rust",
@@ -28,7 +26,7 @@
             "memory": 14.1,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn vowel_strings(words: Vec<String>, queries: Vec<Vec<i32>>) -> Vec<i32> {\n        use std::collections::HashSet;\n        let mut set = HashSet::<char>::new();\n        for c in \"aeiou\".to_string().chars().collect::<Vec<char>>() {\n            set.insert(c);\n        }\n        let mut sums = vec![0; 1];\n        for w in words {\n            let w = w.chars().collect::<Vec<char>>();\n            let f = if set.contains(w.first().unwrap()) && set.contains(w.last().unwrap()) {\n                1\n            } else {\n                0\n            };\n            sums.push(f + *sums.last().unwrap());\n        }\n        let mut ans = vec![];\n        for q in queries {\n            ans.push(sums[q[1] as usize + 1] - sums[q[0] as usize]);\n        }\n        ans\n    }\n}\n      ",
-            "date": 1675526400000
+            "date": "2023-02-05"
         },
         {
             "script": "cpp",
@@ -36,7 +34,13 @@
             "memory": 63.1,
             "desc": "前缀和。",
             "code": "class Solution {\npublic:\n    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {\n        unordered_set<char> s{ 'a', 'e', 'i', 'o', 'u'};\n        vector<int> sums(1, 0);\n        for (auto &w : words) sums.push_back(sums.back() + (s.count(w[0]) && s.count(w.back()) ? 1 : 0));\n        vector<int> res;\n        for (auto &q : queries) res.push_back(sums[q[1] + 1] - sums[q[0]]);\n        return res;\n    }\n};",
-            "date": 1685635200000
+            "date": "2023-06-02"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "字符串",
+        "前缀和"
+    ],
+    "level": "Medium"
 }

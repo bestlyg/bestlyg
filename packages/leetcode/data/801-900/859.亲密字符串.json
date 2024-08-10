@@ -2,12 +2,10 @@
     "id": "889",
     "name": "859.亲密字符串",
     "url": "https://leetcode.cn/problems/buddy-strings",
-    "difficulty": "简单",
-    "tag": ["哈希表", "字符串"],
     "desc": "给定两个由小写字母构成的字符串 A 和 B ，只要我们可以通过交换 A 中的两个字母得到与 B 相等的结果，就返回 true ；否则返回 false 。",
     "solutions": [
         {
-            "date": 1615651200000,
+            "date": "2021-03-14",
             "time": 92,
             "memory": 40.5,
             "script": "typescript",
@@ -15,7 +13,7 @@
             "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  return (\n    a.substring(0, i) === b.substring(0, i) &&\n    a.substring(i + 1, j) === b.substring(i + 1, j) &&\n    a.substring(j + 1) === b.substring(j + 1)\n  );\n}"
         },
         {
-            "date": 1615651200000,
+            "date": "2021-03-14",
             "time": 100,
             "memory": 40.6,
             "script": "typescript",
@@ -23,7 +21,7 @@
             "code": "function buddyStrings(a: string, b: string): boolean {\n  const len = a.length;\n  if (len !== b.length) return false;\n  if (a === b) return new Set([...a]).size !== len;\n  let i = 0;\n  while (i < len && a[i] === b[i]) i++;\n  let j = i + 1;\n  while (j < len && a[j] === b[j]) j++;\n  if (j === len) return false;\n  if (a[i] !== b[j] || a[j] !== b[i]) return false;\n  while (++j < len) if (a[j] !== b[j]) return false;\n  return true;\n}"
         },
         {
-            "date": 1637596800000,
+            "date": "2021-11-23",
             "time": 80,
             "memory": 40.9,
             "script": "typescript",
@@ -31,12 +29,17 @@
             "code": "function buddyStrings(s: string, goal: string): boolean {\n  const getmap = (str: string) =>\n    str.split('').reduce<Record<string, number>>((map, ch) => {\n      map[ch] = (map[ch] ?? 0) + 1;\n      return map;\n    }, {});\n  const map1 = getmap(s);\n  const map2 = getmap(goal);\n  if (Object.entries(map1).some(([k, v]) => map2[k] !== v)) return false;\n  let cnt = 0;\n  const len = s.length;\n  for (let i = 0; i < len; i++) {\n    if (s[i] !== goal[i]) cnt++;\n  }\n  if (cnt === 0) return Object.values(map1).some(v => v >= 2);\n  if (cnt !== 2) return false;\n  return true;\n}"
         },
         {
-            "date": 1637596800000,
+            "date": "2021-11-23",
             "time": 0,
             "memory": 5.6,
             "script": "c",
             "desc": "校验字符错位个数。",
             "code": "bool buddyStrings(char * s, char * goal){\n    if (strlen(s) != strlen(goal)) return false;\n    int map1[26] = {0}, map2[26] = {0}, len = strlen(s), has_repeat = 0;\n    for (int i = 0; i < len; i++) {\n        map1[s[i] - 'a']++;\n        map2[goal[i] - 'a']++;\n    }\n    for (int i = 0; i < 26; i++) {\n        if (map1[i] != map2[i]) return false;\n        if (map1[i] >= 2) has_repeat = 1;\n    }\n    int cnt = 0;\n    for (int i = 0; i < len; i++) {\n        if (s[i] != goal[i]) {\n            if (++cnt > 2) return false;\n        }\n    }\n    if (cnt == 0) return has_repeat == 1;\n    return true;\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串"
+    ],
+    "level": "Easy"
 }

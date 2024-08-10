@@ -2,8 +2,6 @@
     "id": "1036",
     "name": "994.腐烂的橘子",
     "url": "https://leetcode.cn/problems/rotting-oranges",
-    "difficulty": "中等",
-    "tag": ["广度优先搜索", "数组", "矩阵"],
     "desc": "返回 直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1 。",
     "solutions": [
         {
@@ -12,7 +10,13 @@
             "memory": 16.37,
             "desc": "bfs。",
             "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n    class Solution:\n        def orangesRotting(self, grid: List[List[int]]) -> int:\n            n, m = len(grid), len(grid[0])\n            count = sum([grid[i][j] == 1 for i in range(n) for j in range(m)])\n            if count == 0: return 0\n            q = deque([(i, j) for i in range(n) for j in range(m) if grid[i][j] == 2])\n            step = 0\n            size = len(q)\n            while q:\n                i, j = q.popleft()\n                for dir in dirs:\n                    ni, nj = i + dir[0], j + dir[1]\n                    if 0 <= ni < n and 0 <= nj < m and grid[ni][nj] == 1:\n                        count -= 1\n                        grid[ni][nj] = 2\n                        q.append((ni, nj))\n                size -= 1\n                if size == 0:\n                    step += 1\n                    size = len(q)\n            return step - 1 if count == 0 else -1",
-            "date": 1715529600000
+            "date": "2024-05-13"
         }
-    ]
+    ],
+    "tagList": [
+        "广度优先搜索",
+        "数组",
+        "矩阵"
+    ],
+    "level": "Medium"
 }

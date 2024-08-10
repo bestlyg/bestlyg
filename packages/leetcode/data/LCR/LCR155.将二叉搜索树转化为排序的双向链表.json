@@ -2,17 +2,25 @@
     "id": "100305",
     "name": "LCR155.将二叉搜索树转化为排序的双向链表",
     "url": "https://leetcode.cn/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof",
-    "difficulty": "中等",
-    "tag": ["栈", "树", "深度优先搜索", "二叉搜索树", "链表", "二叉树", "双向链表"],
     "desc": "输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。",
     "solutions": [
         {
-            "date": 1627488000000,
+            "date": "2021-07-29",
             "time": 84,
             "memory": 39.3,
             "script": "javascript",
             "desc": "中序遍历。",
             "code": "var treeToDoublyList = function (root) {\n  if (root === null) return null;\n  let head, pre;\n  inorder(root);\n  head.left = pre;\n  pre.right = head;\n  return head;\n  function inorder(node) {\n    if (!node) return;\n    inorder(node.left);\n    if (!pre) {\n      head = node;\n    } else {\n      pre.right = node;\n    }\n    node.left = pre;\n    pre = node;\n    inorder(node.right);\n  }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "树",
+        "深度优先搜索",
+        "二叉搜索树",
+        "链表",
+        "二叉树",
+        "双向链表"
+    ],
+    "level": "Medium"
 }

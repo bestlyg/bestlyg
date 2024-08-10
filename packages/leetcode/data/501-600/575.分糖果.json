@@ -2,12 +2,10 @@
     "id": "575",
     "name": "575.分糖果",
     "url": "https://leetcode.cn/problems/distribute-candies",
-    "difficulty": "简单",
-    "tag": ["数组", "哈希表"],
     "desc": "给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。",
     "solutions": [
         {
-            "date": 1635696000000,
+            "date": "2021-11-01",
             "time": 128,
             "memory": 50.9,
             "script": "typescript",
@@ -20,7 +18,12 @@
             "memory": 18.08,
             "desc": "判断最大糖果数量和最大糖果类型的最小值。",
             "code": "class Solution:\n    def distributeCandies(self, candyType: List[int]) -> int:\n        return min(len(Counter(candyType).keys()),  len(candyType) // 2)",
-            "date": 1717257600000
+            "date": "2024-06-02"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "level": "Easy"
 }

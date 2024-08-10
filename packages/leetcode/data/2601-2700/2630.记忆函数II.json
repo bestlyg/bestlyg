@@ -2,8 +2,6 @@
     "id": "2744",
     "name": "2630.记忆函数II",
     "url": "https://leetcode.cn/problems/memoize-ii",
-    "difficulty": "困难",
-    "tag": [],
     "desc": "请你编写一个函数，它接收一个函数参数 fn，并返回该函数的 记忆化 后的结果。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 102,
             "desc": "trie。",
             "code": "type Fn = (...params: any) => any;\n\nconst EmptyResult = Symbol('EmptyResult');\n\nclass Trie {\n  children = new Map<any, Trie>();\n  result: any = EmptyResult;\n  constructor(public val: any) {}\n}\n\nfunction memoize(fn: Fn): Fn {\n  const root = new Trie(null);\n  return function (...args: any[]) {\n    let node = root;\n    for (const arg of args) {\n      let next = node.children.get(arg);\n      if (!next) node.children.set(arg, (next = new Trie(arg)));\n      node = next;\n    }\n    if (node.result !== EmptyResult) return node.result;\n    return (node.result = fn(...args));\n  };\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Hard"
 }

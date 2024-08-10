@@ -2,8 +2,6 @@
     "id": "2645",
     "name": "2582.递枕头",
     "url": "https://leetcode.cn/problems/pass-the-pillow",
-    "difficulty": "简单",
-    "tag": ["数学", "模拟"],
     "desc": "过滤后返回餐馆的 id，按照 rating 从高到低排序。如果 rating 相同，那么按 id 从高到低排序。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 26.94,
             "desc": "遍历。",
             "code": "class Solution {\npublic:\n    vector<int> filterRestaurants(vector<vector<int>>& restaurants, int veganFriendly, int maxPrice, int maxDistance) {\n        vector<pair<int, int>> list;\n        for (auto &item : restaurants) {\n            if (item[3] <= maxPrice && item[4] <= maxDistance and (!veganFriendly || item[2])) {\n                list.push_back(make_pair(item[0], item[1]));\n            }\n        }\n        sort(list.begin(), list.end(), [&](auto &a, auto &b) {\n            return a.second != b.second ? a.second < b.second : a.first < b.first;\n        });\n        reverse(list.begin(), list.end());\n        vector<int> res;\n        for (auto &item : list) res.push_back(item.first);\n        return res;\n    }\n};",
-            "date": 1695744000000
+            "date": "2023-09-27"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 23.1,
             "desc": "同上。",
             "code": "class Solution:\n    def filterRestaurants(self, restaurants: List[List[int]], veganFriendly: int, maxPrice: int, maxDistance: int) -> List[int]:\n        restaurants = [item for item in restaurants if item[3] <=\n                        maxPrice and item[4] <= maxDistance and (not veganFriendly or item[2])]\n        restaurants.sort(key=lambda item: (item[1], item[0]), reverse=True)\n        return [item[0] for item in restaurants]",
-            "date": 1695744000000
+            "date": "2023-09-27"
         },
         {
             "script": "rust",
@@ -28,7 +26,12 @@
             "memory": 3.11,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn filter_restaurants(\n        restaurants: Vec<Vec<i32>>,\n        vegan_friendly: i32,\n        max_price: i32,\n        max_distance: i32,\n    ) -> Vec<i32> {\n        let mut restaurants: Vec<Vec<i32>> = restaurants\n            .into_iter()\n            .filter(|item| {\n                item[3] <= max_price\n                    && item[4] <= max_distance\n                    && (vegan_friendly == 0 || item[2] == 1)\n            })\n            .collect();\n        restaurants.sort_by(|item1, item2| {\n            if item1[1] != item2[1] {\n                item2[1].cmp(&item1[1])\n            } else {\n                item2[0].cmp(&item1[0])\n            }\n        });\n        restaurants.into_iter().map(|item| item[0]).collect()\n    }\n}\n",
-            "date": 1695744000000
+            "date": "2023-09-27"
         }
-    ]
+    ],
+    "tagList": [
+        "数学",
+        "模拟"
+    ],
+    "level": "Easy"
 }

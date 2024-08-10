@@ -2,17 +2,22 @@
     "id": "1034",
     "name": "992.K个不同整数的子数组",
     "url": "https://leetcode.cn/problems/subarrays-with-k-different-integers",
-    "difficulty": "困难",
-    "tag": ["数组", "哈希表", "计数", "滑动窗口"],
     "desc": "返回 A 中好子数组的数目。",
     "solutions": [
         {
-            "date": 1612886400000,
+            "date": "2021-02-10",
             "time": 108,
             "memory": 45.9,
             "script": "typescript",
             "desc": "转换题目为最多包含 K 种数组，进行相减得到解。",
             "code": "function subarraysWithKDistinct(A: number[], K: number): number {\n  const atMostWithKDistinct = (k: number): number => {\n    const len = A.length;\n    const freq: number[] = new Array(len + 1).fill(0);\n    let l = 0;\n    let r = 0;\n    let c = 0;\n    let res = 0;\n    while (r < len) {\n      if (freq[A[r]]++ === 0) cpp;\n      r++;\n      while (c > k) {\n        if (--freq[A[l]] === 0) c--;\n        l++;\n      }\n      res += r - l;\n    }\n    return res;\n  };\n  return atMostWithKDistinct(K) - atMostWithKDistinct(K - 1);\n}"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "哈希表",
+        "计数",
+        "滑动窗口"
+    ],
+    "level": "Hard"
 }

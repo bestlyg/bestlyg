@@ -2,8 +2,6 @@
     "id": "2742",
     "name": "2631.分组",
     "url": "https://leetcode.cn/problems/group-by",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "请你编写一段可应用于所有数组的代码，使任何数组调用 array. groupBy(fn) 方法时，它返回对该数组 分组后 的结果。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 62.6,
             "desc": "遍历。",
             "code": "declare global {\n  interface Array<T> {\n    groupBy(fn: (item: T) => string): Record<string, T[]>;\n  }\n}\n\nArray.prototype.groupBy = function (fn) {\n  const o: Record<string, any> = {};\n  this.forEach(item => {\n    let arr = o[fn(item)];\n    if (!arr) arr = o[fn(item)] = [];\n    arr.push(item);\n  });\n  return o;\n};",
-            "date": 1682265600000
+            "date": "2023-04-24"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

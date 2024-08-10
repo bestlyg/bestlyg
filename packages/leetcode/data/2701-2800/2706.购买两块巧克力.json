@@ -2,8 +2,6 @@
     "id": "2756",
     "name": "2706.购买两块巧克力",
     "url": "https://leetcode.cn/problems/buy-two-chocolates",
-    "difficulty": "简单",
-    "tag": ["数组", "排序"],
     "desc": "请你返回在购买两块巧克力后，最多能剩下多少钱。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 16.98,
             "desc": "排序后计算。",
             "code": "class Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        res = money - prices[0] - prices[1]\n        return res if res >= 0 else money",
-            "date": 1703779200000
+            "date": "2023-12-29"
         }
-    ]
+    ],
+    "tagList": [
+        "数组",
+        "排序"
+    ],
+    "level": "Easy"
 }

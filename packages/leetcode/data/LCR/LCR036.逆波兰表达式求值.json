@@ -2,17 +2,21 @@
     "id": "1000279",
     "name": "LCR036.逆波兰表达式求值",
     "url": "https://leetcode.cn/problems/8Zf90G",
-    "difficulty": "中等",
-    "tag": ["栈", "数组", "数学"],
     "desc": "根据 逆波兰表示法，求该后缀表达式的计算结果。",
     "solutions": [
         {
-            "date": 1640188800000,
+            "date": "2021-12-23",
             "time": 12,
             "memory": 11.6,
             "script": "cpp",
             "desc": "栈存储。",
             "code": "class Solution {\n   public:\n    int s2i(string str) {\n        int ans = 0, f = 1;\n        for (int i = 0; i < str.size(); i++) {\n            if (i == 0 && str[i] == '-') {\n                f = -1;\n                continue;\n            }\n            ans = ans * 10 + str[i] - '0';\n        }\n        return ans * f;\n    }\n    int evalRPN(vector<string>& tokens) {\n        stack<int> s;\n        for (auto& str : tokens) {\n            if (str == \"+\" || str == \"-\" || str == \"*\" || str == \"/\") {\n                int num1 = s.top();\n                s.pop();\n                int num2 = s.top();\n                s.pop();\n                int ans;\n                if (str == \"+\")\n                    ans = num2 + num1;\n                else if (str == \"-\")\n                    ans = num2 - num1;\n                else if (str == \"*\")\n                    ans = num2 * num1;\n                else\n                    ans = num2 / num1;\n                s.push(ans);\n            } else {\n                s.push(s2i(str));\n            }\n        }\n        return s.top();\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "栈",
+        "数组",
+        "数学"
+    ],
+    "level": "Medium"
 }

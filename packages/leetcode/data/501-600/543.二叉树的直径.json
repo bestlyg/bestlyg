@@ -2,17 +2,21 @@
     "id": "543",
     "name": "543.二叉树的直径",
     "url": "https://leetcode.cn/problems/diameter-of-binary-tree",
-    "difficulty": "简单",
-    "tag": ["树", "深度优先搜索", "二叉树"],
     "desc": "给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。",
     "solutions": [
         {
-            "date": 1647273600000,
+            "date": "2022-03-15",
             "time": 16,
             "memory": 19.7,
             "script": "cpp",
             "desc": "dfs 统计左右子树的高度。",
             "code": "class Solution {\n   public:\n    int h(TreeNode* node) {\n        if (!node) return 0;\n        return max(h(node->left), h(node->right)) + 1;\n    }\n    int diameterOfBinaryTree(TreeNode* root) {\n        if (!root) return 0;\n        return max(h(root->left) + h(root->right),\n                   max(diameterOfBinaryTree(root->left),\n                       diameterOfBinaryTree(root->right)));\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "二叉树"
+    ],
+    "level": "Easy"
 }

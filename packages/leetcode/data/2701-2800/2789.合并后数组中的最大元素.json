@@ -2,8 +2,6 @@
     "id": "2872",
     "name": "2789.合并后数组中的最大元素",
     "url": "https://leetcode.cn/problems/largest-element-in-an-array-after-merge-operations",
-    "difficulty": "中等",
-    "tag": ["贪心", "数组"],
     "desc": "返回你可以从最终数组中获得的 最大 元素的值。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 32.3,
             "desc": "从后往前遍历。",
             "code": "class Solution:\n    def maxArrayValue(self, nums: List[int]) -> int:\n        for i in range(len(nums) - 2, -1, -1):\n            if nums[i] <= nums[i + 1]:\n                nums[i] += nums[i + 1]\n        return max(nums)",
-            "date": 1710345600000
+            "date": "2024-03-14"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
+    "level": "Medium"
 }

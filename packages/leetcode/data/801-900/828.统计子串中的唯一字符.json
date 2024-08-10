@@ -2,12 +2,10 @@
     "id": "855",
     "name": "828.统计子串中的唯一字符",
     "url": "https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string",
-    "difficulty": "困难",
-    "tag": ["哈希表", "字符串", "动态规划"],
     "desc": "给你一个字符串 s ，我们需要返回 countUniqueChars(t) 的总和，其中 t 是 s 的子字符串。",
     "solutions": [
         {
-            "date": 1662393600000,
+            "date": "2022-09-06",
             "time": 52,
             "memory": 36,
             "script": "cpp",
@@ -20,7 +18,13 @@
             "memory": 20.83,
             "desc": "按字符归类所有下标，记录当前字符下标仅出现一次的频率。",
             "code": "class Solution:\n    def uniqueLetterString(self, s: str) -> int:\n        n = len(s)\n        ans = 0\n        clist = [[-1] for _ in range(26)]\n        for i in range(n): clist[ord(s[i]) - ord('A')].append(i)\n        for arr in clist:\n            arr.append(n)\n            for j in range(1, len(arr) - 1):\n                ans += (arr[j] - arr[j - 1]) * (arr[j + 1] - arr[j])\n        return ans",
-            "date": 1700928000000
+            "date": "2023-11-26"
         }
-    ]
+    ],
+    "tagList": [
+        "哈希表",
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Hard"
 }

@@ -2,8 +2,6 @@
     "id": "2373",
     "name": "2288.价格减免",
     "url": "https://leetcode.cn/problems/apply-discount-to-prices",
-    "difficulty": "中等",
-    "tag": ["字符串"],
     "desc": "返回表示修改后句子的字符串。",
     "solutions": [
         {
@@ -12,7 +10,11 @@
             "memory": 18.2,
             "desc": "遍历。",
             "code": "class Solution:\n    def discountPrices(self, sentence: str, discount: int) -> str:\n        arr = sentence.split(' ')\n        for i in range(len(arr)):\n            if arr[i][0] == '$' and arr[i][1:].isdigit():\n                arr[i] = '$' + str(format(int(arr[i][1:]) * ((100 - discount) / 100), '.2f'))\n        return ' '.join(arr)",
-            "date": 1718640000000
+            "date": "2024-06-18"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Medium"
 }

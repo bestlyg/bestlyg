@@ -2,8 +2,6 @@
     "id": "2762",
     "name": "2622.有时间限制的缓存",
     "url": "https://leetcode.cn/problems/cache-with-time-limit",
-    "difficulty": "中等",
-    "tag": [],
     "desc": "编写一个类，它允许获取和设置键-值对，并且每个键都有一个 过期时间 。",
     "solutions": [
         {
@@ -12,7 +10,9 @@
             "memory": 42.6,
             "desc": "哈希存储。",
             "code": "class TimeLimitedCache {\n    cache = new Map<number, [number, number]>();\n\n    set(key: number, value: number, duration: number): boolean {\n        const now = Date.now();\n        const item = this.cache.get(key);\n        if (item) {\n            item[0] = now + duration;\n            item[1] = value;\n            return true;\n        } else {\n            this.cache.set(key, [now + duration, value]);\n            return false;\n        }\n    }\n\n    get(key: number): number {\n        const now = Date.now();\n        const item = this.cache.get(key);\n        if (!item || now > item[0]) return -1;\n        return item[1];\n    }\n\n    count(): number {\n        const now = Date.now();\n        let res = 0;\n        for (const [key, item] of this.cache.entries()) {\n            if (now > item[0]) {\n                this.cache.delete(key);\n            } else {\n                res++;\n            }\n        }\n        return res;\n    }\n}",
-            "date": 1682179200000
+            "date": "2023-04-23"
         }
-    ]
+    ],
+    "tagList": [],
+    "level": "Medium"
 }

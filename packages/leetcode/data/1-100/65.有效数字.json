@@ -2,17 +2,19 @@
     "id": "65",
     "name": "65.有效数字",
     "url": "https://leetcode.cn/problems/valid-number",
-    "difficulty": "困难",
-    "tag": ["字符串"],
     "desc": "验证给定的字符串是否可以解释为十进制数字。",
     "solutions": [
         {
-            "date": 1586188800000,
+            "date": "2020-04-07",
             "time": 108,
             "memory": 36.4,
             "script": "javascript",
             "desc": "使用 Number 方法直接可判断。",
             "code": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar isNumber = function (s) {\n  if (s.trim() === '') return false;\n  const result = Number(s);\n  return !Number.isNaN(result);\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "字符串"
+    ],
+    "level": "Hard"
 }

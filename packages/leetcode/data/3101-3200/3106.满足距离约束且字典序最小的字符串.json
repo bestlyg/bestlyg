@@ -2,8 +2,6 @@
     "id": "3346",
     "name": "3106.满足距离约束且字典序最小的字符串",
     "url": "https://leetcode.cn/problems/lexicographically-smallest-string-after-operations-with-constraint",
-    "difficulty": "中等",
-    "tag": ["贪心", "字符串"],
     "desc": "你可以对字符串 s 执行 任意次 操作。在每次操作中，可以将 s 中的一个字母 改变 为 任意 其他小写英文字母。返回一个字符串，表示在执行一些操作后你可以得到的 字典序最小 的字符串 t ，且满足 distance(s, t) <= k 。",
     "solutions": [
         {
@@ -12,7 +10,12 @@
             "memory": 16.46,
             "desc": "贪心遍历。",
             "code": "class Solution:\n    def getSmallestString(self, s: str, k: int) -> str:\n        arr = list(s)\n        orda = ord('a')\n        for i in range(len(arr)):\n            ordc = ord(arr[i])\n            min_to_a = min(ordc - orda, orda + 26 - ordc)\n            if min_to_a <= k:\n                arr[i] = 'a'\n                k -= min_to_a\n            else:\n                ordc -= orda\n                arr[i] = chr(orda + min(ordc - k, (ordc + k) % 26))\n                break\n        return ''.join(arr)",
-            "date": 1722009600000
+            "date": "2024-07-27"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "字符串"
+    ],
+    "level": "Medium"
 }

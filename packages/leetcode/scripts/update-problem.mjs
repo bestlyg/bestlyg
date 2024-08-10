@@ -14,6 +14,8 @@ const levelMap = {
     困难: 'Hard',
 };
 
+const run = best.pLimit(10);
+
 for (const { problemData, problemPath } of dataList.map(v => v.problems).flat()) {
     const tagList = problemData.tag;
     problemData.tagList = tagList;
@@ -23,6 +25,8 @@ for (const { problemData, problemPath } of dataList.map(v => v.problems).flat())
     for (const solution of problemData.solutions) {
         solution.date = best.dayjs(solution.date).format(DATE_FORMAT_SOLUTION);
     }
-    console.log(problemData);
-    break;
+    run(async () => {
+        console.log(`ReWrite ${problemPath}`);
+        await fs.writeFile(problemPath, JSON.stringify(problemData, null, 4));
+    });
 }

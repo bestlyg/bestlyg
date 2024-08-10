@@ -2,8 +2,6 @@
     "id": "1022",
     "name": "980.不同路径III",
     "url": "https://leetcode.cn/problems/unique-paths-iii",
-    "difficulty": "困难",
-    "tag": ["位运算", "数组", "回溯", "矩阵"],
     "desc": "返回在四个方向（上、下、左、右）上行走时，从起始方格到结束方格的不同路径的数目。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 6.77,
             "desc": "dfs。",
             "code": "#define X first\n#define Y second\n#define pii pair<int, int>\nvector<vector<int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\npublic:\n    int uniquePathsIII(vector<vector<int>>& grid) {\n        int res = 0, n = grid.size(), m = grid[0].size(), sum = n * m;\n        pii start, end;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 1) start = make_pair(i, j);\n                else if (grid[i][j] == 2) end = make_pair(i, j);\n                else if (grid[i][j] == -1) sum -= 1;\n            }\n        }\n        vector<vector<bool>> used(n, vector<bool>(m, false));\n        used[start.X][start.Y] = true;\n        function<void(pii, int)> dfs = [&](pii cur, int cnt) {\n            if (cur.X == end.X && cur.Y == end.Y) {\n                if (cnt == sum) res += 1;\n                return;\n            }\n            for (auto &dir : dirs) {\n                int nx = cur.X + dir[0], ny = cur.Y + dir[1];\n                if (0 <= nx && nx < n && 0 <= ny && ny < m && grid[nx][ny] != -1 && !used[nx][ny]) {\n                    used[nx][ny] = true;\n                    dfs(make_pair(nx, ny), cnt + 1);\n                    used[nx][ny] = false;\n                }\n            }\n        };\n        dfs(start, 1);\n        return res;\n    }\n};",
-            "date": 1691078400000
+            "date": "2023-08-04"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 15.83,
             "desc": "同上。",
             "code": "dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\nclass Solution:\n    def uniquePathsIII(self, grid: List[List[int]]) -> int:\n        res = 0\n        n = len(grid)\n        m = len(grid[0])\n        sum = n * m\n        start = end = (0, 0)\n        for i in range(n):\n            for j in range(m):\n                if grid[i][j] == 1:\n                    start = (i, j)\n                elif grid[i][j] == 2:\n                    end = (i, j)\n                elif grid[i][j] == -1:\n                    sum -= 1\n        used = [[False for _ in range(m)] for _ in range(n)]\n        used[start[0]][start[1]] = True\n        def dfs(cur: Tuple[int, int], cnt: int):\n            nonlocal res\n            if cur[0] == end[0] and cur[1] == end[1]:\n                if cnt == sum:\n                    res += 1\n                return\n            for dir in dirs:\n                nx = cur[0] + dir[0]\n                ny = cur[1] + dir[1]\n                if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != -1 and not used[nx][ny]:\n                    used[nx][ny] = True\n                    dfs((nx, ny), cnt + 1)\n                    used[nx][ny] = False\n        dfs(start, 1)\n        return res",
-            "date": 1691078400000
+            "date": "2023-08-04"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 1.86,
             "desc": "同上。",
             "code": "pub const DIRS: [[i32; 2]; 4] = [[0, 1], [0, -1], [1, 0], [-1, 0]];\nimpl Solution {\n    pub fn unique_paths_iii(grid: Vec<Vec<i32>>) -> i32 {\n        let mut res = 0;\n        let n = grid.len();\n        let m = grid[0].len();\n        let mut start = (0, 0);\n        let mut end = (0, 0);\n        let mut sum = n * m;\n        for i in 0..n {\n            for j in 0..m {\n                if grid[i][j] == 1 {\n                    start = (i, j);\n                } else if grid[i][j] == 2 {\n                    end = (i, j);\n                } else if grid[i][j] == -1 {\n                    sum -= 1;\n                }\n            }\n        }\n        let mut used: Vec<Vec<bool>> = vec![vec![false; m]; n];\n        used[start.0][start.1] = true;\n        fn dfs(\n            res: &mut i32,\n            sum: usize,\n            grid: &Vec<Vec<i32>>,\n            used: &mut Vec<Vec<bool>>,\n            cur: (usize, usize),\n            end: (usize, usize),\n            cnt: usize,\n        ) {\n            if cur.0 == end.0 && cur.1 == end.1 {\n                if cnt == sum {\n                    *res += 1;\n                }\n            } else {\n                for dir in DIRS {\n                    let nx = (cur.0 as i32 + dir[0]) as usize;\n                    let ny = (cur.1 as i32 + dir[1]) as usize;\n                    if 0 <= nx\n                        && nx < grid.len()\n                        && 0 <= ny\n                        && ny < grid[0].len()\n                        && grid[nx][ny] != -1\n                        && !used[nx][ny]\n                    {\n                        used[nx][ny] = true;\n                        dfs(res, sum, grid, used, (nx, ny), end, cnt + 1);\n                        used[nx][ny] = false;\n                    }\n                }\n            }\n        }\n        dfs(&mut res, sum, &grid, &mut used, start, end, 1);\n        res\n    }\n}\n",
-            "date": 1691078400000
+            "date": "2023-08-04"
         }
-    ]
+    ],
+    "tagList": [
+        "位运算",
+        "数组",
+        "回溯",
+        "矩阵"
+    ],
+    "level": "Hard"
 }

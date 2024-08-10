@@ -2,12 +2,10 @@
     "id": "1889",
     "name": "1780.判断一个数字是否可以表示成三的幂的和",
     "url": "https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three",
-    "difficulty": "中等",
-    "tag": ["数学"],
     "desc": "给你一个整数 n ，如果你可以将 n 表示成若干个不同的三的幂之和，请你返回 true ，否则请返回 false 。",
     "solutions": [
         {
-            "date": 1670515200000,
+            "date": "2022-12-09",
             "time": 0,
             "memory": 5.7,
             "script": "cpp",
@@ -15,12 +13,16 @@
             "code": "class Solution {\npublic:\n    bool checkPowersOfThree(int n) {\n        if (n % 3 != 0) n--;\n        for (; n && n % 3 == 0; n--)\n            while (n % 3 == 0) n /= 3;\n        return !n;\n    }\n};"
         },
         {
-            "date": 1670515200000,
+            "date": "2022-12-09",
             "time": 0,
             "memory": 5.7,
             "script": "cpp",
             "desc": "优化后为模 3 为 0 或 1。",
             "code": "class Solution {\npublic:\n    bool checkPowersOfThree(int n) {\n        while (n) {\n            if (n % 3 == 2) return false;\n            n /= 3;\n        }\n        return true;\n    }\n};"
         }
-    ]
+    ],
+    "tagList": [
+        "数学"
+    ],
+    "level": "Medium"
 }

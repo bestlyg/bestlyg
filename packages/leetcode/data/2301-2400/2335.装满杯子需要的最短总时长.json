@@ -2,8 +2,6 @@
     "id": "2412",
     "name": "2335.装满杯子需要的最短总时长",
     "url": "https://leetcode.cn/problems/minimum-amount-of-time-to-fill-cups",
-    "difficulty": "简单",
-    "tag": ["贪心", "数组", "排序", "堆（优先队列）"],
     "desc": "给你一个下标从 0 开始、长度为 3 的整数数组 amount ，其中 amount[0]、amount[1] 和 amount[2] 分别表示需要装满冷水、温水和热水的杯子数量。返回装满所有杯子所需的 最少 秒数。",
     "solutions": [
         {
@@ -12,7 +10,7 @@
             "memory": 11.5,
             "desc": "堆。",
             "code": "class Solution {\npublic:\n    int fillCups(vector<int>& amount) {\n        priority_queue<int> q;\n        for (auto &num : amount) if (num) q.push(num);\n        int res = 0;\n        while (q.size() >= 2) {\n            int num1 = q.top(); q.pop();\n            int num2 = q.top(); q.pop();\n            if (num1 != 1) q.push(num1 - 1);\n            if (num2 != 1) q.push(num2 - 1);\n            res++;\n        }\n        if (q.size()) res += q.top();\n        return res;\n    }\n};",
-            "date": 1676044800000
+            "date": "2023-02-11"
         },
         {
             "script": "python",
@@ -20,7 +18,7 @@
             "memory": 14.9,
             "desc": "同上。",
             "code": "class Solution:\n    def fillCups(self, amount: List[int]) -> int:\n        amount = [-v for v in amount if v]\n        heapify(amount)\n        res = 0\n        while len(amount) >= 2:\n            num1, num2 = heappop(amount), heappop(amount)\n            if num1 < -1:\n                heappush(amount, num1+1)\n            if num2 < -1:\n                heappush(amount, num2+1)\n            res += 1\n        if len(amount):\n            res += -heappop(amount)\n        return res",
-            "date": 1676044800000
+            "date": "2023-02-11"
         },
         {
             "script": "rust",
@@ -28,7 +26,14 @@
             "memory": 2,
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn fill_cups(amount: Vec<i32>) -> i32 {\n        use std::collections::BinaryHeap;\n        let mut heap = BinaryHeap::new();\n        for num in amount {\n            if num != 0 {\n                heap.push(num)\n            }\n        }\n        let mut res = 0;\n        while heap.len() >= 2 {\n            let (num1, num2) = (heap.pop().unwrap(), heap.pop().unwrap());\n            if num1 != 1 {\n                heap.push(num1 - 1);\n            }\n            if num2 != 1 {\n                heap.push(num2 - 1)\n            }\n            res += 1\n        }\n        if !heap.is_empty() {\n            res += heap.pop().unwrap();\n        }\n        res\n    }\n}",
-            "date": 1676044800000
+            "date": "2023-02-11"
         }
-    ]
+    ],
+    "tagList": [
+        "贪心",
+        "数组",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "level": "Easy"
 }
