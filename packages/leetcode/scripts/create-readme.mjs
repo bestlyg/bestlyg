@@ -4,11 +4,7 @@
  */
 
 import '@bestlyg/cli/globals';
-import { getLeetCodeDataList, dirSort } from './utils.mjs';
-
-const dataList = await getLeetCodeDataList();
-
-const readmeData = await getReadmeData();
+import { getLeetCodeDataList, dirSort, mainJsonFilePath, LeetCodeLevel } from './utils.mjs';
 
 function createIndexData() {
     /** @type {LeetCodeReadmeDataItem[]} */
@@ -16,10 +12,10 @@ function createIndexData() {
     for (const data of dataList) {
         res.push({
             label: data.dirName,
-            problems: data.problems.map(v => v.name),
+            problems: data.problems.map(v => v.problemData.name),
         });
     }
-    return res.sort((v1, v2) => dirSort(v1.dirName, v2.dirName));
+    return res.sort((v1, v2) => dirSort(v1.label, v2.label));
 }
 
 function createTagData() {
@@ -27,15 +23,15 @@ function createTagData() {
     const res = [];
     /** @type {Record<string, string[]>} */
     const record = {};
-    for (const data of dataList.map(v => v.problems).flat()) {
-        for (const tag of data.tag) {
+    for (const problem of dataList.map(v => v.problems).flat()) {
+        for (const tag of problem.problemData.tagList) {
             let list = record[tag];
             if (!list)
                 res.push({
                     label: tag,
                     problems: (list = record[tag] = []),
                 });
-            list.push(data.name);
+            list.push(problem.name);
         }
     }
     return res;
@@ -43,17 +39,11 @@ function createTagData() {
 
 function createLevelData() {
     /** @type {LeetCodeReadmeDataItem[]} */
-    const res = [];
+    const res = Object.fromEntries(Object.keys(LeetCodeLevel).map(k => [k, []]));
     /** @type {Record<string, string[]>} */
-    const record = {};
-    for (const data of dataList.map(v => v.problems).flat()) {
-        let list = record[data.level];
-        if (!list)
-            res.push({
-                label: data.level,
-                problems: (list = record[data.level] = []),
-            });
-        list.push(data.name);
+    for (const problem of dataList.map(v => v.problems).flat()) {
+        const list = record[problem.level];
+        list.push(problem.name);
     }
     return res;
 }
@@ -71,4 +61,8 @@ async function getReadmeData() {
     };
 }
 
-console.log(readmeData.level);
+const dataList = await getLeetCodeDataList();
+
+const readmeData = await getReadmeData();
+
+await fs.writeFile(mainJsonFilePath, JSON.stringify(readmeData, null, 4));

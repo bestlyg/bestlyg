@@ -9,7 +9,13 @@ export const resolve = best.utils.getResolveFunction(import.meta, 1);
 
 export const dataRootPath = resolve('data');
 
+export const scriptPath = resolve('scripts');
+
+export const codePath = resolve(scriptPath, 'code');
+
 export const mainJsonFile = 'main.json';
+
+export const mainJsonFilePath = resolve(dataRootPath, 'main.json');
 
 /**
  * @returns {LeetCodeDataList}
@@ -43,13 +49,13 @@ export async function getLeetCodeDataList() {
     );
 }
 
-export const sortOrderList = ['面试题', 'LCP', 'LCR'];
+export const sortOrderList = ['面试题', '剑指Offer', '剑指OfferII', 'LCP', 'LCR'];
 
 /**
  * @param {string} dirName
  */
 export function getDirNameOrder(dirName) {
-    const idx = sortOrderList.findIndex(v => v.startsWith(dirName));
+    const idx = sortOrderList.findIndex(v => dirName.startsWith(v));
     return idx === -1 ? parseInt(dirName) : idx + 10 ** 7;
 }
 
@@ -67,7 +73,7 @@ export function dirSort(dirName1, dirName2) {
  * @param {string} problemName
  */
 export function getProblemNameOrder(problemName) {
-    const prefix = sortOrderList.find(v => v.startsWith(problemName));
+    const prefix = sortOrderList.find(v => problemName.startsWith(v));
     if (prefix) problemName = problemName.substring(prefix.length);
     return parseFloat(problemName);
 }
@@ -80,6 +86,16 @@ export function problemSort(problemName1, problemName2) {
     const order1 = getProblemNameOrder(problemName1);
     const order2 = getProblemNameOrder(problemName2);
     return order1 - order2;
+}
+
+/**
+ * @param {string} problemName
+ */
+export function getDirNameFromProblemName(problemName) {
+    const prefix = sortOrderList.find(v => problemName.startsWith(v));
+    if (prefix) return prefix;
+    const num = ~~((parseFloat(problemName) - 1) / 100);
+    return `${num * 100 + 1}-${100 * num + 100}`;
 }
 
 export const LeetCodeLevel = {

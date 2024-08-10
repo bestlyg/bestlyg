@@ -3,12 +3,12 @@
  */
 
 import '@bestlyg/cli/globals';
-import { getLeetCodeDataList, dirSort, LeetCodeLevel, LeetCodeScript } from './utils.mjs';
+import { LeetCodeLevel, LeetCodeScript, codePath } from './utils.mjs';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '2940. 找到 Alice 和 Bob 可以相遇的建筑',
+    name: '1232. 找到 Alice 和 Bob 可以相遇的建筑',
     url: 'https://leetcode.cn/problems/find-building-where-alice-and-bob-can-meet',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -20,7 +20,7 @@ export const problem = {
             time: 324,
             memory: 39.23,
             desc: '离线处理queries，过滤能立即得出答案的，剩余的一定是h[i] > h[j]，此时从左往右遍历h，维护当前下标之前的所有需求最小堆',
-            code: ``,
+            code: await fs.readFile(codePath, 'utf8'),
         },
     ],
 };
