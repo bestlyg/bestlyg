@@ -14,7 +14,7 @@ export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
-            dts: false,
+            dts: {},
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,
@@ -26,6 +26,12 @@ export default defineConfig({
             esbuildOptions: options => {
                 options.outExtension = { '.js': '.js' };
                 return options;
+            },
+            resolve: {
+                alias: alias => {
+                    alias['./vendor/vendor'] = './src/vendor/vendor.module';
+                    return alias;
+                },
             },
         },
         {
@@ -42,13 +48,19 @@ export default defineConfig({
                 options.outExtension = { '.js': '.cjs' };
                 return options;
             },
-        },
-        {
-            buildType: 'bundleless',
-            dts: {
-                only: true,
+            resolve: {
+                alias: alias => {
+                    alias['./vendor/vendor'] = './src/vendor/vendor.common';
+                    return alias;
+                },
             },
-            outDir: resolve(CWD, 'dist', 'types'),
         },
+        // {
+        //     buildType: 'bundleless',
+        //     dts: {
+        //         only: true,
+        //     },
+        //     outDir: resolve(CWD, 'dist', 'types'),
+        // },
     ],
 });

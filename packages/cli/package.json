@@ -4,23 +4,23 @@
     "author": "bestlyg",
     "type": "module",
     "main": "./dist/lib/index.cjs",
-    "types": "./dist/types/index.d.ts",
+    "types": "./dist/esm/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
-                "./dist/types/index.d.ts"
+                "./dist/esm/index.d.ts"
             ]
         }
     },
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
+            "types": "./dist/esm/index.d.ts",
             "import": "./dist/esm/index.js",
             "require": "./dist/lib/index.cjs",
             "default": "./dist/esm/index.js"
         },
         "./globals": {
-            "types": "./dist/types/globals.d.ts",
+            "types": "./dist/esm/globals.d.ts",
             "import": "./dist/esm/globals.js",
             "require": "./dist/lib/globals.cjs",
             "default": "./dist/esm/globals.js"
@@ -53,6 +53,7 @@
         "@types/node": "^20.14.13",
         "@types/ramda": "^0.30.1",
         "@types/rimraf": "^4.0.5",
+        "@modern-js/module-tools": "^2.58.0",
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
         "cross-env": "^7.0.3"
@@ -61,16 +62,18 @@
     "license": "ISC",
     "dependencies": {
         "@manypkg/get-packages": "^2.2.1",
-        "@modern-js/module-tools": "^2.56.2",
         "@types/jsdom": "^21.1.7",
         "adm-zip": "^0.5.14",
         "axios": "^1.6.8",
+        "chalk": "^5.3.0",
+        "change-case": "^5.4.4",
         "cheerio": "1.0.0-rc.12",
         "commander": "^11.1.0",
         "dayjs": "^1.11.12",
         "doctrine": "^3.0.0",
         "dotenv": "^16.4.5",
         "figlet": "^1.7.0",
+        "inquirer": "^10.1.8",
         "jsdom": "^24.1.0",
         "lodash": "^4.17.21",
         "minimist": "^1.2.8",

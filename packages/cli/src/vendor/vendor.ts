@@ -19,5 +19,3 @@ export * as rimraf from 'rimraf';
 export * as commander from 'commander';
 export * as jsdom from 'jsdom';
 export * as zx from 'zx';
-export { default as pLimit } from 'p-limit';
-export { default as PQueue } from 'p-queue';
