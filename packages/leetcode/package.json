@@ -11,7 +11,8 @@
         "auto": "pnpm markdown && pnpm readme && pnpm -w ca",
         "js": "node scripts/script.js",
         "ts": "ts-node -r tsconfig-paths/register scripts/script.ts",
-        "create:readme": "node scripts/create-readme.mjs"
+        "create:readme": "node scripts/create-readme.mjs",
+        "update:problem": "node scripts/update-problem.mjs"
     },
     "keywords": [],
     "author": "",

@@ -25,7 +25,14 @@ export async function getLeetCodeDataList() {
                 if (os.platform() === 'win32') globPath = glob.convertPathToPattern(globPath);
                 const filePathList = await glob(globPath);
                 const problems = await Promise.all(
-                    filePathList.map(filePath => fs.readJSON(filePath))
+                    filePathList.map(async filePath => {
+                        const data = await fs.readJSON(filePath);
+                        return {
+                            problemName: path.basename(filePath),
+                            problemPath: filePath,
+                            problemData: data,
+                        };
+                    })
                 );
                 return {
                     dirName,
@@ -37,6 +44,7 @@ export async function getLeetCodeDataList() {
 }
 
 export const sortOrderList = ['面试题', 'LCP', 'LCR'];
+
 /**
  * @param {string} dirName
  */
@@ -54,3 +62,42 @@ export function dirSort(dirName1, dirName2) {
     const order2 = getDirNameOrder(dirName2);
     return order1 - order2;
 }
+
+/**
+ * @param {string} problemName
+ */
+export function getProblemNameOrder(problemName) {
+    const prefix = sortOrderList.find(v => v.startsWith(problemName));
+    if (prefix) problemName = problemName.substring(prefix.length);
+    return parseFloat(problemName);
+}
+
+/**
+ * @param {string} problemName1
+ * @param {string} problemName2
+ */
+export function problemSort(problemName1, problemName2) {
+    const order1 = getProblemNameOrder(problemName1);
+    const order2 = getProblemNameOrder(problemName2);
+    return order1 - order2;
+}
+
+export const LeetCodeLevel = {
+    Easy: 'Easy',
+    Medium: 'Medium',
+    Hard: 'Hard',
+};
+
+export const LeetCodeScript = {
+    JS: 'javascript',
+    TS: 'typescript',
+    PY: 'python',
+    CS: 'c#',
+    C: 'c',
+    CPP: 'cpp',
+    JAVA: 'java',
+    GO: 'go',
+    RUST: 'rust',
+};
+
+export const DATE_FORMAT_SOLUTION = 'YYYY-MM-DD';

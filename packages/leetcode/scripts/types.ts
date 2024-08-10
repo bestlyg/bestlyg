@@ -2,7 +2,11 @@ export type LeetCodeDataList = LeetCodeData[];
 export interface LeetCodeData {
     dirName: string;
     dirPath: string;
-    problems: LeetCodeProblem[];
+    problems: {
+        problemName: string;
+        problemPath: string;
+        problemData: LeetCodeProblem;
+    }[];
 }
 export interface LeetCodeSolution {
     script: string;
@@ -18,23 +22,22 @@ export interface LeetCodeProblem {
     name: string;
     url: string;
     desc: string;
-    difficulty: LeetCodeDifficulty;
-    tag: string[];
+    // level: 'Easy' | 'Medium' | 'Hard';
+    level: string;
+    tagList: string[];
     solutions: LeetCodeSolution[];
+    /** Temp */
+    tag?: string[];
+    difficulty?: string;
 }
 export interface LeetCodeReadmeDataItem {
-    dirName: string;
+    label: string;
     problems: string[];
-}
-export enum LeetCodeDifficulty {
-    Easy = 'Easy',
-    Medium = 'Medium',
-    Hard = 'Hard',
 }
 export interface LeetCodeReadmeData {
     markdownCount: number;
     solutionCount: number;
     index: LeetCodeReadmeDataItem[];
     tag: LeetCodeReadmeDataItem[];
-    difficulty: LeetCodeReadmeDataItem[];
+    level: LeetCodeReadmeDataItem[];
 }

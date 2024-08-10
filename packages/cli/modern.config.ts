@@ -2,13 +2,13 @@ import { moduleTools, defineConfig } from '@modern-js/module-tools';
 import path from 'path';
 import best from '@bestlyg/cli';
 
-const CWD = best.utils.CWD;
-const resolve = best.utils.getResolveFunction(__dirname);
+// const CWD = best.utils.CWD;
+// const resolve = best.utils.getResolveFunction(__dirname);
 
-// const CWD = process.cwd();
-// function resolve(...p: string[]) {
-//     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
-// }
+const CWD = process.cwd();
+function resolve(...p: string[]) {
+    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
+}
 
 export default defineConfig({
     plugins: [moduleTools()],
