@@ -73,9 +73,11 @@ export function dirSort(dirName1, dirName2) {
  * @param {string} problemName
  */
 export function getProblemNameOrder(problemName) {
-    const prefix = sortOrderList.find(v => problemName.startsWith(v));
-    if (prefix) problemName = problemName.substring(prefix.length);
-    return parseFloat(problemName);
+    const prefixIdx = sortOrderList.findIndex(v => problemName.startsWith(v));
+    if (prefixIdx > -1) problemName = problemName.substring(sortOrderList[prefixIdx].length);
+    let num = parseFloat(problemName);
+    if (prefixIdx > -1) num += 10 ** (5 + prefixIdx);
+    return num;
 }
 
 /**

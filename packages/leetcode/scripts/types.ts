@@ -26,9 +26,6 @@ export interface LeetCodeProblem {
     level: string;
     tagList: string[];
     solutions: LeetCodeSolution[];
-    /** Temp */
-    tag?: string[];
-    difficulty?: string;
 }
 export interface LeetCodeReadmeDataItem {
     label: string;
