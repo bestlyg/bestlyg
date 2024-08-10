@@ -11,9 +11,6 @@ importers:
       '@manypkg/get-packages':
         specifier: ^2.2.1
         version: 2.2.1
-      '@modern-js/module-tools':
-        specifier: ^2.58.0
-        version: 2.58.0(typescript@5.5.4)
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
@@ -93,6 +90,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: 'link:'
+      '@modern-js/module-tools':
+        specifier: ^2.58.0
+        version: 2.58.0(typescript@5.5.4)
       '@types/doctrine':
         specifier: ^0.0.9
         version: 0.0.9
