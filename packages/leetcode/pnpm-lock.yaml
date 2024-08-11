@@ -11,6 +11,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
+      '@bestlyg/leetcode':
+        specifier: workspace:^
+        version: 'link:'
       '@modern-js/module-tools':
         specifier: ^2.58.0
         version: 2.58.0(typescript@5.5.4)

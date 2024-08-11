@@ -7,10 +7,10 @@ import '@bestlyg/cli/globals';
 import {
     getLeetCodeDataList,
     dirSort,
-    mainJsonFilePath,
     LeetCodeLevel,
     problemSort,
-} from './utils.mjs';
+    PATH_MAIN_JSON,
+} from '@bestlyg/leetcode';
 
 function createIndexData() {
     /** @type {LeetCodeReadmeDataItem[]} */
@@ -67,7 +67,8 @@ function createLevelData() {
 async function getReadmeData() {
     return {
         markdownCount: dataList.map(v => v.problems).flat().length,
-        solutionCount: dataList.map(v => v.problems.map(v => v.problemData.solutions)).flat(10 ** 9).length,
+        solutionCount: dataList.map(v => v.problems.map(v => v.problemData.solutions)).flat(10 ** 9)
+            .length,
         index: createIndexData(),
         tag: createTagData(),
         level: createLevelData(),
@@ -78,4 +79,4 @@ const dataList = await getLeetCodeDataList();
 
 const readmeData = await getReadmeData();
 
-await fs.writeFile(mainJsonFilePath, JSON.stringify(readmeData, null, 4));
+await fs.writeFile(PATH_MAIN_JSON, JSON.stringify(readmeData, null, 4));

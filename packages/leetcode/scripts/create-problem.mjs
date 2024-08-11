@@ -5,11 +5,11 @@
 
 import '@bestlyg/cli/globals';
 import {
-    dataRootPath,
+    PATH_DATA,
     getDirNameFromProblemName,
     resolve,
     DATE_FORMAT_SOLUTION,
-} from './utils.mjs';
+} from '@bestlyg/leetcode';
 import { problem } from './problem.mjs';
 
 /**
@@ -20,7 +20,7 @@ function descFormat(str) {
 }
 
 const dirName = getDirNameFromProblemName(problem.name);
-const filePath = resolve(dataRootPath, dirName, problem.name + '.json');
+const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 if (problem.exist) {
     const newSolutions = problem.solutions;
     for (const s of problem.solutions) {

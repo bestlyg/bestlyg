@@ -31,13 +31,15 @@
         "create:readme": "node scripts/create-readme.mjs",
         "create:problem": "node scripts/create-problem.mjs",
         "update:problem": "node scripts/update-problem.mjs",
-        "build": "node scripts/create-data-list.mjs && modern build",
+        "demo": "node scripts/demo.mjs",
+        "build": "modern build",
         "dev": "modern build --watch"
     },
     "keywords": [],
     "license": "ISC",
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
+        "@bestlyg/leetcode": "workspace:^",
         "@types/node": "^20.14.13",
         "axios": "^1.6.8",
         "@modern-js/module-tools": "^2.58.0",

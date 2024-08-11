@@ -38,3 +38,21 @@ export interface LeetCodeReadmeData {
     tag: LeetCodeReadmeDataItem[];
     level: LeetCodeReadmeDataItem[];
 }
+
+export enum LeetCodeLevel {
+    Easy = 'Easy',
+    Medium = 'Medium',
+    Hard = 'Hard',
+}
+
+export enum LeetCodeScript {
+    JS = 'javascript',
+    TS = 'typescript',
+    PY = 'python',
+    CS = 'c#',
+    C = 'c',
+    CPP = 'cpp',
+    JAVA = 'java',
+    GO = 'go',
+    RUST = 'rust',
+}

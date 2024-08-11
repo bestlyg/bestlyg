@@ -3,7 +3,7 @@
  */
 
 import '@bestlyg/cli/globals';
-import { LeetCodeLevel, LeetCodeScript, codePath } from './utils.mjs';
+import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
@@ -18,9 +18,9 @@ export const problem = {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
             time: 169,
-            memory: 23.70,
+            memory: 23.7,
             desc: '记忆话dfs遍历所有不想交的可能',
-            code: await fs.readFile(codePath, 'utf8'),
+            code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
 };

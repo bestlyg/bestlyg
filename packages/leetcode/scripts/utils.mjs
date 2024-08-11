@@ -100,13 +100,13 @@ export function getDirNameFromProblemName(problemName) {
     return `${num * 100 + 1}-${100 * num + 100}`;
 }
 
-export const LeetCodeLevel = {
+export const LeetCodeLevel = /** @type {const} */({
     Easy: 'Easy',
     Medium: 'Medium',
     Hard: 'Hard',
-};
+});
 
-export const LeetCodeScript = {
+export const LeetCodeScript = /** @type {const} */ ({
     JS: 'javascript',
     TS: 'typescript',
     PY: 'python',
@@ -116,6 +116,4 @@ export const LeetCodeScript = {
     JAVA: 'java',
     GO: 'go',
     RUST: 'rust',
-};
-
-export const DATE_FORMAT_SOLUTION = 'YYYY-MM-DD';
+});
