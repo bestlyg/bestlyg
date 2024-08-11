@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
-            dts: false,
+            dts: {},
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,
@@ -25,7 +25,7 @@ export default defineConfig({
             },
         },
         {
-            dts: false,
+            dts: {},
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,

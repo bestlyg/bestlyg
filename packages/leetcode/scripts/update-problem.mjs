@@ -5,7 +5,7 @@
 
 import '@bestlyg/cli/globals';
 import { getLeetCodeDataList, DATE_FORMAT_SOLUTION } from './utils.mjs';
-// import { DATA_LIST } from '../dist/esm/index.js';
+import { DATA_LIST } from '../dist/esm/index.js';
 
 // console.log(DATA_LIST);
 

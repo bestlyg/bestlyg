@@ -10,7 +10,7 @@ export interface LeetCodeData {
 }
 export interface LeetCodeSolution {
     script: string;
-    date?: number;
+    date?: string;
     time: number;
     memory: number;
     desc: string;

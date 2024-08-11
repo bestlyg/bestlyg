@@ -27,19 +27,12 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "build": "ts-node -r tsconfig-paths/register scripts/build.ts",
-        "batch": "ts-node -r tsconfig-paths/register scripts/batchLeetCode.ts",
-        "readme": "ts-node -r tsconfig-paths/register scripts/createLeetCodeReadme.ts",
-        "markdown": "ts-node -r tsconfig-paths/register scripts/createLeetCodeMarkDown.ts",
-        "check": "ts-node -r tsconfig-paths/register scripts/check.ts",
-        "auto": "pnpm markdown && pnpm readme && pnpm -w ca",
-        "js": "node scripts/script.js",
-        "ts": "ts-node -r tsconfig-paths/register scripts/script.ts",
+        "auto": "pnpm create:problem && pnpm create:readme && pnpm -w ca",
         "create:readme": "node scripts/create-readme.mjs",
         "create:problem": "node scripts/create-problem.mjs",
         "update:problem": "node scripts/update-problem.mjs",
-        "build1": "node scripts/create-data-list.mjs && modern build",
-        "dev1": "modern build --watch"
+        "build": "node scripts/create-data-list.mjs && modern build",
+        "dev": "modern build --watch"
     },
     "keywords": [],
     "license": "ISC",
