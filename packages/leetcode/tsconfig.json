@@ -1,14 +1,8 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "./node_modules/@bestlyg/cli/tsconfig.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "skipLibCheck": true,
-        "module": "commonjs",
-        "paths": {
-            "@/*": ["src/*"]
-        },
-        "lib": ["ESNext", "DOM"],
-        "types": ["node"]
+        "rootDir": "src"
     },
-    "include": ["scripts/**/*.ts", "src/**/*.ts"]
+    "include": ["src/**/*.ts"]
 }

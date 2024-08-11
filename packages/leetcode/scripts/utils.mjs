@@ -1,5 +1,5 @@
 /**
- * @typedef {import("./types").LeetCodeDataList} LeetCodeDataList
+ * @typedef {import("../dist/types").LeetCodeDataList} LeetCodeDataList
  */
 
 import '@bestlyg/cli/globals';

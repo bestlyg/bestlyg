@@ -1,6 +1,6 @@
 /**
- * @typedef {import("./types").LeetCodeReadmeData} LeetCodeReadmeData
- * @typedef {import("./types").LeetCodeReadmeDataItem} LeetCodeReadmeDataItem
+ * @typedef {import("../dist/types").LeetCodeReadmeData} LeetCodeReadmeData
+ * @typedef {import("../dist/types").LeetCodeReadmeDataItem} LeetCodeReadmeDataItem
  */
 
 import '@bestlyg/cli/globals';
