@@ -1,5 +1,5 @@
 import 'zx/globals';
-import * as globalInjectData from './index';
+import globalInjectData from './index';
 
 globalInjectData.dotenv.config({ path: path.resolve(globalInjectData.utils.CWD, '.env') });
 
