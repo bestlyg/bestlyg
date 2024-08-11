@@ -25,12 +25,10 @@
         "chalk": "~4",
         "dayjs": "^1.11.12",
         "fs-extra": "^11.1.0",
+        "leetcode-query": "^1.2.3",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "4.0.0",
         "tslib": "^2.6.2",
         "typescript": "^5.5.4"
-    },
-    "dependencies": {
-        "leetcode-query": "^1.2.3"
     }
 }
