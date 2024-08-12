@@ -2,11 +2,13 @@ export type LeetCodeDataList = LeetCodeData[];
 export interface LeetCodeData {
     dirName: string;
     dirPath: string;
-    problems: {
-        problemName: string;
-        problemPath: string;
-        problemData: LeetCodeProblem;
-    }[];
+    problems: LeetCodeProblemDataList;
+}
+export type LeetCodeProblemDataList = LeetCodeProblemData[];
+export interface LeetCodeProblemData {
+    problemName: string;
+    problemPath: string;
+    problemData: LeetCodeProblem;
 }
 export interface LeetCodeSolution {
     script: string;
@@ -32,7 +34,7 @@ export interface LeetCodeReadmeDataItem {
     problems: string[];
 }
 export interface LeetCodeReadmeData {
-    markdownCount: number;
+    problemCount: number;
     solutionCount: number;
     index: LeetCodeReadmeDataItem[];
     tag: LeetCodeReadmeDataItem[];

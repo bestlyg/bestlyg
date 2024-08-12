@@ -66,7 +66,7 @@ function createLevelData() {
  */
 async function getReadmeData() {
     return {
-        markdownCount: dataList.map(v => v.problems).flat().length,
+        problemCount: dataList.map(v => v.problems).flat().length,
         solutionCount: dataList.map(v => v.problems.map(v => v.problemData.solutions)).flat(10 ** 9)
             .length,
         index: createIndexData(),

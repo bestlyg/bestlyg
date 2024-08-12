@@ -3,10 +3,11 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
+        "leetcode:build": "node scripts/leetcode-build.mjs",
         "docusaurus": "docusaurus",
         "start": "zx scripts/prestart.mjs && docusaurus start",
-        "build": "pnpm fork-leetcode && docusaurus build --out-dir dist",
-        "build:github": "pnpm fork-leetcode && cross-env BESTLYG_BASEURL=/ docusaurus build --out-dir dist",
+        "build": "pnpm leetcode:build && docusaurus build --out-dir dist",
+        "build:github": "pnpm leetcode:build && cross-env BESTLYG_BASEURL=/ docusaurus build --out-dir dist",
         "swizzle": "docusaurus swizzle",
         "deploy:docusaurus": "docusaurus deploy",
         "clear": "docusaurus clear",

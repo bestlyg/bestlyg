@@ -1,8 +1,9 @@
 import best from '@bestlyg/cli';
 import os from 'node:os';
-import { LeetCodeDataList } from './types';
+import { LeetCodeDataList, LeetCodeProblemData, LeetCodeReadmeData } from './types';
 
 const { fs, glob, path } = best.zx;
+
 export const resolve = best.utils.getResolveFunction(__dirname, 2);
 export const PATH_GRAPHQL = resolve('graphql');
 export const PATH_DATA = resolve('data');
@@ -28,7 +29,7 @@ export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
                             problemName: path.basename(filePath),
                             problemPath: filePath,
                             problemData: data,
-                        };
+                        } as LeetCodeProblemData;
                     })
                 );
                 return {
@@ -38,6 +39,10 @@ export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
                 };
             })
     );
+}
+
+export async function getLeetCodeReadme(): Promise<LeetCodeReadmeData> {
+    return fs.readJSON(resolve(PATH_DATA, FILE_NAME_MAIN));
 }
 
 export const sortOrderList = ['面试题', '剑指Offer', '剑指OfferII', 'LCP', 'LCR'];

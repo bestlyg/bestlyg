@@ -8,6 +8,7 @@
         }
     },
     "scripts": {
+        "build": "pnpm --filter @bestlyg/cli build && nx build @bestlyg/server",
         "submodule:update": "git submodule update --init --recursive",
         "version:node": "node -v",
         "setup": "rm -rf node_modules && rm -rf ./**/node_modules && pnpm i --force",
