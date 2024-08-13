@@ -10,7 +10,9 @@ import {
     resolve,
     DATE_FORMAT_SOLUTION,
 } from '@bestlyg/leetcode';
-import { problem } from './problem.mjs';
+import { problem as problemFromCreate } from './problem.mjs';
+
+let problem = problemFromCreate;
 
 /**
  * @param {string} str
@@ -19,6 +21,7 @@ function descFormat(str) {
     return str.endsWith('。') ? str : str + '。';
 }
 
+problem.name = problem.name.replace(/ /g, '');
 const dirName = getDirNameFromProblemName(problem.name);
 const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 if (problem.exist) {
@@ -30,7 +33,6 @@ if (problem.exist) {
     problem = await fs.readJSON(filePath);
     problem.solutions.push(...newSolutions);
 } else {
-    problem.name = problem.name.replace(/ /g, '');
     problem.desc = descFormat(problem.desc);
 }
 

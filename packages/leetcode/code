@@ -1,6 +1,35 @@
-class Solution:
-    def isArraySpecial(self, nums: List[int]) -> bool:
-        return all(
-            (nums[i] & 1) ^ (nums[i + 1] & 1)
-            for i in range(len(nums) - 1)
-        )
+class TrieNode:
+    def __init__(self, c) -> None:
+        self.ch = c
+        self.end = False
+        self.children: List[TrieNode] = [None] * 26
+    def add(self, s: str):
+        node = self
+        for c in s:
+            idx = ord(c) - ord('a')
+            if not node.children[idx]: node.children[idx] = TrieNode(c)
+            node = node.children[idx]
+        node.end = True
+class MagicDictionary:
+    def __init__(self):
+        self.trie = TrieNode('')
+    def buildDict(self, dictionary: List[str]) -> None:
+        for v in dictionary: self.trie.add(v)
+    def search(self, searchWord: str) -> bool:
+        return self._search(searchWord, self.trie, False)
+    def _search(self, searchWord: str, node: 'TrieNode', f: bool) -> bool:
+        if searchWord == '': return node.end and f
+        idx = ord(searchWord[0]) - ord('a')
+        if not node.children[idx]:
+            if f: return False
+            return any(
+                self._search(searchWord[1:], next_node, True)
+                for next_node in node.children
+                if next_node
+            )
+        return self._search(searchWord[1:], node.children[idx], f) or \
+        (not f and any(
+            self._search(searchWord[1:], next_node, True)
+            for next_node in node.children
+            if next_node and next_node != node.children[idx]
+        ))

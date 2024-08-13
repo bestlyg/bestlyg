@@ -7,8 +7,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3151. 特殊数组 I',
+    exist: true,
+    name: '676. 实现一个魔法字典',
     url: 'https://leetcode.cn/problems/special-array-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 46,
-            memory: 16.46,
-            desc: '遍历',
+            time: 239,
+            memory: 20.96,
+            desc: '字典树',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
