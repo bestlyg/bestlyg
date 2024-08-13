@@ -11,7 +11,7 @@ export const dataRootPath = resolve('data');
 
 export const scriptPath = resolve('scripts');
 
-export const codePath = resolve(scriptPath, 'code');
+export const codePath = resolve('code');
 
 export const mainJsonFile = 'main.json';
 
@@ -100,7 +100,7 @@ export function getDirNameFromProblemName(problemName) {
     return `${num * 100 + 1}-${100 * num + 100}`;
 }
 
-export const LeetCodeLevel = /** @type {const} */({
+export const LeetCodeLevel = /** @type {const} */ ({
     Easy: 'Easy',
     Medium: 'Medium',
     Hard: 'Hard',

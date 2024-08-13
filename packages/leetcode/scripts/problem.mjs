@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '1035. 不相交的线',
-    url: 'https://leetcode.cn/problems/uncrossed-lines',
+    name: '3151. 特殊数组 I',
+    url: 'https://leetcode.cn/problems/special-array-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `以这种方法绘制线条，并返回可以绘制的最大连线数。`,
+    desc: `如果数组的每一对相邻元素都是两个奇偶性不同的数字，则该数组被认为是一个 特殊数组 。Aging 有一个整数数组 nums。如果 nums 是一个 特殊数组 ，返回 true，否则返回 false。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 169,
-            memory: 23.7,
-            desc: '记忆话dfs遍历所有不想交的可能',
+            time: 46,
+            memory: 16.46,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
