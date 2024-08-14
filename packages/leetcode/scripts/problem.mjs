@@ -7,19 +7,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '676. 实现一个魔法字典',
-    url: 'https://leetcode.cn/problems/special-array-i',
+    exist: !true,
+    name: '3152. 特殊数组 II',
+    url: 'https://leetcode.cn/problems/special-array-ii',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `如果数组的每一对相邻元素都是两个奇偶性不同的数字，则该数组被认为是一个 特殊数组 。Aging 有一个整数数组 nums。如果 nums 是一个 特殊数组 ，返回 true，否则返回 false。`,
+    desc: `返回布尔数组 answer，如果 nums[fromi..toi] 是特殊数组，则 answer[i] 为 true ，否则，answer[i] 为 false 。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 239,
-            memory: 20.96,
-            desc: '字典树',
+            time: 226,
+            memory: 47.38,
+            desc: '前缀和',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
