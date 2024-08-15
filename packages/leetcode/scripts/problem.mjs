@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3152. 特殊数组 II',
-    url: 'https://leetcode.cn/problems/special-array-ii',
+    name: '3148. 矩阵中的最大得分',
+    url: 'https://leetcode.cn/problems/maximum-difference-score-in-a-grid',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回布尔数组 answer，如果 nums[fromi..toi] 是特殊数组，则 answer[i] 为 true ，否则，answer[i] 为 false 。`,
+    desc: `给你一个由 正整数 组成、大小为 m x n 的矩阵 grid。你可以从矩阵中的任一单元格移动到另一个位于正下方或正右侧的任意单元格（不必相邻）。从值为 c1 的单元格移动到值为 c2 的单元格的得分为 c2 - c1 。你可以从 任一 单元格开始，并且必须至少移动一次。返回你能得到的 最大 总得分。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 226,
-            memory: 47.38,
-            desc: '前缀和',
+            time: 399,
+            memory: 28.66,
+            desc: 'dp[i][j]表示以grid[i-1][j-1]为右下角顶点时，区间内的最小值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

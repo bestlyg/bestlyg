@@ -37,9 +37,9 @@ const leetCodeMarkdown: Markdown = {
         {
             script: Script.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 324,
-            memory: 39.23,
-            desc: '离线处理queries，过滤能立即得出答案的，剩余的一定是h[i] > h[j]，此时从左往右遍历h，维护当前下标之前的所有需求最小堆',
+            time: 399,
+            memory: 28.66,
+            desc: 'dp[i][j]表示以grid[i-1][j-1]为右下角顶点时，区间内的最小值',
             code: `class Solution:
     def leftmostBuildingQueries(self, heights: List[int], queries: List[List[int]]) -> List[int]:
         res = [-1 for _ in range(len(queries))]
