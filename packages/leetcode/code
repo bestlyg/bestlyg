@@ -1,11 +1,15 @@
 class Solution:
-    def maxScore(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        m = len(grid[0])
-        dp = [[inf] * (m + 1) for _ in range(n + 1)]
-        res = -inf
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], grid[i - 1][j - 1])
-                res = max(res, grid[i - 1][j - 1] - min(dp[i - 1][j], dp[i][j - 1]))
-        return res
+    def minimumValueSum(self, nums: List[int], andValues: List[int]) -> int:
+        nlen = len(nums)
+        alen = len(andValues)
+        @cache
+        def dfs(nidx: int, aidx: int, val: int) -> int:
+            if nidx == nlen: return 0 if aidx == alen else inf
+            if aidx == alen: return inf
+            if nlen - nidx < alen - aidx: return inf
+            val &= nums[nidx]
+            res = dfs(nidx + 1, aidx, val)
+            if val == andValues[aidx]: res = min(res, dfs(nidx + 1, aidx + 1, -1) + nums[nidx])
+            return res
+        res = dfs(0, 0, -1)
+        return res if res != inf else -1

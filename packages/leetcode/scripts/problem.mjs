@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3148. 矩阵中的最大得分',
-    url: 'https://leetcode.cn/problems/maximum-difference-score-in-a-grid',
+    name: '3117. 划分数组得到最小的值之和',
+    url: 'https://leetcode.cn/problems/minimum-sum-of-values-by-dividing-array',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `给你一个由 正整数 组成、大小为 m x n 的矩阵 grid。你可以从矩阵中的任一单元格移动到另一个位于正下方或正右侧的任意单元格（不必相邻）。从值为 c1 的单元格移动到值为 c2 的单元格的得分为 c2 - c1 。你可以从 任一 单元格开始，并且必须至少移动一次。返回你能得到的 最大 总得分。`,
+    desc: `返回将 nums 划分为 m 个子数组所能得到的可能的 最小 子数组 值 之和。如果无法完成这样的划分，则返回 -1 。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 399,
-            memory: 28.66,
-            desc: 'dp[i][j]表示以grid[i-1][j-1]为右下角顶点时，区间内的最小值',
+            time: 1329,
+            memory: 419.88,
+            desc: 'dfs记录当前遍历到的两个数组下标和当前记录的与值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
