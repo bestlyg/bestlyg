@@ -31,6 +31,7 @@
         "create:readme": "node scripts/create-readme.mjs",
         "create:problem": "node scripts/create-problem.mjs",
         "update:problem": "node scripts/update-problem.mjs",
+        "update:data": "node scripts/update-data.mjs",
         "demo": "node scripts/demo.mjs",
         "build": "modern build",
         "dev": "modern build --watch"
@@ -39,10 +40,11 @@
     "license": "ISC",
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
+        "@bestlyg/config": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
+        "@modern-js/module-tools": "^2.58.0",
         "@types/node": "^20.14.13",
         "axios": "^1.6.8",
-        "@modern-js/module-tools": "^2.58.0",
         "chalk": "~4",
         "dayjs": "^1.11.12",
         "fs-extra": "^11.1.0",

@@ -11,6 +11,19 @@ export const PATH_CODE = resolve('code');
 export const FILE_NAME_MAIN = 'main.json';
 export const PATH_MAIN_JSON = resolve(PATH_DATA, FILE_NAME_MAIN);
 export const DATE_FORMAT_SOLUTION = 'YYYY-MM-DD';
+export const BASE_URL = 'https://leetcode.com';
+export const BASE_URL_CN = 'https://leetcode.cn';
+export const USER_AGENT = 'Mozilla/5.0 LeetCode API';
+
+export function parseCookie(cookie: string): Record<string, string> {
+    return cookie
+        .split(';')
+        .map(x => x.trim().split('='))
+        .reduce((acc, x) => {
+            acc[x[0]] = x[1];
+            return acc;
+        }, {} as Record<string, string>);
+}
 
 export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
     const dirs = await fs.readdir(PATH_DATA);

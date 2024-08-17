@@ -1,6 +1,6 @@
 {
     "name": "2719.统计整数数目",
-    "url": "https://leetcode.cn/problems/count-of-integers/description/",
+    "url": "https://leetcode.cn/problems/count-of-integers",
     "desc": "请你返回好整数的数目。",
     "solutions": [
         {
@@ -12,6 +12,11 @@
             "date": "2024-01-16"
         }
     ],
-    "tagList": [],
-    "level": "Easy"
+    "tagList": [
+        "数学",
+        "字符串",
+        "动态规划"
+    ],
+    "level": "Hard",
+    "id": "2757"
 }

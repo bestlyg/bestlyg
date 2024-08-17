@@ -36,9 +36,6 @@ query ($titleSlug: String!) {
         solution {
             id
             canSeeDetail
-            paidOnly
-            hasVideoSolution
-            paidOnlyVideo
         }
         status
         sampleTestCase
@@ -48,17 +45,8 @@ query ($titleSlug: String!) {
         mysqlSchemas
         enableRunCode
         enableTestMode
-        enableDebugger
         envInfo
         libraryUrl
-        adminUrl
-        challengeQuestion {
-            id
-            date
-            incompleteChallengeCount
-            streakCount
-            type
-        }
         note
     }
 }

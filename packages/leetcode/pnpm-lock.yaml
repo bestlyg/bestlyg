@@ -11,6 +11,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
+      '@bestlyg/config':
+        specifier: workspace:^
+        version: link:../config
       '@bestlyg/leetcode':
         specifier: workspace:^
         version: 'link:'

@@ -1,6 +1,6 @@
 {
     "name": "3132.找出与数组相加的整数II",
-    "url": "https://leetcode.cn/problems/find-the-integer-added-to-array-ii/",
+    "url": "https://leetcode.cn/problems/find-the-integer-added-to-array-ii",
     "desc": "给你两个整数数组 nums1 和 nums2。从 nums1 中移除两个元素，并且所有其他元素都与变量 x 所表示的整数相加。如果 x 为负数，则表现为元素值的减少。执行上述操作后，nums1 和 nums2 相等 。当两个数组中包含相同的整数，并且这些整数出现的频次相同时，两个数组 相等 。返回能够实现数组相等的 最小 整数 x 。",
     "solutions": [
         {
@@ -12,6 +12,12 @@
             "date": "2024-08-09"
         }
     ],
-    "tagList": [],
-    "level": "Easy"
+    "tagList": [
+        "数组",
+        "双指针",
+        "枚举",
+        "排序"
+    ],
+    "level": "Medium",
+    "id": "3399"
 }
