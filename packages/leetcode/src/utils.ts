@@ -27,7 +27,7 @@ export function parseCookie(cookie: string): Record<string, string> {
 
 export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
     const dirs = await fs.readdir(PATH_DATA);
-    return await Promise.all(
+    const result = await Promise.all(
         dirs
             .filter(dir => dir !== FILE_NAME_MAIN)
             .map(async dirName => {
@@ -52,6 +52,7 @@ export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
                 };
             })
     );
+    return result.sort((v1, v2) => dirSort(v1.dirName, v2.dirName));
 }
 
 export async function getLeetCodeReadme(): Promise<LeetCodeReadmeData> {

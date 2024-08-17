@@ -7,6 +7,7 @@
 import '@bestlyg/cli/globals';
 import { getLeetCodeDataList, getLeetCodeReadme, PATH_DATA } from '@bestlyg/leetcode';
 
+const dataList = await getLeetCodeDataList();
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 const leetcodeRootPath = resolve('docs', 'leetcode');
 const quote = '`';
@@ -49,8 +50,22 @@ ${solutions.map(solutionToTemplate).join('\n\n')}
 `.trim();
 }
 
+async function buildCategoryJson() {
+    await Promise.all(
+        dataList.map(async (item, idx) => {
+            const filePath = resolve(leetcodeRootPath, item.dirName, '_category_.json');
+            await fs.writeFile(
+                filePath,
+                JSON.stringify({
+                    label: item.dirName,
+                    position: idx + 1,
+                })
+            );
+        })
+    );
+}
+
 async function buildDataList() {
-    const dataList = await getLeetCodeDataList();
     await Promise.all(
         dataList
             .map(data =>
@@ -120,8 +135,8 @@ ${buildReadmeDataItem('难度索引', readme.level)}
 async function main() {
     await Promise.all([
         buildDataList(),
-        /** */
         buildReadme(),
+        buildCategoryJson(),
     ]);
 }
 
