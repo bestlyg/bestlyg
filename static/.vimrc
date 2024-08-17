@@ -43,30 +43,3 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 call plug#end()
-
-
-" 下载vim-plug
-"   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" 下载ts的plugin
-"   git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim
-" 下载配色
-"   git clone https://github.com/altercation/vim-colors-solarized.git  ~/.vim/bundle/vim-colors-solarized
-" ~/.vimrc
-"   call plug#begin('~/.vim/plugged')
-"   Plug 'leafgarland/typescript-vim'
-"   call plug#end()
-
-" typescript-vim
-" https://github.com/leafgarland/typescript-vim
-" git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim
-
-" vim-javascript
-" https://github.com/pangloss/vim-javascript
-" git clone https://github.com/pangloss/vim-javascript.git ~/.vim/pack/vim-javascript/start/vim-javascript
-
-" vim-jsx-pretty
-" https://github.com/MaxMEllon/vim-jsx-pretty
-" git clone https://github.com/MaxMEllon/vim-jsx-pretty.git ~/.vim/pack/vim-jsx-pretty/start/vim-jsx-pretty
-
-" git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
-" vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
