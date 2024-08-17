@@ -8,7 +8,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3137. K 周期字符串需要的最少操作次数',
+    name: '3137. K 周期1字符串需要的最少操作次数',
     url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-word-k-periodic',
     level: LeetCodeLevel.Easy,
     tagList: [],

@@ -10,6 +10,7 @@
     "desc": "返回布尔数组 answer，如果 nums[fromi..toi] 是特殊数组，则 answer[i] 为 true ，否则，answer[i] 为 false 。",
     "solutions": [
         {
+            "date": "2024-08-14",
             "script": "python",
             "time": 226,
             "memory": 47.38,

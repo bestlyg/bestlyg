@@ -9,6 +9,7 @@
     "desc": "以这种方法绘制线条，并返回可以绘制的最大连线数。",
     "solutions": [
         {
+            "date": "2024-08-11",
             "script": "python",
             "time": 169,
             "memory": 23.7,
