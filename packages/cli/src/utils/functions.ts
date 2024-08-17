@@ -42,3 +42,11 @@ export function mount<O, T>(base: O, mountRecord: T) {
     }
     return result;
 }
+
+export function sleep<T = void>(t: number, v: T) {
+    return new Promise(r => {
+        setTimeout(() => {
+            r(v);
+        }, t);
+    });
+}
