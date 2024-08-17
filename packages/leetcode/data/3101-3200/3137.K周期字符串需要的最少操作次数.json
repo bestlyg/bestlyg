@@ -1,0 +1,16 @@
+{
+    "name": "3137.K周期字符串需要的最少操作次数",
+    "url": "https://leetcode.cn/problems/minimum-number-of-operations-to-make-word-k-periodic",
+    "level": "Easy",
+    "tagList": [],
+    "desc": "返回使 word 成为 K 周期字符串 所需的 最少 操作次数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 102,
+            "memory": 19.83,
+            "desc": "遍历后统计频率最高的子串",
+            "code": "class Solution:\n    def minimumOperationsToMakeKPeriodic(self, word: str, k: int) -> int:\n        return len(word) // k - sorted(Counter(word[i:i + k] for i in range(0, len(word), k)).items(), key = lambda v: v[1])[-1][1]"
+        }
+    ]
+}

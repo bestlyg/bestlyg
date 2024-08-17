@@ -1,15 +1,3 @@
 class Solution:
-    def minimumValueSum(self, nums: List[int], andValues: List[int]) -> int:
-        nlen = len(nums)
-        alen = len(andValues)
-        @cache
-        def dfs(nidx: int, aidx: int, val: int) -> int:
-            if nidx == nlen: return 0 if aidx == alen else inf
-            if aidx == alen: return inf
-            if nlen - nidx < alen - aidx: return inf
-            val &= nums[nidx]
-            res = dfs(nidx + 1, aidx, val)
-            if val == andValues[aidx]: res = min(res, dfs(nidx + 1, aidx + 1, -1) + nums[nidx])
-            return res
-        res = dfs(0, 0, -1)
-        return res if res != inf else -1
+    def minimumOperationsToMakeKPeriodic(self, word: str, k: int) -> int:
+        return len(word) // k - sorted(Counter(word[i:i + k] for i in range(0, len(word), k)).items(), key = lambda v: v[1])[-1][1]
