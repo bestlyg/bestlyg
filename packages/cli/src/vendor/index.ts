@@ -19,3 +19,4 @@ export * as rimraf from 'rimraf';
 export * as commander from 'commander';
 export * as jsdom from 'jsdom';
 export * as zx from 'zx';
+export * from './vendor-esm';

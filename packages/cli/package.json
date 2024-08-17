@@ -4,7 +4,7 @@
     "author": "bestlyg",
     "type": "module",
     "main": "./dist/lib/index.cjs",
-    "types": "./dist/esm/index.d.ts",
+    "types": "./dist/types/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
@@ -43,7 +43,9 @@
         "@bestlyg/cli": "./bin/best.js",
         "best": "./bin/best.js"
     },
-    "devDependencies": {
+    "keywords": [],
+    "license": "ISC",
+    "dependencies": {
         "@bestlyg/cli": "workspace:^",
         "@types/doctrine": "^0.0.9",
         "@types/figlet": "^1.5.8",
@@ -56,17 +58,15 @@
         "@modern-js/module-tools": "^2.58.0",
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
-        "cross-env": "^7.0.3"
-    },
-    "keywords": [],
-    "license": "ISC",
-    "dependencies": {
+        "cross-env": "^7.0.3",
         "@manypkg/get-packages": "^2.2.1",
         "@types/jsdom": "^21.1.7",
         "adm-zip": "^0.5.14",
         "axios": "^1.6.8",
         "chalk": "^5.3.0",
+        "chalk@lib": "npm:chalk@4.1.2",
         "change-case": "^5.4.4",
+        "change-case@lib": "npm:change-case@4.1.2",
         "cheerio": "1.0.0-rc.12",
         "commander": "^11.1.0",
         "dayjs": "^1.11.12",
@@ -79,7 +79,9 @@
         "minimist": "^1.2.8",
         "ora": "^8.0.1",
         "p-limit": "^6.1.0",
+        "p-limit@lib": "npm:p-limit@3.1.0",
         "p-queue": "^8.0.1",
+        "p-queue@lib": "npm:p-queue@6.6.2",
         "ramda": "^0.30.0",
         "rimraf": "^5.0.9",
         "semver": "^7.6.0",

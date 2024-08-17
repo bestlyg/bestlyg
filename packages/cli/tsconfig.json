@@ -12,7 +12,9 @@
         "esModuleInterop": true,
         "types": ["node"],
         "typeRoots": ["./node_modules/@types"],
-        "paths": { "@/*": ["src/*"] }
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules", "dist"]

@@ -1,5 +1,5 @@
 import * as utils from './utils/index';
-import * as vendor from './vendor/vendor';
+import * as vendor from './vendor/index';
 
 const globalInjectData = {
     utils,
@@ -9,4 +9,4 @@ const globalInjectData = {
 export default globalInjectData;
 
 export * as utils from './utils/index';
-export * from './vendor/vendor';
+export * from './vendor/index';

@@ -2,19 +2,19 @@ import { moduleTools, defineConfig } from '@modern-js/module-tools';
 import path from 'path';
 import best from '@bestlyg/cli';
 
-// const CWD = best.utils.CWD;
-// const resolve = best.utils.getResolveFunction(__dirname);
+const CWD = best.utils.CWD;
+const resolve = best.utils.getResolveFunction(__dirname);
 
-const CWD = process.cwd();
-function resolve(...p: string[]) {
-    return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
-}
+// const CWD = process.cwd();
+// function resolve(...p: string[]) {
+//     return path.resolve(__dirname, ...new Array(3).fill('..'), ...p);
+// }
 
 export default defineConfig({
     plugins: [moduleTools()],
     buildConfig: [
         {
-            dts: {},
+            dts: false,
             sourceMap: true,
             buildType: 'bundleless',
             shims: true,
@@ -26,12 +26,6 @@ export default defineConfig({
             esbuildOptions: options => {
                 options.outExtension = { '.js': '.js' };
                 return options;
-            },
-            resolve: {
-                alias: alias => {
-                    alias['./vendor/vendor'] = './src/vendor/vendor.module';
-                    return alias;
-                },
             },
         },
         {
@@ -50,17 +44,17 @@ export default defineConfig({
             },
             resolve: {
                 alias: alias => {
-                    alias['./vendor/vendor'] = './src/vendor/vendor.common';
+                    alias['./vendor-esm'] = './src/vendor/vendor-lib';
                     return alias;
                 },
             },
         },
-        // {
-        //     buildType: 'bundleless',
-        //     dts: {
-        //         only: true,
-        //     },
-        //     outDir: resolve(CWD, 'dist', 'types'),
-        // },
+        {
+            buildType: 'bundleless',
+            dts: {
+                only: true,
+            },
+            outDir: resolve(CWD, 'dist', 'types'),
+        },
     ],
 });
