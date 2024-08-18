@@ -7,8 +7,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3137. K 周期1字符串需要的最少操作次数',
+    exist: true,
+    name: '551. 学生出勤记录 I',
     url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-word-k-periodic',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 102,
-            memory: 19.83,
-            desc: '遍历后统计频率最高的子串',
+            time: 36,
+            memory: 16.42,
+            desc: '遍历字符串',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

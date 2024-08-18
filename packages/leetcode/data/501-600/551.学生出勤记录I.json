@@ -11,6 +11,14 @@
             "script": "typescript",
             "desc": "遍历。",
             "code": "function checkRecord(s: string): boolean {\n  let ac = 0;\n  let lc = 0;\n  for (const c of s) {\n    if (c === 'A') {\n      if (++ac >= 2) return false;\n      lc = 0;\n    } else if (c === 'L') {\n      if (++lc >= 3) return false;\n    } else {\n      lc = 0;\n    }\n  }\n  return true;\n}"
+        },
+        {
+            "script": "python",
+            "time": 36,
+            "memory": 16.42,
+            "desc": "遍历字符串。",
+            "code": "class Solution:\n    def checkRecord(self, s: str) -> bool:\n        return s.count('A') < 2 and 'LLL' not in s",
+            "date": "2024-08-18"
         }
     ],
     "tagList": [
