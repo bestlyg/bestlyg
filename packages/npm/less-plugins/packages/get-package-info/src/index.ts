@@ -7,9 +7,8 @@ import {
 
 export default class LessPluginsGetPackageInfo {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(less, _pluginManager, functions) {
         addFunctions(functions, [
             {
                 getPackageJsonField: function (rootPath, key, transform) {

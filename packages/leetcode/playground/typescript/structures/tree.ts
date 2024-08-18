@@ -8,7 +8,7 @@ export class TreeNode {
      */
     static factory(arr: (number | null)[]): TreeNode | null {
         if (arr.length === 0) return null;
-        let root = new TreeNode(arr.shift() as number);
+        const root = new TreeNode(arr.shift() as number);
         const queue = [root];
         while (queue.length !== 0) {
             const node = queue.shift() as TreeNode;

@@ -1,1 +1,1 @@
-export function noop(...data: any[]) {}
+export function noop(..._args: any[]) {}

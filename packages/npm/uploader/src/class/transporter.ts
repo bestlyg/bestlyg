@@ -29,8 +29,8 @@ export class Transporter {
         onRejected: new tapable.AsyncParallelHook<[]>([]),
         beforeSend: new tapable.AsyncSeriesWaterfallHook<[TransporterSendConfig]>(['config']),
         afterSend: new tapable.AsyncParallelHook<[TransporterSendConfig]>(['config']),
-        beforeAbort: new tapable.AsyncSeriesWaterfallHook<[Boolean]>(['canAbort']),
-        afterAbort: new tapable.AsyncParallelHook<[Boolean]>(['canAbort']),
+        beforeAbort: new tapable.AsyncSeriesWaterfallHook<[boolean]>(['canAbort']),
+        afterAbort: new tapable.AsyncParallelHook<[boolean]>(['canAbort']),
     };
     xhr = new XMLHttpRequest();
     data = null;

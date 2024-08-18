@@ -2,7 +2,7 @@ import { Page } from '@/app.config';
 import { useStore } from '@/store';
 import { getPageUrl } from '@/utils';
 import { View, ScrollView } from '@tarojs/components';
-import { AtModal, AtTabs, AtTabsPane } from 'taro-ui';
+import { AtTabs, AtTabsPane } from 'taro-ui';
 import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 import React from 'react';

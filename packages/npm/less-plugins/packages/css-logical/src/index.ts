@@ -9,9 +9,8 @@ export { cssLogicalMap } from './replace-data';
 
 export default class LessPluginsCssLogical {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(_less, pluginManager, _functions) {
         const replaceMap = new Map<string, ReplaceData>();
         for (const replaceData of cssLogicalMap) {
             addReplacePreperties({
@@ -19,6 +18,6 @@ export default class LessPluginsCssLogical {
                 replaceMap,
             });
         }
-        pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
+        pluginManager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
     }
 }

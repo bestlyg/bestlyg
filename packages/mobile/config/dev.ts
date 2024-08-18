@@ -1,12 +1,10 @@
-import webpackBundleAnalyzer from 'webpack-bundle-analyzer';
-
 export const devConfig = {
     env: {
         NODE_ENV: '"development"',
     },
     defineConstants: {},
     mini: {
-        webpackChain(chain, webpack) {
+        webpackChain(_chain, _webpack) {
             // const port = 10001;
             // chain.plugin("analyzer").use(webpackBundleAnalyzer.BundleAnalyzerPlugin, [
             //   {

@@ -90,7 +90,7 @@ export default class LessPluginsRtl {
         // console.log('===>', this.options);
     }
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(_less, pluginMenager, _functions) {
         const replaceMap = new Map<string, ReplaceData>();
         for (const replaceData of cssLogicalMap.filter(
             ({ key, value }) =>

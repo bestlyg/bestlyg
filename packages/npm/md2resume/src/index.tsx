@@ -1,3 +1,3 @@
-export default (App: React.ComponentType, bootstrap: () => void) => {
+export default (_App: React.ComponentType, bootstrap: () => void) => {
     bootstrap();
 };

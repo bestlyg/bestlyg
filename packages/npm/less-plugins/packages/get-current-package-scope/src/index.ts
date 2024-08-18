@@ -2,12 +2,11 @@ import { addFunctions, getCurrentPackageScope } from '@less-plugins/shared';
 
 export default class LessPluginsGetCurrentPackageScope {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(less, _pluginManager, functions) {
         addFunctions(functions, [
             {
-                getCurrentPackageScope: function (rootPath, key, transform) {
+                getCurrentPackageScope: function (rootPath, _key, _transform) {
                     return new less.tree.Keyword(
                         getCurrentPackageScope(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,

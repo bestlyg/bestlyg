@@ -50,7 +50,7 @@ export class LeetCode {
         const data = await res.text();
         try {
             return JSON.parse(data);
-        } catch (_) {
+        } catch (_err) {
             console.log('JSON parse fail', data);
             return null;
         }

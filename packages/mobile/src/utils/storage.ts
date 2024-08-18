@@ -4,7 +4,9 @@ export function setStorage(data: Record<string, unknown>): void {
     Object.entries(data).forEach(([k, v]) => {
         try {
             Taro.setStorageSync(k, v);
-        } catch (error) {}
+        } catch (_err) {
+            console.log(_err);
+        }
     });
 }
 export function getStorage(data: string[]): string[] {

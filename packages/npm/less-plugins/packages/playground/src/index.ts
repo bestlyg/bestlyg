@@ -1,11 +1,9 @@
 import { addFunctions } from '@less-plugins/shared';
-import path from 'path';
 
 export default class LessPluginsReplaceProperties {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(_less, _pluginManager, functions) {
         const replaceMap = new Map<string, string>();
         // pluginMenager.addVisitor(
         //     new ReplacePropertiesVisitor(less, pluginMenager, functions, replaceMap)

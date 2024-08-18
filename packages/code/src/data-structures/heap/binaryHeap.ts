@@ -55,6 +55,6 @@ export class BinaryHeap<T> implements IBinaryHeap<T> {
         }
     }
     private checkRange() {
-        this.size === 0 && throwError(ERROR_EMPTY_ELEMENT, ErrorEnum.range);
+        if (this.size === 0) throwError(ERROR_EMPTY_ELEMENT, ErrorEnum.range);
     }
 }

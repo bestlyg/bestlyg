@@ -5,7 +5,7 @@
  * 1 Black
  * 2 DoubleBlack
  */
-let NIL: RBNode<any>;
+
 class RBNode<T> {
     constructor(
         public key: T,
@@ -17,9 +17,9 @@ class RBNode<T> {
         return this.lchild.color === 0 || this.rchild.color === 0;
     }
 }
-NIL = new RBNode(0, 1);
 
-class RBTree<T> {
+const NIL: RBNode<any> = new RBNode(0, 1);
+export class RBTree<T> {
     root: RBNode<T> = NIL;
     constructor(public compare: (v1: T, v2: T) => number) {}
     print(node = this.root, init = true) {

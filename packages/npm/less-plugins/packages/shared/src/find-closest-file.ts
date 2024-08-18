@@ -7,7 +7,8 @@ import fs from 'fs';
  * @returns 文件路径或者无路径
  */
 export function findClosestFile(config: { dirPath: string; fileName: string }): string | null {
-    let { dirPath, fileName } = config;
+    const fileName = config.fileName;
+    let dirPath = config.dirPath;
     while (!fs.existsSync(path.resolve(dirPath, fileName))) {
         const parentPath = path.dirname(dirPath);
         if (parentPath === dirPath) return null;

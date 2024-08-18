@@ -1,6 +1,8 @@
 export default class LessPluginsTemplate {
     constructor() {}
+    // eslint-disable-next-line
     setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {}
+    // eslint-disable-next-line
+    install(less, pluginManager, functions) {}
 }

@@ -4,7 +4,7 @@
 export const debounce = (time: number) => {
     let timeout: NodeJS.Timeout;
     return (fn: (...args: any[]) => void) => {
-        timeout && clearTimeout(timeout);
+        if (timeout) clearTimeout(timeout);
         timeout = setTimeout(fn, time) as any;
     };
 };

@@ -10,7 +10,7 @@ export function getPackageJsonPath(currentDirectory: string) {
             fileName: FILE_NAME_PACKAGE_JSON,
         });
         return pkgPath;
-    } catch (e) {
+    } catch (_err) {
         return null;
     }
 }
@@ -20,7 +20,7 @@ export function getPackageJson(currentDirectory: string): Record<string, any> {
         const pkgPath = getPackageJsonPath(currentDirectory);
         if (!pkgPath) return null;
         return require(pkgPath);
-    } catch (_) {
+    } catch (_err) {
         return null;
     }
 }
@@ -37,7 +37,7 @@ export function getPackageJsonField(
         if (typeof transform === 'string') transformFn = eval(transform);
         else if (typeof transform === 'function') transformFn = transform;
         return transformFn(get(pkgJson, key))?.toString() ?? null;
-    } catch (_) {
+    } catch (_err) {
         return null;
     }
 }

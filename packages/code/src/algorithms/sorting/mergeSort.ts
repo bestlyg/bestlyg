@@ -3,7 +3,7 @@ import { Comparator } from '@/shared';
 /**
  * 读取第一个值当中间值
  */
-export const mergeSort = <T extends any>(
+export const mergeSort = <T = any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,

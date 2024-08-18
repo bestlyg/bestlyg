@@ -1,11 +1,10 @@
-import * as echarts from 'echarts';
 import { ledger, LEDGER_FORMAT_DAY, LEDGER_FORMAT_MONTH } from '@bestlyg/data';
-import type { BadgeProps, CalendarProps } from 'antd';
-import { Badge, Calendar } from 'antd';
+import type { CalendarProps } from 'antd';
+import { Calendar } from 'antd';
 import type { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
-const yearRecordList = _.keyBy(ledger, 'date');
+// const yearRecordList = _.keyBy(ledger, 'date');
 const monthRecordList = _.keyBy(
     ledger.flatMap(v => v.record),
     'date',

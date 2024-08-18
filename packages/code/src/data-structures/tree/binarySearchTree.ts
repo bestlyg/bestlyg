@@ -51,7 +51,7 @@ export class BinarySearchTree<T> extends BinaryTree<T> implements IBinarySearchT
         }
         this._size++;
     }
-    protected afterAdd(node: BinaryTreeNode<T>) {}
+    protected afterAdd(_: BinaryTreeNode<T>) {}
     remove(val: T) {
         if (this.root === null) return;
         // 寻找compare为0的node值
@@ -86,7 +86,7 @@ export class BinarySearchTree<T> extends BinaryTree<T> implements IBinarySearchT
         }
         this.afterRemove(nextNode);
     }
-    protected afterRemove(node: BinaryTreeNode<T>) {}
+    protected afterRemove(_: BinaryTreeNode<T>) {}
     contains(val: T) {
         return this.findNode(val) !== null;
     }

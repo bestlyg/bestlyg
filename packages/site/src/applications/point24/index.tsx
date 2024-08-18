@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio, Checkbox } from 'antd';
-import { useUpdate } from 'ahooks';
 import { random as randomNum, Compute24 } from './utils';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
 import { compute24 as compute24_v3 } from './v3';
 
 export function Point24() {
-    const update = useUpdate();
     const compute24Fns: { current: Record<string, Compute24> } = useRef({
         v1: compute24_v1,
         v2: compute24_v2,

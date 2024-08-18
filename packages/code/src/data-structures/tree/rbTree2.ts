@@ -178,7 +178,7 @@ export class RBTree2<T> implements IRBTree<T> {
             node.toBlack();
             return;
         }
-        let parent = node.parent;
+        const parent = node.parent;
         if (parent === null) return;
         const leftChild = parent.left === null || parent.left === node;
         let sibling = leftChild ? parent.right! : parent.left!;

@@ -17,7 +17,7 @@ module.exports = class LessPluginFn {
         console.log('less-plugin-fn options:');
         console.log(JSON.stringify(this.argv));
     }
-    install(less, pluginMenager, functions) {
+    install(less, _pluginManager, functions) {
         // console.log("install");
         //   console.log("install", less, pluginMenager, functions);
         functions.add(this.argv.functionName, (key, value) => {

@@ -3,7 +3,6 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import { bestlygWebpackDocusaurusPlugin } from './src/plugins/webpack';
 
 const config: Config = {
     title: '信韵的小奥特',

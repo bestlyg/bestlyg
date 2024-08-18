@@ -185,7 +185,7 @@ describe('Promise', () => {
             }).finally(() => {});
         });
         test('sync', () => {
-            let val = 0;
+            const val = 0;
             BestPromise.resolve(1).finally(() => {
                 expect(val).toBe(0);
             });

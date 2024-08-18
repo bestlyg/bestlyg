@@ -13,13 +13,12 @@ target
 # c++
 *.out
 *.o
-# databases
 databases
 
+.nx
 .nx/cache
 .nx/workspace-data
 
 storybook-static
 .env
 .env.*
-.nx

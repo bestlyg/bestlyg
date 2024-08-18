@@ -1,6 +1,6 @@
 import { Comparator } from '@/shared';
 
-export const heapSort = <T extends any>(compare: Comparator<T>, list: T[]) => {
+export const heapSort = <T = any>(compare: Comparator<T>, list: T[]) => {
     let lastIndex = list.length - 1;
     const shiftUp = (index: number): void => {
         if (index === 0) return;

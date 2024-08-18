@@ -3,9 +3,8 @@ import hash from '@emotion/hash';
 
 export default class LessPluginsGetHashedVersion {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(_less, _pluginMenager, functions) {
         addFunctions(functions, [
             function getHashedVersion(rootPath) {
                 return getPackageJsonField(

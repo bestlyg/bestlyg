@@ -1,5 +1,5 @@
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
-import path from 'path';
+// import path from 'path';
 import best from '@bestlyg/cli';
 
 const CWD = best.utils.CWD;

@@ -67,7 +67,7 @@ export class Trie implements ITrie {
         if (str.length === 0) return this.root;
         if (str.length === 1) return node.children.get(str) ?? null;
         const first = str[0];
-        let nextNode = node.children.get(first);
+        const nextNode = node.children.get(first);
         if (!nextNode) return null;
         const nextStr = str.substr(1);
         return this.findEndNode(nextStr, nextNode);

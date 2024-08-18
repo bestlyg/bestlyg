@@ -3,7 +3,7 @@ import { LESS_PLUGINS_CONFIG_JS } from './constants';
 import merge from 'lodash.merge';
 
 export interface LessPluginsConfig {
-    hooks: {};
+    hooks: object;
 }
 
 export const defaultConfig: LessPluginsConfig = { hooks: {} };
@@ -15,6 +15,8 @@ export function loadConfig(dirPath: string): LessPluginsConfig {
         if (configPath) {
             currentConfig = merge(currentConfig, require(configPath));
         }
-    } catch (e) {}
+    } catch (err) {
+        console.error(err);
+    }
     return currentConfig;
 }

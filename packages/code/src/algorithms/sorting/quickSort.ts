@@ -3,7 +3,7 @@ import { Comparator } from '@/shared';
 /**
  * 读取第一个值当中间值
  */
-export const quickSort1 = <T extends any>(
+export const quickSort1 = <T extends any = any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
@@ -26,7 +26,7 @@ export const quickSort1 = <T extends any>(
 /**
  * 单边递归
  */
-export const quickSort2 = <T extends any>(
+export const quickSort2 = <T extends any = any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
@@ -34,7 +34,7 @@ export const quickSort2 = <T extends any>(
 ) => {
     if (left > right) return;
     while (left <= right) {
-        let base = list[left];
+        const base = list[left];
         let l = left;
         let r = right;
         while (l <= r) {
@@ -48,8 +48,8 @@ export const quickSort2 = <T extends any>(
         right = l - 1;
     }
 };
-const getMid = <T extends unknown>(compare: Comparator<T>, num1: T, num2: T, num3: T) => {
-    if (compare(num1, num2) > 0) [num1, num2] = [num2, num2];
+const getMid = <T extends any = any>(compare: Comparator<T>, num1: T, num2: T, num3: T) => {
+    if (compare(num1, num2) > 0) [num1, num2] = [num2, num1];
     if (compare(num1, num3) > 0) [num1, num3] = [num3, num1];
     if (compare(num2, num3) > 0) [num2, num3] = [num3, num2];
     return num2;
@@ -57,7 +57,7 @@ const getMid = <T extends unknown>(compare: Comparator<T>, num1: T, num2: T, num
 /**
  * 取中间值进行递归
  */
-export const quickSort3 = <T extends unknown>(
+export const quickSort3 = <T extends any = any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,

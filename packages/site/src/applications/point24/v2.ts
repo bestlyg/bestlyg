@@ -1,4 +1,4 @@
-import { Compute24, EPSILON, isEqual, permutation, operation } from './utils';
+import { Compute24, EPSILON, permutation, operation } from './utils';
 
 enum NodeType {
     Op,

@@ -6,7 +6,7 @@ export function supportChunked(): boolean {
     try {
         const blobpro = Blob.prototype;
         return !!(FormData && (blobpro.slice || blobpro.webkitSlice || blobpro.mozSlice));
-    } catch (e) {
+    } catch (_err) {
         return false;
     }
 }

@@ -2,14 +2,7 @@ import docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import R from 'ramda';
 import { path, fs, glob } from 'zx';
-import {
-    CHARS_PER_LINE,
-    CWD,
-    DEV,
-    LINES_PER_PAGE,
-    MAX_HALF_LINES,
-    MAX_HALF_PAGE,
-} from './utils/constants';
+import { CWD, DEV, MAX_HALF_LINES } from './utils/constants';
 import { resolve } from './utils/functions';
 import { formatCode } from './utils/format-code';
 import { print } from './utils/print';
@@ -23,28 +16,28 @@ async function findFilePaths({ globPath, ignorePath }: ToolOption) {
     return files.map(filePath => resolve(CWD, filePath));
 }
 
-function formatCodeList(codeList: string[], reverse = false): string[] {
-    const res: string[] = [];
-    const op = reverse ? 'unshift' : 'push';
-    const [start, end, step] = reverse ? [codeList.length - 1, -1, -1] : [0, codeList.length, 1];
-    for (let i = start, sum = 0; i != end; i += step) {
-        const line = Math.ceil(codeList[i].length / LINES_PER_PAGE);
-        if (sum + line > MAX_HALF_LINES) {
-            res[op](
-                reverse
-                    ? codeList[i].substring(
-                          codeList[i].length - (MAX_HALF_LINES - sum) * CHARS_PER_LINE,
-                      )
-                    : codeList[i].substring(0, (MAX_HALF_LINES - sum) * CHARS_PER_LINE),
-            );
-            break;
-        } else {
-            res[op](codeList[i]);
-            sum += line;
-        }
-    }
-    return res;
-}
+// function formatCodeList(codeList: string[], reverse = false): string[] {
+//     const res: string[] = [];
+//     const op = reverse ? 'unshift' : 'push';
+//     const [start, end, step] = reverse ? [codeList.length - 1, -1, -1] : [0, codeList.length, 1];
+//     for (let i = start, sum = 0; i != end; i += step) {
+//         const line = Math.ceil(codeList[i].length / LINES_PER_PAGE);
+//         if (sum + line > MAX_HALF_LINES) {
+//             res[op](
+//                 reverse
+//                     ? codeList[i].substring(
+//                           codeList[i].length - (MAX_HALF_LINES - sum) * CHARS_PER_LINE,
+//                       )
+//                     : codeList[i].substring(0, (MAX_HALF_LINES - sum) * CHARS_PER_LINE),
+//             );
+//             break;
+//         } else {
+//             res[op](codeList[i]);
+//             sum += line;
+//         }
+//     }
+//     return res;
+// }
 
 async function getFormatedCodeList(filePaths: string[]) {
     const codeList: string[] = [];

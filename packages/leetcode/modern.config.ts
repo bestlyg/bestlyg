@@ -1,6 +1,5 @@
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
 import best from '@bestlyg/cli';
-import fs from 'node:fs';
 
 const CWD = best.utils.CWD;
 const resolve = best.utils.getResolveFunction(__dirname);

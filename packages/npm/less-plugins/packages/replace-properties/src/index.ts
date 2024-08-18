@@ -72,9 +72,8 @@ export function removeReplacePreperties({
 
 export default class LessPluginsReplaceProperties {
     constructor() {}
-    setOptions(args) {}
     printUsage() {}
-    install(less, pluginMenager, functions) {
+    install(_less, pluginMenager, functions) {
         const replaceMap = new Map<string, ReplaceData>();
         pluginMenager.addVisitor(new ReplacePropertiesVisitor(replaceMap));
         addFunctions(functions, [
