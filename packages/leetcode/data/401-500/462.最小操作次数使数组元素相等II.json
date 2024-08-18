@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    int minMoves2(vector<int> &nums) {\n        sort(nums.begin(), nums.end());\n        int m = nums[nums.size() / 2];\n        int ans = 0;\n        for (auto &num : nums) {\n            ans += abs(m - num);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "排序"
-    ],
+    "tagList": ["数组", "数学", "排序"],
     "level": "Medium"
 }

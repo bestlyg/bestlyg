@@ -26,7 +26,7 @@ export class RBTreeNode<T> extends BinaryTreeNode<T> {
         public val: T,
         public parent: RBTreeNode<T> | null = null,
         public left: RBTreeNode<T> | null = null,
-        public right: RBTreeNode<T> | null = null
+        public right: RBTreeNode<T> | null = null,
     ) {
         super(val, parent, left, right);
     }
@@ -49,13 +49,13 @@ export class RBTree<T> extends BlanceBinarySearchTree<T> implements IRBTree<T> {
         val: T,
         parent: BinaryTreeNode<T> | null = null,
         left: BinaryTreeNode<T> | null = null,
-        right: BinaryTreeNode<T> | null = null
+        right: BinaryTreeNode<T> | null = null,
     ): BinaryTreeNode<T> {
         return new RBTreeNode(
             val,
             parent as RBTreeNode<T> | null,
             left as RBTreeNode<T> | null,
-            right as RBTreeNode<T> | null
+            right as RBTreeNode<T> | null,
         );
     }
     protected afterAdd(node: RBTreeNode<T>) {

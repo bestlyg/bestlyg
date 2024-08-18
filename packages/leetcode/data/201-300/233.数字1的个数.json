@@ -13,10 +13,6 @@
             "code": "function countDigitOne(n: number): number {\n  let num = 1;\n  let ans = 0;\n  while (n >= num) {\n    ans += ~~(n / 10 / num) * num + Math.min(Math.max((n % (num * 10)) - num + 1, 0), num);\n    num *= 10;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "数学",
-        "动态规划"
-    ],
+    "tagList": ["递归", "数学", "动态规划"],
     "level": "Hard"
 }

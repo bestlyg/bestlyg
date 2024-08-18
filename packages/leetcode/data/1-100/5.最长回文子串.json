@@ -21,10 +21,6 @@
             "code": "function longestPalindrome(s: string): string {\n  s = createStr(s);\n  let max = -1;\n  let maxIdx = -1;\n  const n = s.length;\n  const arr = new Array(n).fill(0);\n  let ans = s[0];\n  for (let i = 0; i < n; i++) {\n    if (i <= max) {\n      arr[i] = Math.min(arr[2 * maxIdx - i], max - i);\n    }\n    let l = i - arr[i];\n    let r = i + arr[i];\n    while (l - 1 >= 0 && r + 1 <= n - 1 && s[l - 1] === s[r + 1]) {\n      l--;\n      r++;\n    }\n    if (r > max) {\n      max = r;\n      maxIdx = i;\n    }\n    arr[i] = r - i;\n    if (ans.length < r - l + 1) {\n      ans = s.substring(l, r + 1);\n    }\n  }\n  return ans.replace(/#/g, '');\n  function createStr(s: string) {\n    let ans = '#';\n    for (let i = 0; s[i]; i++) ans += s[i] + '#';\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["双指针", "字符串", "动态规划"],
     "level": "Medium"
 }

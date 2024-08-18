@@ -13,8 +13,6 @@
             "code": "int dirs[8][2] = {{-1, -2}, {-1, 2}, {-2, -1}, {-2, 1},\n          {1, 2},   {1, -2}, {2, 1},   {2, -1}};\nclass Solution {\n  public:\n   double knightProbability(int n, int k, int row, int column) {\n       double table[2][n][n], ans = 0;\n       memset(table, 0, sizeof(double) * 2 * n * n);\n       table[0][row][column] = 1;\n       for (int i = 0; i < k; i++) {\n           int idx = i & 1, nidx = (i + 1) & 1;\n           memset(table[nidx], 0, sizeof(double) * n * n);\n           for (int row = 0; row < n; row++) {\n               for (int col = 0; col < n; col++) {\n                   if (table[idx][row][col] == 0) continue;\n                   for (int next = 0; next < 8; next++) {\n                       int nrow = row + dirs[next][0],\n                           ncol = col + dirs[next][1];\n                       if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= n)\n                           continue;\n                       table[nidx][nrow][ncol] +=\n                           1.0 / 8 * table[idx][row][col];\n                   }\n               }\n           }\n       }\n       for (int row = 0; row < n; row++) {\n           for (int col = 0; col < n; col++) {\n               if (table[k & 1][row][col]) ans += table[k & 1][row][col];\n           }\n       }\n       return ans;\n   }\n};"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Medium"
 }

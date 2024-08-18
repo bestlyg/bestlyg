@@ -13,9 +13,6 @@
             "code": "const int mod = 1e9 + 7;\nstruct Item {\n    int val;\n    bool next[26];\n    Item(): val(0) {\n        memset(next, 0, sizeof(bool) * 26);\n    }\n};\nclass Solution {\npublic:\n    int distinctSubseqII(string s) {\n        int n = s.size(), ans = 0;\n        bool charList[26] = {0};\n        vector<Item> dp(n);\n        for (int i = 0; i < n; i++) {\n            char c = s[i];\n            if (charList[c - 'a'] == 0) dp[i].val += 1, charList[c - 'a'] = 1;\n            for (int j = 0; j < i; j++) {\n                if (dp[j].next[c - 'a']) continue;\n                dp[j].next[c - 'a'] = true;\n                dp[i].val = (dp[i].val + dp[j].val) % mod;\n            }\n            ans = (ans + dp[i].val) % mod;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Hard"
 }

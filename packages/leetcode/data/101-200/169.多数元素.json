@@ -13,12 +13,6 @@
             "code": "class Solution {\n   public:\n    int majorityElement(vector<int> &nums) {\n        int num = 0, cnt = 0;\n        for (auto &it : nums) {\n            if (cnt == 0) {\n                num = it;\n                cnt = 1;\n            } else if (num == it) {\n                cnt++;\n            } else {\n                cnt--;\n            }\n        }\n        return num;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "分治",
-        "计数",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "分治", "计数", "排序"],
     "level": "Easy"
 }

@@ -21,9 +21,6 @@
             "code": "function permute(nums: number[]): number[][] {\n  const ans: number[][] = [];\n  find();\n  return ans;\n  function find(list = nums, queue: number[] = []): void {\n    if (list.length === 0) {\n      ans.push(queue.slice());\n      return;\n    }\n    for (let i = 0, l = list.length; i < l; i++) {\n      queue.push(list[i]);\n      find([...list.slice(0, i), ...list.slice(i + 1)], queue);\n      queue.pop();\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["数组", "回溯"],
     "level": "Medium"
 }

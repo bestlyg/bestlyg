@@ -25,7 +25,7 @@ export const compute24: Compute24 = (nums, ops, target): string[] => {
                                     nums[num4],
                                     ops[op1],
                                     ops[op2],
-                                    ops[op3]
+                                    ops[op3],
                                 )) {
                                     const num = eval(temp);
                                     if (Math.abs(target - num) <= EPSILON) res.push(temp);
@@ -50,7 +50,7 @@ function getTemplate(
     num4: number,
     op1: string,
     op2: string,
-    op3: string
+    op3: string,
 ) {
     return [
         `${num1}${op1}${num2}${op2}${num3}${op3}${num4}`,

@@ -29,8 +29,6 @@
             "code": "function toLowerCase(s: string): string {\n  let ans = '';\n  for (let i = 0, n = s.length; i < n; i++) {\n    const num = s.codePointAt(i)!;\n    if (num >= 65 && num <= 90) ans += String.fromCodePoint(num + 32);\n    else ans += s[i];\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

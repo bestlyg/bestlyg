@@ -13,10 +13,6 @@
             "code": "class CQueue {\n  inStack: number[] = [];\n  outStack: number[] = [];\n  appendTail(value: number): void {\n    this.inStack.push(value);\n  }\n  deleteHead(): number {\n    if (this.outStack.length === 0) {\n      if (this.inStack.length === 0) return -1;\n      while (this.inStack.length !== 0) this.outStack.push(this.inStack.pop()!);\n    }\n    return this.outStack.pop()!;\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "设计",
-        "队列"
-    ],
+    "tagList": ["栈", "设计", "队列"],
     "level": "Easy"
 }

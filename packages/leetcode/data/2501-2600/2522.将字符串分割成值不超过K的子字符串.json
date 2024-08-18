@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn minimum_partition(s: String, k: i32) -> i32 {\n        let k = k as i128;\n        let list = s.as_bytes();\n        let n = s.len();\n        let mut dp = vec![0x3f3f3f3f_i128; n + 1];\n        dp[0] = 0;\n        for i in 1..=n {\n            let mut num: i128 = 0;\n            let mut mul = 1;\n            for j in 0..i {\n                num = ((list[i - j - 1] as usize - '0' as usize) as i128) * mul + num;\n                if num > k {\n                    break;\n                }\n                dp[i] = dp[i].min(dp[i - j - 1] + 1);\n                mul *= 10;\n            }\n        }\n        if dp[n] == 0x3f3f3f3f {\n            -1\n        } else {\n            dp[n] as i32\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "字符串", "动态规划"],
     "level": "Medium"
 }

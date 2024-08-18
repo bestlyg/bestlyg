@@ -13,8 +13,6 @@
             "code": "function kInversePairs(n: number, k: number): number {\n  if (k === 0) return 1;\n  const MOD = 10 ** 9 + 7;\n  const dp: Map<number, number>[] = new Array(2).fill(0).map(_ => new Map());\n  dp[0].set(0, 1);\n  for (let i = 1; i < n; i++) {\n    const map = dp[i % 2];\n    map.clear();\n    for (const [num, cnt] of dp[(i - 1) % 2].entries()) {\n      for (let j = 0; j <= i; j++) {\n        if (num + j > k) break;\n        const cur = map.get(num + j) ?? 0;\n        map.set(num + j, (cur + cnt) % MOD);\n      }\n    }\n  }\n  return dp[(n - 1) % 2].get(k) ?? 0;\n}"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Hard"
 }

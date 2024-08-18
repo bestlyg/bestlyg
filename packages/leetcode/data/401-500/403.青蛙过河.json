@@ -13,9 +13,6 @@
             "code": "function canCross(stones: number[]): boolean {\n  const len = stones.length;\n  const dp: Set<number>[] = new Array(len).fill(0).map(_ => new Set<number>());\n  dp[0].add(0);\n  for (let i = 1; i < len; i++) {\n    const stone = stones[i];\n    for (let j = 0; j < i; j++) {\n      const minus = stone - stones[j];\n      const set = dp[j];\n      if (set.size === 0) continue;\n      if (set.has(minus) || set.has(minus - 1) || set.has(minus + 1)) {\n        dp[i].add(minus);\n      }\n    }\n  }\n  return dp[len - 1].size !== 0;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Hard"
 }

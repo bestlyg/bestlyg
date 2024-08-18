@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    vector<int> missingTwo(vector<int>& nums) {\n        int xor_num = 0, n = nums.size() + 2;\n        for (auto &num : nums) xor_num ^= num;\n        for (int i = 1; i <= n; i++) xor_num ^= i;\n        int num = xor_num & -xor_num;\n        vector<int> list(2, 0);\n        for (auto &item : nums) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        for (int item = 1; item <= n; item++) {\n            if (item & num) list[0] ^= item;\n            else list[1] ^= item;\n        }\n        return list;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["位运算", "数组", "哈希表"],
     "level": "Hard"
 }

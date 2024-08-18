@@ -37,11 +37,6 @@
             "code": "// 校验两个树是否镜像\nbool _isSymmetric(struct TreeNode *node1, struct TreeNode *node2){\n    // 都为NULL就是\n    if (!node1 && !node2) return 1;\n    // 其中一个为NULL或者值不等就不是\n    if (!node1 || !node2 || node1->val != node2->val) return 0;\n    // 否则递归判断：node1的左和node2的右是否镜像、node1的右和node2的左是否镜像\n    return _isSymmetric(node1->left, node2->right) && _isSymmetric(node1->right, node2->left);\n}\nbool isSymmetric(struct TreeNode* root){\n    return _isSymmetric(root->left, root->right);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

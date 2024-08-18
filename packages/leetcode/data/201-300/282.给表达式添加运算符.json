@@ -13,10 +13,6 @@
             "code": "function addOperators(num: string, target: number): string[] {\n  const n = num.length;\n  if (n === 1) {\n    return +num === target ? [num] : [];\n  }\n  const ops = ['+', '-', '*', ''];\n  const ans = new Set<string>();\n  dfs();\n  return Array.from(ans);\n  function dfs(idx = 0, template = '') {\n    if (idx === n) {\n      if (eval(template) === target) ans.add(template);\n      return;\n    }\n    const current = num[idx];\n    template += current;\n    if (idx === n - 1) {\n      dfs(idx + 1, template);\n      return;\n    }\n    for (const op of ops) {\n      if (num[idx] === '0' && op === '') continue;\n      dfs(idx + 1, template + op);\n    }\n    while (idx < n - 1 && current !== '0' && num[idx + 1] === '0') {\n      template += '0';\n      dfs(idx + 2, template);\n      idx += 1;\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["数学", "字符串", "回溯"],
     "level": "Hard"
 }

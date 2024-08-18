@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    string defangIPaddr(string address) {\n        string ans = \"\";\n        for (auto &ch : address) {\n            if (ch == '.')\n                ans += \"[.]\";\n            else\n                ans += ch;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<string> split(string text) {\n        vector<string> ans;\n        for (int i = 0; i < text.size(); i++) {\n            int end = i;\n            while (end < text.size() && text[end] != ' ') end++;\n            ans.push_back(text.substr(i, end - i));\n            i = end;\n        }\n        return ans;\n    }\n    vector<string> findOcurrences(string text, string first, string second) {\n        vector<string> ans;\n        vector<string> list = split(text);\n        for (int i = 0; i < list.size() - 2; i++) {\n            string str = list[i];\n            if (str == first && list[i + 1] == second) {\n                ans.push_back(list[i + 2]);\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

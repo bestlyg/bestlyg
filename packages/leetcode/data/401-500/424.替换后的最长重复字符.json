@@ -13,10 +13,6 @@
             "code": "function characterReplacement(s: string, k: number): number {\n  const num = new Array(26).fill(0);\n  const n = s.length;\n  const compute = (i: number) => s[i].charCodeAt(0) - 'A'.charCodeAt(0);\n  let max = 0,\n    left = 0,\n    right = 0;\n  while (right < n) {\n    num[compute(right)]++;\n    max = Math.max(max, num[compute(right)]);\n    if (right - left + 1 - max > k) {\n      num[compute(left)]--;\n      left++;\n    }\n    right++;\n  }\n  return right - left;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Medium"
 }

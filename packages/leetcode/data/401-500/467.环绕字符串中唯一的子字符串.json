@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int findSubstringInWraproundString(string p) {\n        int n = p.size(), ans = 0;\n        vector<int> dp(n);\n        unordered_map<char, int> m;\n        dp[0] = 1;\n        m[p[0]] = 1;\n        for (int i = 1; i < n; i++) {\n            int next = p[i - 1] == 'z' ? 'a' : p[i - 1] + 1;\n            if (next != p[i])\n                dp[i] = 1;\n            else\n                dp[i] = dp[i - 1] + 1;\n            m[p[i]] = max(m[p[i]], dp[i]);\n        }\n        for (auto& item : m) ans += item.second;\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Medium"
 }

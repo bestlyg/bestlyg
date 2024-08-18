@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    int smallestDistancePair(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int n = nums.size(), l = 0, r = nums[n - 1] - nums[0], m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            int cnt = 0;\n            for (int i = 0; i < n; i++) cnt += i - bs(nums, i, nums[i] - m);\n            if (cnt >= k)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n    int bs(vector<int>& nums, int r, int target) {\n        int l = 0, m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] >= target)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序"],
     "level": "Hard"
 }

@@ -13,8 +13,6 @@
             "code": "function findMaxConsecutiveOnes(nums: number[]): number {\n  let max = 0;\n  let num = 0;\n  nums.forEach(v => {\n    if (v & 1) {\n      num++;\n    } else {\n      max = Math.max(max, num);\n      num = 0;\n    }\n  });\n  return Math.max(max, num);\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

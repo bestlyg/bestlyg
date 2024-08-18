@@ -37,9 +37,6 @@
             "code": "function reverseVowels(s: string): string {\n  const set = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);\n  let l = 0;\n  let r = s.length - 1;\n  while (l < r) {\n    if (set.has(s[r]) && set.has(s[l])) {\n      s = s.substring(0, l) + s[r] + s.substring(l + 1, r) + s[l] + s.substring(r + 1);\n      l++;\n      r--;\n    }\n    if (!set.has(s[l])) l++;\n    if (!set.has(s[r])) r--;\n  }\n  return s;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

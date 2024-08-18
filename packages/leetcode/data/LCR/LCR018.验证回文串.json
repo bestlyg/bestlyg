@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    bool isPalindrome(string s) {\n        if (s == \" \") return 1;\n        int l = 0, r = s.size() - 1;\n        char lc, rc;\n        while (l < r) {\n            do {\n                lc = tolower(s[l++]);\n            } while (l < s.size() && !isdigit(lc) && !isalpha(lc));\n            do {\n                rc = tolower(s[r--]);\n            } while (r >= 0 && !isdigit(rc) && !isalpha(rc));\n            if (l < s.size() && r >= 0 && lc != rc) return 0;\n        }\n        return 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

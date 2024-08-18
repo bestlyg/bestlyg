@@ -13,11 +13,6 @@
             "code": "function pathSum(root: TreeNode | null, sum: number): number[][] {\n  if (root === null) return [];\n  const val = root.val;\n  if (val === sum && root.left === null && root.right === null) return [[val]];\n  const nextSum = sum - val;\n  const ans: number[][] = [];\n  ans.push(...pathSum(root.left, nextSum).map(v => [val, ...v]));\n  ans.push(...pathSum(root.right, nextSum).map(v => [val, ...v]));\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "回溯",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "回溯", "二叉树"],
     "level": "Medium"
 }

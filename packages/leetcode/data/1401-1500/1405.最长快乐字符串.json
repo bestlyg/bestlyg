@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    typedef pair<char, int> node;\n    string longestDiverseString(int a, int b, int c) {\n        auto cmp = [&](node x, node y) -> bool { return x.second < y.second; };\n        priority_queue<node, vector<node>, decltype(cmp)> q(cmp);\n        q.push(make_pair('a', a));\n        q.push(make_pair('b', b));\n        q.push(make_pair('c', c));\n        string ans = \"\";\n        while (1) {\n            node v = q.top();\n            int prev_cnt = 0;  // 看看前面有几个一样的\n            for (int i = ans.size() - 1; i >= 0 && ans[i] == v.first; i--)\n                prev_cnt++;\n            if (v.second == 0 || prev_cnt >= 2)\n                break;  // 如果所有的都没了或者前面有两个一样的，就不要了\n            q.pop();\n            int cnt = prev_cnt == 1 ? 1 : v.second >= 2 ? 2 : 1;\n            v.second -= cnt;\n            while (cnt--) ans += v.first;  // 塞进去\n            node nv = q.top();  // 尝试从下一个字符拿一个做间隔\n            q.pop();\n            if (nv.second >= 1) {\n                ans += nv.first;\n                nv.second -= 1;\n            }\n            q.push(nv);\n            q.push(v);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "字符串",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "字符串", "堆（优先队列）"],
     "level": "Medium"
 }

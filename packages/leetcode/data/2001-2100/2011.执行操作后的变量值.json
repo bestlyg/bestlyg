@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int finalValueAfterOperations(vector<string>& operations) {\n        int ans = 0;\n        for (auto &s : operations) if (s[1] == '+') ans++; else ans--;\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["数组", "字符串", "模拟"],
     "level": "Easy"
 }

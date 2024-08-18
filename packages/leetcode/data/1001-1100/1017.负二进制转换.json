@@ -29,8 +29,6 @@
             "date": "2023-04-06"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Medium"
 }

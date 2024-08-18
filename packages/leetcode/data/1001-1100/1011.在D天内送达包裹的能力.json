@@ -13,9 +13,6 @@
             "code": "function shipWithinDays(weights: number[], D: number): number {\n  let left = Math.max(...weights);\n  let right = weights.reduce((total, cur) => total + cur, 0);\n  while (left < right) {\n    const mid = (left + right) >> 1;\n    let curWeight = 0;\n    let curDay = 1;\n    for (const weight of weights) {\n      if (curWeight + weight > mid) {\n        curWeight = 0;\n        curDay++;\n      }\n      curWeight += weight;\n    }\n    if (curDay > D) left++;\n    else right = mid;\n  }\n  return left;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

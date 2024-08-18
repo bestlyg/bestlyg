@@ -21,12 +21,6 @@
             "code": "int comp(int *num1, int *num2){\n    return *num1 - *num2;\n}\nint findLHS(int* nums, int numsSize){\n    qsort(nums, numsSize, sizeof(int), comp);\n    int ans = 0, left = 0, right = 0;\n    while(right < numsSize - 1){\n        while(right < numsSize - 1 && nums[right] == nums[left]) right++;\n        while(right < numsSize - 1 && nums[right] == nums[right + 1]) right++;\n        if(nums[left] == nums[right] - 1 && right - left + 1 > ans) ans = right - left + 1;\n        while(nums[left] != nums[right]) left++;\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数",
-        "排序",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "计数", "排序", "滑动窗口"],
     "level": "Easy"
 }

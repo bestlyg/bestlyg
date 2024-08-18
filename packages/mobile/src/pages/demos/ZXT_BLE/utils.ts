@@ -68,7 +68,7 @@ export class BLE {
                 err => {
                     this.log('蓝牙适配器打开失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -83,7 +83,7 @@ export class BLE {
                 err => {
                     this.log('蓝牙适配器关闭失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -111,7 +111,7 @@ export class BLE {
                 err => {
                     this.log('开启搜索失败');
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -136,7 +136,7 @@ export class BLE {
                 err => {
                     this.log('关闭录制失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -158,7 +158,7 @@ export class BLE {
                 err => {
                     this.log('获取设备错误', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -172,7 +172,7 @@ export class BLE {
                 err => {
                     this.log('获取已连接设备失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -189,7 +189,7 @@ export class BLE {
                     err => {
                         this.log('连接设备失败', err);
                         reject(err);
-                    }
+                    },
                 );
             });
         });
@@ -218,7 +218,7 @@ export class BLE {
                 err => {
                     this.log('获取服务失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }
@@ -260,7 +260,7 @@ export class BLE {
                         resolve(this.characteristicId_w);
                     });
                 }),
-            ])
+            ]),
         );
     }
     onRead() {
@@ -285,7 +285,7 @@ export class BLE {
                 },
                 err => {
                     this.log('读取特征值失败', err);
-                }
+                },
             );
         });
     }
@@ -313,7 +313,7 @@ export class BLE {
                 err => {
                     this.log('开启通知失败', err);
                     reject(err);
-                }
+                },
             );
             this.onListenCharacteristicValueChange(str => {
                 console.log('通知后监听变化', str);
@@ -329,7 +329,7 @@ export class BLE {
             arr
                 .join(',')
                 .match(/[\da-f]{2}/gi)!
-                .map(h => parseInt(h, 16))
+                .map(h => parseInt(h, 16)),
         ).buffer;
     }
     onWrite(msg: string) {
@@ -366,7 +366,7 @@ export class BLE {
                 err => {
                     this.log('写入数据失败', err);
                     reject(err);
-                }
+                },
             );
         });
     }

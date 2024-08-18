@@ -21,13 +21,6 @@
             "code": "function missingNumber(nums: number[]): number {\n  const n = nums.length;\n  let num = 0;\n  for (let i = 0; i <= n; i++) num ^= i;\n  for (let i = 0; i < n; i++) num ^= nums[i];\n  return num;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "数学",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["位运算", "数组", "哈希表", "数学", "二分查找", "排序"],
     "level": "Easy"
 }

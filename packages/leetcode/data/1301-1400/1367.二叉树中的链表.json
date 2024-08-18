@@ -13,12 +13,6 @@
             "code": "function isSubPath(head: ListNode | null, root: TreeNode | null): boolean {\n  if (head === null) return true;\n  if (root === null) return false;\n  if (head.val === root.val && find(head, root)) return true;\n  return isSubPath(head, root.left) || isSubPath(head, root.right);\n  function find(head: ListNode | null, root: TreeNode | null): boolean {\n    if (head === null) return true;\n    if (root === null) return false;\n    if (head.val !== root.val) return false;\n    return find(head.next, root.left) || find(head.next, root.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "链表",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "链表", "二叉树"],
     "level": "Medium"
 }

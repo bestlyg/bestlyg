@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<int> asteroidCollision(vector<int>& asteroids) {\n        int n = asteroids.size();\n        stack<int> s;\n        for (int i = 0; i < n; i++) {\n            int aster = asteroids[i];\n            bool hasAster = true;\n            while (s.size() && asteroids[s.top()] > 0 && aster < 0) {\n                int top = asteroids[s.top()];\n                if (abs(top) == abs(aster)) s.pop();\n                if (abs(top) >= abs(aster)) {\n                    hasAster = false;\n                    break;\n                } else\n                    s.pop();\n            }\n            if (hasAster) s.push(i);\n        }\n        vector<int> ans(s.size());\n        for (int i = s.size() - 1; i >= 0; i--)\n            ans[i] = asteroids[s.top()], s.pop();\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["栈", "数组", "模拟"],
     "level": "Medium"
 }

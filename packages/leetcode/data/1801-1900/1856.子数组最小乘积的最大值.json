@@ -13,11 +13,6 @@
             "code": "function maxSumMinProduct(nums: number[]): number {\n  const n = nums.length;\n  const l = new Array(n).fill(-1);\n  const r = new Array(n).fill(n);\n  const stack: number[] = [];\n  const sums: number[] = [0];\n  let sum = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    sums.push((sum += num));\n    while (stack.length && nums[stack[stack.length - 1]] >= num) r[stack.pop()!] = i;\n    if (stack.length) l[i] = stack[stack.length - 1];\n    stack.push(i);\n  }\n  let ans = 0n;\n  for (let i = 0; i < n; i++) {\n    const num = (BigInt(sums[r[i]]) - BigInt(sums[l[i] + 1])) * BigInt(nums[i]);\n    ans = ans > num ? ans : num;\n  }\n  ans %= BigInt(10 ** 9 + 7);\n  return Number(ans);\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "前缀和",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "前缀和", "单调栈"],
     "level": "Medium"
 }

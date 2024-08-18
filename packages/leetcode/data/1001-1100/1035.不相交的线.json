@@ -2,10 +2,7 @@
     "name": "1035.不相交的线",
     "url": "https://leetcode.cn/problems/uncrossed-lines",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "desc": "以这种方法绘制线条，并返回可以绘制的最大连线数。",
     "solutions": [
         {

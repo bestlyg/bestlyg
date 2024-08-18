@@ -13,8 +13,6 @@
             "code": "function hammingDistance(x: number, y: number): number {\n  const newVal = x ^ y;\n  let ans = 0;\n  for (let i = 0; i <= 31; i++) if ((newVal >> i) & 1) ans++;\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "level": "Easy"
 }

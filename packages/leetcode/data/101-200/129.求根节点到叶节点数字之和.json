@@ -13,10 +13,6 @@
             "code": "function sumNumbers(root: TreeNode | null): number {\n  if (root === null) return 0;\n  return find(root).reduce((total, cur) => total + Number(cur.join('')), 0);\n  function find(root: TreeNode): number[][] {\n    const val = root.val;\n    const ans: number[][] = [];\n    if (root.left === null && root.right === null) {\n      ans.push([val]);\n    }\n    if (root.left !== null) {\n      ans.push(...find(root.left).map(v => [val, ...v]));\n    }\n    if (root.right !== null) {\n      ans.push(...find(root.right).map(v => [val, ...v]));\n    }\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Medium"
 }

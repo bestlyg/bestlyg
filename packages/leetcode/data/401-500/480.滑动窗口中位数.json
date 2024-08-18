@@ -13,11 +13,6 @@
             "code": "class BestQueue {\n  get len() {\n    return this.queue.length;\n  }\n  constructor(public queue: number[]) {}\n  add(val: number, l = 0, r = this.len) {\n    if (l >= r) {\n      this.queue.splice(l, 0, val);\n    } else {\n      const mid = ~~((l + r) / 2);\n      const num = this.queue[mid];\n      if (num > val) {\n        this.add(val, l, mid);\n      } else if (num < val) {\n        this.add(val, mid + 1, r);\n      } else {\n        this.queue.splice(mid, 0, val);\n      }\n    }\n  }\n  del(val: number) {\n    this.queue.splice(this.queue.indexOf(val), 1);\n  }\n  findMid() {\n    return this.len & 1\n      ? this.queue[(this.len - 1) / 2]\n      : (this.queue[this.len / 2] + this.queue[this.len / 2 - 1]) / 2;\n  }\n}\nfunction medianSlidingWindow(nums: number[], k: number): number[] {\n  const queue = new BestQueue(nums.slice(0, k).sort((a, b) => a - b));\n  const ans = [queue.findMid()];\n  for (let i = k, l = nums.length; i < l; i++) {\n    queue.del(nums[i - k]);\n    queue.add(nums[i]);\n    ans.push(queue.findMid());\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "滑动窗口",
-        "堆（优先队列）"
-    ],
+    "tagList": ["数组", "哈希表", "滑动窗口", "堆（优先队列）"],
     "level": "Hard"
 }

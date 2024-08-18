@@ -13,12 +13,6 @@
             "code": "function GetImportance(employees: Employee[], id: number): number {\n  const map = employees.reduce((map, emp) => {\n    map.set(emp.id, emp);\n    return map;\n  }, new Map<number, Employee>());\n  const find = (id: number): number => {\n    const emp = map.get(id)!;\n    return (\n      emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)\n    );\n  };\n  return find(id);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "数组", "哈希表"],
     "level": "Medium"
 }

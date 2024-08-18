@@ -21,11 +21,6 @@
             "code": "function kthSmallest(root: TreeNode | null, k: number): number {\n  let ans!: number;\n  dfs(root);\n  return ans;\n  function dfs(node: TreeNode | null): void {\n    if (node === null) return;\n    dfs(node.left);\n    if (--k === 0) {\n      ans = node.val;\n      return;\n    }\n    dfs(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

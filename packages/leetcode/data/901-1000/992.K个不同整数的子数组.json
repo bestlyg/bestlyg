@@ -13,11 +13,6 @@
             "code": "function subarraysWithKDistinct(A: number[], K: number): number {\n  const atMostWithKDistinct = (k: number): number => {\n    const len = A.length;\n    const freq: number[] = new Array(len + 1).fill(0);\n    let l = 0;\n    let r = 0;\n    let c = 0;\n    let res = 0;\n    while (r < len) {\n      if (freq[A[r]]++ === 0) cpp;\n      r++;\n      while (c > k) {\n        if (--freq[A[l]] === 0) c--;\n        l++;\n      }\n      res += r - l;\n    }\n    return res;\n  };\n  return atMostWithKDistinct(K) - atMostWithKDistinct(K - 1);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "计数", "滑动窗口"],
     "level": "Hard"
 }

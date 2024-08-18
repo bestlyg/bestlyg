@@ -13,10 +13,6 @@
             "code": "function commonChars(A: string[]): string[] {\n  if (A.length === 0) return [];\n  else if (A.length === 1) return A[0].split('');\n  const cache: number[] = new Array(26).fill(Infinity);\n  const compIndex = (c: string) => c.charCodeAt(0) - 'a'.charCodeAt(0);\n  for (const str of A) {\n    const count: number[] = new Array(26).fill(0);\n    const addCount = (i: number) => (count[i] = 1 + (count[i] ?? 0));\n    for (const c of str) {\n      addCount(compIndex(c));\n    }\n    count.forEach((v, i) => (cache[i] = Math.min(cache[i], v)));\n  }\n  const ans: string[] = [];\n  for (let i = 0; i < 26; i++) {\n    const v = cache[i];\n    if (v === Infinity) continue;\n    new Array(v).fill(0).forEach(_ => ans.push(String.fromCharCode(i + 97)));\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["数组", "哈希表", "字符串"],
     "level": "Easy"
 }

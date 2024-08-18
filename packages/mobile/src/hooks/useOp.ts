@@ -66,7 +66,7 @@ export function useOp<T extends any = any>({
             setPayload(payload);
             setType(type);
             afterShow(data);
-        }
+        },
     );
     const onHidden = useMemoizedFn(({ data }: { data?: unknown } = {}) => {
         beforeHidden(data);

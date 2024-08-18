@@ -4,7 +4,7 @@ import { SERVICE_URL } from './constants';
 import { getStorage } from './storage';
 
 export async function _request<T extends any = any, U extends any = any>(
-    options: Taro.request.Option<any>
+    options: Taro.request.Option<any>,
 ) {
     options.url = SERVICE_URL + options.url;
     let header = options.header;
@@ -24,7 +24,7 @@ export async function _request<T extends any = any, U extends any = any>(
     });
 }
 export function request<T extends any = any, U extends any = any>(
-    options: Taro.request.Option<any>
+    options: Taro.request.Option<any>,
 ) {
     return _request<ResponseData<T>, U>(options).then(
         ({ code, data, message }) =>
@@ -35,6 +35,6 @@ export function request<T extends any = any, U extends any = any>(
                     Taro.showToast({ title: `${message}`, icon: 'none' });
                     reject(message);
                 }
-            })
+            }),
     );
 }

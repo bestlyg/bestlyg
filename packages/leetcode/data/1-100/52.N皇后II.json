@@ -21,8 +21,6 @@
             "code": "function totalNQueens(n: number): number {\n  const cols = new Array(n);\n  let ans = 0;\n  find(0);\n  return ans;\n  function find(row: number) {\n    if (row === n) {\n      ans++;\n      return;\n    }\n    for (let i = 0; i < n; i++) {\n      if (check(row, i)) {\n        cols[row] = i;\n        find(row + 1);\n      }\n    }\n  }\n  function check(row: number, col: number): boolean {\n    for (let i = 0; i < row; i++) {\n      if (cols[i] === col) return false;\n      if (row - i === Math.abs(cols[i] - col)) return false;\n    }\n    return true;\n  }\n}"
         }
     ],
-    "tagList": [
-        "回溯"
-    ],
+    "tagList": ["回溯"],
     "level": "Hard"
 }

@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    vector<int> minOperations(string boxes) {\n        int n = boxes.size(),\n            lsum = 0, lcnt = 0,\n            rsum = 0, rcnt = 0;\n        vector<int> list(n);\n        for (int i = 0; i < n; i++) {\n            if (boxes[i] == '1') {\n                rsum += i;\n                rcnt += 1;\n            }\n        }\n        list[0] = rsum;\n        for (int i = 1; i < n; i++) {\n            if (boxes[i - 1] == '1') rcnt--, lcnt++;\n            rsum -= rcnt;\n            lsum += lcnt;\n            list[i] = lsum + rsum;\n        }\n        return list;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Medium"
 }

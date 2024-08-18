@@ -29,10 +29,6 @@
             "code": "var sumNums = function (n: number): number {\n  const c = (num: number, count: number): number => (count === 1 ? num : num + c(num, count - 1));\n  return c(n, n + 1) >> 1;\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "递归",
-        "脑筋急转弯"
-    ],
+    "tagList": ["位运算", "递归", "脑筋急转弯"],
     "level": "Medium"
 }

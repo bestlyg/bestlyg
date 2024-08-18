@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int lenLongestFibSubseq(vector<int> &arr) {\n        unordered_set<int> s;\n        for (auto &num : arr) s.insert(num);\n        int ans = 0;\n        for (int i = 0; i < arr.size(); i++) {\n            for (int j = 0; j < i; j++) {\n                ans = max(ans, check(s, arr[j], arr[i]) + 2);\n            }\n        }\n        return ans < 3 ? 0 : ans;\n    }\n    int check(unordered_set<int> &s, int num1, int num2) {\n        if (s.count(num1 + num2)) return 1 + check(s, num2, num1 + num2);\n        return 0;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "动态规划"
-    ],
+    "tagList": ["数组", "哈希表", "动态规划"],
     "level": "Medium"
 }

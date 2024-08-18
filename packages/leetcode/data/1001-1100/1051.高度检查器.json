@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int heightChecker(vector<int>& heights) {\n        int n = heights.size();\n        vector<int> list(n);\n        for (int i = 0; i < n; i++) list[i] = heights[i];\n        sort(list.begin(), list.end());\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (list[i] != heights[i]) ans++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "计数排序",
-        "排序"
-    ],
+    "tagList": ["数组", "计数排序", "排序"],
     "level": "Easy"
 }

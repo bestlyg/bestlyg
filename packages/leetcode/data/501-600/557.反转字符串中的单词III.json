@@ -21,9 +21,6 @@
             "code": "function reverseWords(s: string): string {\n  return s\n    .split(' ')\n    .map(v => v.split('').reverse().join(''))\n    .join(' ');\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

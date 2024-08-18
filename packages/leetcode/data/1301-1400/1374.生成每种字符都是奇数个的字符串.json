@@ -21,8 +21,6 @@
             "code": "impl Solution {\n    pub fn generate_the_string(n: i32) -> String {\n        let mut n = n;\n        let mut ans = String::new();\n        if n & 1 == 0 {\n            ans.push('b');\n            n -= 1;\n        }\n        ans.push_str(&\"a\".repeat(n as usize));\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

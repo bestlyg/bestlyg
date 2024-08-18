@@ -21,11 +21,6 @@
             "code": "const numReg = /\\-?\\d+/;\nconst opReg = /\\+|\\-/;\nconst squareReg = /\\(|\\)/;\nconst opMap: Record<string, (num1: number, num2: number) => number> = {\n  '+': (num1, num2) => num1 + num2,\n  '-': (num1, num2) => num1 - num2,\n  '*': (num1, num2) => num1 * num2,\n  '/': (num1, num2) => num1 / num2,\n};\nconst emptyReg = / /g;\nfunction calculate(s: string): number {\n  s = s.replace(emptyReg, '');\n  const stack: string[] = [];\n  const peek = () => stack[stack.length - 1];\n  if (s[0] === '-') s = '0' + s;\n  const len = s.length;\n  for (let i = 0; i < len; i++) {\n    let c = s[i];\n    if (opReg.test(c) || c === '(') {\n      stack.push(c);\n    } else if (c === ')') {\n      let c = 0;\n      let str = '';\n      while (peek() !== '(') {\n        str = stack.pop()! + str;\n        cpp;\n      }\n      stack.pop();\n      str = (c === 1 ? str : calculate(str)) + '';\n      if (peek() === '-') {\n        stack[stack.length - 1] = '+';\n        str = str.startsWith('-') ? str.substring(1) : '-' + str;\n      }\n      stack.push(str);\n    } else {\n      while (i < len - 1 && numReg.test(s[i + 1])) {\n        c += s[++i];\n      }\n      if (peek() === '-') {\n        c = stack.pop()! + c;\n        if (numReg.test(peek())) stack.push('+');\n      }\n      const top = peek();\n      if (opReg.test(top)) {\n        const op = stack.pop()!;\n        const num1 = stack.pop()!;\n        stack.push(opMap[op](Number(num1), Number(c)) + '');\n      } else {\n        stack.push(c);\n      }\n    }\n  }\n  return stack.length === 1 ? Number(stack[0]) : calculate(stack.join(''));\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "递归",
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["栈", "递归", "数学", "字符串"],
     "level": "Hard"
 }

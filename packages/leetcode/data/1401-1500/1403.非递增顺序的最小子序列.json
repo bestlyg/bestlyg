@@ -13,10 +13,6 @@
             "code": "impl Solution {\n    pub fn min_subsequence(nums: Vec<i32>) -> Vec<i32> {\n        let mut nums = nums;\n        nums.sort();\n        let sum: i32 = nums.iter().sum();\n        let mut cur = 0;\n        let mut i = nums.len() - 1;\n        let mut ans = Vec::new();\n        while cur * 2 <= sum {\n            cur += nums[i];\n            ans.push(nums[i]);\n            i -= 1;\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Easy"
 }

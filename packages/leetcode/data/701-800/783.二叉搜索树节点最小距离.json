@@ -21,12 +21,6 @@
             "code": "function minDiffInBST(root: TreeNode | null): number {\n  if (root === null) return 0;\n  const arr: number[] = [];\n  const inorder = (node: TreeNode | null) => {\n    if (node === null) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  };\n  inorder(root);\n  let min = Infinity;\n  for (let i = 1, l = arr.length; i < l; i++) {\n    min = Math.min(min, arr[i] - arr[i - 1]);\n  }\n  return min;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

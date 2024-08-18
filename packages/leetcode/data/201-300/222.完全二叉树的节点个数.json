@@ -13,11 +13,6 @@
             "code": "function countNodes(root: TreeNode | null): number {\n  return root === null ? 0 : countNodes(root.left) + countNodes(root.right) + 1;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "树",
-        "二分查找",
-        "二叉树"
-    ],
+    "tagList": ["位运算", "树", "二分查找", "二叉树"],
     "level": "Easy"
 }

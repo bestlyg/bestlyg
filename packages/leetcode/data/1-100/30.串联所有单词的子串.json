@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int wordSize, sSize, wordsSize;\n    unordered_map<string, int> m;\n    string s;\n    vector<string> words;\n    vector<int> findSubstring(string s, vector<string> &words) {\n        this->s = s;\n        this->words = words;\n        sSize = s.size();\n        wordSize = words[0].size();\n        wordsSize = words.size();\n        for (auto &w : words) m[w]++;\n        vector<int> ans, list = getlist();\n        unordered_map<int, int> listmap;\n        for (int i = 0; i < list.size(); i++) listmap[list[i]] = i;\n        for (int i = 0; i < list.size(); i++)\n            if (check(list, listmap, i)) ans.push_back(list[i]);\n        return ans;\n    }\n    vector<int> getlist() {\n        vector<int> list;\n        string tmp = s.substr(0, wordSize);\n        for (int i = wordSize; i < sSize; i++) {\n            if (m.count(tmp)) list.push_back(i - wordSize);\n            tmp = tmp.substr(1, wordSize - 1) + s[i];\n        }\n        if (m.count(tmp)) list.push_back(sSize - wordSize);\n        return list;\n    }\n    bool check(vector<int> &list, unordered_map<int, int> &listmap, int start) {\n        int firstIdx = list[start];\n        int lastIdx = firstIdx + (wordsSize - 1) * wordSize;\n        if (!listmap.count(lastIdx)) return false;\n        return _check(list, listmap, start, m);\n    }\n    bool _check(vector<int> &list, unordered_map<int, int> &listmap, int start,\n                unordered_map<string, int> m) {\n        for (int i = list[start], cnt = 0; cnt < wordsSize;\n             cnt++, i += wordSize) {\n            if (!listmap.count(i)) return false;\n            if (m[s.substr(list[listmap[i]], wordSize)]-- == 0) return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Hard"
 }

@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int cross(vector<int> &a, vector<int> &b, vector<int> &c) {\n        int x1 = a[0] - b[0], y1 = a[1] - b[1];\n        int x2 = c[0] - b[0], y2 = c[1] - b[1];\n        return x1 * y2 - x2 * y1;\n    }\n    vector<vector<int>> outerTrees(vector<vector<int>> &trees) {\n        int n = trees.size();\n        if (n <= 3) return trees;\n        sort(trees.begin(), trees.end(),\n             [&](vector<int> &a, vector<int> &b) -> bool {\n                 if (a[0] == b[0]) return a[1] < b[1];\n                 return a[0] < b[0];\n             });\n        vector<int> list, used(n, 0);\n        for (int i = 0; i < n; i++) {\n            while (list.size() > 1 &&\n                   cross(trees[list[list.size() - 2]],\n                         trees[list[list.size() - 1]], trees[i]) < 0) {\n                used[list.back()] = 0;\n                list.pop_back();\n            }\n            list.push_back(i);\n            used[i] = 1;\n        }\n        int size = list.size();\n        used[0] = 0;\n        for (int i = n - 2; i >= 0; i--) {\n            if (used[i]) continue;\n            while (list.size() > size &&\n                   cross(trees[list[list.size() - 2]],\n                         trees[list[list.size() - 1]], trees[i]) < 0) {\n                list.pop_back();\n            }\n            list.push_back(i);\n        }\n        list.pop_back();\n        vector<vector<int>> ans;\n        for (auto &idx : list) ans.emplace_back(trees[idx]);\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "几何",
-        "数组",
-        "数学"
-    ],
+    "tagList": ["几何", "数组", "数学"],
     "level": "Hard"
 }

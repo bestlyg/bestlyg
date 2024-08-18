@@ -21,9 +21,6 @@
             "code": "function peakIndexInMountainArray(arr: number[]): number {\n  const len = arr.length;\n  let left = 1;\n  let right = len - 2;\n  let ans = 0;\n  while (left <= right) {\n    const mid = ~~((left + right) >> 1);\n    if (arr[mid] > arr[mid + 1]) {\n      ans = mid;\n      right = mid - 1;\n    } else {\n      left = mid + 1;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

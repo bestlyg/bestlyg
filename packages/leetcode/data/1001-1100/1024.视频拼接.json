@@ -13,10 +13,6 @@
             "code": "function videoStitching(clips: number[][], T: number): number {\n  const dp = new Array(T + 1).fill(Infinity);\n  dp[0] = 0;\n  for (let i = 0; i <= T; i++) {\n    for (const clip of clips) {\n      if (clip[0] < i && i <= clip[1]) {\n        dp[i] = Math.min(dp[i], dp[clip[0]] + 1);\n      }\n    }\n  }\n  return dp[T] === Infinity ? -1 : dp[T];\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "数组", "动态规划"],
     "level": "Medium"
 }

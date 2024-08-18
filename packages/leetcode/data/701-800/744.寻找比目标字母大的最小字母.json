@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int l = 0, r = letters.size(), m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (letters[m] > target)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l == letters.size() ? letters[0] : letters[l];\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

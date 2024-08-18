@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    string pushDominoes(string dominoes) {\n        int n = dominoes.size(), change, cnt = 0;\n        string dp[2];\n        dp[0] = dominoes;\n        do {\n            change = 0;\n            int idx = cnt & 1, nidx = (cnt + 1) & 1;\n            dp[nidx] = dp[idx];\n            for (int i = 0; i < n; i++) {\n                if (dp[idx][i] == '.') {\n                    if (i > 0 && dp[idx][i - 1] == 'R' && i < n - 1 &&\n                        dp[idx][i + 1] == 'L')\n                        dp[idx][i] = '.';\n                    else if (i > 0 && dp[idx][i - 1] == 'R') {\n                        change = 1;\n                        dp[nidx][i] = 'R';\n                    } else if (i < n - 1 && dp[idx][i + 1] == 'L') {\n                        change = 1;\n                        dp[nidx][i] = 'L';\n                    } else if (i > 0 && dp[idx][i - 1] == '.' ||\n                               i < n - 1 && dp[idx][i + 1] == '.')\n                        dp[idx][i] = '.';\n                }\n            }\n            cnt++;\n        } while (change);\n        return dp[cnt & 1];\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["双指针", "字符串", "动态规划"],
     "level": "Medium"
 }

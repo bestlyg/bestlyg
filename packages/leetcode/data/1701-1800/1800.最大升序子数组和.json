@@ -13,8 +13,6 @@
             "code": "class Solution {\npublic:\n    int maxAscendingSum(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            int sum = nums[i];\n            while (i + 1 < nums.size() && nums[i + 1] > nums[i]) sum += nums[++i];\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

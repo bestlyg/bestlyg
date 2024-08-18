@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn shift_grid(grid: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let (n, m) = (grid.len(), grid[0].len());\n        let num = m * n;\n        let k = (k as usize) % num;\n        let mut ans = vec![vec![0; m]; n];\n        for idx in 0..num {\n            let next = (idx + num - k) % num;\n            ans[idx / m][idx % m] = grid[next / m][next % m];\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Easy"
 }

@@ -29,9 +29,6 @@
             "code": "struct ListNode* removeElements(struct ListNode* head, int val){\n    if (!head) return NULL;\n    while (head && head->val == val) head = head->next;\n    if (!head) return NULL;\n    struct ListNode *p = head;\n    struct ListNode *work = head;\n    while (work) {\n        work = work->next;\n        while(work && work->val == val) work = work->next;\n        p->next = work;\n        p = p->next;\n    }\n    return head;\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "链表"
-    ],
+    "tagList": ["递归", "链表"],
     "level": "Easy"
 }

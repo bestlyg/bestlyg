@@ -21,8 +21,6 @@
             "code": "function myAtoi(s: string): number {\n  let idx = 0;\n  while (s[idx] === ' ') idx++;\n  let flag = 1;\n  if (s[idx] === '+') idx++;\n  else if (s[idx] === '-') {\n    idx++;\n    flag = -1;\n  }\n  let ans = 0;\n  for (; idx < s.length; idx++) {\n    const num = s.codePointAt(idx)! - '0'.codePointAt(0)!;\n    if (num < 0 || num >= 10) break;\n    ans = ans * 10 + num;\n  }\n  const MAX = 2 ** 31 - 1;\n  const MIN = -(2 ** 31);\n  ans *= flag;\n  return ans > MAX ? MAX : ans < MIN ? MIN : ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Medium"
 }

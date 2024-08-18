@@ -21,12 +21,6 @@
             "code": "function increasingBST(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const queue: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0, l = queue.length - 1; i < l; i++) {\n    const node = queue[i];\n    node.left = null;\n    node.right = queue[i + 1];\n  }\n  const last = queue[queue.length - 1];\n  last.right = last.left = null;\n  return queue[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    queue.push(node);\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["栈", "树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

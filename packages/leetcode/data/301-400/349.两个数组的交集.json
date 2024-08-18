@@ -37,12 +37,6 @@
             "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint bs(int *nums, int n, int num) {\n    int l = 0, r = n - 1, m;\n    if (nums[l] > num || nums[r] < num) return 0;\n    while (l < r) {\n        m = (l + r) >> 1;\n        if (nums[m] == num) return 1;\n        if (nums[m] > num) r = m - 1;\n        else l = m + 1;\n    }\n    return nums[l] == num ? 1 : 0;\n}\nint* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){\n    qsort(nums2, nums2Size, sizeof(int), comp);\n    qsort(nums1, nums1Size, sizeof(int), comp);\n    int *ans = (int *)malloc(sizeof(int) * (nums1Size + nums2Size));\n    *returnSize = 0;\n    for (int i = 0; i < nums1Size; i++) {\n        if (i < nums1Size - 1 && nums1[i] == nums1[i + 1]) continue;\n        int num = nums1[i];\n        int check = bs(nums2, nums2Size, num);\n        if (check) ans[(*returnSize)++] = num;\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "双指针", "二分查找", "排序"],
     "level": "Easy"
 }

@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn digit_count(num: String) -> bool {\n        let mut l = [0; 10];\n        let n = num.len();\n        let num = num.chars().collect::<Vec<char>>();\n        for c in num.iter() {\n            l[*c as usize - '0' as usize] += 1;\n        }\n        for i in 0..n {\n            if num[i] as usize - '0' as usize != l[i] {\n                return false;\n            }\n        }\n        true\n    }\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "计数"],
     "level": "Easy"
 }

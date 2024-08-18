@@ -15,7 +15,10 @@ export class RBTreeNode3<T> {
     color = RED;
     left: RBTreeNode3<T> | null = null;
     right: RBTreeNode3<T> | null = null;
-    constructor(public val: T, public parent: RBTreeNode3<any> | null = null) {}
+    constructor(
+        public val: T,
+        public parent: RBTreeNode3<any> | null = null,
+    ) {}
     toString() {
         return this.val + (isRed(this) ? '(R)' : '');
     }

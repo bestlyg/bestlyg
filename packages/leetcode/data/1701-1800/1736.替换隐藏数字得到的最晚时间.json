@@ -13,9 +13,6 @@
             "code": "function maximumTime(time: string): string {\n  let [h1, h2, , m1, m2] = time;\n  if (h1 === '?') {\n    if (h2 === '?') {\n      h1 = '2';\n      h2 = '3';\n    } else {\n      const num = +h2;\n      if (num <= 3) h1 = '2';\n      else h1 = '1';\n    }\n  }\n  if (h2 === '?') {\n    if (h1 === '2') h2 = '3';\n    else h2 = '9';\n  }\n  if (m1 === '?') m1 = '5';\n  if (m2 === '?') m2 = '9';\n  return `${h1}${h2}:${m1}${m2}`;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "字符串"
-    ],
+    "tagList": ["贪心", "字符串"],
     "level": "Easy"
 }

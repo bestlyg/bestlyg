@@ -13,10 +13,6 @@
             "code": "function isSelfCrossing(distance: number[]): boolean {\n  const n = distance.length;\n  if (n <= 3) return false;\n  for (let i = 3; i < n; i++) {\n    if (i >= 3 && distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) return true;\n    if (\n      i >= 4 &&\n      distance[i - 1] === distance[i - 3] &&\n      distance[i] + distance[i - 4] >= distance[i - 2]\n    )\n      return true;\n    if (\n      i >= 5 &&\n      distance[i - 1] <= distance[i - 3] &&\n      distance[i - 2] > distance[i - 4] &&\n      distance[i] + distance[i - 4] >= distance[i - 2] &&\n      distance[i - 1] + distance[i - 5] >= distance[i - 3]\n    )\n      return true;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "几何",
-        "数组",
-        "数学"
-    ],
+    "tagList": ["几何", "数组", "数学"],
     "level": "Hard"
 }

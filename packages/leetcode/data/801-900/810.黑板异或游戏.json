@@ -13,12 +13,6 @@
             "code": "function xorGame(nums: number[]): boolean {\n  return !(nums.length & 1) ? true : nums.reduce((total, cur) => total ^ cur, 0) === 0;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "脑筋急转弯",
-        "数组",
-        "数学",
-        "博弈"
-    ],
+    "tagList": ["位运算", "脑筋急转弯", "数组", "数学", "博弈"],
     "level": "Hard"
 }

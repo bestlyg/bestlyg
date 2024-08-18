@@ -13,9 +13,6 @@
             "code": "function judgeCircle(moves: string): boolean {\n  let x = 0;\n  let y = 0;\n  const moveFn: Record<string, () => void> = {\n    U: () => (y += 1),\n    D: () => (y -= 1),\n    R: () => (x += 1),\n    L: () => (x -= 1),\n  };\n  for (const move of moves) moveFn[move]();\n  return x === 0 && y === 0;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["字符串", "模拟"],
     "level": "Easy"
 }

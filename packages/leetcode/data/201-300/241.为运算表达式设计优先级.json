@@ -29,12 +29,6 @@
             "code": "class Solution {\n   public:\n    unordered_set<char> opset;\n    Solution() {\n        opset.insert('+');\n        opset.insert('-');\n        opset.insert('*');\n    }\n    vector<int> diffWaysToCompute(string expression) {\n        vector<int> ans, oplist;\n        int n = expression.size();\n        for (int i = 0; i < n; i++) {\n            if (opset.count(expression[i])) oplist.push_back(i);\n        }\n        if (oplist.size() == 0)\n            ans.push_back(toNum(expression));\n        else\n            dfs(expression, oplist, ans);\n        return ans;\n    }\n    int toNum(string &expression) {\n        int num = 0, n = expression.size(), i = 0;\n        while (i < n && !opset.count(expression[i]))\n            num = num * 10 + expression[i++] - '0';\n        return num;\n    }\n    void dfs(string &expression, vector<int> &oplist, vector<int> &ans) {\n        for (auto &idx : oplist) {\n            vector<int> llist = diffWaysToCompute(expression.substr(0, idx));\n            vector<int> rlist = diffWaysToCompute(\n                expression.substr(idx + 1, expression.size() - idx));\n            for (auto &num1 : llist) {\n                for (auto &num2 : rlist) {\n                    switch (expression[idx]) {\n                        case '+':\n                            ans.push_back(num1 + num2);\n                            break;\n                        case '-':\n                            ans.push_back(num1 - num2);\n                            break;\n                        case '*':\n                            ans.push_back(num1 * num2);\n                            break;\n                    }\n                }\n            }\n        }\n    }\n};"
         }
     ],
-    "tagList": [
-        "递归",
-        "记忆化搜索",
-        "数学",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["递归", "记忆化搜索", "数学", "字符串", "动态规划"],
     "level": "Medium"
 }

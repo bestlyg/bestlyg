@@ -21,9 +21,6 @@
             "code": "function pathSum(root: TreeNode | null, targetSum: number): number {\n  if (root === null) return 0;\n  let ans = 0;\n  dfs(root);\n  return ans;\n  function dfs(node: TreeNode | null, list: number[] = []) {\n    if (node === null) return;\n    const val = node.val;\n    const len = list.length;\n    if (val === targetSum) ans++;\n    for (let i = 0; i < len; i++) {\n      list[i] += val;\n      if (list[i] === targetSum) ans++;\n    }\n    list.push(val);\n    dfs(node.left, list);\n    dfs(node.right, list);\n    list.pop();\n    for (let i = 0; i < len; i++) {\n      list[i] -= val;\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Hard"
 }

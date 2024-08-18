@@ -21,8 +21,6 @@
             "code": "function bitwiseComplement(n: number): number {\n  if (n === 0) return 1;\n  let bit = 0;\n  for (; bit <= 30; bit++) if (n < 1 << bit) break;\n  if (bit === 31) bit = 0x7fffffff;\n  bit = (1 << bit) - 1;\n  return bit ^ n;\n}"
         }
     ],
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "level": "Easy"
 }

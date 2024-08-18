@@ -13,11 +13,6 @@
             "code": "class Solution {\npublic:\n    vector<string> subdomainVisits(vector<string>& cpdomains) {\n        unordered_map<string, int> m;\n        for (auto &s : cpdomains) {\n            string data = \"\";\n            int cnt = 0;\n            analysisDomain(s, data, cnt);\n            for (auto &item : analysisData(data)) {\n                m[item] += cnt;\n            }\n        }\n        vector<string> ans;\n        for (auto &item : m) {\n            ans.push_back(to_string(item.second) + \" \" + item.first);\n        }\n        return ans;\n    }\n    void analysisDomain(string &s, string &data, int &cnt) {\n        bool isCnt = true;\n        for (int i = 0; i < s.size(); i++) {\n            if (s[i] == ' ') {\n                isCnt = false;\n            } else if (isCnt) {\n                cnt = cnt * 10 + s[i] - '0';\n            } else {\n                data += s[i];\n            }\n        }\n    }\n    vector<string> analysisData(string &data) {\n        vector<string> list;\n        list.push_back(data);\n        int n = data.size();\n        for (int i = 0; i < n; i++) {\n            if (data[i] == '.') {\n                list.push_back(data.substr(i + 1, n - i));\n            }\n        }\n        return list;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "字符串", "计数"],
     "level": "Medium"
 }

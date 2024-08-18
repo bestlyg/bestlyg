@@ -29,11 +29,6 @@
             "code": "class Solution {\n   public:\n    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {\n        if (root == p) {\n            if (p->right == nullptr) return nullptr;\n            TreeNode* next = p->right;\n            while (next->left) next = next->left;\n            return next;\n        }\n        TreeNode* nextRoot = root->val > p->val ? root->left : root->right;\n        TreeNode* next = inorderSuccessor(nextRoot, p);\n        if (next == nullptr && nextRoot == root->left) next = root;\n        return next;\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

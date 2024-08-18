@@ -13,11 +13,6 @@
             "code": "const format = (row: number, col: number) => `${row}:${col}`;\nconst dirs: number[][] = [\n  [1, 0],\n  [-1, 0],\n  [0, 1],\n  [0, -1],\n];\nconst MAX = 10 ** 6;\nconst MAX_CNT = 200 * 200;\nfunction check(blocked: Set<string>, source: number[], target: number[]): boolean {\n  const set = new Set<string>();\n  const queue: number[][] = [[source[0], source[1]]];\n  let cnt = MAX_CNT;\n  while (queue.length) {\n    const [row, col] = queue.shift()!;\n    for (const [addrow, addcol] of dirs) {\n      const nrow = row + addrow;\n      const ncol = col + addcol;\n      const str = format(nrow, ncol);\n      if (nrow < 0 || nrow >= MAX || ncol < 0 || ncol >= MAX || blocked.has(str) || set.has(str))\n        continue;\n      if (--cnt == 0 || (nrow === target[0] && ncol === target[1])) return true;\n      set.add(str);\n      queue.push([nrow, ncol]);\n    }\n  }\n  return false;\n}\nfunction isEscapePossible(blocked: number[][], source: number[], target: number[]): boolean {\n  if (blocked.length <= 1) return true;\n  const blocked_set = new Set(blocked.map(([row, col]) => format(row, col)));\n  return check(blocked_set, source, target) && check(blocked_set, target, source);\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "数组", "哈希表"],
     "level": "Hard"
 }

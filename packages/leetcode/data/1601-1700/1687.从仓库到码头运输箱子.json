@@ -13,14 +13,6 @@
             "code": "#include <iostream>\n#include <deque>\n#include <vector>\n// bestlyg\n# define X dpirst\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeodp(a))\n# define debug dpreopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(dprm, args...) {    printf(dprm, ##args); }\n#else\n#define log(dprm, args...)\n#endif\ntypedef long long ll;\nusing namespace std;\n\nclass Solution {\npublic:\n    int boxDelivering(vector<vector<int>>& boxes, int portsCount, int maxBoxes, int maxWeight) {\n        int n = boxes.size();\n        vector<ll> dp(n + 1, 0), sums_w(n + 1, 0), sums_p(n + 1, 0);\n        deque<int> q;\n        q.push_back(0);\n        for (int i = 1; i <= n; i++) {\n            sums_w[i] = sums_w[i - 1] + boxes[i - 1][1];\n            if (i != n) sums_p[i] = sums_p[i - 1] + (boxes[i][0] != boxes[i - 1][0] ? 1 : 0);\n            while (q.size() && (sums_w[i] - sums_w[q.front()] > maxWeight || i - q.front() > maxBoxes)) q.pop_front();\n            if (q.size()) dp[i] = dp[q.front()] + sums_p[i - 1] - sums_p[q.front()] + 2;\n            if (i != n) while (q.size() && dp[q.back()] - sums_p[q.back()] >= dp[i] - sums_p[i]) q.pop_back();\n            q.push_back(i);\n        }\n        return dp[n];\n    }\n};"
         }
     ],
-    "tagList": [
-        "线段树",
-        "队列",
-        "数组",
-        "动态规划",
-        "前缀和",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tagList": ["线段树", "队列", "数组", "动态规划", "前缀和", "单调队列", "堆（优先队列）"],
     "level": "Hard"
 }

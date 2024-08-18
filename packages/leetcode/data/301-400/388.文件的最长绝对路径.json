@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int lengthLongestPath(string input) {\n        vector<string> s;\n        istringstream iss(input);\n        string tmp;\n        int ans = 0;\n        while (getline(iss, tmp, '\n')) {\n            int idx = 0;\n            while (idx < tmp.size() && tmp[idx] == '\t') idx++;\n            while (s.size() && s.size() > idx) s.pop_back();\n            string next = tmp.substr(idx, tmp.size() - idx);\n            s.push_back(next);\n            if (next.rfind(\".\") < next.size()) ans = max(ans, format(s));\n        }\n        return ans;\n    }\n    int format(vector<string> &s) {\n        int res = s.size() - 1;\n        for (auto &str : s) res += str.size();\n        return res;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "深度优先搜索",
-        "字符串"
-    ],
+    "tagList": ["栈", "深度优先搜索", "字符串"],
     "level": "Medium"
 }

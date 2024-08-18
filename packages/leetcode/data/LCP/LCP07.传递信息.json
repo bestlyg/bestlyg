@@ -13,11 +13,6 @@
             "code": "function numWays(n: number, relation: number[][], k: number): number {\n  const nextPartnerMap = new Map<number, Set<number>>();\n  for (const [cur, next] of relation) {\n    let set = nextPartnerMap.get(cur);\n    if (!set) nextPartnerMap.set(cur, (set = new Set()));\n    set.add(next);\n  }\n  let list = [0];\n  while (k--) {\n    list = list\n      .map(item => (nextPartnerMap.has(item) ? [...nextPartnerMap.get(item)!] : []))\n      .flat();\n  }\n  return list.filter(v => v === n - 1).length;\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "动态规划"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "图", "动态规划"],
     "level": "Easy"
 }

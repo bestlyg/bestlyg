@@ -13,9 +13,6 @@
             "code": "function leastBricks(wall: number[][]): number {\n  const rowLen = wall.length;\n  const size = wall[0].reduce((total, cur) => total + cur, 0);\n  if (wall.every(row => row.length === 1)) return rowLen;\n  const map: Record<number, number> = {};\n  for (const row of wall) {\n    let sum = -1;\n    for (const col of row) {\n      sum += col;\n      map[sum] = 1 + (map[sum] ?? 0);\n    }\n  }\n  Reflect.deleteProperty(map, size - 1);\n  return rowLen - Math.max(...Object.values(map));\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Medium"
 }

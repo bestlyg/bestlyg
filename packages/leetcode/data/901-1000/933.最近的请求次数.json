@@ -29,10 +29,6 @@
             "code": "type RecentCounter struct {\n    queue []int\n}\n\nfunc Constructor() RecentCounter {\n    res := RecentCounter{}\n    return res\n}\nfunc (this *RecentCounter) Ping(t int) int {\n    this.queue = append(this.queue, t)\n    for t-this.queue[0] > 3000 {\n        this.queue = this.queue[1:]\n    }\n    return len(this.queue)\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "队列",
-        "数据流"
-    ],
+    "tagList": ["设计", "队列", "数据流"],
     "level": "Easy"
 }

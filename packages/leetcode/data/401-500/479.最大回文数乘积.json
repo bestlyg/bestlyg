@@ -13,9 +13,6 @@
             "code": "long long arr[8] = {9,          9009,         906609,         99000099,\n                    9966006699, 999000000999, 99956644665999, 9999000000009999};\nclass Solution {\n    public:\n     int largestPalindrome(int n) { return arr[n - 1] % 1337; }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "枚举"
-    ],
+    "tagList": ["数学", "枚举"],
     "level": "Hard"
 }

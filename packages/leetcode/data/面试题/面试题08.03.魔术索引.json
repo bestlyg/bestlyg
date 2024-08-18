@@ -13,9 +13,6 @@
             "code": "function findMagicIndex(nums: number[]): number {\n  return _find(0, nums.length);\n  function _find(l: number, r: number): number {\n    if (l >= r) return -1;\n    const mid = (l + r) >> 1;\n    const num = nums[mid];\n    if (num === mid) return mid;\n    const left = _find(l, mid);\n    if (left === -1) return _find(mid + 1, r);\n    else return left;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

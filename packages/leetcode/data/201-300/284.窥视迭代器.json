@@ -21,10 +21,6 @@
             "code": "class PeekingIterator {\n  private nextVal: number;\n  private nextState: boolean;\n  constructor(private iterator: Iterator) {\n    this.next();\n  }\n  peek(): number {\n    return this.nextVal;\n  }\n  next(): number {\n    const ans = this.nextVal;\n    this.nextState = this.iterator.hasNext();\n    this.nextVal = this.iterator.next();\n    return ans;\n  }\n  hasNext(): boolean {\n    return this.nextState;\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "数组",
-        "迭代器"
-    ],
+    "tagList": ["设计", "数组", "迭代器"],
     "level": "Medium"
 }

@@ -21,11 +21,6 @@
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction removeStones(stones: number[][]): number {\n  const len = stones.length;\n  const uf = new UnionFind(len);\n  const findIndex = (stone: number[]): number[] => {\n    const ans: number[] = [];\n    for (let i = 0; i < len; i++) {\n      const s = stones[i];\n      if (s !== stone && (s[0] === stone[0] || s[1] === stone[1])) {\n        ans.push(i);\n      }\n    }\n    return ans;\n  };\n  for (let i = 0; i < len; i++) {\n    const stone = stones[i];\n    findIndex(stone).forEach(v => uf.union(i, v));\n  }\n  const cache: Record<number, number> = {};\n  for (let i = 0, l = uf.elements.length; i < l; i++) {\n    const index = uf.find(i);\n    cache[index] = (cache[index] ?? 0) + 1;\n  }\n  return Object.values(cache).reduce((total, cur) => (total += cur - 1), 0);\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "并查集",
-        "图",
-        "哈希表"
-    ],
+    "tagList": ["深度优先搜索", "并查集", "图", "哈希表"],
     "level": "Medium"
 }

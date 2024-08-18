@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int longestPalindrome(string s) {\n        unordered_map<char, int> m;\n        for (auto &c : s) m[c]++;\n        int ans = 0, odd = 0;\n        for (auto &item : m) {\n            if (item.second & 1) {\n                odd = 1;\n                item.second -= 1;\n            }\n            ans += item.second;\n        }\n        return ans + odd;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["贪心", "哈希表", "字符串"],
     "level": "Easy"
 }

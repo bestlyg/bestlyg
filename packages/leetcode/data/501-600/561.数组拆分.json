@@ -13,11 +13,6 @@
             "code": "function arrayPairSum(nums: number[]): number {\n  return nums\n    .sort((a, b) => a - b)\n    .filter((_, i) => !(i & 1))\n    .reduce((total, cur) => total + cur, 0);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "计数排序",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "计数排序", "排序"],
     "level": "Easy"
 }

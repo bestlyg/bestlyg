@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    int projectionArea(vector<vector<int>>& grid) {\n        int n = grid.size(), x = 0, y = 0, z = 0;\n        // z\n        for (int row = 0; row < n; row++) {\n            for (int col = 0; col < n; col++) {\n                if (grid[row][col] != 0) z++;\n            }\n        }\n        // y\n        for (int row = 0; row < n; row++) {\n            int h = 0;\n            for (int col = 0; col < n; col++) {\n                h = max(h, grid[row][col]);\n            }\n            y += h;\n        }\n        // x\n        for (int col = 0; col < n; col++) {\n            int h = 0;\n            for (int row = 0; row < n; row++) {\n                h = max(h, grid[row][col]);\n            }\n            x += h;\n        }\n        return x + y + z;\n    }\n};"
         }
     ],
-    "tagList": [
-        "几何",
-        "数组",
-        "数学",
-        "矩阵"
-    ],
+    "tagList": ["几何", "数组", "数学", "矩阵"],
     "level": "Easy"
 }

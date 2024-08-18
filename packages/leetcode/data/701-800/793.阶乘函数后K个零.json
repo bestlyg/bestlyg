@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int preimageSizeFZF(int k) {\n        return help(k + 1) - help(k);\n    }\n    long long help(int k) {\n        long long l = 0, r = 5LL * k;\n        while (l < r) {\n            long long mid = (l + r) / 2;\n            if (get_cnt(mid) >= k) r = mid;\n            else l = mid + 1;\n        }\n        return l;\n    }\n    int get_cnt(int num) {\n        int cnt = 0;\n        while (num) {\n            cnt += num / 5;\n            num /= 5;\n        }\n        return cnt;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "二分查找"
-    ],
+    "tagList": ["数学", "二分查找"],
     "level": "Hard"
 }

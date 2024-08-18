@@ -12,8 +12,8 @@ export default class LessPluginsGetLibraryInfo {
                         getPackageJsonField(
                             rootPath?.value || this.currentFileInfo.currentDirectory,
                             key?.value,
-                            transform?.value
-                        ) ?? ''
+                            transform?.value,
+                        ) ?? '',
                     );
                 },
             },

@@ -13,9 +13,6 @@
             "code": "function nextPermutation(nums: number[]): void {\n  const len = nums.length;\n  const swap = (i1: number, i2: number) => {\n    const t = nums[i1];\n    nums[i1] = nums[i2];\n    nums[i2] = t;\n  };\n  const reverse = (left: number) => {\n    let right = len - 1;\n    while (left < right) {\n      swap(left, right);\n      left++;\n      right--;\n    }\n  };\n  let i = len - 2;\n  while (i >= 0 && nums[i] >= nums[i + 1]) {\n    i--;\n  }\n  if (i >= 0) {\n    let j = len - 1;\n    while (j >= 0 && nums[i] >= nums[j]) {\n      j--;\n    }\n    swap(i, j);\n  }\n  reverse(i + 1);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针"
-    ],
+    "tagList": ["数组", "双指针"],
     "level": "Medium"
 }

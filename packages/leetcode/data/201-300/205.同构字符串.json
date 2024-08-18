@@ -13,9 +13,6 @@
             "code": "function isIsomorphic(s: string, t: string): boolean {\n  const map: Record<string, string> = {};\n  const set = new Set<string>();\n  for (let i = 0, l = s.length; i < l; i++) {\n    const sC = s[i];\n    const tC = t[i];\n    const mapC = map[sC];\n    if (!mapC) {\n      if (set.has(tC)) return false;\n      map[sC] = tC;\n      set.add(tC);\n    } else if (mapC !== tC) return false;\n  }\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "字符串"],
     "level": "Easy"
 }

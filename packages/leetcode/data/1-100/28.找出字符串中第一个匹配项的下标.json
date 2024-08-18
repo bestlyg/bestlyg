@@ -29,10 +29,6 @@
             "code": "function getMap(needle: string) {\n  const map: Record<string, number> = {};\n  for (let i = 0; needle[i]; i++) map[needle[i]] = i;\n  return (c: string) => map[c] ?? -1;\n}\nfunction strStr(haystack: string, needle: string): number {\n  if (needle.length === 0) return 0;\n  const len = needle.length;\n  const map = getMap(needle);\n  for (let i = 0; haystack[i]; i += len - map(haystack[i + len])) {\n    let j = 0;\n    while (needle[j] && haystack[i + j] === needle[j]) j++;\n    if (!needle[j]) return i;\n  }\n  return -1;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["双指针", "字符串", "字符串匹配"],
     "level": "Easy"
 }

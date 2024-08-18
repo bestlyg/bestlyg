@@ -13,9 +13,6 @@
             "code": "function gcd(a: number, b: number) {\n  if (!b) return a;\n  return gcd(b, a % b);\n}\nfunction gcdOfStrings(str1: string, str2: string): string {\n  if (str1 + str2 !== str2 + str1) return '';\n  return str1.substr(0, gcd(str1.length, str2.length));\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["数学", "字符串"],
     "level": "Easy"
 }

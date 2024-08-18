@@ -13,11 +13,6 @@
             "code": "function sumOfLeftLeaves(root: TreeNode | null): number {\n  let sum = 0;\n  order(root);\n  return sum;\n  function order(root: TreeNode | null): void {\n    if (root === null) return;\n    root.left && !root.left.left && !root.left.right && (sum += root.left.val);\n    order(root.left);\n    order(root.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

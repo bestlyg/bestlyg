@@ -21,12 +21,6 @@
             "code": "function flatten(root: TreeNode | null): void {\n  if (root === null || (root.left === null && root.right === null)) return;\n  const list: TreeNode[] = [];\n  _preorder(root);\n  let node: TreeNode = root;\n  for (let i = 1, l = list.length; i < l; i++) {\n    const v = list[i];\n    node.left = null;\n    node.right = list[i];\n    node = v;\n    if (i === l - 1) {\n      node.left = node.right = null;\n    }\n  }\n  function _preorder(node: TreeNode | null): void {\n    if (node === null) return;\n    list.push(node);\n    node.left !== null && _preorder(node.left);\n    node.right !== null && _preorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "链表",
-        "二叉树"
-    ],
+    "tagList": ["栈", "树", "深度优先搜索", "链表", "二叉树"],
     "level": "Medium"
 }

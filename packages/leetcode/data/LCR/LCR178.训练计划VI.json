@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int singleNumber(vector<int>& nums) {\n        int list[40] = {0};\n        for (auto& num : nums) {\n            for (int i = 0; i < 32; i++) {\n                if (num & (1 << i)) list[i]++;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < 32; i++) {\n            if (list[i] % 3) {\n                ans |= 1 << i;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组"
-    ],
+    "tagList": ["位运算", "数组"],
     "level": "Medium"
 }

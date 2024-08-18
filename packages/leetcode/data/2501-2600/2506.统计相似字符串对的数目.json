@@ -13,11 +13,6 @@
             "code": "class Solution {\npublic:\n    int similarPairs(vector<string>& words) {\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (auto &word : words) {\n            int num = toNum(word);\n            ans += m[num];\n            m[num]++;\n        }\n        return ans;\n    }\n    int toNum(string &word) {\n        int ans = 0;\n        for (auto &ch : word) {\n            ans |= (1 << (ch - 'a'));\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["位运算", "数组", "哈希表", "字符串"],
     "level": "Easy"
 }

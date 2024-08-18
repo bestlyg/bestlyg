@@ -21,11 +21,6 @@
             "code": "function stoneGame(piles: number[]): boolean {\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tagList": ["数组", "数学", "动态规划", "博弈"],
     "level": "Medium"
 }

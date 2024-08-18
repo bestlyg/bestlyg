@@ -32,7 +32,7 @@ export const formatCCode = R.pipe(
     removeEndLine,
     removeSingleLineComments,
     removeMultiLineComments,
-    removeEmptyLine
+    removeEmptyLine,
 );
 
 export function formatCode(code: string, fileExt: string) {

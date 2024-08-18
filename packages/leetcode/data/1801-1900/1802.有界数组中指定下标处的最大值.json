@@ -37,9 +37,6 @@
             "code": "impl Solution {\n    pub fn max_value(n: i32, index: i32, max_sum: i32) -> i32 {\n        let (mut l, mut r) = (1, max_sum);\n        while l < r {\n            let m = (l + r + 1) / 2;\n            if Solution::check(n, index, m) <= max_sum  as i64{\n                l = m;\n            } else {\n                r = m - 1;\n            }\n        }\n        l\n    }\n    fn check(n: i32, index: i32, val: i32) -> i64 {\n        let (n, index, val) = (n as i64, index as i64, val as i64);\n        let mut ans = val;\n        if val - index >= 1 {\n            ans += (val - index + val - 1) * index / 2;\n        } else {\n            ans += (1 + val - 1) * (val - 1) / 2 + (index - (val - 1));\n        }\n        if n - 1 - index <= val - 1 {\n            ans += (val - (n - 1 - index) + val - 1) * (n - 1 - index) / 2;\n        } else {\n            ans += (1 + val - 1) * (val - 1) / 2 + (n - 1 - index - (val - 1));\n        };\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "二分查找"
-    ],
+    "tagList": ["贪心", "二分查找"],
     "level": "Medium"
 }

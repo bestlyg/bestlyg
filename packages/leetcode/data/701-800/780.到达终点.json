@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    bool reachingPoints(int sx, int sy, int tx, int ty) {\n        while (tx > 0 && ty > 0) {\n            if (tx == sx && ty == sy) return true;\n            if (tx >= ty)\n                tx -= max((tx - sx) / ty, 1) * ty;\n            else\n                ty -= max((ty - sy) / tx, 1) * tx;\n        }\n        return false;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Hard"
 }

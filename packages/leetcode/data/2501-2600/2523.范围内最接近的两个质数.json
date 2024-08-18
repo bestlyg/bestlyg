@@ -21,9 +21,6 @@
             "code": "impl Solution {\n    pub fn closest_primes(left: i32, right: i32) -> Vec<i32> {\n        let primes = Solution::get_primes(right as usize);\n        let mut start = 1;\n        while start <= primes[0] && primes[start] < left as usize {\n            start += 1;\n        }\n        let mut ans: Vec<i32> = vec![-1; 2];\n        if start + 1 <= primes[0] {\n            start += 1;\n            ans[0] = primes[start - 1] as i32;\n            ans[1] = primes[start] as i32;\n            while start + 1 <= primes[0] {\n                start += 1;\n                if ((primes[start] - primes[start - 1]) as i32) < ans[1] - ans[0] {\n                    ans[0] = primes[start - 1] as i32;\n                    ans[1] = primes[start] as i32;\n                }\n            }\n        }\n        ans\n    }\n    fn get_primes(max: usize) -> Vec<usize> {\n        let mut ans = vec![0; 1000005];\n        for i in 2..=max {\n            if ans[i] == 0 {\n                ans[0] += 1;\n                let idx = ans[0];\n                ans[idx] = i;\n            }\n            for j in 1..=ans[0] {\n                if ans[j] * i >= 1000005 {\n                    break;\n                }\n                let idx = ans[j] * i;\n                ans[idx] = 1;\n                if i % ans[j] == 0 {\n                    break;\n                }\n            }\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "数论"
-    ],
+    "tagList": ["数学", "数论"],
     "level": "Medium"
 }

@@ -21,10 +21,6 @@
             "code": "function maxArea(height: number[]): number {\n  let left = 0;\n  let right = height.length - 1;\n  let ans = 0;\n  while (left < right) {\n    const rightH = height[right];\n    const leftH = height[left];\n    ans = Math.max(ans, Math.min(rightH, leftH) * (right - left));\n    if (rightH > leftH) left++;\n    else right--;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针"
-    ],
+    "tagList": ["贪心", "数组", "双指针"],
     "level": "Medium"
 }

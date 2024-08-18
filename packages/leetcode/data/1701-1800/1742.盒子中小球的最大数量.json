@@ -13,10 +13,6 @@
             "code": "class Solution {\n public:\n     int countBalls(int lowLimit, int highLimit) {\n         int ans = 0, list[46] = {0};\n         for (int num = lowLimit; num <= highLimit; num++) ans = max(ans, ++list[t(num)]);\n         return ans;\n     }\n     int t(int num) {\n         int ans = 0;\n         for (; num; num /= 10) ans += num % 10;\n         return ans;\n     }\n };"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "计数"
-    ],
+    "tagList": ["哈希表", "数学", "计数"],
     "level": "Easy"
 }

@@ -96,7 +96,7 @@ export class TransporterManager {
     };
     async createTransporter() {
         const transporter = await this.hooks.beforeCreateTransporter.promise(
-            new this.TransporterClass()
+            new this.TransporterClass(),
         );
         await this.hooks.afterCreateTransporter.promise(transporter);
         return transporter;

@@ -23,7 +23,7 @@ export const compute24: Compute24 = (nums, ops, target): string[] => {
                     res.push(
                         ...next(nextNums)
                             .filter(v => v.length)
-                            .map(v => [`${nums[i]} ${op} ${nums[j]}`, ...v])
+                            .map(v => [`${nums[i]} ${op} ${nums[j]}`, ...v]),
                     );
                 }
             }

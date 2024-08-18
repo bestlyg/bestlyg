@@ -21,8 +21,6 @@
             "code": "function lengthOfLastWord(s: string): number {\n  let start = s.length - 1;\n  while (s[start] === ' ') start--;\n  let end = start;\n  while (end >= 0 && s[end] !== ' ') end--;\n  return start - end;\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

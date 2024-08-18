@@ -21,11 +21,6 @@
             "code": "use std::collections::HashSet;\nimpl Solution {\n    pub fn distinct_prime_factors(nums: Vec<i32>) -> i32 {\n        let mut set = HashSet::<i32>::new();\n        for num in nums {\n            Solution::load(&mut set, num);\n        }\n        set.len() as i32\n    }\n    fn load(set: &mut HashSet<i32>, num: i32) {\n        let mut num = num;\n        let mut i = 2;\n        while i <= num {\n            if i > num {\n                break;\n            }\n            if num % i == 0 {\n                set.insert(i);\n            }\n            while num % i == 0 {\n                num /= i;\n            }\n            i += 1;\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "数学",
-        "数论"
-    ],
+    "tagList": ["数组", "哈希表", "数学", "数论"],
     "level": "Medium"
 }

@@ -29,11 +29,6 @@
             "code": "function findMode(root: TreeNode | null): number[] {\n  if (root === null) return [];\n  const map = new Map<number, number>();\n  inorder(root);\n  return [...map.entries()]\n    .sort(([, v1], [, v2]) => v2 - v1)\n    .filter(([, v], _, list) => v === list[0][1])\n    .map(([k]) => k);\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    map.set(node.val, 1 + (map.get(node.val) ?? 0));\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

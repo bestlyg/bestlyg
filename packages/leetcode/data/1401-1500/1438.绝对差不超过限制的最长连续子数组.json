@@ -21,13 +21,6 @@
             "code": "function longestSubarray(nums: number[], limit: number): number {\n  const n = nums.length;\n  return search();\n  function search(l = 0, r = nums.length): number {\n    if (l === r) return l;\n    const mid = (l + r + 1) >> 1;\n    if (check(mid)) l = mid;\n    else r = mid - 1;\n    return search(l, r);\n  }\n  function check(len: number): boolean {\n    const qMax: number[] = [];\n    const qMin: number[] = [];\n    for (let i = 0; i < n; i++) {\n      const num = nums[i];\n      while (qMax.length && nums[qMax[qMax.length - 1]] < num) qMax.pop();\n      while (qMin.length && nums[qMin[qMin.length - 1]] > num) qMin.pop();\n      qMax.push(i);\n      qMin.push(i);\n      if (i + 1 < len) continue;\n      if (i - qMax[0] === len) qMax.shift();\n      if (i - qMin[0] === len) qMin.shift();\n      if (nums[qMax[0]] - nums[qMin[0]] <= limit) return true;\n    }\n    return false;\n  }\n}"
         }
     ],
-    "tagList": [
-        "队列",
-        "数组",
-        "有序集合",
-        "滑动窗口",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tagList": ["队列", "数组", "有序集合", "滑动窗口", "单调队列", "堆（优先队列）"],
     "level": "Medium"
 }

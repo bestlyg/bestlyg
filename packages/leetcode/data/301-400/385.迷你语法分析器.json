@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    NestedInteger deserialize(string s) {\n        NestedInteger res;\n        if (s == \"[]\")\n            return res;\n        else if (s[0] == '[')\n            split(res, s.substr(1, s.size() - 2));\n        else\n            res.setInteger(stoi(s));\n        return res;\n    }\n    void split(NestedInteger &obj, string s) {\n        int level = 0, start = 0, n = s.size();\n        for (int i = 0; i < n; i++) {\n            char ch = s[i];\n            if (ch == '[')\n                level++;\n            else if (ch == ']')\n                level--;\n            else if (ch == ',' && level == 0)\n                obj.add(deserialize(s.substr(start, i - start))), start = i + 1;\n        }\n        obj.add(deserialize(s.substr(start, n - start)));\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "深度优先搜索",
-        "字符串"
-    ],
+    "tagList": ["栈", "深度优先搜索", "字符串"],
     "level": "Medium"
 }

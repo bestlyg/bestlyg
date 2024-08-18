@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn reinitialize_permutation(n: i32) -> i32 {\n        let n = n as usize;\n        let (mut l1, mut l2) = ((0..n).collect::<Vec<_>>(),vec![0;n] );\n        let mut ans = 1;\n        loop {\n            let mut f = true;\n            for i in 0..n {\n                if i % 2 == 0 {\n                    l2[i] = l1[i / 2];\n                } else {\n                    l2[i] = l1[n / 2 + (i - 1) / 2];\n                }\n                if l2[i] != i {\n                    f = false;\n                }\n            }\n            if f {\n                break;\n            }\n            ans += 1;\n            l1 = l2.clone();\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["数组", "数学", "模拟"],
     "level": "Medium"
 }

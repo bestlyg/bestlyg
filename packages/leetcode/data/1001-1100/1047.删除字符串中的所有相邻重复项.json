@@ -13,9 +13,6 @@
             "code": "function removeDuplicates(S: string): string {\n  const stack: string[] = [];\n  for (const c of S) {\n    stack.length === 0\n      ? stack.push(c)\n      : c === stack[stack.length - 1]\n      ? stack.pop()\n      : stack.push(c);\n  }\n  return stack.join('');\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Easy"
 }

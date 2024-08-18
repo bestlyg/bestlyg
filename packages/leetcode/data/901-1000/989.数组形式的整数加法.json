@@ -13,9 +13,6 @@
             "code": "function addToArrayForm(A: number[], K: number): number[] {\n  let add: 1 | 0 = 0;\n  const kArr: number[] = [];\n  while (K !== 0) {\n    kArr.push(K % 10);\n    K = ~~(K / 10);\n  }\n  A = A.reverse();\n  for (let i = 0, len = Math.max(A.length, kArr.length); i < len; i++) {\n    let num = (A[i] ?? 0) + (kArr[i] ?? 0) + add;\n    if (num >= 10) {\n      num -= 10;\n      add = 1;\n    } else {\n      add = 0;\n    }\n    A[i] = num;\n  }\n  add === 1 && A.push(1);\n  return A.reverse();\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

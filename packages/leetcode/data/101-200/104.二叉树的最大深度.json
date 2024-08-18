@@ -37,11 +37,6 @@
             "code": "int maxDepth(struct TreeNode* root){\n    // 如果为NULL就是0\n    if (!root) return 0;\n    // 否则判断左右子树的最大深度 + 1\n    return fmax(maxDepth (root->left), maxDepth(root->right)) + 1;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

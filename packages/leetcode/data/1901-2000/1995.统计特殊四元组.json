@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    int countQuadruplets(vector<int>& nums) {\n        int n = nums.size(), dp[n + 1][310][4], ans = 0;\n        memset(dp, 0, sizeof(int) * (n + 1) * 310 * 4);\n        dp[0][0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < 310; j++) {\n                for (int k = 0; k < 4; k++) {\n                    dp[i][j][k] += dp[i - 1][j][k];\n                    if (j >= nums[i - 1] && k >= 1)\n                        dp[i][j][k] += dp[i - 1][j - nums[i - 1]][k - 1];\n                }\n            }\n        }\n        for (int i = 3; i < n; i++) ans += dp[i][nums[i]][3];\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "枚举"
-    ],
+    "tagList": ["数组", "哈希表", "枚举"],
     "level": "Easy"
 }

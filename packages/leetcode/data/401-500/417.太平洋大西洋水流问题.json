@@ -13,11 +13,6 @@
             "code": "int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};\nclass Solution {\n   public:\n    int n, m;\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\n        n = heights.size(), m = heights[0].size();\n        vector<vector<int>> arr(n, vector(m, 0));\n        for (int row = 0; row < n; row++) {\n            arr[row][0] |= 0b01;\n            arr[row][m - 1] |= 0b10;\n            dfs(row, 0, arr, heights);\n            dfs(row, m - 1, arr, heights);\n        }\n        for (int col = 0; col < m; col++) {\n            arr[0][col] |= 0b01;\n            arr[n - 1][col] |= 0b10;\n            dfs(0, col, arr, heights);\n            dfs(n - 1, col, arr, heights);\n        }\n        vector<vector<int>> ans;\n        for (int row = 0; row < n; row++) {\n            for (int col = 0; col < m; col++) {\n                if (arr[row][col] != 0b11) continue;\n                vector<int> item(2);\n                item[0] = row;\n                item[1] = col;\n                ans.push_back(item);\n            }\n        }\n        return ans;\n    }\n    void dfs(int row, int col, vector<vector<int>>& arr,\n             vector<vector<int>>& heights) {\n        for (int i = 0; i < 4; i++) {\n            int nrow = row + dirs[i][0], ncol = col + dirs[i][1];\n            if (nrow < 0 || ncol < 0 || nrow == n || ncol == m) continue;\n            if (heights[nrow][ncol] < heights[row][col]) continue;\n            if (arr[row][col] == arr[nrow][ncol]) continue;\n            arr[nrow][ncol] |= arr[row][col];\n            dfs(nrow, ncol, arr, heights);\n        }\n    }\n};"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "数组", "矩阵"],
     "level": "Medium"
 }

@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    vector<int> shortestToChar(string s, char c) {\n        int n = s.size();\n        vector<int> check(n, -1);\n        queue<pair<int, int>> q;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == c) {\n                q.push(make_pair(i, 0));\n                check[i] = 0;\n            }\n        }\n        while (q.size()) {\n            pair<int, int> item = q.front();\n            q.pop();\n            int row = item.first, cnt = item.second;\n            if (row < n - 1 && check[row + 1] == -1) {\n                q.push(make_pair(row + 1, cnt + 1));\n                check[row + 1] = cnt + 1;\n            }\n            if (row > 0 && check[row - 1] == -1) {\n                q.push(make_pair(row - 1, cnt + 1));\n                check[row - 1] = cnt + 1;\n            }\n        }\n        return check;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["数组", "双指针", "字符串"],
     "level": "Easy"
 }

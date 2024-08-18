@@ -21,11 +21,6 @@
             "code": "function checkValidString(s: string): boolean {\n  let min = 0;\n  let max = 0;\n  for (const c of s) {\n    if (c === '(') {\n      min++;\n      max++;\n    } else if (c === ')') {\n      min = Math.max(min - 1, 0);\n      max--;\n      if (max < 0) return false;\n    } else {\n      min = Math.max(min - 1, 0);\n      max++;\n    }\n  }\n  return min === 0;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "贪心",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["栈", "贪心", "字符串", "动态规划"],
     "level": "Medium"
 }

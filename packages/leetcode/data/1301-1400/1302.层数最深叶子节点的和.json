@@ -29,11 +29,6 @@
             "code": "use std::cell::RefCell;\nuse std::collections::VecDeque;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn deepest_leaves_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        let root = root.unwrap();\n        let mut q = VecDeque::<Rc<RefCell<TreeNode>>>::new();\n        q.push_back(root.clone());\n        let mut ans = root.as_ref().borrow().val;\n        let mut cur = 0;\n        let mut size = 1;\n        while !q.is_empty() {\n            let node = q.pop_front().unwrap();\n            let node = node.as_ref().borrow();\n            if node.left.is_some() {\n                cur += node.left.as_ref().unwrap().as_ref().borrow().val;\n                q.push_back(node.left.as_ref().unwrap().clone());\n            }\n            if node.right.is_some() {\n                cur += node.right.as_ref().unwrap().as_ref().borrow().val;\n                q.push_back(node.right.as_ref().unwrap().clone());\n            }\n            size -= 1;\n            if size == 0 {\n                size = q.len();\n                if size != 0 {\n                    ans = cur;\n                }\n                cur = 0;\n            }\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Medium"
 }

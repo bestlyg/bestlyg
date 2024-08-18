@@ -46,7 +46,10 @@ export interface ISingleLinkedList<T> {
     find(element: T): number;
 }
 export class SingleLinkedListNode<T> {
-    constructor(public val: T, public next: SingleLinkedListNode<T> | null = null) {}
+    constructor(
+        public val: T,
+        public next: SingleLinkedListNode<T> | null = null,
+    ) {}
 }
 export class SingleLinkedList<T> implements ISingleLinkedList<T> {
     private dummyHead = new SingleLinkedListNode(ANY_OBJ);

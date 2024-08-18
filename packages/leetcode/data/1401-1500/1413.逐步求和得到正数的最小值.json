@@ -29,9 +29,6 @@
             "code": "fn check(nums: &Vec<i32>, v: i32) -> bool {\n    let mut v = v;\n    for num in nums {\n        v += num;\n        if v <= 0 {\n            return false;\n        }\n    }\n    true\n}\n\nimpl Solution {\n    pub fn min_start_value(nums: Vec<i32>) -> i32 {\n        let (mut l, mut r) = (1, i32::MAX);\n        while l < r {\n            let m = l + (r - l) / 2;\n            if check(&nums, m) {\n                r = m;\n            } else {\n                l = m + 1;\n            }\n        }\n        l\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["数组", "前缀和"],
     "level": "Easy"
 }

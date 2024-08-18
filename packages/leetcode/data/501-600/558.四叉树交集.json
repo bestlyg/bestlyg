@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    Node *intersect(Node *quadTree1, Node *quadTree2) {\n        if (quadTree1->isLeaf) {\n            if (quadTree1->val)\n                return new Node(true, true);\n            else\n                return new Node(quadTree2->val, quadTree2->isLeaf,\n                                quadTree2->topLeft, quadTree2->topRight,\n                                quadTree2->bottomLeft, quadTree2->bottomRight);\n        }\n        if (quadTree2->isLeaf) {\n            if (quadTree2->val)\n                return new Node(true, true);\n            else\n                return new Node(true, false, quadTree1->topLeft,\n                                quadTree1->topRight, quadTree1->bottomLeft,\n                                quadTree1->bottomRight);\n        }\n        Node *tl = intersect(quadTree1->topLeft, quadTree2->topLeft),\n             *tr = intersect(quadTree1->topRight, quadTree2->topRight),\n             *bl = intersect(quadTree1->bottomLeft, quadTree2->bottomLeft),\n             *br = intersect(quadTree1->bottomRight, quadTree2->bottomRight);\n        if (tl->isLeaf && tr->isLeaf && bl->isLeaf && br->isLeaf &&\n            tl->val == tr->val && tl->val == bl->val && tl->val == br->val)\n            return new Node(tl->val, true);\n        else\n            return new Node(false, false, tl, tr, bl, br);\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "分治"
-    ],
+    "tagList": ["树", "分治"],
     "level": "Medium"
 }

@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    string mergeAlternately(string word1, string word2) {\n        string ans = \"\";\n        for (int i1 = 0, i2 = 0; i1 < word1.size() || i2 < word2.size(); i1++, i2++) {\n            if (i1 < word1.size()) ans += word1[i1];\n            if (i2 < word2.size()) ans += word2[i2];\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

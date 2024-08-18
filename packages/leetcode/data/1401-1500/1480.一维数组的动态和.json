@@ -21,9 +21,6 @@
             "code": "function runningSum(nums: number[]): number[] {\n  for (let i = 1, n = nums.length; i < n; i++) nums[i] += nums[i - 1];\n  return nums;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["数组", "前缀和"],
     "level": "Easy"
 }

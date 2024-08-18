@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    int numSubarrayProductLessThanK(vector<int>& nums, int k) {\n        if (k == 0) return 0;\n        int ans = 0, num = 1, l = 0;\n        for (int r = 0; r < nums.size(); r++) {\n            num *= nums[r];\n            while (l <= r && num >= k) num /= nums[l++];\n            ans += r - l + 1;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "滑动窗口"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "function destCity(paths: string[][]): string {\n  const map = new Map<string, string>();\n  const set = new Set<string>();\n  for (const [c1, c2] of paths) {\n    map.set(c1, c2);\n    set.add(c1);\n    set.add(c2);\n  }\n  for (const c of map.keys()) set.delete(c);\n  return [...set][0];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["数组", "哈希表", "字符串"],
     "level": "Easy"
 }

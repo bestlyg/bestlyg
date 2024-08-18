@@ -21,10 +21,6 @@
             "code": "function maximumProduct(nums: number[]): number {\n  nums.sort((a, b) => a - b);\n  const len = nums.length;\n  return Math.max(nums[0] * nums[1] * nums[len - 1], nums[len - 1] * nums[len - 2] * nums[len - 3]);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "排序"
-    ],
+    "tagList": ["数组", "数学", "排序"],
     "level": "Easy"
 }

@@ -13,9 +13,6 @@
             "code": "function isInterleave(s1: string, s2: string, s3: string): boolean {\n  if (s1 === '' && s2 === '' && s3 === '') return true;\n  if (s1.length + s2.length !== s3.length) return false;\n  if (s1[0] === s3[0]) {\n    if (isInterleave(s1.substr(1), s2, s3.substr(1))) return true;\n  }\n  if (s2[0] === s3[0]) {\n    if (isInterleave(s1, s2.substr(1), s3.substr(1))) return true;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Medium"
 }

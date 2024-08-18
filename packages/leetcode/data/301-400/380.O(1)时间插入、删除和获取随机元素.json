@@ -29,12 +29,6 @@
             "code": "class RandomizedSet {\n   public:\n    vector<int> list;\n    unordered_map<int, int> m;\n    RandomizedSet() { srand((int)time(0)); }\n    bool insert(int val) {\n        if (m.count(val)) return false;\n        m[val] = list.size();\n        list.push_back(val);\n        return true;\n    }\n    bool remove(int val) {\n        if (!m.count(val)) return false;\n        int idx = m[val], last_idx = list.size() - 1;\n        m[list[last_idx]] = idx;\n        swap(list[idx], list[last_idx]);\n        list.pop_back();\n        m.erase(val);\n        return true;\n    }\n    int getRandom() {\n        int idx = random() % list.size();\n        return list[idx];\n    }\n};"
         }
     ],
-    "tagList": [
-        "设计",
-        "数组",
-        "哈希表",
-        "数学",
-        "随机化"
-    ],
+    "tagList": ["设计", "数组", "哈希表", "数学", "随机化"],
     "level": "Medium"
 }

@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    string mostCommonWord(string paragraph, vector<string>& banned) {\n        int n = paragraph.size();\n        string ans = \"\";\n        unordered_map<string, int> m;\n        unordered_set<string> s;\n        for (auto& str : banned) s.insert(str);\n        for (int i = 0; i < n; i++) {\n            while (i < n && !isalpha(paragraph[i])) i++;\n            if (i == n) break;\n            int end = i;\n            string next = \"\";\n            do {\n                next += tolower(paragraph[end++]);\n            } while (end < n && isalpha(paragraph[end]));\n            if (!s.count(next) && m[ans] < ++m[next]) ans = next;\n            i = end;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "字符串", "计数"],
     "level": "Easy"
 }

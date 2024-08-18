@@ -21,12 +21,6 @@
             "code": "function find132pattern(nums: number[]): boolean {\n  const n = nums.length;\n  const l: number[] = [Infinity];\n  for (let i = 1; i < n; i++) l[i] = Math.min(l[i - 1], nums[i - 1]);\n  const stack: number[] = [];\n  for (let i = n - 1; i >= 0; i--) {\n    const mid = nums[i];\n    let r: number | null = null;\n    while (stack.length && stack[stack.length - 1] < mid) r = stack.pop()!;\n    if (r && mid > r && mid > l[i] && r > l[i]) return true;\n    stack.push(mid);\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "二分查找",
-        "有序集合",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "二分查找", "有序集合", "单调栈"],
     "level": "Medium"
 }

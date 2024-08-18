@@ -13,8 +13,6 @@
             "code": "var hammingWeight = function (n) {\n  let ans = 0;\n  for (let i = 0; i <= 31; i++) {\n    if ((n >> i) & 1) ans++;\n  }\n  return ans;\n};"
         }
     ],
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "level": "Easy"
 }

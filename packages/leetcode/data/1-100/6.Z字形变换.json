@@ -21,8 +21,6 @@
             "code": "class Solution {\n   public:\n    string convert(string s, int numRows) {\n        if (numRows == 1) return s;\n        char arr[1000][1000];\n        memset(arr, 0, sizeof(char) * 1000 * 1000);\n        for (int idx = 0, row = 0, col = 0, n = s.size(); idx < n;) {\n            while (idx < n && row < numRows - 1) arr[row++][col] = s[idx++];\n            while (idx < n && row > 0) arr[row--][col++] = s[idx++];\n        }\n        string ans = \"\";\n        for (int i = 0; i < 1000; i++) {\n            for (int j = 0; j < 1000; j++) {\n                if (arr[i][j]) ans += arr[i][j];\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Medium"
 }

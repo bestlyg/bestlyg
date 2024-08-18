@@ -21,9 +21,6 @@
             "code": "function search(nums: number[], target: number): boolean {\n  let l = 0;\n  let r = nums.length - 1;\n  if (nums[l] === target || nums[r] === target) return true;\n  while (l < r) {\n    while (l < r && nums[l] !== target && nums[l] === nums[r]) {\n      l++;\n      r--;\n    }\n    if (nums[l] === target || nums[r] === target) return true;\n    const mid = (r + l) >> 1;\n    const midNum = nums[mid];\n    if (midNum === target) return true;\n    if (midNum <= nums[r]) {\n      if (midNum <= target && target <= nums[r]) l = mid + 1;\n      else r = mid - 1;\n    } else {\n      if (nums[l] <= target && target <= midNum) r = mid - 1;\n      else l = mid + 1;\n    }\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

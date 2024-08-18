@@ -39,7 +39,7 @@ export default defineUnlistedScript(() => {
     function sendMessage(
         message: any,
         request?: any,
-        subscriber?: (data: unknown) => void
+        subscriber?: (data: unknown) => void,
     ): Promise<any> {
         return new Promise((resolve, reject): void => {
             const id = getId();
@@ -80,9 +80,9 @@ export default defineUnlistedScript(() => {
                                                 name,
                                                 type,
                                             };
-                                        }
+                                        },
                                     );
-                                }
+                                },
                             ),
                         subscribe: () => {
                             return () => {};

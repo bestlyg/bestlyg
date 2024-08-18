@@ -21,11 +21,6 @@
             "code": "function bs(houses: number[], n: number, heaters: number[], m: number, rad: number): boolean {\n  let idx = 0;\n  for (let i = 0; i < m && idx < n; i++) {\n    const heater = heaters[i];\n    while (idx < n && Math.abs(heater - houses[idx]) <= rad) idx++;\n  }\n  return idx === n;\n}\nfunction findRadius(houses: number[], heaters: number[]): number {\n  houses.sort((a, b) => a - b);\n  heaters.sort((a, b) => a - b);\n  const houseLen = houses.length;\n  const heaterLen = heaters.length;\n  let l = 0;\n  let r = 1e9;\n  while (l < r) {\n    const m = (l + r) >> 1;\n    if (bs(houses, houseLen, heaters, heaterLen, m)) r = m;\n    else l = m + 1;\n  }\n  return l;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序"],
     "level": "Medium"
 }

@@ -18,7 +18,10 @@ export class HashMap<K, V> implements Map<K, V> {
     get empty() {
         return this._size === 0;
     }
-    constructor(private compare: (t1: K, t2: K) => number, private max = 31) {}
+    constructor(
+        private compare: (t1: K, t2: K) => number,
+        private max = 31,
+    ) {}
     clear() {
         this.list.length = 0;
         this._size = 0;

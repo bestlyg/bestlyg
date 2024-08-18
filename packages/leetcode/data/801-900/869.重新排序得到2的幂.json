@@ -13,12 +13,6 @@
             "code": "function reorderedPowerOf2(n: number): boolean {\n  const chars = n.toString().split('');\n  const len = chars.length;\n  const list: number[] = [];\n  const set = new Set<number>();\n  dfs();\n  return list.some(num => (num & (num - 1)) === 0);\n  function dfs(num = 0) {\n    if (set.size === len) {\n      list.push(num);\n      return;\n    }\n    for (let i = 0; i < len; i++) {\n      if (set.has(i)) continue;\n      const ch = chars[i];\n      if (num === 0 && ch === '0') continue;\n      set.add(i);\n      dfs(num * 10 + ch.codePointAt(0)! - '0'.codePointAt(0)!);\n      set.delete(i);\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "计数",
-        "枚举",
-        "排序"
-    ],
+    "tagList": ["哈希表", "数学", "计数", "枚举", "排序"],
     "level": "Medium"
 }

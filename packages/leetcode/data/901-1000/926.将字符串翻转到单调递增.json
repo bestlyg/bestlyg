@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int minFlipsMonoIncr(string s) {\n        int cnt0 = 0, cnt1 = 0, ans;\n        for (auto &ch : s)\n            if (ch == '0') cnt0++;\n        ans = cnt0;\n        for (auto &ch : s) {\n            if (ch == '0')\n                cnt0--;\n            else\n                cnt1++;\n            ans = min(ans, cnt0 + cnt1);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Medium"
 }

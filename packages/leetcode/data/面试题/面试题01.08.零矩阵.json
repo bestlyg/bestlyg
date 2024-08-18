@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n        int n = matrix.size(), m = matrix[0].size();\n        unordered_set<int> rows, cols;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (matrix[i][j] == 0) {\n                    rows.insert(i);\n                    cols.insert(j);\n                }\n            }\n        }\n        for (auto &row : rows) {\n            for (int i = 0; i < m; i++) matrix[row][i] = 0;\n        }\n        for (auto &col : cols) {\n            for (int i = 0; i < n; i++) matrix[i][col] = 0;\n        }\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "矩阵"
-    ],
+    "tagList": ["数组", "哈希表", "矩阵"],
     "level": "Medium"
 }

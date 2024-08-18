@@ -13,9 +13,6 @@
             "code": "function combinationSum2(candidates: number[], target: number): number[][] {\n  candidates.sort((a, b) => a - b);\n  const len = candidates.length;\n  const res: number[][] = [];\n  dfs();\n  return res;\n  function dfs(start = 0, temp: number[] = [], sum = 0) {\n    if (sum === target) res.push(temp.slice());\n    else if (sum > target) {\n    } else {\n      for (let i = start; i < len; i++) {\n        const num = candidates[i];\n        if (candidates[i - 1] === num && i - 1 >= start) continue;\n        temp.push(num);\n        dfs(i + 1, temp, sum + num);\n        temp.pop();\n      }\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["数组", "回溯"],
     "level": "Medium"
 }

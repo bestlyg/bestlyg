@@ -29,9 +29,6 @@
             "code": "function hammingWeight(n: number): number {\n  let ans = 0;\n  while (n) {\n    n &= n - 1;\n    ans++;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "分治"
-    ],
+    "tagList": ["位运算", "分治"],
     "level": "Easy"
 }

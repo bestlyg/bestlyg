@@ -13,10 +13,6 @@
             "code": "function judgeSquareSum(c: number): boolean {\n  let num1 = 0;\n  let num2 = ~~Math.sqrt(c) + 1;\n  while (num1 <= num2) {\n    const sum = num1 ** 2 + num2 ** 2;\n    if (sum > c) num2--;\n    else if (sum < c) num1++;\n    else return true;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "双指针",
-        "二分查找"
-    ],
+    "tagList": ["数学", "双指针", "二分查找"],
     "level": "Medium"
 }

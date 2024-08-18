@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    string toGoatLatin(string sentence) {\n        istringstream iss(sentence);\n        string tmp, ans = \"\";\n        int cnt = 1;\n        while (getline(iss, tmp, ' ')) {\n            char firstch = tolower(tmp[0]);\n            if (firstch == 'a' || firstch == 'e' || firstch == 'i' ||\n                firstch == 'o' || firstch == 'u')\n                tmp += \"ma\";\n            else\n                tmp = tmp.substr(1, tmp.size() - 1) + tmp[0] + \"ma\";\n            for (int i = 0; i < cnt; i++) tmp += \"a\";\n            if (ans != \"\") ans += \" \";\n            ans += tmp;\n            cnt++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

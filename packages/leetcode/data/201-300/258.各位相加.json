@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int addDigits(int num) {\n        if (num < 10) return num;\n        int ans = 0;\n        for (; num; num /= 10) ans += num % 10;\n        return addDigits(ans);\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "数论",
-        "模拟"
-    ],
+    "tagList": ["数学", "数论", "模拟"],
     "level": "Easy"
 }

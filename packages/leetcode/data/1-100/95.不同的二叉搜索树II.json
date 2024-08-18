@@ -21,12 +21,6 @@
             "code": "function generateTrees(n: number): Array<TreeNode | null> {\n  const createTree = (startNum: number, endNum: number): (TreeNode | null)[] => {\n    const ans: TreeNode[] = [];\n    if (startNum > endNum) return [null];\n    for (let i = startNum; i <= endNum; i++) {\n      const leftList = createTree(startNum, i - 1);\n      const rightList = createTree(i + 1, endNum);\n      for (const left of leftList) {\n        for (const right of rightList) {\n          const node = new TreeNode(i, left, right);\n          ans.push(node);\n        }\n      }\n    }\n    return ans;\n  };\n  return createTree(1, n);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "动态规划",
-        "回溯",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "动态规划", "回溯", "二叉树"],
     "level": "Medium"
 }

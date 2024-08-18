@@ -37,10 +37,6 @@
             "code": "function maxSubArray(nums: number[]): number {\n  if (nums.length === 1) return nums[0];\n  const sums = [0];\n  nums.forEach((num, i) => sums.push(sums[i] + num));\n  const queue: number[] = [0];\n  let ans = -Infinity;\n  for (let i = 1; i <= nums.length; i++) {\n    const num = sums[i];\n    ans = Math.max(ans, num - queue[0]);\n    while (queue.length && queue[queue.length - 1] > num) queue.pop();\n    queue.push(num);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "分治",
-        "动态规划"
-    ],
+    "tagList": ["数组", "分治", "动态规划"],
     "level": "Easy"
 }

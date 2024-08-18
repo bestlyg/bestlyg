@@ -13,9 +13,6 @@
             "code": "function titleToNumber(columnTitle: string): number {\n  let ans = 0;\n  for (let i = columnTitle.length - 1, bit = 0; i >= 0; i--, bit++) {\n    const num = columnTitle.codePointAt(i)! - 'A'.codePointAt(0)! + 1;\n    ans += num * 26 ** bit;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["数学", "字符串"],
     "level": "Easy"
 }

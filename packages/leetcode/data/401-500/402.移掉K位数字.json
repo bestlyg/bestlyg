@@ -21,11 +21,6 @@
             "code": "function removeKdigits(num: string, k: number): string {\n  const stack: number[] = [];\n  for (let i = 0; i < num.length; i++) {\n    const v = num.codePointAt(i)! - '0'.codePointAt(0)!;\n    while (k && stack.length && stack[stack.length - 1] > v) {\n      stack.pop();\n      k--;\n    }\n    stack.push(v);\n  }\n  while (stack.length && k) {\n    stack.pop();\n    k--;\n  }\n  while (stack.length && stack[0] === 0) stack.shift();\n  return stack.join('') || '0';\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "贪心",
-        "字符串",
-        "单调栈"
-    ],
+    "tagList": ["栈", "贪心", "字符串", "单调栈"],
     "level": "Medium"
 }

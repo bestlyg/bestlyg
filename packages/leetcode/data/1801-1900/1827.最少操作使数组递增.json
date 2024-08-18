@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        int ans = 0;\n        for (int i = 1; i < nums.size(); i++) {\n            if (nums[i] <= nums[i - 1]) {\n                ans += nums[i - 1] - nums[i] + 1;\n                nums[i] = nums[i - 1] + 1;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Easy"
 }

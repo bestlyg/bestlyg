@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    int n;\n    bool rotateString(string s, string goal) {\n        n = s.size();\n        vector<int> list;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == goal[0]) list.push_back(i);\n        }\n        for (auto &start : list) {\n            if (check(s, goal, start)) return true;\n        }\n        return false;\n    }\n    bool check(string &s, string &goal, int start) {\n        for (int i = 0; i < n; i++, start = (start + 1) % n) {\n            if (s[start] != goal[i]) return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["字符串", "字符串匹配"],
     "level": "Easy"
 }

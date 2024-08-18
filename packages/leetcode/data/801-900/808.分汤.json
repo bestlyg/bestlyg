@@ -21,10 +21,6 @@
             "code": "class Solution {\npublic:\n    double soupServings(int n) {\n        n = ceil(1.0 * n / 25);\n        if (n > 179) return 1.0;\n        unordered_map<int, unordered_map<int, double>> m;\n        function<double(int, int)> dfs= [&m, &dfs](int a, int b) {\n            if (m.count(a) && m[a].count(b)) return m[a][b];\n            if (a <= 0 && b > 0) return m[a][b] = 1.0;\n            if (a <= 0 && b <= 0) return m[a][b] = 0.5;\n            if (a > 0 && b <= 0) return m[a][b] = 0.0;\n            return m[a][b] = (\n                dfs(a - 4, b) +\n                dfs(a - 3, b - 1) +\n                dfs(a - 2, b - 2) +\n                dfs(a - 1, b - 3)\n            ) / 4;\n        };\n        return dfs(n, n);\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "动态规划",
-        "概率与统计"
-    ],
+    "tagList": ["数学", "动态规划", "概率与统计"],
     "level": "Medium"
 }

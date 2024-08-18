@@ -29,10 +29,6 @@
             "code": "struct TreeNode* searchBST(struct TreeNode* root, int val){\n    if (!root) return NULL;\n    if (root->val == val) return root;\n    if (root->val > val) return searchBST(root->left, val);\n    else return searchBST(root->right, val);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

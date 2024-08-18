@@ -21,11 +21,6 @@
             "code": "function nextGreaterElement(nums1: number[], nums2: number[]): number[] {\n  const map = new Map<number, number>();\n  nums1.forEach((v, i) => map.set(v, i));\n  const ans: number[] = new Array(nums1.length).fill(-1);\n  const stack: number[] = [];\n  for (const num2 of nums2) {\n    while (stack.length && stack[stack.length - 1] < num2) {\n      const num = stack.pop()!;\n      if (map.has(num)) ans[map.get(num)!] = num2;\n    }\n    stack.push(num2);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "哈希表",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "哈希表", "单调栈"],
     "level": "Easy"
 }

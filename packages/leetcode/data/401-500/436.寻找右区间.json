@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<int> findRightInterval(vector<vector<int>> &intervals) {\n        int n = intervals.size();\n        vector<int> ans(n, -1);\n        vector<int> list(n);\n        for (int i = 0; i < n; i++) list[i] = i;\n        sort(list.begin(), list.end(), [&](int &a, int &b) -> bool {\n            if (intervals[a][0] == intervals[b][0])\n                return intervals[a][1] < intervals[b][1];\n            return intervals[a][0] < intervals[b][0];\n        });\n        for (int i = 0; i < n; i++)\n            ans[i] = bs(intervals, list, intervals[i][1]);\n        return ans;\n    }\n    int bs(vector<vector<int>> &intervals, vector<int> &list, int num) {\n        int l = 0, r = intervals.size(), m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (intervals[list[m]][0] >= num)\n                r = m;\n            else\n                l = m + 1;\n        }\n        if (r == intervals.size()) return -1;\n        return list[l];\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "二分查找", "排序"],
     "level": "Medium"
 }

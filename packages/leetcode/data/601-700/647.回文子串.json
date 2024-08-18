@@ -13,10 +13,6 @@
             "code": "function countSubstrings(s: string): number {\n  const n = s.length;\n  let ans = 0;\n  for (let i = 0; i < 2 * n - 1; ++i) {\n    let l = ~~(i / 2);\n    let r = l + (i % 2);\n    while (l >= 0 && r < n && s[l] === s[r]) {\n      --l;\n      ++r;\n      ++ans;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["双指针", "字符串", "动态规划"],
     "level": "Medium"
 }

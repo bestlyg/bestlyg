@@ -21,11 +21,6 @@
             "code": "/**\n *    dp[0][0] 父节点和当前节点都不存在摄像头\n *    dp[1][0] 父节点存在摄像头，当前节点不存在\n *    dp[0][1] 父节点不存在摄像头，当前节点存在\n *    dp[1][1] 父节点和当前节点都存在摄像头\n */\nfunction minCameraCover(root: TreeNode | null): number {\n  const getArr = (): number[][] => new Array(2).fill(0).map(_ => new Array(2).fill(0));\n  const dp: number[][] = getArr();\n  const dfs = (node: TreeNode | null, dp: number[][]): void => {\n    if (!node) {\n      // 如果节点是null\n      dp[1][0] = dp[0][0] = 0;\n      dp[0][1] = dp[1][1] = Infinity; // null节点不存在摄像头\n    } else if (!node.left && !node.right) {\n      // 如果节点是叶子节点\n      dp[0][0] = Infinity; // 不存在此种情况，叶子节点和父节点必须有一个有摄像头\n      dp[1][1] = dp[0][1] = 1;\n      dp[1][0] = 0;\n    } else {\n      const left: number[][] = getArr();\n      const right: number[][] = getArr();\n      dfs(node.left, left);\n      dfs(node.right, right);\n      dp[0][0] = Math.min(\n        left[0][1] + right[0][0],\n        left[0][0] + right[0][1],\n        left[0][1] + right[0][1]\n      ); // 如果父节点和当前节点都不存在摄像头，则子节点最少存在一个摄像头\n      dp[1][0] = Math.min(left[0][0] + right[0][0], dp[0][0]); // 如果父节点存在摄像头，当前节点不存在，则子节点可以存在任意情况\n      dp[1][1] = dp[0][1] =\n        1 +\n        Math.min(\n          left[1][0] + right[1][0],\n          left[1][1] + right[1][0],\n          left[1][0] + right[1][1],\n          left[1][1] + right[1][1]\n        ); // 如果父节点不存在摄像头，当前节点存在，则子节点可存在任意情况，由于当前节点存在，则需增1\n    }\n  };\n  dfs(root, dp);\n  return Math.min(dp[0][1], dp[0][0]);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "动态规划",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "动态规划", "二叉树"],
     "level": "Hard"
 }

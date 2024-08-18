@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    bool isAlienSorted(vector<string> &words, string order) {\n        char map[26] = {0};\n        for (int i = 0; i < order.size(); i++) map[order[i] - 'a'] = i;\n        string prev = words[0];\n        for (int i = 1; i < words.size(); i++) {\n            if (!check(prev, words[i], map)) return false;\n            prev = words[i];\n        }\n        return true;\n    }\n    bool check(string &s1, string &s2, char *map) {\n        int i1 = 0, n1 = s1.size(), i2 = 0, n2 = s2.size();\n        while (i1 < n1 && i2 < n2) {\n            if (map[s1[i1] - 'a'] > map[s2[i2] - 'a']) return false;\n            if (map[s1[i1] - 'a'] < map[s2[i2] - 'a']) return true;\n            i1++;\n            i2++;\n        }\n        return i1 == n1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["数组", "哈希表", "字符串"],
     "level": "Easy"
 }

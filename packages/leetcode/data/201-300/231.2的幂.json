@@ -37,10 +37,6 @@
             "code": "function isPowerOfTwo(n: number): boolean {\n  if (n < 0) return false;\n  let ans = 0;\n  while (n) {\n    if (n & 1) ans++;\n    n >>= 1;\n  }\n  return ans === 1;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "递归",
-        "数学"
-    ],
+    "tagList": ["位运算", "递归", "数学"],
     "level": "Easy"
 }

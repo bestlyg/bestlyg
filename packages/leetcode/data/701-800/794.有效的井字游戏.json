@@ -13,9 +13,6 @@
             "code": "function validTicTacToe(board: string[]): boolean {\n  let cntO = 0,\n    cntX = 0,\n    checkO = check('O'),\n    checkX = check('X');\n  for (let i = 0; i < 3; i++) {\n    for (let j = 0; j < 3; j++) {\n      const ch = board[i][j];\n      if (ch === 'X') cntX++;\n      else if (ch === 'O') cntO++;\n    }\n  }\n  if (\n    (cntO !== cntX && cntO !== cntX - 1) ||\n    (checkO && checkX) ||\n    (checkO && cntO !== cntX) ||\n    (checkX && cntO !== cntX - 1)\n  )\n    return false;\n  return true;\n  function check(ch: string) {\n    return (\n      (board[0][0] === ch && board[0][1] === ch && board[0][2] === ch) ||\n      (board[1][0] === ch && board[1][1] === ch && board[1][2] === ch) ||\n      (board[2][0] === ch && board[1][2] === ch && board[2][2] === ch) ||\n      (board[0][0] === ch && board[1][0] === ch && board[2][0] === ch) ||\n      (board[0][1] === ch && board[1][1] === ch && board[2][1] === ch) ||\n      (board[0][2] === ch && board[1][2] === ch && board[2][2] === ch) ||\n      (board[0][0] === ch && board[1][1] === ch && board[2][2] === ch) ||\n      (board[0][2] === ch && board[1][1] === ch && board[2][0] === ch)\n    );\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["数组", "矩阵"],
     "level": "Medium"
 }

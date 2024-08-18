@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int maximumWealth(vector<vector<int>> &accounts) {\n        int ans = -1;\n        ;\n        for (auto &account : accounts) {\n            int sum = 0;\n            for (auto &data : account) sum += data;\n            ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["数组", "矩阵"],
     "level": "Easy"
 }

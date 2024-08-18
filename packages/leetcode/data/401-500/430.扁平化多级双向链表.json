@@ -21,10 +21,6 @@
             "code": "function flatten(head: Node | null): Node | null {\n  if (head === null) return null;\n  return format(head)[0];\n  function format(node: Node): [Node, Node] {\n    if (node.child === null && node.next === null) return [node, node];\n    node.prev = null;\n    let prev: Node = node;\n    let p: Node | null = node;\n    while (p) {\n      const next = p.next;\n      if (p.child) {\n        const [first, last] = format(p.child);\n        p.next = first;\n        first.prev = p;\n        last.next = next;\n        if (next) next.prev = last;\n        prev = last;\n      } else {\n        prev = p;\n      }\n      p.child = null;\n      p = next;\n    }\n    return [node, prev];\n  }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "链表",
-        "双向链表"
-    ],
+    "tagList": ["深度优先搜索", "链表", "双向链表"],
     "level": "Medium"
 }

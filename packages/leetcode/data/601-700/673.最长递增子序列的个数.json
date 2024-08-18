@@ -13,11 +13,6 @@
             "code": "function findNumberOfLIS(nums: number[]): number {\n  const n = nums.length;\n  const dp = new Array(n).fill(0).map(_ => ({ val: 1, cnt: 1 }));\n  let maxVal = 1;\n  let maxCnt = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    for (let j = 0; j < i; j++) {\n      if (nums[j] < num) {\n        const len = dp[j].val + 1;\n        if (dp[i].val < len) {\n          dp[i].val = len;\n          dp[i].cnt = dp[j].cnt;\n        } else if (dp[i].val === len) dp[i].cnt += dp[j].cnt;\n      }\n    }\n    if (maxVal < dp[i].val) {\n      maxVal = Math.max(maxVal, dp[i].val);\n      maxCnt = dp[i].cnt;\n    } else if (maxVal === dp[i].val) maxCnt += dp[i].cnt;\n  }\n  return maxCnt;\n}"
         }
     ],
-    "tagList": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["树状数组", "线段树", "数组", "动态规划"],
     "level": "Medium"
 }

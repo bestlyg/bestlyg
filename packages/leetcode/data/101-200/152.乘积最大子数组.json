@@ -21,9 +21,6 @@
             "code": "var maxProduct = function (nums) {\n  const len = nums.length;\n  const zeroNum = nums[0];\n  if (len === 1) return zeroNum;\n  const dpMax = [zeroNum];\n  const dpMin = [zeroNum];\n  let max = zeroNum;\n  for (let i = 1; i < len; i++) {\n    const num = nums[i];\n    const prevMax = dpMax[(i - 1) % 2] * num;\n    const prevMin = dpMin[(i - 1) % 2] * num;\n    max = Math.max(\n      max,\n      (dpMax[i % 2] = Math.max(num, prevMax, prevMin)),\n      (dpMin[i % 2] = Math.min(num, prevMax, prevMin))\n    );\n  }\n  return max;\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

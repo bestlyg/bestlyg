@@ -13,9 +13,6 @@
             "code": "function minMoves(nums: number[]): number {\n  const min = Math.min(...nums);\n  return nums.reduce((ans, num) => ans + num - min, 0);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Medium"
 }

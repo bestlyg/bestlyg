@@ -53,11 +53,6 @@
             "code": "struct TreeNode* invertTree(struct TreeNode* root){\n    if (!root) return root;\n    struct TreeNode *left = root->left, *right = root->right;\n    // 翻转右树赋值给左点\n    root->left = invertTree(right);\n    // 翻转左树赋值给右点\n    root->right = invertTree(left);\n    return root;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

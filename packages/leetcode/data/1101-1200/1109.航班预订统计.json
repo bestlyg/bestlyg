@@ -29,9 +29,6 @@
             "code": "function corpFlightBookings(bookings: number[][], n: number): number[] {\n  const ans: number[] = new Array(n).fill(0);\n  for (const [first, last, cnt] of bookings) {\n    ans[first - 1] += cnt;\n    if (last < n) ans[last] -= cnt;\n  }\n  for (let i = 1; i < n; i++) ans[i] += ans[i - 1];\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["数组", "前缀和"],
     "level": "Medium"
 }

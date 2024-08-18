@@ -13,11 +13,6 @@
             "code": "function largestDivisibleSubset(nums: number[]): number[] {\n  nums.sort((a, b) => a - b);\n  const len = nums.length;\n  let maxSize = 1;\n  let maxVal = nums[0];\n  const dp = new Array(len).fill(1);\n  for (let i = 1; i < len; i++) {\n    const num = nums[i];\n    for (let j = 0; j < i; j++) {\n      if (num % nums[j] === 0) dp[i] = Math.max(dp[i], dp[j] + 1);\n    }\n    if (dp[i] > maxSize) {\n      maxSize = dp[i];\n      maxVal = num;\n    }\n  }\n  const ans: number[] = [];\n  for (let i = len - 1; i >= 0; i--) {\n    const num = nums[i];\n    if (dp[i] === maxSize && maxVal % num === 0) {\n      ans.unshift(num);\n      maxSize--;\n      maxVal = num;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "动态规划",
-        "排序"
-    ],
+    "tagList": ["数组", "数学", "动态规划", "排序"],
     "level": "Medium"
 }

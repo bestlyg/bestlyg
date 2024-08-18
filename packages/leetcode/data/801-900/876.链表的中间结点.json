@@ -13,9 +13,6 @@
             "code": "class Solution {\n    public ListNode middleNode(ListNode head) {\n        if(head.next==null||head==null) {\n\t\t\treturn head;\n\t\t}\n\t\tif(head.next.next==null) {\n\t\t\treturn head.next;\n\t\t}\n\t\tListNode slowListNode=head;\n\t\tListNode fastListNode=head.next;\n\t\twhile(fastListNode!=null&&fastListNode.next!=null) {\n\t\t\tslowListNode=slowListNode.next;\n\t\t\tfastListNode=fastListNode.next.next;\n\t\t}\n\t\tif(fastListNode==null) {\n\t\t\treturn slowListNode;\n\t\t}else {\n\t\t\treturn slowListNode.next;\n\t\t}\n    }\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["链表", "双指针"],
     "level": "Easy"
 }

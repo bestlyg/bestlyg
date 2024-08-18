@@ -13,12 +13,6 @@
             "code": "function minKBitFlips(A: number[], K: number): number {\n  const checkZero = (v: number) => !(v & 1);\n  if (K === 1) return A.filter(checkZero).length;\n  const startI = A.findIndex(checkZero);\n  if (startI === -1) return 0;\n  const flip = (index: number) => {\n    for (let i = index, l = index + K; i < l; i++) {\n      A[i] ^= 1;\n    }\n  };\n  const len = A.length - K;\n  let ans = 0;\n  for (let i = startI; i <= len; i++) {\n    if (!(A[i] & 1)) {\n      ans++;\n      flip(i);\n    }\n  }\n  return A.slice(len).every(v => v & 1) ? ans : -1;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "队列",
-        "数组",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["位运算", "队列", "数组", "前缀和", "滑动窗口"],
     "level": "Hard"
 }

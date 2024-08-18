@@ -21,9 +21,6 @@
             "code": "function isPerfectSquare(num: number): boolean {\n  if (num === 1) return true;\n  let l = 1,\n    r = num / 2;\n  while (l <= r) {\n    const mid = (l + r) >> 1;\n    const midNum = mid ** 2;\n    if (midNum === num) return true;\n    if (midNum > num) r = mid - 1;\n    else l = mid + 1;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "二分查找"
-    ],
+    "tagList": ["数学", "二分查找"],
     "level": "Easy"
 }

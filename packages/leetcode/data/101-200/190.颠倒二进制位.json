@@ -29,9 +29,6 @@
             "code": "function reverseBits(n: number): number {\n  let ans = 0;\n  for (let i = 0; i < 32 && n > 0; i++) {\n    ans |= (n & 1) << (31 - i);\n    n >>>= 1;\n  }\n  return ans >>> 0;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "分治"
-    ],
+    "tagList": ["位运算", "分治"],
     "level": "Easy"
 }

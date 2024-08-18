@@ -21,11 +21,6 @@
             "code": "class Solution {\npublic:\n    int countStudents(vector<int>& students, vector<int>& sandwiches) {\n        int list[2] = {0};\n        for (auto &s : students) list[s]++;\n        for (int i = 0; i < sandwiches.size() && list[sandwiches[i]]; i++) list[sandwiches[i]]--;\n        return list[0] + list[1];\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "队列",
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["栈", "队列", "数组", "模拟"],
     "level": "Easy"
 }

@@ -21,11 +21,6 @@
             "code": "function rand10(): number {\n  let num!: number;\n  do num = (rand7() - 1) * 7 + rand7();\n  while (num > 40);\n  return (num % 10) + 1;\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "拒绝采样",
-        "概率与统计",
-        "随机化"
-    ],
+    "tagList": ["数学", "拒绝采样", "概率与统计", "随机化"],
     "level": "Medium"
 }

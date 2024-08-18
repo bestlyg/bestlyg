@@ -21,9 +21,6 @@
             "code": "class Solution:\n    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:\n        prev = -1\n        for i in range(len(flowerbed)):\n            if flowerbed[i] == 0:\n                if prev + 1 == i and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):\n                    n -= 1\n                else:\n                    prev = i\n        return n <= 0\n"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Easy"
 }

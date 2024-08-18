@@ -2,11 +2,7 @@
     "name": "3152.特殊数组II",
     "url": "https://leetcode.cn/problems/special-array-ii",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "二分查找",
-        "前缀和"
-    ],
+    "tagList": ["数组", "二分查找", "前缀和"],
     "desc": "返回布尔数组 answer，如果 nums[fromi..toi] 是特殊数组，则 answer[i] 为 true ，否则，answer[i] 为 false 。",
     "solutions": [
         {

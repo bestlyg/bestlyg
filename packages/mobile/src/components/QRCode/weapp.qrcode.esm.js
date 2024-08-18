@@ -144,7 +144,7 @@ function QRCode(t, e) {
                     (this.dataCache = QRCode.createData(
                         this.typeNumber,
                         this.errorCorrectLevel,
-                        this.dataList
+                        this.dataList,
                     )),
                 this.mapData(this.dataCache, e);
         },
@@ -221,16 +221,16 @@ function QRCode(t, e) {
                 n < 6
                     ? (this.modules[n][8] = i)
                     : n < 8
-                    ? (this.modules[n + 1][8] = i)
-                    : (this.modules[this.moduleCount - 15 + n][8] = i);
+                      ? (this.modules[n + 1][8] = i)
+                      : (this.modules[this.moduleCount - 15 + n][8] = i);
             }
             for (n = 0; n < 15; n++) {
                 i = !t && 1 == ((o >> n) & 1);
                 n < 8
                     ? (this.modules[8][this.moduleCount - n - 1] = i)
                     : n < 9
-                    ? (this.modules[8][15 - n - 1 + 1] = i)
-                    : (this.modules[8][15 - n - 1] = i);
+                      ? (this.modules[8][15 - n - 1 + 1] = i)
+                      : (this.modules[8][15 - n - 1] = i);
             }
             this.modules[this.moduleCount - 8][8] = !t;
         },
@@ -543,11 +543,11 @@ function utf16to8(t) {
         (n = t.charCodeAt(r)) >= 1 && n <= 127
             ? (e += t.charAt(r))
             : n > 2047
-            ? ((e += String.fromCharCode(224 | ((n >> 12) & 15))),
-              (e += String.fromCharCode(128 | ((n >> 6) & 63))),
-              (e += String.fromCharCode(128 | ((n >> 0) & 63))))
-            : ((e += String.fromCharCode(192 | ((n >> 6) & 31))),
-              (e += String.fromCharCode(128 | ((n >> 0) & 63))));
+              ? ((e += String.fromCharCode(224 | ((n >> 12) & 15))),
+                (e += String.fromCharCode(128 | ((n >> 6) & 63))),
+                (e += String.fromCharCode(128 | ((n >> 0) & 63))))
+              : ((e += String.fromCharCode(192 | ((n >> 6) & 31))),
+                (e += String.fromCharCode(128 | ((n >> 0) & 63))));
     return e;
 }
 function drawQrcode(t, e) {
@@ -567,7 +567,7 @@ function drawQrcode(t, e) {
                 foreground: '#000000',
                 image: { imageResource: '', width: 80, height: 80, round: !0 },
             },
-            t
+            t,
         )).canvasId || t.canvas)
     ) {
         if ((t.paddingColor || (t.paddingColor = t.background), e)) {
@@ -607,7 +607,7 @@ function drawQrcode(t, e) {
                                 Math.round(l * a) + t.padding,
                                 Math.round(u * s) + t.padding,
                                 h,
-                                f
+                                f,
                             );
                         }
                     if (t.image.imageResource) {
@@ -636,7 +636,7 @@ function drawQrcode(t, e) {
                         } else n.drawImage(t.image.imageResource, a, s, e, o), n.restore();
                     }
                     return n;
-                })()
+                })(),
             );
         });
     }

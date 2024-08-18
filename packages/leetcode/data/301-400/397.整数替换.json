@@ -13,11 +13,6 @@
             "code": "const map: Record<number, number> = { 1: 0 };\nfunction integerReplacement(n: number): number {\n  if (map[n] !== undefined) return map[n];\n  const ans =\n    (n & 1\n      ? Math.min(integerReplacement(n + 1), integerReplacement(n - 1))\n      : integerReplacement(n / 2)) + 1;\n  return (map[n] = ans);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "位运算",
-        "记忆化搜索",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "位运算", "记忆化搜索", "动态规划"],
     "level": "Medium"
 }

@@ -13,11 +13,6 @@
             "code": "function addBinary(a: string, b: string): string {\n  return (BigInt(`0b${a}`) + BigInt(`0b${b}`)).toString(2);\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["位运算", "数学", "字符串", "模拟"],
     "level": "Easy"
 }

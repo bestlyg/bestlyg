@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int secondHighest(string s) {\n        int n1 = -1, n2 = -1;\n        for (auto &c : s) {\n            if (!isdigit(c)) continue;\n            int num = c - '0';\n            if (n1 == -1) n1 = num;\n            else if (num > n1) n2 = n1, n1 = num;\n            else if (num == n1) continue;\n            else if (n2 == -1) n2 = num;\n            else if (num > n2) n2 = num;\n        }\n        return n2;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "字符串"],
     "level": "Easy"
 }

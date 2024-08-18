@@ -21,9 +21,6 @@
             "code": "function removeDuplicates(nums: number[]): number {\n  const len = nums.length;\n  if (len <= 2) return len;\n  let slow = 2;\n  for (let fast = 2; fast < len; fast++) {\n    const num = nums[fast];\n    if (nums[slow - 2] !== num) {\n      nums[slow++] = num;\n    }\n  }\n  return slow;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针"
-    ],
+    "tagList": ["数组", "双指针"],
     "level": "Medium"
 }

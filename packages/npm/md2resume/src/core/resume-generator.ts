@@ -33,7 +33,7 @@ export class ResumeGenerator {
     constructor(options: ResumeGeneratorOptions = {}) {
         const mergedOptions: Required<ResumeGeneratorOptions> = merge(
             defaultResumeGeneratorOptions,
-            options
+            options,
         );
         this._markdownTransformer = mergedOptions.markdownTransformer;
     }
@@ -44,9 +44,8 @@ export class ResumeGenerator {
         return html;
     }
     async registerTemplate(name: string, templateLoadtFunction: TemplateLoadFunction) {
-        templateLoadtFunction = await this.hooks.beforeRegisterTemplate.promise(
-            templateLoadtFunction
-        );
+        templateLoadtFunction =
+            await this.hooks.beforeRegisterTemplate.promise(templateLoadtFunction);
         this.templates.set(name, templateLoadtFunction);
         this.hooks.afterRegisterTemplate.call(name, templateLoadtFunction);
     }

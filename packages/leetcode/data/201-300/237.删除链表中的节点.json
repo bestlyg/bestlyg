@@ -37,8 +37,6 @@
             "code": "void deleteNode(struct ListNode* node) {\n    struct ListNode *next = node->next;\n    node->val = next->val;\n    node->next = next->next;\n}"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

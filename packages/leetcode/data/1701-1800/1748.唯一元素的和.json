@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int sumOfUnique(vector<int>& nums) {\n        int check[110] = {0}, ans = 0;\n        for (int i = 0, n = nums.size(); i < n; ++i) {\n            ++check[nums[i]];\n            if (check[nums[i]] == 2)\n                ans -= nums[i];\n            else if (check[nums[i]] == 1)\n                ans += nums[i];\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "计数"],
     "level": "Easy"
 }

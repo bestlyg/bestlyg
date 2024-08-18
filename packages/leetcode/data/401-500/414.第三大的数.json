@@ -21,9 +21,6 @@
             "code": "function thirdMax(nums: number[]): number {\n  nums = [...new Set(nums)].sort((a, b) => b - a);\n  return nums[2] ?? nums[0];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "排序"
-    ],
+    "tagList": ["数组", "排序"],
     "level": "Easy"
 }

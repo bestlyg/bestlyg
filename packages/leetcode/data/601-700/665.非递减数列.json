@@ -13,8 +13,6 @@
             "code": "function checkPossibility(nums: number[]): boolean {\n  const n = nums.length;\n  let f = false;\n  for (let i = 0; i < n - 1; i++) {\n    const num = nums[i];\n    const nextNum = nums[i + 1];\n    if (num > nextNum) {\n      if (f) return false;\n      f = true;\n      if (i > 0 && nextNum < nums[i - 1]) nums[i + 1] = num;\n    }\n  }\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Medium"
 }

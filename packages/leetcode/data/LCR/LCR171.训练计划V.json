@@ -21,10 +21,6 @@
             "code": "var getIntersectionNode = function (headA, headB) {\n  let pA = headA;\n  let pB = headB;\n  if (!pA || !pB) return null;\n  while (pA !== pB) {\n    pA = pA === null ? headB : pA.next;\n    pB = pB === null ? headA : pB.next;\n  }\n  return pA;\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["哈希表", "链表", "双指针"],
     "level": "Easy"
 }

@@ -45,10 +45,6 @@
             "code": "function lengthOfLIS(nums: number[]): number {\n  const list = [nums[0]];\n  for (const num of nums) list[find(num)] = num;\n  return list.length;\n  function find(num: number): number {\n    let l = 0;\n    let r = list.length - 1;\n    if (num > list[r]) return list.length;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (list[mid] >= num) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "动态规划"
-    ],
+    "tagList": ["数组", "二分查找", "动态规划"],
     "level": "Medium"
 }

@@ -13,12 +13,6 @@
             "code": "class Solution {\npublic:\n    int averageValue(vector<int>& nums) {\n        int sum = 0, cnt = 0;\n        for (auto &num : nums) {\n            if (num % 3 == 0 && num % 2 == 0) {\n                sum += num;\n                cnt += 1;\n            }\n        }\n        return cnt == 0 ? 0 : sum / cnt;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["数组", "哈希表", "字符串", "排序", "堆（优先队列）"],
     "level": "Medium"
 }

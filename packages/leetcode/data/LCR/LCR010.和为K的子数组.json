@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int subarraySum(vector<int>& nums, int k) {\n        unordered_map<int, int> mmap;\n        int sum = 0, ans = 0;\n        mmap[0] = 1;\n        for (auto& num : nums) {\n            sum += num;\n            if (mmap[sum - k]) ans += mmap[sum - k];\n            mmap[sum]++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tagList": ["数组", "哈希表", "前缀和"],
     "level": "Medium"
 }

@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {\n        int n = nums.size(), ans = 0, prev = -1, cur = -1;\n        for (int i = 0; i < n; i++) {\n            if (nums[i] <= right && nums[i] >= left) cur = i;\n            else if (nums[i] > right) prev = i, cur = -1;\n            if (cur != -1) ans += cur - prev;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针"
-    ],
+    "tagList": ["数组", "双指针"],
     "level": "Medium"
 }

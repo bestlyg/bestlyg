@@ -13,11 +13,6 @@
             "code": "function longestMountain(A: number[]): number {\n  const len = A.length;\n  const tops: number[] = [];\n  findTop();\n  let ans = 0;\n  console.log(tops);\n  if (tops.length === 0) return ans; // 没有顶峰\n  for (const top of tops) {\n    ans = Math.max(ans, findLength(top));\n  }\n  return ans;\n  function findLength(top: number): number {\n    let ans = 1;\n    for (let i = top - 1; i >= 0; i--) {\n      if (A[i] >= A[i + 1]) break;\n      ans++;\n    }\n    for (let i = top + 1; i < len; i++) {\n      if (A[i] >= A[i - 1]) break;\n      ans++;\n    }\n    return ans;\n  }\n  function findTop() {\n    for (let i = 1; i < len - 1; i++) {\n      const num = A[i];\n      if (num > A[i + 1] && num > A[i - 1]) tops.push(i);\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "动态规划",
-        "枚举"
-    ],
+    "tagList": ["数组", "双指针", "动态规划", "枚举"],
     "level": "Medium"
 }

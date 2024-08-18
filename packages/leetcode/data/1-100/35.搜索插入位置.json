@@ -37,9 +37,6 @@
             "code": "class Solution {\n   public:\n    int searchInsert(vector<int>& nums, int target) {\n        int l = 0, r = nums.size(), m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] >= target)\n                r = m;\n            else\n                l = m + 1;\n        }\n        return l;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

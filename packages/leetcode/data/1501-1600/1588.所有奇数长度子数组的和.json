@@ -13,10 +13,6 @@
             "code": "function sumOddLengthSubarrays(arr: number[]): number {\n  const n = arr.length;\n  const sums = [0];\n  arr.forEach(v => sums.push(v + sums[sums.length - 1]));\n  let ans = 0;\n  for (let l = 0; l <= n; l++) {\n    for (let r = l + 1; r <= n; r += 2) {\n      ans += sums[r] - sums[l];\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "前缀和"
-    ],
+    "tagList": ["数组", "数学", "前缀和"],
     "level": "Easy"
 }

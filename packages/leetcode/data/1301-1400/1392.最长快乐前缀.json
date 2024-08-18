@@ -21,11 +21,6 @@
             "code": "function longestPrefix(s: string): string {\n  const next = [-1];\n  for (let i = 1, j = -1; s[i]; i++) {\n    while (j !== -1 && s[i] !== s[j + 1]) j = next[j];\n    if (s[i] === s[j + 1]) j++;\n    next[i] = j;\n  }\n  return s.substring(0, next[s.length - 1] + 1);\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "字符串匹配",
-        "哈希函数",
-        "滚动哈希"
-    ],
+    "tagList": ["字符串", "字符串匹配", "哈希函数", "滚动哈希"],
     "level": "Hard"
 }

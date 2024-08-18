@@ -8,11 +8,11 @@ import _ from 'lodash';
 const yearRecordList = _.keyBy(ledger, 'date');
 const monthRecordList = _.keyBy(
     ledger.flatMap(v => v.record),
-    'date'
+    'date',
 );
 const dayRecordList = _.keyBy(
     ledger.flatMap(v => v.record.flatMap(v => v.record)),
-    'date'
+    'date',
 );
 
 const onPanelChange = (value: Dayjs, mode: CalendarProps<Dayjs>['mode']) => {

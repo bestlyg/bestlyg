@@ -45,12 +45,6 @@
             "code": "function maxSlidingWindow(nums: number[], k: number): number[] {\n  const n = nums.length;\n  const queue: number[] = [];\n  const ans: number[] = [];\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    while (queue.length && nums[queue[queue.length - 1]] < num) queue.pop();\n    queue.push(i);\n    if (i - queue[0] === k) queue.shift();\n    if (i + 1 < k) continue;\n    ans.push(nums[queue[0]]);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "队列",
-        "数组",
-        "滑动窗口",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tagList": ["队列", "数组", "滑动窗口", "单调队列", "堆（优先队列）"],
     "level": "Hard"
 }

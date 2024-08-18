@@ -14,7 +14,11 @@ export class TreeMapNode<K, V> {
     color = RED;
     left: TreeMapNode<K, V> | null = null;
     right: TreeMapNode<K, V> | null = null;
-    constructor(public key: K, public val: V, public parent: TreeMapNode<K, V> | null = null) {}
+    constructor(
+        public key: K,
+        public val: V,
+        public parent: TreeMapNode<K, V> | null = null,
+    ) {}
 }
 export class TreeMap<K, V> implements Map<K, V> {
     private _size = 0;

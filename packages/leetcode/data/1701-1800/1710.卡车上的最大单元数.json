@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {\n        sort(boxTypes.begin(), boxTypes.end(), [](auto &a, auto &b){ return a[1] > b[1]; });\n        int ans = 0, cur = 0;\n        while (truckSize && cur < boxTypes.size()) {\n            if (boxTypes[cur][0] >= truckSize) {\n                ans += truckSize * boxTypes[cur][1];\n                truckSize = 0;\n            } else {\n                truckSize -= boxTypes[cur][0];\n                ans += boxTypes[cur][0] * boxTypes[cur][1];\n            }\n            cur++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Easy"
 }

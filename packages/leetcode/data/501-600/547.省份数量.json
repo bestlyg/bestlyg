@@ -29,11 +29,6 @@
             "code": "typedef struct unionfind\n{\n    int *father, len, size;\n} UnionFind;\nUnionFind *unionfind_create(int len)\n{\n    UnionFind *uf = (UnionFind *)malloc(sizeof(UnionFind));\n    uf->size = uf->len = len;\n    uf->father = (int *)malloc(sizeof(int) * len);\n    for (int i = 0; i < len; i++)\n        uf->father[i] = i;\n    return uf;\n}\nvoid unionfind_free(UnionFind *uf)\n{\n    free(uf->father);\n    free(uf);\n}\nint unionfind_find(UnionFind *uf, int data)\n{\n    return uf->father[data] = uf->father[data] == data ? data : unionfind_find(uf, uf->father[data]);\n}\nvoid unionfind_union(UnionFind *uf, int data1, int data2)\n{\n    int p1 = unionfind_find(uf, data1), p2 = unionfind_find(uf, data2);\n    if (p1 == p2) return ;\n    uf->size--;\n    uf->father[p1] = p2;\n}\nint findCircleNum(int** isConnected, int isConnectedSize, int* isConnectedColSize){\n    UnionFind *uf = unionfind_create(isConnectedSize);\n    for (int i = 0; i < isConnectedSize; i++) {\n        for (int j = 0; j < isConnectedSize; j++) {\n            if (isConnected[i][j]) unionfind_union(uf, i, j);\n        }\n    }\n    return uf->size;\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "图"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "level": "Medium"
 }

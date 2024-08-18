@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    string largestMerge(string word1, string word2) {\n        string ans = \"\";\n        int i1 = 0, i2 = 0, n1 = word1.size(), n2 = word2.size();\n        function<bool(int, int)> check = [&](int i1, int i2) -> bool {\n            while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2]) i1++, i2++;\n            if (i2 == n2 && i1 == n1) return true;\n            if (i2 == n2 && i1 != n1) return true;\n            if (i2 != n2 && i1 == n1) return false;\n            return word1[i1] > word2[i2];\n        };\n        while (i1 < n1 || i2 < n2) {\n            if (i2 == n2 || word1[i1] > word2[i2]) ans += word1[i1++];\n            else if (i1 == n1 || word1[i1] < word2[i2]) ans += word2[i2++];\n            else {\n                bool f = check(i1, i2);\n                while (i1 < n1 && i2 < n2 && word1[i1] == word2[i2])\n                    if (f) ans += word1[i1++];\n                    else ans += word2[i2++];\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["贪心", "双指针", "字符串"],
     "level": "Medium"
 }

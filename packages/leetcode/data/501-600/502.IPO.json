@@ -13,11 +13,6 @@
             "code": "class Heap<T = number> {\n  private arr: T[] = [];\n  get isEmpty() {\n    return this.size === 0;\n  }\n  get size() {\n    return this.arr.length;\n  }\n  get top() {\n    return this.arr[0];\n  }\n  constructor(private compare: (t1: T, t2: T) => number) {}\n  add(num: T): void {\n    this.arr.push(num);\n    this.shiftUp(this.size - 1);\n  }\n  remove(): T {\n    const num = this.arr.shift()!;\n    if (this.size) {\n      this.arr.unshift(this.arr.pop()!);\n      this.shiftDown(0);\n    }\n    return num;\n  }\n  private shiftUp(index: number): void {\n    if (index === 0) return;\n    const parentIndex = (index - 1) >> 1;\n    if (this.compare(this.arr[index], this.arr[parentIndex]) > 0) {\n      [this.arr[index], this.arr[parentIndex]] = [this.arr[parentIndex], this.arr[index]];\n      this.shiftUp(parentIndex);\n    }\n  }\n  private shiftDown(index: number): void {\n    let childrenIndex = index * 2 + 1;\n    if (childrenIndex > this.size - 1) return;\n    if (\n      childrenIndex + 1 <= this.size - 1 &&\n      this.compare(this.arr[childrenIndex + 1], this.arr[childrenIndex]) > 0\n    ) {\n      childrenIndex++;\n    }\n    if (this.compare(this.arr[childrenIndex], this.arr[index]) > 0) {\n      [this.arr[childrenIndex], this.arr[index]] = [this.arr[index], this.arr[childrenIndex]];\n      this.shiftDown(childrenIndex);\n    }\n  }\n  *[Symbol.iterator](): IterableIterator<T> {\n    for (const t of this.arr) {\n      yield t;\n    }\n  }\n}\ntype Data = {\n  cost: number;\n  profit: number;\n};\nfunction findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {\n  const n = profits.length;\n  const list: Data[] = [];\n  for (let i = 0; i < n; i++)\n    list.push({\n      cost: capital[i],\n      profit: profits[i],\n    });\n  list.sort((a, b) => a.cost - b.cost);\n  const heap = new Heap<Data>((t1, t2) => t1.profit - t2.profit);\n  if (w >= list[list.length - 1].cost) {\n    return list\n      .sort((a, b) => b.profit - a.profit)\n      .slice(0, k)\n      .reduce((total, cur) => (total += cur.profit), w);\n  }\n  let idx = 0;\n  while (k > 0) {\n    while (idx < n && list[idx].cost <= w) {\n      heap.add(list[idx++]);\n    }\n    if (heap.size === 0) break;\n    const data = heap.remove();\n    w += data.profit;\n    k--;\n  }\n  return w;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数组", "排序", "堆（优先队列）"],
     "level": "Hard"
 }

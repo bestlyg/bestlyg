@@ -13,10 +13,6 @@
             "code": "/**\n * @param {number} n\n * @return {string[]}\n */\nconst cache = new Map();\ncache.set(1, ['()']);\ncache.set(2, ['()()', '(())']);\nvar generateParenthesis = function (n) {\n  if (cache.has(n)) return cache.get(n);\n  const res = new Set();\n  for (let i = 1; i < n; i++) {\n    for (let left of generateParenthesis(i))\n      for (let right of generateParenthesis(n - i)) res.add(`${left}${right}`);\n  }\n  for (let item of generateParenthesis(n - 1)) res.add(`(${item})`);\n  const arr = [...res];\n  cache.set(n, arr);\n  return arr;\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划",
-        "回溯"
-    ],
+    "tagList": ["字符串", "动态规划", "回溯"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    string customSortString(string order, string s) {\n        int list[26] = {0};\n        for (int i = 0; i < order.size(); i++) list[order[i] - 'a'] = i;\n        sort(s.begin(), s.end(), [&list](char &a, char &b){ return list[a - 'a'] < list[b - 'a']; });\n        return s;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["哈希表", "字符串", "排序"],
     "level": "Medium"
 }

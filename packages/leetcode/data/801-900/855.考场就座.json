@@ -13,10 +13,6 @@
             "code": "class ExamRoom {\npublic:\n    int n;\n    set<int> s;\n    ExamRoom(int n): n(n) {}\n    int seat() {\n        if (s.size() == 0) { s.insert(0); return 0; }\n        auto it = s.begin(), prev = it;\n        int ans = 0, val = 0;\n        if (*it != 0) {\n            ans = 0;\n            val = *it;\n        }\n        for (it++; it != s.end(); prev = it++) {\n            int mid = (*it + *prev) / 2;\n            if (mid - *prev > val) {\n                ans = mid;\n                val = mid - *prev;\n            }\n        }\n        if (*s.rbegin() != n - 1 && n - *s.rbegin() - 1 > val) {\n            ans = n - 1;\n            val = n - *s.rbegin() - 1;\n        }\n        s.insert(ans);\n        return ans;\n    }\n    void leave(int p) {\n        s.erase(p);\n    }\n};"
         }
     ],
-    "tagList": [
-        "设计",
-        "有序集合",
-        "堆（优先队列）"
-    ],
+    "tagList": ["设计", "有序集合", "堆（优先队列）"],
     "level": "Medium"
 }

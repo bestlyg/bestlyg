@@ -45,9 +45,6 @@
             "code": "struct ListNode* removeNthFromEnd(struct ListNode* head, int n){\n        int sum = 0;\n        struct ListNode* p = head;\n        while (p) p = p->next, sum++;\n        if (sum == 1 && n == 1) return NULL;\n        int del_idx = sum - n;\n        p = head;\n        if (del_idx == 0) return p->next;\n        while (--del_idx) p = p->next;\n        p->next = p->next->next;\n        return head;\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["链表", "双指针"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int numComponents(ListNode* head, vector<int>& nums) {\n        unordered_set<int> s(nums.begin(), nums.end());\n        ListNode *p = head;\n        while (p && !s.count(p->val)) p = p->next;\n        int ans = 0;\n        while (p) {\n            while (p && s.count(p->val)) p = p->next;\n            ans++;\n            while (p && !s.count(p->val)) p = p->next;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "链表"
-    ],
+    "tagList": ["数组", "哈希表", "链表"],
     "level": "Medium"
 }

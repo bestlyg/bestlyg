@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int reachNumber(int target) {\n        target = abs(target);\n        int sum = 0, cnt = 1;\n        while (sum < target || (sum - target) % 2 != 0) sum += cnt++;\n        return cnt - 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划",
-        "字符串匹配"
-    ],
+    "tagList": ["字符串", "动态规划", "字符串匹配"],
     "level": "Easy"
 }

@@ -21,12 +21,6 @@
             "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint* intersect(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){\n    qsort(nums2, nums2Size, sizeof(int), comp);\n    qsort(nums1, nums1Size, sizeof(int), comp);\n    int i1 = 0, i2 = 0, *ans = (int *)malloc(sizeof(int) * nums1Size);\n    *returnSize = 0;\n    while (i1 < nums1Size && i2 < nums2Size) {\n        if (nums1[i1] == nums2[i2]) {\n            ans[(*returnSize)++] = nums1[i1];\n            i1++;\n            i2++;\n            continue ;\n        } else if (nums1[i1] > nums2[i2]) {\n            i2++;\n        } else {\n            i1++;\n        }\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "双指针", "二分查找", "排序"],
     "level": "Easy"
 }

@@ -21,9 +21,6 @@
             "code": "function reverseStr(s: string, k: number): string {\n  const arr = s.split('');\n  for (let i = 0, n = s.length; i < n; i += 2 * k) reverse(i, Math.min(i + k - 1, n - 1));\n  return arr.join('');\n  function reverse(start: number, end: number) {\n    while (start < end) {\n      [arr[start], arr[end]] = [arr[end], arr[start]];\n      end--;\n      start++;\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

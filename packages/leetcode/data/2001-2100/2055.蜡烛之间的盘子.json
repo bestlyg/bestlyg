@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    typedef pair<int, int> node;\n    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {\n        int n = s.size(), prev = 0;\n        vector<node> list;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '|') list.push_back(make_pair(i, prev));\n            if (s[i] == '*') prev++;\n        }\n        vector<int> find_l(n), find_r(n);\n        for (int i = 0, start = 0; i < n; i++) {\n            find_l[i] = start;\n            if (start < list.size() && i == list[start].first) start++;\n        }\n        for (int i = n - 1, start = list.size() - 1; i >= 0; i--) {\n            find_r[i] = start;\n            if (start > -1 && i == list[start].first) start--;\n        }\n        vector<int> ans;\n        ans.reserve(queries.size());\n        for (auto& query : queries) {\n            int l = find_l[query[0]], r = find_r[query[1]], res;\n            if (l == list.size() || r == -1 || list[l].first > query[1] ||\n                l == r)\n                res = 0;\n            else\n                res = list[r].second - list[l].second;\n            ans.push_back(res);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串",
-        "二分查找",
-        "前缀和"
-    ],
+    "tagList": ["数组", "字符串", "二分查找", "前缀和"],
     "level": "Medium"
 }

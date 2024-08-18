@@ -13,9 +13,6 @@
             "code": "struct MyData {\n    long long sum;\n    int nmax;\n    string name, smax;\n    map<string, int> m;\n    MyData() {};\n    MyData(string name): name(name), sum(0), nmax(0), smax(\"\"){}\n    void setMap(string id, int view) {\n        if (nmax < view || nmax == view && (smax == \"\" || smax > id)) {\n            nmax = view;\n            smax = id;\n        }\n        sum += view;\n        m[id] = view;\n    }\n};\nclass Solution {\npublic:\n    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {\n        int n = creators.size();\n        map<string, MyData> m;\n        vector<vector<string>> ans;\n        for (int i = 0; i < n; i++) {\n            if (!m.count(creators[i])) m[creators[i]] = MyData(creators[i]);\n            m[creators[i]].setMap(ids[i], views[i]);\n        }\n        int maxsum = m.begin()->second.sum;\n        for (auto &item : m) {\n            if (item.second.sum > maxsum) ans.clear(), maxsum = item.second.sum;\n            if (item.second.sum < maxsum) continue;\n            vector<string> data(2);\n            data[0] = item.first;\n            data[1] = item.second.smax;\n            ans.push_back(move(data));\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数学"
-    ],
+    "tagList": ["贪心", "数学"],
     "level": "Medium"
 }

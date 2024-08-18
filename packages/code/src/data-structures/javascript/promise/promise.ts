@@ -50,7 +50,7 @@ export class BestPromise<T> {
             for (const promise of promises) {
                 promise.then(
                     value => resolve(value),
-                    reason => reject(reason)
+                    reason => reject(reason),
                 );
             }
         });
@@ -73,7 +73,7 @@ export class BestPromise<T> {
                 const promise = promises[i];
                 promise.then(
                     value => resolve(value),
-                    reason => onReject(reason, i)
+                    reason => onReject(reason, i),
                 );
             }
         });
@@ -96,7 +96,7 @@ export class BestPromise<T> {
                 const promise = promises[i];
                 promise.then(
                     value => onResolve(value, i),
-                    reason => reject(reason)
+                    reason => reject(reason),
                 );
             }
         });
@@ -106,7 +106,7 @@ export class BestPromise<T> {
      * @param promises promise列表
      */
     static allSettled(
-        promises: BestPromise<any>[]
+        promises: BestPromise<any>[],
     ): BestPromise<(BestPromiseFulfilledResult<any> | BestPromiseRejectedResult)[]> {
         const len = promises.length;
         let count = 0;
@@ -114,7 +114,7 @@ export class BestPromise<T> {
         return new BestPromise(resolve => {
             const on = (
                 status: BestPromiseFulfilledResult<any> | BestPromiseRejectedResult,
-                index: number
+                index: number,
             ) => {
                 statusList[index] = status;
                 if (++count === len) resolve(statusList);
@@ -123,7 +123,7 @@ export class BestPromise<T> {
                 const promise = promises[i];
                 promise.then(
                     value => on({ status: 'fulfilled', value }, i),
-                    reason => on({ status: 'rejected', reason }, i)
+                    reason => on({ status: 'rejected', reason }, i),
                 );
             }
         });
@@ -159,7 +159,7 @@ export class BestPromise<T> {
      */
     then<V>(
         onFulfilled: (value: T) => V | BestPromise<V>,
-        onRejected: (reason: any) => any = throwValue
+        onRejected: (reason: any) => any = throwValue,
     ): BestPromise<V> {
         const promise = new BestPromise<V>((resolve, reject) => {
             // 统一触发函数

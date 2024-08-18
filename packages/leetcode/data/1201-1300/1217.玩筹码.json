@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int minCostToMoveChips(vector<int>& position) {\n        int ans1 = 0, ans2 = 0;\n        for (auto& num : position) {\n            if (num & 1)\n                ans1++;\n            else\n                ans2++;\n        }\n        return min(ans1, ans2);\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "数学"
-    ],
+    "tagList": ["贪心", "数组", "数学"],
     "level": "Easy"
 }

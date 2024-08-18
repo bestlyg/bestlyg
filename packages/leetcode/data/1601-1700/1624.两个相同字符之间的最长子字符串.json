@@ -13,9 +13,6 @@
             "code": "#define CNT 26\n      class Solution {\npublic:\n    int maxLengthBetweenEqualCharacters(string s) {\n        int list[CNT], ans = -1;\n        memset(list, -1, sizeof(int) * 26);\n        for (int i = 0; i < s.size(); i++) {\n            if (list[s[i] - 'a'] != -1) ans = max(ans, i - list[s[i] - 'a'] + 1 - 2);\n            else list[s[i] - 'a'] = i;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "字符串"],
     "level": "Easy"
 }

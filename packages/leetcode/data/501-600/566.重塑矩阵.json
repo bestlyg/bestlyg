@@ -13,10 +13,6 @@
             "code": "function matrixReshape(nums: number[][], r: number, c: number): number[][] {\n  const sum = nums.length * nums[0].length;\n  if (sum !== r * c) return nums;\n  const arr = nums.reduce((totalArr, arr) => {\n    totalArr.push(...arr);\n    return totalArr;\n  }, [] as number[]);\n  const ans: number[][] = [];\n  for (let i = 0; i < r; i++) {\n    const temp: number[] = [];\n    for (let j = 0; j < c; j++) {\n      temp.push(arr[i * c + j]);\n    }\n    ans.push(temp);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Easy"
 }

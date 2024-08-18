@@ -13,11 +13,6 @@
             "code": "function findSubsequences(nums: number[]): number[][] {\n  const len = nums.length;\n  if (len === 0) return [];\n  const arr: number[][] = [];\n  const arrSet = new Set<string>();\n  findNext();\n  return arr.filter(v => v.length !== 1);\n  function findNext(now: number[] = [], i = 0): void {\n    for (; i < len; i++) {\n      const num = nums[i];\n      if (now[now.length - 1] > num) continue;\n      now.push(num);\n      const clone = [...now];\n      const cloneSetStr = clone.join(',');\n      if (!arrSet.has(cloneSetStr)) {\n        arr.push(clone);\n        arrSet.add(cloneSetStr);\n      }\n      findNext(now, i + 1);\n      now.pop();\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "回溯"
-    ],
+    "tagList": ["位运算", "数组", "哈希表", "回溯"],
     "level": "Medium"
 }

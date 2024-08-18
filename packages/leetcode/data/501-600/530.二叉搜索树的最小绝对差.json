@@ -21,12 +21,6 @@
             "code": "function getMinimumDifference(root: TreeNode | null): number {\n  if (root === null) return 2147483647;\n  const queue: number[] = [];\n  inorder(root);\n  return queue.reduce(\n    (total, cur, i, arr) => (i === 0 ? total : Math.min(total, Math.abs(cur - arr[i - 1]))),\n    Infinity\n  );\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    queue.push(node.val);\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

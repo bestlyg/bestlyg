@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {\n        unordered_map<int, int> m;\n        for (int i = 0; i < pieces.size(); i++) m[pieces[i][0]] = i;\n        for (int i = 0; i < arr.size();) {\n            if (!m.count(arr[i])) return false;\n            int idx = m[arr[i]];\n            for (int j = 0; j < pieces[idx].size(); j++, i++) if (pieces[idx][j] != arr[i]) return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Easy"
 }

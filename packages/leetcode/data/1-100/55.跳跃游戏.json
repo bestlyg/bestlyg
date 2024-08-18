@@ -13,10 +13,6 @@
             "code": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nvar canJump = function (nums) {\n  let k = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (i > k) return false;\n    k = Math.max(k, i + nums[i]);\n  }\n  return true;\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "数组", "动态规划"],
     "level": "Medium"
 }

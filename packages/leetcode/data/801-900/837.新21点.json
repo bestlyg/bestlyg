@@ -29,11 +29,6 @@
             "code": "function new21Game(N: number, K: number, W: number): number {\n  const dp = new Array(W).fill(0);\n  const min = Math.min(N, K + W - 1);\n  let sum = -1;\n  while (sum + K <= min) dp[sum++] = 1;\n  for (let i = K - 1; i >= 0; i--) {\n    dp.unshift(sum / W);\n    sum += dp[0] - dp.pop();\n  }\n  return dp[0];\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "动态规划",
-        "滑动窗口",
-        "概率与统计"
-    ],
+    "tagList": ["数学", "动态规划", "滑动窗口", "概率与统计"],
     "level": "Medium"
 }

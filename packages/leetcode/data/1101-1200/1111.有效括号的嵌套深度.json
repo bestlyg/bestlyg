@@ -13,9 +13,6 @@
             "code": "/**\n * @param {string} seq\n * @return {number[]}\n */\nvar maxDepthAfterSplit = function (seq) {\n  let dep = 0;\n  return seq.split('').map(value => (value === '(' ? ++dep % 2 : dep-- % 2));\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Medium"
 }

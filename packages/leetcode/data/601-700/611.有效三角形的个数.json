@@ -13,12 +13,6 @@
             "code": "function triangleNumber(nums: number[]): number {\n  const n = nums.length;\n  nums.sort((a, b) => a - b);\n  let ans = 0;\n  for (let i1 = 0; i1 < n - 1; i1++) {\n    const num1 = nums[i1];\n    for (let i2 = i1 + 1; i2 < n - 1; i2++) {\n      const num2 = nums[i2];\n      if (num1 + num2 > nums[n - 1]) {\n        ans += n - 1 - i2;\n        continue;\n      }\n      let l = i2 + 1;\n      let r = n - 1;\n      while (l < r) {\n        const mid = (l + r) >> 1;\n        if (num1 + num2 <= nums[mid]) r = mid;\n        else l = mid + 1;\n      }\n      ans += l - 1 - i2;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "双指针", "二分查找", "排序"],
     "level": "Medium"
 }

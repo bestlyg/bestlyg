@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    long long maximumSubarraySum(vector<int>& nums, int k) {\n        long long sum = 0, ans = 0;\n        int l = 0, r = 0, n = nums.size();\n        int cnt = 0;\n        unordered_map<int, int> m;\n        while (r < k) {\n            m[nums[r]]++;\n            sum += nums[r];\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n        }\n        if (cnt == 0) ans = sum;\n        // cout << \"l = \" << l << \", r = \" << r << endl;\n        // cout << \"sum = \" << sum << \", cnt = \" << cnt << endl;\n        while (r < n) {\n            sum -= nums[l];\n            m[nums[l]]--;\n            if (m[nums[l]] == 1) cnt--;\n            l++;\n\n            sum += nums[r];\n            m[nums[r]]++;\n            if (m[nums[r]] == 2) cnt++;\n            r++;\n\n            // cout << \"l = \" << l << \", r = \" << r << endl;\n            if (cnt == 0) ans = max(ans, sum);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "滑动窗口"],
     "level": "Medium"
 }

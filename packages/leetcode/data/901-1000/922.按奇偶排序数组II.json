@@ -29,10 +29,6 @@
             "code": "function sortArrayByParityII(A: number[]): number[] {\n  const cache: Record<number, number[]> = { 1: [], 0: [] };\n  const ans: number[] = [];\n  const len = A.length;\n  A.forEach(num => cache[num & 1].push(num));\n  let i = 0;\n  while (i !== len) {\n    ans.push(cache[i++ & 1].pop()!);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "排序"],
     "level": "Easy"
 }

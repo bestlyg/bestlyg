@@ -21,10 +21,6 @@
             "code": "const check = (A: TreeNode | null, B: TreeNode | null): boolean => {\n  if (!B) return true;\n  if (!A) return false;\n  return A.val === B.val && check(A.left, B.left) && check(A.right, B.right);\n};\nfunction isSubStructure(A: TreeNode | null, B: TreeNode | null): boolean {\n  if (!A || !B) return false;\n  if (check(A, B)) return true;\n  return isSubStructure(A.left, B) || isSubStructure(A.right, B);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Medium"
 }

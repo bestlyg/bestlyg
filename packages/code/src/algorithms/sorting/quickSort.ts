@@ -7,7 +7,7 @@ export const quickSort1 = <T extends any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
-    right = list.length - 1
+    right = list.length - 1,
 ) => {
     if (left > right) return;
     const base = list[left];
@@ -30,7 +30,7 @@ export const quickSort2 = <T extends any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
-    right = list.length - 1
+    right = list.length - 1,
 ) => {
     if (left > right) return;
     while (left <= right) {
@@ -61,7 +61,7 @@ export const quickSort3 = <T extends unknown>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
-    right = list.length - 1
+    right = list.length - 1,
 ) => {
     while (left <= right) {
         const base = getMid(compare, list[left], list[right], list[(right + left) >> 1]);

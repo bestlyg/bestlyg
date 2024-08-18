@@ -13,9 +13,6 @@
             "code": "function prefixesDivBy5(A: number[]): boolean[] {\n  const list = [];\n  let prefix = 0;\n  const length = A.length;\n  for (let i = 0; i < length; i++) {\n    prefix = ((prefix << 1) + A[i]) % 5;\n    list.push(prefix === 0);\n  }\n  return list;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组"
-    ],
+    "tagList": ["位运算", "数组"],
     "level": "Easy"
 }

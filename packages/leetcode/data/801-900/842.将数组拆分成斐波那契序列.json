@@ -13,9 +13,6 @@
             "code": "function splitIntoFibonacci(S: string): number[] {\n  const list = [];\n  const maxNum = Math.pow(2, 31) - 1;\n  const len = S.length;\n  const numS = S.split('').map(v => +v);\n  (function backtrack(index = 0, sum = 0, prev = 0) {\n    if (index === len) return list.length >= 3;\n    let curLong = 0;\n    for (let i = index; i < len; i++) {\n      if (i > index && numS[index] === 0) break;\n      curLong = curLong * 10 + numS[i];\n      if (curLong > maxNum) break;\n      if (list.length >= 2) {\n        if (curLong < sum) continue;\n        else if (curLong > sum) break;\n      }\n      list.push(curLong);\n      if (backtrack(i + 1, prev + curLong, curLong)) return true;\n      list.pop();\n    }\n    return false;\n  })();\n  return list;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["字符串", "回溯"],
     "level": "Medium"
 }

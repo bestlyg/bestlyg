@@ -13,10 +13,6 @@
             "code": "function findWords(words: string[]): string[] {\n  const data: Set<string>[] = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map(\n    str => new Set<string>(str.split(''))\n  );\n  return words.filter(word => {\n    word = word.toLowerCase();\n    const set = data.find(set => set.has(word[0]))!;\n    for (const ch of word) {\n      if (!set.has(ch)) return false;\n    }\n    return true;\n  });\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["数组", "哈希表", "字符串"],
     "level": "Easy"
 }

@@ -13,8 +13,6 @@
             "code": "class Solution {\npublic:\n    bool checkOnesSegment(string s) {\n        int cnt = 0, n = s.size();\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') continue;\n            while (i + 1 < n && s[i + 1] == '1') i++;\n            if (++cnt > 1) return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

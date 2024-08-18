@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<int> diStringMatch(string s) {\n        int n = s.size(), l = 0, r = s.size();\n        vector<int> ans;\n        for (auto &ch : s) {\n            if (ch == 'I') {\n                ans.push_back(l++);\n            } else {\n                ans.push_back(r--);\n            }\n        }\n        ans.push_back(l++);\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["贪心", "数组", "双指针", "字符串"],
     "level": "Easy"
 }

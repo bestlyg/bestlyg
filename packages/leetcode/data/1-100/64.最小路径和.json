@@ -13,10 +13,6 @@
             "code": "function minPathSum(grid: number[][]): number {\n  const row = grid.length;\n  const col = grid[0].length;\n  const dp = new Array(row).fill(0).map(_ => new Array(col));\n  dp[row - 1][col - 1] = grid[row - 1][col - 1];\n  for (let i = row - 1; i >= 0; i--) {\n    for (let j = col - 1; j >= 0; j--) {\n      const num = grid[i][j];\n      if (i === row - 1 && j === col - 1) {\n      } else if (i === row - 1) {\n        dp[i][j] = dp[i][j + 1] + num;\n      } else if (j === col - 1) {\n        dp[i][j] = dp[i + 1][j] + num;\n      } else {\n        dp[i][j] = Math.min(dp[i][j + 1], dp[i + 1][j]) + num;\n      }\n    }\n  }\n  return dp[0][0];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tagList": ["数组", "动态规划", "矩阵"],
     "level": "Medium"
 }

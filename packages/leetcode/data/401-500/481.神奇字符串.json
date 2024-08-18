@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int magicalString(int n) {\n        vector<int> list(max(3, n));\n        list[0] = 1; list[1] = list[2] = 2;\n        int ans = 1, i1 = 2, i2 = 3, surplus = 2, curVal = 1, curMode = 1;\n        while (i2 < n) {\n            if (surplus == 0) {\n                surplus = list[++i1];\n                curVal += curMode;\n                curMode = -curMode;\n            }\n            list[i2++] = curVal;\n            surplus--;\n            if (curVal == 1) ans++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Medium"
 }

@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    int findBottomLeftValue(TreeNode* root) {\n        queue<TreeNode*> q;\n        q.push(root);\n        int ans = root->val, size = 1;\n        while (q.size()) {\n            TreeNode* node = q.front();\n            q.pop();\n            if (node->left) q.push(node->left);\n            if (node->right) q.push(node->right);\n            if (--size == 0) {\n                size = q.size();\n                if (q.size()) ans = q.front()->val;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Medium"
 }

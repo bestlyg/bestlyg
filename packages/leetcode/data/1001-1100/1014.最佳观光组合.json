@@ -29,9 +29,6 @@
             "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let ans = 0;\n  let mx = A[0];\n  for (let i = 1; i < len; i++) {\n    ans = Math.max(ans, mx + A[i] - i);\n    mx = Math.max(mx, A[i] + i);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

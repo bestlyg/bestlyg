@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    vector<int> grayCode(int n) {\n        vector<int> ans(2, 0);\n        ans[1] = 1;\n        for (int i = 1; i < n; i++) {\n            for (int j = ans.size() - 1; j >= 0; j--) {\n                ans.push_back(ans[j] | 1 << i);\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数学",
-        "回溯"
-    ],
+    "tagList": ["位运算", "数学", "回溯"],
     "level": "Medium"
 }

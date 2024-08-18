@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    int findCenter(vector<vector<int>>& edges) {\n        return edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1]\n                   ? edges[0][0]\n                   : edges[0][1];\n    }\n};"
         }
     ],
-    "tagList": [
-        "图"
-    ],
+    "tagList": ["图"],
     "level": "Easy"
 }

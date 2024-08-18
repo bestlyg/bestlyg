@@ -13,11 +13,6 @@
             "code": "class TopVotedCandidate {\n  arr: number[] = [];\n  constructor(persons: number[], private times: number[]) {\n    const n = persons.length;\n    const temp = new Array(n).fill(0);\n    let max = 0;\n    for (const person of persons) {\n      if (++temp[person] >= temp[max]) max = person;\n      this.arr.push(max);\n    }\n  }\n  q(t: number): number {\n    let l = 0;\n    let r = this.times.length - 1;\n    while (l < r) {\n      const mid = (l + r + 1) >> 1;\n      if (this.times[mid] <= t) l = mid;\n      else r = mid - 1;\n    }\n    return this.arr[l];\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "数组",
-        "哈希表",
-        "二分查找"
-    ],
+    "tagList": ["设计", "数组", "哈希表", "二分查找"],
     "level": "Medium"
 }

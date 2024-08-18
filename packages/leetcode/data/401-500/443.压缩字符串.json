@@ -13,9 +13,6 @@
             "code": "function compress(chars: string[]): number {\n  let pos = 0;\n  const n = chars.length;\n  for (let i = 0; i < n; ) {\n    const c = chars[i];\n    let count = 1;\n    while (i + count < n && chars[i + count] === c) count++;\n    i += count;\n    chars[pos++] = c;\n    if (count > 1) {\n      let countStr = '';\n      while (count) {\n        countStr = (count % 10) + countStr;\n        count = ~~(count / 10);\n      }\n      for (const c of countStr) chars[pos++] = c;\n    }\n  }\n  return pos;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Medium"
 }

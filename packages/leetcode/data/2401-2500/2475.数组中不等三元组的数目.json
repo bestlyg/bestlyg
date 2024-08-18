@@ -21,10 +21,6 @@
             "code": "class Solution {\npublic:\n    int unequalTriplets(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int ans = 0, prev = 0;\n        for (int i = 0; i < nums.size() - 1; i++) {\n            if (nums[i] == nums[i + 1]) continue;\n            ans += prev * (i - prev + 1) * (nums.size() - i - 1);\n            prev = i + 1;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "排序"],
     "level": "Easy"
 }

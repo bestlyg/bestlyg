@@ -29,9 +29,6 @@
             "code": "function findShortestSubArray(nums: number[]): number {\n  const map: Record<number, [number, number, number]> = {};\n  nums.forEach((num, i) => {\n    const data = map[num];\n    if (data) {\n      data[0]++;\n      data[2] = i;\n    } else {\n      map[num] = [1, i, i];\n    }\n  });\n  const data = Object.values(map);\n  const degreeValue = Math.max(...data.map(([c]) => c));\n  return Math.min(\n    ...data.filter(([c]) => c === degreeValue).map(([, start, end]) => end - start + 1)\n  );\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Easy"
 }

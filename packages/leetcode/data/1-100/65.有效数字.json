@@ -13,8 +13,6 @@
             "code": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar isNumber = function (s) {\n  if (s.trim() === '') return false;\n  const result = Number(s);\n  return !Number.isNaN(result);\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Hard"
 }

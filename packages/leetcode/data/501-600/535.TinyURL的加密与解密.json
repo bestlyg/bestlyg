@@ -13,11 +13,6 @@
             "code": "const random = () => (~~(Math.random() * 10000)).toString();\nconst map: Record<string, string> = {};\nfunction encode(longUrl: string): string {\n  let s = random();\n  while (map[s]) s = random();\n  map[s] = longUrl;\n  return s;\n}\nfunction decode(shortUrl: string): string {\n  return map[shortUrl];\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "哈希表",
-        "字符串",
-        "哈希函数"
-    ],
+    "tagList": ["设计", "哈希表", "字符串", "哈希函数"],
     "level": "Medium"
 }

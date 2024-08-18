@@ -13,9 +13,6 @@
             "code": "function balancedStringSplit(s: string): number {\n  let r = 0;\n  let l = 0;\n  let ans = 0;\n  for (const c of s) {\n    if (c === 'R') r++;\n    if (c === 'L') l++;\n    if (r === l) {\n      ans++;\n      r = l = 0;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

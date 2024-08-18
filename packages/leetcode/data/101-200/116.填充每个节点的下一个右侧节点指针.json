@@ -13,12 +13,6 @@
             "code": "function connect(root: Node | null): Node | null {\n  if (root === null) return null;\n  const queue = [root];\n  let size = 1;\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0) size = queue.length;\n    else node.next = queue[0];\n  }\n  return root;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "链表",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "链表", "二叉树"],
     "level": "Medium"
 }

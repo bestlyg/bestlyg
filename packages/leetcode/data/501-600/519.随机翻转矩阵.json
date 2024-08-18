@@ -13,11 +13,6 @@
             "code": "class Solution {\n  map = new Map<number, number>();\n  total: number;\n  constructor(public m: number, public n: number) {\n    this.total = m * n;\n  }\n  flip(): number[] {\n    const num = this.random(0, --this.total);\n    const idx = this.map.get(num) ?? num;\n    this.map.set(num, this.map.get(this.total) ?? this.total);\n    return [Math.floor(idx / this.n), idx % this.n];\n  }\n  reset(): void {\n    this.map.clear();\n    this.total = this.m * this.n;\n  }\n  random(min: number, max: number): number {\n    return min + Math.floor(Math.random() * (max - min + 1));\n  }\n}"
         }
     ],
-    "tagList": [
-        "水塘抽样",
-        "哈希表",
-        "数学",
-        "随机化"
-    ],
+    "tagList": ["水塘抽样", "哈希表", "数学", "随机化"],
     "level": "Medium"
 }

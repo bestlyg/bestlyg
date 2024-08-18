@@ -13,13 +13,6 @@
             "code": "function shoppingOffers(price: number[], special: number[][], needs: number[]): number {\n  const n = price.length;\n  special = special\n    .filter(item => {\n      let sum = 0;\n      for (let i = 0; i < n; i++) sum += item[i] * price[i];\n      return sum > item[n];\n    })\n    .sort((a, b) => a[n] - b[n]);\n  let ans = Infinity;\n  dfs(needs);\n  return ans;\n  function dfs(needs: number[], cost = 0) {\n    if (needs.every(v => v === 0)) {\n      ans = Math.min(cost, ans);\n      return;\n    }\n    const list = special.filter((item: number[]) =>\n      item.every((v, i) => (i === n ? true : v <= needs[i]))\n    );\n    if (list.length === 0) {\n      dfs(\n        [0],\n        needs.reduce((total, v, i) => price[i] * v + total, cost)\n      );\n    } else {\n      list.forEach(item => {\n        dfs(\n          needs.map((v, i) => v - item[i]),\n          item[n] + cost\n        );\n      });\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "记忆化搜索",
-        "数组",
-        "动态规划",
-        "回溯",
-        "状态压缩"
-    ],
+    "tagList": ["位运算", "记忆化搜索", "数组", "动态规划", "回溯", "状态压缩"],
     "level": "Medium"
 }

@@ -29,11 +29,6 @@
             "code": "class Solution:\n    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:\n        map = {}\n        xlevel = ylevel = 0\n        xnode, ynode = None, None\n        def dfs(node: Optional[TreeNode], level = 0):\n            nonlocal xnode, ynode, xlevel, ylevel\n            if not node: return\n            if node.val == x:\n                xnode = node\n                xlevel = level\n            if node.val == y:\n                ynode = node\n                ylevel = level\n            if node.left:\n                map[node.left] = node\n                dfs(node.left, level + 1)\n            if node.right:\n                map[node.right] = node\n                dfs(node.right, level + 1)\n        dfs(root)\n        if xlevel != ylevel: return False\n        if map[xnode] == map[ynode]: return False\n        return True"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

@@ -21,11 +21,6 @@
             "code": "function allPathsSourceTarget(graph: number[][]): number[][] {\n  const n = graph.length;\n  const ans: number[][] = [];\n  dfs(0);\n  return ans;\n  function dfs(node: number, list: number[] = []) {\n    list.push(node);\n    if (node === n - 1) ans.push(list.slice());\n    graph[node].forEach(v => dfs(v, list));\n    list.pop();\n  }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "回溯"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "图", "回溯"],
     "level": "Medium"
 }

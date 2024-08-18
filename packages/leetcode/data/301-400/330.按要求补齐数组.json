@@ -13,9 +13,6 @@
             "code": "function minPatches(nums: number[], n: number): number {\n  let patches = 0;\n  let x = 1;\n  const len = nums.length;\n  let i = 0;\n  while (x <= n) {\n    if (i < len && nums[i] <= x) {\n      x += nums[i];\n      i++;\n    } else {\n      x *= 2;\n      patches++;\n    }\n  }\n  return patches;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Hard"
 }

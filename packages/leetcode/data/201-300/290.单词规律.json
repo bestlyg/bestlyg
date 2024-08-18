@@ -13,9 +13,6 @@
             "code": "function wordPattern(pattern: string, s: string): boolean {\n  const cache: Record<string, string> = {};\n  const set = new Set<string>();\n  const arr = s.split(' ');\n  const len = arr.length;\n  if (len !== pattern.length) return false;\n  for (let i = 0; i < len; i++) {\n    const p = pattern[i];\n    const str = arr[i];\n    if (!cache[p] && !set.has(str)) {\n      cache[p] = str;\n      set.add(str);\n    } else if (cache[p] !== str) return false;\n  }\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "字符串"],
     "level": "Easy"
 }

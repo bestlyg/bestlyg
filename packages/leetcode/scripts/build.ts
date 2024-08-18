@@ -35,7 +35,7 @@ function writeMarkdown() {
                     item.code,
                     '```',
                     '',
-                ].join('\n')
+                ].join('\n'),
             ),
         ].join('\n');
         const dirpath = resolve(distpath, dirname);
@@ -50,8 +50,8 @@ function writeMarkdown() {
                         position: curPosition++,
                     },
                     null,
-                    4
-                )
+                    4,
+                ),
             );
         }
         fs.writeFileSync(resolve(dirpath, filename + '.md'), file);
@@ -84,7 +84,7 @@ function writeReadme() {
             `## ${title}`,
             '',
             ...list.map(item =>
-                [`### ${item.dir}`, '', ...item.list.map(name => `- ${name}`)].join('\n')
+                [`### ${item.dir}`, '', ...item.list.map(name => `- ${name}`)].join('\n'),
             ),
             ``,
         ].join('\n');

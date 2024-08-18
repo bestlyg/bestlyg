@@ -37,9 +37,6 @@
             "code": "bool buddyStrings(char * s, char * goal){\n    if (strlen(s) != strlen(goal)) return false;\n    int map1[26] = {0}, map2[26] = {0}, len = strlen(s), has_repeat = 0;\n    for (int i = 0; i < len; i++) {\n        map1[s[i] - 'a']++;\n        map2[goal[i] - 'a']++;\n    }\n    for (int i = 0; i < 26; i++) {\n        if (map1[i] != map2[i]) return false;\n        if (map1[i] >= 2) has_repeat = 1;\n    }\n    int cnt = 0;\n    for (int i = 0; i < len; i++) {\n        if (s[i] != goal[i]) {\n            if (++cnt > 2) return false;\n        }\n    }\n    if (cnt == 0) return has_repeat == 1;\n    return true;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "字符串"],
     "level": "Easy"
 }

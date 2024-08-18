@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int countKDifference(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        int ans = 0;\n        for (auto& num : nums) {\n            ans += m[num + k] + m[num - k];\n            m[num]++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "计数"],
     "level": "Easy"
 }

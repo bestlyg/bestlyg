@@ -29,7 +29,7 @@ if (isSubpackage) {
             .map(url => url.replace(root + '/', '')),
     }));
     const set = new Set(
-        subPackages.map(({ root, pages }) => pages.map(page => `${root}/${page}`)).flat()
+        subPackages.map(({ root, pages }) => pages.map(page => `${root}/${page}`)).flat(),
     );
     pages = Array.from(pageUrlMap.values()).filter(v => !set.has(v));
 } else {

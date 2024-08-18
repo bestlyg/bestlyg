@@ -29,14 +29,6 @@
             "code": "class Solution {\npublic:\n    int shortestSubarray(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 0x7fffffff;\n        vector<long long> sums(1 + n, 0);\n        for (int i = 0; i < n; i++) sums[i + 1] = sums[i] + nums[i];\n        deque<int> q;\n        q.push_back(0);\n        for (int i = 0; i < n; i++) {\n            int idx = -1;\n            while (q.size() && sums[i + 1] - sums[q.front()] >= k) idx = q.front(), q.pop_front();\n            if (idx != -1) ans = min(ans, i + 1 - idx);\n            while (q.size() && sums[q.back()] > sums[i + 1]) q.pop_back();\n            q.push_back(i + 1);\n        }\n        return ans == 0x7fffffff ? -1 : ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "队列",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "滑动窗口",
-        "单调队列",
-        "堆（优先队列）"
-    ],
+    "tagList": ["队列", "数组", "二分查找", "前缀和", "滑动窗口", "单调队列", "堆（优先队列）"],
     "level": "Hard"
 }

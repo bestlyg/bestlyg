@@ -13,11 +13,6 @@
             "code": "function inorderSuccessor(root: TreeNode | null, p: TreeNode | null): TreeNode | null {\n  if (p === null || root === null) return null;\n  let prev: TreeNode | null = null;\n  let ans: TreeNode | null = null;\n  inorder(root);\n  return ans;\n  function inorder(node: TreeNode | null): boolean {\n    if (node === null) return false;\n    if (inorder(node.left)) return true;\n    if (prev === p) {\n      ans = node;\n      return true;\n    }\n    prev = node;\n    if (inorder(node.right)) return true;\n    return false;\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

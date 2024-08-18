@@ -21,9 +21,6 @@
             "code": "function copyRandomList(head: Node | null): Node | null {\n  if (head === null) return null;\n  let p: Node | null = head;\n  while (p) {\n    const next = p.next;\n    const newNode = new Node(p.val, next);\n    p.next = newNode;\n    p = next;\n  }\n  p = head;\n  while (p) {\n    const newNode = p.next;\n    newNode!.random = p.random?.next ?? null;\n    p = p.next!.next;\n  }\n  p = head;\n  const ans = head.next;\n  while (p) {\n    const next = p.next?.next ?? null;\n    const newNode = p.next!;\n    newNode.next = next?.next ?? null;\n    p.next = next;\n    p = next;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "链表"
-    ],
+    "tagList": ["哈希表", "链表"],
     "level": "Medium"
 }

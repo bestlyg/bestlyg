@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int maxScore(string s) {\n        int ans = 0, cnt0 = 0, cnt1 = 0;\n        for (auto &c : s) {\n            if (c == '1') cnt1++;\n        }\n        for (int i = 0; i < s.size() - 1; i++) {\n            char c = s[i];\n            if (c == '0') cnt0++;\n            else cnt1--;\n            ans = max(ans, cnt0 + cnt1);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "前缀和"
-    ],
+    "tagList": ["字符串", "前缀和"],
     "level": "Easy"
 }

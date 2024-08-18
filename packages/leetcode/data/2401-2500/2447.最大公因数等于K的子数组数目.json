@@ -13,10 +13,6 @@
             "code": "function gcd(a: number, b: number): number {\n  if (a < b) return gcd(b, a);\n  if (b) return gcd(b, a % b);\n  return a;\n}\nfunction subarrayGCD(nums: number[], k: number): number {\n  let ans = 0;\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    if (nums[i] === k) {\n      ans++;\n    }\n    let num = nums[i];\n    for (let j = i - 1; j >= 0; j--) {\n      num = gcd(nums[j], num);\n      if (num === k) ans++;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "数论"
-    ],
+    "tagList": ["数组", "数学", "数论"],
     "level": "Medium"
 }

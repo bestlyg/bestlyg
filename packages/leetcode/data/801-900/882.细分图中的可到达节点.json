@@ -13,10 +13,6 @@
             "code": "# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    int pivotInteger(int n) {\n        int sum = (1 + n) * n / 2;\n        int prev_sum = 0;\n        for (int i = 1; i <=n ; i++) {\n            int next_sum = sum - prev_sum;\n            prev_sum += i;\n            if (prev_sum == next_sum) return i;\n        }\n        return -1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "图",
-        "最短路",
-        "堆（优先队列）"
-    ],
+    "tagList": ["图", "最短路", "堆（优先队列）"],
     "level": "Hard"
 }

@@ -29,9 +29,6 @@
             "code": "function minimumTotal(triangle: number[][]): number {\n  const n = triangle.length;\n  for (let i = n - 2; i >= 0; i--)\n    for (let j = 0; j <= i; j++)\n      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);\n  return triangle[0][0];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

@@ -13,11 +13,6 @@
             "code": "class Solution {\npublic:\n    bool canChoose(vector<vector<int>>& groups, vector<int>& nums) {\n        auto check = [&](int igroup, int inum) -> bool {\n            int i = 0;\n            for (; i < groups[igroup].size() && inum < nums.size(); i++, inum++)\n                if (groups[igroup][i] != nums[inum]) return false;\n            return i == groups[igroup].size();\n        };\n        int j = 0;\n        for (int i = 0; i < groups.size(); i++) {\n            while (j < nums.size() && (nums[j] != groups[i][0] || !check(i, j))) j++;\n            if (j == nums.size()) return false;\n            j += groups[i].size();\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针",
-        "字符串匹配"
-    ],
+    "tagList": ["贪心", "数组", "双指针", "字符串匹配"],
     "level": "Medium"
 }

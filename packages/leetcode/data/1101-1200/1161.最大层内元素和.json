@@ -21,11 +21,6 @@
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn max_level_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {\n        use std::collections::VecDeque;\n        let root = root.unwrap();\n        let mut q: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();\n        q.push_back(root.clone());\n        let (mut max_level, mut max_sum, mut cur, mut size, mut level) =\n            (1, root.borrow().val, 0, 1, 1);\n        while let Some(node) = q.pop_front() {\n            if node.as_ref().borrow().left.is_some() {\n                cur += node.as_ref().borrow().left.as_ref().unwrap().borrow().val;\n                q.push_back(node.as_ref().borrow().left.as_ref().unwrap().clone());\n            }\n            if node.as_ref().borrow().right.is_some() {\n                cur += node.as_ref().borrow().right.as_ref().unwrap().borrow().val;\n                q.push_back(node.as_ref().borrow().right.as_ref().unwrap().clone());\n            }\n            size -= 1;\n            if size == 0 {\n                size = q.len();\n                level += 1;\n                if size > 0 && cur > max_sum {\n                    max_sum = cur;\n                    max_level = level;\n                }\n                cur = 0;\n            }\n        }\n        max_level\n    }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Medium"
 }

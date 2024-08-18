@@ -13,13 +13,6 @@
             "code": "class Solution {\n   public:\n    int n;\n    unordered_map<int, int> m;\n    Solution(int n, vector<int> &blacklist) {\n        srand(time(0));\n        int size = blacklist.size(), nextN = n - size;\n        unordered_set<int> s;\n        for (auto &num : blacklist) {\n            if (num >= nextN) s.emplace(num);\n        }\n        int i = nextN;\n        for (auto &num : blacklist) {\n            if (num >= nextN) continue;\n            while (s.count(i)) i++;\n            m[num] = i++;\n        }\n        this->n = nextN;\n    }\n    int pick() {\n        int num = floor(random() % n);\n        return m.count(num) ? m[num] : num;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "数学",
-        "二分查找",
-        "排序",
-        "随机化"
-    ],
+    "tagList": ["数组", "哈希表", "数学", "二分查找", "排序", "随机化"],
     "level": "Hard"
 }

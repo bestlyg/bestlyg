@@ -13,9 +13,6 @@
             "code": "function lastStoneWeightII(stones: number[]): number {\n  const sum = stones.reduce((total, cur) => total + cur, 0);\n  const len = stones.length;\n  const half = sum >> 1;\n  const dp = new Array(len + 1).fill(0).map(_ => new Array(half + 1).fill(false));\n  dp[0][0] = true;\n  for (let i = 0; i < len; i++) {\n    for (let j = 0; j <= half; j++) {\n      if (stones[i] > j) dp[i + 1][j] = dp[i][j];\n      else dp[i + 1][j] = dp[i][j] || dp[i][j - stones[i]];\n    }\n  }\n  for (let j = half; j >= 0; j--) if (dp[len][j]) return sum - 2 * j;\n  return 0;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

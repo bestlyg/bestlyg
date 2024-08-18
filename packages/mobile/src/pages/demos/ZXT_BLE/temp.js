@@ -34,7 +34,7 @@ Page({
         return new Uint8Array(
             val.match(/[\da-f]{2}/gi).map(function (h) {
                 return parseInt(h, 16);
-            })
+            }),
         ).buffer;
     },
 

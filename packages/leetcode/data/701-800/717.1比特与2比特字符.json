@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int idx = 0;\n        while (idx < bits.size() - 1) {\n            if (bits[idx] == 0)\n                idx += 1;\n            else\n                idx += 2;\n        }\n        return idx == bits.size() - 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

@@ -18,7 +18,7 @@ async function main() {
         .action((o: ToolOption) =>
             chinaSoftwareCopyrightExtractionTool(o).catch(err => {
                 print.errorWithStack('Extraction error', err);
-            })
+            }),
         );
     program.parse();
 }

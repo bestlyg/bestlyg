@@ -13,8 +13,6 @@
             "code": "var kidsWithCandies = function (candies: number[], extraCandies: number): boolean[] {\n  let max = -1;\n  for (const num of candies) max = max < num ? num : max;\n  const res: boolean[] = [];\n  for (const num of candies) res.push(num + extraCandies >= max);\n  return res;\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

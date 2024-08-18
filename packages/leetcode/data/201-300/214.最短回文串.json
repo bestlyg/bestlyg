@@ -21,11 +21,6 @@
             "code": "function shortestPalindrome(s: string): string {\n  const n = s.length;\n  let str = s + '#';\n  for (let i = n - 1; i >= 0; i--) str += s[i];\n  const next = [-1];\n  for (let i = 1, j = -1; i < n * 2 + 1; i++) {\n    while (j !== -1 && str[j + 1] !== str[i]) j = next[j];\n    if (str[j + 1] === str[i]) j++;\n    next[i] = j;\n  }\n  const idx = next[2 * n];\n  let ans = s;\n  for (let i = Math.max(0, idx + 1); i < n; i++) ans = s[i] + ans;\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "字符串匹配",
-        "哈希函数",
-        "滚动哈希"
-    ],
+    "tagList": ["字符串", "字符串匹配", "哈希函数", "滚动哈希"],
     "level": "Hard"
 }

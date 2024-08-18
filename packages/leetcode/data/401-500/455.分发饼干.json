@@ -13,11 +13,6 @@
             "code": "function findContentChildren(g: number[], s: number[]): number {\n  const sort = (a: number, b: number) => a - b;\n  g.sort(sort);\n  s.sort(sort);\n  const gLen = g.length;\n  const sLen = s.length;\n  let gI = 0;\n  let sI = 0;\n  let ans = 0;\n  while (gI < gLen) {\n    if (sI === sLen) return ans;\n    if (g[gI] <= s[sI]) {\n      gI++;\n      sI++;\n      ans++;\n    } else {\n      sI++;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "双指针", "排序"],
     "level": "Easy"
 }

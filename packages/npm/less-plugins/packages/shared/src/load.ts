@@ -27,7 +27,7 @@ export function loadPlugin(
     functions: LessPlugins['functions'],
     tree: LessPlugins['tree'],
     less: LessPlugins['less'],
-    fileInfo: LessPlugins['fileInfo']
+    fileInfo: LessPlugins['fileInfo'],
 ) {
     const dirPath = fileInfo.currentDirectory;
     Object.assign(LESS_PLUGINS, {

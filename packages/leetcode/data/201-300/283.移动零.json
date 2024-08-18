@@ -21,9 +21,6 @@
             "code": "function moveZeroes(nums: number[]): void {\n  let left = 0;\n  let right = 0;\n  const len = nums.length;\n  const swap = (i1: number, i2: number) => ([nums[i1], nums[i2]] = [nums[i2], nums[i1]]);\n  while (right < len) {\n    if (nums[right] != 0) {\n      swap(left, right);\n      left++;\n    }\n    right++;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针"
-    ],
+    "tagList": ["数组", "双指针"],
     "level": "Easy"
 }

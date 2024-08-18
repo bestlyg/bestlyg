@@ -29,10 +29,6 @@
             "code": "struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {\n    struct ListNode *a = headA, *b = headB;\n    while(a != b){\n        a = a ? a->next : headB;\n        b = b ? b->next : headA;\n    }\n    return a;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["哈希表", "链表", "双指针"],
     "level": "Easy"
 }

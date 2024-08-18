@@ -29,9 +29,6 @@
             "code": "class Solution {\n   public:\n    vector<int> lexicalOrder(int n) {\n        vector<int> ans(n);\n        int num = 1;\n        for (int i = 0; i < n; i++) {\n            ans[i] = num;\n            if (num * 10 <= n)\n                num *= 10;\n            else {\n                while (num % 10 == 9 || num + 1 > n) num /= 10;\n                num++;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "字典树"
-    ],
+    "tagList": ["深度优先搜索", "字典树"],
     "level": "Medium"
 }

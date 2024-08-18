@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    int mod = 1e9 + 7;\n    int countVowelPermutation(int n) {\n        // 0 : a, 1 : e, 2 : i, 3 : o, 4 : u\n        // a -> e\n        // e -> a i\n        // i -> a e o u\n        // o -> i u\n        // u -> a\n        long long dp[2][5];\n        for (int i = 0; i < 5; i++) {\n            dp[0][i] = 0;\n            dp[1][i] = 1;\n        }\n        for (int i = 2; i <= n; i++) {\n            int pidx = (i + 1) % 2;\n            int idx = i % 2;\n            dp[idx][0] = (dp[pidx][1] + dp[pidx][2] + dp[pidx][4]) % mod;\n            dp[idx][1] = (dp[pidx][0] + dp[pidx][2]) % mod;\n            dp[idx][2] = (dp[pidx][1] + dp[pidx][3]) % mod;\n            dp[idx][3] = dp[pidx][2] % mod;\n            dp[idx][4] = (dp[pidx][2] + dp[pidx][3]) % mod;\n        }\n        long long ans = 0;\n        for (int i = 0; i < 5; i++) ans = (ans + dp[n % 2][i]) % mod;\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Hard"
 }

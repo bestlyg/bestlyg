@@ -21,10 +21,6 @@
             "code": "function judgePoint24(nums: number[]): boolean {\n  if (nums.length === 1) return nums[0] > 24 - 6e-11 && nums[0] < 24 + 6e-10;\n  const len = nums.length;\n  const getCopyArr = () => [...nums];\n  for (let i = 0; i < len; i++) {\n    const num1 = nums[i];\n    for (let j = i + 1; j < len; j++) {\n      const num2 = nums[j];\n      const getArr = (num: number): number[] => {\n        const arr = getCopyArr();\n        arr.splice(j, 1);\n        arr.splice(i, 1);\n        arr.push(num);\n        return arr;\n      };\n      if (\n        judgePoint24(getArr(num1 + num2)) ||\n        judgePoint24(getArr(num1 * num2)) ||\n        judgePoint24(getArr(num1 - num2)) ||\n        judgePoint24(getArr(num2 - num1)) ||\n        judgePoint24(getArr(num1 / num2)) ||\n        judgePoint24(getArr(num2 / num1))\n      )\n        return true;\n    }\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "回溯"
-    ],
+    "tagList": ["数组", "数学", "回溯"],
     "level": "Hard"
 }

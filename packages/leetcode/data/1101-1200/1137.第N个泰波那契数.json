@@ -13,10 +13,6 @@
             "code": "function nthSuperUglyNumber(n: number, primes: number[]): number {\n  const len = primes.length;\n  const pos = new Array(len).fill(0);\n  const list: number[] = [1];\n  let val = 1;\n  for (let i = 1; i < n; i++) {\n    val = Math.min(...pos.map((v, i) => list[v] * primes[i]));\n    for (let i = 0; i < len; i++) if (list[pos[i]] * primes[i] === val) pos[i]++;\n    list.push(val);\n  }\n  return val;\n}"
         }
     ],
-    "tagList": [
-        "记忆化搜索",
-        "数学",
-        "动态规划"
-    ],
+    "tagList": ["记忆化搜索", "数学", "动态规划"],
     "level": "Easy"
 }

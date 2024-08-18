@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    bool CheckPermutation(string s1, string s2) {\n        if (s1.size() != s2.size()) return false;\n        char list[130] = {0};\n        for (auto &c : s1) list[c]++;\n        for (auto &c : s2) if (list[c]-- == 0) return false;\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["哈希表", "字符串", "排序"],
     "level": "Easy"
 }

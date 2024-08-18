@@ -36,7 +36,7 @@ export function Image2Shadow() {
             image.onload = () => {
                 console.log('image load success', image, image.width, image.height);
                 message.success(
-                    `image load success, width : ${image.width} height : ${image.height}`
+                    `image load success, width : ${image.width} height : ${image.height}`,
                 );
                 resolve();
             };
@@ -76,7 +76,7 @@ export function Image2Shadow() {
             shadowlist.push(
                 `${widthOffset}px ${heightOffset}px  ${
                     options.blurPx
-                }px 1px rgba(${r}, ${g}, ${b}, ${a / 255})`
+                }px 1px rgba(${r}, ${g}, ${b}, ${a / 255})`,
             );
         }
         dom.style.boxShadow = shadowlist.join(',');

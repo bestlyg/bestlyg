@@ -13,11 +13,6 @@
             "code": "function reconstructQueue(people: number[][]): number[][] {\n  people.sort(([h1, k1], [h2, k2]) => (h1 === h2 ? k1 - k2 : h2 - h1));\n  const ans: number[][] = [];\n  for (const p of people) {\n    const [, k] = p;\n    ans.splice(k, 0, p);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["树状数组", "线段树", "数组", "排序"],
     "level": "Medium"
 }

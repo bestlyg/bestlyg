@@ -21,8 +21,6 @@
             "code": "impl Solution {\n    pub fn are_numbers_ascending(s: String) -> bool {\n        let s: Vec<char> = s.chars().collect();\n        let mut i = 0;\n        let mut prev = 0;\n        while i < s.len() {\n            if s[i].is_digit(10) {\n                let mut num = 0;\n                while i < s.len() && s[i].is_digit(10) {\n                    num = num * 10 + (s[i] as i32 - '0' as i32);\n                    i += 1;\n                }\n                if prev >= num {\n                    return false;\n                }\n                prev = num\n            }\n            i += 1;\n        }\n        true\n    }\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

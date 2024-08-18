@@ -13,10 +13,6 @@
             "code": "function setZeroes(matrix: number[][]): void {\n  const rowLen = matrix.length;\n  const colLen = matrix[0].length;\n  const colIndexSet = new Set<number>();\n  for (let i = 0; i < rowLen; i++) {\n    const row = matrix[i];\n    let f = false;\n    for (let j = 0; j < colLen; j++) {\n      if (row[j] === 0) {\n        f = true;\n        colIndexSet.add(j);\n      }\n    }\n    f && row.fill(0);\n  }\n  for (let i = 0; i < rowLen; i++) {\n    for (const j of colIndexSet) {\n      matrix[i][j] = 0;\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "矩阵"
-    ],
+    "tagList": ["数组", "哈希表", "矩阵"],
     "level": "Medium"
 }

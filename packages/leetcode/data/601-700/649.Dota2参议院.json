@@ -13,10 +13,6 @@
             "code": "function predictPartyVictory(senate: string): string {\n  const l = senate.length;\n  const arr = new Array(l).fill(1);\n  const check = (c: string) => () => arr.every((v, i) => (senate[i] === c ? true : v === 0));\n  const checkR = check('R');\n  const checkD = check('D');\n  const setNext = (i: number, c: string) => {\n    for (let j = i + 1; j < l; j++) {\n      if (senate[j] === c && arr[j] === 1) {\n        arr[j] = 0;\n        return;\n      }\n    }\n    for (let j = 0; j < i; j++) {\n      if (senate[j] === c && arr[j] === 1) {\n        arr[j] = 0;\n        return;\n      }\n    }\n  };\n  while (true) {\n    for (let i = 0; i < l; i++) {\n      if (arr[i] === 0) continue;\n      if (senate[i] === 'R') {\n        if (checkR()) return 'Radiant';\n        setNext(i, 'D');\n      } else {\n        if (checkD()) return 'Dire';\n        setNext(i, 'R');\n      }\n    }\n  }\n  return '';\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "队列",
-        "字符串"
-    ],
+    "tagList": ["贪心", "队列", "字符串"],
     "level": "Medium"
 }

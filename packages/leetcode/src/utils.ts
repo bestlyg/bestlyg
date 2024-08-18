@@ -19,10 +19,13 @@ export function parseCookie(cookie: string): Record<string, string> {
     return cookie
         .split(';')
         .map(x => x.trim().split('='))
-        .reduce((acc, x) => {
-            acc[x[0]] = x[1];
-            return acc;
-        }, {} as Record<string, string>);
+        .reduce(
+            (acc, x) => {
+                acc[x[0]] = x[1];
+                return acc;
+            },
+            {} as Record<string, string>,
+        );
 }
 
 export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
@@ -43,14 +46,14 @@ export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
                             problemPath: filePath,
                             problemData: data,
                         } as LeetCodeProblemData;
-                    })
+                    }),
                 );
                 return {
                     dirName,
                     dirPath,
                     problems,
                 };
-            })
+            }),
     );
     return result.sort((v1, v2) => dirSort(v1.dirName, v2.dirName));
 }

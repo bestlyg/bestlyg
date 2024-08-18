@@ -13,11 +13,6 @@
             "code": "function equalSubstring(s: string, t: string, maxCost: number): number {\n  const len = s.length;\n  const arr = new Array(len)\n    .fill(0)\n    .map((_, i) => Math.abs(s[i].charCodeAt(0) - t[i].charCodeAt(0)));\n  let l = 0,\n    r = 0,\n    cost = arr[l];\n  while (r < len) cost = cost + arr[++r] - (cost > maxCost ? arr[l++] : 0);\n  return r - l;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["字符串", "二分查找", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

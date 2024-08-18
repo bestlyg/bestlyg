@@ -21,8 +21,6 @@
             "code": "class Solution {\npublic:\n    int partitionDisjoint(vector<int>& nums) {\n        int n = nums.size(), cur_max = nums[0], ans = 1, ans_max = nums[0];\n        for (int i = 1; i < n; i++) {\n            cur_max = max(cur_max, nums[i]);\n            if (nums[i] < ans_max) {\n                ans_max = cur_max;\n                ans = i + 1;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Medium"
 }

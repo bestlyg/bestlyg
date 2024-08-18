@@ -21,12 +21,6 @@
             "code": "class Solution {\n  sums: number;\n  constructor(private w: number[]) {\n    this.sums = w.reduce((total, cur) => total + cur, 0);\n  }\n  pickIndex(): number {\n    let random = this.random();\n    for (let i = 0; i < this.w.length; i++) {\n      const w = this.w[i];\n      if (random <= w) return i;\n      random -= w;\n    }\n    return 0;\n  }\n  random(min: number = 1, max: number = this.sums): number {\n    return min + ~~(Math.random() * (max - min + 1));\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "二分查找",
-        "前缀和",
-        "随机化"
-    ],
+    "tagList": ["数组", "数学", "二分查找", "前缀和", "随机化"],
     "level": "Medium"
 }

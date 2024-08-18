@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int gcd(int a, int b) {\n        if (b > a) return gcd(b, a);\n        if (b == 0) return a;\n        return gcd(b, a % b);\n    }\n    int lcm(int a, int b) {\n        return a * b / gcd(a, b);\n    }\n    int nthMagicalNumber(int n, int a, int b) {\n        long long l = min(a, b), r = n * l, m, nlcm = lcm(a, b);\n        while (l < r) {\n            m = (l + r) >> 1;\n            int num = m / a + m / b - m / nlcm;\n            if (num >= n) r = m;\n            else l = m + 1;\n        }\n        return l % mod;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "二分查找"
-    ],
+    "tagList": ["数学", "二分查找"],
     "level": "Hard"
 }

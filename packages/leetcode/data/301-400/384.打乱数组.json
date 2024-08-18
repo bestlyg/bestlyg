@@ -21,10 +21,6 @@
             "code": "class Solution {\n  constructor(public nums: number[]) {}\n  reset(): number[] {\n    return this.nums;\n  }\n  shuffle(): number[] {\n    const arr = [...this.nums];\n    for (let i = 0; i < arr.length; i++) {\n      const random = this.random(i, arr.length - 1);\n      [arr[i], arr[random]] = [arr[random], arr[i]];\n    }\n    return arr;\n  }\n  random(min: number, max: number): number {\n    return min + ~~(Math.random() * (max - min + 1));\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "随机化"
-    ],
+    "tagList": ["数组", "数学", "随机化"],
     "level": "Medium"
 }

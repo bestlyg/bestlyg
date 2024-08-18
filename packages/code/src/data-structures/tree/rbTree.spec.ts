@@ -38,13 +38,13 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                     test('add right', () => {
                         tree.add(100);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 100].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 100].join(''),
                         );
                     });
                     test('add left', () => {
                         tree.add(1);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 1, 12, 30, 48, 94].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 1, 12, 30, 48, 94].join(''),
                         );
                     });
                 });
@@ -52,13 +52,13 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                     test('add left', () => {
                         tree.add(62);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 62, 94].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 62, 94].join(''),
                         );
                     });
                     test('add right', () => {
                         tree.add(64);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 64, 94].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 64, 94].join(''),
                         );
                     });
                 });
@@ -68,25 +68,25 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                     test('LL', () => {
                         tree.add(93);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 94, 12, 30, 48, 93, 97].join('')
+                            [52, 22, 86, 11, 42, 63, 94, 12, 30, 48, 93, 97].join(''),
                         );
                     });
                     test('LR', () => {
                         tree.add(95);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 95, 12, 30, 48, 94, 97].join('')
+                            [52, 22, 86, 11, 42, 63, 95, 12, 30, 48, 94, 97].join(''),
                         );
                     });
                     test('RL', () => {
                         tree.add(11.5);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11.5, 42, 63, 97, 11, 12, 30, 48, 94].join('')
+                            [52, 22, 86, 11.5, 42, 63, 97, 11, 12, 30, 48, 94].join(''),
                         );
                     });
                     test('RR', () => {
                         tree.add(13);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 12, 42, 63, 97, 11, 13, 30, 48, 94].join('')
+                            [52, 22, 86, 12, 42, 63, 97, 11, 13, 30, 48, 94].join(''),
                         );
                     });
                 });
@@ -94,25 +94,25 @@ function run(Cstr: new (compare) => IRBTree<number>) {
                     test('LL', () => {
                         tree.add(29);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 29].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 29].join(''),
                         );
                     });
                     test('LR', () => {
                         tree.add(31);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 31].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 31].join(''),
                         );
                     });
                     test('RL', () => {
                         tree.add(47);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 47].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 47].join(''),
                         );
                     });
                     test('RR', () => {
                         tree.add(49);
                         expect(tree.levelOrder().join('')).toBe(
-                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 49].join('')
+                            [52, 22, 86, 11, 42, 63, 97, 12, 30, 48, 94, 49].join(''),
                         );
                     });
                 });

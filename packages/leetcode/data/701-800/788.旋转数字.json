@@ -29,9 +29,6 @@
             "code": "class Solution {\npublic:\n    int rotatedDigits(int n) {\n        int len = get_len(n), list[2] = {0}, ans = 0;\n        dfs(len, n, list, 0, 0, ans);\n        return ans;\n    }\n    void dfs(int len, int n, int (&list)[2], int num, int cnt, int &ans) {\n        if (num > n) return;\n        if (cnt == len) {\n            if (list[1] > 0) ans++;\n            return;\n        }\n        for (int i = 0; i < 10; i++) {\n            int tag = get_tag(i);\n            if (tag == -1) continue;\n            list[tag]++;\n            dfs(len, n, list, num * 10 + i, cnt + 1, ans);\n            list[tag]--;\n        }\n    }\n    int get_len(int n) {\n        int ans = 0;\n        while (n) n /= 10, ans++;\n        return ans;\n    }\n    int get_tag(int n) {\n        switch (n) {\n            case 0:\n            case 1:\n            case 8: return 0;\n            case 2:\n            case 5:\n            case 6:\n            case 9: return 1;\n            default: return -1;\n        }\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "动态规划"
-    ],
+    "tagList": ["数学", "动态规划"],
     "level": "Medium"
 }

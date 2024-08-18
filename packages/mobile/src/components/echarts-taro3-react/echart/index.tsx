@@ -30,7 +30,7 @@ export default forwardRef<BaseChartRef, BaseChartProps>(function BaseChart(
         onMousedown,
         onInit,
     }: BaseChartProps,
-    ref
+    ref,
 ) {
     const [ec] = useState<ECObj>({ lazyLoad: true });
     const EcCanvasTaroRef = useRef<any>();

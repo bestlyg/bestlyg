@@ -21,11 +21,6 @@
             "code": "const countNode = (node: TreeNode | null): number =>\n  node ? 1 + countNode(node.left) + countNode(node.right) : 0;\nfunction kthLargest(root: TreeNode | null, k: number): number {\n  if (!root) return 0;\n  const rightCount = countNode(root.right) + 1;\n  return rightCount > k\n    ? kthLargest(root.right, k)\n    : rightCount < k\n    ? kthLargest(root.left, k - rightCount)\n    : root.val;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Easy"
 }

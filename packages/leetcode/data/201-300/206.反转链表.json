@@ -37,9 +37,6 @@
             "code": "class Solution {\n   public:\n    ListNode* reverseList(ListNode* head) {\n        if (!head) return head;\n        ListNode *newHead = nullptr, *tmp;\n        while (head) {\n            tmp = head->next;\n            head->next = newHead;\n            newHead = head;\n            head = tmp;\n        }\n        return newHead;\n    }\n};"
         }
     ],
-    "tagList": [
-        "递归",
-        "链表"
-    ],
+    "tagList": ["递归", "链表"],
     "level": "Easy"
 }

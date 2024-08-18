@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    unordered_map<int, int> m;\n    int smallestValue(int n) {\n        int ans = n;\n        if (isPrime(n)) return n;\n        if (m.count(n)) return m[n];\n        int num = 0;\n        for (int i = 2; i <= n; i++) {\n            if (n % i != 0) continue;\n            while (n % i == 0) n /= i, num += i;\n        }\n        m[ans] = num;\n        return min(ans, smallestValue(num));\n    }\n    bool isPrime(int n) {\n        for (int i = 2; i * i <= n; i++) {\n            if (n % i == 0) return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "数论",
-        "模拟"
-    ],
+    "tagList": ["数学", "数论", "模拟"],
     "level": "Medium"
 }

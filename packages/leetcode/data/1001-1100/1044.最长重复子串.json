@@ -13,13 +13,6 @@
             "code": "function check(s: string, n: number, num: number): string {\n  let left = 0;\n  let right = num;\n  let str = s.substring(left, right);\n  const set = new Set([str]);\n  while (right < n) {\n    str = s.substring(++left, ++right);\n    if (set.has(str)) return str;\n    set.add(str);\n  }\n  return '';\n}\nfunction longestDupSubstring(s: string): string {\n  const n = s.length;\n  let left = 0;\n  let right = n;\n  let ans = '';\n  while (left < right) {\n    const mid = (left + right + 1) >> 1;\n    const str = check(s, n, mid);\n    if (str === '') right = mid - 1;\n    else {\n      left = mid;\n      ans = str;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "二分查找",
-        "后缀数组",
-        "滑动窗口",
-        "哈希函数",
-        "滚动哈希"
-    ],
+    "tagList": ["字符串", "二分查找", "后缀数组", "滑动窗口", "哈希函数", "滚动哈希"],
     "level": "Hard"
 }

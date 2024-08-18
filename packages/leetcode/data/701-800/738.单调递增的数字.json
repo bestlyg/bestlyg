@@ -13,9 +13,6 @@
             "code": "function monotoneIncreasingDigits(N: number): number {\n  const arr: number[] = N.toString()\n    .split('')\n    .map(v => +v);\n  const len = arr.length;\n  let i = 1;\n  while (i < len && arr[i - 1] <= arr[i]) i++;\n  if (i === len) return N;\n  while (i > 0 && arr[i - 1] > arr[i]) {\n    arr[i - 1]--;\n    i--;\n  }\n  for (i += 1; i < len; i++) {\n    arr[i] = 9;\n  }\n  return arr.reduce((total, cur) => total * 10 + cur, 0);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数学"
-    ],
+    "tagList": ["贪心", "数学"],
     "level": "Medium"
 }

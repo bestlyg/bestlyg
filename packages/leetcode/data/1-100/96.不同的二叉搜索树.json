@@ -21,12 +21,6 @@
             "code": "function numTrees(n: number): number {\n  const dp = [0, 1, 2];\n  for (let i = 3; i <= n; i++) {\n    let sum = 0;\n    for (let j = 1; j < i - 1; j++) {\n      sum += dp[j] * dp[i - 1 - j];\n    }\n    sum += dp[i - 1] * 2;\n    dp[i] = sum;\n  }\n  return dp[n];\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "数学",
-        "动态规划",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "数学", "动态规划", "二叉树"],
     "level": "Medium"
 }

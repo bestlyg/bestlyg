@@ -13,10 +13,6 @@
             "code": "function stringMatching(words: string[]): string[] {\n  words.sort((a, b) => a.length - b.length);\n  const set = new Set<string>();\n  for (let i = 0; i < words.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (words[i].includes(words[j])) set.add(words[j]);\n    }\n  }\n  return [...set];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["数组", "字符串", "字符串匹配"],
     "level": "Easy"
 }

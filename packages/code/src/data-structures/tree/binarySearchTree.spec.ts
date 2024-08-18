@@ -1,7 +1,10 @@
 import { BinarySearchTree } from './binarySearchTree';
 
 class DummyNumber {
-    constructor(public val: number, public dummyVal: number) {}
+    constructor(
+        public val: number,
+        public dummyVal: number,
+    ) {}
 }
 describe('BinarySearchTree', () => {
     describe('add', () => {
@@ -27,7 +30,7 @@ describe('BinarySearchTree', () => {
                 tree
                     .inorder()
                     .map(v => v.dummyVal)
-                    .join('')
+                    .join(''),
             ).toBe('2');
         });
     });

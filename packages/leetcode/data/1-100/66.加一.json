@@ -13,9 +13,6 @@
             "code": "function plusOne(digits: number[]): number[] {\n  let add = true;\n  for (let n = digits.length, i = n - 1; add && i >= 0; i--) {\n    if (++digits[i] === 10) digits[i] = 0;\n    else add = false;\n  }\n  if (add) digits.unshift(1);\n  return digits;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

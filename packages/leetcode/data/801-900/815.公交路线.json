@@ -13,10 +13,6 @@
             "code": "function numBusesToDestination(routes: number[][], source: number, target: number): number {\n  if (source === target) return 0;\n  const stationMap = new Map<number, Set<number>>();\n  for (let routeIndex = 0, routeLen = routes.length; routeIndex < routeLen; routeIndex++) {\n    const route = routes[routeIndex];\n    for (\n      let stationIndex = 0, stationLen = route.length;\n      stationIndex < stationLen;\n      stationIndex++\n    ) {\n      const station = route[stationIndex];\n      let set = stationMap.get(station);\n      if (!set) stationMap.set(station, (set = new Set()));\n      set.add(routeIndex);\n    }\n  }\n  const busMap = new Map<number, Set<number>>();\n  for (const busList of stationMap.values()) {\n    if (busList.size === 1) continue;\n    for (const bus of busList) {\n      let set = busMap.get(bus);\n      if (!set) busMap.set(bus, (set = new Set()));\n      for (const nextBus of busList) if (nextBus !== bus) set.add(nextBus);\n    }\n  }\n  const FIRST_BUS = stationMap.get(source)!;\n  const LAST_BUS = stationMap.get(target)!;\n  if (!FIRST_BUS || !LAST_BUS || FIRST_BUS.size === 0 || LAST_BUS.size === 0) return -1;\n  for (const bus of FIRST_BUS) if (LAST_BUS.has(bus)) return 1;\n  let ans = Infinity;\n  const stepMap = new Map<number, number>();\n  for (const bus of FIRST_BUS) stepMap.set(bus, 1);\n  const queue: number[] = [...FIRST_BUS];\n  while (queue.length !== 0) {\n    const bus = queue.shift()!;\n    const step = stepMap.get(bus)!;\n    if (LAST_BUS.has(bus)) {\n      ans = Math.min(ans, step);\n      continue;\n    }\n    const nextBusList = busMap.get(bus)!;\n    for (const nextBus of nextBusList ?? []) {\n      if (!stepMap.has(nextBus)) queue.push(nextBus);\n      stepMap.set(nextBus, Math.min(stepMap.get(nextBus) ?? Infinity, step + 1));\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
         }
     ],
-    "tagList": [
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["广度优先搜索", "数组", "哈希表"],
     "level": "Hard"
 }

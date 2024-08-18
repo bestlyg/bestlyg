@@ -13,9 +13,6 @@
             "code": "function decode(encoded: number[]): number[] {\n  const n = encoded.length + 1;\n  let xorNum = 1;\n  for (let i = 2; i <= n; i++) xorNum ^= i;\n  for (let i = 1; i < n - 1; i += 2) xorNum ^= encoded[i];\n  return [xorNum, ...encoded.map(v => (xorNum ^= v))];\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组"
-    ],
+    "tagList": ["位运算", "数组"],
     "level": "Medium"
 }

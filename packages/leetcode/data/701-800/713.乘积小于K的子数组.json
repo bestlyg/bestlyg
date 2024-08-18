@@ -29,9 +29,6 @@
             "code": "int numSubarrayProductLessThanK(int *nums, int numsSize, int k) {\n    int l = 0, r = 0, sum = 1, ans = 0;\n    while (l < numsSize) {\n        while (r < numsSize && sum * nums[r] < k) sum *= nums[r++];\n        if (l == r) {\n            l++;\n            r++;\n        } else {\n            ans += r - l;\n            sum /= nums[l++];\n        }\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "滑动窗口"],
     "level": "Medium"
 }

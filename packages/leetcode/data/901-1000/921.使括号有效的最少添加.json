@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int minAddToMakeValid(string s) {\n        int cnt = 0, l = 0;\n        for (auto &c : s) {\n            if (c == '(') l++;\n            else if (l == 0) cnt++;\n            else l--;\n        }\n        return cnt + l;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "贪心",
-        "字符串"
-    ],
+    "tagList": ["栈", "贪心", "字符串"],
     "level": "Medium"
 }

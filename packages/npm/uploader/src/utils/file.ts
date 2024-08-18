@@ -33,7 +33,7 @@ export function getFileSuffix(fileName: string) {
  */
 export function getFileSliceLength(
     file: Blob,
-    getSliceFunc: (size: number) => number | undefined
+    getSliceFunc: (size: number) => number | undefined,
 ): number {
     const { size } = file;
     const byted = 1024 * 1024;

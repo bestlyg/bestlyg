@@ -21,9 +21,6 @@
             "code": "function getLucky(s: string, k: number): number {\n  return new Array(k).fill(0).reduce(\n    cur =>\n      cur\n        .split('')\n        .map(v => Number(v))\n        .reduce((sum, cur) => sum + cur, 0)\n        .toString(),\n    s\n      .split('')\n      .map(c => c.codePointAt(0)! - 'a'.codePointAt(0)! + 1)\n      .join('')\n  );\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["字符串", "模拟"],
     "level": "Easy"
 }

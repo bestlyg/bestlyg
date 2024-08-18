@@ -21,12 +21,6 @@
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction numIslands(grid: string[][]): number {\n  let count = 0;\n  const newGrid: number[][] = grid.map(row => row.map(col => (col === '0' ? -1 : count++)));\n  const rowLen = grid.length;\n  const colLen = grid[0].length;\n  const uf = new UnionFind(count);\n  for (let row = 0; row < rowLen; row++) {\n    for (let col = 0; col < colLen; col++) {\n      const num = newGrid[row][col];\n      if (num === -1) continue;\n      if (row > 0 && newGrid[row - 1][col] !== -1) uf.union(num, newGrid[row - 1][col]);\n      if (col > 0 && newGrid[row][col - 1] !== -1) uf.union(num, newGrid[row][col - 1]);\n      if (row < rowLen - 1 && newGrid[row + 1][col] !== -1) uf.union(num, newGrid[row + 1][col]);\n      if (col < colLen - 1 && newGrid[row][col + 1] !== -1) uf.union(num, newGrid[row][col + 1]);\n    }\n  }\n  return uf.size;\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "矩阵"],
     "level": "Medium"
 }

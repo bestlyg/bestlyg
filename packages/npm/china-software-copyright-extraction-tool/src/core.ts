@@ -33,9 +33,9 @@ function formatCodeList(codeList: string[], reverse = false): string[] {
             res[op](
                 reverse
                     ? codeList[i].substring(
-                          codeList[i].length - (MAX_HALF_LINES - sum) * CHARS_PER_LINE
+                          codeList[i].length - (MAX_HALF_LINES - sum) * CHARS_PER_LINE,
                       )
-                    : codeList[i].substring(0, (MAX_HALF_LINES - sum) * CHARS_PER_LINE)
+                    : codeList[i].substring(0, (MAX_HALF_LINES - sum) * CHARS_PER_LINE),
             );
             break;
         } else {
@@ -123,7 +123,7 @@ export async function getLinesOfCode(filePaths: string[]) {
             const code = await fs.readFile(filePath, 'utf-8');
             const formatedFileData = formatCode(code, path.extname(filePath));
             return formatedFileData.split('\n').length;
-        })
+        }),
     );
     return R.sum(arr);
 }
@@ -148,8 +148,8 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     print.info(`Total number of lines of code: ${await getLinesOfCode(filePaths)} lines.`);
     filePaths.forEach((filePath, idx) =>
         print.info(
-            `${(idx + 1).toString().padStart(filePaths.length.toString().length, '0')}: ${filePath}`
-        )
+            `${(idx + 1).toString().padStart(filePaths.length.toString().length, '0')}: ${filePath}`,
+        ),
     );
     // 对文档模板中的占位符进行替换
     // const code = files
@@ -161,7 +161,7 @@ export async function chinaSoftwareCopyrightExtractionTool(option: ToolOption) {
     // console.log(code);
     // const list = transformToTemplate(files);
     const list = await getFormatedCodeList(
-        filePaths
+        filePaths,
         // .slice(0, 2)
     );
     // console.log(list);

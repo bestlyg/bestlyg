@@ -13,8 +13,6 @@
             "code": "class Solution {\npublic:\n    bool check(vector<int>& nums) {\n        int n = nums.size();\n        bool f = false;\n        for (int i = 1; i < n; i++) {\n            if (nums[i] < nums[i - 1]) {\n                if (f) return false;\n                f = true;\n            }\n        }\n        return !f || nums[0] >= nums[n - 1];\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

@@ -29,8 +29,6 @@
             "date": "2023-04-01"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Medium"
 }

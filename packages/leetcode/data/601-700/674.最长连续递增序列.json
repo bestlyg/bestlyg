@@ -13,8 +13,6 @@
             "code": "function findLengthOfLCIS(nums: number[]): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const dp = new Array(len).fill(1);\n  let max = 1;\n  for (let i = 1; i < len; i++)\n    nums[i] > nums[i - 1] && (max = Math.max(max, (dp[i] = dp[i - 1] + 1)));\n  return max;\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

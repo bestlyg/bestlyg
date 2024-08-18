@@ -13,10 +13,6 @@
             "code": "function maxProduct(root: TreeNode): number {\n  const map = new Map<TreeNode, number>();\n  const sum = dfsSum(root);\n  let ans = 0;\n  dfsNode(root);\n  return ((sum - ans) * ans) % (10 ** 9 + 7);\n  function dfsSum(node: TreeNode | null): number {\n    if (node === null) return 0;\n    const sum = dfsSum(node.left) + dfsSum(node.right) + node.val;\n    map.set(node, sum);\n    return sum;\n  }\n  function dfsNode(node: TreeNode | null): void {\n    if (node === null) return;\n    if (Math.abs(sum / 2 - ans) > Math.abs(sum / 2 - map.get(node!)!)) {\n      ans = map.get(node!)!;\n    }\n    dfsNode(node.left);\n    dfsNode(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Medium"
 }

@@ -21,8 +21,6 @@
             "code": "const ipv4Reg = /^[0-9]+$/;\nfunction _checkIPV4(item: string): boolean {\n  if (!ipv4Reg.test(item)) return false;\n  if (item.length > 1 && item[0] === '0') return false;\n  if (parseInt(item) > 255) return false;\n  return true;\n}\nfunction checkIPV4(str: string): boolean {\n  const items = str.split('.');\n  if (items.length !== 4) return false;\n  return items.every(_checkIPV4);\n}\nconst ipv6Reg = /^[0-9a-fA-F]*$/;\nfunction _checkIPV6(item: string): boolean {\n  if (!ipv6Reg.test(item)) return false;\n  if (item.length > 4 || item.length === 0) return false;\n  return true;\n}\nfunction checkIPV6(str: string): boolean {\n  const items = str.split(':');\n  if (items.length !== 8) return false;\n  return items.every(_checkIPV6);\n}\nfunction validIPAddress(queryIP: string): string {\n  if (checkIPV4(queryIP)) return 'IPv4';\n  if (checkIPV6(queryIP)) return 'IPv6';\n  return 'Neither';\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Medium"
 }

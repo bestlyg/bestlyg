@@ -13,12 +13,6 @@
             "code": "class RandomizedCollection {\n        Map<Integer, Set<Integer>> idx;\n        List<Integer> nums;\n\n        /** Initialize your data structure here. */\n        public RandomizedCollection() {\n            idx = new HashMap<Integer, Set<Integer>>();\n            nums = new ArrayList<Integer>();\n        }\n\n        /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */\n        public boolean insert(int val) {\n            nums.add(val);\n            Set<Integer> set = idx.getOrDefault(val, new HashSet<Integer>());\n            set.add(nums.size() - 1);\n            idx.put(val, set);\n            return set.size() == 1;\n        }\n\n        /** Removes a value from the collection. Returns true if the collection contained the specified element. */\n        public boolean remove(int val) {\n            if (!idx.containsKey(val)) {\n                return false;\n            }\n            Iterator<Integer> it = idx.get(val).iterator();\n            int i = it.next();\n            int lastNum = nums.get(nums.size() - 1);\n            nums.set(i, lastNum);\n            idx.get(val).remove(i);\n            idx.get(lastNum).remove(nums.size() - 1);\n            if (i < nums.size() - 1) {\n                idx.get(lastNum).add(i);\n            }\n            if (idx.get(val).size() == 0) {\n                idx.remove(val);\n            }\n            nums.remove(nums.size() - 1);\n            return true;\n        }\n\n        /** Get a random element from the collection. */\n        public int getRandom() {\n            return nums.get((int) (Math.random() * nums.size()));\n        }\n    }"
         }
     ],
-    "tagList": [
-        "设计",
-        "数组",
-        "哈希表",
-        "数学",
-        "随机化"
-    ],
+    "tagList": ["设计", "数组", "哈希表", "数学", "随机化"],
     "level": "Hard"
 }

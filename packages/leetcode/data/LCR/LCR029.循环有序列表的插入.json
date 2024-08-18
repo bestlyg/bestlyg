@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    Node* insert(Node* head, int insertVal) {\n        if (!head) {\n            Node* ans = new Node(insertVal);\n            ans->next = ans;\n            return ans;\n        }\n        Node *p = head, *node = new Node(insertVal);\n        if (p->next != head) {\n            int nmin = INT_MAX, nmax = INT_MIN;\n            do {\n                nmin = min(nmin, p->val);\n                nmax = max(nmax, p->val);\n                p = p->next;\n            } while (p != head);\n            if (nmin >= insertVal || nmax <= insertVal) {\n                while (p->val <= p->next->val && p->next != head) p = p->next;\n            } else {\n                while (!(p->val <= insertVal && p->next->val >= insertVal))\n                    p = p->next;\n            }\n        }\n        node->next = p->next;\n        p->next = node;\n        return head;\n    }\n};"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

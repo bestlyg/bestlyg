@@ -13,10 +13,6 @@
             "code": "var lowestCommonAncestor = function (root, p, q) {\n  if (root === null || root === p || root === q) return root;\n  const left = lowestCommonAncestor(root.left, p, q);\n  const right = lowestCommonAncestor(root.right, p, q);\n  return left && right ? root : left ? left : right;\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Medium"
 }

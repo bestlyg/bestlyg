@@ -29,8 +29,6 @@
             "code": "class Solution {\n   public:\n    string countAndSay(int n) {\n        string str = \"1\";\n        while (--n) {\n            string next = \"\";\n            for (int i = 0, n = str.size(); i < n; i++) {\n                char ch = str[i];\n                int cnt = 1;\n                while (i + 1 < n && str[i + 1] == ch) i++, cnt++;\n                while (cnt) {\n                    next += cnt % 10 + '0';\n                    cnt /= 10;\n                }\n                next += ch;\n            }\n            str = next;\n        }\n        return str;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Medium"
 }

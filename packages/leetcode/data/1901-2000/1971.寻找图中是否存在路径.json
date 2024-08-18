@@ -13,11 +13,6 @@
             "code": "class UnionFind {\npublic:\n    int n;\n    vector<int> data, cnt;\n    UnionFind(int n): n(n), data(vector<int>(n, 0)), cnt(vector<int>(n, 1)) {\n        iota(data.begin(), data.end(), 0);\n    }\n    int size(int v) { return cnt[find(v)]; }\n    int find(int v) {\n        if (data[v] == v) return v;\n        return data[v] = find(data[v]);\n    }\n    void uni(int v1, int v2) {\n        int p1 = find(v1), p2 = find(v2);\n        if (p1 != p2) cnt[p1] += cnt[p2], data[p2] = p1;\n    }\n    bool same(int v1, int v2) { return find(v1) == find(v2); }\n};\nclass Solution {\npublic:\n    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {\n        UnionFind uf(n);\n        for (auto &edge : edges) uf.uni(edge[0], edge[1]);\n        return uf.same(source, destination);\n    }\n};"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "图"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "level": "Easy"
 }

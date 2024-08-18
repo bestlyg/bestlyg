@@ -13,11 +13,6 @@
             "code": "function findLongestWord(s: string, dictionary: string[]): string {\n        const n = dictionary.length;\n        const idxs = new Array(n).fill(0);\n        for (const c of s) {\n          for (let i = 0; i < n; i++) {\n            if (dictionary[i][idxs[i]] === c) idxs[i]++;\n          }\n        }\n        let ans!: string;\n        for (let i = 0; i < n; i++) {\n          if (dictionary[i].length === idxs[i]) {\n            if (!ans) ans = dictionary[i];\n            else ans = check(dictionary[i], ans);\n          }\n        }\n        return ans ?? '';\n        function check(str1: string, str2: string): string {\n          const n1 = str1.length;\n          const n2 = str2.length;\n          if (n1 > n2) return str1;\n          if (n1 < n2) return str2;\n          let idx = 0;\n          while (idx < n1) {\n            if (str1[idx] !== str2[idx])\n              return str1.codePointAt(idx)! > str2.codePointAt(idx)! ? str2 : str1;\n            idx++;\n          }\n          return str1;\n        }\n      }"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "字符串", "排序"],
     "level": "Medium"
 }

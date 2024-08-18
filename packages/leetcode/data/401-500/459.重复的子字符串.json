@@ -21,9 +21,6 @@
             "code": "function repeatedSubstringPattern(s: string): boolean {\n  const next = [-1];\n  const n = s.length;\n  for (let i = 1, j = -1; i < n; i++) {\n    while (j !== -1 && s[j + 1] !== s[i]) j = next[j];\n    if (s[j + 1] === s[i]) j++;\n    next[i] = j;\n  }\n  const idx = next[n - 1];\n  return idx !== -1 && n % (n - idx - 1) === 0;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["字符串", "字符串匹配"],
     "level": "Easy"
 }

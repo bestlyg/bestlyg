@@ -13,13 +13,6 @@
             "code": "struct MyCalendarTwo {\n    list: Vec<(i32, i32)>,\n    overlap: Vec<(i32, i32)>,\n}\nimpl MyCalendarTwo {\n    fn new() -> Self {\n        MyCalendarTwo {\n            list: Vec::new(),\n            overlap: Vec::new(),\n        }\n    }\n    fn book(&mut self, start: i32, end: i32) -> bool {\n        let block = (start, end);\n        for item in &self.overlap {\n            if self.is_overlap(&block, item) {\n                return false;\n            }\n        }\n        for item in &self.list {\n            if self.is_overlap(&block, item) {\n                self.overlap.push((block.0.max(item.0), block.1.min(item.1)));\n            }\n        }\n        self.list.push(block);\n        print!(\"{}\", block.0);\n        true\n    }\n    fn is_overlap(&self, v1: &(i32, i32), v2: &(i32, i32)) -> bool {\n        v1.0 < v2.1 && v1.1 > v2.0\n    }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "线段树",
-        "数组",
-        "二分查找",
-        "有序集合",
-        "前缀和"
-    ],
+    "tagList": ["设计", "线段树", "数组", "二分查找", "有序集合", "前缀和"],
     "level": "Medium"
 }

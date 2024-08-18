@@ -13,10 +13,6 @@
             "code": "function findAnagrams(s: string, p: string): number[] {\n  const sn = s.length;\n  const pn = p.length;\n  if (sn < pn) return [];\n  const arr: number[] = new Array(26).fill(0);\n  for (let i = 0; i < pn; i++) arr[p.codePointAt(i)! - 97]++;\n  const str = arr.join('#');\n  arr.fill(0);\n  const ans: number[] = [];\n  let l = 0;\n  let r = 0;\n  while (r < pn) arr[s.codePointAt(r++)! - 97]++;\n  while (r < sn) {\n    if (str === arr.join('#')) ans.push(l);\n    arr[s.codePointAt(l++)! - 97]--;\n    arr[s.codePointAt(r++)! - 97]++;\n  }\n  if (str === arr.join('#')) ans.push(l);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Medium"
 }

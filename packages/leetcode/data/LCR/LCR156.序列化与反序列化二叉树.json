@@ -13,13 +13,6 @@
             "code": "/**\n * Encodes a tree to a single string.\n *\n * @param {TreeNode} root\n * @return {string}\n */\nvar serialize = function (root) {\n  return JSON.stringify(root);\n};\n/**\n * Decodes your encoded data to tree.\n *\n * @param {string} data\n * @return {TreeNode}\n */\nvar deserialize = function (data) {\n  return JSON.parse(data);\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "设计",
-        "字符串",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "设计", "字符串", "二叉树"],
     "level": "Hard"
 }

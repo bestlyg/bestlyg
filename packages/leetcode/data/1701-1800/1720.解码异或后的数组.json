@@ -13,9 +13,6 @@
             "code": "function decode(encoded: number[], first: number): number[] {\n  return [first, ...encoded.map(num => (first = num ^ first))];\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组"
-    ],
+    "tagList": ["位运算", "数组"],
     "level": "Easy"
 }

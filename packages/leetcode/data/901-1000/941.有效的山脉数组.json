@@ -21,8 +21,6 @@
             "code": "function validMountainArray(arr: number[]): boolean {\n  const n = arr.length;\n  let l = 0;\n  let r = n - 1;\n  while (l < r && arr[l] < arr[l + 1]) l++;\n  while (l < r && arr[r] < arr[r - 1]) r--;\n  return l === r && l !== 0 && l !== n - 1;\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

@@ -13,12 +13,6 @@
             "code": "function isNumber(s: string): boolean {\n  return /^[+-]?(\\d+(\\.\\d*)?|(\\.\\d+))(e[+-]?\\d+)?$/i.test(s.trim());\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "数组",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tagList": ["递归", "数组", "数学", "动态规划", "博弈"],
     "level": "Medium"
 }

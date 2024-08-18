@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    int minimumSize(vector<int>& nums, int maxOperations) {\n        int nmin = 1, nmax = 1000000000, nmid;\n        while (nmin < nmax) {\n            nmid = (nmin + nmax) / 2;\n            if (comp(nums, nmid) <= maxOperations) nmax = nmid;\n            else nmin = nmid + 1;\n        }\n        return nmin;\n    }\n    int comp(vector<int> &nums, int val) {\n        int ans = 0;\n        for (auto &num : nums) {\n            if (num <= val) continue;\n            ans += ceil(1.0 * num / val) - 1;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

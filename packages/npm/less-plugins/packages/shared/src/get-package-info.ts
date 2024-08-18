@@ -28,7 +28,7 @@ export function getPackageJson(currentDirectory: string): Record<string, any> {
 export function getPackageJsonField(
     currentDirectory: string,
     key: string,
-    transform: string | Function
+    transform: string | Function,
 ) {
     try {
         const pkgJson = getPackageJson(currentDirectory);

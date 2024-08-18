@@ -37,10 +37,6 @@
             "code": "impl Solution {\n    pub fn count_pairs(nums: Vec<i32>, low: i32, high: i32) -> i32 {\n        let mut ans = 0;\n        for i in 0..nums.len() {\n            for j in i + 1..nums.len() {\n                let val = nums[i] ^ nums[j];\n                if val >= low && val <= high {\n                    ans += 1;\n                }\n            }\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "字典树",
-        "数组"
-    ],
+    "tagList": ["位运算", "字典树", "数组"],
     "level": "Hard"
 }

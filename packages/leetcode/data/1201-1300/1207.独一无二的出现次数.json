@@ -13,9 +13,6 @@
             "code": "function uniqueOccurrences(arr: number[]): boolean {\n  const map = new Map<number, number>();\n  const setMap = (num: number) => map.set(num, map.has(num) ? map.get(num)! + 1 : 1);\n  arr.forEach(v => setMap(v));\n  // console.log(map);\n  return new Set(map.values()).size === map.size;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Easy"
 }

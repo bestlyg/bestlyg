@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int closetTarget(vector<string>& words, string target, int startIndex) {\n        if (words[startIndex] == target) return 0;\n        int i1 = startIndex, cnt1 = 0;\n        do {\n            i1 = (i1 + 1) % words.size(); cnt1++;\n        } while (words[i1] != target && i1 != startIndex);\n        if (i1 == startIndex) return -1;\n        int i2 = startIndex, cnt2 = 0;\n        do {\n            i2 = (i2 - 1 + words.size()) % words.size(); cnt2++;\n        } while (words[i2] != target && i2 != startIndex);\n        return min(cnt1, cnt2);\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    int ans = 0, samecnt = 0;\n    vector<vector<int>> list;\n    vector<int> houses = vector<int>(20, 0);\n    int maximumRequests(int n, vector<vector<int>> &requests) {\n        for (auto &request : requests) {\n            if (request[0] == request[1]) {\n                samecnt++;\n                continue;\n            }\n            list.push_back(request);\n        }\n        dfs(0, 0);\n        return ans + samecnt;\n    }\n    void dfs(int idx, int cnt) {\n        if (idx == list.size()) {\n            for (auto &house : houses) {\n                if (house) return;\n            }\n            ans = max(ans, cnt);\n            return;\n        }\n        dfs(idx + 1, cnt);\n        houses[list[idx][0]]++;\n        houses[list[idx][1]]--;\n        dfs(idx + 1, cnt + 1);\n        houses[list[idx][0]]--;\n        houses[list[idx][1]]++;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "回溯",
-        "枚举"
-    ],
+    "tagList": ["位运算", "数组", "回溯", "枚举"],
     "level": "Hard"
 }

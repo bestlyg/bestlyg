@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> ans;\n        for (auto& interval : intervals) {\n            if (ans.size() > 0 && ans[ans.size() - 1][1] >= interval[0]) {\n                ans[ans.size() - 1][1] =\n                    max(interval[1], ans[ans.size() - 1][1]);\n            } else {\n                ans.push_back(interval);\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "排序"
-    ],
+    "tagList": ["数组", "排序"],
     "level": "Medium"
 }

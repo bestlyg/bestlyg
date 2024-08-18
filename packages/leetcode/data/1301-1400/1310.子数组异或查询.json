@@ -29,10 +29,6 @@
             "code": "class FenwickTree {\n  private arr: number[];\n  constructor(private n: number) {\n    this.arr = new Array(n + 1).fill(0);\n  }\n  add(idx: number, num: number): void {\n    while (idx <= this.n) {\n      this.arr[idx] += num;\n      idx += this.lowbit(idx);\n    }\n  }\n  at(idx: number): number {\n    return this.query(idx) - this.query(idx - 1);\n  }\n  query(idx: number): number {\n    let sum = 0;\n    while (idx) {\n      sum += this.arr[idx];\n      idx -= this.lowbit(idx);\n    }\n    return sum;\n  }\n  private lowbit(num: number) {\n    return num & -num;\n  }\n}\nclass StreamRank {\n  tree = new FenwickTree(50001);\n  track(x: number): void {\n    this.tree.add(x + 1, 1);\n  }\n  getRankOfNumber(x: number): number {\n    return this.tree.query(x + 1);\n  }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["位运算", "数组", "前缀和"],
     "level": "Medium"
 }

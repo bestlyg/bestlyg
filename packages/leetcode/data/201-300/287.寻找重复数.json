@@ -37,11 +37,6 @@
             "code": "function findDuplicate(nums: number[]): number {\n  let p = nums[0];\n  let q = nums[p];\n  while (p != q) {\n    p = nums[p];\n    q = nums[nums[q]];\n  }\n  p = 0;\n  while (p != q) {\n    p = nums[p];\n    q = nums[q];\n  }\n  return p;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "双指针",
-        "二分查找"
-    ],
+    "tagList": ["位运算", "数组", "双指针", "二分查找"],
     "level": "Medium"
 }

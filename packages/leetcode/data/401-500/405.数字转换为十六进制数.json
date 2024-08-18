@@ -13,9 +13,6 @@
             "code": "function toHex(num: number): string {\n  if (num === 0) return '0';\n  const map = '0123456789abcdef';\n  if (num < 0) num = 2 ** 32 + num;\n  let ans = '';\n  while (num) {\n    ans = map[num % 16] + ans;\n    num = ~~(num / 16);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数学"
-    ],
+    "tagList": ["位运算", "数学"],
     "level": "Easy"
 }

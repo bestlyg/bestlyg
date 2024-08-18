@@ -21,11 +21,6 @@
             "code": "class FreqStack {\npublic:\n    unordered_map<int, stack<int>> mstack;\n    unordered_map<int, int> mfreq;\n    int maxFreq = 0;\n    FreqStack() {}\n    void push(int val) {\n        int freq = ++mfreq[val];\n        mstack[freq].push(val);\n        maxFreq = max(maxFreq, freq);\n    }\n    int pop() {\n        int val = mstack[maxFreq].top();\n        mfreq[val]--;\n        mstack[maxFreq].pop();\n        if (mstack[maxFreq].size() == 0) maxFreq--;\n        return val;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "设计",
-        "哈希表",
-        "有序集合"
-    ],
+    "tagList": ["栈", "设计", "哈希表", "有序集合"],
     "level": "Hard"
 }

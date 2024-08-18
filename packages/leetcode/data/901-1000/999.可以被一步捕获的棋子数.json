@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int sumRootToLeaf(TreeNode* root) {\n        int ans = 0;\n        dfs(root, ans, 0);\n        return ans;\n    }\n    void dfs(TreeNode* node, int& ans, int val) {\n        val = val << 1 | node->val;\n        if (node->left == nullptr && node->right == nullptr) {\n            ans += val;\n            return;\n        }\n        if (node->left) dfs(node->left, ans, val);\n        if (node->right) dfs(node->right, ans, val);\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Easy"
 }

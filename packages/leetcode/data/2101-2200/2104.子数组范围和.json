@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    struct node {\n        int minl, maxl, minr, maxr, idx, num;\n    };\n    long long subArrayRanges(vector<int>& nums) {\n        long long ans = 0;\n        int n = nums.size();\n        stack<int> mins, maxs;\n        vector<node> list(n);\n        for (int i = 0; i < n; i++) {\n            list[i].idx = i;\n            list[i].num = nums[i];\n            while (mins.size() && nums[mins.top()] > nums[i]) {\n                list[mins.top()].minr = i;\n                mins.pop();\n            }\n            list[i].minl = mins.size() ? mins.top() : -1;\n            while (maxs.size() && nums[maxs.top()] < nums[i]) {\n                list[maxs.top()].maxr = i;\n                maxs.pop();\n            }\n            list[i].maxl = maxs.size() ? maxs.top() : -1;\n            mins.push(i);\n            maxs.push(i);\n        }\n        while (mins.size()) {\n            list[mins.top()].minr = n;\n            mins.pop();\n        }\n        while (maxs.size()) {\n            list[maxs.top()].maxr = n;\n            maxs.pop();\n        }\n        for (int i = 0; i < n; i++) {\n            ans += (long long)(list[i].maxr - i) * (i - list[i].maxl) *\n                   list[i].num;\n            ans -= (long long)(list[i].minr - i) * (i - list[i].minl) *\n                   list[i].num;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "单调栈"],
     "level": "Medium"
 }

@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {\n        TreeNode *node = root, *pre = nullptr;\n        while (node && node->val > val) {\n            pre  = node;\n            node = node->right;\n        }\n        if (!pre) return new TreeNode(val, root, nullptr);\n        pre->right = new TreeNode(val, node, nullptr);\n        return root;\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉树"],
     "level": "Medium"
 }

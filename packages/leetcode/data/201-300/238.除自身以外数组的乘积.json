@@ -29,9 +29,6 @@
             "code": "function productExceptSelf(nums: number[]): number[] {\n  const len = nums.length;\n  let ans: number[] = [1];\n  for (let i = 1; i < len; i++) ans[i] = ans[i - 1] * nums[i - 1];\n  let r = nums[len - 1];\n  for (let i = len - 2; i >= 0; i--) {\n    ans[i] *= r;\n    r *= nums[i];\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["数组", "前缀和"],
     "level": "Medium"
 }

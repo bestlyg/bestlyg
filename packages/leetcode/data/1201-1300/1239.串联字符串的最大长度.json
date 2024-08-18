@@ -13,11 +13,6 @@
             "code": "function maxLength(arr: string[]): number {\n  const masks = arr\n    .map(s => {\n      if (s === '') return -1;\n      let mask = 0;\n      for (const c of s) {\n        const num = c.codePointAt(0)!;\n        if ((mask >> num) & 1) return -1;\n        mask |= 1 << num;\n      }\n      return mask;\n    })\n    .filter(num => num !== -1);\n  let ans = 0;\n  const masksLen = masks.length;\n  const dfs = (index = 0, num = 0) => {\n    if (index === masksLen) {\n      ans = Math.max(ans, num.toString(2).split('0').join('').length);\n      return;\n    }\n    if ((num & masks[index]) === 0) dfs(index + 1, num | masks[index]);\n    dfs(index + 1, num);\n  };\n  dfs();\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["位运算", "数组", "字符串", "回溯"],
     "level": "Medium"
 }

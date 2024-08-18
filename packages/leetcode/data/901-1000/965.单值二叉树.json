@@ -29,11 +29,6 @@
             "code": "class Solution {\n   public:\n    int val = 0;\n    bool isUnivalTree(TreeNode* root) {\n        if (!root) return true;\n        if (val == 0) val = root->val;\n        return root->val == val && isUnivalTree(root->left) &&\n               isUnivalTree(root->right);\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

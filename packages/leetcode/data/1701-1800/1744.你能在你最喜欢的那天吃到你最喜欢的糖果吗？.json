@@ -13,9 +13,6 @@
             "code": "function canEat(candiesCount: number[], queries: number[][]): boolean[] {\n  const sum = candiesCount.reduce<number[]>((list, cur, i, arr) => {\n    list[i] = (i === 0 ? 0 : list[i - 1]) + cur;\n    return list;\n  }, []);\n  const check = ([type, day, count]: number[]): boolean => {\n    const x1 = day + 1;\n    const y1 = (day + 1) * count;\n    const x2 = type === 0 ? 1 : sum[type - 1] + 1;\n    const y2 = sum[type];\n    return !(x1 > y2 || y1 < x2);\n  };\n  return queries.map(check);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "前缀和"
-    ],
+    "tagList": ["数组", "前缀和"],
     "level": "Medium"
 }

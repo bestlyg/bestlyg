@@ -13,13 +13,6 @@
             "code": "function leastInterval(tasks: string[], n: number): number {\n  const countCache: Record<string, number> = {};\n  for (const task of tasks) {\n    countCache[task] = 1 + (countCache[task] ?? 0);\n  }\n  const maxExec = Math.max(...Object.values(countCache));\n  const maxCount = Object.values(countCache).reduce(\n    (total, v) => total + (v === maxExec ? 1 : 0),\n    0\n  );\n  return Math.max((maxExec - 1) * (n + 1) + maxCount, tasks.length);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "哈希表",
-        "计数",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数组", "哈希表", "计数", "排序", "堆（优先队列）"],
     "level": "Medium"
 }

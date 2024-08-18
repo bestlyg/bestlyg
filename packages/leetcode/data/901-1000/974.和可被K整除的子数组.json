@@ -13,10 +13,6 @@
             "code": "var subarraysDivByK = function (A: number[], K: number): number {\n  const arr: number[] = new Array(K).fill(0);\n  let sum = 0;\n  let count = 0;\n  for (const num of A) {\n    sum += num;\n    if (sum % K === 0) count++;\n    const y = (K - (sum % K)) % K;\n    if (arr[y] !== 0) count += arr[y];\n    arr[y] += 1;\n  }\n  return count;\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tagList": ["数组", "哈希表", "前缀和"],
     "level": "Medium"
 }

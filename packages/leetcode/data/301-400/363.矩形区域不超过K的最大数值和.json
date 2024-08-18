@@ -13,12 +13,6 @@
             "code": "function maxSumSubmatrix(matrix: number[][], k: number): number {\n  const rowLen = matrix.length;\n  const colLen = matrix[0].length;\n  const dp: number[][] = new Array(rowLen + 1).fill(0).map(_ => new Array(colLen + 1).fill(0));\n  let max = -Infinity;\n  for (let row = 0; row < rowLen; row++) {\n    for (let col = 0; col < colLen; col++) {\n      let num = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];\n      if (num === k) return k;\n      dp[row + 1][col + 1] = matrix[row][col] + dp[row + 1][col] + dp[row][col + 1] - dp[row][col];\n      for (let i = 0; i <= row; i++) {\n        for (let j = 0; j <= col; j++) {\n          const areaNum = num - dp[i][col + 1] - dp[row + 1][j] + dp[i][j];\n          if (areaNum === k) return k;\n          else if (areaNum < k) max = Math.max(max, areaNum);\n        }\n      }\n    }\n  }\n  return max;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "矩阵",
-        "有序集合",
-        "前缀和"
-    ],
+    "tagList": ["数组", "二分查找", "矩阵", "有序集合", "前缀和"],
     "level": "Hard"
 }

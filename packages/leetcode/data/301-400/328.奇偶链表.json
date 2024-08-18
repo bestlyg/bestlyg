@@ -21,8 +21,6 @@
             "code": "function oddEvenList(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let odd: ListNode | null = head;\n  let even: ListNode | null = head.next;\n  const evenHead = head.next;\n  while (even !== null && even.next !== null) {\n    odd.next = even.next;\n    odd = odd.next;\n    even.next = odd.next;\n    even = even.next;\n  }\n  odd.next = evenHead;\n  return head;\n}"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

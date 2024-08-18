@@ -13,11 +13,6 @@
             "code": "class MovingAverage {\n   public:\n    int size, sum = 0;\n    queue<int> q;\n    MovingAverage(int size) { this->size = size; }\n    double next(int val) {\n        if (q.size() >= size) {\n            sum -= q.front();\n            q.pop();\n        }\n        q.push(val);\n        sum += val;\n        return sum * 1.0 / q.size();\n    }\n};"
         }
     ],
-    "tagList": [
-        "设计",
-        "队列",
-        "数组",
-        "数据流"
-    ],
+    "tagList": ["设计", "队列", "数组", "数据流"],
     "level": "Easy"
 }

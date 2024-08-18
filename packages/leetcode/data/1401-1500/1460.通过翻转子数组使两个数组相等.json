@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn can_be_equal(target: Vec<i32>, arr: Vec<i32>) -> bool {\n        let mut map = [0; 1005];\n        for num in arr {\n            map[num as usize] += 1;\n        }\n        for num in target {\n            if map[num as usize] == 0 {\n                return false;\n            }\n            map[num as usize] -= 1;\n        }\n        true\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "排序"],
     "level": "Easy"
 }

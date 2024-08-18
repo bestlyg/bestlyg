@@ -29,11 +29,6 @@
             "code": "class Solution {\npublic:\n    int getKthMagicNumber(int k) {\n        vector<int> list(k);\n        list[0] = 1;\n        int p[3] = {0};\n        for (int i = 1; i < k; i++) {\n            int next = min(list[p[0]] * 3, min(list[p[1]] * 5, list[p[2]] * 7));\n            list[i] = next;\n            if (next % 3 == 0) p[0]++;\n            if (next % 5 == 0) p[1]++;\n            if (next % 7 == 0) p[2]++;\n        }\n        return list.back();\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "动态规划",
-        "堆（优先队列）"
-    ],
+    "tagList": ["哈希表", "数学", "动态规划", "堆（优先队列）"],
     "level": "Medium"
 }

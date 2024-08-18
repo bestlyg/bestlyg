@@ -13,9 +13,6 @@
             "code": "function translateNum(num: number): number {\n  if (num < 10) return 1;\n  else if (num <= 25) {\n    return 2;\n  } else if (num < 100) {\n    return 1;\n  } else {\n    const s = num.toString();\n    const subNum2 = Number(s.substr(0, 2));\n    let num2 = 0;\n    if (subNum2 <= 25) num2 = translateNum(Number(s.substr(2)));\n    return translateNum(Number(s.substr(1))) + num2;\n  }\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Medium"
 }

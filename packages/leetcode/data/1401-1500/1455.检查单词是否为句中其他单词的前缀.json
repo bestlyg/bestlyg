@@ -21,10 +21,6 @@
             "code": "function isPrefixOfWord(sentence: string, searchWord: string): number {\n  const list = sentence.split(' ');\n  for (let i = 0; i < list.length; i++) {\n    if (list[i].startsWith(searchWord)) return i + 1;\n  }\n  return -1;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["双指针", "字符串", "字符串匹配"],
     "level": "Easy"
 }

@@ -76,7 +76,10 @@ export class ListNode {
         }
         return l;
     }
-    constructor(public val: number = 0, public next: ListNode | null = null) {}
+    constructor(
+        public val: number = 0,
+        public next: ListNode | null = null,
+    ) {}
     traversal(visitor: (node: ListNode) => boolean): void {
         ListNode.traversal(this, visitor);
     }

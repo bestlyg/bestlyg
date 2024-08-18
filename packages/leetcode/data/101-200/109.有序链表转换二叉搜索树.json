@@ -13,12 +13,6 @@
             "code": "function sortedListToBST(head: ListNode | null): TreeNode | null {\n  if (head === null) return null;\n  const arr: number[] = [];\n  while (head !== null) {\n    arr.push(head.val);\n    head = head.next;\n  }\n  return toBST(arr);\n  function toBST(array: number[]): TreeNode | null {\n    const len = array.length;\n    if (len === 0) return null;\n    const mid = len >> 1;\n    const node = new TreeNode(\n      array[mid],\n      toBST(array.slice(0, mid)),\n      toBST(array.slice(mid + 1, len))\n    );\n    return node;\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "链表",
-        "分治",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "链表", "分治", "二叉树"],
     "level": "Medium"
 }

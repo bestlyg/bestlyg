@@ -13,10 +13,6 @@
             "code": "function isCovered(ranges: number[][], left: number, right: number): boolean {\n  ranges.sort(([l1, r1], [l2, r2]) => (l1 === l2 ? r1 - r2 : l1 - l2));\n  const rangeList: number[][] = [];\n  for (const range of ranges) {\n    if (rangeList.length === 0) {\n      rangeList.push(range);\n      continue;\n    }\n    const [l1, r1] = rangeList.pop()!;\n    const [l2, r2] = range;\n    if (l2 >= l1 && r2 <= r1) rangeList.push([l1, r1]);\n    else if (r1 < l2 - 1) rangeList.push([l1, r1], [l2, r2]);\n    else rangeList.push([l1, r2]);\n  }\n  for (const [l, r] of rangeList) {\n    if (left >= l && right <= r) return true;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tagList": ["数组", "哈希表", "前缀和"],
     "level": "Easy"
 }

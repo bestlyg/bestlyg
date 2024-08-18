@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int totalFruit(vector<int>& fruits) {\n        unordered_map<int, int> m;\n        int ans = 0, l = 0, r = 0, n = fruits.size();\n        while (r < n) {\n            m[fruits[r]]++;\n            if (m.size() == 3) {\n                do {\n                    m[fruits[l]]--;\n                    if (m[fruits[l]] == 0) m.erase(fruits[l]);\n                    l++;\n                } while (l < n && m.size() == 3);\n            }\n            ans = max(ans, r - l + 1);\n            r++;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "滑动窗口"],
     "level": "Medium"
 }

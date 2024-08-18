@@ -13,10 +13,6 @@
             "code": "function checkStraightLine(coordinates: number[][]): boolean {\n  const len = coordinates.length;\n  if (len <= 2) return true;\n  const [[x1, y1], [x2, y2]] = coordinates;\n  if (x1 === x2) return coordinates.every(([x]) => x === x1);\n  const k = (y1 - y2) / (x1 - x2);\n  const b = y1 - k * x1;\n  return coordinates.every(([x, y]) => y === k * x + b);\n}"
         }
     ],
-    "tagList": [
-        "几何",
-        "数组",
-        "数学"
-    ],
+    "tagList": ["几何", "数组", "数学"],
     "level": "Easy"
 }

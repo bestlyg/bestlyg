@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int beautySum(string s) {\n        int ans = 0, n = s.size(), dp[505][505][26] = {0};\n        for (int i = 0; i < n; i++) {\n            dp[i][i][s[i] - 'a'] = 1;\n            for (int j = i - 1; j >= 0; j--) {\n                for (int k = 0; k < 26; k++) dp[i][j][k] = dp[i][j + 1][k];\n                dp[i][j][s[j] - 'a']++;\n            }\n        }\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < i; j++) {\n                int nmin = 500, nmax = 0;\n                for (int k = 0; k < 26; k++) {\n                    if (dp[i][j][k] == 0) continue;\n                    nmin = min(nmin, dp[i][j][k]);\n                    nmax = max(nmax, dp[i][j][k]);\n                }\n                // cout << \"j = \" << j << \", i = \" << i << \", min = \" << nmin << \", max = \" << nmax << endl;\n                ans += nmax - nmin;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "计数"],
     "level": "Medium"
 }

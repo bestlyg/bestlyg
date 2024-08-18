@@ -13,10 +13,6 @@
             "code": "function findMinArrowShots(points: number[][]): number {\n  if (points.length === 0) return 0;\n  points.sort(([, p1], [, p2]) => p1 - p2);\n  let [, pos] = points[0];\n  let ans = 1;\n  for (let [b0, b1] of points) {\n    if (b0 > pos) {\n      pos = b1;\n      ans++;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Medium"
 }

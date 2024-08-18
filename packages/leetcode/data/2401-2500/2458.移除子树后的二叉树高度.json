@@ -13,12 +13,6 @@
             "code": "class Solution {\npublic:\n    typedef pair<int, int> node;\n    unordered_map<int, node> m;\n    vector<int> treeQueries(TreeNode* root, vector<int>& queries) {\n        m[-1] = make_pair(0, 0);\n        dfs1(root);\n        dfs2(root);\n        vector<int> ans;\n        for (auto &q : queries) ans.push_back(m[q].second);\n        return ans;\n    }\n    int dfs1(TreeNode *node) {\n        if (node == nullptr) return 0;\n        int l = dfs1(node->left), r = dfs1(node->right), h = max(l, r) + 1;\n        m[node->val] = make_pair(h, 0);\n        return h;\n    }\n    void dfs2(TreeNode *node, int level = 0, int curH = 0) {\n        if (node == nullptr) return;\n        m[node->val].second = curH;\n        int l = node->left == nullptr ? -1 : node->left->val,\n            r = node->right == nullptr ? -1 : node->right->val;\n        dfs2(node->left, level + 1, max(curH, level + m[r].first));\n        dfs2(node->right, level + 1, max(curH, level + m[l].first));\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "数组", "二叉树"],
     "level": "Hard"
 }

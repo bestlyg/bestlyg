@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    int longestOnes(vector<int>& nums, int k) {\n        int ans = 0, l = 0, r = -1, cnt0 = 0;\n        while (1) {\n            if (cnt0 <= k) {\n                r++;\n                if (r == nums.size()) break;\n                if (nums[r] == 0) cnt0++;\n            } else {\n                if (nums[l] == 0) cnt0--;\n                l++;\n            }\n            if (cnt0 <= k) ans = max(ans, r - l + 1);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "二分查找", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

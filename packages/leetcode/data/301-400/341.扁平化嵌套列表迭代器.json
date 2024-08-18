@@ -13,13 +13,6 @@
             "code": "class NestedIterator {\n  private arr: number[] = [];\n  constructor(nestedList: NestedInteger[]) {\n    this.loadArray(nestedList);\n  }\n  hasNext(): boolean {\n    return this.arr.length > 0;\n  }\n  next(): number {\n    return this.arr.shift()!;\n  }\n  loadArray(nestedList: NestedInteger[]): void {\n    for (const nestedInteger of nestedList) {\n      if (nestedInteger.isInteger()) {\n        this.arr.push(nestedInteger.getInteger()!);\n      } else {\n        this.loadArray(nestedInteger.getList());\n      }\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "设计",
-        "队列",
-        "迭代器"
-    ],
+    "tagList": ["栈", "树", "深度优先搜索", "设计", "队列", "迭代器"],
     "level": "Medium"
 }

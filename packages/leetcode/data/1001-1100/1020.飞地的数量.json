@@ -29,12 +29,6 @@
             "code": "int dirs[4][2] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};\nclass UnionFind {\n   public:\n    vector<int> data;\n    UnionFind(int size) : data(size) {\n        for (int i = 0; i < size; i++) data[i] = i;\n    }\n    int find(int e) {\n        if (data[e] == e) return e;\n        return data[e] = find(data[e]);\n    }\n    void uni(int e1, int e2) { data[find(e2)] = find(e1); }\n};\nclass Solution {\n   public:\n    int n, m;\n    int get_idx(int row, int col) { return row * m + col; }\n    int numEnclaves(vector<vector<int>>& grid) {\n        n = grid.size();\n        m = grid[0].size();\n        int ans = 0;\n        UnionFind uf(n * m);\n        unordered_set<int> s1, s2;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                if (grid[i][j] == 0) continue;\n                ans++;\n                if (i == 0 || j == 0 || i == n - 1 || j == m - 1)\n                    s1.insert(get_idx(i, j));\n                for (int k = 0; k < 4; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni >= n || nj < 0 || nj >= m ||\n                        grid[ni][nj] == 0)\n                        continue;\n                    uf.uni(get_idx(i, j), get_idx(ni, nj));\n                }\n            }\n        }\n        for (auto& idx : s1) s2.insert(uf.find(idx));\n        for (int i = 0; i < n * m; i++) {\n            if (s2.count(uf.find(i))) ans--;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "矩阵"],
     "level": "Medium"
 }

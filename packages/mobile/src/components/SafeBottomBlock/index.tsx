@@ -9,7 +9,7 @@ export function SafeBottomBlock({ height = 1 }: { height?: number }) {
             width: '100%',
             height: `calc(env(safe-area-inset-bottom) + ${Taro.pxTransform(height)})`,
         }),
-        [height]
+        [height],
     );
     return <View style={style}></View>;
 }

@@ -21,11 +21,6 @@
             "code": "class Solution {\n   public:\n    vector<int> nums;\n    int n;\n    Solution(vector<int>& nums) {\n        this->nums = nums;\n        n = nums.size();\n        srand(time(0));\n    }\n    int pick(int target) {\n        int cnt = 0, ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (nums[i] != target) continue;\n            if (rand() % ++cnt == 0) {\n                ans = i;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "水塘抽样",
-        "哈希表",
-        "数学",
-        "随机化"
-    ],
+    "tagList": ["水塘抽样", "哈希表", "数学", "随机化"],
     "level": "Medium"
 }

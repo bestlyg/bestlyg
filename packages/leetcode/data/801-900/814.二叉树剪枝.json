@@ -37,10 +37,6 @@
             "code": "function pruneTree(root: TreeNode | null): TreeNode | null {\n  return _pruneTree(root)[0];\n}\nfunction _pruneTree(root: TreeNode | null): [TreeNode | null, boolean] {\n  if (!root) return [null, false];\n  const [left, checkl] = _pruneTree(root.left);\n  const [right, checkr] = _pruneTree(root.right);\n  root.left = left;\n  root.right = right;\n  if (checkl || checkr || root.val === 1) {\n    return [root, true];\n  } else {\n    return [null, false];\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Medium"
 }

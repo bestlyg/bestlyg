@@ -21,12 +21,6 @@
             "code": "function trap(height: number[]): number {\n  let max = 0;\n  const len = height.length;\n  const left: number[] = [0];\n  for (let i = 1; i < len; i++) left.push((max = Math.max(max, height[i - 1])));\n  let ans = 0;\n  max = 0;\n  for (let i = len - 2; i >= 0; i--) {\n    const num = Math.min(left[i], (max = Math.max(max, height[i + 1]))) - height[i];\n    ans += num > 0 ? num : 0;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "双指针",
-        "动态规划",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "双指针", "动态规划", "单调栈"],
     "level": "Hard"
 }

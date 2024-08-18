@@ -29,9 +29,6 @@
             "code": "function searchRange(nums: number[], target: number): number[] {\n  const ans: number[] = new Array(2).fill(-1);\n  const i = bs(target);\n  if (nums[i] !== target) return ans;\n  else ans[0] = i;\n  ans[1] = bs(target + 1) - 1;\n  return ans;\n  function bs(target: number) {\n    let l = 0;\n    let r = nums.length - 1;\n    while (r - l > 3) {\n      const mid = (l + r) >> 1;\n      if (nums[mid] >= target) r = mid;\n      else l = mid + 1;\n    }\n    for (let i = l; i <= r; i++) {\n      if (nums[i] >= target) return i;\n    }\n    return nums.length;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

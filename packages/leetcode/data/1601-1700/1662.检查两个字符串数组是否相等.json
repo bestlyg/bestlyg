@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {\n        int w1 = 0, l1 = 0, w2 = 0, l2 = 0;\n        while (l1 < word1.size() && l2 < word2.size()) {\n            if (word1[l1][w1++] != word2[l2][w2++]) return false;\n            if (w1 == word1[l1].size()) w1 = 0, l1++;\n            if (w2 == word2[l2].size()) w2 = 0, l2++;\n        }\n        return l1 == word1.size() && l2 == word2.size();\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

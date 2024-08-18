@@ -29,12 +29,6 @@
             "code": "int *getAllElements(struct TreeNode *root1, struct TreeNode *root2,\n  int *returnSize) {\n    int n1 = 0, n2 = 0;\n    int *arr1 = (int *)malloc(sizeof(int) * 5005);\n    int *arr2 = (int *)malloc(sizeof(int) * 5005);\n    createArr(arr1, &n1, root1);\n    createArr(arr2, &n2, root2);\n    *returnSize = 0;\n    int *ans = (int *)malloc(sizeof(int) * (n1 + n2));\n    for (int i1 = 0, i2 = 0; i1 < n1 || i2 < n2;) {\n        if (i1 != n1 && (i2 == n2 || arr1[i1] < arr2[i2]))\n            ans[(*returnSize)++] = arr1[i1++];\n        else\n            ans[(*returnSize)++] = arr2[i2++];\n    }\n    free(arr1);\n    free(arr2);\n    return ans;\n}\nvoid createArr(int *arr, int *size, struct TreeNode *node) {\n    if (node == NULL) return;\n    createArr(arr, size, node->left);\n    arr[(*size)++] = node->val;\n    createArr(arr, size, node->right);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树",
-        "排序"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树", "排序"],
     "level": "Medium"
 }

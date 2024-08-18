@@ -13,8 +13,6 @@
             "code": "class Solution {\n   public:\n    int maximumDifference(vector<int>& nums) {\n        int minnum = nums[0], ans = INT_MIN;\n        for (auto& num : nums) {\n            if (num > minnum) {\n                ans = max(ans, num - minnum);\n            }\n            minnum = min(minnum, num);\n        }\n        return ans == INT_MIN ? -1 : ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

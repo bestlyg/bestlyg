@@ -13,12 +13,6 @@
             "code": "function allCellsDistOrder(R: number, C: number, r0: number, c0: number): number[][] {\n  const cache: Record<string, number> = {};\n  const format = (r: number, c: number) => `${r}:${c}`;\n  const comp = (r: number, c: number) => {\n    const name = format(r, c);\n    if (cache[name]) return cache[name];\n    else {\n      const num = Math.abs(r - r0) + Math.abs(c - c0);\n      cache[name] = num;\n      return num;\n    }\n  };\n  const ans: number[][] = [];\n  for (let i = 0; i < R; i++) {\n    for (let j = 0; j < C; j++) {\n      ans.push([i, j]);\n    }\n  }\n  return ans.sort(([r1, c1], [r2, c2]) => comp(r1, c1) - comp(r2, c2));\n}"
         }
     ],
-    "tagList": [
-        "几何",
-        "数组",
-        "数学",
-        "矩阵",
-        "排序"
-    ],
+    "tagList": ["几何", "数组", "数学", "矩阵", "排序"],
     "level": "Easy"
 }

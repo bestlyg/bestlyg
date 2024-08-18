@@ -13,8 +13,6 @@
             "code": "function numPrimeArrangements(n: number): number {\n  const MOD = BigInt(10 ** 9 + 7);\n  const cnt = count(n);\n  return Number((factorial(cnt) * factorial(n - cnt)) % MOD);\n  function count(n: number): number {\n    const arr: boolean[] = new Array(n + 1).fill(true);\n    arr[0] = arr[1] = false;\n    for (let i = 2; i <= n; i++) {\n      if (!arr[i]) continue;\n      for (let j = 2; i * j <= n; j++) arr[i * j] = false;\n    }\n    return arr.filter(Boolean).length;\n  }\n  function factorial(n: number): bigint {\n    let ans = 1n;\n    for (let i = 2n; i <= n; i++) ans = (ans * i) % MOD;\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Easy"
 }

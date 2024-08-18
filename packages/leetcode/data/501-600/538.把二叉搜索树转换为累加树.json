@@ -13,11 +13,6 @@
             "code": "function convertBST(root: TreeNode | null): TreeNode | null {\n  if (isNull(root)) return null;\n  const arr: number[] = [];\n  inorder(root);\n  toGreaterTree(root);\n  return root;\n  function isNull(node: TreeNode | null): node is null {\n    return node === null;\n  }\n  function toGreaterTree(node: TreeNode | null): void {\n    if (isNull(node)) return;\n    node.val = arr.reduce((total, cur) => total + (cur > node.val ? cur : 0), node.val);\n    toGreaterTree(node.left);\n    toGreaterTree(node.right);\n  }\n  function inorder(node: TreeNode | null): void {\n    if (isNull(node)) return;\n    inorder(node.left);\n    arr.push(node.val);\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

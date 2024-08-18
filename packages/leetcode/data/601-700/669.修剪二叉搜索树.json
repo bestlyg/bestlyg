@@ -13,11 +13,6 @@
             "code": "class Solution {\npublic:\n    TreeNode* trimBST(TreeNode* root, int low, int high) {\n        if (!root) return nullptr;\n        root->left = trimBST(root->left, low, high);\n        root->right = trimBST(root->right, low, high);\n        if (root->val < low) root = root->right;\n        else if (root->val > high) root = root->left;\n        return root;\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

@@ -29,11 +29,6 @@
             "code": "class Solution {\n   public:\n    int numFriendRequests(vector<int>& ages) {\n        sort(ages.begin(), ages.end());\n        int n = ages.size(), l = 0, r = 0, ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (ages[i] * 0.5 + 7 > ages[i]) continue;\n            while (r + 1 < n && ages[r + 1] <=ages[i]) r++;\n            while (l < r && ages[l] <= ages[i] * 0.5 + 7) l++;\n            ans += r - l;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序"],
     "level": "Medium"
 }

@@ -13,11 +13,6 @@
             "code": "#include <iostream>\n#include <vector>\n// bestlyg\n# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\n\n#ifdef DEBUG\n#define log(frm, args...) {    printf(frm, ##args); }\n#else\n#define log(frm, args...)\n#endif\ntypedef long long ll;\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int minScore(int n, vector<vector<int>>& roads) {\n        vector<vector<pi>> list(n);\n        for (auto &road : roads) {\n            int v1 = road[0] - 1, v2 = road[1] - 1;\n            list[v1].push_back(make_pair(v2, road[2]));\n            list[v2].push_back(make_pair(v1, road[2]));\n        }\n        int ans = 0x7fffffff;\n        unordered_set<int> s;\n        queue<int> q;\n        q.push(0);\n        s.insert(0);\n        while (q.size()) {\n            int cur = q.front();\n            q.pop();\n            for (auto &next : list[cur]) {\n                ans = min(ans, next.Y);\n                if (s.count(next.X)) continue;\n                q.push(next.X);\n                s.insert(next.X);\n            }\n\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "图"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
     "level": "Medium"
 }

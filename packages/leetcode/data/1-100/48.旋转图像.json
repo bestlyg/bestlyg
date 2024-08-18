@@ -21,10 +21,6 @@
             "code": "function rotate(matrix: number[][]): void {\n  const n = matrix.length;\n  // 水平翻转\n  for (let i = 0, max = n / 2; i < max; i++) {\n    for (let j = 0; j < n; j++) {\n      [matrix[i][j], matrix[n - i - 1][j]] = [matrix[n - i - 1][j], matrix[i][j]];\n    }\n  }\n  // 主对角线翻转\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "矩阵"
-    ],
+    "tagList": ["数组", "数学", "矩阵"],
     "level": "Medium"
 }

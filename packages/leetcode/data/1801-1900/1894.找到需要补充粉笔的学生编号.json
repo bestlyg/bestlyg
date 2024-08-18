@@ -21,11 +21,6 @@
             "code": "function chalkReplacer(chalk: number[], k: number): number {\n  let sum = 0;\n  const sums: number[] = [0];\n  const n = chalk.length;\n  for (let i = 0; i < n; i++) sums.push((sum += chalk[i]));\n  while (k >= sum) k -= sum;\n  return find(k) - 1;\n  function find(num: number) {\n    let l = 0;\n    let r = n;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (sums[mid] > num) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "前缀和",
-        "模拟"
-    ],
+    "tagList": ["数组", "二分查找", "前缀和", "模拟"],
     "level": "Medium"
 }

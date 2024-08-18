@@ -29,10 +29,6 @@
             "code": "function minWindow(s: string, t: string): string {\n  let cnt = 0;\n  const map: Record<string, number> = {};\n  for (const ch of t) {\n    map[ch] = (map[ch] ?? 0) + 1;\n    if (map[ch] === 1) cnt++;\n  }\n  let l = 0;\n  let r = 0;\n  let ansLen = s.length + 1;\n  let ans = '';\n  while (r <= s.length) {\n    if (cnt) {\n      const ch = s[r];\n      if (map[ch] !== undefined) {\n        map[ch]--;\n        if (map[ch] === 0) cnt--;\n      }\n      r++;\n    } else {\n      const ch = s[l];\n      if (map[ch] !== undefined) {\n        map[ch]++;\n        if (map[ch] === 1) cnt++;\n      }\n      l++;\n    }\n    if (cnt === 0 && ansLen > r - l) {\n      ans = s.substring(l, r);\n      ansLen = ans.length;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Hard"
 }

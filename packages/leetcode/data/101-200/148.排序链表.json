@@ -21,12 +21,6 @@
             "code": "function sortList(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  const list: ListNode[] = [];\n  let p: ListNode | null = head;\n  while (p !== null) {\n    list.push(p);\n    p = p.next;\n  }\n  const len = list.length;\n  const sort = (start: number, end: number) => {\n    if (end - start < 2) return;\n    const mid = (start + end) >> 1;\n    sort(start, mid);\n    sort(mid, end);\n    merge(start, mid, end);\n  };\n  const merge = (start: number, mid: number, end: number) => {\n    const tempList = list.slice(start, mid);\n    let p1 = 0;\n    let p2 = mid;\n    let i = start;\n    while (p1 < mid - start) {\n      if (p2 >= end || tempList[p1].val <= list[p2].val) {\n        list[i++] = tempList[p1++];\n      } else {\n        list[i++] = list[p2++];\n      }\n    }\n  };\n  sort(0, len);\n  let i = 0;\n  for (; i < len - 1; i++) list[i].next = list[i + 1];\n  list[i].next = null;\n  return list[0];\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针",
-        "分治",
-        "排序",
-        "归并排序"
-    ],
+    "tagList": ["链表", "双指针", "分治", "排序", "归并排序"],
     "level": "Medium"
 }

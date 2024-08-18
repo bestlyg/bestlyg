@@ -13,15 +13,15 @@ export function Account({ accounts, types }: { accounts: TAccount[]; types: Type
             accounts
                 .filter(v => v.isPositive)
                 .sort(
-                    (a, b) => new Date(a.createTime).getTime() - new Date(b.createTime).getTime()
+                    (a, b) => new Date(a.createTime).getTime() - new Date(b.createTime).getTime(),
                 ),
             accounts
                 .filter(v => !v.isPositive)
                 .sort(
-                    (a, b) => new Date(a.createTime).getTime() - new Date(b.createTime).getTime()
+                    (a, b) => new Date(a.createTime).getTime() - new Date(b.createTime).getTime(),
                 ),
         ],
-        [accounts]
+        [accounts],
     );
     return (
         <View className={styles.container}>

@@ -13,10 +13,6 @@
             "code": "use std::cmp::Ordering;\nuse std::collections::VecDeque;\nimpl Solution {\n    pub fn orderly_queue(s: String, k: i32) -> String {\n        if k == 1 {\n            let mut s = s.chars().collect::<VecDeque<char>>();\n            let mut ans = s.clone();\n            let mut temp = s.clone();\n            for i in 0..s.len() {\n                temp.pop_front();\n                temp.push_back(s[i]);\n                if ans.cmp(&temp) == Ordering::Greater {\n                    ans = temp.clone();\n                }\n            }\n            ans.into_iter().collect()\n        } else {\n            let mut s = s.chars().collect::<Vec<char>>();\n            s.sort();\n            s.into_iter().collect()\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["数学", "字符串", "排序"],
     "level": "Hard"
 }

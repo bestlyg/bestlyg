@@ -13,14 +13,6 @@
             "code": "var treeToDoublyList = function (root) {\n  if (root === null) return null;\n  let head, pre;\n  inorder(root);\n  head.left = pre;\n  pre.right = head;\n  return head;\n  function inorder(node) {\n    if (!node) return;\n    inorder(node.left);\n    if (!pre) {\n      head = node;\n    } else {\n      pre.right = node;\n    }\n    node.left = pre;\n    pre = node;\n    inorder(node.right);\n  }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "链表",
-        "二叉树",
-        "双向链表"
-    ],
+    "tagList": ["栈", "树", "深度优先搜索", "二叉搜索树", "链表", "二叉树", "双向链表"],
     "level": "Medium"
 }

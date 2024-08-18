@@ -21,13 +21,6 @@
             "code": "class Solution {\n   public:\n    int maxChoosableInteger, desiredTotal, maxBit;\n    unordered_map<int, bool> m;\n    bool canIWin(int maxChoosableInteger, int desiredTotal) {\n        if ((1 + maxChoosableInteger) * maxChoosableInteger / 2 < desiredTotal)\n            return false;\n        this->maxBit = 1 << maxChoosableInteger;\n        this->maxChoosableInteger = maxChoosableInteger;\n        this->desiredTotal = desiredTotal;\n        return dfs(0, 0);\n    }\n    bool dfs(int used, int sum) {\n        if (m.count(used)) return m[used];\n        if (sum >= desiredTotal) return m[used] = true;\n        if (check(used, sum)) return m[used] = true;\n        int ans = false;\n        for (int i = 1; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (used & bit) continue;\n            ans = ans || !dfs(used | bit, sum + i);\n        }\n        return m[used] = ans;\n    }\n    bool check(int used, int sum) {\n        int num = desiredTotal - sum;\n        if (num > maxChoosableInteger) return false;\n        for (int i = num; i <= maxChoosableInteger; i++) {\n            int bit = 1 << i;\n            if (!(used & bit)) return true;\n        }\n        return false;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "记忆化搜索",
-        "数学",
-        "动态规划",
-        "状态压缩",
-        "博弈"
-    ],
+    "tagList": ["位运算", "记忆化搜索", "数学", "动态规划", "状态压缩", "博弈"],
     "level": "Medium"
 }

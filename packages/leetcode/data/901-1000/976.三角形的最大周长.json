@@ -13,11 +13,6 @@
             "code": "function largestPerimeter(A: number[]): number {\n  A.sort((a, b) => a - b);\n  const len = A.length;\n  const can = (edge1: number, edge2: number, edge3: number): number =>\n    edge1 + edge2 > edge3 && edge2 + edge3 > edge1 && edge1 + edge3 > edge2\n      ? edge1 + edge2 + edge3\n      : 0;\n  for (let i = len - 1; i >= 0; i--) {\n    const num = can(A[i], A[i - 1], A[i - 2]);\n    if (num !== 0) return num;\n  }\n  return 0;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "数学",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "数学", "排序"],
     "level": "Easy"
 }

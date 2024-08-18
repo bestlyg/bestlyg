@@ -13,9 +13,6 @@
             "code": "function reverseParentheses(s: string): string {\n  const stack: string[] = [];\n  for (const c of s) {\n    if (c === ')') {\n      let str = '';\n      while (stack[stack.length - 1] !== '(') str = stack.pop()! + str;\n      stack.pop();\n      stack.push(str.split('').reverse().join(''));\n    } else stack.push(c);\n  }\n  return stack.join('');\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Medium"
 }

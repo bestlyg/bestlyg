@@ -13,8 +13,6 @@
             "code": "function findKthNumber(n: number, k: number): number {\n  for (let i = 1; i <= 9; i++) {\n    const c = count(i);\n    if (c < k) k -= c;\n    else return find(i, k);\n  }\n  return 0;\n  function find(prifix: number, k: number): number {\n    if (k === 1) return prifix;\n    k--;\n    for (let i = 0; i <= 9; i++) {\n      const next = prifix * 10 + i;\n      if (next > n) continue;\n      const c = count(next);\n      if (c >= k) return find(next, k);\n      else k -= c;\n    }\n    return 0;\n  }\n  function count(prifix: number): number {\n    let nextPrifix = prifix + 1;\n    let ans = 0;\n    while (prifix <= n) {\n      ans += Math.min(n + 1, nextPrifix) - prifix;\n      prifix *= 10;\n      nextPrifix *= 10;\n    }\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "字典树"
-    ],
+    "tagList": ["字典树"],
     "level": "Hard"
 }

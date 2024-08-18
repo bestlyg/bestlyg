@@ -21,10 +21,6 @@
             "code": "int comp(const void *a, const void *b) {\n    return *(int *)a - *(int *)b;\n}\nint largestSumAfterKNegations(int* nums, int numsSize, int k){\n    qsort(nums, numsSize, sizeof(int), comp);\n    for (int i = 0; i < numsSize && nums[i] < 0 && k > 0; i++) {\n      nums[i] *= -1;\n      k--;\n    }\n    int sum = 0, min = 10000;\n    for (int i = 0; i < numsSize; i++) {\n        sum += nums[i];\n        if (min > nums[i]) min = nums[i];\n    }\n    if ((k & 1) == 0) return sum;\n    return sum - 2 * min;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Easy"
 }

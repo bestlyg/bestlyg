@@ -45,7 +45,7 @@ export class BinaryTreeNode<T> {
         /** 左子节点 */
         public left: BinaryTreeNode<T> | null = null,
         /** 右子节点 */
-        public right: BinaryTreeNode<T> | null = null
+        public right: BinaryTreeNode<T> | null = null,
     ) {}
     /** 从父节点移除自己 */
     remove() {
@@ -94,7 +94,7 @@ export abstract class BinaryTree<T> {
         val: T,
         parent: BinaryTreeNode<T> | null,
         left: BinaryTreeNode<T> | null,
-        right: BinaryTreeNode<T> | null
+        right: BinaryTreeNode<T> | null,
     ): BinaryTreeNode<T>;
     clear() {
         this.root = null;

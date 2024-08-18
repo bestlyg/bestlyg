@@ -13,9 +13,6 @@
             "code": "function bulbSwitch(n: number): number {\n  return Math.floor(Math.sqrt(n + 0.5));\n}"
         }
     ],
-    "tagList": [
-        "脑筋急转弯",
-        "数学"
-    ],
+    "tagList": ["脑筋急转弯", "数学"],
     "level": "Medium"
 }

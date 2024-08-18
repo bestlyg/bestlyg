@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn intersection_size_two(intervals: Vec<Vec<i32>>) -> i32 {\n        let mut intervals = intervals;\n        intervals.sort_by(|v1, v2| {\n            if v1[0] == v2[0] {\n                v2.cmp(v1)\n            } else {\n                v1.cmp(v2)\n            }\n        });\n        let n = intervals.len() as i32;\n        let mut l = intervals[(n - 1) as usize][0];\n        let mut r = l + 1;\n        let mut ans = 2;\n        let mut i = n - 2;\n        while i >= 0 {\n            if intervals[i as usize][1] >= r {\n                i -= 1;\n                continue;\n            } else if intervals[i as usize][1] < l {\n                l = intervals[i as usize][0];\n                r = l + 1;\n                ans += 2;\n            } else {\n                r = l;\n                l = intervals[i as usize][0];\n                ans += 1;\n            }\n            i -= 1;\n        }\n        ans\n    }\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Hard"
 }

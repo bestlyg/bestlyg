@@ -14,11 +14,11 @@ export function getEnv(s: string) {
 export function getResolveFunction(dirname: string, upTimes?: number): (...p: string[]) => string;
 export function getResolveFunction(
     importMeta: ImportMeta,
-    upTimes?: number
+    upTimes?: number,
 ): (...p: string[]) => string;
 export function getResolveFunction(
     meta: ImportMeta | string,
-    upTimes = 0
+    upTimes = 0,
 ): (...p: string[]) => string {
     let dirname: string;
     if (typeof meta === 'string') {

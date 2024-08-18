@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    int minDeletionSize(vector<string>& strs) {\n        string prev = strs[0];\n        int ans = 0;\n        unordered_set<int> used;\n        for (int i = 1; i < strs.size(); i++) {\n            for (int j = 0; j < prev.size(); j++) {\n                if (used.count(j)) continue;\n                if (strs[i][j] < prev[j]) {\n                    ans++;\n                    used.insert(j);\n                }\n            }\n            prev = strs[i];\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

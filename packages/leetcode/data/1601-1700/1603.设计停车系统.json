@@ -13,10 +13,6 @@
             "code": "class ParkingSystem {\n  private parkingLot: number[];\n  constructor(big: number, medium: number, small: number) {\n    this.parkingLot = [big, medium, small];\n  }\n  addCar(carType: number): boolean {\n    if (this.parkingLot[carType - 1] > 0) {\n      this.parkingLot[carType - 1]--;\n      return true;\n    } else return false;\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "计数",
-        "模拟"
-    ],
+    "tagList": ["设计", "计数", "模拟"],
     "level": "Easy"
 }

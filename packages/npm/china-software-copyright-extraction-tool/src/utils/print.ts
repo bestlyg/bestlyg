@@ -10,7 +10,7 @@ function _print(color, ...args) {
     if (args.length > 1) {
         log(
             chalk[`bg${color.replace(/^\w/, w => w.toUpperCase())}`](` ${args[0]} `),
-            chalk[color](args.slice(1))
+            chalk[color](args.slice(1)),
         );
     } else {
         log(chalk[color](...args));

@@ -21,10 +21,6 @@
             "code": "class Solution {\npublic:\n    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {\n        int len = popped.size();\n        stack<int> s;\n        for (int i1 = 0, i2 = 0; i1 < len; i1++) {\n            s.push(pushed[i1]);\n            while (i2 < len && s.size() && s.top() == popped[i2]) {\n                s.pop();\n                i2++;\n            }\n        }\n        return s.empty();\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["栈", "数组", "模拟"],
     "level": "Medium"
 }

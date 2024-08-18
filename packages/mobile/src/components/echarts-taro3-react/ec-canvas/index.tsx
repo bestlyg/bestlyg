@@ -49,7 +49,7 @@ class EcCanvasTaro extends Component<EcCanvasProps, EcCanvasState> {
         if (!this.props.ec) {
             console.warn(
                 '组件需绑定 ec 变量，例：<ec-canvas id="mychart-dom-bar" ' +
-                    'canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>'
+                    'canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>',
             );
             return;
         }

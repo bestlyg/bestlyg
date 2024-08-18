@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    const int MAX = 51;\n    vector<int> bestCoordinate(vector<vector<int>>& towers, int radius) {\n        vector<int> ans(2);\n        int maxQ = 0;\n        for (int x = 0; x < MAX; x++) {\n            for (int y = 0; y < MAX; y++) {\n                int q = comp(towers, radius, x, y);\n                if (q > maxQ || q == maxQ && (x < ans[0] || ans[0] == x && y < ans[1])) {\n                    ans[0] = x;\n                    ans[1] = y;\n                    maxQ = q;\n                }\n            }\n        }\n        return ans;\n    }\n    int comp(vector<vector<int>>& towers, int radius, int x, int y) {\n        int cur = 0;\n        for (auto &tower : towers) {\n            double d = sqrt(pow(tower[0] - x, 2) + pow(tower[1] - y, 2));\n            if (d > radius) continue;\n            cur += floor(1.0 * tower[2] / (1 + d));\n        }\n        return cur;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "枚举"
-    ],
+    "tagList": ["数组", "枚举"],
     "level": "Medium"
 }

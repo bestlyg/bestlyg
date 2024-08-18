@@ -13,5 +13,5 @@ root.style.height = 'fit-content';
 ReactDOM.createRoot(root).render(
     <React.StrictMode>
         <App />
-    </React.StrictMode>
+    </React.StrictMode>,
 );

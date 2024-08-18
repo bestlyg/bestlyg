@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    vector<vector<int>> generate(int numRows) {\n        vector<vector<int>> ans(numRows, vector<int>());\n        ans[0].push_back(1);\n        for (int i = 1; i < numRows; i++) {\n            ans[i].push_back(1);\n            for (int j = 1; j < i; j++) {\n                ans[i].push_back(ans[i - 1][j] + ans[i - 1][j - 1]);\n            }\n            ans[i].push_back(1);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Easy"
 }

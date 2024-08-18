@@ -29,10 +29,6 @@
             "code": "function intToRoman(num: number): string {\n  let ans = '';\n  const list: { val: number; template: [string, string, string] }[] = [\n    {\n      val: 1000,\n      template: ['M', 'M', 'M'],\n    },\n    {\n      val: 100,\n      template: ['M', 'D', 'C'],\n    },\n    {\n      val: 10,\n      template: ['C', 'L', 'X'],\n    },\n    {\n      val: 1,\n      template: ['X', 'V', 'I'],\n    },\n  ];\n  for (const { val, template } of list) {\n    if (num >= val) {\n      ans += createStr(Math.floor(num / val), ...template);\n      num %= val;\n    }\n  }\n  return ans;\n  function createStr(num: number, hight: string, mid: string, low: string) {\n    if (num <= 3) return low.repeat(num);\n    else if (num <= 5) return low.repeat(5 - num) + mid;\n    else if (num <= 8) return mid + low.repeat(num - 5);\n    else return low + hight;\n  }\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "数学", "字符串"],
     "level": "Medium"
 }

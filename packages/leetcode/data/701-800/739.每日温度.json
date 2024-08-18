@@ -29,10 +29,6 @@
             "code": "function dailyTemperatures(temperatures: number[]): number[] {\n  const stack: number[] = [];\n  const len = temperatures.length;\n  const ans: number[] = new Array(len).fill(0);\n  for (let i = 0; i < len; i++) {\n    const v = temperatures[i];\n    while (stack.length && temperatures[stack[stack.length - 1]] < v) {\n      const prev = stack.pop()!;\n      ans[prev] = i - prev;\n    }\n    stack.push(i);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "单调栈"],
     "level": "Medium"
 }

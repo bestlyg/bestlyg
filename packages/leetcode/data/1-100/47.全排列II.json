@@ -21,9 +21,6 @@
             "code": "function permuteUnique(nums: number[]): number[][] {\n  const ans = new Set<string>();\n  add(nums);\n  return [...ans].map(v => v.split('::').map(v => +v));\n  function add(list: number[], q: number[] = []): void {\n    if (list.length === 1) {\n      q.push(list[0]);\n      ans.add(q.join('::'));\n      q.pop();\n      return;\n    }\n    for (let i = 0; i < list.length; i++) {\n      q.push(list[i]);\n      add([...list.slice(0, i), ...list.slice(i + 1)], q);\n      q.pop();\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["数组", "回溯"],
     "level": "Medium"
 }

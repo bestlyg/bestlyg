@@ -13,11 +13,6 @@
             "code": "function numIdenticalPairs(nums: number[]): number {\n  const map: Record<number, number> = {};\n  let ans = 0;\n  for (const num of nums) {\n    if (!map[num]) {\n      map[num] = 1;\n    } else ans += map[num]++;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "数学",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "数学", "计数"],
     "level": "Easy"
 }

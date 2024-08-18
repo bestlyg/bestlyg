@@ -13,7 +13,10 @@ export const routes: Route[] = [
     { key: 'create-account', Component: CreateAccount },
 ];
 
-export const routeMap = routes.reduce((map, route) => {
-    map[route.key] = route;
-    return map;
-}, {} as Record<string, Route>);
+export const routeMap = routes.reduce(
+    (map, route) => {
+        map[route.key] = route;
+        return map;
+    },
+    {} as Record<string, Route>,
+);

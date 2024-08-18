@@ -13,9 +13,6 @@
             "code": "function fourSumCount(A: number[], B: number[], C: number[], D: number[]): number {\n  let ans = 0;\n  const cache: Record<number, number> = {};\n  const setCache = (c: number) => {\n    cache[c] = 1 + (cache[c] ? cache[c] : 0);\n  };\n  for (const n1 of A)\n    for (const n2 of B) {\n      setCache(n1 + n2);\n    }\n  for (const n1 of C)\n    for (const n2 of D) {\n      ans += cache[-n1 - n2] ?? 0;\n    }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Medium"
 }

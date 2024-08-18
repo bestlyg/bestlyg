@@ -21,8 +21,6 @@
             "code": "function countSegments(s: string): number {\n  let ans = 0;\n  let f = false;\n  for (const c of s) {\n    if (c === ' ') {\n      if (f) {\n        ans++;\n        f = false;\n      }\n      f = false;\n    } else {\n      f = true;\n    }\n  }\n  if (f) ans++;\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

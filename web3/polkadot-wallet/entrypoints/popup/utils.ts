@@ -37,7 +37,7 @@ port.onMessage.addListener((data: any): void => {
 export function sendMessage(
     message: any,
     request?: any,
-    subscriber?: (data: unknown) => void
+    subscriber?: (data: unknown) => void,
 ): Promise<any> {
     return new Promise((resolve, reject): void => {
         const id = getId();

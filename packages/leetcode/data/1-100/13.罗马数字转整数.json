@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    int romanToInt(string s) {\n        int ans = 0;\n        for (int i = 0; i < s.size(); i++) {\n            char ch = s[i];\n            if (ch == 'M')\n                ans += 1000;\n            else if (ch == 'D')\n                ans += 500;\n            else if (ch == 'C') {\n                if (s[i + 1] == 'M') {\n                    ans += 900;\n                    i++;\n                } else if (s[i + 1] == 'D') {\n                    ans += 400;\n                    i++;\n                } else\n                    ans += 100;\n            } else if (ch == 'L')\n                ans += 50;\n            else if (ch == 'X') {\n                if (s[i + 1] == 'C') {\n                    ans += 90;\n                    i++;\n                } else if (s[i + 1] == 'L') {\n                    ans += 40;\n                    i++;\n                } else\n                    ans += 10;\n            } else if (ch == 'V')\n                ans += 5;\n            else if (ch == 'I') {\n                if (s[i + 1] == 'X') {\n                    ans += 9;\n                    i++;\n                } else if (s[i + 1] == 'V') {\n                    ans += 4;\n                    i++;\n                } else\n                    ans += 1;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["哈希表", "数学", "字符串"],
     "level": "Easy"
 }

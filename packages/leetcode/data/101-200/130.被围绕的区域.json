@@ -21,12 +21,6 @@
             "code": "function solve(board: string[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  for (let i = 0; i < n; i++) {\n    dfs(i, 0);\n    dfs(i, m - 1);\n  }\n  for (let i = 0; i < m; i++) {\n    dfs(0, i);\n    dfs(n - 1, i);\n  }\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (board[i][j] === 'O') board[i][j] = 'X';\n      if (board[i][j] === 'A') board[i][j] = 'O';\n    }\n  }\n  function dfs(row: number, col: number): void {\n    if (board[row][col] !== 'O') return;\n    board[row][col] = 'A';\n    if (row > 0) dfs(row - 1, col);\n    if (col > 0) dfs(row, col - 1);\n    if (row < n - 1) dfs(row + 1, col);\n    if (col < m - 1) dfs(row, col + 1);\n  }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "并查集",
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "数组", "矩阵"],
     "level": "Medium"
 }

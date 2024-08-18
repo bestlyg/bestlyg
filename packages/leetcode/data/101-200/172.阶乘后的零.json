@@ -21,8 +21,6 @@
             "code": "class Solution {\n   public:\n    int trailingZeroes(int n) {\n        int ans = 0;\n        for (int cnt = 1; pow(5, cnt) <= n; cnt++) ans += n / pow(5, cnt);\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Medium"
 }

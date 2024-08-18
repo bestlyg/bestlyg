@@ -13,10 +13,6 @@
             "code": "/**\n * @param {number[][]} matrix\n * @return {void} Do not return anything, modify matrix in-place instead.\n */\nvar rotate = function (matrix) {\n  const result = [];\n  for (let i = 0; i < matrix.length; i++) {\n    const newRow = [];\n    for (let j = matrix.length - 1; j >= 0; j--) {\n      newRow.push(matrix[j][i]);\n    }\n    result.push(newRow);\n  }\n  for (const row in matrix) {\n    matrix[row] = result[row];\n  }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "矩阵"
-    ],
+    "tagList": ["数组", "数学", "矩阵"],
     "level": "Medium"
 }

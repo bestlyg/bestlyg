@@ -29,8 +29,6 @@
             "date": "2023-01-30"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

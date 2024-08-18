@@ -13,11 +13,6 @@
             "code": "class Person {\n  parent: Person = this;\n  children: Person[] = [];\n  constructor(public idx: number, public quiet: number) {}\n}\nfunction dfs(list: Set<Person>, persons: Person[], ans: number[]) {\n  if (list.size === 0) return;\n  const children = new Set<Person>();\n  for (const person of list) {\n    ans[person.idx] = person.parent.idx;\n    for (const child of person.children) {\n      children.add(child);\n      if (child.parent.quiet > person.parent.quiet) child.parent = person.parent;\n    }\n  }\n  dfs(children, persons, ans);\n}\nfunction loudAndRich(richer: number[][], quiet: number[]): number[] {\n  const persons = quiet.map((v, i) => new Person(i, v));\n  const starts = new Set(persons);\n  for (const [i1, i2] of richer) {\n    const p1 = persons[i1];\n    const p2 = persons[i2];\n    p1.children.push(p2);\n    starts.delete(p2);\n  }\n  const ans: number[] = new Array(quiet.length).fill(Infinity);\n  dfs(starts, persons, ans);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "图",
-        "拓扑排序",
-        "数组"
-    ],
+    "tagList": ["深度优先搜索", "图", "拓扑排序", "数组"],
     "level": "Medium"
 }

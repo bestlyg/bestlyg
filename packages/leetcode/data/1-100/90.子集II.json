@@ -13,10 +13,6 @@
             "code": "function subsetsWithDup(nums: number[]): number[][] {\n  const set = new Set<string>();\n  const ans: number[][] = [[]];\n  const find = (arr: number[]) => {\n    const len = arr.length;\n    if (len === 0) return;\n    const str = arr.sort((a, b) => a - b).join(':');\n    if (set.has(str)) return;\n    set.add(str);\n    ans.push(arr);\n    for (let i = 0; i < len; i++) find([...arr.slice(0, i), ...arr.slice(i + 1)]);\n  };\n  find(nums);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["位运算", "数组", "回溯"],
     "level": "Medium"
 }

@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    string tree2str(TreeNode* root) {\n        if (!root) return \"\";\n        string l = \"(\" + tree2str(root->left) + \")\",\n               r = \"(\" + tree2str(root->right) + \")\";\n        return to_string(root->val) + (l == \"()\" && r == \"()\"   ? \"\"\n                                       : l != \"()\" && r == \"()\" ? l\n                                                                : l + r);\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "字符串",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "字符串", "二叉树"],
     "level": "Medium"
 }

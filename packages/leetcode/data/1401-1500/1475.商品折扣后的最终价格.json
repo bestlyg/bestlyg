@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn final_prices(prices: Vec<i32>) -> Vec<i32> {\n        let mut s = Vec::<usize>::new();\n        let mut prices = prices;\n        for i in 0..prices.len() {\n            while !s.is_empty() && prices[*s.last().unwrap()] >= prices[i] {\n                let prev = s.pop().unwrap();\n                prices[prev] -= prices[i];\n            }\n            s.push(i);\n        }\n        prices\n    }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "单调栈"],
     "level": "Easy"
 }

@@ -13,13 +13,6 @@
             "code": "function wordBreak(s: string, wordDict: string[]): boolean {\n  const len = s.length;\n  const wordSet = new Set(wordDict);\n  const dp = [true];\n  for (let i = 1; i <= len; i++)\n    for (let j = 0; j < i; j++)\n      if (dp[j] && wordSet.has(s.substr(j, i - j))) {\n        dp[i] = true;\n        break;\n      }\n  return dp[len] ? dp[len] : false;\n}"
         }
     ],
-    "tagList": [
-        "字典树",
-        "记忆化搜索",
-        "数组",
-        "哈希表",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字典树", "记忆化搜索", "数组", "哈希表", "字符串", "动态规划"],
     "level": "Medium"
 }

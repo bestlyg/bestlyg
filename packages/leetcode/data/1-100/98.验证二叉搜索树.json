@@ -21,11 +21,6 @@
             "code": "function isValidBST(root: TreeNode | null): boolean {\n  if (root === null) return true;\n  const q: number[] = [];\n  inorder(root);\n  for (let i = 1; i < q.length; i++) if (q[i] <= q[i - 1]) return false;\n  return true;\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node.val);\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

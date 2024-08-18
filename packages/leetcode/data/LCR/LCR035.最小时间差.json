@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    int toMin(string s) {\n        int hor = (s[0] - '0') * 10 + s[1] - '0';\n        int min = (s[3] - '0') * 10 + s[4] - '0';\n        return hor * 60 + min;\n    }\n    int findMinDifference(vector<string>& timePoints) {\n        vector<int> data;\n        for (int i = 0; i < timePoints.size(); i++) {\n            int min = toMin(timePoints[i]);\n            data.push_back(min);\n            data.push_back(24 * 60 + min);\n        }\n        sort(data.begin(), data.end());\n        int ans = INT_MAX;\n        for (int i = 1; i < data.size(); i++) {\n            ans = min(ans, data[i] - data[i - 1]);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["数组", "数学", "字符串", "排序"],
     "level": "Medium"
 }

@@ -21,8 +21,6 @@
             "code": "class Solution {\npublic:\n    bool checkPowersOfThree(int n) {\n        while (n) {\n            if (n % 3 == 2) return false;\n            n /= 3;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Medium"
 }

@@ -7,7 +7,12 @@
  */
 let NIL: RBNode<any>;
 class RBNode<T> {
-    constructor(public key: T, public color = 0, public lchild = NIL, public rchild = NIL) {}
+    constructor(
+        public key: T,
+        public color = 0,
+        public lchild = NIL,
+        public rchild = NIL,
+    ) {}
     hasRedChild() {
         return this.lchild.color === 0 || this.rchild.color === 0;
     }

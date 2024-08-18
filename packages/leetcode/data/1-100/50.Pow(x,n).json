@@ -21,9 +21,6 @@
             "code": "/**\n * @param {number} x\n * @param {number} n\n * @return {number}\n */\nvar myPow = function (x, n) {\n  return Math.pow(x, n);\n};"
         }
     ],
-    "tagList": [
-        "递归",
-        "数学"
-    ],
+    "tagList": ["递归", "数学"],
     "level": "Medium"
 }

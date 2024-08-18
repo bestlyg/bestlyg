@@ -37,12 +37,6 @@
             "code": "impl Solution {\n    pub fn min_operations(nums: Vec<i32>, x: i32) -> i32 {\n        let mut ans = i32::MAX;\n        let n = nums.len();\n        let (mut r, mut rsum) = (0, nums.iter().fold(0, |sum, cur| sum + cur));\n        if rsum < x {\n            return -1;\n        }\n        while r < n && rsum > x {\n            rsum -= nums[r];\n            r += 1;\n        }\n        if rsum == x {\n            ans = (n - r) as i32;\n        }\n        let (mut l, mut lsum) = (0, 0);\n        while l < n {\n            lsum += nums[l];\n            while r < n && (l + 1 + n - r > n || lsum + rsum > x) {\n                rsum -= nums[r];\n                r += 1;\n            }\n            if lsum + rsum == x {\n                ans = ans.min((l + 1 + n - r) as i32);\n            }\n            l += 1;\n        }\n        if ans == i32::MAX {\n            -1\n        } else {\n            ans\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "二分查找", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

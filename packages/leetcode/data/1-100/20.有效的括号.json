@@ -45,9 +45,6 @@
             "code": "typedef struct Stack\n{\n    int size;\n    int len;\n    int *data;\n} Stack;\nStack *createStack(int len)\n{\n    Stack *s = (Stack *)malloc(sizeof(Stack));\n    s->size = 0;\n    s->len = len;\n    s->data = (int *)malloc(sizeof(int) * len);\n    return s;\n}\nvoid push(Stack *s, int val)\n{\n    if (s->size == s->len)\n        return;\n    s->data[s->size++] = val;\n}\nvoid pop(Stack *s)\n{\n    if (s->size == 0)\n        return;\n    s->size--;\n}\nint isEmpty(Stack *s) {\n    return s->size == 0;\n}\nint top(Stack *s)\n{\n    if (s->size == 0)\n        return -999999999;\n    return s->data[s->size - 1];\n}\nvoid freeStack(Stack *s)\n{\n    free(s->data);\n    free(s);\n}\nvoid showStack(Stack *s, char *title, int type)\n{\n    printf(\"Stack %s : [\", title);\n    for (int i = 0; i < s->size; i++)\n    {\n        i &&printf(\",\");\n        if (type == 1)\n            printf(\"%d\", s->data[i]);\n        if (type == 2)\n            printf(\"%c\", s->data[i]);\n    }\n    printf(\"]\\n\");\n}\nbool isValid(char * s){\n    int len = strlen(s);\n    Stack *stack = createStack(len);\n    for (int i = 0; i < len; i++) {\n        char ch = s[i];\n        if (\n            ch == ')' && !isEmpty(stack) && s[top(stack)] == '(' ||\n            ch == ']' && !isEmpty(stack) && s[top(stack)] == '[' ||\n            ch == '}' && !isEmpty(stack) && s[top(stack)] == '{'\n        ) pop(stack);\n        else push(stack, i);\n    }\n    return stack->size == 0;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Easy"
 }

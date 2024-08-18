@@ -13,14 +13,6 @@
             "code": "function verifyPostorder(postorder: number[]): boolean {\n  const n = postorder.length;\n  if (n === 0) return true;\n  const mid = postorder[n - 1];\n  let i = 0;\n  for (; i < n - 1; i++) if (postorder[i] > mid) break;\n  for (let j = i; j < n - 1; j++) if (postorder[j] < mid) return false;\n  return verifyPostorder(postorder.slice(0, i)) && verifyPostorder(postorder.slice(i, n - 1));\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "二叉搜索树",
-        "递归",
-        "数组",
-        "二叉树",
-        "单调栈"
-    ],
+    "tagList": ["栈", "树", "二叉搜索树", "递归", "数组", "二叉树", "单调栈"],
     "level": "Medium"
 }

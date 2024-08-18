@@ -21,9 +21,6 @@
             "code": "class Solution {\n  public:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        vector<vector<int>> ans;\n        sort(arr.begin(), arr.end());\n        int nmin = INT_MAX;\n        for (int l = 0, r = 1; r < arr.size(); r++) {\n            while (l < r && abs(arr[l] - arr[r]) > nmin) l++;\n            if (l == r) continue;\n            int nextmin = abs(arr[l] - arr[r]);\n            if (nextmin < nmin) ans.clear();\n            nmin = nextmin;\n            vector<int> item(2);\n            item[0] = arr[l];\n            item[1] = arr[r];\n            ans.push_back(item);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "排序"
-    ],
+    "tagList": ["数组", "排序"],
     "level": "Easy"
 }

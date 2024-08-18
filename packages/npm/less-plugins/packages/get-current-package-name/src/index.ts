@@ -10,8 +10,8 @@ export default class LessPluginsGetCurrentPackageName {
                 getCurrentPackageName: function (rootPath, key, transform) {
                     return new less.tree.Keyword(
                         getCurrentPackageName(
-                            rootPath?.value ?? this.currentFileInfo.currentDirectory
-                        ) ?? ''
+                            rootPath?.value ?? this.currentFileInfo.currentDirectory,
+                        ) ?? '',
                     );
                 },
             },

@@ -12,7 +12,7 @@ function removeNullKeys(obj) {
     } else if (_.isObject(obj)) {
         return _.omitBy(
             _.mapValues(obj, value => removeNullKeys(value)),
-            _.isNull
+            _.isNull,
         );
     } else {
         return obj;
@@ -41,14 +41,14 @@ export function loadFile(path: string, pathSet: Set<string>, options: RequireJso
 export function load<K extends keyof PackageJsonExtend>(
     path: string,
     key: K,
-    options: RequireJsonOptions
+    options: RequireJsonOptions,
 ) {
     const { fieldName = FIELD_NAME } = options;
     const json: PackageJsonExtend = cachedJson[path]?.[fieldName] ?? {};
     return _.merge(
         {},
         ...(json.extends ?? []).map(p => load(resolve(dirname(path), p), key, options)),
-        json[key] ?? {}
+        json[key] ?? {},
     );
 }
 
@@ -65,7 +65,7 @@ export function requireJson<R = any>(path: string, options: RequireJsonOptions =
                 if (_.isString(value)) {
                     return _.template(value, { imports: { _, vars } })();
                 }
-            })
+            }),
         );
     } catch (err) {
         error('Update package json error.', err);

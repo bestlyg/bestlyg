@@ -13,11 +13,6 @@
             "code": "function findTheDifference(s: string, t: string): string {\n  const cache: Record<string, number> = {};\n  const setCache = (num: number) => (c: string) => (cache[c] = num + (cache[c] ?? 0));\n  const add = setCache(1);\n  const minus = setCache(-1);\n  for (const c of s) add(c);\n  for (const c of t) {\n    if (!cache[c]) return c;\n    minus(c);\n  }\n  return '';\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["位运算", "哈希表", "字符串", "排序"],
     "level": "Easy"
 }

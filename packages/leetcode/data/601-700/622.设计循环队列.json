@@ -37,11 +37,6 @@
             "code": "struct MyCircularQueue {\n    list: Vec<i32>,\n    max: usize,\n    head: usize,\n    rear: usize,\n}\nimpl MyCircularQueue {\n    fn new(k: i32) -> Self {\n        let max = (k + 1) as usize;\n        let mut list = Vec::with_capacity(max);\n        for _ in 0..max {\n            list.push(0);\n        }\n        MyCircularQueue {\n            max,\n            list,\n            head: 0,\n            rear: 0,\n        }\n    }\n\n    fn en_queue(&mut self, value: i32) -> bool {\n        if self.is_full() {\n            false\n        } else {\n            self.list[self.rear] = value;\n            self.rear = (self.rear + 1) % self.max;\n            true\n        }\n    }\n\n    fn de_queue(&mut self) -> bool {\n        if self.is_empty() {\n            false\n        } else {\n            self.head = (self.head + 1) % self.max;\n            true\n        }\n    }\n\n    fn front(&self) -> i32 {\n        if self.is_empty() {\n            -1\n        } else {\n            *self.list.get(self.head).unwrap()\n        }\n    }\n\n    fn rear(&self) -> i32 {\n        if self.is_empty() {\n            -1\n        } else {\n            let rear = if self.rear == 0 {\n                self.max - 1\n            } else {\n                self.rear - 1\n            };\n            *self.list.get(rear).unwrap()\n        }\n    }\n\n    fn is_empty(&self) -> bool {\n        self.rear == self.head\n    }\n\n    fn is_full(&self) -> bool {\n        (self.rear + 1) % self.max == self.head\n    }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "队列",
-        "数组",
-        "链表"
-    ],
+    "tagList": ["设计", "队列", "数组", "链表"],
     "level": "Medium"
 }

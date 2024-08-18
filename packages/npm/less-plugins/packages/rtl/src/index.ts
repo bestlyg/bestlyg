@@ -40,7 +40,7 @@ export class RtlPreVisitor {
                     rule.name + '-' + suffix,
                     typeof shorthandsValue[index] === 'string'
                         ? shorthandsValue[index]
-                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index])
+                        : cloneLessTreeNode(LESS_PLUGINS.less, shorthandsValue[index]),
                 );
             if (REG_Node.test(rule.name) && shorthandsValue) {
                 if (this.lessPlugin.options.selector || this.lessPlugin.options.enableSelector) {
@@ -48,10 +48,10 @@ export class RtlPreVisitor {
                         appendRuleset = new LESS_PLUGINS.less.tree.Ruleset(
                             [
                                 new LESS_PLUGINS.less.tree.Selector(
-                                    this.lessPlugin.options.selector ?? 'html[data-rtl] &'
+                                    this.lessPlugin.options.selector ?? 'html[data-rtl] &',
                                 ),
                             ],
-                            []
+                            [],
                         );
                         node.rules.splice(index + 1, 0, appendRuleset);
                         index += 1;
@@ -72,7 +72,7 @@ export class RtlPreVisitor {
                         newTopNode,
                         newRightNode,
                         newBottomNode,
-                        newLeftNode
+                        newLeftNode,
                     );
                     index += 3;
                 }
@@ -97,7 +97,7 @@ export default class LessPluginsRtl {
                 key?.includes('left') ||
                 key?.includes('right') ||
                 value?.includes('left') ||
-                value?.includes('right')
+                value?.includes('right'),
         )) {
             addReplacePreperties({
                 ...replaceData,

@@ -13,11 +13,6 @@
             "code": "function isMatch(s: string, p: string): boolean {\n  const sLen = s.length;\n  const pLen = p.length;\n  const dp = new Array(sLen + 1).fill(0).map(_ => new Array(pLen + 1).fill(false));\n  dp[0][0] = true;\n  for (let i = 1; i <= pLen; i++) {\n    dp[0][i] = p[i - 1] === '*' && dp[0][i - 1];\n  }\n  for (let i = 1; i <= sLen; i++) {\n    for (let j = 1; j <= pLen; j++) {\n      const cP = p[j - 1];\n      if (cP === '?' || s[i - 1] === cP) {\n        dp[i][j] = dp[i - 1][j - 1];\n      } else if (cP === '*' && (dp[i - 1][j] || dp[i][j - 1])) {\n        dp[i][j] = true;\n      }\n    }\n  }\n  return dp[sLen][pLen];\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "递归",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "递归", "字符串", "动态规划"],
     "level": "Hard"
 }

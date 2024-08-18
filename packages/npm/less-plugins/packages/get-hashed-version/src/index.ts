@@ -11,7 +11,7 @@ export default class LessPluginsGetHashedVersion {
                 return getPackageJsonField(
                     rootPath?.value || this.currentFileInfo.currentDirectory,
                     'version',
-                    hash
+                    hash,
                 );
             },
         ]);

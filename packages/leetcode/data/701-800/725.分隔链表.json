@@ -21,8 +21,6 @@
             "code": "function splitListToParts(head: ListNode | null, k: number): Array<ListNode | null> {\n  let len = 0;\n  let p = head;\n  for (; p; p = p.next) len++;\n  const cnt = ~~(len / k);\n  const last = (len % k) - 1;\n  const ans: Array<ListNode | null> = [];\n  p = head;\n  let max = cnt + (ans.length <= last ? 1 : 0);\n  let idx = 0;\n  while (p) {\n    if (idx === 0) ans.push(p);\n    if (idx === max - 1) {\n      max = cnt + (ans.length <= last ? 1 : 0);\n      const next = p.next;\n      p.next = null;\n      p = next;\n      idx = 0;\n    } else {\n      p = p.next;\n      idx++;\n    }\n  }\n  while (ans.length < k) ans.push(null);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

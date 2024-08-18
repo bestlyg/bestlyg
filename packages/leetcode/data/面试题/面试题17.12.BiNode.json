@@ -13,13 +13,6 @@
             "code": "function convertBiNode(root: TreeNode | null): TreeNode | null {\n  if (root === null) return null;\n  const q: TreeNode[] = [];\n  inorder(root);\n  for (let i = 0; i < q.length - 1; i++) {\n    q[i].left = null;\n    q[i].right = q[i + 1];\n  }\n  q[q.length - 1].left = q[q.length - 1].right = null;\n  return q[0];\n  function inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    inorder(node.left);\n    q.push(node);\n    inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "链表",
-        "二叉树"
-    ],
+    "tagList": ["栈", "树", "深度优先搜索", "二叉搜索树", "链表", "二叉树"],
     "level": "Easy"
 }

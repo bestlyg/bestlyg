@@ -21,12 +21,6 @@
             "code": "func findTheWinner(n int, k int) int {\n    list := make([]int, n)\n    for i := 0; i < n; i++ {\n        list[i] = i + 1\n    }\n    list[n-1] = 0\n    current := n - 1\n    for jump := 0; n > 1; n-- {\n        jump = (k - 1) % n\n        for ; jump > 0; jump-- {\n            current = list[current]\n        }\n        list[current] = list[list[current]]\n    }\n    return current + 1\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "队列",
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["递归", "队列", "数组", "数学", "模拟"],
     "level": "Medium"
 }

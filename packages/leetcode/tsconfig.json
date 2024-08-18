@@ -2,7 +2,7 @@
     "extends": "./node_modules/@bestlyg/cli/tsconfig.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "rootDir": "src",
+        "rootDir": "src"
     },
     "include": ["src/**/*.ts"]
 }

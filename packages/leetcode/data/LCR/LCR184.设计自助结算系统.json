@@ -13,10 +13,6 @@
             "code": "class MaxQueue {\n  private queue: number[] = [];\n  private monoQueue: number[] = [];\n  max_value(): number {\n    if (this.queue.length === 0) return -1;\n    return this.queue[this.monoQueue[0]];\n  }\n  push_back(value: number): void {\n    this.queue.push(value);\n    while (this.monoQueue.length && this.queue[this.monoQueue[this.monoQueue.length - 1]] < value)\n      this.monoQueue.pop();\n    this.monoQueue.push(this.queue.length - 1);\n  }\n  pop_front(): number {\n    if (this.queue.length === 0) return -1;\n    const v = this.queue.shift()!;\n    for (let i = 0, n = this.monoQueue.length; i < n; i++) this.monoQueue[i]--;\n    if (this.monoQueue[0] === -1) this.monoQueue.shift();\n    return v;\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "队列",
-        "单调队列"
-    ],
+    "tagList": ["设计", "队列", "单调队列"],
     "level": "Medium"
 }

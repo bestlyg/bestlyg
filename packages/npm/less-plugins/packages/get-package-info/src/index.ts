@@ -17,22 +17,22 @@ export default class LessPluginsGetPackageInfo {
                         getPackageJsonField(
                             rootPath?.value ?? this.currentFileInfo.currentDirectory,
                             key?.value,
-                            transform?.value
-                        ) ?? ''
+                            transform?.value,
+                        ) ?? '',
                     );
                 },
                 getCurrentPackageName: function (rootPath) {
                     return new less.tree.Keyword(
                         getCurrentPackageName(
-                            rootPath?.value ?? this.currentFileInfo.currentDirectory
-                        ) ?? ''
+                            rootPath?.value ?? this.currentFileInfo.currentDirectory,
+                        ) ?? '',
                     );
                 },
                 getCurrentPackageScope: function (rootPath) {
                     return new less.tree.Keyword(
                         getCurrentPackageScope(
-                            rootPath?.value ?? this.currentFileInfo.currentDirectory
-                        ) ?? ''
+                            rootPath?.value ?? this.currentFileInfo.currentDirectory,
+                        ) ?? '',
                     );
                 },
             },

@@ -21,11 +21,6 @@
             "code": "function divisorGame(N: number): boolean {\n  return !(N & 1);\n}"
         }
     ],
-    "tagList": [
-        "脑筋急转弯",
-        "数学",
-        "动态规划",
-        "博弈"
-    ],
+    "tagList": ["脑筋急转弯", "数学", "动态规划", "博弈"],
     "level": "Easy"
 }

@@ -13,9 +13,6 @@
             "code": "function canCompleteCircuit(gas: number[], cost: number[]): number {\n  const len = gas.length;\n  const starts: number[] = [];\n  for (let i = 0; i < len; i++) {\n    gas[i] >= cost[i] && starts.push(i);\n  }\n  for (const start of starts) {\n    let arg = gas[start] - cost[start];\n    let i = (start + 1) % len;\n    while (i !== start) {\n      arg += gas[i] - cost[i];\n      if (arg < 0) break;\n      i = (i + 1) % len;\n    }\n    if (i === start) return i;\n  }\n  return -1;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Medium"
 }

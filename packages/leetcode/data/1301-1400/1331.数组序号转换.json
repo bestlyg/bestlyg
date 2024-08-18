@@ -13,10 +13,6 @@
             "code": "use std::collections::HashMap;\nimpl Solution {\n    pub fn array_rank_transform(arr: Vec<i32>) -> Vec<i32> {\n        let n = arr.len();\n        let mut ilist = Vec::with_capacity(n);\n        for i in 0..n {\n            ilist.push(i)\n        }\n        ilist.sort_by(|a, b| arr[*a].cmp(&arr[*b]));\n        let mut map = HashMap::<i32, i32>::new();\n        let mut idx = 1;\n        for i in 0..n {\n            if i == 0 {\n                map.insert(arr[ilist[i]], idx);\n            } else if arr[ilist[i - 1]] == arr[ilist[i]] {\n                continue;\n            } else {\n                idx += 1;\n                map.insert(arr[ilist[i]], idx);\n            }\n        }\n        arr\n            .iter()\n            .map(|num|*map.get(&num).unwrap())\n            .collect()\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "排序"],
     "level": "Easy"
 }

@@ -13,10 +13,6 @@
             "code": "function fizzBuzz(n: number): string[] {\n  const ans: string[] = [];\n  for (let i = 1; i <= n; i++) {\n    let item = '';\n    if (i % 3 === 0) item += 'Fizz';\n    if (i % 5 === 0) item += 'Buzz';\n    if (!item) item += i;\n    ans.push(item);\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["数学", "字符串", "模拟"],
     "level": "Easy"
 }

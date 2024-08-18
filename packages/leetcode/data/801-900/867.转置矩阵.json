@@ -21,10 +21,6 @@
             "code": "function transpose(matrix: number[][]): number[][] {\n  return matrix[0].map((_, i) => matrix.map(arr => arr[i]));\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Easy"
 }

@@ -13,9 +13,6 @@
             "code": "function minRemoveToMakeValid(s: string): string {\n  let fCount = 0;\n  let ans = '';\n  for (const c of s) {\n    if (c === '(') {\n      fCount++;\n      ans += c;\n    } else if (c === ')') {\n      if (fCount !== 0) {\n        ans += c;\n        fCount--;\n      }\n    } else {\n      ans += c;\n    }\n  }\n  const temp = ans;\n  fCount = 0;\n  ans = '';\n  for (let i = temp.length - 1; i >= 0; i--) {\n    const c = temp[i];\n    if (c === ')') {\n      fCount++;\n      ans = c + ans;\n    } else if (c === '(') {\n      if (fCount !== 0) {\n        ans = c + ans;\n        fCount--;\n      }\n    } else {\n      ans = c + ans;\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Medium"
 }

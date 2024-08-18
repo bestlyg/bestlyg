@@ -13,9 +13,6 @@
             "code": "impl Solution {\n    pub fn max_equal_freq(nums: Vec<i32>) -> i32 {\n        use std::collections::HashMap;\n        let (mut freq_map, mut cnt_map) =\n            (HashMap::<usize, usize>::new(), HashMap::<i32, usize>::new());\n        let mut ans = 0;\n        let mut max_freq = 0;\n        for i in 0..nums.len() {\n            let num = nums[i];\n            let cnt = cnt_map.get(&num).unwrap_or(&0);\n            let prev_freq = freq_map.get_mut(cnt);\n            if prev_freq.is_some() {\n                *prev_freq.unwrap() -= 1;\n            }\n            let cnt = *cnt + 1;\n            cnt_map.insert(num, cnt);\n            freq_map.insert(cnt, freq_map.get(&cnt).unwrap_or(&0) + 1);\n            max_freq = max_freq.max(cnt);\n            if max_freq == 1\n                || freq_map.get(&max_freq).unwrap_or(&0) * max_freq\n                    + freq_map.get(&(max_freq - 1)).unwrap_or(&0) * (max_freq - 1)\n                    == i + 1\n                    && *freq_map.get(&max_freq).unwrap_or(&0) == 1\n                || freq_map.get(&max_freq).unwrap_or(&0) * max_freq == i\n                    && *freq_map.get(&1).unwrap_or(&0) == 1\n            {\n                ans = i + 1;\n            }\n        }\n        ans as i32\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Hard"
 }

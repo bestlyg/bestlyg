@@ -13,12 +13,6 @@
             "code": "function displayTable(orders: string[][]): string[][] {\n  const foodSet = new Set<string>();\n  const tables: Map<number, Map<string, number>> = new Map();\n  for (const [, table, foodName] of orders) {\n    const tableNumber = +table;\n    let map = tables.get(tableNumber);\n    if (!map) tables.set(tableNumber, (map = new Map()));\n    map.set(foodName, (map.get(foodName) ?? 0) + 1);\n    foodSet.add(foodName);\n  }\n  const title = [\n    'Table',\n    ...[...foodSet].sort((s1, s2) => {\n      const len1 = s1.length;\n      const len2 = s2.length;\n      let i = 0;\n      while (i < Math.min(len1, len2)) {\n        const code1 = s1.codePointAt(i)!;\n        const code2 = s2.codePointAt(i)!;\n        if (code1 !== code2) return code1 - code2;\n        else i++;\n      }\n      if (i === len1) return -1;\n      else if (i === len2) return 1;\n      else return 0;\n    }),\n  ];\n  const data: number[][] = [];\n  for (const [table, map] of tables.entries()) {\n    const item: number[] = [table];\n    for (let i = 1, l = title.length; i < l; i++) item[i] = map.get(title[i]) ?? 0;\n    data.push(item);\n  }\n  return [title, ...data.sort(([t1], [t2]) => t1 - t2).map(v => v.map(v => v + ''))];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "有序集合",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "字符串", "有序集合", "排序"],
     "level": "Medium"
 }

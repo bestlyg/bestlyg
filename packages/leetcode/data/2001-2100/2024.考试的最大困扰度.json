@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    int maxConsecutiveAnswers(string answerKey, int k) {\n        return max(check('T', answerKey, k), check('F', answerKey, k));\n    }\n    int check(char ch, string str, int k) {\n        int n = str.size(), l = 0, r = 0, ans = 0;\n        do {\n            while (r < n && k > 0) {\n                while (r < n && str[r] == ch) r++;\n                k--;\n                if (r < n) r++;\n                while (r < n && str[r] == ch) r++;\n            }\n            ans = max(ans, r - l);\n            while (l < n && k <= 0) {\n                if (str[l] != ch) k++;\n                l++;\n            }\n        } while (r < n);\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["字符串", "二分查找", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

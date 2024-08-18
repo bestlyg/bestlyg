@@ -13,8 +13,6 @@
             "code": "function isUgly(n: number): boolean {\n  return n === 0\n    ? false\n    : 1 ===\n        [2, 3, 5].reduce((num, cur) => {\n          while (!(num % cur)) num /= cur;\n          return num;\n        }, n);\n}"
         }
     ],
-    "tagList": [
-        "数学"
-    ],
+    "tagList": ["数学"],
     "level": "Easy"
 }

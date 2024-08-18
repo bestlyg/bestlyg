@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    vector<int> numberOfLines(vector<int>& widths, string s) {\n        int surplus = 100, line = 1;\n        for (auto &ch : s) {\n            int cnt = widths[ch - 'a'];\n            if (cnt > surplus) {\n                surplus = 100;\n                line++;\n            }\n            surplus -= cnt;\n        }\n        return {line, 100 - surplus};\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

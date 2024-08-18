@@ -37,8 +37,6 @@
             "code": "struct ListNode* deleteDuplicates(struct ListNode* head){\n    struct ListNode *p = head;\n    struct ListNode *work_p = head;\n    while (work_p) {\n        while (work_p && work_p->val == p->val) work_p = work_p->next;\n        p->next = work_p;\n        p = p->next;\n    }\n    return head;\n}"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Easy"
 }

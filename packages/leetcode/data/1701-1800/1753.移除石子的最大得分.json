@@ -29,10 +29,6 @@
             "code": "class Solution {\npublic:\n    int maximumScore(int a, int b, int c) {\n        sort_v(a, b, c);\n        if (a + b <= c) return a + b;\n        return (a + b + c) / 2;\n    }\n    void sort_v(int &a, int &b, int &c) {\n        if (a > c) swap(a, c);\n        if (b > c) swap(b, c);\n        if (a > b) swap(a, b);\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数学",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数学", "堆（优先队列）"],
     "level": "Medium"
 }

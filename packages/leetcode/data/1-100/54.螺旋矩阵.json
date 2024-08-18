@@ -21,10 +21,6 @@
             "code": "function spiralOrder(matrix: number[][]): number[] {\n  const ans: number[] = [];\n  dfs(0, 0, matrix.length - 1, matrix[0].length - 1);\n  return ans;\n  function dfs(startRow: number, startCol: number, endRow: number, endCol: number): void {\n    if (startRow > endRow || startCol > endCol) return;\n    for (let i = startCol; i <= endCol; i++) ans.push(matrix[startRow][i]);\n    for (let i = startRow + 1; i <= endRow; i++) ans.push(matrix[i][endCol]);\n    if (endRow !== startRow)\n      for (let i = endCol - 1; i >= startCol; i--) ans.push(matrix[endRow][i]);\n    if (endCol !== startCol)\n      for (let i = endRow - 1; i >= startRow + 1; i--) ans.push(matrix[i][startCol]);\n    dfs(startRow + 1, startCol + 1, endRow - 1, endCol - 1);\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Medium"
 }

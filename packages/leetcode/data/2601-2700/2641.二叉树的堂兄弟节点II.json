@@ -13,12 +13,6 @@
             "code": "class Solution:\n    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        root.val = 0\n        map = {}\n        q = deque()\n        q.append(root)\n        size = 1\n        sum = 0\n        while q:\n            node = q.popleft()\n            if node.left:\n                map[node.left] = node\n                q.append(node.left)\n                sum += node.left.val\n            if node.right: \n                map[node.right] = node\n                q.append(node.right)\n                sum += node.right.val\n            size -= 1\n            if size == 0:\n                nums = []\n                for child in q:\n                    csum = 0\n                    if map[child].left: csum += map[child].left.val\n                    if map[child].right: csum += map[child].right.val\n                    nums.append(sum - csum)\n                for i in range(len(q)):\n                    q[i].val = nums[i]\n                sum = 0\n                size = len(q)\n        return root"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "哈希表",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "哈希表", "二叉树"],
     "level": "Medium"
 }

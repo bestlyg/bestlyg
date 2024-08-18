@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    bool isFlipedString(string s1, string s2) {\n        return s1.size() == s2.size() && (s1 + s1).find(s2) != string::npos;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["字符串", "字符串匹配"],
     "level": "Easy"
 }

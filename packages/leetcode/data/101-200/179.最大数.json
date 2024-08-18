@@ -21,11 +21,6 @@
             "code": "function largestNumber(nums: number[]): string {\n  const getCount = (num: number): number => {\n    if (num === 0) return 1;\n    let c = 0;\n    while (num) {\n      num = ~~(num / 10);\n      cpp;\n    }\n    return c;\n  };\n  nums.sort((num1, num2) => {\n    const count1 = getCount(num1);\n    const count2 = getCount(num2);\n    const left = num1 * 10 ** count2 + num2;\n    const right = num2 * 10 ** count1 + num1;\n    return right - left;\n  });\n  return nums[0] === 0 ? '0' : nums.join('');\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "字符串", "排序"],
     "level": "Medium"
 }

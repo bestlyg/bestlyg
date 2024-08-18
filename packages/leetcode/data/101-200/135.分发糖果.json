@@ -21,9 +21,6 @@
             "code": "function candy(ratings: number[]): number {\n  const n = ratings.length;\n  const l = new Array(n).fill(1);\n  const r = new Array(n).fill(1);\n  for (let i = 1; i < n; i++) {\n    if (ratings[i] > ratings[i - 1]) l[i] = l[i - 1] + 1;\n  }\n  for (let i = n - 2; i >= 0; i--) {\n    if (ratings[i] > ratings[i + 1]) r[i] = r[i + 1] + 1;\n  }\n  let ans = 0;\n  for (let i = 0; i < n; i++) ans += Math.max(l[i], r[i]);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Hard"
 }

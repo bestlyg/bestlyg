@@ -21,10 +21,6 @@
             "code": "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n  const n1 = nums1.length;\n  const n2 = nums2.length;\n  const v1 = find((n1 + n2 + 1) >> 1);\n  if ((n1 + n2) % 2 === 1) return v1;\n  const v2 = find(((n1 + n2 + 1) >> 1) + 1);\n  return (v1 + v2) / 2;\n  function find(k: number, i1: number = 0, i2: number = 0): number {\n    if (i1 === nums1.length) return nums2[i2 + k - 1];\n    if (i2 === nums2.length) return nums1[i1 + k - 1];\n    if (k === 1) return Math.min(nums1[i1], nums2[i2]);\n    let v1 = Math.min(k >> 1, nums1.length - i1);\n    let v2 = Math.min(k - v1, nums2.length - i2);\n    v1 = k - v2;\n    if (nums1[i1 + v1 - 1] <= nums2[i2 + v2 - 1]) return find(k - v1, i1 + v1, i2);\n    else return find(k - v2, i1, i2 + v2);\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "分治"
-    ],
+    "tagList": ["数组", "二分查找", "分治"],
     "level": "Hard"
 }

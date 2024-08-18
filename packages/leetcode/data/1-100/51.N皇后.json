@@ -21,9 +21,6 @@
             "code": "function solveNQueens(n: number): string[][] {\n  const ans: string[][] = [];\n  const colSet = new Set<number>();\n  const lineSet = new Set<string>();\n  const board = new Array(n).fill(0).map(_ => new Array(n).fill('.'));\n  dfs();\n  return ans;\n  function getLine(row: number, col: number): [string, string] {\n    return [`y=x+${n - 1 - row - col}${specStr}, ${specStr}y=-x+${n - 1 - row + col}`];\n  }\n  function dfs(row: number = 0) {\n    if (row === n) {\n      const newBoard: string[] = new Array(n).fill(0).map((_, row) =>\n        new Array(n)\n          .fill(0)\n          .map((_, col) => board[row][col])\n          .join('')\n      );\n      ans.push(newBoard);\n      return;\n    }\n    for (let col = 0; col < n; col++) {\n      if (colSet.has(col)) continue;\n      const [line1, line2] = getLine(row, col);\n      if (lineSet.has(line1) || lineSet.has(line2)) continue;\n      colSet.add(col);\n      lineSet.add(line1);\n      lineSet.add(line2);\n      board[row][col] = 'Q';\n      dfs(row + 1);\n      board[row][col] = '.';\n      colSet.delete(col);\n      lineSet.delete(line1);\n      lineSet.delete(line2);\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["数组", "回溯"],
     "level": "Hard"
 }

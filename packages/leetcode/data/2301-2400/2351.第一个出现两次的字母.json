@@ -21,11 +21,6 @@
             "code": "impl Solution {\n    pub fn repeated_character(s: String) -> char {\n        let s = s.as_bytes();\n        let mut list = [0; 26];\n        for c in s {\n            let i = *c as usize - 'a' as usize;\n            if list[i] == 1 {\n                return *c as char;\n            }\n            list[i] += 1;\n        }\n        ' '\n    }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["位运算", "哈希表", "字符串", "计数"],
     "level": "Easy"
 }

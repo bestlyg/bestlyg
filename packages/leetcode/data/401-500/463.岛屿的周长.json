@@ -13,11 +13,6 @@
             "code": "function islandPerimeter(grid: number[][]): number {\n  const rowLen = grid.length;\n  const colLen = grid[0].length;\n  let ans = 0;\n  for (let i = 0; i < rowLen; i++) {\n    for (let j = 0; j < colLen; j++) {\n      if (grid[i][j] === 1) {\n        ans += count(i, j);\n      }\n    }\n  }\n  return ans;\n  function count(row: number, col: number): number {\n    let ans = 0;\n    if (row === 0 || grid[row - 1][col] !== 1) ans++;\n    if (col === 0 || grid[row][col - 1] !== 1) ans++;\n    if (row === rowLen - 1 || grid[row + 1][col] !== 1) ans++;\n    if (col === colLen - 1 || grid[row][col + 1] !== 1) ans++;\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "数组", "矩阵"],
     "level": "Easy"
 }

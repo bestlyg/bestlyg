@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int numberOfMatches(int n) {\n        int cnt = 0;\n        while (n > 1) {\n            cnt += n / 2;\n            n = ceil(n / 2.0);\n        }\n        return cnt;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["数学", "模拟"],
     "level": "Easy"
 }

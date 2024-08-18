@@ -13,11 +13,6 @@
             "code": "function firstUniqChar(s: string): number {\n  const dict: Record<string, number> = {};\n  for (const c of s) {\n    dict[c] = (dict[c] ?? 0) + 1;\n  }\n  const set = new Set(\n    Object.entries(dict)\n      .filter(([, v]) => v === 1)\n      .map(([k]) => k)\n  );\n  for (let i = 0, l = s.length; i < l; i++) {\n    if (set.has(s[i])) return i;\n  }\n  return -1;\n}"
         }
     ],
-    "tagList": [
-        "队列",
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["队列", "哈希表", "字符串", "计数"],
     "level": "Easy"
 }

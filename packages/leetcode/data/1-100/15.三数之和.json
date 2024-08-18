@@ -37,10 +37,6 @@
             "code": "class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        nums.push_back(INT_MAX);\n        int n = nums.size();\n        vector<vector<int>> res;\n        int prev1 = INT_MIN;\n        for (auto it1 = nums.begin(); it1 != nums.end() && *it1 <= 0; prev1 = *it1, it1++) {\n            if (prev1 == *it1) continue;\n            auto it2 = it1;\n            it2++;\n            int prev2 = INT_MIN;\n            for (; it2 != nums.end(); prev2 = *it2, it2++) {\n                if (prev2 == *it2) continue;\n                int val = 0 - *it1 - *it2;\n                if (val < *it2) continue;\n                auto it3 = it2;\n                it3++;\n                it3 = lower_bound(it3, nums.end(), val);\n                if (*it3 == val) {\n                    res.push_back({ *it1, *it2, *it3 });\n                }\n            }\n        }\n        return res;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "排序"],
     "level": "Medium"
 }

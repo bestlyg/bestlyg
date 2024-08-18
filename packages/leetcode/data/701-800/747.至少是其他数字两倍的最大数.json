@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    int dominantIndex(vector<int>& nums) {\n        int n = nums.size();\n        if (n == 1) return 0;\n        int arr[n];\n        for (int i = 0; i < n; i++) arr[i] = i;\n        sort(arr, arr + n,\n             [&](int i1, int i2) -> bool { return nums[i1] < nums[i2]; });\n        return nums[arr[n - 1]] >= nums[arr[n - 2]] * 2 ? arr[n - 1] : -1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "排序"
-    ],
+    "tagList": ["数组", "排序"],
     "level": "Easy"
 }

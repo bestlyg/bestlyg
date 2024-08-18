@@ -21,10 +21,6 @@
             "code": "func sortArrayByParity(nums []int) []int {\n    var i1, i2 = 0, len(nums) - 1\n    for i1 < i2 {\n        for i1 < i2 && nums[i1]&1 == 0 {\n            i1 += 1\n        }\n        for i1 < i2 && nums[i2]&1 == 1 {\n            i2 -= 1\n        }\n        nums[i1], nums[i2] = nums[i2], nums[i1]\n    }\n    return nums\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "排序"],
     "level": "Easy"
 }

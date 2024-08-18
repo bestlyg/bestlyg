@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    struct node {\n        int num1, num2, sum;\n        bool operator<(const node& obj) const {\n            return sum == obj.sum\n                       ? num2 == obj.num2 ? num1 < obj.num1 : num2 < obj.num2\n                       : sum < obj.sum;\n        }\n    };\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2,\n                                       int k) {\n        priority_queue<node> q;\n        int isBreak = 0, len = min(k, (int)(nums1.size() * nums2.size()));\n        // cout << \"len = \" << len << endl;\n        vector<vector<int>> ans(len, vector<int>(2));\n        for (auto& num1 : nums1) {\n            if (isBreak) break;\n            for (auto& num2 : nums2) {\n                if (q.size() >= len && num1 > 0 && num2 > 0 &&\n                    num1 > q.top().sum && num2 > q.top().sum)\n                    isBreak = 1;\n                if (isBreak) break;\n                if (q.size() < len) {\n                    q.push((node){num1, num2, num1 + num2});\n                } else if (q.top().sum > num1 + num2) {\n                    // cout << q.top().num1 << ',' << q.top().num2;\n                    // if (q.top() )\n                    q.pop();\n                    q.push((node){num1, num2, num1 + num2});\n                }\n            }\n        }\n        while (q.size()) {\n            node n = q.top();\n            q.pop();\n            ans[len - 1][0] = n.num1;\n            ans[len - 1][1] = n.num2;\n            len--;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "堆（优先队列）"
-    ],
+    "tagList": ["数组", "堆（优先队列）"],
     "level": "Medium"
 }

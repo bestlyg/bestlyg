@@ -29,9 +29,6 @@
             "code": "function findMin(nums: number[]): number {\n  let left = 0;\n  let right = nums.length - 1;\n  while (left < right) {\n    const mid = ~~((left + right) / 2);\n    if (nums[mid] < nums[right]) right = mid;\n    else left = mid + 1;\n  }\n  return nums[left];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

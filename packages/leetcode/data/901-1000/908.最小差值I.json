@@ -21,9 +21,6 @@
             "code": "func smallestRangeI(nums []int, k int) int {\n  n := len(nums)\n  if n == 1 {\n    return 0\n  }\n  var (\n    min = nums[0]\n    max = nums[0]\n  )\n  for _, val := range nums {\n    if min > val {\n      min = val\n    }\n    if max < val {\n      max = val\n    }\n  }\n  mid := (min + max) >> 1\n  if mid-min <= k {\n    min = mid\n  } else {\n    min += k\n  }\n  if max-mid <= k {\n    max = mid\n  } else {\n    max -= k\n  }\n  return max - min\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

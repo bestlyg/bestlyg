@@ -13,9 +13,6 @@
             "code": "function escapeGhosts(ghosts: number[][], target: number[]): boolean {\n  const comp = (x: number, y: number): number => Math.abs(x - target[0]) + Math.abs(y - target[1]);\n  const distance = comp(0, 0);\n  for (const ghost of ghosts) {\n    if (comp(...(ghost as [number, number])) <= distance) return false;\n  }\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Medium"
 }

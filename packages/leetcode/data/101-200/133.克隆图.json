@@ -21,11 +21,6 @@
             "code": "function cloneGraph(node: Node | null): Node | null {\n  if (node === null) return null;\n  const map = new Map<number, Node>();\n  dfs(node);\n  return map.get(node.val)!;\n  function dfs(node: Node | null): void {\n    if (node === null || map.has(node.val)) return;\n    const cloneNode = new Node(node.val);\n    map.set(node.val, cloneNode);\n    node.neighbors.forEach(neighbor => {\n      dfs(neighbor);\n      cloneNode.neighbors.push(map.get(neighbor.val)!);\n    });\n  }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "哈希表"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "图", "哈希表"],
     "level": "Medium"
 }

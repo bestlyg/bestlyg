@@ -19,7 +19,7 @@ export class BinarySearchTree<T> extends BinaryTree<T> implements IBinarySearchT
         val: T,
         parent: BinaryTreeNode<T> | null = null,
         left: BinaryTreeNode<T> | null = null,
-        right: BinaryTreeNode<T> | null = null
+        right: BinaryTreeNode<T> | null = null,
     ): BinaryTreeNode<T> {
         return new BinaryTreeNode(val, parent, left, right);
     }

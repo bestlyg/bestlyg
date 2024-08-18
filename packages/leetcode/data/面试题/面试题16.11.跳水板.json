@@ -13,9 +13,6 @@
             "code": "function divingBoard(shorter: number, longer: number, k: number): number[] {\n  if (k === 0) return [];\n  const ans = new Set<number>();\n  let l1 = k,\n    l2 = 0;\n  while (l1 !== -1) ans.add(l1-- * shorter + l2++ * longer);\n  return [...ans];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

@@ -21,10 +21,6 @@
             "code": "impl Solution {\n    pub fn prefix_count(words: Vec<String>, pref: String) -> i32 {\n        words.into_iter().filter(|w| w.starts_with(&pref)).count() as i32\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串",
-        "字符串匹配"
-    ],
+    "tagList": ["数组", "字符串", "字符串匹配"],
     "level": "Easy"
 }

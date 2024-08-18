@@ -13,11 +13,6 @@
             "code": "function averageOfLevels(root: TreeNode | null): number[] {\n  if (root === null) return [];\n  const queue: TreeNode[] = [root];\n  let size = 1;\n  const ans: number[] = [root.val];\n  while (queue.length !== 0) {\n    const node = queue.shift()!;\n    node.left && queue.push(node.left);\n    node.right && queue.push(node.right);\n    if (--size === 0 && queue.length !== 0) {\n      size = queue.length;\n      ans.push(queue.reduce((total, cur) => total + cur.val, 0) / size);\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

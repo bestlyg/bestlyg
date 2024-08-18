@@ -13,8 +13,6 @@
             "code": "int* shuffle(int* nums, int numsSize, int n, int* returnSize){\n     int *ans = (int *)malloc(sizeof(int) * n * 2);\n    for (int i = 0, j = n, idx = 0; idx < n * 2; i++, j++) {\n        ans[idx++] = nums[i];\n        ans[idx++] = nums[j];\n    }\n    *returnSize = 2 * n;\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

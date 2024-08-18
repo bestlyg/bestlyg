@@ -21,10 +21,6 @@
             "code": "use std::collections::HashSet;\nimpl Solution {\n    pub fn crack_safe(n: i32, k: i32) -> String {\n        let mut visit = HashSet::<String>::new();\n        let mut cur = String::new();\n        for _ in 0..n {\n            cur.push('0');\n        }\n        visit.insert(cur.clone());\n        Solution::dfs(n, k, &mut visit, cur).1\n    }\n    fn dfs<'a>(n: i32, k: i32, visit: &mut HashSet<String>, cur: String) -> (bool, String) {\n        if visit.len() == k.pow(n as u32) as usize {\n            (true, cur)\n        } else {\n            let pre = &cur[(cur.len() as i32 - n + 1) as usize..cur.len()];\n            for i in 0..k {\n                let mut next = String::from(pre);\n                next.push(char::from(i as u8 + '0' as u8));\n                if visit.contains(&next) {\n                    continue;\n                }\n                visit.insert(next.clone());\n                let mut cur = cur.clone();\n                cur.push(char::from(i as u8 + '0' as u8));\n                let res = Solution::dfs(n, k, visit, cur);\n                if res.0 {\n                    return res;\n                }\n                visit.remove(&next);\n            }\n\n            (false, \"\".to_string())\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "图",
-        "欧拉回路"
-    ],
+    "tagList": ["深度优先搜索", "图", "欧拉回路"],
     "level": "Hard"
 }

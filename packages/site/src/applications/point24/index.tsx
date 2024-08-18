@@ -27,7 +27,7 @@ export function Point24() {
         setSolutions(Array.from(new Set(solutions).values()));
         console.log('======TIME COMPARATION======');
         for (const [k, fn] of Object.entries(compute24Fns.current).filter(
-            ([k]) => !disabledVersion.some(v => v === k)
+            ([k]) => !disabledVersion.some(v => v === k),
         )) {
             console.time(k);
             fn(nums, ['+', '-', '*', '/'], target);

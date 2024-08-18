@@ -21,9 +21,6 @@
             "code": "function rotateRight(head: ListNode | null, k: number): ListNode | null {\n  if (head === null) return null;\n  let p: ListNode | null = head;\n  let c = 1;\n  while (p.next !== null) {\n    p = p.next;\n    cpp;\n  }\n  p.next = head;\n  c = c - (k % c);\n  while (--c) head = head!.next;\n  p = head!.next;\n  head!.next = null;\n  return p;\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["链表", "双指针"],
     "level": "Medium"
 }

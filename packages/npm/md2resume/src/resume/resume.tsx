@@ -115,7 +115,7 @@ export function Resume(props: ResumeProps) {
                                             .then(() =>
                                                 resumePageType === ResumePageType.SinglePage
                                                     ? downloadPDFSinglePage(resumeRef.current)
-                                                    : downloadPDFMultiPage(resumeRef.current)
+                                                    : downloadPDFMultiPage(resumeRef.current),
                                             )
                                             .finally(() => {
                                                 setDownloadPDF(false);

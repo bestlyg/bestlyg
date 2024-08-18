@@ -29,10 +29,6 @@
             "code": "impl Solution {\n    pub fn is_it_possible(word1: String, word2: String) -> bool {\n        let mut list = [0; 26];\n        for i in 0..26 {\n            list[i] = i;\n        }\n        let (mut m1, mut len1) = ([0; 26], 0);\n        let (mut m2, mut len2) = ([0; 26], 0);\n        for c in word1.chars() {\n            let idx = c as usize - 'a' as usize;\n            m1[idx] += 1;\n            if m1[idx] == 1 {\n                len1 += 1;\n            }\n        }\n        for c in word2.chars() {\n            let idx = c as usize - 'a' as usize;\n            m2[idx] += 1;\n            if m2[idx] == 1 {\n                len2 += 1;\n            }\n        }\n        for i1 in list.iter() {\n            for i2 in list.iter() {\n                let (i1, i2) = (*i1, *i2);\n                let (c1, t1) = (m1[i1], m1[i2]);\n                let (c2, t2) = (m2[i2], m2[i1]);\n                if c1 == 0 || c2 == 0 {\n                    continue;\n                } else if i1 == i2 {\n                    if len1 == len2 {\n                        return true;\n                    }\n                } else {\n                    let mut len1 = len1;\n                    let mut len2 = len2;\n                    if c1 == 1 {\n                        len1 -= 1;\n                    }\n                    if t1 == 0 {\n                        len1 += 1;\n                    }\n                    if c2 == 1 {\n                        len2 -= 1;\n                    }\n                    if t2 == 0 {\n                        len2 += 1\n                    }\n                    if len1 == len2 {\n                        return true;\n                    }\n                }\n            }\n        }\n        false\n    }\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "计数"],
     "level": "Medium"
 }

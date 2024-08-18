@@ -13,9 +13,6 @@
             "code": "function numberOfArithmeticSlices(nums: number[]): number {\n  const map = new Map<number, Map<number, number>>(\n    nums.map((_, i) => [i, new Map<number, number>()])\n  );\n  const n = nums.length;\n  let ans = 0;\n  for (let i = 0; i < n; i++) {\n    const num = nums[i];\n    for (let j = 0; j < i; j++) {\n      const v = num - nums[j];\n      const c = map.get(j)!.get(v) ?? 0;\n      ans += c;\n      map.get(i)!.set(v, (map.get(i)!.get(v) ?? 0) + c + 1);\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Hard"
 }

@@ -21,9 +21,6 @@
             "code": "function majorityElement(nums: number[]): number {\n  let candidate = -1;\n  let count = 0;\n  nums.forEach(num => {\n    if (count === 0) candidate = num;\n    if (candidate === num) count++;\n    else count--;\n  });\n  count = 0;\n  nums.forEach(num => {\n    if (candidate === num) count++;\n  });\n  return count > nums.length / 2 ? candidate : -1;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "计数"
-    ],
+    "tagList": ["数组", "计数"],
     "level": "Easy"
 }

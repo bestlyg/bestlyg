@@ -13,10 +13,6 @@
             "code": "const op = ['*', '/', '+', '-'];\nconst opMap: Record<string, (num1: number, num2: number) => number> = {\n  '*': (num1, num2) => num1 * num2,\n  '/': (num1, num2) => ~~(num1 / num2),\n  '+': (num1, num2) => num1 + num2,\n  '-': (num1, num2) => num1 - num2,\n};\nfunction clumsy(N: number): number {\n  let curOp = 0;\n  const template: (number | string)[] = [];\n  while (N) {\n    template.push(N--);\n    template.push(op[curOp]);\n    curOp = (curOp + 1) % 4;\n  }\n  template.pop();\n  const stack: (number | string)[] = [];\n  for (let i = 0, l = template.length; i < l; i++) {\n    const c = template[i];\n    if (c === '*' || c === '/') {\n      const num1 = stack.pop() as number;\n      const num2 = template[++i] as number;\n      stack.push(opMap[c](num1, num2));\n    } else stack.push(c);\n  }\n  template.length = 0;\n  template.push(...stack);\n  stack.length = 0;\n  for (let i = 0, l = template.length; i < l; i++) {\n    const c = template[i];\n    if (c === '+' || c === '-') {\n      const num1 = stack.pop() as number;\n      const num2 = template[++i] as number;\n      stack.push(opMap[c](num1, num2));\n    } else stack.push(c);\n  }\n  return stack[0] as number;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["栈", "数学", "模拟"],
     "level": "Medium"
 }

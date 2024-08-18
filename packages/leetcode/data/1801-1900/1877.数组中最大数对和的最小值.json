@@ -13,11 +13,6 @@
             "code": "function minPairSum(nums: number[]): number {\n  const n = nums.length;\n  const arr = new Array(n / 2).fill(0);\n  nums.sort((a, b) => a - b);\n  for (let i = 0; i < n / 2; i++) arr[i] = nums[i] + nums[n - 1 - i];\n  return Math.max(...arr);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "双指针", "排序"],
     "level": "Medium"
 }

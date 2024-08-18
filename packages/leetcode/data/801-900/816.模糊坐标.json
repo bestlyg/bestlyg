@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    vector<string> ambiguousCoordinates(string s) {\n        vector<string> ans;\n        int n = s.size();\n        for (int i = 2; i < n - 1; i++) {\n            for (auto &l : comp(s.substr(1, i - 1))) {\n                for (auto &r: comp(s.substr(i, s.size() - 1 - i))) {\n                    ans.push_back(\"(\" + l + \", \" + r + \")\");\n                }\n            }\n        }\n        return ans;\n    }\n    vector<string> comp(string str) {\n        vector<string> list;\n        int f = check1(str);\n        if (f) list.push_back(str);\n        if (str.size() > 1) {\n            for (int i = 1; i < str.size(); i++) {\n                string next = str.substr(0, i) + \".\" + str.substr(i);\n                int f = check2(next, i);\n                if (f) list.push_back(next);\n            }\n        }\n        return list;\n    }\n    bool check1(string &str) {\n        if (str[0] == '0' && str.size() != 1) return false;\n        return true;\n    }\n    bool check2(string &str, int idx) {\n        // 开头不能是0，除非只有0\n        if (str[0] == '0' && idx != 1) return false;\n        // 结尾不能是0\n        if (str.back() == '0') return false;\n        // 小数不能全0\n        int f = true;\n        for (int i = idx + 1; i < str.size(); i++) {\n            if (str[i] != '0') {\n                f = false;\n                break;\n            }\n        }\n        if (f) return false;\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "字符串",
-        "回溯",
-        "枚举"
-    ],
+    "tagList": ["字符串", "回溯", "枚举"],
     "level": "Medium"
 }

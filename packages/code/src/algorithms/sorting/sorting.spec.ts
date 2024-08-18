@@ -39,7 +39,7 @@ const numberRun = (sort: (list: number[]) => void) => {
 };
 describe('Sort', () => {
     [quickSort1, quickSort2, quickSort3, mergeSort, heapSort, bubbleSort].forEach(v =>
-        compareRun(v)
+        compareRun(v),
     );
     [countingSort, radixSort].forEach(v => numberRun(v));
 });

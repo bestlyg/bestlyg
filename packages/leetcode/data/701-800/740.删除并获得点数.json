@@ -13,10 +13,6 @@
             "code": "function deleteAndEarn(nums: number[]): number {\n  const map = new Map<number, number>();\n  nums.forEach(num => map.set(num, (map.get(num) ?? 0) + 1));\n  const arr = [...map.keys()].sort((a, b) => a - b);\n  const len = arr.length;\n  const dp: number[][] = new Array(len).fill(0).map(_ => new Array(2).fill(0));\n  dp[0][0] = arr[0] * map.get(arr[0])!;\n  for (let i = 1; i < len; i++) {\n    const num = arr[i];\n    const maxPrev = Math.max(...dp[i - 1]);\n    dp[i][1] = maxPrev;\n    dp[i][0] = (map.has(num - 1) ? dp[i - 1][1] : maxPrev) + map.get(num)! * num;\n  }\n  return Math.max(...dp[len - 1]);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "动态规划"
-    ],
+    "tagList": ["数组", "哈希表", "动态规划"],
     "level": "Medium"
 }

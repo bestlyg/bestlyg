@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    int countNumbersWithUniqueDigits(int n) {\n        if (n == 0) return 1;\n        if (n == 1) return 10;\n        int ans = 10, num = 9;\n        for (int i = 2, cur = 9; i <= n; i++, cur--) {\n            num *= cur;\n            ans += num;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "动态规划",
-        "回溯"
-    ],
+    "tagList": ["数学", "动态规划", "回溯"],
     "level": "Medium"
 }

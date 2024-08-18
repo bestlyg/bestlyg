@@ -13,9 +13,6 @@
             "code": "function minArray(numbers: number[]): number {\n  let last = numbers.length - 1;\n  const firstNum = numbers[0];\n  while (firstNum === numbers[last] && last !== 0) {\n    numbers.pop();\n    last--;\n  }\n  if (firstNum < numbers[last]) return firstNum;\n  else if (last === 0) return firstNum;\n  else return _find(0, last);\n  function _find(l: number, r: number): number {\n    // console.log(`[find],l=${l},r=${r}`);\n    if (l === r) return numbers[l];\n    const mid = (l + r) >> 1;\n    const num = numbers[mid];\n    return num >= firstNum ? _find(mid + 1, r) : _find(l, mid);\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

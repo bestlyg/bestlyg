@@ -21,14 +21,17 @@ export class RBTreeNode2<T> {
         return this.left === null && this.right === null
             ? 0
             : this.left === null && this.right !== null
-            ? 1
-            : this.left !== null && this.right === null
-            ? 1
-            : 2;
+              ? 1
+              : this.left !== null && this.right === null
+                ? 1
+                : 2;
     }
     left: RBTreeNode2<T> | null = null;
     right: RBTreeNode2<T> | null = null;
-    constructor(public val: T, public parent: RBTreeNode2<T> | null = null) {}
+    constructor(
+        public val: T,
+        public parent: RBTreeNode2<T> | null = null,
+    ) {}
     toRed() {
         return this.toColor(RED);
     }

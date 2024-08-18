@@ -13,9 +13,6 @@
             "code": "function profitableSchemes(\n  n: number,\n  minProfit: number,\n  group: number[],\n  profit: number[]\n): number {\n  const MOD = 1e9 + 7;\n  const len = group.length;\n  const dp = new Array(len + 1)\n    .fill(0)\n    .map(_ => new Array(n + 1).fill(0).map(_ => new Array(minProfit + 1).fill(0)));\n  dp[0][0][0] = 1;\n  for (let i = 1; i <= len; i++) {\n    const member = group[i - 1];\n    const earn = profit[i - 1];\n    for (let j = 0; j <= n; j++) {\n      for (let k = 0; k <= minProfit; k++) {\n        if (j < member) {\n          dp[i][j][k] = dp[i - 1][j][k];\n        } else {\n          dp[i][j][k] = (dp[i - 1][j][k] + dp[i - 1][j - member][Math.max(0, k - earn)]) % MOD;\n        }\n      }\n    }\n  }\n  let ans = 0;\n  for (let i = 0; i <= n; i++) ans = (ans + dp[len][i][minProfit]) % MOD;\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Hard"
 }

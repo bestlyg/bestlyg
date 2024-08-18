@@ -10,8 +10,8 @@ export default class LessPluginsGetCurrentPackageScope {
                 getCurrentPackageScope: function (rootPath, key, transform) {
                     return new less.tree.Keyword(
                         getCurrentPackageScope(
-                            rootPath?.value ?? this.currentFileInfo.currentDirectory
-                        ) ?? ''
+                            rootPath?.value ?? this.currentFileInfo.currentDirectory,
+                        ) ?? '',
                     );
                 },
             },

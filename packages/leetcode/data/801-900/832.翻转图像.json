@@ -13,12 +13,6 @@
             "code": "function flipAndInvertImage(A: number[][]): number[][] {\n  const colLen = A[0].length;\n  for (let row = 0, rowLen = A.length; row < rowLen; row++)\n    for (let col = 0, colMidLen = (colLen - 1) / 2; col <= colMidLen; col++)\n      [A[row][col], A[row][colLen - col - 1]] = [A[row][colLen - col - 1] ^ 1, A[row][col] ^ 1];\n  return A;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "双指针",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["位运算", "数组", "双指针", "矩阵", "模拟"],
     "level": "Easy"
 }

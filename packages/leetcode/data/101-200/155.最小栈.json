@@ -21,9 +21,6 @@
             "code": "class MinStack {\n  private stack: number[] = [];\n  private get topStack() {\n    return this.stack[this.stack.length - 1];\n  }\n  private minStack: number[] = [];\n  private get topMinStack() {\n    return this.minStack[this.minStack.length - 1];\n  }\n  push(val: number): void {\n    this.stack.push(val);\n    if (this.minStack.length === 0 || this.topMinStack >= val) this.minStack.push(val);\n  }\n  pop(): void {\n    if (this.topStack === this.topMinStack) this.minStack.pop();\n    this.stack.pop();\n  }\n  top(): number {\n    return this.topStack;\n  }\n  getMin(): number {\n    return this.topMinStack;\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "设计"
-    ],
+    "tagList": ["栈", "设计"],
     "level": "Medium"
 }

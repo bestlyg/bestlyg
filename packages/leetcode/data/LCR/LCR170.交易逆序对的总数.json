@@ -13,14 +13,6 @@
             "code": "function reversePairs(nums: number[]): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const mergeSort = (left: number, right: number): number => {\n    if (left === right) return 0;\n    const mid = (left + right) >> 1;\n    let ans = mergeSort(left, mid) + mergeSort(mid + 1, right);\n    const tempList = nums.slice(left, mid + 1);\n    let p1 = 0;\n    const end1 = mid - left;\n    let p2 = mid + 1;\n    let i = left;\n    while (p1 <= end1) {\n      if (p2 > right || tempList[p1] <= nums[p2]) {\n        nums[i++] = tempList[p1++];\n      } else {\n        nums[i++] = nums[p2++];\n        ans += end1 - p1 + 1;\n      }\n    }\n    return ans;\n  };\n  return mergeSort(0, len - 1);\n}"
         }
     ],
-    "tagList": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "二分查找",
-        "分治",
-        "有序集合",
-        "归并排序"
-    ],
+    "tagList": ["树状数组", "线段树", "数组", "二分查找", "分治", "有序集合", "归并排序"],
     "level": "Hard"
 }

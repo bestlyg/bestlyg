@@ -13,9 +13,6 @@
             "code": "function isLongPressedName(name: string, typed: string): boolean {\n  let p = 0;\n  for (let i = 0, l = typed.length; i < l; i++) {\n    const c = typed[i];\n    if (c === name[p]) {\n      p++;\n    } else if (i !== 0 && typed[i] === typed[i - 1]) {\n    } else return false;\n  }\n  return p === name.length;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

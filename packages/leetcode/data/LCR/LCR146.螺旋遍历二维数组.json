@@ -13,10 +13,6 @@
             "code": "function spiralOrder(matrix: number[][]): number[] {\n  const row = matrix.length;\n  if (row === 0) return [];\n  else if (row === 1) return matrix[0];\n  const ans: number[] = [];\n  const col = matrix[0].length;\n  spiral(0, row - 1, 0, col - 1);\n  return ans;\n  function spiral(startI: number, endI: number, startJ: number, endJ: number): void {\n    if (endI < startI || endJ < startJ) return;\n    for (let i = startJ; i <= endJ; i++) ans.push(matrix[startI][i]);\n    for (let i = startI + 1; i <= endI; i++) ans.push(matrix[i][endJ]);\n    for (let i = endJ - 1; startI !== endI && i >= startJ; i--) ans.push(matrix[endI][i]);\n    for (let i = endI - 1; startJ !== endJ && i >= startI + 1; i--) ans.push(matrix[i][startJ]);\n    if (startI !== endI && startJ !== endJ) spiral(startI + 1, endI - 1, startJ + 1, endJ - 1);\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Easy"
 }

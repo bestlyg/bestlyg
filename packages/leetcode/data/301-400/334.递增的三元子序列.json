@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    bool increasingTriplet(vector<int>& nums) {\n        int pre1 = INT_MAX, pre2 = INT_MAX;\n        for (auto& num : nums) {\n            if (num > pre2) return 1;\n            if (num > pre1) pre2 = min(pre2, num);\n            pre1 = min(pre1, num);\n        }\n        return 0;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Medium"
 }

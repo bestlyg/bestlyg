@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    int findClosest(vector<string>& words, string word1, string word2) {\n        int p[2], ans = INT_MAX, n = words.size();\n        p[0] = p[1] = -1;\n        for (int i = 0; i < n; i++) {\n            string word = words[i];\n            int f = -1;\n            if (word == word1) f = 0;\n            if (word == word2) f = 1;\n            if (f == -1) continue;\n            p[f] = i;\n            if (p[0] == -1 || p[1] == -1) continue;\n            ans = min(ans, abs(p[0] - p[1]));\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Medium"
 }

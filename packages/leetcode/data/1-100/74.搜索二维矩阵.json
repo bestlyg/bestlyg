@@ -29,10 +29,6 @@
             "code": "function searchMatrix(matrix: number[][], target: number): boolean {\n  const colLen = matrix[0].length;\n  const rowLen = matrix.length;\n  const find = (start: number, end: number): boolean => {\n    if (start > end) return false;\n    const mid = ~~((start + end) / 2);\n    const row = ~~(mid / colLen);\n    const col = mid % colLen;\n    if (matrix[row][col] < target) return find(mid + 1, end);\n    else if (matrix[row][col] > target) return find(start, mid - 1);\n    else return true;\n  };\n  return find(0, colLen * rowLen - 1);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "矩阵"
-    ],
+    "tagList": ["数组", "二分查找", "矩阵"],
     "level": "Medium"
 }

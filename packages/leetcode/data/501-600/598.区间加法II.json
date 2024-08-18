@@ -13,9 +13,6 @@
             "code": "function maxCount(m: number, n: number, ops: number[][]): number {\n  if (ops.length === 0) return m * n;\n  let minA = Infinity;\n  let minB = Infinity;\n  ops.forEach(([a, b]) => {\n    minA = Math.min(minA, a);\n    minB = Math.min(minB, b);\n  });\n  return minA * minB;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

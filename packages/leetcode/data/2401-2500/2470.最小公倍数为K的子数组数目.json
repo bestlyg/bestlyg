@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int gcd(int a, int b) {\n        if (b == 0) return a;\n        return gcd(b, a % b);\n    }\n    int subarrayLCM(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 0;\n        for (int i = 0; i < n; i++) {\n            int cur_gcd = nums[i], num = nums[i];\n            for (int j = i; j < n; j++) {\n                num = num * nums[j] / gcd(num, nums[j]);\n                if (num == k) ans++;\n                if (num > k) break;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "数论"
-    ],
+    "tagList": ["数组", "数学", "数论"],
     "level": "Medium"
 }

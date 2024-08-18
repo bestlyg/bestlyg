@@ -13,13 +13,6 @@
             "code": "function balanceBST(root: TreeNode | null): TreeNode | null {\n  const q: TreeNode[] = [];\n  inorder(root);\n  return build(q);\n  function inorder(node: TreeNode | null) {\n    if (node === null) return;\n    const { left, right } = node;\n    inorder(left);\n    q.push(node);\n    inorder(right);\n  }\n  function build(list: TreeNode[]): TreeNode | null {\n    if (list.length === 0) return null;\n    const mid = (0 + list.length - 1) >> 1;\n    const node = list[mid];\n    node.left = build(list.slice(0, mid));\n    node.right = build(list.slice(mid + 1));\n    return node;\n  }\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "树",
-        "深度优先搜索",
-        "二叉搜索树",
-        "分治",
-        "二叉树"
-    ],
+    "tagList": ["贪心", "树", "深度优先搜索", "二叉搜索树", "分治", "二叉树"],
     "level": "Medium"
 }

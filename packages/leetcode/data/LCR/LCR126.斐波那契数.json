@@ -13,10 +13,6 @@
             "code": "function fib(n: number): number {\n  const MOD = 1e9 + 7;\n  let [num0, num1] = [0, 1];\n  if (n === 0) return num0;\n  while (--n) [num0, num1] = [num1, (num1 + num0) % MOD];\n  return num1;\n}"
         }
     ],
-    "tagList": [
-        "记忆化搜索",
-        "数学",
-        "动态规划"
-    ],
+    "tagList": ["记忆化搜索", "数学", "动态规划"],
     "level": "Easy"
 }

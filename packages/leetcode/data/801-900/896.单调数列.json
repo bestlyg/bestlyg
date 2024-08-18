@@ -13,8 +13,6 @@
             "code": "function isMonotonic(A: number[]): boolean {\n  const len = A.length - 1;\n  let f = true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] > A[i + 1]) {\n      f = false;\n      break;\n    }\n  }\n  if (f) return true;\n  for (let i = 0; i < len; i++) {\n    if (A[i] < A[i + 1]) {\n      return false;\n    }\n  }\n  return true;\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

@@ -13,10 +13,6 @@
             "code": "function findTilt(root: TreeNode | null): number {\n  return dfs(root).tilt;\n  function dfs(node: TreeNode | null): {\n    sum: number;\n    tilt: number;\n  } {\n    const ans = { sum: 0, tilt: 0, res: 0 };\n    if (node === null) return ans;\n    const left = dfs(node.left);\n    const right = dfs(node.right);\n    ans.tilt = Math.abs(left.sum - right.sum) + left.tilt + right.tilt;\n    ans.sum = node.val + left.sum + right.sum;\n    return ans;\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Easy"
 }

@@ -21,9 +21,6 @@
             "code": "function divide(dividend: number, divisor: number): number {\n  if (dividend === (-2) ** 31 && divisor === -1) return 2 ** 31 - 1;\n  if (dividend === (-2) ** 31 && divisor === 1) return dividend;\n  const flag = (dividend ^ divisor) < 0 ? -1 : 1;\n  dividend = Math.abs(dividend);\n  divisor = Math.abs(divisor);\n  let ans = 0;\n  for (let i = 31; i >= 0; i--) {\n    if (dividend >>> i >= divisor) {\n      ans += 1 << i;\n      dividend -= divisor << i;\n    }\n  }\n  return flag * ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数学"
-    ],
+    "tagList": ["位运算", "数学"],
     "level": "Medium"
 }

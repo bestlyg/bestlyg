@@ -21,9 +21,6 @@
             "code": "function getSum(a: number, b: number): number {\n  while (b != 0) {\n    const carry = (a & b) << 1;\n    a = a ^ b;\n    b = carry;\n  }\n  return a + b;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Medium"
 }

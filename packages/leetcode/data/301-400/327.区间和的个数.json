@@ -21,14 +21,6 @@
             "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const len = nums.length;\n  if (len === 0) return 0;\n  const prefixSumList = [0];\n  for (let i = 0; i < len; i++) prefixSumList[i + 1] = prefixSumList[i] + nums[i];\n  const count = (left: number, mid: number, right: number) => {\n    let i1 = left,\n      i2 = left,\n      ans = 0;\n    for (let i = mid + 1; i <= right; i++) {\n      const sum = prefixSumList[i];\n      const l = sum - upper;\n      const r = sum - lower;\n      while (i1 <= mid && prefixSumList[i1] < l) i1++;\n      while (i2 <= mid && prefixSumList[i2] <= r) i2++;\n      ans += i2 - i1;\n    }\n    return ans;\n  };\n  const mergeSort = (left: number, right: number): number => {\n    if (left === right) return 0;\n    const mid = (left + right) >> 1;\n    const ans = mergeSort(left, mid) + mergeSort(mid + 1, right) + count(left, mid, right);\n    const temp = prefixSumList.slice(left, mid + 1);\n    let p1 = 0,\n      end1 = mid - left,\n      p2 = mid + 1,\n      i = left;\n    while (p1 <= end1) {\n      if (p2 > right || temp[p1] <= prefixSumList[p2]) prefixSumList[i++] = temp[p1++];\n      else prefixSumList[i++] = prefixSumList[p2++];\n    }\n    return ans;\n  };\n  return mergeSort(0, len);\n}"
         }
     ],
-    "tagList": [
-        "树状数组",
-        "线段树",
-        "数组",
-        "二分查找",
-        "分治",
-        "有序集合",
-        "归并排序"
-    ],
+    "tagList": ["树状数组", "线段树", "数组", "二分查找", "分治", "有序集合", "归并排序"],
     "level": "Hard"
 }

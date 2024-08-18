@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    bool areAlmostEqual(string s1, string s2) {\n        int list[26] = {0}, n = s1.size();\n        for (auto &c : s1) list[c - 'a']++;\n        for (auto &c : s2) if (list[c - 'a']-- == 0) return false;\n        int tag = -1;\n        bool changed = false;\n        for (int i = 0; i < n; i++) {\n            if (s1[i] == s2[i]) continue;\n            if (changed) return false;\n            if (tag == -1) { tag = i; continue; }\n            else if (s1[tag] == s2[i] && s2[tag] == s1[i]) changed = true;\n            else return false;\n        }\n        return true;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "计数"],
     "level": "Easy"
 }

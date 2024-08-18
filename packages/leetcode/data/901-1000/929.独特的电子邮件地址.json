@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int numUniqueEmails(vector<string> &emails) {\n        unordered_set<string> s;\n        for (auto &o : emails) s.insert(format(o));\n        return s.size();\n    }\n    string format(string email) {\n        string ans = \"\";\n        bool suffix = false, ignore = false;\n        for (auto &ch : email) {\n            if (ch == '+') {\n                ignore = true;\n            } else if (ch == '@') {\n                suffix = true;\n                ans += ch;\n            } else if (ch == '.' && !suffix) {\n                continue;\n            } else if (suffix || !ignore) {\n                ans += ch;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["数组", "哈希表", "字符串"],
     "level": "Easy"
 }

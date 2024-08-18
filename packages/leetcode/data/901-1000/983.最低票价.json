@@ -13,9 +13,6 @@
             "code": "/**\n * @param {number[]} days\n * @param {number[]} costs\n * @return {number}\n */\nvar mincostTickets = function (days, costs) {\n  const len = days.length;\n  const costDays = [1, 7, 30];\n  const lastDay = days[len];\n  const cache = {};\n  return getMin(0, 0);\n  function getMin(start, maxDay) {\n    if (cache[format(start, maxDay)]) return cache[format(start, maxDay)];\n    while (start < len && days[start] < maxDay) start++;\n    if (start === len || lastDay <= maxDay) return 0;\n    let minCost = 999999;\n    if (days[start] > maxDay)\n      for (let j = 0; j < 3; j++) {\n        const cost = costs[j];\n        minCost = Math.min(getMin(start + 1, days[start] + costDays[j] - 1) + cost, minCost);\n      }\n    else minCost = getMin(start + 1, maxDay);\n    cache[format(start, maxDay)] = minCost;\n    return minCost;\n  }\n  function format(start, maxDay) {\n    return `${start}-${maxDay}`;\n  }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

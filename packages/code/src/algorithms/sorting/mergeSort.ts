@@ -7,7 +7,7 @@ export const mergeSort = <T extends any>(
     compare: Comparator<T>,
     list: T[],
     left = 0,
-    right = list.length - 1
+    right = list.length - 1,
 ) => {
     if (left >= right) return;
     const mid = (left + right) >> 1;

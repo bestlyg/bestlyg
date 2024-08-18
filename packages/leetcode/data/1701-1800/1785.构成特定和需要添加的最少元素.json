@@ -21,9 +21,6 @@
             "code": "function minElements(nums: number[], limit: number, goal: number): number {\n  return Math.ceil(Math.abs(nums.reduce((sum, num) => sum - num, goal)) / limit);\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组"
-    ],
+    "tagList": ["贪心", "数组"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "function sortString(s: string): string {\n  let len = s.length;\n  const cache: Record<string, number> = {};\n  const setCache = (c: string) => {\n    cache[c] = 1 + (cache[c] ? cache[c] : 0);\n  };\n  for (const c of s) setCache(c);\n  const arr = Object.entries(cache).sort(([c1], [c2]) => c1.codePointAt(0)! - c2.codePointAt(0)!);\n  let i = -1;\n  let ans = '';\n  const compute = () => {\n    ans += arr[i][0];\n    arr[i][1]--;\n    len--;\n  };\n  while (len !== 0) {\n    while (len !== 0) {\n      i++;\n      if (i === arr.length) break;\n      if (arr[i][1] === 0) continue;\n      compute();\n    }\n    while (len !== 0) {\n      i--;\n      if (i === -1) break;\n      if (arr[i][1] === 0) continue;\n      compute();\n    }\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "计数"],
     "level": "Easy"
 }

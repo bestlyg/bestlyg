@@ -21,9 +21,6 @@
             "code": "function getArr(s: string) {\n  const n = s.length;\n  const ans = new Array(n).fill(0).map(_ => new Array(n).fill(false));\n  const load = (l: number, r: number) => {\n    while (l >= 0 && r < n && s[l] === s[r]) ans[l--][r++] = true;\n  };\n  for (let i = 0; i < n; i++) {\n    load(i, i);\n    if (i < n - 1) load(i, i + 1);\n  }\n  return ans;\n}\nfunction minCut(s: string): number {\n  const n = s.length;\n  const arr = getArr(s);\n  const dp = new Array(n).fill(0).map((_, i) => i);\n  for (let i = 0; i < n; i++) {\n    if (arr[0][i]) {\n      dp[i] = 0;\n      continue;\n    }\n    for (let j = 0; j + 1 <= i; j++) {\n      if (!arr[j + 1][i]) continue;\n      dp[i] = Math.min(dp[i], dp[j] + 1);\n    }\n  }\n  return dp[n - 1];\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["字符串", "动态规划"],
     "level": "Hard"
 }

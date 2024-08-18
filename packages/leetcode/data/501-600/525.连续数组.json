@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int findMaxLength(vector<int>& nums) {\n        int ans = 0, sum = 0;\n        unordered_map<int, int> mmap;\n        mmap[0] = -1;\n        for (int i = 0; i < nums.size(); i++) {\n            sum += nums[i] == 1 ? 1 : -1;\n            if (mmap.count(sum)) {\n                ans = max(ans, i - mmap[sum]);\n            } else {\n                mmap[sum] = i;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "前缀和"
-    ],
+    "tagList": ["数组", "哈希表", "前缀和"],
     "level": "Medium"
 }

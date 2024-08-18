@@ -21,8 +21,6 @@
             "code": "class Solution {\n   public:\n    int rangeBitwiseAnd(int left, int right) {\n        int cnt = 0;\n        for (; left != right; cnt++) {\n            left >>= 1;\n            right >>= 1;\n        }\n        return left << cnt;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "level": "Medium"
 }

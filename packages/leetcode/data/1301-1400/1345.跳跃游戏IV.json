@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    struct node {\n        int idx, step;\n    };\n    int minJumps(vector<int>& arr) {\n        unordered_map<int, vector<int>> m;\n        unordered_set<int> s;\n        s.insert(0);\n        queue<node> q;\n        q.push((node){0, 0});\n        int n = arr.size();\n        for (int i = 0; i < n; i++) m[arr[i]].push_back(i);\n        while (q.size()) {\n            node v = q.front();\n            if (v.idx == n - 1) return v.step;\n            q.pop();\n            if (v.idx > 0 && !s.count(v.idx - 1)) {\n                q.push((node){v.idx - 1, v.step + 1});\n                s.insert(v.idx - 1);\n            }\n            if (v.idx < n - 1 && !s.count(v.idx + 1)) {\n                q.push((node){v.idx + 1, v.step + 1});\n                s.insert(v.idx + 1);\n            }\n            if (!m.count(arr[v.idx])) continue;\n            for (auto& next_idx : m[arr[v.idx]]) {\n                if (next_idx == v.idx || s.count(next_idx)) continue;\n                q.push((node){next_idx, v.step + 1});\n                s.insert(next_idx);\n            }\n            m.erase(arr[v.idx]);\n        }\n        return 0;\n    }\n};"
         }
     ],
-    "tagList": [
-        "广度优先搜索",
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["广度优先搜索", "数组", "哈希表"],
     "level": "Hard"
 }

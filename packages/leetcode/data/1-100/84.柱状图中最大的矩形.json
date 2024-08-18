@@ -21,10 +21,6 @@
             "code": "function largestRectangleArea(heights: number[]): number {\n  const len = heights.length;\n  const left = new Array(len).fill(-1);\n  const right = new Array(len).fill(len);\n  const stack: number[] = [];\n  let ans = 0;\n  for (let i = 0; i < len; i++) {\n    const h = heights[i];\n    while (stack.length && heights[stack[stack.length - 1]] >= h) right[stack.pop()!] = i;\n    if (stack.length) left[i] = stack[stack.length - 1];\n    stack.push(i);\n  }\n  for (let i = 0; i < len; i++) ans = Math.max(ans, (right[i] - left[i] - 1) * heights[i]);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "单调栈"
-    ],
+    "tagList": ["栈", "数组", "单调栈"],
     "level": "Hard"
 }

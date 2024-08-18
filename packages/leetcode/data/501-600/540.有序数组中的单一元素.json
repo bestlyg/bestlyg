@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        int l = 0, r = nums.size() - 1, m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] == nums[m ^ 1])\n                l = m + 1;\n            else\n                r = m;\n        }\n        return nums[l];\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Medium"
 }

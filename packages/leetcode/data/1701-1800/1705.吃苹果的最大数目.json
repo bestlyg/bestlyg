@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<int> singleNumbers(vector<int> &nums) {\n        int val = 0;\n        for (auto &num : nums) val ^= num;\n        vector<int> ans(2, 0);\n        int bit = 0;\n        while ((val & 1 << bit) == 0) bit++;\n        bit = 1 << bit;\n        for (auto &num : nums) {\n            if (num & bit)\n                ans[0] ^= num;\n            else\n                ans[1] ^= num;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数组", "堆（优先队列）"],
     "level": "Medium"
 }

@@ -29,8 +29,6 @@
             "code": "int binaryGap(int n) {\n    int prev = -1, ans = 0;\n    for (int i = 0; n; i++, n >>= 1) {\n        int bit = n & 1;\n        if (bit == 0) continue;\n        if (prev != -1) ans = fmax(ans, i - prev);\n        prev = i;\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "level": "Easy"
 }

@@ -29,9 +29,6 @@
             "code": "function canPartition(nums: number[]): boolean {\n  const n = nums.length;\n  const sum = nums.reduce((total, cur) => total + cur, 0);\n  if (sum % 2 !== 0) return false;\n  const halfSum = sum / 2;\n  const dp: boolean[][] = new Array(2).fill(0).map(_ => new Array(halfSum + 1).fill(false));\n  dp[1][nums[0]] = true;\n  for (let i = 2; i <= n; i++) {\n    const idx = i % 2;\n    const prevIdx = idx ^ 1;\n    const num = nums[i - 1];\n    dp[idx][0] = dp[idx][num] = true;\n    for (let j = 1; j <= halfSum; j++) {\n      dp[idx][j] = dp[prevIdx][j];\n      if (j >= num) dp[idx][j] ||= dp[prevIdx][j - num];\n    }\n    if (dp[idx][halfSum]) return true;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["数组", "动态规划"],
     "level": "Medium"
 }

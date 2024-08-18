@@ -21,11 +21,6 @@
             "code": "function updateMatrix(mat: number[][]): number[][] {\n  const n = mat.length;\n  const m = mat[0].length;\n  const queue: [number, number, number][] = [];\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      if (mat[i][j] === 0) queue.push([i, j, 0]);\n    }\n  }\n  const format = (row: number, col: number) => `${row}::${col}`;\n  const set = new Set<string>(queue.map(([row, col]) => format(row, col)));\n  const add = (row: number, col: number, level: number) => {\n    const str = format(row, col);\n    if (set.has(str)) return;\n    set.add(str);\n    queue.push([row, col, level]);\n  };\n  while (queue.length) {\n    const [row, col, level] = queue.shift()!;\n    mat[row][col] = level;\n    if (row > 0) add(row - 1, col, level + 1);\n    if (row < n - 1) add(row + 1, col, level + 1);\n    if (col > 0) add(row, col - 1, level + 1);\n    if (col < m - 1) add(row, col + 1, level + 1);\n  }\n  return mat;\n}"
         }
     ],
-    "tagList": [
-        "广度优先搜索",
-        "数组",
-        "动态规划",
-        "矩阵"
-    ],
+    "tagList": ["广度优先搜索", "数组", "动态规划", "矩阵"],
     "level": "Medium"
 }

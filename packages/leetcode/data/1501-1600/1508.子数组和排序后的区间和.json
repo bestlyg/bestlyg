@@ -13,11 +13,6 @@
             "code": "function rangeSum(nums: number[], n: number, left: number, right: number): number {\n  const prefixSumList: number[] = [];\n  let sum = 0;\n  nums.forEach(v => prefixSumList.push((sum += v)));\n  const list: number[] = nums.slice();\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < i; j++) {\n      list.push(prefixSumList[i] - (prefixSumList[j - 1] ?? 0));\n    }\n  }\n  return (\n    list\n      .sort((a, b) => a - b)\n      .slice(left - 1, right)\n      .reduce((total, cur) => total + cur, 0) %\n    (10 ** 9 + 7)\n  );\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序"],
     "level": "Medium"
 }

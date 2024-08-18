@@ -22,7 +22,7 @@ const drawArc = (
     color: string,
     x: number,
     y: number,
-    radius: number
+    radius: number,
 ) => {
     ctx.beginPath();
     ctx.lineWidth = 10;
@@ -97,7 +97,7 @@ export function useRingProgressBar(initPercent = 0.5) {
                 next = percent;
             setCurPercent(next);
         },
-        curPercent === percent ? undefined : time
+        curPercent === percent ? undefined : time,
     );
     return {
         percent,

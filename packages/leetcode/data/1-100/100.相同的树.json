@@ -21,11 +21,6 @@
             "code": "bool isSameTree(struct TreeNode* p, struct TreeNode* q){\n    // 同为NULL则相同\n    if (p == NULL && q == NULL) return 1;\n    // 若其中一个为NULL或者值不一样就不同,\n    if (p == NULL || q == NULL || p->val != q->val) return 0;\n    // 否则递归子树\n    return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Easy"
 }

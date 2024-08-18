@@ -21,10 +21,6 @@
             "code": "function removeDuplicateNodes(head: ListNode | null): ListNode | null {\n  if (head === null) return null;\n  let temp1: ListNode | null = head;\n  while (temp1 !== null) {\n    const val = temp1.val;\n    let temp2: ListNode | null = temp1;\n    while (temp2 !== null && temp2.next !== null) {\n      if (temp2.next.val === val) temp2.next = temp2.next.next;\n      else temp2 = temp2.next;\n    }\n    temp1 = temp1.next;\n  }\n  return head;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["哈希表", "链表", "双指针"],
     "level": "Easy"
 }

@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    string removeOuterParentheses(string s) {\n        string ans = \"\";\n        int level = 0;\n        for (auto& ch : s) {\n            if (ch == '(') {\n                if (level != 0) ans += ch;\n                level++;\n            } else {\n                level--;\n                if (level != 0) ans += ch;\n            }\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Easy"
 }

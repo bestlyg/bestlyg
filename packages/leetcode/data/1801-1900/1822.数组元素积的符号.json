@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int arraySign(vector<int>& nums) {\n        int cnt = 0;\n        for (auto &num : nums) {\n            if (num == 0) return 0;\n            else if (num < 0) cnt ^= 1;\n        }\n        return cnt ? -1 : 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Easy"
 }

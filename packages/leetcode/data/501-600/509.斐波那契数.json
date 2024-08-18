@@ -21,11 +21,6 @@
             "code": "function fib(n: number): number {\n  if (n === 0) return 0;\n  if (n === 1) return 1;\n  let num0 = 0;\n  let num1 = 1;\n  for (let i = 2; i <= n; i++) [num0, num1] = [num1, num0 + num1];\n  return num1;\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "记忆化搜索",
-        "数学",
-        "动态规划"
-    ],
+    "tagList": ["递归", "记忆化搜索", "数学", "动态规划"],
     "level": "Easy"
 }

@@ -29,11 +29,6 @@
             "code": "function searchMatrix(matrix: number[][], target: number): boolean {\n  const m = matrix.length;\n  const n = matrix[0].length;\n  let row = 0;\n  let col = n - 1;\n  while (row < m && col >= 0) {\n    const num = matrix[row][col];\n    if (num === target) return true;\n    if (num > target) col--;\n    else row++;\n  }\n  return false;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "分治",
-        "矩阵"
-    ],
+    "tagList": ["数组", "二分查找", "分治", "矩阵"],
     "level": "Medium"
 }

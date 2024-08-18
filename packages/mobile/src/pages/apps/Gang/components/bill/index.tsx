@@ -18,7 +18,7 @@ export function Bill({ bills, types }: { bills: TBill[]; types: Type[] }) {
             cache[key].push(item);
         }
         return Object.entries(cache).sort(
-            ([k1], [k2]) => new Date(k2).getTime() - new Date(k1).getTime()
+            ([k1], [k2]) => new Date(k2).getTime() - new Date(k1).getTime(),
         );
     }, [bills]);
     return (

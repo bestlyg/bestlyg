@@ -13,12 +13,6 @@
             "code": "function kthSmallestPrimeFraction(arr: number[], k: number): number[] {\n  const n = arr.length;\n  const list: number[][] = [];\n  for (let i = 0; i < n; i++) {\n    for (let j = i + 1; j < n; j++) {\n      list.push([arr[i], arr[j]]);\n    }\n  }\n  list.sort(([num11, num12], [num21, num22]) => num11 / num12 - num21 / num22);\n  return list[k - 1];\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序", "堆（优先队列）"],
     "level": "Medium"
 }

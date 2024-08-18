@@ -21,9 +21,6 @@
             "code": "const mod = 1337n;\nfunction pow(a: bigint, b: bigint): bigint {\n  let ans = 1n;\n  let num = a;\n  while (b) {\n    if (b & 1n) ans = (ans * num) % mod;\n    num = (num * num) % mod;\n    b >>= 1n;\n  }\n  return ans;\n}\nfunction superPow(a: number, b: number[]): number {\n  let ans = 1n;\n  const biga = BigInt(a);\n  for (const num of b) {\n    ans = (pow(ans, 10n) * pow(biga, BigInt(num))) % mod;\n  }\n  return Number(ans);\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "分治"
-    ],
+    "tagList": ["数学", "分治"],
     "level": "Medium"
 }

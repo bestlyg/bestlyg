@@ -13,8 +13,6 @@
             "code": "char * reorderSpaces(char * text){\n    int len = strlen(text), list_len = 0, blank_cnt = 0;\n    char *list[100] = {0}, *ans = (char *)calloc(len + 1, sizeof(char));\n    for (int i = 0; i < len; i++) {\n        if (text[i] == ' ') blank_cnt++;\n        else {\n            list[list_len++] = text + i;\n            while (i + 1< len && text[i + 1] != ' ') i++;\n        }\n    }\n    int blank_common_cnt = list_len > 1 ? blank_cnt / (list_len - 1) : 0,\n        blank_last_cnt   = list_len > 1 ? blank_cnt % (list_len - 1) : blank_cnt,\n        ans_len = 0;\n    for (int i = 0; i < list_len; i++) {\n        for (char *j = list[i]; *j != ' ' && *j != '\\0'; j++) ans[ans_len++] = *j;\n        if (i == list_len - 1) for (int i = 0; i < blank_last_cnt; i++) ans[ans_len++] = ' ';\n        else for (int i = 0; i < blank_common_cnt; i++) ans[ans_len++] = ' ';\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "level": "Easy"
 }

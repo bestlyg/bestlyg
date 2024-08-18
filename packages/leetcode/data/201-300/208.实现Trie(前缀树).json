@@ -29,11 +29,6 @@
             "code": "class TrieNode {\n  end = false;\n  children: Record<string, TrieNode> = {};\n  constructor(public val: string) {}\n}\nclass Trie {\n  private root = new TrieNode('');\n  insert(word: string): void {\n    let node = this.root;\n    for (const ch of word) {\n      if (!node.children[ch]) node.children[ch] = new TrieNode(ch);\n      node = node.children[ch];\n    }\n    node.end = true;\n  }\n  private findNode(word: string): TrieNode | null {\n    let node = this.root;\n    for (const ch of word) {\n      if (!node.children[ch]) return null;\n      node = node.children[ch];\n    }\n    return node;\n  }\n  search(word: string): boolean {\n    return !!this.findNode(word)?.end;\n  }\n  startsWith(prefix: string): boolean {\n    return !!this.findNode(prefix);\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "字典树",
-        "哈希表",
-        "字符串"
-    ],
+    "tagList": ["设计", "字典树", "哈希表", "字符串"],
     "level": "Medium"
 }

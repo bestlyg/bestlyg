@@ -21,8 +21,6 @@
             "code": "function mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n  lists = lists.filter(list => list !== null);\n  const len = lists.length;\n  if (len === 0) return null;\n  const merge = (start: number, end: number): ListNode | null => {\n    console.log(start, end);\n    if (start > end) return null;\n    if (start === end) return lists[start];\n    const mid = (start + end) >> 1;\n    const list1 = merge(start, mid);\n    const list2 = merge(mid + 1, end);\n    if (list1 === null) return list2;\n    if (list2 === null) return list1;\n    const first = new ListNode(0);\n    let temp = first;\n    let p1: ListNode | null = list1;\n    let p2: ListNode | null = list2;\n    while (p1 && p2) {\n      if (p1.val <= p2.val) {\n        temp.next = p1;\n        temp = temp.next;\n        p1 = p1.next;\n      } else {\n        temp.next = p2;\n        temp = temp.next;\n        p2 = p2.next;\n      }\n    }\n    if (p1) temp.next = p1;\n    if (p2) temp.next = p2;\n    return first.next;\n  };\n  return merge(0, len - 1);\n}"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Hard"
 }

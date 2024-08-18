@@ -13,9 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<int> countBits(int n) {\n        vector<int> ans;\n        ans.push_back(0);\n        if (n == 0) return ans;\n        ans.push_back(1);\n        if (n == 1) return ans;\n        for (int num = 2, i = 0; num <= n; num++, i++) {\n            if ((num & (num - 1)) == 0) i = 0;\n            ans.push_back(ans[i] + 1);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "动态规划"
-    ],
+    "tagList": ["位运算", "动态规划"],
     "level": "Easy"
 }

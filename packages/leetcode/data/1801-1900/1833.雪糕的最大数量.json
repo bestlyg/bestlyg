@@ -13,10 +13,6 @@
             "code": "function maxIceCream(costs: number[], coins: number): number {\n  costs.sort((a, b) => a - b);\n  let ans = 0;\n  for (const cost of costs) {\n    if (coins >= cost) {\n      ans++;\n      coins -= cost;\n    } else break;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "排序"],
     "level": "Medium"
 }

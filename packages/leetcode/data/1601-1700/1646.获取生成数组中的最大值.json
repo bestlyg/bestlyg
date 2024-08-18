@@ -13,9 +13,6 @@
             "code": "function getMaximumGenerated(n: number): number {\n  if (n === 0) return 0;\n  if (n === 1) return 1;\n  let ans = 1;\n  const arr = new Array(n + 1);\n  arr[0] = 0;\n  arr[1] = 1;\n  for (let i = 1; 2 * i + 1 <= n; i++) {\n    ans = Math.max(ans, (arr[i * 2] = arr[i]));\n    ans = Math.max(ans, (arr[i * 2 + 1] = arr[i] + arr[i + 1]));\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["数组", "模拟"],
     "level": "Easy"
 }

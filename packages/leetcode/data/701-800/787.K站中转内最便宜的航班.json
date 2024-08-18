@@ -13,13 +13,6 @@
             "code": "function findCheapestPrice(\n  n: number,\n  flights: number[][],\n  src: number,\n  dst: number,\n  k: number\n): number {\n  const map = new Map<number, number[]>();\n  for (let i = 0; i < flights.length; i++) {\n    const [from] = flights[i];\n    let list = map.get(from);\n    if (!list) map.set(from, (list = []));\n    list.push(i);\n  }\n  const dp = new Array(k + 2).fill(0).map(_ => new Array(n).fill(Infinity));\n  dp[0][src] = 0;\n  let ans = Infinity;\n  for (let i = 1; i <= k + 1; i++) {\n    for (let j = 0; j < n; j++) {\n      if (dp[i - 1][j] === Infinity) continue;\n      const list = map.get(j);\n      if (!list) continue;\n      for (const flightIdx of list) {\n        const [, to, price] = flights[flightIdx];\n        dp[i][to] = Math.min(dp[i][to], dp[i - 1][j] + price);\n        if (to === dst) ans = Math.min(dp[i][to], ans);\n      }\n    }\n  }\n  return ans === Infinity ? -1 : ans;\n}"
         }
     ],
-    "tagList": [
-        "深度优先搜索",
-        "广度优先搜索",
-        "图",
-        "动态规划",
-        "最短路",
-        "堆（优先队列）"
-    ],
+    "tagList": ["深度优先搜索", "广度优先搜索", "图", "动态规划", "最短路", "堆（优先队列）"],
     "level": "Medium"
 }

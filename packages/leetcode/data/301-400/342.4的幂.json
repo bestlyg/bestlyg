@@ -13,10 +13,6 @@
             "code": "function isPowerOfFour(n: number): boolean {\n  const num = Math.log10(n) / Math.log10(4);\n  return num === ~~num;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "递归",
-        "数学"
-    ],
+    "tagList": ["位运算", "递归", "数学"],
     "level": "Easy"
 }

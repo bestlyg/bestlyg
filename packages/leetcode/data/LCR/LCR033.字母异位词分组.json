@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        unordered_map<string, vector<string>> m;\n        for (int i = 0; i < strs.size(); i++) {\n            string str = strs[i];\n            string head = str;\n            sort(head.begin(), head.end());\n            m[head].push_back(str);\n        }\n        vector<vector<string>> ans;\n        for (auto it = m.begin(); it != m.end(); it++) {\n            ans.push_back(it->second);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "字符串",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "字符串", "排序"],
     "level": "Medium"
 }

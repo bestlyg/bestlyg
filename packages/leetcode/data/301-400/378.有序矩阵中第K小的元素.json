@@ -29,12 +29,6 @@
             "code": "int check(int **matrix, int n, int num) {\n    int row = n - 1, col = 0, cnt = 0;\n    while (row >= 0) {\n        while(col < n && matrix[row][col] <= num) col++;\n        cnt += col;\n        row--;\n    }\n    return cnt;\n}\nint kthSmallest(int** matrix, int matrixSize, int* matrixColSize, int k){\n    int l = matrix[0][0], r = matrix[matrixSize - 1][matrixSize - 1], m;\n    while (l < r) {\n        m = (l + r) >> 1;\n        int cnt = check(matrix, matrixSize, m);\n        if (cnt >= k) r = m;\n        else l = m + 1;\n    }\n    return l;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "矩阵",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["数组", "二分查找", "矩阵", "排序", "堆（优先队列）"],
     "level": "Medium"
 }

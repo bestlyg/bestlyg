@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    typedef long long ll;\n    const ll mod = 1e9 + 7;\n    int sumSubseqWidths(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        ll ans = 0, n = nums.size();\n        for (ll i = 0; i < n; i++) ans = (ans + (toCount(i + 1) - toCount(n - i)) * nums[i]) % mod;\n        return ans;\n    }\n    ll toCount(ll num) {\n        return quick_pow(2, num - 1);\n    }\n    ll quick_pow(ll a, ll b) {\n        ll ans = 1, tmp = a;\n        for (; b; b >>= 1) {\n            if (b & 1) ans = (ans * tmp) % mod;\n            tmp = (tmp * tmp) % mod;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "排序"
-    ],
+    "tagList": ["数组", "数学", "排序"],
     "level": "Hard"
 }

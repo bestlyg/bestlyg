@@ -18,7 +18,7 @@ export class AVLTreeNode<T> extends BinaryTreeNode<T> {
         public val: T,
         public parent: AVLTreeNode<T> | null = null,
         public left: AVLTreeNode<T> | null = null,
-        public right: AVLTreeNode<T> | null = null
+        public right: AVLTreeNode<T> | null = null,
     ) {
         super(val, parent, left, right);
     }
@@ -28,13 +28,13 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
         val: T,
         parent: BinaryTreeNode<T> | null = null,
         left: BinaryTreeNode<T> | null = null,
-        right: BinaryTreeNode<T> | null = null
+        right: BinaryTreeNode<T> | null = null,
     ): BinaryTreeNode<T> {
         return new AVLTreeNode(
             val,
             parent as AVLTreeNode<T> | null,
             left as AVLTreeNode<T> | null,
-            right as AVLTreeNode<T> | null
+            right as AVLTreeNode<T> | null,
         );
     }
     protected afterAdd(node: AVLTreeNode<T>) {
@@ -79,7 +79,7 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
                     child.right,
                     grandParent,
                     parent.right,
-                    grandParent.right
+                    grandParent.right,
                 );
             else
                 this.rotate(
@@ -90,7 +90,7 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
                     child.left,
                     grandParent,
                     child.right,
-                    grandParent.right
+                    grandParent.right,
                 );
         } else {
             // R
@@ -103,7 +103,7 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
                     parent.left,
                     child,
                     child.left,
-                    child.right
+                    child.right,
                 );
             else
                 this.rotate(
@@ -114,7 +114,7 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
                     child.left,
                     parent,
                     child.right,
-                    parent.right
+                    parent.right,
                 );
         }
     }
@@ -123,8 +123,8 @@ export class AVLTree<T> extends BlanceBinarySearchTree<T> {
             node.leftHeight > node.rightHeight
                 ? node.left
                 : node.leftHeight < node.rightHeight
-                ? node.right
-                : node[node.childPosition]
+                  ? node.right
+                  : node[node.childPosition]
         ) as AVLTreeNode<T>;
     }
 }

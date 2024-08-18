@@ -37,10 +37,6 @@
             "code": "class Solution {\n          public:\n    int lengthOfLongestSubstring(string s) {\n        int arr[200] = {0}, l = 0, r = 0, ans = 0, n = s.size();\n        while (r < n) {\n            while (r < n && arr[s[r]] < 1) arr[s[r++]]++;\n            ans = max(ans, r - l);\n            char ch = s[r++];\n            arr[ch]++;\n            while (s[l] != ch) arr[s[l++]]--;\n            arr[s[l++]]--;\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Medium"
 }

@@ -13,9 +13,6 @@
             "code": "function search(nums: number[], target: number): number {\n  return (\n    nums.reduce<Record<number, number>>((record, cur) => {\n      record[cur] = (record[cur] ?? 0) + 1;\n      return record;\n    }, {})[target] ?? 0\n  );\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["数组", "二分查找"],
     "level": "Easy"
 }

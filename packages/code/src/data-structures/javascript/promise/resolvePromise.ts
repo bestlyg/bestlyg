@@ -14,7 +14,7 @@ export function resolvePromise<T>(
     promise: BestPromise<T>,
     x: any,
     resolve: (value: T) => void,
-    reject: (reason: any) => void
+    reject: (reason: any) => void,
 ): void {
     try {
         // 首先判断x和promise2是否是同一引用 如果是 那么就用一个类型错误作为Promise2的失败原因reject
@@ -40,7 +40,7 @@ export function resolvePromise<T>(
                             called = true;
                             reject(error);
                         }
-                    }
+                    },
                 );
             } else if (isFunction(x)) {
                 throwError('返回值请不要传递非Promise函数!', ErrorEnum.type);

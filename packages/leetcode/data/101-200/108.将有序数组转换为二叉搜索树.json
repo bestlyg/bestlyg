@@ -29,12 +29,6 @@
             "code": "function sortedArrayToBST(nums: number[]): TreeNode | null {\n  return build(nums);\n  function build(list: number[]): TreeNode | null {\n    if (list.length === 0) return null;\n    const mid = (0 + list.length - 1) >> 1;\n    const node = new TreeNode(list[mid]);\n    node.left = build(list.slice(0, mid));\n    node.right = build(list.slice(mid + 1));\n    return node;\n  }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "数组",
-        "分治",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "数组", "分治", "二叉树"],
     "level": "Easy"
 }

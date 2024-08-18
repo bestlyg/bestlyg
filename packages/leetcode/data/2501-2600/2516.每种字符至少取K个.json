@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int takeCharacters(string s, int k) {\n        if (k == 0) return 0;\n        int l = 0, r = s.size(), m, list[3] = {0};\n        for (auto &ch : s) list[ch - 'a']++;\n        if (list[0] < k || list[1] < k || list[2] < k) return -1;\n        while (l < r) {\n            m = (l + r) / 2;\n            if (check(s, k, m)) r = m;\n            else l = m + 1;\n        }\n        return l;\n    }\n    bool check(string &s, int &k, int &m) {\n        int list[3] = {0}, l = 0, r = s.size() - m;\n        for (int i = s.size() - 1; i >= r; i--) list[s[i] - 'a']++;\n        if (checklist(list, k)) return true;\n        while (l < m) {\n            list[s[l++] - 'a']++;\n            list[s[r++] - 'a']--;\n            if (checklist(list, k)) return true;\n        }\n        return false;\n    }\n    bool checklist(int list[3], int k) {\n        return list[0] >= k && list[1] >= k && list[2] >= k;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "滑动窗口"
-    ],
+    "tagList": ["哈希表", "字符串", "滑动窗口"],
     "level": "Medium"
 }

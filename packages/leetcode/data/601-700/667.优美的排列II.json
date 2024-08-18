@@ -13,9 +13,6 @@
             "code": "int* constructArray(int n, int k, int* returnSize){\n    *returnSize = n;\n    int *ans = (int *)malloc(sizeof(int) * n);\n    if (k == 1) for (int i = 0; i < n; i++) ans[i] = i + 1;\n    else {\n        int l = 1, r = k + 1, idx = 0;\n        while (l < r) {\n            ans[idx++] = l++;\n            if (l != r) ans[idx++] = r--;\n        }\n        if (l == r) ans[id++] = l;\n        k += 2;\n        while (k <= n) ans[idx++] = k++;\n    }\n    return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "level": "Medium"
 }

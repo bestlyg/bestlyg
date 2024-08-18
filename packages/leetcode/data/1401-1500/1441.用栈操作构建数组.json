@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    vector<string> buildArray(vector<int>& target, int n) {\n        vector<string> list;\n        int cur = 1;\n        for (auto &item : target) {\n            while (cur < item) {\n                list.push_back(\"Push\");\n                list.push_back(\"Pop\");\n                cur++;\n            }\n            list.push_back(\"Push\");\n            cur++;\n        }\n        return list;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["栈", "数组", "模拟"],
     "level": "Medium"
 }

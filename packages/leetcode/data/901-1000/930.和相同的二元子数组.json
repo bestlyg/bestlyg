@@ -21,11 +21,6 @@
             "code": "function numSubarraysWithSum(nums: number[], goal: number): number {\n  let ans = 0;\n  let sum = 0;\n  const map = new Map<number, number>();\n  for (const num of nums) {\n    map.set(sum, (map.get(sum) ?? 0) + 1);\n    sum += num;\n    ans += map.get(sum - goal) ?? 0;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "哈希表", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

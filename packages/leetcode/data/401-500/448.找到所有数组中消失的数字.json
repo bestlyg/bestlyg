@@ -21,9 +21,6 @@
             "code": "function findDisappearedNumbers(nums: number[]): number[] {\n  const n = nums.length;\n  nums.forEach(v => (nums[(v - 1) % n] += n));\n  const ret: number[] = [];\n  nums.forEach((v, i) => v <= n && ret.push(i + 1));\n  return ret;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Easy"
 }

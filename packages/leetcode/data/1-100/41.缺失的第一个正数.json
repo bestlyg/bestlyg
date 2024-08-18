@@ -37,9 +37,6 @@
             "code": "function firstMissingPositive(nums: number[]): number {\n  const n = nums.length;\n  for (let i = 0; i < n; i++) {\n    while (nums[i] !== i + 1) {\n      if (nums[i] > n || nums[i] <= 0 || nums[nums[i] - 1] === nums[i]) break;\n      [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]];\n    }\n  }\n  let i = 0;\n  while (i < n && nums[i] === i + 1) i++;\n  return i + 1;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Hard"
 }

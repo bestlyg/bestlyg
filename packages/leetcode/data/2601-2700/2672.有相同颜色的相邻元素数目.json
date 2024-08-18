@@ -29,8 +29,6 @@
             "date": "2023-05-07"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Medium"
 }

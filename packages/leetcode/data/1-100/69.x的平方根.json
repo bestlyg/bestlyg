@@ -45,9 +45,6 @@
             "code": "class Solution {\n   public:\n    int mySqrt(int x) {\n        long long l = 0, r = x, m;\n        while (l < r) {\n            m = (l + r + 1) >> 1;\n            if (m * m <= x)\n                l = m;\n            else\n                r = m - 1;\n        }\n        return l;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数学",
-        "二分查找"
-    ],
+    "tagList": ["数学", "二分查找"],
     "level": "Easy"
 }

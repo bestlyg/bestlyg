@@ -21,9 +21,6 @@
             "code": "function partition(head: ListNode | null, x: number): ListNode | null {\n  if (head === null) return null;\n  const big = new ListNode(0);\n  let bigP = big;\n  const small = new ListNode(0);\n  let smallP = small;\n  let p: ListNode | null = head;\n  while (p !== null) {\n    if (p.val >= x) {\n      bigP.next = p;\n      bigP = p;\n      p = p.next;\n      bigP.next = null;\n    } else {\n      smallP.next = p;\n      smallP = p;\n      p = p.next;\n      smallP.next = null;\n    }\n  }\n  smallP.next = big.next;\n  return small.next;\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["链表", "双指针"],
     "level": "Medium"
 }

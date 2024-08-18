@@ -21,9 +21,6 @@
             "code": "class Solution {\n   public:\n    string reversePrefix(string word, char ch) {\n        int idx = 0;\n        while (idx < word.size() && word[idx] != ch) idx++;\n        if (idx == word.size()) return word;\n        string ans = \"\";\n        for (int i = idx; i >= 0; i--) ans += word[i];\n        for (int i = idx + 1; i < word.size(); i++) ans += word[i];\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Easy"
 }

@@ -13,11 +13,6 @@
             "code": "class Solution {\n  constructor(public radius: number, public x_center: number, public y_center: number) {}\n  randPoint(): number[] {\n    while (true) {\n      const [x, y] = [\n        2 * Math.random() * this.radius - this.radius,\n        2 * Math.random() * this.radius - this.radius,\n      ];\n      if (x ** 2 + y ** 2 <= this.radius * this.radius)\n        return [x + this.x_center, y + this.y_center];\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "几何",
-        "数学",
-        "拒绝采样",
-        "随机化"
-    ],
+    "tagList": ["几何", "数学", "拒绝采样", "随机化"],
     "level": "Medium"
 }

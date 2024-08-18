@@ -21,9 +21,6 @@
             "code": "class Solution {\n  public:\n    typedef pair<int, int> node;\n    vector<int> exclusiveTime(int n, vector<string>& logs) {\n        vector<int> list(n, 0);\n        stack<node> s;\n        for (auto &item : logs) {\n            bool isStart;\n            int idx = 0, time = 0;\n            analysis(item, idx, isStart, time);\n            if (s.size()) {\n                if (isStart) {\n                    node top = s.top();\n                    list[top.first] += time - top.second;\n                    s.push(make_pair(idx, time));\n                } else {\n                    node top = s.top(); s.pop();\n                    list[top.first] += time - top.second + 1;\n                    if (s.size()) {\n                        top = s.top(); s.pop();\n                        top.second = time + 1;\n                        s.push(top);\n                    }\n                }\n            } else {\n                s.push(make_pair(idx, time));\n            }\n        }\n        return list;\n    }\n    void analysis(string &item, int &idx, bool &isStart, int &time) {\n        int i = 0;\n        for (; item[i] != ':'; i++) idx = idx * 10 + item[i] - '0';\n        i++;\n        string temp = \"\";\n        for (; item[i] != ':'; i++) temp += item[i];\n        isStart = temp == \"start\";\n        i++;\n        for (; i < item.size(); i++) time = time * 10 + item[i] - '0';\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "数组"
-    ],
+    "tagList": ["栈", "数组"],
     "level": "Medium"
 }

@@ -21,11 +21,6 @@
             "code": "function sortByBits(arr: number[]): number[] {\n  const count = (num: number): number => {\n    let ans = 0;\n    while (num) {\n      num &= num - 1;\n      ans++;\n    }\n    return ans;\n  };\n  return arr.sort((a, b) => {\n    const c1 = count(a);\n    const c2 = count(b);\n    return c1 === c2 ? a - b : c1 - c2;\n  });\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "计数",
-        "排序"
-    ],
+    "tagList": ["位运算", "数组", "计数", "排序"],
     "level": "Easy"
 }

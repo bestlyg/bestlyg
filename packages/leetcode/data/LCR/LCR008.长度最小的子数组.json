@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0, r = 0, num = 0, ans = INT_MAX, n = nums.size();\n        while (r < n) {\n            while (r < n && num < target) num += nums[r++];\n            while (l < r && num - nums[l] >= target) num -= nums[l++];\n            if (num >= target) ans = min(ans, r - l);\n            num -= nums[l++];\n        }\n        return ans == INT_MAX ? 0 : ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "二分查找",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "二分查找", "前缀和", "滑动窗口"],
     "level": "Medium"
 }

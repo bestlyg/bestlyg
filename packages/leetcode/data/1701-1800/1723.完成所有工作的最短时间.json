@@ -13,12 +13,6 @@
             "code": "function minimumTimeRequired(jobs: number[], k: number): number {\n  const len = jobs.length;\n  if (len === k) return Math.max(...jobs);\n  const workers: number[] = new Array(k).fill(0);\n  let min = Infinity;\n  const distribute = (jobIndex: number = 0) => {\n    if (jobIndex === len) {\n      min = Math.min(min, Math.max(...workers));\n      return;\n    }\n    for (let i = 0; i < k; i++) {\n      if (i > 0 && workers[i] === workers[i - 1]) continue;\n      workers[i] += jobs[jobIndex];\n      distribute(jobIndex + 1);\n      workers[i] -= jobs[jobIndex];\n    }\n  };\n  distribute();\n  return min;\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "动态规划",
-        "回溯",
-        "状态压缩"
-    ],
+    "tagList": ["位运算", "数组", "动态规划", "回溯", "状态压缩"],
     "level": "Hard"
 }

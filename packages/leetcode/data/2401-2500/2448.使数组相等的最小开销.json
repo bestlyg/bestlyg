@@ -13,12 +13,6 @@
             "code": "struct Node {\n    int num, cost;\n    Node(int num, int cost): num(num), cost(cost) {}\n    long long getCost(int num) {\n        return abs(static_cast<long long>(num) - this->num) * cost;\n    }\n};\nclass Solution {\npublic:\n    long long minCost(vector<int>& nums, vector<int>& cost) {\n        int n = nums.size();\n        vector<Node> list;\n        for (int i = 0; i < n; i++) list.push_back(Node(nums[i], cost[i]));\n        sort(list.begin(), list.end(), [](Node &a, Node &b){ return a.num < b.num; });\n        int l = 0, r = n - 1;\n        long long ans = 0;\n        while (l < r) {\n            int m1 = (l + r) / 2, m2 = m1 + 1;\n            long long m1cost = comp(list, list[m1].num), m2cost = comp(list, list[m2].num);\n            if (m1cost >= m2cost) l = m2, ans = m2cost;\n            else r = m1, ans = m1cost;\n        }\n        return ans;\n    }\n    long long comp(vector<Node> &list, int num) {\n        long long ans = 0;\n        for (int i = 0; i < list.size(); i++) {\n            ans += list[i].getCost(num);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "排序"
-    ],
+    "tagList": ["贪心", "数组", "二分查找", "前缀和", "排序"],
     "level": "Hard"
 }

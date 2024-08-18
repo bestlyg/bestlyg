@@ -41,7 +41,7 @@ export function CreateAccount() {
                                 err => {
                                     console.log('Copy to clickboard fail.');
                                     console.error(err);
-                                }
+                                },
                             );
                         }}
                     >

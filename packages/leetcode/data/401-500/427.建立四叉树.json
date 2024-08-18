@@ -21,11 +21,6 @@
             "code": "func construct(grid [][]int) *Node {\n    n := len(grid)\n    return dfs(grid, 0, n-1, 0, n-1)\n}\nfunc dfs(grid [][]int, srow, erow, scol, ecol int) *Node {\n    mrow, mcol := (srow+erow)>>1, (scol+ecol)>>1\n    for i := srow; i <= erow; i++ {\n        for j := scol; j <= ecol; j++ {\n            if grid[i][j] != grid[srow][scol] {\n                return &Node{\n                    Val:         false,\n                    IsLeaf:      false,\n                    TopLeft:     dfs(grid, srow, mrow, scol, mcol),\n                    TopRight:    dfs(grid, srow, mrow, mcol+1, ecol),\n                    BottomLeft:  dfs(grid, mrow+1, erow, scol, mcol),\n                    BottomRight: dfs(grid, mrow+1, erow, mcol+1, ecol),\n                }\n            }\n        }\n    }\n    return &Node{Val: grid[srow][scol] == 1, IsLeaf: true}\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "数组",
-        "分治",
-        "矩阵"
-    ],
+    "tagList": ["树", "数组", "分治", "矩阵"],
     "level": "Medium"
 }

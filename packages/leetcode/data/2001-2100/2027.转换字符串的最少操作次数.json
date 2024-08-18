@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int minimumMoves(string s) {\n        int ans = 0;\n        for (int i = 0; i < s.size(); i++)\n            if (s[i] == 'X') ans++, i += 2;\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "字符串"
-    ],
+    "tagList": ["贪心", "字符串"],
     "level": "Easy"
 }

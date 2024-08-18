@@ -29,10 +29,6 @@
             "code": "class Solution {\n   public:\n    TreeNode* deleteNode(TreeNode* root, int key) {\n        if (!root) return root;\n        if (root->val > key)\n            root->left = deleteNode(root->left, key);\n        else if (root->val < key)\n            root->right = deleteNode(root->right, key);\n        else {\n            if (root->left == nullptr || root->right == nullptr) {\n                TreeNode* child =\n                    root->left == nullptr ? root->right : root->left;\n                root = child;\n            } else {\n                TreeNode* tmp = root->right;\n                while (tmp->left) tmp = tmp->left;\n                root->val = tmp->val;\n                root->right = deleteNode(root->right, tmp->val);\n            }\n        }\n        return root;\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "二叉搜索树",
-        "二叉树"
-    ],
+    "tagList": ["树", "二叉搜索树", "二叉树"],
     "level": "Medium"
 }

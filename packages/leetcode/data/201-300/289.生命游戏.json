@@ -29,10 +29,6 @@
             "code": "const dirs = [\n  [0, 1],\n  [0, -1],\n  [1, 0],\n  [-1, 0],\n  [1, 1],\n  [-1, -1],\n  [1, -1],\n  [-1, 1],\n];\nfunction getCntArr(board: number[][]) {\n  const n = board.length;\n  const m = board[0].length;\n  const ans = new Array(n).fill(0).map(_ => new Array(m).fill(0));\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      for (let k = 0; k < 8; k++) {\n        const x = i + dirs[k][0];\n        const y = j + dirs[k][1];\n        if (x < 0 || x >= n || y < 0 || y >= m) continue;\n        ans[x][y] += board[i][j];\n      }\n    }\n  }\n  return ans;\n}\nfunction gameOfLife(board: number[][]): void {\n  const n = board.length;\n  const m = board[0].length;\n  const cntArr = getCntArr(board);\n  for (let i = 0; i < n; i++) {\n    for (let j = 0; j < m; j++) {\n      const cnt = cntArr[i][j];\n      const state = board[i][j];\n      if (state === 1 && (cnt < 2 || cnt > 3)) board[i][j] = 0;\n      else if (state === 0 && cnt === 3) board[i][j] = 1;\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Medium"
 }

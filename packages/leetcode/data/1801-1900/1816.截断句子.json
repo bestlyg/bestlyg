@@ -29,9 +29,6 @@
             "code": "char * truncateSentence(char * s, int k){\n    for (int cnt = 0, i = 0; i < strlen(s); i++) {\n        if (s[i] == ' ' && ++cnt == k) {\n            char *ans = (char *)calloc(i + 1, sizeof(char));\n            strncpy(ans, s, i);\n            return ans;\n        }\n    }\n    return s;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

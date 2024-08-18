@@ -21,9 +21,6 @@
             "code": "class Solution {\npublic:\n    int scoreOfParentheses(string s) {\n        vector<int> st;\n        for (auto &c : s) {\n            if (c == '(') {\n                st.push_back(-1);\n            } else if (st.back() == -1) {\n                st.pop_back();\n                st.push_back(1);\n            } else {\n                int num = 0;\n                while (st.back() != -1) {\n                    num += st.back();\n                    st.pop_back();\n                }\n                st.pop_back();\n                st.push_back(num * 2);\n            }\n        }\n        return accumulate(st.begin(), st.end(), 0);\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "字符串"
-    ],
+    "tagList": ["栈", "字符串"],
     "level": "Medium"
 }

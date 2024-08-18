@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    int kthGrammar(int n, int k) {\n        if (n == 1) return 0;\n        else if (n == 2) return k == 1 ? 0 : 1;\n        int nmax = pow(2, n - 1), nextK = k;\n        if (k > nmax / 2 && k <= nmax / 4 * 3) nextK = k - nmax / 2 + nmax / 4;\n        else if (k > nmax / 4 * 3) nextK = k - nmax / 2 - nmax / 4;\n        return kthGrammar(n - 1, nextK);\n    }\n};"
         }
     ],
-    "tagList": [
-        "位运算",
-        "递归",
-        "数学"
-    ],
+    "tagList": ["位运算", "递归", "数学"],
     "level": "Medium"
 }

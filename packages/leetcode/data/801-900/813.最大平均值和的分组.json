@@ -13,10 +13,6 @@
             "code": "class Solution {\npublic:\n    double largestSumOfAverages(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<double>> dp(k + 1, vector<double>(n + 1, 0));\n        int sum = 0;\n        for (int i = 0; i < n; i++) {\n            sum += nums[i];\n            dp[1][i + 1] = 1.0 * sum / (i + 1);\n        }\n        double ans = dp[1][n];\n        for (int knum = 2; knum <= k; knum++) {\n            for (int i = knum; i <= n; i++) {\n                int sum = 0, cnt = 0;\n                for (int j = i; j >= knum; j--) {\n                    sum += nums[j - 1];\n                    cnt += 1;\n                    dp[knum][i] = max(dp[knum][i], dp[knum - 1][j - 1] + 1.0 * sum / cnt);\n                }\n            }\n            ans = max(ans, dp[knum][n]);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "动态规划",
-        "前缀和"
-    ],
+    "tagList": ["数组", "动态规划", "前缀和"],
     "level": "Medium"
 }

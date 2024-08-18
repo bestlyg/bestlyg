@@ -45,10 +45,6 @@
             "code": "function multiply(num1: string, num2: string): string {\n  const n1 = num1.length;\n  const n2 = num2.length;\n  const list1 = new Array(n1)\n    .fill(0)\n    .map((_, i) => +num1[i])\n    .reverse();\n  const list2 = new Array(n2)\n    .fill(0)\n    .map((_, i) => +num2[i])\n    .reverse();\n  const n = n1 + n2 - 1;\n  const ans: number[] = new Array(n).fill(0);\n  for (let i = 0; i < n1; i++) {\n    for (let j = 0; j < n2; j++) {\n      ans[i + j] += list1[i] * list2[j];\n    }\n  }\n  let add = 0;\n  for (let i = 0; i < n; i++) {\n    if (add) {\n      ans[i] += add;\n      add = 0;\n    }\n    if (ans[i] >= 10) {\n      add = ~~(ans[i] / 10);\n      ans[i] = ans[i] % 10;\n    }\n  }\n  if (add) ans.push(add);\n  while (ans.length > 1 && ans[ans.length - 1] === 0) ans.pop();\n  return ans.reverse().join('');\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["数学", "字符串", "模拟"],
     "level": "Medium"
 }

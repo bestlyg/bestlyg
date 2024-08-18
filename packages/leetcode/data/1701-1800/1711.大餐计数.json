@@ -13,9 +13,6 @@
             "code": "function countPairs(deliciousness: number[]): number {\n  const MOD = 10 ** 9 + 7;\n  const LIST_2: number[] = [];\n  for (let i = 1, max = 2 ** 21; i <= max; i <<= 1) LIST_2.push(i);\n  const map: Record<number, number> = {};\n  let ans = 0;\n  for (const num of deliciousness) {\n    for (const num2 of LIST_2) if (num2 >= num) ans = (ans + (map[num2 - num] ?? 0)) % MOD;\n    map[num] = (map[num] ?? 0) + 1;\n  }\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "level": "Medium"
 }

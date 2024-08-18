@@ -29,9 +29,6 @@
             "code": "function countEven(num: number): number {\n  return new Array(num)\n    .fill(0)\n    .map((_, i) =>\n      (i + 1)\n        .toString()\n        .split('')\n        .map(v => +v)\n        .reduce((sum, cur) => sum + cur, 0)\n    )\n    .reduce((sum, cur) => sum + Number(cur % 2 == 0), 0);\n}"
         }
     ],
-    "tagList": [
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["数学", "模拟"],
     "level": "Easy"
 }

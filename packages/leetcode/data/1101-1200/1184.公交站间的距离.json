@@ -21,8 +21,6 @@
             "code": "impl Solution {\n    pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {\n        let n = distance.len() as i32;\n        let (mut sum1, mut sum2) = (0, 0);\n        let (mut cur1, mut cur2) = (start, destination);\n        let mut i = start;\n        while i != destination {\n            sum1 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        i = destination;\n        while i != start {\n            sum2 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        sum1.min(sum2)\n    }\n}"
         }
     ],
-    "tagList": [
-        "数组"
-    ],
+    "tagList": ["数组"],
     "level": "Easy"
 }

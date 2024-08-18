@@ -13,7 +13,7 @@ export function gcd(a: number, b: number) {
  */
 export function ex_gcd(
     a: number,
-    b: number
+    b: number,
 ): {
     ans: number;
     x: number;

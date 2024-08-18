@@ -21,10 +21,6 @@
             "code": "function partition(s: string): string[][] {\n  const len = s.length;\n  const f = new Array(len).fill(0).map(() => new Array(len).fill(true));\n  for (let i = len - 1; i >= 0; --i) {\n    for (let j = i + 1; j < len; ++j) {\n      f[i][j] = s[i] === s[j] && f[i + 1][j - 1];\n    }\n  }\n  const ans: string[][] = [];\n  const arr: string[] = [];\n  const dfs = (startIndex: number) => {\n    if (startIndex === len) {\n      ans.push([...arr]);\n    } else {\n      for (let i = startIndex; i < len; i++) {\n        if (f[startIndex][i]) {\n          const str = s.substring(startIndex, i + 1);\n          arr.push(str);\n          dfs(i + 1);\n          arr.pop();\n        }\n      }\n    }\n  };\n  dfs(0);\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "动态规划",
-        "回溯"
-    ],
+    "tagList": ["字符串", "动态规划", "回溯"],
     "level": "Medium"
 }

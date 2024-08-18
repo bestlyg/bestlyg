@@ -21,9 +21,6 @@
             "code": "function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {\n  let slow = head;\n  let fast = head;\n  while (fast && k) {\n    fast = fast.next;\n    k--;\n  }\n  while (fast) {\n    fast = fast.next;\n    slow = slow!.next;\n  }\n  return slow;\n}"
         }
     ],
-    "tagList": [
-        "链表",
-        "双指针"
-    ],
+    "tagList": ["链表", "双指针"],
     "level": "Easy"
 }

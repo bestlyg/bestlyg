@@ -21,10 +21,6 @@
             "code": "class Solution {\n   public:\n    int oddCells(int m, int n, vector<vector<int>> &indices) {\n        vector<int> rows(m), cols(n);\n        for (auto &item : indices) {\n            rows[item[0]]++;\n            cols[item[1]]++;\n        }\n        int rowCnt = 0, colCnt = 0;\n        for (auto &row : rows)\n            if (row & 1) rowCnt++;\n        for (auto &col : cols)\n            if (col & 1) colCnt++;\n        return rowCnt * n + colCnt * m - 2 * rowCnt * colCnt;\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "模拟"
-    ],
+    "tagList": ["数组", "数学", "模拟"],
     "level": "Easy"
 }

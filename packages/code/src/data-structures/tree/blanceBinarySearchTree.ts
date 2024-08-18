@@ -42,7 +42,7 @@ export class BlanceBinarySearchTree<T> extends BinarySearchTree<T> {
     private afterRotate(
         grandParent: BinaryTreeNode<T>,
         parent: BinaryTreeNode<T>,
-        child: BinaryTreeNode<T> | null
+        child: BinaryTreeNode<T> | null,
     ) {
         parent.parent = grandParent.parent;
         if (grandParent.parent === null) this.root = parent;
@@ -69,7 +69,7 @@ export class BlanceBinarySearchTree<T> extends BinarySearchTree<T> {
         leftRightChild: BinaryTreeNode<T> | null,
         right: BinaryTreeNode<T>,
         rightLeftChild: BinaryTreeNode<T> | null,
-        rightRightChild: BinaryTreeNode<T> | null
+        rightRightChild: BinaryTreeNode<T> | null,
     ) {
         // center
         center.parent = oldCenter.parent;

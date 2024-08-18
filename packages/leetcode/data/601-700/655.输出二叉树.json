@@ -13,11 +13,6 @@
             "code": "use std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn print_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<String>> {\n        let height = Solution::get_height(root.as_ref()) - 1;\n        let n = 2_usize.pow(height as u32 + 1) - 1;\n        let mut ans = vec![vec![String::new(); n]; height + 1];\n        let root = root.unwrap();\n        Solution::dfs(root, &mut ans, height, 0, (n - 1) / 2);\n        ans\n    }\n    fn get_height(node: Option<&Rc<RefCell<TreeNode>>>) -> usize {\n        match node {\n            Some(node) => {\n                1 + Solution::get_height(node.borrow().left.as_ref())\n                    .max(Solution::get_height(node.borrow().right.as_ref()))\n            }\n            None => 0,\n        }\n    }\n    fn dfs(\n        node: Rc<RefCell<TreeNode>>,\n        data: &mut Vec<Vec<String>>,\n        height: usize,\n        r: usize,\n        c: usize,\n    ) {\n        data[r][c] = format!(\"{}\", node.borrow().val);\n        if node.borrow().left.is_some() {\n            Solution::dfs(\n                node.borrow().left.clone().unwrap(),\n                data,\n                height,\n                r + 1,\n                c - 2_usize.pow((height - r - 1) as u32),\n            )\n        }\n        if node.borrow().right.is_some() {\n            Solution::dfs(\n                node.borrow().right.clone().unwrap(),\n                data,\n                height,\n                r + 1,\n                c + 2_usize.pow((height - r - 1) as u32),\n            )\n        }\n    }\n}"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉树"],
     "level": "Medium"
 }

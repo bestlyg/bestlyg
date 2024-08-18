@@ -13,9 +13,6 @@
             "code": "function permutation(s: string): string[] {\n  const list = new Set<string>();\n  const dfs = (curStr: string = '', waitStr: string = s) => {\n    if (waitStr.length === 1) {\n      list.add(curStr + waitStr);\n      return;\n    }\n    for (let i = 0, l = waitStr.length; i < l; i++) {\n      const newCurStr = curStr + waitStr[i];\n      const newWaitStr = waitStr.substring(0, i) + waitStr.substring(i + 1);\n      dfs(newCurStr, newWaitStr);\n    }\n  };\n  dfs();\n  return [...list];\n}"
         }
     ],
-    "tagList": [
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["字符串", "回溯"],
     "level": "Medium"
 }

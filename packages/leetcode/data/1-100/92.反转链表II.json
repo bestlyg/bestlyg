@@ -21,8 +21,6 @@
             "code": "function reverseBetween(head: ListNode | null, left: number, right: number): ListNode | null {\n  if (head === null) return null;\n  const dummyNode = new ListNode(0, head);\n  let p: ListNode | null = dummyNode;\n  let c = 0;\n  let prev!: ListNode;\n  while (c !== left && p !== null) {\n    cpp;\n    prev = p;\n    p = p.next;\n  }\n  const reverse = (node: ListNode | null, count: number): ListNode | null => {\n    if (count === 1 || node === null) return node;\n    const nextNode: ListNode = node.next!;\n    const newNode = reverse(nextNode, count - 1);\n    node.next = nextNode.next;\n    nextNode.next = node;\n    return newNode;\n  };\n  const newNode = reverse(p, right - left + 1);\n  prev.next = newNode;\n  return dummyNode.next;\n}"
         }
     ],
-    "tagList": [
-        "链表"
-    ],
+    "tagList": ["链表"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "function generateMatrix(n: number): number[][] {\n  const ans: number[][] = new Array(n).fill(0).map(_ => new Array(n));\n  let num = 1;\n  dfs(0, n - 1);\n  return ans;\n  function dfs(startI: number, endI: number): void {\n    if (startI > endI || startI > endI) return;\n    for (let i = startI; i <= endI; i++) ans[startI][i] = num++;\n    for (let i = startI + 1; i <= endI; i++) ans[i][endI] = num++;\n    for (let i = endI - 1; i >= startI; i--) ans[endI][i] = num++;\n    for (let i = endI - 1; i >= startI + 1; i--) ans[i][startI] = num++;\n    dfs(startI + 1, endI - 1);\n  }\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["数组", "矩阵", "模拟"],
     "level": "Medium"
 }

@@ -13,10 +13,6 @@
             "code": "function isSubsequence(s: string, t: string): boolean {\n  const arr = s.split('');\n  for (const c of t) {\n    if (arr.length === 0) break;\n    if (c === arr[0]) arr.shift();\n  }\n  return arr.length === 0;\n}"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串",
-        "动态规划"
-    ],
+    "tagList": ["双指针", "字符串", "动态规划"],
     "level": "Easy"
 }

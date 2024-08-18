@@ -21,9 +21,6 @@
             "code": "function _reverseList(head: ListNode, count: number): ListNode | null {\n  if (count === 1 || head.next === null) return head;\n  const tail = head.next;\n  const nextList = _reverseList(tail, count - 1);\n  head.next = tail.next;\n  tail.next = head;\n  return nextList;\n}\nfunction reverseList(head: ListNode, count: number): ListNode | null {\n  let temp: ListNode | null = head;\n  let c = count;\n  while (--c && temp) temp = temp.next;\n  return temp ? _reverseList(head, count) : head;\n}\nfunction reverseKGroup(head: ListNode | null, k: number): ListNode | null {\n  const dummyHead = new ListNode(0, head);\n  let temp: ListNode = dummyHead;\n  while (temp !== null && temp.next !== null) {\n    temp!.next = reverseList(temp.next!, k);\n    let count = k;\n    while (count-- && temp !== null) temp = temp.next!;\n  }\n  return dummyHead.next;\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "链表"
-    ],
+    "tagList": ["递归", "链表"],
     "level": "Hard"
 }

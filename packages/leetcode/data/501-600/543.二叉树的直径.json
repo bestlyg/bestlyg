@@ -13,10 +13,6 @@
             "code": "class Solution {\n   public:\n    int h(TreeNode* node) {\n        if (!node) return 0;\n        return max(h(node->left), h(node->right)) + 1;\n    }\n    int diameterOfBinaryTree(TreeNode* root) {\n        if (!root) return 0;\n        return max(h(root->left) + h(root->right),\n                   max(diameterOfBinaryTree(root->left),\n                       diameterOfBinaryTree(root->right)));\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "二叉树"],
     "level": "Easy"
 }

@@ -21,10 +21,6 @@
             "code": "function subsets(nums: number[]): number[][] {\n  const n = nums.length;\n  const ans: number[][] = [];\n  for (let i = 0; i < 1 << n; i++) add(i);\n  return ans;\n  function add(num: number) {\n    const arr: number[] = [];\n    ans.push(arr);\n    for (let i = 0; i < n; i++) {\n      if (num & (1 << i)) arr.push(nums[i]);\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "位运算",
-        "数组",
-        "回溯"
-    ],
+    "tagList": ["位运算", "数组", "回溯"],
     "level": "Medium"
 }

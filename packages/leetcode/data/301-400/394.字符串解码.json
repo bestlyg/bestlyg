@@ -21,10 +21,6 @@
             "code": "function decodeString(s: string): string {\n  const numReg = /\\d/;\n  const stack: string[] = [];\n  for (const c of s) {\n    if (c === ']') {\n      let str = '';\n      while (stack[stack.length - 1] !== '[') str = stack.pop()! + str;\n      stack.pop();\n      let numStr = '';\n      while (stack.length !== 0 && numReg.test(stack[stack.length - 1]))\n        numStr = stack.pop() + numStr;\n      str = str.repeat(+numStr);\n      stack.push(str);\n    } else {\n      stack.push(c);\n    }\n  }\n  return stack.join('');\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "递归",
-        "字符串"
-    ],
+    "tagList": ["栈", "递归", "字符串"],
     "level": "Medium"
 }

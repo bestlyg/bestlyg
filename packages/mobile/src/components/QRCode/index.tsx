@@ -35,7 +35,7 @@ export interface QRCodeRef {
 }
 export const QRCode = forwardRef<QRCodeRef, QRCodeProps>(function QRCode(
     { id, className = '', style = {}, width, height }: QRCodeProps,
-    ref
+    ref,
 ) {
     const nodeRef = useRef<any>();
     const query = useCreation(() => Taro.createSelectorQuery(), []);
@@ -72,7 +72,7 @@ export const QRCode = forwardRef<QRCodeRef, QRCodeProps>(function QRCode(
     }
     function preview(needRender: boolean, str?: string, options?: QRCodeOptions) {
         return toString(needRender, str, options).then(res =>
-            Taro.previewImage({ current: res, urls: [res] })
+            Taro.previewImage({ current: res, urls: [res] }),
         );
     }
     useImperativeHandle(ref, () => ({ render, preview, toString }));

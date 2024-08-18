@@ -21,13 +21,6 @@
             "code": "class BSTIterator {\n  private arr: number[] = [];\n  constructor(root: TreeNode | null) {\n    this.inorder(root);\n  }\n  next(): number {\n    return this.arr.shift()!;\n  }\n  hasNext(): boolean {\n    return this.arr.length > 0;\n  }\n  private inorder(node: TreeNode | null): void {\n    if (node === null) return;\n    this.inorder(node.left);\n    this.arr.push(node.val);\n    this.inorder(node.right);\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "树",
-        "设计",
-        "二叉搜索树",
-        "二叉树",
-        "迭代器"
-    ],
+    "tagList": ["栈", "树", "设计", "二叉搜索树", "二叉树", "迭代器"],
     "level": "Medium"
 }

@@ -21,9 +21,6 @@
             "code": "function isPowerOfThree(n: number): boolean {\n  return n > 0 && 3 ** 19 % n == 0;\n}"
         }
     ],
-    "tagList": [
-        "递归",
-        "数学"
-    ],
+    "tagList": ["递归", "数学"],
     "level": "Easy"
 }

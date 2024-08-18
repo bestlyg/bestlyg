@@ -13,11 +13,6 @@
             "code": "class Solution {\n   public:\n    bool winnerOfGame(string colors) {\n        int a = 0, b = 0;\n        for (int i = 1; i < colors.size() - 1; i++) {\n            if (colors[i] == 'A' && colors[i - 1] == 'A' &&\n                colors[i + 1] == 'A')\n                a++;\n            else if (colors[i] == 'B' && colors[i - 1] == 'B' &&\n                     colors[i + 1] == 'B')\n                b++;\n        }\n        return a > b;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数学",
-        "字符串",
-        "博弈"
-    ],
+    "tagList": ["贪心", "数学", "字符串", "博弈"],
     "level": "Medium"
 }

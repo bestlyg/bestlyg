@@ -215,7 +215,7 @@ describe('Promise', () => {
                     res =>
                         new BestPromise(r => {
                             r(res + 1);
-                        })
+                        }),
                 );
                 expect(res).toBe(2);
             });
@@ -229,7 +229,7 @@ describe('Promise', () => {
                         res =>
                             new BestPromise((_, r) => {
                                 r(res + 1);
-                            })
+                            }),
                     )
                     .then(DEFAULT_OP, DEFAULT_OP);
                 expect(res).toBe(2);

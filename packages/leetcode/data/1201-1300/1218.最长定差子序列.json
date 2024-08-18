@@ -13,10 +13,6 @@
             "code": "function longestSubsequence(arr: number[], difference: number): number {\n  let max = 1;\n  const map = new Map<number, number>();\n  for (const num of arr) {\n    const cnt = (map.get(num) ?? 0) + 1;\n    map.set(num + difference, cnt);\n    max = Math.max(max, cnt);\n  }\n  return max;\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "动态规划"
-    ],
+    "tagList": ["数组", "哈希表", "动态规划"],
     "level": "Medium"
 }

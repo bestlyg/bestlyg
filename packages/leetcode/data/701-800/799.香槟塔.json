@@ -21,8 +21,6 @@
             "code": "class Solution {\npublic:\n    double champagneTower(int poured, int query_row, int query_glass) {\n        vector<vector<double>> dp(query_row + 1, vector<double>(query_row + 1, 0.0));\n        dp[0][0] = (double)poured;\n        for (int i = 0; i < query_row; i++) {\n            for (int j = 0; j <= i; j++) {\n                if (dp[i][j] <= 1.0) continue;\n                double val = (dp[i][j] - 1) / 2;\n                dp[i + 1][j] += val;\n                dp[i + 1][j + 1] += val;\n            }\n        }\n        return min(1.0, dp[query_row][query_glass]);\n    }\n};"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Medium"
 }

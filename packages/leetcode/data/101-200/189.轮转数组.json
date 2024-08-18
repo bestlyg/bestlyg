@@ -21,10 +21,6 @@
             "code": "function rotate(nums: number[], k: number): void {\n  const len = nums.length;\n  if (len === 0) return;\n  const reverse = (start: number, end: number) => {\n    while (start < end) {\n      const temp = nums[start];\n      nums[start++] = nums[end];\n      nums[end--] = temp;\n    }\n  };\n  k %= len;\n  reverse(0, len - 1);\n  reverse(0, k - 1);\n  reverse(k, len - 1);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "数学",
-        "双指针"
-    ],
+    "tagList": ["数组", "数学", "双指针"],
     "level": "Medium"
 }

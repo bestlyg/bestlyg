@@ -13,10 +13,6 @@
             "code": "class MyQueue {\n  private inStack: number[] = [];\n  private outStack: number[] = [];\n  get len() {\n    return this.inStack.length + this.outStack.length;\n  }\n  push(x: number): void {\n    this.inStack.push(x);\n  }\n  pop(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack.pop()!;\n  }\n  peek(): number {\n    this.outStack.length === 0 && this.numberChange();\n    return this.outStack[this.outStack.length - 1];\n  }\n  empty(): boolean {\n    return this.len === 0;\n  }\n  private numberChange() {\n    while (this.inStack.length > 0) {\n      this.outStack.push(this.inStack.pop()!);\n    }\n  }\n}"
         }
     ],
-    "tagList": [
-        "栈",
-        "设计",
-        "队列"
-    ],
+    "tagList": ["栈", "设计", "队列"],
     "level": "Easy"
 }

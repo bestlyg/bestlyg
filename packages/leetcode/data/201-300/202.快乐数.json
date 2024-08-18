@@ -45,10 +45,6 @@
             "code": "class Solution {\n   public:\n    int next(int n) {\n        int ans = 0;\n        for (; n; n /= 10) ans += pow(n % 10, 2);\n        return ans;\n    }\n    bool isHappy(int n) {\n        int slow = n, fast = n;\n        while (fast != 1) {\n            slow = next(slow);\n            fast = next(next(fast));\n            if (slow == fast) break;\n        }\n        return fast == 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "数学",
-        "双指针"
-    ],
+    "tagList": ["哈希表", "数学", "双指针"],
     "level": "Easy"
 }

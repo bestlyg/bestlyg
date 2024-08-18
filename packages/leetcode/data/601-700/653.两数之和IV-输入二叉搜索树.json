@@ -21,14 +21,6 @@
             "code": "class Solution {\n   public:\n    unordered_set<int> s;\n    bool findTarget(TreeNode *root, int k) {\n        if (!root) return false;\n        if (s.count(k - root->val)) return true;\n        s.insert(root->val);\n        return findTarget(root->left, k) || findTarget(root->right, k);\n    }\n};"
         }
     ],
-    "tagList": [
-        "树",
-        "深度优先搜索",
-        "广度优先搜索",
-        "二叉搜索树",
-        "哈希表",
-        "双指针",
-        "二叉树"
-    ],
+    "tagList": ["树", "深度优先搜索", "广度优先搜索", "二叉搜索树", "哈希表", "双指针", "二叉树"],
     "level": "Easy"
 }

@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int countMatches(vector<vector<string>>& items, string ruleKey, string ruleValue) {\n        return accumulate(items.begin(), items.end(), 0, [&](int sum, vector<string> &s){\n            int idx = ruleKey == \"type\" ? 0 : ruleKey == \"color\" ? 1 : 2;\n            if (s[idx] == ruleValue) sum += 1;\n            return sum;\n        });\n    }\n};"
         }
     ],
-    "tagList": [
-        "数组",
-        "字符串"
-    ],
+    "tagList": ["数组", "字符串"],
     "level": "Easy"
 }

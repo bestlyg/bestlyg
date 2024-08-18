@@ -13,12 +13,6 @@
             "code": "class Solution {\n   public:\n    int numberOfWeakCharacters(vector<vector<int>> &properties) {\n        int ans = 0;\n        map<int, vector<int>> m;\n        priority_queue<int, vector<int>, greater<int>> q;\n        for (auto &data : properties) m[data[0]].push_back(data[1]);\n        for (auto &data : m) {\n            sort(data.second.begin(), data.second.end(), greater<int>());\n            while (q.size() && q.top() < data.second[0]) q.pop(), ans++;\n            for (auto &num : data.second) q.push(num);\n        }\n        return ans;\n    }\n};"
         }
     ],
-    "tagList": [
-        "栈",
-        "贪心",
-        "数组",
-        "排序",
-        "单调栈"
-    ],
+    "tagList": ["栈", "贪心", "数组", "排序", "单调栈"],
     "level": "Medium"
 }

@@ -13,9 +13,6 @@
             "code": "class Solution {\npublic:\n    int minimumLength(string s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r && s[l] == s[r]) {\n            auto c = s[l];\n            while (l <= r && s[l] == c) l++;\n            while (l <= r && s[r] == c) r--;\n        }\n        return r - l + 1;\n    }\n};"
         }
     ],
-    "tagList": [
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["双指针", "字符串"],
     "level": "Medium"
 }

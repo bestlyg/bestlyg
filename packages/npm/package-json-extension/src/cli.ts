@@ -19,7 +19,7 @@ program
             });
         }).then(
             () => print.success(`Update package json sucessfully.`),
-            err => error(`Update package json erorr.`, err)
+            err => error(`Update package json erorr.`, err),
         );
     });
 program.parse();

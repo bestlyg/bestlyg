@@ -29,10 +29,6 @@
             "code": "function maxProfit(prices: number[]): number {\n  let ans = 0;\n  for (let i = 1; i < prices.length; i++)\n    if (prices[i] > prices[i - 1]) ans += prices[i] - prices[i - 1];\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "数组", "动态规划"],
     "level": "Medium"
 }

@@ -13,11 +13,6 @@
             "code": "function relativeSortArray(arr1: number[], arr2: number[]): number[] {\n  const set = new Set(arr2);\n  const argNums = arr1.filter(v => !set.has(v)).sort((a, b) => a - b);\n  const map = new Map(Object.entries(arr2).map(([k, v]) => [v, Number(k)]));\n  arr1 = arr1.filter(v => set.has(v));\n  return arr1.sort((a, b) => map.get(a)! - map.get(b)!).concat(argNums);\n}"
         }
     ],
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数排序",
-        "排序"
-    ],
+    "tagList": ["数组", "哈希表", "计数排序", "排序"],
     "level": "Easy"
 }

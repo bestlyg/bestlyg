@@ -37,8 +37,6 @@
             "code": "function combine(n: number, k: number): number[][] {\n  const ans: number[][] = [];\n  for (let i = 1; i <= n; i++) dfs(i);\n  return ans;\n  function dfs(num: number, list: number[] = []): void {\n    if (num === n + 1) return;\n    list.push(num);\n    if (list.length === k) ans.push(list.slice());\n    else for (let i = num + 1; i <= n; i++) dfs(i, list);\n    list.pop();\n  }\n}"
         }
     ],
-    "tagList": [
-        "回溯"
-    ],
+    "tagList": ["回溯"],
     "level": "Medium"
 }

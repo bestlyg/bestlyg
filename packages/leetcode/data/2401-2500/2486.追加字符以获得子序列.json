@@ -13,10 +13,6 @@
             "code": "# define X first\n# define Y second\n# define lb(x) ((x) & (-x))\n# define mem(a,b) memset(a,b,sizeof(a))\n# define debug freopen(\"r.txt\",\"r\",stdin)\n# define pi pair<int,int>\nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    int appendCharacters(string s, string t) {\n        int cur = 0;\n        for (int i = 0; i < s.size(); i++) {\n          if (s[i] == t[cur]) {\n            cur++;\n          }\n        }\n        return t.size() - cur;\n    }\n};"
         }
     ],
-    "tagList": [
-        "贪心",
-        "双指针",
-        "字符串"
-    ],
+    "tagList": ["贪心", "双指针", "字符串"],
     "level": "Medium"
 }

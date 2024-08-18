@@ -21,11 +21,6 @@
             "code": "class TimeMap {\n  map = new Map<string, [string, number][]>();\n  set(key: string, value: string, timestamp: number): void {\n    let data = this.map.get(key);\n    if (!data) this.map.set(key, (data = []));\n    data.push([value, timestamp]);\n  }\n  get(key: string, timestamp: number): string {\n    let data = this.map.get(key);\n    if (!data) return '';\n    const idx = this.bs(data, timestamp);\n    if (idx === 0) {\n      if (data[idx][1] > timestamp) return '';\n      else return data[idx][0];\n    }\n    if (data[idx][1] <= timestamp) return data[idx][0];\n    return data[idx - 1][0];\n  }\n  bs(data: [string, number][], timestamp: number): number {\n    let l = 0;\n    let r = data.length - 1;\n    while (l < r) {\n      const mid = (l + r) >> 1;\n      if (data[mid][1] > timestamp) r = mid;\n      else l = mid + 1;\n    }\n    return l;\n  }\n}"
         }
     ],
-    "tagList": [
-        "设计",
-        "哈希表",
-        "字符串",
-        "二分查找"
-    ],
+    "tagList": ["设计", "哈希表", "字符串", "二分查找"],
     "level": "Medium"
 }

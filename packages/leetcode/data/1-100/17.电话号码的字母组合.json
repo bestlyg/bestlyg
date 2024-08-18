@@ -21,10 +21,6 @@
             "code": "const phoneToLetter: Record<string, string> = {\n  '2': 'abc',\n  '3': 'def',\n  '4': 'ghi',\n  '5': 'jkl',\n  '6': 'mno',\n  '7': 'pqrs',\n  '8': 'tuv',\n  '9': 'wxyz',\n};\nfunction letterCombinations(digits: string): string[] {\n  const len = digits.length;\n  if (len === 0) return [];\n  else if (len === 1) return phoneToLetter[digits].split('');\n  const arr = phoneToLetter[digits[0]].split('');\n  const nextArr = letterCombinations(digits.substr(1));\n  const ans = [];\n  for (const c of arr) ans.push(...nextArr.map(v => c + v));\n  return ans;\n}"
         }
     ],
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["哈希表", "字符串", "回溯"],
     "level": "Medium"
 }
