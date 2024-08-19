@@ -1,3 +1,21 @@
 class Solution:
-    def checkRecord(self, s: str) -> bool:
-        return s.count('A') < 2 and 'LLL' not in s
+    def checkRecord(self, n: int) -> int:
+        # 0 末尾没有L, 共0A
+        # 1 末尾没有L, 共1A
+        # 2 末尾一个L, 共0A
+        # 3 末尾一个L, 共1A
+        # 4 末尾两个L, 共0A
+        # 5 末尾两个L, 共1A
+        dp = [0] * 6
+        dp[0] = 1
+        mod = 10 ** 9 + 7
+        for _ in range(n):
+            [dp[0], dp[1], dp[2], dp[3], dp[4], dp[5]] = [
+                (dp[0] + dp[2] + dp[4]) % mod,
+                (dp[0] + dp[1] + dp[2] + dp[3] + dp[4] + dp[5]) % mod,
+                (dp[0]) % mod,
+                (dp[1]) % mod,
+                (dp[2]) % mod,
+                (dp[3]) % mod,
+            ]
+        return sum(dp) % mod
