@@ -1,0 +1,24 @@
+{
+    "name": "3154.到达第K级台阶的方案数",
+    "url": "https://leetcode.cn/problems/find-number-of-ways-to-reach-the-k-th-stair",
+    "level": "Hard",
+    "tagList": [
+        "位运算",
+        "记忆化搜索",
+        "数学",
+        "动态规划",
+        "组合数学"
+    ],
+    "desc": "请你返回 Alice 到达台阶 k 处的总方案数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 138,
+            "memory": 18.18,
+            "desc": "dp遍历",
+            "code": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(cur: int, jump: int, down: bool) -> int:\n            if cur > k + 1: return 0\n            res = 0\n            if cur == k: res += 1\n            res += dfs(cur + 2 ** jump, jump + 1, False)\n            if cur != 0 and not down: res += dfs(cur - 1, jump, True)\n            return res\n        return dfs(1, 0, False)",
+            "date": "2024-08-20"
+        }
+    ],
+    "id": "3414"
+}
