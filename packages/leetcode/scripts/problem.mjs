@@ -7,18 +7,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '552. 学生出勤记录 II',
-    url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-word-k-periodic',
+    exist: !true,
+    name: '3154. 到达第 K 级台阶的方案数',
+    url: 'https://leetcode.cn/problems/find-number-of-ways-to-reach-the-k-th-stair',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `给你一个整数 n ，表示出勤记录的长度（次数）。请你返回记录长度为 n 时，可能获得出勤奖励的记录情况 数量 。答案可能很大，所以返回对 109 + 7 取余 的结果。`,
+    desc: `请你返回 Alice 到达台阶 k 处的总方案数。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 690,
-            memory: 16.39,
+            time: 138,
+            memory: 18.18,
             desc: 'dp遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },

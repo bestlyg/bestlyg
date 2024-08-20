@@ -1,6 +1,7 @@
 import best from '@bestlyg/cli';
 import os from 'node:os';
 import { LeetCodeDataList, LeetCodeProblemData, LeetCodeReadmeData } from './types';
+import { LeetCode } from './leetcode';
 
 const { fs, glob, path } = best.zx;
 
@@ -94,4 +95,35 @@ export function getDirNameFromProblemName(problemName: string) {
     if (prefix) return prefix;
     const num = ~~((parseFloat(problemName) - 1) / 100);
     return `${num * 100 + 1}-${100 * num + 100}`;
+}
+
+export function getTitleSlugFromURL(url: string) {
+    const res = Array.from(url.matchAll(/https:\/\/leetcode.cn\/problems\/(.*)/g));
+    return res[0][1];
+}
+
+export async function updateProblemFromLeetcode(
+    leetcode: LeetCode,
+    { problemData, problemPath, problemName }: LeetCodeProblemData,
+) {
+    try {
+        const titleSlug = getTitleSlugFromURL(problemData.url);
+        const problemResult = await leetcode.getProblem(titleSlug);
+        if (!problemResult) {
+            throw new Error('Get problem result fail.');
+        }
+        problemData.id = problemResult.questionId;
+        problemData.name = (
+            problemResult.questionFrontendId +
+            '.' +
+            problemResult.translatedTitle
+        ).replace(/ /g, '');
+        problemData.level = problemResult.difficulty;
+        problemData.tagList = problemResult.topicTags.map(v => v.translatedName);
+        await fs.writeFile(problemPath, JSON.stringify(problemData, null, 4));
+        console.log(`${problemName} is updated`);
+    } catch (err) {
+        console.log(`${problemName} update fail`);
+        console.error(err);
+    }
 }

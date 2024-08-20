@@ -9,8 +9,17 @@ import {
     getDirNameFromProblemName,
     resolve,
     DATE_FORMAT_SOLUTION,
+    updateProblemFromLeetcode,
+    LeetCode,
 } from '@bestlyg/leetcode';
 import { problem as problemFromCreate } from './problem.mjs';
+
+const leetcode = new LeetCode({
+    credential: {
+        csrf: process.env.BESTLYG_LEETCODE_CSRF,
+        session: process.env.BESTLYG_LEETCODE_SESSION,
+    },
+});
 
 let problem = problemFromCreate;
 
@@ -42,3 +51,9 @@ if (problem.exist) {
 delete problem.exist;
 await fs.ensureDir(path.dirname(filePath));
 await fs.writeFile(filePath, JSON.stringify(problem, null, 4));
+
+await updateProblemFromLeetcode(leetcode, {
+    problemPath: filePath,
+    problemName: problem.name,
+    problemData: problem,
+});
