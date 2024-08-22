@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3154. 到达第 K 级台阶的方案数',
-    url: 'https://leetcode.cn/problems/find-number-of-ways-to-reach-the-k-th-stair',
+    name: '3133. 数组最后一个元素的最小值',
+    url: 'https://leetcode.cn/problems/minimum-array-end',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回 Alice 到达台阶 k 处的总方案数。`,
+    desc: `返回 nums[n - 1] 可能的 最小 值。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 138,
-            memory: 18.18,
-            desc: 'dp遍历',
+            time: 31,
+            memory: 16.3,
+            desc: '把两个字符串进行拼接，在保留原有x的二进制位的基础上增加n的遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

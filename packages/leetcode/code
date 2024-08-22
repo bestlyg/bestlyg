@@ -1,11 +1,13 @@
 class Solution:
-    def waysToReachStair(self, k: int) -> int:
-        @cache
-        def dfs(cur: int, jump: int, down: bool) -> int:
-            if cur > k + 1: return 0
-            res = 0
-            if cur == k: res += 1
-            res += dfs(cur + 2 ** jump, jump + 1, False)
-            if cur != 0 and not down: res += dfs(cur - 1, jump, True)
-            return res
-        return dfs(1, 0, False)
+    def minEnd(self, n: int, x: int) -> int:
+        nstr = list(bin(n - 1)[2:])
+        xstr = list(bin(x)[2:])
+        nstr.reverse()
+        xstr.reverse()
+        res = []
+        for bit in xstr:
+            if bit == '0' and nstr: res.append(nstr.pop(0))
+            else: res.append(bit)
+        while nstr: res.append(nstr.pop(0))
+        res.reverse()
+        return eval('0b' + ''.join(res))
