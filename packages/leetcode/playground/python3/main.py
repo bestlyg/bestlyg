@@ -1,19 +1,19 @@
 from preclude import *
 
 
-class Solution:
-    def pileBox(self, box: List[List[int]]) -> int:
-        a = set()
+# class Solution:
+#     def pileBox(self, box: List[List[int]]) -> int:
+#         a = set()
 
-        n = len(box)
-        box.sort(key=lambda o: o[0] * o[1] * o[2], reverse=True)
-        dp = [0] * n
-        for i in range(n):
-            dp[i] = box[i][2]
-            for j in range(i - 1, -1, -1):
-                if box[i][0] < box[j][0] or box[i][1] < box[j][1] or box[i][2] < box[j][2]:
-                    dp[i] = max(dp[i], dp[j] + box[i][2])
-        return max(dp)
+#         n = len(box)
+#         box.sort(key=lambda o: o[0] * o[1] * o[2], reverse=True)
+#         dp = [0] * n
+#         for i in range(n):
+#             dp[i] = box[i][2]
+#             for j in range(i - 1, -1, -1):
+#                 if box[i][0] < box[j][0] or box[i][1] < box[j][1] or box[i][2] < box[j][2]:
+#                     dp[i] = max(dp[i], dp[j] + box[i][2])
+#         return max(dp)
         # @cache
         # def dfs(idx: int, prev: int) -> int:
         #     if idx == n: return 0
@@ -29,11 +29,7 @@ class Solution:
 
 
 def main():
-    o = Solution()
-    res = o.alphabetBoardPath(
-        "leet"
-    )
-    print(res)
-
+    # o = Solution()
+    print(1 << 2)
 
 main()

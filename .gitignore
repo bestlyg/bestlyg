@@ -22,3 +22,5 @@ databases
 storybook-static
 .env
 .env.*
+venv
+__pycache__
