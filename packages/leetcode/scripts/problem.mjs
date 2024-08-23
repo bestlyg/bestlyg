@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3007. 价值和小于等于 K 的最大数字',
-    url: 'https://leetcode.cn/problems/maximum-number-that-sum-of-the-prices-is-less-than-or-equal-to-k',
+    name: '3146. 两个字符串的排列差',
+    url: 'https://leetcode.cn/problems/permutation-difference-between-two-strings',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `num 的 累加价值 是从 1 到 num 的数字的 总 价值。如果 num 的累加价值小于或等于 k 则被认为是 廉价 的。请你返回 最大 的廉价数字。`,
+    desc: `给你两个字符串 s 和 t，每个字符串中的字符都不重复，且 t 是 s 的一个排列。排列差 定义为 s 和 t 中每个字符在两个字符串中位置的绝对差值之和。返回 s 和 t 之间的 排列差 。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 387,
-            memory: 24.11,
-            desc: '二分快速计算，利用数位dp求一个数的累加值',
+            time: 44,
+            memory: 16.5,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

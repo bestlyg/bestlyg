@@ -1,25 +1,3 @@
 class Solution:
-    def findMaximumNumber(self, k: int, x: int) -> int:
-        @cache
-        def get_val(num: int):
-            if num == 0: return 0
-            if num == 1: return int(num % x == 0)
-            # 最高位1是在第几位， 0b111就是第三位，n就是3
-            n = len(bin(num)) - 2
-            # 除了最高位，其他位共有几位被x命中，比如0b1010，在x=2时，只有1位时命中x的
-            nx = (n - 1) // x
-            # 在非最高位中，总共能产出几个命中x的总和
-            # 0b1010总共3个非最高位，命中了1位，相当于在000-111中找命中的1位的总和
-            val = nx * (2 ** (n - 1)) // 2
-            # 减去最高位后，剩下的递归求值
-            val += get_val(num - (1 << (n - 1)))
-            # 如果最高位能命中x，直接加上最高位存在几个1
-            if n % x == 0: val += num - (1 << (n - 1)) + 1
-            return val
-        l = 1
-        r = 10 ** 15
-        while l < r:
-            m = (l + r + 1) // 2
-            if get_val(m) <= k: l = m
-            else: r = m - 1
-        return l
+    def findPermutationDifference(self, s: str, t: str) -> int:
+        return sum(abs(i - t.index(s[i])) for i in range(len(s)))
