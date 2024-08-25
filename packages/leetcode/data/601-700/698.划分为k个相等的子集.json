@@ -11,8 +11,23 @@
             "script": "cpp",
             "desc": "构造 k 个桶进行回溯+剪枝。",
             "code": "class Solution {\npublic:\n    bool canPartitionKSubsets(vector<int>& nums, int k) {\n        sort(nums.rbegin(), nums.rend());\n        int sum = accumulate(nums.begin(), nums.end(), 0);\n        if (sum % k != 0) return false; else sum /= k;\n        vector<int> list(k, 0);\n        return dfs(nums, list, sum, 0);\n    }\n    bool dfs(vector<int> &nums, vector<int> &list, int sum, int i) {\n        if (i == nums.size()) {\n            for (auto &item : list) if (item != sum) return false;\n            return true;\n        }\n        for (int j = 0; j < list.size(); j++) {\n            if (list[j] + nums[i] > sum || j && list[j - 1] == list[j]) continue;\n            list[j] += nums[i];\n            if (dfs(nums, list, sum, i + 1)) return true;\n            list[j] -= nums[i];\n        }\n        return false;\n    }\n};"
+        },
+        {
+            "script": "python",
+            "time": 521,
+            "memory": 48.65,
+            "desc": "记忆化递归，同时利用二进制记录是否被使用。",
+            "code": "class Solution:\n    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:\n        nsum = sum(nums)\n        if nsum % k != 0: return False\n        vnum = nsum // k\n        n = len(nums)\n        @cache\n        def dfs(idx: int, val: int, mask: int) -> bool:\n            if val == vnum: return dfs(idx + 1, 0, mask)\n            if idx == k: return mask == 0\n            for i in range(n):\n                if ((mask >> i) & 1) and \\\n                    val + nums[i] <= vnum and \\\n                    dfs(idx, val + nums[i], mask & ~(1 << i)):\n                    return True\n            return False\n        return dfs(0, 0, (1 << n) - 1)\n",
+            "date": "2024-08-25"
         }
     ],
-    "tagList": ["位运算", "记忆化搜索", "数组", "动态规划", "回溯", "状态压缩"],
+    "tagList": [
+        "位运算",
+        "记忆化搜索",
+        "数组",
+        "动态规划",
+        "回溯",
+        "状态压缩"
+    ],
     "level": "Medium"
 }
