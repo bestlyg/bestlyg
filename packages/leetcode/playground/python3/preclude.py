@@ -9,7 +9,7 @@ from collections import Counter, defaultdict
 from queue import Queue
 from sortedcontainers import SortedDict, SortedSet, SortedList, SortedKeyList
 from math import *
-
+from typing import Any
 
 # global
 # nonlocal
