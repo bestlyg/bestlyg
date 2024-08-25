@@ -1,0 +1,57 @@
+# Python调用ChromeDriver跑脚本
+
+> 依赖：[selenium](https://www.selenium.dev/)
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import TimeoutException
+# 指定驱动路径
+driver_path = '/xxxx/chromedriver-mac-arm64/chromedriver'
+service = Service(executable_path=driver_path)
+driver = webdriver.Chrome(service=service)
+# 跳转链接
+driver.get(url)
+# 通过wait调用的话，会在20秒后超时，抛出TimeoutException
+wait = WebDriverWait(driver, 20)
+# 通过EC选择页面上的一个元素，通过wait.until在一定时间内查找元素，找不到会报错，通过BY进行对特定元素的查找
+username = wait.until(EC.visibility_of_element_located((By.ID, 'basic_username')))
+# 通过find_element直接在页面中查找元素，通过css选择器查找元素
+login_button = driver.find_element(By.CSS_SELECTOR, 'button.ant-btn.ant-btn-primary')
+# 触发点击
+login_button.click()
+# 通过XPath查找元素
+current_llm_element = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="message-input"]/div[2]/div[1]/div[1]/div/div[2]')))
+# 触发hover
+action = ActionChains(driver)
+action.move_to_element(current_llm_element).perform()
+# 输入文本
+input_box = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="message-input"]/div[1]/div/div/div')))
+input_box.clear()
+input_box.send_keys(question + Keys.RETURN)
+```
+
+## 获取chromedriver
+
+### 通过homebrew
+
+```shell
+brew install --cask chromedriver
+```
+
+### 通过下载
+
+[地址链接](https://googlechromelabs.github.io/chrome-for-testing/#stable)
+
+找到对应自己电脑的Platform的chromedriver后下载压缩包解压即可。
+
+:::tip
+
+MacOS中首次下载后无法正常打开，需要按住Command后右键打开驱动。
+
+:::

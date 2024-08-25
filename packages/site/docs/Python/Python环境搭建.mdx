@@ -1,0 +1,14 @@
+# Python环境搭建
+
+-   安装pyenv
+    -   `brew install --cask pyenv`
+-   安装某个版本的python
+    -   `pyenv install 3.9.17`
+-   指定全局版本
+    -   `pyenv global 3.9.17`
+-   增加到PATH
+    -   `PATH="$PATH:~/.pyenv/shims"`
+-   该文件夹下创建环境
+    -   `~/.pyenv/shims/python3 -m venv venv`
+-   启动环境
+    -   `source venv/bin/activate`

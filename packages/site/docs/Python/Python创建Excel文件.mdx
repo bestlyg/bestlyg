@@ -1,0 +1,31 @@
+# Python创建Excel文件
+
+> 依赖：openpyxl
+
+```python
+from openpyxl import Workbook
+
+# 创建一个excel
+wb = Workbook()
+# 获取一张表
+ws = wb.active
+# 在一个单元格插入数据，以1为起点
+ws[f'A{i+1}'] = 'xxx'
+# 设置行高，以1为起点
+ws.row_dimensions[1].height = ROW_HEIGHT
+# 生成文件到一个地址
+wb.save('./output.xlsx')
+```
+
+## 插入图片
+
+```python
+from openpyxl.drawing.image import Image
+# 通过一个路径拿到图片
+img = Image('./img.png')
+# 定义宽高
+img.width = IMG_WIDTH / IMG_SCALE
+img.height = IMG_HEIGHT / IMG_SCALE
+# 插入到一个单元格，并不是嵌入单元格
+ws.add_image(img, 'B1')
+```

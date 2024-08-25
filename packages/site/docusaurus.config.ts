@@ -37,6 +37,7 @@ const config: Config = {
 
                     remarkPlugins: [remarkMath],
                     rehypePlugins: [rehypeKatex],
+                    blogSidebarCount: 'ALL',
                 },
                 theme: {
                     customCss: './src/css/custom.scss',

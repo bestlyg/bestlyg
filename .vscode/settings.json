@@ -103,5 +103,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "cSpell.userWords": ["bestlyg", "bundleless", "leetcode"],
-    "prettier.prettierPath": "./node_modules/prettier"
+    "prettier.prettierPath": "./node_modules/prettier",
+    "editor.wordWrap": "on"
 }

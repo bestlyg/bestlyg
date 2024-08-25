@@ -1,0 +1,26 @@
+# IOS中触摸刘海屏时会回到顶部，但虚拟键盘依旧存在
+
+## 问题简介
+
+在ios中，存在虚拟键盘输入时，如果触摸刘海屏会页面滚动，但是此时虚拟键盘依旧存在，导致展示异常。
+
+## 修复方案
+
+在本次项目中，由于只有可能通过触摸刘海回到顶部，所以可以通过监听scroll事件，判断scrollTop是否是回到顶部，如果是，那么取消输入，隐藏虚拟键盘。
+
+```tsx
+useEffect(() => {
+    function onScroll() {
+        const scrollTop = document.documentElement.scrollTop ?? document.body.scrollTop;
+        if (scrollTop === 0) {
+            // 获取到当前触发输入事件的dom
+            const activeElement = document.activeElement as HTMLDivElement;
+            activeElement?.blur();
+        }
+    }
+    window.addEventListener('scroll', onScroll);
+    return () => {
+        window.removeEventListener('scroll', onScroll);
+    };
+}, []);
+```

@@ -1,0 +1,65 @@
+# SPA首屏性能优化
+
+## 项目环境
+
+-   前端：vite 开发和打包
+-   Node：express 通过tsc转译
+-   请求方式：请求到node端口，通过express返回静态文件
+
+## 问题简介
+
+在SPA页面中，通过打包工具打包后，会打包成一个大体积的index.js，在首次加载的时候，由于要加载这个大体积index.js，会出现长时间的白屏现象，所以需要考虑如何加速加载，减少白屏时间。
+
+## 解决方案
+
+### 图片转webp格式
+
+页面中一般都会引入一些图片，如果图片过大就会导致一些没有必要的加载时间，完全可以考虑换一种格式的图片，在尽可能保持图片质量的前提下，减少图片的大小，就比如使用webp的图片。
+webp的图片非常适合用于浏览器的图片展示，在图片质量差不多的情况下，极端情况下可能能减少97%以上的体积，当然虽然也存在转换后体积增大，但是这属于少数。
+在尝试了很多种转换方式后，我最后使用了[Google的webp工具](https://developers.google.cn/speed/webp/docs/using?hl=zh-cn)，下载下来后自带环境，直接调用bin中的命令行工具即可，也可以放进PATH进行全局调用。
+
+提供一个批量替换文件的脚本：
+
+```sh
+#!/bin/bash
+
+# 把文件转换成webp的命令
+# cwebp文档及下载地址
+#   https://developers.google.cn/speed/webp/docs/using
+# 链接到全局命令示例
+#   sudo ln -s /Users/bestlyg/Documents/libwebp-1.4.0-mac-arm64/bin/cwebp /usr/local/bin/cwebp
+
+# 定义要转的文件夹
+IMG_PATH=./public/img
+# 定义要转的后缀
+IMG_SUFFIX=("jpg" "png" "jpeg")
+# 定义质量
+QUALITY=80
+# 定义命令行路径，如果不是全局的，需要指定路径
+CWEBP_COMMAND=cwebp
+# 转换后是否删除源文件，注释后关闭
+NEED_DELETE_OLD_FILE=1
+
+for suffix in "${IMG_SUFFIX[@]}"; do
+    file_list=`find $IMG_PATH -type f -name "*.$suffix"`
+    for old_file_path in $file_list; do
+        if [ -f $old_file_path ]; then
+            old_file_path=$(realpath $old_file_path)
+            new_file_path="$(echo $old_file_path | cut -f1 -d ".").webp"
+            echo "======================================================"
+            echo "Transform : $suffix to webp"
+            echo "From      : $old_file_path"
+            echo "To        : $new_file_path"
+            # 调用工具转译
+            command="$CWEBP_COMMAND -q $QUALITY $old_file_path -o $new_file_path"
+            echo "Run       : $command"
+            echo "==========>"
+            eval $command
+            if [ -n "$NEED_DELETE_OLD_FILE" ]; then
+                rm $old_file_path
+                echo "Deleted $old_file_path"
+            fi
+        fi
+    done
+done
+```

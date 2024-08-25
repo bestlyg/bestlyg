@@ -1,0 +1,39 @@
+# IOS中fixed属性会在存在虚拟键盘的时候失效
+
+## 问题简介
+
+在ios中，页面中存在fixed的dom时，如果打开虚拟键盘时，fixed会无效，在dom上滚动时，依旧会带动页面滚动。
+
+## 修复方案
+
+这是IOS的一个bug，通过搜索引擎搜索`IOS`，`fixed`，`input`等相关词汇时，会出现大量的相关问题和相关解法。
+本次的解决方案是通过监听dom的滚动事件，动态的计算他的Y轴高度，当滚动到顶部或者底部的时候阻止滚动。
+
+```tsx
+const scrollContainerRef = useRef<HTMLDivElement>(null);
+// 监听滚动容器的滚动事件，防止在滚动到顶部或者底部的时候会触发外部的滚动条
+useEffect(() => {
+    const scrollContainer = scrollContainerRef.current!;
+    let startY = 0;
+    function onTouchStart(event: TouchEvent) {
+        startY = event.touches[0].pageY;
+    }
+    function onTouchMove(event: TouchEvent) {
+        const currentY = event.touches[0].pageY;
+        const distanceY = currentY - startY;
+        const { scrollTop, clientHeight, scrollHeight } = scrollContainer;
+        if (
+            (scrollTop === 0 && distanceY > 0) ||
+            (scrollTop + clientHeight >= scrollHeight && distanceY < 0)
+        ) {
+            event.preventDefault();
+        }
+    }
+    scrollContainer.addEventListener('touchstart', onTouchStart);
+    scrollContainer.addEventListener('touchmove', onTouchMove);
+    return () => {
+        scrollContainer.removeEventListener('touchstart', onTouchStart);
+        scrollContainer.removeEventListener('touchmove', onTouchMove);
+    };
+}, []);
+```
