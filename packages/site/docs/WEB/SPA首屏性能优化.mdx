@@ -63,3 +63,139 @@ for suffix in "${IMG_SUFFIX[@]}"; do
     done
 done
 ```
+
+### 压缩文件
+
+现阶段的浏览器都支持多种压缩算法，如最常见的gzip等，通过开启压缩算法能大幅度减少因为体积导致的网络传输上的时间。
+本次项目中前端使用了vite，我选择使用了[vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression)在文件打包完后对静态文件进行本地压缩，后端使用了express作为后端的静态文件返回，可以考虑用[compression](https://github.com/expressjs/compression)开启动态压缩的方式，在返回静态文件的时候他会动态的把文件压缩成gzip并返回给浏览器。
+考虑到本项目在打包完后并不会出现文件的动态变化，我使用了静态压缩的方式，即在前端打包的时候就把压缩文件生成好，在后端需要返回静态文件的时候直接返回即可。
+
+#### vite中的配置
+
+```ts
+import viteCompression from 'vite-plugin-compression';
+
+export default defineConfig({
+    plugins: [
+        // br压缩算法，比gzip优秀
+        viteCompression({ algorithm: 'brotliCompress' }),
+        // gzip压缩算法，作为br不支持时的兜底
+        viteCompression({}),
+    ],
+});
+```
+
+#### node端的中间件
+
+```ts
+/**
+ * 通用路径处理函数，从项目根路径开始引入
+ * @param p 路径集合
+ */
+export function resolve(...p: string[]) {
+    return path.resolve(__dirname, '..', '..', ...p);
+}
+
+/**
+ * client打包产物路径，方便后续的路径拼接
+ */
+export const PATH_DIST_CLIENT = resolve('dist-client');
+
+/**
+ * 静态压缩中间件
+ */
+export function createStaticCompression() {
+    const needStaticCompressionSet = new Set(['.js', '.css']);
+    // 只对js和css进行压缩文件返回
+    function needStaticCompression(filePath: string) {
+        return needStaticCompressionSet.has(path.extname(filePath));
+    }
+    // 通过后缀获得content-type
+    function getContentType(filePath: string) {
+        switch (path.extname(filePath)) {
+            case '.js':
+                return 'application/javascript';
+            case '.css':
+                return 'text/css';
+            default:
+                return null;
+        }
+    }
+    const requestHandler: RequestHandler = (req, res, next) => {
+        const filePath = resolve(PATH_DIST_CLIENT, '.' + req.url);
+        // 用来判断chrome是否支持某个压缩
+        const acceptEncoding = req.headers['accept-encoding'];
+        const contentType = getContentType(filePath);
+        // 提前校验基础信息是否符合
+        if (needStaticCompression(filePath) && contentType && fs.existsSync(filePath)) {
+            if (acceptEncoding?.includes('br') && fs.existsSync(filePath + '.br')) {
+                // 检测是否可以br压缩
+                res.setHeader('Content-Encoding', 'br');
+                res.setHeader('Content-Type', contentType);
+                fs.createReadStream(filePath + '.br').pipe(res);
+            } else if (acceptEncoding?.includes('gzip') && fs.existsSync(filePath + '.gz')) {
+                // 检测是否可以gzip压缩
+                res.setHeader('Content-Encoding', 'gzip');
+                res.setHeader('Content-Type', contentType);
+                fs.createReadStream(filePath + '.gz').pipe(res);
+            } else {
+                next();
+            }
+        } else {
+            next();
+        }
+    };
+    return requestHandler;
+}
+
+// with express app
+app.use(createStaticCompression());
+```
+
+#### 与压缩相关的http header
+
+-   accept-encoding
+    -   在浏览器请求后端时会自动的带上，表明当前的浏览器支持哪些压缩算法。
+    -   `accept-encoding: gzip, deflate, br, zstd`
+-   content-encoding
+    -   在后端返回压缩产物的时候需要用该字段告诉浏览器，目前返回的产物是通过哪一种压缩算法进行压缩的。
+    -   `content-encoding: br`
+
+### manualChunks对包合并
+
+在vite中由于动态加载的原因，vite会把js文件拆的比较细，导致一个页面的请求可能存在几十个js文件的加载，由于考虑到在http1中，chrome对浏览器进行了限制，一个源只能存在最多**6**个并发请求，所文件非常多的时候会导致请求需要排队从而降低页面加载的速度，而且会存在一些js文件体积非常小，只有几K的大小，甚至请求的时间没有等待请求的时间长。
+所以需要考虑对一些不常用的包进行整合成一个chunk，除了能减少散落的js文件，还有一个优点就是在于这些包一般都存在`node_modules`中，更新的频率相较于业务代码比较低，所以在两次打包后，只要保证这些依赖的版本号不变，那打出的chunk的哈希值也时一样的，此时客户在刷新请求更新后的页面时，由于这个包在上一个版本中已经被请求过缓存下来了，所以这次直接可以读取缓存，而不需要再次拉取文件。
+
+```ts
+export default defineConfig({
+    rollupOptions: {
+        output: {
+            manualChunks: {
+                'node-modules-vendor': [
+                    'stylis',
+                    'dayjs',
+                    'axios',
+                    'ahooks',
+                    '@ahooksjs/use-url-state',
+                    'jotai',
+                    'clsx',
+                    'immer',
+                    '@ant-design/icons',
+                    '@heroicons/react',
+                ],
+                'react-vendor': [
+                    'react',
+                    'react-dom',
+                    'react-router-dom',
+                    'remark-gfm',
+                    'react-markdown',
+                ],
+            },
+        },
+    },
+});
+```
+
+### CDN
+
+### HTTP2
