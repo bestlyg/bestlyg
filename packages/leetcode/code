@@ -1,17 +1,6 @@
 class Solution:
-    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        nsum = sum(nums)
-        if nsum % k != 0: return False
-        vnum = nsum // k
-        n = len(nums)
-        @cache
-        def dfs(idx: int, val: int, mask: int) -> bool:
-            if val == vnum: return dfs(idx + 1, 0, mask)
-            if idx == k: return mask == 0
-            for i in range(n):
-                if ((mask >> i) & 1) and \
-                    val + nums[i] <= vnum and \
-                    dfs(idx, val + nums[i], mask & ~(1 << i)):
-                    return True
-            return False
-        return dfs(0, 0, (1 << n) - 1)
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        map = dict()
+        for item in employees: map[item.id] = item
+        def dfs(id: int) -> int: return map[id].importance + sum(dfs(id) for id in map[id].subordinates)
+        return dfs(id)

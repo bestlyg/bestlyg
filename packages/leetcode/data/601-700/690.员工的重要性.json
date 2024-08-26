@@ -11,8 +11,22 @@
             "script": "typescript",
             "desc": "哈希表储存。",
             "code": "function GetImportance(employees: Employee[], id: number): number {\n  const map = employees.reduce((map, emp) => {\n    map.set(emp.id, emp);\n    return map;\n  }, new Map<number, Employee>());\n  const find = (id: number): number => {\n    const emp = map.get(id)!;\n    return (\n      emp.importance + emp.subordinates.map(id => find(id)).reduce((total, cur) => total + cur, 0)\n    );\n  };\n  return find(id);\n}"
+        },
+        {
+            "script": "python",
+            "time": 113,
+            "memory": 17.75,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def getImportance(self, employees: List['Employee'], id: int) -> int:\n        map = dict()\n        for item in employees: map[item.id] = item\n        def dfs(id: int) -> int: return map[id].importance + sum(dfs(id) for id in map[id].subordinates)\n        return dfs(id)",
+            "date": "2024-08-26"
         }
     ],
-    "tagList": ["树", "深度优先搜索", "广度优先搜索", "数组", "哈希表"],
+    "tagList": [
+        "树",
+        "深度优先搜索",
+        "广度优先搜索",
+        "数组",
+        "哈希表"
+    ],
     "level": "Medium"
 }

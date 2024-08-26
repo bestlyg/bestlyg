@@ -8,7 +8,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '698. 划分为k个相等的子集',
+    name: '690. 员工的重要性',
     url: 'https://leetcode.cn/problems/partition-to-k-equal-sum-subsets',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 521,
-            memory: 48.65,
-            desc: '记忆化递归，同时利用二进制记录是否被使用',
+            time: 113,
+            memory: 17.75,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
