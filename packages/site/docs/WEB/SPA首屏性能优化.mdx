@@ -12,7 +12,11 @@
 
 ## 解决方案
 
-### 图片转webp格式
+### 提升请求速度
+
+在不改变原有代码的情况下，尽可能减少文件加载所消耗的时间，从而提升性能。
+
+#### 图片转webp格式
 
 页面中一般都会引入一些图片，如果图片过大就会导致一些没有必要的加载时间，完全可以考虑换一种格式的图片，在尽可能保持图片质量的前提下，减少图片的大小，就比如使用webp的图片。
 webp的图片非常适合用于浏览器的图片展示，在图片质量差不多的情况下，极端情况下可能能减少97%以上的体积，当然虽然也存在转换后体积增大，但是这属于少数。
@@ -64,13 +68,13 @@ for suffix in "${IMG_SUFFIX[@]}"; do
 done
 ```
 
-### 压缩文件
+#### 压缩文件
 
 现阶段的浏览器都支持多种压缩算法，如最常见的gzip等，通过开启压缩算法能大幅度减少因为体积导致的网络传输上的时间。
 本次项目中前端使用了vite，我选择使用了[vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression)在文件打包完后对静态文件进行本地压缩，后端使用了express作为后端的静态文件返回，可以考虑用[compression](https://github.com/expressjs/compression)开启动态压缩的方式，在返回静态文件的时候他会动态的把文件压缩成gzip并返回给浏览器。
 考虑到本项目在打包完后并不会出现文件的动态变化，我使用了静态压缩的方式，即在前端打包的时候就把压缩文件生成好，在后端需要返回静态文件的时候直接返回即可。
 
-#### vite中的配置
+##### vite中的配置
 
 ```ts
 import viteCompression from 'vite-plugin-compression';
@@ -85,7 +89,7 @@ export default defineConfig({
 });
 ```
 
-#### node端的中间件
+##### node端的中间件
 
 ```ts
 /**
@@ -161,7 +165,7 @@ app.use(createStaticCompression());
     -   在后端返回压缩产物的时候需要用该字段告诉浏览器，目前返回的产物是通过哪一种压缩算法进行压缩的。
     -   `content-encoding: br`
 
-### manualChunks对包合并
+#### manualChunks对包合并
 
 在vite中由于动态加载的原因，vite会把js文件拆的比较细，导致一个页面的请求可能存在几十个js文件的加载，由于考虑到在http1中，chrome对浏览器进行了限制，一个源只能存在最多**6**个并发请求，所文件非常多的时候会导致请求需要排队从而降低页面加载的速度，而且会存在一些js文件体积非常小，只有几K的大小，甚至请求的时间没有等待请求的时间长。
 所以需要考虑对一些不常用的包进行整合成一个chunk，除了能减少散落的js文件，还有一个优点就是在于这些包一般都存在`node_modules`中，更新的频率相较于业务代码比较低，所以在两次打包后，只要保证这些依赖的版本号不变，那打出的chunk的哈希值也时一样的，此时客户在刷新请求更新后的页面时，由于这个包在上一个版本中已经被请求过缓存下来了，所以这次直接可以读取缓存，而不需要再次拉取文件。
@@ -196,6 +200,185 @@ export default defineConfig({
 });
 ```
 
-### CDN
+#### 多源请求
 
-### HTTP2
+由于HTTP1在同源请求中最多存在6个并发，所以如果可以的话可以通过多个域名/端口等方式绕过这个限制，提升并发数，减少请求时间。
+
+#### HTTP2
+
+通过使用HTTP2，利用多路复用的优势，同样也能避免6个并发的问题，以及减少HTTP1所带来的大头问题。
+
+#### CDN
+
+CDN的全称是Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输得更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。
+
+### 减少包体积
+
+在首次渲染的时候，会加载基底index.js，通常用不到项目中的所有能力，但是因为一些引入问题，我们可能在打包的时候会把一些包都打进基底js中去，导致页面首次渲染的时候也需要加载这些包，但其实可能并不会被用到，尤其是有一些体积比较大的包，可能会导致文件体积的大幅度膨胀。
+
+#### 动态路由
+
+把注册在路由中的每一个组件，都使用import函数拆分成动态import的方式，更好的支持按需加载，修改方式参考了原来路由中已经存在的一个方式进行修改。
+
+##### 常用的方案
+
+1. [react-loadable](https://github.com/jamiebuilds/react-loadable)
+2. [loadable-components](https://github.com/gregberge/loadable-components)
+3. `React.Suspense` +`React.lazy`
+
+##### 解决方案
+
+本次使用的是方案3，即原生`React.Suspense`配和`React.lazy`的方式并加以改造增加缓存功能，在lazy调用入参函数后，捕获到是一个Promise，此时会抛出实例，又上层catch，此时会找到最近的Suspese组件，对fallback进行渲染。
+
+```tsx
+function Fallback() {
+  return <div className="flex items-center justify-center">Loading...</div>
+}
+const Component = lazy(()=>import("../temp.tsx"))
+<Suspense fallback={<Fallback />}>
+    <Component {...props} />
+</Suspense>
+```
+
+同时考虑到因为动态加载的都是静态文件，虽然再次请求时会因为缓存，不需要消耗请求时间，但是并不需要每次都动态加载，因为首次加载完后，完全可以缓存下来该组件，在下次直接使用，所以我封装了一个可以缓存的动态导入来代替原有的方案。
+
+```tsx
+/**
+ * 缓存动态导入的组件
+ * 在首次加载完后，会把组件存在CachedComponent中，第二次不会再次调用import函数，直接发回CachedComponent
+ * 该函数会在引入在路由的时候直接被调用，每一个路由只会调用一次该函数
+ * @param load 动态加载组件的函数
+ */
+export function cachedDynamicImportComponent(
+    load: () => Promise<{ default: React.ComponentType<any> }>,
+) {
+    // 如果不为null，表明请求过一次，已经缓存了
+    let CachedComponent: React.ComponentType | null = null;
+    // 封装一次load函数，获取到实际的组件用于缓存
+    function dynamicImport() {
+        return load().then(mod => {
+            CachedComponent = mod.default;
+            return mod;
+        });
+    }
+    // 仅在浏览器端执行，该函数会因为node端需要路由猜测，所以该文件在node端也会被执行
+    globalThis.window?.addEventListener('load', () => {
+        idleTaskQueue.addTaskAndRun(dynamicImport);
+    });
+    // 实际被渲染的组件
+    function DynamicImportComponent(props: any) {
+        if (CachedComponent) return <CachedComponent {...props} />;
+        const Component = lazy(dynamicImport);
+        return (
+            <Suspense fallback={<Fallback />}>
+                <Component {...props} />
+            </Suspense>
+        );
+    }
+    // 挂载一下本身的import函数方便后期处理import
+    DynamicImportComponent.load = load;
+    return DynamicImportComponent;
+}
+```
+
+因为需要缓存这个组件，所以没发法直接使用html自带的`preload`，`prefetch`等功能，可以手动的模拟这些功能，考虑到在首次页面渲染完成之后，完全可以在后台空闲时间把其他组件都进行加载并缓存下来，当真实调用该组件的时候就不需要请求了。
+
+```tsx
+type IdleTask = () => Promise<any>;
+/**
+ * 空闲时运行任务的任务队列
+ */
+class IdleTaskQueue {
+    running = false;
+    queue: IdleTask[] = [];
+    addTask(task: IdleTask) {
+        this.queue.push(task);
+    }
+    addTaskAndRun(task: IdleTask) {
+        this.addTask(task);
+        this.run();
+    }
+    idleFunction: (fn: () => void) => void;
+    /**
+     * 获取idleFunction，防止环境中requestIdleCallback不存在
+     * 增加setTimeout兜底，setTimeout多次调用后会底层增加延时，不会阻塞
+     */
+    getIdleFunction(): typeof this.idleFunction {
+        if (typeof requestIdleCallback !== 'undefined') {
+            return fn => {
+                requestIdleCallback(() => {
+                    fn();
+                });
+            };
+        } else {
+            return fn => {
+                setTimeout(() => {
+                    fn();
+                }, 0);
+            };
+        }
+    }
+    constructor() {
+        this.idleFunction = this.getIdleFunction();
+    }
+    async run(force = false) {
+        if (this.running && !force) return;
+        this.running = true;
+        const task = this.queue.shift();
+        if (!task) {
+            this.running = false;
+        } else {
+            this.idleFunction(() => {
+                // 一个个执行，每次执行完都重新判断空闲
+                task().finally(() => {
+                    this.run(true);
+                });
+            });
+        }
+    }
+}
+export const idleTaskQueue = new IdleTaskQueue();
+```
+
+#### 清理初始化需要的包
+
+有些包因为需要初始化的关系，需要在首次渲染前就导入并进行处理，但是有些时候这些包并不需要这么早的导入进来。
+比如项目中有对pdfjs的初始化，暂时当作它是必要的，一定要进行初始化这个包才可以工作，但是如果你首屏进入的是登录页，那其实根本用不到这个包，所以此时就可以稍微的延后他的初始化。
+
+比如项目中存在`pdfjs-dist`的初始化：
+
+```ts
+import { version, GlobalWorkerOptions } from 'pdfjs-dist';
+/** 设置 PDF.js 工作线程的源文件路径 */
+GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/build/pdf.worker.min.js`;
+```
+
+这会带来大约1M的基底js体积增加，然而如果用户只打开了登陆页面，其实根本用不到它，此时就可以考虑换一个位置初始化。
+
+如果项目中使用了动态路由的方式，那么可以把这段代码放在某一个js文件的顶部，这样子只有在引入了这一个js的时候才会初始化。
+
+如果项目中没有使用动态路由，那么可以考虑在空闲时间加载它：
+
+```ts
+// 不一定使用useEffect，只要保证里面的只执行一次就可以了
+useEffect(() => {
+    // 确保空闲
+    requestIdleCallback(() => {
+        // 动态引入，防止进入时就加载
+        import('pdfjs-dist').then(mod => {
+            const { version, GlobalWorkerOptions } = mod;
+            GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/build/pdf.worker.min.js`;
+        });
+    });
+}, []);
+```
+
+#### 原子化功能导出
+
+如果一个tsx文件中，存在多个export，且在项目中都有被引用，那么它不会被树摇，所有的数据都需要加载到项目中，但是实际上可能用户登陆的时候并不会用到所有的导出，但是又会被打包成一个大的js文件，导致了多请求了一些数据。
+
+比如说项目中有一个大的SVG导出文件：
+
+```ts
+
+```
