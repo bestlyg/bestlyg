@@ -1,6 +1,13 @@
 class Solution:
-    def getImportance(self, employees: List['Employee'], id: int) -> int:
-        map = dict()
-        for item in employees: map[item.id] = item
-        def dfs(id: int) -> int: return map[id].importance + sum(dfs(id) for id in map[id].subordinates)
-        return dfs(id)
+    def minimumSubstringsInPartition(self, s: str) -> int:
+        n = len(s)
+        dp = [inf] * (n + 1)
+        dp[0] = 0
+        for i in range(1, n + 1):
+            dp[i] = dp[i - 1] + 1
+            counter = Counter()
+            for j in range(i, 0, -1):
+                counter[s[j - 1]] += 1
+                if len(set(counter.values())) == 1:
+                    dp[i] = min(dp[i], dp[j - 1] + 1)
+        return dp[-1]

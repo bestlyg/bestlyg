@@ -7,19 +7,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '690. 员工的重要性',
-    url: 'https://leetcode.cn/problems/partition-to-k-equal-sum-subsets',
+    exist: !true,
+    name: '3144. 分割字符频率相等的最少子字符串',
+    url: 'https://leetcode.cn/problems/minimum-substring-partition-of-equal-character-frequency',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `给定一个整数数组  nums 和一个正整数 k，找出是否有可能把这个数组分成 k 个非空子集，其总和都相等。`,
+    desc: `请你返回 s 最少 能分割成多少个平衡子字符串。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 113,
-            memory: 17.75,
-            desc: 'dfs',
+            time: 9615,
+            memory: 16.46,
+            desc: 'dp[i]表示以i字符结尾时的最少分割数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
