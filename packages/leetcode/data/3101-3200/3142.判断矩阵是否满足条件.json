@@ -1,0 +1,21 @@
+{
+    "name": "3142.判断矩阵是否满足条件",
+    "url": "https://leetcode.cn/problems/check-if-grid-satisfies-conditions",
+    "level": "Easy",
+    "tagList": [
+        "数组",
+        "矩阵"
+    ],
+    "desc": "如果 所有 格子都满足以上条件，那么返回 true ，否则返回 false 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 38,
+            "memory": 16.24,
+            "desc": "遍历",
+            "code": "class Solution:\n    def satisfiesConditions(self, grid: List[List[int]]) -> bool:\n        n = len(grid)\n        m = len(grid[0])\n        for i in range(n - 1):\n            for j in range(m):\n                if grid[i][j] != grid[i + 1][j]:\n                    return False\n        for i in range(n):\n            for j in range(m - 1):\n                if grid[i][j] == grid[i][j + 1]:\n                    return False\n        return True",
+            "date": "2024-08-29"
+        }
+    ],
+    "id": "3415"
+}
