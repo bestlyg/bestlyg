@@ -1,14 +1,15 @@
 [package]
+name = "wordle-game-io"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
 license.workspace = true
 publish.workspace = true
 version.workspace = true
-name = "pebbles-game-io"
 
 [dependencies]
 gmeta.workspace = true
 gstd.workspace = true
 parity-scale-codec.workspace = true
 scale-info.workspace = true
+

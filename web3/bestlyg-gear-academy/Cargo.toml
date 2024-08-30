@@ -7,7 +7,7 @@ publish = false
 version = "0.1.0"
 
 [workspace]
-members = ["pebbles-game", "pebbles-game-io"]
+members = ["pebbles-game", "pebbles-game-io", "wordle-game", "wordle-game-io", "wordle-game-session", "wordle-game-session-io"]
 resolver = "2"
 
 [workspace.dependencies]
@@ -20,7 +20,12 @@ gtest = "1.4.2"
 tokio = "1"
 xshell = "0.2"
 
+pebbles-game = {path = "./pebbles-game"}
 pebbles-game-io = {path = "./pebbles-game-io"}
+wordle-game = {path = "./wordle-game"}
+wordle-game-io = {path = "./wordle-game-io"}
+wordle-game-session = {path = "./wordle-game-session"}
+wordle-game-session-io = {path = "./wordle-game-session-io"}
 
 parity-scale-codec = {version = "3", default-features = false}
 scale-info = {version = "2", default-features = false}

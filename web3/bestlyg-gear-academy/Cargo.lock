@@ -7464,6 +7464,58 @@ dependencies = [
 ]
 
 [[package]]
+name = "wordle-game"
+version = "0.1.0"
+dependencies = [
+ "gclient",
+ "gear-wasm-builder",
+ "gmeta",
+ "gstd",
+ "gtest",
+ "parity-scale-codec",
+ "scale-info",
+ "tokio",
+ "wordle-game-io",
+]
+
+[[package]]
+name = "wordle-game-io"
+version = "0.1.0"
+dependencies = [
+ "gmeta",
+ "gstd",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
+name = "wordle-game-session"
+version = "0.1.0"
+dependencies = [
+ "gclient",
+ "gear-wasm-builder",
+ "gmeta",
+ "gstd",
+ "gtest",
+ "parity-scale-codec",
+ "scale-info",
+ "tokio",
+ "wordle-game-io",
+ "wordle-game-session-io",
+]
+
+[[package]]
+name = "wordle-game-session-io"
+version = "0.1.0"
+dependencies = [
+ "gmeta",
+ "gstd",
+ "parity-scale-codec",
+ "scale-info",
+ "wordle-game-io",
+]
+
+[[package]]
 name = "wyz"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

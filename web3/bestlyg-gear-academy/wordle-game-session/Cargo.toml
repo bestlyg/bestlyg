@@ -1,22 +1,24 @@
 [package]
+name = "wordle-game-session"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
 license.workspace = true
 publish.workspace = true
 version.workspace = true
-name = "pebbles-game"
 
 [dependencies]
 gstd.workspace = true
 gmeta.workspace = true
 parity-scale-codec.workspace = true
 scale-info.workspace = true
-pebbles-game-io.workspace = true
+wordle-game-io.workspace = true
+wordle-game-session-io.workspace = true
 
 [build-dependencies]
 gear-wasm-builder.workspace = true
-pebbles-game-io.workspace = true
+wordle-game-io.workspace = true
+wordle-game-session-io.workspace = true
 
 [dev-dependencies]
 gtest.workspace = true
