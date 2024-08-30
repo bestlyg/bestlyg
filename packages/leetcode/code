@@ -1,13 +1,9 @@
 class Solution:
-    def satisfiesConditions(self, grid: List[List[int]]) -> bool:
-        n = len(grid)
-        m = len(grid[0])
-        for i in range(n - 1):
-            for j in range(m):
-                if grid[i][j] != grid[i + 1][j]:
-                    return False
-        for i in range(n):
-            for j in range(m - 1):
-                if grid[i][j] == grid[i][j + 1]:
-                    return False
-        return True
+    def sumDigitDifferences(self, nums: List[int]) -> int:
+        res = 0
+        maps = [defaultdict(int) for _ in range(len(str(nums[0])))]
+        for i, num in enumerate(nums):
+            for j, val in enumerate(list(str(num))):
+                res += i - maps[j][val]
+                maps[j][val] += 1
+        return res

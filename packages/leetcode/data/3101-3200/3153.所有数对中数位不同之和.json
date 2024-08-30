@@ -1,0 +1,23 @@
+{
+    "name": "3153.所有数对中数位不同之和",
+    "url": "https://leetcode.cn/problems/sum-of-digit-differences-of-all-pairs",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "哈希表",
+        "数学",
+        "计数"
+    ],
+    "desc": "请你返回 nums 中 所有 整数对里，数位不同之和。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 645,
+            "memory": 30.79,
+            "desc": "遍历时记录前面每一个数位存在的不同字符数",
+            "code": "class Solution:\n    def sumDigitDifferences(self, nums: List[int]) -> int:\n        res = 0\n        maps = [defaultdict(int) for _ in range(len(str(nums[0])))]\n        for i, num in enumerate(nums):\n            for j, val in enumerate(list(str(num))):\n                res += i - maps[j][val]\n                maps[j][val] += 1\n        return res",
+            "date": "2024-08-30"
+        }
+    ],
+    "id": "3416"
+}
