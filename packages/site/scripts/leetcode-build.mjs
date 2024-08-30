@@ -54,14 +54,15 @@ async function buildCategoryJson() {
     await Promise.all(
         dataList.map(async (item, idx) => {
             const filePath = resolve(leetcodeRootPath, item.dirName, '_category_.json');
+            await fs.ensureDir(path.dirname(filePath));
             await fs.writeFile(
                 filePath,
                 JSON.stringify({
                     label: item.dirName,
                     position: idx + 1,
-                })
+                }),
             );
-        })
+        }),
     );
 }
 
@@ -74,13 +75,13 @@ async function buildDataList() {
                     const filePath = resolve(
                         leetcodeRootPath,
                         path.relative(PATH_DATA, data.dirPath),
-                        fileName + '.md'
+                        fileName + '.md',
                     );
                     await fs.ensureDir(path.dirname(filePath));
                     await fs.writeFile(filePath, problemToTemplate(problem));
-                })
+                }),
             )
-            .flat()
+            .flat(),
     );
 }
 
@@ -100,7 +101,7 @@ ${dataItemList
 ### ${item.label}
 
 ${item.problems.map(v => `- ${v}`).join('\n')}
-`.trim()
+`.trim(),
     )
     .join('\n\n')}
 `.trim();
@@ -128,16 +129,12 @@ ${buildReadmeDataItem('难度索引', readme.level)}
     await fs.writeFile(filePath, data);
     await fs.writeFile(
         resolve(leetcodeRootPath, '_category_.json'),
-        JSON.stringify({ label: 'LeetCode', position: 4 })
+        JSON.stringify({ label: 'LeetCode', position: 4 }),
     );
 }
 
 async function main() {
-    await Promise.all([
-        buildDataList(),
-        buildReadme(),
-        buildCategoryJson(),
-    ]);
+    await Promise.all([buildDataList(), buildReadme(), buildCategoryJson()]);
 }
 
 await main();
