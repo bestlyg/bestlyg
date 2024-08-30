@@ -1,0 +1,24 @@
+{
+  "name": "polkadot-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^10.9.1",
+    "@polkadot/api-augment": "^10.9.1",
+    "@polkadot/keyring": "^12.4.2",
+    "@polkadot/types": "^10.9.1",
+    "@polkadot/util": "^12.4.2",
+    "@types/node": "^20.5.9",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "web3": "^4.1.1"
+  }
+}

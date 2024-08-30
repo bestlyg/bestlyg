@@ -1,0 +1,14 @@
+cargo-features = ["profile-rustflags"]
+
+[workspace]
+members = [
+    "node",
+    "pallets/template",
+    "pallets/kitties",
+    "pallets/poe",
+    "runtime",
+    "primitives",
+]
+[profile.release]
+panic = "unwind"
+rustflags = ["-A", "warnings"]
