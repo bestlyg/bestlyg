@@ -1,9 +1,12 @@
 class Solution:
-    def sumDigitDifferences(self, nums: List[int]) -> int:
-        res = 0
-        maps = [defaultdict(int) for _ in range(len(str(nums[0])))]
-        for i, num in enumerate(nums):
-            for j, val in enumerate(list(str(num))):
-                res += i - maps[j][val]
-                maps[j][val] += 1
-        return res
+    def canMakeSquare(self, grid: List[List[str]]) -> bool:
+        for i in range(2):
+            for j in range(2):
+                counter = Counter()
+                counter[grid[i][j]] += 1
+                counter[grid[i + 1][j]] += 1
+                counter[grid[i][j + 1]] += 1
+                counter[grid[i + 1][j + 1]] += 1
+                if any(cnt >= 3 for cnt in counter.values()):
+                    return True
+        return False
