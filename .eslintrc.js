@@ -73,5 +73,7 @@ module.exports = {
             },
         ],
         'react/prop-types': ['error', { ignore: ['children'] }],
+        // undef 的变量定义
+        'no-undef': 'off',
     },
 };
