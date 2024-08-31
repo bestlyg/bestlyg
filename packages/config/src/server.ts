@@ -1,2 +1,2 @@
-export const webPath = '/home/ubuntu/web';
-export const projectPath = '/home/ubuntu/bestlyg';
+export const webPath = '/root/web';
+export const projectPath = '/root/bestlyg';
