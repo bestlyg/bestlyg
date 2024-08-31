@@ -14,13 +14,13 @@
     },
     "exports": {
         ".": {
-            "types": "./dist/esm/index.d.ts",
+            "types": "./dist/types/index.d.ts",
             "import": "./dist/esm/index.js",
             "require": "./dist/lib/index.cjs",
             "default": "./dist/esm/index.js"
         },
         "./globals": {
-            "types": "./dist/esm/globals.d.ts",
+            "types": "./dist/types/globals.d.ts",
             "import": "./dist/esm/globals.js",
             "require": "./dist/lib/globals.cjs",
             "default": "./dist/esm/globals.js"
