@@ -1,7 +1,7 @@
-use crate as pallet_template;
+use crate as pallet_poe;
 use frame_support::{
     derive_impl,
-    traits::{ConstU16, ConstU64},
+    traits::{ConstU16, ConstU32, ConstU64},
 };
 use sp_core::H256;
 use sp_runtime::{
@@ -16,7 +16,7 @@ frame_support::construct_runtime!(
     pub enum Test
     {
         System: frame_system,
-        PoeModule: poe_template,
+        PoeModule: pallet_poe,
     }
 );
 
