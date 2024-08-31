@@ -2,9 +2,7 @@
     "name": "3133.数组最后一个元素的最小值",
     "url": "https://leetcode.cn/problems/minimum-array-end",
     "level": "Medium",
-    "tagList": [
-        "位运算"
-    ],
+    "tagList": ["位运算"],
     "desc": "返回 nums[n - 1] 可能的 最小 值。",
     "solutions": [
         {

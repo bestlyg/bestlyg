@@ -2,12 +2,7 @@
     "name": "3153.所有数对中数位不同之和",
     "url": "https://leetcode.cn/problems/sum-of-digit-differences-of-all-pairs",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "哈希表",
-        "数学",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "数学", "计数"],
     "desc": "请你返回 nums 中 所有 整数对里，数位不同之和。",
     "solutions": [
         {

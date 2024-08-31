@@ -2,12 +2,7 @@
     "name": "3144.分割字符频率相等的最少子字符串",
     "url": "https://leetcode.cn/problems/minimum-substring-partition-of-equal-character-frequency",
     "level": "Medium",
-    "tagList": [
-        "哈希表",
-        "字符串",
-        "动态规划",
-        "计数"
-    ],
+    "tagList": ["哈希表", "字符串", "动态规划", "计数"],
     "desc": "请你返回 s 最少 能分割成多少个平衡子字符串。",
     "solutions": [
         {

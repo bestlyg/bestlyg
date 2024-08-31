@@ -2,10 +2,7 @@
     "name": "3142.判断矩阵是否满足条件",
     "url": "https://leetcode.cn/problems/check-if-grid-satisfies-conditions",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "矩阵"
-    ],
+    "tagList": ["数组", "矩阵"],
     "desc": "如果 所有 格子都满足以上条件，那么返回 true ，否则返回 false 。",
     "solutions": [
         {

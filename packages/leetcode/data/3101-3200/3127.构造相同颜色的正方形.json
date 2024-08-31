@@ -2,11 +2,7 @@
     "name": "3127.构造相同颜色的正方形",
     "url": "https://leetcode.cn/problems/make-a-square-with-the-same-color",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "枚举",
-        "矩阵"
-    ],
+    "tagList": ["数组", "枚举", "矩阵"],
     "desc": "你的任务是改变 至多一个 格子的颜色，使得矩阵中存在一个 2 x 2 颜色完全相同的正方形。如果可以得到一个相同颜色的 2 x 2 正方形，那么返回 true ，否则返回 false 。",
     "solutions": [
         {

@@ -2,13 +2,7 @@
     "name": "3154.到达第K级台阶的方案数",
     "url": "https://leetcode.cn/problems/find-number-of-ways-to-reach-the-k-th-stair",
     "level": "Hard",
-    "tagList": [
-        "位运算",
-        "记忆化搜索",
-        "数学",
-        "动态规划",
-        "组合数学"
-    ],
+    "tagList": ["位运算", "记忆化搜索", "数学", "动态规划", "组合数学"],
     "desc": "请你返回 Alice 到达台阶 k 处的总方案数。",
     "solutions": [
         {
