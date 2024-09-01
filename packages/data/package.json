@@ -28,8 +28,8 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "ledger:encrypt": "node ./scripts/encrypt-ledger.mjs",
-        "ledger:decrypt": "node ./scripts/decrypt-ledger.mjs",
+        "encrypt": "node ./scripts/encrypt.mjs",
+        "decrypt": "node ./scripts/decrypt.mjs",
         "ledger:create": "node ./scripts/create-ledger.mjs",
         "ledger:recreate": "node ./scripts/recreate-ledger.mjs",
         "build": "modern build",
