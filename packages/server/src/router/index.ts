@@ -6,4 +6,7 @@ import webRouter from './web';
 export const router = new Router()
     .use('/api', apiRouter.routes(), apiRouter.allowedMethods())
     .use('/static', staticRouter.routes(), staticRouter.allowedMethods())
-    .use('/web', webRouter.routes(), webRouter.allowedMethods());
+    .use('/web', webRouter.routes(), webRouter.allowedMethods())
+    .all('(.*)', async ctx => {
+        ctx.redirect('/web/site');
+    });

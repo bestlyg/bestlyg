@@ -1,18 +1,18 @@
 import 'zx/globals';
 
-const serverName = `bestlyg-server`;
+// const serverName = `bestlyg-server`;
 // echo Deploy Project
 // docker-compose up -d --force-recreate --build
-echo(`pm2 delete ${serverName}`);
-try {
-    await $`pm2 delete ${serverName}`;
-} catch (e) {
-    echo(e);
-}
-echo(`git reset --hard`)
-await $`git reset --hard`
-echo(`git clean -fd`)
-await $`git clean -fd`
+// echo(`pm2 delete ${serverName}`);
+// try {
+//     await $`pm2 delete ${serverName}`;
+// } catch (e) {
+//     echo(e);
+// }
+echo(`git reset --hard`);
+await $`git reset --hard`;
+echo(`git clean -fd`);
+await $`git clean -fd`;
 echo(`git pull`);
 await $`git pull`;
 echo(`pnpm i --frozen-lockfile`);
@@ -28,6 +28,9 @@ await $`pnpm i --frozen-lockfile`;
 // pnpm --filter site build
 echo(`pnpm --filter @bestlyg/server build`);
 await $`pnpm --filter @bestlyg/server build`;
+
+echo(`pnpm --filter @bestlyg/server deploy:pm2`);
+await $`pnpm --filter @bestlyg/server deploy:pm2`;
 // 强制重新编译容器
 // docker-compose down
 // docker rmi bestlyg-api
@@ -35,8 +38,8 @@ await $`pnpm --filter @bestlyg/server build`;
 // rm -rf /etc/nginx/conf.d
 // cp -r nginx/server /etc/nginx/conf.d
 // nginx -s reload
-echo(`sudo pm2 start packages/server/dist/main.js --name ${serverName}`);
-await $`sudo pm2 start packages/server/dist/main.js --name ${serverName}`;
+// echo(`sudo pm2 start packages/server/dist/main.js --name ${serverName}`);
+// await $`sudo pm2 start packages/server/dist/main.js --name ${serverName}`;
 
 // docker-compose up -d --force-recreate --build
 
