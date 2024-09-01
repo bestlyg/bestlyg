@@ -7,8 +7,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3127. 构造相同颜色的正方形',
+    exist: true,
+    name: '1450. 在既定时间做作业的学生人数',
     url: 'https://leetcode.cn/problems/make-a-square-with-the-same-color',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 37,
-            memory: 16.36,
-            desc: '遍历所有可能，判断以它为左上角点的四个方格是否存在3个相同颜色',
+            time: 38,
+            memory: 16.27,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,12 +1,3 @@
 class Solution:
-    def canMakeSquare(self, grid: List[List[str]]) -> bool:
-        for i in range(2):
-            for j in range(2):
-                counter = Counter()
-                counter[grid[i][j]] += 1
-                counter[grid[i + 1][j]] += 1
-                counter[grid[i][j + 1]] += 1
-                counter[grid[i + 1][j + 1]] += 1
-                if any(cnt >= 3 for cnt in counter.values()):
-                    return True
-        return False
+    def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
+        return sum(startTime[i] <= queryTime <= endTime[i] for i in range(len(startTime)))
