@@ -1,24 +1,21 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "declaration": true,
-        "removeComments": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ES2021",
-        "sourceMap": true,
-        "outDir": "./dist",
-        "baseUrl": "./",
-        "incremental": true,
+        "rootDir": "src",
+        "target": "ESNext",
+        "module": "ESNext",
+        "allowJs": true,
+        "baseUrl": ".",
         "skipLibCheck": true,
-        "strictNullChecks": false,
-        "noImplicitAny": false,
-        "strictBindCallApply": false,
-        "forceConsistentCasingInFileNames": false,
-        "noFallthroughCasesInSwitch": false,
+        "allowSyntheticDefaultImports": true,
+        "lib": ["ESNext"],
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "types": ["node"],
+        "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@/*": ["src/*"]
         }
-    }
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
 }

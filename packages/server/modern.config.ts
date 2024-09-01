@@ -21,6 +21,12 @@ export default defineConfig({
                 options.outExtension = { '.js': '.js' };
                 return options;
             },
+
+            resolve: {
+                alias: {
+                    '@': 'src',
+                },
+            },
         },
         {
             dts: false,

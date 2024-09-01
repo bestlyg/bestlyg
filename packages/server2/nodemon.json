@@ -1,6 +1,0 @@
-{
-    "watch": ["src"],
-    "ext": ".ts",
-    "ignore": ["**/*.test.ts"],
-    "exec": "pnpm build && node ."
-}
