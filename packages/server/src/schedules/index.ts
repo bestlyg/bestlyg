@@ -1,4 +1,4 @@
-import { createScheduleJob, sendMail, parseMarkdown } from '@/utils/index';
+import { createCronJob, sendMail, parseMarkdown } from '@/utils/index';
 import { CronJob } from 'cron';
 import dayjs from 'dayjs';
 
@@ -9,7 +9,7 @@ export async function sendMailToYzx(name: string, content: string) {
     await sendMail(['2428047022@qq.com'], `定时提醒-${name}`, content);
 }
 
-const ownerDailyJob = createScheduleJob('0 0 8,20 * * *', async () => {
+const ownerDailyJob = createCronJob('0 0 8,20 * * *', async () => {
     const now = dayjs();
     const subject = `${dayjs().format('YYYY-MM-DD')}日报`;
     await sendMailToLyg(
@@ -34,19 +34,19 @@ const ownerDailyJob = createScheduleJob('0 0 8,20 * * *', async () => {
     );
 });
 
-const coupon3 = createScheduleJob('0 55 9 * * 3', async () => {
+const coupon3 = createCronJob('0 55 9 * * 3', async () => {
     await sendMailToYzx('抢劵', '抢劵');
 });
 
-const coupon5 = createScheduleJob('0 55 10 * * 5', async () => {
+const coupon5 = createCronJob('0 55 10 * * 5', async () => {
     await sendMailToYzx('抢劵', '抢劵');
 });
 
-const daily = createScheduleJob('0 30 7 * * *', async () => {
+const daily = createCronJob('0 30 7 * * *', async () => {
     await sendMailToYzx('建行/番茄/支付宝小鸡/淘金币', '建行/番茄/支付宝小鸡/淘金币');
 });
 
-const medicine = createScheduleJob('0 0 22 * * *', async () => {
+const medicine = createCronJob('0 0 22 * * *', async () => {
     await sendMailToYzx('吃药', '吃药');
 });
 

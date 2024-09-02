@@ -1,6 +1,6 @@
 import { CronJob } from 'cron';
 
-export function createScheduleJob(...args: ConstructorParameters<typeof CronJob>) {
+export function createCronJob(...args: ConstructorParameters<typeof CronJob>) {
     args[3] ??= false;
     return new CronJob(...args);
 }
