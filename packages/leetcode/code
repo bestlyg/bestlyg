@@ -1,20 +1,9 @@
 class Solution:
-    def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
-        n = len(answerKey)
-        def run(ch: str, k: int) -> int:
-            left = 0
-            right = 0
-            while right < n and (k or answerKey[right] == ch):
-                if answerKey[right] != ch: k -= 1
-                right += 1
-            res = right - left
-            while right < n:
-                if answerKey[right] == ch:
-                    res = max(res, right + 1 - left)
-                else:
-                    while answerKey[left] == ch: left += 1
-                    left += 1
-                    res = max(res, right - left)
-                right += 1
-            return res
-        return max(run('T', k), run('F', k))
+    def maxStrength(self, nums: List[int]) -> int:
+        res = 1
+        n = len(nums)
+        nums.sort()
+        while nums and nums[-1] > 0: res *= nums.pop()
+        while len(nums) >= 2 and nums[0] * nums[1] > 0: res *= nums.pop(0) * nums.pop(0)
+        if n == len(nums): return max(nums)
+        return res
