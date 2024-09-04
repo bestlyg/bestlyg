@@ -21,13 +21,13 @@ export default defineConfig({
                 options.outExtension = { '.js': '.js' };
                 return options;
             },
-
-            resolve: {
-                alias: {
-                    '@': 'src',
-                },
-            },
+            // resolve: {
+            //     alias: {
+            //         '@': './src',
+            //     },
+            // },
         },
+        /**
         {
             dts: false,
             sourceMap: true,
@@ -48,7 +48,7 @@ export default defineConfig({
                     return alias;
                 },
             },
-        },
+        }, */
         {
             buildType: 'bundleless',
             dts: {

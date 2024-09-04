@@ -3,5 +3,5 @@
     "ext": ".js",
     "ignore": ["**/*.test.ts"],
     "exec": "node .",
-    "delay": 2500
+    "delay": 500
 }
