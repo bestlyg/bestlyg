@@ -1,0 +1,22 @@
+{
+    "name": "2860.让所有学生保持开心的分组方法数",
+    "url": "https://leetcode.cn/problems/happy-students",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "枚举",
+        "排序"
+    ],
+    "desc": "返回能够满足让所有学生保持开心的分组方法的数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 100,
+            "memory": 26.37,
+            "desc": "排序后遍历",
+            "code": "class Solution:\n    def countWays(self, nums: List[int]) -> int:\n        nums.sort()\n        n = len(nums)\n        res = 0\n        if nums[0] != 0: res += 1\n        res += sum(nums[i] < i + 1 < nums[i + 1] for i in range(n - 1))\n        if nums[-1] < n: res += 1\n        return res",
+            "date": "2024-09-04"
+        }
+    ],
+    "id": "3104"
+}

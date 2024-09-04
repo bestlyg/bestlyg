@@ -1,9 +1,9 @@
 class Solution:
-    def maxStrength(self, nums: List[int]) -> int:
-        res = 1
-        n = len(nums)
+    def countWays(self, nums: List[int]) -> int:
         nums.sort()
-        while nums and nums[-1] > 0: res *= nums.pop()
-        while len(nums) >= 2 and nums[0] * nums[1] > 0: res *= nums.pop(0) * nums.pop(0)
-        if n == len(nums): return max(nums)
+        n = len(nums)
+        res = 0
+        if nums[0] != 0: res += 1
+        res += sum(nums[i] < i + 1 < nums[i + 1] for i in range(n - 1))
+        if nums[-1] < n: res += 1
         return res
