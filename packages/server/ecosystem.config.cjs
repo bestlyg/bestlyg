@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'bestlyg-server',
-            script: '.',
+            script: './scripts/deploy-pm2.js',
             interpreter: 'node',
             // interpreter_args: '--input-type=module',
             // env_production: {
