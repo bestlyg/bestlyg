@@ -28,7 +28,7 @@ services:
     image: mongo-express:latest
     restart: always
     ports:
-      - 27018:8081
+      - 27018:27018
   mysql:
     image: mysql:latest
     # command: --default-authentication-plugin=mysql_native_password
