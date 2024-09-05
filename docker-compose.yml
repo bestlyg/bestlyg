@@ -29,26 +29,26 @@ services:
     restart: always
     ports:
       - 27018:8081
-  # mysql:
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #   ports:
-  #     - 3306:3306
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
-  # redis:
-  #   image: redis
-  #   restart: always
-  #   volumes:
-  #     - ./databases/redis:/data
-  #   ports:
-  #     - 6379:6379
+  mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - ./databases/redis:/data
+    ports:
+      - 6379:6379
   # bestlyg-server:
   #   container_name: bestlyg-server
   #   #构建容器
