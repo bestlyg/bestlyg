@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '2860. 让所有学生保持开心的分组方法数',
-    url: 'https://leetcode.cn/problems/happy-students',
+    name: '3174. 清除数字',
+    url: 'https://leetcode.cn/problems/clear-digits',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回能够满足让所有学生保持开心的分组方法的数目。`,
+    desc: `请你返回删除所有数字字符以后剩下的字符串。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 100,
-            memory: 26.37,
-            desc: '排序后遍历',
+            time: 43,
+            memory: 16.43,
+            desc: '每次找到数字后删除并递归',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

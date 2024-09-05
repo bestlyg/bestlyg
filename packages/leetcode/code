@@ -1,9 +1,9 @@
 class Solution:
-    def countWays(self, nums: List[int]) -> int:
-        nums.sort()
-        n = len(nums)
-        res = 0
-        if nums[0] != 0: res += 1
-        res += sum(nums[i] < i + 1 < nums[i + 1] for i in range(n - 1))
-        if nums[-1] < n: res += 1
-        return res
+    def clearDigits(self, s: str) -> str:
+        pre_idx = -1
+        for i in range(len(s)):
+            if ord('0') <= ord(s[i]) <= ord('9'):
+                return self.clearDigits(s[0: pre_idx] + s[pre_idx + 1:i ] + s[i + 1:])
+            elif ord('a') <= ord(s[i]) <= ord('z'):
+                pre_idx = i
+        return s

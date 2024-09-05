@@ -1,0 +1,22 @@
+{
+    "name": "3174.清除数字",
+    "url": "https://leetcode.cn/problems/clear-digits",
+    "level": "Easy",
+    "tagList": [
+        "栈",
+        "字符串",
+        "模拟"
+    ],
+    "desc": "请你返回删除所有数字字符以后剩下的字符串。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 43,
+            "memory": 16.43,
+            "desc": "每次找到数字后删除并递归",
+            "code": "class Solution:\n    def clearDigits(self, s: str) -> str:\n        pre_idx = -1\n        for i in range(len(s)):\n            if ord('0') <= ord(s[i]) <= ord('9'):\n                return self.clearDigits(s[0: pre_idx] + s[pre_idx + 1:i ] + s[i + 1:])\n            elif ord('a') <= ord(s[i]) <= ord('z'):\n                pre_idx = i\n        return s",
+            "date": "2024-09-05"
+        }
+    ],
+    "id": "3447"
+}
