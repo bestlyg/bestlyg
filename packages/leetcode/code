@@ -1,9 +1,14 @@
 class Solution:
-    def clearDigits(self, s: str) -> str:
-        pre_idx = -1
-        for i in range(len(s)):
-            if ord('0') <= ord(s[i]) <= ord('9'):
-                return self.clearDigits(s[0: pre_idx] + s[pre_idx + 1:i ] + s[i + 1:])
-            elif ord('a') <= ord(s[i]) <= ord('z'):
-                pre_idx = i
-        return s
+    def maximumLength(self, nums: List[int], nmax: int) -> int:
+        n = len(nums)
+        dp = [[1 for _ in range(nmax + 1)] for _ in range(n + 1)] 
+        res = 0
+        for i in range(1, n + 1):
+            for k in range(0, nmax + 1):
+                for j in range(1, i):
+                    if nums[i - 1] == nums[j - 1]:
+                        dp[i][k] = max(dp[i][k], dp[j][k] + 1)
+                    elif k > 0:
+                        dp[i][k] = max(dp[i][k], dp[j][k - 1] + 1)
+                res = max(res, dp[i][k])
+        return res
