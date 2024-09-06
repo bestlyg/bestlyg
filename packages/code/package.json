@@ -1,3 +1,6 @@
 {
-    "name": "@bestlyg/code"
+    "name": "@bestlyg/code",
+    "devDependencies": {
+        "ts-jest": "^29.2.5"
+    }
 }
