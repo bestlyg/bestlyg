@@ -27,6 +27,7 @@ scale-info = { version = "2.10.0", default-features = false, features = [
 frame-benchmarking = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false, optional = true }
 frame-support = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 frame-system = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
+sp-std = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 
 [dev-dependencies]
 sp-core = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0" }
@@ -44,6 +45,7 @@ std = [
 	"sp-core/std",
 	"sp-io/std",
 	"sp-runtime/std",
+	"sp-std/std",
 ]
 runtime-benchmarks = [
 	"frame-benchmarking/runtime-benchmarks",
