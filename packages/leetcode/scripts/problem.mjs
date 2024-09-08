@@ -7,19 +7,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3176. 求出最长好子序列 I',
-    url: 'https://leetcode.cn/problems/find-the-maximum-length-of-a-good-subsequence-i',
+    exist: true,
+    name: '977. 有序数组的平方',
+    url: 'https://leetcode.cn/problems/squares-of-a-sorted-array',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回删除所有数字字符以后剩下的字符串。`,
+    desc: `给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 7064,
-            memory: 16.84,
-            desc: 'dp[i][k]表示以i下标为最后一个元素，在不超过k个约束的情况下的最大长度',
+            time: 44,
+            memory: 18.36,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

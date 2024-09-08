@@ -19,8 +19,20 @@
             "script": "typescript",
             "desc": "利用有序性进行双指针遍历排序。",
             "code": "function sortedSquares(A: number[]): number[] {\n  const ans: number[] = [];\n  const len = A.length;\n  let i = 0;\n  let j = len - 1;\n  const arr = A.map(v => v ** 2);\n  while (i <= j) {\n    const numL = arr[i];\n    const numR = arr[j];\n    if (numL <= numR) {\n      ans.unshift(numR);\n      j--;\n    } else if (numL > numR) {\n      ans.unshift(numL);\n      i++;\n    }\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 18.36,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def sortedSquares(self, nums: List[int]) -> List[int]:\n        return sorted(num ** 2 for num in nums)",
+            "date": "2024-09-08"
         }
     ],
-    "tagList": ["数组", "双指针", "排序"],
+    "tagList": [
+        "数组",
+        "双指针",
+        "排序"
+    ],
     "level": "Easy"
 }
