@@ -1,3 +1,15 @@
 class Solution:
-    def sortedSquares(self, nums: List[int]) -> List[int]:
-        return sorted(num ** 2 for num in nums)
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        res_head = res_p = ListNode()
+        p = head
+        nsum = 0
+        while p:
+            if p.val == 0:
+                if nsum:
+                    res_p.next = ListNode(nsum)
+                    res_p = res_p.next
+                    nsum = 0
+            else:
+                nsum += p.val
+            p = p.next
+        return res_head.next
