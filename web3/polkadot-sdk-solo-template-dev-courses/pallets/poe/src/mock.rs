@@ -1,4 +1,4 @@
-use crate as pallet_poe;
+use crate::{self as pallet_poe};
 use frame_support::{
     derive_impl,
     traits::{ConstU16, ConstU32, ConstU64},
@@ -50,7 +50,7 @@ impl frame_system::Config for Test {
 impl pallet_poe::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type MaxClaimLength = ConstU32<16>;
-    type WeightInfo: ();
+    type WeightInfo = ();
 }
 
 // Build genesis storage according to the mock runtime.

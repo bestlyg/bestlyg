@@ -57,7 +57,7 @@ pub mod pallet {
     #[pallet::call]
     impl<T: Config> Pallet<T> {
         #[pallet::call_index(0)]
-        #[pallet::weight({0})]
+        #[pallet::weight(T::WeightInfo::create_claim(claim.len() as u32))]
         pub fn create_claim(
             origin: OriginFor<T>,
             claim: BoundedVec<u8, T::MaxClaimLength>,
@@ -80,7 +80,7 @@ pub mod pallet {
         }
 
         #[pallet::call_index(1)]
-        #[pallet::weight(T::WeightInfo::create_claim(claim.len() as u32))]
+        #[pallet::weight(T::WeightInfo::revoke_claim(claim.len() as u32))]
         pub fn revoke_claim(
             origin: OriginFor<T>,
             claim: BoundedVec<u8, T::MaxClaimLength>,
@@ -98,7 +98,7 @@ pub mod pallet {
         }
 
         #[pallet::call_index(2)]
-        #[pallet::weight({0})]
+        #[pallet::weight(T::WeightInfo::transfer_claim(claim.len() as u32))]
         pub fn transfer_claim(
             origin: OriginFor<T>,
             claim: BoundedVec<u8, T::MaxClaimLength>,
@@ -112,7 +112,7 @@ pub mod pallet {
 
             ensure!(owner == sender, Error::<T>::NotClaimOwner);
 
-            Proofs::<T>::insert(&claim, (dest, frame_system::Module::<T>::block_number()));
+            Proofs::<T>::insert(&claim, (dest, frame_system::Pallet::<T>::block_number()));
 
             Self::deposit_event(Event::ClaimTransferred(sender, claim));
 

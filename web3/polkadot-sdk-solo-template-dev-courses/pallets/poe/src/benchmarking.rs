@@ -32,30 +32,58 @@ mod benches {
         let caller: T::AccountId = whitelisted_caller();
         let claim = BoundedVec::try_from(vec![0; b as usize]).unwrap();
 
-        // create_claim(RawOrigin::Signed(caller.clone()), claim.clone());
+        let _ = Pallet::<T>::create_claim(RawOrigin::Signed(caller.clone()).into(), claim.clone())?;
 
-        // assert_eq!(
-        //     Proofs::<T>::get(&claim),
-        //     Some((caller, frame_system::Pallet::<T>::block_number()))
-        // );
-
-        Proofs::<T>::set(&claim);
+        assert_eq!(
+            Proofs::<T>::get(&claim),
+            Some((caller.clone(), frame_system::Pallet::<T>::block_number()))
+        );
 
         #[extrinsic_call]
         revoke_claim(RawOrigin::Signed(caller.clone()), claim.clone());
 
         assert!(Proofs::<T>::get(&claim).is_none());
+
         Ok(())
     }
 
-    // #[benchmark]
-    // fn transfer_claim(b: Linear<1, { T::MaxClaimLength::get() }>) -> Result<(), BenchmarkError> {
-    //     let claim = BoundedVec::try_from(vec![0; d as usize]).unwrap();
-    //     let caller: T::AccountId = whitelisted_caller();
-    //     let target: T::AccountId = account("target", 0, 0);
-    //     assert!(
-    //         Pallet::<T>::create_claim(RawOrigin::Signed(caller.clone()).into(), claim.clone())
-    //             .is_ok()
-    //     );
-    // }
+    #[benchmark]
+    fn transfer_claim(b: Linear<1, { T::MaxClaimLength::get() }>) -> Result<(), BenchmarkError> {
+        let claim = BoundedVec::try_from(vec![0; b as usize]).unwrap();
+        let caller: T::AccountId = whitelisted_caller();
+        let target: T::AccountId = account("target", 0, 0);
+
+        let _ = Pallet::<T>::create_claim(RawOrigin::Signed(caller.clone()).into(), claim.clone())?;
+
+        assert_eq!(
+            Proofs::<T>::get(&claim),
+            Some((caller.clone(), frame_system::Pallet::<T>::block_number()))
+        );
+
+        #[extrinsic_call]
+        transfer_claim(
+            RawOrigin::Signed(caller.clone()),
+            claim.clone(),
+            target.clone(),
+        );
+
+        assert_eq!(
+            Proofs::<T>::get(&claim),
+            Some((target.clone(), frame_system::Pallet::<T>::block_number()))
+        );
+
+        Ok(())
+    }
 }
+
+// cargo build --profile=production --features runtime-benchmarks
+// ./target/production/solochain-template-node benchmark pallet \
+// --chain dev \
+// --execution=wasm \
+// --wasm-execution=compiled \
+// --pallet pallet_poe \
+// --extrinsic "*" \
+// --steps 20 \
+// --repeat 10 \
+// --output pallets/poe/src/weights.rs \
+// --template .maintain/frame-weight-template.hbs
