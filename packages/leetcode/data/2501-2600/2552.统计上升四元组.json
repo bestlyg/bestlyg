@@ -27,8 +27,22 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn count_quadruplets(nums: Vec<i32>) -> i64 {\n        let n = nums.len();\n        let mut list = vec![0; n];\n        let mut ans = 0;\n        for l in 0..n {\n            for j in 0..l {\n                if nums[j] < nums[l] {\n                    ans += list[j];\n                }\n            }\n            let mut cnt = 0;\n            for j in 0..l {\n                if nums[j] > nums[l] {\n                    list[j] += cnt;\n                }\n                if nums[j] < nums[l] {\n                    cnt += 1;\n                }\n            }\n        }\n        ans\n    }\n}",
             "date": "2023-02-01"
+        },
+        {
+            "script": "python",
+            "time": 2666,
+            "memory": 16.88,
+            "desc": "定义三元组为i<j<k&&v[i]<v[k]<v[j]，遍历时同时记录前面的三元组数量，以及当前节点当k位置时的数量。",
+            "code": "class Solution:\n    def countQuadruplets(self, nums: List[int]) -> int:\n        n = len(nums)\n        arr = [0] * n\n        res = 0\n        for l in range(n):\n            for j in range(l - 1):\n                if nums[j] < nums[l]:\n                    res += arr[j]\n            cnt = 0\n            for j in range(l):\n                if nums[j] > nums[l]:\n                    arr[j] += cnt\n                if nums[j] < nums[l]:\n                    cnt += 1\n        return res",
+            "date": "2024-09-10"
         }
     ],
-    "tagList": ["树状数组", "数组", "动态规划", "枚举", "前缀和"],
+    "tagList": [
+        "树状数组",
+        "数组",
+        "动态规划",
+        "枚举",
+        "前缀和"
+    ],
     "level": "Hard"
 }
