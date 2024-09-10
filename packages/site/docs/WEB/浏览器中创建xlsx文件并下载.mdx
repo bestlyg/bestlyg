@@ -1,0 +1,69 @@
+# 浏览器中创建xlsx文件并下载
+
+在浏览器端通过xlsx库创建二进制文件，并触发下载。
+
+```tsx
+// 文件历史
+const FILE_NAME = '提问历史';
+// 表格名称
+const SHEET_NAME = 'sheet1';
+// 创建表格二进制
+async function createSheetBlob() {
+    // 定义该从对象的哪个字段中取值
+    const header = ['ask', 'user', 'time', 'error', 'response', 'sql'];
+    // 头部字段
+    const headerRow = {
+        ask: '提问',
+        user: '提问人',
+        time: '提问时间',
+        error: '错误类型',
+        response: '回答结果',
+        sql: 'sql',
+    };
+    const XLSX = await import('xlsx');
+    const workbook = XLSX.utils.book_new();
+    const sheet = XLSX.utils.json_to_sheet([headerRow, ...data], { header, skipHeader: true });
+    XLSX.utils.book_append_sheet(workbook, sheet, 'Sheet1');
+    const blob = new Blob([XLSX.writeFile(workbook, `${FILE_NAME}.xlsx`)]);
+    return blob;
+}
+// 下载
+function downloadBlob(blob: Blob) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${FILE_NAME}.xlsx`;
+    URL.revokeObjectURL(link.href);
+}
+
+const blob = await createSheetBlob();
+downloadBlob(blob);
+```
+
+## FAQ
+
+### 如何增加头部标题
+
+头部标题其实就是表格第一行变成了标题，所以可以类似于参考代码中一样，增加头部对象拼接到数组的第一项即可。
+
+```ts
+// 定义该从对象的哪个字段中取值
+const header = ['ask', 'user', 'time', 'error', 'response', 'sql'];
+// 头部字段
+const headerRow = {
+    ask: '提问',
+    user: '提问人',
+    time: '提问时间',
+    error: '错误类型',
+    response: '回答结果',
+    sql: 'sql',
+};
+const sheet = [headerRow, ...data];
+```
+
+### 文本的最大长度限制
+
+对于一个单元格最大字符数为**32767**，即int的最大值，超过时会展示异常。
+
+-   [Excel 2007](https://support.office.com/en-us/article/Excel-specifications-and-limits-16c69c74-3d6a-4aaf-ba35-e6eb276e8eaa)
+-   [Excel 2010](https://support.office.com/en-us/article/Excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3)
+-   [Excel 2013/2016](https://support.office.com/en-us/article/Excel-specifications-and-limits-ca36e2dc-1f09-4620-b726-67c00b05040f)
