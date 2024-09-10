@@ -2,15 +2,7 @@
     "name": "2708.一个小组的最大实力值",
     "url": "https://leetcode.cn/problems/maximum-strength-of-a-group",
     "level": "Medium",
-    "tagList": [
-        "贪心",
-        "位运算",
-        "数组",
-        "动态规划",
-        "回溯",
-        "枚举",
-        "排序"
-    ],
+    "tagList": ["贪心", "位运算", "数组", "动态规划", "回溯", "枚举", "排序"],
     "desc": "请你返回老师创建的小组能得到的最大实力值为多少。",
     "solutions": [
         {

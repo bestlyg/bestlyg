@@ -2,11 +2,7 @@
     "name": "2860.让所有学生保持开心的分组方法数",
     "url": "https://leetcode.cn/problems/happy-students",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "枚举",
-        "排序"
-    ],
+    "tagList": ["数组", "枚举", "排序"],
     "desc": "返回能够满足让所有学生保持开心的分组方法的数目。",
     "solutions": [
         {

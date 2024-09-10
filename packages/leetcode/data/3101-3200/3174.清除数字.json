@@ -2,11 +2,7 @@
     "name": "3174.清除数字",
     "url": "https://leetcode.cn/problems/clear-digits",
     "level": "Easy",
-    "tagList": [
-        "栈",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["栈", "字符串", "模拟"],
     "desc": "请你返回删除所有数字字符以后剩下的字符串。",
     "solutions": [
         {

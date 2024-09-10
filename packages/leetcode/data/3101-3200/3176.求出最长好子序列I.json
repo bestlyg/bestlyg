@@ -2,11 +2,7 @@
     "name": "3176.求出最长好子序列I",
     "url": "https://leetcode.cn/problems/find-the-maximum-length-of-a-good-subsequence-i",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "哈希表",
-        "动态规划"
-    ],
+    "tagList": ["数组", "哈希表", "动态规划"],
     "desc": "请你返回删除所有数字字符以后剩下的字符串。",
     "solutions": [
         {
