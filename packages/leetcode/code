@@ -1,16 +1,54 @@
+from sortedcontainers import SortedList
 class Solution:
-    def countQuadruplets(self, nums: List[int]) -> int:
-        n = len(nums)
-        arr = [0] * n
+    def maximizeWin(self, prizePositions: List[int], k: int) -> int:
+        n = len(prizePositions)
+        arr1 = []
+        i = 0
+        while i < n:
+            cnt = 1
+            p = i
+            while i + 1 < n and prizePositions[i + 1] == prizePositions[p]:
+                cnt += 1
+                i += 1
+            arr1.append((prizePositions[i], cnt))
+            i += 1
+
+        n = len(arr1)
+
+        arr2 = []
+        r = 0
+        cnt = 0
+        for i in range(n):
+            while r < n and arr1[r][0] <= arr1[i][0] + k:
+                cnt += arr1[r][1]
+                r += 1
+            arr2.append(cnt)
+            cnt -= arr1[i][1]
+
+        arr3 = []
+        l = n - 1
+        cnt = 0
+        for i in range(n - 1, -1, -1):
+            while l >= 0 and arr1[l][0] >= arr1[i][0] - k:
+                cnt += arr1[l][1]
+                l -= 1
+            arr3.append(cnt)
+            cnt -= arr1[i][1]
+        arr3.reverse()
+    
         res = 0
-        for l in range(n):
-            for j in range(l - 1):
-                if nums[j] < nums[l]:
-                    res += arr[j]
-            cnt = 0
-            for j in range(l):
-                if nums[j] > nums[l]:
-                    arr[j] += cnt
-                if nums[j] < nums[l]:
-                    cnt += 1
+        sl = SortedList(key=lambda i: arr3[i])
+        sr = SortedList(key=lambda i: arr2[i])
+        for i in range(n): sr.add(i)
+        r = 0
+        for i in range(n):
+            val = arr2[i]
+            while r < n and arr1[r][0] <= arr1[i][0] + k:
+                sr.remove(r)
+                r += 1
+            val2 = 0
+            if sl: val2 = max(val2, arr3[sl[-1]])
+            if sr: val2 = max(val2, arr2[sr[-1]])
+            res = max(res, val + val2)
+            sl.add(i)
         return res
