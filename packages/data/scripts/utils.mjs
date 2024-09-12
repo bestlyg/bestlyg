@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 import os from 'node:os';
 
-
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
@@ -46,3 +45,5 @@ export async function getFiles(cwd) {
     if (os.platform() === 'win32') filePath = glob.convertPathToPattern(filePath);
     return glob(filePath, { cwd });
 }
+
+export const CHAR_SPLIT = '\n';
