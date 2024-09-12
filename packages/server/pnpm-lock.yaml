@@ -14,6 +14,9 @@ importers:
       '@bestlyg/site':
         specifier: workspace:^
         version: link:../site
+      '@bestlyg/static':
+        specifier: workspace:^
+        version: link:../static
       '@koa/multer':
         specifier: ^3.0.2
         version: 3.0.2(multer@1.4.5-lts.1)
@@ -69,7 +72,7 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
-      '@bestlyg/server2':
+      '@bestlyg/server':
         specifier: workspace:^
         version: 'link:'
       '@types/koa':

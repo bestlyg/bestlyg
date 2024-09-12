@@ -6,7 +6,9 @@ const router = new Router();
 
 router.get('/(.*)', async (ctx, next) => {
     try {
-        await send(ctx, '/' + ctx.params['0'], { root: resolve('..', '..', 'static') });
+        await send(ctx, '/' + ctx.params['0'], {
+            root: resolve('node_modules', '@bestlyg/', 'static'),
+        });
     } catch (err) {
         logger.error('Static Router Error: ', err?.toString());
         await next();
