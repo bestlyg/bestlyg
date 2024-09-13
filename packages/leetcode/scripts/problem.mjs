@@ -7,7 +7,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
+    exist: true,
     name: '2398. 预算内的最多机器人数目',
     url: 'https://leetcode.cn/problems/maximum-number-of-robots-within-budget',
     level: LeetCodeLevel.Easy,
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 1296,
-            memory: 24.51,
-            desc: '由于连续，遍历所有可行区间，并记录当前区间内的最大值',
+            time: 372,
+            memory: 24.41,
+            desc: '由于连续，遍历所有可行区间，并记录当前区间内的最大值，利用单调队列快速获取区间最大值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

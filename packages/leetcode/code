@@ -4,16 +4,17 @@ class Solution:
         n = len(chargeTimes)
         l = 0
         nsum = 0
-        sl = SortedList(key = lambda i: chargeTimes[i])
-        get_budget = lambda l, r, sl, nsum: chargeTimes[sl[-1]] + len(sl) * nsum if l <= r else inf
+        q = deque()
+        get_budget = lambda l, r, nmax, nsum: nmax + (r - l + 1) * nsum if l <= r else inf
         res = 0
         for r in range(n):
-            sl.add(r)
+            while q and chargeTimes[q[-1]] < chargeTimes[r]: q.pop()
+            q.append(r)
             nsum += runningCosts[r]
-            while l <= r and get_budget(l, r, sl, nsum) > budget:
+            while l <= r and get_budget(l, r, chargeTimes[q[0]], nsum) > budget:
                 nsum -= runningCosts[l]
-                sl.remove(l)
+                if q[0] == l: q.popleft()
                 l += 1
-            if get_budget(l, r, sl, nsum) <= budget:
-                res = max(res, len(sl))
+            if q and get_budget(l, r, chargeTimes[q[0]], nsum) <= budget:
+                res = max(res, r - l + 1)
         return res

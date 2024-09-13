@@ -19,6 +19,14 @@
             "desc": "由于连续，遍历所有可行区间，并记录当前区间内的最大值",
             "code": "from sortedcontainers import SortedList\nclass Solution:\n    def maximumRobots(self, chargeTimes: List[int], runningCosts: List[int], budget: int) -> int:\n        n = len(chargeTimes)\n        l = 0\n        nsum = 0\n        sl = SortedList(key = lambda i: chargeTimes[i])\n        get_budget = lambda l, r, sl, nsum: chargeTimes[sl[-1]] + len(sl) * nsum if l <= r else inf\n        res = 0\n        for r in range(n):\n            sl.add(r)\n            nsum += runningCosts[r]\n            while l <= r and get_budget(l, r, sl, nsum) > budget:\n                nsum -= runningCosts[l]\n                sl.remove(l)\n                l += 1\n            if get_budget(l, r, sl, nsum) <= budget:\n                res = max(res, len(sl))\n        return res",
             "date": "2024-09-13"
+        },
+        {
+            "script": "python",
+            "time": 372,
+            "memory": 24.41,
+            "desc": "由于连续，遍历所有可行区间，并记录当前区间内的最大值，利用单调队列快速获取区间最大值。",
+            "code": "from sortedcontainers import SortedList\nclass Solution:\n    def maximumRobots(self, chargeTimes: List[int], runningCosts: List[int], budget: int) -> int:\n        n = len(chargeTimes)\n        l = 0\n        nsum = 0\n        q = deque()\n        get_budget = lambda l, r, nmax, nsum: nmax + (r - l + 1) * nsum if l <= r else inf\n        res = 0\n        for r in range(n):\n            while q and chargeTimes[q[-1]] < chargeTimes[r]: q.pop()\n            q.append(r)\n            nsum += runningCosts[r]\n            while l <= r and get_budget(l, r, chargeTimes[q[0]], nsum) > budget:\n                nsum -= runningCosts[l]\n                if q[0] == l: q.popleft()\n                l += 1\n            if q and get_budget(l, r, chargeTimes[q[0]], nsum) <= budget:\n                res = max(res, r - l + 1)\n        return res",
+            "date": "2024-09-13"
         }
     ],
     "id": "2449"
