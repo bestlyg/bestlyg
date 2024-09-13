@@ -1,20 +1,9 @@
-from sortedcontainers import SortedList
 class Solution:
-    def maximumRobots(self, chargeTimes: List[int], runningCosts: List[int], budget: int) -> int:
-        n = len(chargeTimes)
-        l = 0
-        nsum = 0
-        q = deque()
-        get_budget = lambda l, r, nmax, nsum: nmax + (r - l + 1) * nsum if l <= r else inf
-        res = 0
-        for r in range(n):
-            while q and chargeTimes[q[-1]] < chargeTimes[r]: q.pop()
-            q.append(r)
-            nsum += runningCosts[r]
-            while l <= r and get_budget(l, r, chargeTimes[q[0]], nsum) > budget:
-                nsum -= runningCosts[l]
-                if q[0] == l: q.popleft()
-                l += 1
-            if q and get_budget(l, r, chargeTimes[q[0]], nsum) <= budget:
-                res = max(res, r - l + 1)
-        return res
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for c in s:
+            if c == '*':
+                stack.pop()
+            else:
+                stack.append(c)
+        return ''.join(stack)

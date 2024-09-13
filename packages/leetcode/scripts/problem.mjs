@@ -7,19 +7,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '2398. 预算内的最多机器人数目',
-    url: 'https://leetcode.cn/problems/maximum-number-of-robots-within-budget',
+    exist: !true,
+    name: '2390. 从字符串中移除星号',
+    url: 'https://leetcode.cn/problems/removing-stars-from-a-string',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回在 不超过 budget 的前提下，你 最多 可以 连续 运行的机器人数目为多少。`,
+    desc: `返回移除 所有 星号之后的字符串。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 372,
-            memory: 24.41,
-            desc: '由于连续，遍历所有可行区间，并记录当前区间内的最大值，利用单调队列快速获取区间最大值',
+            time: 125,
+            memory: 17.75,
+            desc: '遍历时用栈存储',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
