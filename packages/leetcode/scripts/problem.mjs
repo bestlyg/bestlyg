@@ -7,8 +7,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '2390. 从字符串中移除星号',
+    exist: true,
+    name: '1184. 公交站间的距离',
     url: 'https://leetcode.cn/problems/removing-stars-from-a-string',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +17,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: new Date('2024.02.07').getTime(),
-            time: 125,
-            memory: 17.75,
-            desc: '遍历时用栈存储',
+            time: 44,
+            memory: 17.34,
+            desc: '向左遍历和向右遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

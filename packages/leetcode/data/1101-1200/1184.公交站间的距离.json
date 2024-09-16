@@ -19,8 +19,18 @@
             "script": "rust",
             "desc": "遍历。",
             "code": "impl Solution {\n    pub fn distance_between_bus_stops(distance: Vec<i32>, start: i32, destination: i32) -> i32 {\n        let n = distance.len() as i32;\n        let (mut sum1, mut sum2) = (0, 0);\n        let (mut cur1, mut cur2) = (start, destination);\n        let mut i = start;\n        while i != destination {\n            sum1 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        i = destination;\n        while i != start {\n            sum2 += distance[i as usize];\n            i = (i + 1) % n;\n        }\n        sum1.min(sum2)\n    }\n}"
+        },
+        {
+            "script": "python",
+            "time": 44,
+            "memory": 17.34,
+            "desc": "向左遍历和向右遍历。",
+            "code": "class Solution:\n    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:\n        n = len(distance)\n        def run(offset: int) -> int:\n            cur = start\n            val = 0\n            while cur != destination:\n                if offset == 1: val += distance[cur]\n                cur = (cur + offset) % n\n                if offset == -1: val += distance[cur]\n            return val\n        return min(run(v) for v in [1, -1])",
+            "date": "2024-09-16"
         }
     ],
-    "tagList": ["数组"],
+    "tagList": [
+        "数组"
+    ],
     "level": "Easy"
 }
