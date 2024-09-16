@@ -34,7 +34,7 @@ problem.name = problem.name.replace(/ /g, '');
 const dirName = getDirNameFromProblemName(problem.name);
 const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 problem.solutions.forEach(s => {
-    s.date = best.dayjs().format(DATE_FORMAT_SOLUTION);
+    s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
 });
 if (problem.exist) {
     const newSolutions = problem.solutions;

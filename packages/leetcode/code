@@ -1,12 +1,12 @@
 class Solution:
-    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:
-        n = len(distance)
-        def run(offset: int) -> int:
-            cur = start
-            val = 0
-            while cur != destination:
-                if offset == 1: val += distance[cur]
-                cur = (cur + offset) % n
-                if offset == -1: val += distance[cur]
-            return val
-        return min(run(v) for v in [1, -1])
+    def numberOfPoints(self, nums: List[List[int]]) -> int:
+        start = min(min(arr) for arr in nums)
+        end = max(max(arr) for arr in nums)
+        res = 0
+        for p in range(start, end + 1):
+            f = False
+            for arr in nums:
+                if arr[0] <= p <= arr[1]:
+                    f = True
+            res += int(f)
+        return res

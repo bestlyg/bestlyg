@@ -7,19 +7,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '1184. 公交站间的距离',
-    url: 'https://leetcode.cn/problems/removing-stars-from-a-string',
+    exist: !true,
+    name: '2848. 与车相交的点',
+    url: 'https://leetcode.cn/problems/points-that-intersect-with-cars',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回移除 所有 星号之后的字符串。`,
+    desc: `给你一个下标从 0 开始的二维整数数组 nums 表示汽车停放在数轴上的坐标。对于任意下标 i，nums[i] = [starti, endi] ，其中 starti 是第 i 辆车的起点，endi 是第 i 辆车的终点。返回数轴上被车 任意部分 覆盖的整数点的数目。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
-            // date: new Date('2024.02.07').getTime(),
-            time: 44,
-            memory: 17.34,
-            desc: '向左遍历和向右遍历',
+            date: '2024-09-15',
+            time: 52,
+            memory: 16.54,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
