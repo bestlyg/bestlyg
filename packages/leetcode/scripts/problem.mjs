@@ -7,8 +7,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '2848. 与车相交的点',
+    exist: true,
+    name: '815. 公交路线',
     url: 'https://leetcode.cn/problems/points-that-intersect-with-cars',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -16,10 +16,10 @@ export const problem = {
     solutions: [
         {
             script: LeetCodeScript.PY,
-            date: '2024-09-15',
-            time: 52,
-            memory: 16.54,
-            desc: '遍历',
+            // date: '2024-09-15',
+            time: 193,
+            memory: 51.18,
+            desc: '利用set存储数据，bfs时对遍历过的值进行O1的删除',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

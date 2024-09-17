@@ -1,12 +1,25 @@
 class Solution:
-    def numberOfPoints(self, nums: List[List[int]]) -> int:
-        start = min(min(arr) for arr in nums)
-        end = max(max(arr) for arr in nums)
-        res = 0
-        for p in range(start, end + 1):
-            f = False
-            for arr in nums:
-                if arr[0] <= p <= arr[1]:
-                    f = True
-            res += int(f)
-        return res
+    def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
+        n = len(routes)
+        routeMap = {i: set(routes[i]) for i in range(n)}
+        busMap = defaultdict(set)
+        for i in range(n):
+            for v in routes[i]:
+                busMap[v].add(i)
+        q = deque([source])
+        size = 1
+        step = 0
+        while q:
+            cur = q.popleft()
+            if cur == target: return step
+            while busMap[cur]:
+                next_bus = busMap[cur].pop()
+                while routeMap[next_bus]:
+                    next_pos = routeMap[next_bus].pop()
+                    q.append(next_pos)
+
+            size -= 1
+            if size == 0:
+                size = len(q)
+                step += 1
+        return -1
