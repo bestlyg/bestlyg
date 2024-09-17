@@ -2,11 +2,7 @@
     "name": "2390.从字符串中移除星号",
     "url": "https://leetcode.cn/problems/removing-stars-from-a-string",
     "level": "Medium",
-    "tagList": [
-        "栈",
-        "字符串",
-        "模拟"
-    ],
+    "tagList": ["栈", "字符串", "模拟"],
     "desc": "返回移除 所有 星号之后的字符串。",
     "solutions": [
         {

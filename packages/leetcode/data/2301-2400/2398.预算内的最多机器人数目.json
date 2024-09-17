@@ -2,14 +2,7 @@
     "name": "2398.预算内的最多机器人数目",
     "url": "https://leetcode.cn/problems/maximum-number-of-robots-within-budget",
     "level": "Hard",
-    "tagList": [
-        "队列",
-        "数组",
-        "二分查找",
-        "前缀和",
-        "滑动窗口",
-        "堆（优先队列）"
-    ],
+    "tagList": ["队列", "数组", "二分查找", "前缀和", "滑动窗口", "堆（优先队列）"],
     "desc": "请你返回在 不超过 budget 的前提下，你 最多 可以 连续 运行的机器人数目为多少。",
     "solutions": [
         {
