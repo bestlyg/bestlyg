@@ -1,0 +1,20 @@
+{
+    "name": "2414.最长的字母序连续子字符串的长度",
+    "url": "https://leetcode.cn/problems/length-of-the-longest-alphabetical-continuous-substring",
+    "level": "Medium",
+    "tagList": [
+        "字符串"
+    ],
+    "desc": "给你一个仅由小写英文字母组成的字符串 s ，返回其 最长 的 字母序连续子字符串 的长度。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 460,
+            "memory": 16.81,
+            "desc": "一次遍历",
+            "code": "class Solution:\n    def longestContinuousSubstring(self, s: str) -> int:\n        res = 0\n        n = len(s)\n        i = 0\n        while i < n:\n            cnt = 1\n            while i + 1 < n and ord(s[i + 1]) - 1 == ord(s[i]):\n                cnt += 1\n                i += 1\n            res = max(res, cnt)\n            i += 1\n        return res",
+            "date": "2024-09-19"
+        }
+    ],
+    "id": "2492"
+}
