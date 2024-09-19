@@ -1,0 +1,23 @@
+{
+    "name": "2332.坐上公交的最晚时间",
+    "url": "https://leetcode.cn/problems/the-latest-time-to-catch-a-bus",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
+    "desc": "返回你可以搭乘公交车的最晚到达公交站时间。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 242,
+            "memory": 34.53,
+            "desc": "贪心的认为1.最迟的时间，一定是某一个行人的前一个2.如果公交车没上满人，那就是公交车的到达时间是最晚时间",
+            "code": "class Solution:\n    def latestTimeCatchTheBus(self, buses: List[int], passengers: List[int], capacity: int) -> int:\n        buses.sort()\n        passengers.sort()\n        bus_len = len(buses)\n        pas_len = len(passengers)\n        # print('buses', buses)\n        # print('passengers', passengers)\n\n        cur_pre = 0\n        pre_arr = [cur_pre] * pas_len\n        for pas_idx in range(pas_len):\n            if passengers[pas_idx - 1] != passengers[pas_idx] - 1:\n                cur_pre = passengers[pas_idx] - 1\n            pre_arr[pas_idx] = cur_pre\n        # print('pre_arr', pre_arr)\n                \n        res = 0\n        pas_idx = 0\n        pas_cnt = 0\n        for bus_idx in range(bus_len):\n            # print(f'===> bidx = {bus_idx}, pidx = {pas_idx}, res = {res}, pcnt = {pas_cnt}')\n            while pas_idx < pas_len and passengers[pas_idx] <= buses[bus_idx] and pas_cnt < capacity:\n                if pas_cnt + 1 == capacity:\n                    res = pre_arr[pas_idx]\n                pas_cnt += 1\n                pas_idx += 1\n            # print(f'bidx = {bus_idx}, pidx = {pas_idx}, res = {res}, pcnt = {pas_cnt}')\n            if pas_cnt < capacity:\n                # print(\"IN\")\n                if pas_idx > 0 and passengers[pas_idx - 1] != buses[bus_idx] or pas_idx == 0:\n                    res = buses[bus_idx]\n                elif pas_idx > 0:\n                    res = pre_arr[pas_idx - 1]\n            pas_cnt -= min(capacity, pas_cnt)\n        return res",
+            "date": "2024-09-19"
+        }
+    ],
+    "id": "2417"
+}

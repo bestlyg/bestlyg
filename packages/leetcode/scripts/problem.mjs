@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '2414. 最长的字母序连续子字符串的长度',
-    url: 'https://leetcode.cn/problems/length-of-the-longest-alphabetical-continuous-substring',
+    name: '2332. 坐上公交的最晚时间',
+    url: 'https://leetcode.cn/problems/the-latest-time-to-catch-a-bus',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `给你一个仅由小写英文字母组成的字符串 s ，返回其 最长 的 字母序连续子字符串 的长度。`,
+    desc: `返回你可以搭乘公交车的最晚到达公交站时间。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 460,
-            memory: 16.81,
-            desc: '一次遍历',
+            time: 242,
+            memory: 34.53,
+            desc: '贪心的认为1.最迟的时间，一定是某一个行人的前一个2.如果公交车没上满人，那就是公交车的到达时间是最晚时间' ,
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
