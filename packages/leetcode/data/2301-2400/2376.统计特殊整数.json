@@ -1,0 +1,21 @@
+{
+    "name": "2376.统计特殊整数",
+    "url": "https://leetcode.cn/problems/count-special-integers",
+    "level": "Hard",
+    "tagList": [
+        "数学",
+        "动态规划"
+    ],
+    "desc": "如果一个正整数每一个数位都是 互不相同 的，我们称它是 特殊整数 。给你一个 正 整数 n ，请你返回区间 [1, n] 之间特殊整数的数目。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 349,
+            "memory": 35.45,
+            "desc": "数位DP",
+            "code": "class Solution:\n    @cache\n    def countSpecialNumbers(self, n: int, used: int = 0, first = True) -> int:\n        if n < 10:\n            res = 0\n            # 如果是首位，不考虑0\n            start = 1 if first else 0\n            for v in range(start, n + 1):\n                if not (used & (1 << v)):\n                    res += 1\n            return res\n\n        arr = list(str(n))\n        max_num = int(arr[0]) * 10 ** (len(arr) - 1)\n        res = 0\n        for v in range(int(arr[0])):\n            if v == 0 and first: # 首位且0的话一定要\n                res += self.countSpecialNumbers(10 ** (len(arr) - 1) - 1, used, first)\n            elif not (used & (1 << v)): # 这个数字没遍历过时才要\n                res += self.countSpecialNumbers(10 ** (len(arr) - 1) - 1, used | (1 << v), False)\n        # 如果首位没有遍历过 且 不能存在两个0\n        if not (used & (1 << int(arr[0]))) and len(str(n)) - len(str(n - max_num)) <= 2:\n            next_used = used | (1 << int(arr[0]))\n            # 如果中间存在一个0，就把0放进used\n            if len(str(n - max_num)) != len(str(n)) - 1: next_used |= 1\n            res += self.countSpecialNumbers(n - max_num, next_used, False)\n        return res",
+            "date": "2024-09-20"
+        }
+    ],
+    "id": "2457"
+}

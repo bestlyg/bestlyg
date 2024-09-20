@@ -8,18 +8,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '2332. 坐上公交的最晚时间',
-    url: 'https://leetcode.cn/problems/the-latest-time-to-catch-a-bus',
+    name: '2376. 统计特殊整数',
+    url: 'https://leetcode.cn/problems/count-special-integers',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回你可以搭乘公交车的最晚到达公交站时间。`,
+    desc: `如果一个正整数每一个数位都是 互不相同 的，我们称它是 特殊整数 。给你一个 正 整数 n ，请你返回区间 [1, n] 之间特殊整数的数目。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 242,
-            memory: 34.53,
-            desc: '贪心的认为1.最迟的时间，一定是某一个行人的前一个2.如果公交车没上满人，那就是公交车的到达时间是最晚时间' ,
+            time: 349,
+            memory: 35.45,
+            desc: '数位DP' ,
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

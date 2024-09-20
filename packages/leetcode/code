@@ -1,36 +1,27 @@
 class Solution:
-    def latestTimeCatchTheBus(self, buses: List[int], passengers: List[int], capacity: int) -> int:
-        buses.sort()
-        passengers.sort()
-        bus_len = len(buses)
-        pas_len = len(passengers)
-        # print('buses', buses)
-        # print('passengers', passengers)
+    @cache
+    def countSpecialNumbers(self, n: int, used: int = 0, first = True) -> int:
+        if n < 10:
+            res = 0
+            # 如果是首位，不考虑0
+            start = 1 if first else 0
+            for v in range(start, n + 1):
+                if not (used & (1 << v)):
+                    res += 1
+            return res
 
-        cur_pre = 0
-        pre_arr = [cur_pre] * pas_len
-        for pas_idx in range(pas_len):
-            if passengers[pas_idx - 1] != passengers[pas_idx] - 1:
-                cur_pre = passengers[pas_idx] - 1
-            pre_arr[pas_idx] = cur_pre
-        # print('pre_arr', pre_arr)
-                
+        arr = list(str(n))
+        max_num = int(arr[0]) * 10 ** (len(arr) - 1)
         res = 0
-        pas_idx = 0
-        pas_cnt = 0
-        for bus_idx in range(bus_len):
-            # print(f'===> bidx = {bus_idx}, pidx = {pas_idx}, res = {res}, pcnt = {pas_cnt}')
-            while pas_idx < pas_len and passengers[pas_idx] <= buses[bus_idx] and pas_cnt < capacity:
-                if pas_cnt + 1 == capacity:
-                    res = pre_arr[pas_idx]
-                pas_cnt += 1
-                pas_idx += 1
-            # print(f'bidx = {bus_idx}, pidx = {pas_idx}, res = {res}, pcnt = {pas_cnt}')
-            if pas_cnt < capacity:
-                # print("IN")
-                if pas_idx > 0 and passengers[pas_idx - 1] != buses[bus_idx] or pas_idx == 0:
-                    res = buses[bus_idx]
-                elif pas_idx > 0:
-                    res = pre_arr[pas_idx - 1]
-            pas_cnt -= min(capacity, pas_cnt)
+        for v in range(int(arr[0])):
+            if v == 0 and first: # 首位且0的话一定要
+                res += self.countSpecialNumbers(10 ** (len(arr) - 1) - 1, used, first)
+            elif not (used & (1 << v)): # 这个数字没遍历过时才要
+                res += self.countSpecialNumbers(10 ** (len(arr) - 1) - 1, used | (1 << v), False)
+        # 如果首位没有遍历过 且 不能存在两个0
+        if not (used & (1 << int(arr[0]))) and len(str(n)) - len(str(n - max_num)) <= 2:
+            next_used = used | (1 << int(arr[0]))
+            # 如果中间存在一个0，就把0放进used
+            if len(str(n - max_num)) != len(str(n)) - 1: next_used |= 1
+            res += self.countSpecialNumbers(n - max_num, next_used, False)
         return res
