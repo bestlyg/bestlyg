@@ -42,6 +42,8 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
 /// Import the template pallet.
+pub use pallet_poe;
+pub use pallet_kitties;
 pub use pallet_template;
 
 /// An index to a block.
@@ -258,6 +260,13 @@ impl pallet_poe::Config for Runtime {
     type WeightInfo = pallet_poe::weights::SubstrateWeight<Runtime>;
 }
 
+impl pallet_kitties::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = pallet_kitties::weights::SubstrateWeight<Runtime>;
+    type Randomness = Random;
+}
+
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
 // Create the runtime by composing the FRAME pallets that were previously configured.
 #[frame_support::runtime]
 mod runtime {
@@ -302,6 +311,13 @@ mod runtime {
 
     #[runtime::pallet_index(8)]
     pub type PoeModule = pallet_poe;
+
+    #[runtime::pallet_index(9)]
+    pub type Kitties = pallet_kitties;
+
+    #[runtime::pallet_index(10)]
+    pub type Random = pallet_insecure_randomness_collective_flip;
+
 }
 
 /// The address format for describing accounts.
@@ -353,6 +369,7 @@ mod benches {
         [pallet_sudo, Sudo]
         [pallet_template, TemplateModule]
         [pallet_poe, PoeModule]
+        [pallet_kitties, Kitties]
     );
 }
 
