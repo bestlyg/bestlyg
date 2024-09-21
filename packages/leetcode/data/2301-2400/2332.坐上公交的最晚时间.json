@@ -2,12 +2,7 @@
     "name": "2332.坐上公交的最晚时间",
     "url": "https://leetcode.cn/problems/the-latest-time-to-catch-a-bus",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "双指针",
-        "二分查找",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "二分查找", "排序"],
     "desc": "返回你可以搭乘公交车的最晚到达公交站时间。",
     "solutions": [
         {

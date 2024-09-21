@@ -2,9 +2,7 @@
     "name": "2414.最长的字母序连续子字符串的长度",
     "url": "https://leetcode.cn/problems/length-of-the-longest-alphabetical-continuous-substring",
     "level": "Medium",
-    "tagList": [
-        "字符串"
-    ],
+    "tagList": ["字符串"],
     "desc": "给你一个仅由小写英文字母组成的字符串 s ，返回其 最长 的 字母序连续子字符串 的长度。",
     "solutions": [
         {
