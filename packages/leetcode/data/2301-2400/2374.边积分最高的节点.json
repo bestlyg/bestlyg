@@ -1,0 +1,21 @@
+{
+    "name": "2374.边积分最高的节点",
+    "url": "https://leetcode.cn/problems/node-with-highest-edge-score",
+    "level": "Medium",
+    "tagList": [
+        "图",
+        "哈希表"
+    ],
+    "desc": "返回 边积分 最高的节点。如果多个节点的 边积分 相同，返回编号 最小 的那个。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 196,
+            "memory": 27.92,
+            "desc": "遍历",
+            "code": "class Solution:\n    def edgeScore(self, edges: List[int]) -> int:\n        nodes = [0] * len(edges)\n        for i in range(len(edges)): nodes[edges[i]] += i\n        return -max((v, -i)for i, v in enumerate(nodes))[1]",
+            "date": "2024-09-21"
+        }
+    ],
+    "id": "2455"
+}
