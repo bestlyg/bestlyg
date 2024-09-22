@@ -1,5 +1,11 @@
 class Solution:
-    def edgeScore(self, edges: List[int]) -> int:
-        nodes = [0] * len(edges)
-        for i in range(len(edges)): nodes[edges[i]] += i
-        return -max((v, -i)for i, v in enumerate(nodes))[1]
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        carr = [[] for _ in range(n + 1)]
+        parr = [[] for _ in range(n + 1)]
+        for p1, p2 in trust:
+            parr[p2].append(p1)
+            carr[p1].append(p2)
+        for i in range(1, n + 1):
+            if not carr[i] and len(parr[i]) == n - 1:
+                return i
+        return -1

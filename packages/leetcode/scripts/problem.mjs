@@ -1,14 +1,10 @@
-/**
- * @typedef {import("../dist/types").LeetCodeProblem} LeetCodeProblem
- */
-
 import '@bestlyg/cli/globals';
 import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
-/** @type {LeetCodeProblem} */
+/** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '2374. 边积分最高的节点',
+    exist: true,
+    name: '997. 找到小镇的法官',
     url: 'https://leetcode.cn/problems/node-with-highest-edge-score',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -17,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 196,
-            memory: 27.92,
-            desc: '遍历' ,
+            time: 74,
+            memory: 19.66,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
