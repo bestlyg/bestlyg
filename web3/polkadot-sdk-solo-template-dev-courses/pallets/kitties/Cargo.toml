@@ -30,6 +30,7 @@ frame-system = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "
 
 log = { version = "0.4.21", default-features = false }
 sp-std = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false  }
+sp-io = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0" }
 
 sp-weights = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false  }
 

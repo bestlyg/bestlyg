@@ -37,25 +37,32 @@ pub mod pallet {
     use frame_support::traits::Randomness;
     use frame_system::pallet_prelude::*;
     use serde::{Deserialize, Serialize};
+    use sp_io::hashing::blake2_128;
     use sp_std::prelude::*;
     use sp_weights::WeightMeter;
+    pub type KittyId = u32;
 
-    #[derive(Encode, Decode, Clone, Default, TypeInfo, Serialize, Deserialize)]
-    pub struct Kitty(pub [u8; 16]);
+    #[derive(
+        Encode, Decode, Clone, Copy, RuntimeDebug, Eq, PartialEq, Default, TypeInfo, MaxEncodedLen,
+    )]
+    pub struct Kitty {
+        pub dna: [u8; 16],
+        pub name: [u8; 8],
+    }
 
     #[pallet::pallet]
     pub struct Pallet<T>(_);
 
     #[pallet::storage]
-    pub type NextKittyId<T> = StorageValue<_, u32, ValueQuery>;
+    pub type NextKittyId<T> = StorageValue<_, KittyId, ValueQuery>;
 
     #[pallet::storage]
-    pub type Kitties<T> = StorageMap<_, _, u32, Kitty>;
+    pub type Kitties<T> = StorageMap<_, _, KittyId, Kitty>;
 
     #[pallet::storage]
-    pub type KittyOwner<T: Config> = StorageMap<_, _, u32, T::AccountId>;
+    pub type KittyOwner<T: Config> = StorageMap<_, _, KittyId, T::AccountId>;
 
     // bid price for each kitty,
     #[pallet::storage]
-    pub type KittiesBid<T: Config> = StorageMap<_, _, u32, Vec<(T::AccountId, u64)>>;
+    pub type KittiesBid<T: Config> = StorageMap<_, _, KittyId, Vec<(T::AccountId, u64)>>;
 }
