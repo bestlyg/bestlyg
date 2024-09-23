@@ -4,7 +4,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '997. 找到小镇的法官',
+    name: '1014. 最佳观光组合',
     url: 'https://leetcode.cn/problems/node-with-highest-edge-score',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 74,
-            memory: 19.66,
-            desc: '遍历',
+            time: 119,
+            memory: 21.2,
+            desc: '遍历时记录前面的最大值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

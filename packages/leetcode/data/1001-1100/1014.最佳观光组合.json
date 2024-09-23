@@ -27,8 +27,19 @@
             "script": "typescript",
             "desc": "题目转化为 A[i]+i+A[j]-j,只要求出最大 A[i]+i，并于当前 i 值进行判断即可。",
             "code": "function maxScoreSightseeingPair(A: number[]): number {\n  const len = A.length;\n  let ans = 0;\n  let mx = A[0];\n  for (let i = 1; i < len; i++) {\n    ans = Math.max(ans, mx + A[i] - i);\n    mx = Math.max(mx, A[i] + i);\n  }\n  return ans;\n}"
+        },
+        {
+            "script": "python",
+            "time": 119,
+            "memory": 21.2,
+            "desc": "遍历时记录前面的最大值。",
+            "code": "class Solution:\n    def maxScoreSightseeingPair(self, values: List[int]) -> int:\n        prev = values[0]\n        res = 0\n        for i in range(1, len(values)):\n            res = max(res, prev - i + values[i])\n            prev = max(prev, values[i] + i)\n        return res",
+            "date": "2024-09-23"
         }
     ],
-    "tagList": ["数组", "动态规划"],
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
     "level": "Medium"
 }
