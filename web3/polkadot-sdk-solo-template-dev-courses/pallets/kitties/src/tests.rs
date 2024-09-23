@@ -1,4 +1,4 @@
-use crate::{mock::*, Error, Event};
+use crate::{mock::*, Error, Event, NextKittyId};
 use frame_support::{assert_noop, assert_ok};
 
 #[test]
@@ -9,31 +9,51 @@ fn it_works_for_default_value() {
     });
 }
 
-// #[test]
-// fn it_works_create_kitty() {
-//     new_test_ext().execute_with(|| {
-//         run_to_block(1);
-//         let alice = 0;
-//         let caller = <<Test as Config>::RuntimeOrigin>::signed(alice);
-//         assert_ok!(Kitties::create(caller));
-//         System::assert_has_event(
-//             Event::KittyCreated {
-//                 creator: alice,
-//                 index: 0,
-//                 data: [0u8; 16],
-//             }
-//             .into(),
-//         );
-//     });
-// }
+#[test]
+fn it_works_create_kitty() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_ok!(Kitties::create(caller));
+        System::assert_has_event(
+            Event::KittyCreated {
+                creator: alice,
+                kitty_id: 0,
+                kitty: crate::Kitties::<Test>::get(0).unwrap().clone(),
+            }
+            .into(),
+        );
+    });
+}
 
-// #[test]
-// fn it_kitty_id_overflow() {
-//     new_test_ext().execute_with(|| {
-//         run_to_block(1);
-//         let alice = 0;
-//         let caller = <<Test as Config>::RuntimeOrigin>::signed(alice);
-//         NextKittyId::<Test>::put(u32::MAX);
-//         assert_noop!(Kitties::create(caller), Error::<Test>::KittyIdOverflow);
-//     });
-// }
+#[test]
+fn it_kitty_id_overflow() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        NextKittyId::<Test>::put(u32::MAX);
+        assert_noop!(Kitties::create(caller), Error::<Test>::KittyIdOverflow);
+    });
+}
+
+#[test]
+fn it_kitty_breed() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_ok!(Kitties::breed(caller.clone(), 0, 1));
+        System::assert_has_event(
+            Event::KittyBreed {
+                creator: alice,
+                kitty_id: 2,
+                kitty: crate::Kitties::<Test>::get(2).unwrap().clone(),
+            }
+            .into(),
+        );
+    })
+}

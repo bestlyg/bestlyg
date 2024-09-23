@@ -8,8 +8,9 @@ mod events {
     pub enum Event<T: Config> {
         KittyCreated {
             creator: T::AccountId,
-            index: u32,
-            data: [u8; 16],
+            kitty_id: KittyId,
+            kitty: Kitty,
         },
+		KittyBreed { creator: T::AccountId, kitty_id: KittyId, kitty: Kitty },
     }
 }

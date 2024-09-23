@@ -10,5 +10,8 @@ mod errors {
         NotOwner,
         SameKittyId,
         KittyIdOverflow,
+        AlreadyOnSale,
+        AlreadyOwned,
+        NotOnSale,
     }
 }

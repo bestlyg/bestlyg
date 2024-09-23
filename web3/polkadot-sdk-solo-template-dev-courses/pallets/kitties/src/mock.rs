@@ -2,14 +2,11 @@ use crate as pallet_kitties;
 use frame_support::traits::Hooks;
 use frame_support::{
     derive_impl,
-    traits::{ConstU16, ConstU64},
+    traits::{ConstU128, ConstU64},
     weights::Weight,
 };
-use sp_core::H256;
-use sp_runtime::{
-    traits::{BlakeTwo256, IdentityLookup},
-    BuildStorage,
-};
+use sp_runtime::BuildStorage;
+type Balance = u128;
 type Block = frame_system::mocking::MockBlock<Test>;
 
 // Configure a mock runtime to test the pallet.
@@ -17,6 +14,7 @@ frame_support::construct_runtime!(
     pub enum Test
     {
         System: frame_system,
+        Balances: pallet_balances,
         Kitties: pallet_kitties,
         Random: pallet_insecure_randomness_collective_flip,
     }
@@ -24,38 +22,26 @@ frame_support::construct_runtime!(
 
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
-    type BaseCallFilter = frame_support::traits::Everything;
-    type BlockWeights = ();
-    type BlockLength = ();
-    type DbWeight = ();
-    type RuntimeOrigin = RuntimeOrigin;
-    type RuntimeCall = RuntimeCall;
-    type Nonce = u64;
-    type Hash = H256;
-    type Hashing = BlakeTwo256;
-    type AccountId = u64;
-    type Lookup = IdentityLookup<Self::AccountId>;
     type Block = Block;
-    type RuntimeEvent = RuntimeEvent;
-    type BlockHashCount = ConstU64<250>;
-    type Version = ();
-    type PalletInfo = PalletInfo;
-    type AccountData = ();
-    type OnNewAccount = ();
-    type OnKilledAccount = ();
-    type SystemWeightInfo = ();
-    type SS58Prefix = ConstU16<42>;
-    type OnSetCode = ();
-    type MaxConsumers = frame_support::traits::ConstU32<16>;
+    type AccountData = pallet_balances::AccountData<Balance>;
 }
 
 impl pallet_kitties::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = ();
     type Randomness = Random;
+    type Currency = Balances;
+    type KittyPrice = ConstU128<200>;
 }
 
 impl pallet_insecure_randomness_collective_flip::Config for Test {}
+
+#[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
+impl pallet_balances::Config for Test {
+    type Balance = Balance;
+    type ExistentialDeposit = ConstU128<500>;
+    type AccountStore = System;
+}
 
 // Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {

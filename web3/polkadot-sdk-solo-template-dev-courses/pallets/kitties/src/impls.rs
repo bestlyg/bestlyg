@@ -32,18 +32,6 @@ mod impls {
             payload.using_encoded(blake2_128)
         }
 
-        // breed on kitty based on both paraent kitties
-        fn breed_kitty(who: &T::AccountId, kitty_1: [u8; 16], kitty_2: [u8; 16]) -> [u8; 16] {
-            let selector = Self::random_value(&who);
-
-            let mut data = [0u8; 16];
-            for i in 0..kitty_1.len() {
-                // 0 choose kitty2, and 1 choose kitty1
-                data[i] = (kitty_1[i] & selector[i]) | (kitty_2[i] & !selector[i]);
-            }
-            data
-        }
-
         fn get_next_id() -> Result<KittyId, DispatchError> {
             NextKittyId::<T>::try_mutate(|next_id| -> Result<KittyId, DispatchError> {
                 let current_id = *next_id;

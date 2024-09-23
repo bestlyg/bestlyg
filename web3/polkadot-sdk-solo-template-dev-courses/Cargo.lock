@@ -4900,6 +4900,7 @@ dependencies = [
  "frame-support",
  "frame-system",
  "log",
+ "pallet-balances",
  "pallet-insecure-randomness-collective-flip",
  "parity-scale-codec",
  "scale-info",

@@ -27,6 +27,7 @@ frame_support::construct_runtime!(
 	}
 );
 
+#[derive_impl(pallet_balances::config_preludes::TestDefaultConfig)]
 impl pallet_balances::Config for Test {
 	type MaxLocks = ConstU32<50>;
 	type MaxReserves = ();

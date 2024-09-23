@@ -34,7 +34,9 @@ mod impls;
 pub mod pallet {
     use super::*;
     use frame_support::pallet_prelude::*;
+    use frame_support::traits::Currency;
     use frame_support::traits::Randomness;
+    use frame_support::traits::ReservableCurrency;
     use frame_system::pallet_prelude::*;
     use serde::{Deserialize, Serialize};
     use sp_io::hashing::blake2_128;
@@ -42,8 +44,10 @@ pub mod pallet {
     use sp_weights::WeightMeter;
     pub type KittyId = u32;
     pub type KittyDna = [u8; 16];
+    pub type BalanceOf<T> =
+        <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
 
-    #[derive(Encode, Decode, Clone, Default, TypeInfo, Serialize, Deserialize)]
+    #[derive(Encode, Decode, Clone, Default, TypeInfo, Serialize, Deserialize, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
     pub struct Kitty(pub KittyDna);
 
     #[pallet::pallet]
@@ -65,4 +69,7 @@ pub mod pallet {
     // bid price for each kitty,
     #[pallet::storage]
     pub type KittiesOnSale<T: Config> = StorageMap<_, _, KittyId, BlockNumberFor<T>>;
+
+    #[pallet::storage]
+    pub type KittyParents<T: Config> = StorageMap<_, _, KittyId, (KittyId, KittyId)>;
 }
