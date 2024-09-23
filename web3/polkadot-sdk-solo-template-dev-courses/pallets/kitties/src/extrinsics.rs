@@ -20,67 +20,26 @@ mod dispatches {
             Ok(())
         }
 
-        pub fn breed(origin: OriginFor<T>, kitty_id1: u32, kitty_id2: u32) -> DispatchResult {
-            let who = ensure_signed(origin)?;
-            ensure!(kitty_id1 != kitty_id2, Error::<T>::SameKittyId);
-
-            ensure!(
-                Kitties::<T>::contains_key(&kitty_id1),
-                Error::<T>::InvalidKittyId
-            );
-            ensure!(
-                Kitties::<T>::contains_key(&kitty_id2),
-                Error::<T>::InvalidKittyId
-            );
-
-            let kitty_id = Self::get_next_id()?;
-            let kitty1 = Kitties::<T>::get(kitty_id1).ok_or(Error::<T>::InvalidKittyId)?;
-            let kitty2 = Kitties::<T>::get(kitty_id2).ok_or(Error::<T>::InvalidKittyId)?;
-
-            let selector = Self::random_value(&who);
-            let mut dna = [0u8; 16];
-            for (i, v) in selector.into_iter().enumerate() {
-                dna[i] = kitty1.dna[i] & v | kitty2.dna[i] & v;
-            }
-            // let kitty = Kitty(data);
-            let kitty = Kitty { dna, name };
-
-            let price = T::KittyPrice::get();
-            // T::Currency::reserve(&who, price)?;
-            T::Currency::transfer(
-                &who,
-                &Self::get_account_id(),
-                price,
-                ExistenceRequirement::KeepAlive,
-            )?;
-
-            Kitties::<T>::insert(kitty_id, &kitty);
-            KittyOwner::<T>::insert(kitty_id, &who);
-            KittyParents::<T>::insert(kitty_id, (kitty_id1, kitty_id2));
-
-            Self::deposit_event(Event::KittyBreed {
-                who,
-                kitty_id,
-                kitty,
-            });
+        pub fn breed(origin: OriginFor<T>, kitty_1: KittyId, kitty_2: KittyId) -> DispatchResult {
+            let _who = ensure_signed(origin)?;
             Ok(())
         }
 
-        pub fn transfer(origin: OriginFor<T>, kitty_id: u32) -> DispatchResult {
+        pub fn transfer(origin: OriginFor<T>, kitty_id: KittyId) -> DispatchResult {
             let _who = ensure_signed(origin)?;
             Ok(())
         }
 
         pub fn sale(
             origin: OriginFor<T>,
-            kitty_id: u32,
+            kitty_id: KittyId,
             until_block: BlockNumberFor<T>,
         ) -> DispatchResult {
             let _who = ensure_signed(origin)?;
             Ok(())
         }
 
-        pub fn bid(origin: OriginFor<T>, kitty_id: u32, price: u64) -> DispatchResult {
+        pub fn bid(origin: OriginFor<T>, kitty_id: KittyId, price: u64) -> DispatchResult {
             let _who = ensure_signed(origin)?;
             Ok(())
         }

@@ -8,6 +8,7 @@ mod errors {
     pub enum Error<T> {
         InvalidKittyId,
         NotOwner,
-        SameKittyId,KittyIdOverflow
+        SameKittyId,
+        KittyIdOverflow,
     }
 }

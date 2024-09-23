@@ -29,10 +29,10 @@ frame-support = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = 
 frame-system = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 
 log = { version = "0.4.21", default-features = false }
-sp-std = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false  }
-sp-io = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0" }
+sp-std = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
+sp-io = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 
-sp-weights = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false  }
+sp-weights = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 
 [dev-dependencies]
 pallet-insecure-randomness-collective-flip = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }

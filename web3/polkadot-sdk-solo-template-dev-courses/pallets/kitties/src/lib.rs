@@ -41,14 +41,10 @@ pub mod pallet {
     use sp_std::prelude::*;
     use sp_weights::WeightMeter;
     pub type KittyId = u32;
+    pub type KittyDna = [u8; 16];
 
-    #[derive(
-        Encode, Decode, Clone, Copy, RuntimeDebug, Eq, PartialEq, Default, TypeInfo, MaxEncodedLen,
-    )]
-    pub struct Kitty {
-        pub dna: [u8; 16],
-        pub name: [u8; 8],
-    }
+    #[derive(Encode, Decode, Clone, Default, TypeInfo, Serialize, Deserialize)]
+    pub struct Kitty(pub KittyDna);
 
     #[pallet::pallet]
     pub struct Pallet<T>(_);
@@ -65,4 +61,8 @@ pub mod pallet {
     // bid price for each kitty,
     #[pallet::storage]
     pub type KittiesBid<T: Config> = StorageMap<_, _, KittyId, Vec<(T::AccountId, u64)>>;
+
+    // bid price for each kitty,
+    #[pallet::storage]
+    pub type KittiesOnSale<T: Config> = StorageMap<_, _, KittyId, BlockNumberFor<T>>;
 }

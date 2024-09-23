@@ -13,7 +13,6 @@ members = [
 	"pallets/template",
 	"pallets/poe",
 	"runtime",
-	"pallets/kitties",
 
 ]
 
