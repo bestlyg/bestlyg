@@ -12,5 +12,6 @@ mod events {
             kitty: Kitty,
         },
 		KittyBreed { creator: T::AccountId, kitty_id: KittyId, kitty: Kitty },
+		KittyTransfer { from: T::AccountId, kitty_id: KittyId, to: T::AccountId },
     }
 }

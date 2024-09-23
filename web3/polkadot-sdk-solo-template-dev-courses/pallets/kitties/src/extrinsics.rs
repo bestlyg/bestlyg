@@ -13,6 +13,7 @@ mod dispatches {
             Kitties::<T>::insert(kitty_id, kitty);
             let next_kitty_id = kitty_id.checked_add(1).ok_or(Error::<T>::KittyIdOverflow)?;
             NextKittyId::<T>::put(next_kitty_id);
+            KittyOwner::<T>::insert(kitty_id, who.clone());
             Self::deposit_event(Event::KittyCreated {
                 creator: who,
                 kitty_id,
@@ -27,7 +28,7 @@ mod dispatches {
             kitty_id2: KittyId,
         ) -> DispatchResult {
             let who = ensure_signed(origin)?;
-            ensure!(kitty_id1 != kitty_id2, Error::<T>::KittyIdOverflow);
+            ensure!(kitty_id1 != kitty_id2, Error::<T>::SameKittyId);
             let kitty_id = Self::get_next_id()?;
             let kitty1 = Kitties::<T>::get(kitty_id1).ok_or(Error::<T>::InvalidKittyId)?;
             let kitty2 = Kitties::<T>::get(kitty_id2).ok_or(Error::<T>::InvalidKittyId)?;
@@ -49,8 +50,26 @@ mod dispatches {
             Ok(())
         }
 
-        pub fn transfer(origin: OriginFor<T>, kitty_id: KittyId) -> DispatchResult {
-            let _who = ensure_signed(origin)?;
+        pub fn transfer(
+            origin: OriginFor<T>,
+            recipient: T::AccountId,
+            kitty_id: KittyId,
+        ) -> DispatchResult {
+            let who = ensure_signed(origin)?;
+            ensure!(
+                Kitties::<T>::contains_key(&kitty_id),
+                Error::<T>::InvalidKittyId
+            );
+            let owner = KittyOwner::<T>::get(kitty_id).ok_or(Error::<T>::InvalidKittyId)?;
+            ensure!(owner == who, Error::<T>::NotOwner);
+
+            KittyOwner::<T>::insert(kitty_id, &recipient);
+
+            Self::deposit_event(Event::KittyTransfer {
+                from: who,
+                to: recipient,
+                kitty_id,
+            });
             Ok(())
         }
 

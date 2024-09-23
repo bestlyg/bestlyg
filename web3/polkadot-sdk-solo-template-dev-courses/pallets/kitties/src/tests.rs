@@ -57,3 +57,63 @@ fn it_kitty_breed() {
         );
     })
 }
+
+#[test]
+fn it_kitty_breed_same_kitty() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_noop!(
+            Kitties::breed(caller.clone(), 0, 0),
+            Error::<Test>::SameKittyId
+        );
+    })
+}
+
+#[test]
+fn it_kitty_breed_invalid_kitty() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_noop!(
+            Kitties::breed(caller.clone(), 0, 1),
+            Error::<Test>::InvalidKittyId
+        );
+    })
+}
+
+#[test]
+fn it_kitty_transfer() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_ok!(Kitties::transfer(caller.clone(), 1, 0));
+        let kitty = crate::KittyOwner::<Test>::get(&0).unwrap();
+        assert_eq!(kitty, 1);
+        System::assert_has_event(
+            Event::KittyTransfer {
+                from: 0,
+                to: 1,
+                kitty_id: 0,
+            }
+            .into(),
+        );
+    })
+}
+
+#[test]
+fn it_kitty_transfer_invalid_kitty() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_noop!(
+            Kitties::transfer(caller.clone(), 1, 0),
+            Error::<Test>::InvalidKittyId
+        );
+    })
+}
