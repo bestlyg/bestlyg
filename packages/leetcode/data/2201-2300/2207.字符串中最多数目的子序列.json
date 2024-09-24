@@ -2,11 +2,7 @@
     "name": "2207.字符串中最多数目的子序列",
     "url": "https://leetcode.cn/problems/maximize-number-of-subsequences-in-a-string",
     "level": "Medium",
-    "tagList": [
-        "贪心",
-        "字符串",
-        "前缀和"
-    ],
+    "tagList": ["贪心", "字符串", "前缀和"],
     "desc": "请你返回插入一个字符后，text 中最多包含多少个等于 pattern 的 子序列 。",
     "solutions": [
         {

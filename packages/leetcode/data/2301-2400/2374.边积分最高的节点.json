@@ -2,10 +2,7 @@
     "name": "2374.边积分最高的节点",
     "url": "https://leetcode.cn/problems/node-with-highest-edge-score",
     "level": "Medium",
-    "tagList": [
-        "图",
-        "哈希表"
-    ],
+    "tagList": ["图", "哈希表"],
     "desc": "返回 边积分 最高的节点。如果多个节点的 边积分 相同，返回编号 最小 的那个。",
     "solutions": [
         {
