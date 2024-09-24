@@ -3,6 +3,8 @@ use frame_support::pallet_macros::pallet_section;
 /// Define all hooks used in the pallet.
 #[pallet_section]
 mod hooks {
+    use frame_support::sp_runtime::traits::Bounded;
+    use frame_support::traits::ExistenceRequirement;
     #[pallet::hooks]
     impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
         fn on_runtime_upgrade() -> Weight {
@@ -11,6 +13,36 @@ mod hooks {
 
         fn on_initialize(n: BlockNumberFor<T>) -> Weight {
             log::info!("Kitties on_initialize at block {:?}", n);
+            KittiesOnSale::<T>::iter().for_each(|(kitty_id, until_block)| {
+                if until_block == n {
+                    let owner = KittyOwner::<T>::get(kitty_id).expect("");
+                    if let Some(bids) = KittiesBid::<T>::take(kitty_id) {
+                        let mut new_owner = None;
+                        let mut final_price = BalanceOf::<T>::min_value();
+
+                        for bid in bids.iter() {
+                            T::Currency::unreserve(&bid.0, bid.1);
+
+                            if bid.1 > final_price {
+                                final_price = bid.1;
+                                new_owner = Some(bid.0.clone())
+                            }
+                        }
+
+                        if final_price != BalanceOf::<T>::min_value() {
+                            T::Currency::transfer(
+                                &new_owner.clone().unwrap(),
+                                &owner,
+                                final_price,
+                                ExistenceRequirement::KeepAlive,
+                            )
+                            .expect("");
+
+                            KittyOwner::<T>::insert(kitty_id, new_owner.unwrap());
+                        }
+                    }
+                }
+            });
             Weight::default()
         }
 

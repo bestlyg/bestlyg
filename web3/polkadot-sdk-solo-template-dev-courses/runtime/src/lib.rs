@@ -41,9 +41,9 @@ use pallet_transaction_payment::{ConstFeeMultiplier, CurrencyAdapter, Multiplier
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
+pub use pallet_kitties;
 /// Import the template pallet.
 pub use pallet_poe;
-pub use pallet_kitties;
 pub use pallet_template;
 
 /// An index to a block.
@@ -264,6 +264,8 @@ impl pallet_kitties::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_kitties::weights::SubstrateWeight<Runtime>;
     type Randomness = Random;
+    type Currency = Balances;
+    type KittyPrice = ConstU128<200>;
 }
 
 impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
@@ -317,7 +319,6 @@ mod runtime {
 
     #[runtime::pallet_index(10)]
     pub type Random = pallet_insecure_randomness_collective_flip;
-
 }
 
 /// The address format for describing accounts.

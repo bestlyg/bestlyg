@@ -14,7 +14,7 @@ target
 *.out
 *.o
 databases
-
+.cargo
 .nx
 .nx/cache
 .nx/workspace-data

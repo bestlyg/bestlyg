@@ -5,6 +5,7 @@ use frame_support::pallet_macros::pallet_section;
 mod dispatches {
     #[pallet::call]
     impl<T: Config> Pallet<T> {
+        #[pallet::call_index(0)]
         pub fn create(origin: OriginFor<T>) -> DispatchResult {
             let who = ensure_signed(origin)?;
             let value = Self::random_value(&who);
@@ -22,6 +23,7 @@ mod dispatches {
             Ok(())
         }
 
+        #[pallet::call_index(1)]
         pub fn breed(
             origin: OriginFor<T>,
             kitty_id1: KittyId,
@@ -50,16 +52,13 @@ mod dispatches {
             Ok(())
         }
 
+        #[pallet::call_index(2)]
         pub fn transfer(
             origin: OriginFor<T>,
             recipient: T::AccountId,
             kitty_id: KittyId,
         ) -> DispatchResult {
             let who = ensure_signed(origin)?;
-            ensure!(
-                Kitties::<T>::contains_key(&kitty_id),
-                Error::<T>::InvalidKittyId
-            );
             let owner = KittyOwner::<T>::get(kitty_id).ok_or(Error::<T>::InvalidKittyId)?;
             ensure!(owner == who, Error::<T>::NotOwner);
 
@@ -73,17 +72,31 @@ mod dispatches {
             Ok(())
         }
 
+        #[pallet::call_index(3)]
         pub fn sale(
             origin: OriginFor<T>,
             kitty_id: KittyId,
             until_block: BlockNumberFor<T>,
         ) -> DispatchResult {
-            let _who = ensure_signed(origin)?;
+            let who = ensure_signed(origin)?;
+            let owner = KittyOwner::<T>::get(kitty_id).ok_or(Error::<T>::InvalidKittyId)?;
+            ensure!(owner == who, Error::<T>::NotOwner);
+            KittiesOnSale::<T>::insert(kitty_id, until_block);
             Ok(())
         }
 
-        pub fn bid(origin: OriginFor<T>, kitty_id: KittyId, price: u64) -> DispatchResult {
-            let _who = ensure_signed(origin)?;
+        #[pallet::call_index(4)]
+        pub fn bid(origin: OriginFor<T>, kitty_id: KittyId, price: BalanceOf<T>) -> DispatchResult {
+            let who = ensure_signed(origin)?;
+            T::Currency::reserve(&who, price)?;
+            KittiesBid::<T>::mutate(kitty_id, |bids| match bids {
+                Some(bids) => {
+                    bids.push((who.clone(), price));
+                }
+                None => {
+                    *bids = Some(vec![(who.clone(), price)]);
+                }
+            });
             Ok(())
         }
     }

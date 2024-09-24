@@ -117,3 +117,18 @@ fn it_kitty_transfer_invalid_kitty() {
         );
     })
 }
+
+#[test]
+fn it_kitty_transfer_not_owner() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 0;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_noop!(
+            Kitties::transfer(RuntimeOrigin::signed(1), 1, 0),
+            Error::<Test>::NotOwner
+        );
+    })
+}

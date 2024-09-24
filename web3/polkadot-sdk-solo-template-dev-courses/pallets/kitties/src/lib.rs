@@ -47,7 +47,21 @@ pub mod pallet {
     pub type BalanceOf<T> =
         <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
 
-    #[derive(Encode, Decode, Clone, Default, TypeInfo, Serialize, Deserialize, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+    #[derive(
+        Encode,
+        Decode,
+        Clone,
+        Default,
+        TypeInfo,
+        Serialize,
+        Deserialize,
+        Copy,
+        PartialEq,
+        Eq,
+        PartialOrd,
+        Ord,
+        Debug,
+    )]
     pub struct Kitty(pub KittyDna);
 
     #[pallet::pallet]
@@ -64,12 +78,9 @@ pub mod pallet {
 
     // bid price for each kitty,
     #[pallet::storage]
-    pub type KittiesBid<T: Config> = StorageMap<_, _, KittyId, Vec<(T::AccountId, u64)>>;
+    pub type KittiesBid<T: Config> = StorageMap<_, _, KittyId, Vec<(T::AccountId, BalanceOf<T>)>>;
 
     // bid price for each kitty,
     #[pallet::storage]
     pub type KittiesOnSale<T: Config> = StorageMap<_, _, KittyId, BlockNumberFor<T>>;
-
-    #[pallet::storage]
-    pub type KittyParents<T: Config> = StorageMap<_, _, KittyId, (KittyId, KittyId)>;
 }
