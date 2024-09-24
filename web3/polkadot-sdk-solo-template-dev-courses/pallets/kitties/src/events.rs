@@ -7,12 +7,12 @@ mod events {
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
         KittyCreated {
-            creator: T::AccountId,
+            who: T::AccountId,
             kitty_id: KittyId,
             kitty: Kitty,
         },
         KittyBreed {
-            creator: T::AccountId,
+            who: T::AccountId,
             kitty_id: KittyId,
             kitty: Kitty,
         },
@@ -20,6 +20,16 @@ mod events {
             from: T::AccountId,
             kitty_id: KittyId,
             to: T::AccountId,
+        },
+        KittyOnSale {
+            who: T::AccountId,
+            kitty_id: KittyId,
+        },
+        KittyBid {
+            who: T::AccountId,
+            kitty_id: u32,
+            block_number: BlockNumberFor<T>,
+            price: BalanceOf<T>,
         },
     }
 }

@@ -46,10 +46,14 @@ impl pallet_balances::Config for Test {
 // Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
     sp_tracing::try_init_simple();
-    frame_system::GenesisConfig::<Test>::default()
-        .build_storage()
-        .unwrap()
-        .into()
+    let mut ext: sp_io::TestExternalities =
+		frame_system::GenesisConfig::<Test>::default().build_storage().unwrap().into();
+	ext.execute_with(|| {
+		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 1, 999_999_999);
+		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 2, 999_999_999);
+		System::set_block_number(1);
+	});
+	ext
 }
 
 pub fn run_to_block(n: u64) {

@@ -16,7 +16,7 @@ mod dispatches {
             NextKittyId::<T>::put(next_kitty_id);
             KittyOwner::<T>::insert(kitty_id, who.clone());
             Self::deposit_event(Event::KittyCreated {
-                creator: who,
+                who: who,
                 kitty_id,
                 kitty: kitty.clone(),
             });
@@ -45,7 +45,7 @@ mod dispatches {
             KittyOwner::<T>::insert(kitty_id, &who);
 
             Self::deposit_event(Event::KittyBreed {
-                creator: who,
+                who: who,
                 kitty_id,
                 kitty: kitty.clone(),
             });
@@ -82,6 +82,7 @@ mod dispatches {
             let owner = KittyOwner::<T>::get(kitty_id).ok_or(Error::<T>::InvalidKittyId)?;
             ensure!(owner == who, Error::<T>::NotOwner);
             KittiesOnSale::<T>::insert(kitty_id, until_block);
+            Self::deposit_event(Event::KittyOnSale { who, kitty_id });
             Ok(())
         }
 
@@ -96,6 +97,12 @@ mod dispatches {
                 None => {
                     *bids = Some(vec![(who.clone(), price)]);
                 }
+            });
+            Self::deposit_event(Event::KittyBid {
+                who,
+                kitty_id,
+                price,
+                block_number: frame_system::Pallet::<T>::block_number(),
             });
             Ok(())
         }
