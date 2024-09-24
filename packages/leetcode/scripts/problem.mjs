@@ -3,19 +3,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '1014. 最佳观光组合',
-    url: 'https://leetcode.cn/problems/node-with-highest-edge-score',
+    exist: !true,
+    name: '2207. 字符串中最多数目的子序列',
+    url: 'https://leetcode.cn/problems/maximize-number-of-subsequences-in-a-string',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回 边积分 最高的节点。如果多个节点的 边积分 相同，返回编号 最小 的那个。`,
+    desc: `请你返回插入一个字符后，text 中最多包含多少个等于 pattern 的 子序列 。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 119,
-            memory: 21.2,
-            desc: '遍历时记录前面的最大值',
+            time: 162,
+            memory:16.99,
+            desc: '遍历时统计两个字符的数量',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
