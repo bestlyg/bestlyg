@@ -82,7 +82,11 @@ mod dispatches {
             let owner = KittyOwner::<T>::get(kitty_id).ok_or(Error::<T>::InvalidKittyId)?;
             ensure!(owner == who, Error::<T>::NotOwner);
             KittiesOnSale::<T>::insert(kitty_id, until_block);
-            Self::deposit_event(Event::KittyOnSale { who, kitty_id });
+            Self::deposit_event(Event::KittyOnSale {
+                who,
+                kitty_id,
+                until_block,
+            });
             Ok(())
         }
 

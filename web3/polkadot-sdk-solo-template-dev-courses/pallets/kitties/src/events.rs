@@ -24,6 +24,7 @@ mod events {
         KittyOnSale {
             who: T::AccountId,
             kitty_id: KittyId,
+            until_block: BlockNumberFor<T>,
         },
         KittyBid {
             who: T::AccountId,

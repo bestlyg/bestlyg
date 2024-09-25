@@ -145,6 +145,7 @@ fn it_kitty_sale() {
             Event::KittyOnSale {
                 who: 0,
                 kitty_id: 0,
+                until_block: 10,
             }
             .into(),
         );
@@ -196,5 +197,23 @@ fn it_kitty_bid() {
             }
             .into(),
         );
+    })
+}
+
+#[test]
+fn it_kitty_bid_done() {
+    new_test_ext().execute_with(|| {
+        run_to_block(1);
+        let alice = 1;
+        let caller = RuntimeOrigin::signed(alice);
+        assert_ok!(Kitties::create(caller.clone()));
+        assert_ok!(Kitties::sale(caller, 0, 10));
+        assert_ok!(Kitties::bid(RuntimeOrigin::signed(2), 0, 500));
+        assert_ok!(Kitties::bid(RuntimeOrigin::signed(3), 0, 300));
+
+        run_to_block(10);
+        assert!(crate::KittiesOnSale::<Test>::get(0).is_none());
+        assert!(crate::KittiesBid::<Test>::get(0).is_none());
+        assert_eq!(crate::KittyOwner::<Test>::get(0), Some(2));
     })
 }

@@ -2,7 +2,7 @@ use crate as pallet_kitties;
 use frame_support::traits::Hooks;
 use frame_support::{
     derive_impl,
-    traits::{ConstU128, ConstU64},
+    traits::{ConstU128, },
     weights::Weight,
 };
 use sp_runtime::BuildStorage;
@@ -51,6 +51,7 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
 	ext.execute_with(|| {
 		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 1, 999_999_999);
 		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 2, 999_999_999);
+		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 3, 999_999_999);
 		System::set_block_number(1);
 	});
 	ext

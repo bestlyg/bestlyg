@@ -15,6 +15,7 @@ mod hooks {
             log::info!("Kitties on_initialize at block {:?}", n);
             KittiesOnSale::<T>::iter().for_each(|(kitty_id, until_block)| {
                 if until_block == n {
+                    println!("===>on_initialize");
                     let owner = KittyOwner::<T>::get(kitty_id).expect("");
                     if let Some(bids) = KittiesBid::<T>::take(kitty_id) {
                         let mut new_owner = None;
@@ -28,7 +29,7 @@ mod hooks {
                                 new_owner = Some(bid.0.clone())
                             }
                         }
-
+                        println!("===>new_owner={:?},final_price={:?}",new_owner,final_price);
                         if final_price != BalanceOf::<T>::min_value() {
                             T::Currency::transfer(
                                 &new_owner.clone().unwrap(),
@@ -39,6 +40,8 @@ mod hooks {
                             .expect("");
 
                             KittyOwner::<T>::insert(kitty_id, new_owner.unwrap());
+                            KittiesOnSale::<T>::remove(kitty_id);
+                            KittiesBid::<T>::remove(kitty_id);
                         }
                     }
                 }
