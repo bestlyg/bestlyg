@@ -15,5 +15,7 @@ mod config {
         type Currency: Currency<Self::AccountId> + ReservableCurrency<Self::AccountId>;
         #[pallet::constant]
         type KittyPrice: Get<BalanceOf<Self>>;
+		#[pallet::constant]
+		type MaxPrices: Get<u32>;
     }
 }

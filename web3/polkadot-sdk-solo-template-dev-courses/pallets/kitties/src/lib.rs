@@ -2,6 +2,7 @@
 use frame_support::pallet_macros::import_section;
 pub use pallet::*;
 
+extern crate alloc;
 #[cfg(test)]
 mod mock;
 
@@ -83,4 +84,7 @@ pub mod pallet {
     // bid price for each kitty,
     #[pallet::storage]
     pub type KittiesOnSale<T: Config> = StorageMap<_, _, KittyId, BlockNumberFor<T>>;
+
+	#[pallet::storage]
+	pub type Prices<T: Config> = StorageValue<_, BoundedVec<u32, T::MaxPrices>, ValueQuery>;
 }

@@ -6,6 +6,7 @@ mod dispatches {
     #[pallet::call]
     impl<T: Config> Pallet<T> {
         #[pallet::call_index(0)]
+        #[pallet::weight(T::WeightInfo::create())]
         pub fn create(origin: OriginFor<T>) -> DispatchResult {
             let who = ensure_signed(origin)?;
             let value = Self::random_value(&who);
@@ -24,6 +25,7 @@ mod dispatches {
         }
 
         #[pallet::call_index(1)]
+        #[pallet::weight(T::WeightInfo::breed())]
         pub fn breed(
             origin: OriginFor<T>,
             kitty_id1: KittyId,
@@ -53,6 +55,7 @@ mod dispatches {
         }
 
         #[pallet::call_index(2)]
+        #[pallet::weight(T::WeightInfo::transfer())]
         pub fn transfer(
             origin: OriginFor<T>,
             recipient: T::AccountId,
@@ -73,6 +76,7 @@ mod dispatches {
         }
 
         #[pallet::call_index(3)]
+        #[pallet::weight(T::WeightInfo::sale())]
         pub fn sale(
             origin: OriginFor<T>,
             kitty_id: KittyId,
@@ -91,6 +95,7 @@ mod dispatches {
         }
 
         #[pallet::call_index(4)]
+        #[pallet::weight(T::WeightInfo::bid())]
         pub fn bid(origin: OriginFor<T>, kitty_id: KittyId, price: BalanceOf<T>) -> DispatchResult {
             let who = ensure_signed(origin)?;
             T::Currency::reserve(&who, price)?;

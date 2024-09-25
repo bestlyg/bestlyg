@@ -28,9 +28,12 @@ mod events {
         },
         KittyBid {
             who: T::AccountId,
-            kitty_id: u32,
+            kitty_id: KittyId,
             block_number: BlockNumberFor<T>,
             price: BalanceOf<T>,
+        },
+        NewPrice {
+            price: u32,
         },
     }
 }

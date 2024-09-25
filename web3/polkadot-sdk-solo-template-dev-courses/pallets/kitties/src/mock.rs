@@ -1,6 +1,6 @@
 use crate as pallet_kitties;
 use frame_support::traits::Hooks;
-use frame_support::{derive_impl, traits::ConstU128, weights::Weight};
+use frame_support::{derive_impl, traits::{ConstU128,ConstU32}, weights::Weight};
 use sp_runtime::BuildStorage;
 type Balance = u128;
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -28,6 +28,7 @@ impl pallet_kitties::Config for Test {
     type Randomness = Random;
     type Currency = Balances;
     type KittyPrice = ConstU128<200>;
+    type MaxPrices = ConstU32<1000>;
 }
 
 impl pallet_insecure_randomness_collective_flip::Config for Test {}
