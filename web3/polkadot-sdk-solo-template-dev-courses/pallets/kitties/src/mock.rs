@@ -1,10 +1,6 @@
 use crate as pallet_kitties;
 use frame_support::traits::Hooks;
-use frame_support::{
-    derive_impl,
-    traits::{ConstU128, },
-    weights::Weight,
-};
+use frame_support::{derive_impl, traits::ConstU128, weights::Weight};
 use sp_runtime::BuildStorage;
 type Balance = u128;
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -46,15 +42,17 @@ impl pallet_balances::Config for Test {
 // Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
     sp_tracing::try_init_simple();
-    let mut ext: sp_io::TestExternalities =
-		frame_system::GenesisConfig::<Test>::default().build_storage().unwrap().into();
-	ext.execute_with(|| {
-		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 1, 999_999_999);
-		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 2, 999_999_999);
-		let _ = Balances::force_set_balance(RuntimeOrigin::root(), 3, 999_999_999);
-		System::set_block_number(1);
-	});
-	ext
+    let mut ext: sp_io::TestExternalities = frame_system::GenesisConfig::<Test>::default()
+        .build_storage()
+        .unwrap()
+        .into();
+    ext.execute_with(|| {
+        let _ = Balances::force_set_balance(RuntimeOrigin::root(), 1, 999_999_999);
+        let _ = Balances::force_set_balance(RuntimeOrigin::root(), 2, 999_999_999);
+        let _ = Balances::force_set_balance(RuntimeOrigin::root(), 3, 999_999_999);
+        System::set_block_number(1);
+    });
+    ext
 }
 
 pub fn run_to_block(n: u64) {

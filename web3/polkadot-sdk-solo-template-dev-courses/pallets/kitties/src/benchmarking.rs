@@ -12,24 +12,26 @@ mod benchmarks {
     use super::*;
 
     #[benchmark]
-    fn do_something() {
-        let value = 100u32.into();
+    fn create() -> Result<(), BenchmarkError> {
         let caller: T::AccountId = whitelisted_caller();
+
         #[extrinsic_call]
-        do_something(RawOrigin::Signed(caller), value);
+        create(RawOrigin::Signed(caller.clone()));
 
-        assert_eq!(Something::<T>::get(), Some(value));
+        assert!(Kitties::<T>::get(&0).is_some());
+
+        Ok(())
     }
-
-    #[benchmark]
-    fn cause_error() {
-        Something::<T>::put(100u32);
-        let caller: T::AccountId = whitelisted_caller();
-        #[extrinsic_call]
-        cause_error(RawOrigin::Signed(caller));
-
-        assert_eq!(Something::<T>::get(), Some(101u32));
-    }
-
-    impl_benchmark_test_suite!(Template, crate::mock::new_test_ext(), crate::mock::Test);
 }
+
+// cargo build --profile=production --features runtime-benchmarks
+// ./target/production/solochain-template-node benchmark pallet \
+// --chain dev \
+// --execution=wasm \
+// --wasm-execution=compiled \
+// --pallet pallet_kitties \
+// --extrinsic "*" \
+// --steps 20 \
+// --repeat 10 \
+// --output pallets/kitties/src/weights.rs \
+// --template .maintain/frame-weight-template.hbs
