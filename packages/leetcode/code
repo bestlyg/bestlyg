@@ -1,10 +1,12 @@
 class Solution:
-    def maximumSubsequenceCount(self, text: str, pattern: str) -> int:
-        cnt1 = cnt2 = res = 0
-        for c in text:
-            if c == pattern[1]:
-                res += cnt1
-                cnt2 += 1
-            if c == pattern[0]:
-                cnt1 += 1
-        return res + max(cnt1, cnt2)
+    def distinctNames(self, ideas: List[str]) -> int:
+        map = defaultdict(set)
+        for idea in ideas: map[idea[0]].add(idea[1:])
+        data = list(map.values())
+        res = 0
+        for i1 in range(len(data)):
+            v1 = data[i1]
+            for i2 in range(i1):
+                v2 = data[i2]
+                res += len(v1 - v2) * len(v2 - v1) * 2
+        return res
