@@ -31,9 +31,10 @@ mod events {
             kitty_id: KittyId,
             block_number: BlockNumberFor<T>,
             price: BalanceOf<T>,
+            cents: Price,
         },
         NewPrice {
-            price: u32,
+            price: Price,
         },
     }
 }

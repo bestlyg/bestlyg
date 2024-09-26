@@ -112,6 +112,7 @@ mod dispatches {
                 kitty_id,
                 price,
                 block_number: frame_system::Pallet::<T>::block_number(),
+                cents: (TryInto::<Price>::try_into(price).ok().unwrap_or(0) * Prices::<T>::get()),
             });
             Ok(())
         }

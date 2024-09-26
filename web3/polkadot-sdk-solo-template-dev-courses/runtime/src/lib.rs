@@ -267,6 +267,7 @@ impl pallet_kitties::Config for Runtime {
     type Currency = Balances;
     type KittyPrice = ConstU128<200>;
     type MaxPrices = ConstU32<1000>;
+    // type AuthorityId = pallet_kitties::crypto::TestAuthId;
 }
 
 impl pallet_insecure_randomness_collective_flip::Config for Runtime {}

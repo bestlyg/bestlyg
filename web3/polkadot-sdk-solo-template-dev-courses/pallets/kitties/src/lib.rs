@@ -1,5 +1,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 use frame_support::pallet_macros::import_section;
+use sp_core::crypto::KeyTypeId;
 pub use pallet::*;
 
 extern crate alloc;
@@ -22,6 +23,46 @@ mod genesis;
 mod hooks;
 mod impls;
 
+/// Defines application identifier for crypto keys of this module.
+///
+/// Every module that deals with signatures needs to declare its unique identifier for
+/// its crypto keys.
+/// When offchain worker is signing transactions it's going to request keys of type
+/// `KeyTypeId` from the keystore and use the ones it finds to sign the transaction.
+/// The keys can be inserted manually via RPC (see `author_insertKey`).
+pub const KEY_TYPE: KeyTypeId = KeyTypeId(*b"btc!");
+
+/// Based on the above `KeyTypeId` we need to generate a pallet-specific crypto type wrappers.
+/// We can use from supported crypto kinds (`sr25519`, `ed25519` and `ecdsa`) and augment
+/// the types with this pallet-specific identifier.
+pub mod crypto {
+    use super::KEY_TYPE;
+    use sp_core::sr25519::Signature as Sr25519Signature;
+    use sp_runtime::{
+        app_crypto::{app_crypto, sr25519},
+        traits::Verify,
+        MultiSignature, MultiSigner,
+    };
+    app_crypto!(sr25519, KEY_TYPE);
+
+    pub struct TestAuthId;
+
+    impl frame_system::offchain::AppCrypto<MultiSigner, MultiSignature> for TestAuthId {
+        type RuntimeAppPublic = Public;
+        type GenericSignature = sp_core::sr25519::Signature;
+        type GenericPublic = sp_core::sr25519::Public;
+    }
+
+    // implemented for mock runtime in test
+    impl frame_system::offchain::AppCrypto<<Sr25519Signature as Verify>::Signer, Sr25519Signature>
+        for TestAuthId
+    {
+        type RuntimeAppPublic = Public;
+        type GenericSignature = sp_core::sr25519::Signature;
+        type GenericPublic = sp_core::sr25519::Public;
+    }
+}
+
 /// Import all sections from different files.
 #[import_section(extrinsics::dispatches)]
 #[import_section(errors::errors)]
@@ -43,6 +84,7 @@ pub mod pallet {
     use sp_io::hashing::blake2_128;
     use sp_std::prelude::*;
     use sp_weights::WeightMeter;
+    pub type Price = u32;
     pub type KittyId = u32;
     pub type KittyDna = [u8; 16];
     pub type BalanceOf<T> =
@@ -85,6 +127,6 @@ pub mod pallet {
     #[pallet::storage]
     pub type KittiesOnSale<T: Config> = StorageMap<_, _, KittyId, BlockNumberFor<T>>;
 
-	#[pallet::storage]
-	pub type Prices<T: Config> = StorageValue<_, BoundedVec<u32, T::MaxPrices>, ValueQuery>;
+    #[pallet::storage]
+    pub type Prices<T: Config> = StorageValue<_, Price, ValueQuery>;
 }

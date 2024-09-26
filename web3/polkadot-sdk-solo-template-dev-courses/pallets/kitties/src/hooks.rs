@@ -66,8 +66,35 @@ mod hooks {
             assert!(NextKittyId::<T>::get() == 0);
         }
 
-        fn offchain_worker(n: BlockNumberFor<T>) {
-            log::info!("Kitties offchain_worker at block {:?}", n);
+        fn offchain_worker(block_number: BlockNumberFor<T>) {
+            log::info!("Kitties offchain_worker at block {:?}", block_number);
+            let parent_hash = <frame_system::Pallet<T>>::block_hash(block_number - 1u32.into());
+            log::debug!(
+                "Current block: {:?} (parent hash: {:?})",
+                block_number,
+                parent_hash
+            );
+            let price = Self::fetch_price();
+            match price {
+                Err(err) => {
+                    log::info!("Fetch price err: {:?}", err);
+                }
+                Ok(price) => {
+                    log::info!(
+                        "Current price: {:?}, max = {:?}",
+                        price,
+                        T::MaxPrices::get()
+                    );
+                    // <Prices<T>>::mutate(|cur| *cur = price.min(T::MaxPrices::get()));
+                    // log::info!(
+                    //     "Current price: {:?}, max = {:?}, cur = {:?}",
+                    //     price,
+                    //     T::MaxPrices::get(),
+                    //     <Prices<T>>::get()
+                    // );
+                    // Self::deposit_event(Event::NewPrice { price });
+                }
+            }
         }
 
         #[cfg(feature = "try-runtime")]

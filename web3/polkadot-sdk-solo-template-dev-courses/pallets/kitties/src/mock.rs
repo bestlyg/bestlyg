@@ -1,9 +1,52 @@
 use crate as pallet_kitties;
 use frame_support::traits::Hooks;
-use frame_support::{derive_impl, traits::{ConstU128,ConstU32}, weights::Weight};
+use frame_support::{
+    derive_impl,
+    traits::{ConstU128, ConstU32},
+    weights::Weight,
+};
+use sp_core::{
+    offchain::{testing, OffchainWorkerExt, TransactionPoolExt},
+    sr25519::Signature,
+    H256,
+};
 use sp_runtime::BuildStorage;
+use sp_runtime::{
+    testing::TestXt,
+    traits::{BlakeTwo256, Extrinsic as ExtrinsicT, IdentifyAccount, IdentityLookup, Verify},
+    RuntimeAppPublic,
+};
+type Extrinsic = TestXt<RuntimeCall, ()>;
 type Balance = u128;
 type Block = frame_system::mocking::MockBlock<Test>;
+type AccountId = <<Signature as Verify>::Signer as IdentifyAccount>::AccountId;
+
+// impl frame_system::offchain::SigningTypes for Test {
+//     type Public = <Signature as Verify>::Signer;
+//     type Signature = Signature;
+// }
+
+// impl<LocalCall> frame_system::offchain::SendTransactionTypes<LocalCall> for Test
+// where
+//     RuntimeCall: From<LocalCall>,
+// {
+//     type OverarchingCall = RuntimeCall;
+//     type Extrinsic = Extrinsic;
+// }
+
+// impl<LocalCall> frame_system::offchain::CreateSignedTransaction<LocalCall> for Test
+// where
+//     RuntimeCall: From<LocalCall>,
+// {
+//     fn create_transaction<C: frame_system::offchain::AppCrypto<Self::Public, Self::Signature>>(
+//         call: RuntimeCall,
+//         _public: <Signature as Verify>::Signer,
+//         _account: AccountId,
+//         nonce: u64,
+//     ) -> Option<(RuntimeCall, <Extrinsic as ExtrinsicT>::SignaturePayload)> {
+//         Some((call, (nonce, ())))
+//     }
+// }
 
 // Configure a mock runtime to test the pallet.
 frame_support::construct_runtime!(

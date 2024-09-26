@@ -194,6 +194,7 @@ fn it_kitty_bid() {
                 kitty_id: 0,
                 price: 500,
                 block_number: 1,
+                cents: 500 * crate::Prices::<Test>::get(),
             }
             .into(),
         );
@@ -215,5 +216,18 @@ fn it_kitty_bid_done() {
         assert!(crate::KittiesOnSale::<Test>::get(0).is_none());
         assert!(crate::KittiesBid::<Test>::get(0).is_none());
         assert_eq!(crate::KittyOwner::<Test>::get(0), Some(2));
+    })
+}
+
+#[test]
+fn it_offchain_worker_price() {
+    new_test_ext().execute_with(|| {
+        run_to_block(2);
+        System::assert_has_event(
+            Event::NewPrice {
+                price: crate::Prices::<Test>::get(),
+            }
+            .into(),
+        );
     })
 }

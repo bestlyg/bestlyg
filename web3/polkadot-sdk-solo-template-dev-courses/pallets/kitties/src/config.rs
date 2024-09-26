@@ -4,6 +4,8 @@ use frame_support::pallet_macros::pallet_section;
 /// This can later be imported into the pallet using [`import_section`].
 #[pallet_section]
 mod config {
+    use frame_system::offchain::AppCrypto;
+    use frame_system::offchain::CreateSignedTransaction;
     #[pallet::config]
     pub trait Config: frame_system::Config {
         /// The overarching runtime event type.
@@ -15,7 +17,8 @@ mod config {
         type Currency: Currency<Self::AccountId> + ReservableCurrency<Self::AccountId>;
         #[pallet::constant]
         type KittyPrice: Get<BalanceOf<Self>>;
-		#[pallet::constant]
-		type MaxPrices: Get<u32>;
+        #[pallet::constant]
+        type MaxPrices: Get<u32>;
+        // type AuthorityId: AppCrypto<Self::Public, Self::Signature>;
     }
 }

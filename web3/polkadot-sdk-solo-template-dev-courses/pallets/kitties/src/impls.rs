@@ -57,7 +57,7 @@ mod impls {
             // since we are running in a custom WASM execution environment we can't simply
             // import the library here.
             let request = http::Request::get(
-                "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD",
+                "https://min-api.cryptocompare.com/data/price?fsym=DOT&tsyms=USD",
             );
             // We set the deadline for sending of the request, note that awaiting response can
             // have a separate deadline. Next we send the request, before that it's also possible
