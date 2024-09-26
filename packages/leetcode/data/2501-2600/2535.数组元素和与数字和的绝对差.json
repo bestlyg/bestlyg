@@ -19,8 +19,19 @@
             "desc": "同上。",
             "code": "impl Solution {\n    pub fn difference_of_sum(nums: Vec<i32>) -> i32 {\n        let mut ans = 0;\n        for num in nums {\n            ans += num;\n            ans -= Solution::comp(num);\n        }\n        ans.abs()\n    }\n    fn comp(num: i32) -> i32 {\n        let mut num = num;\n        let mut ans = 0;\n        while num > 0 {\n            ans += num % 10;\n            num /= 10;\n        }\n        ans\n    }\n}",
             "date": "2023-01-15"
+        },
+        {
+            "script": "python",
+            "time": 82,
+            "memory": 16.44,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def differenceOfSum(self, nums: List[int]) -> int:\n        def t(num: int) -> int:\n            return sum(int(v) for v in list(str(num)))\n        return sum(nums) - sum(t(num) for num in nums)",
+            "date": "2024-09-26"
         }
     ],
-    "tagList": ["数组", "数学"],
+    "tagList": [
+        "数组",
+        "数学"
+    ],
     "level": "Easy"
 }

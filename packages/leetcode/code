@@ -1,12 +1,5 @@
 class Solution:
-    def distinctNames(self, ideas: List[str]) -> int:
-        map = defaultdict(set)
-        for idea in ideas: map[idea[0]].add(idea[1:])
-        data = list(map.values())
-        res = 0
-        for i1 in range(len(data)):
-            v1 = data[i1]
-            for i2 in range(i1):
-                v2 = data[i2]
-                res += len(v1 - v2) * len(v2 - v1) * 2
-        return res
+    def differenceOfSum(self, nums: List[int]) -> int:
+        def t(num: int) -> int:
+            return sum(int(v) for v in list(str(num)))
+        return sum(nums) - sum(t(num) for num in nums)
