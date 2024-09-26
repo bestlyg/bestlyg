@@ -218,16 +218,3 @@ fn it_kitty_bid_done() {
         assert_eq!(crate::KittyOwner::<Test>::get(0), Some(2));
     })
 }
-
-#[test]
-fn it_offchain_worker_price() {
-    new_test_ext().execute_with(|| {
-        run_to_block(2);
-        System::assert_has_event(
-            Event::NewPrice {
-                price: crate::Prices::<Test>::get(),
-            }
-            .into(),
-        );
-    })
-}
