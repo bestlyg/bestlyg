@@ -5,6 +5,7 @@ use frame_support::pallet_macros::pallet_section;
 mod hooks {
     use frame_support::sp_runtime::traits::Bounded;
     use frame_support::traits::ExistenceRequirement;
+    use sp_runtime::TryRuntimeError;
     #[pallet::hooks]
     impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
         fn on_runtime_upgrade() -> Weight {
@@ -97,19 +98,19 @@ mod hooks {
             }
         }
 
-        #[cfg(feature = "try-runtime")]
-        fn pre_upgrade() -> Result<Vec<u8>, TryRuntimeError> {
-            unimplemented!()
-        }
+        // #[cfg(feature = "try-runtime")]
+        // fn pre_upgrade() -> Result<Vec<u8>, TryRuntimeError> {
+        //     unimplemented!()
+        // }
 
-        #[cfg(feature = "try-runtime")]
-        fn post_upgrade(_state: Vec<u8>) -> Result<(), TryRuntimeError> {
-            unimplemented!()
-        }
+        // #[cfg(feature = "try-runtime")]
+        // fn post_upgrade(_state: Vec<u8>) -> Result<(), TryRuntimeError> {
+        //     unimplemented!()
+        // }
 
-        #[cfg(feature = "try-runtime")]
-        fn try_state(_n: BlockNumberFor<T>) -> Result<(), TryRuntimeError> {
-            unimplemented!()
-        }
+        // #[cfg(feature = "try-runtime")]
+        // fn try_state(_n: BlockNumberFor<T>) -> Result<(), TryRuntimeError> {
+        //     unimplemented!()
+        // }
     }
 }

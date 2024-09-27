@@ -16,6 +16,7 @@ workspace = true
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
+log = { version = "0.4.21", default-features = false }
 codec = { package = "parity-scale-codec", version = "3.6.1", default-features = false, features = [
 	"derive",
 ] }
@@ -25,7 +26,9 @@ scale-info = { version = "2.10.0", default-features = false, features = [
 ] }
 
 # frame
-frame-support = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false, features = ["experimental"] }
+frame-support = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false, features = [
+	"experimental",
+] }
 frame-system = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
 frame-try-runtime = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false, optional = true }
 frame-executive = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
@@ -75,8 +78,8 @@ frame-system-benchmarking = { git = "https://github.com/paritytech/polkadot-sdk.
 
 # The pallet in this template.
 # pallet-template = { git = "https://github.com/paritytech/polkadot-sdk.git", tag = "polkadot-v1.10.0", default-features = false }
-pallet-template = { default-features = false, path = "../pallets/template"}
-pallet-poe = { default-features = false, path = "../pallets/poe"}
+pallet-template = { default-features = false, path = "../pallets/template" }
+pallet-poe = { default-features = false, path = "../pallets/poe" }
 pallet-kitties = { path = "../pallets/kitties", default-features = false }
 
 [build-dependencies]
@@ -103,7 +106,7 @@ std = [
 	"pallet-sudo/std",
 	"pallet-template/std",
 	"pallet-kitties/std",
-	"pallet-poe/std", 
+	"pallet-poe/std",
 	"pallet-timestamp/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-transaction-payment/std",
@@ -152,6 +155,17 @@ try-runtime = [
 	"pallet-sudo/try-runtime",
 	"pallet-template/try-runtime",
 	"pallet-timestamp/try-runtime",
+	"pallet-kitties/try-runtime",
+	"pallet-poe/try-runtime",
 	"pallet-transaction-payment/try-runtime",
+	"pallet-insecure-randomness-collective-flip/try-runtime",
 	"sp-runtime/try-runtime",
 ]
+
+# try-runtime \
+# --runtime ./target/release/wbuild/solochain-template-runtime/solochain_template_runtime.wasm \
+# on-runtime-upgrade \
+# --checks pre-and-post \
+# --disable-idempotency-checks \
+# --no-weight-warnings live \
+# --uri ws://127.0.0.1:9944

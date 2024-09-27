@@ -3,21 +3,7 @@
 #[cfg(feature = "std")]
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
-use pallet_grandpa::AuthorityId as GrandpaId;
-use sp_api::impl_runtime_apis;
-use sp_consensus_aura::sr25519::AuthorityId as AuraId;
-use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
-use sp_runtime::{
-    create_runtime_str, generic, impl_opaque_keys,
-    traits::{BlakeTwo256, Block as BlockT, IdentifyAccount, NumberFor, One, Verify},
-    transaction_validity::{TransactionSource, TransactionValidity},
-    ApplyExtrinsicResult, MultiSignature,
-};
-use sp_std::prelude::*;
-#[cfg(feature = "std")]
-use sp_version::NativeVersion;
-use sp_version::RuntimeVersion;
-
+use frame_support::ensure;
 use frame_support::genesis_builder_helper::{build_config, create_default_config};
 pub use frame_support::{
     construct_runtime, derive_impl, parameter_types,
@@ -35,11 +21,28 @@ pub use frame_support::{
 };
 pub use frame_system::Call as SystemCall;
 pub use pallet_balances::Call as BalancesCall;
+use pallet_grandpa::AuthorityId as GrandpaId;
 pub use pallet_timestamp::Call as TimestampCall;
 use pallet_transaction_payment::{ConstFeeMultiplier, CurrencyAdapter, Multiplier};
+use codec::Decode;
+use codec::Encode;
+use sp_api::impl_runtime_apis;
+use sp_consensus_aura::sr25519::AuthorityId as AuraId;
+use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
+use sp_runtime::TryRuntimeError;
+use sp_runtime::{
+    create_runtime_str, generic, impl_opaque_keys,
+    traits::{BlakeTwo256, Block as BlockT, IdentifyAccount, NumberFor, One, Verify},
+    transaction_validity::{TransactionSource, TransactionValidity},
+    ApplyExtrinsicResult, MultiSignature,
+};
 pub use sp_runtime::{Perbill, Permill};
+use sp_std::prelude::*;
+#[cfg(feature = "std")]
+use sp_version::NativeVersion;
+use sp_version::RuntimeVersion;
 
 pub use pallet_kitties;
 /// Import the template pallet.
@@ -341,11 +344,33 @@ pub type SignedExtra = (
     pallet_transaction_payment::ChargeTransactionPayment<Runtime>,
 );
 
+pub struct ExampleMigration<T: pallet_kitties::Config>(core::marker::PhantomData<T>);
+impl<T: pallet_kitties::Config> frame_support::traits::OnRuntimeUpgrade for ExampleMigration<T> {
+    fn on_runtime_upgrade() -> frame_support::weights::Weight {
+        log::info!("example migration");
+        pallet_kitties::NextKittyId::<T>::mutate(|kitty_id| *kitty_id = 0);
+        Weight::default()
+    }
+    #[cfg(feature = "try-runtime")]
+    fn pre_upgrade() -> Result<Vec<u8>, sp_runtime::TryRuntimeError> {
+        log::info!("example pre_upgrade");
+        let kitty_id = pallet_kitties::NextKittyId::<T>::get();
+        Ok(kitty_id.encode())
+    }
+    #[cfg(feature = "try-runtime")]
+    fn post_upgrade(state: Vec<u8>) -> Result<(), sp_runtime::TryRuntimeError> {
+        log::info!("example post_upgrade");
+        let kitty_id_before = u32::decode(&mut &state[..]).map_err(|_| "invalid")?;
+        let kitty_id_after = pallet_kitties::NextKittyId::<T>::get();
+        ensure!(kitty_id_before == kitty_id_after, "invalid state");
+        Ok(())
+    }
+}
 /// All migrations of the runtime, aside from the ones declared in the pallets.
 ///
 /// This can be a tuple of types, each implementing `OnRuntimeUpgrade`.
 #[allow(unused_parens)]
-type Migrations = ();
+type Migrations = (ExampleMigration<Runtime>);
 
 /// Unchecked extrinsic type as expected by this runtime.
 pub type UncheckedExtrinsic =

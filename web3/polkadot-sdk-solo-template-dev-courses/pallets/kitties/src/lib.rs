@@ -1,7 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 use frame_support::pallet_macros::import_section;
-use sp_core::crypto::KeyTypeId;
 pub use pallet::*;
+use sp_core::crypto::KeyTypeId;
 
 extern crate alloc;
 #[cfg(test)]
