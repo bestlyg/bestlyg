@@ -1,5 +1,24 @@
 class Solution:
-    def differenceOfSum(self, nums: List[int]) -> int:
-        def t(num: int) -> int:
-            return sum(int(v) for v in list(str(num)))
-        return sum(nums) - sum(t(num) for num in nums)
+    def takeCharacters(self, s: str, k: int) -> int:
+        if k == 0: return 0
+        map = defaultdict(int)
+        check = lambda : all(v >= k for v in map.values()) and len(map.keys()) == 3
+        n = len(s)
+        l = 0
+        while l < n and not check():
+            map[s[l]] += 1
+            l += 1
+        if not check(): return -1
+        res = l
+        cur = l
+        for r in range(n - 1, -1, -1):
+            map[s[r]] += 1
+            l -= 1
+            map[s[l]] -= 1
+            while check() and l > 0:
+                res = min(res, cur)
+                l -= 1
+                map[s[l]] -= 1
+                cur -= 1
+            if check() and l == 0: res = min(res, cur)
+        return res
