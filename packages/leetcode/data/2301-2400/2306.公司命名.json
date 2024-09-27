@@ -2,13 +2,7 @@
     "name": "2306.公司命名",
     "url": "https://leetcode.cn/problems/naming-a-company",
     "level": "Hard",
-    "tagList": [
-        "位运算",
-        "数组",
-        "哈希表",
-        "字符串",
-        "枚举"
-    ],
+    "tagList": ["位运算", "数组", "哈希表", "字符串", "枚举"],
     "desc": "返回 不同 且有效的公司名字的数目。",
     "solutions": [
         {
