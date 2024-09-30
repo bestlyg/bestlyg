@@ -1,11 +1,7 @@
-class Solution:
-    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
-        i = 0
-        n = len(tickets)
-        res = 1
-        while True:
-            if tickets[i]:
-                tickets[i] -= 1
-                if i == k and tickets[i] == 0: return res
-                res += 1
-            i = (i + 1) % n
+class SeatManager:
+    def __init__(self, n: int):
+        self.q = [i + 1 for i in range(n)]
+    def reserve(self) -> int:
+        return heappop(self.q)
+    def unreserve(self, seatNumber: int) -> None:
+        heappush(self.q, seatNumber)
