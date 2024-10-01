@@ -89,6 +89,7 @@ pub mod pallet {
     pub type KittyDna = [u8; 16];
     pub type BalanceOf<T> =
         <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
+    pub(crate) const STORAGE_VERSION: StorageVersion = StorageVersion::new(0);
 
     #[derive(
         Encode,
