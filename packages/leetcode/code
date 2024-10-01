@@ -1,7 +1,13 @@
-class SeatManager:
-    def __init__(self, n: int):
-        self.q = [i + 1 for i in range(n)]
-    def reserve(self) -> int:
-        return heappop(self.q)
-    def unreserve(self, seatNumber: int) -> None:
-        heappush(self.q, seatNumber)
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        @cache
+        def walk(idx: int, last: int) -> int:
+            if idx == len(days): return 0
+            day = days[idx]
+            if day <= last: return walk(idx + 1, last)
+            return min(
+                walk(idx + 1, day + 1 - 1)  + costs[0],
+                walk(idx + 1, day + 7 - 1)  + costs[1],
+                walk(idx + 1, day + 30 - 1) + costs[2],
+            )
+        return walk(0, -1)

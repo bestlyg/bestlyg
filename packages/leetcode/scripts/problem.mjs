@@ -3,19 +3,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist:!true,
-    name: '1845. 座位预约管理系统',
-    url: 'https://leetcode.cn/problems/seat-reservation-manager',
+    exist: true,
+    name: '983. 最低票价',
+    url: 'https://leetcode.cn/problems/minimum-cost-for-tickets',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回位于位置 k（下标从 0 开始）的人完成买票需要的时间（以秒为单位）。`,
+    desc: `返回 你想要完成在给定的列表 days 中列出的每一天的旅行所需要的最低消费 。`,
     solutions: [
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 423,
-            memory: 45.07,
-            desc: 'heap',
+            time: 47,
+            memory: 18.82,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
