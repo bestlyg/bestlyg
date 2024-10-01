@@ -4,8 +4,8 @@ use frame_support::pallet_macros::pallet_section;
 /// This can later be imported into the pallet using [`import_section`].
 #[pallet_section]
 mod config {
-    use frame_system::offchain::AppCrypto;
-    use frame_system::offchain::CreateSignedTransaction;
+    // use frame_system::offchain::AppCrypto;
+    // use frame_system::offchain::CreateSignedTransaction;
     #[pallet::config]
     pub trait Config: frame_system::Config {
         /// The overarching runtime event type.

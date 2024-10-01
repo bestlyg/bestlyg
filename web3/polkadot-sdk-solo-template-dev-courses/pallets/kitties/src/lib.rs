@@ -22,6 +22,7 @@ mod extrinsics;
 mod genesis;
 mod hooks;
 mod impls;
+pub mod migration;
 
 /// Defines application identifier for crypto keys of this module.
 ///
@@ -79,6 +80,7 @@ pub mod pallet {
     use frame_support::traits::Currency;
     use frame_support::traits::Randomness;
     use frame_support::traits::ReservableCurrency;
+    use frame_support::traits::StorageVersion;
     use frame_system::pallet_prelude::*;
     use serde::{Deserialize, Serialize};
     use sp_io::hashing::blake2_128;
@@ -89,7 +91,9 @@ pub mod pallet {
     pub type KittyDna = [u8; 16];
     pub type BalanceOf<T> =
         <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
-    pub(crate) const STORAGE_VERSION: StorageVersion = StorageVersion::new(0);
+
+    #[allow(dead_code)]
+    pub(crate) const STORAGE_VERSION: StorageVersion = StorageVersion::new(1);
 
     #[derive(
         Encode,
@@ -106,7 +110,10 @@ pub mod pallet {
         Ord,
         Debug,
     )]
-    pub struct Kitty(pub KittyDna);
+    pub struct Kitty {
+        pub dna: KittyDna,
+        pub price: Price,
+    }
 
     #[pallet::pallet]
     #[pallet::storage_version(STORAGE_VERSION)]

@@ -12,7 +12,10 @@ mod genesis {
     impl<T: Config> Default for GenesisConfig<T> {
         fn default() -> Self {
             Self {
-                genesis_kitty: Kitty([0; 16]),
+                genesis_kitty: Kitty{
+                    dna: [0; 16],
+                    price: 0
+                },
                 _marker: Default::default(),
             }
         }

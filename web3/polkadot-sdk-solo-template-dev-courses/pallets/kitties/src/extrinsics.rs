@@ -11,7 +11,10 @@ mod dispatches {
             let who = ensure_signed(origin)?;
             let value = Self::random_value(&who);
             let kitty_id = NextKittyId::<T>::get();
-            let kitty = Kitty(value);
+            let kitty = Kitty {
+                dna: value,
+                price: 0,
+            };
             Kitties::<T>::insert(kitty_id, kitty);
             let next_kitty_id = kitty_id.checked_add(1).ok_or(Error::<T>::KittyIdOverflow)?;
             NextKittyId::<T>::put(next_kitty_id);
@@ -39,9 +42,9 @@ mod dispatches {
             let selector = Self::random_value(&who);
             let mut dna = [0u8; 16];
             for (i, v) in selector.into_iter().enumerate() {
-                dna[i] = kitty1.0[i] & v | kitty2.0[i] & v;
+                dna[i] = kitty1.dna[i] & v | kitty2.dna[i] & v;
             }
-            let kitty = Kitty(dna);
+            let kitty = Kitty { dna, price: 0 };
 
             Kitties::<T>::insert(kitty_id, &kitty);
             KittyOwner::<T>::insert(kitty_id, &who);

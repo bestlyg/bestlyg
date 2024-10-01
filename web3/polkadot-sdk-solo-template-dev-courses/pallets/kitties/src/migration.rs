@@ -33,12 +33,6 @@ pub fn migrate_to_v1<T: Config>() -> Weight {
             Kitties::<T>::insert(key, new_kitty);
         }
         StorageVersion::new(1).put::<Pallet<T>>();
-        let count = Kitties::<T>::iter().count() as u64 + 1;
-        log::info!(
-            "current version is 0, will upgrade to v1,Kitties len:{:?}",
-            count
-        );
-        return T::DbWeight::get().reads_writes(count, count);
     }
     Weight::default()
 }

@@ -3,13 +3,14 @@ use frame_support::pallet_macros::pallet_section;
 /// Define all hooks used in the pallet.
 #[pallet_section]
 mod hooks {
+    use crate::migration::migrate_to_v1;
     use frame_support::sp_runtime::traits::Bounded;
     use frame_support::traits::ExistenceRequirement;
-    use sp_runtime::TryRuntimeError;
     #[pallet::hooks]
     impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
         fn on_runtime_upgrade() -> Weight {
-            Weight::default()
+            //Weight::default()
+            migrate_to_v1::<T>()
         }
 
         fn on_initialize(n: BlockNumberFor<T>) -> Weight {
@@ -39,6 +40,15 @@ mod hooks {
                             .expect("");
 
                             KittyOwner::<T>::insert(kitty_id, new_owner.unwrap());
+                            Kitties::<T>::mutate(&kitty_id, |kitty| match kitty {
+                                Some(kitty) => {
+                                    kitty.price =
+                                        (TryInto::<Price>::try_into(final_price).ok().unwrap_or(0)
+                                            * Prices::<T>::get());
+                                }
+                                None => {}
+                            });
+
                             KittiesOnSale::<T>::remove(kitty_id);
                             KittiesBid::<T>::remove(kitty_id);
                         }
