@@ -109,6 +109,7 @@ pub mod pallet {
     pub struct Kitty(pub KittyDna);
 
     #[pallet::pallet]
+    #[pallet::storage_version(STORAGE_VERSION)]
     pub struct Pallet<T>(_);
 
     #[pallet::storage]
