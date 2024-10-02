@@ -1,13 +1,18 @@
 class Solution:
-    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
-        @cache
-        def walk(idx: int, last: int) -> int:
-            if idx == len(days): return 0
-            day = days[idx]
-            if day <= last: return walk(idx + 1, last)
-            return min(
-                walk(idx + 1, day + 1 - 1)  + costs[0],
-                walk(idx + 1, day + 7 - 1)  + costs[1],
-                walk(idx + 1, day + 30 - 1) + costs[2],
-            )
-        return walk(0, -1)
+    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        def run(speed: int) -> float:
+            res = float(0)
+            for d in dist:
+                res = ceil(res) + d / speed
+            return res
+        MAX = 0x7fffffff
+        l = 1
+        r = MAX
+        while l < r:
+            m = (l + r) // 2
+            v = run(m)
+            if v <= hour:
+                r = m
+            else:
+                l = m + 1
+        return l if l != MAX else -1
