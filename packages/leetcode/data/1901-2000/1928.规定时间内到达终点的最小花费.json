@@ -1,0 +1,22 @@
+{
+    "name": "1928.规定时间内到达终点的最小花费",
+    "url": "https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time",
+    "level": "Hard",
+    "tagList": [
+        "图",
+        "数组",
+        "动态规划"
+    ],
+    "desc": "给你 maxTime，edges 和 passingFees ，请你返回完成旅行的 最小费用 ，如果无法在 maxTime 分钟以内完成旅行，请你返回 -1 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 1579,
+            "memory": 27.52,
+            "desc": "按费用进行优先队列",
+            "code": "class Node:\n    def __init__(self, idx: int, fee: int):\n        self.idx = idx\n        self.fee = fee\n        self.next = []\n    def __str__(self):\n        return f'Node({self.idx}, {self.fee}, {list(map(lambda v: v[0].idx, self.next))})'\nclass Solution:\n    def minCost(self, maxTime: int, edges: List[List[int]], passingFees: List[int]) -> int:\n        n = len(passingFees)\n        nodes = [Node(i, passingFees[i]) for i in range(n)]\n        for start, end, time in edges:\n            nodes[start].next.append((end, time))\n            nodes[end].next.append((start, time))\n        q = [(passingFees[0], 0, 0)]\n        time_used = defaultdict(dict)\n        res = inf\n        while q:\n            fee, time, node_idx = heappop(q)\n            node = nodes[node_idx]\n            if node.idx == n - 1: return fee\n            for child_idx, t in node.next:\n                child = nodes[child_idx]\n                next_time = time + t\n                next_fee = fee + child.fee\n                if next_time <= maxTime and \\\n                    (next_time not in time_used[child_idx] or \\\n                     time_used[child_idx][next_time] > next_fee):\n                    time_used[child_idx][next_time] = next_fee\n                    heappush(q, (next_fee, next_time, child.idx))\n        return -1",
+            "date": "2024-10-03"
+        }
+    ],
+    "id": "2040"
+}

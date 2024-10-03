@@ -1,18 +1,31 @@
+class Node:
+    def __init__(self, idx: int, fee: int):
+        self.idx = idx
+        self.fee = fee
+        self.next = []
+    def __str__(self):
+        return f'Node({self.idx}, {self.fee}, {list(map(lambda v: v[0].idx, self.next))})'
 class Solution:
-    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
-        def run(speed: int) -> float:
-            res = float(0)
-            for d in dist:
-                res = ceil(res) + d / speed
-            return res
-        MAX = 0x7fffffff
-        l = 1
-        r = MAX
-        while l < r:
-            m = (l + r) // 2
-            v = run(m)
-            if v <= hour:
-                r = m
-            else:
-                l = m + 1
-        return l if l != MAX else -1
+    def minCost(self, maxTime: int, edges: List[List[int]], passingFees: List[int]) -> int:
+        n = len(passingFees)
+        nodes = [Node(i, passingFees[i]) for i in range(n)]
+        for start, end, time in edges:
+            nodes[start].next.append((end, time))
+            nodes[end].next.append((start, time))
+        q = [(passingFees[0], 0, 0)]
+        time_used = defaultdict(dict)
+        res = inf
+        while q:
+            fee, time, node_idx = heappop(q)
+            node = nodes[node_idx]
+            if node.idx == n - 1: return fee
+            for child_idx, t in node.next:
+                child = nodes[child_idx]
+                next_time = time + t
+                next_fee = fee + child.fee
+                if next_time <= maxTime and \
+                    (next_time not in time_used[child_idx] or \
+                     time_used[child_idx][next_time] > next_fee):
+                    time_used[child_idx][next_time] = next_fee
+                    heappush(q, (next_fee, next_time, child.idx))
+        return -1
