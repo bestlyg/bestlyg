@@ -1,0 +1,23 @@
+{
+    "name": "1227.飞机座位分配概率",
+    "url": "https://leetcode.cn/problems/airplane-seat-assignment-probability",
+    "level": "Medium",
+    "tagList": [
+        "脑筋急转弯",
+        "数学",
+        "动态规划",
+        "概率与统计"
+    ],
+    "desc": "第 n 位乘客坐在自己的座位上的概率是多少？。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 37,
+            "memory": 16.34,
+            "desc": "数学",
+            "code": "class Solution:\n    def nthPersonGetsNthSeat(self, n: int) -> float:\n        return 0.5 if n > 1 else 1.0",
+            "date": "2024-10-04"
+        }
+    ],
+    "id": "1362"
+}
