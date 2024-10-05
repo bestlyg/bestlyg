@@ -1,3 +1,11 @@
 class Solution:
-    def nthPersonGetsNthSeat(self, n: int) -> float:
-        return 0.5 if n > 1 else 1.0
+    def minimumTime(self, time: List[int], totalTrips: int) -> int:
+        l = 0
+        r = sys.maxsize
+        while l < r:
+            m = (l + r) // 2
+            if sum(m // t for t in time) >= totalTrips:
+                r = m
+            else:
+                l = m + 1
+        return l

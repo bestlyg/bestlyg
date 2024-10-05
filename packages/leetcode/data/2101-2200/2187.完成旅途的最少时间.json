@@ -1,0 +1,21 @@
+{
+    "name": "2187.完成旅途的最少时间",
+    "url": "https://leetcode.cn/problems/minimum-time-to-complete-trips",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
+    "desc": "给你一个整数 totalTrips ，表示所有公交车 总共 需要完成的旅途数目。请你返回完成 至少 totalTrips 趟旅途需要花费的 最少 时间。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 2504,
+            "memory": 28.99,
+            "desc": "二分答案",
+            "code": "class Solution:\n    def minimumTime(self, time: List[int], totalTrips: int) -> int:\n        l = 0\n        r = sys.maxsize\n        while l < r:\n            m = (l + r) // 2\n            if sum(m // t for t in time) >= totalTrips:\n                r = m\n            else:\n                l = m + 1\n        return l",
+            "date": "2024-10-05"
+        }
+    ],
+    "id": "2294"
+}
