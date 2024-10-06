@@ -11,8 +11,19 @@
             "script": "typescript",
             "desc": "选取首点进行遍历计算。",
             "code": "function canCompleteCircuit(gas: number[], cost: number[]): number {\n  const len = gas.length;\n  const starts: number[] = [];\n  for (let i = 0; i < len; i++) {\n    gas[i] >= cost[i] && starts.push(i);\n  }\n  for (const start of starts) {\n    let arg = gas[start] - cost[start];\n    let i = (start + 1) % len;\n    while (i !== start) {\n      arg += gas[i] - cost[i];\n      if (arg < 0) break;\n      i = (i + 1) % len;\n    }\n    if (i === start) return i;\n  }\n  return -1;\n}"
+        },
+        {
+            "script": "python",
+            "time": 95,
+            "memory": 22.05,
+            "desc": "对于每一个下标进行尝试，如果尝试失败则从下一个失败点进行尝试。",
+            "code": "class Solution:\n    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:\n        def run(start: int) -> Tuple[int, int]:\n            i = start\n            cur = gas[start]\n            for _ in range(n):\n                cur -= cost[i]\n                if cur < 0: return (-1, (i + 1) % n)\n                i = (i + 1) % n\n                cur += gas[i]\n            return (start, i)\n        n = len(gas)\n        start = 0\n        while True:\n            res, next = run(start)\n            if res != -1: return res\n            if next <= start: return -1\n            start = next",
+            "date": "2024-10-06"
         }
     ],
-    "tagList": ["贪心", "数组"],
+    "tagList": [
+        "贪心",
+        "数组"
+    ],
     "level": "Medium"
 }

@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '2187. 完成旅途的最少时间',
+    exist: true,
+    name: '134. 加油站',
     url: 'https://leetcode.cn/problems/minimum-time-to-complete-trips',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 2504,
-            memory: 28.99,
-            desc: '二分答案',
+            time: 95,
+            memory: 22.05,
+            desc: '对于每一个下标进行尝试，如果尝试失败则从下一个失败点进行尝试',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

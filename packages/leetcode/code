@@ -1,11 +1,18 @@
 class Solution:
-    def minimumTime(self, time: List[int], totalTrips: int) -> int:
-        l = 0
-        r = sys.maxsize
-        while l < r:
-            m = (l + r) // 2
-            if sum(m // t for t in time) >= totalTrips:
-                r = m
-            else:
-                l = m + 1
-        return l
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        def run(start: int) -> Tuple[int, int]:
+            i = start
+            cur = gas[start]
+            for _ in range(n):
+                cur -= cost[i]
+                if cur < 0: return (-1, (i + 1) % n)
+                i = (i + 1) % n
+                cur += gas[i]
+            return (start, i)
+        n = len(gas)
+        start = 0
+        while True:
+            res, next = run(start)
+            if res != -1: return res
+            if next <= start: return -1
+            start = next
