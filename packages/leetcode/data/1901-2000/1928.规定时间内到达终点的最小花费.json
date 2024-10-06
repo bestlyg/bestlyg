@@ -2,11 +2,7 @@
     "name": "1928.规定时间内到达终点的最小花费",
     "url": "https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time",
     "level": "Hard",
-    "tagList": [
-        "图",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["图", "数组", "动态规划"],
     "desc": "给你 maxTime，edges 和 passingFees ，请你返回完成旅行的 最小费用 ，如果无法在 maxTime 分钟以内完成旅行，请你返回 -1 。",
     "solutions": [
         {
