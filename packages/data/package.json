@@ -39,11 +39,11 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
-        "@modern-js/module-tools": "^2.58.0",
-        "@types/node": "^20.14.13",
+        "@modern-js/module-tools": "^2.60.2",
+        "@types/node": "^20.16.10",
         "typescript": "^5.5.4"
     },
     "dependencies": {
-        "dayjs": "^1.11.12"
+        "dayjs": "^1.11.13"
     }
 }
