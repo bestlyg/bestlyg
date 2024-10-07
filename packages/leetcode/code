@@ -1,18 +1,13 @@
 class Solution:
-    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        def run(start: int) -> Tuple[int, int]:
-            i = start
-            cur = gas[start]
-            for _ in range(n):
-                cur -= cost[i]
-                if cur < 0: return (-1, (i + 1) % n)
-                i = (i + 1) % n
-                cur += gas[i]
-            return (start, i)
-        n = len(gas)
-        start = 0
-        while True:
-            res, next = run(start)
-            if res != -1: return res
-            if next <= start: return -1
-            start = next
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        stations.append([target, 0])
+        res = 0
+        cur = startFuel
+        q = []
+        for pos, fuel in stations:
+            while q and cur < pos:
+                res += 1
+                cur += -heappop(q)
+            if cur < pos: return -1
+            heappush(q, -fuel)
+        return res
