@@ -44,6 +44,7 @@
         "dev": "modern build --watch"
     },
     "dependencies": {
+        "change-case": "^5.4.4",
         "fs-extra": "^11.2.0",
         "protobufjs": "^7.4.0",
         "tapable": "^2.2.1"

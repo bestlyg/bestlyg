@@ -1,0 +1,52 @@
+syntax = "proto2";
+
+package api.example;
+
+// 阿斯顿
+message User {
+  // 名字
+  required string first_name = 1;
+  required string last_name = 2;
+  required bool active = 3;
+  required User manager = 4;
+  repeated string locations = 5;
+  // 你好
+  map<string, bool> projects = 6;
+}
+
+message SearchRequest {
+  required string A = 1;
+  required Corpus corpus = 2;
+}
+
+
+message SearchResponseResult {
+  required string url = 1;
+  required string title = 2;
+  repeated string snippets = 3;
+}
+
+message SearchResponse {
+  repeated SearchResponseResult results = 1;
+}
+
+// Corpus嗷嗷
+enum Corpus {
+  /* CCC */
+  CORPUS_UNSPECIFIED = 0; 
+  CORPUS_UNIVERSAL = 1; // becomes awesomeField
+  CORPUS_WEB = 2;
+  CORPUS_IMAGES = 3;
+  CORPUS_LOCAL = 4;
+  CORPUS_NEWS = 5;
+  CORPUS_PRODUCTS = 6;
+  CORPUS_VIDEO = 7;
+}
+
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse) {
+    option (api.url) = "/api/v1/messages";
+    option (api.method) = "post";
+    option (api.serializer) = "json";
+  }
+}

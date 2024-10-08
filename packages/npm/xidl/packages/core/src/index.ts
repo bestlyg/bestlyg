@@ -1,8 +1,8 @@
 import { protobufjs as pb, tapable } from '@xidl/shared';
 
 export interface XIdlConfig {
-    inputDir: string;
-    outputDir: string;
+    inputFilePath: string;
+    outputDirPath: string;
     splitChar?: string;
     indentCount?: number;
     indentUnit?: string;
@@ -39,8 +39,13 @@ export abstract class XIdl {
     constructor(config: XIdlConfig) {
         this.config = createConfig(config);
     }
-    async createRoot(...args: Parameters<InstanceType<typeof pb.Root>['load']>): Promise<pb.Root> {
-        const [filePath, options] = args;
+    async createRoot({
+        filePath = this.config.inputFilePath,
+        options = {},
+    }: {
+        filePath?: string;
+        options?: Parameters<InstanceType<typeof pb.Root>['load']>[1];
+    } = {}): Promise<pb.Root> {
         const root = new pb.Root();
         await root.load(filePath, {
             keepCase: true,
