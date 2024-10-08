@@ -1,13 +1,7 @@
 class Solution:
-    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
-        stations.append([target, 0])
-        res = 0
-        cur = startFuel
-        q = []
-        for pos, fuel in stations:
-            while q and cur < pos:
-                res += 1
-                cur += -heappop(q)
-            if cur < pos: return -1
-            heappush(q, -fuel)
-        return res
+    def destCity(self, paths: List[List[str]]) -> str:
+        city_map = defaultdict(int)
+        for a, b in paths:
+            city_map[a] += 1
+            city_map[b]
+        return [city for city, arr in city_map.items() if not arr][0]

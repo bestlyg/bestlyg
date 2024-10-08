@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '871. 最低加油次数',
+    exist: true,
+    name: '1436. 旅行终点站',
     url: 'https://leetcode.cn/problems/minimum-number-of-refueling-stops',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY,
             // date: '2024-09-15',
-            time: 52,
-            memory: 16.74,
-            desc: '贪心，每次走到最大距离时，加一次最多的加油站的油',
+            time: 43,
+            memory: 16.3,
+            desc: '哈希存储',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
