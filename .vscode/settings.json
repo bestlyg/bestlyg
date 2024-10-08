@@ -102,7 +102,7 @@
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "cSpell.userWords": ["bestlyg", "bundleless", "leetcode"],
+    "cSpell.userWords": ["bestlyg", "bundleless", "leetcode", "xidl"],
     "prettier.prettierPath": "./node_modules/prettier",
     "editor.wordWrap": "on"
 }

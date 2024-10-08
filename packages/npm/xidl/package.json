@@ -1,0 +1,20 @@
+{
+    "name": "xidl",
+    "version": "0.0.0",
+    "keywords": [
+        "idl"
+    ],
+    "author": "bestlyg@foxmail.com",
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
+    "license": "MIT",
+    "files": [
+        "package.json"
+    ],
+    "scripts": {
+        "build": "pnpm nx run-many -t build -p \"@xidl/*\"",
+        "dev": "pnpm nx watch -p \"@xidl/*\" -- nx run build"
+    },
+    "devDependencies": {
+        "@modern-js/module-tools": "^2.60.2"
+    }
+}

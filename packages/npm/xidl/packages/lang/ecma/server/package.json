@@ -1,0 +1,49 @@
+{
+    "name": "@xidl/ecma-client",
+    "version": "0.0.0",
+    "keywords": [
+        "idl"
+    ],
+    "type": "module",
+    "main": "./dist/lib/index.cjs",
+    "types": "./dist/types/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/esm/index.d.ts"
+            ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        },
+        "./package.json": "./package.json"
+    },
+    "author": "bestlyg@foxmail.com",
+    "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
+    "license": "MIT",
+    "devDependencies": {
+        "@modern-js/module-tools": "^2.60.2",
+        "@types/node": "^22.7.5",
+        "typescript": "^5.6.2"
+    },
+    "scripts": {
+        "build": "modern build",
+        "prepublishOnly": "pnpm build",
+        "dev": "modern build --watch"
+    },
+    "dependencies": {
+        "@xidl/shared": "workspace:^",
+        "@xidl/core": "workspace:^",
+        "@xidl/ecma-core": "workspace:^"
+    }
+}
