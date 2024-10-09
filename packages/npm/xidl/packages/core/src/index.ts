@@ -2,8 +2,8 @@ import { CWD, protobufjs as pb, tapable } from '@xidl/shared';
 import path from 'path';
 
 export interface XIdlConfig {
-    inputFilePath: string;
-    outputDirPath: string;
+    entryPath: string;
+    distPath: string;
     splitChar?: string;
     indentCount?: number;
     indentUnit?: string;
@@ -41,7 +41,7 @@ export abstract class XIdl {
         this.config = createConfig(config);
     }
     async createRoot({
-        filePath = this.config.inputFilePath,
+        filePath = this.config.entryPath,
         options = {},
     }: {
         filePath?: string;
@@ -99,5 +99,14 @@ export abstract class XIdl {
             cur = cur.parent;
         }
         return res;
+    }
+
+    bindHooks(hooks: Record<string, InstanceType<typeof tapable.Hook>>): void {
+        Object.assign(this.hooks, hooks);
+    }
+
+    use(plugin: { apply: (xidl: XIdl) => void }) {
+        plugin.apply(this);
+        return this;
     }
 }
