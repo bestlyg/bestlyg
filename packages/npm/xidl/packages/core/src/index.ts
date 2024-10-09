@@ -1,4 +1,5 @@
-import { protobufjs as pb, tapable } from '@xidl/shared';
+import { CWD, protobufjs as pb, tapable } from '@xidl/shared';
+import path from 'path';
 
 export interface XIdlConfig {
     inputFilePath: string;
@@ -47,7 +48,7 @@ export abstract class XIdl {
         options?: Parameters<InstanceType<typeof pb.Root>['load']>[1];
     } = {}): Promise<pb.Root> {
         const root = new pb.Root();
-        await root.load(filePath, {
+        await root.load(path.resolve(CWD, filePath), {
             keepCase: true,
             alternateCommentMode: true,
             preferTrailingComment: true,
@@ -89,5 +90,14 @@ export abstract class XIdl {
         } else {
             throw new Error('NonSupport Type', { cause: obj });
         }
+    }
+    getNamespaceNameList(obj: pb.Namespace): string[] {
+        const res: string[] = [];
+        let cur = obj;
+        while (!(cur instanceof pb.Root)) {
+            res.unshift(cur.name);
+            cur = cur.parent;
+        }
+        return res;
     }
 }

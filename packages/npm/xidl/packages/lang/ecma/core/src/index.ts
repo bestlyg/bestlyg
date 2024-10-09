@@ -1,4 +1,4 @@
-import { tapable, protobufjs as pb, fs, changeCase } from '@xidl/shared';
+import { tapable, protobufjs as pb, fs, changeCase, CWD } from '@xidl/shared';
 import {
     XIdl as XIdlCore,
     createHooks as createCoreHooks,
@@ -47,7 +47,7 @@ export class XIdl extends XIdlCore {
                 code +
                 this.appendComment({
                     content: [
-                        `export class ${obj.name} {${methodStr}}`,
+                        `export class ${obj.name} {\n${methodStr}\n}`,
                         `export const ${changeCase.camelCase(obj.name)} = new ${obj.name}();`,
                     ].join(this.config.splitChar),
                     comment: obj.comment,
@@ -55,10 +55,12 @@ export class XIdl extends XIdlCore {
             );
         });
         this.hooks.onGenNamespace.tapPromise(prefix, async (code, obj) => {
-            const outputDir = path.resolve(this.config.outputDirPath, obj.name.replace(/./g, '/'));
+            const outputDir = path.resolve(
+                CWD,
+                this.config.outputDirPath,
+                ...this.getNamespaceNameList(obj),
+            );
             const name = obj.name;
-            console.log('OUT', outputDir);
-            return code;
             await fs.ensureDir(outputDir);
             await fs.emptyDir(outputDir);
             const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
@@ -121,7 +123,8 @@ export class XIdl extends XIdlCore {
         if (field.optional) str += '?';
         str += ': ';
         if (field.map) {
-            str += `Record<${this.genValueType((field as any).keyType)}, ${this.genValueType(field.type)}>`;
+            const mapField = field as unknown as pb.MapField;
+            str += `Record<${this.genValueType(mapField.keyType)}, ${this.genValueType(mapField.type)}>`;
         } else {
             str += this.genValueType(field.type);
         }
@@ -154,22 +157,16 @@ ${this.config.indent}});
     async output(obj?: pb.ReflectionObject): Promise<void> {
         obj ??= await this.createRoot();
         const { outputDirPath, inputFilePath } = this.config;
-        // await fs.ensureDir(outputDirPath);
-        // await fs.emptyDir(outputDirPath);
+        const outputDir = path.resolve(CWD, outputDirPath);
+        await fs.ensureDir(outputDir);
+        await fs.emptyDir(outputDir);
         const code = await this.genObj(obj);
-        console.log(
-            'CODE',
+        await fs.writeFile(
             path.resolve(
-                outputDirPath,
+                outputDir,
                 path.basename(inputFilePath, path.extname(inputFilePath)) + '.ts',
             ),
+            code,
         );
-        // await fs.writeFile(
-        //     path.resolve(
-        //         outputDirPath,
-        //         path.basename(inputFilePath, path.extname(inputFilePath)) + '.ts',
-        //     ),
-        //     code,
-        // );
     }
 }

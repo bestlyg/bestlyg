@@ -33,16 +33,19 @@
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^22.7.5",
-        "typescript": "^5.6.2",
         "@xidl/core": "workspace:^",
-        "@xidl/shared": "workspace:^",
-        "@xidl/ecma-core": "workspace:^",
         "@xidl/ecma-client": "workspace:^",
+        "@xidl/ecma-core": "workspace:^",
         "@xidl/ecma-server": "workspace:^",
-        "tsx": "^4.19.1"
+        "@xidl/shared": "workspace:^",
+        "tsx": "^4.19.1",
+        "typescript": "^5.6.2"
     },
     "scripts": {
         "start": "tsx src/index.ts",
         "build": "echo 'playground build'"
+    },
+    "dependencies": {
+        "axios": "^1.7.7"
     }
 }
