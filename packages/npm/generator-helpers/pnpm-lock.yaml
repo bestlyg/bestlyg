@@ -17,7 +17,7 @@ importers:
       '@types/node':
         specifier: ^22.7.5
         version: 22.7.5
-      g-x:
+      generator-helpers:
         specifier: workspace:^
         version: 'link:'
       lodash:
