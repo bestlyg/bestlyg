@@ -2,7 +2,7 @@ import { tapable, protobufjs as pb, fs, CWD } from '@xidl/shared';
 import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/core';
 import path from 'path';
 
-export const prefix = 'XIDL_ECMA_CORE';
+export const prefix = 'XIDL_TYPESCRIPT_CORE';
 
 export interface XIdlConfig extends XIdlCoreConfig {}
 

@@ -101,7 +101,7 @@ export abstract class XIdl {
         return res;
     }
 
-    bindHooks(hooks: Record<string, InstanceType<typeof tapable.Hook>>): void {
+    bindHooks(hooks: Record<string, InstanceType<typeof tapable.Hook<any, any>>>): void {
         Object.assign(this.hooks, hooks);
     }
 

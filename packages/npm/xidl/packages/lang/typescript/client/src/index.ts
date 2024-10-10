@@ -1,7 +1,7 @@
 import { tapable, changeCase, protobufjs as pb } from '@xidl/shared';
 import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/ecma-core';
 
-export const prefix = 'XIDL_ECMA_CLIENT';
+export const prefix = 'XIDL_TYPESCRIPT_CLIENT';
 
 export interface XIdlConfig extends XIdlCoreConfig {}
 
