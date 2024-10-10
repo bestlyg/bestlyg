@@ -18,18 +18,18 @@ importers:
       '@xidl/core':
         specifier: workspace:^
         version: link:../core
-      '@xidl/typescript-client':
-        specifier: workspace:^
-        version: link:../lang/ecma/client
-      '@xidl/typescript-core':
-        specifier: workspace:^
-        version: link:../lang/ecma/core
-      '@xidl/typescript-server':
-        specifier: workspace:^
-        version: link:../lang/ecma/server
       '@xidl/shared':
         specifier: workspace:^
         version: link:../shared
+      '@xidl/typescript-client':
+        specifier: workspace:^
+        version: link:../language/typescript/client
+      '@xidl/typescript-core':
+        specifier: workspace:^
+        version: link:../language/typescript/core
+      '@xidl/typescript-server':
+        specifier: workspace:^
+        version: link:../language/typescript/server
       tsx:
         specifier: ^4.19.1
         version: 4.19.1
