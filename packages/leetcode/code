@@ -1,3 +1,22 @@
 class Solution:
-    def numberOfPairs(self, nums1: List[int], nums2: List[int], k: int) -> int:
-        return sum(num1 % (num2 * k) == 0 for num1 in nums1 for num2 in nums2)
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        bits = [0] * 32
+        cur = l = 0
+        n = len(nums)
+        res = inf
+        for r in range(n):
+            for b in range(32):
+                if nums[r] & (1 << b):
+                    bits[b] += 1
+                    if bits[b] == 1:
+                        cur |= 1 << b
+            res = min(res, abs(k - cur))
+            while l < r and cur > k:
+                for b in range(32):
+                    if nums[l] & (1 << b):
+                        bits[b] -= 1
+                        if bits[b] == 0:
+                            cur &= ~(1 << b)
+                res = min(res, abs(k - cur))
+                l += 1
+        return res
