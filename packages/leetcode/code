@@ -1,7 +1,3 @@
 class Solution:
-    def destCity(self, paths: List[List[str]]) -> str:
-        city_map = defaultdict(int)
-        for a, b in paths:
-            city_map[a] += 1
-            city_map[b]
-        return [city for city, arr in city_map.items() if not arr][0]
+    def numberOfPairs(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        return sum(num1 % (num2 * k) == 0 for num1 in nums1 for num2 in nums2)
