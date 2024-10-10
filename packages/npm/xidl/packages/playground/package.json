@@ -34,9 +34,9 @@
     "devDependencies": {
         "@types/node": "^22.7.5",
         "@xidl/core": "workspace:^",
-        "@xidl/ecma-client": "workspace:^",
-        "@xidl/ecma-core": "workspace:^",
-        "@xidl/ecma-server": "workspace:^",
+        "@xidl/typescript-client": "workspace:^",
+        "@xidl/typescript-core": "workspace:^",
+        "@xidl/typescript-server": "workspace:^",
         "@xidl/shared": "workspace:^",
         "tsx": "^4.19.1",
         "typescript": "^5.6.2"

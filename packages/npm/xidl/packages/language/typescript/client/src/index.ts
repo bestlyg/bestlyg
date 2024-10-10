@@ -1,5 +1,5 @@
 import { tapable, changeCase, protobufjs as pb } from '@xidl/shared';
-import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/ecma-core';
+import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/typescript-core';
 
 export const prefix = 'XIDL_TYPESCRIPT_CLIENT';
 

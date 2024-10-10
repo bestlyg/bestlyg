@@ -1,4 +1,4 @@
-import { XIdl } from '@xidl/ecma-client';
+import { XIdl } from '@xidl/typescript-client';
 import path from 'path';
 import url from 'url';
 

@@ -11,7 +11,7 @@ importers:
       '@xidl/core':
         specifier: workspace:^
         version: link:../../../core
-      '@xidl/ecma-core':
+      '@xidl/typescript-core':
         specifier: workspace:^
         version: link:../core
       '@xidl/shared':

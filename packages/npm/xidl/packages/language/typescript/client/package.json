@@ -1,5 +1,5 @@
 {
-    "name": "@xidl/ecma-core",
+    "name": "@xidl/typescript-client",
     "version": "0.0.0",
     "keywords": [
         "idl"
@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "@xidl/shared": "workspace:^",
-        "@xidl/core": "workspace:^"
+        "@xidl/core": "workspace:^",
+        "@xidl/typescript-core": "workspace:^"
     }
 }

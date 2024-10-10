@@ -18,13 +18,13 @@ importers:
       '@xidl/core':
         specifier: workspace:^
         version: link:../core
-      '@xidl/ecma-client':
+      '@xidl/typescript-client':
         specifier: workspace:^
         version: link:../lang/ecma/client
-      '@xidl/ecma-core':
+      '@xidl/typescript-core':
         specifier: workspace:^
         version: link:../lang/ecma/core
-      '@xidl/ecma-server':
+      '@xidl/typescript-server':
         specifier: workspace:^
         version: link:../lang/ecma/server
       '@xidl/shared':
