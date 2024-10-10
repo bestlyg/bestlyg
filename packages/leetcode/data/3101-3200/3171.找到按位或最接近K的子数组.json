@@ -2,12 +2,7 @@
     "name": "3171.找到按位或最接近K的子数组",
     "url": "https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k",
     "level": "Hard",
-    "tagList": [
-        "位运算",
-        "线段树",
-        "数组",
-        "二分查找"
-    ],
+    "tagList": ["位运算", "线段树", "数组", "二分查找"],
     "desc": "返回 优质数对 的总数。",
     "solutions": [
         {

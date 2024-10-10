@@ -2,10 +2,7 @@
     "name": "3162.优质数对的总数I",
     "url": "https://leetcode.cn/problems/find-the-number-of-good-pairs-i",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "哈希表"
-    ],
+    "tagList": ["数组", "哈希表"],
     "desc": "返回 优质数对 的总数。",
     "solutions": [
         {
