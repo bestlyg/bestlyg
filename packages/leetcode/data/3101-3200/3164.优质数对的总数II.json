@@ -1,0 +1,21 @@
+{
+    "name": "3164.优质数对的总数II",
+    "url": "https://leetcode.cn/problems/find-the-number-of-good-pairs-ii",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "哈希表"
+    ],
+    "desc": "返回 优质数对 的总数。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 1814,
+            "memory": 43.46,
+            "desc": "计数存储后，遍历所有的因子",
+            "code": "def factors(n):\n    return set(\n        factor for i in range(1, int(n ** 0.5) + 1) if n % i == 0\n        for factor in (i, n // i)\n    )\nclass Solution:\n    def numberOfPairs(self, nums1: List[int], nums2: List[int], k: int) -> int:\n        counter1 = Counter(nums1)\n        counter2 = Counter(nums2)\n        return sum(\n            sum(counter2[v] for v in factors(num // k)) * cnt\n            for num, cnt in counter1.items()\n            if num % k == 0\n        )",
+            "date": "2024-10-11"
+        }
+    ],
+    "id": "3444"
+}
