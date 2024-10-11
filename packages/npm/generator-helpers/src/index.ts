@@ -23,7 +23,7 @@ export function* genList<T>({
 
 export function* genLoop<T>(config: Parameters<typeof genList<T>>[0] = {}) {
     yield* genList({
-        mod: config.list.length,
+        mod: config.list?.length ?? 1,
         ...config,
     });
 }
