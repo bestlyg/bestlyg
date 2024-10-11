@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package api.bestlyg;
+
+message BestlygHealthRequest {
+  optional string env = 1;
+}
+
+message BestlygHealthResponse {
+  required int32 code = 1;
+  optional string msg = 2;
+  optional string data = 3;
+}
+
+service BestlygService {
+  rpc HealthCheck (BestlygHealthRequest) returns (BestlygHealthResponse) {
+    option (api.url) = "/api/health";
+    option (api.method) = "get";
+    option (api.serializer) = "json";
+  }
+}
