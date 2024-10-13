@@ -45,8 +45,8 @@ enum Corpus {
 
 service SearchService {
   rpc Search(SearchRequest) returns (SearchResponse) {
-    option (api.url) = "/api/v1/messages";
-    option (api.method) = "post";
-    option (api.serializer) = "json";
+    option (api.url) = "'/api/v1/messages'";
+    option (api.method) = "'post'";
+    option (api.serializer) = "'json'";
   }
 }

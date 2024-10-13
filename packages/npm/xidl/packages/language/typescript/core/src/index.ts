@@ -33,7 +33,7 @@ export class XIdl extends XIdlCore {
             return (
                 code +
                 (await this.genComment({
-                    content: `interface ${obj.name} {\n${fieldItems.join(this.config.splitChar)}\n}`,
+                    content: `export interface ${obj.name} {\n${fieldItems.join(this.config.splitChar)}\n}`,
                     comment: obj.comment,
                 }))
             );
@@ -52,7 +52,7 @@ export class XIdl extends XIdlCore {
                 path.resolve(outputDir, 'index.ts'),
                 res.join(this.config.splitChar),
             );
-            return code + `export * from './${name}';`;
+            return code + `export * as ${name} from './${name}';`;
         });
         this.hooks.onGenEnum.tapPromise(prefix, async (code, obj) => {
             const valueList = await Promise.all(
@@ -68,10 +68,47 @@ export class XIdl extends XIdlCore {
             return (
                 code +
                 (await this.genComment({
-                    content: `enum ${obj.name} {\n${valueList.join(this.config.splitChar)}\n}`,
+                    content: `export enum ${obj.name} {\n${valueList.join(this.config.splitChar)}\n}`,
                     comment: obj.comment,
                 }))
             );
+        });
+        this.hooks.onGenService.tapPromise(prefix, async (code, obj) => {
+            const methodStr = await Promise.all(
+                obj.methodsArray.map(method => this.genMethod(method)),
+            );
+            return (
+                code +
+                (await this.genComment({
+                    content: [`export namespace ${obj.name} {\n${methodStr}\n}`].join(
+                        this.config.splitChar,
+                    ),
+                    comment: obj.comment,
+                }))
+            );
+        });
+    }
+
+    async genMethod(method: pb.Method): Promise<string> {
+        const REG = /\(api\.(.*?)\)/g;
+        const options = Object.entries(method.options ?? {})
+            .map(([key, value]) => {
+                const newKey = Array.from(key.matchAll(REG))[0][1];
+                return [newKey, value];
+            })
+            .filter(([k]) => k);
+        const content = [
+            `export namespace ${method.name} {`,
+            this.contactIndent({ content: `export type Request = ${method.requestType};` }),
+            this.contactIndent({ content: `export type Response = ${method.responseType};` }),
+            ...options.map(([k, v]) =>
+                this.contactIndent({ content: `export const ${k} = ${v};` }),
+            ),
+            '}',
+        ].join('\n');
+        return this.genComment({
+            content: this.contactIndent({ content }),
+            comment: method.comment,
         });
     }
 

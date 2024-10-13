@@ -109,4 +109,15 @@ export abstract class XIdl {
         plugin.apply(this);
         return this;
     }
+
+    contactIndent({
+        count = 1,
+        content = '',
+        lineSplitChar = '\n',
+    }: { count?: number; content?: string; lineSplitChar?: string } = {}) {
+        return content
+            .split(lineSplitChar)
+            .map(v => `${this.config.indent.repeat(count)}${v}`)
+            .join(lineSplitChar);
+    }
 }
