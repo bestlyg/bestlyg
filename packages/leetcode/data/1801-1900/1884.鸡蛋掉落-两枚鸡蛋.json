@@ -1,0 +1,21 @@
+{
+    "name": "1884.鸡蛋掉落-两枚鸡蛋",
+    "url": "https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors",
+    "level": "Medium",
+    "tagList": [
+        "数学",
+        "动态规划"
+    ],
+    "desc": "请你计算并返回要确定 f 确切的值 的 最小操作次数 是多少？。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 2719,
+            "memory": 21.09,
+            "desc": "遍历,每次尝试从一个楼层开始掉落时，统计碎了和没碎的情况",
+            "code": "class Solution:\n    @cache\n    def twoEggDrop(self, n: int) -> int:\n        if n == 1: return 1\n        res = inf\n        for v in range(1, n + 1):\n            res = min(res, max(v - 1, self.twoEggDrop(n - v)) + 1)\n        return res",
+            "date": "2024-10-13"
+        }
+    ],
+    "id": "2031"
+}
