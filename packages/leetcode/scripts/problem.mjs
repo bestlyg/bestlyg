@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '1884. 鸡蛋掉落-两枚鸡蛋',
-    url: 'https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors',
+    name: '175. 组合两个表',
+    url: 'https://leetcode.cn/problems/combine-two-tables',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你计算并返回要确定 f 确切的值 的 最小操作次数 是多少？`,
+    desc: `编写解决方案，报告 Person 表中每个人的姓、名、城市和州。如果 personId 的地址不在 Address 表中，则报告为 null 。`,
     solutions: [
         {
-            script: LeetCodeScript.PY,
+            script: LeetCodeScript.MYSQL,
             // date: '2024-09-15',
-            time: 2719,
-            memory: 21.09,
-            desc: '遍历,每次尝试从一个楼层开始掉落时，统计碎了和没碎的情况',
+            time: 547,
+            // memory: 21.09,
+            desc: 'left join',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -13,8 +13,8 @@ export interface LeetCodeProblemData {
 export interface LeetCodeSolution {
     script: string;
     date?: string;
-    time: number;
-    memory: number;
+    time?: number;
+    memory?: number;
     desc: string;
     code: string;
 }
@@ -57,6 +57,7 @@ export enum LeetCodeScript {
     JAVA = 'java',
     GO = 'go',
     RUST = 'rust',
+    MYSQL = 'mysql',
 }
 
 export interface LeetCodeGraphQLQuery {
