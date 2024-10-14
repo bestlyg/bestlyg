@@ -21,10 +21,12 @@ export class XIdl extends XIdlCore {
     constructor(config: XIdlConfig) {
         super(createConfig(config));
         this.bindHooks(createHooks());
-        this.hooks.onGenMethodField.tapPromise(prefix, async (code, obj) => {
+        this.hooks.onGenMethodField.tapPromise(prefix, async code => {
             const content = [
-                `export const request = async (req: ${obj.requestType}): Promise<${obj.responseType}> => {`,
-                this.contactIndent({ content: `fetch({ url, method, serializer, data: req });` }),
+                `export const request = async (req: Request): Promise<Response> => {`,
+                this.contactIndent({
+                    content: `return fetch({ url, method, serializer, data: req });`,
+                }),
                 `};`,
             ].join('\n');
             return [code, content].join('');
