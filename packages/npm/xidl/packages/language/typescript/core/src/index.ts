@@ -12,7 +12,10 @@ export function createConfig(config: XIdlConfig): InstanceType<typeof XIdl>['con
 
 export function createHooks() {
     return {
-        tempHook: new tapable.AsyncSeriesBailHook(),
+        onGenMethodField: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>([
+            'code',
+            'obj',
+        ]),
     };
 }
 
@@ -75,7 +78,7 @@ export class XIdl extends XIdlCore {
         });
         this.hooks.onGenService.tapPromise(prefix, async (code, obj) => {
             const methodStr = await Promise.all(
-                obj.methodsArray.map(method => this.genMethod(method)),
+                obj.methodsArray.map(method => this.genObj(method)),
             );
             return (
                 code +
@@ -87,28 +90,32 @@ export class XIdl extends XIdlCore {
                 }))
             );
         });
-    }
 
-    async genMethod(method: pb.Method): Promise<string> {
-        const REG = /\(api\.(.*?)\)/g;
-        const options = Object.entries(method.options ?? {})
-            .map(([key, value]) => {
-                const newKey = Array.from(key.matchAll(REG))[0][1];
-                return [newKey, value];
-            })
-            .filter(([k]) => k);
-        const content = [
-            `export namespace ${method.name} {`,
-            this.contactIndent({ content: `export type Request = ${method.requestType};` }),
-            this.contactIndent({ content: `export type Response = ${method.responseType};` }),
-            ...options.map(([k, v]) =>
-                this.contactIndent({ content: `export const ${k} = ${v};` }),
-            ),
-            '}',
-        ].join('\n');
-        return this.genComment({
-            content: this.contactIndent({ content }),
-            comment: method.comment,
+        this.hooks.onGenMethod.tapPromise(prefix, async (code, obj) => {
+            const REG = /\(api\.(.*?)\)/g;
+            const options = Object.entries(obj.options ?? {})
+                .map(([key, value]) => {
+                    const newKey = Array.from(key.matchAll(REG))[0][1];
+                    return [newKey, value];
+                })
+                .filter(([k]) => k);
+            const content = [
+                `export namespace ${obj.name} {`,
+                ...[
+                    `export type Request = ${obj.requestType};`,
+                    `export type Response = ${obj.responseType};`,
+                    ...options.map(([k, v]) => `export const ${k} = ${v};`),
+                    await this.hooks.onGenMethodField.promise('', obj),
+                ].map(content => this.contactIndent({ content })),
+                '}',
+            ].join('\n');
+            return (
+                code +
+                (await this.genComment({
+                    content: this.contactIndent({ content }),
+                    comment: obj.comment,
+                }))
+            );
         });
     }
 

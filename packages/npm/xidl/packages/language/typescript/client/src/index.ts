@@ -1,4 +1,4 @@
-import { tapable, changeCase, protobufjs as pb } from '@xidl/shared';
+import { tapable } from '@xidl/shared';
 import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/typescript-core';
 
 export const prefix = 'XIDL_TYPESCRIPT_CLIENT';
@@ -21,46 +21,13 @@ export class XIdl extends XIdlCore {
     constructor(config: XIdlConfig) {
         super(createConfig(config));
         this.bindHooks(createHooks());
-        // this.hooks.onGenService.tapPromise(prefix, async (code, obj) => {
-        //     const methodStr = await Promise.all(
-        //         obj.methodsArray.map(method => this.genMethod(method)),
-        //     );
-        //     return (
-        //         code +
-        //         (await this.genComment({
-        //             content: [
-        //                 `export class ${obj.name} {\n${methodStr}\n}`,
-        //                 `export const ${changeCase.camelCase(obj.name)} = new ${obj.name}();`,
-        //             ].join(this.config.splitChar),
-        //             comment: obj.comment,
-        //         }))
-        //     );
-        // });
+        this.hooks.onGenMethodField.tapPromise(prefix, async (code, obj) => {
+            const content = [
+                `export const request = async (req: ${obj.requestType}): Promise<${obj.responseType}> => {`,
+                this.contactIndent({ content: `fetch({ url, method, serializer, data: req });` }),
+                `};`,
+            ].join('\n');
+            return [code, content].join('');
+        });
     }
-
-    // export const request = async (req: Request): Promise<Response> => {
-    //     return fetch({
-    //         url,
-    //         method,
-    //         serializer,
-    //         data: req,
-    //     });
-    // };
-    //     async genMethod(method: pb.Method): Promise<string> {
-    //         const reqMethod = (method.options?.['(api.method)'] as string).toUpperCase();
-    //         const content = `
-    // async ${method.name}(req: ${method.requestType}): Promise<${method.responseType}> {
-    // ${this.config.indent}return request({
-    // ${this.config.indent.repeat(2)}url: '${method.options?.['(api.url)'] ?? 'GET'}',
-    // ${this.config.indent.repeat(2)}method: '${reqMethod}',
-    // ${this.config.indent.repeat(2)}data: req,
-    // ${this.config.indent.repeat(2)}serializer: '${method.options?.['(api.serializer)']}',
-    // ${this.config.indent}});
-    // }
-    // `.trim();
-    //         return this.genComment({
-    //             content: this.contactIndent({ content }),
-    //             comment: method.comment,
-    //         });
-    //     }
 }

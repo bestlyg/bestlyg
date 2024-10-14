@@ -24,6 +24,7 @@ export function createConfig(config: XIdlConfig): InstanceType<typeof XIdl>['con
 export function createHooks() {
     return {
         onGenRoot: new tapable.AsyncSeriesWaterfallHook<[string, pb.Root]>(['code', 'obj']),
+        onGenMethod: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>(['code', 'obj']),
         onGenService: new tapable.AsyncSeriesWaterfallHook<[string, pb.Service]>(['code', 'obj']),
         onGenNamespace: new tapable.AsyncSeriesWaterfallHook<[string, pb.Namespace]>([
             'code',
@@ -76,6 +77,10 @@ export abstract class XIdl {
         const code = await this.hooks.onGenType.promise('', obj);
         return code;
     }
+    async genMethod(obj: pb.Method): Promise<string> {
+        const code = await this.hooks.onGenMethod.promise('', obj);
+        return code;
+    }
     async genObj(obj: pb.ReflectionObject): Promise<string> {
         if (obj instanceof pb.Root) {
             return this.genRoot(obj);
@@ -83,6 +88,8 @@ export abstract class XIdl {
             return this.genType(obj);
         } else if (obj instanceof pb.Service) {
             return this.genService(obj);
+        } else if (obj instanceof pb.Method) {
+            return this.genMethod(obj);
         } else if (obj instanceof pb.Namespace) {
             return this.genNamespace(obj);
         } else if (obj instanceof pb.Enum) {
