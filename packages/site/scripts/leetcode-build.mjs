@@ -22,15 +22,17 @@ function solutionToTemplate(solution, idx) {
 ## 题解 ${idx + 1} - ${script}
 
 - 编辑时间：${date}  
-- 执行用时：${time}ms  
-- 内存消耗：${memory}MB  
+${time ? `- 执行用时：${time}ms  ` : ''}
+${memory ? `- 内存消耗：${memory}MB  ` : ''}
 - 编程语言：${script}  
 - 解法介绍：{${quote}${desc}${quote}}  
 
 ${new Array(3).fill(quote).join('')}${script}
 ${code}
 ${new Array(3).fill(quote).join('')}
-`.trim();
+`
+        .trim()
+        .replace(/\n\n/g, '\n');
 }
 
 /**

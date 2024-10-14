@@ -103,6 +103,7 @@ const config: Config = {
             theme: prismThemes.github,
             darkTheme: prismThemes.dracula,
             additionalLanguages: [
+                'sql',
                 'powershell',
                 'cpp',
                 'python',

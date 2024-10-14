@@ -57,7 +57,7 @@ export enum LeetCodeScript {
     JAVA = 'java',
     GO = 'go',
     RUST = 'rust',
-    MYSQL = 'mysql',
+    SQL = 'sql',
 }
 
 export interface LeetCodeGraphQLQuery {
