@@ -25,6 +25,30 @@
             "require": "./*",
             "default": "./*"
         },
+        "./client": {
+            "types": "./dist/types/client/index.d.ts",
+            "import": "./dist/esm/client/index.js",
+            "require": "./dist/lib/client/index.cjs",
+            "default": "./dist/esm/client/index.js"
+        },
+        "./client/*": {
+            "types": "./dist/types/client/*",
+            "import": "./dist/esm/client/*",
+            "require": "./dist/lib/client/*",
+            "default": "./dist/esm/client/*"
+        },
+        "./server": {
+            "types": "./dist/types/server/index.d.ts",
+            "import": "./dist/esm/server/index.js",
+            "require": "./dist/lib/server/index.cjs",
+            "default": "./dist/esm/server/index.js"
+        },
+        "./server/*": {
+            "types": "./dist/types/server/*",
+            "import": "./dist/esm/server/*",
+            "require": "./dist/lib/server/*",
+            "default": "./dist/esm/server/*"
+        },
         "./package.json": "./package.json"
     },
     "scripts": {
@@ -35,10 +59,13 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
+        "@bestlyg/idl": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
+        "@types/express": "^5.0.0",
         "@types/node": "^20.16.10",
-        "typescript": "^5.5.4",
         "@xidl/typescript-client": "workspace:^",
-        "@xidl/typescript-server": "workspace:^"
+        "@xidl/typescript-server": "workspace:^",
+        "express": "^4.21.1",
+        "typescript": "^5.5.4"
     }
 }

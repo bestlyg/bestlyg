@@ -1,4 +1,4 @@
-import { tapable, protobufjs as pb, fs, CWD } from '@xidl/shared';
+import { tapable, protobufjs as pb, fs, CWD, lodash } from '@xidl/shared';
 import { XIdl as XIdlCore, XIdlConfig as XIdlCoreConfig } from '@xidl/core';
 import path from 'path';
 
@@ -12,10 +12,12 @@ export function createConfig(config: XIdlConfig): InstanceType<typeof XIdl>['con
 
 export function createHooks() {
     return {
-        onGenMethodField: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>([
-            'code',
-            'obj',
-        ]),
+        gen: {
+            onGenMethodField: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>([
+                'code',
+                'obj',
+            ]),
+        },
     };
 }
 
@@ -25,11 +27,11 @@ export class XIdl extends XIdlCore {
     constructor(config: XIdlConfig) {
         super(createConfig(config));
         this.bindHooks(createHooks());
-        this.hooks.onGenRoot.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenRoot.tapPromise(prefix, async (code, obj) => {
             const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
             return code + res.join(this.config.splitChar);
         });
-        this.hooks.onGenType.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenType.tapPromise(prefix, async (code, obj) => {
             const fieldItems = await Promise.all(
                 obj.fieldsArray.map(field => this.genField(field)),
             );
@@ -41,23 +43,26 @@ export class XIdl extends XIdlCore {
                 }))
             );
         });
-        this.hooks.onGenNamespace.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenNamespace.tapPromise(prefix, async (code, obj) => {
             const outputDir = path.resolve(
                 CWD,
-                this.config.distPath,
+                this.config.output.dirPath,
                 ...this.getNamespaceNameList(obj),
             );
+            const resCode = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
+            await this.output({
+                config: lodash.merge({}, this.config, {
+                    output: {
+                        dirPath: outputDir,
+                        fileName: 'index.ts',
+                    },
+                }),
+                code: resCode.join(this.config.splitChar),
+            });
             const name = obj.name;
-            await fs.ensureDir(outputDir);
-            await fs.emptyDir(outputDir);
-            const res = await Promise.all(obj.nestedArray.map(obj => this.genObj(obj)));
-            await fs.writeFile(
-                path.resolve(outputDir, 'index.ts'),
-                res.join(this.config.splitChar),
-            );
             return code + `export * as ${name} from './${name}';`;
         });
-        this.hooks.onGenEnum.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenEnum.tapPromise(prefix, async (code, obj) => {
             const valueList = await Promise.all(
                 Object.entries(obj.values).map(([k, v]) =>
                     this.genComment({
@@ -76,7 +81,7 @@ export class XIdl extends XIdlCore {
                 }))
             );
         });
-        this.hooks.onGenService.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenService.tapPromise(prefix, async (code, obj) => {
             const methodStr = await Promise.all(
                 obj.methodsArray.map(method => this.genObj(method)),
             );
@@ -90,8 +95,7 @@ export class XIdl extends XIdlCore {
                 }))
             );
         });
-
-        this.hooks.onGenMethod.tapPromise(prefix, async (code, obj) => {
+        this.hooks.gen.onGenMethod.tapPromise(prefix, async (code, obj) => {
             const REG = /\(api\.(.*?)\)/g;
             const options = Object.entries(obj.options ?? {})
                 .map(([key, value]) => {
@@ -105,7 +109,7 @@ export class XIdl extends XIdlCore {
                     `export type Request = ${obj.requestType};`,
                     `export type Response = ${obj.responseType};`,
                     ...options.map(([k, v]) => `export const ${k} = ${v};`),
-                    await this.hooks.onGenMethodField.promise('', obj),
+                    await this.hooks.gen.onGenMethodField.promise('', obj),
                 ].map(content => this.contactIndent({ content })),
                 '}',
             ].join('\n');
@@ -116,6 +120,12 @@ export class XIdl extends XIdlCore {
                     comment: obj.comment,
                 }))
             );
+        });
+
+        this.hooks.output.onOutput.tapPromise(prefix, async (code, config) => {
+            const outputDir = path.resolve(CWD, config.config.output.dirPath);
+            await fs.ensureDir(outputDir);
+            await fs.writeFile(path.resolve(outputDir, config.config.output.fileName), code);
         });
     }
 
@@ -169,18 +179,5 @@ export class XIdl extends XIdlCore {
             comment: field.comment,
             indentCount: 1,
         });
-    }
-
-    async output(obj?: pb.ReflectionObject): Promise<void> {
-        obj ??= await this.createRoot();
-        const { distPath, entryPath } = this.config;
-        const outputDir = path.resolve(CWD, distPath);
-        await fs.ensureDir(outputDir);
-        await fs.emptyDir(outputDir);
-        const code = await this.genObj(obj);
-        await fs.writeFile(
-            path.resolve(outputDir, path.basename(entryPath, path.extname(entryPath)) + '.ts'),
-            code,
-        );
     }
 }

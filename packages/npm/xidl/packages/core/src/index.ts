@@ -1,9 +1,14 @@
-import { CWD, protobufjs as pb, tapable } from '@xidl/shared';
+import { CWD, protobufjs as pb, tapable, lodash } from '@xidl/shared';
 import path from 'path';
 
 export interface XIdlConfig {
-    entryPath: string;
-    distPath: string;
+    input: {
+        filePath: string;
+    };
+    output: {
+        dirPath: string;
+        fileName: string;
+    };
     splitChar?: string;
     indentCount?: number;
     indentUnit?: string;
@@ -23,15 +28,36 @@ export function createConfig(config: XIdlConfig): InstanceType<typeof XIdl>['con
 
 export function createHooks() {
     return {
-        onGenRoot: new tapable.AsyncSeriesWaterfallHook<[string, pb.Root]>(['code', 'obj']),
-        onGenMethod: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>(['code', 'obj']),
-        onGenService: new tapable.AsyncSeriesWaterfallHook<[string, pb.Service]>(['code', 'obj']),
-        onGenNamespace: new tapable.AsyncSeriesWaterfallHook<[string, pb.Namespace]>([
-            'code',
-            'obj',
-        ]),
-        onGenEnum: new tapable.AsyncSeriesWaterfallHook<[string, pb.Enum]>(['code', 'obj']),
-        onGenType: new tapable.AsyncSeriesWaterfallHook<[string, pb.Type]>(['code', 'obj']),
+        gen: {
+            onGenRoot: new tapable.AsyncSeriesWaterfallHook<[string, pb.Root]>(['code', 'obj']),
+            onGenMethod: new tapable.AsyncSeriesWaterfallHook<[string, pb.Method]>(['code', 'obj']),
+            onGenService: new tapable.AsyncSeriesWaterfallHook<[string, pb.Service]>([
+                'code',
+                'obj',
+            ]),
+            onGenNamespace: new tapable.AsyncSeriesWaterfallHook<[string, pb.Namespace]>([
+                'code',
+                'obj',
+            ]),
+            onGenEnum: new tapable.AsyncSeriesWaterfallHook<[string, pb.Enum]>(['code', 'obj']),
+            onGenType: new tapable.AsyncSeriesWaterfallHook<[string, pb.Type]>(['code', 'obj']),
+            onBeforeObj: new tapable.AsyncSeriesWaterfallHook<[string, pb.ReflectionObject]>([
+                'code',
+                'obj',
+            ]),
+            onAfterObj: new tapable.AsyncSeriesWaterfallHook<[string, pb.ReflectionObject]>([
+                'code',
+                'obj',
+            ]),
+        },
+        output: {
+            afterGenCode: new tapable.AsyncSeriesWaterfallHook<
+                [string, Parameters<InstanceType<typeof XIdl>['output']>[0]]
+            >(['code', 'config']),
+            onOutput: new tapable.AsyncParallelHook<
+                [string, Parameters<InstanceType<typeof XIdl>['output']>[0]]
+            >(['code', 'config']),
+        },
     };
 }
 
@@ -42,7 +68,7 @@ export abstract class XIdl {
         this.config = createConfig(config);
     }
     async createRoot({
-        filePath = this.config.entryPath,
+        filePath = this.config.input.filePath,
         options = {},
     }: {
         filePath?: string;
@@ -58,45 +84,48 @@ export abstract class XIdl {
         return root;
     }
     async genRoot(obj: pb.Root): Promise<string> {
-        const code = await this.hooks.onGenRoot.promise('', obj);
+        const code = await this.hooks.gen.onGenRoot.promise('', obj);
         return code;
     }
     async genService(obj: pb.Service): Promise<string> {
-        const code = await this.hooks.onGenService.promise('', obj);
+        const code = await this.hooks.gen.onGenService.promise('', obj);
         return code;
     }
     async genNamespace(obj: pb.Namespace): Promise<string> {
-        const code = await this.hooks.onGenNamespace.promise('', obj);
+        const code = await this.hooks.gen.onGenNamespace.promise('', obj);
         return code;
     }
     async genEnum(obj: pb.Enum): Promise<string> {
-        const code = await this.hooks.onGenEnum.promise('', obj);
+        const code = await this.hooks.gen.onGenEnum.promise('', obj);
         return code;
     }
     async genType(obj: pb.Type): Promise<string> {
-        const code = await this.hooks.onGenType.promise('', obj);
+        const code = await this.hooks.gen.onGenType.promise('', obj);
         return code;
     }
     async genMethod(obj: pb.Method): Promise<string> {
-        const code = await this.hooks.onGenMethod.promise('', obj);
+        const code = await this.hooks.gen.onGenMethod.promise('', obj);
         return code;
     }
     async genObj(obj: pb.ReflectionObject): Promise<string> {
+        let code = await this.hooks.gen.onBeforeObj.promise('', obj);
         if (obj instanceof pb.Root) {
-            return this.genRoot(obj);
+            code = await this.genRoot(obj);
         } else if (obj instanceof pb.Type) {
-            return this.genType(obj);
+            code = await this.genType(obj);
         } else if (obj instanceof pb.Service) {
-            return this.genService(obj);
+            code = await this.genService(obj);
         } else if (obj instanceof pb.Method) {
-            return this.genMethod(obj);
+            code = await this.genMethod(obj);
         } else if (obj instanceof pb.Namespace) {
-            return this.genNamespace(obj);
+            code = await this.genNamespace(obj);
         } else if (obj instanceof pb.Enum) {
-            return this.genEnum(obj);
+            code = await this.genEnum(obj);
         } else {
             throw new Error('NonSupport Type', { cause: obj });
         }
+        code = await this.hooks.gen.onAfterObj.promise(code, obj);
+        return code;
     }
     getNamespaceNameList(obj: pb.Namespace): string[] {
         const res: string[] = [];
@@ -108,8 +137,8 @@ export abstract class XIdl {
         return res;
     }
 
-    bindHooks(hooks: Record<string, InstanceType<typeof tapable.Hook<any, any>>>): void {
-        Object.assign(this.hooks, hooks);
+    bindHooks(hooks: Record<string, object>): void {
+        lodash.merge(this.hooks, hooks);
     }
 
     use(plugin: { apply: (xidl: XIdl) => void }) {
@@ -126,5 +155,18 @@ export abstract class XIdl {
             .split(lineSplitChar)
             .map(v => `${this.config.indent.repeat(count)}${v}`)
             .join(lineSplitChar);
+    }
+
+    async output(
+        config: {
+            config: Required<XIdlConfig>;
+            obj?: pb.ReflectionObject;
+            code?: string;
+        } = { config: this.config },
+    ): Promise<void> {
+        const obj = config.obj ?? (await this.createRoot());
+        let code = config.code ?? (await this.genObj(obj));
+        code = await this.hooks.output.afterGenCode.promise(code, config);
+        await this.hooks.output.onOutput.promise(code, { ...config, obj });
     }
 }

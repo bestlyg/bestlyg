@@ -8,18 +8,33 @@ const resolve = (...p: string[]) =>
     path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..', ...p);
 
 const xidlClient = new XIdlClient({
-    entryPath: resolve('../../proto/index.proto'),
-    distPath: resolve('dist/client'),
+    input: {
+        filePath: resolve('../../proto/index.proto'),
+    },
+    output: {
+        dirPath: resolve('dist/client'),
+        fileName: 'index.ts',
+    },
 });
 
 const xidlServer = new XIdlServer({
-    entryPath: resolve('../../proto/index.proto'),
-    distPath: resolve('dist/server'),
+    input: {
+        filePath: resolve('../../proto/index.proto'),
+    },
+    output: {
+        dirPath: resolve('dist/server'),
+        fileName: 'index.ts',
+    },
 });
 
 const xIdlCore = new XIdlCore({
-    entryPath: resolve('../../proto/index.proto'),
-    distPath: resolve('dist/core'),
+    input: {
+        filePath: resolve('../../proto/index.proto'),
+    },
+    output: {
+        dirPath: resolve('dist/core'),
+        fileName: 'index.ts',
+    },
 });
 
 async function main() {

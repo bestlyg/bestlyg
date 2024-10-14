@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
+import { fetch } from '@/utils';
 export interface BestlygHealthRequest {
+    /** 环境变量 */
     env?: string;
 }
 
@@ -7,6 +12,7 @@ export interface BestlygHealthResponse {
 
     msg?: string;
 
+    /** 会返回BestlygHealthRequest请求中的env，如果没有env就返回bestlyg */
     data?: string;
 }
 
