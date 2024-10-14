@@ -28,7 +28,7 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "build": "modern build",
+        "build": "node scripts/index.mjs && modern build",
         "dev": "modern build --watch"
     },
     "license": "ISC",

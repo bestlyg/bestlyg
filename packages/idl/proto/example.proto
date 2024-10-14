@@ -14,8 +14,8 @@ message BestlygHealthResponse {
 
 service BestlygService {
   rpc HealthCheck (BestlygHealthRequest) returns (BestlygHealthResponse) {
-    option (api.url) = "/api/health";
-    option (api.method) = "get";
-    option (api.serializer) = "json";
+    option (api.url) = "'/api/health'";
+    option (api.method) = "'get'";
+    option (api.serializer) = "'json'";
   }
 }
