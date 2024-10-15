@@ -1,10 +1,7 @@
-class Solution:
-    def maxHeightOfTriangle(self, red: int, blue: int) -> int:
-        def run(idx: int, arr: List[int]) -> int:
-            level = 1
-            while arr[idx] >= level:
-                arr[idx] -= level
-                idx = (idx + 1) % 2
-                level += 1
-            return level - 1 
-        return max(run(0, [red, blue]), run(1, [red, blue]))
+select if(count(*) = 0, null, salary) as SecondHighestSalary
+from Employee e1
+where (
+    select count(distinct e2.salary)
+    from Employee e2
+    where e2.salary > e1.salary
+) = 1

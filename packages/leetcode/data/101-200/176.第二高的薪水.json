@@ -1,0 +1,19 @@
+{
+    "name": "176.第二高的薪水",
+    "url": "https://leetcode.cn/problems/second-highest-salary",
+    "level": "Medium",
+    "tagList": [
+        "数据库"
+    ],
+    "desc": "查询并返回 Employee 表中第二高的 不同 薪水 。如果不存在第二高的薪水，查询应该返回 null(Pandas 则返回 None) 。",
+    "solutions": [
+        {
+            "script": "python",
+            "time": 3662,
+            "desc": "遍历",
+            "code": "select if(count(*) = 0, null, salary) as SecondHighestSalary\nfrom Employee e1\nwhere (\n    select count(distinct e2.salary)\n    from Employee e2\n    where e2.salary > e1.salary\n) = 1",
+            "date": "2024-10-15"
+        }
+    ],
+    "id": "176"
+}
