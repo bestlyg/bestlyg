@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '177. 第N高的薪水',
-    url: 'https://leetcode.cn/problems/nth-highest-salary',
+    name: '178. 分数排名',
+    url: 'https://leetcode.cn/problems/rank-scores',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `查询 Employee 表中第 n 高的工资。如果没有第 n 个最高工资，查询结果应该为 null 。`,
+    desc: `编写一个解决方案来查询分数的排名。按 score 降序返回结果表。`,
     solutions: [
         {
-            script: LeetCodeScript.PY,
+            script: LeetCodeScript.SQL,
             // date: '2024-09-15',
-            time: 1052,
+            time: 805,
             // memory: 16.58,
-            desc: '通过子查询查到当前超过当前薪水人数的总数',
+            desc: '查找score时同时查找大于当前分数的数量',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
