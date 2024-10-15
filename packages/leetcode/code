@@ -1,3 +1,10 @@
-select firstName, lastName, city, state 
-from Person
-left join Address on Person.PersonId = Address.PersonId
+class Solution:
+    def maxHeightOfTriangle(self, red: int, blue: int) -> int:
+        def run(idx: int, arr: List[int]) -> int:
+            level = 1
+            while arr[idx] >= level:
+                arr[idx] -= level
+                idx = (idx + 1) % 2
+                level += 1
+            return level - 1 
+        return max(run(0, [red, blue]), run(1, [red, blue]))
