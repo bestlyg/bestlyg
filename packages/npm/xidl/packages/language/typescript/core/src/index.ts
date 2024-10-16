@@ -60,7 +60,7 @@ export class XIdl extends XIdlCore {
                 code: resCode.join(this.config.splitChar),
             });
             const name = obj.name;
-            return code + `export * as ${name} from './${name}';`;
+            return code + `export * as ${name} from './${name}/index';`;
         });
         this.hooks.gen.onGenEnum.tapPromise(prefix, async (code, obj) => {
             const valueList = await Promise.all(

@@ -2,4 +2,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { fetch } from '@/utils';
-export * as bestlyg from './bestlyg';
+export * as bestlyg from './bestlyg/index';

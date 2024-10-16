@@ -11,6 +11,9 @@ importers:
       '@bestlyg/config':
         specifier: workspace:^
         version: link:../config
+      '@bestlyg/idl':
+        specifier: workspace:^
+        version: link:../idl
       '@bestlyg/site':
         specifier: workspace:^
         version: link:../site
