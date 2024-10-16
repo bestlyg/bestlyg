@@ -1,13 +1,35 @@
-select
-    d1.name as Department,
-    e1.name as Employee,
-    e1.salary as Salary
-from Employee e1 left join Department d1 on e1.departmentId = d1.id
-where 3 > (
-    select count(distinct e2.salary)
-    from 
-        Employee e2 left join Department d1 on e1.departmentId = d1.id
-    where 
-        e1.departmentId = e2.departmentId and
-        e2.salary > e1.salary
-)
+select 
+    t1.request_at as 'Day',
+    convert((ifnull(sub1.cancelled_by_driver_count, 0) + ifnull(sub2.cancelled_by_client_count, 0)) / count(t1.id), decimal(6, 2)) as 'Cancellation Rate'
+from Trips t1
+    left join Users u1 on t1.driver_id = u1.users_id
+    left join Users u2 on t1.client_id = u2.users_id
+     left join (
+        select 
+            count(*) as cancelled_by_driver_count,
+            t2.request_at as request_at
+        from 
+            Trips t2
+            left join Users u3 on t2.driver_id = u3.users_id
+            left join Users u4 on t2.client_id = u4.users_id
+        where 
+            t2.status = 'cancelled_by_driver' and u3.banned = 'No' and u4.banned = 'No'
+        group by t2.request_at
+    ) sub1 on sub1.request_at = t1.request_at
+     left join (
+        select 
+            count(*) as cancelled_by_client_count,
+            t2.request_at as request_at
+        from 
+            Trips t2
+            left join Users u5 on t2.driver_id = u5.users_id
+            left join Users u6 on t2.client_id = u6.users_id
+        where 
+            t2.status = 'cancelled_by_client' and u5.banned = 'No' and u6.banned = 'No'
+        group by t2.request_at
+    ) sub2 on sub2.request_at = t1.request_at
+where 
+    u1.banned = 'No' and u2.banned = 'No' and 
+    t1.request_at >= '2013-10-01' and t1.request_at <= '2013-10-03'
+group by t1.request_at
+order by t1.request_at

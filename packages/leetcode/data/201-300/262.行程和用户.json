@@ -1,0 +1,19 @@
+{
+    "name": "262.行程和用户",
+    "url": "https://leetcode.cn/problems/trips-and-users",
+    "level": "Hard",
+    "tagList": [
+        "数据库"
+    ],
+    "desc": "编写解决方案找出 \"2013-10-01\" 至 \"2013-10-03\" 期间非禁止用户（乘客和司机都必须未被禁止）的取消率。非禁止用户即 banned 为 No 的用户，禁止用户即 banned 为 Yes 的用户。其中取消率 Cancellation Rate 需要四舍五入保留 两位小数 。",
+    "solutions": [
+        {
+            "script": "sql",
+            "time": 767,
+            "desc": "先用子查询查找到每个时间段的符合条件的取消次数，再在外部查询中相加求结果",
+            "code": "select \n    t1.request_at as 'Day',\n    convert((ifnull(sub1.cancelled_by_driver_count, 0) + ifnull(sub2.cancelled_by_client_count, 0)) / count(t1.id), decimal(6, 2)) as 'Cancellation Rate'\nfrom Trips t1\n    left join Users u1 on t1.driver_id = u1.users_id\n    left join Users u2 on t1.client_id = u2.users_id\n     left join (\n        select \n            count(*) as cancelled_by_driver_count,\n            t2.request_at as request_at\n        from \n            Trips t2\n            left join Users u3 on t2.driver_id = u3.users_id\n            left join Users u4 on t2.client_id = u4.users_id\n        where \n            t2.status = 'cancelled_by_driver' and u3.banned = 'No' and u4.banned = 'No'\n        group by t2.request_at\n    ) sub1 on sub1.request_at = t1.request_at\n     left join (\n        select \n            count(*) as cancelled_by_client_count,\n            t2.request_at as request_at\n        from \n            Trips t2\n            left join Users u5 on t2.driver_id = u5.users_id\n            left join Users u6 on t2.client_id = u6.users_id\n        where \n            t2.status = 'cancelled_by_client' and u5.banned = 'No' and u6.banned = 'No'\n        group by t2.request_at\n    ) sub2 on sub2.request_at = t1.request_at\nwhere \n    u1.banned = 'No' and u2.banned = 'No' and \n    t1.request_at >= '2013-10-01' and t1.request_at <= '2013-10-03'\ngroup by t1.request_at\norder by t1.request_at",
+            "date": "2024-10-16"
+        }
+    ],
+    "id": "262"
+}
