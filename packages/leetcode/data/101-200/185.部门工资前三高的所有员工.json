@@ -1,0 +1,19 @@
+{
+    "name": "185.部门工资前三高的所有员工",
+    "url": "https://leetcode.cn/problems/department-top-three-salaries",
+    "level": "Hard",
+    "tagList": [
+        "数据库"
+    ],
+    "desc": "编写解决方案，找出每个部门中 收入高的员工 。",
+    "solutions": [
+        {
+            "script": "sql",
+            "time": 1431,
+            "desc": "利用子查询查找比当前薪水大的人数，如果小于3那就说明当前人是前三",
+            "code": "select\n    d1.name as Department,\n    e1.name as Employee,\n    e1.salary as Salary\nfrom Employee e1 left join Department d1 on e1.departmentId = d1.id\nwhere 3 > (\n    select count(distinct e2.salary)\n    from \n        Employee e2 left join Department d1 on e1.departmentId = d1.id\n    where \n        e1.departmentId = e2.departmentId and\n        e2.salary > e1.salary\n)",
+            "date": "2024-10-16"
+        }
+    ],
+    "id": "185"
+}
