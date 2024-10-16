@@ -1,9 +1,11 @@
-select 
-    score,
-    (
-        select count(distinct s2.score)
-        from Scores s2
-        where s2.score >= s1.score
-    ) as 'rank'
-from Scores s1
-order by score desc
+class Solution:
+    def minimumAverage(self, nums: List[int]) -> float:
+        nums.sort()
+        l = 0
+        r = len(nums) - 1
+        res = inf
+        while l < r:
+            res = min(res, (nums[l] + nums[r]) / 2)
+            l += 1
+            r -= 1
+        return res
