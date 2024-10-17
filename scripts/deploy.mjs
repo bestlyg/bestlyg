@@ -15,8 +15,8 @@ echo(`git clean -fd`);
 await $`git clean -fd`;
 echo(`git pull`);
 await $`git pull`;
-echo(`pnpm i --frozen-lockfile`);
-await $`pnpm i --frozen-lockfile`;
+echo(`pnpm i --frozen-lockfile --ignore-scripts`);
+await $`pnpm i --frozen-lockfile --ignore-scripts`;
 // pnpm run build
 // echo(`pnpm --filter leetcode build`)
 // pnpm --filter leetcode build
