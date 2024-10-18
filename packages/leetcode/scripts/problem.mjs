@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '262. 行程和用户',
-    url: 'https://leetcode.cn/problems/trips-and-users',
+    name: '3191. 使二进制数组全部等于 1 的最少操作次数 I',
+    url: 'https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `编写解决方案找出 "2013-10-01" 至 "2013-10-03" 期间非禁止用户（乘客和司机都必须未被禁止）的取消率。非禁止用户即 banned 为 No 的用户，禁止用户即 banned 为 Yes 的用户。其中取消率 Cancellation Rate 需要四舍五入保留 两位小数 。`,
+    desc: `请你返回将 nums 中所有元素变为 1 的 最少 操作次数。如果无法全部变成 1 ，返回 -1 。`,
     solutions: [
         {
             script: LeetCodeScript.SQL,
             // date: '2024-09-15',
-            time: 767,
-            // memory: 16.45,
-            desc: '先用子查询查找到每个时间段的符合条件的取消次数，再在外部查询中相加求结果',
+            time: 158,
+            memory: 20.34,
+            desc: '模拟',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
