@@ -1,0 +1,22 @@
+{
+    "name": "3192.使二进制数组全部等于1的最少操作次数II",
+    "url": "https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-ii",
+    "level": "Medium",
+    "tagList": [
+        "贪心",
+        "数组",
+        "动态规划"
+    ],
+    "desc": "请你返回将 nums 中所有元素变为 1 的 最少 操作次数。",
+    "solutions": [
+        {
+            "script": "sql",
+            "time": 62,
+            "memory": 20.55,
+            "desc": "从前往后依次翻转0",
+            "code": "class Solution:\n    def minOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        f = False\n        cnt = 0\n        for i in range(n):\n            cur = nums[i]\n            if f: cur ^= 1\n            if cur == 0:\n                cnt += 1\n                f = not f\n        return cnt",
+            "date": "2024-10-19"
+        }
+    ],
+    "id": "3477"
+}
