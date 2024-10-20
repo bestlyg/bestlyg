@@ -2,9 +2,7 @@
     "name": "178.分数排名",
     "url": "https://leetcode.cn/problems/rank-scores",
     "level": "Medium",
-    "tagList": [
-        "数据库"
-    ],
+    "tagList": ["数据库"],
     "desc": "编写一个解决方案来查询分数的排名。按 score 降序返回结果表。",
     "solutions": [
         {

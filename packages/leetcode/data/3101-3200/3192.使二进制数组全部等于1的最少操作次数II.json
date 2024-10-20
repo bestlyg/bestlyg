@@ -2,11 +2,7 @@
     "name": "3192.使二进制数组全部等于1的最少操作次数II",
     "url": "https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-ii",
     "level": "Medium",
-    "tagList": [
-        "贪心",
-        "数组",
-        "动态规划"
-    ],
+    "tagList": ["贪心", "数组", "动态规划"],
     "desc": "请你返回将 nums 中所有元素变为 1 的 最少 操作次数。",
     "solutions": [
         {

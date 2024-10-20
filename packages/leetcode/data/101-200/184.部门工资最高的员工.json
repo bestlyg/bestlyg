@@ -2,9 +2,7 @@
     "name": "184.部门工资最高的员工",
     "url": "https://leetcode.cn/problems/department-highest-salary",
     "level": "Medium",
-    "tagList": [
-        "数据库"
-    ],
+    "tagList": ["数据库"],
     "desc": "查找出每个部门中薪资最高的员工。",
     "solutions": [
         {

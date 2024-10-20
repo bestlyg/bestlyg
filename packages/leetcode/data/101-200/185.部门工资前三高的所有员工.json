@@ -2,9 +2,7 @@
     "name": "185.部门工资前三高的所有员工",
     "url": "https://leetcode.cn/problems/department-top-three-salaries",
     "level": "Hard",
-    "tagList": [
-        "数据库"
-    ],
+    "tagList": ["数据库"],
     "desc": "编写解决方案，找出每个部门中 收入高的员工 。",
     "solutions": [
         {

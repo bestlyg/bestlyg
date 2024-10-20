@@ -2,9 +2,7 @@
     "name": "262.行程和用户",
     "url": "https://leetcode.cn/problems/trips-and-users",
     "level": "Hard",
-    "tagList": [
-        "数据库"
-    ],
+    "tagList": ["数据库"],
     "desc": "编写解决方案找出 \"2013-10-01\" 至 \"2013-10-03\" 期间非禁止用户（乘客和司机都必须未被禁止）的取消率。非禁止用户即 banned 为 No 的用户，禁止用户即 banned 为 Yes 的用户。其中取消率 Cancellation Rate 需要四舍五入保留 两位小数 。",
     "solutions": [
         {

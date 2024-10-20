@@ -2,13 +2,7 @@
     "name": "3191.使二进制数组全部等于1的最少操作次数I",
     "url": "https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-i",
     "level": "Medium",
-    "tagList": [
-        "位运算",
-        "队列",
-        "数组",
-        "前缀和",
-        "滑动窗口"
-    ],
+    "tagList": ["位运算", "队列", "数组", "前缀和", "滑动窗口"],
     "desc": "请你返回将 nums 中所有元素变为 1 的 最少 操作次数。如果无法全部变成 1 ，返回 -1 。",
     "solutions": [
         {

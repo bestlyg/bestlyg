@@ -2,9 +2,7 @@
     "name": "177.第N高的薪水",
     "url": "https://leetcode.cn/problems/nth-highest-salary",
     "level": "Medium",
-    "tagList": [
-        "数据库"
-    ],
+    "tagList": ["数据库"],
     "desc": "查询 Employee 表中第 n 高的工资。如果没有第 n 个最高工资，查询结果应该为 null 。",
     "solutions": [
         {

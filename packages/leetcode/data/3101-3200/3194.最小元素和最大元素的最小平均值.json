@@ -2,11 +2,7 @@
     "name": "3194.最小元素和最大元素的最小平均值",
     "url": "https://leetcode.cn/problems/minimum-average-of-smallest-and-largest-elements",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "双指针",
-        "排序"
-    ],
+    "tagList": ["数组", "双指针", "排序"],
     "desc": "返回 averages 中的 最小 元素。",
     "solutions": [
         {
