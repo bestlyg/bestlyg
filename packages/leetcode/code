@@ -1,12 +1,4 @@
 class Solution:
-    def minOperations(self, nums: List[int]) -> int:
-        n = len(nums)
-        f = False
-        cnt = 0
-        for i in range(n):
-            cur = nums[i]
-            if f: cur ^= 1
-            if cur == 0:
-                cnt += 1
-                f = not f
-        return cnt
+    def smallestRangeI(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        return max(nums[-1] - 2 * k - nums[0], 0)
