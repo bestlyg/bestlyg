@@ -3,19 +3,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '908. 最小差值 I',
-    url: 'https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-ii',
+    exist:! true,
+    name: '3184. 构成整天的下标对数目 I',
+    url: 'https://leetcode.cn/problems/count-pairs-that-form-a-complete-day-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回将 nums 中所有元素变为 1 的 最少 操作次数。`,
+    desc: `给你一个整数数组 hours，表示以 小时 为单位的时间，返回一个整数，表示满足 i < j 且 hours[i] + hours[j] 构成 整天 的下标对 i, j 的数目。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-09-15',
-            time: 12,
-            memory: 17.36,
-            desc: '排序后直接判断最大值和最小值',
+            time: 14,
+            memory: 16.59,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

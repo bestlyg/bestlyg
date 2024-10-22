@@ -1,4 +1,7 @@
 class Solution:
-    def smallestRangeI(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        return max(nums[-1] - 2 * k - nums[0], 0)
+    def countCompleteDayPairs(self, hours: List[int]) -> int:
+        return sum(
+            (hours[i] + hours[j]) % 24 == 0
+            for i in range(len(hours))
+            for j in range(i)
+        )

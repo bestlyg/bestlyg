@@ -1,0 +1,21 @@
+{
+    "name": "3184.构成整天的下标对数目I",
+    "url": "https://leetcode.cn/problems/count-pairs-that-form-a-complete-day-i",
+    "level": "Easy",
+    "tagList": [
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "desc": "给你一个整数数组 hours，表示以 小时 为单位的时间，返回一个整数，表示满足 i < j 且 hours[i] + hours[j] 构成 整天 的下标对 i, j 的数目。",
+    "solutions": [
+        {
+            "time": 14,
+            "memory": 16.59,
+            "desc": "遍历",
+            "code": "class Solution:\n    def countCompleteDayPairs(self, hours: List[int]) -> int:\n        return sum(\n            (hours[i] + hours[j]) % 24 == 0\n            for i in range(len(hours))\n            for j in range(i)\n        )",
+            "date": "2024-10-22"
+        }
+    ],
+    "id": "3421"
+}
