@@ -1,7 +1,16 @@
 class Solution:
     def countCompleteDayPairs(self, hours: List[int]) -> int:
-        return sum(
-            (hours[i] + hours[j]) % 24 == 0
-            for i in range(len(hours))
-            for j in range(i)
-        )
+        map = defaultdict(int)
+        for h in hours: map[h % 24] += 1
+        arr = list(map.items())
+        res = 0
+        for i in range(len(arr)):
+            h1, c1 = arr[i]
+            if h1 * 2 % 24 == 0:
+                res += (1 + c1 - 1) * (c1 - 1) // 2
+            else:
+                for j in range(i):
+                    h2, c2 = arr[j]
+                    if (h1 + h2) % 24 == 0:
+                        res += c1 * c2
+        return res
