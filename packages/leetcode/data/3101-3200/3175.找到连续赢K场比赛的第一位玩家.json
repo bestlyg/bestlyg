@@ -1,0 +1,20 @@
+{
+    "name": "3175.找到连续赢K场比赛的第一位玩家",
+    "url": "https://leetcode.cn/problems/find-the-first-player-to-win-k-games-in-a-row",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "模拟"
+    ],
+    "desc": "这个比赛的赢家是 第一位连续 赢下 k 场比赛的玩家。请你返回这个比赛的赢家编号。",
+    "solutions": [
+        {
+            "time": 43,
+            "memory": 28.94,
+            "desc": "遍历，只要取到最大数就直接返回",
+            "code": "class Solution:\n    def findWinningPlayer(self, skills: List[int], k: int) -> int:\n        nmax = max(skills)\n        cnt = cur = 0\n        for i in range(1, len(skills)):\n            if skills[cur] < skills[i]:\n                cur = i\n                cnt = 0\n            cnt += 1\n            if cnt == k or skills[cur] == nmax: return cur",
+            "date": "2024-10-24"
+        }
+    ],
+    "id": "3413"
+}
