@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3180. 执行操作可获得的最大总奖励 I',
+    exist: true,
+    name: '684. 冗余连接',
     url: 'https://leetcode.cn/problems/maximum-total-reward-using-operations-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-09-15',
-            time: 4026,
-            memory: 763.09,
-            desc: '去重后dfs',
+            time: 3,
+            memory:17,
+            desc: 'unionfind',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

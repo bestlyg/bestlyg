@@ -19,8 +19,20 @@
             "script": "typescript",
             "desc": "并查集。",
             "code": "class UnionFind {\n  elements: number[];\n  constructor(public size: number) {\n    this.elements = new Array(size).fill(0).map((_, i) => i);\n  }\n  same(v1: number, v2: number): boolean {\n    return this.find(v1) === this.find(v2);\n  }\n  find(v: number): number {\n    return v === this.elements[v] ? v : (this.elements[v] = this.find(this.elements[v]));\n  }\n  union(v1: number, v2: number): void {\n    const e1 = this.find(v1);\n    const e2 = this.find(v2);\n    if (e1 !== e2) {\n      this.elements[e1] = e2;\n      this.size--;\n    }\n  }\n}\nfunction findRedundantConnection(edges: number[][]): number[] {\n  const uf = new UnionFind(edges.length);\n  for (const edge of edges) {\n    const [node1, node2] = edge;\n    if (uf.same(node1, node2)) return edge;\n    uf.union(node1, node2);\n  }\n  return [];\n}"
+        },
+        {
+            "time": 3,
+            "memory": 17,
+            "desc": "unionfind。",
+            "code": "class UnionFind:\n    def __init__(self, n) -> None:\n        self.n = n\n        self.data = [i for i in range(0, n)]\n        self.sizes = [1] * n\n        self.cnt = n\n    def size(self, v: int) -> int:\n        return self.sizes[self.find(v)]\n    def find(self, v: int) -> int:\n        if self.data[v] != v:\n            self.data[v] = self.find(self.data[v])\n        return self.data[v]\n    def uni(self, v1: int, v2: int):\n        p1 = self.find(v1)\n        p2 = self.find(v2)\n        if p1 != p2:\n            self.sizes[p1] += self.sizes[p2]\n            self.cnt -= self.sizes[p2]\n            self.data[p2] = p1\n    def same(self, v1: int, v2: int):\n        return self.find(v1) == self.find(v2)\nclass Solution:\n    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges)\n        uf = UnionFind(n)\n        res = None\n        for n1, n2 in edges:\n            if uf.find(n1 - 1) != uf.find(n2 - 1):\n                uf.uni(n1 - 1, n2 - 1)\n            else:\n                res = [n1, n2]\n        return res",
+            "date": "2024-10-27"
         }
     ],
-    "tagList": ["深度优先搜索", "广度优先搜索", "并查集", "图"],
+    "tagList": [
+        "深度优先搜索",
+        "广度优先搜索",
+        "并查集",
+        "图"
+    ],
     "level": "Medium"
 }

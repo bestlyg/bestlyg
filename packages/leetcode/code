@@ -1,13 +1,32 @@
+class UnionFind:
+    def __init__(self, n) -> None:
+        self.n = n
+        self.data = [i for i in range(0, n)]
+        self.sizes = [1] * n
+        self.cnt = n
+    def size(self, v: int) -> int:
+        return self.sizes[self.find(v)]
+    def find(self, v: int) -> int:
+        if self.data[v] != v:
+            self.data[v] = self.find(self.data[v])
+        return self.data[v]
+    def uni(self, v1: int, v2: int):
+        p1 = self.find(v1)
+        p2 = self.find(v2)
+        if p1 != p2:
+            self.sizes[p1] += self.sizes[p2]
+            self.cnt -= self.sizes[p2]
+            self.data[p2] = p1
+    def same(self, v1: int, v2: int):
+        return self.find(v1) == self.find(v2)
 class Solution:
-    def maxTotalReward(self, rewardValues: List[int]) -> int:
-        arr = list(set(rewardValues))
-        arr.sort()
-        n = len(arr)
-        @cache
-        def dfs(idx: int, cur: int) -> int:
-            if idx == n: return cur
-            res = dfs(idx + 1, cur)
-            if arr[idx] > cur:
-                res = max(res, dfs(idx + 1, cur + arr[idx]))
-            return res
-        return dfs(0, 0)
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        uf = UnionFind(n)
+        res = None
+        for n1, n2 in edges:
+            if uf.find(n1 - 1) != uf.find(n2 - 1):
+                uf.uni(n1 - 1, n2 - 1)
+            else:
+                res = [n1, n2]
+        return res
