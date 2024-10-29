@@ -3,19 +3,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '684. 冗余连接',
-    url: 'https://leetcode.cn/problems/maximum-total-reward-using-operations-i',
+    exist: !true,
+    name: '3211. 生成不含相邻零的二进制字符串',
+    url: 'https://leetcode.cn/problems/generate-binary-strings-without-adjacent-zeros',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `以整数形式返回执行最优操作能够获得的 最大 总奖励。`,
+    desc: `返回所有长度为 n 的 有效 字符串，可以以任意顺序排列。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-09-15',
-            time: 3,
-            memory:17,
-            desc: 'unionfind',
+            time: 52,
+            memory:17.8,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

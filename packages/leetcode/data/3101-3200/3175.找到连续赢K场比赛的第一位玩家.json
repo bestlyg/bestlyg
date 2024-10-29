@@ -2,10 +2,7 @@
     "name": "3175.找到连续赢K场比赛的第一位玩家",
     "url": "https://leetcode.cn/problems/find-the-first-player-to-win-k-games-in-a-row",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["数组", "模拟"],
     "desc": "这个比赛的赢家是 第一位连续 赢下 k 场比赛的玩家。请你返回这个比赛的赢家编号。",
     "solutions": [
         {
