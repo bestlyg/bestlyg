@@ -1,13 +1,9 @@
 class Solution:
-    def maxEnergyBoost(self, energyDrinkA: List[int], energyDrinkB: List[int]) -> int:
-        n = len(energyDrinkA)
-        drinks = [energyDrinkA, energyDrinkB]
-        @cache
-        def dfs(cur: int, drink_idx: int) -> int:
-            if cur == n: return 0
-            # print(f'===>DFS', cur, drink_idx)
-            return max(
-                dfs(cur + 1, drink_idx) + drinks[drink_idx][cur],
-                dfs(cur + 1, (drink_idx + 1) % 2)
-            )
-        return max(dfs(1, 0) + energyDrinkA[0], dfs(1, 1) + energyDrinkB[0])
+    def minChanges(self, n: int, k: int) -> int:
+        res = 0
+        for i in range(32):
+            v1 = (n >> i) & 1
+            v2 = (k >> i) & 1
+            if v2 and not v1: return -1
+            if v2 != v1: res += 1
+        return res
