@@ -1,0 +1,20 @@
+{
+    "name": "3259.超级饮料的最大强化能量",
+    "url": "https://leetcode.cn/problems/maximum-energy-boost-from-two-drinks",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "动态规划"
+    ],
+    "desc": "返回在接下来的 n 小时内你能获得的 最大 总强化能量。",
+    "solutions": [
+        {
+            "date": "2024-11-01",
+            "time": 1121,
+            "memory": 426.5,
+            "desc": "dfs",
+            "code": "class Solution:\n    def maxEnergyBoost(self, energyDrinkA: List[int], energyDrinkB: List[int]) -> int:\n        n = len(energyDrinkA)\n        drinks = [energyDrinkA, energyDrinkB]\n        @cache\n        def dfs(cur: int, drink_idx: int) -> int:\n            if cur == n: return 0\n            # print(f'===>DFS', cur, drink_idx)\n            return max(\n                dfs(cur + 1, drink_idx) + drinks[drink_idx][cur],\n                dfs(cur + 1, (drink_idx + 1) % 2)\n            )\n        return max(dfs(1, 0) + energyDrinkA[0], dfs(1, 1) + energyDrinkB[0])"
+        }
+    ],
+    "id": "3525"
+}
