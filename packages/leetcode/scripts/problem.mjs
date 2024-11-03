@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3226. 使两个整数相等的位更改次数',
+    exist: true,
+    name: '638. 大礼包',
     url: 'https://leetcode.cn/problems/number-of-bit-changes-to-make-two-integers-equal',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 0,
-            memory: 16.29,
-            desc: '遍历每一位',
+            time: 67,
+            memory: 19.94,
+            desc: '记忆化搜索',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
