@@ -11,8 +11,19 @@
             "script": "typescript",
             "desc": "确定边界值进行逐个比较。",
             "code": "function judgeSquareSum(c: number): boolean {\n  let num1 = 0;\n  let num2 = ~~Math.sqrt(c) + 1;\n  while (num1 <= num2) {\n    const sum = num1 ** 2 + num2 ** 2;\n    if (sum > c) num2--;\n    else if (sum < c) num1++;\n    else return true;\n  }\n  return false;\n}"
+        },
+        {
+            "time": 183,
+            "memory": 16.25,
+            "desc": "遍历每一个数。",
+            "code": "class Solution:\n    def judgeSquareSum(self, c: int) -> bool:\n        a = 0\n        while a * a + a * a <= c:\n            b2 = c - a * a\n            if int(sqrt(b2)) ** 2 == b2: return True\n            a += 1\n        return False",
+            "date": "2024-11-04"
         }
     ],
-    "tagList": ["数学", "双指针", "二分查找"],
+    "tagList": [
+        "数学",
+        "双指针",
+        "二分查找"
+    ],
     "level": "Medium"
 }

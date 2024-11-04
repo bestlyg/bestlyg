@@ -1,32 +1,8 @@
-def to_list(num: int, n: int) -> List[int]:
-    res = []
-    for i in range(n):
-        res.append(num % 100)
-        num //= 100
-    res.reverse()
-    return res
-def to_num(needs: List[int]) -> int:
-    res = 0
-    for need in needs:
-        res = res * 100 + need
-    return res
 class Solution:
-    def shoppingOffers(self, price: List[int], special: List[List[int]], needs: List[int]) -> int:
-        n = len(price)
-        @cache
-        def dfs(idx: int, need: int) -> int:
-            needs = to_list(need, n)
-            if idx == len(special): return sum(price[i] * needs[i] for i in range(n))
-            res = inf
-            for cnt in range(0x7fffffff):
-                next_needs = [v for v in needs]
-                f = True
-                for i in range(n):
-                    if special[idx][i] * cnt > next_needs[i]:
-                        f = False
-                        break
-                    next_needs[i] -= special[idx][i] * cnt
-                if not f: break
-                res = min(res, dfs(idx + 1, to_num(next_needs)) + special[idx][-1] * cnt)
-            return res
-        return dfs(0, to_num(needs))
+    def judgeSquareSum(self, c: int) -> bool:
+        a = 0
+        while a * a + a * a <= c:
+            b2 = c - a * a
+            if int(sqrt(b2)) ** 2 == b2: return True
+            a += 1
+        return False

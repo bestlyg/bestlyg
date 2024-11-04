@@ -4,7 +4,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '638. 大礼包',
+    name: '633. 平方数之和',
     url: 'https://leetcode.cn/problems/number-of-bit-changes-to-make-two-integers-equal',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 67,
-            memory: 19.94,
-            desc: '记忆化搜索',
+            time: 183,
+            memory: 16.25,
+            desc: '遍历每一个数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
