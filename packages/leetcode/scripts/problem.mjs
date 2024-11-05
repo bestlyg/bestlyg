@@ -3,19 +3,19 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: true,
-    name: '633. 平方数之和',
-    url: 'https://leetcode.cn/problems/number-of-bit-changes-to-make-two-integers-equal',
+    exist: !true,
+    name: '3222. 求出硬币游戏的赢家',
+    url: 'https://leetcode.cn/problems/find-the-winning-player-in-coin-game',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `给你两个正整数 n 和 k。你可以选择 n 的 二进制表示 中任意一个值为 1 的位，并将其改为 0。返回使得 n 等于 k 所需要的更改次数。如果无法实现，返回 -1。`,
+    desc: `两名玩家都采取 最优 策略，请你返回游戏的赢家。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 183,
-            memory: 16.25,
-            desc: '遍历每一个数',
+            time: 0,
+            memory: 16.56,
+            desc: '只有1个75和4个10才能组成115的价格',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

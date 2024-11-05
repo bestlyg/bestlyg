@@ -1,0 +1,21 @@
+{
+    "name": "3222.求出硬币游戏的赢家",
+    "url": "https://leetcode.cn/problems/find-the-winning-player-in-coin-game",
+    "level": "Easy",
+    "tagList": [
+        "数学",
+        "博弈",
+        "模拟"
+    ],
+    "desc": "两名玩家都采取 最优 策略，请你返回游戏的赢家。",
+    "solutions": [
+        {
+            "time": 0,
+            "memory": 16.56,
+            "desc": "只有1个75和4个10才能组成115的价格",
+            "code": "class Solution:\n    def losingPlayer(self, x: int, y: int) -> str:\n        cnt = min(x, y // 4)\n        return \"Alice\" if cnt % 2 else \"Bob\"",
+            "date": "2024-11-05"
+        }
+    ],
+    "id": "3511"
+}

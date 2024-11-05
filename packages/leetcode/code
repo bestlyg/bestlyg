@@ -1,8 +1,4 @@
 class Solution:
-    def judgeSquareSum(self, c: int) -> bool:
-        a = 0
-        while a * a + a * a <= c:
-            b2 = c - a * a
-            if int(sqrt(b2)) ** 2 == b2: return True
-            a += 1
-        return False
+    def losingPlayer(self, x: int, y: int) -> str:
+        cnt = min(x, y // 4)
+        return "Alice" if cnt % 2 else "Bob"
