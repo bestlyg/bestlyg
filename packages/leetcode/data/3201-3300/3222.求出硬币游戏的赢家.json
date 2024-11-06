@@ -2,11 +2,7 @@
     "name": "3222.求出硬币游戏的赢家",
     "url": "https://leetcode.cn/problems/find-the-winning-player-in-coin-game",
     "level": "Easy",
-    "tagList": [
-        "数学",
-        "博弈",
-        "模拟"
-    ],
+    "tagList": ["数学", "博弈", "模拟"],
     "desc": "两名玩家都采取 最优 策略，请你返回游戏的赢家。",
     "solutions": [
         {

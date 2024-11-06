@@ -2,11 +2,7 @@
     "name": "3211.生成不含相邻零的二进制字符串",
     "url": "https://leetcode.cn/problems/generate-binary-strings-without-adjacent-zeros",
     "level": "Medium",
-    "tagList": [
-        "位运算",
-        "字符串",
-        "回溯"
-    ],
+    "tagList": ["位运算", "字符串", "回溯"],
     "desc": "返回所有长度为 n 的 有效 字符串，可以以任意顺序排列。",
     "solutions": [
         {
