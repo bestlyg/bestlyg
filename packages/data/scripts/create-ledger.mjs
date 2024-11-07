@@ -10,7 +10,31 @@ import {
     toYearVarName,
 } from '../dist/esm/index.js';
 
+const dayjs = best.dayjs;
+
 const dataPath = resolve(decryptPath, 'ledger', 'data');
+
+async function findLatestDay() {
+    const years = (await fs.readdir(dataPath))
+        .filter(v => !v.includes('.'))
+        .map(v => dayjs(v))
+        .sort((a, b) => b.unix() - a.unix());
+    const latestYear = resolve(dataPath, years[0].format(LEDGER_FORMAT_YEAR).toString());
+    const months = (await fs.readdir(latestYear))
+        .filter(v => !v.includes('.'))
+        .map(v => dayjs(v))
+        .sort((a, b) => b.unix() - a.unix());
+    const latestMonth = resolve(
+        dataPath,
+        latestYear,
+        months[0].format(LEDGER_FORMAT_MONTH).toString(),
+    );
+    const days = (await fs.readdir(latestMonth))
+        .filter(v => v !== 'index.ts')
+        .map(v => dayjs(v.split('.')[0]))
+        .sort((a, b) => b.unix() - a.unix());
+    return days[0];
+}
 
 async function main(formattedDate) {
     const date = best.dayjs(formattedDate);
@@ -138,7 +162,13 @@ export default ledgerDayRecord;
 }
 
 try {
-    main(argv._);
+    const latestDay = await findLatestDay();
+    let day;
+    do {
+        day = latestDay.add(1, 'day');
+        console.log(`Start to create ${day.format(LEDGER_FORMAT_DAY)}`);
+        await main(day);
+    } while (day.unix() !== dayjs().unix());
 } catch (err) {
     echo`Error : ${err?.toString()}`;
 }
