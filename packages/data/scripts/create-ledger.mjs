@@ -158,7 +158,7 @@ export default ledgerDayRecord;
     }
 
     await createDay();
-    echo`Create ledger success for ${argv._}.`;
+    echo`Create ledger success for ${date.format(LEDGER_FORMAT_DAY)}.`;
 }
 
 try {
