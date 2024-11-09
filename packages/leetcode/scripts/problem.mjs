@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3255. 长度为 K 的子数组的能量值 II',
-    url: 'https://leetcode.cn/problems/find-the-power-of-k-size-subarrays-ii',
+    name: '3242. 设计相邻元素求和服务',
+    url: 'https://leetcode.cn/problems/design-neighbor-sum-service',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回一个长度为 n - k + 1 的整数数组 results ，其中 results[i] 是子数组 nums[i..(i + k - 1)] 的能量值。`,
+    desc: `给你一个 n x n 的二维数组 grid，它包含范围 [0, n2 - 1] 内的不重复元素。实现 neighborSum 类。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 115,
-            memory: 32.58,
-            desc: '遍历时同时记录当前值与前面值是否符合要求',
+            time: 28,
+            memory: 16.89,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

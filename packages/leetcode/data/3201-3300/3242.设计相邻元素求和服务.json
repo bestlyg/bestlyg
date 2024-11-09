@@ -1,0 +1,23 @@
+{
+    "name": "3242.设计相邻元素求和服务",
+    "url": "https://leetcode.cn/problems/design-neighbor-sum-service",
+    "level": "Easy",
+    "tagList": [
+        "设计",
+        "数组",
+        "哈希表",
+        "矩阵",
+        "模拟"
+    ],
+    "desc": "给你一个 n x n 的二维数组 grid，它包含范围 [0, n2 - 1] 内的不重复元素。实现 neighborSum 类。",
+    "solutions": [
+        {
+            "time": 28,
+            "memory": 16.89,
+            "desc": "遍历",
+            "code": "dirs1 = [(0, 1), (1, 0), (0, -1), (-1, 0)]\ndirs2 = [(1, 1), (1, -1), (-1, 1), (-1, -1)]\nclass NeighborSum:\n    def __init__(self, grid: List[List[int]]):\n        self.grid = grid\n        self.n = len(grid)\n        self.m = len(grid[0])\n        self.map = {grid[i][j]: (i, j) for i in range(self.n) for j in range(self.m)}\n    def get(self, value: int, dirs: List[int]) -> int:\n        i, j = self.map[value]\n        res = 0\n        for dir in dirs:\n            ni = i + dir[0]\n            nj = j + dir[1]\n            if 0 <= ni < self.n and 0 <= nj < self.m:\n                res += self.grid[ni][nj]\n        return res\n    def adjacentSum(self, value: int) -> int:\n        return self.get(value, dirs1)\n    def diagonalSum(self, value: int) -> int:\n        return self.get(value, dirs2)",
+            "date": "2024-11-09"
+        }
+    ],
+    "id": "3516"
+}
