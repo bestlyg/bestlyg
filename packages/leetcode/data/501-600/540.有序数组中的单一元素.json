@@ -19,8 +19,18 @@
             "script": "cpp",
             "desc": "bs, 如果是偶数下标与后面的比，奇数下标与前面的比。",
             "code": "class Solution {\n   public:\n    int singleNonDuplicate(vector<int>& nums) {\n        int l = 0, r = nums.size() - 1, m;\n        while (l < r) {\n            m = (l + r) >> 1;\n            if (nums[m] == nums[m ^ 1])\n                l = m + 1;\n            else\n                r = m;\n        }\n        return nums[l];\n    }\n};"
+        },
+        {
+            "time": 4,
+            "memory": 23.52,
+            "desc": "遍历时用异或去重。",
+            "code": "class Solution:\n    def singleNonDuplicate(self, nums: List[int]) -> int:\n        return reduce(lambda a, b: a ^ b, nums, 0)",
+            "date": "2024-11-10"
         }
     ],
-    "tagList": ["数组", "二分查找"],
+    "tagList": [
+        "数组",
+        "二分查找"
+    ],
     "level": "Medium"
 }

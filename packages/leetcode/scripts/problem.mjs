@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3242. 设计相邻元素求和服务',
+    exist: true,
+    name: '540. 有序数组中的单一元素',
     url: 'https://leetcode.cn/problems/design-neighbor-sum-service',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 28,
-            memory: 16.89,
-            desc: '遍历',
+            time: 4,
+            memory: 23.52,
+            desc: '遍历时用异或去重',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
