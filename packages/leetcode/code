@@ -1,3 +1,10 @@
 class Solution:
-    def singleNonDuplicate(self, nums: List[int]) -> int:
-        return reduce(lambda a, b: a ^ b, nums, 0)
+    def minCost(self, end: int, cuts: List[int]) -> int:
+        @cache
+        def dfs(start: int, end: int) -> int:
+            res = inf
+            for cut in cuts:
+                if start < cut < end:
+                    res = min(res, dfs(start, cut) + dfs(cut, end) + end - start)
+            return res if res != inf else 0
+        return dfs(0, end)

@@ -1,0 +1,21 @@
+{
+    "name": "1547.切棍子的最小成本",
+    "url": "https://leetcode.cn/problems/minimum-cost-to-cut-a-stick",
+    "level": "Hard",
+    "tagList": [
+        "数组",
+        "动态规划",
+        "排序"
+    ],
+    "desc": "返回切棍子的 最小总成本 。",
+    "solutions": [
+        {
+            "time": 942,
+            "memory": 19.98,
+            "desc": "dfs尝试在每一个点进行切割",
+            "code": "class Solution:\n    def minCost(self, end: int, cuts: List[int]) -> int:\n        @cache\n        def dfs(start: int, end: int) -> int:\n            res = inf\n            for cut in cuts:\n                if start < cut < end:\n                    res = min(res, dfs(start, cut) + dfs(cut, end) + end - start)\n            return res if res != inf else 0\n        return dfs(0, end)",
+            "date": "2024-11-11"
+        }
+    ],
+    "id": "1669"
+}
