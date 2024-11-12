@@ -2,10 +2,7 @@
     "name": "3255.长度为K的子数组的能量值II",
     "url": "https://leetcode.cn/problems/find-the-power-of-k-size-subarrays-ii",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "滑动窗口"],
     "desc": "请你返回一个长度为 n - k + 1 的整数数组 results ，其中 results[i] 是子数组 nums[i..(i + k - 1)] 的能量值。",
     "solutions": [
         {

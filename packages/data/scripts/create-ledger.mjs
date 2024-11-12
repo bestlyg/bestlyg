@@ -162,13 +162,12 @@ export default ledgerDayRecord;
 }
 
 try {
-    const latestDay = await findLatestDay();
-    let day;
+    let day = await findLatestDay();
     do {
-        day = latestDay.add(1, 'day');
+        day = day.add(1, 'day');
         console.log(`Start to create ${day.format(LEDGER_FORMAT_DAY)}`);
         await main(day);
-    } while (day.unix() !== dayjs().unix());
+    } while (day.unix() < dayjs().unix());
 } catch (err) {
     echo`Error : ${err?.toString()}`;
 }

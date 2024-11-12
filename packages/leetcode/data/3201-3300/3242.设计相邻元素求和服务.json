@@ -2,13 +2,7 @@
     "name": "3242.设计相邻元素求和服务",
     "url": "https://leetcode.cn/problems/design-neighbor-sum-service",
     "level": "Easy",
-    "tagList": [
-        "设计",
-        "数组",
-        "哈希表",
-        "矩阵",
-        "模拟"
-    ],
+    "tagList": ["设计", "数组", "哈希表", "矩阵", "模拟"],
     "desc": "给你一个 n x n 的二维数组 grid，它包含范围 [0, n2 - 1] 内的不重复元素。实现 neighborSum 类。",
     "solutions": [
         {

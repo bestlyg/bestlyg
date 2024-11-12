@@ -2,11 +2,7 @@
     "name": "1547.切棍子的最小成本",
     "url": "https://leetcode.cn/problems/minimum-cost-to-cut-a-stick",
     "level": "Hard",
-    "tagList": [
-        "数组",
-        "动态规划",
-        "排序"
-    ],
+    "tagList": ["数组", "动态规划", "排序"],
     "desc": "返回切棍子的 最小总成本 。",
     "solutions": [
         {
