@@ -17,6 +17,7 @@ import {
     toYearVarName,
 } from '../dist/esm/index.js';
 
+const dayjs = best.dayjs;
 const rootPath = resolve('recreate');
 
 /**
