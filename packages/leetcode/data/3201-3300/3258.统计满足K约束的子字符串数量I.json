@@ -1,0 +1,20 @@
+{
+    "name": "3258.统计满足K约束的子字符串数量I",
+    "url": "https://leetcode.cn/problems/count-substrings-that-satisfy-k-constraint-i",
+    "level": "Easy",
+    "tagList": [
+        "字符串",
+        "滑动窗口"
+    ],
+    "desc": "返回一个整数，表示 s 的所有满足 k 约束 的子字符串的数量。",
+    "solutions": [
+        {
+            "time": 124,
+            "memory": 16.62,
+            "desc": "遍历每个子串",
+            "code": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int) -> int:\n        return sum(\n            s[j: i + 1].count('1') <= k or s[j: i + 1].count('0') <= k\n            for i in range(len(s))\n            for j in range(i + 1)\n        )",
+            "date": "2024-11-12"
+        }
+    ],
+    "id": "3543"
+}
