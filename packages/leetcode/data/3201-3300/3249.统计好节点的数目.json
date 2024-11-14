@@ -1,0 +1,20 @@
+{
+    "name": "3249.统计好节点的数目",
+    "url": "https://leetcode.cn/problems/count-the-number-of-good-nodes",
+    "level": "Medium",
+    "tagList": [
+        "树",
+        "深度优先搜索"
+    ],
+    "desc": "返回给定树中 好节点 的数量。",
+    "solutions": [
+        {
+            "time": 1048,
+            "memory": 126.92,
+            "desc": "dfs遍历每个子树",
+            "code": "class Solution:\n    def countGoodNodes(self, edges: List[List[int]]) -> int:\n        n = len(edges) + 1\n        nodes = [[] for _ in range(n)]\n        for n1, n2 in edges:\n            nodes[n1].append(n2)\n            nodes[n2].append(n1)\n        res = 0\n        def run(idx: int, p: int) -> int:\n            nonlocal res\n            arr = [run(child, idx) for child in nodes[idx] if child != p]\n            if all([v == arr[0] for v in arr]): res += 1\n            return reduce(lambda a, b: a + b, arr, 0) + 1\n        run(0, -1)\n        return res",
+            "date": "2024-11-14"
+        }
+    ],
+    "id": "3486"
+}

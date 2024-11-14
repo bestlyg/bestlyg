@@ -1,7 +1,15 @@
 class Solution:
-    def countKConstraintSubstrings(self, s: str, k: int) -> int:
-        return sum(
-            s[j: i + 1].count('1') <= k or s[j: i + 1].count('0') <= k
-            for i in range(len(s))
-            for j in range(i + 1)
-        )
+    def countGoodNodes(self, edges: List[List[int]]) -> int:
+        n = len(edges) + 1
+        nodes = [[] for _ in range(n)]
+        for n1, n2 in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        res = 0
+        def run(idx: int, p: int) -> int:
+            nonlocal res
+            arr = [run(child, idx) for child in nodes[idx] if child != p]
+            if all([v == arr[0] for v in arr]): res += 1
+            return reduce(lambda a, b: a + b, arr, 0) + 1
+        run(0, -1)
+        return res
