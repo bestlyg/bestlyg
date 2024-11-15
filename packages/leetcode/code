@@ -1,15 +1,14 @@
 class Solution:
-    def countGoodNodes(self, edges: List[List[int]]) -> int:
-        n = len(edges) + 1
-        nodes = [[] for _ in range(n)]
-        for n1, n2 in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
-        res = 0
-        def run(idx: int, p: int) -> int:
-            nonlocal res
-            arr = [run(child, idx) for child in nodes[idx] if child != p]
-            if all([v == arr[0] for v in arr]): res += 1
-            return reduce(lambda a, b: a + b, arr, 0) + 1
-        run(0, -1)
-        return res
+    def minFlips(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        rcnt = ccnt = 0
+        for i in range(n):
+            for j in range(m // 2):
+                if grid[i][j] != grid[i][m - 1 - j]:
+                    rcnt += 1
+        for j in range(m):
+            for i in range(n // 2):
+                if grid[i][j] != grid[n - 1 - i][j]:
+                    ccnt += 1
+        return min(rcnt, ccnt)

@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3249. 统计好节点的数目',
-    url: 'https://leetcode.cn/problems/count-the-number-of-good-nodes',
+    name: '3239. 最少翻转次数使二进制矩阵回文 I',
+    url: 'https://leetcode.cn/problems/minimum-number-of-flips-to-make-binary-grid-palindromic-i',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回给定树中 好节点 的数量。`,
+    desc: `请你返回 最少 翻转次数，使得矩阵 要么 所有行是 回文的 ，要么所有列是 回文的 。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 1048,
-            memory: 126.92,
-            desc: 'dfs遍历每个子树',
+            time: 147,
+            memory: 56.16,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

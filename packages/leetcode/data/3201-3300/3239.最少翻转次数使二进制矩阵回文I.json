@@ -1,0 +1,21 @@
+{
+    "name": "3239.最少翻转次数使二进制矩阵回文I",
+    "url": "https://leetcode.cn/problems/minimum-number-of-flips-to-make-binary-grid-palindromic-i",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "双指针",
+        "矩阵"
+    ],
+    "desc": "请你返回 最少 翻转次数，使得矩阵 要么 所有行是 回文的 ，要么所有列是 回文的 。",
+    "solutions": [
+        {
+            "time": 147,
+            "memory": 56.16,
+            "desc": "遍历",
+            "code": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        m = len(grid[0])\n        rcnt = ccnt = 0\n        for i in range(n):\n            for j in range(m // 2):\n                if grid[i][j] != grid[i][m - 1 - j]:\n                    rcnt += 1\n        for j in range(m):\n            for i in range(n // 2):\n                if grid[i][j] != grid[n - 1 - i][j]:\n                    ccnt += 1\n        return min(rcnt, ccnt)",
+            "date": "2024-11-15"
+        }
+    ],
+    "id": "3526"
+}
