@@ -2,10 +2,7 @@
     "name": "3249.统计好节点的数目",
     "url": "https://leetcode.cn/problems/count-the-number-of-good-nodes",
     "level": "Medium",
-    "tagList": [
-        "树",
-        "深度优先搜索"
-    ],
+    "tagList": ["树", "深度优先搜索"],
     "desc": "返回给定树中 好节点 的数量。",
     "solutions": [
         {

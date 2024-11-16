@@ -164,7 +164,7 @@ export default ledgerDayRecord;
 try {
     let day = await findLatestDay();
     do {
-        day = day.add(1, 'day');
+        day = day.add(1, 'day').startOf('day');
         console.log(`Start to create ${day.format(LEDGER_FORMAT_DAY)}`);
         await main(day);
     } while (day.unix() < dayjs().unix());
