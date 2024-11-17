@@ -27,8 +27,20 @@
             "script": "cpp",
             "desc": "双指针移动。",
             "code": "class Solution {\n   public:\n    int numFriendRequests(vector<int>& ages) {\n        sort(ages.begin(), ages.end());\n        int n = ages.size(), l = 0, r = 0, ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (ages[i] * 0.5 + 7 > ages[i]) continue;\n            while (r + 1 < n && ages[r + 1] <=ages[i]) r++;\n            while (l < r && ages[l] <= ages[i] * 0.5 + 7) l++;\n            ans += r - l;\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "time": 205,
+            "memory": 17.11,
+            "desc": "对于每个用户进行二分查找合适的区间。",
+            "code": "class Solution:\n    def numFriendRequests(self, ages: List[int]) -> int:\n        ages.sort()\n        res = 0\n        for x in range(len(ages)):\n            starty = bisect_right(ages, 0.5 * ages[x] + 7)\n            endy = bisect_right(ages, ages[x])\n            if ages[x] < 100: endy = min(endy, bisect_right(ages, 100))\n            if starty < endy: res += endy - starty\n            if starty <= x < endy: res -= 1\n        return res",
+            "date": "2024-11-17"
         }
     ],
-    "tagList": ["数组", "双指针", "二分查找", "排序"],
+    "tagList": [
+        "数组",
+        "双指针",
+        "二分查找",
+        "排序"
+    ],
     "level": "Medium"
 }
