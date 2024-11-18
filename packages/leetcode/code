@@ -1,11 +1,21 @@
+dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 class Solution:
-    def numFriendRequests(self, ages: List[int]) -> int:
-        ages.sort()
-        res = 0
-        for x in range(len(ages)):
-            starty = bisect_right(ages, 0.5 * ages[x] + 7)
-            endy = bisect_right(ages, ages[x])
-            if ages[x] < 100: endy = min(endy, bisect_right(ages, 100))
-            if starty < endy: res += endy - starty
-            if starty <= x < endy: res -= 1
+    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
+        n = len(img)
+        m = len(img[0])
+        res = []
+        for i in range(n):
+            item = []
+            for j in range(m):
+                c = v = 0
+                c += 1
+                v += img[i][j]
+                for dir in dirs2:
+                    ni = i + dir[0]
+                    nj = j + dir[1]
+                    if 0 <= ni < n and 0 <= nj < m:
+                        c += 1
+                        v += img[ni][nj]
+                item.append(v // c)
+            res.append(item)
         return res

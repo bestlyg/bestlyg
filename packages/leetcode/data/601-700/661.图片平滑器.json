@@ -11,8 +11,18 @@
             "script": "cpp",
             "desc": "遍历。",
             "code": "class Solution {\n   public:\n    constexpr static int dirs[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},\n                                       {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};\n    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {\n        int n = img.size(), m = img[0].size();\n        vector<vector<int>> ans(n, vector<int>(m));\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                int val = img[i][j], cnt = 1;\n                for (int k = 0; k < 8; k++) {\n                    int ni = i + dirs[k][0], nj = j + dirs[k][1];\n                    if (ni < 0 || ni == n || nj < 0 || nj == m) continue;\n                    val += img[ni][nj];\n                    cnt++;\n                }\n                ans[i][j] = val / cnt;\n            }\n        }\n        return ans;\n    }\n};"
+        },
+        {
+            "time": 127,
+            "memory": 17.56,
+            "desc": "遍历。",
+            "code": "dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\nclass Solution:\n    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:\n        n = len(img)\n        m = len(img[0])\n        res = []\n        for i in range(n):\n            item = []\n            for j in range(m):\n                c = v = 0\n                c += 1\n                v += img[i][j]\n                for dir in dirs2:\n                    ni = i + dir[0]\n                    nj = j + dir[1]\n                    if 0 <= ni < n and 0 <= nj < m:\n                        c += 1\n                        v += img[ni][nj]\n                item.append(v // c)\n            res.append(item)\n        return res",
+            "date": "2024-11-18"
         }
     ],
-    "tagList": ["数组", "矩阵"],
+    "tagList": [
+        "数组",
+        "矩阵"
+    ],
     "level": "Easy"
 }

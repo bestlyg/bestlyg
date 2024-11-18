@@ -4,7 +4,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '825. 适龄的朋友',
+    name: '661. 图片平滑器',
     url: 'https://leetcode.cn/problems/friends-of-appropriate-ages',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 205,
-            memory: 17.11,
-            desc: '对于每个用户进行二分查找合适的区间',
+            time: 127,
+            memory: 17.56,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
