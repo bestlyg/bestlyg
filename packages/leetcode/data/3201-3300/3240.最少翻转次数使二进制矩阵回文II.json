@@ -2,11 +2,7 @@
     "name": "3240.最少翻转次数使二进制矩阵回文II",
     "url": "https://leetcode.cn/problems/minimum-number-of-flips-to-make-binary-grid-palindromic-ii",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "双指针",
-        "矩阵"
-    ],
+    "tagList": ["数组", "双指针", "矩阵"],
     "desc": "请你返回 最少 翻转次数，使得矩阵中 所有 行和列都是 回文的 ，且矩阵中 1 的数目可以被 4 整除 。",
     "solutions": [
         {
