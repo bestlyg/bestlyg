@@ -1,21 +1,24 @@
-dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 class Solution:
-    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
-        n = len(img)
-        m = len(img[0])
+    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
         res = []
-        for i in range(n):
-            item = []
-            for j in range(m):
-                c = v = 0
-                c += 1
-                v += img[i][j]
-                for dir in dirs2:
-                    ni = i + dir[0]
-                    nj = j + dir[1]
-                    if 0 <= ni < n and 0 <= nj < m:
-                        c += 1
-                        v += img[ni][nj]
-                item.append(v // c)
-            res.append(item)
+        next = [[i + 1] for i in range(n - 1)]
+        for v1, v2 in queries:
+            next[v1].append(v2)
+            q = deque([0])
+            used = set([0])
+            size = 1
+            step = 0
+            while q:
+                node = q.popleft()
+                if node == n - 1:
+                    res.append(step)
+                    break
+                for child in next[node]:
+                    if child not in used:
+                        used.add(child)
+                        q.append(child)
+                size -= 1
+                if size == 0:
+                    size = len(q)
+                    step += 1
         return res
