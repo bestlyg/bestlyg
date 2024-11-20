@@ -1,0 +1,22 @@
+{
+    "name": "3244.新增道路查询后的最短距离II",
+    "url": "https://leetcode.cn/problems/shortest-distance-after-road-addition-queries-ii",
+    "level": "Hard",
+    "tagList": [
+        "贪心",
+        "图",
+        "数组",
+        "有序集合"
+    ],
+    "desc": "返返回一个数组 answer，对于范围 [0, queries.length - 1] 中的每个 i，answer[i] 是处理完前 i + 1 个查询后，从城市 0 到城市 n - 1 的最短路径的长度。",
+    "solutions": [
+        {
+            "time": 79,
+            "memory": 44.22,
+            "desc": "贪心，考虑到不会交叉的路径，尽可能选择新连接的路径即可",
+            "code": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        res = []\n        arr = [i + 1 for i in range(n)]\n        cur = n - 1\n        for n1, n2 in queries:\n            if 0 < arr[n1] < n2:\n                v = 0\n                walker = n1\n                while walker != n2:\n                    v += 1\n                    arr[walker], walker = 0, arr[walker]\n                cur -= v - 1\n                arr[n1] = n2\n            res.append(cur)\n        return res",
+            "date": "2024-11-20"
+        }
+    ],
+    "id": "3514"
+}

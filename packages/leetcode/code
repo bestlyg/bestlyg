@@ -1,24 +1,16 @@
 class Solution:
     def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
         res = []
-        next = [[i + 1] for i in range(n - 1)]
-        for v1, v2 in queries:
-            next[v1].append(v2)
-            q = deque([0])
-            used = set([0])
-            size = 1
-            step = 0
-            while q:
-                node = q.popleft()
-                if node == n - 1:
-                    res.append(step)
-                    break
-                for child in next[node]:
-                    if child not in used:
-                        used.add(child)
-                        q.append(child)
-                size -= 1
-                if size == 0:
-                    size = len(q)
-                    step += 1
+        arr = [i + 1 for i in range(n)]
+        cur = n - 1
+        for n1, n2 in queries:
+            if 0 < arr[n1] < n2:
+                v = 0
+                walker = n1
+                while walker != n2:
+                    v += 1
+                    arr[walker], walker = 0, arr[walker]
+                cur -= v - 1
+                arr[n1] = n2
+            res.append(cur)
         return res
