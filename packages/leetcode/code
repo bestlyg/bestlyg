@@ -1,16 +1,14 @@
+dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 class Solution:
-    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
-        res = []
-        arr = [i + 1 for i in range(n)]
-        cur = n - 1
-        for n1, n2 in queries:
-            if 0 < arr[n1] < n2:
-                v = 0
-                walker = n1
-                while walker != n2:
-                    v += 1
-                    arr[walker], walker = 0, arr[walker]
-                cur -= v - 1
-                arr[n1] = n2
-            res.append(cur)
-        return res
+    def finalPositionOfSnake(self, n: int, commands: List[str]) -> int:
+        cur = [0, 0]
+        for command in commands:
+            if command == 'UP':
+                cur[0] -= 1
+            elif command == 'DOWN':
+                cur[0] += 1
+            elif command == 'LEFT':
+                cur[1] -= 1
+            elif command == 'RIGHT':
+                cur[1] += 1
+        return cur[0] * n + cur[1]
