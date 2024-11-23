@@ -1,0 +1,21 @@
+{
+    "name": "3238.求出胜利玩家的数目",
+    "url": "https://leetcode.cn/problems/find-the-number-of-winning-players",
+    "level": "Easy",
+    "tagList": [
+        "数组",
+        "哈希表",
+        "计数"
+    ],
+    "desc": "请你返回游戏中 胜利玩家 的数目。",
+    "solutions": [
+        {
+            "time": 4,
+            "memory": 16.44,
+            "desc": "遍历",
+            "code": "class Solution:\n    def winningPlayerCount(self, n: int, pick: List[List[int]]) -> int:\n        res = set()\n        arr = [defaultdict(int) for _ in range(n)]\n        for x, y in pick:\n            arr[x][y] += 1\n            if arr[x][y] > x:\n                res.add(x)\n        return len(res)",
+            "date": "2024-11-23"
+        }
+    ],
+    "id": "3519"
+}
