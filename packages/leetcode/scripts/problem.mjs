@@ -3,8 +3,8 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '3238. 求出胜利玩家的数目',
+    exist: true,
+    name: '743. 网络延迟时间',
     url: 'https://leetcode.cn/problems/find-the-number-of-winning-players',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 4,
-            memory: 16.44,
-            desc: '遍历',
+            time: 6,
+            memory: 18.07,
+            desc: 'bfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
