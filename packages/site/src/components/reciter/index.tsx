@@ -8,22 +8,21 @@ export function Reciter({ children }: PropsWithChildren<{}>) {
     const [inputVal, setInputVal] = useState('');
     const inspectRef = useRef<HTMLSpanElement>({} as HTMLSpanElement);
     useEffect(() => {
-        if (status === 'inspect') {
-            let htmlText = '';
-            for (let i = 0; i < text.length; i++) {
-                if (inputVal[i] === text[i]) {
-                    htmlText += text[i];
-                } else {
-                    htmlText += `<span style='color:red;'>${text[i]}</span>`;
-                }
+        if (!inspectRef.current) return;
+        let htmlText = '';
+        for (let i = 0; i < text.length; i++) {
+            if (inputVal[i] === text[i]) {
+                htmlText += text[i];
+            } else {
+                htmlText += `<span style='color:red;'>${text[i]}</span>`;
             }
-            inspectRef.current.innerHTML = htmlText;
         }
-    }, [status]);
+        inspectRef.current.innerHTML = htmlText;
+    }, [inputVal, status]);
     return (
         <p>
             {status !== 'recite' && <span>{text}</span>}
-            {status === 'recite' && (
+            {status !== 'init' && (
                 <Input.TextArea
                     autoSize
                     value={inputVal}
