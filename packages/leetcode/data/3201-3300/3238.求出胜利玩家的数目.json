@@ -2,11 +2,7 @@
     "name": "3238.求出胜利玩家的数目",
     "url": "https://leetcode.cn/problems/find-the-number-of-winning-players",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "哈希表",
-        "计数"
-    ],
+    "tagList": ["数组", "哈希表", "计数"],
     "desc": "请你返回游戏中 胜利玩家 的数目。",
     "solutions": [
         {

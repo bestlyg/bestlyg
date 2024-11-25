@@ -2,12 +2,7 @@
     "name": "3244.新增道路查询后的最短距离II",
     "url": "https://leetcode.cn/problems/shortest-distance-after-road-addition-queries-ii",
     "level": "Hard",
-    "tagList": [
-        "贪心",
-        "图",
-        "数组",
-        "有序集合"
-    ],
+    "tagList": ["贪心", "图", "数组", "有序集合"],
     "desc": "返返回一个数组 answer，对于范围 [0, queries.length - 1] 中的每个 i，answer[i] 是处理完前 i + 1 个查询后，从城市 0 到城市 n - 1 的最短路径的长度。",
     "solutions": [
         {

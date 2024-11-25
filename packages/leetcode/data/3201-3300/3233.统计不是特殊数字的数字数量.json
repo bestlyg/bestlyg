@@ -2,11 +2,7 @@
     "name": "3233.统计不是特殊数字的数字数量",
     "url": "https://leetcode.cn/problems/find-the-count-of-numbers-which-are-not-special",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "数学",
-        "数论"
-    ],
+    "tagList": ["数组", "数学", "数论"],
     "desc": "返回区间 [l, r] 内 不是 特殊数字 的数字数量。",
     "solutions": [
         {
