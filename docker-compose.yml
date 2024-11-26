@@ -10,16 +10,16 @@ services:
   #     - ./nginx/docker/spa:/etc/nginx/conf.d
   #     - ./src/website:/var/www/html/
   mongo:
-    container_name: bestlyg-database
+    container_name: bestlyg-mongo
     image: mongo:latest
     restart: always
     volumes:
       # 挂载数据目录
-      - ./databases/mongod/db:/data/db
+      - ./databases/bestlyg-mongo/db:/data/db
       # 挂载日志目录
-      - ./databases/mongod/log:/var/log/mongodb
+      - ./databases/bestlyg-mongo/log:/var/log/mongodb
       # 挂载配置目录
-      - ./databases/mongod/config:/etc/mongo
+      - ./databases/bestlyg-mongo/config:/etc/mongo
     ports:
       - 27017:27017
     command: mongod
@@ -31,24 +31,41 @@ services:
       - 27018:27018
   mysql:
     image: mysql:latest
+    container_name: bestlyg-mysql
     # command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+    volumes:
+      # 挂载数据目录
+      - ./databases/bestlyg-mysql:/var/lib/mysql
   adminer:
+    container_name: bestlyg-adminer
     image: adminer
     restart: always
     ports:
       - 8080:8080
   redis:
+    container_name: bestlyg-redis
     image: redis:latest
     restart: always
     volumes:
-      - ./databases/redis:/data
+      - ./databases/bestlyg-redis:/data
     ports:
       - 6379:6379
+  postgres:
+    container_name: bestlyg-postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./databases/bestlyg-postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
   # bestlyg-server:
   #   container_name: bestlyg-server
   #   #构建容器

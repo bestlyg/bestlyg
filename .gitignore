@@ -24,3 +24,4 @@ storybook-static
 .env.*
 venv
 __pycache__
+databases
