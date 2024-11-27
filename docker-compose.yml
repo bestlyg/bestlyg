@@ -23,18 +23,14 @@ services:
     ports:
       - 27017:27017
     command: mongod
-  mongo-express:
-    container_name: bestlyg-mongo-express
-    image: mongo-express:latest
-    restart: always
-    ports:
-      - 27018:27018
   mysql:
     image: mysql:latest
     container_name: bestlyg-mysql
     # command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
@@ -42,12 +38,6 @@ services:
       - ./databases/bestlyg-data:/bestlyg-data
       # 挂载数据目录
       - ./databases/bestlyg-mysql:/var/lib/mysql
-  adminer:
-    container_name: bestlyg-adminer
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
   redis:
     container_name: bestlyg-redis
     image: redis:latest
@@ -69,6 +59,28 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
+  
+  # mongo-express:
+  #   container_name: bestlyg-mongo-express
+  #   image: mongo-express:latest
+  #   restart: always
+  #   ports:
+  #     - 27018:27018
+  #   links:
+  #     - mongo
+
+  # adminer:
+  #   container_name: bestlyg-adminer
+  #   image: adminer:latest
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   links:
+  #     - mongo
+  #     - mysql
+  #     - redis
+  #     - postgres
+
   # bestlyg-server:
   #   container_name: bestlyg-server
   #   #构建容器
