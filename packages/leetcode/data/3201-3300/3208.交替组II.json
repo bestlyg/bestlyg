@@ -1,0 +1,20 @@
+{
+    "name": "3208.交替组II",
+    "url": "https://leetcode.cn/problems/alternating-groups-ii",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "滑动窗口"
+    ],
+    "desc": "请你返回 交替 组的数目。",
+    "solutions": [
+        {
+            "time": 183,
+            "memory": 20.6,
+            "desc": "记录以r为最后一个元素的滑动窗口",
+            "code": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        n = len(colors)\n        l = 0\n        while colors[l] != colors[(l + n - 1) % n]:\n            l = (l + n - 1) % n\n            if l == 0:\n                l = 1\n                break\n        res = 0\n        for r in range(n):\n            if colors[r] == colors[(r + n - 1) % n]:\n                l = r\n            else:\n                cnt = r - l + 1 if l <= r else r + 1 + n - l\n                if cnt >= k: res += 1\n            if (r + 1) % n == l:\n                l = (l + 1) % n\n        return res",
+            "date": "2024-11-27"
+        }
+    ],
+    "id": "3483"
+}

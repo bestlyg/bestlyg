@@ -1,16 +1,19 @@
 class Solution:
-    def numberOfAlternatingGroups(self, colors: List[int]) -> int:
+    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
         n = len(colors)
-        p1 = colors[0]
-        p2 = colors[1]
-        i = 2
+        l = 0
+        while colors[l] != colors[(l + n - 1) % n]:
+            l = (l + n - 1) % n
+            if l == 0:
+                l = 1
+                break
         res = 0
-        while True:
-            p3 = colors[i]
-            if p1 == p3 and p1 != p2:
-                res += 1
-            p1 = p2
-            p2 = p3
-            i = (i + 1) % n
-            if i == 2: break
+        for r in range(n):
+            if colors[r] == colors[(r + n - 1) % n]:
+                l = r
+            else:
+                cnt = r - l + 1 if l <= r else r + 1 + n - l
+                if cnt >= k: res += 1
+            if (r + 1) % n == l:
+                l = (l + 1) % n
         return res
