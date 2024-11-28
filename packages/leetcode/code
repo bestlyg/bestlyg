@@ -1,19 +1,13 @@
 class Solution:
-    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
-        n = len(colors)
-        l = 0
-        while colors[l] != colors[(l + n - 1) % n]:
-            l = (l + n - 1) % n
-            if l == 0:
-                l = 1
-                break
-        res = 0
-        for r in range(n):
-            if colors[r] == colors[(r + n - 1) % n]:
-                l = r
-            else:
-                cnt = r - l + 1 if l <= r else r + 1 + n - l
-                if cnt >= k: res += 1
-            if (r + 1) % n == l:
-                l = (l + 1) % n
-        return res
+    def countOfPairs(self, nums: List[int]) -> int:
+        n = len(nums)
+        @cache
+        def dfs(idx: int, arr1: int, arr2: int) -> int:
+            if idx == n: return 1
+            res = 0
+            for num1 in range(nums[idx] + 1):
+                num2 = nums[idx] - num1
+                if arr1 <= num1 and arr2 >= num2:
+                    res += dfs(idx + 1, num1, num2)
+            return res
+        return dfs(0, 0, 50) % (10 ** 9 + 7)

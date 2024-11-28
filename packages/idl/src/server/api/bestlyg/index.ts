@@ -23,5 +23,6 @@ export namespace BestlygService {
         export const url = '/api/health';
         export const method = 'get';
         export const serializer = 'json';
+        
     }
 }

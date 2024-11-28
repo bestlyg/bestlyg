@@ -12,6 +12,9 @@ importers:
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.5.4)
     devDependencies:
+      '@bestlyg/cli':
+        specifier: workspace:^
+        version: link:../cli
       '@types/node':
         specifier: ^22.7.4
         version: 22.7.4
