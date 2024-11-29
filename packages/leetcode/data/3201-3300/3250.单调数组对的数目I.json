@@ -2,13 +2,7 @@
     "name": "3250.单调数组对的数目I",
     "url": "https://leetcode.cn/problems/find-the-count-of-monotonic-pairs-i",
     "level": "Hard",
-    "tagList": [
-        "数组",
-        "数学",
-        "动态规划",
-        "组合数学",
-        "前缀和"
-    ],
+    "tagList": ["数组", "数学", "动态规划", "组合数学", "前缀和"],
     "desc": "请你返回所有 单调 数组对的数目。",
     "solutions": [
         {

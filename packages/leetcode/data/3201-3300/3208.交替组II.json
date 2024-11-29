@@ -2,10 +2,7 @@
     "name": "3208.交替组II",
     "url": "https://leetcode.cn/problems/alternating-groups-ii",
     "level": "Medium",
-    "tagList": [
-        "数组",
-        "滑动窗口"
-    ],
+    "tagList": ["数组", "滑动窗口"],
     "desc": "请你返回 交替 组的数目。",
     "solutions": [
         {
