@@ -1,13 +1,5 @@
 class Solution:
-    def countOfPairs(self, nums: List[int]) -> int:
-        n = len(nums)
-        @cache
-        def dfs(idx: int, arr1: int, arr2: int) -> int:
-            if idx == n: return 1
-            res = 0
-            for num1 in range(nums[idx] + 1):
-                num2 = nums[idx] - num1
-                if arr1 <= num1 and arr2 >= num2:
-                    res += dfs(idx + 1, num1, num2)
-            return res
-        return dfs(0, 0, 50) % (10 ** 9 + 7)
+    def canAliceWin(self, nums: List[int]) -> bool:
+        num1 = sum(num for num in nums if num < 10)
+        num2 = sum(num for num in nums if num >= 10)
+        return num1 != num2
