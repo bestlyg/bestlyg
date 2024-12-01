@@ -1,5 +1,26 @@
 class Solution:
-    def canAliceWin(self, nums: List[int]) -> bool:
-        num1 = sum(num for num in nums if num < 10)
-        num2 = sum(num for num in nums if num >= 10)
-        return num1 != num2
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        rows, cols, k1, k2 = [False] * n, [False] * n, [False] * (n * 3), [False] * (n * 3)
+        tok1 = lambda i, j: n - i - j
+        tok2 = lambda i, j: n - i + j
+        res, data = [], [['.'] * n for _ in range(n)]
+        def dfs(i: int, j: int, cnt: int):
+            nonlocal res
+            if i == n:
+                if cnt == 0:
+                    item = []
+                    res.append(item)
+                    for row in data: item.append(''.join(row))
+                return
+            if j == n:
+                dfs(i + 1, 0, cnt)
+                return
+            dfs(i, j + 1, cnt)
+            if not rows[i] and not cols[j] and not k1[tok1(i, j)] and not k2[tok2(i, j)]:
+                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = True
+                data[i][j] = 'Q'
+                dfs(i, j + 1, cnt - 1)
+                data[i][j] = '.'
+                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = False
+        dfs(0, 0, n)
+        return res
