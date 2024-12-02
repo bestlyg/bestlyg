@@ -1,16 +1,13 @@
 class Solution:
-    def solveNQueens(self, n: int) -> List[List[str]]:
+    def totalNQueens(self, n: int) -> int:
         rows, cols, k1, k2 = [False] * n, [False] * n, [False] * (n * 3), [False] * (n * 3)
         tok1 = lambda i, j: n - i - j
         tok2 = lambda i, j: n - i + j
-        res, data = [], [['.'] * n for _ in range(n)]
+        res = 0
         def dfs(i: int, j: int, cnt: int):
             nonlocal res
             if i == n:
-                if cnt == 0:
-                    item = []
-                    res.append(item)
-                    for row in data: item.append(''.join(row))
+                res += cnt == 0
                 return
             if j == n:
                 dfs(i + 1, 0, cnt)
@@ -18,9 +15,7 @@ class Solution:
             dfs(i, j + 1, cnt)
             if not rows[i] and not cols[j] and not k1[tok1(i, j)] and not k2[tok2(i, j)]:
                 rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = True
-                data[i][j] = 'Q'
                 dfs(i, j + 1, cnt - 1)
-                data[i][j] = '.'
                 rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = False
         dfs(0, 0, n)
         return res
