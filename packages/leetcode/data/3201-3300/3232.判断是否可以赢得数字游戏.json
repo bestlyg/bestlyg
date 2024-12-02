@@ -2,10 +2,7 @@
     "name": "3232.判断是否可以赢得数字游戏",
     "url": "https://leetcode.cn/problems/find-if-digit-game-can-be-won",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "数学"
-    ],
+    "tagList": ["数组", "数学"],
     "desc": "如果 Alice 能赢得这场游戏，返回 true；否则，返回 false。",
     "solutions": [
         {
