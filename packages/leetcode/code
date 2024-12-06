@@ -1,21 +1,25 @@
 class Solution:
-    def totalNQueens(self, n: int) -> int:
-        rows, cols, k1, k2 = [False] * n, [False] * n, [False] * (n * 3), [False] * (n * 3)
-        tok1 = lambda i, j: n - i - j
-        tok2 = lambda i, j: n - i + j
+    def numRookCaptures(self, board: List[List[str]]) -> int:
+        CNT = 8
+        x = y = 0
+        for i in range(CNT):
+            for j in range(CNT):
+                if board[i][j] == 'R':
+                    x = i
+                    y = j
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         res = 0
-        def dfs(i: int, j: int, cnt: int):
-            nonlocal res
-            if i == n:
-                res += cnt == 0
-                return
-            if j == n:
-                dfs(i + 1, 0, cnt)
-                return
-            dfs(i, j + 1, cnt)
-            if not rows[i] and not cols[j] and not k1[tok1(i, j)] and not k2[tok2(i, j)]:
-                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = True
-                dfs(i, j + 1, cnt - 1)
-                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = False
-        dfs(0, 0, n)
+        for dir in dirs:
+            cnt = 1
+            while True:
+                nx = x + dir[0] * cnt
+                ny = y + dir[1] * cnt
+                if 0 <= nx < CNT and 0 <= ny < CNT:
+                    if board[nx][ny] == '.':
+                        cnt += 1
+                        continue
+                    else:
+                        if board[nx][ny] == 'p':
+                            res += 1
+                break
         return res
