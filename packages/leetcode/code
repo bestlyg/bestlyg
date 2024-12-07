@@ -1,17 +1,25 @@
 class Solution:
-    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:
-        dirs = [[1, -2], [1, 2], [2, -1], [2, 1], [-1, -2], [-1, 2], [-2, -1], [-2, 1]]
-        @cache
-        def dfs(i, j, k) -> int:
-            if i < 0 or i >= n or j < 0 or j >= n:
-                return 0
-            elif k == 0:
-                return 1
-            else:
-                res = 0
-                for dir in dirs:
-                    ni = i + dir[0]
-                    nj = j + dir[1]
-                    res += dfs(ni, nj, k - 1)
-                return res
-        return dfs(row, column, k) / (8 ** k)
+    def numRookCaptures(self, board: List[List[str]]) -> int:
+        CNT = 8
+        x = y = 0
+        for i in range(CNT):
+            for j in range(CNT):
+                if board[i][j] == 'R':
+                    x = i
+                    y = j
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        res = 0
+        for dir in dirs:
+            cnt = 1
+            while True:
+                nx = x + dir[0] * cnt
+                ny = y + dir[1] * cnt
+                if 0 <= nx < CNT and 0 <= ny < CNT:
+                    if board[nx][ny] == '.':
+                        cnt += 1
+                        continue
+                    else:
+                        if board[nx][ny] == 'p':
+                            res += 1
+                break
+        return res
