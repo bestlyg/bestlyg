@@ -4,7 +4,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '999. 可以被一步捕获的棋子数',
+    name: '688. 骑士在棋盘上的概率',
     url: 'https://leetcode.cn/problems/available-captures-for-rook',
     level: LeetCodeLevel.Easy,
     tagList: [],
