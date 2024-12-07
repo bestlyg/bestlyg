@@ -26,6 +26,13 @@
             "desc": "遍历。",
             "code": "class Solution:\n    def numRookCaptures(self, board: List[List[str]]) -> int:\n        CNT = 8\n        x = y = 0\n        for i in range(CNT):\n            for j in range(CNT):\n                if board[i][j] == 'R':\n                    x = i\n                    y = j\n        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n        res = 0\n        for dir in dirs:\n            cnt = 1\n            while True:\n                nx = x + dir[0] * cnt\n                ny = y + dir[1] * cnt\n                if 0 <= nx < CNT and 0 <= ny < CNT:\n                    if board[nx][ny] == '.':\n                        cnt += 1\n                        continue\n                    else:\n                        if board[nx][ny] == 'p':\n                            res += 1\n                break\n        return res",
             "date": "2024-12-06"
+        },
+        {
+            "time": 119,
+            "memory": 26.6,
+            "desc": "dfs。",
+            "code": "class Solution:\n    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:\n        dirs = [[1, -2], [1, 2], [2, -1], [2, 1], [-1, -2], [-1, 2], [-2, -1], [-2, 1]]\n        @cache\n        def dfs(i, j, k) -> int:\n            if i < 0 or i >= n or j < 0 or j >= n:\n                return 0\n            elif k == 0:\n                return 1\n            else:\n                res = 0\n                for dir in dirs:\n                    ni = i + dir[0]\n                    nj = j + dir[1]\n                    res += dfs(ni, nj, k - 1)\n                return res\n        return dfs(row, column, k) / (8 ** k)",
+            "date": "2024-12-07"
         }
     ],
     "tagList": [

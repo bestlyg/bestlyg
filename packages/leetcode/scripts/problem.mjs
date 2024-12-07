@@ -13,9 +13,9 @@ export const problem = {
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 0,
-            memory:17.23,
-            desc: '遍历',
+            time: 119,
+            memory: 26.6,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
