@@ -19,8 +19,18 @@
             "script": "cpp",
             "desc": "判断行列。",
             "code": "class Solution {\npublic:\n    bool squareIsWhite(string coordinates) {\n        return ((coordinates[0] - 'a') & 1) == ((coordinates[1] - '0') & 1);\n    }\n};"
+        },
+        {
+            "time": 0,
+            "memory": 16.96,
+            "desc": "遍历。",
+            "code": "class Solution:\n    def squareIsWhite(self, coordinates: str) -> bool:\n        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)",
+            "date": "2024-12-09"
         }
     ],
-    "tagList": ["数学", "字符串"],
+    "tagList": [
+        "数学",
+        "字符串"
+    ],
     "level": "Easy"
 }

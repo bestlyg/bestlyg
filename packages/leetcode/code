@@ -1,25 +1,3 @@
 class Solution:
-    def numRookCaptures(self, board: List[List[str]]) -> int:
-        CNT = 8
-        x = y = 0
-        for i in range(CNT):
-            for j in range(CNT):
-                if board[i][j] == 'R':
-                    x = i
-                    y = j
-        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        res = 0
-        for dir in dirs:
-            cnt = 1
-            while True:
-                nx = x + dir[0] * cnt
-                ny = y + dir[1] * cnt
-                if 0 <= nx < CNT and 0 <= ny < CNT:
-                    if board[nx][ny] == '.':
-                        cnt += 1
-                        continue
-                    else:
-                        if board[nx][ny] == 'p':
-                            res += 1
-                break
-        return res
+    def squareIsWhite(self, coordinates: str) -> bool:
+        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)

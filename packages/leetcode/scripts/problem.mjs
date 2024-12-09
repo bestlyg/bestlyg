@@ -4,7 +4,7 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: true,
-    name: '688. 骑士在棋盘上的概率',
+    name: '1812. 判断国际象棋棋盘中一个格子的颜色',
     url: 'https://leetcode.cn/problems/available-captures-for-rook',
     level: LeetCodeLevel.Easy,
     tagList: [],
@@ -14,7 +14,7 @@ export const problem = {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
             time: 0,
-            memory:17.23,
+            memory:16.96,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
