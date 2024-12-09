@@ -2,10 +2,7 @@
     "name": "3274.检查棋盘方格颜色是否相同",
     "url": "https://leetcode.cn/problems/check-if-two-chessboard-squares-have-the-same-color",
     "level": "Easy",
-    "tagList": [
-        "数学",
-        "字符串"
-    ],
+    "tagList": ["数学", "字符串"],
     "desc": "如果这两个方格颜色相同，返回 true，否则返回 false。",
     "solutions": [
         {

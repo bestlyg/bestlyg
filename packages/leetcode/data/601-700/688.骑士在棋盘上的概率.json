@@ -20,8 +20,6 @@
             "date": "2024-12-07"
         }
     ],
-    "tagList": [
-        "动态规划"
-    ],
+    "tagList": ["动态规划"],
     "level": "Medium"
 }
