@@ -1,3 +1,18 @@
+dirs = [[1, -2], [1, 2], [2, -1], [2, 1], [-1, -2], [-1, 2], [-2, -1], [-2, 1]]
+get_pos = lambda num: ((num - 1) // 3, (num - 1) % 3) if num != 0 else (3, 1)
+get_num = lambda x, y: 0 if x == 3 and y == 1 else x * 3 + y + 1
+mod = 10 ** 9 + 7
+@cache
+def baseKnightDialer(num: int, cnt: int) -> int:
+    if cnt == 0: return 1
+    x, y = get_pos(num)
+    res = 0
+    for dir in dirs:
+        nx = x + dir[0]
+        ny = y + dir[1]
+        if 0 <= nx < 3 and 0 <= ny < 3 or nx == 3 and ny == 1:
+            res += baseKnightDialer(get_num(nx, ny), cnt - 1)
+    return res % mod
 class Solution:
-    def squareIsWhite(self, coordinates: str) -> bool:
-        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)
+    def knightDialer(self, n: int) -> int:
+        return sum(baseKnightDialer(i, n - 1) for i in range(10)) % mod
