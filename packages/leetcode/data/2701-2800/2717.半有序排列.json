@@ -1,0 +1,20 @@
+{
+    "name": "2717.半有序排列",
+    "url": "https://leetcode.cn/problems/semi-ordered-permutation",
+    "level": "Easy",
+    "tagList": [
+        "数组",
+        "模拟"
+    ],
+    "desc": "返回使 nums 变成 半有序排列 所需的最小操作次数。",
+    "solutions": [
+        {
+            "time": 0,
+            "memory": 16.88,
+            "desc": "遍历找到最大最小值后直接交换",
+            "code": "class Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n       imin = nums.index(min(nums))\n       imax = nums.index(max(nums))\n       return imin + len(nums) - 1 - imax - (imin > imax)",
+            "date": "2024-12-11"
+        }
+    ],
+    "id": "2785"
+}

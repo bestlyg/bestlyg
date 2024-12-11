@@ -1,3 +1,5 @@
 class Solution:
-    def squareIsWhite(self, coordinates: str) -> bool:
-        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)
+    def semiOrderedPermutation(self, nums: List[int]) -> int:
+       imin = nums.index(min(nums))
+       imax = nums.index(max(nums))
+       return imin + len(nums) - 1 - imax - (imin > imax)
