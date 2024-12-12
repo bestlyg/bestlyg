@@ -1,5 +1,12 @@
 class Solution:
-    def semiOrderedPermutation(self, nums: List[int]) -> int:
-       imin = nums.index(min(nums))
-       imax = nums.index(max(nums))
-       return imin + len(nums) - 1 - imax - (imin > imax)
+    def maxSpending(self, values: List[List[int]]) -> int:
+        q = []
+        for i in range(len(values)): heappush(q, (values[i].pop(), i))
+        res = 0
+        cnt = 1
+        while q:
+            val, idx = heappop(q)
+            res += val * cnt
+            cnt += 1
+            if values[idx]: heappush(q, (values[idx].pop(), idx))
+        return res

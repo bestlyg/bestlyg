@@ -1,0 +1,23 @@
+{
+    "name": "2931.购买物品的最大开销",
+    "url": "https://leetcode.cn/problems/maximum-spending-after-buying-items",
+    "level": "Hard",
+    "tagList": [
+        "贪心",
+        "数组",
+        "矩阵",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "desc": "请你返回购买所有 m * n 件物品需要的 最大开销 。",
+    "solutions": [
+        {
+            "time": 175,
+            "memory": 27.46,
+            "desc": "贪心，每次找最便宜的",
+            "code": "class Solution:\n    def maxSpending(self, values: List[List[int]]) -> int:\n        q = []\n        for i in range(len(values)): heappush(q, (values[i].pop(), i))\n        res = 0\n        cnt = 1\n        while q:\n            val, idx = heappop(q)\n            res += val * cnt\n            cnt += 1\n            if values[idx]: heappush(q, (values[idx].pop(), idx))\n        return res",
+            "date": "2024-12-12"
+        }
+    ],
+    "id": "3107"
+}
