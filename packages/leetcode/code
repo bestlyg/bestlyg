@@ -1,12 +1,10 @@
 class Solution:
-    def maxSpending(self, values: List[List[int]]) -> int:
+    def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
         q = []
-        for i in range(len(values)): heappush(q, (values[i].pop(), i))
-        res = 0
-        cnt = 1
-        while q:
-            val, idx = heappop(q)
-            res += val * cnt
-            cnt += 1
-            if values[idx]: heappush(q, (values[idx].pop(), idx))
-        return res
+        for i in range(len(nums)): heappush(q, (nums[i], i))
+        while k:
+            v, i = heappop(q)
+            nums[i] = v * multiplier
+            heappush(q, (nums[i], i))
+            k -= 1
+        return nums

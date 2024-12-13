@@ -1,0 +1,23 @@
+{
+    "name": "2931.购买物品的最大开销",
+    "url": "https://leetcode.cn/problems/maximum-spending-after-buying-items",
+    "level": "Hard",
+    "tagList": [
+        "贪心",
+        "数组",
+        "矩阵",
+        "排序",
+        "堆（优先队列）"
+    ],
+    "desc": "请你返回执行完 k 次乘运算之后，最终的 nums 数组。",
+    "solutions": [
+        {
+            "time": 3,
+            "memory": 16.95,
+            "desc": "堆每次取出最小值",
+            "code": "class Solution:\n    def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:\n        q = []\n        for i in range(len(nums)): heappush(q, (nums[i], i))\n        while k:\n            v, i = heappop(q)\n            nums[i] = v * multiplier\n            heappush(q, (nums[i], i))\n            k -= 1\n        return nums",
+            "date": "2024-12-13"
+        }
+    ],
+    "id": "3107"
+}
