@@ -4,18 +4,18 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3264. K 次乘运算后的最终数组 I',
-    url: 'https://leetcode.cn/problems/maximum-spending-after-buying-items',
+    name: '1338. 数组大小减半',
+    url: 'https://leetcode.cn/problems/reduce-array-size-to-the-half',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `请你返回执行完 k 次乘运算之后，最终的 nums 数组。`,
+    desc: `返回 至少 能删除数组中的一半整数的整数集合的最小大小。`,
     solutions: [
         {
             script: LeetCodeScript.PY3,
             // date: '2024-11-01',
-            time: 3,
-            memory: 16.95,
-            desc: '堆每次取出最小值',
+            time: 65,
+            memory: 39.97,
+            desc: '计数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
