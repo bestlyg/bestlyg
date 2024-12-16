@@ -1,10 +1,19 @@
+from sortedcontainers import SortedList
 class Solution:
-    def minSetSize(self, arr: List[int]) -> int:
-        n = len(arr)
-        v = n
-        res = 0
-        for _, cnt in sorted(Counter(arr).items(), key = lambda v: v[1], reverse = True):
-            v -= cnt
-            res += 1
-            if v <= n // 2:
-                return res
+    def closestRoom(self, rooms: List[List[int]], queries: List[List[int]]) -> List[int]:
+        qn = len(queries)
+        res = [inf] * qn
+        sl = SortedList()
+        rooms.sort(key = lambda v: v[1])
+        for size, idx in sorted([(queries[i][1], i) for i in range(qn)], reverse = True):
+            qidx = queries[idx][0]
+            while rooms and rooms[-1][1] >= size:
+                room = rooms.pop()
+                sl.add(room[0])
+            if len(sl):
+                bidx = sl.bisect_left(qidx)
+                if bidx != len(sl) and abs(sl[bidx] - qidx) < abs(qidx - res[idx]):
+                    res[idx] = sl[bidx]
+                if bidx != 0 and abs(sl[bidx - 1] - qidx) <= abs(qidx - res[idx]):
+                    res[idx] = sl[bidx - 1]
+        return [v if v != inf else -1 for v in res]
