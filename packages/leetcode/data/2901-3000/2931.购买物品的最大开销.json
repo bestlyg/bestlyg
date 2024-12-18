@@ -2,13 +2,7 @@
     "name": "2931.购买物品的最大开销",
     "url": "https://leetcode.cn/problems/maximum-spending-after-buying-items",
     "level": "Hard",
-    "tagList": [
-        "贪心",
-        "数组",
-        "矩阵",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数组", "矩阵", "排序", "堆（优先队列）"],
     "desc": "请你返回购买所有 m * n 件物品需要的 最大开销 。",
     "solutions": [
         {

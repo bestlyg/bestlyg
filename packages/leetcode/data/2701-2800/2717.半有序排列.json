@@ -2,10 +2,7 @@
     "name": "2717.半有序排列",
     "url": "https://leetcode.cn/problems/semi-ordered-permutation",
     "level": "Easy",
-    "tagList": [
-        "数组",
-        "模拟"
-    ],
+    "tagList": ["数组", "模拟"],
     "desc": "返回使 nums 变成 半有序排列 所需的最小操作次数。",
     "solutions": [
         {

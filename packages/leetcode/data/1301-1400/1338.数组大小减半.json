@@ -2,13 +2,7 @@
     "name": "1338.数组大小减半",
     "url": "https://leetcode.cn/problems/reduce-array-size-to-the-half",
     "level": "Medium",
-    "tagList": [
-        "贪心",
-        "数组",
-        "哈希表",
-        "排序",
-        "堆（优先队列）"
-    ],
+    "tagList": ["贪心", "数组", "哈希表", "排序", "堆（优先队列）"],
     "desc": "返回 至少 能删除数组中的一半整数的整数集合的最小大小。",
     "solutions": [
         {
