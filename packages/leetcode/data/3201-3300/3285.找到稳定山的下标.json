@@ -1,0 +1,19 @@
+{
+    "name": "3285.找到稳定山的下标",
+    "url": "https://leetcode.cn/problems/find-indices-of-stable-mountains",
+    "level": "Easy",
+    "tagList": [
+        "数组"
+    ],
+    "desc": "请你返回一个数组，包含所有 稳定 山的下标，你可以以 任意 顺序返回下标数组。",
+    "solutions": [
+        {
+            "time": 0,
+            "memory": 17.44,
+            "desc": "遍历",
+            "code": "class Solution:\n    def stableMountains(self, height: List[int], threshold: int) -> List[int]:\n        return [i for i in range(1, len(height)) if height[i - 1] > threshold]",
+            "date": "2024-12-19"
+        }
+    ],
+    "id": "3582"
+}
