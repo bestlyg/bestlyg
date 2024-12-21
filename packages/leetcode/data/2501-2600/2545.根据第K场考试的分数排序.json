@@ -1,34 +1,21 @@
 {
-    "id": "2631",
     "name": "2545.根据第K场考试的分数排序",
     "url": "https://leetcode.cn/problems/sort-the-students-by-their-kth-score",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "矩阵",
+        "排序"
+    ],
     "desc": "返回排序后的矩阵。",
     "solutions": [
         {
-            "script": "typescript",
-            "time": 108,
-            "memory": 51,
-            "desc": "排序。",
-            "code": "function sortTheStudents(score: number[][], k: number): number[][] {\n    return score.sort((a, b) => b[k] - a[k]);\n}",
-            "date": "2023-01-22"
-        },
-        {
-            "script": "python",
-            "time": 52,
-            "memory": 19.4,
-            "desc": "遍历。",
-            "code": "class Solution:\ndef sortTheStudents(self, score: List[List[int]], k: int) -> List[List[int]]:\n    score.sort(key=lambda e:e[k], reverse=True)\n    return score",
-            "date": "2023-01-22"
-        },
-        {
-            "script": "rust",
-            "time": 0,
-            "memory": 2,
-            "desc": "同上。",
-            "code": "impl Solution {\n    pub fn sort_the_students(score: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let mut score = score;\n        score.sort_by(move |a, b| b[k as usize].cmp(&a[k as usize]));\n        score\n    }\n}",
-            "date": "2023-01-22"
+            "time": 8,
+            "memory": 22.1,
+            "desc": "排序",
+            "code": "class Solution:\n    def minAnagramLength(self, s: str) -> int:\n        n = len(s)\n        def cmp(c: Counter, cnt: int) -> bool:\n            for start in range(i + 1, n, i + 1):\n                if Counter(s[start: start + i + 1]) != c:\n                    return False\n            return True\n        for i, c in enumerate(s):\n            if n % (i + 1) == 0 and cmp(Counter(s[0: i + 1]), i + 1):\n                return i + 1\n        return len(s)",
+            "date": "2024-12-21"
         }
     ],
-    "tagList": ["数组", "矩阵", "排序"],
-    "level": "Medium"
+    "id": "2631"
 }
