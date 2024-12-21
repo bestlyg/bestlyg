@@ -1,34 +1,21 @@
 {
-    "id": "2631",
     "name": "2545.根据第K场考试的分数排序",
     "url": "https://leetcode.cn/problems/sort-the-students-by-their-kth-score",
-    "desc": "返回排序后的矩阵。",
+    "level": "Medium",
+    "tagList": [
+        "数组",
+        "矩阵",
+        "排序"
+    ],
+    "desc": "请你返回字符串 t 的 最小 可能长度。",
     "solutions": [
         {
-            "script": "typescript",
-            "time": 108,
-            "memory": 51,
-            "desc": "排序。",
-            "code": "function sortTheStudents(score: number[][], k: number): number[][] {\n    return score.sort((a, b) => b[k] - a[k]);\n}",
-            "date": "2023-01-22"
-        },
-        {
-            "script": "python",
-            "time": 52,
-            "memory": 19.4,
-            "desc": "遍历。",
-            "code": "class Solution:\ndef sortTheStudents(self, score: List[List[int]], k: int) -> List[List[int]]:\n    score.sort(key=lambda e:e[k], reverse=True)\n    return score",
-            "date": "2023-01-22"
-        },
-        {
-            "script": "rust",
-            "time": 0,
-            "memory": 2,
-            "desc": "同上。",
-            "code": "impl Solution {\n    pub fn sort_the_students(score: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n        let mut score = score;\n        score.sort_by(move |a, b| b[k as usize].cmp(&a[k as usize]));\n        score\n    }\n}",
-            "date": "2023-01-22"
+            "time": 8,
+            "memory": 22.1,
+            "desc": "排序",
+            "code": "class Solution:\n    def sortTheStudents(self, score: List[List[int]], k: int) -> List[List[int]]:\n        return sorted(score, key = lambda v: -v[k])",
+            "date": "2024-12-21"
         }
     ],
-    "tagList": ["数组", "矩阵", "排序"],
-    "level": "Medium"
+    "id": "2631"
 }
