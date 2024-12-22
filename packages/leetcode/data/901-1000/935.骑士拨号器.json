@@ -10,6 +10,7 @@
             "memory": 27.67,
             "desc": "dfs",
             "code": "class Solution:\n    def squareIsWhite(self, coordinates: str) -> bool:\n        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)",
+            "script": "python",
             "date": "2024-12-10"
         }
     ],

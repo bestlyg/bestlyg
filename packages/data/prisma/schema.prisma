@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = env("DATABASE_URL")
+  url      = "postgresql://root:root@localhost:5432/best-data?schema=public"
+}
+
+enum LedgerType {
+  // 一般
+  Generally
+  // 酒水饮料
+  Drinks
+  // 餐饮
+  Food
+  // 交通
+  Transportation
+  // 红包
+  RedEnvelope
+  // 淘宝
+  Taobao
+  // 房租
+  Rent
+  // 话费
+  PhoneBill
+  // 生活用品
+  DailyNecessities
+  // 药品
+  Drug
+  // 买菜
+  BuyGroceries
+  // 电影
+  Movie
+  // 零食
+  Snack
+  // 水果
+  Fruit
+  // 衣服鞋包
+  ClothesShoesBags
+  // 护肤彩妆
+  SkinMakeup
+  // 工资
+  Salary
+}
+
+model Ledger {
+  id          String     @id @default(nanoid())
+  createdTime DateTime   @default(now()) @map("create_time")
+  updatedTime DateTime   @default(now()) @updatedAt @map("update_time")
+  balance     Int
+  comment     String
+  date        DateTime
+  io          Boolean
+  type        LedgerType
+
+  @@map("ledger")
+}
+
+model Xuan {
+  id          String   @id @default(nanoid())
+  createdTime DateTime @default(now()) @map("create_time")
+  updatedTime DateTime @default(now()) @updatedAt @map("update_time")
+  date        DateTime
+  weight      Int?
+  danceTimes  Int?     @map("dance_times")
+
+  @@map("xuan")
+}
+
+enum LeetcodeScriptType {
+  JS
+  TS
+  PY
+  CS
+  C
+  CPP
+  JAVA
+  GO
+  RUST
+  SQL
+}
+
+enum LeetcodeLevelType {
+  Easy
+  Medium
+  Hard
+}
+
+model LeetcodeProblem {
+  id          String             @id @default(nanoid())
+  createdTime DateTime           @default(now()) @map("create_time")
+  updatedTime DateTime           @default(now()) @updatedAt @map("update_time")
+  name        String
+  url         String
+  desc        String
+  tags        String[]
+  level       LeetcodeLevelType
+  solutions   LeetcodeSolution[]
+
+  @@map("leetcode-problem")
+}
+
+model LeetcodeSolution {
+  id                String             @id @default(nanoid())
+  createdTime       DateTime           @default(now()) @map("create_time")
+  updatedTime       DateTime           @default(now()) @updatedAt @map("update_time")
+  script            LeetcodeScriptType
+  date              DateTime
+  time              Float?
+  memory            Float?
+  desc              String
+  code              String
+  leetcodeProblemId String             @map("leetcode_problem_id")
+  leetcodeProblem   LeetcodeProblem    @relation(fields: [leetcodeProblemId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("leetcode-solution")
+}

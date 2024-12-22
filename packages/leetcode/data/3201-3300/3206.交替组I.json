@@ -9,6 +9,7 @@
             "time": 0,
             "memory": 17.32,
             "desc": "bfs",
+            "script": "python",
             "code": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int]) -> int:\n        n = len(colors)\n        p1 = colors[0]\n        p2 = colors[1]\n        i = 2\n        res = 0\n        while True:\n            p3 = colors[i]\n            if p1 == p3 and p1 != p2:\n                res += 1\n            p1 = p2\n            p2 = p3\n            i = (i + 1) % n\n            if i == 2: break\n        return res",
             "date": "2024-11-26"
         }

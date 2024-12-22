@@ -10,6 +10,7 @@
             "memory": 44.22,
             "desc": "贪心，考虑到不会交叉的路径，尽可能选择新连接的路径即可",
             "code": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        res = []\n        arr = [i + 1 for i in range(n)]\n        cur = n - 1\n        for n1, n2 in queries:\n            if 0 < arr[n1] < n2:\n                v = 0\n                walker = n1\n                while walker != n2:\n                    v += 1\n                    arr[walker], walker = 0, arr[walker]\n                cur -= v - 1\n                arr[n1] = n2\n            res.append(cur)\n        return res",
+            "script": "python",
             "date": "2024-11-20"
         }
     ],

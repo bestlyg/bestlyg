@@ -9,6 +9,7 @@
     "solutions": [
         {
             "time": 0,
+            "script": "python",
             "memory": 17.44,
             "desc": "遍历",
             "code": "class Solution:\n    def stableMountains(self, height: List[int], threshold: int) -> List[int]:\n        return [i for i in range(1, len(height)) if height[i - 1] > threshold]",

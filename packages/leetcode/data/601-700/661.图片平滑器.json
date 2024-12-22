@@ -15,6 +15,7 @@
         {
             "time": 127,
             "memory": 17.56,
+            "script": "python",
             "desc": "遍历。",
             "code": "dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\nclass Solution:\n    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:\n        n = len(img)\n        m = len(img[0])\n        res = []\n        for i in range(n):\n            item = []\n            for j in range(m):\n                c = v = 0\n                c += 1\n                v += img[i][j]\n                for dir in dirs2:\n                    ni = i + dir[0]\n                    nj = j + dir[1]\n                    if 0 <= ni < n and 0 <= nj < m:\n                        c += 1\n                        v += img[ni][nj]\n                item.append(v // c)\n            res.append(item)\n        return res",
             "date": "2024-11-18"

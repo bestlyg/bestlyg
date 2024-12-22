@@ -7,6 +7,7 @@
     "solutions": [
         {
             "time": 0,
+            "script": "python",
             "memory": 16.56,
             "desc": "只有1个75和4个10才能组成115的价格",
             "code": "class Solution:\n    def losingPlayer(self, x: int, y: int) -> str:\n        cnt = min(x, y // 4)\n        return \"Alice\" if cnt % 2 else \"Bob\"",

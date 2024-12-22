@@ -10,6 +10,7 @@
             "memory": 16.86,
             "desc": "枚举素数，只有素数的乘积才是特殊数字",
             "code": "def get_primes(n: int) -> int:\n    arr = [True] * n\n    arr[0] = arr[1] = False\n    for i in range(2, n):\n        if arr[i]:\n            j = 2\n            while i * j < n:\n                arr[i * j] = False\n                j += 1\n    return arr\n\nprimes = get_primes(10 ** 5)\n\nclass Solution:\n    def nonSpecialCount(self, l: int, r: int) -> int:\n        num = 2\n        res = 0\n        while num ** 2 <= r:\n            if num ** 2 >= l and primes[num]:\n                res += 1\n            num += 1\n        return r - l + 1 - res",
+            "script": "python",
             "date": "2024-11-22"
         }
     ],

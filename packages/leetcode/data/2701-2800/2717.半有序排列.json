@@ -7,6 +7,7 @@
     "solutions": [
         {
             "time": 0,
+            "script": "python",
             "memory": 16.88,
             "desc": "遍历找到最大最小值后直接交换",
             "code": "class Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n       imin = nums.index(min(nums))\n       imax = nums.index(max(nums))\n       return imin + len(nums) - 1 - imax - (imin > imax)",

@@ -15,6 +15,7 @@
         {
             "time": 183,
             "memory": 16.25,
+            "script": "python",
             "desc": "遍历每一个数。",
             "code": "class Solution:\n    def judgeSquareSum(self, c: int) -> bool:\n        a = 0\n        while a * a + a * a <= c:\n            b2 = c - a * a\n            if int(sqrt(b2)) ** 2 == b2: return True\n            a += 1\n        return False",
             "date": "2024-11-04"

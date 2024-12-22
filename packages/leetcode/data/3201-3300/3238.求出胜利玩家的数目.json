@@ -10,6 +10,7 @@
             "memory": 16.44,
             "desc": "遍历",
             "code": "class Solution:\n    def winningPlayerCount(self, n: int, pick: List[List[int]]) -> int:\n        res = set()\n        arr = [defaultdict(int) for _ in range(n)]\n        for x, y in pick:\n            arr[x][y] += 1\n            if arr[x][y] > x:\n                res.add(x)\n        return len(res)",
+            "script": "python",
             "date": "2024-11-23"
         }
     ],

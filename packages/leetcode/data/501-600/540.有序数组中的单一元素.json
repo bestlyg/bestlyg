@@ -23,6 +23,7 @@
         {
             "time": 4,
             "memory": 23.52,
+            "script": "python",
             "desc": "遍历时用异或去重。",
             "code": "class Solution:\n    def singleNonDuplicate(self, nums: List[int]) -> int:\n        return reduce(lambda a, b: a ^ b, nums, 0)",
             "date": "2024-11-10"

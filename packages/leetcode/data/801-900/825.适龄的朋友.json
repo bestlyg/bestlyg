@@ -33,6 +33,7 @@
             "memory": 17.11,
             "desc": "对于每个用户进行二分查找合适的区间。",
             "code": "class Solution:\n    def numFriendRequests(self, ages: List[int]) -> int:\n        ages.sort()\n        res = 0\n        for x in range(len(ages)):\n            starty = bisect_right(ages, 0.5 * ages[x] + 7)\n            endy = bisect_right(ages, ages[x])\n            if ages[x] < 100: endy = min(endy, bisect_right(ages, 100))\n            if starty < endy: res += endy - starty\n            if starty <= x < endy: res -= 1\n        return res",
+            "script": "python",
             "date": "2024-11-17"
         }
     ],

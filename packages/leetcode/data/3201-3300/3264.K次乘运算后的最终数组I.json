@@ -6,6 +6,7 @@
     "desc": "请你返回执行完 k 次乘运算之后，最终的 nums 数组。",
     "solutions": [
         {
+            "script": "python",
             "time": 3,
             "memory": 16.95,
             "desc": "堆每次取出最小值",

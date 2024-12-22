@@ -23,6 +23,7 @@
         {
             "time": 0,
             "memory": 16.96,
+            "script": "python",
             "desc": "遍历。",
             "code": "class Solution:\n    def squareIsWhite(self, coordinates: str) -> bool:\n        return bool((ord(coordinates[0]) - ord('a')) % 2 + int(coordinates[1]) % 2 - 1)",
             "date": "2024-12-09"

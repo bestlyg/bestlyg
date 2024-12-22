@@ -10,6 +10,7 @@
             "memory": 56.31,
             "desc": "分类讨论",
             "code": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        m = len(grid[0])\n        res = cnt = dif = 0\n        for i in range(n // 2):\n            for j in range(m // 2):\n                v = grid[i][j] + grid[i][m - 1 - j] + grid[n - 1 - i][j] + grid[n - 1 - i][m - 1 - j]\n                res += min(v, 4 - v)\n        if n % 2 and m % 2: res += grid[n // 2][m // 2]\n        if n % 2:\n            cnt += sum(2 for j in range(m // 2) if grid[n // 2][j] == grid[n // 2][m - 1 - j] == 1)\n            dif += sum(grid[n // 2][j] != grid[n // 2][m - 1 - j] for j in range(m // 2))\n        if m % 2:\n            cnt += sum(2 for i in range(n // 2) if grid[i][m // 2] == grid[n - 1 - i][m // 2] == 1)\n            dif += sum(grid[i][m // 2] != grid[n - 1 - i][m // 2] for i in range(n // 2))\n        if cnt % 4 == 0:  res += dif\n        elif dif > 0: res += dif\n        else: res += 2\n        return res",
+            "script": "python",
             "date": "2024-11-16"
         }
     ],

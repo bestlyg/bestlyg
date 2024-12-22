@@ -7,6 +7,7 @@
     "solutions": [
         {
             "time": 38,
+            "script": "python",
             "memory": 16.98,
             "desc": "获取坐标值直接判断",
             "code": "class Solution:\n    def totalNQueens(self, n: int) -> int:\n        rows, cols, k1, k2 = [False] * n, [False] * n, [False] * (n * 3), [False] * (n * 3)\n        tok1 = lambda i, j: n - i - j\n        tok2 = lambda i, j: n - i + j\n        res = 0\n        def dfs(i: int, j: int, cnt: int):\n            nonlocal res\n            if i == n:\n                res += cnt == 0\n                return\n            if j == n:\n                dfs(i + 1, 0, cnt)\n                return\n            dfs(i, j + 1, cnt)\n            if not rows[i] and not cols[j] and not k1[tok1(i, j)] and not k2[tok2(i, j)]:\n                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = True\n                dfs(i, j + 1, cnt - 1)\n                rows[i] = cols[j] = k1[tok1(i, j)] = k2[tok2(i, j)] = False\n        dfs(0, 0, n)\n        return res",

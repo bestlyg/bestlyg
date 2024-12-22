@@ -11,6 +11,7 @@
     "solutions": [
         {
             "time": 8,
+            "script": "python",
             "memory": 22.1,
             "desc": "排序",
             "code": "class Solution:\n    def minAnagramLength(self, s: str) -> int:\n        n = len(s)\n        def cmp(c: Counter, cnt: int) -> bool:\n            for start in range(i + 1, n, i + 1):\n                if Counter(s[start: start + i + 1]) != c:\n                    return False\n            return True\n        for i, c in enumerate(s):\n            if n % (i + 1) == 0 and cmp(Counter(s[0: i + 1]), i + 1):\n                return i + 1\n        return len(s)",

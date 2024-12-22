@@ -6,6 +6,7 @@
     "desc": "请你返回一个长度为 n - k + 1 的整数数组 results ，其中 results[i] 是子数组 nums[i..(i + k - 1)] 的能量值。",
     "solutions": [
         {
+            "script": "python",
             "time": 0,
             "memory": 16.63,
             "desc": "遍历时同时记录当前值与前面值是否符合要求",

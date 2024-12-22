@@ -9,6 +9,7 @@
             "time": 421,
             "memory": 16.93,
             "desc": "bfs",
+            "script": "python",
             "code": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        res = []\n        next = [[i + 1] for i in range(n - 1)]\n        for v1, v2 in queries:\n            next[v1].append(v2)\n            q = deque([0])\n            used = set([0])\n            size = 1\n            step = 0\n            while q:\n                node = q.popleft()\n                if node == n - 1:\n                    res.append(step)\n                    break\n                for child in next[node]:\n                    if child not in used:\n                        used.add(child)\n                        q.append(child)\n                size -= 1\n                if size == 0:\n                    size = len(q)\n                    step += 1\n        return res",
             "date": "2024-11-19"
         }

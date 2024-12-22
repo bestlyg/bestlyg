@@ -10,6 +10,7 @@
             "memory": 16.59,
             "desc": "遍历",
             "code": "class Solution:\n    def countCompleteDayPairs(self, hours: List[int]) -> int:\n        return sum(\n            (hours[i] + hours[j]) % 24 == 0\n            for i in range(len(hours))\n            for j in range(i)\n        )",
+            "script": "python",
             "date": "2024-10-22"
         }
     ],

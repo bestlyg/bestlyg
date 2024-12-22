@@ -8,6 +8,7 @@
         {
             "time": 7,
             "memory": 16.38,
+            "script": "python",
             "desc": "模拟",
             "code": "dirs2 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\nclass Solution:\n    def finalPositionOfSnake(self, n: int, commands: List[str]) -> int:\n        cur = [0, 0]\n        for command in commands:\n            if command == 'UP':\n                cur[0] -= 1\n            elif command == 'DOWN':\n                cur[0] += 1\n            elif command == 'LEFT':\n                cur[1] -= 1\n            elif command == 'RIGHT':\n                cur[1] += 1\n        return cur[0] * n + cur[1]",
             "date": "2024-11-21"

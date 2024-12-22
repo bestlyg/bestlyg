@@ -40,11 +40,15 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
+        "@bestlyg/data": "workspace:^",
+        "@bestlyg/leetcode": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
         "@types/node": "^20.16.10",
+        "prisma": "^6.1.0",
         "typescript": "^5.5.4"
     },
     "dependencies": {
+        "@prisma/client": "^6.1.0",
         "dayjs": "^1.11.13"
     }
 }

@@ -9,6 +9,7 @@
             "time": 65,
             "memory": 39.97,
             "desc": "计数",
+            "script": "python",
             "code": "class Solution:\n    def minSetSize(self, arr: List[int]) -> int:\n        n = len(arr)\n        v = n\n        res = 0\n        for _, cnt in sorted(Counter(arr).items(), key = lambda v: v[1], reverse = True):\n            v -= cnt\n            res += 1\n            if v <= n // 2:\n                return res",
             "date": "2024-12-15"
         }

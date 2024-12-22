@@ -6,6 +6,7 @@
     "desc": "返回切棍子的 最小总成本 。",
     "solutions": [
         {
+            "script": "python",
             "time": 942,
             "memory": 19.98,
             "desc": "dfs尝试在每一个点进行切割",

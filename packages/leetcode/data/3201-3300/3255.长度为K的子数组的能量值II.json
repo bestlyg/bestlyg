@@ -10,6 +10,7 @@
             "memory": 32.58,
             "desc": "遍历时同时记录当前值与前面值是否符合要求",
             "code": "class Solution:\n    def resultsArray(self, nums: List[int], k: int) -> List[int]:\n        if k == 1: return nums\n        res = []\n        prev = 0\n        for i in range(1, len(nums)):\n            if nums[i] != nums[i - 1] + 1:\n                prev = i\n            if i >= k - 1:\n                if i - prev + 1 >= k:\n                    res.append(nums[i])\n                else:\n                    res.append(-1)\n        return res",
+            "script": "python",
             "date": "2024-11-07"
         }
     ],

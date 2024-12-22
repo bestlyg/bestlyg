@@ -15,6 +15,7 @@
         {
             "time": 6,
             "memory": 18.07,
+            "script": "python",
             "desc": "bfs。",
             "code": "class Solution:\n    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:\n        nodes = [[] for _ in range(n + 1)]\n        for t in times: nodes[t[0]].append(t)\n        q = [(0, k)]\n        used = { k: 0 }\n        used2 = set([k])\n        while q:\n            t, node = heappop(q)\n            used2.add(node)\n            if len(used2) == n: return t\n            for time in nodes[node]:\n                _, child, time_offset = time\n                next_time = time_offset + t\n                if child not in used or next_time < used[child]:\n                    used[child] = next_time\n                    heappush(q, (next_time, child))\n        return -1",
             "date": "2024-11-25"

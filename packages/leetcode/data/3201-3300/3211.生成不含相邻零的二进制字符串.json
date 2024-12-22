@@ -7,6 +7,7 @@
     "solutions": [
         {
             "time": 52,
+            "script": "python",
             "memory": 17.8,
             "desc": "dfs",
             "code": "class Solution:\n    def validStrings(self, n: int) -> List[str]:\n        if n == 1: return ['0', '1']\n        res = []\n        for v in self.validStrings(n - 1):\n            if v[-1] == '1': res.append(v + '0')\n            res.append(v + '1')\n        return res",

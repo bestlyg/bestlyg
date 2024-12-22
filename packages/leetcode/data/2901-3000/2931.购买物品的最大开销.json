@@ -7,6 +7,7 @@
     "solutions": [
         {
             "time": 175,
+            "script": "python",
             "memory": 27.46,
             "desc": "贪心，每次找最便宜的",
             "code": "class Solution:\n    def maxSpending(self, values: List[List[int]]) -> int:\n        q = []\n        for i in range(len(values)): heappush(q, (values[i].pop(), i))\n        res = 0\n        cnt = 1\n        while q:\n            val, idx = heappop(q)\n            res += val * cnt\n            cnt += 1\n            if values[idx]: heappush(q, (values[idx].pop(), idx))\n        return res",
