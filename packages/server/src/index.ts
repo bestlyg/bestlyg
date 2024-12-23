@@ -1,6 +1,7 @@
 import Koa from 'koa';
 // import koaBodyParsers from 'koa-body-parsers';
 import bodyParser from 'koa-bodyparser';
+import cors from '@koa/cors';
 import compress from 'koa-compress';
 import best from '@bestlyg/cli';
 import { PORT, logger, sendMail, resolve } from './utils/index';
@@ -35,13 +36,14 @@ ${Object.entries(process.env)
 
 async function bootstrap() {
     const app = new Koa();
+    app.use(cors());
     app.use(compress({}));
     // koaBodyParsers(app);
     app.use(bodyParser());
     app.use(passport.initialize());
     app.use(router.routes());
     app.use(router.allowedMethods());
-    app.use(async (ctx, next) => {
+    app.use(async (_, next) => {
         await next();
     });
     // app.use(ctx => {

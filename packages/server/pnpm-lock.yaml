@@ -23,6 +23,9 @@ importers:
       '@bestlyg/static':
         specifier: workspace:^
         version: link:../static
+      '@koa/cors':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@koa/multer':
         specifier: ^3.0.2
         version: 3.0.2(multer@1.4.5-lts.1)
@@ -53,9 +56,6 @@ importers:
       koa:
         specifier: ^2.15.3
         version: 2.15.3
-      koa-body-parsers:
-        specifier: ^5.0.0
-        version: 5.0.0
       koa-bodyparser:
         specifier: ^4.4.1
         version: 4.4.1
@@ -645,6 +645,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@koa/cors@5.0.0':
+    resolution: {integrity: sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==}
+    engines: {node: '>= 14.0.0'}
 
   '@koa/multer@3.0.2':
     resolution: {integrity: sha512-Q6WfPpE06mJWyZD1fzxM6zWywaoo+zocAn2YA9QYz4RsecoASr1h/kSzG0c5seDpFVKCMZM9raEfuM7XfqbRLw==}
@@ -1349,10 +1353,6 @@ packages:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
 
-  iconv-lite@0.6.3:
-    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
-    engines: {node: '>=0.10.0'}
-
   icss-replace-symbols@1.1.0:
     resolution: {integrity: sha512-chIaY3Vh2mh2Q3RGXttaDIzeiPvaVXJ+C4DAh/w3c37SKZ/U6PGMmuicR2EQQp9bKG8zLMCl7I+PtIoOOPp8Gg==}
 
@@ -1461,9 +1461,6 @@ packages:
   keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
-
-  koa-body-parsers@5.0.0:
-    resolution: {integrity: sha512-ExPXiHXjp9+W1AmkJkG0PJY2WvOUqEYlY9W8/1zlPQtv08dc+wfqZxhymhQWezK6fYED150XmGPuTAbuYgecXw==}
 
   koa-bodyparser@4.4.1:
     resolution: {integrity: sha512-kBH3IYPMb+iAXnrxIhXnW+gXV8OTzCu8VPDqvcDHW9SQrbkHmqPQtiZwrltNmSq6/lpipHnT7k7PsjlVD7kK0w==}
@@ -1811,10 +1808,6 @@ packages:
 
   raw-body@2.5.2:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
-    engines: {node: '>= 0.8'}
-
-  raw-body@3.0.0:
-    resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
 
   read-yaml-file@1.1.0:
@@ -2688,6 +2681,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@koa/cors@5.0.0':
+    dependencies:
+      vary: 1.1.2
+
   '@koa/multer@3.0.2(multer@1.4.5-lts.1)':
     dependencies:
       fix-esm: 1.0.1
@@ -3502,10 +3499,6 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  iconv-lite@0.6.3:
-    dependencies:
-      safer-buffer: 2.1.2
-
   icss-replace-symbols@1.1.0: {}
 
   icss-utils@5.1.0(postcss@8.4.42):
@@ -3601,10 +3594,6 @@ snapshots:
   keygrip@1.1.0:
     dependencies:
       tsscmp: 1.0.6
-
-  koa-body-parsers@5.0.0:
-    dependencies:
-      raw-body: 3.0.0
 
   koa-bodyparser@4.4.1:
     dependencies:
@@ -3949,13 +3938,6 @@ snapshots:
       bytes: 3.1.2
       http-errors: 2.0.0
       iconv-lite: 0.4.24
-      unpipe: 1.0.0
-
-  raw-body@3.0.0:
-    dependencies:
-      bytes: 3.1.2
-      http-errors: 2.0.0
-      iconv-lite: 0.6.3
       unpipe: 1.0.0
 
   read-yaml-file@1.1.0:

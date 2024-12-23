@@ -13,6 +13,7 @@ router.get('/health-check', healthy);
 
 router.post('/login', async ctx => {
     const { username, password } = ctx.request.body as { username: string; password: string };
+    console.log(username, password, USERNAME, PASSWORD);
     if (username === USERNAME && password === PASSWORD) {
         const token = jwt.sign({ username: USERNAME }, jwtOptions.secretOrKey, {
             expiresIn: '120 days',

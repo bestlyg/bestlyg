@@ -6,8 +6,10 @@ import HomepageFeatures from './components/homepage-features';
 import Heading from '@theme/Heading';
 
 import styles from './components/index.module.css';
+import { useLogin } from './components/use-login';
 
 function HomepageHeader() {
+    const { node, visibleOps } = useLogin();
     const { siteConfig } = useDocusaurusContext();
     return (
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -21,7 +23,13 @@ function HomepageHeader() {
                         Start a journey - 10min ⏱️
                     </Link>
                 </div>
+                <div className={styles.buttons} style={{ marginTop: 10 }}>
+                    <Link className="button button--secondary" onClick={visibleOps.setTrue}>
+                        Login With OwnerKey
+                    </Link>
+                </div>
             </div>
+            {node}
         </header>
     );
 }
