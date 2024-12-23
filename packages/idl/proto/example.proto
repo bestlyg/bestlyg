@@ -14,6 +14,11 @@ message BestlygHealthResponse {
   optional string data = 3;
 }
 
+message BestlygLogin {
+
+
+}
+
 service BestlygService {
   rpc HealthCheck (BestlygHealthRequest) returns (BestlygHealthResponse) {
     option (api.url) = "'/api/health'";
