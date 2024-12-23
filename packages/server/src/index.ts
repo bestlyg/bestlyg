@@ -1,9 +1,22 @@
 import Koa from 'koa';
-import koaBodyParsers from 'koa-body-parsers';
+// import koaBodyParsers from 'koa-body-parsers';
+import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
-import { PORT, logger, sendMail } from './utils/index';
+import best from '@bestlyg/cli';
+import { PORT, logger, sendMail, resolve } from './utils/index';
 import { router } from './router/index';
 import { scheduler } from './schedules/index';
+import passport from './auth/passport';
+
+declare module 'koa' {
+    interface DefaultState {
+        user?: { username: string };
+    }
+}
+
+best.dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+});
 
 function sendMailWhenStartSuccess() {
     sendMail(
@@ -23,12 +36,14 @@ ${Object.entries(process.env)
 async function bootstrap() {
     const app = new Koa();
     app.use(compress({}));
-    koaBodyParsers(app);
+    // koaBodyParsers(app);
+    app.use(bodyParser());
+    app.use(passport.initialize());
     app.use(router.routes());
     app.use(router.allowedMethods());
-    // app.use(async (ctx, next) => {
-    //     await next();
-    // });
+    app.use(async (ctx, next) => {
+        await next();
+    });
     // app.use(ctx => {
     //     ctx.body = 'Welcome to my server for bestlyg.';
     // });

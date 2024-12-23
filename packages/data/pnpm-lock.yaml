@@ -24,9 +24,6 @@ importers:
       '@bestlyg/data':
         specifier: workspace:^
         version: 'link:'
-      '@bestlyg/leetcode':
-        specifier: workspace:^
-        version: link:../leetcode
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.5.4)
