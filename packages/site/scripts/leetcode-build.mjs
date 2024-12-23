@@ -5,12 +5,13 @@
  */
 
 import '@bestlyg/cli/globals';
+import { prismaClient } from '@bestlyg/data';
 import { getLeetCodeDataList, getLeetCodeReadme, PATH_DATA } from '@bestlyg/leetcode';
 
-const dataList = await getLeetCodeDataList();
-const resolve = best.utils.getResolveFunction(import.meta, 1);
-const leetcodeRootPath = resolve('docs', 'leetcode');
-const quote = '`';
+// const dataList = await getLeetCodeDataList();
+// const resolve = best.utils.getResolveFunction(import.meta, 1);
+// const leetcodeRootPath = resolve('docs', 'leetcode');
+// const quote = '`';
 
 /**
  * @param {LeetCodeSolution} solution
@@ -135,8 +136,16 @@ ${buildReadmeDataItem('难度索引', readme.level)}
     );
 }
 
+/**
+ * @param {} data
+ */
+async function buildProblem(data) {}
+
 async function main() {
-    await Promise.all([buildDataList(), buildReadme(), buildCategoryJson()]);
+    // await Promise.all([buildDataList(), buildReadme(), buildCategoryJson()]);
+    const prisma = new prismaClient.PrismaClient();
+    const leetcode = await prisma.leetcodeProblem.findMany({ include: { solutions: {} } });
+    console.log(leetcode);
 }
 
 await main();

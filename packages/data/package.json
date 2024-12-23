@@ -28,6 +28,7 @@
         "./package.json": "./package.json"
     },
     "scripts": {
+        "prisma:migrate": "node ./scripts/migrate.mjs",
         "commit": "node ./scripts/commit.mjs",
         "encrypt": "node ./scripts/encrypt.mjs",
         "decrypt": "node ./scripts/decrypt.mjs",
@@ -41,7 +42,6 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
-        "@bestlyg/leetcode": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
         "@types/node": "^20.16.10",
         "prisma": "^6.1.0",

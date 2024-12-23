@@ -3,19 +3,20 @@ import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
 
 /** @type {import("../dist/types").LeetCodeProblem} */
 export const problem = {
-    exist: !true,
-    name: '2545. 根据第 K 场考试的分数排序',
-    url: 'https://leetcode.cn/problems/sort-the-students-by-their-kth-score',
+    exist: true,
+    name: '855. 考场就座',
+    url: 'https://leetcode.cn/problems/exam-room',
     level: LeetCodeLevel.Easy,
     tagList: [],
-    desc: `返回排序后的矩阵。`,
+    desc: `请你返回区间 [lo, hi] 之间的整数按权重排序后的第 k 个数。`,
     solutions: [
         {
-            script: LeetCodeScript.PY3,
+            script: LeetCodeScript.PY,
             // date: '2024-11-01',
-            time: 8,
-            memory: 22.1,
-            desc: '排序',
+            time: 96,
+            memory: 21.22,
+            
+            desc: '有序数组遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

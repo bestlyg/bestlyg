@@ -5,6 +5,11 @@ import { getLeetCodeDataList } from '@bestlyg/leetcode';
 
 const { _, dayjs } = best;
 
+const resolve = best.utils.getResolveFunction(import.meta, 1);
+
+// 68
+// 68.1
+
 const scriptMap = {
     JS: 'javascript',
     TS: 'typescript',
@@ -18,59 +23,23 @@ const scriptMap = {
     SQL: 'sql',
 };
 
-const scriptMap2 = Object.fromEntries(Object.entries(scriptMap).map(([k, v]) => [v, k]));
-
 const prisma = new PrismaClient();
+
+async function createXuan() {
+    await prisma.xuan.createMany({
+        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 687 }],
+    });
+}
+
+async function createLedger() {
+    await prisma.ledger.createMany({});
+}
+
+async function createLeetcode() {}
+
 async function main() {
     console.info('Prisma connected.');
-    await prisma.leetcodeProblem.deleteMany();
-    const data = await getLeetCodeDataList();
-    await prisma.$transaction(async () => {
-        for (const dir of data) {
-            for (const problem of dir.problems) {
-                console.log(problem);
-                const { name, url, desc, tagList, solutions, level } = problem.problemData;
-                console.log(solutions);
-                /** @type {Parameters<typeof prisma.leetcodeProblem.create>['0']['data']} */
-                const db = {
-                    name,
-                    url,
-                    desc,
-                    tags: tagList,
-                    level,
-                    solutions: {
-                        createMany: {
-                            data: solutions.map(({ date, time, memory, script, desc, code }) => {
-                                if (!script) {
-                                    throw new Error(name);
-                                }
-                                return {
-                                    date: dayjs(date).toDate(),
-                                    time,
-                                    memory,
-                                    script: scriptMap2[script],
-                                    desc,
-                                    code,
-                                };
-                            }),
-                        },
-                    },
-                };
-                await prisma.leetcodeProblem.create({ data: db });
-            }
-        }
-        // const data = xuanDataList.map(v => {
-        //     return {
-        //         date: dayjs(v.date).toDate(),
-        //         weight: v.weight,
-        //         danceTimes: v.danceTimes,
-        //     };
-        // });
-
-        // await prisma.xuan.createMany({
-        //     data,
-        // });
-    });
+    await createXuan();
 }
 
 main()

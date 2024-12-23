@@ -10,8 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
-  url      = "postgresql://root:root@localhost:5432/best-data?schema=public"
+  url      = env("BESTLYG_DATABASE_URL")
 }
 
 enum LedgerType {
@@ -68,7 +67,7 @@ model Xuan {
   id          String   @id @default(nanoid())
   createdTime DateTime @default(now()) @map("create_time")
   updatedTime DateTime @default(now()) @updatedAt @map("update_time")
-  date        DateTime
+  date        DateTime @unique
   weight      Int?
   danceTimes  Int?     @map("dance_times")
 
@@ -76,16 +75,16 @@ model Xuan {
 }
 
 enum LeetcodeScriptType {
-  JS
-  TS
-  PY
-  CS
-  C
-  CPP
-  JAVA
-  GO
-  RUST
-  SQL
+  javascript
+  typescript
+  python
+  csharp
+  c
+  cpp
+  java
+  go
+  rust
+  sql
 }
 
 enum LeetcodeLevelType {
@@ -98,14 +97,14 @@ model LeetcodeProblem {
   id          String             @id @default(nanoid())
   createdTime DateTime           @default(now()) @map("create_time")
   updatedTime DateTime           @default(now()) @updatedAt @map("update_time")
-  name        String
+  name        String             @unique
   url         String
   desc        String
   tags        String[]
   level       LeetcodeLevelType
   solutions   LeetcodeSolution[]
 
-  @@map("leetcode-problem")
+  @@map("leetcode_problem")
 }
 
 model LeetcodeSolution {
@@ -121,5 +120,15 @@ model LeetcodeSolution {
   leetcodeProblemId String             @map("leetcode_problem_id")
   leetcodeProblem   LeetcodeProblem    @relation(fields: [leetcodeProblemId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@map("leetcode-solution")
+  @@map("leetcode_solution")
+}
+
+model Secrets {
+  id          String   @id @default(nanoid())
+  createdTime DateTime @default(now()) @map("create_time")
+  updatedTime DateTime @default(now()) @updatedAt @map("update_time")
+  name        String   @unique
+  data        String
+
+  @@map("secrets")
 }

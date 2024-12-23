@@ -15,7 +15,6 @@
         "write-translations": "docusaurus write-translations",
         "write-heading-ids": "docusaurus write-heading-ids",
         "typecheck": "tsc",
-        "fork-leetcode": "zx scripts/fork-leetcode.mjs",
         "deploy": "node scripts/deploy.mjs",
         "deploy:github": "node scripts/deploy-github.mjs",
         "deploy:all": "pnpm run deploy && pnpm run deploy:github"

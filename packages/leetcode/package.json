@@ -42,6 +42,7 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
+        "@bestlyg/data": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
         "@types/node": "^20.16.10",
         "axios": "^1.7.7",

@@ -1,12 +1,38 @@
-class Solution:
-    def minAnagramLength(self, s: str) -> int:
-        n = len(s)
-        def cmp(c: Counter, cnt: int) -> bool:
-            for start in range(i + 1, n, i + 1):
-                if Counter(s[start: start + i + 1]) != c:
-                    return False
-            return True
-        for i, c in enumerate(s):
-            if n % (i + 1) == 0 and cmp(Counter(s[0: i + 1]), i + 1):
-                return i + 1
-        return len(s)
+from sortedcontainers import SortedList
+class ExamRoom:
+    def getd(self, start: int, end: int) -> int:
+        if end - start - 1 == 0: return 0
+        if end == self.n: return self.n - start - 1
+        if start == -1: return end
+        mid = (end - start + 1) // 2 + start
+        return min(end - mid, mid - start)
+    def __init__(self, n: int):
+        self.n = n
+        self.arr = SortedList()
+        self.arr.add((self.getd(-1, n), -1, n))
+    def seat(self) -> int:
+        data = self.arr.pop(0)
+        start = data[1]
+        end = data[2]
+        if start == -1:
+            self.arr.add((0, -1, 0))
+            self.arr.add((-self.getd(start + 1, end), 0, end))
+            return 0
+        if end == self.n:
+            self.arr.add((-self.getd(start, self.n - 1), start, self.n - 1))
+            self.arr.add((0, self.n - 1, self.n))
+            return self.n - 1
+        mid = (end - start) // 2 + start
+        self.arr.add((-self.getd(start, mid), start, mid))
+        self.arr.add((-self.getd(mid, end), mid, end))
+        return mid
+    def leave(self, p: int) -> None:
+        i1 = i2 = -1
+        for i in range(len(self.arr)):
+            if self.arr[i][2] == p: i1 = i
+            if self.arr[i][1] == p: i2 = i
+        start = self.arr[i1][1]
+        end = self.arr[i2][2]
+        self.arr.pop(max(i1, i2))
+        self.arr.pop(min(i1, i2))
+        self.arr.add((-self.getd(start, end), start, end))
