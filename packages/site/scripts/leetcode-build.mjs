@@ -2,19 +2,26 @@
  * @typedef {import("@bestlyg/leetcode").LeetCodeProblemData} LeetCodeProblemData
  * @typedef {import("@bestlyg/leetcode").LeetCodeSolution} LeetCodeSolution
  * @typedef {import("@bestlyg/leetcode").LeetCodeReadmeDataItem} LeetCodeReadmeDataItem
+ *
  */
 
 import '@bestlyg/cli/globals';
 import { prismaClient } from '@bestlyg/data';
-import { getLeetCodeDataList, getLeetCodeReadme, PATH_DATA } from '@bestlyg/leetcode';
+import {
+    getLeetCodeDataList,
+    getLeetCodeReadme,
+    PATH_DATA,
+    getDirNameFromProblemName,
+    dirSort,
+} from '@bestlyg/leetcode';
 
 // const dataList = await getLeetCodeDataList();
-// const resolve = best.utils.getResolveFunction(import.meta, 1);
-// const leetcodeRootPath = resolve('docs', 'leetcode');
-// const quote = '`';
+const resolve = best.utils.getResolveFunction(import.meta, 1);
+const leetcodeRootPath = resolve('docs', 'leetcode');
+const quote = '`';
 
 /**
- * @param {LeetCodeSolution} solution
+ * @param {prismaClient.LeetcodeSolution} solution
  * @param {number} idx
  */
 function solutionToTemplate(solution, idx) {
@@ -22,7 +29,7 @@ function solutionToTemplate(solution, idx) {
     return `
 ## 题解 ${idx + 1} - ${script}
 
-- 编辑时间：${date}  
+- 编辑时间：${best.dayjs(date).format('YYYY-MM-DD')}  
 ${time ? `- 执行用时：${time}ms  ` : ''}
 ${memory ? `- 内存消耗：${memory}MB  ` : ''}
 - 编程语言：${script}  
@@ -37,16 +44,16 @@ ${new Array(3).fill(quote).join('')}
 }
 
 /**
- * @param {LeetCodeProblemData} problem
+ * @param {prismaClient.LeetcodeProblem} problem
  */
 function problemToTemplate(problem) {
-    const { name, url, level, tagList, solutions, desc } = problem.problemData;
+    const { name, url, level, tags, solutions, desc } = problem;
     return `
 # ${name}
 
 > 链接：[${name}](${url})  
 > 难度：${level}  
-> 标签：${tagList.join('、')}  
+> 标签：${tags.join('、')}  
 > 简介：{${quote}${desc}${quote}}  
 
 ${solutions.map(solutionToTemplate).join('\n\n')}
@@ -54,18 +61,21 @@ ${solutions.map(solutionToTemplate).join('\n\n')}
 }
 
 async function buildCategoryJson() {
+    const dirs = await fs.readdir(leetcodeRootPath);
     await Promise.all(
-        dataList.map(async (item, idx) => {
-            const filePath = resolve(leetcodeRootPath, item.dirName, '_category_.json');
-            await fs.ensureDir(path.dirname(filePath));
-            await fs.writeFile(
-                filePath,
-                JSON.stringify({
-                    label: item.dirName,
-                    position: idx + 1,
-                }),
-            );
-        }),
+        dirs
+            .filter(v => !v.includes('.'))
+            .sort(dirSort)
+            .map(async (item, idx) => {
+                const filePath = resolve(leetcodeRootPath, item, '_category_.json');
+                await fs.writeFile(
+                    filePath,
+                    JSON.stringify({
+                        label: item,
+                        position: idx + 1,
+                    }),
+                );
+            }),
     );
 }
 
@@ -137,15 +147,23 @@ ${buildReadmeDataItem('难度索引', readme.level)}
 }
 
 /**
- * @param {} data
+ * @param {prismaClient.LeetcodeProblem} problem
  */
-async function buildProblem(data) {}
+async function buildProblem(problem) {
+    console.log(problem.name);
+    const dirName = getDirNameFromProblemName(problem.name);
+    const filePath = resolve(leetcodeRootPath, dirName, problem.name + '.md');
+    await fs.ensureDir(path.dirname(filePath));
+    const problemContent = problemToTemplate(problem);
+    await fs.writeFile(filePath, problemContent);
+}
 
 async function main() {
     // await Promise.all([buildDataList(), buildReadme(), buildCategoryJson()]);
     const prisma = new prismaClient.PrismaClient();
-    const leetcode = await prisma.leetcodeProblem.findMany({ include: { solutions: {} } });
-    console.log(leetcode);
+    const problems = await prisma.leetcodeProblem.findMany({ include: { solutions: {} } });
+    await Promise.all(problems.map(buildProblem));
+    await buildCategoryJson();
 }
 
 await main();
