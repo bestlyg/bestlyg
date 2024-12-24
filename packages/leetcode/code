@@ -1,38 +1,20 @@
-from sortedcontainers import SortedList
-class ExamRoom:
-    def getd(self, start: int, end: int) -> int:
-        if end - start - 1 == 0: return 0
-        if end == self.n: return self.n - start - 1
-        if start == -1: return end
-        mid = (end - start + 1) // 2 + start
-        return min(end - mid, mid - start)
-    def __init__(self, n: int):
-        self.n = n
-        self.arr = SortedList()
-        self.arr.add((self.getd(-1, n), -1, n))
-    def seat(self) -> int:
-        data = self.arr.pop(0)
-        start = data[1]
-        end = data[2]
-        if start == -1:
-            self.arr.add((0, -1, 0))
-            self.arr.add((-self.getd(start + 1, end), 0, end))
-            return 0
-        if end == self.n:
-            self.arr.add((-self.getd(start, self.n - 1), start, self.n - 1))
-            self.arr.add((0, self.n - 1, self.n))
-            return self.n - 1
-        mid = (end - start) // 2 + start
-        self.arr.add((-self.getd(start, mid), start, mid))
-        self.arr.add((-self.getd(mid, end), mid, end))
-        return mid
-    def leave(self, p: int) -> None:
-        i1 = i2 = -1
-        for i in range(len(self.arr)):
-            if self.arr[i][2] == p: i1 = i
-            if self.arr[i][1] == p: i2 = i
-        start = self.arr[i1][1]
-        end = self.arr[i2][2]
-        self.arr.pop(max(i1, i2))
-        self.arr.pop(min(i1, i2))
-        self.arr.add((-self.getd(start, end), start, end))
+from sortedcontainers import SortedDict
+class Solution:
+    def eatenApples(self, apples: List[int], days: List[int]) -> int:
+        res = 0
+        day = 1
+        expiredDict = SortedDict()
+        while day <= len(apples) or len(expiredDict):
+            while len(expiredDict) and -expiredDict.peekitem()[0] <= day:
+                expiredDict.popitem()
+            if day <= len(apples) and days[day - 1] != 0:
+                time, cnt = -(days[day - 1] + day), apples[day - 1]
+                if not time in expiredDict: expiredDict[time] = 0
+                expiredDict[time] += cnt
+            if len(expiredDict):
+                item = expiredDict.popitem()
+                res += 1
+                if item[1] != 1:
+                    expiredDict[item[0]] = item[1] - 1
+            day += 1
+        return res
