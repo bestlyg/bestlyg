@@ -142,7 +142,7 @@ export async function downloadPDFMultiPage(container?: HTMLElement) {
         style.remove();
 
         const imgData = canvas.toDataURL('image/jpeg', 1);
-        saveAsImage(canvas);
+        // saveAsImage(canvas);
         doc.addImage(imgData, 'JPEG', 0, 0, widthA4MM, heightA4MM);
     }
     doc.save(RESUME_NAME_PDF);
