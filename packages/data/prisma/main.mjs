@@ -1,11 +1,14 @@
 import '@bestlyg/cli/globals';
 import { PrismaClient } from '@prisma/client';
 // import { xuanDataList } from '@bestlyg/data';
-import { getLeetCodeDataList } from '@bestlyg/leetcode';
-
-const { _, dayjs } = best;
+// import { getLeetCodeDataList } from '@bestlyg/leetcode';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
+best.dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+});
+
+const { _, dayjs } = best;
 
 // 68
 // 68.1
@@ -27,7 +30,7 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     await prisma.xuan.createMany({
-        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 687 }],
+        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 68 }],
     });
 }
 
