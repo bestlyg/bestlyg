@@ -49,12 +49,12 @@ export default defineConfig({
                 },
             },
         }, */
-        {
-            buildType: 'bundleless',
-            dts: {
-                only: true,
-            },
-            outDir: resolve(CWD, 'dist', 'types'),
-        },
+        // {
+        //     buildType: 'bundleless',
+        //     dts: {
+        //         only: true,
+        //     },
+        //     outDir: resolve(CWD, 'dist', 'types'),
+        // },
     ],
 });
