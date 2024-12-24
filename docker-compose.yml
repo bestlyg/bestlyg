@@ -8,45 +8,45 @@ services:
   #   volumes:
   #     - ./nginx/docker/spa:/etc/nginx/conf.d
   #     - ./src/website:/var/www/html/
-  mongo:
-    container_name: bestlyg-mongo
-    image: mongo:latest
-    restart: always
-    volumes:
-      - ./databases/bestlyg-data:/bestlyg-data
-      # 挂载数据目录
-      - ./databases/bestlyg-mongo/db:/data/db
-      # 挂载日志目录
-      - ./databases/bestlyg-mongo/log:/var/log/mongodb
-      # 挂载配置目录
-      - ./databases/bestlyg-mongo/config:/etc/mongo
-    ports:
-      - 27017:27017
-    command: mongod
-  mysql:
-    image: mysql:latest
-    container_name: bestlyg-mysql
-    # command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - 3306:3306
-    volumes:
-      - ./databases/bestlyg-data:/bestlyg-data
-      # 挂载数据目录
-      - ./databases/bestlyg-mysql:/var/lib/mysql
-  redis:
-    container_name: bestlyg-redis
-    image: redis:latest
-    restart: always
-    volumes:
-      - ./databases/bestlyg-data:/bestlyg-data
-      - ./databases/bestlyg-redis:/data
-    ports:
-      - 6379:6379
+  # mongo:
+  #   container_name: bestlyg-mongo
+  #   image: mongo:latest
+  #   restart: always
+  #   volumes:
+  #     - ./databases/bestlyg-data:/bestlyg-data
+  #     # 挂载数据目录
+  #     - ./databases/bestlyg-mongo/db:/data/db
+  #     # 挂载日志目录
+  #     - ./databases/bestlyg-mongo/log:/var/log/mongodb
+  #     # 挂载配置目录
+  #     - ./databases/bestlyg-mongo/config:/etc/mongo
+  #   ports:
+  #     - 27017:27017
+  #   command: mongod
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: bestlyg-mysql
+  #   # command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: root
+  #     MYSQL_ROOT_PASSWORD: root
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./databases/bestlyg-data:/bestlyg-data
+  #     # 挂载数据目录
+  #     - ./databases/bestlyg-mysql:/var/lib/mysql
+  # redis:
+  #   container_name: bestlyg-redis
+  #   image: redis:latest
+  #   restart: always
+  #   volumes:
+  #     - ./databases/bestlyg-data:/bestlyg-data
+  #     - ./databases/bestlyg-redis:/data
+  #   ports:
+  #     - 6379:6379
   postgres:
     container_name: bestlyg-postgres
     image: postgres:latest
