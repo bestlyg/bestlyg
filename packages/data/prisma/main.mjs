@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import '@bestlyg/cli/globals';
 import { PrismaClient } from '@prisma/client';
 // import { xuanDataList } from '@bestlyg/data';

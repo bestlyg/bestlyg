@@ -1,3 +1,3 @@
 import 'zx/globals';
 
-await $`ssh ubuntu@106.54.220.193`;
+await $`ssh root@106.54.220.193`;

@@ -1,16 +1,9 @@
 import best from '@bestlyg/cli';
-import os from 'node:os';
-import { LeetCodeDataList, LeetCodeProblemData, LeetCodeReadmeData } from './types';
-import { LeetCode } from './leetcode';
-
-const { fs, glob, path } = best.zx;
 
 export const resolve = best.utils.getResolveFunction(__dirname, 2);
 export const PATH_GRAPHQL = resolve('graphql');
-export const PATH_DATA = resolve('data');
-export const PATH_CODE = resolve('code');
+export const PATH_CODE = resolve('scripts', 'code');
 export const FILE_NAME_MAIN = 'main.json';
-export const PATH_MAIN_JSON = resolve(PATH_DATA, FILE_NAME_MAIN);
 export const DATE_FORMAT_SOLUTION = 'YYYY-MM-DD';
 export const BASE_URL = 'https://leetcode.com';
 export const BASE_URL_CN = 'https://leetcode.cn';
@@ -27,40 +20,6 @@ export function parseCookie(cookie: string): Record<string, string> {
             },
             {} as Record<string, string>,
         );
-}
-
-export async function getLeetCodeDataList(): Promise<LeetCodeDataList> {
-    const dirs = await fs.readdir(PATH_DATA);
-    const result = await Promise.all(
-        dirs
-            .filter(dir => dir !== FILE_NAME_MAIN)
-            .map(async dirName => {
-                const dirPath = resolve(PATH_DATA, dirName);
-                let globPath = resolve(dirPath, './*.json');
-                if (os.platform() === 'win32') globPath = glob.convertPathToPattern(globPath);
-                const filePathList = await glob(globPath);
-                const problems = await Promise.all(
-                    filePathList.map(async filePath => {
-                        const data = await fs.readJSON(filePath);
-                        return {
-                            problemName: path.basename(filePath),
-                            problemPath: filePath,
-                            problemData: data,
-                        } as LeetCodeProblemData;
-                    }),
-                );
-                return {
-                    dirName,
-                    dirPath,
-                    problems,
-                };
-            }),
-    );
-    return result.sort((v1, v2) => dirSort(v1.dirName, v2.dirName));
-}
-
-export async function getLeetCodeReadme(): Promise<LeetCodeReadmeData> {
-    return fs.readJSON(resolve(PATH_DATA, FILE_NAME_MAIN));
 }
 
 export const sortOrderList = ['面试题', '剑指Offer', '剑指OfferII', 'LCP', 'LCR'];
@@ -100,30 +59,4 @@ export function getDirNameFromProblemName(problemName: string) {
 export function getTitleSlugFromURL(url: string) {
     const res = Array.from(url.matchAll(/https:\/\/leetcode.cn\/problems\/(.*)/g));
     return res[0][1];
-}
-
-export async function updateProblemFromLeetcode(
-    leetcode: LeetCode,
-    { problemData, problemPath, problemName }: LeetCodeProblemData,
-) {
-    try {
-        const titleSlug = getTitleSlugFromURL(problemData.url);
-        const problemResult = await leetcode.getProblem(titleSlug);
-        if (!problemResult) {
-            throw new Error('Get problem result fail.');
-        }
-        problemData.id = problemResult.questionId;
-        problemData.name = (
-            problemResult.questionFrontendId +
-            '.' +
-            problemResult.translatedTitle
-        ).replace(/ /g, '');
-        problemData.level = problemResult.difficulty;
-        problemData.tagList = problemResult.topicTags.map(v => v.translatedName);
-        await fs.writeFile(problemPath, JSON.stringify(problemData, null, 4));
-        console.log(`${problemName} is updated`);
-    } catch (err) {
-        console.log(`${problemName} update fail`);
-        console.error(err);
-    }
 }
