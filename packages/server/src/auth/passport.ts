@@ -40,7 +40,7 @@ export const passportMiddleware: Router.Middleware = async (ctx, next) => {
                     // console.info('JWT', err, user, info);
                     ctx.body = {
                         code: 1,
-                        message: '认证失败',
+                        msg: '认证失败',
                     };
                     resolve();
                 }
