@@ -29,7 +29,7 @@ passport.use(
 );
 
 export const passportMiddleware: Router.Middleware = async (ctx, next) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>(resolve => {
         passport.authenticate(
             'jwt',
             {
@@ -38,10 +38,11 @@ export const passportMiddleware: Router.Middleware = async (ctx, next) => {
             (err: any, user: any, _: string) => {
                 if (err || !user) {
                     // console.info('JWT', err, user, info);
-                    reject({
+                    ctx.body = {
                         code: 1,
                         message: '认证失败',
-                    });
+                    };
+                    resolve();
                 }
                 ctx.state.user = user;
                 resolve(next());
