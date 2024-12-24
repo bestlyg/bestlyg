@@ -108,6 +108,17 @@ export async function downloadPDFSinglePage(container?: HTMLElement) {
     doc.save(RESUME_NAME_PDF);
 }
 
+export function saveAsImage(canvas: HTMLCanvasElement) {
+    canvas.toBlob(blob => {
+        if (!blob) return;
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'canvasImage.jpeg';
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }, 'image/jpeg');
+}
+
 export async function downloadPDFMultiPage(container?: HTMLElement) {
     const doms = container?.querySelectorAll(`.${CLASS_NAME_MULTI}`) as NodeListOf<HTMLElement>;
     if (!doms) return;
@@ -119,12 +130,19 @@ export async function downloadPDFMultiPage(container?: HTMLElement) {
         const [width, height] = [doms[i].offsetWidth, doms[i].offsetHeight];
         doc.internal.pageSize.width = widthA4MM;
         doc.internal.pageSize.height = heightA4MM;
+        // 修复html2canvas的BUG
+        const style = document.createElement('style');
+        document.head.appendChild(style);
+        style.sheet?.insertRule('body > div:last-child img { display: inline-block; }');
         const canvas = await html2canvas(dom, {
             scale: window.devicePixelRatio * 4,
             width,
             height,
         });
+        style.remove();
+
         const imgData = canvas.toDataURL('image/jpeg', 1);
+        saveAsImage(canvas);
         doc.addImage(imgData, 'JPEG', 0, 0, widthA4MM, heightA4MM);
     }
     doc.save(RESUME_NAME_PDF);
