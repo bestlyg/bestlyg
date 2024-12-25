@@ -1,6 +1,48 @@
-import 'zx/globals';
+import '@bestlyg/cli/globals';
+import { ssh, server } from '@bestlyg/config';
 
-// const serverName = `bestlyg-server`;
+const run = async cmd => await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
+
+const resolve = best.utils.getResolveFunction(import.meta, 1);
+best.dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+});
+
+const fileName = '.env.local';
+const dbName = 'best_data';
+const envDistPath = resolve(server.projectPath, 'packages', 'config', fileName);
+const sqlDistPath = resolve(server.projectPath, 'packages', 'data', 'dist', dbName + '.sql');
+const dumpPath = resolve('dist', dbName + '.sql');
+
+// db
+await run(`pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
+// build
+await run('pnpm nx build --verbose');
+// copy
+await run('pnpm --filter @bestlyg/site run deploy');
+await run('pnpm --filter md2resume run deploy');
+await run(`scp -r ${dumpPath} ${ssh.username}@${ssh.ip}:${sqlDistPath}`);
+await run(
+    `scp -r ${resolve('node_modules', '@bestlyg', 'config', fileName)} ${ssh.username}@${ssh.ip}:${envDistPath}`,
+);
+
+const serverName = `bestlyg-server`;
+
+const commands = [
+    `sudo pm2 del ${serverName}`,
+    `sudo git reset --hard`,
+    `sudo git clean -fd`,
+    `sudo git pull`,
+    'sudo pnpm i --frozen-lockfile --ignore-scripts',
+    `sudo pm2 start packages/server/dist/main.js --name ${serverName}`,
+    `pnpm --filter @bestlyg/config run build`,
+    `pnpm --filter @bestlyg/data run prisma:migrate`,
+    `PGPASSWORD=${process.env.PGPASSWORD} psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
+];
+execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
+    stdio: 'inherit',
+});
+
 // echo Deploy Project
 // docker-compose up -d --force-recreate --build
 // echo(`pm2 delete ${serverName}`);
@@ -9,14 +51,16 @@ import 'zx/globals';
 // } catch (e) {
 //     echo(e);
 // }
-echo(`git reset --hard`);
-await $`git reset --hard`;
-echo(`git clean -fd`);
-await $`git clean -fd`;
-echo(`git pull`);
-await $`git pull`;
-echo(`pnpm i --frozen-lockfile --ignore-scripts`);
-await $`pnpm i --frozen-lockfile --ignore-scripts`;
+
+// echo(`git reset --hard`);
+// await $`git reset --hard`;
+// echo(`git clean -fd`);
+// await $`git clean -fd`;
+// echo(`git pull`);
+// await $`git pull`;
+// echo(`pnpm i --frozen-lockfile --ignore-scripts`);
+// await $`pnpm i --frozen-lockfile --ignore-scripts`;
+
 // pnpm run build
 // echo(`pnpm --filter leetcode build`)
 // pnpm --filter leetcode build
@@ -26,11 +70,13 @@ await $`pnpm i --frozen-lockfile --ignore-scripts`;
 // cp -rf ./packages/leetcode/dist ./packages/site/docs/leetcode
 // echo(`pnpm --filter site build`)
 // pnpm --filter site build
-echo(`pnpm --filter @bestlyg/server build`);
-await $`pnpm --filter @bestlyg/server build`;
 
-echo(`pnpm --filter @bestlyg/server deploy:pm2`);
-await $`pnpm --filter @bestlyg/server deploy:pm2`;
+// echo(`pnpm --filter @bestlyg/server build`);
+// await $`pnpm --filter @bestlyg/server build`;
+
+// echo(`pnpm --filter @bestlyg/server deploy:pm2`);
+// await $`pnpm --filter @bestlyg/server deploy:pm2`;
+
 // 强制重新编译容器
 // docker-compose down
 // docker rmi bestlyg-api
