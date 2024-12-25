@@ -1,5 +1,5 @@
+import 'reflect-metadata';
 import Koa from 'koa';
-// import koaBodyParsers from 'koa-body-parsers';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
 import compress from 'koa-compress';

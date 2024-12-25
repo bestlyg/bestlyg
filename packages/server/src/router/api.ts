@@ -6,10 +6,9 @@ import { USERNAME, PASSWORD, prisma } from '@/utils/index';
 
 const router = new Router();
 
-const healthy: Router.Middleware = ctx => {
+router.get('/health-check', async ctx => {
     ctx.body = `health-check: ${dayjs().format('YYYY-MM-DD hh:mm:ss')}`;
-};
-router.get('/health-check', healthy);
+});
 
 router.post('/login', async ctx => {
     const { username, password } = ctx.request.body as { username: string; password: string };
@@ -68,6 +67,29 @@ router.get('/data/leetcode', passportMiddleware, async ctx => {
         data,
     };
 });
+
+function Get() {
+    return (...args) => {
+        console.log('GET', args);
+        console.log(Reflect.getMetadata('a', args[2].value));
+    };
+}
+
+function Controller() {
+    return (classData: any) => {
+        console.log('Controller', classData);
+        Reflect.defineMetadata('a', classData, classData);
+    };
+}
+
+@Controller()
+class XRouter {
+    router = new Router();
+    constructor() {}
+    @Get()
+    async aaa(a: number) {}
+}
+const x = new XRouter();
 
 export default router;
 
