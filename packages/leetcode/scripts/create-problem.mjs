@@ -5,11 +5,8 @@
 
 import '@bestlyg/cli/globals';
 import {
-    PATH_DATA,
     getDirNameFromProblemName,
-    resolve,
     DATE_FORMAT_SOLUTION,
-    updateProblemFromLeetcode,
     LeetCode,
     getTitleSlugFromURL,
 } from '@bestlyg/leetcode';
@@ -36,7 +33,7 @@ function descFormat(str) {
 
 problem.name = problem.name.replace(/ /g, '');
 const dirName = getDirNameFromProblemName(problem.name);
-const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
+// const filePath = resolve(PATH_DATA, dirName, problem.name + '.json');
 
 const titleSlug = getTitleSlugFromURL(problem.url);
 const problemResult = await leetcode.getProblem(titleSlug);
@@ -55,6 +52,7 @@ if (problem.exist) {
     const problemData = await prisma.leetcodeProblem.findFirst({
         where: { name: problem.name },
     });
+
     problemData.tags = problem.tagList;
     problemData.level = problem.level;
     await prisma.leetcodeProblem.update({ data: problemData, where: { id: problemData.id } });
@@ -85,7 +83,7 @@ if (problem.exist) {
             solutions: {
                 createMany: {
                     data: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
-                        script: 'PY',
+                        script,
                         time,
                         memory,
                         desc,

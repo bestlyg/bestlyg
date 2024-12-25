@@ -1,20 +1,12 @@
-from sortedcontainers import SortedDict
 class Solution:
-    def eatenApples(self, apples: List[int], days: List[int]) -> int:
-        res = 0
-        day = 1
-        expiredDict = SortedDict()
-        while day <= len(apples) or len(expiredDict):
-            while len(expiredDict) and -expiredDict.peekitem()[0] <= day:
-                expiredDict.popitem()
-            if day <= len(apples) and days[day - 1] != 0:
-                time, cnt = -(days[day - 1] + day), apples[day - 1]
-                if not time in expiredDict: expiredDict[time] = 0
-                expiredDict[time] += cnt
-            if len(expiredDict):
-                item = expiredDict.popitem()
-                res += 1
-                if item[1] != 1:
-                    expiredDict[item[0]] = item[1] - 1
-            day += 1
-        return res
+    def minimumCost(self, n: int, m: int, horizontalCut: List[int], verticalCut: List[int]) -> int:
+        @cache
+        def dfs(i1: int, i2: int, j1: int, j2: int) -> int:
+            if i1 == i2 and j1 == j2: return 0
+            res = inf
+            for i in range(i1, i2):
+                res = min(res, dfs(i1, i, j1, j2) + dfs(i + 1, i2, j1, j2) + horizontalCut[i])
+            for j in range(j1, j2):
+                res = min(res, dfs(i1, i2, j1, j) + dfs(i1, i2, j + 1, j2) + verticalCut[j])
+            return res
+        return dfs(0, n - 1, 0, m - 1)

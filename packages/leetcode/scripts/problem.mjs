@@ -1,23 +1,27 @@
 import '@bestlyg/cli/globals';
-import { LeetCodeLevel, LeetCodeScript, PATH_CODE } from '@bestlyg/leetcode';
+import { PATH_CODE } from '@bestlyg/leetcode';
+import { prismaClient } from '@bestlyg/data';
 
-/** @type {import("../dist/types").LeetCodeProblem} */
+/** @type {prismaClient.LeetcodeSolution[]} */
+const solutions = [
+    {
+        script: 'python',
+        // date: '2024-11-01',
+        time: 2189,
+        memory: 79.68,
+        desc: '记忆化搜索',
+        code: await fs.readFile(PATH_CODE, 'utf8'),
+    },
+];
+
+// /** @type {import("../dist/types").LeetCodeProblem} */
+/** @type {prismaClient.LeetcodeProblem} */
 export const problem = {
-    exist: true,
-    name: '1705. 吃苹果的最大数目',
-    url: 'https://leetcode.cn/problems/maximum-number-of-eaten-apples',
-    level: LeetCodeLevel.Easy,
+    exist: !true,
+    name: '3218. 切蛋糕的最小总开销 I',
+    url: 'https://leetcode.cn/problems/minimum-cost-for-cutting-cake-i',
+    level: 'Easy',
     tagList: [],
-    desc: `给你两个长度为 n 的整数数组 days 和 apples ，返回你可以吃掉的苹果的最大数目。`,
-    solutions: [
-        {
-            script: LeetCodeScript.PY,
-            // date: '2024-11-01',
-            time: 981,
-            memory: 22.36,
-            
-            desc: '有序数组遍历',
-            code: await fs.readFile(PATH_CODE, 'utf8'),
-        },
-    ],
+    desc: `请你返回将蛋糕全部切成 1 x 1 的蛋糕块的 最小 总开销。`,
+    solutions,
 };

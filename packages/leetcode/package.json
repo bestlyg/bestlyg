@@ -27,12 +27,8 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "auto": "pnpm create:problem && pnpm create:readme && pnpm -w ca",
-        "create:readme": "node scripts/create-readme.mjs",
+        "auto": "pnpm create:problem && pnpm create:problem && pnpm -w ca",
         "create:problem": "node scripts/create-problem.mjs",
-        "update:problem": "node scripts/update-problem.mjs",
-        "update:data": "node scripts/update-data.mjs",
-        "demo": "node scripts/demo.mjs",
         "build": "modern build",
         "dev": "modern build --watch"
     },
