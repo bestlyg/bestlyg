@@ -1,7 +1,8 @@
 import { dayjs } from '@bestlyg/cli';
-import { parseMarkdown, sendMail } from '../utils/index.js';
+import { parseMarkdown, PGPASSWORD, sendMail } from '../utils/index.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
+import { execSync } from 'child_process';
 
 @Injectable()
 export class TasksService {
@@ -13,6 +14,12 @@ export class TasksService {
     }
     private readonly logger = new Logger(TasksService.name);
 
+    @Cron('0 0 0 * * *')
+    async backupDB() {
+        execSync(
+            `PGPASSWORD=${PGPASSWORD} pg_dump -h localhost -p 5432 -U root -f /root/best_data.sql best_data`,
+        );
+    }
     @Cron('0 0 8,20 * * *')
     async daily() {
         const now = dayjs();

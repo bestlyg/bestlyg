@@ -1,7 +1,8 @@
 import '@bestlyg/cli/globals';
+import { execSync } from 'child_process';
 import { ssh, server } from '@bestlyg/config';
 
-const run = async cmd => await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
+const run = async cmd => execSync(cmd, { stdio: 'inherit' });
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({
@@ -15,9 +16,9 @@ const sqlDistPath = resolve(server.projectPath, 'packages', 'data', 'dist', dbNa
 const dumpPath = resolve('dist', dbName + '.sql');
 
 // db
-await run(`pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
+await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 // build
-await run('pnpm nx build --verbose');
+await run('pnpm nx run-many -t build --verbose');
 // copy
 await run('pnpm --filter @bestlyg/site run deploy');
 await run('pnpm --filter md2resume run deploy');
@@ -34,8 +35,9 @@ const commands = [
     `sudo git clean -fd`,
     `sudo git pull`,
     'sudo pnpm i --frozen-lockfile --ignore-scripts',
-    `sudo pm2 start packages/server/dist/main.js --name ${serverName}`,
+    `sudo pm2 start /root/bestlyg/packages/server/dist/main.js --name ${serverName}`,
     `pnpm --filter @bestlyg/config run build`,
+    `pnpm --filter @bestlyg/data run build`,
     `pnpm --filter @bestlyg/data run prisma:migrate`,
     `PGPASSWORD=${process.env.PGPASSWORD} psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
 ];
