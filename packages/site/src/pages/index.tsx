@@ -14,15 +14,20 @@ export function useLogin() {
     const [form] = Form.useForm();
     async function login() {
         const data = await form.validateFields();
-        const res = await request('/api/login', { body: data, method: 'POST' });
+        const res = await request('/api/auth/login', { body: data, method: 'POST' });
         if (!res) return;
-        const token = res.token;
+        const token = res.access_token;
         localStorage.setItem('x-token', token);
         message.success('登录成功');
         visibleOps.setFalse();
     }
     const node = (
-        <Modal title="登录" open={visible} onCancel={visibleOps.setFalse} onOk={login}>
+        <Modal
+            title="登录"
+            open={visible}
+            onCancel={visibleOps.setFalse}
+            onOk={async () => login().catch(() => {})}
+        >
             <Form form={form}>
                 <Form.Item name="username" label="用户名" rules={[{ required: true }]}>
                     <Input />

@@ -11,11 +11,7 @@ export class StaticController extends BaseController {
     async staticFile(@Param() params: string, @Res() res: Response) {
         const filePath = resolve(this.staticPath, params[0]);
         const exist = await best.zx.fs.exists(filePath);
-        console.log('File', filePath, exist);
-        if (!exist) {
-            const data = await this.reject('inexistent file');
-            return res.send(data);
-        }
+        if (!exist) throw new Error('inexistent file');
         return res.sendFile(filePath);
     }
 }

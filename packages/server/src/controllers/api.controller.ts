@@ -1,8 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { BaseController } from './base.controller.js';
 import { dayjs } from '@bestlyg/cli';
 import { prismaClient } from '@bestlyg/data';
 import { prisma } from '../utils/index.js';
+import { AuthGuard } from '../guards/auth.guard.js';
 
 @Controller('/api')
 export class ApiController extends BaseController {
@@ -10,6 +11,8 @@ export class ApiController extends BaseController {
     async health() {
         return this.of(async () => `health-check: ${dayjs().format('YYYY-MM-DD hh:mm:ss')}`);
     }
+
+    @UseGuards(AuthGuard)
     @Get('/data/ledger')
     async ledger() {
         return this.of(async () => {
@@ -17,6 +20,8 @@ export class ApiController extends BaseController {
             return data;
         });
     }
+
+    @UseGuards(AuthGuard)
     @Get('/data/xuan')
     async xuan() {
         return this.of(async () => {
@@ -24,6 +29,8 @@ export class ApiController extends BaseController {
             return data;
         });
     }
+
+    @UseGuards(AuthGuard)
     @Get('/data/secrets')
     async secrets() {
         return this.of(async () => {
@@ -31,6 +38,8 @@ export class ApiController extends BaseController {
             return data;
         });
     }
+
+    @UseGuards(AuthGuard)
     @Get('/data/leetcode')
     async leetcode() {
         return this.of(async () => {

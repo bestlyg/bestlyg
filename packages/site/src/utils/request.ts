@@ -2,7 +2,7 @@ import { message } from 'antd';
 
 export async function request(...args: Parameters<typeof fetch>) {
     const token = localStorage.getItem('x-token');
-    // args[0] = 'http://localhost:10000' + args[0];
+    args[0] = 'http://localhost:10000' + args[0];
     args[1] ??= {};
     args[1].headers ??= {};
     args[1].headers['Content-Type'] = 'application/json';
