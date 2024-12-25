@@ -1,5 +1,5 @@
 import * as nodeMailer from 'nodemailer';
-import { MAIL_HOST, MAIL_USER, MAIL_PASS } from './constants';
+import { MAIL_HOST, MAIL_USER, MAIL_PASS } from './constants.js';
 
 export const mailerTransporter = nodeMailer.createTransport({
     host: MAIL_HOST,
