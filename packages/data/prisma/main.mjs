@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     await prisma.xuan.createMany({
-        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6850 }],
+        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6780 }],
     });
 }
 
