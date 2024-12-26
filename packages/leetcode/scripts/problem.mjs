@@ -7,9 +7,9 @@ const solutions = [
     {
         script: 'python',
         // date: '2024-11-01',
-        time: 2189,
-        memory: 79.68,
-        desc: '记忆化搜索',
+        time: 0,
+        memory: 17.58,
+        desc: '遍历',
         code: await fs.readFile(PATH_CODE, 'utf8'),
     },
 ];
@@ -18,10 +18,10 @@ const solutions = [
 /** @type {prismaClient.LeetcodeProblem} */
 export const problem = {
     exist: !true,
-    name: '3218. 切蛋糕的最小总开销 I',
-    url: 'https://leetcode.cn/problems/minimum-cost-for-cutting-cake-i',
+    name: '3083. 字符串及其反转中是否存在同一子字符串',
+    url: 'https://leetcode.cn/problems/existence-of-a-substring-in-a-string-and-its-reverse',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回将蛋糕全部切成 1 x 1 的蛋糕块的 最小 总开销。`,
+    desc: `给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。如果存在这样的子字符串，返回 true；如果不存在，返回 false 。`,
     solutions,
 };
