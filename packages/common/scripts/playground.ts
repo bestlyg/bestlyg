@@ -1,5 +1,5 @@
-import IdlClient from '@bestlyg/idl/client';
-import IdlServer from '@bestlyg/idl/server';
+import IdlClient from '@bestlyg/common/idl/client';
+import IdlServer from '@bestlyg/common/idl/server';
 import express from 'express';
 
 // server

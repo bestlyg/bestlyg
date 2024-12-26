@@ -15,7 +15,7 @@ const plugin = {
                 `/* eslint-disable @typescript-eslint/no-namespace */`,
                 `/* eslint-disable @typescript-eslint/no-unused-vars */`,
                 `/* eslint-disable prettier/prettier */`,
-                `import { fetch } from '@/utils';`,
+                `import { fetch } from '@/idl/utils';`,
                 code,
             ].join('\n');
         });
@@ -32,9 +32,9 @@ const getConfig = dirPath => {
         },
     };
 };
-const xidlClient = new XIdlClient(getConfig(resolve(`src/client`))).use(plugin);
+const xidlClient = new XIdlClient(getConfig(resolve(`src`, `idl`, `client`))).use(plugin);
 
-const xidlServer = new XIdlServer(getConfig(resolve(`src/server`))).use(plugin);
+const xidlServer = new XIdlServer(getConfig(resolve(`src`, `idl`, `server`))).use(plugin);
 
 async function main() {
     await xidlClient.output();
