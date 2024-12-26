@@ -39,7 +39,48 @@ async function createLedger() {
         date: new Date(date),
     });
     await prisma.ledger.createMany({
-        data: [],
+        data: [
+            {
+                io: false,
+                balance: 12,
+                comment: '欢牛蛋糕屋',
+                type: 'Food',
+                date: new Date('2024-12-18'),
+            },
+            {
+                io: false,
+                balance: 1361,
+                comment: '午饭，乡村基，川味现炒',
+                type: 'Food',
+                date: new Date('2024-12-26'),
+            },
+            {
+                io: false,
+                balance: 1462,
+                comment: '午饭，乡村基，川味现炒',
+                type: 'Food',
+                date: new Date('2024-12-25'),
+            },
+            getLedgerRuixin(),
+            getLedgerTransport({ date: new Date('2024-12-26') }),
+            getLedgerTransport({ date: new Date('2024-12-26') }),
+            {
+                io: false,
+                balance: 1140000,
+                comment: '勾庄佳苑3个月房租',
+                type: 'Transportation',
+                date: new Date('2024-12-26'),
+            },
+            getLedgerTransport({ date: new Date('2024-12-24') }),
+            getLedgerTransport({ date: new Date('2024-12-24') }),
+            {
+                io: false,
+                balance: 2483,
+                comment: '晚饭，沙县小吃',
+                type: 'Food',
+                date: new Date('2024-12-24'),
+            },
+        ],
     });
 }
 
@@ -47,8 +88,8 @@ async function createLeetcode() {}
 
 async function main() {
     console.info('Prisma connected.');
-    await createXuan();
-    // await createLedger();
+    // await createXuan();
+    await createLedger();
 }
 
 main()
