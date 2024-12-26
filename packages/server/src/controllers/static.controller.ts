@@ -1,11 +1,10 @@
 import { Get, Controller, Param, Res } from '@nestjs/common';
-import { BaseController } from './base.controller.js';
 import { resolve } from '../utils/index.js';
 import { Response } from 'express';
 import best from '@bestlyg/cli';
 
 @Controller('/static')
-export class StaticController extends BaseController {
+export class StaticController {
     staticPath = resolve('node_modules', '@bestlyg/', 'static');
     @Get('*')
     async staticFile(@Param() params: string, @Res() res: Response) {

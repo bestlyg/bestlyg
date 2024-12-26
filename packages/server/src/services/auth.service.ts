@@ -6,10 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
     constructor(private jwtService: JwtService) {}
     async signIn(username: string, password: string) {
-        console.log('SIGN', username, password);
-        if (username !== USERNAME || password !== PASSWORD) {
-            throw new UnauthorizedException();
-        }
+        if (username !== USERNAME || password !== PASSWORD) throw new UnauthorizedException();
         const payload = { username };
         return {
             access_token: await this.jwtService.signAsync(payload),

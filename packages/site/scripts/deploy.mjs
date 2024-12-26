@@ -17,6 +17,5 @@ await $`scp -r ${resolve(dirPath, fileName)} ${ssh.username}@${ssh.ip}:${distPat
 );
 
 const commands = [`cd ${path.dirname(distPath)}`, `unzip -o ${distPath}`];
-execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
-    stdio: 'inherit',
-});
+
+execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, { stdio: 'inherit' });

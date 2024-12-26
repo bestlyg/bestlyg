@@ -12,7 +12,7 @@ const files = await glob(['./**/*.*'], {
 await Promise.all(
     files.map(filePath => {
         return fs.remove(resolve(tmpDir, filePath));
-    })
+    }),
 );
 await $`pnpm build:github`;
 await fs.copySync(resolve('dist'), tmpDir);

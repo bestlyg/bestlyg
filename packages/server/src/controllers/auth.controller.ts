@@ -1,15 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service.js';
-import { BaseController } from './base.controller.js';
+import { ResponseEntity } from '@bestlyg/common';
 
 @Controller('/api/auth')
-export class AuthController extends BaseController {
-    constructor(private authService: AuthService) {
-        super();
-    }
+export class AuthController {
+    constructor(private authService: AuthService) {}
 
     @Post('login')
-    signIn(@Body() signInDto: { username: string; password: string }) {
-        return this.of(() => this.authService.signIn(signInDto.username, signInDto.password));
+    async signIn(@Body() signInDto: { username: string; password: string }) {
+        const data = await this.authService.signIn(signInDto.username, signInDto.password);
+        return ResponseEntity.ofSuccess(data);
     }
 }
