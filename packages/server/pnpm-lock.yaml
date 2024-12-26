@@ -11,15 +11,15 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
+      '@bestlyg/common':
+        specifier: workspace:^
+        version: link:../common
       '@bestlyg/config':
         specifier: workspace:^
         version: link:../config
       '@bestlyg/data':
         specifier: workspace:^
         version: link:../data
-      '@bestlyg/idl':
-        specifier: workspace:^
-        version: link:../idl
       '@bestlyg/server':
         specifier: workspace:^
         version: 'link:'
