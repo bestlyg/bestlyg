@@ -16,7 +16,9 @@ export interface BestlygHealthResponse {
     data?: string;
 }
 
-export interface BestlygLogin {}
+export interface BestlygLogin {
+
+}
 
 export namespace BestlygService {
     export namespace HealthCheck {

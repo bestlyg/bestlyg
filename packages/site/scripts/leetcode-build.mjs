@@ -7,13 +7,7 @@
 
 import '@bestlyg/cli/globals';
 import { prismaClient } from '@bestlyg/data';
-import {
-    getLeetCodeDataList,
-    getLeetCodeReadme,
-    PATH_DATA,
-    getDirNameFromProblemName,
-    dirSort,
-} from '@bestlyg/leetcode';
+import { getDirNameFromProblemName, dirSort } from '@bestlyg/leetcode';
 
 // const dataList = await getLeetCodeDataList();
 const resolve = best.utils.getResolveFunction(import.meta, 1);
