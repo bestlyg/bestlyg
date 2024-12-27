@@ -18,22 +18,22 @@ export class ResponseEntity<T> {
             .setRetriable(object.retriable);
     }
     // 状态 0 为成功
-    _code: StatusCode;
+    private _code: StatusCode;
     get code() {
         return this._code;
     }
     // 报错信息
-    _msg?: string;
+    private _msg?: string;
     get msg() {
         return this._msg;
     }
     // 数据
-    _data?: T;
+    private _data?: T;
     get data() {
         return this._data;
     }
     // 可重试
-    _retriable?: boolean;
+    private _retriable?: boolean;
     get retriable() {
         return this._retriable;
     }

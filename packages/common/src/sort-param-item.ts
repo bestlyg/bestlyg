@@ -7,11 +7,11 @@ export class SortParamItem {
     static from(object: Record<string, any>) {
         return this.of('', SortOrderEnum.Asc).setField(object.field).setOrder(object.order);
     }
-    _field: string;
+    private _field: string;
     get field() {
         return this._field;
     }
-    _order: SortOrderEnum;
+    private _order: SortOrderEnum;
     get order() {
         return this._order;
     }

@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     await prisma.xuan.createMany({
-        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6780 }],
+        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6825 }],
     });
 }
 
@@ -40,45 +40,14 @@ async function createLedger() {
     });
     await prisma.ledger.createMany({
         data: [
-            {
-                io: false,
-                balance: 12,
-                comment: '欢牛蛋糕屋',
-                type: 'Food',
-                date: new Date('2024-12-18'),
-            },
-            {
-                io: false,
-                balance: 1361,
-                comment: '午饭，乡村基，川味现炒',
-                type: 'Food',
-                date: new Date('2024-12-26'),
-            },
-            {
-                io: false,
-                balance: 1462,
-                comment: '午饭，乡村基，川味现炒',
-                type: 'Food',
-                date: new Date('2024-12-25'),
-            },
-            getLedgerRuixin(),
             getLedgerTransport({ date: new Date('2024-12-26') }),
             getLedgerTransport({ date: new Date('2024-12-26') }),
             {
                 io: false,
-                balance: 1140000,
-                comment: '勾庄佳苑3个月房租',
+                balance: 1400,
+                comment: '浙江医院三墩院区停车费',
                 type: 'Transportation',
                 date: new Date('2024-12-26'),
-            },
-            getLedgerTransport({ date: new Date('2024-12-24') }),
-            getLedgerTransport({ date: new Date('2024-12-24') }),
-            {
-                io: false,
-                balance: 2483,
-                comment: '晚饭，沙县小吃',
-                type: 'Food',
-                date: new Date('2024-12-24'),
             },
         ],
     });

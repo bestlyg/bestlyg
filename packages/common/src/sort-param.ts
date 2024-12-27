@@ -10,7 +10,7 @@ export class SortParam {
     static from(object: Record<string, any>) {
         return this.ofEmpty().setItems(object.items);
     }
-    _items: SortParamItem[];
+    private _items: SortParamItem[];
     get items() {
         return this._items;
     }
