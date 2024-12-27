@@ -22,6 +22,7 @@
     "dependencies": {
         "@ant-design/icons": "^5.5.1",
         "@bestlyg/code": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",

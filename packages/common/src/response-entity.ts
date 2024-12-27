@@ -18,50 +18,50 @@ export class ResponseEntity<T> {
             .setRetriable(object.retriable);
     }
     // 状态 0 为成功
-    private _code: StatusCode;
-    get code() {
-        return this._code;
-    }
+    private code: StatusCode;
     // 报错信息
-    private _msg?: string;
-    get msg() {
-        return this._msg;
-    }
+    private msg?: string;
     // 数据
-    private _data?: T;
-    get data() {
-        return this._data;
-    }
+    private data?: T;
     // 可重试
-    private _retriable?: boolean;
-    get retriable() {
-        return this._retriable;
-    }
+    private retriable?: boolean;
     constructor(
         code: ResponseEntity<T>['code'],
         data?: ResponseEntity<T>['data'],
         msg?: ResponseEntity<T>['msg'],
         retriable?: ResponseEntity<T>['retriable'],
     ) {
-        this._code = code;
-        this._data = data;
-        this._msg = msg;
-        this._retriable = retriable;
+        this.code = code;
+        this.data = data;
+        this.msg = msg;
+        this.retriable = retriable;
+    }
+    getCode() {
+        return this.code;
     }
     setCode(code: ResponseEntity<T>['code']) {
-        this._code = code;
+        this.code = code;
         return this;
+    }
+    getData() {
+        return this.data;
     }
     setData(data: ResponseEntity<T>['data']) {
-        this._data = data;
+        this.data = data;
         return this;
+    }
+    getMsg() {
+        return this.msg;
     }
     setMsg(msg: ResponseEntity<T>['msg']) {
-        this._msg = msg;
+        this.msg = msg;
         return this;
     }
+    getRetriable() {
+        return this.retriable;
+    }
     setRetriable(retriable: ResponseEntity<T>['retriable']) {
-        this._retriable = retriable;
+        this.retriable = retriable;
         return this;
     }
 }

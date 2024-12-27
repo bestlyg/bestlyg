@@ -2,11 +2,12 @@ import * as echarts from 'echarts';
 // import { xuanDataList } from '@bestlyg/data';
 import { useRef, useEffect } from 'react';
 import { useRequest } from 'ahooks';
-import { request } from '@site/src/utils';
+import { useRequest as getRequestFn } from '@site/src/utils';
 import { prismaClient } from '@bestlyg/data';
 import dayjs from 'dayjs';
 
 export function Weights() {
+    const request = getRequestFn();
     const { data } = useRequest<prismaClient.Xuan[], any>(async () => request('/api/data/xuan'));
     const containerRef = useRef<HTMLDivElement>();
     useEffect(() => {

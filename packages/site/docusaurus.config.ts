@@ -132,6 +132,12 @@ const config: Config = {
         },
     ],
     plugins: ['docusaurus-plugin-sass'],
+    customFields: {
+        apiUrl:
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:10000'
+                : 'https://www.bestlyg.com',
+    },
 };
 
 export default config;

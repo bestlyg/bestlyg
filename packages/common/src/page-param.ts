@@ -5,24 +5,24 @@ export class PageParam {
     static from(object: Record<string, any>) {
         return this.of(0, 0).setCurrent(object.list).setPageSize(object.total);
     }
-    _current: number;
-    get current() {
-        return this._current;
-    }
-    _pageSize: number;
-    get pageSize() {
-        return this._pageSize;
-    }
+    current: number;
+    pageSize: number;
     constructor(current: PageParam['current'], pageSize: PageParam['pageSize']) {
-        this._current = current;
-        this._pageSize = pageSize;
+        this.current = current;
+        this.pageSize = pageSize;
+    }
+    getCurrent() {
+        return this.current;
     }
     setCurrent(current: number) {
-        this._current = current;
+        this.current = current;
         return this;
     }
+    getPageSize() {
+        return this.pageSize;
+    }
     setPageSize(pageSize: number) {
-        this._pageSize = pageSize;
+        this.pageSize = pageSize;
         return this;
     }
 }

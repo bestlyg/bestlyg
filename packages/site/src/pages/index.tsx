@@ -4,17 +4,21 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from './components/homepage-features';
 import Heading from '@theme/Heading';
-import { request } from '@site/src/utils';
+import { useRequest } from '@site/src/utils';
 import { useBoolean } from 'ahooks';
 import { Modal, Form, Input, message } from 'antd';
 import styles from './components/index.module.css';
 
 export function useLogin() {
+    const request = useRequest();
     const [visible, visibleOps] = useBoolean(false);
     const [form] = Form.useForm();
     async function login() {
         const data = await form.validateFields();
-        const res = await request('/api/auth/login', { body: data, method: 'POST' });
+        const res = await request<{ access_token: string }>('/api/auth/login', {
+            body: data,
+            method: 'POST',
+        });
         if (!res) return;
         const token = res.access_token;
         localStorage.setItem('x-token', token);

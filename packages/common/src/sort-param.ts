@@ -10,15 +10,15 @@ export class SortParam {
     static from(object: Record<string, any>) {
         return this.ofEmpty().setItems(object.items);
     }
-    private _items: SortParamItem[];
-    get items() {
-        return this._items;
-    }
+    items: SortParamItem[];
     constructor(items: SortParam['items']) {
-        this._items = items;
+        this.items = items;
+    }
+    getItems() {
+        return this.items;
     }
     setItems(items: SortParam['items']) {
-        this._items = items;
+        this.items = items;
         return this;
     }
 }

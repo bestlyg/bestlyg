@@ -1,6 +1,6 @@
 // import { ledger, LEDGER_FORMAT_DAY, LEDGER_FORMAT_MONTH } from '@bestlyg/data';
 import { prismaClient } from '@bestlyg/data';
-import { request } from '@site/src/utils';
+import { useRequest as getRequestFn } from '@site/src/utils';
 import { useRequest } from 'ahooks';
 import type { CalendarProps } from 'antd';
 import { Calendar } from 'antd';
@@ -13,6 +13,7 @@ function ioToNum(io: boolean) {
 }
 
 export function Ledger() {
+    const request = getRequestFn();
     const { data } = useRequest<prismaClient.Ledger[], any>(async () =>
         request('/api/data/ledger'),
     );

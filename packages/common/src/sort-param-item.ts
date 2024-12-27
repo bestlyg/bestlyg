@@ -7,24 +7,24 @@ export class SortParamItem {
     static from(object: Record<string, any>) {
         return this.of('', SortOrderEnum.Asc).setField(object.field).setOrder(object.order);
     }
-    private _field: string;
-    get field() {
-        return this._field;
-    }
-    private _order: SortOrderEnum;
-    get order() {
-        return this._order;
-    }
+    private field: string;
+    private order: SortOrderEnum;
     constructor(field: SortParamItem['field'], order: SortParamItem['order']) {
-        this._field = field;
-        this._order = order;
+        this.field = field;
+        this.order = order;
+    }
+    getField() {
+        return this.field;
     }
     setField(field: SortParamItem['field']) {
-        this._field = field;
+        this.field = field;
         return this;
     }
+    getOrder() {
+        return this.order;
+    }
     setOrder(order: SortParamItem['order']) {
-        this._order = order;
+        this.order = order;
         return this;
     }
     isAsc() {
