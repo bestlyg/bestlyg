@@ -7,13 +7,22 @@ export interface BestlygHealthRequest {
     env?: string;
 }
 
+export interface Item {
+    /** xxx */
+    a: number;
+
+    parent?: Item;
+}
+
 export interface BestlygHealthResponse {
     code: number;
 
     msg?: string;
 
     /** 会返回BestlygHealthRequest请求中的env，如果没有env就返回bestlyg */
-    data?: string;
+    data: string;
+
+    item?: Item;
 }
 
 export interface BestlygLogin {

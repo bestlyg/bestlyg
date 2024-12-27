@@ -7,11 +7,18 @@ message BestlygHealthRequest {
   optional string env = 1;
 }
 
+message Item {
+  // xxx
+  required int32 a = 1;
+  optional Item parent = 2;
+}
+
 message BestlygHealthResponse {
   required int32 code = 1;
   optional string msg = 2;
   // 会返回BestlygHealthRequest请求中的env，如果没有env就返回bestlyg
-  optional string data = 3;
+  required string data = 3;
+  optional Item item = 4;
 }
 
 message BestlygLogin {
