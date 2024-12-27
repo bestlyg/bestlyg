@@ -1,3 +1,4 @@
 class Solution:
-    def isSubstringPresent(self, s: str) -> bool:
-        return any([s2 + s1 in s for s1, s2 in pairwise(s)])
+    def occurrencesOfElement(self, nums: List[int], queries: List[int], x: int) -> List[int]:
+        iarr = [i for i in range(len(nums)) if nums[i] == x]
+        return [iarr[q - 1] if len(iarr) >= q else -1 for q in queries]
