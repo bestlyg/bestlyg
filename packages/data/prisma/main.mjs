@@ -15,11 +15,14 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     await prisma.xuan.createMany({
-        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6825 }],
+        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6795 }],
     });
 }
 
 async function createLedger() {
+    const nDaysAgo = n => new Date(dayjs().subtract(n, 'day').format('YYYY-MM-DD'));
+    const today = nDaysAgo(0);
+    const yesterday = nDaysAgo(1);
     const getLedgerRuixin = ({
         balance = 990,
         comment = '瑞幸咖啡，生椰丝绒拿铁',
@@ -40,6 +43,22 @@ async function createLedger() {
     });
     await prisma.ledger.createMany({
         data: [
+            getLedgerTransport({ date: yesterday }),
+            getLedgerTransport({ date: yesterday }),
+            {
+                io: false,
+                balance: 12691,
+                comment: '晚饭，贵州烙锅',
+                type: 'Food',
+                date: yesterday,
+            },
+            {
+                io: false,
+                balance: 1490,
+                comment: '午饭，旗开兰溪手擀面',
+                type: 'Food',
+                date: yesterday,
+            },
             getLedgerTransport({ date: new Date('2024-12-26') }),
             getLedgerTransport({ date: new Date('2024-12-26') }),
             {
@@ -47,7 +66,7 @@ async function createLedger() {
                 balance: 1400,
                 comment: '浙江医院三墩院区停车费',
                 type: 'Transportation',
-                date: new Date('2024-12-26'),
+                date: new Date('2024-12-27'),
             },
         ],
     });
