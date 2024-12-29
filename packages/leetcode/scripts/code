@@ -1,3 +1,21 @@
 class Solution:
-    def isPossibleToSplit(self, nums: List[int]) -> bool:
-        return all([v <= 2 for v in Counter(nums).values()])
+    def rankTeams(self, votes: List[str]) -> str:
+        n = len(votes)
+        m = len(votes[0])
+        map = [[0 for _ in range(26)] for _ in range(m)]
+        for i in range(n):
+            for j in range(m):
+                map[j][ord(votes[i][j]) - ord('A')] += 1
+        candidates = [ord(c) - ord('A') for c in votes[0]]
+        def compare(i: int, data: List[int]) -> int:
+            if i == m: return min(data)
+            if len(data) == 1: return data[0]
+            nmax = max(map[i][j] for j in data)
+            idxs = [j for j in data if map[i][j] == nmax]
+            return compare(i + 1, idxs)
+        res = ''
+        for i in range(m):
+            j = compare(0, candidates)
+            candidates.remove(j)
+            res += chr(j + ord('A'))
+        return res
