@@ -33,11 +33,11 @@
     "license": "MIT",
     "devDependencies": {
         "@modern-js/module-tools": "^2.60.2",
-        "@types/lodash": "^4.17.10",
-        "@types/node": "^22.7.5",
+        "@types/lodash": "^4.17.13",
+        "@types/node": "^22.10.2",
         "generator-helpers": "workspace:^",
         "lodash": "^4.17.21",
-        "typescript": "^5.6.2",
+        "typescript": "^5.7.2",
         "vitest": "^2.1.2"
     },
     "scripts": {

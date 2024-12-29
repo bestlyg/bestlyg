@@ -20,10 +20,10 @@
     },
     "dependencies": {
         "@bestlyg/cli": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/server": "workspace:^",
-        "@bestlyg/common": "workspace:^",
         "@bestlyg/site": "workspace:^",
         "@bestlyg/static": "workspace:^",
         "@nestjs/common": "^10.0.0",
@@ -43,9 +43,9 @@
         "@nestjs/schematics": "^10.0.0",
         "@nestjs/testing": "^10.0.0",
         "@types/express": "^5.0.0",
-        "@types/jest": "^29.5.2",
-        "@types/node": "^20.3.1",
-        "@types/supertest": "^6.0.0",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^20.17.10",
+        "@types/supertest": "^6.0.2",
         "@typescript-eslint/eslint-plugin": "^8.0.0",
         "@typescript-eslint/parser": "^8.0.0",
         "eslint": "^8.0.0",
@@ -59,7 +59,7 @@
         "ts-loader": "^9.4.3",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.1.3"
+        "typescript": "^5.7.2"
     },
     "jest": {
         "moduleFileExtensions": [

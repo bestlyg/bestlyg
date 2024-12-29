@@ -32,20 +32,20 @@
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
     "license": "MIT",
     "devDependencies": {
-        "@types/node": "^22.7.5",
+        "@types/node": "^22.10.2",
         "@xidl/core": "workspace:^",
+        "@xidl/shared": "workspace:^",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-core": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
-        "@xidl/shared": "workspace:^",
         "tsx": "^4.19.1",
-        "typescript": "^5.6.2"
+        "typescript": "^5.7.2"
     },
     "scripts": {
         "start": "tsx src/index.ts",
         "build": "echo 'playground build'"
     },
     "dependencies": {
-        "axios": "^1.7.7"
+        "axios": "^1.7.9"
     }
 }

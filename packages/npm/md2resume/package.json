@@ -15,8 +15,8 @@
     "dependencies": {
         "@ant-design/icons-svg": "^4.4.2",
         "@modern-js/runtime": "2.53.0",
-        "ahooks": "^3.8.1",
-        "antd": "^5.21.2",
+        "ahooks": "^3.8.4",
+        "antd": "^5.22.7",
         "clsx": "^2.1.1",
         "html2canvas": "^1.4.1",
         "jspdf": "^2.5.1",
@@ -39,14 +39,14 @@
         "@modern-js/eslint-config": "2.53.0",
         "@modern-js/plugin-tailwindcss": "^2.60.2",
         "@modern-js/tsconfig": "2.53.0",
-        "@types/lodash": "^4.17.10",
+        "@types/lodash": "^4.17.13",
         "@types/lodash.merge": "^4.6.9",
         "@types/node": "~16.11.68",
         "@types/react": "~18.0.38",
         "@types/react-dom": "~18.0.11",
         "raw-loader": "^4.0.2",
         "tailwindcss": "^3.4.7",
-        "typescript": "^5.5.4"
+        "typescript": "^5.7.2"
     },
     "files": [
         "packages.json"

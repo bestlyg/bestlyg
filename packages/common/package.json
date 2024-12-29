@@ -60,10 +60,10 @@
         "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
         "@types/express": "^5.0.0",
-        "@types/node": "^20.16.10",
+        "@types/node": "^20.17.10",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
-        "typescript": "^5.5.4"
+        "typescript": "^5.7.2"
     }
 }

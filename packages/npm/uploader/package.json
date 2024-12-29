@@ -53,9 +53,9 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "^2.60.2",
-        "@types/node": "^20.16.10",
+        "@types/node": "^20.17.10",
         "@types/ramda": "^0.30.2",
-        "typescript": "^5.5.4"
+        "typescript": "^5.7.2"
     },
     "dependencies": {
         "p-queue": "^8.0.1",

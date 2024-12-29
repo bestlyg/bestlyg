@@ -27,8 +27,8 @@
         "@polkadot/ui-keyring": "^3.6.6",
         "@polkadot/util-crypto": "^12.6.2",
         "@unocss/reset": "^0.61.0",
-        "ahooks": "^3.8.1",
-        "antd": "^5.21.2",
+        "ahooks": "^3.8.4",
+        "antd": "^5.22.7",
         "chrome": "^0.1.0",
         "jotai": "^2.8.4",
         "react": "^18.3.1",
@@ -37,10 +37,10 @@
     },
     "devDependencies": {
         "@types/chrome": "^0.0.268",
-        "@types/react": "^18.3.11",
-        "@types/react-dom": "^18.3.0",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
         "@wxt-dev/module-react": "^1.0.0",
-        "typescript": "^5.5.4",
+        "typescript": "^5.7.2",
         "wxt": "^0.18.10"
     }
 }
