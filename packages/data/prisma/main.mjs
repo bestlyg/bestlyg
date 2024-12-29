@@ -11,18 +11,19 @@ best.dotenv.config({
 
 const { _, dayjs } = best;
 
+const nDaysAgo = n => new Date(dayjs().subtract(n, 'day').format('YYYY-MM-DD'));
+const today = nDaysAgo(0);
+const yesterday = nDaysAgo(1);
+
 const prisma = new PrismaClient();
 
 async function createXuan() {
     await prisma.xuan.createMany({
-        data: [{ date: dayjs(Date.now()).startOf('day'), weight: 6795 }],
+        data: [{ date: today, weight: 6725 }],
     });
 }
 
 async function createLedger() {
-    const nDaysAgo = n => new Date(dayjs().subtract(n, 'day').format('YYYY-MM-DD'));
-    const today = nDaysAgo(0);
-    const yesterday = nDaysAgo(1);
     const getLedgerRuixin = ({
         balance = 990,
         comment = '瑞幸咖啡，生椰丝绒拿铁',
@@ -43,31 +44,41 @@ async function createLedger() {
     });
     await prisma.ledger.createMany({
         data: [
-            getLedgerTransport({ date: yesterday }),
-            getLedgerTransport({ date: yesterday }),
+            // getLedgerTransport({ date: yesterday }),
+            // getLedgerTransport({ date: yesterday }),
+            // {
+            //     io: false,
+            //     balance: 12691,
+            //     comment: '晚饭，贵州烙锅',
+            //     type: 'Food',
+            //     date: yesterday,
+            // },
             {
                 io: false,
-                balance: 12691,
-                comment: '晚饭，贵州烙锅',
+                balance: 2869,
+                comment: '晚饭，沙县小吃',
                 type: 'Food',
-                date: yesterday,
+                date: today,
             },
             {
                 io: false,
-                balance: 1490,
-                comment: '午饭，旗开兰溪手擀面',
-                type: 'Food',
-                date: yesterday,
+                balance: 2869,
+                comment: '5160',
+                type: 'Generally',
+                date: today,
             },
-            getLedgerTransport({ date: new Date('2024-12-26') }),
-            getLedgerTransport({ date: new Date('2024-12-26') }),
-            {
-                io: false,
-                balance: 1400,
-                comment: '浙江医院三墩院区停车费',
-                type: 'Transportation',
-                date: new Date('2024-12-27'),
-            },
+            // getLedgerTransport({ date: new Date('2024-12-26') }),
+            // getLedgerTransport({ date: new Date('2024-12-26') }),
+            // {
+            //     io: false,
+            //     balance: 264,
+            //     comment: '闲林埠老街，庙山南路停车场',
+            //     type: 'Transportation',
+            //     date: yesterday,
+            // },
+            // getLedgerRuixin({ date: yesterday, comment: '小黄油拿铁' }),
+            // getLedgerRuixin({ date: yesterday, comment: '厚乳拿铁' }),
+            // getLedgerRuixin({ date: yesterday, comment: '丝绒拿铁' }),
         ],
     });
 }
@@ -76,7 +87,7 @@ async function createLeetcode() {}
 
 async function main() {
     console.info('Prisma connected.');
-    // await createXuan();
+    // await createXuan(/);
     await createLedger();
 }
 
