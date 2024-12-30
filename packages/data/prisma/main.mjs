@@ -18,9 +18,10 @@ const yesterday = nDaysAgo(1);
 const prisma = new PrismaClient();
 
 async function createXuan() {
-    await prisma.xuan.createMany({
-        data: [{ date: today, weight: 6725 }],
+    const data = await prisma.xuan.createMany({
+        data: [{ date: today, weight: 68 }],
     });
+    return data;
 }
 
 async function createLedger() {
@@ -42,7 +43,7 @@ async function createLedger() {
         type: 'Transportation',
         date: new Date(date),
     });
-    await prisma.ledger.createMany({
+    const data = await prisma.ledger.createMany({
         data: [
             // getLedgerTransport({ date: yesterday }),
             // getLedgerTransport({ date: yesterday }),
@@ -55,40 +56,31 @@ async function createLedger() {
             // },
             {
                 io: false,
-                balance: 2869,
-                comment: '晚饭，沙县小吃',
+                balance: 2991,
+                comment: '晚饭，兰州牛肉拉面',
                 type: 'Food',
                 date: today,
             },
             {
                 io: false,
-                balance: 2869,
-                comment: '5160',
-                type: 'Generally',
+                balance: 3590,
+                comment: '午饭，池奈人气单餐',
+                type: 'Food',
                 date: today,
             },
-            // getLedgerTransport({ date: new Date('2024-12-26') }),
-            // getLedgerTransport({ date: new Date('2024-12-26') }),
-            // {
-            //     io: false,
-            //     balance: 264,
-            //     comment: '闲林埠老街，庙山南路停车场',
-            //     type: 'Transportation',
-            //     date: yesterday,
-            // },
-            // getLedgerRuixin({ date: yesterday, comment: '小黄油拿铁' }),
-            // getLedgerRuixin({ date: yesterday, comment: '厚乳拿铁' }),
-            // getLedgerRuixin({ date: yesterday, comment: '丝绒拿铁' }),
+            getLedgerTransport(),
+            getLedgerTransport(),
         ],
     });
+    return data;
 }
-
-async function createLeetcode() {}
 
 async function main() {
     console.info('Prisma connected.');
-    // await createXuan(/);
-    await createLedger();
+    let data;
+    // data = await createXuan();
+    data = await createLedger();
+    console.log(data);
 }
 
 main()

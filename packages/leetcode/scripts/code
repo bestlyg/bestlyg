@@ -1,21 +1,8 @@
 class Solution:
-    def rankTeams(self, votes: List[str]) -> str:
-        n = len(votes)
-        m = len(votes[0])
-        map = [[0 for _ in range(26)] for _ in range(m)]
-        for i in range(n):
-            for j in range(m):
-                map[j][ord(votes[i][j]) - ord('A')] += 1
-        candidates = [ord(c) - ord('A') for c in votes[0]]
-        def compare(i: int, data: List[int]) -> int:
-            if i == m: return min(data)
-            if len(data) == 1: return data[0]
-            nmax = max(map[i][j] for j in data)
-            idxs = [j for j in data if map[i][j] == nmax]
-            return compare(i + 1, idxs)
-        res = ''
-        for i in range(m):
-            j = compare(0, candidates)
-            candidates.remove(j)
-            res += chr(j + ord('A'))
-        return res
+    @cache
+    def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode], init: bool = True) -> bool:
+        if init: self.head = head
+        if head == None: return True
+        if root == None: return False
+        if head.val == root.val and (self.isSubPath(head.next, root.left, False) or self.isSubPath(head.next, root.right, False)): return True
+        return self.isSubPath(self.head, root.left, False) or self.isSubPath(self.head, root.right, False)
