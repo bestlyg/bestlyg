@@ -10,19 +10,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
-    exist: true,
-    name: '1367. 二叉树中的链表',
-    url: 'https://leetcode.cn/problems/linked-list-in-binary-tree',
+    exist: !true,
+    name: '3219. 切蛋糕的最小总开销 II',
+    url: 'https://leetcode.cn/problems/minimum-cost-for-cutting-cake-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给你一棵以 root 为根的二叉树和一个 head 为第一个节点的链表。如果在二叉树中，存在一条一直向下的路径，且每个点的数值恰好一一对应以 head 为首的链表中每个节点的值，那么请你返回 True ，否则返回 False 。`,
+    desc: `请你返回将蛋糕全部切成 1 x 1 的蛋糕块的 最小 总开销。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 64,
-            memory: 36.8,
-            desc: 'dfs',
+            time: 1107,
+            memory: 46.13,
+            desc: '贪心每次切成本最大的',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

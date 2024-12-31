@@ -1,8 +1,11 @@
 class Solution:
-    @cache
-    def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode], init: bool = True) -> bool:
-        if init: self.head = head
-        if head == None: return True
-        if root == None: return False
-        if head.val == root.val and (self.isSubPath(head.next, root.left, False) or self.isSubPath(head.next, root.right, False)): return True
-        return self.isSubPath(self.head, root.left, False) or self.isSubPath(self.head, root.right, False)
+    def minimumCost(self, n: int, m: int, horizontalCut: List[int], verticalCut: List[int]) -> int:
+        res = 0
+        hcnt = vcnt = 1
+        q = sorted([(horizontalCut[i], 0) for i in range(n - 1)] + [(verticalCut[j], 1) for j in range(m - 1)], reverse = True)
+        for cost, ty in q:
+            cnt = vcnt if ty else hcnt
+            res += cost * cnt
+            if ty: hcnt += 1
+            else: vcnt += 1
+        return res
