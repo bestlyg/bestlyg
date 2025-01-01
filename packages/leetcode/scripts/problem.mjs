@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '3219. 切蛋糕的最小总开销 II',
-    url: 'https://leetcode.cn/problems/minimum-cost-for-cutting-cake-ii',
+    name: '3280. 将日期转换为二进制表示',
+    url: 'https://leetcode.cn/problems/convert-date-to-binary',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回将蛋糕全部切成 1 x 1 的蛋糕块的 最小 总开销。`,
+    desc: `给你一个字符串 date，它的格式为 yyyy-mm-dd，表示一个公历日期。返回 date 的 二进制 表示。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 1107,
-            memory: 46.13,
-            desc: '贪心每次切成本最大的',
+            time: 0,
+            memory: 17.43,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
