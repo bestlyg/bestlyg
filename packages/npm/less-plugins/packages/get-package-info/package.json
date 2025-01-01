@@ -34,9 +34,9 @@
         "lodash.get": "^4.4.2"
     },
     "devDependencies": {
-        "@types/less": "^3.0.7",
+        "@types/less": "catalog:",
         "less": "^4.2.0",
-        "rimraf": "^5.0.9",
-        "typescript": "^5.7.2"
+        "rimraf": "catalog:",
+        "typescript": "catalog:"
     }
 }

@@ -4,6 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.60.2
+      version: 2.60.2
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.11
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+
 importers:
 
   .:
@@ -19,13 +31,13 @@ importers:
         version: link:../core
     devDependencies:
       '@modern-js/module-tools':
-        specifier: ^2.60.2
+        specifier: 'catalog:'
         version: 2.60.2(typescript@5.7.2)
       '@types/node':
-        specifier: ^22.10.2
-        version: 22.10.2
+        specifier: 'catalog:'
+        version: 20.17.11
       typescript:
-        specifier: ^5.7.2
+        specifier: 'catalog:'
         version: 5.7.2
 
 packages:
@@ -631,8 +643,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.10.2':
-    resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
+  '@types/node@20.17.11':
+    resolution: {integrity: sha512-Ept5glCK35R8yeyIeYlRIZtX6SLRyqMhOFTgj5SOkMpLTdw3SEHI9fHx60xaUZ+V1aJxQJODE+7/j5ocZydYTg==}
 
   acorn@8.12.1:
     resolution: {integrity: sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==}
@@ -1302,8 +1314,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.20.0:
-    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -1971,9 +1983,9 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.10.2':
+  '@types/node@20.17.11':
     dependencies:
-      undici-types: 6.20.0
+      undici-types: 6.19.8
 
   acorn@8.12.1: {}
 
@@ -2592,7 +2604,7 @@ snapshots:
 
   typescript@5.7.2: {}
 
-  undici-types@6.20.0: {}
+  undici-types@6.19.8: {}
 
   universalify@0.1.2: {}
 

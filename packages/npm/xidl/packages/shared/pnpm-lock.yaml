@@ -4,12 +4,36 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.60.2
+      version: 2.60.2
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/lodash-es':
+      specifier: ^4.17.12
+      version: 4.17.12
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.11
+    '@types/tapable':
+      specifier: ^2.2.7
+      version: 2.2.7
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+
 importers:
 
   .:
     dependencies:
       change-case:
-        specifier: ^5.4.4
+        specifier: 'catalog:'
         version: 5.4.4
       fs-extra:
         specifier: ^11.2.0
@@ -25,22 +49,22 @@ importers:
         version: 2.2.1
     devDependencies:
       '@modern-js/module-tools':
-        specifier: ^2.60.2
+        specifier: 'catalog:'
         version: 2.60.2(typescript@5.7.2)
       '@types/fs-extra':
-        specifier: ^11.0.4
+        specifier: 'catalog:'
         version: 11.0.4
       '@types/lodash-es':
-        specifier: ^4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@types/node':
-        specifier: ^22.10.2
-        version: 22.10.2
+        specifier: 'catalog:'
+        version: 20.17.11
       '@types/tapable':
-        specifier: ^2.2.7
+        specifier: 'catalog:'
         version: 2.2.7
       typescript:
-        specifier: ^5.7.2
+        specifier: 'catalog:'
         version: 5.7.2
 
 packages:
@@ -688,8 +712,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.10.2':
-    resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
+  '@types/node@20.17.11':
+    resolution: {integrity: sha512-Ept5glCK35R8yeyIeYlRIZtX6SLRyqMhOFTgj5SOkMpLTdw3SEHI9fHx60xaUZ+V1aJxQJODE+7/j5ocZydYTg==}
 
   '@types/tapable@2.2.7':
     resolution: {integrity: sha512-D6QzACV9vNX3r8HQQNTOnpG+Bv1rko+yEA82wKs3O9CQ5+XW7HI7TED17/UE7+5dIxyxZIWTxKbsBeF6uKFCwA==}
@@ -1382,8 +1406,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.20.0:
-    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -2079,11 +2103,11 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 22.10.2
+      '@types/node': 20.17.11
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 22.10.2
+      '@types/node': 20.17.11
 
   '@types/lodash-es@4.17.12':
     dependencies:
@@ -2093,9 +2117,9 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.10.2':
+  '@types/node@20.17.11':
     dependencies:
-      undici-types: 6.20.0
+      undici-types: 6.19.8
 
   '@types/tapable@2.2.7':
     dependencies:
@@ -2611,7 +2635,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 22.10.2
+      '@types/node': 20.17.11
       long: 5.2.3
 
   proxy-from-env@1.1.0: {}
@@ -2751,7 +2775,7 @@ snapshots:
 
   typescript@5.7.2: {}
 
-  undici-types@6.20.0: {}
+  undici-types@6.19.8: {}
 
   universalify@0.1.2: {}
 

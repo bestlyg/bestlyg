@@ -4,18 +4,30 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@types/less':
+      specifier: ^3.0.7
+      version: 3.0.7
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.10
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+
 importers:
 
   .:
     devDependencies:
       '@types/less':
-        specifier: ^3.0.7
+        specifier: 'catalog:'
         version: 3.0.7
       '@types/node':
-        specifier: ^20.17.10
+        specifier: 'catalog:'
         version: 20.17.10
       typescript:
-        specifier: ^5.7.2
+        specifier: 'catalog:'
         version: 5.7.2
 
 packages:

@@ -52,14 +52,14 @@
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/node": "^20.17.10",
-        "@types/ramda": "^0.30.2",
-        "typescript": "^5.7.2"
+        "@modern-js/module-tools": "catalog:",
+        "@types/node": "catalog:",
+        "@types/ramda": "catalog:",
+        "typescript": "catalog:"
     },
     "dependencies": {
         "p-queue": "^8.0.1",
-        "ramda": "^0.30.0",
+        "ramda": "catalog:",
         "tapable": "^2.2.1"
     }
 }

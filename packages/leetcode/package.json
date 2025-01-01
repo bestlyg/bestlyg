@@ -39,16 +39,16 @@
         "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/node": "^20.17.10",
-        "axios": "^1.7.9",
-        "chalk": "~4",
-        "dayjs": "^1.11.13",
+        "@modern-js/module-tools": "catalog:",
+        "@types/node": "catalog:",
+        "axios": "catalog:",
+        "chalk": "catalog:",
+        "dayjs": "catalog:",
         "fs-extra": "^11.1.0",
         "leetcode-query": "^1.2.3",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "4.0.0",
         "tslib": "^2.6.2",
-        "typescript": "^5.7.2"
+        "typescript": "catalog:"
     }
 }

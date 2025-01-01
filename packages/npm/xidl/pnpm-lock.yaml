@@ -4,12 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.60.2
+      version: 2.60.2
+
 importers:
 
   .:
     devDependencies:
       '@modern-js/module-tools':
-        specifier: ^2.60.2
+        specifier: 'catalog:'
         version: 2.60.2
 
 packages:

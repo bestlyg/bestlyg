@@ -30,14 +30,14 @@
                 "targetName": "lint"
             }
         },
-        {
-            "plugin": "@nx/webpack/plugin",
-            "options": {
-                "buildTargetName": "build",
-                "serveTargetName": "serve",
-                "previewTargetName": "preview"
-            }
-        },
+        // {
+        //     "plugin": "@nx/webpack/plugin",
+        //     "options": {
+        //         "buildTargetName": "build",
+        //         "serveTargetName": "serve",
+        //         "previewTargetName": "preview"
+        //     }
+        // },
         {
             "plugin": "@nx/storybook/plugin",
             "options": {

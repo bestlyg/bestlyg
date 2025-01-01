@@ -43,13 +43,13 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/node": "^20.17.10",
+        "@modern-js/module-tools": "catalog:",
+        "@types/node": "catalog:",
         "prisma": "^6.1.0",
-        "typescript": "^5.7.2"
+        "typescript": "catalog:"
     },
     "dependencies": {
         "@prisma/client": "^6.1.0",
-        "dayjs": "^1.11.13"
+        "dayjs": "catalog:"
     }
 }

@@ -15,6 +15,6 @@
         "dev": "pnpm nx watch -p \"@xidl/*\" -- nx run build"
     },
     "devDependencies": {
-        "@modern-js/module-tools": "^2.60.2"
+        "@modern-js/module-tools": "catalog:"
     }
 }

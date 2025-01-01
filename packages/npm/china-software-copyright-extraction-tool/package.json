@@ -18,13 +18,13 @@
     },
     "license": "ISC",
     "dependencies": {
-        "chalk": "^5.3.0",
-        "commander": "^11.1.0",
+        "chalk": "catalog:",
+        "commander": "catalog:",
         "docxtemplater": "^3.47.4",
         "pizzip": "^3.1.7",
-        "ramda": "^0.30.0",
+        "ramda": "catalog:",
         "xml": "^1.0.1",
-        "zx": "^8.3.0"
+        "zx": "catalog:"
     },
     "scripts": {
         "run:publish": "pnpm publish --registry https://registry.npmjs.org --access=public --no-git-checks",
@@ -37,11 +37,11 @@
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/node": "^20.17.10",
-        "@types/ramda": "^0.30.2",
-        "cross-env": "^7.0.3",
-        "typescript": "^5.7.2"
+        "@modern-js/module-tools": "catalog:",
+        "@types/node": "catalog:",
+        "@types/ramda": "catalog:",
+        "cross-env": "catalog:",
+        "typescript": "catalog:"
     },
     "files": [
         "bin",

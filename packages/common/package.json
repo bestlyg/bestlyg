@@ -58,12 +58,12 @@
     "license": "ISC",
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/express": "^5.0.0",
-        "@types/node": "^20.17.10",
+        "@modern-js/module-tools": "catalog:",
+        "@types/express": "catalog:",
+        "@types/node": "catalog:",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
-        "typescript": "^5.7.2"
+        "typescript": "catalog:"
     }
 }

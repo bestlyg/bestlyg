@@ -40,11 +40,11 @@
         "dev": "modern build --watch"
     },
     "dependencies": {
-        "@modern-js/module-tools": "^2.60.2"
+        "@modern-js/module-tools": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@types/node": "^22.10.2",
-        "typescript": "^5.7.2"
+        "@types/node": "catalog:",
+        "typescript": "catalog:"
     }
 }

@@ -32,12 +32,12 @@
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
     "license": "MIT",
     "devDependencies": {
-        "@modern-js/module-tools": "^2.60.2",
-        "@types/fs-extra": "^11.0.4",
-        "@types/lodash-es": "^4.17.12",
-        "@types/node": "^22.10.2",
-        "@types/tapable": "^2.2.7",
-        "typescript": "^5.7.2"
+        "@modern-js/module-tools": "catalog:",
+        "@types/fs-extra": "catalog:",
+        "@types/lodash-es": "catalog:",
+        "@types/node": "catalog:",
+        "@types/tapable": "catalog:",
+        "typescript": "catalog:"
     },
     "scripts": {
         "build": "modern build",
@@ -45,7 +45,7 @@
         "dev": "modern build --watch"
     },
     "dependencies": {
-        "change-case": "^5.4.4",
+        "change-case": "catalog:",
         "fs-extra": "^11.2.0",
         "lodash-es": "^4.17.21",
         "protobufjs": "^7.4.0",

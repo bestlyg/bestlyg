@@ -32,7 +32,7 @@
         "README.md"
     ],
     "peerDependencies": {
-        "@emotion/hash": "*"
+        "@emotion/hash": "catalog:"
     },
     "peerDependenciesMeta": {
         "@emotion/hash": {
@@ -40,13 +40,13 @@
         }
     },
     "dependencies": {
-        "@emotion/hash": "0.9.1",
+        "@emotion/hash": "catalog:",
         "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {
-        "@types/less": "^3.0.7",
+        "@types/less": "catalog:",
         "less": "^4.2.0",
-        "rimraf": "^5.0.9",
-        "typescript": "^5.7.2"
+        "rimraf": "catalog:",
+        "typescript": "catalog:"
     }
 }

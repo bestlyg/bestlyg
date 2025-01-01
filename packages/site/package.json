@@ -20,7 +20,7 @@
         "deploy:all": "pnpm run deploy && pnpm run deploy:github"
     },
     "dependencies": {
-        "@ant-design/icons": "^5.5.1",
+        "@ant-design/icons": "catalog:",
         "@bestlyg/code": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@bestlyg/config": "workspace:^",
@@ -29,21 +29,21 @@
         "@docusaurus/core": "3.6.0",
         "@docusaurus/preset-classic": "3.6.0",
         "@docusaurus/theme-common": "^3.6.0",
-        "@mdx-js/react": "^3.0.1",
-        "ahooks": "^3.8.4",
-        "antd": "^5.22.7",
-        "clsx": "^2.1.1",
-        "dayjs": "^1.11.13",
+        "@mdx-js/react": "catalog:",
+        "ahooks": "catalog:",
+        "antd": "catalog:",
+        "clsx": "catalog:",
+        "dayjs": "catalog:",
         "docusaurus-plugin-sass": "^0.2.5",
-        "echarts": "^5.6.0",
-        "lodash": "^4.17.21",
+        "echarts": "catalog:",
+        "lodash": "catalog:",
         "prism-react-renderer": "^2.3.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "catalog:",
+        "react-dom": "catalog:",
         "rehype-katex": "^7.0.0",
         "remark-math": "^6.0.0",
         "sass": "^1.57.1",
-        "zx": "^7.2.3"
+        "zx": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -52,13 +52,13 @@
         "@docusaurus/module-type-aliases": "3.6.0",
         "@docusaurus/tsconfig": "3.6.0",
         "@docusaurus/types": "3.6.0",
-        "@types/echarts": "^4.9.22",
-        "@types/lodash": "^4.17.13",
-        "@types/react": "^18.3.18",
-        "@types/react-dom": "^18.3.5",
-        "cross-env": "^7.0.3",
+        "@types/echarts": "catalog:",
+        "@types/lodash": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "cross-env": "catalog:",
         "raw-loader": "^4.0.2",
-        "typescript": "~5.4.5"
+        "typescript": "catalog:"
     },
     "browserslist": {
         "production": [
