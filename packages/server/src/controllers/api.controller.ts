@@ -1,5 +1,5 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { dayjs } from '@bestlyg/cli';
+import dayjs from 'dayjs'
 import { prismaClient } from '@bestlyg/data';
 import { ResponseEntity } from '@bestlyg/common';
 import { prisma } from '../utils/index.js';

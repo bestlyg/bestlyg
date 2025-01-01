@@ -1,4 +1,4 @@
-import { dayjs } from '@bestlyg/cli';
+import dayjs from 'dayjs'
 import { parseMarkdown, PGPASSWORD, sendMail } from '../utils/index.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';

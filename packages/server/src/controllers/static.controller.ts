@@ -1,7 +1,7 @@
 import { Get, Controller, Param, Res } from '@nestjs/common';
 import { resolve } from '../utils/index.js';
 import { Response } from 'express';
-import best from '@bestlyg/cli';
+import fs from 'fs-extra'
 
 @Controller('/static')
 export class StaticController {
@@ -9,7 +9,7 @@ export class StaticController {
     @Get('*')
     async staticFile(@Param() params: string, @Res() res: Response) {
         const filePath = resolve(this.staticPath, params[0]);
-        const exist = await best.zx.fs.exists(filePath);
+        const exist = await fs.exists(filePath);
         if (!exist) throw new Error('inexistent file');
         return res.sendFile(filePath);
     }

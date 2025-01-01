@@ -1,7 +1,7 @@
-import best from '@bestlyg/cli';
 import { resolve } from './resolve.js';
+import dotenv from 'dotenv'
 
-best.dotenv.config({
+dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
 
