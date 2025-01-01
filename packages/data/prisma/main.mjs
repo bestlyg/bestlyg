@@ -11,7 +11,12 @@ best.dotenv.config({
 
 const { _, dayjs } = best;
 
-const nDaysAgo = n => new Date(dayjs().subtract(n, 'day').format('YYYY-MM-DD'));
+/**
+ * @param {string} s
+ * @param {(v:import('dayjs').Dayjs)=>import('dayjs').Dayjs} customDayjs
+ */
+const getDate = (s, customDayjs = v => v) => new Date(customDayjs(dayjs(s)).format('YYYY-MM-DD'));
+const nDaysAgo = n => getDate(undefined, v => v.subtract(n, 'day'));
 const today = nDaysAgo(0);
 const yesterday = nDaysAgo(1);
 
@@ -28,20 +33,20 @@ async function createLedger() {
     const getLedgerRuixin = ({
         balance = 990,
         comment = '瑞幸咖啡，生椰丝绒拿铁',
-        date = dayjs().format('YYYY-MM-DD'),
+        date = today,
     } = {}) => ({
         io: false,
         balance,
         comment,
         type: 'Drinks',
-        date: new Date(date),
+        date,
     });
-    const getLedgerTransport = ({ balance = 100, date = dayjs().format('YYYY-MM-DD') } = {}) => ({
+    const getLedgerTransport = ({ balance = 100, date = today } = {}) => ({
         io: false,
         balance,
         comment: '电动车充电',
         type: 'Transportation',
-        date: new Date(date),
+        date,
     });
     const data = await prisma.ledger.createMany({
         data: [
@@ -56,15 +61,8 @@ async function createLedger() {
             // },
             {
                 io: false,
-                balance: 2991,
-                comment: '晚饭，兰州牛肉拉面',
-                type: 'Food',
-                date: today,
-            },
-            {
-                io: false,
-                balance: 3590,
-                comment: '午饭，池奈人气单餐',
+                balance: 1977,
+                comment: '晚饭，沙县小吃',
                 type: 'Food',
                 date: today,
             },
