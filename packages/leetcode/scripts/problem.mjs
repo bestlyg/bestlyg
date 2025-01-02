@@ -10,19 +10,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
-    exist: !true,
-    name: '3280. 将日期转换为二进制表示',
-    url: 'https://leetcode.cn/problems/convert-date-to-binary',
+    exist: true,
+    name: '729. 我的日程安排表 I',
+    url: 'https://leetcode.cn/problems/my-calendar-i',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 date，它的格式为 yyyy-mm-dd，表示一个公历日期。返回 date 的 二进制 表示。`,
+    desc: `实现 MyCalendar 类。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 17.43,
-            desc: '遍历',
+            time: 73,
+            memory: 18.5,
+            desc: '有序遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
