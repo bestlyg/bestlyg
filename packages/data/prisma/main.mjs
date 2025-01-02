@@ -24,7 +24,7 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     const data = await prisma.xuan.createMany({
-        data: [{ date: today, weight: 68 }],
+        data: [{ date: today, weight: 6715 }],
     });
     return data;
 }
@@ -61,8 +61,29 @@ async function createLedger() {
             // },
             {
                 io: false,
-                balance: 1977,
-                comment: '晚饭，沙县小吃',
+                balance: 21000,
+                comment: '瞬连一年VPN',
+                type: 'Generally',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 2300,
+                comment: '午饭，美团企业，食本新素食，西溪银泰店',
+                type: 'Food',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 2458,
+                comment: '午饭，美团企业，梨泰院，韩国料理，炸鸡，西溪诚品店',
+                type: 'Food',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 2458,
+                comment: '午饭，美团企业，梨泰院，韩国料理，炸鸡，西溪诚品店',
                 type: 'Food',
                 date: today,
             },
