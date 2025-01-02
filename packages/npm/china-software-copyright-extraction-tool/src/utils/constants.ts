@@ -9,7 +9,7 @@ export const CHARS_PER_LINE = tryToNumber(getEnv('CHARS_PER_LINE'), 95);
 export const PREFIX = getEnv('COPY-RIGHT') ?? 'COPY-RIGHT';
 export const SPACE_PER_TAB = tryToNumber(getEnv('SPACE-PER-TAB'), 4);
 export const CWD = getEnv('CWD') ?? process.cwd();
-export const DEV = !!getEnv('DEV') ?? false;
+export const DEV = !!getEnv('DEV');
 export const IS_TTP = process.env.BUILD_REGION !== 'cn';
 export const FILE_NAME_PACKAGE_JSON = getEnv('FILE_NAME_PACKAGE_JSON') ?? 'package.json';
 export const packageInfo: {

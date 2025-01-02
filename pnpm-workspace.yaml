@@ -13,13 +13,11 @@ catalog:
   "@ant-design/icons": ^5.5.1
   "@ant-design/icons-svg": ^4.4.2
   "@mdx-js/react": ^3.0.1
-  "@modern-js-app/eslint-config": 2.53.0
-  "@modern-js/app-tools": 2.53.0
-  "@modern-js/eslint-config": 2.53.0
-  "@modern-js/module-tools": ^2.60.2
-  "@modern-js/plugin-tailwindcss": ^2.60.2
-  "@modern-js/runtime": 2.53.0
-  "@modern-js/tsconfig": 2.53.0
+  "@modern-js/app-tools": ^2.63.5
+  "@modern-js/module-tools": ^2.63.5
+  "@modern-js/plugin-tailwindcss": ^2.63.5
+  "@modern-js/runtime": ^2.63.5
+  "@modern-js/tsconfig": ^2.63.5
   "@emotion/hash": 0.9.1
   "@types/chrome": ^0.0.268
   "@types/doctrine": ^0.0.9
