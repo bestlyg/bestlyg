@@ -50,45 +50,42 @@ async function createLedger() {
     });
     const data = await prisma.ledger.createMany({
         data: [
-            // getLedgerTransport({ date: yesterday }),
-            // getLedgerTransport({ date: yesterday }),
-            // {
-            //     io: false,
-            //     balance: 12691,
-            //     comment: '晚饭，贵州烙锅',
-            //     type: 'Food',
-            //     date: yesterday,
-            // },
             {
                 io: false,
-                balance: 21000,
-                comment: '瞬连一年VPN',
+                balance: 2677,
+                comment: '晚饭，沙县小吃',
+                type: 'Food',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 100000,
+                comment: '瑄',
+                type: 'RedEnvelope',
+                date: today,
+            },
+            getLedgerRuixin(),
+            {
+                io: false,
+                balance: 1300,
+                comment: '美团企业，奈雪的茶，杭州西溪银泰店',
+                type: 'Drinks',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 2589,
+                comment: '美团企业，宝岛便当，浙港国际店',
+                type: 'Drinks',
+                date: today,
+            },
+            {
+                io: true,
+                balance: 338342,
+                comment: '出差报销',
                 type: 'Generally',
-                date: today,
+                date: getDate('2025-01-02'),
             },
-            {
-                io: false,
-                balance: 2300,
-                comment: '午饭，美团企业，食本新素食，西溪银泰店',
-                type: 'Food',
-                date: today,
-            },
-            {
-                io: false,
-                balance: 2458,
-                comment: '午饭，美团企业，梨泰院，韩国料理，炸鸡，西溪诚品店',
-                type: 'Food',
-                date: today,
-            },
-            {
-                io: false,
-                balance: 2458,
-                comment: '午饭，美团企业，梨泰院，韩国料理，炸鸡，西溪诚品店',
-                type: 'Food',
-                date: today,
-            },
-            getLedgerTransport(),
-            getLedgerTransport(),
         ],
     });
     return data;
@@ -97,8 +94,8 @@ async function createLedger() {
 async function main() {
     console.info('Prisma connected.');
     let data;
-    data = await createXuan();
-    // data = await createLedger();
+    // data = await createXuan();
+    data = await createLedger();
     console.log(data);
 }
 
