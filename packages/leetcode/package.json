@@ -44,11 +44,8 @@
         "axios": "catalog:",
         "chalk": "catalog:",
         "dayjs": "catalog:",
-        "fs-extra": "^11.1.0",
+        "fs-extra": "catalog:",
         "leetcode-query": "^1.2.3",
-        "ts-node": "^10.9.2",
-        "tsconfig-paths": "4.0.0",
-        "tslib": "^2.6.2",
         "typescript": "catalog:"
     }
 }
