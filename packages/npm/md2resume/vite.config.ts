@@ -30,9 +30,9 @@ export default defineConfig({
             //     changeOrigin: true,
             //     xfwd: true, // 保留原始请求的头部信息
             // },
-            [`^${BASE_URL ?? ''}/api/.*`]: {
-                // target: 'http://localhost:8000',
-                target: 'https://www.bestlyg.com',
+            [`^/(api|static)/.*`]: {
+                target: 'http://localhost:10000',
+                // target: 'https://www.bestlyg.com',
                 changeOrigin: true,
                 xfwd: true, // 保留原始请求的头部信息
             },

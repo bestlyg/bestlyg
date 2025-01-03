@@ -4,11 +4,13 @@ import { PORT } from './utils/constants.js';
 import { sendMail } from './utils/mailer.js';
 import { Logger } from '@nestjs/common';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter.js';
+import { LoggingInterceptor } from './interceptors/logging.interceptor.js';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.enableCors();
     const { httpAdapter } = app.get(HttpAdapterHost);
+    app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
     sendMailWhenStartSuccess();
     await app.listen(PORT);

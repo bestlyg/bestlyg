@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-    logger = new Logger('all-exceptions');
+    logger = new Logger(AllExceptionsFilter.name);
     // catch(exception: unknown, host: ArgumentsHost) {
     //     super.catch(exception, host);
     // }
