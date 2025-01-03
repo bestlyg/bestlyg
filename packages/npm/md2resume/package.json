@@ -10,7 +10,10 @@
         "new": "modern new",
         "lint": "modern lint",
         "upgrade": "modern upgrade",
-        "deploy": "node scripts/deploy.mjs"
+        "deploy": "node scripts/deploy.mjs",
+        "vite:dev": "vite",
+        "vite:build": "vite build",
+        "vite:preview": "vite preview"
     },
     "dependencies": {
         "@ant-design/icons-svg": "catalog:",
@@ -21,13 +24,12 @@
         "html2canvas": "^1.4.1",
         "jspdf": "^2.5.1",
         "lodash": "catalog:",
-        "lodash.merge": "^4.6.2",
-        "marked": "^13.0.0",
+        "marked": "catalog:",
         "marked-directive": "^1.0.5",
         "normalize.css": "^8.0.1",
         "rc-resize-observer": "^1.4.0",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
+        "react": "catalog:",
+        "react-dom": "catalog:",
         "tapable": "^2.2.1"
     },
     "devDependencies": {
@@ -38,13 +40,14 @@
         "@modern-js/plugin-tailwindcss": "catalog:",
         "@modern-js/tsconfig": "catalog:",
         "@types/lodash": "catalog:",
-        "@types/lodash.merge": "catalog:",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react-swc": "^3.7.2",
         "raw-loader": "^4.0.2",
         "tailwindcss": "^3.4.7",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "vite": "^6.0.7"
     },
     "files": [
         "packages.json"
