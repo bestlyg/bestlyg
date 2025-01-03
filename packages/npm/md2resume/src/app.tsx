@@ -1,4 +1,4 @@
-import { Resume } from '../resume';
+import { Resume } from './resume';
 
 const resumeSource = `
 :::div{.resume-block .resume-block-header}
@@ -152,6 +152,6 @@ const resumeSource = `
 
 `;
 
-export default function Root() {
+export default function App() {
     return <Resume defaultResumeSource={resumeSource} />;
 }
