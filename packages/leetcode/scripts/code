@@ -1,10 +1,17 @@
-from sortedcontainers import SortedList
-class MyCalendar:
+def has_intersection(a1: int, b1: int, a2: int, b2: int) -> int:
+    return a1 < b2 and a2 < b1
+class MyCalendarTwo:
     def __init__(self):
-        self.list = SortedList()
+        self.map = SortedDict()
     def book(self, startTime: int, endTime: int) -> bool:
-        idx = self.list.bisect_left((startTime, endTime))
-        if idx - 1 >= 0 and self.list[idx - 1][1] > startTime: return False
-        if idx < len(self.list) and self.list[idx][0] < endTime: return False
-        self.list.add((startTime, endTime))
+        cnt = 0
+        for v1, v2 in pairwise(self.map.items()):
+            cnt += v1[1]
+            if has_intersection(startTime, endTime, v1[0], v2[0]) and cnt == 2:
+                return False
+        self.map.setdefault(startTime, 0)
+        self.map.setdefault(endTime, 0)
+        self.map[startTime] += 1
+        self.map[endTime] -= 1
+        if self.map[endTime] == 0: self.map.pop(endTime)
         return True
