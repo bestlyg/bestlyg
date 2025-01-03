@@ -1,6 +1,6 @@
 import { MarkdownTransformer, ResumeGeneratorOptions, TemplateLoadFunction } from './types';
 import { AsyncSeriesWaterfallHook, SyncHook, AsyncParallelHook } from 'tapable';
-import merge from 'lodash.merge';
+import _ from 'lodash'
 import { defaultResumeGeneratorOptions } from './default-options';
 
 export class ResumeGenerator {
@@ -31,7 +31,7 @@ export class ResumeGenerator {
         return this._templates;
     }
     constructor(options: ResumeGeneratorOptions = {}) {
-        const mergedOptions: Required<ResumeGeneratorOptions> = merge(
+        const mergedOptions: Required<ResumeGeneratorOptions> = _.merge(
             defaultResumeGeneratorOptions,
             options,
         );

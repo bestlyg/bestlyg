@@ -11,7 +11,10 @@ best.dotenv.config({
 });
 
 export default defineConfig({
+    root: CWD,
+    base: BASE_URL,
     plugins: [react()],
+    build: {},
     server: {
         port: 3000,
         strictPort: true,
