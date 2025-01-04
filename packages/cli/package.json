@@ -65,7 +65,7 @@
         "chalk@lib": "npm:chalk@4.1.2",
         "change-case": "catalog:",
         "change-case@lib": "npm:change-case@4.1.2",
-        "cheerio": "1.0.0-rc.12",
+        "cheerio": "1.0.0",
         "commander": "catalog:",
         "cross-env": "catalog:",
         "dayjs": "catalog:",
@@ -87,10 +87,7 @@
         "typescript": "catalog:",
         "winston": "^3.14.2",
         "yargs": "^17.7.2",
-        "zod": "^3.23.8",
-        "zx": "catalog:"
-    },
-    "devDependencies": {
+        "zx": "catalog:",
         "@types/fs-extra": "catalog:",
         "fs-extra": "catalog:"
     }

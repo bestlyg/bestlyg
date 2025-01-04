@@ -4,7 +4,6 @@ export * as cheerio from 'cheerio';
 export { default as lodash } from 'lodash';
 export { default as _ } from 'lodash';
 export { default as figlet } from 'figlet';
-export { z } from 'zod';
 export { default as yargs } from 'yargs';
 export { default as semver } from 'semver';
 export { default as minimist } from 'minimist';
