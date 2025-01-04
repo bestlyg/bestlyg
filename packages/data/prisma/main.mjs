@@ -52,39 +52,31 @@ async function createLedger() {
         data: [
             {
                 io: false,
-                balance: 2677,
-                comment: '晚饭，沙县小吃',
+                balance: 5990,
+                comment: '电影，误杀3',
+                type: 'Movie',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 13574,
+                comment: '电费',
+                type: 'Rent',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 9300,
+                comment: '美团企业，晚饭，溪雨观酸菜鱼，西田城店',
                 type: 'Food',
                 date: today,
             },
             {
                 io: false,
-                balance: 100000,
-                comment: '瑄',
-                type: 'RedEnvelope',
-                date: today,
-            },
-            getLedgerRuixin(),
-            {
-                io: false,
-                balance: 1300,
-                comment: '美团企业，奈雪的茶，杭州西溪银泰店',
+                balance: 2650,
+                comment: '美团企业，春熙谢茶，杭州金地广场店',
                 type: 'Drinks',
                 date: today,
-            },
-            {
-                io: false,
-                balance: 2589,
-                comment: '美团企业，宝岛便当，浙港国际店',
-                type: 'Drinks',
-                date: today,
-            },
-            {
-                io: true,
-                balance: 338342,
-                comment: '出差报销',
-                type: 'Generally',
-                date: getDate('2025-01-02'),
             },
         ],
     });
@@ -94,8 +86,8 @@ async function createLedger() {
 async function main() {
     console.info('Prisma connected.');
     let data;
-    data = await createXuan();
-    // data = await createLedger();
+    // data = await createXuan();
+    data = await createLedger();
     console.log(data);
 }
 
