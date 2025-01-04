@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    less:
+      specifier: ^4.2.0
+      version: 4.2.0
     rimraf:
       specifier: ^6.0.1
       version: 6.0.1
@@ -22,7 +25,7 @@ importers:
         version: link:../shared
     devDependencies:
       less:
-        specifier: ^4.2.0
+        specifier: 'catalog:'
         version: 4.2.0
       rimraf:
         specifier: 'catalog:'

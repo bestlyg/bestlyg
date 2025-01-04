@@ -35,7 +35,7 @@
         "@less-plugins/shared": "workspace:^"
     },
     "devDependencies": {
-        "less": "^4.2.0",
+        "less": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:"
     }

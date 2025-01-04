@@ -15,6 +15,8 @@ const envDistPath = resolve(server.projectPath, 'packages', 'config', fileName);
 const sqlDistPath = resolve(server.projectPath, 'packages', 'data', 'dist', dbName + '.sql');
 const dumpPath = resolve('dist', dbName + '.sql');
 
+// backup
+await run(`cp -rf ~/.zshrc ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 // build
@@ -39,7 +41,7 @@ const commands = [
     `pnpm --filter @bestlyg/config run build`,
     `pnpm --filter @bestlyg/data run build`,
     `pnpm --filter @bestlyg/data run prisma:migrate`,
-    `PGPASSWORD=${process.env.PGPASSWORD} psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
+    `PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
 ];
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',

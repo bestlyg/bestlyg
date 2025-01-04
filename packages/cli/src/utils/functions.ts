@@ -1,4 +1,4 @@
-import { path } from 'zx';
+import path from 'node:path'
 import { fileURLToPath } from 'url';
 import { PREFIX } from './base';
 

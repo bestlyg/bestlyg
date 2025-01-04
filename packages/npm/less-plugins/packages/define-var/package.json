@@ -37,13 +37,13 @@
         "url": "git://github.com/bestlyg/less-plugins/packages/less-plugin-define-var.git"
     },
     "dependencies": {
-        "less": "^4.2.0",
+        "less": "catalog:",
         "yargs": "^17.7.2"
     },
     "devDependencies": {
         "@types/less": "catalog:",
         "@types/node": "catalog:",
-        "@types/yargs": "catalog:",
+        "@types/yargs": "^17.0.33",
         "package-json-extension": "^0.0.5",
         "rimraf": "catalog:",
         "typescript": "catalog:"

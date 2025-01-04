@@ -35,7 +35,7 @@
     },
     "devDependencies": {
         "@types/less": "catalog:",
-        "less": "^4.2.0",
+        "less": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:"
     }

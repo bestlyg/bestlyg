@@ -29,15 +29,13 @@
         "README.md"
     ],
     "devDependencies": {
-        "@types/lodash.get": "catalog:",
-        "@types/yargs": "catalog:",
-        "rimraf": "catalog:",
+        "@types/lodash.get": "^4.4.9",
+        "@types/yargs": "^17.0.33",
         "typescript": "catalog:"
     },
     "dependencies": {
         "lodash.get": "^4.4.2",
         "lodash.merge": "^4.6.2",
-        "yargs": "^17.7.2",
-        "zx": "catalog:"
+        "yargs": "^17.7.2"
     }
 }

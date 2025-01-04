@@ -1,4 +1,4 @@
-import { fs } from 'zx';
+import fs from 'fs-extra'
 import { getEnv, resolve } from './functions';
 import figlet from 'figlet';
 
@@ -19,6 +19,7 @@ export const packageInfo: {
 } = fs.existsSync(resolve(FILE_NAME_PACKAGE_JSON))
     ? fs.readJSONSync(resolve(FILE_NAME_PACKAGE_JSON))
     : {};
+
 export const currentPackageInfo: {
     name: string;
     version: string;

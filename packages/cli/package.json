@@ -58,7 +58,7 @@
         "@types/node": "catalog:",
         "@types/ramda": "catalog:",
         "@types/semver": "catalog:",
-        "@types/yargs": "catalog:",
+        "@types/yargs": "^17.0.33",
         "adm-zip": "^0.5.14",
         "axios": "catalog:",
         "chalk": "catalog:",
@@ -89,5 +89,9 @@
         "yargs": "^17.7.2",
         "zod": "^3.23.8",
         "zx": "catalog:"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "catalog:",
+        "fs-extra": "catalog:"
     }
 }

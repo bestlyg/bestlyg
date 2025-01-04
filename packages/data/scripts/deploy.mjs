@@ -38,7 +38,7 @@ const commands = [
     `cd ${server.projectPath}/packages/data`,
     `pnpm prisma generate`,
     `pnpm --filter @bestlyg/data run build`,
-    `PGPASSWORD=${process.env.PGPASSWORD} psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`
+    `PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`
 ];
 
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
