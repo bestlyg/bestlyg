@@ -24,7 +24,7 @@ const prisma = new PrismaClient();
 
 async function createXuan() {
     const data = await prisma.xuan.createMany({
-        data: [{ date: today, weight: 6810 }],
+        data: [{ date: today, weight: 6765 }],
     });
     return data;
 }
@@ -94,8 +94,8 @@ async function createLedger() {
 async function main() {
     console.info('Prisma connected.');
     let data;
-    // data = await createXuan();
-    data = await createLedger();
+    data = await createXuan();
+    // data = await createLedger();
     console.log(data);
 }
 
