@@ -1,1 +1,1 @@
-export const PREFIX = 'BEST';
+export const PREFIX = process.env[`BESTLYG_CLI_PREFIX`] ?? 'BEST';
