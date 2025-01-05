@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '732. 我的日程安排表 III',
-    url: 'https://leetcode.cn/problems/my-calendar-iii',
+    name: '2241. 设计一个 ATM 机器',
+    url: 'https://leetcode.cn/problems/design-an-atm-machine',
     level: 'Easy',
     tagList: [],
-    desc: `实现 MyCalendar 类。`,
+    desc: `请你实现 ATM 类`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 1596,
-            memory: 17.97,
-            desc: '差分记录区间内已经订阅的课程数量',
+            time: 23,
+            memory: 20.02,
+            desc: '记录数量后从大到小取值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

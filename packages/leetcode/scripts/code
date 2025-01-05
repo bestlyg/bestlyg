@@ -1,16 +1,18 @@
-def has_intersection(a1: int, b1: int, a2: int, b2: int) -> int:
-    return a1 < b2 and a2 < b1
-class MyCalendarThree:
+class ATM:
     def __init__(self):
-        self.map = SortedDict()
-    def book(self, startTime: int, endTime: int) -> int:
-        self.map.setdefault(startTime, 0)
-        self.map.setdefault(endTime, 0)
-        self.map[startTime] += 1
-        self.map[endTime] -= 1
-        if self.map[endTime] == 0: self.map.pop(endTime)
-        cnt = res = 0
-        for v1, v2 in pairwise(self.map.items()):
-            cnt += v1[1]
-            res = max(res, cnt)
+        self.map = [20, 50, 100, 200, 500]
+        self.data = [0] * 5
+    def deposit(self, banknotesCount: List[int]) -> None:
+        for i in range(5): self.data[i] += banknotesCount[i]
+    def withdraw(self, amount: int) -> List[int]:
+        newData = list(self.data)
+        res = [0] * 5
+        for i in range(4, -1, -1):
+            if newData[i] == 0: continue
+            cmax = min(amount // self.map[i], newData[i])
+            newData[i] -= cmax
+            res[i] += cmax
+            amount -= cmax * self.map[i]
+        if amount != 0: return [-1]
+        self.data = newData
         return res
