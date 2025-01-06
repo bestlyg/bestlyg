@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import best from '@bestlyg/cli';
 
 const BASE_URL = '/web/resume';
@@ -31,8 +31,8 @@ export default defineConfig({
             //     xfwd: true, // 保留原始请求的头部信息
             // },
             [`^/(api|static)/.*`]: {
-                target: 'http://localhost:10000',
-                // target: 'https://www.bestlyg.com',
+                // target: 'http://localhost:10000',
+                target: 'https://www.bestlyg.com',
                 changeOrigin: true,
                 xfwd: true, // 保留原始请求的头部信息
             },

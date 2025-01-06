@@ -31,7 +31,7 @@
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
-        "@vitejs/plugin-react-swc": "^3.7.2",
+        "@vitejs/plugin-react": "catalog:",
         "less": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:"
