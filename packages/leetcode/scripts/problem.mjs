@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '2241. 设计一个 ATM 机器',
-    url: 'https://leetcode.cn/problems/design-an-atm-machine',
+    name: '2274. 不含特殊楼层的最大连续楼层数',
+    url: 'https://leetcode.cn/problems/maximum-consecutive-floors-without-special-floors',
     level: 'Easy',
     tagList: [],
-    desc: `请你实现 ATM 类`,
+    desc: `返回不含特殊楼层的 最大 连续楼层数。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 23,
-            memory: 20.02,
-            desc: '记录数量后从大到小取值',
+            time: 107,
+            memory: 31.85,
+            desc: '两两结对遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

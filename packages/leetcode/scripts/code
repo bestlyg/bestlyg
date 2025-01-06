@@ -1,18 +1,3 @@
-class ATM:
-    def __init__(self):
-        self.map = [20, 50, 100, 200, 500]
-        self.data = [0] * 5
-    def deposit(self, banknotesCount: List[int]) -> None:
-        for i in range(5): self.data[i] += banknotesCount[i]
-    def withdraw(self, amount: int) -> List[int]:
-        newData = list(self.data)
-        res = [0] * 5
-        for i in range(4, -1, -1):
-            if newData[i] == 0: continue
-            cmax = min(amount // self.map[i], newData[i])
-            newData[i] -= cmax
-            res[i] += cmax
-            amount -= cmax * self.map[i]
-        if amount != 0: return [-1]
-        self.data = newData
-        return res
+class Solution:
+    def maxConsecutive(self, bottom: int, top: int, special: List[int]) -> int:
+        return max(v2 - v1 - 1 for v1, v2 in pairwise(sorted(special + [bottom - 1] + [top + 1])))
