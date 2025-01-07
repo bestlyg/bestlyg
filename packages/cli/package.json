@@ -51,6 +51,7 @@
         "@modern-js/module-tools": "catalog:",
         "@types/doctrine": "catalog:",
         "@types/figlet": "catalog:",
+        "@types/fs-extra": "catalog:",
         "@types/inquirer": "catalog:",
         "@types/jsdom": "catalog:",
         "@types/lodash": "catalog:",
@@ -72,6 +73,7 @@
         "doctrine": "^3.0.0",
         "dotenv": "catalog:",
         "figlet": "^1.7.0",
+        "fs-extra": "catalog:",
         "inquirer": "^10.1.8",
         "jsdom": "^24.1.0",
         "lodash": "catalog:",
@@ -87,8 +89,11 @@
         "typescript": "catalog:",
         "winston": "^3.14.2",
         "yargs": "^17.7.2",
-        "zx": "catalog:",
-        "@types/fs-extra": "catalog:",
-        "fs-extra": "catalog:"
+        "zx": "catalog:"
+    },
+    "devDependencies": {
+        "@rollup/plugin-replace": "^6.0.2",
+        "rollup": "^4.30.0",
+        "rollup-plugin-typescript2": "^0.36.0"
     }
 }
