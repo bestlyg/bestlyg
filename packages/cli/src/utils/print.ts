@@ -26,12 +26,12 @@ function list(info: Record<string, any>) {
 }
 /**
  * Print divider
- * @param {'info' | 'warn' | 'success' | 'error'} level
  */
-function divider(level = 'info') {
+function divider(level: 'info' | 'warn' | 'success' | 'error' = 'info') {
     const logger = print[level] ?? print.info;
     logger('-'.repeat(process.stdout.columns - PREFIX.length - 3));
 }
+
 function errorWithStack(msg: string, ...errors: any[]) {
     print.error(msg);
     for (const err of errors) {

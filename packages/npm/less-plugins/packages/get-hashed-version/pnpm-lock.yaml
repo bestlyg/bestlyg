@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     '@emotion/hash':
-      specifier: 0.9.1
+      specifier: ^0.9.1
       version: 0.9.1
     '@types/less':
       specifier: ^3.0.7
