@@ -12,8 +12,6 @@ export { default as dayjs } from 'dayjs';
 export { default as axios } from 'axios';
 export { default as ts } from 'typescript';
 export * as manypkg from '@manypkg/get-packages';
-export * as ramda from 'ramda';
-export * as R from 'ramda';
 export * as rimraf from 'rimraf';
 export * as commander from 'commander';
 export * as jsdom from 'jsdom';
