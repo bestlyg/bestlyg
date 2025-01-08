@@ -1,3 +1,7 @@
 class Solution:
-    def countKeyChanges(self, s: str) -> int:
-        return sum(ord(c1) & 0b011111 != ord(c2) & 0b011111 for c1, c2 in pairwise(s))
+    def largestGoodInteger(self, num: str) -> str:
+        res = ''
+        for i in range(len(num) - 2):
+            if num[i] == num[i + 1] == num[i + 2] and res < num[i] * 3:
+                res = num[i] * 3
+        return res
