@@ -2,9 +2,14 @@ import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
 import { ssh, server } from '@bestlyg/config';
 
-const run = async cmd => execSync(cmd, { stdio: 'inherit' });
+const run = async cmd => {
+    execSync(cmd, { stdio: 'inherit' })
+    // await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
+};
+const homePath = process.env.HOME;
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
+
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
@@ -16,7 +21,7 @@ const sqlDistPath = resolve(server.projectPath, 'packages', 'data', 'dist', dbNa
 const dumpPath = resolve('dist', dbName + '.sql');
 
 // backup
-await run(`cp -rf ~/.zshrc ${resolve('packages', 'static', '.zshrc')}`);
+await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 // build
@@ -32,16 +37,16 @@ await run(
 const serverName = `bestlyg-server`;
 
 const commands = [
+    `sudo PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
     `sudo pm2 del ${serverName}`,
     `sudo git reset --hard`,
     `sudo git clean -fd`,
     `sudo git pull`,
     'sudo pnpm i --frozen-lockfile --ignore-scripts',
     `sudo pm2 start /root/bestlyg/packages/server/dist/main.js --name ${serverName}`,
-    `pnpm --filter @bestlyg/config run build`,
-    `pnpm --filter @bestlyg/data run build`,
-    `pnpm --filter @bestlyg/data run prisma:migrate`,
-    `PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
+    `sudo pnpm --filter @bestlyg/config run build`,
+    `sudo pnpm --filter @bestlyg/data run build`,
+    `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
 ];
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',

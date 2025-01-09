@@ -24,8 +24,12 @@ export NVM_DIR="$HOME/.nvm"
 
 export NVM_NODEJS_ORG_MIRROR=https://npmmirror.com/mirrors/node/
 export PYTHON_BUILD_MIRROR_URL="https://registry.npmmirror.com/-/binary/python"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.0.1.jdk/Contents/Home
 
 alias proxy-start="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890"
 alias proxy-end="export https_proxy= http_proxy= all_proxy="
 alias ioa='sudo ifconfig en0 down && sudo ifconfig en1 down && sudo ifconfig en2 down && sudo ifconfig en0 up && sudo ifconfig en1 up && sudo ifconfig en2 up'
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export PATH="$HOME/.pyenv/shims:$PATH"
+
+. "$HOME/.cargo/env"
