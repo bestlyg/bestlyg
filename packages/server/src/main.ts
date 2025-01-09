@@ -6,7 +6,13 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor.js';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    app.enableCors();
+    app.enableCors({
+        origin: true,
+        methods: '*',
+        exposedHeaders: '*',
+        credentials: true,
+        maxAge: 86400,
+    });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
