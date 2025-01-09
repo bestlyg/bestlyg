@@ -11,17 +11,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '2264. 字符串中最大的 3 位相同数字',
-    url: 'https://leetcode.cn/problems/largest-3-same-digit-number-in-string',
+    name: '3297. 统计重新排列后包含另一个字符串的子字符串数目 I',
+    url: 'https://leetcode.cn/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-i',
     level: 'Easy',
     tagList: [],
-    desc: `以字符串形式返回 最大的优质整数 。如果不存在满足要求的整数，则返回一个空字符串 "" 。`,
+    desc: `请你返回 word1 中 合法 子字符串的数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.36,
+            time: 303,
+            memory: 17.91,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },

@@ -1,7 +1,14 @@
 class Solution:
-    def largestGoodInteger(self, num: str) -> str:
-        res = ''
-        for i in range(len(num) - 2):
-            if num[i] == num[i + 1] == num[i + 2] and res < num[i] * 3:
-                res = num[i] * 3
+    def validSubstringCount(self, word1: str, word2: str) -> int:
+        c = Counter(word2)
+        f = len(c)
+        res = l = 0
+        for r in range(len(word1)):
+            c[word1[r]] -= 1
+            if c[word1[r]] == 0: f -= 1
+            while l < r and c[word1[l]] < 0:
+                c[word1[l]] += 1
+                if c[word1[l]] == 1: f += 1
+                l += 1
+            if f == 0: res += l + 1
         return res
