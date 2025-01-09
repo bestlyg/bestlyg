@@ -3,8 +3,8 @@ import { MailService } from './services/mail.service.js';
 
 @Injectable()
 export class AppService {
-    private logger = new Logger(AppService.name);
-    constructor(private mailService: MailService) {}
+    private readonly logger = new Logger(AppService.name);
+    constructor(private readonly mailService: MailService) {}
     getHello(): string {
         return 'Hello World!';
     }

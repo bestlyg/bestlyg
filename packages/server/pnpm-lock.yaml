@@ -15,6 +15,9 @@ catalogs:
     '@types/jest':
       specifier: ^29.5.14
       version: 29.5.14
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
     '@types/node':
       specifier: ^20.17.10
       version: 20.17.10
@@ -30,6 +33,9 @@ catalogs:
     fs-extra:
       specifier: ^11.2.0
       version: 11.2.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
     typescript:
       specifier: ^5.7.2
       version: 5.7.2
@@ -92,6 +98,9 @@ importers:
       fs-extra:
         specifier: 'catalog:'
         version: 11.2.0
+      lodash:
+        specifier: 'catalog:'
+        version: 4.17.21
       marked:
         specifier: ^13.0.0
         version: 13.0.3
@@ -120,6 +129,9 @@ importers:
       '@types/jest':
         specifier: 'catalog:'
         version: 29.5.14
+      '@types/lodash':
+        specifier: 'catalog:'
+        version: 4.17.14
       '@types/node':
         specifier: 'catalog:'
         version: 20.17.10
@@ -406,6 +418,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.5':
     resolution: {integrity: sha512-VRLSGzik+Unrup6BsouBeHsf4d1hOEgYWTm/7Nmw1sXoN1+tRly/Gy/po3yeahnP4jfnQWWAhQAqcNfH7ngOkA==}
+
+  '@types/lodash@4.17.14':
+    resolution: {integrity: sha512-jsxagdikDiDBeIRaPYtArcT8my4tN1og7MtMRquFT3XNA6axxyHDRUemqDz/taRDdOUn0GnGHRCuff4q48sW9A==}
 
   '@types/luxon@3.4.2':
     resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
@@ -2186,6 +2201,8 @@ snapshots:
   '@types/jsonwebtoken@9.0.5':
     dependencies:
       '@types/node': 20.17.10
+
+  '@types/lodash@4.17.14': {}
 
   '@types/luxon@3.4.2': {}
 

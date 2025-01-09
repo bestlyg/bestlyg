@@ -5,8 +5,8 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
     constructor(
-        private jwtService: JwtService,
-        private configService: ConfigService,
+        private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
     ) {}
     async signIn(username: string, password: string) {
         const USERNAME = this.configService.get('user.username')

@@ -7,7 +7,7 @@ import { MailService } from './mail.service.js';
 
 @Injectable()
 export class TasksService {
-    constructor(private mailService: MailService) {}
+    constructor(private readonly mailService: MailService) {}
     async sendMailToLyg(name: string, content: string) {
         await this.mailService.sendMail(['1057966749@qq.com'], `定时提醒-${name}`, content);
     }

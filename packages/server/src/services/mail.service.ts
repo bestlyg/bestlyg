@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class MailService {
     mailerTransporter: ReturnType<typeof nodeMailer.createTransport>;
-    constructor(private configService: ConfigService) {
+    constructor(private readonly configService: ConfigService) {
         const host = this.configService.get('mail.host');
         const user = this.configService.get('mail.user');
         const pass = this.configService.get('mail.pass');

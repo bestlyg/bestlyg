@@ -12,6 +12,7 @@ import { TasksService } from './services/tasks.service.js';
 import { AuthModule } from './modules/auth/index.js';
 import { JwtModule } from '@nestjs/jwt';
 import { MailService } from './services/mail.service.js';
+import { ServerlessModule } from './modules/serverless/index.js';
 
 const configuration = getConfiguration();
 
@@ -33,6 +34,7 @@ const configuration = getConfiguration();
             signOptions: { expiresIn: '100 days' },
         }),
         AuthModule,
+        ServerlessModule,
     ],
     controllers: [AppController, ApiController, StaticController],
     providers: [AppService, TasksService, MailService],
