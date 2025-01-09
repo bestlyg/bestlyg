@@ -1,16 +1,18 @@
 import dayjs from 'dayjs';
-import { parseMarkdown, sendMail } from '../utils/index.js';
+import { parseMarkdown } from '../utils/index.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { execSync } from 'child_process';
+import { MailService } from './mail.service.js';
 
 @Injectable()
 export class TasksService {
+    constructor(private mailService: MailService) {}
     async sendMailToLyg(name: string, content: string) {
-        await sendMail(['1057966749@qq.com'], `定时提醒-${name}`, content);
+        await this.mailService.sendMail(['1057966749@qq.com'], `定时提醒-${name}`, content);
     }
     async sendMailToYzx(name: string, content: string) {
-        await sendMail(['2428047022@qq.com'], `定时提醒-${name}`, content);
+        await this.mailService.sendMail(['2428047022@qq.com'], `定时提醒-${name}`, content);
     }
     private readonly logger = new Logger(TasksService.name);
 

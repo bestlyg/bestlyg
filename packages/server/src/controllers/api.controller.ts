@@ -1,12 +1,15 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import dayjs from 'dayjs'
+import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
+import dayjs from 'dayjs';
 import { prismaClient } from '@bestlyg/data';
 import { ResponseEntity } from '@bestlyg/common';
 import { prisma } from '../utils/index.js';
-import { AuthGuard } from '../guards/auth.guard.js';
+import { AuthGuard } from '../modules/auth/index.js';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('/api')
 export class ApiController {
+    logger = new Logger(ApiController.name);
+
     @Get('/health')
     async health() {
         return ResponseEntity.ofSuccess(`health-check: ${dayjs().format('YYYY-MM-DD hh:mm:ss')}`);
