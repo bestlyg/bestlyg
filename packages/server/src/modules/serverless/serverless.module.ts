@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ServerlessController } from './serverless.controller';
-import { ServerlessService } from './serverless.service';
-import { AuthModule } from '../auth/index';
+import { ServerlessController } from './serverless.controller.js';
+import { ServerlessService } from './serverless.service.js';
+import { AuthModule } from '../auth/index.js';
 
 @Module({
     imports: [AuthModule],

@@ -1,6 +1,6 @@
 import { Controller, Logger } from '@nestjs/common';
-import { FunctionModule } from './function-module';
-import { prisma } from '../../utils/index';
+import { FunctionModule } from './function-module.js';
+import { prisma } from '../../utils/index.js';
 @Controller('/api/serverless')
 export class ServerlessService {
     private readonly logger = new Logger(ServerlessService.name);

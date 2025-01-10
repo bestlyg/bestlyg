@@ -2,6 +2,7 @@
     "name": "@bestlyg/server",
     "version": "0.0.0",
     "author": "bestlyg",
+    "type": "module",
     "private": true,
     "scripts": {
         "build": "nest build",
@@ -35,7 +36,6 @@
         "@types/fs-extra": "catalog:",
         "dayjs": "catalog:",
         "dotenv": "catalog:",
-        "express": "^4.21.1",
         "fs-extra": "catalog:",
         "lodash": "catalog:",
         "marked": "^13.0.0",

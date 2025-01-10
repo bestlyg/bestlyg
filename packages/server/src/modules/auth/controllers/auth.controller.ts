@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service.js';
 import { ResponseEntity } from '@bestlyg/common';
 
 @Controller('/api/auth')

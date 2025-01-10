@@ -2,8 +2,8 @@ import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { prismaClient } from '@bestlyg/data';
 import { ResponseEntity } from '@bestlyg/common';
-import { prisma } from '../utils/index';
-import { AuthGuard } from '../modules/auth/index';
+import { prisma } from '../utils/index.js';
+import { AuthGuard } from '../modules/auth/index.js';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('/api')

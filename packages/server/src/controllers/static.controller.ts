@@ -1,5 +1,5 @@
 import { Get, Controller, Param, Res } from '@nestjs/common';
-import { resolve } from '../utils/index';
+import { resolve } from '../utils/index.js';
 import { Response } from 'express';
 import { ResponseEntity } from '@bestlyg/common';
 import fs from 'fs-extra';

@@ -1,5 +1,5 @@
 import { ConfigModuleOptions } from '@nestjs/config';
-import { resolve } from './resolve';
+import { resolve } from './resolve.js';
 import dotenv from 'dotenv';
 import z from 'zod';
 
