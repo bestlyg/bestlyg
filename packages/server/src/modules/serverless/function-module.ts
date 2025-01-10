@@ -12,6 +12,11 @@ export type FunctionModuleGlobalContext = {
     globalThis: FunctionModuleGlobalContext;
     global: FunctionModuleGlobalContext;
     window: FunctionModuleGlobalContext;
+
+    name: string;
+    query: Record<string, any>;
+    body: any;
+    headers: Record<string, any>;
 } & PromiseWithResolvers<void>;
 
 export const defaultScriptOptions: vm.RunningScriptOptions = {
@@ -27,7 +32,9 @@ export class FunctionModule {
         const script = new vm.Script(code, options);
         return script;
     }
-    createGlobalContext(): FunctionModuleGlobalContext {
+    createGlobalContext(
+        externalGlobalCtx: Partial<FunctionModuleGlobalContext>,
+    ): FunctionModuleGlobalContext {
         let promise, resolve, reject;
         promise = new Promise((r, j) => {
             resolve = r;
@@ -42,6 +49,7 @@ export class FunctionModule {
             promise,
             resolve,
             reject,
+            ...externalGlobalCtx,
         } as any as FunctionModuleGlobalContext;
         ctx.globalThis = ctx.global = ctx.window = ctx;
         return ctx;
@@ -57,11 +65,11 @@ export class FunctionModule {
         this.logger.log(transpiledCode);
         return transpiledCode;
     }
-    async compile(code: string) {
+    async compile(code: string, externalGlobalCtx: Partial<FunctionModuleGlobalContext>) {
         const transpiledCode = this.transpileCode(code);
         const mergedOptions = _.merge({}, defaultScriptOptions);
         const script = this.createScript(transpiledCode, mergedOptions);
-        const globalCtx = this.createGlobalContext();
+        const globalCtx = this.createGlobalContext(externalGlobalCtx);
         script.runInNewContext(globalCtx, mergedOptions);
         const res = await Promise.race([
             globalCtx.promise,

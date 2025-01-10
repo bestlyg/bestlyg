@@ -21,8 +21,8 @@
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
         "typeRoots": ["./node_modules/@types"],
-        "paths": {
-            "@/*": ["src/*"]
-        }
+        // "paths": {
+        //     "@/*": ["src/*"]
+        // }
     }
 }

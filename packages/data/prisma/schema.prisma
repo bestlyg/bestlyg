@@ -134,11 +134,23 @@ model Secrets {
 }
 
 model Serverless {
-  id          String   @id @default(nanoid())
-  createdTime DateTime @default(now()) @map("create_time")
-  updatedTime DateTime @default(now()) @updatedAt @map("update_time")
-  name        String   @unique
-  code        String
+  id             String           @id @default(nanoid())
+  createdTime    DateTime         @default(now()) @map("create_time")
+  updatedTime    DateTime         @default(now()) @updatedAt @map("update_time")
+  name           String           @unique
+  ServerlessCode ServerlessCode[]
 
   @@map("serverless")
+}
+
+model ServerlessCode {
+  id           String      @id @default(nanoid())
+  createdTime  DateTime    @default(now()) @map("create_time")
+  updatedTime  DateTime    @default(now()) @updatedAt @map("update_time")
+  name         String      @unique
+  code         String
+  serverless   Serverless? @relation(fields: [serverlessId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serverlessId String?     @map("serverless_id")
+
+  @@map("serverless_code")
 }
