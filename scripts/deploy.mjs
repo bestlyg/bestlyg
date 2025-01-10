@@ -46,6 +46,7 @@ const commands = [
     'sudo pnpm i --frozen-lockfile --ignore-scripts',
     `sudo pm2 start /root/bestlyg/packages/server/dist/main.js --name ${serverName}`,
     `sudo pnpm --filter @bestlyg/config run build`,
+    `sudo pnpm --filter @bestlyg/cli run build`,
     `sudo pnpm --filter @bestlyg/data run build`,
     `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
 ];
