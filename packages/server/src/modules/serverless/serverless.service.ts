@@ -1,11 +1,11 @@
 import { Controller, Logger } from '@nestjs/common';
-import { ResponseEntity } from '@bestlyg/common';
 import { FunctionModule } from './function-module.js';
 
 const tempCode2 = `
-while (true);
-const a = 1;
-const b = 2;
+const res = Promise.withResolvers();
+console.log(res)
+const a:number = 1;
+const b:any = 2;
 resolve(a + b + 'LYG');
 `;
 

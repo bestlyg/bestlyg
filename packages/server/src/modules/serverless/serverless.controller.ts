@@ -13,7 +13,7 @@ export class ServerlessController {
     async call(@Query('name') name: string) {
         this.logger.log(`name = ${name}`);
         const data = await this.serverlessService.call(name);
-        console.log("data",data)
+        console.log('data', data);
         return ResponseEntity.ofSuccess(data);
     }
 }

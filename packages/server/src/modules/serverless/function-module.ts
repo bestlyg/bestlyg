@@ -1,5 +1,7 @@
 import vm from 'node:vm';
+import ts from 'typescript';
 import _ from 'lodash';
+import { Logger } from '@nestjs/common';
 
 export type FunctionModuleGlobalContext = {
     console: typeof globalThis.console;
@@ -19,6 +21,7 @@ export const defaultScriptOptions: vm.RunningScriptOptions = {
 };
 
 export class FunctionModule {
+    private readonly logger = new Logger(FunctionModule.name);
     constructor() {}
     createScript(code: string, options: vm.RunningScriptOptions) {
         const script = new vm.Script(code, options);
@@ -28,7 +31,7 @@ export class FunctionModule {
         let promise, resolve, reject;
         promise = new Promise((r, j) => {
             resolve = r;
-            j = reject;
+            reject = j;
         });
         const ctx = {
             console: globalThis.console,
@@ -44,7 +47,15 @@ export class FunctionModule {
         return ctx;
     }
     transpileCode(code: string): string {
-        return `(async () => {${code}})()`.trim();
+        code = `(async () => {${code}})().then(resolve, reject)`.trim();
+        const transpiledCode = ts.transpile(code, {
+            module: ts.ModuleKind.CommonJS,
+            target: ts.ScriptTarget.ES2022,
+            removeComments: true,
+            inlineSourceMap: true,
+        });
+        this.logger.log(transpiledCode);
+        return transpiledCode;
     }
     async compile(code: string) {
         const transpiledCode = this.transpileCode(code);
@@ -52,7 +63,14 @@ export class FunctionModule {
         const script = this.createScript(transpiledCode, mergedOptions);
         const globalCtx = this.createGlobalContext();
         script.runInNewContext(globalCtx, mergedOptions);
-        const res = await globalCtx.promise;
+        const res = await Promise.race([
+            globalCtx.promise,
+            new Promise<void>((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('Async Script execution timed out after 3000ms'));
+                }, 1000 * 3);
+            }),
+        ]);
         return res;
     }
 }
