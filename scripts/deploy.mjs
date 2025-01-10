@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import { ssh, server } from '@bestlyg/config';
 
 const run = async cmd => {
-    execSync(cmd, { stdio: 'inherit' })
+    execSync(cmd, { stdio: 'inherit' });
     // await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
 };
 const homePath = process.env.HOME;
@@ -37,7 +37,7 @@ await run(
 const serverName = `bestlyg-server`;
 
 const commands = [
-    `sudo cd ${server.projectPath}`
+    `sudo cd ${server.projectPath}`,
     `sudo PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
     `sudo pm2 del ${serverName}`,
     `sudo git reset --hard`,
@@ -49,6 +49,7 @@ const commands = [
     `sudo pnpm --filter @bestlyg/data run build`,
     `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
 ];
+console.log("commands.join('; ')", commands.join('; '));
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',
 });
