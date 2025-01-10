@@ -49,6 +49,7 @@ const commands = [
     `sudo pnpm --filter @bestlyg/config run build`,
     `sudo pnpm --filter @bestlyg/data run build`,
     `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
+    `sudo pnpm --filter @bestlyg/server run build`,
 ];
 console.log("commands.join('; ')", commands.join('; '));
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
