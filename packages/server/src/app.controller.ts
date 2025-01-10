@@ -8,4 +8,8 @@ export class AppController {
     @Get()
     @Redirect('/web/site')
     redirect() {}
+
+    @Get('/favicon.ico')
+    @Redirect('/static/logo.ico')
+    redirectFavicon() {}
 }
