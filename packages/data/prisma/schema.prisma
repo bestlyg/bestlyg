@@ -132,3 +132,13 @@ model Secrets {
 
   @@map("secrets")
 }
+
+model Serverless {
+  id          String   @id @default(nanoid())
+  createdTime DateTime @default(now()) @map("create_time")
+  updatedTime DateTime @default(now()) @updatedAt @map("update_time")
+  name        String   @unique
+  code        String
+
+  @@map("serverless")
+}
