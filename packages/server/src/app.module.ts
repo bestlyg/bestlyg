@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller.js';
-import { ApiController } from './controllers/api.controller.js';
-import { StaticController } from './controllers/static.controller.js';
-import { AppService } from './app.service.js';
-import { resolve, getConfiguration } from './utils/index.js';
+import { AppController } from './app.controller';
+import { ApiController } from './controllers/api.controller';
+import { StaticController } from './controllers/static.controller';
+import { AppService } from './app.service';
+import { resolve, getConfiguration } from './utils/index';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { server } from '@bestlyg/config';
-import { TasksService } from './services/tasks.service.js';
-import { AuthModule } from './modules/auth/index.js';
+import { TasksService } from './services/tasks.service';
+import { AuthModule } from './modules/auth/index';
 import { JwtModule } from '@nestjs/jwt';
-import { MailService } from './services/mail.service.js';
-import { ServerlessModule } from './modules/serverless/index.js';
+import { MailService } from './services/mail.service';
+import { ServerlessModule } from './modules/serverless/index';
 
 const configuration = getConfiguration();
 

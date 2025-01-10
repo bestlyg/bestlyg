@@ -1,2 +1,2 @@
-export * from './serverless.module.js';
-export * from './serverless.service.js';
+export * from './serverless.module';
+export * from './serverless.service';

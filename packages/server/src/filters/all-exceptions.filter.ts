@@ -1,7 +1,7 @@
 import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ResponseEntity } from '@bestlyg/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
@@ -12,7 +12,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     catch(exception: unknown, host: ArgumentsHost) {
         // console.error(exception)
         const ctx = host.switchToHttp();
-        const response = ctx.getResponse();
+        const response: Response = ctx.getResponse();
         const request: Request = ctx.getRequest();
         const url = request.url;
 

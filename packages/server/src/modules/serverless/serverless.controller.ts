@@ -12,9 +12,9 @@ import {
     Delete,
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
-import { ServerlessService } from './serverless.service.js';
-import { AuthGuard } from '../auth/index.js';
-import { prisma } from '../../utils/prisma.js';
+import { ServerlessService } from './serverless.service';
+import { AuthGuard } from '../auth/index';
+import { prisma } from '../../utils/prisma';
 import { prismaClient } from '@bestlyg/data';
 
 @Controller('/api/serverless')

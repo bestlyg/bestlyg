@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
-import { parseMarkdown } from '../utils/index.js';
+import { parseMarkdown } from '../utils/index';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { execSync } from 'child_process';
-import { MailService } from './mail.service.js';
+import { MailService } from './mail.service';
 
 @Injectable()
 export class TasksService {
