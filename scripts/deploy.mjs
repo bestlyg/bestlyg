@@ -44,12 +44,13 @@ const commands = [
     `sudo git clean -fd`,
     `sudo git pull`,
     'sudo pnpm i --frozen-lockfile --ignore-scripts',
-    `sudo pm2 start /root/bestlyg/packages/server/dist/main.js --name ${serverName}`,
     `sudo pnpm --filter @bestlyg/cli run build`,
     `sudo pnpm --filter @bestlyg/config run build`,
     `sudo pnpm --filter @bestlyg/data run build`,
     `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
+    `sudo pnpm --filter @bestlyg/common run build`,
     `sudo pnpm --filter @bestlyg/server run build`,
+    `sudo pm2 start /root/bestlyg/packages/server/dist/main.js --name ${serverName}`,
 ];
 console.log("commands.join('; ')", commands.join('; '));
 execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {

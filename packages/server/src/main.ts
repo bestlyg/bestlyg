@@ -3,6 +3,7 @@ import { AppModule } from './app.module.js';
 import { getConfiguration } from './utils/index.js';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter.js';
 import { LoggingInterceptor } from './interceptors/logging.interceptor.js';
+import { prisma } from './utils/index.js';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);

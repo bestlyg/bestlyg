@@ -46,6 +46,7 @@ export class ServerlessController {
             data: {
                 name: body.name,
                 code: body.code,
+                serverlessId: 'best',
             },
         });
         return ResponseEntity.ofSuccess(data);
