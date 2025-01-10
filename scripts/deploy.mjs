@@ -37,6 +37,7 @@ await run(
 const serverName = `bestlyg-server`;
 
 const commands = [
+    `sudo cd ${server.projectPath}`
     `sudo PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
     `sudo pm2 del ${serverName}`,
     `sudo git reset --hard`,
