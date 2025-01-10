@@ -15,6 +15,7 @@ import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessService } from './serverless.service.js';
 import { AuthGuard } from '../auth/index.js';
 import { prisma } from '../../utils/prisma.js';
+import { prismaClient } from '@bestlyg/data';
 
 @Controller('/api/serverless')
 export class ServerlessController {
@@ -41,7 +42,7 @@ export class ServerlessController {
     }
 
     @Post('code')
-    async createCode(@Body() body) {
+    async createCode(@Body() body: prismaClient.ServerlessCode) {
         const data = await prisma.serverlessCode.create({
             data: {
                 name: body.name,
@@ -53,7 +54,7 @@ export class ServerlessController {
     }
 
     @Patch('code')
-    async updateCode(@Body() body) {
+    async updateCode(@Body() body: prismaClient.ServerlessCode) {
         const data = await prisma.serverlessCode.update({
             data: {
                 code: body.code,

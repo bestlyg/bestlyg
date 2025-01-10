@@ -1,33 +1,50 @@
 import { ConfigModuleOptions } from '@nestjs/config';
 import { resolve } from './resolve.js';
 import dotenv from 'dotenv';
+import z from 'zod';
 
 dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
 
-const PORT = Number(process.env.BESTLYG_SERVER_PORT);
-const MAIL_HOST = process.env.BESTLYG_SERVER_MAIL_HOST;
-const MAIL_USER = process.env.BESTLYG_SERVER_MAIL_USER;
-const MAIL_PASS = process.env.BESTLYG_SERVER_MAIL_PASS;
-const USERNAME = process.env.BESTLYG_USERNAME;
-const PASSWORD = process.env.BESTLYG_PASSWORD;
-const SECRET = process.env.BESTLYG_SECRET;
+const ConfigurationSchema = z
+    .object({
+        server: z.object({ port: z.coerce.number().readonly() }).readonly(),
+        mail: z
+            .object({
+                host: z.string().readonly(),
+                user: z.string().readonly(),
+                pass: z.string().readonly(),
+            })
+            .readonly(),
+        jwt: z
+            .object({
+                secret: z.string().readonly(),
+            })
+            .readonly(),
+    })
+    .required();
+
+export type Configuration = z.infer<typeof ConfigurationSchema>;
 
 export type ExtractPromiseResult<T> = T extends Promise<infer R> ? R : T;
 
-export const getConfiguration = () => ({
-    server: { port: PORT },
-    mail: {
-        host: MAIL_HOST,
-        user: MAIL_USER,
-        pass: MAIL_PASS,
-    },
-    user: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-    jwt: {
-        secret: SECRET,
-    },
-});
+export const getConfiguration = () => {
+    const obj = {
+        server: { port: process.env.BESTLYG_SERVER_PORT },
+        mail: {
+            host: process.env.BESTLYG_SERVER_MAIL_HOST,
+            user: process.env.BESTLYG_SERVER_MAIL_USER,
+            pass: process.env.BESTLYG_SERVER_MAIL_PASS,
+        },
+        user: {
+            username: process.env.BESTLYG_USERNAME,
+            password: process.env.BESTLYG_PASSWORD,
+        },
+        jwt: {
+            secret: process.env.BESTLYG_SECRET,
+        },
+    };
+    const config = ConfigurationSchema.parse(obj);
+    return config;
+};

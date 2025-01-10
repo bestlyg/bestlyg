@@ -15,12 +15,13 @@
         "baseUrl": "./",
         "incremental": true,
         "skipLibCheck": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "noImplicitAny": false,
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
         "typeRoots": ["./node_modules/@types"],
+        "strict": true,
         // "paths": {
         //     "@/*": ["src/*"]
         // }
