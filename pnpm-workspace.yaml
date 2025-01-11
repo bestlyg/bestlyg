@@ -68,3 +68,6 @@ catalog:
     "@vitejs/plugin-react": ^4.3.4
 
     zod: ^3.24.1
+
+    prisma: ^6.2.1
+    "@prisma/client": ^6.2.1

@@ -9,6 +9,7 @@ dotenv.config({
 
 const ConfigurationSchema = z
     .object({
+        mode: z.enum(['production', 'development']).default('development'),
         server: z.object({ port: z.coerce.number().readonly() }).readonly(),
         mail: z
             .object({
@@ -31,6 +32,7 @@ export type ExtractPromiseResult<T> = T extends Promise<infer R> ? R : T;
 
 export const getConfiguration = () => {
     const obj = {
+        mode: process.env.NODE_ENV,
         server: { port: process.env.BESTLYG_SERVER_PORT },
         mail: {
             host: process.env.BESTLYG_SERVER_MAIL_HOST,

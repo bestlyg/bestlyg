@@ -6,33 +6,29 @@ import { PrismaService } from './prisma.service.js';
 export class DataService {
     constructor(private readonly prismaService: PrismaService) {}
     async getLedgers() {
-        const data: prismaClient.Ledger[] = await this.prismaService.ledger.findMany();
+        const data = await this.prismaService.ledger.findMany();
         return data;
     }
 
     async getXuanList() {
-        const data: prismaClient.Xuan[] = await this.prismaService.xuan.findMany();
+        const data = await this.prismaService.xuan.findMany();
         return data;
     }
 
     async getSecrets() {
-        const data: prismaClient.Secrets[] = await this.prismaService.secrets.findMany();
+        const data = await this.prismaService.secrets.findMany();
         return data;
     }
 
     async getLeetcodeProblems() {
-        const data: (prismaClient.LeetcodeProblem & {
-            solutions?: prismaClient.LeetcodeSolution[];
-        })[] = await this.prismaService.leetcodeProblem.findMany({
+        const data = await this.prismaService.leetcodeProblem.findMany({
             include: { solutions: {} },
         });
         return data;
     }
 
     async getServerless() {
-        const data: (prismaClient.Serverless & {
-            codes?: prismaClient.ServerlessCode[];
-        })[] = await this.prismaService.serverless.findMany({
+        const data = await this.prismaService.serverless.findMany({
             include: { codes: {} },
         });
         return data;

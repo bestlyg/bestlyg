@@ -45,11 +45,11 @@
         "@bestlyg/data": "workspace:^",
         "@modern-js/module-tools": "catalog:",
         "@types/node": "catalog:",
-        "prisma": "^6.1.0",
+        "prisma": "catalog:",
         "typescript": "catalog:"
     },
     "dependencies": {
-        "@prisma/client": "^6.1.0",
+        "@prisma/client": "catalog:",
         "dayjs": "catalog:"
     }
 }
