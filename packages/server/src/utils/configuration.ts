@@ -23,6 +23,12 @@ const ConfigurationSchema = z
                 secret: z.string().readonly(),
             })
             .readonly(),
+        user: z
+            .object({
+                username: z.string().readonly(),
+                password: z.string().readonly(),
+            })
+            .readonly(),
     })
     .required();
 

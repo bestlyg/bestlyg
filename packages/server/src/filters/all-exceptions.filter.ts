@@ -22,6 +22,8 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
                 ? exception?.message
                 : ((exception as any)?.message ?? exception?.toString() ?? 'Internal Server Error');
         this.logger.error(`${url} ${status} ${msg}`);
-        response.status(status).json(ResponseEntity.ofFailure(msg, status));
+        response
+            .status(status === HttpStatus.NOT_FOUND ? status : HttpStatus.OK)
+            .json(ResponseEntity.ofFailure(msg, status));
     }
 }

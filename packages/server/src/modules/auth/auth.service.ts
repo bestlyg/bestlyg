@@ -9,8 +9,9 @@ export class AuthService {
         private readonly configService: ConfigService,
     ) {}
     async signIn(username: string, password: string) {
-        const USERNAME = this.configService.get('user.username')
-        const PASSWORD = this.configService.get('user.password')
+        const USERNAME = this.configService.get('user.username');
+        const PASSWORD = this.configService.get('user.password');
+        console.log(username, USERNAME, password, PASSWORD);
         if (username !== USERNAME || password !== PASSWORD) throw new UnauthorizedException();
         const payload = { username };
         return {

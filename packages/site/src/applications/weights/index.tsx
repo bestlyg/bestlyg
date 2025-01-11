@@ -9,11 +9,11 @@ import dayjs from 'dayjs';
 export function Weights() {
     const request = getRequestFn();
     const { data } = useRequest<prismaClient.Xuan[], any>(async () => request('/api/data/xuan'));
-    const containerRef = useRef<HTMLDivElement>();
+    const containerRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (!data || data.length === 0) return;
         const chart = echarts.init(containerRef.current);
-        const option = {
+        const option: any = {
             tooltip: {},
             xAxis: {
                 type: 'category',

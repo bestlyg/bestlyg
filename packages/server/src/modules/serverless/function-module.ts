@@ -1,6 +1,7 @@
 import vm from 'node:vm';
 import ts from 'typescript';
 import _ from 'lodash';
+import { Request, Response } from 'express';
 import { Logger } from '@nestjs/common';
 
 export type FunctionModuleGlobalContext = {
@@ -17,6 +18,9 @@ export type FunctionModuleGlobalContext = {
     query: Record<string, any>;
     body: any;
     headers: Record<string, any>;
+
+    req: Request;
+    res: Response;
 } & PromiseWithResolvers<void>;
 
 export const defaultScriptOptions: vm.RunningScriptOptions = {

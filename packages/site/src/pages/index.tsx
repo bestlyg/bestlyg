@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -8,6 +9,7 @@ import { useRequest } from '@site/src/utils';
 import { useBoolean } from 'ahooks';
 import { Modal, Form, Input, message } from 'antd';
 import styles from './components/index.module.css';
+import { JSX } from 'react';
 
 export function useLogin() {
     const request = useRequest();

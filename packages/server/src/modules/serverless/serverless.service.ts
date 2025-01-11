@@ -1,5 +1,6 @@
 import { Controller, Logger } from '@nestjs/common';
 import { FunctionModule } from './function-module.js';
+import { Request, Response } from 'express';
 import { PrismaService } from '../data/index.js';
 @Controller('/api/serverless')
 export class ServerlessService {
@@ -10,6 +11,8 @@ export class ServerlessService {
         query: Record<string, any>;
         body: any;
         headers: Record<string, any>;
+        req: Request;
+        res: Response;
     }) {
         const data = await this.prismaService.serverlessCode.findFirst({
             where: { name: globalCtx.name },

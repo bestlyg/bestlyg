@@ -20,11 +20,11 @@ export class AppService {
     sendMailWhenStartSuccess() {
         const mode = this.configService.get<Configuration['mode']>('mode');
         this.logger.log(`mode = ${mode}`);
+        const bestEnv = Object.entries(process.env).filter(([k]) => k.startsWith('BESTLYG'));
+        for (const [k, v] of bestEnv) {
+            this.logger.log(`${k}: ${v}`);
+        }
         if (mode === 'production') {
-            const bestEnv = Object.entries(process.env).filter(([k]) => k.startsWith('BESTLYG'));
-            for (const [k, v] of bestEnv) {
-                this.logger.log(`${k}: ${v}`);
-            }
             this.mailService.sendMail(
                 ['1057966749@qq.com'],
                 `服务启动通知`,

@@ -8,7 +8,7 @@ export class ResponseEntity<T> {
         return new ResponseEntity(0, data);
     }
     static ofFailure(err: any, code: number = 1) {
-        return new ResponseEntity(code, err?.message ?? err?.toString() ?? 'Server Error');
+        return new ResponseEntity(code, null, err?.message ?? err?.toString() ?? 'Server Error');
     }
     static from<T>(object: Record<string, any>) {
         return this.of<T>(0)
