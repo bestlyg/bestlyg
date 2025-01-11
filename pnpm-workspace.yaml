@@ -71,3 +71,5 @@ catalog:
 
     prisma: ^6.2.1
     "@prisma/client": ^6.2.1
+
+    "@ant-design/v5-patch-for-react-19": latest

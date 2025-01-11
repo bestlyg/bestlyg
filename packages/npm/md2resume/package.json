@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@ant-design/icons-svg": "catalog:",
+        "@ant-design/v5-patch-for-react-19": "catalog:",
         "ahooks": "catalog:",
         "antd": "catalog:",
         "clsx": "catalog:",
