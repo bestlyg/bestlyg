@@ -3,6 +3,7 @@ import { AppModule } from './app.module.js';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter.js';
 import { LoggingInterceptor } from './interceptors/logging.interceptor.js';
 import { ConfigService } from '@nestjs/config';
+import { PrismaService } from './modules/data/index.js';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -16,6 +17,10 @@ async function bootstrap() {
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+
+    const prismaService = app.get(PrismaService);
+    await prismaService.enableShutdownHooks(app);
+
     const configService = app.get(ConfigService);
     const port = configService.get('server.port');
     await app.listen(port);

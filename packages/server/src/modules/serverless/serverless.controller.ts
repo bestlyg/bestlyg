@@ -14,13 +14,16 @@ import {
 import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessService } from './serverless.service.js';
 import { AuthGuard } from '../auth/index.js';
-import { prisma } from '../../utils/prisma.js';
 import { prismaClient } from '@bestlyg/data';
+import { PrismaService } from '../data/index.js';
 
 @Controller('/api/serverless')
 export class ServerlessController {
     private readonly logger = new Logger(ServerlessController.name);
-    constructor(private readonly serverlessService: ServerlessService) {}
+    constructor(
+        private readonly serverlessService: ServerlessService,
+        private readonly prismaService: PrismaService,
+    ) {}
 
     // @UseGuards(AuthGuard)
     @All('call')
@@ -37,13 +40,13 @@ export class ServerlessController {
 
     @Get('code')
     async getCode(@Query('name') name: string) {
-        const data = await prisma.serverlessCode.findFirst({ where: { name } });
+        const data = await this.prismaService.serverlessCode.findFirst({ where: { name } });
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('code')
     async createCode(@Body() body: prismaClient.ServerlessCode) {
-        const data = await prisma.serverlessCode.create({
+        const data = await this.prismaService.serverlessCode.create({
             data: {
                 name: body.name,
                 code: body.code,
@@ -55,7 +58,7 @@ export class ServerlessController {
 
     @Patch('code')
     async updateCode(@Body() body: prismaClient.ServerlessCode) {
-        const data = await prisma.serverlessCode.update({
+        const data = await this.prismaService.serverlessCode.update({
             data: {
                 code: body.code,
             },
@@ -68,7 +71,7 @@ export class ServerlessController {
 
     @Delete('code')
     async deleteCode(@Body('name') name: string) {
-        const data = await prisma.serverlessCode.delete({
+        const data = await this.prismaService.serverlessCode.delete({
             where: {
                 name,
             },

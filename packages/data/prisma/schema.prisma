@@ -134,11 +134,11 @@ model Secrets {
 }
 
 model Serverless {
-  id             String           @id @default(nanoid())
-  createdTime    DateTime         @default(now()) @map("create_time")
-  updatedTime    DateTime         @default(now()) @updatedAt @map("update_time")
-  name           String           @unique
-  ServerlessCode ServerlessCode[]
+  id          String           @id @default(nanoid())
+  createdTime DateTime         @default(now()) @map("create_time")
+  updatedTime DateTime         @default(now()) @updatedAt @map("update_time")
+  name        String           @unique
+  codes       ServerlessCode[]
 
   @@map("serverless")
 }

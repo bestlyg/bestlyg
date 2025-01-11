@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/index.js';
 import { JwtModule } from '@nestjs/jwt';
 import { MailService } from './services/mail.service.js';
 import { ServerlessModule } from './modules/serverless/index.js';
+import { DataModule } from './modules/data/index.js';
 
 const configuration = getConfiguration();
 
@@ -33,6 +34,7 @@ const configuration = getConfiguration();
             secret: configuration.jwt.secret,
             signOptions: { expiresIn: '100 days' },
         }),
+        DataModule,
         AuthModule,
         ServerlessModule,
     ],

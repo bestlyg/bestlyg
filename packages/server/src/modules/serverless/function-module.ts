@@ -62,7 +62,7 @@ export class FunctionModule {
             removeComments: true,
             inlineSourceMap: true,
         });
-        this.logger.log(transpiledCode);
+        this.logger.log(`\n${transpiledCode}\n`);
         return transpiledCode;
     }
     async compile(code: string, externalGlobalCtx: Partial<FunctionModuleGlobalContext>) {
