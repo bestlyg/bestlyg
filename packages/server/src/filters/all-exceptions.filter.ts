@@ -1,7 +1,8 @@
-import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger, UnprocessableEntityException } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ResponseEntity } from '@bestlyg/common';
 import { Request } from 'express';
+import { ZodError } from 'zod';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
@@ -10,7 +11,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     //     super.catch(exception, host);
     // }
     catch(exception: unknown, host: ArgumentsHost) {
-        // console.error(exception)
+        exception = this.formatZodError(exception);
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const request: Request = ctx.getRequest();
@@ -25,5 +26,15 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         response
             .status(status === HttpStatus.NOT_FOUND ? status : HttpStatus.OK)
             .json(ResponseEntity.ofFailure(msg, status));
+    }
+
+    formatZodError(exception: unknown) {
+        if (exception instanceof ZodError) {
+            const message = exception.errors
+                .map(error => `${error.path.join('.')}: ${error.message}`)
+                .join(', ');
+            return new UnprocessableEntityException(`Input validation failed: ${message}`);
+        }
+        return exception;
     }
 }

@@ -59,13 +59,13 @@ export class DataController {
 
     @Post('serverless-code')
     async createServerlessCode(@Body() body: CreateServerlessCodeDTO) {
-        const data = this.dataService.createServerlessCode(body);
+        const data = await this.dataService.createServerlessCode(body);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch('serverless-code')
     async updateServerlessCode(@Body() body: UpdateServerlessCodeDTO) {
-        const data = this.dataService.updateServerlessCode(body);
+        const data = await this.dataService.updateServerlessCode(body);
         return ResponseEntity.ofSuccess(data);
     }
 
