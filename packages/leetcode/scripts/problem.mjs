@@ -11,17 +11,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '3298. 统计重新排列后包含另一个字符串的子字符串数目 II',
-    url: 'https://leetcode.cn/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-ii',
+    name: '3270. 求出数字答案',
+    url: 'https://leetcode.cn/problems/find-the-key-of-the-numbers',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回 word1 中 合法 子字符串的数目。`,
+    desc: `请你返回三个数字 没有 前导 0 的数字答案。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3674,
-            memory: 24.12,
+            time: 0,
+            memory: 17.66,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
