@@ -16,15 +16,12 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         const request: Request = ctx.getRequest();
         const url = request.url;
 
-        const status =
-            exception instanceof HttpException
-                ? exception.getStatus()
-                : HttpStatus.INTERNAL_SERVER_ERROR;
+        const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.OK;
         const msg =
             exception instanceof HttpException
                 ? exception?.message
                 : ((exception as any)?.message ?? exception?.toString() ?? 'Internal Server Error');
         this.logger.error(`${url} ${status} ${msg}`);
-        response.status(200).json(ResponseEntity.ofFailure(msg, status));
+        response.status(status).json(ResponseEntity.ofFailure(msg, status));
     }
 }
