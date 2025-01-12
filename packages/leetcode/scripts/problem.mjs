@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '3270. 求出数字答案',
-    url: 'https://leetcode.cn/problems/find-the-key-of-the-numbers',
+    name: '2275. 按位与结果大于零的最长组合',
+    url: 'https://leetcode.cn/problems/largest-combination-with-bitwise-and-greater-than-zero',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回三个数字 没有 前导 0 的数字答案。`,
+    desc: `返回按位与结果大于 0 的 最长 组合的长度。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 17.66,
-            desc: '遍历',
+            time: 603,
+            memory: 27.18,
+            desc: '遍历每一位，判断当前位存在1的数字数量，最大值即答案',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
