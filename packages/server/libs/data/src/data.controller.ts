@@ -13,7 +13,17 @@ import {
 import { ResponseEntity } from '@bestlyg/common';
 import { AuthGuard } from '@bestlyg-server/auth';
 import { DataService } from './data.service';
-import { CreateServerlessCodeDto, DeleteServerlessCodeDto, SelectServerlessCodeDto, UpdateServerlessCodeDto } from './data.dto';
+import {
+    CreateServerlessCodeDto,
+    DeleteServerlessCodeDto,
+    SelectServerlessCodeDto,
+    UpdateServerlessCodeDto,
+    SelectServerlessCodeSchema,
+    CreateServerlessCodeSchema,
+    DeleteServerlessCodeSchema,
+    UpdateServerlessCodeSchema,
+} from './data.dto';
+import { ZodValidationPipe } from '@bestlyg-server/common';
 
 @UseGuards(AuthGuard)
 @Controller('/api/data')
@@ -52,24 +62,28 @@ export class DataController {
     }
 
     @Get('serverless-code')
+    @UsePipes(new ZodValidationPipe(SelectServerlessCodeSchema))
     async getServerlessCode(@Query() dto: SelectServerlessCodeDto) {
         const data = await this.dataService.getServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('serverless-code')
+    @UsePipes(new ZodValidationPipe(CreateServerlessCodeSchema))
     async createServerlessCode(@Body() dto: CreateServerlessCodeDto) {
         const data = await this.dataService.createServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch('serverless-code')
+    @UsePipes(new ZodValidationPipe(UpdateServerlessCodeSchema))
     async updateServerlessCode(@Body() dto: UpdateServerlessCodeDto) {
         const data = await this.dataService.updateServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('serverless-code')
+    @UsePipes(new ZodValidationPipe(DeleteServerlessCodeSchema))
     async deleteServerlessCode(@Body() dto: DeleteServerlessCodeDto) {
         const data = await this.dataService.deleteServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);

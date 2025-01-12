@@ -1,4 +1,3 @@
-import { ZodDto, ZOD_SCHEMA } from '@bestlyg-server/common';
 import { z } from 'zod';
 
 export const SelectServerlessCodeSchema = z
@@ -7,12 +6,7 @@ export const SelectServerlessCodeSchema = z
     })
     .readonly();
 
-export type SelectServerlessCode = z.infer<typeof SelectServerlessCodeSchema>;
-
-export class SelectServerlessCodeDto extends ZodDto implements SelectServerlessCode {
-    static [ZOD_SCHEMA] = SelectServerlessCodeSchema;
-    name!: SelectServerlessCode['name'];
-}
+export type SelectServerlessCodeDto = z.infer<typeof SelectServerlessCodeSchema>;
 
 export const CreateServerlessCodeSchema = z
     .object({
@@ -22,14 +16,7 @@ export const CreateServerlessCodeSchema = z
     })
     .readonly();
 
-export type CreateServerlessCode = z.infer<typeof CreateServerlessCodeSchema>;
-
-export class CreateServerlessCodeDto extends ZodDto implements CreateServerlessCode {
-    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
-    name!: CreateServerlessCode['name'];
-    code!: CreateServerlessCode['code'];
-    serverlessId!: CreateServerlessCode['serverlessId'];
-}
+export type CreateServerlessCodeDto = z.infer<typeof CreateServerlessCodeSchema>;
 
 export const UpdateServerlessCodeSchema = z
     .object({
@@ -40,25 +27,23 @@ export const UpdateServerlessCodeSchema = z
     })
     .readonly();
 
-export type UpdateServerlessCode = z.infer<typeof UpdateServerlessCodeSchema>;
-
-export class UpdateServerlessCodeDto extends ZodDto implements UpdateServerlessCode {
-    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
-    serverlessId!: UpdateServerlessCode['serverlessId'];
-    id!: UpdateServerlessCode['id'];
-}
+export type UpdateServerlessCodeDto = z.infer<typeof UpdateServerlessCodeSchema>;
 
 export const DeleteServerlessCodeSchema = z
-    .object({
-        id: z.string().optional().readonly(),
-        name: z.string().optional().readonly(),
-    })
+    .union([
+        z
+            .object({
+                id: z.number().optional().readonly(),
+                name: z.string().readonly(),
+            })
+            .readonly(),
+        z
+            .object({
+                id: z.number().readonly(),
+                name: z.string().optional().readonly(),
+            })
+            .readonly(),
+    ])
     .readonly();
 
-export type DeleteServerlessCode = z.infer<typeof DeleteServerlessCodeSchema>;
-
-export class DeleteServerlessCodeDto extends ZodDto implements DeleteServerlessCode {
-    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
-    id!: DeleteServerlessCode['id'];
-    name!: DeleteServerlessCode['name'];
-}
+export type DeleteServerlessCodeDto = z.infer<typeof DeleteServerlessCodeSchema>;

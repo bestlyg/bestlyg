@@ -60,7 +60,7 @@ export class DataService {
 
     async deleteServerlessCode(dto: DeleteServerlessCodeDto) {
         const res = await this.prismaService.serverlessCode.delete({
-            where: dto,
+            where: dto as any,
         });
         return res;
     }
