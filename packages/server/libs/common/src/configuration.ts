@@ -35,7 +35,10 @@ export type Configuration = z.infer<typeof ConfigurationSchema>;
 
 export type ExtractPromiseResult<T> = T extends Promise<infer R> ? R : T;
 
+let globalConfig: Configuration;
+
 export const getConfiguration = () => {
+    if (globalConfig) return globalConfig;
     const obj = {
         mode: process.env.NODE_ENV,
         server: { port: process.env.BESTLYG_SERVER_PORT },
@@ -53,5 +56,6 @@ export const getConfiguration = () => {
         },
     };
     const config = ConfigurationSchema.parse(obj);
+    globalConfig = config;
     return config;
 };

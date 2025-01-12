@@ -2,7 +2,7 @@ import vm from 'node:vm';
 import ts from 'typescript';
 import _ from 'lodash';
 import { Request, Response } from 'express';
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 export type FunctionModuleGlobalContext = {
     console: typeof globalThis.console;
@@ -59,7 +59,7 @@ export class FunctionModule {
         return ctx;
     }
     transpileCode(code: string): string {
-        code = `(async () => {${code}})().then(resolve, reject)`.trim();
+        code = `(async () => {${code}})()`.trim();
         const transpiledCode = ts.transpile(code, {
             module: ts.ModuleKind.CommonJS,
             target: ts.ScriptTarget.ES2022,
@@ -83,6 +83,15 @@ export class FunctionModule {
                 }, 1000 * 3);
             }),
         ]);
+        return res;
+    }
+}
+
+@Injectable()
+export class FunctionModuleService {
+    async compile(...args: Parameters<InstanceType<typeof FunctionModule>['compile']>) {
+        const module = new FunctionModule();
+        const res = await module.compile(...args);
         return res;
     }
 }

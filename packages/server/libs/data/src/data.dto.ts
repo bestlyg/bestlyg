@@ -1,4 +1,4 @@
-import { ZodDto } from '@bestlyg-server/common';
+import { ZodDto, ZOD_SCHEMA } from '@bestlyg-server/common';
 import { z } from 'zod';
 
 export const SelectServerlessCodeSchema = z
@@ -10,7 +10,7 @@ export const SelectServerlessCodeSchema = z
 export type SelectServerlessCode = z.infer<typeof SelectServerlessCodeSchema>;
 
 export class SelectServerlessCodeDto extends ZodDto implements SelectServerlessCode {
-    static zodSchema = SelectServerlessCodeSchema;
+    static [ZOD_SCHEMA] = SelectServerlessCodeSchema;
     name!: SelectServerlessCode['name'];
 }
 
@@ -25,7 +25,7 @@ export const CreateServerlessCodeSchema = z
 export type CreateServerlessCode = z.infer<typeof CreateServerlessCodeSchema>;
 
 export class CreateServerlessCodeDto extends ZodDto implements CreateServerlessCode {
-    static zodSchema = CreateServerlessCodeSchema;
+    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
     name!: CreateServerlessCode['name'];
     code!: CreateServerlessCode['code'];
     serverlessId!: CreateServerlessCode['serverlessId'];
@@ -43,7 +43,7 @@ export const UpdateServerlessCodeSchema = z
 export type UpdateServerlessCode = z.infer<typeof UpdateServerlessCodeSchema>;
 
 export class UpdateServerlessCodeDto extends ZodDto implements UpdateServerlessCode {
-    static zodSchema = CreateServerlessCodeSchema;
+    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
     serverlessId!: UpdateServerlessCode['serverlessId'];
     id!: UpdateServerlessCode['id'];
 }
@@ -58,7 +58,7 @@ export const DeleteServerlessCodeSchema = z
 export type DeleteServerlessCode = z.infer<typeof DeleteServerlessCodeSchema>;
 
 export class DeleteServerlessCodeDto extends ZodDto implements DeleteServerlessCode {
-    static zodSchema = CreateServerlessCodeSchema;
+    static [ZOD_SCHEMA] = CreateServerlessCodeSchema;
     id!: DeleteServerlessCode['id'];
     name!: DeleteServerlessCode['name'];
 }

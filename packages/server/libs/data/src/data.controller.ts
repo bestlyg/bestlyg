@@ -10,14 +10,12 @@ import {
     UseGuards,
     UsePipes,
 } from '@nestjs/common';
-import { ZodValidationPipe } from '@bestlyg-server/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { AuthGuard } from '@bestlyg-server/auth';
 import { DataService } from './data.service';
 import { CreateServerlessCodeDto, DeleteServerlessCodeDto, SelectServerlessCodeDto, UpdateServerlessCodeDto } from './data.dto';
 
 @UseGuards(AuthGuard)
-@UsePipes(ZodValidationPipe)
 @Controller('/api/data')
 export class DataController {
     private readonly logger = new Logger(DataController.name);

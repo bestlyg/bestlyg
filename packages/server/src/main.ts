@@ -3,11 +3,14 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '@bestlyg-server/common';
-
+import { PrismaService, ZodValidationPipe } from '@bestlyg-server/common';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, {});
+    app.use(compression());
+    app.use(cookieParser());
     app.enableCors({
         origin: true,
         methods: '*',
@@ -18,6 +21,7 @@ async function bootstrap() {
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+    app.useGlobalPipes(new ZodValidationPipe());
 
     const prismaService = app.get(PrismaService);
     await prismaService.enableShutdownHooks(app);

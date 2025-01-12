@@ -1,12 +1,14 @@
 import { Controller, Logger } from '@nestjs/common';
-import { FunctionModule } from './function-module';
 import { Request, Response } from 'express';
-import { PrismaService } from '@bestlyg-server/common';
+import { FunctionModuleService, PrismaService } from '@bestlyg-server/common';
 
 @Controller('/api/serverless')
 export class ServerlessService {
     private readonly logger = new Logger(ServerlessService.name);
-    constructor(private readonly prismaService: PrismaService) {}
+    constructor(
+        private readonly prismaService: PrismaService,
+        private readonly functionModuleService: FunctionModuleService,
+    ) {}
     async call(globalCtx: {
         name: string;
         query: Record<string, any>;
@@ -19,8 +21,7 @@ export class ServerlessService {
             where: { name: globalCtx.name },
         });
         if (!data) throw new Error(`Can not find the serverless code with name ${globalCtx.name}`);
-        const module = new FunctionModule();
-        const res = await module.compile(data.code, globalCtx);
+        const res = await this.functionModuleService.compile(data.code, globalCtx);
         return res;
     }
 }

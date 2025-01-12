@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { ApiController } from './controllers/api.controller';
 import { StaticController } from './controllers/static.controller';
 import { AppService } from './app.service';
-import { resolve, getConfiguration, MailService } from '@bestlyg-server/common';
+import { getConfiguration, MailService } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { server } from '@bestlyg/config';

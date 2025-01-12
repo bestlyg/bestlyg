@@ -1,4 +1,11 @@
-import { Catch, ArgumentsHost, HttpException, HttpStatus, Logger, UnprocessableEntityException } from '@nestjs/common';
+import {
+    Catch,
+    ArgumentsHost,
+    HttpException,
+    HttpStatus,
+    Logger,
+    UnprocessableEntityException,
+} from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ResponseEntity } from '@bestlyg/common';
 import { Request } from 'express';
@@ -6,7 +13,7 @@ import { ZodError } from 'zod';
 
 @Catch()
 export class AllExceptionsFilter extends BaseExceptionFilter {
-    logger = new Logger(AllExceptionsFilter.name);
+    private readonly logger = new Logger(AllExceptionsFilter.name);
     // catch(exception: unknown, host: ArgumentsHost) {
     //     super.catch(exception, host);
     // }
