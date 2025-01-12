@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { prismaClient } from '@bestlyg/data';
 import { PrismaService } from './prisma.service.js';
 import {
-    CreateServerlessCodeDTO,
-    CreateServerlessCodeSchema,
-    UpdateServerlessCodeDTO,
+    CreateServerlessCodeDto,
+    DeleteServerlessCodeDto,
+    SelectServerlessCodeDto,
+    UpdateServerlessCodeDto,
     UpdateServerlessCodeSchema,
 } from './data.dto.js';
 
@@ -40,29 +40,27 @@ export class DataService {
         return data;
     }
 
-    async getServerlessCode(name: string) {
-        const data = await this.prismaService.serverlessCode.findFirst({ where: { name } });
+    async getServerlessCode(dto: SelectServerlessCodeDto) {
+        const data = await this.prismaService.serverlessCode.findFirst({ where: dto });
         return data;
     }
 
-    async createServerlessCode(data: CreateServerlessCodeDTO) {
-        data = await CreateServerlessCodeSchema.parseAsync(data);
-        const res = await this.prismaService.serverlessCode.create({ data });
+    async createServerlessCode(dto: CreateServerlessCodeDto) {
+        const res = await this.prismaService.serverlessCode.create({ data: dto });
         return res;
     }
 
-    async updateServerlessCode(data: UpdateServerlessCodeDTO) {
-        data = await UpdateServerlessCodeSchema.parseAsync(data);
+    async updateServerlessCode(dto: UpdateServerlessCodeDto) {
         const res = await this.prismaService.serverlessCode.update({
-            where: { id: data.id },
-            data,
+            where: { id: dto.id },
+            data: dto,
         });
         return res;
     }
 
-    async deleteServerlessCode({ id, name }: { id?: string; name?: string }) {
+    async deleteServerlessCode(dto: DeleteServerlessCodeDto) {
         const res = await this.prismaService.serverlessCode.delete({
-            where: { id, name },
+            where: dto,
         });
         return res;
     }

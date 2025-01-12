@@ -8,14 +8,16 @@ import {
     Post,
     Query,
     UseGuards,
+    UsePipes,
 } from '@nestjs/common';
-import { prismaClient } from '@bestlyg/data';
+import { ZodValidationPipe } from '../../pipes/zod-validation-pipe.js';
 import { ResponseEntity } from '@bestlyg/common';
 import { AuthGuard } from '../auth/index.js';
 import { DataService } from './data.service.js';
-import { CreateServerlessCodeDTO, UpdateServerlessCodeDTO } from './data.dto.js';
+import { CreateServerlessCodeDto, DeleteServerlessCodeDto, SelectServerlessCodeDto, UpdateServerlessCodeDto } from './data.dto.js';
 
 @UseGuards(AuthGuard)
+@UsePipes(ZodValidationPipe)
 @Controller('/api/data')
 export class DataController {
     private readonly logger = new Logger(DataController.name);
@@ -52,26 +54,26 @@ export class DataController {
     }
 
     @Get('serverless-code')
-    async getServerlessCode(@Query('name') name: string) {
-        const data = await this.dataService.getServerlessCode(name);
+    async getServerlessCode(@Query() dto: SelectServerlessCodeDto) {
+        const data = await this.dataService.getServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('serverless-code')
-    async createServerlessCode(@Body() body: CreateServerlessCodeDTO) {
-        const data = await this.dataService.createServerlessCode(body);
+    async createServerlessCode(@Body() dto: CreateServerlessCodeDto) {
+        const data = await this.dataService.createServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch('serverless-code')
-    async updateServerlessCode(@Body() body: UpdateServerlessCodeDTO) {
-        const data = await this.dataService.updateServerlessCode(body);
+    async updateServerlessCode(@Body() dto: UpdateServerlessCodeDto) {
+        const data = await this.dataService.updateServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('serverless-code')
-    async deleteServerlessCode(@Body('id') id?: string, @Body('name') name?: string) {
-        const data = await this.dataService.deleteServerlessCode({ id, name });
+    async deleteServerlessCode(@Body() dto: DeleteServerlessCodeDto) {
+        const data = await this.dataService.deleteServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 }
