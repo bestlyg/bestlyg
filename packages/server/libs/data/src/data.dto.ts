@@ -1,4 +1,4 @@
-import { ZodDto } from '../../pipes/zod-validation-pipe.js';
+import { ZodDto } from '@bestlyg-server/common';
 import { z } from 'zod';
 
 export const SelectServerlessCodeSchema = z

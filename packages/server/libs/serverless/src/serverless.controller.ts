@@ -10,17 +10,13 @@ import {
     HttpStatus,
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
-import { ServerlessService } from './serverless.service.js';
+import { ServerlessService } from './serverless.service';
 import { Request, Response } from 'express';
-import { PrismaService } from '../data/index.js';
 
 @Controller('/api/serverless')
 export class ServerlessController {
     private readonly logger = new Logger(ServerlessController.name);
-    constructor(
-        private readonly serverlessService: ServerlessService,
-        private readonly prismaService: PrismaService,
-    ) {}
+    constructor(private readonly serverlessService: ServerlessService) {}
 
     // @UseGuards(AuthGuard)
     @All('call')

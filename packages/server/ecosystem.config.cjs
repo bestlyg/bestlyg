@@ -1,12 +1,11 @@
 const best = require('@bestlyg/cli');
 const resolve = best.utils.getResolveFunction(__dirname);
-console.log(resolve());
 
 module.exports = {
     apps: [
         {
             name: 'bestlyg-server',
-            script: resolve('scripts', 'deploy-pm2.js'),
+            script: resolve('dist', 'main.js'),
             interpreter: 'node',
             // interpreter_args: '--input-type=module',
             env: {

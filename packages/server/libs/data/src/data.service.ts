@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from './prisma.service.js';
 import {
     CreateServerlessCodeDto,
     DeleteServerlessCodeDto,
     SelectServerlessCodeDto,
     UpdateServerlessCodeDto,
     UpdateServerlessCodeSchema,
-} from './data.dto.js';
+} from './data.dto';
+import { PrismaService } from '@bestlyg-server/common';
 
 @Injectable()
 export class DataService {

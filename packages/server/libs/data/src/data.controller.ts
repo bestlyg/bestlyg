@@ -10,11 +10,11 @@ import {
     UseGuards,
     UsePipes,
 } from '@nestjs/common';
-import { ZodValidationPipe } from '../../pipes/zod-validation-pipe.js';
+import { ZodValidationPipe } from '@bestlyg-server/common';
 import { ResponseEntity } from '@bestlyg/common';
-import { AuthGuard } from '../auth/index.js';
-import { DataService } from './data.service.js';
-import { CreateServerlessCodeDto, DeleteServerlessCodeDto, SelectServerlessCodeDto, UpdateServerlessCodeDto } from './data.dto.js';
+import { AuthGuard } from '@bestlyg-server/auth';
+import { DataService } from './data.service';
+import { CreateServerlessCodeDto, DeleteServerlessCodeDto, SelectServerlessCodeDto, UpdateServerlessCodeDto } from './data.dto';
 
 @UseGuards(AuthGuard)
 @UsePipes(ZodValidationPipe)

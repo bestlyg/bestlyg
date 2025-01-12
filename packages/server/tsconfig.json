@@ -22,8 +22,15 @@
         "noFallthroughCasesInSwitch": false,
         "typeRoots": ["./node_modules/@types"],
         "strict": true,
-        // "paths": {
-        //     "@/*": ["src/*"]
-        // }
+        "paths": {
+            "@bestlyg-server/data": ["libs/data/src"],
+            "@bestlyg-server/data/*": ["libs/data/src/*"],
+            "@bestlyg-server/common": ["libs/common/src"],
+            "@bestlyg-server/common/*": ["libs/common/src/*"],
+            "@bestlyg-server/auth": ["libs/auth/src"],
+            "@bestlyg-server/auth/*": ["libs/auth/src/*"],
+            "@bestlyg-server/serverless": ["libs/serverless/src"],
+            "@bestlyg-server/serverless/*": ["libs/serverless/src/*"]
+        }
     }
 }

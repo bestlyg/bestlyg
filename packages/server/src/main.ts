@@ -1,9 +1,10 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module.js';
-import { AllExceptionsFilter } from './filters/all-exceptions.filter.js';
-import { LoggingInterceptor } from './interceptors/logging.interceptor.js';
+import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './filters/all-exceptions.filter';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from './modules/data/index.js';
+import { PrismaService } from '@bestlyg-server/common';
+
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);

@@ -1,7 +1,6 @@
 import { Get, Controller, Param, Res, HttpException, HttpStatus } from '@nestjs/common';
-import { resolve } from '../utils/index.js';
 import { Response } from 'express';
-import { ResponseEntity } from '@bestlyg/common';
+import { resolve } from '@bestlyg-server/common';
 import fs from 'fs-extra';
 
 @Controller('/static')

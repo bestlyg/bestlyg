@@ -1,19 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller.js';
-import { ApiController } from './controllers/api.controller.js';
-import { StaticController } from './controllers/static.controller.js';
-import { AppService } from './app.service.js';
-import { resolve, getConfiguration } from './utils/index.js';
+import { AppController } from './app.controller';
+import { ApiController } from './controllers/api.controller';
+import { StaticController } from './controllers/static.controller';
+import { AppService } from './app.service';
+import { resolve, getConfiguration, MailService } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { server } from '@bestlyg/config';
-import { TasksService } from './services/tasks.service.js';
-import { AuthModule } from './modules/auth/index.js';
+import { TasksService } from './services/tasks.service';
+import { AuthModule } from '@bestlyg-server/auth';
 import { JwtModule } from '@nestjs/jwt';
-import { MailService } from './services/mail.service.js';
-import { ServerlessModule } from './modules/serverless/index.js';
-import { DataModule } from './modules/data/index.js';
+import { ServerlessModule } from '@bestlyg-server/serverless';
+import { DataModule } from '@bestlyg-server/data';
 
 const configuration = getConfiguration();
 
@@ -21,7 +20,8 @@ const configuration = getConfiguration();
     imports: [
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({
-            envFilePath: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+            // envFilePath: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
+            ignoreEnvFile: true,
             isGlobal: true,
             load: [getConfiguration],
         }),

@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { MailService } from './services/mail.service.js';
 import { ConfigService } from '@nestjs/config';
-import { Configuration } from './utils/index.js';
+import { Configuration, MailService } from '@bestlyg-server/common';
 
 @Injectable()
 export class AppService {
