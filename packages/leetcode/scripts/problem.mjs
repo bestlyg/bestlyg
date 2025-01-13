@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '2275. 按位与结果大于零的最长组合',
-    url: 'https://leetcode.cn/problems/largest-combination-with-bitwise-and-greater-than-zero',
+    name: '2270. 分割数组的方案数',
+    url: 'https://leetcode.cn/problems/number-of-ways-to-split-array',
     level: 'Easy',
     tagList: [],
-    desc: `返回按位与结果大于 0 的 最长 组合的长度。`,
+    desc: `请你返回 nums 中的 合法分割 方案数。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 603,
-            memory: 27.18,
-            desc: '遍历每一位，判断当前位存在1的数字数量，最大值即答案',
+            time: 57,
+            memory: 31.80,
+            desc: '前缀和遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

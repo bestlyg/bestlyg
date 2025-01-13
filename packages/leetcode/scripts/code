@@ -1,10 +1,10 @@
 class Solution:
-    def largestCombination(self, candidates: List[int]) -> int:
+    def waysToSplitArray(self, nums: List[int]) -> int:
+        r = sum(nums)
+        l = 0
         res = 0
-        for i in range(32):
-            cnt = 0
-            for v in candidates:
-                if v >> i & 1:
-                    cnt += 1
-            res = max(res, cnt)
+        for i in range(len(nums) - 1):
+            r -= nums[i]
+            l += nums[i]
+            if l >= r: res += 1
         return res
