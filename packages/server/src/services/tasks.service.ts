@@ -6,14 +6,16 @@ import { execSync } from 'child_process';
 
 @Injectable()
 export class TasksService {
+    private readonly logger = new Logger(TasksService.name);
+
     constructor(private readonly mailService: MailService) {}
+
     async sendMailToLyg(name: string, content: string) {
         await this.mailService.sendMail(['1057966749@qq.com'], `定时提醒-${name}`, content);
     }
     async sendMailToYzx(name: string, content: string) {
         await this.mailService.sendMail(['2428047022@qq.com'], `定时提醒-${name}`, content);
     }
-    private readonly logger = new Logger(TasksService.name);
 
     @Cron('0 0 0 * * *')
     async backupDB() {
@@ -21,6 +23,7 @@ export class TasksService {
         this.logger.log(`backup: ${cmd}`);
         execSync(cmd);
     }
+
     @Cron('0 0 8,20 * * *')
     async daily() {
         const now = dayjs();
@@ -44,6 +47,7 @@ export class TasksService {
         );
         await this.sendMailToLyg(subject, content);
     }
+
     @Cron('0 55 9 * * 3')
     async coupon3() {
         await this.sendMailToYzx('抢劵', '抢劵');

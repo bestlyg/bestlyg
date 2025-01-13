@@ -1,14 +1,15 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Configuration, MailService } from '@bestlyg-server/common';
 
 @Injectable()
-export class AppService {
+export class AppService implements OnApplicationBootstrap {
     private readonly logger = new Logger(AppService.name);
     constructor(
         private readonly mailService: MailService,
         private readonly configService: ConfigService,
     ) {}
+
     getHello(): string {
         return 'Hello World!';
     }
