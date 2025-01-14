@@ -6,4 +6,10 @@ import { ClientService } from './client.service';
 export class ClientController {
     private readonly logger = new Logger(ClientController.name);
     constructor(private readonly clientService: ClientService) {}
+
+    @Get('/sidebars')
+    async getSidebars() {
+        const data = await this.clientService.getSidebars();
+        return ResponseEntity.ofSuccess(data);
+    }
 }

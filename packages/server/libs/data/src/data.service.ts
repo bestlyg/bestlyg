@@ -4,7 +4,6 @@ import {
     DeleteServerlessCodeDto,
     SelectServerlessCodeDto,
     UpdateServerlessCodeDto,
-    UpdateServerlessCodeSchema,
 } from './data.dto';
 import { PrismaService } from '@bestlyg-server/common';
 
