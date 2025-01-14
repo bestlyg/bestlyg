@@ -1,13 +1,12 @@
-import { Get, Controller, Param, Res, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import { resolve } from '@bestlyg-server/common';
 import fs from 'fs-extra';
+import { resolve } from '@bestlyg-server/common';
 
-@Controller('/static')
-export class StaticController {
+@Injectable()
+export class StaticService {
     private readonly staticPath = resolve('node_modules', '@bestlyg/', 'static');
-    @Get('*')
-    async staticFile(@Param() params: string, @Res() res: Response) {
+    async getStaticFile(params: string[], res: Response) {
         const filePath = resolve(this.staticPath, params[0]);
         const exist = await fs.exists(filePath);
         if (!exist) throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);

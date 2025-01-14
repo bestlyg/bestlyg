@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { ApiController } from './controllers/api.controller';
-import { StaticController } from './controllers/static.controller';
 import { AppService } from './app.service';
 import { getConfiguration, MailService } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -13,6 +11,8 @@ import { AuthModule } from '@bestlyg-server/auth';
 import { JwtModule } from '@nestjs/jwt';
 import { ServerlessModule } from '@bestlyg-server/serverless';
 import { DataModule } from '@bestlyg-server/data';
+import { StaticModule } from '@bestlyg-server/static';
+import { ApiModule } from '@bestlyg-server/api';
 
 const configuration = getConfiguration();
 
@@ -37,8 +37,10 @@ const configuration = getConfiguration();
         DataModule,
         AuthModule,
         ServerlessModule,
+        StaticModule,
+        ApiModule,
     ],
-    controllers: [AppController, ApiController, StaticController],
+    controllers: [AppController],
     providers: [AppService, TasksService, MailService],
 })
 export class AppModule {}

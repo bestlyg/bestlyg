@@ -1,36 +1,68 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "removeComments": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": ["ESNext"],
-        "moduleResolution": "Bundler",
-        "sourceMap": true,
-        "outDir": "./dist",
-        "esModuleInterop": true,
-        "baseUrl": "./",
-        "incremental": true,
-        "skipLibCheck": true,
-        "strictNullChecks": true,
-        "noImplicitAny": false,
-        "strictBindCallApply": false,
-        "forceConsistentCasingInFileNames": false,
-        "noFallthroughCasesInSwitch": false,
-        "typeRoots": ["./node_modules/@types"],
-        "strict": true,
-        "paths": {
-            "@bestlyg-server/data": ["libs/data/src"],
-            "@bestlyg-server/data/*": ["libs/data/src/*"],
-            "@bestlyg-server/common": ["libs/common/src"],
-            "@bestlyg-server/common/*": ["libs/common/src/*"],
-            "@bestlyg-server/auth": ["libs/auth/src"],
-            "@bestlyg-server/auth/*": ["libs/auth/src/*"],
-            "@bestlyg-server/serverless": ["libs/serverless/src"],
-            "@bestlyg-server/serverless/*": ["libs/serverless/src/*"]
-        }
+  "compilerOptions": {
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    "moduleResolution": "Bundler",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "strict": true,
+    "paths": {
+      "@bestlyg-server/data": [
+        "libs/data/src"
+      ],
+      "@bestlyg-server/data/*": [
+        "libs/data/src/*"
+      ],
+      "@bestlyg-server/common": [
+        "libs/common/src"
+      ],
+      "@bestlyg-server/common/*": [
+        "libs/common/src/*"
+      ],
+      "@bestlyg-server/auth": [
+        "libs/auth/src"
+      ],
+      "@bestlyg-server/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@bestlyg-server/serverless": [
+        "libs/serverless/src"
+      ],
+      "@bestlyg-server/serverless/*": [
+        "libs/serverless/src/*"
+      ],
+      "@bestlyg-server/api": [
+        "libs/api/src"
+      ],
+      "@bestlyg-server/api/*": [
+        "libs/api/src/*"
+      ],
+      "@bestlyg-server/static": [
+        "libs/static/src"
+      ],
+      "@bestlyg-server/static/*": [
+        "libs/static/src/*"
+      ]
     }
+  }
 }
