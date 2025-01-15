@@ -11,8 +11,8 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '3065. 超过阈值的最少操作数 I',
-    url: 'https://leetcode.cn/problems/minimum-operations-to-exceed-threshold-value-i',
+    name: '3066. 超过阈值的最少操作数 II',
+    url: 'https://leetcode.cn/problems/minimum-operations-to-exceed-threshold-value-ii',
     level: 'Easy',
     tagList: [],
     desc: `你需要使数组中的所有元素都大于或等于 k ，请你返回需要的 最少 操作次数。`,
@@ -20,9 +20,9 @@ export const problem = {
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 17.72,
-            desc: '遍历',
+            time: 295,
+            memory:34.67,
+            desc: '堆排序',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
