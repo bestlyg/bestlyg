@@ -1,0 +1,55 @@
+syntax = "proto2";
+
+package api.bestlyg;
+
+message BestlygHealthRequest {
+  // 环境变量
+  optional string env = 1;
+}
+
+message Item {
+  // xxx
+  required int32 a = 1;
+  optional Item parent = 2;
+}
+
+message BestlygHealthResponse {
+  required int32 code = 1;
+  optional string msg = 2;
+  // 会返回BestlygHealthRequest请求中的env，如果没有env就返回bestlyg
+  required string data = 3;
+  optional Item item = 4;
+}
+
+service BestlygService {
+  rpc HealthCheck (BestlygHealthRequest) returns (BestlygHealthResponse) {
+    option (api.url) = "'/api/health'";
+    option (api.method) = "'get'";
+    option (api.serializer) = "'json'";
+  }
+}
+
+message GetSidebarsRequest {}
+
+message SidebarItem {
+  required string name = 1;
+  required string link = 2;
+}
+
+message SidebarGroup {
+  required string name = 1;
+  repeated SidebarItem items = 2;
+  repeated SidebarGroup groups = 3;
+}
+
+message GetSidebarsResponse {
+  repeated SidebarGroup groups = 1;
+}
+
+service ClientService {
+  rpc GetSidebars (GetSidebarsRequest) returns (GetSidebarsResponse) {
+    option (api.url) = "'/api/client/sidebars'";
+    option (api.method) = "'get'";
+    option (api.serializer) = "'json'";
+  }
+}

@@ -65,5 +65,8 @@
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
         "typescript": "catalog:"
+    },
+    "dependencies": {
+        "axios": "catalog:"
     }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { resolve } from '@bestlyg-server/common';
 import { DataService } from '@bestlyg-server/data';
+import idl from '@bestlyg/common/idl/server';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -13,30 +14,72 @@ type DocItem = {
 
 @Injectable()
 export class ClientService {
+    private readonly categoryFileName = '_category_';
     private readonly staticPath = resolve('node_modules', '@bestlyg/', 'static');
     constructor(private readonly dataService: DataService) {}
-    async getDocs(p = this.staticPath): Promise<DocItem | null> {
+    async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
+        type: 'group' | 'item';
+        category?: { position: number };
+        data: idl.api.bestlyg.SidebarGroup | idl.api.bestlyg.SidebarItem;
+    } | null> {
         const stat = await fs.stat(p);
         const name = path.basename(p);
         if (stat.isDirectory()) {
             const subDirs = await fs.readdir(p);
-            const item: DocItem = { name, type: 'dir', children: [] };
+            const data: idl.api.bestlyg.SidebarGroup = {
+                name,
+            };
+            const category = { position: Infinity };
+            const groupMetaList: {
+                type: 'group';
+                category: { position: number };
+                data: idl.api.bestlyg.SidebarGroup;
+            }[] = [];
             for (const name of subDirs) {
                 const subPath = resolve(p, name);
                 const res = await this.getDocs(subPath);
-                if (res) item.children?.push(res);
+                if (res) {
+                    if (res.type === 'group') {
+                        groupMetaList.push(res as any);
+                        const v = res.data as idl.api.bestlyg.SidebarGroup;
+                        data.groups ??= [];
+                        data.groups.push(v);
+                    } else if (res.type === 'item') {
+                        const v = res.data as idl.api.bestlyg.SidebarItem;
+                        if (v.name === this.categoryFileName) {
+                            const json = await fs.readJson(resolve(this.staticPath, v.link));
+                            Object.assign(category, json);
+                        } else {
+                            data.items ??= [];
+                            data.items.push(v);
+                        }
+                    }
+                }
             }
-            return item;
+            data.groups?.sort((g1, g2) => {
+                const meta1 = groupMetaList.find(v => v.data === g1)!;
+                const meta2 = groupMetaList.find(v => v.data === g2)!;
+                return meta1.category.position - meta2.category.position;
+            });
+            return { data, type: 'group', category };
         } else if (stat.isFile()) {
-            const item: DocItem = { name, type: 'file', link: path.relative(this.staticPath, p) };
-            return item;
+            const data: idl.api.bestlyg.SidebarItem = {
+                name: name.replace(path.extname(name), ''),
+                link: path.relative(this.staticPath, p),
+            };
+            return { data, type: 'item' };
         }
         return null;
     }
 
-    async getSidebars() {
-        const docs = await this.getDocs(resolve(this.staticPath, 'docs'))!;
-        const leetcodeProblems = await this.dataService.getLeetcodeProblems();
-        return { docs, leetcodeProblems };
+    async getGroups(): Promise<idl.api.bestlyg.SidebarGroup[]> {
+        const docs = (await this.getDocs())!.data as idl.api.bestlyg.SidebarGroup;
+        return [...(docs.groups ?? [])];
+    }
+
+    async getSidebars(): Promise<idl.api.bestlyg.ClientService.GetSidebars.Response> {
+        // const docs = await this.getDocs(resolve(this.staticPath, 'docs'))!;
+        // const leetcodeProblems = await this.dataService.getLeetcodeProblems();
+        return { groups: await this.getGroups() };
     }
 }

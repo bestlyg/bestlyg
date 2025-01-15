@@ -15,6 +15,9 @@ catalogs:
     '@types/node':
       specifier: ^20.17.10
       version: 20.17.10
+    axios:
+      specifier: ^1.7.9
+      version: 1.7.9
     typescript:
       specifier: ^5.7.2
       version: 5.7.2
@@ -22,6 +25,10 @@ catalogs:
 importers:
 
   .:
+    dependencies:
+      axios:
+        specifier: 'catalog:'
+        version: 1.7.9
     devDependencies:
       '@bestlyg/cli':
         specifier: workspace:^
@@ -717,8 +724,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  axios@1.7.7:
-    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
+  axios@1.7.9:
+    resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -2160,7 +2167,7 @@ snapshots:
       '@modern-js/plugin-i18n': 2.63.5
       '@modern-js/utils': 2.63.5
       '@swc/helpers': 0.5.13
-      axios: 1.7.7
+      axios: 1.7.9
       resolve-from: 5.0.0
     transitivePeerDependencies:
       - debug
@@ -2320,7 +2327,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.7.7:
+  axios@1.7.9:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.0
