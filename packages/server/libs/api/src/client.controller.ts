@@ -10,12 +10,22 @@ export class ClientController {
     constructor(private readonly clientService: ClientService) {}
 
     @RequestMapping({
-        path: idl.api.bestlyg.ClientService.GetSidebars.url,
-        method: getRequestMethod(idl.api.bestlyg.ClientService.GetSidebars.method),
+        path: idl.api.bestlyg.ClientService.GetDocsSidebars.url,
+        method: getRequestMethod(idl.api.bestlyg.ClientService.GetDocsSidebars.method),
     })
-    async getSidebars() {
-        const data: idl.api.bestlyg.ClientService.GetSidebars.Response =
-            await this.clientService.getSidebars();
+    async getDocsSidebars() {
+        const data: idl.api.bestlyg.ClientService.GetDocsSidebars.Response =
+            await this.clientService.getDocsSidebars();
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @RequestMapping({
+        path: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.url,
+        method: getRequestMethod(idl.api.bestlyg.ClientService.GetLeetcodeSidebars.method),
+    })
+    async getLeetcodeSidebars() {
+        const data: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response =
+            await this.clientService.getLeetcodeSidebars();
         return ResponseEntity.ofSuccess(data);
     }
 }

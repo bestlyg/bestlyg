@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { fetch } from '@/idl/utils/index';
+import { fetch } from '@/idl/utils/fetch';
 export interface BestlygHealthRequest {
     /** 环境变量 */
     env?: string;
@@ -27,17 +27,20 @@ export interface BestlygHealthResponse {
 
 export namespace BestlygService {
     export namespace HealthCheck {
+    
         export type Request = BestlygHealthRequest;
+    
         export type Response = BestlygHealthResponse;
+    
         export const url = '/api/health';
+    
         export const method = 'get';
+    
         export const serializer = 'json';
+    
         
+    
     }
-}
-
-export interface GetSidebarsRequest {
-
 }
 
 export interface SidebarItem {
@@ -54,17 +57,52 @@ export interface SidebarGroup {
     groups?: SidebarGroup[];
 }
 
-export interface GetSidebarsResponse {
+export interface GetDocsSidebarsRequest {
+
+}
+
+export interface GetDocsSidebarsResponse {
+    groups?: SidebarGroup[];
+}
+
+export interface GetLeetcodeSidebarsRequest {
+
+}
+
+export interface GetLeetcodeSidebarsResponse {
     groups?: SidebarGroup[];
 }
 
 export namespace ClientService {
-    export namespace GetSidebars {
-        export type Request = GetSidebarsRequest;
-        export type Response = GetSidebarsResponse;
-        export const url = '/api/client/sidebars';
+    export namespace GetDocsSidebars {
+    
+        export type Request = GetDocsSidebarsRequest;
+    
+        export type Response = GetDocsSidebarsResponse;
+    
+        export const url = '/api/client/docs/sidebars';
+    
         export const method = 'get';
+    
         export const serializer = 'json';
+    
         
+    
+    }
+
+    export namespace GetLeetcodeSidebars {
+    
+        export type Request = GetLeetcodeSidebarsRequest;
+    
+        export type Response = GetLeetcodeSidebarsResponse;
+    
+        export const url = '/api/client/leetcode/sidebars';
+    
+        export const method = 'get';
+    
+        export const serializer = 'json';
+    
+        
+    
     }
 }

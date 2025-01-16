@@ -25,6 +25,18 @@
             "require": "./*",
             "default": "./*"
         },
+        "./idl/utils": {
+            "types": "./dist/types/idl/utils/index.d.ts",
+            "import": "./dist/esm/idl/utils/index.js",
+            "require": "./dist/lib/idl/utils/index.cjs",
+            "default": "./dist/esm/idl/utils/index.js"
+        },
+        "./idl/utils/*": {
+            "types": "./dist/types/idl/utils/*",
+            "import": "./dist/esm/idl/utils/*",
+            "require": "./dist/lib/idl/utils/*",
+            "default": "./dist/esm/idl/utils/*"
+        },
         "./idl/client": {
             "types": "./dist/types/idl/client/index.d.ts",
             "import": "./dist/esm/idl/client/index.js",
@@ -67,6 +79,7 @@
         "typescript": "catalog:"
     },
     "dependencies": {
-        "axios": "catalog:"
+        "axios": "catalog:",
+        "tapable": "^2.2.1"
     }
 }

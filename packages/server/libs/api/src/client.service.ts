@@ -1,16 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
 import { DataService } from '@bestlyg-server/data';
 import idl from '@bestlyg/common/idl/server';
 import fs from 'fs-extra';
 import path from 'path';
-
-type DocItem = {
-    type: 'dir' | 'file';
-    name: string;
-    link?: string;
-    children?: DocItem[];
-};
 
 @Injectable()
 export class ClientService {
@@ -77,9 +71,24 @@ export class ClientService {
         return [...(docs.groups ?? [])];
     }
 
-    async getSidebars(): Promise<idl.api.bestlyg.ClientService.GetSidebars.Response> {
-        // const docs = await this.getDocs(resolve(this.staticPath, 'docs'))!;
-        // const leetcodeProblems = await this.dataService.getLeetcodeProblems();
+    async getDocsSidebars(): Promise<idl.api.bestlyg.ClientService.GetDocsSidebars.Response> {
         return { groups: await this.getGroups() };
+    }
+
+    async getLeetcodeSidebars(): Promise<idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response> {
+        const problems = await this.dataService.getLeetcodeProblems();
+        const groups: idl.api.bestlyg.SidebarGroup[] = [];
+        for (const problem of problems) {
+            const dirName = getDirNameFromProblemName(problem.name);
+            let group = groups.find(v => v.name === dirName);
+            if (!group) groups.push((group = { name: dirName, items: [] }));
+            group.items?.push({
+                name: problem.name,
+                link: problem.name,
+            });
+        }
+        groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));
+        groups.sort((a, b) => dirSort(a.name, b.name));
+        return { groups };
     }
 }

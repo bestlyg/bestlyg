@@ -23,9 +23,9 @@ export class XIdl extends XIdlCore {
         this.bindHooks(createHooks());
         this.hooks.gen.onGenMethodField.tapPromise(prefix, async code => {
             const content = [
-                `export const request = async (req: Request) => {`,
+                `export const request = async (data: Request): Promise<Response> => {`,
                 this.contactIndent({
-                    content: `return fetch<Request, Response>({ url, method, serializer, data: req });`,
+                    content: `return fetch({ url, method, serializer, data });`,
                 }),
                 `};`,
             ].join('\n');

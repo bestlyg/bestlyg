@@ -29,8 +29,6 @@ service BestlygService {
   }
 }
 
-message GetSidebarsRequest {}
-
 message SidebarItem {
   required string name = 1;
   required string link = 2;
@@ -42,13 +40,27 @@ message SidebarGroup {
   repeated SidebarGroup groups = 3;
 }
 
-message GetSidebarsResponse {
+message GetDocsSidebarsRequest {}
+
+message GetDocsSidebarsResponse {
+  repeated SidebarGroup groups = 1;
+}
+
+message GetLeetcodeSidebarsRequest {}
+
+message GetLeetcodeSidebarsResponse {
   repeated SidebarGroup groups = 1;
 }
 
 service ClientService {
-  rpc GetSidebars (GetSidebarsRequest) returns (GetSidebarsResponse) {
-    option (api.url) = "'/api/client/sidebars'";
+  rpc GetDocsSidebars (GetDocsSidebarsRequest) returns (GetDocsSidebarsResponse) {
+    option (api.url) = "'/api/client/docs/sidebars'";
+    option (api.method) = "'get'";
+    option (api.serializer) = "'json'";
+  }
+
+  rpc GetLeetcodeSidebars (GetLeetcodeSidebarsRequest) returns (GetLeetcodeSidebarsResponse) {
+    option (api.url) = "'/api/client/leetcode/sidebars'";
     option (api.method) = "'get'";
     option (api.serializer) = "'json'";
   }

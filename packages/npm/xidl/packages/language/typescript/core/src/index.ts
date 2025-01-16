@@ -82,9 +82,9 @@ export class XIdl extends XIdlCore {
             );
         });
         this.hooks.gen.onGenService.tapPromise(prefix, async (code, obj) => {
-            const methodStr = await Promise.all(
-                obj.methodsArray.map(method => this.genObj(method)),
-            );
+            const methodStr = (
+                await Promise.all(obj.methodsArray.map(method => this.genObj(method)))
+            ).join(this.config.splitChar);
             return (
                 code +
                 (await this.genComment({
@@ -112,7 +112,7 @@ export class XIdl extends XIdlCore {
                     await this.hooks.gen.onGenMethodField.promise('', obj),
                 ].map(content => this.contactIndent({ content })),
                 '}',
-            ].join('\n');
+            ].join(this.config.splitChar);
             return (
                 code +
                 (await this.genComment({
