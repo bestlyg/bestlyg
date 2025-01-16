@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '3066. 超过阈值的最少操作数 II',
-    url: 'https://leetcode.cn/problems/minimum-operations-to-exceed-threshold-value-ii',
+    name: '3095. 或值至少 K 的最短子数组 I',
+    url: 'https://leetcode.cn/problems/shortest-subarray-with-or-at-least-k-i',
     level: 'Easy',
     tagList: [],
-    desc: `你需要使数组中的所有元素都大于或等于 k ，请你返回需要的 最少 操作次数。`,
+    desc: `给你一个 非负 整数数组 nums 和一个整数 k 。如果一个数组中所有元素的按位或运算 OR 的值 至少 为 k ，那么我们称这个数组是 特别的 。请你返回 nums 中 最短特别非空 子数组的长度，如果特别子数组不存在，那么返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 295,
-            memory:34.67,
-            desc: '堆排序',
+            time: 43,
+            memory:17.7,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
