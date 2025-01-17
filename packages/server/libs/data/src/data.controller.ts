@@ -49,9 +49,15 @@ export class DataController {
         return ResponseEntity.ofSuccess(data);
     }
 
-    @Get('leetcode')
-    async getLeetcodeProblems() {
-        const data = await this.dataService.getLeetcodeProblems();
+    @Get('leetcode/problem/list')
+    async getLeetcodeProblemList() {
+        const data = await this.dataService.getLeetcodeProblemList();
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Get('leetcode/problem')
+    async getLeetcodeProblems(@Query('name') name: string) {
+        const data = await this.dataService.getLeetcodeProblem({ name });
         return ResponseEntity.ofSuccess(data);
     }
 

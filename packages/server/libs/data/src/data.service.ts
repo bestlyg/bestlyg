@@ -25,10 +25,16 @@ export class DataService {
         return data;
     }
 
-    async getLeetcodeProblems() {
-        const data = await this.prismaService.leetcodeProblem.findMany({
+    async getLeetcodeProblem({ name }: { name: string }) {
+        const data = await this.prismaService.leetcodeProblem.findFirst({
             include: { solutions: {} },
+            where: { name },
         });
+        return data;
+    }
+
+    async getLeetcodeProblemList() {
+        const data = await this.prismaService.leetcodeProblem.findMany();
         return data;
     }
 

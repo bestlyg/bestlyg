@@ -76,7 +76,7 @@ export class ClientService {
     }
 
     async getLeetcodeSidebars(): Promise<idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response> {
-        const problems = await this.dataService.getLeetcodeProblems();
+        const problems = await this.dataService.getLeetcodeProblemList();
         const groups: idl.api.bestlyg.SidebarGroup[] = [];
         for (const problem of problems) {
             const dirName = getDirNameFromProblemName(problem.name);
@@ -89,6 +89,13 @@ export class ClientService {
         }
         groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));
         groups.sort((a, b) => dirSort(a.name, b.name));
-        return { groups };
+        return {
+            groups: [
+                {
+                    name: 'LeetCode',
+                    groups,
+                },
+            ],
+        };
     }
 }

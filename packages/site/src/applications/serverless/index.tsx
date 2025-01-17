@@ -8,7 +8,6 @@ import hljs from 'highlight.js';
 import typescript from 'highlight.js/lib/languages/typescript';
 import 'highlight.js/styles/github.css';
 import _ from 'lodash';
-import { ResponseEntity } from '@bestlyg/common';
 
 export function Serverless() {
     const request = getRequestFn();

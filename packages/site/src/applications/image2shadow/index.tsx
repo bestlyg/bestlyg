@@ -16,7 +16,7 @@ function getImageData(image: HTMLImageElement) {
 
 export function Image2Shadow() {
     const [file, setFile] = useState<File | null>(null);
-    const shadowRef = useRef<HTMLDivElement>();
+    const shadowRef = useRef<HTMLDivElement>({} as HTMLDivElement);
     const [options, setOptions] = useState<{
         imageData: number[];
         image: HTMLImageElement;
