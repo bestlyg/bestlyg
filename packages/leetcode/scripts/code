@@ -1,20 +1,14 @@
+list = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
 class Solution:
-    def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
-        bits = [0] * 32
-        def check():
-            return sum(1 << i for i in range(32) if bits[i]) >= k
-        def update(num: int, offset: int):
-            for i in range(32):
-                if num >> i & 1:
-                    bits[i] += offset
-        l = -1
-        res = inf
-        for r in range(len(nums)):
-            update(nums[r], 1)
-            while l + 1 <= r and check():
-                update(nums[l + 1], -1)
-                l += 1
-            if l >= 0: update(nums[l], 1)
-            if check(): res = min(res, r - l + 1)
-            if l >= 0: update(nums[l], -1)
-        return res if res != inf else -1
+    def countTexts(self, pressedKeys: str) -> int:
+        mod = 10 ** 9 + 7
+        @cache
+        def dfs(idx: int, pch : str) -> int:
+            if idx == len(pressedKeys): return 1
+            cnum = int(pressedKeys[idx])
+            pnum = int(pressedKeys[idx - 1])
+            res = dfs(idx + 1, list[cnum][0])
+            if pnum == cnum and pch != list[pnum][-1]:
+                res += dfs(idx + 1, list[pnum][list[pnum].index(pch) + 1])
+            return res % mod
+        return dfs(1, list[int(pressedKeys[0])][0]) % mod
