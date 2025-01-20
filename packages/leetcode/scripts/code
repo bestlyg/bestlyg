@@ -1,14 +1,7 @@
-list = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
 class Solution:
-    def countTexts(self, pressedKeys: str) -> int:
-        mod = 10 ** 9 + 7
-        @cache
-        def dfs(idx: int, pch : str) -> int:
-            if idx == len(pressedKeys): return 1
-            cnum = int(pressedKeys[idx])
-            pnum = int(pressedKeys[idx - 1])
-            res = dfs(idx + 1, list[cnum][0])
-            if pnum == cnum and pch != list[pnum][-1]:
-                res += dfs(idx + 1, list[pnum][list[pnum].index(pch) + 1])
-            return res % mod
-        return dfs(1, list[int(pressedKeys[0])][0]) % mod
+    def findClosestNumber(self, nums: List[int]) -> int:
+        res = inf
+        for num in nums:
+            if abs(num) < abs(res) or abs(num) == abs(res) and num > res:
+                res = num
+        return res

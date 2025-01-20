@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '2266. 统计打字方案数',
-    url: 'https://leetcode.cn/problems/count-number-of-texts',
+    name: '2239. 找到最接近 0 的数字',
+    url: 'https://leetcode.cn/problems/find-closest-number-to-zero',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 pressedKeys ，表示 Bob 收到的字符串，请你返回 Alice 总共可能发出多少种文字信息 。`,
+    desc: `给你一个长度为 n 的整数数组 nums ，请你返回 nums 中最 接近 0 的数字。如果有多个答案，请你返回它们中的 最大值 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 2411,
-            memory: 561.98,
-            desc: 'dfs',
+            time: 0,
+            memory: 17.68,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
