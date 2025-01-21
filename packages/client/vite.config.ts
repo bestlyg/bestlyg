@@ -21,7 +21,7 @@ export default defineConfig({
         },
     },
     define: {
-        [`process.env.NODE_ENV`]: JSON.stringify(process.env.NODE_ENV),
+        __MODE__: JSON.stringify(process.env.NODE_ENV),
     },
     server: {
         port: 10001,
