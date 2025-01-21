@@ -25,7 +25,7 @@ await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static',
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 // build
-await run('pnpm nx run-many -t build --verbose');
+// await run('pnpm nx run-many -t build --verbose');
 // copy
 // await run('pnpm --filter @bestlyg/site run deploy');
 // await run('pnpm --filter md2resume run deploy');
