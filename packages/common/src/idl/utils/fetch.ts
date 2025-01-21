@@ -11,7 +11,7 @@ export const hooks = Object.freeze({
     onError: new tapable.AsyncParallelHook<[ResponseEntity<any>]>(['entity']),
 });
 
-export async function fetch({
+export async function fetch<Req = any, Res = any>({
     url,
     method,
     data,
@@ -19,8 +19,8 @@ export async function fetch({
     method: string;
     url: string;
     serializer: string;
-    data: any;
-}) {
+    data: Req;
+}): Promise<Res> {
     try {
         const token = localStorage.getItem('x-token');
         method = method.toLowerCase();
