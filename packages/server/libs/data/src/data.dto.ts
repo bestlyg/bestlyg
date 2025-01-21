@@ -33,13 +33,13 @@ export const DeleteServerlessCodeSchema = z
     .union([
         z
             .object({
-                id: z.number().optional().readonly(),
+                id: z.string().optional().readonly(),
                 name: z.string().readonly(),
             })
             .readonly(),
         z
             .object({
-                id: z.number().readonly(),
+                id: z.string().readonly(),
                 name: z.string().optional().readonly(),
             })
             .readonly(),

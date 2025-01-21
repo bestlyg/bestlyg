@@ -1,8 +1,8 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { FunctionModuleService, PrismaService } from '@bestlyg-server/common';
 
-@Controller('/api/serverless')
+@Injectable()
 export class ServerlessService {
     private readonly logger = new Logger(ServerlessService.name);
     constructor(
