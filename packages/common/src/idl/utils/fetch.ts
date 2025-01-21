@@ -7,7 +7,7 @@ declare const __MODE__: string;
 export const MODE = typeof __MODE__ !== 'undefined' ? __MODE__ : 'development';
 
 export const request = axios.create({
-    baseURL: MODE === 'production' ? 'http://www.bestlyg.com' : 'http://localhost:10000',
+    baseURL: MODE === 'production' ? 'https://www.bestlyg.com' : 'http://localhost:10000',
 });
 
 export const hooks = Object.freeze({
