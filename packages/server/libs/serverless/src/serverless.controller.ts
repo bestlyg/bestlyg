@@ -13,7 +13,7 @@ import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessService } from './serverless.service';
 import { Request, Response } from 'express';
 
-@Controller('/api/serverless')
+@Controller('/serverless')
 export class ServerlessController {
     private readonly logger = new Logger(ServerlessController.name);
     constructor(private readonly serverlessService: ServerlessService) {}

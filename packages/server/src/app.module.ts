@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { getConfiguration, MailService } from '@bestlyg-server/common';
+import { getConfiguration, MailService, resolve } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { server } from '@bestlyg/config';
@@ -28,6 +28,9 @@ const configuration = getConfiguration();
         ServeStaticModule.forRoot({
             rootPath: server.webPath,
             serveRoot: '/web',
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: resolve('node_modules', '@bestlyg', 'client', 'dist'),
         }),
         JwtModule.register({
             global: true,

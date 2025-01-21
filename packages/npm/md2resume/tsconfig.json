@@ -1,23 +1,9 @@
 {
+    "extends": "./node_modules/@bestlyg/cli/tsconfig.json",
     "compilerOptions": {
-        "target": "ESNext",
-        "lib": ["DOM", "ESNext"],
-        "types": ["react"],
-        "jsx": "preserve",
-        "jsxImportSource": "react",
-        "module": "ESNext",
-        "moduleResolution": "Node",
-        "rootDir": ".",
         "baseUrl": ".",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "noImplicitAny": false,
-        "skipLibCheck": true,
-        "paths": {
-            "@/*": ["./src/*"]
-        }
+        "rootDir": "src",
+        "lib": ["ESNext", "DOM"]
     },
-    "include": ["src", "modern.config.ts"],
-    "exclude": ["**/node_modules"]
+    "include": ["src/**/*.ts"]
 }

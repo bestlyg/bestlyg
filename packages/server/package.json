@@ -21,11 +21,11 @@
   "dependencies": {
     "@bestlyg/cli": "workspace:^",
     "@bestlyg/common": "workspace:^",
+    "@bestlyg/client": "workspace:^",
     "@bestlyg/config": "workspace:^",
     "@bestlyg/data": "workspace:^",
     "@bestlyg/leetcode": "workspace:^",
     "@bestlyg/server": "workspace:^",
-    "@bestlyg/site": "workspace:^",
     "@bestlyg/static": "workspace:^",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",

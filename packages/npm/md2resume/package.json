@@ -1,12 +1,34 @@
 {
     "name": "md2resume",
     "version": "0.0.1",
+    "author": "bestlyg",
+    "type": "module",
+    "main": "./dist/lib/index.cjs",
+    "types": "./dist/types/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types/index.d.ts"
+            ]
+        }
+    },
     "scripts": {
-        "reset": "npx rimraf ./**/node_modules",
-        "deploy": "node scripts/deploy.mjs",
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
+        "build": "modern build",
+        "dev": "modern build --watch"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        },
+        "./package.json": "./package.json"
     },
     "dependencies": {
         "@ant-design/icons-svg": "catalog:",
@@ -35,6 +57,7 @@
         "@vitejs/plugin-react": "catalog:",
         "less": "catalog:",
         "typescript": "catalog:",
+        "@modern-js/module-tools": "catalog:",
         "vite": "catalog:"
     },
     "files": [

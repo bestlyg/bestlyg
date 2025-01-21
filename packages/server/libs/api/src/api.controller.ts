@@ -2,7 +2,7 @@ import { Controller, Get, Logger } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { ApiService } from './api.service';
 
-@Controller('/api')
+@Controller('')
 export class ApiController {
     private readonly logger = new Logger(ApiController.name);
     constructor(private readonly apiService: ApiService) {}

@@ -1,7 +1,6 @@
 import { Get, Controller, Param, Res, Query, ParseBoolPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { resolve } from '@bestlyg-server/common';
-import fs from 'fs-extra';
 import { StaticService } from './static.service';
 
 @Controller('/static')

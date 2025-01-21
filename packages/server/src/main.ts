@@ -5,6 +5,7 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '@bestlyg-server/common';
 import compression from 'compression';
+import * as idl from '@bestlyg/common/idl/server';
 import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
@@ -17,6 +18,13 @@ async function bootstrap() {
         exposedHeaders: '*',
         credentials: true,
         maxAge: 86400,
+    });
+    app.setGlobalPrefix('/api', {
+        exclude: [
+            idl.api.bestlyg.ClientService.GetDocsSidebars.url,
+            idl.api.bestlyg.ClientService.GetLeetcodeSidebars.url,
+            '/static',
+        ],
     });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());

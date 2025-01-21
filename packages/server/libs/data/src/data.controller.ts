@@ -25,25 +25,27 @@ import {
 } from './data.dto';
 import { ZodValidationPipe } from '@bestlyg-server/common';
 
-@UseGuards(AuthGuard)
-@Controller('/api/data')
+@Controller('/data')
 export class DataController {
     private readonly logger = new Logger(DataController.name);
     constructor(private readonly dataService: DataService) {}
 
     @Get('ledger')
+    @UseGuards(AuthGuard)
     async getLedgers() {
         const data = await this.dataService.getLedgers();
         return ResponseEntity.ofSuccess(data);
     }
 
     @Get('xuan')
+    @UseGuards(AuthGuard)
     async getXuanList() {
         const data = await this.dataService.getXuanList();
         return ResponseEntity.ofSuccess(data);
     }
 
     @Get('secrets')
+    @UseGuards(AuthGuard)
     async getSecrets() {
         const data = await this.dataService.getSecrets();
         return ResponseEntity.ofSuccess(data);

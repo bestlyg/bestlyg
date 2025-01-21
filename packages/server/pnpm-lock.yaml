@@ -59,6 +59,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
+      '@bestlyg/client':
+        specifier: workspace:^
+        version: link:../client
       '@bestlyg/common':
         specifier: workspace:^
         version: link:../common
@@ -74,9 +77,6 @@ importers:
       '@bestlyg/server':
         specifier: workspace:^
         version: 'link:'
-      '@bestlyg/site':
-        specifier: workspace:^
-        version: link:../site
       '@bestlyg/static':
         specifier: workspace:^
         version: link:../static

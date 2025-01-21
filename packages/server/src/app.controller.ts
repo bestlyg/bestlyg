@@ -5,11 +5,11 @@ import { AppService } from './app.service';
 export class AppController {
     constructor(private readonly appService: AppService) {}
 
-    @Get()
-    @Redirect('/web/site')
-    redirect() {}
+    // @Get()
+    // @Redirect('/web/site')
+    // redirect() {}
 
-    @Get('/favicon.ico')
-    @Redirect('/static/logo.ico')
-    redirectFavicon() {}
+    // @Get('/favicon.ico')
+    // @Redirect('/static/logo.ico')
+    // redirectFavicon() {}
 }
