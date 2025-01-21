@@ -1,6 +1,6 @@
-import path from "path";
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import path from 'path';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // import best from '@bestlyg/cli';
 
@@ -14,23 +14,26 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    plugins: [react()],
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        },
     },
-  },
-  server: {
-    port: 10001,
-    strictPort: !true,
-    proxy: {
-      // 测试时链接pre
-      [`^/(api|static)(/.*)?`]: {
-        target: "http://localhost:10000",
-        // target: "https://www.bestlyg.com",
-        changeOrigin: true,
-        xfwd: true, // 保留原始请求的头部信息
-      },
+    define: {
+        [`process.env.NODE_ENV`]: JSON.stringify(process.env.NODE_ENV),
     },
-  },
+    server: {
+        port: 10001,
+        strictPort: !true,
+        proxy: {
+            // 测试时链接pre
+            [`^/(api|static)(/.*)?`]: {
+                target: 'http://localhost:10000',
+                // target: "https://www.bestlyg.com",
+                changeOrigin: true,
+                xfwd: true, // 保留原始请求的头部信息
+            },
+        },
+    },
 });
