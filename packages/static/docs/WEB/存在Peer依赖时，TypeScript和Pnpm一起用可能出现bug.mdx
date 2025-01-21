@@ -7,14 +7,14 @@
 为了更清晰的解释这个 bug 原理，我抽离出一个最小化的 Demo，pnpm install 后，在 app 应用下跑 pnpm start，或者利用 IDE 打开 app.tsx 都可复现问题。
 
 
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-1.png&r=false)
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-2.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-1.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-2.png&r=false)
 
 报错在于存在两个 button 版本 0.0.1 和 0.0.2，当我直接从 button 包中去引入 createButton 时，这个 button 包是 0.0.2 版本的，这是合理的，因为在 app 应用中，dependencies 声明了 button 是 0.0.2 版本。
 
 但是在 components 包中依赖的 button 是 peer 的，而且是\*的依赖，表示兼容所有版本。
 
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-3.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-3.png&r=false)
 
 按照正常 import 的逻辑，手动递归的向上寻找它的依赖，也会发现 components 正常来说引入的应该是 0.0.2 的 button 才对。
 
@@ -32,11 +32,11 @@ Ts 在对一个项目开始检测时会调用 createProgram，然后在里面递
 
 此时就遇到这个问题的根因——Ts 实际上会根据 Id 缓存路径。
 
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-4.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-4.png&r=false)
 
 它会在 3684 行通过 id 缓存当前的 file，当再次调用 findSourceFile 的时候，3671 的逻辑就会是 true，可以通过 3672-3673 这两行注释了解到，当 id 相同的时候他就会复制原有的 sourceFile 而不是新建。而 Id 的构建仅通过包名和版本号进行拼接。
 
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-5.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-5.png&r=false)
 
 以当前 Demo 为例：
 
@@ -54,7 +54,7 @@ findSourceFile app.tsx
 
 为了验证，开启 app.tsx 中的第一行注释，并注释掉第三行。
 
-![图片](/static?p=docs/WEB/static/ts-bug-peer-dep-6.png&r=false)
+![图片](/static?p=images/ts-bug-peer-dep-6.png&r=false)
 
 报错就消失了，因为此时第一次使用 button 是在 components 中，所以被缓存的是button@0.0.1，和项目中的 button 是同一个版本。
 
