@@ -43,7 +43,7 @@ const commands = [
     `sudo git reset --hard`,
     `sudo git clean -fd`,
     `sudo git pull`,
-    'sudo pnpm i --frozen-lockfile --ignore-scripts',
+    'sudo pnpm i --frozen-lockfile',
     `sudo pnpm --filter @bestlyg/cli run build`,
     `sudo pnpm --filter @bestlyg/config run build`,
     `sudo pnpm --filter @bestlyg/data run build`,
