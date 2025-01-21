@@ -1,7 +1,13 @@
 class Solution:
-    def findClosestNumber(self, nums: List[int]) -> int:
-        res = inf
-        for num in nums:
-            if abs(num) < abs(res) or abs(num) == abs(res) and num > res:
-                res = num
-        return res
+    def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
+        @cache
+        def dfs(i: int, k: int) -> int:
+            if k == 0: return 0
+            if i == len(piles): return -inf
+            res = dfs(i + 1, k)
+            val = 0
+            for j in range(min(k, len(piles[i]))):
+                val += piles[i][j]
+                res = max(res, val + dfs(i + 1, k - j - 1))
+            return res
+        return dfs(0, k)
