@@ -1,13 +1,11 @@
 class Solution:
-    def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
-        @cache
-        def dfs(i: int, k: int) -> int:
-            if k == 0: return 0
-            if i == len(piles): return -inf
-            res = dfs(i + 1, k)
-            val = 0
-            for j in range(min(k, len(piles[i]))):
-                val += piles[i][j]
-                res = max(res, val + dfs(i + 1, k - j - 1))
-            return res
-        return dfs(0, k)
+    def maxCoins(self, piles: List[int]) -> int:
+        piles.sort()
+        l = 0
+        r = len(piles) - 1
+        res = 0
+        while l < r:
+            res += piles[r - 1]
+            l += 1
+            r -= 2
+        return res
