@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "lodash": "catalog:",
+        "@ant-design/icons-svg": "catalog:",
         "marked": "catalog:",
         "marked-directive": "catalog:",
         "tapable": "catalog:"

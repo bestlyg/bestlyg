@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@ant-design/icons-svg':
+      specifier: ^4.4.2
+      version: 4.4.2
     '@modern-js/module-tools':
       specifier: ^2.63.5
       version: 2.63.7
@@ -35,6 +38,9 @@ importers:
 
   .:
     dependencies:
+      '@ant-design/icons-svg':
+        specifier: 'catalog:'
+        version: 4.4.2
       lodash:
         specifier: 'catalog:'
         version: 4.17.21
@@ -75,6 +81,9 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@ant-design/icons-svg@4.4.2':
+    resolution: {integrity: sha512-vHbT+zJEVzllwP+CM+ul7reTEfBR0vgxFe7+lREAsAA7YGsYpboiq2sQNeQeRvh09GfQgs/GyFEvZpJ9cLXpXA==}
 
   '@ast-grep/napi-darwin-arm64@0.16.0':
     resolution: {integrity: sha512-ESjIg03S0ln+8CP43TKqY6+QPL2Kkm+6iMS5kAUMVtH/WNWd2z0oQLg9bmadUNPylYbB42B3zRtuTKwm/nCpdA==}
@@ -1384,6 +1393,8 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@ant-design/icons-svg@4.4.2': {}
 
   '@ast-grep/napi-darwin-arm64@0.16.0':
     optional: true

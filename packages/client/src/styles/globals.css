@@ -2,15 +2,18 @@
   padding: 0 !important;
 } */
 .markdown-body pre > div {
-  margin: 0 !important;
-  background: transparent !important;
+    margin: 0 !important;
+    background: transparent !important;
 }
 .markdown-body code {
-  white-space: break-spaces !important;
-  padding: 0 !important;
+    white-space: break-spaces !important;
+    padding: 0 !important;
+}
+.markdown-body table {
+    width: 100% !important;
 }
 
 :root {
-  --resume-page-width: 794px;
-  --resume-page-height: 1123px;
+    --resume-page-width: 794px;
+    --resume-page-height: 1123px;
 }
