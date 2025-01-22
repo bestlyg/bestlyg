@@ -24,6 +24,9 @@ catalogs:
     change-case:
       specifier: ^5.4.4
       version: 5.4.4
+    tapable:
+      specifier: ^2.2.1
+      version: 2.2.1
     typescript:
       specifier: ^5.7.2
       version: 5.7.2
@@ -45,7 +48,7 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       tapable:
-        specifier: ^2.2.1
+        specifier: 'catalog:'
         version: 2.2.1
     devDependencies:
       '@modern-js/module-tools':

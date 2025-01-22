@@ -30,13 +30,13 @@
         "ahooks": "catalog:",
         "antd": "catalog:",
         "chrome": "^0.1.0",
-        "jotai": "^2.8.4",
+        "jotai": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
         "unocss": "^0.61.0"
     },
     "devDependencies": {
-        "@types/chrome": "catalog:",
+        "@types/chrome": "^0.0.268",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@wxt-dev/module-react": "^1.0.0",

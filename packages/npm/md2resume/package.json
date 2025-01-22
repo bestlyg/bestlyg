@@ -31,20 +31,10 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@ant-design/icons-svg": "catalog:",
-        "@ant-design/v5-patch-for-react-19": "catalog:",
-        "ahooks": "catalog:",
-        "antd": "catalog:",
-        "clsx": "catalog:",
-        "html2canvas": "^1.4.1",
-        "jspdf": "^2.5.1",
         "lodash": "catalog:",
         "marked": "catalog:",
-        "marked-directive": "^1.0.5",
-        "rc-resize-observer": "^1.4.0",
-        "react": "catalog:",
-        "react-dom": "catalog:",
-        "tapable": "^2.2.1"
+        "marked-directive": "catalog:",
+        "tapable": "catalog:"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
@@ -52,13 +42,8 @@
         "@bestlyg/data": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
-        "@types/react": "catalog:",
-        "@types/react-dom": "catalog:",
-        "@vitejs/plugin-react": "catalog:",
-        "less": "catalog:",
         "typescript": "catalog:",
-        "@modern-js/module-tools": "catalog:",
-        "vite": "catalog:"
+        "@modern-js/module-tools": "catalog:"
     },
     "files": [
         "packages.json"

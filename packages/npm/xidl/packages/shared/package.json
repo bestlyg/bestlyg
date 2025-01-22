@@ -49,6 +49,6 @@
         "fs-extra": "^11.2.0",
         "lodash-es": "^4.17.21",
         "protobufjs": "^7.4.0",
-        "tapable": "^2.2.1"
+        "tapable": "catalog:"
     }
 }

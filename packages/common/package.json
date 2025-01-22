@@ -80,6 +80,6 @@
     },
     "dependencies": {
         "axios": "catalog:",
-        "tapable": "^2.2.1"
+        "tapable": "catalog:"
     }
 }

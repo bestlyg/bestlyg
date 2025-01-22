@@ -60,6 +60,6 @@
     "dependencies": {
         "p-queue": "^8.0.1",
         "ramda": "catalog:",
-        "tapable": "^2.2.1"
+        "tapable": "catalog:"
     }
 }

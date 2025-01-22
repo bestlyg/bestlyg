@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@types/chrome':
-      specifier: ^0.0.268
-      version: 0.0.268
     '@types/react':
       specifier: ^19.0.0
       version: 19.0.2
@@ -21,6 +18,9 @@ catalogs:
     antd:
       specifier: ^5.22.7
       version: 5.22.7
+    jotai:
+      specifier: ^2.11.0
+      version: 2.11.1
     react:
       specifier: ^19.0.0
       version: 19.0.0
@@ -81,8 +81,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       jotai:
-        specifier: ^2.8.4
-        version: 2.8.4(@types/react@19.0.2)(react@19.0.0)
+        specifier: 'catalog:'
+        version: 2.11.1(@types/react@19.0.2)(react@19.0.0)
       react:
         specifier: 'catalog:'
         version: 19.0.0
@@ -94,7 +94,7 @@ importers:
         version: 0.61.0(postcss@8.4.39)(rollup@4.18.0)(vite@5.3.3(@types/node@20.14.9))
     devDependencies:
       '@types/chrome':
-        specifier: 'catalog:'
+        specifier: ^0.0.268
         version: 0.0.268
       '@types/react':
         specifier: 'catalog:'
@@ -2202,8 +2202,8 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
-  jotai@2.8.4:
-    resolution: {integrity: sha512-f6jwjhBJcDtpeauT2xH01gnqadKEySwwt1qNBLvAXcnojkmb76EdqRt05Ym8IamfHGAQz2qMKAwftnyjeSoHAA==}
+  jotai@2.11.1:
+    resolution: {integrity: sha512-41Su098mpHIX29hF/XOpDb0SqF6EES7+HXfrhuBqVSzRkxX48hD5i8nGsEewWZNAsBWJCTTmuz8M946Ih2PfcQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -5939,7 +5939,7 @@ snapshots:
 
   jiti@1.21.6: {}
 
-  jotai@2.8.4(@types/react@19.0.2)(react@19.0.0):
+  jotai@2.11.1(@types/react@19.0.2)(react@19.0.0):
     optionalDependencies:
       '@types/react': 19.0.2
       react: 19.0.0
