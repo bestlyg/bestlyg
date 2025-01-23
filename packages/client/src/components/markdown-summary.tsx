@@ -1,7 +1,9 @@
-import { activeSidebarItemAtom } from '@/utils';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import React from 'react';
+import { markdownRenderingAtom } from '@/components/markdown';
+import { Spin } from 'antd';
+import { LoadingSpinner } from '@/components/loading-spinner';
 
 export interface MarkdownSummaryInfo {
     title: string;
@@ -13,6 +15,7 @@ export function getMarkdownSummaryInfoList() {
     const dom = document.querySelector('.markdown-body') as HTMLElement;
     const stack: MarkdownSummaryInfo[] = [];
     const info: MarkdownSummaryInfo[] = [];
+    if (!dom) return info;
     const children = Array.from(dom.children) as HTMLElement[];
     for (const child of children) {
         const tagName = child.tagName.toLowerCase();
@@ -66,25 +69,28 @@ function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level
 }
 
 export function MarkdownSummary() {
-    const activeSidebarItem = useAtomValue(activeSidebarItemAtom);
+    const markdownRendering = useAtomValue(markdownRenderingAtom);
     const [infoList, setInfoList] = React.useState<MarkdownSummaryInfo[]>([]);
+    const [isPending, startTransition] = React.useTransition();
     React.useEffect(() => {
-        console.log('RAN');
-        setTimeout(() => {
-            const list = getMarkdownSummaryInfoList();
-            setInfoList(list);
-        }, 1000);
-    }, [activeSidebarItem]);
+        if (!markdownRendering) {
+            startTransition(async () => {
+                setInfoList(getMarkdownSummaryInfoList());
+            });
+        }
+    }, [markdownRendering]);
     if (!infoList.length) return null;
     return (
-        <div className="hidden text-sm xl:block">
-            <div className="sticky top-20 h-[calc(100vh-3.5rem)] pt-4 overflow-auto">
-                <ul className="m-0 list-none">
-                    {infoList.map((v, i) => (
-                        <MarkdownSummaryItem info={v} key={i} level={0} />
-                    ))}
-                </ul>
+        <Spin spinning={isPending} indicator={<LoadingSpinner />}>
+            <div className="hidden text-sm xl:block">
+                <div className="fixed top-20 h-[calc(100vh-3.5rem)] pt-4 overflow-auto">
+                    <ul className="m-0 list-none">
+                        {infoList.map((v, i) => (
+                            <MarkdownSummaryItem info={v} key={i} level={0} />
+                        ))}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </Spin>
     );
 }

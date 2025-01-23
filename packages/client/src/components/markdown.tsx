@@ -13,6 +13,9 @@ import remarkToc from 'remark-toc';
 import { Prism as SyntaxHighlighter, SyntaxHighlighterProps } from 'react-syntax-highlighter';
 import { coy as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import 'github-markdown-css/github-markdown.css';
+import { atom, useSetAtom } from 'jotai';
+
+export const markdownRenderingAtom = atom(false);
 
 function code({ className, ...properties }: SyntaxHighlighterProps) {
     const match = /language-(\w+)/.exec(className || '');
@@ -44,17 +47,22 @@ async function renderMarkdown(md: string) {
 
 export function Markdown({ md = '' }: { md?: string }) {
     const [Content, setContent] = React.useState<React.FC<{ components: Record<string, any> }>>();
-
+    const setMarkdownRendering = useSetAtom(markdownRenderingAtom);
     useEffect(() => {
-        renderMarkdown(md).then(
-            data => {
-                setContent(() => data);
-            },
-            err => {
-                console.info('===> Render Markdown Error');
-                console.error(err);
-            },
-        );
+        setMarkdownRendering(true);
+        renderMarkdown(md)
+            .then(
+                data => {
+                    setContent(() => data);
+                },
+                err => {
+                    console.info('===> Render Markdown Error');
+                    console.error(err);
+                },
+            )
+            .finally(() => {
+                setMarkdownRendering(false);
+            });
     }, [md]);
 
     return (
