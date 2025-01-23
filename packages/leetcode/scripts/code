@@ -1,11 +1,19 @@
 class Solution:
-    def maxCoins(self, piles: List[int]) -> int:
-        piles.sort()
-        l = 0
-        r = len(piles) - 1
-        res = 0
-        while l < r:
-            res += piles[r - 1]
-            l += 1
-            r -= 2
-        return res
+    def maximumPoints(self, edges: List[List[int]], coins: List[int], k: int) -> int:
+        n = len(edges) + 1
+        nodes = [[] for _ in range(n)]
+        for n1, n2 in edges:
+            nodes[n1].append(n2)
+            nodes[n2].append(n1)
+        @cache
+        def dfs(i: int, p: int, c: int) -> int:
+            coin = coins[i] // (2 ** c)
+            v1 = coin - k
+            v2 = coin // 2
+            for child in nodes[i]:
+                if child != p:
+                    v1 += dfs(child, i, c)
+                    if c + 1 < 14: v2 += dfs(child, i, c + 1)
+            res = max(v1, v2)
+            return res
+        return dfs(0, -1, 0)
