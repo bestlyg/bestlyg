@@ -12,6 +12,7 @@ import { ScrollToTop } from './scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 
 export default function AppLayout() {
+    const outletContainer = React.useRef<HTMLDivElement | null>(null);
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     const setActiveSidebarItem = useSetAtom(activeSidebarItemAtom);
     const state = useRouterState();
@@ -43,12 +44,20 @@ export default function AppLayout() {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <SidebarInset>
+            <SidebarInset className="h-svh overflow-hidden">
                 <AppHeader />
-                <div className="flex flex-1 flex-col gap-4 pt-0 w-[min(800px,100%-40px)] mx-auto">
+                <div
+                    ref={outletContainer}
+                    className="flex flex-1 flex-col gap-4 pt-0 px-[max(calc((100svw-960px)/2),20px)] pb-[20px] overflow-y-auto"
+                >
                     <Outlet />
                 </div>
-                <ScrollToTop minHeight={20} scrollTo={10} className="fixed right-4 bottom-4 rounded-full h-[32px] w-[32px]">
+                <ScrollToTop
+                    minHeight={20}
+                    scrollTo={10}
+                    className="fixed right-8 bottom-4 rounded-full h-[32px] w-[32px]"
+                    getContainer={() => outletContainer.current}
+                >
                     <ArrowUpToLine />
                 </ScrollToTop>
             </SidebarInset>

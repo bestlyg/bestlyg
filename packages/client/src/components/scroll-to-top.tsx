@@ -5,25 +5,32 @@ import { useEffect, useState } from 'react';
 export function ScrollToTop({
     minHeight, // Height from which button will be visible
     scrollTo, // Height to go on scroll to top
+    getContainer = () => document.documentElement,
     ...props
-}: ButtonProps & { minHeight?: number; scrollTo?: number }) {
+}: ButtonProps & {
+    minHeight?: number;
+    scrollTo?: number;
+    getContainer?: () => Element | null | undefined;
+}) {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
+        const container = getContainer();
+        if (!container) return;
         const onScroll = () => {
-            setVisible(document.documentElement.scrollTop >= (minHeight ?? 0));
+            setVisible(container.scrollTop >= (minHeight ?? 0));
         };
 
         onScroll();
-        document.addEventListener('scroll', onScroll);
+        container.addEventListener('scroll', onScroll);
 
-        return () => document.removeEventListener('scroll', onScroll);
+        return () => container.removeEventListener('scroll', onScroll);
     }, []);
 
     return (
         <Button
             onClick={() =>
-                window.scrollTo({
+                getContainer()?.scrollTo({
                     top: scrollTo ?? 0,
                     behavior: 'smooth',
                 })

@@ -29,28 +29,30 @@ authors: [lyg]
 ### 绕 Z 轴旋转
 
 ```
-/*
-   Y
-   │
-   │
-   └──────── X
-*/
+Y
+│
+│
+└──────── X
 ```
 
 $$
+\begin{aligned}
 x_2
-   = len \times \cos(\alpha+\beta)
-   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta))
-   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta)
+   = len \times \cos(\alpha+\beta) \\
+   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta)) \\
+   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta) \\
    = x_1 \times \cos(\beta) - y_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
+\begin{aligned}
 y_2
-   = len \times \sin(\alpha+\beta)
-   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta))
-   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta)
+   = len \times \sin(\alpha+\beta) \\
+   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta)) \\
+   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta) \\
    = y_1 \times \cos(\beta) + x_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
@@ -67,28 +69,30 @@ $$
 ### 绕 X 轴旋转
 
 ```
-/*
-         Y
-         │
-         │
+          Y
+          │
+          │
 Z ────────┘
-*/
 ```
 
 $$
+\begin{aligned}
 y_2
-   = len \times \cos(\alpha+\beta)
-   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta))
-   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta)
+   = len \times \cos(\alpha+\beta) \\
+   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta)) \\
+   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta) \\
    = y_1 \times \cos(\beta) - z_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
+\begin{aligned}
 z_2
-   = len \times \sin(\alpha+\beta)
-   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta))
-   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta)
+   = len \times \sin(\alpha+\beta) \\
+   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta)) \\
+   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta) \\
    = z_1 \times \cos(\beta) + y_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
@@ -105,28 +109,30 @@ $$
 ### 绕 Y 轴旋转
 
 ```
-/*
-   ┌──────── X
-   │
-   │
-   Z
-*/
+┌──────── X
+│
+│
+Z
 ```
 
 $$
+\begin{aligned}
 z_2
-   = len \times \cos(\alpha+\beta)
-   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta))
-   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta)
+   = len \times \cos(\alpha+\beta) \\
+   = len \times (\cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta)) \\
+   = len \times \cos(\alpha) \times \cos(\beta) - len \times \sin(\alpha) \times \sin(\beta) \\
    = z_1 \times \cos(\beta) - x_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
+\begin{aligned}
 x_2
-   = len \times \sin(\alpha+\beta)
-   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta))
-   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta)
+   = len \times \sin(\alpha+\beta) \\
+   = len \times (\sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta)) \\
+   = len \times \sin(\alpha) \times \cos(\beta) + len \times \cos(\alpha) \times \sin(\beta) \\
    = x_1 \times \cos(\beta) + z_1 \times \sin(\beta)
+\end{aligned}
 $$
 
 $$
