@@ -1,0 +1,90 @@
+import { activeSidebarItemAtom } from '@/utils';
+import clsx from 'clsx';
+import { useAtomValue } from 'jotai';
+import React from 'react';
+
+export interface MarkdownSummaryInfo {
+    title: string;
+    dom: HTMLElement;
+    items: MarkdownSummaryInfo[];
+}
+
+export function getMarkdownSummaryInfoList() {
+    const dom = document.querySelector('.markdown-body') as HTMLElement;
+    const stack: MarkdownSummaryInfo[] = [];
+    const info: MarkdownSummaryInfo[] = [];
+    const children = Array.from(dom.children) as HTMLElement[];
+    for (const child of children) {
+        const tagName = child.tagName.toLowerCase();
+        if (tagName === 'h1' || tagName === 'h2' || tagName === 'h3') {
+            child.id = child.innerText;
+            const item: MarkdownSummaryInfo = {
+                title: child.innerText,
+                dom: child,
+                items: [],
+            };
+            const prevIdx = stack.findLastIndex(v => v.dom.tagName.toLowerCase() === tagName);
+            if (prevIdx >= 0) stack.length = prevIdx;
+            stack.at(-1)?.items.push(item);
+            stack.push(item);
+        }
+        if (tagName === 'h1') info.push(stack.at(-1)!);
+    }
+    return info;
+}
+
+function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level: number }) {
+    return (
+        <>
+            <li
+                className={clsx('mt-0', level === 0 ? `font-semibold` : `pt-2`)}
+                style={{ paddingLeft: 10 * level }}
+            >
+                <a
+                    className="cursor-pointer inline-block no-underline transition-colors hover:text-foreground text-muted-foreground"
+                    onClick={e => {
+                        e.preventDefault();
+                        const dom = document.getElementById(info.title);
+                        if (!dom) return;
+                        const top = dom.offsetTop;
+                        window.scrollTo({
+                            behavior: 'smooth',
+                            top,
+                        });
+                    }}
+                >
+                    {info.title}
+                </a>
+            </li>
+            <ul className="m-0 list-none">
+                {info.items.map((v, i) => {
+                    return <MarkdownSummaryItem info={v} level={level + 1} key={i} />;
+                })}
+            </ul>
+        </>
+    );
+}
+
+export function MarkdownSummary() {
+    const activeSidebarItem = useAtomValue(activeSidebarItemAtom);
+    const [infoList, setInfoList] = React.useState<MarkdownSummaryInfo[]>([]);
+    React.useEffect(() => {
+        console.log('RAN');
+        setTimeout(() => {
+            const list = getMarkdownSummaryInfoList();
+            setInfoList(list);
+        }, 1000);
+    }, [activeSidebarItem]);
+    if (!infoList.length) return null;
+    return (
+        <div className="hidden text-sm xl:block">
+            <div className="sticky top-20 h-[calc(100vh-3.5rem)] pt-4 overflow-auto">
+                <ul className="m-0 list-none">
+                    {infoList.map((v, i) => (
+                        <MarkdownSummaryItem info={v} key={i} level={0} />
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+}

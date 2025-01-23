@@ -10,9 +10,9 @@ import { AppHeader } from '@/components/app-header';
 import { loginRoute, resumeRoute } from '@/routes';
 import { ScrollToTop } from './scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
+import { MarkdownSummary } from './markdown-summary';
 
 export default function AppLayout() {
-    const outletContainer = React.useRef<HTMLDivElement | null>(null);
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     const setActiveSidebarItem = useSetAtom(activeSidebarItemAtom);
     const state = useRouterState();
@@ -44,19 +44,20 @@ export default function AppLayout() {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <SidebarInset className="h-svh overflow-hidden">
+            <SidebarInset>
                 <AppHeader />
-                <div
-                    ref={outletContainer}
-                    className="flex flex-1 flex-col gap-4 pt-0 px-[max(calc((100svw-960px)/2),20px)] pb-[20px] overflow-y-auto"
-                >
-                    <Outlet />
-                </div>
+                <main className="relative py-4 lg:gap-10 xl:grid xl:grid-cols-[1fr_300px] px-[max(calc((100svw-1280px)/2),20px)]">
+                    <div className="flex flex-1 flex-col gap-4 pt-0">
+                        <div>
+                            <Outlet />
+                        </div>
+                    </div>
+                    <MarkdownSummary />
+                </main>
                 <ScrollToTop
                     minHeight={20}
-                    scrollTo={10}
+                    scrollTo={0}
                     className="fixed right-8 bottom-4 rounded-full h-[32px] w-[32px]"
-                    getContainer={() => outletContainer.current}
                 >
                     <ArrowUpToLine />
                 </ScrollToTop>

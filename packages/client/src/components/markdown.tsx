@@ -44,6 +44,7 @@ async function renderMarkdown(md: string) {
 
 export function Markdown({ md = '' }: { md?: string }) {
     const [Content, setContent] = React.useState<React.FC<{ components: Record<string, any> }>>();
+
     useEffect(() => {
         renderMarkdown(md).then(
             data => {
@@ -55,6 +56,7 @@ export function Markdown({ md = '' }: { md?: string }) {
             },
         );
     }, [md]);
+
     return (
         <div className="markdown-body">
             {Content && (

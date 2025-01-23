@@ -5,36 +5,47 @@ import { useEffect, useState } from 'react';
 export function ScrollToTop({
     minHeight, // Height from which button will be visible
     scrollTo, // Height to go on scroll to top
-    getContainer = () => document.documentElement,
+    getContainer = () => document,
     ...props
 }: ButtonProps & {
     minHeight?: number;
     scrollTo?: number;
-    getContainer?: () => Element | null | undefined;
+    getContainer?: () => Document | Element | null | undefined;
 }) {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         const container = getContainer();
         if (!container) return;
-        const onScroll = () => {
-            setVisible(container.scrollTop >= (minHeight ?? 0));
+        const onScroll = (e?: Event) => {
+            const target = e?.target;
+            if (!target) return;
+            let scrollTop = 0;
+            if (target === document) {
+                scrollTop = document.documentElement.scrollTop;
+            } else {
+                scrollTop = (target as Element).scrollTop;
+            }
+            setVisible(scrollTop >= (minHeight ?? 0));
         };
-
-        onScroll();
         container.addEventListener('scroll', onScroll);
-
         return () => container.removeEventListener('scroll', onScroll);
     }, []);
 
     return (
         <Button
-            onClick={() =>
-                getContainer()?.scrollTo({
+            onClick={() => {
+                const container = getContainer();
+                const scrollToOptions: ScrollToOptions = {
                     top: scrollTo ?? 0,
                     behavior: 'smooth',
-                })
-            }
+                };
+                if (container === document) {
+                    window.scrollTo(scrollToOptions);
+                } else {
+                    (container as Element).scrollTo(scrollToOptions);
+                }
+            }}
             {...props}
             className={clsx(
                 visible ? `opacity-100` : 'opacity-0',
