@@ -6,7 +6,7 @@ import { useToast } from '@/shadcn/hooks/use-toast';
 import { Toaster } from '@/shadcn/ui/toaster';
 import { ResponseEntity } from '@bestlyg/common/dist/types/response-entity.js';
 import '@ant-design/v5-patch-for-react-19';
-import '@/styles/globals.css';
+import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
 import { xTokenName } from '@/utils';
 
