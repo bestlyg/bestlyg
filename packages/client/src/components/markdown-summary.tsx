@@ -59,12 +59,18 @@ function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level
                     {info.title}
                 </a>
             </li>
-            <ul className="m-0 list-none">
-                {info.items.map((v, i) => {
-                    return <MarkdownSummaryItem info={v} level={level + 1} key={i} />;
-                })}
-            </ul>
+            <MarkdownSummaryList infoList={info.items} />
         </>
+    );
+}
+
+function MarkdownSummaryList({ infoList }: { infoList: MarkdownSummaryInfo[] }) {
+    return (
+        <ul className="m-0 list-none">
+            {infoList.map((v, i) => (
+                <MarkdownSummaryItem info={v} key={i} level={0} />
+            ))}
+        </ul>
     );
 }
 
@@ -84,11 +90,7 @@ export function MarkdownSummary() {
         <Spin spinning={isPending} indicator={<LoadingSpinner />}>
             <div className="hidden text-sm xl:block">
                 <div className="fixed top-20 h-[calc(100vh-3.5rem)] pt-4 overflow-auto">
-                    <ul className="m-0 list-none">
-                        {infoList.map((v, i) => (
-                            <MarkdownSummaryItem info={v} key={i} level={0} />
-                        ))}
-                    </ul>
+                    <MarkdownSummaryList infoList={infoList} />
                 </div>
             </div>
         </Spin>
