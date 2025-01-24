@@ -10,7 +10,15 @@ import {
     useReactTable,
     getPaginationRowModel,
 } from '@tanstack/react-table';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shadcn/ui/table';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/shadcn/ui/table';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
 
@@ -19,6 +27,7 @@ export type Ledger = prismaClient.Prisma.LedgerGetPayload<{}>;
 export const columns: ColumnDef<Ledger>[] = [
     {
         accessorKey: 'date',
+        size: 100,
         header: () => '日期',
         cell: info => dayjs(info.getValue() as string).format('YYYY-MM-DD'),
     },
@@ -26,12 +35,14 @@ export const columns: ColumnDef<Ledger>[] = [
         accessorKey: 'comment',
         header: () => '用途',
         cell: info => info.getValue(),
+        size: 200,
     },
     {
         id: 'balance',
         accessorFn: row => (row.balance / 100) * (row.io ? 1 : -1),
-        header: () => '金额',
-        cell: info => info.getValue() + '元',
+        header: () => <div className="text-right">金额</div>,
+        cell: info => <div className="text-right">{info.getValue() + '元'}</div>,
+        size: 100,
     },
 ];
 
@@ -92,7 +103,7 @@ function LedgerTable({ promise }: { promise: ReturnType<typeof fetchLedgers> }) 
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map(header => {
                                 return (
-                                    <TableHead key={header.id}>
+                                    <TableHead key={header.id} style={{ width: header.getSize() }}>
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
@@ -110,7 +121,10 @@ function LedgerTable({ promise }: { promise: ReturnType<typeof fetchLedgers> }) 
                         table.getRowModel().rows.map(row => (
                             <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                                 {row.getVisibleCells().map(cell => (
-                                    <TableCell key={cell.id}>
+                                    <TableCell
+                                        key={cell.id}
+                                        style={{ width: cell.column.getSize() }}
+                                    >
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableCell>
                                 ))}
@@ -124,6 +138,18 @@ function LedgerTable({ promise }: { promise: ReturnType<typeof fetchLedgers> }) 
                         </TableRow>
                     )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell colSpan={3}>总计</TableCell>
+                        <TableCell className="text-right">
+                            {filteredData.reduce(
+                                (sum, v) => sum + ((v.io ? 1 : -1) * v.balance) / 100,
+                                0,
+                            )}
+                            元
+                        </TableCell>
+                    </TableRow>
+                </TableFooter>
             </Table>
         </div>
     );
