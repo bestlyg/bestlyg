@@ -24,14 +24,14 @@ export default defineConfig({
 import url from 'node:url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);`,
-//             moduleParsed(info) {
-//                 console.log(info);
-//                 info.code = `import path from 'node:path';
-// import url from 'node:url';
-// const __filename = url.fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// ${info.code}`;
-//             },
+            //             moduleParsed(info) {
+            //                 console.log(info);
+            //                 info.code = `import path from 'node:path';
+            // import url from 'node:url';
+            // const __filename = url.fileURLToPath(import.meta.url);
+            // const __dirname = path.dirname(__filename);
+            // ${info.code}`;
+            //             },
         },
     ],
 });

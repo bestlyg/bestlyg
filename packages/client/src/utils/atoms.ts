@@ -24,4 +24,3 @@ export interface UserInfo {
 }
 
 export const userInfoAtom = atomWithStorage<UserInfo | null>('userInfo', null);
-

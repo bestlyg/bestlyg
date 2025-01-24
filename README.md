@@ -14,7 +14,7 @@
 
 ## Contact Me
 
--   Phone : 13958696909
--   Wechat : bestlyg
--   Email : bestlyg@foxmail.com / 1057966749@qq.com
--   Website : https://www.bestlyg.com
+- Phone : 13958696909
+- Wechat : bestlyg
+- Email : bestlyg@foxmail.com / 1057966749@qq.com
+- Website : https://www.bestlyg.com

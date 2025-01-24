@@ -1,6 +1,6 @@
 import { MarkdownTransformer, ResumeGeneratorOptions, TemplateLoadFunction } from './types';
 import { AsyncSeriesWaterfallHook, SyncHook, AsyncParallelHook } from 'tapable';
-import _ from 'lodash'
+import _ from 'lodash';
 import { defaultResumeGeneratorOptions } from './default-options';
 
 export class ResumeGenerator {

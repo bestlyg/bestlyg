@@ -1,4 +1,4 @@
-import path from 'node:path'
+import path from 'node:path';
 import { fileURLToPath } from 'url';
 import { PREFIX } from './base';
 

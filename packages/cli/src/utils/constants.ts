@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fs from 'fs-extra';
 import { getEnv, resolve } from './functions';
 import figlet from 'figlet';
 
