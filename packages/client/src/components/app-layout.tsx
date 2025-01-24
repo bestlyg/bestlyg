@@ -8,9 +8,9 @@ import * as idl from '@bestlyg/common/idl/client';
 import React from 'react';
 import { AppHeader } from '@/components/app-header';
 import { loginRoute, resumeRoute } from '@/routes';
-import { ScrollToTop } from './scroll-to-top';
+import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
-import { MarkdownSummary } from './markdown-summary';
+import { AppSummary } from '@/components/app-summary';
 
 export default function AppLayout() {
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
@@ -52,7 +52,7 @@ export default function AppLayout() {
                             <Outlet />
                         </div>
                     </div>
-                    <MarkdownSummary />
+                    <AppSummary />
                 </main>
                 <ScrollToTop
                     minHeight={20}

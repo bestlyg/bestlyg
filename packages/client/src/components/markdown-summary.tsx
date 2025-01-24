@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import React from 'react';
 import { markdownRenderingAtom } from '@/components/markdown';
-import { Spin } from 'antd';
-import { LoadingSpinner } from '@/components/loading-spinner';
+import { summaryLoadingAtom } from '@/components/app-summary';
 
 export interface MarkdownSummaryInfo {
     title: string;
@@ -40,7 +39,7 @@ function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level
     return (
         <>
             <li
-                className={clsx('mt-0', level === 0 ? `font-semibold` : `pt-2`)}
+                className={clsx('mt-0', level === 1 ? `font-semibold` : `pt-2`)}
                 style={{ paddingLeft: 10 * level }}
             >
                 <a
@@ -59,7 +58,7 @@ function MarkdownSummaryItem({ info, level }: { info: MarkdownSummaryInfo; level
                     {info.title}
                 </a>
             </li>
-            <MarkdownSummaryList infoList={info.items} level={level}/>
+            <MarkdownSummaryList infoList={info.items} level={level} />
         </>
     );
 }
@@ -82,8 +81,13 @@ function MarkdownSummaryList({
 
 export function MarkdownSummary() {
     const markdownRendering = useAtomValue(markdownRenderingAtom);
+    const setSummaryLoading = useSetAtom(summaryLoadingAtom);
+
     const [infoList, setInfoList] = React.useState<MarkdownSummaryInfo[]>([]);
     const [isPending, startTransition] = React.useTransition();
+    React.useEffect(() => {
+        setSummaryLoading(isPending);
+    }, [isPending]);
     React.useEffect(() => {
         if (!markdownRendering) {
             startTransition(async () => {
@@ -92,13 +96,5 @@ export function MarkdownSummary() {
         }
     }, [markdownRendering]);
     if (!infoList.length) return null;
-    return (
-        <Spin spinning={isPending} indicator={<LoadingSpinner />}>
-            <div className="hidden text-sm xl:block">
-                <div className="fixed top-20 h-[calc(100vh-3.5rem)] pt-4 overflow-auto">
-                    <MarkdownSummaryList infoList={infoList} level={0} />
-                </div>
-            </div>
-        </Spin>
-    );
+    return <MarkdownSummaryList infoList={infoList} level={0} />;
 }
