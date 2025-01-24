@@ -1,19 +1,10 @@
 class Solution:
-    def maximumPoints(self, edges: List[List[int]], coins: List[int], k: int) -> int:
-        n = len(edges) + 1
-        nodes = [[] for _ in range(n)]
-        for n1, n2 in edges:
-            nodes[n1].append(n2)
-            nodes[n2].append(n1)
+    def minimumCoins(self, prices: List[int]) -> int:
         @cache
-        def dfs(i: int, p: int, c: int) -> int:
-            coin = coins[i] // (2 ** c)
-            v1 = coin - k
-            v2 = coin // 2
-            for child in nodes[i]:
-                if child != p:
-                    v1 += dfs(child, i, c)
-                    if c + 1 < 14: v2 += dfs(child, i, c + 1)
-            res = max(v1, v2)
+        def dfs(idx: int, max_idx: int) -> int:
+            if idx == len(prices): return 0
+            res = dfs(idx + 1, max(max_idx, (idx + 1) * 2) - 1) + prices[idx]
+            if idx <= max_idx:
+                res = min(res, dfs(idx + 1, max_idx))
             return res
-        return dfs(0, -1, 0)
+        return dfs(0, -1)

@@ -11,17 +11,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: !true,
-    name: '2920. 收集所有金币可获得的最大积分',
-    url: 'https://leetcode.cn/problems/maximum-points-after-collecting-coins-from-all-nodes',
+    name: '2944. 购买水果需要的最少金币数',
+    url: 'https://leetcode.cn/problems/minimum-number-of-coins-for-fruits',
     level: 'Easy',
     tagList: [],
-    desc: `返回收集 所有 树节点的金币之后可以获得的最大积分。`,
+    desc: `请你返回获得所有水果所需要的 最少 金币数。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 2657,
-            memory: 370.45,
+            time: 2577,
+            memory: 416.74,
             desc: '记忆化搜索',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
