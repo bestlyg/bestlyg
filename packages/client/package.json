@@ -38,6 +38,7 @@
         "clsx": "catalog:",
         "date-fns": "^4.1.0",
         "dayjs": "catalog:",
+        "echarts": "catalog:",
         "github-markdown-css": "^5.8.1",
         "highlight.js": "^11.11.1",
         "html2canvas": "^1.4.1",

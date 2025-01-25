@@ -1,39 +1,10 @@
 import { Suspense } from '@/components/suspense';
+import * as echarts from 'echarts';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { fetch } from '@bestlyg/common/idl/utils';
-import { ChartTooltip, ChartTooltipContent } from '@/shadcn/ui/chart';
 import { prismaClient } from '@bestlyg/data';
-import { ChartLegend, ChartLegendContent } from '@/shadcn/ui/chart';
-import React from 'react';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
-import { ChartContainer, type ChartConfig } from '@/shadcn/ui/chart';
+import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
-import { RandomIcon } from '@/components/random-icon';
-
-const chartConfig = {
-    desktop: {
-        label: 'Desktop',
-        icon: RandomIcon,
-        // A color like 'hsl(220, 98%, 61%)' or 'var(--color-name)'
-        color: '#2563eb',
-        // OR a theme object with 'light' and 'dark' keys
-        // theme: {
-        //   light: "#2563eb",
-        //   dark: "#dc2626",
-        // },
-    },
-    mobile: {
-        label: 'Mobile',
-        icon: RandomIcon,
-        // A color like 'hsl(220, 98%, 61%)' or 'var(--color-name)'
-        color: '#2563eb',
-        // OR a theme object with 'light' and 'dark' keys
-        // theme: {
-        //   light: "#2563eb",
-        //   dark: "#dc2626",
-        // },
-    },
-} satisfies ChartConfig;
 
 export type XuanData = prismaClient.Prisma.XuanGetPayload<{}>;
 
@@ -69,47 +40,73 @@ async function fetchXuan(): Promise<XuanData[] | null> {
 
 export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }) {
     const data = React.use(promise) ?? [];
-    const lineChartData = React.useMemo(
-        () =>
-            data
-                .toSorted((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                .map(v => ({ ...v, weight: v.weight ? v.weight / 100 : v.weight })),
-        [data],
-    );
-
-    return (
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-            <LineChart data={lineChartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                    dataKey="date"
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                    tickFormatter={value => dayjs(value).format('MM-DD')}
-                />
-                <YAxis
-                    type="number"
-                    domain={['dataMin', 'dataMax']}
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                />
-
-                <ChartTooltip
-                    content={
-                        <ChartTooltipContent
-                            labelFormatter={label => dayjs(label).format('YYYY-MM-DD')}
-                        />
-                    }
-                />
-                <ChartLegend content={<ChartLegendContent />} />
-
-                <Line type="monotone" dataKey="weight" stroke="#8884d8" dot={false} />
-                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-            </LineChart>
-        </ChartContainer>
-    );
+    const containerRef = React.useRef<HTMLDivElement | null>(null);
+    const echartsRef = React.useRef<echarts.ECharts | null>(null);
+    useEffect(() => {
+        if (!data || data.length === 0) return;
+        if (!echartsRef.current) echartsRef.current = echarts.init(containerRef.current);
+        const option: echarts.EChartsOption = {
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: data
+                    .sort((v1, v2) => dayjs(v2.date).unix() - dayjs(v1.date).unix())
+                    .filter(v => v.weight)
+                    .map(v => dayjs(v.date).format('YYYY-MM-DD'))
+                    .reverse(),
+                name: '日期',
+                min: 'dataMin',
+                max: 'dataMax',
+                splitLine: {
+                    show: true,
+                },
+            },
+            yAxis: {
+                type: 'value',
+                name: '体重',
+                axisLabel: {
+                    formatter: '{value} KG',
+                },
+                min: 'dataMin',
+                max: 'dataMax',
+                splitLine: {
+                    show: true,
+                },
+            },
+            dataZoom: [
+                {
+                    type: 'slider',
+                    show: true,
+                    xAxisIndex: [0],
+                },
+                {
+                    type: 'slider',
+                    show: true,
+                    yAxisIndex: [0],
+                },
+                {
+                    type: 'inside',
+                    xAxisIndex: [0],
+                },
+                {
+                    type: 'inside',
+                    yAxisIndex: [0],
+                },
+            ],
+            series: [
+                {
+                    data: data
+                        .sort((v1, v2) => dayjs(v2.date).unix() - dayjs(v1.date).unix())
+                        .filter(v => v.weight)
+                        .map(v => v.weight! / 100)
+                        .reverse(),
+                    type: 'line',
+                },
+            ],
+        };
+        echartsRef.current.setOption(option);
+    }, [data]);
+    return <div style={{ width: '100%', height: 600 }} ref={containerRef} />;
 }
 
 export function Xuan() {
