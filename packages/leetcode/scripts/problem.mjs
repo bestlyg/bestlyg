@@ -10,19 +10,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
-    exist: !true,
-    name: '2944. 购买水果需要的最少金币数',
-    url: 'https://leetcode.cn/problems/minimum-number-of-coins-for-fruits',
+    exist: true,
+    name: '40. 组合总和 II',
+    url: 'https://leetcode.cn/problems/combination-sum-ii',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回获得所有水果所需要的 最少 金币数。`,
+    desc: `给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的每个数字在每个组合中只能使用 一次 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 2577,
-            memory: 416.74,
-            desc: '记忆化搜索',
+            time: 12,
+            memory: 17.80,
+            desc: 'dfs，回溯',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

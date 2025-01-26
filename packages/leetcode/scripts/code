@@ -1,10 +1,23 @@
 class Solution:
-    def minimumCoins(self, prices: List[int]) -> int:
-        @cache
-        def dfs(idx: int, max_idx: int) -> int:
-            if idx == len(prices): return 0
-            res = dfs(idx + 1, max(max_idx, (idx + 1) * 2) - 1) + prices[idx]
-            if idx <= max_idx:
-                res = min(res, dfs(idx + 1, max_idx))
-            return res
-        return dfs(0, -1)
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        counter = list(Counter(candidates).items())
+        res = []
+        cur = 0
+        arr = []
+        def dfs(i: int):
+            nonlocal cur, arr
+            if cur == target:
+                res.append(list(arr))
+                return
+            if i == len(counter): return
+            dfs(i + 1)
+            val, max_cnt = counter[i]
+            for c in range(1, max_cnt + 1):
+                if cur + val * c > target: break
+                arr += [val] * c
+                cur += val * c
+                dfs(i + 1)
+                cur -= val * c
+                arr = arr[:-c]
+        dfs(0)
+        return res
