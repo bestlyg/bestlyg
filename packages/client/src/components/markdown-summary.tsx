@@ -3,6 +3,7 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import React from 'react';
 import { markdownRenderingAtom } from '@/components/markdown';
 import { summaryLoadingAtom } from '@/components/app-summary';
+import { sidebarPromiseAtom } from '@/utils';
 
 export interface MarkdownSummaryInfo {
     title: string;
@@ -80,6 +81,7 @@ function MarkdownSummaryList({
 }
 
 export function MarkdownSummary() {
+    const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     const markdownRendering = useAtomValue(markdownRenderingAtom);
     const setSummaryLoading = useSetAtom(summaryLoadingAtom);
 
@@ -91,10 +93,11 @@ export function MarkdownSummary() {
     React.useEffect(() => {
         if (!markdownRendering) {
             startTransition(async () => {
+                if (sidebarPromise) await sidebarPromise;
                 setInfoList(getMarkdownSummaryInfoList());
             });
         }
-    }, [markdownRendering]);
+    }, [markdownRendering, sidebarPromise]);
     if (!infoList.length) return null;
     return <MarkdownSummaryList infoList={infoList} level={0} />;
 }
