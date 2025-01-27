@@ -1,6 +1,6 @@
 import React from 'react';
 import * as idl from '@bestlyg/common/idl/client';
-import { Link, useRouterState } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shadcn/ui/collapsible';
 import {
@@ -26,7 +26,11 @@ import { RandomIcon } from '@/components/random-icon';
 import _ from 'lodash';
 import { SidebarCategorySwitcher } from '@/components/sidebar-category-switcher';
 import { useAtomValue } from 'jotai';
-import { activeSidebarCategoryAtom, activeSidebarItemAtom, sidebarPromiseAtom } from '@/utils';
+import {
+    activeSidebarBreadcrumbListAtom,
+    activeSidebarCategoryAtom,
+    sidebarPromiseAtom,
+} from '@/utils';
 import { Suspense } from '@/components/suspense';
 import { AppSidebarFooter } from '@/components/app-sidebar-footer';
 
@@ -51,9 +55,8 @@ function SidebarContentSkeleton() {
 }
 
 function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
-    const state = useRouterState();
     const activeSidebarCategory = useAtomValue(activeSidebarCategoryAtom);
-    const activeSidebarItem = useAtomValue(activeSidebarItemAtom);
+    const activeSidebarBreadcrumbList = useAtomValue(activeSidebarBreadcrumbListAtom);
     const sidebarCtx = useSidebar();
     if (!activeSidebarCategory) return null;
     return (
@@ -66,16 +69,13 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                             tooltip={item.name}
                             asChild
                             key={i}
-                            isActive={item === activeSidebarItem}
+                            isActive={activeSidebarBreadcrumbList?.includes(item)}
                         >
                             <Link
                                 onClick={() => {
                                     sidebarCtx.setOpenMobile(false);
                                 }}
-                                to={activeSidebarCategory.path}
-                                search={{
-                                    p: item.link,
-                                }}
+                                to={item.link}
                             >
                                 <RandomIcon />
                                 <span>{item.name}</span>
@@ -89,9 +89,7 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                             key={i}
                             asChild
                             className="group/collapsible"
-                            defaultOpen={
-                                !!item.items?.find(v => v.link === state.resolvedLocation.search.p)
-                            }
+                            // open={activeSidebarBreadcrumbList?.includes(item) ? true : undefined}
                         >
                             <SidebarMenuItem>
                                 <CollapsibleTrigger asChild>
@@ -108,16 +106,15 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                                                 <SidebarMenuSubItem key={subItem.name}>
                                                     <SidebarMenuSubButton
                                                         asChild
-                                                        isActive={subItem === activeSidebarItem}
+                                                        isActive={activeSidebarBreadcrumbList?.includes(
+                                                            subItem,
+                                                        )}
                                                     >
                                                         <Link
                                                             onClick={() => {
                                                                 sidebarCtx.setOpenMobile(false);
                                                             }}
-                                                            to={activeSidebarCategory.path}
-                                                            search={{
-                                                                p: subItem.link,
-                                                            }}
+                                                            to={subItem.link}
                                                         >
                                                             <RandomIcon />
                                                             <span>{subItem.name}</span>
@@ -137,11 +134,7 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
     );
 }
 
-function Nav({
-    promise: sidebarPromise,
-}: {
-    promise: Promise<idl.api.bestlyg.GetDocsSidebarsResponse>;
-}) {
+function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.SidebarsResponse> }) {
     const sidebar = React.use(sidebarPromise);
     return sidebar?.groups
         ?.filter(v => v.groups?.length || v.items?.length)

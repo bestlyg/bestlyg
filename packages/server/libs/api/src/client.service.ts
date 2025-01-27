@@ -41,7 +41,7 @@ export class ClientService {
                     } else if (res.type === 'item') {
                         const v = res.data as idl.api.bestlyg.SidebarItem;
                         if (v.name === this.categoryFileName) {
-                            const json = await fs.readJson(resolve(this.staticPath, v.link));
+                            const json = await fs.readJson(resolve(this.staticPath, v.link.substring(1)));
                             Object.assign(category, json);
                         } else {
                             data.items ??= [];
@@ -59,7 +59,7 @@ export class ClientService {
         } else if (stat.isFile()) {
             const data: idl.api.bestlyg.SidebarItem = {
                 name: name.replace(path.extname(name), ''),
-                link: path.relative(this.staticPath, p),
+                link: '/' + path.relative(this.staticPath, p),
             };
             return { data, type: 'item' };
         }
@@ -84,7 +84,7 @@ export class ClientService {
             if (!group) groups.push((group = { name: dirName, items: [] }));
             group.items?.push({
                 name: problem.name,
-                link: problem.name,
+                link: `/leetcode/${dirName}/${problem.name}`,
             });
         }
         groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));

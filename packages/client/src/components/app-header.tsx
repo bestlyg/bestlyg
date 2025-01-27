@@ -7,13 +7,13 @@ import {
 } from '@/shadcn/ui/breadcrumb';
 import { SidebarTrigger } from '@/shadcn/ui/sidebar';
 import { Separator } from '@/shadcn/ui/separator';
-import { activeSidebarCategoryAtom, activeSidebarItemAtom } from '@/utils';
+import { activeSidebarBreadcrumbListAtom, activeSidebarCategoryAtom } from '@/utils';
 import { useAtomValue } from 'jotai';
-import { Link } from '@tanstack/react-router';
+import React from 'react';
 
 export function AppHeader() {
     const activeSidebarCategory = useAtomValue(activeSidebarCategoryAtom);
-    const activeSidebarItem = useAtomValue(activeSidebarItemAtom);
+    const activeSidebarBreadcrumbList = useAtomValue(activeSidebarBreadcrumbListAtom);
 
     return (
         <header className="w-full z-[1] sticky top-0 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-white border-grid border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -24,18 +24,18 @@ export function AppHeader() {
                     {activeSidebarCategory && (
                         <BreadcrumbList>
                             <BreadcrumbItem className="hidden md:block">
-                                <Link to={activeSidebarCategory.path}>
-                                    {activeSidebarCategory.name}
-                                </Link>
+                                {activeSidebarCategory.name}
                             </BreadcrumbItem>
-                            {activeSidebarItem && (
-                                <>
-                                    <BreadcrumbSeparator className="hidden md:block" />
-                                    <BreadcrumbItem>
-                                        <BreadcrumbPage>{activeSidebarItem.name}</BreadcrumbPage>
-                                    </BreadcrumbItem>
-                                </>
-                            )}
+                            {activeSidebarBreadcrumbList?.map((item, i) => {
+                                return (
+                                    <React.Fragment key={i}>
+                                        <BreadcrumbSeparator className="hidden md:block" />
+                                        <BreadcrumbItem>
+                                            <BreadcrumbPage>{item.name}</BreadcrumbPage>
+                                        </BreadcrumbItem>
+                                    </React.Fragment>
+                                );
+                            })}
                         </BreadcrumbList>
                     )}
                 </Breadcrumb>

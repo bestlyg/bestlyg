@@ -7,8 +7,7 @@ import { Suspense } from '@/components/suspense';
 import dayjs from 'dayjs';
 import { Markdown } from '@/components/markdown';
 import { leetcodeRoute } from '@/routes';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { findFirstSidebarItem, sidebarPromiseAtom } from '@/utils';
+import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-summary';
 import { MarkdownSummary } from '@/components/markdown-summary';
 
@@ -69,7 +68,7 @@ function LeetCodeProblem({
 }) {
     const problem = React.use(problemPromise);
     const md = React.useMemo(() => (problem ? problemToTemplate(problem) : ''), [problem]);
-    if (!problem) <>UNAME</>;
+    if (!problem) null;
     return <Markdown md={md} />;
 }
 
@@ -94,32 +93,21 @@ function LeetCodeProblemSkeleton() {
 }
 
 export function Leetcode() {
-    const search = leetcodeRoute.useSearch();
-    const navigate = leetcodeRoute.useNavigate();
     const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
-
+    const params: Record<string, string> = leetcodeRoute.useParams();
+    const link = params['*'];
     const [problemPromise, setProblemPromise] = React.useState(fetchLeetcodeProblem);
-    const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
 
     useEffect(() => {
-        if (!search.p) {
-            sidebarPromise?.then(sidebars => {
-                navigate({
-                    search: { p: findFirstSidebarItem(sidebars.groups)?.link },
-                });
-            });
-        } else {
-            setProblemPromise(() => fetchLeetcodeProblem(search.p));
-            setSummaryNodeAtom(<MarkdownSummary />);
-        }
-    }, [search.p]);
-    return search.p ? (
+        setProblemPromise(() => fetchLeetcodeProblem(link));
+        setSummaryNodeAtom(<MarkdownSummary />);
+    }, [link]);
+    if (!link) return <LeetCodeProblemSkeleton />;
+    return (
         <Suspense
             fallback={<LeetCodeProblemSkeleton />}
             promise={problemPromise}
             Component={LeetCodeProblem}
         />
-    ) : (
-        <>INDEX</>
     );
 }

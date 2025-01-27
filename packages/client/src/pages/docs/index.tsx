@@ -5,8 +5,7 @@ import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
 import { Markdown } from '@/components/markdown';
 import { docsRoute } from '@/routes';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { findFirstSidebarItem, sidebarPromiseAtom } from '@/utils';
+import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-summary';
 import { MarkdownSummary } from '@/components/markdown-summary';
 
@@ -15,7 +14,7 @@ async function fetchReadableStaticFile(p?: string): Promise<string | null> {
     const data = await fetch({
         url: '/static',
         method: 'get',
-        data: { p, r: 'true' },
+        data: { p: `docs/${p}`, r: 'true' },
         serializer: 'json',
     });
     return data;
@@ -23,7 +22,7 @@ async function fetchReadableStaticFile(p?: string): Promise<string | null> {
 
 function Doc({ promise }: { promise: ReturnType<typeof fetchReadableStaticFile> }) {
     const md = React.use(promise);
-    if (!md) <>UNAME</>;
+    if (!md) null;
     return <Markdown md={md ?? ''} />;
 }
 
@@ -49,25 +48,13 @@ function DocsSkeleton() {
 
 export function Docs() {
     const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
-    const search = docsRoute.useSearch();
-    const navigate = docsRoute.useNavigate();
-    const [promise, setPromise] = React.useState(() => fetchReadableStaticFile(search.p));
-    const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
+    const params: Record<string, string> = docsRoute.useParams();
+    const link = params['*'];
+    const [promise, setPromise] = React.useState(() => fetchReadableStaticFile(link));
     useEffect(() => {
-        if (!search.p) {
-            sidebarPromise?.then(sidebars => {
-                navigate({
-                    search: { p: findFirstSidebarItem(sidebars.groups)?.link },
-                });
-            });
-        } else {
-            setPromise(() => fetchReadableStaticFile(search.p));
-            setSummaryNodeAtom(<MarkdownSummary />);
-        }
-    }, [search.p]);
-    return search.p ? (
-        <Suspense fallback={<DocsSkeleton />} promise={promise} Component={Doc} />
-    ) : (
-        <>INDEX</>
-    );
+        setPromise(() => fetchReadableStaticFile(link));
+        setSummaryNodeAtom(<MarkdownSummary />);
+    }, [link]);
+    if (!link) return <DocsSkeleton />;
+    return <Suspense fallback={<DocsSkeleton />} promise={promise} Component={Doc} />;
 }

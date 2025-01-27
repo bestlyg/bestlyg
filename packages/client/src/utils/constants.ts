@@ -1,14 +1,48 @@
 import { RandomIcon } from '@/components/random-icon';
+import {
+    image2shadowRoute,
+    point24Route,
+    serverlessRoute,
+    ledgerListRoute,
+    xuanRoute,
+} from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
-import z from 'zod';
+
+declare const __MODE__: 'development' | 'production' | undefined;
+
+export const MODE = typeof __MODE__ !== 'undefined' ? __MODE__ : 'development';
+export const IS_DEV = MODE === 'development';
+export const IS_PROD = MODE === 'production';
+
 export const xTokenName = 'x-token';
-export const docsPath = '/docs';
-export const leetcodePath = '/leetcode';
-export const applicationPath = '/application';
-export const managementPath = '/management';
-export const xuanPath = '/xuan';
-export const ledgerPath = '/ledger';
-export const ledgerListPath = `${ledgerPath}/list`;
+
+export const paths = {
+    docs: { path: '/docs' },
+    leetcode: { path: '/leetcode' },
+    application: {
+        path: '/application',
+        children: {
+            image2shadow: { path: '/image2shadow' },
+            point24: { path: '/point24' },
+            serverless: { path: '/serverless' },
+        },
+    },
+    management: {
+        path: '/management',
+        children: {
+            xuan: { path: '/xuan' },
+            ledger: {
+                path: '/ledger',
+                children: {
+                    list: '/list',
+                },
+            },
+        },
+    },
+    welcome: { path: '/' },
+    login: { path: '/login' },
+    resume: { path: '/resume' },
+} as const;
 
 async function requestApplicationSidebars(): Promise<{
     groups?: idl.api.bestlyg.SidebarGroup[];
@@ -20,15 +54,15 @@ async function requestApplicationSidebars(): Promise<{
                 items: [
                     {
                         name: '图像转阴影',
-                        link: 'image2shadow',
+                        link: image2shadowRoute.fullPath,
                     },
                     {
                         name: '24点',
-                        link: 'point24',
+                        link: point24Route.fullPath,
                     },
                     {
                         name: 'Serverless',
-                        link: 'serverless',
+                        link: serverlessRoute.fullPath,
                     },
                 ],
             },
@@ -46,11 +80,11 @@ async function requestManagementSidebars(): Promise<{
                 items: [
                     {
                         name: '账本',
-                        link: `${managementPath}${ledgerListPath}`,
+                        link: ledgerListRoute.fullPath,
                     },
                     {
                         name: '瑄的',
-                        link: `${managementPath}${xuanPath}`,
+                        link: xuanRoute.fullPath,
                     },
                 ],
             },
@@ -62,7 +96,11 @@ export const sidebarCategories: {
     name: string;
     logo: React.FC<any>;
     desc: string;
-    path: typeof docsPath | typeof leetcodePath | typeof applicationPath | typeof managementPath;
+    path:
+        | typeof paths.docs.path
+        | typeof paths.leetcode.path
+        | typeof paths.application.path
+        | typeof paths.management.path;
     request:
         | typeof idl.api.bestlyg.ClientService.GetDocsSidebars.request
         | typeof idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request
@@ -73,30 +111,28 @@ export const sidebarCategories: {
         name: '文档',
         logo: RandomIcon,
         desc: '记录生活 记录自己',
-        path: docsPath,
+        path: paths.docs.path,
         request: idl.api.bestlyg.ClientService.GetDocsSidebars.request,
     },
     {
         name: '力扣',
         logo: RandomIcon,
         desc: '天天力扣 好好记录',
-        path: leetcodePath,
+        path: paths.leetcode.path,
         request: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request,
     },
     {
         name: '应用',
         logo: RandomIcon,
         desc: '脑洞大开 代码好玩',
-        path: applicationPath,
+        path: paths.application.path,
         request: requestApplicationSidebars,
     },
     {
         name: '管理',
         logo: RandomIcon,
         desc: '我的世界 独一无二',
-        path: managementPath,
+        path: paths.management.path,
         request: requestManagementSidebars,
     },
 ] as const;
-
-export const sidebarValidateSearch = z.object({ p: z.string().optional() });

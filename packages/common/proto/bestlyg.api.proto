@@ -40,26 +40,19 @@ message SidebarGroup {
   repeated SidebarGroup groups = 3;
 }
 
-message GetDocsSidebarsRequest {}
-
-message GetDocsSidebarsResponse {
-  repeated SidebarGroup groups = 1;
-}
-
-message GetLeetcodeSidebarsRequest {}
-
-message GetLeetcodeSidebarsResponse {
+message SidebarsRequest {}
+message SidebarsResponse {
   repeated SidebarGroup groups = 1;
 }
 
 service ClientService {
-  rpc GetDocsSidebars (GetDocsSidebarsRequest) returns (GetDocsSidebarsResponse) {
+  rpc GetDocsSidebars (SidebarsRequest) returns (SidebarsResponse) {
     option (api.url) = "'/api/client/docs/sidebars'";
     option (api.method) = "'get'";
     option (api.serializer) = "'json'";
   }
 
-  rpc GetLeetcodeSidebars (GetLeetcodeSidebarsRequest) returns (GetLeetcodeSidebarsResponse) {
+  rpc GetLeetcodeSidebars (SidebarsRequest) returns (SidebarsResponse) {
     option (api.url) = "'/api/client/leetcode/sidebars'";
     option (api.method) = "'get'";
     option (api.serializer) = "'json'";

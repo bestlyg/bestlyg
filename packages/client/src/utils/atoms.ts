@@ -3,9 +3,7 @@ import { atomWithStorage } from 'jotai/utils';
 import { atom } from 'jotai';
 import { sidebarCategories } from './constants';
 
-export const activeSidebarCategoryAtom = atom(
-    sidebarCategories.find(v => location.pathname.startsWith(v.path)),
-);
+export const activeSidebarCategoryAtom = atom<(typeof sidebarCategories)[number] | null>(null);
 
 export const sidebarPromiseAtom = atom(get => {
     const activeSidebarCategory = get(activeSidebarCategoryAtom);
@@ -15,7 +13,11 @@ export const sidebarPromiseAtom = atom(get => {
 
 export const sidebarAtom = atom(get => get(sidebarPromiseAtom).sidebarPromise);
 
-export const activeSidebarItemAtom = atom<idl.api.bestlyg.SidebarItem | undefined>();
+export const activeSidebarItemAtom = atom<idl.api.bestlyg.SidebarItem | null>(null);
+
+export const activeSidebarBreadcrumbListAtom = atom<
+    (idl.api.bestlyg.SidebarItem | idl.api.bestlyg.SidebarGroup)[] | null
+>(null);
 
 export interface UserInfo {
     nickname: string;

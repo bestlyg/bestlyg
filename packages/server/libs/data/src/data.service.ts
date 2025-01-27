@@ -26,6 +26,7 @@ export class DataService {
     }
 
     async getLeetcodeProblem({ name }: { name: string }) {
+        name = name.split('/').at(-1)!;
         const data = await this.prismaService.leetcodeProblem.findFirst({
             include: { solutions: {} },
             where: { name },

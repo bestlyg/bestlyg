@@ -1,14 +1,14 @@
 import React from 'react';
 import { RouterProvider } from '@/routes';
-import '@/shadcn/styles/globals.css';
 import { hooks as fetchHooks, request } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
+import { xTokenName } from '@/utils';
 import { Toaster } from '@/shadcn/ui/toaster';
 import { ResponseEntity } from '@bestlyg/common/dist/types/response-entity.js';
+import '@/shadcn/styles/globals.css';
 import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
-import { xTokenName } from '@/utils';
 
 export default function App() {
     const { toast } = useToast();

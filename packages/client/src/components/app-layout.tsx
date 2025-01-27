@@ -1,39 +1,51 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/shadcn/ui/sidebar';
-import { activeSidebarItemAtom, sidebarPromiseAtom } from '@/utils';
-import { Outlet } from '@tanstack/react-router';
-import { useRouterState } from '@tanstack/react-router';
+import {
+    sidebarPromiseAtom,
+    sidebarCategories,
+    activeSidebarCategoryAtom,
+    activeSidebarBreadcrumbListAtom,
+    IS_DEV,
+} from '@/utils';
+import { Outlet, useRouterState } from '@tanstack/react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import * as idl from '@bestlyg/common/idl/client';
 import React from 'react';
 import { AppHeader } from '@/components/app-header';
-import { loginRoute, resumeRoute } from '@/routes';
+import { loginRoute, resumeRoute, rootRoute } from '@/routes';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 import { AppSummary } from '@/components/app-summary';
 
 export default function AppLayout() {
-    const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
-    const setActiveSidebarItem = useSetAtom(activeSidebarItemAtom);
     const state = useRouterState();
+    const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
+    const setActiveSidebarBreadcrumbList = useSetAtom(activeSidebarBreadcrumbListAtom);
+    const setActiveSidebarCategory = useSetAtom(activeSidebarCategoryAtom);
     React.useEffect(() => {
-        function findActiveItem(groups: idl.api.bestlyg.SidebarGroup[]): any {
+        const matchInfo = state.matches.filter(v => v.id !== rootRoute.id)[0];
+        // console.log('RouterState', state);
+        setActiveSidebarCategory(
+            sidebarCategories.find(v => matchInfo?.fullPath.startsWith(v.path)) ?? null,
+        );
+        function findActiveItem(
+            groups: idl.api.bestlyg.SidebarGroup[],
+        ): (idl.api.bestlyg.SidebarItem | idl.api.bestlyg.SidebarGroup)[] | null {
             for (const group of groups) {
                 for (const item of group.items ?? []) {
-                    if (
-                        item.link === state.resolvedLocation.search.p ||
-                        state.resolvedLocation.pathname.startsWith(item.link)
-                    ) {
-                        return item;
+                    if (state.resolvedLocation.pathname === item.link) {
+                        return [group, item];
                     }
                 }
                 const res = findActiveItem(group.groups ?? []);
-                if (res) return res;
+                if (res) return [group].concat(res);
             }
+            return null;
         }
         sidebarPromise?.then(sidebar => {
-            const activeItem = findActiveItem(sidebar?.groups ?? []);
-            setActiveSidebarItem(activeItem);
+            const res = findActiveItem(sidebar?.groups ?? []);
+            setActiveSidebarBreadcrumbList(res);
         });
     }, [state, sidebarPromise]);
     if (
@@ -62,6 +74,7 @@ export default function AppLayout() {
                     <ArrowUpToLine />
                 </ScrollToTop>
             </SidebarInset>
+            {IS_DEV && <TanStackRouterDevtools />}
         </SidebarProvider>
     );
 }

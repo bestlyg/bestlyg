@@ -53,7 +53,7 @@ export function SidebarCategorySwitcher() {
                             Menu
                         </DropdownMenuLabel>
                         {sidebarCategories.map(item => (
-                            <Link to={item.path} key={item.name}>
+                            <Link to={item.path as string} key={item.name}>
                                 <DropdownMenuItem
                                     onClick={() => {
                                         setActiveSidebarCategoryAtom(item);
