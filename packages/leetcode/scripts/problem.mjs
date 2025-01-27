@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '40. 组合总和 II',
-    url: 'https://leetcode.cn/problems/combination-sum-ii',
+    name: '45. 跳跃游戏 II',
+    url: 'https://leetcode.cn/problems/jump-game-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的每个数字在每个组合中只能使用 一次 。`,
+    desc: `返回到达 nums[n - 1] 的最小跳跃次数。生成的测试用例可以到达 nums[n - 1]。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 12,
-            memory: 17.80,
-            desc: 'dfs，回溯',
+            time: 3321,
+            memory: 18.45,
+            desc: 'dp',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
