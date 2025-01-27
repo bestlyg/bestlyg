@@ -23,7 +23,7 @@ async function fetchServerless(): Promise<ServerlessData[] | null> {
     return data;
 }
 
-export function Serverless() {
+export default function Serverless() {
     const { toast } = useToast();
 
     const { data, refresh } = useRequest(fetchServerless);

@@ -1,24 +1,12 @@
-import { Docs } from '@/pages/docs';
-import { Leetcode } from '@/pages/leetcode';
 import AppLayout from '@/components/app-layout';
 import {
     RouterProvider as TanstackRouterProvider,
     createRouter,
     createRoute,
     createRootRoute,
-    Outlet,
+    lazyRouteComponent,
 } from '@tanstack/react-router';
 import { paths } from '@/utils';
-import { Application } from '@/pages/application';
-import { Image2Shadow } from '@/pages/application/image2shadow';
-import { Point24 } from '@/pages/application/point24';
-import { Serverless } from '@/pages/application/serverless';
-import { Management } from '@/pages/management';
-import { LedgerList } from '@/pages/management/ledger/list';
-import { Xuan } from '@/pages/management/xuan';
-import { Welcome } from '@/pages/welcome';
-import { Login } from '@/pages/login';
-import { Resume } from '@/pages/resume';
 
 export const rootRoute = createRootRoute({
     component: AppLayout,
@@ -27,53 +15,53 @@ export const rootRoute = createRootRoute({
 export const welcomeRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: paths.welcome.path,
-    component: Welcome,
+    component: lazyRouteComponent(() => import('@/pages/welcome')),
 });
 
 export const loginRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: paths.login.path,
-    component: Login,
+    component: lazyRouteComponent(() => import('@/pages/login')),
 });
 
 export const resumeRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: paths.resume.path,
-    component: Resume,
+    component: lazyRouteComponent(() => import('@/pages/resume')),
 });
 
 export const docsRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: `${paths.docs.path}/*`,
-    component: Docs,
+    component: lazyRouteComponent(() => import('@/pages/docs')),
 });
 
 export const leetcodeRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: `${paths.leetcode.path}/*`,
-    component: Leetcode,
+    component: lazyRouteComponent(() => import('@/pages/leetcode')),
 });
 
 export const applicationRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: paths.application.path,
-    component: Application,
+    component: lazyRouteComponent(() => import('@/pages/application')),
 });
 
 export const image2shadowRoute = createRoute({
     getParentRoute: () => applicationRoute,
     path: paths.application.children.image2shadow.path,
-    component: Image2Shadow,
+    component: lazyRouteComponent(() => import('@/pages/application/image2shadow')),
 });
 export const point24Route = createRoute({
     getParentRoute: () => applicationRoute,
     path: paths.application.children.point24.path,
-    component: Point24,
+    component: lazyRouteComponent(() => import('@/pages/application/point24')),
 });
 export const serverlessRoute = createRoute({
     getParentRoute: () => applicationRoute,
     path: paths.application.children.serverless.path,
-    component: Serverless,
+    component: lazyRouteComponent(() => import('@/pages/application/serverless')),
 });
 
 const applicationRouteTree = applicationRoute.addChildren([
@@ -85,19 +73,19 @@ const applicationRouteTree = applicationRoute.addChildren([
 export const managementRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: paths.management.path,
-    component: Management,
+    component: lazyRouteComponent(() => import('@/pages/management')),
 });
 
 export const ledgerRoute = createRoute({
     getParentRoute: () => managementRoute,
     path: paths.management.children.ledger.path,
-    component: Outlet,
+    component: lazyRouteComponent(() => import('@/pages/management/ledger')),
 });
 
 export const ledgerListRoute = createRoute({
     getParentRoute: () => ledgerRoute,
     path: paths.management.children.ledger.children.list,
-    component: LedgerList,
+    component: lazyRouteComponent(() => import('@/pages/management/ledger/list')),
 });
 
 const ledgerRouteTree = ledgerRoute.addChildren([ledgerListRoute]);
@@ -105,7 +93,7 @@ const ledgerRouteTree = ledgerRoute.addChildren([ledgerListRoute]);
 export const xuanRoute = createRoute({
     getParentRoute: () => managementRoute,
     path: paths.management.children.xuan.path,
-    component: Xuan,
+    component: lazyRouteComponent(() => import('@/pages/management/xuan')),
 });
 
 const managementRouteTree = managementRoute.addChildren([ledgerRouteTree, xuanRoute]);

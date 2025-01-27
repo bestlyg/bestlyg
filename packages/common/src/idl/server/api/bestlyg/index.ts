@@ -27,19 +27,15 @@ export interface BestlygHealthResponse {
 
 export namespace BestlygService {
     export namespace HealthCheck {
-    
         export type Request = BestlygHealthRequest;
-    
+
         export type Response = BestlygHealthResponse;
-    
+
         export const url = '/api/health';
-    
+
         export const method = 'get';
-    
+
         export const serializer = 'json';
-    
-        
-    
     }
 }
 
@@ -57,9 +53,7 @@ export interface SidebarGroup {
     groups?: SidebarGroup[];
 }
 
-export interface SidebarsRequest {
-
-}
+export interface SidebarsRequest {}
 
 export interface SidebarsResponse {
     groups?: SidebarGroup[];
@@ -67,34 +61,26 @@ export interface SidebarsResponse {
 
 export namespace ClientService {
     export namespace GetDocsSidebars {
-    
         export type Request = SidebarsRequest;
-    
+
         export type Response = SidebarsResponse;
-    
+
         export const url = '/api/client/docs/sidebars';
-    
+
         export const method = 'get';
-    
+
         export const serializer = 'json';
-    
-        
-    
     }
 
     export namespace GetLeetcodeSidebars {
-    
         export type Request = SidebarsRequest;
-    
+
         export type Response = SidebarsResponse;
-    
+
         export const url = '/api/client/leetcode/sidebars';
-    
+
         export const method = 'get';
-    
+
         export const serializer = 'json';
-    
-        
-    
     }
 }

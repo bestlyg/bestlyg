@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import { activeSidebarCategoryAtom, sidebarCategories } from '@/utils';
 
-export function Welcome() {
+export default function Welcome() {
     const setActiveSidebarCategoryAtom = useSetAtom(activeSidebarCategoryAtom);
     useEffect(() => {
         setActiveSidebarCategoryAtom(sidebarCategories[0]);

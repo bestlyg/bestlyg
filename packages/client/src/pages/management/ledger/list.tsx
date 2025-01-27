@@ -155,7 +155,7 @@ function LedgerTable({ promise }: { promise: ReturnType<typeof fetchLedgers> }) 
     );
 }
 
-export function LedgerList() {
+export default function LedgerList() {
     const [promise] = React.useState(fetchLedgers);
     return <Suspense fallback={<LedgerSkeleton />} promise={promise} Component={LedgerTable} />;
 }

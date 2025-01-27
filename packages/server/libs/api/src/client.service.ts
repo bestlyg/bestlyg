@@ -41,7 +41,9 @@ export class ClientService {
                     } else if (res.type === 'item') {
                         const v = res.data as idl.api.bestlyg.SidebarItem;
                         if (v.name === this.categoryFileName) {
-                            const json = await fs.readJson(resolve(this.staticPath, v.link.substring(1)));
+                            const json = await fs.readJson(
+                                resolve(this.staticPath, v.link.substring(1)),
+                            );
                             Object.assign(category, json);
                         } else {
                             data.items ??= [];

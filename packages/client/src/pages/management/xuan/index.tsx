@@ -109,7 +109,7 @@ export function XuanChart({ promise }: { promise: ReturnType<typeof fetchXuan> }
     return <div style={{ width: '100%', height: 600 }} ref={containerRef} />;
 }
 
-export function Xuan() {
+export default function Xuan() {
     const [promise] = React.useState(fetchXuan);
     return <Suspense fallback={<XuansSkeleton />} promise={promise} Component={XuanChart} />;
 }

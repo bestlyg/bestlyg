@@ -13,7 +13,7 @@ function getImageData(image: HTMLImageElement) {
     return imageData;
 }
 
-export function Image2Shadow() {
+export default function Image2Shadow() {
     const { toast } = useToast();
     const [file, setFile] = useState<File | null>(null);
     const shadowRef = useRef<HTMLDivElement>({} as HTMLDivElement);

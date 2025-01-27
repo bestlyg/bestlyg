@@ -36,7 +36,7 @@ async function fetchResume() {
     return res;
 }
 
-export function Resume() {
+export default function Resume() {
     const { data } = useRequest(fetchResume);
     const [editorVisible, editorVisbileActions] = useToggle(false);
     const [resumePageType, setResumePageType] = useState(ResumePageType.MultiPage);

@@ -46,7 +46,7 @@ function DocsSkeleton() {
     );
 }
 
-export function Docs() {
+export default function Docs() {
     const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
     const params: Record<string, string> = docsRoute.useParams();
     const link = params['*'];

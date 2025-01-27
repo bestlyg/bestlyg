@@ -92,7 +92,7 @@ function LeetCodeProblemSkeleton() {
     );
 }
 
-export function Leetcode() {
+export default function Leetcode() {
     const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
     const params: Record<string, string> = leetcodeRoute.useParams();
     const link = params['*'];
