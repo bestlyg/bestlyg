@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { compile, run } from '@mdx-js/mdx';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import { BiliBiliIFrame } from '@/components/bilibili-iframe';
-import { Reciter } from '@/components/reciter';
+import { BiliBiliIFrame } from '@/components/markdown/bilibili-iframe';
+import { Reciter } from '@/components/markdown/reciter';
 import rehypeKatex from 'rehype-katex';
-import { RandomItem } from '@/components/render-item';
+import { RandomItem } from '@/components/markdown/render-item';
 import remarkGfm from 'remark-gfm';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkDirective from 'remark-directive';

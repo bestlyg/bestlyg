@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import React from 'react';
 import { markdownRenderingAtom } from '@/components/markdown';
-import { summaryLoadingAtom } from '@/components/app-summary';
 import { sidebarPromiseAtom } from '@/utils';
+import _ from 'lodash';
 
 export interface MarkdownSummaryInfo {
     title: string;
@@ -83,20 +83,25 @@ function MarkdownSummaryList({
 export function MarkdownSummary() {
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     const markdownRendering = useAtomValue(markdownRenderingAtom);
-    const setSummaryLoading = useSetAtom(summaryLoadingAtom);
-
     const [infoList, setInfoList] = React.useState<MarkdownSummaryInfo[]>([]);
-    const [isPending, startTransition] = React.useTransition();
+
+    const updateInfoList = _.debounce(() => setInfoList(getMarkdownSummaryInfoList()));
+
     React.useEffect(() => {
-        setSummaryLoading(isPending);
-    }, [isPending]);
-    React.useEffect(() => {
-        if (!markdownRendering) {
-            startTransition(async () => {
-                if (sidebarPromise) await sidebarPromise;
-                setInfoList(getMarkdownSummaryInfoList());
-            });
-        }
+        const observer = new MutationObserver(entries => {
+            for (const entry of entries) {
+                if (
+                    entry.target instanceof HTMLElement &&
+                    entry.target.classList.contains('markdown-body')
+                ) {
+                    updateInfoList();
+                }
+            }
+        });
+        observer.observe(document.body, { subtree: true, childList: true });
+        return () => {
+            observer.disconnect();
+        };
     }, [markdownRendering, sidebarPromise]);
     if (!infoList.length) return null;
     return <MarkdownSummaryList infoList={infoList} level={0} />;
