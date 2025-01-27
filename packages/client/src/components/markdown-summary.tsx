@@ -88,17 +88,10 @@ export function MarkdownSummary() {
     const updateInfoList = _.debounce(() => setInfoList(getMarkdownSummaryInfoList()));
 
     React.useEffect(() => {
-        const observer = new MutationObserver(entries => {
-            for (const entry of entries) {
-                if (
-                    entry.target instanceof HTMLElement &&
-                    entry.target.classList.contains('markdown-body')
-                ) {
-                    updateInfoList();
-                }
-            }
+        const observer = new MutationObserver(() => {
+            updateInfoList();
         });
-        observer.observe(document.body, { subtree: true, childList: true });
+        observer.observe(document.body, { subtree: true, childList: true, attributes: true });
         return () => {
             observer.disconnect();
         };
