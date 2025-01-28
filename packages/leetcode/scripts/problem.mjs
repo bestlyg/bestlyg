@@ -11,17 +11,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '45. 跳跃游戏 II',
-    url: 'https://leetcode.cn/problems/jump-game-ii',
+    name: '119. 杨辉三角 II',
+    url: 'https://leetcode.cn/problems/pascals-triangle-ii',
     level: 'Easy',
     tagList: [],
-    desc: `返回到达 nums[n - 1] 的最小跳跃次数。生成的测试用例可以到达 nums[n - 1]。`,
+    desc: `给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3321,
-            memory: 18.45,
+            time: 4,
+            memory: 17.33,
             desc: 'dp',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
