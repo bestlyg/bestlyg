@@ -1,11 +1,8 @@
 class Solution:
-    def getRow(self, rowIndex: int) -> List[int]:
-        dp = [1]
-        if rowIndex == 0: return dp
-        for i in range(rowIndex):
-            next_dp = [1]
-            for j in range(1, len(dp)):
-                next_dp.append(dp[j] + dp[j - 1])
-            next_dp.append(1)
-            dp = next_dp
-        return dp
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        m = {}
+        for i in range(len(nums)):
+            num = nums[i]
+            if num in m and i - m[num] <= k: return True
+            m[num] = i
+        return False
