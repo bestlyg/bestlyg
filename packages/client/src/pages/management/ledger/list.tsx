@@ -1,7 +1,7 @@
 import { Suspense } from '@/components/suspense';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { fetch } from '@bestlyg/common/idl/utils';
-import { prismaClient } from '@bestlyg/data';
+import { Prisma } from '@bestlyg/data/prisma-client';
 import React from 'react';
 import {
     ColumnDef,
@@ -22,7 +22,7 @@ import {
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
 
-export type Ledger = prismaClient.Prisma.LedgerGetPayload<{}>;
+export type Ledger = Prisma.LedgerGetPayload<{}>;
 
 export const columns: ColumnDef<Ledger>[] = [
     {

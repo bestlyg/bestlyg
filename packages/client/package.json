@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
+        "build:visualizer": "cross-env VITE_VISUALIZER=true NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "lint": "eslint .",
         "preview": "vite preview",
         "deploy": "node scripts/deploy.mjs"
@@ -36,6 +37,7 @@
         "axios": "catalog:",
         "class-variance-authority": "^0.7.1",
         "clsx": "catalog:",
+        "cross-env": "catalog:",
         "date-fns": "^4.1.0",
         "dayjs": "catalog:",
         "echarts": "catalog:",
@@ -76,11 +78,13 @@
         "globals": "^15.14.0",
         "less": "catalog:",
         "postcss": "^8.5.0",
+        "rollup-plugin-visualizer": "^5.14.0",
         "shadcn": "^2.1.8",
         "tailwindcss": "^3.4.17",
         "tailwindcss-animate": "^1.0.7",
         "typescript": "catalog:",
         "typescript-eslint": "^8.18.2",
-        "vite": "^6.0.5"
+        "vite": "^6.0.5",
+        "vite-plugin-compression": "^0.5.1"
     }
 }

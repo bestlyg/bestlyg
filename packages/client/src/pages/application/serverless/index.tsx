@@ -1,5 +1,5 @@
 import { useRequest } from 'ahooks';
-import { prismaClient } from '@bestlyg/data';
+import { Prisma } from '@bestlyg/data/prisma-client';
 import { fetch } from '@bestlyg/common/idl/utils';
 import { Button, Flex, Input, Popconfirm, Space } from 'antd';
 import { useEffect, useRef, useState } from 'react';
@@ -9,7 +9,7 @@ import 'highlight.js/styles/github.css';
 import _ from 'lodash';
 import { useToast } from '@/shadcn/hooks/use-toast';
 
-export type ServerlessData = prismaClient.Prisma.ServerlessGetPayload<{
+export type ServerlessData = Prisma.ServerlessGetPayload<{
     include: { codes: true };
 }>;
 

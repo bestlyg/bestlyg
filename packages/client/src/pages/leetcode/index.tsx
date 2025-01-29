@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { prismaClient } from '@bestlyg/data';
+import { LeetcodeSolution, Prisma } from '@bestlyg/data/prisma-client';
 import { fetch } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
@@ -13,7 +13,7 @@ import { MarkdownSummary } from '@/components/markdown-summary';
 
 const quote = '`';
 
-function solutionToTemplate(solution: prismaClient.LeetcodeSolution, idx: number) {
+function solutionToTemplate(solution: LeetcodeSolution, idx: number) {
     const { script, date, time, memory, code, desc } = solution;
     return `
 ## 题解 ${idx + 1} - ${script}
@@ -46,9 +46,7 @@ ${solutions.map(solutionToTemplate).join('\n\n')}
 `.trim();
 }
 
-async function fetchLeetcodeProblem(
-    name?: string,
-): Promise<prismaClient.Prisma.LeetcodeProblemGetPayload<{
+async function fetchLeetcodeProblem(name?: string): Promise<Prisma.LeetcodeProblemGetPayload<{
     include: { solutions: true };
 }> | null> {
     if (!name) return null;
