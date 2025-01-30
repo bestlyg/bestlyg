@@ -10,10 +10,10 @@ import {
     LeetCode,
     getTitleSlugFromURL,
 } from '@bestlyg/leetcode';
-import { prismaClient } from '@bestlyg/data';
+import { PrismaClient } from '@bestlyg/data/prisma-client';
 import { problem as problemFromCreate } from './problem.mjs';
 
-const prisma = new prismaClient.PrismaClient();
+const prisma = new PrismaClient();
 
 const leetcode = new LeetCode({
     credential: {

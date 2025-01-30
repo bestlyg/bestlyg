@@ -1,8 +1,8 @@
 class Solution:
-    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        m = {}
-        for i in range(len(nums)):
-            num = nums[i]
-            if num in m and i - m[num] <= k: return True
-            m[num] = i
-        return False
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        c1 = Counter(nums1)
+        c2 = Counter(nums2)
+        res = []
+        for num, cnt in c1.items():
+            res += [num] * min(c2[num], cnt)
+        return res
