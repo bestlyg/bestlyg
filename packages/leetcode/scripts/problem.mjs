@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '350. 两个数组的交集 II',
-    url: 'https://leetcode.cn/problems/intersection-of-two-arrays-ii',
+    name: '541. 反转字符串 II',
+    url: 'https://leetcode.cn/problems/reverse-string-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给你两个整数数组 nums1 和 nums2 ，请你以数组形式返回两数组的交集。返回结果中每个元素出现的次数，应与元素在两个数组中都出现的次数一致（如果出现次数不一致，则考虑取较小值）。可以不考虑输出结果的顺序。`,
+    desc: `给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.93,
-            desc: '计数后遍历',
+            time: 0,
+            memory: 17.62,
+            desc: '遍历后反转',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
