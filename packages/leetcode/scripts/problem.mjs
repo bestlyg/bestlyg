@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '541. 反转字符串 II',
-    url: 'https://leetcode.cn/problems/reverse-string-ii',
+    name: '81. 搜索旋转排序数组 II',
+    url: 'https://leetcode.cn/problems/search-in-rotated-sorted-array-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。`,
+    desc: `给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。如果 nums 中存在这个目标值 target ，则返回 true ，否则返回 false 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
             time: 0,
-            memory: 17.62,
-            desc: '遍历后反转',
+            memory: 17.75,
+            desc: 'in计算',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
