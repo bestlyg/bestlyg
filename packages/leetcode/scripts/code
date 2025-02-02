@@ -1,3 +1,6 @@
 class Solution:
-    def search(self, nums: List[int], target: int) -> bool:
-        return target in nums
+    def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:
+        for m1, n1 in ops:
+            m = min(m, m1)
+            n = min(n, n1)
+        return m * n

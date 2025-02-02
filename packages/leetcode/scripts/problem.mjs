@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '81. 搜索旋转排序数组 II',
-    url: 'https://leetcode.cn/problems/search-in-rotated-sorted-array-ii',
+    name: '598. 区间加法 II',
+    url: 'https://leetcode.cn/problems/range-addition-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。如果 nums 中存在这个目标值 target ，则返回 true ，否则返回 false 。`,
+    desc: `在 执行完所有操作后 ，计算并返回 矩阵中最大整数的个数 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 17.75,
-            desc: 'in计算',
+            time: 3,
+            memory: 18.84,
+            desc: '遍历，取交集',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
