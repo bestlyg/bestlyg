@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem & {solutions:Solution[]}} */
 export const problem = {
     exist: true,
-    name: '598. 区间加法 II',
-    url: 'https://leetcode.cn/problems/range-addition-ii',
+    name: '680. 验证回文串 II',
+    url: 'https://leetcode.cn/problems/valid-palindrome-ii',
     level: 'Easy',
     tagList: [],
-    desc: `在 执行完所有操作后 ，计算并返回 矩阵中最大整数的个数 。`,
+    desc: `给你一个字符串 s，最多 可以从中删除一个字符。请你判断 s 是否能成为回文字符串：如果能，返回 true ；否则，返回 false 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 18.84,
-            desc: '遍历，取交集',
+            time: 3094,
+            memory: 613.83,
+            desc: '递归判断每一个子串',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

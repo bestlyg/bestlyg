@@ -1,6 +1,5 @@
 class Solution:
-    def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:
-        for m1, n1 in ops:
-            m = min(m, m1)
-            n = min(n, n1)
-        return m * n
+    def validPalindrome(self, s: str, removed = False) -> bool:
+        return len(s) <= 1 or \
+               s[0] == s[-1] and self.validPalindrome(s[1: len(s) - 1], removed) or \
+               not removed and (self.validPalindrome(s[:len(s) - 1], True) or self.validPalindrome(s[1:], True))
