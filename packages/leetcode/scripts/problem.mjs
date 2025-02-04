@@ -1,6 +1,5 @@
 /**
- * @typedef {import("@bestlyg/data").prismaClient.LeetcodeProblem} Problem
- * @typedef {import("@bestlyg/data").prismaClient.LeetcodeSolution} Solution
+ * @typedef {import("@bestlyg/data/prisma-client").Prisma.LeetcodeProblemGetPayload<{include: { solutions: true };}>} Problem
  */
 import '@bestlyg/cli/globals';
 import { PATH_CODE } from '@bestlyg/leetcode';
@@ -8,21 +7,21 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 
 // /** @type {import("../dist/types").LeetCodeProblem} */
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
-/** @type {Problem & {solutions:Solution[]}} */
+/** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '680. 验证回文串 II',
-    url: 'https://leetcode.cn/problems/valid-palindrome-ii',
+    name: '922. 按奇偶排序数组 II',
+    url: 'https://leetcode.cn/problems/sort-array-by-parity-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 s，最多 可以从中删除一个字符。请你判断 s 是否能成为回文字符串：如果能，返回 true ；否则，返回 false 。`,
+    desc: `给定一个非负整数数组 nums，  nums 中一半整数是 奇数 ，一半整数是 偶数 。对数组进行排序，以便当 nums[i] 为奇数时，i 也是 奇数 ；当 nums[i] 为偶数时， i 也是 偶数 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3094,
-            memory: 613.83,
-            desc: '递归判断每一个子串',
+            time: 12,
+            memory: 18.84,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
