@@ -28,7 +28,7 @@ await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} $
 // await run('pnpm nx run-many -t build --verbose');
 // copy
 // await run('pnpm --filter @bestlyg/site run deploy');
-// await run('pnpm --filter md2resume run deploy');
+await run('pnpm --filter @bestlyg/client run deploy');
 await run(`scp -r ${dumpPath} ${ssh.username}@${ssh.ip}:${sqlDistPath}`);
 await run(
     `scp -r ${resolve('node_modules', '@bestlyg', 'config', fileName)} ${ssh.username}@${ssh.ip}:${envDistPath}`,
