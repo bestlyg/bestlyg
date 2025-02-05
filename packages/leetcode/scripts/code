@@ -1,19 +1,13 @@
 class Solution:
-    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        def get_next(idx: int, f: int) -> int:
-            while idx < n:
-                if nums[idx] % 2 == f: return idx
-                idx += 1
-            return n
-        res = []
-        i1 = 0
-        i2 = 0
-        while i1 < n and i2 < n:
-            i1 = get_next(i1, 0)
-            i2 = get_next(i2, 1)
-            if i1 < n: res.append(nums[i1])
-            if i2 < n: res.append(nums[i2])
-            i1 += 1
-            i2 += 1
+    @cache
+    def _subsetsWithDup(self, idx: int) -> Set[Tuple[int]]:
+        if idx == len(self.nums): return set([tuple()])
+        res = set()
+        next_res = self._subsetsWithDup(idx + 1)
+        for v in next_res:
+            res.add(tuple(sorted(v)))
+            res.add(tuple(sorted(v + (self.nums[idx], )))) 
         return res
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        self.nums = nums
+        return [list(v) for v in self._subsetsWithDup(0)]
