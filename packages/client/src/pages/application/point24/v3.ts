@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Compute24, EPSILON, operation } from './utils';
 
 export const compute24: Compute24 = (nums, ops, target): string[] => {

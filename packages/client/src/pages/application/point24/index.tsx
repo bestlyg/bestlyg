@@ -1,32 +1,33 @@
-import { useState, useRef, useEffect } from 'react';
-import { Button, Col, InputNumber, Row, Card, Empty, Space, Radio, Checkbox } from 'antd';
+import React from 'react';
 import { random as randomNum, Compute24 } from './utils';
 import { compute24 as compute24_v1 } from './v1';
 import { compute24 as compute24_v2 } from './v2';
 import { compute24 as compute24_v3 } from './v3';
+import { Label } from '@/shadcn/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/shadcn/ui/radio-group';
+import { Input } from '@/shadcn/ui/input';
+import { Button } from '@/shadcn/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card';
 
 export default function Point24() {
-    const compute24Fns: { current: Record<string, Compute24> } = useRef({
+    const compute24Fns: { current: Record<string, Compute24> } = React.useRef({
         v1: compute24_v1,
         v2: compute24_v2,
         v3: compute24_v3,
     });
-    const [numCount, setNumCount] = useState(4);
+    const [numCount, setNumCount] = React.useState(4);
     const getRandomNum = () => new Array(numCount).fill(0).map(_ => randomNum(1, 10));
-    const [version, setVersion] = useState('v2');
-    const [disabledVersion, setDisabledVersion] = useState<any[]>([]);
-    const [nums, setNums] = useState(getRandomNum());
-    const [target, setTarget] = useState(24);
-    const [solutions, setSolutions] = useState<string[]>([]);
+    const [version, setVersion] = React.useState('v2');
+    const [nums, setNums] = React.useState(getRandomNum());
+    const [target, setTarget] = React.useState(24);
+    const [solutions, setSolutions] = React.useState<string[]>([]);
     const compute = () => {
         const solutions = compute24Fns.current[version](nums, ['+', '-', '*', '/'], target);
         // console.log('===solutions===');
         // console.log(solutions);
         setSolutions(Array.from(new Set(solutions).values()));
         console.log('======TIME COMPARATION======');
-        for (const [k, fn] of Object.entries(compute24Fns.current).filter(
-            ([k]) => !disabledVersion.some(v => v === k),
-        )) {
+        for (const [k, fn] of Object.entries(compute24Fns.current)) {
             console.time(k);
             fn(nums, ['+', '-', '*', '/'], target);
             console.timeEnd(k);
@@ -36,83 +37,84 @@ export default function Point24() {
         setNums(getRandomNum());
         setSolutions([]);
     };
-    // useEffect(() => {
-    //   console.log('solutions', solutions);
-    // }, [solutions]);
-    useEffect(() => {
+    React.useEffect(() => {
         random();
     }, [numCount]);
     return (
-        <Space direction="vertical" style={{ width: '100%' }}>
-            <Space>
-                <Radio.Group
-                    onChange={e => setVersion(e.target.value)}
-                    value={version}
-                    optionType="button"
-                    //   disabled={disabledVersion}
-                >
-                    {Object.keys(compute24Fns.current).map((v, i) => (
-                        <Radio.Button
-                            value={v}
-                            key={i}
-                            disabled={disabledVersion.some(dv => dv === v)}
-                        >
-                            {v}
-                        </Radio.Button>
-                    ))}
-                </Radio.Group>
-                <InputNumber value={numCount} onChange={e => setNumCount(e!)} />
-            </Space>
-            <Space>
-                <Checkbox.Group
-                    options={Object.keys(compute24Fns.current).map(v => ({
-                        label: v,
-                        value: v,
-                    }))}
-                    onChange={e => setDisabledVersion(e)}
-                    value={disabledVersion}
-                />
-            </Space>
-            <Space wrap>
-                {nums.map((v, index) => (
-                    <Col span={12} key={index}>
-                        <InputNumber
-                            value={v}
-                            onChange={e => {
-                                const newNums = [...nums];
-                                newNums[index] = e!;
-                                setNums(newNums);
-                            }}
-                        />
-                    </Col>
+        <div className="flex flex-col gap-4">
+            <RadioGroup
+                className="flex"
+                onValueChange={e => {
+                    setVersion(e);
+                }}
+                value={version}
+            >
+                {Object.keys(compute24Fns.current).map((v, i) => (
+                    <div className="flex items-center space-x-2" key={i}>
+                        <RadioGroupItem value={v} id={v} />
+                        <Label htmlFor={v}>{v}</Label>
+                    </div>
                 ))}
-            </Space>
-            <Row gutter={16} style={{ width: 400 }}>
-                <Col span={6}>
-                    <InputNumber value={target} onChange={e => setTarget(e!)} />
-                </Col>
-            </Row>
-            <Row gutter={16} style={{ width: 400 }}>
-                <Col span={6}>
-                    <Button onClick={compute}>Compute</Button>
-                </Col>
-                <Col span={6}>
-                    <Button onClick={random}>Random</Button>
-                </Col>
-            </Row>
-            <Card style={{ width: '100%' }}>
-                {solutions.length ? (
-                    <Row>
-                        {solutions.map((v, i) => (
-                            <Col key={i} span={24}>
-                                {`${v} = ${target}`}
-                            </Col>
-                        ))}
-                    </Row>
-                ) : (
-                    <Empty />
-                )}
+            </RadioGroup>
+            <div className="flex items-center gap-1.5">
+                <Label htmlFor="numCount">Num Count</Label>
+                <Input
+                    type="number"
+                    id="numCount"
+                    className="w-[180px]"
+                    value={numCount}
+                    onChange={e => {
+                        const num = Number(e.target.value);
+                        if (!Number.isNaN(num)) setNumCount(num);
+                    }}
+                />
+            </div>
+            <div className="flex items-center gap-1.5">
+                <Label htmlFor="target">Target</Label>
+                <Input
+                    type="number"
+                    id="target"
+                    className="w-[180px]"
+                    value={target}
+                    onChange={e => {
+                        const num = Number(e.target.value);
+                        if (!Number.isNaN(num)) setTarget(num);
+                    }}
+                />
+            </div>
+            <div className="flex gap-2">
+                {nums.map((v, index) => (
+                    <Input
+                        value={v}
+                        onChange={e => {
+                            const num = Number(e.target.value);
+                            if (!Number.isNaN(num)) {
+                                const newNums = [...nums];
+                                newNums[index] = num;
+                                setNums(newNums);
+                            }
+                        }}
+                    />
+                ))}
+            </div>
+            <div className="flex items-center gap-1.5">
+                <Button onClick={compute} variant="outline">
+                    Compute
+                </Button>
+                <Button onClick={random} variant="outline">
+                    Random
+                </Button>
+            </div>
+            <Card className="w-full">
+                <CardHeader>
+                    <CardTitle>Result</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {solutions.map((v, i) => (
+                        <div key={i}>{`${v} = ${target}`}</div>
+                    ))}
+                </CardContent>
             </Card>
-        </Space>
+        </div>
     );
 }
