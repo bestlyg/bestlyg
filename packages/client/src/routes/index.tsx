@@ -63,11 +63,17 @@ export const serverlessRoute = createRoute({
     path: paths.application.children.serverless.path,
     component: lazyRouteComponent(() => import('@/pages/application/serverless')),
 });
+export const chineseChessRoute = createRoute({
+    getParentRoute: () => applicationRoute,
+    path: paths.application.children.chineseChess.path,
+    component: lazyRouteComponent(() => import('@/pages/application/chinese-chess')),
+});
 
 const applicationRouteTree = applicationRoute.addChildren([
     image2shadowRoute,
     point24Route,
     serverlessRoute,
+    chineseChessRoute,
 ]);
 
 export const managementRoute = createRoute({

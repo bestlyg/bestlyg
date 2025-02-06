@@ -5,6 +5,7 @@ import {
     serverlessRoute,
     ledgerListRoute,
     xuanRoute,
+    chineseChessRoute,
 } from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
 
@@ -25,6 +26,7 @@ export const paths = {
             image2shadow: { path: '/image2shadow' },
             point24: { path: '/point24' },
             serverless: { path: '/serverless' },
+            chineseChess: { path: '/chinese-chess' },
         },
     },
     management: {
@@ -64,6 +66,10 @@ async function requestApplicationSidebars(): Promise<{
                         name: 'Serverless',
                         link: serverlessRoute.fullPath,
                     },
+                    // {
+                    //     name: '中国象棋',
+                    //     link: chineseChessRoute.fullPath,
+                    // },
                 ],
             },
         ],
