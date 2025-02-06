@@ -1,13 +1,3 @@
 class Solution:
-    @cache
-    def _subsetsWithDup(self, idx: int) -> Set[Tuple[int]]:
-        if idx == len(self.nums): return set([tuple()])
-        res = set()
-        next_res = self._subsetsWithDup(idx + 1)
-        for v in next_res:
-            res.add(tuple(sorted(v)))
-            res.add(tuple(sorted(v + (self.nums[idx], )))) 
-        return res
-    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        self.nums = nums
-        return [list(v) for v in self._subsetsWithDup(0)]
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        return list(set(permutations(nums)))

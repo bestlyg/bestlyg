@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '90. 子集 II',
-    url: 'https://leetcode.cn/problems/subsets-ii',
+    name: '47. 全排列 II',
+    url: 'https://leetcode.cn/problems/permutations-ii',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的 子集（幂集）。解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。`,
+    desc: `给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory:17.98,
-            desc: 'dfs所有的可能并去重',
+            time: 12,
+            memory: 17.82,
+            desc: '内置全排列',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
