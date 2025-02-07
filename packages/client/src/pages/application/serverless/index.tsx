@@ -1,9 +1,7 @@
 import { useRequest } from 'ahooks';
 import { Prisma } from '@bestlyg/data/prisma-client';
 import { fetch } from '@bestlyg/common/idl/utils';
-import { useEffect, useRef, useState } from 'react';
-import hljs from 'highlight.js';
-import typescript from 'highlight.js/lib/languages/typescript';
+import React from 'react';
 import 'highlight.js/styles/github.css';
 import _ from 'lodash';
 import { useToast } from '@/shadcn/hooks/use-toast';
@@ -20,6 +18,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/shadcn/ui/alert-dialog';
+import { MonacoEditor } from '@/components/monaco-editor';
 
 export type ServerlessData = Prisma.ServerlessGetPayload<{
     include: { codes: true };
@@ -44,23 +43,9 @@ export default function Serverless() {
             .sort(
                 (a, b) => new Date(a.createdTime).getTime() - new Date(b.createdTime).getTime(),
             ) ?? [];
-    const [activeCodeId, setActiveCodeId] = useState('');
-    const [code, setCode] = useState('');
-    const [name, setName] = useState('');
-    const codeEditRef = useRef<HTMLElement | null>(null);
-    useEffect(() => {
-        hljs.registerLanguage('typescript', typescript);
-    }, []);
-    const refreshHighlight = () => {
-        if (codeEditRef.current) {
-            // codeEditRef.current.innerHTML = code;
-            // hljs.highlightElement(codeEditRef.current);
-            codeEditRef.current.innerHTML = hljs.highlightAuto(code).value;
-        }
-    };
-    useEffect(() => {
-        refreshHighlight();
-    }, [code]);
+    const [activeCodeId, setActiveCodeId] = React.useState('');
+    const [code, setCode] = React.useState('');
+    const [name, setName] = React.useState('');
     return (
         <div className="w-full flex flex-col gap-2">
             <div className="flex gap-2">
@@ -131,26 +116,14 @@ export default function Serverless() {
                         </Button>
                         <Button
                             variant="outline"
-                            onClick={() => {
-                                const content = codeEditRef.current?.textContent ?? '';
-                                setCode(content);
-                                refreshHighlight();
-                            }}
-                        >
-                            Highlight
-                        </Button>
-                        <Button
-                            variant="outline"
                             onClick={async () => {
-                                if (!codeEditRef.current || !name) return;
-                                const content = codeEditRef.current.textContent;
                                 await fetch({
                                     url: '/api/data/serverless-code',
                                     method: 'patch',
                                     data: {
                                         id: activeCodeId,
                                         name,
-                                        code: content,
+                                        code,
                                     },
                                     serializer: 'json',
                                 });
@@ -203,13 +176,10 @@ export default function Serverless() {
                     </>
                 )}
             </div>
-            <pre className="!min-h-[80px] !w-full">
-                <code
-                    ref={codeEditRef}
-                    contentEditable
-                    className="language-typescript h-full w-full block"
-                />
-            </pre>
+            <MonacoEditor
+                defaultValue={codes.find(v => v.id === activeCodeId)?.code ?? ''}
+                onChange={setCode}
+            />
         </div>
     );
 }

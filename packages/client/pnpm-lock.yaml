@@ -200,6 +200,9 @@ importers:
       md2resume:
         specifier: workspace:^
         version: link:../npm/md2resume
+      monaco-editor:
+        specifier: ^0.52.2
+        version: 0.52.2
       nanoid:
         specifier: ^5.0.9
         version: 5.0.9
@@ -3176,6 +3179,9 @@ packages:
     resolution: {integrity: sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==}
     engines: {node: '>=10'}
     hasBin: true
+
+  monaco-editor@0.52.2:
+    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -7572,6 +7578,8 @@ snapshots:
   minipass@7.1.2: {}
 
   mkdirp@2.1.6: {}
+
+  monaco-editor@0.52.2: {}
 
   ms@2.1.3: {}
 

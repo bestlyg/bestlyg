@@ -53,6 +53,7 @@ export class FunctionModule {
             promise,
             resolve,
             reject,
+            setTimeout,
             ...externalGlobalCtx,
         } as any as FunctionModuleGlobalContext;
         ctx.globalThis = ctx.global = ctx.window = ctx;

@@ -5,7 +5,7 @@ import {
     serverlessRoute,
     ledgerListRoute,
     xuanRoute,
-    chineseChessRoute,
+    // chineseChessRoute,
 } from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
 
