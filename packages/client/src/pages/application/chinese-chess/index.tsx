@@ -1,7 +1,6 @@
 import { summaryNodeAtom } from '@/components/app-summary';
 import { useSetAtom } from 'jotai';
 import React from 'react';
-import { AspectRatio } from '@/shadcn/ui/aspect-ratio';
 import { Button } from '@/shadcn/ui/button';
 import { ChineseChessApplication } from './application';
 
