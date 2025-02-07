@@ -1,7 +1,7 @@
 import { summaryNodeAtom } from '@/components/app-summary';
 import { useSetAtom } from 'jotai';
 import React from 'react';
-import { Application, Assets, Graphics, Sprite } from 'pixi.js';
+import { Application, Graphics } from 'pixi.js';
 import { AspectRatio } from '@/shadcn/ui/aspect-ratio';
 import { nanoid } from 'nanoid';
 import { Button } from '@/shadcn/ui/button';

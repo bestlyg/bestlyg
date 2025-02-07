@@ -100,12 +100,12 @@ export default function Image2Shadow() {
                     }}
                     className="h-[32px] leading-3 w-[200px]"
                 />
-                <div className='flex items-center justify-center gap-1.5'>
+                <div className="flex items-center justify-center gap-1.5">
                     <Label htmlFor="BlurPx">BlurPx</Label>
                     <Input
                         type="number"
                         id="BlurPx"
-                        className='w-[180px]'
+                        className="w-[180px]"
                         value={options.blurPx}
                         onChange={e => {
                             console.log(e);

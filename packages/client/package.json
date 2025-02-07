@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
+        "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc -b && vite build",
         "build:visualizer": "cross-env VITE_VISUALIZER=true NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "lint": "eslint .",
         "preview": "vite preview",
@@ -55,7 +55,6 @@
         "lodash": "catalog:",
         "lucide-react": "^0.471.1",
         "md2resume": "workspace:^",
-        "monaco-editor": "^0.52.2",
         "nanoid": "^5.0.9",
         "pixi.js": "^8.7.3",
         "rc-resize-observer": "^1.4.3",
