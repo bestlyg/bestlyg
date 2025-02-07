@@ -5,7 +5,7 @@ import {
     serverlessRoute,
     ledgerListRoute,
     xuanRoute,
-    // chineseChessRoute,
+    chineseChessRoute,
 } from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
 
@@ -66,10 +66,10 @@ async function requestApplicationSidebars(): Promise<{
                         name: 'Serverless',
                         link: serverlessRoute.fullPath,
                     },
-                    // {
-                    //     name: '中国象棋',
-                    //     link: chineseChessRoute.fullPath,
-                    // },
+                    {
+                        name: '中国象棋',
+                        link: chineseChessRoute.fullPath,
+                    },
                 ],
             },
         ],
