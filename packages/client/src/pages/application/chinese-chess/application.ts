@@ -1,6 +1,11 @@
 import { nanoid } from 'nanoid';
 import { Application, Assets, Container, Sprite, UnresolvedAsset } from 'pixi.js';
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export const StyleType: Record<
     'style-type-1' | 'style-type-2' | 'style-type-3',
     {
@@ -46,14 +51,43 @@ const ASSET_PREFIX = `/static?r=false&p=chinese-chess`;
 const MAX_ROW = 10;
 const MAX_COL = 9;
 const ACTIVE_PIECE_ALPHA = 0.5;
+const DOT_OFFSET = 10;
 
 type ChineseChessBoard = (ChineseChessPiece | null)[][];
+type DotsFn = (pos: ChineseChessPiece, board: ChineseChessBoard) => Position[];
 
 interface ChineseChessAsset {
     id: string;
     asset: UnresolvedAsset;
-    piece?: { label: string; positions: { x: number; y: number }[] };
+    piece?: {
+        label: string;
+        positions: { x: number; y: number }[];
+        getDots: DotsFn;
+    };
 }
+
+const dirs = [
+    { x: 0, y: 1 },
+    { x: 1, y: 0 },
+    { x: 0, y: -1 },
+    { x: -1, y: 0 },
+];
+
+const dotsFnRecord: Record<'line', DotsFn> = {
+    line: (piece, board) => {
+        const res: Position[] = [];
+        for (const dir of dirs) {
+            let { x, y } = piece;
+            for (let i = 1; ; i++) {
+                x += dir.x;
+                y += dir.y;
+                if (0 <= x && x < MAX_COL && 0 <= y && y < MAX_ROW && !board[y][x]) res.push({ x, y });
+                else break;
+            }
+        }
+        return res;
+    },
+};
 
 export const getAssetRecord: (
     styleType: keyof typeof StyleType,
@@ -73,13 +107,21 @@ export const getAssetRecord: (
     | 'bs'
     | 'bj'
     | 'bp'
-    | 'bz',
+    | 'bz'
+    | 'dot',
     ChineseChessAsset
 > = styleType => ({
     board: {
         id: `${ID_PREFIX}-${styleType}-board`,
         asset: {
             src: `${ASSET_PREFIX}/img/${styleType}/bg.png`,
+            loadParser: 'loadTextures',
+        },
+    },
+    dot: {
+        id: `${ID_PREFIX}-${styleType}-dot`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/dot.png`,
             loadParser: 'loadTextures',
         },
     },
@@ -102,6 +144,7 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition1,
             })),
+            getDots: dotsFnRecord.line,
         },
     },
     rm: {
@@ -116,6 +159,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     rx: {
@@ -130,6 +176,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition1,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     rs: {
@@ -144,6 +193,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition1,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     rj: {
@@ -160,6 +212,9 @@ export const getAssetRecord: (
                     y: YPosition1,
                 },
             ],
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     rp: {
@@ -174,6 +229,7 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1 - 2,
             })),
+            getDots: dotsFnRecord.line,
         },
     },
     rz: {
@@ -188,6 +244,9 @@ export const getAssetRecord: (
                 x: i * 2,
                 y: YPosition1 - 3,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     bc: {
@@ -202,6 +261,7 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition2,
             })),
+            getDots: dotsFnRecord.line,
         },
     },
     bm: {
@@ -216,6 +276,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     bx: {
@@ -230,6 +293,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition2,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     bs: {
@@ -244,6 +310,9 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition2,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     bj: {
@@ -255,6 +324,9 @@ export const getAssetRecord: (
         piece: {
             label: '将',
             positions: [{ x: 4, y: YPosition2 }],
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
     bp: {
@@ -269,6 +341,7 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2 + 2,
             })),
+            getDots: dotsFnRecord.line,
         },
     },
     bz: {
@@ -283,6 +356,9 @@ export const getAssetRecord: (
                 x: i * 2,
                 y: YPosition2 + 3,
             })),
+            getDots(pos, board) {
+                return [];
+            },
         },
     },
 });
@@ -299,6 +375,7 @@ export class ChineseChessApplication {
     app = new Application();
     styleType: keyof typeof StyleType = 'style-type-1';
     chessboardContainer = new Container();
+    dotContainer = new Container();
     pieceMap = new Map<string, ChineseChessPiece>();
     get styleTypeData() {
         return StyleType[this.styleType];
@@ -310,10 +387,17 @@ export class ChineseChessApplication {
         return Object.values(this.assetRecord);
     }
     activePiece: ChineseChessPiece | null = null;
-    constructor(public container: HTMLDivElement) {
-        // container.style.background = `
-        // url(http://localhost:10001/static?r=false&p=chinese-chess/img/style-type-1/board.jpg)
-        // `.trim();
+    constructor(public container: HTMLDivElement) {}
+    setDots(dots: Position[]) {
+        console.log('setDots, do', dots);
+        this.dotContainer.removeChildren();
+        for (const item of dots) {
+            const dot = Sprite.from(this.assetRecord.dot.id);
+            const { x, y } = this.getPosition(item.x, item.y);
+            dot.x = x + DOT_OFFSET;
+            dot.y = y + DOT_OFFSET;
+            this.dotContainer.addChild(dot);
+        }
     }
     getPosition(x: number, y: number) {
         return {
@@ -329,6 +413,7 @@ export class ChineseChessApplication {
         return res;
     }
     delActivePiece() {
+        this.dotContainer.removeChildren();
         if (this.activePiece) {
             this.activePiece.sprite.alpha = 1;
             this.activePiece = null;
@@ -337,6 +422,8 @@ export class ChineseChessApplication {
     setActivePiece(piece: ChineseChessPiece) {
         piece.sprite.alpha = ACTIVE_PIECE_ALPHA;
         this.activePiece = piece;
+        const dots = piece.asset.piece!.getDots(piece, this.getBoardShoot());
+        this.setDots(dots);
     }
     async mount() {
         await this.preload();
@@ -352,6 +439,7 @@ export class ChineseChessApplication {
         await this.drawBg();
         await this.drawChessboard();
         await this.drawPieces();
+        await this.drawDots();
         this.container.appendChild(this.app.canvas);
     }
     async preload() {
@@ -372,6 +460,9 @@ export class ChineseChessApplication {
         sprite.width = this.app.canvas.width;
         sprite.height = this.app.canvas.height;
         this.app.stage.addChild(sprite);
+    }
+    async drawDots() {
+        this.chessboardContainer.addChild(this.dotContainer);
     }
     async drawChessboard() {
         const sprite = Sprite.from(this.assetRecord.board.id);
