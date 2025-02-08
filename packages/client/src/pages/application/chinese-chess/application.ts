@@ -54,7 +54,7 @@ const ACTIVE_PIECE_ALPHA = 0.5;
 const DOT_OFFSET = 10;
 
 type ChineseChessBoard = (ChineseChessPiece | null)[][];
-type DotsFn = (pos: ChineseChessPiece, board: ChineseChessBoard) => Position[];
+type MoveFn = (pos: ChineseChessPiece, board: ChineseChessBoard) => Position[];
 
 interface ChineseChessAsset {
     id: string;
@@ -62,27 +62,135 @@ interface ChineseChessAsset {
     piece?: {
         label: string;
         positions: { x: number; y: number }[];
-        getDots: DotsFn;
+        getDots: MoveFn;
+        type: 0 | 1;
     };
 }
 
-const dirs = [
+const dirs1 = [
     { x: 0, y: 1 },
     { x: 1, y: 0 },
-    { x: 0, y: -1 },
     { x: -1, y: 0 },
+    { x: 0, y: -1 },
 ];
 
-const dotsFnRecord: Record<'line', DotsFn> = {
+const dirs2 = [
+    { x: 1, y: 2 },
+    { x: 1, y: -2 },
+    { x: -1, y: 2 },
+    { x: -1, y: -2 },
+    { x: 2, y: 1 },
+    { x: 2, y: -1 },
+    { x: -2, y: 1 },
+    { x: -2, y: -1 },
+];
+
+const dirs3 = [
+    { x: 1, y: 1 },
+    { x: 1, y: -1 },
+    { x: -1, y: 1 },
+    { x: -1, y: -1 },
+];
+
+const dirs4 = [
+    { x: 2, y: 2 },
+    { x: 2, y: -2 },
+    { x: -2, y: 2 },
+    { x: -2, y: -2 },
+];
+
+function pieceInBoard(x: number, y: number) {
+    return 0 <= x && x < MAX_COL && 0 <= y && y < MAX_ROW;
+}
+
+function pieceInCoreBoard(x: number, y: number, type: 0 | 1) {
+    return 3 <= x && x <= 5 && (type ? 0 <= y && y <= 2 : 7 <= y && y <= 9);
+}
+
+function pieceInOwnDomain(_: number, y: number, type: 0 | 1) {
+    return type ? y <= 4 : y >= 5;
+}
+
+const moveFnRecord: Record<
+    'line' | 'horse' | 'general' | 'guard' | 'elephant' | 'soldier',
+    MoveFn
+> = {
     line: (piece, board) => {
         const res: Position[] = [];
-        for (const dir of dirs) {
+        for (const dir of dirs1) {
             let { x, y } = piece;
             for (let i = 1; ; i++) {
                 x += dir.x;
                 y += dir.y;
-                if (0 <= x && x < MAX_COL && 0 <= y && y < MAX_ROW && !board[y][x]) res.push({ x, y });
+                if (pieceInBoard(x, y) && !board[y][x]) res.push({ x, y });
                 else break;
+            }
+        }
+        return res;
+    },
+    horse: (piece, board) => {
+        const res: Position[] = [];
+        for (const dir of dirs2) {
+            const x = piece.x + dir.x;
+            const y = piece.y + dir.y;
+            if (
+                pieceInBoard(x, y) &&
+                !board[y][x] &&
+                (Math.abs(dir.x) === 2
+                    ? !board[piece.y][piece.x + dir.x / 2]
+                    : !board[piece.y + dir.y / 2][piece.x])
+            )
+                res.push({ x, y });
+        }
+        return res;
+    },
+    general: (piece, board) => {
+        const res: Position[] = [];
+        for (const dir of dirs1) {
+            const x = piece.x + dir.x;
+            const y = piece.y + dir.y;
+            if (pieceInCoreBoard(x, y, piece.asset.piece!.type) && !board[y][x]) res.push({ x, y });
+        }
+        return res;
+    },
+    guard: (piece, board) => {
+        const res: Position[] = [];
+        for (const dir of dirs3) {
+            const x = piece.x + dir.x;
+            const y = piece.y + dir.y;
+            if (pieceInCoreBoard(x, y, piece.asset.piece!.type) && !board[y][x]) res.push({ x, y });
+        }
+        return res;
+    },
+    elephant: (piece, board) => {
+        const res: Position[] = [];
+        for (const dir of dirs4) {
+            const x = piece.x + dir.x;
+            const y = piece.y + dir.y;
+            if (
+                pieceInBoard(x, y) &&
+                pieceInOwnDomain(x, y, piece.asset.piece!.type) &&
+                !board[y][x]
+            )
+                res.push({ x, y });
+        }
+        return res;
+    },
+    soldier: (piece, board) => {
+        const res: Position[] = [];
+        const x = piece.x;
+        const y = piece.y + (piece.asset.piece!.type * 2 - 1);
+        if (pieceInBoard(x, y) && !board[y][x]) res.push({ x, y });
+        if (!pieceInOwnDomain(piece.x, piece.y, piece.asset.piece!.type)) {
+            {
+                const x = piece.x - 1;
+                const y = piece.y;
+                if (pieceInBoard(x, y) && !board[y][x]) res.push({ x, y });
+            }
+            {
+                const x = piece.x + 1;
+                const y = piece.y;
+                if (pieceInBoard(x, y) && !board[y][x]) res.push({ x, y });
             }
         }
         return res;
@@ -139,12 +247,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '车',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots: dotsFnRecord.line,
+            getDots: moveFnRecord.line,
         },
     },
     rm: {
@@ -154,14 +263,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '马',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.horse,
         },
     },
     rx: {
@@ -171,14 +279,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '相',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.elephant,
         },
     },
     rs: {
@@ -188,14 +295,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '仕',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.guard,
         },
     },
     rj: {
@@ -205,6 +311,7 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '帅',
             positions: [
                 {
@@ -212,9 +319,7 @@ export const getAssetRecord: (
                     y: YPosition1,
                 },
             ],
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.general,
         },
     },
     rp: {
@@ -224,12 +329,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '炮',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1 - 2,
             })),
-            getDots: dotsFnRecord.line,
+            getDots: moveFnRecord.line,
         },
     },
     rz: {
@@ -239,14 +345,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 0,
             label: '兵',
             positions: new Array(5).fill(0).map((_, i) => ({
                 x: i * 2,
                 y: YPosition1 - 3,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.soldier,
         },
     },
     bc: {
@@ -256,12 +361,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '车',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots: dotsFnRecord.line,
+            getDots: moveFnRecord.line,
         },
     },
     bm: {
@@ -271,14 +377,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '马',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.horse,
         },
     },
     bx: {
@@ -288,14 +393,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '象',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.elephant,
         },
     },
     bs: {
@@ -305,14 +409,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '士',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.guard,
         },
     },
     bj: {
@@ -322,11 +425,10 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '将',
             positions: [{ x: 4, y: YPosition2 }],
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.general,
         },
     },
     bp: {
@@ -336,12 +438,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '炮',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2 + 2,
             })),
-            getDots: dotsFnRecord.line,
+            getDots: moveFnRecord.line,
         },
     },
     bz: {
@@ -351,14 +454,13 @@ export const getAssetRecord: (
             loadParser: 'loadTextures',
         },
         piece: {
+            type: 1,
             label: '卒',
             positions: new Array(5).fill(0).map((_, i) => ({
                 x: i * 2,
                 y: YPosition2 + 3,
             })),
-            getDots(pos, board) {
-                return [];
-            },
+            getDots: moveFnRecord.soldier,
         },
     },
 });
@@ -389,7 +491,6 @@ export class ChineseChessApplication {
     activePiece: ChineseChessPiece | null = null;
     constructor(public container: HTMLDivElement) {}
     setDots(dots: Position[]) {
-        console.log('setDots, do', dots);
         this.dotContainer.removeChildren();
         for (const item of dots) {
             const dot = Sprite.from(this.assetRecord.dot.id);
@@ -413,7 +514,7 @@ export class ChineseChessApplication {
         return res;
     }
     delActivePiece() {
-        this.dotContainer.removeChildren();
+        this.setDots([])
         if (this.activePiece) {
             this.activePiece.sprite.alpha = 1;
             this.activePiece = null;
