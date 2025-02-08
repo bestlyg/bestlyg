@@ -40,9 +40,14 @@ export const StyleType: Record<
 
 const ID_PREFIX = 'chinese-chess';
 const XMidPosition = 4;
-const YRedPosition = 9;
-const YBlackPosition = 0;
+const YPosition1 = 9;
+const YPosition2 = 0;
 const ASSET_PREFIX = `/static?r=false&p=chinese-chess`;
+const MAX_ROW = 10;
+const MAX_COL = 9;
+const ACTIVE_PIECE_ALPHA = 0.5;
+
+type ChineseChessBoard = (ChineseChessPiece | null)[][];
 
 interface ChineseChessAsset {
     id: string;
@@ -95,7 +100,7 @@ export const getAssetRecord: (
             label: '车',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 4 + XMidPosition,
-                y: YRedPosition,
+                y: YPosition1,
             })),
         },
     },
@@ -109,7 +114,7 @@ export const getAssetRecord: (
             label: '马',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
-                y: YRedPosition,
+                y: YPosition1,
             })),
         },
     },
@@ -123,7 +128,7 @@ export const getAssetRecord: (
             label: '相',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 2 + XMidPosition,
-                y: YRedPosition,
+                y: YPosition1,
             })),
         },
     },
@@ -137,7 +142,7 @@ export const getAssetRecord: (
             label: '仕',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 1 + XMidPosition,
-                y: YRedPosition,
+                y: YPosition1,
             })),
         },
     },
@@ -152,7 +157,7 @@ export const getAssetRecord: (
             positions: [
                 {
                     x: XMidPosition,
-                    y: YRedPosition,
+                    y: YPosition1,
                 },
             ],
         },
@@ -167,7 +172,7 @@ export const getAssetRecord: (
             label: '炮',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
-                y: YRedPosition - 2,
+                y: YPosition1 - 2,
             })),
         },
     },
@@ -181,7 +186,7 @@ export const getAssetRecord: (
             label: '兵',
             positions: new Array(5).fill(0).map((_, i) => ({
                 x: i * 2,
-                y: YRedPosition - 3,
+                y: YPosition1 - 3,
             })),
         },
     },
@@ -195,7 +200,7 @@ export const getAssetRecord: (
             label: '车',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 4 + XMidPosition,
-                y: YBlackPosition,
+                y: YPosition2,
             })),
         },
     },
@@ -209,7 +214,7 @@ export const getAssetRecord: (
             label: '马',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
-                y: YBlackPosition,
+                y: YPosition2,
             })),
         },
     },
@@ -223,7 +228,7 @@ export const getAssetRecord: (
             label: '象',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 2 + XMidPosition,
-                y: YBlackPosition,
+                y: YPosition2,
             })),
         },
     },
@@ -237,7 +242,7 @@ export const getAssetRecord: (
             label: '士',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 1 + XMidPosition,
-                y: YBlackPosition,
+                y: YPosition2,
             })),
         },
     },
@@ -249,7 +254,7 @@ export const getAssetRecord: (
         },
         piece: {
             label: '将',
-            positions: [{ x: 4, y: YBlackPosition }],
+            positions: [{ x: 4, y: YPosition2 }],
         },
     },
     bp: {
@@ -262,7 +267,7 @@ export const getAssetRecord: (
             label: '炮',
             positions: new Array(2).fill(0).map((_, i) => ({
                 x: (i * 2 - 1) * 3 + XMidPosition,
-                y: YBlackPosition + 2,
+                y: YPosition2 + 2,
             })),
         },
     },
@@ -276,26 +281,25 @@ export const getAssetRecord: (
             label: '卒',
             positions: new Array(5).fill(0).map((_, i) => ({
                 x: i * 2,
-                y: YBlackPosition + 3,
+                y: YPosition2 + 3,
             })),
         },
     },
 });
+
+export interface ChineseChessPiece {
+    asset: ChineseChessAsset;
+    x: number;
+    y: number;
+    sprite: Sprite;
+}
 
 export class ChineseChessApplication {
     id = nanoid();
     app = new Application();
     styleType: keyof typeof StyleType = 'style-type-1';
     chessboardContainer = new Container();
-    pieceMap = new Map<
-        string,
-        {
-            asset: ChineseChessAsset;
-            x: number;
-            y: number;
-            sprite: Sprite;
-        }
-    >();
+    pieceMap = new Map<string, ChineseChessPiece>();
     get styleTypeData() {
         return StyleType[this.styleType];
     }
@@ -305,16 +309,34 @@ export class ChineseChessApplication {
     get assets() {
         return Object.values(this.assetRecord);
     }
+    activePiece: ChineseChessPiece | null = null;
+    constructor(public container: HTMLDivElement) {
+        // container.style.background = `
+        // url(http://localhost:10001/static?r=false&p=chinese-chess/img/style-type-1/board.jpg)
+        // `.trim();
+    }
     getPosition(x: number, y: number) {
         return {
             x: this.styleTypeData.pointStartX + x * this.styleTypeData.spaceX,
             y: this.styleTypeData.pointStartY + y * this.styleTypeData.spaceY,
         };
     }
-    constructor(public container: HTMLDivElement) {
-        // container.style.background = `
-        // url(http://localhost:10001/static?r=false&p=chinese-chess/img/style-type-1/board.jpg)
-        // `.trim();
+    getBoardShoot(): ChineseChessBoard {
+        const res = new Array(MAX_ROW).fill(0).map(_ => new Array(MAX_COL).fill(null));
+        for (const piece of this.pieceMap.values()) {
+            res[piece.y][piece.x] = piece;
+        }
+        return res;
+    }
+    delActivePiece() {
+        if (this.activePiece) {
+            this.activePiece.sprite.alpha = 1;
+            this.activePiece = null;
+        }
+    }
+    setActivePiece(piece: ChineseChessPiece) {
+        piece.sprite.alpha = ACTIVE_PIECE_ALPHA;
+        this.activePiece = piece;
     }
     async mount() {
         await this.preload();
@@ -322,6 +344,10 @@ export class ChineseChessApplication {
             antialias: true,
             background: 0xffffff,
             resizeTo: this.container,
+        });
+        this.app.stage.interactive = true;
+        this.app.stage.on('click', () => {
+            this.delActivePiece();
         });
         await this.drawBg();
         await this.drawChessboard();
@@ -370,16 +396,20 @@ export class ChineseChessApplication {
                 sprite.x = x;
                 sprite.y = y;
                 sprite.interactive = true;
-                sprite.on('click', () => {
-                    console.log('Sprite 被点击了！', asset);
-                    sprite.alpha = 0.5
-                });
                 this.chessboardContainer.addChild(sprite);
-                this.pieceMap.set(asset.id + i, {
-                    y,
-                    x,
+                const piece: ChineseChessPiece = {
+                    y: p.y,
+                    x: p.x,
                     sprite,
                     asset,
+                };
+                this.pieceMap.set(asset.id + i, piece);
+
+                sprite.on('click', e => {
+                    e.stopPropagation();
+                    const curActivePiece = this.activePiece;
+                    this.delActivePiece();
+                    if (curActivePiece !== piece) this.setActivePiece(piece);
                 });
             }
         }

@@ -22,7 +22,7 @@ export default function ChineseChess() {
     }, []);
     return (
         <div className="flex flex-col gap-2">
-            <div>
+            <div className='flex gap-2'>
                 <Button
                     onClick={() => {
                         appRef.current?.unmount();
@@ -34,8 +34,19 @@ export default function ChineseChess() {
                 >
                     Init
                 </Button>
+                <Button
+                    onClick={() => {
+                        const res = appRef.current?.getBoardShoot();
+                        console.log(res);
+                    }}
+                >
+                    BoardShoot
+                </Button>
             </div>
-            <div ref={containerRef} className="h-full w-full flex items-center justify-center min-h-[600px]">
+            <div
+                ref={containerRef}
+                className="h-full w-full flex items-center justify-center min-h-[600px]"
+            >
                 {/* <button
                     onClick={async () => {
                         const { app } = appRef.current;
