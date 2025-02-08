@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { Application, Assets, Sprite, UnresolvedAsset } from 'pixi.js';
+import { Application, Assets, Container, Sprite, UnresolvedAsset } from 'pixi.js';
 
 export const StyleType: Record<
     'style-type-1' | 'style-type-2' | 'style-type-3',
@@ -38,232 +38,350 @@ export const StyleType: Record<
     },
 } as const;
 
-export const AssetsNameRecord = {
-    bg: 'chinese-chess-bg',
-    rc: 'chinese-chess-rc',
-    rm: 'chinese-chess-rm',
-    rx: 'chinese-chess-rx',
-    rs: 'chinese-chess-rs',
-    rj: 'chinese-chess-rj',
-    rp: 'chinese-chess-rp',
-    rz: 'chinese-chess-rz',
-    bc: 'chinese-chess-bc',
-    bm: 'chinese-chess-bm',
-    bx: 'chinese-chess-bx',
-    bs: 'chinese-chess-bs',
-    bj: 'chinese-chess-bj',
-    bp: 'chinese-chess-bp',
-    bz: 'chinese-chess-bz',
-} as const;
-
-export const getAssets: (styleType: keyof typeof StyleType) => UnresolvedAsset[] = styleType => [
-    {
-        alias: AssetsNameRecord.bg,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/bg.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rc,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_c.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rm,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_m.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rx,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_x.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rs,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_s.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rj,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_j.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rp,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_p.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.rz,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/r_z.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bc,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_c.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bm,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_m.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bx,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_x.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bs,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_s.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bj,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_j.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bp,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_p.png`,
-        loadParser: 'loadTextures',
-    },
-    {
-        alias: AssetsNameRecord.bz,
-        src: `/static?r=false&p=chinese-chess/img/${styleType}/b_z.png`,
-        loadParser: 'loadTextures',
-    },
-];
-
+const ID_PREFIX = 'chinese-chess';
 const XMidPosition = 4;
 const YRedPosition = 9;
 const YBlackPosition = 0;
+const ASSET_PREFIX = `/static?r=false&p=chinese-chess`;
 
-export const InitPieces: { label: string; assets: string; x: number; y: number }[] = [
-    {
-        label: '帅',
-        assets: AssetsNameRecord.rj,
-        x: XMidPosition,
-        y: YRedPosition,
-    },
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '仕',
-        assets: AssetsNameRecord.rs,
-        x: (i * 2 - 1) * 1 + XMidPosition,
-        y: YRedPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '相',
-        assets: AssetsNameRecord.rx,
-        x: (i * 2 - 1) * 2 + XMidPosition,
-        y: YRedPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '马',
-        assets: AssetsNameRecord.rm,
-        x: (i * 2 - 1) * 3 + XMidPosition,
-        y: YRedPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '车',
-        assets: AssetsNameRecord.rc,
-        x: (i * 2 - 1) * 4 + XMidPosition,
-        y: YRedPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '炮',
-        assets: AssetsNameRecord.rp,
-        x: (i * 2 - 1) * 3 + XMidPosition,
-        y: YRedPosition - 2,
-    })),
-    ...new Array(5).fill(0).map((_, i) => ({
-        label: '兵',
-        assets: AssetsNameRecord.rz,
-        x: i * 2,
-        y: YRedPosition - 3,
-    })),
+interface ChineseChessAsset {
+    id: string;
+    asset: UnresolvedAsset;
+    piece?: { label: string; positions: { x: number; y: number }[] };
+}
 
-    {
-        label: '将',
-        assets: AssetsNameRecord.bj,
-        x: 4,
-        y: YBlackPosition,
+export const getAssetRecord: (
+    styleType: keyof typeof StyleType,
+) => Record<
+    | 'board'
+    | 'bg'
+    | 'rc'
+    | 'rm'
+    | 'rx'
+    | 'rs'
+    | 'rj'
+    | 'rp'
+    | 'rz'
+    | 'bc'
+    | 'bm'
+    | 'bx'
+    | 'bs'
+    | 'bj'
+    | 'bp'
+    | 'bz',
+    ChineseChessAsset
+> = styleType => ({
+    board: {
+        id: `${ID_PREFIX}-${styleType}-board`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/bg.png`,
+            loadParser: 'loadTextures',
+        },
     },
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '士',
-        assets: AssetsNameRecord.bs,
-        x: (i * 2 - 1) * 1 + XMidPosition,
-        y: YBlackPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '象',
-        assets: AssetsNameRecord.bx,
-        x: (i * 2 - 1) * 2 + XMidPosition,
-        y: YBlackPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '马',
-        assets: AssetsNameRecord.bm,
-        x: (i * 2 - 1) * 3 + XMidPosition,
-        y: YBlackPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '车',
-        assets: AssetsNameRecord.bc,
-        x: (i * 2 - 1) * 4 + XMidPosition,
-        y: YBlackPosition,
-    })),
-    ...new Array(2).fill(0).map((_, i) => ({
-        label: '炮',
-        assets: AssetsNameRecord.bp,
-        x: (i * 2 - 1) * 3 + XMidPosition,
-        y: YBlackPosition + 2,
-    })),
-    ...new Array(5).fill(0).map((_, i) => ({
-        label: '卒',
-        assets: AssetsNameRecord.bz,
-        x: i * 2,
-        y: YBlackPosition + 3,
-    })),
-];
+    bg: {
+        id: `${ID_PREFIX}-${styleType}-bg`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/bg.jpg`,
+            loadParser: 'loadTextures',
+        },
+    },
+    rc: {
+        id: `${ID_PREFIX}-${styleType}-rc`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_c.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '车',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 4 + XMidPosition,
+                y: YRedPosition,
+            })),
+        },
+    },
+    rm: {
+        id: `${ID_PREFIX}-${styleType}-rm`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_m.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '马',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 3 + XMidPosition,
+                y: YRedPosition,
+            })),
+        },
+    },
+    rx: {
+        id: `${ID_PREFIX}-${styleType}-rx`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_x.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '相',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 2 + XMidPosition,
+                y: YRedPosition,
+            })),
+        },
+    },
+    rs: {
+        id: `${ID_PREFIX}-${styleType}-rs`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_s.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '仕',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 1 + XMidPosition,
+                y: YRedPosition,
+            })),
+        },
+    },
+    rj: {
+        id: `${ID_PREFIX}-${styleType}-rj`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_j.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '帅',
+            positions: [
+                {
+                    x: XMidPosition,
+                    y: YRedPosition,
+                },
+            ],
+        },
+    },
+    rp: {
+        id: `${ID_PREFIX}-${styleType}-rp`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_p.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '炮',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 3 + XMidPosition,
+                y: YRedPosition - 2,
+            })),
+        },
+    },
+    rz: {
+        id: `${ID_PREFIX}-${styleType}-rz`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/r_z.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '兵',
+            positions: new Array(5).fill(0).map((_, i) => ({
+                x: i * 2,
+                y: YRedPosition - 3,
+            })),
+        },
+    },
+    bc: {
+        id: `${ID_PREFIX}-${styleType}-bc`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_c.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '车',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 4 + XMidPosition,
+                y: YBlackPosition,
+            })),
+        },
+    },
+    bm: {
+        id: `${ID_PREFIX}-${styleType}-bm`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_m.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '马',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 3 + XMidPosition,
+                y: YBlackPosition,
+            })),
+        },
+    },
+    bx: {
+        id: `${ID_PREFIX}-${styleType}-bx`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_x.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '象',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 2 + XMidPosition,
+                y: YBlackPosition,
+            })),
+        },
+    },
+    bs: {
+        id: `${ID_PREFIX}-${styleType}-bs`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_s.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '士',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 1 + XMidPosition,
+                y: YBlackPosition,
+            })),
+        },
+    },
+    bj: {
+        id: `${ID_PREFIX}-${styleType}-bj`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_j.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '将',
+            positions: [{ x: 4, y: YBlackPosition }],
+        },
+    },
+    bp: {
+        id: `${ID_PREFIX}-${styleType}-bp`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_p.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '炮',
+            positions: new Array(2).fill(0).map((_, i) => ({
+                x: (i * 2 - 1) * 3 + XMidPosition,
+                y: YBlackPosition + 2,
+            })),
+        },
+    },
+    bz: {
+        id: `${ID_PREFIX}-${styleType}-bz`,
+        asset: {
+            src: `${ASSET_PREFIX}/img/${styleType}/b_z.png`,
+            loadParser: 'loadTextures',
+        },
+        piece: {
+            label: '卒',
+            positions: new Array(5).fill(0).map((_, i) => ({
+                x: i * 2,
+                y: YBlackPosition + 3,
+            })),
+        },
+    },
+});
 
 export class ChineseChessApplication {
     id = nanoid();
     app = new Application();
     styleType: keyof typeof StyleType = 'style-type-1';
+    chessboardContainer = new Container();
+    pieceMap = new Map<
+        string,
+        {
+            asset: ChineseChessAsset;
+            x: number;
+            y: number;
+            sprite: Sprite;
+        }
+    >();
     get styleTypeData() {
         return StyleType[this.styleType];
     }
-    get assets() {
-        return getAssets(this.styleType);
+    get assetRecord() {
+        return getAssetRecord(this.styleType);
     }
-    constructor(public container: HTMLDivElement) {}
+    get assets() {
+        return Object.values(this.assetRecord);
+    }
+    getPosition(x: number, y: number) {
+        return {
+            x: this.styleTypeData.pointStartX + x * this.styleTypeData.spaceX,
+            y: this.styleTypeData.pointStartY + y * this.styleTypeData.spaceY,
+        };
+    }
+    constructor(public container: HTMLDivElement) {
+        // container.style.background = `
+        // url(http://localhost:10001/static?r=false&p=chinese-chess/img/style-type-1/board.jpg)
+        // `.trim();
+    }
     async mount() {
         await this.preload();
         await this.app.init({
             antialias: true,
-            background: 0xff0000,
-            width: this.styleTypeData.width,
-            height: this.styleTypeData.height,
+            background: 0xffffff,
+            resizeTo: this.container,
         });
+        await this.drawBg();
         await this.drawChessboard();
         await this.drawPieces();
         this.container.appendChild(this.app.canvas);
     }
     async preload() {
-        await Assets.load(getAssets(this.styleType));
+        await Assets.load(
+            this.assets.map(
+                v =>
+                    ({
+                        ...v.asset,
+                        alias: v.id,
+                    }) as UnresolvedAsset,
+            ),
+        );
+    }
+    async drawBg() {
+        const sprite = Sprite.from(this.assetRecord.bg.id);
+        sprite.x = 0;
+        sprite.y = 0;
+        sprite.width = this.app.canvas.width;
+        sprite.height = this.app.canvas.height;
+        this.app.stage.addChild(sprite);
     }
     async drawChessboard() {
-        const bgSprite = Sprite.from(AssetsNameRecord.bg);
-        bgSprite.x = 0;
-        bgSprite.y = 0;
-        this.app.stage.addChild(bgSprite);
+        const sprite = Sprite.from(this.assetRecord.board.id);
+        sprite.x = 0;
+        sprite.y = 0;
+        sprite.width = this.styleTypeData.width;
+        sprite.height = this.styleTypeData.height;
+        this.chessboardContainer.addChild(sprite);
+        this.chessboardContainer.x = this.app.screen.width / 2;
+        this.chessboardContainer.y = this.app.screen.height / 2;
+        this.chessboardContainer.pivot.x = this.chessboardContainer.width / 2;
+        this.chessboardContainer.pivot.y = this.chessboardContainer.height / 2;
+        this.app.stage.addChild(this.chessboardContainer);
     }
     async drawPieces() {
-        for (const piece of InitPieces) {
-            const sprite = Sprite.from(piece.assets);
-            sprite.x = this.styleTypeData.pointStartX + piece.x * this.styleTypeData.spaceX;
-            sprite.y = this.styleTypeData.pointStartY + piece.y * this.styleTypeData.spaceY;
-            this.app.stage.addChild(sprite);
+        for (const asset of this.assets) {
+            if (!asset.piece) continue;
+            for (let i = 0; i < asset.piece.positions.length; i++) {
+                const p = asset.piece.positions[i];
+                const sprite = Sprite.from(asset.id);
+                const { x, y } = this.getPosition(p.x, p.y);
+                sprite.x = x;
+                sprite.y = y;
+                sprite.interactive = true;
+                sprite.on('click', () => {
+                    console.log('Sprite 被点击了！', asset);
+                    sprite.alpha = 0.5
+                });
+                this.chessboardContainer.addChild(sprite);
+                this.pieceMap.set(asset.id + i, {
+                    y,
+                    x,
+                    sprite,
+                    asset,
+                });
+            }
         }
     }
     unmount() {

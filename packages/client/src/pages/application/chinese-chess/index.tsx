@@ -35,7 +35,7 @@ export default function ChineseChess() {
                     Init
                 </Button>
             </div>
-            <div ref={containerRef} className="h-full w-full">
+            <div ref={containerRef} className="h-full w-full flex items-center justify-center min-h-[600px]">
                 {/* <button
                     onClick={async () => {
                         const { app } = appRef.current;
