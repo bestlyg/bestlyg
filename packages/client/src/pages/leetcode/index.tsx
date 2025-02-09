@@ -91,14 +91,14 @@ function LeetCodeProblemSkeleton() {
 }
 
 export default function Leetcode() {
-    const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
+    const setSummaryNode = useSetAtom(summaryNodeAtom);
     const params: Record<string, string> = leetcodeRoute.useParams();
     const link = params['*'];
     const [problemPromise, setProblemPromise] = React.useState(fetchLeetcodeProblem);
 
     useEffect(() => {
         setProblemPromise(() => fetchLeetcodeProblem(link));
-        setSummaryNodeAtom(<MarkdownSummary />);
+        setSummaryNode(<MarkdownSummary />);
     }, [link]);
     if (!link) return <LeetCodeProblemSkeleton />;
     return (

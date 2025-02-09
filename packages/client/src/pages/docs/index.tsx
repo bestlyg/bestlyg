@@ -47,13 +47,13 @@ function DocsSkeleton() {
 }
 
 export default function Docs() {
-    const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
+    const setSummaryNode = useSetAtom(summaryNodeAtom);
     const params: Record<string, string> = docsRoute.useParams();
     const link = params['*'];
     const [promise, setPromise] = React.useState(() => fetchReadableStaticFile(link));
     useEffect(() => {
         setPromise(() => fetchReadableStaticFile(link));
-        setSummaryNodeAtom(<MarkdownSummary />);
+        setSummaryNode(<MarkdownSummary />);
     }, [link]);
     if (!link) return <DocsSkeleton />;
     return <Suspense fallback={<DocsSkeleton />} promise={promise} Component={Doc} />;

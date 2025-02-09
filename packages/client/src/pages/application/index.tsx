@@ -4,9 +4,9 @@ import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 export default function Application() {
-    const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
+    const setSummaryNode = useSetAtom(summaryNodeAtom);
     useEffect(() => {
-        setSummaryNodeAtom(null);
+        setSummaryNode(null);
     }, []);
     return <Outlet />;
 }

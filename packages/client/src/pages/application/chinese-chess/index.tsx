@@ -9,7 +9,7 @@ function ChineseChessSummary() {
 }
 
 export default function ChineseChess() {
-    const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
+    const setSummaryNode = useSetAtom(summaryNodeAtom);
     const containerRef = React.useRef<HTMLDivElement | null>(null);
     const [app, setApp] = React.useState<ChineseChessApplication | null>(null);
     function initApp() {
@@ -31,7 +31,7 @@ export default function ChineseChess() {
         };
     }
     React.useEffect(initApp, []);
-    React.useEffect(() => void setSummaryNodeAtom(<ChineseChessSummary />), []);
+    React.useEffect(() => void setSummaryNode(<ChineseChessSummary />), []);
     return (
         <div className="flex flex-col gap-2">
             <div className="flex gap-2">
