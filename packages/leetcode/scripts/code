@@ -1,11 +1,22 @@
 class Solution:
-    def uniquePathsWithObstacles(self, g: List[List[int]]) -> int:
-        n = len(g)
-        m = len(g[0])
-        dp = [[0] * (m + 1) for _ in range(n + 1)]
-        dp[1][1] = g[0][0] ^ 1
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                if not g[i - 1][j - 1]:
-                    dp[i][j] += dp[i - 1][j] + dp[i][j - 1]
-        return dp[n][m]
+    def removeDuplicates(self, nums: List[int]) -> int:
+        n = len(nums)
+        i = 0
+        while i < n:
+            num = nums[i]
+            cnt = 1
+            while i + 1 < n and nums[i + 1] == num:
+                i += 1
+                cnt += 1
+                if cnt > 2:
+                    nums[i] = -inf
+            i += 1
+        i = 0
+        j = 0
+        while i < n:
+            while j < n and nums[j] == -inf: j += 1
+            if j < n: nums[i] = nums[j]
+            if j >= n: break
+            i += 1
+            j += 1
+        return i
