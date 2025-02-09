@@ -10,33 +10,35 @@ function ChineseChessSummary() {
 
 export default function ChineseChess() {
     const setSummaryNodeAtom = useSetAtom(summaryNodeAtom);
-    const appRef = React.useRef<ChineseChessApplication | null>(null);
     const containerRef = React.useRef<HTMLDivElement | null>(null);
-    React.useEffect(() => void setSummaryNodeAtom(<ChineseChessSummary />), []);
-    React.useEffect(() => {
-        if (appRef.current || !containerRef.current) return;
-        appRef.current = new ChineseChessApplication(containerRef.current);
-        appRef.current.mount().catch(err => {
-            console.log(err);
+    const [app, setApp] = React.useState<ChineseChessApplication | null>(null);
+    function initApp() {
+        if (!containerRef.current) return;
+        const app = new ChineseChessApplication(containerRef.current);
+        setApp(old => {
+            old?.unmount();
+            return app;
         });
-    }, []);
+        setTimeout(
+            () =>
+                void app.mount().catch(e => {
+                    console.log(e);
+                }),
+            0,
+        );
+        return () => {
+            app.unmount();
+        };
+    }
+    React.useEffect(initApp, []);
+    React.useEffect(() => void setSummaryNodeAtom(<ChineseChessSummary />), []);
     return (
         <div className="flex flex-col gap-2">
-            <div className='flex gap-2'>
+            <div className="flex gap-2">
+                <Button onClick={initApp}>Init</Button>
                 <Button
                     onClick={() => {
-                        appRef.current?.unmount();
-                        appRef.current = new ChineseChessApplication(containerRef.current!);
-                        appRef.current.mount().catch(err => {
-                            console.log(err);
-                        });
-                    }}
-                >
-                    Init
-                </Button>
-                <Button
-                    onClick={() => {
-                        const res = appRef.current?.getBoard();
+                        const res = app?.getBoard();
                         console.log(res);
                     }}
                 >
