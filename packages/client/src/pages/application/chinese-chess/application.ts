@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Application, Assets, Container, Sprite, UnresolvedAsset } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 
 export interface Position {
     x: number;
@@ -54,7 +55,12 @@ const ACTIVE_PIECE_ALPHA = 0.5;
 const DOT_OFFSET = 10;
 
 type ChineseChessBoard = (ChineseChessPiece | null)[][];
-type MoveFn = (pos: ChineseChessPiece, board: ChineseChessBoard) => Position[];
+type MoveFn = (piece: ChineseChessPiece, board: ChineseChessBoard) => Position[];
+type CaptureFn = (
+    piece1: ChineseChessPiece,
+    piece2: ChineseChessPiece,
+    board: ChineseChessBoard,
+) => boolean;
 
 interface ChineseChessAsset {
     id: string;
@@ -63,6 +69,7 @@ interface ChineseChessAsset {
         label: string;
         positions: { x: number; y: number }[];
         getDots: MoveFn;
+        canCapture: CaptureFn;
         type: 0 | 1;
     };
 }
@@ -111,11 +118,18 @@ function pieceInOwnDomain(_: number, y: number, type: 0 | 1) {
     return type ? y <= 4 : y >= 5;
 }
 
-const moveFnRecord: Record<
-    'line' | 'horse' | 'general' | 'guard' | 'elephant' | 'soldier',
-    MoveFn
-> = {
-    line: (piece, board) => {
+enum Piece {
+    Chariot,
+    Cannon,
+    Horse,
+    General,
+    Guard,
+    Elephant,
+    Soldier,
+}
+
+const moveFnRecord: Record<Piece, MoveFn> = {
+    [Piece.Chariot]: (piece, board) => {
         const res: Position[] = [];
         for (const dir of dirs1) {
             let { x, y } = piece;
@@ -128,7 +142,10 @@ const moveFnRecord: Record<
         }
         return res;
     },
-    horse: (piece, board) => {
+    [Piece.Cannon]: (...args) => {
+        return moveFnRecord[Piece.Chariot](...args);
+    },
+    [Piece.Horse]: (piece, board) => {
         const res: Position[] = [];
         for (const dir of dirs2) {
             const x = piece.x + dir.x;
@@ -144,7 +161,7 @@ const moveFnRecord: Record<
         }
         return res;
     },
-    general: (piece, board) => {
+    [Piece.General]: (piece, board) => {
         const res: Position[] = [];
         for (const dir of dirs1) {
             const x = piece.x + dir.x;
@@ -153,7 +170,7 @@ const moveFnRecord: Record<
         }
         return res;
     },
-    guard: (piece, board) => {
+    [Piece.Guard]: (piece, board) => {
         const res: Position[] = [];
         for (const dir of dirs3) {
             const x = piece.x + dir.x;
@@ -162,7 +179,7 @@ const moveFnRecord: Record<
         }
         return res;
     },
-    elephant: (piece, board) => {
+    [Piece.Elephant]: (piece, board) => {
         const res: Position[] = [];
         for (const dir of dirs4) {
             const x = piece.x + dir.x;
@@ -176,7 +193,7 @@ const moveFnRecord: Record<
         }
         return res;
     },
-    soldier: (piece, board) => {
+    [Piece.Soldier]: (piece, board) => {
         const res: Position[] = [];
         const x = piece.x;
         const y = piece.y + (piece.asset.piece!.type * 2 - 1);
@@ -196,6 +213,118 @@ const moveFnRecord: Record<
         return res;
     },
 };
+
+const captureFnRecord: Record<Piece, CaptureFn> = {
+    [Piece.Chariot]: (piece1, piece2, board) => {
+        if (piece1.x === piece2.x) {
+            let f = true;
+            const { x } = piece1;
+            for (
+                let y = Math.min(piece1.y, piece2.y) + 1;
+                y <= Math.max(piece1.y, piece2.y) - 1;
+                y++
+            ) {
+                if (board[y][x]) {
+                    f = false;
+                    break;
+                }
+            }
+            if (f) return true;
+        } else if (piece1.y === piece2.y) {
+            let f = true;
+            const { y } = piece1;
+            for (
+                let x = Math.min(piece1.x, piece2.x) + 1;
+                x <= Math.max(piece1.x, piece2.x) - 1;
+                x++
+            ) {
+                if (board[y][x]) {
+                    f = false;
+                    break;
+                }
+            }
+            if (f) return true;
+        }
+        return false;
+    },
+    [Piece.Cannon]: (piece1, piece2, board) => {
+        if (piece1.x === piece2.x) {
+            let midPiece: ChineseChessPiece | null = null;
+            const { x } = piece1;
+            for (
+                let y = Math.min(piece1.y, piece2.y) + 1;
+                y <= Math.max(piece1.y, piece2.y) - 1;
+                y++
+            ) {
+                if (board[y][x]) {
+                    if (midPiece) return false;
+                    midPiece = board[y][x];
+                }
+            }
+            return !!midPiece;
+        } else if (piece1.y === piece2.y) {
+            let midPiece: ChineseChessPiece | null = null;
+            const { y } = piece1;
+            for (
+                let x = Math.min(piece1.x, piece2.x) + 1;
+                x <= Math.max(piece1.x, piece2.x) - 1;
+                x++
+            ) {
+                if (board[y][x]) {
+                    if (midPiece) return false;
+                    midPiece = board[y][x];
+                }
+            }
+            return !!midPiece;
+        }
+        return false;
+    },
+    [Piece.Horse]: (piece1, piece2) => {
+        for (const dir of dirs2) {
+            const x = piece1.x + dir.x;
+            const y = piece1.y + dir.y;
+            if (x === piece2.x && y === piece2.y) return true;
+        }
+        return false;
+    },
+    [Piece.General]: (piece1, piece2) => {
+        for (const dir of dirs1) {
+            const x = piece1.x + dir.x;
+            const y = piece1.y + dir.y;
+            if (x === piece2.x && y === piece2.y) return true;
+        }
+        return false;
+    },
+    [Piece.Guard]: (piece1, piece2) => {
+        if (!pieceInCoreBoard(piece2.x, piece2.y, piece1.asset.piece!.type)) return false;
+        for (const dir of dirs3) {
+            const x = piece1.x + dir.x;
+            const y = piece1.y + dir.y;
+            if (x === piece2.x && y === piece2.y) return true;
+        }
+        return false;
+    },
+    [Piece.Elephant]: (piece1, piece2) => {
+        if (!pieceInOwnDomain(piece2.x, piece2.y, piece1.asset.piece!.type)) return false;
+        for (const dir of dirs4) {
+            const x = piece1.x + dir.x;
+            const y = piece1.y + dir.y;
+            if (x === piece2.x && y === piece2.y) return true;
+        }
+        return false;
+    },
+    [Piece.Soldier]: (piece1, piece2) => {
+        const up = piece1.asset.piece!.type * 2 - 1;
+        if (piece1.x === piece2.x && piece1.y + up === piece2.y) return true;
+        if (!pieceInOwnDomain(piece1.x, piece1.y, piece1.asset.piece!.type))
+            return (
+                (piece1.x === piece2.x - 1 || piece1.x === piece2.x + 1) && piece1.y === piece2.y
+            );
+        return false;
+    },
+};
+
+// const
 
 export const getAssetRecord: (
     styleType: keyof typeof StyleType,
@@ -253,7 +382,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots: moveFnRecord.line,
+            getDots: moveFnRecord[Piece.Chariot],
+            canCapture: captureFnRecord[Piece.Chariot],
         },
     },
     rm: {
@@ -269,7 +399,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots: moveFnRecord.horse,
+            getDots: moveFnRecord[Piece.Horse],
+            canCapture: captureFnRecord[Piece.Horse],
         },
     },
     rx: {
@@ -285,7 +416,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots: moveFnRecord.elephant,
+            getDots: moveFnRecord[Piece.Elephant],
+            canCapture: captureFnRecord[Piece.Elephant],
         },
     },
     rs: {
@@ -301,7 +433,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition1,
             })),
-            getDots: moveFnRecord.guard,
+            getDots: moveFnRecord[Piece.Guard],
+            canCapture: captureFnRecord[Piece.Guard],
         },
     },
     rj: {
@@ -319,7 +452,8 @@ export const getAssetRecord: (
                     y: YPosition1,
                 },
             ],
-            getDots: moveFnRecord.general,
+            getDots: moveFnRecord[Piece.General],
+            canCapture: captureFnRecord[Piece.General],
         },
     },
     rp: {
@@ -335,7 +469,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition1 - 2,
             })),
-            getDots: moveFnRecord.line,
+            getDots: moveFnRecord[Piece.Cannon],
+            canCapture: captureFnRecord[Piece.Cannon],
         },
     },
     rz: {
@@ -351,7 +486,8 @@ export const getAssetRecord: (
                 x: i * 2,
                 y: YPosition1 - 3,
             })),
-            getDots: moveFnRecord.soldier,
+            getDots: moveFnRecord[Piece.Soldier],
+            canCapture: captureFnRecord[Piece.Soldier],
         },
     },
     bc: {
@@ -367,7 +503,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 4 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots: moveFnRecord.line,
+            getDots: moveFnRecord[Piece.Chariot],
+            canCapture: captureFnRecord[Piece.Chariot],
         },
     },
     bm: {
@@ -383,7 +520,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots: moveFnRecord.horse,
+            getDots: moveFnRecord[Piece.Horse],
+            canCapture: captureFnRecord[Piece.Horse],
         },
     },
     bx: {
@@ -399,7 +537,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 2 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots: moveFnRecord.elephant,
+            getDots: moveFnRecord[Piece.Elephant],
+            canCapture: captureFnRecord[Piece.Elephant],
         },
     },
     bs: {
@@ -415,7 +554,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 1 + XMidPosition,
                 y: YPosition2,
             })),
-            getDots: moveFnRecord.guard,
+            getDots: moveFnRecord[Piece.Guard],
+            canCapture: captureFnRecord[Piece.Guard],
         },
     },
     bj: {
@@ -428,7 +568,8 @@ export const getAssetRecord: (
             type: 1,
             label: '将',
             positions: [{ x: 4, y: YPosition2 }],
-            getDots: moveFnRecord.general,
+            getDots: moveFnRecord[Piece.General],
+            canCapture: captureFnRecord[Piece.General],
         },
     },
     bp: {
@@ -444,7 +585,8 @@ export const getAssetRecord: (
                 x: (i * 2 - 1) * 3 + XMidPosition,
                 y: YPosition2 + 2,
             })),
-            getDots: moveFnRecord.line,
+            getDots: moveFnRecord[Piece.Cannon],
+            canCapture: captureFnRecord[Piece.Cannon],
         },
     },
     bz: {
@@ -460,7 +602,8 @@ export const getAssetRecord: (
                 x: i * 2,
                 y: YPosition2 + 3,
             })),
-            getDots: moveFnRecord.soldier,
+            getDots: moveFnRecord[Piece.Soldier],
+            canCapture: captureFnRecord[Piece.Soldier],
         },
     },
 });
@@ -469,6 +612,7 @@ export interface ChineseChessPiece {
     asset: ChineseChessAsset;
     x: number;
     y: number;
+    alive: boolean;
     sprite: Sprite;
 }
 
@@ -489,6 +633,22 @@ export class ChineseChessApplication {
         return Object.values(this.assetRecord);
     }
     activePiece: ChineseChessPiece | null = null;
+    sound = {
+        click: Sound.from({
+            url: `${ASSET_PREFIX}/audio/click.wav`,
+            // autoPlay: true,
+            // complete: function () {
+            //     console.log('Sound finished');
+            // },
+        }),
+        select: Sound.from({
+            url: `${ASSET_PREFIX}/audio/select.wav`,
+            // autoPlay: true,
+            // complete: function () {
+            //     console.log('Sound finished');
+            // },
+        }),
+    };
     constructor(public container: HTMLDivElement) {}
     setDots(dots: Position[]) {
         this.dotContainer.removeChildren();
@@ -497,6 +657,16 @@ export class ChineseChessApplication {
             const { x, y } = this.getPosition(item.x, item.y);
             dot.x = x + DOT_OFFSET;
             dot.y = y + DOT_OFFSET;
+            dot.interactive = true;
+            dot.on('click', e => {
+                e.stopPropagation();
+                this.activePiece!.sprite.x = x;
+                this.activePiece!.sprite.y = y;
+                this.activePiece!.x = item.x;
+                this.activePiece!.y = item.y;
+                this.delActivePiece();
+                this.sound.select.play();
+            });
             this.dotContainer.addChild(dot);
         }
     }
@@ -506,15 +676,15 @@ export class ChineseChessApplication {
             y: this.styleTypeData.pointStartY + y * this.styleTypeData.spaceY,
         };
     }
-    getBoardShoot(): ChineseChessBoard {
+    getBoard(): ChineseChessBoard {
         const res = new Array(MAX_ROW).fill(0).map(_ => new Array(MAX_COL).fill(null));
         for (const piece of this.pieceMap.values()) {
-            res[piece.y][piece.x] = piece;
+            if (piece.alive) res[piece.y][piece.x] = piece;
         }
         return res;
     }
     delActivePiece() {
-        this.setDots([])
+        this.setDots([]);
         if (this.activePiece) {
             this.activePiece.sprite.alpha = 1;
             this.activePiece = null;
@@ -523,8 +693,9 @@ export class ChineseChessApplication {
     setActivePiece(piece: ChineseChessPiece) {
         piece.sprite.alpha = ACTIVE_PIECE_ALPHA;
         this.activePiece = piece;
-        const dots = piece.asset.piece!.getDots(piece, this.getBoardShoot());
+        const dots = piece.asset.piece!.getDots(piece, this.getBoard());
         this.setDots(dots);
+        this.sound.click.play();
     }
     async mount() {
         await this.preload();
@@ -594,6 +765,7 @@ export class ChineseChessApplication {
                     x: p.x,
                     sprite,
                     asset,
+                    alive: true,
                 };
                 this.pieceMap.set(asset.id + i, piece);
 
@@ -601,7 +773,29 @@ export class ChineseChessApplication {
                     e.stopPropagation();
                     const curActivePiece = this.activePiece;
                     this.delActivePiece();
-                    if (curActivePiece !== piece) this.setActivePiece(piece);
+                    if (!curActivePiece) {
+                        this.setActivePiece(piece);
+                    } else if (curActivePiece !== piece) {
+                        if (curActivePiece.asset.piece!.type !== piece.asset.piece!.type) {
+                            if (
+                                curActivePiece.asset.piece!.canCapture(
+                                    curActivePiece,
+                                    piece,
+                                    this.getBoard(),
+                                )
+                            ) {
+                                curActivePiece.x = piece.x;
+                                curActivePiece.y = piece.y;
+                                curActivePiece.sprite.x = piece.sprite.x;
+                                curActivePiece.sprite.y = piece.sprite.y;
+                                piece.alive = false;
+                                piece.sprite.removeFromParent();
+                                this.sound.select.play();
+                            }
+                        } else {
+                            this.setActivePiece(piece);
+                        }
+                    }
                 });
             }
         }

@@ -36,7 +36,7 @@ export default function ChineseChess() {
                 </Button>
                 <Button
                     onClick={() => {
-                        const res = appRef.current?.getBoardShoot();
+                        const res = appRef.current?.getBoard();
                         console.log(res);
                     }}
                 >
