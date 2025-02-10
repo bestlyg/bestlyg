@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
@@ -11,7 +11,7 @@ import { MarkdownSummary } from '@/components/markdown-summary';
 
 async function fetchReadableStaticFile(p?: string): Promise<string | null> {
     if (!p) return null;
-    const data = await fetch({
+    const data = await request({
         url: '/static',
         method: 'get',
         data: { p: `docs/${p}`, r: 'true' },

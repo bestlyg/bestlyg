@@ -71,6 +71,7 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "catalog:",
+        "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
         "@types/node": "catalog:",
         "@xidl/typescript-client": "workspace:^",
@@ -80,6 +81,8 @@
     },
     "dependencies": {
         "axios": "catalog:",
+        "crypto-js": "^4.2.0",
+        "dayjs": "catalog:",
         "tapable": "catalog:"
     }
 }

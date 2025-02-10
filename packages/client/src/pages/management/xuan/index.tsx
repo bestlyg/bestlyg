@@ -1,7 +1,7 @@
 import { Suspense } from '@/components/suspense';
 import * as echarts from 'echarts';
 import { Skeleton } from '@/shadcn/ui/skeleton';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import { Prisma } from '@bestlyg/data/prisma-client';
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
@@ -53,7 +53,7 @@ function XuansSkeleton() {
 }
 
 async function fetchXuan(): Promise<XuanData[] | null> {
-    const data = await fetch({
+    const data = await request({
         url: '/api/data/xuan',
         method: 'get',
         data: {},

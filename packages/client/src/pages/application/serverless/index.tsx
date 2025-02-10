@@ -1,6 +1,6 @@
 import { useRequest } from 'ahooks';
 import { Prisma } from '@bestlyg/data/prisma-client';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import 'highlight.js/styles/github.css';
 import _ from 'lodash';
@@ -25,7 +25,7 @@ export type ServerlessData = Prisma.ServerlessGetPayload<{
 }>;
 
 async function fetchServerless() {
-    const data = await fetch<any, ServerlessData[] | null>({
+    const data = await request<any, ServerlessData[] | null>({
         url: '/api/data/serverless',
         method: 'get',
         data: {},
@@ -75,7 +75,7 @@ export default function Serverless() {
                 <Button
                     variant="outline"
                     onClick={async () => {
-                        await fetch({
+                        await request({
                             serializer: 'json',
                             url: '/api/data/serverless-code',
                             method: 'post',
@@ -98,7 +98,7 @@ export default function Serverless() {
                         <Button
                             variant="outline"
                             onClick={async () => {
-                                const res = await fetch({
+                                const res = await request({
                                     serializer: 'json',
                                     url: '/api/serverless/call',
                                     method: 'get',
@@ -117,7 +117,7 @@ export default function Serverless() {
                         <Button
                             variant="outline"
                             onClick={async () => {
-                                await fetch({
+                                await request({
                                     url: '/api/data/serverless-code',
                                     method: 'patch',
                                     data: {
@@ -151,7 +151,7 @@ export default function Serverless() {
                                     <AlertDialogCancel>No</AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={async () => {
-                                            await fetch({
+                                            await request({
                                                 url: '/api/data/serverless-code',
                                                 method: 'delete',
                                                 data: {

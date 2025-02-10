@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import templateStyles from './template.module.less';
 import resumeStyles from './resume.module.less';
 import clsx from 'clsx';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import { useControllableValue, useRequest, useToggle } from 'ahooks';
 import {
     ResumePageType,
@@ -27,7 +27,7 @@ export interface ResumeProps {
     onResumeSourceChange?: (v: string) => void;
 }
 async function fetchResume() {
-    const res = await fetch({
+    const res = await request({
         url: '/static?p=resume.md&r=true',
         method: 'get',
         serializer: 'json',

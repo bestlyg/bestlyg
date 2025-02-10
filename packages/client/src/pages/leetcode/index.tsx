@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { LeetcodeSolution, Prisma } from '@bestlyg/data/prisma-client';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
@@ -50,7 +50,7 @@ async function fetchLeetcodeProblem(name?: string): Promise<Prisma.LeetcodeProbl
     include: { solutions: true };
 }> | null> {
     if (!name) return null;
-    const data = await fetch({
+    const data = await request({
         url: '/api/data/leetcode/problem',
         method: 'get',
         data: { name },

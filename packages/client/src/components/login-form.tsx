@@ -8,13 +8,13 @@ import { Navigate } from '@tanstack/react-router';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shadcn/ui/form';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
 
 async function login(data: { username: string; password: string }) {
-    const res = await fetch<
+    const res = await request<
         any,
         {
             username: string;

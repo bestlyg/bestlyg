@@ -7,8 +7,8 @@ export class SortParamItem {
     static from(object: Record<string, any>) {
         return this.of('', SortOrderEnum.Asc).setField(object.field).setOrder(object.order);
     }
-    private field: string;
-    private order: SortOrderEnum;
+    field: string;
+    order: SortOrderEnum;
     constructor(field: SortParamItem['field'], order: SortParamItem['order']) {
         this.field = field;
         this.order = order;

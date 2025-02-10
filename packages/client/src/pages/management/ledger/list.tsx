@@ -1,6 +1,6 @@
 import { Suspense } from '@/components/suspense';
 import { Skeleton } from '@/shadcn/ui/skeleton';
-import { fetch } from '@bestlyg/common/idl/utils';
+import { request } from '@bestlyg/common/idl/utils';
 import { Prisma } from '@bestlyg/data/prisma-client';
 import React from 'react';
 import {
@@ -67,7 +67,7 @@ function LedgerSkeleton() {
 }
 
 async function fetchLedgers(): Promise<Ledger[] | null> {
-    const data = await fetch({
+    const data = await request({
         url: '/api/data/ledger',
         method: 'get',
         data: {},

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { fetch } from '@/idl/utils/fetch';
+import { request as fetch } from '@/idl/utils/request';
 export * as api from './api/index';
