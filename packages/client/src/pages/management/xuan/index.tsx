@@ -163,7 +163,7 @@ function XuanSummary({ promise }: { promise: ReturnType<typeof fetchXuan> }) {
         { date: hyohy, label: '半年环比' },
         { date: yoy, label: '同比' },
     ];
-    if (!map[now.format(F)].weight) return null;
+    if (!map[now.format(F)]?.weight) return null;
     return (
         <div className="flex flex-col gap-2">
             {list
