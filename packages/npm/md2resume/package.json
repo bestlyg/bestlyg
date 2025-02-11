@@ -39,7 +39,7 @@
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/config": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",

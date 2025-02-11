@@ -1,6 +1,14 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
-import { ssh, server } from '@bestlyg/config';
+import { getConfiguration, ConfigurationSchema } from '@bestlyg/common';
+
+const envFileName = '.env';
+
+best.dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'common', envFileName),
+});
+
+const config = ConfigurationSchema.parse(getConfiguration(process.env));
 
 const run = async cmd => {
     execSync(cmd, { stdio: 'inherit' });
@@ -10,14 +18,9 @@ const homePath = process.env.HOME;
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 
-best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
-});
-
-const fileName = '.env.local';
 const dbName = 'best_data';
-const envDistPath = resolve(server.projectPath, 'packages', 'config', fileName);
-const sqlDistPath = resolve(server.projectPath, 'packages', 'data', 'dist', dbName + '.sql');
+const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);
+const sqlDistPath = resolve(config.ssh.projectPath, 'packages', 'data', 'dist', dbName + '.sql');
 const dumpPath = resolve('dist', dbName + '.sql');
 
 // backup
@@ -29,33 +32,32 @@ await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} $
 // copy
 // await run('pnpm --filter @bestlyg/site run deploy');
 await run('pnpm --filter @bestlyg/client run deploy');
-await run(`scp -r ${dumpPath} ${ssh.username}@${ssh.ip}:${sqlDistPath}`);
+await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
 await run(
-    `scp -r ${resolve('node_modules', '@bestlyg', 'config', fileName)} ${ssh.username}@${ssh.ip}:${envDistPath}`,
+    `scp -r ${resolve('node_modules', '@bestlyg', 'common', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
 );
 
 const serverName = `bestlyg-server`;
 
 const commands = [
-    `cd ${server.projectPath}`,
+    `cd ${config.ssh.projectPath}`,
     `sudo PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
     `sudo pm2 del ${serverName}`,
     `sudo git reset --hard`,
     `sudo git clean -fd`,
     `sudo git pull`,
     'sudo pnpm i --frozen-lockfile',
+    `sudo pnpm --filter @bestlyg/common run build`,
     `sudo pnpm --filter @bestlyg/cli run build`,
-    `sudo pnpm --filter @bestlyg/config run build`,
     `sudo pnpm --filter @bestlyg/data run build`,
     `sudo pnpm --filter @bestlyg/data run prisma:migrate`,
-    `sudo pnpm --filter @bestlyg/common run build`,
     `sudo pnpm --filter @bestlyg/server run build`,
     // `sudo pnpm --filter @bestlyg/client run build`,
     // `sudo pnpm nx build @bestlyg/server`,
-    `sudo pm2 start ${server.projectPath}/packages/server/ecosystem.config.cjs`,
+    `sudo pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
 ];
 console.log("commands.join('; ')", commands.join('; '));
-execSync(`ssh -T ${ssh.username}@${ssh.ip} "${commands.join('; ')}"`, {
+execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',
 });
 

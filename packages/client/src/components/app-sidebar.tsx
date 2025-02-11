@@ -134,7 +134,7 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
     );
 }
 
-function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.SidebarsResponse> }) {
+function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.SidebarsResponse | null | undefined> }) {
     const sidebar = React.use(sidebarPromise);
     return sidebar?.groups
         ?.filter(v => v.groups?.length || v.items?.length)

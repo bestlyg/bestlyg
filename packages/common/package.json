@@ -69,7 +69,6 @@
     },
     "license": "ISC",
     "devDependencies": {
-        "@bestlyg/cli": "workspace:^",
         "@modern-js/module-tools": "catalog:",
         "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
@@ -83,6 +82,7 @@
         "axios": "catalog:",
         "crypto-js": "^4.2.0",
         "dayjs": "catalog:",
-        "tapable": "catalog:"
+        "tapable": "catalog:",
+        "zod": "^3.24.1"
     }
 }

@@ -35,8 +35,8 @@ export function getResolveFunction(
 
 export const resolve = getResolveFunction(__dirname, 3);
 
-export function mount<O, T>(base: O, mountRecord: T) {
-    const result = base as O & T;
+export function mount<O extends object, T extends object>(base: O, mountRecord: T): O & T {
+    const result: any = base as O & T;
     for (const [k, v] of Object.entries(mountRecord)) {
         result[k] = v;
     }

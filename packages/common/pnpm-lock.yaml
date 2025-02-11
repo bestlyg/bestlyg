@@ -4,30 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@modern-js/module-tools':
-      specifier: ^2.63.5
-      version: 2.63.5
-    '@types/express':
-      specifier: ^5.0.0
-      version: 5.0.0
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.10
-    axios:
-      specifier: ^1.7.9
-      version: 1.7.9
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    tapable:
-      specifier: ^2.2.1
-      version: 2.2.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.2
-
 importers:
 
   .:
@@ -44,10 +20,10 @@ importers:
       tapable:
         specifier: 'catalog:'
         version: 2.2.1
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
-      '@bestlyg/cli':
-        specifier: workspace:^
-        version: link:../cli
       '@modern-js/module-tools':
         specifier: 'catalog:'
         version: 2.63.5(typescript@5.7.2)
@@ -1651,6 +1627,33 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.63.5
+      version: 2.63.5
+    '@types/express':
+      specifier: ^5.0.0
+      version: 5.0.0
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.10
+    axios:
+      specifier: ^1.7.9
+      version: 1.7.9
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    tapable:
+      specifier: ^2.2.1
+      version: 2.2.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -3248,3 +3251,5 @@ snapshots:
   yallist@2.1.2: {}
 
   yallist@3.1.1: {}
+
+  zod@3.24.1: {}

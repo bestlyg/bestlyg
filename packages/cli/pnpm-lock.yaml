@@ -4,75 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@modern-js/module-tools':
-      specifier: ^2.63.5
-      version: 2.63.7
-    '@types/doctrine':
-      specifier: ^0.0.9
-      version: 0.0.9
-    '@types/figlet':
-      specifier: ^1.7.0
-      version: 1.7.0
-    '@types/fs-extra':
-      specifier: ^11.0.4
-      version: 11.0.4
-    '@types/inquirer':
-      specifier: ^9.0.7
-      version: 9.0.7
-    '@types/jsdom':
-      specifier: ^21.1.7
-      version: 21.1.7
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.14
-    '@types/minimist':
-      specifier: ^1.2.5
-      version: 1.2.5
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.14
-    '@types/semver':
-      specifier: ^7.5.8
-      version: 7.5.8
-    axios:
-      specifier: ^1.7.9
-      version: 1.7.9
-    chalk:
-      specifier: ^5.3.0
-      version: 5.4.1
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
-    commander:
-      specifier: ^11.1.0
-      version: 11.1.0
-    cross-env:
-      specifier: ^7.0.3
-      version: 7.0.3
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    dotenv:
-      specifier: ^16.4.5
-      version: 16.4.7
-    fs-extra:
-      specifier: ^11.2.0
-      version: 11.3.0
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    rimraf:
-      specifier: ^6.0.1
-      version: 6.0.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.3
-    zx:
-      specifier: ^8.3.0
-      version: 8.3.0
-
 importers:
 
   .:
@@ -80,6 +11,9 @@ importers:
       '@bestlyg/cli':
         specifier: workspace:^
         version: 'link:'
+      '@bestlyg/common':
+        specifier: workspace:^
+        version: link:../common
       '@manypkg/get-packages':
         specifier: ^2.2.1
         version: 2.2.2
@@ -117,7 +51,7 @@ importers:
         specifier: ^17.0.33
         version: 17.0.33
       adm-zip:
-        specifier: ^0.5.14
+        specifier: ^0.5.16
         version: 0.5.16
       axios:
         specifier: 'catalog:'
@@ -207,6 +141,9 @@ importers:
       '@rollup/plugin-replace':
         specifier: ^6.0.2
         version: 6.0.2(rollup@4.31.0)
+      '@types/adm-zip':
+        specifier: ^0.5.7
+        version: 0.5.7
       rollup:
         specifier: ^4.30.0
         version: 4.31.0
@@ -1033,6 +970,9 @@ packages:
 
   '@swc/helpers@0.5.13':
     resolution: {integrity: sha512-UoKGxQ3r5kYI9dALKJapMmuK+1zWM/H17Z1+iwnNmzcJRnfFuevZs375TA5rW31pu4BS4NoSy1fRsexDXfWn5w==}
+
+  '@types/adm-zip@0.5.7':
+    resolution: {integrity: sha512-DNEs/QvmyRLurdQPChqq0Md4zGvPwHerAJYWk9l2jCbD1VPpnzRJorOdiq4zsw09NFbYnhfsoEhWtxIzXpn2yw==}
 
   '@types/doctrine@0.0.9':
     resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
@@ -2442,6 +2382,75 @@ packages:
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.63.5
+      version: 2.63.7
+    '@types/doctrine':
+      specifier: ^0.0.9
+      version: 0.0.9
+    '@types/figlet':
+      specifier: ^1.7.0
+      version: 1.7.0
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/inquirer':
+      specifier: ^9.0.7
+      version: 9.0.7
+    '@types/jsdom':
+      specifier: ^21.1.7
+      version: 21.1.7
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
+    '@types/minimist':
+      specifier: ^1.2.5
+      version: 1.2.5
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.14
+    '@types/semver':
+      specifier: ^7.5.8
+      version: 7.5.8
+    axios:
+      specifier: ^1.7.9
+      version: 1.7.9
+    chalk:
+      specifier: ^5.3.0
+      version: 5.4.1
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    commander:
+      specifier: ^11.1.0
+      version: 11.1.0
+    cross-env:
+      specifier: ^7.0.3
+      version: 7.0.3
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    dotenv:
+      specifier: ^16.4.5
+      version: 16.4.7
+    fs-extra:
+      specifier: ^11.2.0
+      version: 11.3.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    rimraf:
+      specifier: ^6.0.1
+      version: 6.0.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.3
+    zx:
+      specifier: ^8.3.0
+      version: 8.3.0
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -3277,6 +3286,10 @@ snapshots:
   '@swc/helpers@0.5.13':
     dependencies:
       tslib: 2.8.1
+
+  '@types/adm-zip@0.5.7':
+    dependencies:
+      '@types/node': 22.10.7
 
   '@types/doctrine@0.0.9': {}
 

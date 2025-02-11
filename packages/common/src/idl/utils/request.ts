@@ -23,7 +23,7 @@ export async function request<Req = any, Res = any>({
     url: string;
     serializer: string;
     data: Req;
-}): Promise<Res> {
+}): Promise<Res | null> {
     try {
         const token = localStorage.getItem('x-token');
         method = method.toLowerCase();
@@ -32,6 +32,7 @@ export async function request<Req = any, Res = any>({
             method,
             headers: {},
         };
+        if (!config.headers) config.headers = {};
         if (token) config.headers.Authorization = `Bearer ${token}`;
         if (method === 'get') config.params = data;
         else config.data = data;
@@ -39,7 +40,7 @@ export async function request<Req = any, Res = any>({
         const entity = ResponseEntity.from<any>(resp.data);
         if (entity.getCode() !== 0) throw entity;
         return entity.getData();
-    } catch (err) {
+    } catch (err: any) {
         await hooks.onError.promise(err).catch(() => {});
         return null;
     }

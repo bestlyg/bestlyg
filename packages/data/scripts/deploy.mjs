@@ -1,6 +1,6 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
-import { ssh, server } from '@bestlyg/config';
+import { ssh, server } from '@bestlyg/common';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({

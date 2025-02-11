@@ -36,7 +36,7 @@
     "license": "ISC",
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/config": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
         "@modern-js/module-tools": "catalog:",

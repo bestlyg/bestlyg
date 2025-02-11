@@ -25,7 +25,7 @@
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@bestlyg/config": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@changesets/cli": "2.24.1",
         "@changesets/get-release-plan": "^4.0.0",
         "@changesets/types": "^6.0.0",

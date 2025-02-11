@@ -1,21 +1,9 @@
 {
+    "extends": "./node_modules/@bestlyg/common/tsconfig.json",
     "compilerOptions": {
-        "rootDir": "src",
-        "target": "ESNext",
-        "module": "ESNext",
-        "allowJs": true,
         "baseUrl": ".",
-        "skipLibCheck": true,
-        "allowSyntheticDefaultImports": true,
-        "lib": ["ESNext"],
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "types": ["node"],
-        "typeRoots": ["./node_modules/@types"],
-        "paths": {
-            "@/*": ["src/*"]
-        }
+        "rootDir": "src",
+        "strict": false
     },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules", "dist"]
+    "include": ["src/**/*.ts"]
 }

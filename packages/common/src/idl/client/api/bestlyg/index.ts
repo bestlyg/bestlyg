@@ -38,7 +38,7 @@ export namespace BestlygService {
     
         export const serializer = 'json';
     
-        export const request = async (data: Request): Promise<Response> => {
+        export const request = async (data: Request): Promise<Response | null | undefined> => {
             return fetch({ url, method, serializer, data });
         };
     
@@ -80,7 +80,7 @@ export namespace ClientService {
     
         export const serializer = 'json';
     
-        export const request = async (data: Request): Promise<Response> => {
+        export const request = async (data: Request): Promise<Response | null | undefined> => {
             return fetch({ url, method, serializer, data });
         };
     
@@ -98,7 +98,7 @@ export namespace ClientService {
     
         export const serializer = 'json';
     
-        export const request = async (data: Request): Promise<Response> => {
+        export const request = async (data: Request): Promise<Response | null | undefined> => {
             return fetch({ url, method, serializer, data });
         };
     

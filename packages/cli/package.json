@@ -47,6 +47,7 @@
     "license": "ISC",
     "dependencies": {
         "@bestlyg/cli": "workspace:^",
+        "@bestlyg/common": "workspace:^",
         "@manypkg/get-packages": "^2.2.1",
         "@modern-js/module-tools": "catalog:",
         "@types/doctrine": "catalog:",
@@ -59,7 +60,7 @@
         "@types/node": "catalog:",
         "@types/semver": "catalog:",
         "@types/yargs": "^17.0.33",
-        "adm-zip": "^0.5.14",
+        "adm-zip": "^0.5.16",
         "axios": "catalog:",
         "chalk": "catalog:",
         "chalk@lib": "npm:chalk@4.1.2",
@@ -91,6 +92,7 @@
     },
     "devDependencies": {
         "@rollup/plugin-replace": "^6.0.2",
+        "@types/adm-zip": "^0.5.7",
         "rollup": "^4.30.0",
         "rollup-plugin-typescript2": "^0.36.0"
     }

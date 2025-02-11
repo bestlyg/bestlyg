@@ -23,7 +23,7 @@ export class XIdl extends XIdlCore {
         this.bindHooks(createHooks());
         this.hooks.gen.onGenMethodField.tapPromise(prefix, async code => {
             const content = [
-                `export const request = async (data: Request): Promise<Response> => {`,
+                `export const request = async (data: Request): Promise<Response | null | undefined> => {`,
                 this.contactIndent({
                     content: `return fetch({ url, method, serializer, data });`,
                 }),

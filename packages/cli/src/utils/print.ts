@@ -6,7 +6,7 @@ function log(...args: any[]) {
     console.log(...args);
 }
 
-function _print(color, ...args) {
+function _print(color: string, ...args: any[]) {
     if (args.length > 1) {
         log(
             chalk[`bg${color.replace(/^\w/, w => w.toUpperCase())}`](` ${args[0]} `),

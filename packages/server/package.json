@@ -22,7 +22,6 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@bestlyg/client": "workspace:^",
-        "@bestlyg/config": "workspace:^",
         "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
         "@bestlyg/server": "workspace:^",

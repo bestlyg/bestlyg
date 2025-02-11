@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { getConfiguration, MailService, resolve } from '@bestlyg-server/common';
+import { MailService, resolve } from '@bestlyg-server/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { server } from '@bestlyg/config';
+import { getNodeConfiguration, ConfigurationSchema } from '@bestlyg/common';
 import { TasksService } from './services/tasks.service';
+import dotenv from 'dotenv';
 import { AuthModule } from '@bestlyg-server/auth';
 import { JwtModule } from '@nestjs/jwt';
 import { ServerlessModule } from '@bestlyg-server/serverless';
@@ -14,7 +15,8 @@ import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
 import { ApiModule } from '@bestlyg-server/api';
 
-const configuration = getConfiguration();
+dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
+const configuration = ConfigurationSchema.parse(getNodeConfiguration());
 
 @Module({
     imports: [
@@ -23,10 +25,10 @@ const configuration = getConfiguration();
             // envFilePath: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
             ignoreEnvFile: true,
             isGlobal: true,
-            load: [getConfiguration],
+            load: [() => ConfigurationSchema.parse(getNodeConfiguration())],
         }),
         ServeStaticModule.forRoot({
-            rootPath: server.webPath,
+            rootPath: configuration.ssh.webPath,
             serveRoot: '/web',
         }),
         ServeStaticModule.forRoot({

@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '@bestlyg-server/common';
+import { PrismaService, resolve } from '@bestlyg-server/common';
 import compression from 'compression';
 import * as idl from '@bestlyg/common/idl/server';
 import cookieParser from 'cookie-parser';

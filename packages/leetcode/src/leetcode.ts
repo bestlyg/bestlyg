@@ -24,7 +24,7 @@ export class LeetCode {
         options = { ...defaultLeetCodeOptions, ...options };
     }
     async fetch(query: LeetCodeGraphQLQuery, endpoint: string) {
-        const { csrf = '', session = '' } = this.options.credential;
+        const { csrf = '', session = '' } = this.options.credential ?? {};
         const res = await fetch(`${BASE}${endpoint}`, {
             method: 'POST',
             headers: {
@@ -43,7 +43,7 @@ export class LeetCode {
         }
         if (res.headers.has('set-cookie')) {
             const cookies = parseCookie(res.headers.get('set-cookie') ?? '');
-            if (cookies['csrftoken']) {
+            if (cookies['csrftoken'] && this.options.credential) {
                 this.options.credential.csrf = cookies['csrftoken'];
             }
         }
