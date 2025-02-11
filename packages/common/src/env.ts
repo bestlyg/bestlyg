@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const ConfigurationSchema = z
     .object({
         mode: z.enum(['production', 'development']).default('development'),
+        server: z.object({ port: z.coerce.number().readonly() }).required(),
         ssh: z
             .object({
                 username: z.string().readonly(),
@@ -36,6 +37,7 @@ export type Configuration = z.infer<typeof ConfigurationSchema>;
 export function getConfiguration(env: Record<string, any>) {
     return {
         mode: env.NODE_ENV,
+        server: { port: env.BESTLYG_SERVER_PORT },
         mail: {
             host: env.BESTLYG_SERVER_MAIL_HOST,
             user: env.BESTLYG_SERVER_MAIL_USER,
@@ -57,6 +59,4 @@ export function getConfiguration(env: Record<string, any>) {
     };
 }
 
-export const getNodeConfiguration = () => getConfiguration(process.env);
-// @ts-ignore
-export const getViteClientConfiguration = () => getConfiguration((import.meta as any).env!);
+export const getServerConfiguration = () => getConfiguration(process.env);
