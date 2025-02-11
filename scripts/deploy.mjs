@@ -3,6 +3,7 @@ import { execSync } from 'child_process';
 import { getConfiguration, ConfigurationSchema } from '@bestlyg/common';
 
 const envFileName = '.env';
+const resolve = best.utils.getResolveFunction(import.meta, 1);
 
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', envFileName),
@@ -16,7 +17,6 @@ const run = async cmd => {
 };
 const homePath = process.env.HOME;
 
-const resolve = best.utils.getResolveFunction(import.meta, 1);
 
 const dbName = 'best_data';
 const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);
