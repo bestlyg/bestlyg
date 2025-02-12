@@ -13,6 +13,11 @@ import {
 import { PrismaClient } from '@bestlyg/data/prisma-client';
 import { problem as problemFromCreate } from './problem.mjs';
 
+const resolve = best.utils.getResolveFunction(import.meta, 1);
+best.dotenv.config({
+    path: resolve('node_modules', '@bestlyg', 'common', '.env'),
+});
+
 const prisma = new PrismaClient();
 
 const leetcode = new LeetCode({

@@ -1,22 +1,15 @@
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
-        n = len(nums)
-        i = 0
-        while i < n:
-            num = nums[i]
-            cnt = 1
-            while i + 1 < n and nums[i + 1] == num:
-                i += 1
-                cnt += 1
-                if cnt > 2:
-                    nums[i] = -inf
-            i += 1
-        i = 0
-        j = 0
-        while i < n:
-            while j < n and nums[j] == -inf: j += 1
-            if j < n: nums[i] = nums[j]
-            if j >= n: break
-            i += 1
-            j += 1
-        return i
+    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
+        def c(num: int, cost: int) -> int:
+            if num <= cost: return 0
+            return ceil(num / cost) - 1
+        l = 1
+        r = max(nums)
+        while l < r:
+            m = (l + r) // 2
+            op = sum(c(num, m) for num in nums)
+            if op <= maxOperations:
+                r = m
+            else:
+                l = m + 1
+        return l
