@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const ConfigurationSchema = z
+export const ServerConfigurationSchema = z
     .object({
         mode: z.enum(['production', 'development']).default('development'),
         server: z.object({ port: z.coerce.number().readonly() }).required(),
@@ -32,31 +32,29 @@ export const ConfigurationSchema = z
             .required(),
     })
     .required();
-export type Configuration = z.infer<typeof ConfigurationSchema>;
+export type Configuration = z.infer<typeof ServerConfigurationSchema>;
 
-export function getConfiguration(env: Record<string, any>) {
+export function getServerConfiguration() {
     return {
-        mode: env.NODE_ENV,
-        server: { port: env.BESTLYG_SERVER_PORT },
+        mode: process.env.NODE_ENV,
+        server: { port: process.env.BESTLYG_SERVER_PORT },
         mail: {
-            host: env.BESTLYG_SERVER_MAIL_HOST,
-            user: env.BESTLYG_SERVER_MAIL_USER,
-            pass: env.BESTLYG_SERVER_MAIL_PASS,
+            host: process.env.BESTLYG_SERVER_MAIL_HOST,
+            user: process.env.BESTLYG_SERVER_MAIL_USER,
+            pass: process.env.BESTLYG_SERVER_MAIL_PASS,
         },
         user: {
-            username: env.BESTLYG_USERNAME,
-            password: env.BESTLYG_PASSWORD,
+            username: process.env.BESTLYG_USERNAME,
+            password: process.env.BESTLYG_PASSWORD,
         },
         jwt: {
-            secret: env.BESTLYG_SECRET,
+            secret: process.env.BESTLYG_SECRET,
         },
         ssh: {
-            username: env.BESTLYG_SSH_USERNAME,
-            ip: env.BESTLYG_SSH_IP,
-            webPath: env.BESTLYG_SSH_WEB_PATH,
-            projectPath: env.BESTLYG_SSH_PROJECT_PATH,
+            username: process.env.BESTLYG_SSH_USERNAME,
+            ip: process.env.BESTLYG_SSH_IP,
+            webPath: process.env.BESTLYG_SSH_WEB_PATH,
+            projectPath: process.env.BESTLYG_SSH_PROJECT_PATH,
         },
     };
 }
-
-export const getServerConfiguration = () => getConfiguration(process.env);

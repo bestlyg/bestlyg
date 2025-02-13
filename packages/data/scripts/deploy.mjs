@@ -1,12 +1,12 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
-import { ConfigurationSchema, getConfiguration } from '@bestlyg/common';
+import { ServerConfigurationSchema, getConfiguration } from '@bestlyg/common';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
 });
-const config = ConfigurationSchema.parse(getConfiguration(process.env));
+const config = ServerConfigurationSchema.parse(getConfiguration(process.env));
 const fileName = '.env.local';
 const dbName = 'best_data';
 

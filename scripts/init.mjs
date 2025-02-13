@@ -1,12 +1,12 @@
 import '@bestlyg/cli/globals';
-import { ConfigurationSchema, getConfiguration } from '@bestlyg/common';
+import { ServerConfigurationSchema, getConfiguration } from '@bestlyg/common';
 import { execSync } from 'child_process';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', '.env'),
 });
-const config = ConfigurationSchema.parse(getConfiguration(process.env));
+const config = ServerConfigurationSchema.parse(getConfiguration(process.env));
 const sqlFileName = `best_data.sql`;
 // await $`git remote add gitee https://github.com/bestlyg/bestlyg.git`;
 // await $`git remote add github https://github.com/bestlyg/bestlyg.git`;
