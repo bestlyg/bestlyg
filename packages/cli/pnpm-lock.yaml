@@ -4,6 +4,78 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.63.5
+      version: 2.63.7
+    '@types/doctrine':
+      specifier: ^0.0.9
+      version: 0.0.9
+    '@types/figlet':
+      specifier: ^1.7.0
+      version: 1.7.0
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/inquirer':
+      specifier: ^9.0.7
+      version: 9.0.7
+    '@types/jsdom':
+      specifier: ^21.1.7
+      version: 21.1.7
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
+    '@types/minimist':
+      specifier: ^1.2.5
+      version: 1.2.5
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.14
+    '@types/semver':
+      specifier: ^7.5.8
+      version: 7.5.8
+    axios:
+      specifier: ^1.7.9
+      version: 1.7.9
+    chalk:
+      specifier: ^5.3.0
+      version: 5.4.1
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    commander:
+      specifier: ^11.1.0
+      version: 11.1.0
+    cross-env:
+      specifier: ^7.0.3
+      version: 7.0.3
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    dotenv:
+      specifier: ^16.4.5
+      version: 16.4.7
+    fs-extra:
+      specifier: ^11.2.0
+      version: 11.3.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    rimraf:
+      specifier: ^6.0.1
+      version: 6.0.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.3
+    zod:
+      specifier: ^3.24.1
+      version: 3.24.2
+    zx:
+      specifier: ^8.3.0
+      version: 8.3.0
+
 importers:
 
   .:
@@ -134,6 +206,9 @@ importers:
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
+      zod:
+        specifier: 'catalog:'
+        version: 3.24.2
       zx:
         specifier: 'catalog:'
         version: 8.3.0
@@ -2377,79 +2452,13 @@ packages:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
 
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+
   zx@8.3.0:
     resolution: {integrity: sha512-L8mY3yfJwo3a8ZDD6f9jZzAcRWJZYcV8GauZmBxLB/aSTwaMzMIEVpPp2Kyx+7yF0gdvuxKnMxAZRft9UCawiw==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
-
-catalogs:
-  default:
-    '@modern-js/module-tools':
-      specifier: ^2.63.5
-      version: 2.63.7
-    '@types/doctrine':
-      specifier: ^0.0.9
-      version: 0.0.9
-    '@types/figlet':
-      specifier: ^1.7.0
-      version: 1.7.0
-    '@types/fs-extra':
-      specifier: ^11.0.4
-      version: 11.0.4
-    '@types/inquirer':
-      specifier: ^9.0.7
-      version: 9.0.7
-    '@types/jsdom':
-      specifier: ^21.1.7
-      version: 21.1.7
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.14
-    '@types/minimist':
-      specifier: ^1.2.5
-      version: 1.2.5
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.14
-    '@types/semver':
-      specifier: ^7.5.8
-      version: 7.5.8
-    axios:
-      specifier: ^1.7.9
-      version: 1.7.9
-    chalk:
-      specifier: ^5.3.0
-      version: 5.4.1
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
-    commander:
-      specifier: ^11.1.0
-      version: 11.1.0
-    cross-env:
-      specifier: ^7.0.3
-      version: 7.0.3
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    dotenv:
-      specifier: ^16.4.5
-      version: 16.4.7
-    fs-extra:
-      specifier: ^11.2.0
-      version: 11.3.0
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    rimraf:
-      specifier: ^6.0.1
-      version: 6.0.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.3
-    zx:
-      specifier: ^8.3.0
-      version: 8.3.0
 
 snapshots:
 
@@ -4721,6 +4730,8 @@ snapshots:
   yocto-queue@1.1.1: {}
 
   yoctocolors-cjs@2.1.2: {}
+
+  zod@3.24.2: {}
 
   zx@8.3.0:
     optionalDependencies:

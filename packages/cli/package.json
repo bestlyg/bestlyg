@@ -88,6 +88,7 @@
         "typescript": "catalog:",
         "winston": "^3.14.2",
         "yargs": "^17.7.2",
+        "zod": "catalog:",
         "zx": "catalog:"
     },
     "devDependencies": {

@@ -17,4 +17,5 @@ export * as commander from 'commander';
 export * as jsdom from 'jsdom';
 export * as zx from 'zx';
 export * from './vendor-esm';
+export * as z from 'zod';
 export { default as winston } from 'winston';
