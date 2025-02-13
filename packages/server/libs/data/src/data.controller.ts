@@ -70,29 +70,33 @@ export class DataController {
     }
 
     @Get('serverless-code')
-    @UsePipes(new ZodValidationPipe(SelectServerlessCodeSchema))
-    async getServerlessCode(@Query() dto: SelectServerlessCodeDto) {
+    async getServerlessCode(
+        @Query(new ZodValidationPipe(SelectServerlessCodeSchema)) dto: SelectServerlessCodeDto,
+    ) {
         const data = await this.dataService.getServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post('serverless-code')
-    @UsePipes(new ZodValidationPipe(CreateServerlessCodeSchema))
-    async createServerlessCode(@Body() dto: CreateServerlessCodeDto) {
+    async createServerlessCode(
+        @Body(new ZodValidationPipe(CreateServerlessCodeSchema)) dto: CreateServerlessCodeDto,
+    ) {
         const data = await this.dataService.createServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch('serverless-code')
-    @UsePipes(new ZodValidationPipe(UpdateServerlessCodeSchema))
-    async updateServerlessCode(@Body() dto: UpdateServerlessCodeDto) {
+    async updateServerlessCode(
+        @Body(new ZodValidationPipe(UpdateServerlessCodeSchema)) dto: UpdateServerlessCodeDto,
+    ) {
         const data = await this.dataService.updateServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete('serverless-code')
-    @UsePipes(new ZodValidationPipe(DeleteServerlessCodeSchema))
-    async deleteServerlessCode(@Body() dto: DeleteServerlessCodeDto) {
+    async deleteServerlessCode(
+        @Body(new ZodValidationPipe(DeleteServerlessCodeSchema)) dto: DeleteServerlessCodeDto,
+    ) {
         const data = await this.dataService.deleteServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
