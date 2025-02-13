@@ -1,15 +1,6 @@
 class Solution:
-    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
-        def c(num: int, cost: int) -> int:
-            if num <= cost: return 0
-            return ceil(num / cost) - 1
-        l = 1
-        r = max(nums)
-        while l < r:
-            m = (l + r) // 2
-            op = sum(c(num, m) for num in nums)
-            if op <= maxOperations:
-                r = m
-            else:
-                l = m + 1
-        return l
+    def countBalls(self, lowLimit: int, highLimit: int) -> int:
+        res = Counter()
+        for cur in range(lowLimit, highLimit + 1):
+            res[sum(int(c) for c in str(cur))] += 1
+        return max(res.values())

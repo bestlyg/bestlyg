@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '1760. 袋子里最少数目的球',
-    url: 'https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag',
+    name: '1742. 盒子中小球的最大数量',
+    url: 'https://leetcode.cn/problems/maximum-number-of-balls-in-a-box',
     level: 'Easy',
     tagList: [],
-    desc: `你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。请你返回进行上述操作后的最小开销。`,
+    desc: `给你两个整数 lowLimit 和 highLimit ，返回放有最多小球的盒子中的小球数量。如果有多个盒子都满足放有最多小球，只需返回其中任一盒子的小球数量。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 1335,
-            memory: 29.26,
-            desc: '二分答案',
+            time: 567,
+            memory: 17.59,
+            desc: '遍历时存储',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
