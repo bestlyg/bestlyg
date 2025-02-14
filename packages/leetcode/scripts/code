@@ -1,6 +1,21 @@
 class Solution:
-    def countBalls(self, lowLimit: int, highLimit: int) -> int:
-        res = Counter()
-        for cur in range(lowLimit, highLimit + 1):
-            res[sum(int(c) for c in str(cur))] += 1
-        return max(res.values())
+    def maxDistance(self, position: List[int], max_cnt: int) -> int:
+        position.sort()
+        l = min(p2 - p1 for p1, p2 in pairwise(position))
+        r = position[-1] - position[0]
+        def get(force: int) -> bool:
+            cnt = max_cnt - 1
+            prev = position[0]
+            for p in position[1:]:
+                if p - prev >= force:
+                    cnt -= 1
+                    prev = p
+            return cnt <= 0
+        while l < r:
+            m = (l + r + 1) // 2
+            res = get(m)
+            if res:
+                l = m
+            else:
+                r = m - 1
+        return l
