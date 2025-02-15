@@ -13,7 +13,7 @@ import { useToast } from '@/shadcn/hooks/use-toast';
 import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
 import { encrypt } from '@bestlyg/common';
-import { configuration } from '@/utils/config';
+import { configuration } from '@/utils/configuration';
 
 async function login(data: { username: string; password: string }) {
     const res = await request<

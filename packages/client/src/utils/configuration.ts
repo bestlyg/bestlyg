@@ -14,11 +14,12 @@ export const ConfigurationSchema = z
 export type Configuration = z.infer<typeof ConfigurationSchema>;
 
 export function getConfiguration() {
+    console.log('getConfiguration', import.meta)
     return {
-        mode: import.meta.env.NODE_ENV,
+        mode: import.meta.env.MODE,
         aes: {
-            key: import.meta.env.BESTLYG_AES_KEY,
-            iv: import.meta.env.BESTLYG_AES_IV,
+            key: import.meta.env.VITE_BESTLYG_AES_KEY,
+            iv: import.meta.env.VITE_BESTLYG_AES_IV,
         },
     };
 }
