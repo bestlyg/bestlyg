@@ -1,4 +1,4 @@
-import { getServerConfiguration, ServerConfigurationSchema } from '@bestlyg/common';
+import { getConfiguration, ConfigurationSchema } from '@bestlyg/common/server';
 import * as utils from './utils/index';
 import * as vendor from './vendor/index';
 
@@ -8,7 +8,7 @@ vendor.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', '.env'),
 });
 
-const config = ServerConfigurationSchema.parse(getServerConfiguration());
+const config = ConfigurationSchema.parse(getConfiguration());
 
 export const globalInjectData = {
     utils,

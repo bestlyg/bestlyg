@@ -14,17 +14,6 @@
         }
     },
     "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/lib/index.cjs",
-            "default": "./dist/esm/index.js"
-        },
-        "./*": {
-            "import": "./*",
-            "require": "./*",
-            "default": "./*"
-        },
         "./idl/utils": {
             "types": "./dist/types/idl/utils/index.d.ts",
             "import": "./dist/esm/idl/utils/index.js",
@@ -61,7 +50,30 @@
             "require": "./dist/lib/idl/server/*",
             "default": "./dist/esm/idl/server/*"
         },
-        "./package.json": "./package.json"
+        "./server": {
+            "types": "./dist/types/server/index.d.ts",
+            "import": "./dist/esm/server/index.js",
+            "require": "./dist/lib/server/index.cjs",
+            "default": "./dist/esm/server/index.js"
+        },
+        "./server/*": {
+            "types": "./dist/types/server/*",
+            "import": "./dist/esm/server/*",
+            "require": "./dist/lib/server/*",
+            "default": "./dist/esm/server/*"
+        },
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/lib/index.cjs",
+            "default": "./dist/esm/index.js"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        }
     },
     "scripts": {
         "build": "node scripts/idl.mjs && modern build",
@@ -72,16 +84,20 @@
         "@modern-js/module-tools": "catalog:",
         "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
+        "@types/figlet": "^1.7.0",
         "@types/node": "catalog:",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
+        "@types/fs-extra": "catalog:",
         "typescript": "catalog:"
     },
     "dependencies": {
         "axios": "catalog:",
         "crypto-js": "^4.2.0",
         "dayjs": "catalog:",
+        "figlet": "^1.7.0",
+        "fs-extra": "catalog:",
         "tapable": "catalog:",
         "zod": "^3.24.1"
     }

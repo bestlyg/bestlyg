@@ -4,6 +4,78 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@modern-js/module-tools':
+      specifier: ^2.63.5
+      version: 2.63.7
+    '@types/doctrine':
+      specifier: ^0.0.9
+      version: 0.0.9
+    '@types/figlet':
+      specifier: ^1.7.0
+      version: 1.7.0
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/inquirer':
+      specifier: ^9.0.7
+      version: 9.0.7
+    '@types/jsdom':
+      specifier: ^21.1.7
+      version: 21.1.7
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
+    '@types/minimist':
+      specifier: ^1.2.5
+      version: 1.2.5
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.14
+    '@types/semver':
+      specifier: ^7.5.8
+      version: 7.5.8
+    axios:
+      specifier: ^1.7.9
+      version: 1.7.9
+    chalk:
+      specifier: ^5.3.0
+      version: 5.4.1
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    commander:
+      specifier: ^11.1.0
+      version: 11.1.0
+    cross-env:
+      specifier: ^7.0.3
+      version: 7.0.3
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    dotenv:
+      specifier: ^16.4.5
+      version: 16.4.7
+    fs-extra:
+      specifier: ^11.2.0
+      version: 11.3.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    rimraf:
+      specifier: ^6.0.1
+      version: 6.0.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.3
+    zod:
+      specifier: ^3.24.1
+      version: 3.24.2
+    zx:
+      specifier: ^8.3.0
+      version: 8.3.0
+
 importers:
 
   .:
@@ -50,9 +122,6 @@ importers:
       '@types/semver':
         specifier: 'catalog:'
         version: 7.5.8
-      '@types/yargs':
-        specifier: ^17.0.33
-        version: 17.0.33
       adm-zip:
         specifier: ^0.5.16
         version: 0.5.16
@@ -134,9 +203,6 @@ importers:
       winston:
         specifier: ^3.14.2
         version: 3.17.0
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
       zod:
         specifier: 'catalog:'
         version: 3.24.2
@@ -895,12 +961,6 @@ packages:
   '@types/wrap-ansi@3.0.0':
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
 
-  '@types/yargs-parser@21.0.3':
-    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
-
-  '@types/yargs@17.0.33':
-    resolution: {integrity: sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==}
-
   acorn@8.14.0:
     resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
     engines: {node: '>=0.4.0'}
@@ -1036,10 +1096,6 @@ packages:
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
     engines: {node: '>= 12'}
-
-  cliui@8.0.1:
-    resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
-    engines: {node: '>=12'}
 
   color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -1309,10 +1365,6 @@ packages:
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
-
-  get-caller-file@2.0.5:
-    resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
-    engines: {node: 6.* || 8.* || >= 10.*}
 
   get-east-asian-width@1.3.0:
     resolution: {integrity: sha512-vpeMIQKxczTD/0s2CdEWHcb0eeJe6TFjxb+J5xgX7hScxqrGuyjmv4c1D4A/gelKfyox0gJJwIHF+fLjeaM8kQ==}
@@ -1813,10 +1865,6 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  require-directory@2.1.1:
-    resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
-    engines: {node: '>=0.10.0'}
-
   requires-port@1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
 
@@ -2175,23 +2223,11 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
-  y18n@5.0.8:
-    resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
-    engines: {node: '>=10'}
-
   yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-
-  yargs-parser@21.1.1:
-    resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
-    engines: {node: '>=12'}
-
-  yargs@17.7.2:
-    resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
-    engines: {node: '>=12'}
 
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
@@ -2212,78 +2248,6 @@ packages:
     resolution: {integrity: sha512-L8mY3yfJwo3a8ZDD6f9jZzAcRWJZYcV8GauZmBxLB/aSTwaMzMIEVpPp2Kyx+7yF0gdvuxKnMxAZRft9UCawiw==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
-
-catalogs:
-  default:
-    '@modern-js/module-tools':
-      specifier: ^2.63.5
-      version: 2.63.7
-    '@types/doctrine':
-      specifier: ^0.0.9
-      version: 0.0.9
-    '@types/figlet':
-      specifier: ^1.7.0
-      version: 1.7.0
-    '@types/fs-extra':
-      specifier: ^11.0.4
-      version: 11.0.4
-    '@types/inquirer':
-      specifier: ^9.0.7
-      version: 9.0.7
-    '@types/jsdom':
-      specifier: ^21.1.7
-      version: 21.1.7
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.14
-    '@types/minimist':
-      specifier: ^1.2.5
-      version: 1.2.5
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.14
-    '@types/semver':
-      specifier: ^7.5.8
-      version: 7.5.8
-    axios:
-      specifier: ^1.7.9
-      version: 1.7.9
-    chalk:
-      specifier: ^5.3.0
-      version: 5.4.1
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
-    commander:
-      specifier: ^11.1.0
-      version: 11.1.0
-    cross-env:
-      specifier: ^7.0.3
-      version: 7.0.3
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    dotenv:
-      specifier: ^16.4.5
-      version: 16.4.7
-    fs-extra:
-      specifier: ^11.2.0
-      version: 11.3.0
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    rimraf:
-      specifier: ^6.0.1
-      version: 6.0.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.3
-    zod:
-      specifier: ^3.24.1
-      version: 3.24.2
-    zx:
-      specifier: ^8.3.0
-      version: 8.3.0
 
 snapshots:
 
@@ -3107,12 +3071,6 @@ snapshots:
 
   '@types/wrap-ansi@3.0.0': {}
 
-  '@types/yargs-parser@21.0.3': {}
-
-  '@types/yargs@17.0.33':
-    dependencies:
-      '@types/yargs-parser': 21.0.3
-
   acorn@8.14.0: {}
 
   adm-zip@0.5.16: {}
@@ -3258,12 +3216,6 @@ snapshots:
   cli-spinners@2.9.2: {}
 
   cli-width@4.1.0: {}
-
-  cliui@8.0.1:
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
 
   color-convert@1.9.3:
     dependencies:
@@ -3563,8 +3515,6 @@ snapshots:
       loader-utils: 3.3.1
 
   gensync@1.0.0-beta.2: {}
-
-  get-caller-file@2.0.5: {}
 
   get-east-asian-width@1.3.0: {}
 
@@ -4067,8 +4017,6 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  require-directory@2.1.1: {}
-
   requires-port@1.0.0: {}
 
   resolve-from@5.0.0: {}
@@ -4396,23 +4344,9 @@ snapshots:
 
   xmlchars@2.2.0: {}
 
-  y18n@5.0.8: {}
-
   yallist@2.1.2: {}
 
   yallist@3.1.1: {}
-
-  yargs-parser@21.1.1: {}
-
-  yargs@17.7.2:
-    dependencies:
-      cliui: 8.0.1
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
 

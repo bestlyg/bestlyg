@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const ServerConfigurationSchema = z
+export const ConfigurationSchema = z
     .object({
         mode: z.enum(['production', 'development']).default('development'),
         server: z.object({ port: z.coerce.number().readonly() }).required(),
@@ -32,9 +32,9 @@ export const ServerConfigurationSchema = z
             .required(),
     })
     .required();
-export type Configuration = z.infer<typeof ServerConfigurationSchema>;
+export type Configuration = z.infer<typeof ConfigurationSchema>;
 
-export function getServerConfiguration() {
+export function getConfiguration() {
     return {
         mode: process.env.NODE_ENV,
         server: { port: process.env.BESTLYG_SERVER_PORT },
