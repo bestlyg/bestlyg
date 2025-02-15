@@ -1,21 +1,18 @@
 class Solution:
-    def maxDistance(self, position: List[int], max_cnt: int) -> int:
-        position.sort()
-        l = min(p2 - p1 for p1, p2 in pairwise(position))
-        r = position[-1] - position[0]
-        def get(force: int) -> bool:
-            cnt = max_cnt - 1
-            prev = position[0]
-            for p in position[1:]:
-                if p - prev >= force:
-                    cnt -= 1
-                    prev = p
-            return cnt <= 0
-        while l < r:
-            m = (l + r + 1) // 2
-            res = get(m)
-            if res:
-                l = m
-            else:
-                r = m - 1
-        return l
+    def findBall(self, grid: List[List[int]]) -> List[int]:
+        n = len(grid)
+        m = len(grid[0])
+        def in_board(i: int, j: int): return 0 <= i < n and 0 <= j < m
+        # -1 = left, 1 = right
+        def run(i: int, j: int, f: int, used: Set[Tuple[int, int]]) -> int:
+            if (i, j) in used: return -1
+            used.add((i, j))
+            if i == n: return j
+            if not in_board(i, j): return -1
+            g = grid[i][j]
+            if g == 1 and f == 1: return run(i, j + 1, -1, used)
+            if g == -1 and f == -1: return run(i, j - 1, 1, used)
+            if in_board(i + 1, j): return run(i + 1, j, grid[i + 1][j], used)
+            if i + 1 == n: return j
+            return -1
+        return [run(0, j, grid[0][j], set()) for j in range(m)]

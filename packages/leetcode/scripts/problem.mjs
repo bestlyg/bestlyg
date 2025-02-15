@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1552. 两球之间的磁力',
-    url: 'https://leetcode.cn/problems/magnetic-force-between-two-balls',
+    exist: true,
+    name: '1706. 球会落何处',
+    url: 'https://leetcode.cn/problems/where-will-the-ball-fall',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 position 和一个整数 m ，请你返回最大化的最小磁力。`,
+    desc: `返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 429,
-            memory: 30.03,
-            desc: '二分答案',
+            time: 63,
+            memory: 18.29,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -16,7 +16,7 @@ export const globalInjectData = {
     ...vendor,
 };
 
-// export default globalInjectData;
+export default globalInjectData;
 
 export * as utils from './utils/index';
 export * from './vendor/index';
