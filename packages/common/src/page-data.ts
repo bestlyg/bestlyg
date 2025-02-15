@@ -8,8 +8,8 @@ export class PageData<T> {
     static from<T>(object: Record<string, any>) {
         return this.ofEmpty<T>().setList(object.list).setTotal(object.total);
     }
-    private list: T[];
-    private total: number;
+    list: T[];
+    total: number;
     constructor(list: PageData<T>['list'], total: PageData<T>['total']) {
         this.list = list;
         this.total = total;

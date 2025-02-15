@@ -8,7 +8,6 @@ import {
     Post,
     Query,
     UseGuards,
-    UsePipes,
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { AuthGuard } from '@bestlyg-server/auth';
@@ -22,6 +21,8 @@ import {
     CreateServerlessCodeSchema,
     DeleteServerlessCodeSchema,
     UpdateServerlessCodeSchema,
+    SelectLedgerPageDto,
+    SelectLedgerPageSchema,
 } from './data.dto';
 import { ZodValidationPipe } from '@bestlyg-server/common';
 
@@ -30,10 +31,26 @@ export class DataController {
     private readonly logger = new Logger(DataController.name);
     constructor(private readonly dataService: DataService) {}
 
-    @Get('ledger')
+    @Get('ledger/page')
     @UseGuards(AuthGuard)
-    async getLedgers() {
-        const data = await this.dataService.getLedgers();
+    async getLedgerPage(
+        @Query(new ZodValidationPipe(SelectLedgerPageSchema)) dto: SelectLedgerPageDto,
+    ) {
+        const data = await this.dataService.getLedgerPage(dto);
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Get('ledger/list')
+    @UseGuards(AuthGuard)
+    async getLedgerList() {
+        const data = await this.dataService.getLedgerList();
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Get('ledger/summary')
+    @UseGuards(AuthGuard)
+    async getLedgerSummary() {
+        const data = await this.dataService.getLedgerSummary();
         return ResponseEntity.ofSuccess(data);
     }
 

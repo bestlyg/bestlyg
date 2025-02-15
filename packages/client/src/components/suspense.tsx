@@ -24,3 +24,29 @@ export function Suspense<T>({
         </React.Suspense>
     );
 }
+
+export function Suspense2<T>({
+    promise = Promise.resolve(null as any as T),
+    fallback = <DefaultSuspenseComponent />,
+    node,
+}: {
+    promise?: Promise<T>;
+    fallback?: React.ReactNode;
+    node?: React.ReactNode;
+}) {
+    const deferredPromise = React.useDeferredValue(promise, promise);
+    const newNode = React.useMemo(
+        () =>
+            React.isValidElement(node)
+                ? React.cloneElement(node as any, { promise: deferredPromise })
+                : node,
+        [node],
+    );
+    return (
+        <React.Suspense fallback={fallback}>
+            <Spin spinning={promise !== deferredPromise} indicator={<LoadingSpinner />}>
+                {newNode}
+            </Spin>
+        </React.Suspense>
+    );
+}
