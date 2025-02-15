@@ -29,6 +29,6 @@ export function getResolveFunction(
 }
 
 export const resolve =
-    typeof globalThis.__dirname !== 'undefined'
+    typeof __dirname !== 'undefined'
         ? getResolveFunction(__dirname, 3)
         : getResolveFunction(import.meta, 3);
