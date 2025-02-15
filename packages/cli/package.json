@@ -88,13 +88,8 @@
         "typescript": "catalog:",
         "winston": "^3.14.2",
         "yargs": "^17.7.2",
+        "@types/adm-zip": "^0.5.7",
         "zod": "catalog:",
         "zx": "catalog:"
-    },
-    "devDependencies": {
-        "@rollup/plugin-replace": "^6.0.2",
-        "@types/adm-zip": "^0.5.7",
-        "rollup": "^4.30.0",
-        "rollup-plugin-typescript2": "^0.36.0"
     }
 }
