@@ -19,12 +19,6 @@ export const ServerConfigurationSchema = z
                 pass: z.string().readonly(),
             })
             .required(),
-        user: z
-            .object({
-                username: z.string().readonly(),
-                password: z.string().readonly(),
-            })
-            .required(),
         jwt: z
             .object({
                 secret: z.string().readonly(),
@@ -48,10 +42,6 @@ export function getServerConfiguration() {
             host: process.env.BESTLYG_SERVER_MAIL_HOST,
             user: process.env.BESTLYG_SERVER_MAIL_USER,
             pass: process.env.BESTLYG_SERVER_MAIL_PASS,
-        },
-        user: {
-            username: process.env.BESTLYG_USERNAME,
-            password: process.env.BESTLYG_PASSWORD,
         },
         jwt: {
             secret: process.env.BESTLYG_SECRET,
