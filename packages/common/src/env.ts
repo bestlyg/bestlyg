@@ -30,6 +30,12 @@ export const ServerConfigurationSchema = z
                 secret: z.string().readonly(),
             })
             .required(),
+        aes: z
+            .object({
+                key: z.string().readonly(),
+                iv: z.string().readonly(),
+            })
+            .required(),
     })
     .required();
 export type Configuration = z.infer<typeof ServerConfigurationSchema>;
@@ -55,6 +61,10 @@ export function getServerConfiguration() {
             ip: process.env.BESTLYG_SSH_IP,
             webPath: process.env.BESTLYG_SSH_WEB_PATH,
             projectPath: process.env.BESTLYG_SSH_PROJECT_PATH,
+        },
+        aes: {
+            key: process.env.BESTLYG_AES_KEY,
+            iv: process.env.BESTLYG_AES_IV,
         },
     };
 }

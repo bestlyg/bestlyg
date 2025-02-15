@@ -117,4 +117,11 @@ export class DataController {
         const data = await this.dataService.deleteServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
+
+    @Get('user/list')
+    async getUserList() {
+        const data = await this.dataService.getUserList();
+        return ResponseEntity.ofSuccess(data);
+    }
+    
 }

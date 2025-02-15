@@ -67,9 +67,9 @@ enum LedgerFrom {
 }
 
 model Ledger {
-  id          String     @id @default(nanoid())
-  createdTime DateTime   @default(now()) @map("create_time")
-  updatedTime DateTime   @default(now()) @updatedAt @map("update_time")
+  id          String      @id @default(nanoid())
+  createdTime DateTime    @default(now()) @map("create_time")
+  updatedTime DateTime    @default(now()) @updatedAt @map("update_time")
   date        DateTime
   balance     Int
   comment     String
@@ -171,4 +171,32 @@ model ServerlessCode {
   serverlessId String?     @map("serverless_id")
 
   @@map("serverless_code")
+}
+
+model User {
+  id          String   @id @default(nanoid())
+  createdTime DateTime @default(now()) @map("create_time")
+  updatedTime DateTime @default(now()) @updatedAt @map("update_time")
+  name        String   @unique
+  pwd         String
+  nickname    String
+  description String
+  avatar      String
+
+  @@map("user")
+}
+
+model CasbinRule {
+  id        String   @id @default(nanoid())
+  createdAt DateTime @default(now()) @map("create_time") @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("update_time") @db.Timestamp(6)
+  ptype     String
+  v0        String?
+  v1        String?
+  v2        String?
+  v3        String?
+  v4        String?
+  v5        String?
+
+  @@map("casbin_rule")
 }

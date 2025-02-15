@@ -177,4 +177,8 @@ export class DataService {
         });
         return res;
     }
+
+    async getUserList() {
+        return this.prismaService.user.findMany({ select: { id: true, name: true } });
+    }
 }

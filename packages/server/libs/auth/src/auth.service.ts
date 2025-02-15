@@ -1,22 +1,21 @@
+import { PrismaService } from '@bestlyg-server/common';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
-        private readonly configService: ConfigService,
+        private readonly prismaService: PrismaService,
     ) {}
     async signIn(username: string, password: string) {
-        const USERNAME = this.configService.get('user.username');
-        const PASSWORD = this.configService.get('user.password');
-        if (username !== USERNAME || password !== PASSWORD) throw new UnauthorizedException();
+        const user = await this.prismaService.user.findFirst({ where: { name: username } });
+        if (!user || user.pwd !== password) throw new UnauthorizedException();
         const payload = {
-            username,
-            nickname: 'BestLyg',
-            description: 'Ultra world.',
-            avatar: '/static?p=logo.png&r=false',
+            username: user.name,
+            nickname: user.nickname,
+            description: user.description,
+            avatar: user.avatar,
         };
         return {
             access_token: await this.jwtService.signAsync(payload),

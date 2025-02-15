@@ -12,6 +12,8 @@ import { request } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
+import { encrypt } from '@bestlyg/common';
+import { configuration } from '@/utils/config';
 
 async function login(data: { username: string; password: string }) {
     const res = await request<
@@ -25,7 +27,10 @@ async function login(data: { username: string; password: string }) {
         }
     >({
         url: '/api/auth/login',
-        data,
+        data: {
+            ...data,
+            password: encrypt(data.password, configuration.aes.key, configuration.aes.iv),
+        },
         method: 'POST',
         serializer: 'json',
     });
