@@ -8,14 +8,13 @@ best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', envFileName),
 });
 
-const {config} = best
+const { config } = best;
 
 const run = async cmd => {
     execSync(cmd, { stdio: 'inherit' });
     // await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
 };
 const homePath = process.env.HOME;
-
 
 const dbName = 'best_data';
 const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);

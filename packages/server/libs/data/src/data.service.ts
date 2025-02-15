@@ -43,7 +43,7 @@ export class DataService {
                     : undefined,
             },
         });
-        return new PageData<Ledger[]>(data, total);
+        return new PageData<Ledger>(data, total);
     }
 
     async getLedgerSummary() {
