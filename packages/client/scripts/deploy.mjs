@@ -1,12 +1,11 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
-import { getConfiguration, ServerConfigurationSchema } from '@bestlyg/common';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 best.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', '.env'),
 });
-const config = ServerConfigurationSchema.parse(getConfiguration(process.env));
+const { config } = best;
 const fileName = 'client.dist.zip';
 const dirPath = resolve('dist');
 
@@ -28,4 +27,6 @@ await $`scp -r ${resolve(dirPath, fileName)} ${config.ssh.username}@${config.ssh
 const distDirPath = resolve(config.ssh.projectPath, 'packages', 'client', 'dist');
 
 const commands = [`rm -rf ${distDirPath}`, `unzip -o ${distFilePath} -d ${distDirPath}`];
-execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, { stdio: 'inherit' });
+execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
+    stdio: 'inherit',
+});
