@@ -1,5 +1,0 @@
-#include "bench.h"
-
-int main() {
-    return 0;
-}
