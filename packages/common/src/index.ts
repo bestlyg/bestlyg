@@ -10,5 +10,4 @@ export * from './date';
 export * from './time';
 export * from './assert-exhaustive';
 export * from './encrypt';
-export * from './logo';
 export * from './mount';

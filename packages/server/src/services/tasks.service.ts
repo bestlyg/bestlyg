@@ -19,7 +19,7 @@ export class TasksService {
 
     @Cron('0 0 0 * * *')
     async backupDB() {
-        const cmd = `PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f /root/best_data.sql best_data`;
+        const cmd = `PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f /root/best_data.sql best_data -c`;
         this.logger.log(`backup: ${cmd}`);
         execSync(cmd);
     }

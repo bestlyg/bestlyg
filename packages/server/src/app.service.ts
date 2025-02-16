@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MailService } from '@bestlyg-server/common';
-import { Configuration } from '@bestlyg/common';
+import { Configuration } from '@bestlyg/common/server';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {

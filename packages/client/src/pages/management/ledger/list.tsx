@@ -71,7 +71,9 @@ function LedgerSummary() {
                 <Card className="w-full" key={key}>
                     <CardHeader>
                         <CardTitle>{label}</CardTitle>
-                        <CardDescription>总数：{toPrice(data?.balance[key].total)}元</CardDescription>
+                        <CardDescription>
+                            总数：{toPrice(data?.balance[key].total)}元
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div>消耗：{toPrice(data?.balance[key].cost)}元</div>
@@ -103,7 +105,7 @@ function LedgerSummary() {
 export default function LedgerList() {
     const [pageParam, setPageParam] = React.useState(new PageParam(1, 5));
     const [param, setParam] = React.useState<{ date?: Date }>({ date: new Date() });
-    const { data } = useRequest(() => fetchLedgers({ pageParam, param }), {
+    const { data, loading } = useRequest(() => fetchLedgers({ pageParam, param }), {
         refreshDeps: [pageParam, param],
     });
     const list = data?.getList();
@@ -127,6 +129,7 @@ export default function LedgerList() {
                 />
             </div>
             <Table
+                loading={loading}
                 rowKey="id"
                 dataSource={list}
                 columns={[

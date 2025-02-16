@@ -14,7 +14,6 @@ export const ConfigurationSchema = z
 export type Configuration = z.infer<typeof ConfigurationSchema>;
 
 export function getConfiguration() {
-    console.log('getConfiguration', import.meta)
     return {
         mode: import.meta.env.MODE,
         aes: {
