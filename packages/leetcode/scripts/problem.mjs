@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '1706. 球会落何处',
-    url: 'https://leetcode.cn/problems/where-will-the-ball-fall',
+    exist: !true,
+    name: '1299. 将每个元素替换为右侧最大元素',
+    url: 'https://leetcode.cn/problems/replace-elements-with-greatest-element-on-right-side',
     level: 'Easy',
     tagList: [],
-    desc: `返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。`,
+    desc: `给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。完成所有替换操作后，请你返回这个数组。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 63,
-            memory: 18.29,
-            desc: '遍历',
+            time: 50,
+            memory: 18.63,
+            desc: '从后往前遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
