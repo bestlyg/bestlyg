@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1299. 将每个元素替换为右侧最大元素',
-    url: 'https://leetcode.cn/problems/replace-elements-with-greatest-element-on-right-side',
+    name: '1287. 有序数组中出现次数超过25%的元素',
+    url: 'https://leetcode.cn/problems/element-appearing-more-than-25-in-sorted-array',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。完成所有替换操作后，请你返回这个数组。`,
+    desc: `给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。请你找到并返回这个整数`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 50,
-            memory: 18.63,
-            desc: '从后往前遍历',
+            time: 0,
+            memory: 18.90,
+            desc: '哈希计数后遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,8 +1,5 @@
 class Solution:
-    def replaceElements(self, arr: List[int]) -> List[int]:
-        prev = -1
-        res = [-1] * len(arr)
-        for i in range(len(arr) - 1, -1, -1):
-            res[i] = prev
-            prev = max(prev, arr[i])
-        return res
+    def findSpecialInteger(self, arr: List[int]) -> int:
+        n = len(arr) 
+        c = Counter(arr)
+        return [num for num, cnt, in c.items() if cnt * 4 > n][0]
