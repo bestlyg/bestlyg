@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { PageParam } from '@bestlyg/common';
 
 export const SelectServerlessCodeSchema = z
     .object({
@@ -48,11 +47,3 @@ export const DeleteServerlessCodeSchema = z
     .readonly();
 
 export type DeleteServerlessCodeDto = z.infer<typeof DeleteServerlessCodeSchema>;
-
-export const SelectLedgerPageSchema = z.object({
-    ...PageParam.Schema.shape,
-    ...z.object({
-        date: z.string().date().optional(),
-    }).shape,
-});
-export type SelectLedgerPageDto = z.infer<typeof SelectLedgerPageSchema>;

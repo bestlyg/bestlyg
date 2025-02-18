@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
-import { DataService } from '@bestlyg-server/data';
+import { LeetcodeService } from '@bestlyg-server/data';
 import idl from '@bestlyg/common/idl/server';
 import fs from 'fs-extra';
 import path from 'path';
@@ -10,7 +10,7 @@ import path from 'path';
 export class ClientService {
     private readonly categoryFileName = '_category_';
     private readonly staticPath = resolve('node_modules', '@bestlyg/', 'static');
-    constructor(private readonly dataService: DataService) {}
+    constructor(private readonly leetcodeService: LeetcodeService) {}
     async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
         type: 'group' | 'item';
         category?: { position: number };
@@ -78,7 +78,7 @@ export class ClientService {
     }
 
     async getLeetcodeSidebars(): Promise<idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response> {
-        const problems = await this.dataService.getLeetcodeProblemList();
+        const problems = await this.leetcodeService.getLeetcodeProblemList();
         const groups: idl.api.bestlyg.SidebarGroup[] = [];
         for (const problem of problems) {
             const dirName = getDirNameFromProblemName(problem.name);
