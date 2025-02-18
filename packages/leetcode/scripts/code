@@ -1,5 +1,9 @@
-class Solution:
-    def findSpecialInteger(self, arr: List[int]) -> int:
-        n = len(arr) 
-        c = Counter(arr)
-        return [num for num, cnt, in c.items() if cnt * 4 > n][0]
+class RangeFreqQuery:
+    def __init__(self, arr: List[int]):
+        self.map = defaultdict(list)
+        for i in range(len(arr)): self.map[arr[i]].append(i)
+    def query(self, left: int, right: int, value: int) -> int:
+        iarr = self.map[value]
+        i1 = bisect_left(iarr, left)
+        i2 = bisect_right(iarr, right)
+        return i2 - i1

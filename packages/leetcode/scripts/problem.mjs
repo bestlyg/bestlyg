@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1287. 有序数组中出现次数超过25%的元素',
-    url: 'https://leetcode.cn/problems/element-appearing-more-than-25-in-sorted-array',
+    name: '2080. 区间内查询数字的频率',
+    url: 'https://leetcode.cn/problems/range-frequency-queries',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。请你找到并返回这个整数`,
+    desc: `请你设计一个数据结构，它能求出给定子数组内一个给定值的 频率 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 18.90,
-            desc: '哈希计数后遍历',
+            time: 123,
+            memory: 57.92,
+            desc: '把相同的数字归拢后查询',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
