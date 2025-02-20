@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,6 +14,7 @@ import { ServerlessModule } from '@bestlyg-server/serverless';
 import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
 import { ApiModule } from '@bestlyg-server/api';
+import { MetadataScanner, ModuleRef, ModulesContainer } from '@nestjs/core';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());

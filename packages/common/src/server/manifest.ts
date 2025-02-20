@@ -1,0 +1,131 @@
+export const manifest = {
+    "urlMap": {
+        "DataModule": {
+            "DataController": {
+                "getXuanList": {
+                    "requestMethod": "GET",
+                    "methodName": "getXuanList",
+                    "path": "/xuan"
+                },
+                "getSecrets": {
+                    "requestMethod": "GET",
+                    "methodName": "getSecrets",
+                    "path": "/secrets"
+                }
+            },
+            "ServerlessCodeController": {
+                "getServerlessCode": {
+                    "requestMethod": "GET",
+                    "methodName": "getServerlessCode",
+                    "path": "/"
+                },
+                "createServerlessCode": {
+                    "requestMethod": "POST",
+                    "methodName": "createServerlessCode",
+                    "path": "/"
+                },
+                "updateServerlessCode": {
+                    "requestMethod": "PATCH",
+                    "methodName": "updateServerlessCode",
+                    "path": "/"
+                },
+                "deleteServerlessCode": {
+                    "requestMethod": "DELETE",
+                    "methodName": "deleteServerlessCode",
+                    "path": "/"
+                }
+            },
+            "ServerlessController": {
+                "getServerless": {
+                    "requestMethod": "GET",
+                    "methodName": "getServerless",
+                    "path": "/"
+                }
+            },
+            "LedgerController": {
+                "getLedgerPage": {
+                    "requestMethod": "GET",
+                    "methodName": "getLedgerPage",
+                    "path": "/page"
+                },
+                "getLedgerList": {
+                    "requestMethod": "GET",
+                    "methodName": "getLedgerList",
+                    "path": "/list"
+                },
+                "getLedgerSummary": {
+                    "requestMethod": "GET",
+                    "methodName": "getLedgerSummary",
+                    "path": "/summary"
+                }
+            },
+            "LeetcodeController": {
+                "getLeetcodeProblemList": {
+                    "requestMethod": "GET",
+                    "methodName": "getLeetcodeProblemList",
+                    "path": "/problem/list"
+                },
+                "getLeetcodeProblems": {
+                    "requestMethod": "GET",
+                    "methodName": "getLeetcodeProblems",
+                    "path": "/problem"
+                }
+            },
+            "UserController": {
+                "getUserList": {
+                    "requestMethod": "GET",
+                    "methodName": "getUserList",
+                    "path": "/list"
+                }
+            }
+        },
+        "AuthModule": {
+            "AuthController": {
+                "signIn": {
+                    "requestMethod": "POST",
+                    "methodName": "signIn",
+                    "path": "/login"
+                }
+            }
+        },
+        "ServerlessModule": {
+            "ServerlessController": {
+                "call": {
+                    "requestMethod": "ALL",
+                    "methodName": "call",
+                    "path": "/call"
+                }
+            }
+        },
+        "StaticModule": {
+            "StaticController": {
+                "getStaticFile": {
+                    "requestMethod": "GET",
+                    "methodName": "getStaticFile",
+                    "path": "/"
+                }
+            }
+        },
+        "ApiModule": {
+            "ApiController": {
+                "health": {
+                    "requestMethod": "GET",
+                    "methodName": "health",
+                    "path": "/health"
+                }
+            },
+            "ClientController": {
+                "getDocsSidebars": {
+                    "requestMethod": "GET",
+                    "methodName": "getDocsSidebars",
+                    "path": "/api/client/docs/sidebars"
+                },
+                "getLeetcodeSidebars": {
+                    "requestMethod": "GET",
+                    "methodName": "getLeetcodeSidebars",
+                    "path": "/api/client/leetcode/sidebars"
+                }
+            }
+        }
+    }
+} as const;

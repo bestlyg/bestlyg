@@ -3,6 +3,10 @@
     "version": "0.0.0",
     "author": "bestlyg",
     "private": true,
+    "exports": {
+        "./package.json": "./package.json",
+        "./manifest.json": "./manifest.json"
+    },
     "scripts": {
         "prisma:generate": "node ./scripts/generate.mjs",
         "build": "nest build",

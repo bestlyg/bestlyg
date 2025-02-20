@@ -82,23 +82,26 @@
         }
     },
     "scripts": {
+        "build:manifest": "node scripts/manifest.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "prisma generate && pnpm build:idl && modern build",
+        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:manifest && modern build",
         "dev": "modern build --watch"
     },
     "license": "ISC",
     "devDependencies": {
+        "@bestlyg/common": "workspace:^",
+        "@bestlyg/server": "workspace:^",
         "@modern-js/module-tools": "catalog:",
         "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
         "@types/figlet": "^1.7.0",
         "@types/fs-extra": "catalog:",
         "@types/node": "catalog:",
-        "@bestlyg/common": "workspace:^",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
         "prisma": "catalog:",
+        "rimraf": "catalog:",
         "typescript": "catalog:"
     },
     "dependencies": {

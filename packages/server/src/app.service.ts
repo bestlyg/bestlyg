@@ -1,21 +1,73 @@
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap, RequestMethod } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { MailService } from '@bestlyg-server/common';
-import { Configuration } from '@bestlyg/common/server';
+import {
+    getRequestMethod,
+    MailService,
+    NamedRequestMethod,
+    NamedRequestMethodMapper,
+    resolve,
+} from '@bestlyg-server/common';
+import fs from 'fs-extra';
+import { Configuration, packageInfo, currentPackageInfo } from '@bestlyg/common/server';
+import { MetadataScanner, ModulesContainer, Reflector } from '@nestjs/core';
+import { PathsExplorer } from '@nestjs/core/router/paths-explorer';
+import { PATH_METADATA, METHOD_METADATA } from '@nestjs/common/constants';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
+    private readonly metadataScanner = new MetadataScanner();
+    private readonly pathsExplorer = new PathsExplorer(this.metadataScanner);
     private readonly logger = new Logger(AppService.name);
     constructor(
         private readonly mailService: MailService,
         private readonly configService: ConfigService,
+        private readonly modulesContainer: ModulesContainer,
+        private readonly reflector: Reflector,
     ) {}
 
-    getHello(): string {
-        return 'Hello World!';
+    getUrlMap() {
+        const urlMap: Record<
+            string,
+            Record<
+                string,
+                Record<
+                    string,
+                    { requestMethod: NamedRequestMethod; methodName: string; path: string }
+                >
+            >
+        > = {};
+        for (const module of this.modulesContainer.values()) {
+            const controllerMap: (typeof urlMap)[string] = {};
+            for (const controller of module.controllers.values()) {
+                const routeMap: (typeof controllerMap)[string] = {};
+                const routes = this.pathsExplorer.scanForPaths(controller.instance);
+                for (const route of routes) {
+                    routeMap[route.methodName] = {
+                        requestMethod: NamedRequestMethodMapper[route.requestMethod],
+                        methodName: route.methodName,
+                        path: route.path[0],
+                    };
+                }
+                if (Object.values(routeMap).length) {
+                    controllerMap[controller.name] = routeMap;
+                }
+            }
+            if (Object.values(controllerMap).length) {
+                urlMap[module.name] = controllerMap;
+            }
+        }
+        return urlMap;
     }
+
+    genManifest() {
+        const urlMap = this.getUrlMap();
+        const manifest = { urlMap };
+        fs.writeFileSync(resolve('manifest.json'), JSON.stringify(manifest, null, 4));
+    }
+
     onApplicationBootstrap() {
         this.sendMailWhenStartSuccess();
+        this.genManifest();
     }
 
     sendMailWhenStartSuccess() {
