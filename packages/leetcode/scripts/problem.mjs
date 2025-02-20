@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '624. 数组列表中的最大距离',
-    url: 'https://leetcode.cn/problems/maximum-distance-in-arrays',
+    exist: true,
+    name: '2595. 奇偶位数',
+    url: 'https://leetcode.cn/problems/number-of-even-and-odd-bits',
     level: 'Easy',
     tagList: [],
-    desc: `给定 m 个数组，每个数组都已经按照升序排好序了。现在你需要从两个不同的数组中选择两个整数（每个数组选一个）并且计算它们的距离。两个整数 a 和 b 之间的距离定义为它们差的绝对值 |a-b| 。返回最大距离。`,
+    desc: `返回整数数组 answer ，其中 answer = [even, odd] 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 97,
-            memory: 33.13,
-            desc: '记录前面的最小值和最大值，与当前的做比较',
+            time: 3,
+            memory: 17.5,
+            desc: '遍历每一位',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

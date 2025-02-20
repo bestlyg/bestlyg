@@ -1,15 +1,6 @@
 class Solution:
-    def maxDistance(self, arrays: List[List[int]]) -> int:
-        nmin = arrays[0][0]
-        nmax = arrays[0][-1]
-        res = 0
-        for i in range(1, len(arrays)):
-            res = max(
-                res,
-                abs(arrays[i][0] - nmin), 
-                abs(arrays[i][-1] - nmin), 
-                abs(arrays[i][-1] - nmax),
-                abs(arrays[i][0] - nmax))
-            nmin = min(nmin, arrays[i][0])
-            nmax = max(nmax, arrays[i][-1])
+    def evenOddBit(self, n: int) -> List[int]:
+        res = [0, 0]
+        for i in range(32): 
+            res[i % 2] += (n >> i) & 1
         return res
