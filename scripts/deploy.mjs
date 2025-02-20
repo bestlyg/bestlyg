@@ -18,7 +18,7 @@ const homePath = process.env.HOME;
 
 const dbName = 'best_data';
 const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);
-const sqlDistPath = resolve(config.ssh.projectPath, 'packages', 'data', 'dist', dbName + '.sql');
+const sqlDistPath = resolve(config.ssh.projectPath, 'packages', 'common', 'dist', dbName + '.sql');
 const dumpPath = resolve('dist', dbName + '.sql');
 
 // backup

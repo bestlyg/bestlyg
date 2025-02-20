@@ -22,7 +22,7 @@ run(`git remote add github https://github.com/bestlyg/bestlyg.git`);
 run(`git config --global user.email "bestlyg@foxmail.com"`);
 run(`git config --global user.name bestlyg`);
 run(
-    `scp root@106.54.220.193:/root/bestlyg/packages/data/dist/best_data.sql ${resolve('databases', 'bestlyg-data', `best_data.sql`)}`,
+    `scp root@106.54.220.193:/root/bestlyg/packages/common/dist/best_data.sql ${resolve('databases', 'bestlyg-data', `best_data.sql`)}`,
 );
 run(
     `scp root@106.54.220.193:/root/bestlyg/packages/common/.env ${resolve('packages', 'common', '.env')}`,
