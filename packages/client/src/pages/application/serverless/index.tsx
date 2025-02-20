@@ -1,6 +1,7 @@
 import { useRequest } from 'ahooks';
 import { Prisma } from '@bestlyg/common/prisma-client';
 import { request } from '@bestlyg/common/idl/utils';
+import { serverManifest } from '@bestlyg/common';
 import React from 'react';
 import 'highlight.js/styles/github.css';
 import _ from 'lodash';

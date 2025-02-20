@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnApplicationBootstrap, RequestMethod } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnApplicationBootstrap, RequestMethod } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
     getRequestMethod,
@@ -9,9 +9,15 @@ import {
 } from '@bestlyg-server/common';
 import fs from 'fs-extra';
 import { Configuration, packageInfo, currentPackageInfo } from '@bestlyg/common/server';
-import { MetadataScanner, ModulesContainer, Reflector } from '@nestjs/core';
+import {
+    MetadataScanner,
+    ModuleRef,
+    ModulesContainer,
+    NestApplication,
+    Reflector,
+} from '@nestjs/core';
 import { PathsExplorer } from '@nestjs/core/router/paths-explorer';
-import { PATH_METADATA, METHOD_METADATA } from '@nestjs/common/constants';
+import { RoutesResolver } from '@nestjs/core/router/routes-resolver';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
@@ -23,6 +29,7 @@ export class AppService implements OnApplicationBootstrap {
         private readonly configService: ConfigService,
         private readonly modulesContainer: ModulesContainer,
         private readonly reflector: Reflector,
+        private readonly moduleRef: ModuleRef,
     ) {}
 
     getUrlMap() {
@@ -45,7 +52,7 @@ export class AppService implements OnApplicationBootstrap {
                     routeMap[route.methodName] = {
                         requestMethod: NamedRequestMethodMapper[route.requestMethod],
                         methodName: route.methodName,
-                        path: route.path[0],
+                        path:  route.path[0],
                     };
                 }
                 if (Object.values(routeMap).length) {

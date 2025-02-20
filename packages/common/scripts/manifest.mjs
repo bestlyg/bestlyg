@@ -6,6 +6,6 @@ import url from 'url';
 const resolve = (...p) =>
     path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..', ...p);
 
-const apiPath = resolve('src', 'server', 'manifest.ts');
+const apiPath = resolve('src', 'manifest.ts');
 
-fs.writeFileSync(apiPath, `export const manifest = ${JSON.stringify(manifest, null, 4)} as const;`);
+fs.writeFileSync(apiPath, `export const serverManifest = ${JSON.stringify(manifest, null, 4)} as const;`);
