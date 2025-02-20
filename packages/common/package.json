@@ -82,10 +82,8 @@
         }
     },
     "scripts": {
-        "prisma:migrate": "node ./scripts/migrate.mjs",
-        "prisma:generate": "node ./scripts/generate.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "pnpm build:idl && modern build && pnpm prisma:generate",
+        "build": "prisma generate && pnpm build:idl && modern build",
         "dev": "modern build --watch"
     },
     "license": "ISC",
