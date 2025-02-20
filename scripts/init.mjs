@@ -27,9 +27,6 @@ run(
 run(
     `scp root@106.54.220.193:/root/bestlyg/packages/common/.env ${resolve('packages', 'common', '.env')}`,
 );
-// run(
-//     `PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f /bestlyg-data/best_data.sql best_data`,
-// );
-run(
-    `psql -U root -d best_data -h localhost -p 5432 < /bestlyg-data/best_data.sql`,
-);
+const dumpSql = `psql -U root -d best_data -h localhost -p 5432 < /bestlyg-data/best_data.sql`;
+run(dumpSql);
+run(`docker exec bestlyg-postgres sh -c "${dumpSql}`);
