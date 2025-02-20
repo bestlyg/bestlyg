@@ -37,7 +37,6 @@
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
-        "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
         "@modern-js/module-tools": "catalog:",
         "@types/node": "catalog:",

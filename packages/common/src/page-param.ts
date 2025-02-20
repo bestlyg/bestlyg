@@ -1,10 +1,15 @@
 import z from 'zod';
 export class PageParam {
+    static default: { current: PageParam['current']; pageSize: PageParam['pageSize'] } =
+        Object.freeze({ current: 1, pageSize: 10 });
     static of(...args: ConstructorParameters<typeof PageParam>) {
         return new PageParam(...args);
     }
-    static from(object: Record<string, any>) {
-        return this.of(0, 0).setCurrent(object.current).setPageSize(object.pageSize);
+    static from(object?: Record<string, any>) {
+        return this.of(
+            object?.current ?? this.default.current,
+            object?.pageSize ?? this.default.pageSize,
+        );
     }
     static Schema = z
         .object({

@@ -1,5 +1,5 @@
 import { request } from '@bestlyg/common/idl/utils';
-import { Prisma } from '@bestlyg/data/prisma-client';
+import { Prisma } from '@bestlyg/common/prisma-client';
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';

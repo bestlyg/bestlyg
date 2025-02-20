@@ -62,6 +62,12 @@
             "require": "./dist/lib/server/*",
             "default": "./dist/esm/server/*"
         },
+        "./prisma-client": {
+            "types": "./dist/prisma-client/index.d.ts",
+            "import": "./dist/prisma-client/index.js",
+            "require": "./dist/prisma-client/index.js",
+            "default": "./dist/prisma-client/index.js"
+        },
         "./package.json": "./package.json",
         ".": {
             "types": "./dist/types/index.d.ts",
@@ -76,7 +82,10 @@
         }
     },
     "scripts": {
-        "build": "node scripts/idl.mjs && modern build",
+        "prisma:migrate": "node ./scripts/migrate.mjs",
+        "prisma:generate": "node ./scripts/generate.mjs",
+        "build:idl": "node scripts/idl.mjs",
+        "build": "pnpm build:idl && modern build && pnpm prisma:generate",
         "dev": "modern build --watch"
     },
     "license": "ISC",
@@ -85,20 +94,23 @@
         "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
         "@types/figlet": "^1.7.0",
+        "@types/fs-extra": "catalog:",
         "@types/node": "catalog:",
+        "@bestlyg/common": "workspace:^",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "express": "^4.21.1",
-        "@types/fs-extra": "catalog:",
+        "prisma": "catalog:",
         "typescript": "catalog:"
     },
     "dependencies": {
+        "@prisma/client": "catalog:",
         "axios": "catalog:",
         "crypto-js": "^4.2.0",
         "dayjs": "catalog:",
         "figlet": "^1.7.0",
         "fs-extra": "catalog:",
         "tapable": "catalog:",
-        "zod": "^3.24.1"
+        "zod": "catalog:"
     }
 }

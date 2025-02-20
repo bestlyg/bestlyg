@@ -1,9 +1,10 @@
 export class Position {
+    static default: { x: Position['x']; y: Position['y'] } = Object.freeze({ x: 0, y: 0 });
     static of(...args: ConstructorParameters<typeof Position>) {
         return new Position(...args);
     }
-    static from(object: Record<string, any>) {
-        return this.of(0, 0).setX(object.field).setY(object.order);
+    static from(object?: Record<string, any>) {
+        return this.of(object?.x ?? this.default.x, object?.y ?? this.default.y);
     }
     x: number;
     y: number;

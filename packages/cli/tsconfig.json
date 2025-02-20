@@ -3,8 +3,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "rootDir": "src",
-        "strict": false,
-        "moduleResolution": "bundler"
+        "strict": false
     },
     "include": ["src/**/*.ts"]
 }

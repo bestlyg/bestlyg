@@ -77,9 +77,6 @@ importers:
       '@bestlyg/common':
         specifier: workspace:^
         version: link:../common
-      '@bestlyg/data':
-        specifier: workspace:^
-        version: link:../data
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.54.2(react@19.0.0))

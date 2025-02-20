@@ -22,7 +22,6 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@bestlyg/client": "workspace:^",
-        "@bestlyg/data": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
         "@bestlyg/server": "workspace:^",
         "@bestlyg/static": "workspace:^",
@@ -89,7 +88,7 @@
             "<rootDir>/libs/"
         ],
         "moduleNameMapper": {
-            "^@bestlyg/data(|/.*)$": "<rootDir>/libs/data/src/$1",
+            "^@bestlyg-server/data(|/.*)$": "<rootDir>/libs/data/src/$1",
             "^@bestlyg-server/common(|/.*)$": "<rootDir>/libs/common/src/$1",
             "^@bestlyg-server/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
             "^@bestlyg-server/serverless(|/.*)$": "<rootDir>/libs/serverless/src/$1",

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { LeetcodeSolution, Prisma } from '@bestlyg/data/prisma-client';
+import { LeetcodeSolution, Prisma } from '@bestlyg/common/prisma-client';
 import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';

@@ -4,6 +4,36 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@ant-design/icons-svg':
+      specifier: ^4.4.2
+      version: 4.4.2
+    '@modern-js/module-tools':
+      specifier: ^2.63.5
+      version: 2.63.7
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.13
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.11
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    marked:
+      specifier: ^13.0.0
+      version: 13.0.0
+    marked-directive:
+      specifier: ^1.0.5
+      version: 1.0.5
+    tapable:
+      specifier: ^2.2.1
+      version: 2.2.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+
 importers:
 
   .:
@@ -30,9 +60,6 @@ importers:
       '@bestlyg/common':
         specifier: workspace:^
         version: link:../../common
-      '@bestlyg/data':
-        specifier: workspace:^
-        version: link:../../data
       '@modern-js/module-tools':
         specifier: 'catalog:'
         version: 2.63.7(typescript@5.7.2)
@@ -1356,36 +1383,6 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-
-catalogs:
-  default:
-    '@ant-design/icons-svg':
-      specifier: ^4.4.2
-      version: 4.4.2
-    '@modern-js/module-tools':
-      specifier: ^2.63.5
-      version: 2.63.7
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.13
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.11
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    marked:
-      specifier: ^13.0.0
-      version: 13.0.0
-    marked-directive:
-      specifier: ^1.0.5
-      version: 1.0.5
-    tapable:
-      specifier: ^2.2.1
-      version: 2.2.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.2
 
 snapshots:
 

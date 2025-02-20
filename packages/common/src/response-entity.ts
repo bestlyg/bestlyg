@@ -1,6 +1,17 @@
 import { StatusCode } from './status-code';
 
 export class ResponseEntity<T> {
+    static default: {
+        code: ResponseEntity<any>['code']
+        data: ResponseEntity<any>['data']
+        msg: ResponseEntity<any>['msg']
+        retriable: ResponseEntity<any>['retriable']
+    } = Object.freeze({
+        code: 0,
+        data: undefined,
+        msg: undefined,
+        retriable: undefined,
+    });
     static of<T>(...args: ConstructorParameters<typeof ResponseEntity<T>>) {
         return new ResponseEntity(...args);
     }
@@ -10,12 +21,13 @@ export class ResponseEntity<T> {
     static ofFailure(err: any, code: number = 1) {
         return new ResponseEntity(code, null, err?.message ?? err?.toString() ?? 'Server Error');
     }
-    static from<T>(object: Record<string, any>) {
-        return this.of<T>(0)
-            .setCode(object.code)
-            .setData(object.data)
-            .setMsg(object.msg)
-            .setRetriable(object.retriable);
+    static from<T>(object?: Record<string, any>) {
+        return this.of<T>(
+            object?.code ?? this.default.code,
+            object?.data ?? this.default.data,
+            object?.msg ?? this.default.msg,
+            object?.retriable ?? this.default.retriable,
+        );
     }
     // 状态 0 为成功
     private code: StatusCode;

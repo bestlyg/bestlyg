@@ -10,7 +10,7 @@ import {
     LeetCode,
     getTitleSlugFromURL,
 } from '@bestlyg/leetcode';
-import { PrismaClient } from '@bestlyg/data/prisma-client';
+import { PrismaClient } from '@bestlyg/common/prisma-client';
 import { problem as problemFromCreate } from './problem.mjs';
 
 const resolve = best.utils.getResolveFunction(import.meta, 1);

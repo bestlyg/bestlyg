@@ -15,49 +15,27 @@ datasource db {
 }
 
 enum LedgerType {
-  // 一般
   Generally
-  // 酒水饮料
   Drinks
-  // 餐饮
   Food
-  // 交通
   Transportation
-  // 红包
   RedEnvelope
-  // 淘宝
   Taobao
-  // 房租
   Rent
-  // 话费
   PhoneBill
-  // 生活用品
   DailyNecessities
-  // 药品
   Drug
-  // 买菜
   BuyGroceries
-  // 电影
   Movie
-  // 零食
   Snack
-  // 水果
   Fruit
-  // 衣服鞋包
   ClothesShoesBags
-  // 护肤彩妆
   SkinMakeup
-  // 工资
   Salary
-  // 小家花钱包
   FamilyWallet
-  // 早餐月月包
   BreakfastWallet
-  // 中饭菜钱包
   LunchWallet
-  // 晚餐小荷包
   DinnerWallet
-  // 一起环游世界
   TravelWallet
 }
 

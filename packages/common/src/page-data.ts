@@ -1,12 +1,16 @@
 export class PageData<T> {
+    static default: { list: PageData<any>['list']; total: PageData<any>['total'] } = Object.freeze({
+        list: [],
+        total: 0,
+    });
+    static ofDefault<T>() {
+        return this.of<T>(this.default.list, this.default.total);
+    }
     static of<T>(...args: ConstructorParameters<typeof PageData<T>>) {
         return new PageData(...args);
     }
-    static ofEmpty<T>(): PageData<T> {
-        return new PageData([], 0);
-    }
-    static from<T>(object: Record<string, any>) {
-        return this.ofEmpty<T>().setList(object.list).setTotal(object.total);
+    static from<T>(object?: Record<string, any>) {
+        return this.of<T>(object?.list ?? this.default.list, object?.total ?? this.default.total);
     }
     list: T[];
     total: number;

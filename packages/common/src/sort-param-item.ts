@@ -1,11 +1,18 @@
 import { SortOrderEnum } from './sort-order-enum';
 
 export class SortParamItem {
+    static default: {
+        field: SortParamItem['field'];
+        order: SortParamItem['order'];
+    } = Object.freeze({
+        field: '',
+        order: SortOrderEnum.Asc,
+    });
     static of(...args: ConstructorParameters<typeof SortParamItem>) {
         return new SortParamItem(...args);
     }
-    static from(object: Record<string, any>) {
-        return this.of('', SortOrderEnum.Asc).setField(object.field).setOrder(object.order);
+    static from?(object?: Record<string, any>) {
+        return this.of(object?.field ?? this.default.field, object?.order ?? this.default.order);
     }
     field: string;
     order: SortOrderEnum;

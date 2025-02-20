@@ -2,7 +2,7 @@ import { Suspense } from '@/components/suspense';
 import * as echarts from 'echarts';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { request } from '@bestlyg/common/idl/utils';
-import { Prisma } from '@bestlyg/data/prisma-client';
+import { Prisma } from '@bestlyg/common/prisma-client';
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/shadcn/ui/card';

@@ -4,6 +4,51 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@types/express':
+      specifier: ^5.0.0
+      version: 5.0.0
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/jest':
+      specifier: ^29.5.14
+      version: 29.5.14
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.10
+    '@types/supertest':
+      specifier: ^6.0.2
+      version: 6.0.2
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    dotenv:
+      specifier: ^16.4.5
+      version: 16.4.5
+    fs-extra:
+      specifier: ^11.2.0
+      version: 11.2.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    prisma:
+      specifier: ^6.2.1
+      version: 6.2.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+    zod:
+      specifier: ^3.24.1
+      version: 3.24.1
+
 importers:
 
   .:
@@ -17,9 +62,6 @@ importers:
       '@bestlyg/common':
         specifier: workspace:^
         version: link:../common
-      '@bestlyg/data':
-        specifier: workspace:^
-        version: link:../data
       '@bestlyg/leetcode':
         specifier: workspace:^
         version: link:../leetcode
@@ -2039,51 +2081,6 @@ packages:
 
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
-
-catalogs:
-  default:
-    '@types/express':
-      specifier: ^5.0.0
-      version: 5.0.0
-    '@types/fs-extra':
-      specifier: ^11.0.4
-      version: 11.0.4
-    '@types/jest':
-      specifier: ^29.5.14
-      version: 29.5.14
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.14
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.10
-    '@types/supertest':
-      specifier: ^6.0.2
-      version: 6.0.2
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    dotenv:
-      specifier: ^16.4.5
-      version: 16.4.5
-    fs-extra:
-      specifier: ^11.2.0
-      version: 11.2.0
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    prisma:
-      specifier: ^6.2.1
-      version: 6.2.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.2
-    zod:
-      specifier: ^3.24.1
-      version: 3.24.1
 
 snapshots:
 
