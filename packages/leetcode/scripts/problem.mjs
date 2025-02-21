@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2209. 用地毯覆盖后的最少白色砖块',
-    url: 'https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets',
+    exist: true,
+    name: '2506. 统计相似字符串对的数目',
+    url: 'https://leetcode.cn/problems/count-pairs-of-similar-strings',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回没被覆盖的白色砖块的 最少 数目。`,
+    desc: `请你找出满足字符串 words[i] 和 words[j] 相似的下标对 (i, j) ，并返回下标对的数目，其中 0 <= i < j <= words.length - 1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 8464,
-            memory:  457.08,
-            desc: '记忆话dfs',
+            time: 251,
+            memory: 17.82,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
