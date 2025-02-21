@@ -1,6 +1,11 @@
 class Solution:
-    def evenOddBit(self, n: int) -> List[int]:
-        res = [0, 0]
-        for i in range(32): 
-            res[i % 2] += (n >> i) & 1
-        return res
+    def minimumWhiteTiles(self, floor: str, numCarpets: int, carpetLen: int) -> int:
+        @cache
+        def dfs(idx: int, numCarpets: int) -> int:
+            if idx >= len(floor): return 0
+            if numCarpets == 0: return sum(v == '1' for v in floor[idx:])
+            return min(
+                dfs(idx + 1, numCarpets) + int(floor[idx] == '1'),
+                dfs(idx + carpetLen, numCarpets - 1)
+            )
+        return dfs(0, numCarpets)

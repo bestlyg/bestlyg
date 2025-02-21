@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2595. 奇偶位数',
-    url: 'https://leetcode.cn/problems/number-of-even-and-odd-bits',
+    exist: !true,
+    name: '2209. 用地毯覆盖后的最少白色砖块',
+    url: 'https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets',
     level: 'Easy',
     tagList: [],
-    desc: `返回整数数组 answer ，其中 answer = [even, odd] 。`,
+    desc: `请你返回没被覆盖的白色砖块的 最少 数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.5,
-            desc: '遍历每一位',
+            time: 8464,
+            memory:  457.08,
+            desc: '记忆话dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
