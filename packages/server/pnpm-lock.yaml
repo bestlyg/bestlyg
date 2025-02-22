@@ -4,55 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@types/express':
-      specifier: ^5.0.0
-      version: 5.0.0
-    '@types/fs-extra':
-      specifier: ^11.0.4
-      version: 11.0.4
-    '@types/jest':
-      specifier: ^29.5.14
-      version: 29.5.14
-    '@types/lodash':
-      specifier: ^4.17.13
-      version: 4.17.14
-    '@types/node':
-      specifier: ^20.17.10
-      version: 20.17.10
-    '@types/supertest':
-      specifier: ^6.0.2
-      version: 6.0.2
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
-    dayjs:
-      specifier: ^1.11.13
-      version: 1.11.13
-    dotenv:
-      specifier: ^16.4.5
-      version: 16.4.5
-    fs-extra:
-      specifier: ^11.2.0
-      version: 11.2.0
-    lodash:
-      specifier: ^4.17.21
-      version: 4.17.21
-    prisma:
-      specifier: ^6.2.1
-      version: 6.2.1
-    typescript:
-      specifier: ^5.7.2
-      version: 5.7.2
-    zod:
-      specifier: ^3.24.1
-      version: 3.24.1
-
 importers:
 
   .:
     dependencies:
+      '@anatine/zod-nestjs':
+        specifier: ^2.0.10
+        version: 2.0.10(@anatine/zod-openapi@2.2.7(openapi3-ts@4.4.0)(zod@3.24.1))(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@11.0.4(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.5(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.5)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2))(openapi3-ts@4.4.0)(zod@3.24.1)
+      '@anatine/zod-openapi':
+        specifier: ^2.2.7
+        version: 2.2.7(openapi3-ts@4.4.0)(zod@3.24.1)
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
@@ -125,6 +86,9 @@ importers:
       nodemailer:
         specifier: ^6.10.0
         version: 6.10.0
+      openapi3-ts:
+        specifier: ^4.4.0
+        version: 4.4.0
       prisma:
         specifier: 'catalog:'
         version: 6.2.1
@@ -135,7 +99,7 @@ importers:
         specifier: ^7.8.1
         version: 7.8.1
       zod:
-        specifier: 'catalog:'
+        specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
       '@nestjs/cli':
@@ -194,6 +158,21 @@ importers:
         version: 5.7.2
 
 packages:
+
+  '@anatine/zod-nestjs@2.0.10':
+    resolution: {integrity: sha512-90TVowUCqlz7IwNf6EkrtHSTILeSwFnwWIhVDIEYPCdgfO+vVkASiT8RO+Q/olwuo3OxNef9fBDimIDxZMWzcg==}
+    peerDependencies:
+      '@anatine/zod-openapi': ^2.0.1
+      '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/swagger': ^6.0.0 || ^7.0.0
+      openapi3-ts: ^4.1.2
+      zod: ^3.20.0
+
+  '@anatine/zod-openapi@2.2.7':
+    resolution: {integrity: sha512-kv/bGowgSGHNY2d/KIzx941ym0/elc7xoBiPri31qEUqbDPOSIppiMOZ88AedaTtLk5J1K96++h0CEsHkgFFyQ==}
+    peerDependencies:
+      openapi3-ts: ^4.1.2
+      zod: ^3.20.0
 
   '@angular-devkit/core@19.0.1':
     resolution: {integrity: sha512-oXIAV3hXqUW3Pmm95pvEmb+24n1cKQG62FzhQSjOIrMeHiCbGLNuc8zHosIi2oMrcCJJxR6KzWjThvbuzDwWlw==}
@@ -1644,6 +1623,9 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
+  openapi3-ts@4.4.0:
+    resolution: {integrity: sha512-9asTNB9IkKEzWMcHmVZE7Ts3kC9G7AFHfs8i7caD8HbI76gEjdkId4z/AkP83xdZsH7PLAnnbl47qZkXuxpArw==}
+
   ora@5.4.1:
     resolution: {integrity: sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==}
     engines: {node: '>=10'}
@@ -1965,6 +1947,10 @@ packages:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
 
+  ts-deepmerge@6.2.1:
+    resolution: {integrity: sha512-8CYSLazCyj0DJDpPIxOFzJG46r93uh6EynYjuey+bxcLltBeqZL7DMfaE5ZPzZNFlav7wx+2TDa/mBl8gkTYzw==}
+    engines: {node: '>=14.13.1'}
+
   ts-loader@9.5.2:
     resolution: {integrity: sha512-Qo4piXvOTWcMGIgRiuFa6nHNm+54HbYaZCKqc9eeZCLRy3XqafQgwX2F7mofrbJG3g7EEb+lkiR+z2Lic2s3Zw==}
     engines: {node: '>=12.0.0'}
@@ -2109,6 +2095,11 @@ packages:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
 
+  yaml@2.7.0:
+    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
+    engines: {node: '>= 14'}
+    hasBin: true
+
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
@@ -2124,7 +2115,67 @@ packages:
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
+catalogs:
+  default:
+    '@types/express':
+      specifier: ^5.0.0
+      version: 5.0.0
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
+    '@types/jest':
+      specifier: ^29.5.14
+      version: 29.5.14
+    '@types/lodash':
+      specifier: ^4.17.13
+      version: 4.17.14
+    '@types/node':
+      specifier: ^20.17.10
+      version: 20.17.10
+    '@types/supertest':
+      specifier: ^6.0.2
+      version: 6.0.2
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    dayjs:
+      specifier: ^1.11.13
+      version: 1.11.13
+    dotenv:
+      specifier: ^16.4.5
+      version: 16.4.5
+    fs-extra:
+      specifier: ^11.2.0
+      version: 11.2.0
+    lodash:
+      specifier: ^4.17.21
+      version: 4.17.21
+    prisma:
+      specifier: ^6.2.1
+      version: 6.2.1
+    typescript:
+      specifier: ^5.7.2
+      version: 5.7.2
+    zod:
+      specifier: ^3.24.1
+      version: 3.24.1
+
 snapshots:
+
+  '@anatine/zod-nestjs@2.0.10(@anatine/zod-openapi@2.2.7(openapi3-ts@4.4.0)(zod@3.24.1))(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@11.0.4(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.5(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.5)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2))(openapi3-ts@4.4.0)(zod@3.24.1)':
+    dependencies:
+      '@anatine/zod-openapi': 2.2.7(openapi3-ts@4.4.0)(zod@3.24.1)
+      '@nestjs/common': 11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1)
+      '@nestjs/swagger': 11.0.4(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@11.0.5(@nestjs/common@11.0.5(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@11.0.5)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)
+      openapi3-ts: 4.4.0
+      ts-deepmerge: 6.2.1
+      zod: 3.24.1
+
+  '@anatine/zod-openapi@2.2.7(openapi3-ts@4.4.0)(zod@3.24.1)':
+    dependencies:
+      openapi3-ts: 4.4.0
+      ts-deepmerge: 6.2.1
+      zod: 3.24.1
 
   '@angular-devkit/core@19.0.1(chokidar@4.0.3)':
     dependencies:
@@ -3649,6 +3700,10 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
+  openapi3-ts@4.4.0:
+    dependencies:
+      yaml: 2.7.0
+
   ora@5.4.1:
     dependencies:
       bl: 4.1.0
@@ -3995,6 +4050,8 @@ snapshots:
 
   tree-kill@1.2.2: {}
 
+  ts-deepmerge@6.2.1: {}
+
   ts-loader@9.5.2(typescript@5.7.2)(webpack@5.97.1):
     dependencies:
       chalk: 4.1.2
@@ -4153,6 +4210,8 @@ snapshots:
   wrappy@1.0.2: {}
 
   xtend@4.0.2: {}
+
+  yaml@2.7.0: {}
 
   yargs-parser@21.1.1: {}
 

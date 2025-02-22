@@ -1,49 +1,53 @@
 import { z } from 'zod';
+import { createZodDto } from '@anatine/zod-nestjs';
+import { extendApi } from '@anatine/zod-openapi';
 
-export const SelectServerlessCodeSchema = z
-    .object({
-        name: z.string().readonly(),
-    })
-    .readonly();
+export const SelectServerlessCodeSchema = extendApi(
+    z
+        .object({
+            id: z.string().nanoid().optional().readonly(),
+            name: z.string().optional().readonly(),
+        })
+        .readonly(),
+    { title: '获取ServerlessCode对象数据' },
+);
 
-export type SelectServerlessCodeDto = z.infer<typeof SelectServerlessCodeSchema>;
+export const CreateServerlessCodeSchema = extendApi(
+    z
+        .object({
+            name: z.string().readonly(),
+            code: z.string().readonly(),
+            serverlessId: z.string().optional().default('best'),
+        })
+        .readonly(),
+    { title: '创建ServerlessCode' },
+);
 
-export const CreateServerlessCodeSchema = z
-    .object({
-        name: z.string().readonly(),
-        code: z.string().readonly(),
-        serverlessId: z.string().optional().default('best'),
-    })
-    .readonly();
+export const UpdateServerlessCodeSchema = extendApi(
+    z
+        .object({
+            id: z.string().nanoid(),
+            name: z.string().optional().readonly(),
+            code: z.string().optional().readonly(),
+            serverlessId: z.string().optional().default('best'),
+        })
+        .readonly(),
+    { title: '更新ServerlessCode' },
+);
 
-export type CreateServerlessCodeDto = z.infer<typeof CreateServerlessCodeSchema>;
+export const DeleteServerlessCodeSchema = extendApi(
+    z
+        .object({
+            id: z.string().nanoid().optional().readonly(),
+            name: z.string().optional().readonly(),
+        })
+        .readonly(),
+    {
+        title: '删除ServerlessCode',
+    },
+);
 
-export const UpdateServerlessCodeSchema = z
-    .object({
-        id: z.string(),
-        name: z.string().optional().readonly(),
-        code: z.string().optional().readonly(),
-        serverlessId: z.string().optional().default('best'),
-    })
-    .readonly();
-
-export type UpdateServerlessCodeDto = z.infer<typeof UpdateServerlessCodeSchema>;
-
-export const DeleteServerlessCodeSchema = z
-    .union([
-        z
-            .object({
-                id: z.string().optional().readonly(),
-                name: z.string().readonly(),
-            })
-            .readonly(),
-        z
-            .object({
-                id: z.string().readonly(),
-                name: z.string().optional().readonly(),
-            })
-            .readonly(),
-    ])
-    .readonly();
-
-export type DeleteServerlessCodeDto = z.infer<typeof DeleteServerlessCodeSchema>;
+export class SelectServerlessCodeDto extends createZodDto(SelectServerlessCodeSchema) {}
+export class CreateServerlessCodeDto extends createZodDto(CreateServerlessCodeSchema) {}
+export class UpdateServerlessCodeDto extends createZodDto(UpdateServerlessCodeSchema) {}
+export class DeleteServerlessCodeDto extends createZodDto(DeleteServerlessCodeSchema) {}

@@ -1,51 +1,50 @@
-import { Body, Controller, Delete, Get, Logger, Patch, Post, Query } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Logger,
+    Patch,
+    Post,
+    Query,
+    UsePipes,
+} from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessCodeService } from './serverless-code.service';
-import { ZodValidationPipe } from '@bestlyg-server/common';
+import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import {
-    SelectServerlessCodeSchema,
     SelectServerlessCodeDto,
-    CreateServerlessCodeSchema,
     CreateServerlessCodeDto,
-    UpdateServerlessCodeSchema,
     UpdateServerlessCodeDto,
-    DeleteServerlessCodeSchema,
     DeleteServerlessCodeDto,
 } from './serverless-code.dto';
 
 @Controller('/data/serverless-code')
+@UsePipes(ZodValidationPipe)
 export class ServerlessCodeController {
     private readonly logger = new Logger(ServerlessCodeController.name);
     constructor(private readonly serverlessCodeService: ServerlessCodeService) {}
 
     @Get()
-    async getServerlessCode(
-        @Query(new ZodValidationPipe(SelectServerlessCodeSchema)) dto: SelectServerlessCodeDto,
-    ) {
+    async getServerlessCode(@Query() dto: SelectServerlessCodeDto) {
         const data = await this.serverlessCodeService.getServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Post()
-    async createServerlessCode(
-        @Body(new ZodValidationPipe(CreateServerlessCodeSchema)) dto: CreateServerlessCodeDto,
-    ) {
+    async createServerlessCode(@Body() dto: CreateServerlessCodeDto) {
         const data = await this.serverlessCodeService.createServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Patch()
-    async updateServerlessCode(
-        @Body(new ZodValidationPipe(UpdateServerlessCodeSchema)) dto: UpdateServerlessCodeDto,
-    ) {
+    async updateServerlessCode(@Body() dto: UpdateServerlessCodeDto) {
         const data = await this.serverlessCodeService.updateServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }
 
     @Delete()
-    async deleteServerlessCode(
-        @Body(new ZodValidationPipe(DeleteServerlessCodeSchema)) dto: DeleteServerlessCodeDto,
-    ) {
+    async deleteServerlessCode(@Body() dto: DeleteServerlessCodeDto) {
         const data = await this.serverlessCodeService.deleteServerlessCode(dto);
         return ResponseEntity.ofSuccess(data);
     }

@@ -8,6 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
 import * as idl from '@bestlyg/common/idl/server';
 import cookieParser from 'cookie-parser';
+import { patchNestjsSwagger } from '@anatine/zod-nestjs';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {});
@@ -39,8 +40,9 @@ async function bootstrap() {
         .setDescription('The best API description')
         .setVersion('1.0')
         .build();
-    const documentFactory = () => SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('swagger', app, documentFactory, {
+    patchNestjsSwagger(); // <--- This is the hacky patch using prototypes (for now)
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('swagger', app, document, {
         jsonDocumentUrl: 'swagger/json',
         yamlDocumentUrl: 'swagger/yaml',
         explorer: true,
