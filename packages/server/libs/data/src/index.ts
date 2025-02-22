@@ -18,3 +18,9 @@ export * from './leetcode.service';
 
 export * from './user.controller';
 export * from './user.service';
+
+export * from './xuan.controller';
+export * from './xuan.service';
+
+export * from './secrets.controller';
+export * from './secrets.service';

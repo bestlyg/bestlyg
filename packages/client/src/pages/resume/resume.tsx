@@ -20,6 +20,7 @@ import {
     downloadPDFMultiPage,
     a4SizeInPixels,
 } from './utils';
+import { apiMap } from '@bestlyg/common';
 
 export interface ResumeProps {
     resumeSource?: string;
@@ -28,10 +29,13 @@ export interface ResumeProps {
 }
 async function fetchResume() {
     const res = await request({
-        url: '/static?p=resume.md&r=true',
-        method: 'get',
+        url: apiMap.StaticController.getStaticFile.path,
+        method: apiMap.StaticController.getStaticFile.method,
         serializer: 'json',
-        data: {},
+        data: {
+            p: `resume.md`,
+            r: 'true',
+        },
     });
     return res;
 }

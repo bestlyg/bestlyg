@@ -1,4 +1,5 @@
 import { HttpAdapterHost, NestContainer, NestFactory } from '@nestjs/core';
+import fs from 'fs-extra';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
@@ -48,6 +49,7 @@ async function bootstrap() {
         explorer: true,
         useGlobalPrefix: true,
     });
+    await fs.writeFile(resolve('openapi.json'), JSON.stringify(document, null, 4));
 
     const configService = app.get(ConfigService);
     const port = configService.get('server.port');

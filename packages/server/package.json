@@ -5,7 +5,7 @@
     "private": true,
     "exports": {
         "./package.json": "./package.json",
-        "./manifest.json": "./manifest.json"
+        "./openapi.json": "./openapi.json"
     },
     "scripts": {
         "prisma:generate": "node ./scripts/generate.mjs",

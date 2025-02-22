@@ -1,0 +1,612 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/data/serverless-code": {
+            "get": {
+                "operationId": "ServerlessCodeController_getServerlessCode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ServerlessCode"
+                ]
+            },
+            "post": {
+                "operationId": "ServerlessCodeController_createServerlessCode",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateServerlessCodeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ServerlessCode"
+                ]
+            },
+            "patch": {
+                "operationId": "ServerlessCodeController_updateServerlessCode",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateServerlessCodeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ServerlessCode"
+                ]
+            },
+            "delete": {
+                "operationId": "ServerlessCodeController_deleteServerlessCode",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteServerlessCodeDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ServerlessCode"
+                ]
+            }
+        },
+        "/api/data/serverless": {
+            "get": {
+                "operationId": "ServerlessController_getServerless",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/api/data/ledger/page": {
+            "get": {
+                "operationId": "LedgerController_getLedgerPage",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "current",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The record has been successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SelectLedgerPageDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/data/ledger/list": {
+            "get": {
+                "operationId": "LedgerController_getLedgerList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/data/ledger/summary": {
+            "get": {
+                "operationId": "LedgerController_getLedgerSummary",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/data/leetcode/problem/list": {
+            "get": {
+                "operationId": "LeetcodeController_getLeetcodeProblemList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Leetcode"
+                ]
+            }
+        },
+        "/api/data/leetcode/problem": {
+            "get": {
+                "operationId": "LeetcodeController_getLeetcodeProblems",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Leetcode"
+                ]
+            }
+        },
+        "/api/data/user/list": {
+            "get": {
+                "operationId": "UserController_getUserList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/data/xuan": {
+            "get": {
+                "operationId": "XuanController_getXuanList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/data/secrets": {
+            "get": {
+                "operationId": "SecretsController_getSecrets",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "operationId": "AuthController_signIn",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Auth"
+                ]
+            }
+        },
+        "/api/serverless/call": {
+            "get": {
+                "operationId": "ServerlessController_call_get",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "post": {
+                "operationId": "ServerlessController_call_post",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "put": {
+                "operationId": "ServerlessController_call_put",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "delete": {
+                "operationId": "ServerlessController_call_delete",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "patch": {
+                "operationId": "ServerlessController_call_patch",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "options": {
+                "operationId": "ServerlessController_call_options",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "head": {
+                "operationId": "ServerlessController_call_head",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "search": {
+                "operationId": "ServerlessController_call_search",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/static": {
+            "get": {
+                "operationId": "StaticController_getStaticFile",
+                "parameters": [
+                    {
+                        "name": "p",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "r",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Static"
+                ]
+            }
+        },
+        "/api/health": {
+            "get": {
+                "operationId": "ApiController_health",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Api"
+                ]
+            }
+        },
+        "/api/client/docs/sidebars": {
+            "get": {
+                "operationId": "ClientController_getDocsSidebars",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Client"
+                ]
+            }
+        },
+        "/api/client/leetcode/sidebars": {
+            "get": {
+                "operationId": "ClientController_getLeetcodeSidebars",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Client"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Best Swagger",
+        "description": "The best API description",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "CreateServerlessCodeDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "serverlessId": {
+                        "default": "best",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "code"
+                ],
+                "title": "创建ServerlessCode"
+            },
+            "UpdateServerlessCodeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "serverlessId": {
+                        "default": "best",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id"
+                ],
+                "title": "更新ServerlessCode"
+            },
+            "DeleteServerlessCodeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "title": "删除ServerlessCode"
+            },
+            "SelectLedgerPageDto": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string"
+                    },
+                    "current": {
+                        "type": "number"
+                    },
+                    "pageSize": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "current",
+                    "pageSize"
+                ],
+                "title": "分页账本",
+                "description": "获取用户分页账本"
+            }
+        }
+    }
+}

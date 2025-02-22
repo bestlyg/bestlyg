@@ -12,7 +12,7 @@ import { request } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
-import { encrypt } from '@bestlyg/common';
+import { encrypt, apiMap } from '@bestlyg/common';
 import { configuration } from '@/utils/configuration';
 
 async function login(data: { username: string; password: string }) {
@@ -26,12 +26,12 @@ async function login(data: { username: string; password: string }) {
             access_token: string;
         }
     >({
-        url: '/api/auth/login',
+        url: apiMap.AuthController.signIn.path,
         data: {
             ...data,
             password: encrypt(data.password, configuration.aes.key, configuration.aes.iv),
         },
-        method: 'POST',
+        method: apiMap.AuthController.signIn.method,
         serializer: 'json',
     });
     return res;

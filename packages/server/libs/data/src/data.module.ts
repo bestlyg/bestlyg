@@ -12,6 +12,10 @@ import { LeetcodeController } from './leetcode.controller';
 import { LeetcodeService } from './leetcode.service';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { XuanController } from './xuan.controller';
+import { XuanService } from './xuan.service';
+import { SecretsController } from './secrets.controller';
+import { SecretsService } from './secrets.service';
 
 @Module({
     controllers: [
@@ -21,6 +25,8 @@ import { UserService } from './user.service';
         LedgerController,
         LeetcodeController,
         UserController,
+        XuanController,
+        SecretsController,
     ],
     providers: [
         DataService,
@@ -30,6 +36,8 @@ import { UserService } from './user.service';
         LedgerService,
         LeetcodeService,
         UserService,
+        XuanService,
+        SecretsService,
     ],
     exports: [
         DataService,
@@ -39,6 +47,8 @@ import { UserService } from './user.service';
         LedgerService,
         LeetcodeService,
         UserService,
+        XuanService,
+        SecretsService,
     ],
 })
 export class DataModule {}

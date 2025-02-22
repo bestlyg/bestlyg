@@ -82,9 +82,9 @@
         }
     },
     "scripts": {
-        "build:manifest": "node scripts/manifest.mjs",
+        "build:openapi": "node scripts/openapi.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:manifest && modern build",
+        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:openapi && modern build",
         "dev": "modern build --watch"
     },
     "license": "ISC",
@@ -99,6 +99,7 @@
         "@types/node": "catalog:",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
+        "change-case": "^5.4.4",
         "express": "^4.21.1",
         "prisma": "catalog:",
         "rimraf": "catalog:",

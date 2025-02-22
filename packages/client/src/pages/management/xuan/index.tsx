@@ -14,6 +14,7 @@ import {
     getDayOnDay,
     getQuarterOnQuarter,
     getHalfYearOnHalfYear,
+    apiMap,
 } from '@bestlyg/common';
 
 export type XuanData = Prisma.XuanGetPayload<{}>;
@@ -40,8 +41,8 @@ function XuansSkeleton() {
 
 async function fetchXuan(): Promise<XuanData[] | null> {
     const data = await request({
-        url: '/api/data/xuan',
-        method: 'get',
+        url: apiMap.XuanController.getXuanList.path,
+        method: apiMap.XuanController.getXuanList.method,
         data: {},
         serializer: 'json',
     });

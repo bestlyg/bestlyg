@@ -3,7 +3,7 @@ import { Prisma } from '@bestlyg/common/prisma-client';
 import React from 'react';
 import dayjs from 'dayjs';
 import { Calendar } from '@/shadcn/ui/calendar';
-import { PageParam, PageData } from '@bestlyg/common';
+import { PageParam, PageData, apiMap } from '@bestlyg/common';
 import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import { useSetAtom } from 'jotai/react';
@@ -20,8 +20,8 @@ async function fetchLedgers({
     param: { date?: Date };
 }): Promise<PageData<Ledger> | null> {
     const data = await request({
-        url: '/api/data/ledger/page',
-        method: 'get',
+        url: apiMap.LedgerController.getLedgerPage.path,
+        method: apiMap.LedgerController.getLedgerPage.method,
         data: {
             current: pageParam.current,
             pageSize: pageParam.pageSize,
@@ -49,8 +49,8 @@ async function fetchLedgerSummary(): Promise<{
     };
 } | null> {
     const data = await request({
-        url: '/api/data/ledger/summary',
-        method: 'get',
+        url: apiMap.LedgerController.getLedgerSummary.path,
+        method: apiMap.LedgerController.getLedgerSummary.method,
         data: {},
         serializer: 'json',
     });

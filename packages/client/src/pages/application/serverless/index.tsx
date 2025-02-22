@@ -20,6 +20,7 @@ import {
     AlertDialogTrigger,
 } from '@/shadcn/ui/alert-dialog';
 import { MonacoEditor } from '@/components/monaco-editor';
+import { apiMap } from '@bestlyg/common';
 
 export type ServerlessData = Prisma.ServerlessGetPayload<{
     include: { codes: true };
@@ -27,8 +28,8 @@ export type ServerlessData = Prisma.ServerlessGetPayload<{
 
 async function fetchServerless() {
     const data = await request<any, ServerlessData[] | null>({
-        url: '/api/data/serverless',
-        method: 'get',
+        url: apiMap.ServerlessController.getServerless.path,
+        method: apiMap.ServerlessController.getServerless.method,
         data: {},
         serializer: 'json',
     });
@@ -78,8 +79,8 @@ export default function Serverless() {
                     onClick={async () => {
                         await request({
                             serializer: 'json',
-                            url: '/api/data/serverless-code',
-                            method: 'post',
+                            url: apiMap.ServerlessCodeController.createServerlessCode.path,
+                            method: apiMap.ServerlessCodeController.createServerlessCode.method,
                             data: {
                                 name: Date.now().toString(),
                                 code: 'resolve(1)',
@@ -101,8 +102,8 @@ export default function Serverless() {
                             onClick={async () => {
                                 const res = await request({
                                     serializer: 'json',
-                                    url: '/api/serverless/call',
-                                    method: 'get',
+                                    url: apiMap.ServerlessController.callGet.path,
+                                    method: apiMap.ServerlessController.callGet.method,
                                     data: {
                                         name,
                                     },
@@ -119,8 +120,9 @@ export default function Serverless() {
                             variant="outline"
                             onClick={async () => {
                                 await request({
-                                    url: '/api/data/serverless-code',
-                                    method: 'patch',
+                                    url: apiMap.ServerlessCodeController.updateServerlessCode.path,
+                                    method: apiMap.ServerlessCodeController.updateServerlessCode
+                                        .method,
                                     data: {
                                         id: activeCodeId,
                                         name,
@@ -153,8 +155,10 @@ export default function Serverless() {
                                     <AlertDialogAction
                                         onClick={async () => {
                                             await request({
-                                                url: '/api/data/serverless-code',
-                                                method: 'delete',
+                                                url: apiMap.ServerlessCodeController
+                                                    .deleteServerlessCode.path,
+                                                method: apiMap.ServerlessCodeController
+                                                    .deleteServerlessCode.method,
                                                 data: {
                                                     id: activeCodeId,
                                                 },

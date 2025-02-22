@@ -1,18 +1,6 @@
 {
     "urlMap": {
         "DataModule": {
-            "DataController": {
-                "getXuanList": {
-                    "requestMethod": "GET",
-                    "methodName": "getXuanList",
-                    "path": "/xuan"
-                },
-                "getSecrets": {
-                    "requestMethod": "GET",
-                    "methodName": "getSecrets",
-                    "path": "/secrets"
-                }
-            },
             "ServerlessCodeController": {
                 "getServerlessCode": {
                     "requestMethod": "GET",
@@ -76,6 +64,20 @@
                     "requestMethod": "GET",
                     "methodName": "getUserList",
                     "path": "/list"
+                }
+            },
+            "XuanController": {
+                "getXuanList": {
+                    "requestMethod": "GET",
+                    "methodName": "getXuanList",
+                    "path": "/"
+                }
+            },
+            "SecretsController": {
+                "getSecrets": {
+                    "requestMethod": "GET",
+                    "methodName": "getSecrets",
+                    "path": "/"
                 }
             }
         },

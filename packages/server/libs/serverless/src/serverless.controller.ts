@@ -18,7 +18,6 @@ export class ServerlessController {
     private readonly logger = new Logger(ServerlessController.name);
     constructor(private readonly serverlessService: ServerlessService) {}
 
-    // @UseGuards(AuthGuard)
     @All('call')
     async call(
         @Req() req: Request,
@@ -28,7 +27,6 @@ export class ServerlessController {
         @Body() body: any,
         @Headers() headers: Record<string, any>,
     ) {
-        this.logger.log(`name = ${name}`);
         const data = await this.serverlessService.call({ name, query, body, headers, req, res });
         return res.status(HttpStatus.OK).json(ResponseEntity.ofSuccess(data));
     }

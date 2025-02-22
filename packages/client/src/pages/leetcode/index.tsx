@@ -10,6 +10,7 @@ import { leetcodeRoute } from '@/routes';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-summary';
 import { MarkdownSummary } from '@/components/markdown-summary';
+import { apiMap } from '@bestlyg/common';
 
 const quote = '`';
 
@@ -51,8 +52,8 @@ async function fetchLeetcodeProblem(name?: string): Promise<Prisma.LeetcodeProbl
 }> | null> {
     if (!name) return null;
     const data = await request({
-        url: '/api/data/leetcode/problem',
-        method: 'get',
+        url: apiMap.LeetcodeController.getLeetcodeProblems.path,
+        method: apiMap.LeetcodeController.getLeetcodeProblems.method,
         data: { name },
         serializer: 'json',
     });

@@ -8,12 +8,13 @@ import { docsRoute } from '@/routes';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-summary';
 import { MarkdownSummary } from '@/components/markdown-summary';
+import { apiMap } from '@bestlyg/common';
 
 async function fetchReadableStaticFile(p?: string): Promise<string | null> {
     if (!p) return null;
     const data = await request({
-        url: '/static',
-        method: 'get',
+        url: apiMap.StaticController.getStaticFile.path,
+        method: apiMap.StaticController.getStaticFile.method,
         data: { p: `docs/${p}`, r: 'true' },
         serializer: 'json',
     });
