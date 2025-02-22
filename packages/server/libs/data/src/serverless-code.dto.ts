@@ -29,7 +29,7 @@ export const UpdateServerlessCodeSchema = extendApi(
             id: z.string().nanoid(),
             name: z.string().optional().readonly(),
             code: z.string().optional().readonly(),
-            serverlessId: z.string().optional().default('best'),
+            serverlessId: z.string().default('best').optional(),
         })
         .readonly(),
     { title: '更新ServerlessCode' },
