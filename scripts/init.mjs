@@ -6,8 +6,7 @@ const run = cmd => {
     try {
         execSync(cmd, { stdio: 'inherit' });
     } catch (err) {
-        console.log('===> ERROR');
-        console.error(err);
+        console.log('===>', err?.toString());
     }
 };
 const CWD = process.cwd();
@@ -17,7 +16,7 @@ function resolve(...p) {
 }
 
 const sqlFileName = `best_data.sql`;
-run(`git remote add gitee https://github.com/bestlyg/bestlyg.git`);
+run(`git remote add gitee https://gitee.com/bestlyg/bestlyg.git`);
 run(`git remote add github https://github.com/bestlyg/bestlyg.git`);
 run(`git config --global user.email "bestlyg@foxmail.com"`);
 run(`git config --global user.name bestlyg`);
