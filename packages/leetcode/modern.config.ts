@@ -9,7 +9,6 @@ export default defineConfig({
     buildConfig: [
         {
             dts: {},
-            sourceMap: true,
             buildType: 'bundleless',
             shims: true,
             platform: 'node',
@@ -25,7 +24,6 @@ export default defineConfig({
         },
         {
             dts: {},
-            sourceMap: true,
             buildType: 'bundleless',
             shims: true,
             platform: 'node',
