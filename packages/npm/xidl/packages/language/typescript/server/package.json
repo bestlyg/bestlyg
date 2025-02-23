@@ -32,7 +32,9 @@
     "license": "MIT",
     "devDependencies": {
         "@types/node": "catalog:",
-        "typescript": "catalog:"
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     },
     "scripts": {
         "prepublishOnly": "pnpm build",
