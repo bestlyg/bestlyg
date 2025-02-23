@@ -21,10 +21,7 @@ const dumpPath = resolve('dist', dbName + '.sql');
 await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
-// build
-// await run('pnpm nx run-many -t build --verbose');
-// copy
-// await run('pnpm --filter @bestlyg/site run deploy');
+
 await run('pnpm --filter @bestlyg/client run deploy');
 await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
 await run(
@@ -47,11 +44,9 @@ const commands = [
     `sudo pnpm --filter @bestlyg/cli run build`,
     `sudo pnpm --filter @bestlyg/leetcode run build`,
     `sudo pnpm --filter @bestlyg/server run build`,
-    // `sudo pnpm --filter @bestlyg/client run build`,
-    // `sudo pnpm nx build @bestlyg/server`,
     `sudo pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
 ];
-console.log("commands.join('; ')", commands.join('; '));
+console.log("===[SERVER COMMAND]===", commands.join('\n'));
 execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',
 });
