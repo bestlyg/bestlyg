@@ -67,6 +67,8 @@ catalogs:
       specifier: ^8.3.0
       version: 8.3.0
 
+pnpmfileChecksum: 5jdoyy7gn5jv2kpzllrmpdtc6i
+
 importers:
 
   .:

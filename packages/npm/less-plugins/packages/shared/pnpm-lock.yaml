@@ -10,6 +10,8 @@ catalogs:
       specifier: ^5.7.3
       version: 5.7.3
 
+pnpmfileChecksum: 5jdoyy7gn5jv2kpzllrmpdtc6i
+
 importers:
 
   .:

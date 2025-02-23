@@ -10,6 +10,8 @@ catalogs:
       specifier: ^4.17.21
       version: 4.17.21
 
+pnpmfileChecksum: 5jdoyy7gn5jv2kpzllrmpdtc6i
+
 importers:
 
   .:

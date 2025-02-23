@@ -28,6 +28,8 @@ catalogs:
       specifier: ^3.3.1
       version: 3.3.1
 
+pnpmfileChecksum: 5jdoyy7gn5jv2kpzllrmpdtc6i
+
 importers:
 
   .:
