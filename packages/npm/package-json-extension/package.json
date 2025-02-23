@@ -55,14 +55,14 @@
         "@bestlyg/common": "workspace:^",
         "@types/node": "catalog:",
         "rimraf": "catalog:",
-        "tslib": "^2.6.2",
+        "tslib": "^2.8.1",
         "typescript": "catalog:",
         "unbuild": "catalog:"
     },
     "dependencies": {
         "chalk": "catalog:",
         "commander": "catalog:",
-        "fs-extra": "^11.1.1",
+        "fs-extra": "^11.3.0",
         "lodash": "catalog:",
         "zx": "catalog:"
     },

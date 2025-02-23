@@ -34,7 +34,7 @@ export default function AppLayout() {
         ): (idl.api.bestlyg.SidebarItem | idl.api.bestlyg.SidebarGroup)[] | null {
             for (const group of groups) {
                 for (const item of group.items ?? []) {
-                    if (state.resolvedLocation.pathname === item.link) {
+                    if (state.resolvedLocation?.pathname === item.link) {
                         return [group, item];
                     }
                 }
@@ -49,8 +49,8 @@ export default function AppLayout() {
         });
     }, [state, sidebarPromise]);
     if (
-        state.resolvedLocation.pathname.startsWith(loginRoute.fullPath) ||
-        state.resolvedLocation.pathname.startsWith(resumeRoute.fullPath)
+        state.resolvedLocation?.pathname.startsWith(loginRoute.fullPath) ||
+        state.resolvedLocation?.pathname.startsWith(resumeRoute.fullPath)
     )
         return <Outlet />;
     return (

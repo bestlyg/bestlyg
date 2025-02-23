@@ -19,7 +19,7 @@ catalogs:
       specifier: ^3.3.1
       version: 3.3.1
 
-pnpmfileChecksum: 5jdoyy7gn5jv2kpzllrmpdtc6i
+pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
 importers:
 

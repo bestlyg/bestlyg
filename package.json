@@ -27,28 +27,26 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@changesets/cli": "2.24.1",
-        "@changesets/get-release-plan": "^4.0.0",
-        "@changesets/types": "^6.0.0",
+        "@changesets/get-release-plan": "^4.0.8",
+        "@changesets/types": "^6.1.0",
         "@commitlint/cli": "^17.8.1",
         "@commitlint/config-conventional": "^17.8.1",
-        "@manypkg/get-packages": "^2.2.1",
+        "@manypkg/get-packages": "^2.2.2",
         "@nx/eslint": "20.3.0",
         "@nx/storybook": "20.3.0",
         "@nx/web": "20.3.0",
-        "@typescript-eslint/eslint-plugin": "^8.1.0",
+        "@typescript-eslint/eslint-plugin": "^8.24.1",
         "eslint": "9.17.0",
         "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.2.1",
-        "eslint-plugin-react": "^7.37.3",
+        "eslint-plugin-prettier": "^5.2.3",
+        "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^4.6.2",
         "git-cz": "^4.9.0",
         "nx": "20.3.0",
-        "prettier": "^3.4.2",
-        "semver": "^7.6.0",
+        "prettier": "^3.5.2",
+        "semver": "catalog:",
+        "typescript": "catalog:",
         "zx": "catalog:"
     },
-    "packageManager": "pnpm@9.1.1+sha256.9551e803dcb7a1839fdf5416153a844060c7bce013218ce823410532504ac10b",
-    "dependencies": {
-        "typescript": "catalog:"
-    }
+    "packageManager": "pnpm@10.4.1"
 }

@@ -38,7 +38,7 @@
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-core": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
-        "tsx": "^4.19.1",
+        "tsx": "^4.19.3",
         "typescript": "catalog:"
     },
     "scripts": {

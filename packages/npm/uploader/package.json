@@ -53,7 +53,7 @@
         "unbuild": "catalog:"
     },
     "dependencies": {
-        "p-queue": "^8.0.1",
+        "p-queue": "^8.1.0",
         "ramda": "catalog:",
         "tapable": "catalog:"
     }
