@@ -3,34 +3,33 @@
     "version": "1.0.0",
     "author": "bestlyg",
     "type": "module",
-    "main": "./dist/lib/index.cjs",
-    "types": "./dist/types/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
-                "./dist/types/index.d.ts"
+                "./dist/index.d.ts"
             ]
         }
     },
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/lib/index.cjs",
-            "default": "./dist/esm/index.js"
-        },
-        "./*": {
-            "import": "./*",
-            "require": "./*",
-            "default": "./*"
-        },
-        "./package.json": "./package.json"
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
     },
     "scripts": {
-        "auto": "pnpm create:problem && pnpm -w ca",
         "create:problem": "node scripts/create-problem.mjs",
-        "build": "modern build",
-        "dev": "modern build --watch"
+        "auto": "pnpm create:problem && pnpm -w ca",
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
     },
     "keywords": [],
     "license": "ISC",
@@ -38,13 +37,14 @@
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
-        "@modern-js/module-tools": "catalog:",
         "@types/node": "catalog:",
         "axios": "catalog:",
         "chalk": "catalog:",
         "dayjs": "catalog:",
         "fs-extra": "catalog:",
         "leetcode-query": "^1.2.3",
-        "typescript": "catalog:"
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     }
 }

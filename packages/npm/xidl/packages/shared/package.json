@@ -5,49 +5,50 @@
         "idl"
     ],
     "type": "module",
-    "main": "./dist/lib/index.cjs",
-    "types": "./dist/types/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
-                "./dist/esm/index.d.ts"
+                "./dist/index.d.ts"
             ]
         }
     },
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/lib/index.cjs",
-            "default": "./dist/esm/index.js"
-        },
-        "./*": {
-            "import": "./*",
-            "require": "./*",
-            "default": "./*"
-        },
-        "./package.json": "./package.json"
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
     },
     "author": "bestlyg@foxmail.com",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
     "license": "MIT",
     "devDependencies": {
-        "@modern-js/module-tools": "catalog:",
+        "@xidl/shared": "workspace:^",
         "@types/fs-extra": "catalog:",
         "@types/lodash-es": "catalog:",
         "@types/node": "catalog:",
         "@types/tapable": "catalog:",
-        "typescript": "catalog:"
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     },
     "scripts": {
-        "build": "modern build",
         "prepublishOnly": "pnpm build",
-        "dev": "modern build --watch"
+        "build": "rimraf dist && unbuild --config ./node_modules/@xidl/shared/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@xidl/shared/build.config.ts --watch"
     },
     "dependencies": {
         "change-case": "catalog:",
-        "fs-extra": "^11.2.0",
-        "lodash-es": "^4.17.21",
+        "fs-extra": "catalog:",
+        "lodash-es": "catalog:",
         "protobufjs": "^7.4.0",
         "tapable": "catalog:"
     }

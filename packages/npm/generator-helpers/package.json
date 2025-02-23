@@ -5,45 +5,46 @@
         "generator"
     ],
     "type": "module",
-    "main": "./dist/lib/index.cjs",
-    "types": "./dist/types/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
-                "./dist/esm/index.d.ts"
+                "./dist/index.d.ts"
             ]
         }
     },
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/lib/index.cjs",
-            "default": "./dist/esm/index.js"
-        },
-        "./*": {
-            "import": "./*",
-            "require": "./*",
-            "default": "./*"
-        },
-        "./package.json": "./package.json"
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
     },
     "author": "bestlyg@foxmail.com",
     "homepage": "https://github.com/bestlyg/bestlyg/tree/master/packages/npm/xidl",
     "license": "MIT",
     "devDependencies": {
-        "@modern-js/module-tools": "catalog:",
+        "@bestlyg/common": "workspace:^",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
         "generator-helpers": "workspace:^",
         "lodash": "catalog:",
+        "rimraf": "catalog:",
         "typescript": "catalog:",
+        "unbuild": "catalog:",
         "vitest": "^2.1.2"
     },
     "scripts": {
-        "build": "modern build",
         "prepublishOnly": "pnpm build",
-        "dev": "modern build --watch",
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch",
         "test": "vitest"
     },
     "files": [

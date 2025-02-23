@@ -3,10 +3,27 @@
     "version": "0.0.9",
     "description": "china software copyright extraction tool",
     "type": "module",
-    "author": "bestlyg",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/index.d.ts"
+            ]
+        }
+    },
     "exports": {
-        "import": "./dist/esm/index.mjs",
-        "require": "./dist/lib/index.cjs"
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
     },
     "repository": {
         "type": "git",
@@ -31,17 +48,19 @@
         "run:test": "pnpm run:prod --output-path \"C:/bestlyg/信韵.docx\"  --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/**/*.(cs)\" --ignore-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/obj/Debug\" --glob-path \"C:/bestlyg/信韵/程序/项目历史记录/inRhyme/inRhyme/Admin/inRhyme/**/*.js\"",
         "run:dev": "cross-env CSCET_DEV=1 node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
         "run:prod": "node --max-old-space-size=4096 bin/china-software-copyright-extraction-tool.js",
-        "build": "modern build",
         "prepublishOnly": "pnpm build",
-        "dev": "modern build --watch"
+        "build": "rimraf dist && unbuild --config ./node_modules/@bestlyg/common/build.config.ts",
+        "dev": "unbuild --config ./node_modules/@bestlyg/common/build.config.ts --watch"
     },
     "devDependencies": {
         "@bestlyg/cli": "workspace:^",
-        "@modern-js/module-tools": "catalog:",
+        "@bestlyg/common": "workspace:^",
         "@types/node": "catalog:",
         "@types/ramda": "catalog:",
         "cross-env": "catalog:",
-        "typescript": "catalog:"
+        "rimraf": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     },
     "files": [
         "bin",

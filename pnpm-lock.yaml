@@ -4,9 +4,22 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    typescript:
+      specifier: ^5.7.3
+      version: 5.7.3
+    zx:
+      specifier: ^8.3.0
+      version: 8.3.0
+
 importers:
 
   .:
+    dependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
     devDependencies:
       '@bestlyg/cli':
         specifier: workspace:^
@@ -37,13 +50,13 @@ importers:
         version: 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)
       '@nx/storybook':
         specifier: 20.3.0
-        version: 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.6.3)
+        version: 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.7.3)
       '@nx/web':
         specifier: 20.3.0
-        version: 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.6.3)
+        version: 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
-        version: 8.1.0(@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.6.3))(eslint@9.17.0)(typescript@5.6.3)
+        version: 8.1.0(@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.7.3))(eslint@9.17.0)(typescript@5.7.3)
       eslint:
         specifier: 9.17.0
         version: 9.17.0
@@ -3179,13 +3192,13 @@ packages:
     resolution: {integrity: sha512-3KS2b+kL7fsuk/eJZ7EQdnEmQoaho/r6KUef7hxvltNA5DR8NAUM+8wJMbJyZ4G9/7i3v5zPBIMN5aybAh2/Jg==}
     engines: {node: '>= 0.4'}
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  typescript@5.6.3:
+    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -3360,12 +3373,6 @@ packages:
     resolution: {integrity: sha512-L8mY3yfJwo3a8ZDD6f9jZzAcRWJZYcV8GauZmBxLB/aSTwaMzMIEVpPp2Kyx+7yF0gdvuxKnMxAZRft9UCawiw==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
-
-catalogs:
-  default:
-    zx:
-      specifier: ^8.3.0
-      version: 8.3.0
 
 snapshots:
 
@@ -4389,14 +4396,14 @@ snapshots:
       '@commitlint/types': 17.8.1
       '@types/node': 20.5.1
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.6.3)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.4.5))(typescript@5.4.5)
+      cosmiconfig: 8.3.6(typescript@5.7.3)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.7.3))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.7.3))(typescript@5.7.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.6.3)
-      typescript: 5.4.5
+      ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.7.3)
+      typescript: 5.7.3
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -4597,12 +4604,12 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nx/cypress@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.6.3)':
+  '@nx/cypress@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.7.3)':
     dependencies:
       '@nx/devkit': 20.3.0(nx@20.3.0)
       '@nx/eslint': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)
-      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.6.3)
-      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.6.3)
+      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)
+      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.7.3)
       detect-port: 1.6.1
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -4695,6 +4702,49 @@ snapshots:
       - supports-color
       - typescript
 
+  '@nx/js@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)':
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/plugin-proposal-decorators': 7.25.9(@babel/core@7.26.0)
+      '@babel/plugin-transform-class-properties': 7.25.9(@babel/core@7.26.0)
+      '@babel/plugin-transform-runtime': 7.25.9(@babel/core@7.26.0)
+      '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
+      '@babel/runtime': 7.26.0
+      '@nx/devkit': 20.3.0(nx@20.3.0)
+      '@nx/workspace': 20.3.0
+      '@zkochan/js-yaml': 0.0.7
+      babel-plugin-const-enum: 1.2.0(@babel/core@7.26.0)
+      babel-plugin-macros: 2.8.0
+      babel-plugin-transform-typescript-metadata: 0.3.2(@babel/core@7.26.0)(@babel/traverse@7.26.4)
+      chalk: 4.1.2
+      columnify: 1.6.0
+      detect-port: 1.6.1
+      enquirer: 2.3.6
+      ignore: 5.3.2
+      js-tokens: 4.0.0
+      jsonc-parser: 3.2.0
+      minimatch: 9.0.3
+      npm-package-arg: 11.0.1
+      npm-run-path: 4.0.1
+      ora: 5.3.0
+      semver: 7.6.1
+      source-map-support: 0.5.19
+      tinyglobby: 0.2.10
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@5.7.3)
+      tsconfig-paths: 4.2.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+
   '@nx/nx-darwin-arm64@20.3.0':
     optional: true
 
@@ -4725,13 +4775,13 @@ snapshots:
   '@nx/nx-win32-x64-msvc@20.3.0':
     optional: true
 
-  '@nx/storybook@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.6.3)':
+  '@nx/storybook@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.7.3)':
     dependencies:
-      '@nx/cypress': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.6.3)
+      '@nx/cypress': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)(typescript@5.7.3)
       '@nx/devkit': 20.3.0(nx@20.3.0)
       '@nx/eslint': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(@zkochan/js-yaml@0.0.7)(eslint@9.17.0)(nx@20.3.0)
-      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.6.3)
-      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.6.3)
+      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)
+      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.7.3)
       semver: 7.6.1
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -4749,10 +4799,10 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nx/web@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.6.3)':
+  '@nx/web@20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)':
     dependencies:
       '@nx/devkit': 20.3.0(nx@20.3.0)
-      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.6.3)
+      '@nx/js': 20.3.0(@babel/traverse@7.26.4)(@types/node@20.5.1)(nx@20.3.0)(typescript@5.7.3)
       detect-port: 1.6.1
       http-server: 14.1.1
       picocolors: 1.1.1
@@ -4782,10 +4832,10 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@phenomnomnominal/tsquery@5.0.1(typescript@5.6.3)':
+  '@phenomnomnominal/tsquery@5.0.1(typescript@5.7.3)':
     dependencies:
       esquery: 1.6.0
-      typescript: 5.6.3
+      typescript: 5.7.3
 
   '@pkgr/core@0.1.1': {}
 
@@ -4845,34 +4895,34 @@ snapshots:
 
   '@types/semver@6.2.7': {}
 
-  '@typescript-eslint/eslint-plugin@8.1.0(@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.6.3))(eslint@9.17.0)(typescript@5.6.3)':
+  '@typescript-eslint/eslint-plugin@8.1.0(@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.7.3))(eslint@9.17.0)(typescript@5.7.3)':
     dependencies:
       '@eslint-community/regexpp': 4.10.0
-      '@typescript-eslint/parser': 8.1.0(eslint@9.17.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 8.1.0(eslint@9.17.0)(typescript@5.7.3)
       '@typescript-eslint/scope-manager': 8.1.0
-      '@typescript-eslint/type-utils': 8.1.0(eslint@9.17.0)(typescript@5.6.3)
-      '@typescript-eslint/utils': 8.1.0(eslint@9.17.0)(typescript@5.6.3)
+      '@typescript-eslint/type-utils': 8.1.0(eslint@9.17.0)(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.1.0(eslint@9.17.0)(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.1.0
       eslint: 9.17.0
       graphemer: 1.4.0
       ignore: 5.3.1
       natural-compare: 1.4.0
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.3)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.6.3)':
+  '@typescript-eslint/parser@8.1.0(eslint@9.17.0)(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.1.0
       '@typescript-eslint/types': 8.1.0
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.1.0
       debug: 4.4.0
       eslint: 9.17.0
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -4881,21 +4931,21 @@ snapshots:
       '@typescript-eslint/types': 8.1.0
       '@typescript-eslint/visitor-keys': 8.1.0
 
-  '@typescript-eslint/type-utils@8.1.0(eslint@9.17.0)(typescript@5.6.3)':
+  '@typescript-eslint/type-utils@8.1.0(eslint@9.17.0)(typescript@5.7.3)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
-      '@typescript-eslint/utils': 8.1.0(eslint@9.17.0)(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.1.0(eslint@9.17.0)(typescript@5.7.3)
       debug: 4.3.4
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.3)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
     transitivePeerDependencies:
       - eslint
       - supports-color
 
   '@typescript-eslint/types@8.1.0': {}
 
-  '@typescript-eslint/typescript-estree@8.1.0(typescript@5.6.3)':
+  '@typescript-eslint/typescript-estree@8.1.0(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/types': 8.1.0
       '@typescript-eslint/visitor-keys': 8.1.0
@@ -4904,18 +4954,18 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.4
       semver: 7.6.1
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.3)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.1.0(eslint@9.17.0)(typescript@5.6.3)':
+  '@typescript-eslint/utils@8.1.0(eslint@9.17.0)(typescript@5.7.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.17.0)
       '@typescript-eslint/scope-manager': 8.1.0
       '@typescript-eslint/types': 8.1.0
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.3)
       eslint: 9.17.0
     transitivePeerDependencies:
       - supports-color
@@ -5293,12 +5343,12 @@ snapshots:
 
   corser@2.0.1: {}
 
-  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.4.5))(typescript@5.4.5):
+  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.7.3))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
       '@types/node': 20.5.1
-      cosmiconfig: 8.3.6(typescript@5.6.3)
-      ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.6.3)
-      typescript: 5.4.5
+      cosmiconfig: 8.3.6(typescript@5.7.3)
+      ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.7.3)
+      typescript: 5.7.3
 
   cosmiconfig@6.0.0:
     dependencies:
@@ -5308,14 +5358,14 @@ snapshots:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  cosmiconfig@8.3.6(typescript@5.6.3):
+  cosmiconfig@8.3.6(typescript@5.7.3):
     dependencies:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
 
   create-require@1.1.1: {}
 
@@ -7123,9 +7173,9 @@ snapshots:
 
   trim-newlines@3.0.1: {}
 
-  ts-api-utils@1.3.0(typescript@5.6.3):
+  ts-api-utils@1.3.0(typescript@5.7.3):
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.3
 
   ts-node@10.9.1(@types/node@20.5.1)(typescript@5.6.3):
     dependencies:
@@ -7145,7 +7195,25 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  ts-node@10.9.2(@types/node@20.5.1)(typescript@5.6.3):
+  ts-node@10.9.1(@types/node@20.5.1)(typescript@5.7.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.5.1
+      acorn: 8.14.0
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.7.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+
+  ts-node@10.9.2(@types/node@20.5.1)(typescript@5.7.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -7159,7 +7227,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.6.3
+      typescript: 5.7.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
@@ -7228,9 +7296,9 @@ snapshots:
       possible-typed-array-names: 1.0.0
       reflect.getprototypeof: 1.0.9
 
-  typescript@5.4.5: {}
-
   typescript@5.6.3: {}
+
+  typescript@5.7.3: {}
 
   unbox-primitive@1.1.0:
     dependencies:

@@ -3,7 +3,7 @@ import { getDirname } from 'metadata-file';
 import * as common from '@bestlyg/common/server';
 import * as vendor from './vendor';
 
-const resolve = getResolveFunction(getDirname(), 2);
+const resolve = getResolveFunction(getDirname(), 1);
 
 vendor.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', '.env'),

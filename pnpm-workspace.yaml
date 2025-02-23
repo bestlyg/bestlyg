@@ -10,6 +10,7 @@ packages:
     - 'web3/*'
 
 catalog:
+    unbuild: ^3.3.1
     # ant
     ahooks: ^3.8.4
     antd: ^5.22.7
@@ -21,6 +22,7 @@ catalog:
     '@mdx-js/mdx': ^3.1.0
     marked: ^13.0.0
     marked-directive: ^1.0.5
+
     # modern
     '@modern-js/app-tools': ^2.63.5
     '@modern-js/module-tools': ^2.63.5
@@ -35,7 +37,6 @@ catalog:
     '@types/doctrine': ^0.0.9
     '@types/echarts': ^4.9.22
     '@types/express': ^5.0.0
-    '@types/figlet': ^1.7.0
     '@types/inquirer': ^9.0.7
     '@types/node': ^20.17.10
     '@types/jest': ^29.5.14
@@ -52,7 +53,7 @@ catalog:
     cross-env: ^7.0.3
     dotenv: ^16.4.5
     zx: ^8.3.0
-    typescript: ^5.7.2
+    typescript: ^5.7.3
     rimraf: ^6.0.1
     commander: ^11.1.0
     echarts: ^5.6.0

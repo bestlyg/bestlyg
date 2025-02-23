@@ -1,4 +1,4 @@
-import { ResponseEntity } from '@/response-entity';
+import { ResponseEntity } from '../../response-entity';
 import axios from 'axios';
 import * as tapable from 'tapable';
 

@@ -14,8 +14,7 @@ export class ClientController {
         method: getRequestMethod(idl.api.bestlyg.ClientService.GetDocsSidebars.method),
     })
     async getDocsSidebars() {
-        const data: idl.api.bestlyg.ClientService.GetDocsSidebars.Response =
-            await this.clientService.getDocsSidebars();
+        const data = await this.clientService.getDocsSidebars();
         return ResponseEntity.ofSuccess(data);
     }
 
@@ -24,8 +23,7 @@ export class ClientController {
         method: getRequestMethod(idl.api.bestlyg.ClientService.GetLeetcodeSidebars.method),
     })
     async getLeetcodeSidebars() {
-        const data: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response =
-            await this.clientService.getLeetcodeSidebars();
+        const data = await this.clientService.getLeetcodeSidebars();
         return ResponseEntity.ofSuccess(data);
     }
 }

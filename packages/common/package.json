@@ -4,63 +4,55 @@
     "description": "",
     "author": "bestlyg",
     "type": "module",
-    "main": "./dist/lib/index.cjs",
-    "types": "./dist/types/index.d.ts",
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             ".": [
-                "./dist/types/index.d.ts"
+                "./dist/index.d.ts"
             ]
         }
     },
     "exports": {
         "./idl/utils": {
-            "types": "./dist/types/idl/utils/index.d.ts",
-            "import": "./dist/esm/idl/utils/index.js",
-            "require": "./dist/lib/idl/utils/index.cjs",
-            "default": "./dist/esm/idl/utils/index.js"
-        },
-        "./idl/utils/*": {
-            "types": "./dist/types/idl/utils/*",
-            "import": "./dist/esm/idl/utils/*",
-            "require": "./dist/lib/idl/utils/*",
-            "default": "./dist/esm/idl/utils/*"
+            "import": {
+                "types": "./dist/idl/utils/index.d.mts",
+                "default": "./dist/idl/utils/index.mjs"
+            },
+            "require": {
+                "types": "./dist/idl/utils/index.d.cts",
+                "default": "./dist/idl/utils/index.cjs"
+            }
         },
         "./idl/client": {
-            "types": "./dist/types/idl/client/index.d.ts",
-            "import": "./dist/esm/idl/client/index.js",
-            "require": "./dist/lib/idl/client/index.cjs",
-            "default": "./dist/esm/idl/client/index.js"
-        },
-        "./idl/client/*": {
-            "types": "./dist/types/idl/client/*",
-            "import": "./dist/esm/idl/client/*",
-            "require": "./dist/lib/idl/client/*",
-            "default": "./dist/esm/idl/client/*"
+            "import": {
+                "types": "./dist/idl/client/index.d.ts",
+                "default": "./dist/idl/client/index.mjs"
+            },
+            "require": {
+                "types": "./dist/idl/client/index.d.ts",
+                "default": "./dist/idl/client/index.cjs"
+            }
         },
         "./idl/server": {
-            "types": "./dist/types/idl/server/index.d.ts",
-            "import": "./dist/esm/idl/server/index.js",
-            "require": "./dist/lib/idl/server/index.cjs",
-            "default": "./dist/esm/idl/server/index.js"
-        },
-        "./idl/server/*": {
-            "types": "./dist/types/idl/server/*",
-            "import": "./dist/esm/idl/server/*",
-            "require": "./dist/lib/idl/server/*",
-            "default": "./dist/esm/idl/server/*"
+            "import": {
+                "types": "./dist/idl/server/index.d.ts",
+                "default": "./dist/idl/server/index.mjs"
+            },
+            "require": {
+                "types": "./dist/idl/server/index.d.ts",
+                "default": "./dist/idl/server/index.cjs"
+            }
         },
         "./server": {
-            "types": "./dist/types/server/index.d.ts",
-            "import": "./dist/esm/server/index.js",
-            "require": "./dist/lib/server/index.cjs",
-            "default": "./dist/esm/server/index.js"
-        },
-        "./server/*": {
-            "types": "./dist/types/server/*",
-            "import": "./dist/esm/server/*",
-            "require": "./dist/lib/server/*",
-            "default": "./dist/esm/server/*"
+            "import": {
+                "types": "./dist/server/index.d.mts",
+                "default": "./dist/server/index.mjs"
+            },
+            "require": {
+                "types": "./dist/server/index.d.cts",
+                "default": "./dist/server/index.cjs"
+            }
         },
         "./prisma-client": {
             "types": "./dist/prisma-client/index.d.ts",
@@ -70,10 +62,14 @@
         },
         "./package.json": "./package.json",
         ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/lib/index.cjs",
-            "default": "./dist/esm/index.js"
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
         },
         "./*": {
             "import": "./*",
@@ -84,14 +80,13 @@
     "scripts": {
         "build:openapi": "node scripts/openapi.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:openapi && modern build",
-        "dev": "modern build --watch"
+        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:openapi && unbuild && tsc --emitDeclarationOnly -d -p tsconfig.idl.json",
+        "dev": "unbuild --watch"
     },
     "license": "ISC",
     "devDependencies": {
         "@bestlyg/common": "workspace:^",
         "@bestlyg/server": "workspace:^",
-        "@modern-js/module-tools": "catalog:",
         "@types/crypto-js": "^4.2.2",
         "@types/express": "catalog:",
         "@types/figlet": "^1.7.0",
@@ -99,22 +94,23 @@
         "@types/node": "catalog:",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
-        "change-case": "^5.4.4",
+        "change-case": "catalog:",
         "express": "^4.21.1",
         "prisma": "catalog:",
         "rimraf": "catalog:",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "unbuild": "catalog:"
     },
     "dependencies": {
-        "module-checker": "workspace:^",
-        "metadata-file": "workspace:^",
         "@prisma/client": "catalog:",
         "axios": "catalog:",
-        "chalk": "^5.4.1",
+        "chalk": "catalog:",
         "crypto-js": "^4.2.0",
         "dayjs": "catalog:",
         "figlet": "^1.7.0",
         "fs-extra": "catalog:",
+        "metadata-file": "workspace:^",
+        "module-checker": "workspace:^",
         "tapable": "catalog:",
         "zod": "catalog:"
     }

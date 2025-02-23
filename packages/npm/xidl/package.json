@@ -15,6 +15,8 @@
         "dev": "pnpm nx watch -p \"@xidl/*\" -- nx run build"
     },
     "devDependencies": {
-        "@modern-js/module-tools": "catalog:"
+        "@bestlyg/common": "workspace:^",
+        "rimraf": "catalog:",
+        "unbuild": "catalog:"
     }
 }

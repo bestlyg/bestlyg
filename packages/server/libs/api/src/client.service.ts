@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
 import { LeetcodeService } from '@bestlyg-server/data';
-import idl from '@bestlyg/common/idl/server';
+import { api } from '@bestlyg/common/idl/server';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -14,20 +14,20 @@ export class ClientService {
     async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
         type: 'group' | 'item';
         category?: { position: number };
-        data: idl.api.bestlyg.SidebarGroup | idl.api.bestlyg.SidebarItem;
+        data: api.bestlyg.SidebarGroup | api.bestlyg.SidebarItem;
     } | null> {
         const stat = await fs.stat(p);
         const name = path.basename(p);
         if (stat.isDirectory()) {
             const subDirs = await fs.readdir(p);
-            const data: idl.api.bestlyg.SidebarGroup = {
+            const data: api.bestlyg.SidebarGroup = {
                 name,
             };
             const category = { position: Infinity };
             const groupMetaList: {
                 type: 'group';
                 category: { position: number };
-                data: idl.api.bestlyg.SidebarGroup;
+                data: api.bestlyg.SidebarGroup;
             }[] = [];
             for (const name of subDirs) {
                 const subPath = resolve(p, name);
@@ -35,11 +35,11 @@ export class ClientService {
                 if (res) {
                     if (res.type === 'group') {
                         groupMetaList.push(res as any);
-                        const v = res.data as idl.api.bestlyg.SidebarGroup;
+                        const v = res.data as api.bestlyg.SidebarGroup;
                         data.groups ??= [];
                         data.groups.push(v);
                     } else if (res.type === 'item') {
-                        const v = res.data as idl.api.bestlyg.SidebarItem;
+                        const v = res.data as api.bestlyg.SidebarItem;
                         if (v.name === this.categoryFileName) {
                             const json = await fs.readJson(
                                 resolve(this.staticPath, v.link.substring(1)),
@@ -59,7 +59,7 @@ export class ClientService {
             });
             return { data, type: 'group', category };
         } else if (stat.isFile()) {
-            const data: idl.api.bestlyg.SidebarItem = {
+            const data: api.bestlyg.SidebarItem = {
                 name: name.replace(path.extname(name), ''),
                 link: '/' + path.relative(this.staticPath, p),
             };
@@ -68,18 +68,18 @@ export class ClientService {
         return null;
     }
 
-    async getGroups(): Promise<idl.api.bestlyg.SidebarGroup[]> {
-        const docs = (await this.getDocs())!.data as idl.api.bestlyg.SidebarGroup;
+    async getGroups(): Promise<api.bestlyg.SidebarGroup[]> {
+        const docs = (await this.getDocs())!.data as api.bestlyg.SidebarGroup;
         return [...(docs.groups ?? [])];
     }
 
-    async getDocsSidebars(): Promise<idl.api.bestlyg.ClientService.GetDocsSidebars.Response> {
+    async getDocsSidebars(): Promise<api.bestlyg.ClientService.GetDocsSidebars.Request> {
         return { groups: await this.getGroups() };
     }
 
-    async getLeetcodeSidebars(): Promise<idl.api.bestlyg.ClientService.GetLeetcodeSidebars.Response> {
+    async getLeetcodeSidebars(): Promise<api.bestlyg.ClientService.GetLeetcodeSidebars.Request> {
         const problems = await this.leetcodeService.getLeetcodeProblemList();
-        const groups: idl.api.bestlyg.SidebarGroup[] = [];
+        const groups: api.bestlyg.SidebarGroup[] = [];
         for (const problem of problems) {
             const dirName = getDirNameFromProblemName(problem.name);
             let group = groups.find(v => v.name === dirName);

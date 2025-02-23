@@ -13,8 +13,8 @@ catalogs:
       specifier: ^20.17.10
       version: 20.17.11
     typescript:
-      specifier: ^5.7.2
-      version: 5.7.2
+      specifier: ^5.7.3
+      version: 5.7.3
 
 importers:
 
@@ -32,13 +32,13 @@ importers:
     devDependencies:
       '@modern-js/module-tools':
         specifier: 'catalog:'
-        version: 2.63.5(typescript@5.7.2)
+        version: 2.63.5(typescript@5.7.3)
       '@types/node':
         specifier: 'catalog:'
         version: 20.17.11
       typescript:
         specifier: 'catalog:'
-        version: 5.7.2
+        version: 5.7.3
 
 packages:
 
@@ -1296,8 +1296,8 @@ packages:
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
-  typescript@5.7.2:
-    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -1825,7 +1825,7 @@ snapshots:
       '@modern-js/utils': 2.63.5
       '@swc/helpers': 0.5.13
 
-  '@modern-js/module-tools@2.63.5(typescript@5.7.2)':
+  '@modern-js/module-tools@2.63.5(typescript@5.7.3)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@ast-grep/napi': 0.16.0
@@ -1854,7 +1854,7 @@ snapshots:
       terser: 5.34.1
       tsconfig-paths-webpack-plugin: 4.1.0
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -2573,7 +2573,7 @@ snapshots:
 
   tslib@2.7.0: {}
 
-  typescript@5.7.2: {}
+  typescript@5.7.3: {}
 
   undici-types@6.19.8: {}
 
