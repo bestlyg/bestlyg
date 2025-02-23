@@ -19,16 +19,16 @@ const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFil
 const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
-// backup
-// await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
-// // db
-// await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
+backup
+await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
+// db
+await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 
-// // await run('pnpm --filter @bestlyg/client run deploy');
-// await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
-// await run(
-//     `scp -r ${resolve('node_modules', '@bestlyg', 'common', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
-// );
+await run('pnpm --filter @bestlyg/client run deploy');
+await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
+await run(
+    `scp -r ${resolve('node_modules', '@bestlyg', 'common', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
+);
 
 const serverName = `bestlyg-server`;
 
