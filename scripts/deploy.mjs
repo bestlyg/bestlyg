@@ -2,7 +2,7 @@ import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
 
 const envFileName = '.env';
-const resolve = best.utils.getResolveFunction(import.meta, 1);
+const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
 
 const { config } = best;
 

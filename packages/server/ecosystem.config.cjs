@@ -1,5 +1,6 @@
-const best = require('@bestlyg/cli');
-const resolve = best.utils.getResolveFunction(__dirname);
+require('@bestlyg/cli/globals');
+
+const resolve = best.common.getResolveFunction(best.common.getDirname());
 
 module.exports = {
     apps: [
