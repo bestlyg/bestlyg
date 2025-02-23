@@ -1,6 +1,6 @@
 import best from '@bestlyg/cli';
 
-export const resolve = best.common.getResolveFunction(best.common.getDirname(), 2);
+export const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
 export const PATH_GRAPHQL = resolve('graphql');
 export const PATH_CODE = resolve('scripts', 'code');
 export const FILE_NAME_MAIN = 'main.json';
