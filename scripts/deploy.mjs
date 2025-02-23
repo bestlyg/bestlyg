@@ -45,6 +45,7 @@ const commands = [
     `sudo pnpm --filter @bestlyg/common run prisma:migrate`,
     `sudo pnpm --filter @bestlyg/common run build`,
     `sudo pnpm --filter @bestlyg/cli run build`,
+    `sudo pnpm --filter @bestlyg/leetcode run build`,
     `sudo pnpm --filter @bestlyg/server run build`,
     // `sudo pnpm --filter @bestlyg/client run build`,
     // `sudo pnpm nx build @bestlyg/server`,
