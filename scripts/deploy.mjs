@@ -1,12 +1,14 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
 
+const logger = new best.common.Logger('DEPLOY');
 const envFileName = '.env';
 const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
 
 const { config } = best;
 
 const run = async cmd => {
+    logger.info(cmd);
     execSync(cmd, { stdio: 'inherit' });
     // await $`${cmd}`.stdio('inherit', 'inherit', 'inherit');
 };
@@ -14,7 +16,7 @@ const homePath = process.env.HOME;
 
 const dbName = 'best_data';
 const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFileName);
-const sqlDistPath = resolve(config.ssh.projectPath, 'packages', 'common', 'dist', dbName + '.sql');
+const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
 // backup
@@ -22,7 +24,7 @@ await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static',
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
 
-await run('pnpm --filter @bestlyg/client run deploy');
+// await run('pnpm --filter @bestlyg/client run deploy');
 await run(`scp -r ${dumpPath} ${config.ssh.username}@${config.ssh.ip}:${sqlDistPath}`);
 await run(
     `scp -r ${resolve('node_modules', '@bestlyg', 'common', envFileName)} ${config.ssh.username}@${config.ssh.ip}:${envDistPath}`,
@@ -38,6 +40,7 @@ const commands = [
     `sudo git clean -fd`,
     `sudo git pull`,
     'sudo pnpm i --frozen-lockfile',
+    `sudo pnpm --filter "@xidl/*" build`,
     `sudo pnpm --filter @bestlyg/common run prisma:generate`,
     `sudo pnpm --filter @bestlyg/common run prisma:migrate`,
     `sudo pnpm --filter @bestlyg/common run build`,
@@ -46,7 +49,7 @@ const commands = [
     `sudo pnpm --filter @bestlyg/server run build`,
     `sudo pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
 ];
-console.log("===[SERVER COMMAND]===", commands.join('\n'));
+console.log('===[SERVER COMMAND]===', commands.join('\n'));
 execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
     stdio: 'inherit',
 });
