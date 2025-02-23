@@ -7,8 +7,5 @@
         "@types/less": "catalog:",
         "@types/node": "catalog:",
         "typescript": "catalog:"
-    },
-    "scripts": {
-        "build": "pnpm nx run-many -t build -p \"@less-plugins/*\""
     }
 }

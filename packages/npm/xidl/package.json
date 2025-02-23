@@ -9,14 +9,5 @@
     "license": "MIT",
     "files": [
         "package.json"
-    ],
-    "scripts": {
-        "build": "pnpm nx run-many -t build -p \"@xidl/*\"",
-        "dev": "pnpm nx watch -p \"@xidl/*\" -- nx run build"
-    },
-    "devDependencies": {
-        "@bestlyg/common": "workspace:^",
-        "rimraf": "catalog:",
-        "unbuild": "catalog:"
-    }
+    ]
 }
