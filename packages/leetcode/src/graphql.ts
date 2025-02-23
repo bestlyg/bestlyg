@@ -1,8 +1,5 @@
-import best from '@bestlyg/cli';
-
 import { resolve, PATH_GRAPHQL } from './utils';
-
-const fs = best.zx.fs;
+import fs from 'fs-extra';
 
 const read = (file: string) => fs.readFileSync(resolve(PATH_GRAPHQL, file), 'utf8');
 

@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@types/fs-extra':
+      specifier: ^11.0.4
+      version: 11.0.4
     '@types/node':
       specifier: ^20.17.10
       version: 20.17.10
@@ -34,7 +37,7 @@ catalogs:
 importers:
 
   .:
-    devDependencies:
+    dependencies:
       '@bestlyg/cli':
         specifier: workspace:^
         version: link:../cli
@@ -44,6 +47,9 @@ importers:
       '@bestlyg/leetcode':
         specifier: workspace:^
         version: 'link:'
+      '@types/fs-extra':
+        specifier: 'catalog:'
+        version: 11.0.4
       '@types/node':
         specifier: 'catalog:'
         version: 20.17.10
@@ -491,6 +497,12 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/fs-extra@11.0.4':
+    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
+
+  '@types/jsonfile@6.1.4':
+    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
 
   '@types/node@20.17.10':
     resolution: {integrity: sha512-/jrvh5h6NXhEauFFexRin69nA0uHJ5gwk4iDivp/DeoEua3uwCUto6PC86IpRITBOs4+6i2I56K5x5b6WYGXHA==}
@@ -1612,6 +1624,15 @@ snapshots:
   '@trysound/sax@0.2.0': {}
 
   '@types/estree@1.0.6': {}
+
+  '@types/fs-extra@11.0.4':
+    dependencies:
+      '@types/jsonfile': 6.1.4
+      '@types/node': 20.17.10
+
+  '@types/jsonfile@6.1.4':
+    dependencies:
+      '@types/node': 20.17.10
 
   '@types/node@20.17.10':
     dependencies:

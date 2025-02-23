@@ -33,10 +33,11 @@
     },
     "keywords": [],
     "license": "ISC",
-    "devDependencies": {
+    "dependencies": {
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/common": "workspace:^",
         "@bestlyg/leetcode": "workspace:^",
+        "@types/fs-extra": "catalog:",
         "@types/node": "catalog:",
         "axios": "catalog:",
         "chalk": "catalog:",
