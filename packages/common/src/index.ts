@@ -12,3 +12,4 @@ export * from './assert-exhaustive';
 export * from './encrypt';
 export * from './openapi';
 export * from './mount';
+export * from './pnpm';

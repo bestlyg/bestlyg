@@ -4,10 +4,6 @@ import { execSync } from 'child_process';
 const envFileName = '.env';
 const resolve = best.utils.getResolveFunction(import.meta, 1);
 
-best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'common', envFileName),
-});
-
 const { config } = best;
 
 const run = async cmd => {

@@ -1,3 +1,3 @@
 import best from '@bestlyg/cli';
 
-export const resolve = best.utils.getResolveFunction(__dirname, 1);
+export const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);

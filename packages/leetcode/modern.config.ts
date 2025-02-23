@@ -1,8 +1,8 @@
+import  '@bestlyg/cli/globals';
 import { moduleTools, defineConfig } from '@modern-js/module-tools';
-import best from '@bestlyg/cli';
 
-const CWD = best.utils.CWD;
-const resolve = best.utils.getResolveFunction(__dirname);
+const CWD = best.common.CWD;
+const resolve = best.common.getResolveFunction(best.common.CWD);
 
 export default defineConfig({
     plugins: [moduleTools()],

@@ -1,10 +1,7 @@
 import '@bestlyg/cli/globals';
 import { execSync } from 'child_process';
 
-const resolve = best.utils.getResolveFunction(import.meta, 1);
-best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'common', '.env'),
-});
+const resolve = best.common.getResolveFunction(best.common.CWD);
 const { config } = best;
 const fileName = 'client.dist.zip';
 const dirPath = resolve('dist');

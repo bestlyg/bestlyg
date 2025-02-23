@@ -1,4 +1,4 @@
 import '@bestlyg/cli/globals';
 
-
-console.log(process.env.BEST_CLI_TEST, best.config);
+const logger = new best.common.Logger('');
+logger.info('===>1')

@@ -1,8 +1,9 @@
-import { getConfiguration, ConfigurationSchema } from '@bestlyg/common/server';
-import * as utils from './utils/index';
-import * as vendor from './vendor/index';
+import { getConfiguration, ConfigurationSchema, getResolveFunction } from '@bestlyg/common/server';
+import { getDirname } from 'metadata-file';
+import * as common from '@bestlyg/common/server';
+import * as vendor from './vendor';
 
-const resolve = utils.getResolveFunction(__dirname, 2);
+const resolve = getResolveFunction(getDirname(), 2);
 
 vendor.dotenv.config({
     path: resolve('node_modules', '@bestlyg', 'common', '.env'),
@@ -10,13 +11,8 @@ vendor.dotenv.config({
 
 const config = ConfigurationSchema.parse(getConfiguration());
 
-export const globalInjectData = {
-    utils,
-    config,
-    ...vendor,
-};
+export const best = { common, config, ...vendor };
 
-export default globalInjectData;
+export default best;
 
-export * as utils from './utils/index';
-export * from './vendor/index';
+export * from './vendor';

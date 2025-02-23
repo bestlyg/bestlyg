@@ -3,16 +3,7 @@ import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import viteCompression from 'vite-plugin-compression';
-import best from '@bestlyg/cli';
 
-
-// const BASE_URL = '/web/resume';
-// const CWD = best.utils.CWD;
-const resolve = best.utils.getResolveFunction(__dirname);
-
-best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'common', '.env'),
-});
 // https://vite.dev/config/
 
 export default defineConfig({

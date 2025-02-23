@@ -4,11 +4,7 @@ import { PrismaClient } from '@prisma/client';
 // import { xuanDataList } from '@bestlyg/data';
 // import { getLeetCodeDataList } from '@bestlyg/leetcode';
 
-const resolve = best.utils.getResolveFunction(import.meta, 1);
-best.dotenv.config({
-    path: resolve('node_modules', '@bestlyg', 'config', '.env.local'),
-});
-
+const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
 const { _, dayjs } = best;
 
 /**

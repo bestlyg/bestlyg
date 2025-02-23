@@ -1,7 +1,7 @@
 import 'zx/globals';
-import { globalInjectData } from './index';
+import globalInjectData from './index';
 
-globalInjectData.dotenv.config({ path: path.resolve(globalInjectData.utils.CWD, '.env') });
+globalInjectData.dotenv.config({ path: path.resolve(globalInjectData.common.CWD, '.env') });
 
 Object.assign(globalThis, { best: globalInjectData });
 
