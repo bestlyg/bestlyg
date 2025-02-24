@@ -49,10 +49,8 @@ catalogs:
       specifier: ^3.3.1
       version: 3.3.1
     zod:
-      specifier: ^3.24.1
-      version: 3.24.1
-
-pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
+      specifier: ^3.24.2
+      version: 3.24.2
 
 importers:
 
@@ -90,7 +88,7 @@ importers:
         version: 2.2.1
       zod:
         specifier: 'catalog:'
-        version: 3.24.1
+        version: 3.24.2
     devDependencies:
       '@bestlyg/common':
         specifier: workspace:^
@@ -1825,8 +1823,8 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
-  zod@3.24.1:
-    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
 
@@ -3434,4 +3432,4 @@ snapshots:
 
   yallist@3.1.1: {}
 
-  zod@3.24.1: {}
+  zod@3.24.2: {}
