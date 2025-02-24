@@ -1,3 +1,10 @@
-class Solution:
-    def similarPairs(self, words: List[str]) -> int:
-        return sum(set(words[i]) == set(words[j]) for i in range(len(words)) for j in range(i))
+class OrderedStream:
+    def __init__(self, n: int):
+        self.arr = [None] * (n + 1)
+        self.ptr = 1
+    def insert(self, idKey: int, value: str) -> List[str]:
+        self.arr[idKey] = value
+        if not self.arr[self.ptr]: return []
+        start = self.ptr
+        while self.ptr < len(self.arr) and self.arr[self.ptr]: self.ptr += 1
+        return self.arr[start: self.ptr]

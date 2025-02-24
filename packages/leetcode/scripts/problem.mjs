@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '2506. 统计相似字符串对的数目',
-    url: 'https://leetcode.cn/problems/count-pairs-of-similar-strings',
+    name: '1656. 设计有序流',
+    url: 'https://leetcode.cn/problems/design-an-ordered-stream',
     level: 'Easy',
     tagList: [],
-    desc: `请你找出满足字符串 words[i] 和 words[j] 相似的下标对 (i, j) ，并返回下标对的数目，其中 0 <= i < j <= words.length - 1 。`,
+    desc: `设计一个流，以 任意 顺序获取 n 个 (id, value) 对，并在多次调用时 按 id 递增的顺序 返回一些值。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 251,
-            memory: 17.82,
+            time: 15,
+            memory: 18.39,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
