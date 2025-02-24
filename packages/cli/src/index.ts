@@ -13,6 +13,8 @@ const config = ConfigurationSchema.parse(getConfiguration());
 
 export const best = { common, config, ...vendor };
 
+export const _best = best;
+
 export default best;
 
 export * from './vendor';
