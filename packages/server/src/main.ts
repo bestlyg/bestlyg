@@ -10,10 +10,6 @@ import compression from 'compression';
 import * as idl from '@bestlyg/common/idl/server';
 import cookieParser from 'cookie-parser';
 import { patchNestjsSwagger } from '@anatine/zod-nestjs';
-import { extendZodWithOpenApi } from '@anatine/zod-openapi';
-import { z } from 'zod';
-
-extendZodWithOpenApi(z);
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {});
