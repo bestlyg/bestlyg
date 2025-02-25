@@ -11,18 +11,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '1656. 设计有序流',
-    url: 'https://leetcode.cn/problems/design-an-ordered-stream',
+    name: '2502. 设计内存分配器',
+    url: 'https://leetcode.cn/problems/design-memory-allocator',
     level: 'Easy',
     tagList: [],
-    desc: `设计一个流，以 任意 顺序获取 n 个 (id, value) 对，并在多次调用时 按 id 递增的顺序 返回一些值。`,
+    desc: `请你设计一个具备以下功能的内存分配器。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 15,
-            memory: 18.39,
-            desc: '遍历',
+            time: 1157,
+            memory: 18.13,
+            desc: '模拟',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
