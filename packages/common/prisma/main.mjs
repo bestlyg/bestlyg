@@ -1,26 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import '@bestlyg/cli/globals';
-import { PrismaClient } from '@prisma/client';
-// import { xuanDataList } from '@bestlyg/data';
-// import { getLeetCodeDataList } from '@bestlyg/leetcode';
-
-const resolve = best.common.getResolveFunction(best.common.getDirname(), 1);
-const { _, dayjs } = best;
-
-/**
- * @param {string} s
- * @param {(v:import('dayjs').Dayjs)=>import('dayjs').Dayjs} customDayjs
- */
-const getDate = (s, customDayjs = v => v) => new Date(customDayjs(dayjs(s)).format('YYYY-MM-DD'));
-const nDaysAgo = n => getDate(undefined, v => v.subtract(n, 'day'));
-const today = nDaysAgo(0);
-const yesterday = nDaysAgo(1);
-
-const prisma = new PrismaClient();
+//* eslint-disable @typescript-eslint/no-unused-vars */
+import { resolve, dayjs, getDate, nDaysAgo, today, yesterday } from './utils.mjs';
 
 async function createXuan() {
     const data = await prisma.xuan.createMany({
-        data: [{ date: today, weight: 6860 }],
+        data: [{ date: today, weight: 7020 }],
     });
     return data;
 }
@@ -45,7 +28,24 @@ async function createLedger() {
         date,
     });
     const data = await prisma.ledger.createMany({
-        data: [],
+        data: [
+            getLedgerTransport({ date: today }),
+            getLedgerTransport({ date: today }),
+            {
+                io: false,
+                balance: 207,
+                comment: '10株青菜',
+                type: 'LunchWallet',
+                date: today,
+            },
+            {
+                io: false,
+                balance: 9100,
+                comment: '晚饭，溪雨观酸菜鱼',
+                type: 'Food',
+                date: today,
+            },
+        ],
     });
     return data;
 }
@@ -53,7 +53,7 @@ async function createLedger() {
 async function main() {
     console.info('Prisma connected.');
     let data;
-    // data = await createXuan();
+    data = await createXuan();
     // data = await createLedger();
     console.log(data);
 }
