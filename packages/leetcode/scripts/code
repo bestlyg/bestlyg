@@ -1,21 +1,14 @@
-class Allocator:
-    def __init__(self, n: int):
-        self.arr = [0] * n
-    def freeMemory(self, mID: int) -> int:
-        cnt = 0
-        for i in range(len(self.arr)):
-            if self.arr[i] == mID:
-                self.arr[i] = 0
-                cnt += 1
-        return cnt
-    def allocate(self, size: int, mID: int) -> int:
-        i = 0
-        while i < len(self.arr):
-            if self.arr[i] == 0:
-                s = i
-                while i < len(self.arr) and self.arr[i] == 0 and i - s < size: i += 1
-                if i - s == size:
-                    self.arr[s:i] = [mID] * size
-                    return s
-            i += 1
-        return -1
+class BrowserHistory:
+    def __init__(self, homepage: str):
+        self.list = [homepage]
+        self.ptr = 0
+    def visit(self, url: str) -> None:
+        self.list = self.list[:self.ptr + 1]
+        self.list.append(url)
+        self.ptr += 1
+    def back(self, steps: int) -> str:
+        self.ptr = max(self.ptr - steps, 0)
+        return self.list[self.ptr]
+    def forward(self, steps: int) -> str:
+        self.ptr = min(self.ptr + steps, len(self.list) - 1)
+        return self.list[self.ptr]
