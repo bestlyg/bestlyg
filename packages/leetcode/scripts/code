@@ -1,14 +1,21 @@
-class BrowserHistory:
-    def __init__(self, homepage: str):
-        self.list = [homepage]
+class TextEditor:
+    def __init__(self):
+        self.arr = []
         self.ptr = 0
-    def visit(self, url: str) -> None:
-        self.list = self.list[:self.ptr + 1]
-        self.list.append(url)
-        self.ptr += 1
-    def back(self, steps: int) -> str:
-        self.ptr = max(self.ptr - steps, 0)
-        return self.list[self.ptr]
-    def forward(self, steps: int) -> str:
-        self.ptr = min(self.ptr + steps, len(self.list) - 1)
-        return self.list[self.ptr]
+    def __str__(self):
+        return f'{self.arr}, ptr = {self.ptr}'
+    def addText(self, text: str) -> None:
+        self.arr[self.ptr:self.ptr] = list(text)
+        self.ptr += len(text)
+    def deleteText(self, k: int) -> int:
+        next_ptr = max(0, self.ptr - k)
+        cnt = self.ptr - next_ptr
+        del self.arr[next_ptr: self.ptr]
+        self.ptr = next_ptr
+        return cnt
+    def cursorLeft(self, k: int) -> str:
+        self.ptr = max(self.ptr - k, 0)
+        return ''.join(self.arr[max(0, self.ptr - 10): self.ptr])
+    def cursorRight(self, k: int) -> str:
+        self.ptr = min(self.ptr + k, len(self.arr))
+        return ''.join(self.arr[max(0, self.ptr - 10): self.ptr])

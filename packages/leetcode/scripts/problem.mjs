@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1472. 设计浏览器历史记录',
-    url: 'https://leetcode.cn/problems/design-browser-history',
+    name: '2296. 设计一个文本编辑器',
+    url: 'https://leetcode.cn/problems/design-a-text-editor',
     level: 'Easy',
     tagList: [],
-    desc: `请你实现 BrowserHistory 类。`,
+    desc: `请你实现 TextEditor 类`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 25,
-            memory: 19.75,
+            time: 1385,
+            memory: 36.03,
             desc: '模拟',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
