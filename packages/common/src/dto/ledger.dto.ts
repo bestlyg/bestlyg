@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { PageParam } from '@bestlyg/common';
-import { createZodDto } from '@bestlyg-server/common';
+import { createZodDto } from '@/zod';
+import { PageParam } from '@/page-param';
 
 export const SelectLedgerPageSchema = z
     .object({

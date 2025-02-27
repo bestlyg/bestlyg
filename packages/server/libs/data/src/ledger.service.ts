@@ -1,8 +1,7 @@
 import { PrismaService } from '@bestlyg-server/common';
 import { Injectable, Logger } from '@nestjs/common';
-import { SelectLedgerPageDto } from './ledger.dto';
 import { dayjs } from '@bestlyg/cli';
-import { PageParam, PageData } from '@bestlyg/common';
+import { PageParam, PageData, SelectLedgerPageDto } from '@bestlyg/common';
 import { Ledger } from '@bestlyg/common/prisma-client';
 
 @Injectable()

@@ -5,8 +5,7 @@ import {
     ArgumentMetadata,
     Logger,
 } from '@nestjs/common';
-import { ZodDto } from './zod-dto';
-import { zodSchemaSymbol } from './zod-schema-symbol';
+import { ZodDto, zodSchemaSymbol, zodErrorToMessage } from '@bestlyg/common';
 
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {
@@ -17,9 +16,7 @@ export class ZodValidationPipe implements PipeTransform {
         if (schema) {
             const parseResult = schema.safeParse(value);
             if (!parseResult.success) {
-                const message = parseResult.error.errors
-                    .map(error => `${error.path.join('.')} is ${error.message.toLowerCase()}`)
-                    .join(', ');
+                const message = zodErrorToMessage(parseResult.error);
                 throw new BadRequestException(`Validation failed: ${message}`);
             }
             return parseResult.data;

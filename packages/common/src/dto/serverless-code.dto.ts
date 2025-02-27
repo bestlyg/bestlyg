@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodDto } from '@bestlyg-server/common';
+import { createZodDto } from '@/zod';
 
 export const SelectServerlessCodeSchema = 
     z

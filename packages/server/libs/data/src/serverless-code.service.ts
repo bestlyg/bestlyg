@@ -1,11 +1,11 @@
 import { PrismaService } from '@bestlyg-server/common';
 import { Injectable, Logger } from '@nestjs/common';
 import {
-    CreateServerlessCodeDto,
-    DeleteServerlessCodeDto,
     SelectServerlessCodeDto,
+    CreateServerlessCodeDto,
     UpdateServerlessCodeDto,
-} from './serverless-code.dto';
+    DeleteServerlessCodeDto,
+} from '@bestlyg/common';
 
 @Injectable()
 export class ServerlessCodeService {
