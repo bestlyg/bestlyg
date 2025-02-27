@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessCodeService } from './serverless-code.service';
-import { ZodValidationPipe } from '@anatine/zod-nestjs';
+import { ZodValidationPipe } from '@bestlyg-server/common';
 import {
     SelectServerlessCodeDto,
     CreateServerlessCodeDto,

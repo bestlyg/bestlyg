@@ -4,24 +4,7 @@
         "/api/data/serverless-code": {
             "get": {
                 "operationId": "ServerlessCodeController_getServerlessCode",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "name",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "parameters": [],
                 "responses": {
                     "200": {
                         "description": ""
@@ -115,32 +98,7 @@
         "/api/data/ledger/page": {
             "get": {
                 "operationId": "LedgerController_getLedgerPage",
-                "parameters": [
-                    {
-                        "name": "date",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "current",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "pageSize",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
+                "parameters": [],
                 "responses": {
                     "201": {
                         "description": "The record has been successfully created.",
@@ -535,77 +493,19 @@
         "schemas": {
             "CreateServerlessCodeDto": {
                 "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "code": {
-                        "type": "string"
-                    },
-                    "serverlessId": {
-                        "default": "best",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "name",
-                    "code"
-                ],
-                "title": "创建ServerlessCode"
+                "properties": {}
             },
             "UpdateServerlessCodeDto": {
                 "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "code": {
-                        "type": "string"
-                    },
-                    "serverlessId": {
-                        "default": "best",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id"
-                ],
-                "title": "更新ServerlessCode"
+                "properties": {}
             },
             "DeleteServerlessCodeDto": {
                 "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    }
-                },
-                "title": "删除ServerlessCode"
+                "properties": {}
             },
             "SelectLedgerPageDto": {
                 "type": "object",
-                "properties": {
-                    "date": {
-                        "type": "string"
-                    },
-                    "current": {
-                        "type": "number"
-                    },
-                    "pageSize": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "current",
-                    "pageSize"
-                ],
-                "title": "分页账本",
-                "description": "获取用户分页账本"
+                "properties": {}
             }
         }
     }

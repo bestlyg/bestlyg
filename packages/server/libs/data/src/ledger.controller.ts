@@ -2,7 +2,7 @@ import { Controller, Get, Logger, Query, UseGuards, UsePipes } from '@nestjs/com
 import { LedgerService } from './ledger.service';
 import { ResponseEntity } from '@bestlyg/common';
 import { AuthGuard } from '@bestlyg-server/auth';
-import { ZodValidationPipe } from '@anatine/zod-nestjs';
+import { ZodValidationPipe } from '@bestlyg-server/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { SelectLedgerPageDto } from './ledger.dto';
 

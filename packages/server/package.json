@@ -23,8 +23,6 @@
         "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
-        "@anatine/zod-nestjs": "^2.0.10",
-        "@anatine/zod-openapi": "^2.2.7",
         "@bestlyg/cli": "workspace:^",
         "@bestlyg/client": "workspace:^",
         "@bestlyg/common": "workspace:^",
@@ -49,7 +47,6 @@
         "lodash": "catalog:",
         "marked": "^15.0.7",
         "nodemailer": "^6.10.0",
-        "openapi3-ts": "^4.4.0",
         "prisma": "catalog:",
         "reflect-metadata": "^0.2.2",
         "rxjs": "^7.8.2",

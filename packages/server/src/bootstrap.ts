@@ -1,4 +1,3 @@
-import './patch';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import fs from 'fs-extra';
 import { AppModule } from './app.module';
@@ -9,11 +8,12 @@ import { PrismaService, resolve } from '@bestlyg-server/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
 import * as idl from '@bestlyg/common/idl/server';
+import { Configuration } from '@bestlyg/common/server';
 import cookieParser from 'cookie-parser';
-import { patchNestjsSwagger } from '@anatine/zod-nestjs';
 
 export async function bootstrap() {
     const app = await NestFactory.create(AppModule, {});
+    const configService = app.get(ConfigService);
     app.use(compression());
     app.use(cookieParser());
     app.enableCors({
@@ -34,6 +34,7 @@ export async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
+    const mode = configService.getOrThrow<Configuration['mode']>('mode');
     const prismaService = app.get(PrismaService);
     await prismaService.enableShutdownHooks(app);
 
@@ -42,7 +43,6 @@ export async function bootstrap() {
         .setDescription('The best API description')
         .setVersion('1.0')
         .build();
-    patchNestjsSwagger(); // <--- This is the hacky patch using prototypes (for now)
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document, {
         jsonDocumentUrl: 'swagger/json',
@@ -52,7 +52,6 @@ export async function bootstrap() {
     });
     await fs.writeFile(resolve('openapi.json'), JSON.stringify(document, null, 4));
 
-    const configService = app.get(ConfigService);
-    const port = configService.get('server.port');
+    const port = configService.getOrThrow<number>('server.port');
     await app.listen(port);
 }

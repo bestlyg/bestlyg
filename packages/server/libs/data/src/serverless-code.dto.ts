@@ -1,29 +1,24 @@
 import { z } from 'zod';
-import { createZodDto } from '@anatine/zod-nestjs';
-import { extendApi } from '@anatine/zod-openapi';
+import { createZodDto } from '@bestlyg-server/common';
 
-export const SelectServerlessCodeSchema = extendApi(
+export const SelectServerlessCodeSchema = 
     z
         .object({
             id: z.string().nanoid().optional().readonly(),
             name: z.string().optional().readonly(),
         })
-        .readonly(),
-    { title: '获取ServerlessCode对象数据' },
-);
+        .readonly()
 
-export const CreateServerlessCodeSchema = extendApi(
+export const CreateServerlessCodeSchema =
     z
         .object({
             name: z.string().readonly(),
             code: z.string().readonly(),
             serverlessId: z.string().optional().default('best'),
         })
-        .readonly(),
-    { title: '创建ServerlessCode' },
-);
+        .readonly()
 
-export const UpdateServerlessCodeSchema = extendApi(
+export const UpdateServerlessCodeSchema = 
     z
         .object({
             id: z.string().nanoid(),
@@ -31,21 +26,14 @@ export const UpdateServerlessCodeSchema = extendApi(
             code: z.string().optional().readonly(),
             serverlessId: z.string().default('best').optional(),
         })
-        .readonly(),
-    { title: '更新ServerlessCode' },
-);
-
-export const DeleteServerlessCodeSchema = extendApi(
+        .readonly()
+export const DeleteServerlessCodeSchema = 
     z
         .object({
             id: z.string().nanoid().optional().readonly(),
             name: z.string().optional().readonly(),
         })
-        .readonly(),
-    {
-        title: '删除ServerlessCode',
-    },
-);
+        .readonly()
 
 export class SelectServerlessCodeDto extends createZodDto(SelectServerlessCodeSchema) {}
 export class CreateServerlessCodeDto extends createZodDto(CreateServerlessCodeSchema) {}
