@@ -1,21 +1,20 @@
-class TextEditor:
-    def __init__(self):
-        self.arr = []
-        self.ptr = 0
-    def __str__(self):
-        return f'{self.arr}, ptr = {self.ptr}'
-    def addText(self, text: str) -> None:
-        self.arr[self.ptr:self.ptr] = list(text)
-        self.ptr += len(text)
-    def deleteText(self, k: int) -> int:
-        next_ptr = max(0, self.ptr - k)
-        cnt = self.ptr - next_ptr
-        del self.arr[next_ptr: self.ptr]
-        self.ptr = next_ptr
-        return cnt
-    def cursorLeft(self, k: int) -> str:
-        self.ptr = max(self.ptr - k, 0)
-        return ''.join(self.arr[max(0, self.ptr - 10): self.ptr])
-    def cursorRight(self, k: int) -> str:
-        self.ptr = min(self.ptr + k, len(self.arr))
-        return ''.join(self.arr[max(0, self.ptr - 10): self.ptr])
+class FoodRatings:
+    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
+        self.map = defaultdict(SortedDict)
+        self.foods = dict()
+        for i in range(len(foods)):
+            food = foods[i]
+            cuishne = cuisines[i]
+            rating = ratings[i]
+            self.foods[food] = (cuishne, rating)
+            if not rating in self.map[cuishne]: self.map[cuishne][rating] = SortedList()
+            self.map[cuishne][rating].add(food)
+    def changeRating(self, food: str, newRating: int) -> None:
+        cuishne, rating = self.foods[food]
+        self.foods[food] = (cuishne, newRating)
+        self.map[cuishne][rating].remove(food)
+        if not self.map[cuishne][rating]: del self.map[cuishne][rating]
+        if not newRating in self.map[cuishne]: self.map[cuishne][newRating] = SortedList()
+        self.map[cuishne][newRating].add(food)
+    def highestRated(self, cuishne: str) -> str:
+        return self.map[cuishne].peekitem()[1][0]

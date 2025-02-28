@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2296. 设计一个文本编辑器',
-    url: 'https://leetcode.cn/problems/design-a-text-editor',
+    name: '2353. 设计食物评分系统',
+    url: 'https://leetcode.cn/problems/design-a-food-rating-system',
     level: 'Easy',
     tagList: [],
-    desc: `请你实现 TextEditor 类`,
+    desc: `实现 FoodRatings 类`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 1385,
-            memory: 36.03,
+            time: 745,
+            memory: 64.96,
             desc: '模拟',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
