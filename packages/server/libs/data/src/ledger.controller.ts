@@ -18,6 +18,7 @@ export class LedgerController {
         type: SelectLedgerPageDto,
     })
     async getLedgerPage(@Query() dto: SelectLedgerPageDto) {
+        console.log('==ledger page', dto.clone().getCstr().isZodDto);
         const data = await this.ledgerService.getLedgerPage(dto);
         return ResponseEntity.ofSuccess(data);
     }

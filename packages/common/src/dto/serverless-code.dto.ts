@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodDto } from '@/zod';
+import { createZodModel } from '@/zod';
 
 export const SelectServerlessCodeSchema = 
     z
@@ -35,7 +35,7 @@ export const DeleteServerlessCodeSchema =
         })
         .readonly()
 
-export class SelectServerlessCodeDto extends createZodDto(SelectServerlessCodeSchema) {}
-export class CreateServerlessCodeDto extends createZodDto(CreateServerlessCodeSchema) {}
-export class UpdateServerlessCodeDto extends createZodDto(UpdateServerlessCodeSchema) {}
-export class DeleteServerlessCodeDto extends createZodDto(DeleteServerlessCodeSchema) {}
+export class SelectServerlessCodeDto extends createZodModel(SelectServerlessCodeSchema) {}
+export class CreateServerlessCodeDto extends createZodModel(CreateServerlessCodeSchema) {}
+export class UpdateServerlessCodeDto extends createZodModel(UpdateServerlessCodeSchema) {}
+export class DeleteServerlessCodeDto extends createZodModel(DeleteServerlessCodeSchema) {}
