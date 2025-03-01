@@ -1,4 +1,5 @@
-import { z, ZodError, ZodType } from 'zod';
+import { z, ZodError, ZodObject, ZodRawShape } from 'zod';
+import { get, PropertyPath, set } from 'lodash-es';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
@@ -8,29 +9,44 @@ export function zodErrorToMessage(error: ZodError<any>) {
         .join(', ');
 }
 
-export type InstanceOfZodModel<T extends ZodType = ZodType> = z.infer<T> & BaseZodModel<T>;
+export type InstanceOfZodModel<T extends ZodObject<any> = ZodObject<any>> = z.infer<T> &
+    BaseZodModel<T>;
 
-export interface ZodModelConstructor<T extends ZodType = ZodType> {
-    new (obj?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
+export interface ZodModelConstructor<T extends ZodObject<any> = ZodObject<any>> {
+    new (raw?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
     [zodSchemaSymbol]: T;
-    from(obj?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
+    from(raw?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
     isZodModel: true;
 }
 
 export interface ZodModelConfig {}
 
-export abstract class BaseZodModel<T extends ZodType = ZodType> {
+export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
     static isZodModel: true = true;
     protected _parsedResult: ReturnType<T['safeParse']>;
     constructor(
         protected _cstr: ZodModelConstructor<T>,
         protected _schema: T,
-        protected _obj: unknown = {},
+        protected _raw: unknown = {},
         protected _config: ZodModelConfig = {},
     ) {
-        this._parsedResult = this._schema.safeParse(_obj) as ReturnType<T['safeParse']>;
+        this._parsedResult = this._schema.safeParse(_raw) as ReturnType<T['safeParse']>;
         if (this._parsedResult.success) {
             Object.assign(this, this._parsedResult.data);
+            Object.defineProperties(
+                this,
+                Object.keys(this._parsedResult.data).reduce(
+                    (o, key) => {
+                        o[key] = {
+                            get: () => this.getData()[key],
+                            configurable: false,
+                            enumerable: true,
+                        };
+                        return o;
+                    },
+                    {} as Parameters<typeof Object.defineProperties>[1],
+                ),
+            );
         }
     }
     assertSuccess() {
@@ -46,8 +62,19 @@ export abstract class BaseZodModel<T extends ZodType = ZodType> {
     getParsedResult() {
         return this._parsedResult;
     }
-    getData(): InstanceOfZodModel<T> {
-        return this.assertSuccess().getParsedResult().data;
+    getData() {
+        return this.assertSuccess().getParsedResult().data as InstanceOfZodModel<T>;
+    }
+    set(path: PropertyPath, value: any) {
+        const schema = get(this.getSchema().shape, path);
+        console.log(schema);
+        set(this.getData(), path, schema.parse(value));
+        return this;
+    }
+    safeSet(path: PropertyPath, value: any) {
+        const schema = get(this.getSchema().shape, path);
+        set(this.getData(), path, schema.safeParse(value));
+        return this;
     }
     getCstr() {
         return this._cstr;
@@ -55,22 +82,24 @@ export abstract class BaseZodModel<T extends ZodType = ZodType> {
     getConfig() {
         return this._config;
     }
-    getObj() {
-        return this._obj;
+    getRaw() {
+        return this._raw;
     }
     getSchema() {
         return this._schema;
     }
 }
 
-export function createZodModel<T extends ZodType = ZodType>(schema: T): ZodModelConstructor<T> {
+export function createZodModel<T extends ZodObject<any> = ZodObject<any>>(
+    schema: T,
+): ZodModelConstructor<T> {
     class ZodModel extends BaseZodModel<T> {
         static [zodSchemaSymbol] = schema;
-        static from(obj?: unknown) {
-            return new ZodModel(obj);
+        static from(raw?: unknown) {
+            return new ZodModel(raw);
         }
-        constructor(obj?: unknown) {
-            super(ZodModel, schema, obj);
+        constructor(raw?: unknown) {
+            super(ZodModel, schema, raw);
         }
     }
     return ZodModel;
