@@ -1,20 +1,18 @@
-class FoodRatings:
-    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
-        self.map = defaultdict(SortedDict)
-        self.foods = dict()
-        for i in range(len(foods)):
-            food = foods[i]
-            cuishne = cuisines[i]
-            rating = ratings[i]
-            self.foods[food] = (cuishne, rating)
-            if not rating in self.map[cuishne]: self.map[cuishne][rating] = SortedList()
-            self.map[cuishne][rating].add(food)
-    def changeRating(self, food: str, newRating: int) -> None:
-        cuishne, rating = self.foods[food]
-        self.foods[food] = (cuishne, newRating)
-        self.map[cuishne][rating].remove(food)
-        if not self.map[cuishne][rating]: del self.map[cuishne][rating]
-        if not newRating in self.map[cuishne]: self.map[cuishne][newRating] = SortedList()
-        self.map[cuishne][newRating].add(food)
-    def highestRated(self, cuishne: str) -> str:
-        return self.map[cuishne].peekitem()[1][0]
+def is_palindrome(s: str) -> bool:
+    for i in range(len(s) // 2):
+        if s[i] != s[len(s) - i - 1]:
+            return False
+    return True
+class Solution:
+    @cache
+    def partition(self, s: str) -> List[List[str]]:
+        if not s: return []
+        if len(s) == 1: return [[s]]
+        res = []
+        if is_palindrome(s): res.append([s])
+        for i in range(1, len(s)):
+            subs = s[:i]
+            if is_palindrome(subs):
+                for item in self.partition(s[i:]):
+                    res.append([subs] + item)
+        return res

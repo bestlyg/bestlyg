@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2353. 设计食物评分系统',
-    url: 'https://leetcode.cn/problems/design-a-food-rating-system',
+    exist: true,
+    name: '131. 分割回文串',
+    url: 'https://leetcode.cn/problems/palindrome-partitioning',
     level: 'Easy',
     tagList: [],
-    desc: `实现 FoodRatings 类`,
+    desc: `给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 745,
-            memory: 64.96,
-            desc: '模拟',
+            time: 28,
+            memory: 39.18,
+            desc: 'dfs判断每一个子串',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
