@@ -13,9 +13,9 @@ export type InstanceOfZodModel<T extends ZodObject<any> = ZodObject<any>> = z.in
     BaseZodModel<T>;
 
 export interface ZodModelConstructor<T extends ZodObject<any> = ZodObject<any>> {
-    new (raw?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
+    new (raw?: z.infer<T>, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
     [zodSchemaSymbol]: T;
-    from(raw?: unknown, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
+    from(raw?: z.infer<T>, modelConfig?: ZodModelConfig): InstanceOfZodModel<T>;
     isZodModel: true;
 }
 
@@ -27,7 +27,7 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
     constructor(
         protected _cstr: ZodModelConstructor<T>,
         protected _schema: T,
-        protected _raw: unknown = {},
+        protected _raw: z.infer<T> = {},
         protected _config: ZodModelConfig = {},
     ) {
         this._parsedResult = this._schema.safeParse(_raw) as ReturnType<T['safeParse']>;
@@ -91,7 +91,7 @@ export function createZodModel<T extends ZodObject<any> = ZodObject<any>>(
         static from(...args: ConstructorParameters<typeof ZodModel>) {
             return new ZodModel(...args);
         }
-        constructor(raw?: unknown, modelConfig?: ZodModelConfig) {
+        constructor(raw?: z.infer<T>, modelConfig?: ZodModelConfig) {
             super(ZodModel, schema, raw, modelConfig);
         }
     }
