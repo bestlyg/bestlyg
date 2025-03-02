@@ -110,6 +110,7 @@
         "dayjs": "catalog:",
         "figlet": "^1.8.0",
         "fs-extra": "catalog:",
+        "immer": "^10.1.1",
         "lodash-es": "catalog:",
         "metadata-file": "workspace:^",
         "module-checker": "workspace:^",

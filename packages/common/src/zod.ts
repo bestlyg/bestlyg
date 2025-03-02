@@ -1,5 +1,5 @@
 import { z, ZodError, ZodObject, ZodRawShape } from 'zod';
-import { get, PropertyPath, set } from 'lodash-es';
+import { Draft, produce } from 'immer';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
@@ -56,6 +56,10 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
     clone(): InstanceOfZodModel<T> {
         return new this._cstr(this.getData());
     }
+    cloneWith(recipe: (draft: z.infer<T>) => void): InstanceOfZodModel<T> {
+        const newData = produce(this.getData(), recipe);
+        return new this._cstr(newData);
+    }
     toJSON() {
         return JSON.stringify(this.getData());
     }
@@ -64,17 +68,6 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
     }
     getData() {
         return this.assertSuccess().getParsedResult().data as InstanceOfZodModel<T>;
-    }
-    set(path: PropertyPath, value: any) {
-        const schema = get(this.getSchema().shape, path);
-        console.log(schema);
-        set(this.getData(), path, schema.parse(value));
-        return this;
-    }
-    safeSet(path: PropertyPath, value: any) {
-        const schema = get(this.getSchema().shape, path);
-        set(this.getData(), path, schema.safeParse(value));
-        return this;
     }
     getCstr() {
         return this._cstr;
