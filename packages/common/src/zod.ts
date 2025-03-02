@@ -1,5 +1,5 @@
 import { z, ZodError, ZodObject, ZodRawShape } from 'zod';
-import { Draft, produce } from 'immer';
+import { produce } from 'immer';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
@@ -54,11 +54,11 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
         return this;
     }
     clone(): InstanceOfZodModel<T> {
-        return new this._cstr(this.getData());
+        return this._cstr.from(this.getData());
     }
     cloneWith(recipe: (draft: z.infer<T>) => void): InstanceOfZodModel<T> {
         const newData = produce(this.getData(), recipe);
-        return new this._cstr(newData);
+        return this._cstr.from(newData);
     }
     toJSON() {
         return JSON.stringify(this.getData());
@@ -88,11 +88,11 @@ export function createZodModel<T extends ZodObject<any> = ZodObject<any>>(
 ): ZodModelConstructor<T> {
     class ZodModel extends BaseZodModel<T> {
         static [zodSchemaSymbol] = schema;
-        static from(raw?: unknown) {
-            return new ZodModel(raw);
+        static from(...args: ConstructorParameters<typeof ZodModel>) {
+            return new ZodModel(...args);
         }
-        constructor(raw?: unknown) {
-            super(ZodModel, schema, raw);
+        constructor(raw?: unknown, modelConfig?: ZodModelConfig) {
+            super(ZodModel, schema, raw, modelConfig);
         }
     }
     return ZodModel;
