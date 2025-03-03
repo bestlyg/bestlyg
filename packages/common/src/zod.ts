@@ -1,5 +1,6 @@
 import { z, ZodError, ZodObject, ZodRawShape } from 'zod';
 import { produce } from 'immer';
+import { fromError } from 'zod-validation-error';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
@@ -50,7 +51,11 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
         }
     }
     assertSuccess() {
-        if (!this._parsedResult.success) throw Error(zodErrorToMessage(this._parsedResult.error));
+        if (!this._parsedResult.success) throw Error('Zod assert success fail.', { cause: this });
+        return this;
+    }
+    assertFailure() {
+        if (this._parsedResult.success) throw Error('Zod assert failure fail.', { cause: this });
         return this;
     }
     clone(): InstanceOfZodModel<T> {
@@ -68,6 +73,9 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
     }
     getData() {
         return this.assertSuccess().getParsedResult().data as InstanceOfZodModel<T>;
+    }
+    getErrorMessage() {
+        return fromError(this.assertFailure().getParsedResult().error!).toString();
     }
     getCstr() {
         return this._cstr;

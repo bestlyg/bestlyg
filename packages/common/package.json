@@ -115,6 +115,7 @@
         "metadata-file": "workspace:^",
         "module-checker": "workspace:^",
         "tapable": "catalog:",
-        "zod": "catalog:"
+        "zod": "catalog:",
+        "zod-validation-error": "^3.4.0"
     }
 }
