@@ -1,14 +1,8 @@
-import { z, ZodError, ZodObject, ZodRawShape } from 'zod';
+import { z, ZodObject } from 'zod';
 import { produce } from 'immer';
 import { fromError } from 'zod-validation-error';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
-
-export function zodErrorToMessage(error: ZodError<any>) {
-    return error.errors
-        .map(error => `${error.path.join('.')} is ${error.message.toLowerCase()}`)
-        .join(', ');
-}
 
 export type InstanceOfZodModel<T extends ZodObject<any> = ZodObject<any>> = z.infer<T> &
     BaseZodModel<T>;
