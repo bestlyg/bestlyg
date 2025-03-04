@@ -1,17 +1,15 @@
 class Solution:
-    def minCut(self, s: str) -> int:
+    def checkPartitioning(self, s: str) -> bool:
         n = len(s)
+        g = [[True] * n for _ in range(n)]
+        for i in range(n - 1, -1, -1):
+            for j in range(i + 1, n):
+                g[i][j] = (s[i] == s[j]) and g[i + 1][j - 1]
         @cache
-        def is_palindrome(start: int, end: int) -> bool:
-            if end - start <= 1: return True
-            if s[start] == s[end - 1]: return is_palindrome(start + 1, end - 1)
+        def dfs(start: int, prev: int, k: int) -> bool:
+            if start == n: return False
+            if k == 0: return g[start][n - 1]
+            if dfs(start + 1, prev, k): return True
+            if g[prev][start] and dfs(start + 1, start + 1, k - 1): return True
             return False
-        @cache
-        def dfs(start: int) -> int:
-            if is_palindrome(start, n): return 0
-            return min(
-                dfs(mid) + 1
-                for mid in range(start + 1, n)
-                if is_palindrome(start, mid)
-            )
-        return dfs(0)
+        return dfs(0, 0, 2)

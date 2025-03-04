@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '132. 分割回文串 II',
-    url: 'https://leetcode.cn/problems/palindrome-partitioning-ii',
+    exist: !true,
+    name: '1745. 分割回文串 IV',
+    url: 'https://leetcode.cn/problems/palindrome-partitioning-iv',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。`,
+    desc: `给你一个字符串 s ，如果可以将它分割成三个 非空 回文子字符串，那么返回 true ，否则返回 false 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 4179,
-            memory: 322.74,
-            desc: 'dfs判断每一个子串',
+            time: 4928,
+            memory: 324.87,
+            desc: 'dfs判断每一个位置是否需要切割',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
