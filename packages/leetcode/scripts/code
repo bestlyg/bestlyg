@@ -1,15 +1,13 @@
 class Solution:
-    def checkPartitioning(self, s: str) -> bool:
-        n = len(s)
-        g = [[True] * n for _ in range(n)]
-        for i in range(n - 1, -1, -1):
-            for j in range(i + 1, n):
-                g[i][j] = (s[i] == s[j]) and g[i + 1][j - 1]
-        @cache
-        def dfs(start: int, prev: int, k: int) -> bool:
-            if start == n: return False
-            if k == 0: return g[start][n - 1]
-            if dfs(start + 1, prev, k): return True
-            if g[prev][start] and dfs(start + 1, start + 1, k - 1): return True
-            return False
-        return dfs(0, 0, 2)
+    def breakPalindrome(self, palindrome: str) -> str:
+        n = len(palindrome)
+        if n == 1: return ''
+        parr = list(palindrome)
+        if parr[: n // 2].count('a') != n // 2:
+            for i in range(n // 2):
+                if parr[i] != 'a':
+                    parr[i] = 'a'
+                    break
+        else:
+            parr[-1] = 'b'
+        return ''.join(parr)
