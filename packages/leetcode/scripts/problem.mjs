@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1328. 破坏回文串',
-    url: 'https://leetcode.cn/problems/break-a-palindrome',
+    exist: true,
+    name: '2588. 统计美丽子数组数目',
+    url: 'https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个由小写英文字母组成的回文字符串 palindrome ，请你将其中 一个 字符用任意小写英文字母替换，使得结果字符串的 字典序最小 ，且 不是 回文串。请你返回结果字符串。如果无法做到，则返回一个 空串 。`,
+    desc: `请你返回数组 nums 中 美丽子数组 的数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 0,
-            memory: 17.57,
-            desc: '贪心是不是都是a，不是a就找第一个非a换成a，否则最后一个字符换成b',
+            time: 215,
+            memory: 38.32,
+            desc: '记录前缀和，用异或判断是否符合条件，即子数组异或为0',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

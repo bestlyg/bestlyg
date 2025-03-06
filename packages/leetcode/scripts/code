@@ -1,13 +1,10 @@
 class Solution:
-    def breakPalindrome(self, palindrome: str) -> str:
-        n = len(palindrome)
-        if n == 1: return ''
-        parr = list(palindrome)
-        if parr[: n // 2].count('a') != n // 2:
-            for i in range(n // 2):
-                if parr[i] != 'a':
-                    parr[i] = 'a'
-                    break
-        else:
-            parr[-1] = 'b'
-        return ''.join(parr)
+    def beautifulSubarrays(self, nums: List[int]) -> int:
+        counter = Counter()
+        counter[0] += 1
+        cur = res = 0
+        for num in nums:
+            cur ^= num
+            res += counter[cur]
+            counter[cur] += 1
+        return res
