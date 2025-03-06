@@ -1,6 +1,6 @@
+import { fromError } from 'zod-validation-error';
 import { z, ZodObject } from 'zod';
 import { produce } from 'immer';
-import { fromError } from 'zod-validation-error';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
@@ -17,20 +17,28 @@ export interface ZodModelConstructor<T extends ZodObject<any> = ZodObject<any>> 
 export interface ZodModelConfig {}
 
 export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
-    static isZodModel: true = true;
-    protected _parsedResult: ReturnType<T['safeParse']>;
+    static isZodModel = true as const;
+    #parsedResult: ReturnType<T['safeParse']>;
+    #cstr: ZodModelConstructor<T>;
+    #schema: T;
+    #raw: z.infer<T> = {};
+    #config: ZodModelConfig = {};
     constructor(
-        protected _cstr: ZodModelConstructor<T>,
-        protected _schema: T,
-        protected _raw: z.infer<T> = {},
-        protected _config: ZodModelConfig = {},
+        cstr: ZodModelConstructor<T>,
+        schema: T,
+        raw: z.infer<T> = {},
+        config: ZodModelConfig = {},
     ) {
-        this._parsedResult = this._schema.safeParse(_raw) as ReturnType<T['safeParse']>;
-        if (this._parsedResult.success) {
-            Object.assign(this, this._parsedResult.data);
+        this.#cstr = cstr;
+        this.#schema = schema;
+        this.#raw = raw;
+        this.#config = config;
+        this.#parsedResult = this.#schema.safeParse(this.#raw) as ReturnType<T['safeParse']>;
+        if (this.#parsedResult.success) {
+            Object.assign(this, this.#parsedResult.data);
             Object.defineProperties(
                 this,
-                Object.keys(this._parsedResult.data).reduce(
+                Object.keys(this.#parsedResult.data).reduce(
                     (o, key) => {
                         o[key] = {
                             get: () => this.getData()[key],
@@ -45,25 +53,25 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
         }
     }
     assertSuccess() {
-        if (!this._parsedResult.success) throw Error('Zod assert success fail.', { cause: this });
+        if (!this.#parsedResult.success) throw Error('Zod assert success fail.', { cause: this });
         return this;
     }
     assertFailure() {
-        if (this._parsedResult.success) throw Error('Zod assert failure fail.', { cause: this });
+        if (this.#parsedResult.success) throw Error('Zod assert failure fail.', { cause: this });
         return this;
     }
     clone(): InstanceOfZodModel<T> {
-        return this._cstr.from(this.getData());
+        return this.#cstr.from(this.getData());
     }
     cloneWith(recipe: (draft: z.infer<T>) => void): InstanceOfZodModel<T> {
         const newData = produce(this.getData(), recipe);
-        return this._cstr.from(newData);
+        return this.#cstr.from(newData);
     }
     toJSON() {
         return JSON.stringify(this.getData());
     }
     getParsedResult() {
-        return this._parsedResult;
+        return this.#parsedResult;
     }
     getData() {
         return this.assertSuccess().getParsedResult().data as InstanceOfZodModel<T>;
@@ -72,16 +80,16 @@ export abstract class BaseZodModel<T extends ZodObject<any> = ZodObject<any>> {
         return fromError(this.assertFailure().getParsedResult().error!).toString();
     }
     getCstr() {
-        return this._cstr;
+        return this.#cstr;
     }
     getConfig() {
-        return this._config;
+        return this.#config;
     }
     getRaw() {
-        return this._raw;
+        return this.#raw;
     }
     getSchema() {
-        return this._schema;
+        return this.#schema;
     }
 }
 
