@@ -10,8 +10,8 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '2588. 统计美丽子数组数目',
-    url: 'https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays',
+    name: '2597. 美丽子集的数目',
+    url: 'https://leetcode.cn/problems/the-number-of-beautiful-subsets',
     level: 'Easy',
     tagList: [],
     desc: `请你返回数组 nums 中 美丽子数组 的数目。`,
@@ -19,9 +19,9 @@ export const problem = {
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 215,
-            memory: 38.32,
-            desc: '记录前缀和，用异或判断是否符合条件，即子数组异或为0',
+            time: 2275,
+            memory: 17.66,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
