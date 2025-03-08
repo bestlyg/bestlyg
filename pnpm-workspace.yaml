@@ -3,12 +3,12 @@ strictPeerDependencies: false
 resolvePeersFromWorkspaceRoot: true
 dedupePeerDependents: true
 sharedWorkspaceLockfile: false
-registry: https://registry.npmmirror.com
+registry: 'https://registry.npmmirror.com'
 useNodeVersion: 20.18.3
 nodeMirror:
-    - release: https://npmmirror.com/mirrors/node/
-    - rc: https://npmmirror.com/mirrors/node-rc/
-    - nightly: https://npmmirror.com/mirrors/node-nightly/
+    - release: 'https://npmmirror.com/mirrors/node/'
+    - rc: 'https://npmmirror.com/mirrors/node-rc/'
+    - nightly: 'https://npmmirror.com/mirrors/node-nightly/'
 
 packages:
     # all packages in direct subdirs of packages/
