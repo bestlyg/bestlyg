@@ -19,7 +19,7 @@ const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFil
 const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
-// backup
+backup
 await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
@@ -34,21 +34,21 @@ const serverName = `bestlyg-server`;
 
 const commands = [
     `cd ${config.ssh.projectPath}`,
-    `sudo PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
-    `sudo pm2 del ${serverName}`,
-    `sudo git reset --hard`,
-    `sudo git clean -fd`,
-    `sudo git pull`,
-    'sudo pnpm i',
-    `sudo pnpm --filter @xidl/core run build`,
-    `sudo pnpm --filter @xidl/typescript-core run build`,
-    `sudo pnpm --filter @xidl/typescript-client run build`,
-    `sudo pnpm --filter @xidl/typescript-server run build`,
-    `sudo pnpm --filter @bestlyg/common run build`,
-    `sudo pnpm --filter @bestlyg/cli run build`,
-    `sudo pnpm --filter @bestlyg/leetcode run build`,
-    `sudo pnpm --filter @bestlyg/server run build`,
-    `sudo pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
+    `PGPASSWORD=root psql -d best_data -U root -h localhost -p 5432 < ${sqlDistPath}`,
+    `pm2 del ${serverName}`,
+    `git reset --hard`,
+    `git clean -fd`,
+    `git pull`,
+    // 'pnpm i --frozen-lockfile',
+    `pnpm --filter @xidl/core run build`,
+    `pnpm --filter @xidl/typescript-core run build`,
+    `pnpm --filter @xidl/typescript-client run build`,
+    `pnpm --filter @xidl/typescript-server run build`,
+    `pnpm --filter @bestlyg/common run build`,
+    `pnpm --filter @bestlyg/cli run build`,
+    `pnpm --filter @bestlyg/leetcode run build`,
+    `pnpm --filter @bestlyg/server run build`,
+    `pm2 start ${config.ssh.projectPath}/packages/server/ecosystem.config.cjs`,
 ];
 console.log('===[SERVER COMMAND]===', commands.join('\n'));
 execSync(`ssh -T ${config.ssh.username}@${config.ssh.ip} "${commands.join('; ')}"`, {
