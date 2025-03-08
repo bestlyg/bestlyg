@@ -6,74 +6,97 @@ sharedWorkspaceLockfile: false
 registry: https://registry.npmmirror.com
 useNodeVersion: 20.18.3
 nodeMirror:
-  - release: https://npmmirror.com/mirrors/node/
-  - rc: https://npmmirror.com/mirrors/node-rc/
-  - nightly: https://npmmirror.com/mirrors/node-nightly/
+    - release: https://npmmirror.com/mirrors/node/
+    - rc: https://npmmirror.com/mirrors/node-rc/
+    - nightly: https://npmmirror.com/mirrors/node-nightly/
+
 packages:
-  - packages/**
-  - '!**/node_modules/**'
-  - '!**/public/**'
-  - web3/*
+    # all packages in direct subdirs of packages/
+    - 'packages/**'
+    # - 'submodules/**'
+    # all packages in subdirs of components/
+    # - 'training/**'
+    # exclude packages that are inside test directories
+    - '!**/node_modules/**'
+    - '!**/public/**'
+    - 'web3/*'
+
 catalog:
-  '@types/node': ^20.17.10
-  unbuild: ^3.3.1
-  ahooks: ^3.8.4
-  antd: ^5.22.7
-  '@ant-design/icons': ^5.5.1
-  '@ant-design/v5-patch-for-react-19': latest
-  '@ant-design/icons-svg': ^4.4.2
-  '@mdx-js/react': ^3.0.1
-  '@mdx-js/mdx': ^3.1.0
-  marked: ^13.0.0
-  marked-directive: ^1.0.5
-  '@types/fs-extra': ^11.0.4
-  fs-extra: ^11.2.0
-  '@emotion/hash': ^0.9.1
-  '@types/doctrine': ^0.0.9
-  axios: ^1.7.9
-  change-case: ^5.4.4
-  clsx: ^2.1.1
-  chalk: ^5.3.0
-  dayjs: ^1.11.13
-  cross-env: ^7.0.3
-  dotenv: ^16.4.5
-  zx: ^8.3.0
-  typescript: ^5.7.3
-  rimraf: ^6.0.1
-  commander: ^11.1.0
-  '@types/echarts': ^4.9.22
-  echarts: ^5.6.0
-  react: ^19.0.0
-  react-dom: ^19.0.0
-  '@types/react': ^19.0.0
-  '@types/react-dom': ^19.0.0
-  react-router-dom: ^7.3.0
-  '@types/less': ^3.0.7
-  less: ^4.2.0
-  '@types/ramda': ^0.30.2
-  ramda: ^0.30.0
-  vite: ^6.0.7
-  '@vitejs/plugin-react': ^4.3.4
-  zod: ^3.24.2
-  prisma: ^6.2.1
-  '@prisma/client': ^6.2.1
-  jotai: ^2.11.0
-  '@types/tapable': ^2.2.7
-  tapable: ^2.2.1
-  '@types/lodash': ^4.17.13
-  '@types/lodash-es': ^4.17.12
-  lodash: ^4.17.21
-  lodash-es: ^4.17.21
-  '@types/semver': ^7.5.8
-  semver: ^7.6.0
-  '@types/express': ^5.0.0
+    '@types/node': ^20.17.10
+    unbuild: ^3.3.1
+    # ant
+    ahooks: ^3.8.4
+    antd: ^5.22.7
+    '@ant-design/icons': ^5.5.1
+    '@ant-design/v5-patch-for-react-19': latest
+    '@ant-design/icons-svg': ^4.4.2
+    # markdown
+    '@mdx-js/react': ^3.0.1
+    '@mdx-js/mdx': ^3.1.0
+    marked: ^13.0.0
+    marked-directive: ^1.0.5
+
+    '@types/fs-extra': ^11.0.4
+    fs-extra: ^11.2.0
+
+    '@emotion/hash': ^0.9.1
+    '@types/doctrine': ^0.0.9
+    axios: ^1.7.9
+    change-case: ^5.4.4
+    clsx: ^2.1.1
+    chalk: ^5.3.0
+    dayjs: ^1.11.13
+    cross-env: ^7.0.3
+    dotenv: ^16.4.5
+    zx: ^8.3.0
+    typescript: ^5.7.3
+    rimraf: ^6.0.1
+    commander: ^11.1.0
+
+    '@types/echarts': ^4.9.22
+    echarts: ^5.6.0
+
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    '@types/react': ^19.0.0
+    '@types/react-dom': ^19.0.0
+
+    '@types/less': ^3.0.7
+    less: ^4.2.0
+
+    '@types/ramda': ^0.30.2
+    ramda: ^0.30.0
+
+    vite: ^6.0.7
+    '@vitejs/plugin-react': ^4.3.4
+
+    zod: ^3.24.2
+
+    prisma: ^6.2.1
+    '@prisma/client': ^6.2.1
+
+    jotai: ^2.11.0
+
+    '@types/tapable': ^2.2.7
+    tapable: ^2.2.1
+
+    '@types/lodash': ^4.17.13
+    '@types/lodash-es': ^4.17.12
+    lodash: ^4.17.21
+    lodash-es: ^4.17.21
+
+    '@types/semver': ^7.5.8
+    semver: ^7.6.0
+
+    '@types/express': ^5.0.0
+
 onlyBuiltDependencies:
-  - '@nestjs/core'
-  - '@prisma/client'
-  - '@prisma/engines'
-  - '@scarf/scarf'
-  - core-js
-  - esbuild
-  - nx
-  - prisma
-  - protobufjs
+    - '@nestjs/core'
+    - '@prisma/client'
+    - '@prisma/engines'
+    - '@scarf/scarf'
+    - core-js
+    - esbuild
+    - nx
+    - prisma
+    - protobufjs
