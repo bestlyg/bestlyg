@@ -54,6 +54,16 @@
                 "default": "./dist/server/index.cjs"
             }
         },
+        "./client": {
+            "import": {
+                "types": "./dist/client/index.d.mts",
+                "default": "./dist/client/index.mjs"
+            },
+            "require": {
+                "types": "./dist/client/index.d.cts",
+                "default": "./dist/client/index.cjs"
+            }
+        },
         "./prisma-client": {
             "types": "./dist/prisma-client/index.d.ts",
             "import": "./dist/prisma-client/index.js",
@@ -100,7 +110,14 @@
         "prisma": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:",
-        "unbuild": "catalog:"
+        "unbuild": "catalog:",
+        "react": "catalog:",
+        "@types/react": "catalog:",
+        "react-router-dom": "catalog:"
+    },
+    "peerDependencies": {
+        "react": "catalog:",
+        "react-router-dom": "catalog:"
     },
     "dependencies": {
         "@prisma/client": "catalog:",
