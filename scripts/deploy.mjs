@@ -19,7 +19,7 @@ const envDistPath = resolve(config.ssh.projectPath, 'packages', 'common', envFil
 const sqlDistPath = `/root/${dbName}.sql`;
 const dumpPath = resolve('dist', dbName + '.sql');
 
-backup
+// backup
 await run(`cp -rf ${resolve(homePath, '.zshrc')} ${resolve('packages', 'static', '.zshrc')}`);
 // db
 await run(`PGPASSWORD=root pg_dump -h localhost -p 5432 -U root -f ${dumpPath} ${dbName} -c`);
