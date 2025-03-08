@@ -39,7 +39,7 @@ const commands = [
     `sudo git reset --hard`,
     `sudo git clean -fd`,
     `sudo git pull`,
-    'sudo pnpm i --frozen-lockfile',
+    'sudo pnpm i',
     `sudo pnpm --filter @xidl/core run build`,
     `sudo pnpm --filter @xidl/typescript-core run build`,
     `sudo pnpm --filter @xidl/typescript-client run build`,
