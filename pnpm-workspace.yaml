@@ -74,5 +74,6 @@ onlyBuiltDependencies:
   - '@scarf/scarf'
   - core-js
   - esbuild
+  - nx
   - prisma
   - protobufjs
