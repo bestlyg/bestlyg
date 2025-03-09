@@ -1,20 +1,13 @@
 class Solution:
-    def beautifulSubsets(self, nums: List[int], k: int) -> int:
-        counter = Counter()
-        cnt = 0
-        res = 0
-        n = len(nums)
-        def dfs(idx: int) -> int:
-            nonlocal res, cnt
-            if idx == n:
-                res += 1
-                return
-            if counter[nums[idx] - k] == 0 and counter[nums[idx] + k] == 0:
-                counter[nums[idx]] += 1
-                cnt += 1
-                dfs(idx + 1)
-                cnt -= 1
-                counter[nums[idx]] -= 1
-            dfs(idx + 1)
-        dfs(0)
-        return res - 1
+    def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
+        qidxs = [i for i in range(len(queries))]
+        qidxs.sort(key = lambda i: queries[i])
+        res = [0] * len(queries)
+        heap = []
+        items.sort(key = lambda item: -item[0])
+        for qi in qidxs:
+            while items and items[-1][0] <= queries[qi]:
+                heappush(heap, -items.pop()[1])
+            if heap:
+                res[qi] = -heap[0]
+        return res

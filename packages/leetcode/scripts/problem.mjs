@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2597. 美丽子集的数目',
-    url: 'https://leetcode.cn/problems/the-number-of-beautiful-subsets',
+    exist: !true,
+    name: '2070. 每一个查询的最大美丽值',
+    url: 'https://leetcode.cn/problems/most-beautiful-item-for-each-query',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回数组 nums 中 美丽子数组 的数目。`,
+    desc: `请你返回一个长度与 queries 相同的数组 answer，其中 answer[j]是第 j 个查询的答案。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 2275,
-            memory: 17.66,
-            desc: 'dfs',
+            time: 135,
+            memory: 53.73,
+            desc: '排序query后，对于符合的值存入堆',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
