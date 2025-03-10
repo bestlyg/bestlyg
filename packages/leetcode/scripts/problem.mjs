@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2070. 每一个查询的最大美丽值',
-    url: 'https://leetcode.cn/problems/most-beautiful-item-for-each-query',
+    name: '2269. 找到一个数字的 K 美丽值',
+    url: 'https://leetcode.cn/problems/find-the-k-beauty-of-a-number',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个长度与 queries 相同的数组 answer，其中 answer[j]是第 j 个查询的答案。`,
+    desc: `给你整数 num 和 k ，请你返回 num 的 k 美丽值。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 135,
-            memory: 53.73,
-            desc: '排序query后，对于符合的值存入堆',
+            time: 3,
+            memory: 17.61,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

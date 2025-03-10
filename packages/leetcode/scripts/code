@@ -1,13 +1,8 @@
 class Solution:
-    def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
-        qidxs = [i for i in range(len(queries))]
-        qidxs.sort(key = lambda i: queries[i])
-        res = [0] * len(queries)
-        heap = []
-        items.sort(key = lambda item: -item[0])
-        for qi in qidxs:
-            while items and items[-1][0] <= queries[qi]:
-                heappush(heap, -items.pop()[1])
-            if heap:
-                res[qi] = -heap[0]
+    def divisorSubstrings(self, num: int, k: int) -> int:
+        nstr = str(num)
+        res = 0
+        for i in range(k, len(nstr) + 1):
+            subs = nstr[i - k: i]
+            if int(subs) and num % int(subs) == 0: res += 1
         return res
