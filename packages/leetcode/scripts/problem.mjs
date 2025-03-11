@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2269. 找到一个数字的 K 美丽值',
-    url: 'https://leetcode.cn/problems/find-the-k-beauty-of-a-number',
+    name: '2012. 数组美丽值求和',
+    url: 'https://leetcode.cn/problems/sum-of-beauty-in-the-array',
     level: 'Easy',
     tagList: [],
-    desc: `给你整数 num 和 k ，请你返回 num 的 k 美丽值。`,
+    desc: `返回符合 1 <= i <= nums.length - 2 的所有 nums[i] 的 美丽值的总和 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.61,
-            desc: '遍历',
+            time: 2458,
+            memory: 43.46,
+            desc: '有序数组存储所有的值，判断当前值的左侧最大和右侧最小',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,8 +1,25 @@
 class Solution:
-    def divisorSubstrings(self, num: int, k: int) -> int:
-        nstr = str(num)
+    def sumOfBeauties(self, nums: List[int]) -> int:
         res = 0
-        for i in range(k, len(nstr) + 1):
-            subs = nstr[i - k: i]
-            if int(subs) and num % int(subs) == 0: res += 1
+        n = len(nums)
+        l = SortedDict()
+        l[nums[0]] = 1
+        r = SortedDict()
+        for i in range(1, n):
+            if nums[i] in r:
+                r[nums[i]] += 1
+            else:
+                r[nums[i]] = 1
+        for i in range(1, n - 1):
+            num = nums[i]
+            r[num] -= 1
+            if r[num] == 0: r.pop(num)
+            if l.peekitem(-1)[0] < num < r.peekitem(0)[0]:
+                res += 2
+            elif nums[i - 1] < num < nums[i + 1]:
+                res += 1
+            if num in l:
+                l[num] += 1
+            else:
+                l[num] = 1
         return res
