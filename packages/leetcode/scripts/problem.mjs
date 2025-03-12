@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2012. 数组美丽值求和',
-    url: 'https://leetcode.cn/problems/sum-of-beauty-in-the-array',
+    name: '3305. 元音辅音字符串计数 I',
+    url: 'https://leetcode.cn/problems/count-of-substrings-containing-every-vowel-and-k-consonants-i',
     level: 'Easy',
     tagList: [],
-    desc: `返回符合 1 <= i <= nums.length - 2 的所有 nums[i] 的 美丽值的总和 。`,
+    desc: `返回 word 的 子字符串 中，每个元音字母（'a'、'e'、'i'、'o'、'u'）至少 出现一次，并且 恰好 包含 k 个辅音字母的子字符串的总数。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 2458,
-            memory: 43.46,
-            desc: '有序数组存储所有的值，判断当前值的左侧最大和右侧最小',
+            time: 9256,
+            memory: 17.55,
+            desc: '枚举',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
