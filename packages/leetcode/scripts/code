@@ -1,16 +1,25 @@
 class Solution:
     def countOfSubstrings(self, word: str, k: int) -> int:
+        vowels = 'aeiou'
         n = len(word)
-        res = 0
-        for r in range(n + 1):
-            for l in range(r):
-                sword = word[l:r]
-                counter = Counter(sword)
-                if counter['a'] > 0 and \
-                   counter['e'] > 0 and \
-                   counter['i'] > 0 and \
-                   counter['o'] > 0 and \
-                   counter['u'] > 0 and \
-                   r - l - counter['a'] - counter['e'] - counter['i'] - counter['o'] - counter['u'] == k: 
-                   res += 1
-        return res
+        def count(k: int) -> int:
+            res = l = vcnt = ccnt = 0
+            vcounter = Counter()
+            for r in range(n):
+                ch = word[r]
+                if ch in vowels:
+                    vcounter[ch] += 1
+                    if vcounter[ch] == 1: vcnt += 1
+                else:
+                    ccnt += 1
+                while vcnt == 5 and ccnt >= k:
+                    rch = word[l]
+                    if rch in vowels:
+                        vcounter[rch] -= 1
+                        if vcounter[rch] == 0: vcnt -= 1
+                    else:
+                        ccnt -= 1
+                    l += 1
+                res += l
+            return res
+        return count(k) - count(k + 1)
