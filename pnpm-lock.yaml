@@ -620,6 +620,9 @@ importers:
       module-checker:
         specifier: workspace:^
         version: link:../npm/module-checker
+      nanoid:
+        specifier: ^5.1.2
+        version: 5.1.3
       tapable:
         specifier: 'catalog:'
         version: 2.2.1

@@ -103,17 +103,17 @@
         "@types/fs-extra": "catalog:",
         "@types/lodash-es": "catalog:",
         "@types/node": "catalog:",
+        "@types/react": "catalog:",
         "@xidl/typescript-client": "workspace:^",
         "@xidl/typescript-server": "workspace:^",
         "change-case": "catalog:",
         "express": "^4.21.2",
         "prisma": "catalog:",
+        "react": "catalog:",
+        "react-router-dom": "catalog:",
         "rimraf": "catalog:",
         "typescript": "catalog:",
-        "unbuild": "catalog:",
-        "react": "catalog:",
-        "@types/react": "catalog:",
-        "react-router-dom": "catalog:"
+        "unbuild": "catalog:"
     },
     "peerDependencies": {
         "react": "catalog:",
@@ -131,6 +131,7 @@
         "lodash-es": "catalog:",
         "metadata-file": "workspace:^",
         "module-checker": "workspace:^",
+        "nanoid": "^5.1.2",
         "tapable": "catalog:",
         "zod": "catalog:",
         "zod-validation-error": "^3.4.0"
