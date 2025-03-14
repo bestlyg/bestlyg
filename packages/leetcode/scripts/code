@@ -1,25 +1,4 @@
 class Solution:
-    def countOfSubstrings(self, word: str, k: int) -> int:
-        vowels = 'aeiou'
-        n = len(word)
-        def count(k: int) -> int:
-            res = l = vcnt = ccnt = 0
-            vcounter = Counter()
-            for r in range(n):
-                ch = word[r]
-                if ch in vowels:
-                    vcounter[ch] += 1
-                    if vcounter[ch] == 1: vcnt += 1
-                else:
-                    ccnt += 1
-                while vcnt == 5 and ccnt >= k:
-                    rch = word[l]
-                    if rch in vowels:
-                        vcounter[rch] -= 1
-                        if vcounter[rch] == 0: vcnt -= 1
-                    else:
-                        ccnt -= 1
-                    l += 1
-                res += l
-            return res
-        return count(k) - count(k + 1)
+    def isBalanced(self, num: str) -> bool:
+        return sum(int(num[i]) for i in range(len(num)) if i % 2 == 0) == \
+               sum(int(num[i]) for i in range(len(num)) if i % 2 != 0)
