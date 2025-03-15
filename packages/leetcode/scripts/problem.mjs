@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3340. 检查平衡字符串',
-    url: 'https://leetcode.cn/problems/check-balanced-string',
+    name: '3110. 字符串的分数',
+    url: 'https://leetcode.cn/problems/score-of-a-string',
     level: 'Easy',
     tagList: [],
-    desc: `如果 num 是一个 平衡字符串，则返回 true；否则，返回 false。`,
+    desc: `给你一个字符串 s 。一个字符串的 分数 定义为相邻字符 ASCII 码差值绝对值的和。请你返回 s 的 分数 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.69,
+            time: 0,
+            memory: 17.32,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
