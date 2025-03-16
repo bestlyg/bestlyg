@@ -6,6 +6,7 @@ import {
     ledgerListRoute,
     xuanRoute,
     chineseChessRoute,
+    sseRoute,
 } from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
 
@@ -27,6 +28,7 @@ export const paths = {
             point24: { path: '/point24' },
             serverless: { path: '/serverless' },
             chineseChess: { path: '/chinese-chess' },
+            sse: { path: '/sse' },
         },
     },
     management: {
@@ -69,6 +71,10 @@ async function requestApplicationSidebars(): Promise<{
                     {
                         name: '中国象棋',
                         link: chineseChessRoute.fullPath,
+                    },
+                    {
+                        name: 'Server Side Event',
+                        link: sseRoute.fullPath,
                     },
                 ],
             },

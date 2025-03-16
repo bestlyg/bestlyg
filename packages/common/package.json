@@ -125,6 +125,7 @@
         "chalk": "catalog:",
         "crypto-js": "^4.2.0",
         "dayjs": "catalog:",
+        "eventemitter3": "^5.0.1",
         "figlet": "^1.8.0",
         "fs-extra": "catalog:",
         "immer": "^10.1.1",

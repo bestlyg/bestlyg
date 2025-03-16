@@ -68,12 +68,18 @@ export const chineseChessRoute = createRoute({
     path: paths.application.children.chineseChess.path,
     component: lazyRouteComponent(() => import('@/pages/application/chinese-chess')),
 });
+export const sseRoute = createRoute({
+    getParentRoute: () => applicationRoute,
+    path: paths.application.children.sse.path,
+    component: lazyRouteComponent(() => import('@/pages/application/sse')),
+});
 
 const applicationRouteTree = applicationRoute.addChildren([
     image2shadowRoute,
     point24Route,
     serverlessRoute,
     chineseChessRoute,
+    sseRoute,
 ]);
 
 export const managementRoute = createRoute({

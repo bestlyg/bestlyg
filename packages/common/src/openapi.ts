@@ -1,4 +1,10 @@
 export const apiMap = {
+    "AppController": {
+        "sse": {
+            "method": "post",
+            "path": "/api/sse"
+        }
+    },
     "ServerlessCodeController": {
         "getServerlessCode": {
             "method": "get",

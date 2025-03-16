@@ -1,6 +1,20 @@
 {
     "openapi": "3.0.0",
     "paths": {
+        "/api/sse": {
+            "post": {
+                "operationId": "AppController_sse",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "App"
+                ]
+            }
+        },
         "/api/data/serverless-code": {
             "get": {
                 "operationId": "ServerlessCodeController_getServerlessCode",

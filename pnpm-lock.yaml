@@ -350,6 +350,9 @@ importers:
       '@mdx-js/mdx':
         specifier: 'catalog:'
         version: 3.1.0(acorn@8.14.0)
+      '@microsoft/fetch-event-source':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@pixi/sound':
         specifier: ^6.0.1
         version: 6.0.1(pixi.js@8.8.1)
@@ -449,6 +452,9 @@ importers:
       html2canvas:
         specifier: ^1.4.1
         version: 1.4.1
+      install:
+        specifier: ^0.13.0
+        version: 0.13.0
       jotai:
         specifier: 'catalog:'
         version: 2.12.1(@types/react@19.0.10)(react@19.0.0)
@@ -602,6 +608,9 @@ importers:
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
+      eventemitter3:
+        specifier: ^5.0.1
+        version: 5.0.1
       figlet:
         specifier: ^1.8.0
         version: 1.8.0
@@ -3152,6 +3161,9 @@ packages:
 
   '@mdx-js/mdx@3.1.0':
     resolution: {integrity: sha512-/QxEhPAvGwbQmy1Px8F899L5Uc2KZ6JtXwlCgJmjSTBedwOZkByYcBG4GceIGPXRDsmfxhHazuS+hlOShRLeDw==}
+
+  '@microsoft/fetch-event-source@2.0.1':
+    resolution: {integrity: sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==}
 
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
@@ -6677,6 +6689,10 @@ packages:
   inquirer@10.2.2:
     resolution: {integrity: sha512-tyao/4Vo36XnUItZ7DnUXX4f1jVao2mSrleV/5IPtW/XAEA26hRVsbc68nuTEKWcr5vMP/1mVoT2O7u8H4v1Vg==}
     engines: {node: '>=18'}
+
+  install@0.13.0:
+    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
+    engines: {node: '>= 0.10'}
 
   internal-slot@1.1.0:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
@@ -12088,6 +12104,8 @@ snapshots:
       - acorn
       - supports-color
 
+  '@microsoft/fetch-event-source@2.0.1': {}
+
   '@microsoft/tsdoc@0.15.1': {}
 
   '@napi-rs/wasm-runtime@0.2.4':
@@ -16271,6 +16289,8 @@ snapshots:
       mute-stream: 1.0.0
       run-async: 3.0.0
       rxjs: 7.8.2
+
+  install@0.13.0: {}
 
   internal-slot@1.1.0:
     dependencies:

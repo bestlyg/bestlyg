@@ -1,5 +1,14 @@
 {
     "urlMap": {
+        "AppModule": {
+            "AppController": {
+                "sse": {
+                    "requestMethod": "POST",
+                    "methodName": "sse",
+                    "path": "/sse"
+                }
+            }
+        },
         "DataModule": {
             "ServerlessCodeController": {
                 "getServerlessCode": {
