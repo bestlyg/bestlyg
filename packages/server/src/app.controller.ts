@@ -2,7 +2,7 @@ import { Controller, Post, Body, Res, MessageEvent } from '@nestjs/common';
 import { AppService } from './app.service';
 import { interval, Observable } from 'rxjs';
 import { Response } from 'express';
-import { sse } from '@bestlyg/common';
+import { ResponseEntity, sse } from '@bestlyg/common';
 
 @Controller()
 export class AppController {
@@ -35,10 +35,7 @@ export class AppController {
             res.write(
                 sse.stringify({
                     id: Date.now().toString(),
-                    data: {
-                        code: 0,
-                        data: data.substring(i, i + pickLength),
-                    },
+                    data: JSON.stringify(ResponseEntity.ofSuccess(data.substring(i, i + pickLength))),
                 }),
             );
             res.flush();

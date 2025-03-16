@@ -45,3 +45,16 @@
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--border)) transparent;
 }
+
+.sse-loading::after {
+    content: '';
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    margin-left: 4px;
+    background-image: url('/static?p=images/sse-loading.png&r=false');
+    background-position: top;
+    background-size: contain;
+    position: relative;
+    top: 2px;
+}
