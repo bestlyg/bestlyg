@@ -37,6 +37,9 @@ export class EventSource extends EventEmitter<SSEHooks> {
         this.emit('onStatusChange', v);
         return this;
     }
+    getStatus() {
+        return this.status;
+    }
     set<K extends keyof this, V extends this[K]>(key: K, val: V) {
         this[key] = val;
         return this;
