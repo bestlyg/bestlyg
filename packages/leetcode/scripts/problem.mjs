@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '3110. 字符串的分数',
-    url: 'https://leetcode.cn/problems/score-of-a-string',
+    exist: true,
+    name: '2614. 对角线上的质数',
+    url: 'https://leetcode.cn/problems/prime-in-diagonal',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 s 。一个字符串的 分数 定义为相邻字符 ASCII 码差值绝对值的和。请你返回 s 的 分数 。`,
+    desc: `返回位于 nums 至少一条 对角线 上的最大 质数 。如果任一对角线上均不存在质数，返回 0 。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
             time: 0,
-            memory: 17.32,
-            desc: '遍历',
+            memory: 59.69,
+            desc: '素数筛+遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
