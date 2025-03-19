@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import clsx from 'clsx';
-import { compile, run } from '@mdx-js/mdx';
+import { compile, compileSync, run, runSync } from '@mdx-js/mdx';
 import * as ReactRuntime from 'react/jsx-runtime';
 import { BiliBiliIFrame } from '@/components/markdown/bilibili-iframe';
 import { Reciter } from '@/components/markdown/reciter';
@@ -102,8 +102,60 @@ async function renderMarkdown(md: string) {
     return mdxModule;
 }
 
+function renderMarkdownSync(md: string) {
+    try {
+        const compiled = compileSync(md, {
+            outputFormat: 'function-body',
+            remarkPlugins: [remarkGfm, remarkFrontmatter, remarkDirective, remarkMath, remarkToc],
+            rehypePlugins: [rehypeKatex],
+        });
+        const mdxModule = runSync(compiled, {
+            ...ReactRuntime,
+        } as any);
+        return mdxModule;
+    } catch (_) {
+        // ignore
+    }
+}
+
+class MarkdownErrorBoundary extends React.Component<
+    React.PropsWithChildren<{ children: React.ReactNode; latestMountedChildren: React.ReactNode }>,
+    { hasError: boolean }
+> {
+    static getDerivedStateFromError(error: any) {
+        console.info('MarkdwonErrorBoundary getDerivedStateFromError', error);
+        return { hasError: true, error };
+    }
+
+    constructor(props: { children: React.ReactNode; latestMountedChildren: React.ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    componentDidCatch(error: any, info: any) {
+        console.info('MarkdwonErrorBoundary componentDidCatch', error, info);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return this.props.latestMountedChildren;
+        }
+        return this.props.children;
+    }
+}
+
+function MarkdownWrapper(props: React.PropsWithChildren<{ onMounted: () => void }>) {
+    useEffect(() => {
+        props.onMounted();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return props.children;
+}
+
 export const Markdown = React.memo(function MarkdownMemo({ md = '' }: { md?: string }) {
-    const [mod, setMod] = React.useState<Awaited<ReturnType<typeof renderMarkdown>>>();
+    const [mod, setMod] = React.useState<Awaited<ReturnType<typeof renderMarkdown>> | undefined>(
+        () => renderMarkdownSync(md)!,
+    );
     useEffect(() => {
         renderMarkdown(md).then(
             v => {
@@ -116,12 +168,21 @@ export const Markdown = React.memo(function MarkdownMemo({ md = '' }: { md?: str
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [md]);
-    if (!mod) return null;
+
+    const children = mod?.default({
+        components: { code, A, MultiAgentRankBar, BiliBiliIFrame, Reciter, RandomItem },
+    });
+    const [latestMountedChildren, setLatestMountedChildren] = useState<React.ReactNode>(null);
+    if (!children) return null;
     return (
-        <div className="markdown-body">
-            {mod.default({
-                components: { code, A, MultiAgentRankBar, BiliBiliIFrame, Reciter, RandomItem },
-            })}
-        </div>
+        <MarkdownErrorBoundary latestMountedChildren={latestMountedChildren}>
+            <MarkdownWrapper
+                onMounted={() => {
+                    setLatestMountedChildren(() => children);
+                }}
+            >
+                {children}
+            </MarkdownWrapper>
+        </MarkdownErrorBoundary>
     );
 });
