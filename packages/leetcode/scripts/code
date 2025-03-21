@@ -1,10 +1,13 @@
 class Solution:
-    def rowAndMaximumOnes(self, mat: List[List[int]]) -> List[int]:
+    def maximumOr(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        sums = [0] * (n + 1)
+        for i in range(n - 1, -1, -1):
+            sums[i] = sums[i + 1] | nums[i]
         res = 0
-        resVal = 0
-        for i in range(len(mat)):
-            cnt = mat[i].count(1)
-            if cnt > resVal:
-                res = i
-                resVal = cnt
-        return [res, resVal]
+        lsum = 0
+        for i in range(n):
+            val = lsum | (nums[i] << k) | sums[i + 1]
+            res = max(res, val)
+            lsum |= nums[i]
+        return res

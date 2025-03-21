@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2643. 一最多的行',
-    url: 'https://leetcode.cn/problems/row-with-maximum-ones',
+    exist: !true,
+    name: '2680. 最大或值',
+    url: 'https://leetcode.cn/problems/maximum-or',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个大小为 m x n 的二进制矩阵 mat ，请你找出包含最多 1 的行的下标（从 0 开始）以及这一行中 1 的数目。如果有多行包含最多的 1 ，只需要选择 行下标最小 的那一行。返回一个由行下标和该行中 1 的数量组成的数组。`,
+    desc: `给你一个下标从 0 开始长度为 n 的整数数组 nums 和一个整数 k 。每一次操作中，你可以选择一个数并将它乘 2 。你最多可以进行 k 次操作，请你返回 nums[0] | nums[1] | ... | nums[n - 1] 的最大值。a | b 表示两个整数 a 和 b 的 按位或 运算。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 19,
-            memory: 18.13,
-            desc: '遍历',
+            time: 136,
+            memory: 30.93,
+            desc: '贪心对每个值进行乘K次2，判断最大值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
