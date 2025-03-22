@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: true,
-    name: '2610. 转换二维数组',
-    url: 'https://leetcode.cn/problems/convert-an-array-into-a-2d-array-with-conditions',
+    name: '2643. 一最多的行',
+    url: 'https://leetcode.cn/problems/row-with-maximum-ones',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums 。请你创建一个满足以下条件的二维数组：二维数组应该 只 包含数组 nums 中的元素。二维数组中的每一行都包含 不同 的整数。二维数组的行数应尽可能 少 。返回结果数组。`,
+    desc: `给你一个大小为 m x n 的二进制矩阵 mat ，请你找出包含最多 1 的行的下标（从 0 开始）以及这一行中 1 的数目。如果有多行包含最多的 1 ，只需要选择 行下标最小 的那一行。返回一个由行下标和该行中 1 的数量组成的数组。`,
     solutions: [
         {
             script: 'python',
             // date: '2024-11-01',
-            time: 3,
-            memory: 17.52,
-            desc: '计数后遍历',
+            time: 19,
+            memory: 18.13,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

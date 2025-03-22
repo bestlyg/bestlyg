@@ -1,9 +1,10 @@
 class Solution:
-    def findMatrix(self, nums: List[int]) -> List[List[int]]:
-        counter = Counter(nums)
-        res = []
-        for num, cnt in counter.items():
-            for i in range(cnt):
-                if len(res) < i + 1: res.append([])
-                res[i].append(num)
-        return res
+    def rowAndMaximumOnes(self, mat: List[List[int]]) -> List[int]:
+        res = 0
+        resVal = 0
+        for i in range(len(mat)):
+            cnt = mat[i].count(1)
+            if cnt > resVal:
+                res = i
+                resVal = cnt
+        return [res, resVal]
