@@ -16,7 +16,6 @@ import { Prism as SyntaxHighlighter, SyntaxHighlighterProps } from 'react-syntax
 import { coy as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import 'github-markdown-css/github-markdown.css';
 import { atom } from 'jotai';
-import { usePrevious } from 'ahooks';
 
 export const markdownRenderingAtom = atom(false);
 
