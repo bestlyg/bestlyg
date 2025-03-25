@@ -174,14 +174,16 @@ export const Markdown = React.memo(function MarkdownMemo({ md = '' }: { md?: str
     const [latestMountedChildren, setLatestMountedChildren] = useState<React.ReactNode>(null);
     if (!children) return null;
     return (
-        <MarkdownErrorBoundary latestMountedChildren={latestMountedChildren}>
-            <MarkdownWrapper
-                onMounted={() => {
-                    setLatestMountedChildren(() => children);
-                }}
-            >
-                {children}
-            </MarkdownWrapper>
-        </MarkdownErrorBoundary>
+        <div className="markdown-body">
+            <MarkdownErrorBoundary latestMountedChildren={latestMountedChildren}>
+                <MarkdownWrapper
+                    onMounted={() => {
+                        setLatestMountedChildren(() => children);
+                    }}
+                >
+                    {children}
+                </MarkdownWrapper>
+            </MarkdownErrorBoundary>
+        </div>
     );
 });
