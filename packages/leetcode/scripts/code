@@ -1,21 +1,11 @@
 class Solution:
-    def differenceOfDistinctValues(self, grid: List[List[int]]) -> List[List[int]]:
-        n = len(grid)
-        m = len(grid[0])
-        res = [[0] * m for _ in range(n)]
-        for i in range(n):
-            for j in range(m):
-                tl = set()
-                br = set()
-                cnt = 1
-                ni = i
-                nj = j
-                while 0 <= ni + cnt < n and 0 <= nj + cnt < m or \
-                      0 <= ni - cnt < n and 0 <= nj - cnt < m:
-                    if 0 <= ni + cnt < n and 0 <= nj + cnt < m: 
-                        br.add(grid[ni + cnt][nj + cnt])
-                    if 0 <= ni - cnt < n and 0 <= nj - cnt < m:
-                        tl.add(grid[ni - cnt][nj - cnt])
-                    cnt += 1
-                res[i][j] = abs(len(tl) - len(br))
+    def minimumSum(self, n: int, k: int) -> int:
+        used = set()
+        res = 0
+        cur = 1
+        for _ in range(n):
+            while k - cur in used: cur += 1
+            res += cur
+            used.add(cur)
+            cur += 1
         return res
