@@ -714,6 +714,10 @@ importers:
 
   packages/common/dist/prisma-client: {}
 
+  packages/common/prisma/dist: {}
+
+  packages/common/prisma/dist/prisma-client: {}
+
   packages/leetcode:
     dependencies:
       '@bestlyg/cli':
