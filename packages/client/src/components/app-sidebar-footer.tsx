@@ -14,9 +14,9 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/shadcn/ui/sidebar';
 import { useAtomValue } from 'jotai';
 import { userInfoAtom, UserInfo } from '@/utils';
+import { Link } from 'react-router';
 import { RandomIcon } from '@/components/random-icon';
-import { Link } from '@tanstack/react-router';
-import { loginRoute, resumeRoute } from '@/routes';
+import { routeMap } from '@/routes';
 
 const customerInfo: UserInfo = {
     nickname: 'Guest',
@@ -69,7 +69,7 @@ export function AppSidebarFooter() {
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <Link to={resumeRoute.fullPath}>
+                            <Link to={routeMap.resume.path}>
                                 <DropdownMenuItem>
                                     <RandomIcon />
                                     About Bestlyg
@@ -88,7 +88,7 @@ export function AppSidebarFooter() {
                                 Log out
                             </DropdownMenuItem>
                         ) : (
-                            <Link to={loginRoute.fullPath}>
+                            <Link to={routeMap.login.path}>
                                 <DropdownMenuItem>
                                     <RandomIcon />
                                     Log in

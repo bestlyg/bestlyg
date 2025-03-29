@@ -11,7 +11,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/shadcn/ui/sidebar';
 import { useAtom } from 'jotai';
 import { activeSidebarCategoryAtom, sidebarCategories } from '@/utils';
-import { Link } from '@tanstack/react-router';
+import { Link } from 'react-router';
 
 export function SidebarCategorySwitcher() {
     const { isMobile } = useSidebar();

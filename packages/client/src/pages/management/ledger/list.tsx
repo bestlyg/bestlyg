@@ -33,18 +33,20 @@ async function fetchLedgers({
 }
 
 async function fetchLedgerSummary(): Promise<{
-    balance: {
-        breakfastWallet: {
-            total: number;
-            cost: number;
-        };
-        lunchWallet: {
-            total: number;
-            cost: number;
-        };
-        dinnerWallet: {
-            total: number;
-            cost: number;
+    currentMonth: {
+        balance: {
+            BreakfastWallet: {
+                total: number;
+                cost: number;
+            };
+            LunchWallet: {
+                total: number;
+                cost: number;
+            };
+            DinnerWallet: {
+                total: number;
+                cost: number;
+            };
         };
     };
 } | null> {
@@ -60,11 +62,13 @@ async function fetchLedgerSummary(): Promise<{
 function LedgerSummary() {
     const { data } = useRequest(fetchLedgerSummary);
     const toPrice = (price?: number) => (price ?? 0) / 100;
+    const current = data?.currentMonth.balance;
     const walletList = [
-        { label: '早餐月月包', key: 'breakfastWallet' },
-        { label: '中饭菜钱包', key: 'lunchWallet' },
-        { label: '晚餐小荷包', key: 'dinnerWallet' },
+        { label: '早餐月月包', key: 'BreakfastWallet' },
+        { label: '中饭菜钱包', key: 'LunchWallet' },
+        { label: '晚餐小荷包', key: 'DinnerWallet' },
     ] as const;
+    if (!current) return null;
     return (
         <div className="flex flex-col gap-2">
             {walletList.map(({ label, key }) => (
@@ -72,32 +76,18 @@ function LedgerSummary() {
                     <CardHeader>
                         <CardTitle>{label}</CardTitle>
                         <CardDescription>
-                            总数：{toPrice(data?.balance[key].total)}元
+                            总数：{toPrice(current[key].total)}元
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div>消耗：{toPrice(data?.balance[key].cost)}元</div>
+                        <div>消耗：{toPrice(current[key].cost)}元</div>
                         <div>
                             剩余：
-                            {toPrice(data?.balance[key].total) - toPrice(data?.balance[key].cost)}元
+                            {toPrice(current[key].total) - toPrice(current[key].cost)}元
                         </div>
                     </CardContent>
                 </Card>
             ))}
-
-            {/* {list
-                .filter(({ date }) => map[date.format(F)]?.weight)
-                .map(({ date, label }) => (
-                    <Card className="w-full">
-                        <CardHeader>
-                            <CardTitle>{label}</CardTitle>
-                            <CardDescription>
-                                {now.format(F)}相比于{date.format(F)}的数据
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>{formatWeight(now, date)}</CardContent>
-                    </Card>
-                ))} */}
         </div>
     );
 }

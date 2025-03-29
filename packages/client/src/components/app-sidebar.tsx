@@ -1,6 +1,6 @@
 import React from 'react';
 import * as idl from '@bestlyg/common/idl/client';
-import { Link } from '@tanstack/react-router';
+import { Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shadcn/ui/collapsible';
 import {

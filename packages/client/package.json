@@ -6,7 +6,6 @@
     "scripts": {
         "dev": "vite",
         "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc -b && vite build",
-        "build:visualizer": "cross-env VITE_VISUALIZER=true NODE_OPTIONS=--max-old-space-size=4096 vite build",
         "lint": "eslint .",
         "preview": "vite preview",
         "deploy": "node scripts/deploy.mjs"
@@ -35,8 +34,6 @@
         "@radix-ui/react-toggle": "^1.1.2",
         "@radix-ui/react-toggle-group": "^1.1.2",
         "@radix-ui/react-tooltip": "^1.1.8",
-        "@tanstack/react-router": "^1.109.2",
-        "@tanstack/react-table": "^8.21.2",
         "@types/react-syntax-highlighter": "^15.5.13",
         "ahooks": "catalog:",
         "antd": "catalog:",
@@ -67,6 +64,7 @@
         "react-day-picker": "8.10.1",
         "react-dom": "catalog:",
         "react-hook-form": "^7.54.2",
+        "react-router": "^7.4.1",
         "react-syntax-highlighter": "^15.6.1",
         "recharts": "^2.15.1",
         "rehype-katex": "^7.0.1",
@@ -79,14 +77,13 @@
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@tanstack/router-devtools": "^1.109.2",
-        "@tanstack/router-plugin": "^1.109.2",
         "@types/lodash": "catalog:",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.20",
+        "dotenv": "catalog:",
         "globals": "^15.15.0",
         "less": "catalog:",
         "postcss": "^8.5.3",

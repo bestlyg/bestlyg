@@ -3,6 +3,12 @@ import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import viteCompression from 'vite-plugin-compression';
+import { getResolveFunction } from '@bestlyg/common/server';
+import dotenv from 'dotenv';
+
+const resolve = getResolveFunction(__dirname);
+
+dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env'), override: true });
 
 // https://vite.dev/config/
 

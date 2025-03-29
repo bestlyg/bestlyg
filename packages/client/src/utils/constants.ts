@@ -1,13 +1,5 @@
 import { RandomIcon } from '@/components/random-icon';
-import {
-    image2shadowRoute,
-    point24Route,
-    serverlessRoute,
-    ledgerListRoute,
-    xuanRoute,
-    chineseChessRoute,
-    sseRoute,
-} from '@/routes';
+import { routeMap } from '@/routes';
 import * as idl from '@bestlyg/common/idl/client';
 
 declare const __MODE__: 'development' | 'production' | undefined;
@@ -17,36 +9,6 @@ export const IS_DEV = MODE === 'development';
 export const IS_PROD = MODE === 'production';
 
 export const xTokenName = 'x-token';
-
-export const paths = {
-    docs: { path: '/docs' },
-    leetcode: { path: '/leetcode' },
-    application: {
-        path: '/application',
-        children: {
-            image2shadow: { path: '/image2shadow' },
-            point24: { path: '/point24' },
-            serverless: { path: '/serverless' },
-            chineseChess: { path: '/chinese-chess' },
-            sse: { path: '/sse' },
-        },
-    },
-    management: {
-        path: '/management',
-        children: {
-            xuan: { path: '/xuan' },
-            ledger: {
-                path: '/ledger',
-                children: {
-                    list: '/list',
-                },
-            },
-        },
-    },
-    welcome: { path: '/' },
-    login: { path: '/login' },
-    resume: { path: '/resume' },
-} as const;
 
 async function requestApplicationSidebars(): Promise<{
     groups?: idl.api.bestlyg.SidebarGroup[];
@@ -58,23 +20,23 @@ async function requestApplicationSidebars(): Promise<{
                 items: [
                     {
                         name: '图像转阴影',
-                        link: image2shadowRoute.fullPath,
+                        link: routeMap.common.application.image2shadow.path,
                     },
                     {
                         name: '24点',
-                        link: point24Route.fullPath,
+                        link: routeMap.common.application.point24.path,
                     },
                     {
                         name: 'Serverless',
-                        link: serverlessRoute.fullPath,
+                        link: routeMap.common.application.serverless.path,
                     },
                     {
                         name: '中国象棋',
-                        link: chineseChessRoute.fullPath,
+                        link: routeMap.common.application.chineseChess.path,
                     },
                     {
                         name: 'Server Side Event',
-                        link: sseRoute.fullPath,
+                        link: routeMap.common.application.sse.path,
                     },
                 ],
             },
@@ -92,11 +54,11 @@ async function requestManagementSidebars(): Promise<{
                 items: [
                     {
                         name: '账本',
-                        link: ledgerListRoute.fullPath,
+                        link: routeMap.common.management.ledger.list.path,
                     },
                     {
                         name: '瑄的',
-                        link: xuanRoute.fullPath,
+                        link: routeMap.common.management.xuan.path,
                     },
                 ],
             },
@@ -108,11 +70,7 @@ export const sidebarCategories: {
     name: string;
     logo: React.FC<any>;
     desc: string;
-    path:
-        | typeof paths.docs.path
-        | typeof paths.leetcode.path
-        | typeof paths.application.path
-        | typeof paths.management.path;
+    path: string;
     request:
         | typeof idl.api.bestlyg.ClientService.GetDocsSidebars.request
         | typeof idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request
@@ -123,28 +81,28 @@ export const sidebarCategories: {
         name: '文档',
         logo: RandomIcon,
         desc: '记录生活 记录自己',
-        path: paths.docs.path,
+        path: '/docs',
         request: idl.api.bestlyg.ClientService.GetDocsSidebars.request,
     },
     {
         name: '力扣',
         logo: RandomIcon,
         desc: '天天力扣 好好记录',
-        path: paths.leetcode.path,
+        path: '/leetcode',
         request: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request,
     },
     {
         name: '应用',
         logo: RandomIcon,
         desc: '脑洞大开 代码好玩',
-        path: paths.application.path,
+        path: '/application',
         request: requestApplicationSidebars,
     },
     {
         name: '管理',
         logo: RandomIcon,
         desc: '我的世界 独一无二',
-        path: paths.management.path,
+        path: '/management',
         request: requestManagementSidebars,
     },
 ] as const;

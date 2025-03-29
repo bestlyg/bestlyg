@@ -6,7 +6,6 @@ export class SelectLedgerPageDto extends createZodModel(
     z
         .object({
             date: z.string().date().optional(),
-            a: z.object({ v: z.number() }),
         })
         .merge(PageParam.Schema),
 ) {}

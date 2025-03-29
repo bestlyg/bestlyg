@@ -5,36 +5,32 @@ import {
     sidebarCategories,
     activeSidebarCategoryAtom,
     activeSidebarBreadcrumbListAtom,
-    IS_DEV,
 } from '@/utils';
-import { Outlet, useRouterState } from '@tanstack/react-router';
+import { Outlet, useLocation } from 'react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import * as idl from '@bestlyg/common/idl/client';
 import React from 'react';
 import { AppHeader } from '@/components/app-header';
-import { loginRoute, resumeRoute, rootRoute } from '@/routes';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+// import { loginRoute, resumeRoute, rootRoute } from '@/routes';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 import { AppSummary } from '@/components/app-summary';
 
 export default function AppLayout() {
-    const state = useRouterState();
+    const location = useLocation();
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     const setActiveSidebarBreadcrumbList = useSetAtom(activeSidebarBreadcrumbListAtom);
     const setActiveSidebarCategory = useSetAtom(activeSidebarCategoryAtom);
     React.useEffect(() => {
-        const matchInfo = state.matches.filter(v => v.id !== rootRoute.id)[0];
-        // console.log('RouterState', state);
         setActiveSidebarCategory(
-            sidebarCategories.find(v => matchInfo?.fullPath.startsWith(v.path)) ?? null,
+            sidebarCategories.find(v => location.pathname.startsWith(v.path)) ?? null,
         );
         function findActiveItem(
             groups: idl.api.bestlyg.SidebarGroup[],
         ): (idl.api.bestlyg.SidebarItem | idl.api.bestlyg.SidebarGroup)[] | null {
             for (const group of groups) {
                 for (const item of group.items ?? []) {
-                    if (state.resolvedLocation?.pathname === item.link) {
+                    if (location.pathname === item.link) {
                         return [group, item];
                     }
                 }
@@ -47,12 +43,7 @@ export default function AppLayout() {
             const res = findActiveItem(sidebar?.groups ?? []);
             setActiveSidebarBreadcrumbList(res);
         });
-    }, [state, sidebarPromise]);
-    if (
-        state.resolvedLocation?.pathname.startsWith(loginRoute.fullPath) ||
-        state.resolvedLocation?.pathname.startsWith(resumeRoute.fullPath)
-    )
-        return <Outlet />;
+    }, [location, sidebarPromise]);
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -74,7 +65,6 @@ export default function AppLayout() {
                     <ArrowUpToLine />
                 </ScrollToTop>
             </SidebarInset>
-            {IS_DEV && <TanStackRouterDevtools />}
         </SidebarProvider>
     );
 }

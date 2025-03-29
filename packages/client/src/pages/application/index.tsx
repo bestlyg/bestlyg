@@ -1,5 +1,5 @@
 import { summaryNodeAtom } from '@/components/app-summary';
-import { Outlet } from '@tanstack/react-router';
+import { Outlet } from 'react-router';
 import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 

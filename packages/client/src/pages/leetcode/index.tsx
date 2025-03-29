@@ -6,11 +6,11 @@ import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
 import dayjs from 'dayjs';
 import { Markdown } from '@/components/markdown';
-import { leetcodeRoute } from '@/routes';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-summary';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { apiMap } from '@bestlyg/common';
+import { useParams } from 'react-router';
 
 const quote = '`';
 
@@ -93,7 +93,7 @@ function LeetCodeProblemSkeleton() {
 
 export default function Leetcode() {
     const setSummaryNode = useSetAtom(summaryNodeAtom);
-    const params: Record<string, string> = leetcodeRoute.useParams();
+    const params = useParams();
     const link = params['*'];
     const [problemPromise, setProblemPromise] = React.useState(fetchLeetcodeProblem);
 

@@ -3,8 +3,7 @@ import { Button } from '@/shadcn/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shadcn/ui/card';
 import { Input } from '@/shadcn/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { welcomeRoute } from '@/routes';
-import { Navigate } from '@tanstack/react-router';
+import { routeMap } from '@/routes';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shadcn/ui/form';
@@ -14,6 +13,7 @@ import { userInfoAtom, xTokenName } from '@/utils';
 import { useSetAtom } from 'jotai';
 import { encrypt, apiMap } from '@bestlyg/common';
 import { configuration } from '@/utils/configuration';
+import { Navigate } from 'react-router';
 
 async function login(data: { username: string; password: string }) {
     const res = await request<
@@ -64,7 +64,7 @@ export function LoginForm() {
             });
         }
     }
-    if (token) return <Navigate to={welcomeRoute.fullPath} />;
+    if (token) return <Navigate to={routeMap.welcome.path} />;
     return (
         <div className={cn('flex flex-col gap-6')}>
             <Card>
