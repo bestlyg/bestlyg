@@ -1,21 +1,46 @@
+import { Skeleton as SkeletonUI } from '@/shadcn/ui/skeleton';
 import { cachedDynamicImportComponent } from '@bestlyg/common/client';
 
-const AppLayout = cachedDynamicImportComponent(() => import('@/components/app-layout'));
-const Welcome = cachedDynamicImportComponent(() => import('@/pages/welcome'));
-const Login = cachedDynamicImportComponent(() => import('@/pages/login'));
-const Resume = cachedDynamicImportComponent(() => import('@/pages/resume/resume'));
-const Docs = cachedDynamicImportComponent(() => import('@/pages/docs'));
-const Leetcode = cachedDynamicImportComponent(() => import('@/pages/leetcode'));
-const Application = cachedDynamicImportComponent(() => import('@/pages/application'));
-const Image2shadow = cachedDynamicImportComponent(() => import('@/pages/application/image2shadow'));
-const Point24 = cachedDynamicImportComponent(() => import('@/pages/application/point24'));
-const Serverless = cachedDynamicImportComponent(() => import('@/pages/application/serverless'));
-const ChineseChess = cachedDynamicImportComponent(() => import('@/pages/application/chinese-chess'));
-const Sse = cachedDynamicImportComponent(() => import('@/pages/application/sse'));
-const Management = cachedDynamicImportComponent(() => import('@/pages/management'));
-const Xuan = cachedDynamicImportComponent(() => import('@/pages/management/xuan'));
-const Ledger = cachedDynamicImportComponent(() => import('@/pages/management/ledger'));
-const LedgerList = cachedDynamicImportComponent(() => import('@/pages/management/ledger/list'));
+function Skeleton() {
+    const item = (
+        <div className="flex flex-col space-y-3 px-[20px] py-[10px]">
+            <div className="space-y-2">
+                <SkeletonUI className="h-3 w-full" />
+                <SkeletonUI className="h-3 w-full" />
+                <SkeletonUI className="h-3 w-[80%]" />
+                <SkeletonUI className="h-3 w-[80%]" />
+            </div>
+        </div>
+    );
+    return (
+        <div className="mt-[40px]">
+            {item}
+            {item}
+            {item}
+        </div>
+    );
+}
+
+function load(loadFn: Parameters<typeof cachedDynamicImportComponent>[0]) {
+    return cachedDynamicImportComponent(loadFn, <Skeleton />);
+}
+
+const AppLayout = load(() => import('@/components/app-layout'));
+const Welcome = load(() => import('@/pages/welcome'));
+const Login = load(() => import('@/pages/login'));
+const Resume = load(() => import('@/pages/resume/resume'));
+const Docs = load(() => import('@/pages/docs'));
+const Leetcode = load(() => import('@/pages/leetcode'));
+const Application = load(() => import('@/pages/application'));
+const Image2shadow = load(() => import('@/pages/application/image2shadow'));
+const Point24 = load(() => import('@/pages/application/point24'));
+const Serverless = load(() => import('@/pages/application/serverless'));
+const ChineseChess = load(() => import('@/pages/application/chinese-chess'));
+const Sse = load(() => import('@/pages/application/sse'));
+const Management = load(() => import('@/pages/management'));
+const Xuan = load(() => import('@/pages/management/xuan'));
+const Ledger = load(() => import('@/pages/management/ledger'));
+const LedgerList = load(() => import('@/pages/management/ledger/list'));
 
 export const routeMap = {
     path: '/',

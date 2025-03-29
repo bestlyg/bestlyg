@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2716. 最小化字符串长度',
-    url: 'https://leetcode.cn/problems/minimize-string-length',
+    name: '2360. 图中的最长环',
+    url: 'https://leetcode.cn/problems/longest-cycle-in-a-graph',
     level: 'Easy',
     tagList: [],
-    desc: `返回一个表示 最小化 字符串的长度的整数。`,
+    desc: `请你返回图中的 最长 环，如果没有任何环，请返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 20,
-            memory: 17.39,
-            desc: '理论上处理N次之后，只会留下所有的不同的字符，只需要计算不同字符的数量即可',
+            time: 835,
+            memory: 73.39,
+            desc: '剪枝所有的没有入边的节点，直到没有节点或者所有节点都存在入边',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,4 +1,4 @@
-import { summaryNodeAtom } from '@/components/app-summary';
+import { summaryNodeAtom } from '@/components/app-layout';
 import { Outlet } from 'react-router';
 import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';

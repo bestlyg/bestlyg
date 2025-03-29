@@ -1,3 +1,31 @@
 class Solution:
-    def minimizedStringLength(self, s: str) -> int:
-        return len(Counter(s).keys())
+    def longestCycle(self, edges: List[int]) -> int:
+        n = len(edges)
+        from_nodes = [set() for i in range(n)]
+        for i in range(n):
+            if edges[i] != -1:
+                from_nodes[edges[i]].add(i)
+        q = [i for i in range(n) if not from_nodes[i]]
+        while q:
+            i = q.pop()
+            next = edges[i]
+            if next != -1:
+                from_nodes[next].remove(i)
+                if not from_nodes[next]:
+                    q.append(next)
+            edges[i] = -1 
+        res = -1
+        used = set()
+        def dfs(idx: int, start_idx: int, init: bool) -> int:
+            if idx == start_idx and not init: return 0
+            if edges[idx] == -1: return -1
+            if edges[idx] in used: return -1
+            used.add(edges[idx])
+            next_res = dfs(edges[idx], start_idx, False)
+            if next_res != -1:
+                return next_res + 1
+            return -1
+        for i in range(n):
+            if edges[i] != -1:
+                res = max(res, dfs(i, i, True))
+        return res

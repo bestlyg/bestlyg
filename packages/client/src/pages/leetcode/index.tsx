@@ -7,7 +7,7 @@ import { Suspense } from '@/components/suspense';
 import dayjs from 'dayjs';
 import { Markdown } from '@/components/markdown';
 import { useSetAtom } from 'jotai';
-import { summaryNodeAtom } from '@/components/app-summary';
+import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { apiMap } from '@bestlyg/common';
 import { useParams } from 'react-router';

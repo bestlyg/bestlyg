@@ -1,4 +1,4 @@
-import { summaryNodeAtom } from '@/components/app-summary';
+import { summaryNodeAtom } from '@/components/app-layout';
 import { useSetAtom } from 'jotai';
 import React from 'react';
 import { Button } from '@/shadcn/ui/button';

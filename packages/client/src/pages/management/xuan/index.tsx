@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/shadcn/ui/card';
 import { useSetAtom } from 'jotai';
-import { summaryNodeAtom } from '@/components/app-summary';
+import { summaryNodeAtom } from '@/components/app-layout';
 import {
     getYearOnYear,
     getMonthOnMonth,

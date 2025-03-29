@@ -1,4 +1,4 @@
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from './app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/shadcn/ui/sidebar';
 import {
     sidebarPromiseAtom,
@@ -10,11 +10,16 @@ import { Outlet, useLocation } from 'react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
 import * as idl from '@bestlyg/common/idl/client';
 import React from 'react';
-import { AppHeader } from '@/components/app-header';
+import { AppHeader } from './app-header';
 // import { loginRoute, resumeRoute, rootRoute } from '@/routes';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
-import { AppSummary } from '@/components/app-summary';
+import { AppSummary } from './app-summary';
+
+export * from './app-header';
+export * from './app-sidebar';
+export * from './app-sidebar-footer';
+export * from './app-summary';
 
 export default function AppLayout() {
     const location = useLocation();

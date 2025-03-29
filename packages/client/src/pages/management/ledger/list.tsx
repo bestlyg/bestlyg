@@ -8,7 +8,7 @@ import { Table } from 'antd';
 import { useRequest } from 'ahooks';
 import { useSetAtom } from 'jotai/react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/shadcn/ui/card';
-import { summaryNodeAtom } from '@/components/app-summary';
+import { summaryNodeAtom } from '@/components/app-layout';
 
 export type Ledger = Prisma.LedgerGetPayload<{}>;
 

@@ -32,7 +32,7 @@ import {
     sidebarPromiseAtom,
 } from '@/utils';
 import { Suspense } from '@/components/suspense';
-import { AppSidebarFooter } from '@/components/app-sidebar-footer';
+import { AppSidebarFooter } from './app-sidebar-footer';
 
 function SidebarContentSkeleton() {
     const item = (
