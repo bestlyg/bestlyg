@@ -92,24 +92,35 @@ import { RouteObject } from 'react-router';
 //   },
 // }
 
-export type RouteItem = {
+// export interface RouteItem {
+//     path: string;
+//     element?: ReactNode;
+//     [key: string]: RouteItem;
+// }
+
+// export type RouteMap = Record<string, RouteMap> & {
+//     path: string;
+//     element?: ReactNode;
+// };
+
+export type RouteMap = {
     path: string;
     element?: ReactNode;
+} & {
+    [key: string]: RouteMap;
 };
 
-export type RouteMap = RouteItem & Record<string, RouteItem>;
-
 export function createRoutes(routeMap: RouteMap, parents: RouteMap[] = []): RouteObject {
+    const { path, element, ...childrenRouteMap } = routeMap;
     const obj: RouteObject = {
-        path: routeMap.path,
-        element: routeMap.element,
+        path,
+        element,
         children: [],
     };
     if (routeMap.path.startsWith(':')) routeMap.path = `{${routeMap.path}}`;
     parents.push(routeMap);
-    for (const key of Object.keys(routeMap)) {
-        if (key === 'path' || key === 'element') continue;
-        const item = routeMap[key] as RouteMap;
+    for (const key of Object.keys(childrenRouteMap)) {
+        const item = childrenRouteMap[key];
         obj.children!.push(createRoutes(item, parents));
     }
     let finalPath = '/';
@@ -127,12 +138,12 @@ export function createRoutes(routeMap: RouteMap, parents: RouteMap[] = []): Rout
     return obj;
 }
 
-export function resolveRouteMap<T>(routeMap: T): {
+export function resolveRouteMap<T extends RouteMap>(
+    routeMap: T,
+): {
     routes: RouteObject[];
     routeMap: T;
 } {
-    const routes = createRoutes(routeMap as any as RouteMap).children!;
+    const routes = createRoutes(routeMap).children!;
     return { routes, routeMap };
 }
-
-// export const routes = createRoutes(routeMap as any as RouteMap).children!;

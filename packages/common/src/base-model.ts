@@ -1,5 +1,7 @@
 import EventEmitter from 'eventemitter3';
 
+export type BaseModelPlugin<T> = ((model: T) => void) | { apply: (model: T) => void };
+
 export class BaseModel<
     EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
     Context extends any = any,
@@ -10,5 +12,13 @@ export class BaseModel<
     }
     get<K extends keyof this>(key: K) {
         return this[key];
+    }
+    use(plugin: BaseModelPlugin<this>) {
+        if (typeof plugin === 'function') {
+            plugin(this);
+        } else if (typeof plugin?.apply === 'function') {
+            plugin.apply(this);
+        }
+        return this;
     }
 }

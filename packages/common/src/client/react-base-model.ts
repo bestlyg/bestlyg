@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { BaseModel } from '@/base-model';
+import { BaseModel } from '../base-model';
 import { useState } from 'react';
 
 export class ReactBaseModel<

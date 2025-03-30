@@ -16,3 +16,4 @@ export * from './pnpm';
 export * from './dto';
 export * from './zod';
 export * as sse from './sse';
+export * from './base-model';
