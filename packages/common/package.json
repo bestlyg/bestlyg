@@ -110,14 +110,14 @@
         "express": "^4.21.2",
         "prisma": "catalog:",
         "react": "catalog:",
-        "react-router-dom": "catalog:",
+        "react-router": "^7.4.1",
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"
     },
     "peerDependencies": {
         "react": "catalog:",
-        "react-router-dom": "catalog:"
+        "react-router": "catalog:"
     },
     "dependencies": {
         "@prisma/client": "catalog:",

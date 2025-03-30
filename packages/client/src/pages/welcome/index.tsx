@@ -9,9 +9,5 @@ export default function Welcome() {
     useEffect(() => {
         setActiveSidebarCategoryAtom(sidebarCategories[0]);
     }, []);
-    return (
-        <Navigate
-            to={routeMap.common.docs.path.substring(0, routeMap.common.docs.path.length - 2)}
-        />
-    );
+    return <Navigate to={routeMap.common.docs.path} />;
 }

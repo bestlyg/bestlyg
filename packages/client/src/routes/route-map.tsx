@@ -1,5 +1,6 @@
 import { Skeleton as SkeletonUI } from '@/shadcn/ui/skeleton';
-import { cachedDynamicImportComponent } from '@bestlyg/common/client';
+import { cachedDynamicImportComponent, resolveRouteMap } from '@bestlyg/common/client';
+import { Outlet } from 'react-router';
 
 function Skeleton() {
     const item = (
@@ -42,7 +43,7 @@ const Xuan = load(() => import('@/pages/management/xuan'));
 const Ledger = load(() => import('@/pages/management/ledger'));
 const LedgerList = load(() => import('@/pages/management/ledger/list'));
 
-export const routeMap = {
+export const { routeMap, routes } = resolveRouteMap({
     path: '/',
     welcome: { path: '/', element: <Welcome /> },
     login: { path: 'login', element: <Login /> },
@@ -50,8 +51,12 @@ export const routeMap = {
     common: {
         path: '/',
         element: <AppLayout />,
-        docs: { path: 'docs/*', element: <Docs /> },
-        leetcode: { path: 'leetcode/*', element: <Leetcode /> },
+        docs: { path: 'docs', element: <Outlet />, p: { path: '*', element: <Docs /> } },
+        leetcode: {
+            path: 'leetcode',
+            element: <Outlet />,
+            p: { path: '*', element: <Leetcode /> },
+        },
         application: {
             path: 'application',
             element: <Application />,
@@ -72,4 +77,4 @@ export const routeMap = {
             },
         },
     },
-} as const;
+} as const);

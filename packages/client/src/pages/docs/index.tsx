@@ -4,15 +4,13 @@ import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
 import { Markdown } from '@/components/markdown';
-import { useParams,  } from 'react-router';
+import { useParams } from 'react-router';
 import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { apiMap } from '@bestlyg/common';
 
-async function fetchReadableStaticFile(
-    p?: string | null,
-): Promise<string | null> {
+async function fetchReadableStaticFile(p?: string | null): Promise<string | null> {
     if (!p) return null;
     const data = await request({
         url: apiMap.StaticController.getStaticFile.path,
@@ -53,15 +51,10 @@ export default function Docs() {
     const setSummaryNode = useSetAtom(summaryNodeAtom);
     const params = useParams();
     const link = params['*'];
-    const acRef = React.useRef<AbortController | null>(null);
     const [promise, setPromise] = React.useState(() => fetchReadableStaticFile(link));
     useEffect(() => {
-        if (link === '*') {
-        } else {
-            acRef.current = new AbortController();
-            setPromise(() => fetchReadableStaticFile(link));
-            setSummaryNode(<MarkdownSummary />);
-        }
+        setPromise(() => fetchReadableStaticFile(link));
+        setSummaryNode(<MarkdownSummary />);
     }, [link]);
     if (!link) return <DocsSkeleton />;
     return <Suspense fallback={<DocsSkeleton />} promise={promise} Component={Doc} />;

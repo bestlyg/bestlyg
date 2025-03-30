@@ -14,6 +14,7 @@ export class IdleTaskQueue {
         if (this.running && !force) return;
         this.running = true;
         const task = this.queue.shift();
+        // console.log("RUN", task?.toString())
         if (!task) {
             this.running = false;
         } else {

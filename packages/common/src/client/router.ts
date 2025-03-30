@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router';
 // import { cachedDynamicImportComponent } from 'src/shared/cached-dynamic-import-component'
 // import { LayoutH5 } from 'src/client/components/LayoutH5'
 // import LayoutPC from '../components/LayoutPC'
@@ -125,6 +125,14 @@ export function createRoutes(routeMap: RouteMap, parents: RouteMap[] = []): Rout
     parents.pop();
     routeMap.path = finalPath;
     return obj;
+}
+
+export function resolveRouteMap<T>(routeMap: T): {
+    routes: RouteObject[];
+    routeMap: T;
+} {
+    const routes = createRoutes(routeMap as any as RouteMap).children!;
+    return { routes, routeMap };
 }
 
 // export const routes = createRoutes(routeMap as any as RouteMap).children!;

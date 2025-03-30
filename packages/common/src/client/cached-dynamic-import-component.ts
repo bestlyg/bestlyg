@@ -33,6 +33,7 @@ export function cachedDynamicImportComponent(
     // 仅在浏览器端执行，该函数会因为node端需要路由猜测，所以该文件在node端也会被执行
     // 暂时先禁用
     globalThis.window?.addEventListener('load', () => {
+        // console.log('ON LOAD');
         taskQueue.addTaskAndRun(dynamicImport);
     });
     // 实际被渲染的组件
