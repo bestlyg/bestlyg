@@ -11,16 +11,16 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 export const problem = {
     exist: !true,
     name: '2109. 向字符串添加空格',
-    url: 'https://leetcode.cn/problems/adding-spaces-to-a-string',
+    url: 'https://leetcode.cn/problems/percentage-of-letter-in-string',
     level: 'Easy',
     tagList: [],
-    desc: `请你添加空格，并返回修改后的字符串。`,
+    desc: `给你一个字符串 s 和一个字符 letter ，返回在 s 中等于 letter 字符所占的 百分比 ，向下取整到最接近的百分比。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 135,
-            memory: 45.33,
+            time: 0,
+            memory: 17.39,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
