@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2109. 向字符串添加空格',
-    url: 'https://leetcode.cn/problems/percentage-of-letter-in-string',
+    name: '2140. 解决智力问题',
+    url: 'https://leetcode.cn/problems/solving-questions-with-brainpower',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 s 和一个字符 letter ，返回在 s 中等于 letter 字符所占的 百分比 ，向下取整到最接近的百分比。`,
+    desc: `请你返回这场考试里你能获得的 最高 分数。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 0,
-            memory: 17.39,
-            desc: '遍历',
+            time: 259,
+            memory: 126,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,3 +1,10 @@
 class Solution:
-    def percentageLetter(self, s: str, letter: str) -> int:
-        return s.count(letter) * 100 // len(s)
+    def mostPoints(self, questions: List[List[int]], idx: int = 0) -> int:
+        @cache
+        def dfs(idx: int) -> int:
+            if idx >= len(questions): return 0
+            return max(
+                dfs(idx + 1),
+                dfs(idx + questions[idx][1] + 1) + questions[idx][0]
+            )
+        return dfs(0)
