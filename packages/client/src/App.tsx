@@ -10,6 +10,7 @@ import '@/shadcn/styles/globals.css';
 import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
+import { AppFooter } from './components/app-footer';
 
 export default function App() {
     const { toast } = useToast();
@@ -33,6 +34,7 @@ export default function App() {
         <>
             <RouterProvider />
             <Toaster />
+            <AppFooter />
         </>
     );
 }
