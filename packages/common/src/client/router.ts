@@ -138,12 +138,10 @@ export function createRoutes(routeMap: RouteMap, parents: RouteMap[] = []): Rout
     return obj;
 }
 
-export function resolveRouteMap<T extends RouteMap>(
-    routeMap: T,
-): {
+export function resolveRouteMap<T>(routeMap: T): {
     routes: RouteObject[];
     routeMap: T;
 } {
-    const routes = createRoutes(routeMap).children!;
+    const routes = createRoutes(routeMap as any as RouteMap).children!;
     return { routes, routeMap };
 }
