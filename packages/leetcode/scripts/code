@@ -1,10 +1,6 @@
 class Solution:
-    def mostPoints(self, questions: List[List[int]], idx: int = 0) -> int:
-        @cache
-        def dfs(idx: int) -> int:
-            if idx >= len(questions): return 0
-            return max(
-                dfs(idx + 1),
-                dfs(idx + questions[idx][1] + 1) + questions[idx][0]
-            )
-        return dfs(0)
+    def maximumTripletValue(self, nums: List[int]) -> int:
+        return max(
+            max((nums[i] - nums[j]) * nums[k] for k in range(len(nums)) for j in range(k) for i in range(j)),
+            0
+        )
