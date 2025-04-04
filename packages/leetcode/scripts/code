@@ -1,24 +1,24 @@
 class Solution:
-    def maximumTripletValue(self, nums: List[int]) -> int:
-        n = len(nums)
-        nmax = nums[0]
-        nmin = nums[0]
-        qmax = [(-nums[i], i) for i in range(n)]
-        qmin = [(nums[i], i) for i in range(n)]
-        heapify(qmax)
-        heapify(qmin)
-        res = 0
-        for i in range(1, n - 1):
-            while qmax and qmax[0][1] <= i: heappop(qmax)
-            while qmin and qmin[0][1] <= i: heappop(qmin)
-            num = nums[i]
-            res = max(
-                res,
-                (nmax - num) * -qmax[0][0],
-                (nmin - num) * -qmax[0][0],
-                (nmax - num) * qmin[0][0],
-                (nmin - num) * qmin[0][0],
-            )
-            nmax = max(nmax, num)
-            nmin = max(nmin, num)
-        return res
+    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        map = dict()
+        parents = dict()
+        lowest_nodes = []
+        lowest_level = 0
+        def tag(node: Optional[TreeNode], level = 0):
+            nonlocal lowest_level, lowest_nodes
+            if not node: return
+            map[node] = level
+            if level > lowest_level:
+                lowest_nodes.clear()
+                lowest_level = level
+            if level == lowest_level:
+                lowest_nodes.append(node)
+            if node.left: parents[node.left] = node
+            tag(node.left, level + 1)
+            if node.right: parents[node.right] = node
+            tag(node.right, level + 1)
+        tag(root)
+        while any([node != lowest_nodes[0] for node in lowest_nodes]):
+            for i in range(len(lowest_nodes)): 
+                lowest_nodes[i] = parents[lowest_nodes[i]]
+        return lowest_nodes[0]
