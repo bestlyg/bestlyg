@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '1123. 最深叶节点的最近公共祖先',
-    url: 'https://leetcode.cn/problems/lowest-common-ancestor-of-deepest-leaves',
+    exist: !true,
+    name: '1863. 找出所有子集的异或总和再求和',
+    url: 'https://leetcode.cn/problems/sum-of-all-subset-xor-totals',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个有根节点 root 的二叉树，返回它 最深的叶节点的最近公共祖先 。`,
+    desc: `给你一个数组 nums ，请你求出 nums 中每个 子集 的 异或总和 ，计算并返回这些值相加之 和 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 8,
-            memory: 18.02,
-            desc: '记录所有最底层的节点，向上遍历直到节点相同',
+            time: 23,
+            memory: 17.7,
+            desc: '遍历所有子数组',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

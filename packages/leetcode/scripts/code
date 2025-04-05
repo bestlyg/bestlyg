@@ -1,24 +1,14 @@
 class Solution:
-    def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        map = dict()
-        parents = dict()
-        lowest_nodes = []
-        lowest_level = 0
-        def tag(node: Optional[TreeNode], level = 0):
-            nonlocal lowest_level, lowest_nodes
-            if not node: return
-            map[node] = level
-            if level > lowest_level:
-                lowest_nodes.clear()
-                lowest_level = level
-            if level == lowest_level:
-                lowest_nodes.append(node)
-            if node.left: parents[node.left] = node
-            tag(node.left, level + 1)
-            if node.right: parents[node.right] = node
-            tag(node.right, level + 1)
-        tag(root)
-        while any([node != lowest_nodes[0] for node in lowest_nodes]):
-            for i in range(len(lowest_nodes)): 
-                lowest_nodes[i] = parents[lowest_nodes[i]]
-        return lowest_nodes[0]
+    def subsetXORSum(self, nums: List[int]) -> int:
+        def dfs(idx: int, arr: List[int]) -> int:
+            if idx == len(nums):
+                num = 0
+                for v in arr:
+                    num ^= v
+                return num
+            res = dfs(idx + 1, arr)
+            arr.append(nums[idx])
+            res += dfs(idx + 1, arr)
+            arr.pop()
+            return res
+        return dfs(0, [])
