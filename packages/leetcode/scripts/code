@@ -1,14 +1,17 @@
 class Solution:
-    def subsetXORSum(self, nums: List[int]) -> int:
-        def dfs(idx: int, arr: List[int]) -> int:
-            if idx == len(nums):
-                num = 0
-                for v in arr:
-                    num ^= v
-                return num
-            res = dfs(idx + 1, arr)
-            arr.append(nums[idx])
-            res += dfs(idx + 1, arr)
-            arr.pop()
-            return res
-        return dfs(0, [])
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        nums.sort()
+        dp = [1] * n
+        prev = [-1] * n
+        for i in range(n):
+            for j in range(i):
+                if nums[i] % nums[j] == 0 and dp[j] + 1 > dp[i]:
+                    dp[i] = dp[j] + 1
+                    prev[i] = j
+        imax = dp.index(max(dp))
+        res = []
+        while imax != -1:
+            res.append(nums[imax])
+            imax = prev[imax]
+        return res

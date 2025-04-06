@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1863. 找出所有子集的异或总和再求和',
-    url: 'https://leetcode.cn/problems/sum-of-all-subset-xor-totals',
+    exist: true,
+    name: '368. 最大整除子集',
+    url: 'https://leetcode.cn/problems/largest-divisible-subset',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个数组 nums ，请你求出 nums 中每个 子集 的 异或总和 ，计算并返回这些值相加之 和 。`,
+    desc: `给你一个由 无重复 正整数组成的集合 nums ，请你找出并返回其中最大的整除子集 answer。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 23,
-            memory: 17.7,
-            desc: '遍历所有子数组',
+            time: 179,
+            memory: 17.59,
+            desc: 'dp记录每个点的最大长度，并同时记录 最大长度时的前一个数字下标',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
