@@ -25,24 +25,16 @@ export abstract class BaseZodModel<
 > extends BaseModel<EventTypes, Context> {
     static isZodModel = true as const;
     private _parsedResult!: ReturnType<T['safeParse']>;
-    private _cstr: ZodModelConstructor<T>;
-    private _schema: T;
-    private _raw: z.infer<T> = {};
-    private _config: ZodModelConfig = {};
     constructor(
-        cstr: ZodModelConstructor<T>,
-        schema: T,
-        raw: z.infer<T> = {},
-        config: ZodModelConfig = {},
+        private _cstr: ZodModelConstructor<T>,
+        private _schema: T,
+        private _raw: z.infer<T> = {},
+        private _config: ZodModelConfig = {},
     ) {
         super();
-        this._cstr = cstr;
-        this._schema = schema;
-        this._config = config;
-        this.parse(raw);
+        this.parse(this._raw);
     }
     parse(raw: z.infer<T> = {}) {
-        this._raw = raw;
         this._parsedResult = this._schema.safeParse(this._raw) as ReturnType<T['safeParse']>;
         if (this.isParsedSuccess()) {
             for (const key of Object.keys(this)) {
