@@ -35,6 +35,7 @@ export abstract class BaseZodModel<
         this.parse(this._raw);
     }
     parse(raw: z.infer<T> = {}) {
+        this._raw = raw;
         this._parsedResult = this._schema.safeParse(this._raw) as ReturnType<T['safeParse']>;
         if (this.isParsedSuccess()) {
             for (const key of Object.keys(this)) {
