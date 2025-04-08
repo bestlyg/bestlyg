@@ -1,10 +1,6 @@
 class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        nsum = sum(nums)
-        if (nsum // 2) * 2 != nsum: return False
-        @cache
-        def dfs(idx: int, target: int) -> bool:
-            if idx == len(nums): return target == 0
-            if target < 0: return False
-            return dfs(idx + 1, target) or dfs(idx + 1, target - nums[idx])
-        return dfs(0, nsum // 2)
+    def minimumOperations(self, nums: List[int]) -> int:
+        for i in range(0, len(nums), 3):
+            if len(set(nums[i:])) == len(nums[i:]):
+                return i // 3
+        return 1 + (len(nums) - 1) // 3

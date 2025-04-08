@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '416. 分割等和子集',
-    url: 'https://leetcode.cn/problems/partition-equal-subset-sum',
+    exist: !true,
+    name: '3396. 使数组元素互不相同所需的最少操作次数',
+    url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-elements-in-array-distinct',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。`,
+    desc: `给你一个整数数组 nums，你需要确保数组中的元素 互不相同 。为此，你可以执行以下操作任意次：从数组的开头移除 3 个元素。如果数组中元素少于 3 个，则移除所有剩余元素。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 1736,
-            memory: 485.61,
-            desc: '遍历所有的数组，判断是否能凑成nsum/2的数值',
+            time: 12,
+            memory: 17.53,
+            desc: '按每偏移3个单位，遍历数组是否唯一',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
