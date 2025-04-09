@@ -1,5 +1,5 @@
 export class DefaultMap<K, V> extends Map<K, V> {
-    constructor(private getDefaultData: (key?: K) => V = () => undefined as any) {
+    constructor(private getDefaultData: (key?: K) => V) {
         super();
     }
     setDefault(v: DefaultMap<K, V>['getDefaultData']) {
