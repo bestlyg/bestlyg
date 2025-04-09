@@ -8,6 +8,6 @@ export class DefaultMap<K, V> extends Map<K, V> {
     }
     get(key: K) {
         if (!super.has(key) && this.getDefaultData) super.set(key, this.getDefaultData(key));
-        return super.get(key);
+        return super.get(key)!;
     }
 }
