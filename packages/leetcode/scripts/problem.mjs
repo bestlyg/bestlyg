@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3396. 使数组元素互不相同所需的最少操作次数',
-    url: 'https://leetcode.cn/problems/minimum-number-of-operations-to-make-elements-in-array-distinct',
+    name: '3375. 使数组的值全部为 K 的最少操作次数',
+    url: 'https://leetcode.cn/problems/minimum-operations-to-make-array-values-equal-to-k',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums，你需要确保数组中的元素 互不相同 。为此，你可以执行以下操作任意次：从数组的开头移除 3 个元素。如果数组中元素少于 3 个，则移除所有剩余元素。`,
+    desc: `你的目标是将 nums 中的所有元素都变为 k ，请你返回 最少 操作次数。如果无法将所有元素都变 k ，那么返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 12,
-            memory: 17.53,
-            desc: '按每偏移3个单位，遍历数组是否唯一',
+            time: 75,
+            memory: 17.75,
+            desc: '计数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
