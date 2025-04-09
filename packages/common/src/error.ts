@@ -50,12 +50,12 @@ export const throwError = (msg: string, type: ErrorEnum = ErrorEnum.common): nev
 };
 export function catchError<T>(
     fn: (...vals: any) => T,
-    errorFn: (reason: Error) => void,
+    errorFn?: (reason: Error) => void,
     ...args: any[]
 ) {
     try {
         return fn.apply(fn, args);
     } catch (e: any) {
-        errorFn(e);
+        errorFn?.(e);
     }
 }
