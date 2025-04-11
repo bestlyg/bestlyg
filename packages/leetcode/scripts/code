@@ -1,7 +1,20 @@
 class Solution:
-    def countSymmetricIntegers(self, low: int, high: int) -> int:
-        def check(num: int) -> bool:
-            arr = [int(c) for c in str(num)]
-            if len(arr) % 2 != 0: return False
-            return sum(arr[:len(arr) // 2]) == sum(arr[len(arr) // 2:])
-        return sum(check(num) for num in range(low, high + 1))
+    def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
+        high = list(map(int, str(finish)))
+        n = len(high)
+        low  = list(map(int, str(start).zfill(n)))
+        @cache
+        def dp(idx: int, limit_hi: bool, limit_lo: bool) -> int:
+            if idx == n: return 1
+            high_num = high[idx] if limit_hi else 9
+            low_num = low[idx] if limit_lo else 0
+            res = 0
+            if n - idx > len(s):
+                for num in range(low_num, min(high_num, limit) + 1):
+                    res += dp(idx + 1, limit_hi and num == high_num, limit_lo and num == low_num)
+            else:
+                num = int(s[len(s) - (n - idx)])
+                if low_num <= num <= high_num:
+                    res += dp(idx + 1, limit_hi and num == high_num, limit_lo and num == low_num)
+            return res
+        return dp(0, True, True)

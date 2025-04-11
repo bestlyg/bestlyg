@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3375. 使数组的值全部为 K 的最少操作次数',
-    url: 'https://leetcode.cn/problems/count-symmetric-integers',
+    name: '2999. 统计强大整数的数目',
+    url: 'https://leetcode.cn/problems/count-the-number-of-powerful-integers',
     level: 'Easy',
     tagList: [],
-    desc: `返回在 [low, high] 范围内的 对称整数的数目 。`,
+    desc: `请你返回区间 [start..finish] 内强大整数的 总数目 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 869,
-            memory: 17.57,
-            desc: '遍历每一个数',
+            time: 35,
+            memory: 17.90,
+            desc: '数位dp',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
