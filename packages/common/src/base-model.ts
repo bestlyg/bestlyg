@@ -3,7 +3,7 @@ import { NonFunctionKeys } from './types';
 
 export type BaseModelPlugin<T> = ((model: T) => void) | { apply: (model: T) => void };
 
-export abstract class BaseModel<
+export class BaseModel<
     EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
     Context extends any = any,
 > extends EventEmitter<EventTypes, Context> {
