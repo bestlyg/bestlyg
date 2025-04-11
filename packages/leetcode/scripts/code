@@ -1,7 +1,7 @@
 class Solution:
-    def minOperations(self, nums: List[int], k: int) -> int:
-        nums = sorted(Counter(nums).keys())
-        idx = bisect_left(nums, k)
-        if idx != 0: return -1
-        if nums[idx] == k: idx += 1
-        return len(nums) - idx
+    def countSymmetricIntegers(self, low: int, high: int) -> int:
+        def check(num: int) -> bool:
+            arr = [int(c) for c in str(num)]
+            if len(arr) % 2 != 0: return False
+            return sum(arr[:len(arr) // 2]) == sum(arr[len(arr) // 2:])
+        return sum(check(num) for num in range(low, high + 1))
