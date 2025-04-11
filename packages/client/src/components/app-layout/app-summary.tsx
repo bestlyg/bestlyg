@@ -11,7 +11,7 @@ export function AppSummary() {
     return (
         <Spin spinning={loading} indicator={<LoadingSpinner />}>
             <div className="hidden text-sm xl:block">
-                <div className="fixed top-20 h-[calc(100vh-3.5rem-64px)] pt-4 overflow-auto w-[300px]">
+                <div className="sticky top-20 h-[calc(100vh-3.5rem-64px)] pt-4 overflow-auto w-[300px]">
                     {node}
                 </div>
             </div>

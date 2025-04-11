@@ -1,5 +1,4 @@
 import React from 'react';
-// import { RouterProvider } from '@/routes';
 import { RouterProvider } from '@/routes';
 import { hooks as fetchHooks, instance } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
@@ -10,7 +9,6 @@ import '@/shadcn/styles/globals.css';
 import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
-import { AppFooter } from './components/app-footer';
 
 export default function App() {
     const { toast } = useToast();
@@ -34,7 +32,6 @@ export default function App() {
         <>
             <RouterProvider />
             <Toaster />
-            <AppFooter />
         </>
     );
 }

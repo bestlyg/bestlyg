@@ -144,7 +144,7 @@ function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.Sid
 export function AppSidebar() {
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" className='!sticky'>
             <SidebarHeader>
                 <SidebarCategorySwitcher />
             </SidebarHeader>

@@ -15,6 +15,7 @@ import { AppHeader } from './app-header';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 import { AppSummary } from './app-summary';
+import { AppFooter } from './app-footer';
 
 export * from './app-header';
 export * from './app-sidebar';
@@ -50,26 +51,29 @@ export default function AppLayout() {
         });
     }, [location, sidebarPromise]);
     return (
-        <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-                <AppHeader />
-                <main className="relative py-4 lg:gap-10 xl:grid xl:grid-cols-[1fr_300px] px-[max(calc((100svw-1280px)/2),20px)]">
-                    <div className="flex flex-1 flex-col gap-4 pt-0">
-                        <div>
-                            <Outlet />
+        <>
+            <SidebarProvider>
+                <AppSidebar />
+                <SidebarInset>
+                    <AppHeader />
+                    <main className="relative py-4 lg:gap-10 xl:grid xl:grid-cols-[1fr_300px] px-[max(calc((100svw-1280px)/2),20px)]">
+                        <div className="flex flex-1 flex-col gap-4 pt-0">
+                            <div>
+                                <Outlet />
+                            </div>
                         </div>
-                    </div>
-                    <AppSummary />
-                </main>
-                <ScrollToTop
-                    minHeight={20}
-                    scrollTo={0}
-                    className="fixed right-8 bottom-4 rounded-full h-[32px] w-[32px]"
-                >
-                    <ArrowUpToLine />
-                </ScrollToTop>
-            </SidebarInset>
-        </SidebarProvider>
+                        <AppSummary />
+                    </main>
+                    <ScrollToTop
+                        minHeight={20}
+                        scrollTo={0}
+                        className="fixed right-8 bottom-4 rounded-full h-[32px] w-[32px]"
+                    >
+                        <ArrowUpToLine />
+                    </ScrollToTop>
+                </SidebarInset>
+            </SidebarProvider>
+            <AppFooter />
+        </>
     );
 }
