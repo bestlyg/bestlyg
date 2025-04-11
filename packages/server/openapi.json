@@ -493,6 +493,20 @@
                     "Client"
                 ]
             }
+        },
+        "/zjuer/wiki": {
+            "get": {
+                "operationId": "ZjuerController_toWiki",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Zjuer"
+                ]
+            }
         }
     },
     "info": {

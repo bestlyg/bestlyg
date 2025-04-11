@@ -137,6 +137,15 @@
                     "path": "/api/client/leetcode/sidebars"
                 }
             }
+        },
+        "ZjuerModule": {
+            "ZjuerController": {
+                "toWiki": {
+                    "requestMethod": "GET",
+                    "methodName": "toWiki",
+                    "path": "/wiki"
+                }
+            }
         }
     }
 }

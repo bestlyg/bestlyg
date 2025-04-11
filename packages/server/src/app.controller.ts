@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Res, MessageEvent } from '@nestjs/common';
+import { Controller, Post, Body, Res, MessageEvent, Get, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
 import { interval, Observable } from 'rxjs';
 import { Response } from 'express';
@@ -35,7 +35,9 @@ export class AppController {
             res.write(
                 sse.stringify({
                     id: Date.now().toString(),
-                    data: JSON.stringify(ResponseEntity.ofSuccess(data.substring(i, i + pickLength))),
+                    data: JSON.stringify(
+                        ResponseEntity.ofSuccess(data.substring(i, i + pickLength)),
+                    ),
                 }),
             );
             res.flush();
@@ -43,9 +45,6 @@ export class AppController {
         }
         res.end();
     }
-    // @Get()
-    // @Redirect('/web/site')
-    // redirect() {}
 
     // @Get('/favicon.ico')
     // @Redirect('/static/logo.ico')

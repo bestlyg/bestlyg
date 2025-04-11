@@ -28,6 +28,7 @@ export async function bootstrap() {
             idl.api.bestlyg.ClientService.GetDocsSidebars.url,
             idl.api.bestlyg.ClientService.GetLeetcodeSidebars.url,
             '/static',
+            '/zjuer/wiki'
         ],
     });
     const { httpAdapter } = app.get(HttpAdapterHost);

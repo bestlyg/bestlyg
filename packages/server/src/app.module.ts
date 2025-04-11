@@ -14,7 +14,7 @@ import { ServerlessModule } from '@bestlyg-server/serverless';
 import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
 import { ApiModule } from '@bestlyg-server/api';
-import { MetadataScanner, ModuleRef, ModulesContainer } from '@nestjs/core';
+import { ZjuerModule } from '@bestlyg-server/zjuer';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
@@ -45,6 +45,7 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
         ServerlessModule,
         StaticModule,
         ApiModule,
+        ZjuerModule,
     ],
     controllers: [AppController],
     providers: [AppService, TasksService, MailService],

@@ -30,6 +30,8 @@ alias proxy-start="export https_proxy=http://127.0.0.1:7890 http_proxy=http://12
 alias proxy-end="export https_proxy= http_proxy= all_proxy="
 alias ioa='sudo ifconfig en0 down && sudo ifconfig en1 down && sudo ifconfig en2 down && sudo ifconfig en0 up && sudo ifconfig en1 up && sudo ifconfig en2 up'
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-export PATH="$HOME/.pyenv/shims:$PATH"
+# export PATH="$HOME/.pyenv/shims:$PATH"
 
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
