@@ -10,20 +10,12 @@ export function humanReadableTime(ms: number) {
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = Math.floor(seconds % 60);
 
-    let result = '';
-
-    if (days > 0) {
-        result += `${days}天 `;
-    }
-    if (hours > 0) {
-        result += `${hours}小时 `;
-    }
-    if (minutes > 0) {
-        result += `${minutes}分钟 `;
-    }
-    if (remainingSeconds > 0) {
-        result += `${remainingSeconds}秒`;
-    }
-
-    return result.trim();
+    return [
+        days && `${days}天`,
+        hours && `${hours}小时`,
+        minutes && `${minutes}分钟`,
+        remainingSeconds && `${remainingSeconds}秒`,
+    ]
+        .filter(Boolean)
+        .join(' ');
 }
