@@ -108,27 +108,18 @@ export function createZodModel<T extends ZodObject<any> = ZodObject<any>>(
     return ZodModel;
 }
 
-export interface ZodBaseModel<
-    T extends z.ZodObject<any> = z.ZodObject<any>,
-    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
-    Context extends any = any,
-> {
-    new (raw?: any): z.infer<T> & BaseModel<EventTypes, Context>;
+export interface ZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>> {
+    new (raw?: any): z.infer<T>;
     [zodSchemaSymbol]: T;
 }
 
-export function createZodBaseModel<
-    T extends z.ZodObject<any> = z.ZodObject<any>,
-    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
-    Context extends any = any,
->(schema: T) {
+export function createZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>>(schema: T) {
     function ZodBaseModel(raw: any) {
         const res = schema.safeParse(raw);
         if (!res.success) throw new Error(fromError(res.error).toString());
         const instance = res.data;
-        Object.setPrototypeOf(instance, new BaseModel());
         return instance;
     }
     ZodBaseModel[zodSchemaSymbol] = schema;
-    return ZodBaseModel as any as ZodBaseModel<T, EventTypes, Context>;
+    return ZodBaseModel as any as ZodBaseModel<T>;
 }

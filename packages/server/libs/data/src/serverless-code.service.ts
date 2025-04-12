@@ -15,14 +15,14 @@ export class ServerlessCodeService {
 
     async getServerlessCode(dto: SelectServerlessCodeDto) {
         const data = await this.prismaService.serverlessCode.findFirst({
-            where: _.pick(dto, ['id', 'name']),
+            where: dto,
         });
         return data;
     }
 
     async createServerlessCode(dto: CreateServerlessCodeDto) {
         const res = await this.prismaService.serverlessCode.create({
-            data: _.pick(dto, ['code', 'name', 'serverlessId']),
+            data: dto,
         });
         return res;
     }
@@ -30,7 +30,7 @@ export class ServerlessCodeService {
     async updateServerlessCode(dto: UpdateServerlessCodeDto) {
         const res = await this.prismaService.serverlessCode.update({
             where: { id: dto.id },
-            data: _.pick(dto, ['id', 'name', 'code']),
+            data: dto,
         });
         return res;
     }
