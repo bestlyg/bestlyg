@@ -16,9 +16,4 @@ export class SelectLedgerPageDto extends createZodBaseModel(
             date: z.string().date().optional(),
         })
         .merge(PageParam.Schema),
-) {
-    a = () => {
-        console.log(this.getPlain());
-    };
-    __a__ = 1;
-}
+) {}
