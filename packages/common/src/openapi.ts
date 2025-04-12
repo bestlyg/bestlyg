@@ -130,5 +130,11 @@ export const apiMap = {
             "method": "get",
             "path": "/api/client/leetcode/sidebars"
         }
+    },
+    "ZjuerController": {
+        "toWiki": {
+            "method": "get",
+            "path": "/zjuer/wiki"
+        }
     }
 } as const;
