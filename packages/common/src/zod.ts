@@ -108,18 +108,58 @@ export function createZodModel<T extends ZodObject<any> = ZodObject<any>>(
     return ZodModel;
 }
 
-export interface ZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>> {
-    new (raw?: any): z.infer<T>;
+export interface ZodBaseModel<
+    T extends z.ZodObject<any> = z.ZodObject<any>,
+    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
+    Context extends any = any,
+> {
+    new (raw?: any): z.infer<T> &
+        BaseModel<EventTypes, Context> & {
+            __raw__: any;
+            getRaw(): any;
+            __plain__: z.infer<T>;
+            getPlain(): z.infer<T>;
+            __schema__: T;
+            getSchema(): T;
+            __config__: ZodBaseModelConfig;
+            getConfig(): ZodBaseModelConfig;
+        };
     [zodSchemaSymbol]: T;
 }
 
-export function createZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>>(schema: T) {
+export interface ZodBaseModelConfig {}
+
+export function createZodBaseModel<
+    T extends z.ZodObject<any> = z.ZodObject<any>,
+    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
+    Context extends any = any,
+>(schema: T, config: ZodBaseModelConfig = {}) {
     function ZodBaseModel(raw: any) {
         const res = schema.safeParse(raw);
-        if (!res.success) throw new Error(fromError(res.error).toString());
-        const instance = res.data;
+        if (!res.success)
+            throw new TypeError(fromError(res.error).toString(), { cause: { raw, schema } });
+        const plain = res.data;
+        const instance = Object.assign({}, plain, {
+            __raw__: raw,
+            getRaw() {
+                return this.__raw__;
+            },
+            __plain__: plain,
+            getPlain() {
+                return this.__plain__;
+            },
+            __schema__: schema,
+            getSchema() {
+                return this.__schema__;
+            },
+            __config__: config,
+            getConfig() {
+                return this.__config__;
+            },
+        });
+        Object.setPrototypeOf(instance, new BaseModel());
         return instance;
     }
     ZodBaseModel[zodSchemaSymbol] = schema;
-    return ZodBaseModel as any as ZodBaseModel<T>;
+    return ZodBaseModel as unknown as ZodBaseModel<T, EventTypes, Context>;
 }
