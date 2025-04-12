@@ -38,6 +38,10 @@ async function requestApplicationSidebars(): Promise<{
                         name: 'Server Side Event',
                         link: routeMap.common.application.sse.path,
                     },
+                    {
+                        name: '零宽字符',
+                        link: routeMap.common.application.zeroWith.path,
+                    },
                 ],
             },
         ],

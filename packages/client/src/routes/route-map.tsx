@@ -38,6 +38,7 @@ const Point24 = load(() => import('@/pages/application/point24'));
 const Serverless = load(() => import('@/pages/application/serverless'));
 const ChineseChess = load(() => import('@/pages/application/chinese-chess'));
 const Sse = load(() => import('@/pages/application/sse'));
+const ZeroWidth = load(() => import('@/pages/application/zero-width'));
 const Management = load(() => import('@/pages/management'));
 const Xuan = load(() => import('@/pages/management/xuan'));
 const Ledger = load(() => import('@/pages/management/ledger'));
@@ -65,6 +66,7 @@ export const { routeMap, routes } = resolveRouteMap({
             serverless: { path: 'serverless', element: <Serverless /> },
             chineseChess: { path: 'chinese-chess', element: <ChineseChess /> },
             sse: { path: 'sse', element: <Sse /> },
+            zeroWith: { path: 'zero-width', element: <ZeroWidth /> },
         },
         management: {
             path: 'management',
