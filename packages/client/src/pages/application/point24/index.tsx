@@ -85,6 +85,7 @@ export default function Point24() {
             <div className="flex gap-2">
                 {nums.map((v, index) => (
                     <Input
+                        key={index}
                         value={v}
                         onChange={e => {
                             const num = Number(e.target.value);

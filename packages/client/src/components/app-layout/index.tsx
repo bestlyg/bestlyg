@@ -21,6 +21,7 @@ export * from './app-header';
 export * from './app-sidebar';
 export * from './app-sidebar-footer';
 export * from './app-summary';
+export * from './app-footer';
 
 export default function AppLayout() {
     const location = useLocation();
@@ -52,6 +53,7 @@ export default function AppLayout() {
     }, [location, sidebarPromise]);
     return (
         <>
+            {/* <div>123</div> */}
             <SidebarProvider>
                 <AppSidebar />
                 <SidebarInset>
