@@ -24,7 +24,7 @@ import {
 } from '@/shadcn/ui/sidebar';
 import { RandomIcon } from '@/components/random-icon';
 import _ from 'lodash';
-import { SidebarCategorySwitcher } from '@/components/sidebar-category-switcher';
+import { SidebarCategorySwitcher } from './sidebar-category-switcher';
 import { useAtomValue } from 'jotai';
 import {
     activeSidebarBreadcrumbListAtom,
