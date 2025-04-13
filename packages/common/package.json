@@ -112,6 +112,8 @@
         "react": "catalog:",
         "react-router": "^7.4.1",
         "rimraf": "catalog:",
+        "typedoc": "^0.28.2",
+        "typedoc-plugin-markdown": "^4.6.2",
         "typescript": "catalog:",
         "unbuild": "catalog:"
     },
