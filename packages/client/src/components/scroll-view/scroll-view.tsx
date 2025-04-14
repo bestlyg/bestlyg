@@ -70,7 +70,7 @@ export const ScrollView = React.forwardRef<ScrollController, ScrollViewProps>((p
 
     const { onScroll: handleScrollbarVisibility } = useScrollbarVisible({
         onVisibleChange: visible => {
-            const dom = scrollController.ref.current;
+            const dom = scrollController.containerRef.current;
             if (!dom) return;
             if (visible) {
                 dom.classList.add(styles.showScrollbarThumb);
@@ -177,7 +177,7 @@ export const ScrollView = React.forwardRef<ScrollController, ScrollViewProps>((p
 
     return (
         <ScrollViewProvider
-            containerRef={scrollController.ref}
+            containerRef={scrollController.containerRef}
             controller={scrollController.controller}
         >
             <div className={clsx(styles.scrollView, className)} style={style}>
@@ -191,7 +191,7 @@ export const ScrollView = React.forwardRef<ScrollController, ScrollViewProps>((p
 
                 <div className={clsx(styles.content)}>
                     <div
-                        ref={scrollController.ref}
+                        ref={scrollController.containerRef}
                         className={clsx(styles.scrollable, scrollableClassName, {
                             [styles.reverse]: reverse,
                             [styles.showScrollbar]: showScrollbar,

@@ -43,7 +43,7 @@ export const useScrollController = ({
     onAfterScroll?: () => void;
     reverse: boolean;
 }): {
-    ref: React.RefObject<HTMLDivElement | null>;
+    containerRef: React.RefObject<HTMLDivElement | null>;
     controller: ScrollController;
 } => {
     const ref = React.useRef<HTMLDivElement | null>(null);
@@ -151,7 +151,7 @@ export const useScrollController = ({
     }, []);
 
     return {
-        ref,
+        containerRef,
         controller: {
             scrollTo,
             scrollToTop,

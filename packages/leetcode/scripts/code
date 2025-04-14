@@ -1,6 +1,10 @@
-mod = 10 ** 9 + 7
 class Solution:
-    def countGoodNumbers(self, n: int) -> int:
-        even_count = (n + 1) // 2
-        odd_count = n // 2
-        return pow(5, even_count, mod) * pow(4, odd_count, mod) % mod
+    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:
+        return sum(
+            abs(arr[i] - arr[j]) <= a and 
+            abs(arr[j] - arr[k]) <= b and 
+            abs(arr[i] - arr[k]) <= c
+            for k in range(len(arr))
+            for j in range(k)
+            for i in range(j)
+        )
