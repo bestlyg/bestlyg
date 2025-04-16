@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1534. 统计好三元组',
-    url: 'https://leetcode.cn/problems/count-good-triplets',
+    exist: true,
+    name: '2537. 统计好子数组的数目',
+    url: 'https://leetcode.cn/problems/count-the-number-of-good-subarrays',
     level: 'Easy',
     tagList: [],
-    desc: `返回 好三元组的数量 。`,
+    desc: `一个子数组 arr 如果有 至少 k 对下标 (i, j) 满足 i < j 且 arr[i] == arr[j] ，那么称它是一个 好 子数组。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 343,
-            memory: 17.46,
-            desc: '枚举',
+            time: 203,
+            memory: 33.64,
+            desc: '滑动窗口记录以当前下标为结尾时的好子数组对数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,10 +1,15 @@
 class Solution:
-    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:
-        return sum(
-            abs(arr[i] - arr[j]) <= a and 
-            abs(arr[j] - arr[k]) <= b and 
-            abs(arr[i] - arr[k]) <= c
-            for k in range(len(arr))
-            for j in range(k)
-            for i in range(j)
-        )
+    def countGood(self, nums: List[int], k: int) -> int:
+        counter = Counter()
+        l = 0
+        v = 0
+        res = 0
+        for r in range(len(nums)):
+            v += counter[nums[r]]
+            counter[nums[r]] += 1
+            while v >= k:
+                counter[nums[l]] -= 1
+                v -= counter[nums[l]]
+                l += 1
+            res += l
+        return res
