@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 import viteCompression from 'vite-plugin-compression';
 import { getResolveFunction } from '@bestlyg/common/server';
 import dotenv from 'dotenv';
+import tailwindcss from '@tailwindcss/vite';
 
 const resolve = getResolveFunction(__dirname);
 
@@ -14,6 +15,7 @@ dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env'), ove
 
 export default defineConfig({
     plugins: [
+        tailwindcss(),
         react(),
         visualizer({
             emitFile: true,

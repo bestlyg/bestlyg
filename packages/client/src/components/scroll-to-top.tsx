@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@/shadcn/ui/button';
+import { Button } from '@/shadcn/ui/button';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -7,7 +7,7 @@ export function ScrollToTop({
     scrollTo, // Height to go on scroll to top
     getContainer = () => document,
     ...props
-}: ButtonProps & {
+}: React.ComponentProps<'button'> & {
     minHeight?: number;
     scrollTo?: number;
     getContainer?: () => Document | Element | null | undefined;

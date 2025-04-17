@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { isAppleWebkit, isChromeAbove83, ScrollController, ScrollPosition } from './utils';
 import { debounce } from 'lodash';
-import styles from './scroll-view.module.less'
+import styles from './scroll-view.module.less';
 import { ResizingProps } from './resizing';
 import { useDebounceFn } from 'ahooks';
 
@@ -151,7 +151,7 @@ export const useScrollController = ({
     }, []);
 
     return {
-        containerRef,
+        containerRef: ref,
         controller: {
             scrollTo,
             scrollToTop,

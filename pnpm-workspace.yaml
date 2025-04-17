@@ -26,10 +26,11 @@ catalog:
     unbuild: ^3.3.1
     # ant
     ahooks: ^3.8.4
-    antd: ^5.22.7
+    antd: ^5.24.7
     '@ant-design/icons': ^5.5.1
     '@ant-design/v5-patch-for-react-19': latest
     '@ant-design/icons-svg': ^4.4.2
+    '@ant-design/cssinjs': ^1.23.0
     # markdown
     '@mdx-js/react': ^3.0.1
     '@mdx-js/mdx': ^3.1.0

@@ -1,11 +1,13 @@
 import React from 'react';
 import { RouterProvider } from '@/routes';
+import { StyleProvider } from '@ant-design/cssinjs';
+import { ConfigProvider } from 'antd';
 import { hooks as fetchHooks, instance } from '@bestlyg/common/idl/utils';
 import { useToast } from '@/shadcn/hooks/use-toast';
 import { xTokenName } from '@/utils';
 import { Toaster } from '@/shadcn/ui/toaster';
 import { ResponseEntity } from '@bestlyg/common';
-import '@/shadcn/styles/globals.css';
+// import '@/shadcn/styles/globals.css';
 import '@ant-design/v5-patch-for-react-19';
 import '@/styles/globals.less';
 import 'katex/dist/katex.min.css';
@@ -29,9 +31,17 @@ export default function App() {
     }, []);
 
     return (
-        <>
-            <RouterProvider />
-            <Toaster />
-        </>
+        <StyleProvider layer>
+            <ConfigProvider
+                theme={{
+                    token: {
+                        colorLink: 'var(--primary)',
+                    },
+                }}
+            >
+                <RouterProvider />
+                <Toaster />
+            </ConfigProvider>
+        </StyleProvider>
     );
 }
