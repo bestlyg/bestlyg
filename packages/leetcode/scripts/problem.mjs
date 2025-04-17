@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2537. 统计好子数组的数目',
-    url: 'https://leetcode.cn/problems/count-the-number-of-good-subarrays',
+    exist: !true,
+    name: '2176. 统计数组中相等且可以被整除的数对',
+    url: 'https://leetcode.cn/problems/count-equal-and-divisible-pairs-in-an-array',
     level: 'Easy',
     tagList: [],
-    desc: `一个子数组 arr 如果有 至少 k 对下标 (i, j) 满足 i < j 且 arr[i] == arr[j] ，那么称它是一个 好 子数组。`,
+    desc: `给你一个下标从 0 开始长度为 n 的整数数组 nums 和一个整数 k ，请你返回满足 0 <= i < j < n ，nums[i] == nums[j] 且 (i * j) 能被 k 整除的数对 (i, j) 的 数目 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 203,
-            memory: 33.64,
-            desc: '滑动窗口记录以当前下标为结尾时的好子数组对数',
+            time: 39,
+            memory: 17.49,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
