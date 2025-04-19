@@ -1,7 +1,3 @@
-from pathlib import Path
-
-__all__ = [
-    'root_path'
-]
-
-root_path = Path(__file__).parent.parent.parent
+from .constants import *
+from .logger import *
+from .config import *

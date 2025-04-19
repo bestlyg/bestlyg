@@ -1,8 +1,11 @@
 class Solution:
-    def countBadPairs(self, nums: List[int]) -> int:
+    def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()
         res = 0
-        counter = Counter()
         for i in range(len(nums)):
-            res += i - counter[nums[i] - i]
-            counter[nums[i] - i] += 1
-        return res
+            num = nums[i]
+            lo = bisect_left(nums, lower - num)
+            hi = bisect_right(nums, upper - num)
+            res += hi - lo
+            if lo <= i < hi: res -= 1
+        return res // 2
