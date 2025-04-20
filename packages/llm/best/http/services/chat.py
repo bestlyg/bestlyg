@@ -50,8 +50,9 @@ class LoggingHandler(BaseCallbackHandler):
 async def getChatStream():
     callbacks = [LoggingHandler()]
     async for e in chain.astream({"name": "鲁迅", }, {"callbacks": callbacks}):
-        print(e, end='', flush=True)
-        yield e
+        # print(e, end='', flush=True)
+        print(e)
+        yield f'data: {e}\n\n'
     # for i in range(10):
     #     # 模拟一些耗时操作
     #     await sleep(1)
