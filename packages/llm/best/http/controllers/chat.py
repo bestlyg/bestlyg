@@ -1,10 +1,10 @@
-from ..core import Controller
 from fastapi import APIRouter
+from fastapi.responses import StreamingResponse
+from ..services import getChatStream
+
+chat_router = APIRouter(prefix="/chat")
 
 
-class ChatController(Controller):
-    router = APIRouter(prefix="/chat")
-
-    @router.get('')
-    async def chat():
-        return 'HELLO'
+@chat_router.get('/stream')
+async def chatStream():
+    return StreamingResponse(getChatStream(), media_type="text/event-stream")
