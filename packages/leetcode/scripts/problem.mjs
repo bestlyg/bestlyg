@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '781. 森林中的兔子',
-    url: 'https://leetcode.cn/problems/rabbits-in-forest',
+    exist: !true,
+    name: '2145. 统计隐藏数组数目',
+    url: 'https://leetcode.cn/problems/count-the-hidden-sequences',
     level: 'Easy',
     tagList: [],
-    desc: `给你数组 answers ，返回森林中兔子的最少数量。`,
+    desc: `请你返回 符合 要求的隐藏数组的数目。如果没有符合要求的隐藏数组，请返回 0 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 0,
-            memory: 17.7,
-            desc: '记录说每个数量的兔子有多少个，贪心的获取最大值',
+            time: 116,
+            memory: 31.68,
+            desc: '设置一个初始值尝试构建一个数组，并记录最大值和最小值，与lower和upper差值记录',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

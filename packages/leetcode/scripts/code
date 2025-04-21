@@ -1,12 +1,9 @@
 class Solution:
-    def numRabbits(self, answers: List[int]) -> int:
-        counter = Counter(answers)
-        res = 0
-        for num, cnt in counter.items():
-            if cnt <= num + 1:
-                res += num + 1
-            elif num == 0:
-                res += cnt
-            else:
-                res += ceil(cnt / (num + 1)) * (num + 1)
-        return res
+    def numberOfArrays(self, differences: List[int], lower: int, upper: int) -> int:
+        cur = nmin = nmax = 0
+        for d in differences:
+            cur += d
+            nmin = min(nmin, cur)
+            nmax = max(nmax, cur)
+            if nmax - nmin > upper - lower: return 0
+        return (upper - lower) - (nmax - nmin) + 1
