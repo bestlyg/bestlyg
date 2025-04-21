@@ -73,7 +73,7 @@
         "dayjs": "catalog:",
         "doctrine": "^3.0.0",
         "dotenv": "catalog:",
-        "figlet": "^1.8.0",
+        "figlet": "^1.8.1",
         "fs-extra": "catalog:",
         "inquirer": "^10.2.2",
         "jsdom": "^24.1.3",

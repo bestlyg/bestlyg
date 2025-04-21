@@ -43,7 +43,7 @@
         "chalk": "catalog:",
         "dayjs": "catalog:",
         "fs-extra": "catalog:",
-        "leetcode-query": "^1.2.3",
+        "leetcode-query": "^1.3.0",
         "rimraf": "catalog:",
         "typescript": "catalog:",
         "unbuild": "catalog:"

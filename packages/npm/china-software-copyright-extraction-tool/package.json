@@ -37,7 +37,7 @@
     "dependencies": {
         "chalk": "catalog:",
         "commander": "catalog:",
-        "docxtemplater": "^3.60.0",
+        "docxtemplater": "^3.61.1",
         "pizzip": "^3.1.8",
         "ramda": "catalog:",
         "xml": "^1.0.1",

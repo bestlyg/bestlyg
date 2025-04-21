@@ -23,7 +23,7 @@ packages:
 
 catalog:
     '@types/node': ^20.17.10
-    unbuild: ^3.3.1
+    unbuild: ^3.5.0
     # ant
     ahooks: ^3.8.4
     antd: ^5.24.7
@@ -38,7 +38,7 @@ catalog:
     marked-directive: ^1.0.5
 
     '@types/fs-extra': ^11.0.4
-    fs-extra: ^11.2.0
+    fs-extra: ^11.3.0
 
     '@emotion/hash': ^0.9.1
     '@types/doctrine': ^0.0.9
@@ -49,10 +49,10 @@ catalog:
     dayjs: ^1.11.13
     cross-env: ^7.0.3
     dotenv: ^16.4.5
-    zx: ^8.3.0
-    typescript: ^5.7.3
+    zx: ^8.5.3
+    typescript: ^5.8.3
     rimraf: ^6.0.1
-    commander: ^11.1.0
+    commander: ^13.1.0
     immer: ^10.1.1
     eventemitter3: ^5.0.1
 
@@ -79,7 +79,7 @@ catalog:
     prisma: ^6.2.1
     '@prisma/client': ^6.2.1
 
-    jotai: ^2.11.0
+    jotai: ^2.12.3
 
     '@types/tapable': ^2.2.7
     tapable: ^2.2.1
