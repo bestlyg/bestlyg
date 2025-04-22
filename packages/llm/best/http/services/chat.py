@@ -10,10 +10,11 @@ from langchain_core.output_parsers import JsonOutputParser, StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.outputs import LLMResult
 from langchain_core.callbacks import BaseCallbackHandler
+from ..models import ChatStreamRequest
 
-
-prompt = ChatPromptTemplate.from_template(
-    '你是一个文学专家，擅长学习各种人的说话方式, 现在你需要学习{name}的说话方式，告诉我你是谁')
+# prompt = ChatPromptTemplate.format_prompt(
+#     SystemMessage('你是一个文学专家，擅长学习各种人的说话方式, 现在你需要学习鲁迅的说话方式')
+# )
 
 chat = ChatDeepSeek(
     model='deepseek',
@@ -26,7 +27,7 @@ chat = ChatDeepSeek(
 )
 
 
-chain = prompt | chat | StrOutputParser()
+chain = chat | StrOutputParser()
 
 
 class LoggingHandler(BaseCallbackHandler):
@@ -47,11 +48,13 @@ class LoggingHandler(BaseCallbackHandler):
         print(f"\n\n=====>Chain ended, outputs: {outputs}")
 
 
-async def getChatStream():
+async def getChatStream(req: ChatStreamRequest):
     callbacks = [LoggingHandler()]
-    async for e in chain.astream({"name": "鲁迅", }, {"callbacks": callbacks}):
-        # print(e, end='', flush=True)
-        print(e)
+    messages = [SystemMessage('你是一个文学专家，擅长学习各种人的说话方式, 现在你需要学习鲁迅的说话方式')] + \
+        list(map(lambda v: v.convert(), req.messages))
+    print(messages)
+    async for e in chain.astream(messages, {"callbacks": callbacks}):
+        print(e, end='', flush=True)
         yield f'data: {e}\n\n'
     # for i in range(10):
     #     # 模拟一些耗时操作

@@ -54,7 +54,6 @@ BESTLYG_LLM_DEEPSEEK_ADDRESS = os.environ.get('BESTLYG_LLM_DEEPSEEK_ADDRESS')
 
 
 def env_check():
-    logger.info("env_check")
     all_variables = globals()
     for k in __all__:
         if not all_variables[k]:
