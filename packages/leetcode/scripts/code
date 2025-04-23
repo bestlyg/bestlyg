@@ -1,9 +1,8 @@
 class Solution:
-    def numberOfArrays(self, differences: List[int], lower: int, upper: int) -> int:
-        cur = nmin = nmax = 0
-        for d in differences:
-            cur += d
-            nmin = min(nmin, cur)
-            nmax = max(nmax, cur)
-            if nmax - nmin > upper - lower: return 0
-        return (upper - lower) - (nmax - nmin) + 1
+    def countLargestGroup(self, n: int) -> int:
+        counter = Counter()
+        for num in range(1, n + 1):
+            v = sum(int(c) for c in str(num))
+            counter[v] += 1
+        nmax = max(counter.values())
+        return sum(nmax == v for v in counter.values())
