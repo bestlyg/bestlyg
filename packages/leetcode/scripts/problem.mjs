@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1399. 统计最大组的数目',
-    url: 'https://leetcode.cn/problems/count-largest-group',
+    name: '2799. 统计完全子数组的数目',
+    url: 'https://leetcode.cn/problems/count-complete-subarrays-in-an-array',
     level: 'Easy',
     tagList: [],
-    desc: `请你统计每个组中的数字数目，并返回数字数目并列最多的组有多少个。`,
+    desc: `返回数组中 完全子数组 的数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 83,
-            memory:17.61,
-            desc: '遍历每个数，对数值计数',
+            time: 39,
+            memory: 17.86,
+            desc: '计算大于等于cnt的数量和大于等于cnt+1的数量做相减，得到等于cnt的数量',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

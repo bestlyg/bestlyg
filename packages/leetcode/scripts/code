@@ -1,8 +1,19 @@
+def run(nums: List[int], cnt: int) -> int:
+    n = len(nums)
+    counter = Counter()
+    cur = l = res = 0
+    f = False
+    for r in range(n):
+        counter[nums[r]] += 1
+        if counter[nums[r]] == 1: cur += 1
+        while l <= r and cur >= cnt:
+            counter[nums[l]] -= 1
+            if counter[nums[l]] == 0: cur -= 1
+            l += 1
+        res += l + 1
+    return res
+    
 class Solution:
-    def countLargestGroup(self, n: int) -> int:
-        counter = Counter()
-        for num in range(1, n + 1):
-            v = sum(int(c) for c in str(num))
-            counter[v] += 1
-        nmax = max(counter.values())
-        return sum(nmax == v for v in counter.values())
+    def countCompleteSubarrays(self, nums: List[int]) -> int:
+        cnt = len(Counter(nums).keys())
+        return run(nums, cnt) - run(nums, cnt + 1)
