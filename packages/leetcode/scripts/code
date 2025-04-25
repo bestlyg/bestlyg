@@ -1,19 +1,11 @@
-def run(nums: List[int], cnt: int) -> int:
-    n = len(nums)
-    counter = Counter()
-    cur = l = res = 0
-    f = False
-    for r in range(n):
-        counter[nums[r]] += 1
-        if counter[nums[r]] == 1: cur += 1
-        while l <= r and cur >= cnt:
-            counter[nums[l]] -= 1
-            if counter[nums[l]] == 0: cur -= 1
-            l += 1
-        res += l + 1
-    return res
-    
 class Solution:
-    def countCompleteSubarrays(self, nums: List[int]) -> int:
-        cnt = len(Counter(nums).keys())
-        return run(nums, cnt) - run(nums, cnt + 1)
+    def countInterestingSubarrays(self, nums: List[int], modulo: int, k: int) -> int:
+        sums = [0]
+        for num in nums: sums.append(int(num % modulo == k) + sums[-1])
+        counter = Counter()
+        res = 0
+        for num in sums: 
+            if num >= k:
+                res += counter[(num - k) % modulo]
+            counter[num % modulo] += 1
+        return res
