@@ -1,11 +1,20 @@
 class Solution:
-    def countInterestingSubarrays(self, nums: List[int], modulo: int, k: int) -> int:
-        sums = [0]
-        for num in nums: sums.append(int(num % modulo == k) + sums[-1])
-        counter = Counter()
+    def countSubarrays(self, nums: List[int], minK: int, maxK: int) -> int:
+        n = len(nums)
+        arr = [-1]
+        for i in range(n):
+            if nums[i] < minK or nums[i] > maxK: arr.append(i)
+        arr.append(n)
+        def count(start: int, end: int) -> int:
+            imin = imax = -1
+            v = 0
+            for i in range(start, end + 1):
+                if nums[i] == minK: imin = i
+                if nums[i] == maxK: imax = i
+                if imin > -1 and imax > -1:
+                    v += min(imin, imax) - start + 1
+            return v
         res = 0
-        for num in sums: 
-            if num >= k:
-                res += counter[(num - k) % modulo]
-            counter[num % modulo] += 1
+        for start, end in pairwise(arr):
+            res += count(start + 1, end - 1)
         return res

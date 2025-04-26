@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2845. 统计趣味子数组的数目',
-    url: 'https://leetcode.cn/problems/count-of-interesting-subarrays',
+    name: '2444. 统计定界子数组的数目',
+    url: 'https://leetcode.cn/problems/count-subarrays-with-fixed-bounds',
     level: 'Easy',
     tagList: [],
-    desc: `请你找出并统计数组中 趣味子数组 的数目。`,
+    desc: `返回定界子数组的数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 247,
-            memory: 40.54,
-            desc: '前缀和遍历区间内所有的符合规则的值，遍历前缀和数组利用模上modulo来找出相同倍数的值',
+            time: 131,
+            memory: 28.49,
+            desc: '先找出所有合法区间，即不包含小于min和大于max的值的区间，再遍历每一个合法区间，对于每一个端点当作结尾时的数组长度',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
