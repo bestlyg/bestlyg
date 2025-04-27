@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2444. 统计定界子数组的数目',
-    url: 'https://leetcode.cn/problems/count-subarrays-with-fixed-bounds',
+    name: '3392. 统计符合条件长度为 3 的子数组数目',
+    url: 'https://leetcode.cn/problems/count-subarrays-of-length-three-with-a-condition',
     level: 'Easy',
     tagList: [],
-    desc: `返回定界子数组的数目。`,
+    desc: `给你一个整数数组 nums ，请你返回长度为 3 的 子数组 的数量，满足第一个数和第三个数的和恰好为第二个数的一半。子数组 指的是一个数组中连续 非空 的元素序列。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 131,
-            memory: 28.49,
-            desc: '先找出所有合法区间，即不包含小于min和大于max的值的区间，再遍历每一个合法区间，对于每一个端点当作结尾时的数组长度',
+            time: 11,
+            memory: 17.39,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
