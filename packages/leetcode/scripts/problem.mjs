@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3392. 统计符合条件长度为 3 的子数组数目',
-    url: 'https://leetcode.cn/problems/count-subarrays-of-length-three-with-a-condition',
+    name: '2302. 统计得分小于 K 的子数组数目',
+    url: 'https://leetcode.cn/problems/count-subarrays-with-score-less-than-k',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums ，请你返回长度为 3 的 子数组 的数量，满足第一个数和第三个数的和恰好为第二个数的一半。子数组 指的是一个数组中连续 非空 的元素序列。`,
+    desc: `给你一个正整数数组 nums 和一个整数 k ，请你返回 nums 中分数 严格小于 k 的 非空整数子数组数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 11,
-            memory: 17.39,
-            desc: '遍历',
+            time: 160,
+            memory: 29.73,
+            desc: '滑动窗口，遍历右端点，记录最大符合条件的左侧端点',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
