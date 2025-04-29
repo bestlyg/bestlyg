@@ -1,11 +1,12 @@
 class Solution:
     def countSubarrays(self, nums: List[int], k: int) -> int:
+        res = l = cur = 0
         n = len(nums)
-        l = cur = res = 0
+        nmax = max(nums)
         for r in range(n):
-            cur += nums[r]
-            while cur * (r - l + 1) >= k:
-                cur -= nums[l]
+            if nums[r] == nmax: cur += 1
+            while cur >= k and l <= r:
+                if nums[l] == nmax: cur -= 1
                 l += 1
-            res += r - l + 1
+            res += l
         return res
