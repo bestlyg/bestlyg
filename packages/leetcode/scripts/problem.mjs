@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2962. 统计最大元素出现至少 K 次的子数组',
-    url: 'https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times',
+    name: '1295. 统计位数为偶数的数字',
+    url: 'https://leetcode.cn/problems/find-numbers-with-even-number-of-digits',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums 和一个 正整数 k 。请你统计有多少满足 「 nums 中的 最大 元素」至少出现 k 次的子数组，并返回满足这一条件的子数组的数目。`,
+    desc: `给你一个整数数组 nums，请你返回其中包含 偶数 个数位的数字的个数。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 82,
-            memory: 29.4,
-            desc: '滑动窗口，遍历右端点，记录最大符合条件的左侧端点',
+            time: 0,
+            memory:17.73,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,12 +1,3 @@
 class Solution:
-    def countSubarrays(self, nums: List[int], k: int) -> int:
-        res = l = cur = 0
-        n = len(nums)
-        nmax = max(nums)
-        for r in range(n):
-            if nums[r] == nmax: cur += 1
-            while cur >= k and l <= r:
-                if nums[l] == nmax: cur -= 1
-                l += 1
-            res += l
-        return res
+    def findNumbers(self, nums: List[int]) -> int:
+       return sum(len(str(num)) % 2 == 0 for num in nums)
