@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1295. 统计位数为偶数的数字',
-    url: 'https://leetcode.cn/problems/find-numbers-with-even-number-of-digits',
+    exist: true,
+    name: '838. 推多米诺',
+    url: 'https://leetcode.cn/problems/push-dominoes',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums，请你返回其中包含 偶数 个数位的数字的个数。`,
+    desc: `返回表示最终状态的字符串。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 0,
-            memory:17.73,
-            desc: '遍历',
+            time: 187,
+            memory: 21.69,
+            desc: 'bfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
