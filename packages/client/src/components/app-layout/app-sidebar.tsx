@@ -75,7 +75,7 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                                 onClick={() => {
                                     sidebarCtx.setOpenMobile(false);
                                 }}
-                                to={item.link}
+                                to={item.link!}
                             >
                                 <RandomIcon />
                                 <span>{item.name}</span>
@@ -114,7 +114,7 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                                                             onClick={() => {
                                                                 sidebarCtx.setOpenMobile(false);
                                                             }}
-                                                            to={subItem.link}
+                                                            to={subItem.link!}
                                                         >
                                                             <RandomIcon />
                                                             <span>{subItem.name}</span>
