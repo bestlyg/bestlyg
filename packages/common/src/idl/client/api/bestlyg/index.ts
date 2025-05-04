@@ -9,18 +9,18 @@ export interface BestlygHealthRequest {
 
 export interface Item {
     /** xxx */
-    a?: number;
+    a: number;
 
     parent?: Item;
 }
 
 export interface BestlygHealthResponse {
-    code?: number;
+    code: number;
 
     msg?: string;
 
     /** 会返回BestlygHealthRequest请求中的env，如果没有env就返回bestlyg */
-    data?: string;
+    data: string;
 
     item?: Item;
 }
@@ -46,13 +46,13 @@ export namespace BestlygService {
 }
 
 export interface SidebarItem {
-    name?: string;
+    name: string;
 
-    link?: string;
+    link: string;
 }
 
 export interface SidebarGroup {
-    name?: string;
+    name: string;
 
     items?: SidebarItem[];
 
