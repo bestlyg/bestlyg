@@ -49,7 +49,7 @@
         "change-case": "catalog:",
         "fs-extra": "catalog:",
         "lodash-es": "catalog:",
-        "protobufjs": "^7.5.0",
+        "protobufjs": "7.4.0",
         "tapable": "catalog:"
     }
 }

@@ -765,10 +765,6 @@ importers:
 
   packages/common/dist/prisma-client: {}
 
-  packages/common/prisma/dist: {}
-
-  packages/common/prisma/dist/prisma-client: {}
-
   packages/leetcode:
     dependencies:
       '@bestlyg/cli':
@@ -1451,8 +1447,8 @@ importers:
         specifier: 'catalog:'
         version: 4.17.21
       protobufjs:
-        specifier: ^7.5.0
-        version: 7.5.0
+        specifier: 7.4.0
+        version: 7.4.0
       tapable:
         specifier: 'catalog:'
         version: 2.2.1
@@ -8471,8 +8467,8 @@ packages:
   property-information@7.0.0:
     resolution: {integrity: sha512-7D/qOz/+Y4X/rzSB6jKxKUsQnphO046ei8qxG59mtM3RG3DHgTK81HrxrmoDVINJb8NKT5ZsRbwHvQ6B68Iyhg==}
 
-  protobufjs@7.5.0:
-    resolution: {integrity: sha512-Z2E/kOY1QjoMlCytmexzYfDm/w5fKAiRwpSzGtdnXW1zC88Z2yXazHHrOtwCzn+7wSxyE8PYM4rvVcMphF9sOA==}
+  protobufjs@7.4.0:
+    resolution: {integrity: sha512-mRUWCc3KUU4w1jU8sGxICXH/gNS94DvI1gxqDvBzhj1JpcsimQkYiOJfwsPUykUI5ZaspFbSgmBLER8IrQ3tqw==}
     engines: {node: '>=12.0.0'}
 
   proxy-addr@2.0.7:
@@ -18515,7 +18511,7 @@ snapshots:
 
   property-information@7.0.0: {}
 
-  protobufjs@7.5.0:
+  protobufjs@7.4.0:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2
@@ -18527,7 +18523,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.17.23
+      '@types/node': 22.14.1
       long: 5.3.2
 
   proxy-addr@2.0.7:
