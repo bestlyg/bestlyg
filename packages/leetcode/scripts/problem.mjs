@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1007. 行相等的最少多米诺旋转',
-    url: 'https://leetcode.cn/problems/minimum-domino-rotations-for-equal-row',
+    exist: true,
+    name: '790. 多米诺和托米诺平铺',
+    url: 'https://leetcode.cn/problems/domino-and-tromino-tiling',
     level: 'Easy',
     tagList: [],
-    desc: `返回能使 tops 中所有值或者 bottoms 中所有值都相同的最小旋转次数。如果无法做到，返回 -1.`,
+    desc: `给定整数 n ，返回可以平铺 2 x n 的面板的方法的数量。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 19,
-            memory: 18.21,
-            desc: '只有6个可能性，依次遍历',
+            time: 3,
+            memory: 18.1,
+            desc: '动态规划，判断上空、下空、满的情况',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
