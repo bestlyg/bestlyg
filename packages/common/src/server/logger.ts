@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export type LoggerLevel = 'info' | 'warn' | 'success' | 'error';
 
 export type Color = { open: string; close: string };
@@ -32,12 +34,28 @@ export const loggerColorMap: Record<LoggerLevel, { bg: Color; text: Color }> = {
         },
     },
 };
-
 export class Logger {
-    constructor(
-        public prefix: string = 'LOGGER',
-        public colorMap = loggerColorMap,
-    ) {}
+    enableColor: boolean;
+    enableTime: boolean;
+    colorMap: typeof loggerColorMap;
+    prefix: string;
+
+    constructor({
+        prefix = 'LOGGER',
+        colorMap = loggerColorMap,
+        enableColor = true,
+        enableTime = true,
+    }: {
+        prefix?: Logger['prefix'];
+        colorMap?: Logger['colorMap'];
+        enableColor?: Logger['enableColor'];
+        enableTime?: Logger['enableTime'];
+    } = {}) {
+        this.prefix = prefix;
+        this.colorMap = colorMap;
+        this.enableColor = enableColor;
+        this.enableTime = enableTime;
+    }
 
     log(...args: any[]) {
         console.log(...args);
@@ -60,8 +78,26 @@ export class Logger {
     }
 
     print(level: LoggerLevel, ...args: any[]) {
-        const { bg, text } = this.colorMap[level];
-        this.log(`${bg.open} ${args[0]} ${bg.close} ${text.open}${args.slice(1)}${text.close}`);
+        const { bg, text: textColor } = this.colorMap[level];
+        const printItems: string[] = [];
+        let prefix = args[0];
+        if (this.enableColor) {
+            prefix = `${bg.open} ${prefix} ${bg.close}`;
+        }
+        printItems.push(prefix);
+        if (this.enableTime) {
+            let time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+            if (this.enableColor) {
+                time = `${bg.open} ${time} ${bg.close}`;
+            }
+            printItems.push(time);
+        }
+        let text = args.slice(1).join('');
+        if (this.enableColor) {
+            text = `${textColor.open}${text}${textColor.close}`;
+        }
+        printItems.push(text);
+        this.log(printItems.join(' '));
     }
 
     list(info: Record<string, any>) {
@@ -93,3 +129,5 @@ export class Logger {
         }
     }
 }
+
+export const logger = new Logger();
