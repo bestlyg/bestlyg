@@ -22,8 +22,10 @@ function Skeleton() {
     );
 }
 
+const SkeletonNode = <Skeleton />;
+
 function load(loadFn: Parameters<typeof cachedDynamicImportComponent>[0]) {
-    return cachedDynamicImportComponent(loadFn, <Skeleton />);
+    return cachedDynamicImportComponent(loadFn, SkeletonNode);
 }
 
 const AppLayout = load(() => import('@/components/app-layout'));
