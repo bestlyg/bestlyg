@@ -5,8 +5,6 @@ import EventEmitter from 'eventemitter3';
 import { ReactBaseModel } from './react-base-model';
 import React from 'react';
 
-export type ChatType = 'hello-chat';
-
 export abstract class Chat<
     P = any,
     EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
@@ -23,7 +21,7 @@ export abstract class Chat<
 
 export class HelloChat extends Chat<null> {
     static Component() {
-        return React.createElement('div', {}, 'HelloChat');
+        return <div>HelloChat</div>;
     }
     static assert(chat: Chat): chat is HelloChat {
         return chat.type === HelloChat.name;
@@ -36,7 +34,7 @@ export class AskChat extends Chat<{
     traceId: string;
 }> {
     static Component() {
-        return React.createElement('div', {}, 'AskChat');
+        return <div>AskChat</div>;
     }
     static assert(chat: Chat): chat is AskChat {
         return chat.type === AskChat.name;
@@ -45,3 +43,5 @@ export class AskChat extends Chat<{
     payload = { traceId: nanoid() };
     status: 'loading' | 'success' | 'failure' = 'loading';
 }
+
+export const CHAT_LIST = [HelloChat, AskChat] as const;

@@ -90,6 +90,7 @@
         "remark-toc": "^9.0.0",
         "sonner": "^2.0.3",
         "tailwind-merge": "^3.2.0",
+        "tapable": "catalog:",
         "vaul": "^1.1.2",
         "zod": "catalog:"
     },

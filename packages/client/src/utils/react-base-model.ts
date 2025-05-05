@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { BaseModel, BaseModelKey } from '../base-model';
+import { BaseModel, BaseModelKey } from '@bestlyg/common';
 import { useState } from 'react';
 
 export class ReactBaseModel<

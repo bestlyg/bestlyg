@@ -581,6 +581,9 @@ importers:
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
+      tapable:
+        specifier: 'catalog:'
+        version: 2.2.1
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

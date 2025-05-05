@@ -19,6 +19,7 @@ export class IdleTaskQueue {
             this.running = false;
         } else {
             requestIdleCallback(() => {
+                console.log('IDLE', task.toString());
                 // 一个个执行，每次执行完都重新判断空闲
                 task().finally(() => {
                     this.run(true);

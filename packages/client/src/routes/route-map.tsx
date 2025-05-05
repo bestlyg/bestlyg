@@ -1,5 +1,5 @@
 import { Skeleton as SkeletonUI } from '@/shadcn/ui/skeleton';
-import { cachedDynamicImportComponent, resolveRouteMap } from '@bestlyg/common/client';
+import { cachedDynamicImportComponent, resolveRouteMap } from '@/utils';
 import { Outlet } from 'react-router';
 
 function Skeleton() {
