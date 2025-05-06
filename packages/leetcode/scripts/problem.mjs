@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '790. 多米诺和托米诺平铺',
-    url: 'https://leetcode.cn/problems/domino-and-tromino-tiling',
+    exist: !true,
+    name: '1920. 基于排列构建数组',
+    url: 'https://leetcode.cn/problems/build-array-from-permutation',
     level: 'Easy',
     tagList: [],
-    desc: `给定整数 n ，返回可以平铺 2 x n 的面板的方法的数量。`,
+    desc: `给你一个 从 0 开始的排列 nums（下标也从 0 开始）。请你构建一个 同样长度 的数组 ans ，其中，对于每个 i（0 <= i < nums.length），都满足 ans[i] = nums[nums[i]] 。返回构建好的数组 ans 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.03.24',
-            time: 3,
-            memory: 18.1,
-            desc: '动态规划，判断上空、下空、满的情况',
+            time: 0,
+            memory: 17.78,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
