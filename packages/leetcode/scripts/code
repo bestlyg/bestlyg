@@ -4,17 +4,20 @@ class Solution:
     def minTimeToReach(self, moveTime: List[List[int]]) -> int:
         n = len(moveTime)
         m = len(moveTime[0])
-        q = [(0, 0, 0)]
+        q = [(0, 0, 0, 0)]
         used = { (0, 0): 0 }
+        offset_arr = [1, 2]
+        offset_idx = 0
         while q:
-            t, x, y = heappop(q)
+            t, x, y, offset_idx = heappop(q)
             if x == n - 1 and y == m - 1: return t
-            if used[(x, y)] < t: continue
-            for dir in dirs:
-                nx = x + dir[0]
-                ny = y + dir[1]
-                if 0 <= nx < n and 0 <= ny < m:
-                    nt = max(moveTime[nx][ny], t) + 1
-                    if (nx, ny) not in used or used[(nx, ny)] > nt:
-                        used[(nx, ny)] = nt
-                        heappush(q, (nt, nx, ny))
+            if used[(x, y)] >= t:
+                for dir in dirs:
+                    nx = x + dir[0]
+                    ny = y + dir[1]
+                    if 0 <= nx < n and 0 <= ny < m: 
+                        nt = max(moveTime[nx][ny], t) + offset_arr[offset_idx]
+                        noffset_idx = (offset_idx + 1) % len(offset_arr)
+                        if (nx, ny) not in used or used[(nx, ny)] > nt:
+                            used[(nx, ny)] = nt
+                            heappush(q, (nt, nx, ny, noffset_idx))
