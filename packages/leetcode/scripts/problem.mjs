@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1550. 存在连续三个奇数的数组',
-    url: 'https://leetcode.cn/problems/three-consecutive-odds',
+    name: '2918. 数组的最小相等和',
+    url: 'https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 arr，请你判断数组中是否存在连续三个元素都是奇数的情况：如果存在，请返回 true ；否则，返回 false 。`,
+    desc: `给你两个由正整数和 0 组成的数组 nums1 和 nums2 。你必须将两个数组中的 所有 0 替换为 严格 正整数，并且满足两个数组中所有元素的和 相等 。返回 最小 相等和 ，如果无法使两数组相等，则返回 -1 。`,
     solutions: [
         {
             script: 'python',
-            // date: '2025.03.24',
-            time: 3,
-            memory: 17.53,
-            desc: '遍历',
+            date: '2025.05.10',
+            time: 919,
+            memory: 34.01,
+            desc: '贪心的尝试把所有的0当作1',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
