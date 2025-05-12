@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2918. 数组的最小相等和',
-    url: 'https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros',
+    name: '2094. 找出 3 位偶数',
+    url: 'https://leetcode.cn/problems/finding-3-digit-even-numbers',
     level: 'Easy',
     tagList: [],
-    desc: `给你两个由正整数和 0 组成的数组 nums1 和 nums2 。你必须将两个数组中的 所有 0 替换为 严格 正整数，并且满足两个数组中所有元素的和 相等 。返回 最小 相等和 ，如果无法使两数组相等，则返回 -1 。`,
+    desc: `将找出的所有互不相同的整数按 递增顺序 排列，并以数组形式返回。`,
     solutions: [
         {
             script: 'python',
             date: '2025.05.10',
-            time: 919,
-            memory: 34.01,
-            desc: '贪心的尝试把所有的0当作1',
+            time: 2079,
+            memory: 17.86,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,3 +1,12 @@
 class Solution:
-    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
-        return any([arr[i] % 2 == arr[i + 1] % 2 == arr[i + 2] % 2 == 1 for i in range(len(arr) - 2)])
+    def findEvenNumbers(self, digits: List[int]) -> List[int]:
+        n = len(digits)
+        res = set()
+        for i in range(n):
+            if digits[i] == 0: continue
+            for j in range(n):
+                for k in range(n):
+                    if digits[k] % 2 != 0: continue
+                    if i == j or i == k or j == k: continue
+                    res.add(digits[i] * 100 + digits[j] * 10 + digits[k])
+        return sorted(res)
