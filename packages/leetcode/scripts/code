@@ -1,12 +1,12 @@
 class Solution:
-    def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        n = len(digits)
-        res = set()
-        for i in range(n):
-            if digits[i] == 0: continue
-            for j in range(n):
-                for k in range(n):
-                    if digits[k] % 2 != 0: continue
-                    if i == j or i == k or j == k: continue
-                    res.add(digits[i] * 100 + digits[j] * 10 + digits[k])
-        return sorted(res)
+    def lengthAfterTransformations(self, s: str, t: int) -> int:
+        n = 26
+        last = 25
+        arr = [0] * n
+        for c in s:
+            arr[ord(c) - ord('a')] += 1
+        while t:
+            arr[(last + 1) % n] += arr[last]
+            last = (last - 1 + n) % n
+            t -= 1
+        return sum(arr) % (10 ** 9 + 7)
