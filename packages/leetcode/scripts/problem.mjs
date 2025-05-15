@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3335. 字符串转换后的长度 I',
-    url: 'https://leetcode.cn/problems/total-characters-in-string-after-transformations-i',
+    name: '2900. 最长相邻不相等子序列 I',
+    url: 'https://leetcode.cn/problems/longest-unequal-adjacent-groups-subsequence-i',
     level: 'Easy',
     tagList: [],
-    desc: `返回 恰好 执行 t 次转换后得到的字符串的 长度。`,
+    desc: `请你返回一个字符串数组，它是下标子序列 依次 对应 words 数组中的字符串连接形成的字符串数组。如果有多个答案，返回 任意 一个。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.10',
-            time: 410,
-            memory: 18.05,
-            desc: '记录每一个字母的数量，对z做特殊处理，用偏移值表示移动',
+            time: 0,
+            memory:17.56,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

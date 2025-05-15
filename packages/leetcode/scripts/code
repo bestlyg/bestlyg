@@ -1,12 +1,13 @@
 class Solution:
-    def lengthAfterTransformations(self, s: str, t: int) -> int:
-        n = 26
-        last = 25
-        arr = [0] * n
-        for c in s:
-            arr[ord(c) - ord('a')] += 1
-        while t:
-            arr[(last + 1) % n] += arr[last]
-            last = (last - 1 + n) % n
-            t -= 1
-        return sum(arr) % (10 ** 9 + 7)
+    def getLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
+        n = len(words)
+        def g(cur: int) -> List[str]:
+            res = []
+            for i in range(n):
+                if groups[i] == cur:
+                    res.append(words[i])
+                    cur ^= 1
+            return res
+        a1 = g(0)
+        a2 = g(1)
+        return a1 if len(a1) > len(a2) else a2
