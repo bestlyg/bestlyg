@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2900. 最长相邻不相等子序列 I',
-    url: 'https://leetcode.cn/problems/longest-unequal-adjacent-groups-subsequence-i',
+    exist: true,
+    name: '75. 颜色分类',
+    url: 'https://leetcode.cn/problems/sort-colors',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个字符串数组，它是下标子序列 依次 对应 words 数组中的字符串连接形成的字符串数组。如果有多个答案，返回 任意 一个。`,
+    desc: `给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.10',
             time: 0,
-            memory:17.56,
-            desc: '遍历',
+            memory: 17.43,
+            desc: '遍历，记录最后一个0和最先一个2',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
