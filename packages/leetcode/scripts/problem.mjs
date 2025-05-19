@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '75. 颜色分类',
-    url: 'https://leetcode.cn/problems/sort-colors',
+    exist: !true,
+    name: '3024. 三角形类型',
+    url: 'https://leetcode.cn/problems/type-of-triangle',
     level: 'Easy',
     tagList: [],
-    desc: `给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。`,
+    desc: `给你一个下标从 0 开始长度为 3 的整数数组 nums ，需要用它们来构造三角形。如果一个三角形的所有边长度相等，那么这个三角形称为 equilateral 。如果一个三角形恰好有两条边长度相等，那么这个三角形称为 isosceles 。如果一个三角形三条边的长度互不相同，那么这个三角形称为 scalene 。如果这个数组无法构成一个三角形，请你返回字符串 "none" ，否则返回一个字符串表示这个三角形的类型。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.10',
             time: 0,
-            memory: 17.43,
-            desc: '遍历，记录最后一个0和最先一个2',
+            memory: 17.34,
+            desc: '直接判断',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
