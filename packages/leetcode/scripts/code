@@ -2,11 +2,22 @@ class Solution:
     def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
         n = len(nums)
         sums = [0] * (n + 1)
-        for l, r in queries:
-            sums[l] -= 1
-            sums[r + 1] += 1
+        for l, r, v in queries:
+            sums[l] -= v
+            sums[r + 1] += v
         offset = 0
         for i in range(n):
             offset += sums[i]
             if nums[i] + offset > 0: return False
         return True
+    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
+        if all(num == 0 for num in nums): return 0
+        l = 0
+        r = len(queries)
+        while l < r:
+            m = (l + r) // 2
+            if self.isZeroArray(nums, queries[:m + 1]):
+                r = m
+            else:
+                l = m + 1
+        return l + 1 if l < len(queries) else -1

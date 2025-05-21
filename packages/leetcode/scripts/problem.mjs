@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3355. 零数组变换 I',
-    url: 'https://leetcode.cn/problems/zero-array-transformation-i',
+    name: '3356. 零数组变换 II',
+    url: 'https://leetcode.cn/problems/zero-array-transformation-ii',
     level: 'Easy',
     tagList: [],
-    desc: `如果在按顺序处理所有查询后，可以将 nums 转换为 零数组 ，则返回 true，否则返回 false。`,
+    desc: `返回 k 可以取到的 最小非负 值，使得在 顺序 处理前 k 个查询后，nums 变成 零数组。如果不存在这样的 k，则返回 -1。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.10',
-            time: 59,
-            memory: 54.06,
-            desc: '差分数组记录每一个下标最多可以被处理多少次',
+            time: 975,
+            memory: 63.3,
+            desc: '二分query，判断最小能零数组的大小',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
