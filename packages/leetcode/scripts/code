@@ -1,23 +1,17 @@
 class Solution:
-    def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
+    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
+        queries.sort(key = lambda v: v[0], reverse = True)
         n = len(nums)
         sums = [0] * (n + 1)
-        for l, r, v in queries:
-            sums[l] -= v
-            sums[r + 1] += v
-        offset = 0
+        cur = 0
+        q = []
         for i in range(n):
-            offset += sums[i]
-            if nums[i] + offset > 0: return False
-        return True
-    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
-        if all(num == 0 for num in nums): return 0
-        l = 0
-        r = len(queries)
-        while l < r:
-            m = (l + r) // 2
-            if self.isZeroArray(nums, queries[:m + 1]):
-                r = m
-            else:
-                l = m + 1
-        return l + 1 if l < len(queries) else -1
+            cur += sums[i]
+            while queries and queries[-1][0] <= i:
+                query = queries.pop()
+                heappush(q, (-query[1], query))
+            while cur < nums[i] and q and -q[0][0] >= i:
+                cur += 1
+                sums[-heappop(q)[0] + 1] -= 1
+            if cur < nums[i]: return -1
+        return len(q)
