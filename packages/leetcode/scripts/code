@@ -1,17 +1,3 @@
 class Solution:
-    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
-        queries.sort(key = lambda v: v[0], reverse = True)
-        n = len(nums)
-        sums = [0] * (n + 1)
-        cur = 0
-        q = []
-        for i in range(n):
-            cur += sums[i]
-            while queries and queries[-1][0] <= i:
-                query = queries.pop()
-                heappush(q, (-query[1], query))
-            while cur < nums[i] and q and -q[0][0] >= i:
-                cur += 1
-                sums[-heappop(q)[0] + 1] -= 1
-            if cur < nums[i]: return -1
-        return len(q)
+    def findWordsContaining(self, words: List[str], x: str) -> List[int]:
+        return [i for i in range(len(words)) if x in words[i]]

@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3356. 零数组变换 III',
-    url: 'https://leetcode.cn/problems/zero-array-transformation-iii',
+    name: '2942. 查找包含给定字符的单词',
+    url: 'https://leetcode.cn/problems/find-words-containing-character',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回 最多 可以从 queries 中删除多少个元素，使得 queries 中剩下的元素仍然能将 nums 变为一个 零数组 。如果无法将 nums 变为一个 零数组 ，返回 -1 。`,
+    desc: `给你一个下标从 0 开始的字符串数组 words 和一个字符 x 。请你返回一个 下标数组 ，表示下标在数组中对应的单词包含字符 x 。`,
     solutions: [
         {
             script: 'python',
-            // date: '2025.05.10',
-            time: 456,
-            memory: 57.63,
-            desc: '对queries排序，遍历每一个nums下标，用堆记录所有起始点小于等于该下标的query，并按照尾端点排序',
+            date: '2025.05.24',
+            time: 0,
+            memory: 17.47,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
