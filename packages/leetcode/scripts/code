@@ -1,3 +1,14 @@
 class Solution:
-    def findWordsContaining(self, words: List[str], x: str) -> List[int]:
-        return [i for i in range(len(words)) if x in words[i]]
+    def longestPalindrome(self, words: List[str]) -> int:
+        counter = Counter(words)
+        pair_cnt = 0
+        add = 0
+        for k in list(counter.keys()):
+            if k[0] == k[1]:
+                if counter[k] % 2 != 0: add = 1
+                pair_cnt += counter[k] // 2
+            else:
+                pair = k[1] + k[0]
+                pair_cnt += min(counter[k], counter[pair])
+                counter[k] = counter[pair] = 0
+        return pair_cnt * 4 + add * 2

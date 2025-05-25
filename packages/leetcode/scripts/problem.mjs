@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2942. 查找包含给定字符的单词',
-    url: 'https://leetcode.cn/problems/find-words-containing-character',
+    name: '2131. 连接两字母单词得到的最长回文串',
+    url: 'https://leetcode.cn/problems/longest-palindrome-by-concatenating-two-letter-words',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个下标从 0 开始的字符串数组 words 和一个字符 x 。请你返回一个 下标数组 ，表示下标在数组中对应的单词包含字符 x 。`,
+    desc: `请你返回你能得到的最长回文串的 长度 。如果没办法得到任何一个回文串，请你返回 0 。`,
     solutions: [
         {
             script: 'python',
-            date: '2025.05.24',
-            time: 0,
-            memory: 17.47,
-            desc: '遍历',
+            // date: '2025.05.24',
+            time: 55,
+            memory: 34.98,
+            desc: '遍历能成对的数量，判断相同字符的是否是奇数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
