@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2131. 连接两字母单词得到的最长回文串',
-    url: 'https://leetcode.cn/problems/longest-palindrome-by-concatenating-two-letter-words',
+    name: '2894. 分类求和并作差',
+    url: 'https://leetcode.cn/problems/divisible-and-non-divisible-sums-difference',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回你能得到的最长回文串的 长度 。如果没办法得到任何一个回文串，请你返回 0 。`,
+    desc: `返回整数 num1 - num2 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 55,
-            memory: 34.98,
-            desc: '遍历能成对的数量，判断相同字符的是否是奇数',
+            time: 8,
+            memory: 17.38,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
