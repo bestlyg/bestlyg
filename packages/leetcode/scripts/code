@@ -1,3 +1,38 @@
 class Solution:
-    def differenceOfSums(self, n: int, m: int) -> int:
-        return sum(num * (int(num % m != 0) * 2 - 1) for num in range(1, n + 1))
+    def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]], k: int) -> List[int]:
+        n1 = len(edges1) + 1
+        n2 = len(edges2) + 1
+        if k == 0: return [1] * n1
+        nodes1 = [[] for _ in range(n1)]
+        nodes2 = [[] for _ in range(n2)]
+        for v1, v2 in edges1:
+            nodes1[v1].append(v2)
+            nodes1[v2].append(v1)
+        for v1, v2 in edges2:
+            nodes2[v1].append(v2)
+            nodes2[v2].append(v1)
+        def bfs(n: int, nodes: List[List[int]], k: int):
+            cnt = [1] * n
+            for i in range(n):
+                used = set([i])
+                q = deque([i])
+                h = 0
+                size = 1
+                if h >= k: continue
+                while q:
+                    node = q.popleft()
+                    for child in nodes[node]:
+                        if child not in used:
+                            q.append(child)
+                            used.add(child)
+                            cnt[i] += 1
+                    size -= 1
+                    if size == 0:
+                        size = len(q)
+                        h += 1
+                        if h >= k: break
+            return cnt
+        cnt1 = bfs(n1, nodes1, k)
+        cnt2 = bfs(n2, nodes2, k - 1)
+        nmax2 = max(cnt2)
+        return [cnt + nmax2 for cnt in cnt1]
