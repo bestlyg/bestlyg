@@ -1,38 +1,21 @@
 class Solution:
-    def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]], k: int) -> List[int]:
-        n1 = len(edges1) + 1
-        n2 = len(edges2) + 1
-        if k == 0: return [1] * n1
-        nodes1 = [[] for _ in range(n1)]
-        nodes2 = [[] for _ in range(n2)]
-        for v1, v2 in edges1:
-            nodes1[v1].append(v2)
-            nodes1[v2].append(v1)
-        for v1, v2 in edges2:
-            nodes2[v1].append(v2)
-            nodes2[v2].append(v1)
-        def bfs(n: int, nodes: List[List[int]], k: int):
-            cnt = [1] * n
-            for i in range(n):
-                used = set([i])
-                q = deque([i])
-                h = 0
-                size = 1
-                if h >= k: continue
-                while q:
-                    node = q.popleft()
-                    for child in nodes[node]:
-                        if child not in used:
-                            q.append(child)
-                            used.add(child)
-                            cnt[i] += 1
-                    size -= 1
-                    if size == 0:
-                        size = len(q)
-                        h += 1
-                        if h >= k: break
-            return cnt
-        cnt1 = bfs(n1, nodes1, k)
-        cnt2 = bfs(n2, nodes2, k - 1)
+    def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]]) -> List[int]:
+        def gen(edges: List[List[int]], flag: int) -> List[int]:
+            n = len(edges) + 1
+            nodes = [[] for _ in range(n)]
+            for v1, v2 in edges:
+                nodes[v1].append(v2)
+                nodes[v2].append(v1)
+            flags = [0] * n
+            def dfs(node: int, h: int, parent: int):
+                flags[node] = h % 2
+                for child in nodes[node]:
+                    if child != parent:
+                        dfs(child, h + 1, node)
+            dfs(0, 0, -1)
+            sums = [sum(v == 0 for v in flags), sum(v == 1 for v in flags)]
+            return [sums[flags[i]] for i in range(n)]
+        cnt1 = gen(edges1, 1)
+        cnt2 = gen(edges2, 0)
         nmax2 = max(cnt2)
         return [cnt + nmax2 for cnt in cnt1]
