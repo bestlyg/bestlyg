@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3373. 连接两棵树后最大目标节点数目 II',
-    url: 'https://leetcode.cn/problems/maximize-the-number-of-target-nodes-after-connecting-trees-ii',
+    name: '2359. 找到离给定两个节点最近的节点',
+    url: 'https://leetcode.cn/problems/find-closest-node-to-given-two-nodes',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个长度为 n 的整数数组 answer ，answer[i] 表示将第一棵树中的一个节点与第二棵树中的一个节点连接一条边后，第一棵树中节点 i 的 目标节点 数目的 最大值 。`,
+    desc: `请你返回一个从 node1 和 node2 都能到达节点的编号，使节点 node1 和节点 node2 到这个节点的距离 较大值最小化。如果有多个答案，请返回 最小 的节点编号。如果答案不存在，返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 693,
-            memory: 100.39,
-            desc: '先求出所有节点相同奇偶的数量，再对第二颗树进行奇偶互换求出最大值',
+            time: 149,
+            memory: 31.08,
+            desc: 'dfs求出两个节点能到达的每个节点的距离',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

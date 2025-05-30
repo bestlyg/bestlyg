@@ -1,21 +1,27 @@
 class Solution:
-    def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]]) -> List[int]:
-        def gen(edges: List[List[int]], flag: int) -> List[int]:
-            n = len(edges) + 1
-            nodes = [[] for _ in range(n)]
-            for v1, v2 in edges:
-                nodes[v1].append(v2)
-                nodes[v2].append(v1)
-            flags = [0] * n
-            def dfs(node: int, h: int, parent: int):
-                flags[node] = h % 2
-                for child in nodes[node]:
-                    if child != parent:
-                        dfs(child, h + 1, node)
-            dfs(0, 0, -1)
-            sums = [sum(v == 0 for v in flags), sum(v == 1 for v in flags)]
-            return [sums[flags[i]] for i in range(n)]
-        cnt1 = gen(edges1, 1)
-        cnt2 = gen(edges2, 0)
-        nmax2 = max(cnt2)
-        return [cnt + nmax2 for cnt in cnt1]
+    def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
+        n = len(edges)
+        darr1 = [-1] * n
+        d = 0
+        p = node1
+        while p != -1 and darr1[p] == -1:
+            darr1[p] = d
+            p = edges[p]
+            d += 1
+        darr2 = [-1] * n
+        d = 0
+        p = node2
+        res = inf
+        resVal = inf
+        while p != -1 and darr2[p] == -1:
+            darr2[p] = d
+            if darr1[p] != -1 and darr2[p] != -1:
+                newVal = max(darr1[p], darr2[p])
+                if newVal < resVal:
+                    resVal = newVal
+                    res = p
+                elif newVal == resVal:
+                    res = min(res, p)
+            p = edges[p]
+            d += 1
+        return res if res != inf else -1
