@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2359. 找到离给定两个节点最近的节点',
-    url: 'https://leetcode.cn/problems/find-closest-node-to-given-two-nodes',
+    exist: true,
+    name: '909. 蛇梯棋',
+    url: 'https://leetcode.cn/problems/snakes-and-ladders',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个从 node1 和 node2 都能到达节点的编号，使节点 node1 和节点 node2 到这个节点的距离 较大值最小化。如果有多个答案，请返回 最小 的节点编号。如果答案不存在，返回 -1 。`,
+    desc: `返回达到编号为 n2 的方格所需的最少掷骰次数，如果不可能，则返回 -1。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 149,
-            memory: 31.08,
-            desc: 'dfs求出两个节点能到达的每个节点的距离',
+            time: 47,
+            memory: 17.64,
+            desc: 'bfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
