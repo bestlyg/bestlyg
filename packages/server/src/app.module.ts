@@ -19,16 +19,7 @@ import { ZjuerModule } from '@bestlyg-server/zjuer';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
-const cls = ClsModule.forRoot({
-    global: true,
-    middleware: {
-        mount: true,
-        setup: (cls, req) => {
-            cls.set('info', req.headers['x-info']);
-        },
-    },
-});
-cls.global = true;
+
 @Module({
     imports: [
         ScheduleModule.forRoot(),
@@ -50,7 +41,15 @@ cls.global = true;
             secret: configuration.jwt.secret,
             signOptions: { expiresIn: '100 days' },
         }),
-        cls,
+        ClsModule.forRoot({
+            global: true,
+            middleware: {
+                mount: true,
+                setup: (cls, req) => {
+                    cls.set('info', req.headers['x-info']);
+                },
+            },
+        }),
         DataModule,
         AuthModule,
         ServerlessModule,

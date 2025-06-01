@@ -18,6 +18,8 @@ export class LedgerService {
         return data;
     }
     async getLedgerPage(dto: SelectLedgerPageDto) {
+        console.log('this.', this.cls.get('info'));
+        if (this.cls.get('info') === 'wait') await new Promise(r => setTimeout(r, 5000));
         const pageParam = PageParam.from(dto);
         const total = await this.prismaService.ledger.count({
             where: {
@@ -41,6 +43,7 @@ export class LedgerService {
                     : undefined,
             },
         });
+        console.log('this2', this.cls.get('info'));
         return new PageData<Ledger>(data, total);
     }
 
