@@ -46,6 +46,7 @@
     "fs-extra": "catalog:",
     "lodash": "catalog:",
     "marked": "^15.0.8",
+    "nestjs-cls": "^6.0.0",
     "nodemailer": "^6.10.1",
     "prisma": "catalog:",
     "reflect-metadata": "^0.2.2",

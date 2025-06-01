@@ -1,4 +1,5 @@
 import { Module, OnApplicationBootstrap } from '@nestjs/common';
+import { ClsModule } from 'nestjs-cls';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,7 +19,16 @@ import { ZjuerModule } from '@bestlyg-server/zjuer';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
-
+const cls = ClsModule.forRoot({
+    global: true,
+    middleware: {
+        mount: true,
+        setup: (cls, req) => {
+            cls.set('info', req.headers['x-info']);
+        },
+    },
+});
+cls.global = true;
 @Module({
     imports: [
         ScheduleModule.forRoot(),
@@ -40,6 +50,7 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
             secret: configuration.jwt.secret,
             signOptions: { expiresIn: '100 days' },
         }),
+        cls,
         DataModule,
         AuthModule,
         ServerlessModule,

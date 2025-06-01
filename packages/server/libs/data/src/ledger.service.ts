@@ -3,11 +3,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import { dayjs } from '@bestlyg/cli';
 import { PageParam, PageData, SelectLedgerPageDto } from '@bestlyg/common';
 import { Ledger, LedgerType } from '@bestlyg/common/prisma-client';
+import { ClsService } from 'nestjs-cls';
 
 @Injectable()
 export class LedgerService {
     private readonly logger = new Logger(LedgerService.name);
-    constructor(private readonly prismaService: PrismaService) {}
+    constructor(
+        private readonly prismaService: PrismaService,
+        private readonly cls: ClsService,
+    ) {}
 
     async getLedgerList(...args: Parameters<typeof this.prismaService.ledger.findMany>) {
         const data = await this.prismaService.ledger.findMany(...args);

@@ -5,7 +5,6 @@ import { ZodModelConstructor , zodSchemaSymbol} from '@bestlyg/common'
 export class ZodValidationPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     const cstr = metadata?.metatype as ZodModelConstructor
-    console.log(cstr)
     if (cstr?.[zodSchemaSymbol]) {
       return new cstr(value)
     }
