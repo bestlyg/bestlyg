@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2929. 给小朋友们分糖果 II',
-    url: 'https://leetcode.cn/problems/distribute-candies-among-children-ii',
+    exist: true,
+    name: '135. 分发糖果',
+    url: 'https://leetcode.cn/problems/candy',
     level: 'Easy',
     tagList: [],
-    desc: `给你两个正整数 n 和 limit 。请你将 n 颗糖果分给 3 位小朋友，确保没有任何小朋友得到超过 limit 颗糖果，请你返回满足此条件下的 总方案数 。`,
+    desc: `请你给每个孩子分发糖果，计算并返回需要准备的 最少糖果数目 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 5297,
-            memory: 17.41,
-            desc: '只有三个人，遍历第一个人获取到的数量，求出第二个人最多和最少的数量',
+            time: 23,
+            memory: 19.8,
+            desc: '贪心从左到右和从右到左',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

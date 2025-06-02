@@ -1,7 +1,16 @@
 class Solution:
-    def distributeCandies(self, n: int, limit: int) -> int:
-        res = 0
-        for i in range(min(n, limit) + 1):
-            if n - i > 2 * limit: continue
-            res += min(n - i, limit) - max(0, n - i - limit) + 1
-        return res
+    def candy(self, ratings: List[int]) -> int:
+        n = len(ratings)
+        larr = [1] * n
+        rarr = [1] * n
+        for i in range(1, n):
+            if ratings[i] > ratings[i - 1]:
+                larr[i] = larr[i - 1] + 1
+            else:
+                larr[i] = 1
+        for i in range(n - 2, -1, -1):
+            if ratings[i] > ratings[i + 1]:
+                rarr[i] = rarr[i + 1] + 1
+            else:
+                rarr[i] = 1
+        return sum(max(larr[i], rarr[i]) for i in range(n))
