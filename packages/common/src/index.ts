@@ -27,3 +27,4 @@ export * from './compare';
 export * from './direction';
 export * from './random';
 export * as zeroWidth from './zero-width';
+export * from './hook';
