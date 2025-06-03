@@ -1,16 +1,22 @@
 class Solution:
-    def candy(self, ratings: List[int]) -> int:
-        n = len(ratings)
-        larr = [1] * n
-        rarr = [1] * n
-        for i in range(1, n):
-            if ratings[i] > ratings[i - 1]:
-                larr[i] = larr[i - 1] + 1
-            else:
-                larr[i] = 1
-        for i in range(n - 2, -1, -1):
-            if ratings[i] > ratings[i + 1]:
-                rarr[i] = rarr[i + 1] + 1
-            else:
-                rarr[i] = 1
-        return sum(max(larr[i], rarr[i]) for i in range(n))
+    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+        open_boxes = deque([box for box in initialBoxes if status[box] == 1])
+        used_boxes = set(open_boxes)
+        wait_boxes = set([box for box in initialBoxes if status[box] == 0])
+        res = 0
+        key_set = set()
+        while open_boxes:
+            box = open_boxes.popleft()
+            res += candies[box]
+            for contained_box in containedBoxes[box]:
+                if contained_box in key_set or status[contained_box] == 1:
+                    open_boxes.append(contained_box)
+                    used_boxes.add(contained_box)
+                else:
+                    wait_boxes.add(contained_box)
+            for key in keys[box]:
+                key_set.add(key)
+                if key in wait_boxes and key not in used_boxes:
+                    wait_boxes.remove(key)
+                    open_boxes.append(key)
+        return res
