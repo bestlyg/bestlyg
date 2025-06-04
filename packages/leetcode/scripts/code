@@ -1,22 +1,8 @@
 class Solution:
-    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
-        open_boxes = deque([box for box in initialBoxes if status[box] == 1])
-        used_boxes = set(open_boxes)
-        wait_boxes = set([box for box in initialBoxes if status[box] == 0])
-        res = 0
-        key_set = set()
-        while open_boxes:
-            box = open_boxes.popleft()
-            res += candies[box]
-            for contained_box in containedBoxes[box]:
-                if contained_box in key_set or status[contained_box] == 1:
-                    open_boxes.append(contained_box)
-                    used_boxes.add(contained_box)
-                else:
-                    wait_boxes.add(contained_box)
-            for key in keys[box]:
-                key_set.add(key)
-                if key in wait_boxes and key not in used_boxes:
-                    wait_boxes.remove(key)
-                    open_boxes.append(key)
+    def answerString(self, word: str, numFriends: int) -> str:
+        if numFriends == 1: return word
+        res = ''
+        n = len(word)
+        for i in range(n):
+            res = max(res, word[i: n - numFriends + i + 1])
         return res

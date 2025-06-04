@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1298. 你能从盒子里获得的最大糖果数',
-    url: 'https://leetcode.cn/problems/maximum-candies-you-can-get-from-boxes',
+    name: '3403. 从盒子中找出字典序最大的字符串 I',
+    url: 'https://leetcode.cn/problems/find-the-lexicographically-largest-string-from-the-box-i',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个 initialBoxes 数组，表示你现在得到的盒子，你可以获得里面的糖果，也可以用盒子里的钥匙打开新的盒子，还可以继续探索从这个盒子里找到的其他盒子。请你按照上述规则，返回可以获得糖果的 最大数目 。`,
+    desc: `在所有回合结束后，找出盒子中 字典序最大的 字符串。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
             time: 23,
-            memory: 27.72,
-            desc: '遍历',
+            memory: 17.53,
+            desc: '枚举',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
