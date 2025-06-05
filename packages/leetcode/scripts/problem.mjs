@@ -10,8 +10,8 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3403. 从盒子中找出字典序最大的字符串 I',
-    url: 'https://leetcode.cn/problems/find-the-lexicographically-largest-string-from-the-box-i',
+    name: '1061. 按字典序排列最小的等效字符串',
+    url: 'https://leetcode.cn/problems/lexicographically-smallest-equivalent-string',
     level: 'Easy',
     tagList: [],
     desc: `在所有回合结束后，找出盒子中 字典序最大的 字符串。`,
@@ -19,9 +19,9 @@ export const problem = {
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 23,
-            memory: 17.53,
-            desc: '枚举',
+            time: 3,
+            memory: 17.78,
+            desc: '并查集',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
