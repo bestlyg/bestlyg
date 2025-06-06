@@ -1,38 +1,16 @@
-class UnionFind:
-    def __init__(self, n) -> None:
-        self.n = n
-        self.data = [i for i in range(0, n)]
-        self.sizes = [1] * n
-        self.cnt = n
-    def size(self, v: int) -> int:
-        return self.sizes[self.find(v)]
-    def find(self, v: int) -> int:
-        if self.data[v] != v:
-            self.data[v] = self.find(self.data[v])
-        return self.data[v]
-    def uni(self, v1: int, v2: int):
-        p1 = self.find(v1)
-        p2 = self.find(v2)
-        if p1 != p2:
-            self.sizes[p1] += self.sizes[p2]
-            self.cnt -= self.sizes[p2]
-            self.data[p2] = p1
-    def same(self, v1: int, v2: int):
-        return self.find(v1) == self.find(v2)
 class Solution:
-    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
-        uf = UnionFind(26)
-        for i in range(len(s1)):
-            uf.uni(ord(s1[i]) - ord('a'), ord(s2[i]) - ord('a'))
-        map = [[] for _ in range(26)]
-        for i in range(26):
-            p = uf.find(i)
-            if p == i:
-                map[i].append(i)
-            else:
-                map[p].append(i)
-                map[i] = map[p]
-        for i in range(26):
-            map[i].sort()
-            map[i] = chr(map[i][0] + ord('a'))
-        return ''.join(map[ord(baseStr[i]) - ord('a')] for i in range(len(baseStr)))
+    def robotWithString(self, s: str) -> str:
+        n = len(s)
+        map = [0] * 26
+        for i in range(n): map[ord(s[i]) - ord('a')] += 1
+        target = 0
+        stack = []
+        res = ''
+        for i in range(n):
+            val = ord(s[i]) - ord('a')
+            stack.append(val)
+            map[val] -= 1
+            while target < 26 and map[target] == 0: target += 1
+            while stack and target >= stack[-1]:
+                res += chr(ord('a') + stack.pop())
+        return res

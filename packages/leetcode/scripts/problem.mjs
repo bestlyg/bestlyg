@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1061. 按字典序排列最小的等效字符串',
-    url: 'https://leetcode.cn/problems/lexicographically-smallest-equivalent-string',
+    name: '2434. 使用机器人打印字典序最小的字符串',
+    url: 'https://leetcode.cn/problems/using-a-robot-to-print-the-lexicographically-smallest-string',
     level: 'Easy',
     tagList: [],
-    desc: `在所有回合结束后，找出盒子中 字典序最大的 字符串。`,
+    desc: `请你返回纸上能写出的字典序最小的字符串。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 3,
-            memory: 17.78,
-            desc: '并查集',
+            time: 523,
+            memory: 20.06,
+            desc: '入栈字符后，判断当前最小字符是否大于等于栈顶字符',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
