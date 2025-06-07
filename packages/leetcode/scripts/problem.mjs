@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2434. 使用机器人打印字典序最小的字符串',
-    url: 'https://leetcode.cn/problems/using-a-robot-to-print-the-lexicographically-smallest-string',
+    name: '3170. 删除星号以后字典序最小的字符串',
+    url: 'https://leetcode.cn/problems/lexicographically-minimum-string-after-removing-stars',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回纸上能写出的字典序最小的字符串。`,
+    desc: `请你返回删除所有 '*' 字符以后，剩余字符连接而成的 字典序最小 的字符串。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 523,
-            memory: 20.06,
-            desc: '入栈字符后，判断当前最小字符是否大于等于栈顶字符',
+            time: 1275,
+            memory: 28.52,
+            desc: '遍历时用堆记录字典最小的下标最小的字符',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

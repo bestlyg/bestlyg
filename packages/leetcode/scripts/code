@@ -1,16 +1,12 @@
 class Solution:
-    def robotWithString(self, s: str) -> str:
+    def clearStars(self, s: str) -> str:
+        res = list(s)
+        q = []
         n = len(s)
-        map = [0] * 26
-        for i in range(n): map[ord(s[i]) - ord('a')] += 1
-        target = 0
-        stack = []
-        res = ''
         for i in range(n):
-            val = ord(s[i]) - ord('a')
-            stack.append(val)
-            map[val] -= 1
-            while target < 26 and map[target] == 0: target += 1
-            while stack and target >= stack[-1]:
-                res += chr(ord('a') + stack.pop())
-        return res
+            if s[i] == '*':
+                res[-heappop(q)[1]] = ''
+                res[i] = ''
+            else:
+                heappush(q, (s[i], -i))
+        return ''.join(res)
