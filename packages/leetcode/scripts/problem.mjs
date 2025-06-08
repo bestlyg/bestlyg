@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '3170. 删除星号以后字典序最小的字符串',
-    url: 'https://leetcode.cn/problems/lexicographically-minimum-string-after-removing-stars',
+    exist: true,
+    name: '386. 字典序排数',
+    url: 'https://leetcode.cn/problems/lexicographical-numbers',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回删除所有 '*' 字符以后，剩余字符连接而成的 字典序最小 的字符串。`,
+    desc: `给你一个整数 n ，按字典序返回范围 [1, n] 内所有整数。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 1275,
-            memory: 28.52,
-            desc: '遍历时用堆记录字典最小的下标最小的字符',
+            time: 90,
+            memory: 22.22,
+            desc: 'dfs',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

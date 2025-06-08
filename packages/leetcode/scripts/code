@@ -1,12 +1,12 @@
 class Solution:
-    def clearStars(self, s: str) -> str:
-        res = list(s)
-        q = []
-        n = len(s)
-        for i in range(n):
-            if s[i] == '*':
-                res[-heappop(q)[1]] = ''
-                res[i] = ''
-            else:
-                heappush(q, (s[i], -i))
-        return ''.join(res)
+    def lexicalOrder(self, n: int) -> List[int]:
+        res = []
+        def dfs(num: int):
+            if num != 0:
+                if num > n: return
+                res.append(num)
+            lo = 1 if num == 0 else 0
+            for i in range(lo, 10):
+                dfs(num * 10 + i)
+        dfs(0)
+        return res
