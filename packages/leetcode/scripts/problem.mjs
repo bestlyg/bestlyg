@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '386. 字典序排数',
-    url: 'https://leetcode.cn/problems/lexicographical-numbers',
+    exist: !true,
+    name: '3442. 奇偶频次间的最大差值 I',
+    url: 'https://leetcode.cn/problems/maximum-difference-between-even-and-odd-frequency-i',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数 n ，按字典序返回范围 [1, n] 内所有整数。`,
+    desc: `返回 最大 差值。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 90,
-            memory: 22.22,
-            desc: 'dfs',
+            time: 0,
+            memory:17.4,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,12 +1,10 @@
 class Solution:
-    def lexicalOrder(self, n: int) -> List[int]:
-        res = []
-        def dfs(num: int):
-            if num != 0:
-                if num > n: return
-                res.append(num)
-            lo = 1 if num == 0 else 0
-            for i in range(lo, 10):
-                dfs(num * 10 + i)
-        dfs(0)
-        return res
+    def maxDifference(self, s: str) -> int:
+        num1 = 0
+        num2 = inf
+        for ch, cnt in Counter(s).items():
+            if cnt % 2 == 0:
+                num2 = min(num2, cnt)
+            else:
+                num1 = max(num1, cnt)
+        return num1 - num2
