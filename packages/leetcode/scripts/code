@@ -1,10 +1,7 @@
 class Solution:
-    def maxDifference(self, s: str) -> int:
-        num1 = 0
-        num2 = inf
-        for ch, cnt in Counter(s).items():
-            if cnt % 2 == 0:
-                num2 = min(num2, cnt)
-            else:
-                num1 = max(num1, cnt)
-        return num1 - num2
+    def maxAdjacentDistance(self, nums: List[int]) -> int:
+        nums.append(nums[0])
+        return max(
+            abs(n1 - n2)
+            for n1, n2 in pairwise(nums)
+        )
