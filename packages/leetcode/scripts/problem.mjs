@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2616. 最小化数对的最大差值',
-    url: 'https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs',
+    exist: !true,
+    name: '2566. 替换一个数字后的最大差值',
+    url: 'hhttps://leetcode.cn/problems/maximum-difference-by-remapping-a-digit',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回 p 个下标对对应数值 最大差值 的 最小值 。`,
+    desc: `请你返回将 num 中 恰好一个 数字进行替换后，得到的最大值和最小值的差为多少。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 311,
-            memory: 31.96,
-            desc: '二分答案',
+            time: 0,
+            memory: 17.65,
+            desc: '贪心找第一个非9的数字',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
