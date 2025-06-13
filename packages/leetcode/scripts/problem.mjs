@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '3423. 循环数组中相邻元素的最大差值',
-    url: 'https://leetcode.cn/problems/maximum-difference-between-adjacent-elements-in-a-circular-array',
+    exist: true,
+    name: '2616. 最小化数对的最大差值',
+    url: 'https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个 循环 数组 nums ，请你找出相邻元素之间的 最大 绝对差值。`,
+    desc: `请你返回 p 个下标对对应数值 最大差值 的 最小值 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 0,
-            memory:17.68,
-            desc: '遍历',
+            time: 311,
+            memory: 31.96,
+            desc: '二分答案',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
