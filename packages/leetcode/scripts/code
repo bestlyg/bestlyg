@@ -1,12 +1,21 @@
 class Solution:
-    def minMaxDifference(self, num: int) -> int:
+    def maxDiff(self, num: int) -> int:
         arr = list(map(int, str(num)))
-        n = len(arr)
-        nmin = arr[0]
-        for i in range(n):
+        val = arr[0]
+        for i in range(len(arr)):
             if arr[i] != 9:
-                nmin = arr[i]
+                val = arr[i]
                 break
-        vmax = int(''.join(['9' if v == nmin else str(v) for v in arr]))
-        vmin = int(''.join(['0' if v == arr[0] else str(v) for v in arr]))
-        return vmax - vmin
+        nmax = int(''.join(str(num) if num != val else '9' for num in arr))
+        nmin = num
+        if arr[0] == 1:
+            val = arr[1]
+            for i in range(len(arr)):
+                if arr[i] != arr[0] and arr[i] != 0:
+                    val = arr[i]
+                    break
+            if val != 1:
+                nmin = int(''.join(str(num) if num != val else '0' for num in arr))
+        else:
+            nmin = int(''.join(str(num) if num != arr[0] else '1' for num in arr))
+        return nmax - nmin

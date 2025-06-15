@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2566. 替换一个数字后的最大差值',
-    url: 'hhttps://leetcode.cn/problems/maximum-difference-by-remapping-a-digit',
+    name: '1432. 改变一个整数能得到的最大差值',
+    url: 'https://leetcode.cn/problems/max-difference-you-can-get-from-changing-an-integer',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回将 num 中 恰好一个 数字进行替换后，得到的最大值和最小值的差为多少。`,
+    desc: `请你返回 a 和 b 的 最大差值 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
             time: 0,
-            memory: 17.65,
+            memory: 17.47,
             desc: '贪心找第一个非9的数字',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
