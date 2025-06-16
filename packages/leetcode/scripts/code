@@ -1,21 +1,9 @@
 class Solution:
-    def maxDiff(self, num: int) -> int:
-        arr = list(map(int, str(num)))
-        val = arr[0]
-        for i in range(len(arr)):
-            if arr[i] != 9:
-                val = arr[i]
-                break
-        nmax = int(''.join(str(num) if num != val else '9' for num in arr))
-        nmin = num
-        if arr[0] == 1:
-            val = arr[1]
-            for i in range(len(arr)):
-                if arr[i] != arr[0] and arr[i] != 0:
-                    val = arr[i]
-                    break
-            if val != 1:
-                nmin = int(''.join(str(num) if num != val else '0' for num in arr))
-        else:
-            nmin = int(''.join(str(num) if num != arr[0] else '1' for num in arr))
-        return nmax - nmin
+    def maximumDifference(self, nums: List[int]) -> int:
+        nmin = nums[0]
+        res = -1
+        for num in nums:
+            if num > nmin:
+                res = max(res, num - nmin)
+            nmin = min(nmin, num)
+        return res

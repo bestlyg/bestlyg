@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1432. 改变一个整数能得到的最大差值',
-    url: 'https://leetcode.cn/problems/max-difference-you-can-get-from-changing-an-integer',
+    exist: true,
+    name: '2016. 增量元素之间的最大差值',
+    url: 'https://leetcode.cn/problems/maximum-difference-between-increasing-elements',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回 a 和 b 的 最大差值 。`,
+    desc: `返回 最大差值 。如果不存在满足要求的 i 和 j ，返回 -1 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
             time: 0,
-            memory: 17.47,
-            desc: '贪心找第一个非9的数字',
+            memory: 17.58,
+            desc: '遍历时记录之前的最小值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
