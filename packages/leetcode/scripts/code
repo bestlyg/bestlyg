@@ -1,9 +1,10 @@
 class Solution:
-    def maximumDifference(self, nums: List[int]) -> int:
-        nmin = nums[0]
-        res = -1
-        for num in nums:
-            if num > nmin:
-                res = max(res, num - nmin)
-            nmin = min(nmin, num)
+    def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
+        n = len(nums)
+        nums.sort()
+        res = []
+        for i in range(0, n, 3):
+            res.append(nums[i: i + 3])
+            if nums[i + 2] - nums[i] > k:
+                return []
         return res

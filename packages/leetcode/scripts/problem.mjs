@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2016. 增量元素之间的最大差值',
-    url: 'https://leetcode.cn/problems/maximum-difference-between-increasing-elements',
+    exist: !true,
+    name: '2966. 划分数组并满足最大差限制',
+    url: 'https://leetcode.cn/problems/divide-array-into-arrays-with-max-difference',
     level: 'Easy',
     tagList: [],
-    desc: `返回 最大差值 。如果不存在满足要求的 i 和 j ，返回 -1 。`,
+    desc: `返回一个 二维数组 ，包含所有的子数组。如果不可能满足条件，就返回一个空数组。如果有多个答案，返回 任意一个 即可。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 0,
-            memory: 17.58,
-            desc: '遍历时记录之前的最小值',
+            time: 87,
+            memory: 32.63,
+            desc: '贪心，排序后依次比较',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
