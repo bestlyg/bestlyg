@@ -1,10 +1,13 @@
 class Solution:
-    def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
-        n = len(nums)
+    def partitionArray(self, nums: List[int], k: int) -> int:
         nums.sort()
-        res = []
-        for i in range(0, n, 3):
-            res.append(nums[i: i + 3])
-            if nums[i + 2] - nums[i] > k:
-                return []
+        n = len(nums)
+        res = 0
+        i = 0
+        while i < n:
+            num = nums[i]
+            while i + 1 < n and nums[i + 1] - num <= k:
+                i += 1
+            res += 1
+            i += 1
         return res

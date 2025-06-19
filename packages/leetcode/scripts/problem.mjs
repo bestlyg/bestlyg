@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2966. 划分数组并满足最大差限制',
-    url: 'https://leetcode.cn/problems/divide-array-into-arrays-with-max-difference',
+    name: '2294. 划分数组使最大差为 K',
+    url: 'https://leetcode.cn/problems/partition-array-such-that-maximum-difference-is-k',
     level: 'Easy',
     tagList: [],
-    desc: `返回一个 二维数组 ，包含所有的子数组。如果不可能满足条件，就返回一个空数组。如果有多个答案，返回 任意一个 即可。`,
+    desc: `给你一个整数数组 nums 和一个整数 k 。你可以将 nums 划分成一个或多个 子序列 ，使 nums 中的每个元素都 恰好 出现在一个子序列中。在满足每个子序列中最大值和最小值之间的差值最多为 k 的前提下，返回需要划分的 最少 子序列数目。子序列 本质是一个序列，可以通过删除另一个序列中的某些元素（或者不删除）但不改变剩下元素的顺序得到。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 87,
-            memory: 32.63,
+            time: 120,
+            memory: 28.63,
             desc: '贪心，排序后依次比较',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
