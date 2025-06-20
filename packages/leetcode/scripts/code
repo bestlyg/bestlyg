@@ -1,13 +1,14 @@
 class Solution:
-    def partitionArray(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        n = len(nums)
+    def maxDistance(self, s: str, k: int) -> int:
         res = 0
-        i = 0
-        while i < n:
-            num = nums[i]
-            while i + 1 < n and nums[i + 1] - num <= k:
-                i += 1
-            res += 1
-            i += 1
+        for dx in 'EW':
+            for dy in 'NS':
+                v1 = v2 = 0
+                for c in s:
+                    if c in dy or c in dx:
+                        v1 += 1
+                    else:
+                        v2 += 1
+                    d = min(v2, k)
+                    res = max(res, v1 - v2 + d * 2)
         return res

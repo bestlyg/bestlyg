@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2294. 划分数组使最大差为 K',
-    url: 'https://leetcode.cn/problems/partition-array-such-that-maximum-difference-is-k',
+    name: '3443. K 次修改后的最大曼哈顿距离',
+    url: 'https://leetcode.cn/problems/maximum-manhattan-distance-after-k-changes',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums 和一个整数 k 。你可以将 nums 划分成一个或多个 子序列 ，使 nums 中的每个元素都 恰好 出现在一个子序列中。在满足每个子序列中最大值和最小值之间的差值最多为 k 的前提下，返回需要划分的 最少 子序列数目。子序列 本质是一个序列，可以通过删除另一个序列中的某些元素（或者不删除）但不改变剩下元素的顺序得到。`,
+    desc: `请找出在 按顺序 执行所有移动操作过程中的 任意时刻 ，所能达到的离原点的 最大曼哈顿距离 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 120,
-            memory: 28.63,
-            desc: '贪心，排序后依次比较',
+            time: 5766,
+            memory: 17.86,
+            desc: '贪心的枚举上下和左右',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
