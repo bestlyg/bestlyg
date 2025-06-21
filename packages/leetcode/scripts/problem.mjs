@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3443. K 次修改后的最大曼哈顿距离',
-    url: 'https://leetcode.cn/problems/maximum-manhattan-distance-after-k-changes',
+    name: '3085. 成为 K 特殊字符串需要删除的最少字符数',
+    url: 'https://leetcode.cn/problems/minimum-deletions-to-make-string-k-special',
     level: 'Easy',
     tagList: [],
-    desc: `请找出在 按顺序 执行所有移动操作过程中的 任意时刻 ，所能达到的离原点的 最大曼哈顿距离 。`,
+    desc: `返回使 word 成为 k 特殊字符串 需要删除的字符的最小数量。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 5766,
-            memory: 17.86,
-            desc: '贪心的枚举上下和左右',
+            time: 63,
+            memory:17.76,
+            desc: '计数后判断以每一个元素当作开头的最小值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
