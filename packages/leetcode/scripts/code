@@ -1,10 +1,4 @@
 class Solution:
-    def minimumDeletions(self, word: str, k: int) -> int:
-        arr = sorted(list(Counter(word).values()))
-        n = len(arr)
-        def run(left: int) -> int:
-            res = sum(arr[0: left])
-            for r in range(n - 1, left - 1, -1):
-                res += max(arr[r] - k - arr[left], 0)
-            return res
-        return min(run(i) for i in range(n))
+    def divideString(self, s: str, k: int, fill: str) -> List[str]:
+        s = s.ljust(len(s) + k - len(s) % k if len(s) % k else len(s), fill)
+        return [s[i: i + k] for i in range(0, len(s), k)]

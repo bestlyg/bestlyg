@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3085. 成为 K 特殊字符串需要删除的最少字符数',
-    url: 'https://leetcode.cn/problems/minimum-deletions-to-make-string-k-special',
+    name: '2138. 将字符串拆分为若干长度为 k 的组',
+    url: 'https://leetcode.cn/problems/divide-a-string-into-groups-of-size-k',
     level: 'Easy',
     tagList: [],
-    desc: `返回使 word 成为 k 特殊字符串 需要删除的字符的最小数量。`,
+    desc: `给你一个字符串 s ，以及每组的长度 k 和一个用于填充的字符 fill ，按上述步骤处理之后，返回一个字符串数组，该数组表示 s 分组后 每个组的组成情况 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 63,
-            memory:17.76,
-            desc: '计数后判断以每一个元素当作开头的最小值',
+            time: 0,
+            memory:17.79,
+            desc: '先补齐再遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
