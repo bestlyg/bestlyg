@@ -1,21 +1,4 @@
 class Solution:
-    def longestSubsequence(self, s: str, k: int) -> int:
-        if int(s, 2) < k: return len(s)
-        sn = len(s)
-        bk = bin(k)[2:]
-        n = len(bk)
-        res = n - 1
-        def find(head: str, cnt: int) -> int:
-            nonlocal res
-            idx = -1
-            while True:
-                idx = s.find(head, idx+1, sn - cnt)
-                if idx == -1: break
-                res = max(res, n + s[:idx].count('0'))
-        cur = ''
-        for i in range(n):
-            if bk[i] == '1':
-                find(cur + '0', n - 1 - i)
-            cur += bk[i]
-        find(cur, 0)
-        return res
+    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
+        idxs = sorted([i for i in range(len(nums))], key = lambda i: nums[i], reverse = True)
+        return [nums[i] for i in sorted(idxs[:k])]

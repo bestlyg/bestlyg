@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2311. 小于等于 K 的最长二进制子序列',
-    url: 'https://leetcode.cn/problems/longest-binary-subsequence-less-than-or-equal-to-k',
+    name: '2099. 找到和最大的长度为 K 的子序列',
+    url: 'https://leetcode.cn/problems/find-subsequence-of-length-k-with-the-largest-sum',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个二进制字符串 s 和一个正整数 k 。请你返回 s 的 最长 子序列的长度，且该子序列对应的 二进制 数字小于等于 k 。`,
+    desc: `请你返回 任意 一个长度为 k 的整数子序列。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 34,
-            memory: 17.83,
-            desc: '贪心的记录最小前缀',
+            time: 2,
+            memory: 17.69,
+            desc: '贪心的拿数字最大的K个值',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
