@@ -1,4 +1,12 @@
+mod = 10 ** 9 + 7
+
 class Solution:
-    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
-        idxs = sorted([i for i in range(len(nums))], key = lambda i: nums[i], reverse = True)
-        return [nums[i] for i in sorted(idxs[:k])]
+    def numSubseq(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        nums.sort()
+        res = pow(2, n, mod) - 1
+        for idx in range(n):
+            start = bisect_right(nums, k - nums[idx], 0, idx + 1)
+            if start <= idx:
+                res -= pow(2, idx - start, mod)
+        return res % mod

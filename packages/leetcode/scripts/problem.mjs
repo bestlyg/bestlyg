@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2099. 找到和最大的长度为 K 的子序列',
-    url: 'https://leetcode.cn/problems/find-subsequence-of-length-k-with-the-largest-sum',
+    name: '1498. 满足条件的子序列数目',
+    url: 'https://leetcode.cn/problems/number-of-subsequences-that-satisfy-the-given-sum-condition',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回 任意 一个长度为 k 的整数子序列。`,
+    desc: `给你一个整数数组 nums 和一个整数 target 。请你统计并返回 nums 中能满足其最小元素与最大元素的 和 小于或等于 target 的 非空 子序列的数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 2,
-            memory: 17.69,
-            desc: '贪心的拿数字最大的K个值',
+            time: 279,
+            memory: 27.24,
+            desc: '对全排列减去不符合规范的数组',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
