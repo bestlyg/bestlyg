@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '1498. 满足条件的子序列数目',
-    url: 'https://leetcode.cn/problems/number-of-subsequences-that-satisfy-the-given-sum-condition',
+    exist: true,
+    name: '594. 最长和谐子序列',
+    url: 'https://leetcode.cn/problems/longest-harmonious-subsequence',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 nums 和一个整数 target 。请你统计并返回 nums 中能满足其最小元素与最大元素的 和 小于或等于 target 的 非空 子序列的数目。`,
+    desc: `给你一个整数数组 nums ，请你在所有可能的 子序列 中找到最长的和谐子序列的长度。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 279,
-            memory: 27.24,
-            desc: '对全排列减去不符合规范的数组',
+            time: 59,
+            memory: 18.80,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
