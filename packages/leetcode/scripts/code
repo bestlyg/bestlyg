@@ -1,12 +1,10 @@
-mod = 10 ** 9 + 7
-
 class Solution:
-    def numSubseq(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        nums.sort()
-        res = pow(2, n, mod) - 1
-        for idx in range(n):
-            start = bisect_right(nums, k - nums[idx], 0, idx + 1)
-            if start <= idx:
-                res -= pow(2, idx - start, mod)
-        return res % mod
+    def possibleStringCount(self, word: str) -> int:
+        n = len(word)
+        def run(idx: int, f: bool) -> int:
+            if idx == n: return 1
+            res = run(idx + 1, f)
+            if f and idx + 1 < n and word[idx] == word[idx + 1]:
+                res += run(idx + 2, False)
+            return res
+        return run(0, True)
