@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3330. 找到初始输入字符串 I',
-    url: 'https://leetcode.cn/problems/find-the-original-typed-string-i',
+    name: '3304. 找出第 K 个字符 I',
+    url: 'https://leetcode.cn/problems/find-the-k-th-character-in-string-game-i',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 word ，它表示 最终 显示在 Alice 显示屏上的结果。请你返回 Alice 一开始可能想要输入字符串的总方案数。`,
+    desc: `在执行足够多的操作后， word 中 至少 存在 k 个字符，此时返回 word 中第 k 个字符的值。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 47,
-            memory: 17.43,
-            desc: '遍历',
+            time: 11,
+            memory: 17.50,
+            desc: '模拟',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

@@ -1,10 +1,10 @@
 class Solution:
-    def possibleStringCount(self, word: str) -> int:
-        n = len(word)
-        def run(idx: int, f: bool) -> int:
-            if idx == n: return 1
-            res = run(idx + 1, f)
-            if f and idx + 1 < n and word[idx] == word[idx + 1]:
-                res += run(idx + 2, False)
-            return res
-        return run(0, True)
+    def kthCharacter(self, k: int) -> str:
+        cur = 'a' 
+        for _ in range(k):
+            ncur = ''
+            for c in cur:
+                ncur += chr((ord(c) - ord('a') + 1) % 26 + ord('a'))
+            cur += ncur
+            if len(cur) > k: break
+        return cur[k - 1]
