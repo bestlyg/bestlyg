@@ -1,10 +1,7 @@
 class Solution:
-    def kthCharacter(self, k: int) -> str:
-        cur = 'a' 
-        for _ in range(k):
-            ncur = ''
-            for c in cur:
-                ncur += chr((ord(c) - ord('a') + 1) % 26 + ord('a'))
-            cur += ncur
-            if len(cur) > k: break
-        return cur[k - 1]
+    def findLucky(self, arr: List[int]) -> int:
+        res = -1
+        for key, cnt in Counter(arr).items():
+            if key == cnt:
+                res = max(res, cnt)
+        return res
