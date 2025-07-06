@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1394. 找出数组中的幸运数',
-    url: 'https://leetcode.cn/problems/find-lucky-integer-in-an-array',
+    name: '1865. 找出和为指定值的下标对',
+    url: 'https://leetcode.cn/problems/finding-pairs-with-a-certain-sum',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个整数数组 arr，请你从中找出并返回一个幸运数。`,
+    desc: `实现 FindSumPairs 类。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time:0,
-            memory: 17.82,
+            time: 476,
+            memory: 47.23,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
