@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1865. 找出和为指定值的下标对',
-    url: 'https://leetcode.cn/problems/finding-pairs-with-a-certain-sum',
+    name: '1353. 最多可以参加的会议数目',
+    url: 'https://leetcode.cn/problems/maximum-number-of-events-that-can-be-attended',
     level: 'Easy',
     tagList: [],
-    desc: `实现 FindSumPairs 类。`,
+    desc: `请你返回你可以参加的 最大 会议数目。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 476,
-            memory: 47.23,
+            time: 177,
+            memory: 40.79,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
