@@ -13,8 +13,8 @@ catalogs:
       specifier: ^1.7.9
       version: 1.7.9
     typescript:
-      specifier: ^5.7.3
-      version: 5.7.3
+      specifier: ^5.8.3
+      version: 5.8.3
 
 pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
 
@@ -49,7 +49,7 @@ importers:
         version: 4.19.3
       typescript:
         specifier: 'catalog:'
-        version: 5.7.3
+        version: 5.8.3
 
 packages:
 
@@ -320,8 +320,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  typescript@5.7.3:
-    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -546,6 +546,6 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  typescript@5.7.3: {}
+  typescript@5.8.3: {}
 
   undici-types@6.19.8: {}
