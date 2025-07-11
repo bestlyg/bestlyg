@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1353. 最多可以参加的会议数目',
-    url: 'https://leetcode.cn/problems/maximum-number-of-events-that-can-be-attended',
+    name: '3169. 无需开会的工作日',
+    url: 'https://leetcode.cn/problems/count-days-without-meetings',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回你可以参加的 最大 会议数目。`,
+    desc: `返回员工可工作且没有安排会议的天数。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 177,
-            memory: 40.79,
-            desc: '遍历',
+            time: 237,
+            memory: 51.89,
+            desc: '合并区间',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

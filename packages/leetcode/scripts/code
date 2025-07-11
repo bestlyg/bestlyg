@@ -1,16 +1,13 @@
 class Solution:
-    def maxEvents(self, events: List[List[int]]) -> int:
-        events.sort(reverse = True) 
-        nmax = max(e[1] for e in events) + 1
-        last = 0
-        q = []
-        res = 0
-        for i in range(1, nmax):
-            while q and q[0] < i: heappop(q)
-            while events and events[-1][0] <= i:
-                e = events.pop()
-                heappush(q, e[1])
-            if q:
-                res += 1
-                heappop(q)
-        return res
+    def countDays(self, days: int, meetings: List[List[int]]) -> int:
+        meetings.sort()
+        meetings.append([days + 1, days + 1])
+        arr = [[0, 0]]
+        for meeting in meetings:
+            if arr[-1][1] + 1 >= meeting[0]:
+                last = arr[-1]
+                last[0] = min(last[0], meeting[0])
+                last[1] = max(last[1], meeting[1])
+            else:
+                arr.append(meeting)
+        return sum(b[0] - a[1] - 1 for a, b in pairwise(arr))
