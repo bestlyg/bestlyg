@@ -1,7 +1,7 @@
 class Solution:
-    def isValid(self, word: str) -> bool:
-        arr = [chr(i + ord('a')) for i in range(26)]
-        return len(word) >= 3 and \
-               len([c for c in word if not c.isalnum()]) == 0 and \
-               any(c in word.lower() for c in 'aeiou') and \
-               any(c in word.lower() for c in arr if c not in 'aeiou')
+    def getDecimalValue(self, head: Optional[ListNode]) -> int:
+        cur = 0
+        while head:
+            cur = cur << 1 | head.val
+            head = head.next
+        return cur

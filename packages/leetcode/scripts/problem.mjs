@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3136. 有效单词',
-    url: 'https://leetcode.cn/problems/valid-word',
+    name: '1290. 二进制链表转整数',
+    url: 'https://leetcode.cn/problems/convert-binary-number-in-a-linked-list-to-integer',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 word 。如果 word 是一个有效单词，则返回 true ，否则返回 false 。`,
+    desc: `请你返回该链表所表示数字的 十进制值 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 0,
-            memory: 17.39,
-            desc: '直接判断',
+            time: 4,
+            memory: 17.38,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
