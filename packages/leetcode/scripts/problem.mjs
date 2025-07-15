@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2410. 运动员和训练师的最大匹配数',
-    url: 'https://leetcode.cn/problems/maximum-matching-of-players-with-trainers',
+    name: '3136. 有效单词',
+    url: 'https://leetcode.cn/problems/valid-word',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回满足上述要求 players 和 trainers 的 最大 匹配数。`,
+    desc: `给你一个字符串 word 。如果 word 是一个有效单词，则返回 true ，否则返回 false 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 92,
-            memory: 31.13,
-            desc: '贪心排序',
+            time: 0,
+            memory: 17.39,
+            desc: '直接判断',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
