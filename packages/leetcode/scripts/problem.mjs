@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3201. 找出有效子序列的最大长度 I',
-    url: 'https://leetcode.cn/problems/find-the-maximum-length-of-valid-subsequence-i',
+    name: '3202. 找出有效子序列的最大长度 II',
+    url: 'https://leetcode.cn/problems/find-the-maximum-length-of-valid-subsequence-ii',
     level: 'Easy',
     tagList: [],
-    desc: `返回 nums 的 最长的有效子序列 的长度。`,
+    desc: `返回 nums 的 最长有效子序列 的长度。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 538,
-            memory: 65.02,
-            desc: '分别计算，都是奇数，都是偶数，一奇一偶',
+            time: 2525,
+            memory: 26.13,
+            desc: '取模，遍历每一种余数，dp[cur][prev] = dp[prev][cur] + 1',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

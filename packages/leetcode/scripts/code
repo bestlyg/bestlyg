@@ -1,11 +1,12 @@
 class Solution:
-    def maximumLength(self, nums: List[int]) -> int:
+    def maximumLength(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        for i in range(n): nums[i] %= 2
-        def dfs(idx: int, same: int, f: int) -> int:
-            if idx == n: return 0
-            if nums[idx] != f: return dfs(idx + 1, same, f)
-            if not same:
-                f ^= 1
-            return dfs(idx + 1, same, f) + 1
-        return max(dfs(0, 1, 1), dfs(0, 1, 0), dfs(0, 0, 1), dfs(0, 0, 0))
+        for i in range(n): nums[i] %= k
+        dp = [[0 for _ in range(k)] for _ in range(k)]
+        res = 0
+        for i in range(n):
+            num = nums[i]
+            for cur in range(k):
+                dp[cur][num] = dp[num][cur] + 1
+                res = max(res, dp[cur][num])
+        return res
