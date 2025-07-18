@@ -1,12 +1,25 @@
 class Solution:
-    def maximumLength(self, nums: List[int], k: int) -> int:
+    def minimumDifference(self, nums: List[int]) -> int:
         n = len(nums)
-        for i in range(n): nums[i] %= k
-        dp = [[0 for _ in range(k)] for _ in range(k)]
-        res = 0
-        for i in range(n):
-            num = nums[i]
-            for cur in range(k):
-                dp[cur][num] = dp[num][cur] + 1
-                res = max(res, dp[cur][num])
-        return res
+
+        prev_arr = [0] * n
+        prev_sum = 0
+        q = []
+        for i in range(n // 3 * 2):
+            heappush(q, -nums[i])
+            prev_sum += nums[i]
+            if len(q) > n // 3: prev_sum -= -heappop(q)
+            prev_arr[i] = prev_sum
+
+        next_arr = [0] * n
+        next_sum = 0
+        q = []
+        for i in range(n - 1, n // 3 - 1, -1):
+            heappush(q, nums[i])
+            next_sum += nums[i]
+            if len(q) > n // 3: next_sum -= heappop(q)
+            next_arr[i] = next_sum
+        return min(
+            prev_arr[i] - next_arr[i + 1]
+            for i in range(n // 3 - 1, n // 3 * 2)
+        )
