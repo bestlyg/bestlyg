@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: !true,
-    name: '2163. 删除元素后和的最小差值',
-    url: 'https://leetcode.cn/problems/minimum-difference-in-sums-after-removal-of-elements',
+    exist: true,
+    name: '1233. 删除子文件夹',
+    url: 'https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回删除 n 个元素之后，剩下两部分和的 差值的最小值 是多少。`,
+    desc: `你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 519,
-            memory: 52.51,
-            desc: '遍历前2/3个的最小值，和后2/3个的最大值，进行枚举',
+            time: 209,
+            memory: 41.85,
+            desc: '字典树',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

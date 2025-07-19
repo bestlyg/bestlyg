@@ -1,25 +1,26 @@
+class TrieNode:
+    def __init__(self, val: str) -> None:
+        self.val = val
+        self.end = False
+        self.children: Dict[str, TrieNode] = {}
 class Solution:
-    def minimumDifference(self, nums: List[int]) -> int:
-        n = len(nums)
-
-        prev_arr = [0] * n
-        prev_sum = 0
-        q = []
-        for i in range(n // 3 * 2):
-            heappush(q, -nums[i])
-            prev_sum += nums[i]
-            if len(q) > n // 3: prev_sum -= -heappop(q)
-            prev_arr[i] = prev_sum
-
-        next_arr = [0] * n
-        next_sum = 0
-        q = []
-        for i in range(n - 1, n // 3 - 1, -1):
-            heappush(q, nums[i])
-            next_sum += nums[i]
-            if len(q) > n // 3: next_sum -= heappop(q)
-            next_arr[i] = next_sum
-        return min(
-            prev_arr[i] - next_arr[i + 1]
-            for i in range(n // 3 - 1, n // 3 * 2)
-        )
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        root = TrieNode('')
+        for p in folder:
+            node = root
+            for dir in p.split('/')[1:]:
+                if dir not in node.children:
+                    node.children[dir] = TrieNode(dir)
+                node = node.children[dir]
+                if node.end: break
+            node.end = True
+        def get(node: 'TrieNode', p: str) -> List[str]:
+            if node.end: return [p]
+            res = []
+            for key, child in node.children.items():
+                next_p = p
+                if p != '/': next_p += '/'
+                next_p += child.val
+                res += get(child, next_p)
+            return res
+        return get(root, '/')
