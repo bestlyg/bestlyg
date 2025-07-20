@@ -161,7 +161,7 @@ export default function Resume() {
                 width={800}
                 title={'编辑Markdown'}
                 open={editorVisible}
-                onClose={editorVisbileActions.setLeft}
+                //  closable={editorVisbileActions.setLeft}
                 onCancel={editorVisbileActions.setLeft}
                 onOk={editorVisbileActions.setLeft}
             >
