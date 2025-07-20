@@ -1,4 +1,3 @@
-import { fromError } from 'zod-validation-error/v4';
 import { z } from 'zod';
 import { BaseModel } from './base-model';
 import EventEmitter from 'eventemitter3';
@@ -34,7 +33,7 @@ export function createZodBaseModel<
     function ZodBaseModel(raw: any) {
         const res = schema.safeParse(raw);
         if (!res.success) {
-            throw new TypeError(fromError(res.error).toString(), { cause: { raw, schema } });
+            throw new TypeError(z.prettifyError(res.error), { cause: { raw, schema } });
         }
         const plain = res.data;
         const instance = Object.assign({}, plain, {
