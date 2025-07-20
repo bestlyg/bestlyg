@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodModel, zodSchemaSymbol, createZodBaseModel } from '@/zod';
+import { createZodBaseModel } from '@/zod';
 import { PageParam } from '@/page-param';
 
 // export class SelectLedgerPageDto extends createZodModel(
@@ -13,7 +13,7 @@ import { PageParam } from '@/page-param';
 export class SelectLedgerPageDto extends createZodBaseModel(
     z
         .object({
-            date: z.string().date().optional(),
+            date: z.iso.date().optional(),
         })
-        .merge(PageParam.Schema),
+        .extend(PageParam.Schema.shape),
 ) {}

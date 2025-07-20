@@ -127,6 +127,6 @@
         "nanoid": "^5.1.5",
         "tapable": "catalog:",
         "zod": "catalog:",
-        "zod-validation-error": "^3.4.0"
+        "zod-validation-error": "^3.5.3"
     }
 }

@@ -26,7 +26,7 @@ catalog:
     unbuild: ^3.5.0
     # ant
     ahooks: ^3.8.4
-    antd: ^5.24.7
+    antd: ^5.26.6
     '@ant-design/icons': ^5.5.1
     '@ant-design/v5-patch-for-react-19': latest
     '@ant-design/icons-svg': ^4.4.2
@@ -71,15 +71,15 @@ catalog:
     '@types/ramda': ^0.30.2
     ramda: ^0.30.0
 
-    vite: ^6.0.7
+    vite: ^7.0.5
     '@vitejs/plugin-react': ^4.3.4
 
-    zod: ^3.24.2
+    zod: ^4.0.5
 
-    prisma: ^6.2.1
-    '@prisma/client': ^6.2.1
+    prisma: ^6.12.0
+    '@prisma/client': ^6.12.0
 
-    jotai: ^2.12.3
+    jotai: ^2.12.5
 
     '@types/tapable': ^2.2.7
     tapable: ^2.2.1

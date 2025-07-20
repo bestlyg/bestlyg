@@ -55,8 +55,8 @@ catalogs:
       specifier: ^3.5.0
       version: 3.5.0
     zod:
-      specifier: ^3.24.2
-      version: 3.24.2
+      specifier: ^4.0.5
+      version: 4.0.5
     zx:
       specifier: ^8.5.3
       version: 8.6.2
@@ -165,7 +165,7 @@ importers:
         version: 3.17.0
       zod:
         specifier: 'catalog:'
-        version: 3.24.2
+        version: 4.0.5
       zx:
         specifier: 'catalog:'
         version: 8.6.2
@@ -2082,8 +2082,8 @@ packages:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
 
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
   zx@8.6.2:
     resolution: {integrity: sha512-XaDuxcYmfnGFEYFkm1d4/709FmT7mkRgzzWjrkQMb2S5gi+bt0zroZTwjN29ffxxM5PZIkxWgMzXRBZSBRvYwg==}
@@ -3918,6 +3918,6 @@ snapshots:
 
   yoctocolors-cjs@2.1.2: {}
 
-  zod@3.24.2: {}
+  zod@4.0.5: {}
 
   zx@8.6.2: {}
