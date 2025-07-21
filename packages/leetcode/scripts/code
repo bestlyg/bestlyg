@@ -1,26 +1,7 @@
-class TrieNode:
-    def __init__(self, val: str) -> None:
-        self.val = val
-        self.end = False
-        self.children: Dict[str, TrieNode] = {}
 class Solution:
-    def removeSubfolders(self, folder: List[str]) -> List[str]:
-        root = TrieNode('')
-        for p in folder:
-            node = root
-            for dir in p.split('/')[1:]:
-                if dir not in node.children:
-                    node.children[dir] = TrieNode(dir)
-                node = node.children[dir]
-                if node.end: break
-            node.end = True
-        def get(node: 'TrieNode', p: str) -> List[str]:
-            if node.end: return [p]
-            res = []
-            for key, child in node.children.items():
-                next_p = p
-                if p != '/': next_p += '/'
-                next_p += child.val
-                res += get(child, next_p)
-            return res
-        return get(root, '/')
+    def makeFancyString(self, s: str) -> str:
+        res = '' 
+        for c in s:
+            if len(res) >= 2 and res[-1] == res[-2] == c: continue
+            res += c
+        return res

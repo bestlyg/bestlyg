@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '1233. 删除子文件夹',
-    url: 'https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem',
+    exist: !true,
+    name: '1957. 删除字符使字符串变好',
+    url: 'https://leetcode.cn/problems/delete-characters-to-make-fancy-string',
     level: 'Easy',
     tagList: [],
-    desc: `你是一位系统管理员，手里有一份文件夹列表 folder，你的任务是要删除该列表中的所有 子文件夹，并以 任意顺序 返回剩下的文件夹。`,
+    desc: `给你一个字符串 s ，请你从 s 删除 最少 的字符，使它变成一个 好字符串 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 209,
-            memory: 41.85,
-            desc: '字典树',
+            time: 379,
+            memory: 19.17,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
