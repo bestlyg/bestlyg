@@ -10,18 +10,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1957. 删除字符使字符串变好',
-    url: 'https://leetcode.cn/problems/delete-characters-to-make-fancy-string',
+    name: '1695. 删除子数组的最大得分',
+    url: 'https://leetcode.cn/problems/maximum-erasure-value',
     level: 'Easy',
     tagList: [],
-    desc: `给你一个字符串 s ，请你从 s 删除 最少 的字符，使它变成一个 好字符串 。`,
+    desc: `返回 只删除一个 子数组可获得的 最大得分 。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 379,
-            memory: 19.17,
-            desc: '遍历',
+            time: 242,
+            memory: 28.33,
+            desc: '滑动窗口，遍历r，判断不符合要求时移动l',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
