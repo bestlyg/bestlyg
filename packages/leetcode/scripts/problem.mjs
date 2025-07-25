@@ -10,8 +10,8 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '1695. 删除子数组的最大得分',
-    url: 'https://leetcode.cn/problems/maximum-erasure-value',
+    name: '3487. 删除后的最大子数组元素和',
+    url: 'https://leetcode.cn/problems/maximum-unique-subarray-sum-after-deletion',
     level: 'Easy',
     tagList: [],
     desc: `返回 只删除一个 子数组可获得的 最大得分 。`,
@@ -19,9 +19,9 @@ export const problem = {
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 242,
-            memory: 28.33,
-            desc: '滑动窗口，遍历r，判断不符合要求时移动l',
+            time: 0,
+            memory: 17.65,
+            desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],
