@@ -1,35 +1,33 @@
 import { z } from 'zod';
-import { BaseModel } from './base-model';
-import EventEmitter from 'eventemitter3';
 
 export const zodSchemaSymbol = Symbol('zod-schema');
 
-export interface ZodBaseModel<
-    T extends z.ZodObject<any> = z.ZodObject<any>,
-    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
-    Context extends any = any,
-> {
-    new (raw?: any): z.infer<T> &
-        BaseModel<EventTypes, Context> & {
-            __raw__: any;
-            getRaw(): any;
-            __plain__: z.infer<T>;
-            getPlain(): z.infer<T>;
-            __schema__: T;
-            getSchema(): T;
-            __config__: ZodBaseModelConfig;
-            getConfig(): ZodBaseModelConfig;
-        };
+export function isZodModel(o: unknown): o is ZodBaseModel {
+    if (!o) return false;
+    return (o as any)[zodSchemaSymbol];
+}
+
+export interface ZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>> {
+    new (raw?: any): z.infer<T> & {
+        __raw__: any;
+        getRaw(): any;
+        __plain__: z.infer<T>;
+        getPlain(): z.infer<T>;
+        __schema__: T;
+        getSchema(): T;
+        __config__: ZodBaseModelConfig;
+        getConfig(): ZodBaseModelConfig;
+    };
     [zodSchemaSymbol]: T;
+    getSchema(): T;
 }
 
 interface ZodBaseModelConfig {}
 
-export function createZodBaseModel<
-    T extends z.ZodObject<any> = z.ZodObject<any>,
-    EventTypes extends EventEmitter.ValidEventTypes = string | symbol,
-    Context extends any = any,
->(schema: T, config: ZodBaseModelConfig = {}) {
+export function createZodBaseModel<T extends z.ZodObject<any> = z.ZodObject<any>>(
+    schema: T,
+    config: ZodBaseModelConfig = {},
+) {
     function ZodBaseModel(raw: any) {
         const res = schema.safeParse(raw);
         if (!res.success) {
@@ -54,9 +52,11 @@ export function createZodBaseModel<
                 return this.__config__;
             },
         });
-        Object.setPrototypeOf(instance, new BaseModel());
         return instance;
     }
+    ZodBaseModel.getSchema = function (this) {
+        return schema;
+    };
     ZodBaseModel[zodSchemaSymbol] = schema;
-    return ZodBaseModel as unknown as ZodBaseModel<T, EventTypes, Context>;
+    return ZodBaseModel as unknown as ZodBaseModel<T>;
 }

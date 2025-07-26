@@ -13,8 +13,10 @@ export class PageParam {
     }
     static Schema = z
         .object({
-            current: z.coerce.number().readonly(),
-            pageSize: z.coerce.number().readonly(),
+            current: z.coerce.number().meta({ title: '分页参数', description: '定义当前是第几页' }),
+            pageSize: z.coerce
+                .number()
+                .meta({ title: '分页参数', description: '定义每页有多少条' }),
         })
         .required();
     current: number;

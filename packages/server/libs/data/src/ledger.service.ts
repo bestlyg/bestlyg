@@ -18,7 +18,6 @@ export class LedgerService {
         return data;
     }
     async getLedgerPage(dto: SelectLedgerPageDto) {
-        console.log('this', dto);
         const pageParam = PageParam.from(dto);
         const total = await this.prismaService.ledger.count({
             where: {

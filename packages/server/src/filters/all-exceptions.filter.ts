@@ -10,7 +10,6 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     //     super.catch(exception, host);
     // }
     catch(exception: unknown, host: ArgumentsHost) {
-        console.log('exception', exception);
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const request: Request = ctx.getRequest();

@@ -1,10 +1,11 @@
+import './swagger';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import fs from 'fs-extra';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService, resolve } from '@bestlyg-server/common';
+import { PrismaService, resolve, ZodValidationPipe } from '@bestlyg-server/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
 import * as idl from '@bestlyg/common/idl/server';
@@ -28,11 +29,12 @@ export async function bootstrap() {
             idl.api.bestlyg.ClientService.GetDocsSidebars.url,
             idl.api.bestlyg.ClientService.GetLeetcodeSidebars.url,
             '/static',
-            '/zjuer/wiki'
+            '/zjuer/wiki',
         ],
     });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
+    app.useGlobalPipes(new ZodValidationPipe())
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
     const mode = configService.getOrThrow<Configuration['mode']>('mode');
@@ -50,6 +52,7 @@ export async function bootstrap() {
         yamlDocumentUrl: 'swagger/yaml',
         explorer: true,
         useGlobalPrefix: true,
+        customSiteTitle: 'BestLyg Sever Swagger',
     });
     await fs.writeFile(resolve('openapi.json'), JSON.stringify(document, null, 4));
 

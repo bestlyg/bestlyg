@@ -17,10 +17,8 @@ import {
     DeleteServerlessCodeDto,
 } from '@bestlyg/common';
 import { ServerlessCodeService } from './serverless-code.service';
-import { ZodValidationPipe } from '@bestlyg-server/common';
 
 @Controller('/data/serverless-code')
-@UsePipes(ZodValidationPipe)
 export class ServerlessCodeController {
     private readonly logger = new Logger(ServerlessCodeController.name);
     constructor(private readonly serverlessCodeService: ServerlessCodeService) {}

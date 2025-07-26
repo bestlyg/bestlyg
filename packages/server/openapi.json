@@ -112,17 +112,19 @@
         "/api/data/ledger/page": {
             "get": {
                 "operationId": "LedgerController_getLedgerPage",
-                "parameters": [],
-                "responses": {
-                    "201": {
-                        "description": "The record has been successfully created.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SelectLedgerPageDto"
-                                }
-                            }
+                "parameters": [
+                    {
+                        "name": "query",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/SelectLedgerPageDto"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 },
                 "tags": [
@@ -521,19 +523,79 @@
         "schemas": {
             "CreateServerlessCodeDto": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "serverlessId": {
+                        "default": "best",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "code",
+                    "serverlessId"
+                ],
+                "additionalProperties": false
             },
             "UpdateServerlessCodeDto": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "serverlessId": {
+                        "default": "best",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id"
+                ],
+                "additionalProperties": false
             },
             "DeleteServerlessCodeDto": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
             },
             "SelectLedgerPageDto": {
                 "type": "object",
-                "properties": {}
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date",
+                        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "current": {
+                        "type": "number"
+                    },
+                    "pageSize": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "current",
+                    "pageSize"
+                ],
+                "additionalProperties": false
             }
         }
     }
