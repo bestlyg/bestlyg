@@ -1,13 +1,11 @@
-import * as idl from '@bestlyg/common/idl/client';
+import { SidebarGroup, SidebarItem } from '@bestlyg/common';
 import React from 'react';
 
-export function findFirstSidebarItem(
-    groups?: idl.api.bestlyg.SidebarGroup[],
-): idl.api.bestlyg.SidebarItem | null {
+export function findFirstSidebarItem(groups?: SidebarGroup[]): SidebarItem | null {
     if (!groups) return null;
     for (const group of groups) {
         if (group.items?.length) return group.items[0];
-        const res = findFirstSidebarItem(group.groups);
+        const res = findFirstSidebarItem(group.groups as SidebarGroup[]);
         if (res) return res;
     }
     return null;

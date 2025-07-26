@@ -8,7 +8,6 @@ import {
 } from '@/utils';
 import { Outlet, useLocation } from 'react-router';
 import { useAtomValue, useSetAtom } from 'jotai';
-import * as idl from '@bestlyg/common/idl/client';
 import React from 'react';
 import { AppHeader } from './app-header';
 // import { loginRoute, resumeRoute, rootRoute } from '@/routes';
@@ -16,6 +15,7 @@ import { ScrollToTop } from '@/components/scroll-to-top';
 import { ArrowUpToLine } from 'lucide-react';
 import { AppSummary } from './app-summary';
 import { AppFooter } from './app-footer';
+import { SidebarGroup, SidebarItem } from '@bestlyg/common';
 
 export * from './app-header';
 export * from './app-sidebar';
@@ -32,16 +32,14 @@ export default function AppLayout() {
         setActiveSidebarCategory(
             sidebarCategories.find(v => location.pathname.startsWith(v.path)) ?? null,
         );
-        function findActiveItem(
-            groups: idl.api.bestlyg.SidebarGroup[],
-        ): (idl.api.bestlyg.SidebarItem | idl.api.bestlyg.SidebarGroup)[] | null {
+        function findActiveItem(groups: SidebarGroup[]): (SidebarItem | SidebarGroup)[] | null {
             for (const group of groups) {
                 for (const item of group.items ?? []) {
                     if (location.pathname === item.link) {
                         return [group, item];
                     }
                 }
-                const res = findActiveItem(group.groups ?? []);
+                const res = findActiveItem((group.groups ?? []) as SidebarGroup[]);
                 if (res) return [group].concat(res);
             }
             return null;

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
@@ -9,6 +8,7 @@ import { useSetAtom } from 'jotai';
 import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { apiMap } from '@bestlyg/common';
+import { request } from '@/utils';
 
 async function fetchReadableStaticFile(p?: string | null): Promise<string | null> {
     if (!p) return null;

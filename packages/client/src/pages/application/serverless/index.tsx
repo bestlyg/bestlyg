@@ -1,6 +1,5 @@
 import { useRequest } from 'ahooks';
 import { Prisma } from '@bestlyg/common/prisma-client';
-import { request } from '@bestlyg/common/idl/utils';
 // import { serverManifest } from '@bestlyg/common';
 import React from 'react';
 import 'highlight.js/styles/github.css';
@@ -21,6 +20,7 @@ import {
 } from '@/shadcn/ui/alert-dialog';
 import { MonacoEditor } from '@/components/monaco-editor';
 import { apiMap } from '@bestlyg/common';
+import { request } from '@/utils';
 
 export type ServerlessData = Prisma.ServerlessGetPayload<{
     include: { codes: true };

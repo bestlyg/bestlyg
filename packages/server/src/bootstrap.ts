@@ -8,7 +8,6 @@ import { ConfigService } from '@nestjs/config';
 import { PrismaService, resolve, ZodValidationPipe } from '@bestlyg-server/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
-import * as idl from '@bestlyg/common/idl/server';
 import { Configuration } from '@bestlyg/common/server';
 import cookieParser from 'cookie-parser';
 
@@ -26,15 +25,13 @@ export async function bootstrap() {
     });
     app.setGlobalPrefix('/api', {
         exclude: [
-            idl.api.bestlyg.ClientService.GetDocsSidebars.url,
-            idl.api.bestlyg.ClientService.GetLeetcodeSidebars.url,
             '/static',
             '/zjuer/wiki',
         ],
     });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
-    app.useGlobalPipes(new ZodValidationPipe())
+    app.useGlobalPipes(new ZodValidationPipe());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
     const mode = configService.getOrThrow<Configuration['mode']>('mode');

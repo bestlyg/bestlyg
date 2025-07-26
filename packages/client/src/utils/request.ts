@@ -1,13 +1,11 @@
-import { ResponseEntity } from '../../response-entity';
+import { ResponseEntity } from '@bestlyg/common';
 import axios from 'axios';
 import * as tapable from 'tapable';
 
-declare const __MODE__: string;
-
-export const MODE = typeof __MODE__ !== 'undefined' ? __MODE__ : 'development';
+declare const __MODE__: 'development' | 'production' | undefined;
 
 export const instance = axios.create({
-    baseURL: MODE === 'production' ? 'https://www.bestlyg.com' : 'http://localhost:10000',
+    baseURL: __MODE__ === 'production' ? 'https://www.bestlyg.com' : 'http://localhost:10000',
 });
 
 export const hooks = Object.freeze({

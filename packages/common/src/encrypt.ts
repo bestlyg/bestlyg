@@ -41,3 +41,23 @@ export function encrypt(text: string | CryptoJS.lib.WordArray, aesKey: string, a
     });
     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
 }
+
+
+/**
+ * 解密用户ID
+ *
+ * @param k 密钥
+ * @param i 初始化向量
+ * @param text 待加密的文本或WordArray对象
+ * @returns 加密后的Base64字符串
+ */
+export function decrypt(text: string | CryptoJS.lib.CipherParams, aesKey: string, aesIV: string) {
+    const key = CryptoJS.enc.Utf8.parse(aesKey);
+    const iv = CryptoJS.enc.Utf8.parse(aesIV);
+    const encrypted = CryptoJS.AES.decrypt(text, key, {
+        iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+    });
+    return encrypted.toString(CryptoJS.enc.Utf8);
+}

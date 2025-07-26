@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
 import { LeetcodeService } from '@bestlyg-server/data';
-import { api } from '@bestlyg/common/idl/server';
+import { SidebarDto, SidebarGroup, SidebarItem } from '@bestlyg/common';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -14,20 +14,18 @@ export class ClientService {
     async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
         type: 'group' | 'item';
         category?: { position: number };
-        data: api.bestlyg.SidebarGroup | api.bestlyg.SidebarItem;
+        data: SidebarGroup | SidebarItem;
     } | null> {
         const stat = await fs.stat(p);
         const name = path.basename(p);
         if (stat.isDirectory()) {
             const subDirs = await fs.readdir(p);
-            const data: api.bestlyg.SidebarGroup = {
-                name,
-            };
+            const data: SidebarGroup = { name };
             const category = { position: Infinity };
             const groupMetaList: {
                 type: 'group';
                 category: { position: number };
-                data: api.bestlyg.SidebarGroup;
+                data: SidebarGroup;
             }[] = [];
             for (const name of subDirs) {
                 const subPath = resolve(p, name);
@@ -35,11 +33,11 @@ export class ClientService {
                 if (res) {
                     if (res.type === 'group') {
                         groupMetaList.push(res as any);
-                        const v = res.data as api.bestlyg.SidebarGroup;
+                        const v = res.data as SidebarGroup;
                         data.groups ??= [];
                         data.groups.push(v);
                     } else if (res.type === 'item') {
-                        const v = res.data as api.bestlyg.SidebarItem;
+                        const v = res.data as SidebarItem;
                         if (v.name === this.categoryFileName) {
                             const json = await fs.readJson(
                                 resolve(this.staticPath, v.link.substring(1)),
@@ -59,7 +57,7 @@ export class ClientService {
             });
             return { data, type: 'group', category };
         } else if (stat.isFile()) {
-            const data: api.bestlyg.SidebarItem = {
+            const data: SidebarItem = {
                 name: name.replace(path.extname(name), ''),
                 link: '/' + path.relative(this.staticPath, p),
             };
@@ -68,18 +66,19 @@ export class ClientService {
         return null;
     }
 
-    async getGroups(): Promise<api.bestlyg.SidebarGroup[]> {
-        const docs = (await this.getDocs())!.data as api.bestlyg.SidebarGroup;
-        return [...(docs.groups ?? [])];
+    async getGroups(): Promise<SidebarGroup[]> {
+        const docs = (await this.getDocs())!.data as SidebarGroup;
+        const groups = (docs.groups ?? []) as SidebarGroup[];
+        return groups;
     }
 
-    async getDocsSidebars(): Promise<api.bestlyg.ClientService.GetDocsSidebars.Request> {
-        return { groups: await this.getGroups() };
+    async getDocsSidebars() {
+        return new SidebarDto({ groups: await this.getGroups() });
     }
 
-    async getLeetcodeSidebars(): Promise<api.bestlyg.ClientService.GetLeetcodeSidebars.Request> {
+    async getLeetcodeSidebars() {
         const problems = await this.leetcodeService.getLeetcodeProblemList();
-        const groups: api.bestlyg.SidebarGroup[] = [];
+        const groups: NonNullable<SidebarDto['groups']> = [];
         for (const problem of problems) {
             const dirName = getDirNameFromProblemName(problem.name);
             let group = groups.find(v => v.name === dirName);
@@ -91,13 +90,13 @@ export class ClientService {
         }
         groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));
         groups.sort((a, b) => dirSort(a.name, b.name));
-        return {
+        return new SidebarDto({
             groups: [
                 {
                     name: 'LeetCode',
                     groups,
                 },
             ],
-        };
+        });
     }
 }

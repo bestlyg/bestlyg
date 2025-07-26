@@ -8,5 +8,6 @@ export class ZodValidationPipe implements PipeTransform {
         if (isZodModel(cstr)) {
             return new cstr(value) as any;
         }
+        return value
     }
 }

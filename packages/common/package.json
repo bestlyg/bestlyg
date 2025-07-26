@@ -14,36 +14,6 @@
         }
     },
     "exports": {
-        "./idl/utils": {
-            "import": {
-                "types": "./dist/idl/utils/index.d.mts",
-                "default": "./dist/idl/utils/index.mjs"
-            },
-            "require": {
-                "types": "./dist/idl/utils/index.d.cts",
-                "default": "./dist/idl/utils/index.cjs"
-            }
-        },
-        "./idl/client": {
-            "import": {
-                "types": "./dist/idl/client/index.d.ts",
-                "default": "./dist/idl/client/index.mjs"
-            },
-            "require": {
-                "types": "./dist/idl/client/index.d.ts",
-                "default": "./dist/idl/client/index.cjs"
-            }
-        },
-        "./idl/server": {
-            "import": {
-                "types": "./dist/idl/server/index.d.ts",
-                "default": "./dist/idl/server/index.mjs"
-            },
-            "require": {
-                "types": "./dist/idl/server/index.d.ts",
-                "default": "./dist/idl/server/index.cjs"
-            }
-        },
         "./server": {
             "import": {
                 "types": "./dist/server/index.d.mts",
@@ -80,7 +50,7 @@
     "scripts": {
         "build:openapi": "node scripts/openapi.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "rimraf dist && prisma generate && pnpm build:idl && pnpm build:openapi && unbuild && tsc --emitDeclarationOnly -d -p tsconfig.idl.json",
+        "build": "rimraf dist && prisma generate && pnpm build:openapi && unbuild",
         "dev": "unbuild --watch"
     },
     "license": "ISC",

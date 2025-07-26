@@ -1,4 +1,3 @@
-import { request } from '@bestlyg/common/idl/utils';
 import { Prisma } from '@bestlyg/common/prisma-client';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -9,6 +8,7 @@ import { useRequest } from 'ahooks';
 import { useSetAtom } from 'jotai/react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/shadcn/ui/card';
 import { summaryNodeAtom } from '@/components/app-layout';
+import { request } from '@/utils';
 
 export type Ledger = Prisma.LedgerGetPayload<{}>;
 

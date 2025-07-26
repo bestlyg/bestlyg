@@ -1,5 +1,4 @@
 import React from 'react';
-import * as idl from '@bestlyg/common/idl/client';
 import { Link } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shadcn/ui/collapsible';
@@ -13,7 +12,7 @@ import {
 } from '@/shadcn/ui/sidebar';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import {
-    SidebarGroup,
+    SidebarGroup as ShadcnSidebarGroup,
     SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
@@ -31,6 +30,7 @@ import {
     activeSidebarCategoryAtom,
     sidebarPromiseAtom,
 } from '@/utils';
+import { SidebarDto, SidebarGroup } from '@bestlyg/common';
 import { Suspense } from '@/components/suspense';
 import { AppSidebarFooter } from './app-sidebar-footer';
 
@@ -54,13 +54,13 @@ function SidebarContentSkeleton() {
     );
 }
 
-function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
+function NavSidebarGroup({ data }: { data: SidebarGroup }) {
     const activeSidebarCategory = useAtomValue(activeSidebarCategoryAtom);
     const activeSidebarBreadcrumbList = useAtomValue(activeSidebarBreadcrumbListAtom);
     const sidebarCtx = useSidebar();
     if (!activeSidebarCategory) return null;
     return (
-        <SidebarGroup>
+        <ShadcnSidebarGroup>
             <SidebarGroupLabel>{data.name}</SidebarGroupLabel>
             <SidebarMenu>
                 {data.items?.map((item, i) => {
@@ -83,7 +83,8 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                         </SidebarMenuButton>
                     );
                 })}
-                {data.groups?.map((item, i) => {
+                {data.groups?.map((g, i) => {
+                    const item = g as SidebarGroup
                     return (
                         <Collapsible
                             key={i}
@@ -130,11 +131,11 @@ function NavSidebarGroup({ data }: { data: idl.api.bestlyg.SidebarGroup }) {
                     );
                 })}
             </SidebarMenu>
-        </SidebarGroup>
+        </ShadcnSidebarGroup>
     );
 }
 
-function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.SidebarsResponse | null | undefined> }) {
+function Nav({ promise: sidebarPromise }: { promise: Promise<SidebarDto | null | undefined> }) {
     const sidebar = React.use(sidebarPromise);
     return sidebar?.groups
         ?.filter(v => v.groups?.length || v.items?.length)
@@ -144,7 +145,7 @@ function Nav({ promise: sidebarPromise }: { promise: Promise<idl.api.bestlyg.Sid
 export function AppSidebar() {
     const { sidebarPromise } = useAtomValue(sidebarPromiseAtom);
     return (
-        <Sidebar collapsible="icon" className='!sticky'>
+        <Sidebar collapsible="icon" className="!sticky">
             <SidebarHeader>
                 <SidebarCategorySwitcher />
             </SidebarHeader>

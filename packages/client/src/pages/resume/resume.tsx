@@ -6,7 +6,6 @@ import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import templateStyles from './template.module.less';
 import resumeStyles from './resume.module.less';
 import clsx from 'clsx';
-import { request } from '@bestlyg/common/idl/utils';
 import { useControllableValue, useRequest, useToggle } from 'ahooks';
 import {
     ResumePageType,
@@ -21,6 +20,7 @@ import {
     a4SizeInPixels,
 } from './utils';
 import { apiMap } from '@bestlyg/common';
+import { request } from '@/utils';
 
 export interface ResumeProps {
     resumeSource?: string;

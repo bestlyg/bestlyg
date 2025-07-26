@@ -473,8 +473,15 @@
                 "operationId": "ClientController_getDocsSidebars",
                 "parameters": [],
                 "responses": {
-                    "200": {
-                        "description": ""
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SidebarDto"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -487,8 +494,15 @@
                 "operationId": "ClientController_getLeetcodeSidebars",
                 "parameters": [],
                 "responses": {
-                    "200": {
-                        "description": ""
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SidebarDto"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -595,6 +609,18 @@
                     "current",
                     "pageSize"
                 ],
+                "additionalProperties": false
+            },
+            "SidebarDto": {
+                "type": "object",
+                "properties": {
+                    "groups": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/__schema0"
+                        }
+                    }
+                },
                 "additionalProperties": false
             }
         }

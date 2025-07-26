@@ -1,7 +1,6 @@
 import { Suspense } from '@/components/suspense';
 import * as echarts from 'echarts';
 import { Skeleton } from '@/shadcn/ui/skeleton';
-import { request } from '@bestlyg/common/idl/utils';
 import { Prisma } from '@bestlyg/common/prisma-client';
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
@@ -16,6 +15,7 @@ import {
     getHalfYearOnHalfYear,
     apiMap,
 } from '@bestlyg/common';
+import { request } from '@/utils';
 
 export type XuanData = Prisma.XuanGetPayload<{}>;
 

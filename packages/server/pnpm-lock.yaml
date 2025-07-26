@@ -40,7 +40,7 @@ catalogs:
       specifier: ^5.8.3
       version: 5.8.3
     zod:
-      specifier: ^4.0.5
+      specifier: 'catalog:'
       version: 4.0.5
 
 importers:

@@ -1,6 +1,7 @@
 import { RandomIcon } from '@/components/random-icon';
 import { routeMap } from '@/routes';
-import * as idl from '@bestlyg/common/idl/client';
+import { Sidebar } from '@bestlyg/common';
+import { request } from './request';
 
 declare const __MODE__: 'development' | 'production' | undefined;
 
@@ -10,9 +11,7 @@ export const IS_PROD = MODE === 'production';
 
 export const xTokenName = 'x-token';
 
-async function requestApplicationSidebars(): Promise<{
-    groups?: idl.api.bestlyg.SidebarGroup[];
-}> {
+async function requestApplicationSidebars(): Promise<Sidebar> {
     return {
         groups: [
             {
@@ -48,9 +47,7 @@ async function requestApplicationSidebars(): Promise<{
     };
 }
 
-async function requestManagementSidebars(): Promise<{
-    groups?: idl.api.bestlyg.SidebarGroup[];
-}> {
+async function requestManagementSidebars(): Promise<Sidebar> {
     return {
         groups: [
             {
@@ -70,14 +67,34 @@ async function requestManagementSidebars(): Promise<{
     };
 }
 
+async function requestDocSidebars(): Promise<Sidebar> {
+    const res = await request({
+        method: 'get',
+        url: '/api/client/docs/sidebars',
+        serializer: 'json',
+        data: null,
+    });
+    return res
+}
+
+async function requestLeetcodeSidebars(): Promise<Sidebar> {
+    const res = await request({
+        method: 'get',
+        url: '/api/client/leetcode/sidebars',
+        serializer: 'json',
+        data: null,
+    });
+    return res
+}
+
 export const sidebarCategories: {
     name: string;
     logo: React.FC<any>;
     desc: string;
     path: string;
     request:
-        | typeof idl.api.bestlyg.ClientService.GetDocsSidebars.request
-        | typeof idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request
+        | typeof requestDocSidebars
+        | typeof requestLeetcodeSidebars
         | typeof requestApplicationSidebars
         | typeof requestManagementSidebars;
 }[] = [
@@ -86,14 +103,14 @@ export const sidebarCategories: {
         logo: RandomIcon,
         desc: '记录生活 记录自己',
         path: '/docs',
-        request: idl.api.bestlyg.ClientService.GetDocsSidebars.request,
+        request: requestDocSidebars,
     },
     {
         name: '力扣',
         logo: RandomIcon,
         desc: '天天力扣 好好记录',
         path: '/leetcode',
-        request: idl.api.bestlyg.ClientService.GetLeetcodeSidebars.request,
+        request: requestLeetcodeSidebars,
     },
     {
         name: '应用',

@@ -129,12 +129,12 @@
                 "getDocsSidebars": {
                     "requestMethod": "GET",
                     "methodName": "getDocsSidebars",
-                    "path": "/api/client/docs/sidebars"
+                    "path": "/docs/sidebars"
                 },
                 "getLeetcodeSidebars": {
                     "requestMethod": "GET",
                     "methodName": "getLeetcodeSidebars",
-                    "path": "/api/client/leetcode/sidebars"
+                    "path": "/leetcode/sidebars"
                 }
             }
         },

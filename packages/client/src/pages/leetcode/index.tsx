@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { LeetcodeSolution, Prisma } from '@bestlyg/common/prisma-client';
-import { request } from '@bestlyg/common/idl/utils';
 import React from 'react';
 import { Skeleton } from '@/shadcn/ui/skeleton';
 import { Suspense } from '@/components/suspense';
@@ -11,6 +10,7 @@ import { summaryNodeAtom } from '@/components/app-layout';
 import { MarkdownSummary } from '@/components/markdown-summary';
 import { apiMap } from '@bestlyg/common';
 import { useParams } from 'react-router';
+import { request } from '@/utils';
 
 const quote = '`';
 

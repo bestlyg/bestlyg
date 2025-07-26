@@ -1,5 +1,6 @@
 import { Type } from '@nestjs/common';
 import { isZodModel } from '@bestlyg/common';
+import z from 'zod';
 import { createSchema } from 'zod-openapi';
 import { SchemaObjectFactory as SchemaObjectFactoryClass } from '@nestjs/swagger/dist/services/schema-object-factory';
 
@@ -11,7 +12,7 @@ function getSchemaObjectFactory(): Type<SchemaObjectFactoryClass> {
     return require('@nestjs/swagger/dist/services/schema-object-factory').SchemaObjectFactory;
 }
 
-const patchedNestJsSwagger = Symbol('patchedNestJsSwagger')
+const patchedNestJsSwagger = Symbol('patchedNestJsSwagger');
 
 function patchNestJsSwagger(SchemaObjectFactory = getSchemaObjectFactory()) {
     if (SchemaObjectFactory.prototype[patchedNestJsSwagger]) return;
