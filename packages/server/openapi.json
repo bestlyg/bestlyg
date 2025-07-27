@@ -15,9 +15,9 @@
                 ]
             }
         },
-        "/api/data/serverless-code": {
+        "/api/database/ledger/select/{id}": {
             "get": {
-                "operationId": "ServerlessCodeController_getServerlessCode",
+                "operationId": "LedgerController_findOne",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -25,116 +25,53 @@
                     }
                 },
                 "tags": [
-                    "ServerlessCode"
+                    "Ledger"
                 ]
-            },
-            "post": {
-                "operationId": "ServerlessCodeController_createServerlessCode",
+            }
+        },
+        "/api/database/ledger/list": {
+            "get": {
+                "operationId": "LedgerController_findList",
                 "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateServerlessCodeDto"
-                            }
-                        }
+                "responses": {
+                    "200": {
+                        "description": ""
                     }
                 },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/database/ledger/page": {
+            "get": {
+                "operationId": "LedgerController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/database/ledger": {
+            "post": {
+                "operationId": "LedgerController_create",
+                "parameters": [],
                 "responses": {
                     "201": {
                         "description": ""
                     }
                 },
                 "tags": [
-                    "ServerlessCode"
-                ]
-            },
-            "patch": {
-                "operationId": "ServerlessCodeController_updateServerlessCode",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateServerlessCodeDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "ServerlessCode"
+                    "Ledger"
                 ]
             },
             "delete": {
-                "operationId": "ServerlessCodeController_deleteServerlessCode",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DeleteServerlessCodeDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "ServerlessCode"
-                ]
-            }
-        },
-        "/api/data/serverless": {
-            "get": {
-                "operationId": "ServerlessController_getServerless",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Serverless"
-                ]
-            }
-        },
-        "/api/data/ledger/page": {
-            "get": {
-                "operationId": "LedgerController_getLedgerPage",
-                "parameters": [
-                    {
-                        "name": "query",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "$ref": "#/components/schemas/SelectLedgerPageDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Ledger"
-                ]
-            }
-        },
-        "/api/data/ledger/list": {
-            "get": {
-                "operationId": "LedgerController_getLedgerList",
+                "operationId": "LedgerController_delete",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -146,9 +83,9 @@
                 ]
             }
         },
-        "/api/data/leetcode/problem/list": {
-            "get": {
-                "operationId": "LeetcodeController_getLeetcodeProblemList",
+        "/api/database/ledger/{id}": {
+            "patch": {
+                "operationId": "LedgerController_update",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -156,72 +93,7 @@
                     }
                 },
                 "tags": [
-                    "Leetcode"
-                ]
-            }
-        },
-        "/api/data/leetcode/problem": {
-            "get": {
-                "operationId": "LeetcodeController_getLeetcodeProblems",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Leetcode"
-                ]
-            }
-        },
-        "/api/data/user/list": {
-            "get": {
-                "operationId": "UserController_getUserList",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "User"
-                ]
-            }
-        },
-        "/api/data/xuan": {
-            "get": {
-                "operationId": "XuanController_getXuanList",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Xuan"
-                ]
-            }
-        },
-        "/api/data/secrets": {
-            "get": {
-                "operationId": "SecretsController_getSecrets",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Secrets"
+                    "Ledger"
                 ]
             }
         },
@@ -440,62 +312,6 @@
                 ]
             }
         },
-        "/api/health": {
-            "get": {
-                "operationId": "ApiController_health",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Api"
-                ]
-            }
-        },
-        "/api/client/docs/sidebars": {
-            "get": {
-                "operationId": "ClientController_getDocsSidebars",
-                "parameters": [],
-                "responses": {
-                    "default": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SidebarDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Client"
-                ]
-            }
-        },
-        "/api/client/leetcode/sidebars": {
-            "get": {
-                "operationId": "ClientController_getLeetcodeSidebars",
-                "parameters": [],
-                "responses": {
-                    "default": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SidebarDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Client"
-                ]
-            }
-        },
         "/zjuer/wiki": {
             "get": {
                 "operationId": "ZjuerController_toWiki",
@@ -520,139 +336,6 @@
     "tags": [],
     "servers": [],
     "components": {
-        "schemas": {
-            "CreateServerlessCodeDto": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "code": {
-                        "type": "string"
-                    },
-                    "serverlessId": {
-                        "default": "best",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "name",
-                    "code",
-                    "serverlessId"
-                ],
-                "additionalProperties": false
-            },
-            "UpdateServerlessCodeDto": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "code": {
-                        "type": "string"
-                    },
-                    "serverlessId": {
-                        "default": "best",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id"
-                ],
-                "additionalProperties": false
-            },
-            "DeleteServerlessCodeDto": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    }
-                },
-                "additionalProperties": false
-            },
-            "SelectLedgerPageDto": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                    "date": {
-                        "type": "string",
-                        "format": "date",
-                        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
-                    },
-                    "current": {
-                        "type": "number"
-                    },
-                    "pageSize": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "current",
-                    "pageSize"
-                ],
-                "additionalProperties": false
-            },
-            "SidebarDto": {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "properties": {
-                    "groups": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/$defs/__schema0"
-                        }
-                    }
-                },
-                "additionalProperties": false,
-                "$defs": {
-                    "__schema0": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "items": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "link": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "name",
-                                        "link"
-                                    ],
-                                    "additionalProperties": false
-                                }
-                            },
-                            "groups": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/$defs/__schema0"
-                                }
-                            }
-                        },
-                        "required": [
-                            "name"
-                        ],
-                        "additionalProperties": false
-                    }
-                }
-            }
-        }
+        "schemas": {}
     }
 }

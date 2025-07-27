@@ -2,7 +2,7 @@ import { Controller, Get, Logger } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { UserService } from '@bestlyg-server/database';
 
-@Controller('/data/user')
+@Controller('/database/user')
 export class UserController {
     private readonly logger = new Logger(UserController.name);
     constructor(private readonly userService: UserService) {}

@@ -13,11 +13,11 @@ import dotenv from 'dotenv';
 import { AuthModule } from '@bestlyg-server/auth';
 import { JwtModule } from '@nestjs/jwt';
 import { ServerlessModule } from '@bestlyg-server/serverless';
-import { DataModule } from '@bestlyg-server/data';
+// import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
-import { ApiModule } from '@bestlyg-server/api';
+// import { ApiModule } from '@bestlyg-server/api';
 import { ZjuerModule } from '@bestlyg-server/zjuer';
-import { entities } from '@bestlyg-server/database';
+import { DatabaseModule, entities } from '@bestlyg-server/database';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
@@ -59,11 +59,11 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
                 },
             },
         }),
-        DataModule,
+        DatabaseModule,
         AuthModule,
         ServerlessModule,
         StaticModule,
-        ApiModule,
+        // ApiModule,
         ZjuerModule,
     ],
     controllers: [AppController],
