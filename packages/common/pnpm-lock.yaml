@@ -70,6 +70,8 @@ catalogs:
       specifier: ^4.0.5
       version: 4.0.5
 
+pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
+
 importers:
 
   .:
@@ -119,9 +121,6 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 4.0.5
-      zod-validation-error:
-        specifier: ^3.5.3
-        version: 3.5.3(zod@4.0.5)
     devDependencies:
       '@bestlyg/common':
         specifier: workspace:^
@@ -1890,12 +1889,6 @@ packages:
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  zod-validation-error@3.5.3:
-    resolution: {integrity: sha512-OT5Y8lbUadqVZCsnyFaTQ4/O2mys4tj7PqhdbBCp7McPwvIEKfPtdA6QfPeFQK2/Rz5LgwmAXRJTugBNBi0btw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      zod: ^3.25.0 || ^4.0.0
-
   zod@4.0.5:
     resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
@@ -3496,9 +3489,5 @@ snapshots:
       strip-ansi: 7.1.0
 
   yaml@2.8.0: {}
-
-  zod-validation-error@3.5.3(zod@4.0.5):
-    dependencies:
-      zod: 4.0.5
 
   zod@4.0.5: {}

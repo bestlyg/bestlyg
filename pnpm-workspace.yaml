@@ -60,7 +60,7 @@ catalog:
   typescript: ^5.8.3
   unbuild: ^3.5.0
   vite: ^7.0.5
-  zod: 'catalog:'
+  zod: ^4.0.5
   zx: ^8.5.3
 
 dedupePeerDependents: true

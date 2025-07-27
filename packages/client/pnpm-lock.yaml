@@ -82,6 +82,8 @@ catalogs:
       specifier: ^4.0.5
       version: 4.0.5
 
+pnpmfileChecksum: sha256-fy9RU2dAa5OREyxtCNOmbjf+JEpnZqeosc993LyXS7E=
+
 importers:
 
   .:
