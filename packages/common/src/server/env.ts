@@ -3,7 +3,12 @@ import { z } from 'zod';
 export const ConfigurationSchema = z
     .object({
         mode: z.enum(['production', 'development']).default('development'),
-        server: z.object({ port: z.coerce.number().readonly() }).required(),
+        server: z
+            .object({
+                port: z.coerce.number().readonly(),
+                database: z.object({ url: z.string().readonly() }),
+            })
+            .required(),
         ssh: z
             .object({
                 username: z.string().readonly(),
@@ -37,7 +42,12 @@ export type Configuration = z.infer<typeof ConfigurationSchema>;
 export function getConfiguration() {
     return {
         mode: process.env.NODE_ENV,
-        server: { port: process.env.BESTLYG_SERVER_PORT },
+        server: {
+            port: process.env.BESTLYG_SERVER_PORT,
+            database: {
+                url: process.env.BESTLYG_DATABASE_URL,
+            },
+        },
         mail: {
             host: process.env.BESTLYG_SERVER_MAIL_HOST,
             user: process.env.BESTLYG_SERVER_MAIL_USER,

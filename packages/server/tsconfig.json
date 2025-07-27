@@ -12,6 +12,7 @@
     ],
     "moduleResolution": "Bundler",
     "sourceMap": true,
+    "strictPropertyInitialization": false,
     "outDir": "./dist",
     "esModuleInterop": true,
     "baseUrl": "./",
@@ -50,6 +51,12 @@
       ],
       "@bestlyg-server/data/*": [
         "libs/data/src/*"
+      ],
+      "@bestlyg-server/database": [
+        "libs/database/src"
+      ],
+      "@bestlyg-server/database/*": [
+        "libs/database/src/*"
       ],
       "@bestlyg-server/serverless": [
         "libs/serverless/src"

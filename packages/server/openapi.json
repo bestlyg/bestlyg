@@ -146,20 +146,6 @@
                 ]
             }
         },
-        "/api/data/ledger/summary": {
-            "get": {
-                "operationId": "LedgerController_getLedgerSummary",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Ledger"
-                ]
-            }
-        },
         "/api/data/leetcode/problem/list": {
             "get": {
                 "operationId": "LeetcodeController_getLeetcodeProblemList",
@@ -536,6 +522,7 @@
     "components": {
         "schemas": {
             "CreateServerlessCodeDto": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "properties": {
                     "name": {
@@ -557,6 +544,7 @@
                 "additionalProperties": false
             },
             "UpdateServerlessCodeDto": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "properties": {
                     "id": {
@@ -579,6 +567,7 @@
                 "additionalProperties": false
             },
             "DeleteServerlessCodeDto": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "properties": {
                     "id": {
@@ -591,6 +580,7 @@
                 "additionalProperties": false
             },
             "SelectLedgerPageDto": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "properties": {
                     "date": {
@@ -612,16 +602,56 @@
                 "additionalProperties": false
             },
             "SidebarDto": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "properties": {
                     "groups": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/__schema0"
+                            "$ref": "#/$defs/__schema0"
                         }
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "$defs": {
+                    "__schema0": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "link": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "link"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            },
+                            "groups": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/$defs/__schema0"
+                                }
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
             }
         }
     }

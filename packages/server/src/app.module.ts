@@ -1,5 +1,6 @@
-import { Module, OnApplicationBootstrap } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ClsModule } from 'nestjs-cls';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,6 +17,7 @@ import { DataModule } from '@bestlyg-server/data';
 import { StaticModule } from '@bestlyg-server/static';
 import { ApiModule } from '@bestlyg-server/api';
 import { ZjuerModule } from '@bestlyg-server/zjuer';
+import { entities } from '@bestlyg-server/database';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
@@ -28,6 +30,13 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
             ignoreEnvFile: true,
             isGlobal: true,
             load: [() => ConfigurationSchema.parse(getConfiguration())],
+        }),
+        TypeOrmModule.forRoot({
+            type: 'postgres',
+            retryAttempts: 10,
+            retryDelay: 3000,
+            entities: Object.values(entities),
+            url: configuration.server.database.url,
         }),
         ServeStaticModule.forRoot({
             rootPath: configuration.ssh.webPath,

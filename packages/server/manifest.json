@@ -49,11 +49,6 @@
                     "requestMethod": "GET",
                     "methodName": "getLedgerList",
                     "path": "/list"
-                },
-                "getLedgerSummary": {
-                    "requestMethod": "GET",
-                    "methodName": "getLedgerSummary",
-                    "path": "/summary"
                 }
             },
             "LeetcodeController": {
