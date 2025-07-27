@@ -24,9 +24,12 @@ export abstract class BaseController<Entity extends ObjectLiteral> {
         return data;
     }
 
-    protected async _findPageAndCount(opts: BaseOptions) {
+    protected async _findPageAndCount(
+        opts: BaseOptions,
+        options: Parameters<typeof this.service.findPageAndCount>[1] = {},
+    ) {
         const dto = new SelectLedgerPageDto(opts.query);
-        const data = await this.service.findPageAndCount(PageParam.from(dto), {});
+        const data = await this.service.findPageAndCount(PageParam.from(dto), options);
         return data;
     }
 

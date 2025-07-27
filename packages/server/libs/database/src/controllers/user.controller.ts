@@ -1,15 +1,13 @@
-import { Controller, Get, Logger } from '@nestjs/common';
-import { ResponseEntity } from '@bestlyg/common';
-import { UserService } from '@bestlyg-server/database';
+import { Controller, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@bestlyg-server/auth';
+import { BaseController } from './base.controller';
+import { User } from '../entities';
+import { UserService } from '../services';
 
 @Controller('/database/user')
-export class UserController {
-    private readonly logger = new Logger(UserController.name);
-    constructor(private readonly userService: UserService) {}
-
-    @Get('list')
-    async getUserList() {
-        const data = await this.userService.find();
-        return ResponseEntity.ofSuccess(data);
+@UseGuards(AuthGuard)
+export class UserController extends BaseController<User> {
+    constructor(readonly service: UserService) {
+        super(service);
     }
 }
