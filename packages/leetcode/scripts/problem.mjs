@@ -10,17 +10,17 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '3487. 删除后的最大子数组元素和',
-    url: 'https://leetcode.cn/problems/maximum-unique-subarray-sum-after-deletion',
+    name: '2210. 统计数组中峰和谷的数量',
+    url: 'https://leetcode.cn/problems/count-hills-and-valleys-in-an-array',
     level: 'Easy',
     tagList: [],
-    desc: `返回 只删除一个 子数组可获得的 最大得分 。`,
+    desc: `返回 nums 中峰和谷的数量。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
             time: 0,
-            memory: 17.65,
+            memory: 17.7,
             desc: '遍历',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
