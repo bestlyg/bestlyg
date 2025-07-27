@@ -30,7 +30,7 @@ import {
     activeSidebarCategoryAtom,
     sidebarPromiseAtom,
 } from '@/utils';
-import { SidebarDto, SidebarGroup } from '@bestlyg/common';
+import { SidebarDto as TSidebar, SidebarGroup } from '@bestlyg/common';
 import { Suspense } from '@/components/suspense';
 import { AppSidebarFooter } from './app-sidebar-footer';
 
@@ -84,7 +84,7 @@ function NavSidebarGroup({ data }: { data: SidebarGroup }) {
                     );
                 })}
                 {data.groups?.map((g, i) => {
-                    const item = g as SidebarGroup
+                    const item = g as SidebarGroup;
                     return (
                         <Collapsible
                             key={i}
@@ -135,7 +135,7 @@ function NavSidebarGroup({ data }: { data: SidebarGroup }) {
     );
 }
 
-function Nav({ promise: sidebarPromise }: { promise: Promise<SidebarDto | null | undefined> }) {
+function Nav({ promise: sidebarPromise }: { promise: Promise<TSidebar | null | undefined> }) {
     const sidebar = React.use(sidebarPromise);
     return sidebar?.groups
         ?.filter(v => v.groups?.length || v.items?.length)
@@ -151,7 +151,7 @@ export function AppSidebar() {
             </SidebarHeader>
             <SidebarContent>
                 <Suspense
-                    promise={sidebarPromise}
+                    promise={sidebarPromise as any}
                     fallback={<SidebarContentSkeleton />}
                     Component={Nav}
                 />

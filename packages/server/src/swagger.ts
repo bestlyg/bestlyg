@@ -1,7 +1,7 @@
 import { Type } from '@nestjs/common';
 import { isZodModel } from '@bestlyg/common';
 import z from 'zod';
-import { createSchema } from 'zod-openapi';
+// import { createSchema } from 'zod-openapi';
 import { SchemaObjectFactory as SchemaObjectFactoryClass } from '@nestjs/swagger/dist/services/schema-object-factory';
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -30,7 +30,8 @@ function patchNestJsSwagger(SchemaObjectFactory = getSchemaObjectFactory()) {
                 type = factory();
             }
             if (isZodModel(type)) {
-                schemas[type.name] = createSchema(type.getSchema()).schema as any;
+                // schemas[type.name] = createSchema(type.getSchema()).schema as any;
+                schemas[type.name] = z.toJSONSchema(type.getSchema()) as any;
                 return type.name;
             }
             return defaultExplore.call(this, type, schemas, schemaRefsStack);
