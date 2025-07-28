@@ -121,6 +121,140 @@
                 ]
             }
         },
+        "/api/database/ledger/{batch}": {
+            "patch": {
+                "operationId": "LedgerController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/database/user/list": {
+            "get": {
+                "operationId": "UserController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/database/user/page": {
+            "get": {
+                "operationId": "UserController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/database/user/{id}": {
+            "get": {
+                "operationId": "UserController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            },
+            "patch": {
+                "operationId": "UserController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            },
+            "delete": {
+                "operationId": "UserController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/database/user": {
+            "post": {
+                "operationId": "UserController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/database/user/batch": {
+            "post": {
+                "operationId": "UserController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            },
+            "delete": {
+                "operationId": "UserController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/database/user/{batch}": {
+            "patch": {
+                "operationId": "UserController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
+            }
+        },
         "/api/auth/login": {
             "post": {
                 "operationId": "AuthController_signIn",

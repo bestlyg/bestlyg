@@ -53,8 +53,14 @@ export abstract class BaseController<Entity extends BaseEntity> {
 
     protected async _update(opts: BaseOptions) {
         const data = opts.body;
-        const id = opts.query.id;
+        const id = opts.params.id;
         const res = await this.service.update(id, data);
+        return res;
+    }
+
+    protected async _updateBatch(opts: BaseOptions) {
+        const { ids, data } = opts.body;
+        const res = await this.service.update(ids, data);
         return res;
     }
 
@@ -65,7 +71,6 @@ export abstract class BaseController<Entity extends BaseEntity> {
     }
 
     protected async _deleteBatch(opts: BaseOptions) {
-        console.log('_deleteBatch', opts);
         const ids = opts.body;
         const res = await this.service.delete(ids);
         return res;
@@ -104,6 +109,12 @@ export abstract class BaseController<Entity extends BaseEntity> {
     @Patch(':id')
     async update(@Param() params, @Query() query, @Body() body, @Headers() headers) {
         const data = await this._update({ params, query, body, headers });
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Patch(':batch')
+    async updateBatch(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const data = await this._updateBatch({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);
     }
 
