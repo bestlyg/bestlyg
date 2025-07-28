@@ -1,5 +1,5 @@
 import { PageData, PageParam } from '@bestlyg/common';
-import { EntityTarget, Repository } from 'typeorm';
+import { DataSource, EntityTarget, Repository } from 'typeorm';
 import { BaseEntity } from '../entities/base.entity';
 
 export class EntityService<Entity extends BaseEntity> {

@@ -6,6 +6,6 @@ import { LedgerService } from '../services';
 @Module({
     imports: [TypeOrmModule.forFeature([Ledger])],
     providers: [LedgerService],
-    exports: [LedgerService],
+    exports: [TypeOrmModule, LedgerService],
 })
 export class LedgerModule {}

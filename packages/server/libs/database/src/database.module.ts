@@ -5,6 +5,6 @@ import { LedgerController } from './controllers';
 @Module({
     imports: Object.values(modules),
     controllers: [LedgerController],
-    // imports: Object.values(modules),
+    exports: Object.values(modules),
 })
 export class DatabaseModule {}

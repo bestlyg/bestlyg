@@ -84,10 +84,8 @@ export abstract class BaseController<Entity extends BaseEntity> {
 
     @Post()
     async save(@Param() params, @Query() query, @Body() body, @Headers() headers) {
-        const a = await this.service.create(body);
-        console.log('===>1', a);
-        // const data = await this._save({ params, query, body, headers });
-        return ResponseEntity.ofSuccess({});
+        const data = await this._save({ params, query, body, headers });
+        return ResponseEntity.ofSuccess(data);
     }
 
     @Post('batch')
