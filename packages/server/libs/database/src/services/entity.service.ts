@@ -1,7 +1,8 @@
 import { PageData, PageParam } from '@bestlyg/common';
-import { EntityTarget, ObjectLiteral, Repository } from 'typeorm';
+import { EntityTarget, Repository } from 'typeorm';
+import { BaseEntity } from '../entities/base.entity';
 
-export class EntityService<Entity extends ObjectLiteral> {
+export class EntityService<Entity extends BaseEntity> {
     constructor(
         public repository: Repository<Entity>,
         public entity: EntityTarget<Entity>,

@@ -59,7 +59,7 @@
         },
         "/api/database/ledger": {
             "post": {
-                "operationId": "LedgerController_create",
+                "operationId": "LedgerController_save",
                 "parameters": [],
                 "responses": {
                     "201": {
@@ -75,6 +75,20 @@
                 "parameters": [],
                 "responses": {
                     "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
+        "/api/database/ledger/batch": {
+            "post": {
+                "operationId": "LedgerController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
                         "description": ""
                     }
                 },

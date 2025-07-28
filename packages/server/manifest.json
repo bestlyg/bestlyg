@@ -26,10 +26,15 @@
                     "methodName": "findPageAndCount",
                     "path": "/page"
                 },
-                "create": {
+                "save": {
                     "requestMethod": "POST",
-                    "methodName": "create",
+                    "methodName": "save",
                     "path": "/"
+                },
+                "saveBatch": {
+                    "requestMethod": "POST",
+                    "methodName": "saveBatch",
+                    "path": "/batch"
                 },
                 "update": {
                     "requestMethod": "PATCH",

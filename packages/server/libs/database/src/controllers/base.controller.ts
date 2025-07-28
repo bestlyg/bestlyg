@@ -1,7 +1,7 @@
 import { Body, Delete, Get, Headers, Param, Patch, Post, Query } from '@nestjs/common';
 import { EntityService } from '@bestlyg-server/database';
-import { ObjectLiteral } from 'typeorm';
 import { PageParam, ResponseEntity, SelectLedgerPageDto } from '@bestlyg/common';
+import { BaseEntity } from '../entities/base.entity';
 
 export interface BaseOptions {
     params: any;
@@ -10,17 +10,22 @@ export interface BaseOptions {
     headers: any;
 }
 
-export abstract class BaseController<Entity extends ObjectLiteral> {
+export abstract class BaseController<Entity extends BaseEntity> {
     constructor(protected readonly service: EntityService<Entity>) {}
 
-    protected async _select(opts: BaseOptions) {
-        const id = opts.params.id;
-        const data = await this.service.findOne({ where: { id: id } });
+    protected async _select(
+        opts: BaseOptions,
+        options: Parameters<typeof this.service.findOne>[0] = { where: { id: opts.params.id } },
+    ) {
+        const data = await this.service.findOne(options);
         return data;
     }
 
-    protected async _findList(_: BaseOptions) {
-        const data = await this.service.find();
+    protected async _findList(
+        _: BaseOptions,
+        options: Parameters<typeof this.service.find>[0] = {},
+    ) {
+        const data = await this.service.find(options);
         return data;
     }
 
@@ -35,6 +40,14 @@ export abstract class BaseController<Entity extends ObjectLiteral> {
 
     protected async _create(opts: BaseOptions) {
         const data = await this.service.create(opts.body);
+        return data;
+    }
+
+    protected async _save(
+        opts: BaseOptions,
+        options: Parameters<typeof this.service.save>[1] = {},
+    ) {
+        const data = await this.service.save(opts.body, options);
         return data;
     }
 
@@ -70,8 +83,16 @@ export abstract class BaseController<Entity extends ObjectLiteral> {
     }
 
     @Post()
-    async create(@Param() params, @Query() query, @Body() body, @Headers() headers) {
-        const data = await this._create({ params, query, body, headers });
+    async save(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const a = await this.service.create(body);
+        console.log('===>1', a);
+        // const data = await this._save({ params, query, body, headers });
+        return ResponseEntity.ofSuccess({});
+    }
+
+    @Post('batch')
+    async saveBatch(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const data = await this._save({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);
     }
 
