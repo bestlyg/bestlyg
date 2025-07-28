@@ -59,15 +59,16 @@ export abstract class BaseController<Entity extends BaseEntity> {
     }
 
     protected async _delete(opts: BaseOptions) {
-        const id = opts.body.id;
+        const id = opts.params.id;
         const res = await this.service.delete(id);
         return res;
     }
 
-    @Get('select/:id')
-    async findOne(@Param() params, @Query() query, @Body() body, @Headers() headers) {
-        const data = await this._select({ params, query, body, headers });
-        return ResponseEntity.ofSuccess(data);
+    protected async _deleteBatch(opts: BaseOptions) {
+        console.log('_deleteBatch', opts);
+        const ids = opts.body;
+        const res = await this.service.delete(ids);
+        return res;
     }
 
     @Get('list')
@@ -79,6 +80,12 @@ export abstract class BaseController<Entity extends BaseEntity> {
     @Get('page')
     async findPageAndCount(@Param() params, @Query() query, @Body() body, @Headers() headers) {
         const data = await this._findPageAndCount({ params, query, body, headers });
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Get(':id')
+    async findOne(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const data = await this._select({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);
     }
 
@@ -100,7 +107,13 @@ export abstract class BaseController<Entity extends BaseEntity> {
         return ResponseEntity.ofSuccess(data);
     }
 
-    @Delete()
+    @Delete('batch')
+    async deleteBatch(@Param() params, @Query() query, @Body() body, @Headers() headers) {
+        const data = await this._deleteBatch({ params, query, body, headers });
+        return ResponseEntity.ofSuccess(data);
+    }
+
+    @Delete(':id')
     async delete(@Param() params, @Query() query, @Body() body, @Headers() headers) {
         const data = await this._delete({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);

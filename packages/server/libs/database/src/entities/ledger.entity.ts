@@ -7,19 +7,19 @@ export class Ledger extends BaseEntity {
     @Column({ type: 'timestamp' })
     date: Date;
 
-    @Column({ type: 'int' })
+    @Column({ type: 'int4' })
     balance: number;
 
-    @Column({ type: 'varchar' })
+    @Column({ type: 'text' })
     comment: string;
 
-    @Column({ type: 'boolean' })
+    @Column({ type: 'bool' })
     io: boolean;
 
     @Column({ type: 'enum', enum: LedgerFrom, nullable: true })
     from?: LedgerFrom;
 
-    @Column({ type: 'varchar', nullable: true })
+    @Column({ type: 'text', nullable: true })
     bank?: string;
 
     @Column({ type: 'enum', enum: LedgerType })

@@ -15,20 +15,6 @@
                 ]
             }
         },
-        "/api/database/ledger/select/{id}": {
-            "get": {
-                "operationId": "LedgerController_findOne",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Ledger"
-                ]
-            }
-        },
         "/api/database/ledger/list": {
             "get": {
                 "operationId": "LedgerController_findList",
@@ -57,12 +43,24 @@
                 ]
             }
         },
-        "/api/database/ledger": {
-            "post": {
-                "operationId": "LedgerController_save",
+        "/api/database/ledger/{id}": {
+            "get": {
+                "operationId": "LedgerController_findOne",
                 "parameters": [],
                 "responses": {
-                    "201": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            },
+            "patch": {
+                "operationId": "LedgerController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
                         "description": ""
                     }
                 },
@@ -83,6 +81,20 @@
                 ]
             }
         },
+        "/api/database/ledger": {
+            "post": {
+                "operationId": "LedgerController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
+            }
+        },
         "/api/database/ledger/batch": {
             "post": {
                 "operationId": "LedgerController_saveBatch",
@@ -95,11 +107,9 @@
                 "tags": [
                     "Ledger"
                 ]
-            }
-        },
-        "/api/database/ledger/{id}": {
-            "patch": {
-                "operationId": "LedgerController_update",
+            },
+            "delete": {
+                "operationId": "LedgerController_deleteBatch",
                 "parameters": [],
                 "responses": {
                     "200": {

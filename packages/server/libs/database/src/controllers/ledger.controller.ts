@@ -2,13 +2,13 @@ import { Controller, UseGuards } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { Between } from 'typeorm';
 import { SelectLedgerPageDto } from '@bestlyg/common';
-import { AuthGuard } from '@bestlyg-server/auth';
+// import { AuthGuard } from '@bestlyg-server/auth';
 import { BaseController, BaseOptions } from './base.controller';
 import { Ledger } from '../entities';
 import { LedgerService } from '../services';
 
 @Controller('/database/ledger')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class LedgerController extends BaseController<Ledger> {
     constructor(readonly service: LedgerService) {
         super(service);

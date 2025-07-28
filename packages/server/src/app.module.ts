@@ -33,10 +33,12 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            retryAttempts: 10,
+            retryAttempts: 3,
             retryDelay: 3000,
             entities: Object.values(entities),
             url: configuration.server.database.url,
+            synchronize: true,
+            logging: true,
         }),
         ServeStaticModule.forRoot({
             rootPath: configuration.ssh.webPath,

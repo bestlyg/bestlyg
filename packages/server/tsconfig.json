@@ -46,12 +46,6 @@
       "@bestlyg-server/common/*": [
         "libs/common/src/*"
       ],
-      "@bestlyg-server/data": [
-        "libs/data/src"
-      ],
-      "@bestlyg-server/data/*": [
-        "libs/data/src/*"
-      ],
       "@bestlyg-server/database": [
         "libs/database/src"
       ],

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
-import { LeetcodeService } from '@bestlyg-server/data';
+// import { LeetcodeService } from '@bestlyg-server/data';
 import { SidebarDto, SidebarGroup, SidebarItem } from '@bestlyg/common';
 import fs from 'fs-extra';
 import path from 'path';
@@ -10,7 +10,7 @@ import path from 'path';
 export class ClientService {
     private readonly categoryFileName = '_category_';
     private readonly staticPath = resolve('node_modules', '@bestlyg/', 'static');
-    constructor(private readonly leetcodeService: LeetcodeService) {}
+    constructor(private readonly leetcodeService: any) {}
     async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
         type: 'group' | 'item';
         category?: { position: number };

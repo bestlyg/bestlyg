@@ -34,9 +34,9 @@ export async function bootstrap() {
     app.useGlobalPipes(new ZodValidationPipe());
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
-    const mode = configService.getOrThrow<Configuration['mode']>('mode');
-    const prismaService = app.get(PrismaService);
-    await prismaService.enableShutdownHooks(app);
+    // const mode = configService.getOrThrow<Configuration['mode']>('mode');
+    // const prismaService = app.get(PrismaService);
+    // await prismaService.enableShutdownHooks(app);
 
     const config = new DocumentBuilder()
         .setTitle('Best Swagger')
