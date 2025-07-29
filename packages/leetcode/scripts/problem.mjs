@@ -9,19 +9,19 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 // /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
-    exist: true,
-    name: '2044. 统计按位或能得到最大值的子集数目',
-    url: 'https://leetcode.cn/problems/count-number-of-maximum-bitwise-or-subsets',
+    exist: !true,
+    name: '2411. 按位或最大的最小子数组长度',
+    url: 'https://leetcode.cn/problems/smallest-subarrays-with-maximum-bitwise-or',
     level: 'Easy',
     tagList: [],
-    desc: `对数组 a 执行 按位或 ，结果等于 a[0] OR a[1] OR ... OR a[a.length - 1]（下标从 0 开始）。`,
+    desc: `请你返回一个大小为 n 的整数数组 answer，其中 answer[i]是开始位置为 i ，按位或运算结果最大，且 最短 子数组的长度。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 1461,
-            memory: 17.45,
-            desc: '二进制枚举所有可能',
+            time: 1301,
+            memory: 28.58,
+            desc: '从后往前枚举每一个数字，判断如果删除后会更改最大值那就不终止',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

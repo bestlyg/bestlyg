@@ -10,10 +10,10 @@ import {
     LeetCode,
     getTitleSlugFromURL,
 } from '@bestlyg/leetcode';
-import { PrismaClient } from '@bestlyg/common/prisma-client';
+import axios from 'axios';
 import { problem as problemFromCreate } from './problem.mjs';
 
-const prisma = new PrismaClient();
+axios.defaults.baseURL = 'http://127.0.0.1:10000';
 
 const leetcode = new LeetCode({
     credential: {
@@ -71,30 +71,36 @@ if (problem.exist) {
     problem.desc = descFormat(problem.desc);
 
     delete problem.exist;
-    console.log(problem);
 
-    await prisma.leetcodeProblem.create({
-        data: {
-            name: problem.name,
-            url: problem.url,
-            desc: problem.desc,
-            tags: problem.tagList,
-            level: problem.level,
-            solutions: {
-                createMany: {
-                    data: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
-                        script,
-                        time,
-                        memory,
-                        desc,
-                        code,
-                        date: new Date(date),
-                    })),
-                },
-            },
-        },
-    });
+    await createProblem([{
+        name: problem.name,
+        url: problem.url,
+        desc: problem.desc,
+        tags: problem.tagList,
+        level: problem.level,
+        solutions: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
+            script,
+            time,
+            memory,
+            desc,
+            code,
+            date: new Date(date),
+        })),
+    }]);
 }
 
 // await fs.ensureDir(path.dirname(filePath));
 // await fs.writeFile(filePath, JSON.stringify(problem, null, 4));
+
+async function createProblem(problem) {
+    console.log('CreateProblem');
+    console.log(JSON.stringify(problem, null, 4));
+
+    const resp = await axios({
+        method: 'post',
+        url: '/api/database/leetcode-problem',
+        data: problem,
+    });
+
+    console.log(resp.data);
+}

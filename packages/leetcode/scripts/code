@@ -1,13 +1,36 @@
+def add_mask(mask: List[int], cur: int, num: int):
+    for i in range(32):
+        if num & (1 << i):
+            mask[i] += 1
+            if mask[i] == 1:
+                cur |= 1 << i
+    return cur
+
+def remove_mask(mask: List[int], cur: int, num: int):
+    for i in range(32):
+        if num & (1 << i):
+            mask[i] -= 1
+            if mask[i] == 0:
+                cur &= ~(1 << i)
+    return cur
+
+def safety_remove_check_mask(mask: List[int], num: int) -> bool:
+    for i in range(32):
+        if num & (1 << i) and mask[i] == 1:
+            return False
+    return True
+
 class Solution:
-    def countMaxOrSubsets(self, nums: List[int]) -> int:
+    def smallestSubarrays(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        res = 0
+        mask = [0] * 32
         nmax = 0
-        for num in nums: nmax |= num
-        for mask in range(2 ** n):
-            num = 0
-            for i in range(n):
-                if mask & (1 << i):
-                    num |= nums[i]
-            if num == nmax: res += 1
+        res = [0] * n
+        right = n - 1
+        for i in range(n - 1, -1, -1):
+            nmax = add_mask(mask, nmax, nums[i])
+            while right > i and safety_remove_check_mask(mask, nums[right]):
+                remove_mask(mask, nmax, nums[right])
+                right -= 1
+            res[i] = right - i + 1
         return res

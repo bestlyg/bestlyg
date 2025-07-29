@@ -14,4 +14,16 @@ export class LeetcodeProblemController extends BaseController<LeetcodeProblem> {
             relations: ['solutions'],
         });
     }
+
+    protected async _findList(opts: BaseOptions) {
+        return super._findList(opts, {
+            relations: ['solutions'],
+        });
+    }
+
+    protected async _findOne(opts: BaseOptions) {
+        return super._select(opts, {
+            relations: ['solutions'],
+        });
+    }
 }

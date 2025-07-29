@@ -47,6 +47,7 @@ export abstract class BaseController<Entity extends BaseEntity> {
         opts: BaseOptions,
         options: Parameters<typeof this.service.save>[1] = {},
     ) {
+        console.log("SAVE", opts)
         const data = await this.service.save(opts.body, options);
         return data;
     }
