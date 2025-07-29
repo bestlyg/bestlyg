@@ -1,12 +1,7 @@
-/**
- * @typedef {import("@bestlyg/common/prisma-client").Prisma.LeetcodeProblemGetPayload<{include: { solutions: true };}>} Problem
- */
 import '@bestlyg/cli/globals';
 import { PATH_CODE } from '@bestlyg/leetcode';
-// import { prismaClient } from '@bestlyg/common';
 
 // /** @type {import("../dist/types").LeetCodeProblem} */
-// /** @type {prismaClient.LeetcodeProblem & {solutions:prismaClient.LeetcodeSolution[]}} */
 /** @type {Problem} */
 export const problem = {
     exist: !true,

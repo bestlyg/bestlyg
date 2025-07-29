@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService, resolve, ZodValidationPipe } from '@bestlyg-server/common';
+import { resolve, ZodValidationPipe } from '@bestlyg-server/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import compression from 'compression';
 import { Configuration } from '@bestlyg/common/server';
@@ -24,10 +24,7 @@ export async function bootstrap() {
         maxAge: 86400,
     });
     app.setGlobalPrefix('/api', {
-        exclude: [
-            '/static',
-            '/zjuer/wiki',
-        ],
+        exclude: ['/static', '/zjuer/wiki'],
     });
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalInterceptors(new LoggingInterceptor());
@@ -35,8 +32,6 @@ export async function bootstrap() {
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
     // const mode = configService.getOrThrow<Configuration['mode']>('mode');
-    // const prismaService = app.get(PrismaService);
-    // await prismaService.enableShutdownHooks(app);
 
     const config = new DocumentBuilder()
         .setTitle('Best Swagger')

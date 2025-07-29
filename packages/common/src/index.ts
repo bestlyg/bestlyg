@@ -20,7 +20,6 @@ export * from './object';
 export * from './struct';
 export * from './types';
 export * from './error';
-export * from './prisma';
 export * from './debounce';
 export * from './throttle';
 export * from './compare';

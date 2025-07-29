@@ -8,7 +8,6 @@
     "./openapi.json": "./openapi.json"
   },
   "scripts": {
-    "prisma:generate": "node ./scripts/generate.mjs",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
@@ -51,7 +50,6 @@
     "nestjs-cls": "^6.0.0",
     "nodemailer": "^6.10.1",
     "pg": "^8.16.3",
-    "prisma": "catalog:",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "typeorm": "^0.3.25",

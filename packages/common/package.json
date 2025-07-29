@@ -24,12 +24,6 @@
                 "default": "./dist/server/index.cjs"
             }
         },
-        "./prisma-client": {
-            "types": "./dist/prisma-client/index.d.ts",
-            "import": "./dist/prisma-client/index.js",
-            "require": "./dist/prisma-client/index.js",
-            "default": "./dist/prisma-client/index.js"
-        },
         "./package.json": "./package.json",
         ".": {
             "import": {
@@ -50,7 +44,7 @@
     "scripts": {
         "build:openapi": "node scripts/openapi.mjs",
         "build:idl": "node scripts/idl.mjs",
-        "build": "rimraf dist && prisma generate && pnpm build:openapi && unbuild",
+        "build": "rimraf dist && pnpm build:openapi && unbuild",
         "dev": "unbuild --watch"
     },
     "license": "ISC",
@@ -68,7 +62,6 @@
         "@xidl/typescript-server": "workspace:^",
         "change-case": "catalog:",
         "express": "^4.21.2",
-        "prisma": "catalog:",
         "react": "catalog:",
         "react-router": "^7.5.1",
         "rimraf": "catalog:",
@@ -82,7 +75,6 @@
         "react-router": "catalog:"
     },
     "dependencies": {
-        "@prisma/client": "catalog:",
         "axios": "catalog:",
         "chalk": "catalog:",
         "crypto-js": "^4.2.0",

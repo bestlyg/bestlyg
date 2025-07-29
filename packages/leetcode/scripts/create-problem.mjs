@@ -49,24 +49,25 @@ problem.solutions.forEach(s => {
     s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
 });
 if (problem.exist) {
-    const problemData = await prisma.leetcodeProblem.findFirst({
-        where: { name: problem.name },
-    });
+    throw new Error('XXX')
+    // const problemData = await prisma.leetcodeProblem.findFirst({
+    //     where: { name: problem.name },
+    // });
 
-    problemData.tags = problem.tagList;
-    problemData.level = problem.level;
-    await prisma.leetcodeProblem.update({ data: problemData, where: { id: problemData.id } });
-    await prisma.leetcodeSolution.createMany({
-        data: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
-            script,
-            time,
-            memory,
-            desc,
-            code,
-            date: new Date(date),
-            leetcodeProblemId: problemData.id,
-        })),
-    });
+    // problemData.tags = problem.tagList;
+    // problemData.level = problem.level;
+    // await prisma.leetcodeProblem.update({ data: problemData, where: { id: problemData.id } });
+    // await prisma.leetcodeSolution.createMany({
+    //     data: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
+    //         script,
+    //         time,
+    //         memory,
+    //         desc,
+    //         code,
+    //         date: new Date(date),
+    //         leetcodeProblemId: problemData.id,
+    //     })),
+    // });
 } else {
     problem.desc = descFormat(problem.desc);
 

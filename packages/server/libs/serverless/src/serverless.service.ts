@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { FunctionModuleService, PrismaService } from '@bestlyg-server/common';
+import { FunctionModuleService } from '@bestlyg-server/common';
 
 @Injectable()
 export class ServerlessService {
     private readonly logger = new Logger(ServerlessService.name);
     constructor(
-        private readonly prismaService: PrismaService,
+        // private readonly prismaService: PrismaService,
         private readonly functionModuleService: FunctionModuleService,
     ) {}
     async call(globalCtx: {
@@ -17,11 +17,11 @@ export class ServerlessService {
         req: Request;
         res: Response;
     }) {
-        const data = await this.prismaService.serverlessCode.findFirst({
-            where: { name: globalCtx.name },
-        });
-        if (!data) throw new Error(`Can not find the serverless code with name ${globalCtx.name}`);
-        const res = await this.functionModuleService.compile(data.code, globalCtx);
-        return res;
+        // const data = await this.prismaService.serverlessCode.findFirst({
+        //     where: { name: globalCtx.name },
+        // });
+        // if (!data) throw new Error(`Can not find the serverless code with name ${globalCtx.name}`);
+        // const res = await this.functionModuleService.compile(data.code, globalCtx);
+        // return res;
     }
 }
