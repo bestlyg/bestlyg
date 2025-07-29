@@ -369,6 +369,124 @@
                 ]
             }
         },
+        "/api/database/serverless/list": {
+            "get": {
+                "operationId": "ServerlessController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/api/database/serverless/page": {
+            "get": {
+                "operationId": "ServerlessController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/api/database/serverless/{id}": {
+            "get": {
+                "operationId": "ServerlessController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "patch": {
+                "operationId": "ServerlessController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "delete": {
+                "operationId": "ServerlessController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/api/database/serverless": {
+            "post": {
+                "operationId": "ServerlessController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "put": {
+                "operationId": "ServerlessController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
+        "/api/database/serverless/batch": {
+            "post": {
+                "operationId": "ServerlessController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            },
+            "delete": {
+                "operationId": "ServerlessController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Serverless"
+                ]
+            }
+        },
         "/api/database/user/list": {
             "get": {
                 "operationId": "UserController_findList",
