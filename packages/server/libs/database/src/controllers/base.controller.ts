@@ -1,6 +1,6 @@
-import { Body, Delete, Get, Headers, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Delete, Get, Headers, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { EntityService } from '@bestlyg-server/database';
-import { PageParam, ResponseEntity, SelectLedgerPageDto } from '@bestlyg/common';
+import { PageParam, ResponseEntity } from '@bestlyg/common';
 import { BaseEntity } from '../entities/base.entity';
 
 export interface BaseOptions {
@@ -33,7 +33,7 @@ export abstract class BaseController<Entity extends BaseEntity> {
         opts: BaseOptions,
         options: Parameters<typeof this.service.findPageAndCount>[1] = {},
     ) {
-        const dto = new SelectLedgerPageDto(opts.query);
+        const dto = await PageParam.Schema.parseAsync(opts.query);
         const data = await this.service.findPageAndCount(PageParam.from(dto), options);
         return data;
     }
@@ -112,7 +112,7 @@ export abstract class BaseController<Entity extends BaseEntity> {
         return ResponseEntity.ofSuccess(data);
     }
 
-    @Patch(':batch')
+    @Put()
     async updateBatch(@Param() params, @Query() query, @Body() body, @Headers() headers) {
         const data = await this._updateBatch({ params, query, body, headers });
         return ResponseEntity.ofSuccess(data);

@@ -93,6 +93,18 @@
                 "tags": [
                     "Ledger"
                 ]
+            },
+            "put": {
+                "operationId": "LedgerController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Ledger"
+                ]
             }
         },
         "/api/database/ledger/batch": {
@@ -121,9 +133,9 @@
                 ]
             }
         },
-        "/api/database/ledger/{batch}": {
-            "patch": {
-                "operationId": "LedgerController_updateBatch",
+        "/api/database/secrets/list": {
+            "get": {
+                "operationId": "SecretsController_findList",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -131,7 +143,111 @@
                     }
                 },
                 "tags": [
-                    "Ledger"
+                    "Secrets"
+                ]
+            }
+        },
+        "/api/database/secrets/page": {
+            "get": {
+                "operationId": "SecretsController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            }
+        },
+        "/api/database/secrets/{id}": {
+            "get": {
+                "operationId": "SecretsController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            },
+            "patch": {
+                "operationId": "SecretsController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            },
+            "delete": {
+                "operationId": "SecretsController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            }
+        },
+        "/api/database/secrets": {
+            "post": {
+                "operationId": "SecretsController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            },
+            "put": {
+                "operationId": "SecretsController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            }
+        },
+        "/api/database/secrets/batch": {
+            "post": {
+                "operationId": "SecretsController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
+                ]
+            },
+            "delete": {
+                "operationId": "SecretsController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Secrets"
                 ]
             }
         },
@@ -213,6 +329,18 @@
                 "tags": [
                     "User"
                 ]
+            },
+            "put": {
+                "operationId": "UserController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "User"
+                ]
             }
         },
         "/api/database/user/batch": {
@@ -230,20 +358,6 @@
             },
             "delete": {
                 "operationId": "UserController_deleteBatch",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "User"
-                ]
-            }
-        },
-        "/api/database/user/{batch}": {
-            "patch": {
-                "operationId": "UserController_updateBatch",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -333,6 +447,18 @@
                 "tags": [
                     "Xuan"
                 ]
+            },
+            "put": {
+                "operationId": "XuanController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
             }
         },
         "/api/database/xuan/batch": {
@@ -350,20 +476,6 @@
             },
             "delete": {
                 "operationId": "XuanController_deleteBatch",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "Xuan"
-                ]
-            }
-        },
-        "/api/database/xuan/{batch}": {
-            "patch": {
-                "operationId": "XuanController_updateBatch",
                 "parameters": [],
                 "responses": {
                     "200": {

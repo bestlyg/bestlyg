@@ -42,9 +42,56 @@
                     "path": "/:id"
                 },
                 "updateBatch": {
-                    "requestMethod": "PATCH",
+                    "requestMethod": "PUT",
                     "methodName": "updateBatch",
-                    "path": "/:batch"
+                    "path": "/"
+                },
+                "deleteBatch": {
+                    "requestMethod": "DELETE",
+                    "methodName": "deleteBatch",
+                    "path": "/batch"
+                },
+                "delete": {
+                    "requestMethod": "DELETE",
+                    "methodName": "delete",
+                    "path": "/:id"
+                }
+            },
+            "SecretsController": {
+                "findList": {
+                    "requestMethod": "GET",
+                    "methodName": "findList",
+                    "path": "/list"
+                },
+                "findPageAndCount": {
+                    "requestMethod": "GET",
+                    "methodName": "findPageAndCount",
+                    "path": "/page"
+                },
+                "findOne": {
+                    "requestMethod": "GET",
+                    "methodName": "findOne",
+                    "path": "/:id"
+                },
+                "save": {
+                    "requestMethod": "POST",
+                    "methodName": "save",
+                    "path": "/"
+                },
+                "saveBatch": {
+                    "requestMethod": "POST",
+                    "methodName": "saveBatch",
+                    "path": "/batch"
+                },
+                "update": {
+                    "requestMethod": "PATCH",
+                    "methodName": "update",
+                    "path": "/:id"
+                },
+                "updateBatch": {
+                    "requestMethod": "PUT",
+                    "methodName": "updateBatch",
+                    "path": "/"
                 },
                 "deleteBatch": {
                     "requestMethod": "DELETE",
@@ -89,9 +136,9 @@
                     "path": "/:id"
                 },
                 "updateBatch": {
-                    "requestMethod": "PATCH",
+                    "requestMethod": "PUT",
                     "methodName": "updateBatch",
-                    "path": "/:batch"
+                    "path": "/"
                 },
                 "deleteBatch": {
                     "requestMethod": "DELETE",
@@ -136,9 +183,9 @@
                     "path": "/:id"
                 },
                 "updateBatch": {
-                    "requestMethod": "PATCH",
+                    "requestMethod": "PUT",
                     "methodName": "updateBatch",
-                    "path": "/:batch"
+                    "path": "/"
                 },
                 "deleteBatch": {
                     "requestMethod": "DELETE",
