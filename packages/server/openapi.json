@@ -15,6 +15,124 @@
                 ]
             }
         },
+        "/api/database/casbin-rule/list": {
+            "get": {
+                "operationId": "CasbinRuleController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            }
+        },
+        "/api/database/casbin-rule/page": {
+            "get": {
+                "operationId": "CasbinRuleController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            }
+        },
+        "/api/database/casbin-rule/{id}": {
+            "get": {
+                "operationId": "CasbinRuleController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            },
+            "patch": {
+                "operationId": "CasbinRuleController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            },
+            "delete": {
+                "operationId": "CasbinRuleController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            }
+        },
+        "/api/database/casbin-rule": {
+            "post": {
+                "operationId": "CasbinRuleController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            },
+            "put": {
+                "operationId": "CasbinRuleController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            }
+        },
+        "/api/database/casbin-rule/batch": {
+            "post": {
+                "operationId": "CasbinRuleController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            },
+            "delete": {
+                "operationId": "CasbinRuleController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "CasbinRule"
+                ]
+            }
+        },
         "/api/database/ledger/list": {
             "get": {
                 "operationId": "LedgerController_findList",
