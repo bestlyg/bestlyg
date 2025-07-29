@@ -31,7 +31,7 @@ catalog:
   '@vitejs/plugin-react': ^4.3.4
   ahooks: ^3.8.4
   antd: ^5.26.6
-  axios: ^1.7.9
+  axios: ^1.11.0
   chalk: ^5.3.0
   change-case: ^5.4.4
   clsx: ^2.1.1
