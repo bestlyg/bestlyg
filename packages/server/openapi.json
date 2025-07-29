@@ -255,6 +255,126 @@
                 ]
             }
         },
+        "/api/database/xuan/list": {
+            "get": {
+                "operationId": "XuanController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/database/xuan/page": {
+            "get": {
+                "operationId": "XuanController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/database/xuan/{id}": {
+            "get": {
+                "operationId": "XuanController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            },
+            "patch": {
+                "operationId": "XuanController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            },
+            "delete": {
+                "operationId": "XuanController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/database/xuan": {
+            "post": {
+                "operationId": "XuanController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/database/xuan/batch": {
+            "post": {
+                "operationId": "XuanController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            },
+            "delete": {
+                "operationId": "XuanController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
+        "/api/database/xuan/{batch}": {
+            "patch": {
+                "operationId": "XuanController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Xuan"
+                ]
+            }
+        },
         "/api/auth/login": {
             "post": {
                 "operationId": "AuthController_signIn",

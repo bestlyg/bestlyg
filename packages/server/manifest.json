@@ -103,6 +103,53 @@
                     "methodName": "delete",
                     "path": "/:id"
                 }
+            },
+            "XuanController": {
+                "findList": {
+                    "requestMethod": "GET",
+                    "methodName": "findList",
+                    "path": "/list"
+                },
+                "findPageAndCount": {
+                    "requestMethod": "GET",
+                    "methodName": "findPageAndCount",
+                    "path": "/page"
+                },
+                "findOne": {
+                    "requestMethod": "GET",
+                    "methodName": "findOne",
+                    "path": "/:id"
+                },
+                "save": {
+                    "requestMethod": "POST",
+                    "methodName": "save",
+                    "path": "/"
+                },
+                "saveBatch": {
+                    "requestMethod": "POST",
+                    "methodName": "saveBatch",
+                    "path": "/batch"
+                },
+                "update": {
+                    "requestMethod": "PATCH",
+                    "methodName": "update",
+                    "path": "/:id"
+                },
+                "updateBatch": {
+                    "requestMethod": "PATCH",
+                    "methodName": "updateBatch",
+                    "path": "/:batch"
+                },
+                "deleteBatch": {
+                    "requestMethod": "DELETE",
+                    "methodName": "deleteBatch",
+                    "path": "/batch"
+                },
+                "delete": {
+                    "requestMethod": "DELETE",
+                    "methodName": "delete",
+                    "path": "/:id"
+                }
             }
         },
         "AuthModule": {
