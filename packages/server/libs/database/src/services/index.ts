@@ -5,3 +5,5 @@ export * from './xuan.service';
 export * from './secrets.service';
 export * from './casbin-rule.service';
 export * from './serverless.service';
+export * from './leetcode-problem.service';
+export * from './leetcode-solution.service';

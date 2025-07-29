@@ -251,6 +251,242 @@
                 ]
             }
         },
+        "/api/database/leetcode-problem/list": {
+            "get": {
+                "operationId": "LeetcodeProblemController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
+        "/api/database/leetcode-problem/page": {
+            "get": {
+                "operationId": "LeetcodeProblemController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
+        "/api/database/leetcode-problem/{id}": {
+            "get": {
+                "operationId": "LeetcodeProblemController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            },
+            "patch": {
+                "operationId": "LeetcodeProblemController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            },
+            "delete": {
+                "operationId": "LeetcodeProblemController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
+        "/api/database/leetcode-problem": {
+            "post": {
+                "operationId": "LeetcodeProblemController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            },
+            "put": {
+                "operationId": "LeetcodeProblemController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
+        "/api/database/leetcode-problem/batch": {
+            "post": {
+                "operationId": "LeetcodeProblemController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            },
+            "delete": {
+                "operationId": "LeetcodeProblemController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeProblem"
+                ]
+            }
+        },
+        "/api/database/leetcode-solution/list": {
+            "get": {
+                "operationId": "LeetcodeSolutionController_findList",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            }
+        },
+        "/api/database/leetcode-solution/page": {
+            "get": {
+                "operationId": "LeetcodeSolutionController_findPageAndCount",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            }
+        },
+        "/api/database/leetcode-solution/{id}": {
+            "get": {
+                "operationId": "LeetcodeSolutionController_findOne",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            },
+            "patch": {
+                "operationId": "LeetcodeSolutionController_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            },
+            "delete": {
+                "operationId": "LeetcodeSolutionController_delete",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            }
+        },
+        "/api/database/leetcode-solution": {
+            "post": {
+                "operationId": "LeetcodeSolutionController_save",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            },
+            "put": {
+                "operationId": "LeetcodeSolutionController_updateBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            }
+        },
+        "/api/database/leetcode-solution/batch": {
+            "post": {
+                "operationId": "LeetcodeSolutionController_saveBatch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            },
+            "delete": {
+                "operationId": "LeetcodeSolutionController_deleteBatch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "LeetcodeSolution"
+                ]
+            }
+        },
         "/api/database/secrets/list": {
             "get": {
                 "operationId": "SecretsController_findList",
