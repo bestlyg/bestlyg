@@ -36,6 +36,9 @@ catalogs:
     lodash:
       specifier: ^4.17.21
       version: 4.17.21
+    tsx:
+      specifier: ^4.20.3
+      version: 4.20.3
     typescript:
       specifier: ^5.8.3
       version: 5.8.3
@@ -192,7 +195,7 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       tsx:
-        specifier: ^4.20.3
+        specifier: 'catalog:'
         version: 4.20.3
       typescript:
         specifier: 'catalog:'

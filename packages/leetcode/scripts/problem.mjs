@@ -5,18 +5,18 @@ import { PATH_CODE } from '@bestlyg/leetcode';
 /** @type {Problem} */
 export const problem = {
     exist: !true,
-    name: '2411. 按位或最大的最小子数组长度',
-    url: 'https://leetcode.cn/problems/smallest-subarrays-with-maximum-bitwise-or',
+    name: '2419. 按位与最大的最长子数组',
+    url: 'https://leetcode.cn/problems/longest-subarray-with-maximum-bitwise-and',
     level: 'Easy',
     tagList: [],
-    desc: `请你返回一个大小为 n 的整数数组 answer，其中 answer[i]是开始位置为 i ，按位或运算结果最大，且 最短 子数组的长度。`,
+    desc: `返回满足要求的 最长 子数组的长度。`,
     solutions: [
         {
             script: 'python',
             // date: '2025.05.24',
-            time: 1301,
-            memory: 28.58,
-            desc: '从后往前枚举每一个数字，判断如果删除后会更改最大值那就不终止',
+            time: 31,
+            memory: 30.20,
+            desc: '贪心，直接找最大值的最多连续次数',
             code: await fs.readFile(PATH_CODE, 'utf8'),
         },
     ],

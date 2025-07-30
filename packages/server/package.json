@@ -1,107 +1,112 @@
 {
-  "name": "@bestlyg/server",
-  "version": "0.0.0",
-  "author": "bestlyg",
-  "private": true,
-  "exports": {
-    "./package.json": "./package.json",
-    "./openapi.json": "./openapi.json"
-  },
-  "scripts": {
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "NODE_ENV=production node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
-  },
-  "dependencies": {
-    "@bestlyg/cli": "workspace:^",
-    "@bestlyg/client": "workspace:^",
-    "@bestlyg/common": "workspace:^",
-    "@bestlyg/leetcode": "workspace:^",
-    "@bestlyg/server": "workspace:^",
-    "@bestlyg/static": "workspace:^",
-    "@nestjs/common": "^11.0.20",
-    "@nestjs/config": "^4.0.2",
-    "@nestjs/core": "^11.0.20",
-    "@nestjs/jwt": "^11.0.0",
-    "@nestjs/platform-express": "^11.0.20",
-    "@nestjs/schedule": "^5.0.1",
-    "@nestjs/serve-static": "^5.0.3",
-    "@nestjs/swagger": "^11.1.4",
-    "@nestjs/typeorm": "^11.0.0",
-    "axios": "catalog:",
-    "change-case": "catalog:",
-    "compression": "^1.8.0",
-    "cookie-parser": "^1.4.7",
-    "dayjs": "catalog:",
-    "dotenv": "catalog:",
-    "express": "^5.1.0",
-    "fs-extra": "catalog:",
-    "lodash": "catalog:",
-    "marked": "^15.0.8",
-    "nestjs-cls": "^6.0.0",
-    "nodemailer": "^6.10.1",
-    "pg": "^8.16.3",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2",
-    "typeorm": "^0.3.25",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@nestjs/cli": "^11.0.6",
-    "@nestjs/schematics": "^11.0.5",
-    "@nestjs/testing": "^11.0.20",
-    "@types/compression": "^1.7.5",
-    "@types/cookie-parser": "^1.4.8",
-    "@types/express": "catalog:",
-    "@types/fs-extra": "catalog:",
-    "@types/lodash": "catalog:",
-    "@types/node": "catalog:",
-    "@types/nodemailer": "^6.4.17",
-    "source-map-support": "^0.5.21",
-    "supertest": "^7.1.0",
-    "ts-loader": "^9.5.2",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.20.3",
-    "typescript": "catalog:"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": ".",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+    "name": "@bestlyg/server",
+    "version": "0.0.0",
+    "author": "bestlyg",
+    "private": true,
+    "exports": {
+        "./package.json": "./package.json",
+        "./openapi.json": "./openapi.json",
+        "./*": {
+            "import": "./*",
+            "require": "./*",
+            "default": "./*"
+        }
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "./coverage",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/libs/"
-    ],
-    "moduleNameMapper": {
-      "^@bestlyg-server/api(|/.*)$": "<rootDir>/libs/api/src/$1",
-      "^@bestlyg-server/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-      "^@bestlyg-server/common(|/.*)$": "<rootDir>/libs/common/src/$1",
-      "^@bestlyg-server/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^@bestlyg-server/serverless(|/.*)$": "<rootDir>/libs/serverless/src/$1",
-      "^@bestlyg-server/static(|/.*)$": "<rootDir>/libs/static/src/$1",
-      "^@bestlyg-server/zjuer(|/.*)$": "<rootDir>/libs/zjuer/src/$1"
+    "scripts": {
+        "build": "nest build",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
+        "start": "nest start",
+        "start:dev": "nest start --watch",
+        "start:debug": "nest start --debug --watch",
+        "start:prod": "NODE_ENV=production node dist/main",
+        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+        "test:e2e": "jest --config ./test/jest-e2e.json"
+    },
+    "dependencies": {
+        "@bestlyg/cli": "workspace:^",
+        "@bestlyg/client": "workspace:^",
+        "@bestlyg/common": "workspace:^",
+        "@bestlyg/leetcode": "workspace:^",
+        "@bestlyg/server": "workspace:^",
+        "@bestlyg/static": "workspace:^",
+        "@nestjs/common": "^11.0.20",
+        "@nestjs/config": "^4.0.2",
+        "@nestjs/core": "^11.0.20",
+        "@nestjs/jwt": "^11.0.0",
+        "@nestjs/platform-express": "^11.0.20",
+        "@nestjs/schedule": "^5.0.1",
+        "@nestjs/serve-static": "^5.0.3",
+        "@nestjs/swagger": "^11.1.4",
+        "@nestjs/typeorm": "^11.0.0",
+        "axios": "catalog:",
+        "change-case": "catalog:",
+        "compression": "^1.8.0",
+        "cookie-parser": "^1.4.7",
+        "dayjs": "catalog:",
+        "dotenv": "catalog:",
+        "express": "^5.1.0",
+        "fs-extra": "catalog:",
+        "lodash": "catalog:",
+        "marked": "^15.0.8",
+        "nestjs-cls": "^6.0.0",
+        "nodemailer": "^6.10.1",
+        "pg": "^8.16.3",
+        "reflect-metadata": "^0.2.2",
+        "rxjs": "^7.8.2",
+        "typeorm": "^0.3.25",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@nestjs/cli": "^11.0.6",
+        "@nestjs/schematics": "^11.0.5",
+        "@nestjs/testing": "^11.0.20",
+        "@types/compression": "^1.7.5",
+        "@types/cookie-parser": "^1.4.8",
+        "@types/express": "catalog:",
+        "@types/fs-extra": "catalog:",
+        "@types/lodash": "catalog:",
+        "@types/node": "catalog:",
+        "@types/nodemailer": "^6.4.17",
+        "source-map-support": "^0.5.21",
+        "supertest": "^7.1.0",
+        "ts-loader": "^9.5.2",
+        "ts-node": "^10.9.2",
+        "tsconfig-paths": "^4.2.0",
+        "tsx": "catalog:",
+        "typescript": "catalog:"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
+        "rootDir": ".",
+        "testRegex": ".*\\.spec\\.ts$",
+        "transform": {
+            "^.+\\.(t|j)s$": "ts-jest"
+        },
+        "collectCoverageFrom": [
+            "**/*.(t|j)s"
+        ],
+        "coverageDirectory": "./coverage",
+        "testEnvironment": "node",
+        "roots": [
+            "<rootDir>/src/",
+            "<rootDir>/libs/"
+        ],
+        "moduleNameMapper": {
+            "^@bestlyg-server/api(|/.*)$": "<rootDir>/libs/api/src/$1",
+            "^@bestlyg-server/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+            "^@bestlyg-server/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+            "^@bestlyg-server/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+            "^@bestlyg-server/serverless(|/.*)$": "<rootDir>/libs/serverless/src/$1",
+            "^@bestlyg-server/static(|/.*)$": "<rootDir>/libs/static/src/$1",
+            "^@bestlyg-server/zjuer(|/.*)$": "<rootDir>/libs/zjuer/src/$1"
+        }
     }
-  }
 }

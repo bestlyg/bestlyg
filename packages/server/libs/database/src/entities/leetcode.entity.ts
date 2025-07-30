@@ -32,10 +32,10 @@ export class LeetcodeSolution extends BaseEntity {
     date: Date;
 
     @Column({ type: 'float8', nullable: true })
-    time: Date;
+    time: number;
 
     @Column({ type: 'float8', nullable: true })
-    memory: Date;
+    memory: number;
 
     @Column({ type: 'text' })
     desc: string;

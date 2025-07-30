@@ -60,6 +60,7 @@ catalog:
   vite: ^7.0.5
   zod: ^4.0.5
   zx: ^8.5.3
+  tsx: ^4.20.3
 
 dedupePeerDependents: true
 
