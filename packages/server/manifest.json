@@ -414,6 +414,20 @@
                 }
             }
         },
+        "ApiModule": {
+            "ClientController": {
+                "getDocsSidebars": {
+                    "requestMethod": "GET",
+                    "methodName": "getDocsSidebars",
+                    "path": "/docs/sidebars"
+                },
+                "getLeetcodeSidebars": {
+                    "requestMethod": "GET",
+                    "methodName": "getLeetcodeSidebars",
+                    "path": "/leetcode/sidebars"
+                }
+            }
+        },
         "ZjuerModule": {
             "ZjuerController": {
                 "toWiki": {

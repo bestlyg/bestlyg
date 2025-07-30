@@ -1174,6 +1174,48 @@
                 ]
             }
         },
+        "/api/client/docs/sidebars": {
+            "get": {
+                "operationId": "ClientController_getDocsSidebars",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sidebar"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Client"
+                ]
+            }
+        },
+        "/api/client/leetcode/sidebars": {
+            "get": {
+                "operationId": "ClientController_getLeetcodeSidebars",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sidebar"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Client"
+                ]
+            }
+        },
         "/zjuer/wiki": {
             "get": {
                 "operationId": "ZjuerController_toWiki",
@@ -1198,6 +1240,11 @@
     "tags": [],
     "servers": [],
     "components": {
-        "schemas": {}
+        "schemas": {
+            "Sidebar": {
+                "type": "object",
+                "properties": {}
+            }
+        }
     }
 }

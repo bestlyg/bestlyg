@@ -18,6 +18,7 @@ import { StaticModule } from '@bestlyg-server/static';
 // import { ApiModule } from '@bestlyg-server/api';
 import { ZjuerModule } from '@bestlyg-server/zjuer';
 import { DatabaseModule, entities } from '@bestlyg-server/database';
+import { ApiModule } from '@bestlyg-server/api';
 
 dotenv.config({ path: resolve('node_modules', '@bestlyg', 'common', '.env') });
 const configuration = ConfigurationSchema.parse(getConfiguration());
@@ -65,7 +66,7 @@ const configuration = ConfigurationSchema.parse(getConfiguration());
         AuthModule,
         ServerlessModule,
         StaticModule,
-        // ApiModule,
+        ApiModule,
         ZjuerModule,
     ],
     controllers: [AppController],

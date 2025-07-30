@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { getDirNameFromProblemName, dirSort, problemSort } from '@bestlyg/leetcode';
 import { resolve } from '@bestlyg-server/common';
-// import { LeetcodeService } from '@bestlyg-server/data';
-import { SidebarDto, SidebarGroup, SidebarItem } from '@bestlyg/common';
+import { LeetcodeProblemService } from '@bestlyg-server/database';
 import fs from 'fs-extra';
 import path from 'path';
+import { Sidebar, SidebarGroup, SidebarItem } from './api.dto';
 
 @Injectable()
 export class ClientService {
     private readonly categoryFileName = '_category_';
     private readonly staticPath = resolve('node_modules', '@bestlyg/', 'static');
-    constructor(private readonly leetcodeService: any) {}
+    constructor(private readonly leetcodeService: LeetcodeProblemService) {}
     async getDocs(p = resolve(this.staticPath, 'docs')): Promise<{
         type: 'group' | 'item';
         category?: { position: number };
@@ -72,13 +72,13 @@ export class ClientService {
         return groups;
     }
 
-    async getDocsSidebars() {
-        return new SidebarDto({ groups: await this.getGroups() });
+    async getDocsSidebars(): Promise<Sidebar> {
+        return { groups: await this.getGroups() };
     }
 
-    async getLeetcodeSidebars() {
-        const problems = await this.leetcodeService.getLeetcodeProblemList();
-        const groups: NonNullable<SidebarDto['groups']> = [];
+    async getLeetcodeSidebars(): Promise<Sidebar> {
+        const problems = await this.leetcodeService.find({ relations: ['solutions'] });
+        const groups: NonNullable<Sidebar['groups']> = [];
         for (const problem of problems) {
             const dirName = getDirNameFromProblemName(problem.name);
             let group = groups.find(v => v.name === dirName);
@@ -90,13 +90,13 @@ export class ClientService {
         }
         groups.map(({ items }) => items?.sort((a, b) => problemSort(a.name, b.name)));
         groups.sort((a, b) => dirSort(a.name, b.name));
-        return new SidebarDto({
+        return {
             groups: [
                 {
                     name: 'LeetCode',
                     groups,
                 },
             ],
-        });
+        };
     }
 }
