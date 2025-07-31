@@ -12,6 +12,7 @@ import {
 } from '@bestlyg/leetcode';
 import axios from 'axios';
 import { problem as problemFromCreate } from './problem.mjs';
+import { username, password } from '../temp/utils.mjs';
 
 axios.defaults.baseURL = 'http://127.0.0.1:10000';
 
@@ -49,7 +50,7 @@ problem.solutions.forEach(s => {
     s.date = best.dayjs(s.date).format(DATE_FORMAT_SOLUTION);
 });
 if (problem.exist) {
-    throw new Error('XXX')
+    throw new Error('XXX');
     // const problemData = await prisma.leetcodeProblem.findFirst({
     //     where: { name: problem.name },
     // });
@@ -73,21 +74,33 @@ if (problem.exist) {
 
     delete problem.exist;
 
-    await createProblem([{
-        name: problem.name,
-        url: problem.url,
-        desc: problem.desc,
-        tags: problem.tagList,
-        level: problem.level,
-        solutions: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
-            script,
-            time,
-            memory,
-            desc,
-            code,
-            date: new Date(date),
-        })),
-    }]);
+    await createProblem([
+        {
+            name: problem.name,
+            url: problem.url,
+            desc: problem.desc,
+            tags: problem.tagList,
+            level: problem.level,
+            solutions: problem.solutions.map(({ script, time, memory, desc, code, date }) => ({
+                script,
+                time,
+                memory,
+                desc,
+                code,
+                date: new Date(date),
+            })),
+        },
+    ]);
+}
+
+async function login() {
+    const resp = await axios({
+        method: 'post',
+        url: '/api/auth/login',
+        data: { username, password },
+    });
+
+    return resp.data.data;
 }
 
 // await fs.ensureDir(path.dirname(filePath));
@@ -97,9 +110,12 @@ async function createProblem(problem) {
     console.log('CreateProblem');
     console.log(JSON.stringify(problem, null, 4));
 
+    const data = await login();
+
     const resp = await axios({
         method: 'post',
         url: '/api/database/leetcode-problem',
+        headers: { Authorization: 'Bearer ' + data.accessToken },
         data: problem,
     });
 

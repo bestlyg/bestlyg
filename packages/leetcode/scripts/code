@@ -1,15 +1,9 @@
 class Solution:
-    def longestSubarray(self, nums: List[int]) -> int:
-        n = len(nums)
-        nmax = max(nums)
-        i = 0
-        res = 0
-        while i < n:
-            if nums[i] == nmax:
-                cnt = 0
-                while i < n and nums[i] == nmax:
-                    cnt += 1
-                    i += 1
-                res = max(res, cnt)
-            i += 1
-        return res
+    def doesValidArrayExist(self, derived: List[int]) -> bool:
+        n = len(derived)
+        def run(start: int) -> bool:
+            arr = [start]
+            for i in range(n):
+                arr.append(derived[i] ^ arr[-1])
+            return arr[0] == arr[-1]
+        return run(0) or run(1)
