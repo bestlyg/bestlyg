@@ -1,7 +1,8 @@
-import { Body, Delete, Get, Headers, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Delete, Get, Headers, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { EntityService } from '@bestlyg-server/database';
 import { PageParam, ResponseEntity } from '@bestlyg/common';
 import { BaseEntity } from '../entities/base.entity';
+import { AuthGuard } from '@bestlyg-server/auth';
 
 export interface BaseOptions {
     params: any;
@@ -10,6 +11,7 @@ export interface BaseOptions {
     headers: any;
 }
 
+@UseGuards(AuthGuard)
 export abstract class BaseController<Entity extends BaseEntity> {
     constructor(protected readonly service: EntityService<Entity>) {}
 

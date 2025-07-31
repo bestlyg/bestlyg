@@ -5,28 +5,232 @@ export const apiMap = {
             "path": "/api/sse"
         }
     },
-    "ServerlessCodeController": {
-        "getServerlessCode": {
+    "CasbinRuleController": {
+        "findList": {
             "method": "get",
-            "path": "/api/data/serverless-code"
+            "path": "/api/database/casbin-rule/list"
         },
-        "createServerlessCode": {
-            "method": "post",
-            "path": "/api/data/serverless-code"
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/casbin-rule/page"
         },
-        "updateServerlessCode": {
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/casbin-rule/{id}"
+        },
+        "update": {
             "method": "patch",
-            "path": "/api/data/serverless-code"
+            "path": "/api/database/casbin-rule/{id}"
         },
-        "deleteServerlessCode": {
+        "delete": {
             "method": "delete",
-            "path": "/api/data/serverless-code"
+            "path": "/api/database/casbin-rule/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/casbin-rule"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/casbin-rule"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/casbin-rule/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/casbin-rule/batch"
+        }
+    },
+    "LedgerController": {
+        "findList": {
+            "method": "get",
+            "path": "/api/database/ledger/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/ledger/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/ledger/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/ledger/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/ledger/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/ledger"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/ledger"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/ledger/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/ledger/batch"
+        }
+    },
+    "LeetcodeProblemController": {
+        "findList": {
+            "method": "get",
+            "path": "/api/database/leetcode-problem/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/leetcode-problem/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/leetcode-problem/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/leetcode-problem/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/leetcode-problem/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/leetcode-problem"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/leetcode-problem"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/leetcode-problem/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/leetcode-problem/batch"
+        }
+    },
+    "LeetcodeSolutionController": {
+        "findList": {
+            "method": "get",
+            "path": "/api/database/leetcode-solution/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/leetcode-solution/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/leetcode-solution/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/leetcode-solution/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/leetcode-solution/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/leetcode-solution"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/leetcode-solution"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/leetcode-solution/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/leetcode-solution/batch"
+        }
+    },
+    "SecretsController": {
+        "findList": {
+            "method": "get",
+            "path": "/api/database/secrets/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/secrets/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/secrets/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/secrets/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/secrets/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/secrets"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/secrets"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/secrets/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/secrets/batch"
         }
     },
     "ServerlessController": {
-        "getServerless": {
+        "findList": {
             "method": "get",
-            "path": "/api/data/serverless"
+            "path": "/api/database/serverless/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/serverless/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/serverless/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/serverless/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/serverless/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/serverless"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/serverless"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/serverless/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/serverless/batch"
         },
         "callGet": {
             "method": "get",
@@ -61,46 +265,80 @@ export const apiMap = {
             "path": "/api/serverless/call"
         }
     },
-    "LedgerController": {
-        "getLedgerPage": {
-            "method": "get",
-            "path": "/api/data/ledger/page"
-        },
-        "getLedgerList": {
-            "method": "get",
-            "path": "/api/data/ledger/list"
-        },
-        "getLedgerSummary": {
-            "method": "get",
-            "path": "/api/data/ledger/summary"
-        }
-    },
-    "LeetcodeController": {
-        "getLeetcodeProblemList": {
-            "method": "get",
-            "path": "/api/data/leetcode/problem/list"
-        },
-        "getLeetcodeProblems": {
-            "method": "get",
-            "path": "/api/data/leetcode/problem"
-        }
-    },
     "UserController": {
-        "getUserList": {
+        "findList": {
             "method": "get",
-            "path": "/api/data/user/list"
+            "path": "/api/database/user/list"
+        },
+        "findPageAndCount": {
+            "method": "get",
+            "path": "/api/database/user/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/user/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/user/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/user/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/user"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/user"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/user/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/user/batch"
         }
     },
     "XuanController": {
-        "getXuanList": {
+        "findList": {
             "method": "get",
-            "path": "/api/data/xuan"
-        }
-    },
-    "SecretsController": {
-        "getSecrets": {
+            "path": "/api/database/xuan/list"
+        },
+        "findPageAndCount": {
             "method": "get",
-            "path": "/api/data/secrets"
+            "path": "/api/database/xuan/page"
+        },
+        "findOne": {
+            "method": "get",
+            "path": "/api/database/xuan/{id}"
+        },
+        "update": {
+            "method": "patch",
+            "path": "/api/database/xuan/{id}"
+        },
+        "delete": {
+            "method": "delete",
+            "path": "/api/database/xuan/{id}"
+        },
+        "save": {
+            "method": "post",
+            "path": "/api/database/xuan"
+        },
+        "updateBatch": {
+            "method": "put",
+            "path": "/api/database/xuan"
+        },
+        "saveBatch": {
+            "method": "post",
+            "path": "/api/database/xuan/batch"
+        },
+        "deleteBatch": {
+            "method": "delete",
+            "path": "/api/database/xuan/batch"
         }
     },
     "AuthController": {
@@ -113,12 +351,6 @@ export const apiMap = {
         "getStaticFile": {
             "method": "get",
             "path": "/static"
-        }
-    },
-    "ApiController": {
-        "health": {
-            "method": "get",
-            "path": "/api/health"
         }
     },
     "ClientController": {

@@ -2,20 +2,21 @@ import {
     All,
     Body,
     Controller,
-    Logger,
     Query,
     Headers,
     Req,
     Res,
     HttpStatus,
+    UseGuards,
 } from '@nestjs/common';
 import { ResponseEntity } from '@bestlyg/common';
 import { ServerlessService } from './serverless.service';
 import { Request, Response } from 'express';
+import { AuthGuard } from '@bestlyg-server/auth';
 
 @Controller('/serverless')
+@UseGuards(AuthGuard)
 export class ServerlessController {
-    private readonly logger = new Logger(ServerlessController.name);
     constructor(private readonly serverlessService: ServerlessService) {}
 
     @All('call')

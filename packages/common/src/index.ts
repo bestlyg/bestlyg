@@ -12,7 +12,6 @@ export * from './assert-exhaustive';
 export * from './encrypt';
 export * from './openapi';
 export * from './mount';
-export * from './dto';
 export * from './zod';
 export * as sse from './sse';
 export * from './base-model';

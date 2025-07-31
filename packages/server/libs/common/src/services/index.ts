@@ -1,2 +1,2 @@
 export * from './mail.service';
-export * from './function-module.service';
+export * from './remote-function-call.service';

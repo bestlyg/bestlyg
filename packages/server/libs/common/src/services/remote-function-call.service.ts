@@ -4,15 +4,15 @@ import _ from 'lodash';
 import { Request, Response } from 'express';
 import { Injectable, Logger } from '@nestjs/common';
 
-export type FunctionModuleGlobalContext = {
+export type RemoteFunctionCallGlobalContext = {
     console: typeof globalThis.console;
     RegExp: typeof globalThis.RegExp;
     Buffer: typeof globalThis.Buffer;
     URL: typeof globalThis.URL;
     fetch: typeof globalThis.fetch;
-    globalThis: FunctionModuleGlobalContext;
-    global: FunctionModuleGlobalContext;
-    window: FunctionModuleGlobalContext;
+    globalThis: RemoteFunctionCallGlobalContext;
+    global: RemoteFunctionCallGlobalContext;
+    window: RemoteFunctionCallGlobalContext;
 
     name: string;
     query: Record<string, any>;
@@ -29,16 +29,16 @@ export const defaultScriptOptions: vm.RunningScriptOptions = {
     timeout: 1000 * 3,
 };
 
-export class FunctionModule {
-    private readonly logger = new Logger(FunctionModule.name);
+export class RemoteFunctionCall {
+    private readonly logger = new Logger(RemoteFunctionCall.name);
     constructor() {}
     createScript(code: string, options: vm.RunningScriptOptions) {
         const script = new vm.Script(code, options);
         return script;
     }
     createGlobalContext(
-        externalGlobalCtx: Partial<FunctionModuleGlobalContext>,
-    ): FunctionModuleGlobalContext {
+        externalGlobalCtx: Partial<RemoteFunctionCallGlobalContext>,
+    ): RemoteFunctionCallGlobalContext {
         let promise, resolve, reject;
         promise = new Promise((r, j) => {
             resolve = r;
@@ -55,7 +55,7 @@ export class FunctionModule {
             reject,
             setTimeout,
             ...externalGlobalCtx,
-        } as any as FunctionModuleGlobalContext;
+        } as any as RemoteFunctionCallGlobalContext;
         ctx.globalThis = ctx.global = ctx.window = ctx;
         return ctx;
     }
@@ -70,7 +70,7 @@ export class FunctionModule {
         this.logger.log(`\n${transpiledCode}\n`);
         return transpiledCode;
     }
-    async compile(code: string, externalGlobalCtx: Partial<FunctionModuleGlobalContext>) {
+    async compile(code: string, externalGlobalCtx: Partial<RemoteFunctionCallGlobalContext>) {
         const transpiledCode = this.transpileCode(code);
         const mergedOptions = _.merge({}, defaultScriptOptions);
         const script = this.createScript(transpiledCode, mergedOptions);
@@ -89,9 +89,9 @@ export class FunctionModule {
 }
 
 @Injectable()
-export class FunctionModuleService {
-    async compile(...args: Parameters<InstanceType<typeof FunctionModule>['compile']>) {
-        const module = new FunctionModule();
+export class RemoteFunctionCallService {
+    async compile(...args: Parameters<InstanceType<typeof RemoteFunctionCall>['compile']>) {
+        const module = new RemoteFunctionCall();
         const res = await module.compile(...args);
         return res;
     }
